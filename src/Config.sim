@@ -1,0 +1,23 @@
+
+	
+package simple
+
+#1
+Source = 0
+PackageManager = 1
+REPL = 2 
+
+
+development = false
+filePath = ""
+commandLineArguments = []
+type = Source
+
+block execute(config)
+	if (type == Source) 
+		
+	
+
+
+
+

@@ -1,18 +1,38 @@
 
 package simple
 
-call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\src\src\ArgParser.sim"
-call simple
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\ArgParser.sim" -> simple
 
-CurrentDirectory = ""
-arg = "simple -t helloworld.sim"
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\Config.sim" -> simple
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\utilities\Misc.sim"
+
+
+#1
+CurrentDirectory = "" 
+targ = ["-s", "helloworld.sim", "arg1", "arg2"] 
 
 block main()
 	config = new ArgParser()
-	config.parse(arg)
-	configure(config)
+	config.parse(targ)
+	execute(config)
 	
-block configure(config)
-
+/**
+	comment map
+	-------
+	#author - Azeez Adewale[[twitter]@iamthecarisma]
+							 [[github]@Thecarisma]
+	#date - Jan 21 2018
+	#syntax - allsyntax
+	#package - simple
+	#name - Simple.sim
+	#path - ./src/Simple.sim
+	#detail - the main entry to simple
 	
+	#1 - test command line parameters
 	
+	--------
+	for n in args
+			display n + " "
+	end not accurate
+**/

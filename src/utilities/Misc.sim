@@ -1,0 +1,47 @@
+
+#1
+block getHelp() 
+	display "Usage:  simple ([OPTIONS]) [PATH] [ARGS...]\n"
+	display "\t\t\t<to run a simple or complex file>\n"
+	display "\tsimple ([OPTIONS]) [SARFILE] [ARGS...]\n"
+	display "\t\t\t<to run a simple archive file>\n\n"
+	display "[PATH]     : The Simple/Complex source file to execute.\n"
+	display "[ARG...]   : The arguments to pass to your simple application.\n"
+	display "([OPTIONS]): The flags/options to pass to the Simple VM.\n\n"
+	display "The OPTIONS [SIMPLE FILE] include : \n"
+	display "\t-h -help                    Displays this help and exits.\n"
+	display "\t-s -show-tokens             Scans and outputs the tokens in the source file.\n"
+	display "\t-t -time                    Shows the execution time of the program at completion.\n"
+	display "\t-v -verbose                 Displays all the libraries and dependencies of current SDK/SRE and exits.\n"
+	display "\t-a -about                   Display the SRE/SDK Property and exits.\n"
+	display "\t-z -licence                 Print the current SDK/SRE LICENCE and exits.\n"
+	display "\t-p -property                Pop up a dialog that shows the current SRE/SDK and your Computer Property.\n"
+	display "\t-e -error                   Skip all error instance and print error report in console.\n"
+	display "\t-l[PATH] -log-error[PATH]   Skip all error instance and print error report in file.\n"
+	__exit__  #exception
+	
+#2
+block showTokens() 
+	display "the tokens will pour out" + crlf
+	
+
+block printParsedArgs(f, c)
+	display "PATH : "+f+ ""+ crlf
+	display c
+
+/**
+	comment map
+	-------
+	#author - Azeez Adewale[[twitter]@iamthecarisma]
+							 [[github]@Thecarisma]
+	#date - Jan 21 2018
+	#syntax - allsyntax
+	#name - Misc.sim
+	#path - ./src/utilities/Misc.sim
+	#detail - this file hold utilities which are available through out the execution and compilation
+	
+	#1 - print out the help message
+	#2 - shows source code tokens
+	#3 - for debugging command line arguments
+
+**/
