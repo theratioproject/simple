@@ -1,0 +1,16 @@
+
+package simple
+
+args = ["simple", "-t", "helloworld.sim"]
+position = 0
+
+class ArgParser
+
+	block ArgParser() 
+	
+	block parse( inargs )
+		args = inargs
+		config = new ArgParser()
+		
+		display args
+		

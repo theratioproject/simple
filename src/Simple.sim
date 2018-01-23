@@ -1,0 +1,18 @@
+
+package simple
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\src\src\ArgParser.sim"
+call simple
+
+CurrentDirectory = ""
+arg = "simple -t helloworld.sim"
+
+block main()
+	config = new ArgParser()
+	config.parse(arg)
+	configure(config)
+	
+block configure(config)
+
+	
+	
