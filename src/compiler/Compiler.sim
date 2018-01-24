@@ -1,0 +1,25 @@
+
+/* 
+	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\scanner\Scanner.sim" -> simple.scanner
+
+package simple.compiler
+
+class Compiler
+
+	suppressWarning = false
+	
+	#1
+	block compileModule(path, supWarn)
+		if -> fileExists(path) != 1
+			raise("error file does not exist")
+		end 
+		return compile(path, readFile(path), supWarn)
+		
+	block compile(path, source, supWarn )
+		tokens = new Scanner
+		tokens.scan(path, source)

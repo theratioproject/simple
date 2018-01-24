@@ -1,0 +1,18 @@
+
+/* 
+	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+package simple.scanner
+
+class SourceCodeLocation
+
+	sourcefile  = ""
+	sourcefilepath = ""
+	row = 0
+	column = 0
+
+	block SourceCodeLocation(ifile, irow, icolumn)
+		sourcefile = getFileName(ifile)
