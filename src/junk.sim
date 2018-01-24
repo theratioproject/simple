@@ -3,6 +3,17 @@
 # 2016-2017, Mahmoud Fayed <msfclipper@yahoo.com>
 # 2016-2017, CalmoSoft <calmosoft@gmail.com>
 
+/** reverse string 
+	block getFileName(path)
+		for x = 63 to 0 step -1
+			display path[x]
+			if path[x] == '/'
+				
+				#path = substr(path,x+1)
+			end
+		loop
+	return path **/
+
 Load "stdlib.rh"
 
 /*

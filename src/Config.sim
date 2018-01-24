@@ -24,13 +24,14 @@ suppressWarning = false
 #2
 block execute(config)
 	if (type == Source) 
-		try 
+		#try 
 			#virtualMachine = new VirtualMachine()
 			compiler = new Compiler
 			module = compiler.compileModule(getFilePath(filePath), suppressWarning)
-		catch
-			print(err)
-		end
+		#catch
+		#	print(err)
+		#	raise(err)
+		#end
 	end
 
 

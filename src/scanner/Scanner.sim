@@ -7,6 +7,8 @@
 
 call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\scanner\SourceCodeLocation.sim" -> simple.scanner
 
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\scanner\TokenType.sim" -> simple.scanner
+
 package simple.scanner
 
 class Scanner
@@ -18,9 +20,71 @@ class Scanner
 	result = []
 	comments = []
 	
+	#1
 	block scan(path, isource)
 		filename = path
 		location = new SourceCodeLocation(filename, 1, 1)
-		#display isource
-
-
+		source = isource
+		position = 0
+		
+		ch = ""
+		
+		while (peekChar(0) != -1) 
+			checkSpace()
+			if -> isAlpha(peekChar(0)) or stringEquals(peekChar(0), '_') 
+				scanIdentifier()
+			elif -> isNumber(peekChar(0))
+				#scanNumber()
+			else
+				
+			end
+		end
+	
+	#2
+	private 
+	
+	#3
+	block checkSpace() while(isSpace(peekChar(0))) readChar() end
+	
+	#4	
+	block peekChar(n)
+		if  -> position < len(source) 
+			return source[position + 1] 
+		else
+			return -1
+		end
+		
+	#5
+	block scanIdentifier()
+		value = ""
+		while -> isAlnum(peekChar(0)) or stringEquals(peekChar(0), '_') and peekChar(0) != -1
+			value += readChar()
+		end
+		#debug("IDENTIFIER : "+ value)
+		if -> stringEquals(value, "is")
+			type = TOKENTYPE_OPERATION
+		else 
+			type = TOKENTYPE_OPERATION
+		end
+		add(type, value, comments)
+		
+	#5
+	block readChar()
+		if -> stringEquals(peekChar(0), crlf) 
+			location.newLocation(filename, location.row() + 1, 1)
+		elif -> stringEquals(peekChar(0), tab)
+			location.newLocation(filename, location.row(), location.column() + len(tab))
+		else 
+			location.newLocation(filename, location.row(), location.column() + 1)
+		end
+		if -> position < len(source) - 1
+			return source[position++] ;
+		end 
+		return -1
+		
+	#6	
+	block add(tokenType, value, attached)
+	token = new Token(location, tokenType, value, attached)
+	
+	
+	

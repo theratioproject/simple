@@ -5,10 +5,12 @@
 
 */
 
+tab = char(9)
+
 #1
 block print(content)
 	inContent = ""
-	if -> isnumber(content) 
+	if -> isNumber(content) 
 		content = ""+content
 	end
 	for a = 0 to len(content) - 1
@@ -63,10 +65,35 @@ block printParsedArgs(f, c)
 
 #5
 block getFilePath(path) 
-	return "C:/Users/thecarisma/Documents/SIMPLE GITHUB/simple/test/"+path
+	return "C:/Users/thecarisma/Documents/SIMPLE GITHUB/simple/test/"+path #to join folder and confirm it exist
 	
-block getFileName()
-	
+#6
+block getFileName(path)
+		count = 0 fileName = ""
+		for x = len(path) - 1 to 0 step -1
+			if path[x] == '/'
+				count++
+				#path = substr(path,0)
+			end
+		loop 
+		lastc = (len(path) - 1) - count
+		for a  = lastc to len(path) - 1
+			fileName += path[a]
+		loop
+	return fileName
+
+#7
+block debug(con)
+	display con + crlf
+
+#8
+block stringEquals(o, n)
+	if -> stringCompare(o, n) == 0
+		return true
+	else 
+		return false
+	end
+
 
 /**
 	comment map

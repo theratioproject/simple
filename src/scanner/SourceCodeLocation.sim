@@ -15,4 +15,19 @@ class SourceCodeLocation
 	column = 0
 
 	block SourceCodeLocation(ifile, irow, icolumn)
+		newLocation(ifile, irow, icolumn)
+		
+	block newLocation(ifile, irow, icolumn)
 		sourcefile = getFileName(ifile)
+		sourcefilepath = getFilePath(ifile)
+		row = irow
+		column = icolumn
+		
+	block row()
+		return row
+		
+	block column()
+		return column
+		
+	block toString() 
+		return "["+sourcefile+":"+sourcefilepath+":"+row+":"+column+"]"
