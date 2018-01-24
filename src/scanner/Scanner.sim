@@ -75,8 +75,8 @@ class Scanner
 	block scanNumber()
 		value = ""
 		steep = false
-		while -> isSpace(peekChar(0)) != 1 or (stringContains("abcdefABCDEF", peekChar(0)) or stringContains("xo-._", peekChar(0)) or isDigit(peekChar(0)))
-			
+		while -> isSpace(peekChar(0)) != 1 and (isDigit(peekChar(0)) or stringContains("abcdefABCDEF", peekChar(0)) or stringContains("xo-._", peekChar(0)) )
+			if  stringEquals(peekChar(0), ".") and isAlpha(peekChar(1)) break end
 			cchar = readChar()
 			if -> stringEquals(cchar, "_")
 				if steep break end
@@ -97,12 +97,13 @@ class Scanner
 		elif -> startWith(value, "0o")
 			bname = "octal"
 			bsize = 2
-		end 
-		
+		end
+		debug(value)
 		if -> stringEquals(bname, "")
 			try 
-				confirmNumber(value)
-				addToken(TOKENTYPE_INTEGER, value, comments)
+				if -> isNumber("r4567fe89")
+					addToken(TOKENTYPE_INTEGER, value, comments)
+				end
 			catch
 				throwScannerException(location, "", bname, value)
 			end

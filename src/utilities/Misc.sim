@@ -122,12 +122,13 @@ block startWith(m, s)
 	
 #11
 block confirmNumber(v) 
-	for a = 0 to len(v)
-		che = 0 + v[a]
-		if -> che == 0
-			throw("Invalid Number")
+		for a = 0 to len(v)
+			che = 0 + v[a]
+			if -> che == 0
+				return false
+			end
 		end
-	end
+	return true
 
 
 
