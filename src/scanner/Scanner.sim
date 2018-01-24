@@ -101,12 +101,22 @@ class Scanner
 		
 		if -> stringEquals(bname, "")
 			try 
+				val = toNumber(value)
+				debug(val - 1)
 				addToken(TOKENTYPE_INTEGER, value, comments)
 			catch
 				throwScannerException(location, "", bname, value)
 			end
 		else
-		
+			try 
+				addToken(TOKENTYPE_INTEGER, value, comments)
+			catch
+				try 
+					addToken(TOKENTYPE_FLOAT, value, comments)
+				catch
+					throwScannerException(location, "Invalid Number", bname, value)
+				end
+			end
 		end
 		
 	#6

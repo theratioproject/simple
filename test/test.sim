@@ -1,5 +1,5 @@
 
 	
-block main 123456789 ()
+block main 1234567dfe89 ()
 	print("hello world")
 	
