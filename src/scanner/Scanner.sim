@@ -9,6 +9,8 @@ call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\scanner\SourceCodeL
 
 call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\scanner\TokenType.sim" -> simple.scanner
 
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\scanner\Token.sim" -> simple.scanner
+
 package simple.scanner
 
 class Scanner

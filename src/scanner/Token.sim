@@ -5,3 +5,23 @@
 
 */
 
+package simple.scanner
+
+class Token 
+	
+	location = null
+	comment = []
+	tokenType = -1
+	value = ""
+	
+	block Token(ilocation, itokenType, ivalue, icomment)
+		location = ilocation
+		tokenType = itokenType
+		value = ivalue
+		comment = icomment
+		debug(toString())
+		
+	block toString()
+		return "[Token: TokenType= "+getTokenType(tokenType)+", Value="+value+", Location= "+location.toString()+"]"
+	
+	
