@@ -97,6 +97,7 @@ class Scanner
 			bname = "octal"
 			bsize = 2
 		end
+		debug("it "+value)
 		
 	#6
 	block readChar()
@@ -107,7 +108,7 @@ class Scanner
 		else 
 			location.newLocation(filename, location.row(), location.column() + 1)
 		end
-		if -> position < len(source) - 1
+		if -> position < len(source)
 			ret = source[position] position++ 
 			return ret ;
 		end 
@@ -116,7 +117,7 @@ class Scanner
 	#7
 	block addToken(tokenType, value, attached)
 		token = new Token(location, tokenType, value, attached)
-		debug(token.toString())
+		println(token.toString())
 		add(results, token)
 	
 	

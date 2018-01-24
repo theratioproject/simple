@@ -13,7 +13,7 @@ block print(content)
 	if -> isNumber(content) 
 		content = ""+content
 	end
-	for a = 0 to len(content) - 1
+	for a = 0 to len(content)
 		switch content[a]
 			case '\'
 				a++
@@ -32,6 +32,9 @@ block print(content)
 		end
 	loop 
 	display inContent
+	
+block println(con)
+	print(con+"\n")
 
 #2
 block getHelp() 
@@ -70,21 +73,22 @@ block getFilePath(path)
 #6
 block getFileName(path)
 		count = 0 fileName = ""
-		for x = len(path) - 1 to 0 step -1
+		for x = len(path) to 0 step -1
 			if path[x] == '/'
 				count++
 				#path = substr(path,0)
 			end
 		loop 
-		lastc = (len(path) - 1) - count
-		for a  = lastc to len(path) - 1
+		lastc = len(path) - count
+		for a  = lastc to len(path)
 			fileName += path[a]
 		loop
 	return fileName
 
 #7
 block debug(con)
-	display con + crlf
+	print(con + "\n") 
+	__exit__
 
 #8
 block stringEquals(o, n)
@@ -96,15 +100,20 @@ block stringEquals(o, n)
 
 #9	
 block stringContains(m, s)
-	if -> true
-		return true
-	else 
-		return false
-	end
+	return true
 	
 #10 
 block startWith(m, s)
-	display " C "+s[0]+" L : "+len(s)
+	for a = 0 to len(s)
+		try 
+			if -> stringEquals(m[a], s[a]) == false
+				return false
+			end
+		catch 
+			return false
+		end
+		
+	loop
 	return true
 
 
