@@ -97,7 +97,7 @@ class Scanner
 		elif -> startWith(value, "0o")
 			bname = "octal"
 			bsize = 2
-		end
+		end 
 		
 		if -> stringEquals(bname, "")
 			try 
