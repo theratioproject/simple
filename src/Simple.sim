@@ -24,23 +24,4 @@ block main()
 	config.parse(targ)
 	execute(config) 
 	
-/**
-	comment map
-	-------
-	#author - Azeez Adewale[[twitter]@iamthecarisma]
-							 [[github]@Thecarisma]
-	#date - Jan 21 2018
-	#syntax - allsyntax
-	#package - simple
-	#name - Simple.sim
-	#path - ./src/Simple.sim
-	#detail - the main entry to simple
-	
-	#1 - test command line parameters
-	
-	--------
-	for n in args
-			display n + " "
-	end not accurate 
-	sysargv
-**/ 
+
