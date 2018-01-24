@@ -102,12 +102,12 @@ class Scanner
 		end
 
 		if -> stringEquals(bname, "") == false
-			try 
-				n = 1 * value
-				addToken(TOKENTYPE_INTEGER, value, comments)
-			catch
+			#try 
+			#	n = 1 * value
+			#	addToken(TOKENTYPE_INTEGER, value, comments)
+			#catch
 				throwScannerException(location, "Inv", bname, value)
-			end
+			#end
 		else
 			try 
 				n = 1 * value

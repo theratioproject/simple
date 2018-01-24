@@ -5,6 +5,6 @@
 
 */
 
-block throwScannerException(location, message, bname, value)
-	display " errorr : "+message
+block throwScannerException(location, message)
+	println("")
 	__exit__ 
