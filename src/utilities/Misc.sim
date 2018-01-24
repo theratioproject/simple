@@ -94,6 +94,14 @@ block stringEquals(o, n)
 		return false
 	end
 
+#9	
+block stringContains(m, s)
+	if -> true
+		return true
+	else 
+		return false
+	end
+
 
 /**
 	comment map

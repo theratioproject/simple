@@ -1,5 +1,5 @@
 
 	
-block main()
+block main 8766()
 	print("hello world")
 	

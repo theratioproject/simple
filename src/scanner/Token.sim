@@ -19,7 +19,6 @@ class Token
 		tokenType = itokenType
 		value = ivalue
 		comment = icomment
-		debug(toString())
 		
 	block getLocation()
 		return location
@@ -34,6 +33,6 @@ class Token
 		return value
 		
 	block toString()
-		return "[Token: TokenType="+getTokenType(tokenType)+", Value="+value+", Location="+location.toLocation()+"]"
+		return "[Token: TokenType="+getTokenTypeValue(tokenType)+", Value="+value+", Location="+location.toLocation()+"]"
 	
 	

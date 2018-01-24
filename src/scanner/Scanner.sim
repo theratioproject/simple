@@ -19,7 +19,7 @@ class Scanner
 	location = null
 	source = "ade"
 	position = 0
-	result = []
+	results = []
 	comments = []
 	
 	#1
@@ -35,8 +35,8 @@ class Scanner
 			checkSpace()
 			if -> isAlpha(peekChar(0)) or stringEquals(peekChar(0), '_') 
 				scanIdentifier()
-			elif -> isNumber(peekChar(0))
-				#scanNumber()
+			elif -> isDigit(peekChar(0))
+				scanNumber()
 			else
 				
 			end
@@ -51,26 +51,42 @@ class Scanner
 	#4	
 	block peekChar(n)
 		if  -> position < len(source) 
-			return source[position + 1] 
+			return source[position + n]  
 		else
 			return -1
 		end
 		
 	#5
 	block scanIdentifier()
-		value = ""
+		value = ""+source[position]
 		while -> isAlnum(peekChar(0)) or stringEquals(peekChar(0), '_') and peekChar(0) != -1
 			value += readChar()
 		end
-		#debug("IDENTIFIER : "+ value)
 		if -> stringEquals(value, "is")
 			type = TOKENTYPE_OPERATION
 		else 
 			type = TOKENTYPE_IDENTIFIER
 		end
-		add(type, value, comments)
+		addToken(type, value, comments)
+		comments = []
+	
+	#8
+	block scanNumber()
+		value = ""
+		steep = false
+		while -> peekChar(0) != -1 and isDigit(peekChar(0)) or stringContains("abcdefABCDEF", peekChar(0)) or stringContains("xo-._", peekChar(0))
+			cchar = readChar()
+			if -> stringEquals(cchar, "_")
+				if steep break end
+				steep = true
+			else 
+				steep = false
+				value += cchar
+			end 
+			debug(value)
+		end
 		
-	#5
+	#6
 	block readChar()
 		if -> stringEquals(peekChar(0), crlf) 
 			location.newLocation(filename, location.row() + 1, 1)
@@ -84,9 +100,11 @@ class Scanner
 		end 
 		return -1
 		
-	#6	
-	block add(tokenType, value, attached)
-	token = new Token(location, tokenType, value, attached)
+	#7
+	block addToken(tokenType, value, attached)
+		token = new Token(location, tokenType, value, attached)
+		debug(token.toString())
+		add(results, token)
 	
 	
 	

@@ -41,7 +41,7 @@ TOKENTYPE_STRING = 18
 
 TOKENTYPE_SWAP = 19
 
-block getTokenType( tokenType ) 
+block getTokenTypeValue( tokenType ) 
 
 	if -> tokenType == TOKENTYPE_ASSIGNMENT
 		return "Assignment"
