@@ -6,4 +6,5 @@
 */
 
 block throwScannerException(location, message, bname, value)
-	display " errorr"
+	display " errorr : "+message
+	__exit__ 

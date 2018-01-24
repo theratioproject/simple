@@ -101,13 +101,12 @@ class Scanner
 			bsize = 2
 		end
 
-		println("VALUE : "+value+", BNAME : "+bname)
-		if -> stringEquals(bname, "")
+		if -> stringEquals(bname, "") == false
 			try 
 				n = 1 * value
 				addToken(TOKENTYPE_INTEGER, value, comments)
 			catch
-				throwScannerException(location, "", bname, value)
+				throwScannerException(location, "Inv", bname, value)
 			end
 		else
 			try 
@@ -140,7 +139,7 @@ class Scanner
 	#7
 	block addToken(tokenType, value, attached)
 		token = new Token(location, tokenType, value, attached)
-		#println(token.toString())
+		println(token.toString())
 		add(results, token)
 	
 	
