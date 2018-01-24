@@ -60,7 +60,7 @@ class Scanner
 	#5
 	block scanIdentifier()
 		value = ""
-		while -> isSpace(peekChar(0)) != 1 and (isAlnum(peekChar(0)) or stringEquals(peekChar(0), '_')) and peekChar(0) != -1
+		while -> (isAlnum(peekChar(0)) or stringEquals(peekChar(0), '_')) and peekChar(0) != -1
 			value += readChar()
 		end
 		if -> stringEquals(value, "is")
@@ -75,11 +75,11 @@ class Scanner
 	block scanNumber()
 		value = ""
 		steep = false
-		while -> isSpace(peekChar(0)) != 1 and (isDigit(peekChar(0)) or stringContains("abcdefABCDEF", peekChar(0)) or stringContains("xo-._", peekChar(0)) )
+		while -> peekChar(0) != 1 and (isDigit(peekChar(0)) or stringContains("abcdefABCDEF", peekChar(0)) or stringContains("xo-._", peekChar(0)) )
 			if  stringEquals(peekChar(0), ".") and isAlpha(peekChar(1)) break end
 			cchar = readChar()
 			if -> stringEquals(cchar, "_")
-				if steep break end
+				if steep == true break end
 				steep = true
 			else 
 				steep = false
