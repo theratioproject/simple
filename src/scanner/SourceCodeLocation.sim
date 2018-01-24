@@ -31,3 +31,6 @@ class SourceCodeLocation
 		
 	block toString() 
 		return "["+sourcefile+":"+sourcefilepath+":"+row+":"+column+"]"
+		
+	block toLocation()
+		return "line : "+row+" column : "+column

@@ -21,7 +21,19 @@ class Token
 		comment = icomment
 		debug(toString())
 		
+	block getLocation()
+		return location
+	
+	block getComment()
+		return comment
+		
+	block getTokenType()
+		return tokenType
+		
+	block getValue()
+		return value
+		
 	block toString()
-		return "[Token: TokenType= "+getTokenType(tokenType)+", Value="+value+", Location= "+location.toString()+"]"
+		return "[Token: TokenType="+getTokenType(tokenType)+", Value="+value+", Location="+location.toLocation()+"]"
 	
 	

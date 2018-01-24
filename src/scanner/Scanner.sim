@@ -66,7 +66,7 @@ class Scanner
 		if -> stringEquals(value, "is")
 			type = TOKENTYPE_OPERATION
 		else 
-			type = TOKENTYPE_OPERATION
+			type = TOKENTYPE_IDENTIFIER
 		end
 		add(type, value, comments)
 		
