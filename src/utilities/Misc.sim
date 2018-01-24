@@ -100,7 +100,11 @@ block stringEquals(o, n)
 
 #9	
 block stringContains(m, s)
-	return true
+		if subString(m, s) == 1
+			return true
+		else 
+			return false
+		end
 	
 #10 
 block startWith(m, s)
@@ -115,6 +119,16 @@ block startWith(m, s)
 		
 	loop
 	return true
+	
+#11
+block confirmNumber(v) 
+	for a = 0 to len(v)
+		che = 0 + v[a]
+		if -> che == 0
+			throw("Invalid Number")
+		end
+	end
+
 
 
 /**

@@ -14,6 +14,8 @@ call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\Config.sim" -> simp
 
 call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\utilities\Misc.sim"
 
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\utilities\Exceptions.sim"
+
 
 #1
 CurrentDirectory = "" 

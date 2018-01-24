@@ -5,3 +5,4 @@
 
 */
 
+block throwScannerException(location, message, bname, value)

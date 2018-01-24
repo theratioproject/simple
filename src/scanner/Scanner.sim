@@ -51,7 +51,7 @@ class Scanner
 	
 	#4	
 	block peekChar(n)
-		if  -> position < len(source) 
+		if  -> position + n < len(source) 
 			return source[position + n]  
 		else
 			return -1
@@ -75,8 +75,8 @@ class Scanner
 	block scanNumber()
 		value = ""
 		steep = false
-		while -> peekChar(0) != -1 and isDigit(peekChar(0)) or stringContains("abcdefABCDEF", peekChar(0)) or stringContains("xo-._", peekChar(0))
-			if  peekChar(0) == -1 and stringEquals(peekChar(0), ".") and isAlpha(peekChar(1)) break end
+		while -> isSpace(peekChar(0)) != 1 or (stringContains("abcdefABCDEF", peekChar(0)) or stringContains("xo-._", peekChar(0)) or isDigit(peekChar(0)))
+			
 			cchar = readChar()
 			if -> stringEquals(cchar, "_")
 				if steep break end
@@ -101,8 +101,7 @@ class Scanner
 		
 		if -> stringEquals(bname, "")
 			try 
-				val = toNumber(value)
-				debug(val - 1)
+				confirmNumber(value)
 				addToken(TOKENTYPE_INTEGER, value, comments)
 			catch
 				throwScannerException(location, "", bname, value)
