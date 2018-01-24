@@ -58,8 +58,8 @@ class Scanner
 		
 	#5
 	block scanIdentifier()
-		value = ""+source[position]
-		while -> isAlnum(peekChar(0)) or stringEquals(peekChar(0), '_') and peekChar(0) != -1
+		value = ""
+		while -> isSpace(peekChar(0)) != 1 and (isAlnum(peekChar(0)) or stringEquals(peekChar(0), '_')) and peekChar(0) != -1
 			value += readChar()
 		end
 		if -> stringEquals(value, "is")
@@ -75,6 +75,7 @@ class Scanner
 		value = ""
 		steep = false
 		while -> peekChar(0) != -1 and isDigit(peekChar(0)) or stringContains("abcdefABCDEF", peekChar(0)) or stringContains("xo-._", peekChar(0))
+			if  peekChar(0) == -1 and stringEquals(peekChar(0), ".") and isAlpha(peekChar(1)) break end
 			cchar = readChar()
 			if -> stringEquals(cchar, "_")
 				if steep break end
@@ -83,7 +84,18 @@ class Scanner
 				steep = false
 				value += cchar
 			end 
-			debug(value)
+		end
+		bname = ""
+		bsize = 0
+		if -> startWith(value, "0x")
+			bname = "hex"
+			bsize = 16
+		elif -> startWith(value, "0b")
+			bname = "binary"
+			bsize = 2
+		elif -> startWith(value, "0o")
+			bname = "octal"
+			bsize = 2
 		end
 		
 	#6
@@ -96,7 +108,8 @@ class Scanner
 			location.newLocation(filename, location.row(), location.column() + 1)
 		end
 		if -> position < len(source) - 1
-			return source[position++] ;
+			ret = source[position] position++ 
+			return ret ;
 		end 
 		return -1
 		

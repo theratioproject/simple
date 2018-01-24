@@ -101,6 +101,11 @@ block stringContains(m, s)
 	else 
 		return false
 	end
+	
+#10 
+block startWith(m, s)
+	display " C "+s[0]+" L : "+len(s)
+	return true
 
 
 /**
