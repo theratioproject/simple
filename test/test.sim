@@ -1,5 +1,9 @@
 
 	
-block main 0b123r4567fe89 ()
+0x123e4567fe89 1.3233
+0b123e4567fe89
+0o123e4567fe89
+
+func main()
 	print("hello world")
 	

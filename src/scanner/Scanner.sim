@@ -39,7 +39,7 @@ class Scanner
 			elif -> isDigit(peekChar(0))
 				scanNumber()
 			else
-				
+				debug("we good for now")
 			end
 		end
 	
@@ -75,8 +75,9 @@ class Scanner
 	block scanNumber()
 		value = ""
 		steep = false
-		while -> peekChar(0) != 1 and (isDigit(peekChar(0)) or stringContains("abcdefABCDEF", peekChar(0)) or stringContains("xo-._", peekChar(0)) )
+		while -> (isDigit(peekChar(0)) or stringContains("abcdefABCDEF", peekChar(0)) or stringContains("xo-._", peekChar(0)) )
 			if  stringEquals(peekChar(0), ".") and isAlpha(peekChar(1)) break end
+			if -> peekChar(0) == -1 break end
 			cchar = readChar()
 			if -> stringEquals(cchar, "_")
 				if steep == true break end
@@ -85,6 +86,7 @@ class Scanner
 				steep = false
 				value += cchar
 			end 
+			
 		end
 		bname = ""
 		bsize = 0
@@ -98,17 +100,18 @@ class Scanner
 			bname = "octal"
 			bsize = 2
 		end
-		debug(value)
+
+		println("VALUE : "+value+", BNAME : "+bname)
 		if -> stringEquals(bname, "")
 			try 
-				if -> isNumber("r4567fe89")
-					addToken(TOKENTYPE_INTEGER, value, comments)
-				end
+				n = 1 * value
+				addToken(TOKENTYPE_INTEGER, value, comments)
 			catch
 				throwScannerException(location, "", bname, value)
 			end
 		else
 			try 
+				n = 1 * value
 				addToken(TOKENTYPE_INTEGER, value, comments)
 			catch
 				try 
@@ -137,7 +140,7 @@ class Scanner
 	#7
 	block addToken(tokenType, value, attached)
 		token = new Token(location, tokenType, value, attached)
-		println(token.toString())
+		#println(token.toString())
 		add(results, token)
 	
 	
