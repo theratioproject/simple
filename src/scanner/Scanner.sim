@@ -21,6 +21,7 @@ class Scanner
 	position = 0
 	results = []
 	comments = []
+	stackTrace = []
 	
 	#1
 	block scan(path, isource)
@@ -97,7 +98,16 @@ class Scanner
 			bname = "octal"
 			bsize = 2
 		end
-		debug("it "+value)
+		
+		if -> stringEquals(bname, "")
+			try 
+				addToken(TOKENTYPE_INTEGER, value, comments)
+			catch
+				throwScannerException(location, "", bname, value)
+			end
+		else
+		
+		end
 		
 	#6
 	block readChar()
