@@ -87,10 +87,12 @@ class Scanner
 						addToken(TOKENTYPE_CLOSEPARENTESES, readChar(), comments)
 					default
 						if -> peekChar(0) == -1 
+							println(peekChar(0))
+							println("hello it here")
 							break
 						end
-						debug(peekChar(0))
-						break
+						#debug(peekChar(1))
+						#break
 				end
 			end 
 		end
