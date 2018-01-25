@@ -6,7 +6,8 @@
 */
 
 compilerName = "SIMPLIFY - SIMPLE COMPILER"
-compilerVersion = " v0.1.0"
+compilerVersion = "0.1.0"
+compilerDate = "1/25/2018"
 tab = char(9)
 printLine = "======================================================================"
  
