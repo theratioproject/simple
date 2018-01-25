@@ -85,7 +85,9 @@ class Scanner
 					case ';'
 						addToken(TOKENTYPE_SEMICOLON, readChar(), comments)
 					case '+'
-						addToken(TOKENTYPE_CLOSEPARENTESES, readChar(), comments)
+						c = readChar()
+						if -> stringEquals(c, peekChar(0))
+							addToken(TOKENTYPE_OPERATION, c+readChar(), comments)
 					default
 						if -> peekChar(1) == -1 
 							break
