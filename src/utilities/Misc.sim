@@ -8,6 +8,15 @@
 compilerName = "SIMPLIFY - SIMPLE COMPILER"
 compilerVersion = "0.1.0"
 compilerDate = "1/25/2018"
+compilerAuthor = "Azeez Adewale"
+compilerLastContributor = "Azeez Adewale"
+
+virtualMachineName = "????"
+virtualMachineVersion = "0.0.0"
+virtualMachineDate = "?????"
+virtualMachineAuthor = "Azeez Adewale"
+virtualMachineLastContributor = "Azeez Adewale"
+
 tab = char(9)
 printLine = "======================================================================"
  
