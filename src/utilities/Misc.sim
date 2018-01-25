@@ -6,6 +6,8 @@
 */
 
 tab = char(9)
+printLine = "================================================"
+
 showTokens = false
 skipError = false
 
@@ -134,7 +136,9 @@ block confirmNumber(v)
 		end
 	return true
 
-
+#12
+block printLine()
+	println(printLine)
 
 /**
 	comment map
