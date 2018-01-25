@@ -15,7 +15,7 @@ TOKENTYPE_COLON = 5
 
 TOKENTYPE_COMMA = 6
 
-TOKENTYPE_COMAPRISON = 7
+TOKENTYPE_COMPARISON = 7
 
 TOKENTYPE_DOT = 8
 
@@ -57,7 +57,7 @@ block getTokenTypeValue( tokenType )
 		return "Colon"
 	elif -> tokenType == TOKENTYPE_COMMA
 		return "Comma"
-	elif -> tokenType == TOKENTYPE_COMAPRISON
+	elif -> tokenType == TOKENTYPE_COMPARISON
 		return "Comparison"
 	elif -> tokenType == TOKENTYPE_DOT
 		return "Dot"

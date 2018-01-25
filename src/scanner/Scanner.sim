@@ -136,7 +136,7 @@ class Scanner
 								readChar() readChar()
 								addToken(TOKENTYPE_ASSIGNMENT, "<=>", comments)
 							else
-								addToken(TOKENTYPE_COMPARISON. c+readChar(), comments)
+								addToken(TOKENTYPE_COMPARISON, c+readChar(), comments)
 							end
 						elif -> stringEquals(peekChar(0), c)
 							addToken(TOKENTYPE_OPERATION, c+readChar(), comments)
@@ -150,7 +150,7 @@ class Scanner
 								readChar() readChar()
 								addToken(TOKENTYPE_ASSIGNMENT, "<=>", comments)
 							else
-								addToken(TOKENTYPE_COMPARISON. c+readChar(), comments)
+								addToken(TOKENTYPE_COMPARISON, c+readChar(), comments)
 							end
 						elif -> stringEquals(peekChar(0), c)
 							addToken(TOKENTYPE_OPERATION, c+readChar(), comments)
