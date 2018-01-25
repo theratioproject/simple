@@ -7,6 +7,7 @@
 
 tab = char(9)
 showTokens = false
+skipError = false
 
 #1
 block print(content)

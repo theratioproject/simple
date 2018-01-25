@@ -89,12 +89,8 @@ class Scanner
 						if -> peekChar(1) == -1 
 							break
 						end
-						if -> skipError == true
-							println(peekChar(0)+" is Unknown")
-							readChar()
-						else 
-						
-						end
+						throwScannerException(location, "Unknown char, '"+peekChar(0)+"'", UNKNOWN_CHARACTER)
+						readChar()
 				end
 			end 
 		end
