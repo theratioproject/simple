@@ -138,7 +138,7 @@ class Scanner
 							else
 								addToken(TOKENTYPE_COMPARISON. c+readChar(), comments)
 							end
-						elif stringEquals(peekChar(0), c)
+						elif -> stringEquals(peekChar(0), c)
 							
 					default
 						if -> peekChar(1) == -1 
