@@ -89,9 +89,12 @@ class Scanner
 						if -> peekChar(1) == -1 
 							break
 						end
-						println(peekChar(0))
-						println("hello it here")
-						#break
+						if -> skipError == true
+							println(peekChar(0)+" is Unknown")
+							readChar()
+						else 
+						
+						end
 				end
 			end 
 		end
