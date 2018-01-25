@@ -8,6 +8,8 @@
 767.86767
 1234567890y767
 
+"ade wale"
+
 func main()
 	print("hello world")
 	

@@ -6,7 +6,7 @@
 */
 
 block throwScannerException(location, message, errorcode)
-	println(" "+getErrorValue(errorcode))
+	println(" ERROR : \t"+getErrorValue(errorcode))
 	println(" MESSAGE : \t"+message)
 	println(" LOCATION : \t"+"In File "+location.fileName()+", At "+location.toLocation())
 	print(" DATE : \t"+date())

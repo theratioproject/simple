@@ -39,7 +39,12 @@ class Scanner
 			elif -> isDigit(peekChar(0))
 				scanNumber()
 			else
-				debug("we good for now")
+				switch peekChar(0)
+					case '"'
+						debug("yea it string")
+						scanString(false)
+						break
+				end
 			end
 		end
 	
@@ -102,12 +107,12 @@ class Scanner
 		end
 
 		if -> stringEquals(bname, "") == false
-			#try 
-			#	n = 1 * value
-			#	addToken(TOKENTYPE_INTEGER, value, comments)
-			#catch
+			try 
+				n = 1 * value
+				addToken(TOKENTYPE_INTEGER, value, comments)
+			catch
 				throwScannerException(location, "Invalid "+bname+" Number : "+value, INVALID_NUMBER)
-			#end
+			end
 		else
 			try 
 				n = 1 * value
