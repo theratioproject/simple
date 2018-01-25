@@ -8,6 +8,8 @@
 #1
 INVALID_NUMBER = 0
 
+UNKNOWN_ESCAPE_SEQUENCE = 1
+
 #2
 
 
@@ -15,6 +17,8 @@ INVALID_NUMBER = 0
 block getErrorValue(val)
 	if -> val == INVALID_NUMBER
 		return "ERROR (C"+val+") - INVALID NUMBER"
+	elif -> val == UNKNOWN_ESCAPE_SEQUENCE
+		return "ERROR (C"+val+") - UNKNOWN ESCAPE SEQUENCE"
 	else
 		return "UNKNOWN ERROR"
 	end

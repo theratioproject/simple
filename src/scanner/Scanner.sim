@@ -27,7 +27,7 @@ class Scanner
 	block scan(path, isource)
 		filename = path
 		location = new SourceCodeLocation(filename, 1, 1)
-		source = isource
+		source = isource 
 		position = 0
 		
 		ch = ""
@@ -41,15 +41,87 @@ class Scanner
 			else
 				switch peekChar(0)
 					case '"'
-						debug("yea it string")
 						scanString(false)
+					case '@'
+						if -> stringEquals(peekChar(1), '"')
+							readChar()
+							scanString(true)
+						else 
+							debug("to support annotations in future")
+						end
+					case "'"
+						readChar()
+						addToken(TOKENTYPE_CHAR, readChar(), comments)
+						readChar()
+					case '?'
+						c = readChar() 
+						if -> stringEquals(peekChar(0), "?")
+							addToken(TOKENTYPE_OPERATION, c+readChar(), comments)
+						else
+							addToken(TOKENTYPE_QUESTION, "?", comments)
+						end
+					case '('
+						addToken(TOKENTYPE_OPENPARENTESES, readChar(), comments)
+					case ')'
+						addToken(TOKENTYPE_CLOSEPARENTESES, readChar(), comments)
+					default
+						if -> peekChar(0) == -1
+							print("this is it")
+							break
+						end
+							println(peekChar(8))
 						break
 				end
-			end
+			end 
 		end
+		return results
 	
 	#2
 	private 
+	
+	#9
+	block scanString(condition)
+		value = ""
+		readChar() 
+		while peekChar(0) != '"' and peekChar(0) != -1
+			ch = readChar() 
+			if -> stringEquals(ch, '\') and condition == false
+				value += scanEscapeCode(readChar())
+			else
+				value += ch
+			end
+		end
+		readChar() 
+		addToken(TOKENTYPE_STRING, value, comments)
+		
+	#10
+	block scanEscapeCode(escape)
+		switch escape
+			case '\'
+				return '\\'
+			case '"'
+				return '\"'
+			case "'"
+				return "\'"
+			case 'a'
+				return '\a' 
+			case 'b'
+				return '\b' 
+			case 'f'
+				return '\f' 
+			case 'n'
+				return crlf
+			case 'r'
+				return char(13)
+			case 't'
+				return char(9)
+			case 'v'
+				return '\v' 
+			case '#'
+				return '\#'
+			default
+				throwScannerException(location, "Unknown escape sequence '"+escape+"'", UNKNOWN_ESCAPE_SEQUENCE)
+		end
 	
 	#3
 	block checkSpace() while(isSpace(peekChar(0))) readChar() end
@@ -144,7 +216,7 @@ class Scanner
 	#7
 	block addToken(tokenType, value, attached)
 		token = new Token(location, tokenType, value, attached)
-		println(token.toString())
+		display token.toString() + crlf
 		add(results, token)
 	
 	

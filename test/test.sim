@@ -8,8 +8,14 @@
 767.86767
 1234567890y767
 
-"ade wale"
+"adewale"
+@"ade wale \n"
+'a'
+
+??
+?
 
 func main()
-	print("hello world")
+	println("hello world")
+	println(@"ade \nwale")
 	

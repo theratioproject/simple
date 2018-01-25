@@ -23,3 +23,4 @@ class Compiler
 	block compile(path, source, supWarn )
 		tokens = new Scanner
 		tokens.scan(path, source)
+		debug("we good")
