@@ -167,7 +167,7 @@ class Scanner
 					case '&'
 						c = readChar()
 						if -> stringEquals(peekChar(0), c)
-							addToken(TOKENTYPE__OPERATION, c+readChar(), comments)
+							addToken(TOKENTYPE_OPERATION, c+readChar(), comments)
 						else 
 							addToken(TOKENTYPE_OPERATION, c, comments)
 						end
