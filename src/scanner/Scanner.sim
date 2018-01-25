@@ -23,6 +23,9 @@ class Scanner
 	comments = []
 	stackTrace = []
 	
+	block getTokens()
+		return results
+	
 	#1
 	block scan(path, isource)
 		filename = path
@@ -216,7 +219,6 @@ class Scanner
 	#7
 	block addToken(tokenType, value, attached)
 		token = new Token(location, tokenType, value, attached)
-		display token.toString() + crlf
 		add(results, token)
 	
 	

@@ -6,6 +6,7 @@
 */
 
 tab = char(9)
+showTokens = false
 
 #1
 block print(content)
@@ -58,8 +59,11 @@ block getHelp()
 	__exit__  #exception
 	
 #3
-block showTokens() 
-	print("the tokens will pour out" + crlf)
+block showTokens(tokens) 
+	println("we reached LENGHT : "+len(tokens))
+	for a = 0 to len(tokens)
+		println(token.toString())
+	loop
 	
 #4
 block printParsedArgs(f, c)

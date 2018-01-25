@@ -34,9 +34,9 @@ class ArgParser
 				case "--help"
 					getHelp() 
 				case "-s" 
-					showTokens() 
+					showTokens = true 
 				case "-token"
-					showTokens() 
+					showTokens = true
 				case "-d"
 					development = true 
 				case "--dev"
