@@ -11,4 +11,5 @@ block throwScannerException(location, message, errorcode)
 	println(" LOCATION : \t"+"In File "+location.fileName()+", At "+location.toLocation())
 	print(" DATE : \t"+date())
 	#println("File Path : "+location.filePath())
-	__exit__ 
+	if -> skipError == false __exit__ end
+	
