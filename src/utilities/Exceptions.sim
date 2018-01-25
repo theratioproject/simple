@@ -5,6 +5,10 @@
 
 */
 
-block throwScannerException(location, message)
-	println("")
+block throwScannerException(location, message, errorcode)
+	println(" "+getErrorValue(errorcode))
+	println(" MESSAGE : \t"+message)
+	println(" LOCATION : \t"+"In File "+location.fileName()+", At "+location.toLocation())
+	print(" DATE : \t"+date())
+	#println("File Path : "+location.filePath())
 	__exit__ 

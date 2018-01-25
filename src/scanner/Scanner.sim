@@ -106,7 +106,7 @@ class Scanner
 			#	n = 1 * value
 			#	addToken(TOKENTYPE_INTEGER, value, comments)
 			#catch
-				throwScannerException(location, "Inv", bname, value)
+				throwScannerException(location, "Invalid "+bname+" Number : "+value, INVALID_NUMBER)
 			#end
 		else
 			try 
@@ -116,7 +116,7 @@ class Scanner
 				try 
 					addToken(TOKENTYPE_FLOAT, value, comments)
 				catch
-					throwScannerException(location, "Invalid Number", bname, value)
+					throwScannerException(location, "Invalid "+bname+" Number : "+value)
 				end
 			end
 		end

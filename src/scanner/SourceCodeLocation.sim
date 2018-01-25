@@ -29,6 +29,12 @@ class SourceCodeLocation
 	block column()
 		return column
 		
+	block fileName()
+		return sourcefile
+	
+	block filePath()
+		return sourcefilepath
+		
 	block toString() 
 		return "["+sourcefile+":"+sourcefilepath+":"+row+":"+column+"]"
 		

@@ -6,7 +6,7 @@
 */
 
 #1
-INVALID_NUMBER
+INVALID_NUMBER = 0
 
 #2
 
@@ -14,11 +14,9 @@ INVALID_NUMBER
 #3
 block getErrorValue(val)
 	if -> val == INVALID_NUMBER
-		
-	elif
-	
+		return "ERROR (C"+val+") - INVALID NUMBER"
 	else
-	
+		return "UNKNOWN ERROR"
 	end
 
 /**
