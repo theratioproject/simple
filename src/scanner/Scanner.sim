@@ -83,11 +83,17 @@ class Scanner
 					case ':'  
 						addToken(TOKENTYPE_COLON, readChar(), comments)
 					case ';'
-						addToken(TOKENTYPE_SEMICOLON, readChar(), comments)
+						addToken(TOKENTYPE_SEMICOLON, readChar(), comments) 
 					case '+'
-						c = readChar()
-						if -> stringEquals(c, peekChar(0))
+						c = readChar() println("it : "+peekChar(0
+						)+" and c "+c)
+						if -> stringEquals(peekChar(0), c+"")
 							addToken(TOKENTYPE_OPERATION, c+readChar(), comments)
+						elif -> stringEquals(peekChar(0), "=")
+							addToken(TOKENTYPE_ASSIGNMENT, c+readChar(), comments)
+						else 
+							addToken(TOKENTYPE_OPERATION, c, comments)
+						end
 					default
 						if -> peekChar(1) == -1 
 							break
