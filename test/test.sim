@@ -18,4 +18,246 @@
 func main()
 	println("hello world")
 	println(@"ade \nwale")
+
+/* 
+	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\scanner\SourceCodeLocation.sim" -> simple.scanner
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\scanner\TokenType.sim" -> simple.scanner
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\scanner\Token.sim" -> simple.scanner
+
+package simple.scanner
+
+class Scanner
+
+	filename = ""
+	location = null
+	source = "ade"
+	position = 0
+	results = []
+	comments = []
+	stackTrace = []
+	
+	block getTokens()
+		return results
+	
+	#1
+	block scan(path, isource)
+		filename = path
+		location = new SourceCodeLocation(filename, 1, 1)
+		source = isource + '\0'
+		position = 0
+		
+		ch = ""
+		
+		while (peekChar(0) != -1) 
+			checkSpace()
+			if -> isAlpha(peekChar(0)) or stringEquals(peekChar(0), '_') 
+				scanIdentifier()
+			elif -> isDigit(peekChar(0))
+				scanNumber()
+			else
+				switch peekChar(0)
+					case '"'
+						scanString(false)
+					case '@'
+						if -> stringEquals(peekChar(1), '"')
+							readChar()
+							scanString(true)
+						else 
+							debug("to support annotations in future")
+						end
+					case "'"
+						readChar()
+						addToken(TOKENTYPE_CHAR, readChar(), comments)
+						readChar()
+					case '?'
+						c = readChar() 
+						if -> stringEquals(peekChar(0), "?")
+							addToken(TOKENTYPE_OPERATION, c+readChar(), comments)
+						else
+							addToken(TOKENTYPE_QUESTION, "?", comments)
+						end
+					case '('
+						addToken(TOKENTYPE_OPENPARENTESES, readChar(), comments)
+					case ')'
+						addToken(TOKENTYPE_CLOSEPARENTESES, readChar(), comments)
+					case '{'
+						addToken(TOKENTYPE_OPENCURLYBRACE, readChar(), comments)
+					case '}'
+						addToken(TOKENTYPE_CLOSECURLYBRACE, readChar(), comments)
+					case '['
+						addToken(TOKENTYPE_OPENSQUAREBRACE, readChar(), comments)
+					case ']'
+						addToken(TOKENTYPE_CLOSESQUAREBRACE, readChar(), comments)
+					case ','
+						addToken(TOKENTYPE_COMMA, readChar(), comments)
+					case '.'
+						addToken(TOKENTYPE_DOT, readChar(), comments)
+					case ':'  
+						addToken(TOKENTYPE_COLON, readChar(), comments)
+					case ';'
+						addToken(TOKENTYPE_SEMICOLON, readChar(), comments)
+					case '+'
+						addToken(TOKENTYPE_CLOSEPARENTESES, readChar(), comments)
+					default
+						if -> peekChar(0) == -1 
+							print("this is it")
+							break
+						end
+						#not sure
+						break
+				end
+			end 
+		end
+		return results
+	
+	#2
+	private 
+	
+	#9
+	block scanString(condition)
+		value = ""
+		readChar() 
+		while peekChar(0) != '"' and peekChar(0) != -1
+			ch = readChar() 
+			if -> stringEquals(ch, '\') and condition == false
+				value += scanEscapeCode(readChar())
+			else
+				value += ch
+			end
+		end
+		readChar() 
+		addToken(TOKENTYPE_STRING, value, comments)
+		
+	#10
+	block scanEscapeCode(escape)
+		switch escape
+			case '\'
+				return '\\'
+			case '"'
+				return '\"'
+			case "'"
+				return "\'"
+			case 'a'
+				return '\a' 
+			case 'b'
+				return '\b' 
+			case 'f'
+				return '\f' 
+			case 'n'
+				return crlf
+			case 'r'
+				return char(13)
+			case 't'
+				return char(9)
+			case 'v'
+				return '\v' 
+			case '#'
+				return '\#'
+			default
+				throwScannerException(location, "Unknown escape sequence '"+escape+"'", UNKNOWN_ESCAPE_SEQUENCE)
+		end
+	
+	#3
+	block checkSpace() while(isSpace(peekChar(0))) readChar() end
+	
+	#4	
+	block peekChar(n)
+		if  -> position + n < len(source) 
+			return source[position + n]  
+		else
+			return -1
+		end
+		
+	#5
+	block scanIdentifier()
+		value = ""
+		while -> (isAlnum(peekChar(0)) or stringEquals(peekChar(0), '_')) and peekChar(0) != -1
+			value += readChar()
+		end
+		if -> stringEquals(value, "is")
+			type = TOKENTYPE_OPERATION
+		else 
+			type = TOKENTYPE_IDENTIFIER
+		end
+		addToken(type, value, comments)
+		comments = []
+	
+	#8
+	block scanNumber()
+		value = ""
+		steep = false
+		while -> (isDigit(peekChar(0)) or stringContains("abcdefABCDEF", peekChar(0)) or stringContains("xo-._", peekChar(0)) )
+			if  stringEquals(peekChar(0), ".") and isAlpha(peekChar(1)) break end
+			if -> peekChar(0) == -1 break end
+			cchar = readChar()
+			if -> stringEquals(cchar, "_")
+				if steep == true break end
+				steep = true
+			else 
+				steep = false
+				value += cchar
+			end 
+			
+		end
+		bname = ""
+		bsize = 0
+		if -> startWith(value, "0x")
+			bname = "hex"
+			bsize = 16
+		elif -> startWith(value, "0b")
+			bname = "binary"
+			bsize = 2
+		elif -> startWith(value, "0o")
+			bname = "octal"
+			bsize = 2
+		end
+
+		if -> stringEquals(bname, "") == false
+			try 
+				n = 1 * value
+				addToken(TOKENTYPE_INTEGER, value, comments)
+			catch
+				throwScannerException(location, "Invalid "+bname+" Number : "+value, INVALID_NUMBER)
+			end
+		else
+			try 
+				n = 1 * value
+				addToken(TOKENTYPE_INTEGER, value, comments)
+			catch
+				try 
+					addToken(TOKENTYPE_FLOAT, value, comments)
+				catch
+					throwScannerException(location, "Invalid "+bname+" Number : "+value)
+				end
+			end
+		end
+		
+	#6
+	block readChar()
+		if -> stringEquals(peekChar(0), crlf) 
+			location.newLocation(filename, location.row() + 1, 1)
+		elif -> stringEquals(peekChar(0), tab)
+			location.newLocation(filename, location.row(), location.column() + len(tab))
+		else 
+			location.newLocation(filename, location.row(), location.column() + 1)
+		end
+		if -> position < len(source)
+			ret = source[position] position++ 
+			return ret ;
+		end 
+		return -1
+		
+	#7
+	block addToken(tokenType, value, attached)
+		token = new Token(location, tokenType, value, attached)
+		add(results, token)
+	
+	
 	
