@@ -44,7 +44,7 @@ class Scanner
 			else
 				switch peekChar(0)
 					case '"'
-						scanString(false)
+						scanString(false) 
 					case '@'
 						if -> stringEquals(peekChar(1), '"')
 							readChar()
