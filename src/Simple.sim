@@ -21,7 +21,7 @@ call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\utilities\Exception
 
 #1
 CurrentDirectory = "" 
-targ = ["-s", "test.sim", "arg1", "arg2"] 
+targ = ["-e", "test.sim", "arg1", "arg2"] 
 
 block main()
 	config = new ArgParser()
