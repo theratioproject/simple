@@ -40,7 +40,11 @@ class ArgParser
 				case "-d"
 					development = true 
 				case "--dev"
+					development = true
+				case "-d"
 					development = true 
+				case "--dev"
+					development = true
 				default 
 					filePath = args[position]
 					position++ cmdArgs = [] 

@@ -6,7 +6,7 @@
 */
 
 tab = char(9)
-printLine = "================================================"
+printLine = "============================================================"
 
 showTokens = false
 skipError = false
@@ -137,8 +137,11 @@ block confirmNumber(v)
 	return true
 
 #12
-block printLine()
-	println(printLine)
+block printLine(con)
+	print(printLine)
+	if -> con == true
+		println("")
+	end
 
 /**
 	comment map
