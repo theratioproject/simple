@@ -157,6 +157,13 @@ class Scanner
 						else 
 							addToken(TOKENTYPE_COMPARISON, c, comments)
 						end
+					case '!'
+						readChar()
+						if -> stringEquals(peekChar(0), "=")
+							addToken(TOKENTYPE_COMPARISON, "!"+readChar(), comments)
+						else 
+							addToken(TOKENTYPE_OPERATION, "!", comments)
+						end
 					default
 						if -> peekChar(1) == -1 
 							break
