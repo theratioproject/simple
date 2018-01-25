@@ -51,6 +51,7 @@ class Scanner
 							scanString(true)
 						else 
 							throwScannerException(location, "'"+peekChar(0)+"' to support annotations in future", ANNOTATION_NOT_SUPPORTED_YET)
+							readChar()
 						end
 					case "'"
 						readChar()
