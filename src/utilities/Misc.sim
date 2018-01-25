@@ -63,8 +63,8 @@ block getHelp()
 	
 #3
 block showTokens(tokens) 
-	for token in tokens
-		println(token.toString())
+	for a = 0 to len(tokens)
+		println(tokens[a].toString())
 	loop
 	
 #4

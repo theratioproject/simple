@@ -86,8 +86,7 @@ class Scanner
 						addToken(TOKENTYPE_SEMICOLON, readChar(), comments) 
 					case '+'
 						c = readChar() 
-						if -> startWith(peekChar(0), c)
-							println("it : "+peekChar(0)+" and c "+c)
+						if -> stringEquals(peekChar(0), c)
 							addToken(TOKENTYPE_OPERATION, c+readChar(), comments)
 						elif -> stringEquals(peekChar(0), "=")
 							addToken(TOKENTYPE_ASSIGNMENT, c+readChar(), comments)
