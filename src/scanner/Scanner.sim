@@ -139,11 +139,24 @@ class Scanner
 								addToken(TOKENTYPE_COMPARISON. c+readChar(), comments)
 							end
 						elif -> stringEquals(peekChar(0), c)
-							addToken(TOKENTYPE_OPERATION, c+readChar())
+							addToken(TOKENTYPE_OPERATION, c+readChar(), comments)
 						else 
 							addToken(TOKENTYPE_COMPARISON, c, comments)
 						end
-							
+					case '>'
+						c = readChar()
+						if -> stringEquals(peekChar(0), "=")
+							if -> stringEquals(peekChar(1), ">")
+								readChar() readChar()
+								addToken(TOKENTYPE_ASSIGNMENT, "<=>", comments)
+							else
+								addToken(TOKENTYPE_COMPARISON. c+readChar(), comments)
+							end
+						elif -> stringEquals(peekChar(0), c)
+							addToken(TOKENTYPE_OPERATION, c+readChar(), comments)
+						else 
+							addToken(TOKENTYPE_COMPARISON, c, comments)
+						end
 					default
 						if -> peekChar(1) == -1 
 							break
