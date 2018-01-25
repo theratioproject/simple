@@ -12,6 +12,8 @@ UNKNOWN_ESCAPE_SEQUENCE = 001
 
 UNKNOWN_CHARACTER = 002
 
+ANNOTATION_NOT_SUPPORTED_YET = 003
+
 #2
 
 
@@ -23,6 +25,8 @@ block getErrorValue(val)
 		return "ERROR (C"+val+") - UNKNOWN ESCAPE SEQUENCE"
 	elif -> val == UNKNOWN_CHARACTER
 		return "ERROR (C"+val+") - UNKNOWN_CHARACTER"
+	elif -> val == ANNOTATION_NOT_SUPPORTED_YET
+		return "ERROR (C"+val+") - ANNOTATION NOT SUPPORTED YET"
 	else
 		return "UNKNOWN ERROR"
 	end
