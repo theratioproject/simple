@@ -171,6 +171,10 @@ class Scanner
 						else 
 							addToken(TOKENTYPE_OPERATION, c, comments)
 						end
+					case '|'
+						c = readChar()
+						if -> stringEquals(peekChar(0), c)
+							addToken(TOKENTYPE_OPERATION)
 					default
 						if -> peekChar(1) == -1 
 							break
