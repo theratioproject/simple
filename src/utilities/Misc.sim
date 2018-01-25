@@ -60,8 +60,7 @@ block getHelp()
 	
 #3
 block showTokens(tokens) 
-	println("we reached LENGHT : "+len(tokens))
-	for a = 0 to len(tokens)
+	for token in tokens
 		println(token.toString())
 	loop
 	
