@@ -6,7 +6,7 @@
 */
 
 tab = char(9)
-printLine = "============================================================"
+printLine = "======================================================================"
  
 showTokens = false
 skipError = false
@@ -63,6 +63,9 @@ block getHelp()
 	
 #3
 block showTokens(tokens) 
+	printLine(true)
+	
+	printLine(true)
 	for a = 0 to len(tokens)
 		println(tokens[a].toString())
 	loop
