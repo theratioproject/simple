@@ -112,7 +112,12 @@ class Parser
 	block matchTokenString(tokenType, value)
 		return endOfStream() == false and tokens[position].getTokenType() == tokenType and stringEquals(tokens[position].getValue(), value)
 		
-	
+	block expectToken(tokenType)
+		if matchToken(tokenType)
+			return tokens[position++]
+		end
+		throwScannerException(location(tokens, position), "Unknown escape sequence '"+escape+"'", UNEXPECTED_TOKEN_TYPE)
+		
 	
 	
 	
