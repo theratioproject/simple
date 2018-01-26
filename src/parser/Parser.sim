@@ -78,7 +78,8 @@ class Parser
 	#8
 	block parseClass()
 		clocation = location(tokens, position)
-		name =  
+		name = expectToken(TOKENTYPE_IDENTIFIER).getValue()
+		if -> acceptToken(TOKENTYPE_COLON) or acceptTokenString(TOKENTYPE_IDENTIFIER, "inherit")
 		 
 		
 	#4
