@@ -21,7 +21,7 @@ class Parser
 		tokens = intokens
 		position = 0
 		
-		ast = new CodeBlockNode(location())
+		ast = new CodeBlockNode(location(tokens, position))
 		while (endOfStream() == false) 
 			add(ast.getChildren(), parseStatement()) 
 		end
