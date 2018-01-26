@@ -9,14 +9,14 @@ package simple.parser.node
 
 call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\Node.sim" -> simple.parser
 
-class CodeBlockNode jhjh Node
+class CodeBlockNode : Node
 	
 	block CodeBlockNode(location)
 		sourceLocation = location
 		
 	block visit(visitor)
 		visitor.accept(this)
-		
+		 
 	block visitChildren(visitor)
 		for a = 0 to len(children)
 			children[a].visit(visitor)
