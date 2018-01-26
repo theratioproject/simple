@@ -84,7 +84,7 @@ block showTokens(tokens)
 	for a = 0 to len(tokens)
 		println("  "+tokens[a].toString())
 	loop
-	printLine(false)
+	printLine(false) __exit__
 	
 #4
 block printParsedArgs(f, c)
