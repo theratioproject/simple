@@ -34,7 +34,9 @@ class Parser
 	#3	
 	block parseStatement()
 		if -> acceptTokenString(TOKENTYPE_IDENTIFIER, "break")
-			return new BreakNode(location(tokens, position))
+			bn = new BreakNode(location(tokens, position))
+			display bn.sourceLocation()
+			return ret
 		elif -> acceptTokenString(TOKENTYPE_IDENTIFIER, "continue")
 			println("it continue") 
 		elif -> acceptTokenString(TOKENTYPE_IDENTIFIER, "class")

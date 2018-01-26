@@ -5,9 +5,11 @@
 
 */
 
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\Node.sim" -> simple.parser
+
 package simple.parser.node
 
-class BreakNode
+class BreakNode : Node
 
 	block BreakNode(location)
 		sourceLocation = location
