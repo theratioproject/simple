@@ -29,7 +29,9 @@ class Parser
 		position = 0
 		
 		ast = new CodeBlockNode("")
-		while (endOfStream() != false)
+		while (endOfStream() == false)
 			print("tokens found")
-			add(ast.getChildren(), parseStatement())
+			#add(ast.getChildren(), parseStatement())
 		end
+		
+		
