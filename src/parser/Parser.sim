@@ -91,6 +91,11 @@ class Parser
 		end
 		node = parseStatement()
 		return new ClassNode(clocation, name, node, null)
+	
+	#9
+	block parseDoWhile()
+		dlocation = location(tokens, position)
+		expectToken(TOKENTYPE_IDENTIFIER, "do")
 		
 	#4
 	block acceptToken(tokenType)
