@@ -15,7 +15,7 @@ class ClassNode : Node
 	body = null
 	inherits = []
 
-	block BreakNode(location, iname, ibody, inherits)
+	block ClassNode(location, iname, ibody, inherits)
 		sourceLocation = location
 		name = iname
 		body = ibody
@@ -28,13 +28,10 @@ class ClassNode : Node
 		for a = 0 to len(inherits)
 			inherits[a].visit(visitor)
 		end
-		body.visit(inherits)
+		body.visit(visitor)
 		
-	block getChildren()
-		return children
-	
+	block getInherits()
+		return inherits
 		
-	private 
-		children = []
 	
 	
