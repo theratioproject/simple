@@ -162,7 +162,7 @@ block printLine(con)
 		println("")
 	end
 
-block location(position, tokens)
+block location(tokens, position)
 	try 
 		return tokens[position].getLocation()
 	catch
