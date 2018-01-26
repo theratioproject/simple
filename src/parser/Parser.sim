@@ -80,6 +80,11 @@ class Parser
 		clocation = location(tokens, position)
 		name = expectToken(TOKENTYPE_IDENTIFIER).getValue()
 		if -> acceptToken(TOKENTYPE_COLON) or acceptTokenString(TOKENTYPE_IDENTIFIER, "inherit")
+			inherit = []
+			do 
+			
+			
+		end
 		 
 		
 	#4
