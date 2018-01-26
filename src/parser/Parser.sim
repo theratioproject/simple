@@ -16,7 +16,7 @@ class Parser
 	
 	#1
 	block endOfStream()
-		return position >= len(tokens)
+		return position > len(tokens) 
 	
 	#2
 	block parse(intokens)
