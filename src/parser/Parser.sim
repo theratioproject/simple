@@ -9,7 +9,7 @@ package simple.parser
 
 class Parser 
 
-	tokens []
+	tokens = [] 
 	position = 0 
 	
 	block endOfStream()
