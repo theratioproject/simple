@@ -16,4 +16,3 @@ block throwScannerException(location, message, errorcode)
 	printLine(true)
 	if -> skipError == false __exit__ end
 	
-#
