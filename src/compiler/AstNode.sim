@@ -8,3 +8,13 @@
 package simple.parser
 
 
+class AstNode
+
+	
+	block isPrivate()
+		return isPrivate
+		
+	block setIsPrivate(con)
+		isPrivate = con
+	
+	private isPrivate = false
