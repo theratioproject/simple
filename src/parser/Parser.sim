@@ -36,7 +36,7 @@ class Parser
 		elif -> acceptTokenString(TOKENTYPE_IDENTIFIER, "continue")
 			println("it continue") position++
 		else
-			println("pending token") 
+			println("pending token") position++
 		end
 		
 	#4
@@ -47,7 +47,7 @@ class Parser
 		end
 		return ret
 	
-`	#5	
+	#5	
 	block acceptTokenString(tokenType, value)
 		ret = matchTokenString(tokenType, value)
 		if -> ret == true
