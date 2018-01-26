@@ -74,7 +74,8 @@ class Parser
 		elif -> acceptTokenString(TOKENTYPE_IDENTIFIER, "with")
 			println("it with") 
 		end
-			position++ return null
+		if (position + 1) < len(tokens)
+		
 		end
 		
 	#8
