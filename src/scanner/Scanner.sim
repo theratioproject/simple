@@ -214,8 +214,8 @@ class Scanner
 	block scanMultiLineComment()
 		readChar()
 		while peekChar(0) != -1 
-			if -> stringEquals(readChar()+readChar(), "*/")
-				break
+			if -> stringEquals(peekChar(0)+peekChar(1), "*/")
+				readChar() readChar() break
 			end
 			readChar()
 		end
