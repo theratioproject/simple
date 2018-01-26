@@ -73,7 +73,7 @@ class Parser
 			println("it while") 
 		elif -> acceptTokenString(TOKENTYPE_IDENTIFIER, "with")
 			println("it with") 
-		else
+		end
 			position++ return null
 		end
 		
