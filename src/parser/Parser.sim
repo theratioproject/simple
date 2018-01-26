@@ -27,3 +27,6 @@ class Parser
 		position = 0
 		
 		ast = new CodeBlockNode(location)
+		while (endOfStream() != false)
+			add(ast.children, parseStatement())
+		end
