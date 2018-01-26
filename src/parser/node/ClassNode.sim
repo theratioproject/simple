@@ -11,8 +11,15 @@ package simple.parser.node
 
 class ClassNode : Node
 
-	block BreakNode(location)
+	name = ""
+	body = null
+	inherits = []
+
+	block BreakNode(location, iname, ibody, inherits)
 		sourceLocation = location
+		name = iname
+		body = ibody
+		inherits = inherits
 		
 	block visit(visitor)
 		visitor.accept(this)
