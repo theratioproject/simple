@@ -7,5 +7,7 @@
 
 package simple.parser.node
 
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\Node.sim" -> simple.parser
 
+class CodeBlockNode inherit Node
 

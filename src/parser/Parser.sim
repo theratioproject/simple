@@ -5,6 +5,8 @@
 
 */
 
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\CodeBlockNode.sim" -> simple.parser.node
+
 package simple.parser
 
 class Parser 
