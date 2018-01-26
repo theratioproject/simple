@@ -14,9 +14,11 @@ class Parser
 	tokens = []  
 	position = 0 
 	
+	#1
 	block endOfStream()
 		return position >= len(tokens)
-
+	
+	#2
 	block parse(intokens)
 		tokens = intokens
 		position = 0 
@@ -26,14 +28,17 @@ class Parser
 			add(nodes.getChildren(), parseStatement()) 
 		end
 		return nodes
-		
+	
+	#3	
 	block parseStatement()
-		if -> acceptTokenSTring(TOKENTYPE_IDENTIFIER, "break")
-			debug("it break")
-		elif
-		
+		if -> acceptTokenString(TOKENTYPE_IDENTIFIER, "break")
+			println("it break") position++
+		elif -> acceptTokenString(TOKENTYPE_IDENTIFIER, "continue")
+			println("it continue")
 		else
 		
 		end
-		
+	
+`	#4	
+	block
 	
