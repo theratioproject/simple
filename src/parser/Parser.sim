@@ -80,12 +80,13 @@ class Parser
 		clocation = location(tokens, position)
 		name = expectToken(TOKENTYPE_IDENTIFIER).getValue()
 		if -> acceptToken(TOKENTYPE_COLON) or acceptTokenString(TOKENTYPE_IDENTIFIER, "inherit")
-			inherit = []
+			inherits = []
 			do {
-			
+				add(inherits, parseExpression())
 			} while -> acceptToken(TOKENTYPE_COLON)
+			return new ClassNode(clocation, name, parseStatement(), inherits)
 		end
-		 
+		return new ClassNode(clocation, name, parseStatement(), null)
 		
 	#4
 	block acceptToken(tokenType)
