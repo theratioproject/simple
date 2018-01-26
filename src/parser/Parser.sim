@@ -34,9 +34,9 @@ class Parser
 		if -> acceptTokenString(TOKENTYPE_IDENTIFIER, "break")
 			println("it break") position++
 		elif -> acceptTokenString(TOKENTYPE_IDENTIFIER, "continue")
-			println("it continue")
+			println("it continue") position++
 		else
-		
+			println("pending token") position++
 		end
 	
 `	#4	
