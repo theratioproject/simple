@@ -39,6 +39,22 @@ class Parser
 			println("pending token") position++
 		end
 		
+	#4
+	block acceptToken(tokenType)
+		return ret
+	
+`	#5	
+	block acceptTokenString(tokenType, value)
+		return true
+	
+	#6
+	block matchToken(tokenType)
+		return true
+		
+	#7
+	block matchTokenString(tokenType, value)
+		return true
+		
 
 	
 	
