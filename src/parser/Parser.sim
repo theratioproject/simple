@@ -116,7 +116,7 @@ class Parser
 		if matchToken(tokenType)
 			return tokens[position++]
 		end
-		throwScannerException(location(tokens, position), "Unknown escape sequence '"+escape+"'", UNEXPECTED_TOKEN_TYPE)
+		throwScannerException(location(tokens, position), "Expected token of type "+getTokenTypeValue(tokenType)+", But got token of type "+tokens[position].getTokenType()+" with value '"+tokens[position].getValue()+"'", UNEXPECTED_TOKEN_TYPE)
 		
 	
 	
