@@ -38,8 +38,16 @@ class Parser
 		else
 			println("pending token") position++
 		end
+		
+	#4
+	block acceptToken(tokenType)
+		ret = matchToken(tokenType)
+		if ret == true
+			position++
+		end
+		return ret
 	
-`	#4	
+`	#5	
 	block acceptTokenString(tokenType, value)
 		ret = matchTokenString(tokenType, value)
 		if -> ret == true
