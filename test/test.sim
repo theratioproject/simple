@@ -1,3 +1,5 @@
 
-class ade  : hello
+class ade  : hello, world, it
+
+class dude
 	
