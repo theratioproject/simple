@@ -9,6 +9,8 @@ call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\CodeBlo
 
 call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\BreakNode.sim"
 
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\ContinueNode.sim"
+
 package simple.parser
 
 class Parser 
@@ -34,11 +36,9 @@ class Parser
 	#3	
 	block parseStatement()
 		if -> acceptTokenString(TOKENTYPE_IDENTIFIER, "break")
-			bn = new BreakNode(location(tokens, position))
-			display bn.sourceLocation()
-			return null
+			return new BreakNode(location(tokens, position))
 		elif -> acceptTokenString(TOKENTYPE_IDENTIFIER, "continue")
-			println("it continue") 
+			return new ContinueNode(location(tokens, position))
 		elif -> acceptTokenString(TOKENTYPE_IDENTIFIER, "class")
 			println("it class") 
 		elif -> acceptTokenString(TOKENTYPE_IDENTIFIER, "do")
