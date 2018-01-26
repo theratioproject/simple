@@ -75,7 +75,9 @@ class Parser
 			println("it with") 
 		end
 		if (position + 1) < len(tokens)
-		
+			if matchToken(TOKENTYPE_IDENTIFIER) and tokens[position+1].getTokenType() == TOKENTYPE_COMMA
+				return parseMultipleAssignment()
+			end
 		end
 		
 	#8
