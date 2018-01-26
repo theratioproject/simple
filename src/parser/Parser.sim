@@ -58,6 +58,12 @@ class Parser
 	#6
 	block matchToken(tokenType)
 		return endOfStream() == false and tokens[position].getTokenType() == tokenType
+		
+	#7
+	block matchTokenString(tokenType, value)
+		return endOfStream() == false and tokens[position].getTokenType() == tokenType and stringEquals(tokens[position].getValue(), value)
+		
+	
 	
 	
 	
