@@ -217,7 +217,7 @@ class Scanner
 			if -> stringEquals(peekChar(0)+peekChar(1), "*/")
 				readChar() readChar() break
 			end
-			readChar()
+			readChar() 
 		end
 	#11
 	block scanSingleLineComment()
