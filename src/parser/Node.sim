@@ -10,7 +10,7 @@ package simple.parser
 
 class Node
 
-	location = null
+	sourceLocation = null
 	
 	block isPrivate()
 		return isPrivate
@@ -19,6 +19,7 @@ class Node
 		isPrivate = con
 		
 	block sourceLocation()
+		return sourceLocation
 	
 	block visit(visitor)
 	
