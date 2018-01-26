@@ -95,7 +95,11 @@ class Parser
 	#9
 	block parseDoWhile()
 		dlocation = location(tokens, position)
-		expectToken(TOKENTYPE_IDENTIFIER, "do")
+		expectTokenString(TOKENTYPE_IDENTIFIER, "do")
+		body = parseStatement()
+		expectTokenString(TOKENTYPE_IDENTIFIER, "wh0")
+		condition = parseStatement()
+		return new DoWhileNode(dlocation, condition, body)
 		
 	#4
 	block acceptToken(tokenType)
