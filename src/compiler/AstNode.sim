@@ -16,5 +16,11 @@ class AstNode
 		
 	block setIsPrivate(con)
 		isPrivate = con
+		
+	block sourceLocation()
+	
+	block visit(visitor)
+	
+	block visitChildren(visitor)
 	
 	private isPrivate = false
