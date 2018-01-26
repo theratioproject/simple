@@ -94,6 +94,7 @@ class Parser
 	
 	#9
 	block parseDoWhile()
+		print(tokens[position].getValue())
 		dlocation = location(tokens, position)
 		expectTokenString(TOKENTYPE_IDENTIFIER, "do")
 		body = parseStatement()
