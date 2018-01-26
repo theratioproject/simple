@@ -11,7 +11,7 @@ package simple.parser.node
 
 class ClassNode : Node
 
-	name = ""
+	name = "" 
 	body = null
 	inherits = []
 
@@ -20,8 +20,6 @@ class ClassNode : Node
 		name = iname
 		body = ibody
 		inherits = inherits
-		
-		println("CLASS NODE - NAME : "+name+", LOCATION : "+location.getLocation())
 		
 	block visit(visitor)
 		visitor.accept(this)
