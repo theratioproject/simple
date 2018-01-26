@@ -25,7 +25,7 @@ class Parser
 		while (endOfStream() == false) 
 			add(ast.getChildren(), parseStatement()) 
 		end
-		print("LOCATION : "+ast.sourceLocation())
+		print(ast.sourceLocation().toString())
 		
 	block parseStatement()
 		position++ return ""
