@@ -77,6 +77,8 @@ class Parser
 		
 	#8
 	block parseClass()
+		clocation = location(tokens, position)
+		
 		
 	#4
 	block acceptToken(tokenType)
