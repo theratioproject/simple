@@ -15,7 +15,12 @@ class CodeBlockNode jhjh Node
 		sourceLocation = location
 		
 	block visit(visitor)
-		visitor.accept(this)visitChildren()
+		visitor.accept(this)
+		
+	block visitChildren(visitor)
+		for a = 0 to len(children)
+			children[a].visit(visitor)
+		end
 		
 	
 		
