@@ -117,6 +117,8 @@ class Scanner
 							addToken(TOKENTYPE_OPERATION, c+readChar(), comments)
 						elif -> stringEquals(peekChar(0), "=")
 							addToken(TOKENTYPE_ASSIGNMENT, c+readChar(), comments)
+						elif -> stringEquals(peekChar(0), "*")
+							scanMultiLineComment()
 						else 
 							addToken(TOKENTYPE_OPERATION, c, comments)
 						end
@@ -178,6 +180,22 @@ class Scanner
 						else 
 							addToken(TOKENTYPE_OPERATION, c, comments)
 						end
+					case '^'
+						c = readChar()
+						if -> stringEquals(peekChar(0), "=")
+							addToken(TOKENTYPE_ASSIGNMENT, c+readChar(), comments)
+						else 
+							addToken(TOKENTYPE_OPERATION, c, comments)
+						end
+					case '='
+						c = readChar()
+						if -> stringEquals(peekChar(0), "=")
+							addToken(TOKENTYPE_COMPARISON, c+readChar(), comments)
+						else 
+							addToken(TOKENTYPE_ASSIGNMENT, c, comments)
+						end
+					case '#'
+						scanSingleLineComment()
 					default
 						if -> peekChar(1) == -1 
 							break
@@ -192,6 +210,28 @@ class Scanner
 	#2
 	private 
 	
+	#12
+	block scanMultiLineComment()
+		readChar()
+		while peekChar(0) != -1 
+			if -> stringEquals(readChar()+readChar(), "*/")
+				break
+			end
+			readChar()
+		end
+	#11
+	block scanSingleLineComment()
+		readChar()
+		comment = ""
+		while peekChar(0) != -1 
+			if -> stringEquals(peekChar(0), crlf)
+				break
+			end
+			comment += readChar()
+		end
+		if startWith(comment, "@")
+			add(comments, comment)
+		end
 	#9
 	block scanString(condition)
 		value = ""

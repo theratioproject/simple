@@ -33,6 +33,6 @@ class Token
 		return value
 		
 	block toString()
-		return "[Token: TokenType="+getTokenTypeValue(tokenType)+", Value="+value+", Location="+location.toLocation()+"]"
+		return '[Token: TokenType='+getTokenTypeValue(tokenType)+', Value="'+value+'", Location='+location.toLocation()+']'
 	
 	

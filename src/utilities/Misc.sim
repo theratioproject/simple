@@ -36,6 +36,8 @@ block print(content)
 				switch content[a]
 				case '\'
 					inContent +=  '\'
+				case '"'
+					inContent += '"'
 				case "n"
 					inContent +=  crlf
 				case "t"
