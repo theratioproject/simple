@@ -19,7 +19,7 @@ class Parser
 
 	block parse(intokens)
 		tokens = intokens
-		position = 0
+		position = 0 
 		
 		ast = new CodeBlockNode(location(tokens, position))
 		while (endOfStream() == false) 
