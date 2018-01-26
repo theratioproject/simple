@@ -84,7 +84,7 @@ class Parser
 		if -> acceptToken(TOKENTYPE_COLON) or acceptTokenString(TOKENTYPE_IDENTIFIER, "inherit")
 			do {
 				add(inherits, expectToken(TOKENTYPE_IDENTIFIER).getValue())
-			} while -> acceptToken(TOKENTYPE_COLON)
+			} while -> acceptToken(TOKENTYPE_COMMA) 
 			node = parseStatement()
 			return new ClassNode(clocation, name, node, inherits)
 		end
