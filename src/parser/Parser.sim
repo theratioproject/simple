@@ -28,6 +28,12 @@ class Parser
 		return nodes
 		
 	block parseStatement()
+		if -> acceptTokenSTring(TOKENTYPE_IDENTIFIER, "break")
+			debug("it break")
+		elif
 		
+		else
+		
+		end
 		
 	
