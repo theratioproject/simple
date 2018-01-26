@@ -32,7 +32,7 @@ class Parser
 	#3	
 	block parseStatement()
 		if -> acceptTokenString(TOKENTYPE_IDENTIFIER, "break")
-			println("it break") 
+			
 		elif -> acceptTokenString(TOKENTYPE_IDENTIFIER, "continue")
 			println("it continue") 
 		elif -> acceptTokenString(TOKENTYPE_IDENTIFIER, "class")
