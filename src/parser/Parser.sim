@@ -40,5 +40,18 @@ class Parser
 		end
 	
 `	#4	
-	block
+	block acceptTokenString(tokenType, value)
+		ret = matchTokenString(tokenType, value)
+		if -> ret == true
+			position++
+		end
+		return ret
+	
+	
+	
+	
+	
+	
+	
+	
 	
