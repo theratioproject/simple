@@ -14,8 +14,6 @@ UNKNOWN_CHARACTER = 002
 
 ANNOTATION_NOT_SUPPORTED_YET = 003
 
-UNEXPECTED_TOKEN_TYPE
-
 #2
 UNEXPECTED_TOKEN_TYPE = 004
 
@@ -51,8 +49,7 @@ block getErrorValue(val)
 	#detail - this file hold all the error codes for the compiler and virtual machine and values in relation to the error code
 	
 	#1 - compiler/scanner errors
-	#2 - runtime error
+	#2 - compiler/parser errors
 	#3 - error values
-	#4 - compiler/parser errors
 
 **/
