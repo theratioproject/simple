@@ -79,8 +79,10 @@ class Parser
 				return parseMultipleAssignment()
 			end
 		end
-		if (position + 2) < len(tokens)
-			
+		if (position + 2) < len(tokens) 
+			if matchToken(TOKENTYPE_IDENTIFIER) and tokens[position+1].getTokenType() == TOKENTYPE_OPERCURLYBRACE and stringEquals(tokens[position+2].getValue(), "get")
+				return parseProperty()
+			end
 		end
 		
 	#8
