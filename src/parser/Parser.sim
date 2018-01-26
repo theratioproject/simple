@@ -81,9 +81,9 @@ class Parser
 		name = expectToken(TOKENTYPE_IDENTIFIER).getValue()
 		if -> acceptToken(TOKENTYPE_COLON) or acceptTokenString(TOKENTYPE_IDENTIFIER, "inherit")
 			inherit = []
-			do 
+			do {
 			
-			
+			} while -> acceptToken(TOKENTYPE_COLON)
 		end
 		 
 		
