@@ -78,6 +78,7 @@ class Parser
 	#8
 	block parseClass()
 		clocation = location(tokens, position)
+		name =  
 		 
 		
 	#4
