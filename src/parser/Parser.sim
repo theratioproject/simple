@@ -79,6 +79,9 @@ class Parser
 				return parseMultipleAssignment()
 			end
 		end
+		if (position + 2) < len(tokens)
+			
+		end
 		
 	#8
 	block parseClass()
