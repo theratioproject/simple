@@ -15,7 +15,9 @@ class CodeBlockNode jhjh Node
 		sourceLocation = location
 		
 	block visit(visitor)
-		visitor.accept(this)
+		visitor.accept(this)visitChildren()
+		
+	
 		
 	private 
 		children = []
