@@ -55,7 +55,9 @@ class Parser
 		end
 		return ret
 	
-	
+	#6
+	block matchToken(tokenType)
+		return endOfStream() == false and tokens[position].getTokenType() == tokenType
 	
 	
 	
