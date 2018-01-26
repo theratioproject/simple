@@ -114,7 +114,7 @@ class Parser
 		
 	block expectToken(tokenType)
 		if matchToken(tokenType)
-			return tokens[position++]
+			return tokens[position]
 		end
 		throwScannerException(location(tokens, position), "Expected token of type '"+getTokenTypeValue(tokenType)+"', But got token of type '"+getTokenTypeValue(tokens[position].getTokenType())+"' with value '"+tokens[position].getValue()+"'", UNEXPECTED_TOKEN_TYPE)
 		
