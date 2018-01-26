@@ -34,4 +34,4 @@ class Parser
 		end
 		
 	block parseStatement()
-		position++
+		position++ return ""
