@@ -17,15 +17,18 @@ class Parser
 	block endOfStream()
 		return position >= len(tokens)
 		
-	currentLocation = "" 
-		
-	
+	block location()
+		try 
+			return tokens[position].getLocation()
+		catch
+			return tokens[position - 1].getLocation()
+		end
 
 	block parse(intokens)
 		tokens = intokens
 		position = 0
 		
-		ast = new CodeBlockNode(currentLocation)
+		ast = new CodeBlockNode(getFilePath("test.sim"))
 		while (endOfStream() == false) 
 			add(ast.getChildren(), parseStatement()) 
 		end
