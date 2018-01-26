@@ -74,7 +74,7 @@ class Parser
 		elif -> acceptTokenString(TOKENTYPE_IDENTIFIER, "with")
 			println("it with") 
 		else
-			println("pending token") position++
+			position++
 		end
 		
 	#8
@@ -87,7 +87,8 @@ class Parser
 			} while -> acceptToken(TOKENTYPE_COLON)
 			return new ClassNode(clocation, name, parseStatement(), inherits)
 		end
-		return new ClassNode(clocation, name, parseStatement(), null)
+		node = parseStatement()
+		return new ClassNode(clocation, name, node, null)
 		
 	#4
 	block acceptToken(tokenType)
@@ -115,13 +116,15 @@ class Parser
 		
 	block expectToken(tokenType)
 		if matchToken(tokenType)
-			return tokens[position]
+			ret = tokens[position] position++
+			return ret
 		end
 		throwScannerException(location(tokens, position), "Expected token of type '"+getTokenTypeValue(tokenType)+"', But got token of type '"+getTokenTypeValue(tokens[position].getTokenType())+"' with value '"+tokens[position].getValue()+"'", UNEXPECTED_TOKEN_TYPE)
 		
 	block expectTokenString(tokenType, value)
 		if matchTokenString(tokenType, value)
-			return tokens[position++]
+			ret = tokens[position] position++
+			return ret
 		end
 		throwScannerException(location(tokens, position), "Expected token of type '"+getTokenTypeValue(tokenType)+"' with value '"+value+"', But got token of type '"+getTokenTypeValue(tokens[position].getTokenType())+"' with value '"+tokens[position].getValue()+"'", UNEXPECTED_TOKEN_TYPE)
 	
