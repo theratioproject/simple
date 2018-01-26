@@ -10,7 +10,7 @@ package simple.scanner
 class SourceCodeLocation
 
 	sourcefile  = ""
-	sourcefilepath = ""
+	sourcefilepath = "" 
 	row = 0
 	column = 0
 

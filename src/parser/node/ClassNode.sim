@@ -21,6 +21,8 @@ class ClassNode : Node
 		body = ibody
 		inherits = inherits
 		
+		println("CLASS NODE - NAME : "+name+", LOCATION : "+location.getLocation())
+		
 	block visit(visitor)
 		visitor.accept(this)
 	
