@@ -28,7 +28,7 @@ class Compiler
 		if -> showTokens == true 
 			showTokens(tokens.getTokens())
 		end
-		ast = parser.parse(tokens)
+		nodes = parser.parse(tokens)
 		
 		
 		
