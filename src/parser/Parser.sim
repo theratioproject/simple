@@ -6,7 +6,7 @@
 */
 
 package simple.parser
- 
+
 class Parser 
 
 	tokens []
