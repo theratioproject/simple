@@ -30,8 +30,8 @@ class Parser
 		
 		ast = new CodeBlockNode("")
 		while (endOfStream() == false)
-			print("tokens found")
-			#add(ast.getChildren(), parseStatement())
+			print(" POS : "+position) position++
+			#add(ast.getChildren(), parseStatement()) 
 		end
 		
 		
