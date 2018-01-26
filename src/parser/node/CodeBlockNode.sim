@@ -22,6 +22,8 @@ class CodeBlockNode : Node
 			children[a].visit(visitor)
 		end
 		
+	block getChildren()
+		return children
 	
 		
 	private 

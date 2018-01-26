@@ -30,8 +30,8 @@ class Parser
 		
 		ast = new CodeBlockNode("")
 		while (endOfStream() == false)
-			print(" POS : "+position) position++
-			#add(ast.getChildren(), parseStatement()) 
+			add(ast.getChildren(), parseStatement()) 
 		end
 		
-		
+	block parseStatement()
+		position++
