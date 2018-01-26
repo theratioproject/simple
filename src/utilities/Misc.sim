@@ -161,6 +161,14 @@ block printLine(con)
 	if -> con == true
 		println("")
 	end
+
+#13
+block location(tokens, position)
+	try 
+		return tokens[position].getLocation()
+	catch
+		return tokens[position - 1].getLocation()
+	end
 		
 /**
 	comment map
