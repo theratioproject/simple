@@ -31,7 +31,13 @@ class Parser
 	
 	#3	
 	block parseStatement()
-		 position++
+		if -> acceptTokenString(TOKENTYPE_IDENTIFIER, "break")
+			println("it break") position++
+		elif -> acceptTokenString(TOKENTYPE_IDENTIFIER, "continue")
+			println("it continue") position++
+		else
+			println("pending token") 
+		end
 		
 	#4
 	block acceptToken(tokenType)
@@ -41,7 +47,21 @@ class Parser
 		end
 		return ret
 	
+`	#5	
+	block acceptTokenString(tokenType, value)
+		ret = matchTokenString(tokenType, value)
+		if -> ret == true
+			position++
+		end
+		return ret
 	
+	#6
+	block matchToken(tokenType)
+		return endOfStream() == false and tokens[position].getTokenType() == tokenType
+		
+	#7
+	block matchTokenString(tokenType, value)
+		return endOfStream() == false and tokens[position].getTokenType() == tokenType and stringEquals(tokens[position].getValue(), value)
 		
 	
 	
