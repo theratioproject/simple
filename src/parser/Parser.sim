@@ -44,7 +44,7 @@ class Parser
 		elif -> acceptTokenString(TOKENTYPE_IDENTIFIER, "class")
 			return parseClass()
 		elif -> acceptTokenString(TOKENTYPE_IDENTIFIER, "do")
-			println("it do") 
+			return parseDoWhile() 
 		elif -> acceptTokenString(TOKENTYPE_IDENTIFIER, "enum")
 			println("it enum") 
 		elif -> acceptTokenString(TOKENTYPE_IDENTIFIER, "for")
