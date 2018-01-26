@@ -11,7 +11,7 @@ package simple.parser.node
 
 class ClassNode : Node
 
-	name = "" 
+	name = ""
 	body = null
 	inherits = []
 
