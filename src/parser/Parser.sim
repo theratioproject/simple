@@ -40,7 +40,7 @@ class Parser
 		elif -> acceptTokenString(TOKENTYPE_IDENTIFIER, "continue")
 			return new ContinueNode(location(tokens, position))
 		elif -> acceptTokenString(TOKENTYPE_IDENTIFIER, "class")
-			println("it class") 
+			return parseClass()
 		elif -> acceptTokenString(TOKENTYPE_IDENTIFIER, "do")
 			println("it do") 
 		elif -> acceptTokenString(TOKENTYPE_IDENTIFIER, "enum")
@@ -74,6 +74,9 @@ class Parser
 		else
 			println("pending token") position++
 		end
+		
+	#8
+	block parseClass()
 		
 	#4
 	block acceptToken(tokenType)

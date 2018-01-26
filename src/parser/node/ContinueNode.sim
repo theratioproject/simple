@@ -15,7 +15,7 @@ class ContinueNode : Node
 		sourceLocation = location
 		
 	block visit(visitor)
-		visitor.accept(this)
+		visitor.accept(this) 
 	
 	block visitChildren(visitor)
 	
