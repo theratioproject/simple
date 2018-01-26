@@ -7,4 +7,14 @@
 
 package simple.parser.node
 
+class BreakNode
 
+	block BreakNode(location)
+		sourceLocation = location
+		
+	block visit(visitor)
+		visitor.accept(this)
+	
+	block visitChildren(visitor)
+	
+	
