@@ -1,37 +1,7 @@
 
+break
 
-++ += +
+continue
 
--- -= -
-
-** *= *
-
-// /= /
-
-%% %= %  
-
->> >= > >=>
-
-<< <= < <=> 
-
-!= ! 
-
-
-#single line comment
-
-/**
-	multi 
-	line
-	comment
-
-**/
-
-ade
-
-&& &
-
-|| |  
-
-^= ^
-== =
+unknown
 

@@ -32,9 +32,9 @@ class Parser
 	#3	
 	block parseStatement()
 		if -> acceptTokenString(TOKENTYPE_IDENTIFIER, "break")
-			println("it break") position++
+			println("it break") 
 		elif -> acceptTokenString(TOKENTYPE_IDENTIFIER, "continue")
-			println("it continue") position++
+			println("it continue") 
 		else
 			println("pending token") position++
 		end
