@@ -1,6 +1,16 @@
 
 break
 
+/* 
+	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 simple 
+	
+	this is used to test the parser for tokens 
+	note error will be thrown on completed compiler 
+	it used during development for debuging parser
+
+*/
+
 continue
 
 class
