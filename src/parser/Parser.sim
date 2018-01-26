@@ -9,5 +9,10 @@ package simple.parser
 
 class Parser 
 
+	tokens []
+	position = 0 
+	endOfStream()
+		return position >= len(tokens)
+
 	block parse(tokens)
 		print("we parsing") 
