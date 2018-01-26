@@ -7,7 +7,7 @@
 
 call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\scanner\Scanner.sim" -> simple.scanner
 
-call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\Parser.sim" -> simple.scanner
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\Parser.sim" -> simple.parser
 
 package simple.compiler
 
@@ -23,11 +23,12 @@ class Compiler
 		return compile(path, readFile(path), supWarn)
 		
 	block compile(path, source, supWarn )
-		tokens = new Scanner
+		tokens = new Scanner parser = new Parser
 		tokens.scan(path, source)
 		if -> showTokens == true 
 			showTokens(tokens.getTokens())
 		end
+		ast = parser.parse(tokens)
 		
 		
 		
