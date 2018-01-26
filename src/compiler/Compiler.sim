@@ -7,6 +7,8 @@
 
 call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\scanner\Scanner.sim" -> simple.scanner
 
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\Parser.sim" -> simple.scanner
+
 package simple.compiler
 
 class Compiler
