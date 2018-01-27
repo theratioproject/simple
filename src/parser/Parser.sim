@@ -213,8 +213,17 @@ class Parser
 					acceptToken(TOKENTYPE_COMPARISON)
 					expr = parseComparison()
 					if matchToken(TOKENTYPE_COMPARISON)
-						return new BinaryOperationNode(elocation, BINARYOPERATION_LOGICALAND, new BinaryOperationNode(elocation, BINARYOPERATION_EQUALTO, left, expr), new BinaryOperationNode(elocation, stringToBinaryOperation(expectToken(TOKENTYPE_COMPARISON))))
+						return new BinaryOperationNode(elocation, BINARYOPERATION_LOGICALAND, new BinaryOperationNode(elocation, BINARYOPERATION_EQUALTO, left, expr), new BinaryOperationNode(elocation, stringToBinaryOperation(expectToken(TOKENTYPE_COMPARISON).getValue()), expr, parseOr()))
 					end
+					return new BinaryOperationNode(elocation, BINARYOPERATION_EQUALTO, left, expr)
+				case '=='
+					acceptToken(TOKENTYPE_COMPARISON)
+					expr = parseComparison()
+					if matchToken(TOKENTYPE_COMPARISON)
+						return new BinaryOperationNode(elocation, BINARYOPERATION_LOGICALAND, new BinaryOperationNode(elocation, BINARYOPERATION_EQUALTO, left, expr), new BinaryOperationNode(elocation, stringToBinaryOperation(expectToken(TOKENTYPE_COMPARISON).getValue()), expr, parseOr()))
+					end
+					return new BinaryOperationNode(elocation, BINARYOPERATION_EQUALTO, left, expr)
+				default break
 			end
 		end
 		
