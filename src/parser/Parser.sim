@@ -418,7 +418,8 @@ class Parser
 				return parseListDeclaration()
 			elif acceptToken(TOKENTYPE_SEMICOLON)
 				return new CodeBlockNode(tlocation)
-			elif 
+			elif matchTokenString(TOKENTYPE_IDENTIFIER, "=>")
+				return 
 			
 			
 			
