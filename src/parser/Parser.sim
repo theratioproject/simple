@@ -305,13 +305,23 @@ class Parser
 				default break
 			end
 		end
+		return left
 	
 	block parseAdditive()
 		alocation = location(tokens, position)
 		left = parseMultiplicative()
 		while matchToken(TOKENTYPE_OPERATION)
-			
+			switch tokens[position].getValue()
+				case '+'
+					acceptToken(TOKENTYPE_OPERATION)
+					return new BinaryOperationNode(alocation, BINARYOPERATION_ADDITION, left, parseAddictive())
+				case '-'
+					acceptToken(TOKENTYPE_OPERATION)
+					return new BinaryOperationNode(alocation, BINARYOPERATION_SUBTRACTION, left, parseAddictive())
+				default break
+			end
 		end
+		return left
 		
 		
 		
