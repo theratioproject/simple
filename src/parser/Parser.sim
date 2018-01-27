@@ -94,7 +94,6 @@ class Parser
 	#8
 	block parseClass()
 		clocation = location(tokens, position) inherits = []
-		println("it class : "+tokens[position].getValue())
 		name = expectToken(TOKENTYPE_IDENTIFIER).getValue()
 		if -> acceptToken(TOKENTYPE_COLON) or acceptTokenString(TOKENTYPE_IDENTIFIER, "inherit")
 			do {
@@ -104,7 +103,7 @@ class Parser
 			node = parseStatement()
 			return new ClassNode(clocation, name, node, inherits)
 		end
-		node = parseStatement()
+		node = parseStatement() 
 		return new ClassNode(clocation, name, node, null)
 	
 	#9
