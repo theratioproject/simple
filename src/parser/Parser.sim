@@ -233,7 +233,7 @@ class Parser
 			left = parseOr()
 			expr = null
 			while matchToken(TOKENTYPE_COMPARISON)
-				switch tokens[position].getValue()
+				switch tokens[position].getValue()tokens[position].getValue()
 					case ">"
 						acceptToken(TOKENTYPE_COMPARISON)
 						expr = parseOr()
@@ -293,6 +293,14 @@ class Parser
 			
 		block parseBitshift()
 			blocation = location(tokens, position)
+			left = parseAdditive()
+			while matchToken(TOKENTYPE_OPERATION)
+				switch tokens[position].getValue()
+					case "<<"
+						acceptToken(TOKENTYPE_OPERATION)
+					default break
+				end
+			end
 		
 		
 		
