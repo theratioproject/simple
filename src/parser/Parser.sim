@@ -171,7 +171,8 @@ class Parser
 		if matchToken(TOKENTYPE_ASSIGNMENT)
 			switch tokens[position+2].getValue()
 				case '='
-					debug("yea it = ")
+					acceptToken(TOKENTYPE_ASSIGNMENT)
+					return new BinaryOperationNode(alocation, BINARYOPERATION_ASSIGNMENT, left, parseAssignment())
 			end
 		end
 		
