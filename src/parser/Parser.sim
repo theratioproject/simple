@@ -187,6 +187,11 @@ class Parser
 		end
 		return left
 		
+	block parseLogicalOr()
+		llocation = location(tokens, position)
+		left = parseLogicalAnd()
+		while acceptTokenString(TOKENTYPE_OPERATION, "||") or acceptTokenString(TOKENTYPE_OPERATION, "or")
+		
 		
 		
 		
