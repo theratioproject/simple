@@ -299,7 +299,7 @@ class Parser
 					case "<<"
 						acceptToken(TOKENTYPE_OPERATION)
 						return new BinaryOperationNode(blocation, BINARYOPERATION_BITSHIFTLEFT, left, parseBitshiftLeft())
-					case "<<"
+					case ">>"
 						acceptToken(TOKENTYPE_OPERATION)
 						return new BinaryOperationNode(blocation, BINARYOPERATION_BITSHIFTRIGHT, left, parseBitshiftRight())
 					default break
