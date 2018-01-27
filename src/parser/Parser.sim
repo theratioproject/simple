@@ -418,8 +418,11 @@ class Parser
 				return parseListDeclaration()
 			elif acceptToken(TOKENTYPE_SEMICOLON)
 				return new CodeBlockNode(tlocation)
-			elif matchTokenString(TOKENTYPE_IDENTIFIER, "=>")
-				return 
+			elif matchTokenString(TOKENTYPE_IDENTIFIER, "=>") or matchTokenString(TOKENTYPE_IDENTIFIER, "lambda")
+				return parseLambda()
+			elif matchTokenString(TOKENTYPE_IDENTIFIER, "new")
+				return parseExpression()
+			elif matchTokenString(TOKENTYPE_IDENTIFIER, "thread")
 			
 			
 			
