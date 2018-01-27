@@ -178,8 +178,14 @@ class Parser
 		
 	block parseTenary()
 		tlocation = location(tokens, position)
-		
-		
+		left = parseLogicalOr()
+		while acceptToken(TOKENTYPE_QUESTION)
+			trueStatement = parseExpression()
+			expectToken(TOKENTYPE_COLON)
+			falseStatement = parseExpression()
+			left = new TenaryOperationNode(tlocation, left, trueStatement, falseStatement)
+		end
+		return left
 		
 		
 		
