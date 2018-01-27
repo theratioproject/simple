@@ -331,8 +331,28 @@ class Parser
 				case '*'
 					acceptToken(TOKENTYPE_OPERATION)
 					return new BinaryOperationNode(mlocation, BINARYOPERATION_MULTIPLICATION, left, parseMultiplicative())
+				case '/'
+					acceptToken(TOKENTYPE_OPERATION)
+					return new BinaryOperationNode(mlocation, BINARYOPERATION_DIVISION, left, parseMultiplicative())
+				case '%'
+					acceptToken(TOKENTYPE_OPERATION)
+					return new BinaryOperationNode(mlocation, BINARYOPERATION_MODULUS, left, parseMultiplicative())
+				case '**'
+					acceptToken(TOKENTYPE_OPERATION)
+					return new BinaryOperationNode(mlocation, BINARYOPERATION_POWER, left, parseMultiplicative())
+				case '//'
+					acceptToken(TOKENTYPE_OPERATION)
+					return new BinaryOperationNode(mlocation, BINARYOPERATION_INTEGERDIVISION, left, parseMultiplicative())
+				case '??'
+					acceptToken(TOKENTYPE_OPERATION)
+					return new BinaryOperationNode(mlocation, BINARYOPERATION_NULLCOALESCING, left, parseMultiplicative())
+				case 'is'
+					acceptToken(TOKENTYPE_OPERATION)
+					return new BinaryOperationNode(mlocation, BINARYOPERATION_IS, left, parseMultiplicative())
+				default break
 			end
 		end
+		return left
 		
 	
 		
