@@ -162,8 +162,10 @@ class Parser
 		end
 		return expression
 	
-		block parseExpression()
-			return parseAssignment()
+	block parseExpression()
+		return parseAssignment()
+			
+	block parseAssignment()
 		
 		
 		
