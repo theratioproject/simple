@@ -195,6 +195,15 @@ class Parser
 		end
 		return left
 		
+	block parseLogicalAnd()
+		alocation = location(tokens, position)
+		left = parseEquality()
+		while acceptTokenString(TOKENTYPE_OPERATION, "&&") or acceptTokenString(TOKENTYPE_IDENTIFIER, "and")
+			left = new BinaryOperationNode(alocation, BINARYOPERATION_LOGICALAND, left, parseLogicalAnd())
+		end
+		return left
 		
+	block parseEquality()
+		elocation = location(tokens, position)
 		
 		
