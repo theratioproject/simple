@@ -205,5 +205,10 @@ class Parser
 		
 	block parseEquality() 
 		elocation = location(tokens, position)
+		left = parseComparison()
+		expr = null
+		while matchToken(TOKENTYPE_COMPARISON)
+			switch tokens[position+2].getValue()
+		end
 		
 		
