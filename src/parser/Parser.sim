@@ -208,7 +208,7 @@ class Parser
 		left = parseComparison()
 		expr = null
 		while matchToken(TOKENTYPE_COMPARISON)
-			switch tokens[position+2].getValue()
+			switch tokens[position].getValue()
 				case '=='
 					acceptToken(TOKENTYPE_COMPARISON)
 					expr = parseComparison()
@@ -230,6 +230,20 @@ class Parser
 		
 		block parseComparison()
 			plocation = location(tokens, position)
+			left = parseOr()
+			expr = null
+			while matchToken(TOKENTYPE_COMPARISON)
+				switch tokens[position].getValue()
+					case '>'
+						acceptToken(TOKENTYPE_COMPARISON)
+						expr = parseOr()
+						if matchToken(TOKENTYPE_COMPARISON)
+													
+						end
+						return new BinaryOperationNode(plocation, BINARYOPERATION_GREATERTHAN, left expr)
+				end
+			end
+			
 		
 		
 		
