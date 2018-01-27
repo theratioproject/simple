@@ -25,4 +25,7 @@ class Node
 	
 	block visitChildren(visitor)
 	
+	block getType()
+		return "node"
+	
 	private isPrivate = false
