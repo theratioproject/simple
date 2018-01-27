@@ -389,6 +389,9 @@ class Parser
 			expectToken(TOKENTYPE_CLOSEQUAREBRACE)
 			return parseAccess(new IterableAccessNode(alocation, left, index))
 		elif acceptTokenString(TOKENTYPE_OPERATION, "--")
+			return new UnaryOperationNode(alocation, left, UNARYOPERATION_POSTINCREMENT)
+		elif acceptTokenString(TOKENTYPE_OPERATION, "++")
+			return new UnaryOperationNode(alocation, left, UNARYOPERATION_POSTINCREMENT)
 		
 		
 		
