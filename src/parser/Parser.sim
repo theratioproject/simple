@@ -228,85 +228,90 @@ class Parser
 		end
 		return left
 		
-		block parseComparison()
-			plocation = location(tokens, position)
-			left = parseOr()
-			expr = null
-			while matchToken(TOKENTYPE_COMPARISON)
-				switch tokens[position].getValue()
-					case ">"
-						acceptToken(TOKENTYPE_COMPARISON)
-						expr = parseOr()
-						if matchToken(TOKENTYPE_COMPARISON)
-							return new BinaryOperationNode(BINARYOPERATION_LOGICALAND, new BinaryOperationNode(plocation, BINARYOPERATION_GREATERTHAN, left, expr), new BinaryOperationNode(plocation, stringToBinaryOperation(expectToken(TOKENTYPE_COMPARISON).value), expr, parserOr()))		
-						end
-						return new BinaryOperationNode(plocation, BINARYOPERATION_GREATERTHAN, left, expr)
-					case ">="
-						acceptToken(TOKENTYPE_COMPARISON)
-						expr = parseOr()
-						if matchToken(TOKENTYPE_COMPARISON)
-							return new BinaryOperationNode(BINARYOPERATION_LOGICALAND, new BinaryOperationNode(plocation, BINARYOPERATION_GREATERTHANOREQUAL, left, expr), new BinaryOperationNode(plocation, stringToBinaryOperation(expectToken(TOKENTYPE_COMPARISON).value), expr, parserOr()))		
-						end
-						return new BinaryOperationNode(plocation, BINARYOPERATION_GREATERTHANOREQUAL, left, expr)
-					case "<"
-						acceptToken(TOKENTYPE_COMPARISON)
-						expr = parseOr()
-						if matchToken(TOKENTYPE_COMPARISON)
-							return new BinaryOperationNode(BINARYOPERATION_LOGICALAND, new BinaryOperationNode(plocation, BINARYOPERATION_LESSERTHAN, left, expr), new BinaryOperationNode(plocation, stringToBinaryOperation(expectToken(TOKENTYPE_COMPARISON).value), expr, parserOr()))		
-						end
-						return new BinaryOperationNode(plocation, BINARYOPERATION_LESSERTHAN, left, expr)
-					case "<="
-						acceptToken(TOKENTYPE_COMPARISON)
-						expr = parseOr()
-						if matchToken(TOKENTYPE_COMPARISON)
-							return new BinaryOperationNode(BINARYOPERATION_LOGICALAND, new BinaryOperationNode(plocation, BINARYOPERATION_LESSERTHANOREQUAL, left, expr), new BinaryOperationNode(plocation, stringToBinaryOperation(expectToken(TOKENTYPE_COMPARISON).value), expr, parserOr()))		
-						end
-						return new BinaryOperationNode(plocation, BINARYOPERATION_LESSERTHANOREQUAL, left, expr) 
-					default break
-				end
+	block parseComparison()
+		plocation = location(tokens, position)
+		left = parseOr()
+		expr = null
+		while matchToken(TOKENTYPE_COMPARISON)
+			switch tokens[position].getValue()
+				case ">"
+					acceptToken(TOKENTYPE_COMPARISON)
+					expr = parseOr()
+					if matchToken(TOKENTYPE_COMPARISON)
+						return new BinaryOperationNode(BINARYOPERATION_LOGICALAND, new BinaryOperationNode(plocation, BINARYOPERATION_GREATERTHAN, left, expr), new BinaryOperationNode(plocation, stringToBinaryOperation(expectToken(TOKENTYPE_COMPARISON).value), expr, parserOr()))		
+					end
+					return new BinaryOperationNode(plocation, BINARYOPERATION_GREATERTHAN, left, expr)
+				case ">="
+					acceptToken(TOKENTYPE_COMPARISON)
+					expr = parseOr()
+					if matchToken(TOKENTYPE_COMPARISON)
+						return new BinaryOperationNode(BINARYOPERATION_LOGICALAND, new BinaryOperationNode(plocation, BINARYOPERATION_GREATERTHANOREQUAL, left, expr), new BinaryOperationNode(plocation, stringToBinaryOperation(expectToken(TOKENTYPE_COMPARISON).value), expr, parserOr()))		
+					end
+					return new BinaryOperationNode(plocation, BINARYOPERATION_GREATERTHANOREQUAL, left, expr)
+				case "<"
+					acceptToken(TOKENTYPE_COMPARISON)
+					expr = parseOr()
+					if matchToken(TOKENTYPE_COMPARISON)
+						return new BinaryOperationNode(BINARYOPERATION_LOGICALAND, new BinaryOperationNode(plocation, BINARYOPERATION_LESSERTHAN, left, expr), new BinaryOperationNode(plocation, stringToBinaryOperation(expectToken(TOKENTYPE_COMPARISON).value), expr, parserOr()))		
+					end
+					return new BinaryOperationNode(plocation, BINARYOPERATION_LESSERTHAN, left, expr)
+				case "<="
+					acceptToken(TOKENTYPE_COMPARISON)
+					expr = parseOr()
+					if matchToken(TOKENTYPE_COMPARISON)
+						return new BinaryOperationNode(BINARYOPERATION_LOGICALAND, new BinaryOperationNode(plocation, BINARYOPERATION_LESSERTHANOREQUAL, left, expr), new BinaryOperationNode(plocation, stringToBinaryOperation(expectToken(TOKENTYPE_COMPARISON).value), expr, parserOr()))		
+					end
+					return new BinaryOperationNode(plocation, BINARYOPERATION_LESSERTHANOREQUAL, left, expr) 
+				default break
 			end
-			return left
-			
-		block parseOr()
-			olocation = location(tokens, position)
-			left = parseXor()
-			while acceptTokenString(TOKENTYPE_OPERATION, "|")
-				left = new BinaryOperationNode(olocation, BINARYOPERATION_BITWISEOR, left, parseOr())
-			end
-			return left
-			
-		block parseXor()
-			xlocation = location(tokens, position)
-			left = parseAnd()
-			while acceptTokenString(TOKENTYPE_OPERATION, "^")
-				left = new BinaryOperationNode(xlocation, BINARYOPERATION_BITWISEXOR, left, parseXor())
-			end
-			return left
-			
-		block parseAnd()
-			alocation = location(tokens, position)
-			left = parseBitshift()
-			while acceptTokenString(TOKENTYPE_OPERATION, "&")
-				left = new BinaryOperationNode(alocation, BINARYOPERATION_BITWISEAND, left, parseAnd())
-			end
-			return left
-			
-		block parseBitshift()
-			blocation = location(tokens, position)
-			left = parseAdditive()
-			while matchToken(TOKENTYPE_OPERATION)
-				switch tokens[position].getValue()
-					case "<<"
-						acceptToken(TOKENTYPE_OPERATION)
-						return new BinaryOperationNode(blocation, BINARYOPERATION_BITSHIFTLEFT, left, parseBitshiftLeft())
-					case ">>"
-						acceptToken(TOKENTYPE_OPERATION)
-						return new BinaryOperationNode(blocation, BINARYOPERATION_BITSHIFTRIGHT, left, parseBitshiftRight())
-					default break
-				end
-			end
+		end
+		return left
 		
+	block parseOr()
+		olocation = location(tokens, position)
+		left = parseXor()
+		while acceptTokenString(TOKENTYPE_OPERATION, "|")
+			left = new BinaryOperationNode(olocation, BINARYOPERATION_BITWISEOR, left, parseOr())
+		end
+		return left
 		
+	block parseXor()
+		xlocation = location(tokens, position)
+		left = parseAnd()
+		while acceptTokenString(TOKENTYPE_OPERATION, "^")
+			left = new BinaryOperationNode(xlocation, BINARYOPERATION_BITWISEXOR, left, parseXor())
+		end
+		return left
+		
+	block parseAnd()
+		alocation = location(tokens, position)
+		left = parseBitshift()
+		while acceptTokenString(TOKENTYPE_OPERATION, "&")
+			left = new BinaryOperationNode(alocation, BINARYOPERATION_BITWISEAND, left, parseAnd())
+		end
+		return left
+		
+	block parseBitshift()
+		blocation = location(tokens, position)
+		left = parseAdditive()
+		while matchToken(TOKENTYPE_OPERATION)
+			switch tokens[position].getValue()
+				case "<<"
+					acceptToken(TOKENTYPE_OPERATION)
+					return new BinaryOperationNode(blocation, BINARYOPERATION_BITSHIFTLEFT, left, parseBitshiftLeft())
+				case ">>"
+					acceptToken(TOKENTYPE_OPERATION)
+					return new BinaryOperationNode(blocation, BINARYOPERATION_BITSHIFTRIGHT, left, parseBitshiftRight())
+				default break
+			end
+		end
+	
+	block parseAdditive()
+		alocation = location(tokens, position)
+		left = parseMultiplicative()
+		while matchToken(TOKENTYPE_OPERATION)
+			
+		end
 		
 		
 		
