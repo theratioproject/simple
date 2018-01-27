@@ -241,6 +241,13 @@ class Parser
 							return new BinaryOperationNode(BINARYOPERATION_LOGICALAND, new BinaryOperationNode(plocation, BINARYOPERATION_GREATERTHAN, left, expr), new BinaryOperationNode(plocation, stringToBinaryOperation(expectToken(TOKENTYPE_COMPARISON).value), expr, parserOr()))		
 						end
 						return new BinaryOperationNode(plocation, BINARYOPERATION_GREATERTHAN, left expr)
+					case ">="
+						acceptToken(TOKENTYPE_COMPARISON)
+						expr = parseOr()
+						if matchToken(TOKENTYPE_COMPARISON)
+							return new BinaryOperationNode(BINARYOPERATION_LOGICALAND, new BinaryOperationNode(plocation, BINARYOPERATION_GREATERTHANOREQUAL, left, expr), new BinaryOperationNode(plocation, stringToBinaryOperation(expectToken(TOKENTYPE_COMPARISON).value), expr, parserOr()))		
+						end
+						return new BinaryOperationNode(plocation, BINARYOPERATION_GREATERTHANOREQUAL, left expr)
 				end
 			end
 			
