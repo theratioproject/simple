@@ -233,7 +233,7 @@ class Parser
 			left = parseOr()
 			expr = null
 			while matchToken(TOKENTYPE_COMPARISON)
-				switch tokens[position].getValue()tokens[position].getValue()
+				switch tokens[position].getValue()
 					case ">"
 						acceptToken(TOKENTYPE_COMPARISON)
 						expr = parseOr()
