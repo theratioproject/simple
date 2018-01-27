@@ -387,6 +387,8 @@ class Parser
 		elif acceptToken(TOKENTYPE_OPENSQUAREBRACE)
 			index = parseExpression()
 			expectToken(TOKENTYPE_CLOSEQUAREBRACE)
+			return parseAccess(new IterableAccessNode(alocation, left, index))
+		elif acceptTokenString(TOKENTYPE_OPERATION, "--")
 		
 		
 		
