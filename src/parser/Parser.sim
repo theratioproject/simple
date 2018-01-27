@@ -169,9 +169,9 @@ class Parser
 			
 	block parseAssignment()
 		alocation = location(tokens, position)  
-		left = parseTenary() println("reach here : "+tokens[position].getValue())
-		if matchToken(TOKENTYPE_ASSIGNMENT)
-			switch tokens[position+2].getValue()
+		left = parseTenary() 
+		if matchToken(TOKENTYPE_ASSIGNMENT) 
+			switch tokens[position+1].getValue()
 				case '='
 					acceptToken(TOKENTYPE_ASSIGNMENT)
 					return new BinaryOperationNode(alocation, BINARYOPERATION_ASSIGNMENT, left, parseAssignment())
