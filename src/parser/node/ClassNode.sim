@@ -26,7 +26,7 @@ class ClassNode : Node
 	
 	block visitChildren(visitor)
 		for a = 0 to len(inherits)
-			inherits[a].visit(visitor)
+			inherits[a].visit(visitor) 
 		end
 		body.visit(visitor)
 		
