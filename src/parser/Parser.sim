@@ -156,10 +156,10 @@ class Parser
 		throwScannerException(location(tokens, position), "Expected token of type '"+getTokenTypeValue(tokenType)+"' with value '"+value+"', But got token of type '"+getTokenTypeValue(tokens[position].getTokenType())+"' with value '"+tokens[position].getValue()+"'", UNEXPECTED_TOKEN_TYPE)
 	
 	block parseExpressionStatement()
-		elocation = location(tokens, position)
-		expression = parseExpression() println(expression.getType())
-		acceptToken(TOKENTYPE_SEMICOLON) 
-		if stringEquals(expression.getType(), "block_call_node") 
+		elocation = location(tokens, position)  println("reach here")
+		expression = parseExpression()
+		acceptToken(TOKENTYPE_SEMICOLON)
+		if stringEquals(expression.getType(), "block_call_node") or stringEquals(expression.getType(), "binary_operation_node") or stringEquals(expression.getType(), "attribute_access_node") or stringEquals(expression.getType(), "unary_operation_node")
 			return new ExpressionStatementNode(elocation, expression)
 		end
 		return expression
@@ -433,7 +433,7 @@ class Parser
 					rett = expectToken(TOKENTYPE_IDENTIFIER)
 					return new IdentifierNode(tlocation, rett.getValue())
 				end
-			elif matchToken(TOKENTYPE_IDENTIFIER) println("it reach here")
+			elif matchToken(TOKENTYPE_IDENTIFIER)
 				return new IdentifierNode(tlocation, expectToken(TOKENTYPE_IDENTIFIER).getValue())
 			end
 			throwScannerException(location(tokens, position), "Unexpected token of type '"+getTokenTypeValue(tokenType)+"' with value '"+tokens[position].getValue()+"'", UNEXPECTED_TOKEN_TYPE)
