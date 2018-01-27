@@ -267,6 +267,11 @@ class Parser
 			end
 			return left
 			
+		block parseOr()
+			olocation = location(tokens, position)
+			left = parseXor()
+			while acceptToken()
+			
 		
 		
 		
