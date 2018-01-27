@@ -216,7 +216,7 @@ class Parser
 						return new BinaryOperationNode(elocation, BINARYOPERATION_LOGICALAND, new BinaryOperationNode(elocation, BINARYOPERATION_EQUALTO, left, expr), new BinaryOperationNode(elocation, stringToBinaryOperation(expectToken(TOKENTYPE_COMPARISON).getValue()), expr, parseOr()))
 					end
 					return new BinaryOperationNode(elocation, BINARYOPERATION_EQUALTO, left, expr)
-				case '=='
+				case '!='
 					acceptToken(TOKENTYPE_COMPARISON)
 					expr = parseComparison()
 					if matchToken(TOKENTYPE_COMPARISON)
