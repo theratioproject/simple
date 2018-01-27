@@ -190,7 +190,10 @@ class Parser
 	block parseLogicalOr()
 		llocation = location(tokens, position)
 		left = parseLogicalAnd()
-		while acceptTokenString(TOKENTYPE_OPERATION, "||") or acceptTokenString(TOKENTYPE_OPERATION, "or")
+		while acceptTokenString(TOKENTYPE_OPERATION, "||") or acceptTokenString(TOKENTYPE_IDENTIFIER, "or")
+			left = new BinaryOperationNode(llocation, BINARYOPERATION_LOGICALOR, left, parseLogicalOr())
+		end
+		return left
 		
 		
 		
