@@ -400,8 +400,20 @@ class Parser
 		block parseTerm()
 			tlocation = location(tokens, position)
 			if matchToken(TOKENTYPE_CHAR)
-				return new CharNode(tlocation, expectToken())
-			elif
+				return new CharNode(tlocation, expectToken(TOKENTYPE_CHAR).getValue())
+			elif matchToken(TOKENTYPE_INTEGER)
+				return new FloatNode(tlocation, expectToken(TOKENTYPE_FLOAT).getValue())
+			elif matchToken(TOKENTYPE_STRING)
+				return new StringNode(tlocation, expectToken(TOKENTYPE_STRING).getValue())
+			elif matchToken(TOKENTYPE_OPENCURLYBRACE)
+				return new parseDictionaryDeclaration()
+			elif acceptToken(acceptToken(TOKENTYPE_OPENPARENTESES))
+				expr = parseExpression()
+				if (matchToken(TOKENTYPE_COMMA))
+					return parseTuple(expr)
+				end
+				expectToken(TOKENTYPE_CLOSEPARENTESE)
+				return expr
 			
 			
 			
