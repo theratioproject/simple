@@ -423,6 +423,11 @@ class Parser
 			elif matchTokenString(TOKENTYPE_IDENTIFIER, "new")
 				return parseExpression()
 			elif matchTokenString(TOKENTYPE_IDENTIFIER, "thread")
+				return parseThread()
+			elif position+1 < len(tokens)
+				if matchToken(TOKENTYPE_IDENTIFIER) and tokens[position+1].getTokenType() == TOKENTYPE_IDENTIFIER
+					return parseEnforcementAssignment()
+				
 			
 			
 			
