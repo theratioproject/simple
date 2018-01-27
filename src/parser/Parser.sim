@@ -321,7 +321,7 @@ class Parser
 				default break
 			end
 		end
-		return left
+		return left 
 		
 	
 		
