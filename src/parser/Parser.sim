@@ -427,7 +427,10 @@ class Parser
 			elif position+1 < len(tokens)
 				if matchToken(TOKENTYPE_IDENTIFIER) and tokens[position+1].getTokenType() == TOKENTYPE_IDENTIFIER
 					return parseEnforcementAssignment()
-				
+				elif matchToken(TOKENTYPE_IDENTIFIER)
+					return new IdentifierNode(tlocation, expectToken, expectToken(TOKENTYPE_IDENTIFIER).getValue())
+				end
+			elif matchToken(TOKENTYPE_IDENTIFIER)
 			
 			
 			
