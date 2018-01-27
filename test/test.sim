@@ -3,9 +3,9 @@
 class ade  #: hello, world, it, holla
 class dude
 	
-#parse do
+/*parse do
 do {
 
 } while num < 10
-
+*/
  

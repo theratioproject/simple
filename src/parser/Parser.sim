@@ -87,6 +87,7 @@ class Parser
 		if matchToken(TOKENTYPE_OPENCURLYBRACE)
 			return parseCodeBlockNode()
 		else
+			println("PARSING : "+tokens[position].getValue())
 			return parseExpressionStatement()
 		end
 		
