@@ -153,7 +153,8 @@ class Parser
 		end
 		throwScannerException(location(tokens, position), "Expected token of type '"+getTokenTypeValue(tokenType)+"' with value '"+value+"', But got token of type '"+getTokenTypeValue(tokens[position].getTokenType())+"' with value '"+tokens[position].getValue()+"'", UNEXPECTED_TOKEN_TYPE)
 	
-	
+	block parseExpressionStatement()
+		
 	
 	
 	
