@@ -285,11 +285,14 @@ class Parser
 			
 		block parseAnd()
 			alocation = location(tokens, position)
-			left = parseXor()
+			left = parseBitshift()
 			while acceptTokenString(TOKENTYPE_OPERATION, "&")
-				left = new BinaryOperationNode(alocation, BINARYOPERATION_BITWISEOR, left, parseOr())
+				left = new BinaryOperationNode(alocation, BINARYOPERATION_BITWISEAND, left, parseAnd())
 			end
 			return left
+			
+		block parseBitshift()
+			blocation = location(tokens, position)
 		
 		
 		
