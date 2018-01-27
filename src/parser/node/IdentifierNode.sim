@@ -22,6 +22,8 @@ class IdentifierNode : Node
 	
 	block visitChildren(visitor)
 		
+	block getType()
+		return "identifier_node"
 		
 	
 	
