@@ -275,15 +275,21 @@ class Parser
 			end
 			return left
 			
-		block parseXOr()
+		block parseXor()
 			xlocation = location(tokens, position)
 			left = parseAnd()
 			while acceptTokenString(TOKENTYPE_OPERATION, "^")
-				left = new BinaryOperationNode(xlocation, BINARYOPERATION_BITWISEOR, left, parseOr())
+				left = new BinaryOperationNode(xlocation, BINARYOPERATION_BITWISEXOR, left, parseXor())
 			end
 			return left
 			
-		
+		block parseAnd()
+			alocation = location(tokens, position)
+			left = parseXor()
+			while acceptTokenString(TOKENTYPE_OPERATION, "&")
+				left = new BinaryOperationNode(alocation, BINARYOPERATION_BITWISEOR, left, parseOr())
+			end
+			return left
 		
 		
 		
