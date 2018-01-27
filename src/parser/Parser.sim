@@ -361,6 +361,18 @@ class Parser
 				case "~"
 					acceptToken(TOKENTYPE_OPERATION)
 					return new UnaryAccessNode(ulocation, parseUnary(), UNARYOPERATION_BITWISENOT)
+				case "!"
+					acceptToken(TOKENTYPE_OPERATION)
+					return new UnaryAccessNode(ulocation, parseUnary(), UNARYOPERATION_LOGICALNOT)
+				case "-"
+					acceptToken(TOKENTYPE_OPERATION)
+					return new UnaryAccessNode(ulocation, parseUnary(), UNARYOPERATION_NEGATE)
+				case "--"
+					acceptToken(TOKENTYPE_OPERATION)
+					return new UnaryAccessNode(ulocation, parseUnary(), UNARYOPERATION_PREDECREMENT)
+				case "++"
+					acceptToken(TOKENTYPE_OPERATION)
+					return new UnaryAccessNode(ulocation, parseUnary(), UNARYOPERATION_PREINCREMENT)
 			end
 		end
 		return parseAccess()
