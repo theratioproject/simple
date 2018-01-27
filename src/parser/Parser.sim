@@ -414,6 +414,11 @@ class Parser
 				end
 				expectToken(TOKENTYPE_CLOSEPARENTESE)
 				return expr
+			elif matchToken(TOKENTYPE_SQUAREBRACE)
+				return parseListDeclaration()
+			elif acceptToken(TOKENTYPE_SEMICOLON)
+				return new CodeBlockNode(tlocation)
+			elif 
 			
 			
 			
