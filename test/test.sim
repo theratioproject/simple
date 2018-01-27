@@ -1,6 +1,6 @@
 
 #parse class
-class ade  #: hello, world, it, holla
+class ade  : hello, world, it, holla
 class dude
 	
 /*parse do
