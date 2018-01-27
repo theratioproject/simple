@@ -168,8 +168,8 @@ class Parser
 		return parseAssignment()
 			
 	block parseAssignment()
-		alocation = location(tokens, position)
-		left = parseTenary()
+		alocation = location(tokens, position)  
+		left = parseTenary() println("reach here : "+tokens[position].getValue())
 		if matchToken(TOKENTYPE_ASSIGNMENT)
 			switch tokens[position+2].getValue()
 				case '='
