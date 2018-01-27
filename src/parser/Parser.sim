@@ -157,6 +157,7 @@ class Parser
 		elocation = location(tokens, position)
 		expression = parseExpression()
 		acceptToken(TOKENTYPE_SEMICOLON)
+		if stringEquals(expression.getType(), "block_call_node") or stringEquals(expression.getType(), "binary_operation_node") or stringEquals(expression.getType(), "block_call_node")
 	
 	
 	
