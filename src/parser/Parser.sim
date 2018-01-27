@@ -203,7 +203,7 @@ class Parser
 		end
 		return left
 		
-	block parseEquality()
+	block parseEquality() 
 		elocation = location(tokens, position)
 		
 		
