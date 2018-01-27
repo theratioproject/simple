@@ -433,7 +433,7 @@ class Parser
 			elif matchToken(TOKENTYPE_IDENTIFIER)
 				return new IdentifierNode(tlocation, expectToken(TOKENTYPE_IDENTIFIER).getValue())
 			end
-			throwScannerException(location(tokens, position), "Expected token of type '"+getTokenTypeValue(tokenType)+"', But got token of type '"+getTokenTypeValue(tokens[position].getTokenType())+"' with value '"+tokens[position].getValue()+"'", UNEXPECTED_TOKEN_TYPE)
+			throwScannerException(location(tokens, position), "Unexpected token of type '"+getTokenTypeValue(tokenType)+"' with value '"+tokens[position].getValue()+"'", UNEXPECTED_TOKEN_TYPE)
 				
 			
 			
