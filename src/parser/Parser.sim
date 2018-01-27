@@ -377,6 +377,9 @@ class Parser
 		end
 		return parseAccess()
 		
+	block parseAccess()
+		return parseAccess(parseTerm())
+		
 		
 		
 		
