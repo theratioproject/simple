@@ -4,8 +4,8 @@ class ade  #: hello, world, it, holla
 class dude
 	
 #parse do
-do 
+do {
 
-while num < 10
+} while num < 10
 
  

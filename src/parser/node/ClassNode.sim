@@ -16,7 +16,7 @@ class ClassNode : Node
 	inherits = []
 
 	block ClassNode(location, iname, ibody, inherits)
-		sourceLocation = location
+		sourceLocation = location 
 		name = iname
 		body = ibody
 		inherits = inherits
