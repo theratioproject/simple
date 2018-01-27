@@ -154,7 +154,9 @@ class Parser
 		throwScannerException(location(tokens, position), "Expected token of type '"+getTokenTypeValue(tokenType)+"' with value '"+value+"', But got token of type '"+getTokenTypeValue(tokens[position].getTokenType())+"' with value '"+tokens[position].getValue()+"'", UNEXPECTED_TOKEN_TYPE)
 	
 	block parseExpressionStatement()
-		
+		elocation = location(tokens, position)
+		expression = parseExpression()
+		acceptToken(TOKENTYPE_SEMICOLON)
 	
 	
 	
