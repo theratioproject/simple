@@ -397,7 +397,27 @@ class Parser
 		end
 		return left
 		
-		block 
+		block parseTerm()
+			tlocation = location(tokens, position)
+			if matchToken(TOKENTYPE_CHAR)
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 		
 		
 		
