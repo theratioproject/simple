@@ -381,7 +381,12 @@ class Parser
 		return parseAccessTerm(parseTerm())
 	
 	block parseAccessTerm(left)
-		
+		alocation = location(tokens, position)
+		if matchToken(TOKENTYPE_OPENPARENTESES)
+			return parseAccess(new FunctionCallNode(alocation, left, parseArgumentList(), parseInitialAttributes()))
+		elif acceptToken(TOKENTYPE_OPENSQUAREBRACE)
+			index = parseExpression()
+			expectToken(TOKENTYPE_CLOSEQUAREBRACE)
 		
 		
 		
