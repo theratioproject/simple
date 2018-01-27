@@ -324,7 +324,15 @@ class Parser
 		return left 
 		
 	block parseMultiplicative()
-		location = location(tokens, position)
+		mlocation = location(tokens, position)
+		left = parseUnary()
+		while matchToken(TOKENTYPE_OPERATION)
+			switch tokens[position].getValue()
+				case '*'
+					acceptToken(TOKENTYPE_OPERATION)
+					return new BinaryOperationNode(mlocation, BINARYOPERATION_MULTIPLICATION, left, parseMultiplicative())
+			end
+		end
 		
 	
 		
