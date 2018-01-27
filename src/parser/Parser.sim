@@ -298,6 +298,10 @@ class Parser
 				switch tokens[position].getValue()
 					case "<<"
 						acceptToken(TOKENTYPE_OPERATION)
+						return new BinaryOperationNode(blocation, BINARYOPERATION_BITSHIFTLEFT, left, parseBitshiftLeft())
+					case "<<"
+						acceptToken(TOKENTYPE_OPERATION)
+						return new BinaryOperationNode(blocation, BINARYOPERATION_BITSHIFTRIGHT, left, parseBitshiftRight())
 					default break
 				end
 			end
