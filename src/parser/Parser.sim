@@ -355,8 +355,15 @@ class Parser
 		return left
 		
 	block parseUnary()
-		
-		
+		ulocation = location(tokens, position)
+		if matchToken(TOKENTYPE_OPERATION)
+			switch tokens[position].getValue()
+				case "~"
+					acceptToken(TOKENTYPE_OPERATION)
+					return new UnaryAccessNode(ulocation, parseUnary(), UNARYOPERATION_BITWISENOT)
+			end
+		end
+		return parseAccess()
 		
 		
 		
