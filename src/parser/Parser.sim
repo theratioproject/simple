@@ -158,8 +158,8 @@ class Parser
 	block parseExpressionStatement()
 		elocation = location(tokens, position)
 		expression = parseExpression()
-		acceptToken(TOKENTYPE_SEMICOLON)
-		if stringEquals(expression.getType(), "block_call_node") or stringEquals(expression.getType(), "binary_operation_node") or stringEquals(expression.getType(), "attribute_access_node") or stringEquals(expression.getType(), "unary_operation_node")
+		acceptToken(TOKENTYPE_SEMICOLON) println(expression.getType())
+		if stringEquals(expression.getType(), "block_call_node") 
 			return new ExpressionStatementNode(elocation, expression)
 		end
 		return expression
