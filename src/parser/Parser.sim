@@ -167,10 +167,11 @@ class Parser
 			
 	block parseAssignment()
 		alocation = location(tokens, position)
-		left = parseTenary()
+		#left = parseTenary()
 		if matchToken(TOKENTYPE_ASSIGNMENT)
 			switch tokens[position].getValue()
-		
+				case '='
+			end
 		end
 		
 		
