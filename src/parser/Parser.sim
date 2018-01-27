@@ -354,8 +354,8 @@ class Parser
 		end
 		return left
 		
-		block parseUnary()
-			return null
+	block parseUnary()
+		
 		
 		
 		
