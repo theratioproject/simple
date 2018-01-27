@@ -176,7 +176,8 @@ class Parser
 			end
 		end
 		
-	block parseTenary()	
+	block parseTenary()
+		tlocation = location(tokens, position)
 		
 		
 		
