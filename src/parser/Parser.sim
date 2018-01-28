@@ -70,7 +70,7 @@ class Parser
 		elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "for")
 			return parseFor()
 		elif -> acceptTokenString(TOKENTYPE_IDENTIFIER, "call")
-			println("it call") 
+			return parseCall()
 		elif -> acceptTokenString(TOKENTYPE_IDENTIFIER, "block")
 			println("it block") 
 		elif -> acceptTokenString(TOKENTYPE_IDENTIFIER, "if")
