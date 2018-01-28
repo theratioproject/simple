@@ -103,9 +103,8 @@ class Parser
 	#8
 	block parseClass()
 		clocation = location(tokens, position) inherits = []
-		name = expectToken(TOKENTYPE_IDENTIFIER).getValue()
+		name = expectToken(TOKENTYPE_IDENTIFIER).getValue() println("it got here : "+tokens[position++].getValue())
 		if -> acceptToken(TOKENTYPE_COLON) or acceptTokenString(TOKENTYPE_IDENTIFIER, "inherit")
-			println("it got here : "+tokens[position].getValue())
 			do {
 				express = parseExpression()
 				add(inherits, express)
@@ -151,7 +150,7 @@ class Parser
 		
 	block expectToken(tokenType)
 		if matchToken(tokenType)
-			ret = tokens[position] position++
+			ret = tokens[position] //position++
 			return ret
 		end
 		throwScannerException(location(tokens, position), "Expected token of type '"+getTokenTypeValue(tokenType)+"', But got token of type '"+getTokenTypeValue(tokens[position].getTokenType())+"' with value '"+tokens[position].getValue()+"'", UNEXPECTED_TOKEN_TYPE)
