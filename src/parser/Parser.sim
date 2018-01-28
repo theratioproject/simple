@@ -164,7 +164,7 @@ class Parser
 		expectTokenString(TOKENTYPE_IDENTIFIER, "for")
 		acceptToken(TOKENTYPE_OPENPARENTESES)
 		if matchToken(TOKENTYPE_IDENTIFIER) and stringEquals(tokens[position+1].getValue(), "in")
-			
+			println(" here foreach : "+tokens[position].getValue())
 		else
 			println(" here : "+tokens[position].getValue())
 			initStatement = parseStatement() 
