@@ -30,7 +30,7 @@ for n = 8 to 12
 block main()
 
 block main(me, you){
-	return null
+	
 }
 
 
