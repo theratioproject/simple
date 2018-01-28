@@ -12,7 +12,7 @@ class Dictionary
 	ilist = []
 	istring = []
 
-	block Dictionary(inte, strin)
+	block OldDictionary(inte, strin)
 		add(inte, strin)
 		
 	block add(inte, strin)
