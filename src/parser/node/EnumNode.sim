@@ -11,7 +11,7 @@ package simple.parser.node
 
 class DoWhileNode : Node
 
-	attributes = []
+	attributes = new Dictionary
 	name = ""
 
 	block DoWhileNode(location, iname)
