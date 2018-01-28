@@ -15,8 +15,9 @@ do {
 
 enum enume {
 
-name = 2,
-went = 3
+name = 2 ,
+went = 3 ,
+out = 9
 
 }
 
