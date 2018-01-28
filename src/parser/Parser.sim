@@ -460,7 +460,7 @@ class Parser
 				if (matchToken(TOKENTYPE_COMMA))
 					return parseTuple(expr)
 				end
-				expectToken(TOKENTYPE_CLOSEPARENTESE)
+				expectToken(TOKENTYPE_CLOSEPARENTESES)
 				return expr
 			elif matchToken(TOKENTYPE_OPENSQUAREBRACE)
 				return parseListDeclaration()
