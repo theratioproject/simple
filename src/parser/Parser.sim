@@ -231,7 +231,7 @@ class Parser
 				bparam = new BlockParameter(PARAMETERTYPE_ENFORCED, paramName, expr)
 				add(parameters, bparam)
 			else 
-				bparam = new BlockParameter(paramType, paramName)
+				bparam = new BlockParameter(paramType, paramName, null)
 				add(parameters, bparam)
 			end
 			acceptToken(TOKENTYPE_COMMA)
