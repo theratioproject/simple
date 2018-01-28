@@ -25,7 +25,12 @@ class BlockNode : Node
 		println(toString())
 		
 	block toString()
-		
+		str = "block "+name+" ("
+		for a = 0 to len(parameters)
+			switch parameters[a].getParameterType()
+			
+			end
+		end
 		
 	block visit(visitor)
 		visitor.accept(this)
