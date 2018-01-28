@@ -12,7 +12,9 @@ PARAMETERTYPE_NORMAL = 1
 PARAMETERTYPE_VARIADIC = 2
 
 block getParameterTypeValue(type)
-	if type == 
+	if type == PARAMETERTYPE_ENFORCED
+		return "Normal"
+	end
 
 class BlockParameter
 
