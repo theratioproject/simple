@@ -481,7 +481,8 @@ class Parser
 					return new IdentifierNode(tlocation, rett.getValue())
 				end
 			elif matchToken(TOKENTYPE_IDENTIFIER)
-				return new IdentifierNode(tlocation, expectToken(TOKENTYPE_IDENTIFIER).getValue())
+				exptk = expectToken(TOKENTYPE_IDENTIFIER)
+				return new IdentifierNode(tlocation, exptk.getValue())
 			end
 			throwScannerException(location(tokens, position), "Unexpected token of type '"+getTokenTypeValue(tokens[position].getTokenType())+"' with value '"+tokens[position].getValue()+"'", UNEXPECTED_TOKEN_TYPE)
 				
