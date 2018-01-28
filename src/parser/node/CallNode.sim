@@ -9,13 +9,13 @@ call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\Node.sim" ->
 
 package simple.parser.node
 
-class ForEachNode : Node
+class CallNode : Node
 
 	variable = ""
 	expression = null
 	body = null
 
-	block ForEachNode(location, ivariable, iexpression, ibody)
+	block CallNode(location, ivariable, iexpression, ibody)
 		sourceLocation = location 
 		variable = ivariable
 		expression = iexpression
