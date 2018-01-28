@@ -30,7 +30,13 @@ class BlockNode : Node
 		str = "block "+name+" ("
 		for a = 0 to len(parameters)
 			switch parameters[a].getParameterType()
-				case 
+				case PARAMETERTYPE_ENFORCED
+				
+				case PARAMETERTYPE_NORMAL
+				
+				case PARAMETERTYPE_VARIADIC
+				
+				default break
 			end
 		end
 		
