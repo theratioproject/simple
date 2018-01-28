@@ -236,7 +236,8 @@ class Parser
 		end
 		if acceptToken(TOKENTYPE_COLON)
 			bexpr = parseExpression()
-			return new BlockNode(blocation, name, parameters, bexpr, )
+			bstmt = parseStatement()
+			return new BlockNode(blocation, name, parameters, bexpr, bstmt)
 		end
 		
 		
