@@ -37,6 +37,8 @@ call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\CallNod
 
 call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\BlockParameter.sim"
 
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\BlockNode.sim"
+
 package simple.parser
 
 class Parser 

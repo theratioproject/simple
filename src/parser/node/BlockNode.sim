@@ -27,6 +27,8 @@ class BlockNode : Node
 		visitor.accept(this)
 	
 	block visitChildren(visitor)
+		body.visit(visitor)
+		enforcedReturn.visit(visitor)
 		
 	block getType()
 		return "block_node"	
