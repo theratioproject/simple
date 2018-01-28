@@ -19,6 +19,8 @@ UNEXPECTED_TOKEN_TYPE = 004
 
 UNEXPECTED_TOKEN_VALUE = 005
 
+UNEXPECTED_END_OF_SOURCE = 006
+
 #3
 block getErrorValue(val)
 	if -> val == INVALID_NUMBER
@@ -33,6 +35,8 @@ block getErrorValue(val)
 		return "PARSER ERROR (C"+val+") - UNEXPECTED TOKEN DETECTED"
 	elif -> val == UNEXPECTED_TOKEN_VALUE
 		return "PARSER ERROR (C"+val+") - UNEXPECTED TOKEN VALUE DETECTED"
+	elif -> val == UNEXPECTED_END_OF_SOURCE
+		return "PARSER ERROR (C"+val+") - UNEXPECTED END OF SOURCE CODE"
 	else
 		return "UNKNOWN ERROR"
 	end
