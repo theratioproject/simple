@@ -168,6 +168,11 @@ class Parser
 			acceptToken(TOKENTYPE_SEMICOLON)
 			condition = parseExpression()
 			acceptToken(TOKENTYPE_SEMICOLON)
+			repeatStatement = parseStatement()
+			acceptToken(TOKENTYPE_SEMICOLON)
+			acceptToken(TOKENTYPE_CLOSEPARENTESES)
+			body = parseStatement()
+			return new ForNode(flocation, initStatement, condition, repeatStatement, body)
 		end
 		
 	#4
