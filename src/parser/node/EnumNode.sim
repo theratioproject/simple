@@ -29,6 +29,9 @@ class EnumNode : Node
 	block getAttributes()
 		return attributes
 		
+	block addAttribute(num, attrib)
+		attributes.add(num, attrib)
+		
 	block getType()
 		return "do_while_node"
 		
