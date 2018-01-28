@@ -11,7 +11,10 @@ package simple.parser.node
 
 class ForNode : Node
 
-	str = ""
+	type = "for_node"
+	variable = ""
+	expression = null
+	body = null
 
 	block ForNode(location, istr)
 		sourceLocation = location 
@@ -23,7 +26,10 @@ class ForNode : Node
 	block visitChildren(visitor)
 		
 	block getType()
-		return "for_node"
+		return type
+		
+	block setType(itype)
+		type = itype
 		
 	
 	
