@@ -188,6 +188,7 @@ class Parser
 		
 	block parseCall()
 		clocation = location(tokens, position)
+		expectTokenString(TOKENTYPE_IDENTIFIER, "call")
 		
 	#4
 	block acceptToken(tokenType)
