@@ -35,6 +35,8 @@ call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\ForEach
 
 call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\CallNode.sim"
 
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\ParameterNode.sim"
+
 package simple.parser
 
 class Parser 
