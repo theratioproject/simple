@@ -212,6 +212,8 @@ class Parser
 			return new CallNode(clocation, modulePath)
 		end
 		
+	block parseBlock()
+		
 		
 	#4
 	block acceptToken(tokenType)
