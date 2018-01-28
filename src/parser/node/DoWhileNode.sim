@@ -9,22 +9,25 @@ call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\Node.sim" ->
 
 package simple.parser.node
 
-class ExpressionStatementNode : Node
+class DoWhileNode : Node
 
-	expression = null
+	condition = null 
+	body = null
 
-	block ExpressionStatementNode(location, iexpression)
+	block DoWhileNode(location, icondition, ibody)
 		sourceLocation = location 
-		expression = iexpression
+		condition = icondition
+		body = ibody
 		
 	block visit(visitor)
 		visitor.accept(this)
 	
 	block visitChildren(visitor)
-		expression.visit(visitor)
+		condition.visit(visitor)
+		body.visit(visitor)
 		
 	block getType()
-		return "expression_statement_node"
+		return "do_while_node"
 		
 	
 	
