@@ -30,7 +30,7 @@ class EnumNode : Node
 		return attributes
 		
 	block addAttribute(num, attrib)
-		attributes.add(num, attrib)
+		attributes.addValue(num, attrib)
 		
 	block getType()
 		return "do_while_node"
