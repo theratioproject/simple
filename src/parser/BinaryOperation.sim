@@ -4,3 +4,14 @@
 	MIT License Copyright (c) 2018 simple 
 
 */
+
+package simple.parser
+
+BINARYOPERATION_ADDITION = 0
+
+BINARYOPERATION_ASSIGNMENT = 1
+
+BINARYOPERATION_BITSHIFTLEFT = 3
+
+
+
