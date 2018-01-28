@@ -33,6 +33,8 @@ call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\ForNode
 
 call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\ForEachNode.sim"
 
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\CallNode.sim"
+
 package simple.parser
 
 class Parser 
