@@ -9,14 +9,14 @@ call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\Node.sim" ->
 
 package simple.parser.node
 
-class ForNode : Node
+class ForEachNode : Node
 
 	initStatement = null
 	condition = null
 	repeatStatement = null
 	body = null
 
-	block ForNode(location, iinitStatement, icondition, irepeatStatement, ibody)
+	block ForEachNode(location, iinitStatement, icondition, irepeatStatement, ibody)
 		sourceLocation = location 
 		initStatement = iinitStatement
 		condition = icondition
