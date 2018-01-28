@@ -45,9 +45,9 @@ class BlockNode : Node
 		end
 		str += ")"
 		
-		if enforcedReturn != null
+		#if enforcedReturn == null
 			str += " : "+enforcedReturn.getIdentifier()
-		end
+		#end
 		return str
 		
 	block visit(visitor)

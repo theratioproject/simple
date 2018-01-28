@@ -26,6 +26,9 @@ class BlockParameter
 	block getParameterType()
 		return paramType
 		
+	block getName()
+		return name
+		
 	block getType()
 		return "parameter_node"	
 	
