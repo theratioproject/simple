@@ -137,7 +137,10 @@ class Parser
 		return new DoWhileNode(dlocation, condition, body)
 		
 	block parseEnum()
-		
+		elocation = location(tokens, position)
+		expectTokenString(TOKENTYPE_IDENTIFIER, "enum")
+		name = expectToken(TOKENTYPE_IDENTIFIER).getValue()
+		enumno = new EnumNode(elocation, name)
 		
 	#4
 	block acceptToken(tokenType)
