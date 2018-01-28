@@ -14,9 +14,6 @@ fi /= 5
 si %= 6
 se << 7
 ei >> 8
-ni &= 9
-te |= 10
-el ^= 11
 
 /*name = me = you = we = 20
 

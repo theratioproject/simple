@@ -327,8 +327,8 @@ class Parser
 	block parseAnd()
 		alocation = location(tokens, position)
 		left = parseBitshift()
-		while acceptTokenString(TOKENTYPE_OPERATION, "&")
-			left = new BinaryOperationNode(alocation, BINARYOPERATION_BITWISEAND, left, parseAnd())
+		while acceptTokenString(TOKENTYPE_OPERATION, "&") pand = parseAnd()
+			left = new BinaryOperationNode(alocation, BINARYOPERATION_BITWISEAND, left, pand)
 		end
 		return left
 		
