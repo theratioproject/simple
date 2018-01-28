@@ -29,9 +29,11 @@ for n = 8 to 12
 
 block main()
 
-block main(me, you){
+block main(me, you) : string {
 	
 }
+
+block maint(me : int, you : string)
 
 
 n = 60

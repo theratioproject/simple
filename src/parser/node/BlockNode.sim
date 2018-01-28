@@ -1,0 +1,27 @@
+
+/* 
+	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\Node.sim" -> simple.parser
+
+package simple.parser.node
+
+class CallNode : Node
+
+	module = ""
+
+	block CallNode(location, imodule)
+		sourceLocation = location 
+		module = imodule
+		
+	block visit(visitor)
+		visitor.accept(this)
+	
+	block visitChildren(visitor)
+		
+	block getType()
+		return "block_node"	
+	
