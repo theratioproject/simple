@@ -146,7 +146,14 @@ class Parser
 		while acceptToken(TOKENTYPE_CLOSECURLYBRACE) == false
 			num = count++
 			attrib = expectToken(TOKENTYPE_IDENTIFIER).getValue()
+			if acceptToken(TOKENTYPE_ASSIGNMENT)
+				expt = expectToken(TOKENTYPE_INTEGER).getValue()
+				num = toNumber(expt)
+			end
+			acceptToken(TOKENTYPE_COMMA)
+			add(enumno.getAttributes())
 		end
+		return enumno
 		
 	#4
 	block acceptToken(tokenType)
