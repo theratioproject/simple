@@ -224,7 +224,14 @@ class Parser
 				paramType = PARAMETERTYPE_VARIADIC
 			end
 			paramName = expectToken(TOKENTYPE_IDENTIFIER).getValue()
-			if 
+			if acceptToken(TOKENTYPE_COLON)
+				expr = parseExpression()
+				bparam = new BlockParameter(PARAMETERTYPE_ENFORCED, paramName, expr)
+				add(parameters, bparam)
+			else 
+				
+			end
+			acceptToken(TOKENTYPE_COMMA)
 		end
 		
 		
