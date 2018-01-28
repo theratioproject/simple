@@ -13,7 +13,11 @@ do {
 
 } while num < 10
 
-enum 
+enum enume {
+
+
+
+}
 
 #println("reach here : "+tokens[position+1].getValue())
  
