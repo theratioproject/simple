@@ -11,19 +11,20 @@ package simple.parser.node
 
 class ExpressionStatementNode : Node
 
-	integer = 0
+	expression = null
 
-	block ExpressionStatementNode(location, iint)
+	block ExpressionStatementNode(location, iexpression)
 		sourceLocation = location 
-		integer = toNumber(iint)
+		expression = iexpression
 		
 	block visit(visitor)
 		visitor.accept(this)
 	
 	block visitChildren(visitor)
+		expression.visit(visitor)
 		
 	block getType()
-		return "integer_node"
+		return "expression_statement_node"
 		
 	
 	
