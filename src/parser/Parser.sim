@@ -177,34 +177,35 @@ class Parser
 					return new BinaryOperationNode(alocation, BINARYOPERATION_ASSIGNMENT, left, parseAssignment())
 				case '+='
 					acceptToken(TOKENTYPE_ASSIGNMENT)
-					return new BinaryOperationNode(alocation, BINARYOPERATION_ASSIGNMENT, left, parseAssignment())
+					return new BinaryOperationNode(alocation, BINARYOPERATION_ASSIGNMENT, left, new BinaryOperationNode(alocation, BINARYOPERATION_ADDITION, left, parseAssignment()))
 				case '-='
 					acceptToken(TOKENTYPE_ASSIGNMENT)
-					return new BinaryOperationNode(alocation, BINARYOPERATION_ASSIGNMENT, left, parseAssignment())
+					return new BinaryOperationNode(alocation, BINARYOPERATION_ASSIGNMENT, left,  new BinaryOperationNode(alocation, BINARYOPERATION_SUBTRACTION, left, parseAssignment()))
 				case '*='
 					acceptToken(TOKENTYPE_ASSIGNMENT)
-					return new BinaryOperationNode(alocation, BINARYOPERATION_ASSIGNMENT, left, parseAssignment())
+					return new BinaryOperationNode(alocation, BINARYOPERATION_ASSIGNMENT, left,  new BinaryOperationNode(alocation, BINARYOPERATION_MULTIPLICATION, left, parseAssignment()))
 				case '/='
 					acceptToken(TOKENTYPE_ASSIGNMENT)
-					return new BinaryOperationNode(alocation, BINARYOPERATION_ASSIGNMENT, left, parseAssignment())
+					return new BinaryOperationNode(alocation, BINARYOPERATION_ASSIGNMENT, left,  new BinaryOperationNode(alocation, BINARYOPERATION_DIVISION, left, parseAssignment()))
 				case '%='
 					acceptToken(TOKENTYPE_ASSIGNMENT)
-					return new BinaryOperationNode(alocation, BINARYOPERATION_ASSIGNMENT, left, parseAssignment())
+					return new BinaryOperationNode(alocation, BINARYOPERATION_ASSIGNMENT, left,  new BinaryOperationNode(alocation, BINARYOPERATION_MODULUS, left, parseAssignment()))
 				case '<<='
 					acceptToken(TOKENTYPE_ASSIGNMENT)
-					return new BinaryOperationNode(alocation, BINARYOPERATION_ASSIGNMENT, left, parseAssignment())
+					return new BinaryOperationNode(alocation, BINARYOPERATION_ASSIGNMENT, left,  new BinaryOperationNode(alocation, BINARYOPERATION_BITSHIFTLEFT, left, parseAssignment()))
 				case '>>='
 					acceptToken(TOKENTYPE_ASSIGNMENT)
-					return new BinaryOperationNode(alocation, BINARYOPERATION_ASSIGNMENT, left, parseAssignment())
+					return new BinaryOperationNode(alocation, BINARYOPERATION_ASSIGNMENT, left,  new BinaryOperationNode(alocation, BINARYOPERATION_BITSHIFTRIGHT, left, parseAssignment()))
 				case '&='
 					acceptToken(TOKENTYPE_ASSIGNMENT)
-					return new BinaryOperationNode(alocation, BINARYOPERATION_ASSIGNMENT, left, parseAssignment())
+					return new BinaryOperationNode(alocation, BINARYOPERATION_LOGICALAND, left, parseAssignment())
 				case '|='
 					acceptToken(TOKENTYPE_ASSIGNMENT)
-					return new BinaryOperationNode(alocation, BINARYOPERATION_ASSIGNMENT, left, parseAssignment())
+					return new BinaryOperationNode(alocation, BINARYOPERATION_LOGICALAND, left, parseAssignment())
 				case '^='
 					acceptToken(TOKENTYPE_ASSIGNMENT)
-					return new BinaryOperationNode(alocation, BINARYOPERATION_ASSIGNMENT, left, parseAssignment())
+					return new BinaryOperationNode(alocation, BINARYOPERATION_ASSIGNMENT, left,  new BinaryOperationNode(alocation, BINARYOPERATION_BITWISEXOR, left, parseAssignment()))
+				default break
 			end
 		end
 		return left
