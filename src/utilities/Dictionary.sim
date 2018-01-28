@@ -16,5 +16,4 @@ class Dictionary
 		add(inte, strin)
 		
 	block add(inte, strin)
-		add(ilist, inte)
-		add(istring, strin)
+		add(ilist, inte) add(istring, strin)
