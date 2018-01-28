@@ -213,6 +213,9 @@ class Parser
 		end
 		
 	block parseBlock()
+		blocation = location(tokens, position)
+		attached = expectTokenString(TOKENTYPE_IDENTIFIER, "block").attachedComment()
+		name expectToken(TOKENTYPE_IDENTIFIER).getValue()
 		
 		
 	#4
