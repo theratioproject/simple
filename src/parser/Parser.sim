@@ -165,10 +165,7 @@ class Parser
 		flocation = location(tokens, position)
 		expectTokenString(TOKENTYPE_IDENTIFIER, "for")
 		acceptToken(TOKENTYPE_OPENPARENTESES)
-		if matchToken(TOKENTYPE_IDENTIFIER) and stringEquals(tokens[position+1].getValue(), "in")
-			println(" here foreach : "+tokens[position].getValue())
-		else
-			#println(" here : "+tokens[position].getValue())
+		println(" here : "+tokens[position].getValue())
 			initStatement = parseStatement() 
 			acceptToken(TOKENTYPE_SEMICOLON)
 			condition = parseExpression()
@@ -178,7 +175,6 @@ class Parser
 			acceptToken(TOKENTYPE_CLOSEPARENTESES)
 			body = parseStatement()
 			return new ForNode(flocation, initStatement, condition, repeatStatement, body)
-		end
 		
 	#4
 	block acceptToken(tokenType)
