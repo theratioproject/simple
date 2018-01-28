@@ -11,9 +11,9 @@ package simple.parser.node
 
 class ForNode : Node
 
-	type = "for_node"
-	variable = ""
-	expression = null
+	initStatement = null
+	condition = null
+	repeatStatemetn = null
 	body = null
 
 	block ForNode(location, istr)
@@ -26,12 +26,7 @@ class ForNode : Node
 	block visitChildren(visitor)
 		
 	block getType()
-		return type
-		
-	block setType(itype)
-		type = itype
-		
-	
+		return "for_node"	
 	
 /**
 
