@@ -58,7 +58,7 @@ class Parser
 		elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "do")
 			return parseDoWhile() 
 		elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "enum")
-			println("it enum") 
+			return parseEnum()
 		elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "for")
 			println("it for") 
 		elif -> acceptTokenString(TOKENTYPE_IDENTIFIER, "call")
@@ -135,6 +135,9 @@ class Parser
 		expectTokenString(TOKENTYPE_IDENTIFIER, "while")
 		condition = parseStatement()
 		return new DoWhileNode(dlocation, condition, body)
+		
+	block parseEnum()
+		
 		
 	#4
 	block acceptToken(tokenType)
