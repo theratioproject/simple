@@ -168,6 +168,10 @@ class Parser
 		if matchToken(TOKENTYPE_IDENTIFIER) and stringEquals(tokens[position+1].getValue(), "in")
 			variable = expectToken(TOKENTYPE_IDENTIFIER).getValue()
 			expectTokenString(TOKENTYPE_IDENTIFIER, "in")
+			expression = parseExpression()
+			acceptToken(TOKENTYPE_CLOSEPARENTESES)
+			body = parseStatement()
+			return new ForEachNode(flocation, variable, expression, body)
 		else
 			initStatement = parseStatement() 
 			acceptToken(TOKENTYPE_SEMICOLON)

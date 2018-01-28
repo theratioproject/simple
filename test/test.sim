@@ -1,6 +1,7 @@
 
 
 name = me = you = we = 20
+in = "inner"
 
 #parse class
 class ade  : hello, world, it, holla 
