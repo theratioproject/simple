@@ -10,12 +10,14 @@ package simple.parser.node
 class ParameterNode 
 
 	name = ""
+	paramType = null
 	type = null
 	enforcedType = null
 
-	block ParameterNode(location, imodule)
-		sourceLocation = location 
-		module = imodule
+	block ParameterNode(iparamType, iname, itype)
+		name = iname
+		paramType = iparamType
+		type = itype
 		
 	block visit(visitor)
 		visitor.accept(this)
@@ -23,7 +25,7 @@ class ParameterNode
 	block visitChildren(visitor)
 		
 	block getType()
-		return "call_node"	
+		return "parameter_node"	
 	
 /**
 
