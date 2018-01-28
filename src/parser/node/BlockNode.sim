@@ -46,7 +46,7 @@ class BlockNode : Node
 		str += ")"
 		
 		#if enforcedReturn == null
-			str += " : "+enforcedReturn.getIdentifier()
+			#str += " : "+enforcedReturn.getIdentifier()
 		#end
 		return str
 		
