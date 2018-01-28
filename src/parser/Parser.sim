@@ -370,26 +370,26 @@ class Parser
 		while matchToken(TOKENTYPE_OPERATION)
 			switch tokens[position].getValue()
 				case '*'
-					acceptToken(TOKENTYPE_OPERATION)
-					return new BinaryOperationNode(mlocation, BINARYOPERATION_MULTIPLICATION, left, parseMultiplicative())
+					acceptToken(TOKENTYPE_OPERATION) mult = parseMultiplicative()
+					return new BinaryOperationNode(mlocation, BINARYOPERATION_MULTIPLICATION, left, mult)
 				case '/'
-					acceptToken(TOKENTYPE_OPERATION)
-					return new BinaryOperationNode(mlocation, BINARYOPERATION_DIVISION, left, parseMultiplicative())
+					acceptToken(TOKENTYPE_OPERATION) mult = parseMultiplicative()
+					return new BinaryOperationNode(mlocation, BINARYOPERATION_DIVISION, left, mult)
 				case '%'
-					acceptToken(TOKENTYPE_OPERATION)
-					return new BinaryOperationNode(mlocation, BINARYOPERATION_MODULUS, left, parseMultiplicative())
+					acceptToken(TOKENTYPE_OPERATION) mult = parseMultiplicative()
+					return new BinaryOperationNode(mlocation, BINARYOPERATION_MODULUS, left, mult)
 				case '**'
-					acceptToken(TOKENTYPE_OPERATION)
-					return new BinaryOperationNode(mlocation, BINARYOPERATION_POWER, left, parseMultiplicative())
+					acceptToken(TOKENTYPE_OPERATION) mult = parseMultiplicative()
+					return new BinaryOperationNode(mlocation, BINARYOPERATION_POWER, left, mult)
 				case '//'
-					acceptToken(TOKENTYPE_OPERATION)
-					return new BinaryOperationNode(mlocation, BINARYOPERATION_INTEGERDIVISION, left, parseMultiplicative())
+					acceptToken(TOKENTYPE_OPERATION) mult = parseMultiplicative()
+					return new BinaryOperationNode(mlocation, BINARYOPERATION_INTEGERDIVISION, left, mult)
 				case '??'
-					acceptToken(TOKENTYPE_OPERATION)
-					return new BinaryOperationNode(mlocation, BINARYOPERATION_NULLCOALESCING, left, parseMultiplicative())
+					acceptToken(TOKENTYPE_OPERATION) mult = parseMultiplicative()
+					return new BinaryOperationNode(mlocation, BINARYOPERATION_NULLCOALESCING, left, mult)
 				case 'is'
-					acceptToken(TOKENTYPE_OPERATION)
-					return new BinaryOperationNode(mlocation, BINARYOPERATION_IS, left, parseMultiplicative())
+					acceptToken(TOKENTYPE_OPERATION) mult = parseMultiplicative()
+					return new BinaryOperationNode(mlocation, BINARYOPERATION_IS, left, mult)
 				default break
 			end
 		end
