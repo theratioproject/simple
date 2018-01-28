@@ -14,17 +14,17 @@ class DoWhileNode : Node
 	attributes = null
 	name = ""
 
-	block DoWhileNode(location, icondition, ibody)
+	block DoWhileNode(location, iname)
 		sourceLocation = location 
-		condition = icondition
-		body = ibody
+		name = iname
 		
 	block visit(visitor)
 		visitor.accept(this)
 	
 	block visitChildren(visitor)
-		condition.visit(visitor)
-		body.visit(visitor)
+	
+	block getAttributes()
+		return attributes
 		
 	block getType()
 		return "do_while_node"
