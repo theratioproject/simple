@@ -27,7 +27,7 @@ class BlockNode : Node
 		println(toString())
 		
 	block toString()
-		str = "block "+name+" ("
+		str = "block "+name+"("
 		for a = 0 to len(parameters)
 			switch parameters[a].getParameterType()
 				case PARAMETERTYPE_ENFORCED
@@ -37,7 +37,7 @@ class BlockNode : Node
 					str += parameters[a].getName()+", "
 				case PARAMETERTYPE_VARIADIC
 					str += "params "+parameters[a].getName()+", "
-				default break
+				#default break
 			end
 		end
 		if len(parameters) > 0
