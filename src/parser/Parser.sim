@@ -175,6 +175,30 @@ class Parser
 				case '='
 					acceptToken(TOKENTYPE_ASSIGNMENT)
 					return new BinaryOperationNode(alocation, BINARYOPERATION_ASSIGNMENT, left, parseAssignment())
+				case '+='
+					acceptToken(TOKENTYPE_ASSIGNMENT)
+					return new BinaryOperationNode(alocation, BINARYOPERATION_ASSIGNMENT, left, parseAssignment())
+				case '='
+					acceptToken(TOKENTYPE_ASSIGNMENT)
+					return new BinaryOperationNode(alocation, BINARYOPERATION_ASSIGNMENT, left, parseAssignment())
+				case '='
+					acceptToken(TOKENTYPE_ASSIGNMENT)
+					return new BinaryOperationNode(alocation, BINARYOPERATION_ASSIGNMENT, left, parseAssignment())
+				case '='
+					acceptToken(TOKENTYPE_ASSIGNMENT)
+					return new BinaryOperationNode(alocation, BINARYOPERATION_ASSIGNMENT, left, parseAssignment())
+				case '='
+					acceptToken(TOKENTYPE_ASSIGNMENT)
+					return new BinaryOperationNode(alocation, BINARYOPERATION_ASSIGNMENT, left, parseAssignment())
+				case '='
+					acceptToken(TOKENTYPE_ASSIGNMENT)
+					return new BinaryOperationNode(alocation, BINARYOPERATION_ASSIGNMENT, left, parseAssignment())
+				case '='
+					acceptToken(TOKENTYPE_ASSIGNMENT)
+					return new BinaryOperationNode(alocation, BINARYOPERATION_ASSIGNMENT, left, parseAssignment())
+				case '='
+					acceptToken(TOKENTYPE_ASSIGNMENT)
+					return new BinaryOperationNode(alocation, BINARYOPERATION_ASSIGNMENT, left, parseAssignment())
 			end
 		end
 		
