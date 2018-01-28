@@ -1,24 +1,9 @@
 
-on = 1
-1 - 1
-2 + 2
-3 / 1
-4 * 4
-10 % 2
 
-
-tw += 2 
-th -= 3 
-fo *= 4
-fi /= 5
-si %= 6
-se << 7
-ei >> 8
-
-/*name = me = you = we = 20
+name = me = you = we = 20
 
 #parse class
-class ade  : hello, world, it, holla
+/*class ade  : hello, world, it, holla
 class dude
 	
 parse do
