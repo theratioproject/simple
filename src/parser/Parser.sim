@@ -207,6 +207,7 @@ class Parser
 					return new BinaryOperationNode(alocation, BINARYOPERATION_ASSIGNMENT, left, parseAssignment())
 			end
 		end
+		return left
 		
 	block parseTenary()
 		tlocation = location(tokens, position)
