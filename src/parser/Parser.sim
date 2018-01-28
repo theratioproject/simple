@@ -229,9 +229,13 @@ class Parser
 				bparam = new BlockParameter(PARAMETERTYPE_ENFORCED, paramName, expr)
 				add(parameters, bparam)
 			else 
-				
+				bparam = new FunctionParameter(paramType, paramName)
+				add(parameters, bparam)
 			end
 			acceptToken(TOKENTYPE_COMMA)
+		end
+		if acceptToken(TOKENTYPE_COLON)
+			return 
 		end
 		
 		
