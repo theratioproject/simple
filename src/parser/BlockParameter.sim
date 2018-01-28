@@ -11,14 +11,14 @@ PARAMETERTYPE_ENFORCED = 0
 PARAMETERTYPE_NORMAL = 1
 PARAMETERTYPE_VARIADIC = 2
 
-class ParameterNode 
+class BlockParameter
 
 	name = ""
 	paramType = null
 	type = null
 	enforcedType = null
 
-	block ParameterNode(iparamType, iname, itype)
+	block BlockParameter(iparamType, iname, itype)
 		name = iname
 		paramType = iparamType
 		type = itype
