@@ -5,3 +5,10 @@
 
 */
 
+package simple.utilities
+
+class Dictionary
+
+	block Dictionary(inte, strin)
+		
+	block add(inte, strin)
