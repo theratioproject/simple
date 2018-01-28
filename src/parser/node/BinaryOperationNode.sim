@@ -9,9 +9,10 @@ call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\Node.sim" ->
 
 package simple.parser.node
 
-class IdentifierNode : Node
+class BinaryOperationNode : Node
 
-	identifier = ""
+	binaryOperation = null
+	left = null right = null
 
 	block IdentifierNode(location, iidentifier)
 		sourceLocation = location 
@@ -23,7 +24,7 @@ class IdentifierNode : Node
 	block visitChildren(visitor)
 		
 	block getType()
-		return "identifier_node"
+		return "binary_operation_node"
 		
 	
 	
