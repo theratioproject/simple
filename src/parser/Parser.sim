@@ -27,6 +27,8 @@ call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\DoWhile
 
 call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\EnumNode.sim"
 
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\StringNode.sim"
+
 package simple.parser
 
 class Parser 

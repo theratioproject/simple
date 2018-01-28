@@ -7,8 +7,6 @@
 
 call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\Node.sim" -> simple.parser
 
-call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\utilities\Dictionary.sim" -> simple.utilities
-
 package simple.parser.node
 
 class StringNode : Node
