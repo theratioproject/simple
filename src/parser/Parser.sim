@@ -200,7 +200,10 @@ class Parser
 				modulePath += tokens[position++].getValue()
 			end
 			do {
-			
+				modulePath += expectToken(TOKENTYPE_IDENTIFIER).getValue()
+				if matchToken(TOKENTYPE_DOT) or matchTokenString(TOKENTYPE_OPERATION, "/")
+					modulePath += "/"
+				end
 			} while matchToken(TOKENTYPE_DOT) or matchTokenString(TOKENTYPE_OPERATION, "/")
 			println("CALL : "+modulePath)
 		end
