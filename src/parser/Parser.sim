@@ -115,6 +115,9 @@ class Parser
 		end
 		node = parseStatement() 
 		return new ClassNode(clocation, name, node, null)
+		
+	block parseCodeBlockNode()
+		
 	
 	#9
 	block parseDoWhile()
