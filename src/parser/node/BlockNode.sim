@@ -9,11 +9,11 @@ call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\Node.sim" ->
 
 package simple.parser.node
 
-class CallNode : Node
+class BlockNode : Node
 
 	module = ""
 
-	block CallNode(location, imodule)
+	block BlockNode(location, imodule)
 		sourceLocation = location 
 		module = imodule
 		
