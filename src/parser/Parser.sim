@@ -162,9 +162,12 @@ class Parser
 		expectTokenString(TOKENTYPE_IDENTIFIER, "for")
 		acceptToken(TOKENTYPE_OPENPARENTESES)
 		if matchToken(TOKENTYPE_IDENTIFIER)
-		
+			
 		else
-		
+			initStatement = parseStatement()
+			acceptToken(TOKENTYPE_SEMICOLON)
+			condition = parseExpression()
+			acceptToken(TOKENTYPE_SEMICOLON)
 		end
 		
 	#4
