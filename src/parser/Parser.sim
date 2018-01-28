@@ -189,10 +189,11 @@ class Parser
 	block parseCall()
 		clocation = location(tokens, position)
 		expectTokenString(TOKENTYPE_IDENTIFIER, "call")
-		first = ""
 		if matchToken(TOKENTYPE_STRING)
-			println("CALL : "+tokens[position].getValue())
+			modulePath = expectToken(TOKENTYPE_STRING).getValue()
+			return new CallNode(clocation, modulePath)
 		end
+		println("CALL : "+tokens[position].getValue())
 		
 	#4
 	block acceptToken(tokenType)
