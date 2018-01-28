@@ -5,7 +5,7 @@
 
 */
 
-call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\BinaryOperation.sim"
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\BinaryOperation.sim" -> simple.parser
 
 call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\CodeBlockNode.sim" -> simple.parser.node
 
@@ -177,8 +177,8 @@ class Parser
 		if matchToken(TOKENTYPE_ASSIGNMENT) 
 			switch tokens[position].getValue()
 				case '='
-					acceptToken(TOKENTYPE_ASSIGNMENT)
-					return new BinaryOperationNode(alocation, BINARYOPERATION_ASSIGNMENT, left, parseAssignment())
+					acceptToken(TOKENTYPE_ASSIGNMENT) ass = parseAssignment()
+					return new BinaryOperationNode(alocation, BINARYOPERATION_ASSIGNMENT, left, ass)
 				case '+='
 					acceptToken(TOKENTYPE_ASSIGNMENT)
 					return new BinaryOperationNode(alocation, BINARYOPERATION_ASSIGNMENT, left, new BinaryOperationNode(alocation, BINARYOPERATION_ADDITION, left, parseAssignment()))
