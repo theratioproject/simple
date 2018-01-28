@@ -31,11 +31,12 @@ class BlockNode : Node
 		for a = 0 to len(parameters)
 			switch parameters[a].getParameterType()
 				case PARAMETERTYPE_ENFORCED
-				
+					str += parameters[a].getName()+" : "
+					str += parameters[a].getParameterType()+", "
 				case PARAMETERTYPE_NORMAL
-				
+					str += parameters[a].getName()+", "
 				case PARAMETERTYPE_VARIADIC
-				
+					str += "params "+parameters[a].getName()+", "
 				default break
 			end
 		end
