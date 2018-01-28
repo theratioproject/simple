@@ -119,6 +119,11 @@ class Parser
 	block parseCodeBlockNode()
 		clocation = location(tokens, position)
 		expectToken(TOKENTYPE_OPENCURLYBRACE)
+		cblock = new CodeBlockNode(clocation)
+		while acceptToken(TOKENTYPE_CLOSECURLYBRACE) == false
+			add(cblock.getChildren(), parseStatement())
+		end
+		return cblock
 	
 	#9
 	block parseDoWhile()
