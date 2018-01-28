@@ -7,6 +7,8 @@
 
 call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\Node.sim" -> simple.parser
 
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\BlockParameter.sim"
+
 package simple.parser.node
 
 class BlockNode : Node
@@ -28,7 +30,7 @@ class BlockNode : Node
 		str = "block "+name+" ("
 		for a = 0 to len(parameters)
 			switch parameters[a].getParameterType()
-			
+				case 
 			end
 		end
 		

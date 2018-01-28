@@ -23,6 +23,9 @@ class BlockParameter
 		paramType = iparamType
 		type = itype
 		
+	block getParameterType()
+		return paramType
+		
 	block getType()
 		return "parameter_node"	
 	
