@@ -13,17 +13,24 @@ class ForNode : Node
 
 	initStatement = null
 	condition = null
-	repeatStatemetn = null
+	repeatStatement = null
 	body = null
 
-	block ForNode(location, istr)
+	block ForNode(location, iinitStatement, icondition, irepeatStatement, ibody)
 		sourceLocation = location 
-		str = istr
+		initStatement = iinitStatement
+		condition = icondition
+		repeatStatement = irepeatStatement
+		body = ibody
 		
 	block visit(visitor)
 		visitor.accept(this)
 	
 	block visitChildren(visitor)
+		initStatement.visit(visitor)
+		condition.visit(visitor)
+		repeatStatement.visit(visitor)
+		body.visit(visitor)
 		
 	block getType()
 		return "for_node"	

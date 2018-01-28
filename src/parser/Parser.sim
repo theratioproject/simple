@@ -29,6 +29,8 @@ call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\EnumNod
 
 call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\StringNode.sim"
 
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\ForNode.sim"
+
 package simple.parser
 
 class Parser 
