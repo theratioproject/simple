@@ -1,4 +1,5 @@
 
+call "binaryopstest.sim"
 
 name = me = you = we = 20
 in = "inner"
