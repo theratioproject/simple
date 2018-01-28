@@ -14,7 +14,7 @@ class BinaryOperationNode : Node
 	binaryOperation = null
 	left = null right = null
 
-	block IdentifierNode(location, ibinaryOperation, ileft, iright)
+	block BinaryOperationNode(location, ibinaryOperation, ileft, iright)
 		sourceLocation = location 
 		binaryOperation = ibinaryOperation
 		right = iright
@@ -24,6 +24,8 @@ class BinaryOperationNode : Node
 		visitor.accept(this)
 	
 	block visitChildren(visitor)
+		left.visit(visitor)
+		right.visit(visitor)
 		
 	block getType()
 		return "binary_operation_node"
