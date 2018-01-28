@@ -200,7 +200,6 @@ class Parser
 				modulePath += tokens[position++].getValue()
 			end
 			do {
-				println(tokens[position].getValue())
 				if matchTokenString(TOKENTYPE_OPERATION, "*")
 					modulePath += expectToken(TOKENTYPE_OPERATION).getValue()
 				else
@@ -210,7 +209,7 @@ class Parser
 					modulePath += "."
 				end
 			} while acceptToken(TOKENTYPE_DOT) or acceptTokenString(TOKENTYPE_OPERATION, "/")
-			println("CALL : "+modulePath)
+			return new CallNode(clocation, modulePath)
 		end
 		
 		
