@@ -15,7 +15,7 @@ do {
 
 enum enume {
 
-name = 2
+name = 2,
 went = 3
 
 }
