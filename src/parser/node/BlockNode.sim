@@ -40,6 +40,15 @@ class BlockNode : Node
 				default break
 			end
 		end
+		if len(parameters) > 0
+			str += "   "
+		end
+		str += ")"
+		
+		if enforcedReturn != null
+			str += " : "+enforcedReturn.getIdentifier()
+		end
+		return str
 		
 	block visit(visitor)
 		visitor.accept(this)
