@@ -186,6 +186,9 @@ class Parser
 			return new ForNode(flocation, initStatement, condition, repeatStatement, body)
 		end
 		
+	block parseCall()
+		clocation = location(tokens, position)
+		
 	#4
 	block acceptToken(tokenType)
 		ret = matchToken(tokenType)
