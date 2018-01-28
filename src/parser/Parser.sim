@@ -354,10 +354,10 @@ class Parser
 		while matchToken(TOKENTYPE_OPERATION)
 			switch tokens[position].getValue()
 				case '+'
-					acceptToken(TOKENTYPE_OPERATION) add = parseAddictive()
+					acceptToken(TOKENTYPE_OPERATION) add = parseAdditive()
 					return new BinaryOperationNode(alocation, BINARYOPERATION_ADDITION, left, add)
 				case '-'
-					acceptToken(TOKENTYPE_OPERATION) add = parseAddictive()
+					acceptToken(TOKENTYPE_OPERATION) add = parseAdditive()
 					return new BinaryOperationNode(alocation, BINARYOPERATION_SUBTRACTION, left, add)
 				default break
 			end
