@@ -103,7 +103,7 @@ class Parser
 	#8
 	block parseClass()
 		clocation = location(tokens, position) inherits = []
-		attached = expectToken(TOKENTYPE_IDENTIFIER, "class").
+		attached = expectTokenString(TOKENTYPE_IDENTIFIER, "class").getAttachedComment()
 		name = expectToken(TOKENTYPE_IDENTIFIER).getValue() 
 		if -> acceptToken(TOKENTYPE_COLON) or acceptTokenString(TOKENTYPE_IDENTIFIER, "inherit")
 			do {
@@ -151,7 +151,7 @@ class Parser
 		
 	block expectToken(tokenType)
 		if matchToken(tokenType)
-			ret = tokens[position] //position++
+			ret = tokens[position] position++
 			return ret
 		end
 		throwScannerException(location(tokens, position), "Expected token of type '"+getTokenTypeValue(tokenType)+"', But got token of type '"+getTokenTypeValue(tokens[position].getTokenType())+"' with value '"+tokens[position].getValue()+"'", UNEXPECTED_TOKEN_TYPE)
