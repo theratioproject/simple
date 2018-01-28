@@ -218,6 +218,11 @@ class Parser
 		name = expectToken(TOKENTYPE_IDENTIFIER).getValue()
 		parameters = []
 		acceptToken(TOKENTYPE_OPENPARENTESES)
+		while acceptToken(TOKENTYPE_CLOSEPARENTESES) == false
+			paramType = FUNCTIONALPARAMETERTYPE_NORMAL
+			if acceptTokenString(TOKENTYPE_IDENTIFIER, "params")
+		end
+		
 		
 		
 	#4
