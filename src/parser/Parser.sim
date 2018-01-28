@@ -142,6 +142,11 @@ class Parser
 		name = expectToken(TOKENTYPE_IDENTIFIER).getValue()
 		enumno = new EnumNode(elocation, name)
 		acceptToken(TOKENTYPE_OPENCURLYBRACE)
+		count = 0
+		while acceptToken(TOKENTYPE_CLOSECURLYBRACE) == false
+			num = count++
+			attrib = expectToken(TOKENTYPE_IDENTIFIER).getValue()
+		end
 		
 	#4
 	block acceptToken(tokenType)
