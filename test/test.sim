@@ -5,13 +5,13 @@ name = me = you = we = 20
 #parse class
 class ade  : hello, world, it, holla 
 
-/*class dude
+1
+class dude
 	
-parse do
+#parse do
 do {
 
 } while num < 10
 
 #println("reach here : "+tokens[position+1].getValue())
-*/
  
