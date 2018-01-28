@@ -11,11 +11,17 @@ package simple.parser.node
 
 class BlockNode : Node
 
-	module = ""
+	name = ""
+	parameters = []
+	body = null
+	enforcedReturn = null
 
-	block BlockNode(location, imodule)
+	block BlockNode(location, iname, iparameters, ienforcedReturn, ibody)
 		sourceLocation = location 
-		module = imodule
+		name = iname
+		parameters = iparameters
+		enforcedReturn = ienforcedReturn
+		body = ibody
 		
 	block visit(visitor)
 		visitor.accept(this)
