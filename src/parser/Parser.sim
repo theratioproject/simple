@@ -195,7 +195,11 @@ class Parser
 			modulePath = expectToken(TOKENTYPE_STRING).getValue()
 			return new CallNode(clocation, modulePath)
 		else
-			println("CALL : "+tokens[position].getValue())
+			modulePath = ""
+			while matchToken(TOKENTYPE_DOT) or matchTokenString(TOKENTYPE_OPERATION, "/")
+			
+			end
+			println("CALL : "+modulePath)
 		end
 		
 		
