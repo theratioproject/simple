@@ -15,5 +15,5 @@ class Dictionary
 	block OldDictionary(inte, strin)
 		add(inte, strin)
 		
-	block add(inte, strin)
+	block addValue(inte, strin)
 		add(ilist, inte) add(istring, strin)

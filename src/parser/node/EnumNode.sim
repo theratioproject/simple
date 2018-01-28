@@ -13,7 +13,7 @@ package simple.parser.node
 
 class EnumNode : Node
 
-	attributes = null
+	attributes = new Dictionary
 	name = ""
 
 	block EnumNode(location, iname)
