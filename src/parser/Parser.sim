@@ -201,7 +201,11 @@ class Parser
 			end
 			do {
 				println(tokens[position].getValue())
-				modulePath += expectToken(TOKENTYPE_IDENTIFIER).getValue()
+				if matchTokenString(TOKENTYPE_OPERATION, "*")
+					modulePath += expectToken(TOKENTYPE_OPERATION).getValue()
+				else
+					modulePath += expectToken(TOKENTYPE_IDENTIFIER).getValue()
+				end
 				if matchToken(TOKENTYPE_DOT) or matchTokenString(TOKENTYPE_OPERATION, "/")
 					modulePath += "."
 				end
