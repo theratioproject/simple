@@ -1,0 +1,42 @@
+
+/* 
+	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\Node.sim" -> simple.parser
+
+package simple.parser.node
+
+class ForNode : Node
+
+	initStatement = null
+	condition = null
+	repeatStatement = null
+	body = null
+
+	block ForNode(location, iinitStatement, icondition, irepeatStatement, ibody)
+		sourceLocation = location 
+		initStatement = iinitStatement
+		condition = icondition
+		repeatStatement = irepeatStatement
+		body = ibody
+		
+	block visit(visitor)
+		visitor.accept(this)
+	
+	block visitChildren(visitor)
+		initStatement.visit(visitor)
+		condition.visit(visitor)
+		repeatStatement.visit(visitor)
+		body.visit(visitor)
+		
+	block getType()
+		return "for_each_node"	
+	
+/**
+
+
+#the dictionary is a list with string content and int as position booyaa
+**/

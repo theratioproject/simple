@@ -30,8 +30,9 @@ for n = 8 to 12
 
 n = 60
 
-for a in hello {}
-	#display "VALUE : "+a
+for a in hello {
+	display "VALUE : "+a
+}
 
 #println("reach here : "+tokens[position+1].getValue())
  
