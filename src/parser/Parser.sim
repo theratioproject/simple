@@ -197,8 +197,11 @@ class Parser
 		else
 			modulePath = ""
 			while matchToken(TOKENTYPE_DOT) or matchTokenString(TOKENTYPE_OPERATION, "/")
-				modulePath += tokens[position+1].getValue()
+				modulePath += tokens[position++].getValue()
 			end
+			do {
+			
+			} while matchToken(TOKENTYPE_DOT) or matchTokenString(TOKENTYPE_OPERATION, "/")
 			println("CALL : "+modulePath)
 		end
 		
