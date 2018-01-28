@@ -62,7 +62,7 @@ class Parser
 		elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "enum")
 			return parseEnum()
 		elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "for")
-			println("it for") 
+			return parseFor()
 		elif -> acceptTokenString(TOKENTYPE_IDENTIFIER, "call")
 			println("it call") 
 		elif -> acceptTokenString(TOKENTYPE_IDENTIFIER, "block")
