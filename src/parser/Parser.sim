@@ -19,6 +19,8 @@ call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\Identif
 
 call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\BinaryOperationNode.sim"
 
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\IntegerNode.sim"
+
 package simple.parser
 
 class Parser 

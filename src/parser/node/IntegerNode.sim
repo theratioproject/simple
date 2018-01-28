@@ -9,13 +9,13 @@ call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\Node.sim" ->
 
 package simple.parser.node
 
-class IdentifierNode : Node
+class IntegerNode : Node
 
-	identifier = ""
+	integer = 0
 
-	block IdentifierNode(location, iidentifier)
+	block IntegerNode(location, iint)
 		sourceLocation = location 
-		identifier = iidentifier
+		integer = toNumber(iint)
 		
 	block visit(visitor)
 		visitor.accept(this)
@@ -23,7 +23,7 @@ class IdentifierNode : Node
 	block visitChildren(visitor)
 		
 	block getType()
-		return "identifier_node"
+		return "integer_node"
 		
 	
 	
