@@ -11,24 +11,19 @@ package simple.parser.node
 
 class CallNode : Node
 
-	variable = ""
-	expression = null
-	body = null
+	module = ""
 
-	block CallNode(location, ivariable, iexpression, ibody)
+	block CallNode(location, imodule)
 		sourceLocation = location 
-		variable = ivariable
-		expression = iexpression
-		body = ibody
+		module = imodule
 		
 	block visit(visitor)
 		visitor.accept(this)
 	
 	block visitChildren(visitor)
-		expression.visit(visitor)
 		
 	block getType()
-		return "for_each_node"	
+		return "call_node"	
 	
 /**
 
