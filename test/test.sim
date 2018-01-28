@@ -21,15 +21,16 @@ out = 9
 
 }
 
-for n = 8 to 12 {
+for n = 8 to 12 
 	display "number "+n+" "
-}
+
 
 
 
 n = 60
 
-for 
+for a in hello 
+	display "VALUE : "+a
 
 #println("reach here : "+tokens[position+1].getValue())
  
