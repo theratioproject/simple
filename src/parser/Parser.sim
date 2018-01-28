@@ -235,10 +235,11 @@ class Parser
 			acceptToken(TOKENTYPE_COMMA)
 		end
 		if acceptToken(TOKENTYPE_COLON)
-			bexpr = parseExpression()
-			bstmt = parseStatement()
+			bexpr = parseExpression() bstmt = parseStatement()
 			return new BlockNode(blocation, name, parameters, bexpr, bstmt)
 		end
+		bstmt = parseStatement()
+		return new BlockNode(blocation, name, parameters, bstmt)
 		
 		
 		
