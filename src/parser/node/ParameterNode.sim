@@ -5,15 +5,15 @@
 
 */
 
-call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\Node.sim" -> simple.parser
-
 package simple.parser.node
 
-class CallNode : Node
+class ParameterNode 
 
-	module = ""
+	name = ""
+	type = null
+	enforcedType = null
 
-	block CallNode(location, imodule)
+	block ParameterNode(location, imodule)
 		sourceLocation = location 
 		module = imodule
 		
