@@ -5,6 +5,8 @@
 
 */
 
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\BinaryOperation.sim"
+
 call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\CodeBlockNode.sim" -> simple.parser.node
 
 call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\BreakNode.sim"
