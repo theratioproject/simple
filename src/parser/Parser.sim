@@ -157,6 +157,16 @@ class Parser
 		end
 		return enumno
 		
+	block parseFor()
+		flocation = location(tokens, position)
+		expectTokenString(TOKENTYPE_IDENTIFIER, "for")
+		acceptToken(TOKENTYPE_OPENPARENTESES)
+		if matchToken(TOKENTYPE_IDENTIFIER)
+		
+		else
+		
+		end
+		
 	#4
 	block acceptToken(tokenType)
 		ret = matchToken(tokenType)
