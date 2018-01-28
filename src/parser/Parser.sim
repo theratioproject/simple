@@ -152,7 +152,8 @@ class Parser
 				expt = expectToken(TOKENTYPE_INTEGER).getValue()
 				num = toNumber(expt)
 			end 
-			print("here : "+tokens[position].getValue())
+			acceptToken(TOKENTYPE_COMMA) 
+			print("here : "+tokens[position].getValue()) continue 
 			enumno.getAttributes().add(num, attrib)
 		end
 		return enumno
