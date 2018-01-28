@@ -41,7 +41,7 @@ class BlockNode : Node
 			end
 		end
 		if len(parameters) > 0
-			str += "   "
+			str += ""
 		end
 		str += ")"
 		
