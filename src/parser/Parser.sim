@@ -117,7 +117,8 @@ class Parser
 		return new ClassNode(clocation, name, node, null)
 		
 	block parseCodeBlockNode()
-		
+		clocation = location(tokens, position)
+		expectToken(TOKENTYPE_OPENCURLYBRACE)
 	
 	#9
 	block parseDoWhile()
