@@ -243,7 +243,7 @@ class Parser
 			return new BlockNode(blocation, name, parameters, bexpr, bstmt)
 		end
 		bstmt = parseStatement()
-		return new BlockNode(blocation, name, parameters, bstmt)
+		return new BlockNode(blocation, name, parameters, null, bstmt)
 		
 		
 		

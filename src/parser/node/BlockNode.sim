@@ -22,6 +22,10 @@ class BlockNode : Node
 		parameters = iparameters
 		enforcedReturn = ienforcedReturn
 		body = ibody
+		println(toString())
+		
+	block toString()
+		
 		
 	block visit(visitor)
 		visitor.accept(this)
