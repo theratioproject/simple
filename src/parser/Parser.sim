@@ -338,11 +338,11 @@ class Parser
 		while matchToken(TOKENTYPE_OPERATION)
 			switch tokens[position].getValue()
 				case "<<"
-					acceptToken(TOKENTYPE_OPERATION)
-					return new BinaryOperationNode(blocation, BINARYOPERATION_BITSHIFTLEFT, left, parseBitshiftLeft())
+					acceptToken(TOKENTYPE_OPERATION) pbsl = parseBitshiftLeft()
+					return new BinaryOperationNode(blocation, BINARYOPERATION_BITSHIFTLEFT, left, pbsl)
 				case ">>"
-					acceptToken(TOKENTYPE_OPERATION)
-					return new BinaryOperationNode(blocation, BINARYOPERATION_BITSHIFTRIGHT, left, parseBitshiftRight())
+					acceptToken(TOKENTYPE_OPERATION) pbsr = parseBitshiftRight()
+					return new BinaryOperationNode(blocation, BINARYOPERATION_BITSHIFTRIGHT, left, pbsr)
 				default break
 			end
 		end
