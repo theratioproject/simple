@@ -194,8 +194,10 @@ class Parser
 		if matchToken(TOKENTYPE_STRING)
 			modulePath = expectToken(TOKENTYPE_STRING).getValue()
 			return new CallNode(clocation, modulePath)
+		else
+			println("CALL : "+tokens[position].getValue())
 		end
-		println("CALL : "+tokens[position].getValue())
+		
 		
 	#4
 	block acceptToken(tokenType)

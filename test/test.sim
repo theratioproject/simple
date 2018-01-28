@@ -1,5 +1,6 @@
 
 call "binaryopstest.sim"
+call simple.standard.*
 
 name = me = you = we = 20
 in = "inner"
