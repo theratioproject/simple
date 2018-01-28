@@ -163,10 +163,11 @@ class Parser
 		flocation = location(tokens, position)
 		expectTokenString(TOKENTYPE_IDENTIFIER, "for")
 		acceptToken(TOKENTYPE_OPENPARENTESES)
+		println(" here : "+tokens[position].getValue())
 		if matchToken(TOKENTYPE_IDENTIFIER)
 			
 		else
-			initStatement = parseStatement()
+			initStatement = parseStatement() 
 			acceptToken(TOKENTYPE_SEMICOLON)
 			condition = parseExpression()
 			acceptToken(TOKENTYPE_SEMICOLON)
