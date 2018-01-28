@@ -28,8 +28,8 @@ class BlockParameter
 		paramType = iparamType
 		type = itype
 		
-	block getParameterType()
-		return paramType
+	block getEnType()
+		return type
 		
 	block getName()
 		return name
