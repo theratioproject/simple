@@ -369,7 +369,7 @@ class Parser
 			assign = expectToken(TOKENTYPE_IDENTIFIER).getValue()
 		end
 		body = parseStatement()
-		return new CallingNode(clocation, body, assign, assign)
+		return new CallingNode(clocation, body, target, assign)
 
 	#4
 	block acceptToken(tokenType)
