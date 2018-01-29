@@ -1,5 +1,5 @@
 
-switch n
+switch (n)
 	case 2
 		#display "it is two"
 	case 3 
