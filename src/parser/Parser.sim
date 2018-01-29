@@ -392,7 +392,11 @@ class Parser
 		attribs = new Dictionary
 		if acceptToken(TOKENTYPE_OPENCURLYBRACE)
 			do {
-				
+				attrib = expectToken(TOKENTYPE_IDENTIFIER).getValue()
+				acceptToken(TOKENTYPE_ASSIGNMENT)
+				value = parseExpression()
+				acceptToken(TOKENTYPE_COMMA)
+				attribs.add(attrib, value)
 			} while acceptToken(TOKENTYPE_CLOSECURLYBRACE)
 		end
 
