@@ -11,21 +11,21 @@ call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\utilities\Dictionar
 
 package simple.parser.node
 
-class CallingNode : Node
+class BlockCallNode : Node
 	
-	body = null
+	initialAttributes = []
 	target = null
-	assign ""
+	parameters = null
 
-	block CallingNode(location, ibody, itarget, iassign)
+	block BlockCallNode(location, itarget, iparameters, iinitialAttributes)
 		sourceLocation = location 
+		initialAttributes = iinitialAttributes
 		target = itarget
-		body = ibody
-		assign = iassign 
+		parameters = iparameters
 		
 	block visit(visitor)
 		visitor.accept(this)
 	
 	block visitChildren(visitor)
-		body.visit(visitor)
 		target.visit(visitor)
+		parameters.visit(visitor)
