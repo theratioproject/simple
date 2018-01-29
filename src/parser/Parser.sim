@@ -287,6 +287,13 @@ class Parser
 			expectTokenString(TOKENTYPE_IDENTIFIER, "case")
 			op = BINARYOPERATION_EQUALTO
 			if matchToken(TOKENTYPE_COMPARISON)
+				op = stringToBinaryOperation(expectToken(TOKENTYPE_COMPARISSON).getValue())
+			end
+			exprs = []
+			do {
+				cexprs = parseExpression()
+				add(exprs, cexprs)
+			}
 		} while matchTokenString(TOKENTYPE_IDENTIFIER, "default") == false and matchToken(TOKENTYPE_CLOSECURLYBRACE) == false
 		defaultstmt = null
 		if acceptTokenString(TOKENTYPE_IDENTIFIER, "default")
