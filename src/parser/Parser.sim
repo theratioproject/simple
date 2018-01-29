@@ -317,7 +317,10 @@ class Parser
 		expectTokenString(TOKENTYPE_IDENTIFIER, "trait")
 		name = expectToken(TOKENTYPE_IDENTIFIER).getValue()
 		traity = new TraitNode(tlocation, name)
+		acceptToken(TOKENTYPE_OPENCURLYBRACE)
+		while acceptToken(TOKENTYPE_CLOSECURLYBRACE) == false
 		
+		end
 	#4
 	block acceptToken(tokenType)
 		ret = matchToken(tokenType)
