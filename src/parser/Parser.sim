@@ -286,10 +286,14 @@ class Parser
 		do 
 		
 		while matchTokenString(TOKENTYPE_IDENTIFIER, "default") == false and matchToken(TOKENTYPE_CLOSECURLYBRACE) == false
-		default = null
+		defaultstmt = null
 		if acceptTokenString(TOKENTYPE_IDENTIFIER, "default")
-		
+			defaultstmt = parseStatement()
+		else
+			defaultstmt = new CodeBlockNode(location(tokens, position))
 		end
+		acceptToken(TOKENTYPE_CLOSECURLYBRACE)
+		return new SwitchNode(slocation, cases, defaultstmt, value)
 		
 	#4
 	block acceptToken(tokenType)
