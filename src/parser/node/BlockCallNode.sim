@@ -1,0 +1,29 @@
+
+/* 
+	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\Node.sim" -> simple.parser
+
+package simple.parser.node
+
+class CallingNode : Node
+	
+	body = null
+	target = null
+	assign ""
+
+	block CallingNode(location, ibody, itarget, iassign)
+		sourceLocation = location 
+		target = itarget
+		body = ibody
+		assign = iassign 
+		
+	block visit(visitor)
+		visitor.accept(this)
+	
+	block visitChildren(visitor)
+		body.visit(visitor)
+		target.visit(visitor)
