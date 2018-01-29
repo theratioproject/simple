@@ -19,8 +19,9 @@ class TraitNode : Node
 
 	block TraitNode(location, itryBody, icatchBody, iexception)
 		sourceLocation = location 
-		name = iname
-		attributes = new Dictionary
+		tryBody = itryBody
+		catchBody = icatchBody
+		exceptionName = iexception
 		
 	block getAttributes()
 		return attributes
