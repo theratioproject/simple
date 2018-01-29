@@ -278,7 +278,8 @@ class Parser
 		return new ReturnNode(rlocation, value)
 		
 	block parseSwitch()
-		
+		slocation = location(tokens, position)
+		expectTokenString(TOKENTYPE_IDENTIFIER, "switch")
 		
 	#4
 	block acceptToken(tokenType)
