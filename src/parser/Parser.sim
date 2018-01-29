@@ -325,6 +325,7 @@ class Parser
 			acceptToken(TOKENTYPE_COLON)
 			expto = expectToken(TOKENTYPE_IDENTIFIER).getValue()
 			type = new IdentifierNode(location(tokens, position), expto)
+			traity.addAttribute(attrib, type)
 			acceptToken(TOKENTYPE_COMMA)
 		end
 		return traity

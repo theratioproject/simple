@@ -21,6 +21,12 @@ class TraitNode : Node
 		name = iname
 		attributes = new Dictionary
 		
+	block getAttributes()
+		return attributes
+		
+	block addAttribute(num, attrib)
+		attributes.addValue(num, attrib)
+		
 	block visit(visitor)
 		visitor.accept(this)
 	
