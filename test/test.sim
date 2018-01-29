@@ -65,10 +65,10 @@ switch (n)
 	}
 	
 trait Operable {
-	add : func,
-	sub : func,
-	mul : func,
-	div : func
+	add func
+	sub func
+	mul func
+	div func
 }
 
 
