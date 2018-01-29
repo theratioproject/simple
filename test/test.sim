@@ -78,6 +78,14 @@ trait Operable {
 	div : func
 }
 
+try {
+	bar();
+	println ("You can't see me");
+} catch (except) {
+	println ("Caught: " + except.tostring () + a);
+	println ("My time is now");
+}
+
 
 
 /*println("reach here : "+tokens[position+1].getValue())*/
