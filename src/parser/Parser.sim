@@ -280,6 +280,12 @@ class Parser
 	block parseSwitch()
 		slocation = location(tokens, position)
 		expectTokenString(TOKENTYPE_IDENTIFIER, "switch")
+		value = parseExpression()
+		acceptToken(TOKENTYPE_OPENCURLYBRACE)
+		cases = []
+		do 
+		
+		while matchTokenString(TOKENTYPE_IDENTIFIER, "default")
 		
 	#4
 	block acceptToken(tokenType)
