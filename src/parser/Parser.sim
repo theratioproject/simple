@@ -266,6 +266,7 @@ class Parser
 		elif stringEquals(ast.getType(), "block_node") 
 		
 		end
+		ast.setIsPrivate(true)
 		return ast
 		
 	#4
