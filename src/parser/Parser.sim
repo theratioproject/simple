@@ -624,7 +624,6 @@ class Parser
 		return left
 		
 		block parseTerm()
-		println("IN SWITCH : "+tokens[position].getValue())
 			tlocation = location(tokens, position)
 			if matchToken(TOKENTYPE_CHAR)
 				expr = expectToken(TOKENTYPE_CHAR)
