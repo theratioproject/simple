@@ -24,7 +24,7 @@ class BlockNode : Node
 		parameters = iparameters
 		enforcedReturn = ienforcedReturn
 		body = ibody
-		println(toString())
+		#println(toString())
 		
 	block toString()
 		str = "block "+name+"("
@@ -32,7 +32,7 @@ class BlockNode : Node
 			switch parameters[a].getParameterType()
 				case PARAMETERTYPE_ENFORCED
 					str += parameters[a].getName()+" : "
-					str += parameters[a].getEnType()+", "
+					str += parameters[a].getParameterType()+", "
 				case PARAMETERTYPE_NORMAL
 					str += parameters[a].getName()+", "
 				case PARAMETERTYPE_VARIADIC
