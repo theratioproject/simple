@@ -280,7 +280,7 @@ class Parser
 	block parseSwitch()
 		slocation = location(tokens, position)
 		expectTokenString(TOKENTYPE_IDENTIFIER, "switch")
-		value = parseExpression() println("IN SWITCH : "+tokens[position].getValue())
+		value = parseExpression() 
 		acceptToken(TOKENTYPE_OPENCURLYBRACE)
 		cases = []
 		do {
