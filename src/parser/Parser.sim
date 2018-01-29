@@ -681,7 +681,8 @@ class Parser
 		if tokens[position+1].getTokenType() == TOKENTYPE_DOT
 			type = parseExpression()
 		else
-			type = new IdentifierNode(elocation, expectToken(TOKENTYPE_IDENTIFIER).getValue())
+			exptv = expectToken(TOKENTYPE_IDENTIFIER).getValue()
+			type = new IdentifierNode(elocation, exptv)
 		end
 		variable = expectToken(TOKENTYPE_IDENTIFIER).getValue()
 		expectToken(TOKENTYPE_ASSIGNMENT)
