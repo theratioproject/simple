@@ -281,7 +281,7 @@ class Parser
 		slocation = location(tokens, position)
 		expectTokenString(TOKENTYPE_IDENTIFIER, "switch")
 		value = parseExpression() 
-		acceptToken(TOKENTYPE_CLOSEPARENTESES)
+		acceptToken(TOKENTYPE_CLOSEPARENTESES) #development error
 		acceptToken(TOKENTYPE_OPENCURLYBRACE)
 		cases = []
 		do {
