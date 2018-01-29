@@ -360,6 +360,14 @@ class Parser
 		
 	block parseCalling()
 		clocation = location(tokens, position)
+		expectTokenString(TOKENTYPE_IDENTIFIER, "calling")
+		target = parseExpression()
+		assign = ""
+		if acceptTokenString(TOKENTYPE_IDENTIFIER, "as")
+		
+		end
+		
+		
 
 	#4
 	block acceptToken(tokenType)
