@@ -1,5 +1,5 @@
 
-switc ""
+switc = {}
 
 /*call "binaryopstest.sim"
 call simple.standard.*
