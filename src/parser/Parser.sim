@@ -251,8 +251,10 @@ class Parser
 		condition = parseExpression()
 		ifBody = parseStatement()
 		if acceptTokenString(TOKENTYPE_IDENTIFIER, "else")
-			
+			estmt = parseStatement()
+			return new IfNode(ilocation, condition, ifBody, estmt)
 		end
+		return new IfNode(ilocation, condition, ifBody)
 		
 	#4
 	block acceptToken(tokenType)
