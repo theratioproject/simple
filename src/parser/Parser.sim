@@ -262,6 +262,11 @@ class Parser
 		attached = expectTokenString(TOKENTYPE_IDENTIFIER, "private").getAttachedComment()
 		ast = parseStatement()
 		if stringEquals(ast.getType(), "class_node") 
+			
+		elif stringEquals(ast.getType(), "block_node") 
+		
+		end
+		return ast
 		
 	#4
 	block acceptToken(tokenType)
