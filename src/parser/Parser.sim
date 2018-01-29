@@ -683,6 +683,10 @@ class Parser
 		else
 			type = new IdentifierNode(elocation, expectToken(TOKENTYPE_IDENTIFIER).getValue())
 		end
+		variable = expectToken(TOKENTYPE_IDENTIFIER).getValue()
+		expectToken(TOKENTYPE_ASSIGNMENT)
+		value = parseExpression()
+		return new EnforcedAssignmentNode(elocation, type, variable, value)
 			
 		
 			
