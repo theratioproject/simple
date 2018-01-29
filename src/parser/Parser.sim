@@ -258,6 +258,11 @@ class Parser
 		end
 		return new IfNode(ilocation, condition, ifBody, 0)
 		
+	block parsePrivate()
+		attached = expectTokenString(TOKENTYPE_IDENTIFIER, "private").getAttachedComment()
+		ast = parseStatement()
+		if stringEquals(ast.getType(), "class_node") 
+		
 	#4
 	block acceptToken(tokenType)
 		ret = matchToken(tokenType)
