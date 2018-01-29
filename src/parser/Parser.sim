@@ -285,6 +285,7 @@ class Parser
 		cases = []
 		do {
 			expectTokenString(TOKENTYPE_IDENTIFIER, "case")
+			println("IN SWITCH : "+tokens[position].getValue())
 			op = BINARYOPERATION_EQUALTO
 			if matchToken(TOKENTYPE_COMPARISON)
 				op = stringToBinaryOperation(expectToken(TOKENTYPE_COMPARISSON).getValue())

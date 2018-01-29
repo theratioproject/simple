@@ -1,5 +1,13 @@
 
-call "binaryopstest.sim"
+switch n
+	case 2
+		#display "it is two"
+	case 3 
+		#display "it is three"
+	default
+		#display "i dont know but it "+n
+
+/*call "binaryopstest.sim"
 call simple.standard.*
 
 name = me = you = we = 20
@@ -55,17 +63,11 @@ private block priv() {
 	return 30
 }
 
-switch n
-	case 2
-		#display "it is two"
-	case 3 
-		#display "it is three"
-	default
-		#display "i dont know but it "+n
 
 
 
-#println("reach here : "+tokens[position+1].getValue())
+
+*println("reach here : "+tokens[position+1].getValue())*/
 
 
 
