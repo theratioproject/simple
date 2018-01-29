@@ -24,4 +24,14 @@ class ReturnNode : Node
 		value.visit(visitor)
 		
 	
+class Case
+	
+	binaryOp = null
+	c = null
+	stmt = null
+	
+	block Case(binop, ic, istmt)
+		binaryOp = binop
+		c = ic
+		stmt = istmt
 	
