@@ -351,6 +351,7 @@ class Parser
 		condition = null
 		if acceptTokenString(TOKENTYPE_IDENTIFIER, "while")
 			condition = parseExpression()
+			acceptToken(TOKENTYPE_CLOSEPARENTESES)
 		end
 		body = parseStatement()
 		return new WhileNode(wlocation, condition, body)
