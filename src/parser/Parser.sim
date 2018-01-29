@@ -387,6 +387,9 @@ class Parser
 			acceptToken(TOKENTYPE_COMMA)
 		end
 		return new ArgumentListNode(alocation, parameters)
+	
+	block parseInitialAttributes()
+		attribs = new Dictionary
 
 	#4
 	block acceptToken(tokenType)
