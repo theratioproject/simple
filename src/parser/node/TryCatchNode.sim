@@ -13,10 +13,11 @@ package simple.parser.node
 
 class TraitNode : Node
 	
-	name = ""
-	attributes = null
+	tryBody = null
+	catchBody = null
+	exceptionName = ""
 
-	block TraitNode(location, iname)
+	block TraitNode(location, itryBody, icatchBody, iexception)
 		sourceLocation = location 
 		name = iname
 		attributes = new Dictionary

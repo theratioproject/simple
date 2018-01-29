@@ -342,7 +342,7 @@ class Parser
 			return new TryCatchNode(tlocation, tryBody, tcstmt, exception)
 		end
 		tcstmt = parseStatement()
-		return new TryCatchNode(tlocation, tryBody, tcstmt, null)
+		return new TryCatchNode(tlocation, tryBody, tcstmt, "err")
 	
 	#4
 	block acceptToken(tokenType)
