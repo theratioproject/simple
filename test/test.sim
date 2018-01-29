@@ -64,11 +64,18 @@ switch (n)
 		#display "i dont know but it "+n
 	}
 	
-trait Operable {
+trait Operable 
 	add func
 	sub func
 	mul func
 	div func
+}
+	
+trait Operable {
+	add : func,
+	sub : func,
+	mul : func,
+	div : func
 }
 
 
