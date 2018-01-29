@@ -53,6 +53,8 @@ if  n == 20 {
 
 private block priv() {}
 
+throw 
+
 #println("reach here : "+tokens[position+1].getValue())
 
 
