@@ -9,12 +9,12 @@ call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\Node.sim" ->
 
 package simple.parser.node
 
-class TryCatchNode : Node
+class WhileNode : Node
 	
 	condition = null
 	body = null
 
-	block TryCatchNode(location, icondition, ibody)
+	block WhileNode(location, icondition, ibody)
 		sourceLocation = location 
 		condition = icondition
 		body = ibody
