@@ -45,6 +45,8 @@ call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\ReturnN
 
 call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\SwitchNode.sim"
 
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\TraitNode.sim"
+
 package simple.parser
 
 class Parser 
