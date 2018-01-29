@@ -93,7 +93,7 @@ block printParsedArgs(f, c)
 
 #5
 block getFilePath(path) 
-	return "C:\Users\thecarisma\Documents\SIMPLE GITHUB\examples\basic\"+path #to join folder and confirm it exist
+	return "C:/Users/thecarisma/Documents/SIMPLE GITHUB/simple/test/"+path #to join folder and confirm it exist
 	
 #6
 block getFileName(path)
