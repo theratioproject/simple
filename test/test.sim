@@ -1,8 +1,4 @@
 
-calling num {
-
-}
-
 call "binaryopstest.sim"
 call simple.standard.*
 
