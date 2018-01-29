@@ -62,7 +62,6 @@ switch (n)
 		display "it is three"
 	default
 		display "i dont know but it "+n
-end 
 
 
 
