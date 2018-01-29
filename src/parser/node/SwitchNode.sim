@@ -9,12 +9,16 @@ call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\Node.sim" ->
 
 package simple.parser.node
 
-class ReturnNode : Node
-
+class SwitchNode : Node
+	
+	cases = []
+	sdefault = null
 	value = null
 
-	block ReturnNode(location, ivalue)
+	block SwitchNode(location, icases, idefault, ivalue)
 		sourceLocation = location 
+		cases = icases
+		sdefault = idefault
 		value = ivalue
 		
 	block visit(visitor)

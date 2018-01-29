@@ -43,6 +43,8 @@ call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\IfNode.
 
 call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\ReturnNode.sim"
 
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\SwitchNode.sim"
+
 package simple.parser
 
 class Parser 
