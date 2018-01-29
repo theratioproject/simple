@@ -9,21 +9,18 @@ call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\Node.sim" ->
 
 package simple.parser.node
 
-class BlockCallNode : Node
+class ArgumentListNode : Node
 	
-	initialAttributes = []
-	target = null
-	parameters = null
+	arguments = []
 
-	block BlockCallNode(location, itarget, iparameters, iinitialAttributes)
+	block ArgumentListNode(location, iarguments)
 		sourceLocation = location 
-		initialAttributes = iinitialAttributes
-		target = itarget
-		parameters = iparameters
+		arguments = iarguments
 		
 	block visit(visitor)
 		visitor.accept(this)
 	
 	block visitChildren(visitor)
-		target.visit(visitor)
-		parameters.visit(visitor)
+		for a = 0 to len(arguments)
+			arguments[a].visit(visitor)
+		loop
