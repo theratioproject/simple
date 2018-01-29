@@ -675,9 +675,10 @@ class Parser
 				throwScannerException(location(tokens, position), "Unexpected end of source after '"+getTokenTypeValue(tokens[position-1].getTokenType())+"' with value '"+tokens[position-1].getValue()+"'", UNEXPECTED_END_OF_SOURCE)
 			end
 				
+	block 	parseEnforcedAssignment()
+		elocation = location(tokens, position)
 			
-			
-			
+		
 			
 			
 			
