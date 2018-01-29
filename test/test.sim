@@ -1,11 +1,5 @@
 
-switch n
-	case 2
-		#display "it is two"
-	case 3 
-		#display "it is three"
-	default
-		#display "i dont know but it "+n
+dude = 30
 
 /*call "binaryopstest.sim"
 call simple.standard.*
