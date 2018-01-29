@@ -1,6 +1,21 @@
-# func main is the main entry point of the program.
-
-block main() {
-	println ("Hello, World!")
+block main () {
+	while true {
+		switch (input ().toint ()) {
+			case 1, 2 {
+				println ("Got 1 or 2");
+			}
+			case 2, 3 {
+				println ("Got 2 or 3");
+			}
+			case 4 {
+				println ("Got 4");
+			}
+			case > 8 {
+				println ("Greater than 8");
+			}
+			default {
+				println ("Got default");
+			}
+		}
+	}
 }
-
