@@ -355,14 +355,22 @@ class Parser
 			ret = tokens[position] position++
 			return ret
 		end
-		throwScannerException(location(tokens, position), "Expected token of type '"+getTokenTypeValue(tokenType)+"', But got token of type '"+getTokenTypeValue(tokens[position].getTokenType())+"' with value '"+tokens[position].getValue()+"'", UNEXPECTED_TOKEN_TYPE)
+		try 
+			throwScannerException(location(tokens, position), "Expected token of type '"+getTokenTypeValue(tokenType)+"', But got token of type '"+getTokenTypeValue(tokens[position].getTokenType())+"' with value '"+tokens[position].getValue()+"'", UNEXPECTED_TOKEN_TYPE)
+		catch 
+			throwScannerException(location(tokens, position), "Unexpected end of source after '"+getTokenTypeValue(tokens[position-1].getTokenType())+"' with value '"+tokens[position-1].getValue()+"'", UNEXPECTED_END_OF_SOURCE)
+		end
 		
 	block expectTokenString(tokenType, value)
 		if matchTokenString(tokenType, value)
 			ret = tokens[position] position++
 			return ret
 		end
-		throwScannerException(location(tokens, position), "Expected token of type '"+getTokenTypeValue(tokenType)+"' with value '"+value+"', But got token of type '"+getTokenTypeValue(tokens[position].getTokenType())+"' with value '"+tokens[position].getValue()+"'", UNEXPECTED_TOKEN_TYPE)
+		try 
+			throwScannerException(location(tokens, position), "Expected token of type '"+getTokenTypeValue(tokenType)+"' with value '"+value+"', But got token of type '"+getTokenTypeValue(tokens[position].getTokenType())+"' with value '"+tokens[position].getValue()+"'", UNEXPECTED_TOKEN_TYPE)
+		catch 
+			throwScannerException(location(tokens, position), "Unexpected end of source after '"+getTokenTypeValue(tokens[position-1].getTokenType())+"' with value '"+tokens[position-1].getValue()+"'", UNEXPECTED_END_OF_SOURCE)
+		end
 	
 	block parseExpressionStatement()
 		elocation = location(tokens, position) 
