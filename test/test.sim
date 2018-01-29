@@ -79,11 +79,9 @@ trait Operable {
 }
 
 try {
-	bar();
-	println ("You can't see me");
+	
 } catch (except) {
-	println ("Caught: " + except.tostring () + a);
-	println ("My time is now");
+	
 }
 
 
