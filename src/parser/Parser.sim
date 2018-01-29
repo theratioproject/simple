@@ -345,6 +345,9 @@ class Parser
 		end
 		tcstmt = parseStatement()
 		return new TryCatchNode(tlocation, tryBody, tcstmt, "err")
+		
+	block parseWhile()
+		
 	
 	#4
 	block acceptToken(tokenType)
