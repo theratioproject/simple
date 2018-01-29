@@ -51,6 +51,8 @@ call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\TryCatc
 
 call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\WhileNode.sim"
 
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\CallingNode.sim"
+
 package simple.parser
 
 class Parser
@@ -367,7 +369,7 @@ class Parser
 			assign = expectToken(TOKENTYPE_IDENTIFIER).getValue()
 		end
 		body = parseStatement()
-		return new CallingNode(clocation, body, assign)
+		return new CallingNode(clocation, body, assign, assign)
 
 	#4
 	block acceptToken(tokenType)
