@@ -11,13 +11,13 @@ call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\utilities\Dictionar
 
 package simple.parser.node
 
-class TraitNode : Node
+class TryCatchNode : Node
 	
 	tryBody = null
 	catchBody = null
 	exceptionName = ""
 
-	block TraitNode(location, itryBody, icatchBody, iexception)
+	block TryCatchNode(location, itryBody, icatchBody, iexception)
 		sourceLocation = location 
 		tryBody = itryBody
 		catchBody = icatchBody
