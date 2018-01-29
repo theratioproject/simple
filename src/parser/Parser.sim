@@ -92,7 +92,7 @@ class Parser
 		elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "return")
 			return parseReturn() 
 		elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "switch")
-			println("it switch") 
+			return parseSwitch()
 		elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "trait")
 			println("it trait") 
 		elif -> acceptTokenString(TOKENTYPE_IDENTIFIER, "try")
