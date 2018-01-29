@@ -63,6 +63,8 @@ switch (n)
 	} default {
 		#display "i dont know but it "+n
 	}
+	
+trait 
 
 
 

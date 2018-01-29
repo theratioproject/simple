@@ -96,7 +96,7 @@ class Parser
 		elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "switch")
 			return parseSwitch()
 		elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "trait")
-			println("it trait") 
+			return parseTrait()
 		elif -> acceptTokenString(TOKENTYPE_IDENTIFIER, "try")
 			println("it try") 
 		elif -> acceptTokenString(TOKENTYPE_IDENTIFIER, "until")
@@ -311,6 +311,8 @@ class Parser
 		end
 		acceptToken(TOKENTYPE_CLOSECURLYBRACE)
 		return new SwitchNode(slocation, cases, defaultstmt, value)
+		
+	block parseTrait()
 		
 	#4
 	block acceptToken(tokenType)
