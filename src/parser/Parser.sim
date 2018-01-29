@@ -639,7 +639,6 @@ class Parser
 				expr = expectToken(TOKENTYPE_STRING)
 				return new StringNode(tlocation, expr.getValue())
 			elif matchToken(TOKENTYPE_OPENCURLYBRACE)
-				expr = expectToken(TOKENTYPE_INTEGER)
 				return new parseDictionaryDeclaration()
 			elif acceptToken(acceptToken(TOKENTYPE_OPENPARENTESES))
 				expr = parseExpression()
