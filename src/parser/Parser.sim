@@ -582,7 +582,7 @@ class Parser
 				expr = parseExpression()
 				if (matchToken(TOKENTYPE_COMMA))
 					return parseTuple(expr)
-				end
+				end 
 				expectToken(TOKENTYPE_CLOSEPARENTESES)
 				return expr
 			elif matchToken(TOKENTYPE_OPENSQUAREBRACE)
