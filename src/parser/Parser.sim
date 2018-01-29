@@ -246,7 +246,13 @@ class Parser
 		return new BlockNode(blocation, name, parameters, null, bstmt)
 		
 	block parseIf()
-		
+		ilocation = location(tokens, position)
+		expectTokenString(TOKENTYPE_IDENTIFIER, "if")
+		condition = parseExpression()
+		ifBody = parseStatement()
+		if acceptTokenString(TOKENTYPE_IDENTIFIER, "else")
+			
+		end
 		
 	#4
 	block acceptToken(tokenType)
