@@ -41,6 +41,8 @@ call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\BlockNo
 
 call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\IfNode.sim"
 
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\ReturnNode.sim"
+
 package simple.parser
 
 class Parser 
