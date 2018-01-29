@@ -327,7 +327,7 @@ class Parser
 			type = new IdentifierNode(location(tokens, position), expto)
 			acceptToken(TOKENTYPE_COMMA)
 		end
-		return trait
+		return traity
 	#4
 	block acceptToken(tokenType)
 		ret = matchToken(tokenType)
