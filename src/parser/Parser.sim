@@ -335,6 +335,14 @@ class Parser
 		expectTokenString(TOKENTYPE_IDENTIFIER, "try")
 		tryBody = parseStatement()
 		expectTokenString(TOKENTYPE_IDENTIFIER, "catch")
+		if acceptToken(TOKENTYPE_OPENPARENTESES)
+			exception = expectToken(TOKENTYPE_IDENTIFIER).getValue()
+			acceptToken(TOKENTYPE_CLOSEPARENTESES)
+			tcstmt = parseStatement()
+			return new TryCatchNode(tlocation, tryBody, tcstmt, exception)
+		end
+		tcstmt = parseStatement()
+		return new TryCatchNode(tlocation, tryBody, tcstmt, null)
 	
 	#4
 	block acceptToken(tokenType)
