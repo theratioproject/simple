@@ -284,7 +284,9 @@ class Parser
 		acceptToken(TOKENTYPE_OPENCURLYBRACE)
 		cases = []
 		do {
-		
+			expectTokenString(TOKENTYPE_IDENTIFIER, "case")
+			op = BINARYOPERATION_EQUALTO
+			if matchToken(TOKENTYPE_COMPARISON)
 		} while matchTokenString(TOKENTYPE_IDENTIFIER, "default") == false and matchToken(TOKENTYPE_CLOSECURLYBRACE) == false
 		defaultstmt = null
 		if acceptTokenString(TOKENTYPE_IDENTIFIER, "default")
