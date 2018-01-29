@@ -100,7 +100,7 @@ class Parser
 		elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "trait")
 			return parseTrait()
 		elif -> acceptTokenString(TOKENTYPE_IDENTIFIER, "try")
-			println("it try") 
+			return parseTry()
 		elif -> acceptTokenString(TOKENTYPE_IDENTIFIER, "until")
 			println("it until") 
 		elif -> acceptTokenString(TOKENTYPE_IDENTIFIER, "while")
@@ -329,6 +329,10 @@ class Parser
 			acceptToken(TOKENTYPE_COMMA)
 		end
 		return traity
+		
+	block parseTry()
+	
+	
 	#4
 	block acceptToken(tokenType)
 		ret = matchToken(tokenType)
