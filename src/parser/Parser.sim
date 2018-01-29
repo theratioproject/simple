@@ -350,6 +350,10 @@ class Parser
 		wlocation = location(tokens, position)
 		condition = null
 		if acceptTokenString(TOKENTYPE_IDENTIFIER, "while")
+			condition = parseExpression()
+		end
+		body = parseStatement()
+		return new WhileNode(wlocation, condition, body)
 	
 	#4
 	block acceptToken(tokenType)
