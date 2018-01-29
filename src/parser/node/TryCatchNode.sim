@@ -23,14 +23,9 @@ class TraitNode : Node
 		catchBody = icatchBody
 		exceptionName = iexception
 		
-	block getAttributes()
-		return attributes
-		
-	block addAttribute(num, attrib)
-		attributes.addValue(num, attrib)
-		
 	block visit(visitor)
 		visitor.accept(this)
 	
 	block visitChildren(visitor)
-		
+		tryBody.visit(visitor)
+		catchBody.visit(visitor)
