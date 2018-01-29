@@ -85,10 +85,10 @@ class Parser
 			return parseIf()
 		elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "private")
 			return parsePrivate()
-		#elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "throw")
-		#	println("it throw")
+		/*elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "throw")
+			println("it throw")*/
 		elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "return")
-			println("it return") 
+			return parseReturn() 
 		elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "switch")
 			println("it switch") 
 		elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "trait")
@@ -268,6 +268,8 @@ class Parser
 		end
 		ast.setIsPrivate(true)
 		return ast
+		
+	block parseReturn()
 		
 	#4
 	block acceptToken(tokenType)

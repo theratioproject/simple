@@ -51,9 +51,11 @@ if  n == 20 {
 	display "i dont know" + crlf
 }
 
-private block priv() {}
+private block priv() {
+	return 30
+}
 
-throw 
+
 
 #println("reach here : "+tokens[position+1].getValue())
 
