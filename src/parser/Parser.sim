@@ -39,6 +39,8 @@ call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\BlockParamet
 
 call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\BlockNode.sim"
 
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\IfNode.sim"
+
 package simple.parser
 
 class Parser 

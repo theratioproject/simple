@@ -29,13 +29,9 @@ class IfNode : Node
 		visitor.accept(this)
 	
 	block visitChildren(visitor)
-		for a = 0 to len(inherits)
-			inherits[a].visit(visitor)
-		end
-		body.visit(visitor)
-		
-	block getInherits()
-		return inherits
+		condition.visit(visitor)
+		ifbody.visit(visitor)
+		elsebody.visit(visitor)
 		
 	
 	
