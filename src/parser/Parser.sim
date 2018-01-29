@@ -245,6 +245,7 @@ class Parser
 		bstmt = parseStatement()
 		return new BlockNode(blocation, name, parameters, null, bstmt)
 		
+	block parseIf()
 		
 		
 	#4
