@@ -624,6 +624,7 @@ class Parser
 		return left
 		
 		block parseTerm()
+		println("IN SWITCH : "+tokens[position].getValue())
 			tlocation = location(tokens, position)
 			if matchToken(TOKENTYPE_CHAR)
 				expr = expectToken(TOKENTYPE_CHAR)
@@ -640,7 +641,7 @@ class Parser
 			elif matchToken(TOKENTYPE_OPENCURLYBRACE)
 				return new parseDictionaryDeclaration()
 			elif acceptToken(acceptToken(TOKENTYPE_OPENPARENTESES))
-				expr = parseExpression() println("IN SWITCH : "+tokens[position].getValue())
+				expr = parseExpression()
 				if (matchToken(TOKENTYPE_COMMA))
 					return parseTuple(expr)
 				end 
