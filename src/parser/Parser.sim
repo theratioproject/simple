@@ -109,7 +109,7 @@ class Parser
 			println("it until")
 		elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "while")
 			return parseWhile()
-		elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "with")
+		elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "calling")
 			println("it with")
 		end
 		if (position + 1) < len(tokens)

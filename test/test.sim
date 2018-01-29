@@ -84,10 +84,10 @@ try {
 	
 }
 
-while n <= 100  .
+while n <= 100  {
 	display " " +n + " "
 	n = n + 10
-.
+}
 
 
 
