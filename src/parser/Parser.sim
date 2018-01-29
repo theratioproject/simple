@@ -380,8 +380,11 @@ class Parser
 		expectToken(TOKENTYPE_OPENPARENTESES)
 		parameters = []
 		while acceptToken(TOKENTYPE_OPENPARENTESES) == false
-		
+			npexpr = parseExpression()
+			add(parameters, npexpr)
+			acceptToken(TOKENTYPE_COMMA)
 		end
+		return new ArgumentListNode(alocation, parameters)
 
 	#4
 	block acceptToken(tokenType)
