@@ -640,7 +640,7 @@ class Parser
 			elif matchToken(TOKENTYPE_OPENCURLYBRACE)
 				return new parseDictionaryDeclaration()
 			elif acceptToken(acceptToken(TOKENTYPE_OPENPARENTESES))
-				expr = parseExpression()
+				expr = parseExpression() println("IN SWITCH : "+tokens[position].getValue())
 				if (matchToken(TOKENTYPE_COMMA))
 					return parseTuple(expr)
 				end 
