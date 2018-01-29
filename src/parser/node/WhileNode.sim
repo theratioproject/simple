@@ -11,19 +11,17 @@ package simple.parser.node
 
 class TryCatchNode : Node
 	
-	tryBody = null
-	catchBody = null
-	exceptionName = ""
+	condition = null
+	body = null
 
-	block TryCatchNode(location, itryBody, icatchBody, iexception)
+	block TryCatchNode(location, icondition, ibody)
 		sourceLocation = location 
-		tryBody = itryBody
-		catchBody = icatchBody
-		exceptionName = iexception
+		condition = icondition
+		body = ibody
 		
 	block visit(visitor)
 		visitor.accept(this)
 	
 	block visitChildren(visitor)
-		tryBody.visit(visitor)
-		catchBody.visit(visitor)
+		condition.visit(visitor)
+		body.visit(visitor)
