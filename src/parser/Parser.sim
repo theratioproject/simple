@@ -319,8 +319,13 @@ class Parser
 		traity = new TraitNode(tlocation, name)
 		acceptToken(TOKENTYPE_OPENCURLYBRACE)
 		while acceptToken(TOKENTYPE_CLOSECURLYBRACE) == false
-		
+			attrib = expectToken(TOKENTYPE_IDENTIFIER).getValue()
+			acceptToken(TOKENTYPE_COLON)
+			expto = expectToken(TOKENTYPE_IDENTIFIER).getValue()
+			type = new IdentifierNode(location(tokens, position), expto)
+			acceptToken(TOKENTYPE_COMMA)
 		end
+		return trait
 	#4
 	block acceptToken(tokenType)
 		ret = matchToken(tokenType)
