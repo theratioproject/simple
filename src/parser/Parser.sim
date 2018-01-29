@@ -110,7 +110,7 @@ class Parser
 		elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "while")
 			return parseWhile()
 		elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "calling")
-			println("it with")
+			return parseCalling()
 		end
 		if (position + 1) < len(tokens)
 			if matchToken(TOKENTYPE_IDENTIFIER) and tokens[position+1].getTokenType() == TOKENTYPE_COMMA
@@ -357,6 +357,9 @@ class Parser
 		end
 		body = parseStatement()
 		return new WhileNode(wlocation, condition, body)
+		
+	block parseCalling()
+		clocation = location(tokens, position)
 
 	#4
 	block acceptToken(tokenType)
