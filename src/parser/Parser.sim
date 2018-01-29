@@ -285,7 +285,9 @@ class Parser
 		cases = []
 		do 
 		
-		while matchTokenString(TOKENTYPE_IDENTIFIER, "default")
+		while matchTokenString(TOKENTYPE_IDENTIFIER, "default") == false and matchToken(TOKENTYPE_CLOSECURLYBRACE) == false
+		default = null
+		if acceptTokenString(TOKENTYPE_IDENTIFIER, "default")
 		
 	#4
 	block acceptToken(tokenType)
