@@ -390,6 +390,11 @@ class Parser
 	
 	block parseInitialAttributes()
 		attribs = new Dictionary
+		if acceptToken(TOKENTYPE_OPENCURLYBRACE)
+			do {
+				
+			} while acceptToken(TOKENTYPE_CLOSECURLYBRACE)
+		end
 
 	#4
 	block acceptToken(tokenType)
