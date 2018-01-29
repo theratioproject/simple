@@ -313,6 +313,8 @@ class Parser
 		return new SwitchNode(slocation, cases, defaultstmt, value)
 		
 	block parseTrait()
+		tlocation = location(tokens, position)
+		expectTokenString(TOKENTYPE_IDENTIFIER, "trait")
 		
 	#4
 	block acceptToken(tokenType)
