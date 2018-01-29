@@ -277,6 +277,9 @@ class Parser
 		value = parseExpression()
 		return new ReturnNode(rlocation, value)
 		
+	block parseSwitch()
+		
+		
 	#4
 	block acceptToken(tokenType)
 		ret = matchToken(tokenType)
