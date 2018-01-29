@@ -280,12 +280,11 @@ class Parser
 	block parseSwitch()
 		slocation = location(tokens, position)
 		expectTokenString(TOKENTYPE_IDENTIFIER, "switch")
-		value = parseExpression()
+		value = parseExpression() println("IN SWITCH : "+tokens[position].getValue())
 		acceptToken(TOKENTYPE_OPENCURLYBRACE)
 		cases = []
 		do {
 			expectTokenString(TOKENTYPE_IDENTIFIER, "case")
-			println("IN SWITCH : "+tokens[position].getValue())
 			op = BINARYOPERATION_EQUALTO
 			if matchToken(TOKENTYPE_COMPARISON)
 				op = stringToBinaryOperation(expectToken(TOKENTYPE_COMPARISSON).getValue())
@@ -659,7 +658,6 @@ class Parser
 				return parseThread()
 			elif position+1 < len(tokens)
 				if matchToken(TOKENTYPE_IDENTIFIER) and tokens[position+1].getTokenType() == TOKENTYPE_IDENTIFIER
-					println("IT HERE : "+tokens[position].getValue())
 					return parseEnforcedAssignment()
 				elif matchToken(TOKENTYPE_IDENTIFIER)
 					rett = expectToken(TOKENTYPE_IDENTIFIER)
