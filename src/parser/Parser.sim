@@ -283,9 +283,9 @@ class Parser
 		value = parseExpression()
 		acceptToken(TOKENTYPE_OPENCURLYBRACE)
 		cases = []
-		do 
+		do {
 		
-		while matchTokenString(TOKENTYPE_IDENTIFIER, "default") == false and matchToken(TOKENTYPE_CLOSECURLYBRACE) == false
+		} while matchTokenString(TOKENTYPE_IDENTIFIER, "default") == false and matchToken(TOKENTYPE_CLOSECURLYBRACE) == false
 		defaultstmt = null
 		if acceptTokenString(TOKENTYPE_IDENTIFIER, "default")
 			defaultstmt = parseStatement()
