@@ -270,6 +270,10 @@ class Parser
 		return ast
 		
 	block parseReturn()
+		rlocation = location(tokens, position)
+		expectTokenString(TOKENTYPE_IDENTIFIER, "return")
+		value = parseExpression()
+		return new ReturnNode(rlocation, value)
 		
 	#4
 	block acceptToken(tokenType)
