@@ -84,7 +84,7 @@ class Parser
 		elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "if")
 			return parseIf()
 		elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "private")
-			println("it private") 
+			return parsePrivate()
 		elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "throw")
 			println("it throw") 
 		elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "return")
