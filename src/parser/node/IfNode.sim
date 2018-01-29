@@ -19,11 +19,11 @@ class IfNode : Node
 		sourceLocation = location 
 		condition = icondition
 		ifbody = iifbody
-		if ielsebody == 0
-			elsebody = new CodeBlockNode(ifbody.sourceLocation())
-		else 
+		#if ielsebody == 0
+		#	elsebody = new CodeBlockNode(ifbody.sourceLocation())
+		#else 
 			elsebody = ielsebody
-		end
+		#end
 		
 	block visit(visitor)
 		visitor.accept(this)
