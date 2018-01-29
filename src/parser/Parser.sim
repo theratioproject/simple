@@ -1,7 +1,7 @@
 
-/* 
-	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com"> 
-	MIT License Copyright (c) 2018 simple 
+/*
+	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com">
+	MIT License Copyright (c) 2018 simple
 
 */
 
@@ -51,27 +51,27 @@ call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\TryCatc
 
 package simple.parser
 
-class Parser 
+class Parser
 
-	tokens = []  
-	position = 0 
-	
+	tokens = []
+	position = 0
+
 	#1
 	block endOfStream()
-		return position > len(tokens) 
-	
+		return position > len(tokens)
+
 	#2
 	block parse(intokens)
 		tokens = intokens
-		position = 0 
-		
+		position = 0
+
 		nodes = new CodeBlockNode(location(tokens, position))
-		while (endOfStream() == false) 
-			add(nodes.getChildren(), parseStatement()) 
+		while (endOfStream() == false)
+			add(nodes.getChildren(), parseStatement())
 		end
 		return nodes
-	
-	#3	
+
+	#3
 	block parseStatement()
 		if -> acceptTokenString(TOKENTYPE_IDENTIFIER, "break")
 			return new BreakNode(location(tokens, position))
@@ -80,7 +80,7 @@ class Parser
 		elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "class")
 			return parseClass()
 		elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "do")
-			return parseDoWhile() 
+			return parseDoWhile()
 		elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "enum")
 			return parseEnum()
 		elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "for")
@@ -96,7 +96,7 @@ class Parser
 		/*elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "throw")
 			println("it throw")*/
 		elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "return")
-			return parseReturn() 
+			return parseReturn()
 		elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "switch")
 			return parseSwitch()
 		elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "trait")
@@ -104,18 +104,18 @@ class Parser
 		elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "try")
 			return parseTry()
 		elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "until")
-			println("it until") 
+			println("it until")
 		elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "while")
 			return parseWhile()
 		elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "with")
-			println("it with") 
+			println("it with")
 		end
 		if (position + 1) < len(tokens)
 			if matchToken(TOKENTYPE_IDENTIFIER) and tokens[position+1].getTokenType() == TOKENTYPE_COMMA
 				return parseMultipleAssignment()
 			end
 		end
-		if (position + 2) < len(tokens) 
+		if (position + 2) < len(tokens)
 			if matchToken(TOKENTYPE_IDENTIFIER) and tokens[position+1].getTokenType() == TOKENTYPE_OPENCURLYBRACE and stringEquals(tokens[position+2].getValue(), "get")
 				return parseProperty()
 			end
@@ -125,23 +125,23 @@ class Parser
 		else
 			return parseExpressionStatement()
 		end
-		
+
 	#8
 	block parseClass()
 		clocation = location(tokens, position) inherits = []
 		attached = expectTokenString(TOKENTYPE_IDENTIFIER, "class").getAttachedComment()
-		name = expectToken(TOKENTYPE_IDENTIFIER).getValue() 
+		name = expectToken(TOKENTYPE_IDENTIFIER).getValue()
 		if -> acceptToken(TOKENTYPE_COLON) or acceptTokenString(TOKENTYPE_IDENTIFIER, "inherit")
 			do {
 				express = parseExpression()
 				add(inherits, express)
-			} while -> acceptToken(TOKENTYPE_COMMA) 
+			} while -> acceptToken(TOKENTYPE_COMMA)
 			node = parseStatement()
 			return new ClassNode(clocation, name, node, inherits)
 		end
-		node = parseStatement() 
+		node = parseStatement()
 		return new ClassNode(clocation, name, node, null)
-		
+
 	block parseCodeBlockNode()
 		clocation = location(tokens, position)
 		expectToken(TOKENTYPE_OPENCURLYBRACE)
@@ -150,7 +150,7 @@ class Parser
 			add(cblock.getChildren(), parseStatement())
 		end
 		return cblock
-	
+
 	#9
 	block parseDoWhile()
 		dlocation = location(tokens, position)
@@ -159,7 +159,7 @@ class Parser
 		expectTokenString(TOKENTYPE_IDENTIFIER, "while")
 		condition = parseStatement()
 		return new DoWhileNode(dlocation, condition, body)
-		
+
 	block parseEnum()
 		elocation = location(tokens, position)
 		expectTokenString(TOKENTYPE_IDENTIFIER, "enum")
@@ -173,12 +173,12 @@ class Parser
 			if acceptToken(TOKENTYPE_ASSIGNMENT)
 				expt = expectToken(TOKENTYPE_INTEGER).getValue()
 				num = toNumber(expt)
-			end 
-			acceptToken(TOKENTYPE_COMMA)  
+			end
+			acceptToken(TOKENTYPE_COMMA)
 			enumno.addAttribute(num, attrib)
 		end
 		return enumno
-		
+
 	block parseFor()
 		flocation = location(tokens, position)
 		expectTokenString(TOKENTYPE_IDENTIFIER, "for")
@@ -191,7 +191,7 @@ class Parser
 			body = parseStatement()
 			return new ForEachNode(flocation, variable, expression, body)
 		else
-			initStatement = parseStatement() 
+			initStatement = parseStatement()
 			acceptToken(TOKENTYPE_SEMICOLON)
 			condition = parseExpression()
 			acceptToken(TOKENTYPE_SEMICOLON)
@@ -201,7 +201,7 @@ class Parser
 			body = parseStatement()
 			return new ForNode(flocation, initStatement, condition, repeatStatement, body)
 		end
-		
+
 	block parseCall()
 		clocation = location(tokens, position)
 		expectTokenString(TOKENTYPE_IDENTIFIER, "call")
@@ -225,7 +225,7 @@ class Parser
 			} while acceptToken(TOKENTYPE_DOT) or acceptTokenString(TOKENTYPE_OPERATION, "/")
 			return new CallNode(clocation, modulePath)
 		end
-		
+
 	block parseBlock()
 		blocation = location(tokens, position)
 		attached = expectTokenString(TOKENTYPE_IDENTIFIER, "block").getAttachedComment()
@@ -242,7 +242,7 @@ class Parser
 				expr = parseExpression()
 				bparam = new BlockParameter(PARAMETERTYPE_ENFORCED, paramName, expr)
 				add(parameters, bparam)
-			else 
+			else
 				bparam = new BlockParameter(paramType, paramName, null)
 				add(parameters, bparam)
 			end
@@ -254,7 +254,7 @@ class Parser
 		end
 		bstmt = parseStatement()
 		return new BlockNode(blocation, name, parameters, null, bstmt)
-		
+
 	block parseIf()
 		ilocation = location(tokens, position)
 		expectTokenString(TOKENTYPE_IDENTIFIER, "if")
@@ -265,28 +265,28 @@ class Parser
 			return new IfNode(ilocation, condition, ifBody, estmt)
 		end
 		return new IfNode(ilocation, condition, ifBody, 0)
-		
+
 	block parsePrivate()
 		attached = expectTokenString(TOKENTYPE_IDENTIFIER, "private").getAttachedComment()
 		ast = parseStatement()
-		if stringEquals(ast.getType(), "class_node") 
-			
-		elif stringEquals(ast.getType(), "block_node") 
-		
+		if stringEquals(ast.getType(), "class_node")
+
+		elif stringEquals(ast.getType(), "block_node")
+
 		end
 		ast.setIsPrivate(true)
 		return ast
-		
+
 	block parseReturn()
 		rlocation = location(tokens, position)
 		expectTokenString(TOKENTYPE_IDENTIFIER, "return")
 		value = parseExpression()
 		return new ReturnNode(rlocation, value)
-		
+
 	block parseSwitch()
 		slocation = location(tokens, position)
 		expectTokenString(TOKENTYPE_IDENTIFIER, "switch")
-		value = parseExpression() 
+		value = parseExpression()
 		acceptToken(TOKENTYPE_CLOSEPARENTESES) #development error
 		acceptToken(TOKENTYPE_OPENCURLYBRACE)
 		cases = []
@@ -315,7 +315,7 @@ class Parser
 		end
 		acceptToken(TOKENTYPE_CLOSECURLYBRACE)
 		return new SwitchNode(slocation, cases, defaultstmt, value)
-		
+
 	block parseTrait()
 		tlocation = location(tokens, position)
 		expectTokenString(TOKENTYPE_IDENTIFIER, "trait")
@@ -331,7 +331,7 @@ class Parser
 			acceptToken(TOKENTYPE_COMMA)
 		end
 		return traity
-		
+
 	block parseTry()
 		tlocation = location(tokens, position)
 		expectTokenString(TOKENTYPE_IDENTIFIER, "try")
@@ -345,7 +345,7 @@ class Parser
 		end
 		tcstmt = parseStatement()
 		return new TryCatchNode(tlocation, tryBody, tcstmt, "err")
-		
+
 	block parseWhile()
 		wlocation = location(tokens, position)
 		condition = null
@@ -354,7 +354,7 @@ class Parser
 		end
 		body = parseStatement()
 		return new WhileNode(wlocation, condition, body)
-	
+
 	#4
 	block acceptToken(tokenType)
 		ret = matchToken(tokenType)
@@ -362,61 +362,61 @@ class Parser
 			position++
 		end
 		return ret
-	
-	#5	
+
+	#5
 	block acceptTokenString(tokenType, value)
 		ret = matchTokenString(tokenType, value)
 		if -> ret == true
 			position++
 		end
 		return ret
-	
+
 	#6
 	block matchToken(tokenType)
 		return endOfStream() == false and tokens[position].getTokenType() == tokenType
-		
+
 	#7
 	block matchTokenString(tokenType, value)
 		return endOfStream() == false and tokens[position].getTokenType() == tokenType and stringEquals(tokens[position].getValue(), value)
-		
+
 	block expectToken(tokenType)
 		if matchToken(tokenType)
 			ret = tokens[position] position++
 			return ret
 		end
-		try 
+		try
 			throwScannerException(location(tokens, position), "Expected token of type '"+getTokenTypeValue(tokenType)+"', But got token of type '"+getTokenTypeValue(tokens[position].getTokenType())+"' with value '"+tokens[position].getValue()+"'", UNEXPECTED_TOKEN_TYPE)
-		catch 
+		catch
 			throwScannerException(location(tokens, position), "Unexpected end of source after '"+getTokenTypeValue(tokens[position-1].getTokenType())+"' with value '"+tokens[position-1].getValue()+"'", UNEXPECTED_END_OF_SOURCE)
 		end
-		
+
 	block expectTokenString(tokenType, value)
 		if matchTokenString(tokenType, value)
 			ret = tokens[position] position++
 			return ret
 		end
-		try 
+		try
 			throwScannerException(location(tokens, position), "Expected token of type '"+getTokenTypeValue(tokenType)+"' with value '"+value+"', But got token of type '"+getTokenTypeValue(tokens[position].getTokenType())+"' with value '"+tokens[position].getValue()+"'", UNEXPECTED_TOKEN_TYPE)
-		catch 
+		catch
 			throwScannerException(location(tokens, position), "Unexpected end of source after '"+getTokenTypeValue(tokens[position-1].getTokenType())+"' with value '"+tokens[position-1].getValue()+"'", UNEXPECTED_END_OF_SOURCE)
 		end
-	
+
 	block parseExpressionStatement()
-		elocation = location(tokens, position) 
-		expression = parseExpression() 
+		elocation = location(tokens, position)
+		expression = parseExpression()
 		acceptToken(TOKENTYPE_SEMICOLON)
 		if stringEquals(expression.getType(), "block_call_node") or stringEquals(expression.getType(), "binary_operation_node") or stringEquals(expression.getType(), "attribute_access_node") or stringEquals(expression.getType(), "unary_operation_node")
 			return new ExpressionStatementNode(elocation, expression)
 		end
 		return expression
-	
+
 	block parseExpression()
 		return parseAssignment()
-			
+
 	block parseAssignment()
-		alocation = location(tokens, position)  
-		left = parseTenary() 
-		if matchToken(TOKENTYPE_ASSIGNMENT) 
+		alocation = location(tokens, position)
+		left = parseTenary()
+		if matchToken(TOKENTYPE_ASSIGNMENT)
 			switch tokens[position].getValue()
 				case '='
 					acceptToken(TOKENTYPE_ASSIGNMENT) ass = parseAssignment()
@@ -455,7 +455,7 @@ class Parser
 			end
 		end
 		return left
-		
+
 	block parseTenary()
 		tlocation = location(tokens, position)
 		left = parseLogicalOr()
@@ -466,7 +466,7 @@ class Parser
 			left = new TenaryOperationNode(tlocation, left, trueStatement, falseStatement)
 		end
 		return left
-		
+
 	block parseLogicalOr()
 		llocation = location(tokens, position)
 		left = parseLogicalAnd()
@@ -474,7 +474,7 @@ class Parser
 			left = new BinaryOperationNode(llocation, BINARYOPERATION_LOGICALOR, left, parseLogicalOr())
 		end
 		return left
-		
+
 	block parseLogicalAnd()
 		alocation = location(tokens, position)
 		left = parseEquality()
@@ -482,8 +482,8 @@ class Parser
 			left = new BinaryOperationNode(alocation, BINARYOPERATION_LOGICALAND, left, parseLogicalAnd())
 		end
 		return left
-		
-	block parseEquality() 
+
+	block parseEquality()
 		elocation = location(tokens, position)
 		left = parseComparison()
 		expr = null
@@ -507,7 +507,7 @@ class Parser
 			end
 		end
 		return left
-		
+
 	block parseComparison()
 		plocation = location(tokens, position)
 		left = parseOr()
@@ -518,35 +518,35 @@ class Parser
 					acceptToken(TOKENTYPE_COMPARISON)
 					expr = parseOr()
 					if matchToken(TOKENTYPE_COMPARISON)
-						return new BinaryOperationNode(BINARYOPERATION_LOGICALAND, new BinaryOperationNode(plocation, BINARYOPERATION_GREATERTHAN, left, expr), new BinaryOperationNode(plocation, stringToBinaryOperation(expectToken(TOKENTYPE_COMPARISON).value), expr, parserOr()))		
+						return new BinaryOperationNode(BINARYOPERATION_LOGICALAND, new BinaryOperationNode(plocation, BINARYOPERATION_GREATERTHAN, left, expr), new BinaryOperationNode(plocation, stringToBinaryOperation(expectToken(TOKENTYPE_COMPARISON).value), expr, parserOr()))
 					end
 					return new BinaryOperationNode(plocation, BINARYOPERATION_GREATERTHAN, left, expr)
 				case ">="
 					acceptToken(TOKENTYPE_COMPARISON)
 					expr = parseOr()
 					if matchToken(TOKENTYPE_COMPARISON)
-						return new BinaryOperationNode(BINARYOPERATION_LOGICALAND, new BinaryOperationNode(plocation, BINARYOPERATION_GREATERTHANOREQUAL, left, expr), new BinaryOperationNode(plocation, stringToBinaryOperation(expectToken(TOKENTYPE_COMPARISON).value), expr, parserOr()))		
+						return new BinaryOperationNode(BINARYOPERATION_LOGICALAND, new BinaryOperationNode(plocation, BINARYOPERATION_GREATERTHANOREQUAL, left, expr), new BinaryOperationNode(plocation, stringToBinaryOperation(expectToken(TOKENTYPE_COMPARISON).value), expr, parserOr()))
 					end
 					return new BinaryOperationNode(plocation, BINARYOPERATION_GREATERTHANOREQUAL, left, expr)
 				case "<"
 					acceptToken(TOKENTYPE_COMPARISON)
 					expr = parseOr()
 					if matchToken(TOKENTYPE_COMPARISON)
-						return new BinaryOperationNode(BINARYOPERATION_LOGICALAND, new BinaryOperationNode(plocation, BINARYOPERATION_LESSERTHAN, left, expr), new BinaryOperationNode(plocation, stringToBinaryOperation(expectToken(TOKENTYPE_COMPARISON).value), expr, parserOr()))		
+						return new BinaryOperationNode(BINARYOPERATION_LOGICALAND, new BinaryOperationNode(plocation, BINARYOPERATION_LESSERTHAN, left, expr), new BinaryOperationNode(plocation, stringToBinaryOperation(expectToken(TOKENTYPE_COMPARISON).value), expr, parserOr()))
 					end
 					return new BinaryOperationNode(plocation, BINARYOPERATION_LESSERTHAN, left, expr)
 				case "<="
 					acceptToken(TOKENTYPE_COMPARISON)
 					expr = parseOr()
 					if matchToken(TOKENTYPE_COMPARISON)
-						return new BinaryOperationNode(BINARYOPERATION_LOGICALAND, new BinaryOperationNode(plocation, BINARYOPERATION_LESSERTHANOREQUAL, left, expr), new BinaryOperationNode(plocation, stringToBinaryOperation(expectToken(TOKENTYPE_COMPARISON).value), expr, parserOr()))		
+						return new BinaryOperationNode(BINARYOPERATION_LOGICALAND, new BinaryOperationNode(plocation, BINARYOPERATION_LESSERTHANOREQUAL, left, expr), new BinaryOperationNode(plocation, stringToBinaryOperation(expectToken(TOKENTYPE_COMPARISON).value), expr, parserOr()))
 					end
-					return new BinaryOperationNode(plocation, BINARYOPERATION_LESSERTHANOREQUAL, left, expr) 
+					return new BinaryOperationNode(plocation, BINARYOPERATION_LESSERTHANOREQUAL, left, expr)
 				default break
 			end
 		end
 		return left
-		
+
 	block parseOr()
 		olocation = location(tokens, position)
 		left = parseXor()
@@ -554,7 +554,7 @@ class Parser
 			left = new BinaryOperationNode(olocation, BINARYOPERATION_BITWISEOR, left, parseOr())
 		end
 		return left
-		
+
 	block parseXor()
 		xlocation = location(tokens, position)
 		left = parseAnd()
@@ -562,7 +562,7 @@ class Parser
 			left = new BinaryOperationNode(xlocation, BINARYOPERATION_BITWISEXOR, left, parseXor())
 		end
 		return left
-		
+
 	block parseAnd()
 		alocation = location(tokens, position)
 		left = parseBitshift()
@@ -570,7 +570,7 @@ class Parser
 			left = new BinaryOperationNode(alocation, BINARYOPERATION_BITWISEAND, left, pand)
 		end
 		return left
-		
+
 	block parseBitshift()
 		blocation = location(tokens, position)
 		left = parseAdditive()
@@ -586,7 +586,7 @@ class Parser
 			end
 		end
 		return left
-	
+
 	block parseAdditive()
 		alocation = location(tokens, position)
 		left = parseMultiplicative()
@@ -601,8 +601,8 @@ class Parser
 				default break
 			end
 		end
-		return left 
-		
+		return left
+
 	block parseMultiplicative()
 		mlocation = location(tokens, position)
 		left = parseUnary()
@@ -633,7 +633,7 @@ class Parser
 			end
 		end
 		return left
-		
+
 	block parseUnary()
 		ulocation = location(tokens, position)
 		if matchToken(TOKENTYPE_OPERATION)
@@ -656,10 +656,10 @@ class Parser
 			end
 		end
 		return parseAccess()
-		
+
 	block parseAccess()
 		return parseAccessTerm(parseTerm())
-	
+
 	block parseAccessTerm(left)
 		alocation = location(tokens, position)
 		if matchToken(TOKENTYPE_OPENPARENTESES)
@@ -676,13 +676,13 @@ class Parser
 			return parseAccess(new AttributeAccessNode(alocation, left, expectToken(TOKENTYPE_IDENTIFIER).getValue()))
 		end
 		return left
-		
+
 		block parseTerm()
 			tlocation = location(tokens, position)
 			if matchToken(TOKENTYPE_CHAR)
 				expr = expectToken(TOKENTYPE_CHAR)
 				return new CharNode(tlocation, expr.getValue())
-			elif matchToken(TOKENTYPE_INTEGER) 
+			elif matchToken(TOKENTYPE_INTEGER)
 				expr = expectToken(TOKENTYPE_INTEGER)
 				return new IntegerNode(tlocation, expr.getValue())
 			elif matchToken(TOKENTYPE_FLOAT)
@@ -697,7 +697,7 @@ class Parser
 				expr = parseExpression()
 				if (matchToken(TOKENTYPE_COMMA))
 					return parseTuple(expr)
-				end 
+				end
 				expectToken(TOKENTYPE_CLOSEPARENTESES)
 				return expr
 			elif matchToken(TOKENTYPE_OPENSQUAREBRACE)
@@ -721,12 +721,12 @@ class Parser
 				exptk = expectToken(TOKENTYPE_IDENTIFIER)
 				return new IdentifierNode(tlocation, exptk.getValue())
 			end
-			try 
+			try
 				throwScannerException(location(tokens, position), "Unexpected token of type '"+getTokenTypeValue(tokens[position].getTokenType())+"' with value '"+tokens[position].getValue()+"'", UNEXPECTED_TOKEN_TYPE)
-			catch 
+			catch
 				throwScannerException(location(tokens, position), "Unexpected end of source after '"+getTokenTypeValue(tokens[position-1].getTokenType())+"' with value '"+tokens[position-1].getValue()+"'", UNEXPECTED_END_OF_SOURCE)
 			end
-				
+
 	block 	parseEnforcedAssignment()
 		elocation = location(tokens, position)
 		type = null
@@ -740,32 +740,31 @@ class Parser
 		expectToken(TOKENTYPE_ASSIGNMENT)
 		value = parseExpression()
 		return new EnforcedAssignmentNode(elocation, type, variable, value)
-			
-		
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-		
-		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
 TO MAKE '~' IMPLICIT END OF BLOCK/STATEMENT
 
 
 */
-		
-		
-		
-		
-		
+
+
+
+

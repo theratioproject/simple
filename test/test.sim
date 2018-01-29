@@ -84,6 +84,11 @@ try {
 	
 }
 
+while ( n <= 100 ) {
+	display " " +n + " "
+	n = n + 10
+}
+
 
 
 /*println("reach here : "+tokens[position+1].getValue())*/
