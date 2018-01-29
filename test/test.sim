@@ -1,6 +1,6 @@
 # func main is the main entry point of the program.
 
 block main() {
-	println ("Hello, World!");
+	println ("Hello, World!")
 }
 

@@ -379,7 +379,7 @@ class Parser
 		alocation = location(tokens, position)
 		expectToken(TOKENTYPE_OPENPARENTESES)
 		parameters = []
-		while acceptToken(TOKENTYPE_OPENPARENTESES) == false
+		while acceptToken(TOKENTYPE_CLOSEPARENTESES) == false
 			npexpr = parseExpression()
 			add(parameters, npexpr)
 			acceptToken(TOKENTYPE_COMMA)
