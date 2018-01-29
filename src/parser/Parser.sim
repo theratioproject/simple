@@ -347,7 +347,9 @@ class Parser
 		return new TryCatchNode(tlocation, tryBody, tcstmt, "err")
 		
 	block parseWhile()
-		
+		wlocation = location(tokens, position)
+		condition = null
+		if acceptTokenString(TOKENTYPE_IDENTIFIER, "while")
 	
 	#4
 	block acceptToken(tokenType)
