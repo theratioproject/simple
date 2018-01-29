@@ -53,6 +53,10 @@ call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\WhileNo
 
 call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\CallingNode.sim"
 
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\BlockCallNode.sim"
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\utilities\Dictionary.sim" -> simple.utilities
+
 package simple.parser
 
 class Parser
