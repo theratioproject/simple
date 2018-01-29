@@ -80,7 +80,7 @@ trait Operable {
 
 try {
 	
-} catch (except) {
+} catch except {
 	
 }
 
