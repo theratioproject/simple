@@ -315,6 +315,8 @@ class Parser
 	block parseTrait()
 		tlocation = location(tokens, position)
 		expectTokenString(TOKENTYPE_IDENTIFIER, "trait")
+		name = expectToken(TOKENTYPE_IDENTIFIER).getValue()
+		traity = new TraitNode(tlocation, name)
 		
 	#4
 	block acceptToken(tokenType)
