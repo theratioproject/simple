@@ -374,6 +374,14 @@ class Parser
 		end
 		body = parseStatement()
 		return new CallingNode(clocation, body, target, assign)
+		
+	block parseArgumentList()
+		alocation = location(tokens, position)
+		expectToken(TOKENTYPE_OPENPARENTESES)
+		parameters = []
+		while acceptToken(TOKENTYPE_OPENPARENTESES) == false
+		
+		end
 
 	#4
 	block acceptToken(tokenType)
