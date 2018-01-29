@@ -295,7 +295,10 @@ class Parser
 				add(exprs, cexprs)
 			} while acceptToken(TOKENTYPE_COMMA)
 			body = parseStatement()
-			for a 
+			for a = 0 to len(exprs)
+				nucase = new Case(op, exprs[a], body)
+				add(cases, nucase)
+			loop
 		} while matchTokenString(TOKENTYPE_IDENTIFIER, "default") == false and matchToken(TOKENTYPE_CLOSECURLYBRACE) == false
 		defaultstmt = null
 		if acceptTokenString(TOKENTYPE_IDENTIFIER, "default")

@@ -55,7 +55,7 @@ private block priv() {
 	return 30
 }
 
-switch (n) 
+switch n
 	case 2
 		display "it is two"
 	case 3 
