@@ -677,6 +677,12 @@ class Parser
 				
 	block 	parseEnforcedAssignment()
 		elocation = location(tokens, position)
+		type = null
+		if tokens[position+1].getTokenType() == TOKENTYPE_DOT
+			type = parseExpression()
+		else
+			type = new IdentifierNode(elocation, expectToken(TOKENTYPE_IDENTIFIER).getValue())
+		end
 			
 		
 			
