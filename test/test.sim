@@ -48,7 +48,7 @@ for a in hello {
 n = 12
 
 #3 #4
-if ( n < 1 )
+if n < 1 
 	display "yea n is " + n + " and is less than 10" + crlf
 elif ( n == 1 )
 	display " n is 1 " + crlf 
