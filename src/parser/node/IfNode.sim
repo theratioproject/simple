@@ -11,9 +11,9 @@ package simple.parser.node
 
 class IfNode : Node
 
-	name = ""
-	body = null
-	inherits = []
+	condition = null
+	ifbody = null
+	elsebody = null
 
 	block IfNode(location, iname, ibody, inherits)
 		sourceLocation = location 
