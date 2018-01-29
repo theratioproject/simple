@@ -254,7 +254,7 @@ class Parser
 			estmt = parseStatement()
 			return new IfNode(ilocation, condition, ifBody, estmt)
 		end
-		return new IfNode(ilocation, condition, ifBody)
+		return new IfNode(ilocation, condition, ifBody, 0)
 		
 	#4
 	block acceptToken(tokenType)

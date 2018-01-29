@@ -15,11 +15,15 @@ class IfNode : Node
 	ifbody = null
 	elsebody = null
 
-	block IfNode(location, iname, ibody, inherits)
+	block IfNode(location, icondition, iifbody, ielsebody)
 		sourceLocation = location 
-		name = iname
-		body = ibody
-		inherits = inherits
+		condition = icondition
+		ifbody = iifbody
+		if ielsebody == 0
+			elsebody = new CodeBlockNode(ifbody.sourceLocation())
+		else 
+			elsebody = ielsebody
+		end
 		
 	block visit(visitor)
 		visitor.accept(this)
