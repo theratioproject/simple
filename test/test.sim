@@ -44,25 +44,20 @@ for a in hello {
 	display "VALUE : "+a
 }
 
-#1 #2
-n = 12
 
-#3 #4
-if n < 1 
-	display "yea n is " + n + " and is less than 10" + crlf
-elif ( n == 1 )
-	display " n is 1 " + crlf 
-elif ( n > 10 )
-	display "well you inputed " + n + " which is greater than 10" + crlf
-	n = 20
-end
-
-#5 #6
-if ( n == 20 ) 
+if  n == 20 {
 	display "holla it twenty" + crlf
-else 
+} else {
 	display "i dont know" + crlf
-end
+}
 
 #println("reach here : "+tokens[position+1].getValue())
+
+
+
+
+
+
+
+
  
