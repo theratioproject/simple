@@ -331,7 +331,10 @@ class Parser
 		return traity
 		
 	block parseTry()
-	
+		tlocation = location(tokens, position)
+		expectTokenString(TOKENTYPE_IDENTIFIER, "try")
+		tryBody = parseStatement()
+		expectTokenString(TOKENTYPE_IDENTIFIER, "catch")
 	
 	#4
 	block acceptToken(tokenType)
