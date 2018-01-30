@@ -1,9 +1,2 @@
-block main (){
 
-}
-block main (){
-
-}
-block main (){
-
-}
+display "Hello World"
