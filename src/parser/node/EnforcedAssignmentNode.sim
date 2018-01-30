@@ -11,19 +11,21 @@ package simple.parser.node
 
 class EnforcedAssignmentNode : Node
 	
-	target = null 
-	index = null
+	variable = ""
+	type = null
+	value = null
 
-	block EnforcedAssignmentNode(location, itarget, iindex)
+	block EnforcedAssignmentNode(location, itype, ivariable, ivalue)
 		sourceLocation = location 
-		target = itarget
-		index = iindex
+		variable = ivariable
+		itype = itype
+		ivalue = ivalue
 		
 	block visit(visitor)
 		visitor.accept(this)
 	
 	block visitChildren(visitor)
-		target.visit(visitor)
-		index.visit(visitor)
+		type.visit(visitor)
+		value.visit(visitor)
 
 
