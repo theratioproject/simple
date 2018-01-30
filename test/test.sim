@@ -19,3 +19,5 @@ listt = [ade, "wale", 70]
 dico = {}
 
 diccy = {ade : wale, you : me}
+
+lambda
