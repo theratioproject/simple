@@ -9,23 +9,19 @@ call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\Node.sim" ->
 
 package simple.parser.node
 
-class EnforcedAssignmentNode : Node
+class ListNode : Node
 	
-	variable = ""
-	type = null
-	value = null
+	elements = []
 
-	block EnforcedAssignmentNode(location, itype, ivariable, ivalue)
+	block ListNode(location, ielements)
 		sourceLocation = location 
-		variable = ivariable
-		itype = itype
-		ivalue = ivalue
+		elements = ielements
 		
 	block visit(visitor)
 		visitor.accept(this)
 	
 	block visitChildren(visitor)
-		type.visit(visitor)
-		value.visit(visitor)
-
+		for a = 0 to len(elements){
+			elements[a].visit(visitor)
+		}
 
