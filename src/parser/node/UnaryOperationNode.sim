@@ -11,16 +11,16 @@ package simple.parser.node
 
 class UnaryOperationNode : Node
 	
-	left = ""
-	right = ""
+	target null 
+	unaryOperation = null
 
-	block UnaryOperationNode(location, ileft, iright)
+	block UnaryOperationNode(location, itarget, iunaryOperation)
 		sourceLocation = location 
-		left = left
-		right = iright
+		target = itarget
+		unaryOperation = iunaryOperation
 		
 	block visit(visitor)
 		visitor.accept(this)
 	
 	block visitChildren(visitor)
-		left.visit(visitor)
+		target.visit(visitor)
