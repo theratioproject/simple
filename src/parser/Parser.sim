@@ -411,6 +411,13 @@ class Parser
 		
 	block parseListDeclaration()
 		llocation = location(tokens, position)
+		elements = []
+		expectToken(YOKENTYPE_OPENSQUAREBRACE)
+		while acceptToken(TOKENTYPE_CLOSESQUAREBRACE) == false {
+			eleexpr = parseExpression()
+			add(elements, eleexpr)
+			acceptToken(TOKENTYPE_COMMA)
+		}
 
 	#4
 	block acceptToken(tokenType)
