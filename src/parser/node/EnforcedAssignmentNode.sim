@@ -9,12 +9,12 @@ call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\Node.sim" ->
 
 package simple.parser.node
 
-class IterableAccessNode : Node
+class EnforcedAssignmentNode : Node
 	
 	target = null 
 	index = null
 
-	block IterableAccessNode(location, itarget, iindex)
+	block EnforcedAssignmentNode(location, itarget, iindex)
 		sourceLocation = location 
 		target = itarget
 		index = iindex
