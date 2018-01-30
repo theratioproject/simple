@@ -399,6 +399,7 @@ class Parser
 				attribs.add(attrib, value)
 			} while acceptToken(TOKENTYPE_CLOSECURLYBRACE)
 		end
+		return attribs ;
 
 	#4
 	block acceptToken(tokenType)
