@@ -692,19 +692,24 @@ class Parser
 			switch tokens[position].getValue()
 				case "~"
 					acceptToken(TOKENTYPE_OPERATION)
-					return new UnaryOperationNode(ulocation, parseUnary(), UNARYOPERATION_BITWISENOT)
+					ttopu = parseUnary()
+					return new UnaryOperationNode(ulocation, ttopu, UNARYOPERATION_BITWISENOT)
 				case "!"
 					acceptToken(TOKENTYPE_OPERATION)
-					return new UnaryOperationNode(ulocation, parseUnary(), UNARYOPERATION_LOGICALNOT)
+					ttopu = parseUnary()
+					return new UnaryOperationNode(ulocation, ttopu, UNARYOPERATION_LOGICALNOT)
 				case "-"
 					acceptToken(TOKENTYPE_OPERATION)
-					return new UnaryOperationNode(ulocation, parseUnary(), UNARYOPERATION_NEGATE)
+					ttopu = parseUnary()
+					return new UnaryOperationNode(ulocation, ttopu, UNARYOPERATION_NEGATE)
 				case "--"
 					acceptToken(TOKENTYPE_OPERATION)
-					return new UnaryOperationNode(ulocation, parseUnary(), UNARYOPERATION_PREDECREMENT)
+					ttopu = parseUnary()
+					return new UnaryOperationNode(ulocation, ttopu, UNARYOPERATION_PREDECREMENT)
 				case "++"
 					acceptToken(TOKENTYPE_OPERATION)
-					return new UnaryOperationNode(ulocation, parseUnary(), UNARYOPERATION_PREINCREMENT)
+					ttopu = parseUnary()
+					return new UnaryOperationNode(ulocation, ttopu, UNARYOPERATION_PREINCREMENT)
 			end
 		end
 		return parseAccess()
