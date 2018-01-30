@@ -408,6 +408,9 @@ class Parser
 			} while acceptToken(TOKENTYPE_CLOSECURLYBRACE)
 		end
 		return attribs ;
+		
+	block parseListDeclaration()
+		llocation = location(tokens, position)
 
 	#4
 	block acceptToken(tokenType)
