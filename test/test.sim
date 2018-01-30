@@ -20,4 +20,34 @@ block throwScannerException(location, message, errorcode)
 	println("  DATE : \t"+date())
 	#println("File Path : "+location.filePath())
 	printLine(true) 
-	if -> skipError == false __exit__ end
+	if skipError == false __exit__ 
+	
+
+/* 
+	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\Node.sim" -> simple.parser
+
+package simple.parser.node
+
+class IterableAccessNode : Node
+	
+	target = null 
+	index = null
+
+	block IterableAccessNode(location, itarget, iindex)
+		sourceLocation = location 
+		target = itarget
+		index = iindex
+		
+	block visit(visitor)
+		visitor.accept(this)
+	
+	block visitChildren(visitor)
+		target.visit(visitor)
+		index.visit(visitor)
+
+
