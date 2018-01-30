@@ -718,7 +718,7 @@ class Parser
 			return parseAccessTerm(nbcn)
 		elif acceptToken(TOKENTYPE_OPENSQUAREBRACE)
 			index = parseExpression()
-			expectToken(TOKENTYPE_CLOSEQUAREBRACE)
+			expectToken(TOKENTYPE_CLOSESQUAREBRACE)
 			return parseAccessTerm(new IterableAccessNode(alocation, left, index))
 		elif acceptTokenString(TOKENTYPE_OPERATION, "--")
 			return new UnaryOperationNode(alocation, left, UNARYOPERATION_POSTINCREMENT)

@@ -8,6 +8,6 @@ block main() {
 
 block looper() {
 	for a = 1; a < 10 ;a++ {
-	
+		print(lister[a] + crlf)
 	}
 }
