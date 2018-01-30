@@ -422,6 +422,15 @@ class Parser
 		}
 		
 		return new ListNode(llocation, elements)
+		
+	block parseDictionaryDeclaration()
+		dlocation = location(tokens, position)
+		keys = []
+		values = []
+		expectToken(TOKENTYPE_OPENCURLYBRACE)
+		while acceptToken(TOKENTYPE_CLOSECURLYBRACE) == false {
+		
+		}
 
 	#4
 	block acceptToken(tokenType)
