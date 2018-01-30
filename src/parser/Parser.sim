@@ -721,7 +721,8 @@ class Parser
 		elif acceptTokenString(TOKENTYPE_OPERATION, "++")
 			return new UnaryOperationNode(alocation, left, UNARYOPERATION_POSTINCREMENT)
 		elif acceptToken(TOKENTYPE_DOT)
-			return parseAccess(new AttributeAccessNode(alocation, left, expectToken(TOKENTYPE_IDENTIFIER).getValue()))
+			dattr = new AttributeAccessNode(alocation, left, expectToken(TOKENTYPE_IDENTIFIER).getValue())
+			return parseAccess(dattr)
 		end
 		return left
 
