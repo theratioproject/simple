@@ -20,7 +20,7 @@ block throwScannerException(location, message, errorcode)
 	println("  DATE : \t"+date())
 	#println("File Path : "+location.filePath())
 	printLine(true) 
-	if skipError == false __exit__ 
+	if skipError == false __exit__ = 0
 	
 
 /* 
@@ -29,7 +29,7 @@ block throwScannerException(location, message, errorcode)
 
 */
 
-call "Node.sim" -> simple.parser
+call @"C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\Node.sim" -> simple.parser
 
 package simple.parser.node
 
