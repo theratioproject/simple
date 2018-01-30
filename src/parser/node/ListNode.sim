@@ -1,0 +1,31 @@
+
+/* 
+	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\Node.sim" -> simple.parser
+
+package simple.parser.node
+
+class EnforcedAssignmentNode : Node
+	
+	variable = ""
+	type = null
+	value = null
+
+	block EnforcedAssignmentNode(location, itype, ivariable, ivalue)
+		sourceLocation = location 
+		variable = ivariable
+		itype = itype
+		ivalue = ivalue
+		
+	block visit(visitor)
+		visitor.accept(this)
+	
+	block visitChildren(visitor)
+		type.visit(visitor)
+		value.visit(visitor)
+
+
