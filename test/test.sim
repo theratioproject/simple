@@ -6,3 +6,8 @@ block main() {
 		frame.pack()
 }
 
+block looper() {
+	for a = 1; a < 10 ;a++ {
+	
+	}
+}
