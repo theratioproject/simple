@@ -13,3 +13,5 @@ block looper() {
 }
 
 lister = []
+
+dico = {}

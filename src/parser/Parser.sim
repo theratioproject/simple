@@ -65,6 +65,8 @@ call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\Iterabl
 
 call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\EnforcedAssignmentNode.sim"
 
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\ListNode.sim"
+
 call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\utilities\Dictionary.sim" -> simple.utilities
 
 package simple.parser
