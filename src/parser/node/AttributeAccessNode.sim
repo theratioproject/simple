@@ -1,0 +1,26 @@
+
+/* 
+	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\Node.sim" -> simple.parser
+
+package simple.parser.node
+
+class ArgumentListNode : Node
+	
+	arguments = []
+
+	block ArgumentListNode(location, iarguments)
+		sourceLocation = location 
+		arguments = iarguments
+		
+	block visit(visitor)
+		visitor.accept(this)
+	
+	block visitChildren(visitor)
+		for a = 0 to len(arguments)
+			arguments[a].visit(visitor)
+		loop
