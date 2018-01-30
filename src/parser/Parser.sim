@@ -429,7 +429,12 @@ class Parser
 		values = []
 		expectToken(TOKENTYPE_OPENCURLYBRACE)
 		while acceptToken(TOKENTYPE_CLOSECURLYBRACE) == false {
-		
+			kexpr = parseExpression()
+			add(keys, kexpr)
+			acceptToken(TOKENTYPE_COLON)
+			vexpr = parseExpression()
+			add(values, vexpr)
+			acceptToken(TOKENTYPE_COMMA)
 		}
 
 	#4
