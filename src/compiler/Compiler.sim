@@ -18,7 +18,7 @@ class Compiler
 	#1
 	block compileModule(path, supWarn)
 		if -> fileExists(path) != 1
-			raise("error file does not exist")
+			throw("error file does not exist")
 		end 
 		return compile(path, readFile(path), supWarn)
 		
