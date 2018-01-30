@@ -9,18 +9,18 @@ call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\Node.sim" ->
 
 package simple.parser.node
 
-class ArgumentListNode : Node
+class AttributeAccessNode : Node
 	
-	arguments = []
+	left = ""
+	right = ""
 
-	block ArgumentListNode(location, iarguments)
+	block AttributeAccessNode(location, ileft, iright)
 		sourceLocation = location 
-		arguments = iarguments
+		left = left
+		right = iright
 		
 	block visit(visitor)
 		visitor.accept(this)
 	
 	block visitChildren(visitor)
-		for a = 0 to len(arguments)
-			arguments[a].visit(visitor)
-		loop
+		left.visit(visitor)

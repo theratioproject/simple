@@ -57,6 +57,8 @@ call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\BlockCa
 
 call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\ArgumentListNode.sim"
 
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\AttributeAccessNode.sim"
+
 call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\utilities\Dictionary.sim" -> simple.utilities
 
 package simple.parser
