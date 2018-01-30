@@ -63,8 +63,6 @@ call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\UnaryOp
 
 call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\IterableAccessNode.sim"
 
-call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\UnaryAccessNode.sim"
-
 call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\utilities\Dictionary.sim" -> simple.utilities
 
 package simple.parser
@@ -694,19 +692,19 @@ class Parser
 			switch tokens[position].getValue()
 				case "~"
 					acceptToken(TOKENTYPE_OPERATION)
-					return new UnaryAccessNode(ulocation, parseUnary(), UNARYOPERATION_BITWISENOT)
+					return new UnaryOperationNode(ulocation, parseUnary(), UNARYOPERATION_BITWISENOT)
 				case "!"
 					acceptToken(TOKENTYPE_OPERATION)
-					return new UnaryAccessNode(ulocation, parseUnary(), UNARYOPERATION_LOGICALNOT)
+					return new UnaryOperationNode(ulocation, parseUnary(), UNARYOPERATION_LOGICALNOT)
 				case "-"
 					acceptToken(TOKENTYPE_OPERATION)
-					return new UnaryAccessNode(ulocation, parseUnary(), UNARYOPERATION_NEGATE)
+					return new UnaryOperationNode(ulocation, parseUnary(), UNARYOPERATION_NEGATE)
 				case "--"
 					acceptToken(TOKENTYPE_OPERATION)
-					return new UnaryAccessNode(ulocation, parseUnary(), UNARYOPERATION_PREDECREMENT)
+					return new UnaryOperationNode(ulocation, parseUnary(), UNARYOPERATION_PREDECREMENT)
 				case "++"
 					acceptToken(TOKENTYPE_OPERATION)
-					return new UnaryAccessNode(ulocation, parseUnary(), UNARYOPERATION_PREINCREMENT)
+					return new UnaryOperationNode(ulocation, parseUnary(), UNARYOPERATION_PREINCREMENT)
 			end
 		end
 		return parseAccess()
