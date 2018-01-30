@@ -9,19 +9,22 @@ call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\Node.sim" ->
 
 package simple.parser.node
 
-class ListNode : Node
+class DictionaryNode : Node
 	
-	elements = []
+	keys = []
+	values = []
 
-	block ListNode(location, ielements)
+	block DictionaryNode(location, ikeys, ivalues)
 		sourceLocation = location 
-		elements = ielements
+		keys = ikeys
+		values = ivalues
 		
 	block visit(visitor)
 		visitor.accept(this)
 	
 	block visitChildren(visitor)
-		for a = 0 to len(elements){
-			elements[a].visit(visitor)
+		for a = 0 to len(keys){
+			keys[a].visit(visitor)
+			values[a].visit(visitor)
 		}
 
