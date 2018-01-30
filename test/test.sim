@@ -32,9 +32,6 @@ block throwScannerException(location, message, errorcode)
 call @"C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\Node.sim" 
 
 class IterableAccessNode : Node
-	
-	target = null 
-	index = null
 
 	block IterableAccessNode(location, itarget, iindex)
 		sourceLocation = location 
