@@ -2,7 +2,6 @@
 call Interface
 
 block main() {
-		SimpleFrame frame = new SimpleFrame()
 		frame.setTitle(arg)
 		frame.pack()
 }
