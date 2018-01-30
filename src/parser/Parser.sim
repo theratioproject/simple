@@ -436,6 +436,7 @@ class Parser
 			add(values, vexpr)
 			acceptToken(TOKENTYPE_COMMA)
 		}
+		return new DictionaryNode(dlocation, keys, location)
 
 	#4
 	block acceptToken(tokenType)
@@ -784,7 +785,7 @@ class Parser
 				expr = expectToken(TOKENTYPE_STRING)
 				return new StringNode(tlocation, expr.getValue())
 			elif matchToken(TOKENTYPE_OPENCURLYBRACE)
-				return new parseDictionaryDeclaration()
+				return parseDictionaryDeclaration()
 			elif acceptToken(acceptToken(TOKENTYPE_OPENPARENTESES))
 				expr = parseExpression()
 				if (matchToken(TOKENTYPE_COMMA))

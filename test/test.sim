@@ -14,4 +14,8 @@ block looper() {
 
 lister = []
 
+listt = [ade, "wale", 70]
+
 dico = {}
+
+diccy = {}
