@@ -24,3 +24,14 @@ class UnaryOperationNode : Node
 	
 	block visitChildren(visitor)
 		target.visit(visitor)
+
+
+UNARYOPERATION_BITWISENOT = 0
+
+UNARYOPERATION_LOGICALNOT = 1
+
+UNARYOPERATION_NEGATE = 2
+
+UNARYOPERATION_POSTDECREMENT = 3
+
+UNARYOPERATION_POSTINCREMENT = 4
