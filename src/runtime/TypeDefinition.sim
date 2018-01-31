@@ -11,4 +11,4 @@ class TypeDefinition : Object
 	typeName = "null"
 	
 	block TypeDefinition()
-		addType()
+		addType(typeDefinition)
