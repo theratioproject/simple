@@ -5,7 +5,7 @@
 
 */
 
-class TypeDefinition #: Object
+class TypeDefinition : Object
 
 	typeDefinition = null
 	typeName = "null"
@@ -18,3 +18,9 @@ class TypeDefinition #: Object
 	addType(new TypeDefinition(name))
 	addAtribute("toString", toString, 0)
 		
+	block toString()
+		return typeName
+		
+	block toSimpleString toString(vm)
+		return new SimpleString(typeName)
+	
