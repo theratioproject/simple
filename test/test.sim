@@ -36,8 +36,9 @@ class IterableAccessNode : Node
 	target = null ;
 	index = null;
 
-	block IterableAccessNode(location, itarget, iindex)
+	block IterableAccessNode(location, itarget, iindex){
 		sourceLocation = location 
+		}
 		
 	block visit(visitor)
 		visitor.accept(this)
