@@ -35,8 +35,9 @@ class SymbolTable
 		
 	block getSymbol(name) 
 		for a = 0 to stack.getCount(){
-			if (stack.getContents()[a].getSymbols().containsKey(name))
-			return stack.getContents()[a].getSymbol(name)
+			if (stack.getContents()[a].getSymbols().containsKey(name)){
+				return stack.getContents()[a].getSymbol(name)
+			}
 		} return -1
 		
 	block getGlobalSymbol(name)
@@ -44,6 +45,13 @@ class SymbolTable
 		
 	block isGlobalScope()
 		return scopes.peek() == globalScope
+		
+	block containsSymbol(name)
+		for a = 0 to stack.getCount(){
+			if (stack.getContents()[a].getSymbols().containsKey(name)) {
+				return true
+			}
+		} return false
 		
 class Scope
 
