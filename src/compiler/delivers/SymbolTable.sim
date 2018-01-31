@@ -63,6 +63,12 @@ class SymbolTable
 		globalScope.getSymbols().add(name, nextGlobalIndex)
 		nextIndex++
 		
+	block handleSymbol(name)
+		if containsSymbol(name) == false {
+			addSymbol(name)
+		}
+		return getSymbol(name)
+		
 class Scope
 
 	symbols = new simple.utilities.Dictionary
