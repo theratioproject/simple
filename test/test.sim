@@ -33,3 +33,5 @@ thread run {
 thread -> {
 
 }
+
+Body { get private set }
