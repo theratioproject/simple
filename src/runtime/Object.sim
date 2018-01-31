@@ -7,6 +7,8 @@
 
 call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\runtime\TypeDefinition.sim" 
 
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\utilities\Dictionary.sim"
+
 INVOKE = "new"
 ADD = "__add__"
 SUBTRACT = "__subtract__"
@@ -57,6 +59,8 @@ class Object
 	sFalse = null
 	sTrue = false
 	sNumber = 0
+	boundAttributes = new simple.utilities.Dictionary
+	types = []
 
 	block init()
 		typeDefinition = new TypeDefinition().init("object")
