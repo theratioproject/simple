@@ -5,6 +5,6 @@
 
 */
 
-class TypeDefinition 
+class TypeDefinition : Object
 
-	#typeDefinition = new TypeDefinition("typedef")
+	typeDefinition = new TypeDefinition("typedef")
