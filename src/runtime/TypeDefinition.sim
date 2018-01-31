@@ -8,3 +8,7 @@
 class TypeDefinition : Object
 
 	typeDefinition = new TypeDefinition("typedef")
+	typeName = "null"
+	
+	block TypeDefinition()
+		addType()
