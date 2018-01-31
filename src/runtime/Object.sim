@@ -90,8 +90,10 @@ class Object
 		if containsAttribute(name) == false {
 			vm.throwException() ############## to do
 		}
-		
-		
+		ret = boundAttributes.get(name)
+		if stringContains(ret.getType(), "simple_function"){
+			ret.setParent(this)
+		}
 		
 		
 		
