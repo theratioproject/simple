@@ -40,7 +40,7 @@ class SymbolTable
 		} return -1
 		
 	block getGlobalSymbol(name)
-		return 
+		return globalScope.getSymbol(name)
 		
 	block isGlobalScope()
 		return scopes.peek() == globalScope
@@ -53,3 +53,8 @@ class Scope
 		
 	block getSymbols()
 		return symbols	
+		
+	block getSymbol(name)
+		return find(name)
+	
+	
