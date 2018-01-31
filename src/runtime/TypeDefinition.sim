@@ -7,12 +7,12 @@
 
 class TypeDefinition #: Object
 
-	typeDefinition = new TypeDefinition()
+	typeDefinition = null
 	typeName = "null"
 	
 	block TypeDefinition()
-		#typeDefinition = new TypeDefinition("typedef")
-		addType(new TypeDefinition("typedef"))
+		typeDefinition = new TypeDefinition().init("typedef")
+		addType(typeDefinition)
 		addAtribute("toString", toString, 0)
 		
 	block init(name)
