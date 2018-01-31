@@ -66,7 +66,7 @@ class Object
 		typeDefinition = new TypeDefinition() typeDefinition.init("object")
 		
 	block getType()
-		return typeDefinition
+		return new TypeDefinition()
 		
 	block addAttribute(name, value)
 		if containsAttribute(name) {
