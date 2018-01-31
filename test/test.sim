@@ -7,6 +7,6 @@ class Archive {
 	}
 }
 
-block DoIdontknow name, age = {
+block DoIdontknow (name, age){
 	return "holla "+name+"\n you are " +age+" years old when you wrote\nSimple Programming Language"
 }
