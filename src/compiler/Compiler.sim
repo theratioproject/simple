@@ -43,5 +43,5 @@ class Simplify
 		supWarn = isupWarn
 		
 	block compile(nodes, module)
-		
+		blockStack = []
 		
