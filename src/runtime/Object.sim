@@ -8,3 +8,5 @@
 package simple.runtime
 
 class Object 
+
+	block Object
