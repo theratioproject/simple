@@ -96,8 +96,13 @@ class Object
 		elif stringContains(ret.getType(), "simple_property")
 			prop = ret
 			prop.Get().setParent(this)
+			if prop.Set() != null {
+				prop.Set().setParent(this)
+			}
 		end
+		return ret
 		
+	block getAttributes()
 		
 		
 		
