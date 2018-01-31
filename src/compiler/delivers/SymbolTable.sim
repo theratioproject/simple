@@ -57,10 +57,10 @@ class SymbolTable
 		globalScope.getSymbols().containsKey(name)
 		
 	block addSymbol(name)
-		
+		stack.peek().getSymbols().add(name, nextIndex)
 		
 	block addGlobalSymbol(name)
-		globalScope.getSymbols().add(name, nextIndex)
+		globalScope.getSymbols().add(name, nextGlobalIndex)
 		nextIndex++
 		
 class Scope

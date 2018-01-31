@@ -25,3 +25,6 @@ class Stack
 		
 	block getContents()
 		return stackContent
+		
+	block peek()
+		return stackContent[len(stackContent)]
