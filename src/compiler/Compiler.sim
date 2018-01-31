@@ -11,6 +11,8 @@ call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\Parser.sim" 
 
 call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\compiler\delivers\SymbolTable.sim" -> simple.compiler.delivers
 
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\runtime\modules\Module.sim" -> simple.runtime.modules
+
 package simple.compiler
 
 class Compiler
@@ -53,7 +55,7 @@ class Simplify
 		classStack = []
 		table = new SymbolTable
 		if module == null {
-			module = new SimpleModule
+			module = new Module
 		}
 		
 		
