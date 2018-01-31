@@ -450,6 +450,14 @@ class Parser
 		return new LambdaNode(llocation, parameters, body)
 		
 	block parseThread()
+		tlocation = location(tokens, position)
+		executeinstantly = false
+		expectTokenString(TOKENTYPE_IDENTIFIER, "thread")
+		if acceptTokenString(TOKENTYPE_IDENTIFIER, "run"){
+			executeinstantly = true
+		}
+		body = parseStatement()
+		return new ThreadNode(tlocation, body, executeinstantly)
 
 	#4
 	block acceptToken(tokenType)
