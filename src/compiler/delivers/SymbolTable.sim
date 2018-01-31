@@ -21,11 +21,11 @@ class SymbolTable
 
 	block SymbolTable()
 		nextIndex = 0
+		stack.push(globalScope)
+		
+	block enterScope()	
 		scope = new Scope()
 		stack.push(scope)
-		
-		
-		
 		
 	block isGlobalScope()
 		return scopes.peek() == globalScope
