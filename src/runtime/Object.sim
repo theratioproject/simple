@@ -7,14 +7,55 @@
 
 call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\runtime\TypeDefinition.sim" 
 
+INVOKE = "new"
+ADD = "__add__"
+SUBTRACT = "__subtract__"
+MULTIPLY = "__multiply__"
+DIVIDE = "__divide__"
+MODULUS = "__modulus__"
+POWER = "__power__"
+INTEGERDIVISION = "__intdivision__"
+BITSHIFTLEFT = "__bitshiftleft__"
+BITSHIFTRIGHT = "__bitshiftright__"
+EQUALTO = "__equals__"
+NOTEQUALTO = "__notequal__"
+GREATERTHAN = "__greater__"
+GREATERTHANOREQUAL = "__greaterorequal__"
+LESSERTHAN = "__lesser__"
+LESSERTHANOREQUAL = "__lesserorequal__"
+BITWISEAND = "__bitwiseand__"
+BITWISEOR = "__bitwiseor__"
+BITWISENOT = "__bitwisenot__"
+LOGICALAND = "__logicaland__"
+LOGICALOR = "__logicalor__"
+LOGICALNOT = "__logicalnot__"
+NEGATE = "__negate__"
+INDEX = "__index__"
+STOREINDEX = "__storeindex__"
+ITER = "__iter__"
+ITERABLEFULL = "__iterfull__"
+ITERABLENEXT = "__iternext__"
+ENTER = "__enter__"
+EXIT = "__exit__"
+DISPOSE = "dispose"
+TOBIGINT = "tobigint"
+TOBOOL = "tobool"
+TOCHAR = "tochar"
+TOINT = "toint"
+TOFLOAT = "tofloat"
+TOLIST = "tolist"
+TOSTRING = "tostring"
+TOTUPLE = "totuple"
+XOR = "__xor__"
+
 class Object 
 
 	typeDefinition = null
 	isPrivate = false
 	sNull = null
 	parent = null
-	sFalse = = null
-	sTrue = null
+	sFalse = = false
+	sTrue = true
 	sNumber = 0
 
 	block init()
