@@ -27,6 +27,12 @@ class SymbolTable
 		scope = new Scope()
 		stack.push(scope)
 		
+	block leaveScope()
+		stack.pop()
+		if stack.getCount() == 2 {
+			nextIndex = 0
+		}
+		
 	block isGlobalScope()
 		return scopes.peek() == globalScope
 		
