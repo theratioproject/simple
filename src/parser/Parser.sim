@@ -463,7 +463,15 @@ class Parser
 		
 	block parseProperty()
 		plocation = location(tokens, position)
+		name = expectToken(TOKENTYPE_IDENTIFIER).getValue()
+		acceptToken(TOKENTYPE_OPENCURLYBRACE)
+		expectTokenString(TOKENTYPE_IDENTIFIER, "get")
+		get = parseStatement()
+		try {
 		
+		catch
+			
+		}
 
 	#4
 	block acceptToken(tokenType)
