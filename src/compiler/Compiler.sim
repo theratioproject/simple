@@ -32,7 +32,7 @@ class Compiler
 		finalCompile = new simple.compiler.Simplify
 		finalCompile.treatWarn(supWarn)
 		module = finalCompile.compile(nodes, null)
-		if supWarn == false { module.dispayWarning() }
+		#if supWarn == false { module.dispayWarning() }
 		
 	
 class Simplify
@@ -43,5 +43,5 @@ class Simplify
 		supWarn = isupWarn
 		
 	block compile(nodes, module)
-		display nodes
+		
 		
