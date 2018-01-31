@@ -69,3 +69,21 @@ class Object
 	block getType()
 		return typeDefinition
 		
+	block addAtribute(name, value)
+		if containsAttribute(name) {
+			boundAttributes.remove(name)
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
