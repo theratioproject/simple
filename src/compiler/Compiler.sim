@@ -38,10 +38,24 @@ class Compiler
 class Simplify
 
 	supWarn = true
+	blockStack = []
+	classStack = []
+	mtable = null
 
 	block treatWarn(isupWarn)
 		supWarn = isupWarn
 		
 	block compile(nodes, module)
 		blockStack = []
+		classStack = []
+		table = new SymbolTable
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
