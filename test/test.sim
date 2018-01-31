@@ -34,4 +34,6 @@ thread -> {
 
 }
 
-Body { get private set }
+body { get private set }
+
+print("hello world")

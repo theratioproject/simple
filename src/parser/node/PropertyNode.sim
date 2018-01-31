@@ -9,19 +9,22 @@ call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\Node.sim" ->
 
 package simple.parser.node
 
-class ThreadNode : Node
+class PropertyNode : Node
 	
-	body = null
-	exeInstantly = false
+	name = ""
+	getty = null
+	setty = null
 
-	block ThreadNode(location, ibody, iexecuteIntantly)
+	block PropertyNode(location, iname, igetty, isetty)
 		sourceLocation = location 
-		body = ibody
-		exeInstantly = iexecuteIntantly
+		name = iname
+		getty = igetty
+		setty = isetty
 		
 	block visit(visitor)
 		visitor.accept(this)
 	
 	block visitChildren(visitor)
-		body.visit(visitor)
+		getty.visit(visitor)
+		setty.visit(visitor)
 

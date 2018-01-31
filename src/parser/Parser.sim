@@ -73,6 +73,8 @@ call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\LambdaN
 
 call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\ThreadNode.sim"
 
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\PropertyNode.sim"
+
 call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\utilities\Dictionary.sim" -> simple.utilities
 
 package simple.parser
