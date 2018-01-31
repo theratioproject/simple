@@ -9,6 +9,7 @@ class TypeDefinition : Object
 
 	typeDefinition = null
 	typeName = "null"
+	toSimpleString = ""
 	
 	block TypeDefinition()
 		init("typedef")
@@ -16,7 +17,7 @@ class TypeDefinition : Object
 	block init(name)
 	typeName = name
 	addType(this)
-	addAtribute("toString", toSimpleString(), 0)
+	addBlockAtribute("toString", toSimpleString, 0)
 		
 	block toString()
 		return typeName
