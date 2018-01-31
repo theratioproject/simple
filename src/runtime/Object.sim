@@ -11,7 +11,11 @@ class Object
 
 	typeDefinition = null
 	isPrivate = false
-	simpleNull = null
+	sNull = null
+	parent = null
+	sFalse = = null
+	sTrue = null
+	sNumber = 0
 
 	block init()
 		typeDefinition = new TypeDefinition().init("object")
