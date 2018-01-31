@@ -7,7 +7,7 @@
 */
 
 display "Simple " + version() + ""
-display "REPL (Read-Eval-Print-Loop)" + crlf
+display "REPL (Read-Eval-Print-Loop)" 
 while true
         display crlf + "simple:> "
         read cCode
@@ -17,3 +17,4 @@ while true
                 display err
         end
 end
+s
