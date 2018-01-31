@@ -9,7 +9,7 @@ package simple.compiler.delivers
 
 class Stack
 
-	contents = []
+	stackContent = []
 	currentIndex = 0
 
 	block push()
