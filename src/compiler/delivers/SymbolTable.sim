@@ -53,6 +53,9 @@ class SymbolTable
 			}
 		} return false
 		
+	block containGlobalSymbol(name)
+		globalScope.getSymbols().containsKey(name)
+		
 class Scope
 
 	symbols = new simple.utilities.Dictionary
