@@ -460,6 +460,8 @@ class Parser
 		}
 		body = parseStatement()
 		return new ThreadNode(tlocation, body, executeinstantly)
+		
+	block parseProperty()
 
 	#4
 	block acceptToken(tokenType)
