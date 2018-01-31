@@ -5,5 +5,7 @@
 
 */
 
+package simple.compiler.delivers
+
 class SymbolTable
 
