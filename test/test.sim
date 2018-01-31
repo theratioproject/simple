@@ -1,4 +1,12 @@
 
-block main(){
-	print("Hello World")
+
+class Archive {
+	block add (one, two) {
+		tol = one + two ;
+		return  "" + one + " plus " + two + " is equal "+ tol
+	}
+}
+
+block DoIdontknow name, age = {
+	return "holla "+name+"\n you are " +age+" years old when you wrote\nSimple Programming Language"
 }
