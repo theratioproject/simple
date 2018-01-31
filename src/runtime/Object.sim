@@ -63,8 +63,9 @@ class Object
 	types = []
 
 	block init()
-		typeDefinition = new TypeDefinition().init("object")
-		str = getType().toString()
+		tType = new TypeDefinition()
+		typeDefinition = tType.init("object")
+		str = tType.toString()
 		println("TYPE : "+3)
 		
 	block getType()
