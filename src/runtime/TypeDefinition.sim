@@ -11,8 +11,7 @@ class TypeDefinition #: Object
 	typeName = "null"
 	
 	block TypeDefinition()
-		typeDefinition = new TypeDefinition().init("typedef")
-		addType(typeDefinition)
+		addType(new TypeDefinition("typedef"))
 		addAtribute("toString", toString, 0)
 		
 	block init(name)
