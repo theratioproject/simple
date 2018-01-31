@@ -15,7 +15,6 @@ class TypeDefinition : Object
 		
 	block init(name)
 	typeName = name
-	println("TYPE : "+getType().toString())
 	#addType(new TypeDefinition(name))
 	#addAtribute("toString", toString, 0)
 		

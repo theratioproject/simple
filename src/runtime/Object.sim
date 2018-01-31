@@ -63,9 +63,9 @@ class Object
 	types = []
 
 	block init()
-		typeDefinition = new TypeDefinition().initTypeDef("object")
+		typeDefinition = new TypeDefinition().init("object")
+		println("TYPE : "+getType().toString())
 		
 	block getType()
-		println("it reach here")
-		return  new TypeDefinition().initTypeDef("object")
+		return typeDefinition
 		
