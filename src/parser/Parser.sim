@@ -449,7 +449,7 @@ class Parser
 		body = parseStatement()
 		return new LambdaNode(llocation, parameters, body)
 		
-	
+	block parseThread()
 
 	#4
 	block acceptToken(tokenType)
