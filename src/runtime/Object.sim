@@ -79,7 +79,9 @@ class Object
 		ablocky = new SimpleFunction(blocky, paramLenght)
 		addAtribute(name, ablocky)
 		
-	block addBlockAttribute(name, blocky, len)	
+	block addBlockAttribute(name, blocky, ilen)	
+		llen = [ilen]
+		addAtribute(name blocky, llen)
 		
 		
 		
