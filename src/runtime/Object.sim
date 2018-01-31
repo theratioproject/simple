@@ -80,7 +80,7 @@ class Object
 		
 	block addBlockAttribute(name, blocky, ilen)	
 		llen = [ilen]
-		addAtribute(name, blocky, llen)
+		addBlockAtribute(name, blocky, llen)
 		
 	block containsAttribute(name)
 		return boundAttributes.containKey(name)
