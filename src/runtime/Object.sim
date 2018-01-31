@@ -68,19 +68,19 @@ class Object
 	block getType()
 		return typeDefinition
 		
-	block addAtribute(name, value)
+	block addAttribute(name, value)
 		if containsAttribute(name) {
 			boundAttributes.remove(name)
 		}
 		boundAttributes.add(name, value)
 		
-	block addBlockAttributes(name, blocky, paramLenght)
+	block addBlockAttribute(name, blocky, paramLenght)
 		ablocky = new SimpleFunction(blocky, paramLenght)
 		addAtribute(name, ablocky)
 		
 	block addBlockAttribute(name, blocky, ilen)	
 		llen = [ilen]
-		addBlockAtribute(name, blocky, llen)
+		addBlockAttribute(name, blocky, llen)
 		
 	block containsAttribute(name)
 		return boundAttributes.containKey(name)
