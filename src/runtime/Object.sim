@@ -9,5 +9,10 @@ call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\runtime\TypeDefinit
 
 class Object 
 
+	typeDefinition = null
+	isPrivate = false
+	simpleNull = null
+
 	block init()
 		typeDefinition = new TypeDefinition().init("object")
+		
