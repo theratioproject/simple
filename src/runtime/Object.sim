@@ -109,7 +109,7 @@ class Object
 		boundAttributes.remove(name)
 		
 	block addType(typeDef)
-		if ty
+		if findItem()
 		
 		
 		
