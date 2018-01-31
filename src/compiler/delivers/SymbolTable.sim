@@ -10,9 +10,12 @@ package simple.compiler.delivers
 class SymbolTable
 
 	nextIndex = 0
-	 = 
+	scopes = []
+	globalScope = new Scope()
+	nextGlobalIndex = 0
 
 	block SymbolTable()
 		nextIndex = 0
 		
-	block 
+	block isGlobalScope()
+		return scopes.peek() == globalScope
