@@ -56,6 +56,9 @@ class SymbolTable
 	block containGlobalSymbol(name)
 		globalScope.getSymbols().containsKey(name)
 		
+	block addSymbol(name)
+		
+		
 	block addGlobalSymbol(name)
 		globalScope.getSymbols().add(name, nextIndex)
 		nextIndex++
