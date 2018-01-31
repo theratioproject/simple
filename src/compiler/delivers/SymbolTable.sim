@@ -10,5 +10,9 @@ package simple.compiler.delivers
 class SymbolTable
 
 	nextIndex = 0
-	isGlobalScope = 
+	 = 
 
+	block SymbolTable()
+		nextIndex = 0
+		
+	block 
