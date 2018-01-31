@@ -25,4 +25,10 @@ class Dictionary
 			}
 		} return false
 		
-		
+	block remove(name)
+		for a=0 to len(keys) {
+			if stringEquals(keys[a], name) {
+				deleteItem(keys, a)
+				deleteItem(values, a)
+			}
+		}
