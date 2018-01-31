@@ -462,6 +462,8 @@ class Parser
 		return new ThreadNode(tlocation, body, executeinstantly)
 		
 	block parseProperty()
+		plocation = location(tokens, position)
+		
 
 	#4
 	block acceptToken(tokenType)
