@@ -11,20 +11,18 @@ package simple.parser.node
 
 class DictionaryNode : Node
 	
-	keys = []
-	values = []
+	parameters = null
+	body = null
 
-	block DictionaryNode(location, ikeys, ivalues)
+	block DictionaryNode(location, iparameters, ibody)
 		sourceLocation = location 
-		keys = ikeys
-		values = ivalues
+		parameters = iparameters
+		body = ibody
 		
 	block visit(visitor)
 		visitor.accept(this)
 	
 	block visitChildren(visitor)
-		for a = 0 to len(keys){
-			keys[a].visit(visitor)
-			values[a].visit(visitor)
-		}
+		parameters.visit(visitor)
+		body.visit(visitor)
 
