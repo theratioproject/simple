@@ -109,9 +109,9 @@ class Object
 		boundAttributes.remove(name)
 		
 	block addType(typeDef)
-		if findItem()
-		
-		
+		if findItem(types, typeDef) < 1 {
+			println("it not in it ")
+		}
 		
 		
 		
