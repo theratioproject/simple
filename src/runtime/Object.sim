@@ -86,8 +86,10 @@ class Object
 	block containsAttribute(name)
 		return boundAttributes.containKey(name)
 		
-	get
-		
+	block getAttribute(vm, name)
+		if containsAttribute(name) == false {
+			vm.throwException() ############## to do
+		}
 		
 		
 		
