@@ -22,3 +22,6 @@ class Stack
 		
 	block getCount()
 		return len(stackContent) 
+		
+	block getContents()
+		return stackContent

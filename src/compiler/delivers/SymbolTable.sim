@@ -33,6 +33,12 @@ class SymbolTable
 			nextIndex = 0
 		}
 		
+	block getSymbol(name) 
+		for a = 0 to stack.getCount(){
+			if 
+		}
+			
+		
 	block isGlobalScope()
 		return scopes.peek() == globalScope
 		
