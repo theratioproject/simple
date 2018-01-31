@@ -91,9 +91,12 @@ class Object
 			vm.throwException() ############## to do
 		}
 		ret = boundAttributes.get(name)
-		if stringContains(ret.getType(), "simple_function"){
+		if stringContains(ret.getType(), "simple_function")
 			ret.setParent(this)
-		}
+		elif stringContains(ret.getType(), "simple_property")
+			prop = ret
+			prop.Get().setParent(this)
+		end
 		
 		
 		
