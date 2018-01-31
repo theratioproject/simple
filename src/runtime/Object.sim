@@ -75,6 +75,9 @@ class Object
 		}
 		boundAttributes.add(name, value)
 		
+	block addBlockAttributes(name, blocky, paramLenght)
+		ablocky = new SimpleFunction(blocky, paramLenght)
+		addAtribute(name, ablocky)
 		
 		
 		
