@@ -111,7 +111,7 @@ class Object
 	block addType(typeDef)
 		#if findItem(types, typeDef) < 1 {
 			str = getType()
-			println("it not in it "+str)
+			display getType()
 		#}
 		
 		
