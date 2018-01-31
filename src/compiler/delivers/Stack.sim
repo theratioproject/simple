@@ -8,3 +8,8 @@
 package simple.compiler.delivers
 
 class Stack
+
+	contents = []
+	currentIndex = 0
+
+	block 
