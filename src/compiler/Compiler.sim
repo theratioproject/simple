@@ -55,7 +55,7 @@ class Simplify
 		classStack = []
 		table = new SymbolTable
 		if module == null {
-			module = new Module
+			module = new Module()
 		}
 		
 		

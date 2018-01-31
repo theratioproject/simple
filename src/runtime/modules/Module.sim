@@ -11,4 +11,7 @@ package simple.runtime.modules
 
 class Module : Object
 
-	
+	typeDefinition = null
+
+	block Module()
+		init()
