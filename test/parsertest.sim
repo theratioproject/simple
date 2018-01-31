@@ -1,0 +1,39 @@
+
+call Interface
+
+block main() {
+		frame.setTitle(arg)
+		frame.pack()
+}
+
+block looper() {
+	for a = 1; a < 10 ;a++ {
+		print(lister[a] + crlf)
+	}
+}
+
+lister = []
+
+listt = [ade, "wale", 70]
+
+dico = {}
+
+diccy = {ade : wale, you : me}
+
+lambda (hello) {}
+
+thread {
+
+}
+
+thread run {
+
+}
+
+thread -> {
+
+}
+
+body { get private set }
+
+print("hello world")
