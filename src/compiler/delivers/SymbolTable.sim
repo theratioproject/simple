@@ -9,6 +9,8 @@ package simple.compiler.delivers
 
 call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\utilities\Dictionary.sim" -> simple.utilities
 
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\compiler\delivers\Stack.sim" -> simple.compiler.delivers
+
 class SymbolTable
 
 	nextIndex = 0
