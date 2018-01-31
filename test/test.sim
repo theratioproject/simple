@@ -22,4 +22,10 @@ diccy = {ade : wale, you : me}
 
 lambda (hello) {}
 
-thread
+thread {
+
+}
+
+thread run {
+
+}
