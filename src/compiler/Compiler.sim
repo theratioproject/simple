@@ -20,9 +20,9 @@ class Compiler
 		if -> fileExists(path) != 1
 			throw("error file does not exist")
 		end 
-		return compile(path, readFile(path), supWarn)
+		return compileModuleString(path, readFile(path), supWarn)
 		
-	block compile(path, source, supWarn )
+	block compileModuleString(path, source, supWarn )
 		tokens = new Scanner parser = new Parser
 		tokens.scan(path, source)
 		if -> showTokens == true 
@@ -30,7 +30,8 @@ class Compiler
 		end 
 		nodes = parser.parse(tokens.getTokens())
 		finalCompile = new Compiler(supWarn)
-		finalCompile.compile(nodes)
+		module = finalCompile.compile(nodes)
+		if supWarn == false { module.dispayWarning() }
 		
 		
 		
