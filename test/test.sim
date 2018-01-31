@@ -20,4 +20,4 @@ dico = {}
 
 diccy = {ade : wale, you : me}
 
-lambda hello 
+lambda (hello) {}
