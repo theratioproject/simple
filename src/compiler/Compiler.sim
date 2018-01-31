@@ -31,15 +31,17 @@ class Compiler
 		nodes = parser.parse(tokens.getTokens())
 		finalCompile = new simple.compiler.Simplify
 		finalCompile.treatWarn(supWarn)
-		module = finalCompile.compile(nodes)
+		module = finalCompile.compile(nodes, null)
 		if supWarn == false { module.dispayWarning() }
 		
 	
 class Simplify
 
+	supWarn = true
+
 	block treatWarn(isupWarn)
-		this.supWarn = isupWarn
+		supWarn = isupWarn
 		
 	block compile(nodes, module)
-
+		display nodes
 		
