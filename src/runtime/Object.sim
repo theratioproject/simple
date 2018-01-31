@@ -9,4 +9,4 @@ call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\runtime\TypeDefinit
 
 class Object 
 
-	typeDefinition = new TypeDefinition("object")
+	typeDefinition = new TypeDefinition().init("object")
