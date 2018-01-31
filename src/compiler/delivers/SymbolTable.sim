@@ -17,5 +17,6 @@ class SymbolTable
 	block SymbolTable()
 		nextIndex = 0
 		
+		
 	block isGlobalScope()
 		return scopes.peek() == globalScope
