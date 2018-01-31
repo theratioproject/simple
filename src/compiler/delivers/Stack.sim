@@ -12,4 +12,11 @@ class Stack
 	stackContent = []
 	currentIndex = 0
 
-	block push()
+	block push(ncontent)
+		add(stackContent, ncontent)
+		
+	block pop()
+		deleteItem(len(stackContent))
+		
+	block getCount()
+		return len(stackContent) 
