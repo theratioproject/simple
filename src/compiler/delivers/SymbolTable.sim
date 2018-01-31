@@ -38,7 +38,9 @@ class SymbolTable
 			if (stack.getContents()[a].getSymbols().containsKey(name))
 			return stack.getContents()[a].getSymbol(name)
 		} return -1
-			
+		
+	block getGlobalSymbol(name)
+		return 
 		
 	block isGlobalScope()
 		return scopes.peek() == globalScope

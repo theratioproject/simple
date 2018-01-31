@@ -20,7 +20,9 @@ class Dictionary
 		
 	block containsKey(key)
 		for a=0 to len(ilist) {
-			if stringContains(ilist, key) {
-				
+			if stringContains(ilist[a], key) {
+				return true
 			}
-		}
+		} return false
+		
+		
