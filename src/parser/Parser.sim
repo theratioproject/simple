@@ -71,6 +71,8 @@ call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\Diction
 
 call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\LambdaNode.sim"
 
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\ThreadNode.sim"
+
 call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\utilities\Dictionary.sim" -> simple.utilities
 
 package simple.parser
@@ -453,7 +455,7 @@ class Parser
 		tlocation = location(tokens, position)
 		executeinstantly = false
 		expectTokenString(TOKENTYPE_IDENTIFIER, "thread")
-		if acceptTokenString(TOKENTYPE_IDENTIFIER, "run"){
+		if acceptTokenString(TOKENTYPE_IDENTIFIER, "run") or acceptTokenString(TOKENTYPE_OPERATION, "-") {
 			executeinstantly = true
 		}
 		body = parseStatement()
