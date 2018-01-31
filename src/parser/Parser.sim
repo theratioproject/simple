@@ -439,6 +439,11 @@ class Parser
 			acceptToken(TOKENTYPE_COMMA)
 		}
 		return new DictionaryNode(dlocation, keys, values)
+		
+	block parseLambda()
+		llocation = location(tokens, position)
+		expectTokenString(TOKENTYPE_IDENTIFIER, "lambda")
+		parameters = parseArgumentList()
 
 	#4
 	block acceptToken(tokenType)
