@@ -11,6 +11,8 @@ class Stack
 
 	stackContent = []
 	currentIndex = 0
+	
+	block Stack()
 
 	block push(ncontent)
 		add(stackContent, ncontent)

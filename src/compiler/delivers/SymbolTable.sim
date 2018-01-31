@@ -7,9 +7,9 @@
 
 package simple.compiler.delivers
 
-call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\utilities\Dictionary.sim" -> simple.utilities
-
 call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\compiler\delivers\Stack.sim" -> simple.compiler.delivers
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\utilities\Dictionary.sim" -> simple.utilities
 
 class SymbolTable
 
@@ -17,9 +17,13 @@ class SymbolTable
 	scopes = []
 	globalScope = new Scope()
 	nextGlobalIndex = 0
+	stack = new Stack()
 
 	block SymbolTable()
 		nextIndex = 0
+		scope = new Scope()
+		stack.push(scope)
+		
 		
 		
 		
