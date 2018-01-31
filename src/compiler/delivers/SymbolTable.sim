@@ -56,6 +56,10 @@ class SymbolTable
 	block containGlobalSymbol(name)
 		globalScope.getSymbols().containsKey(name)
 		
+	block addGlobalSymbol(name)
+		globalScope.getSymbols().add(name, nextIndex)
+		nextIndex++
+		
 class Scope
 
 	symbols = new simple.utilities.Dictionary
