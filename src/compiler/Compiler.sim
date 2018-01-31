@@ -9,6 +9,8 @@ call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\scanner\Scanner.sim
 
 call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\Parser.sim" -> simple.parser
 
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\compiler\delivers\SymbolTable.sim" 
+
 package simple.compiler
 
 class Compiler
