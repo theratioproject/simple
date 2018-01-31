@@ -9,12 +9,12 @@ call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\Node.sim" ->
 
 package simple.parser.node
 
-class DictionaryNode : Node
+class LambdaNode : Node
 	
 	parameters = null
 	body = null
 
-	block DictionaryNode(location, iparameters, ibody)
+	block LambdaNode(location, iparameters, ibody)
 		sourceLocation = location 
 		parameters = iparameters
 		body = ibody
