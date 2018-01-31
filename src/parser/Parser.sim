@@ -847,7 +847,6 @@ class Parser
 					return parseEnforcedAssignment()
 				elif matchToken(TOKENTYPE_IDENTIFIER)
 					rett = expectToken(TOKENTYPE_IDENTIFIER)
-					println("it right here")
 					return new IdentifierNode(tlocation, rett.getValue())
 				end
 			elif matchToken(TOKENTYPE_IDENTIFIER)
