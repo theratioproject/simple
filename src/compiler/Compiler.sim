@@ -29,6 +29,8 @@ class Compiler
 			showTokens(tokens.getTokens())
 		end 
 		nodes = parser.parse(tokens.getTokens())
+		finalCompile = new Compiler(supWarn)
+		finalCompile.compile(nodes)
 		
 		
 		
