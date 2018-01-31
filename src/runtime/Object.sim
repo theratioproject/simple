@@ -65,5 +65,6 @@ class Object
 	block init()
 		typeDefinition = new TypeDefinition().init("object")
 		
-	block 
+	block getType()
+		return typeDefinition
 		
