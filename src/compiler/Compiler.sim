@@ -7,7 +7,7 @@
 
 call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\scanner\Scanner.sim" -> simple.scanner
 
-call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\Parser.sim" -> simple.parser
+call "C:\Users\thecarisma\Documents\SIMPLE   GITHUB\simple\src\parser\Parser.sim" -> simple.parser
 
 call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\compiler\delivers\SymbolTable.sim" -> simple.compiler.delivers
 
