@@ -22,3 +22,6 @@ class SymbolTable
 		return scopes.peek() == globalScope
 		
 class Scope
+
+	block Scope()
+		
