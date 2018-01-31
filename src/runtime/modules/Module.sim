@@ -5,6 +5,8 @@
 
 */
 
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\runtime\Object.sim" -> simple.runtime
+
 package simple.runtime.modules
 
 class Module : Object
