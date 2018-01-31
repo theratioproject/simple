@@ -54,10 +54,12 @@ class Object
 	isPrivate = false
 	sNull = null
 	parent = null
-	sFalse = = false
-	sTrue = true
+	sFalse = null
+	sTrue = false
 	sNumber = 0
 
 	block init()
 		typeDefinition = new TypeDefinition().init("object")
+		
+	block 
 		
