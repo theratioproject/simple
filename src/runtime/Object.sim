@@ -64,7 +64,8 @@ class Object
 
 	block init()
 		typeDefinition = new TypeDefinition().init("object")
-		println("TYPE : "+getType().toString())
+		str = getType().toString()
+		println("TYPE : "+3)
 		
 	block getType()
 		return typeDefinition
