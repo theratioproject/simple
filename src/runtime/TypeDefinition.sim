@@ -15,7 +15,7 @@ class TypeDefinition : Object
 		
 	block init(name)
 	typeName = name
-	addType(new TypeDefinition(name))
+	addType(this)
 	addAtribute("toString", toSimpleString, 0)
 		
 	block toString()

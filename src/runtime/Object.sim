@@ -64,7 +64,6 @@ class Object
 
 	block init()
 		typeDefinition = new TypeDefinition() typeDefinition.init("object")
-		#println("TYPE : "+getType().toString())
 		
 	block getType()
 		return typeDefinition
@@ -110,9 +109,9 @@ class Object
 		boundAttributes.remove(name)
 		
 	block addType(typeDef)
-		if findItem(types, typeDef) < 1 {
-			println("it not in it ")
-		}
+		#if findItem(types, typeDef) < 1 {
+			println("it not in it "+getType().toString())
+		#}
 		
 		
 		
