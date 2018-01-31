@@ -38,9 +38,10 @@ class Compiler
 class Simplify
 
 	supWarn = true
-	blockStack = []
-	classStack = []
-	mtable = null
+	mblockStack = []
+	mclassStack = []
+	table = null
+	module = null
 
 	block treatWarn(isupWarn)
 		supWarn = isupWarn
@@ -49,6 +50,9 @@ class Simplify
 		blockStack = []
 		classStack = []
 		table = new SymbolTable
+		if module == null {
+			module = new SimpleModule
+		}
 		
 		
 		
