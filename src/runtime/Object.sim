@@ -52,7 +52,7 @@ XOR = "__xor__"
 
 class Object 
 
-	typeDefinition = null
+	typeDefinition = new TypeDefinition()
 	isPrivate = false
 	sNull = null
 	parent = null
@@ -66,5 +66,6 @@ class Object
 		typeDefinition = new TypeDefinition().init("object")
 		
 	block getType()
+		println("it reach here")
 		return typeDefinition
 		
