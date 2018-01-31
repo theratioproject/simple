@@ -455,7 +455,7 @@ class Parser
 		tlocation = location(tokens, position)
 		executeinstantly = false
 		expectTokenString(TOKENTYPE_IDENTIFIER, "thread")
-		if acceptTokenString(TOKENTYPE_IDENTIFIER, "run") or acceptTokenString(TOKENTYPE_OPERATION, "-") {
+		if acceptTokenString(TOKENTYPE_IDENTIFIER, "run") or (acceptTokenString(TOKENTYPE_OPERATION, "-") and acceptTokenString(TOKENTYPE_OPERATION, ">")) {
 			executeinstantly = true
 		}
 		body = parseStatement()

@@ -30,6 +30,6 @@ thread run {
 
 }
 
-thread - {
+thread -> {
 
 }
