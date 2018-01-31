@@ -5,7 +5,7 @@
 
 */
 
-package simple.runtime
+#package simple.runtime
 
 class Object 
 
