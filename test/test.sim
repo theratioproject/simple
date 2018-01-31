@@ -1,4 +1,19 @@
 
-block main(){
-	print("Hello World")
-}
+/* 
+	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 simple 
+	Read-Evaluate-Print-Loop RELP
+
+*/
+
+display "Simple " + version() + crlf
+display "REPL (Read-Eval-Print-Loop)" + crlf
+while true
+        display crlf + "simple:> "
+        read cCode
+        try
+                eval(cCode)
+        catch
+                display err
+        end
+end
