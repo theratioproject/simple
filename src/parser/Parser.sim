@@ -470,12 +470,12 @@ class Parser
 		expectTokenString(TOKENTYPE_IDENTIFIER, "get")
 		gety = parseStatement()
 		if acceptTokenString(TOKENTYPE_IDENTIFIER, "set") {
-			setstmt = parseStatement()
+			setstmt = parseStatement() acceptToken(TOKENTYPE_CLOSECURLYBRACE)
 			return new PropertyNode(plocation, name, gety, setstmt)
 		else 
+			acceptToken(TOKENTYPE_CLOSECURLYBRACE)
 			return new PropertyNode(plocation, name, gety, null)
 		} 
-		acceptToken(TOKENTYPE_CLOSECURLYBRACE)
 
 	#4
 	block acceptToken(tokenType)
