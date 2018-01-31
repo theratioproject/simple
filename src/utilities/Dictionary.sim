@@ -9,18 +9,18 @@ package simple.utilities
 
 class Dictionary
 
-	ilist = []
-	istring = []
+	keys = []
+	values = []
 
-	block OldDictionary(inte, strin)
-		add(inte, strin)
+	block OldDictionary(ikey, ivalue)
+		add(ikey, ivalue)
 		
-	block addValue(inte, strin)
-		add(ilist, inte) add(istring, strin)
+	block addValue(ikey, ivalue)
+		add(keys, ikey) add(values, ivalue)
 		
 	block containsKey(key)
-		for a=0 to len(ilist) {
-			if stringContains(ilist[a], key) {
+		for a=0 to len(keys) {
+			if stringContains(keys[a], key) {
 				return true
 			}
 		} return false
