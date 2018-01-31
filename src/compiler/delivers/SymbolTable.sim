@@ -35,8 +35,9 @@ class SymbolTable
 		
 	block getSymbol(name) 
 		for a = 0 to stack.getCount(){
-			if (stack.getContents()[a].)
-		}
+			if (stack.getContents()[a].getSymbols().containsKey(name))
+			return stack.getContents()[a].getSymbol(name)
+		} return -1
 			
 		
 	block isGlobalScope()

@@ -17,3 +17,6 @@ class Dictionary
 		
 	block addValue(inte, strin)
 		add(ilist, inte) add(istring, strin)
+		
+	block containsKey(key)
+		
