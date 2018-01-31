@@ -103,9 +103,13 @@ class Object
 		return ret
 		
 	block getAttributes()
+		return boundAttributes()
 		
+	block removeAttribute(name)
+		boundAttributes.remove(name)
 		
-		
+	block addType(typeDef)
+		if ty
 		
 		
 		
