@@ -5,8 +5,5 @@
 
 */
 
-#package simple.runtime
+package simple.runtime
 
-class Object 
-
-	typeDefinition = new TypeDefinition("object")
