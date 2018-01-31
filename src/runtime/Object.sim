@@ -64,8 +64,7 @@ class Object
 
 	block init()
 		typeDefinition = new TypeDefinition() typeDefinition.init("object")
-		str = getType().toString()
-		println("TYPE : "+str)
+		#println("TYPE : "+getType().toString())
 		
 	block getType()
 		return typeDefinition
