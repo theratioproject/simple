@@ -5,12 +5,15 @@
 
 */
 
-class TypeDefinition : Object
+class TypeDefinition #: Object
 
 	typeDefinition = new TypeDefinition()
 	typeName = "null"
 	
 	block TypeDefinition()
-		typeDefinition = new TypeDefinition("typedef")
-		addType(typeDefinition)
+		#typeDefinition = new TypeDefinition("typedef")
+		addType(new TypeDefinition("typedef"))
+		addAtribute("toString", toString, 0)
+		
+	block init(name)
 		
