@@ -86,7 +86,7 @@ class Object
 	block containsAttribute(name)
 		return boundAttributes.containKey(name)
 		
-	
+	get
 		
 		
 		
