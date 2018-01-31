@@ -34,5 +34,5 @@ class Compiler
 		if supWarn == false { module.dispayWarning() }
 		
 		
-		
+	block Compiler(supWarn)
 		
