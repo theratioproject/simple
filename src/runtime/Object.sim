@@ -73,6 +73,7 @@ class Object
 		if containsAttribute(name) {
 			boundAttributes.remove(name)
 		}
+		boundAttributes.add(name, value)
 		
 		
 		
