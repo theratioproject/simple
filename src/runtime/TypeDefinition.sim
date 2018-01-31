@@ -11,10 +11,10 @@ class TypeDefinition : Object
 	typeName = "null"
 	
 	block TypeDefinition()
-		initTypeDef("typedef")
+		init("typedef")
 		
-	block initTypeDef(name)
-	typeName = name init()
+	block init(name)
+	typeName = name
 	println("TYPE : "+getType().toString())
 	#addType(new TypeDefinition(name))
 	#addAtribute("toString", toString, 0)
