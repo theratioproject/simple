@@ -320,7 +320,7 @@ class Parser
 			expectTokenString(TOKENTYPE_IDENTIFIER, "case")
 			op = BINARYOPERATION_EQUALTO
 			if matchToken(TOKENTYPE_COMPARISON)
-				op = stringToBinaryOperation(expectToken(TOKENTYPE_COMPARISSON).getValue())
+				op = stringToBinaryOperation(expectToken(TOKENTYPE_COMPARISON).getValue())
 			end
 			exprs = []
 			do {
@@ -455,7 +455,7 @@ class Parser
 		tlocation = location(tokens, position)
 		executeinstantly = false
 		expectTokenString(TOKENTYPE_IDENTIFIER, "thread")
-		if acceptTokenString(TOKENTYPE_IDENTIFIER, "run") or (acceptTokenString(TOKENTYPE_OPERATION, "-") and acceptTokenString(TOKENTYPE_OPERATION, ">")) {
+		if acceptTokenString(TOKENTYPE_IDENTIFIER, "run") or (acceptTokenString(TOKENTYPE_OPERATION, "-") and acceptTokenString(TOKENTYPE_COMPARISON, ">")) {
 			executeinstantly = true
 		}
 		body = parseStatement()
