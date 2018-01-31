@@ -35,7 +35,7 @@ class SymbolTable
 		
 	block getSymbol(name) 
 		for a = 0 to stack.getCount(){
-			if 
+			if (stack.getContents()[a].)
 		}
 			
 		
