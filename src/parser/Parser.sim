@@ -444,6 +444,8 @@ class Parser
 		llocation = location(tokens, position)
 		expectTokenString(TOKENTYPE_IDENTIFIER, "lambda")
 		parameters = parseArgumentList()
+		body = parseStatement()
+		return new LambdaNode(llocation, parameters, body)
 
 	#4
 	block acceptToken(tokenType)
