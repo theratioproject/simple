@@ -466,11 +466,16 @@ class Parser
 		name = expectToken(TOKENTYPE_IDENTIFIER).getValue()
 		acceptToken(TOKENTYPE_OPENCURLYBRACE)
 		expectTokenString(TOKENTYPE_IDENTIFIER, "get")
-		get = parseStatement()
+		gety = parseStatement()
 		try {
-		
+			if acceptTokenString(TOKENTYPE_IDENTIFIER, "set") {
+				setstmt = parseStatement()
+				return new PropertyNode(plocation, name, gety, setstmt)
+			else 
+				return new PropertyNode(plocation, name, gety, null)
+			} 
 		catch
-			
+			acceptToken(TOKENTYPE_CLOSECURLYBRACE)
 		}
 
 	#4
