@@ -118,12 +118,12 @@ VM * ring_vm_new ( RingState *pRingState )
 	pVM->nFuncExecute2 = 0 ;
 	/* Create List for Temp Items (added to ByteCode) inside TempMem */
 	pVM->aNewByteCodeItems = ring_list_new_gc(pVM->pRingState,0);
-	/* Eval can be called from C code (OOP Set/Get/Operator Overloading) or from ring code using eval() */
+	/* Eval can be called from C code (OOP Set/Get/Operator Overloading) or from ring code using executeCode() */
 	pVM->nEvalCalledFromRingCode = 0 ;
 	/* Number of decimals after the point */
 	pVM->nDecimals = 2 ;
 	/*
-	**  Do we need to reallocation for eval() or not ! 
+	**  Do we need to reallocation for executeCode() or not ! 
 	**  Size of items that we can use without reallocation (double of the original size) 
 	*/
 	pVM->nEvalReallocationSize = 0 ;
@@ -158,7 +158,7 @@ VM * ring_vm_new ( RingState *pRingState )
 	pVM->nCallClassInit = 0 ;
 	/*
 	**  Flag to avoid deleteing Byte Code using Return From Eval() 
-	**  When we use eval() then inside eval we uses eval for setter/getter/operator overloading 
+	**  When we use executeCode() then inside executeCode we uses executeCode for setter/getter/operator overloading 
 	**  Then deleting byte code will cause a problem in setter/getter/operator overloading 
 	**  In this case we set this flag to avoid the delete operation and solve the problem 
 	*/
