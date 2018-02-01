@@ -1,5 +1,5 @@
 /* Copyright (c) 2013-2016 Mahmoud Fayed <msfclipper@yahoo.com> */
-#include "ring.h"
+#include "../includes/ring.h"
 /* Functions */
 
 void ring_vm_math_loadfunctions ( RingState *pRingState )

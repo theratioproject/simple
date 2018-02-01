@@ -2,7 +2,7 @@
 **  Copyright (c) 2013-2016 Mahmoud Fayed <msfclipper@yahoo.com> 
 **  Include Files 
 */
-#include "ring.h"
+#include "../includes/ring.h"
 /* Load Functions */
 
 void ring_vm_listfuncs_loadfunctions ( RingState *pRingState )

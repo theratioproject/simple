@@ -1,5 +1,5 @@
 /* Copyright (c) 2013-2016 Mahmoud Fayed <msfclipper@yahoo.com> */
-#include "ring.h"
+#include "../includes/ring.h"
 
 void ring_vm_gc_checkreferences ( VM *pVM )
 {
