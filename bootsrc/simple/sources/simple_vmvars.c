@@ -113,7 +113,7 @@ int ring_vm_findvar2 ( VM *pVM,int x,List *pList2,const char *cStr )
 		/*
 		**  Here we don't know the correct scope of the result 
 		**  becauase a global variable may be a reference to local variable 
-		**  And this case happens with setter/getter of the attributes using eval() 
+		**  And this case happens with setter/getter of the attributes using executeCode() 
 		**  Here we avoid this change if the variable name is "Self" to return self by reference 
 		*/
 		if ( strcmp(cStr,"self") != 0 ) {

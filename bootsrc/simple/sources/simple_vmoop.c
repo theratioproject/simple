@@ -619,7 +619,7 @@ void ring_vm_oop_bracestack ( VM *pVM )
 	pVM->nSP = ring_list_getint(ring_list_getlist(pVM->aBraceObjects,ring_list_getsize(pVM->aBraceObjects)),2) ;
 	if ( pVM->nFuncSP > pVM->nSP ) {
 		/*
-		**  This fixes a problem when we use oObject {  eval(code) } return cString 
+		**  This fixes a problem when we use oObject {  executeCode(code) } return cString 
 		**  Where pVM->nSP maybe less than pVM->nFuncSP while we are inside function 
 		*/
 		if ( ring_list_getsize(pVM->pFuncCallList) > 0 ) {

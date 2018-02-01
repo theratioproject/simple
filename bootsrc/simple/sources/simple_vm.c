@@ -258,9 +258,9 @@ SIMPLE_API void ring_vm_loadcode ( VM *pVM )
 {
 	int x,nSize  ;
 	/*
-	**  We may allocation double of the size that we need to avoid reallocation when we use eval() 
-	**  eval() will check if there is a need to reallocation or not 
-	**  This optimization increase the performance of applications that uses eval() 
+	**  We may allocation double of the size that we need to avoid reallocation when we use executeCode() 
+	**  executeCode() will check if there is a need to reallocation or not 
+	**  This optimization increase the performance of applications that uses executeCode() 
 	*/
 	nSize = (ring_list_getsize(pVM->pCode))*SIMPLE_VM_EXTRASIZE ;
 	pVM->pByteCode = (ByteCode *) ring_state_calloc(pVM->pRingState,nSize,sizeof(ByteCode));
@@ -757,8 +757,8 @@ int ring_vm_eval ( VM *pVM,const char *cStr )
 	}
 	nPC = pVM->nPC ;
 	/* Add virtual file name */
-	ring_list_addstring_gc(pVM->pRingState,pVM->pRingState->pRingFilesList,"eval");
-	ring_list_addstring_gc(pVM->pRingState,pVM->pRingState->pRingFilesStack,"eval");
+	ring_list_addstring_gc(pVM->pRingState,pVM->pRingState->pRingFilesList,"executeCode");
+	ring_list_addstring_gc(pVM->pRingState,pVM->pRingState->pRingFilesStack,"executeCode");
 	pScanner = ring_scanner_new(pVM->pRingState);
 	for ( x = 0 ; x < nSize ; x++ ) {
 		ring_scanner_readchar(pScanner,cStr[x]);
@@ -777,7 +777,7 @@ int ring_vm_eval ( VM *pVM,const char *cStr )
 		nRunVM = ring_parser_start(pScanner->Tokens,pVM->pRingState);
 		pVM->pRingState->lNoLineNumber = 0 ;
 	} else {
-		ring_vm_error(pVM,"Error in eval!");
+		ring_vm_error(pVM,"Error in executeCode!");
 		ring_scanner_delete(pScanner);
 		return 0 ;
 	}
@@ -804,7 +804,7 @@ int ring_vm_eval ( VM *pVM,const char *cStr )
 			}
 			pVM->pByteCode = pByteCode ;
 			if ( pVM->nEvalCalledFromRingCode ) {
-				/* Here eval() function is called from .sim files ( not by the VM for setter/getter/operator overloading) */
+				/* Here executeCode() function is called from .sim files ( not by the VM for setter/getter/operator overloading) */
 				pVM->nEvalReallocationFlag = 1 ;
 			}
 		}
@@ -817,19 +817,19 @@ int ring_vm_eval ( VM *pVM,const char *cStr )
 		}
 		/*
 		**  The mainloop will be called again 
-		**  We do this to execute eval instructions directly 
+		**  We do this to execute executeCode instructions directly 
 		**  This is necessary when we have GUI library that takes the event loop 
-		**  Then an event uses the eval() function to execute instructions 
+		**  Then an event uses the executeCode() function to execute instructions 
 		**  We don't call the main loop here we call it from ring_vm_call() 
-		**  We do this to execute the eval() instructions in the correct scope 
-		**  Because when we call a C Function like eval() we have parameters scope 
+		**  We do this to execute the executeCode() instructions in the correct scope 
+		**  Because when we call a C Function like executeCode() we have parameters scope 
 		**  Before we call the main loop from ring_vm_call the parameters scope will be deleted 
-		**  And the local scope will be restored so we can use it from eval() 
+		**  And the local scope will be restored so we can use it from executeCode() 
 		**  Update ReallocationSize 
 		*/
 		pVM->nEvalReallocationSize = pVM->nEvalReallocationSize - (ring_list_getsize(pVM->pCode)-nLastPC) ;
 	} else {
-		ring_vm_error(pVM,"Error in eval!");
+		ring_vm_error(pVM,"Error in executeCode!");
 		ring_scanner_delete(pScanner);
 		return 0 ;
 	}
@@ -911,7 +911,7 @@ void ring_vm_returneval ( VM *pVM )
 	/*
 	**  nEvalReturnPC is checked by the ring_vm_mainloop to end the loop 
 	**  if the pVM->nPC becomes <= pVM->nEvalReturnPC the loop will be terminated 
-	**  Remember that this is just a sub loop (another main loop) created after using eval() 
+	**  Remember that this is just a sub loop (another main loop) created after using executeCode() 
 	**  If we don't terminate the sub main loop , this is just an extra overhead 
 	**  Also terminating the sub main loop is a must when we do GUI programming 
 	**  Because in GUI programming, the main loop calls the GUI Main Loop 
@@ -1034,7 +1034,7 @@ void ring_vm_retitemref ( VM *pVM )
 	**  Check if we are in the operator method to increment the counter again 
 	**  We do this to avoid another PUSHV on the list item 
 	**  The first one after return expression in the operator method 
-	**  The second one before return from eval() that is used by operator overloading 
+	**  The second one before return from executeCode() that is used by operator overloading 
 	**  This to avoid using & two times like  &  & 
 	*/
 	if ( ring_list_getsize(pVM->pFuncCallList) > 0 ) {

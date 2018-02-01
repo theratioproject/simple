@@ -309,12 +309,12 @@ void ring_vm_call2 ( VM *pVM )
 		} else {
 			pVM->nFuncSP = 0 ;
 		}
-		/* if eval() is called, start the main loop again */
+		/* if executeCode() is called, start the main loop again */
 		if ( pVM->nEvalCalledFromRingCode == 1 ) {
 			pVM->nEvalCalledFromRingCode = 0 ;
 			/*
 			**  We use Stack POP to remove the empty string that we return after functions 
-			**  This enable the code generated from eval() to be able to return any value 
+			**  This enable the code generated from executeCode() to be able to return any value 
 			**  Using the return command 
 			*/
 			SIMPLE_VM_STACK_POP ;
