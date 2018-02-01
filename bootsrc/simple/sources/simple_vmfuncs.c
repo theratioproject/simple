@@ -250,8 +250,8 @@ void simple_vm_call2 ( VM *pVM )
 			nMax1 = pVM->nSP ;
 			for ( x = nSP+1 ; x <= nMax1 ; x++ ) {
 				pVM->nSP = x ;
-				if ( SIMPLE_VM_STACK_ISSTSIMPLE ) {
-					simple_vm_addnewstringvar2(pVM,"",SIMPLE_VM_STACK_READC,SIMPLE_VM_STACK_STSIMPLESIZE);
+				if ( SIMPLE_VM_STACK_ISSTRING ) {
+					simple_vm_addnewstringvar2(pVM,"",SIMPLE_VM_STACK_READC,SIMPLE_VM_STACK_STRINGSIZE);
 				}
 				else if ( SIMPLE_VM_STACK_ISNUMBER ) {
 					simple_vm_addnewnumbervar(pVM,"",SIMPLE_VM_STACK_READN);
@@ -415,8 +415,8 @@ void simple_vm_newfunc ( VM *pVM )
 	if ( SIMPLE_VM_IR_PARACOUNT > 2 ) {
 		for ( x = SIMPLE_VM_IR_PARACOUNT ; x >= 3 ; x-- ) {
 			if ( nSP < pVM->nSP ) {
-				if ( SIMPLE_VM_STACK_ISSTSIMPLE ) {
-					simple_vm_addnewstringvar2(pVM,SIMPLE_VM_IR_READCVALUE(x-1),SIMPLE_VM_STACK_READC,SIMPLE_VM_STACK_STSIMPLESIZE);
+				if ( SIMPLE_VM_STACK_ISSTRING ) {
+					simple_vm_addnewstringvar2(pVM,SIMPLE_VM_IR_READCVALUE(x-1),SIMPLE_VM_STACK_READC,SIMPLE_VM_STACK_STRINGSIZE);
 					SIMPLE_VM_STACK_POP ;
 				}
 				else if ( SIMPLE_VM_STACK_ISNUMBER ) {
@@ -542,7 +542,7 @@ void simple_vm_restoreloadaddressscope ( VM *pVM )
 void simple_vm_anonymous ( VM *pVM )
 {
 	const char *cStr  ;
-	if ( SIMPLE_VM_STACK_ISSTSIMPLE ) {
+	if ( SIMPLE_VM_STACK_ISSTRING ) {
 		cStr = SIMPLE_VM_STACK_READC ;
 		SIMPLE_VM_STACK_POP ;
 		simple_vm_loadfunc2(pVM,cStr,0);

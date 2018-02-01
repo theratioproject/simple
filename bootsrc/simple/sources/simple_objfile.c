@@ -80,7 +80,7 @@ int simple_objfile_readfile ( RingState *pRingState,char *cFileName )
 
 int simple_objfile_readstring ( RingState *pRingState,char *cString )
 {
-	return simple_objfile_readfromsource(pRingState,cString,SIMPLE_OBJFILE_READFROMSTSIMPLE) ;
+	return simple_objfile_readfromsource(pRingState,cString,SIMPLE_OBJFILE_READFROMSTRING) ;
 }
 
 int simple_objfile_readfromsource ( RingState *pRingState,char *cSource,int nSource )
@@ -98,7 +98,7 @@ int simple_objfile_readfromsource ( RingState *pRingState,char *cSource,int nSou
 			return 0 ;
 		}
 	}
-	else if ( nSource ==SIMPLE_OBJFILE_READFROMSTSIMPLE ) {
+	else if ( nSource ==SIMPLE_OBJFILE_READFROMSTRING ) {
 		if ( ! simple_objfile_processstring(pRingState,cSource,pListFunctions, pListClasses, pListPackages, pListCode, pListStack) ) {
 			return 0 ;
 		}

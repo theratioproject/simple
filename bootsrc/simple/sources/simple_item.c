@@ -43,7 +43,7 @@ SIMPLE_API void simple_item_print ( Item *pItem )
 		case ITEMTYPE_NOTHING :
 			/* Work */
 			break ;
-		case ITEMTYPE_STSIMPLE :
+		case ITEMTYPE_STRING :
 			/* Work */
 			simple_stsimple_print(pItem->data.pString);
 			break ;
@@ -70,7 +70,7 @@ SIMPLE_API void simple_item_content_delete_gc ( void *pState,Item *pItem )
 {
 	assert(pItem != NULL);
 	switch ( pItem->nType ) {
-		case ITEMTYPE_STSIMPLE :
+		case ITEMTYPE_STRING :
 			/* Work */
 			pItem->data.pString = simple_stsimple_delete_gc(pState,pItem->data.pString);
 			break ;
@@ -99,8 +99,8 @@ SIMPLE_API void simple_item_settype_gc ( void *pState,Item *pItem,int ItemType )
 		case ITEMTYPE_NOTHING :
 			pItem->nType = ITEMTYPE_NOTHING ;
 			break ;
-		case ITEMTYPE_STSIMPLE :
-			pItem->nType = ITEMTYPE_STSIMPLE ;
+		case ITEMTYPE_STRING :
+			pItem->nType = ITEMTYPE_STRING ;
 			pItem->data.pString = simple_stsimple_new_gc(pState,"");
 			break ;
 		case ITEMTYPE_NUMBER :
@@ -162,26 +162,26 @@ SIMPLE_API void simple_itemarray_setdouble_gc ( void *pState,Item pList[], int i
 
 SIMPLE_API void simple_itemarray_setstsimple_gc ( void *pState,Item pList[], int index ,const char *str )
 {
-	simple_item_settype_gc(pState,&pList[index],ITEMTYPE_STSIMPLE);
+	simple_item_settype_gc(pState,&pList[index],ITEMTYPE_STRING);
 	simple_stsimple_set_gc(pState,pList[index].data.pString ,str);
 }
 
 SIMPLE_API void simple_itemarray_setstring2_gc ( void *pState,Item pList[], int index ,const char *str,int nStrSize )
 {
-	simple_item_settype_gc(pState,&pList[index],ITEMTYPE_STSIMPLE);
+	simple_item_settype_gc(pState,&pList[index],ITEMTYPE_STRING);
 	simple_stsimple_set2_gc(pState,pList[index].data.pString ,str,nStrSize);
 }
 /* Functions to deal with one item */
 
 SIMPLE_API void simple_item_setstsimple_gc ( void *pState,Item *pItem,const char *cStr )
 {
-	simple_item_settype_gc(pState,pItem,ITEMTYPE_STSIMPLE);
+	simple_item_settype_gc(pState,pItem,ITEMTYPE_STRING);
 	simple_stsimple_set_gc(pState,simple_item_getstring(pItem),cStr);
 }
 
 SIMPLE_API void simple_item_setstring2_gc ( void *pState,Item *pItem,const char *cStr,int nStrSize )
 {
-	simple_item_settype_gc(pState,pItem,ITEMTYPE_STSIMPLE);
+	simple_item_settype_gc(pState,pItem,ITEMTYPE_STRING);
 	simple_stsimple_set2_gc(pState,simple_item_getstring(pItem),cStr,nStrSize);
 }
 

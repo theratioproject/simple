@@ -8,7 +8,7 @@ void simple_vm_dup ( VM *pVM )
 	double nNum1  ;
 	void *pPointer  ;
 	int nType  ;
-	if ( SIMPLE_VM_STACK_ISSTSIMPLE ) {
+	if ( SIMPLE_VM_STACK_ISSTRING ) {
 		pString = simple_stsimple_new_gc(pVM->pRingState,SIMPLE_VM_STACK_READC);
 		SIMPLE_VM_STACK_PUSHCVALUE(simple_stsimple_get(pString));
 		simple_stsimple_delete_gc(pVM->pRingState,pString);
@@ -53,11 +53,11 @@ void simple_vm_range ( VM *pVM )
 			}
 		}
 	}
-	else if ( SIMPLE_VM_STACK_ISSTSIMPLE ) {
+	else if ( SIMPLE_VM_STACK_ISSTRING ) {
 		pString1 = simple_stsimple_new_gc(pVM->pRingState,SIMPLE_VM_STACK_READC);
 		SIMPLE_VM_STACK_POP ;
 		if ( simple_stsimple_size(pString1) == 1 ) {
-			if ( SIMPLE_VM_STACK_ISSTSIMPLE ) {
+			if ( SIMPLE_VM_STACK_ISSTRING ) {
 				pString2 = simple_stsimple_new_gc(pVM->pRingState,SIMPLE_VM_STACK_READC);
 				SIMPLE_VM_STACK_POP ;
 				if ( simple_stsimple_size(pString2)  == 1 ) {

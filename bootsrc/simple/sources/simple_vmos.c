@@ -106,32 +106,32 @@ void simple_vm_os_isandroid ( void *pPointer )
 
 void simple_vm_os_windowsnl ( void *pPointer )
 {
-	SIMPLE_API_RETSTSIMPLE("\r\n");
+	SIMPLE_API_RETSTRING("\r\n");
 }
 
 void simple_vm_os_currentdir ( void *pPointer )
 {
 	char cDirPath[SIMPLE_PATHSIZE]  ;
 	simple_currentdir(cDirPath);
-	SIMPLE_API_RETSTSIMPLE(cDirPath);
+	SIMPLE_API_RETSTRING(cDirPath);
 }
 
 void simple_vm_os_exefilename ( void *pPointer )
 {
 	char cDirPath[SIMPLE_PATHSIZE]  ;
 	if ( simple_exefilename(cDirPath) ) {
-		SIMPLE_API_RETSTSIMPLE(cDirPath);
+		SIMPLE_API_RETSTRING(cDirPath);
 	}
 }
 
 void simple_vm_os_chdir ( void *pPointer )
 {
-	SIMPLE_API_RETNUMBER(simple_chdir(SIMPLE_API_GETSTSIMPLE(1)));
+	SIMPLE_API_RETNUMBER(simple_chdir(SIMPLE_API_GETSTRING(1)));
 }
 
 void simple_vm_os_exefolder ( void *pPointer )
 {
 	char cDirPath[SIMPLE_PATHSIZE]  ;
 	simple_exefolder(cDirPath);
-	SIMPLE_API_RETSTSIMPLE(cDirPath);
+	SIMPLE_API_RETSTRING(cDirPath);
 }

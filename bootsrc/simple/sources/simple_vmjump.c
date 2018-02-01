@@ -25,7 +25,7 @@ void simple_vm_jumpfor ( VM *pVM )
 		nNum1 = SIMPLE_VM_STACK_READN ;
 		SIMPLE_VM_STACK_POP ;
 	}
-	else if ( SIMPLE_VM_STACK_ISSTSIMPLE ) {
+	else if ( SIMPLE_VM_STACK_ISSTRING ) {
 		nNum1 = simple_vm_stringtonum(pVM,SIMPLE_VM_STACK_READC);
 		SIMPLE_VM_STACK_POP ;
 	} else {
@@ -38,7 +38,7 @@ void simple_vm_jumpfor ( VM *pVM )
 		nNum3 = SIMPLE_VM_STACK_READN ;
 		SIMPLE_VM_STACK_POP ;
 	}
-	else if ( SIMPLE_VM_STACK_ISSTSIMPLE ) {
+	else if ( SIMPLE_VM_STACK_ISSTRING ) {
 		nNum3 = simple_vm_stringtonum(pVM,SIMPLE_VM_STACK_READC);
 		SIMPLE_VM_STACK_POP ;
 	} else {

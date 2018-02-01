@@ -968,8 +968,8 @@ void simple_vm_oop_setproperty ( VM *pVM )
 			simple_list_setdouble_gc(pVM->pRingState,pList2,SIMPLE_VAR_VALUE,SIMPLE_VM_STACK_READN);
 			simple_list_adddouble_gc(pVM->pRingState,pList,SIMPLE_VM_STACK_READN);
 		}
-		else if ( SIMPLE_VM_STACK_ISSTSIMPLE ) {
-			simple_list_setint_gc(pVM->pRingState,pList2,SIMPLE_VAR_TYPE,SIMPLE_VM_STSIMPLE);
+		else if ( SIMPLE_VM_STACK_ISSTRING ) {
+			simple_list_setint_gc(pVM->pRingState,pList2,SIMPLE_VAR_TYPE,SIMPLE_VM_STRING);
 			simple_list_setstsimple_gc(pVM->pRingState,pList2,SIMPLE_VAR_VALUE,SIMPLE_VM_STACK_READC);
 			simple_list_addstsimple_gc(pVM->pRingState,pList,SIMPLE_VM_STACK_READC);
 		}
@@ -1105,8 +1105,8 @@ void simple_vm_oop_operatoroverloading ( VM *pVM,List *pObj,const char *cStr1,in
 	simple_list_setint_gc(pVM->pRingState,pList2,SIMPLE_VAR_PVALUETYPE,nObjType);
 	/* Set Variable simple_settemp_var  , Number 7 in Public Memory */
 	pList2 = simple_list_getlist(simple_vm_getglobalscope(pVM),7) ;
-	if ( nType == SIMPLE_OOPARA_STSIMPLE ) {
-		simple_list_setint_gc(pVM->pRingState,pList2,SIMPLE_VAR_TYPE,SIMPLE_VM_STSIMPLE);
+	if ( nType == SIMPLE_OOPARA_STRING ) {
+		simple_list_setint_gc(pVM->pRingState,pList2,SIMPLE_VAR_TYPE,SIMPLE_VM_STRING);
 		simple_list_setstsimple_gc(pVM->pRingState,pList2,SIMPLE_VAR_VALUE,cStr2);
 	}
 	else if ( nType == SIMPLE_OOPARA_NUMBER ) {

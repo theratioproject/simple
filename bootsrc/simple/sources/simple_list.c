@@ -334,7 +334,7 @@ SIMPLE_API int simple_list_gettype ( List *pList, int index )
 
 SIMPLE_API int simple_list_isstring ( List *pList, int index )
 {
-	if ( simple_list_gettype(pList,index) == ITEMTYPE_STSIMPLE ) {
+	if ( simple_list_gettype(pList,index) == ITEMTYPE_STRING ) {
 		return 1 ;
 	}
 	return 0 ;
@@ -424,7 +424,7 @@ SIMPLE_API void simple_list_setstsimple_gc ( void *pState,List *pList, int index
 	String *pString  ;
 	assert(pList != NULL);
 	pItem = simple_list_getitem(pList,index);
-	simple_item_settype_gc(pState,pItem,ITEMTYPE_STSIMPLE);
+	simple_item_settype_gc(pState,pItem,ITEMTYPE_STRING);
 	pString = simple_item_getstring(pItem);
 	simple_stsimple_set_gc(pState,pString,str);
 }
@@ -435,7 +435,7 @@ SIMPLE_API void simple_list_setstring2_gc ( void *pState,List *pList, int index 
 	String *pString  ;
 	assert(pList != NULL);
 	pItem = simple_list_getitem(pList,index);
-	simple_item_settype_gc(pState,pItem,ITEMTYPE_STSIMPLE);
+	simple_item_settype_gc(pState,pItem,ITEMTYPE_STRING);
 	pString = simple_item_getstring(pItem);
 	simple_stsimple_set2_gc(pState,pString,str,nStrSize);
 }
@@ -768,7 +768,7 @@ SIMPLE_API int simple_list_findinlistofobjs ( List *pList,int nType,double nNum1
 			}
 			pList2 = simple_list_getlist(pList2,SIMPLE_OBJECT_OBJECTDATA) ;
 			pList2 = simple_list_getlist(pList2,nPos) ;
-			if ( nType  == SIMPLE_VM_LISTOFOBJS_FINDSTSIMPLE ) {
+			if ( nType  == SIMPLE_VM_LISTOFOBJS_FINDSTRING ) {
 				if ( strcmp(str,simple_list_getstring(pList2,SIMPLE_VAR_VALUE)) == 0 ) {
 					return x ;
 				}
@@ -1272,7 +1272,7 @@ void simple_list_test ( void )
 	for ( x = 1 ; x <= 10 ; x++ ) {
 		/* Work on items */
 		pItem = simple_list_getitem(pList2,x);
-		simple_item_settype(pItem,ITEMTYPE_STSIMPLE);
+		simple_item_settype(pItem,ITEMTYPE_STRING);
 		pString = simple_item_getstring(pItem);
 		sprintf( mystr , "The Item Number %d" , x ) ;
 		simple_stsimple_set(pString,mystr);
@@ -1322,7 +1322,7 @@ void simple_list_test ( void )
 	pList = simple_list_new(5);
 	/* Set Item 1 */
 	pItem = simple_list_getitem(pList,1);
-	simple_item_settype(pItem,ITEMTYPE_STSIMPLE);
+	simple_item_settype(pItem,ITEMTYPE_STRING);
 	pString = simple_item_getstring(pItem);
 	simple_stsimple_set(pString,mystr);
 	simple_stsimple_print(pString);
@@ -1334,21 +1334,21 @@ void simple_list_test ( void )
 	simple_list_newitem(pList2);
 	/* Work on items */
 	pItem = simple_list_getitem(pList2,1);
-	simple_item_settype(pItem,ITEMTYPE_STSIMPLE);
+	simple_item_settype(pItem,ITEMTYPE_STRING);
 	pString = simple_item_getstring(pItem);
 	sprintf( mystr , "Item (2) Item (1) "  ) ;
 	simple_stsimple_set(pString,mystr);
 	simple_stsimple_print(pString);
 	/* Work on items */
 	pItem = simple_list_getitem(pList2,2);
-	simple_item_settype(pItem,ITEMTYPE_STSIMPLE);
+	simple_item_settype(pItem,ITEMTYPE_STRING);
 	pString = simple_item_getstring(pItem);
 	sprintf( mystr , "Item (2) Item (2) "  ) ;
 	simple_stsimple_set(pString,mystr);
 	simple_stsimple_print(pString);
 	/* Set Item 3 */
 	pItem = simple_list_getitem(pList,3);
-	simple_item_settype(pItem,ITEMTYPE_STSIMPLE);
+	simple_item_settype(pItem,ITEMTYPE_STRING);
 	pString = simple_item_getstring(pItem);
 	sprintf( mystr , "last item"  ) ;
 	simple_stsimple_set(pString,mystr);

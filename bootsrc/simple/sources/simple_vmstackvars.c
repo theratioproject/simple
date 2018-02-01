@@ -10,7 +10,7 @@ void simple_vm_pushv ( VM *pVM )
 		/* Happens after using EVAL() in this case we avoid PUSHV */
 		return ;
 	}
-	if ( SIMPLE_VM_STACK_OBJTYPE == SIMPLE_OBJTYPE_SUBSTSIMPLE ) {
+	if ( SIMPLE_VM_STACK_OBJTYPE == SIMPLE_OBJTYPE_SUBSTRING ) {
 		simple_vm_stsimple_pushv(pVM);
 	}
 	else if ( SIMPLE_VM_STACK_OBJTYPE == SIMPLE_OBJTYPE_LISTITEM ) {
@@ -90,7 +90,7 @@ void simple_vm_assignment ( VM *pVM )
 	String *cStr1, *pString  ;
 	double nNum1  ;
 	Item *pItem  ;
-	if ( SIMPLE_VM_STACK_PREVOBJTYPE == SIMPLE_OBJTYPE_SUBSTSIMPLE ) {
+	if ( SIMPLE_VM_STACK_PREVOBJTYPE == SIMPLE_OBJTYPE_SUBSTRING ) {
 		if ( pVM->nBeforeEqual == 0 ) {
 			simple_vm_stsimple_assignment(pVM);
 		} else {
@@ -101,13 +101,13 @@ void simple_vm_assignment ( VM *pVM )
 		simple_vm_listassignment(pVM);
 	}
 	else if ( SIMPLE_VM_STACK_PREVOBJTYPE ==SIMPLE_OBJTYPE_VARIABLE ) {
-		if ( (SIMPLE_VM_STACK_ISSTSIMPLE) && (pVM->nBeforeEqual <= 1 ) ) {
-			cStr1 = simple_stsimple_new2_gc(pVM->pRingState,SIMPLE_VM_STACK_READC,SIMPLE_VM_STACK_STSIMPLESIZE);
+		if ( (SIMPLE_VM_STACK_ISSTRING) && (pVM->nBeforeEqual <= 1 ) ) {
+			cStr1 = simple_stsimple_new2_gc(pVM->pRingState,SIMPLE_VM_STACK_READC,SIMPLE_VM_STACK_STRINGSIZE);
 			SIMPLE_VM_STACK_POP ;
 			pVar = (List *) SIMPLE_VM_STACK_READP ;
 			SIMPLE_VM_STACK_POP ;
 			if ( pVM->nBeforeEqual == 0 ) {
-				simple_list_setint_gc(pVM->pRingState,pVar, SIMPLE_VAR_TYPE ,SIMPLE_VM_STSIMPLE);
+				simple_list_setint_gc(pVM->pRingState,pVar, SIMPLE_VAR_TYPE ,SIMPLE_VM_STRING);
 				simple_list_setstring2_gc(pVM->pRingState,pVar, SIMPLE_VAR_VALUE , simple_stsimple_get(cStr1),simple_stsimple_size(cStr1));
 			} else {
 				/* Check NULL Variable */

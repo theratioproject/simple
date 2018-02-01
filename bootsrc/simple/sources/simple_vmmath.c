@@ -270,10 +270,10 @@ void simple_vm_math_unsigned ( void *pPointer )
 		SIMPLE_API_ERROR(SIMPLE_API_MISS3PARA);
 		return ;
 	}
-	if ( SIMPLE_API_ISNUMBER(1) && SIMPLE_API_ISNUMBER(2) && SIMPLE_API_ISSTSIMPLE(3) ) {
+	if ( SIMPLE_API_ISNUMBER(1) && SIMPLE_API_ISNUMBER(2) && SIMPLE_API_ISSTRING(3) ) {
 		nNum1 = (unsigned int) SIMPLE_API_GETNUMBER(1) ;
 		nNum2 = (unsigned int ) SIMPLE_API_GETNUMBER(2) ;
-		cStr = SIMPLE_API_GETSTSIMPLE(3) ;
+		cStr = SIMPLE_API_GETSTRING(3) ;
 		if ( strcmp(cStr,">>") == 0 ) {
 			nNum3 = nNum1 >> nNum2 ;
 		}
@@ -365,8 +365,8 @@ void simple_vm_math_murmur3hash ( void *pPointer )
 		SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
 		return ;
 	}
-	if ( SIMPLE_API_ISSTSIMPLE(1) && SIMPLE_API_ISNUMBER(2) ) {
-		nResult = simple_murmur3_32(SIMPLE_API_GETSTSIMPLE(1),SIMPLE_API_GETSTSIMPLESIZE(1),SIMPLE_API_GETNUMBER(2));
+	if ( SIMPLE_API_ISSTRING(1) && SIMPLE_API_ISNUMBER(2) ) {
+		nResult = simple_murmur3_32(SIMPLE_API_GETSTRING(1),SIMPLE_API_GETSTRINGSIZE(1),SIMPLE_API_GETNUMBER(2));
 		SIMPLE_API_RETNUMBER(nResult);
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);

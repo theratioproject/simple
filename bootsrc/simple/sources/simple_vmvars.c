@@ -252,7 +252,7 @@ void simple_vm_addnewstringvar ( VM *pVM,const char *cStr,const char *cStr2 )
 {
 	List *pList  ;
 	pList = simple_vm_newvar2(pVM,cStr,pVM->pActiveMem);
-	simple_list_setint_gc(pVM->pRingState,pList,SIMPLE_VAR_TYPE,SIMPLE_VM_STSIMPLE);
+	simple_list_setint_gc(pVM->pRingState,pList,SIMPLE_VAR_TYPE,SIMPLE_VM_STRING);
 	simple_list_setstsimple_gc(pVM->pRingState,pList,SIMPLE_VAR_VALUE,cStr2);
 }
 
@@ -260,7 +260,7 @@ void simple_vm_addnewstringvar2 ( VM *pVM,const char *cStr,const char *cStr2,int
 {
 	List *pList  ;
 	pList = simple_vm_newvar2(pVM,cStr,pVM->pActiveMem);
-	simple_list_setint_gc(pVM->pRingState,pList,SIMPLE_VAR_TYPE,SIMPLE_VM_STSIMPLE);
+	simple_list_setint_gc(pVM->pRingState,pList,SIMPLE_VAR_TYPE,SIMPLE_VM_STRING);
 	simple_list_setstring2_gc(pVM->pRingState,pList,SIMPLE_VAR_VALUE,cStr2,nStrSize);
 }
 

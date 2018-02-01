@@ -17,7 +17,7 @@ void simple_vm_stsimple_assignment ( VM *pVM )
 {
 	String *cStr1  ;
 	char *newstr  ;
-	if ( SIMPLE_VM_STACK_ISSTSIMPLE ) {
+	if ( SIMPLE_VM_STACK_ISSTRING ) {
 		cStr1 = simple_stsimple_new_gc(pVM->pRingState,SIMPLE_VM_STACK_READC);
 		SIMPLE_VM_STACK_POP ;
 		if ( simple_stsimple_size(cStr1) == 1 ) {
@@ -32,7 +32,7 @@ void simple_vm_stsimple_assignment ( VM *pVM )
 			return ;
 		}
 	} else {
-		simple_vm_error(pVM,SIMPLE_VM_ERROR_VARISNOTSTSIMPLE);
+		simple_vm_error(pVM,SIMPLE_VM_ERROR_VARISNOTSTRING);
 		return ;
 	}
 }
@@ -48,5 +48,5 @@ void simple_vm_stsimple_index ( VM *pVM, String *pString, double nNum1 )
 	newstr = pString->cStr ;
 	newstr = newstr + ((int) (nNum1 - 1) ) ;
 	SIMPLE_VM_STACK_PUSHPVALUE(newstr);
-	SIMPLE_VM_STACK_OBJTYPE = SIMPLE_OBJTYPE_SUBSTSIMPLE ;
+	SIMPLE_VM_STACK_OBJTYPE = SIMPLE_OBJTYPE_SUBSTRING ;
 }

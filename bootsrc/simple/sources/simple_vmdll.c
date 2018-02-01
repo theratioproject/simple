@@ -22,17 +22,17 @@ void simple_vm_dll_loadlib ( void *pPointer )
 		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
 		return ;
 	}
-	if ( SIMPLE_API_ISSTSIMPLE(1) ) {
-		cDLL = SIMPLE_API_GETSTSIMPLE(1);
+	if ( SIMPLE_API_ISSTRING(1) ) {
+		cDLL = SIMPLE_API_GETSTRING(1);
 		handle = LoadDLL(cDLL);
 		if ( handle == NULL ) {
-			printf( "\nLibrary File : %s",SIMPLE_API_GETSTSIMPLE(1) ) ;
+			printf( "\nLibrary File : %s",SIMPLE_API_GETSTRING(1) ) ;
 			SIMPLE_API_ERROR(SIMPLE_VM_ERROR_LIBLOADERROR);
 			return ;
 		}
 		pFunc = (loadlibfuncptr) GetDLLFunc(handle, "ringlib_init") ;
 		if ( pFunc == NULL ) {
-			printf( "\nLibrary File : %s",SIMPLE_API_GETSTSIMPLE(1) ) ;
+			printf( "\nLibrary File : %s",SIMPLE_API_GETSTRING(1) ) ;
 			SIMPLE_API_ERROR("The dynamic library doesn't contain the ringlib_init() function!");
 			return ;
 		}

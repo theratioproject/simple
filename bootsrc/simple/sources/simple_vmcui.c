@@ -12,10 +12,10 @@ void simple_vm_see ( VM *pVM )
 	if ( pVM->nFuncExecute > 0 ) {
 		pVM->nFuncExecute-- ;
 	}
-	if ( SIMPLE_VM_STACK_ISSTSIMPLE ) {
+	if ( SIMPLE_VM_STACK_ISSTRING ) {
 		cString = SIMPLE_VM_STACK_READC ;
-		if ( strlen(cString) != (unsigned int) SIMPLE_VM_STACK_STSIMPLESIZE ) {
-			for ( x = 0 ; x < SIMPLE_VM_STACK_STSIMPLESIZE ; x++ ) {
+		if ( strlen(cString) != (unsigned int) SIMPLE_VM_STACK_STRINGSIZE ) {
+			for ( x = 0 ; x < SIMPLE_VM_STACK_STRINGSIZE ; x++ ) {
 				printf( "%c",cString[x] ) ;
 			}
 		} else {
@@ -69,13 +69,13 @@ void simple_vm_give ( VM *pVM )
 		if ( SIMPLE_VM_STACK_OBJTYPE == SIMPLE_OBJTYPE_VARIABLE ) {
 			pVar = (List *) SIMPLE_VM_STACK_READP ;
 			SIMPLE_VM_STACK_POP ;
-			simple_list_setint_gc(pVM->pRingState,pVar, SIMPLE_VAR_TYPE ,SIMPLE_VM_STSIMPLE);
+			simple_list_setint_gc(pVM->pRingState,pVar, SIMPLE_VAR_TYPE ,SIMPLE_VM_STRING);
 			simple_list_setstsimple_gc(pVM->pRingState,pVar, SIMPLE_VAR_VALUE, cLine);
 		}
 		else if ( SIMPLE_VM_STACK_OBJTYPE ==SIMPLE_OBJTYPE_LISTITEM ) {
 			pItem = (Item *) SIMPLE_VM_STACK_READP ;
 			SIMPLE_VM_STACK_POP ;
-			simple_item_settype_gc(pVM->pRingState,pItem,ITEMTYPE_STSIMPLE);
+			simple_item_settype_gc(pVM->pRingState,pItem,ITEMTYPE_STRING);
 			simple_stsimple_set_gc(pVM->pRingState,simple_item_getstring(pItem),cLine);
 		}
 	}
@@ -90,10 +90,10 @@ void simple_vmlib_see ( void *pPointer )
 	List *pList  ;
 	VM *pVM  ;
 	pVM = (VM *) pPointer ;
-	if ( SIMPLE_API_ISSTSIMPLE(1) ) {
-		cString = SIMPLE_API_GETSTSIMPLE(1) ;
-		if ( strlen(cString) != (unsigned int) SIMPLE_API_GETSTSIMPLESIZE(1) ) {
-			for ( x = 0 ; x < SIMPLE_API_GETSTSIMPLESIZE(1) ; x++ ) {
+	if ( SIMPLE_API_ISSTRING(1) ) {
+		cString = SIMPLE_API_GETSTRING(1) ;
+		if ( strlen(cString) != (unsigned int) SIMPLE_API_GETSTRINGSIZE(1) ) {
+			for ( x = 0 ; x < SIMPLE_API_GETSTRINGSIZE(1) ; x++ ) {
 				printf( "%c",cString[x] ) ;
 			}
 		} else {
@@ -128,5 +128,5 @@ void simple_vmlib_give ( void *pPointer )
 			break ;
 		}
 	}
-	SIMPLE_API_RETSTSIMPLE(cLine);
+	SIMPLE_API_RETSTRING(cLine);
 }

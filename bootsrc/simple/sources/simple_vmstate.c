@@ -255,7 +255,7 @@ List * simple_vm_savestack ( VM *pVM )
 	/* Create List */
 	pList = simple_list_new_gc(pVM->pRingState,0);
 	while ( pVM->nSP  != 0 ) {
-		if ( SIMPLE_VM_STACK_ISSTSIMPLE ) {
+		if ( SIMPLE_VM_STACK_ISSTRING ) {
 			simple_list_addstsimple_gc(pVM->pRingState,pList,SIMPLE_VM_STACK_READC);
 		}
 		else if ( SIMPLE_VM_STACK_ISNUMBER ) {

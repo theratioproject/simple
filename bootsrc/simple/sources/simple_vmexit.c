@@ -94,7 +94,7 @@ void simple_vm_stepnumber ( VM *pVM )
 		simple_list_adddouble_gc(pVM->pRingState,pVM->aForStep,SIMPLE_VM_STACK_READN);
 		SIMPLE_VM_STACK_POP ;
 	}
-	else if ( SIMPLE_VM_STACK_ISSTSIMPLE ) {
+	else if ( SIMPLE_VM_STACK_ISSTRING ) {
 		nNum1 = simple_vm_stringtonum(pVM,SIMPLE_VM_STACK_READC);
 		simple_list_adddouble_gc(pVM->pRingState,pVM->aForStep,nNum1);
 		SIMPLE_VM_STACK_POP ;

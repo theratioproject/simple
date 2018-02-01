@@ -69,12 +69,12 @@ void simple_vmlib_find ( void *pPointer )
 				}
 			}
 			if ( SIMPLE_API_PARACOUNT == 4 ) {
-				if ( SIMPLE_API_ISSTSIMPLE(4) ) {
-					if ( SIMPLE_API_ISSTSIMPLE(2) ) {
-						nNum1 = simple_list_findinlistofobjs(pList,SIMPLE_VM_LISTOFOBJS_FINDSTSIMPLE,0.0,SIMPLE_API_GETSTSIMPLE(2),nColumn,SIMPLE_API_GETSTSIMPLE(4));
+				if ( SIMPLE_API_ISSTRING(4) ) {
+					if ( SIMPLE_API_ISSTRING(2) ) {
+						nNum1 = simple_list_findinlistofobjs(pList,SIMPLE_VM_LISTOFOBJS_FINDSTRING,0.0,SIMPLE_API_GETSTRING(2),nColumn,SIMPLE_API_GETSTRING(4));
 					}
 					else if ( SIMPLE_API_ISNUMBER(2) ) {
-						nNum1 = simple_list_findinlistofobjs(pList,SIMPLE_VM_LISTOFOBJS_FINDNUMBER,SIMPLE_API_GETNUMBER(2),"",nColumn,SIMPLE_API_GETSTSIMPLE(4));
+						nNum1 = simple_list_findinlistofobjs(pList,SIMPLE_VM_LISTOFOBJS_FINDNUMBER,SIMPLE_API_GETNUMBER(2),"",nColumn,SIMPLE_API_GETSTRING(4));
 					}
 					else {
 						SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
@@ -88,8 +88,8 @@ void simple_vmlib_find ( void *pPointer )
 				}
 			}
 			else {
-				if ( SIMPLE_API_ISSTSIMPLE(2) ) {
-					nNum1 = simple_list_findstring(pList,SIMPLE_API_GETSTSIMPLE(2),nColumn);
+				if ( SIMPLE_API_ISSTRING(2) ) {
+					nNum1 = simple_list_findstring(pList,SIMPLE_API_GETSTRING(2),nColumn);
 				}
 				else if ( SIMPLE_API_ISNUMBER(2) ) {
 					nNum1 = simple_list_finddouble(pList,SIMPLE_API_GETNUMBER(2),nColumn);
@@ -243,8 +243,8 @@ void simple_vmlib_insert ( void *pPointer )
 			SIMPLE_API_ERROR(SIMPLE_VM_ERROR_INDEXOUTOFRANGE);
 			return ;
 		}
-		if ( SIMPLE_API_ISSTSIMPLE(3) ) {
-			simple_list_insertstring2(pList,nPos,SIMPLE_API_GETSTSIMPLE(3),SIMPLE_API_GETSTSIMPLESIZE(3));
+		if ( SIMPLE_API_ISSTRING(3) ) {
+			simple_list_insertstring2(pList,nPos,SIMPLE_API_GETSTRING(3),SIMPLE_API_GETSTRINGSIZE(3));
 		}
 		else if ( SIMPLE_API_ISNUMBER(3) ) {
 			simple_list_insertdouble(pList,nPos,SIMPLE_API_GETNUMBER(3));
@@ -335,9 +335,9 @@ void simple_vmlib_sort ( void *pPointer )
 				SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 			}
 		}
-		else if ( (nParaCount == 3) && SIMPLE_API_ISNUMBER(2) && simple_list_islist(pList,1) && SIMPLE_API_ISSTSIMPLE(3) ) {
+		else if ( (nParaCount == 3) && SIMPLE_API_ISNUMBER(2) && simple_list_islist(pList,1) && SIMPLE_API_ISSTRING(3) ) {
 			nColumn = SIMPLE_API_GETNUMBER(2) ;
-			cAttribute = SIMPLE_API_GETSTSIMPLE(3) ;
+			cAttribute = SIMPLE_API_GETSTRING(3) ;
 			simple_stsimple_lower(cAttribute);
 			pList3 = simple_list_getlist(pList,1);
 			if ( nColumn > 1 ) {
@@ -391,7 +391,7 @@ void simple_vmlib_binarysearch ( void *pPointer )
 			simple_list_genarray(pList);
 		}
 		if ( nParaCount == 2 ) {
-			if ( SIMPLE_API_ISSTSIMPLE(2) ) {
+			if ( SIMPLE_API_ISSTRING(2) ) {
 				/* Check that all items are strings */
 				for ( x = 1 ; x <= simple_list_getsize(pList) ; x++ ) {
 					if ( ! simple_list_isstring(pList,x) ) {
@@ -399,7 +399,7 @@ void simple_vmlib_binarysearch ( void *pPointer )
 						return ;
 					}
 				}
-				SIMPLE_API_RETNUMBER(simple_list_binarysearchstr(pList,SIMPLE_API_GETSTSIMPLE(2),0,""));
+				SIMPLE_API_RETNUMBER(simple_list_binarysearchstr(pList,SIMPLE_API_GETSTRING(2),0,""));
 			}
 			else if ( SIMPLE_API_ISNUMBER(2) ) {
 				/* Check that all items are numbers */
@@ -417,7 +417,7 @@ void simple_vmlib_binarysearch ( void *pPointer )
 		}
 		else {
 			nColumn = SIMPLE_API_GETNUMBER(3) ;
-			if ( SIMPLE_API_ISSTSIMPLE(2) ) {
+			if ( SIMPLE_API_ISSTRING(2) ) {
 				/* Check that all items are strings */
 				for ( x = 1 ; x <= simple_list_getsize(pList) ; x++ ) {
 					pList2 = simple_list_getlist(pList,x);
@@ -426,7 +426,7 @@ void simple_vmlib_binarysearch ( void *pPointer )
 						return ;
 					}
 				}
-				SIMPLE_API_RETNUMBER(simple_list_binarysearchstr(pList,SIMPLE_API_GETSTSIMPLE(2),nColumn,""));
+				SIMPLE_API_RETNUMBER(simple_list_binarysearchstr(pList,SIMPLE_API_GETSTRING(2),nColumn,""));
 			}
 			else if ( SIMPLE_API_ISNUMBER(2) ) {
 				/* Check that all items are numbers */

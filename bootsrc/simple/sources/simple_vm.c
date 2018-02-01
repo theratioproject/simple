@@ -1054,7 +1054,7 @@ void simple_vm_printstack ( VM *pVM )
 	if ( nSP > 0 ) {
 		for ( x = 1 ; x <= nSP ; x++ ) {
 			/* Print Values */
-			if ( SIMPLE_VM_STACK_ISSTSIMPLE ) {
+			if ( SIMPLE_VM_STACK_ISSTRING ) {
 				printf( "(String) : %s  \n",SIMPLE_VM_STACK_READC ) ;
 			}
 			else if ( SIMPLE_VM_STACK_ISNUMBER ) {

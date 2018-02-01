@@ -81,7 +81,7 @@ void simple_vm_listitem ( VM *pVM )
 	List *pList,*pList2,*pList3  ;
 	Item *pItem  ;
 	pList = (List *) simple_list_getpointer(pVM->pNestedLists,simple_list_getsize(pVM->pNestedLists));
-	if ( SIMPLE_VM_STACK_ISSTSIMPLE ) {
+	if ( SIMPLE_VM_STACK_ISSTRING ) {
 		cStr1 = simple_stsimple_new_gc(pVM->pRingState,SIMPLE_VM_STACK_READC);
 		SIMPLE_VM_STACK_POP ;
 		simple_list_addstsimple_gc(pVM->pRingState,pList, simple_stsimple_get(cStr1));
@@ -191,7 +191,7 @@ void simple_vm_loadindexaddress ( VM *pVM )
 				return ;
 			}
 		}
-		else if ( SIMPLE_VM_STACK_ISSTSIMPLE ) {
+		else if ( SIMPLE_VM_STACK_ISSTRING ) {
 			cStr2[0] = SIMPLE_VM_STACK_READC[((int) nNum1)-1] ;
 			cStr2[1] = '\0' ;
 			SIMPLE_VM_STACK_SETCVALUE(cStr2);
@@ -202,7 +202,7 @@ void simple_vm_loadindexaddress ( VM *pVM )
 		}
 		SIMPLE_VM_STACK_OBJTYPE = SIMPLE_OBJTYPE_LISTITEM ;
 	}
-	else if ( SIMPLE_VM_STACK_ISSTSIMPLE ) {
+	else if ( SIMPLE_VM_STACK_ISSTRING ) {
 		pString = simple_stsimple_new_gc(pVM->pRingState,SIMPLE_VM_STACK_READC);
 		SIMPLE_VM_STACK_POP ;
 		/* Use String to find the item */
@@ -257,7 +257,7 @@ void simple_vm_listpushv ( VM *pVM )
 	pItem = (Item *) SIMPLE_VM_STACK_READP ;
 	SIMPLE_VM_STACK_POP ;
 	/* Push Item Data */
-	if ( simple_item_gettype(pItem) == ITEMTYPE_STSIMPLE ) {
+	if ( simple_item_gettype(pItem) == ITEMTYPE_STRING ) {
 		if ( (pVM->nRetItemRef>=1)  && (simple_vm_isstackpointertoobjstate(pVM)==1) ) {
 			SIMPLE_VM_STACK_PUSHPVALUE(pItem);
 			SIMPLE_VM_STACK_OBJTYPE = SIMPLE_OBJTYPE_LISTITEM ;
@@ -293,7 +293,7 @@ void simple_vm_listassignment ( VM *pVM )
 	double nNum1  ;
 	List *pList,*pVar  ;
 	pVar = NULL ;
-	if ( (SIMPLE_VM_STACK_ISSTSIMPLE) && (pVM->nBeforeEqual <= 1) ) {
+	if ( (SIMPLE_VM_STACK_ISSTRING) && (pVM->nBeforeEqual <= 1) ) {
 		cStr1 = simple_stsimple_new_gc(pVM->pRingState,SIMPLE_VM_STACK_READC);
 		assert(cStr1 != NULL);
 		SIMPLE_VM_STACK_POP ;
