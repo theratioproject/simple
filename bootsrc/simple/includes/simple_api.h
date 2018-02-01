@@ -101,7 +101,7 @@ void simple_vmlib_swap ( void *pPointer ) ;
 void simple_vmlib_shutdown ( void *pPointer ) ;
 /* Check Data Type */
 
-void simple_vmlib_isstsimple ( void *pPointer ) ;
+void simple_vmlib_isstring ( void *pPointer ) ;
 
 void simple_vmlib_isnumber ( void *pPointer ) ;
 
@@ -120,7 +120,7 @@ void simple_vmlib_dec ( void *pPointer ) ;
 
 void simple_vmlib_number ( void *pPointer ) ;
 
-void simple_vmlib_stsimple ( void *pPointer ) ;
+void simple_vmlib_string ( void *pPointer ) ;
 
 void simple_vmlib_str2hex ( void *pPointer ) ;
 
@@ -227,10 +227,10 @@ void simple_vmlib_give ( void *pPointer ) ;
 /* API For C Functions */
 #define SIMPLE_API_PARALIST (((VM *) pPointer)->pActiveMem)
 #define SIMPLE_API_PARACOUNT (((VM *) pPointer)->nCFuncParaCount)
-#define SIMPLE_API_GETSTSIMPLE(x) (simple_list_getstsimple(simple_list_getlist(SIMPLE_API_PARALIST,x),3))
+#define SIMPLE_API_GETSTSIMPLE(x) (simple_list_getstring(simple_list_getlist(SIMPLE_API_PARALIST,x),3))
 #define SIMPLE_API_GETNUMBER(x) (simple_list_getdouble(simple_list_getlist(SIMPLE_API_PARALIST,x),3))
 #define SIMPLE_API_GETPOINTER(x) (simple_list_getpointer(simple_list_getlist(SIMPLE_API_PARALIST,x),3))
-#define SIMPLE_API_ISSTSIMPLE(x) (simple_list_isstsimple(simple_list_getlist(SIMPLE_API_PARALIST,x),3))
+#define SIMPLE_API_ISSTSIMPLE(x) (simple_list_isstring(simple_list_getlist(SIMPLE_API_PARALIST,x),3))
 #define SIMPLE_API_ISNUMBER(x) (simple_list_isnumber(simple_list_getlist(SIMPLE_API_PARALIST,x),3))
 #define SIMPLE_API_ISPOINTER(x) (simple_vm_api_ispointer((VM *) pPointer,x))
 #define SIMPLE_API_GETPOINTERTYPE(x) (simple_list_getint(simple_list_getlist(SIMPLE_API_PARALIST,x),4))
@@ -238,8 +238,8 @@ void simple_vmlib_give ( void *pPointer ) ;
 #define SIMPLE_API_ISLIST(x) (simple_vm_api_islist((VM *) pPointer,x))
 #define SIMPLE_API_GETLIST(x) (simple_vm_api_getlist((VM *) pPointer,x))
 #define SIMPLE_API_RETNUMBER(x) ((VM *) pPointer)->nSP++ ; simple_itemarray_setdouble(((VM *) pPointer)->aStack, ((VM *) pPointer)->nSP , x)
-#define SIMPLE_API_RETSTSIMPLE(x) ((VM *) pPointer)->nSP++ ; simple_itemarray_setstsimple(((VM *) pPointer)->aStack, ((VM *) pPointer)->nSP, x)
-#define SIMPLE_API_RETSTSIMPLE2(x,y) ((VM *) pPointer)->nSP++ ; simple_itemarray_setstsimple2(((VM *) pPointer)->aStack, ((VM *) pPointer)->nSP, x,y)
+#define SIMPLE_API_RETSTSIMPLE(x) ((VM *) pPointer)->nSP++ ; simple_itemarray_setstring(((VM *) pPointer)->aStack, ((VM *) pPointer)->nSP, x)
+#define SIMPLE_API_RETSTSIMPLE2(x,y) ((VM *) pPointer)->nSP++ ; simple_itemarray_setstring2(((VM *) pPointer)->aStack, ((VM *) pPointer)->nSP, x,y)
 #define SIMPLE_API_RETLIST(x) simple_vm_api_retlist((VM *) pPointer,x)
 #define SIMPLE_API_NEWLIST simple_vm_api_newlist((VM *) pPointer)
 #define SIMPLE_API_RETCPOINTER(x,y) (simple_vm_api_retcpointer((VM *) pPointer,(void *) x,y))
@@ -247,7 +247,7 @@ void simple_vmlib_give ( void *pPointer ) ;
 #define SIMPLE_API_PUSHPVALUE(x) ((VM *) pPointer)->nSP++ ; simple_itemarray_setpointer(((VM *) pPointer)->aStack, ((VM *) pPointer)->nSP , x )
 #define SIMPLE_API_OBJTYPE ((VM *) pPointer)->aStack[((VM *) pPointer)->nSP].nObjectType
 #define SIMPLE_FUNC(x) void x(void *pPointer)
-#define SIMPLE_API_GETSTSIMPLESIZE(x) (simple_list_getstsimplesize(simple_list_getlist(SIMPLE_API_PARALIST,x),3))
+#define SIMPLE_API_GETSTSIMPLESIZE(x) (simple_list_getstringsize(simple_list_getlist(SIMPLE_API_PARALIST,x),3))
 #define SIMPLE_API_SETNULLPOINTER(x) (simple_vm_api_setcpointernull((VM *) pPointer,x))
 #define SIMPLE_API_GETCPOINTERSTATUS(x) simple_list_getint(SIMPLE_API_GETLIST(x),SIMPLE_CPOINTER_STATUS)
 #define SIMPLE_API_ISCPOINTERNOTASSIGNED(x) (SIMPLE_API_GETCPOINTERSTATUS(x) == SIMPLE_CPOINTERSTATUS_NOTASSIGNED)

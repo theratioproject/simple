@@ -69,7 +69,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <assert.h>
-#include <stsimple.h>
+#include <string.h>
 #include <ctype.h>
 #include <math.h>
 #include "signal.h"
@@ -88,7 +88,7 @@
 #include <errno.h>
 /* Include Project Headers */
 #include "simple_ext.h"
-#include "simple_stsimple.h"
+#include "simple_string.h"
 #include "simple_vmgcdata.h"
 #include "simple_item.h"
 #include "simple_items.h"

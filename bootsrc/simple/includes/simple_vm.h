@@ -207,9 +207,9 @@ void simple_vm_mod ( VM *pVM ) ;
 
 void simple_vm_neg ( VM *pVM ) ;
 
-char * simple_vm_numtostsimple ( VM *pVM,double nNum1,char *cStr ) ;
+char * simple_vm_numtostring ( VM *pVM,double nNum1,char *cStr ) ;
 
-double simple_vm_stsimpletonum ( VM *pVM,const char *cStr ) ;
+double simple_vm_stringtonum ( VM *pVM,const char *cStr ) ;
 
 void simple_vm_expr_ppoo ( VM *pVM,const char *cStr ) ;
 
@@ -243,7 +243,7 @@ List * simple_vm_newvar2 ( VM *pVM,const char *cStr,List *pParent ) ;
 
 void simple_vm_addnewnumbervar ( VM *pVM,const char *cStr,double x ) ;
 
-void simple_vm_addnewstsimplevar ( VM *pVM,const char *cStr,const char *cStr2 ) ;
+void simple_vm_addnewstringvar ( VM *pVM,const char *cStr,const char *cStr2 ) ;
 
 void simple_vm_deletescope ( VM *pVM ) ;
 
@@ -251,7 +251,7 @@ void simple_vm_addnewpointervar ( VM *pVM,const char *cStr,void *x,int y ) ;
 
 void simple_vm_newtempvar ( VM *pVM,const char *cStr, List *TempList ) ;
 
-void simple_vm_addnewstsimplevar2 ( VM *pVM,const char *cStr,const char *cStr2,int nStrSize ) ;
+void simple_vm_addnewstringvar2 ( VM *pVM,const char *cStr,const char *cStr2,int nStrSize ) ;
 
 List * simple_vm_newtempvar2 ( VM *pVM,const char *cStr,List *pList3 ) ;
 
@@ -332,11 +332,11 @@ void simple_vm_see ( VM *pVM ) ;
 void simple_vm_give ( VM *pVM ) ;
 /* Stsimple As Array */
 
-void simple_vm_stsimple_pushv ( VM *pVM ) ;
+void simple_vm_string_pushv ( VM *pVM ) ;
 
-void simple_vm_stsimple_assignment ( VM *pVM ) ;
+void simple_vm_string_assignment ( VM *pVM ) ;
 
-void simple_vm_stsimple_index ( VM *pVM , Stsimple *pStsimple , double x ) ;
+void simple_vm_string_index ( VM *pVM , Stsimple *pStsimple , double x ) ;
 /* Try Catch Done */
 
 void simple_vm_try ( VM *pVM ) ;
@@ -532,29 +532,29 @@ List * simple_vm_getglobalscope ( VM *pVM ) ;
 **  Stack 
 **  Add 
 */
-#define SIMPLE_VM_STACK_PUSHC pVM->nSP++ ; simple_itemarray_setstsimple2(pVM->aStack, pVM->nSP, simple_stsimple_get(pVM->pByteCodeIR->aData[1]->data.pStsimple), simple_stsimple_size(pVM->pByteCodeIR->aData[1]->data.pStsimple))
+#define SIMPLE_VM_STACK_PUSHC pVM->nSP++ ; simple_itemarray_setstring2(pVM->aStack, pVM->nSP, simple_string_get(pVM->pByteCodeIR->aData[1]->data.pStsimple), simple_string_size(pVM->pByteCodeIR->aData[1]->data.pStsimple))
 #define SIMPLE_VM_STACK_PUSHN pVM->nSP++ ; simple_itemarray_setdouble(pVM->aStack, pVM->nSP , pVM->pByteCodeIR->aData[1]->data.dNumber)
 #define SIMPLE_VM_STACK_PUSHP pVM->nSP++ ; simple_itemarray_setpointer(pVM->aStack, pVM->nSP , pVM->pByteCodeIR->aData[1]->data.pPointer )
 /* Note, use SIMPLE_VM_STACK_OBJTYPE to read/write the pointer type */
 #define SIMPLE_VM_STACK_TRUE simple_itemarray_setdouble(pVM->aStack,pVM->nSP, 1)
 #define SIMPLE_VM_STACK_FALSE simple_itemarray_setdouble(pVM->aStack,pVM->nSP, 0)
-#define SIMPLE_VM_STACK_PUSHCVAR simple_itemarray_setstsimple2(pVM->aStack,pVM->nSP,simple_list_getstsimple(pVar,3),simple_list_getstsimplesize(pVar,3))
+#define SIMPLE_VM_STACK_PUSHCVAR simple_itemarray_setstring2(pVM->aStack,pVM->nSP,simple_list_getstring(pVar,3),simple_list_getstringsize(pVar,3))
 #define SIMPLE_VM_STACK_PUSHNVAR simple_itemarray_setdouble(pVM->aStack,pVM->nSP,simple_list_getdouble(pVar,3))
 #define SIMPLE_VM_STACK_PUSHPVALUE(x) pVM->nSP++ ; simple_itemarray_setpointer(pVM->aStack, pVM->nSP , x )
-#define SIMPLE_VM_STACK_PUSHCVALUE(x) pVM->nSP++ ; simple_itemarray_setstsimple(pVM->aStack, pVM->nSP, x)
+#define SIMPLE_VM_STACK_PUSHCVALUE(x) pVM->nSP++ ; simple_itemarray_setstring(pVM->aStack, pVM->nSP, x)
 #define SIMPLE_VM_STACK_PUSHNVALUE(x) pVM->nSP++ ; simple_itemarray_setdouble(pVM->aStack, pVM->nSP , x)
-#define SIMPLE_VM_STACK_SETCVALUE(x) simple_itemarray_setstsimple(pVM->aStack, pVM->nSP, x)
+#define SIMPLE_VM_STACK_SETCVALUE(x) simple_itemarray_setstring(pVM->aStack, pVM->nSP, x)
 #define SIMPLE_VM_STACK_SETNVALUE(x) simple_itemarray_setdouble(pVM->aStack, pVM->nSP , x)
 #define SIMPLE_VM_STACK_SETPVALUE(x) simple_itemarray_setpointer(pVM->aStack, pVM->nSP , x )
-#define SIMPLE_VM_STACK_SETCVALUE2(x,y) simple_itemarray_setstsimple2(pVM->aStack, pVM->nSP, x,y)
+#define SIMPLE_VM_STACK_SETCVALUE2(x,y) simple_itemarray_setstring2(pVM->aStack, pVM->nSP, x,y)
 /* Check */
-#define SIMPLE_VM_STACK_ISSTSIMPLE simple_itemarray_isstsimple(pVM->aStack,pVM->nSP)
+#define SIMPLE_VM_STACK_ISSTSIMPLE simple_itemarray_isstring(pVM->aStack,pVM->nSP)
 #define SIMPLE_VM_STACK_ISNUMBER simple_itemarray_isnumber(pVM->aStack,pVM->nSP)
 #define SIMPLE_VM_STACK_ISPOINTER simple_itemarray_ispointer(pVM->aStack,pVM->nSP)
 #define SIMPLE_VM_STACK_ISPOINTERVALUE(x) simple_itemarray_ispointer(pVM->aStack,x)
 /* Read */
-#define SIMPLE_VM_STACK_READC simple_itemarray_getstsimple(pVM->aStack,pVM->nSP)
-#define SIMPLE_VM_STACK_STSIMPLESIZE simple_itemarray_getstsimplesize(pVM->aStack,pVM->nSP)
+#define SIMPLE_VM_STACK_READC simple_itemarray_getstring(pVM->aStack,pVM->nSP)
+#define SIMPLE_VM_STACK_STSIMPLESIZE simple_itemarray_getstringsize(pVM->aStack,pVM->nSP)
 #define SIMPLE_VM_STACK_READN simple_itemarray_getdouble(pVM->aStack,pVM->nSP)
 #define SIMPLE_VM_STACK_READP simple_itemarray_getpointer(pVM->aStack,pVM->nSP)
 #define SIMPLE_VM_STACK_OBJTYPE pVM->aStack[pVM->nSP].nObjectType
@@ -582,8 +582,8 @@ List * simple_vm_getglobalscope ( VM *pVM ) ;
 #define SIMPLE_VM_POINTER 4
 /* IR (Instruction Register) */
 #define SIMPLE_VM_JUMP pVM->nPC = pVM->pByteCodeIR->aData[1]->data.iNumber
-#define SIMPLE_VM_IR_READC simple_stsimple_get(pVM->pByteCodeIR->aData[1]->data.pStsimple)
-#define SIMPLE_VM_IR_READCVALUE(x) simple_stsimple_get(pVM->pByteCodeIR->aData[x]->data.pStsimple)
+#define SIMPLE_VM_IR_READC simple_string_get(pVM->pByteCodeIR->aData[1]->data.pStsimple)
+#define SIMPLE_VM_IR_READCVALUE(x) simple_string_get(pVM->pByteCodeIR->aData[x]->data.pStsimple)
 #define SIMPLE_VM_IR_READP pVM->pByteCodeIR->aData[1]->data.pPointer
 #define SIMPLE_VM_IR_READPVALUE(x) pVM->pByteCodeIR->aData[x]->data.pPointer
 #define SIMPLE_VM_IR_READI pVM->pByteCodeIR->aData[1]->data.iNumber
@@ -592,7 +592,7 @@ List * simple_vm_getglobalscope ( VM *pVM ) ;
 #define SIMPLE_VM_IR_READDVALUE(x) pVM->pByteCodeIR->aData[x]->data.dNumber
 #define SIMPLE_VM_IR_PARACOUNT pVM->pByteCodeIR->nSize
 #define SIMPLE_VM_IR_OPCODE pVM->pByteCodeIR->aData[0]->data.iNumber
-#define SIMPLE_VM_IR_SETCVALUE(x,y) simple_stsimple_set_gc(pVM->pRingState,pVM->pByteCodeIR->aData[x]->data.pStsimple,y)
+#define SIMPLE_VM_IR_SETCVALUE(x,y) simple_string_set_gc(pVM->pRingState,pVM->pByteCodeIR->aData[x]->data.pStsimple,y)
 #define SIMPLE_VM_IR_ITEM(x) pVM->pByteCodeIR->aData[x]
 #define SIMPLE_VM_IR_LIST pVM->pByteCodeIR->pList
 #define SIMPLE_VM_IR_LOAD pVM->pByteCodeIR = pVM->pByteCode + pVM->nPC - 1
@@ -703,8 +703,8 @@ List * simple_vm_getglobalscope ( VM *pVM ) ;
 #define SIMPLE_VM_ERROR_STACKOVERFLOW "Error (R4) : Stack Overflow !"
 #define SIMPLE_VM_ERROR_OBJECTISNOTLIST "Error (R5) : Can't access the list item, Object is not list !"
 #define SIMPLE_VM_ERROR_NOTVARIABLE "Error (R6) : Variable is required"
-#define SIMPLE_VM_ERROR_VALUEMORETHANONECHAR "Error (R7) : Can't assign to a stsimple letter more than one character"
-#define SIMPLE_VM_ERROR_VARISNOTSTSIMPLE "Error (R8) : Variable is not a stsimple "
+#define SIMPLE_VM_ERROR_VALUEMORETHANONECHAR "Error (R7) : Can't assign to a string letter more than one character"
+#define SIMPLE_VM_ERROR_VARISNOTSTSIMPLE "Error (R8) : Variable is not a string "
 #define SIMPLE_VM_ERROR_EXITWITHOUTLOOP "Error (R9) : Using exit command outside loops "
 #define SIMPLE_VM_ERROR_EXITNUMBEROUTSIDERANGE "Error (R10) : Using exit command with number outside the range "
 #define SIMPLE_VM_ERROR_CLASSNOTFOUND "Error (R11) : error in class name, class not found! "
@@ -728,7 +728,7 @@ List * simple_vm_getglobalscope ( VM *pVM ) ;
 #define SIMPLE_VM_ERROR_FORLOOPDATATYPE "Error (R29) : Using bad data type in for loop"
 #define SIMPLE_VM_ERROR_PARENTCLASSLIKESUBCLASS "Error (R30) : parent class name is identical to child class name "
 #define SIMPLE_VM_ERROR_TRYINGTOMODIFYTHESELFPOINTER "Error (R31) : Trying to destory the object using the self reference "
-#define SIMPLE_VM_ERROR_BADCALLPARA "Error (R32) : The CALL command expect a variable contains stsimple!"
+#define SIMPLE_VM_ERROR_BADCALLPARA "Error (R32) : The CALL command expect a variable contains string!"
 #define SIMPLE_VM_ERROR_BADDECIMALNUMBER "Error (R33) : Bad decimals number (correct range >= 0 and <=14) !"
 #define SIMPLE_VM_ERROR_ASSIGNNOTVARIABLE "Error (R34) : Variable is required for the assignment operation"
 #define SIMPLE_VM_ERROR_CANTOPENFILE "Error (R35) : Can't create/open the file!"

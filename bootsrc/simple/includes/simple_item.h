@@ -59,12 +59,12 @@ SIMPLE_API void simple_itemarray_setpointer_gc ( void *pState,Item pList[], int 
 SIMPLE_API void simple_itemarray_setdouble_gc ( void *pState,Item pList[], int index ,double number ) ;
 /* Stsimple */
 
-SIMPLE_API void simple_itemarray_setstsimple_gc ( void *pState,Item pList[], int index ,const char *str ) ;
+SIMPLE_API void simple_itemarray_setstring_gc ( void *pState,Item pList[], int index ,const char *str ) ;
 
-SIMPLE_API void simple_itemarray_setstsimple2_gc ( void *pState,Item pList[], int index ,const char *str,int nStrSize ) ;
+SIMPLE_API void simple_itemarray_setstring2_gc ( void *pState,Item pList[], int index ,const char *str,int nStrSize ) ;
 /* Functions to deal with one item */
 
-SIMPLE_API void simple_item_setstsimple_gc ( void *pState,Item *pItem,const char *cStr ) ;
+SIMPLE_API void simple_item_setstring_gc ( void *pState,Item *pItem,const char *cStr ) ;
 
 SIMPLE_API void simple_item_setdouble_gc ( void *pState,Item *pItem,double x ) ;
 
@@ -72,9 +72,9 @@ SIMPLE_API void simple_item_setpointer_gc ( void *pState,Item *pItem,void *pValu
 
 SIMPLE_API void simple_item_setint_gc ( void *pState,Item *pItem,int x ) ;
 
-SIMPLE_API void simple_item_setstsimple2_gc ( void *pState,Item *pItem,const char *cStr,int nStrSize ) ;
+SIMPLE_API void simple_item_setstring2_gc ( void *pState,Item *pItem,const char *cStr,int nStrSize ) ;
 /* Macro */
-#define simple_item_getstsimple(x) x->data.pStsimple
+#define simple_item_getstring(x) x->data.pStsimple
 #define simple_item_getnumber(x) x->data.dNumber
 #define simple_item_getdouble(x) x->data.dNumber
 #define simple_item_getint(x) x->data.iNumber
@@ -84,13 +84,13 @@ SIMPLE_API void simple_item_setstsimple2_gc ( void *pState,Item *pItem,const cha
 #define simple_itemarray_getint(pList,index) ( pList[index].data.iNumber )
 #define simple_itemarray_getpointer(pList,index) ( pList[index].data.pPointer )
 #define simple_itemarray_getdouble(pList,index) pList[index].data.dNumber
-#define simple_itemarray_getstsimple(pList,index) simple_stsimple_get(pList[index].data.pStsimple )
-#define simple_itemarray_getstsimplesize(pList,index) simple_stsimple_size(pList[index].data.pStsimple )
+#define simple_itemarray_getstring(pList,index) simple_string_get(pList[index].data.pStsimple )
+#define simple_itemarray_getstringsize(pList,index) simple_string_size(pList[index].data.pStsimple )
 /* Check */
-#define simple_itemarray_isstsimple(pList,index) (pList[index].nType == ITEMTYPE_STSIMPLE)
+#define simple_itemarray_isstring(pList,index) (pList[index].nType == ITEMTYPE_STSIMPLE)
 #define simple_itemarray_isnumber(pList,index) (pList[index].nType == ITEMTYPE_NUMBER)
 #define simple_itemarray_ispointer(pList,index) (pList[index].nType == ITEMTYPE_POINTER)
-#define simple_item_isstsimple(x) (x->nType == ITEMTYPE_STSIMPLE)
+#define simple_item_isstring(x) (x->nType == ITEMTYPE_STSIMPLE)
 #define simple_item_islist(x) (x->nType == ITEMTYPE_LIST)
 #define simple_item_isdouble(x) ( (x->nType == ITEMTYPE_NUMBER) && ( x->NumberFlag == ITEM_NUMBERFLAG_DOUBLE ) )
 /* Functions without state pointer */
@@ -116,12 +116,12 @@ SIMPLE_API void simple_itemarray_setpointer ( Item pList[], int index ,void *pVa
 SIMPLE_API void simple_itemarray_setdouble ( Item pList[], int index ,double number ) ;
 /* Stsimple */
 
-SIMPLE_API void simple_itemarray_setstsimple ( Item pList[], int index ,const char *str ) ;
+SIMPLE_API void simple_itemarray_setstring ( Item pList[], int index ,const char *str ) ;
 
-SIMPLE_API void simple_itemarray_setstsimple2 ( Item pList[], int index ,const char *str,int nStrSize ) ;
+SIMPLE_API void simple_itemarray_setstring2 ( Item pList[], int index ,const char *str,int nStrSize ) ;
 /* Functions to deal with one item */
 
-SIMPLE_API void simple_item_setstsimple ( Item *pItem,const char *cStr ) ;
+SIMPLE_API void simple_item_setstring ( Item *pItem,const char *cStr ) ;
 
 SIMPLE_API void simple_item_setdouble ( Item *pItem,double x ) ;
 
@@ -129,5 +129,5 @@ SIMPLE_API void simple_item_setpointer ( Item *pItem,void *pValue ) ;
 
 SIMPLE_API void simple_item_setint ( Item *pItem,int x ) ;
 
-SIMPLE_API void simple_item_setstsimple2 ( Item *pItem,const char *cStr,int nStrSize ) ;
+SIMPLE_API void simple_item_setstring2 ( Item *pItem,const char *cStr,int nStrSize ) ;
 #endif

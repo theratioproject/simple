@@ -12,17 +12,17 @@ void simple_objfile_writelist ( List *pList,FILE *fObj ) ;
 
 int simple_objfile_readfile ( RingState *pRingState,char *cFileName ) ;
 
-int simple_objfile_readstsimple ( RingState *pRingState,char *cStsimple ) ;
+int simple_objfile_readstring ( RingState *pRingState,char *cStsimple ) ;
 
 int simple_objfile_readfromsource ( RingState *pRingState,char *cSource,int nSourceType ) ;
 
 int simple_objfile_processfile ( RingState *pRingState,char *cFileName,List *pListFunctions,List  *pListClasses,List  *pListPackages,List  *pListCode,List  *pListStack ) ;
 
-int simple_objfile_processstsimple ( RingState *pRingState,char *cContent,List *pListFunctions,List  *pListClasses,List  *pListPackages,List  *pListCode,List  *pListStack ) ;
+int simple_objfile_processstring ( RingState *pRingState,char *cContent,List *pListFunctions,List  *pListClasses,List  *pListPackages,List  *pListCode,List  *pListStack ) ;
 
 void simple_objfile_updateclassespointers ( RingState *pRingState ) ;
 
-void simple_objfile_xorstsimple ( char *cStsimple,int nStsimpleSize,char *cKey,int nKeySize ) ;
+void simple_objfile_xorstring ( char *cStsimple,int nStsimpleSize,char *cKey,int nKeySize ) ;
 
 void simple_objfile_readc ( RingState *pRingState,char **cSource,char *cDest,int nCount ) ;
 

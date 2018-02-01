@@ -156,7 +156,7 @@ void simple_scanner_changeoperator ( Scanner *pScanner ) ;
 
 void simple_scanner_loadsyntax ( Scanner *pScanner ) ;
 
-void simple_scanner_runobjstsimple ( RingState *pRingState,char *cStsimple,const char *cFileName ) ;
+void simple_scanner_runobjstring ( RingState *pRingState,char *cStsimple,const char *cFileName ) ;
 /* MACRO */
 #define SIMPLE_SCANNER_DELETELASTTOKEN simple_list_deleteitem(pScanner->Tokens,simple_list_getsize(pScanner->Tokens))
 /*

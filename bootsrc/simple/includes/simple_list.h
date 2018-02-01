@@ -59,13 +59,13 @@ SIMPLE_API void simple_list_setdouble_gc ( void *pState,List *pList, int index ,
 SIMPLE_API void simple_list_adddouble_gc ( void *pState,List *pList,double x ) ;
 /* Stsimple */
 
-SIMPLE_API void simple_list_setstsimple_gc ( void *pState,List *pList, int index ,const char *str ) ;
+SIMPLE_API void simple_list_setstring_gc ( void *pState,List *pList, int index ,const char *str ) ;
 
-SIMPLE_API void simple_list_setstsimple2_gc ( void *pState,List *pList, int index ,const char *str,int nStrSize ) ;
+SIMPLE_API void simple_list_setstring2_gc ( void *pState,List *pList, int index ,const char *str,int nStrSize ) ;
 
-SIMPLE_API void simple_list_addstsimple_gc ( void *pState,List *pList,const char *str ) ;
+SIMPLE_API void simple_list_addstring_gc ( void *pState,List *pList,const char *str ) ;
 
-SIMPLE_API void simple_list_addstsimple2_gc ( void *pState,List *pList,const char *str,int nStrSize ) ;
+SIMPLE_API void simple_list_addstring2_gc ( void *pState,List *pList,const char *str,int nStrSize ) ;
 /* List */
 
 SIMPLE_API List * simple_list_newlist_gc ( void *pState,List *pList ) ;
@@ -80,7 +80,7 @@ SIMPLE_API void simple_list_copy_gc ( void *pState,List *pNewList, List *pList )
 
 SIMPLE_API int simple_list_isnumber ( List *pList, int index ) ;
 
-SIMPLE_API int simple_list_isstsimple ( List *pList, int index ) ;
+SIMPLE_API int simple_list_isstring ( List *pList, int index ) ;
 
 SIMPLE_API int simple_list_islist ( List *pList, int index ) ;
 
@@ -97,9 +97,9 @@ SIMPLE_API void simple_list_insertdouble_gc ( void *pState,List *pList,int nPos,
 
 SIMPLE_API void simple_list_insertpointer_gc ( void *pState,List *pList,int nPos,void *pValue ) ;
 
-SIMPLE_API void simple_list_insertstsimple_gc ( void *pState,List *pList,int nPos,const char *str ) ;
+SIMPLE_API void simple_list_insertstring_gc ( void *pState,List *pList,int nPos,const char *str ) ;
 
-SIMPLE_API void simple_list_insertstsimple2_gc ( void *pState,List *pList,int nPos,const char *str,int nStrSize ) ;
+SIMPLE_API void simple_list_insertstring2_gc ( void *pState,List *pList,int nPos,const char *str,int nStrSize ) ;
 
 SIMPLE_API void simple_list_insertfuncpointer_gc ( void *pState,List *pList,int nPos,void (*pFunc)(void *) ) ;
 
@@ -109,7 +109,7 @@ SIMPLE_API List * simple_list_insertlist_gc ( void *pState,List *pList,int nPos 
 SIMPLE_API int simple_list_isiteminsidelist ( List *pList,Item *pItem ) ;
 /* Linear Search */
 
-SIMPLE_API int simple_list_findstsimple ( List *pList,const char *str,int nColumn ) ;
+SIMPLE_API int simple_list_findstring ( List *pList,const char *str,int nColumn ) ;
 
 SIMPLE_API int simple_list_finddouble ( List *pList,double nNum1,int nColumn ) ;
 
@@ -132,7 +132,7 @@ SIMPLE_API void simple_list_swap ( List *pList,int x,int y ) ;
 
 SIMPLE_API double simple_list_getdoublecolumn ( List *pList,int nIndex,int nColumn,const char *cAttribute ) ;
 
-SIMPLE_API char * simple_list_getstsimplecolumn ( List *pList,int nIndex,int nColumn,const char *cAttribute ) ;
+SIMPLE_API char * simple_list_getstringcolumn ( List *pList,int nIndex,int nColumn,const char *cAttribute ) ;
 /* List Items to Array */
 
 SIMPLE_API void simple_list_genarray_gc ( void *pState,List *pList ) ;
@@ -160,9 +160,9 @@ SIMPLE_API int simple_list_deliteminsidelist ( List *pList,Item *pItem ) ;
 #define simple_list_getfuncpointer(pList,index) ( simple_list_getitem(pList,index)->data.pFunc )
 #define simple_list_callfuncpointer(pList,index,x) ( simple_list_getitem(pList,index)->data.pFunc(x) )
 #define simple_list_getdouble(pList,index) simple_list_getitem(pList,index)->data.dNumber
-#define simple_list_getstsimple(pList,index) ( simple_stsimple_get(simple_item_getstsimple(simple_list_getitem(pList,index))) )
-#define simple_list_getstsimpleobject(pList,index) ( simple_item_getstsimple(simple_list_getitem(pList,index)) )
-#define simple_list_getstsimplesize(pList,index) ( simple_stsimple_size(simple_item_getstsimple(simple_list_getitem(pList,index))) )
+#define simple_list_getstring(pList,index) ( simple_string_get(simple_item_getstring(simple_list_getitem(pList,index))) )
+#define simple_list_getstringobject(pList,index) ( simple_item_getstring(simple_list_getitem(pList,index)) )
+#define simple_list_getstringsize(pList,index) ( simple_string_size(simple_item_getstring(simple_list_getitem(pList,index))) )
 #define simple_list_getsize(x) (x->nSize)
 #define SIMPLE_VM_LISTOFOBJS_FINDSTSIMPLE 1
 #define SIMPLE_VM_LISTOFOBJS_FINDNUMBER 0
@@ -202,13 +202,13 @@ SIMPLE_API void simple_list_setdouble ( List *pList, int index ,double number ) 
 SIMPLE_API void simple_list_adddouble ( List *pList,double x ) ;
 /* Stsimple */
 
-SIMPLE_API void simple_list_setstsimple ( List *pList, int index ,const char *str ) ;
+SIMPLE_API void simple_list_setstring ( List *pList, int index ,const char *str ) ;
 
-SIMPLE_API void simple_list_setstsimple2 ( List *pList, int index ,const char *str,int nStrSize ) ;
+SIMPLE_API void simple_list_setstring2 ( List *pList, int index ,const char *str,int nStrSize ) ;
 
-SIMPLE_API void simple_list_addstsimple ( List *pList,const char *str ) ;
+SIMPLE_API void simple_list_addstring ( List *pList,const char *str ) ;
 
-SIMPLE_API void simple_list_addstsimple2 ( List *pList,const char *str,int nStrSize ) ;
+SIMPLE_API void simple_list_addstring2 ( List *pList,const char *str,int nStrSize ) ;
 /* List */
 
 SIMPLE_API List * simple_list_newlist ( List *pList ) ;
@@ -228,9 +228,9 @@ SIMPLE_API void simple_list_insertdouble ( List *pList,int nPos,double x ) ;
 
 SIMPLE_API void simple_list_insertpointer ( List *pList,int nPos,void *pValue ) ;
 
-SIMPLE_API void simple_list_insertstsimple ( List *pList,int nPos,const char *str ) ;
+SIMPLE_API void simple_list_insertstring ( List *pList,int nPos,const char *str ) ;
 
-SIMPLE_API void simple_list_insertstsimple2 ( List *pList,int nPos,const char *str,int nStrSize ) ;
+SIMPLE_API void simple_list_insertstring2 ( List *pList,int nPos,const char *str,int nStrSize ) ;
 
 SIMPLE_API void simple_list_insertfuncpointer ( List *pList,int nPos,void (*pFunc)(void *) ) ;
 

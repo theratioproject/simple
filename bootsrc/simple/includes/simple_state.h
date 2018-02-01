@@ -72,7 +72,7 @@ SIMPLE_API void simple_state_runfile ( RingState *pRingState,char *cFileName ) ;
 
 SIMPLE_API void simple_state_runobjectfile ( RingState *pRingState,char *cFileName ) ;
 
-SIMPLE_API void simple_state_runobjectstsimple ( RingState *pRingState,char *cStsimple,const char *cFileName ) ;
+SIMPLE_API void simple_state_runobjectstring ( RingState *pRingState,char *cStsimple,const char *cFileName ) ;
 /* MACRO */
 #define SIMPLE_STATE_CHECKPRINTRULES if ( pParser->pRingState->nPrintRules )
 #define SIMPLE_VERSION "1.7"
