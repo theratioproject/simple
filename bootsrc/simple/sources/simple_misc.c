@@ -40,24 +40,24 @@ void display_help(){
     //printf("\t-k [PATH] -show-tokens [PATH]             Save the token into a file for debugging.\n");
 }
 
-int is_simple_file ( const char *cStr )
+int is_simple_file ( const char *file_name )
 {
 	int x  ;
-	x = strlen(cStr) - 1 ;
+	x = strlen(file_name) - 1 ;
 	if ( x >= 5 ) {
-		if ( tolower(cStr[x]) == 'm' && tolower(cStr[x-1]) == 'i' && tolower(cStr[x-2]) == 's' && tolower(cStr[x-3]) == '.'  ) {
+		if ( tolower(file_name[x]) == 'm' && tolower(file_name[x-1]) == 'i' && tolower(file_name[x-2]) == 's' && tolower(file_name[x-3]) == '.'  ) {
 			return 1 ;
 		}
 	}
 	return 0 ;
 }
 
-int is_complex_file ( const char *cStr )
+int is_complex_file ( const char *file_name )
 {
 	int x  ;
-	x = strlen(cStr) - 1 ;
+	x = strlen(file_name) - 1 ;
 	if ( x > 6 ) {
-		if ( tolower(cStr[x]) == 'x' && tolower(cStr[x-1]) == 'e' && tolower(cStr[x-2]) == 'l' && tolower(cStr[x-3]) == 'm' && tolower(cStr[x-4]) == 'o' && cStr[x-5] == 'c' && cStr[x-5] == '.' ) {
+		if ( tolower(file_name[x]) == 'x' && tolower(file_name[x-1]) == 'e' && tolower(file_name[x-2]) == 'l' && tolower(file_name[x-3]) == 'm' && tolower(file_name[x-4]) == 'o' && file_name[x-5] == 'c' && file_name[x-5] == '.' ) {
 			return 1 ;
 		}
 	} 
