@@ -788,7 +788,7 @@ void ring_scanner_addreturn3 ( RingState *pRingState, int aPara[3] )
 
 void display_tokens ( Scanner *pScanner )
 {
-    int x,token_type,index,line_number ;
+    int x,token_type,index ;
     List *token_list  ;
     char *token_name  ;
     print_line();
@@ -798,24 +798,23 @@ void display_tokens ( Scanner *pScanner )
     for ( x = 1 ; x <= ring_list_getsize(pScanner->Tokens) ; x++ ) {
         token_list = ring_list_getlist(pScanner->Tokens,x);
         token_type = ring_list_getint(token_list,RING_SCANNER_TOKENTYPE) ;
-        line_number = ring_list_getint(token_list,RING_FUNCCL_LINENUMBER) ;
         token_name = ring_list_getstring(token_list,RING_SCANNER_TOKENVALUE) ;
         switch ( token_type ) {
             case SCANNER_TOKEN_KEYWORD :
                 index = atoi(token_name) ;
-                printf( "   Token: TokenType=%s,\tValue=\"%s\",\tLine=%d \n","Keyword",RING_KEYWORDS[index-1],line_number ) ;
+                printf( "   Token: TokenType=%s,\tValue=\"%s\" \n","Keyword",RING_KEYWORDS[index-1] ) ;
                 break ;
             case SCANNER_TOKEN_OPERATOR :
-                printf( "   Token: TokenType=%s,\tValue=\"%s\",\tLine=%d \n","Operator",token_name,line_number ) ;
+                printf( "   Token: TokenType=%s,\tValue=\"%s\" \n","Operator",token_name ) ;
                 break ;
             case SCANNER_TOKEN_NUMBER :
-                printf( "   Token: TokenType=%s,\tValue=\"%s\",\tLine=%d \n","Number",token_name,line_number ) ;
+                printf( "   Token: TokenType=%s,\tValue=\"%s\" \n","Number",token_name ) ;
                 break ;
             case SCANNER_TOKEN_IDENTIFIER :
-                printf( "   Token: TokenType=%s,\tValue=\"%s\",\tLine=%d \n","Identifier",token_name,line_number ) ;
+                printf( "   Token: TokenType=%s,\tValue=\"%s\" \n","Identifier",token_name ) ;
                 break ;
             case SCANNER_TOKEN_LITERAL :
-                printf( "   Token: TokenType=%s,\tValue=\"%s\",\tLine=%d \n","Literal",token_name,line_number ) ;
+                printf( "   Token: TokenType=%s,\tValue=\"%s\" \n","Literal",token_name ) ;
                 break ;
             case SCANNER_TOKEN_ENDLINE :
                 //printf( "[TokenType=%s]\n","EndLine" ) ;
