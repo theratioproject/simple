@@ -198,7 +198,7 @@ SIMPLE_API void ring_state_main ( int argc, char *argv[] )
 				nWarn = 1 ;
 				nRingStateDEBUGSEGFAULT = 1 ;
 			}
-			else if ( ( ring_issourcefile(argv[x]) || ring_isobjectfile(argv[x])) && nSRC == 0 ) {
+			else if ( ( is_simple_file(argv[x]) || ring_isobjectfile(argv[x])) && nSRC == 0 ) {
 				cStr = argv[x] ;
 				nSRC = 1 ;
 			}
@@ -290,7 +290,7 @@ void segfaultaction ( int sig )
 	exit(0);
 }
 
-int ring_issourcefile ( const char *cStr )
+int is_simple_file ( const char *cStr )
 {
 	int x  ;
 	x = strlen(cStr) - 1 ;

@@ -88,7 +88,7 @@ int ring_chdir ( const char *cDir ) ;
 
 void ring_exefolder ( char *cDirPath ) ;
 
-int ring_issourcefile ( const char *cStr ) ;
+int is_simple_file ( const char *cStr ) ;
 
 int ring_isobjectfile ( const char *cStr ) ;
 
