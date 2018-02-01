@@ -493,7 +493,7 @@ void ring_scanner_keywords ( Scanner *pScanner )
 	ring_list_addstring_gc(pScanner->pRingState,pScanner->Keywords,"return");
 	ring_list_addstring_gc(pScanner->pRingState,pScanner->Keywords,"but");
 	ring_list_addstring_gc(pScanner->pRingState,pScanner->Keywords,"end");
-	ring_list_addstring_gc(pScanner->pRingState,pScanner->Keywords,"give");
+	ring_list_addstring_gc(pScanner->pRingState,pScanner->Keywords,"read");
 	ring_list_addstring_gc(pScanner->pRingState,pScanner->Keywords,"bye");
 	ring_list_addstring_gc(pScanner->pRingState,pScanner->Keywords,"exit");
 	/* Try-Catch-Done */
