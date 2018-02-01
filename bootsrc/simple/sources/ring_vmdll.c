@@ -1,6 +1,6 @@
 /* Copyright (c) 2013-2018 Mahmoud Fayed <msfclipper@yahoo.com> */
 #include "../includes/ring.h"
-#include "ring_vmdll.h"
+#include "../includes/ring_vmdll.h"
 /* Functions */
 
 void ring_vm_dll_loadfunctions ( RingState *pRingState )
