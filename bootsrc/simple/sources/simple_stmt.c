@@ -314,7 +314,7 @@ int ring_parser_stmt ( Parser *pParser )
 		#if SIMPLE_USEDISPLAYFUNCTION
 		/* Generate code to use the display function */
 		ring_parser_icg_newoperation(pParser,ICO_LOADFUNC);
-		ring_parser_icg_newoperand(pParser,"ringvm_see");
+		ring_parser_icg_newoperand(pParser,"ringvm_display");
 		/* Parameters */
 		nFlag = pParser->nAssignmentFlag ;
 		pParser->nAssignmentFlag = 0 ;

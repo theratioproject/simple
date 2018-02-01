@@ -107,10 +107,10 @@ SIMPLE_API void ring_vm_loadcfunctions ( RingState *pRingState )
 	ring_vm_funcregister("ring_state_mainfile",ring_vmlib_state_mainfile);
 	/*
 	**  Ring See and Give 
-	**  We will use ringvm_see() and ringvm_give() to change the behavior of see and give 
+	**  We will use ringvm_display() and ringvm_give() to change the behavior of see and give 
 	**  Also we can use ring_see() and ring_give() to use the original behavior when we redefine it 
 	*/
-	ring_vm_funcregister("ringvm_see",ring_vmlib_see);
+	ring_vm_funcregister("ringvm_display",ring_vmlib_see);
 	ring_vm_funcregister("ringvm_give",ring_vmlib_give);
 	ring_vm_funcregister("ring_see",ring_vmlib_see);
 	ring_vm_funcregister("ring_give",ring_vmlib_give);
