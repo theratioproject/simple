@@ -1153,7 +1153,7 @@ SIMPLE_API void ring_vm_showerrormessage ( VM *pVM,const char *cStr )
 			cFile = pVM->cFileNameInClassRegion ;
 		}
 		else {
-			cFile = pVM->cFileName ;
+			cFile = file_real_name(pVM->cFileName) ;
 		}
 		printf( "in file %s ",cFile ) ;
 	}
