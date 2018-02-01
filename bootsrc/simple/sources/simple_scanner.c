@@ -486,7 +486,7 @@ void ring_scanner_keywords ( Scanner *pScanner )
 	ring_list_addstring_gc(pScanner->pRingState,pScanner->Keywords,"next");
 	ring_list_addstring_gc(pScanner->pRingState,pScanner->Keywords,"load");
 	ring_list_addstring_gc(pScanner->pRingState,pScanner->Keywords,"else");
-	ring_list_addstring_gc(pScanner->pRingState,pScanner->Keywords,"see");
+	ring_list_addstring_gc(pScanner->pRingState,pScanner->Keywords,"display");
 	ring_list_addstring_gc(pScanner->pRingState,pScanner->Keywords,"while");
 	ring_list_addstring_gc(pScanner->pRingState,pScanner->Keywords,"ok");
 	ring_list_addstring_gc(pScanner->pRingState,pScanner->Keywords,"class");
