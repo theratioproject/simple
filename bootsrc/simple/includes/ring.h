@@ -66,7 +66,7 @@
 /* General */
 #define SIMPLE_PATHSIZE 256
 /* See and Give - use ringvm_see() and ringvm_give() */
-#define SIMPLE_USESEEFUNCTION 1
+#define SIMPLE_USEDISPLAYFUNCTION 1
 #define SIMPLE_USEGIVEFUNCTION 1
 /*
 **  Include Files 

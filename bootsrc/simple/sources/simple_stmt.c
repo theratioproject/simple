@@ -311,7 +311,7 @@ int ring_parser_stmt ( Parser *pParser )
 	/* Statement --> See|Put Expr */
 	if ( ring_parser_iskeyword(pParser,KEYWORD_SEE) | ring_parser_iskeyword(pParser,KEYWORD_PUT) ) {
 		ring_parser_nexttoken(pParser);
-		#if SIMPLE_USESEEFUNCTION
+		#if SIMPLE_USEDISPLAYFUNCTION
 		/* Generate code to use the display function */
 		ring_parser_icg_newoperation(pParser,ICO_LOADFUNC);
 		ring_parser_icg_newoperand(pParser,"ringvm_see");
