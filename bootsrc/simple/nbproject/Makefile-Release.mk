@@ -35,12 +35,6 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/sources/ring.o \
-	${OBJECTDIR}/sources/ring_api.o \
-	${OBJECTDIR}/sources/ring_codegen.o \
-	${OBJECTDIR}/sources/ring_expr.o \
-	${OBJECTDIR}/sources/ring_ext.o \
-	${OBJECTDIR}/sources/ring_hashlib.o \
 	${OBJECTDIR}/sources/ring_hashtable.o \
 	${OBJECTDIR}/sources/ring_item.o \
 	${OBJECTDIR}/sources/ring_items.o \
@@ -100,36 +94,6 @@ LDLIBSOPTIONS=
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/simple.exe: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.c} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/simple ${OBJECTFILES} ${LDLIBSOPTIONS}
-
-${OBJECTDIR}/sources/ring.o: sources/ring.c
-	${MKDIR} -p ${OBJECTDIR}/sources
-	${RM} "$@.d"
-	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/sources/ring.o sources/ring.c
-
-${OBJECTDIR}/sources/ring_api.o: sources/ring_api.c
-	${MKDIR} -p ${OBJECTDIR}/sources
-	${RM} "$@.d"
-	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/sources/ring_api.o sources/ring_api.c
-
-${OBJECTDIR}/sources/ring_codegen.o: sources/ring_codegen.c
-	${MKDIR} -p ${OBJECTDIR}/sources
-	${RM} "$@.d"
-	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/sources/ring_codegen.o sources/ring_codegen.c
-
-${OBJECTDIR}/sources/ring_expr.o: sources/ring_expr.c
-	${MKDIR} -p ${OBJECTDIR}/sources
-	${RM} "$@.d"
-	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/sources/ring_expr.o sources/ring_expr.c
-
-${OBJECTDIR}/sources/ring_ext.o: sources/ring_ext.c
-	${MKDIR} -p ${OBJECTDIR}/sources
-	${RM} "$@.d"
-	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/sources/ring_ext.o sources/ring_ext.c
-
-${OBJECTDIR}/sources/ring_hashlib.o: sources/ring_hashlib.c
-	${MKDIR} -p ${OBJECTDIR}/sources
-	${RM} "$@.d"
-	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/sources/ring_hashlib.o sources/ring_hashlib.c
 
 ${OBJECTDIR}/sources/ring_hashtable.o: sources/ring_hashtable.c
 	${MKDIR} -p ${OBJECTDIR}/sources
