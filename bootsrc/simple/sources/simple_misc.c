@@ -63,3 +63,7 @@ int is_complex_file ( const char *file_name )
     } 
     return 0 ;
 }
+
+const char *file_real_name(const char *absolute_name){
+    
+}
