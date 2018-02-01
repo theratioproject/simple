@@ -22,7 +22,8 @@ void display_help(){
     printf("([OPTIONS]): The flags/options to pass to the Simple VM/Simplify.\n\n");
     printf("The OPTIONS [SIMPLE FILE] include : \n");
     printf("\t-h -help                    Displays this help and exits.\n");
-    printf("\t-s -show-tokens             Scans and outputs the tokens in the source file.\n");
+    printf("\t-k -show-tokens             Scans and outputs the tokens in the source file.\n");
+    printf("\t-s -simplify            Scans and outputs the tokens in the source file.\n");
     printf("\t-t -time                    Shows the execution time of the program at completion.\n");
     printf("\t-v -verbose                 Displays all the modules and libraries of SIMPLE and exits.\n");
     printf("\t-a -about                   Display the SIMPLE Property and exits.\n");
