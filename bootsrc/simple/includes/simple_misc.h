@@ -1,14 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
+/* 
+	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2017 simple 
+
+*/
 
 /* 
  * File:   simple_misc.h
  * Author: thecarisma
  *
- * Created on February 1, 2018, 3:31 PM
+ * Created on July 12, 2017, 3:31 PM
  */
 
 #ifndef SIMPLE_MISC_H
