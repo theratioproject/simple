@@ -7,7 +7,7 @@ int ring_parser_start ( List *pTokens,RingState *pRingState )
 	Parser *pParser  ;
 	int nResult,RingActiveFile  ;
 	pParser = ring_parser_new(pTokens,pRingState);
-	#if RING_PARSERSTART
+	#if SIMPLE_PARSERSTART
 	/* Parse Tokens */
 	ring_parser_nexttoken(pParser);
 	do {
@@ -24,7 +24,7 @@ int ring_parser_start ( List *pTokens,RingState *pRingState )
 	/* Display Errors Count */
 	RingActiveFile = ring_list_getsize(pParser->pRingState->pRingFilesStack);
 	if ( pParser->nErrorsCount == 0 ) {
-		#if RING_PARSERFINAL
+		#if SIMPLE_PARSERFINAL
 		printf( "\n%s compiling done, no errors.\n",ring_list_getstring(pParser->pRingState->pRingFilesStack,RingActiveFile) ) ;
 		#endif
 		ring_parser_delete(pParser);
@@ -42,7 +42,7 @@ Parser * ring_parser_new ( List *pTokens,RingState *pRingState )
 	Parser *pParser  ;
 	pParser = (Parser *) ring_state_malloc(pRingState,sizeof(Parser));
 	if ( pParser == NULL ) {
-		printf( RING_OOM ) ;
+		printf( SIMPLE_OOM ) ;
 		exit(0);
 	}
 	/* Ring State */

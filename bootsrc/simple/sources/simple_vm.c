@@ -11,7 +11,7 @@ VM * ring_vm_new ( RingState *pRingState )
 	int x  ;
 	pVM = (VM *) ring_state_malloc(pRingState,sizeof(VM));
 	if ( pVM == NULL ) {
-		printf( RING_OOM ) ;
+		printf( SIMPLE_OOM ) ;
 		exit(0);
 	}
 	/* Ring State */
@@ -30,7 +30,7 @@ VM * ring_vm_new ( RingState *pRingState )
 	pVM->nScopeID = 0 ;
 	pVM->aScopeID = ring_list_new_gc(pVM->pRingState,0);
 	ring_vm_newscope(pVM);
-	for ( x = 0 ; x < RING_VM_STACK_SIZE ; x++ ) {
+	for ( x = 0 ; x < SIMPLE_VM_STACK_SIZE ; x++ ) {
 		pVM->aStack[x].nType = ITEMTYPE_NOTHING ;
 		pVM->aStack[x].nObjectType = 0 ;
 		pVM->aStack[x].NumberFlag = ITEM_NUMBERFLAG_NOTHING ;
@@ -69,7 +69,7 @@ VM * ring_vm_new ( RingState *pRingState )
 	/* Used by BraceStart, BraceEnd & FreeStack */
 	pVM->nInsideBraceFlag = 0 ;
 	/* Variable scope, where is the varaible (when we use findvar) */
-	pVM->nVarScope = RING_VARSCOPE_NOTHING ;
+	pVM->nVarScope = SIMPLE_VARSCOPE_NOTHING ;
 	/* Flag used by Try/Catch to tell C-API that catch happens! */
 	pVM->nActiveCatch = 0 ;
 	/*
@@ -225,7 +225,7 @@ VM * ring_vm_delete ( VM *pVM )
 	pVM->pLoadAddressScope = ring_list_delete_gc(pVM->pRingState,pVM->pLoadAddressScope);
 	pVM->aNewByteCodeItems = ring_list_delete_gc(pVM->pRingState,pVM->aNewByteCodeItems);
 	/* Free Stack */
-	for ( x = 0 ; x < RING_VM_STACK_SIZE ; x++ ) {
+	for ( x = 0 ; x < SIMPLE_VM_STACK_SIZE ; x++ ) {
 		ring_item_content_delete(&(pVM->aStack[x]));
 	}
 	ring_state_free(pVM->pRingState,pVM->pByteCode);
@@ -262,10 +262,10 @@ SIMPLE_API void ring_vm_loadcode ( VM *pVM )
 	**  eval() will check if there is a need to reallocation or not 
 	**  This optimization increase the performance of applications that uses eval() 
 	*/
-	nSize = (ring_list_getsize(pVM->pCode))*RING_VM_EXTRASIZE ;
+	nSize = (ring_list_getsize(pVM->pCode))*SIMPLE_VM_EXTRASIZE ;
 	pVM->pByteCode = (ByteCode *) ring_state_calloc(pVM->pRingState,nSize,sizeof(ByteCode));
 	if ( pVM->pByteCode == NULL ) {
-		printf( RING_OOM ) ;
+		printf( SIMPLE_OOM ) ;
 		exit(0);
 	}
 	for ( x = 1 ; x <= ring_list_getsize(pVM->pCode) ; x++ ) {
@@ -293,7 +293,7 @@ void ring_vm_start ( RingState *pRingState,VM *pVM )
 
 void ring_vm_mainloop ( VM *pVM )
 {
-	#if RING_VMSHOWOPCODE
+	#if SIMPLE_VMSHOWOPCODE
 	/* Preprocessor Allows showing the OPCODE */
 	if ( pVM->pRingState->nPrintInstruction ) {
 		do {
@@ -327,40 +327,40 @@ void ring_vm_mainloop ( VM *pVM )
 void ring_vm_fetch ( VM *pVM )
 {
 	pVM->pByteCodeIR = pVM->pByteCode + pVM->nPC - 1 ;
-	pVM->nOPCode = RING_VM_IR_OPCODE ;
+	pVM->nOPCode = SIMPLE_VM_IR_OPCODE ;
 	pVM->nPC++ ;
 	ring_vm_execute(pVM);
-	if ( pVM->nSP > RING_VM_STACK_CHECKOVERFLOW ) {
-		ring_vm_error(pVM,RING_VM_ERROR_STACKOVERFLOW);
+	if ( pVM->nSP > SIMPLE_VM_STACK_CHECKOVERFLOW ) {
+		ring_vm_error(pVM,SIMPLE_VM_ERROR_STACKOVERFLOW);
 	}
 }
 
 void ring_vm_fetch2 ( VM *pVM )
 {
 	pVM->pByteCodeIR = pVM->pByteCode + pVM->nPC - 1 ;
-	pVM->nOPCode = RING_VM_IR_OPCODE ;
-	#if RING_VMSHOWOPCODE
+	pVM->nOPCode = SIMPLE_VM_IR_OPCODE ;
+	#if SIMPLE_VMSHOWOPCODE
 	if ( pVM->pRingState->nPrintInstruction ) {
 		print_line();
 		printf( "\nVM Pointer  : %p  " , (void *) pVM ) ;
-		printf( "\nOperation  : %s  " , RING_IC_OP[pVM->nOPCode] ) ;
+		printf( "\nOperation  : %s  " , SIMPLE_IC_OP[pVM->nOPCode] ) ;
 		printf( "\nPC         : %d  " ,pVM->nPC ) ;
 		printf( "\nLine Number    : %d  , File %s \n " ,pVM->nLineNumber,pVM->cFileName ) ;
 		if ( (pVM->nOPCode == ICO_PUSHC) || (pVM->nOPCode == ICO_LOADADDRESS) || (pVM->nOPCode == ICO_LOADFUNC) ) {
-			printf( "\nData       : %s \n",RING_VM_IR_READC ) ;
+			printf( "\nData       : %s \n",SIMPLE_VM_IR_READC ) ;
 		}
 	}
 	#endif
 	pVM->nPC++ ;
 	ring_vm_execute(pVM);
-	#if RING_VMSHOWOPCODE
+	#if SIMPLE_VMSHOWOPCODE
 	if ( pVM->pRingState->nPrintInstruction ) {
 		printf( "\nSP (After) : %d  - FuncSP : %d \n LineNumber %d \n" , (int) pVM->nSP,pVM->nFuncSP,pVM->nLineNumber ) ;
 		print_line();
 	}
 	#endif
-	if ( pVM->nSP > RING_VM_STACK_CHECKOVERFLOW ) {
-		ring_vm_error(pVM,RING_VM_ERROR_STACKOVERFLOW);
+	if ( pVM->nSP > SIMPLE_VM_STACK_CHECKOVERFLOW ) {
+		ring_vm_error(pVM,SIMPLE_VM_ERROR_STACKOVERFLOW);
 	}
 }
 
@@ -369,10 +369,10 @@ void ring_vm_execute ( VM *pVM )
 	switch ( pVM->nOPCode ) {
 		/* Stack and Variables */
 		case ICO_PUSHC :
-			RING_VM_STACK_PUSHC ;
+			SIMPLE_VM_STACK_PUSHC ;
 			break ;
 		case ICO_PUSHN :
-			RING_VM_STACK_PUSHN ;
+			SIMPLE_VM_STACK_PUSHN ;
 			break ;
 		case ICO_PUSHV :
 			ring_vm_pushv(pVM);
@@ -649,7 +649,7 @@ void ring_vm_execute ( VM *pVM )
 			ring_vm_assignmentpointer(pVM);
 			break ;
 		case ICO_BEFOREEQUAL :
-			pVM->nBeforeEqual = RING_VM_IR_READI ;
+			pVM->nBeforeEqual = SIMPLE_VM_IR_READI ;
 			break ;
 		/* Bitwise Operators */
 		case ICO_BITAND :
@@ -705,7 +705,7 @@ SIMPLE_API void ring_vm_error ( VM *pVM,const char *cStr )
 	if ( (ring_list_getsize(pVM->pObjState) > 0) && (ring_vm_oop_callmethodinsideclass(pVM) == 0 ) && (pVM->nCallMethod == 0) ) {
 		if ( ring_vm_findvar(pVM,"self") ) {
 			pList = ring_vm_oop_getobj(pVM);
-			RING_VM_STACK_POP ;
+			SIMPLE_VM_STACK_POP ;
 			if ( ring_vm_oop_isobject(pList) ) {
 				if ( ring_vm_oop_ismethod(pVM, pList,"braceerror") ) {
 					ring_list_setstring_gc(pVM->pRingState,ring_list_getlist(ring_vm_getglobalscope(pVM),6),3,cStr);
@@ -722,7 +722,7 @@ SIMPLE_API void ring_vm_error ( VM *pVM,const char *cStr )
 		}
 		/* Trace */
 		pVM->nActiveError = 0 ;
-		ring_vm_traceevent(pVM,RING_VM_TRACEEVENT_ERROR);
+		ring_vm_traceevent(pVM,SIMPLE_VM_TRACEEVENT_ERROR);
 		if ( pVM->lPassError  == 1 ) {
 			pVM->lPassError = 0 ;
 			return ;
@@ -798,7 +798,7 @@ int ring_vm_eval ( VM *pVM,const char *cStr )
 		if ( ring_list_getsize(pVM->pCode)  > pVM->nEvalReallocationSize ) {
 			pByteCode = (ByteCode *) ring_state_realloc(pVM->pRingState,pVM->pByteCode , sizeof(ByteCode) * ring_list_getsize(pVM->pCode));
 			if ( pByteCode == NULL ) {
-				printf( RING_OOM ) ;
+				printf( SIMPLE_OOM ) ;
 				ring_scanner_delete(pScanner);
 				exit(0);
 			}
@@ -848,12 +848,12 @@ void ring_vm_tobytecode ( VM *pVM,int x )
 	pByteCode = pVM->pByteCode + x - 1 ;
 	pIR = ring_list_getlist(pVM->pCode,x);
 	pByteCode->nSize = ring_list_getsize(pIR) ;
-	#if RING_SHOWICFINAL
+	#if SIMPLE_SHOWICFINAL
 	pByteCode->pList = pIR ;
 	#endif
 	/* Check Instruction Size */
-	if ( ring_list_getsize(pIR) > RING_VM_BC_ITEMS_COUNT ) {
-		printf( RING_LONGINSTRUCTION ) ;
+	if ( ring_list_getsize(pIR) > SIMPLE_VM_BC_ITEMS_COUNT ) {
+		printf( SIMPLE_LONGINSTRUCTION ) ;
 		printf( "In File : %s  - Byte-Code PC : %d  ",pVM->cFileName,x ) ;
 		exit(0);
 	}
@@ -876,7 +876,7 @@ void ring_vm_tobytecode ( VM *pVM,int x )
 		}
 	}
 	/* Clear Other Items */
-	for ( x2 = ring_list_getsize(pIR)+1 ; x2 <= RING_VM_BC_ITEMS_COUNT ; x2++ ) {
+	for ( x2 = ring_list_getsize(pIR)+1 ; x2 <= SIMPLE_VM_BC_ITEMS_COUNT ; x2++ ) {
 		pByteCode->aData[x2-1] = NULL ;
 	}
 }
@@ -886,9 +886,9 @@ void ring_vm_returneval ( VM *pVM )
 	int aPara[3]  ;
 	ByteCode *pByteCode  ;
 	ring_vm_return(pVM);
-	aPara[0] = RING_VM_IR_READIVALUE(1) ;
-	aPara[1] = RING_VM_IR_READIVALUE(2) ;
-	aPara[2] = RING_VM_IR_READIVALUE(3) ;
+	aPara[0] = SIMPLE_VM_IR_READIVALUE(1) ;
+	aPara[1] = SIMPLE_VM_IR_READIVALUE(2) ;
+	aPara[2] = SIMPLE_VM_IR_READIVALUE(3) ;
 	if ( ( pVM->nRetEvalDontDelete == 0 ) && (aPara[1] == ring_list_getsize(pVM->pFunctionsMap)) && (aPara[2] == ring_list_getsize(pVM->pClassesMap)) ) {
 		/*
 		**  The code interpreted by eval doesn't add new functions or new classes 
@@ -902,7 +902,7 @@ void ring_vm_returneval ( VM *pVM )
 			pVM->nEvalReallocationFlag = 0 ;
 			pByteCode = (ByteCode *) ring_state_realloc(pVM->pRingState,pVM->pByteCode , sizeof(ByteCode) * ring_list_getsize(pVM->pCode));
 			if ( pByteCode == NULL ) {
-				printf( RING_OOM ) ;
+				printf( SIMPLE_OOM ) ;
 				exit(0);
 			}
 			pVM->pByteCode = pByteCode ;
@@ -939,7 +939,7 @@ void ring_vm_newbytecodeitem ( VM *pVM,int x )
 	Item *pItem  ;
 	ring_list_addint_gc(pVM->pRingState,pVM->aNewByteCodeItems,0);
 	pItem = ring_list_getitem(pVM->aNewByteCodeItems,ring_list_getsize(pVM->aNewByteCodeItems));
-	RING_VM_IR_ITEM(x) = pItem ;
+	SIMPLE_VM_IR_ITEM(x) = pItem ;
 }
 
 SIMPLE_API void ring_vm_runcode ( VM *pVM,const char *cStr )
@@ -1039,7 +1039,7 @@ void ring_vm_retitemref ( VM *pVM )
 	*/
 	if ( ring_list_getsize(pVM->pFuncCallList) > 0 ) {
 		pList = ring_list_getlist(pVM->pFuncCallList,ring_list_getsize(pVM->pFuncCallList));
-		if ( strcmp(ring_list_getstring(pList,RING_FUNCCL_NAME),"operator") == 0 ) {
+		if ( strcmp(ring_list_getstring(pList,SIMPLE_FUNCCL_NAME),"operator") == 0 ) {
 			pVM->nRetItemRef++ ;
 		}
 	}
@@ -1054,24 +1054,24 @@ void ring_vm_printstack ( VM *pVM )
 	if ( nSP > 0 ) {
 		for ( x = 1 ; x <= nSP ; x++ ) {
 			/* Print Values */
-			if ( RING_VM_STACK_ISSTRING ) {
-				printf( "(String) : %s  \n",RING_VM_STACK_READC ) ;
+			if ( SIMPLE_VM_STACK_ISSTRING ) {
+				printf( "(String) : %s  \n",SIMPLE_VM_STACK_READC ) ;
 			}
-			else if ( RING_VM_STACK_ISNUMBER ) {
-				printf( "(Number) : %f  \n",RING_VM_STACK_READN ) ;
+			else if ( SIMPLE_VM_STACK_ISNUMBER ) {
+				printf( "(Number) : %f  \n",SIMPLE_VM_STACK_READN ) ;
 			}
-			else if ( RING_VM_STACK_ISPOINTER ) {
-				printf( "(Pointer) : %p  \n",RING_VM_STACK_READP ) ;
-				if ( RING_VM_STACK_OBJTYPE == RING_OBJTYPE_VARIABLE ) {
+			else if ( SIMPLE_VM_STACK_ISPOINTER ) {
+				printf( "(Pointer) : %p  \n",SIMPLE_VM_STACK_READP ) ;
+				if ( SIMPLE_VM_STACK_OBJTYPE == SIMPLE_OBJTYPE_VARIABLE ) {
 					printf( "(Pointer Type) : Variable \n" ) ;
-					ring_list_print((List *) RING_VM_STACK_READP);
+					ring_list_print((List *) SIMPLE_VM_STACK_READP);
 				}
-				else if ( RING_VM_STACK_OBJTYPE ==RING_OBJTYPE_LISTITEM ) {
+				else if ( SIMPLE_VM_STACK_OBJTYPE ==SIMPLE_OBJTYPE_LISTITEM ) {
 					printf( "(Pointer Type) : ListItem \n" ) ;
-					ring_item_print((Item *) RING_VM_STACK_READP);
+					ring_item_print((Item *) SIMPLE_VM_STACK_READP);
 				}
 			}
-			RING_VM_STACK_POP ;
+			SIMPLE_VM_STACK_POP ;
 			printf( "\n*****************************************\n" ) ;
 		}
 	}
@@ -1079,7 +1079,7 @@ void ring_vm_printstack ( VM *pVM )
 
 void ring_vm_callclassinit ( VM *pVM )
 {
-	if ( RING_VM_IR_READIVALUE(1) ) {
+	if ( SIMPLE_VM_IR_READIVALUE(1) ) {
 		pVM->nCallClassInit++ ;
 	}
 	else {
@@ -1104,29 +1104,29 @@ SIMPLE_API void ring_vm_showerrormessage ( VM *pVM,const char *cStr )
 		**  If we have ICO_LoadFunc but not ICO_CALL then we need to pass 
 		**  ICO_LOADFUNC is executed, but still ICO_CALL is not executed! 
 		*/
-		if ( ring_list_getsize(pList) < RING_FUNCCL_CALLERPC ) {
+		if ( ring_list_getsize(pList) < SIMPLE_FUNCCL_CALLERPC ) {
 			continue ;
 		}
-		if ( ring_list_getint(pList,RING_FUNCCL_TYPE) == RING_FUNCTYPE_SCRIPT ) {
+		if ( ring_list_getint(pList,SIMPLE_FUNCCL_TYPE) == SIMPLE_FUNCTYPE_SCRIPT ) {
 			/*
 			**  Prepare Message 
 			**  In 
 			*/
 			printf( "In " ) ;
 			/* Method or Function */
-			if ( ring_list_getint(pList,RING_FUNCCL_METHODORFUNC) ) {
+			if ( ring_list_getint(pList,SIMPLE_FUNCCL_METHODORFUNC) ) {
 				printf( "method " ) ;
 			}
 			else {
 				printf( "function " ) ;
 			}
 			/* Function Name */
-			printf( "%s",ring_list_getstring(pList,RING_FUNCCL_NAME) ) ;
+			printf( "%s",ring_list_getstring(pList,SIMPLE_FUNCCL_NAME) ) ;
 			/* Adding () */
 			printf( "() in file " ) ;
 			/* File Name */
 			if ( lFunctionCall == 1 ) {
-				cFile = (const char *) ring_list_getpointer(pList,RING_FUNCCL_NEWFILENAME) ;
+				cFile = (const char *) ring_list_getpointer(pList,SIMPLE_FUNCCL_NEWFILENAME) ;
 			}
 			else {
 				if ( pVM->nInClassRegion ) {
@@ -1138,11 +1138,11 @@ SIMPLE_API void ring_vm_showerrormessage ( VM *pVM,const char *cStr )
 			}
 			printf( "%s",cFile ) ;
 			/* Called From */
-			printf( "\ncalled from line %d  ",ring_list_getint(pList,RING_FUNCCL_LINENUMBER) ) ;
+			printf( "\ncalled from line %d  ",ring_list_getint(pList,SIMPLE_FUNCCL_LINENUMBER) ) ;
 			lFunctionCall = 1 ;
 		}
 		else {
-			printf( "In %s ",ring_list_getstring(pList,RING_FUNCCL_NAME) ) ;
+			printf( "In %s ",ring_list_getstring(pList,SIMPLE_FUNCCL_NAME) ) ;
 		}
 	}
 	if ( lFunctionCall ) {
@@ -1166,11 +1166,11 @@ void ring_vm_setfilename ( VM *pVM )
 		**  We are using special attribute for this region to avoid save/restore file name 
 		**  If we used pVM->cFileName we could get problem in finding classes and packages 
 		*/
-		pVM->cFileNameInClassRegion = RING_VM_IR_READC ;
+		pVM->cFileNameInClassRegion = SIMPLE_VM_IR_READC ;
 		return ;
 	}
 	pVM->cPrevFileName = pVM->cFileName ;
-	pVM->cFileName = RING_VM_IR_READC ;
+	pVM->cFileName = SIMPLE_VM_IR_READC ;
 }
 
 void ring_vm_loadaddressfirst ( VM *pVM )
@@ -1211,9 +1211,9 @@ void ring_vm_addglobalvariables ( VM *pVM )
 	ring_vm_addnewstringvar(pVM,"cr","\r");
 	/* Add Command Line Parameters */
 	pList = ring_vm_newvar2(pVM,"sysargv",pVM->pActiveMem);
-	ring_list_setint_gc(pVM->pRingState,pList,RING_VAR_TYPE,RING_VM_LIST);
-	ring_list_setlist_gc(pVM->pRingState,pList,RING_VAR_VALUE);
-	pList = ring_list_getlist(pList,RING_VAR_VALUE);
+	ring_list_setint_gc(pVM->pRingState,pList,SIMPLE_VAR_TYPE,SIMPLE_VM_LIST);
+	ring_list_setlist_gc(pVM->pRingState,pList,SIMPLE_VAR_VALUE);
+	pList = ring_list_getlist(pList,SIMPLE_VAR_VALUE);
 	for ( x = 0 ; x < pVM->pRingState->argc ; x++ ) {
 		ring_list_addstring_gc(pVM->pRingState,pList,pVM->pRingState->argv[x]);
 	}
@@ -1351,9 +1351,9 @@ void ring_vm_traceevent ( VM *pVM,char nEvent )
 		/* Add Function/Method Name */
 		if ( ring_list_getsize(pVM->pFuncCallList) > 0 ) {
 			pList = ring_list_getlist(pVM->pFuncCallList,ring_list_getsize(pVM->pFuncCallList)) ;
-			ring_list_addstring_gc(pVM->pRingState,pVM->pTraceData,ring_list_getstring(pList,RING_FUNCCL_NAME));
+			ring_list_addstring_gc(pVM->pRingState,pVM->pTraceData,ring_list_getstring(pList,SIMPLE_FUNCCL_NAME));
 			/* Method of Function */
-			ring_list_adddouble_gc(pVM->pRingState,pVM->pTraceData,ring_list_getint(pList,RING_FUNCCL_METHODORFUNC));
+			ring_list_adddouble_gc(pVM->pRingState,pVM->pTraceData,ring_list_getint(pList,SIMPLE_FUNCCL_METHODORFUNC));
 		}
 		else {
 			ring_list_addstring_gc(pVM->pRingState,pVM->pTraceData,"");

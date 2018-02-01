@@ -15,12 +15,12 @@ SIMPLE_API String * ring_string_new2_gc ( void *pState,const char *str,int nStrS
 	int x  ;
 	pString = (struct String *) ring_state_malloc(pState,sizeof(struct String));
 	if ( pString == NULL ) {
-		printf( RING_OOM ) ;
+		printf( SIMPLE_OOM ) ;
 		exit(0);
 	}
 	pString->cStr = (char *) ring_state_malloc(pState,nStrSize+1);
 	if ( pString->cStr  == NULL ) {
-		printf( RING_OOM ) ;
+		printf( SIMPLE_OOM ) ;
 		exit(0);
 	}
 	/* Copy String */
@@ -63,7 +63,7 @@ SIMPLE_API void ring_string_set2_gc ( void *pState,String *pString,const char *s
 	ring_state_free(pState,pString->cStr);
 	pString->cStr = (char *) ring_state_malloc(pState,nStrSize+1);
 	if ( pString->cStr  == NULL ) {
-		printf( RING_OOM ) ;
+		printf( SIMPLE_OOM ) ;
 		exit(0);
 	}
 	/* Copy String */
@@ -91,7 +91,7 @@ SIMPLE_API void ring_string_add2_gc ( void *pState,String *pString,const char *s
 	cStr = pString->cStr ;
 	pString->cStr = (char *) ring_state_malloc(pState,x2+1);
 	if ( pString->cStr  == NULL ) {
-		printf( RING_OOM ) ;
+		printf( SIMPLE_OOM ) ;
 		exit(0);
 	}
 	/* Copy String */
@@ -204,7 +204,7 @@ SIMPLE_API char * ring_string_find3_gc ( void *pState,char *cStr1,int nStrSize1,
 	cStr3 = (char *) ring_state_malloc(pState,nStrSize1+1);
 	cStr4 = (char *) ring_state_malloc(pState,nStrSize2+1);
 	if ( (cStr3==NULL) || (cStr4==NULL) ) {
-		printf( RING_OOM ) ;
+		printf( SIMPLE_OOM ) ;
 		exit(0);
 	}
 	for ( x = 0 ; x <= nStrSize1 ; x++ ) {

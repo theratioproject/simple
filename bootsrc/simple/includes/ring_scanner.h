@@ -158,13 +158,13 @@ void ring_scanner_loadsyntax ( Scanner *pScanner ) ;
 
 void ring_scanner_runobjstring ( RingState *pRingState,char *cString,const char *cFileName ) ;
 /* MACRO */
-#define RING_SCANNER_DELETELASTTOKEN ring_list_deleteitem(pScanner->Tokens,ring_list_getsize(pScanner->Tokens))
+#define SIMPLE_SCANNER_DELETELASTTOKEN ring_list_deleteitem(pScanner->Tokens,ring_list_getsize(pScanner->Tokens))
 /*
 **  Constants 
 **  General 
 */
-#define RING_SCANNER_TOKENTYPE 1
-#define RING_SCANNER_TOKENVALUE 2
+#define SIMPLE_SCANNER_TOKENTYPE 1
+#define SIMPLE_SCANNER_TOKENVALUE 2
 /* Scanner Tokens Types */
 #define SCANNER_TOKEN_KEYWORD 0
 #define SCANNER_TOKEN_OPERATOR 1
@@ -182,7 +182,7 @@ void ring_scanner_runobjstring ( RingState *pRingState,char *cString,const char 
 #define SCANNER_STATE_CHANGEOPERATOR 5
 #define SCANNER_STATE_LOADSYNTAX 6
 /* Change Ring Keyword/Operator */
-#define RING_SCANNER_CHANGERINGKEYWORD 47
-#define RING_SCANNER_CHANGERINGOPERATOR 48
-#define RING_SCANNER_LOADSYNTAX 49
+#define SIMPLE_SCANNER_CHANGERINGKEYWORD 47
+#define SIMPLE_SCANNER_CHANGERINGOPERATOR 48
+#define SIMPLE_SCANNER_LOADSYNTAX 49
 #endif

@@ -45,9 +45,9 @@ void ring_vm_savestate ( VM *pVM,List *pList )
 	ring_list_addpointer_gc(pVM->pRingState,pList,pVM->aLoadAddressScope);
 	ring_list_addint_gc(pVM->pRingState,pList,ring_list_getsize(pVM->pLoadAddressScope));
 	/* Save This variable */
-	pThis = ring_list_getlist(ring_vm_getglobalscope(pVM),RING_VM_STATICVAR_THIS) ;
-	ring_list_addpointer_gc(pVM->pRingState,pList,ring_list_getpointer(pThis,RING_VAR_VALUE));
-	ring_list_addint_gc(pVM->pRingState,pList,ring_list_getint(pThis,RING_VAR_PVALUETYPE));
+	pThis = ring_list_getlist(ring_vm_getglobalscope(pVM),SIMPLE_VM_STATICVAR_THIS) ;
+	ring_list_addpointer_gc(pVM->pRingState,pList,ring_list_getpointer(pThis,SIMPLE_VAR_VALUE));
+	ring_list_addint_gc(pVM->pRingState,pList,ring_list_getint(pThis,SIMPLE_VAR_PVALUETYPE));
 	ring_list_addint_gc(pVM->pRingState,pList,pVM->nCurrentGlobalScope);
 }
 
@@ -92,14 +92,14 @@ void ring_vm_restorestate ( VM *pVM,List *pList,int nPos,int nFlag )
 	ring_vm_backstate(pVM,ring_list_getint(pList,14),pVM->aScopeID);
 	pVM->nActiveScopeID = ring_list_getint(pList,15) ;
 	/* Loop/Exit Mark */
-	if ( nFlag != RING_STATE_EXIT ) {
+	if ( nFlag != SIMPLE_STATE_EXIT ) {
 		ring_vm_backstate(pVM,ring_list_getint(pList,16),pVM->pExitMark);
 		ring_vm_backstate(pVM,ring_list_getint(pList,17),pVM->pLoopMark);
 		/* For Step */
 		ring_vm_backstate(pVM,ring_list_getint(pList,23),pVM->aForStep);
 	}
 	/* Try/Catch/Done */
-	if ( nFlag != RING_STATE_TRYCATCH ) {
+	if ( nFlag != SIMPLE_STATE_TRYCATCH ) {
 		ring_vm_backstate(pVM,ring_list_getint(pList,18),pVM->pTry);
 	}
 	/* List Status */
@@ -130,9 +130,9 @@ void ring_vm_restorestate ( VM *pVM,List *pList,int nPos,int nFlag )
 	/* We restore the global scope befor the This variable, because This use global scope */
 	pVM->nCurrentGlobalScope = ring_list_getint(pList,41) ;
 	/* Restore This variable */
-	pThis = ring_list_getlist(ring_vm_getglobalscope(pVM),RING_VM_STATICVAR_THIS) ;
-	ring_list_setpointer_gc(pVM->pRingState,pThis,RING_VAR_VALUE,ring_list_getpointer(pList,39));
-	ring_list_setint_gc(pVM->pRingState,pThis,RING_VAR_PVALUETYPE,ring_list_getint(pList,40));
+	pThis = ring_list_getlist(ring_vm_getglobalscope(pVM),SIMPLE_VM_STATICVAR_THIS) ;
+	ring_list_setpointer_gc(pVM->pRingState,pThis,SIMPLE_VAR_VALUE,ring_list_getpointer(pList,39));
+	ring_list_setint_gc(pVM->pRingState,pThis,SIMPLE_VAR_PVALUETYPE,ring_list_getint(pList,40));
 }
 /* Save/Restore State 2 - Used by Function Call & Return */
 
@@ -177,9 +177,9 @@ void ring_vm_savestate2 ( VM *pVM,List *pList )
 	ring_list_addpointer_gc(pVM->pRingState,pList,pVM->aLoadAddressScope);
 	ring_list_addint_gc(pVM->pRingState,pList,ring_list_getsize(pVM->pLoadAddressScope));
 	/* Save This variable */
-	pThis = ring_list_getlist(ring_vm_getglobalscope(pVM),RING_VM_STATICVAR_THIS) ;
-	ring_list_addpointer_gc(pVM->pRingState,pList,ring_list_getpointer(pThis,RING_VAR_VALUE));
-	ring_list_addint_gc(pVM->pRingState,pList,ring_list_getint(pThis,RING_VAR_PVALUETYPE));
+	pThis = ring_list_getlist(ring_vm_getglobalscope(pVM),SIMPLE_VM_STATICVAR_THIS) ;
+	ring_list_addpointer_gc(pVM->pRingState,pList,ring_list_getpointer(pThis,SIMPLE_VAR_VALUE));
+	ring_list_addint_gc(pVM->pRingState,pList,ring_list_getint(pThis,SIMPLE_VAR_PVALUETYPE));
 	ring_list_addint_gc(pVM->pRingState,pList,pVM->nCurrentGlobalScope);
 	pVM->nInClassRegion = 0 ;
 	pVM->pAssignment = NULL ;
@@ -225,9 +225,9 @@ void ring_vm_restorestate2 ( VM *pVM,List *pList,int x )
 	/* Restore global scope, Must be before this because this depend on it */
 	pVM->nCurrentGlobalScope = ring_list_getint(pList,x+30) ;
 	/* Restore This variable */
-	pThis = ring_list_getlist(ring_vm_getglobalscope(pVM),RING_VM_STATICVAR_THIS) ;
-	ring_list_setpointer_gc(pVM->pRingState,pThis,RING_VAR_VALUE,ring_list_getpointer(pList,x+28));
-	ring_list_setint_gc(pVM->pRingState,pThis,RING_VAR_PVALUETYPE,ring_list_getint(pList,x+29));
+	pThis = ring_list_getlist(ring_vm_getglobalscope(pVM),SIMPLE_VM_STATICVAR_THIS) ;
+	ring_list_setpointer_gc(pVM->pRingState,pThis,SIMPLE_VAR_VALUE,ring_list_getpointer(pList,x+28));
+	ring_list_setint_gc(pVM->pRingState,pThis,SIMPLE_VAR_PVALUETYPE,ring_list_getint(pList,x+29));
 	/* Update Self Object if we are inside braces */
 	if ( ring_list_getsize(pVM->aBraceObjects) > 0 ) {
 		ring_vm_oop_updateselfpointer2(pVM,(List *) ring_list_getpointer(ring_list_getlist(pVM->aBraceObjects,ring_list_getsize(pVM->aBraceObjects)),1));
@@ -255,18 +255,18 @@ List * ring_vm_savestack ( VM *pVM )
 	/* Create List */
 	pList = ring_list_new_gc(pVM->pRingState,0);
 	while ( pVM->nSP  != 0 ) {
-		if ( RING_VM_STACK_ISSTRING ) {
-			ring_list_addstring_gc(pVM->pRingState,pList,RING_VM_STACK_READC);
+		if ( SIMPLE_VM_STACK_ISSTRING ) {
+			ring_list_addstring_gc(pVM->pRingState,pList,SIMPLE_VM_STACK_READC);
 		}
-		else if ( RING_VM_STACK_ISNUMBER ) {
-			ring_list_adddouble_gc(pVM->pRingState,pList,RING_VM_STACK_READN);
+		else if ( SIMPLE_VM_STACK_ISNUMBER ) {
+			ring_list_adddouble_gc(pVM->pRingState,pList,SIMPLE_VM_STACK_READN);
 		}
-		else if ( RING_VM_STACK_ISPOINTER ) {
+		else if ( SIMPLE_VM_STACK_ISPOINTER ) {
 			pList2 = ring_list_newlist_gc(pVM->pRingState,pList);
-			ring_list_addpointer_gc(pVM->pRingState,pList2,RING_VM_STACK_READP);
-			ring_list_addint_gc(pVM->pRingState,pList2,RING_VM_STACK_OBJTYPE);
+			ring_list_addpointer_gc(pVM->pRingState,pList2,SIMPLE_VM_STACK_READP);
+			ring_list_addint_gc(pVM->pRingState,pList2,SIMPLE_VM_STACK_OBJTYPE);
 		}
-		RING_VM_STACK_POP ;
+		SIMPLE_VM_STACK_POP ;
 	}
 	pVM->nSP = nSP ;
 	return pList ;
@@ -282,15 +282,15 @@ void ring_vm_restorestack ( VM *pVM,List *pList )
 	}
 	for ( x = ring_list_getsize(pList) ; x >= 1 ; x-- ) {
 		if ( ring_list_isstring(pList,x) ) {
-			RING_VM_STACK_PUSHCVALUE(ring_list_getstring(pList,x));
+			SIMPLE_VM_STACK_PUSHCVALUE(ring_list_getstring(pList,x));
 		}
 		else if ( ring_list_isnumber(pList,x) ) {
-			RING_VM_STACK_PUSHNVALUE(ring_list_getdouble(pList,x));
+			SIMPLE_VM_STACK_PUSHNVALUE(ring_list_getdouble(pList,x));
 		}
 		else if ( ring_list_islist(pList,x) ) {
 			pList2 = ring_list_getlist(pList,x);
-			RING_VM_STACK_PUSHPVALUE(ring_list_getpointer(pList2,1));
-			RING_VM_STACK_OBJTYPE = ring_list_getint(pList2,2) ;
+			SIMPLE_VM_STACK_PUSHPVALUE(ring_list_getpointer(pList2,1));
+			SIMPLE_VM_STACK_OBJTYPE = ring_list_getint(pList2,2) ;
 		}
 	}
 }

@@ -19,11 +19,11 @@
 static int nRingStateDEBUGSEGFAULT  ;
 static int nRingStateCGI  ;
 /* Define Functions */
-#if RING_TESTUNITS
+#if SIMPLE_TESTUNITS
 
 static void ring_testallunits ( void ) ;
 #endif
-#if RING_TESTPERFORMANCE
+#if SIMPLE_TESTPERFORMANCE
 
 static void ring_showtime ( void ) ;
 #endif
@@ -36,7 +36,7 @@ SIMPLE_API RingState * ring_state_new ( void )
 	RingState *pRingState  ;
 	pRingState = (RingState *) ring_malloc(sizeof(RingState));
 	if ( pRingState == NULL ) {
-		printf( RING_OOM ) ;
+		printf( SIMPLE_OOM ) ;
 		exit(0);
 	}
 	pRingState->pRingFilesList = NULL ;
@@ -122,8 +122,8 @@ SIMPLE_API List * ring_state_findvar ( RingState *pRingState,const char *cStr )
 	pVM = pRingState->pVM ;
 	pList = NULL ;
 	if ( ring_vm_findvar(pVM,cStr) ) {
-		pList = (List *) RING_VM_STACK_READP ;
-		RING_VM_STACK_POP ;
+		pList = (List *) SIMPLE_VM_STACK_READP ;
+		SIMPLE_VM_STACK_POP ;
 	}
 	return pList ;
 }
@@ -136,8 +136,8 @@ SIMPLE_API List * ring_state_newvar ( RingState *pRingState,const char *cStr )
 	if ( ring_vm_findvar(pVM,cStr) == 0 ) {
 		ring_vm_newvar(pVM,cStr);
 	}
-	pList = (List *) RING_VM_STACK_READP ;
-	RING_VM_STACK_POP ;
+	pList = (List *) SIMPLE_VM_STACK_READP ;
+	SIMPLE_VM_STACK_POP ;
 	return pList ;
 }
 
@@ -161,7 +161,7 @@ SIMPLE_API void ring_state_main ( int argc, char *argv[] )
 	nRingStateDEBUGSEGFAULT = 0 ;
 	nRingStateCGI = 0 ;
 	signal(SIGSEGV,segfaultaction);
-	#if RING_TESTUNITS
+	#if SIMPLE_TESTUNITS
 	ring_testallunits();
 	#endif
 	if ( argc > 1 ) {
@@ -204,7 +204,7 @@ SIMPLE_API void ring_state_main ( int argc, char *argv[] )
 			}
 		}
 	}
-	#if RING_TESTPERFORMANCE
+	#if SIMPLE_TESTPERFORMANCE
 	if ( nPerformance ) {
 		ring_showtime();
 	}
@@ -225,7 +225,7 @@ SIMPLE_API void ring_state_main ( int argc, char *argv[] )
 		exit(0);
 	}
 	ring_execute(cStr,nCGI,nRun,nPrintIC,nPrintICFinal,nTokens,nRules,nIns,nGenObj,nWarn,argc,argv);
-	#if RING_TESTPERFORMANCE
+	#if SIMPLE_TESTPERFORMANCE
 	if ( nPerformance ) {
 		ring_showtime();
 	}
@@ -246,7 +246,7 @@ SIMPLE_API void ring_state_runobjectstring ( RingState *pRingState,char *cString
 {
 	ring_scanner_runobjstring(pRingState,cString,cFileName);
 }
-#if RING_TESTUNITS
+#if SIMPLE_TESTUNITS
 
 static void ring_testallunits ( void )
 {
@@ -258,7 +258,7 @@ static void ring_testallunits ( void )
 	getchar();
 }
 #endif
-#if RING_TESTPERFORMANCE
+#if SIMPLE_TESTPERFORMANCE
 
 static void ring_showtime ( void )
 {
@@ -284,7 +284,7 @@ void segfaultaction ( int sig )
 		if ( nRingStateCGI == 1 ) {
 			printf( "Content-Type: text/plain\n\n" ) ;
 		}
-		printf( RING_SEGFAULT ) ;
+		printf( SIMPLE_SEGFAULT ) ;
 		printf( " : %d ",sig ) ;
 	}
 	exit(0);
@@ -306,7 +306,7 @@ int ring_fexists ( const char *cFileName )
 int ring_currentdir ( char *cDirPath )
 {
 	int nSize  ;
-	nSize = RING_PATHSIZE ;
+	nSize = SIMPLE_PATHSIZE ;
 	if ( !GetCurrentDir(cDirPath, nSize) ) {
 		return errno ;
 	}
@@ -317,7 +317,7 @@ int ring_currentdir ( char *cDirPath )
 int ring_exefilename ( char *cDirPath )
 {
 	unsigned int nSize  ;
-	nSize = RING_PATHSIZE ;
+	nSize = SIMPLE_PATHSIZE ;
 	#ifdef _WIN32
 	/* Windows only */
 	GetModuleFileName(NULL,cDirPath,nSize);
@@ -341,8 +341,8 @@ int ring_chdir ( const char *cDir )
 
 void ring_exefolder ( char *cDirPath )
 {
-	char cDir[RING_PATHSIZE]  ;
-	char cDir2[RING_PATHSIZE]  ;
+	char cDir[SIMPLE_PATHSIZE]  ;
+	char cDir2[SIMPLE_PATHSIZE]  ;
 	int x,x2,nSize  ;
 	ring_exefilename(cDir);
 	nSize = strlen( cDir ) ;
@@ -360,7 +360,7 @@ void ring_exefolder ( char *cDirPath )
 
 void ring_switchtofilefolder ( char *cFileName )
 {
-	char cFileName2[RING_PATHSIZE]  ;
+	char cFileName2[SIMPLE_PATHSIZE]  ;
 	strcpy(cFileName2,cFileName);
 	if ( ring_justfilepath(cFileName2) ) {
 		ring_chdir(cFileName2);

@@ -6,7 +6,7 @@ void ring_vm_bye ( VM *pVM )
 {
 	/* Check if the ringvm_evalinscope() function is active */
 	if ( pVM->nEvalInScope >= 1 ) {
-		puts(RING_VM_ERROR_BADCOMMAND);
+		puts(SIMPLE_VM_ERROR_BADCOMMAND);
 		return ;
 	}
 	pVM->nPC = ring_list_getsize(pVM->pCode) + 1 ;
@@ -17,11 +17,11 @@ void ring_vm_exitmark ( VM *pVM )
 	List *pList  ;
 	/* Exit Mark */
 	pList = ring_list_newlist_gc(pVM->pRingState,pVM->pExitMark);
-	ring_list_addint_gc(pVM->pRingState,pList,RING_VM_IR_READI);
+	ring_list_addint_gc(pVM->pRingState,pList,SIMPLE_VM_IR_READI);
 	ring_vm_savestate(pVM,pList);
 	/* Loop Mark */
 	pList = ring_list_newlist_gc(pVM->pRingState,pVM->pLoopMark);
-	ring_list_addint_gc(pVM->pRingState,pList,RING_VM_IR_READIVALUE(2));
+	ring_list_addint_gc(pVM->pRingState,pList,SIMPLE_VM_IR_READIVALUE(2));
 	ring_vm_savestate(pVM,pList);
 }
 
@@ -39,7 +39,7 @@ void ring_vm_exit ( VM *pVM,int nType )
 	int x,y,nStep  ;
 	/* Check if the ringvm_evalinscope() function is active */
 	if ( pVM->nEvalInScope >= 1 ) {
-		puts(RING_VM_ERROR_BADCOMMAND);
+		puts(SIMPLE_VM_ERROR_BADCOMMAND);
 		return ;
 	}
 	nStep = 0 ;
@@ -50,12 +50,12 @@ void ring_vm_exit ( VM *pVM,int nType )
 		pActiveList = pVM->pLoopMark ;
 	}
 	/* Get the Number from the Stack */
-	if ( RING_VM_STACK_ISNUMBER ) {
-		nStep = RING_VM_STACK_READN ;
-		RING_VM_STACK_POP ;
+	if ( SIMPLE_VM_STACK_ISNUMBER ) {
+		nStep = SIMPLE_VM_STACK_READN ;
+		SIMPLE_VM_STACK_POP ;
 	}
 	else {
-		ring_vm_error(pVM,RING_VM_ERROR_LOOPNUMBEROUTSIDERANGE);
+		ring_vm_error(pVM,SIMPLE_VM_ERROR_LOOPNUMBEROUTSIDERANGE);
 	}
 	if ( ring_list_getsize(pActiveList) > 0 ) {
 		x = ring_list_getsize(pActiveList) ;
@@ -67,20 +67,20 @@ void ring_vm_exit ( VM *pVM,int nType )
 			}
 		} else {
 			if ( nType == 1 ) {
-				ring_vm_error(pVM,RING_VM_ERROR_EXITNUMBEROUTSIDERANGE);
+				ring_vm_error(pVM,SIMPLE_VM_ERROR_EXITNUMBEROUTSIDERANGE);
 			} else {
-				ring_vm_error(pVM,RING_VM_ERROR_LOOPNUMBEROUTSIDERANGE);
+				ring_vm_error(pVM,SIMPLE_VM_ERROR_LOOPNUMBEROUTSIDERANGE);
 			}
 			return ;
 		}
 		pList = ring_list_getlist(pActiveList,x);
 		pVM->nPC = ring_list_getint(pList,1) ;
-		ring_vm_restorestate(pVM,pList,2,RING_STATE_EXIT);
+		ring_vm_restorestate(pVM,pList,2,SIMPLE_STATE_EXIT);
 	} else {
 		if ( nType == 1 ) {
-			ring_vm_error(pVM,RING_VM_ERROR_EXITWITHOUTLOOP);
+			ring_vm_error(pVM,SIMPLE_VM_ERROR_EXITWITHOUTLOOP);
 		} else {
-			ring_vm_error(pVM,RING_VM_ERROR_LOOPWITHOUTLOOP);
+			ring_vm_error(pVM,SIMPLE_VM_ERROR_LOOPWITHOUTLOOP);
 		}
 		return ;
 	}
@@ -90,16 +90,16 @@ void ring_vm_exit ( VM *pVM,int nType )
 void ring_vm_stepnumber ( VM *pVM )
 {
 	double nNum1  ;
-	if ( RING_VM_STACK_ISNUMBER ) {
-		ring_list_adddouble_gc(pVM->pRingState,pVM->aForStep,RING_VM_STACK_READN);
-		RING_VM_STACK_POP ;
+	if ( SIMPLE_VM_STACK_ISNUMBER ) {
+		ring_list_adddouble_gc(pVM->pRingState,pVM->aForStep,SIMPLE_VM_STACK_READN);
+		SIMPLE_VM_STACK_POP ;
 	}
-	else if ( RING_VM_STACK_ISSTRING ) {
-		nNum1 = ring_vm_stringtonum(pVM,RING_VM_STACK_READC);
+	else if ( SIMPLE_VM_STACK_ISSTRING ) {
+		nNum1 = ring_vm_stringtonum(pVM,SIMPLE_VM_STACK_READC);
 		ring_list_adddouble_gc(pVM->pRingState,pVM->aForStep,nNum1);
-		RING_VM_STACK_POP ;
+		SIMPLE_VM_STACK_POP ;
 	} else {
-		ring_vm_error(pVM,RING_VM_ERROR_FORSTEPDATATYPE);
+		ring_vm_error(pVM,SIMPLE_VM_ERROR_FORSTEPDATATYPE);
 	}
 }
 
