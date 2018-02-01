@@ -26,7 +26,7 @@ typedef struct Item {
 } Item ;
 /* Constants */
 #define ITEMTYPE_NOTHING 0
-#define ITEMTYPE_STSIMPLE 1
+#define ITEMTYPE_STRING 1
 #define ITEMTYPE_NUMBER 2
 #define ITEMTYPE_POINTER 3
 #define ITEMTYPE_LIST 4
@@ -87,10 +87,10 @@ SIMPLE_API void simple_item_setstring2_gc ( void *pState,Item *pItem,const char 
 #define simple_itemarray_getstring(pList,index) simple_string_get(pList[index].data.pStsimple )
 #define simple_itemarray_getstringsize(pList,index) simple_string_size(pList[index].data.pStsimple )
 /* Check */
-#define simple_itemarray_isstring(pList,index) (pList[index].nType == ITEMTYPE_STSIMPLE)
+#define simple_itemarray_isstring(pList,index) (pList[index].nType == ITEMTYPE_STRING)
 #define simple_itemarray_isnumber(pList,index) (pList[index].nType == ITEMTYPE_NUMBER)
 #define simple_itemarray_ispointer(pList,index) (pList[index].nType == ITEMTYPE_POINTER)
-#define simple_item_isstring(x) (x->nType == ITEMTYPE_STSIMPLE)
+#define simple_item_isstring(x) (x->nType == ITEMTYPE_STRING)
 #define simple_item_islist(x) (x->nType == ITEMTYPE_LIST)
 #define simple_item_isdouble(x) ( (x->nType == ITEMTYPE_NUMBER) && ( x->NumberFlag == ITEM_NUMBERFLAG_DOUBLE ) )
 /* Functions without state pointer */

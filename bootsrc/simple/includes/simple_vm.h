@@ -548,13 +548,13 @@ List * simple_vm_getglobalscope ( VM *pVM ) ;
 #define SIMPLE_VM_STACK_SETPVALUE(x) simple_itemarray_setpointer(pVM->aStack, pVM->nSP , x )
 #define SIMPLE_VM_STACK_SETCVALUE2(x,y) simple_itemarray_setstring2(pVM->aStack, pVM->nSP, x,y)
 /* Check */
-#define SIMPLE_VM_STACK_ISSTSIMPLE simple_itemarray_isstring(pVM->aStack,pVM->nSP)
+#define SIMPLE_VM_STACK_ISSTRING simple_itemarray_isstring(pVM->aStack,pVM->nSP)
 #define SIMPLE_VM_STACK_ISNUMBER simple_itemarray_isnumber(pVM->aStack,pVM->nSP)
 #define SIMPLE_VM_STACK_ISPOINTER simple_itemarray_ispointer(pVM->aStack,pVM->nSP)
 #define SIMPLE_VM_STACK_ISPOINTERVALUE(x) simple_itemarray_ispointer(pVM->aStack,x)
 /* Read */
 #define SIMPLE_VM_STACK_READC simple_itemarray_getstring(pVM->aStack,pVM->nSP)
-#define SIMPLE_VM_STACK_STSIMPLESIZE simple_itemarray_getstringsize(pVM->aStack,pVM->nSP)
+#define SIMPLE_VM_STACK_STRINGSIZE simple_itemarray_getstringsize(pVM->aStack,pVM->nSP)
 #define SIMPLE_VM_STACK_READN simple_itemarray_getdouble(pVM->aStack,pVM->nSP)
 #define SIMPLE_VM_STACK_READP simple_itemarray_getpointer(pVM->aStack,pVM->nSP)
 #define SIMPLE_VM_STACK_OBJTYPE pVM->aStack[pVM->nSP].nObjectType
@@ -564,7 +564,7 @@ List * simple_vm_getglobalscope ( VM *pVM ) ;
 /* Objects/Pointer  - Type */
 #define SIMPLE_OBJTYPE_VARIABLE 1
 #define SIMPLE_OBJTYPE_LISTITEM 2
-#define SIMPLE_OBJTYPE_SUBSTSIMPLE 3
+#define SIMPLE_OBJTYPE_SUBSTRING 3
 /* Variable Structure */
 #define SIMPLE_VAR_NAME 1
 #define SIMPLE_VAR_TYPE 2
@@ -576,7 +576,7 @@ List * simple_vm_getglobalscope ( VM *pVM ) ;
 #define SIMPLE_VAR_LISTSIZE 5
 /* Variable Type */
 #define SIMPLE_VM_NULL 0
-#define SIMPLE_VM_STSIMPLE 1
+#define SIMPLE_VM_STRING 1
 #define SIMPLE_VM_NUMBER 2
 #define SIMPLE_VM_LIST 3
 #define SIMPLE_VM_POINTER 4
@@ -656,7 +656,7 @@ List * simple_vm_getglobalscope ( VM *pVM ) ;
 #define SIMPLE_OBJSTATE_METHODS 2
 #define SIMPLE_OBJSTATE_CLASS 3
 /* Operator Overloading */
-#define SIMPLE_OOPARA_STSIMPLE 1
+#define SIMPLE_OOPARA_STRING 1
 #define SIMPLE_OOPARA_NUMBER 2
 #define SIMPLE_OOPARA_POINTER 3
 /* aBraceObjects */
@@ -704,7 +704,7 @@ List * simple_vm_getglobalscope ( VM *pVM ) ;
 #define SIMPLE_VM_ERROR_OBJECTISNOTLIST "Error (R5) : Can't access the list item, Object is not list !"
 #define SIMPLE_VM_ERROR_NOTVARIABLE "Error (R6) : Variable is required"
 #define SIMPLE_VM_ERROR_VALUEMORETHANONECHAR "Error (R7) : Can't assign to a string letter more than one character"
-#define SIMPLE_VM_ERROR_VARISNOTSTSIMPLE "Error (R8) : Variable is not a string "
+#define SIMPLE_VM_ERROR_VARISNOTSTRING "Error (R8) : Variable is not a string "
 #define SIMPLE_VM_ERROR_EXITWITHOUTLOOP "Error (R9) : Using exit command outside loops "
 #define SIMPLE_VM_ERROR_EXITNUMBEROUTSIDERANGE "Error (R10) : Using exit command with number outside the range "
 #define SIMPLE_VM_ERROR_CLASSNOTFOUND "Error (R11) : error in class name, class not found! "
