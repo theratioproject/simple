@@ -66,7 +66,7 @@ SIMPLE_API void ring_vm_loadcfunctions ( RingState *pRingState )
 	ring_vm_funcregister("lines",ring_vmlib_lines);
 	ring_vm_funcregister("strcmp",ring_vmlib_strcmp);
 	/* Functional */
-	ring_vm_funcregister("eval",ring_vmlib_eval);
+	ring_vm_funcregister("executeCode",ring_vmlib_eval);
 	/* Error Handling */
 	ring_vm_funcregister("raise",ring_vmlib_raise);
 	ring_vm_funcregister("assert",ring_vmlib_assert);

@@ -776,7 +776,7 @@ void ring_scanner_addreturn2 ( RingState *pRingState )
 void ring_scanner_addreturn3 ( RingState *pRingState, int aPara[3] )
 {
 	List *pList  ;
-	/* Add return from eval to the end of the eval() code */
+	/* Add return from executeCode to the end of the executeCode() code */
 	pList = ring_list_newlist_gc(pRingState,pRingState->pRingGenCode);
 	ring_list_addint_gc(pRingState,pList,ICO_RETFROMEVAL);
 	ring_list_addint_gc(pRingState,pList,aPara[0]);

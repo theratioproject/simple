@@ -736,7 +736,7 @@ List * ring_vm_getglobalscope ( VM *pVM ) ;
 #define SIMPLE_VM_ERROR_BADCOMMAND "Error (R37) : Sorry, The command is not supported in this context"
 #define SIMPLE_VM_ERROR_LIBLOADERROR "Error (R38) : Runtime Error in loading the dynamic library!"
 #define SIMPLE_VM_ERROR_TEMPFILENAME "Error (R39) : Error occurred creating unique filename."
-/* Extra Size (for eval) */
+/* Extra Size (for codeExecution) */
 #define SIMPLE_VM_EXTRASIZE 2
 /* Variables Location */
 #define SIMPLE_VM_STATICVAR_THIS 12
