@@ -720,7 +720,7 @@ List * ring_vm_getglobalscope ( VM *pVM ) ;
 #define RING_VM_ERROR_BADVALUES "Error (R21) : Using operator with values of incorrect type"
 #define RING_VM_ERROR_LOOPWITHOUTLOOP "Error (R22) : Using loop command outside loops "
 #define RING_VM_ERROR_LOOPNUMBEROUTSIDERANGE "Error (R23) : Using loop command with number outside the range "
-#define RING_VM_ERROR_USINGNULLVARIABLE "RUNTIME ERROR (R24) : Using uninitialized variable "
+#define RING_VM_ERROR_USINGNULLVARIABLE "RUNTIME ERROR 24 : Using uninitialized variable "
 #define RING_VM_ERROR_PACKAGENOTFOUND "Error (R25) : Error in package name, Package not found! "
 #define RING_VM_ERROR_CALLINGPRIVATEMETHOD "Error (R26) : Calling private method from outside the class "
 #define RING_VM_ERROR_USINGPRIVATEATTRIBUTE "Error (R27) : Using private attribute from outside the class "
