@@ -802,22 +802,22 @@ void display_tokens ( Scanner *pScanner )
 		switch ( nType ) {
 			case SCANNER_TOKEN_KEYWORD :
 				nPos = atoi(cString) ;
-				printf( "%10s : %s \n","Keyword",RING_KEYWORDS[nPos-1] ) ;
+				printf( "[TokenType=%10s : %s ]\n","Keyword",RING_KEYWORDS[nPos-1] ) ;
 				break ;
 			case SCANNER_TOKEN_OPERATOR :
-				printf( "%10s : %s \n","Operator",cString ) ;
+				printf( "[TokenType=%10s : %s ]\n","Operator",cString ) ;
 				break ;
 			case SCANNER_TOKEN_NUMBER :
-				printf( "%10s : %s \n","Number",cString ) ;
+				printf( "[TokenType=%10s : %s ]\n","Number",cString ) ;
 				break ;
 			case SCANNER_TOKEN_IDENTIFIER :
-				printf( "%10s : %s \n","Identifier",cString ) ;
+				printf( "[TokenType=%10s : %s ]\n","Identifier",cString ) ;
 				break ;
 			case SCANNER_TOKEN_LITERAL :
-				printf( "%10s : %s \n","Literal",cString ) ;
+				printf( "[TokenType=%10s : %s ]\n","Literal",cString ) ;
 				break ;
 			case SCANNER_TOKEN_ENDLINE :
-				printf( "%10s\n","EndLine" ) ;
+				printf( "[TokenType=%10s]\n","EndLine" ) ;
 				break ;
 		}
 	}
