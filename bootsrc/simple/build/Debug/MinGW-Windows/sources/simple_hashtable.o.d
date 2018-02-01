@@ -1,5 +1,5 @@
-build/Debug/MinGW-Windows/sources/simple_vmperformance.o: \
- sources/simple_vmperformance.c sources/../includes/ring.h \
+build/Debug/MinGW-Windows/sources/simple_hashtable.o: \
+ sources/simple_hashtable.c sources/../includes/ring.h \
  sources/../includes/simple_misc.h sources/../includes/ring_ext.h \
  sources/../includes/ring_string.h sources/../includes/ring_vmgcdata.h \
  sources/../includes/ring_item.h sources/../includes/ring_items.h \
