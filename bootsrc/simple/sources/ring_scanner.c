@@ -840,7 +840,7 @@ SIMPLE_API void ring_execute ( char *cFileName, int nISCGI,int nRun,int nPrintIC
 	pRingState->nWarning = nWarn ;
 	pRingState->argc = argc ;
 	pRingState->argv = argv ;
-	if ( ring_issourcefile(cFileName) ) {
+	if ( is_simple_file(cFileName) ) {
 		ring_scanner_readfile(pRingState,cFileName);
 	}
 	else {
