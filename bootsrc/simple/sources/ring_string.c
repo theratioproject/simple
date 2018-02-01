@@ -2,14 +2,14 @@
 #include "../includes/ring.h"
 /* Functions */
 
-RING_API String * ring_string_new_gc ( void *pState,const char *str )
+SIMPLE_API String * ring_string_new_gc ( void *pState,const char *str )
 {
 	int x  ;
 	x = strlen( str ) ;
 	return ring_string_new2_gc(pState,str,x) ;
 }
 
-RING_API String * ring_string_new2_gc ( void *pState,const char *str,int nStrSize )
+SIMPLE_API String * ring_string_new2_gc ( void *pState,const char *str,int nStrSize )
 {
 	String *pString  ;
 	int x  ;
@@ -32,7 +32,7 @@ RING_API String * ring_string_new2_gc ( void *pState,const char *str,int nStrSiz
 	return pString ;
 }
 
-RING_API String * ring_string_delete_gc ( void *pState,String *pString )
+SIMPLE_API String * ring_string_delete_gc ( void *pState,String *pString )
 {
 	assert(pString != NULL);
 	ring_state_free(pState,pString->cStr);
@@ -41,13 +41,13 @@ RING_API String * ring_string_delete_gc ( void *pState,String *pString )
 	return NULL ;
 }
 
-RING_API int ring_string_size ( String *pString )
+SIMPLE_API int ring_string_size ( String *pString )
 {
 	assert(pString != NULL);
 	return pString->nSize ;
 }
 
-RING_API void ring_string_set_gc ( void *pState,String *pString,const char *str )
+SIMPLE_API void ring_string_set_gc ( void *pState,String *pString,const char *str )
 {
 	int x  ;
 	assert(pString != NULL);
@@ -55,7 +55,7 @@ RING_API void ring_string_set_gc ( void *pState,String *pString,const char *str 
 	ring_string_set2_gc(pState,pString,str,x);
 }
 
-RING_API void ring_string_set2_gc ( void *pState,String *pString,const char *str,int nStrSize )
+SIMPLE_API void ring_string_set2_gc ( void *pState,String *pString,const char *str,int nStrSize )
 {
 	int x  ;
 	assert(pString != NULL);
@@ -74,14 +74,14 @@ RING_API void ring_string_set2_gc ( void *pState,String *pString,const char *str
 	pString->nSize = nStrSize ;
 }
 
-RING_API void ring_string_add_gc ( void *pState,String *pString,const char *str )
+SIMPLE_API void ring_string_add_gc ( void *pState,String *pString,const char *str )
 {
 	int x  ;
 	x = strlen( str ) ;
 	ring_string_add2_gc(pState,pString,str,x);
 }
 
-RING_API void ring_string_add2_gc ( void *pState,String *pString,const char *str,int nStrSize )
+SIMPLE_API void ring_string_add2_gc ( void *pState,String *pString,const char *str,int nStrSize )
 {
 	int x  ;
 	int x2  ;
@@ -106,13 +106,13 @@ RING_API void ring_string_add2_gc ( void *pState,String *pString,const char *str
 	ring_state_free(pState,cStr);
 }
 
-RING_API void ring_string_print ( String *pString )
+SIMPLE_API void ring_string_print ( String *pString )
 {
 	assert(pString != NULL);
 	printf( "%s \n",pString->cStr ) ;
 }
 
-RING_API void ring_string_setfromint_gc ( void *pState,String *pString,int x )
+SIMPLE_API void ring_string_setfromint_gc ( void *pState,String *pString,int x )
 {
 	char cStr[20]  ;
 	assert(pString != NULL);
@@ -120,7 +120,7 @@ RING_API void ring_string_setfromint_gc ( void *pState,String *pString,int x )
 	ring_string_set_gc(pState,pString,cStr);
 }
 
-RING_API char * ring_string_lower ( char *cStr )
+SIMPLE_API char * ring_string_lower ( char *cStr )
 {
 	unsigned int x  ;
 	for ( x = 0 ; x < strlen(cStr) ; x++ ) {
@@ -131,7 +131,7 @@ RING_API char * ring_string_lower ( char *cStr )
 	return cStr ;
 }
 
-RING_API char * ring_string_lower2 ( char *cStr,int nStrSize )
+SIMPLE_API char * ring_string_lower2 ( char *cStr,int nStrSize )
 {
 	int x  ;
 	for ( x = 0 ; x < nStrSize ; x++ ) {
@@ -142,7 +142,7 @@ RING_API char * ring_string_lower2 ( char *cStr,int nStrSize )
 	return cStr ;
 }
 
-RING_API char * ring_string_upper ( char *cStr )
+SIMPLE_API char * ring_string_upper ( char *cStr )
 {
 	unsigned int x  ;
 	for ( x = 0 ; x < strlen(cStr) ; x++ ) {
@@ -153,7 +153,7 @@ RING_API char * ring_string_upper ( char *cStr )
 	return cStr ;
 }
 
-RING_API char * ring_string_upper2 ( char *cStr,int nStrSize )
+SIMPLE_API char * ring_string_upper2 ( char *cStr,int nStrSize )
 {
 	int x  ;
 	for ( x = 0 ; x < nStrSize ; x++ ) {
@@ -164,12 +164,12 @@ RING_API char * ring_string_upper2 ( char *cStr,int nStrSize )
 	return cStr ;
 }
 
-RING_API char * ring_string_find_gc ( void *pState,char *cStr1,char *cStr2 )
+SIMPLE_API char * ring_string_find_gc ( void *pState,char *cStr1,char *cStr2 )
 {
 	return ring_string_find2_gc(pState,cStr1,strlen(cStr1),cStr2,strlen(cStr2)) ;
 }
 
-RING_API char * ring_string_find2_gc ( void *pState,char *cStr1,int nStrSize1,char *cStr2,int nStrSize2 )
+SIMPLE_API char * ring_string_find2_gc ( void *pState,char *cStr1,int nStrSize1,char *cStr2,int nStrSize2 )
 {
 	int nPos,x  ;
 	nPos = 0 ;
@@ -189,7 +189,7 @@ RING_API char * ring_string_find2_gc ( void *pState,char *cStr1,int nStrSize1,ch
 	return NULL ;
 }
 
-RING_API char * ring_string_find3_gc ( void *pState,char *cStr1,int nStrSize1,char *cStr2,int nStrSize2 )
+SIMPLE_API char * ring_string_find3_gc ( void *pState,char *cStr1,int nStrSize1,char *cStr2,int nStrSize2 )
 {
 	int nPos,x  ;
 	char *cStr3  ;
@@ -262,57 +262,57 @@ void ring_string_test ( void )
 }
 /* Functions without state pointer */
 
-RING_API String * ring_string_new2 ( const char *str,int nStrSize )
+SIMPLE_API String * ring_string_new2 ( const char *str,int nStrSize )
 {
 	return ring_string_new2_gc(NULL,str,nStrSize) ;
 }
 
-RING_API String * ring_string_new ( const char *str )
+SIMPLE_API String * ring_string_new ( const char *str )
 {
 	return ring_string_new_gc(NULL,str) ;
 }
 
-RING_API void ring_string_add ( String *pString,const char *str )
+SIMPLE_API void ring_string_add ( String *pString,const char *str )
 {
 	ring_string_add_gc(NULL,pString,str);
 }
 
-RING_API void ring_string_add2 ( String *pString,const char *str,int nStrSize )
+SIMPLE_API void ring_string_add2 ( String *pString,const char *str,int nStrSize )
 {
 	ring_string_add2_gc(NULL,pString,str,nStrSize);
 }
 
-RING_API void ring_string_set ( String *pString,const char *str )
+SIMPLE_API void ring_string_set ( String *pString,const char *str )
 {
 	ring_string_set_gc(NULL,pString,str);
 }
 
-RING_API void ring_string_set2 ( String *pString,const char *str,int nStrSize )
+SIMPLE_API void ring_string_set2 ( String *pString,const char *str,int nStrSize )
 {
 	ring_string_set2_gc(NULL,pString,str,nStrSize);
 }
 
-RING_API char * ring_string_find ( char *cStr1,char *cStr2 )
+SIMPLE_API char * ring_string_find ( char *cStr1,char *cStr2 )
 {
 	return ring_string_find_gc(NULL,cStr1,cStr2) ;
 }
 
-RING_API char * ring_string_find2 ( char *cStr1,int nStrSize1,char *cStr2,int nStrSize2 )
+SIMPLE_API char * ring_string_find2 ( char *cStr1,int nStrSize1,char *cStr2,int nStrSize2 )
 {
 	return ring_string_find2_gc(NULL,cStr1,nStrSize1,cStr2,nStrSize2) ;
 }
 
-RING_API char * ring_string_find3 ( char *cStr1,int nStrSize1,char *cStr2,int nStrSize2 )
+SIMPLE_API char * ring_string_find3 ( char *cStr1,int nStrSize1,char *cStr2,int nStrSize2 )
 {
 	return ring_string_find3_gc(NULL,cStr1,nStrSize1,cStr2,nStrSize2) ;
 }
 
-RING_API String * ring_string_delete ( String *pString )
+SIMPLE_API String * ring_string_delete ( String *pString )
 {
 	return ring_string_delete_gc(NULL,pString) ;
 }
 
-RING_API void ring_string_setfromint ( String *pString,int x )
+SIMPLE_API void ring_string_setfromint ( String *pString,int x )
 {
 	ring_string_setfromint_gc(NULL,pString,x);
 }

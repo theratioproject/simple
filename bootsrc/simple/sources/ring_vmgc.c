@@ -126,28 +126,28 @@ void ring_vm_gc_newitemreference ( Item *pItem )
 }
 /* Memory Functions (General) */
 
-RING_API void * ring_malloc ( size_t size )
+SIMPLE_API void * ring_malloc ( size_t size )
 {
 	return malloc(size) ;
 }
 
-RING_API void ring_free ( void *ptr )
+SIMPLE_API void ring_free ( void *ptr )
 {
 	free( ptr ) ;
 }
 
-RING_API void * ring_calloc ( size_t nitems, size_t size )
+SIMPLE_API void * ring_calloc ( size_t nitems, size_t size )
 {
 	return calloc(nitems,size) ;
 }
 
-RING_API void * ring_realloc ( void *ptr, size_t size )
+SIMPLE_API void * ring_realloc ( void *ptr, size_t size )
 {
 	return realloc(ptr,size) ;
 }
 /* Memory Functions (RingState Aware) */
 
-RING_API void * ring_state_malloc ( void *pState,size_t size )
+SIMPLE_API void * ring_state_malloc ( void *pState,size_t size )
 {
 	#if RING_USEPOOLMANAGER
 	if ( pState != NULL ) {
@@ -161,7 +161,7 @@ RING_API void * ring_state_malloc ( void *pState,size_t size )
 	return ring_malloc(size) ;
 }
 
-RING_API void ring_state_free ( void *pState,void *pMemory )
+SIMPLE_API void ring_state_free ( void *pState,void *pMemory )
 {
 	#if RING_USEPOOLMANAGER
 	/* Use Pool Manager */
@@ -171,12 +171,12 @@ RING_API void ring_state_free ( void *pState,void *pMemory )
 	#endif
 }
 
-RING_API void * ring_state_calloc ( void *pState,size_t nitems, size_t size )
+SIMPLE_API void * ring_state_calloc ( void *pState,size_t nitems, size_t size )
 {
 	return ring_calloc(nitems,size) ;
 }
 
-RING_API void * ring_state_realloc ( void *pState,void *ptr, size_t size )
+SIMPLE_API void * ring_state_realloc ( void *pState,void *ptr, size_t size )
 {
 	return ring_realloc(ptr,size) ;
 }

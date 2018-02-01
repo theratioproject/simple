@@ -31,7 +31,7 @@ static void ring_showtime ( void ) ;
 void segfaultaction ( int sig ) ;
 /* API Functions */
 
-RING_API RingState * ring_state_new ( void )
+SIMPLE_API RingState * ring_state_new ( void )
 {
 	RingState *pRingState  ;
 	pRingState = (RingState *) ring_malloc(sizeof(RingState));
@@ -70,7 +70,7 @@ RING_API RingState * ring_state_new ( void )
 	return pRingState ;
 }
 
-RING_API RingState * ring_state_delete ( RingState *pRingState )
+SIMPLE_API RingState * ring_state_delete ( RingState *pRingState )
 {
 	if ( pRingState->pRingFilesList != NULL ) {
 		pRingState->pRingFilesList = ring_list_delete_gc(pRingState,pRingState->pRingFilesList);
@@ -102,7 +102,7 @@ void ring_state_cgiheader ( RingState *pRingState )
 	}
 }
 
-RING_API RingState * ring_state_init ( void )
+SIMPLE_API RingState * ring_state_init ( void )
 {
 	RingState *pRingState  ;
 	pRingState = ring_state_new();
@@ -110,12 +110,12 @@ RING_API RingState * ring_state_init ( void )
 	return pRingState ;
 }
 
-RING_API void ring_state_runcode ( RingState *pRingState,const char *cStr )
+SIMPLE_API void ring_state_runcode ( RingState *pRingState,const char *cStr )
 {
 	ring_vm_runcode(pRingState->pVM,cStr);
 }
 
-RING_API List * ring_state_findvar ( RingState *pRingState,const char *cStr )
+SIMPLE_API List * ring_state_findvar ( RingState *pRingState,const char *cStr )
 {
 	VM *pVM  ;
 	List *pList  ;
@@ -128,7 +128,7 @@ RING_API List * ring_state_findvar ( RingState *pRingState,const char *cStr )
 	return pList ;
 }
 
-RING_API List * ring_state_newvar ( RingState *pRingState,const char *cStr )
+SIMPLE_API List * ring_state_newvar ( RingState *pRingState,const char *cStr )
 {
 	VM *pVM  ;
 	List *pList  ;
@@ -141,7 +141,7 @@ RING_API List * ring_state_newvar ( RingState *pRingState,const char *cStr )
 	return pList ;
 }
 
-RING_API void ring_state_main ( int argc, char *argv[] )
+SIMPLE_API void ring_state_main ( int argc, char *argv[] )
 {
 	int x,nCGI,nRun,nPrintIC,nPrintICFinal,nTokens,nRules,nIns,nPerformance,nSRC,nGenObj,nWarn  ;
 	char *cStr  ;
@@ -232,17 +232,17 @@ RING_API void ring_state_main ( int argc, char *argv[] )
 	#endif
 }
 
-RING_API void ring_state_runfile ( RingState *pRingState,char *cFileName )
+SIMPLE_API void ring_state_runfile ( RingState *pRingState,char *cFileName )
 {
 	ring_scanner_readfile(pRingState,cFileName);
 }
 
-RING_API void ring_state_runobjectfile ( RingState *pRingState,char *cFileName )
+SIMPLE_API void ring_state_runobjectfile ( RingState *pRingState,char *cFileName )
 {
 	ring_scanner_runobjfile(pRingState,cFileName);
 }
 
-RING_API void ring_state_runobjectstring ( RingState *pRingState,char *cString,const char *cFileName )
+SIMPLE_API void ring_state_runobjectstring ( RingState *pRingState,char *cString,const char *cFileName )
 {
 	ring_scanner_runobjstring(pRingState,cString,cFileName);
 }

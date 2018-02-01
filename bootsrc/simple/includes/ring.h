@@ -37,12 +37,12 @@
 #endif
 #if RING_USEDLL
 #if RING_BUILDLIB
-#define RING_API __declspec(dllexport)
+#define SIMPLE_API __declspec(dllexport)
 #else
-#define RING_API __declspec(dllimport)
+#define SIMPLE_API __declspec(dllimport)
 #endif
 #else
-#define RING_API extern
+#define SIMPLE_API extern
 #endif
 /* Constants */
 #define RING_DEBUG 0

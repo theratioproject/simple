@@ -254,7 +254,7 @@ VM * ring_vm_delete ( VM *pVM )
 	return pVM ;
 }
 
-RING_API void ring_vm_loadcode ( VM *pVM )
+SIMPLE_API void ring_vm_loadcode ( VM *pVM )
 {
 	int x,nSize  ;
 	/*
@@ -693,7 +693,7 @@ void ring_vm_execute ( VM *pVM )
 	}
 }
 
-RING_API void ring_vm_error ( VM *pVM,const char *cStr )
+SIMPLE_API void ring_vm_error ( VM *pVM,const char *cStr )
 {
 	List *pList  ;
 	/* Check if we have active error */
@@ -942,7 +942,7 @@ void ring_vm_newbytecodeitem ( VM *pVM,int x )
 	RING_VM_IR_ITEM(x) = pItem ;
 }
 
-RING_API void ring_vm_runcode ( VM *pVM,const char *cStr )
+SIMPLE_API void ring_vm_runcode ( VM *pVM,const char *cStr )
 {
 	int nEvalReturnPC,nEvalReallocationFlag,nPC,nRunVM,nSP,nFuncSP,nLineNumber,nRetEvalDontDelete  ;
 	List *pStackList  ;
@@ -1087,7 +1087,7 @@ void ring_vm_callclassinit ( VM *pVM )
 	}
 }
 
-RING_API void ring_vm_showerrormessage ( VM *pVM,const char *cStr )
+SIMPLE_API void ring_vm_showerrormessage ( VM *pVM,const char *cStr )
 {
 	int x,lFunctionCall  ;
 	List *pList  ;
@@ -1220,7 +1220,7 @@ void ring_vm_addglobalvariables ( VM *pVM )
 }
 /* Threads */
 
-RING_API void ring_vm_mutexfunctions ( VM *pVM,void *(*pFunc)(void),void (*pFuncLock)(void *),void (*pFuncUnlock)(void *),void (*pFuncDestroy)(void *) )
+SIMPLE_API void ring_vm_mutexfunctions ( VM *pVM,void *(*pFunc)(void),void (*pFuncLock)(void *),void (*pFuncUnlock)(void *),void (*pFuncDestroy)(void *) )
 {
 	if ( pVM->pMutex == NULL ) {
 		pVM->pMutex = pFunc() ;
@@ -1230,21 +1230,21 @@ RING_API void ring_vm_mutexfunctions ( VM *pVM,void *(*pFunc)(void),void (*pFunc
 	}
 }
 
-RING_API void ring_vm_mutexlock ( VM *pVM )
+SIMPLE_API void ring_vm_mutexlock ( VM *pVM )
 {
 	if ( pVM->pMutex != NULL ) {
 		pVM->pFuncMutexLock(pVM->pMutex);
 	}
 }
 
-RING_API void ring_vm_mutexunlock ( VM *pVM )
+SIMPLE_API void ring_vm_mutexunlock ( VM *pVM )
 {
 	if ( pVM->pMutex != NULL ) {
 		pVM->pFuncMutexUnlock(pVM->pMutex);
 	}
 }
 
-RING_API void ring_vm_mutexdestroy ( VM *pVM )
+SIMPLE_API void ring_vm_mutexdestroy ( VM *pVM )
 {
 	if ( pVM->pMutex != NULL ) {
 		pVM->pFuncMutexDestroy(pVM->pMutex);
@@ -1252,7 +1252,7 @@ RING_API void ring_vm_mutexdestroy ( VM *pVM )
 	}
 }
 
-RING_API void ring_vm_runcodefromthread ( VM *pVM,const char *cStr )
+SIMPLE_API void ring_vm_runcodefromthread ( VM *pVM,const char *cStr )
 {
 	RingState *pState  ;
 	List *pList,*pList2,*pList3,*pList4,*pList5  ;
@@ -1318,7 +1318,7 @@ RING_API void ring_vm_runcodefromthread ( VM *pVM,const char *cStr )
 }
 /* Fast Function Call for Extensions (Without Eval) */
 
-RING_API void ring_vm_callfunction ( VM *pVM,char *cFuncName )
+SIMPLE_API void ring_vm_callfunction ( VM *pVM,char *cFuncName )
 {
 	/* Lower Case and pass () in the end */
 	ring_string_lower(cFuncName);

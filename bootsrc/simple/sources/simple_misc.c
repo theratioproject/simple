@@ -14,7 +14,7 @@
 
 #include "../includes/ring.h"
 
-RING_API void print_line ( void )
+SIMPLE_API void print_line ( void )
 {
 	puts("==================================================================");
 }

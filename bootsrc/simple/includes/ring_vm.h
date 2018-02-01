@@ -114,7 +114,7 @@ VM * ring_vm_new ( RingState *pRingState ) ;
 
 VM * ring_vm_delete ( VM *pVM ) ;
 
-RING_API void ring_vm_loadcode ( VM *pVM ) ;
+SIMPLE_API void ring_vm_loadcode ( VM *pVM ) ;
 
 void ring_vm_start ( RingState *pRingState,VM *pVM ) ;
 
@@ -124,7 +124,7 @@ void ring_vm_fetch2 ( VM *pVM ) ;
 
 void ring_vm_execute ( VM *pVM ) ;
 
-RING_API void ring_vm_error ( VM *pVM,const char *cStr ) ;
+SIMPLE_API void ring_vm_error ( VM *pVM,const char *cStr ) ;
 
 int ring_vm_eval ( VM *pVM,const char *cStr ) ;
 
@@ -136,13 +136,13 @@ void ring_vm_newbytecodeitem ( VM *pVM,int x ) ;
 
 void ring_vm_mainloop ( VM *pVM ) ;
 
-RING_API void ring_vm_runcode ( VM *pVM,const char *cStr ) ;
+SIMPLE_API void ring_vm_runcode ( VM *pVM,const char *cStr ) ;
 
 void ring_vm_init ( RingState *pRingState ) ;
 
 void ring_vm_printstack ( VM *pVM ) ;
 
-RING_API void ring_vm_showerrormessage ( VM *pVM,const char *cStr ) ;
+SIMPLE_API void ring_vm_showerrormessage ( VM *pVM,const char *cStr ) ;
 
 void ring_vm_addglobalvariables ( VM *pVM ) ;
 /* Stack and Variables */
@@ -503,21 +503,21 @@ void ring_vm_stepnumber ( VM *pVM ) ;
 void ring_vm_popstep ( VM *pVM ) ;
 /* Threads */
 
-RING_API void ring_vm_mutexfunctions ( VM *pVM,void *(*pFunc)(void),void (*pFuncLock)(void *),void (*pFuncUnlock)(void *),void (*pFuncDestroy)(void *) ) ;
+SIMPLE_API void ring_vm_mutexfunctions ( VM *pVM,void *(*pFunc)(void),void (*pFuncLock)(void *),void (*pFuncUnlock)(void *),void (*pFuncDestroy)(void *) ) ;
 
-RING_API void ring_vm_mutexlock ( VM *pVM ) ;
+SIMPLE_API void ring_vm_mutexlock ( VM *pVM ) ;
 
-RING_API void ring_vm_mutexunlock ( VM *pVM ) ;
+SIMPLE_API void ring_vm_mutexunlock ( VM *pVM ) ;
 
-RING_API void ring_vm_mutexdestroy ( VM *pVM ) ;
+SIMPLE_API void ring_vm_mutexdestroy ( VM *pVM ) ;
 
-RING_API void ring_vm_runcodefromthread ( VM *pVM,const char *cStr ) ;
+SIMPLE_API void ring_vm_runcodefromthread ( VM *pVM,const char *cStr ) ;
 /* Trace */
 
 void ring_vm_traceevent ( VM *pVM,char nEvent ) ;
 /* Fast Function Call for Extensions (Without Eval) */
 
-RING_API void ring_vm_callfunction ( VM *pVM,char *cFuncName ) ;
+SIMPLE_API void ring_vm_callfunction ( VM *pVM,char *cFuncName ) ;
 /* Custom Global Scope */
 
 void ring_vm_newglobalscope ( VM *pVM ) ;

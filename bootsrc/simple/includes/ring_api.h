@@ -6,45 +6,45 @@
 **  Support for C Functions 
 */
 
-RING_API void ring_vm_funcregister2 ( RingState *pRingState,const char *cStr, void (*pFunc)(void *) ) ;
+SIMPLE_API void ring_vm_funcregister2 ( RingState *pRingState,const char *cStr, void (*pFunc)(void *) ) ;
 
-RING_API void ring_vm_loadcfunctions ( RingState *pRingState ) ;
+SIMPLE_API void ring_vm_loadcfunctions ( RingState *pRingState ) ;
 
-RING_API List * ring_vm_api_getlist ( void *pPointer,int x ) ;
+SIMPLE_API List * ring_vm_api_getlist ( void *pPointer,int x ) ;
 
 int ring_vm_api_islist ( void *pPointer,int x ) ;
 
-RING_API void ring_vm_api_retlist ( void *pPointer,List *pList ) ;
+SIMPLE_API void ring_vm_api_retlist ( void *pPointer,List *pList ) ;
 
-RING_API List * ring_vm_api_newlist ( VM *pVM ) ;
+SIMPLE_API List * ring_vm_api_newlist ( VM *pVM ) ;
 
-RING_API void ring_vm_api_retcpointer ( void *pPointer,void *pGeneral,const char *cType ) ;
+SIMPLE_API void ring_vm_api_retcpointer ( void *pPointer,void *pGeneral,const char *cType ) ;
 
-RING_API void * ring_vm_api_getcpointer ( void *pPointer,int x,const char *cType ) ;
+SIMPLE_API void * ring_vm_api_getcpointer ( void *pPointer,int x,const char *cType ) ;
 
-RING_API void ring_vm_api_setcpointernull ( void *pPointer,int x ) ;
+SIMPLE_API void ring_vm_api_setcpointernull ( void *pPointer,int x ) ;
 
 void ring_vm_extension ( RingState *pRingState ) ;
 
-RING_API void * ring_vm_api_varptr ( void *pPointer,const char  *cStr,const char *cStr2 ) ;
+SIMPLE_API void * ring_vm_api_varptr ( void *pPointer,const char  *cStr,const char *cStr2 ) ;
 
-RING_API void ring_vm_api_intvalue ( void *pPointer,const char  *cStr ) ;
+SIMPLE_API void ring_vm_api_intvalue ( void *pPointer,const char  *cStr ) ;
 
-RING_API void ring_list_addcpointer ( List *pList,void *pGeneral,const char *cType ) ;
+SIMPLE_API void ring_list_addcpointer ( List *pList,void *pGeneral,const char *cType ) ;
 
-RING_API int ring_vm_api_iscpointerlist ( List *pList ) ;
+SIMPLE_API int ring_vm_api_iscpointerlist ( List *pList ) ;
 
-RING_API int ring_vm_api_iscpointer ( void *pPointer,int x ) ;
+SIMPLE_API int ring_vm_api_iscpointer ( void *pPointer,int x ) ;
 
-RING_API int ring_vm_api_isobject ( void *pPointer,int x ) ;
+SIMPLE_API int ring_vm_api_isobject ( void *pPointer,int x ) ;
 
-RING_API int ring_vm_api_cpointercmp ( List *pList,List *pList2 ) ;
+SIMPLE_API int ring_vm_api_cpointercmp ( List *pList,List *pList2 ) ;
 
-RING_API int ring_vm_api_ispointer ( void *pPointer,int x ) ;
+SIMPLE_API int ring_vm_api_ispointer ( void *pPointer,int x ) ;
 
-RING_API void * ring_vm_api_getcpointer2pointer ( void *pPointer,int x,const char *cType ) ;
+SIMPLE_API void * ring_vm_api_getcpointer2pointer ( void *pPointer,int x,const char *cType ) ;
 
-RING_API void ring_list_addcpointer_gc ( void *pState,List *pList,void *pGeneral,const char *cType ) ;
+SIMPLE_API void ring_list_addcpointer_gc ( void *pState,List *pList,void *pGeneral,const char *cType ) ;
 /*
 **  Library 
 **  General 

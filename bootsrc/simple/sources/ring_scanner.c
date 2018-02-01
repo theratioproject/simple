@@ -825,7 +825,7 @@ void ring_scanner_printtokens ( Scanner *pScanner )
 	print_line();
 }
 
-RING_API void ring_execute ( char *cFileName, int nISCGI,int nRun,int nPrintIC,int nPrintICFinal,int nTokens,int nRules,int nIns,int nGenObj,int nWarn,int argc,char *argv[] )
+SIMPLE_API void ring_execute ( char *cFileName, int nISCGI,int nRun,int nPrintIC,int nPrintICFinal,int nTokens,int nRules,int nIns,int nGenObj,int nWarn,int argc,char *argv[] )
 {
 	RingState *pRingState  ;
 	pRingState = ring_state_new();

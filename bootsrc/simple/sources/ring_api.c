@@ -2,7 +2,7 @@
 #include "../includes/ring.h"
 /* Support for C Functions */
 
-RING_API void ring_vm_funcregister2 ( RingState *pRingState,const char *cStr, void (*pFunc)(void *) )
+SIMPLE_API void ring_vm_funcregister2 ( RingState *pRingState,const char *cStr, void (*pFunc)(void *) )
 {
 	List *pList  ;
 	if ( pRingState->pRingCFunctions == NULL ) {
@@ -13,7 +13,7 @@ RING_API void ring_vm_funcregister2 ( RingState *pRingState,const char *cStr, vo
 	ring_list_addfuncpointer_gc(pRingState,pList,pFunc);
 }
 
-RING_API void ring_vm_loadcfunctions ( RingState *pRingState )
+SIMPLE_API void ring_vm_loadcfunctions ( RingState *pRingState )
 {
 	/* General */
 	ring_vm_funcregister("len",ring_vmlib_len);
@@ -128,7 +128,7 @@ int ring_vm_api_islist ( void *pPointer,int x )
 	return 0 ;
 }
 
-RING_API List * ring_vm_api_getlist ( void *pPointer,int x )
+SIMPLE_API List * ring_vm_api_getlist ( void *pPointer,int x )
 {
 	int nType  ;
 	Item *pItem  ;
@@ -147,7 +147,7 @@ RING_API List * ring_vm_api_getlist ( void *pPointer,int x )
 	return NULL ;
 }
 
-RING_API void ring_vm_api_retlist ( void *pPointer,List *pList )
+SIMPLE_API void ring_vm_api_retlist ( void *pPointer,List *pList )
 {
 	List *pList2,*pList3  ;
 	VM *pVM  ;
@@ -163,14 +163,14 @@ RING_API void ring_vm_api_retlist ( void *pPointer,List *pList )
 	RING_API_OBJTYPE = RING_OBJTYPE_VARIABLE ;
 }
 
-RING_API List * ring_vm_api_newlist ( VM *pVM )
+SIMPLE_API List * ring_vm_api_newlist ( VM *pVM )
 {
 	List *pList  ;
 	pList = ring_list_newlist_gc(pVM->pRingState,pVM->pActiveMem);
 	return pList ;
 }
 
-RING_API void ring_vm_api_retcpointer ( void *pPointer,void *pGeneral,const char *cType )
+SIMPLE_API void ring_vm_api_retcpointer ( void *pPointer,void *pGeneral,const char *cType )
 {
 	List *pList  ;
 	/* Create the list */
@@ -184,7 +184,7 @@ RING_API void ring_vm_api_retcpointer ( void *pPointer,void *pGeneral,const char
 	RING_API_RETLIST(pList);
 }
 
-RING_API void * ring_vm_api_getcpointer ( void *pPointer,int x,const char *cType )
+SIMPLE_API void * ring_vm_api_getcpointer ( void *pPointer,int x,const char *cType )
 {
 	List *pList, *pList2  ;
 	int y  ;
@@ -228,7 +228,7 @@ RING_API void * ring_vm_api_getcpointer ( void *pPointer,int x,const char *cType
 	return NULL ;
 }
 
-RING_API void ring_vm_api_setcpointernull ( void *pPointer,int x )
+SIMPLE_API void ring_vm_api_setcpointernull ( void *pPointer,int x )
 {
 	List *pList, *pList2  ;
 	int y  ;
@@ -249,7 +249,7 @@ RING_API void ring_vm_api_setcpointernull ( void *pPointer,int x )
 	}
 }
 
-RING_API void * ring_vm_api_varptr ( void *pPointer,const char  *cStr,const char *cStr2 )
+SIMPLE_API void * ring_vm_api_varptr ( void *pPointer,const char  *cStr,const char *cStr2 )
 {
 	VM *pVM  ;
 	List *pList, *pActiveMem  ;
@@ -289,7 +289,7 @@ RING_API void * ring_vm_api_varptr ( void *pPointer,const char  *cStr,const char
 	return NULL ;
 }
 
-RING_API void ring_vm_api_intvalue ( void *pPointer,const char  *cStr )
+SIMPLE_API void ring_vm_api_intvalue ( void *pPointer,const char  *cStr )
 {
 	VM *pVM  ;
 	List *pList  ;
@@ -313,7 +313,7 @@ RING_API void ring_vm_api_intvalue ( void *pPointer,const char  *cStr )
 	}
 }
 
-RING_API void ring_list_addcpointer ( List *pList,void *pGeneral,const char *cType )
+SIMPLE_API void ring_list_addcpointer ( List *pList,void *pGeneral,const char *cType )
 {
 	List *pList2  ;
 	/* create sub list */
@@ -326,7 +326,7 @@ RING_API void ring_list_addcpointer ( List *pList,void *pGeneral,const char *cTy
 	ring_list_addint(pList2,2);
 }
 
-RING_API int ring_vm_api_iscpointerlist ( List *pList )
+SIMPLE_API int ring_vm_api_iscpointerlist ( List *pList )
 {
 	if ( ring_list_getsize(pList) != 3 ) {
 		return 0 ;
@@ -337,7 +337,7 @@ RING_API int ring_vm_api_iscpointerlist ( List *pList )
 	return 0 ;
 }
 
-RING_API int ring_vm_api_iscpointer ( void *pPointer,int x )
+SIMPLE_API int ring_vm_api_iscpointer ( void *pPointer,int x )
 {
 	if ( RING_API_ISLIST(x) ) {
 		return ring_vm_api_iscpointerlist(RING_API_GETLIST(x)) ;
@@ -345,7 +345,7 @@ RING_API int ring_vm_api_iscpointer ( void *pPointer,int x )
 	return 0 ;
 }
 
-RING_API int ring_vm_api_isobject ( void *pPointer,int x )
+SIMPLE_API int ring_vm_api_isobject ( void *pPointer,int x )
 {
 	if ( RING_API_ISLIST(x) ) {
 		return ring_vm_oop_isobject(RING_API_GETLIST(x)) ;
@@ -353,7 +353,7 @@ RING_API int ring_vm_api_isobject ( void *pPointer,int x )
 	return 0 ;
 }
 
-RING_API int ring_vm_api_cpointercmp ( List *pList,List *pList2 )
+SIMPLE_API int ring_vm_api_cpointercmp ( List *pList,List *pList2 )
 {
 	if ( ring_list_getpointer(pList,RING_CPOINTER_POINTER) == ring_list_getpointer(pList2,RING_CPOINTER_POINTER) ) {
 		return 1 ;
@@ -363,7 +363,7 @@ RING_API int ring_vm_api_cpointercmp ( List *pList,List *pList2 )
 	}
 }
 
-RING_API int ring_vm_api_ispointer ( void *pPointer,int x )
+SIMPLE_API int ring_vm_api_ispointer ( void *pPointer,int x )
 {
 	List *pList, *pList2  ;
 	VM *pVM  ;
@@ -396,7 +396,7 @@ RING_API int ring_vm_api_ispointer ( void *pPointer,int x )
 	return 0 ;
 }
 
-RING_API void * ring_vm_api_getcpointer2pointer ( void *pPointer,int x,const char *cType )
+SIMPLE_API void * ring_vm_api_getcpointer2pointer ( void *pPointer,int x,const char *cType )
 {
 	List *pList, *pList2  ;
 	int y  ;
@@ -443,7 +443,7 @@ RING_API void * ring_vm_api_getcpointer2pointer ( void *pPointer,int x,const cha
 	return NULL ;
 }
 
-RING_API void ring_list_addcpointer_gc ( void *pState,List *pList,void *pGeneral,const char *cType )
+SIMPLE_API void ring_list_addcpointer_gc ( void *pState,List *pList,void *pGeneral,const char *cType )
 {
 	List *pList2  ;
 	/* create sub list */
