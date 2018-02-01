@@ -31,18 +31,18 @@ void ring_vm_os_loadfunctions ( RingState *pRingState )
 void ring_vm_os_ismsdos ( void *pPointer )
 {
 	#if defined(MSDOS) || defined(__MSDOS__) || defined(_MSDOS) || defined(__DOS__)
-	RING_API_RETNUMBER(1);
+	SIMPLE_API_RETNUMBER(1);
 	#else
-	RING_API_RETNUMBER(0);
+	SIMPLE_API_RETNUMBER(0);
 	#endif
 }
 
 void ring_vm_os_iswindows ( void *pPointer )
 {
 	#ifdef _WIN32
-	RING_API_RETNUMBER(1);
+	SIMPLE_API_RETNUMBER(1);
 	#else
-	RING_API_RETNUMBER(0);
+	SIMPLE_API_RETNUMBER(0);
 	#endif
 }
 
@@ -56,82 +56,82 @@ void ring_vm_os_iswindows64 ( void *pPointer )
 		fnCheckWindows64(GetCurrentProcess(),&lSystem64);
 	}
 	#endif
-	RING_API_RETNUMBER(lSystem64);
+	SIMPLE_API_RETNUMBER(lSystem64);
 }
 
 void ring_vm_os_isunix ( void *pPointer )
 {
 	#if defined(unix) || defined(__unix__) || defined(__unix)
-	RING_API_RETNUMBER(1);
+	SIMPLE_API_RETNUMBER(1);
 	#else
-	RING_API_RETNUMBER(0);
+	SIMPLE_API_RETNUMBER(0);
 	#endif
 }
 
 void ring_vm_os_ismacosx ( void *pPointer )
 {
 	#if defined(__APPLE__)  || defined(__MACH__)
-	RING_API_RETNUMBER(1);
+	SIMPLE_API_RETNUMBER(1);
 	#else
-	RING_API_RETNUMBER(0);
+	SIMPLE_API_RETNUMBER(0);
 	#endif
 }
 
 void ring_vm_os_islinux ( void *pPointer )
 {
 	#ifdef __linux__
-	RING_API_RETNUMBER(1);
+	SIMPLE_API_RETNUMBER(1);
 	#else
-	RING_API_RETNUMBER(0);
+	SIMPLE_API_RETNUMBER(0);
 	#endif
 }
 
 void ring_vm_os_isfreebsd ( void *pPointer )
 {
 	#ifdef __FreeBSD__
-	RING_API_RETNUMBER(1);
+	SIMPLE_API_RETNUMBER(1);
 	#else
-	RING_API_RETNUMBER(0);
+	SIMPLE_API_RETNUMBER(0);
 	#endif
 }
 
 void ring_vm_os_isandroid ( void *pPointer )
 {
 	#ifdef __ANDROID__
-	RING_API_RETNUMBER(1);
+	SIMPLE_API_RETNUMBER(1);
 	#else
-	RING_API_RETNUMBER(0);
+	SIMPLE_API_RETNUMBER(0);
 	#endif
 }
 
 void ring_vm_os_windowsnl ( void *pPointer )
 {
-	RING_API_RETSTRING("\r\n");
+	SIMPLE_API_RETSTRING("\r\n");
 }
 
 void ring_vm_os_currentdir ( void *pPointer )
 {
-	char cDirPath[RING_PATHSIZE]  ;
+	char cDirPath[SIMPLE_PATHSIZE]  ;
 	ring_currentdir(cDirPath);
-	RING_API_RETSTRING(cDirPath);
+	SIMPLE_API_RETSTRING(cDirPath);
 }
 
 void ring_vm_os_exefilename ( void *pPointer )
 {
-	char cDirPath[RING_PATHSIZE]  ;
+	char cDirPath[SIMPLE_PATHSIZE]  ;
 	if ( ring_exefilename(cDirPath) ) {
-		RING_API_RETSTRING(cDirPath);
+		SIMPLE_API_RETSTRING(cDirPath);
 	}
 }
 
 void ring_vm_os_chdir ( void *pPointer )
 {
-	RING_API_RETNUMBER(ring_chdir(RING_API_GETSTRING(1)));
+	SIMPLE_API_RETNUMBER(ring_chdir(SIMPLE_API_GETSTRING(1)));
 }
 
 void ring_vm_os_exefolder ( void *pPointer )
 {
-	char cDirPath[RING_PATHSIZE]  ;
+	char cDirPath[SIMPLE_PATHSIZE]  ;
 	ring_exefolder(cDirPath);
-	RING_API_RETSTRING(cDirPath);
+	SIMPLE_API_RETSTRING(cDirPath);
 }

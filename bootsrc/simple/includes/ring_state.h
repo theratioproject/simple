@@ -74,7 +74,7 @@ SIMPLE_API void ring_state_runobjectfile ( RingState *pRingState,char *cFileName
 
 SIMPLE_API void ring_state_runobjectstring ( RingState *pRingState,char *cString,const char *cFileName ) ;
 /* MACRO */
-#define RING_STATE_CHECKPRINTRULES if ( pParser->pRingState->nPrintRules )
+#define SIMPLE_STATE_CHECKPRINTRULES if ( pParser->pRingState->nPrintRules )
 /* General Functions */
 
 int ring_fexists ( const char *cFileName ) ;

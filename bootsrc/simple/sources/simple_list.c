@@ -10,7 +10,7 @@ SIMPLE_API List * ring_list_new_gc ( void *pState,int nSize )
 	List *pList  ;
 	pList = (List *) ring_state_malloc(pState,sizeof(List));
 	if ( pList == NULL ) {
-		printf( RING_OOM ) ;
+		printf( SIMPLE_OOM ) ;
 		exit(0);
 	}
 	return ring_list_new2_gc(pState,pList,nSize) ;
@@ -762,19 +762,19 @@ SIMPLE_API int ring_list_findinlistofobjs ( List *pList,int nType,double nNum1,c
 			if ( ring_vm_oop_isobject(pList2) == 0 ) {
 				continue ;
 			}
-			nPos = ring_list_findstring(ring_list_getlist(pList2,RING_OBJECT_OBJECTDATA),cAttribute,RING_VAR_NAME);
+			nPos = ring_list_findstring(ring_list_getlist(pList2,SIMPLE_OBJECT_OBJECTDATA),cAttribute,SIMPLE_VAR_NAME);
 			if ( nPos == 0 ) {
 				return -1 ;
 			}
-			pList2 = ring_list_getlist(pList2,RING_OBJECT_OBJECTDATA) ;
+			pList2 = ring_list_getlist(pList2,SIMPLE_OBJECT_OBJECTDATA) ;
 			pList2 = ring_list_getlist(pList2,nPos) ;
-			if ( nType  == RING_VM_LISTOFOBJS_FINDSTRING ) {
-				if ( strcmp(str,ring_list_getstring(pList2,RING_VAR_VALUE)) == 0 ) {
+			if ( nType  == SIMPLE_VM_LISTOFOBJS_FINDSTRING ) {
+				if ( strcmp(str,ring_list_getstring(pList2,SIMPLE_VAR_VALUE)) == 0 ) {
 					return x ;
 				}
 			}
 			else {
-				if ( ring_list_getdouble(pList2,RING_VAR_VALUE) == nNum1 ) {
+				if ( ring_list_getdouble(pList2,SIMPLE_VAR_VALUE) == nNum1 ) {
 					return x ;
 				}
 			}
@@ -949,11 +949,11 @@ SIMPLE_API double ring_list_getdoublecolumn ( List *pList,int nIndex,int nColumn
 				pList = ring_list_getlist(pList,nColumn);
 			}
 			if ( ring_vm_oop_isobject(pList) ) {
-				nPos = ring_list_findstring(ring_list_getlist(pList,RING_OBJECT_OBJECTDATA),cAttribute,RING_VAR_NAME);
-				pList = ring_list_getlist(pList,RING_OBJECT_OBJECTDATA) ;
+				nPos = ring_list_findstring(ring_list_getlist(pList,SIMPLE_OBJECT_OBJECTDATA),cAttribute,SIMPLE_VAR_NAME);
+				pList = ring_list_getlist(pList,SIMPLE_OBJECT_OBJECTDATA) ;
 				pList = ring_list_getlist(pList,nPos) ;
-				if ( ring_list_isdouble(pList,RING_VAR_VALUE) ) {
-					return ring_list_getdouble(pList,RING_VAR_VALUE) ;
+				if ( ring_list_isdouble(pList,SIMPLE_VAR_VALUE) ) {
+					return ring_list_getdouble(pList,SIMPLE_VAR_VALUE) ;
 				}
 			}
 		}
@@ -978,11 +978,11 @@ SIMPLE_API char * ring_list_getstringcolumn ( List *pList,int nIndex,int nColumn
 				pList = ring_list_getlist(pList,nColumn);
 			}
 			if ( ring_vm_oop_isobject(pList) ) {
-				nPos = ring_list_findstring(ring_list_getlist(pList,RING_OBJECT_OBJECTDATA),cAttribute,RING_VAR_NAME);
-				pList = ring_list_getlist(pList,RING_OBJECT_OBJECTDATA) ;
+				nPos = ring_list_findstring(ring_list_getlist(pList,SIMPLE_OBJECT_OBJECTDATA),cAttribute,SIMPLE_VAR_NAME);
+				pList = ring_list_getlist(pList,SIMPLE_OBJECT_OBJECTDATA) ;
 				pList = ring_list_getlist(pList,nPos) ;
-				if ( ring_list_isstring(pList,RING_VAR_VALUE) ) {
-					return ring_list_getstring(pList,RING_VAR_VALUE) ;
+				if ( ring_list_isstring(pList,SIMPLE_VAR_VALUE) ) {
+					return ring_list_getstring(pList,SIMPLE_VAR_VALUE) ;
 				}
 			}
 		}
@@ -1008,7 +1008,7 @@ SIMPLE_API void ring_list_genarray_gc ( void *pState,List *pList )
 	*/
 	pArray = (Item **) ring_state_malloc(pState,ring_list_getsize(pList) * sizeof(Item *));
 	if ( pArray == NULL ) {
-		printf( RING_OOM ) ;
+		printf( SIMPLE_OOM ) ;
 		exit(0);
 	}
 	for ( x = 1 ; x <= ring_list_getsize(pList) ; x++ ) {

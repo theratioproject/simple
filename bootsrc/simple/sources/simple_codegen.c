@@ -1,7 +1,7 @@
 /* Copyright (c) 2013-2018 Mahmoud Fayed <msfclipper@yahoo.com> */
 #include "../includes/ring.h"
 /* Operations Text (Array) */
-const char * RING_IC_OP[] = {"NewLine","FileName","Print","Class","Func","Dup","New","Give","Private","NewLabel", 
+const char * SIMPLE_IC_OP[] = {"NewLine","FileName","Print","Class","Func","Dup","New","Give","Private","NewLabel", 
 
 "Jump","JumpZ","Jump1","JumpFOR","JZ2","J12","LoadA","Assignment","LoadSA","LoadIA","LoadAPushV","==","<",">","!=","<=",">=", 
 
@@ -35,8 +35,8 @@ void ring_parser_icg_newoperation ( Parser *pParser , IC_OPERATIONS opcode )
 	}
 	pParser->ActiveGenCodeList = ring_list_newlist_gc(pParser->pRingState,pParser->GenCode);
 	ring_list_addint_gc(pParser->pRingState,pParser->ActiveGenCodeList,opcode);
-	#if RING_SHOWIC
-	printf( "\n %6d [ %s ] ",ring_list_getsize(pParser->GenCode) , RING_IC_OP[opcode] ) ;
+	#if SIMPLE_SHOWIC
+	printf( "\n %6d [ %s ] ",ring_list_getsize(pParser->GenCode) , SIMPLE_IC_OP[opcode] ) ;
 	#endif
 }
 
@@ -45,8 +45,8 @@ void ring_parser_icg_insertoperation ( Parser *pParser , int nPos , IC_OPERATION
 	assert(pParser != NULL);
 	pParser->ActiveGenCodeList = ring_list_insertlist(pParser->GenCode,nPos);
 	ring_list_addint_gc(pParser->pRingState,pParser->ActiveGenCodeList,opcode);
-	#if RING_SHOWIC
-	printf( "\n %6d [ %s ] ",nPos, RING_IC_OP[opcode] ) ;
+	#if SIMPLE_SHOWIC
+	printf( "\n %6d [ %s ] ",nPos, SIMPLE_IC_OP[opcode] ) ;
 	#endif
 }
 
@@ -55,7 +55,7 @@ void ring_parser_icg_newoperand ( Parser *pParser , const char *cStr )
 	assert(pParser != NULL);
 	assert(pParser->ActiveGenCodeList);
 	ring_list_addstring_gc(pParser->pRingState,pParser->ActiveGenCodeList,cStr);
-	#if RING_SHOWIC
+	#if SIMPLE_SHOWIC
 	printf( " Operand : %s ",cStr ) ;
 	#endif
 }
@@ -65,7 +65,7 @@ void ring_parser_icg_newoperandint ( Parser *pParser , int nValue )
 	assert(pParser != NULL);
 	assert(pParser->ActiveGenCodeList);
 	ring_list_addint_gc(pParser->pRingState,pParser->ActiveGenCodeList,nValue);
-	#if RING_SHOWIC
+	#if SIMPLE_SHOWIC
 	printf( " Operand : %d ",nValue ) ;
 	#endif
 }
@@ -75,7 +75,7 @@ void ring_parser_icg_newoperanddouble ( Parser *pParser , double nValue )
 	assert(pParser != NULL);
 	assert(pParser->ActiveGenCodeList);
 	ring_list_adddouble_gc(pParser->pRingState,pParser->ActiveGenCodeList,nValue);
-	#if RING_SHOWIC
+	#if SIMPLE_SHOWIC
 	printf( " Operand : %.5f ",nValue ) ;
 	#endif
 }
@@ -85,7 +85,7 @@ void ring_parser_icg_newoperandpointer ( Parser *pParser , void *pValue )
 	assert(pParser != NULL);
 	assert(pParser->ActiveGenCodeList);
 	ring_list_addpointer_gc(pParser->pRingState,pParser->ActiveGenCodeList,pValue);
-	#if RING_SHOWIC
+	#if SIMPLE_SHOWIC
 	printf( " Operand : %p ",pValue ) ;
 	#endif
 }
@@ -143,7 +143,7 @@ void ring_parser_icg_showoutput ( List *pListGenCode,int nStatus )
 		for ( x = 1 ; x <= nCount ; x++ ) {
 			pList = ring_list_getlist(pListGenCode,x);
 			nCount2 = ring_list_getsize(pList);
-			printf( "\n %6d  %10s  ", x , RING_IC_OP[ring_list_getint(pList,1)] ) ;
+			printf( "\n %6d  %10s  ", x , SIMPLE_IC_OP[ring_list_getint(pList,1)] ) ;
 			if ( nCount2 > 1 ) {
 				for ( y = 2 ; y <= nCount2 ; y++ ) {
 					if ( ring_list_isstring(pList,y) ) {
@@ -181,7 +181,7 @@ void ring_parser_icg_duplicate ( Parser *pParser,int nStart,int nEnd )
 {
 	List *pList,*pList2  ;
 	int x  ;
-	#if RING_SHOWIC
+	#if SIMPLE_SHOWIC
 	int y,nCount2  ;
 	#endif
 	assert(pParser != NULL);
@@ -190,9 +190,9 @@ void ring_parser_icg_duplicate ( Parser *pParser,int nStart,int nEnd )
 			pList = ring_list_newlist_gc(pParser->pRingState,pParser->GenCode);
 			pList2 = ring_list_getlist(pParser->GenCode,x);
 			ring_list_copy(pList,pList2);
-			#if RING_SHOWIC
+			#if SIMPLE_SHOWIC
 			nCount2 = ring_list_getsize(pList);
-			printf( "\n %6d [ %s ] ", ring_list_getsize(pParser->GenCode) , RING_IC_OP[ring_list_getint(pList,1)] ) ;
+			printf( "\n %6d [ %s ] ", ring_list_getsize(pParser->GenCode) , SIMPLE_IC_OP[ring_list_getint(pList,1)] ) ;
 			if ( nCount2 > 1 ) {
 				for ( y = 2 ; y <= nCount2 ; y++ ) {
 					if ( ring_list_isstring(pList,y) ) {

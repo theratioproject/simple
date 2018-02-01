@@ -9,7 +9,7 @@ SIMPLE_API Item * ring_item_new_gc ( void *pState,int ItemType )
 	Item *pItem  ;
 	pItem = (Item *) ring_state_malloc(pState,sizeof(Item));
 	if ( pItem == NULL ) {
-		printf( RING_OOM ) ;
+		printf( SIMPLE_OOM ) ;
 		exit(0);
 	}
 	/* Set Type */

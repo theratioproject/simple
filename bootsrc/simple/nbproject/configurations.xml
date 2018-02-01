@@ -4,6 +4,7 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>includes/ring.h</itemPath>
       <itemPath>includes/ring_api.h</itemPath>
       <itemPath>includes/ring_codegen.h</itemPath>
       <itemPath>includes/ring_ext.h</itemPath>
@@ -99,6 +100,8 @@
       </toolsSet>
       <compileType>
       </compileType>
+      <item path="includes/ring.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="includes/ring_api.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="includes/ring_codegen.h" ex="false" tool="3" flavor2="0">
@@ -248,6 +251,8 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="includes/ring.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="includes/ring_api.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="includes/ring_codegen.h" ex="false" tool="3" flavor2="0">

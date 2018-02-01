@@ -74,10 +74,10 @@ void ring_vm_file_bytes2float ( void *pPointer ) ;
 
 void ring_vm_file_bytes2double ( void *pPointer ) ;
 /* Constants */
-#define RING_VM_FILE_BUFFERSIZE "Buffer size must be >= 1"
-#define RING_VM_POINTER_FILE "file"
-#define RING_VM_POINTER_FILEPOS "filepos"
-#define RING_API_BADDIRECTORY "Error, Couldn't open the directory"
+#define SIMPLE_VM_FILE_BUFFERSIZE "Buffer size must be >= 1"
+#define SIMPLE_VM_POINTER_FILE "file"
+#define SIMPLE_VM_POINTER_FILEPOS "filepos"
+#define SIMPLE_API_BADDIRECTORY "Error, Couldn't open the directory"
 /* Data */
 typedef union Ring_uData {
 	int iNumber  ;
