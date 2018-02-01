@@ -195,7 +195,7 @@ void ring_poolmanager_newblock ( RingState *pRingState )
 	pMemory = (PoolData *) ring_malloc(sizeof(PoolData)*RING_POOLMANAGER_ITEMSINBLOCK);
 	/* Check Memory */
 	if ( pMemory == NULL ) {
-		printf( RING_OOM ) ;
+		printf( SIMPLE_OOM ) ;
 		exit(0);
 	}
 	/* Set Linked Lists (pNext values) */
@@ -231,7 +231,7 @@ void * ring_poolmanager_allocate ( RingState *pRingState,size_t size )
 		pMemory = ring_malloc(size);
 		/* Check Memory */
 		if ( pMemory == NULL ) {
-			printf( RING_OOM ) ;
+			printf( SIMPLE_OOM ) ;
 			exit(0);
 		}
 	}

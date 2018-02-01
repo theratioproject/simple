@@ -36,7 +36,7 @@ SIMPLE_API RingState * ring_state_new ( void )
 	RingState *pRingState  ;
 	pRingState = (RingState *) ring_malloc(sizeof(RingState));
 	if ( pRingState == NULL ) {
-		printf( RING_OOM ) ;
+		printf( SIMPLE_OOM ) ;
 		exit(0);
 	}
 	pRingState->pRingFilesList = NULL ;

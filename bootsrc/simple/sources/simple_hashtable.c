@@ -7,7 +7,7 @@ HashTable * ring_hashtable_new_gc ( void *pState )
 	HashTable *pHashTable  ;
 	pHashTable = (HashTable *) ring_state_malloc(pState,sizeof(HashTable));
 	if ( pHashTable == NULL ) {
-		printf( RING_OOM ) ;
+		printf( SIMPLE_OOM ) ;
 		exit(0);
 	}
 	pHashTable->nItems = 0 ;
@@ -15,7 +15,7 @@ HashTable * ring_hashtable_new_gc ( void *pState )
 	pHashTable->nRebuildSize = 7 ;
 	pHashTable->pArray = (HashItem **) ring_state_calloc(pState,pHashTable->nLinkedLists,sizeof(HashItem *));
 	if ( pHashTable->pArray == NULL ) {
-		printf( RING_OOM ) ;
+		printf( SIMPLE_OOM ) ;
 		exit(0);
 	}
 	return pHashTable ;
@@ -48,7 +48,7 @@ HashItem * ring_hashtable_newitem_gc ( void *pState,HashTable *pHashTable,const 
 		pItem = pItem->pNext ;
 	}
 	if ( pItem == NULL ) {
-		printf( RING_OOM ) ;
+		printf( SIMPLE_OOM ) ;
 		exit(0);
 	}
 	/* Store Copy from The Key */
@@ -177,7 +177,7 @@ void ring_hashtable_rebuild_gc ( void *pState,HashTable *pHashTable )
 	pHashTable->nLinkedLists *= 10 ;
 	pHashTable->pArray = (HashItem **) ring_state_calloc(pState,pHashTable->nLinkedLists,sizeof(HashItem *));
 	if ( pHashTable->pArray == NULL ) {
-		printf( RING_OOM ) ;
+		printf( SIMPLE_OOM ) ;
 		exit(0);
 	}
 	for ( x = 0 ; x < nLinkedLists ; x++ ) {

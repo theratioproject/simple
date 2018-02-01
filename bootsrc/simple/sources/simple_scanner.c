@@ -19,7 +19,7 @@ Scanner * ring_scanner_new ( RingState *pRingState )
 	Scanner *pScanner  ;
 	pScanner = (Scanner *) ring_state_malloc(pRingState,sizeof(Scanner));
 	if ( pScanner == NULL ) {
-		printf( RING_OOM ) ;
+		printf( SIMPLE_OOM ) ;
 		exit(0);
 	}
 	pScanner->pRingState = pRingState ;
