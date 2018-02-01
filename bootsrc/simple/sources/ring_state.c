@@ -198,10 +198,11 @@ SIMPLE_API void ring_state_main ( int argc, char *argv[] )
 				nWarn = 1 ;
 				nRingStateDEBUGSEGFAULT = 1 ;
 			}
-			else if ( ( is_simple_file(argv[x]) || is_complex_file(argv[x])) && nSRC == 0 ) {
-				cStr = argv[x] ;
+			//else if ( ( is_simple_file(argv[x]) || is_complex_file(argv[x])) && nSRC == 0 ) {
+			//	cStr = argv[x] ;
 				nSRC = 1 ;
-			}
+			//} 
+                        printf("it reach here %s\n", argv[x]);
 		}
 	}
 	#if RING_TESTPERFORMANCE
