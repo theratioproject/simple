@@ -1138,7 +1138,7 @@ SIMPLE_API void ring_vm_showerrormessage ( VM *pVM,const char *cStr )
 			}
 			printf( "%s",cFile ) ;
 			/* Called From */
-			printf( "\n\nat from line %d  ",ring_list_getint(pList,RING_FUNCCL_LINENUMBER) ) ;
+			printf( "\ncalled from line %d  ",ring_list_getint(pList,RING_FUNCCL_LINENUMBER) ) ;
 			lFunctionCall = 1 ;
 		}
 		else {
