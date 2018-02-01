@@ -312,7 +312,7 @@ int ring_parser_stmt ( Parser *pParser )
 	if ( ring_parser_iskeyword(pParser,K_SEE) | ring_parser_iskeyword(pParser,K_PUT) ) {
 		ring_parser_nexttoken(pParser);
 		#if SIMPLE_USESEEFUNCTION
-		/* Generate code to use the SEE function */
+		/* Generate code to use the display function */
 		ring_parser_icg_newoperation(pParser,ICO_LOADFUNC);
 		ring_parser_icg_newoperand(pParser,"ringvm_see");
 		/* Parameters */
@@ -326,7 +326,7 @@ int ring_parser_stmt ( Parser *pParser )
 		ring_parser_icg_newoperation(pParser,ICO_FREESTACK);
 		#else
 		/*
-		**  Generate code using the SEE Command Instruction 
+		**  Generate code using the display Command Instruction 
 		**  Generate Code 
 		*/
 		ring_parser_icg_newoperation(pParser,ICO_FUNCEXE);
