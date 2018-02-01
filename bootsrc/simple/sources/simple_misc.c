@@ -14,6 +14,11 @@
 
 #include "../includes/ring.h"
 
+RING_API void print_line ( void )
+{
+	puts("==================================================================");
+}
+
 void display_help(){
     printf("Usage:  simple ([OPTIONS]) [PATH] [ARGS...]\n");
     printf("\t\t\t<to run a simple or complex file>\n");
