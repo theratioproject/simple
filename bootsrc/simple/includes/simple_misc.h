@@ -18,6 +18,8 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+    
+#define SIMPLE_VERSION "0.3.2"
 
 void display_help();
 
