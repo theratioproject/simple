@@ -4,6 +4,30 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>includes/simple.h</itemPath>
+      <itemPath>includes/simple_api.h</itemPath>
+      <itemPath>includes/simple_codegen.h</itemPath>
+      <itemPath>includes/simple_ext.h</itemPath>
+      <itemPath>includes/simple_hashlib.h</itemPath>
+      <itemPath>includes/simple_hashtable.h</itemPath>
+      <itemPath>includes/simple_item.h</itemPath>
+      <itemPath>includes/simple_items.h</itemPath>
+      <itemPath>includes/simple_list.h</itemPath>
+      <itemPath>includes/simple_objfile.h</itemPath>
+      <itemPath>includes/simple_parser.h</itemPath>
+      <itemPath>includes/simple_pooldata.h</itemPath>
+      <itemPath>includes/simple_scanner.h</itemPath>
+      <itemPath>includes/simple_state.h</itemPath>
+      <itemPath>includes/simple_string.h</itemPath>
+      <itemPath>includes/simple_vm.h</itemPath>
+      <itemPath>includes/simple_vmdll.h</itemPath>
+      <itemPath>includes/simple_vmfile.h</itemPath>
+      <itemPath>includes/simple_vmgc.h</itemPath>
+      <itemPath>includes/simple_vmgcdata.h</itemPath>
+      <itemPath>includes/simple_vmlistfuncs.h</itemPath>
+      <itemPath>includes/simple_vmmath.h</itemPath>
+      <itemPath>includes/simple_vmos.h</itemPath>
+      <itemPath>includes/simple_vmrefmeta.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -74,6 +98,54 @@
       </toolsSet>
       <compileType>
       </compileType>
+      <item path="includes/simple.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/simple_api.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/simple_codegen.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/simple_ext.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/simple_hashlib.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/simple_hashtable.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/simple_item.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/simple_items.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/simple_list.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/simple_objfile.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/simple_parser.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/simple_pooldata.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/simple_scanner.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/simple_state.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/simple_string.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/simple_vm.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/simple_vmdll.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/simple_vmfile.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/simple_vmgc.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/simple_vmgcdata.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/simple_vmlistfuncs.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/simple_vmmath.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/simple_vmos.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/simple_vmrefmeta.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="sources/simple.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="sources/simple_api.c" ex="false" tool="0" flavor2="0">
@@ -173,6 +245,54 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="includes/simple.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/simple_api.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/simple_codegen.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/simple_ext.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/simple_hashlib.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/simple_hashtable.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/simple_item.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/simple_items.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/simple_list.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/simple_objfile.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/simple_parser.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/simple_pooldata.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/simple_scanner.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/simple_state.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/simple_string.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/simple_vm.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/simple_vmdll.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/simple_vmfile.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/simple_vmgc.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/simple_vmgcdata.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/simple_vmlistfuncs.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/simple_vmmath.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/simple_vmos.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/simple_vmrefmeta.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="sources/simple.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="sources/simple_api.c" ex="false" tool="0" flavor2="0">
