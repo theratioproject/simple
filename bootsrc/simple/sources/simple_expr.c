@@ -20,8 +20,8 @@ int ring_parser_expr ( Parser *pParser )
 		
 		puts("Rule : Expr --> LogicNot");
 		#endif
-		while ( ring_parser_iskeyword(pParser,K_AND) || ring_parser_isoperator(pParser,"&&")  || ring_parser_iskeyword(pParser,K_OR) || ring_parser_isoperator(pParser,"||") ) {
-			if ( ring_parser_iskeyword(pParser,K_AND) || ring_parser_isoperator(pParser,"&&") ) {
+		while ( ring_parser_iskeyword(pParser,KEYWORD_AND) || ring_parser_isoperator(pParser,"&&")  || ring_parser_iskeyword(pParser,KEYWORD_OR) || ring_parser_isoperator(pParser,"||") ) {
+			if ( ring_parser_iskeyword(pParser,KEYWORD_AND) || ring_parser_isoperator(pParser,"&&") ) {
 				/* Generate Code */
 				ring_parser_icg_newoperation(pParser,ICO_JUMPZERO2);
 				pMark = ring_parser_icg_getactiveoperation(pParser);
@@ -81,7 +81,7 @@ int ring_parser_logicnot ( Parser *pParser )
 {
 	int x  ;
 	/* LogicNot --> Not EqualOrNot */
-	if ( ring_parser_iskeyword(pParser,K_NOT) || ring_parser_isoperator2(pParser,OP_NOT) ) {
+	if ( ring_parser_iskeyword(pParser,KEYWORD_NOT) || ring_parser_isoperator2(pParser,OP_NOT) ) {
 		ring_parser_nexttoken(pParser);
 		SIMPLE_PARSER_IGNORENEWLINE ;
 		x = ring_parser_equalornot(pParser);
@@ -936,7 +936,7 @@ int ring_parser_factor ( Parser *pParser,int *nFlag )
 		return x ;
 	}
 	/* Factor --> New Identifier */
-	if ( ring_parser_iskeyword(pParser,K_NEW) ) {
+	if ( ring_parser_iskeyword(pParser,KEYWORD_NEW) ) {
 		ring_parser_nexttoken(pParser);
 		SIMPLE_PARSER_IGNORENEWLINE ;
 		/* Generate Code */
@@ -992,7 +992,7 @@ int ring_parser_factor ( Parser *pParser,int *nFlag )
 		}
 	}
 	/* Factor --> Anonymous Function */
-	if ( ring_parser_iskeyword(pParser,K_FUNC) || ring_parser_iskeyword(pParser,K_DEF) ) {
+	if ( ring_parser_iskeyword(pParser,KEYWORD_FUNC) || ring_parser_iskeyword(pParser,KEYWORD_DEF) ) {
 		ring_parser_nexttoken(pParser);
 		/*
 		**  Generate Code 
@@ -1049,7 +1049,7 @@ int ring_parser_factor ( Parser *pParser,int *nFlag )
 		}
 	}
 	/* Factor --> Call Identifier ( parameters ) */
-	if ( ring_parser_iskeyword(pParser,K_CALL) ) {
+	if ( ring_parser_iskeyword(pParser,KEYWORD_CALL) ) {
 		ring_parser_nexttoken(pParser);
 		if ( ring_parser_isidentifier(pParser) ) {
 			/* Generate Code */
