@@ -309,7 +309,7 @@ int ring_parser_stmt ( Parser *pParser )
 		return 0 ;
 	}
 	/* Statement --> See|Put Expr */
-	if ( ring_parser_iskeyword(pParser,KEYWORD_SEE) | ring_parser_iskeyword(pParser,KEYWORD_PUT) ) {
+	if ( ring_parser_iskeyword(pParser,KEYWORD_SEE)) {
 		ring_parser_nexttoken(pParser);
 		#if SIMPLE_USEDISPLAYFUNCTION
 		/* Generate code to use the display function */

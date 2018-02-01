@@ -9,7 +9,7 @@ const char * SIMPLE_KEYWORDS[] = {"IF","TO","OR","AND","NOT","FOR","NEW","FUNC",
 
 "IN","LOOP","PACKAGE","IMPORT","PRIVATE","STEP","DO","AGAIN","CALL","ELSEIF", 
 
-"PUT","GET","CASE","DEF","ENDFUNC","ENDCLASS","ENDPACKAGE", 
+"GET","CASE","DEF","ENDFUNC","ENDCLASS","ENDPACKAGE", 
 
 "CHANGERINGKEYWORD","CHANGERINGOPERATOR","LOADSYNTAX"} ;
 /* Functions */
@@ -516,7 +516,6 @@ void ring_scanner_keywords ( Scanner *pScanner )
 	ring_list_addstring_gc(pScanner->pRingState,pScanner->Keywords,"again");
 	ring_list_addstring_gc(pScanner->pRingState,pScanner->Keywords,"call");
 	ring_list_addstring_gc(pScanner->pRingState,pScanner->Keywords,"elseif");
-	ring_list_addstring_gc(pScanner->pRingState,pScanner->Keywords,"put");
 	ring_list_addstring_gc(pScanner->pRingState,pScanner->Keywords,"get");
 	ring_list_addstring_gc(pScanner->pRingState,pScanner->Keywords,"case");
 	ring_list_addstring_gc(pScanner->pRingState,pScanner->Keywords,"def");
