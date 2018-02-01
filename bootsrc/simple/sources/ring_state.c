@@ -170,7 +170,7 @@ RING_API void ring_state_main ( int argc, char *argv[] )
 				nCGI = 1 ;
 				nRingStateCGI = 1 ;
 			}
-			else if ( strcmp(argv[x],"-show-tokens") == 0 ) {
+			else if ( strcmp(argv[x],"-show-tokens") == 0 || strcmp(argv[x],"-k") == 0 ) {
 				nTokens = 1 ;
 			}
 			else if ( strcmp(argv[x],"-rules") == 0 ) {
