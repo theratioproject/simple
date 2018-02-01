@@ -76,6 +76,7 @@
       <itemPath>sources/ring_vmtrycatch.c</itemPath>
       <itemPath>sources/ring_vmvars.c</itemPath>
       <itemPath>sources/ringw.c</itemPath>
+      <itemPath>sources/simple_misc.c</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -227,6 +228,8 @@
       </item>
       <item path="sources/ringw.c" ex="false" tool="0" flavor2="0">
       </item>
+      <item path="sources/simple_misc.c" ex="false" tool="0" flavor2="0">
+      </item>
     </conf>
     <conf name="Release" type="1">
       <toolsSet>
@@ -375,6 +378,8 @@
       <item path="sources/ring_vmvars.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="sources/ringw.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_misc.c" ex="false" tool="0" flavor2="0">
       </item>
     </conf>
   </confs>
