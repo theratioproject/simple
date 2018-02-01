@@ -308,7 +308,7 @@ int ring_parser_stmt ( Parser *pParser )
 		}
 		return 0 ;
 	}
-	/* Statement --> See|Put Expr */
+	/* Statement --> display Expr */
 	if ( ring_parser_iskeyword(pParser,KEYWORD_DISPLAY)) {
 		ring_parser_nexttoken(pParser);
 		#if SIMPLE_USEDISPLAYFUNCTION
@@ -365,7 +365,7 @@ int ring_parser_stmt ( Parser *pParser )
 		return x ;
 	}
 	/* Statement --> Give|Get Identifier */
-	if ( ring_parser_iskeyword(pParser,KEYWORD_GIVE) | ring_parser_iskeyword(pParser,KEYWORD_GET) ) {
+	if ( ring_parser_iskeyword(pParser,KEYWORD_READ) ) {
 		ring_parser_nexttoken(pParser);
 		if ( ring_parser_isidentifier(pParser) ) {
 			/* Generate Code */
