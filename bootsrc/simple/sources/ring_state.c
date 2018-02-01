@@ -163,8 +163,7 @@ SIMPLE_API void ring_state_main ( int argc, char *argv[] )
 	signal(SIGSEGV,segfaultaction);
 	#if RING_TESTUNITS
 	ring_testallunits();
-	#endif 
-        printf("it reach here %s\n", argv[0]);
+	#endif
 	if ( argc > 1 ) {
 		for ( x = 1 ; x < argc ; x++ ) {
 			if ( strcmp(argv[x],"-cgi") == 0 ) {
