@@ -36,4 +36,6 @@ void display_help(){
     //printf("\t-p -property                Pop up a dialog that shows the current SIMPLE and your Computer Property.\n");
     printf("\t-e -error                   Skip all error instance and print error report in console.\n");
     printf("\t-l [PATH] -log-error [PATH] Skip all error instance and print error report in file.\n");
+    //print_line(); printf("MORE OPTION BELOW"); print_line(); 
+    //printf("\t-k [PATH] -show-tokens [PATH]             Save the token into a file for debugging.\n");
 }
