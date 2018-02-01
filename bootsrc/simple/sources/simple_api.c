@@ -1,5 +1,5 @@
 /* Copyright (c) 2013-2018 Mahmoud Fayed <msfclipper@yahoo.com> */
-#include "ring.h"
+#include "../include/simple.h"
 /* Support for C Functions */
 
 RING_API void ring_vm_funcregister2 ( RingState *pRingState,const char *cStr, void (*pFunc)(void *) )

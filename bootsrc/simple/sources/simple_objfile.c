@@ -2,7 +2,7 @@
 **  Copyright (c) 2013-2017 Mahmoud Fayed <msfclipper@yahoo.com> 
 **  Include Files 
 */
-#include "ring.h"
+#include "../include/simple.h"
 /* Define Functions */
 
 void ring_objfile_writefile ( RingState *pRingState )

@@ -15,7 +15,7 @@
 **  aBraceObjects ( pBraceObject, nSP, nListStart, pNestedLists) 
 **  aSetProperty ( Object Pointer , Type (Variable/ListItem)  , Property Name, Property Variable , nBeforeEqual) 
 */
-#include "ring.h"
+#include "../include/simple.h"
 /* Functions */
 
 void ring_vm_oop_newobj ( VM *pVM )

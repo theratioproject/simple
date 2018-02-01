@@ -1,5 +1,5 @@
 /* Copyright (c) 2013-2018 Mahmoud Fayed <msfclipper@yahoo.com> */
-#include "ring.h"
+#include "../include/simple.h"
 /* User Interface - Commands Implementation (Faster) - Because we don't have functions call */
 
 void ring_vm_see ( VM *pVM )

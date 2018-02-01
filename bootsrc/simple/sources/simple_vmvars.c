@@ -1,5 +1,5 @@
 /* Copyright (c) 2013-2018 Mahmoud Fayed <msfclipper@yahoo.com> */
-#include "ring.h"
+#include "../include/simple.h"
 /*
 **  Variables 
 **  Memory is a List and each item inside the list is another List (Represent Scope) 

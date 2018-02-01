@@ -3,7 +3,7 @@
 **  Remember, When we read from the stack LIFO 
 **  If we have two parameters, we read the second parameter first 
 */
-#include "ring.h"
+#include "../include/simple.h"
 /* Math */
 
 void ring_vm_sum ( VM *pVM )

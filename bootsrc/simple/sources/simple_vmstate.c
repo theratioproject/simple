@@ -1,5 +1,5 @@
 /* Copyright (c) 2013-2018 Mahmoud Fayed <msfclipper@yahoo.com> */
-#include "ring.h"
+#include "../include/simple.h"
 /* Save/Restore State - Used by Try/Catch/Done & Loop/Exit */
 
 void ring_vm_savestate ( VM *pVM,List *pList )

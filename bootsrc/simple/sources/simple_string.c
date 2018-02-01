@@ -1,5 +1,5 @@
 /* Copyright (c) 2013-2016 Mahmoud Fayed <msfclipper@yahoo.com> */
-#include "ring.h"
+#include "../include/simple.h"
 /* Functions */
 
 RING_API String * ring_string_new_gc ( void *pState,const char *str )
