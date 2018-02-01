@@ -65,7 +65,7 @@
 #define SIMPLE_LONGINSTRUCTION "\nError (E4) : Long VM Instruction! \n"
 /* General */
 #define SIMPLE_PATHSIZE 256
-/* See and Give - use ringvm_display() and ringvm_give() */
+/* See and Give - use ringvm_display() and ringvm_read() */
 #define SIMPLE_USEDISPLAYFUNCTION 1
 #define SIMPLE_USEGIVEFUNCTION 1
 /*

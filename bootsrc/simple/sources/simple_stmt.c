@@ -364,7 +364,7 @@ int ring_parser_stmt ( Parser *pParser )
 		#endif
 		return x ;
 	}
-	/* Statement --> Give|Get Identifier */
+	/* Statement --> read Identifier */
 	if ( ring_parser_iskeyword(pParser,KEYWORD_READ) ) {
 		ring_parser_nexttoken(pParser);
 		if ( ring_parser_isidentifier(pParser) ) {
@@ -380,13 +380,13 @@ int ring_parser_stmt ( Parser *pParser )
 			#if SIMPLE_PARSERTRACE
 			SIMPLE_STATE_CHECKPRINTRULES 
 			
-			puts("Rule : Statement  --> 'Give' Identifier|ListItem|Object.Attribute");
+			puts("Rule : Statement  --> 'read' Identifier|ListItem|Object.Attribute");
 			#endif
 			#if SIMPLE_USEGIVEFUNCTION
-			/* Generate code to use the GIVE function */
+			/* Generate code to use the read function */
 			ring_parser_icg_newoperation(pParser,ICO_ASSIGNMENTPOINTER);
 			ring_parser_icg_newoperation(pParser,ICO_LOADFUNC);
-			ring_parser_icg_newoperand(pParser,"ringvm_give");
+			ring_parser_icg_newoperand(pParser,"ringvm_read");
 			ring_parser_icg_newoperation(pParser,ICO_CALL);
 			ring_parser_icg_newoperandint(pParser,0);
 			ring_parser_icg_newoperation(pParser,ICO_NOOP);
