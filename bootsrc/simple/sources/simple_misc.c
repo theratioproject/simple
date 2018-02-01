@@ -42,24 +42,24 @@ void display_help(){
 
 int is_simple_file ( const char *file_name )
 {
-	int x  ;
-	x = strlen(file_name) - 1 ;
-	if ( x >= 5 ) {
-		if ( tolower(file_name[x]) == 'm' && tolower(file_name[x-1]) == 'i' && tolower(file_name[x-2]) == 's' && tolower(file_name[x-3]) == '.'  ) {
-			return 1 ;
-		}
-	}
-	return 0 ;
+    int x  ;
+    x = strlen(file_name) - 1 ;
+    if ( x >= 5 ) {
+        if ( tolower(file_name[x]) == 'm' && tolower(file_name[x-1]) == 'i' && tolower(file_name[x-2]) == 's' && tolower(file_name[x-3]) == '.'  ) {
+            return 1 ;
+        }
+    }
+    return 0 ;
 }
 
 int is_complex_file ( const char *file_name )
 {
-	int x  ;
-	x = strlen(file_name) - 1 ;
-	if ( x > 6 ) {
-		if ( tolower(file_name[x]) == 'x' && tolower(file_name[x-1]) == 'e' && tolower(file_name[x-2]) == 'l' && tolower(file_name[x-3]) == 'm' && tolower(file_name[x-4]) == 'o' && file_name[x-5] == 'c' && file_name[x-5] == '.' ) {
-			return 1 ;
-		}
-	} 
-	return 0 ;
+    int x  ;
+    x = strlen(file_name) - 1 ;
+    if ( x > 6 ) {
+        if ( tolower(file_name[x]) == 'x' && tolower(file_name[x-1]) == 'e' && tolower(file_name[x-2]) == 'l' && tolower(file_name[x-3]) == 'm' && tolower(file_name[x-4]) == 'o' && file_name[x-5] == 'c' && file_name[x-5] == '.' ) {
+            return 1 ;
+        }
+    } 
+    return 0 ;
 }
