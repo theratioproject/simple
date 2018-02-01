@@ -39,3 +39,27 @@ void display_help(){
     //print_line(); printf("MORE OPTION BELOW"); print_line(); 
     //printf("\t-k [PATH] -show-tokens [PATH]             Save the token into a file for debugging.\n");
 }
+
+int is_simple_file ( const char *cStr )
+{
+	int x  ;
+	x = strlen(cStr) - 1 ;
+	if ( x >= 5 ) {
+		if ( tolower(cStr[x]) == 'm' && tolower(cStr[x-1]) == 'i' && tolower(cStr[x-2]) == 's' && tolower(cStr[x-3]) == '.'  ) {
+			return 1 ;
+		}
+	}
+	return 0 ;
+}
+
+int ring_isobjectfile ( const char *cStr )
+{
+	int x  ;
+	x = strlen(cStr) - 1 ;
+	if ( x > 6 ) {
+		if ( tolower(cStr[x]) == 'o' && tolower(cStr[x-1]) == 'g' && tolower(cStr[x-2]) == 'n' && tolower(cStr[x-3]) == 'i' && tolower(cStr[x-4]) == 'r' && cStr[x-5] == '.' ) {
+			return 1 ;
+		}
+	}
+	return 0 ;
+}

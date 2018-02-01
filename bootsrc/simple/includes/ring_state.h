@@ -88,10 +88,6 @@ int ring_chdir ( const char *cDir ) ;
 
 void ring_exefolder ( char *cDirPath ) ;
 
-int is_simple_file ( const char *cStr ) ;
-
-int ring_isobjectfile ( const char *cStr ) ;
-
 void ring_switchtofilefolder ( char *cFileName ) ;
 
 int ring_justfilepath ( char *cFileName ) ;
