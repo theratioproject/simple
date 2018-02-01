@@ -129,14 +129,14 @@ void ring_vm_file_tempname ( void *pPointer )
 	#ifdef _WIN32
 	/* Windows */
 	char _tmpfile[20]  ;
-	errno_t error  ;
+	/**errno_t error  ;
 	error = tmpnam_s(_tmpfile,20);
 	if ( error ) {
 		RING_API_ERROR(RING_VM_ERROR_TEMPFILENAME);
 	}
 	else {
 		RING_API_RETSTRING(_tmpfile);
-	}
+	}**/
 	/* Mac OS X */
 	#elif __MACH__
 	RING_API_RETSTRING(tmpnam(NULL));
