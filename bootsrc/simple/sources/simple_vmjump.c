@@ -4,45 +4,45 @@
 
 void ring_vm_jump ( VM *pVM )
 {
-	SIMPLE_VM_JUMP ;
+	RING_VM_JUMP ;
 }
 
 void ring_vm_jumpzero ( VM *pVM )
 {
-	if ( SIMPLE_VM_STACK_ISNUMBER ) {
-		if ( SIMPLE_VM_STACK_READN  == 0 ) {
+	if ( RING_VM_STACK_ISNUMBER ) {
+		if ( RING_VM_STACK_READN  == 0 ) {
 			ring_vm_jump(pVM);
 		}
 	}
-	SIMPLE_VM_STACK_POP ;
+	RING_VM_STACK_POP ;
 }
 
 void ring_vm_jumpfor ( VM *pVM )
 {
 	double nNum1,nNum2,nNum3  ;
 	/* Check Data */
-	if ( SIMPLE_VM_STACK_ISNUMBER ) {
-		nNum1 = SIMPLE_VM_STACK_READN ;
-		SIMPLE_VM_STACK_POP ;
+	if ( RING_VM_STACK_ISNUMBER ) {
+		nNum1 = RING_VM_STACK_READN ;
+		RING_VM_STACK_POP ;
 	}
-	else if ( SIMPLE_VM_STACK_ISSTRING ) {
-		nNum1 = ring_vm_stringtonum(pVM,SIMPLE_VM_STACK_READC);
-		SIMPLE_VM_STACK_POP ;
+	else if ( RING_VM_STACK_ISSTRING ) {
+		nNum1 = ring_vm_stringtonum(pVM,RING_VM_STACK_READC);
+		RING_VM_STACK_POP ;
 	} else {
-		ring_vm_error(pVM,SIMPLE_VM_ERROR_FORLOOPDATATYPE);
+		ring_vm_error(pVM,RING_VM_ERROR_FORLOOPDATATYPE);
 		return ;
 	}
 	nNum2 = ring_list_getdouble(pVM->aForStep,ring_list_getsize(pVM->aForStep));
 	/* Check Data */
-	if ( SIMPLE_VM_STACK_ISNUMBER ) {
-		nNum3 = SIMPLE_VM_STACK_READN ;
-		SIMPLE_VM_STACK_POP ;
+	if ( RING_VM_STACK_ISNUMBER ) {
+		nNum3 = RING_VM_STACK_READN ;
+		RING_VM_STACK_POP ;
 	}
-	else if ( SIMPLE_VM_STACK_ISSTRING ) {
-		nNum3 = ring_vm_stringtonum(pVM,SIMPLE_VM_STACK_READC);
-		SIMPLE_VM_STACK_POP ;
+	else if ( RING_VM_STACK_ISSTRING ) {
+		nNum3 = ring_vm_stringtonum(pVM,RING_VM_STACK_READC);
+		RING_VM_STACK_POP ;
 	} else {
-		ring_vm_error(pVM,SIMPLE_VM_ERROR_FORLOOPDATATYPE);
+		ring_vm_error(pVM,RING_VM_ERROR_FORLOOPDATATYPE);
 		return ;
 	}
 	/*
@@ -63,36 +63,36 @@ void ring_vm_jumpfor ( VM *pVM )
 
 void ring_vm_jumpone ( VM *pVM )
 {
-	if ( SIMPLE_VM_STACK_ISNUMBER ) {
-		if ( SIMPLE_VM_STACK_READN  != 0 ) {
+	if ( RING_VM_STACK_ISNUMBER ) {
+		if ( RING_VM_STACK_READN  != 0 ) {
 			ring_vm_jump(pVM);
 		}
 	}
-	SIMPLE_VM_STACK_POP ;
+	RING_VM_STACK_POP ;
 }
 
 void ring_vm_jumpone2 ( VM *pVM )
 {
 	/* Add 1, required for jump in many 'OR' in conditions */
-	if ( SIMPLE_VM_STACK_ISNUMBER ) {
-		if ( SIMPLE_VM_STACK_READN  != 0 ) {
+	if ( RING_VM_STACK_ISNUMBER ) {
+		if ( RING_VM_STACK_READN  != 0 ) {
 			ring_vm_jump(pVM);
 			return ;
 		}
 	}
-	SIMPLE_VM_STACK_POP ;
-	SIMPLE_VM_STACK_PUSHNVALUE(0);
+	RING_VM_STACK_POP ;
+	RING_VM_STACK_PUSHNVALUE(0);
 }
 
 void ring_vm_jumpzero2 ( VM *pVM )
 {
 	/* Add 1, required for jump in many 'AND' in conditions */
-	if ( SIMPLE_VM_STACK_ISNUMBER ) {
-		if ( SIMPLE_VM_STACK_READN  == 0 ) {
+	if ( RING_VM_STACK_ISNUMBER ) {
+		if ( RING_VM_STACK_READN  == 0 ) {
 			ring_vm_jump(pVM);
 			return ;
 		}
 	}
-	SIMPLE_VM_STACK_POP ;
-	SIMPLE_VM_STACK_PUSHNVALUE(1);
+	RING_VM_STACK_POP ;
+	RING_VM_STACK_PUSHNVALUE(1);
 }

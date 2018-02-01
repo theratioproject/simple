@@ -7,7 +7,7 @@ HashTable * ring_hashtable_new_gc ( void *pState )
 	HashTable *pHashTable  ;
 	pHashTable = (HashTable *) ring_state_malloc(pState,sizeof(HashTable));
 	if ( pHashTable == NULL ) {
-		printf( SIMPLE_OOM ) ;
+		printf( RING_OOM ) ;
 		exit(0);
 	}
 	pHashTable->nItems = 0 ;
@@ -15,7 +15,7 @@ HashTable * ring_hashtable_new_gc ( void *pState )
 	pHashTable->nRebuildSize = 7 ;
 	pHashTable->pArray = (HashItem **) ring_state_calloc(pState,pHashTable->nLinkedLists,sizeof(HashItem *));
 	if ( pHashTable->pArray == NULL ) {
-		printf( SIMPLE_OOM ) ;
+		printf( RING_OOM ) ;
 		exit(0);
 	}
 	return pHashTable ;
@@ -48,13 +48,13 @@ HashItem * ring_hashtable_newitem_gc ( void *pState,HashTable *pHashTable,const 
 		pItem = pItem->pNext ;
 	}
 	if ( pItem == NULL ) {
-		printf( SIMPLE_OOM ) ;
+		printf( RING_OOM ) ;
 		exit(0);
 	}
 	/* Store Copy from The Key */
 	pItem->cKey = strdup(cKey) ;
 	/* Item type will be determined from the caller */
-	pItem->nItemType = SIMPLE_HASHITEMTYPE_NOTYPE ;
+	pItem->nItemType = RING_HASHITEMTYPE_NOTYPE ;
 	pItem->pNext = NULL ;
 	/* Increase Items Count */
 	pHashTable->nItems++ ;
@@ -65,7 +65,7 @@ void ring_hashtable_newnumber_gc ( void *pState,HashTable *pHashTable,const char
 {
 	HashItem *pItem  ;
 	pItem = ring_hashtable_newitem_gc(pState,pHashTable,cKey);
-	pItem->nItemType = SIMPLE_HASHITEMTYPE_NUMBER ;
+	pItem->nItemType = RING_HASHITEMTYPE_NUMBER ;
 	pItem->HashValue.nIndex = x ;
 	/* Check Rebuilding the HashTable */
 	ring_hashtable_rebuild_gc(pState,pHashTable);
@@ -75,7 +75,7 @@ void ring_hashtable_newpointer_gc ( void *pState,HashTable *pHashTable,const cha
 {
 	HashItem *pItem  ;
 	pItem = ring_hashtable_newitem_gc(pState,pHashTable,cKey);
-	pItem->nItemType = SIMPLE_HASHITEMTYPE_POINTER ;
+	pItem->nItemType = RING_HASHITEMTYPE_POINTER ;
 	pItem->HashValue.pValue = x ;
 	/* Check Rebuilding the HashTable */
 	ring_hashtable_rebuild_gc(pState,pHashTable);
@@ -177,17 +177,17 @@ void ring_hashtable_rebuild_gc ( void *pState,HashTable *pHashTable )
 	pHashTable->nLinkedLists *= 10 ;
 	pHashTable->pArray = (HashItem **) ring_state_calloc(pState,pHashTable->nLinkedLists,sizeof(HashItem *));
 	if ( pHashTable->pArray == NULL ) {
-		printf( SIMPLE_OOM ) ;
+		printf( RING_OOM ) ;
 		exit(0);
 	}
 	for ( x = 0 ; x < nLinkedLists ; x++ ) {
 		pItem = pArray[x] ;
 		while ( pItem != NULL ) {
 			/* Rehash the item */
-			if ( pItem->nItemType == SIMPLE_HASHITEMTYPE_NUMBER ) {
+			if ( pItem->nItemType == RING_HASHITEMTYPE_NUMBER ) {
 				ring_hashtable_newnumber(pHashTable,pItem->cKey,pItem->HashValue.nIndex);
 			}
-			else if ( pItem->nItemType == SIMPLE_HASHITEMTYPE_POINTER ) {
+			else if ( pItem->nItemType == RING_HASHITEMTYPE_POINTER ) {
 				ring_hashtable_newpointer(pHashTable,pItem->cKey,pItem->HashValue.pValue);
 			}
 			pItem2 = pItem->pNext ;

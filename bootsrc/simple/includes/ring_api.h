@@ -225,52 +225,52 @@ void ring_vmlib_see ( void *pPointer ) ;
 
 void ring_vmlib_give ( void *pPointer ) ;
 /* API For C Functions */
-#define SIMPLE_API_PARALIST (((VM *) pPointer)->pActiveMem)
-#define SIMPLE_API_PARACOUNT (((VM *) pPointer)->nCFuncParaCount)
-#define SIMPLE_API_GETSTRING(x) (ring_list_getstring(ring_list_getlist(SIMPLE_API_PARALIST,x),3))
-#define SIMPLE_API_GETNUMBER(x) (ring_list_getdouble(ring_list_getlist(SIMPLE_API_PARALIST,x),3))
-#define SIMPLE_API_GETPOINTER(x) (ring_list_getpointer(ring_list_getlist(SIMPLE_API_PARALIST,x),3))
-#define SIMPLE_API_ISSTRING(x) (ring_list_isstring(ring_list_getlist(SIMPLE_API_PARALIST,x),3))
-#define SIMPLE_API_ISNUMBER(x) (ring_list_isnumber(ring_list_getlist(SIMPLE_API_PARALIST,x),3))
-#define SIMPLE_API_ISPOINTER(x) (ring_vm_api_ispointer((VM *) pPointer,x))
-#define SIMPLE_API_GETPOINTERTYPE(x) (ring_list_getint(ring_list_getlist(SIMPLE_API_PARALIST,x),4))
-#define SIMPLE_API_ERROR(x) (ring_vm_error((VM *) pPointer,x))
-#define SIMPLE_API_ISLIST(x) (ring_vm_api_islist((VM *) pPointer,x))
-#define SIMPLE_API_GETLIST(x) (ring_vm_api_getlist((VM *) pPointer,x))
-#define SIMPLE_API_RETNUMBER(x) ((VM *) pPointer)->nSP++ ; ring_itemarray_setdouble(((VM *) pPointer)->aStack, ((VM *) pPointer)->nSP , x)
-#define SIMPLE_API_RETSTRING(x) ((VM *) pPointer)->nSP++ ; ring_itemarray_setstring(((VM *) pPointer)->aStack, ((VM *) pPointer)->nSP, x)
-#define SIMPLE_API_RETSTRING2(x,y) ((VM *) pPointer)->nSP++ ; ring_itemarray_setstring2(((VM *) pPointer)->aStack, ((VM *) pPointer)->nSP, x,y)
-#define SIMPLE_API_RETLIST(x) ring_vm_api_retlist((VM *) pPointer,x)
-#define SIMPLE_API_NEWLIST ring_vm_api_newlist((VM *) pPointer)
-#define SIMPLE_API_RETCPOINTER(x,y) (ring_vm_api_retcpointer((VM *) pPointer,(void *) x,y))
-#define SIMPLE_API_GETCPOINTER(x,y) (ring_vm_api_getcpointer((VM *) pPointer,x,y))
-#define SIMPLE_API_PUSHPVALUE(x) ((VM *) pPointer)->nSP++ ; ring_itemarray_setpointer(((VM *) pPointer)->aStack, ((VM *) pPointer)->nSP , x )
-#define SIMPLE_API_OBJTYPE ((VM *) pPointer)->aStack[((VM *) pPointer)->nSP].nObjectType
-#define SIMPLE_FUNC(x) void x(void *pPointer)
-#define SIMPLE_API_GETSTRINGSIZE(x) (ring_list_getstringsize(ring_list_getlist(SIMPLE_API_PARALIST,x),3))
-#define SIMPLE_API_SETNULLPOINTER(x) (ring_vm_api_setcpointernull((VM *) pPointer,x))
-#define SIMPLE_API_GETCPOINTERSTATUS(x) ring_list_getint(SIMPLE_API_GETLIST(x),SIMPLE_CPOINTER_STATUS)
-#define SIMPLE_API_ISCPOINTERNOTASSIGNED(x) (SIMPLE_API_GETCPOINTERSTATUS(x) == SIMPLE_CPOINTERSTATUS_NOTASSIGNED)
-#define SIMPLE_API_VARPOINTER(x,y) (ring_vm_api_varptr(pPointer,x,y))
-#define SIMPLE_API_INTVALUE(x) (ring_vm_api_intvalue(pPointer,x))
-#define SIMPLE_API_GETINTPOINTER(x) (int *) SIMPLE_API_VARPOINTER(SIMPLE_API_GETSTRING(x),"int")
-#define SIMPLE_API_ACCEPTINTVALUE(x) SIMPLE_API_INTVALUE(SIMPLE_API_GETSTRING(x))
-#define SIMPLE_API_GETDOUBLEPOINTER(x) SIMPLE_API_VARPOINTER(SIMPLE_API_GETSTRING(x),"double")
-#define SIMPLE_API_IGNORECPOINTERTYPE ((VM *) pPointer)->nIgnoreCPointerTypeCheck = 1
-#define SIMPLE_API_ISCPOINTER(x) ring_vm_api_iscpointer(pPointer,x)
-#define SIMPLE_API_ISOBJECT(x) ring_vm_api_isobject(pPointer,x)
-#define SIMPLE_API_GETCPOINTER2POINTER(x,y) (ring_vm_api_getcpointer2pointer((VM *) pPointer,x,y))
+#define RING_API_PARALIST (((VM *) pPointer)->pActiveMem)
+#define RING_API_PARACOUNT (((VM *) pPointer)->nCFuncParaCount)
+#define RING_API_GETSTRING(x) (ring_list_getstring(ring_list_getlist(RING_API_PARALIST,x),3))
+#define RING_API_GETNUMBER(x) (ring_list_getdouble(ring_list_getlist(RING_API_PARALIST,x),3))
+#define RING_API_GETPOINTER(x) (ring_list_getpointer(ring_list_getlist(RING_API_PARALIST,x),3))
+#define RING_API_ISSTRING(x) (ring_list_isstring(ring_list_getlist(RING_API_PARALIST,x),3))
+#define RING_API_ISNUMBER(x) (ring_list_isnumber(ring_list_getlist(RING_API_PARALIST,x),3))
+#define RING_API_ISPOINTER(x) (ring_vm_api_ispointer((VM *) pPointer,x))
+#define RING_API_GETPOINTERTYPE(x) (ring_list_getint(ring_list_getlist(RING_API_PARALIST,x),4))
+#define RING_API_ERROR(x) (ring_vm_error((VM *) pPointer,x))
+#define RING_API_ISLIST(x) (ring_vm_api_islist((VM *) pPointer,x))
+#define RING_API_GETLIST(x) (ring_vm_api_getlist((VM *) pPointer,x))
+#define RING_API_RETNUMBER(x) ((VM *) pPointer)->nSP++ ; ring_itemarray_setdouble(((VM *) pPointer)->aStack, ((VM *) pPointer)->nSP , x)
+#define RING_API_RETSTRING(x) ((VM *) pPointer)->nSP++ ; ring_itemarray_setstring(((VM *) pPointer)->aStack, ((VM *) pPointer)->nSP, x)
+#define RING_API_RETSTRING2(x,y) ((VM *) pPointer)->nSP++ ; ring_itemarray_setstring2(((VM *) pPointer)->aStack, ((VM *) pPointer)->nSP, x,y)
+#define RING_API_RETLIST(x) ring_vm_api_retlist((VM *) pPointer,x)
+#define RING_API_NEWLIST ring_vm_api_newlist((VM *) pPointer)
+#define RING_API_RETCPOINTER(x,y) (ring_vm_api_retcpointer((VM *) pPointer,(void *) x,y))
+#define RING_API_GETCPOINTER(x,y) (ring_vm_api_getcpointer((VM *) pPointer,x,y))
+#define RING_API_PUSHPVALUE(x) ((VM *) pPointer)->nSP++ ; ring_itemarray_setpointer(((VM *) pPointer)->aStack, ((VM *) pPointer)->nSP , x )
+#define RING_API_OBJTYPE ((VM *) pPointer)->aStack[((VM *) pPointer)->nSP].nObjectType
+#define RING_FUNC(x) void x(void *pPointer)
+#define RING_API_GETSTRINGSIZE(x) (ring_list_getstringsize(ring_list_getlist(RING_API_PARALIST,x),3))
+#define RING_API_SETNULLPOINTER(x) (ring_vm_api_setcpointernull((VM *) pPointer,x))
+#define RING_API_GETCPOINTERSTATUS(x) ring_list_getint(RING_API_GETLIST(x),RING_CPOINTER_STATUS)
+#define RING_API_ISCPOINTERNOTASSIGNED(x) (RING_API_GETCPOINTERSTATUS(x) == RING_CPOINTERSTATUS_NOTASSIGNED)
+#define RING_API_VARPOINTER(x,y) (ring_vm_api_varptr(pPointer,x,y))
+#define RING_API_INTVALUE(x) (ring_vm_api_intvalue(pPointer,x))
+#define RING_API_GETINTPOINTER(x) (int *) RING_API_VARPOINTER(RING_API_GETSTRING(x),"int")
+#define RING_API_ACCEPTINTVALUE(x) RING_API_INTVALUE(RING_API_GETSTRING(x))
+#define RING_API_GETDOUBLEPOINTER(x) RING_API_VARPOINTER(RING_API_GETSTRING(x),"double")
+#define RING_API_IGNORECPOINTERTYPE ((VM *) pPointer)->nIgnoreCPointerTypeCheck = 1
+#define RING_API_ISCPOINTER(x) ring_vm_api_iscpointer(pPointer,x)
+#define RING_API_ISOBJECT(x) ring_vm_api_isobject(pPointer,x)
+#define RING_API_GETCPOINTER2POINTER(x,y) (ring_vm_api_getcpointer2pointer((VM *) pPointer,x,y))
 /* Constants/MACRO */
-#define SIMPLE_API_MISS1PARA "Bad parameters count, the function expect one parameter"
-#define SIMPLE_API_MISS2PARA "Bad parameters count, the function expect two parameters"
-#define SIMPLE_API_MISS3PARA "Bad parameters count, the function expect three parameters"
-#define SIMPLE_API_MISS4PARA "Bad parameters count, the function expect four parameters"
-#define SIMPLE_API_BADPARATYPE "Bad parameter type!"
-#define SIMPLE_API_BADPARACOUNT "Bad parameters count!"
-#define SIMPLE_API_BADPARARANGE "Bad parameters value, error in range!"
-#define SIMPLE_API_NOTPOINTER "Error in parameter, not pointer!"
-#define SIMPLE_API_NULLPOINTER "Error in parameter, NULL pointer!"
-#define SIMPLE_API_EMPTYLIST "Bad parameter, empty list!"
+#define RING_API_MISS1PARA "Bad parameters count, the function expect one parameter"
+#define RING_API_MISS2PARA "Bad parameters count, the function expect two parameters"
+#define RING_API_MISS3PARA "Bad parameters count, the function expect three parameters"
+#define RING_API_MISS4PARA "Bad parameters count, the function expect four parameters"
+#define RING_API_BADPARATYPE "Bad parameter type!"
+#define RING_API_BADPARACOUNT "Bad parameters count!"
+#define RING_API_BADPARARANGE "Bad parameters value, error in range!"
+#define RING_API_NOTPOINTER "Error in parameter, not pointer!"
+#define RING_API_NULLPOINTER "Error in parameter, NULL pointer!"
+#define RING_API_EMPTYLIST "Bad parameter, empty list!"
 #define ring_vm_funcregister(x,y) ring_vm_funcregister2(pRingState,x,y)
 /*
 **  Note : The C Function Get Lists as pointers because of (List Pass by Reference) 

@@ -75,12 +75,12 @@ void ring_objfile_writelist ( List *pList,FILE *fObj )
 
 int ring_objfile_readfile ( RingState *pRingState,char *cFileName )
 {
-	return ring_objfile_readfromsource(pRingState,cFileName,SIMPLE_OBJFILE_READFROMFILE) ;
+	return ring_objfile_readfromsource(pRingState,cFileName,RING_OBJFILE_READFROMFILE) ;
 }
 
 int ring_objfile_readstring ( RingState *pRingState,char *cString )
 {
-	return ring_objfile_readfromsource(pRingState,cString,SIMPLE_OBJFILE_READFROMSTRING) ;
+	return ring_objfile_readfromsource(pRingState,cString,RING_OBJFILE_READFROMSTRING) ;
 }
 
 int ring_objfile_readfromsource ( RingState *pRingState,char *cSource,int nSource )
@@ -93,12 +93,12 @@ int ring_objfile_readfromsource ( RingState *pRingState,char *cSource,int nSourc
 	pListCode = ring_list_new_gc(pRingState,0);
 	pListStack = ring_list_new_gc(pRingState,0);
 	/* Process Content (File or String) */
-	if ( nSource == SIMPLE_OBJFILE_READFROMFILE ) {
+	if ( nSource == RING_OBJFILE_READFROMFILE ) {
 		if ( ! ring_objfile_processfile(pRingState,cSource,pListFunctions, pListClasses, pListPackages, pListCode, pListStack) ) {
 			return 0 ;
 		}
 	}
-	else if ( nSource ==SIMPLE_OBJFILE_READFROMSTRING ) {
+	else if ( nSource ==RING_OBJFILE_READFROMSTRING ) {
 		if ( ! ring_objfile_processstring(pRingState,cSource,pListFunctions, pListClasses, pListPackages, pListCode, pListStack) ) {
 			return 0 ;
 		}
@@ -553,7 +553,7 @@ void ring_objfile_updateclassespointers ( RingState *pRingState )
 		pList2 = ring_list_getlist(pList,2);
 		for ( x2 = 1 ; x2 <= ring_list_getsize(pList2) ; x2++ ) {
 			pList3 = ring_list_getlist(pList2,x2);
-			ring_list_setpointer_gc(pRingState,pList3,SIMPLE_CLASSMAP_POINTERTOPACKAGE,pList);
+			ring_list_setpointer_gc(pRingState,pList3,RING_CLASSMAP_POINTERTOPACKAGE,pList);
 		}
 	}
 }

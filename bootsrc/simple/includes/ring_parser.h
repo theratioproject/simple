@@ -45,32 +45,32 @@ typedef struct Parser {
 	RingState *pRingState  ;
 } Parser ;
 /* Error Messages */
-#define SIMPLE_PARSER_ERROR_PARALIST "Error (C1) : Error in parameters list, expected identifier"
-#define SIMPLE_PARSER_ERROR_CLASSNAME "Error (C2) : Error in class name"
-#define SIMPLE_PARSER_ERROR_OK "Error (C3) : Unclosed control strucutre, 'ok' is missing"
-#define SIMPLE_PARSER_ERROR_END "Error (C4) : Unclosed control strucutre, 'end' is missing"
-#define SIMPLE_PARSER_ERROR_NEXT "Error (C5) : Unclosed control strucutre, next is missing"
-#define SIMPLE_PARSER_ERROR_FUNCNAME "Error (C6) : Error in function name"
-#define SIMPLE_PARSER_ERROR_LISTITEM "Error (C7) : Error in list items"
-#define SIMPLE_PARSER_ERROR_MISSPARENTHESES "Error (C8) : Parentheses ')' is missing "
-#define SIMPLE_PARSER_ERROR_MISSBRACKETS "Error (C9) : Brackets ']' is missing "
-#define SIMPLE_PARSER_ERROR_PRENTCLASSNAME "Error (C10) : Error in parent class name"
-#define SIMPLE_PARSER_ERROR_EXPROPERATOR "Error (C11) : Error in expression operator"
-#define SIMPLE_PARSER_ERROR_NOCLASSDEFINED "Error (C12) :No class definition"
-#define SIMPLE_PARSER_ERROR_VARNAME "Error (C13) : Error in variable name"
-#define SIMPLE_PARSER_ERROR_NOCATCH "Error (C14) : Try/Catch miss the Catch keyword!"
-#define SIMPLE_PARSER_ERROR_NODONE "Error (C15) : Try/Catch miss the Done keyword!"
-#define SIMPLE_PARSER_ERROR_SWITCHEXPR "Error (C16) : Error in Switch statement expression!"
-#define SIMPLE_PARSER_ERROR_SWITCHOFF "Error (C17) : Switch statement without OFF"
-#define SIMPLE_PARSER_ERROR_BRACESNOTCLOSED "Error (C18) : Missing closing brace for the block opened!"
-#define SIMPLE_PARSER_ERROR_NUMERICOVERFLOW "Error (C19) : Numeric Overflow!"
-#define SIMPLE_PARSER_ERROR_PACKAGENAME "Error (C20) : Error in package name"
-#define SIMPLE_PARSER_ERROR_AGAIN "Error (C21) : Unclosed control strucutre, 'again' is missing"
-#define SIMPLE_PARSER_ERROR_FUNCREDEFINE "Error (C22) : Function redefinition, function is already defined!"
-#define SIMPLE_PARSER_ERROR_USINGBRACTAFTERNUM "Error (C23) : Using '(' after number!"
-#define SIMPLE_PARSER_ERROR_PARENTLIKESUBCLASS "Error (C24) : The parent class name is identical to the subclass name"
-#define SIMPLE_PARSER_ERROR_ACCESSSELFREF "Error (C25) : Trying to access the self reference after the object name"
-#define SIMPLE_PARSER_ERROR_CLASSREDEFINE "Error (C26) : Class redefinition, class is already defined!"
+#define RING_PARSER_ERROR_PARALIST "Error (C1) : Error in parameters list, expected identifier"
+#define RING_PARSER_ERROR_CLASSNAME "Error (C2) : Error in class name"
+#define RING_PARSER_ERROR_OK "Error (C3) : Unclosed control strucutre, 'ok' is missing"
+#define RING_PARSER_ERROR_END "Error (C4) : Unclosed control strucutre, 'end' is missing"
+#define RING_PARSER_ERROR_NEXT "Error (C5) : Unclosed control strucutre, next is missing"
+#define RING_PARSER_ERROR_FUNCNAME "Error (C6) : Error in function name"
+#define RING_PARSER_ERROR_LISTITEM "Error (C7) : Error in list items"
+#define RING_PARSER_ERROR_MISSPARENTHESES "Error (C8) : Parentheses ')' is missing "
+#define RING_PARSER_ERROR_MISSBRACKETS "Error (C9) : Brackets ']' is missing "
+#define RING_PARSER_ERROR_PRENTCLASSNAME "Error (C10) : Error in parent class name"
+#define RING_PARSER_ERROR_EXPROPERATOR "Error (C11) : Error in expression operator"
+#define RING_PARSER_ERROR_NOCLASSDEFINED "Error (C12) :No class definition"
+#define RING_PARSER_ERROR_VARNAME "Error (C13) : Error in variable name"
+#define RING_PARSER_ERROR_NOCATCH "Error (C14) : Try/Catch miss the Catch keyword!"
+#define RING_PARSER_ERROR_NODONE "Error (C15) : Try/Catch miss the Done keyword!"
+#define RING_PARSER_ERROR_SWITCHEXPR "Error (C16) : Error in Switch statement expression!"
+#define RING_PARSER_ERROR_SWITCHOFF "Error (C17) : Switch statement without OFF"
+#define RING_PARSER_ERROR_BRACESNOTCLOSED "Error (C18) : Missing closing brace for the block opened!"
+#define RING_PARSER_ERROR_NUMERICOVERFLOW "Error (C19) : Numeric Overflow!"
+#define RING_PARSER_ERROR_PACKAGENAME "Error (C20) : Error in package name"
+#define RING_PARSER_ERROR_AGAIN "Error (C21) : Unclosed control strucutre, 'again' is missing"
+#define RING_PARSER_ERROR_FUNCREDEFINE "Error (C22) : Function redefinition, function is already defined!"
+#define RING_PARSER_ERROR_USINGBRACTAFTERNUM "Error (C23) : Using '(' after number!"
+#define RING_PARSER_ERROR_PARENTLIKESUBCLASS "Error (C24) : The parent class name is identical to the subclass name"
+#define RING_PARSER_ERROR_ACCESSSELFREF "Error (C25) : Trying to access the self reference after the object name"
+#define RING_PARSER_ERROR_CLASSREDEFINE "Error (C26) : Class redefinition, class is already defined!"
 /* Functions */
 
 int ring_parser_start ( List *pTokens,RingState *pRingState ) ;
@@ -163,8 +163,8 @@ void ring_parser_gencall ( Parser *pParser,int nCallMethod ) ;
 
 void ring_parser_gencallbracemethod ( Parser *pParser,const char *cMethod ) ;
 /* MACRO */
-#define SIMPLE_PARSER_IGNORENEWLINE while(ring_parser_epslion(pParser));
-#define SIMPLE_PARSER_PASSNEWLINE while(ring_parser_passepslion(pParser));
-#define SIMPLE_PARSER_CURRENTTOKEN pParser->ActiveToken
-#define SIMPLE_PARSER_OPERATIONID ring_list_getsize(pParser->GenCode)
+#define RING_PARSER_IGNORENEWLINE while(ring_parser_epslion(pParser));
+#define RING_PARSER_PASSNEWLINE while(ring_parser_passepslion(pParser));
+#define RING_PARSER_CURRENTTOKEN pParser->ActiveToken
+#define RING_PARSER_OPERATIONID ring_list_getsize(pParser->GenCode)
 #endif

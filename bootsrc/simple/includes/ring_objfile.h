@@ -29,6 +29,6 @@ void ring_objfile_readc ( RingState *pRingState,char **cSource,char *cDest,int n
 char ring_objfile_getc ( RingState *pRingState,char **cSource ) ;
 /* MACRO */
 /* Object File Source */
-#define SIMPLE_OBJFILE_READFROMFILE 1
-#define SIMPLE_OBJFILE_READFROMSTRING 2
+#define RING_OBJFILE_READFROMFILE 1
+#define RING_OBJFILE_READFROMSTRING 2
 #endif

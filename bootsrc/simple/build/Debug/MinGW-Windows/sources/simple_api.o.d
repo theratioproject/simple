@@ -1,4 +1,4 @@
-build/Debug/MinGW-Windows/sources/simple.o: sources/simple.c \
+build/Debug/MinGW-Windows/sources/simple_api.o: sources/simple_api.c \
  sources/../includes/ring.h sources/../includes/simple_misc.h \
  sources/../includes/ring_ext.h sources/../includes/ring_string.h \
  sources/../includes/ring_vmgcdata.h sources/../includes/ring_item.h \

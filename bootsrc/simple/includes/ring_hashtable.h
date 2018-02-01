@@ -45,9 +45,9 @@ void ring_hashtable_test ( void ) ;
 
 void ring_hashtable_rebuild_gc ( void *pState,HashTable *pHashTable ) ;
 /* Macro */
-#define SIMPLE_HASHITEMTYPE_NOTYPE 0
-#define SIMPLE_HASHITEMTYPE_NUMBER 1
-#define SIMPLE_HASHITEMTYPE_POINTER 2
+#define RING_HASHITEMTYPE_NOTYPE 0
+#define RING_HASHITEMTYPE_NUMBER 1
+#define RING_HASHITEMTYPE_POINTER 2
 /* Functions without the State pointer */
 
 HashTable * ring_hashtable_new ( void ) ;
