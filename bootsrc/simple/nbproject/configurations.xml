@@ -12,6 +12,45 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>sources/simple.c</itemPath>
+      <itemPath>sources/simple_api.c</itemPath>
+      <itemPath>sources/simple_codegen.c</itemPath>
+      <itemPath>sources/simple_expr.c</itemPath>
+      <itemPath>sources/simple_ext.c</itemPath>
+      <itemPath>sources/simple_hashlib.c</itemPath>
+      <itemPath>sources/simple_hashtable.c</itemPath>
+      <itemPath>sources/simple_item.c</itemPath>
+      <itemPath>sources/simple_items.c</itemPath>
+      <itemPath>sources/simple_list.c</itemPath>
+      <itemPath>sources/simple_objfile.c</itemPath>
+      <itemPath>sources/simple_parser.c</itemPath>
+      <itemPath>sources/simple_scanner.c</itemPath>
+      <itemPath>sources/simple_state.c</itemPath>
+      <itemPath>sources/simple_stmt.c</itemPath>
+      <itemPath>sources/simple_string.c</itemPath>
+      <itemPath>sources/simple_vm.c</itemPath>
+      <itemPath>sources/simple_vmcui.c</itemPath>
+      <itemPath>sources/simple_vmdll.c</itemPath>
+      <itemPath>sources/simple_vmduprange.c</itemPath>
+      <itemPath>sources/simple_vmexit.c</itemPath>
+      <itemPath>sources/simple_vmexpr.c</itemPath>
+      <itemPath>sources/simple_vmfile.c</itemPath>
+      <itemPath>sources/simple_vmfuncs.c</itemPath>
+      <itemPath>sources/simple_vmgc.c</itemPath>
+      <itemPath>sources/simple_vmjump.c</itemPath>
+      <itemPath>sources/simple_vmlistfuncs.c</itemPath>
+      <itemPath>sources/simple_vmlists.c</itemPath>
+      <itemPath>sources/simple_vmmath.c</itemPath>
+      <itemPath>sources/simple_vmoop.c</itemPath>
+      <itemPath>sources/simple_vmos.c</itemPath>
+      <itemPath>sources/simple_vmperformance.c</itemPath>
+      <itemPath>sources/simple_vmrefmeta.c</itemPath>
+      <itemPath>sources/simple_vmstackvars.c</itemPath>
+      <itemPath>sources/simple_vmstate.c</itemPath>
+      <itemPath>sources/simple_vmstrindex.c</itemPath>
+      <itemPath>sources/simple_vmtrycatch.c</itemPath>
+      <itemPath>sources/simple_vmvars.c</itemPath>
+      <itemPath>sources/simplew.c</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -35,6 +74,84 @@
       </toolsSet>
       <compileType>
       </compileType>
+      <item path="sources/simple.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_api.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_codegen.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_expr.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_ext.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_hashlib.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_hashtable.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_item.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_items.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_list.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_objfile.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_parser.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_scanner.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_state.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_stmt.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_string.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_vm.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_vmcui.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_vmdll.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_vmduprange.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_vmexit.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_vmexpr.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_vmfile.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_vmfuncs.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_vmgc.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_vmjump.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_vmlistfuncs.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_vmlists.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_vmmath.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_vmoop.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_vmos.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_vmperformance.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_vmrefmeta.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_vmstackvars.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_vmstate.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_vmstrindex.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_vmtrycatch.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_vmvars.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simplew.c" ex="false" tool="0" flavor2="0">
+      </item>
     </conf>
     <conf name="Release" type="1">
       <toolsSet>
@@ -56,6 +173,84 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="sources/simple.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_api.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_codegen.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_expr.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_ext.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_hashlib.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_hashtable.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_item.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_items.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_list.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_objfile.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_parser.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_scanner.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_state.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_stmt.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_string.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_vm.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_vmcui.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_vmdll.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_vmduprange.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_vmexit.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_vmexpr.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_vmfile.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_vmfuncs.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_vmgc.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_vmjump.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_vmlistfuncs.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_vmlists.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_vmmath.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_vmoop.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_vmos.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_vmperformance.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_vmrefmeta.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_vmstackvars.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_vmstate.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_vmstrindex.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_vmtrycatch.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simple_vmvars.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/simplew.c" ex="false" tool="0" flavor2="0">
+      </item>
     </conf>
   </confs>
 </configurationDescriptor>
