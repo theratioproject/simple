@@ -341,7 +341,7 @@ void ring_vm_fetch2 ( VM *pVM )
 	pVM->nOPCode = RING_VM_IR_OPCODE ;
 	#if RING_VMSHOWOPCODE
 	if ( pVM->pRingState->nPrintInstruction ) {
-		ring_print_line();
+		print_line();
 		printf( "\nVM Pointer  : %p  " , (void *) pVM ) ;
 		printf( "\nOperation  : %s  " , RING_IC_OP[pVM->nOPCode] ) ;
 		printf( "\nPC         : %d  " ,pVM->nPC ) ;
@@ -356,7 +356,7 @@ void ring_vm_fetch2 ( VM *pVM )
 	#if RING_VMSHOWOPCODE
 	if ( pVM->pRingState->nPrintInstruction ) {
 		printf( "\nSP (After) : %d  - FuncSP : %d \n LineNumber %d \n" , (int) pVM->nSP,pVM->nFuncSP,pVM->nLineNumber ) ;
-		ring_print_line();
+		print_line();
 	}
 	#endif
 	if ( pVM->nSP > RING_VM_STACK_CHECKOVERFLOW ) {

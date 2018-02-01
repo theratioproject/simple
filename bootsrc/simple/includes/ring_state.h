@@ -56,7 +56,7 @@ RING_API RingState * ring_state_delete ( RingState *pRingState ) ;
 
 void ring_state_cgiheader ( RingState *pRingState ) ;
 
-RING_API void ring_print_line ( void ) ;
+RING_API void print_line ( void ) ;
 
 RING_API RingState * ring_state_init ( void ) ;
 

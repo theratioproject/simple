@@ -129,14 +129,14 @@ void ring_parser_icg_showoutput ( List *pListGenCode,int nStatus )
 	assert(pListGenCode != NULL);
 	/* Header */
 	printf( "\n\n" ) ;
-	ring_print_line();
+	print_line();
 	if ( nStatus == 1 ) {
 		puts("Byte Code - Before Execution by the VM");
 	}
 	else {
 		puts("Byte Code - After Execution by the VM");
 	}
-	ring_print_line();
+	print_line();
 	nCount = ring_list_getsize(pListGenCode);
 	if ( nCount > 0 ) {
 		printf( "\n %6s  %10s  %10s\n", "PC","OPCode","Data" ) ;
@@ -165,7 +165,7 @@ void ring_parser_icg_showoutput ( List *pListGenCode,int nStatus )
 	}
 	/* End */
 	puts("");
-	ring_print_line();
+	print_line();
 	puts("");
 }
 

@@ -270,11 +270,11 @@ static void ring_showtime ( void )
 	tm_info = localtime(&timer);
 	strftime(buffer,50,"Date  : %Y/%m/%d Time : %H:%M:%S", tm_info);
 	printf( "\n" ) ;
-	ring_print_line();
+	print_line();
 	puts(buffer);
 	myclock = clock();
 	printf( "Clock : %ld \n", myclock ) ;
-	ring_print_line();
+	print_line();
 }
 #endif
 
