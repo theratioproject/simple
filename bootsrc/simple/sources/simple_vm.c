@@ -1200,7 +1200,7 @@ void ring_vm_addglobalvariables ( VM *pVM )
 	ring_vm_addnewstringvar(pVM,"crlf","\n");
 	ring_vm_addnewstringvar(pVM,"null","");
 	ring_vm_addnewpointervar(pVM,"ring_gettemp_var",NULL,0);
-	ring_vm_addnewstringvar(pVM,"_err_","NULL");
+	ring_vm_addnewstringvar(pVM,"__err__","NULL");
 	ring_vm_addnewpointervar(pVM,"ring_settemp_var",NULL,0);
 	ring_vm_addnewnumbervar(pVM,"ring_tempflag_var",0);
 	ring_vm_addnewcpointervar(pVM,"stdin",stdin,"file");
