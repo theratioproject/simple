@@ -198,7 +198,7 @@ SIMPLE_API void ring_state_main ( int argc, char *argv[] )
 				nWarn = 1 ;
 				nRingStateDEBUGSEGFAULT = 1 ;
 			}
-			else if ( ( is_simple_file(argv[x]) || ring_isobjectfile(argv[x])) && nSRC == 0 ) {
+			else if ( ( is_simple_file(argv[x]) || is_complex_file(argv[x])) && nSRC == 0 ) {
 				cStr = argv[x] ;
 				nSRC = 1 ;
 			}
@@ -290,29 +290,6 @@ void segfaultaction ( int sig )
 	exit(0);
 }
 
-int is_simple_file ( const char *cStr )
-{
-	int x  ;
-	x = strlen(cStr) - 1 ;
-	if ( x >= 5 ) {
-		if ( tolower(cStr[x]) == 'g' && tolower(cStr[x-1]) == 'n' && tolower(cStr[x-2]) == 'i' && tolower(cStr[x-3]) == 'r' && cStr[x-4] == '.' ) {
-			return 1 ;
-		}
-	}
-	return 0 ;
-}
-
-int ring_isobjectfile ( const char *cStr )
-{
-	int x  ;
-	x = strlen(cStr) - 1 ;
-	if ( x > 6 ) {
-		if ( tolower(cStr[x]) == 'o' && tolower(cStr[x-1]) == 'g' && tolower(cStr[x-2]) == 'n' && tolower(cStr[x-3]) == 'i' && tolower(cStr[x-4]) == 'r' && cStr[x-5] == '.' ) {
-			return 1 ;
-		}
-	}
-	return 0 ;
-}
 /* General Functions */
 
 int ring_fexists ( const char *cFileName )

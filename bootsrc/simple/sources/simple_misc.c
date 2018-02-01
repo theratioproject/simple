@@ -52,7 +52,7 @@ int is_simple_file ( const char *cStr )
 	return 0 ;
 }
 
-int ring_isobjectfile ( const char *cStr )
+int is_complex_file ( const char *cStr )
 {
 	int x  ;
 	x = strlen(cStr) - 1 ;
@@ -60,6 +60,6 @@ int ring_isobjectfile ( const char *cStr )
 		if ( tolower(cStr[x]) == 'o' && tolower(cStr[x-1]) == 'g' && tolower(cStr[x-2]) == 'n' && tolower(cStr[x-3]) == 'i' && tolower(cStr[x-4]) == 'r' && cStr[x-5] == '.' ) {
 			return 1 ;
 		}
-	}
+	} complex
 	return 0 ;
 }
