@@ -1197,7 +1197,7 @@ void ring_vm_addglobalvariables ( VM *pVM )
 	*/
 	ring_vm_addnewnumbervar(pVM,"true",1);
 	ring_vm_addnewnumbervar(pVM,"false",0);
-	ring_vm_addnewstringvar(pVM,"nl","\n");
+	ring_vm_addnewstringvar(pVM,"crlf","\n");
 	ring_vm_addnewstringvar(pVM,"null","");
 	ring_vm_addnewpointervar(pVM,"ring_gettemp_var",NULL,0);
 	ring_vm_addnewstringvar(pVM,"ccatcherror","NULL");

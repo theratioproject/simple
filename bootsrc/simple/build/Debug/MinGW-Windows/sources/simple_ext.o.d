@@ -1,4 +1,4 @@
-build/Debug/MinGW-Windows/sources/simple_vmoop.o: sources/simple_vmoop.c \
+build/Debug/MinGW-Windows/sources/simple_ext.o: sources/simple_ext.c \
  sources/../includes/ring.h sources/../includes/simple_misc.h \
  sources/../includes/ring_ext.h sources/../includes/ring_string.h \
  sources/../includes/ring_vmgcdata.h sources/../includes/ring_item.h \

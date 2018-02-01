@@ -14,7 +14,7 @@ void ring_vm_sum ( VM *pVM )
 	/*
 	**  Description 
 	**  We can sum string + number ---> string , number + string ---> number 
-	**  string/number + nl ---> string 
+	**  string/number + crlf ---> string 
 	**  list + string/number ---> add item to the list 
 	**  list1 + list2 ---> add list2 items to list 1 
 	*/
