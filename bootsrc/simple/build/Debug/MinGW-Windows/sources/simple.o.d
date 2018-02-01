@@ -8,10 +8,7 @@ build/Debug/MinGW-Windows/sources/simple.o: sources/simple.c \
  sources/../includes/ring_scanner.h sources/../includes/ring_parser.h \
  sources/../includes/ring_codegen.h sources/../includes/ring_vm.h \
  sources/../includes/ring_vmgc.h sources/../includes/ring_api.h \
- sources/../includes/ring_objfile.h sources/../includes/ring_vmmath.h \
- sources/../includes/ring_vmfile.h sources/../includes/ring_vmos.h \
- sources/../includes/ring_vmlistfuncs.h \
- sources/../includes/ring_vmrefmeta.h sources/../includes/ring_vmdll.h
+ sources/../includes/ring_objfile.h
 
 sources/../includes/ring.h:
 
@@ -50,15 +47,3 @@ sources/../includes/ring_vmgc.h:
 sources/../includes/ring_api.h:
 
 sources/../includes/ring_objfile.h:
-
-sources/../includes/ring_vmmath.h:
-
-sources/../includes/ring_vmfile.h:
-
-sources/../includes/ring_vmos.h:
-
-sources/../includes/ring_vmlistfuncs.h:
-
-sources/../includes/ring_vmrefmeta.h:
-
-sources/../includes/ring_vmdll.h:
