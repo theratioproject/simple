@@ -40,7 +40,7 @@ void display_help(){
     //printf("\t-k [PATH] -show-tokens [PATH]             Save the token into a file for debugging.\n");
 }
 
-int is_simple_file ( const char *file_name )
+int is_simple_file( const char *file_name )
 {
     int x  ; 
     x = strlen(file_name) - 1 ;
@@ -52,7 +52,7 @@ int is_simple_file ( const char *file_name )
     return 0 ;
 }
 
-int is_complex_file ( const char *file_name )
+int is_complex_file( const char *file_name )
 {
     int x  ;
     x = strlen(file_name) - 1 ;

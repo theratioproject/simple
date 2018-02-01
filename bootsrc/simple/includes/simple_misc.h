@@ -23,9 +23,11 @@ extern "C" {
 
 void display_help();
 
-int is_simple_file ( const char *file_name ) ;
+int is_simple_file( const char *file_name );
 
-int is_complex_file ( const char *file_name ) ;
+int is_complex_file( const char *file_name );
+
+const char *file_real_name(const char *absolute_name);
 
 
 #ifdef __cplusplus
