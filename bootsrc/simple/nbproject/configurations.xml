@@ -4,6 +4,30 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>includes/ring.h</itemPath>
+      <itemPath>includes/ring_api.h</itemPath>
+      <itemPath>includes/ring_codegen.h</itemPath>
+      <itemPath>includes/ring_ext.h</itemPath>
+      <itemPath>includes/ring_hashlib.h</itemPath>
+      <itemPath>includes/ring_hashtable.h</itemPath>
+      <itemPath>includes/ring_item.h</itemPath>
+      <itemPath>includes/ring_items.h</itemPath>
+      <itemPath>includes/ring_list.h</itemPath>
+      <itemPath>includes/ring_objfile.h</itemPath>
+      <itemPath>includes/ring_parser.h</itemPath>
+      <itemPath>includes/ring_pooldata.h</itemPath>
+      <itemPath>includes/ring_scanner.h</itemPath>
+      <itemPath>includes/ring_state.h</itemPath>
+      <itemPath>includes/ring_string.h</itemPath>
+      <itemPath>includes/ring_vm.h</itemPath>
+      <itemPath>includes/ring_vmdll.h</itemPath>
+      <itemPath>includes/ring_vmfile.h</itemPath>
+      <itemPath>includes/ring_vmgc.h</itemPath>
+      <itemPath>includes/ring_vmgcdata.h</itemPath>
+      <itemPath>includes/ring_vmlistfuncs.h</itemPath>
+      <itemPath>includes/ring_vmmath.h</itemPath>
+      <itemPath>includes/ring_vmos.h</itemPath>
+      <itemPath>includes/ring_vmrefmeta.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -12,6 +36,45 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>sources/ring.c</itemPath>
+      <itemPath>sources/ring_api.c</itemPath>
+      <itemPath>sources/ring_codegen.c</itemPath>
+      <itemPath>sources/ring_expr.c</itemPath>
+      <itemPath>sources/ring_ext.c</itemPath>
+      <itemPath>sources/ring_hashlib.c</itemPath>
+      <itemPath>sources/ring_hashtable.c</itemPath>
+      <itemPath>sources/ring_item.c</itemPath>
+      <itemPath>sources/ring_items.c</itemPath>
+      <itemPath>sources/ring_list.c</itemPath>
+      <itemPath>sources/ring_objfile.c</itemPath>
+      <itemPath>sources/ring_parser.c</itemPath>
+      <itemPath>sources/ring_scanner.c</itemPath>
+      <itemPath>sources/ring_state.c</itemPath>
+      <itemPath>sources/ring_stmt.c</itemPath>
+      <itemPath>sources/ring_string.c</itemPath>
+      <itemPath>sources/ring_vm.c</itemPath>
+      <itemPath>sources/ring_vmcui.c</itemPath>
+      <itemPath>sources/ring_vmdll.c</itemPath>
+      <itemPath>sources/ring_vmduprange.c</itemPath>
+      <itemPath>sources/ring_vmexit.c</itemPath>
+      <itemPath>sources/ring_vmexpr.c</itemPath>
+      <itemPath>sources/ring_vmfile.c</itemPath>
+      <itemPath>sources/ring_vmfuncs.c</itemPath>
+      <itemPath>sources/ring_vmgc.c</itemPath>
+      <itemPath>sources/ring_vmjump.c</itemPath>
+      <itemPath>sources/ring_vmlistfuncs.c</itemPath>
+      <itemPath>sources/ring_vmlists.c</itemPath>
+      <itemPath>sources/ring_vmmath.c</itemPath>
+      <itemPath>sources/ring_vmoop.c</itemPath>
+      <itemPath>sources/ring_vmos.c</itemPath>
+      <itemPath>sources/ring_vmperformance.c</itemPath>
+      <itemPath>sources/ring_vmrefmeta.c</itemPath>
+      <itemPath>sources/ring_vmstackvars.c</itemPath>
+      <itemPath>sources/ring_vmstate.c</itemPath>
+      <itemPath>sources/ring_vmstrindex.c</itemPath>
+      <itemPath>sources/ring_vmtrycatch.c</itemPath>
+      <itemPath>sources/ring_vmvars.c</itemPath>
+      <itemPath>sources/ringw.c</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -35,6 +98,132 @@
       </toolsSet>
       <compileType>
       </compileType>
+      <item path="includes/ring.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/ring_api.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/ring_codegen.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/ring_ext.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/ring_hashlib.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/ring_hashtable.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/ring_item.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/ring_items.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/ring_list.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/ring_objfile.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/ring_parser.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/ring_pooldata.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/ring_scanner.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/ring_state.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/ring_string.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/ring_vm.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/ring_vmdll.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/ring_vmfile.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/ring_vmgc.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/ring_vmgcdata.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/ring_vmlistfuncs.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/ring_vmmath.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/ring_vmos.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/ring_vmrefmeta.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="sources/ring.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_api.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_codegen.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_expr.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_ext.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_hashlib.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_hashtable.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_item.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_items.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_list.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_objfile.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_parser.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_scanner.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_state.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_stmt.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_string.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_vm.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_vmcui.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_vmdll.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_vmduprange.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_vmexit.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_vmexpr.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_vmfile.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_vmfuncs.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_vmgc.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_vmjump.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_vmlistfuncs.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_vmlists.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_vmmath.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_vmoop.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_vmos.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_vmperformance.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_vmrefmeta.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_vmstackvars.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_vmstate.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_vmstrindex.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_vmtrycatch.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_vmvars.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ringw.c" ex="false" tool="0" flavor2="0">
+      </item>
     </conf>
     <conf name="Release" type="1">
       <toolsSet>
@@ -56,6 +245,132 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="includes/ring.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/ring_api.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/ring_codegen.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/ring_ext.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/ring_hashlib.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/ring_hashtable.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/ring_item.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/ring_items.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/ring_list.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/ring_objfile.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/ring_parser.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/ring_pooldata.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/ring_scanner.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/ring_state.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/ring_string.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/ring_vm.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/ring_vmdll.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/ring_vmfile.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/ring_vmgc.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/ring_vmgcdata.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/ring_vmlistfuncs.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/ring_vmmath.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/ring_vmos.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/ring_vmrefmeta.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="sources/ring.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_api.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_codegen.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_expr.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_ext.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_hashlib.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_hashtable.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_item.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_items.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_list.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_objfile.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_parser.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_scanner.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_state.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_stmt.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_string.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_vm.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_vmcui.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_vmdll.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_vmduprange.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_vmexit.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_vmexpr.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_vmfile.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_vmfuncs.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_vmgc.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_vmjump.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_vmlistfuncs.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_vmlists.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_vmmath.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_vmoop.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_vmos.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_vmperformance.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_vmrefmeta.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_vmstackvars.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_vmstate.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_vmstrindex.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_vmtrycatch.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ring_vmvars.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sources/ringw.c" ex="false" tool="0" flavor2="0">
+      </item>
     </conf>
   </confs>
 </configurationDescriptor>
