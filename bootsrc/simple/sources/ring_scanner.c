@@ -823,6 +823,7 @@ void display_tokens ( Scanner *pScanner )
 	}
 	printf( "\n" ) ;
 	print_line();
+        exit(0);
 }
 
 SIMPLE_API void ring_execute ( char *cFileName, int nISCGI,int nRun,int nPrintIC,int nPrintICFinal,int nTokens,int nRules,int nIns,int nGenObj,int nWarn,int argc,char *argv[] )
