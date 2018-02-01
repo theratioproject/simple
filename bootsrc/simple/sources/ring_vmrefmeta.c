@@ -3,7 +3,7 @@
 **  Include Files 
 */
 #include "../includes/ring.h"
-#include "ring_vmrefmeta.h"
+#include "../includes/ring_vmrefmeta.h"
 /* Functions */
 
 void ring_vm_refmeta_loadfunctions ( RingState *pRingState )
