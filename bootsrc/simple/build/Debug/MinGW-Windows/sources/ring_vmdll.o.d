@@ -1,5 +1,5 @@
 build/Debug/MinGW-Windows/sources/ring_vmdll.o: sources/ring_vmdll.c \
- sources/../includes/simple.h sources/../includes/simple_misc.h \
+ sources/../includes/ring.h sources/../includes/simple_misc.h \
  sources/../includes/ring_ext.h sources/../includes/ring_string.h \
  sources/../includes/ring_vmgcdata.h sources/../includes/ring_item.h \
  sources/../includes/ring_items.h sources/../includes/ring_list.h \
@@ -14,7 +14,7 @@ build/Debug/MinGW-Windows/sources/ring_vmdll.o: sources/ring_vmdll.c \
  sources/../includes/ring_vmrefmeta.h sources/../includes/ring_vmdll.h \
  sources/../includes/ring_vmdll.h
 
-sources/../includes/simple.h:
+sources/../includes/ring.h:
 
 sources/../includes/simple_misc.h:
 
