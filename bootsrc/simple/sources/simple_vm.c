@@ -1095,7 +1095,7 @@ SIMPLE_API void ring_vm_showerrormessage ( VM *pVM,const char *cStr )
 	/* CGI Support */
 	ring_state_cgiheader(pVM->pRingState);
 	/* Print the Error Message */
-	printf( "\nLine %d %s \n",pVM->nLineNumber,cStr ) ;
+	printf( "\nLine %d -> %s \n",pVM->nLineNumber,cStr ) ;
 	/* Print Calling Information */
 	lFunctionCall = 0 ;
 	for ( x = ring_list_getsize(pVM->pFuncCallList) ; x >= 1 ; x-- ) {
