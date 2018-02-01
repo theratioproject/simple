@@ -54,7 +54,7 @@ int is_simple_file( const char *file_name )
 
 int is_complex_file( const char *file_name )
 {
-    int x  ;
+    int x ;
     x = strlen(file_name) - 1 ;
     if ( x > 6 ) {
         if ( tolower(file_name[x]) == 'x' && tolower(file_name[x-1]) == 'e' && tolower(file_name[x-2]) == 'l' && tolower(file_name[x-3]) == 'm' && tolower(file_name[x-4]) == 'o' && file_name[x-5] == 'c' && file_name[x-5] == '.' ) {
@@ -65,5 +65,5 @@ int is_complex_file( const char *file_name )
 }
 
 const char *file_real_name(const char *absolute_name){
-    
+    int c;
 }
