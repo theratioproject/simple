@@ -140,7 +140,7 @@ void ring_scanner_addreturn2 ( RingState *pRingState ) ;
 
 void ring_scanner_addreturn3 ( RingState *pRingState,int aPara[3] ) ;
 
-void ring_scanner_printtokens ( Scanner *pScanner ) ;
+void display_tokens ( Scanner *pScanner ) ;
 
 SIMPLE_API void ring_execute ( char *cFileName, int nISCGI,int nRun,int nPrintIC,int nPrintICFinal,int nTokens,int nRules,int nIns,int nGenObj,int nWarn,int argc,char *argv[] ) ;
 

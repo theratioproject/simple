@@ -117,7 +117,7 @@ int ring_scanner_readfile ( RingState *pRingState,char *cFileName )
 	RING_CLOSEFILE(fp);
 	/* Print Tokens */
 	if ( pRingState->nPrintTokens ) {
-		ring_scanner_printtokens(pScanner);
+		display_tokens(pScanner);
 	}
 	/* Call Parser */
 	if ( nCont == 1 ) {
@@ -786,7 +786,7 @@ void ring_scanner_addreturn3 ( RingState *pRingState, int aPara[3] )
 	ring_list_addint_gc(pRingState,pList,aPara[2]);
 }
 
-void ring_scanner_printtokens ( Scanner *pScanner )
+void display_tokens ( Scanner *pScanner )
 {
 	int x,nType,nPos  ;
 	List *pList  ;
