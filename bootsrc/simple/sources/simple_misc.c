@@ -69,7 +69,7 @@ const char *file_real_name(const char *absolute_name){
     if (strstr(absolute_name, "\\") != NULL ) {
         filename = (strrchr(absolute_name, '\\'))+1;
     } else {
-        filename = (strrchr(absolute_name, '.'))+1;
+        filename = (strrchr(absolute_name, '/'))+1;
     }
 
     return filename;
