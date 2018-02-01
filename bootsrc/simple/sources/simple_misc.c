@@ -71,7 +71,6 @@ const char *file_real_name(const char *absolute_name){
     } else {
         filename = (strrchr(absolute_name, '.'))+1;
     }
-    printf(" found filename: %s \n", filename);
 
     return filename;
 }
