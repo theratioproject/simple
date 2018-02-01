@@ -18,7 +18,7 @@
 extern "C" {
 #endif
 
-
+void display_help();
 
 
 #ifdef __cplusplus

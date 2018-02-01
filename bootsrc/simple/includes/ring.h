@@ -1,4 +1,10 @@
-/* Copyright (c) 2013-2018 Mahmoud Fayed <msfclipper@yahoo.com> */
+
+/* 
+	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
 #ifndef ring_h
 #define ring_h
 /*
@@ -81,6 +87,7 @@
 #endif
 #include <errno.h>
 /* Include Project Headers */
+#include "simple_misc.h"
 #include "ring_ext.h"
 #include "ring_string.h"
 #include "ring_vmgcdata.h"
