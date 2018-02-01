@@ -1,4 +1,4 @@
-build/Debug/MinGW-Windows/sources/ring_vmexit.o: sources/ring_vmexit.c \
+build/Debug/MinGW-Windows/sources/ring_string.o: sources/ring_string.c \
  sources/../includes/simple.h sources/../includes/simple_misc.h \
  sources/../includes/ring_ext.h sources/../includes/ring_string.h \
  sources/../includes/ring_vmgcdata.h sources/../includes/ring_item.h \
