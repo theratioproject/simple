@@ -334,7 +334,7 @@ int ring_parser_stmt ( Parser *pParser )
 		x = ring_parser_expr(pParser);
 		pParser->nAssignmentFlag = 1 ;
 		/* Generate Code */
-		ring_parser_icg_newoperation(pParser,ICO_PRINT);
+		ring_parser_icg_newoperation(pParser,ICO_DISPLAY);
 		#endif
 		#if SIMPLE_PARSERTRACE
 		SIMPLE_STATE_CHECKPRINTRULES 
@@ -352,11 +352,11 @@ int ring_parser_stmt ( Parser *pParser )
 		x = ring_parser_expr(pParser);
 		pParser->nAssignmentFlag = 1 ;
 		/* Generate Code */
-		ring_parser_icg_newoperation(pParser,ICO_PRINT);
+		ring_parser_icg_newoperation(pParser,ICO_DISPLAY);
 		/* Print New Line */
 		ring_parser_icg_newoperation(pParser,ICO_PUSHC);
 		ring_parser_icg_newoperand(pParser,"\n");
-		ring_parser_icg_newoperation(pParser,ICO_PRINT);
+		ring_parser_icg_newoperation(pParser,ICO_DISPLAY);
 		#if SIMPLE_PARSERTRACE
 		SIMPLE_STATE_CHECKPRINTRULES 
 		

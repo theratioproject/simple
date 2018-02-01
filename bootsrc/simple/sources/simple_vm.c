@@ -522,7 +522,7 @@ void ring_vm_execute ( VM *pVM )
 			ring_vm_anonymous(pVM);
 			break ;
 		/* User Interface */
-		case ICO_PRINT :
+		case ICO_DISPLAY :
 			ring_vm_see(pVM);
 			break ;
 		case ICO_GIVE :
