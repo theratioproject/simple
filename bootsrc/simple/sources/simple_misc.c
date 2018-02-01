@@ -25,7 +25,7 @@ void display_help(){
     printf("[PATH]     : The Simple/Complex source file to execute.\n");
     printf("[ARG...]   : The arguments to pass to your simple application.\n");
     printf("([OPTIONS]): The flags/options to pass to the Simple VM/Simplify.\n\n");
-    printf("The OPTIONS [SIMPLE FILE] include : \n");
+    printf("The OPTIONS include : \n");
     printf("  -h -help                    Displays this help and exits.\n");
     printf("  -k -show-tokens             Scans and outputs the tokens in the source file.\n");
     printf("  -s -simplify                Compile simple file to one complex file.\n");
@@ -34,8 +34,8 @@ void display_help(){
     printf("  -a -about                   Display the SIMPLE Property and exits.\n");
     printf("  -z -licence                 Print the current SIMPLE LICENCE and exits.\n");
     //printf("\t-p -property                Pop up a dialog that shows the current SIMPLE and your Computer Property.\n");
-    printf("\t-e -error                   Skip all error instance and print error report in console.\n");
-    printf("\t-l [PATH] -log-error [PATH] Skip all error instance and print error report in file.\n");
+    printf("  -e -error                   Skip all error instance and print error report in console.\n");
+    printf("  -l [PATH] -log-error [PATH] Skip all error instance and print error report in file.\n");
     //print_line(); printf("MORE OPTION BELOW"); print_line(); 
     //printf("\t-k [PATH] -show-tokens [PATH]             Save the token into a file for debugging.\n");
 }
