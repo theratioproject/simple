@@ -163,7 +163,8 @@ SIMPLE_API void ring_state_main ( int argc, char *argv[] )
 	signal(SIGSEGV,segfaultaction);
 	#if RING_TESTUNITS
 	ring_testallunits();
-	#endif
+	#endif 
+        printf("it reach here %s\n", argv[0]);
 	if ( argc > 1 ) {
 		for ( x = 1 ; x < argc ; x++ ) {
 			if ( strcmp(argv[x],"-cgi") == 0 ) {
@@ -201,8 +202,7 @@ SIMPLE_API void ring_state_main ( int argc, char *argv[] )
 			else if ( ( is_simple_file(argv[x]) || is_complex_file(argv[x])) && nSRC == 0 ) {
 				cStr = argv[x] ;
 				nSRC = 1 ;
-			} 
-                        printf("it reach here %s\n", argv[x]);
+			}
 		}
 	}
 	#if RING_TESTPERFORMANCE
@@ -222,7 +222,7 @@ SIMPLE_API void ring_state_main ( int argc, char *argv[] )
 	}
 	/* Print Version */
 	if ( (argc == 1) || (cStr == NULL) ) {
-		display_help();
+		//display_help();
 		exit(0);
 	}
 	ring_execute(cStr,nCGI,nRun,nPrintIC,nPrintICFinal,nTokens,nRules,nIns,nGenObj,nWarn,argc,argv);
