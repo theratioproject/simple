@@ -1,6 +1,12 @@
-/* Copyright (c) 2013-2018 Mahmoud Fayed <msfclipper@yahoo.com> */
-#ifndef ring_h
-#define ring_h
+
+/* 
+	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+#ifndef simple_h
+#define simple_h
 /*
 **  DLL/So 
 **  Check Operating System 
@@ -52,7 +58,7 @@
 #define RING_LONGINSTRUCTION "\nError (E4) : Long VM Instruction! \n"
 /* General */
 #define RING_PATHSIZE 256
-/* See and Give - use ringvm_see() and ringvm_give() */
+/* See and Give - use simplevm_see() and simplevm_give() */
 #define RING_USESEEFUNCTION 1
 #define RING_USEGIVEFUNCTION 1
 /*
@@ -63,7 +69,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <assert.h>
-#include <string.h>
+#include <stsimple.h>
 #include <ctype.h>
 #include <math.h>
 #include "signal.h"
@@ -81,40 +87,40 @@
 #endif
 #include <errno.h>
 /* Include Project Headers */
-#include "ring_ext.h"
-#include "ring_string.h"
-#include "ring_vmgcdata.h"
-#include "ring_item.h"
-#include "ring_items.h"
-#include "ring_list.h"
-#include "ring_hashlib.h"
-#include "ring_hashtable.h"
-#include "ring_pooldata.h"
-#include "ring_state.h"
-#include "ring_scanner.h"
-#include "ring_parser.h"
-#include "ring_codegen.h"
-#include "ring_vm.h"
-#include "ring_vmgc.h"
-#include "ring_api.h"
-#include "ring_objfile.h"
+#include "simple_ext.h"
+#include "simple_stsimple.h"
+#include "simple_vmgcdata.h"
+#include "simple_item.h"
+#include "simple_items.h"
+#include "simple_list.h"
+#include "simple_hashlib.h"
+#include "simple_hashtable.h"
+#include "simple_pooldata.h"
+#include "simple_state.h"
+#include "simple_scanner.h"
+#include "simple_parser.h"
+#include "simple_codegen.h"
+#include "simple_vm.h"
+#include "simple_vmgc.h"
+#include "simple_api.h"
+#include "simple_objfile.h"
 /* Extensions Headers */
 #ifdef RING_VM_MATH
-#include "ring_vmmath.h"
+#include "simple_vmmath.h"
 #endif
 #ifdef RING_VM_FILE
-#include "ring_vmfile.h"
+#include "simple_vmfile.h"
 #endif
 #ifdef RING_VM_OS
-#include "ring_vmos.h"
+#include "simple_vmos.h"
 #endif
 #ifdef RING_VM_LISTFUNCS
-#include "ring_vmlistfuncs.h"
+#include "simple_vmlistfuncs.h"
 #endif
 #ifdef RING_VM_REFMETA
-#include "ring_vmrefmeta.h"
+#include "simple_vmrefmeta.h"
 #endif
 #ifdef RING_VM_DLL
-#include "ring_vmdll.h"
+#include "simple_vmdll.h"
 #endif
 #endif

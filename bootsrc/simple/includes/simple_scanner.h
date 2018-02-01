@@ -1,13 +1,13 @@
 /* Copyright (c) 2013-2018 Mahmoud Fayed <msfclipper@yahoo.com> */
-#ifndef ring_scanner_h
-#define ring_scanner_h
+#ifndef simple_scanner_h
+#define simple_scanner_h
 /* Data */
 typedef struct Scanner {
 	char state  ;
 	List *Keywords  ;
 	List *Operators  ;
 	List *Tokens  ;
-	String *ActiveToken  ;
+	Stsimple *ActiveToken  ;
 	int LinesCount  ;
 	/* Float Identification (0 = Start 1 = Number  2 = Number Dot  3 = Number Dot Number ) */
 	char FloatMark  ;
@@ -104,61 +104,61 @@ typedef enum SCANNER_OPERATOR {
 } SCANNER_OPERATOR ;
 /* Functions */
 
-Scanner * ring_scanner_new ( RingState *pRingState ) ;
+Scanner * simple_scanner_new ( RingState *pRingState ) ;
 
-Scanner * ring_scanner_delete ( Scanner *pScanner ) ;
+Scanner * simple_scanner_delete ( Scanner *pScanner ) ;
 
-int ring_scanner_readfile ( RingState *pRingState,char *cFileName ) ;
+int simple_scanner_readfile ( RingState *pRingState,char *cFileName ) ;
 
-void ring_scanner_readchar ( Scanner *pScanner,char c ) ;
+void simple_scanner_readchar ( Scanner *pScanner,char c ) ;
 
-void ring_scanner_keywords ( Scanner *pScanner ) ;
+void simple_scanner_keywords ( Scanner *pScanner ) ;
 
-void ring_scanner_addtoken ( Scanner *pScanner,int type ) ;
+void simple_scanner_addtoken ( Scanner *pScanner,int type ) ;
 
-void ring_scanner_checktoken ( Scanner *pScanner ) ;
+void simple_scanner_checktoken ( Scanner *pScanner ) ;
 
-int ring_scanner_isnumber ( char *cStr ) ;
+int simple_scanner_isnumber ( char *cStr ) ;
 
-int ring_scanner_checklasttoken ( Scanner *pScanner ) ;
+int simple_scanner_checklasttoken ( Scanner *pScanner ) ;
 
-int ring_scanner_isoperator ( Scanner *pScanner,const char *cStr ) ;
+int simple_scanner_isoperator ( Scanner *pScanner,const char *cStr ) ;
 
-void ring_scanner_operators ( Scanner *pScanner ) ;
+void simple_scanner_operators ( Scanner *pScanner ) ;
 
-int ring_scanner_lasttokentype ( Scanner *pScanner ) ;
+int simple_scanner_lasttokentype ( Scanner *pScanner ) ;
 
-char * ring_scanner_lasttokenvalue ( Scanner *pScanner ) ;
+char * simple_scanner_lasttokenvalue ( Scanner *pScanner ) ;
 
-void ring_scanner_floatmark ( Scanner *pScanner,int type ) ;
+void simple_scanner_floatmark ( Scanner *pScanner,int type ) ;
 
-void ring_scanner_endofline ( Scanner *pScanner ) ;
+void simple_scanner_endofline ( Scanner *pScanner ) ;
 
-void ring_scanner_addreturn ( RingState *pRingState ) ;
+void simple_scanner_addreturn ( RingState *pRingState ) ;
 
-void ring_scanner_addreturn2 ( RingState *pRingState ) ;
+void simple_scanner_addreturn2 ( RingState *pRingState ) ;
 
-void ring_scanner_addreturn3 ( RingState *pRingState,int aPara[3] ) ;
+void simple_scanner_addreturn3 ( RingState *pRingState,int aPara[3] ) ;
 
-void ring_scanner_printtokens ( Scanner *pScanner ) ;
+void simple_scanner_printtokens ( Scanner *pScanner ) ;
 
-RING_API void ring_execute ( char *cFileName, int nISCGI,int nRun,int nPrintIC,int nPrintICFinal,int nTokens,int nRules,int nIns,int nGenObj,int nWarn,int argc,char *argv[] ) ;
+RING_API void simple_execute ( char *cFileName, int nISCGI,int nRun,int nPrintIC,int nPrintICFinal,int nTokens,int nRules,int nIns,int nGenObj,int nWarn,int argc,char *argv[] ) ;
 
-const char * ring_scanner_getkeywordtext ( const char *cStr ) ;
+const char * simple_scanner_getkeywordtext ( const char *cStr ) ;
 
-void ring_scanner_runobjfile ( RingState *pRingState,char *cFileName ) ;
+void simple_scanner_runobjfile ( RingState *pRingState,char *cFileName ) ;
 
-void ring_scanner_runprogram ( RingState *pRingState ) ;
+void simple_scanner_runprogram ( RingState *pRingState ) ;
 
-void ring_scanner_changekeyword ( Scanner *pScanner ) ;
+void simple_scanner_changekeyword ( Scanner *pScanner ) ;
 
-void ring_scanner_changeoperator ( Scanner *pScanner ) ;
+void simple_scanner_changeoperator ( Scanner *pScanner ) ;
 
-void ring_scanner_loadsyntax ( Scanner *pScanner ) ;
+void simple_scanner_loadsyntax ( Scanner *pScanner ) ;
 
-void ring_scanner_runobjstring ( RingState *pRingState,char *cString,const char *cFileName ) ;
+void simple_scanner_runobjstsimple ( RingState *pRingState,char *cStsimple,const char *cFileName ) ;
 /* MACRO */
-#define RING_SCANNER_DELETELASTTOKEN ring_list_deleteitem(pScanner->Tokens,ring_list_getsize(pScanner->Tokens))
+#define RING_SCANNER_DELETELASTTOKEN simple_list_deleteitem(pScanner->Tokens,simple_list_getsize(pScanner->Tokens))
 /*
 **  Constants 
 **  General 

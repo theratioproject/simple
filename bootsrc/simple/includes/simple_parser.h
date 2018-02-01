@@ -1,6 +1,6 @@
 /* Copyright (c) 2013-2018 Mahmoud Fayed <msfclipper@yahoo.com> */
-#ifndef ring_parser_h
-#define ring_parser_h
+#ifndef simple_parser_h
+#define simple_parser_h
 /* Data */
 typedef struct Parser {
 	List *Tokens  ;
@@ -73,98 +73,98 @@ typedef struct Parser {
 #define RING_PARSER_ERROR_CLASSREDEFINE "Error (C26) : Class redefinition, class is already defined!"
 /* Functions */
 
-int ring_parser_start ( List *pTokens,RingState *pRingState ) ;
+int simple_parser_start ( List *pTokens,RingState *pRingState ) ;
 
-Parser * ring_parser_new ( List *pTokens,RingState *pRingState ) ;
+Parser * simple_parser_new ( List *pTokens,RingState *pRingState ) ;
 
-Parser * ring_parser_delete ( Parser *pParser ) ;
+Parser * simple_parser_delete ( Parser *pParser ) ;
 
-void ring_parser_printtokens ( Parser *pParser ) ;
+void simple_parser_printtokens ( Parser *pParser ) ;
 /* Grammar */
 
-int ring_parser_class ( Parser *pParser ) ;
+int simple_parser_class ( Parser *pParser ) ;
 
-int ring_parser_stmt ( Parser *pParser ) ;
+int simple_parser_stmt ( Parser *pParser ) ;
 
-int ring_parser_step ( Parser *pParser,int *nMark1 ) ;
+int simple_parser_step ( Parser *pParser,int *nMark1 ) ;
 
-int ring_parser_paralist ( Parser *pParser ) ;
+int simple_parser_paralist ( Parser *pParser ) ;
 
-int ring_parser_expr ( Parser *pParser ) ;
+int simple_parser_expr ( Parser *pParser ) ;
 
-int ring_parser_logicnot ( Parser *pParser ) ;
+int simple_parser_logicnot ( Parser *pParser ) ;
 
-int ring_parser_equalornot ( Parser *pParser ) ;
+int simple_parser_equalornot ( Parser *pParser ) ;
 
-int ring_parser_compare ( Parser *pParser ) ;
+int simple_parser_compare ( Parser *pParser ) ;
 
-int ring_parser_bitorxor ( Parser *pParser ) ;
+int simple_parser_bitorxor ( Parser *pParser ) ;
 
-int ring_parser_bitand ( Parser *pParser ) ;
+int simple_parser_bitand ( Parser *pParser ) ;
 
-int ring_parser_bitshift ( Parser *pParser ) ;
+int simple_parser_bitshift ( Parser *pParser ) ;
 
-int ring_parser_arithmetic ( Parser *pParser ) ;
+int simple_parser_arithmetic ( Parser *pParser ) ;
 
-int ring_parser_term ( Parser *pParser ) ;
+int simple_parser_term ( Parser *pParser ) ;
 
-int ring_parser_range ( Parser *pParser ) ;
+int simple_parser_range ( Parser *pParser ) ;
 
-int ring_parser_factor ( Parser *pParser,int *nFlag ) ;
+int simple_parser_factor ( Parser *pParser,int *nFlag ) ;
 
-int ring_parser_mixer ( Parser *pParser ) ;
+int simple_parser_mixer ( Parser *pParser ) ;
 
-int ring_parser_list ( Parser *pParser ) ;
+int simple_parser_list ( Parser *pParser ) ;
 
-int ring_parser_epslion ( Parser *pParser ) ;
+int simple_parser_epslion ( Parser *pParser ) ;
 
-int ring_parser_passepslion ( Parser *pParser ) ;
+int simple_parser_passepslion ( Parser *pParser ) ;
 
-int ring_parser_namedotname ( Parser *pParser ) ;
+int simple_parser_namedotname ( Parser *pParser ) ;
 
-int ring_parser_ppmm ( Parser *pParser ) ;
+int simple_parser_ppmm ( Parser *pParser ) ;
 
-int ring_parser_csexpr ( Parser *pParser ) ;
+int simple_parser_csexpr ( Parser *pParser ) ;
 
-int ring_parser_csbraceend ( Parser *pParser ) ;
+int simple_parser_csbraceend ( Parser *pParser ) ;
 
-int ring_parser_objattributes ( Parser *pParser ) ;
+int simple_parser_objattributes ( Parser *pParser ) ;
 
-int ring_parser_bracesandend ( Parser *pParser,int lClass,SCANNER_KEYWORD nKeyword ) ;
+int simple_parser_bracesandend ( Parser *pParser,int lClass,SCANNER_KEYWORD nKeyword ) ;
 /* Check Token */
 
-void ring_parser_loadtoken ( Parser *pParser ) ;
+void simple_parser_loadtoken ( Parser *pParser ) ;
 
-int ring_parser_nexttoken ( Parser *pParser ) ;
+int simple_parser_nexttoken ( Parser *pParser ) ;
 
-int ring_parser_iskeyword ( Parser *pParser,SCANNER_KEYWORD x ) ;
+int simple_parser_iskeyword ( Parser *pParser,SCANNER_KEYWORD x ) ;
 
-int ring_parser_isoperator ( Parser *pParser,const char *cStr ) ;
+int simple_parser_isoperator ( Parser *pParser,const char *cStr ) ;
 
-int ring_parser_isliteral ( Parser *pParser ) ;
+int simple_parser_isliteral ( Parser *pParser ) ;
 
-int ring_parser_isidentifier ( Parser *pParser ) ;
+int simple_parser_isidentifier ( Parser *pParser ) ;
 
-int ring_parser_isnumber ( Parser *pParser ) ;
+int simple_parser_isnumber ( Parser *pParser ) ;
 
-int ring_parser_isendline ( Parser *pParser ) ;
+int simple_parser_isendline ( Parser *pParser ) ;
 
-int ring_parser_settoken ( Parser *pParser,int x ) ;
+int simple_parser_settoken ( Parser *pParser,int x ) ;
 
-int ring_parser_isanykeyword ( Parser *pParser ) ;
+int simple_parser_isanykeyword ( Parser *pParser ) ;
 
-int ring_parser_isoperator2 ( Parser *pParser,SCANNER_OPERATOR nType ) ;
+int simple_parser_isoperator2 ( Parser *pParser,SCANNER_OPERATOR nType ) ;
 /* Display Errors */
 
-void ring_parser_error ( Parser *pParser,const char *cStr ) ;
+void simple_parser_error ( Parser *pParser,const char *cStr ) ;
 /* Generate Code */
 
-void ring_parser_gencall ( Parser *pParser,int nCallMethod ) ;
+void simple_parser_gencall ( Parser *pParser,int nCallMethod ) ;
 
-void ring_parser_gencallbracemethod ( Parser *pParser,const char *cMethod ) ;
+void simple_parser_gencallbracemethod ( Parser *pParser,const char *cMethod ) ;
 /* MACRO */
-#define RING_PARSER_IGNORENEWLINE while(ring_parser_epslion(pParser));
-#define RING_PARSER_PASSNEWLINE while(ring_parser_passepslion(pParser));
+#define RING_PARSER_IGNORENEWLINE while(simple_parser_epslion(pParser));
+#define RING_PARSER_PASSNEWLINE while(simple_parser_passepslion(pParser));
 #define RING_PARSER_CURRENTTOKEN pParser->ActiveToken
-#define RING_PARSER_OPERATIONID ring_list_getsize(pParser->GenCode)
+#define RING_PARSER_OPERATIONID simple_list_getsize(pParser->GenCode)
 #endif

@@ -1,6 +1,6 @@
 /* Copyright (c) 2013-2018 Mahmoud Fayed <msfclipper@yahoo.com> */
-#ifndef ring_codegen_h
-#define ring_codegen_h
+#ifndef simple_codegen_h
+#define simple_codegen_h
 /*
 **  Data 
 **  Intermediate Code 
@@ -137,41 +137,41 @@ typedef enum IC_OPERATIONS {
 **  Generate Intermediate Code 
 */
 
-void ring_parser_icg_newoperation ( Parser *pParser , IC_OPERATIONS opcode ) ;
+void simple_parser_icg_newoperation ( Parser *pParser , IC_OPERATIONS opcode ) ;
 
-void ring_parser_icg_newoperand ( Parser *pParser , const char *cStr ) ;
+void simple_parser_icg_newoperand ( Parser *pParser , const char *cStr ) ;
 
-void ring_parser_icg_newoperandint ( Parser *pParser , int nValue ) ;
+void simple_parser_icg_newoperandint ( Parser *pParser , int nValue ) ;
 
-void ring_parser_icg_newoperanddouble ( Parser *pParser , double nValue ) ;
+void simple_parser_icg_newoperanddouble ( Parser *pParser , double nValue ) ;
 
-void ring_parser_icg_newoperandpointer ( Parser *pParser , void *pValue ) ;
+void simple_parser_icg_newoperandpointer ( Parser *pParser , void *pValue ) ;
 
-List * ring_parser_icg_getactiveoperation ( Parser *pParser ) ;
+List * simple_parser_icg_getactiveoperation ( Parser *pParser ) ;
 
-void ring_parser_icg_addoperand ( Parser *pParser ,List *pList , const char *cStr ) ;
+void simple_parser_icg_addoperand ( Parser *pParser ,List *pList , const char *cStr ) ;
 
-void ring_parser_icg_addoperandint ( Parser *pParser ,List *pList , int nValue ) ;
+void simple_parser_icg_addoperandint ( Parser *pParser ,List *pList , int nValue ) ;
 
-void ring_parser_icg_addoperandpointer ( Parser *pParser ,List *pList , void *pValue ) ;
+void simple_parser_icg_addoperandpointer ( Parser *pParser ,List *pList , void *pValue ) ;
 
-void ring_parser_icg_showoutput ( List *pListGenCode,int nStatus ) ;
+void simple_parser_icg_showoutput ( List *pListGenCode,int nStatus ) ;
 
-Items * ring_parser_icg_getoperationpos ( Parser *pParser ) ;
+Items * simple_parser_icg_getoperationpos ( Parser *pParser ) ;
 
-void ring_parser_icg_deletelastoperation ( Parser *pParser ) ;
+void simple_parser_icg_deletelastoperation ( Parser *pParser ) ;
 
-void ring_parser_icg_duplicate ( Parser *pParser,int nStart,int nEnd ) ;
+void simple_parser_icg_duplicate ( Parser *pParser,int nStart,int nEnd ) ;
 
-int ring_parser_icg_newlabel2 ( Parser *pParser ) ;
+int simple_parser_icg_newlabel2 ( Parser *pParser ) ;
 
-void ring_parser_icg_insertoperation ( Parser *pParser , int nPos , IC_OPERATIONS opcode ) ;
+void simple_parser_icg_insertoperation ( Parser *pParser , int nPos , IC_OPERATIONS opcode ) ;
 /* Macro */
-#define ring_parser_icg_newlabel(x) ( ring_list_getsize(x->GenCode) + 1 )
-#define ring_parser_icg_getlastoperation(pParser) ring_list_getint(pParser->ActiveGenCodeList,1)
-#define ring_parser_icg_setlastoperation(pParser,x) ring_list_setint_gc(pParser->pRingState,pParser->ActiveGenCodeList,1,x)
-#define ring_parser_icg_instructionscount(pParser) ring_list_getsize(pParser->GenCode)
-#define ring_parser_icg_getoperationlist(pParser,x) ring_list_getlist(pParser->GenCode,x)
-#define RING_PARSER_ICG_GOTOLASTOP pParser->ActiveGenCodeList = ring_list_getlist(pParser->GenCode,ring_list_getsize(pParser->GenCode))
+#define simple_parser_icg_newlabel(x) ( simple_list_getsize(x->GenCode) + 1 )
+#define simple_parser_icg_getlastoperation(pParser) simple_list_getint(pParser->ActiveGenCodeList,1)
+#define simple_parser_icg_setlastoperation(pParser,x) simple_list_setint_gc(pParser->pRingState,pParser->ActiveGenCodeList,1,x)
+#define simple_parser_icg_instructionscount(pParser) simple_list_getsize(pParser->GenCode)
+#define simple_parser_icg_getoperationlist(pParser,x) simple_list_getlist(pParser->GenCode,x)
+#define RING_PARSER_ICG_GOTOLASTOP pParser->ActiveGenCodeList = simple_list_getlist(pParser->GenCode,simple_list_getsize(pParser->GenCode))
 extern const char *RING_IC_OP[] ;
 #endif

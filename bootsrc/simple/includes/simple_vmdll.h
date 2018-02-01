@@ -1,6 +1,6 @@
 /* Copyright (c) 2013-2018 Mahmoud Fayed <msfclipper@yahoo.com> */
-#ifndef ring_vmdll_h
-#define ring_vmdll_h
+#ifndef simple_vmdll_h
+#define simple_vmdll_h
 #ifdef _WIN32
 #include <windows.h>
 #define LoadDLL(x) LoadLibrary(x)
@@ -16,9 +16,9 @@ typedef void * LpHandleType ;
 #endif
 typedef void (*loadlibfuncptr)(RingState *) ;
 
-void ring_vm_dll_loadfunctions ( RingState *pRingState ) ;
+void simple_vm_dll_loadfunctions ( RingState *pRingState ) ;
 
-void ring_vm_dll_loadlib ( void *pPointer ) ;
+void simple_vm_dll_loadlib ( void *pPointer ) ;
 
-void ring_vm_dll_closelib ( void *pPointer ) ;
+void simple_vm_dll_closelib ( void *pPointer ) ;
 #endif

@@ -1,17 +1,17 @@
 /* Copyright (c) 2013-2018 Mahmoud Fayed <msfclipper@yahoo.com> */
-#ifndef ring_state_h
-#define ring_state_h
+#ifndef simple_state_h
+#define simple_state_h
 /* Data */
 typedef struct RingState {
-	/* First use by ring_scanner_readfile */
+	/* First use by simple_scanner_readfile */
 	List *pRingFilesList  ;
 	List *pRingFilesStack  ;
-	/* First use by ring_parser_new */
+	/* First use by simple_parser_new */
 	List *pRingGenCode  ;
 	List *pRingFunctionsMap  ;
 	List *pRingClassesMap  ;
 	List *pRingPackagesMap  ;
-	/* First use by ring_vm_new */
+	/* First use by simple_vm_new */
 	List *pRingCFunctions  ;
 	/* ISCGI is 1 if we are using the language as for CGI development */
 	unsigned int nISCGI : 1  ;
@@ -27,7 +27,7 @@ typedef struct RingState {
 	unsigned int nPrintRules : 1  ;
 	/* set to 1 if we need to print the  current instruction executed */
 	unsigned int nPrintInstruction : 1  ;
-	/* set to 1 if we need to generate the object file (ringo) */
+	/* set to 1 if we need to generate the object file (simpleo) */
 	unsigned int nGenObj : 1  ;
 	/* set to 1 if we need to display warnings */
 	unsigned int nWarning : 1  ;
@@ -50,51 +50,51 @@ typedef struct RingState {
 } RingState ;
 /* Functions */
 
-RING_API RingState * ring_state_new ( void ) ;
+RING_API RingState * simple_state_new ( void ) ;
 
-RING_API RingState * ring_state_delete ( RingState *pRingState ) ;
+RING_API RingState * simple_state_delete ( RingState *pRingState ) ;
 
-void ring_state_cgiheader ( RingState *pRingState ) ;
+void simple_state_cgiheader ( RingState *pRingState ) ;
 
-RING_API void ring_print_line ( void ) ;
+RING_API void simple_print_line ( void ) ;
 
-RING_API RingState * ring_state_init ( void ) ;
+RING_API RingState * simple_state_init ( void ) ;
 
-RING_API void ring_state_runcode ( RingState *pRingState,const char *cStr ) ;
+RING_API void simple_state_runcode ( RingState *pRingState,const char *cStr ) ;
 
-RING_API List * ring_state_findvar ( RingState *pRingState,const char *cStr ) ;
+RING_API List * simple_state_findvar ( RingState *pRingState,const char *cStr ) ;
 
-RING_API List * ring_state_newvar ( RingState *pRingState,const char *cStr ) ;
+RING_API List * simple_state_newvar ( RingState *pRingState,const char *cStr ) ;
 
-RING_API void ring_state_main ( int argc, char *argv[] ) ;
+RING_API void simple_state_main ( int argc, char *argv[] ) ;
 
-RING_API void ring_state_runfile ( RingState *pRingState,char *cFileName ) ;
+RING_API void simple_state_runfile ( RingState *pRingState,char *cFileName ) ;
 
-RING_API void ring_state_runobjectfile ( RingState *pRingState,char *cFileName ) ;
+RING_API void simple_state_runobjectfile ( RingState *pRingState,char *cFileName ) ;
 
-RING_API void ring_state_runobjectstring ( RingState *pRingState,char *cString,const char *cFileName ) ;
+RING_API void simple_state_runobjectstsimple ( RingState *pRingState,char *cStsimple,const char *cFileName ) ;
 /* MACRO */
 #define RING_STATE_CHECKPRINTRULES if ( pParser->pRingState->nPrintRules )
 #define RING_VERSION "1.7"
 /* General Functions */
 
-int ring_fexists ( const char *cFileName ) ;
+int simple_fexists ( const char *cFileName ) ;
 
-int ring_currentdir ( char *cDirPath ) ;
+int simple_currentdir ( char *cDirPath ) ;
 
-int ring_exefilename ( char *cDirPath ) ;
+int simple_exefilename ( char *cDirPath ) ;
 
-int ring_chdir ( const char *cDir ) ;
+int simple_chdir ( const char *cDir ) ;
 
-void ring_exefolder ( char *cDirPath ) ;
+void simple_exefolder ( char *cDirPath ) ;
 
-int ring_issourcefile ( const char *cStr ) ;
+int simple_issourcefile ( const char *cStr ) ;
 
-int ring_isobjectfile ( const char *cStr ) ;
+int simple_isobjectfile ( const char *cStr ) ;
 
-void ring_switchtofilefolder ( char *cFileName ) ;
+void simple_switchtofilefolder ( char *cFileName ) ;
 
-int ring_justfilepath ( char *cFileName ) ;
+int simple_justfilepath ( char *cFileName ) ;
 
-void ring_justfilename ( char *cFileName ) ;
+void simple_justfilename ( char *cFileName ) ;
 #endif

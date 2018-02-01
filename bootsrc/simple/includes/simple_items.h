@@ -1,6 +1,6 @@
 /* Copyright (c) 2013-2016 Mahmoud Fayed <msfclipper@yahoo.com> */
-#ifndef ring_items_h
-#define ring_items_h
+#ifndef simple_items_h
+#define simple_items_h
 /* Data */
 typedef struct Items {
 	struct Item *pValue  ;
@@ -9,14 +9,14 @@ typedef struct Items {
 } Items ;
 /* Functions */
 
-Items * ring_items_new_gc ( void *pState ) ;
+Items * simple_items_new_gc ( void *pState ) ;
 
-Items * ring_items_delete_gc ( void *pState,Items *pItems ) ;
+Items * simple_items_delete_gc ( void *pState,Items *pItems ) ;
 
-void ring_items_print ( Items *pItems ) ;
+void simple_items_print ( Items *pItems ) ;
 /* Functions without State pointer */
 
-Items * ring_items_new ( void ) ;
+Items * simple_items_new ( void ) ;
 
-Items * ring_items_delete ( Items *pItems ) ;
+Items * simple_items_delete ( Items *pItems ) ;
 #endif

@@ -1,10 +1,10 @@
 /* Copyright (c) 2013-2017 Mahmoud Fayed <msfclipper@yahoo.com> */
-#ifndef ring_pooldata
-#define ring_pooldata
+#ifndef simple_pooldata
+#define simple_pooldata
 /* Data */
 typedef struct PoolData {
 	union PoolDataTypes {
-		String vString  ;
+		Stsimple vStsimple  ;
 		Item vItem  ;
 		Items vItems  ;
 		List vList  ;

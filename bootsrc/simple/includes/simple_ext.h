@@ -1,6 +1,6 @@
 /* Copyright (c) 2013-2018 Mahmoud Fayed <msfclipper@yahoo.com> */
-#ifndef ringext_h
-#define ringext_h
+#ifndef simpleext_h
+#define simpleext_h
 /* Constants */
 #define RING_VM_LISTFUNCS 1
 #define RING_VM_REFMETA 1
