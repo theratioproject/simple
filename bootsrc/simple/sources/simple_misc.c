@@ -57,9 +57,9 @@ int is_complex_file ( const char *cStr )
 	int x  ;
 	x = strlen(cStr) - 1 ;
 	if ( x > 6 ) {
-		if ( tolower(cStr[x]) == 'o' && tolower(cStr[x-1]) == 'g' && tolower(cStr[x-2]) == 'n' && tolower(cStr[x-3]) == 'i' && tolower(cStr[x-4]) == 'r' && cStr[x-5] == '.' ) {
+		if ( tolower(cStr[x]) == 'x' && tolower(cStr[x-1]) == 'e' && tolower(cStr[x-2]) == 'l' && tolower(cStr[x-3]) == 'm' && tolower(cStr[x-4]) == 'o' && cStr[x-5] == 'c' && cStr[x-5] == '.' ) {
 			return 1 ;
 		}
-	} complex
+	} 
 	return 0 ;
 }
