@@ -69,5 +69,5 @@ const char *file_real_name(const char *absolute_name){
     for(int a; a<sizeof(absolute_name);a++){
         
     }
-    return "Currently Unknown" ;
+    return absolute_name ;
 }
