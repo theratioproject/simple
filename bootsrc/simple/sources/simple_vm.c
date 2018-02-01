@@ -1155,7 +1155,7 @@ SIMPLE_API void ring_vm_showerrormessage ( VM *pVM,const char *cStr )
 		else {
 			cFile = file_real_name(pVM->cFileName) ;
 		}
-		printf( "in file %s ",cFile ) ;
+		printf( "\tin file %s ",cFile ) ;
 	}
 }
 
