@@ -4,7 +4,7 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>includes/ring.h</itemPath>
+      <itemPath>includes/simple.h</itemPath>
       <itemPath>includes/ring_api.h</itemPath>
       <itemPath>includes/ring_codegen.h</itemPath>
       <itemPath>includes/ring_ext.h</itemPath>
@@ -37,7 +37,7 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>sources/ring.c</itemPath>
+      <itemPath>sources/simple.c</itemPath>
       <itemPath>sources/ring_api.c</itemPath>
       <itemPath>sources/ring_codegen.c</itemPath>
       <itemPath>sources/ring_expr.c</itemPath>
@@ -100,7 +100,7 @@
       </toolsSet>
       <compileType>
       </compileType>
-      <item path="includes/ring.h" ex="false" tool="3" flavor2="0">
+      <item path="includes/simple.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="includes/ring_api.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -150,7 +150,7 @@
       </item>
       <item path="includes/simple_misc.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="sources/ring.c" ex="false" tool="0" flavor2="0">
+      <item path="sources/simple.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="sources/ring_api.c" ex="false" tool="0" flavor2="0">
       </item>
@@ -251,7 +251,7 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
-      <item path="includes/ring.h" ex="false" tool="3" flavor2="0">
+      <item path="includes/simple.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="includes/ring_api.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -301,7 +301,7 @@
       </item>
       <item path="includes/simple_misc.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="sources/ring.c" ex="false" tool="0" flavor2="0">
+      <item path="sources/simple.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="sources/ring_api.c" ex="false" tool="0" flavor2="0">
       </item>

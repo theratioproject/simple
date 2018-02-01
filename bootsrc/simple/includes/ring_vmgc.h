@@ -25,7 +25,7 @@ SIMPLE_API void ring_free ( void *ptr ) ;
 SIMPLE_API void * ring_calloc ( size_t nitems, size_t size ) ;
 
 SIMPLE_API void * ring_realloc ( void *ptr, size_t size ) ;
-/* Memory Functions (Ring StateAware) */
+/* Memory Functions (Simple StateAware) */
 
 SIMPLE_API void * ring_state_malloc ( void *pState,size_t size ) ;
 

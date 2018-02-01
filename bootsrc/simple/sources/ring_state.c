@@ -2,7 +2,7 @@
 **  Copyright (c) 2013-2018 Mahmoud Fayed <msfclipper@yahoo.com> 
 **  Include Files 
 */
-#include "../includes/ring.h"
+#include "../includes/simple.h"
 #ifdef _WIN32
 /* Windows only */
 #include <direct.h>
@@ -210,13 +210,13 @@ SIMPLE_API void ring_state_main ( int argc, char *argv[] )
 	}
 	#endif
 	srand(time(NULL));
-	/* Check Startup ring.sim */
-	if ( ring_fexists("ring.sim") && argc == 1 ) {
-		ring_execute("ring.sim",nCGI,nRun,nPrintIC,nPrintICFinal,nTokens,nRules,nIns,nGenObj,nWarn,argc,argv);
+	/* Check Startup simple.sim */
+	if ( ring_fexists("simple.sim") && argc == 1 ) {
+		ring_execute("simple.sim",nCGI,nRun,nPrintIC,nPrintICFinal,nTokens,nRules,nIns,nGenObj,nWarn,argc,argv);
 		exit(0);
 	}
-	if ( ring_fexists("ring.complex") && argc == 1 ) {
-		ring_execute("ring.complex",nCGI,nRun,nPrintIC,nPrintICFinal,nTokens,nRules,nIns,nGenObj,nWarn,argc,argv);
+	if ( ring_fexists("simple.complex") && argc == 1 ) {
+		ring_execute("simple.complex",nCGI,nRun,nPrintIC,nPrintICFinal,nTokens,nRules,nIns,nGenObj,nWarn,argc,argv);
 		exit(0);
 	}
 	/* Print Version */

@@ -1,5 +1,5 @@
 /* Copyright (c) 2013-2017 Mahmoud Fayed <msfclipper@yahoo.com> */
-#include "../includes/ring.h"
+#include "../includes/simple.h"
 /* End Program / Exit from Loop / Loop (Continue) */
 
 void ring_vm_bye ( VM *pVM )

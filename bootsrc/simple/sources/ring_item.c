@@ -2,7 +2,7 @@
 **  Copyright (c) 2013-2017 Mahmoud Fayed <msfclipper@yahoo.com> 
 **  Header Files 
 */
-#include "../includes/ring.h"
+#include "../includes/simple.h"
 
 SIMPLE_API Item * ring_item_new_gc ( void *pState,int ItemType )
 {

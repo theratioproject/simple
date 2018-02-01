@@ -1,5 +1,5 @@
 /* Copyright (c) 2013-2016 Mahmoud Fayed <msfclipper@yahoo.com> */
-#include "../includes/ring.h"
+#include "../includes/simple.h"
 /* String As Array */
 
 void ring_vm_string_pushv ( VM *pVM )

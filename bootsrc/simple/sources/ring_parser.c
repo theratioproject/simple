@@ -1,5 +1,5 @@
 /* Copyright (c) 2013-2018 Mahmoud Fayed <msfclipper@yahoo.com> */
-#include "../includes/ring.h"
+#include "../includes/simple.h"
 /* Functions */
 
 int ring_parser_start ( List *pTokens,RingState *pRingState )
@@ -45,7 +45,7 @@ Parser * ring_parser_new ( List *pTokens,RingState *pRingState )
 		printf( RING_OOM ) ;
 		exit(0);
 	}
-	/* Ring State */
+	/* Simple State */
 	pParser->pRingState = pRingState ;
 	pParser->Tokens = pTokens ;
 	pParser->ActiveToken = 0 ;

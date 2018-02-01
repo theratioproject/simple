@@ -1,5 +1,5 @@
 /* Copyright (c) 2013-2016 Mahmoud Fayed <msfclipper@yahoo.com> */
-#include "../includes/ring.h"
+#include "../includes/simple.h"
 
 void ring_vm_gc_checkreferences ( VM *pVM )
 {
@@ -85,7 +85,7 @@ void ring_vm_gc_deletetemplists ( VM *pVM )
 		return ;
 	}
 	/*
-	**  This function is called from Ring code by callgc() 
+	**  This function is called from Simple code by callgc() 
 	**  Function Goal 
 	**  When we return Lists/Pointers from functions we create variable called ring_sys_temp 
 	**  This variable is created in the previous scope instead of the active function scope 
@@ -97,7 +97,7 @@ void ring_vm_gc_deletetemplists ( VM *pVM )
 	**  But we have a loop and this will lead to a memory leak during loop execution 
 	**  When testing al_map_rgb() in Allegro Library this problem becomes critical 
 	**  This function solves this problem, by deleting temp lists/C Pointers in the current scope 
-	**  We use -1 to skip the currect scope of the Ring function (callgc()) 
+	**  We use -1 to skip the currect scope of the Simple function (callgc()) 
 	*/
 	pScope = ring_list_getlist(pVM->pMem,ring_list_getsize(pVM->pMem)-1) ;
 	/* The function works only when we expect to have temp variables */
@@ -204,8 +204,8 @@ void ring_poolmanager_newblock ( RingState *pRingState )
 	}
 	pMemory[RING_POOLMANAGER_ITEMSINBLOCK-1].pNext = NULL ;
 	/*
-	**  Set Values in Ring State 
-	**  Set First Item in Ring State 
+	**  Set Values in Simple State 
+	**  Set First Item in Simple State 
 	*/
 	pRingState->vPoolManager.pCurrentItem = pMemory+1 ;
 	/* Set Block Start and End */

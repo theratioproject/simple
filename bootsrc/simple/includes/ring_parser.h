@@ -41,7 +41,7 @@ typedef struct Parser {
 	int nControlStructureExpr  ;
 	/* Flag - We started using braces {} in control structure - we have { */
 	int nControlStructureBrace  ;
-	/* Ring State */
+	/* Simple State */
 	RingState *pRingState  ;
 } Parser ;
 /* Error Messages */

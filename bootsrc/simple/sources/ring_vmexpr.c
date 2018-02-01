@@ -3,7 +3,7 @@
 **  Remember, When we read from the stack LIFO 
 **  If we have two parameters, we read the second parameter first 
 */
-#include "../includes/ring.h"
+#include "../includes/simple.h"
 /* Math */
 
 void ring_vm_sum ( VM *pVM )
@@ -1128,7 +1128,7 @@ void ring_vm_addlisttolist ( VM *pVM,List *pList,List *pList2 )
 	}
 	else if ( (ring_vm_oop_isobject(pList3) == 1)  && (pVM->pBraceObject != pList) ) {
 		/*
-		**  in ring code if we used mylist + new obj() the init method will be called 
+		**  in simple code if we used mylist + new obj() the init method will be called 
 		**  the pVM->pBraceObject will not == pList but we have to update the self pointer! 
 		*/
 		ring_vm_oop_updateselfpointer(pVM,pList3,RING_OBJTYPE_LISTITEM,ring_list_getitem(pList2,ring_list_getsize(pList2)));

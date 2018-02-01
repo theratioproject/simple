@@ -1,5 +1,5 @@
 /* Copyright (c) 2013-2016 Mahmoud Fayed <msfclipper@yahoo.com> */
-#include "../includes/ring.h"
+#include "../includes/simple.h"
 /* Lists */
 
 void ring_vm_liststart ( VM *pVM )

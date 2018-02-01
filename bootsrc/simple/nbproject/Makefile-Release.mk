@@ -35,7 +35,6 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/sources/ring.o \
 	${OBJECTDIR}/sources/ring_api.o \
 	${OBJECTDIR}/sources/ring_codegen.o \
 	${OBJECTDIR}/sources/ring_expr.o \
@@ -74,6 +73,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/sources/ring_vmtrycatch.o \
 	${OBJECTDIR}/sources/ring_vmvars.o \
 	${OBJECTDIR}/sources/ringw.o \
+	${OBJECTDIR}/sources/simple.o \
 	${OBJECTDIR}/sources/simple_misc.o
 
 
@@ -100,11 +100,6 @@ LDLIBSOPTIONS=
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/simple.exe: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.c} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/simple ${OBJECTFILES} ${LDLIBSOPTIONS}
-
-${OBJECTDIR}/sources/ring.o: sources/ring.c
-	${MKDIR} -p ${OBJECTDIR}/sources
-	${RM} "$@.d"
-	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/sources/ring.o sources/ring.c
 
 ${OBJECTDIR}/sources/ring_api.o: sources/ring_api.c
 	${MKDIR} -p ${OBJECTDIR}/sources
@@ -295,6 +290,11 @@ ${OBJECTDIR}/sources/ringw.o: sources/ringw.c
 	${MKDIR} -p ${OBJECTDIR}/sources
 	${RM} "$@.d"
 	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/sources/ringw.o sources/ringw.c
+
+${OBJECTDIR}/sources/simple.o: sources/simple.c
+	${MKDIR} -p ${OBJECTDIR}/sources
+	${RM} "$@.d"
+	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/sources/simple.o sources/simple.c
 
 ${OBJECTDIR}/sources/simple_misc.o: sources/simple_misc.c
 	${MKDIR} -p ${OBJECTDIR}/sources
