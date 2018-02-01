@@ -42,7 +42,7 @@ void display_help(){
 
 int is_simple_file ( const char *file_name )
 {
-    int x  ;
+    int x  ; 
     x = strlen(file_name) - 1 ;
     if ( x >= 5 ) {
         if ( tolower(file_name[x]) == 'm' && tolower(file_name[x-1]) == 'i' && tolower(file_name[x-2]) == 's' && tolower(file_name[x-3]) == '.'  ) {
