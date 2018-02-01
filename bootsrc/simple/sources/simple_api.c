@@ -586,7 +586,7 @@ void ring_vmlib_input ( void *pPointer )
 	if ( nSize > 0 ) {
 		cLine = (char *) ring_state_malloc(((VM *) pPointer)->pRingState,nSize);
 		if ( cLine == NULL ) {
-			RING_API_ERROR(SIMPLE_OOM);
+			RING_API_ERROR(RING_OOM);
 			return ;
 		}
 		/* Get Input From the User and save it in the variable */
@@ -1203,7 +1203,7 @@ void ring_vmlib_str2hex ( void *pPointer )
 		nMax = RING_API_GETSTRINGSIZE(1) ;
 		cString2 = (char *) ring_state_malloc(((VM *) pPointer)->pRingState,nMax*2);
 		if ( cString2 == NULL ) {
-			RING_API_ERROR(SIMPLE_OOM);
+			RING_API_ERROR(RING_OOM);
 			return ;
 		}
 		for ( x = 1 ; x <= nMax ; x++ ) {
@@ -1238,7 +1238,7 @@ void ring_vmlib_hex2str ( void *pPointer )
 		nMax = RING_API_GETSTRINGSIZE(1) ;
 		cString2 = (char *) ring_state_malloc(((VM *) pPointer)->pRingState,(nMax/2)+1);
 		if ( cString2 == NULL ) {
-			RING_API_ERROR(SIMPLE_OOM);
+			RING_API_ERROR(RING_OOM);
 			return ;
 		}
 		i = 0 ;
@@ -1349,7 +1349,7 @@ void ring_vmlib_str2hexcstyle ( void *pPointer )
 		nMax = RING_API_GETSTRINGSIZE(1) ;
 		cString2 = (char *) ring_state_malloc(((VM *) pPointer)->pRingState,nMax*5);
 		if ( cString2 == NULL ) {
-			RING_API_ERROR(SIMPLE_OOM);
+			RING_API_ERROR(RING_OOM);
 			return ;
 		}
 		for ( x = 1 ; x <= nMax ; x++ ) {
@@ -1394,7 +1394,7 @@ void ring_vmlib_left ( void *pPointer )
 			if ( (nNum1 > 0 ) && (nNum1 <= RING_API_GETSTRINGSIZE(1) ) ) {
 				pString = (char *) ring_state_malloc(((VM *) pPointer)->pRingState,nNum1+1);
 				if ( pString == NULL ) {
-					RING_API_ERROR(SIMPLE_OOM);
+					RING_API_ERROR(RING_OOM);
 					return ;
 				}
 				for ( x = 0 ; x < nNum1 ; x++ ) {
@@ -1431,7 +1431,7 @@ void ring_vmlib_right ( void *pPointer )
 			if ( (nNum1 > 0 ) && (nNum1 <= nSize ) ) {
 				pString = (char *) ring_state_malloc(((VM *) pPointer)->pRingState,nNum1+1);
 				if ( pString == NULL ) {
-					RING_API_ERROR(SIMPLE_OOM);
+					RING_API_ERROR(RING_OOM);
 					return ;
 				}
 				/* We start from 0 to copy the NULL character '\0' from the end */
@@ -1580,7 +1580,7 @@ void ring_vmlib_substr ( void *pPointer )
 			if ( (nNum1 > 0) && ( (nNum1+nNum2-1) <= nSize ) ) {
 				cString = (char *) ring_state_malloc(((VM *) pPointer)->pRingState,nNum2);
 				if ( cString == NULL ) {
-					RING_API_ERROR(SIMPLE_OOM);
+					RING_API_ERROR(RING_OOM);
 					return ;
 				}
 				for ( x = 0 ; x < nNum2 ; x++ ) {

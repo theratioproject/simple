@@ -10,7 +10,7 @@ SIMPLE_API List * ring_list_new_gc ( void *pState,int nSize )
 	List *pList  ;
 	pList = (List *) ring_state_malloc(pState,sizeof(List));
 	if ( pList == NULL ) {
-		printf( SIMPLE_OOM ) ;
+		printf( RING_OOM ) ;
 		exit(0);
 	}
 	return ring_list_new2_gc(pState,pList,nSize) ;
@@ -1008,7 +1008,7 @@ SIMPLE_API void ring_list_genarray_gc ( void *pState,List *pList )
 	*/
 	pArray = (Item **) ring_state_malloc(pState,ring_list_getsize(pList) * sizeof(Item *));
 	if ( pArray == NULL ) {
-		printf( SIMPLE_OOM ) ;
+		printf( RING_OOM ) ;
 		exit(0);
 	}
 	for ( x = 1 ; x <= ring_list_getsize(pList) ; x++ ) {

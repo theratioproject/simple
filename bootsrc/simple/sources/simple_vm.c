@@ -11,7 +11,7 @@ VM * ring_vm_new ( RingState *pRingState )
 	int x  ;
 	pVM = (VM *) ring_state_malloc(pRingState,sizeof(VM));
 	if ( pVM == NULL ) {
-		printf( SIMPLE_OOM ) ;
+		printf( RING_OOM ) ;
 		exit(0);
 	}
 	/* Ring State */
@@ -265,7 +265,7 @@ SIMPLE_API void ring_vm_loadcode ( VM *pVM )
 	nSize = (ring_list_getsize(pVM->pCode))*RING_VM_EXTRASIZE ;
 	pVM->pByteCode = (ByteCode *) ring_state_calloc(pVM->pRingState,nSize,sizeof(ByteCode));
 	if ( pVM->pByteCode == NULL ) {
-		printf( SIMPLE_OOM ) ;
+		printf( RING_OOM ) ;
 		exit(0);
 	}
 	for ( x = 1 ; x <= ring_list_getsize(pVM->pCode) ; x++ ) {
@@ -798,7 +798,7 @@ int ring_vm_eval ( VM *pVM,const char *cStr )
 		if ( ring_list_getsize(pVM->pCode)  > pVM->nEvalReallocationSize ) {
 			pByteCode = (ByteCode *) ring_state_realloc(pVM->pRingState,pVM->pByteCode , sizeof(ByteCode) * ring_list_getsize(pVM->pCode));
 			if ( pByteCode == NULL ) {
-				printf( SIMPLE_OOM ) ;
+				printf( RING_OOM ) ;
 				ring_scanner_delete(pScanner);
 				exit(0);
 			}
@@ -902,7 +902,7 @@ void ring_vm_returneval ( VM *pVM )
 			pVM->nEvalReallocationFlag = 0 ;
 			pByteCode = (ByteCode *) ring_state_realloc(pVM->pRingState,pVM->pByteCode , sizeof(ByteCode) * ring_list_getsize(pVM->pCode));
 			if ( pByteCode == NULL ) {
-				printf( SIMPLE_OOM ) ;
+				printf( RING_OOM ) ;
 				exit(0);
 			}
 			pVM->pByteCode = pByteCode ;

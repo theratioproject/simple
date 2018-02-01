@@ -42,7 +42,7 @@ Parser * ring_parser_new ( List *pTokens,RingState *pRingState )
 	Parser *pParser  ;
 	pParser = (Parser *) ring_state_malloc(pRingState,sizeof(Parser));
 	if ( pParser == NULL ) {
-		printf( SIMPLE_OOM ) ;
+		printf( RING_OOM ) ;
 		exit(0);
 	}
 	/* Ring State */
