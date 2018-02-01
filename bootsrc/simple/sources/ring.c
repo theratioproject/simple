@@ -1,9 +1,16 @@
 
 /* 
 	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com"> 
-	MIT License Copyright (c) 2018 simple 
+	MIT License Copyright (c) 2017 simple 
 
 */
+
+/* 
+ * File:   simple.c
+ * Author: thecarisma
+ *
+ * Created on July 10, 2017, 1:31 PM
+ */
 
 #include "../includes/ring.h"
 
