@@ -73,7 +73,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/sources/ring_vmtrycatch.o \
 	${OBJECTDIR}/sources/ring_vmvars.o \
 	${OBJECTDIR}/sources/ringw.o \
-	${OBJECTDIR}/sources/simple.o \
 	${OBJECTDIR}/sources/simple_misc.o
 
 
@@ -290,11 +289,6 @@ ${OBJECTDIR}/sources/ringw.o: sources/ringw.c
 	${MKDIR} -p ${OBJECTDIR}/sources
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/sources/ringw.o sources/ringw.c
-
-${OBJECTDIR}/sources/simple.o: sources/simple.c
-	${MKDIR} -p ${OBJECTDIR}/sources
-	${RM} "$@.d"
-	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/sources/simple.o sources/simple.c
 
 ${OBJECTDIR}/sources/simple_misc.o: sources/simple_misc.c
 	${MKDIR} -p ${OBJECTDIR}/sources
