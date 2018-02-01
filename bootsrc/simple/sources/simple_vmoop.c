@@ -159,7 +159,7 @@ void simple_vm_oop_parentinit ( VM *pVM,List *pList )
 	const char *cClassName,*cClassName2  ;
 	int x,x2,nFound,nMark  ;
 	List *pList2, *pClassesList  ;
-	String *pString  ;
+	char *pString  ;
 	/* Get the parent class name from the Class List Pointer */
 	cClassName = simple_list_getstring(pList,3) ;
 	/* Create List for Classes Pointers */
@@ -871,8 +871,8 @@ void simple_vm_oop_setget ( VM *pVM,List *pVar )
 {
 	List *pList, *pList2  ;
 	Item *pItem, *pItem2  ;
-	String *pString, *pString2  ;
-	/* Create String */
+	char *pString, *pString2  ;
+	/* Create char */
 	pString = simple_stsimple_new_gc(pVM->pRingState,"if ismethod(simple_gettemp_var,'get");
 	simple_stsimple_add_gc(pVM->pRingState,pString,simple_list_getstring(pVar,1));
 	simple_stsimple_add_gc(pVM->pRingState,pString,"')\nreturn simple_gettemp_var.'get");
@@ -934,7 +934,7 @@ void simple_vm_oop_setget ( VM *pVM,List *pVar )
 		/* Property Variable */
 		simple_list_addpointer_gc(pVM->pRingState,pList,pVar);
 	}
-	/* Delete String */
+	/* Delete char */
 	simple_stsimple_delete_gc(pVM->pRingState,pString);
 }
 
@@ -942,7 +942,7 @@ void simple_vm_oop_setproperty ( VM *pVM )
 {
 	List *pList, *pList2  ;
 	Item *pItem,*pItem2  ;
-	String *pString  ;
+	char *pString  ;
 	/* To Access Property Data */
 	if ( simple_list_getsize(pVM->aSetProperty) < 1 ) {
 		/* This case happens when using This.Attribute inside nested braces in a class method */
@@ -986,7 +986,7 @@ void simple_vm_oop_setproperty ( VM *pVM )
 		/* Execute the same instruction again (next time the part "After (Second Time)" will run ) */
 		pVM->nPC-- ;
 		if ( SIMPLE_VM_IR_READIVALUE(2)  == 0 ) {
-			/* Create String */
+			/* Create char */
 			pString = simple_stsimple_new_gc(pVM->pRingState,"if ismethod(simple_gettemp_var,'set");
 			simple_stsimple_add_gc(pVM->pRingState,pString,simple_list_getstring(pList,3));
 			simple_stsimple_add_gc(pVM->pRingState,pString,"')\nsimple_gettemp_var.'set");
@@ -999,7 +999,7 @@ void simple_vm_oop_setproperty ( VM *pVM )
 			simple_vm_eval(pVM,simple_stsimple_get(pString));
 			/* We don't use SIMPLE_VM_IR because Eval reallocation change mem. locations */
 			simple_item_setint_gc(pVM->pRingState,pItem,pVM->nPC);
-			/* Delete String */
+			/* Delete char */
 			simple_stsimple_delete_gc(pVM->pRingState,pString);
 		}
 		else {
@@ -1089,7 +1089,7 @@ void simple_vm_oop_operatoroverloading ( VM *pVM,List *pObj,const char *cStr1,in
 {
 	List *pList2  ;
 	Item *pItem  ;
-	String *pString  ;
+	char *pString  ;
 	int nObjType  ;
 	nObjType = simple_vm_oop_objtypefromobjlist(pObj);
 	/* Set Variable simple_gettemp_var  , Number 5 in Public Memory */
@@ -1119,7 +1119,7 @@ void simple_vm_oop_operatoroverloading ( VM *pVM,List *pObj,const char *cStr1,in
 		simple_list_setint_gc(pVM->pRingState,pList2,SIMPLE_VAR_PVALUETYPE,nPointerType);
 	}
 	if ( SIMPLE_VM_IR_READIVALUE(1) == 0 ) {
-		/* Create String */
+		/* Create char */
 		pString = simple_stsimple_new_gc(pVM->pRingState,"if ismethod(simple_gettemp_var,'operator')\nreturn simple_gettemp_var.operator('");
 		simple_stsimple_add_gc(pVM->pRingState,pString,cStr1);
 		simple_stsimple_add_gc(pVM->pRingState,pString,"',simple_settemp_var)\nelse\nraise('Object does not support operator overloading')\nok\n");
@@ -1130,7 +1130,7 @@ void simple_vm_oop_operatoroverloading ( VM *pVM,List *pObj,const char *cStr1,in
 		simple_vm_eval(pVM,simple_stsimple_get(pString));
 		/* We don't use SIMPLE_VM_IR because Eval reallocation change mem. locations */
 		simple_item_setint_gc(pVM->pRingState,pItem,pVM->nPC);
-		/* Delete String */
+		/* Delete char */
 		simple_stsimple_delete_gc(pVM->pRingState,pString);
 	}
 	else {

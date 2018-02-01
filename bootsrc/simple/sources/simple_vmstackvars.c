@@ -87,7 +87,7 @@ void simple_vm_loadaddress ( VM *pVM )
 void simple_vm_assignment ( VM *pVM )
 {
 	List *pVar,*pList  ;
-	String *cStr1, *pString  ;
+	char *cStr1, *pString  ;
 	double nNum1  ;
 	Item *pItem  ;
 	if ( SIMPLE_VM_STACK_PREVOBJTYPE == SIMPLE_OBJTYPE_SUBSTRING ) {
@@ -377,7 +377,7 @@ void simple_vm_list_simpointercopy ( VM *pVM,List *pList )
 
 void simple_vm_beforeequallist ( VM *pVM,List *pVar,double nNum1 )
 {
-	String *pString  ;
+	char *pString  ;
 	char cStr[100]  ;
 	if ( simple_list_isdouble(pVar,SIMPLE_VAR_VALUE) ) {
 		if ( pVM->nBeforeEqual == 1 ) {
@@ -414,7 +414,7 @@ void simple_vm_beforeequallist ( VM *pVM,List *pVar,double nNum1 )
 
 void simple_vm_beforeequalitem ( VM *pVM,Item *pItem,double nNum1 )
 {
-	String *pString  ;
+	char *pString  ;
 	char cStr[100]  ;
 	if ( simple_item_isdouble(pItem) ) {
 		if ( pVM->nBeforeEqual == 1 ) {

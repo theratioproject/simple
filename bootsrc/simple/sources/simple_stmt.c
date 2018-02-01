@@ -6,7 +6,7 @@ int simple_parser_class ( Parser *pParser )
 {
 	List *pList,*pList2,*pList3  ;
 	int x  ;
-	String *pString  ;
+	char *pString  ;
 	/* Statement --> Class Identifier  [ From Identifier ] */
 	if ( simple_parser_iskeyword(pParser,K_CLASS) ) {
 		simple_parser_nexttoken(pParser);
@@ -229,7 +229,7 @@ int simple_parser_class ( Parser *pParser )
 int simple_parser_stmt ( Parser *pParser )
 {
 	int x,nMark1,nMark2,nMark3,nStart,nEnd,nPerformanceLocations,nFlag,nLoadPackage  ;
-	String *pString  ;
+	char *pString  ;
 	List *pMark,*pMark2,*pMark3,*pList2  ;
 	double nNum1  ;
 	char cStr[50]  ;
@@ -1288,7 +1288,7 @@ int simple_parser_passepslion ( Parser *pParser )
 
 int simple_parser_namedotname ( Parser *pParser )
 {
-	String *pString  ;
+	char *pString  ;
 	if ( simple_parser_isidentifier(pParser) ) {
 		/* Get Token Text */
 		pString = simple_stsimple_new_gc(pParser->pRingState,pParser->TokenText);

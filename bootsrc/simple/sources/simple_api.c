@@ -57,7 +57,7 @@ SIMPLE_API void simple_vm_loadcfunctions ( RingState *pRingState )
 	simple_vm_funcregister("str2list",simple_vmlib_str2list);
 	simple_vm_funcregister("list2str",simple_vmlib_list2str);
 	simple_vm_funcregister("str2hexcstyle",simple_vmlib_str2hexcstyle);
-	/* String */
+	/* char */
 	simple_vm_funcregister("left",simple_vmlib_left);
 	simple_vm_funcregister("right",simple_vmlib_right);
 	simple_vm_funcregister("trim",simple_vmlib_trim);
@@ -592,7 +592,7 @@ void simple_vmlib_input ( void *pPointer )
 		/* Get Input From the User and save it in the variable */
 		SIMPLE_SETBINARY ;
 		fread( cLine , sizeof(char) , nSize , stdin );
-		/* Return String */
+		/* Return char */
 		SIMPLE_API_RETSTRING2(cLine,nSize);
 		simple_state_free(((VM *) pPointer)->pRingState,cLine);
 	} else {
@@ -1302,7 +1302,7 @@ void simple_vmlib_str2list ( void *pPointer )
 void simple_vmlib_list2str ( void *pPointer )
 {
 	List *pList  ;
-	String *pString  ;
+	char *pString  ;
 	int x  ;
 	char cStr[100]  ;
 	if ( SIMPLE_API_PARACOUNT != 1 ) {
@@ -1375,7 +1375,7 @@ void simple_vmlib_str2hexcstyle ( void *pPointer )
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
 }
-/* String */
+/* char */
 
 void simple_vmlib_left ( void *pPointer )
 {
@@ -1485,7 +1485,7 @@ void simple_vmlib_trim ( void *pPointer )
 			SIMPLE_API_RETSTRING("");
 			return ;
 		}
-		/* Create New String */
+		/* Create New char */
 		cNewStr = (char *) simple_state_malloc(((VM *) pPointer)->pRingState,nPos2-nPos1+1);
 		for ( x = nPos1 ; x <= nPos2 ; x++ ) {
 			cNewStr[x-nPos1] = cStr[x] ;
@@ -1530,7 +1530,7 @@ void simple_vmlib_substr ( void *pPointer )
 	char *cStr,*cStr2,*cStr3,*cString  ;
 	double nNum1,nNum2  ;
 	unsigned int x,nPos,nMark,nSize,nTransform,nSize2  ;
-	String *pString  ;
+	char *pString  ;
 	/*
 	**  Usage 
 	**  Substr(str,10) get substring from 10 to end 
@@ -1538,7 +1538,7 @@ void simple_vmlib_substr ( void *pPointer )
 	**  Substr(str,10,15) get substring from 10 , get 15 characters 
 	**  Substr(str,"nice","good") replace "nice" with "good" 
 	**  Substr(str,"nice","good",true) replace "nice" with "good" - not case sensitive 
-	**  Get String  (First Parameter) 
+	**  Get char  (First Parameter) 
 	*/
 	if ( SIMPLE_API_ISSTRING(1) ) {
 		cStr = SIMPLE_API_GETSTRING(1) ;
@@ -1914,7 +1914,7 @@ void simple_vmlib_nullpointer ( void *pPointer )
 
 void simple_vmlib_space ( void *pPointer )
 {
-	String *pString  ;
+	char *pString  ;
 	if ( SIMPLE_API_PARACOUNT != 1 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
 		return ;

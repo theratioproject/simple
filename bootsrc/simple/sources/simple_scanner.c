@@ -181,7 +181,7 @@ void simple_scanner_readchar ( Scanner *pScanner,char c )
 {
 	char cStr[2]  ;
 	List *pList  ;
-	String *pString  ;
+	char *pString  ;
 	int nTokenIndex  ;
 	assert(pScanner != NULL);
 	cStr[0] = c ;
@@ -712,7 +712,7 @@ char * simple_scanner_lasttokenvalue ( Scanner *pScanner )
 void simple_scanner_floatmark ( Scanner *pScanner,int type )
 {
 	List *pList  ;
-	String *pString  ;
+	char *pString  ;
 	assert(pScanner != NULL);
 	switch ( pScanner->FloatMark ) {
 		case 0 :
@@ -902,7 +902,7 @@ void simple_scanner_changekeyword ( Scanner *pScanner )
 {
 	char *cStr  ;
 	int x,nResult  ;
-	String *word1, *word2, *activeword  ;
+	char *word1, *word2, *activeword  ;
 	char cStr2[2]  ;
 	cStr2[1] = '\0' ;
 	/* Create Strings */
@@ -948,7 +948,7 @@ void simple_scanner_changeoperator ( Scanner *pScanner )
 {
 	char *cStr  ;
 	int x,nResult  ;
-	String *word1, *word2, *activeword  ;
+	char *word1, *word2, *activeword  ;
 	char cStr2[2]  ;
 	cStr2[1] = '\0' ;
 	/* Create Strings */

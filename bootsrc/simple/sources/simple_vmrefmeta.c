@@ -1004,7 +1004,7 @@ void simple_vm_refmeta_ringvmhideerrormsg ( void *pPointer )
 void simple_vm_refmeta_ringvmcallfunc ( void *pPointer )
 {
 	VM *pVM  ;
-	String *pString  ;
+	char *pString  ;
 	pVM = (VM *) pPointer ;
 	if ( SIMPLE_API_PARACOUNT != 1 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARACOUNT);

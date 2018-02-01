@@ -1,6 +1,6 @@
 /* Copyright (c) 2013-2016 Mahmoud Fayed <msfclipper@yahoo.com> */
 #include "../includes/simple.h"
-/* String As Array */
+/* char As Array */
 
 void simple_vm_stsimple_pushv ( VM *pVM )
 {
@@ -15,7 +15,7 @@ void simple_vm_stsimple_pushv ( VM *pVM )
 
 void simple_vm_stsimple_assignment ( VM *pVM )
 {
-	String *cStr1  ;
+	char *cStr1  ;
 	char *newstr  ;
 	if ( SIMPLE_VM_STACK_ISSTRING ) {
 		cStr1 = simple_stsimple_new_gc(pVM->pRingState,SIMPLE_VM_STACK_READC);
@@ -37,7 +37,7 @@ void simple_vm_stsimple_assignment ( VM *pVM )
 	}
 }
 
-void simple_vm_stsimple_index ( VM *pVM, String *pString, double nNum1 )
+void simple_vm_stsimple_index ( VM *pVM, char *pString, double nNum1 )
 {
 	char *newstr  ;
 	/* We will push a pointer of the sub char to the stack */

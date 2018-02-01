@@ -531,7 +531,7 @@ void simple_vm_file_dir ( void *pPointer )
 	/* Windows Only */
 	WIN32_FIND_DATA fdFile  ;
 	HANDLE hFind  ;
-	String *pString  ;
+	char *pString  ;
 	#else
 	DIR *pDir  ;
 	struct dirent *pDirent  ;

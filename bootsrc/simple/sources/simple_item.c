@@ -158,7 +158,7 @@ SIMPLE_API void simple_itemarray_setdouble_gc ( void *pState,Item pList[], int i
 #define simple_list_getstring(pList,index) ( simple_stsimple_get(simple_item_getstring(simple_list_getitem(pList,index))) )
 #define simple_list_getstringobject(pList,index) ( simple_item_getstring(simple_list_getitem(pList,index)) )
 #define simple_list_getstringsize(pList,index) ( simple_stsimple_size(simple_item_getstring(simple_list_getitem(pList,index))) )
-/* String */
+/* char */
 
 SIMPLE_API void simple_itemarray_setstsimple_gc ( void *pState,Item pList[], int index ,const char *str )
 {
@@ -247,7 +247,7 @@ SIMPLE_API void simple_itemarray_setdouble ( Item pList[], int index ,double num
 {
 	simple_itemarray_setdouble_gc(NULL,pList,index,number);
 }
-/* String */
+/* char */
 
 SIMPLE_API void simple_itemarray_setstring ( Item pList[], int index ,const char *str )
 {

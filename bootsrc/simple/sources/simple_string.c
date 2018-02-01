@@ -2,18 +2,18 @@
 #include "../includes/simple.h"
 /* Functions */
 
-SIMPLE_API String * simple_stsimple_new_gc ( void *pState,const char *str )
+SIMPLE_API char * simple_stsimple_new_gc ( void *pState,const char *str )
 {
 	int x  ;
 	x = strlen( str ) ;
 	return simple_stsimple_new2_gc(pState,str,x) ;
 }
 
-SIMPLE_API String * simple_stsimple_new2_gc ( void *pState,const char *str,int nStrSize )
+SIMPLE_API char * simple_stsimple_new2_gc ( void *pState,const char *str,int nStrSize )
 {
-	String *pString  ;
+	char *pString  ;
 	int x  ;
-	pString = (struct String *) simple_state_malloc(pState,sizeof(struct String));
+	pString = (struct char *) simple_state_malloc(pState,sizeof(struct char));
 	if ( pString == NULL ) {
 		printf( SIMPLE_OOM ) ;
 		exit(0);
@@ -23,7 +23,7 @@ SIMPLE_API String * simple_stsimple_new2_gc ( void *pState,const char *str,int n
 		printf( SIMPLE_OOM ) ;
 		exit(0);
 	}
-	/* Copy String */
+	/* Copy char */
 	for ( x = 0 ; x < nStrSize ; x++ ) {
 		pString->cStr[x] = str[x] ;
 	}
@@ -32,7 +32,7 @@ SIMPLE_API String * simple_stsimple_new2_gc ( void *pState,const char *str,int n
 	return pString ;
 }
 
-SIMPLE_API String * simple_stsimple_delete_gc ( void *pState,String *pString )
+SIMPLE_API char * simple_stsimple_delete_gc ( void *pState,char *pString )
 {
 	assert(pString != NULL);
 	simple_state_free(pState,pString->cStr);
@@ -41,13 +41,13 @@ SIMPLE_API String * simple_stsimple_delete_gc ( void *pState,String *pString )
 	return NULL ;
 }
 
-SIMPLE_API int simple_stsimple_size ( String *pString )
+SIMPLE_API int simple_stsimple_size ( char *pString )
 {
 	assert(pString != NULL);
 	return pString->nSize ;
 }
 
-SIMPLE_API void simple_stsimple_set_gc ( void *pState,String *pString,const char *str )
+SIMPLE_API void simple_stsimple_set_gc ( void *pState,char *pString,const char *str )
 {
 	int x  ;
 	assert(pString != NULL);
@@ -55,7 +55,7 @@ SIMPLE_API void simple_stsimple_set_gc ( void *pState,String *pString,const char
 	simple_stsimple_set2_gc(pState,pString,str,x);
 }
 
-SIMPLE_API void simple_stsimple_set2_gc ( void *pState,String *pString,const char *str,int nStrSize )
+SIMPLE_API void simple_stsimple_set2_gc ( void *pState,char *pString,const char *str,int nStrSize )
 {
 	int x  ;
 	assert(pString != NULL);
@@ -66,7 +66,7 @@ SIMPLE_API void simple_stsimple_set2_gc ( void *pState,String *pString,const cha
 		printf( SIMPLE_OOM ) ;
 		exit(0);
 	}
-	/* Copy String */
+	/* Copy char */
 	for ( x = 0 ; x < nStrSize ; x++ ) {
 		pString->cStr[x] = str[x] ;
 	}
@@ -74,14 +74,14 @@ SIMPLE_API void simple_stsimple_set2_gc ( void *pState,String *pString,const cha
 	pString->nSize = nStrSize ;
 }
 
-SIMPLE_API void simple_stsimple_add_gc ( void *pState,String *pString,const char *str )
+SIMPLE_API void simple_stsimple_add_gc ( void *pState,char *pString,const char *str )
 {
 	int x  ;
 	x = strlen( str ) ;
 	simple_stsimple_add2_gc(pState,pString,str,x);
 }
 
-SIMPLE_API void simple_stsimple_add2_gc ( void *pState,String *pString,const char *str,int nStrSize )
+SIMPLE_API void simple_stsimple_add2_gc ( void *pState,char *pString,const char *str,int nStrSize )
 {
 	int x  ;
 	int x2  ;
@@ -94,7 +94,7 @@ SIMPLE_API void simple_stsimple_add2_gc ( void *pState,String *pString,const cha
 		printf( SIMPLE_OOM ) ;
 		exit(0);
 	}
-	/* Copy String */
+	/* Copy char */
 	for ( x = 0 ; x < simple_stsimple_size(pString) ; x++ ) {
 		pString->cStr[x] = cStr[x] ;
 	}
@@ -106,13 +106,13 @@ SIMPLE_API void simple_stsimple_add2_gc ( void *pState,String *pString,const cha
 	simple_state_free(pState,cStr);
 }
 
-SIMPLE_API void simple_stsimple_print ( String *pString )
+SIMPLE_API void simple_stsimple_print ( char *pString )
 {
 	assert(pString != NULL);
 	printf( "%s \n",pString->cStr ) ;
 }
 
-SIMPLE_API void simple_stsimple_setfromint_gc ( void *pState,String *pString,int x )
+SIMPLE_API void simple_stsimple_setfromint_gc ( void *pState,char *pString,int x )
 {
 	char cStr[20]  ;
 	assert(pString != NULL);
@@ -236,9 +236,9 @@ SIMPLE_API char * simple_stsimple_find3_gc ( void *pState,char *cStr1,int nStrSi
 void simple_stsimple_test ( void )
 {
 	#define nMaxValue 10
-	String *mystr[nMaxValue]  ;
+	char *mystr[nMaxValue]  ;
 	int x  ;
-	String *pString  ;
+	char *pString  ;
 	for ( x = 0 ; x < nMaxValue ; x++ ) {
 		mystr[x] = simple_stsimple_new("Wow Really i like the c language so much");
 		simple_stsimple_print(mystr[x]);
@@ -246,14 +246,14 @@ void simple_stsimple_test ( void )
 	for ( x = 0 ; x < nMaxValue ; x++ ) {
 		mystr[x] = simple_stsimple_delete(mystr[x]);
 	}
-	/* Test String Add */
+	/* Test char Add */
 	pString = simple_stsimple_new("Hello ");
 	simple_stsimple_add(pString,"World");
-	printf( "\nTest String Add , Output = %s\n",simple_stsimple_get(pString) ) ;
+	printf( "\nTest char Add , Output = %s\n",simple_stsimple_get(pString) ) ;
 	simple_stsimple_add(pString," Welcome to the C programming language");
-	printf( "\nTest String Add , Output = %s\n",simple_stsimple_get(pString) ) ;
+	printf( "\nTest char Add , Output = %s\n",simple_stsimple_get(pString) ) ;
 	simple_stsimple_delete(pString);
-	/* Test String to Lower */
+	/* Test char to Lower */
 	pString = simple_stsimple_new("Welcome to my StrinG");
 	printf( "Test string to lower \n" ) ;
 	printf( "%s\n",simple_stsimple_tolower(pString) ) ;
@@ -262,32 +262,32 @@ void simple_stsimple_test ( void )
 }
 /* Functions without state pointer */
 
-SIMPLE_API String * simple_stsimple_new2 ( const char *str,int nStrSize )
+SIMPLE_API char * simple_stsimple_new2 ( const char *str,int nStrSize )
 {
 	return simple_stsimple_new2_gc(NULL,str,nStrSize) ;
 }
 
-SIMPLE_API String * simple_stsimple_new ( const char *str )
+SIMPLE_API char * simple_stsimple_new ( const char *str )
 {
 	return simple_stsimple_new_gc(NULL,str) ;
 }
 
-SIMPLE_API void simple_stsimple_add ( String *pString,const char *str )
+SIMPLE_API void simple_stsimple_add ( char *pString,const char *str )
 {
 	simple_stsimple_add_gc(NULL,pString,str);
 }
 
-SIMPLE_API void simple_stsimple_add2 ( String *pString,const char *str,int nStrSize )
+SIMPLE_API void simple_stsimple_add2 ( char *pString,const char *str,int nStrSize )
 {
 	simple_stsimple_add2_gc(NULL,pString,str,nStrSize);
 }
 
-SIMPLE_API void simple_stsimple_set ( String *pString,const char *str )
+SIMPLE_API void simple_stsimple_set ( char *pString,const char *str )
 {
 	simple_stsimple_set_gc(NULL,pString,str);
 }
 
-SIMPLE_API void simple_stsimple_set2 ( String *pString,const char *str,int nStrSize )
+SIMPLE_API void simple_stsimple_set2 ( char *pString,const char *str,int nStrSize )
 {
 	simple_stsimple_set2_gc(NULL,pString,str,nStrSize);
 }
@@ -307,12 +307,12 @@ SIMPLE_API char * simple_stsimple_find3 ( char *cStr1,int nStrSize1,char *cStr2,
 	return simple_stsimple_find3_gc(NULL,cStr1,nStrSize1,cStr2,nStrSize2) ;
 }
 
-SIMPLE_API String * simple_stsimple_delete ( String *pString )
+SIMPLE_API char * simple_stsimple_delete ( char *pString )
 {
 	return simple_stsimple_delete_gc(NULL,pString) ;
 }
 
-SIMPLE_API void simple_stsimple_setfromint ( String *pString,int x )
+SIMPLE_API void simple_stsimple_setfromint ( char *pString,int x )
 {
 	simple_stsimple_setfromint_gc(NULL,pString,x);
 }

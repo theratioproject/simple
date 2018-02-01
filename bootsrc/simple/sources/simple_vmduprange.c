@@ -4,7 +4,7 @@
 
 void simple_vm_dup ( VM *pVM )
 {
-	String *pString  ;
+	char *pString  ;
 	double nNum1  ;
 	void *pPointer  ;
 	int nType  ;
@@ -30,7 +30,7 @@ void simple_vm_range ( VM *pVM )
 	double nNum1,nNum2  ;
 	int x  ;
 	char cStr[2]  ;
-	String *pString1,*pString2  ;
+	char *pString1,*pString2  ;
 	List *pVar  ;
 	if ( SIMPLE_VM_STACK_ISNUMBER ) {
 		nNum1 = SIMPLE_VM_STACK_READN ;

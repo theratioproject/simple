@@ -76,7 +76,7 @@ void simple_vm_liststart ( VM *pVM )
 
 void simple_vm_listitem ( VM *pVM )
 {
-	String *cStr1  ;
+	char *cStr1  ;
 	double nNum1  ;
 	List *pList,*pList2,*pList3  ;
 	Item *pItem  ;
@@ -122,7 +122,7 @@ void simple_vm_loadindexaddress ( VM *pVM )
 	List *pVar  ;
 	Item *pItem  ;
 	char cStr2[2]  ;
-	String *pString  ;
+	char *pString  ;
 	if ( SIMPLE_VM_STACK_ISNUMBER ) {
 		nNum1 = SIMPLE_VM_STACK_READN ;
 		SIMPLE_VM_STACK_POP ;
@@ -205,7 +205,7 @@ void simple_vm_loadindexaddress ( VM *pVM )
 	else if ( SIMPLE_VM_STACK_ISSTRING ) {
 		pString = simple_stsimple_new_gc(pVM->pRingState,SIMPLE_VM_STACK_READC);
 		SIMPLE_VM_STACK_POP ;
-		/* Use String to find the item */
+		/* Use char to find the item */
 		if ( SIMPLE_VM_STACK_ISPOINTER ) {
 			if ( SIMPLE_VM_STACK_OBJTYPE == SIMPLE_OBJTYPE_VARIABLE ) {
 				pVar = (List *) SIMPLE_VM_STACK_READP ;
@@ -289,7 +289,7 @@ void simple_vm_listpushv ( VM *pVM )
 void simple_vm_listassignment ( VM *pVM )
 {
 	Item *pItem  ;
-	String *cStr1, *pString  ;
+	char *cStr1, *pString  ;
 	double nNum1  ;
 	List *pList,*pVar  ;
 	pVar = NULL ;

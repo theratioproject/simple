@@ -174,7 +174,7 @@ VM * simple_vm_new ( RingState *pRingState )
 	/*
 	**  Trace Program (After Each Line) 
 	**  lTrace = Logical Value (Trace is Active or Not) 
-	**  pTrace = String contains the code to be executed (Trace Function) 
+	**  pTrace = char contains the code to be executed (Trace Function) 
 	**  lTraceActive = The Trace Function is Active - Don't Call Trace function from Trace Function 
 	**  nTraceEvent = The Trace Event (1 = New Line , etc) 
 	*/
@@ -926,7 +926,7 @@ void simple_vm_returneval ( VM *pVM )
 
 void simple_vm_error2 ( VM *pVM,const char *cStr,const char *cStr2 )
 {
-	String *pError  ;
+	char *pError  ;
 	pError = simple_stsimple_new_gc(pVM->pRingState,cStr);
 	simple_stsimple_add_gc(pVM->pRingState,pError,": ");
 	simple_stsimple_add_gc(pVM->pRingState,pError,cStr2);
@@ -1055,7 +1055,7 @@ void simple_vm_printstack ( VM *pVM )
 		for ( x = 1 ; x <= nSP ; x++ ) {
 			/* Print Values */
 			if ( SIMPLE_VM_STACK_ISSTRING ) {
-				printf( "(String) : %s  \n",SIMPLE_VM_STACK_READC ) ;
+				printf( "(char) : %s  \n",SIMPLE_VM_STACK_READC ) ;
 			}
 			else if ( SIMPLE_VM_STACK_ISNUMBER ) {
 				printf( "(Number) : %f  \n",SIMPLE_VM_STACK_READN ) ;

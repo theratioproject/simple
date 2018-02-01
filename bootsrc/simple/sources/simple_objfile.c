@@ -46,11 +46,11 @@ void simple_objfile_writelist ( List *pList,FILE *fObj )
 		for ( x2 = 1 ; x2 <= simple_list_getsize(pList2) ; x2++ ) {
 			if ( simple_list_isstring(pList2,x2) ) {
 				fprintf( fObj , "[S][%d]" , simple_list_getstringsize(pList2,x2) ) ;
-				/* Encrypt String */
+				/* Encrypt char */
 				cString = simple_list_getstring(pList2,x2) ;
 				simple_objfile_xorstring(cString,simple_list_getstringsize(pList2,x2),cKey,10);
 				fwrite( simple_list_getstring(pList2,x2) , 1 , simple_list_getstringsize(pList2,x2) , fObj );
-				/* Decrypt String */
+				/* Decrypt char */
 				simple_objfile_xorstring(cString,simple_list_getstringsize(pList2,x2),cKey,10);
 				fprintf( fObj , "\n"  ) ;
 			}
@@ -92,7 +92,7 @@ int simple_objfile_readfromsource ( RingState *pRingState,char *cSource,int nSou
 	pListPackages = simple_list_new_gc(pRingState,0);
 	pListCode = simple_list_new_gc(pRingState,0);
 	pListStack = simple_list_new_gc(pRingState,0);
-	/* Process Content (File or String) */
+	/* Process Content (File or char) */
 	if ( nSource == SIMPLE_OBJFILE_READFROMFILE ) {
 		if ( ! simple_objfile_processfile(pRingState,cSource,pListFunctions, pListClasses, pListPackages, pListCode, pListStack) ) {
 			return 0 ;
@@ -201,12 +201,12 @@ int simple_objfile_processfile ( RingState *pRingState,char *cFileName,List *pLi
 						cString = (char *) simple_state_malloc(pRingState,nValue+1);
 						fread( cString , 1 , nValue , fObj );
 						cString[nValue] = '\0' ;
-						/* Decrypt String */
+						/* Decrypt char */
 						simple_objfile_xorstring(cString,nValue,cKey,10);
 						simple_list_addstring2_gc(pRingState,pList,cString,nValue);
 						simple_state_free(pRingState,cString);
 						#ifdef DEBUG_OBJFILE
-						printf( "Read String %s Size %d \n",cString,nValue ) ;
+						printf( "Read char %s Size %d \n",cString,nValue ) ;
 						#endif
 						break ;
 					case 'I' :
@@ -366,12 +366,12 @@ int simple_objfile_processstring ( RingState *pRingState,char *cContent,List *pL
 						cString = (char *) simple_state_malloc(pRingState,nValue+1);
 						simple_objfile_readc(pRingState,&cData,cString,nValue);
 						cString[nValue] = '\0' ;
-						/* Decrypt String */
+						/* Decrypt char */
 						simple_objfile_xorstring(cString,nValue,cKey,10);
 						simple_list_addstring2_gc(pRingState,pList,cString,nValue);
 						simple_state_free(pRingState,cString);
 						#ifdef DEBUG_OBJFILE
-						printf( "Read String %s Size %d \n",cString,nValue ) ;
+						printf( "Read char %s Size %d \n",cString,nValue ) ;
 						#endif
 						break ;
 					case 'I' :

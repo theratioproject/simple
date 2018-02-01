@@ -416,12 +416,12 @@ SIMPLE_API void simple_list_adddouble_gc ( void *pState,List *pList,double x )
 	simple_list_newitem_gc(pState,pList);
 	simple_list_setdouble_gc(pState,pList,simple_list_getsize(pList),x);
 }
-/* String */
+/* char */
 
 SIMPLE_API void simple_list_setstsimple_gc ( void *pState,List *pList, int index ,const char *str )
 {
 	Item *pItem  ;
-	String *pString  ;
+	char *pString  ;
 	assert(pList != NULL);
 	pItem = simple_list_getitem(pList,index);
 	simple_item_settype_gc(pState,pItem,ITEMTYPE_STRING);
@@ -432,7 +432,7 @@ SIMPLE_API void simple_list_setstsimple_gc ( void *pState,List *pList, int index
 SIMPLE_API void simple_list_setstring2_gc ( void *pState,List *pList, int index ,const char *str,int nStrSize )
 {
 	Item *pItem  ;
-	String *pString  ;
+	char *pString  ;
 	assert(pList != NULL);
 	pItem = simple_list_getitem(pList,index);
 	simple_item_settype_gc(pState,pItem,ITEMTYPE_STRING);
@@ -854,7 +854,7 @@ SIMPLE_API void simple_list_sortnum ( List *pList,int left,int right,int nColumn
 SIMPLE_API void simple_list_sortstr_gc ( void *pState,List *pList,int left,int right,int nColumn,const char *cAttribute )
 {
 	int x,y,mid  ;
-	String *midvalue  ;
+	char *midvalue  ;
 	x = left ;
 	y = right ;
 	mid = (x+y)/2 ;
@@ -1150,7 +1150,7 @@ SIMPLE_API void simple_list_adddouble ( List *pList,double x )
 {
 	simple_list_adddouble_gc(NULL,pList,x);
 }
-/* String */
+/* char */
 
 SIMPLE_API void simple_list_setstring ( List *pList, int index ,const char *str )
 {
@@ -1256,7 +1256,7 @@ void simple_list_test ( void )
 	List *pList,*pList2  ;
 	int x  ;
 	Item *pItem  ;
-	String *pString  ;
+	char *pString  ;
 	char mystr[20]  ;
 	printf( "Create new list, size = 10 \n" ) ;
 	pList = simple_list_new(10);

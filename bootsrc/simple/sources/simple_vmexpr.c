@@ -8,7 +8,7 @@
 
 void simple_vm_sum ( VM *pVM )
 {
-	String *cStr1,*cStr2  ;
+	char *cStr1,*cStr2  ;
 	double nNum1,nNum2  ;
 	char cStr3[100]  ;
 	/*
@@ -77,7 +77,7 @@ void simple_vm_sum ( VM *pVM )
 void simple_vm_sub ( VM *pVM )
 {
 	double nNum1=0,nNum2=0  ;
-	String *cStr1  ;
+	char *cStr1  ;
 	if ( SIMPLE_VM_STACK_ISNUMBER ) {
 		nNum1 = SIMPLE_VM_STACK_READN ;
 		SIMPLE_VM_STACK_POP ;
@@ -119,7 +119,7 @@ void simple_vm_sub ( VM *pVM )
 void simple_vm_mul ( VM *pVM )
 {
 	double nNum1=0,nNum2=0  ;
-	String *cStr1  ;
+	char *cStr1  ;
 	char cStr2[100]  ;
 	char cStr3[100]  ;
 	if ( SIMPLE_VM_STACK_ISNUMBER ) {
@@ -168,7 +168,7 @@ void simple_vm_mul ( VM *pVM )
 void simple_vm_div ( VM *pVM )
 {
 	double nNum1=0,nNum2=0  ;
-	String *cStr1  ;
+	char *cStr1  ;
 	char cStr2[100]  ;
 	char cStr3[100]  ;
 	if ( SIMPLE_VM_STACK_ISNUMBER ) {
@@ -221,7 +221,7 @@ void simple_vm_div ( VM *pVM )
 void simple_vm_mod ( VM *pVM )
 {
 	double nNum1=0,nNum2=0  ;
-	String *cStr1  ;
+	char *cStr1  ;
 	char cStr2[100]  ;
 	char cStr3[100]  ;
 	if ( SIMPLE_VM_STACK_ISNUMBER ) {
@@ -293,7 +293,7 @@ void simple_vm_neg ( VM *pVM )
 
 void simple_vm_equal ( VM *pVM )
 {
-	String *cStr1,*cStr2  ;
+	char *cStr1,*cStr2  ;
 	double nNum1,nNum2  ;
 	char cStr3[100]  ;
 	if ( SIMPLE_VM_STACK_ISSTRING ) {
@@ -355,7 +355,7 @@ void simple_vm_equal ( VM *pVM )
 void simple_vm_lessequal ( VM *pVM )
 {
 	double nNum1=0,nNum2=0  ;
-	String *cStr1  ;
+	char *cStr1  ;
 	if ( SIMPLE_VM_STACK_ISNUMBER ) {
 		nNum1 = SIMPLE_VM_STACK_READN ;
 		SIMPLE_VM_STACK_POP ;
@@ -402,7 +402,7 @@ void simple_vm_lessequal ( VM *pVM )
 void simple_vm_less ( VM *pVM )
 {
 	double nNum1=0,nNum2=0  ;
-	String *cStr1  ;
+	char *cStr1  ;
 	if ( SIMPLE_VM_STACK_ISNUMBER ) {
 		nNum1 = SIMPLE_VM_STACK_READN ;
 		SIMPLE_VM_STACK_POP ;
@@ -449,7 +449,7 @@ void simple_vm_less ( VM *pVM )
 void simple_vm_greater ( VM *pVM )
 {
 	double nNum1=0,nNum2=0  ;
-	String *cStr1  ;
+	char *cStr1  ;
 	if ( SIMPLE_VM_STACK_ISNUMBER ) {
 		nNum1 = SIMPLE_VM_STACK_READN ;
 		SIMPLE_VM_STACK_POP ;
@@ -496,7 +496,7 @@ void simple_vm_greater ( VM *pVM )
 void simple_vm_greaterequal ( VM *pVM )
 {
 	double nNum1=0,nNum2=0  ;
-	String *cStr1  ;
+	char *cStr1  ;
 	if ( SIMPLE_VM_STACK_ISNUMBER ) {
 		nNum1 = SIMPLE_VM_STACK_READN ;
 		SIMPLE_VM_STACK_POP ;
@@ -542,7 +542,7 @@ void simple_vm_greaterequal ( VM *pVM )
 
 void simple_vm_notequal ( VM *pVM )
 {
-	String *cStr1,*cStr2  ;
+	char *cStr1,*cStr2  ;
 	double nNum1,nNum2  ;
 	char cStr3[100]  ;
 	if ( SIMPLE_VM_STACK_ISSTRING ) {
@@ -613,7 +613,7 @@ void simple_vm_notequal ( VM *pVM )
 void simple_vm_and ( VM *pVM )
 {
 	double nNum1,nNum2  ;
-	String *cStr1  ;
+	char *cStr1  ;
 	if ( SIMPLE_VM_STACK_ISNUMBER ) {
 		nNum1 = SIMPLE_VM_STACK_READN ;
 		SIMPLE_VM_STACK_POP ;
@@ -655,7 +655,7 @@ void simple_vm_and ( VM *pVM )
 void simple_vm_or ( VM *pVM )
 {
 	double nNum1,nNum2  ;
-	String *cStr1  ;
+	char *cStr1  ;
 	if ( SIMPLE_VM_STACK_ISNUMBER ) {
 		nNum1 = SIMPLE_VM_STACK_READN ;
 		SIMPLE_VM_STACK_POP ;
@@ -722,7 +722,7 @@ void simple_vm_not ( VM *pVM )
 void simple_vm_bitand ( VM *pVM )
 {
 	double nNum1,nNum2  ;
-	String *cStr1  ;
+	char *cStr1  ;
 	if ( SIMPLE_VM_STACK_ISNUMBER ) {
 		nNum1 = SIMPLE_VM_STACK_READN ;
 		SIMPLE_VM_STACK_POP ;
@@ -764,7 +764,7 @@ void simple_vm_bitand ( VM *pVM )
 void simple_vm_bitor ( VM *pVM )
 {
 	double nNum1,nNum2  ;
-	String *cStr1  ;
+	char *cStr1  ;
 	if ( SIMPLE_VM_STACK_ISNUMBER ) {
 		nNum1 = SIMPLE_VM_STACK_READN ;
 		SIMPLE_VM_STACK_POP ;
@@ -806,7 +806,7 @@ void simple_vm_bitor ( VM *pVM )
 void simple_vm_bitshl ( VM *pVM )
 {
 	double nNum1,nNum2  ;
-	String *cStr1  ;
+	char *cStr1  ;
 	if ( SIMPLE_VM_STACK_ISNUMBER ) {
 		nNum1 = SIMPLE_VM_STACK_READN ;
 		SIMPLE_VM_STACK_POP ;
@@ -848,7 +848,7 @@ void simple_vm_bitshl ( VM *pVM )
 void simple_vm_bitshr ( VM *pVM )
 {
 	double nNum1,nNum2  ;
-	String *cStr1  ;
+	char *cStr1  ;
 	if ( SIMPLE_VM_STACK_ISNUMBER ) {
 		nNum1 = SIMPLE_VM_STACK_READN ;
 		SIMPLE_VM_STACK_POP ;
@@ -890,7 +890,7 @@ void simple_vm_bitshr ( VM *pVM )
 void simple_vm_bitxor ( VM *pVM )
 {
 	double nNum1,nNum2  ;
-	String *cStr1  ;
+	char *cStr1  ;
 	if ( SIMPLE_VM_STACK_ISNUMBER ) {
 		nNum1 = SIMPLE_VM_STACK_READN ;
 		SIMPLE_VM_STACK_POP ;
@@ -1068,7 +1068,7 @@ void simple_vm_expr_npoo ( VM *pVM,const char *cStr,double nNum1 )
 		simple_vm_error(pVM,SIMPLE_VM_ERROR_BADVALUES);
 	}
 }
-/* Stack String then Stack Pointer - Operator Overloading */
+/* Stack char then Stack Pointer - Operator Overloading */
 
 void simple_vm_expr_spoo ( VM *pVM,const char *cStr,const char *cStr2,int nSize )
 {
