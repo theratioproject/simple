@@ -1,5 +1,5 @@
 /* Copyright (c) 2013-2018 Mahmoud Fayed <msfclipper@yahoo.com> */
-#include "../includes/simple.h"
+#include "../includes/ring.h"
 /* Grammar */
 
 int ring_parser_class ( Parser *pParser )
@@ -248,7 +248,7 @@ int ring_parser_stmt ( Parser *pParser )
 			ring_list_addint_gc(pParser->pRingState,pParser->pRingState->aCustomGlobalScopeStack,pParser->pRingState->nCustomGlobalScopeCounter);
 		}
 		if ( ring_parser_isliteral(pParser) ) {
-			/* Check File in the Simple/bin folder */
+			/* Check File in the Ring/bin folder */
 			strcpy(cFileName,pParser->TokenText);
 			if ( ring_fexists(pParser->TokenText) == 0 ) {
 				ring_exefolder(cFileName);

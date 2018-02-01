@@ -1,5 +1,5 @@
 /* Copyright (c) 2013-2016 Mahmoud Fayed <msfclipper@yahoo.com> */
-#include "../includes/simple.h"
+#include "../includes/ring.h"
 /* Try Catch Done */
 
 void ring_vm_try ( VM *pVM )

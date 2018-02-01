@@ -196,7 +196,7 @@ void ring_vmlib_nullpointer ( void *pPointer ) ;
 void ring_vmlib_space ( void *pPointer ) ;
 
 void ring_vmlib_ptrcmp ( void *pPointer ) ;
-/* Simple State */
+/* Ring State */
 
 void ring_vmlib_state_init ( void *pPointer ) ;
 
@@ -219,7 +219,7 @@ void ring_vmlib_state_setvar ( void *pPointer ) ;
 void ring_vmlib_state_new ( void *pPointer ) ;
 
 void ring_vmlib_state_mainfile ( void *pPointer ) ;
-/* Simple See and Give */
+/* Ring See and Give */
 
 void ring_vmlib_see ( void *pPointer ) ;
 

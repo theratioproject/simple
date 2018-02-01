@@ -15,7 +15,7 @@ typedef struct Scanner {
 	char cLiteral  ;
 	/* Multiline comment end ( 0 = start  1 = * ) */
 	char cMLComment  ;
-	/* Simple State */
+	/* Ring State */
 	RingState *pRingState  ;
 	/* Index of Keyword/Operator */
 	int nTokenIndex  ;
@@ -181,7 +181,7 @@ void ring_scanner_runobjstring ( RingState *pRingState,char *cString,const char 
 #define SCANNER_STATE_CHANGEKEYWORD 4
 #define SCANNER_STATE_CHANGEOPERATOR 5
 #define SCANNER_STATE_LOADSYNTAX 6
-/* Change Simple Keyword/Operator */
+/* Change Ring Keyword/Operator */
 #define RING_SCANNER_CHANGERINGKEYWORD 47
 #define RING_SCANNER_CHANGERINGOPERATOR 48
 #define RING_SCANNER_LOADSYNTAX 49

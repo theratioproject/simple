@@ -1,5 +1,5 @@
 /* Copyright (c) 2013-2018 Mahmoud Fayed <msfclipper@yahoo.com> */
-#include "../includes/simple.h"
+#include "../includes/ring.h"
 /* Support for C Functions */
 
 SIMPLE_API void ring_vm_funcregister2 ( RingState *pRingState,const char *cStr, void (*pFunc)(void *) )
@@ -93,7 +93,7 @@ SIMPLE_API void ring_vm_loadcfunctions ( RingState *pRingState )
 	ring_vm_funcregister("nullpointer",ring_vmlib_nullpointer);
 	ring_vm_funcregister("space",ring_vmlib_space);
 	ring_vm_funcregister("ptrcmp",ring_vmlib_ptrcmp);
-	/* Simple State */
+	/* Ring State */
 	ring_vm_funcregister("ring_state_init",ring_vmlib_state_init);
 	ring_vm_funcregister("ring_state_runcode",ring_vmlib_state_runcode);
 	ring_vm_funcregister("ring_state_delete",ring_vmlib_state_delete);
@@ -106,7 +106,7 @@ SIMPLE_API void ring_vm_loadcfunctions ( RingState *pRingState )
 	ring_vm_funcregister("ring_state_new",ring_vmlib_state_new);
 	ring_vm_funcregister("ring_state_mainfile",ring_vmlib_state_mainfile);
 	/*
-	**  Simple See and Give 
+	**  Ring See and Give 
 	**  We will use ringvm_see() and ringvm_give() to change the behavior of see and give 
 	**  Also we can use ring_see() and ring_give() to use the original behavior when we redefine it 
 	*/
@@ -256,7 +256,7 @@ SIMPLE_API void * ring_vm_api_varptr ( void *pPointer,const char  *cStr,const ch
 	Item *pItem  ;
 	/*
 	**  Usage 
-	**  To get pointer to a simple variable value (pointer to double or int) i.e. int * or double * 
+	**  To get pointer to a ring variable value (pointer to double or int) i.e. int * or double * 
 	**  We need this because some C Functions get int * or double * as parameter 
 	*/
 	pVM = (VM *) pPointer ;
@@ -297,8 +297,8 @@ SIMPLE_API void ring_vm_api_intvalue ( void *pPointer,const char  *cStr )
 	/*
 	**  Usage 
 	**  Convert the variable value from int to double 
-	**  When we pass int * for Simple Variable Value to a C Function 
-	**  We need to convert again from int to double, because Simple uses double 
+	**  When we pass int * for Ring Variable Value to a C Function 
+	**  We need to convert again from int to double, because Ring uses double 
 	*/
 	pVM = (VM *) pPointer ;
 	if ( ring_vm_findvar(pVM, cStr ) == 0 ) {
@@ -1943,7 +1943,7 @@ void ring_vmlib_ptrcmp ( void *pPointer )
 		RING_API_ERROR(RING_API_BADPARATYPE);
 	}
 }
-/* Simple State */
+/* Ring State */
 
 void ring_vmlib_state_init ( void *pPointer )
 {
@@ -2017,7 +2017,7 @@ void ring_vmlib_state_main ( void *pPointer )
 	argv[1] = (char *) ring_state_malloc(((VM *) pPointer)->pRingState,100);
 	cStr = RING_API_GETSTRING(1);
 	argc = 2 ;
-	strcpy(argv[0],"simple");
+	strcpy(argv[0],"ring");
 	strcpy(argv[1],cStr);
 	ring_execute(cStr,0,1,0,0,0,0,0,0,0,argc,argv);
 	ring_state_free(((VM *) pPointer)->pRingState,argv[0]);
@@ -2076,7 +2076,7 @@ void ring_vmlib_state_mainfile ( void *pPointer )
 	pRingState = (RingState *) RING_API_GETCPOINTER(1,"RINGSTATE") ;
 	cStr = RING_API_GETSTRING(2);
 	argc = 2 ;
-	strcpy(argv[0],"simple");
+	strcpy(argv[0],"ring");
 	strcpy(argv[1],cStr);
 	pRingState->argc = argc ;
 	pRingState->argv = argv ;

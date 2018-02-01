@@ -2,7 +2,7 @@
 **  Copyright (c) 2013-2017 Mahmoud Fayed <msfclipper@yahoo.com> 
 **  Include Files 
 */
-#include "../includes/simple.h"
+#include "../includes/ring.h"
 /* Define Functions */
 
 void ring_objfile_writefile ( RingState *pRingState )
@@ -12,7 +12,7 @@ void ring_objfile_writefile ( RingState *pRingState )
 	/* Create File */
 	sprintf( cFileName , "%so" , ring_list_getstring(pRingState->pRingFilesList,1) ) ;
 	fObj = fopen(cFileName , "w+b" );
-	fprintf( fObj , "# Simple Object File\n"  ) ;
+	fprintf( fObj , "# Ring Object File\n"  ) ;
 	fprintf( fObj , "# Version 1.1\n"  ) ;
 	/* Write Functions Lists */
 	fprintf( fObj , "# Functions List\n"  ) ;
@@ -104,7 +104,7 @@ int ring_objfile_readfromsource ( RingState *pRingState,char *cSource,int nSourc
 		}
 	}
 	ring_list_delete(pListStack);
-	/* Update Simple State */
+	/* Update Ring State */
 	#ifdef DEBUG_OBJFILE
 	puts("Old Code List ");
 	ring_list_print(pRingState->pRingGenCode);
@@ -147,15 +147,15 @@ int ring_objfile_processfile ( RingState *pRingState,char *cFileName,List *pList
 	}
 	fread( cFileType , 1 , 18 , fObj );
 	cFileType[18] = '\0' ;
-	if ( strcmp(cFileType,"# Simple Object File") != 0 ) {
-		printf( "The file type is not correct - the VM expect a simple object file\n" ) ;
+	if ( strcmp(cFileType,"# Ring Object File") != 0 ) {
+		printf( "The file type is not correct - the VM expect a ring object file\n" ) ;
 		return 0 ;
 	}
 	c = getc(fObj);
 	fread( cFileType , 1 , 13 , fObj );
 	cFileType[13] = '\0' ;
 	if ( strcmp(cFileType,"# Version 1.1") != 0 ) {
-		printf( "The file version is not correct - the VM expect a simple object file version 1.1\n" ) ;
+		printf( "The file version is not correct - the VM expect a ring object file version 1.1\n" ) ;
 		return 0 ;
 	}
 	/* Process File */
@@ -307,15 +307,15 @@ int ring_objfile_processstring ( RingState *pRingState,char *cContent,List *pLis
 	/* Check Type and Version */
 	ring_objfile_readc(pRingState,&cData,cFileType,18);
 	cFileType[18] = '\0' ;
-	if ( strcmp(cFileType,"# Simple Object File") != 0 ) {
-		printf( "The file type is not correct - the VM expect a simple object file\n" ) ;
+	if ( strcmp(cFileType,"# Ring Object File") != 0 ) {
+		printf( "The file type is not correct - the VM expect a ring object file\n" ) ;
 		return 0 ;
 	}
 	c = ring_objfile_getc(pRingState,&cData);
 	ring_objfile_readc(pRingState,&cData,cFileType,13);
 	cFileType[13] = '\0' ;
 	if ( strcmp(cFileType,"# Version 1.1") != 0 ) {
-		printf( "The file version is not correct - the VM expect a simple object file version 1.1\n" ) ;
+		printf( "The file version is not correct - the VM expect a ring object file version 1.1\n" ) ;
 		return 0 ;
 	}
 	/* Process Content */

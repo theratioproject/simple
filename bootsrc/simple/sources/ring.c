@@ -12,7 +12,7 @@
  * Created on July 10, 2017, 1:29 PM
  */
 
-#include "../includes/simple.h"
+#include "../includes/ring.h"
 
 int main( int argc, char *argv[])
 {

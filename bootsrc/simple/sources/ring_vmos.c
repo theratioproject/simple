@@ -7,7 +7,7 @@
 typedef int (WINAPI *LPFN_ISWOW64PROCESS) (HANDLE, PBOOL); ;
 LPFN_ISWOW64PROCESS fnCheckWindows64  ;
 #endif
-#include "../includes/simple.h"
+#include "../includes/ring.h"
 #include "../includes/ring_vmos.h"
 /* Functions */
 

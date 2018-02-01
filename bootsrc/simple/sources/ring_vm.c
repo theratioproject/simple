@@ -1,5 +1,5 @@
 /* Copyright (c) 2013-2018 Mahmoud Fayed <msfclipper@yahoo.com> */
-#include "../includes/simple.h"
+#include "../includes/ring.h"
 /*
 **  Functions 
 **  Main 
@@ -14,7 +14,7 @@ VM * ring_vm_new ( RingState *pRingState )
 		printf( RING_OOM ) ;
 		exit(0);
 	}
-	/* Simple State */
+	/* Ring State */
 	pVM->pRingState = pRingState ;
 	pRingState->pVM = pVM ;
 	pVM->nPC = 1 ;
@@ -118,7 +118,7 @@ VM * ring_vm_new ( RingState *pRingState )
 	pVM->nFuncExecute2 = 0 ;
 	/* Create List for Temp Items (added to ByteCode) inside TempMem */
 	pVM->aNewByteCodeItems = ring_list_new_gc(pVM->pRingState,0);
-	/* Eval can be called from C code (OOP Set/Get/Operator Overloading) or from simple code using eval() */
+	/* Eval can be called from C code (OOP Set/Get/Operator Overloading) or from ring code using eval() */
 	pVM->nEvalCalledFromRingCode = 0 ;
 	/* Number of decimals after the point */
 	pVM->nDecimals = 2 ;
@@ -915,11 +915,11 @@ void ring_vm_returneval ( VM *pVM )
 	**  If we don't terminate the sub main loop , this is just an extra overhead 
 	**  Also terminating the sub main loop is a must when we do GUI programming 
 	**  Because in GUI programming, the main loop calls the GUI Main Loop 
-	**  During GUI main loop when event happens that calls a simple code 
+	**  During GUI main loop when event happens that calls a ring code 
 	**  Eval will be used and a sub main loop will be executed 
 	**  If we don't terminate the sub main loop, we can't return to the GUI Main Loop 
 	**  It's necessary to return to the GUI main loop 
-	**  When the GUI Main Loop Ends, we return to the Simple Main Loop 
+	**  When the GUI Main Loop Ends, we return to the Ring Main Loop 
 	*/
 	pVM->nEvalReturnPC = aPara[0] ;
 }

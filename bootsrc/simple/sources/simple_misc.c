@@ -12,7 +12,7 @@
  * Created on July 12, 2017, 3:34 PM
  */
 
-#include "../includes/simple.h"
+#include "../includes/ring.h"
 
 SIMPLE_API void print_line ( void )
 {

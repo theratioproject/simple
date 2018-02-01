@@ -1,5 +1,5 @@
 /* Copyright (c) 2013-2018 Mahmoud Fayed <msfclipper@yahoo.com> */
-#include "../includes/simple.h"
+#include "../includes/ring.h"
 /* Keywords */
 const char * RING_KEYWORDS[] = {"IF","TO","OR","AND","NOT","FOR","NEW","FUNC", 
 
@@ -1011,7 +1011,7 @@ void ring_scanner_loadsyntax ( Scanner *pScanner )
 		cFileName[x-1] = '\0' ;
 		x-- ;
 	}
-	/* Support File Location in Simple/bin Folder */
+	/* Support File Location in Ring/bin Folder */
 	strcpy(cFileName2,cFileName);
 	if ( ring_fexists(cFileName) == 0 ) {
 		ring_exefolder(cFileName2);

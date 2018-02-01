@@ -1,5 +1,5 @@
 /* Copyright (c) 2013-2018 Mahmoud Fayed <msfclipper@yahoo.com> */
-#include "../includes/simple.h"
+#include "../includes/ring.h"
 /* User Interface - Commands Implementation (Faster) - Because we don't have functions call */
 
 void ring_vm_see ( VM *pVM )
@@ -80,7 +80,7 @@ void ring_vm_give ( VM *pVM )
 		}
 	}
 }
-/* User Interface Functions (Another implementation) - Flexibile (We can replace functions in Simple Code) */
+/* User Interface Functions (Another implementation) - Flexibile (We can replace functions in Ring Code) */
 
 void ring_vmlib_see ( void *pPointer )
 {

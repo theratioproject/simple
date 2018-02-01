@@ -27,7 +27,6 @@
       <itemPath>includes/ring_vmmath.h</itemPath>
       <itemPath>includes/ring_vmos.h</itemPath>
       <itemPath>includes/ring_vmrefmeta.h</itemPath>
-      <itemPath>includes/simple.h</itemPath>
       <itemPath>includes/simple_misc.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -145,8 +144,6 @@
       <item path="includes/ring_vmos.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="includes/ring_vmrefmeta.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="includes/simple.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="includes/simple_misc.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -296,8 +293,6 @@
       <item path="includes/ring_vmos.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="includes/ring_vmrefmeta.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="includes/simple.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="includes/simple_misc.h" ex="false" tool="3" flavor2="0">
       </item>
