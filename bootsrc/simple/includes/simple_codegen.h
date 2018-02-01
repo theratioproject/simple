@@ -172,6 +172,6 @@ void simple_parser_icg_insertoperation ( Parser *pParser , int nPos , IC_OPERATI
 #define simple_parser_icg_setlastoperation(pParser,x) simple_list_setint_gc(pParser->pRingState,pParser->ActiveGenCodeList,1,x)
 #define simple_parser_icg_instructionscount(pParser) simple_list_getsize(pParser->GenCode)
 #define simple_parser_icg_getoperationlist(pParser,x) simple_list_getlist(pParser->GenCode,x)
-#define RING_PARSER_ICG_GOTOLASTOP pParser->ActiveGenCodeList = simple_list_getlist(pParser->GenCode,simple_list_getsize(pParser->GenCode))
-extern const char *RING_IC_OP[] ;
+#define SIMPLE_PARSER_ICG_GOTOLASTOP pParser->ActiveGenCodeList = simple_list_getlist(pParser->GenCode,simple_list_getsize(pParser->GenCode))
+extern const char *SIMPLE_IC_OP[] ;
 #endif

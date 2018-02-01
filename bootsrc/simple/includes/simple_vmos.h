@@ -31,5 +31,5 @@ void simple_vm_os_chdir ( void *pPointer ) ;
 
 void simple_vm_os_exefolder ( void *pPointer ) ;
 /* Constants */
-#define RING_VM_POINTER_LIBNAME "os"
+#define SIMPLE_VM_POINTER_LIBNAME "os"
 #endif

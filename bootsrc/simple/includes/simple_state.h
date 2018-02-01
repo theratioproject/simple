@@ -50,32 +50,32 @@ typedef struct RingState {
 } RingState ;
 /* Functions */
 
-RING_API RingState * simple_state_new ( void ) ;
+SIMPLE_API RingState * simple_state_new ( void ) ;
 
-RING_API RingState * simple_state_delete ( RingState *pRingState ) ;
+SIMPLE_API RingState * simple_state_delete ( RingState *pRingState ) ;
 
 void simple_state_cgiheader ( RingState *pRingState ) ;
 
-RING_API void simple_print_line ( void ) ;
+SIMPLE_API void simple_print_line ( void ) ;
 
-RING_API RingState * simple_state_init ( void ) ;
+SIMPLE_API RingState * simple_state_init ( void ) ;
 
-RING_API void simple_state_runcode ( RingState *pRingState,const char *cStr ) ;
+SIMPLE_API void simple_state_runcode ( RingState *pRingState,const char *cStr ) ;
 
-RING_API List * simple_state_findvar ( RingState *pRingState,const char *cStr ) ;
+SIMPLE_API List * simple_state_findvar ( RingState *pRingState,const char *cStr ) ;
 
-RING_API List * simple_state_newvar ( RingState *pRingState,const char *cStr ) ;
+SIMPLE_API List * simple_state_newvar ( RingState *pRingState,const char *cStr ) ;
 
-RING_API void simple_state_main ( int argc, char *argv[] ) ;
+SIMPLE_API void simple_state_main ( int argc, char *argv[] ) ;
 
-RING_API void simple_state_runfile ( RingState *pRingState,char *cFileName ) ;
+SIMPLE_API void simple_state_runfile ( RingState *pRingState,char *cFileName ) ;
 
-RING_API void simple_state_runobjectfile ( RingState *pRingState,char *cFileName ) ;
+SIMPLE_API void simple_state_runobjectfile ( RingState *pRingState,char *cFileName ) ;
 
-RING_API void simple_state_runobjectstsimple ( RingState *pRingState,char *cStsimple,const char *cFileName ) ;
+SIMPLE_API void simple_state_runobjectstsimple ( RingState *pRingState,char *cStsimple,const char *cFileName ) ;
 /* MACRO */
-#define RING_STATE_CHECKPRINTRULES if ( pParser->pRingState->nPrintRules )
-#define RING_VERSION "1.7"
+#define SIMPLE_STATE_CHECKPRINTRULES if ( pParser->pRingState->nPrintRules )
+#define SIMPLE_VERSION "1.7"
 /* General Functions */
 
 int simple_fexists ( const char *cFileName ) ;

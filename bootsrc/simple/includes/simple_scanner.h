@@ -73,8 +73,8 @@ typedef enum SCANNER_KEYWORD {
 	K_ENDFUNC ,
 	K_ENDCLASS ,
 	K_ENDPACKAGE ,
-	K_CHANGERINGKEYWORD ,
-	K_CHANGERINGIOPERATOR ,
+	K_CHANGESIMPLEKEYWORD ,
+	K_CHANGESIMPLEIOPERATOR ,
 	K_LOADSYNTAX 
 } SCANNER_KEYWORD ;
 /* Operators */
@@ -142,7 +142,7 @@ void simple_scanner_addreturn3 ( RingState *pRingState,int aPara[3] ) ;
 
 void simple_scanner_printtokens ( Scanner *pScanner ) ;
 
-RING_API void simple_execute ( char *cFileName, int nISCGI,int nRun,int nPrintIC,int nPrintICFinal,int nTokens,int nRules,int nIns,int nGenObj,int nWarn,int argc,char *argv[] ) ;
+SIMPLE_API void simple_execute ( char *cFileName, int nISCGI,int nRun,int nPrintIC,int nPrintICFinal,int nTokens,int nRules,int nIns,int nGenObj,int nWarn,int argc,char *argv[] ) ;
 
 const char * simple_scanner_getkeywordtext ( const char *cStr ) ;
 
@@ -158,13 +158,13 @@ void simple_scanner_loadsyntax ( Scanner *pScanner ) ;
 
 void simple_scanner_runobjstsimple ( RingState *pRingState,char *cStsimple,const char *cFileName ) ;
 /* MACRO */
-#define RING_SCANNER_DELETELASTTOKEN simple_list_deleteitem(pScanner->Tokens,simple_list_getsize(pScanner->Tokens))
+#define SIMPLE_SCANNER_DELETELASTTOKEN simple_list_deleteitem(pScanner->Tokens,simple_list_getsize(pScanner->Tokens))
 /*
 **  Constants 
 **  General 
 */
-#define RING_SCANNER_TOKENTYPE 1
-#define RING_SCANNER_TOKENVALUE 2
+#define SIMPLE_SCANNER_TOKENTYPE 1
+#define SIMPLE_SCANNER_TOKENVALUE 2
 /* Scanner Tokens Types */
 #define SCANNER_TOKEN_KEYWORD 0
 #define SCANNER_TOKEN_OPERATOR 1
@@ -182,7 +182,7 @@ void simple_scanner_runobjstsimple ( RingState *pRingState,char *cStsimple,const
 #define SCANNER_STATE_CHANGEOPERATOR 5
 #define SCANNER_STATE_LOADSYNTAX 6
 /* Change Ring Keyword/Operator */
-#define RING_SCANNER_CHANGERINGKEYWORD 47
-#define RING_SCANNER_CHANGERINGOPERATOR 48
-#define RING_SCANNER_LOADSYNTAX 49
+#define SIMPLE_SCANNER_CHANGESIMPLEKEYWORD 47
+#define SIMPLE_SCANNER_CHANGESIMPLEOPERATOR 48
+#define SIMPLE_SCANNER_LOADSYNTAX 49
 #endif
