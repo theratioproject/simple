@@ -202,6 +202,7 @@ SIMPLE_API void ring_state_main ( int argc, char *argv[] )
 				cStr = argv[x] ;
 				nSRC = 1 ;
 			} 
+                        printf("it reach here %s\n", argv[x]);
 		}
 	}
 	#if RING_TESTPERFORMANCE
