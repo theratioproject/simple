@@ -226,7 +226,22 @@ RING_API void ring_state_main ( int argc, char *argv[] )
 	}
 	/* Print Version */
 	if ( (argc == 1) || (cStr == NULL) ) {
-		display_help();
+		ring_print_line();
+		printf( "Ring version %s \n2013-2018, Mahmoud Fayed <msfclipper@yahoo.com>\n",RING_VERSION ) ;
+		puts("Usage : ring filename.ring [Options]");
+		ring_print_line();
+		/* Options */
+		puts("-tokens   :  Print a list of tokens in the source code file");
+		puts("-rules    :  Print grammar rules applied on the tokens");
+		puts("-ic       :  Print the intermediate byte code (before execution)");
+		puts("-icfinal  :  Print the final byte code (after execution)");
+		puts("-cgi      :  Print http response header before error messages");
+		puts("-norun    :  Don't run the program after compiling");
+		puts("-ins      :  Print instruction operation code before execution");
+		puts("-clock    :  Print clock before and after program execution");
+		puts("-go       :  Generate object file");
+		puts("-w        :  Display Warnings");
+		ring_print_line();
 		exit(0);
 	}
 	ring_execute(cStr,nCGI,nRun,nPrintIC,nPrintICFinal,nTokens,nRules,nIns,nGenObj,nWarn,argc,argv);

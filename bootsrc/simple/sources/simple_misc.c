@@ -23,7 +23,7 @@ void display_help(){
     printf("The OPTIONS [SIMPLE FILE] include : \n");
     printf("\t-h -help                    Displays this help and exits.\n");
     printf("\t-k -show-tokens             Scans and outputs the tokens in the source file.\n");
-    printf("\t-s -simplify            Scans and outputs the tokens in the source file.\n");
+    printf("\t-s -simplify                Compile simple file to one complex file.\n");
     printf("\t-t -time                    Shows the execution time of the program at completion.\n");
     printf("\t-v -verbose                 Displays all the modules and libraries of SIMPLE and exits.\n");
     printf("\t-a -about                   Display the SIMPLE Property and exits.\n");
