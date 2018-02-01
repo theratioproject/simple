@@ -90,16 +90,16 @@ int ring_scanner_readfile ( RingState *pRingState,char *cFileName )
 	RING_READCHAR(fp,c,nSize);
 	pScanner = ring_scanner_new(pRingState);
 	/* Check Startup file */
-	if ( ring_fexists("startup.ring") && pScanner->pRingState->lStartup == 0 ) {
+	if ( ring_fexists("startup.sim") && pScanner->pRingState->lStartup == 0 ) {
 		pScanner->pRingState->lStartup = 1 ;
-		strcpy(cStartup,"Load 'startup.ring'");
-		/* Load "startup.ring" */
+		strcpy(cStartup,"Load 'startup.sim'");
+		/* Load "startup.sim" */
 		for ( x = 0 ; x < 19 ; x++ ) {
 			ring_scanner_readchar(pScanner,cStartup[x]);
 		}
 		/*
 		**  Add new line 
-		**  We add this here instead of using \n in load 'startup.ring' 
+		**  We add this here instead of using \n in load 'startup.sim' 
 		**  To avoid increasing the line number of the code 
 		**  so the first line in the source code file still the first line (not second line) 
 		*/

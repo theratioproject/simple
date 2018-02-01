@@ -804,7 +804,7 @@ int ring_vm_eval ( VM *pVM,const char *cStr )
 			}
 			pVM->pByteCode = pByteCode ;
 			if ( pVM->nEvalCalledFromRingCode ) {
-				/* Here eval() function is called from .ring files ( not by the VM for setter/getter/operator overloading) */
+				/* Here eval() function is called from .sim files ( not by the VM for setter/getter/operator overloading) */
 				pVM->nEvalReallocationFlag = 1 ;
 			}
 		}

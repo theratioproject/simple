@@ -1,4 +1,4 @@
-build/Debug/MinGW-Windows/sources/ring_scanner.o: sources/ring_scanner.c \
+build/Debug/MinGW-Windows/sources/ring_vmos.o: sources/ring_vmos.c \
  sources/../includes/ring.h sources/../includes/simple_misc.h \
  sources/../includes/ring_ext.h sources/../includes/ring_string.h \
  sources/../includes/ring_vmgcdata.h sources/../includes/ring_item.h \
@@ -11,7 +11,8 @@ build/Debug/MinGW-Windows/sources/ring_scanner.o: sources/ring_scanner.c \
  sources/../includes/ring_objfile.h sources/../includes/ring_vmmath.h \
  sources/../includes/ring_vmfile.h sources/../includes/ring_vmos.h \
  sources/../includes/ring_vmlistfuncs.h \
- sources/../includes/ring_vmrefmeta.h sources/../includes/ring_vmdll.h
+ sources/../includes/ring_vmrefmeta.h sources/../includes/ring_vmdll.h \
+ sources/../includes/ring_vmos.h
 
 sources/../includes/ring.h:
 
@@ -62,3 +63,5 @@ sources/../includes/ring_vmlistfuncs.h:
 sources/../includes/ring_vmrefmeta.h:
 
 sources/../includes/ring_vmdll.h:
+
+sources/../includes/ring_vmos.h:
