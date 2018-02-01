@@ -1500,7 +1500,7 @@ void simple_vmlib_trim ( void *pPointer )
 void simple_vmlib_copy ( void *pPointer )
 {
 	const char *cStr  ;
-	String *pString  ;
+	char *pString  ;
 	int x,nSize  ;
 	if ( SIMPLE_API_PARACOUNT != 2 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
