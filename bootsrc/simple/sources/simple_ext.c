@@ -1,30 +1,30 @@
 /* Copyright (c) 2013-2018 Mahmoud Fayed <msfclipper@yahoo.com> */
-#include "../include/simple.h"
+#include "../includes/simple.h"
 
-void ring_vm_extension ( RingState *pRingState )
+void simple_vm_extension ( RingState *pRingState )
 {
 	/* Reflection and Meta-programming */
-	#if RING_VM_REFMETA
-	ring_vm_refmeta_loadfunctions(pRingState);
+	#if SIMPLE_VM_REFMETA
+	simple_vm_refmeta_loadfunctions(pRingState);
 	#endif
 	/* List Functions */
-	#if RING_VM_LISTFUNCS
-	ring_vm_listfuncs_loadfunctions(pRingState);
+	#if SIMPLE_VM_LISTFUNCS
+	simple_vm_listfuncs_loadfunctions(pRingState);
 	#endif
 	/* Math */
-	#if RING_VM_MATH
-	ring_vm_math_loadfunctions(pRingState);
+	#if SIMPLE_VM_MATH
+	simple_vm_math_loadfunctions(pRingState);
 	#endif
 	/* File */
-	#if RING_VM_FILE
-	ring_vm_file_loadfunctions(pRingState);
+	#if SIMPLE_VM_FILE
+	simple_vm_file_loadfunctions(pRingState);
 	#endif
 	/* OS */
-	#if RING_VM_OS
-	ring_vm_os_loadfunctions(pRingState);
+	#if SIMPLE_VM_OS
+	simple_vm_os_loadfunctions(pRingState);
 	#endif
 	/* DLL */
-	#if RING_VM_DLL
-	ring_vm_dll_loadfunctions(pRingState);
+	#if SIMPLE_VM_DLL
+	simple_vm_dll_loadfunctions(pRingState);
 	#endif
 }

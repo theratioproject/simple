@@ -1,8 +1,8 @@
 /* Copyright (c) 2013-2018 Mahmoud Fayed <msfclipper@yahoo.com> */
-#include "../include/simple.h"
+#include "../includes/simple.h"
 
 int main( int argc, char *argv[])
 {
-	ring_state_main(argc,argv); 
+	simple_state_main(argc,argv); 
 	return 0;
 }

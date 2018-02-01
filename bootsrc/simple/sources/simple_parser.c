@@ -1,64 +1,64 @@
 /* Copyright (c) 2013-2018 Mahmoud Fayed <msfclipper@yahoo.com> */
-#include "../include/simple.h"
+#include "../includes/simple.h"
 /* Functions */
 
-int ring_parser_start ( List *pTokens,RingState *pRingState )
+int simple_parser_start ( List *pTokens,RingState *pRingState )
 {
 	Parser *pParser  ;
 	int nResult,RingActiveFile  ;
-	pParser = ring_parser_new(pTokens,pRingState);
-	#if RING_PARSERSTART
+	pParser = simple_parser_new(pTokens,pRingState);
+	#if SIMPLE_PARSERSTART
 	/* Parse Tokens */
-	ring_parser_nexttoken(pParser);
+	simple_parser_nexttoken(pParser);
 	do {
-		nResult = ring_parser_class(pParser);
+		nResult = simple_parser_class(pParser);
 		if ( nResult == 0 ) {
-			ring_parser_error(pParser,"");
+			simple_parser_error(pParser,"");
 			/* Important check to avoid missing the line number counter */
-			if ( ring_parser_isendline(pParser) == 0 ) {
+			if ( simple_parser_isendline(pParser) == 0 ) {
 				/* Move next trying to avoid the error */
-				ring_parser_nexttoken(pParser);
+				simple_parser_nexttoken(pParser);
 			}
 		}
 	} while (pParser->ActiveToken !=pParser->TokensCount)  ;
 	/* Display Errors Count */
-	RingActiveFile = ring_list_getsize(pParser->pRingState->pRingFilesStack);
+	RingActiveFile = simple_list_getsize(pParser->pRingState->pRingFilesStack);
 	if ( pParser->nErrorsCount == 0 ) {
-		#if RING_PARSERFINAL
-		printf( "\n%s compiling done, no errors.\n",ring_list_getstring(pParser->pRingState->pRingFilesStack,RingActiveFile) ) ;
+		#if SIMPLE_PARSERFINAL
+		printf( "\n%s compiling done, no errors.\n",simple_list_getstring(pParser->pRingState->pRingFilesStack,RingActiveFile) ) ;
 		#endif
-		ring_parser_delete(pParser);
+		simple_parser_delete(pParser);
 		return 1 ;
 	} else {
-		printf( "\n%s errors count : %d \n",ring_list_getstring(pParser->pRingState->pRingFilesStack,RingActiveFile),pParser->nErrorsCount ) ;
+		printf( "\n%s errors count : %d \n",simple_list_getstring(pParser->pRingState->pRingFilesStack,RingActiveFile),pParser->nErrorsCount ) ;
 	}
 	#endif
-	ring_parser_delete(pParser);
+	simple_parser_delete(pParser);
 	return 0 ;
 }
 
-Parser * ring_parser_new ( List *pTokens,RingState *pRingState )
+Parser * simple_parser_new ( List *pTokens,RingState *pRingState )
 {
 	Parser *pParser  ;
-	pParser = (Parser *) ring_state_malloc(pRingState,sizeof(Parser));
+	pParser = (Parser *) simple_state_malloc(pRingState,sizeof(Parser));
 	if ( pParser == NULL ) {
-		printf( RING_OOM ) ;
+		printf( SIMPLE_OOM ) ;
 		exit(0);
 	}
 	/* Ring State */
 	pParser->pRingState = pRingState ;
 	pParser->Tokens = pTokens ;
 	pParser->ActiveToken = 0 ;
-	pParser->TokensCount = ring_list_getsize(pParser->Tokens) ;
+	pParser->TokensCount = simple_list_getsize(pParser->Tokens) ;
 	pParser->nTokenIndex = 0 ;
 	pParser->nLineNumber = 1 ;
 	pParser->nErrorLine = 0 ;
 	pParser->nErrorsCount = 0 ;
 	if ( pRingState->pRingGenCode == NULL ) {
-		pRingState->pRingGenCode = ring_list_new(0);
-		pRingState->pRingFunctionsMap = ring_list_new(0);
-		pRingState->pRingClassesMap = ring_list_new(0);
-		pRingState->pRingPackagesMap = ring_list_new(0);
+		pRingState->pRingGenCode = simple_list_new(0);
+		pRingState->pRingFunctionsMap = simple_list_new(0);
+		pRingState->pRingClassesMap = simple_list_new(0);
+		pRingState->pRingPackagesMap = simple_list_new(0);
 	}
 	pParser->GenCode = pRingState->pRingGenCode ;
 	pParser->FunctionsMap = pRingState->pRingFunctionsMap ;
@@ -79,36 +79,36 @@ Parser * ring_parser_new ( List *pTokens,RingState *pRingState )
 	return pParser ;
 }
 
-Parser * ring_parser_delete ( Parser *pParser )
+Parser * simple_parser_delete ( Parser *pParser )
 {
 	assert(pParser != NULL);
-	ring_state_free(pParser->pRingState,pParser);
+	simple_state_free(pParser->pRingState,pParser);
 	return NULL ;
 }
 /* Check Token */
 
-void ring_parser_loadtoken ( Parser *pParser )
+void simple_parser_loadtoken ( Parser *pParser )
 {
 	List *pList  ;
 	assert(pParser != NULL);
-	pList = ring_list_getlist(pParser->Tokens,pParser->ActiveToken);
-	pParser->TokenType = ring_list_getint(pList,1) ;
-	pParser->TokenText = ring_list_getstring(pList,2) ;
-	pParser->nTokenIndex = ring_list_getint(pList,3) ;
+	pList = simple_list_getlist(pParser->Tokens,pParser->ActiveToken);
+	pParser->TokenType = simple_list_getint(pList,1) ;
+	pParser->TokenText = simple_list_getstring(pList,2) ;
+	pParser->nTokenIndex = simple_list_getint(pList,3) ;
 }
 
-int ring_parser_nexttoken ( Parser *pParser )
+int simple_parser_nexttoken ( Parser *pParser )
 {
 	assert(pParser != NULL);
 	if ( pParser->ActiveToken < pParser->TokensCount ) {
 		pParser->ActiveToken++ ;
-		ring_parser_loadtoken(pParser);
+		simple_parser_loadtoken(pParser);
 		return 1 ;
 	}
 	return 0 ;
 }
 
-int ring_parser_iskeyword ( Parser *pParser,SCANNER_KEYWORD x )
+int simple_parser_iskeyword ( Parser *pParser,SCANNER_KEYWORD x )
 {
 	assert(pParser != NULL);
 	if ( pParser->TokenType == SCANNER_TOKEN_KEYWORD ) {
@@ -119,7 +119,7 @@ int ring_parser_iskeyword ( Parser *pParser,SCANNER_KEYWORD x )
 	return 0 ;
 }
 
-int ring_parser_isoperator ( Parser *pParser,const char *cStr )
+int simple_parser_isoperator ( Parser *pParser,const char *cStr )
 {
 	assert(pParser != NULL);
 	if ( pParser->TokenType == SCANNER_TOKEN_OPERATOR ) {
@@ -130,7 +130,7 @@ int ring_parser_isoperator ( Parser *pParser,const char *cStr )
 	return 0 ;
 }
 
-int ring_parser_isliteral ( Parser *pParser )
+int simple_parser_isliteral ( Parser *pParser )
 {
 	assert(pParser != NULL);
 	if ( pParser->TokenType ==SCANNER_TOKEN_LITERAL ) {
@@ -139,7 +139,7 @@ int ring_parser_isliteral ( Parser *pParser )
 	return 0 ;
 }
 
-int ring_parser_isnumber ( Parser *pParser )
+int simple_parser_isnumber ( Parser *pParser )
 {
 	assert(pParser != NULL);
 	if ( pParser->TokenType ==SCANNER_TOKEN_NUMBER ) {
@@ -148,7 +148,7 @@ int ring_parser_isnumber ( Parser *pParser )
 	return 0 ;
 }
 
-int ring_parser_isidentifier ( Parser *pParser )
+int simple_parser_isidentifier ( Parser *pParser )
 {
 	assert(pParser != NULL);
 	if ( pParser->TokenType ==SCANNER_TOKEN_IDENTIFIER ) {
@@ -157,7 +157,7 @@ int ring_parser_isidentifier ( Parser *pParser )
 	return 0 ;
 }
 
-int ring_parser_isendline ( Parser *pParser )
+int simple_parser_isendline ( Parser *pParser )
 {
 	assert(pParser != NULL);
 	if ( pParser->TokenType ==SCANNER_TOKEN_ENDLINE ) {
@@ -166,18 +166,18 @@ int ring_parser_isendline ( Parser *pParser )
 	return 0 ;
 }
 
-int ring_parser_settoken ( Parser *pParser,int x )
+int simple_parser_settoken ( Parser *pParser,int x )
 {
 	assert(pParser != NULL);
 	if ( (x >= 1) && (x <= pParser->TokensCount) ) {
 		pParser->ActiveToken = x ;
-		ring_parser_loadtoken(pParser);
+		simple_parser_loadtoken(pParser);
 		return 1 ;
 	}
 	return 0 ;
 }
 
-int ring_parser_isanykeyword ( Parser *pParser )
+int simple_parser_isanykeyword ( Parser *pParser )
 {
 	assert(pParser != NULL);
 	if ( pParser->TokenType == SCANNER_TOKEN_KEYWORD ) {
@@ -186,7 +186,7 @@ int ring_parser_isanykeyword ( Parser *pParser )
 	return 0 ;
 }
 
-int ring_parser_isoperator2 ( Parser *pParser,SCANNER_OPERATOR nType )
+int simple_parser_isoperator2 ( Parser *pParser,SCANNER_OPERATOR nType )
 {
 	assert(pParser != NULL);
 	if ( (pParser->TokenType == SCANNER_TOKEN_OPERATOR) && ( pParser->nTokenIndex == (int) nType ) ) {
@@ -196,14 +196,14 @@ int ring_parser_isoperator2 ( Parser *pParser,SCANNER_OPERATOR nType )
 }
 /* Display Errors */
 
-void ring_parser_error ( Parser *pParser,const char *cStr )
+void simple_parser_error ( Parser *pParser,const char *cStr )
 {
 	int RingActiveFile  ;
-	ring_state_cgiheader(pParser->pRingState);
-	RingActiveFile = ring_list_getsize(pParser->pRingState->pRingFilesStack);
+	simple_state_cgiheader(pParser->pRingState);
+	RingActiveFile = simple_list_getsize(pParser->pRingState->pRingFilesStack);
 	if ( pParser->nErrorLine != pParser->nLineNumber ) {
 		pParser->nErrorLine = pParser->nLineNumber ;
-		printf( "\n%s Line (%d) ",ring_list_getstring(pParser->pRingState->pRingFilesStack,RingActiveFile),pParser->nLineNumber ) ;
+		printf( "\n%s Line (%d) ",simple_list_getstring(pParser->pRingState->pRingFilesStack,RingActiveFile),pParser->nLineNumber ) ;
 		pParser->nErrorsCount++ ;
 		if ( strcmp(cStr,"") != 0 ) {
 			printf( "%s",cStr ) ;
@@ -215,7 +215,7 @@ void ring_parser_error ( Parser *pParser,const char *cStr )
 		pParser->nErrorsCount++ ;
 	}
 	if ( strcmp(cStr,"") != 0 ) {
-		printf( "\n%s Line (%d) ",ring_list_getstring(pParser->pRingState->pRingFilesStack,RingActiveFile),pParser->nLineNumber ) ;
+		printf( "\n%s Line (%d) ",simple_list_getstring(pParser->pRingState->pRingFilesStack,RingActiveFile),pParser->nLineNumber ) ;
 		printf( "%s",cStr ) ;
 	}
 }

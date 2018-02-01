@@ -1,26 +1,26 @@
 /* Copyright (c) 2013-2016 Mahmoud Fayed <msfclipper@yahoo.com> */
-#include "../include/simple.h"
+#include "../includes/simple.h"
 /* Functions */
 
-RING_API String * ring_string_new_gc ( void *pState,const char *str )
+SIMPLE_API String * simple_stsimple_new_gc ( void *pState,const char *str )
 {
 	int x  ;
 	x = strlen( str ) ;
-	return ring_string_new2_gc(pState,str,x) ;
+	return simple_stsimple_new2_gc(pState,str,x) ;
 }
 
-RING_API String * ring_string_new2_gc ( void *pState,const char *str,int nStrSize )
+SIMPLE_API String * simple_stsimple_new2_gc ( void *pState,const char *str,int nStrSize )
 {
 	String *pString  ;
 	int x  ;
-	pString = (struct String *) ring_state_malloc(pState,sizeof(struct String));
+	pString = (struct String *) simple_state_malloc(pState,sizeof(struct String));
 	if ( pString == NULL ) {
-		printf( RING_OOM ) ;
+		printf( SIMPLE_OOM ) ;
 		exit(0);
 	}
-	pString->cStr = (char *) ring_state_malloc(pState,nStrSize+1);
+	pString->cStr = (char *) simple_state_malloc(pState,nStrSize+1);
 	if ( pString->cStr  == NULL ) {
-		printf( RING_OOM ) ;
+		printf( SIMPLE_OOM ) ;
 		exit(0);
 	}
 	/* Copy String */
@@ -32,38 +32,38 @@ RING_API String * ring_string_new2_gc ( void *pState,const char *str,int nStrSiz
 	return pString ;
 }
 
-RING_API String * ring_string_delete_gc ( void *pState,String *pString )
+SIMPLE_API String * simple_stsimple_delete_gc ( void *pState,String *pString )
 {
 	assert(pString != NULL);
-	ring_state_free(pState,pString->cStr);
+	simple_state_free(pState,pString->cStr);
 	pString->cStr = NULL ;
-	ring_state_free(pState,pString);
+	simple_state_free(pState,pString);
 	return NULL ;
 }
 
-RING_API int ring_string_size ( String *pString )
+SIMPLE_API int simple_stsimple_size ( String *pString )
 {
 	assert(pString != NULL);
 	return pString->nSize ;
 }
 
-RING_API void ring_string_set_gc ( void *pState,String *pString,const char *str )
+SIMPLE_API void simple_stsimple_set_gc ( void *pState,String *pString,const char *str )
 {
 	int x  ;
 	assert(pString != NULL);
 	x = strlen( str ) ;
-	ring_string_set2_gc(pState,pString,str,x);
+	simple_stsimple_set2_gc(pState,pString,str,x);
 }
 
-RING_API void ring_string_set2_gc ( void *pState,String *pString,const char *str,int nStrSize )
+SIMPLE_API void simple_stsimple_set2_gc ( void *pState,String *pString,const char *str,int nStrSize )
 {
 	int x  ;
 	assert(pString != NULL);
 	assert(pString->cStr != NULL);
-	ring_state_free(pState,pString->cStr);
-	pString->cStr = (char *) ring_state_malloc(pState,nStrSize+1);
+	simple_state_free(pState,pString->cStr);
+	pString->cStr = (char *) simple_state_malloc(pState,nStrSize+1);
 	if ( pString->cStr  == NULL ) {
-		printf( RING_OOM ) ;
+		printf( SIMPLE_OOM ) ;
 		exit(0);
 	}
 	/* Copy String */
@@ -74,53 +74,53 @@ RING_API void ring_string_set2_gc ( void *pState,String *pString,const char *str
 	pString->nSize = nStrSize ;
 }
 
-RING_API void ring_string_add_gc ( void *pState,String *pString,const char *str )
+SIMPLE_API void simple_stsimple_add_gc ( void *pState,String *pString,const char *str )
 {
 	int x  ;
 	x = strlen( str ) ;
-	ring_string_add2_gc(pState,pString,str,x);
+	simple_stsimple_add2_gc(pState,pString,str,x);
 }
 
-RING_API void ring_string_add2_gc ( void *pState,String *pString,const char *str,int nStrSize )
+SIMPLE_API void simple_stsimple_add2_gc ( void *pState,String *pString,const char *str,int nStrSize )
 {
 	int x  ;
 	int x2  ;
 	char *cStr  ;
 	assert(pString != NULL);
-	x2 = nStrSize+ring_string_size(pString) ;
+	x2 = nStrSize+simple_stsimple_size(pString) ;
 	cStr = pString->cStr ;
-	pString->cStr = (char *) ring_state_malloc(pState,x2+1);
+	pString->cStr = (char *) simple_state_malloc(pState,x2+1);
 	if ( pString->cStr  == NULL ) {
-		printf( RING_OOM ) ;
+		printf( SIMPLE_OOM ) ;
 		exit(0);
 	}
 	/* Copy String */
-	for ( x = 0 ; x < ring_string_size(pString) ; x++ ) {
+	for ( x = 0 ; x < simple_stsimple_size(pString) ; x++ ) {
 		pString->cStr[x] = cStr[x] ;
 	}
 	for ( x = 0 ; x < nStrSize ; x++ ) {
-		pString->cStr[x+ring_string_size(pString)] = str[x] ;
+		pString->cStr[x+simple_stsimple_size(pString)] = str[x] ;
 	}
 	pString->cStr[x2] = '\0' ;
 	pString->nSize = x2 ;
-	ring_state_free(pState,cStr);
+	simple_state_free(pState,cStr);
 }
 
-RING_API void ring_string_print ( String *pString )
+SIMPLE_API void simple_stsimple_print ( String *pString )
 {
 	assert(pString != NULL);
 	printf( "%s \n",pString->cStr ) ;
 }
 
-RING_API void ring_string_setfromint_gc ( void *pState,String *pString,int x )
+SIMPLE_API void simple_stsimple_setfromint_gc ( void *pState,String *pString,int x )
 {
 	char cStr[20]  ;
 	assert(pString != NULL);
 	sprintf( cStr , "%d" , x ) ;
-	ring_string_set_gc(pState,pString,cStr);
+	simple_stsimple_set_gc(pState,pString,cStr);
 }
 
-RING_API char * ring_string_lower ( char *cStr )
+SIMPLE_API char * simple_stsimple_lower ( char *cStr )
 {
 	unsigned int x  ;
 	for ( x = 0 ; x < strlen(cStr) ; x++ ) {
@@ -131,7 +131,7 @@ RING_API char * ring_string_lower ( char *cStr )
 	return cStr ;
 }
 
-RING_API char * ring_string_lower2 ( char *cStr,int nStrSize )
+SIMPLE_API char * simple_stsimple_lower2 ( char *cStr,int nStrSize )
 {
 	int x  ;
 	for ( x = 0 ; x < nStrSize ; x++ ) {
@@ -142,7 +142,7 @@ RING_API char * ring_string_lower2 ( char *cStr,int nStrSize )
 	return cStr ;
 }
 
-RING_API char * ring_string_upper ( char *cStr )
+SIMPLE_API char * simple_stsimple_upper ( char *cStr )
 {
 	unsigned int x  ;
 	for ( x = 0 ; x < strlen(cStr) ; x++ ) {
@@ -153,7 +153,7 @@ RING_API char * ring_string_upper ( char *cStr )
 	return cStr ;
 }
 
-RING_API char * ring_string_upper2 ( char *cStr,int nStrSize )
+SIMPLE_API char * simple_stsimple_upper2 ( char *cStr,int nStrSize )
 {
 	int x  ;
 	for ( x = 0 ; x < nStrSize ; x++ ) {
@@ -164,12 +164,12 @@ RING_API char * ring_string_upper2 ( char *cStr,int nStrSize )
 	return cStr ;
 }
 
-RING_API char * ring_string_find_gc ( void *pState,char *cStr1,char *cStr2 )
+SIMPLE_API char * simple_stsimple_find_gc ( void *pState,char *cStr1,char *cStr2 )
 {
-	return ring_string_find2_gc(pState,cStr1,strlen(cStr1),cStr2,strlen(cStr2)) ;
+	return simple_stsimple_find2_gc(pState,cStr1,strlen(cStr1),cStr2,strlen(cStr2)) ;
 }
 
-RING_API char * ring_string_find2_gc ( void *pState,char *cStr1,int nStrSize1,char *cStr2,int nStrSize2 )
+SIMPLE_API char * simple_stsimple_find2_gc ( void *pState,char *cStr1,int nStrSize1,char *cStr2,int nStrSize2 )
 {
 	int nPos,x  ;
 	nPos = 0 ;
@@ -189,7 +189,7 @@ RING_API char * ring_string_find2_gc ( void *pState,char *cStr1,int nStrSize1,ch
 	return NULL ;
 }
 
-RING_API char * ring_string_find3_gc ( void *pState,char *cStr1,int nStrSize1,char *cStr2,int nStrSize2 )
+SIMPLE_API char * simple_stsimple_find3_gc ( void *pState,char *cStr1,int nStrSize1,char *cStr2,int nStrSize2 )
 {
 	int nPos,x  ;
 	char *cStr3  ;
@@ -201,10 +201,10 @@ RING_API char * ring_string_find3_gc ( void *pState,char *cStr1,int nStrSize1,ch
 		return NULL ;
 	}
 	/* Copy Strings and convert to lower case */
-	cStr3 = (char *) ring_state_malloc(pState,nStrSize1+1);
-	cStr4 = (char *) ring_state_malloc(pState,nStrSize2+1);
+	cStr3 = (char *) simple_state_malloc(pState,nStrSize1+1);
+	cStr4 = (char *) simple_state_malloc(pState,nStrSize2+1);
 	if ( (cStr3==NULL) || (cStr4==NULL) ) {
-		printf( RING_OOM ) ;
+		printf( SIMPLE_OOM ) ;
 		exit(0);
 	}
 	for ( x = 0 ; x <= nStrSize1 ; x++ ) {
@@ -213,8 +213,8 @@ RING_API char * ring_string_find3_gc ( void *pState,char *cStr1,int nStrSize1,ch
 	for ( x = 0 ; x <= nStrSize2 ; x++ ) {
 		cStr4[x] = cStr2[x] ;
 	}
-	ring_string_lower2(cStr3,nStrSize1);
-	ring_string_lower2(cStr4,nStrSize2);
+	simple_stsimple_lower2(cStr3,nStrSize1);
+	simple_stsimple_lower2(cStr4,nStrSize2);
 	pOutput = NULL ;
 	while ( nPos <= (nStrSize1 - nStrSize2) ) {
 		x = 0 ;
@@ -228,91 +228,91 @@ RING_API char * ring_string_find3_gc ( void *pState,char *cStr1,int nStrSize1,ch
 		nPos++ ;
 	}
 	/* Free Memory */
-	ring_state_free(pState,cStr3);
-	ring_state_free(pState,cStr4);
+	simple_state_free(pState,cStr3);
+	simple_state_free(pState,cStr4);
 	return pOutput ;
 }
 
-void ring_string_test ( void )
+void simple_stsimple_test ( void )
 {
 	#define nMaxValue 10
 	String *mystr[nMaxValue]  ;
 	int x  ;
 	String *pString  ;
 	for ( x = 0 ; x < nMaxValue ; x++ ) {
-		mystr[x] = ring_string_new("Wow Really i like the c language so much");
-		ring_string_print(mystr[x]);
+		mystr[x] = simple_stsimple_new("Wow Really i like the c language so much");
+		simple_stsimple_print(mystr[x]);
 	}
 	for ( x = 0 ; x < nMaxValue ; x++ ) {
-		mystr[x] = ring_string_delete(mystr[x]);
+		mystr[x] = simple_stsimple_delete(mystr[x]);
 	}
 	/* Test String Add */
-	pString = ring_string_new("Hello ");
-	ring_string_add(pString,"World");
-	printf( "\nTest String Add , Output = %s\n",ring_string_get(pString) ) ;
-	ring_string_add(pString," Welcome to the C programming language");
-	printf( "\nTest String Add , Output = %s\n",ring_string_get(pString) ) ;
-	ring_string_delete(pString);
+	pString = simple_stsimple_new("Hello ");
+	simple_stsimple_add(pString,"World");
+	printf( "\nTest String Add , Output = %s\n",simple_stsimple_get(pString) ) ;
+	simple_stsimple_add(pString," Welcome to the C programming language");
+	printf( "\nTest String Add , Output = %s\n",simple_stsimple_get(pString) ) ;
+	simple_stsimple_delete(pString);
 	/* Test String to Lower */
-	pString = ring_string_new("Welcome to my StrinG");
+	pString = simple_stsimple_new("Welcome to my StrinG");
 	printf( "Test string to lower \n" ) ;
-	printf( "%s\n",ring_string_tolower(pString) ) ;
-	ring_string_delete(pString);
+	printf( "%s\n",simple_stsimple_tolower(pString) ) ;
+	simple_stsimple_delete(pString);
 	getchar();
 }
 /* Functions without state pointer */
 
-RING_API String * ring_string_new2 ( const char *str,int nStrSize )
+SIMPLE_API String * simple_stsimple_new2 ( const char *str,int nStrSize )
 {
-	return ring_string_new2_gc(NULL,str,nStrSize) ;
+	return simple_stsimple_new2_gc(NULL,str,nStrSize) ;
 }
 
-RING_API String * ring_string_new ( const char *str )
+SIMPLE_API String * simple_stsimple_new ( const char *str )
 {
-	return ring_string_new_gc(NULL,str) ;
+	return simple_stsimple_new_gc(NULL,str) ;
 }
 
-RING_API void ring_string_add ( String *pString,const char *str )
+SIMPLE_API void simple_stsimple_add ( String *pString,const char *str )
 {
-	ring_string_add_gc(NULL,pString,str);
+	simple_stsimple_add_gc(NULL,pString,str);
 }
 
-RING_API void ring_string_add2 ( String *pString,const char *str,int nStrSize )
+SIMPLE_API void simple_stsimple_add2 ( String *pString,const char *str,int nStrSize )
 {
-	ring_string_add2_gc(NULL,pString,str,nStrSize);
+	simple_stsimple_add2_gc(NULL,pString,str,nStrSize);
 }
 
-RING_API void ring_string_set ( String *pString,const char *str )
+SIMPLE_API void simple_stsimple_set ( String *pString,const char *str )
 {
-	ring_string_set_gc(NULL,pString,str);
+	simple_stsimple_set_gc(NULL,pString,str);
 }
 
-RING_API void ring_string_set2 ( String *pString,const char *str,int nStrSize )
+SIMPLE_API void simple_stsimple_set2 ( String *pString,const char *str,int nStrSize )
 {
-	ring_string_set2_gc(NULL,pString,str,nStrSize);
+	simple_stsimple_set2_gc(NULL,pString,str,nStrSize);
 }
 
-RING_API char * ring_string_find ( char *cStr1,char *cStr2 )
+SIMPLE_API char * simple_stsimple_find ( char *cStr1,char *cStr2 )
 {
-	return ring_string_find_gc(NULL,cStr1,cStr2) ;
+	return simple_stsimple_find_gc(NULL,cStr1,cStr2) ;
 }
 
-RING_API char * ring_string_find2 ( char *cStr1,int nStrSize1,char *cStr2,int nStrSize2 )
+SIMPLE_API char * simple_stsimple_find2 ( char *cStr1,int nStrSize1,char *cStr2,int nStrSize2 )
 {
-	return ring_string_find2_gc(NULL,cStr1,nStrSize1,cStr2,nStrSize2) ;
+	return simple_stsimple_find2_gc(NULL,cStr1,nStrSize1,cStr2,nStrSize2) ;
 }
 
-RING_API char * ring_string_find3 ( char *cStr1,int nStrSize1,char *cStr2,int nStrSize2 )
+SIMPLE_API char * simple_stsimple_find3 ( char *cStr1,int nStrSize1,char *cStr2,int nStrSize2 )
 {
-	return ring_string_find3_gc(NULL,cStr1,nStrSize1,cStr2,nStrSize2) ;
+	return simple_stsimple_find3_gc(NULL,cStr1,nStrSize1,cStr2,nStrSize2) ;
 }
 
-RING_API String * ring_string_delete ( String *pString )
+SIMPLE_API String * simple_stsimple_delete ( String *pString )
 {
-	return ring_string_delete_gc(NULL,pString) ;
+	return simple_stsimple_delete_gc(NULL,pString) ;
 }
 
-RING_API void ring_string_setfromint ( String *pString,int x )
+SIMPLE_API void simple_stsimple_setfromint ( String *pString,int x )
 {
-	ring_string_setfromint_gc(NULL,pString,x);
+	simple_stsimple_setfromint_gc(NULL,pString,x);
 }

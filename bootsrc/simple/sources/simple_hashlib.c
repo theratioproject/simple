@@ -3,12 +3,12 @@
 
 #include <stdlib.h>
 
-unsigned ring_hash(unsigned pid)
+unsigned simple_hash(unsigned pid)
 {
     return pid / 1000 % 100;
 }
 
-unsigned ring_add_hash(unsigned char *key, int len)
+unsigned simple_add_hash(unsigned char *key, int len)
 {
     unsigned char *p = key;
     unsigned h = 0;
@@ -22,7 +22,7 @@ unsigned ring_add_hash(unsigned char *key, int len)
     return h;
 }
 
-unsigned ring_xor_hash(unsigned char *key, int len)
+unsigned simple_xor_hash(unsigned char *key, int len)
 {
     unsigned char *p = key;
     unsigned h = 0;
@@ -36,7 +36,7 @@ unsigned ring_xor_hash(unsigned char *key, int len)
     return h;
 }
 
-unsigned ring_rot_hash(unsigned char *key, int len)
+unsigned simple_rot_hash(unsigned char *key, int len)
 {
     unsigned char *p = key;
     unsigned h = 0;
@@ -50,7 +50,7 @@ unsigned ring_rot_hash(unsigned char *key, int len)
     return h;
 }
 
-unsigned ring_djb_hash(unsigned char *key, int len)
+unsigned simple_djb_hash(unsigned char *key, int len)
 {
     unsigned char *p = key;
     unsigned h = 0;
@@ -64,7 +64,7 @@ unsigned ring_djb_hash(unsigned char *key, int len)
     return h;
 }
 
-unsigned ring_sax_hash(unsigned char *key, int len)
+unsigned simple_sax_hash(unsigned char *key, int len)
 {
     unsigned char *p = key;
     unsigned h = 0;
@@ -78,7 +78,7 @@ unsigned ring_sax_hash(unsigned char *key, int len)
     return h;
 }
 
-unsigned ring_oat_hash(unsigned char *key, int len)
+unsigned simple_oat_hash(unsigned char *key, int len)
 {
     unsigned char *p = key;
     unsigned h = 0;
@@ -97,7 +97,7 @@ unsigned ring_oat_hash(unsigned char *key, int len)
     return h;
 }
 
-unsigned ring_elf_hash(unsigned char *key, int len)
+unsigned simple_elf_hash(unsigned char *key, int len)
 {
     unsigned char *p = key;
     unsigned h = 0, g;
@@ -135,7 +135,7 @@ unsigned ring_elf_hash(unsigned char *key, int len)
     c -= a; c -= b; c ^= (b >> 15); \
 }
 
-unsigned ring_jen_hash(unsigned char *k, unsigned length, unsigned initval)
+unsigned simple_jen_hash(unsigned char *k, unsigned length, unsigned initval)
 {
     unsigned a, b;
     unsigned c = initval;
@@ -178,7 +178,7 @@ unsigned ring_jen_hash(unsigned char *k, unsigned length, unsigned initval)
     return c;
 }
 
-unsigned int ring_murmur3_32(const char *key, unsigned int len, unsigned int seed) {
+unsigned int simple_murmur3_32(const char *key, unsigned int len, unsigned int seed) {
 	static const unsigned int c1 = 0xcc9e2d51;
 	static const unsigned int c2 = 0x1b873593;
 	static const unsigned int r1 = 15;

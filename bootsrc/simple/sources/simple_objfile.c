@@ -2,36 +2,36 @@
 **  Copyright (c) 2013-2017 Mahmoud Fayed <msfclipper@yahoo.com> 
 **  Include Files 
 */
-#include "../include/simple.h"
+#include "../includes/simple.h"
 /* Define Functions */
 
-void ring_objfile_writefile ( RingState *pRingState )
+void simple_objfile_writefile ( RingState *pRingState )
 {
 	FILE *fObj;
 	char cFileName[400]  ;
 	/* Create File */
-	sprintf( cFileName , "%so" , ring_list_getstring(pRingState->pRingFilesList,1) ) ;
+	sprintf( cFileName , "%so" , simple_list_getstring(pRingState->pRingFilesList,1) ) ;
 	fObj = fopen(cFileName , "w+b" );
 	fprintf( fObj , "# Ring Object File\n"  ) ;
 	fprintf( fObj , "# Version 1.1\n"  ) ;
 	/* Write Functions Lists */
 	fprintf( fObj , "# Functions List\n"  ) ;
-	ring_objfile_writelist(pRingState->pRingFunctionsMap,fObj);
+	simple_objfile_writelist(pRingState->pRingFunctionsMap,fObj);
 	/* Write Classes List */
 	fprintf( fObj , "# Classes List\n"  ) ;
-	ring_objfile_writelist(pRingState->pRingClassesMap,fObj);
+	simple_objfile_writelist(pRingState->pRingClassesMap,fObj);
 	/* Write Packages */
 	fprintf( fObj , "# Packages List\n"  ) ;
-	ring_objfile_writelist(pRingState->pRingPackagesMap,fObj);
+	simple_objfile_writelist(pRingState->pRingPackagesMap,fObj);
 	/* Write Code */
 	fprintf( fObj , "# Program Code\n"  ) ;
-	ring_objfile_writelist(pRingState->pRingGenCode,fObj);
+	simple_objfile_writelist(pRingState->pRingGenCode,fObj);
 	/* Close File */
 	fprintf( fObj , "# End of File\n"  ) ;
 	fclose( fObj ) ;
 }
 
-void ring_objfile_writelist ( List *pList,FILE *fObj )
+void simple_objfile_writelist ( List *pList,FILE *fObj )
 {
 	List *pList2  ;
 	int x,x2  ;
@@ -40,32 +40,32 @@ void ring_objfile_writelist ( List *pList,FILE *fObj )
 	strcpy(cKey,"ringstring");
 	fprintf( fObj , "{\n"  ) ;
 	/* Write List Items */
-	for ( x = 1 ; x <= ring_list_getsize(pList) ; x++ ) {
-		pList2 = ring_list_getlist(pList,x);
+	for ( x = 1 ; x <= simple_list_getsize(pList) ; x++ ) {
+		pList2 = simple_list_getlist(pList,x);
 		fprintf( fObj , "[T]\n"  ) ;
-		for ( x2 = 1 ; x2 <= ring_list_getsize(pList2) ; x2++ ) {
-			if ( ring_list_isstring(pList2,x2) ) {
-				fprintf( fObj , "[S][%d]" , ring_list_getstringsize(pList2,x2) ) ;
+		for ( x2 = 1 ; x2 <= simple_list_getsize(pList2) ; x2++ ) {
+			if ( simple_list_isstring(pList2,x2) ) {
+				fprintf( fObj , "[S][%d]" , simple_list_getstringsize(pList2,x2) ) ;
 				/* Encrypt String */
-				cString = ring_list_getstring(pList2,x2) ;
-				ring_objfile_xorstring(cString,ring_list_getstringsize(pList2,x2),cKey,10);
-				fwrite( ring_list_getstring(pList2,x2) , 1 , ring_list_getstringsize(pList2,x2) , fObj );
+				cString = simple_list_getstring(pList2,x2) ;
+				simple_objfile_xorstring(cString,simple_list_getstringsize(pList2,x2),cKey,10);
+				fwrite( simple_list_getstring(pList2,x2) , 1 , simple_list_getstringsize(pList2,x2) , fObj );
 				/* Decrypt String */
-				ring_objfile_xorstring(cString,ring_list_getstringsize(pList2,x2),cKey,10);
+				simple_objfile_xorstring(cString,simple_list_getstringsize(pList2,x2),cKey,10);
 				fprintf( fObj , "\n"  ) ;
 			}
-			else if ( ring_list_isint(pList2,x2) ) {
-				fprintf( fObj , "[I]%d\n" , ring_list_getint(pList2,x2) ) ;
+			else if ( simple_list_isint(pList2,x2) ) {
+				fprintf( fObj , "[I]%d\n" , simple_list_getint(pList2,x2) ) ;
 			}
-			else if ( ring_list_isdouble(pList2,x2) ) {
-				fprintf( fObj , "[D]%f\n" , ring_list_getdouble(pList2,x2) ) ;
+			else if ( simple_list_isdouble(pList2,x2) ) {
+				fprintf( fObj , "[D]%f\n" , simple_list_getdouble(pList2,x2) ) ;
 			}
-			else if ( ring_list_ispointer(pList2,x2) ) {
-				fprintf( fObj , "[P]%p\n" , (void *) ring_list_getpointer(pList2,x2) ) ;
+			else if ( simple_list_ispointer(pList2,x2) ) {
+				fprintf( fObj , "[P]%p\n" , (void *) simple_list_getpointer(pList2,x2) ) ;
 			}
-			else if ( ring_list_islist(pList2,x2) ) {
+			else if ( simple_list_islist(pList2,x2) ) {
 				fprintf( fObj , "[L]\n"  ) ;
-				ring_objfile_writelist(ring_list_getlist(pList2,x2) ,fObj);
+				simple_objfile_writelist(simple_list_getlist(pList2,x2) ,fObj);
 			}
 		}
 		fprintf( fObj , "[E]\n"  ) ;
@@ -73,41 +73,41 @@ void ring_objfile_writelist ( List *pList,FILE *fObj )
 	fprintf( fObj , "}\n"  ) ;
 }
 
-int ring_objfile_readfile ( RingState *pRingState,char *cFileName )
+int simple_objfile_readfile ( RingState *pRingState,char *cFileName )
 {
-	return ring_objfile_readfromsource(pRingState,cFileName,RING_OBJFILE_READFROMFILE) ;
+	return simple_objfile_readfromsource(pRingState,cFileName,SIMPLE_OBJFILE_READFROMFILE) ;
 }
 
-int ring_objfile_readstring ( RingState *pRingState,char *cString )
+int simple_objfile_readstring ( RingState *pRingState,char *cString )
 {
-	return ring_objfile_readfromsource(pRingState,cString,RING_OBJFILE_READFROMSTRING) ;
+	return simple_objfile_readfromsource(pRingState,cString,SIMPLE_OBJFILE_READFROMSTSIMPLE) ;
 }
 
-int ring_objfile_readfromsource ( RingState *pRingState,char *cSource,int nSource )
+int simple_objfile_readfromsource ( RingState *pRingState,char *cSource,int nSource )
 {
 	List *pListFunctions, *pListClasses, *pListPackages, *pListCode, *pListStack  ;
 	/* Create Lists */
-	pListFunctions = ring_list_new_gc(pRingState,0);
-	pListClasses = ring_list_new_gc(pRingState,0);
-	pListPackages = ring_list_new_gc(pRingState,0);
-	pListCode = ring_list_new_gc(pRingState,0);
-	pListStack = ring_list_new_gc(pRingState,0);
+	pListFunctions = simple_list_new_gc(pRingState,0);
+	pListClasses = simple_list_new_gc(pRingState,0);
+	pListPackages = simple_list_new_gc(pRingState,0);
+	pListCode = simple_list_new_gc(pRingState,0);
+	pListStack = simple_list_new_gc(pRingState,0);
 	/* Process Content (File or String) */
-	if ( nSource == RING_OBJFILE_READFROMFILE ) {
-		if ( ! ring_objfile_processfile(pRingState,cSource,pListFunctions, pListClasses, pListPackages, pListCode, pListStack) ) {
+	if ( nSource == SIMPLE_OBJFILE_READFROMFILE ) {
+		if ( ! simple_objfile_processfile(pRingState,cSource,pListFunctions, pListClasses, pListPackages, pListCode, pListStack) ) {
 			return 0 ;
 		}
 	}
-	else if ( nSource ==RING_OBJFILE_READFROMSTRING ) {
-		if ( ! ring_objfile_processstring(pRingState,cSource,pListFunctions, pListClasses, pListPackages, pListCode, pListStack) ) {
+	else if ( nSource ==SIMPLE_OBJFILE_READFROMSTSIMPLE ) {
+		if ( ! simple_objfile_processstring(pRingState,cSource,pListFunctions, pListClasses, pListPackages, pListCode, pListStack) ) {
 			return 0 ;
 		}
 	}
-	ring_list_delete(pListStack);
+	simple_list_delete(pListStack);
 	/* Update Ring State */
 	#ifdef DEBUG_OBJFILE
 	puts("Old Code List ");
-	ring_list_print(pRingState->pRingGenCode);
+	simple_list_print(pRingState->pRingGenCode);
 	#endif
 	/* Update Lists */
 	pRingState->pRingFunctionsMap = pListFunctions ;
@@ -117,14 +117,14 @@ int ring_objfile_readfromsource ( RingState *pRingState,char *cSource,int nSourc
 	#ifdef DEBUG_OBJFILE
 	puts("Update Done! ");
 	puts("New Code List ");
-	ring_list_print(pRingState->pRingGenCode);
+	simple_list_print(pRingState->pRingGenCode);
 	#endif
 	/* Update Classes Pointers */
-	ring_objfile_updateclassespointers(pRingState);
+	simple_objfile_updateclassespointers(pRingState);
 	return 1 ;
 }
 
-int ring_objfile_processfile ( RingState *pRingState,char *cFileName,List *pListFunctions,List  *pListClasses,List  *pListPackages,List  *pListCode,List  *pListStack )
+int simple_objfile_processfile ( RingState *pRingState,char *cFileName,List *pListFunctions,List  *pListClasses,List  *pListPackages,List  *pListCode,List  *pListStack )
 {
 	FILE *fObj;
 	signed char c  ;
@@ -198,13 +198,13 @@ int ring_objfile_processfile ( RingState *pRingState,char *cFileName,List *pList
 					case 'S' :
 						c = getc(fObj);
 						fscanf( fObj , "[%d]" , &nValue ) ;
-						cString = (char *) ring_state_malloc(pRingState,nValue+1);
+						cString = (char *) simple_state_malloc(pRingState,nValue+1);
 						fread( cString , 1 , nValue , fObj );
 						cString[nValue] = '\0' ;
 						/* Decrypt String */
-						ring_objfile_xorstring(cString,nValue,cKey,10);
-						ring_list_addstring2_gc(pRingState,pList,cString,nValue);
-						ring_state_free(pRingState,cString);
+						simple_objfile_xorstring(cString,nValue,cKey,10);
+						simple_list_addstring2_gc(pRingState,pList,cString,nValue);
+						simple_state_free(pRingState,cString);
 						#ifdef DEBUG_OBJFILE
 						printf( "Read String %s Size %d \n",cString,nValue ) ;
 						#endif
@@ -212,7 +212,7 @@ int ring_objfile_processfile ( RingState *pRingState,char *cFileName,List *pList
 					case 'I' :
 						c = getc(fObj);
 						fscanf( fObj , "%d" , &nValue ) ;
-						ring_list_addint_gc(pRingState,pList,nValue);
+						simple_list_addint_gc(pRingState,pList,nValue);
 						#ifdef DEBUG_OBJFILE
 						printf( "Read Number %d \n  ",nValue ) ;
 						#endif
@@ -220,13 +220,13 @@ int ring_objfile_processfile ( RingState *pRingState,char *cFileName,List *pList
 					case 'D' :
 						c = getc(fObj);
 						fscanf( fObj , "%lf" , &dValue ) ;
-						ring_list_adddouble_gc(pRingState,pList,dValue);
+						simple_list_adddouble_gc(pRingState,pList,dValue);
 						#ifdef DEBUG_OBJFILE
 						printf( "Read Double %d  \n",dValue ) ;
 						#endif
 						break ;
 					case 'P' :
-						ring_list_addpointer_gc(pRingState,pList,NULL);
+						simple_list_addpointer_gc(pRingState,pList,NULL);
 						/* Read Line */
 						while ( c != '\n' ) {
 							c = getc(fObj);
@@ -236,8 +236,8 @@ int ring_objfile_processfile ( RingState *pRingState,char *cFileName,List *pList
 						#endif
 						break ;
 					case 'T' :
-						ring_list_addpointer_gc(pRingState,pListStack,pList);
-						pList = ring_list_newlist_gc(pRingState,pList);
+						simple_list_addpointer_gc(pRingState,pListStack,pList);
+						pList = simple_list_newlist_gc(pRingState,pList);
 						/* Read Line */
 						while ( c != '\n' ) {
 							c = getc(fObj);
@@ -247,8 +247,8 @@ int ring_objfile_processfile ( RingState *pRingState,char *cFileName,List *pList
 						#endif
 						break ;
 					case 'E' :
-						pList = (List *) ring_list_getpointer(pListStack,ring_list_getsize(pListStack)) ;
-						ring_list_deletelastitem(pListStack);
+						pList = (List *) simple_list_getpointer(pListStack,simple_list_getsize(pListStack)) ;
+						simple_list_deletelastitem(pListStack);
 						/* Read Line */
 						while ( c != '\n' ) {
 							c = getc(fObj);
@@ -262,8 +262,8 @@ int ring_objfile_processfile ( RingState *pRingState,char *cFileName,List *pList
 						while ( c != '{' ) {
 							c = getc(fObj);
 						}
-						ring_list_addpointer_gc(pRingState,pListStack,pList);
-						pList = ring_list_newlist_gc(pRingState,pList);
+						simple_list_addpointer_gc(pRingState,pListStack,pList);
+						pList = simple_list_newlist_gc(pRingState,pList);
 						nBraceEnd++ ;
 						#ifdef DEBUG_OBJFILE
 						puts("Read L ");
@@ -273,8 +273,8 @@ int ring_objfile_processfile ( RingState *pRingState,char *cFileName,List *pList
 				break ;
 			case '}' :
 				if ( nBraceEnd ) {
-					pList = (List *) ring_list_getpointer(pListStack,ring_list_getsize(pListStack)) ;
-					ring_list_deletelastitem(pListStack);
+					pList = (List *) simple_list_getpointer(pListStack,simple_list_getsize(pListStack)) ;
+					simple_list_deletelastitem(pListStack);
 					nBraceEnd-- ;
 					#ifdef DEBUG_OBJFILE
 					puts("Read } ");
@@ -289,7 +289,7 @@ int ring_objfile_processfile ( RingState *pRingState,char *cFileName,List *pList
 	return 1 ;
 }
 
-int ring_objfile_processstring ( RingState *pRingState,char *cContent,List *pListFunctions,List  *pListClasses,List  *pListPackages,List  *pListCode,List  *pListStack )
+int simple_objfile_processstring ( RingState *pRingState,char *cContent,List *pListFunctions,List  *pListClasses,List  *pListPackages,List  *pListCode,List  *pListStack )
 {
 	signed char c  ;
 	int nActiveList,nValue,nBraceEnd  ;
@@ -305,28 +305,28 @@ int ring_objfile_processstring ( RingState *pRingState,char *cContent,List *pLis
 	pList = NULL ;
 	cData = cContent ;
 	/* Check Type and Version */
-	ring_objfile_readc(pRingState,&cData,cFileType,18);
+	simple_objfile_readc(pRingState,&cData,cFileType,18);
 	cFileType[18] = '\0' ;
 	if ( strcmp(cFileType,"# Ring Object File") != 0 ) {
 		printf( "The file type is not correct - the VM expect a ring object file\n" ) ;
 		return 0 ;
 	}
-	c = ring_objfile_getc(pRingState,&cData);
-	ring_objfile_readc(pRingState,&cData,cFileType,13);
+	c = simple_objfile_getc(pRingState,&cData);
+	simple_objfile_readc(pRingState,&cData,cFileType,13);
 	cFileType[13] = '\0' ;
 	if ( strcmp(cFileType,"# Version 1.1") != 0 ) {
 		printf( "The file version is not correct - the VM expect a ring object file version 1.1\n" ) ;
 		return 0 ;
 	}
 	/* Process Content */
-	c = ring_objfile_getc(pRingState,&cData);
+	c = simple_objfile_getc(pRingState,&cData);
 	while ( c != EOF ) {
 		/* Check Char */
 		switch ( c ) {
 			case '#' :
 				/* Read Line */
 				while ( c != '\n' ) {
-					c = ring_objfile_getc(pRingState,&cData);
+					c = simple_objfile_getc(pRingState,&cData);
 					#ifdef DEBUG_OBJFILE
 					printf( "%c  ",c ) ;
 					#endif
@@ -353,82 +353,82 @@ int ring_objfile_processstring ( RingState *pRingState,char *cContent,List *pLis
 				}
 				break ;
 			case '[' :
-				c = ring_objfile_getc(pRingState,&cData);
+				c = simple_objfile_getc(pRingState,&cData);
 				switch ( c ) {
 					case 'S' :
-						c = ring_objfile_getc(pRingState,&cData);
+						c = simple_objfile_getc(pRingState,&cData);
 						sscanf(cData,"[%d]",&nValue);
 						/* Pass Letters */
 						c = ' ' ;
 						while ( c != ']' ) {
-							c = ring_objfile_getc(pRingState,&cData);
+							c = simple_objfile_getc(pRingState,&cData);
 						}
-						cString = (char *) ring_state_malloc(pRingState,nValue+1);
-						ring_objfile_readc(pRingState,&cData,cString,nValue);
+						cString = (char *) simple_state_malloc(pRingState,nValue+1);
+						simple_objfile_readc(pRingState,&cData,cString,nValue);
 						cString[nValue] = '\0' ;
 						/* Decrypt String */
-						ring_objfile_xorstring(cString,nValue,cKey,10);
-						ring_list_addstring2_gc(pRingState,pList,cString,nValue);
-						ring_state_free(pRingState,cString);
+						simple_objfile_xorstring(cString,nValue,cKey,10);
+						simple_list_addstring2_gc(pRingState,pList,cString,nValue);
+						simple_state_free(pRingState,cString);
 						#ifdef DEBUG_OBJFILE
 						printf( "Read String %s Size %d \n",cString,nValue ) ;
 						#endif
 						break ;
 					case 'I' :
-						c = ring_objfile_getc(pRingState,&cData);
+						c = simple_objfile_getc(pRingState,&cData);
 						sscanf(cData,"%d",&nValue);
 						/* Pass Letters */
 						c = '0' ;
 						while ( isdigit(c) || c=='.' ) {
-							c = ring_objfile_getc(pRingState,&cData);
+							c = simple_objfile_getc(pRingState,&cData);
 						}
 						cData-- ;
-						ring_list_addint_gc(pRingState,pList,nValue);
+						simple_list_addint_gc(pRingState,pList,nValue);
 						#ifdef DEBUG_OBJFILE
 						printf( "Read Number %d \n  ",nValue ) ;
 						#endif
 						break ;
 					case 'D' :
-						c = ring_objfile_getc(pRingState,&cData);
+						c = simple_objfile_getc(pRingState,&cData);
 						sscanf(cData,"%lf",&dValue);
 						/* Pass Letters */
 						c = '0' ;
 						while ( isdigit(c) || c=='.' ) {
-							c = ring_objfile_getc(pRingState,&cData);
+							c = simple_objfile_getc(pRingState,&cData);
 						}
 						cData-- ;
-						ring_list_adddouble_gc(pRingState,pList,dValue);
+						simple_list_adddouble_gc(pRingState,pList,dValue);
 						#ifdef DEBUG_OBJFILE
 						printf( "Read Double %d  \n",dValue ) ;
 						#endif
 						break ;
 					case 'P' :
-						ring_list_addpointer_gc(pRingState,pList,NULL);
+						simple_list_addpointer_gc(pRingState,pList,NULL);
 						/* Read Line */
 						while ( c != '\n' ) {
-							c = ring_objfile_getc(pRingState,&cData);
+							c = simple_objfile_getc(pRingState,&cData);
 						}
 						#ifdef DEBUG_OBJFILE
 						puts("Read Pointer ");
 						#endif
 						break ;
 					case 'T' :
-						ring_list_addpointer_gc(pRingState,pListStack,pList);
-						pList = ring_list_newlist_gc(pRingState,pList);
+						simple_list_addpointer_gc(pRingState,pListStack,pList);
+						pList = simple_list_newlist_gc(pRingState,pList);
 						/* Read Line */
 						while ( c != '\n' ) {
-							c = ring_objfile_getc(pRingState,&cData);
+							c = simple_objfile_getc(pRingState,&cData);
 						}
 						#ifdef DEBUG_OBJFILE
 						puts("Read T ");
 						#endif
 						break ;
 					case 'E' :
-						pList = (List *) ring_list_getpointer(pListStack,ring_list_getsize(pListStack)) ;
-						ring_list_deletelastitem(pListStack);
+						pList = (List *) simple_list_getpointer(pListStack,simple_list_getsize(pListStack)) ;
+						simple_list_deletelastitem(pListStack);
 						/* Read Line */
 						while ( c != '\n' ) {
-							c = ring_objfile_getc(pRingState,&cData);
+							c = simple_objfile_getc(pRingState,&cData);
 						}
 						#ifdef DEBUG_OBJFILE
 						puts("Read E ");
@@ -437,10 +437,10 @@ int ring_objfile_processstring ( RingState *pRingState,char *cContent,List *pLis
 					case 'L' :
 						/* Read Until { */
 						while ( c != '{' ) {
-							c = ring_objfile_getc(pRingState,&cData);
+							c = simple_objfile_getc(pRingState,&cData);
 						}
-						ring_list_addpointer_gc(pRingState,pListStack,pList);
-						pList = ring_list_newlist_gc(pRingState,pList);
+						simple_list_addpointer_gc(pRingState,pListStack,pList);
+						pList = simple_list_newlist_gc(pRingState,pList);
 						nBraceEnd++ ;
 						#ifdef DEBUG_OBJFILE
 						puts("Read L ");
@@ -450,8 +450,8 @@ int ring_objfile_processstring ( RingState *pRingState,char *cContent,List *pLis
 				break ;
 			case '}' :
 				if ( nBraceEnd ) {
-					pList = (List *) ring_list_getpointer(pListStack,ring_list_getsize(pListStack)) ;
-					ring_list_deletelastitem(pListStack);
+					pList = (List *) simple_list_getpointer(pListStack,simple_list_getsize(pListStack)) ;
+					simple_list_deletelastitem(pListStack);
 					nBraceEnd-- ;
 					#ifdef DEBUG_OBJFILE
 					puts("Read } ");
@@ -459,12 +459,12 @@ int ring_objfile_processstring ( RingState *pRingState,char *cContent,List *pLis
 				}
 				break ;
 		}
-		c = ring_objfile_getc(pRingState,&cData);
+		c = simple_objfile_getc(pRingState,&cData);
 	}
 	return 1 ;
 }
 
-void ring_objfile_updateclassespointers ( RingState *pRingState )
+void simple_objfile_updateclassespointers ( RingState *pRingState )
 {
 	int x,x2,x3,x4,lFound  ;
 	List *pList, *pList2, *pList3  ;
@@ -473,15 +473,15 @@ void ring_objfile_updateclassespointers ( RingState *pRingState )
 	char cClassName[400]  ;
 	/* Update Class Pointer in Code */
 	lFound = 0 ;
-	for ( x = 1 ; x <= ring_list_getsize(pRingState->pRingGenCode) ; x++ ) {
-		pList = ring_list_getlist(pRingState->pRingGenCode,x);
-		if ( ring_list_getint(pList,1) == ICO_NEWCLASS ) {
-			cString = ring_list_getstring(pList,2);
-			for ( x2 = 1 ; x2 <= ring_list_getsize(pRingState->pRingClassesMap) ; x2++ ) {
-				pList2 = ring_list_getlist(pRingState->pRingClassesMap,x2);
-				if ( strcmp(cString,ring_list_getstring(pList2,1)) == 0 ) {
+	for ( x = 1 ; x <= simple_list_getsize(pRingState->pRingGenCode) ; x++ ) {
+		pList = simple_list_getlist(pRingState->pRingGenCode,x);
+		if ( simple_list_getint(pList,1) == ICO_NEWCLASS ) {
+			cString = simple_list_getstring(pList,2);
+			for ( x2 = 1 ; x2 <= simple_list_getsize(pRingState->pRingClassesMap) ; x2++ ) {
+				pList2 = simple_list_getlist(pRingState->pRingClassesMap,x2);
+				if ( strcmp(cString,simple_list_getstring(pList2,1)) == 0 ) {
 					lFound = 0 ;
-					ring_list_setpointer_gc(pRingState,pList,3,pList2);
+					simple_list_setpointer_gc(pRingState,pList,3,pList2);
 					#ifdef DEBUG_OBJFILE
 					puts("Pointer Updated ");
 					#endif
@@ -490,7 +490,7 @@ void ring_objfile_updateclassespointers ( RingState *pRingState )
 			}
 			/* If we can't find the list (the class is inside a package) */
 			if ( lFound == 0 ) {
-				ring_list_setpointer_gc(pRingState,pList,3,NULL);
+				simple_list_setpointer_gc(pRingState,pList,3,NULL);
 			}
 		}
 	}
@@ -498,14 +498,14 @@ void ring_objfile_updateclassespointers ( RingState *pRingState )
 	**  Update Class Pointers in Classes Map when the class belong to a Package 
 	**  This updates works when the class name is : packagename.classname 
 	*/
-	for ( x = 1 ; x <= ring_list_getsize(pRingState->pRingClassesMap) ; x++ ) {
-		pList = ring_list_getlist(pRingState->pRingClassesMap,x);
-		cString = ring_list_getstring(pList,1);
-		if ( ring_list_getstringsize(pList,1)  > 400 ) {
+	for ( x = 1 ; x <= simple_list_getsize(pRingState->pRingClassesMap) ; x++ ) {
+		pList = simple_list_getlist(pRingState->pRingClassesMap,x);
+		cString = simple_list_getstring(pList,1);
+		if ( simple_list_getstringsize(pList,1)  > 400 ) {
 			/* Avoid large names - we have limits (400 letters per package name - 400 letters for class name) */
 			continue ;
 		}
-		for ( x2 = ring_list_getstringsize(pList,1) - 1 ; x2 >= 0 ; x2-- ) {
+		for ( x2 = simple_list_getstringsize(pList,1) - 1 ; x2 >= 0 ; x2-- ) {
 			if ( cString[x2] == '.' ) {
 				/*
 				**  Now we have a class name stored as packagename.classname 
@@ -519,24 +519,24 @@ void ring_objfile_updateclassespointers ( RingState *pRingState )
 				printf( "Package Name %s \n  ",cPackageName ) ;
 				#endif
 				/* Get Class Name */
-				for ( x3 = x2+1 ; x3 <= ring_list_getstringsize(pList,1) - 1 ; x3++ ) {
+				for ( x3 = x2+1 ; x3 <= simple_list_getstringsize(pList,1) - 1 ; x3++ ) {
 					cClassName[x3-x2-1] = cString[x3] ;
 				}
-				cClassName[ring_list_getstringsize(pList,1) - 1 - x2] = '\0' ;
+				cClassName[simple_list_getstringsize(pList,1) - 1 - x2] = '\0' ;
 				#ifdef DEBUG_OBJFILE
 				printf( "Class Name %s \n  ",cClassName ) ;
 				#endif
 				/* Get The Package List */
-				for ( x3 = 1 ; x3 <= ring_list_getsize(pRingState->pRingPackagesMap) ; x3++ ) {
-					pList2 = ring_list_getlist(pRingState->pRingPackagesMap,x3);
-					if ( strcmp(ring_list_getstring(pList2,1),cPackageName) == 0 ) {
+				for ( x3 = 1 ; x3 <= simple_list_getsize(pRingState->pRingPackagesMap) ; x3++ ) {
+					pList2 = simple_list_getlist(pRingState->pRingPackagesMap,x3);
+					if ( strcmp(simple_list_getstring(pList2,1),cPackageName) == 0 ) {
 						/* Get The Class List */
-						pList2 = ring_list_getlist(pList2,2);
-						for ( x4 = 1 ; x4 <= ring_list_getsize(pList2) ; x4++ ) {
-							pList3 = ring_list_getlist(pList2,x4);
-							if ( strcmp(ring_list_getstring(pList3,1),cClassName) == 0 ) {
+						pList2 = simple_list_getlist(pList2,2);
+						for ( x4 = 1 ; x4 <= simple_list_getsize(pList2) ; x4++ ) {
+							pList3 = simple_list_getlist(pList2,x4);
+							if ( strcmp(simple_list_getstring(pList3,1),cClassName) == 0 ) {
 								/* Now We have the Class - Update Pointer */
-								ring_list_setpointer_gc(pRingState,pList,2,(void *) pList3);
+								simple_list_setpointer_gc(pRingState,pList,2,(void *) pList3);
 								break ;
 							}
 						}
@@ -547,18 +547,18 @@ void ring_objfile_updateclassespointers ( RingState *pRingState )
 		}
 	}
 	/* Update Package Pointers in Packages Classes */
-	for ( x = 1 ; x <= ring_list_getsize(pRingState->pRingPackagesMap) ; x++ ) {
-		pList = ring_list_getlist(pRingState->pRingPackagesMap,x);
+	for ( x = 1 ; x <= simple_list_getsize(pRingState->pRingPackagesMap) ; x++ ) {
+		pList = simple_list_getlist(pRingState->pRingPackagesMap,x);
 		/* Get The Class List */
-		pList2 = ring_list_getlist(pList,2);
-		for ( x2 = 1 ; x2 <= ring_list_getsize(pList2) ; x2++ ) {
-			pList3 = ring_list_getlist(pList2,x2);
-			ring_list_setpointer_gc(pRingState,pList3,RING_CLASSMAP_POINTERTOPACKAGE,pList);
+		pList2 = simple_list_getlist(pList,2);
+		for ( x2 = 1 ; x2 <= simple_list_getsize(pList2) ; x2++ ) {
+			pList3 = simple_list_getlist(pList2,x2);
+			simple_list_setpointer_gc(pRingState,pList3,SIMPLE_CLASSMAP_POINTERTOPACKAGE,pList);
 		}
 	}
 }
 
-void ring_objfile_xorstring ( char *cString,int nStringSize,char *cKey,int nKeySize )
+void simple_objfile_xorstring ( char *cString,int nStringSize,char *cKey,int nKeySize )
 {
 	int x  ;
 	for ( x = 1 ; x <= nStringSize ; x++ ) {
@@ -566,7 +566,7 @@ void ring_objfile_xorstring ( char *cString,int nStringSize,char *cKey,int nKeyS
 	}
 }
 
-void ring_objfile_readc ( RingState *pRingState,char **cSource,char *cDest,int nCount )
+void simple_objfile_readc ( RingState *pRingState,char **cSource,char *cDest,int nCount )
 {
 	int x  ;
 	char *cData  ;
@@ -578,7 +578,7 @@ void ring_objfile_readc ( RingState *pRingState,char **cSource,char *cDest,int n
 	cDest[nCount] = '\0' ;
 }
 
-char ring_objfile_getc ( RingState *pRingState,char **cSource )
+char simple_objfile_getc ( RingState *pRingState,char **cSource )
 {
 	char c  ;
 	char *cData  ;

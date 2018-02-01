@@ -1,7 +1,7 @@
 /* Copyright (c) 2013-2018 Mahmoud Fayed <msfclipper@yahoo.com> */
-#include "../include/simple.h"
+#include "../includes/simple.h"
 /* Operations Text (Array) */
-const char * RING_IC_OP[] = {"NewLine","FileName","Print","Class","Func","Dup","New","Give","Private","NewLabel", 
+const char * SIMPLE_IC_OP[] = {"NewLine","FileName","Print","Class","Func","Dup","New","Give","Private","NewLabel", 
 
 "Jump","JumpZ","Jump1","JumpFOR","JZ2","J12","LoadA","Assignment","LoadSA","LoadIA","LoadAPushV","==","<",">","!=","<=",">=", 
 
@@ -25,138 +25,138 @@ const char * RING_IC_OP[] = {"NewLine","FileName","Print","Class","Func","Dup","
 **  Generate Intermediate Code 
 */
 
-void ring_parser_icg_newoperation ( Parser *pParser , IC_OPERATIONS opcode )
+void simple_parser_icg_newoperation ( Parser *pParser , IC_OPERATIONS opcode )
 {
 	assert(pParser != NULL);
 	if ( pParser->nInsertFlag == 1 ) {
-		ring_parser_icg_insertoperation(pParser,pParser->nInsertCounter,opcode);
+		simple_parser_icg_insertoperation(pParser,pParser->nInsertCounter,opcode);
 		pParser->nInsertCounter++ ;
 		return ;
 	}
-	pParser->ActiveGenCodeList = ring_list_newlist_gc(pParser->pRingState,pParser->GenCode);
-	ring_list_addint_gc(pParser->pRingState,pParser->ActiveGenCodeList,opcode);
-	#if RING_SHOWIC
-	printf( "\n %6d [ %s ] ",ring_list_getsize(pParser->GenCode) , RING_IC_OP[opcode] ) ;
+	pParser->ActiveGenCodeList = simple_list_newlist_gc(pParser->pRingState,pParser->GenCode);
+	simple_list_addint_gc(pParser->pRingState,pParser->ActiveGenCodeList,opcode);
+	#if SIMPLE_SHOWIC
+	printf( "\n %6d [ %s ] ",simple_list_getsize(pParser->GenCode) , SIMPLE_IC_OP[opcode] ) ;
 	#endif
 }
 
-void ring_parser_icg_insertoperation ( Parser *pParser , int nPos , IC_OPERATIONS opcode )
+void simple_parser_icg_insertoperation ( Parser *pParser , int nPos , IC_OPERATIONS opcode )
 {
 	assert(pParser != NULL);
-	pParser->ActiveGenCodeList = ring_list_insertlist(pParser->GenCode,nPos);
-	ring_list_addint_gc(pParser->pRingState,pParser->ActiveGenCodeList,opcode);
-	#if RING_SHOWIC
-	printf( "\n %6d [ %s ] ",nPos, RING_IC_OP[opcode] ) ;
+	pParser->ActiveGenCodeList = simple_list_insertlist(pParser->GenCode,nPos);
+	simple_list_addint_gc(pParser->pRingState,pParser->ActiveGenCodeList,opcode);
+	#if SIMPLE_SHOWIC
+	printf( "\n %6d [ %s ] ",nPos, SIMPLE_IC_OP[opcode] ) ;
 	#endif
 }
 
-void ring_parser_icg_newoperand ( Parser *pParser , const char *cStr )
+void simple_parser_icg_newoperand ( Parser *pParser , const char *cStr )
 {
 	assert(pParser != NULL);
 	assert(pParser->ActiveGenCodeList);
-	ring_list_addstring_gc(pParser->pRingState,pParser->ActiveGenCodeList,cStr);
-	#if RING_SHOWIC
+	simple_list_addstsimple_gc(pParser->pRingState,pParser->ActiveGenCodeList,cStr);
+	#if SIMPLE_SHOWIC
 	printf( " Operand : %s ",cStr ) ;
 	#endif
 }
 
-void ring_parser_icg_newoperandint ( Parser *pParser , int nValue )
+void simple_parser_icg_newoperandint ( Parser *pParser , int nValue )
 {
 	assert(pParser != NULL);
 	assert(pParser->ActiveGenCodeList);
-	ring_list_addint_gc(pParser->pRingState,pParser->ActiveGenCodeList,nValue);
-	#if RING_SHOWIC
+	simple_list_addint_gc(pParser->pRingState,pParser->ActiveGenCodeList,nValue);
+	#if SIMPLE_SHOWIC
 	printf( " Operand : %d ",nValue ) ;
 	#endif
 }
 
-void ring_parser_icg_newoperanddouble ( Parser *pParser , double nValue )
+void simple_parser_icg_newoperanddouble ( Parser *pParser , double nValue )
 {
 	assert(pParser != NULL);
 	assert(pParser->ActiveGenCodeList);
-	ring_list_adddouble_gc(pParser->pRingState,pParser->ActiveGenCodeList,nValue);
-	#if RING_SHOWIC
+	simple_list_adddouble_gc(pParser->pRingState,pParser->ActiveGenCodeList,nValue);
+	#if SIMPLE_SHOWIC
 	printf( " Operand : %.5f ",nValue ) ;
 	#endif
 }
 
-void ring_parser_icg_newoperandpointer ( Parser *pParser , void *pValue )
+void simple_parser_icg_newoperandpointer ( Parser *pParser , void *pValue )
 {
 	assert(pParser != NULL);
 	assert(pParser->ActiveGenCodeList);
-	ring_list_addpointer_gc(pParser->pRingState,pParser->ActiveGenCodeList,pValue);
-	#if RING_SHOWIC
+	simple_list_addpointer_gc(pParser->pRingState,pParser->ActiveGenCodeList,pValue);
+	#if SIMPLE_SHOWIC
 	printf( " Operand : %p ",pValue ) ;
 	#endif
 }
 
-List * ring_parser_icg_getactiveoperation ( Parser *pParser )
+List * simple_parser_icg_getactiveoperation ( Parser *pParser )
 {
 	assert(pParser != NULL);
 	assert(pParser->ActiveGenCodeList);
 	return pParser->ActiveGenCodeList ;
 }
 
-Items * ring_parser_icg_getoperationpos ( Parser *pParser )
+Items * simple_parser_icg_getoperationpos ( Parser *pParser )
 {
 	assert(pParser != NULL);
 	assert(pParser->GenCode);
 	return pParser->GenCode->pLast ;
 }
 
-void ring_parser_icg_addoperand ( Parser *pParser ,List *pList , const char *cStr )
+void simple_parser_icg_addoperand ( Parser *pParser ,List *pList , const char *cStr )
 {
 	assert(pList != NULL);
-	ring_list_addstring_gc(pParser->pRingState,pList,cStr);
+	simple_list_addstsimple_gc(pParser->pRingState,pList,cStr);
 }
 
-void ring_parser_icg_addoperandint ( Parser *pParser ,List *pList , int nValue )
+void simple_parser_icg_addoperandint ( Parser *pParser ,List *pList , int nValue )
 {
 	assert(pList != NULL);
-	ring_list_addint_gc(pParser->pRingState,pList,nValue);
+	simple_list_addint_gc(pParser->pRingState,pList,nValue);
 }
 
-void ring_parser_icg_addoperandpointer ( Parser *pParser ,List *pList , void *pValue )
+void simple_parser_icg_addoperandpointer ( Parser *pParser ,List *pList , void *pValue )
 {
 	assert(pList != NULL);
-	ring_list_addpointer_gc(pParser->pRingState,pList,pValue);
+	simple_list_addpointer_gc(pParser->pRingState,pList,pValue);
 }
 
-void ring_parser_icg_showoutput ( List *pListGenCode,int nStatus )
+void simple_parser_icg_showoutput ( List *pListGenCode,int nStatus )
 {
 	int x,y,nCount,nCount2  ;
 	List *pList  ;
 	assert(pListGenCode != NULL);
 	/* Header */
 	printf( "\n\n" ) ;
-	ring_print_line();
+	simple_print_line();
 	if ( nStatus == 1 ) {
 		puts("Byte Code - Before Execution by the VM");
 	}
 	else {
 		puts("Byte Code - After Execution by the VM");
 	}
-	ring_print_line();
-	nCount = ring_list_getsize(pListGenCode);
+	simple_print_line();
+	nCount = simple_list_getsize(pListGenCode);
 	if ( nCount > 0 ) {
 		printf( "\n %6s  %10s  %10s\n", "PC","OPCode","Data" ) ;
 		for ( x = 1 ; x <= nCount ; x++ ) {
-			pList = ring_list_getlist(pListGenCode,x);
-			nCount2 = ring_list_getsize(pList);
-			printf( "\n %6d  %10s  ", x , RING_IC_OP[ring_list_getint(pList,1)] ) ;
+			pList = simple_list_getlist(pListGenCode,x);
+			nCount2 = simple_list_getsize(pList);
+			printf( "\n %6d  %10s  ", x , SIMPLE_IC_OP[simple_list_getint(pList,1)] ) ;
 			if ( nCount2 > 1 ) {
 				for ( y = 2 ; y <= nCount2 ; y++ ) {
-					if ( ring_list_isstring(pList,y) ) {
-						printf( " %5s ",ring_list_getstring(pList,y) ) ;
+					if ( simple_list_isstring(pList,y) ) {
+						printf( " %5s ",simple_list_getstring(pList,y) ) ;
 					}
-					else if ( ring_list_isnumber(pList,y) ) {
-						if ( ring_list_isdouble(pList,y) ) {
-							printf( " %f",ring_list_getdouble(pList,y) ) ;
+					else if ( simple_list_isnumber(pList,y) ) {
+						if ( simple_list_isdouble(pList,y) ) {
+							printf( " %f",simple_list_getdouble(pList,y) ) ;
 						} else {
-							printf( " %5d ",ring_list_getint(pList,y) ) ;
+							printf( " %5d ",simple_list_getint(pList,y) ) ;
 						}
 					} else {
-						printf( " %5p ",ring_list_getpointer(pList,y) ) ;
+						printf( " %5p ",simple_list_getpointer(pList,y) ) ;
 					}
 				}
 			}
@@ -165,47 +165,47 @@ void ring_parser_icg_showoutput ( List *pListGenCode,int nStatus )
 	}
 	/* End */
 	puts("");
-	ring_print_line();
+	simple_print_line();
 	puts("");
 }
 
-void ring_parser_icg_deletelastoperation ( Parser *pParser )
+void simple_parser_icg_deletelastoperation ( Parser *pParser )
 {
-	if ( ring_list_getsize(pParser->GenCode) > 0 ) {
-		ring_list_deleteitem(pParser->GenCode,ring_list_getsize(pParser->GenCode));
-		pParser->ActiveGenCodeList = ring_list_getlist(pParser->GenCode,ring_list_getsize(pParser->GenCode));
+	if ( simple_list_getsize(pParser->GenCode) > 0 ) {
+		simple_list_deleteitem(pParser->GenCode,simple_list_getsize(pParser->GenCode));
+		pParser->ActiveGenCodeList = simple_list_getlist(pParser->GenCode,simple_list_getsize(pParser->GenCode));
 	}
 }
 
-void ring_parser_icg_duplicate ( Parser *pParser,int nStart,int nEnd )
+void simple_parser_icg_duplicate ( Parser *pParser,int nStart,int nEnd )
 {
 	List *pList,*pList2  ;
 	int x  ;
-	#if RING_SHOWIC
+	#if SIMPLE_SHOWIC
 	int y,nCount2  ;
 	#endif
 	assert(pParser != NULL);
-	if ( (nStart <= nEnd) && ( nEnd <= ring_parser_icg_instructionscount(pParser) ) ) {
+	if ( (nStart <= nEnd) && ( nEnd <= simple_parser_icg_instructionscount(pParser) ) ) {
 		for ( x = nStart ; x <= nEnd ; x++ ) {
-			pList = ring_list_newlist_gc(pParser->pRingState,pParser->GenCode);
-			pList2 = ring_list_getlist(pParser->GenCode,x);
-			ring_list_copy(pList,pList2);
-			#if RING_SHOWIC
-			nCount2 = ring_list_getsize(pList);
-			printf( "\n %6d [ %s ] ", ring_list_getsize(pParser->GenCode) , RING_IC_OP[ring_list_getint(pList,1)] ) ;
+			pList = simple_list_newlist_gc(pParser->pRingState,pParser->GenCode);
+			pList2 = simple_list_getlist(pParser->GenCode,x);
+			simple_list_copy(pList,pList2);
+			#if SIMPLE_SHOWIC
+			nCount2 = simple_list_getsize(pList);
+			printf( "\n %6d [ %s ] ", simple_list_getsize(pParser->GenCode) , SIMPLE_IC_OP[simple_list_getint(pList,1)] ) ;
 			if ( nCount2 > 1 ) {
 				for ( y = 2 ; y <= nCount2 ; y++ ) {
-					if ( ring_list_isstring(pList,y) ) {
-						printf( " Operand : %s ",ring_list_getstring(pList,y) ) ;
+					if ( simple_list_isstring(pList,y) ) {
+						printf( " Operand : %s ",simple_list_getstring(pList,y) ) ;
 					}
-					else if ( ring_list_isnumber(pList,y) ) {
-						if ( ring_list_isdouble(pList,y) ) {
-							printf( " Operand : %f ",ring_list_getdouble(pList,y) ) ;
+					else if ( simple_list_isnumber(pList,y) ) {
+						if ( simple_list_isdouble(pList,y) ) {
+							printf( " Operand : %f ",simple_list_getdouble(pList,y) ) ;
 						} else {
-							printf( " Operand : %5d ",ring_list_getint(pList,y) ) ;
+							printf( " Operand : %5d ",simple_list_getint(pList,y) ) ;
 						}
 					} else {
-						printf( " Operand : %5p ",ring_list_getpointer(pList,y) ) ;
+						printf( " Operand : %5p ",simple_list_getpointer(pList,y) ) ;
 					}
 				}
 			}
@@ -214,9 +214,9 @@ void ring_parser_icg_duplicate ( Parser *pParser,int nStart,int nEnd )
 	}
 }
 
-int ring_parser_icg_newlabel2 ( Parser *pParser )
+int simple_parser_icg_newlabel2 ( Parser *pParser )
 {
 	assert(pParser != NULL);
-	ring_parser_icg_newoperation(pParser,ICO_NEWLABEL);
-	return ring_list_getsize(pParser->GenCode) ;
+	simple_parser_icg_newoperation(pParser,ICO_NEWLABEL);
+	return simple_list_getsize(pParser->GenCode) ;
 }

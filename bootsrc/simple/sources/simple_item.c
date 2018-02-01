@@ -2,14 +2,14 @@
 **  Copyright (c) 2013-2017 Mahmoud Fayed <msfclipper@yahoo.com> 
 **  Header Files 
 */
-#include "../include/simple.h"
+#include "../includes/simple.h"
 
-RING_API Item * ring_item_new_gc ( void *pState,int ItemType )
+SIMPLE_API Item * simple_item_new_gc ( void *pState,int ItemType )
 {
 	Item *pItem  ;
-	pItem = (Item *) ring_state_malloc(pState,sizeof(Item));
+	pItem = (Item *) simple_state_malloc(pState,sizeof(Item));
 	if ( pItem == NULL ) {
-		printf( RING_OOM ) ;
+		printf( SIMPLE_OOM ) ;
 		exit(0);
 	}
 	/* Set Type */
@@ -22,19 +22,19 @@ RING_API Item * ring_item_new_gc ( void *pState,int ItemType )
 	pItem->data.iNumber = 0 ;
 	pItem->NumberFlag = ITEM_NUMBERFLAG_NOTHING ;
 	/* Reference Count */
-	ring_vm_gc_cleardata(pItem);
-	ring_item_settype_gc(pState,pItem,ItemType);
+	simple_vm_gc_cleardata(pItem);
+	simple_item_settype_gc(pState,pItem,ItemType);
 	return pItem ;
 }
 
-RING_API Item * ring_item_delete_gc ( void *pState,Item *pItem )
+SIMPLE_API Item * simple_item_delete_gc ( void *pState,Item *pItem )
 {
 	assert(pItem != NULL);
-	ring_vm_gc_deleteitem_gc(pState,pItem);
+	simple_vm_gc_deleteitem_gc(pState,pItem);
 	return NULL ;
 }
 
-RING_API void ring_item_print ( Item *pItem )
+SIMPLE_API void simple_item_print ( Item *pItem )
 {
 	int ItemType  ;
 	assert(pItem != NULL);
@@ -43,9 +43,9 @@ RING_API void ring_item_print ( Item *pItem )
 		case ITEMTYPE_NOTHING :
 			/* Work */
 			break ;
-		case ITEMTYPE_STRING :
+		case ITEMTYPE_STSIMPLE :
 			/* Work */
-			ring_string_print(pItem->data.pString);
+			simple_stsimple_print(pItem->data.pString);
 			break ;
 		case ITEMTYPE_NUMBER :
 			/* Work */
@@ -61,22 +61,22 @@ RING_API void ring_item_print ( Item *pItem )
 			break ;
 		case ITEMTYPE_LIST :
 			/* Work */
-			ring_list_print(pItem->data.pList);
+			simple_list_print(pItem->data.pList);
 			break ;
 	}
 }
 
-RING_API void ring_item_content_delete_gc ( void *pState,Item *pItem )
+SIMPLE_API void simple_item_content_delete_gc ( void *pState,Item *pItem )
 {
 	assert(pItem != NULL);
 	switch ( pItem->nType ) {
-		case ITEMTYPE_STRING :
+		case ITEMTYPE_STSIMPLE :
 			/* Work */
-			pItem->data.pString = ring_string_delete_gc(pState,pItem->data.pString);
+			pItem->data.pString = simple_stsimple_delete_gc(pState,pItem->data.pString);
 			break ;
 		case ITEMTYPE_LIST :
 			/* Work */
-			pItem->data.pList = ring_list_delete_gc(pState,pItem->data.pList);
+			pItem->data.pList = simple_list_delete_gc(pState,pItem->data.pList);
 			break ;
 	}
 	/* Set Type */
@@ -90,18 +90,18 @@ RING_API void ring_item_content_delete_gc ( void *pState,Item *pItem )
 	pItem->NumberFlag = ITEM_NUMBERFLAG_NOTHING ;
 }
 
-RING_API void ring_item_settype_gc ( void *pState,Item *pItem,int ItemType )
+SIMPLE_API void simple_item_settype_gc ( void *pState,Item *pItem,int ItemType )
 {
 	assert(pItem != NULL);
 	/* When we set the type we remove the current content at first */
-	ring_item_content_delete_gc(pState,pItem);
+	simple_item_content_delete_gc(pState,pItem);
 	switch ( ItemType ) {
 		case ITEMTYPE_NOTHING :
 			pItem->nType = ITEMTYPE_NOTHING ;
 			break ;
-		case ITEMTYPE_STRING :
-			pItem->nType = ITEMTYPE_STRING ;
-			pItem->data.pString = ring_string_new_gc(pState,"");
+		case ITEMTYPE_STSIMPLE :
+			pItem->nType = ITEMTYPE_STSIMPLE ;
+			pItem->data.pString = simple_stsimple_new_gc(pState,"");
 			break ;
 		case ITEMTYPE_NUMBER :
 			pItem->nType = ITEMTYPE_NUMBER ;
@@ -115,7 +115,7 @@ RING_API void ring_item_settype_gc ( void *pState,Item *pItem,int ItemType )
 			break ;
 		case ITEMTYPE_LIST :
 			pItem->nType = ITEMTYPE_LIST ;
-			pItem->data.pList = ring_list_new_gc(pState,0);
+			pItem->data.pList = simple_list_new_gc(pState,0);
 			break ;
 		case ITEMTYPE_FUNCPOINTER :
 			pItem->nType = ITEMTYPE_FUNCPOINTER ;
@@ -128,159 +128,159 @@ RING_API void ring_item_settype_gc ( void *pState,Item *pItem,int ItemType )
 **  int 
 */
 
-RING_API void ring_itemarray_setint_gc ( void *pState,Item pList[], int index ,int number )
+SIMPLE_API void simple_itemarray_setint_gc ( void *pState,Item pList[], int index ,int number )
 {
-	ring_item_settype_gc(pState,&pList[index],ITEMTYPE_NUMBER);
+	simple_item_settype_gc(pState,&pList[index],ITEMTYPE_NUMBER);
 	pList[index].data.iNumber = number ;
 	pList[index].NumberFlag = ITEM_NUMBERFLAG_INT ;
 }
 /* Pointers */
 
-RING_API void ring_itemarray_setpointer_gc ( void *pState,Item pList[], int index ,void *pValue )
+SIMPLE_API void simple_itemarray_setpointer_gc ( void *pState,Item pList[], int index ,void *pValue )
 {
-	ring_item_settype_gc(pState,&pList[index],ITEMTYPE_POINTER);
+	simple_item_settype_gc(pState,&pList[index],ITEMTYPE_POINTER);
 	pList[index].data.pPointer = pValue ;
 	pList[index].nObjectType = 0 ;
 }
 /* double */
 
-RING_API void ring_itemarray_setdouble_gc ( void *pState,Item pList[], int index ,double number )
+SIMPLE_API void simple_itemarray_setdouble_gc ( void *pState,Item pList[], int index ,double number )
 {
-	ring_item_settype_gc(pState,&pList[index],ITEMTYPE_NUMBER);
+	simple_item_settype_gc(pState,&pList[index],ITEMTYPE_NUMBER);
 	pList[index].data.dNumber = number ;
 	pList[index].NumberFlag = ITEM_NUMBERFLAG_DOUBLE ;
 }
-#define ring_list_getint(pList,index) ( ring_list_getitem(pList,index)->data.iNumber )
-#define ring_list_getpointer(pList,index) ( ring_list_getitem(pList,index)->data.pPointer )
-#define ring_list_getfuncpointer(pList,index) ( ring_list_getitem(pList,index)->data.pFunc )
-#define ring_list_callfuncpointer(pList,index,x) ( ring_list_getitem(pList,index)->data.pFunc(x) )
-#define ring_list_getdouble(pList,index) ring_list_getitem(pList,index)->data.dNumber
-#define ring_list_getstring(pList,index) ( ring_string_get(ring_item_getstring(ring_list_getitem(pList,index))) )
-#define ring_list_getstringobject(pList,index) ( ring_item_getstring(ring_list_getitem(pList,index)) )
-#define ring_list_getstringsize(pList,index) ( ring_string_size(ring_item_getstring(ring_list_getitem(pList,index))) )
+#define simple_list_getint(pList,index) ( simple_list_getitem(pList,index)->data.iNumber )
+#define simple_list_getpointer(pList,index) ( simple_list_getitem(pList,index)->data.pPointer )
+#define simple_list_getfuncpointer(pList,index) ( simple_list_getitem(pList,index)->data.pFunc )
+#define simple_list_callfuncpointer(pList,index,x) ( simple_list_getitem(pList,index)->data.pFunc(x) )
+#define simple_list_getdouble(pList,index) simple_list_getitem(pList,index)->data.dNumber
+#define simple_list_getstring(pList,index) ( simple_stsimple_get(simple_item_getstring(simple_list_getitem(pList,index))) )
+#define simple_list_getstringobject(pList,index) ( simple_item_getstring(simple_list_getitem(pList,index)) )
+#define simple_list_getstringsize(pList,index) ( simple_stsimple_size(simple_item_getstring(simple_list_getitem(pList,index))) )
 /* String */
 
-RING_API void ring_itemarray_setstring_gc ( void *pState,Item pList[], int index ,const char *str )
+SIMPLE_API void simple_itemarray_setstsimple_gc ( void *pState,Item pList[], int index ,const char *str )
 {
-	ring_item_settype_gc(pState,&pList[index],ITEMTYPE_STRING);
-	ring_string_set_gc(pState,pList[index].data.pString ,str);
+	simple_item_settype_gc(pState,&pList[index],ITEMTYPE_STSIMPLE);
+	simple_stsimple_set_gc(pState,pList[index].data.pString ,str);
 }
 
-RING_API void ring_itemarray_setstring2_gc ( void *pState,Item pList[], int index ,const char *str,int nStrSize )
+SIMPLE_API void simple_itemarray_setstring2_gc ( void *pState,Item pList[], int index ,const char *str,int nStrSize )
 {
-	ring_item_settype_gc(pState,&pList[index],ITEMTYPE_STRING);
-	ring_string_set2_gc(pState,pList[index].data.pString ,str,nStrSize);
+	simple_item_settype_gc(pState,&pList[index],ITEMTYPE_STSIMPLE);
+	simple_stsimple_set2_gc(pState,pList[index].data.pString ,str,nStrSize);
 }
 /* Functions to deal with one item */
 
-RING_API void ring_item_setstring_gc ( void *pState,Item *pItem,const char *cStr )
+SIMPLE_API void simple_item_setstsimple_gc ( void *pState,Item *pItem,const char *cStr )
 {
-	ring_item_settype_gc(pState,pItem,ITEMTYPE_STRING);
-	ring_string_set_gc(pState,ring_item_getstring(pItem),cStr);
+	simple_item_settype_gc(pState,pItem,ITEMTYPE_STSIMPLE);
+	simple_stsimple_set_gc(pState,simple_item_getstring(pItem),cStr);
 }
 
-RING_API void ring_item_setstring2_gc ( void *pState,Item *pItem,const char *cStr,int nStrSize )
+SIMPLE_API void simple_item_setstring2_gc ( void *pState,Item *pItem,const char *cStr,int nStrSize )
 {
-	ring_item_settype_gc(pState,pItem,ITEMTYPE_STRING);
-	ring_string_set2_gc(pState,ring_item_getstring(pItem),cStr,nStrSize);
+	simple_item_settype_gc(pState,pItem,ITEMTYPE_STSIMPLE);
+	simple_stsimple_set2_gc(pState,simple_item_getstring(pItem),cStr,nStrSize);
 }
 
-RING_API void ring_item_setdouble_gc ( void *pState,Item *pItem,double x )
+SIMPLE_API void simple_item_setdouble_gc ( void *pState,Item *pItem,double x )
 {
-	ring_item_settype_gc(pState,pItem,ITEMTYPE_NUMBER);
+	simple_item_settype_gc(pState,pItem,ITEMTYPE_NUMBER);
 	pItem->data.dNumber = x ;
 	pItem->NumberFlag = ITEM_NUMBERFLAG_DOUBLE ;
 }
 
-RING_API void ring_item_setpointer_gc ( void *pState,Item *pItem,void *pValue )
+SIMPLE_API void simple_item_setpointer_gc ( void *pState,Item *pItem,void *pValue )
 {
-	ring_item_settype_gc(pState,pItem,ITEMTYPE_POINTER);
+	simple_item_settype_gc(pState,pItem,ITEMTYPE_POINTER);
 	pItem->data.pPointer = pValue ;
 	pItem->nObjectType = 0 ;
 }
 
-RING_API void ring_item_setint_gc ( void *pState,Item *pItem,int x )
+SIMPLE_API void simple_item_setint_gc ( void *pState,Item *pItem,int x )
 {
-	ring_item_settype_gc(pState,pItem,ITEMTYPE_NUMBER);
+	simple_item_settype_gc(pState,pItem,ITEMTYPE_NUMBER);
 	pItem->data.iNumber = x ;
 	pItem->NumberFlag = ITEM_NUMBERFLAG_INT ;
 }
 /* Functions without state pointer */
 
-RING_API Item * ring_item_new ( int ItemType )
+SIMPLE_API Item * simple_item_new ( int ItemType )
 {
-	return ring_item_new_gc(NULL,ItemType) ;
+	return simple_item_new_gc(NULL,ItemType) ;
 }
 
-RING_API Item * ring_item_delete ( Item *pItem )
+SIMPLE_API Item * simple_item_delete ( Item *pItem )
 {
-	return ring_item_delete_gc(NULL,pItem) ;
+	return simple_item_delete_gc(NULL,pItem) ;
 }
 
-RING_API void ring_item_settype ( Item *pItem,int ItemType )
+SIMPLE_API void simple_item_settype ( Item *pItem,int ItemType )
 {
-	ring_item_settype_gc(NULL,pItem,ItemType);
+	simple_item_settype_gc(NULL,pItem,ItemType);
 }
 
-RING_API void ring_item_content_delete ( Item *pItem )
+SIMPLE_API void simple_item_content_delete ( Item *pItem )
 {
-	ring_item_content_delete_gc(NULL,pItem);
+	simple_item_content_delete_gc(NULL,pItem);
 }
 /*
 **  Functions to deal with array of items 
 **  int 
 */
 
-RING_API void ring_itemarray_setint ( Item pList[], int index ,int number )
+SIMPLE_API void simple_itemarray_setint ( Item pList[], int index ,int number )
 {
-	ring_itemarray_setint_gc(NULL,pList,index,number);
+	simple_itemarray_setint_gc(NULL,pList,index,number);
 }
 /* Pointers */
 
-RING_API void ring_itemarray_setpointer ( Item pList[], int index ,void *pValue )
+SIMPLE_API void simple_itemarray_setpointer ( Item pList[], int index ,void *pValue )
 {
-	ring_itemarray_setpointer_gc(NULL,pList,index,pValue);
+	simple_itemarray_setpointer_gc(NULL,pList,index,pValue);
 }
 /* double */
 
-RING_API void ring_itemarray_setdouble ( Item pList[], int index ,double number )
+SIMPLE_API void simple_itemarray_setdouble ( Item pList[], int index ,double number )
 {
-	ring_itemarray_setdouble_gc(NULL,pList,index,number);
+	simple_itemarray_setdouble_gc(NULL,pList,index,number);
 }
 /* String */
 
-RING_API void ring_itemarray_setstring ( Item pList[], int index ,const char *str )
+SIMPLE_API void simple_itemarray_setstring ( Item pList[], int index ,const char *str )
 {
-	ring_itemarray_setstring_gc(NULL,pList,index,str);
+	simple_itemarray_setstsimple_gc(NULL,pList,index,str);
 }
 
-RING_API void ring_itemarray_setstring2 ( Item pList[], int index ,const char *str,int nStrSize )
+SIMPLE_API void simple_itemarray_setstring2 ( Item pList[], int index ,const char *str,int nStrSize )
 {
-	ring_itemarray_setstring2_gc(NULL,pList,index,str,nStrSize);
+	simple_itemarray_setstring2_gc(NULL,pList,index,str,nStrSize);
 }
 /* Functions to deal with one item */
 
-RING_API void ring_item_setstring ( Item *pItem,const char *cStr )
+SIMPLE_API void simple_item_setstring ( Item *pItem,const char *cStr )
 {
-	ring_item_setstring_gc(NULL,pItem,cStr);
+	simple_item_setstsimple_gc(NULL,pItem,cStr);
 }
 
-RING_API void ring_item_setdouble ( Item *pItem,double x )
+SIMPLE_API void simple_item_setdouble ( Item *pItem,double x )
 {
-	ring_item_setdouble_gc(NULL,pItem,x);
+	simple_item_setdouble_gc(NULL,pItem,x);
 }
 
-RING_API void ring_item_setpointer ( Item *pItem,void *pValue )
+SIMPLE_API void simple_item_setpointer ( Item *pItem,void *pValue )
 {
-	ring_item_setpointer_gc(NULL,pItem,pValue);
+	simple_item_setpointer_gc(NULL,pItem,pValue);
 }
 
-RING_API void ring_item_setint ( Item *pItem,int x )
+SIMPLE_API void simple_item_setint ( Item *pItem,int x )
 {
-	ring_item_setint_gc(NULL,pItem,x);
+	simple_item_setint_gc(NULL,pItem,x);
 }
 
-RING_API void ring_item_setstring2 ( Item *pItem,const char *cStr,int nStrSize )
+SIMPLE_API void simple_item_setstring2 ( Item *pItem,const char *cStr,int nStrSize )
 {
-	ring_item_setstring2_gc(NULL,pItem,cStr,nStrSize);
+	simple_item_setstring2_gc(NULL,pItem,cStr,nStrSize);
 }
