@@ -65,9 +65,9 @@ int is_complex_file( const char *file_name )
 }
 
 const char *file_real_name(const char *absolute_name){
-    int c; printf("THE SIZE IS %d\n", sizeof(absolute_name));
-    for(int a; a<sizeof(absolute_name);a++){
-        
-    }
-    return absolute_name ;
+    char *filename = (char*)calloc(1, sizeof(KB_BYTE_SIZE));
+	filename = (strrchr(absolute_name, '/'))+1;
+	printf(" found filename: %s \n", filename);
+ 
+	return filename;
 }

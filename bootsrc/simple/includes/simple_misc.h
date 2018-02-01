@@ -20,6 +20,7 @@ extern "C" {
 #endif
     
 #define SIMPLE_VERSION "0.3.2"
+#define KB_BYTE_SIZE 1024
 
 void display_help();
 
