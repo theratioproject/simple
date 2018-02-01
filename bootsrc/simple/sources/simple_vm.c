@@ -1138,7 +1138,7 @@ SIMPLE_API void ring_vm_showerrormessage ( VM *pVM,const char *cStr )
 			}
 			printf( "%s",cFile ) ;
 			/* Called From */
-			printf( "\ncalled from line %d  ",ring_list_getint(pList,RING_FUNCCL_LINENUMBER) ) ;
+			printf( "\n\nat from line %d  ",ring_list_getint(pList,RING_FUNCCL_LINENUMBER) ) ;
 			lFunctionCall = 1 ;
 		}
 		else {
@@ -1146,7 +1146,7 @@ SIMPLE_API void ring_vm_showerrormessage ( VM *pVM,const char *cStr )
 		}
 	}
 	if ( lFunctionCall ) {
-		printf( "in file %s ",ring_list_getstring(pVM->pRingState->pRingFilesList,1) ) ;
+		printf( "\tin file %s ",ring_list_getstring(pVM->pRingState->pRingFilesList,1) ) ;
 	}
 	else {
 		if ( pVM->nInClassRegion ) {
