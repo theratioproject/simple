@@ -122,13 +122,15 @@ SIMPLE_API void ring_string_setfromint_gc ( void *pState,String *pString,int x )
 
 SIMPLE_API char * ring_string_lower ( char *cStr )
 {
-	unsigned int x  ;
-	for ( x = 0 ; x < strlen(cStr) ; x++ ) {
-		if ( isalpha(cStr[x]) ) {
-			//cStr[x] = tolower( cStr[x] );
-		}
-	}
-	return cStr ;
+    if( NOT_CASE_SENSITIVE ){
+        unsigned int x  ;
+        for ( x = 0 ; x < strlen(cStr) ; x++ ) {
+            if ( isalpha(cStr[x]) ) {
+                    cStr[x] = tolower( cStr[x] );
+            }
+        }
+    }
+    return cStr ;
 }
 
 SIMPLE_API char * ring_string_lower2 ( char *cStr,int nStrSize )
