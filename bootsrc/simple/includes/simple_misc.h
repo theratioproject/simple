@@ -22,7 +22,7 @@ extern "C" {
 #define SIMPLE_VERSION "0.3.2"
 #define KB_BYTE_SIZE 1024
     
-extern int NOT_CASE_SENSITIVE = 0 ;
+int NOT_CASE_SENSITIVE = 0 ;
 
 void display_help();
 
