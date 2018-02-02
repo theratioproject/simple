@@ -35,7 +35,7 @@ SIMPLE_API void ring_vm_loadcfunctions ( RingState *pRingState )
 	ring_vm_funcregister("timelist",ring_vmlib_timelist);
 	ring_vm_funcregister("adddays",ring_vmlib_adddays);
 	ring_vm_funcregister("diffdays",ring_vmlib_diffdays);
-	ring_vm_funcregister("getSimpleVersion()",ring_vmlib_version);
+	ring_vm_funcregister("getSimpleVersion",ring_vmlib_version);
 	ring_vm_funcregister("clockspersecond",ring_vmlib_clockspersecond);
 	ring_vm_funcregister("prevfilename",ring_vmlib_prevfilename);
 	ring_vm_funcregister("swap",ring_vmlib_swap);
