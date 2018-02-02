@@ -386,13 +386,15 @@ void ring_vm_listgetvalue ( VM *pVM,List *pVar,const char *cStr )
 
 int ring_vm_strcmpnotcasesensitive ( const char *cStr1,const char *cStr2 )
 {
-	int nNum1  ;
-	while ( 1 ) {
-		nNum1 = tolower(*cStr1) - tolower(*cStr2) ;
-		if ( nNum1 != 0 || !*cStr1 || !*cStr2 ) {
-			return nNum1 ;
-		}
-		cStr1++ ;
-		cStr2++ ;
-	}
+    int nNum1  ;
+    while ( 1 ) {
+        if( NOT_CASE_SENSITIVE ){
+            nNum1 = tolower(*cStr1) - tolower(*cStr2) ;
+        } else {
+            nNum1 = cStr1 - *cStr2 ;
+        } if ( nNum1 != 0 || !*cStr1 || !*cStr2 ) {
+                return nNum1 ;
+        }
+        cStr1++ ; cStr2++ ;
+    }
 }
