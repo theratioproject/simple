@@ -4,13 +4,6 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>includes/ring_vmfile.h</itemPath>
-      <itemPath>includes/ring_vmgc.h</itemPath>
-      <itemPath>includes/ring_vmgcdata.h</itemPath>
-      <itemPath>includes/ring_vmlistfuncs.h</itemPath>
-      <itemPath>includes/ring_vmmath.h</itemPath>
-      <itemPath>includes/ring_vmos.h</itemPath>
-      <itemPath>includes/ring_vmrefmeta.h</itemPath>
       <itemPath>includes/simple_misc.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -83,20 +76,6 @@
       </toolsSet>
       <compileType>
       </compileType>
-      <item path="includes/ring_vmfile.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="includes/ring_vmgc.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="includes/ring_vmgcdata.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="includes/ring_vmlistfuncs.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="includes/ring_vmmath.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="includes/ring_vmos.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="includes/ring_vmrefmeta.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="includes/simple_misc.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="sources/simple.c" ex="false" tool="0" flavor2="0">
@@ -200,20 +179,6 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
-      <item path="includes/ring_vmfile.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="includes/ring_vmgc.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="includes/ring_vmgcdata.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="includes/ring_vmlistfuncs.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="includes/ring_vmmath.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="includes/ring_vmos.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="includes/ring_vmrefmeta.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="includes/simple_misc.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="sources/simple.c" ex="false" tool="0" flavor2="0">
