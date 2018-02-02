@@ -172,6 +172,8 @@ SIMPLE_API void ring_state_main ( int argc, char *argv[] )
 			}
 			else if ( strcmp(argv[x],"-show-tokens") == 0 || strcmp(argv[x],"-k") == 0 ) {
 				nTokens = 1 ;
+			} else if ( strcmp(argv[x],"-case-insensitive") == 0 || strcmp(argv[x],"-c") == 0 ) {
+				NOT_CASE_SENSITIVE = 1 ;
 			}
 			else if ( strcmp(argv[x],"-rules") == 0 ) {
 				nRules = 1 ;
