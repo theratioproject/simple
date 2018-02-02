@@ -4,23 +4,6 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>includes/ring.h</itemPath>
-      <itemPath>includes/ring_api.h</itemPath>
-      <itemPath>includes/ring_codegen.h</itemPath>
-      <itemPath>includes/ring_ext.h</itemPath>
-      <itemPath>includes/ring_hashlib.h</itemPath>
-      <itemPath>includes/ring_hashtable.h</itemPath>
-      <itemPath>includes/ring_item.h</itemPath>
-      <itemPath>includes/ring_items.h</itemPath>
-      <itemPath>includes/ring_list.h</itemPath>
-      <itemPath>includes/ring_objfile.h</itemPath>
-      <itemPath>includes/ring_parser.h</itemPath>
-      <itemPath>includes/ring_pooldata.h</itemPath>
-      <itemPath>includes/ring_scanner.h</itemPath>
-      <itemPath>includes/ring_state.h</itemPath>
-      <itemPath>includes/ring_string.h</itemPath>
-      <itemPath>includes/ring_vm.h</itemPath>
-      <itemPath>includes/ring_vmdll.h</itemPath>
       <itemPath>includes/ring_vmfile.h</itemPath>
       <itemPath>includes/ring_vmgc.h</itemPath>
       <itemPath>includes/ring_vmgcdata.h</itemPath>
@@ -100,40 +83,6 @@
       </toolsSet>
       <compileType>
       </compileType>
-      <item path="includes/ring.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="includes/ring_api.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="includes/ring_codegen.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="includes/ring_ext.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="includes/ring_hashlib.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="includes/ring_hashtable.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="includes/ring_item.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="includes/ring_items.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="includes/ring_list.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="includes/ring_objfile.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="includes/ring_parser.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="includes/ring_pooldata.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="includes/ring_scanner.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="includes/ring_state.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="includes/ring_string.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="includes/ring_vm.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="includes/ring_vmdll.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="includes/ring_vmfile.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="includes/ring_vmgc.h" ex="false" tool="3" flavor2="0">
@@ -251,40 +200,6 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
-      <item path="includes/ring.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="includes/ring_api.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="includes/ring_codegen.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="includes/ring_ext.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="includes/ring_hashlib.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="includes/ring_hashtable.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="includes/ring_item.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="includes/ring_items.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="includes/ring_list.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="includes/ring_objfile.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="includes/ring_parser.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="includes/ring_pooldata.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="includes/ring_scanner.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="includes/ring_state.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="includes/ring_string.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="includes/ring_vm.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="includes/ring_vmdll.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="includes/ring_vmfile.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="includes/ring_vmgc.h" ex="false" tool="3" flavor2="0">
