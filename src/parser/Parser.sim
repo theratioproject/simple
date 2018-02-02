@@ -1,9 +1,11 @@
 
-/* 
-	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com"> 
-	MIT License Copyright (c) 2018 simple 
+/*
+	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com">
+	MIT License Copyright (c) 2018 simple
 
 */
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\BinaryOperation.sim" -> simple.parser
 
 call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\CodeBlockNode.sim" -> simple.parser.node
 
@@ -13,29 +15,91 @@ call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\Continu
 
 call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\ClassNode.sim"
 
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\IdentifierNode.sim"
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\BinaryOperationNode.sim"
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\IntegerNode.sim"
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\ExpressionStatementNode.sim"
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\DoWhileNode.sim"
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\EnumNode.sim"
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\StringNode.sim"
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\ForNode.sim"
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\ForEachNode.sim"
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\CallNode.sim"
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\BlockParameter.sim"
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\BlockNode.sim"
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\IfNode.sim"
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\ReturnNode.sim"
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\SwitchNode.sim"
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\TraitNode.sim"
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\TryCatchNode.sim"
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\WhileNode.sim"
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\CallingNode.sim"
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\BlockCallNode.sim"
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\ArgumentListNode.sim"
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\AttributeAccessNode.sim"
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\UnaryOperationNode.sim"
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\IterableAccessNode.sim"
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\EnforcedAssignmentNode.sim"
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\ListNode.sim"
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\DictionaryNode.sim"
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\LambdaNode.sim"
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\ThreadNode.sim"
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\node\PropertyNode.sim"
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\utilities\Dictionary.sim" -> simple.utilities
+
 package simple.parser
 
-class Parser 
+class Parser
 
-	tokens = []  
-	position = 0 
-	
+	tokens = []
+	position = 0
+
 	#1
 	block endOfStream()
-		return position > len(tokens) 
-	
+		return position > len(tokens)
+
 	#2
 	block parse(intokens)
 		tokens = intokens
-		position = 0 
-		
+		position = 0
+
 		nodes = new CodeBlockNode(location(tokens, position))
-		while (endOfStream() == false) 
-			add(nodes.getChildren(), parseStatement()) 
+		while (endOfStream() == false)
+			add(nodes.getChildren(), parseStatement())
 		end
 		return nodes
-	
-	#3	
+
+	#3
 	block parseStatement()
 		if -> acceptTokenString(TOKENTYPE_IDENTIFIER, "break")
 			return new BreakNode(location(tokens, position))
@@ -44,42 +108,42 @@ class Parser
 		elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "class")
 			return parseClass()
 		elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "do")
-			return parseDoWhile() 
+			return parseDoWhile()
 		elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "enum")
-			println("it enum") 
+			return parseEnum()
 		elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "for")
-			println("it for") 
-		elif -> acceptTokenString(TOKENTYPE_IDENTIFIER, "call")
-			println("it call") 
-		elif -> acceptTokenString(TOKENTYPE_IDENTIFIER, "block")
-			println("it block") 
-		elif -> acceptTokenString(TOKENTYPE_IDENTIFIER, "if")
-			println("it if") 
-		elif -> acceptTokenString(TOKENTYPE_IDENTIFIER, "private")
-			println("it private") 
-		elif -> acceptTokenString(TOKENTYPE_IDENTIFIER, "throw")
-			println("it throw") 
-		elif -> acceptTokenString(TOKENTYPE_IDENTIFIER, "return")
-			println("it return") 
-		elif -> acceptTokenString(TOKENTYPE_IDENTIFIER, "switch")
-			println("it switch") 
-		elif -> acceptTokenString(TOKENTYPE_IDENTIFIER, "trait")
-			println("it trait") 
-		elif -> acceptTokenString(TOKENTYPE_IDENTIFIER, "try")
-			println("it try") 
-		elif -> acceptTokenString(TOKENTYPE_IDENTIFIER, "until")
-			println("it until") 
-		elif -> acceptTokenString(TOKENTYPE_IDENTIFIER, "while")
-			println("it while") 
-		elif -> acceptTokenString(TOKENTYPE_IDENTIFIER, "with")
-			println("it with") 
+			return parseFor()
+		elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "call")
+			return parseCall()
+		elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "block")
+			return parseBlock()
+		elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "if")
+			return parseIf()
+		elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "private")
+			return parsePrivate()
+		/*elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "throw")
+			println("it throw")*/
+		elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "return")
+			return parseReturn()
+		elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "switch")
+			return parseSwitch()
+		elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "trait")
+			return parseTrait()
+		elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "try")
+			return parseTry()
+		elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "until")
+			println("it until")
+		elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "while")
+			return parseWhile()
+		elif -> matchTokenString(TOKENTYPE_IDENTIFIER, "calling")
+			return parseCalling()
 		end
 		if (position + 1) < len(tokens)
 			if matchToken(TOKENTYPE_IDENTIFIER) and tokens[position+1].getTokenType() == TOKENTYPE_COMMA
 				return parseMultipleAssignment()
 			end
 		end
-		if (position + 2) < len(tokens) 
+		if (position + 2) < len(tokens)
 			if matchToken(TOKENTYPE_IDENTIFIER) and tokens[position+1].getTokenType() == TOKENTYPE_OPENCURLYBRACE and stringEquals(tokens[position+2].getValue(), "get")
 				return parseProperty()
 			end
@@ -87,25 +151,34 @@ class Parser
 		if matchToken(TOKENTYPE_OPENCURLYBRACE)
 			return parseCodeBlockNode()
 		else
-			println("PARSING : "+tokens[position].getValue())
 			return parseExpressionStatement()
 		end
-		
+
 	#8
 	block parseClass()
 		clocation = location(tokens, position) inherits = []
+		attached = expectTokenString(TOKENTYPE_IDENTIFIER, "class").getAttachedComment()
 		name = expectToken(TOKENTYPE_IDENTIFIER).getValue()
 		if -> acceptToken(TOKENTYPE_COLON) or acceptTokenString(TOKENTYPE_IDENTIFIER, "inherit")
 			do {
 				express = parseExpression()
 				add(inherits, express)
-			} while -> acceptToken(TOKENTYPE_COMMA) 
+			} while -> acceptToken(TOKENTYPE_COMMA)
 			node = parseStatement()
 			return new ClassNode(clocation, name, node, inherits)
 		end
-		node = parseStatement() 
+		node = parseStatement()
 		return new ClassNode(clocation, name, node, null)
-	
+
+	block parseCodeBlockNode()
+		clocation = location(tokens, position)
+		expectToken(TOKENTYPE_OPENCURLYBRACE)
+		cblock = new CodeBlockNode(clocation)
+		while acceptToken(TOKENTYPE_CLOSECURLYBRACE) == false
+			add(cblock.getChildren(), parseStatement())
+		end
+		return cblock
+
 	#9
 	block parseDoWhile()
 		dlocation = location(tokens, position)
@@ -114,7 +187,296 @@ class Parser
 		expectTokenString(TOKENTYPE_IDENTIFIER, "while")
 		condition = parseStatement()
 		return new DoWhileNode(dlocation, condition, body)
+
+	block parseEnum()
+		elocation = location(tokens, position)
+		expectTokenString(TOKENTYPE_IDENTIFIER, "enum")
+		name = expectToken(TOKENTYPE_IDENTIFIER).getValue()
+		enumno = new EnumNode(elocation, name)
+		acceptToken(TOKENTYPE_OPENCURLYBRACE)
+		count = 0
+		while acceptToken(TOKENTYPE_CLOSECURLYBRACE) == false
+			num = count++
+			attrib = expectToken(TOKENTYPE_IDENTIFIER).getValue()
+			if acceptToken(TOKENTYPE_ASSIGNMENT)
+				expt = expectToken(TOKENTYPE_INTEGER).getValue()
+				num = toNumber(expt)
+			end
+			acceptToken(TOKENTYPE_COMMA)
+			enumno.addAttribute(num, attrib)
+		end
+		return enumno
+
+	block parseFor()
+		flocation = location(tokens, position)
+		expectTokenString(TOKENTYPE_IDENTIFIER, "for")
+		acceptToken(TOKENTYPE_OPENPARENTESES)
+		if matchToken(TOKENTYPE_IDENTIFIER) and stringEquals(tokens[position+1].getValue(), "in")
+			variable = expectToken(TOKENTYPE_IDENTIFIER).getValue()
+			expectTokenString(TOKENTYPE_IDENTIFIER, "in")
+			expression = parseExpression()
+			acceptToken(TOKENTYPE_CLOSEPARENTESES)
+			body = parseStatement()
+			return new ForEachNode(flocation, variable, expression, body)
+		else
+			initStatement = parseStatement()
+			acceptToken(TOKENTYPE_SEMICOLON)
+			condition = parseExpression()
+			acceptToken(TOKENTYPE_SEMICOLON)
+			repeatStatement = parseStatement()
+			acceptToken(TOKENTYPE_SEMICOLON)
+			acceptToken(TOKENTYPE_CLOSEPARENTESES)
+			body = parseStatement()
+			return new ForNode(flocation, initStatement, condition, repeatStatement, body)
+		end
+
+	block parseCall()
+		clocation = location(tokens, position)
+		expectTokenString(TOKENTYPE_IDENTIFIER, "call")
+		if matchToken(TOKENTYPE_STRING)
+			modulePath = expectToken(TOKENTYPE_STRING).getValue()
+			return new CallNode(clocation, modulePath)
+		else
+			modulePath = ""
+			while matchToken(TOKENTYPE_DOT) or matchTokenString(TOKENTYPE_OPERATION, "/")
+				modulePath += tokens[position++].getValue()
+			end
+			do {
+				if matchTokenString(TOKENTYPE_OPERATION, "*")
+					modulePath += expectToken(TOKENTYPE_OPERATION).getValue()
+				else
+					modulePath += expectToken(TOKENTYPE_IDENTIFIER).getValue()
+				end
+				if matchToken(TOKENTYPE_DOT) or matchTokenString(TOKENTYPE_OPERATION, "/")
+					modulePath += "."
+				end
+			} while acceptToken(TOKENTYPE_DOT) or acceptTokenString(TOKENTYPE_OPERATION, "/")
+			return new CallNode(clocation, modulePath)
+		end
+
+	block parseBlock()
+		blocation = location(tokens, position)
+		attached = expectTokenString(TOKENTYPE_IDENTIFIER, "block").getAttachedComment()
+		name = expectToken(TOKENTYPE_IDENTIFIER).getValue()
+		parameters = []
+		acceptToken(TOKENTYPE_OPENPARENTESES)
+		while acceptToken(TOKENTYPE_CLOSEPARENTESES) == false
+			paramType = PARAMETERTYPE_NORMAL
+			if acceptTokenString(TOKENTYPE_IDENTIFIER, "params")
+				paramType = PARAMETERTYPE_VARIADIC
+			end
+			paramName = expectToken(TOKENTYPE_IDENTIFIER).getValue()
+			if acceptToken(TOKENTYPE_COLON)
+				expr = parseExpression()
+				bparam = new BlockParameter(PARAMETERTYPE_ENFORCED, paramName, expr)
+				add(parameters, bparam)
+			else
+				bparam = new BlockParameter(paramType, paramName, null)
+				add(parameters, bparam)
+			end
+			acceptToken(TOKENTYPE_COMMA)
+		end
+		if acceptToken(TOKENTYPE_COLON)
+			bexpr = parseExpression() bstmt = parseStatement()
+			return new BlockNode(blocation, name, parameters, bexpr, bstmt)
+		end
+		bstmt = parseStatement()
+		return new BlockNode(blocation, name, parameters, null, bstmt)
+
+	block parseIf()
+		ilocation = location(tokens, position)
+		expectTokenString(TOKENTYPE_IDENTIFIER, "if")
+		condition = parseExpression()
+		ifBody = parseStatement()
+		if acceptTokenString(TOKENTYPE_IDENTIFIER, "else")
+			estmt = parseStatement()
+			return new IfNode(ilocation, condition, ifBody, estmt)
+		end
+		return new IfNode(ilocation, condition, ifBody, 0)
+
+	block parsePrivate()
+		attached = expectTokenString(TOKENTYPE_IDENTIFIER, "private").getAttachedComment()
+		ast = parseStatement()
+		if stringEquals(ast.getType(), "class_node")
+
+		elif stringEquals(ast.getType(), "block_node")
+
+		end
+		ast.setIsPrivate(true)
+		return ast
+
+	block parseReturn()
+		rlocation = location(tokens, position)
+		expectTokenString(TOKENTYPE_IDENTIFIER, "return")
+		value = parseExpression()
+		return new ReturnNode(rlocation, value)
+
+	block parseSwitch()
+		slocation = location(tokens, position)
+		expectTokenString(TOKENTYPE_IDENTIFIER, "switch")
+		value = parseExpression()
+		acceptToken(TOKENTYPE_CLOSEPARENTESES) #development error
+		acceptToken(TOKENTYPE_OPENCURLYBRACE)
+		cases = []
+		do {
+			expectTokenString(TOKENTYPE_IDENTIFIER, "case")
+			op = BINARYOPERATION_EQUALTO
+			if matchToken(TOKENTYPE_COMPARISON)
+				op = stringToBinaryOperation(expectToken(TOKENTYPE_COMPARISON).getValue())
+			end
+			exprs = []
+			do {
+				cexprs = parseExpression()
+				add(exprs, cexprs)
+			} while acceptToken(TOKENTYPE_COMMA)
+			body = parseStatement()
+			for a = 0 to len(exprs)
+				nucase = new Case(op, exprs[a], body)
+				add(cases, nucase)
+			loop
+		} while matchTokenString(TOKENTYPE_IDENTIFIER, "default") == false and matchToken(TOKENTYPE_CLOSECURLYBRACE) == false
+		defaultstmt = null
+		if acceptTokenString(TOKENTYPE_IDENTIFIER, "default")
+			defaultstmt = parseStatement()
+		else
+			defaultstmt = new CodeBlockNode(location(tokens, position))
+		end
+		acceptToken(TOKENTYPE_CLOSECURLYBRACE)
+		return new SwitchNode(slocation, cases, defaultstmt, value)
+
+	block parseTrait()
+		tlocation = location(tokens, position)
+		expectTokenString(TOKENTYPE_IDENTIFIER, "trait")
+		name = expectToken(TOKENTYPE_IDENTIFIER).getValue()
+		traity = new TraitNode(tlocation, name)
+		acceptToken(TOKENTYPE_OPENCURLYBRACE)
+		while acceptToken(TOKENTYPE_CLOSECURLYBRACE) == false
+			attrib = expectToken(TOKENTYPE_IDENTIFIER).getValue()
+			acceptToken(TOKENTYPE_COLON)
+			expto = expectToken(TOKENTYPE_IDENTIFIER).getValue()
+			type = new IdentifierNode(location(tokens, position), expto)
+			traity.addAttribute(attrib, type)
+			acceptToken(TOKENTYPE_COMMA)
+		end
+		return traity
+
+	block parseTry()
+		tlocation = location(tokens, position)
+		expectTokenString(TOKENTYPE_IDENTIFIER, "try")
+		tryBody = parseStatement()
+		expectTokenString(TOKENTYPE_IDENTIFIER, "catch")
+		if acceptToken(TOKENTYPE_OPENPARENTESES)
+			exception = expectToken(TOKENTYPE_IDENTIFIER).getValue()
+			acceptToken(TOKENTYPE_CLOSEPARENTESES)
+			tcstmt = parseStatement()
+			return new TryCatchNode(tlocation, tryBody, tcstmt, exception)
+		end
+		tcstmt = parseStatement()
+		return new TryCatchNode(tlocation, tryBody, tcstmt, "err")
+
+	block parseWhile()
+		wlocation = location(tokens, position)
+		condition = null
+		if acceptTokenString(TOKENTYPE_IDENTIFIER, "while")
+			condition = parseExpression()
+			acceptToken(TOKENTYPE_CLOSEPARENTESES)
+		end
+		body = parseStatement()
+		return new WhileNode(wlocation, condition, body)
 		
+	block parseCalling()
+		clocation = location(tokens, position)
+		expectTokenString(TOKENTYPE_IDENTIFIER, "calling")
+		target = parseExpression()
+		assign = ""
+		if acceptTokenString(TOKENTYPE_IDENTIFIER, "as")
+			assign = expectToken(TOKENTYPE_IDENTIFIER).getValue()
+		end
+		body = parseStatement()
+		return new CallingNode(clocation, body, target, assign)
+		
+	block parseArgumentList()
+		alocation = location(tokens, position)
+		expectToken(TOKENTYPE_OPENPARENTESES)
+		parameters = []
+		while acceptToken(TOKENTYPE_CLOSEPARENTESES) == false
+			npexpr = parseExpression()
+			add(parameters, npexpr)
+			acceptToken(TOKENTYPE_COMMA)
+		end
+		return new ArgumentListNode(alocation, parameters)
+	
+	block parseInitialAttributes()
+		attribs = new Dictionary
+		if acceptToken(TOKENTYPE_OPENCURLYBRACE)
+			do {
+				attrib = expectToken(TOKENTYPE_IDENTIFIER).getValue()
+				acceptToken(TOKENTYPE_ASSIGNMENT)
+				value = parseExpression()
+				acceptToken(TOKENTYPE_COMMA)
+				attribs.add(attrib, value)
+			} while acceptToken(TOKENTYPE_CLOSECURLYBRACE)
+		end
+		return attribs ;
+		
+	block parseListDeclaration()
+		llocation = location(tokens, position)
+		elements = []
+		expectToken(TOKENTYPE_OPENSQUAREBRACE)
+		while acceptToken(TOKENTYPE_CLOSESQUAREBRACE) == false {
+			eleexpr = parseExpression()
+			add(elements, eleexpr)
+			acceptToken(TOKENTYPE_COMMA)
+		}
+		
+		return new ListNode(llocation, elements)
+		
+	block parseDictionaryDeclaration()
+		dlocation = location(tokens, position)
+		keys = []
+		values = []
+		expectToken(TOKENTYPE_OPENCURLYBRACE)
+		while acceptToken(TOKENTYPE_CLOSECURLYBRACE) == false {
+			kexpr = parseExpression()
+			add(keys, kexpr)
+			acceptToken(TOKENTYPE_COLON)
+			vexpr = parseExpression()
+			add(values, vexpr)
+			acceptToken(TOKENTYPE_COMMA)
+		}
+		return new DictionaryNode(dlocation, keys, values)
+		
+	block parseLambda()
+		llocation = location(tokens, position)
+		expectTokenString(TOKENTYPE_IDENTIFIER, "lambda")
+		parameters = parseArgumentList()
+		body = parseStatement()
+		return new LambdaNode(llocation, parameters, body)
+		
+	block parseThread()
+		tlocation = location(tokens, position)
+		executeinstantly = false
+		expectTokenString(TOKENTYPE_IDENTIFIER, "thread")
+		if acceptTokenString(TOKENTYPE_IDENTIFIER, "run") or (acceptTokenString(TOKENTYPE_OPERATION, "-") and acceptTokenString(TOKENTYPE_COMPARISON, ">")) {
+			executeinstantly = true
+		}
+		body = parseStatement()
+		return new ThreadNode(tlocation, body, executeinstantly)
+		
+	block parseProperty()
+		plocation = location(tokens, position)
+		name = expectToken(TOKENTYPE_IDENTIFIER).getValue()
+		acceptToken(TOKENTYPE_OPENCURLYBRACE)
+		expectTokenString(TOKENTYPE_IDENTIFIER, "get")
+		gety = parseStatement()
+		if acceptTokenString(TOKENTYPE_IDENTIFIER, "set") {
+			setstmt = parseStatement() acceptToken(TOKENTYPE_CLOSECURLYBRACE)
+			return new PropertyNode(plocation, name, gety, setstmt)
+		else 
+			acceptToken(TOKENTYPE_CLOSECURLYBRACE)
+			return new PropertyNode(plocation, name, gety, null)
+		} 
+
 	#4
 	block acceptToken(tokenType)
 		ret = matchToken(tokenType)
@@ -122,37 +484,45 @@ class Parser
 			position++
 		end
 		return ret
-	
-	#5	
+
+	#5
 	block acceptTokenString(tokenType, value)
 		ret = matchTokenString(tokenType, value)
 		if -> ret == true
 			position++
 		end
 		return ret
-	
+
 	#6
 	block matchToken(tokenType)
 		return endOfStream() == false and tokens[position].getTokenType() == tokenType
-		
+
 	#7
 	block matchTokenString(tokenType, value)
 		return endOfStream() == false and tokens[position].getTokenType() == tokenType and stringEquals(tokens[position].getValue(), value)
-		
+
 	block expectToken(tokenType)
 		if matchToken(tokenType)
 			ret = tokens[position] position++
 			return ret
 		end
-		throwScannerException(location(tokens, position), "Expected token of type '"+getTokenTypeValue(tokenType)+"', But got token of type '"+getTokenTypeValue(tokens[position].getTokenType())+"' with value '"+tokens[position].getValue()+"'", UNEXPECTED_TOKEN_TYPE)
-		
+		try
+			throwScannerException(location(tokens, position), "Expected token of type '"+getTokenTypeValue(tokenType)+"', But got token of type '"+getTokenTypeValue(tokens[position].getTokenType())+"' with value '"+tokens[position].getValue()+"'", UNEXPECTED_TOKEN_TYPE)
+		catch
+			throwScannerException(location(tokens, position), "Unexpected end of source after '"+getTokenTypeValue(tokens[position-1].getTokenType())+"' with value '"+tokens[position-1].getValue()+"'", UNEXPECTED_END_OF_SOURCE)
+		end
+
 	block expectTokenString(tokenType, value)
 		if matchTokenString(tokenType, value)
 			ret = tokens[position] position++
 			return ret
 		end
-		throwScannerException(location(tokens, position), "Expected token of type '"+getTokenTypeValue(tokenType)+"' with value '"+value+"', But got token of type '"+getTokenTypeValue(tokens[position].getTokenType())+"' with value '"+tokens[position].getValue()+"'", UNEXPECTED_TOKEN_TYPE)
-	
+		try
+			throwScannerException(location(tokens, position), "Expected token of type '"+getTokenTypeValue(tokenType)+"' with value '"+value+"', But got token of type '"+getTokenTypeValue(tokens[position].getTokenType())+"' with value '"+tokens[position].getValue()+"'", UNEXPECTED_TOKEN_TYPE)
+		catch
+			throwScannerException(location(tokens, position), "Unexpected end of source after '"+getTokenTypeValue(tokens[position-1].getTokenType())+"' with value '"+tokens[position-1].getValue()+"'", UNEXPECTED_END_OF_SOURCE)
+		end
+
 	block parseExpressionStatement()
 		elocation = location(tokens, position)
 		expression = parseExpression()
@@ -161,21 +531,53 @@ class Parser
 			return new ExpressionStatementNode(elocation, expression)
 		end
 		return expression
-	
+
 	block parseExpression()
 		return parseAssignment()
-			
+
 	block parseAssignment()
 		alocation = location(tokens, position)
 		left = parseTenary()
 		if matchToken(TOKENTYPE_ASSIGNMENT)
-			switch tokens[position+2].getValue()
+			switch tokens[position].getValue()
 				case '='
-					acceptToken(TOKENTYPE_ASSIGNMENT)
-					return new BinaryOperationNode(alocation, BINARYOPERATION_ASSIGNMENT, left, parseAssignment())
+					acceptToken(TOKENTYPE_ASSIGNMENT) ass = parseAssignment()
+					return new BinaryOperationNode(alocation, BINARYOPERATION_ASSIGNMENT, left, ass)
+				case '+='
+					acceptToken(TOKENTYPE_ASSIGNMENT) ass = parseAssignment()
+					return new BinaryOperationNode(alocation, BINARYOPERATION_ASSIGNMENT, left, new BinaryOperationNode(alocation, BINARYOPERATION_ADDITION, left, ass))
+				case '-='
+					acceptToken(TOKENTYPE_ASSIGNMENT) ass = parseAssignment()
+					return new BinaryOperationNode(alocation, BINARYOPERATION_ASSIGNMENT, left,  new BinaryOperationNode(alocation, BINARYOPERATION_SUBTRACTION, left, ass))
+				case '*='
+					acceptToken(TOKENTYPE_ASSIGNMENT) ass = parseAssignment()
+					return new BinaryOperationNode(alocation, BINARYOPERATION_ASSIGNMENT, left,  new BinaryOperationNode(alocation, BINARYOPERATION_MULTIPLICATION, left, ass))
+				case '/='
+					acceptToken(TOKENTYPE_ASSIGNMENT) ass = parseAssignment()
+					return new BinaryOperationNode(alocation, BINARYOPERATION_ASSIGNMENT, left,  new BinaryOperationNode(alocation, BINARYOPERATION_DIVISION, left, ass))
+				case '%='
+					acceptToken(TOKENTYPE_ASSIGNMENT) ass = parseAssignment()
+					return new BinaryOperationNode(alocation, BINARYOPERATION_ASSIGNMENT, left,  new BinaryOperationNode(alocation, BINARYOPERATION_MODULUS, left, ass))
+				case '<<='
+					acceptToken(TOKENTYPE_ASSIGNMENT) ass = parseAssignment()
+					return new BinaryOperationNode(alocation, BINARYOPERATION_ASSIGNMENT, left,  new BinaryOperationNode(alocation, BINARYOPERATION_BITSHIFTLEFT, left, ass))
+				case '>>='
+					acceptToken(TOKENTYPE_ASSIGNMENT) ass = parseAssignment()
+					return new BinaryOperationNode(alocation, BINARYOPERATION_ASSIGNMENT, left,  new BinaryOperationNode(alocation, BINARYOPERATION_BITSHIFTRIGHT, left, ass))
+				case '&='
+					acceptToken(TOKENTYPE_ASSIGNMENT) ass = parseAssignment()
+					return new BinaryOperationNode(alocation, BINARYOPERATION_LOGICALAND, left, ass)
+				case '|='
+					acceptToken(TOKENTYPE_ASSIGNMENT) ass = parseAssignment()
+					return new BinaryOperationNode(alocation, BINARYOPERATION_LOGICALAND, left, ass)
+				case '^='
+					acceptToken(TOKENTYPE_ASSIGNMENT) ass = parseAssignment()
+					return new BinaryOperationNode(alocation, BINARYOPERATION_ASSIGNMENT, left,  new BinaryOperationNode(alocation, BINARYOPERATION_BITWISEXOR, left, ass))
+				default break
 			end
 		end
-		
+		return left
+
 	block parseTenary()
 		tlocation = location(tokens, position)
 		left = parseLogicalOr()
@@ -186,7 +588,7 @@ class Parser
 			left = new TenaryOperationNode(tlocation, left, trueStatement, falseStatement)
 		end
 		return left
-		
+
 	block parseLogicalOr()
 		llocation = location(tokens, position)
 		left = parseLogicalAnd()
@@ -194,7 +596,7 @@ class Parser
 			left = new BinaryOperationNode(llocation, BINARYOPERATION_LOGICALOR, left, parseLogicalOr())
 		end
 		return left
-		
+
 	block parseLogicalAnd()
 		alocation = location(tokens, position)
 		left = parseEquality()
@@ -202,8 +604,299 @@ class Parser
 			left = new BinaryOperationNode(alocation, BINARYOPERATION_LOGICALAND, left, parseLogicalAnd())
 		end
 		return left
-		
-	block parseEquality() 
+
+	block parseEquality()
 		elocation = location(tokens, position)
-		
-		
+		left = parseComparison()
+		expr = null
+		while matchToken(TOKENTYPE_COMPARISON)
+			switch tokens[position].getValue()
+				case '=='
+					acceptToken(TOKENTYPE_COMPARISON)
+					expr = parseComparison()
+					if matchToken(TOKENTYPE_COMPARISON)
+						return new BinaryOperationNode(elocation, BINARYOPERATION_LOGICALAND, new BinaryOperationNode(elocation, BINARYOPERATION_EQUALTO, left, expr), new BinaryOperationNode(elocation, stringToBinaryOperation(expectToken(TOKENTYPE_COMPARISON).getValue()), expr, parseOr()))
+					end
+					return new BinaryOperationNode(elocation, BINARYOPERATION_EQUALTO, left, expr)
+				case '!='
+					acceptToken(TOKENTYPE_COMPARISON)
+					expr = parseComparison()
+					if matchToken(TOKENTYPE_COMPARISON)
+						return new BinaryOperationNode(elocation, BINARYOPERATION_LOGICALAND, new BinaryOperationNode(elocation, BINARYOPERATION_NOTEQUALTO, left, expr), new BinaryOperationNode(elocation, stringToBinaryOperation(expectToken(TOKENTYPE_COMPARISON).getValue()), expr, parseOr()))
+					end
+					return new BinaryOperationNode(elocation, BINARYOPERATION_NOTEQUALTO, left, expr)
+				default break
+			end
+		end
+		return left
+
+	block parseComparison()
+		plocation = location(tokens, position)
+		left = parseOr()
+		expr = null
+		while matchToken(TOKENTYPE_COMPARISON)
+			switch tokens[position].getValue()
+				case ">"
+					acceptToken(TOKENTYPE_COMPARISON)
+					expr = parseOr()
+					if matchToken(TOKENTYPE_COMPARISON)
+						return new BinaryOperationNode(BINARYOPERATION_LOGICALAND, new BinaryOperationNode(plocation, BINARYOPERATION_GREATERTHAN, left, expr), new BinaryOperationNode(plocation, stringToBinaryOperation(expectToken(TOKENTYPE_COMPARISON).value), expr, parserOr()))
+					end
+					return new BinaryOperationNode(plocation, BINARYOPERATION_GREATERTHAN, left, expr)
+				case ">="
+					acceptToken(TOKENTYPE_COMPARISON)
+					expr = parseOr()
+					if matchToken(TOKENTYPE_COMPARISON)
+						return new BinaryOperationNode(BINARYOPERATION_LOGICALAND, new BinaryOperationNode(plocation, BINARYOPERATION_GREATERTHANOREQUAL, left, expr), new BinaryOperationNode(plocation, stringToBinaryOperation(expectToken(TOKENTYPE_COMPARISON).value), expr, parserOr()))
+					end
+					return new BinaryOperationNode(plocation, BINARYOPERATION_GREATERTHANOREQUAL, left, expr)
+				case "<"
+					acceptToken(TOKENTYPE_COMPARISON)
+					expr = parseOr()
+					if matchToken(TOKENTYPE_COMPARISON)
+						return new BinaryOperationNode(BINARYOPERATION_LOGICALAND, new BinaryOperationNode(plocation, BINARYOPERATION_LESSERTHAN, left, expr), new BinaryOperationNode(plocation, stringToBinaryOperation(expectToken(TOKENTYPE_COMPARISON).value), expr, parserOr()))
+					end
+					return new BinaryOperationNode(plocation, BINARYOPERATION_LESSERTHAN, left, expr)
+				case "<="
+					acceptToken(TOKENTYPE_COMPARISON)
+					expr = parseOr()
+					if matchToken(TOKENTYPE_COMPARISON)
+						return new BinaryOperationNode(BINARYOPERATION_LOGICALAND, new BinaryOperationNode(plocation, BINARYOPERATION_LESSERTHANOREQUAL, left, expr), new BinaryOperationNode(plocation, stringToBinaryOperation(expectToken(TOKENTYPE_COMPARISON).value), expr, parserOr()))
+					end
+					return new BinaryOperationNode(plocation, BINARYOPERATION_LESSERTHANOREQUAL, left, expr)
+				default break
+			end
+		end
+		return left
+
+	block parseOr()
+		olocation = location(tokens, position)
+		left = parseXor()
+		while acceptTokenString(TOKENTYPE_OPERATION, "|")
+			left = new BinaryOperationNode(olocation, BINARYOPERATION_BITWISEOR, left, parseOr())
+		end
+		return left
+
+	block parseXor()
+		xlocation = location(tokens, position)
+		left = parseAnd()
+		while acceptTokenString(TOKENTYPE_OPERATION, "^")
+			left = new BinaryOperationNode(xlocation, BINARYOPERATION_BITWISEXOR, left, parseXor())
+		end
+		return left
+
+	block parseAnd()
+		alocation = location(tokens, position)
+		left = parseBitshift()
+		while acceptTokenString(TOKENTYPE_OPERATION, "&") pand = parseAnd()
+			left = new BinaryOperationNode(alocation, BINARYOPERATION_BITWISEAND, left, pand)
+		end
+		return left
+
+	block parseBitshift()
+		blocation = location(tokens, position)
+		left = parseAdditive()
+		while matchToken(TOKENTYPE_OPERATION)
+			switch tokens[position].getValue()
+				case "<<"
+					acceptToken(TOKENTYPE_OPERATION) pbsl = parseBitshift()
+					return new BinaryOperationNode(blocation, BINARYOPERATION_BITSHIFTLEFT, left, pbsl)
+				case ">>"
+					acceptToken(TOKENTYPE_OPERATION) pbsr = parseBitshift()
+					return new BinaryOperationNode(blocation, BINARYOPERATION_BITSHIFTRIGHT, left, pbsr)
+				default break
+			end
+		end
+		return left
+
+	block parseAdditive()
+		alocation = location(tokens, position)
+		left = parseMultiplicative()
+		while matchToken(TOKENTYPE_OPERATION)
+			switch tokens[position].getValue()
+				case '+'
+					acceptToken(TOKENTYPE_OPERATION) add = parseAdditive()
+					return new BinaryOperationNode(alocation, BINARYOPERATION_ADDITION, left, add)
+				case '-'
+					acceptToken(TOKENTYPE_OPERATION) add = parseAdditive()
+					return new BinaryOperationNode(alocation, BINARYOPERATION_SUBTRACTION, left, add)
+				default break
+			end
+		end
+		return left
+
+	block parseMultiplicative()
+		mlocation = location(tokens, position)
+		left = parseUnary()
+		while matchToken(TOKENTYPE_OPERATION)
+			switch tokens[position].getValue()
+				case '*'
+					acceptToken(TOKENTYPE_OPERATION) mult = parseMultiplicative()
+					return new BinaryOperationNode(mlocation, BINARYOPERATION_MULTIPLICATION, left, mult)
+				case '/'
+					acceptToken(TOKENTYPE_OPERATION) mult = parseMultiplicative()
+					return new BinaryOperationNode(mlocation, BINARYOPERATION_DIVISION, left, mult)
+				case '%'
+					acceptToken(TOKENTYPE_OPERATION) mult = parseMultiplicative()
+					return new BinaryOperationNode(mlocation, BINARYOPERATION_MODULUS, left, mult)
+				case '**'
+					acceptToken(TOKENTYPE_OPERATION) mult = parseMultiplicative()
+					return new BinaryOperationNode(mlocation, BINARYOPERATION_POWER, left, mult)
+				case '//'
+					acceptToken(TOKENTYPE_OPERATION) mult = parseMultiplicative()
+					return new BinaryOperationNode(mlocation, BINARYOPERATION_INTEGERDIVISION, left, mult)
+				case '??'
+					acceptToken(TOKENTYPE_OPERATION) mult = parseMultiplicative()
+					return new BinaryOperationNode(mlocation, BINARYOPERATION_NULLCOALESCING, left, mult)
+				case 'is'
+					acceptToken(TOKENTYPE_OPERATION) mult = parseMultiplicative()
+					return new BinaryOperationNode(mlocation, BINARYOPERATION_IS, left, mult)
+				default break
+			end
+		end
+		return left
+
+	block parseUnary()
+		ulocation = location(tokens, position)
+		if matchToken(TOKENTYPE_OPERATION)
+			switch tokens[position].getValue()
+				case "~"
+					acceptToken(TOKENTYPE_OPERATION)
+					ttopu = parseUnary()
+					return new UnaryOperationNode(ulocation, ttopu, UNARYOPERATION_BITWISENOT)
+				case "!"
+					acceptToken(TOKENTYPE_OPERATION)
+					ttopu = parseUnary()
+					return new UnaryOperationNode(ulocation, ttopu, UNARYOPERATION_LOGICALNOT)
+				case "-"
+					acceptToken(TOKENTYPE_OPERATION)
+					ttopu = parseUnary()
+					return new UnaryOperationNode(ulocation, ttopu, UNARYOPERATION_NEGATE)
+				case "--"
+					acceptToken(TOKENTYPE_OPERATION)
+					ttopu = parseUnary()
+					return new UnaryOperationNode(ulocation, ttopu, UNARYOPERATION_PREDECREMENT)
+				case "++"
+					acceptToken(TOKENTYPE_OPERATION)
+					ttopu = parseUnary()
+					return new UnaryOperationNode(ulocation, ttopu, UNARYOPERATION_PREINCREMENT)
+			end
+		end
+		return parseAccess()
+
+	block parseAccess()
+		return parseAccessTerm(parseTerm())
+
+	block parseAccessTerm(left)
+		alocation = location(tokens, position)
+		if matchToken(TOKENTYPE_OPENPARENTESES)
+			pbcna = parseArgumentList() pbnia = parseInitialAttributes()
+			nbcn = new BlockCallNode(alocation, left, pbcna, pbnia)
+			return parseAccessTerm(nbcn)
+		elif acceptToken(TOKENTYPE_OPENSQUAREBRACE)
+			index = parseExpression()
+			expectToken(TOKENTYPE_CLOSESQUAREBRACE)
+			osite = new IterableAccessNode(alocation, left, index)
+			return parseAccessTerm(osite)
+		elif acceptTokenString(TOKENTYPE_OPERATION, "--")
+			return new UnaryOperationNode(alocation, left, UNARYOPERATION_POSTINCREMENT)
+		elif acceptTokenString(TOKENTYPE_OPERATION, "++")
+			return new UnaryOperationNode(alocation, left, UNARYOPERATION_POSTINCREMENT)
+		elif acceptToken(TOKENTYPE_DOT)
+			dattrept = expectToken(TOKENTYPE_IDENTIFIER).getValue()
+			dattr = new AttributeAccessNode(alocation, left, dattrept)
+			return parseAccessTerm(dattr)
+		end
+		return left
+
+		block parseTerm()
+			tlocation = location(tokens, position)
+			if matchToken(TOKENTYPE_CHAR)
+				expr = expectToken(TOKENTYPE_CHAR)
+				return new CharNode(tlocation, expr.getValue())
+			elif matchToken(TOKENTYPE_INTEGER)
+				expr = expectToken(TOKENTYPE_INTEGER)
+				return new IntegerNode(tlocation, expr.getValue())
+			elif matchToken(TOKENTYPE_FLOAT)
+				expr = expectToken(TOKENTYPE_FLOAT)
+				return new FloatNode(tlocation, expr.getValue())
+			elif matchToken(TOKENTYPE_STRING)
+				expr = expectToken(TOKENTYPE_STRING)
+				return new StringNode(tlocation, expr.getValue())
+			elif matchToken(TOKENTYPE_OPENCURLYBRACE)
+				return parseDictionaryDeclaration()
+			elif acceptToken(acceptToken(TOKENTYPE_OPENPARENTESES))
+				expr = parseExpression()
+				if (matchToken(TOKENTYPE_COMMA))
+					return parseTuple(expr)
+				end
+				expectToken(TOKENTYPE_CLOSEPARENTESES)
+				return expr
+			elif matchToken(TOKENTYPE_OPENSQUAREBRACE)
+				return parseListDeclaration()
+			elif acceptToken(TOKENTYPE_SEMICOLON)
+				return new CodeBlockNode(tlocation)
+			elif matchTokenString(TOKENTYPE_IDENTIFIER, "=>") or matchTokenString(TOKENTYPE_IDENTIFIER, "lambda")
+				return parseLambda()
+			elif matchTokenString(TOKENTYPE_IDENTIFIER, "new")
+				return parseExpression()
+			elif matchTokenString(TOKENTYPE_IDENTIFIER, "thread")
+				return parseThread()
+			elif position+1 < len(tokens)
+				if matchToken(TOKENTYPE_IDENTIFIER) and tokens[position+1].getTokenType() == TOKENTYPE_IDENTIFIER
+					return parseEnforcedAssignment()
+				elif matchToken(TOKENTYPE_IDENTIFIER)
+					rett = expectToken(TOKENTYPE_IDENTIFIER)
+					return new IdentifierNode(tlocation, rett.getValue())
+				end
+			elif matchToken(TOKENTYPE_IDENTIFIER)
+				exptk = expectToken(TOKENTYPE_IDENTIFIER)
+				return new IdentifierNode(tlocation, exptk.getValue())
+			end
+			try
+				throwScannerException(location(tokens, position), "Unexpected token of type '"+getTokenTypeValue(tokens[position].getTokenType())+"' with value '"+tokens[position].getValue()+"'", UNEXPECTED_TOKEN_TYPE)
+			catch
+				throwScannerException(location(tokens, position), "Unexpected end of source after '"+getTokenTypeValue(tokens[position-1].getTokenType())+"' with value '"+tokens[position-1].getValue()+"'", UNEXPECTED_END_OF_SOURCE)
+			end
+
+	block 	parseEnforcedAssignment()
+		elocation = location(tokens, position)
+		type = null
+		if tokens[position+1].getTokenType() == TOKENTYPE_DOT
+			type = parseExpression()
+		else
+			exptv = expectToken(TOKENTYPE_IDENTIFIER).getValue()
+			type = new IdentifierNode(elocation, exptv)
+		end
+		variable = expectToken(TOKENTYPE_IDENTIFIER).getValue()
+		expectToken(TOKENTYPE_ASSIGNMENT)
+		value = parseExpression()
+		return new EnforcedAssignmentNode(elocation, type, variable, value)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+TO MAKE '~' IMPLICIT END OF BLOCK/STATEMENT
+CALLING IS DISABLE FOR NOW
+
+*/
+
+
+
+

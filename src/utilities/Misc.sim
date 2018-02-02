@@ -18,7 +18,7 @@ virtualMachineAuthor = "Azeez Adewale"
 virtualMachineLastContributor = "Azeez Adewale"
 
 tab = char(9)
-printLine = "=================================================================================================="
+printLine = "=========================================================================================+========="
  
 showTokens = false
 skipError = false

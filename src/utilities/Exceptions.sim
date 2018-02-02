@@ -7,12 +7,12 @@
 
 #1
 block throwScannerException(location, message, errorcode)
-	printLine(true)
+	printLine(true) 
 	println("  ERROR : \t"+getErrorValue(errorcode))
 	println("  MESSAGE : \t"+message)
 	println("  LOCATION : \t"+"In File "+location.fileName()+", At "+location.toLocation())
 	println("  DATE : \t"+date())
 	#println("File Path : "+location.filePath())
-	printLine(true)
+	printLine(true) 
 	if -> skipError == false __exit__ end
 	

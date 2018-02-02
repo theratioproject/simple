@@ -1,0 +1,27 @@
+
+/* 
+	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+class TypeDefinition : Object
+
+	typeDefinition = null
+	typeName = "null"
+	toSimpleString = ""
+	
+	block TypeDefinition()
+		init("typedef")
+		
+	block init(name)
+	typeName = name
+	addType(this)
+	addBlockAttribute("toString", toSimpleString, 0)
+		
+	block toString()
+		return typeName
+		
+	block toSimpleString(vm)
+		return new SimpleString(typeName)
+	

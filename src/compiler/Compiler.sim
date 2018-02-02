@@ -9,6 +9,10 @@ call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\scanner\Scanner.sim
 
 call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\Parser.sim" -> simple.parser
 
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\compiler\delivers\SymbolTable.sim" -> simple.compiler.delivers
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\runtime\modules\Module.sim" -> simple.runtime.modules
+
 package simple.compiler
 
 class Compiler
@@ -18,17 +22,47 @@ class Compiler
 	#1
 	block compileModule(path, supWarn)
 		if -> fileExists(path) != 1
-			raise("error file does not exist")
+			throw("error file does not exist")
 		end 
-		return compile(path, readFile(path), supWarn)
+		return compileModuleString(path, readFile(path), supWarn)
 		
-	block compile(path, source, supWarn )
+	block compileModuleString(path, source, supWarn )
 		tokens = new Scanner parser = new Parser
 		tokens.scan(path, source)
 		if -> showTokens == true 
 			showTokens(tokens.getTokens())
 		end 
 		nodes = parser.parse(tokens.getTokens())
+		finalCompile = new simple.compiler.Simplify
+		finalCompile.treatWarn(supWarn)
+		module = finalCompile.compile(nodes, null)
+		#if supWarn == false { module.dispayWarning() }
+		
+	
+class Simplify
+
+	supWarn = true
+	mblockStack = []
+	mclassStack = []
+	table = null
+	module = null
+
+	block treatWarn(isupWarn)
+		supWarn = isupWarn
+		
+	block compile(nodes, module)
+		blockStack = []
+		classStack = []
+		table = new SymbolTable
+		if module == null {
+			module = new Module()
+		}
+		
+		
+		
+		
+		
+		
 		
 		
 		

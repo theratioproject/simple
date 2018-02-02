@@ -1,0 +1,34 @@
+
+/* 
+	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\Node.sim" -> simple.parser
+
+package simple.parser.node
+
+class BinaryOperationNode : Node
+
+	binaryOperation = null
+	left = null right = null
+
+	block BinaryOperationNode(location, ibinaryOperation, ileft, iright)
+		sourceLocation = location 
+		binaryOperation = ibinaryOperation
+		right = iright
+		left = ileft
+		
+	block visit(visitor)
+		visitor.accept(this)
+	
+	block visitChildren(visitor)
+		left.visit(visitor)
+		right.visit(visitor)
+		
+	block getType()
+		return "binary_operation_node"
+		
+	
+	

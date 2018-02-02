@@ -32,6 +32,9 @@ class Token
 	block getValue()
 		return value
 		
+	block getAttachedComment()
+		return comment
+		
 	block toString()
 		return '[Token: TokenType='+getTokenTypeValue(tokenType)+', Value="'+value+'", Location='+location.toLocation()+']'
 	

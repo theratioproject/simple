@@ -1,0 +1,17 @@
+
+/* 
+	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\runtime\Object.sim" #-> simple.runtime
+
+package simple.runtime.modules
+
+class Module : Object
+
+	typeDefinition = null
+
+	block Module()
+		init()

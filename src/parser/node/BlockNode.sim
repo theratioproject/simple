@@ -1,0 +1,62 @@
+
+/* 
+	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\Node.sim" -> simple.parser
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\BlockParameter.sim"
+
+package simple.parser.node
+
+class BlockNode : Node
+
+	name = ""
+	parameters = []
+	body = null
+	enforcedReturn = null
+
+	block BlockNode(location, iname, iparameters, ienforcedReturn, ibody)
+		sourceLocation = location 
+		name = iname
+		parameters = iparameters
+		enforcedReturn = ienforcedReturn
+		body = ibody
+		#println(toString())
+		
+	block toString()
+		str = "block "+name+"("
+		for a = 0 to len(parameters)
+			switch parameters[a].getParameterType()
+				case PARAMETERTYPE_ENFORCED
+					str += parameters[a].getName()+" : "
+					str += parameters[a].getParameterType()+", "
+				case PARAMETERTYPE_NORMAL
+					str += parameters[a].getName()+", "
+				case PARAMETERTYPE_VARIADIC
+					str += "params "+parameters[a].getName()+", "
+				default break
+			end
+		end
+		if len(parameters) > 0
+			str += ""
+		end
+		str += ")"
+		
+		#if enforcedReturn == null
+			#str += " : "+enforcedReturn.getIdentifier()
+		#end
+		return str
+		
+	block visit(visitor)
+		visitor.accept(this)
+	
+	block visitChildren(visitor)
+		body.visit(visitor)
+		enforcedReturn.visit(visitor)
+		
+	block getType()
+		return "block_node"	
+	

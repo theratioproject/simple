@@ -1,0 +1,31 @@
+
+/* 
+	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\Node.sim" -> simple.parser
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\utilities\Dictionary.sim" -> simple.utilities
+
+package simple.parser.node
+
+class TryCatchNode : Node
+	
+	tryBody = null
+	catchBody = null
+	exceptionName = ""
+
+	block TryCatchNode(location, itryBody, icatchBody, iexception)
+		sourceLocation = location 
+		tryBody = itryBody
+		catchBody = icatchBody
+		exceptionName = iexception
+		
+	block visit(visitor)
+		visitor.accept(this)
+	
+	block visitChildren(visitor)
+		tryBody.visit(visitor)
+		catchBody.visit(visitor)

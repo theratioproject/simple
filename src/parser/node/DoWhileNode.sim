@@ -1,0 +1,33 @@
+
+/* 
+	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\Node.sim" -> simple.parser
+
+package simple.parser.node
+
+class DoWhileNode : Node
+
+	condition = null 
+	body = null
+
+	block DoWhileNode(location, icondition, ibody)
+		sourceLocation = location 
+		condition = icondition
+		body = ibody
+		
+	block visit(visitor)
+		visitor.accept(this)
+	
+	block visitChildren(visitor)
+		condition.visit(visitor)
+		body.visit(visitor)
+		
+	block getType()
+		return "do_while_node"
+		
+	
+	

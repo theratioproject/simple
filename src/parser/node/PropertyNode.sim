@@ -1,0 +1,30 @@
+
+/* 
+	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+call "C:\Users\thecarisma\Documents\SIMPLE GITHUB\simple\src\parser\Node.sim" -> simple.parser
+
+package simple.parser.node
+
+class PropertyNode : Node
+	
+	name = ""
+	getty = null
+	setty = null
+
+	block PropertyNode(location, iname, igetty, isetty)
+		sourceLocation = location 
+		name = iname
+		getty = igetty
+		setty = isetty
+		
+	block visit(visitor)
+		visitor.accept(this)
+	
+	block visitChildren(visitor)
+		getty.visit(visitor)
+		setty.visit(visitor)
+
