@@ -14,7 +14,7 @@
 
 #include "../includes/ring.h"
 
-extern int NOT_CASE_SENSITIVE = 0 ;
+int NOT_CASE_SENSITIVE = 0 ;
 
 SIMPLE_API void print_line ( void )
 {
