@@ -223,7 +223,7 @@ SIMPLE_API void ring_state_main ( int argc, char *argv[] )
 	}
 	/* Print Version */
 	if ( (argc == 1) || (cStr == NULL) ) {
-		//display_help();
+		display_help();
 		exit(0);
 	}
 	ring_execute(cStr,nCGI,nRun,nPrintIC,nPrintICFinal,nTokens,nRules,nIns,nGenObj,nWarn,argc,argv);
