@@ -125,7 +125,7 @@ SIMPLE_API char * ring_string_lower ( char *cStr )
 	unsigned int x  ;
 	for ( x = 0 ; x < strlen(cStr) ; x++ ) {
 		if ( isalpha(cStr[x]) ) {
-			cStr[x] = tolower( cStr[x] );
+			//cStr[x] = tolower( cStr[x] );
 		}
 	}
 	return cStr ;
