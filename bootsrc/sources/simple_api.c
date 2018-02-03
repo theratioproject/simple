@@ -15,18 +15,18 @@
 #include "../includes/simple.h"
 /* Support for C Functions */
 
-SIMPLE_API void simple_vm_funcregister2 ( RingState *pRingState,const char *cStr, void (*pFunc)(void *) )
+SIMPLE_API void simple_vm_funcregister2 ( SimpleState *pSimpleState,const char *cStr, void (*pFunc)(void *) )
 {
 	List *pList  ;
-	if ( pRingState->pRingCFunctions == NULL ) {
-		pRingState->pRingCFunctions = simple_list_new_gc(pRingState,0);
+	if ( pSimpleState->pSimpleCFunctions == NULL ) {
+		pSimpleState->pSimpleCFunctions = simple_list_new_gc(pSimpleState,0);
 	}
-	pList = simple_list_newlist_gc(pRingState,pRingState->pRingCFunctions);
-	simple_list_addstsimple_gc(pRingState,pList,cStr);
-	simple_list_addfuncpointer_gc(pRingState,pList,pFunc);
+	pList = simple_list_newlist_gc(pSimpleState,pSimpleState->pSimpleCFunctions);
+	simple_list_addstsimple_gc(pSimpleState,pList,cStr);
+	simple_list_addfuncpointer_gc(pSimpleState,pList,pFunc);
 }
 
-SIMPLE_API void simple_vm_loadcfunctions ( RingState *pRingState )
+SIMPLE_API void simple_vm_loadcfunctions ( SimpleState *pSimpleState )
 {
 	/* General */
 	simple_vm_funcregister("len",simple_vmlib_len);
@@ -96,7 +96,7 @@ SIMPLE_API void simple_vm_loadcfunctions ( RingState *pRingState )
 	simple_vm_funcregister("isupper",simple_vmlib_isupper);
 	simple_vm_funcregister("isxdigit",simple_vmlib_isxdigit);
 	/* Other Modules */
-	simple_vm_extension(pRingState);
+	simple_vm_extension(pSimpleState);
 	/* Garbage Collector & Variable Pointer */
 	simple_vm_funcregister("callgc",simple_vmlib_callgc);
 	simple_vm_funcregister("varptr",simple_vmlib_varptr);
@@ -106,7 +106,7 @@ SIMPLE_API void simple_vm_loadcfunctions ( RingState *pRingState )
 	simple_vm_funcregister("nullpointer",simple_vmlib_nullpointer);
 	simple_vm_funcregister("space",simple_vmlib_space);
 	simple_vm_funcregister("ptrcmp",simple_vmlib_ptrcmp);
-	/* Ring State */
+	/* Simple State */
 	simple_vm_funcregister("simple_state_init",simple_vmlib_state_init);
 	simple_vm_funcregister("simple_state_runcode",simple_vmlib_state_runcode);
 	simple_vm_funcregister("simple_state_delete",simple_vmlib_state_delete);
@@ -119,7 +119,7 @@ SIMPLE_API void simple_vm_loadcfunctions ( RingState *pRingState )
 	simple_vm_funcregister("simple_state_new",simple_vmlib_state_new);
 	simple_vm_funcregister("simple_state_mainfile",simple_vmlib_state_mainfile);
 	/*
-	**  Ring See and Give 
+	**  Simple See and Give 
 	**  We will use ringvm_display() and ringvm_read() to change the behavior of see and give 
 	**  Also we can use simple_see() and simple_give() to use the original behavior when we redefine it 
 	*/
@@ -163,12 +163,12 @@ SIMPLE_API List * simple_vm_api_getlist ( void *pPointer,int x )
 SIMPLE_API void simple_vm_api_retlist ( void *pPointer,List *pList )
 {
 	List *pList2,*pList3  ;
-	VM *pVM  ;
-	pVM = (VM *) pPointer ;
-	pList2 = simple_list_getlist(pVM->pMem,simple_list_getsize(pVM->pMem)-1);
-	pList3 = simple_vm_newvar2(pVM,SIMPLE_TEMP_VARIABLE,pList2);
-	simple_list_setint_gc(((VM *) pPointer)->pRingState,pList3,SIMPLE_VAR_TYPE,SIMPLE_VM_LIST);
-	simple_list_setlist_gc(((VM *) pPointer)->pRingState,pList3,SIMPLE_VAR_VALUE);
+	VM *vm  ;
+	vm = (VM *) pPointer ;
+	pList2 = simple_list_getlist(vm->pMem,simple_list_getsize(vm->pMem)-1);
+	pList3 = simple_vm_newvar2(vm,SIMPLE_TEMP_VARIABLE,pList2);
+	simple_list_setint_gc(((VM *) pPointer)->pSimpleState,pList3,SIMPLE_VAR_TYPE,SIMPLE_VM_LIST);
+	simple_list_setlist_gc(((VM *) pPointer)->pSimpleState,pList3,SIMPLE_VAR_VALUE);
 	pList2 = simple_list_getlist(pList3,SIMPLE_VAR_VALUE);
 	/* Copy the list */
 	simple_list_copy(pList2,pList);
@@ -176,10 +176,10 @@ SIMPLE_API void simple_vm_api_retlist ( void *pPointer,List *pList )
 	SIMPLE_API_OBJTYPE = SIMPLE_OBJTYPE_VARIABLE ;
 }
 
-SIMPLE_API List * simple_vm_api_newlist ( VM *pVM )
+SIMPLE_API List * simple_vm_api_newlist ( VM *vm )
 {
 	List *pList  ;
-	pList = simple_list_newlist_gc(pVM->pRingState,pVM->pActiveMem);
+	pList = simple_list_newlist_gc(vm->pSimpleState,vm->pActiveMem);
 	return pList ;
 }
 
@@ -189,11 +189,11 @@ SIMPLE_API void simple_vm_api_retcpointer ( void *pPointer,void *pGeneral,const 
 	/* Create the list */
 	pList = SIMPLE_API_NEWLIST ;
 	/* The variable value will be a list contains the pointer */
-	simple_list_addpointer_gc(((VM *) pPointer)->pRingState,pList,pGeneral);
+	simple_list_addpointer_gc(((VM *) pPointer)->pSimpleState,pList,pGeneral);
 	/* Add the pointer type */
-	simple_list_addstsimple_gc(((VM *) pPointer)->pRingState,pList,cType);
+	simple_list_addstsimple_gc(((VM *) pPointer)->pSimpleState,pList,cType);
 	/* Add the status number ( 0 = Not Copied ,1 = Copied  2 = Not Assigned yet) */
-	simple_list_addint_gc(((VM *) pPointer)->pRingState,pList,2);
+	simple_list_addint_gc(((VM *) pPointer)->pSimpleState,pList,2);
 	SIMPLE_API_RETLIST(pList);
 }
 
@@ -221,7 +221,7 @@ SIMPLE_API void * simple_vm_api_getcpointer ( void *pPointer,int x,const char *c
 							}
 						}
 					}
-					simple_list_setpointer_gc(((VM *) pPointer)->pRingState,pList,1,NULL);
+					simple_list_setpointer_gc(((VM *) pPointer)->pSimpleState,pList,1,NULL);
 					SIMPLE_API_ERROR(SIMPLE_API_NULLPOINTER);
 					return NULL ;
 				}
@@ -248,15 +248,15 @@ SIMPLE_API void simple_vm_api_setcpointernull ( void *pPointer,int x )
 	pList = (List *) SIMPLE_API_GETLIST(x) ;
 	/* Check pointer status ( 0 = copied , 1 = Not copied ) */
 	if ( simple_list_getint(pList,3) == 0 ) {
-		simple_list_setpointer_gc(((VM *) pPointer)->pRingState,pList,1,NULL);
+		simple_list_setpointer_gc(((VM *) pPointer)->pSimpleState,pList,1,NULL);
 		return ;
 	}
 	pList2 = ((VM *) pPointer)->aCPointers ;
 	if ( simple_list_getsize(pList2) > 0 ) {
 		for ( y = simple_list_getsize(pList2) ; y >= 1 ; y-- ) {
 			if ( simple_list_getpointer(pList,1) == simple_list_getpointer(pList2,y) ) {
-				simple_list_deleteitem_gc(((VM *) pPointer)->pRingState,pList2,y);
-				simple_list_setpointer_gc(((VM *) pPointer)->pRingState,pList,1,NULL);
+				simple_list_deleteitem_gc(((VM *) pPointer)->pSimpleState,pList2,y);
+				simple_list_setpointer_gc(((VM *) pPointer)->pSimpleState,pList,1,NULL);
 			}
 		}
 	}
@@ -264,7 +264,7 @@ SIMPLE_API void simple_vm_api_setcpointernull ( void *pPointer,int x )
 
 SIMPLE_API void * simple_vm_api_varptr ( void *pPointer,const char  *cStr,const char *cStr2 )
 {
-	VM *pVM  ;
+	VM *vm  ;
 	List *pList, *pActiveMem  ;
 	Item *pItem  ;
 	/*
@@ -272,18 +272,18 @@ SIMPLE_API void * simple_vm_api_varptr ( void *pPointer,const char  *cStr,const 
 	**  To get pointer to a ring variable value (pointer to double or int) i.e. int * or double * 
 	**  We need this because some C Functions get int * or double * as parameter 
 	*/
-	pVM = (VM *) pPointer ;
+	vm = (VM *) pPointer ;
 	/* Set the Active Scope */
-	pActiveMem = pVM->pActiveMem ;
-	pVM->pActiveMem = simple_list_getlist(pVM->pMem,simple_list_getsize(pVM->pMem)-1);
-	if ( simple_vm_findvar(pVM, cStr ) == 0 ) {
+	pActiveMem = vm->pActiveMem ;
+	vm->pActiveMem = simple_list_getlist(vm->pMem,simple_list_getsize(vm->pMem)-1);
+	if ( simple_vm_findvar(vm, cStr ) == 0 ) {
 		/* Restore the Active Scope */
-		pVM->pActiveMem = pActiveMem ;
+		vm->pActiveMem = pActiveMem ;
 		SIMPLE_API_ERROR(SIMPLE_VM_ERROR_NOTVARIABLE);
 		return NULL ;
 	}
 	/* Restore the Active Scope */
-	pVM->pActiveMem = pActiveMem ;
+	vm->pActiveMem = pActiveMem ;
 	pList = (List *) SIMPLE_VM_STACK_READP ;
 	SIMPLE_VM_STACK_POP ;
 	if ( simple_list_getint(pList,SIMPLE_VAR_TYPE) == SIMPLE_VM_NUMBER ) {
@@ -304,17 +304,17 @@ SIMPLE_API void * simple_vm_api_varptr ( void *pPointer,const char  *cStr,const 
 
 SIMPLE_API void simple_vm_api_intvalue ( void *pPointer,const char  *cStr )
 {
-	VM *pVM  ;
+	VM *vm  ;
 	List *pList  ;
 	Item *pItem  ;
 	/*
 	**  Usage 
 	**  Convert the variable value from int to double 
-	**  When we pass int * for Ring Variable Value to a C Function 
-	**  We need to convert again from int to double, because Ring uses double 
+	**  When we pass int * for Simple Variable Value to a C Function 
+	**  We need to convert again from int to double, because Simple uses double 
 	*/
-	pVM = (VM *) pPointer ;
-	if ( simple_vm_findvar(pVM, cStr ) == 0 ) {
+	vm = (VM *) pPointer ;
+	if ( simple_vm_findvar(vm, cStr ) == 0 ) {
 		SIMPLE_API_ERROR(SIMPLE_VM_ERROR_NOTVARIABLE);
 		return ;
 	}
@@ -379,9 +379,9 @@ SIMPLE_API int simple_vm_api_cpointercmp ( List *pList,List *pList2 )
 SIMPLE_API int simple_vm_api_ispointer ( void *pPointer,int x )
 {
 	List *pList, *pList2  ;
-	VM *pVM  ;
+	VM *vm  ;
 	Item *pItem  ;
-	pVM = (VM *) pPointer ;
+	vm = (VM *) pPointer ;
 	pList = simple_list_getlist(SIMPLE_API_PARALIST,x) ;
 	if ( simple_list_ispointer(pList,SIMPLE_VAR_VALUE) ) {
 		return 1 ;
@@ -390,19 +390,19 @@ SIMPLE_API int simple_vm_api_ispointer ( void *pPointer,int x )
 		/* Treat NULL Strings as NULL Pointers - so we can use NULL instead of NULLPOINTER() */
 		if ( strcmp(simple_list_getstring(pList,SIMPLE_VAR_VALUE),"") == 0 ) {
 			/* Create the list for the NULL Pointer */
-			simple_list_setint_gc(((VM *) pPointer)->pRingState,pList,SIMPLE_VAR_TYPE,SIMPLE_VM_POINTER);
+			simple_list_setint_gc(((VM *) pPointer)->pSimpleState,pList,SIMPLE_VAR_TYPE,SIMPLE_VM_POINTER);
 			pList2 = SIMPLE_API_NEWLIST ;
-			pItem = simple_list_getitem(pVM->pActiveMem,simple_list_getsize(pVM->pActiveMem));
+			pItem = simple_list_getitem(vm->pActiveMem,simple_list_getsize(vm->pActiveMem));
 			/* Increase the References count for the item */
 			simple_vm_gc_newitemreference(pItem);
-			simple_list_setpointer_gc(((VM *) pPointer)->pRingState,pList,SIMPLE_VAR_VALUE,pItem);
-			simple_list_setint_gc(((VM *) pPointer)->pRingState,pList,SIMPLE_VAR_PVALUETYPE,SIMPLE_OBJTYPE_LISTITEM);
+			simple_list_setpointer_gc(((VM *) pPointer)->pSimpleState,pList,SIMPLE_VAR_VALUE,pItem);
+			simple_list_setint_gc(((VM *) pPointer)->pSimpleState,pList,SIMPLE_VAR_PVALUETYPE,SIMPLE_OBJTYPE_LISTITEM);
 			/* The variable value will be a list contains the pointer */
-			simple_list_addpointer_gc(((VM *) pPointer)->pRingState,pList2,NULL);
+			simple_list_addpointer_gc(((VM *) pPointer)->pSimpleState,pList2,NULL);
 			/* Add the pointer type */
-			simple_list_addstsimple_gc(((VM *) pPointer)->pRingState,pList2,"NULLPOINTER");
+			simple_list_addstsimple_gc(((VM *) pPointer)->pSimpleState,pList2,"NULLPOINTER");
 			/* Add the status number ( 0 = Not Copied ,1 = Copied  2 = Not Assigned yet) */
-			simple_list_addint_gc(((VM *) pPointer)->pRingState,pList2,2);
+			simple_list_addint_gc(((VM *) pPointer)->pSimpleState,pList2,2);
 			return 1 ;
 		}
 	}
@@ -436,7 +436,7 @@ SIMPLE_API void * simple_vm_api_getcpointer2pointer ( void *pPointer,int x,const
 							}
 						}
 					}
-					simple_list_setpointer_gc(((VM *) pPointer)->pRingState,pList,1,NULL);
+					simple_list_setpointer_gc(((VM *) pPointer)->pSimpleState,pList,1,NULL);
 					SIMPLE_API_ERROR(SIMPLE_API_NULLPOINTER);
 					return NULL ;
 				}
@@ -475,8 +475,8 @@ SIMPLE_API void simple_list_addcpointer_gc ( void *pState,List *pList,void *pGen
 
 void simple_vmlib_len ( void *pPointer )
 {
-	VM *pVM  ;
-	pVM = (VM *) pPointer ;
+	VM *vm  ;
+	vm = (VM *) pPointer ;
 	if ( SIMPLE_API_PARACOUNT != 1 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
 		return ;
@@ -491,8 +491,8 @@ void simple_vmlib_len ( void *pPointer )
 		else {
 			SIMPLE_VM_STACK_PUSHPVALUE(SIMPLE_API_GETPOINTER(1));
 			SIMPLE_VM_STACK_OBJTYPE = SIMPLE_API_GETPOINTERTYPE(1) ;
-			simple_vm_expr_npoo(pVM,"len",0);
-			pVM->nIgnoreNULL = 1 ;
+			simple_vm_expr_npoo(vm,"len",0);
+			vm->nIgnoreNULL = 1 ;
 		}
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
@@ -502,8 +502,8 @@ void simple_vmlib_len ( void *pPointer )
 void simple_vmlib_add ( void *pPointer )
 {
 	List *pList,*pList2  ;
-	VM *pVM  ;
-	pVM = (VM *) pPointer ;
+	VM *vm  ;
+	vm = (VM *) pPointer ;
 	if ( SIMPLE_API_PARACOUNT != 2 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
 		return ;
@@ -511,16 +511,16 @@ void simple_vmlib_add ( void *pPointer )
 	if ( SIMPLE_API_ISLIST(1) ) {
 		pList = SIMPLE_API_GETLIST(1) ;
 		if ( SIMPLE_API_ISSTRING(2) ) {
-			simple_list_addstring2_gc(pVM->pRingState,pList,SIMPLE_API_GETSTRING(2),SIMPLE_API_GETSTRINGSIZE(2));
+			simple_list_addstring2_gc(vm->pSimpleState,pList,SIMPLE_API_GETSTRING(2),SIMPLE_API_GETSTRINGSIZE(2));
 			SIMPLE_API_RETSTRING2(SIMPLE_API_GETSTRING(2),SIMPLE_API_GETSTRINGSIZE(2));
 		}
 		else if ( SIMPLE_API_ISNUMBER(2) ) {
-			simple_list_adddouble_gc(pVM->pRingState,pList,SIMPLE_API_GETNUMBER(2));
+			simple_list_adddouble_gc(vm->pSimpleState,pList,SIMPLE_API_GETNUMBER(2));
 			SIMPLE_API_RETNUMBER(SIMPLE_API_GETNUMBER(2));
 		}
 		else if ( SIMPLE_API_ISLIST(2) ) {
 			pList2 = SIMPLE_API_GETLIST(2) ;
-			simple_vm_addlisttolist(pVM,pList2,pList);
+			simple_vm_addlisttolist(vm,pList2,pList);
 		}
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
@@ -543,7 +543,7 @@ void simple_vmlib_del ( void *pPointer )
 				SIMPLE_API_ERROR("Error in second parameter, item number outside the list size range!");
 				return ;
 			}
-			simple_list_deleteitem_gc(((VM *) pPointer)->pRingState,pList,nNum1);
+			simple_list_deleteitem_gc(((VM *) pPointer)->pSimpleState,pList,nNum1);
 		} else {
 			SIMPLE_API_ERROR("Error in second parameter, Function requires number!");
 			return ;
@@ -597,7 +597,7 @@ void simple_vmlib_input ( void *pPointer )
 		return ;
 	}
 	if ( nSize > 0 ) {
-		cLine = (char *) simple_state_malloc(((VM *) pPointer)->pRingState,nSize);
+		cLine = (char *) simple_state_malloc(((VM *) pPointer)->pSimpleState,nSize);
 		if ( cLine == NULL ) {
 			SIMPLE_API_ERROR(SIMPLE_OOM);
 			return ;
@@ -607,7 +607,7 @@ void simple_vmlib_input ( void *pPointer )
 		fread( cLine , sizeof(char) , nSize , stdin );
 		/* Return String */
 		SIMPLE_API_RETSTRING2(cLine,nSize);
-		simple_state_free(((VM *) pPointer)->pRingState,cLine);
+		simple_state_free(((VM *) pPointer)->pSimpleState,cLine);
 	} else {
 		SIMPLE_API_ERROR("Error in first parameter,  input size < 1 !");
 	}
@@ -677,29 +677,29 @@ void simple_vmlib_time ( void *pPointer )
 
 void simple_vmlib_filename ( void *pPointer )
 {
-	VM *pVM  ;
+	VM *vm  ;
 	int nPos  ;
 	List *pList  ;
-	pVM = (VM *) pPointer ;
-	if ( pVM->nInClassRegion ) {
-		SIMPLE_API_RETSTRING(pVM->cFileNameInClassRegion);
+	vm = (VM *) pPointer ;
+	if ( vm->nInClassRegion ) {
+		SIMPLE_API_RETSTRING(vm->cFileNameInClassRegion);
 		return ;
 	}
-	if ( (pVM->nFuncExecute2 > 0) && (simple_list_getsize(pVM->pFuncCallList)>0) ) {
+	if ( (vm->nFuncExecute2 > 0) && (simple_list_getsize(vm->pFuncCallList)>0) ) {
 		/*
 		**  Here we have Load Function Instruction - But Still the function is not called 
 		**  FunctionName (  ***Parameters**** We are here! ) 
 		*/
-		nPos = simple_list_getsize(pVM->pFuncCallList)  -  (pVM->nFuncExecute2 - 1) ;
-		if ( (nPos > 0) && (nPos <= simple_list_getsize(pVM->pFuncCallList)) ) {
-			pList = simple_list_getlist(pVM->pFuncCallList,nPos);
-			if ( simple_list_getsize(pList) >= SIMPLE_FUNCCL_FILENAME ) {
-				SIMPLE_API_RETSTRING((char *) simple_list_getpointer(pList,SIMPLE_FUNCCL_FILENAME ));
+		nPos = simple_list_getsize(vm->pFuncCallList)  -  (vm->nFuncExecute2 - 1) ;
+		if ( (nPos > 0) && (nPos <= simple_list_getsize(vm->pFuncCallList)) ) {
+			pList = simple_list_getlist(vm->pFuncCallList,nPos);
+			if ( simple_list_getsize(pList) >= SIMPLE_BLOCKCL_FILENAME ) {
+				SIMPLE_API_RETSTRING((char *) simple_list_getpointer(pList,SIMPLE_BLOCKCL_FILENAME ));
 			}
 		}
 		return ;
 	}
-	SIMPLE_API_RETSTRING(pVM->cFileName);
+	SIMPLE_API_RETSTRING(vm->cFileName);
 }
 
 void simple_vmlib_getchar ( void *pPointer )
@@ -760,67 +760,67 @@ void simple_vmlib_timelist ( void *pPointer )
 	**  abbreviated weekday name 
 	*/
 	strftime(buffer,25,"%a", tm_info);
-	simple_list_addstsimple_gc(((VM *) pPointer)->pRingState,pList,buffer);
+	simple_list_addstsimple_gc(((VM *) pPointer)->pSimpleState,pList,buffer);
 	/* full weekday name */
 	strftime(buffer,25,"%A", tm_info);
-	simple_list_addstsimple_gc(((VM *) pPointer)->pRingState,pList,buffer);
+	simple_list_addstsimple_gc(((VM *) pPointer)->pSimpleState,pList,buffer);
 	/* abbreviated month name */
 	strftime(buffer,25,"%b", tm_info);
-	simple_list_addstsimple_gc(((VM *) pPointer)->pRingState,pList,buffer);
+	simple_list_addstsimple_gc(((VM *) pPointer)->pSimpleState,pList,buffer);
 	/* full month name */
 	strftime(buffer,25,"%B", tm_info);
-	simple_list_addstsimple_gc(((VM *) pPointer)->pRingState,pList,buffer);
+	simple_list_addstsimple_gc(((VM *) pPointer)->pSimpleState,pList,buffer);
 	/* Date & Time */
 	strftime(buffer,25,"%c", tm_info);
-	simple_list_addstsimple_gc(((VM *) pPointer)->pRingState,pList,buffer);
+	simple_list_addstsimple_gc(((VM *) pPointer)->pSimpleState,pList,buffer);
 	/* Day of the month */
 	strftime(buffer,25,"%d", tm_info);
-	simple_list_addstsimple_gc(((VM *) pPointer)->pRingState,pList,buffer);
+	simple_list_addstsimple_gc(((VM *) pPointer)->pSimpleState,pList,buffer);
 	/* Hour (24) */
 	strftime(buffer,25,"%H", tm_info);
-	simple_list_addstsimple_gc(((VM *) pPointer)->pRingState,pList,buffer);
+	simple_list_addstsimple_gc(((VM *) pPointer)->pSimpleState,pList,buffer);
 	/* Hour (12) */
 	strftime(buffer,25,"%I", tm_info);
-	simple_list_addstsimple_gc(((VM *) pPointer)->pRingState,pList,buffer);
+	simple_list_addstsimple_gc(((VM *) pPointer)->pSimpleState,pList,buffer);
 	/* Day of the year */
 	strftime(buffer,25,"%j", tm_info);
-	simple_list_addstsimple_gc(((VM *) pPointer)->pRingState,pList,buffer);
+	simple_list_addstsimple_gc(((VM *) pPointer)->pSimpleState,pList,buffer);
 	/* Month of the year */
 	strftime(buffer,25,"%m", tm_info);
-	simple_list_addstsimple_gc(((VM *) pPointer)->pRingState,pList,buffer);
+	simple_list_addstsimple_gc(((VM *) pPointer)->pSimpleState,pList,buffer);
 	/* Minutes after hour */
 	strftime(buffer,25,"%M", tm_info);
-	simple_list_addstsimple_gc(((VM *) pPointer)->pRingState,pList,buffer);
+	simple_list_addstsimple_gc(((VM *) pPointer)->pSimpleState,pList,buffer);
 	/* AM or PM */
 	strftime(buffer,25,"%p", tm_info);
-	simple_list_addstsimple_gc(((VM *) pPointer)->pRingState,pList,buffer);
+	simple_list_addstsimple_gc(((VM *) pPointer)->pSimpleState,pList,buffer);
 	/* Seconds after the hour */
 	strftime(buffer,25,"%S", tm_info);
-	simple_list_addstsimple_gc(((VM *) pPointer)->pRingState,pList,buffer);
+	simple_list_addstsimple_gc(((VM *) pPointer)->pSimpleState,pList,buffer);
 	/* Week of the year (sun-sat) */
 	strftime(buffer,25,"%U", tm_info);
-	simple_list_addstsimple_gc(((VM *) pPointer)->pRingState,pList,buffer);
+	simple_list_addstsimple_gc(((VM *) pPointer)->pSimpleState,pList,buffer);
 	/* day of the week */
 	strftime(buffer,25,"%w", tm_info);
-	simple_list_addstsimple_gc(((VM *) pPointer)->pRingState,pList,buffer);
+	simple_list_addstsimple_gc(((VM *) pPointer)->pSimpleState,pList,buffer);
 	/* date */
 	strftime(buffer,25,"%x", tm_info);
-	simple_list_addstsimple_gc(((VM *) pPointer)->pRingState,pList,buffer);
+	simple_list_addstsimple_gc(((VM *) pPointer)->pSimpleState,pList,buffer);
 	/* time */
 	strftime(buffer,25,"%X", tm_info);
-	simple_list_addstsimple_gc(((VM *) pPointer)->pRingState,pList,buffer);
+	simple_list_addstsimple_gc(((VM *) pPointer)->pSimpleState,pList,buffer);
 	/* year of the century */
 	strftime(buffer,25,"%y", tm_info);
-	simple_list_addstsimple_gc(((VM *) pPointer)->pRingState,pList,buffer);
+	simple_list_addstsimple_gc(((VM *) pPointer)->pSimpleState,pList,buffer);
 	/* year */
 	strftime(buffer,25,"%Y", tm_info);
-	simple_list_addstsimple_gc(((VM *) pPointer)->pRingState,pList,buffer);
+	simple_list_addstsimple_gc(((VM *) pPointer)->pSimpleState,pList,buffer);
 	/* time zone */
 	strftime(buffer,25,"%Z", tm_info);
-	simple_list_addstsimple_gc(((VM *) pPointer)->pRingState,pList,buffer);
+	simple_list_addstsimple_gc(((VM *) pPointer)->pSimpleState,pList,buffer);
 	/* percent sign */
 	strftime(buffer,25,"%%", tm_info);
-	simple_list_addstsimple_gc(((VM *) pPointer)->pRingState,pList,buffer);
+	simple_list_addstsimple_gc(((VM *) pPointer)->pSimpleState,pList,buffer);
 	SIMPLE_API_RETLIST(pList);
 }
 
@@ -1214,7 +1214,7 @@ void simple_vmlib_str2hex ( void *pPointer )
 	if ( SIMPLE_API_ISSTRING(1) ) {
 		cString = (unsigned char *) SIMPLE_API_GETSTRING(1) ;
 		nMax = SIMPLE_API_GETSTRINGSIZE(1) ;
-		cString2 = (char *) simple_state_malloc(((VM *) pPointer)->pRingState,nMax*2);
+		cString2 = (char *) simple_state_malloc(((VM *) pPointer)->pSimpleState,nMax*2);
 		if ( cString2 == NULL ) {
 			SIMPLE_API_ERROR(SIMPLE_OOM);
 			return ;
@@ -1229,7 +1229,7 @@ void simple_vmlib_str2hex ( void *pPointer )
 			}
 		}
 		SIMPLE_API_RETSTRING2(cString2,nMax*2);
-		simple_state_free(((VM *) pPointer)->pRingState,cString2);
+		simple_state_free(((VM *) pPointer)->pSimpleState,cString2);
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
@@ -1249,7 +1249,7 @@ void simple_vmlib_hex2str ( void *pPointer )
 	if ( SIMPLE_API_ISSTRING(1) ) {
 		cString = SIMPLE_API_GETSTRING(1) ;
 		nMax = SIMPLE_API_GETSTRINGSIZE(1) ;
-		cString2 = (char *) simple_state_malloc(((VM *) pPointer)->pRingState,(nMax/2)+1);
+		cString2 = (char *) simple_state_malloc(((VM *) pPointer)->pSimpleState,(nMax/2)+1);
 		if ( cString2 == NULL ) {
 			SIMPLE_API_ERROR(SIMPLE_OOM);
 			return ;
@@ -1268,7 +1268,7 @@ void simple_vmlib_hex2str ( void *pPointer )
 			i++ ;
 		}
 		SIMPLE_API_RETSTRING2(cString2,nMax/2);
-		simple_state_free(((VM *) pPointer)->pRingState,cString2);
+		simple_state_free(((VM *) pPointer)->pSimpleState,cString2);
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
@@ -1292,19 +1292,19 @@ void simple_vmlib_str2list ( void *pPointer )
 			if ( cStr[x] == '\n' ) {
 				if ( x > nStart ) {
 					if ( cStr[x-1] == '\r' ) {
-						simple_list_addstring2_gc(((VM *) pPointer)->pRingState,pList,cStr+nStart,x-nStart-1);
+						simple_list_addstring2_gc(((VM *) pPointer)->pSimpleState,pList,cStr+nStart,x-nStart-1);
 					}
 					else {
-						simple_list_addstring2_gc(((VM *) pPointer)->pRingState,pList,cStr+nStart,x-nStart);
+						simple_list_addstring2_gc(((VM *) pPointer)->pSimpleState,pList,cStr+nStart,x-nStart);
 					}
 				} else {
-					simple_list_addstsimple_gc(((VM *) pPointer)->pRingState,pList,"");
+					simple_list_addstsimple_gc(((VM *) pPointer)->pSimpleState,pList,"");
 				}
 				nStart = x+1 ;
 			}
 		}
 		if ( nSize > nStart ) {
-			simple_list_addstring2_gc(((VM *) pPointer)->pRingState,pList,cStr+nStart,nSize-nStart);
+			simple_list_addstring2_gc(((VM *) pPointer)->pSimpleState,pList,cStr+nStart,nSize-nStart);
 		}
 		SIMPLE_API_RETLIST(pList);
 	} else {
@@ -1324,24 +1324,24 @@ void simple_vmlib_list2str ( void *pPointer )
 	}
 	if ( SIMPLE_API_ISLIST(1) ) {
 		pList = SIMPLE_API_GETLIST(1) ;
-		pString = simple_stsimple_new_gc(((VM *) pPointer)->pRingState,"");
+		pString = simple_stsimple_new_gc(((VM *) pPointer)->pSimpleState,"");
 		for ( x = 1 ; x <= simple_list_getsize(pList) ; x++ ) {
 			if ( simple_list_isstring(pList,x) ) {
 				if ( x != 1 ) {
-					simple_stsimple_add_gc(((VM *) pPointer)->pRingState,pString,"\n");
+					simple_stsimple_add_gc(((VM *) pPointer)->pSimpleState,pString,"\n");
 				}
-				simple_stsimple_add_gc(((VM *) pPointer)->pRingState,pString,simple_list_getstring(pList,x));
+				simple_stsimple_add_gc(((VM *) pPointer)->pSimpleState,pString,simple_list_getstring(pList,x));
 			}
 			else if ( simple_list_isnumber(pList,x) ) {
 				if ( x != 1 ) {
-					simple_stsimple_add_gc(((VM *) pPointer)->pRingState,pString,"\n");
+					simple_stsimple_add_gc(((VM *) pPointer)->pSimpleState,pString,"\n");
 				}
 				simple_vm_numtostring((VM *) pPointer,simple_list_getdouble(pList,x) ,cStr);
-				simple_stsimple_add_gc(((VM *) pPointer)->pRingState,pString,cStr);
+				simple_stsimple_add_gc(((VM *) pPointer)->pSimpleState,pString,cStr);
 			}
 		}
 		SIMPLE_API_RETSTRING(simple_stsimple_get(pString));
-		simple_stsimple_delete_gc(((VM *) pPointer)->pRingState,pString);
+		simple_stsimple_delete_gc(((VM *) pPointer)->pSimpleState,pString);
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
@@ -1360,7 +1360,7 @@ void simple_vmlib_str2hexcstyle ( void *pPointer )
 	if ( SIMPLE_API_ISSTRING(1) ) {
 		cString = (unsigned char *) SIMPLE_API_GETSTRING(1) ;
 		nMax = SIMPLE_API_GETSTRINGSIZE(1) ;
-		cString2 = (char *) simple_state_malloc(((VM *) pPointer)->pRingState,nMax*5);
+		cString2 = (char *) simple_state_malloc(((VM *) pPointer)->pSimpleState,nMax*5);
 		if ( cString2 == NULL ) {
 			SIMPLE_API_ERROR(SIMPLE_OOM);
 			return ;
@@ -1383,7 +1383,7 @@ void simple_vmlib_str2hexcstyle ( void *pPointer )
 		SIMPLE_API_RETSTRING2(cString2,nMax*5-1);
 		/* When we call free() we use the original pointer */
 		cString2-- ;
-		simple_state_free(((VM *) pPointer)->pRingState,cString2);
+		simple_state_free(((VM *) pPointer)->pSimpleState,cString2);
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
@@ -1405,7 +1405,7 @@ void simple_vmlib_left ( void *pPointer )
 			cStr = SIMPLE_API_GETSTRING(1) ;
 			nNum1 = SIMPLE_API_GETNUMBER(2) ;
 			if ( (nNum1 > 0 ) && (nNum1 <= SIMPLE_API_GETSTRINGSIZE(1) ) ) {
-				pString = (char *) simple_state_malloc(((VM *) pPointer)->pRingState,nNum1+1);
+				pString = (char *) simple_state_malloc(((VM *) pPointer)->pSimpleState,nNum1+1);
 				if ( pString == NULL ) {
 					SIMPLE_API_ERROR(SIMPLE_OOM);
 					return ;
@@ -1415,7 +1415,7 @@ void simple_vmlib_left ( void *pPointer )
 				}
 				pString[(int) nNum1] = '\0' ;
 				SIMPLE_API_RETSTRING2(pString,nNum1);
-				simple_state_free(((VM *) pPointer)->pRingState,pString);
+				simple_state_free(((VM *) pPointer)->pSimpleState,pString);
 			}
 		} else {
 			SIMPLE_API_ERROR("Error in second parameter, Function requires number !");
@@ -1442,7 +1442,7 @@ void simple_vmlib_right ( void *pPointer )
 			nNum1 = SIMPLE_API_GETNUMBER(2) ;
 			nSize = SIMPLE_API_GETSTRINGSIZE(1) ;
 			if ( (nNum1 > 0 ) && (nNum1 <= nSize ) ) {
-				pString = (char *) simple_state_malloc(((VM *) pPointer)->pRingState,nNum1+1);
+				pString = (char *) simple_state_malloc(((VM *) pPointer)->pSimpleState,nNum1+1);
 				if ( pString == NULL ) {
 					SIMPLE_API_ERROR(SIMPLE_OOM);
 					return ;
@@ -1452,7 +1452,7 @@ void simple_vmlib_right ( void *pPointer )
 					pString[((int)nNum1)-x] = cStr[nSize-x] ;
 				}
 				SIMPLE_API_RETSTRING2(pString,nNum1);
-				simple_state_free(((VM *) pPointer)->pRingState,pString);
+				simple_state_free(((VM *) pPointer)->pSimpleState,pString);
 			}
 		} else {
 			SIMPLE_API_ERROR("Error in second parameter, Function requires number !");
@@ -1499,12 +1499,12 @@ void simple_vmlib_trim ( void *pPointer )
 			return ;
 		}
 		/* Create New String */
-		cNewStr = (char *) simple_state_malloc(((VM *) pPointer)->pRingState,nPos2-nPos1+1);
+		cNewStr = (char *) simple_state_malloc(((VM *) pPointer)->pSimpleState,nPos2-nPos1+1);
 		for ( x = nPos1 ; x <= nPos2 ; x++ ) {
 			cNewStr[x-nPos1] = cStr[x] ;
 		}
 		SIMPLE_API_RETSTRING2(cNewStr,nPos2-nPos1+1);
-		simple_state_free(((VM *) pPointer)->pRingState,cNewStr);
+		simple_state_free(((VM *) pPointer)->pSimpleState,cNewStr);
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
@@ -1522,13 +1522,13 @@ void simple_vmlib_copy ( void *pPointer )
 	if ( SIMPLE_API_ISSTRING(1) ) {
 		if ( SIMPLE_API_ISNUMBER(2) ) {
 			cStr = SIMPLE_API_GETSTRING(1) ;
-			pString = simple_stsimple_new_gc(((VM *) pPointer)->pRingState,"");
+			pString = simple_stsimple_new_gc(((VM *) pPointer)->pSimpleState,"");
 			nSize = SIMPLE_API_GETNUMBER(2) ;
 			for ( x = 1 ; x <= nSize ; x++ ) {
-				simple_stsimple_add2_gc(((VM *) pPointer)->pRingState,pString,cStr,SIMPLE_API_GETSTRINGSIZE(1));
+				simple_stsimple_add2_gc(((VM *) pPointer)->pSimpleState,pString,cStr,SIMPLE_API_GETSTRINGSIZE(1));
 			}
 			SIMPLE_API_RETSTRING2(simple_stsimple_get(pString),simple_stsimple_size(pString));
-			simple_stsimple_delete_gc(((VM *) pPointer)->pRingState,pString);
+			simple_stsimple_delete_gc(((VM *) pPointer)->pSimpleState,pString);
 		} else {
 			SIMPLE_API_ERROR("Error in second parameter, Function requires number !");
 			return ;
@@ -1591,7 +1591,7 @@ void simple_vmlib_substr ( void *pPointer )
 			nNum1 = SIMPLE_API_GETNUMBER(2) ;
 			nNum2 = SIMPLE_API_GETNUMBER(3) ;
 			if ( (nNum1 > 0) && ( (nNum1+nNum2-1) <= nSize ) ) {
-				cString = (char *) simple_state_malloc(((VM *) pPointer)->pRingState,nNum2);
+				cString = (char *) simple_state_malloc(((VM *) pPointer)->pSimpleState,nNum2);
 				if ( cString == NULL ) {
 					SIMPLE_API_ERROR(SIMPLE_OOM);
 					return ;
@@ -1600,7 +1600,7 @@ void simple_vmlib_substr ( void *pPointer )
 					cString[x] = cStr[((int) nNum1) + x - 1 ] ;
 				}
 				SIMPLE_API_RETSTRING2(cString,nNum2);
-				simple_state_free(((VM *) pPointer)->pRingState,cString);
+				simple_state_free(((VM *) pPointer)->pSimpleState,cString);
 			}
 		}
 		else if ( SIMPLE_API_ISSTRING(2) && SIMPLE_API_ISSTRING(3) ) {
@@ -1638,12 +1638,12 @@ void simple_vmlib_substr ( void *pPointer )
 		}
 		cStr3 = SIMPLE_API_GETSTRING(3) ;
 		nMark = 0 ;
-		pString = simple_stsimple_new_gc(((VM *) pPointer)->pRingState,"");
+		pString = simple_stsimple_new_gc(((VM *) pPointer)->pSimpleState,"");
 		while ( cString != NULL ) {
 			nPos = ((long int) cString) - ((long int) cStr) + 1 ;
 			/* Add SubString to pString */
-			simple_stsimple_add2_gc(((VM *) pPointer)->pRingState,pString,cStr+nMark,nPos-1-nMark);
-			simple_stsimple_add2_gc(((VM *) pPointer)->pRingState,pString,cStr3,SIMPLE_API_GETSTRINGSIZE(3));
+			simple_stsimple_add2_gc(((VM *) pPointer)->pSimpleState,pString,cStr+nMark,nPos-1-nMark);
+			simple_stsimple_add2_gc(((VM *) pPointer)->pSimpleState,pString,cStr3,SIMPLE_API_GETSTRINGSIZE(3));
 			nMark = nPos + nSize2 -1 ;
 			/* Search */
 			if ( nTransform == 1 ) {
@@ -1653,11 +1653,11 @@ void simple_vmlib_substr ( void *pPointer )
 			}
 			if ( cString == NULL ) {
 				/* Add SubString to pString */
-				simple_stsimple_add2_gc(((VM *) pPointer)->pRingState,pString,cStr+nMark,nSize-nMark);
+				simple_stsimple_add2_gc(((VM *) pPointer)->pSimpleState,pString,cStr+nMark,nSize-nMark);
 			}
 		}
 		SIMPLE_API_RETSTRING2(simple_stsimple_get(pString),simple_stsimple_size(pString));
-		simple_stsimple_delete_gc(((VM *) pPointer)->pRingState,pString);
+		simple_stsimple_delete_gc(((VM *) pPointer)->pSimpleState,pString);
 	}
 }
 
@@ -1727,21 +1727,21 @@ void simple_vmlib_strcmp ( void *pPointer )
 void simple_vmlib_eval ( void *pPointer )
 {
 	const char *cStr  ;
-	VM *pVM  ;
+	VM *vm  ;
 	if ( SIMPLE_API_PARACOUNT != 1 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
 		return ;
 	}
 	if ( SIMPLE_API_ISSTRING(1) ) {
 		cStr = SIMPLE_API_GETSTRING(1);
-		pVM = (VM *) pPointer ;
-		pVM->nEvalCalledFromRingCode = 1 ;
-		if ( simple_vm_eval(pVM,cStr) == 0 ) {
-			pVM->nEvalCalledFromRingCode = 0 ;
+		vm = (VM *) pPointer ;
+		vm->nEvalCalledFromSimpleCode = 1 ;
+		if ( simple_vm_eval(vm,cStr) == 0 ) {
+			vm->nEvalCalledFromSimpleCode = 0 ;
 		}
 		/*
-		**  The CALL instruction will check nEvalCalledFromRingCode to execute the main loop again 
-		**  Before executing the main loop again, The CALL instruction will set nEvalCalledFromRingCode to 0 
+		**  The CALL instruction will check nEvalCalledFromSimpleCode to execute the main loop again 
+		**  Before executing the main loop again, The CALL instruction will set nEvalCalledFromSimpleCode to 0 
 		*/
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
@@ -1933,9 +1933,9 @@ void simple_vmlib_space ( void *pPointer )
 		return ;
 	}
 	if ( SIMPLE_API_ISNUMBER(1) ) {
-		pString = simple_stsimple_new2_gc(((VM *) pPointer)->pRingState,"",SIMPLE_API_GETNUMBER(1));
+		pString = simple_stsimple_new2_gc(((VM *) pPointer)->pSimpleState,"",SIMPLE_API_GETNUMBER(1));
 		SIMPLE_API_RETSTRING2(simple_stsimple_get(pString),SIMPLE_API_GETNUMBER(1));
-		simple_stsimple_delete_gc(((VM *) pPointer)->pRingState,pString);
+		simple_stsimple_delete_gc(((VM *) pPointer)->pSimpleState,pString);
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
@@ -1956,11 +1956,11 @@ void simple_vmlib_ptrcmp ( void *pPointer )
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
 }
-/* Ring State */
+/* Simple State */
 
 void simple_vmlib_state_init ( void *pPointer )
 {
-	SIMPLE_API_RETCPOINTER(simple_state_init(),"RINGSTATE");
+	SIMPLE_API_RETCPOINTER(simple_state_init(),"SIMPLESTATE");
 }
 
 void simple_vmlib_state_runcode ( void *pPointer )
@@ -1969,7 +1969,7 @@ void simple_vmlib_state_runcode ( void *pPointer )
 		SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
 		return ;
 	}
-	simple_state_runcode((RingState *) SIMPLE_API_GETCPOINTER(1,"RINGSTATE"),SIMPLE_API_GETSTRING(2));
+	simple_state_runcode((SimpleState *) SIMPLE_API_GETCPOINTER(1,"SIMPLESTATE"),SIMPLE_API_GETSTRING(2));
 }
 
 void simple_vmlib_state_delete ( void *pPointer )
@@ -1978,7 +1978,7 @@ void simple_vmlib_state_delete ( void *pPointer )
 		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
 		return ;
 	}
-	simple_state_delete((RingState *) SIMPLE_API_GETCPOINTER(1,"RINGSTATE"));
+	simple_state_delete((SimpleState *) SIMPLE_API_GETCPOINTER(1,"SIMPLESTATE"));
 }
 
 void simple_vmlib_state_runfile ( void *pPointer )
@@ -1987,7 +1987,7 @@ void simple_vmlib_state_runfile ( void *pPointer )
 		SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
 		return ;
 	}
-	simple_state_runfile((RingState *) SIMPLE_API_GETCPOINTER(1,"RINGSTATE"),SIMPLE_API_GETSTRING(2));
+	simple_state_runfile((SimpleState *) SIMPLE_API_GETCPOINTER(1,"SIMPLESTATE"),SIMPLE_API_GETSTRING(2));
 }
 
 void simple_vmlib_state_findvar ( void *pPointer )
@@ -1997,7 +1997,7 @@ void simple_vmlib_state_findvar ( void *pPointer )
 		SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
 		return ;
 	}
-	pList = simple_state_findvar((RingState *) SIMPLE_API_GETCPOINTER(1,"RINGSTATE"),SIMPLE_API_GETSTRING(2));
+	pList = simple_state_findvar((SimpleState *) SIMPLE_API_GETCPOINTER(1,"SIMPLESTATE"),SIMPLE_API_GETSTRING(2));
 	SIMPLE_API_RETLIST(pList);
 }
 
@@ -2008,7 +2008,7 @@ void simple_vmlib_state_newvar ( void *pPointer )
 		SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
 		return ;
 	}
-	pList = simple_state_newvar((RingState *) SIMPLE_API_GETCPOINTER(1,"RINGSTATE"),SIMPLE_API_GETSTRING(2));
+	pList = simple_state_newvar((SimpleState *) SIMPLE_API_GETCPOINTER(1,"SIMPLESTATE"),SIMPLE_API_GETSTRING(2));
 	SIMPLE_API_RETLIST(pList);
 }
 
@@ -2018,7 +2018,7 @@ void simple_vmlib_state_runobjectfile ( void *pPointer )
 		SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
 		return ;
 	}
-	simple_state_runobjectfile((RingState *) SIMPLE_API_GETCPOINTER(1,"RINGSTATE"),SIMPLE_API_GETSTRING(2));
+	simple_state_runobjectfile((SimpleState *) SIMPLE_API_GETCPOINTER(1,"SIMPLESTATE"),SIMPLE_API_GETSTRING(2));
 }
 
 void simple_vmlib_state_main ( void *pPointer )
@@ -2026,44 +2026,44 @@ void simple_vmlib_state_main ( void *pPointer )
 	char *cStr  ;
 	int argc  ;
 	char *argv[2]  ;
-	argv[0] = (char *) simple_state_malloc(((VM *) pPointer)->pRingState,100);
-	argv[1] = (char *) simple_state_malloc(((VM *) pPointer)->pRingState,100);
+	argv[0] = (char *) simple_state_malloc(((VM *) pPointer)->pSimpleState,100);
+	argv[1] = (char *) simple_state_malloc(((VM *) pPointer)->pSimpleState,100);
 	cStr = SIMPLE_API_GETSTRING(1);
 	argc = 2 ;
 	strcpy(argv[0],"ring");
 	strcpy(argv[1],cStr);
 	simple_execute(cStr,0,1,0,0,0,0,0,0,0,argc,argv);
-	simple_state_free(((VM *) pPointer)->pRingState,argv[0]);
-	simple_state_free(((VM *) pPointer)->pRingState,argv[1]);
+	simple_state_free(((VM *) pPointer)->pSimpleState,argv[0]);
+	simple_state_free(((VM *) pPointer)->pSimpleState,argv[1]);
 }
 
 void simple_vmlib_state_setvar ( void *pPointer )
 {
 	List *pList, *pList2, *pList3  ;
-	VM *pVM  ;
-	pVM = (VM *) pPointer ;
+	VM *vm  ;
+	vm = (VM *) pPointer ;
 	if ( SIMPLE_API_PARACOUNT != 3 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS3PARA);
 		return ;
 	}
-	pList = simple_state_findvar((RingState *) SIMPLE_API_GETCPOINTER(1,"RINGSTATE"),SIMPLE_API_GETSTRING(2));
+	pList = simple_state_findvar((SimpleState *) SIMPLE_API_GETCPOINTER(1,"SIMPLESTATE"),SIMPLE_API_GETSTRING(2));
 	/* Check Variable before usage */
 	if ( pList==NULL ) {
 		SIMPLE_API_ERROR("Variable doesn't exist!");
 		return ;
 	}
 	if ( SIMPLE_API_ISSTRING(3) ) {
-		simple_list_setint_gc(pVM->pRingState,pList, SIMPLE_VAR_TYPE ,SIMPLE_VM_STRING);
-		simple_list_setstring2_gc(pVM->pRingState,pList, SIMPLE_VAR_VALUE , SIMPLE_API_GETSTRING(3),SIMPLE_API_GETSTRINGSIZE(3));
+		simple_list_setint_gc(vm->pSimpleState,pList, SIMPLE_VAR_TYPE ,SIMPLE_VM_STRING);
+		simple_list_setstring2_gc(vm->pSimpleState,pList, SIMPLE_VAR_VALUE , SIMPLE_API_GETSTRING(3),SIMPLE_API_GETSTRINGSIZE(3));
 	}
 	else if ( SIMPLE_API_ISNUMBER(3) ) {
-		simple_list_setint_gc(pVM->pRingState,pList, SIMPLE_VAR_TYPE ,SIMPLE_VM_NUMBER);
-		simple_list_setdouble_gc(pVM->pRingState,pList, SIMPLE_VAR_VALUE ,SIMPLE_API_GETNUMBER(3));
+		simple_list_setint_gc(vm->pSimpleState,pList, SIMPLE_VAR_TYPE ,SIMPLE_VM_NUMBER);
+		simple_list_setdouble_gc(vm->pSimpleState,pList, SIMPLE_VAR_VALUE ,SIMPLE_API_GETNUMBER(3));
 	}
 	else if ( SIMPLE_API_ISLIST(3) ) {
 		pList2 = SIMPLE_API_GETLIST(3) ;
-		simple_list_setint_gc(pVM->pRingState,pList, SIMPLE_VAR_TYPE ,SIMPLE_VM_LIST);
-		simple_list_setlist_gc(pVM->pRingState,pList, SIMPLE_VAR_VALUE);
+		simple_list_setint_gc(vm->pSimpleState,pList, SIMPLE_VAR_TYPE ,SIMPLE_VM_LIST);
+		simple_list_setlist_gc(vm->pSimpleState,pList, SIMPLE_VAR_VALUE);
 		pList3 = simple_list_getlist(pList,SIMPLE_VAR_VALUE);
 		simple_list_copy(pList3,pList2);
 	}
@@ -2071,28 +2071,28 @@ void simple_vmlib_state_setvar ( void *pPointer )
 
 void simple_vmlib_state_new ( void *pPointer )
 {
-	SIMPLE_API_RETCPOINTER(simple_state_new(),"RINGSTATE");
+	SIMPLE_API_RETCPOINTER(simple_state_new(),"SIMPLESTATE");
 }
 
 void simple_vmlib_state_mainfile ( void *pPointer )
 {
-	RingState *pRingState  ;
+	SimpleState *pSimpleState  ;
 	char *cStr  ;
 	int argc  ;
 	char *argv[2]  ;
-	argv[0] = (char *) simple_state_malloc(((VM *) pPointer)->pRingState,100);
-	argv[1] = (char *) simple_state_malloc(((VM *) pPointer)->pRingState,100);
+	argv[0] = (char *) simple_state_malloc(((VM *) pPointer)->pSimpleState,100);
+	argv[1] = (char *) simple_state_malloc(((VM *) pPointer)->pSimpleState,100);
 	if ( SIMPLE_API_PARACOUNT != 2 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
 		return ;
 	}
-	pRingState = (RingState *) SIMPLE_API_GETCPOINTER(1,"RINGSTATE") ;
+	pSimpleState = (SimpleState *) SIMPLE_API_GETCPOINTER(1,"SIMPLESTATE") ;
 	cStr = SIMPLE_API_GETSTRING(2);
 	argc = 2 ;
 	strcpy(argv[0],"ring");
 	strcpy(argv[1],cStr);
-	pRingState->argc = argc ;
-	pRingState->argv = argv ;
+	pSimpleState->argc = argc ;
+	pSimpleState->argv = argv ;
 	/*
 	**  Don't Delete the VM after execution 
 	**  We may run GUI app from GUI app 
@@ -2101,6 +2101,6 @@ void simple_vmlib_state_mainfile ( void *pPointer )
 	**  Will lead to crash when we execute events (like button click) in the sub program 
 	**  So we keep the VM to avoid the Crash 
 	*/
-	pRingState->nDontDeleteTheVM = 1 ;
-	simple_scanner_readfile(pRingState,cStr);
+	pSimpleState->nDontDeleteTheVM = 1 ;
+	simple_scanner_readfile(pSimpleState,cStr);
 }

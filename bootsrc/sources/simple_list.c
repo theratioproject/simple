@@ -505,7 +505,7 @@ SIMPLE_API void simple_list_setfuncpointer_gc ( void *pState,List *pList, int in
 	Item *pItem  ;
 	assert(pList != NULL);
 	pItem = simple_list_getitem(pList,index);
-	simple_item_settype_gc(pState,pItem,ITEMTYPE_FUNCPOINTER);
+	simple_item_settype_gc(pState,pItem,ITEMTYPE_BLOCKPOINTER);
 	pItem->data.pFunc = pFunc ;
 }
 
@@ -518,7 +518,7 @@ SIMPLE_API void simple_list_addfuncpointer_gc ( void *pState,List *pList,void (*
 
 SIMPLE_API int simple_list_isfuncpointer ( List *pList, int index )
 {
-	if ( simple_list_gettype(pList,index) == ITEMTYPE_FUNCPOINTER ) {
+	if ( simple_list_gettype(pList,index) == ITEMTYPE_BLOCKPOINTER ) {
 		return 1 ;
 	}
 	return 0 ;

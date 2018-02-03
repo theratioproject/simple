@@ -16,17 +16,17 @@
 #ifndef simple_state_h
 #define simple_state_h
 /* Data */
-typedef struct RingState {
+typedef struct SimpleState {
 	/* First use by simple_scanner_readfile */
-	List *pRingFilesList  ;
-	List *pRingFilesStack  ;
+	List *pSimpleFilesList  ;
+	List *pSimpleFilesStack  ;
 	/* First use by simple_parser_new */
-	List *pRingGenCode  ;
-	List *pRingFunctionsMap  ;
-	List *pRingClassesMap  ;
-	List *pRingPackagesMap  ;
+	List *pSimpleGenCode  ;
+	List *pSimpleFunctionsMap  ;
+	List *pSimpleClassesMap  ;
+	List *pSimpleModulessMap  ;
 	/* First use by simple_vm_new */
-	List *pRingCFunctions  ;
+	List *pSimpleCFunctions  ;
 	/* ISCGI is 1 if we are using the language as for CGI development */
 	unsigned int nISCGI : 1  ;
 	/* RUN is 0 if we need to compile only */
@@ -51,7 +51,7 @@ typedef struct RingState {
 	int argc  ;
 	char  **argv  ;
 	/* Virtual Machine */
-	struct VM *pVM  ;
+	struct VM *vm  ;
 	/* Startup File */
 	char lStartup  ;
 	/* Pool Manager */
@@ -61,34 +61,34 @@ typedef struct RingState {
 	/* Custom Global Scope */
 	int nCustomGlobalScopeCounter  ;
 	List *aCustomGlobalScopeStack  ;
-} RingState ;
+} SimpleState ;
 /* Functions */
 
-SIMPLE_API RingState * simple_state_new ( void ) ;
+SIMPLE_API SimpleState * simple_state_new ( void ) ;
 
-SIMPLE_API RingState * simple_state_delete ( RingState *pRingState ) ;
+SIMPLE_API SimpleState * simple_state_delete ( SimpleState *pSimpleState ) ;
 
-void simple_state_cgiheader ( RingState *pRingState ) ;
+void simple_state_cgiheader ( SimpleState *pSimpleState ) ;
 
 SIMPLE_API void print_line ( void ) ;
 
-SIMPLE_API RingState * simple_state_init ( void ) ;
+SIMPLE_API SimpleState * simple_state_init ( void ) ;
 
-SIMPLE_API void simple_state_runcode ( RingState *pRingState,const char *cStr ) ;
+SIMPLE_API void simple_state_runcode ( SimpleState *pSimpleState,const char *cStr ) ;
 
-SIMPLE_API List * simple_state_findvar ( RingState *pRingState,const char *cStr ) ;
+SIMPLE_API List * simple_state_findvar ( SimpleState *pSimpleState,const char *cStr ) ;
 
-SIMPLE_API List * simple_state_newvar ( RingState *pRingState,const char *cStr ) ;
+SIMPLE_API List * simple_state_newvar ( SimpleState *pSimpleState,const char *cStr ) ;
 
 SIMPLE_API void simple_state_main ( int argc, char *argv[] ) ;
 
-SIMPLE_API void simple_state_runfile ( RingState *pRingState,char *cFileName ) ;
+SIMPLE_API void simple_state_runfile ( SimpleState *pSimpleState,char *cFileName ) ;
 
-SIMPLE_API void simple_state_runobjectfile ( RingState *pRingState,char *cFileName ) ;
+SIMPLE_API void simple_state_runobjectfile ( SimpleState *pSimpleState,char *cFileName ) ;
 
-SIMPLE_API void simple_state_runobjectstring ( RingState *pRingState,char *cString,const char *cFileName ) ;
+SIMPLE_API void simple_state_runobjectstring ( SimpleState *pSimpleState,char *cString,const char *cFileName ) ;
 /* MACRO */
-#define SIMPLE_STATE_CHECKPRINTRULES if ( pParser->pRingState->nPrintRules )
+#define SIMPLE_STATE_CHECKPRINTRULES if ( parser->pSimpleState->nPrintRules )
 /* General Functions */
 
 int simple_fexists ( const char *cFileName ) ;

@@ -17,7 +17,7 @@
 #define simple_gc_h
 /* Functions */
 
-void simple_vm_gc_checkreferences ( VM *pVM ) ;
+void simple_vm_gc_checkreferences ( VM *vm ) ;
 
 void simple_vm_gc_checknewreference ( void *pPointer,int nType ) ;
 
@@ -25,9 +25,9 @@ void simple_vm_gc_checkupdatereference ( List *pList ) ;
 
 void simple_vm_gc_deleteitem ( Item *pItem ) ;
 
-void simple_vm_gc_killreference ( VM *pVM ) ;
+void simple_vm_gc_killreference ( VM *vm ) ;
 
-void simple_vm_gc_deletetemplists ( VM *pVM ) ;
+void simple_vm_gc_deletetemplists ( VM *vm ) ;
 
 void simple_vm_gc_newitemreference ( Item *pItem ) ;
 /* Memory Functions (General) */
@@ -39,7 +39,7 @@ SIMPLE_API void simple_free ( void *ptr ) ;
 SIMPLE_API void * simple_calloc ( size_t nitems, size_t size ) ;
 
 SIMPLE_API void * simple_realloc ( void *ptr, size_t size ) ;
-/* Memory Functions (Ring StateAware) */
+/* Memory Functions (Simple StateAware) */
 
 SIMPLE_API void * simple_state_malloc ( void *pState,size_t size ) ;
 
@@ -55,11 +55,11 @@ void simple_vm_gc_deleteitem_gc ( void *pState,Item *pItem ) ;
 #define GCLog 0
 /* Pool Manager Functions */
 
-void simple_poolmanager_newblock ( RingState *pRingState ) ;
+void simple_poolmanager_newblock ( SimpleState *pSimpleState ) ;
 
-void * simple_poolmanager_allocate ( RingState *pRingState,size_t size ) ;
+void * simple_poolmanager_allocate ( SimpleState *pSimpleState,size_t size ) ;
 
-void simple_poolmanager_free ( RingState *pRingState,void *pMemory ) ;
+void simple_poolmanager_free ( SimpleState *pSimpleState,void *pMemory ) ;
 
-void simple_poolmanager_delete ( RingState *pRingState ) ;
+void simple_poolmanager_delete ( SimpleState *pSimpleState ) ;
 #endif

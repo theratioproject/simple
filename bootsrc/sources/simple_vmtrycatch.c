@@ -16,30 +16,30 @@
 #include "../includes/simple.h"
 /* Try Catch Done */
 
-void simple_vm_try ( VM *pVM )
+void simple_vm_try ( VM *vm )
 {
 	List *pList  ;
-	pList = simple_list_newlist_gc(pVM->pRingState,pVM->pTry);
-	simple_list_addint_gc(pVM->pRingState,pList,SIMPLE_VM_IR_READI);
-	simple_vm_savestate(pVM,pList);
-	pVM->nActiveCatch = 0 ;
+	pList = simple_list_newlist_gc(vm->pSimpleState,vm->pTry);
+	simple_list_addint_gc(vm->pSimpleState,pList,SIMPLE_VM_IR_READI);
+	simple_vm_savestate(vm,pList);
+	vm->nActiveCatch = 0 ;
 }
 
-void simple_vm_catch ( VM *pVM,const char *cError )
+void simple_vm_catch ( VM *vm,const char *cError )
 {
 	List *pList  ;
-	pList = simple_list_getlist(pVM->pTry,simple_list_getsize(pVM->pTry));
-	pVM->nPC = simple_list_getint(pList,1) ;
-	simple_vm_restorestate(pVM,pList,2,SIMPLE_STATE_TRYCATCH);
+	pList = simple_list_getlist(vm->pTry,simple_list_getsize(vm->pTry));
+	vm->nPC = simple_list_getint(pList,1) ;
+	simple_vm_restorestate(vm,pList,2,SIMPLE_STATE_TRYCATCH);
 	/* Define variable __err__ to contain the error message */
-	simple_list_setstsimple_gc(pVM->pRingState,simple_list_getlist(simple_vm_getglobalscope(pVM),6),3,cError);
+	simple_list_setstsimple_gc(vm->pSimpleState,simple_list_getlist(simple_vm_getglobalscope(vm),6),3,cError);
 	/* Tell C-API caller (CALL command) that catch happens! */
-	pVM->nActiveCatch = 1 ;
+	vm->nActiveCatch = 1 ;
 	/* Catch Statements must be executed without try effects */
-	simple_vm_done(pVM);
+	simple_vm_done(vm);
 }
 
-void simple_vm_done ( VM *pVM )
+void simple_vm_done ( VM *vm )
 {
-	simple_list_deleteitem_gc(pVM->pRingState,pVM->pTry,simple_list_getsize(pVM->pTry));
+	simple_list_deleteitem_gc(vm->pSimpleState,vm->pTry,simple_list_getsize(vm->pTry));
 }

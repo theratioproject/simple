@@ -17,7 +17,7 @@
 #include "../includes/simple_vmdll.h"
 /* Functions */
 
-void simple_vm_dll_loadfunctions ( RingState *pRingState )
+void simple_vm_dll_loadfunctions ( SimpleState *pSimpleState )
 {
 	simple_vm_funcregister("loadlib",simple_vm_dll_loadlib);
 	simple_vm_funcregister("closelib",simple_vm_dll_closelib);
@@ -28,10 +28,10 @@ void simple_vm_dll_loadlib ( void *pPointer )
 	LpHandleType handle  ;
 	const char *cDLL  ;
 	loadlibfuncptr pFunc  ;
-	VM *pVM  ;
-	RingState *pRingState  ;
-	pVM = (VM *) pPointer ;
-	pRingState = pVM->pRingState ;
+	VM *vm  ;
+	SimpleState *pSimpleState  ;
+	vm = (VM *) pPointer ;
+	pSimpleState = vm->pSimpleState ;
 	if ( SIMPLE_API_PARACOUNT != 1 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
 		return ;
@@ -50,10 +50,10 @@ void simple_vm_dll_loadlib ( void *pPointer )
 			SIMPLE_API_ERROR("The dynamic library doesn't contain the ringlib_init() function!");
 			return ;
 		}
-		simple_list_deletearray_gc(pRingState,pRingState->pRingCFunctions);
-		(*pFunc)(pRingState) ;
-		simple_list_genarray_gc(pRingState,pRingState->pRingCFunctions);
-		simple_list_genhashtable2_gc(pRingState,pRingState->pRingCFunctions);
+		simple_list_deletearray_gc(pSimpleState,pSimpleState->pSimpleCFunctions);
+		(*pFunc)(pSimpleState) ;
+		simple_list_genarray_gc(pSimpleState,pSimpleState->pSimpleCFunctions);
+		simple_list_genhashtable2_gc(pSimpleState,pSimpleState->pSimpleCFunctions);
 		SIMPLE_API_RETCPOINTER(handle,"DLL");
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);

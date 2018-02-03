@@ -27,8 +27,8 @@
 #endif
 #endif
 /* General Options (Only for simple_state_main()) */
-static int nRingStateDEBUGSEGFAULT  ;
-static int nRingStateCGI  ;
+static int nSimpleStateDEBUGSEGFAULT  ;
+static int nSimpleStateCGI  ;
 /* Define Functions */
 #if SIMPLE_TESTUNITS
 
@@ -42,110 +42,110 @@ static void simple_showtime ( void ) ;
 void segfaultaction ( int sig ) ;
 /* API Functions */
 
-SIMPLE_API RingState * simple_state_new ( void )
+SIMPLE_API SimpleState * simple_state_new ( void )
 {
-	RingState *pRingState  ;
-	pRingState = (RingState *) simple_malloc(sizeof(RingState));
-	if ( pRingState == NULL ) {
+	SimpleState *pSimpleState  ;
+	pSimpleState = (SimpleState *) simple_malloc(sizeof(SimpleState));
+	if ( pSimpleState == NULL ) {
 		printf( SIMPLE_OOM ) ;
 		exit(0);
 	}
-	pRingState->pRingFilesList = NULL ;
-	pRingState->pRingFilesStack = NULL ;
-	pRingState->pRingGenCode = NULL ;
-	pRingState->pRingFunctionsMap = NULL ;
-	pRingState->pRingClassesMap = NULL ;
-	pRingState->pRingPackagesMap = NULL ;
-	pRingState->pRingCFunctions = NULL ;
-	pRingState->nISCGI = 0 ;
-	pRingState->nRun = 1 ;
-	pRingState->nPrintIC = 0 ;
-	pRingState->nPrintICFinal = 0 ;
-	pRingState->nPrintTokens = 0 ;
-	pRingState->nPrintRules = 0 ;
-	pRingState->nPrintInstruction = 0 ;
-	pRingState->nGenObj = 0 ;
-	pRingState->nWarning = 0 ;
-	pRingState->argc = 0 ;
-	pRingState->argv = NULL ;
-	pRingState->pVM = NULL ;
-	pRingState->lStartup = 0 ;
-	pRingState->vPoolManager.pCurrentItem = NULL ;
-	pRingState->vPoolManager.pBlockStart = NULL ;
-	pRingState->vPoolManager.pBlockEnd = NULL ;
-	pRingState->nDontDeleteTheVM = 0 ;
-	pRingState->lNoLineNumber = 0 ;
-	pRingState->nCustomGlobalScopeCounter = 0 ;
-	pRingState->aCustomGlobalScopeStack = simple_list_new(0) ;
-	simple_list_addint(pRingState->aCustomGlobalScopeStack,pRingState->nCustomGlobalScopeCounter);
-	return pRingState ;
+	pSimpleState->pSimpleFilesList = NULL ;
+	pSimpleState->pSimpleFilesStack = NULL ;
+	pSimpleState->pSimpleGenCode = NULL ;
+	pSimpleState->pSimpleFunctionsMap = NULL ;
+	pSimpleState->pSimpleClassesMap = NULL ;
+	pSimpleState->pSimpleModulessMap = NULL ;
+	pSimpleState->pSimpleCFunctions = NULL ;
+	pSimpleState->nISCGI = 0 ;
+	pSimpleState->nRun = 1 ;
+	pSimpleState->nPrintIC = 0 ;
+	pSimpleState->nPrintICFinal = 0 ;
+	pSimpleState->nPrintTokens = 0 ;
+	pSimpleState->nPrintRules = 0 ;
+	pSimpleState->nPrintInstruction = 0 ;
+	pSimpleState->nGenObj = 0 ;
+	pSimpleState->nWarning = 0 ;
+	pSimpleState->argc = 0 ;
+	pSimpleState->argv = NULL ;
+	pSimpleState->vm = NULL ;
+	pSimpleState->lStartup = 0 ;
+	pSimpleState->vPoolManager.pCurrentItem = NULL ;
+	pSimpleState->vPoolManager.pBlockStart = NULL ;
+	pSimpleState->vPoolManager.pBlockEnd = NULL ;
+	pSimpleState->nDontDeleteTheVM = 0 ;
+	pSimpleState->lNoLineNumber = 0 ;
+	pSimpleState->nCustomGlobalScopeCounter = 0 ;
+	pSimpleState->aCustomGlobalScopeStack = simple_list_new(0) ;
+	simple_list_addint(pSimpleState->aCustomGlobalScopeStack,pSimpleState->nCustomGlobalScopeCounter);
+	return pSimpleState ;
 }
 
-SIMPLE_API RingState * simple_state_delete ( RingState *pRingState )
+SIMPLE_API SimpleState * simple_state_delete ( SimpleState *pSimpleState )
 {
-	if ( pRingState->pRingFilesList != NULL ) {
-		pRingState->pRingFilesList = simple_list_delete_gc(pRingState,pRingState->pRingFilesList);
-		pRingState->pRingFilesStack = simple_list_delete_gc(pRingState,pRingState->pRingFilesStack);
+	if ( pSimpleState->pSimpleFilesList != NULL ) {
+		pSimpleState->pSimpleFilesList = simple_list_delete_gc(pSimpleState,pSimpleState->pSimpleFilesList);
+		pSimpleState->pSimpleFilesStack = simple_list_delete_gc(pSimpleState,pSimpleState->pSimpleFilesStack);
 	}
-	if ( pRingState->pRingGenCode   != NULL ) {
-		pRingState->pRingGenCode = simple_list_delete_gc(pRingState,pRingState->pRingGenCode);
-		pRingState->pRingFunctionsMap = simple_list_delete_gc(pRingState,pRingState->pRingFunctionsMap);
-		pRingState->pRingClassesMap = simple_list_delete_gc(pRingState,pRingState->pRingClassesMap);
-		pRingState->pRingPackagesMap = simple_list_delete_gc(pRingState,pRingState->pRingPackagesMap);
-		if ( pRingState->pRingCFunctions != NULL ) {
+	if ( pSimpleState->pSimpleGenCode   != NULL ) {
+		pSimpleState->pSimpleGenCode = simple_list_delete_gc(pSimpleState,pSimpleState->pSimpleGenCode);
+		pSimpleState->pSimpleFunctionsMap = simple_list_delete_gc(pSimpleState,pSimpleState->pSimpleFunctionsMap);
+		pSimpleState->pSimpleClassesMap = simple_list_delete_gc(pSimpleState,pSimpleState->pSimpleClassesMap);
+		pSimpleState->pSimpleModulessMap = simple_list_delete_gc(pSimpleState,pSimpleState->pSimpleModulessMap);
+		if ( pSimpleState->pSimpleCFunctions != NULL ) {
 			/* We check because the execution may end by the compiler error */
-			pRingState->pRingCFunctions = simple_list_delete_gc(pRingState,pRingState->pRingCFunctions);
+			pSimpleState->pSimpleCFunctions = simple_list_delete_gc(pSimpleState,pSimpleState->pSimpleCFunctions);
 		}
 	}
-	if ( pRingState->pVM != NULL ) {
-		simple_vm_delete(pRingState->pVM);
+	if ( pSimpleState->vm != NULL ) {
+		simple_vm_delete(pSimpleState->vm);
 	}
-	simple_poolmanager_delete(pRingState);
-	pRingState->aCustomGlobalScopeStack = simple_list_delete(pRingState->aCustomGlobalScopeStack);
-	simple_free(pRingState);
+	simple_poolmanager_delete(pSimpleState);
+	pSimpleState->aCustomGlobalScopeStack = simple_list_delete(pSimpleState->aCustomGlobalScopeStack);
+	simple_free(pSimpleState);
 	return NULL ;
 }
 
-void simple_state_cgiheader ( RingState *pRingState )
+void simple_state_cgiheader ( SimpleState *pSimpleState )
 {
-	if ( pRingState->nISCGI == 1 ) {
+	if ( pSimpleState->nISCGI == 1 ) {
 		printf( "Content-Type: text/plain \n\n" ) ;
 	}
 }
 
-SIMPLE_API RingState * simple_state_init ( void )
+SIMPLE_API SimpleState * simple_state_init ( void )
 {
-	RingState *pRingState  ;
-	pRingState = simple_state_new();
-	simple_vm_init(pRingState);
-	return pRingState ;
+	SimpleState *pSimpleState  ;
+	pSimpleState = simple_state_new();
+	simple_vm_init(pSimpleState);
+	return pSimpleState ;
 }
 
-SIMPLE_API void simple_state_runcode ( RingState *pRingState,const char *cStr )
+SIMPLE_API void simple_state_runcode ( SimpleState *pSimpleState,const char *cStr )
 {
-	simple_vm_runcode(pRingState->pVM,cStr);
+	simple_vm_runcode(pSimpleState->vm,cStr);
 }
 
-SIMPLE_API List * simple_state_findvar ( RingState *pRingState,const char *cStr )
+SIMPLE_API List * simple_state_findvar ( SimpleState *pSimpleState,const char *cStr )
 {
-	VM *pVM  ;
+	VM *vm  ;
 	List *pList  ;
-	pVM = pRingState->pVM ;
+	vm = pSimpleState->vm ;
 	pList = NULL ;
-	if ( simple_vm_findvar(pVM,cStr) ) {
+	if ( simple_vm_findvar(vm,cStr) ) {
 		pList = (List *) SIMPLE_VM_STACK_READP ;
 		SIMPLE_VM_STACK_POP ;
 	}
 	return pList ;
 }
 
-SIMPLE_API List * simple_state_newvar ( RingState *pRingState,const char *cStr )
+SIMPLE_API List * simple_state_newvar ( SimpleState *pSimpleState,const char *cStr )
 {
-	VM *pVM  ;
+	VM *vm  ;
 	List *pList  ;
-	pVM = pRingState->pVM ;
-	if ( simple_vm_findvar(pVM,cStr) == 0 ) {
-		simple_vm_newvar(pVM,cStr);
+	vm = pSimpleState->vm ;
+	if ( simple_vm_findvar(vm,cStr) == 0 ) {
+		simple_vm_newvar(vm,cStr);
 	}
 	pList = (List *) SIMPLE_VM_STACK_READP ;
 	SIMPLE_VM_STACK_POP ;
@@ -169,8 +169,8 @@ SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 	nSRC = 0 ;
 	nGenObj = 0 ;
 	nWarn = 0 ;
-	nRingStateDEBUGSEGFAULT = 0 ;
-	nRingStateCGI = 0 ;
+	nSimpleStateDEBUGSEGFAULT = 0 ;
+	nSimpleStateCGI = 0 ;
 	signal(SIGSEGV,segfaultaction);
 	#if SIMPLE_TESTUNITS
 	simple_testallunits();
@@ -179,37 +179,40 @@ SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 		for ( x = 1 ; x < argc ; x++ ) {
 			if ( strcmp(argv[x],"-cgi") == 0 ) {
 				nCGI = 1 ;
-				nRingStateCGI = 1 ;
+				nSimpleStateCGI = 1 ;
 			}
 			else if ( strcmp(argv[x],"-show-tokens") == 0 || strcmp(argv[x],"-k") == 0 ) {
-				nTokens = 1 ;
+				nTokens = 1;
 			} else if ( strcmp(argv[x],"-case-insensitive") == 0 || strcmp(argv[x],"-c") == 0 ) {
-				NOT_CASE_SENSITIVE = 1 ;
-			}
-			else if ( strcmp(argv[x],"-rules") == 0 ) {
-				nRules = 1 ;
-			}
-			else if ( strcmp(argv[x],"-ic") == 0 ) {
-				nPrintIC = 1 ;
-			}
-			else if ( strcmp(argv[x],"-norun") == 0 ) {
+				NOT_CASE_SENSITIVE = 1;
+			} else if ( strcmp(argv[x],"-error") == 0 || strcmp(argv[x],"-e") == 0 ) {
+				SKIP_ERROR = 1;
+			} else if ( strcmp(argv[x],"-license") == 0 || strcmp(argv[x],"-l") == 0 ) {
+				display_licence();
+			} else if ( strcmp(argv[x],"-help") == 0 || strcmp(argv[x],"-h") == 0 ) {
+				display_help();
+			} else if ( strcmp(argv[x],"-about") == 0 || strcmp(argv[x],"-a") == 0 ) {
+				display_about();
+			} else if ( strcmp(argv[x],"-s") == 0 || strcmp(argv[x],"-simplify") == 0 ) {
+				nGenObj = 1 ; nRun = 0 ;
+			} else if ( strcmp(argv[x],"-n") == 0 || strcmp(argv[x],"-no-run") == 0 ) {
 				nRun = 0 ;
-			}
-			else if ( strcmp(argv[x],"-icfinal") == 0 ) {
-				nPrintICFinal = 1 ;
-			}
-			else if ( strcmp(argv[x],"-ins") == 0 ) {
-				nIns = 1 ;
-			}
-			else if ( strcmp(argv[x],"-clock") == 0 ) {
+			} else if ( strcmp(argv[x],"-b") == 0 || strcmp(argv[x],"-byte-code") == 0 ) {
+				nPrintIC = 1 ;  nRun = 0 ;
+			} else if ( strcmp(argv[x],"-bf") == 0 || strcmp(argv[x],"-byte-code-final") == 0 ) {
+				nPrintICFinal = 1 ;  nRun = 0 ;
+			} else if ( strcmp(argv[x],"-t") == 0 || strcmp(argv[x],"-time") == 0 ) {
 				nPerformance = 1 ;
 			}
-			else if ( strcmp(argv[x],"-go") == 0 ) {
-				nGenObj = 1 ;
+			else if ( strcmp(argv[x],"-rulesgfgdf") == 0 ) {
+				nRules = 1 ;
+			}
+			else if ( strcmp(argv[x],"-instteret") == 0 ) {
+				nIns = 1 ;
 			}
 			else if ( strcmp(argv[x],"-w") == 0 ) {
 				nWarn = 1 ;
-				nRingStateDEBUGSEGFAULT = 1 ;
+				nSimpleStateDEBUGSEGFAULT = 1 ;
 			}
 			else if ( ( is_simple_file(argv[x]) || is_complex_file(argv[x])) && nSRC == 0 ) {
 				cStr = argv[x] ;
@@ -217,11 +220,6 @@ SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 			}
 		}
 	}
-	#if SIMPLE_TESTPERFORMANCE
-	if ( nPerformance ) {
-		simple_showtime();
-	}
-	#endif
 	srand(time(NULL));
 	/* Check Startup ring.sim */
 	if ( simple_fexists("ring.sim") && argc == 1 ) {
@@ -235,7 +233,6 @@ SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 	/* Print Version */
 	if ( (argc == 1) || (cStr == NULL) ) {
 		display_help();
-		exit(0);
 	}
 	simple_execute(cStr,nCGI,nRun,nPrintIC,nPrintICFinal,nTokens,nRules,nIns,nGenObj,nWarn,argc,argv);
 	#if SIMPLE_TESTPERFORMANCE
@@ -245,19 +242,19 @@ SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 	#endif
 }
 
-SIMPLE_API void simple_state_runfile ( RingState *pRingState,char *cFileName )
+SIMPLE_API void simple_state_runfile ( SimpleState *pSimpleState,char *cFileName )
 {
-	simple_scanner_readfile(pRingState,cFileName);
+	simple_scanner_readfile(pSimpleState,cFileName);
 }
 
-SIMPLE_API void simple_state_runobjectfile ( RingState *pRingState,char *cFileName )
+SIMPLE_API void simple_state_runobjectfile ( SimpleState *pSimpleState,char *cFileName )
 {
-	simple_scanner_runobjfile(pRingState,cFileName);
+	simple_scanner_runobjfile(pSimpleState,cFileName);
 }
 
-SIMPLE_API void simple_state_runobjectstring ( RingState *pRingState,char *cString,const char *cFileName )
+SIMPLE_API void simple_state_runobjectstring ( SimpleState *pSimpleState,char *cString,const char *cFileName )
 {
-	simple_scanner_runobjstring(pRingState,cString,cFileName);
+	simple_scanner_runobjstring(pSimpleState,cString,cFileName);
 }
 #if SIMPLE_TESTUNITS
 
@@ -293,8 +290,8 @@ static void simple_showtime ( void )
 
 void segfaultaction ( int sig )
 {
-	if ( nRingStateDEBUGSEGFAULT == 1 ) {
-		if ( nRingStateCGI == 1 ) {
+	if ( nSimpleStateDEBUGSEGFAULT == 1 ) {
+		if ( nSimpleStateCGI == 1 ) {
 			printf( "Content-Type: text/plain\n\n" ) ;
 		}
 		printf( SIMPLE_SEGFAULT ) ;

@@ -29,8 +29,8 @@ typedef struct Scanner {
 	char cLiteral  ;
 	/* Multiline comment end ( 0 = start  1 = * ) */
 	char cMLComment  ;
-	/* Ring State */
-	RingState *pRingState  ;
+	/* Simple State */
+	SimpleState *pSimpleState  ;
 	/* Index of Keyword/Operator */
 	int nTokenIndex  ;
 	/* Literal Line */
@@ -46,7 +46,7 @@ typedef enum SCANNER_KEYWORD {
 	KEYWORD_NOT ,
 	KEYWORD_FOR ,
 	KEYWORD_NEW ,
-	KEYWORD_FUNC ,
+	KEYWORD_BLOCK ,
 	KEYWORD_FROM ,
 	KEYWORD_NEXT ,
 	KEYWORD_LOAD ,
@@ -71,8 +71,8 @@ typedef enum SCANNER_KEYWORD {
 	KEYWORD_OFF ,
 	KEYWORD_IN ,
 	KEYWORD_LOOP ,
-	/* Packages */
-	KEYWORD_PACKAGE ,
+	/* Moduless */
+	KEYWORD_MODULE ,
 	KEYWORD_IMPORT ,
 	KEYWORD_PRIVATE ,
 	KEYWORD_STEP ,
@@ -81,10 +81,6 @@ typedef enum SCANNER_KEYWORD {
 	KEYWORD_CALL ,
 	KEYWORD_ELSEIF ,
 	KEYWORD_CASE ,
-	KEYWORD_DEF ,
-	KEYWORD_ENDFUNC ,
-	KEYWORD_ENDCLASS ,
-	KEYWORD_ENDPACKAGE ,
 	KEYWORD_CHANGERINGKEYWORD ,
 	KEYWORD_CHANGERINGIOPERATOR ,
 	KEYWORD_LOADSYNTAX 
@@ -116,11 +112,11 @@ typedef enum SCANNER_OPERATOR {
 } SCANNER_OPERATOR ;
 /* Functions */
 
-Scanner * simple_scanner_new ( RingState *pRingState ) ;
+Scanner * simple_scanner_new ( SimpleState *pSimpleState ) ;
 
 Scanner * simple_scanner_delete ( Scanner *pScanner ) ;
 
-int simple_scanner_readfile ( RingState *pRingState,char *cFileName ) ;
+int simple_scanner_readfile ( SimpleState *pSimpleState,char *cFileName ) ;
 
 void simple_scanner_readchar ( Scanner *pScanner,char c ) ;
 
@@ -146,11 +142,11 @@ void simple_scanner_floatmark ( Scanner *pScanner,int type ) ;
 
 void simple_scanner_endofline ( Scanner *pScanner ) ;
 
-void simple_scanner_addreturn ( RingState *pRingState ) ;
+void simple_scanner_addreturn ( SimpleState *pSimpleState ) ;
 
-void simple_scanner_addreturn2 ( RingState *pRingState ) ;
+void simple_scanner_addreturn2 ( SimpleState *pSimpleState ) ;
 
-void simple_scanner_addreturn3 ( RingState *pRingState,int aPara[3] ) ;
+void simple_scanner_addreturn3 ( SimpleState *pSimpleState,int aPara[3] ) ;
 
 void display_tokens ( Scanner *pScanner ) ;
 
@@ -158,9 +154,9 @@ SIMPLE_API void simple_execute ( char *cFileName, int nISCGI,int nRun,int nPrint
 
 const char * simple_scanner_getkeywordtext ( const char *cStr ) ;
 
-void simple_scanner_runobjfile ( RingState *pRingState,char *cFileName ) ;
+void simple_scanner_runobjfile ( SimpleState *pSimpleState,char *cFileName ) ;
 
-void simple_scanner_runprogram ( RingState *pRingState ) ;
+void simple_scanner_runprogram ( SimpleState *pSimpleState ) ;
 
 void simple_scanner_changekeyword ( Scanner *pScanner ) ;
 
@@ -168,7 +164,7 @@ void simple_scanner_changeoperator ( Scanner *pScanner ) ;
 
 void simple_scanner_loadsyntax ( Scanner *pScanner ) ;
 
-void simple_scanner_runobjstring ( RingState *pRingState,char *cString,const char *cFileName ) ;
+void simple_scanner_runobjstring ( SimpleState *pSimpleState,char *cString,const char *cFileName ) ;
 /* MACRO */
 #define SIMPLE_SCANNER_DELETELASTTOKEN simple_list_deleteitem(pScanner->Tokens,simple_list_getsize(pScanner->Tokens))
 /*
@@ -193,7 +189,7 @@ void simple_scanner_runobjstring ( RingState *pRingState,char *cString,const cha
 #define SCANNER_STATE_CHANGEKEYWORD 4
 #define SCANNER_STATE_CHANGEOPERATOR 5
 #define SCANNER_STATE_LOADSYNTAX 6
-/* Change Ring Keyword/Operator */
+/* Change Simple Keyword/Operator */
 #define SIMPLE_SCANNER_CHANGERINGKEYWORD 47
 #define SIMPLE_SCANNER_CHANGERINGOPERATOR 48
 #define SIMPLE_SCANNER_LOADSYNTAX 49

@@ -20,11 +20,21 @@ extern "C" {
 #endif
     
 #define SIMPLE_VERSION "0.3.2"
+#define PRIMARY_AUTHOR "Azeez Adewale"
+#define START_YEAR 2016
+#define CURRENT_YEAR 2018
+#define AUTHOR "The Simpletons"
+#define SIMPLE_LICENCE "MIT Licence"
 #define KB_BYTE_SIZE 1024
     
 extern int NOT_CASE_SENSITIVE ;
+extern int SKIP_ERROR ;
 
 void display_help();
+
+void display_licence();
+
+void display_about();
 
 int is_simple_file( const char *file_name );
 

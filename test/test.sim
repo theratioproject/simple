@@ -1,12 +1,14 @@
 
+one = 1
+name = me = you = we = 20
 
-class Archive {
-	block add (one, two) {
-		tol = one + two ;
-		return  "" + one + " plus " + two + " is equal "+ tol
-	}
-}
+#parse class
+class ade  : hello, world, it, holla
+class dude
+	
+/*parse do
+do {
 
-block DoIdontknow (name, age){
-	return "holla "+name+"\n you are " +age+" years old when you wrote\nSimple Programming Language"
-}
+} while num < 10
+*/
+ 

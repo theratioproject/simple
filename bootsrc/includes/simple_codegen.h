@@ -25,7 +25,7 @@ typedef enum IC_OPERATIONS {
 	ICO_FILENAME ,
 	ICO_DISPLAY ,
 	ICO_NEWCLASS ,
-	ICO_NEWFUNC ,
+	ICO_NEWBLOCK ,
 	ICO_DUPLICATE ,
 	ICO_NEWOBJ ,
 	ICO_GIVE ,
@@ -68,7 +68,7 @@ typedef enum IC_OPERATIONS {
 	ICO_INC ,
 	ICO_INCP ,
 	/* Functions/Methods */
-	ICO_LOADFUNC ,
+	ICO_LOADBLOCK ,
 	ICO_CALL ,
 	ICO_RETURN ,
 	ICO_RETNULL ,
@@ -85,8 +85,8 @@ typedef enum IC_OPERATIONS {
 	/* More */
 	ICO_FREESTACK ,
 	ICO_BLOCKFLAG ,
-	ICO_FUNCEXE ,
-	ICO_ENDFUNCEXE ,
+	ICO_BLOCKEXE ,
+	ICO_ENDBLOCKEXE ,
 	ICO_BYE ,
 	ICO_EXITMARK ,
 	ICO_POPEXITMARK ,
@@ -103,15 +103,15 @@ typedef enum IC_OPERATIONS {
 	ICO_AFTERCALLMETHOD ,
 	ICO_BRACESTART ,
 	ICO_BRACEEND ,
-	ICO_LOADFUNCP ,
+	ICO_LOADBLOCKP ,
 	ICO_FREELOADASCOPE ,
 	/* Loop */
 	ICO_LOOP ,
-	/* Loop optimization in functions (local scope) */
+	/* Loop optimization in blocks (local scope) */
 	ICO_INCLPJUMP ,
 	ICO_JUMPVARLPLENUM ,
-	/* Packages */
-	ICO_PACKAGE ,
+	/* Moduless */
+	ICO_MODULE ,
 	ICO_IMPORT ,
 	/* Property */
 	ICO_SETPROPERTY ,
@@ -151,41 +151,41 @@ typedef enum IC_OPERATIONS {
 **  Generate Intermediate Code 
 */
 
-void simple_parser_icg_newoperation ( Parser *pParser , IC_OPERATIONS opcode ) ;
+void simple_parser_icg_newoperation ( Parser *parser , IC_OPERATIONS opcode ) ;
 
-void simple_parser_icg_newoperand ( Parser *pParser , const char *cStr ) ;
+void simple_parser_icg_newoperand ( Parser *parser , const char *cStr ) ;
 
-void simple_parser_icg_newoperandint ( Parser *pParser , int nValue ) ;
+void simple_parser_icg_newoperandint ( Parser *parser , int nValue ) ;
 
-void simple_parser_icg_newoperanddouble ( Parser *pParser , double nValue ) ;
+void simple_parser_icg_newoperanddouble ( Parser *parser , double nValue ) ;
 
-void simple_parser_icg_newoperandpointer ( Parser *pParser , void *pValue ) ;
+void simple_parser_icg_newoperandpointer ( Parser *parser , void *pValue ) ;
 
-List * simple_parser_icg_getactiveoperation ( Parser *pParser ) ;
+List * simple_parser_icg_getactiveoperation ( Parser *parser ) ;
 
-void simple_parser_icg_addoperand ( Parser *pParser ,List *pList , const char *cStr ) ;
+void simple_parser_icg_addoperand ( Parser *parser ,List *pList , const char *cStr ) ;
 
-void simple_parser_icg_addoperandint ( Parser *pParser ,List *pList , int nValue ) ;
+void simple_parser_icg_addoperandint ( Parser *parser ,List *pList , int nValue ) ;
 
-void simple_parser_icg_addoperandpointer ( Parser *pParser ,List *pList , void *pValue ) ;
+void simple_parser_icg_addoperandpointer ( Parser *parser ,List *pList , void *pValue ) ;
 
 void simple_parser_icg_showoutput ( List *pListGenCode,int nStatus ) ;
 
-Items * simple_parser_icg_getoperationpos ( Parser *pParser ) ;
+Items * simple_parser_icg_getoperationpos ( Parser *parser ) ;
 
-void simple_parser_icg_deletelastoperation ( Parser *pParser ) ;
+void simple_parser_icg_deletelastoperation ( Parser *parser ) ;
 
-void simple_parser_icg_duplicate ( Parser *pParser,int nStart,int nEnd ) ;
+void simple_parser_icg_duplicate ( Parser *parser,int nStart,int nEnd ) ;
 
-int simple_parser_icg_newlabel2 ( Parser *pParser ) ;
+int simple_parser_icg_newlabel2 ( Parser *parser ) ;
 
-void simple_parser_icg_insertoperation ( Parser *pParser , int nPos , IC_OPERATIONS opcode ) ;
+void simple_parser_icg_insertoperation ( Parser *parser , int nPos , IC_OPERATIONS opcode ) ;
 /* Macro */
 #define simple_parser_icg_newlabel(x) ( simple_list_getsize(x->GenCode) + 1 )
-#define simple_parser_icg_getlastoperation(pParser) simple_list_getint(pParser->ActiveGenCodeList,1)
-#define simple_parser_icg_setlastoperation(pParser,x) simple_list_setint_gc(pParser->pRingState,pParser->ActiveGenCodeList,1,x)
-#define simple_parser_icg_instructionscount(pParser) simple_list_getsize(pParser->GenCode)
-#define simple_parser_icg_getoperationlist(pParser,x) simple_list_getlist(pParser->GenCode,x)
-#define SIMPLE_PARSER_ICG_GOTOLASTOP pParser->ActiveGenCodeList = simple_list_getlist(pParser->GenCode,simple_list_getsize(pParser->GenCode))
+#define simple_parser_icg_getlastoperation(parser) simple_list_getint(parser->ActiveGenCodeList,1)
+#define simple_parser_icg_setlastoperation(parser,x) simple_list_setint_gc(parser->pSimpleState,parser->ActiveGenCodeList,1,x)
+#define simple_parser_icg_instructionscount(parser) simple_list_getsize(parser->GenCode)
+#define simple_parser_icg_getoperationlist(parser,x) simple_list_getlist(parser->GenCode,x)
+#define SIMPLE_PARSER_ICG_GOTOLASTOP parser->ActiveGenCodeList = simple_list_getlist(parser->GenCode,simple_list_getsize(parser->GenCode))
 extern const char *SIMPLE_IC_OP[] ;
 #endif

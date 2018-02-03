@@ -17,7 +17,7 @@
 #define simple_vmrefmeta_h
 /* Functions */
 
-void simple_vm_refmeta_loadfunctions ( RingState *pRingState ) ;
+void simple_vm_refmeta_loadfunctions ( SimpleState *pSimpleState ) ;
 /* Functions */
 
 void simple_vm_refmeta_locals ( void *pPointer ) ;
@@ -37,17 +37,17 @@ void simple_vm_refmeta_isfunction ( void *pPointer ) ;
 void simple_vm_refmeta_iscfunction ( void *pPointer ) ;
 /* OOP */
 
-void simple_vm_refmeta_packages ( void *pPointer ) ;
+void simple_vm_refmeta_moduless ( void *pPointer ) ;
 
-void simple_vm_refmeta_ispackage ( void *pPointer ) ;
+void simple_vm_refmeta_ismodules ( void *pPointer ) ;
 
 void simple_vm_refmeta_classes ( void *pPointer ) ;
 
 void simple_vm_refmeta_isclass ( void *pPointer ) ;
 
-void simple_vm_refmeta_packageclasses ( void *pPointer ) ;
+void simple_vm_refmeta_modulesclasses ( void *pPointer ) ;
 
-void simple_vm_refmeta_ispackageclass ( void *pPointer ) ;
+void simple_vm_refmeta_ismodulesclass ( void *pPointer ) ;
 
 void simple_vm_refmeta_classname ( void *pPointer ) ;
 
@@ -75,7 +75,7 @@ void simple_vm_refmeta_setattribute ( void *pPointer ) ;
 
 void simple_vm_refmeta_mergemethods ( void *pPointer ) ;
 
-void simple_vm_refmeta_packagename ( void *pPointer ) ;
+void simple_vm_refmeta_modulesname ( void *pPointer ) ;
 /* VM */
 
 void simple_vm_refmeta_ringvmfileslist ( void *pPointer ) ;
@@ -88,7 +88,7 @@ void simple_vm_refmeta_ringvmfunctionslist ( void *pPointer ) ;
 
 void simple_vm_refmeta_ringvmclasseslist ( void *pPointer ) ;
 
-void simple_vm_refmeta_ringvmpackageslist ( void *pPointer ) ;
+void simple_vm_refmeta_ringvmmodulesslist ( void *pPointer ) ;
 
 void simple_vm_refmeta_ringvmcfunctionslist ( void *pPointer ) ;
 

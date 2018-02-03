@@ -36,8 +36,8 @@ typedef struct Parser {
 	List *FunctionsMap  ;
 	/* Lists of Lists, Classes in Program or in Class */
 	List *ClassesMap  ;
-	/* List of Lists, Packages in the program */
-	List *PackagesMap  ;
+	/* List of Lists, Moduless in the program */
+	List *ModulessMap  ;
 	/* Mark to class label to be used by Private */
 	int nClassMark  ;
 	/* Private Flag */
@@ -49,136 +49,136 @@ typedef struct Parser {
 	int nInsertCounter  ;
 	/* required for using { } after using new object to avoid assignment */
 	char nNoAssignment  ;
-	/* Object Init() Uses mixer for one purpose only( function call)  - don't continue to get braces { } */
+	/* Object ClassName() Uses mixer for one purpose only( function call)  - don't continue to get braces { } */
 	char nFuncCallOnly  ;
 	/* Flag to tell { } that we are inside control structure (if/for/while/...) expression */
 	int nControlStructureExpr  ;
 	/* Flag - We started using braces {} in control structure - we have { */
 	int nControlStructureBrace  ;
-	/* Ring State */
-	RingState *pRingState  ;
+	/* Simple State */
+	SimpleState *pSimpleState  ;
 } Parser ;
 /* Error Messages */
-#define SIMPLE_PARSER_ERROR_PARALIST "Error (C1) : Error in parameters list, expected identifier"
-#define SIMPLE_PARSER_ERROR_CLASSNAME "Error (C2) : Error in class name"
-#define SIMPLE_PARSER_ERROR_OK "Error (C3) : Unclosed control strucutre, 'ok' is missing"
-#define SIMPLE_PARSER_ERROR_END "Error (C4) : Unclosed control strucutre, 'end' is missing"
-#define SIMPLE_PARSER_ERROR_NEXT "Error (C5) : Unclosed control strucutre, next is missing"
-#define SIMPLE_PARSER_ERROR_FUNCNAME "Error (C6) : Error in function name"
-#define SIMPLE_PARSER_ERROR_LISTITEM "Error (C7) : Error in list items"
-#define SIMPLE_PARSER_ERROR_MISSPARENTHESES "Error (C8) : Parentheses ')' is missing "
-#define SIMPLE_PARSER_ERROR_MISSBRACKETS "Error (C9) : Brackets ']' is missing "
-#define SIMPLE_PARSER_ERROR_PRENTCLASSNAME "Error (C10) : Error in parent class name"
-#define SIMPLE_PARSER_ERROR_EXPROPERATOR "Error (C11) : Error in expression operator"
-#define SIMPLE_PARSER_ERROR_NOCLASSDEFINED "Error (C12) :No class definition"
-#define SIMPLE_PARSER_ERROR_VARNAME "Error (C13) : Error in variable name"
-#define SIMPLE_PARSER_ERROR_NOCATCH "Error (C14) : Try/Catch miss the Catch keyword!"
-#define SIMPLE_PARSER_ERROR_NODONE "Error (C15) : Try/Catch miss the Done keyword!"
-#define SIMPLE_PARSER_ERROR_SWITCHEXPR "Error (C16) : Error in Switch statement expression!"
-#define SIMPLE_PARSER_ERROR_SWITCHOFF "Error (C17) : Switch statement without OFF"
-#define SIMPLE_PARSER_ERROR_BRACESNOTCLOSED "Error (C18) : Missing closing brace for the block opened!"
-#define SIMPLE_PARSER_ERROR_NUMERICOVERFLOW "Error (C19) : Numeric Overflow!"
-#define SIMPLE_PARSER_ERROR_PACKAGENAME "Error (C20) : Error in package name"
-#define SIMPLE_PARSER_ERROR_AGAIN "Error (C21) : Unclosed control strucutre, 'again' is missing"
-#define SIMPLE_PARSER_ERROR_FUNCREDEFINE "Error (C22) : Function redefinition, function is already defined!"
-#define SIMPLE_PARSER_ERROR_USINGBRACTAFTERNUM "Error (C23) : Using '(' after number!"
-#define SIMPLE_PARSER_ERROR_PARENTLIKESUBCLASS "Error (C24) : The parent class name is identical to the subclass name"
-#define SIMPLE_PARSER_ERROR_ACCESSSELFREF "Error (C25) : Trying to access the self reference after the object name"
-#define SIMPLE_PARSER_ERROR_CLASSREDEFINE "Error (C26) : Class redefinition, class is already defined!"
+#define PARSER_ERROR_PARALIST "Error (C1) : Error in parameters list, expected identifier"
+#define PARSER_ERROR_CLASSNAME "Error (C2) : Error in class name"
+#define PARSER_ERROR_OK "Error (C3) : Unclosed control strucutre, 'ok' is missing"
+#define PARSER_ERROR_END "Error (C4) : Unclosed control strucutre, 'end' is missing"
+#define PARSER_ERROR_NEXT "Error (C5) : Unclosed control strucutre, next is missing"
+#define PARSER_ERROR_BLOCKNAME "COMPILER ERROR 6 : Invalid block name"
+#define PARSER_ERROR_LISTITEM "Error (C7) : Error in list items"
+#define PARSER_ERROR_MISSPARENTHESES "Error (C8) : Parentheses ')' is missing "
+#define PARSER_ERROR_MISSBRACKETS "Error (C9) : Brackets ']' is missing "
+#define PARSER_ERROR_PRENTCLASSNAME "Error (C10) : Error in parent class name"
+#define PARSER_ERROR_EXPROPERATOR "Error (C11) : Error in expression operator"
+#define PARSER_ERROR_NOCLASSDEFINED "COMPILER ERROR 12 : Class not defined"
+#define PARSER_ERROR_VARNAME "Error (C13) : Error in variable name"
+#define PARSER_ERROR_NOCATCH "Error (C14) : Try/Catch miss the Catch keyword!"
+#define PARSER_ERROR_NODONE "Error (C15) : Try/Catch miss the Done keyword!"
+#define PARSER_ERROR_SWITCHEXPR "Error (C16) : Error in Switch statement expression!"
+#define PARSER_ERROR_SWITCHOFF "Error (C17) : Switch statement without OFF"
+#define PARSER_ERROR_BRACESNOTCLOSED "Error (C18) : Missing closing brace for the block opened!"
+#define PARSER_ERROR_NUMERICOVERFLOW "Error (C19) : Numeric Overflow!"
+#define PARSER_ERROR_MODULENAME "Error (C20) : Error in modules name"
+#define PARSER_ERROR_AGAIN "Error (C21) : Unclosed control strucutre, 'again' is missing"
+#define PARSER_ERROR_BLOCKREDEFINE "COMPILER ERROR 22 : The block is already defined "
+#define PARSER_ERROR_USINGBRACTAFTERNUM "Error (C23) : Using '(' after number!"
+#define PARSER_ERROR_PARENTLIKESUBCLASS "Error (C24) : The parent class name is identical to the subclass name"
+#define PARSER_ERROR_ACCESSSELFREF "Error (C25) : Trying to access the self reference after the object name"
+#define PARSER_ERROR_CLASSREDEFINE "COMPILER ERROR 6 : Class is already defined"
 /* Functions */
 
-int simple_parser_start ( List *pTokens,RingState *pRingState ) ;
+int simple_parser_start ( List *pTokens,SimpleState *pSimpleState ) ;
 
-Parser * simple_parser_new ( List *pTokens,RingState *pRingState ) ;
+Parser * simple_parser_new ( List *pTokens,SimpleState *pSimpleState ) ;
 
-Parser * simple_parser_delete ( Parser *pParser ) ;
+Parser * simple_parser_delete ( Parser *parser ) ;
 
-void simple_parser_printtokens ( Parser *pParser ) ;
+void simple_parser_printtokens ( Parser *parser ) ;
 /* Grammar */
 
-int simple_parser_class ( Parser *pParser ) ;
+int simple_parser_class ( Parser *parser ) ;
 
-int simple_parser_stmt ( Parser *pParser ) ;
+int simple_parser_stmt ( Parser *parser ) ;
 
-int simple_parser_step ( Parser *pParser,int *nMark1 ) ;
+int simple_parser_step ( Parser *parser,int *nMark1 ) ;
 
-int simple_parser_paralist ( Parser *pParser ) ;
+int simple_parser_paralist ( Parser *parser ) ;
 
-int simple_parser_expr ( Parser *pParser ) ;
+int simple_parser_expr ( Parser *parser ) ;
 
-int simple_parser_logicnot ( Parser *pParser ) ;
+int simple_parser_logicnot ( Parser *parser ) ;
 
-int simple_parser_equalornot ( Parser *pParser ) ;
+int simple_parser_equalornot ( Parser *parser ) ;
 
-int simple_parser_compare ( Parser *pParser ) ;
+int simple_parser_compare ( Parser *parser ) ;
 
-int simple_parser_bitorxor ( Parser *pParser ) ;
+int simple_parser_bitorxor ( Parser *parser ) ;
 
-int simple_parser_bitand ( Parser *pParser ) ;
+int simple_parser_bitand ( Parser *parser ) ;
 
-int simple_parser_bitshift ( Parser *pParser ) ;
+int simple_parser_bitshift ( Parser *parser ) ;
 
-int simple_parser_arithmetic ( Parser *pParser ) ;
+int simple_parser_arithmetic ( Parser *parser ) ;
 
-int simple_parser_term ( Parser *pParser ) ;
+int simple_parser_term ( Parser *parser ) ;
 
-int simple_parser_range ( Parser *pParser ) ;
+int simple_parser_range ( Parser *parser ) ;
 
-int simple_parser_factor ( Parser *pParser,int *nFlag ) ;
+int simple_parser_factor ( Parser *parser,int *nFlag ) ;
 
-int simple_parser_mixer ( Parser *pParser ) ;
+int simple_parser_mixer ( Parser *parser ) ;
 
-int simple_parser_list ( Parser *pParser ) ;
+int simple_parser_list ( Parser *parser ) ;
 
-int simple_parser_epslion ( Parser *pParser ) ;
+int simple_parser_epslion ( Parser *parser ) ;
 
-int simple_parser_passepslion ( Parser *pParser ) ;
+int simple_parser_passepslion ( Parser *parser ) ;
 
-int simple_parser_namedotname ( Parser *pParser ) ;
+int simple_parser_namedotname ( Parser *parser ) ;
 
-int simple_parser_ppmm ( Parser *pParser ) ;
+int simple_parser_ppmm ( Parser *parser ) ;
 
-int simple_parser_csexpr ( Parser *pParser ) ;
+int simple_parser_csexpr ( Parser *parser ) ;
 
-int simple_parser_csbraceend ( Parser *pParser ) ;
+int simple_parser_csbraceend ( Parser *parser ) ;
 
-int simple_parser_objattributes ( Parser *pParser ) ;
+int simple_parser_objattributes ( Parser *parser ) ;
 
-int simple_parser_bracesandend ( Parser *pParser,int lClass,SCANNER_KEYWORD nKeyword ) ;
+int simple_parser_bracesandend ( Parser *parser,int lClass,SCANNER_KEYWORD nKeyword ) ;
 /* Check Token */
 
-void simple_parser_loadtoken ( Parser *pParser ) ;
+void simple_parser_loadtoken ( Parser *parser ) ;
 
-int simple_parser_nexttoken ( Parser *pParser ) ;
+int simple_parser_nexttoken ( Parser *parser ) ;
 
-int simple_parser_iskeyword ( Parser *pParser,SCANNER_KEYWORD x ) ;
+int simple_parser_iskeyword ( Parser *parser,SCANNER_KEYWORD x ) ;
 
-int simple_parser_isoperator ( Parser *pParser,const char *cStr ) ;
+int simple_parser_isoperator ( Parser *parser,const char *cStr ) ;
 
-int simple_parser_isliteral ( Parser *pParser ) ;
+int simple_parser_isliteral ( Parser *parser ) ;
 
-int simple_parser_isidentifier ( Parser *pParser ) ;
+int simple_parser_isidentifier ( Parser *parser ) ;
 
-int simple_parser_isnumber ( Parser *pParser ) ;
+int simple_parser_isnumber ( Parser *parser ) ;
 
-int simple_parser_isendline ( Parser *pParser ) ;
+int simple_parser_isendline ( Parser *parser ) ;
 
-int simple_parser_settoken ( Parser *pParser,int x ) ;
+int simple_parser_settoken ( Parser *parser,int x ) ;
 
-int simple_parser_isanykeyword ( Parser *pParser ) ;
+int simple_parser_isanykeyword ( Parser *parser ) ;
 
-int simple_parser_isoperator2 ( Parser *pParser,SCANNER_OPERATOR nType ) ;
+int simple_parser_isoperator2 ( Parser *parser,SCANNER_OPERATOR nType ) ;
 /* Display Errors */
 
-void simple_parser_error ( Parser *pParser,const char *cStr ) ;
+void parser_error ( Parser *parser,const char *cStr ) ;
 /* Generate Code */
 
-void simple_parser_gencall ( Parser *pParser,int nCallMethod ) ;
+void simple_parser_gencall ( Parser *parser,int nCallMethod ) ;
 
-void simple_parser_gencallbracemethod ( Parser *pParser,const char *cMethod ) ;
+void simple_parser_gencallbracemethod ( Parser *parser,const char *cMethod ) ;
 /* MACRO */
-#define SIMPLE_PARSER_IGNORENEWLINE while(simple_parser_epslion(pParser));
-#define SIMPLE_PARSER_PASSNEWLINE while(simple_parser_passepslion(pParser));
-#define SIMPLE_PARSER_CURRENTTOKEN pParser->ActiveToken
-#define SIMPLE_PARSER_OPERATIONID simple_list_getsize(pParser->GenCode)
+#define SIMPLE_PARSER_IGNORENEWLINE while(simple_parser_epslion(parser));
+#define SIMPLE_PARSER_PASSNEWLINE while(simple_parser_passepslion(parser));
+#define SIMPLE_PARSER_CURRENTTOKEN parser->ActiveToken
+#define SIMPLE_PARSER_OPERATIONID simple_list_getsize(parser->GenCode)
 #endif

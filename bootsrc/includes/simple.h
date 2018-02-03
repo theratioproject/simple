@@ -66,8 +66,8 @@
 /* General */
 #define SIMPLE_PATHSIZE 256
 /* See and Give - use ringvm_display() and ringvm_read() */
-#define SIMPLE_USEDISPLAYFUNCTION 1
-#define SIMPLE_USEGIVEFUNCTION 1
+#define SIMPLE_USEDISPLAYBLOCKTION 1
+#define SIMPLE_USEGIVEBLOCKTION 1
 /*
 **  Include Files 
 **  Include C Headers 
@@ -122,7 +122,7 @@
 #ifdef SIMPLE_VM_OS
 #include "simple_vmos.h"
 #endif
-#ifdef SIMPLE_VM_LISTFUNCS
+#ifdef SIMPLE_VM_LISTBLOCKS
 #include "simple_vmlistfuncs.h"
 #endif
 #ifdef SIMPLE_VM_REFMETA

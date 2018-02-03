@@ -16,64 +16,64 @@
 #include "../includes/simple.h"
 /* Grammar */
 
-int simple_parser_class ( Parser *pParser )
+int simple_parser_class ( Parser *parser )
 {
 	List *pList,*pList2,*pList3  ;
 	int x  ;
 	String *pString  ;
 	/* Statement --> Class Identifier  [ From Identifier ] */
-	if ( simple_parser_iskeyword(pParser,KEYWORD_CLASS) ) {
-		simple_parser_nexttoken(pParser);
-		if ( simple_parser_isidentifier(pParser) ) {
+	if ( simple_parser_iskeyword(parser,KEYWORD_CLASS) ) {
+		simple_parser_nexttoken(parser);
+		if ( simple_parser_isidentifier(parser) ) {
 			/*
 			**  Generate Code 
 			**  Return NULL 
 			*/
-			simple_parser_icg_newoperation(pParser,ICO_RETNULL);
-			simple_parser_icg_newoperation(pParser,ICO_NEWCLASS);
-			simple_parser_icg_newoperand(pParser,pParser->TokenText);
+			simple_parser_icg_newoperation(parser,ICO_RETNULL);
+			simple_parser_icg_newoperation(parser,ICO_NEWCLASS);
+			simple_parser_icg_newoperand(parser,parser->TokenText);
 			/* Add Class to Classes Table */
-			pList = pParser->ClassesMap ;
+			pList = parser->ClassesMap ;
 			/* Check Class Redefinition */
 			if ( simple_list_getsize(pList) > 0 ) {
 				for ( x = 1 ; x <= simple_list_getsize(pList) ; x++ ) {
-					if ( strcmp(simple_list_getstring(simple_list_getlist(pList,x),1),pParser->TokenText) == 0 ) {
-						simple_parser_error(pParser,SIMPLE_PARSER_ERROR_CLASSREDEFINE);
+					if ( strcmp(simple_list_getstring(simple_list_getlist(pList,x),1),parser->TokenText) == 0 ) {
+						parser_error(parser,PARSER_ERROR_CLASSREDEFINE);
 						return 0 ;
 					}
 				}
 			}
-			pList = simple_list_newlist_gc(pParser->pRingState,pList);
-			simple_list_addstsimple_gc(pParser->pRingState,pList,pParser->TokenText);
-			simple_list_addint_gc(pParser->pRingState,pList,simple_list_getsize(pParser->GenCode));
+			pList = simple_list_newlist_gc(parser->pSimpleState,pList);
+			simple_list_addstsimple_gc(parser->pSimpleState,pList,parser->TokenText);
+			simple_list_addint_gc(parser->pSimpleState,pList,simple_list_getsize(parser->GenCode));
 			/* Add class pointer to generated code */
-			simple_parser_icg_newoperandpointer(pParser,pList);
-			simple_parser_nexttoken(pParser);
+			simple_parser_icg_newoperandpointer(parser,pList);
+			simple_parser_nexttoken(parser);
 			/* [From Identifer] */
-			if ( simple_parser_iskeyword(pParser,KEYWORD_FROM) || simple_parser_isoperator2(pParser,OP_RANGE) || simple_parser_isoperator2(pParser,OP_LESS) ) {
-				simple_parser_nexttoken(pParser);
-				if ( simple_parser_namedotname(pParser) ) {
+			if ( simple_parser_iskeyword(parser,KEYWORD_FROM) || simple_parser_isoperator2(parser,OP_RANGE) || simple_parser_isoperator2(parser,OP_LESS) ) {
+				simple_parser_nexttoken(parser);
+				if ( simple_parser_namedotname(parser) ) {
 					/* Generate Code */
-					pList3 = simple_parser_icg_getactiveoperation(pParser);
+					pList3 = simple_parser_icg_getactiveoperation(parser);
 					/* Check if parent class name = subclass name */
 					if ( strcmp(simple_list_getstring(pList,1),simple_list_getstring(pList3,4)) == 0 ) {
-						simple_parser_error(pParser,SIMPLE_PARSER_ERROR_PARENTLIKESUBCLASS);
+						parser_error(parser,PARSER_ERROR_PARENTLIKESUBCLASS);
 						return 0 ;
 					}
 					/* Set Parent Class Name in Classes Map */
-					simple_list_addstsimple_gc(pParser->pRingState,pList,simple_list_getstring(pList3,4));
+					simple_list_addstsimple_gc(parser->pSimpleState,pList,simple_list_getstring(pList3,4));
 					#if SIMPLE_PARSERTRACE
 					SIMPLE_STATE_CHECKPRINTRULES 
 					
-					puts("Rule : Statement  --> 'Class' Identifier 'From' [PackageName'.']Identifier");
+					puts("Rule : Statement  --> 'Class' Identifier 'From' [ModulesName'.']Identifier");
 					#endif
 				} else {
-					simple_parser_error(pParser,SIMPLE_PARSER_ERROR_PRENTCLASSNAME);
+					parser_error(parser,PARSER_ERROR_PRENTCLASSNAME);
 					return 0 ;
 				}
 			} else {
 				/* Set Parent Class Name In Classes Map */
-				simple_list_addstsimple_gc(pParser->pRingState,pList,"");
+				simple_list_addstsimple_gc(parser->pSimpleState,pList,"");
 				#if SIMPLE_PARSERTRACE
 				SIMPLE_STATE_CHECKPRINTRULES 
 				
@@ -81,168 +81,168 @@ int simple_parser_class ( Parser *pParser )
 				#endif
 			}
 			/* Add Method/Functions List to Class in Class Table */
-			pList2 = simple_list_newlist_gc(pParser->pRingState,pList);
+			pList2 = simple_list_newlist_gc(parser->pSimpleState,pList);
 			/* Add Flag ( IS Parent Class information collected  ) */
-			simple_list_addint_gc(pParser->pRingState,pList,0);
+			simple_list_addint_gc(parser->pSimpleState,pList,0);
 			/* Set Active Functions List to be Class Methods */
-			pParser->FunctionsMap = pList2 ;
-			/* Make class visible using PackageName.ClassName if we have package */
-			if ( pParser->ClassesMap != pParser->pRingState->pRingClassesMap ) {
-				/* Get Package Name */
-				pList3 = simple_list_getlist(pParser->pRingState->pRingPackagesMap,simple_list_getsize(pParser->pRingState->pRingPackagesMap));
-				pString = simple_stsimple_new_gc(pParser->pRingState,simple_list_getstring(pList3,1));
-				/* Add pointer to the Package in the Class List */
-				simple_list_addpointer_gc(pParser->pRingState,pList,pList3);
-				/* Add List point to General Classes point to the class in the package */
-				pList2 = simple_list_newlist_gc(pParser->pRingState,pParser->pRingState->pRingClassesMap);
-				simple_list_addstsimple_gc(pParser->pRingState,pList2,"");
-				simple_list_addpointer_gc(pParser->pRingState,pList2,pList);
+			parser->FunctionsMap = pList2 ;
+			/* Make class visible using ModulesName.ClassName if we have modules */
+			if ( parser->ClassesMap != parser->pSimpleState->pSimpleClassesMap ) {
+				/* Get Modules Name */
+				pList3 = simple_list_getlist(parser->pSimpleState->pSimpleModulessMap,simple_list_getsize(parser->pSimpleState->pSimpleModulessMap));
+				pString = simple_stsimple_new_gc(parser->pSimpleState,simple_list_getstring(pList3,1));
+				/* Add pointer to the Modules in the Class List */
+				simple_list_addpointer_gc(parser->pSimpleState,pList,pList3);
+				/* Add List point to General Classes point to the class in the modules */
+				pList2 = simple_list_newlist_gc(parser->pSimpleState,parser->pSimpleState->pSimpleClassesMap);
+				simple_list_addstsimple_gc(parser->pSimpleState,pList2,"");
+				simple_list_addpointer_gc(parser->pSimpleState,pList2,pList);
 				/* Ignore Adding Pointer to File Name */
-				simple_list_addpointer_gc(pParser->pRingState,pList2,NULL);
-				/* Add Class Name to Package Name */
-				simple_stsimple_add_gc(pParser->pRingState,pString,".");
-				simple_stsimple_add_gc(pParser->pRingState,pString,simple_list_getstring(pList,1));
-				simple_list_setstsimple_gc(pParser->pRingState,pList2,1,simple_stsimple_get(pString));
-				simple_stsimple_delete_gc(pParser->pRingState,pString);
+				simple_list_addpointer_gc(parser->pSimpleState,pList2,NULL);
+				/* Add Class Name to Modules Name */
+				simple_stsimple_add_gc(parser->pSimpleState,pString,".");
+				simple_stsimple_add_gc(parser->pSimpleState,pString,simple_list_getstring(pList,1));
+				simple_list_setstsimple_gc(parser->pSimpleState,pList2,1,simple_stsimple_get(pString));
+				simple_stsimple_delete_gc(parser->pSimpleState,pString);
 			} else {
-				/* Add pointer to the Package in the Class List */
-				simple_list_addpointer_gc(pParser->pRingState,pList,NULL);
+				/* Add pointer to the Modules in the Class List */
+				simple_list_addpointer_gc(parser->pSimpleState,pList,NULL);
 			}
-			pParser->nClassStart = 1 ;
+			parser->nClassStart = 1 ;
 			/* Create label to be used by Private */
-			pParser->nClassMark = simple_parser_icg_newlabel2(pParser);
-			pParser->nPrivateFlag = 0 ;
+			parser->nClassMark = simple_parser_icg_newlabel2(parser);
+			parser->nPrivateFlag = 0 ;
 			/* Generate Code - Set The File Name */
-			simple_parser_icg_newoperation(pParser,ICO_FILENAME);
-			simple_parser_icg_newoperand(pParser,simple_list_getstring(pParser->pRingState->pRingFilesStack,simple_list_getsize(pParser->pRingState->pRingFilesStack)));
+			simple_parser_icg_newoperation(parser,ICO_FILENAME);
+			simple_parser_icg_newoperand(parser,simple_list_getstring(parser->pSimpleState->pSimpleFilesStack,simple_list_getsize(parser->pSimpleState->pSimpleFilesStack)));
 			/* Set Global Scope */
-			simple_parser_icg_newoperation(pParser,ICO_SETGLOBALSCOPE);
-			simple_parser_icg_newoperandint(pParser,simple_list_getint(pParser->pRingState->aCustomGlobalScopeStack,simple_list_getsize(pParser->pRingState->aCustomGlobalScopeStack)));
+			simple_parser_icg_newoperation(parser,ICO_SETGLOBALSCOPE);
+			simple_parser_icg_newoperandint(parser,simple_list_getint(parser->pSimpleState->aCustomGlobalScopeStack,simple_list_getsize(parser->pSimpleState->aCustomGlobalScopeStack)));
 			/* Support using { } around the class code and using 'end' after the content */
-			return simple_parser_bracesandend(pParser,1,KEYWORD_ENDCLASS) ;
+			return simple_parser_bracesandend(parser,1,KEYWORD_END) ;
 		} else {
-			simple_parser_error(pParser,SIMPLE_PARSER_ERROR_CLASSNAME);
+			parser_error(parser,PARSER_ERROR_CLASSNAME);
 			return 0 ;
 		}
 	}
-	/* Statement --> Func|Def Identifier [PARALIST] */
-	if ( simple_parser_iskeyword(pParser,KEYWORD_FUNC) || simple_parser_iskeyword(pParser,KEYWORD_DEF) ) {
-		simple_parser_nexttoken(pParser);
-		if ( simple_parser_isidentifier(pParser) ) {
+	/* Statement --> block Identifier [PARALIST] */
+	if ( simple_parser_iskeyword(parser,KEYWORD_BLOCK) ) {
+		simple_parser_nexttoken(parser);
+		if ( simple_parser_isidentifier(parser) ) {
 			/*
 			**  Generate Code 
 			**  Return NULL 
 			*/
-			simple_parser_icg_newoperation(pParser,ICO_RETNULL);
-			simple_parser_icg_newoperation(pParser,ICO_NEWFUNC);
-			simple_parser_icg_newoperand(pParser,pParser->TokenText);
+			simple_parser_icg_newoperation(parser,ICO_RETNULL);
+			simple_parser_icg_newoperation(parser,ICO_NEWBLOCK);
+			simple_parser_icg_newoperand(parser,parser->TokenText);
 			/* Add function to Functions Table */
-			pList2 = pParser->FunctionsMap ;
+			pList2 = parser->FunctionsMap ;
 			/* Check Function Redefinition */
 			if ( simple_list_getsize(pList2) > 0 ) {
 				for ( x = 1 ; x <= simple_list_getsize(pList2) ; x++ ) {
-					if ( strcmp(simple_list_getstring(simple_list_getlist(pList2,x),1),pParser->TokenText) == 0 ) {
-						simple_parser_error(pParser,SIMPLE_PARSER_ERROR_FUNCREDEFINE);
-						return 0 ;
+					if ( strcmp(simple_list_getstring(simple_list_getlist(pList2,x),1),parser->TokenText) == 0 ) {
+						parser_error(parser,PARSER_ERROR_BLOCKREDEFINE);
+						return 0 ; 
 					}
 				}
 			}
-			pList2 = simple_list_newlist_gc(pParser->pRingState,pList2);
-			simple_list_addstsimple_gc(pParser->pRingState,pList2,pParser->TokenText);
-			simple_list_addint_gc(pParser->pRingState,pList2,simple_list_getsize(pParser->GenCode));
-			simple_list_addstsimple_gc(pParser->pRingState,pList2,simple_list_getstring(pParser->pRingState->pRingFilesStack,simple_list_getsize(pParser->pRingState->pRingFilesStack)));
-			if ( pParser->nClassStart == 1 ) {
-				simple_list_addint_gc(pParser->pRingState,pList2,pParser->nPrivateFlag);
+			pList2 = simple_list_newlist_gc(parser->pSimpleState,pList2);
+			simple_list_addstsimple_gc(parser->pSimpleState,pList2,parser->TokenText);
+			simple_list_addint_gc(parser->pSimpleState,pList2,simple_list_getsize(parser->GenCode));
+			simple_list_addstsimple_gc(parser->pSimpleState,pList2,simple_list_getstring(parser->pSimpleState->pSimpleFilesStack,simple_list_getsize(parser->pSimpleState->pSimpleFilesStack)));
+			if ( parser->nClassStart == 1 ) {
+				simple_list_addint_gc(parser->pSimpleState,pList2,parser->nPrivateFlag);
 			} else {
-				simple_list_addint_gc(pParser->pRingState,pList2,0);
+				simple_list_addint_gc(parser->pSimpleState,pList2,0);
 			}
-			simple_parser_nexttoken(pParser);
-			if ( simple_parser_isidentifier(pParser) || simple_parser_isoperator2(pParser,OP_FOPEN) ) {
-				x = simple_parser_paralist(pParser);
+			simple_parser_nexttoken(parser);
+			if ( simple_parser_isidentifier(parser) || simple_parser_isoperator2(parser,OP_FOPEN) ) {
+				x = simple_parser_paralist(parser);
 			} else {
 				x = 1 ;
 			}
 			/* Set Global Scope */
-			simple_parser_icg_newoperation(pParser,ICO_SETGLOBALSCOPE);
-			simple_parser_icg_newoperandint(pParser,simple_list_getint(pParser->pRingState->aCustomGlobalScopeStack,simple_list_getsize(pParser->pRingState->aCustomGlobalScopeStack)));
+			simple_parser_icg_newoperation(parser,ICO_SETGLOBALSCOPE);
+			simple_parser_icg_newoperandint(parser,simple_list_getint(parser->pSimpleState->aCustomGlobalScopeStack,simple_list_getsize(parser->pSimpleState->aCustomGlobalScopeStack)));
 			if ( x ) {
 				/* Support using { } around the function code and using 'end' after the content */
-				return simple_parser_bracesandend(pParser,0,KEYWORD_ENDFUNC) ;
+				return simple_parser_bracesandend(parser,0,KEYWORD_END) ;
 			}
 			#if SIMPLE_PARSERTRACE
 			if ( x == 1 ) {
 				SIMPLE_STATE_CHECKPRINTRULES 
 				
-				puts("Rule : Statement  --> 'Func' Identifier [ParaList]");
+				puts("Rule : Statement  --> 'block' Identifier ([ParaList])");
 			}
 			#endif
 			return x ;
 		} else {
-			simple_parser_error(pParser,SIMPLE_PARSER_ERROR_FUNCNAME);
+			parser_error(parser,PARSER_ERROR_BLOCKNAME);
 			return 0 ;
 		}
 	}
-	/* Statement --> Package Identifier { '.' Identifier } */
-	if ( simple_parser_iskeyword(pParser,KEYWORD_PACKAGE) ) {
-		simple_parser_nexttoken(pParser);
+	/* Statement --> Modules Identifier { '.' Identifier } */
+	if ( simple_parser_iskeyword(parser,KEYWORD_MODULE) ) {
+		simple_parser_nexttoken(parser);
 		/* Generate Code */
-		simple_parser_icg_newoperation(pParser,ICO_PACKAGE);
+		simple_parser_icg_newoperation(parser,ICO_MODULE);
 		#if SIMPLE_PARSERTRACE
 		SIMPLE_STATE_CHECKPRINTRULES 
 		
-		puts("Rule : Statement  --> 'Package' Identifier{'.'identifier}");
+		puts("Rule : Statement  --> 'Modules' Identifier{'.'identifier}");
 		#endif
-		if ( simple_parser_namedotname(pParser) ) {
-			/* Add Package to Packages List */
-			pList = simple_parser_icg_getactiveoperation(pParser);
-			/* Check early definition of the package */
-			for ( x = 1 ; x <= simple_list_getsize(pParser->pRingState->pRingPackagesMap) ; x++ ) {
-				pList3 = simple_list_getlist(pParser->pRingState->pRingPackagesMap,x);
+		if ( simple_parser_namedotname(parser) ) {
+			/* Add Modules to Moduless List */
+			pList = simple_parser_icg_getactiveoperation(parser);
+			/* Check early definition of the modules */
+			for ( x = 1 ; x <= simple_list_getsize(parser->pSimpleState->pSimpleModulessMap) ; x++ ) {
+				pList3 = simple_list_getlist(parser->pSimpleState->pSimpleModulessMap,x);
 				if ( strcmp(simple_list_getstring(pList3,1),simple_list_getstring(pList,2)) == 0 ) {
-					pParser->ClassesMap = simple_list_getlist(pList3,2);
+					parser->ClassesMap = simple_list_getlist(pList3,2);
 					return 1 ;
 				}
 			}
-			pList2 = simple_list_newlist_gc(pParser->pRingState,pParser->pRingState->pRingPackagesMap);
-			/* Add Package Name */
-			simple_list_addstsimple_gc(pParser->pRingState,pList2,simple_list_getstring(pList,2));
-			/* Add Package Classes List */
-			pParser->ClassesMap = simple_list_newlist_gc(pParser->pRingState,pList2);
-			/* Support using { } around the package code and using 'end' after the content */
-			return simple_parser_bracesandend(pParser,1,KEYWORD_ENDPACKAGE) ;
+			pList2 = simple_list_newlist_gc(parser->pSimpleState,parser->pSimpleState->pSimpleModulessMap);
+			/* Add Modules Name */
+			simple_list_addstsimple_gc(parser->pSimpleState,pList2,simple_list_getstring(pList,2));
+			/* Add Modules Classes List */
+			parser->ClassesMap = simple_list_newlist_gc(parser->pSimpleState,pList2);
+			/* Support using { } around the modules code and using 'end' after the content */
+			return simple_parser_bracesandend(parser,1,KEYWORD_END) ;
 		} else {
 			return 0 ;
 		}
 	}
 	/* Statement --> Private */
-	if ( simple_parser_iskeyword(pParser,KEYWORD_PRIVATE) ) {
-		simple_parser_nexttoken(pParser);
-		if ( pParser->nClassStart == 1 ) {
+	if ( simple_parser_iskeyword(parser,KEYWORD_PRIVATE) ) {
+		simple_parser_nexttoken(parser);
+		if ( parser->nClassStart == 1 ) {
 			/* Generate Code */
-			simple_parser_icg_newoperation(pParser,ICO_RETNULL);
+			simple_parser_icg_newoperation(parser,ICO_RETNULL);
 			/* Change Label After Class to BlockFlag to Jump to Private */
-			pList = simple_parser_icg_getoperationlist(pParser,pParser->nClassMark);
-			simple_list_setint_gc(pParser->pRingState,pList,1,ICO_BLOCKFLAG);
-			simple_list_addint_gc(pParser->pRingState,pList,simple_parser_icg_newlabel(pParser));
-			simple_parser_icg_newoperation(pParser,ICO_PRIVATE);
+			pList = simple_parser_icg_getoperationlist(parser,parser->nClassMark);
+			simple_list_setint_gc(parser->pSimpleState,pList,1,ICO_BLOCKFLAG);
+			simple_list_addint_gc(parser->pSimpleState,pList,simple_parser_icg_newlabel(parser));
+			simple_parser_icg_newoperation(parser,ICO_PRIVATE);
 			#if SIMPLE_PARSERTRACE
 			SIMPLE_STATE_CHECKPRINTRULES 
 			
 			puts("Rule : Statement  --> 'Private'");
 			#endif
-			pParser->nPrivateFlag = 1 ;
+			parser->nPrivateFlag = 1 ;
 			return 1 ;
 		} else {
-			simple_parser_error(pParser,SIMPLE_PARSER_ERROR_NOCLASSDEFINED);
+			parser_error(parser,PARSER_ERROR_NOCLASSDEFINED);
 			return 0 ;
 		}
 	}
-	return simple_parser_stmt(pParser) ;
+	return simple_parser_stmt(parser) ;
 }
 
-int simple_parser_stmt ( Parser *pParser )
+int simple_parser_stmt ( Parser *parser )
 {
-	int x,nMark1,nMark2,nMark3,nStart,nEnd,nPerformanceLocations,nFlag,nLoadPackage  ;
+	int x,nMark1,nMark2,nMark3,nStart,nEnd,nPerformanceLocations,nFlag,nLoadModules  ;
 	String *pString  ;
 	List *pMark,*pMark2,*pMark3,*pList2  ;
 	double nNum1  ;
@@ -250,105 +250,105 @@ int simple_parser_stmt ( Parser *pParser )
 	char cFileName[SIMPLE_PATHSIZE]  ;
 	char cCurrentDir[SIMPLE_PATHSIZE]  ;
 	nPerformanceLocations = 0 ;
-	nLoadPackage = 0 ;
-	assert(pParser != NULL);
+	nLoadModules = 0 ;
+	assert(parser != NULL);
 	/* Statement --> Load Literal */
-	if ( simple_parser_iskeyword(pParser,KEYWORD_LOAD) ) {
-		simple_parser_nexttoken(pParser);
-		if ( simple_parser_iskeyword(pParser,KEYWORD_PACKAGE) ) {
-			simple_parser_nexttoken(pParser);
-			nLoadPackage = 1 ;
-			pParser->pRingState->nCustomGlobalScopeCounter++ ;
-			simple_list_addint_gc(pParser->pRingState,pParser->pRingState->aCustomGlobalScopeStack,pParser->pRingState->nCustomGlobalScopeCounter);
+	if ( simple_parser_iskeyword(parser,KEYWORD_LOAD) ) {
+		simple_parser_nexttoken(parser);
+		if ( simple_parser_iskeyword(parser,KEYWORD_MODULE) ) {
+			simple_parser_nexttoken(parser);
+			nLoadModules = 1 ;
+			parser->pSimpleState->nCustomGlobalScopeCounter++ ;
+			simple_list_addint_gc(parser->pSimpleState,parser->pSimpleState->aCustomGlobalScopeStack,parser->pSimpleState->nCustomGlobalScopeCounter);
 		}
-		if ( simple_parser_isliteral(pParser) ) {
-			/* Check File in the Ring/bin folder */
-			strcpy(cFileName,pParser->TokenText);
-			if ( simple_fexists(pParser->TokenText) == 0 ) {
+		if ( simple_parser_isliteral(parser) ) {
+			/* Check File in the Simple/bin folder */
+			strcpy(cFileName,parser->TokenText);
+			if ( simple_fexists(parser->TokenText) == 0 ) {
 				simple_exefolder(cFileName);
-				strcat(cFileName,pParser->TokenText);
+				strcat(cFileName,parser->TokenText);
 				if ( simple_fexists(cFileName) == 0 ) {
-					strcpy(cFileName,pParser->TokenText);
+					strcpy(cFileName,parser->TokenText);
 				}
 			}
 			/*
 			**  Generate Code 
-			**  Load Package - New Global Scope 
+			**  Load Modules - New Global Scope 
 			*/
-			if ( nLoadPackage ) {
-				simple_parser_icg_newoperation(pParser,ICO_NEWGLOBALSCOPE);
+			if ( nLoadModules ) {
+				simple_parser_icg_newoperation(parser,ICO_NEWGLOBALSCOPE);
 			}
-			simple_parser_icg_newoperation(pParser,ICO_FILENAME);
-			simple_parser_icg_newoperand(pParser,cFileName);
-			simple_parser_icg_newoperation(pParser,ICO_BLOCKFLAG);
-			pMark = simple_parser_icg_getactiveoperation(pParser);
+			simple_parser_icg_newoperation(parser,ICO_FILENAME);
+			simple_parser_icg_newoperand(parser,cFileName);
+			simple_parser_icg_newoperation(parser,ICO_BLOCKFLAG);
+			pMark = simple_parser_icg_getactiveoperation(parser);
 			#if SIMPLE_PARSERTRACE
 			SIMPLE_STATE_CHECKPRINTRULES 
 			
 			puts("Rule : Statement  --> 'Load' Literal");
 			#endif
 			/* Set Global Scope */
-			simple_parser_icg_newoperation(pParser,ICO_SETGLOBALSCOPE);
-			simple_parser_icg_newoperandint(pParser,simple_list_getint(pParser->pRingState->aCustomGlobalScopeStack,simple_list_getsize(pParser->pRingState->aCustomGlobalScopeStack)));
-			/* No package at the start of the file */
-			pParser->ClassesMap = pParser->pRingState->pRingClassesMap ;
+			simple_parser_icg_newoperation(parser,ICO_SETGLOBALSCOPE);
+			simple_parser_icg_newoperandint(parser,simple_list_getint(parser->pSimpleState->aCustomGlobalScopeStack,simple_list_getsize(parser->pSimpleState->aCustomGlobalScopeStack)));
+			/* No modules at the start of the file */
+			parser->ClassesMap = parser->pSimpleState->pSimpleClassesMap ;
 			/* Save the Current Directory */
 			simple_currentdir(cCurrentDir);
 			/* Read The File */
-			x = simple_scanner_readfile(pParser->pRingState,cFileName);
+			x = simple_scanner_readfile(parser->pSimpleState,cFileName);
 			/* Restore the Current Directory */
 			simple_chdir(cCurrentDir);
 			/*
 			**  Generate Code 
 			**  Return NULL 
 			*/
-			simple_parser_icg_newoperation(pParser,ICO_RETNULL);
-			nMark1 = simple_parser_icg_newlabel(pParser);
-			simple_parser_icg_addoperandint(pParser,pMark,nMark1);
-			/* Load Package - End Global Scope */
-			if ( nLoadPackage ) {
-				simple_parser_icg_newoperation(pParser,ICO_ENDGLOBALSCOPE);
-				simple_list_deletelastitem_gc(pParser->pRingState,pParser->pRingState->aCustomGlobalScopeStack);
+			simple_parser_icg_newoperation(parser,ICO_RETNULL);
+			nMark1 = simple_parser_icg_newlabel(parser);
+			simple_parser_icg_addoperandint(parser,pMark,nMark1);
+			/* Load Modules - End Global Scope */
+			if ( nLoadModules ) {
+				simple_parser_icg_newoperation(parser,ICO_ENDGLOBALSCOPE);
+				simple_list_deletelastitem_gc(parser->pSimpleState,parser->pSimpleState->aCustomGlobalScopeStack);
 				/* Set Global Scope */
-				simple_parser_icg_newoperation(pParser,ICO_SETGLOBALSCOPE);
-				simple_parser_icg_newoperandint(pParser,simple_list_getint(pParser->pRingState->aCustomGlobalScopeStack,simple_list_getsize(pParser->pRingState->aCustomGlobalScopeStack)));
+				simple_parser_icg_newoperation(parser,ICO_SETGLOBALSCOPE);
+				simple_parser_icg_newoperandint(parser,simple_list_getint(parser->pSimpleState->aCustomGlobalScopeStack,simple_list_getsize(parser->pSimpleState->aCustomGlobalScopeStack)));
 			}
 			/* Set Active File */
-			simple_parser_icg_newoperation(pParser,ICO_FILENAME);
-			simple_parser_icg_newoperand(pParser,simple_list_getstring(pParser->pRingState->pRingFilesStack,simple_list_getsize(pParser->pRingState->pRingFilesStack)));
-			simple_parser_icg_newoperation(pParser,ICO_FREESTACK);
-			simple_parser_nexttoken(pParser);
+			simple_parser_icg_newoperation(parser,ICO_FILENAME);
+			simple_parser_icg_newoperand(parser,simple_list_getstring(parser->pSimpleState->pSimpleFilesStack,simple_list_getsize(parser->pSimpleState->pSimpleFilesStack)));
+			simple_parser_icg_newoperation(parser,ICO_FREESTACK);
+			simple_parser_nexttoken(parser);
 			return x ;
 		}
 		return 0 ;
 	}
 	/* Statement --> display Expr */
-	if ( simple_parser_iskeyword(pParser,KEYWORD_DISPLAY)) {
-		simple_parser_nexttoken(pParser);
-		#if SIMPLE_USEDISPLAYFUNCTION
+	if ( simple_parser_iskeyword(parser,KEYWORD_DISPLAY)) {
+		simple_parser_nexttoken(parser);
+		#if SIMPLE_USEDISPLAYBLOCKTION
 		/* Generate code to use the display function */
-		simple_parser_icg_newoperation(pParser,ICO_LOADFUNC);
-		simple_parser_icg_newoperand(pParser,"ringvm_display");
+		simple_parser_icg_newoperation(parser,ICO_LOADBLOCK);
+		simple_parser_icg_newoperand(parser,"ringvm_display");
 		/* Parameters */
-		nFlag = pParser->nAssignmentFlag ;
-		pParser->nAssignmentFlag = 0 ;
-		x = simple_parser_expr(pParser);
-		pParser->nAssignmentFlag = nFlag ;
-		simple_parser_icg_newoperation(pParser,ICO_CALL);
-		simple_parser_icg_newoperandint(pParser,0);
-		simple_parser_icg_newoperation(pParser,ICO_NOOP);
-		simple_parser_icg_newoperation(pParser,ICO_FREESTACK);
+		nFlag = parser->nAssignmentFlag ;
+		parser->nAssignmentFlag = 0 ;
+		x = simple_parser_expr(parser);
+		parser->nAssignmentFlag = nFlag ;
+		simple_parser_icg_newoperation(parser,ICO_CALL);
+		simple_parser_icg_newoperandint(parser,0);
+		simple_parser_icg_newoperation(parser,ICO_NOOP);
+		simple_parser_icg_newoperation(parser,ICO_FREESTACK);
 		#else
 		/*
 		**  Generate code using the display Command Instruction 
 		**  Generate Code 
 		*/
-		simple_parser_icg_newoperation(pParser,ICO_FUNCEXE);
-		pParser->nAssignmentFlag = 0 ;
-		x = simple_parser_expr(pParser);
-		pParser->nAssignmentFlag = 1 ;
+		simple_parser_icg_newoperation(parser,ICO_BLOCKEXE);
+		parser->nAssignmentFlag = 0 ;
+		x = simple_parser_expr(parser);
+		parser->nAssignmentFlag = 1 ;
 		/* Generate Code */
-		simple_parser_icg_newoperation(pParser,ICO_DISPLAY);
+		simple_parser_icg_newoperation(parser,ICO_DISPLAY);
 		#endif
 		#if SIMPLE_PARSERTRACE
 		SIMPLE_STATE_CHECKPRINTRULES 
@@ -358,19 +358,19 @@ int simple_parser_stmt ( Parser *pParser )
 		return x ;
 	}
 	/* Statement --> ? Expr */
-	if ( simple_parser_isoperator(pParser,"?") ) {
-		simple_parser_nexttoken(pParser);
+	if ( simple_parser_isoperator(parser,"?") ) {
+		simple_parser_nexttoken(parser);
 		/* Generate Code */
-		simple_parser_icg_newoperation(pParser,ICO_FUNCEXE);
-		pParser->nAssignmentFlag = 0 ;
-		x = simple_parser_expr(pParser);
-		pParser->nAssignmentFlag = 1 ;
+		simple_parser_icg_newoperation(parser,ICO_BLOCKEXE);
+		parser->nAssignmentFlag = 0 ;
+		x = simple_parser_expr(parser);
+		parser->nAssignmentFlag = 1 ;
 		/* Generate Code */
-		simple_parser_icg_newoperation(pParser,ICO_DISPLAY);
+		simple_parser_icg_newoperation(parser,ICO_DISPLAY);
 		/* Print New Line */
-		simple_parser_icg_newoperation(pParser,ICO_PUSHC);
-		simple_parser_icg_newoperand(pParser,"\n");
-		simple_parser_icg_newoperation(pParser,ICO_DISPLAY);
+		simple_parser_icg_newoperation(parser,ICO_PUSHC);
+		simple_parser_icg_newoperand(parser,"\n");
+		simple_parser_icg_newoperation(parser,ICO_DISPLAY);
 		#if SIMPLE_PARSERTRACE
 		SIMPLE_STATE_CHECKPRINTRULES 
 		
@@ -379,14 +379,14 @@ int simple_parser_stmt ( Parser *pParser )
 		return x ;
 	}
 	/* Statement --> read Identifier */
-	if ( simple_parser_iskeyword(pParser,KEYWORD_READ) ) {
-		simple_parser_nexttoken(pParser);
-		if ( simple_parser_isidentifier(pParser) ) {
+	if ( simple_parser_iskeyword(parser,KEYWORD_READ) ) {
+		simple_parser_nexttoken(parser);
+		if ( simple_parser_isidentifier(parser) ) {
 			/* Generate Code */
-			simple_parser_icg_newoperation(pParser,ICO_LOADADDRESS);
-			simple_parser_icg_newoperand(pParser,pParser->TokenText);
-			simple_parser_nexttoken(pParser);
-			x = simple_parser_mixer(pParser);
+			simple_parser_icg_newoperation(parser,ICO_LOADADDRESS);
+			simple_parser_icg_newoperand(parser,parser->TokenText);
+			simple_parser_nexttoken(parser);
+			x = simple_parser_mixer(parser);
 			if ( x == 0 ) {
 				return 0 ;
 			}
@@ -396,82 +396,82 @@ int simple_parser_stmt ( Parser *pParser )
 			
 			puts("Rule : Statement  --> 'read' Identifier|ListItem|Object.Attribute");
 			#endif
-			#if SIMPLE_USEGIVEFUNCTION
+			#if SIMPLE_USEGIVEBLOCKTION
 			/* Generate code to use the read function */
-			simple_parser_icg_newoperation(pParser,ICO_ASSIGNMENTPOINTER);
-			simple_parser_icg_newoperation(pParser,ICO_LOADFUNC);
-			simple_parser_icg_newoperand(pParser,"ringvm_read");
-			simple_parser_icg_newoperation(pParser,ICO_CALL);
-			simple_parser_icg_newoperandint(pParser,0);
-			simple_parser_icg_newoperation(pParser,ICO_NOOP);
-			simple_parser_icg_newoperation(pParser,ICO_BEFOREEQUAL);
-			simple_parser_icg_newoperandint(pParser,0);
-			simple_parser_icg_newoperation(pParser,ICO_ASSIGNMENT);
-			simple_parser_icg_newoperandint(pParser,0);
-			simple_parser_icg_newoperandint(pParser,0);
-			simple_parser_icg_newoperation(pParser,ICO_FREESTACK);
+			simple_parser_icg_newoperation(parser,ICO_ASSIGNMENTPOINTER);
+			simple_parser_icg_newoperation(parser,ICO_LOADBLOCK);
+			simple_parser_icg_newoperand(parser,"ringvm_read");
+			simple_parser_icg_newoperation(parser,ICO_CALL);
+			simple_parser_icg_newoperandint(parser,0);
+			simple_parser_icg_newoperation(parser,ICO_NOOP);
+			simple_parser_icg_newoperation(parser,ICO_BEFOREEQUAL);
+			simple_parser_icg_newoperandint(parser,0);
+			simple_parser_icg_newoperation(parser,ICO_ASSIGNMENT);
+			simple_parser_icg_newoperandint(parser,0);
+			simple_parser_icg_newoperandint(parser,0);
+			simple_parser_icg_newoperation(parser,ICO_FREESTACK);
 			#else
-			simple_parser_icg_newoperation(pParser,ICO_GIVE);
+			simple_parser_icg_newoperation(parser,ICO_GIVE);
 			#endif
 			return 1 ;
 		} else {
-			simple_parser_error(pParser,SIMPLE_PARSER_ERROR_VARNAME);
+			parser_error(parser,PARSER_ERROR_VARNAME);
 			return 0 ;
 		}
 	}
 	/* Statement --> For Identifier = Expr to Expr {Statement} Next  |  For Identifier in Expr {Statemen */
-	if ( simple_parser_iskeyword(pParser,KEYWORD_FOR) ) {
-		simple_parser_nexttoken(pParser);
-		if ( simple_parser_isidentifier(pParser) ) {
-			pString = simple_stsimple_new_gc(pParser->pRingState,pParser->TokenText);
-			simple_parser_nexttoken(pParser);
-			if ( simple_parser_isoperator2(pParser,OP_EQUAL) ) {
+	if ( simple_parser_iskeyword(parser,KEYWORD_FOR) ) {
+		simple_parser_nexttoken(parser);
+		if ( simple_parser_isidentifier(parser) ) {
+			pString = simple_stsimple_new_gc(parser->pSimpleState,parser->TokenText);
+			simple_parser_nexttoken(parser);
+			if ( simple_parser_isoperator2(parser,OP_EQUAL) ) {
 				/*
 				**  Generate Code 
 				**  Mark for Exit command to go to outside the loop 
 				*/
-				simple_parser_icg_newoperation(pParser,ICO_EXITMARK);
-				pMark3 = simple_parser_icg_getactiveoperation(pParser);
-				simple_parser_icg_newoperation(pParser,ICO_LOADAFIRST);
-				simple_parser_icg_newoperand(pParser,simple_stsimple_get(pString));
-				simple_parser_nexttoken(pParser);
-				pParser->nAssignmentFlag = 0 ;
-				if ( simple_parser_expr(pParser) ) {
+				simple_parser_icg_newoperation(parser,ICO_EXITMARK);
+				pMark3 = simple_parser_icg_getactiveoperation(parser);
+				simple_parser_icg_newoperation(parser,ICO_LOADAFIRST);
+				simple_parser_icg_newoperand(parser,simple_stsimple_get(pString));
+				simple_parser_nexttoken(parser);
+				parser->nAssignmentFlag = 0 ;
+				if ( simple_parser_expr(parser) ) {
 					/*
 					**  Generate Code 
 					**  Before Equal ( = ) not += , -= ,... etc 
 					*/
-					simple_parser_icg_newoperation(pParser,ICO_BEFOREEQUAL);
-					simple_parser_icg_newoperandint(pParser,0);
-					simple_parser_icg_newoperation(pParser,ICO_ASSIGNMENT);
-					nMark1 = simple_parser_icg_newlabel(pParser);
-					simple_parser_icg_newoperation(pParser,ICO_LOADAPUSHV);
-					simple_parser_icg_newoperand(pParser,simple_stsimple_get(pString));
-					if ( simple_parser_iskeyword(pParser,KEYWORD_TO) ) {
-						simple_parser_nexttoken(pParser);
-						pParser->nAssignmentFlag = 0 ;
-						if ( simple_parser_csexpr(pParser) ) {
-							pParser->nAssignmentFlag = 1 ;
+					simple_parser_icg_newoperation(parser,ICO_BEFOREEQUAL);
+					simple_parser_icg_newoperandint(parser,0);
+					simple_parser_icg_newoperation(parser,ICO_ASSIGNMENT);
+					nMark1 = simple_parser_icg_newlabel(parser);
+					simple_parser_icg_newoperation(parser,ICO_LOADAPUSHV);
+					simple_parser_icg_newoperand(parser,simple_stsimple_get(pString));
+					if ( simple_parser_iskeyword(parser,KEYWORD_TO) ) {
+						simple_parser_nexttoken(parser);
+						parser->nAssignmentFlag = 0 ;
+						if ( simple_parser_csexpr(parser) ) {
+							parser->nAssignmentFlag = 1 ;
 							/* Generate Code */
-							if ( (simple_parser_icg_getlastoperation(pParser) == ICO_PUSHN) && (simple_parser_icg_newlabel(pParser) == (nMark1+2)) ) {
+							if ( (simple_parser_icg_getlastoperation(parser) == ICO_PUSHN) && (simple_parser_icg_newlabel(parser) == (nMark1+2)) ) {
 								/*
 								**  We check nMark2+2 to avoid executing next instructions when we have expr 
 								**  for example for x = 1 to 10+5 
 								*/
-								nNum1 = simple_list_getdouble(pParser->ActiveGenCodeList,2) ;
-								simple_parser_icg_deletelastoperation(pParser);
-								simple_parser_icg_setlastoperation(pParser,ICO_JUMPVARLENUM);
-								simple_parser_icg_newoperanddouble(pParser,nNum1);
+								nNum1 = simple_list_getdouble(parser->ActiveGenCodeList,2) ;
+								simple_parser_icg_deletelastoperation(parser);
+								simple_parser_icg_setlastoperation(parser,ICO_JUMPVARLENUM);
+								simple_parser_icg_newoperanddouble(parser,nNum1);
 								/* Add Locations Needed for Instruction change for performance */
 								nPerformanceLocations = 1 ;
 							} else {
-								simple_parser_icg_newoperation(pParser,ICO_JUMPFOR);
+								simple_parser_icg_newoperation(parser,ICO_JUMPFOR);
 							}
-							pMark = simple_parser_icg_getactiveoperation(pParser);
+							pMark = simple_parser_icg_getactiveoperation(parser);
 							/* Step <expr> */
-							x = simple_parser_step(pParser,&nMark1);
+							x = simple_parser_step(parser,&nMark1);
 							if ( x == 0 ) {
-								simple_stsimple_delete_gc(pParser->pRingState,pString);
+								simple_stsimple_delete_gc(parser->pSimpleState,pString);
 								return 0 ;
 							}
 							#if SIMPLE_PARSERTRACE
@@ -479,102 +479,102 @@ int simple_parser_stmt ( Parser *pParser )
 							
 							puts("Rule : Statement  --> 'For' Identifier '=' Expr to Expr ['step' Expr]");
 							#endif
-							while ( simple_parser_stmt(pParser) ) {
-								if ( pParser->ActiveToken == pParser->TokensCount ) {
+							while ( simple_parser_stmt(parser) ) {
+								if ( parser->ActiveToken == parser->TokensCount ) {
 									break ;
 								}
 							}
-							if ( simple_parser_iskeyword(pParser,KEYWORD_NEXT) || simple_parser_iskeyword(pParser,KEYWORD_END) || simple_parser_csbraceend(pParser) ) {
+							if ( simple_parser_iskeyword(parser,KEYWORD_NEXT) || simple_parser_iskeyword(parser,KEYWORD_END) || simple_parser_csbraceend(parser) ) {
 								/* Generate Code */
-								nMark3 = simple_parser_icg_newlabel(pParser);
+								nMark3 = simple_parser_icg_newlabel(parser);
 								/* Increment Jump */
-								simple_parser_icg_newoperation(pParser,ICO_INCJUMP);
-								simple_parser_icg_newoperand(pParser,simple_stsimple_get(pString));
-								simple_parser_icg_newoperandint(pParser,nMark1);
+								simple_parser_icg_newoperation(parser,ICO_INCJUMP);
+								simple_parser_icg_newoperand(parser,simple_stsimple_get(pString));
+								simple_parser_icg_newoperandint(parser,nMark1);
 								/* Add Locations needed for instruction change for performance */
-								simple_parser_icg_newoperandint(pParser,0);
-								simple_parser_icg_newoperandint(pParser,0);
-								nMark2 = simple_parser_icg_newlabel(pParser);
-								simple_parser_icg_addoperandint(pParser,pMark,nMark2);
+								simple_parser_icg_newoperandint(parser,0);
+								simple_parser_icg_newoperandint(parser,0);
+								nMark2 = simple_parser_icg_newlabel(parser);
+								simple_parser_icg_addoperandint(parser,pMark,nMark2);
 								/* Performance Locations */
 								if ( nPerformanceLocations ) {
 									/* Add Locations Needed for Instruction JUMPVARLENUM change for performance */
-									simple_parser_icg_addoperandint(pParser,pMark,0);
-									simple_parser_icg_addoperandint(pParser,pMark,0);
+									simple_parser_icg_addoperandint(parser,pMark,0);
+									simple_parser_icg_addoperandint(parser,pMark,0);
 								}
 								/* Set Exit Mark */
-								simple_parser_icg_addoperandint(pParser,pMark3,nMark2);
+								simple_parser_icg_addoperandint(parser,pMark3,nMark2);
 								/* Set Loop Mark */
-								simple_parser_icg_addoperandint(pParser,pMark3,nMark3);
+								simple_parser_icg_addoperandint(parser,pMark3,nMark3);
 								/* End Loop (Remove Exit Mark) */
-								simple_parser_icg_newoperation(pParser,ICO_POPEXITMARK);
+								simple_parser_icg_newoperation(parser,ICO_POPEXITMARK);
 								/* POP Step */
-								simple_parser_icg_newoperation(pParser,ICO_POPSTEP);
-								simple_parser_nexttoken(pParser);
+								simple_parser_icg_newoperation(parser,ICO_POPSTEP);
+								simple_parser_nexttoken(parser);
 								#if SIMPLE_PARSERTRACE
 								SIMPLE_STATE_CHECKPRINTRULES 
 								
 								puts("Rule : Next --> 'Next'");
 								#endif
-								simple_stsimple_delete_gc(pParser->pRingState,pString);
+								simple_stsimple_delete_gc(parser->pSimpleState,pString);
 								return 1 ;
 							} else {
-								simple_parser_error(pParser,SIMPLE_PARSER_ERROR_NEXT);
+								parser_error(parser,PARSER_ERROR_NEXT);
 							}
 						}
 					}
 				}
 			}
-			else if ( simple_parser_iskeyword(pParser,KEYWORD_IN) ) {
+			else if ( simple_parser_iskeyword(parser,KEYWORD_IN) ) {
 				/* Generate Code */
-				sprintf( cStr , "n_sys_var_%d" , simple_parser_icg_instructionscount(pParser) ) ;
+				sprintf( cStr , "n_sys_var_%d" , simple_parser_icg_instructionscount(parser) ) ;
 				/* Mark for Exit command to go to outside the loop */
-				simple_parser_icg_newoperation(pParser,ICO_EXITMARK);
-				pMark3 = simple_parser_icg_getactiveoperation(pParser);
-				simple_parser_icg_newoperation(pParser,ICO_LOADADDRESS);
-				simple_parser_icg_newoperand(pParser,cStr);
-				simple_parser_icg_newoperation(pParser,ICO_PUSHN);
-				simple_parser_icg_newoperanddouble(pParser,1.0);
+				simple_parser_icg_newoperation(parser,ICO_EXITMARK);
+				pMark3 = simple_parser_icg_getactiveoperation(parser);
+				simple_parser_icg_newoperation(parser,ICO_LOADADDRESS);
+				simple_parser_icg_newoperand(parser,cStr);
+				simple_parser_icg_newoperation(parser,ICO_PUSHN);
+				simple_parser_icg_newoperanddouble(parser,1.0);
 				/* Before Equal ( = ) not += , -= ,... etc */
-				simple_parser_icg_newoperation(pParser,ICO_BEFOREEQUAL);
-				simple_parser_icg_newoperandint(pParser,0);
-				simple_parser_icg_newoperation(pParser,ICO_ASSIGNMENT);
+				simple_parser_icg_newoperation(parser,ICO_BEFOREEQUAL);
+				simple_parser_icg_newoperandint(parser,0);
+				simple_parser_icg_newoperation(parser,ICO_ASSIGNMENT);
 				/* Generate Code */
-				nMark1 = simple_parser_icg_newlabel(pParser);
-				simple_parser_icg_newoperation(pParser,ICO_LOADAPUSHV);
-				simple_parser_icg_newoperand(pParser,cStr);
-				simple_parser_icg_newoperation(pParser,ICO_LOADFUNC);
-				simple_parser_icg_newoperand(pParser,"len");
-				nStart = simple_parser_icg_instructionscount(pParser) + 1 ;
-				simple_parser_nexttoken(pParser);
-				pParser->nAssignmentFlag = 0 ;
-				if ( simple_parser_csexpr(pParser) ) {
-					pParser->nAssignmentFlag = 1 ;
+				nMark1 = simple_parser_icg_newlabel(parser);
+				simple_parser_icg_newoperation(parser,ICO_LOADAPUSHV);
+				simple_parser_icg_newoperand(parser,cStr);
+				simple_parser_icg_newoperation(parser,ICO_LOADBLOCK);
+				simple_parser_icg_newoperand(parser,"len");
+				nStart = simple_parser_icg_instructionscount(parser) + 1 ;
+				simple_parser_nexttoken(parser);
+				parser->nAssignmentFlag = 0 ;
+				if ( simple_parser_csexpr(parser) ) {
+					parser->nAssignmentFlag = 1 ;
 					/* Generate Code */
-					nEnd = simple_parser_icg_instructionscount(pParser) ;
+					nEnd = simple_parser_icg_instructionscount(parser) ;
 					/* Note (nEnd-1) , -1 to remove instruction PushV (avoid error with for x in string) */
-					if ( simple_parser_icg_getlastoperation(pParser) == ICO_PUSHV ) {
+					if ( simple_parser_icg_getlastoperation(parser) == ICO_PUSHV ) {
 						nEnd-- ;
 					}
-					simple_parser_icg_newoperation(pParser,ICO_CALL);
+					simple_parser_icg_newoperation(parser,ICO_CALL);
 					/* Generate 0 For Operator OverLoading */
-					simple_parser_icg_newoperandint(pParser,0);
-					simple_parser_icg_newoperation(pParser,ICO_JUMPFOR);
-					pMark = simple_parser_icg_getactiveoperation(pParser);
-					simple_parser_icg_newoperation(pParser,ICO_LOADAFIRST);
-					simple_parser_icg_newoperand(pParser,simple_stsimple_get(pString));
-					simple_parser_icg_duplicate(pParser,nStart,nEnd);
-					simple_parser_icg_newoperation(pParser,ICO_LOADAPUSHV);
-					simple_parser_icg_newoperand(pParser,cStr);
-					simple_parser_icg_newoperation(pParser,ICO_LOADINDEXADDRESS);
+					simple_parser_icg_newoperandint(parser,0);
+					simple_parser_icg_newoperation(parser,ICO_JUMPFOR);
+					pMark = simple_parser_icg_getactiveoperation(parser);
+					simple_parser_icg_newoperation(parser,ICO_LOADAFIRST);
+					simple_parser_icg_newoperand(parser,simple_stsimple_get(pString));
+					simple_parser_icg_duplicate(parser,nStart,nEnd);
+					simple_parser_icg_newoperation(parser,ICO_LOADAPUSHV);
+					simple_parser_icg_newoperand(parser,cStr);
+					simple_parser_icg_newoperation(parser,ICO_LOADINDEXADDRESS);
 					/* Generate 0 For Operator OverLoading */
-					simple_parser_icg_newoperandint(pParser,0);
+					simple_parser_icg_newoperandint(parser,0);
 					/* Item by reference */
-					simple_parser_icg_newoperation(pParser,ICO_SETREFERENCE);
+					simple_parser_icg_newoperation(parser,ICO_SETREFERENCE);
 					/* Step <expr> */
-					x = simple_parser_step(pParser,&nMark1);
+					x = simple_parser_step(parser,&nMark1);
 					if ( x == 0 ) {
-						simple_stsimple_delete_gc(pParser->pRingState,pString);
+						simple_stsimple_delete_gc(parser->pSimpleState,pString);
 						return 0 ;
 					}
 					#if SIMPLE_PARSERTRACE
@@ -582,141 +582,141 @@ int simple_parser_stmt ( Parser *pParser )
 					
 					puts("Rule : Statement  --> 'For' Identifier 'in' Expr  ['step' Expr]");
 					#endif
-					while ( simple_parser_stmt(pParser) ) {
-						if ( pParser->ActiveToken == pParser->TokensCount ) {
+					while ( simple_parser_stmt(parser) ) {
+						if ( parser->ActiveToken == parser->TokensCount ) {
 							break ;
 						}
 					}
-					if ( simple_parser_iskeyword(pParser,KEYWORD_NEXT) || simple_parser_iskeyword(pParser,KEYWORD_END) || simple_parser_csbraceend(pParser) ) {
-						simple_parser_nexttoken(pParser);
+					if ( simple_parser_iskeyword(parser,KEYWORD_NEXT) || simple_parser_iskeyword(parser,KEYWORD_END) || simple_parser_csbraceend(parser) ) {
+						simple_parser_nexttoken(parser);
 						/* Generate Code */
-						nMark3 = simple_parser_icg_newlabel(pParser);
+						nMark3 = simple_parser_icg_newlabel(parser);
 						/* Increment Jump */
-						simple_parser_icg_newoperation(pParser,ICO_INCJUMP);
-						simple_parser_icg_newoperand(pParser,cStr);
-						simple_parser_icg_newoperandint(pParser,nMark1);
+						simple_parser_icg_newoperation(parser,ICO_INCJUMP);
+						simple_parser_icg_newoperand(parser,cStr);
+						simple_parser_icg_newoperandint(parser,nMark1);
 						/* Add Locations needed for instruction change for performance */
-						simple_parser_icg_newoperandint(pParser,0);
-						simple_parser_icg_newoperandint(pParser,0);
-						nMark2 = simple_parser_icg_newlabel(pParser);
-						simple_parser_icg_addoperandint(pParser,pMark,nMark2);
+						simple_parser_icg_newoperandint(parser,0);
+						simple_parser_icg_newoperandint(parser,0);
+						nMark2 = simple_parser_icg_newlabel(parser);
+						simple_parser_icg_addoperandint(parser,pMark,nMark2);
 						/* Set Exit Mark */
-						simple_parser_icg_addoperandint(pParser,pMark3,nMark2);
+						simple_parser_icg_addoperandint(parser,pMark3,nMark2);
 						/* Set Loop Mark */
-						simple_parser_icg_addoperandint(pParser,pMark3,nMark3);
+						simple_parser_icg_addoperandint(parser,pMark3,nMark3);
 						/* End Loop (Remove Exit Mark) */
-						simple_parser_icg_newoperation(pParser,ICO_POPEXITMARK);
+						simple_parser_icg_newoperation(parser,ICO_POPEXITMARK);
 						/* POP Step */
-						simple_parser_icg_newoperation(pParser,ICO_POPSTEP);
+						simple_parser_icg_newoperation(parser,ICO_POPSTEP);
 						/* Remove Reference Value */
-						simple_parser_icg_newoperation(pParser,ICO_LOADAFIRST);
-						simple_parser_icg_newoperand(pParser,simple_stsimple_get(pString));
-						simple_parser_icg_newoperation(pParser,ICO_KILLREFERENCE);
-						simple_parser_icg_newoperation(pParser,ICO_PUSHN);
-						simple_parser_icg_newoperanddouble(pParser,1.0);
+						simple_parser_icg_newoperation(parser,ICO_LOADAFIRST);
+						simple_parser_icg_newoperand(parser,simple_stsimple_get(pString));
+						simple_parser_icg_newoperation(parser,ICO_KILLREFERENCE);
+						simple_parser_icg_newoperation(parser,ICO_PUSHN);
+						simple_parser_icg_newoperanddouble(parser,1.0);
 						/* Before Equal ( = ) not += , -= ,... etc */
-						simple_parser_icg_newoperation(pParser,ICO_BEFOREEQUAL);
-						simple_parser_icg_newoperandint(pParser,0);
-						simple_parser_icg_newoperation(pParser,ICO_ASSIGNMENT);
+						simple_parser_icg_newoperation(parser,ICO_BEFOREEQUAL);
+						simple_parser_icg_newoperandint(parser,0);
+						simple_parser_icg_newoperation(parser,ICO_ASSIGNMENT);
 						#if SIMPLE_PARSERTRACE
 						SIMPLE_STATE_CHECKPRINTRULES 
 						
 						puts("Rule : Next --> 'Next'");
 						#endif
-						simple_stsimple_delete_gc(pParser->pRingState,pString);
+						simple_stsimple_delete_gc(parser->pSimpleState,pString);
 						return 1 ;
 					} else {
-						simple_parser_error(pParser,SIMPLE_PARSER_ERROR_NEXT);
+						parser_error(parser,PARSER_ERROR_NEXT);
 					}
 				}
 			}
-			simple_stsimple_delete_gc(pParser->pRingState,pString);
+			simple_stsimple_delete_gc(parser->pSimpleState,pString);
 		}
 		return 0 ;
 	}
 	/* Statement --> IF Expr Statements OK */
-	if ( simple_parser_iskeyword(pParser,KEYWORD_IF) ) {
-		simple_parser_nexttoken(pParser);
-		pParser->nAssignmentFlag = 0 ;
-		if ( simple_parser_csexpr(pParser) ) {
-			pParser->nAssignmentFlag = 1 ;
+	if ( simple_parser_iskeyword(parser,KEYWORD_IF) ) {
+		simple_parser_nexttoken(parser);
+		parser->nAssignmentFlag = 0 ;
+		if ( simple_parser_csexpr(parser) ) {
+			parser->nAssignmentFlag = 1 ;
 			/*
 			**  First Condition 
 			**  Generate Code 
 			*/
-			simple_parser_icg_newoperation(pParser,ICO_JUMPZERO);
-			pMark = simple_parser_icg_getactiveoperation(pParser);
+			simple_parser_icg_newoperation(parser,ICO_JUMPZERO);
+			pMark = simple_parser_icg_getactiveoperation(parser);
 			#if SIMPLE_PARSERTRACE
 			SIMPLE_STATE_CHECKPRINTRULES 
 			
 			puts("Rule : Statement  --> 'If' Expr {Statement} { But } [Else] Ok");
 			#endif
-			while ( simple_parser_stmt(pParser) ) {
-				if ( pParser->ActiveToken == pParser->TokensCount ) {
+			while ( simple_parser_stmt(parser) ) {
+				if ( parser->ActiveToken == parser->TokensCount ) {
 					break ;
 				}
 			}
 			/* Generate Code */
-			pList2 = simple_list_new_gc(pParser->pRingState,0);
-			simple_parser_icg_newoperation(pParser,ICO_JUMP);
-			simple_list_addpointer_gc(pParser->pRingState,pList2,simple_parser_icg_getactiveoperation(pParser));
+			pList2 = simple_list_new_gc(parser->pSimpleState,0);
+			simple_parser_icg_newoperation(parser,ICO_JUMP);
+			simple_list_addpointer_gc(parser->pSimpleState,pList2,simple_parser_icg_getactiveoperation(parser));
 			/* { 'But' Statements } 'Else' Statements */
-			while ( simple_parser_iskeyword(pParser,KEYWORD_BUT) || simple_parser_iskeyword(pParser,KEYWORD_ELSEIF) ) {
+			while ( simple_parser_iskeyword(parser,KEYWORD_BUT) || simple_parser_iskeyword(parser,KEYWORD_ELSEIF) ) {
 				/* Generate Code */
-				nMark1 = simple_parser_icg_newlabel(pParser);
-				simple_parser_icg_addoperandint(pParser,pMark,nMark1);
-				simple_parser_nexttoken(pParser);
-				pParser->nAssignmentFlag = 0 ;
-				if ( simple_parser_expr(pParser) ) {
-					pParser->nAssignmentFlag = 1 ;
+				nMark1 = simple_parser_icg_newlabel(parser);
+				simple_parser_icg_addoperandint(parser,pMark,nMark1);
+				simple_parser_nexttoken(parser);
+				parser->nAssignmentFlag = 0 ;
+				if ( simple_parser_expr(parser) ) {
+					parser->nAssignmentFlag = 1 ;
 					/* Generate Code */
-					simple_parser_icg_newoperation(pParser,ICO_JUMPZERO);
-					pMark = simple_parser_icg_getactiveoperation(pParser);
+					simple_parser_icg_newoperation(parser,ICO_JUMPZERO);
+					pMark = simple_parser_icg_getactiveoperation(parser);
 					#if SIMPLE_PARSERTRACE
 					SIMPLE_STATE_CHECKPRINTRULES 
 					
 					puts("Rule : But  --> 'But' Expr {Statement}");
 					#endif
-					while ( simple_parser_stmt(pParser) ) {
-						if ( pParser->ActiveToken == pParser->TokensCount ) {
+					while ( simple_parser_stmt(parser) ) {
+						if ( parser->ActiveToken == parser->TokensCount ) {
 							break ;
 						}
 					}
 					/* Generate Code */
-					simple_parser_icg_newoperation(pParser,ICO_JUMP);
-					simple_list_addpointer_gc(pParser->pRingState,pList2,simple_parser_icg_getactiveoperation(pParser));
+					simple_parser_icg_newoperation(parser,ICO_JUMP);
+					simple_list_addpointer_gc(parser->pSimpleState,pList2,simple_parser_icg_getactiveoperation(parser));
 				}
 			}
-			if ( simple_parser_iskeyword(pParser,KEYWORD_ELSE) || simple_parser_iskeyword(pParser,KEYWORD_OTHER) ) {
+			if ( simple_parser_iskeyword(parser,KEYWORD_ELSE) || simple_parser_iskeyword(parser,KEYWORD_OTHER) ) {
 				/* Generate Code */
-				nMark1 = simple_parser_icg_newlabel(pParser);
-				simple_parser_icg_addoperandint(pParser,pMark,nMark1);
+				nMark1 = simple_parser_icg_newlabel(parser);
+				simple_parser_icg_addoperandint(parser,pMark,nMark1);
 				pMark = NULL ;
-				simple_parser_nexttoken(pParser);
+				simple_parser_nexttoken(parser);
 				#if SIMPLE_PARSERTRACE
 				SIMPLE_STATE_CHECKPRINTRULES 
 				
 				puts("Rule : Else  --> 'Else' {Statement} ");
 				#endif
-				while ( simple_parser_stmt(pParser) ) {
-					if ( pParser->ActiveToken == pParser->TokensCount ) {
+				while ( simple_parser_stmt(parser) ) {
+					if ( parser->ActiveToken == parser->TokensCount ) {
 						break ;
 					}
 				}
 			}
-			if ( simple_parser_iskeyword(pParser,KEYWORD_OK) || simple_parser_iskeyword(pParser,KEYWORD_END) || simple_parser_csbraceend(pParser) ) {
+			if ( simple_parser_iskeyword(parser,KEYWORD_OK) || simple_parser_iskeyword(parser,KEYWORD_END) || simple_parser_csbraceend(parser) ) {
 				/* Generate Code */
-				nMark1 = simple_parser_icg_newlabel(pParser);
+				nMark1 = simple_parser_icg_newlabel(parser);
 				if ( pMark != NULL ) {
-					simple_parser_icg_addoperandint(pParser,pMark,nMark1);
+					simple_parser_icg_addoperandint(parser,pMark,nMark1);
 				}
 				if ( simple_list_getsize(pList2) > 0 ) {
 					for ( x = 1 ; x <= simple_list_getsize(pList2) ; x++ ) {
-						simple_parser_icg_addoperandint(pParser,((List *) simple_list_getpointer(pList2,x)),nMark1);
+						simple_parser_icg_addoperandint(parser,((List *) simple_list_getpointer(pList2,x)),nMark1);
 					}
 				}
-				simple_list_delete_gc(pParser->pRingState,pList2);
-				simple_parser_nexttoken(pParser);
+				simple_list_delete_gc(parser->pSimpleState,pList2);
+				simple_parser_nexttoken(parser);
 				#if SIMPLE_PARSERTRACE
 				SIMPLE_STATE_CHECKPRINTRULES 
 				
@@ -724,52 +724,52 @@ int simple_parser_stmt ( Parser *pParser )
 				#endif
 				return 1 ;
 			} else {
-				simple_parser_error(pParser,SIMPLE_PARSER_ERROR_OK);
-				simple_list_delete_gc(pParser->pRingState,pList2);
+				parser_error(parser,PARSER_ERROR_OK);
+				simple_list_delete_gc(parser->pSimpleState,pList2);
 			}
 		}
 		return 0 ;
 	}
 	/* Statement --> WHILE Expr Statements END */
-	if ( simple_parser_iskeyword(pParser,KEYWORD_WHILE) ) {
+	if ( simple_parser_iskeyword(parser,KEYWORD_WHILE) ) {
 		/*
 		**  Generate Code 
 		**  Mark for Exit command to go to outsize the loop 
 		*/
-		simple_parser_icg_newoperation(pParser,ICO_EXITMARK);
-		pMark3 = simple_parser_icg_getactiveoperation(pParser);
-		nMark1 = simple_parser_icg_newlabel(pParser);
-		simple_parser_nexttoken(pParser);
-		pParser->nAssignmentFlag = 0 ;
-		if ( simple_parser_csexpr(pParser) ) {
-			pParser->nAssignmentFlag = 1 ;
+		simple_parser_icg_newoperation(parser,ICO_EXITMARK);
+		pMark3 = simple_parser_icg_getactiveoperation(parser);
+		nMark1 = simple_parser_icg_newlabel(parser);
+		simple_parser_nexttoken(parser);
+		parser->nAssignmentFlag = 0 ;
+		if ( simple_parser_csexpr(parser) ) {
+			parser->nAssignmentFlag = 1 ;
 			/* Generate Code */
-			simple_parser_icg_newoperation(pParser,ICO_JUMPZERO);
-			pMark = simple_parser_icg_getactiveoperation(pParser);
+			simple_parser_icg_newoperation(parser,ICO_JUMPZERO);
+			pMark = simple_parser_icg_getactiveoperation(parser);
 			#if SIMPLE_PARSERTRACE
 			SIMPLE_STATE_CHECKPRINTRULES 
 			
 			puts("Rule : Statement  --> 'While' Expr {Statement} End");
 			#endif
-			while ( simple_parser_stmt(pParser) ) {
-				if ( pParser->ActiveToken == pParser->TokensCount ) {
+			while ( simple_parser_stmt(parser) ) {
+				if ( parser->ActiveToken == parser->TokensCount ) {
 					break ;
 				}
 			}
-			if ( simple_parser_iskeyword(pParser,KEYWORD_END) || simple_parser_csbraceend(pParser) ) {
+			if ( simple_parser_iskeyword(parser,KEYWORD_END) || simple_parser_csbraceend(parser) ) {
 				/* Generate Code */
-				nMark3 = simple_parser_icg_newlabel(pParser);
-				simple_parser_icg_newoperation(pParser,ICO_JUMP);
-				simple_parser_icg_newoperandint(pParser,nMark1);
-				nMark2 = simple_parser_icg_newlabel(pParser);
-				simple_parser_icg_addoperandint(pParser,pMark,nMark2);
+				nMark3 = simple_parser_icg_newlabel(parser);
+				simple_parser_icg_newoperation(parser,ICO_JUMP);
+				simple_parser_icg_newoperandint(parser,nMark1);
+				nMark2 = simple_parser_icg_newlabel(parser);
+				simple_parser_icg_addoperandint(parser,pMark,nMark2);
 				/* Set Exit Mark */
-				simple_parser_icg_addoperandint(pParser,pMark3,nMark2);
+				simple_parser_icg_addoperandint(parser,pMark3,nMark2);
 				/* Set Loop Mark */
-				simple_parser_icg_addoperandint(pParser,pMark3,nMark3);
+				simple_parser_icg_addoperandint(parser,pMark3,nMark3);
 				/* End Loop (Remove Exit Mark) */
-				simple_parser_icg_newoperation(pParser,ICO_POPEXITMARK);
-				simple_parser_nexttoken(pParser);
+				simple_parser_icg_newoperation(parser,ICO_POPEXITMARK);
+				simple_parser_nexttoken(parser);
 				#if SIMPLE_PARSERTRACE
 				SIMPLE_STATE_CHECKPRINTRULES 
 				
@@ -777,52 +777,52 @@ int simple_parser_stmt ( Parser *pParser )
 				#endif
 				return 1 ;
 			} else {
-				simple_parser_error(pParser,SIMPLE_PARSER_ERROR_END);
+				parser_error(parser,PARSER_ERROR_END);
 			}
 		}
 		return 0 ;
 	}
 	/* Statement --> DO Statements AGAIN Expr */
-	if ( simple_parser_iskeyword(pParser,KEYWORD_DO) ) {
+	if ( simple_parser_iskeyword(parser,KEYWORD_DO) ) {
 		/*
 		**  Generate Code 
 		**  Mark for Exit command to go to outsize the loop 
 		*/
-		simple_parser_icg_newoperation(pParser,ICO_EXITMARK);
-		pMark3 = simple_parser_icg_getactiveoperation(pParser);
-		nMark1 = simple_parser_icg_newlabel(pParser);
-		simple_parser_nexttoken(pParser);
+		simple_parser_icg_newoperation(parser,ICO_EXITMARK);
+		pMark3 = simple_parser_icg_getactiveoperation(parser);
+		nMark1 = simple_parser_icg_newlabel(parser);
+		simple_parser_nexttoken(parser);
 		#if SIMPLE_PARSERTRACE
 		SIMPLE_STATE_CHECKPRINTRULES 
 		
 		puts("Rule : Statement  --> 'Do' {Statement} Again");
 		#endif
-		while ( simple_parser_stmt(pParser) ) {
-			if ( pParser->ActiveToken == pParser->TokensCount ) {
+		while ( simple_parser_stmt(parser) ) {
+			if ( parser->ActiveToken == parser->TokensCount ) {
 				break ;
 			}
 		}
-		if ( simple_parser_iskeyword(pParser,KEYWORD_AGAIN) ) {
+		if ( simple_parser_iskeyword(parser,KEYWORD_AGAIN) ) {
 			/* Generate Code */
-			simple_parser_nexttoken(pParser);
-			pParser->nAssignmentFlag = 0 ;
-			if ( simple_parser_expr(pParser) ) {
+			simple_parser_nexttoken(parser);
+			parser->nAssignmentFlag = 0 ;
+			if ( simple_parser_expr(parser) ) {
 				/* Generate Code (Test Condition) */
-				simple_parser_icg_newoperation(pParser,ICO_JUMPZERO);
-				pMark = simple_parser_icg_getactiveoperation(pParser);
+				simple_parser_icg_newoperation(parser,ICO_JUMPZERO);
+				pMark = simple_parser_icg_getactiveoperation(parser);
 				/* Generate Code */
-				nMark3 = simple_parser_icg_newlabel(pParser);
-				simple_parser_icg_newoperation(pParser,ICO_JUMP);
-				simple_parser_icg_newoperandint(pParser,nMark1);
-				nMark2 = simple_parser_icg_newlabel(pParser);
-				simple_parser_icg_addoperandint(pParser,pMark,nMark2);
+				nMark3 = simple_parser_icg_newlabel(parser);
+				simple_parser_icg_newoperation(parser,ICO_JUMP);
+				simple_parser_icg_newoperandint(parser,nMark1);
+				nMark2 = simple_parser_icg_newlabel(parser);
+				simple_parser_icg_addoperandint(parser,pMark,nMark2);
 				/* Set Exit Mark */
-				simple_parser_icg_addoperandint(pParser,pMark3,nMark2);
+				simple_parser_icg_addoperandint(parser,pMark3,nMark2);
 				/* Set Loop Mark */
-				simple_parser_icg_addoperandint(pParser,pMark3,nMark3);
+				simple_parser_icg_addoperandint(parser,pMark3,nMark3);
 				/* End Loop (Remove Exit Mark) */
-				simple_parser_icg_newoperation(pParser,ICO_POPEXITMARK);
-				pParser->nAssignmentFlag = 1 ;
+				simple_parser_icg_newoperation(parser,ICO_POPEXITMARK);
+				parser->nAssignmentFlag = 1 ;
 				#if SIMPLE_PARSERTRACE
 				SIMPLE_STATE_CHECKPRINTRULES 
 				
@@ -831,35 +831,35 @@ int simple_parser_stmt ( Parser *pParser )
 				return 1 ;
 			}
 		} else {
-			simple_parser_error(pParser,SIMPLE_PARSER_ERROR_AGAIN);
+			parser_error(parser,PARSER_ERROR_AGAIN);
 		}
 		return 0 ;
 	}
 	/* Statement --> Return Expr */
-	if ( simple_parser_iskeyword(pParser,KEYWORD_RETURN) ) {
-		simple_parser_nexttoken(pParser);
+	if ( simple_parser_iskeyword(parser,KEYWORD_RETURN) ) {
+		simple_parser_nexttoken(parser);
 		x = 1 ;
-		if ( simple_parser_isendline(pParser) == 0 ) {
+		if ( simple_parser_isendline(parser) == 0 ) {
 			/* Generate Code */
-			simple_parser_icg_newoperation(pParser,ICO_FREELOADASCOPE);
-			simple_parser_icg_newoperation(pParser,ICO_FUNCEXE);
-			pParser->nAssignmentFlag = 0 ;
-			x = simple_parser_expr(pParser);
-			pParser->nAssignmentFlag = 1 ;
+			simple_parser_icg_newoperation(parser,ICO_FREELOADASCOPE);
+			simple_parser_icg_newoperation(parser,ICO_BLOCKEXE);
+			parser->nAssignmentFlag = 0 ;
+			x = simple_parser_expr(parser);
+			parser->nAssignmentFlag = 1 ;
 			/* Generate Code */
-			simple_parser_icg_newoperation(pParser,ICO_ENDFUNCEXE);
+			simple_parser_icg_newoperation(parser,ICO_ENDBLOCKEXE);
 			if ( x ) {
-				simple_parser_icg_newoperation(pParser,ICO_RETURN);
+				simple_parser_icg_newoperation(parser,ICO_RETURN);
 			}
 			else {
-				simple_parser_icg_newoperation(pParser,ICO_RETNULL);
+				simple_parser_icg_newoperation(parser,ICO_RETNULL);
 			}
 		} else {
 			/*
 			**  Generate Code 
 			**  Return NULL 
 			*/
-			simple_parser_icg_newoperation(pParser,ICO_RETNULL);
+			simple_parser_icg_newoperation(parser,ICO_RETNULL);
 		}
 		#if SIMPLE_PARSERTRACE
 		if ( x == 1 ) {
@@ -871,131 +871,131 @@ int simple_parser_stmt ( Parser *pParser )
 		return x ;
 	}
 	/* Statement --> Try {Statement} Catch {Statement} Done */
-	if ( simple_parser_iskeyword(pParser,KEYWORD_TRY) ) {
-		simple_parser_nexttoken(pParser);
+	if ( simple_parser_iskeyword(parser,KEYWORD_TRY) ) {
+		simple_parser_nexttoken(parser);
 		SIMPLE_PARSER_IGNORENEWLINE ;
-		if ( simple_parser_isoperator2(pParser,OP_BRACEOPEN) ) {
-			simple_parser_nexttoken(pParser);
-			pParser->nControlStructureBrace++ ;
+		if ( simple_parser_isoperator2(parser,OP_BRACEOPEN) ) {
+			simple_parser_nexttoken(parser);
+			parser->nControlStructureBrace++ ;
 		}
 		/* Generate Code */
-		simple_parser_icg_newoperation(pParser,ICO_TRY);
-		pMark = simple_parser_icg_getactiveoperation(pParser);
+		simple_parser_icg_newoperation(parser,ICO_TRY);
+		pMark = simple_parser_icg_getactiveoperation(parser);
 		#if SIMPLE_PARSERTRACE
 		SIMPLE_STATE_CHECKPRINTRULES 
 		
 		puts("Rule : Statement  --> 'Try' {Statement} Catch Done");
 		#endif
-		while ( simple_parser_stmt(pParser) ) {
-			if ( pParser->ActiveToken == pParser->TokensCount ) {
+		while ( simple_parser_stmt(parser) ) {
+			if ( parser->ActiveToken == parser->TokensCount ) {
 				break ;
 			}
 		}
-		if ( simple_parser_iskeyword(pParser,KEYWORD_CATCH) ) {
-			simple_parser_nexttoken(pParser);
+		if ( simple_parser_iskeyword(parser,KEYWORD_CATCH) ) {
+			simple_parser_nexttoken(parser);
 			/*
 			**  Generate Code 
 			**  Jump from end of try block to label after done 
 			*/
-			simple_parser_icg_newoperation(pParser,ICO_JUMP);
-			pMark2 = simple_parser_icg_getactiveoperation(pParser);
-			nMark1 = simple_parser_icg_newlabel(pParser);
-			simple_parser_icg_addoperandint(pParser,pMark,nMark1);
+			simple_parser_icg_newoperation(parser,ICO_JUMP);
+			pMark2 = simple_parser_icg_getactiveoperation(parser);
+			nMark1 = simple_parser_icg_newlabel(parser);
+			simple_parser_icg_addoperandint(parser,pMark,nMark1);
 			#if SIMPLE_PARSERTRACE
 			SIMPLE_STATE_CHECKPRINTRULES 
 			
 			puts("Rule : Catch --> 'Catch' {Statement}");
 			#endif
-			while ( simple_parser_stmt(pParser) ) {
-				if ( pParser->ActiveToken == pParser->TokensCount ) {
+			while ( simple_parser_stmt(parser) ) {
+				if ( parser->ActiveToken == parser->TokensCount ) {
 					break ;
 				}
 			}
-			if ( simple_parser_iskeyword(pParser,KEYWORD_DONE) || simple_parser_iskeyword(pParser,KEYWORD_END) || simple_parser_csbraceend(pParser) ) {
+			if ( simple_parser_iskeyword(parser,KEYWORD_DONE) || simple_parser_iskeyword(parser,KEYWORD_END) || simple_parser_csbraceend(parser) ) {
 				#if SIMPLE_PARSERTRACE
 				SIMPLE_STATE_CHECKPRINTRULES 
 				
 				puts("Rule : Done --> 'Done'");
 				#endif
-				simple_parser_nexttoken(pParser);
+				simple_parser_nexttoken(parser);
 				/* Generate Code */
-				simple_parser_icg_newoperation(pParser,ICO_JUMP);
-				pMark3 = simple_parser_icg_getactiveoperation(pParser);
-				nMark2 = simple_parser_icg_newlabel(pParser);
-				simple_parser_icg_addoperandint(pParser,pMark2,nMark2);
-				simple_parser_icg_newoperation(pParser,ICO_DONE);
-				nMark3 = simple_parser_icg_newlabel(pParser);
-				simple_parser_icg_addoperandint(pParser,pMark3,nMark3);
+				simple_parser_icg_newoperation(parser,ICO_JUMP);
+				pMark3 = simple_parser_icg_getactiveoperation(parser);
+				nMark2 = simple_parser_icg_newlabel(parser);
+				simple_parser_icg_addoperandint(parser,pMark2,nMark2);
+				simple_parser_icg_newoperation(parser,ICO_DONE);
+				nMark3 = simple_parser_icg_newlabel(parser);
+				simple_parser_icg_addoperandint(parser,pMark3,nMark3);
 				return 1 ;
 			} else {
-				simple_parser_error(pParser,SIMPLE_PARSER_ERROR_NODONE);
+				parser_error(parser,PARSER_ERROR_NODONE);
 			}
 		} else {
-			simple_parser_error(pParser,SIMPLE_PARSER_ERROR_NOCATCH);
+			parser_error(parser,PARSER_ERROR_NOCATCH);
 		}
 	}
 	/* Statement --> Bye (Close the Program) */
-	if ( simple_parser_iskeyword(pParser,KEYWORD_BYE) ) {
-		simple_parser_nexttoken(pParser);
+	if ( simple_parser_iskeyword(parser,KEYWORD_BYE) ) {
+		simple_parser_nexttoken(parser);
 		#if SIMPLE_PARSERTRACE
 		SIMPLE_STATE_CHECKPRINTRULES 
 		
 		puts("Rule : Statement  --> 'Bye' ");
 		#endif
 		/* Generate Code */
-		simple_parser_icg_newoperation(pParser,ICO_BYE);
+		simple_parser_icg_newoperation(parser,ICO_BYE);
 		return 1 ;
 	}
 	/* Statement --> Exit (Go to outside the loop) */
-	if ( simple_parser_iskeyword(pParser,KEYWORD_EXIT) ) {
-		simple_parser_nexttoken(pParser);
+	if ( simple_parser_iskeyword(parser,KEYWORD_EXIT) ) {
+		simple_parser_nexttoken(parser);
 		#if SIMPLE_PARSERTRACE
 		SIMPLE_STATE_CHECKPRINTRULES 
 		
 		puts("Rule : Statement  --> 'Exit' ");
 		#endif
 		/* Check Number  (Exit from more than one loop) */
-		if ( simple_parser_isnumber(pParser) || simple_parser_isidentifier(pParser) ) {
-			if ( ! simple_parser_expr(pParser) ) {
+		if ( simple_parser_isnumber(parser) || simple_parser_isidentifier(parser) ) {
+			if ( ! simple_parser_expr(parser) ) {
 				return 0 ;
 			}
 		}
 		else {
-			simple_parser_icg_newoperation(pParser,ICO_PUSHN);
-			simple_parser_icg_newoperanddouble(pParser,1.0);
+			simple_parser_icg_newoperation(parser,ICO_PUSHN);
+			simple_parser_icg_newoperanddouble(parser,1.0);
 		}
 		/* Generate Code */
-		simple_parser_icg_newoperation(pParser,ICO_EXIT);
+		simple_parser_icg_newoperation(parser,ICO_EXIT);
 		return 1 ;
 	}
 	/* Statement --> Loop (Continue) */
-	if ( simple_parser_iskeyword(pParser,KEYWORD_LOOP) ) {
-		simple_parser_nexttoken(pParser);
+	if ( simple_parser_iskeyword(parser,KEYWORD_LOOP) ) {
+		simple_parser_nexttoken(parser);
 		#if SIMPLE_PARSERTRACE
 		SIMPLE_STATE_CHECKPRINTRULES 
 		
 		puts("Rule : Statement  --> 'Loop'");
 		#endif
 		/* Check Number  (Continue from more than one loop) */
-		if ( simple_parser_isnumber(pParser) || simple_parser_isidentifier(pParser) ) {
-			if ( ! simple_parser_expr(pParser) ) {
+		if ( simple_parser_isnumber(parser) || simple_parser_isidentifier(parser) ) {
+			if ( ! simple_parser_expr(parser) ) {
 				return 0 ;
 			}
 		}
 		else {
-			simple_parser_icg_newoperation(pParser,ICO_PUSHN);
-			simple_parser_icg_newoperanddouble(pParser,1.0);
+			simple_parser_icg_newoperation(parser,ICO_PUSHN);
+			simple_parser_icg_newoperanddouble(parser,1.0);
 		}
 		/* Generate Code */
-		simple_parser_icg_newoperation(pParser,ICO_LOOP);
+		simple_parser_icg_newoperation(parser,ICO_LOOP);
 		return 1 ;
 	}
 	/* Statement --> Switch  Expr { ON|CASE Expr {Statement} } OFF */
-	if ( simple_parser_iskeyword(pParser,KEYWORD_SWITCH) ) {
-		simple_parser_nexttoken(pParser);
-		pParser->nAssignmentFlag = 0 ;
-		if ( simple_parser_csexpr(pParser) ) {
-			pParser->nAssignmentFlag = 1 ;
+	if ( simple_parser_iskeyword(parser,KEYWORD_SWITCH) ) {
+		simple_parser_nexttoken(parser);
+		parser->nAssignmentFlag = 0 ;
+		if ( simple_parser_csexpr(parser) ) {
+			parser->nAssignmentFlag = 1 ;
 			#if SIMPLE_PARSERTRACE
 			SIMPLE_STATE_CHECKPRINTRULES 
 			
@@ -1003,75 +1003,75 @@ int simple_parser_stmt ( Parser *pParser )
 			#endif
 			SIMPLE_PARSER_IGNORENEWLINE ;
 			/* ON|CASE Statements */
-			pList2 = simple_list_new_gc(pParser->pRingState,0);
+			pList2 = simple_list_new_gc(parser->pSimpleState,0);
 			pMark = NULL ;
-			while ( simple_parser_iskeyword(pParser,KEYWORD_ON) || simple_parser_iskeyword(pParser,KEYWORD_CASE) ) {
-				simple_parser_nexttoken(pParser);
+			while ( simple_parser_iskeyword(parser,KEYWORD_ON) || simple_parser_iskeyword(parser,KEYWORD_CASE) ) {
+				simple_parser_nexttoken(parser);
 				/* Generate Code */
-				nMark1 = simple_parser_icg_newlabel(pParser);
+				nMark1 = simple_parser_icg_newlabel(parser);
 				if ( pMark != NULL ) {
-					simple_parser_icg_addoperandint(pParser,pMark,nMark1);
+					simple_parser_icg_addoperandint(parser,pMark,nMark1);
 				}
-				simple_parser_icg_newoperation(pParser,ICO_DUPLICATE);
-				pParser->nAssignmentFlag = 0 ;
-				if ( simple_parser_expr(pParser) ) {
-					pParser->nAssignmentFlag = 1 ;
+				simple_parser_icg_newoperation(parser,ICO_DUPLICATE);
+				parser->nAssignmentFlag = 0 ;
+				if ( simple_parser_expr(parser) ) {
+					parser->nAssignmentFlag = 1 ;
 					/* Generate Code */
-					simple_parser_icg_newoperation(pParser,ICO_EQUAL);
-					simple_parser_icg_newoperation(pParser,ICO_JUMPZERO);
-					pMark = simple_parser_icg_getactiveoperation(pParser);
-					simple_parser_icg_newoperation(pParser,ICO_FREESTACK);
+					simple_parser_icg_newoperation(parser,ICO_EQUAL);
+					simple_parser_icg_newoperation(parser,ICO_JUMPZERO);
+					pMark = simple_parser_icg_getactiveoperation(parser);
+					simple_parser_icg_newoperation(parser,ICO_FREESTACK);
 					#if SIMPLE_PARSERTRACE
 					SIMPLE_STATE_CHECKPRINTRULES 
 					
 					puts("Rule : ON --> 'on' Expr {Statement}");
 					#endif
-					while ( simple_parser_stmt(pParser) ) {
-						if ( pParser->ActiveToken == pParser->TokensCount ) {
+					while ( simple_parser_stmt(parser) ) {
+						if ( parser->ActiveToken == parser->TokensCount ) {
 							break ;
 						}
 					}
 					/* Generate Code */
-					simple_parser_icg_newoperation(pParser,ICO_JUMP);
-					simple_list_addpointer_gc(pParser->pRingState,pList2,simple_parser_icg_getactiveoperation(pParser));
+					simple_parser_icg_newoperation(parser,ICO_JUMP);
+					simple_list_addpointer_gc(parser->pSimpleState,pList2,simple_parser_icg_getactiveoperation(parser));
 				}
 			}
 			/* Other */
-			if ( simple_parser_iskeyword(pParser,KEYWORD_OTHER) || simple_parser_iskeyword(pParser,KEYWORD_ELSE) ) {
-				simple_parser_nexttoken(pParser);
+			if ( simple_parser_iskeyword(parser,KEYWORD_OTHER) || simple_parser_iskeyword(parser,KEYWORD_ELSE) ) {
+				simple_parser_nexttoken(parser);
 				/* Generate Code */
-				nMark1 = simple_parser_icg_newlabel(pParser);
+				nMark1 = simple_parser_icg_newlabel(parser);
 				if ( pMark != NULL ) {
-					simple_parser_icg_addoperandint(pParser,pMark,nMark1);
+					simple_parser_icg_addoperandint(parser,pMark,nMark1);
 					pMark = NULL ;
 				}
-				simple_parser_icg_newoperation(pParser,ICO_FREESTACK);
+				simple_parser_icg_newoperation(parser,ICO_FREESTACK);
 				#if SIMPLE_PARSERTRACE
 				SIMPLE_STATE_CHECKPRINTRULES 
 				
 				puts("Rule : Other --> 'Other' {Statement}");
 				#endif
-				while ( simple_parser_stmt(pParser) ) {
-					if ( pParser->ActiveToken == pParser->TokensCount ) {
+				while ( simple_parser_stmt(parser) ) {
+					if ( parser->ActiveToken == parser->TokensCount ) {
 						break ;
 					}
 				}
 			}
 			/* OFF */
-			if ( simple_parser_iskeyword(pParser,KEYWORD_OFF) || simple_parser_iskeyword(pParser,KEYWORD_END) || simple_parser_csbraceend(pParser) ) {
-				simple_parser_nexttoken(pParser);
+			if ( simple_parser_iskeyword(parser,KEYWORD_OFF) || simple_parser_iskeyword(parser,KEYWORD_END) || simple_parser_csbraceend(parser) ) {
+				simple_parser_nexttoken(parser);
 				/* Generate Code */
-				nMark1 = simple_parser_icg_newlabel(pParser);
+				nMark1 = simple_parser_icg_newlabel(parser);
 				if ( pMark != NULL ) {
-					simple_parser_icg_addoperandint(pParser,pMark,nMark1);
+					simple_parser_icg_addoperandint(parser,pMark,nMark1);
 				}
 				if ( simple_list_getsize(pList2) > 0 ) {
 					for ( x = 1 ; x <= simple_list_getsize(pList2) ; x++ ) {
-						simple_parser_icg_addoperandint(pParser,((List *) simple_list_getpointer(pList2,x)),nMark1);
+						simple_parser_icg_addoperandint(parser,((List *) simple_list_getpointer(pList2,x)),nMark1);
 					}
 				}
-				simple_list_delete_gc(pParser->pRingState,pList2);
-				simple_parser_icg_newoperation(pParser,ICO_FREESTACK);
+				simple_list_delete_gc(parser->pSimpleState,pList2);
+				simple_parser_icg_newoperation(parser,ICO_FREESTACK);
 				#if SIMPLE_PARSERTRACE
 				SIMPLE_STATE_CHECKPRINTRULES 
 				
@@ -1079,30 +1079,30 @@ int simple_parser_stmt ( Parser *pParser )
 				#endif
 				return 1 ;
 			} else {
-				simple_parser_error(pParser,SIMPLE_PARSER_ERROR_SWITCHOFF);
+				parser_error(parser,PARSER_ERROR_SWITCHOFF);
 			}
 		} else {
-			simple_parser_error(pParser,SIMPLE_PARSER_ERROR_SWITCHEXPR);
+			parser_error(parser,PARSER_ERROR_SWITCHEXPR);
 		}
 	}
 	/* Statement --> Import Identifier { '.' Identifier } */
-	if ( simple_parser_iskeyword(pParser,KEYWORD_IMPORT) ) {
-		simple_parser_nexttoken(pParser);
+	if ( simple_parser_iskeyword(parser,KEYWORD_IMPORT) ) {
+		simple_parser_nexttoken(parser);
 		/* Generate Code */
-		simple_parser_icg_newoperation(pParser,ICO_IMPORT);
+		simple_parser_icg_newoperation(parser,ICO_IMPORT);
 		#if SIMPLE_PARSERTRACE
 		SIMPLE_STATE_CHECKPRINTRULES 
 		
 		puts("Rule : Statement  --> 'Import' Identifier{'.'identifier}");
 		#endif
-		return simple_parser_namedotname(pParser) ;
+		return simple_parser_namedotname(parser) ;
 	}
 	/* Statement --> epslion */
-	if ( simple_parser_epslion(pParser) ) {
+	if ( simple_parser_epslion(parser) ) {
 		return 1 ;
 	}
 	/* Statement --> Expr */
-	if ( simple_parser_expr(pParser) ) {
+	if ( simple_parser_expr(parser) ) {
 		#if SIMPLE_PARSERTRACE
 		SIMPLE_STATE_CHECKPRINTRULES 
 		
@@ -1112,52 +1112,52 @@ int simple_parser_stmt ( Parser *pParser )
 		**  Generate Code 
 		**  Call expreval() if we are inside { } 
 		*/
-		if ( pParser->nBraceFlag ) {
+		if ( parser->nBraceFlag ) {
 			/* if ismethod(self,"braceexpreval") braceexpreval() ok */
-			simple_parser_icg_newoperation(pParser,ICO_LOADFUNC);
-			simple_parser_icg_newoperand(pParser,"ismethod");
-			simple_parser_icg_newoperation(pParser,ICO_LOADADDRESS);
-			simple_parser_icg_newoperand(pParser,"self");
-			simple_parser_icg_newoperandint(pParser,0);
-			simple_parser_icg_newoperation(pParser,ICO_PUSHV);
-			simple_parser_icg_newoperation(pParser,ICO_PUSHC);
-			simple_parser_icg_newoperand(pParser,"braceexpreval");
-			simple_parser_icg_newoperation(pParser,ICO_CALL);
-			simple_parser_icg_newoperation(pParser,ICO_NOOP);
-			simple_parser_icg_newoperation(pParser,ICO_PUSHV);
+			simple_parser_icg_newoperation(parser,ICO_LOADBLOCK);
+			simple_parser_icg_newoperand(parser,"ismethod");
+			simple_parser_icg_newoperation(parser,ICO_LOADADDRESS);
+			simple_parser_icg_newoperand(parser,"self");
+			simple_parser_icg_newoperandint(parser,0);
+			simple_parser_icg_newoperation(parser,ICO_PUSHV);
+			simple_parser_icg_newoperation(parser,ICO_PUSHC);
+			simple_parser_icg_newoperand(parser,"braceexpreval");
+			simple_parser_icg_newoperation(parser,ICO_CALL);
+			simple_parser_icg_newoperation(parser,ICO_NOOP);
+			simple_parser_icg_newoperation(parser,ICO_PUSHV);
 			/* Jump */
-			simple_parser_icg_newoperation(pParser,ICO_JUMPZERO);
-			pMark = simple_parser_icg_getactiveoperation(pParser);
-			simple_parser_icg_newoperation(pParser,ICO_LOADFUNC);
-			simple_parser_icg_newoperand(pParser,"braceexpreval");
+			simple_parser_icg_newoperation(parser,ICO_JUMPZERO);
+			pMark = simple_parser_icg_getactiveoperation(parser);
+			simple_parser_icg_newoperation(parser,ICO_LOADBLOCK);
+			simple_parser_icg_newoperand(parser,"braceexpreval");
 			/* Duplicate Stack */
-			simple_parser_icg_newoperation(pParser,ICO_DUPLICATE);
-			simple_parser_icg_newoperation(pParser,ICO_CALL);
-			simple_parser_icg_newoperation(pParser,ICO_NOOP);
-			simple_parser_icg_newoperation(pParser,ICO_PUSHV);
-			simple_parser_icg_newoperation(pParser,ICO_FREESTACK);
-			nMark1 = simple_parser_icg_newlabel(pParser);
-			simple_parser_icg_addoperandint(pParser,pMark,nMark1);
+			simple_parser_icg_newoperation(parser,ICO_DUPLICATE);
+			simple_parser_icg_newoperation(parser,ICO_CALL);
+			simple_parser_icg_newoperation(parser,ICO_NOOP);
+			simple_parser_icg_newoperation(parser,ICO_PUSHV);
+			simple_parser_icg_newoperation(parser,ICO_FREESTACK);
+			nMark1 = simple_parser_icg_newlabel(parser);
+			simple_parser_icg_addoperandint(parser,pMark,nMark1);
 		}
-		simple_parser_icg_newoperation(pParser,ICO_FREESTACK);
+		simple_parser_icg_newoperation(parser,ICO_FREESTACK);
 		return 1 ;
 	}
 	return 0 ;
 }
 
-int simple_parser_paralist ( Parser *pParser )
+int simple_parser_paralist ( Parser *parser )
 {
 	int nStart  ;
 	const char *cToken  ;
 	/* Check ( */
 	nStart = 0 ;
-	if ( simple_parser_isoperator2(pParser,OP_FOPEN) ) {
-		simple_parser_nexttoken(pParser);
+	if ( simple_parser_isoperator2(parser,OP_FOPEN) ) {
+		simple_parser_nexttoken(parser);
 		nStart = 1 ;
 	}
 	/* ParaList --> Epslion */
-	if ( simple_parser_isendline(pParser) || (nStart && simple_parser_isoperator2(pParser,OP_FCLOSE) ) ) {
-		simple_parser_nexttoken(pParser);
+	if ( simple_parser_isendline(parser) || (nStart && simple_parser_isoperator2(parser,OP_FCLOSE) ) ) {
+		simple_parser_nexttoken(parser);
 		#if SIMPLE_PARSERTRACE
 		SIMPLE_STATE_CHECKPRINTRULES 
 		
@@ -1166,61 +1166,61 @@ int simple_parser_paralist ( Parser *pParser )
 		return 1 ;
 	}
 	/* ParaList --> [ Identifier { , Identifier }  ] */
-	if ( simple_parser_isidentifier(pParser) ) {
-		cToken = pParser->TokenText ;
-		simple_parser_nexttoken(pParser);
+	if ( simple_parser_isidentifier(parser) ) {
+		cToken = parser->TokenText ;
+		simple_parser_nexttoken(parser);
 		/* Support Type Identifiter */
-		if ( nStart && simple_parser_isidentifier(pParser) ) {
-			cToken = pParser->TokenText ;
-			simple_parser_nexttoken(pParser);
+		if ( nStart && simple_parser_isidentifier(parser) ) {
+			cToken = parser->TokenText ;
+			simple_parser_nexttoken(parser);
 		}
 		/* Generate Code */
-		simple_parser_icg_newoperand(pParser,cToken);
+		simple_parser_icg_newoperand(parser,cToken);
 		#if SIMPLE_PARSERTRACE
 		SIMPLE_STATE_CHECKPRINTRULES 
 		
 		puts("Rule : ParaList --> Identifier {',' Identifier}");
 		#endif
-		while ( simple_parser_isoperator2(pParser,OP_COMMA) ) {
-			simple_parser_nexttoken(pParser);
+		while ( simple_parser_isoperator2(parser,OP_COMMA) ) {
+			simple_parser_nexttoken(parser);
 			SIMPLE_PARSER_IGNORENEWLINE ;
-			if ( simple_parser_isidentifier(pParser) ) {
-				cToken = pParser->TokenText ;
-				simple_parser_nexttoken(pParser);
+			if ( simple_parser_isidentifier(parser) ) {
+				cToken = parser->TokenText ;
+				simple_parser_nexttoken(parser);
 				/* Support Type Identifiter */
-				if ( nStart && simple_parser_isidentifier(pParser) ) {
-					cToken = pParser->TokenText ;
-					simple_parser_nexttoken(pParser);
+				if ( nStart && simple_parser_isidentifier(parser) ) {
+					cToken = parser->TokenText ;
+					simple_parser_nexttoken(parser);
 				}
 				/* Generate Code */
-				simple_parser_icg_newoperand(pParser,cToken);
+				simple_parser_icg_newoperand(parser,cToken);
 			} else {
-				simple_parser_error(pParser,SIMPLE_PARSER_ERROR_PARALIST);
+				parser_error(parser,PARSER_ERROR_PARALIST);
 				return 0 ;
 			}
 		}
-		if ( nStart && simple_parser_isoperator2(pParser,OP_FCLOSE) ) {
-			simple_parser_nexttoken(pParser);
+		if ( nStart && simple_parser_isoperator2(parser,OP_FCLOSE) ) {
+			simple_parser_nexttoken(parser);
 		}
 		return 1 ;
 	} else {
-		simple_parser_error(pParser,SIMPLE_PARSER_ERROR_PARALIST);
+		parser_error(parser,PARSER_ERROR_PARALIST);
 		return 0 ;
 	}
 }
 
-int simple_parser_list ( Parser *pParser )
+int simple_parser_list ( Parser *parser )
 {
 	/* "["  [ Expr { , Expr } ] "]" */
-	if ( simple_parser_isoperator2(pParser,OP_LOPEN) ) {
+	if ( simple_parser_isoperator2(parser,OP_LOPEN) ) {
 		/* Generate Code */
-		simple_parser_icg_newoperation(pParser,ICO_LISTSTART);
-		simple_parser_nexttoken(pParser);
+		simple_parser_icg_newoperation(parser,ICO_LISTSTART);
+		simple_parser_nexttoken(parser);
 		SIMPLE_PARSER_IGNORENEWLINE ;
-		if ( simple_parser_isoperator2(pParser,OP_LCLOSE) ) {
-			simple_parser_nexttoken(pParser);
+		if ( simple_parser_isoperator2(parser,OP_LCLOSE) ) {
+			simple_parser_nexttoken(parser);
 			/* Generate Code */
-			simple_parser_icg_newoperation(pParser,ICO_LISTEND);
+			simple_parser_icg_newoperation(parser,ICO_LISTEND);
 			#if SIMPLE_PARSERTRACE
 			SIMPLE_STATE_CHECKPRINTRULES 
 			
@@ -1229,33 +1229,33 @@ int simple_parser_list ( Parser *pParser )
 			return 1 ;
 		}
 		while ( 1 ) {
-			pParser->nAssignmentFlag = 0 ;
-			if ( simple_parser_expr(pParser) ) {
+			parser->nAssignmentFlag = 0 ;
+			if ( simple_parser_expr(parser) ) {
 				/* Generate Code */
-				if ( simple_parser_icg_getlastoperation(pParser) != ICO_LISTEND ) {
-					simple_parser_icg_newoperation(pParser,ICO_LISTITEM);
+				if ( simple_parser_icg_getlastoperation(parser) != ICO_LISTEND ) {
+					simple_parser_icg_newoperation(parser,ICO_LISTITEM);
 				}
-				pParser->nAssignmentFlag = 1 ;
+				parser->nAssignmentFlag = 1 ;
 				SIMPLE_PARSER_IGNORENEWLINE ;
-				if ( simple_parser_isoperator2(pParser,OP_COMMA) ) {
-					simple_parser_nexttoken(pParser);
+				if ( simple_parser_isoperator2(parser,OP_COMMA) ) {
+					simple_parser_nexttoken(parser);
 				}
-				else if ( simple_parser_isoperator2(pParser,OP_LCLOSE) ) {
-					simple_parser_nexttoken(pParser);
+				else if ( simple_parser_isoperator2(parser,OP_LCLOSE) ) {
+					simple_parser_nexttoken(parser);
 					#if SIMPLE_PARSERTRACE
 					SIMPLE_STATE_CHECKPRINTRULES 
 					
 					puts("Rule : List --> '[' Expr { ',' Expr } ']' ");
 					#endif
 					/* Generate Code */
-					simple_parser_icg_newoperation(pParser,ICO_LISTEND);
+					simple_parser_icg_newoperation(parser,ICO_LISTEND);
 					return 1 ;
 				} else {
-					simple_parser_error(pParser,SIMPLE_PARSER_ERROR_LISTITEM);
+					parser_error(parser,PARSER_ERROR_LISTITEM);
 					return 0 ;
 				}
 			} else {
-				simple_parser_error(pParser,SIMPLE_PARSER_ERROR_LISTITEM);
+				parser_error(parser,PARSER_ERROR_LISTITEM);
 				return 0 ;
 			}
 			SIMPLE_PARSER_IGNORENEWLINE ;
@@ -1264,162 +1264,162 @@ int simple_parser_list ( Parser *pParser )
 	return 0 ;
 }
 
-int simple_parser_epslion ( Parser *pParser )
+int simple_parser_epslion ( Parser *parser )
 {
-	if ( simple_parser_isendline(pParser) ) {
+	if ( simple_parser_isendline(parser) ) {
 		/* Generate Code */
-		if ( pParser->pRingState->lNoLineNumber == 0 ) {
-			simple_parser_icg_newoperation(pParser,ICO_NEWLINE);
-			simple_parser_icg_newoperandint(pParser,atoi(pParser->TokenText));
+		if ( parser->pSimpleState->lNoLineNumber == 0 ) {
+			simple_parser_icg_newoperation(parser,ICO_NEWLINE);
+			simple_parser_icg_newoperandint(parser,atoi(parser->TokenText));
 		}
-		pParser->nLineNumber = atoi(pParser->TokenText) ;
+		parser->nLineNumber = atoi(parser->TokenText) ;
 		#if SIMPLE_PARSERTRACE
 		SIMPLE_STATE_CHECKPRINTRULES 
 		
-		printf( "\nLine %d \n",pParser->nLineNumber ) ;
+		printf( "\nLine %d \n",parser->nLineNumber ) ;
 		#endif
-		if ( simple_parser_nexttoken(pParser) ) {
+		if ( simple_parser_nexttoken(parser) ) {
 			return 1 ;
 		}
-		if ( pParser->TokensCount == 1 ) {
+		if ( parser->TokensCount == 1 ) {
 			return 1 ;
 		}
 	}
 	return 0 ;
 }
 
-int simple_parser_passepslion ( Parser *pParser )
+int simple_parser_passepslion ( Parser *parser )
 {
 	/* used after factor - identifier to allow {  } in new line */
-	if ( simple_parser_isendline(pParser) ) {
-		pParser->nLineNumber = atoi(pParser->TokenText) ;
-		if ( simple_parser_nexttoken(pParser) ) {
+	if ( simple_parser_isendline(parser) ) {
+		parser->nLineNumber = atoi(parser->TokenText) ;
+		if ( simple_parser_nexttoken(parser) ) {
 			return 1 ;
 		}
 	}
 	return 0 ;
 }
 
-int simple_parser_namedotname ( Parser *pParser )
+int simple_parser_namedotname ( Parser *parser )
 {
 	String *pString  ;
-	if ( simple_parser_isidentifier(pParser) ) {
+	if ( simple_parser_isidentifier(parser) ) {
 		/* Get Token Text */
-		pString = simple_stsimple_new_gc(pParser->pRingState,pParser->TokenText);
-		simple_parser_nexttoken(pParser);
-		while ( simple_parser_isoperator2(pParser,OP_DOT) ) {
-			simple_parser_nexttoken(pParser);
-			simple_stsimple_add_gc(pParser->pRingState,pString,".");
-			if ( simple_parser_isidentifier(pParser) ) {
-				simple_stsimple_add_gc(pParser->pRingState,pString,pParser->TokenText);
-				simple_parser_nexttoken(pParser);
+		pString = simple_stsimple_new_gc(parser->pSimpleState,parser->TokenText);
+		simple_parser_nexttoken(parser);
+		while ( simple_parser_isoperator2(parser,OP_DOT) ) {
+			simple_parser_nexttoken(parser);
+			simple_stsimple_add_gc(parser->pSimpleState,pString,".");
+			if ( simple_parser_isidentifier(parser) ) {
+				simple_stsimple_add_gc(parser->pSimpleState,pString,parser->TokenText);
+				simple_parser_nexttoken(parser);
 			} else {
-				simple_parser_error(pParser,SIMPLE_PARSER_ERROR_PACKAGENAME);
+				parser_error(parser,PARSER_ERROR_MODULENAME);
 				simple_stsimple_delete(pString);
 				return 0 ;
 			}
 		}
 		/* Generate Code */
-		simple_parser_icg_newoperand(pParser,simple_stsimple_get(pString));
-		simple_stsimple_delete_gc(pParser->pRingState,pString);
+		simple_parser_icg_newoperand(parser,simple_stsimple_get(pString));
+		simple_stsimple_delete_gc(parser->pSimpleState,pString);
 		return 1 ;
 	} else {
-		simple_parser_error(pParser,SIMPLE_PARSER_ERROR_PACKAGENAME);
+		parser_error(parser,PARSER_ERROR_MODULENAME);
 		return 0 ;
 	}
 }
 
-int simple_parser_step ( Parser *pParser,int *nMark1 )
+int simple_parser_step ( Parser *parser,int *nMark1 )
 {
 	/* Step <expr> */
-	pParser->nInsertFlag = 1 ;
-	pParser->nInsertCounter = *nMark1-1 ;
-	if ( simple_parser_iskeyword(pParser,KEYWORD_STEP) ) {
-		simple_parser_nexttoken(pParser);
-		pParser->nAssignmentFlag = 0 ;
-		if ( simple_parser_csexpr(pParser) ) {
-			pParser->nAssignmentFlag = 1 ;
+	parser->nInsertFlag = 1 ;
+	parser->nInsertCounter = *nMark1-1 ;
+	if ( simple_parser_iskeyword(parser,KEYWORD_STEP) ) {
+		simple_parser_nexttoken(parser);
+		parser->nAssignmentFlag = 0 ;
+		if ( simple_parser_csexpr(parser) ) {
+			parser->nAssignmentFlag = 1 ;
 			/* Generate Code */
-			simple_parser_icg_newoperation(pParser,ICO_STEPNUMBER);
+			simple_parser_icg_newoperation(parser,ICO_STEPNUMBER);
 		} else {
 			return 0 ;
 		}
 	} else {
 		/* Generate Code */
-		simple_parser_icg_newoperation(pParser,ICO_PUSHN);
-		simple_parser_icg_newoperanddouble(pParser,1.0);
-		simple_parser_icg_newoperation(pParser,ICO_STEPNUMBER);
+		simple_parser_icg_newoperation(parser,ICO_PUSHN);
+		simple_parser_icg_newoperanddouble(parser,1.0);
+		simple_parser_icg_newoperation(parser,ICO_STEPNUMBER);
 	}
-	*nMark1 = pParser->nInsertCounter + 1 ;
-	pParser->nInsertFlag = 0 ;
-	pParser->nInsertCounter = 0 ;
+	*nMark1 = parser->nInsertCounter + 1 ;
+	parser->nInsertFlag = 0 ;
+	parser->nInsertCounter = 0 ;
 	return 1 ;
 }
 
-int simple_parser_csexpr ( Parser *pParser )
+int simple_parser_csexpr ( Parser *parser )
 {
 	int nOutput  ;
-	pParser->nControlStructureExpr = 1 ;
-	nOutput = simple_parser_expr(pParser);
-	pParser->nControlStructureExpr = 0 ;
+	parser->nControlStructureExpr = 1 ;
+	nOutput = simple_parser_expr(parser);
+	parser->nControlStructureExpr = 0 ;
 	SIMPLE_PARSER_IGNORENEWLINE ;
-	if ( simple_parser_isoperator2(pParser,OP_BRACEOPEN) ) {
-		simple_parser_nexttoken(pParser);
-		pParser->nControlStructureBrace++ ;
+	if ( simple_parser_isoperator2(parser,OP_BRACEOPEN) ) {
+		simple_parser_nexttoken(parser);
+		parser->nControlStructureBrace++ ;
 	}
 	return nOutput ;
 }
 
-int simple_parser_csbraceend ( Parser *pParser )
+int simple_parser_csbraceend ( Parser *parser )
 {
-	if ( (pParser->nControlStructureBrace >= 1) && simple_parser_isoperator2(pParser,OP_BRACECLOSE) ) {
-		pParser->nControlStructureBrace-- ;
+	if ( (parser->nControlStructureBrace >= 1) && simple_parser_isoperator2(parser,OP_BRACECLOSE) ) {
+		parser->nControlStructureBrace-- ;
 		return 1 ;
 	}
 	return 0 ;
 }
 
-int simple_parser_bracesandend ( Parser *pParser,int lClass,SCANNER_KEYWORD nKeyword )
+int simple_parser_bracesandend ( Parser *parser,int lClass,SCANNER_KEYWORD nKeyword )
 {
 	/*
-	**  This function is used to support braces { } around packages/classes/functions 
-	**  Also support using 'end' after packages/classes/functions 
+	**  This function is used to support braces { } around moduless/classes/functions 
+	**  Also support using 'end' after moduless/classes/functions 
 	**  IF The Parameter : lClass = True we call simple_parser_class() instead of simple_parser_stmt() 
 	**  When we support braces { } 
 	**  But the support for 'end' always uses simple_parser_class() 
 	**  Support using { } 
 	*/
 	SIMPLE_PARSER_IGNORENEWLINE ;
-	if ( simple_parser_isoperator2(pParser,OP_BRACEOPEN) ) {
-		simple_parser_nexttoken(pParser);
+	if ( simple_parser_isoperator2(parser,OP_BRACEOPEN) ) {
+		simple_parser_nexttoken(parser);
 		if ( lClass ) {
-			while ( simple_parser_class(pParser) ) {
-				if ( pParser->ActiveToken == pParser->TokensCount ) {
+			while ( simple_parser_class(parser) ) {
+				if ( parser->ActiveToken == parser->TokensCount ) {
 					break ;
 				}
 			}
 		}
 		else {
-			while ( simple_parser_stmt(pParser) ) {
-				if ( pParser->ActiveToken == pParser->TokensCount ) {
+			while ( simple_parser_stmt(parser) ) {
+				if ( parser->ActiveToken == parser->TokensCount ) {
 					break ;
 				}
 			}
 		}
-		if ( simple_parser_isoperator2(pParser,OP_BRACECLOSE) ) {
-			simple_parser_nexttoken(pParser);
+		if ( simple_parser_isoperator2(parser,OP_BRACECLOSE) ) {
+			simple_parser_nexttoken(parser);
 			return 1 ;
 		}
 		return 0 ;
 	}
 	/* Support using End */
-	while ( simple_parser_class(pParser) ) {
-		if ( pParser->ActiveToken == pParser->TokensCount ) {
+	while ( simple_parser_class(parser) ) {
+		if ( parser->ActiveToken == parser->TokensCount ) {
 			break ;
 		}
 	}
-	if ( simple_parser_iskeyword(pParser,KEYWORD_END) || simple_parser_iskeyword(pParser,nKeyword) ) {
-		simple_parser_nexttoken(pParser);
+	if ( simple_parser_iskeyword(parser,KEYWORD_END) || simple_parser_iskeyword(parser,nKeyword) ) {
+		simple_parser_nexttoken(parser);
 		#if SIMPLE_PARSERTRACE
 		SIMPLE_STATE_CHECKPRINTRULES 
 		

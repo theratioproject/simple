@@ -181,7 +181,7 @@ SIMPLE_API int simple_list_deliteminsidelist ( List *pList,Item *pItem ) ;
 #define SIMPLE_VM_LISTOFOBJS_FINDSTRING 1
 #define SIMPLE_VM_LISTOFOBJS_FINDNUMBER 0
 #define simple_list_deletelastitem_gc(s,x) simple_list_deleteitem_gc(s,x,simple_list_getsize(x))
-/* Define functions without RingState * */
+/* Define functions without SimpleState * */
 
 SIMPLE_API List * simple_list_new ( int nSize ) ;
 

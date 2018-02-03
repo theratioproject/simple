@@ -28,9 +28,9 @@ typedef HINSTANCE LpHandleType ;
 #define CloseDLL dlclose
 typedef void * LpHandleType ;
 #endif
-typedef void (*loadlibfuncptr)(RingState *) ;
+typedef void (*loadlibfuncptr)(SimpleState *) ;
 
-void simple_vm_dll_loadfunctions ( RingState *pRingState ) ;
+void simple_vm_dll_loadfunctions ( SimpleState *pSimpleState ) ;
 
 void simple_vm_dll_loadlib ( void *pPointer ) ;
 

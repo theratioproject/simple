@@ -26,7 +26,7 @@ const char * SIMPLE_IC_OP[] = {"NewLine","FileName","Print","Class","Func","Dup"
 
 "JumpVarLENum","JumpVarPLENum","Try","Done","Range","LoadMethod","SetScope","AfterCallMethod", 
 
-"BraceStart","BraceEnd","LoadFuncP","FreeLoadAScope","Loop","IncLPJump","JumpVarLPLENum","Package","Import", 
+"BraceStart","BraceEnd","LoadFuncP","FreeLoadAScope","Loop","IncLPJump","JumpVarLPLENum","Modules","Import", 
 
 "SetProperty","NoOperation","AfterCallMethod2","SetReference","KillReference","AssignmentPointer","BeforeEqual","++","--", 
 
@@ -38,101 +38,101 @@ const char * SIMPLE_IC_OP[] = {"NewLine","FileName","Print","Class","Func","Dup"
 **  Generate Intermediate Code 
 */
 
-void simple_parser_icg_newoperation ( Parser *pParser , IC_OPERATIONS opcode )
+void simple_parser_icg_newoperation ( Parser *parser , IC_OPERATIONS opcode )
 {
-	assert(pParser != NULL);
-	if ( pParser->nInsertFlag == 1 ) {
-		simple_parser_icg_insertoperation(pParser,pParser->nInsertCounter,opcode);
-		pParser->nInsertCounter++ ;
+	assert(parser != NULL);
+	if ( parser->nInsertFlag == 1 ) {
+		simple_parser_icg_insertoperation(parser,parser->nInsertCounter,opcode);
+		parser->nInsertCounter++ ;
 		return ;
 	}
-	pParser->ActiveGenCodeList = simple_list_newlist_gc(pParser->pRingState,pParser->GenCode);
-	simple_list_addint_gc(pParser->pRingState,pParser->ActiveGenCodeList,opcode);
+	parser->ActiveGenCodeList = simple_list_newlist_gc(parser->pSimpleState,parser->GenCode);
+	simple_list_addint_gc(parser->pSimpleState,parser->ActiveGenCodeList,opcode);
 	#if SIMPLE_SHOWIC
-	printf( "\n %6d [ %s ] ",simple_list_getsize(pParser->GenCode) , SIMPLE_IC_OP[opcode] ) ;
+	printf( "\n %6d [ %s ] ",simple_list_getsize(parser->GenCode) , SIMPLE_IC_OP[opcode] ) ;
 	#endif
 }
 
-void simple_parser_icg_insertoperation ( Parser *pParser , int nPos , IC_OPERATIONS opcode )
+void simple_parser_icg_insertoperation ( Parser *parser , int nPos , IC_OPERATIONS opcode )
 {
-	assert(pParser != NULL);
-	pParser->ActiveGenCodeList = simple_list_insertlist(pParser->GenCode,nPos);
-	simple_list_addint_gc(pParser->pRingState,pParser->ActiveGenCodeList,opcode);
+	assert(parser != NULL);
+	parser->ActiveGenCodeList = simple_list_insertlist(parser->GenCode,nPos);
+	simple_list_addint_gc(parser->pSimpleState,parser->ActiveGenCodeList,opcode);
 	#if SIMPLE_SHOWIC
 	printf( "\n %6d [ %s ] ",nPos, SIMPLE_IC_OP[opcode] ) ;
 	#endif
 }
 
-void simple_parser_icg_newoperand ( Parser *pParser , const char *cStr )
+void simple_parser_icg_newoperand ( Parser *parser , const char *cStr )
 {
-	assert(pParser != NULL);
-	assert(pParser->ActiveGenCodeList);
-	simple_list_addstsimple_gc(pParser->pRingState,pParser->ActiveGenCodeList,cStr);
+	assert(parser != NULL);
+	assert(parser->ActiveGenCodeList);
+	simple_list_addstsimple_gc(parser->pSimpleState,parser->ActiveGenCodeList,cStr);
 	#if SIMPLE_SHOWIC
 	printf( " Operand : %s ",cStr ) ;
 	#endif
 }
 
-void simple_parser_icg_newoperandint ( Parser *pParser , int nValue )
+void simple_parser_icg_newoperandint ( Parser *parser , int nValue )
 {
-	assert(pParser != NULL);
-	assert(pParser->ActiveGenCodeList);
-	simple_list_addint_gc(pParser->pRingState,pParser->ActiveGenCodeList,nValue);
+	assert(parser != NULL);
+	assert(parser->ActiveGenCodeList);
+	simple_list_addint_gc(parser->pSimpleState,parser->ActiveGenCodeList,nValue);
 	#if SIMPLE_SHOWIC
 	printf( " Operand : %d ",nValue ) ;
 	#endif
 }
 
-void simple_parser_icg_newoperanddouble ( Parser *pParser , double nValue )
+void simple_parser_icg_newoperanddouble ( Parser *parser , double nValue )
 {
-	assert(pParser != NULL);
-	assert(pParser->ActiveGenCodeList);
-	simple_list_adddouble_gc(pParser->pRingState,pParser->ActiveGenCodeList,nValue);
+	assert(parser != NULL);
+	assert(parser->ActiveGenCodeList);
+	simple_list_adddouble_gc(parser->pSimpleState,parser->ActiveGenCodeList,nValue);
 	#if SIMPLE_SHOWIC
 	printf( " Operand : %.5f ",nValue ) ;
 	#endif
 }
 
-void simple_parser_icg_newoperandpointer ( Parser *pParser , void *pValue )
+void simple_parser_icg_newoperandpointer ( Parser *parser , void *pValue )
 {
-	assert(pParser != NULL);
-	assert(pParser->ActiveGenCodeList);
-	simple_list_addpointer_gc(pParser->pRingState,pParser->ActiveGenCodeList,pValue);
+	assert(parser != NULL);
+	assert(parser->ActiveGenCodeList);
+	simple_list_addpointer_gc(parser->pSimpleState,parser->ActiveGenCodeList,pValue);
 	#if SIMPLE_SHOWIC
 	printf( " Operand : %p ",pValue ) ;
 	#endif
 }
 
-List * simple_parser_icg_getactiveoperation ( Parser *pParser )
+List * simple_parser_icg_getactiveoperation ( Parser *parser )
 {
-	assert(pParser != NULL);
-	assert(pParser->ActiveGenCodeList);
-	return pParser->ActiveGenCodeList ;
+	assert(parser != NULL);
+	assert(parser->ActiveGenCodeList);
+	return parser->ActiveGenCodeList ;
 }
 
-Items * simple_parser_icg_getoperationpos ( Parser *pParser )
+Items * simple_parser_icg_getoperationpos ( Parser *parser )
 {
-	assert(pParser != NULL);
-	assert(pParser->GenCode);
-	return pParser->GenCode->pLast ;
+	assert(parser != NULL);
+	assert(parser->GenCode);
+	return parser->GenCode->pLast ;
 }
 
-void simple_parser_icg_addoperand ( Parser *pParser ,List *pList , const char *cStr )
+void simple_parser_icg_addoperand ( Parser *parser ,List *pList , const char *cStr )
 {
 	assert(pList != NULL);
-	simple_list_addstsimple_gc(pParser->pRingState,pList,cStr);
+	simple_list_addstsimple_gc(parser->pSimpleState,pList,cStr);
 }
 
-void simple_parser_icg_addoperandint ( Parser *pParser ,List *pList , int nValue )
+void simple_parser_icg_addoperandint ( Parser *parser ,List *pList , int nValue )
 {
 	assert(pList != NULL);
-	simple_list_addint_gc(pParser->pRingState,pList,nValue);
+	simple_list_addint_gc(parser->pSimpleState,pList,nValue);
 }
 
-void simple_parser_icg_addoperandpointer ( Parser *pParser ,List *pList , void *pValue )
+void simple_parser_icg_addoperandpointer ( Parser *parser ,List *pList , void *pValue )
 {
 	assert(pList != NULL);
-	simple_list_addpointer_gc(pParser->pRingState,pList,pValue);
+	simple_list_addpointer_gc(parser->pSimpleState,pList,pValue);
 }
 
 void simple_parser_icg_showoutput ( List *pListGenCode,int nStatus )
@@ -182,30 +182,30 @@ void simple_parser_icg_showoutput ( List *pListGenCode,int nStatus )
 	puts("");
 }
 
-void simple_parser_icg_deletelastoperation ( Parser *pParser )
+void simple_parser_icg_deletelastoperation ( Parser *parser )
 {
-	if ( simple_list_getsize(pParser->GenCode) > 0 ) {
-		simple_list_deleteitem(pParser->GenCode,simple_list_getsize(pParser->GenCode));
-		pParser->ActiveGenCodeList = simple_list_getlist(pParser->GenCode,simple_list_getsize(pParser->GenCode));
+	if ( simple_list_getsize(parser->GenCode) > 0 ) {
+		simple_list_deleteitem(parser->GenCode,simple_list_getsize(parser->GenCode));
+		parser->ActiveGenCodeList = simple_list_getlist(parser->GenCode,simple_list_getsize(parser->GenCode));
 	}
 }
 
-void simple_parser_icg_duplicate ( Parser *pParser,int nStart,int nEnd )
+void simple_parser_icg_duplicate ( Parser *parser,int nStart,int nEnd )
 {
 	List *pList,*pList2  ;
 	int x  ;
 	#if SIMPLE_SHOWIC
 	int y,nCount2  ;
 	#endif
-	assert(pParser != NULL);
-	if ( (nStart <= nEnd) && ( nEnd <= simple_parser_icg_instructionscount(pParser) ) ) {
+	assert(parser != NULL);
+	if ( (nStart <= nEnd) && ( nEnd <= simple_parser_icg_instructionscount(parser) ) ) {
 		for ( x = nStart ; x <= nEnd ; x++ ) {
-			pList = simple_list_newlist_gc(pParser->pRingState,pParser->GenCode);
-			pList2 = simple_list_getlist(pParser->GenCode,x);
+			pList = simple_list_newlist_gc(parser->pSimpleState,parser->GenCode);
+			pList2 = simple_list_getlist(parser->GenCode,x);
 			simple_list_copy(pList,pList2);
 			#if SIMPLE_SHOWIC
 			nCount2 = simple_list_getsize(pList);
-			printf( "\n %6d [ %s ] ", simple_list_getsize(pParser->GenCode) , SIMPLE_IC_OP[simple_list_getint(pList,1)] ) ;
+			printf( "\n %6d [ %s ] ", simple_list_getsize(parser->GenCode) , SIMPLE_IC_OP[simple_list_getint(pList,1)] ) ;
 			if ( nCount2 > 1 ) {
 				for ( y = 2 ; y <= nCount2 ; y++ ) {
 					if ( simple_list_isstring(pList,y) ) {
@@ -227,9 +227,9 @@ void simple_parser_icg_duplicate ( Parser *pParser,int nStart,int nEnd )
 	}
 }
 
-int simple_parser_icg_newlabel2 ( Parser *pParser )
+int simple_parser_icg_newlabel2 ( Parser *parser )
 {
-	assert(pParser != NULL);
-	simple_parser_icg_newoperation(pParser,ICO_NEWLABEL);
-	return simple_list_getsize(pParser->GenCode) ;
+	assert(parser != NULL);
+	simple_parser_icg_newoperation(parser,ICO_NEWLABEL);
+	return simple_list_getsize(parser->GenCode) ;
 }

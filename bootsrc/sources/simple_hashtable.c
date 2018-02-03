@@ -231,7 +231,7 @@ void simple_hashtable_test ( void )
 	HashTable *pHashTable  ;
 	char cStr[20]  ;
 	int x  ;
-	puts("\nRing - HashTable Test");
+	puts("\nSimple - HashTable Test");
 	pHashTable = simple_hashtable_new();
 	puts("\nCreate HashTable Items ");
 	/* Add Items */

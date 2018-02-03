@@ -20,9 +20,9 @@
 **  Support for C Functions 
 */
 
-SIMPLE_API void simple_vm_funcregister2 ( RingState *pRingState,const char *cStr, void (*pFunc)(void *) ) ;
+SIMPLE_API void simple_vm_funcregister2 ( SimpleState *pSimpleState,const char *cStr, void (*pFunc)(void *) ) ;
 
-SIMPLE_API void simple_vm_loadcfunctions ( RingState *pRingState ) ;
+SIMPLE_API void simple_vm_loadcfunctions ( SimpleState *pSimpleState ) ;
 
 SIMPLE_API List * simple_vm_api_getlist ( void *pPointer,int x ) ;
 
@@ -30,7 +30,7 @@ int simple_vm_api_islist ( void *pPointer,int x ) ;
 
 SIMPLE_API void simple_vm_api_retlist ( void *pPointer,List *pList ) ;
 
-SIMPLE_API List * simple_vm_api_newlist ( VM *pVM ) ;
+SIMPLE_API List * simple_vm_api_newlist ( VM *vm ) ;
 
 SIMPLE_API void simple_vm_api_retcpointer ( void *pPointer,void *pGeneral,const char *cType ) ;
 
@@ -38,7 +38,7 @@ SIMPLE_API void * simple_vm_api_getcpointer ( void *pPointer,int x,const char *c
 
 SIMPLE_API void simple_vm_api_setcpointernull ( void *pPointer,int x ) ;
 
-void simple_vm_extension ( RingState *pRingState ) ;
+void simple_vm_extension ( SimpleState *pSimpleState ) ;
 
 SIMPLE_API void * simple_vm_api_varptr ( void *pPointer,const char  *cStr,const char *cStr2 ) ;
 
@@ -210,7 +210,7 @@ void simple_vmlib_nullpointer ( void *pPointer ) ;
 void simple_vmlib_space ( void *pPointer ) ;
 
 void simple_vmlib_ptrcmp ( void *pPointer ) ;
-/* Ring State */
+/* Simple State */
 
 void simple_vmlib_state_init ( void *pPointer ) ;
 
@@ -233,7 +233,7 @@ void simple_vmlib_state_setvar ( void *pPointer ) ;
 void simple_vmlib_state_new ( void *pPointer ) ;
 
 void simple_vmlib_state_mainfile ( void *pPointer ) ;
-/* Ring See and Give */
+/* Simple See and Give */
 
 void simple_vmlib_see ( void *pPointer ) ;
 
@@ -260,7 +260,7 @@ void simple_vmlib_give ( void *pPointer ) ;
 #define SIMPLE_API_GETCPOINTER(x,y) (simple_vm_api_getcpointer((VM *) pPointer,x,y))
 #define SIMPLE_API_PUSHPVALUE(x) ((VM *) pPointer)->nSP++ ; simple_itemarray_setpointer(((VM *) pPointer)->aStack, ((VM *) pPointer)->nSP , x )
 #define SIMPLE_API_OBJTYPE ((VM *) pPointer)->aStack[((VM *) pPointer)->nSP].nObjectType
-#define SIMPLE_FUNC(x) void x(void *pPointer)
+#define SIMPLE_BLOCK(x) void x(void *pPointer)
 #define SIMPLE_API_GETSTRINGSIZE(x) (simple_list_getstringsize(simple_list_getlist(SIMPLE_API_PARALIST,x),3))
 #define SIMPLE_API_SETNULLPOINTER(x) (simple_vm_api_setcpointernull((VM *) pPointer,x))
 #define SIMPLE_API_GETCPOINTERSTATUS(x) simple_list_getint(SIMPLE_API_GETLIST(x),SIMPLE_CPOINTER_STATUS)
@@ -285,7 +285,7 @@ void simple_vmlib_give ( void *pPointer ) ;
 #define SIMPLE_API_NOTPOINTER "Error in parameter, not pointer!"
 #define SIMPLE_API_NULLPOINTER "Error in parameter, NULL pointer!"
 #define SIMPLE_API_EMPTYLIST "Bad parameter, empty list!"
-#define simple_vm_funcregister(x,y) simple_vm_funcregister2(pRingState,x,y)
+#define simple_vm_funcregister(x,y) simple_vm_funcregister2(pSimpleState,x,y)
 /*
 **  Note : The C Function Get Lists as pointers because of (List Pass by Reference) 
 **  The List Maybe a Variable/ListItem or may represent Object or C Pointer inside a List 

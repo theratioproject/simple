@@ -130,8 +130,8 @@ SIMPLE_API void simple_item_settype_gc ( void *pState,Item *pItem,int ItemType )
 			pItem->nType = ITEMTYPE_LIST ;
 			pItem->data.pList = simple_list_new_gc(pState,0);
 			break ;
-		case ITEMTYPE_FUNCPOINTER :
-			pItem->nType = ITEMTYPE_FUNCPOINTER ;
+		case ITEMTYPE_BLOCKPOINTER :
+			pItem->nType = ITEMTYPE_BLOCKPOINTER ;
 			pItem->data.pFunc = NULL ;
 			break ;
 	}

@@ -17,7 +17,7 @@
 #define simple_vmlistfuncs_h
 /* Load Functions */
 
-void simple_vm_listfuncs_loadfunctions ( RingState *pRingState ) ;
+void simple_vm_listfuncs_loadfunctions ( SimpleState *pSimpleState ) ;
 /* List Functions */
 
 void simple_vmlib_list ( void *pPointer ) ;
