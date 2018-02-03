@@ -155,7 +155,7 @@ SIMPLE_API List * simple_state_newvar ( SimpleState *pSimpleState,const char *cS
 SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 {
 	int x,nCGI,nRun,nPrintIC,nPrintICFinal,nTokens,nRules,nIns,nPerformance,nSRC,nGenObj,nWarn  ;
-	char *cStr  ;
+	char *cStr  ; time_t before_execution, after_execution; double seconds;
 	/* Init Values */
 	nCGI = 0 ;
 	nRun = 1 ;
