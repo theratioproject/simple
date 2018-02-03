@@ -118,3 +118,25 @@ const char *file_real_name(const char *absolute_name){
 
     return filename;
 }
+
+#if SIMPLE_TESTPERFORMANCE
+
+static void simple_showtime ( before_execution, after_execution )
+{
+    time(&after_execution);
+    double seconds = difftime(before_execution, after_execution);
+    time_t timer  ;
+	char buffer[50]  ;
+	struct tm*tm_info  ;
+	clock_t myclock  ;
+	time(&timer);
+	tm_info = localtime(&timer);
+	strftime(buffer,50,"Date  : %Y/%m/%d Time : %H:%M:%S", tm_info);
+	printf( "\n" ) ;
+	print_line();
+	puts(buffer);
+	myclock = clock();
+	printf( "Clock : %ld \n", myclock ) ;
+	print_line();
+}
+#endif

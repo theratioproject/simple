@@ -151,7 +151,7 @@ SIMPLE_API List * simple_state_newvar ( SimpleState *pSimpleState,const char *cS
 SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 {
 	int x,nCGI,nRun,nPrintIC,nPrintICFinal,nTokens,nRules,nIns,nPerformance,nSRC,nGenObj,nWarn  ;
-	char *cStr  ; time_t before_execution, after_execution; double seconds;
+	char *cStr  ; time_t before_execution, after_execution; 
 	/* Init Values */
 	nCGI = 0 ;
 	nRun = 1 ;
@@ -263,27 +263,6 @@ static void simple_testallunits ( void )
 	simple_hashtable_test();
 	printf( "end of test \n  " ) ;
 	getchar();
-}
-#endif
-#if SIMPLE_TESTPERFORMANCE
-
-static void simple_showtime ( before_execution, after_execution )
-{
-    time(&after_execution);
-    double seconds = difftime(before_execution, after_execution);
-    time_t timer  ;
-	char buffer[50]  ;
-	struct tm*tm_info  ;
-	clock_t myclock  ;
-	time(&timer);
-	tm_info = localtime(&timer);
-	strftime(buffer,50,"Date  : %Y/%m/%d Time : %H:%M:%S", tm_info);
-	printf( "\n" ) ;
-	print_line();
-	puts(buffer);
-	myclock = clock();
-	printf( "Clock : %ld \n", myclock ) ;
-	print_line();
 }
 #endif
 
