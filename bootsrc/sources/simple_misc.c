@@ -119,6 +119,12 @@ const char *file_real_name(const char *absolute_name){
     return filename;
 }
 
+const char *change_file_ext(const char *absolute_name, const char *extension){
+    char* file_name = file_real_name(absolute_name);
+    file_name = (strrchr(absolute_name, '.'));
+    return file_name;
+}
+
 void simple_showtime ( time_t before_execution, time_t after_execution )
 {
     time(&after_execution);
