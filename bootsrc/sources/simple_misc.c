@@ -123,18 +123,17 @@ void simple_showtime ( time_t before_execution, time_t after_execution )
 {
     time(&after_execution);
     double seconds = difftime(after_execution, before_execution);
-    printf("\nProgram Execute in : %.5f seconds", seconds);
-    /**time_t timer  ;
-	char buffer[50]  ;
-	struct tm*tm_info  ;
-	clock_t myclock  ;
-	time(&timer);
-	tm_info = localtime(&timer);
-	strftime(buffer,50,"Date  : %Y/%m/%d Time : %H:%M:%S", tm_info);
-	printf( "\n" ) ;
-	print_line();
-	puts(buffer);
-	myclock = clock();
-	printf( "Clock : %ld \n", myclock ) ;
-	print_line();**/
+    printf("\nExecution Time : %s", get_time_different(seconds));
+}
+
+char* get_time_different(double diff) {
+    char message[100] = "" ; float newdiff = 0.0 ;
+    if (diff < 60) {
+        snprintf(message, sizeof message, "%.5f seconds ", diff);
+    } else if (diff > 60 && diff < 3600) {
+        newdiff = diff / 60 ;
+        snprintf(message, sizeof message, "%.5f minutes ", newdiff);
+    }
+    char* msg = message ;
+    return msg ;
 }
