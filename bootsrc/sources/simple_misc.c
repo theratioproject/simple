@@ -119,8 +119,6 @@ const char *file_real_name(const char *absolute_name){
     return filename;
 }
 
-#if SIMPLE_TESTPERFORMANCE
-
 static void simple_showtime ( time_t before_execution, time_t after_execution )
 {
     time(&after_execution);
@@ -140,4 +138,3 @@ static void simple_showtime ( time_t before_execution, time_t after_execution )
 	printf( "Clock : %ld \n", myclock ) ;
 	print_line();**/
 }
-#endif
