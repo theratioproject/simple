@@ -34,10 +34,6 @@ static int nSimpleStateCGI  ;
 
 static void simple_testallunits ( void ) ;
 #endif
-#if SIMPLE_TESTPERFORMANCE
-
-static void simple_showtime ( void ) ;
-#endif
 
 void segfaultaction ( int sig ) ;
 /* API Functions */
@@ -172,6 +168,7 @@ SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 	nSimpleStateDEBUGSEGFAULT = 0 ;
 	nSimpleStateCGI = 0 ;
 	signal(SIGSEGV,segfaultaction);
+        time(&before_execution);
 	#if SIMPLE_TESTUNITS
 	simple_testallunits();
 	#endif
@@ -270,9 +267,11 @@ static void simple_testallunits ( void )
 #endif
 #if SIMPLE_TESTPERFORMANCE
 
-static void simple_showtime ( void )
+static void simple_showtime ( before_execution, after_execution )
 {
-	time_t timer  ;
+    time(&after_execution);
+    double seconds = difftime(before_execution, after_execution);
+    time_t timer  ;
 	char buffer[50]  ;
 	struct tm*tm_info  ;
 	clock_t myclock  ;
