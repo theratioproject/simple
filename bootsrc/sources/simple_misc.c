@@ -126,7 +126,7 @@ const char *change_file_ext(const char *absolute_name, const char *extension){
         if (file_name[name_lenght] == '.') {
             break;
         } else {
-            snprintf(new_name, "%c", file_name[name_lenght]);
+            new_name[name_lenght] = file_name[name_lenght];
         }
         name_lenght-- ;
     }
