@@ -234,7 +234,7 @@ SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 	simple_execute(cStr,nCGI,nRun,nPrintIC,nPrintICFinal,nTokens,nRules,nIns,nGenObj,nWarn,argc,argv);
 	#if SIMPLE_TESTPERFORMANCE
 	if ( nPerformance ) {
-		simple_showtime();
+		simple_showtime( before_execution, after_execution );
 	}
 	#endif
 }

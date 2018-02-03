@@ -121,7 +121,7 @@ const char *file_real_name(const char *absolute_name){
 
 #if SIMPLE_TESTPERFORMANCE
 
-static void simple_showtime ( before_execution, after_execution )
+static void simple_showtime ( time_t before_execution, time_t after_execution )
 {
     time(&after_execution);
     double seconds = difftime(before_execution, after_execution);
