@@ -168,7 +168,7 @@ SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 	nSimpleStateDEBUGSEGFAULT = 0 ;
 	nSimpleStateCGI = 0 ;
 	signal(SIGSEGV,segfaultaction);
-        time(&before_execution); sleep(2);
+        time(&before_execution); 
 	#if SIMPLE_TESTUNITS
 	simple_testallunits();
 	#endif
