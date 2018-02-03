@@ -121,9 +121,8 @@ const char *file_real_name(const char *absolute_name){
 
 void simple_showtime ( time_t before_execution, time_t after_execution )
 {
-    time(&); clock_gettime(CLOCK_MONOTONIC, &after_execution);
+    time(&after_execution);
     double seconds = difftime(after_execution, before_execution);
-    seconds = ((double)after_execution.tv_sec + 1.0e-9*after_execution.tv_nsec) - ((double)tstart.tv_sec + 1.0e-9*tstart.tv_nsec) ;
     printf("\nExecution Time : %s", get_time_different(seconds));
 }
 
