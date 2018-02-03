@@ -121,7 +121,7 @@ const char *file_real_name(const char *absolute_name){
 
 const char *change_file_ext(const char *absolute_name, const char *extension){
     const char* file_name = file_real_name(absolute_name);
-    file_name = (strrchr(absolute_name, '.')-1);
+    file_name = (strrchr(absolute_name, '.'));
     return file_name;
 }
 
