@@ -119,7 +119,7 @@ const char *file_real_name(const char *absolute_name){
     return filename;
 }
 
-static void simple_showtime ( time_t before_execution, time_t after_execution )
+void simple_showtime ( time_t before_execution, time_t after_execution )
 {
     time(&after_execution);
     double seconds = difftime(before_execution, after_execution);
