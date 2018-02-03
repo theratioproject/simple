@@ -120,13 +120,13 @@ const char *file_real_name(const char *absolute_name){
 }
 
 const char *change_file_ext(const char *absolute_name, const char *extension){
-    const char* file_name = file_real_name(absolute_name); char new_name[400];
+    const char* file_name = file_real_name(absolute_name); const char new_name[400];
     int name_lenght = strlen(file_name);
     while(name_lenght){
         if (file_name[name_lenght] == '.') {
             break;
         } else {
-            snprintf(new_name, "%s", file_name[name_lenght]);
+            snprintf(new_name, "%c", file_name[name_lenght]);
         }
         name_lenght-- ;
     }
