@@ -125,7 +125,8 @@ static void simple_showtime ( time_t before_execution, time_t after_execution )
 {
     time(&after_execution);
     double seconds = difftime(before_execution, after_execution);
-    time_t timer  ;
+    printf("\nProgram Execute in : %.f", seconds);
+    /**time_t timer  ;
 	char buffer[50]  ;
 	struct tm*tm_info  ;
 	clock_t myclock  ;
@@ -137,6 +138,6 @@ static void simple_showtime ( time_t before_execution, time_t after_execution )
 	puts(buffer);
 	myclock = clock();
 	printf( "Clock : %ld \n", myclock ) ;
-	print_line();
+	print_line();**/
 }
 #endif
