@@ -123,7 +123,7 @@ void simple_showtime ( time_t before_execution, time_t after_execution )
 {
     time(&after_execution);
     double seconds = difftime(before_execution, after_execution);
-    printf("\nProgram Execute in : %.f", seconds);
+    printf("\nProgram Execute in : %.5f seconds", seconds);
     /**time_t timer  ;
 	char buffer[50]  ;
 	struct tm*tm_info  ;
