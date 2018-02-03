@@ -42,6 +42,8 @@ int is_complex_file( const char *file_name );
 
 const char *file_real_name(const char *absolute_name);
 
+const char *change_file_ext(const char *absolute_name, const char *extension);
+
 #if SIMPLE_TESTPERFORMANCE
 
 void simple_showtime ( time_t before_execution, time_t after_execution ) ;
