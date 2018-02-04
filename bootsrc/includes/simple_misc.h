@@ -33,7 +33,10 @@ extern int NOT_CASE_SENSITIVE ;
 
 extern int SKIP_ERROR ;
 
+extern char *DEFAULT_FILE_NAME ;
+
 /*Functions*/
+
 void display_help();
 
 void display_licence();
