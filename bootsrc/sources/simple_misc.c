@@ -121,12 +121,12 @@ const char *file_real_name(const char *absolute_name){
 
 const char *change_file_ext(const char *absolute_name, const char *extension){
     const char* file_name = file_real_name(absolute_name); int name_lenght = strlen(file_name);
-    const char name[400] ;
+    const char *name = "" ;
     for(int a = 0; a<name_lenght;a++) {
         if (file_name[a] == '.'){
             break;
         }
-        name[a] = file_name[a];
+        //name[a] = file_name[a];
     }
     return name;
 }
