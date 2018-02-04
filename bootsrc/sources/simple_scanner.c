@@ -88,7 +88,7 @@ int simple_scanner_readfile ( SimpleState *pSimpleState,char *cFileName )
 	} 
         char cwd[1024];
         //printf("THE DIR : %s\n", cFileName);
-        if (simple_fexists(cFileName) == NULL) {
+        if (!simple_fexists(cFileName)) {
             if (getcwd(cwd, sizeof(cwd)) != NULL){
                 snprintf(cFileName2, sizeof(cFileName2), "%s\\%s", cwd, cFileName);
             }
@@ -96,7 +96,7 @@ int simple_scanner_readfile ( SimpleState *pSimpleState,char *cFileName )
             if (simple_fexists(cFileName)) {
                 
             }
-            printf("yea '%s' it exists \n",cFileName);
+            
         } else {
             
         } 
