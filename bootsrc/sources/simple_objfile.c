@@ -24,7 +24,7 @@ void simple_objfile_writefile ( SimpleState *pSimpleState )
 	char cFileName[400]  ;
 	/* Create File */
 	sprintf( cFileName , "%splex" , simple_list_getstring(pSimpleState->pSimpleFilesList,1) ) ;
-        printf("TO COMPLEX : %s", change_file_ext(simple_list_getstring(pSimpleState->pSimpleFilesList,1), "complex"));
+        //printf("TO COMPLEX : %s", change_file_ext(simple_list_getstring(pSimpleState->pSimpleFilesList,1), "complex"));
 	fObj = fopen(cFileName , "w+b" );
 	fprintf( fObj , "# Simple Object File\n"  ) ;
 	fprintf( fObj , "# Version 1.1\n"  ) ;
