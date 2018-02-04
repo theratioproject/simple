@@ -484,7 +484,7 @@ int simple_parser_stmt ( Parser *parser )
 									break ;
 								}
 							}
-							if ( simple_parser_iskeyword(parser,KEYWORD_NEXT) || simple_parser_iskeyword(parser,KEYWORD_END) || simple_parser_csbraceend(parser) ) {
+							if ( simple_parser_iskeyword(parser,KEYWORD_LOOP) || simple_parser_iskeyword(parser,KEYWORD_END) || simple_parser_csbraceend(parser) ) {
 								/* Generate Code */
 								nMark3 = simple_parser_icg_newlabel(parser);
 								/* Increment Jump */
@@ -587,7 +587,7 @@ int simple_parser_stmt ( Parser *parser )
 							break ;
 						}
 					}
-					if ( simple_parser_iskeyword(parser,KEYWORD_NEXT) || simple_parser_iskeyword(parser,KEYWORD_END) || simple_parser_csbraceend(parser) ) {
+					if ( simple_parser_iskeyword(parser,KEYWORD_LOOP) || simple_parser_iskeyword(parser,KEYWORD_END) || simple_parser_csbraceend(parser) ) {
 						simple_parser_nexttoken(parser);
 						/* Generate Code */
 						nMark3 = simple_parser_icg_newlabel(parser);
