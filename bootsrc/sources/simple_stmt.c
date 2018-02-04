@@ -627,7 +627,7 @@ int simple_parser_stmt ( Parser *parser )
 						simple_string_delete_gc(parser->pSimpleState,pString);
 						return 1 ;
 					} else {
-						parser_error(parser,PARSER_ERROR_NEXT);
+						parser_error(parser,PARSER_ERROR_END);
 					}
 				}
 			}
@@ -725,7 +725,7 @@ int simple_parser_stmt ( Parser *parser )
 				#endif
 				return 1 ;
 			} else {
-				parser_error(parser,PARSER_ERROR_OK);
+				parser_error(parser,PARSER_ERROR_END);
 				simple_list_delete_gc(parser->pSimpleState,pList2);
 			}
 		}
@@ -832,7 +832,7 @@ int simple_parser_stmt ( Parser *parser )
 				return 1 ;
 			}
 		} else {
-			parser_error(parser,PARSER_ERROR_AGAIN);
+			parser_error(parser,PARSER_ERROR_END);
 		}
 		return 0 ;
 	}
@@ -929,7 +929,7 @@ int simple_parser_stmt ( Parser *parser )
 				simple_parser_icg_addoperandint(parser,pMark3,nMark3);
 				return 1 ;
 			} else {
-				parser_error(parser,PARSER_ERROR_NODONE);
+				parser_error(parser,PARSER_ERROR_END);
 			}
 		} else {
 			parser_error(parser,PARSER_ERROR_NOCATCH);
@@ -1080,7 +1080,7 @@ int simple_parser_stmt ( Parser *parser )
 				#endif
 				return 1 ;
 			} else {
-				parser_error(parser,PARSER_ERROR_SWITCHOFF);
+				parser_error(parser,PARSER_ERROR_END);
 			}
 		} else {
 			parser_error(parser,PARSER_ERROR_SWITCHEXPR);
