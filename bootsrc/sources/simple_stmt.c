@@ -750,7 +750,7 @@ int simple_parser_stmt ( Parser *parser )
 
 		puts("Rule : Statement  --> 'do' {Statement} while");
 		#endif
-                accept_token_token(parser, OP_BRACEOPEN);
+                //accept_token_token(parser, OP_BRACEOPEN);
 		while ( simple_parser_stmt(parser) ) {
 			if ( parser->ActiveToken == parser->TokensCount ) {
 				break ;
