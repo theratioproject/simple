@@ -650,7 +650,7 @@ int simple_parser_stmt ( Parser *parser )
 			#if SIMPLE_PARSERTRACE
 			SIMPLE_STATE_CHECKPRINTRULES 
 			
-			puts("Rule : Statement  --> 'If' Expr {Statement} { But } [Else] Ok");
+			puts("Rule : Statement  --> 'if' Expr {Statement} { elif } [Else] end");
 			#endif
 			while ( simple_parser_stmt(parser) ) {
 				if ( parser->ActiveToken == parser->TokensCount ) {
@@ -661,8 +661,8 @@ int simple_parser_stmt ( Parser *parser )
 			pList2 = simple_list_new_gc(parser->pSimpleState,0);
 			simple_parser_icg_newoperation(parser,ICO_JUMP);
 			simple_list_addpointer_gc(parser->pSimpleState,pList2,simple_parser_icg_getactiveoperation(parser));
-			/* { 'But' Statements } 'Else' Statements */
-			while ( simple_parser_iskeyword(parser,KEYWORD_BUT) || simple_parser_iskeyword(parser,KEYWORD_ELSEIF) ) {
+			/* { 'elif' Statements } 'Else' Statements */
+			while ( simple_parser_iskeyword(parser,KEYWORD_ELSEIF) ) {
 				/* Generate Code */
 				nMark1 = simple_parser_icg_newlabel(parser);
 				simple_parser_icg_addoperandint(parser,pMark,nMark1);

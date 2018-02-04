@@ -14,7 +14,7 @@
 
 #include "../includes/simple.h"
 /* Keywords */
-const char * SIMPLE_KEYWORDS[] = {"IF","TO","OR","AND","NOT","FOR","NEW","block", 
+const char * SIMPLE_KEYWORDS[] = {"if","to","or","and","NOT","FOR","NEW","block", 
 
 "FROM","LOAD","ELSE","display","WHILE","OK","CLASS","RETURN","BUT", 
 
