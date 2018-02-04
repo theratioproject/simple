@@ -755,8 +755,8 @@ int simple_parser_stmt ( Parser *parser )
 			if ( parser->ActiveToken == parser->TokensCount ) {
 				break ;
 			}
-		} accept_token_token(parser, OP_BRACECLOSE); simple_parser_nexttoken(parser);
-                printf("\nIN DO..WHILE : %s WHILE : %i\n", parser->TokenText, KEYWORD_WHILE);
+		} accept_token_token(parser, OP_BRACECLOSE);
+                printf("\nIN DO..WHILE : %s WHILE : %i\n", parser->TokenText, KEYWORD_WHILE);  simple_parser_nexttoken(parser);
 		if ( simple_parser_iskeyword(parser, KEYWORD_WHILE) ) {
 			/* Generate Code */ 
 			simple_parser_nexttoken(parser);
