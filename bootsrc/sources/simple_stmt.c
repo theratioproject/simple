@@ -295,9 +295,6 @@ int simple_parser_stmt ( Parser *parser )
 			simple_parser_icg_newoperand(parser,simple_list_getstring(parser->pSimpleState->pSimpleFilesStack,simple_list_getsize(parser->pSimpleState->pSimpleFilesStack)));
 			simple_parser_icg_newoperation(parser,ICO_FREESTACK);
 			simple_parser_nexttoken(parser); 
-                        /**if (isPointer(parser)) {
-                            return loadPackage(parser);
-                        }**/
 			return x ;
 		} else {
                     /* Generate Code */
