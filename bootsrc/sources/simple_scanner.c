@@ -68,6 +68,7 @@ int simple_scanner_readfile ( SimpleState *pSimpleState,char *cFileName )
 	char cStartup[30]  ;
 	int x,nSize  ;
 	char cFileName2[200]  ;
+        int is_start_file = 1 ;
 	/* Check file */
 	if ( pSimpleState->pSimpleFilesList == NULL ) {
 		pSimpleState->pSimpleFilesList = simple_list_new_gc(pSimpleState,0);
@@ -87,15 +88,14 @@ int simple_scanner_readfile ( SimpleState *pSimpleState,char *cFileName )
 		}
 	} 
         if (simple_fexists(cFileName)) {
-            printf("yea '%s' exists \n",cFileName);
+            
         } else {
-            char* SIMPLEPATH = getenv("SIMPLE_PATH");
+            char* SIMPLEPATH = getenv("SIMPLE_PATH"); is_start_file = 0 ;
             if (SIMPLEPATH != NULL) {
                 snprintf(cFileName2, sizeof(cFileName2), "%s/simple%s/modules/%s", SIMPLEPATH, SIMPLE_VERSION, cFileName);
-                printf("IN MODULES : %s\n", cFileName2);
             }
-            if (simple_fexists(cFileName)) {
-                printf("WE FOUND IT IN THE DEFAULT MODULES FOLDER \n");
+            if (!simple_fexists(cFileName2)) {
+                printf("FILE : %s not in modules\n", cFileName2);
             } /**else {
                 char cwd[1024];
                 if (getcwd(cwd, sizeof(cwd)) != NULL){
@@ -109,8 +109,14 @@ int simple_scanner_readfile ( SimpleState *pSimpleState,char *cFileName )
             }
             }**/
         } 
+        char cDirPath[SIMPLE_PATHSIZE]  ;
+        simple_currentdir(cDirPath);
+        printf("Current Dir : %s\n", cDirPath);
 	/* Switch To File Folder */
-	strcpy(cFileName2,cFileName);
+        if (is_start_file) {
+            strcpy(cFileName2,cFileName);
+            printf("The default file : %s\n", cFileName2);
+        }
 	fp = SIMPLE_OPENFILE(cFileName2 , "r");
 	/* Avoid switching if it's the first file */
 	if ( nFreeFilesList == 0 ) {
