@@ -120,10 +120,10 @@ SIMPLE_API void simple_vm_loadcfunctions ( SimpleState *pSimpleState )
 	simple_vm_funcregister("simple_state_mainfile",simple_vmlib_state_mainfile);
 	/*
 	**  Simple See and Give 
-	**  We will use ringvm_display() and ringvm_read() to change the behavior of see and give 
+	**  We will use simplevm_display() and ringvm_read() to change the behavior of see and give 
 	**  Also we can use simple_see() and simple_give() to use the original behavior when we redefine it 
 	*/
-	simple_vm_funcregister("ringvm_display",simple_vmlib_see);
+	simple_vm_funcregister("simplevm_display",simple_vmlib_see);
 	simple_vm_funcregister("ringvm_read",simple_vmlib_give);
 	simple_vm_funcregister("simple_see",simple_vmlib_see);
 	simple_vm_funcregister("simple_give",simple_vmlib_give);
