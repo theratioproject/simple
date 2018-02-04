@@ -16,7 +16,7 @@
 /* Keywords */
 const char * SIMPLE_KEYWORDS[] = {"IF","TO","OR","AND","NOT","FOR","NEW","block", 
 
-"FROM","looper","LOAD","ELSE","display","WHILE","OK","CLASS","RETURN","BUT","loop",
+"FROM","loop","LOAD","ELSE","display","WHILE","OK","CLASS","RETURN","BUT", 
 
 "END","read","BYE","EXIT","TRY","CATCH","DONE","SWITCH","ON","OTHER","OFF", 
 
