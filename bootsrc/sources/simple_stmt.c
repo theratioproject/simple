@@ -419,7 +419,7 @@ int simple_parser_stmt ( Parser *parser )
 			return 0 ;
 		}
 	}
-	/* Statement --> For Identifier = Expr to Expr {Statement} Next  |  For Identifier in Expr {Statemen */
+	/* Statement --> for Identifier = Expr to Expr {Statement} loop  |  for Identifier in Expr {Statemen */
 	if ( simple_parser_iskeyword(parser,KEYWORD_FOR) ) {
 		simple_parser_nexttoken(parser);
 		if ( simple_parser_isidentifier(parser) ) {
