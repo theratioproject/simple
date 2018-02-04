@@ -16,6 +16,15 @@
 #include "../includes/simple.h"
 /* Functions */
 
+int accept_token_token( Parser *pParser, SCANNER_OPERATOR nType ) {
+	assert(pParser != NULL);
+	if ( simple_parser_isoperator2(pParser, nType) ) {
+            simple_parser_nexttoken(pParser);
+            pParser->nControlStructureBrace++ ;
+            return TRUE ;
+	}
+}
+
 int simple_parser_start ( List *pTokens,SimpleState *pSimpleState )
 {
 	Parser *parser  ;

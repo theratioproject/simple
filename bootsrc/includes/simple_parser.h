@@ -82,6 +82,8 @@ typedef struct Parser {
 #define PARSER_ERROR_CLASSREDEFINE "COMPILER ERROR 20 : Class is already defined"
 /* Functions */
 
+int accept_token_token( Parser *parser, SCANNER_OPERATOR nType );
+
 int simple_parser_start ( List *pTokens,SimpleState *pSimpleState ) ;
 
 Parser * simple_parser_new ( List *pTokens,SimpleState *pSimpleState ) ;
