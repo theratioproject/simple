@@ -91,7 +91,7 @@ int simple_scanner_readfile ( SimpleState *pSimpleState,char *cFileName )
         } else {
             snprintf(cFileName2, sizeof(cFileName2), "../modules/%s", cFileName);
             printf("IN MODULES : %s\n", cFileName2);
-            
+            simple_scanner_readfile( pSimpleState,cFileName2);
         } 
 	/* Switch To File Folder */
 	strcpy(cFileName2,cFileName);
