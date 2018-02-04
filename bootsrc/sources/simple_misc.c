@@ -120,10 +120,10 @@ const char *file_real_name(const char *absolute_name){
 }
 
 const char *change_file_ext(const char *absolute_name, const char *extension){
-    char* file_name = file_real_name(absolute_name); int name_lenght = strlen(file_name);
+    const char* file_name = file_real_name(absolute_name); int name_lenght = strlen(file_name);
     //file_name = (strrchr(absolute_name, '.'))+1;
     for(int a = 0; a<name_lenght;a++) {
-        if (strcmp(file_name[a], ".") == 0){
+        if (file_name[a] == '.'){
             break;
         }
         printf("%c\n", file_name[a]);
