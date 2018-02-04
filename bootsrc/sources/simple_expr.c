@@ -140,6 +140,7 @@ int simple_parser_equalornot ( Parser *parser )
 				SIMPLE_PARSER_IGNORENEWLINE ;
 				if ( simple_parser_isoperator2(parser,OP_EQUAL) ) {
 					simple_parser_nexttoken(parser);
+                                        accept_token_token( parser, OP_EQUAL);
 					SIMPLE_PARSER_IGNORENEWLINE ;
 					x = simple_parser_compare(parser);
 					if ( x == 0 ) {
