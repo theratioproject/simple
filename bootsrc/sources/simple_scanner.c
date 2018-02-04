@@ -16,9 +16,9 @@
 /* Keywords */
 const char * SIMPLE_KEYWORDS[] = {"if","to","or","and","NOT","FOR","NEW","block", 
 
-"FROM","LOAD","else","display","WHILE","OK","CLASS","RETURN", 
+"FROM","LOAD","else","display","WHILE","CLASS","RETURN", 
 
-"end","read","BYE","EXIT","TRY","CATCH","DONE","SWITCH","ON","OTHER","OFF", 
+"end","read","BYE","EXIT","TRY","CATCH","DONE","SWITCH","ON","OFF", 
 
 "IN","module","IMPORT","PRIVATE","STEP","DO","AGAIN","CALL","elif", 
 
@@ -498,7 +498,6 @@ void simple_scanner_keywords ( Scanner *pScanner )
 	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"else");
 	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"display");
 	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"while");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"ok");
 	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"class");
 	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"return");
 	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"end");
@@ -512,7 +511,6 @@ void simple_scanner_keywords ( Scanner *pScanner )
 	/* Switch */
 	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"switch");
 	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"on");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"other");
 	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"off");
 	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"in");
 	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"continue");

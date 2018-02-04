@@ -676,7 +676,7 @@ int simple_parser_stmt ( Parser *parser )
 					#if SIMPLE_PARSERTRACE
 					SIMPLE_STATE_CHECKPRINTRULES 
 					
-					puts("Rule : But  --> 'But' Expr {Statement}");
+					puts("Rule : Elif  --> 'elif' Expr {Statement}");
 					#endif
 					while ( simple_parser_stmt(parser) ) {
 						if ( parser->ActiveToken == parser->TokensCount ) {
@@ -688,7 +688,7 @@ int simple_parser_stmt ( Parser *parser )
 					simple_list_addpointer_gc(parser->pSimpleState,pList2,simple_parser_icg_getactiveoperation(parser));
 				}
 			}
-			if ( simple_parser_iskeyword(parser,KEYWORD_ELSE) || simple_parser_iskeyword(parser,KEYWORD_OTHER) ) {
+			if ( simple_parser_iskeyword(parser,KEYWORD_ELSE) ) {
 				/* Generate Code */
 				nMark1 = simple_parser_icg_newlabel(parser);
 				simple_parser_icg_addoperandint(parser,pMark,nMark1);
@@ -705,7 +705,7 @@ int simple_parser_stmt ( Parser *parser )
 					}
 				}
 			}
-			if ( simple_parser_iskeyword(parser,KEYWORD_OK) || simple_parser_iskeyword(parser,KEYWORD_END) || simple_parser_csbraceend(parser) ) {
+			if ( simple_parser_iskeyword(parser,KEYWORD_END) || simple_parser_csbraceend(parser) ) {
 				/* Generate Code */
 				nMark1 = simple_parser_icg_newlabel(parser);
 				if ( pMark != NULL ) {
@@ -721,7 +721,7 @@ int simple_parser_stmt ( Parser *parser )
 				#if SIMPLE_PARSERTRACE
 				SIMPLE_STATE_CHECKPRINTRULES 
 				
-				puts("Rule : Ok  --> 'OK'");
+				puts("Rule : End  --> 'end'");
 				#endif
 				return 1 ;
 			} else {
