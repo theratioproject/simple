@@ -755,9 +755,9 @@ int simple_parser_stmt ( Parser *parser )
 			if ( parser->ActiveToken == parser->TokensCount ) {
 				break ;
 			}
-		} accept_token_token(parser, OP_BRACECLOSE); 
+		} accept_token_token(parser, OP_BRACECLOSE); printf("IN DO..WHILE : %s\n", parser->TokenText);
 		if ( simple_parser_iskeyword(parser, KEYWORD_WHILE) ) {
-			/* Generate Code */ printf("IN DO..WHILE : %s\n", parser->TokenText);
+			/* Generate Code */ 
 			simple_parser_nexttoken(parser);
                         //to accept the lambda/pointer -> as start of expression
                         //AcceptTokenToken( parser, OP_MINUS); AcceptTokenToken( parser, OP_GREATER);
