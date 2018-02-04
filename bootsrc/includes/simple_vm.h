@@ -742,14 +742,14 @@ List * simple_vm_getglobalscope ( VM *vm ) ;
 #define SIMPLE_VM_ERROR_FORLOOPDATATYPE "RUNTIME ERROR 24 : Using bad data type in for loop"
 #define SIMPLE_VM_ERROR_PARENTCLASSLIKESUBCLASS "RUNTIME ERROR 24 : The parent and child class cannot have the same name "
 #define SIMPLE_VM_ERROR_TRYINGTOMODIFYTHESELFPOINTER "RUNTIME ERROR 24 : Trying to destory the object using the this reference "
-#define SIMPLE_VM_ERROR_BADCALLPARA "Error (R32) : The CALL command expect a variable contains string!"
-#define SIMPLE_VM_ERROR_BADDECIMALNUMBER "Error (R33) : Bad decimals number (correct range >= 0 and <=14) !"
-#define SIMPLE_VM_ERROR_ASSIGNNOTVARIABLE "Error (R34) : Variable is required for the assignment operation"
-#define SIMPLE_VM_ERROR_CANTOPENFILE "Error (R35) : Can't create/open the file!"
-#define SIMPLE_VM_ERROR_BADCOLUMNNUMBER "Error (R36) : The column number is not correct! It's greater than the number of columns in the list"
-#define SIMPLE_VM_ERROR_BADCOMMAND "Error (R37) : Sorry, The command is not supported in this context"
-#define SIMPLE_VM_ERROR_LIBLOADERROR "Error (R38) : Runtime Error in loading the dynamic library!"
-#define SIMPLE_VM_ERROR_TEMPFILENAME "Error (R39) : Error occurred creating unique filename."
+#define SIMPLE_VM_ERROR_BADCALLPARA "RUNTIME ERROR 24 : The CALL command expect a variable contains string"
+#define SIMPLE_VM_ERROR_BADDECIMALNUMBER "RUNTIME ERROR 24 : The decimals number is out of range (correct range >= 0 and <=14) !"
+#define SIMPLE_VM_ERROR_ASSIGNNOTVARIABLE "RUNTIME ERROR 24 : Variable is required for the assignment operation"
+#define SIMPLE_VM_ERROR_CANTOPENFILE "RUNTIME ERROR 24 : Can't create/open the file!"
+#define SIMPLE_VM_ERROR_BADCOLUMNNUMBER "RUNTIME ERROR 24 : The column number is not correct! It's greater than the number of columns in the list"
+#define SIMPLE_VM_ERROR_BADCOMMAND "RUNTIME ERROR 24 : Sorry, The command is not supported in this context"
+#define SIMPLE_VM_ERROR_LIBLOADERROR "RUNTIME ERROR 24 : Runtime Error Occur while loading the dynamic library!"
+#define SIMPLE_VM_ERROR_TEMPFILENAME "RUNTIME ERROR 24 : Error occurred while creating unique filename."
 /* Extra Size (for codeExecution) */
 #define SIMPLE_VM_EXTRASIZE 2
 /* Variables Location */
