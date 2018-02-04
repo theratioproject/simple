@@ -99,6 +99,8 @@ int simple_parser_stmt ( Parser *parser ) ;
 
 int simple_parser_step ( Parser *parser,int *nMark1 ) ;
 
+int load_module( Parser *parser );
+
 int simple_parser_paralist ( Parser *parser ) ;
 
 int simple_parser_expr ( Parser *parser ) ;
