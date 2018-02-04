@@ -99,8 +99,6 @@ int simple_exefilename ( char *cDirPath ) ;
 
 int simple_chdir ( const char *cDir ) ;
 
-void simple_exefolder ( char *cDirPath ) ;
-
 void simple_switchtofilefolder ( char *cFileName ) ;
 
 int simple_justfilepath ( char *cFileName ) ;
