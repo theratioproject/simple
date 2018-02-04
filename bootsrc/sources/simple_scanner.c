@@ -96,6 +96,7 @@ int simple_scanner_readfile ( SimpleState *pSimpleState,char *cFileName )
             }
             if (!simple_fexists(cFileName2)) {
                 snprintf(cFileName2, sizeof(cFileName2), "%s%s", DEFAULT_FILE_PATH, cFileName);
+                printf("LOOKUP FILE : %s in PATH : %s \n", cFileName2, DEFAULT_FILE_PATH);
                 if (!simple_fexists(cFileName2)) {
                     snprintf(cFileName2, sizeof(cFileName2), "%s/modules/%s", DEFAULT_FILE_PATH, cFileName);
                     if (!simple_fexists(cFileName2)) {
@@ -106,7 +107,6 @@ int simple_scanner_readfile ( SimpleState *pSimpleState,char *cFileName )
                     }
                     
                 }
-                printf("LOOKUP FILE : %s \n", cFileName2);
             } /**else {
                 char cwd[1024];
                 if (getcwd(cwd, sizeof(cwd)) != NULL){
