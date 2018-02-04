@@ -94,12 +94,11 @@ int simple_scanner_readfile ( SimpleState *pSimpleState,char *cFileName )
             if (getcwd(cwd, sizeof(cwd)) != NULL){
                 snprintf(cFileName2, sizeof(cFileName2), "%s\\%s", cwd, cFileName);
             }
-            printf("NOW CHECKING %s \n",cFileName2);
+            //printf("NOW CHECKING %s \n",cFileName2);
             if (simple_fexists(cFileName)) {
                 
             } else {
-                int status = system("cd %GOROOT%");
-                printf("NOW CHECKING AGAIN %i \n",status);
+                //printf("NOW CHECKING AGAIN %i \n",status);
             }
         } 
 	/* Switch To File Folder */
