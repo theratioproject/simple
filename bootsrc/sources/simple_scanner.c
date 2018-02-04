@@ -99,7 +99,10 @@ int simple_scanner_readfile ( SimpleState *pSimpleState,char *cFileName )
                 if (!simple_fexists(cFileName2)) {
                     snprintf(cFileName2, sizeof(cFileName2), "%s/modules/%s", DEFAULT_FILE_PATH, cFileName);
                     if (!simple_fexists(cFileName2)) {
-                        printf("FILE : %s not in start file dir \n", cFileName2);
+                        snprintf(cFileName2, sizeof(cFileName2), "%s/library/%s", DEFAULT_FILE_PATH, cFileName);
+                        if (!simple_fexists(cFileName2)) {
+                            printf("FILE : %s not in start file dir \n", cFileName2);
+                        }
                     }
                     
                 }
