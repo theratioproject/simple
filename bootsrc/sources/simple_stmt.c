@@ -521,7 +521,7 @@ int simple_parser_stmt ( Parser *parser )
 								simple_string_delete_gc(parser->pSimpleState,pString);
 								return 1 ;
 							} else {
-								simple_parser_error(parser,SIMPLE_PARSER_ERROR_LOOP);
+								parser_error(parser,SIMPLE_PARSER_ERROR_LOOP);
 							}
 						}
 					}
@@ -544,7 +544,7 @@ int simple_parser_stmt ( Parser *parser )
 				nMark1 = simple_parser_icg_newlabel(parser);
 				simple_parser_icg_newoperation(parser,ICO_LOADAPUSHV);
 				simple_parser_icg_newoperand(parser,cStr);
-				simple_parser_icg_newoperation(parser,ICO_LOADFUNC);
+				simple_parser_icg_newoperation(parser,ICO_LOADBLOCK);
 				simple_parser_icg_newoperand(parser,"len");
 				nStart = simple_parser_icg_instructionscount(parser) + 1 ;
 				simple_parser_nexttoken(parser);
@@ -627,7 +627,7 @@ int simple_parser_stmt ( Parser *parser )
 						simple_string_delete_gc(parser->pSimpleState,pString);
 						return 1 ;
 					} else {
-						parser_error(parser,SIMPLE_PARSER_ERROR_LOOP);
+						parser_error(parser,PARSER_ERROR_LOOP);
 					}
 				}
 			}
