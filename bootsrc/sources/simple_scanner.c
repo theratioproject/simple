@@ -523,10 +523,6 @@ void simple_scanner_keywords ( Scanner *pScanner )
 	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Keywords,"elif");
 	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Keywords,"get");
 	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Keywords,"case");
-	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Keywords,"def");
-	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Keywords,"endfunc");
-	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Keywords,"endclass");
-	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Keywords,"endpackage");
 	/*
 	**  The next keywords are sensitive to the order and keywords count 
 	**  if you will add new keywords revise constants and simple_scanner_checktoken() 
