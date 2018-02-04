@@ -92,7 +92,7 @@ int simple_scanner_readfile ( SimpleState *pSimpleState,char *cFileName )
 	/* Avoid switching if it's the first file */
 	if ( nFreeFilesList == 0 ) {
 		simple_switchtofilefolder(cFileName2);
-	}
+	} printf("THE DIR : %s\n", cFileName2);
 	/* Read File */
 	if ( fp==NULL ) {
 		printf( "\nCan't open file %s \n",cFileName ) ;
