@@ -214,7 +214,7 @@ int simple_scanner_readfile ( SimpleState *pSimpleState,char *cFileName )
 		if ( pSimpleState->nPrintICFinal ) {
 			simple_parser_icg_showoutput(pSimpleState->pSimpleGenCode,2);
 		}
-	}
+	} get_file_folder ( DEFAULT_FILE_PATH );
 	return nRunVM ;
 }
 
