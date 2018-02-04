@@ -115,8 +115,8 @@ int simple_scanner_readfile ( SimpleState *pSimpleState,char *cFileName )
         /* Switch To File Folder */
         if (is_start_file) {
             strcpy(cFileName2,cFileName);
-            DEFAULT_FILE_NAME = cFileName2 ; DEFAULT_FILE_PATH = cFileName2 ;
-            get_file_folder ( DEFAULT_FILE_PATH );
+            DEFAULT_FILE_NAME = cFileName2 ; //DEFAULT_FILE_PATH = cFileName2 ;
+            //get_file_folder ( DEFAULT_FILE_PATH );
         }
 	fp = SIMPLE_OPENFILE(cFileName2 , "r");
 	/* Avoid switching if it's the first file */
