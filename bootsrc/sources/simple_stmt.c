@@ -757,7 +757,7 @@ int simple_parser_stmt ( Parser *parser )
 			}
 		} accept_token_token(parser, OP_BRACECLOSE); 
 		if ( simple_parser_iskeyword(parser, KEYWORD_WHILE) ) {
-			/* Generate Code */
+			/* Generate Code */ printf("IN DO..WHILE : %s\n", parser->TokenText);
 			simple_parser_nexttoken(parser);
                         //to accept the lambda/pointer -> as start of expression
                         //AcceptTokenToken( parser, OP_MINUS); AcceptTokenToken( parser, OP_GREATER);
