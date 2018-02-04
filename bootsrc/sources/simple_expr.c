@@ -164,7 +164,7 @@ int simple_parser_equalornot ( Parser *parser )
 			}
 			else {
 				simple_parser_nexttoken(parser);
-				printf("Holla it here \n"); accept_token_token( parser, OP_EQUAL);
+				accept_token_token( parser, OP_EQUAL);
                                 SIMPLE_PARSER_IGNORENEWLINE ;
 				x = simple_parser_compare(parser);
 				if ( x == 0 ) {
