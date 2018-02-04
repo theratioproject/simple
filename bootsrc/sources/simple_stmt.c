@@ -750,12 +750,12 @@ int simple_parser_stmt ( Parser *parser )
 
 		puts("Rule : Statement  --> 'do' {Statement} while");
 		#endif
-                //accept_token_token(parser, OP_BRACEOPEN);
+                accept_token_token(parser, OP_BRACEOPEN);
 		while ( simple_parser_stmt(parser) ) {
 			if ( parser->ActiveToken == parser->TokensCount ) {
 				break ;
 			}
-		} //accept_token_token(parser, OP_BRACECLOSE);
+		} simple_parser_nexttoken(parser); //accept_token_token(parser, OP_BRACECLOSE);
                 printf("\nIN DO..WHILE : %s WHILE : %i\n", parser->TokenText, KEYWORD_WHILE);  
 		if ( simple_parser_iskeyword(parser, KEYWORD_WHILE) ) {
 			/* Generate Code */ 
