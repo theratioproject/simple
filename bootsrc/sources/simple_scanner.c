@@ -91,6 +91,11 @@ int simple_scanner_readfile ( SimpleState *pSimpleState,char *cFileName )
         if (simple_fexists(cFileName)) {
             printf("yea '%s' it exists \n",cFileName);
         } else {
+            snprintf(cFileName2, sizeof(cFileName2), "../modules/%s", cFileName);
+            if (simple_fexists(cFileName)) {
+                printf("WE FOUND IT IN THE DEFAULT MODULES FOLDER \n");
+                break ;
+            }
             if (getcwd(cwd, sizeof(cwd)) != NULL){
                 snprintf(cFileName2, sizeof(cFileName2), "%s\\%s", cwd, cFileName);
             }
