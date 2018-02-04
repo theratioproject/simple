@@ -521,7 +521,7 @@ int simple_parser_stmt ( Parser *parser )
 								simple_string_delete_gc(parser->pSimpleState,pString);
 								return 1 ;
 							} else {
-								parser_error(parser,PARSER_ERROR_NEXT);
+								parser_error(parser,PARSER_ERROR_END);
 							}
 						}
 					}
