@@ -230,7 +230,7 @@ void parser_error ( Parser *parser,const char *cStr )
 	}
 	if ( strcmp(cStr,"") != 0 ) {
 		printf( "\nLine %d -> %s\n",parser->nLineNumber,cStr ) ;
-		printf( "\tin file%s",file_real_name(simple_list_getstring(parser->pSimpleState->pSimpleFilesStack,SimpleActiveFile)) ) ;
+		printf( "\tin file %s",file_real_name(simple_list_getstring(parser->pSimpleState->pSimpleFilesStack,SimpleActiveFile)) ) ;
 	}
         if (SKIP_ERROR == 0) { exit(1); }
 }
