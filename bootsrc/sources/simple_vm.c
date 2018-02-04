@@ -543,7 +543,7 @@ void simple_vm_execute ( VM *vm )
 			simple_vm_give(vm);
 			break ;
 		/* End Program - Exit from Loop - Loop (Continue) */
-		case ICO_EXIT :
+		case ICO_EXITPROGRAM :
 			simple_vm_bye(vm);
 			break ;
 		case ICO_EXITMARK :
