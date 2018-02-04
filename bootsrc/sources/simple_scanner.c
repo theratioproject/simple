@@ -97,6 +97,9 @@ int simple_scanner_readfile ( SimpleState *pSimpleState,char *cFileName )
             printf("NOW CHECKING %s \n",cFileName2);
             if (simple_fexists(cFileName)) {
                 
+            } else {
+                int status = system("./foo 1 2 3");
+                printf("NOW CHECKING AGAIN %i \n",status);
             }
         } 
 	/* Switch To File Folder */
