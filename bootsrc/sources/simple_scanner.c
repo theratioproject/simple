@@ -89,8 +89,8 @@ int simple_scanner_readfile ( SimpleState *pSimpleState,char *cFileName )
         if (simple_fexists(cFileName)) {
             printf("yea '%s' exists \n",cFileName);
         } else {
-            snprintf(cFileName2, sizeof(cFileName2), "../modules/%s", cFileName);
-            printf("IN MODULES : %s\n", cFileName2);
+            snprintf(cFileName, sizeof(cFileName), "../modules/%s", cFileName);
+            printf("IN MODULES : %s\n", cFileName);
             if (simple_fexists(cFileName)) {
                 printf("WE FOUND IT IN THE DEFAULT MODULES FOLDER \n");
             } else {
