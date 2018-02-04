@@ -90,7 +90,7 @@ int simple_parser_class ( Parser *parser )
 			if ( parser->ClassesMap != parser->pSimpleState->pSimpleClassesMap ) {
 				/* Get Modules Name */
 				pList3 = simple_list_getlist(parser->pSimpleState->pSimpleModulessMap,simple_list_getsize(parser->pSimpleState->pSimpleModulessMap));
-				pString = simple_stsimple_new_gc(parser->pSimpleState,simple_list_getstring(pList3,1));
+				pString = simple_string_new_gc(parser->pSimpleState,simple_list_getstring(pList3,1));
 				/* Add pointer to the Modules in the Class List */
 				simple_list_addpointer_gc(parser->pSimpleState,pList,pList3);
 				/* Add List point to General Classes point to the class in the modules */
@@ -100,10 +100,10 @@ int simple_parser_class ( Parser *parser )
 				/* Ignore Adding Pointer to File Name */
 				simple_list_addpointer_gc(parser->pSimpleState,pList2,NULL);
 				/* Add Class Name to Modules Name */
-				simple_stsimple_add_gc(parser->pSimpleState,pString,".");
-				simple_stsimple_add_gc(parser->pSimpleState,pString,simple_list_getstring(pList,1));
-				simple_list_setstsimple_gc(parser->pSimpleState,pList2,1,simple_stsimple_get(pString));
-				simple_stsimple_delete_gc(parser->pSimpleState,pString);
+				simple_string_add_gc(parser->pSimpleState,pString,".");
+				simple_string_add_gc(parser->pSimpleState,pString,simple_list_getstring(pList,1));
+				simple_list_setstsimple_gc(parser->pSimpleState,pList2,1,simple_string_get(pString));
+				simple_string_delete_gc(parser->pSimpleState,pString);
 			} else {
 				/* Add pointer to the Modules in the Class List */
 				simple_list_addpointer_gc(parser->pSimpleState,pList,NULL);
@@ -627,7 +627,7 @@ int simple_parser_stmt ( Parser *parser )
 						simple_string_delete_gc(parser->pSimpleState,pString);
 						return 1 ;
 					} else {
-						simple_parser_error(parser,SIMPLE_PARSER_ERROR_LOOP);
+						parser_error(parser,SIMPLE_PARSER_ERROR_LOOP);
 					}
 				}
 			}
@@ -1306,23 +1306,23 @@ int simple_parser_namedotname ( Parser *parser )
 	String *pString  ;
 	if ( simple_parser_isidentifier(parser) ) {
 		/* Get Token Text */
-		pString = simple_stsimple_new_gc(parser->pSimpleState,parser->TokenText);
+		pString = simple_string_new_gc(parser->pSimpleState,parser->TokenText);
 		simple_parser_nexttoken(parser);
 		while ( simple_parser_isoperator2(parser,OP_DOT) ) {
 			simple_parser_nexttoken(parser);
-			simple_stsimple_add_gc(parser->pSimpleState,pString,".");
+			simple_string_add_gc(parser->pSimpleState,pString,".");
 			if ( simple_parser_isidentifier(parser) ) {
-				simple_stsimple_add_gc(parser->pSimpleState,pString,parser->TokenText);
+				simple_string_add_gc(parser->pSimpleState,pString,parser->TokenText);
 				simple_parser_nexttoken(parser);
 			} else {
 				parser_error(parser,PARSER_ERROR_MODULENAME);
-				simple_stsimple_delete(pString);
+				simple_string_delete(pString);
 				return 0 ;
 			}
 		}
 		/* Generate Code */
-		simple_parser_icg_newoperand(parser,simple_stsimple_get(pString));
-		simple_stsimple_delete_gc(parser->pSimpleState,pString);
+		simple_parser_icg_newoperand(parser,simple_string_get(pString));
+		simple_string_delete_gc(parser->pSimpleState,pString);
 		return 1 ;
 	} else {
 		parser_error(parser,PARSER_ERROR_MODULENAME);

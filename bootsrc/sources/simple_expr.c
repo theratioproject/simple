@@ -841,7 +841,7 @@ int simple_parser_factor ( Parser *parser,int *nFlag )
 			simple_parser_icg_newoperation(parser,ICO_PUSHC);
 			if ( simple_parser_isanykeyword(parser) ) {
 				strcpy(cKeyword,simple_scanner_getkeywordtext(parser->TokenText));
-				simple_stsimple_lower(cKeyword);
+				simple_string_lower(cKeyword);
 				simple_parser_icg_newoperand(parser,cKeyword);
 			}
 			else {

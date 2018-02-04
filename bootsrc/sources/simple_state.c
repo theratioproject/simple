@@ -258,7 +258,7 @@ SIMPLE_API void simple_state_runobjectstring ( SimpleState *pSimpleState,char *c
 static void simple_testallunits ( void )
 {
 	/* Test */
-	simple_stsimple_test();
+	simple_string_test();
 	simple_list_test();
 	simple_hashtable_test();
 	printf( "end of test \n  " ) ;

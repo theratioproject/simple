@@ -1324,24 +1324,24 @@ void simple_vmlib_list2str ( void *pPointer )
 	}
 	if ( SIMPLE_API_ISLIST(1) ) {
 		pList = SIMPLE_API_GETLIST(1) ;
-		pString = simple_stsimple_new_gc(((VM *) pPointer)->pSimpleState,"");
+		pString = simple_string_new_gc(((VM *) pPointer)->pSimpleState,"");
 		for ( x = 1 ; x <= simple_list_getsize(pList) ; x++ ) {
 			if ( simple_list_isstring(pList,x) ) {
 				if ( x != 1 ) {
-					simple_stsimple_add_gc(((VM *) pPointer)->pSimpleState,pString,"\n");
+					simple_string_add_gc(((VM *) pPointer)->pSimpleState,pString,"\n");
 				}
-				simple_stsimple_add_gc(((VM *) pPointer)->pSimpleState,pString,simple_list_getstring(pList,x));
+				simple_string_add_gc(((VM *) pPointer)->pSimpleState,pString,simple_list_getstring(pList,x));
 			}
 			else if ( simple_list_isnumber(pList,x) ) {
 				if ( x != 1 ) {
-					simple_stsimple_add_gc(((VM *) pPointer)->pSimpleState,pString,"\n");
+					simple_string_add_gc(((VM *) pPointer)->pSimpleState,pString,"\n");
 				}
 				simple_vm_numtostring((VM *) pPointer,simple_list_getdouble(pList,x) ,cStr);
-				simple_stsimple_add_gc(((VM *) pPointer)->pSimpleState,pString,cStr);
+				simple_string_add_gc(((VM *) pPointer)->pSimpleState,pString,cStr);
 			}
 		}
-		SIMPLE_API_RETSTRING(simple_stsimple_get(pString));
-		simple_stsimple_delete_gc(((VM *) pPointer)->pSimpleState,pString);
+		SIMPLE_API_RETSTRING(simple_string_get(pString));
+		simple_string_delete_gc(((VM *) pPointer)->pSimpleState,pString);
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
@@ -1522,13 +1522,13 @@ void simple_vmlib_copy ( void *pPointer )
 	if ( SIMPLE_API_ISSTRING(1) ) {
 		if ( SIMPLE_API_ISNUMBER(2) ) {
 			cStr = SIMPLE_API_GETSTRING(1) ;
-			pString = simple_stsimple_new_gc(((VM *) pPointer)->pSimpleState,"");
+			pString = simple_string_new_gc(((VM *) pPointer)->pSimpleState,"");
 			nSize = SIMPLE_API_GETNUMBER(2) ;
 			for ( x = 1 ; x <= nSize ; x++ ) {
-				simple_stsimple_add2_gc(((VM *) pPointer)->pSimpleState,pString,cStr,SIMPLE_API_GETSTRINGSIZE(1));
+				simple_string_add2_gc(((VM *) pPointer)->pSimpleState,pString,cStr,SIMPLE_API_GETSTRINGSIZE(1));
 			}
-			SIMPLE_API_RETSTRING2(simple_stsimple_get(pString),simple_stsimple_size(pString));
-			simple_stsimple_delete_gc(((VM *) pPointer)->pSimpleState,pString);
+			SIMPLE_API_RETSTRING2(simple_string_get(pString),simple_string_size(pString));
+			simple_string_delete_gc(((VM *) pPointer)->pSimpleState,pString);
 		} else {
 			SIMPLE_API_ERROR("Error in second parameter, Function requires number !");
 			return ;
@@ -1574,7 +1574,7 @@ void simple_vmlib_substr ( void *pPointer )
 		else if ( SIMPLE_API_ISSTRING(2) ) {
 			cStr2 = SIMPLE_API_GETSTRING(2) ;
 			nSize2 = SIMPLE_API_GETSTRINGSIZE(2) ;
-			cStr3 = simple_stsimple_find2(cStr,nSize,cStr2,nSize2);
+			cStr3 = simple_string_find2(cStr,nSize,cStr2,nSize2);
 			if ( cStr3 != NULL ) {
 				nNum1 = ((long int) cStr3) - ((long int) cStr) + 1 ;
 			} else {
@@ -1628,9 +1628,9 @@ void simple_vmlib_substr ( void *pPointer )
 		nSize2 = SIMPLE_API_GETSTRINGSIZE(2) ;
 		/* Search */
 		if ( nTransform == 1 ) {
-			cString = simple_stsimple_find2(cStr,nSize,cStr2,nSize2) ;
+			cString = simple_string_find2(cStr,nSize,cStr2,nSize2) ;
 		} else {
-			cString = simple_stsimple_find3(cStr,nSize,cStr2,nSize2) ;
+			cString = simple_string_find3(cStr,nSize,cStr2,nSize2) ;
 		}
 		if ( cString == NULL ) {
 			SIMPLE_API_RETSTRING(cStr);
@@ -1638,26 +1638,26 @@ void simple_vmlib_substr ( void *pPointer )
 		}
 		cStr3 = SIMPLE_API_GETSTRING(3) ;
 		nMark = 0 ;
-		pString = simple_stsimple_new_gc(((VM *) pPointer)->pSimpleState,"");
+		pString = simple_string_new_gc(((VM *) pPointer)->pSimpleState,"");
 		while ( cString != NULL ) {
 			nPos = ((long int) cString) - ((long int) cStr) + 1 ;
 			/* Add SubString to pString */
-			simple_stsimple_add2_gc(((VM *) pPointer)->pSimpleState,pString,cStr+nMark,nPos-1-nMark);
-			simple_stsimple_add2_gc(((VM *) pPointer)->pSimpleState,pString,cStr3,SIMPLE_API_GETSTRINGSIZE(3));
+			simple_string_add2_gc(((VM *) pPointer)->pSimpleState,pString,cStr+nMark,nPos-1-nMark);
+			simple_string_add2_gc(((VM *) pPointer)->pSimpleState,pString,cStr3,SIMPLE_API_GETSTRINGSIZE(3));
 			nMark = nPos + nSize2 -1 ;
 			/* Search */
 			if ( nTransform == 1 ) {
-				cString = simple_stsimple_find2(cStr+((int) nMark),nSize-nMark,cStr2,nSize2) ;
+				cString = simple_string_find2(cStr+((int) nMark),nSize-nMark,cStr2,nSize2) ;
 			} else {
-				cString = simple_stsimple_find3(cStr+((int) nMark),nSize-nMark,cStr2,nSize2) ;
+				cString = simple_string_find3(cStr+((int) nMark),nSize-nMark,cStr2,nSize2) ;
 			}
 			if ( cString == NULL ) {
 				/* Add SubString to pString */
-				simple_stsimple_add2_gc(((VM *) pPointer)->pSimpleState,pString,cStr+nMark,nSize-nMark);
+				simple_string_add2_gc(((VM *) pPointer)->pSimpleState,pString,cStr+nMark,nSize-nMark);
 			}
 		}
-		SIMPLE_API_RETSTRING2(simple_stsimple_get(pString),simple_stsimple_size(pString));
-		simple_stsimple_delete_gc(((VM *) pPointer)->pSimpleState,pString);
+		SIMPLE_API_RETSTRING2(simple_string_get(pString),simple_string_size(pString));
+		simple_string_delete_gc(((VM *) pPointer)->pSimpleState,pString);
 	}
 }
 
@@ -1668,7 +1668,7 @@ void simple_vmlib_lower ( void *pPointer )
 		return ;
 	}
 	if ( SIMPLE_API_ISSTRING(1) ) {
-		SIMPLE_API_RETSTRING2(simple_stsimple_lower2(SIMPLE_API_GETSTRING(1),SIMPLE_API_GETSTRINGSIZE(1)),SIMPLE_API_GETSTRINGSIZE(1));
+		SIMPLE_API_RETSTRING2(simple_string_lower2(SIMPLE_API_GETSTRING(1),SIMPLE_API_GETSTRINGSIZE(1)),SIMPLE_API_GETSTRINGSIZE(1));
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
@@ -1681,7 +1681,7 @@ void simple_vmlib_upper ( void *pPointer )
 		return ;
 	}
 	if ( SIMPLE_API_ISSTRING(1) ) {
-		SIMPLE_API_RETSTRING2(simple_stsimple_upper2(SIMPLE_API_GETSTRING(1),SIMPLE_API_GETSTRINGSIZE(1)),SIMPLE_API_GETSTRINGSIZE(1));
+		SIMPLE_API_RETSTRING2(simple_string_upper2(SIMPLE_API_GETSTRING(1),SIMPLE_API_GETSTRINGSIZE(1)),SIMPLE_API_GETSTRINGSIZE(1));
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
@@ -1933,9 +1933,9 @@ void simple_vmlib_space ( void *pPointer )
 		return ;
 	}
 	if ( SIMPLE_API_ISNUMBER(1) ) {
-		pString = simple_stsimple_new2_gc(((VM *) pPointer)->pSimpleState,"",SIMPLE_API_GETNUMBER(1));
-		SIMPLE_API_RETSTRING2(simple_stsimple_get(pString),SIMPLE_API_GETNUMBER(1));
-		simple_stsimple_delete_gc(((VM *) pPointer)->pSimpleState,pString);
+		pString = simple_string_new2_gc(((VM *) pPointer)->pSimpleState,"",SIMPLE_API_GETNUMBER(1));
+		SIMPLE_API_RETSTRING2(simple_string_get(pString),SIMPLE_API_GETNUMBER(1));
+		simple_string_delete_gc(((VM *) pPointer)->pSimpleState,pString);
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}

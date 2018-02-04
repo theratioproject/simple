@@ -184,7 +184,7 @@ VM * simple_vm_new ( SimpleState *pSimpleState )
 	/* Dynamic List of Self Items and PC */
 	vm->aDynamicSelfItems = simple_list_new_gc(vm->pSimpleState,0);
 	/* The active modules name (after using import command) */
-	vm->pModulesName = simple_stsimple_new_gc(vm->pSimpleState,"");
+	vm->pModulesName = simple_string_new_gc(vm->pSimpleState,"");
 	/*
 	**  Trace Program (After Each Line) 
 	**  lTrace = Logical Value (Trace is Active or Not) 
@@ -193,7 +193,7 @@ VM * simple_vm_new ( SimpleState *pSimpleState )
 	**  nTraceEvent = The Trace Event (1 = New Line , etc) 
 	*/
 	vm->lTrace = 0 ;
-	vm->pTrace = simple_stsimple_new_gc(vm->pSimpleState,"");
+	vm->pTrace = simple_string_new_gc(vm->pSimpleState,"");
 	vm->lTraceActive = 0 ;
 	vm->nTraceEvent = 0 ;
 	vm->pTraceData = simple_list_new_gc(vm->pSimpleState,0) ;
@@ -256,8 +256,8 @@ VM * simple_vm_delete ( VM *vm )
 	}
 	/* Delete List */
 	vm->aDynamicSelfItems = simple_list_delete_gc(vm->pSimpleState,vm->aDynamicSelfItems);
-	vm->pModulesName = simple_stsimple_delete_gc(vm->pSimpleState,vm->pModulesName);
-	vm->pTrace = simple_stsimple_delete_gc(vm->pSimpleState,vm->pTrace);
+	vm->pModulesName = simple_string_delete_gc(vm->pSimpleState,vm->pModulesName);
+	vm->pTrace = simple_string_delete_gc(vm->pSimpleState,vm->pTrace);
 	vm->pTraceData = simple_list_delete_gc(vm->pSimpleState,vm->pTraceData);
 	/* Custom Global Scope (using Load Modules) */
 	vm->aGlobalScopes = simple_list_delete_gc(vm->pSimpleState,vm->aGlobalScopes);
@@ -941,11 +941,11 @@ void simple_vm_returneval ( VM *vm )
 void simple_vm_error2 ( VM *vm,const char *cStr,const char *cStr2 )
 {
 	String *pError  ;
-	pError = simple_stsimple_new_gc(vm->pSimpleState,cStr);
-	simple_stsimple_add_gc(vm->pSimpleState,pError,": ");
-	simple_stsimple_add_gc(vm->pSimpleState,pError,cStr2);
-	simple_vm_error(vm,simple_stsimple_get(pError));
-	simple_stsimple_delete_gc(vm->pSimpleState,pError);
+	pError = simple_string_new_gc(vm->pSimpleState,cStr);
+	simple_string_add_gc(vm->pSimpleState,pError,": ");
+	simple_string_add_gc(vm->pSimpleState,pError,cStr2);
+	simple_vm_error(vm,simple_string_get(pError));
+	simple_string_delete_gc(vm->pSimpleState,pError);
 }
 
 void simple_vm_newbytecodeitem ( VM *vm,int x )
@@ -1335,7 +1335,7 @@ SIMPLE_API void simple_vm_runcodefromthread ( VM *vm,const char *cStr )
 SIMPLE_API void simple_vm_callfunction ( VM *vm,char *cFuncName )
 {
 	/* Lower Case and pass () in the end */
-	simple_stsimple_lower(cFuncName);
+	simple_string_lower(cFuncName);
 	/* Prepare (Remove effects of the currect function) */
 	simple_list_deletelastitem_gc(vm->pSimpleState,vm->pFuncCallList);
 	/* Load the function and call it */
@@ -1375,7 +1375,7 @@ void simple_vm_traceevent ( VM *vm,char nEvent )
 			simple_list_adddouble_gc(vm->pSimpleState,vm->pTraceData,0);
 		}
 		/* Execute Trace Function */
-		simple_vm_runcode(vm,simple_stsimple_get(vm->pTrace));
+		simple_vm_runcode(vm,simple_string_get(vm->pTrace));
 		vm->lTraceActive = 0 ;
 		vm->nTraceEvent = 0 ;
 	}

@@ -440,7 +440,7 @@ SIMPLE_API void simple_list_setstsimple_gc ( void *pState,List *pList, int index
 	pItem = simple_list_getitem(pList,index);
 	simple_item_settype_gc(pState,pItem,ITEMTYPE_STRING);
 	pString = simple_item_getstring(pItem);
-	simple_stsimple_set_gc(pState,pString,str);
+	simple_string_set_gc(pState,pString,str);
 }
 
 SIMPLE_API void simple_list_setstring2_gc ( void *pState,List *pList, int index ,const char *str,int nStrSize )
@@ -451,7 +451,7 @@ SIMPLE_API void simple_list_setstring2_gc ( void *pState,List *pList, int index 
 	pItem = simple_list_getitem(pList,index);
 	simple_item_settype_gc(pState,pItem,ITEMTYPE_STRING);
 	pString = simple_item_getstring(pItem);
-	simple_stsimple_set2_gc(pState,pString,str,nStrSize);
+	simple_string_set2_gc(pState,pString,str,nStrSize);
 }
 
 SIMPLE_API void simple_list_addstsimple_gc ( void *pState,List *pList,const char *str )
@@ -757,7 +757,7 @@ SIMPLE_API int simple_list_findinlistofobjs ( List *pList,int nType,double nNum1
 	List *pList2  ;
 	assert(pList != NULL);
 	nCount = simple_list_getsize(pList);
-	simple_stsimple_lower(cAttribute);
+	simple_string_lower(cAttribute);
 	/* Find Item */
 	if ( (nCount > 0) && (nColumn > 0) ) {
 		for ( x = 1 ; x <= nCount ; x++ ) {
@@ -872,12 +872,12 @@ SIMPLE_API void simple_list_sortstr_gc ( void *pState,List *pList,int left,int r
 	x = left ;
 	y = right ;
 	mid = (x+y)/2 ;
-	midvalue = simple_stsimple_new_gc(pState,simple_list_getstringcolumn(pList,mid,nColumn,cAttribute));
+	midvalue = simple_string_new_gc(pState,simple_list_getstringcolumn(pList,mid,nColumn,cAttribute));
 	while ( x <= y ) {
-		while ( strcmp(simple_list_getstringcolumn(pList,x,nColumn,cAttribute),simple_stsimple_get(midvalue)) < 0 ) {
+		while ( strcmp(simple_list_getstringcolumn(pList,x,nColumn,cAttribute),simple_string_get(midvalue)) < 0 ) {
 			x++ ;
 		}
-		while ( strcmp(simple_list_getstringcolumn(pList,y,nColumn,cAttribute),simple_stsimple_get(midvalue)) > 0 ) {
+		while ( strcmp(simple_list_getstringcolumn(pList,y,nColumn,cAttribute),simple_string_get(midvalue)) > 0 ) {
 			y-- ;
 		}
 		if ( x <= y ) {
@@ -886,7 +886,7 @@ SIMPLE_API void simple_list_sortstr_gc ( void *pState,List *pList,int left,int r
 			y-- ;
 		}
 	}
-	simple_stsimple_delete_gc(pState,midvalue);
+	simple_string_delete_gc(pState,midvalue);
 	if ( left < y ) {
 		simple_list_sortstr_gc(pState,pList, left, y,nColumn,cAttribute);
 	}
@@ -1289,8 +1289,8 @@ void simple_list_test ( void )
 		simple_item_settype(pItem,ITEMTYPE_STRING);
 		pString = simple_item_getstring(pItem);
 		sprintf( mystr , "The Item Number %d" , x ) ;
-		simple_stsimple_set(pString,mystr);
-		simple_stsimple_print(pString);
+		simple_string_set(pString,mystr);
+		simple_string_print(pString);
 	}
 	for ( x = 11 ; x <= 15 ; x++ ) {
 		/* Work on items */
@@ -1302,13 +1302,13 @@ void simple_list_test ( void )
 	simple_list_deleteitem(pList2,5);
 	pItem = simple_list_getitem(pList2,5);
 	pString = simple_item_getstring(pItem);
-	simple_stsimple_print(pString);
+	simple_string_print(pString);
 	printf( "Delete item number 1 \n" ) ;
 	/* Print Item */
 	simple_list_deleteitem(pList2,1);
 	pItem = simple_list_getitem(pList2,1);
 	pString = simple_item_getstring(pItem);
-	simple_stsimple_print(pString);
+	simple_string_print(pString);
 	printf( "Delete item number %d \n",simple_list_getsize(pList2) ) ;
 	/* Print Item */
 	simple_list_deleteitem(pList2,simple_list_getsize(pList2));
@@ -1338,8 +1338,8 @@ void simple_list_test ( void )
 	pItem = simple_list_getitem(pList,1);
 	simple_item_settype(pItem,ITEMTYPE_STRING);
 	pString = simple_item_getstring(pItem);
-	simple_stsimple_set(pString,mystr);
-	simple_stsimple_print(pString);
+	simple_string_set(pString,mystr);
+	simple_string_print(pString);
 	/* Set Item 2 */
 	pItem = simple_list_getitem(pList,2);
 	simple_item_settype(pItem,ITEMTYPE_LIST);
@@ -1351,22 +1351,22 @@ void simple_list_test ( void )
 	simple_item_settype(pItem,ITEMTYPE_STRING);
 	pString = simple_item_getstring(pItem);
 	sprintf( mystr , "Item (2) Item (1) "  ) ;
-	simple_stsimple_set(pString,mystr);
-	simple_stsimple_print(pString);
+	simple_string_set(pString,mystr);
+	simple_string_print(pString);
 	/* Work on items */
 	pItem = simple_list_getitem(pList2,2);
 	simple_item_settype(pItem,ITEMTYPE_STRING);
 	pString = simple_item_getstring(pItem);
 	sprintf( mystr , "Item (2) Item (2) "  ) ;
-	simple_stsimple_set(pString,mystr);
-	simple_stsimple_print(pString);
+	simple_string_set(pString,mystr);
+	simple_string_print(pString);
 	/* Set Item 3 */
 	pItem = simple_list_getitem(pList,3);
 	simple_item_settype(pItem,ITEMTYPE_STRING);
 	pString = simple_item_getstring(pItem);
 	sprintf( mystr , "last item"  ) ;
-	simple_stsimple_set(pString,mystr);
-	simple_stsimple_print(pString);
+	simple_string_set(pString,mystr);
+	simple_string_print(pString);
 	/* set item 4 */
 	pItem = simple_list_getitem(pList,4);
 	simple_item_settype(pItem,ITEMTYPE_NUMBER);

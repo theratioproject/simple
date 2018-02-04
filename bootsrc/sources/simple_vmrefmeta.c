@@ -266,7 +266,7 @@ void simple_vm_refmeta_ismodules ( void *pPointer )
 	if ( SIMPLE_API_ISSTRING(1) ) {
 		vm = (VM *) pPointer ;
 		cStr = SIMPLE_API_GETSTRING(1) ;
-		simple_stsimple_lower(cStr);
+		simple_string_lower(cStr);
 		pList = vm->pModulessMap ;
 		for ( x = 1 ; x <= simple_list_getsize(pList) ; x++ ) {
 			pList2 = simple_list_getlist(pList,x);
@@ -308,7 +308,7 @@ void simple_vm_refmeta_isclass ( void *pPointer )
 	if ( SIMPLE_API_GETSTRING(1) ) {
 		vm = (VM *) pPointer ;
 		cStr = SIMPLE_API_GETSTRING(1) ;
-		simple_stsimple_lower(cStr);
+		simple_string_lower(cStr);
 		pList = vm->pClassesMap ;
 		for ( x = 1 ; x <= simple_list_getsize(pList) ; x++ ) {
 			pList2 = simple_list_getlist(pList,x);
@@ -336,7 +336,7 @@ void simple_vm_refmeta_modulesclasses ( void *pPointer )
 	if ( SIMPLE_API_GETSTRING(1) ) {
 		vm = (VM *) pPointer ;
 		cStr = SIMPLE_API_GETSTRING(1) ;
-		simple_stsimple_lower(cStr);
+		simple_string_lower(cStr);
 		pList = vm->pModulessMap ;
 		for ( x = 1 ; x <= simple_list_getsize(pList) ; x++ ) {
 			pList2 = simple_list_getlist(pList,x);
@@ -370,9 +370,9 @@ void simple_vm_refmeta_ismodulesclass ( void *pPointer )
 	if ( SIMPLE_API_GETSTRING(1) &&  SIMPLE_API_GETSTRING(2) ) {
 		vm = (VM *) pPointer ;
 		cStr = SIMPLE_API_GETSTRING(1) ;
-		simple_stsimple_lower(cStr);
+		simple_string_lower(cStr);
 		cStr2 = SIMPLE_API_GETSTRING(2) ;
-		simple_stsimple_lower(cStr2);
+		simple_string_lower(cStr2);
 		pList = vm->pModulessMap ;
 		for ( x = 1 ; x <= simple_list_getsize(pList) ; x++ ) {
 			pList2 = simple_list_getlist(pList,x);
@@ -501,7 +501,7 @@ void simple_vm_refmeta_isattribute ( void *pPointer )
 		pList = SIMPLE_API_GETLIST(1) ;
 		if ( simple_vm_oop_isobject(pList) ) {
 			cStr = SIMPLE_API_GETSTRING(2) ;
-			simple_stsimple_lower(cStr);
+			simple_string_lower(cStr);
 			pList = simple_list_getlist(pList,SIMPLE_OBJECT_OBJECTDATA);
 			for ( x = 3 ; x <= simple_list_getsize(pList) ; x++ ) {
 				if ( strcmp(cStr,simple_list_getstring(simple_list_getlist(pList,x),SIMPLE_VAR_NAME))==0 ) {
@@ -534,7 +534,7 @@ void simple_vm_refmeta_ismethod ( void *pPointer )
 		}
 		if ( SIMPLE_API_ISSTRING(2) ) {
 			cStr = SIMPLE_API_GETSTRING(2) ;
-			simple_stsimple_lower(cStr);
+			simple_string_lower(cStr);
 			SIMPLE_API_RETNUMBER(simple_vm_oop_ismethod((VM *) pPointer,pList,cStr));
 		}
 	} else {
@@ -555,7 +555,7 @@ void simple_vm_refmeta_isprivateattribute ( void *pPointer )
 		pList = SIMPLE_API_GETLIST(1) ;
 		if ( simple_vm_oop_isobject(pList) ) {
 			cStr = SIMPLE_API_GETSTRING(2) ;
-			simple_stsimple_lower(cStr);
+			simple_string_lower(cStr);
 			pList = simple_list_getlist(pList,SIMPLE_OBJECT_OBJECTDATA);
 			for ( x = 3 ; x <= simple_list_getsize(pList) ; x++ ) {
 				if ( strcmp(cStr,simple_list_getstring(simple_list_getlist(pList,x),SIMPLE_VAR_NAME))==0 ) {
@@ -594,7 +594,7 @@ void simple_vm_refmeta_isprivatemethod ( void *pPointer )
 		}
 		if ( SIMPLE_API_ISSTRING(2) ) {
 			cStr = SIMPLE_API_GETSTRING(2) ;
-			simple_stsimple_lower(cStr);
+			simple_string_lower(cStr);
 			x = simple_vm_oop_ismethod((VM *) pPointer,pList,cStr) ;
 			if ( x==2 ) {
 				SIMPLE_API_RETNUMBER(1);
@@ -623,7 +623,7 @@ void simple_vm_refmeta_addattribute ( void *pPointer )
 			pList = simple_list_getlist(pList,SIMPLE_OBJECT_OBJECTDATA);
 			if ( SIMPLE_API_ISSTRING(2) ) {
 				cStr = SIMPLE_API_GETSTRING(2) ;
-				simple_stsimple_lower(cStr);
+				simple_string_lower(cStr);
 				/* Create Variable List */
 				simple_vm_newvar2((VM *)pPointer,cStr,pList);
 			}
@@ -632,7 +632,7 @@ void simple_vm_refmeta_addattribute ( void *pPointer )
 				for ( x = 1 ; x <= simple_list_getsize(pList2) ; x++ ) {
 					if ( simple_list_isstring(pList2,x) ) {
 						cStr = simple_list_getstring(pList2,x);
-						simple_stsimple_lower(cStr);
+						simple_string_lower(cStr);
 						/* Create Variable List */
 						simple_vm_newvar2((VM *)pPointer,cStr,pList);
 					}
@@ -666,7 +666,7 @@ void simple_vm_refmeta_addmethod ( void *pPointer )
 			pList = (List *) simple_list_getlist(pList,SIMPLE_OBJECT_CLASSPOINTER);
 			pList = (List *) simple_list_getlist(pList,SIMPLE_CLASSMAP_METHODSLIST);
 			cStr = SIMPLE_API_GETSTRING(3);
-			simple_stsimple_lower(cStr);
+			simple_string_lower(cStr);
 			for ( x = 1 ; x <= simple_list_getsize(vm->pFunctionsMap) ; x++ ) {
 				pList2 = simple_list_getlist(vm->pFunctionsMap,x);
 				if ( strcmp(simple_list_getstring(pList2,SIMPLE_BLOCKMAP_NAME),cStr) == 0 ) {
@@ -675,7 +675,7 @@ void simple_vm_refmeta_addmethod ( void *pPointer )
 					/* Copy function to class methods */
 					simple_list_copy(pList3,pList2);
 					/* Set the Function Name */
-					simple_list_setstsimple_gc(((VM *) pPointer)->pSimpleState,pList3,SIMPLE_BLOCKMAP_NAME,simple_stsimple_lower(SIMPLE_API_GETSTRING(2)));
+					simple_list_setstsimple_gc(((VM *) pPointer)->pSimpleState,pList3,SIMPLE_BLOCKMAP_NAME,simple_string_lower(SIMPLE_API_GETSTRING(2)));
 					/* Refresh the HashTable */
 					simple_list_genhashtable2(pList);
 					SIMPLE_API_RETNUMBER(1);
@@ -705,7 +705,7 @@ void simple_vm_refmeta_getattribute ( void *pPointer )
 		if ( simple_vm_oop_isobject(pList) ) {
 			pList = simple_list_getlist(pList,SIMPLE_OBJECT_OBJECTDATA);
 			cStr = SIMPLE_API_GETSTRING(2) ;
-			simple_stsimple_lower(cStr);
+			simple_string_lower(cStr);
 			for ( x = 1 ; x <= simple_list_getsize(pList) ; x++ ) {
 				if ( strcmp(simple_list_getstring(simple_list_getlist(pList,x),SIMPLE_VAR_NAME),cStr) == 0 ) {
 					pList = simple_list_getlist(pList,x) ;
@@ -744,7 +744,7 @@ void simple_vm_refmeta_setattribute ( void *pPointer )
 		if ( simple_vm_oop_isobject(pList) ) {
 			pList = simple_list_getlist(pList,SIMPLE_OBJECT_OBJECTDATA);
 			cStr = SIMPLE_API_GETSTRING(2) ;
-			simple_stsimple_lower(cStr);
+			simple_string_lower(cStr);
 			for ( x = 1 ; x <= simple_list_getsize(pList) ; x++ ) {
 				if ( strcmp(simple_list_getstring(simple_list_getlist(pList,x),SIMPLE_VAR_NAME),cStr) == 0 ) {
 					pList = simple_list_getlist(pList,x) ;
@@ -790,8 +790,8 @@ void simple_vm_refmeta_mergemethods ( void *pPointer )
 	if ( SIMPLE_API_ISSTRING(1) && SIMPLE_API_ISSTRING(2) ) {
 		cStr = SIMPLE_API_GETSTRING(1) ;
 		cStr2 = SIMPLE_API_GETSTRING(2) ;
-		simple_stsimple_lower(cStr);
-		simple_stsimple_lower(cStr2);
+		simple_string_lower(cStr);
+		simple_string_lower(cStr2);
 		vm = (VM *) pPointer ;
 		/* Get the Dest Class Methods List */
 		pList2 = NULL ;
@@ -842,7 +842,7 @@ void simple_vm_refmeta_modulesname ( void *pPointer )
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARACOUNT);
 		return ;
 	}
-	SIMPLE_API_RETSTRING(simple_stsimple_get(vm->pModulesName));
+	SIMPLE_API_RETSTRING(simple_string_get(vm->pModulesName));
 }
 /* VM */
 
@@ -914,11 +914,11 @@ void simple_vm_refmeta_ringvmsettrace ( void *pPointer )
 		cStr = SIMPLE_API_GETSTRING(1) ;
 		if ( strcmp(cStr,"") == 0 ) {
 			vm->lTrace = 0 ;
-			simple_stsimple_set_gc(((VM *) pPointer)->pSimpleState,vm->pTrace,"");
+			simple_string_set_gc(((VM *) pPointer)->pSimpleState,vm->pTrace,"");
 		}
 		else {
 			vm->lTrace = 1 ;
-			simple_stsimple_set_gc(((VM *) pPointer)->pSimpleState,vm->pTrace,cStr);
+			simple_string_set_gc(((VM *) pPointer)->pSimpleState,vm->pTrace,cStr);
 		}
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
@@ -943,7 +943,7 @@ void simple_vm_refmeta_ringvmtracefunc ( void *pPointer )
 {
 	VM *vm  ;
 	vm = (VM *) pPointer ;
-	SIMPLE_API_RETSTRING(simple_stsimple_get(vm->pTrace));
+	SIMPLE_API_RETSTRING(simple_string_get(vm->pTrace));
 }
 
 void simple_vm_refmeta_ringvmscopescount ( void *pPointer )
@@ -1023,9 +1023,9 @@ void simple_vm_refmeta_ringvmcallfunc ( void *pPointer )
 	}
 	if ( SIMPLE_API_ISSTRING(1) ) {
 		/* We create a string, because the current scope will be deleted by simple_vm_callfunc() */
-		pString = simple_stsimple_new_gc(((VM *) pPointer)->pSimpleState,SIMPLE_API_GETSTRING(1));
-		simple_vm_callfunction(vm,simple_stsimple_get(pString));
-		simple_stsimple_delete_gc(((VM *) pPointer)->pSimpleState,pString);
+		pString = simple_string_new_gc(((VM *) pPointer)->pSimpleState,SIMPLE_API_GETSTRING(1));
+		simple_vm_callfunction(vm,simple_string_get(pString));
+		simple_string_delete_gc(((VM *) pPointer)->pSimpleState,pString);
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
