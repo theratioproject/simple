@@ -91,20 +91,7 @@ int simple_scanner_readfile ( SimpleState *pSimpleState,char *cFileName )
         } else {
             snprintf(cFileName2, sizeof(cFileName2), "../modules/%s", cFileName);
             printf("IN MODULES : %s\n", cFileName2);
-            if (simple_fexists(cFileName)) {
-                printf("WE FOUND IT IN THE DEFAULT MODULES FOLDER \n");
-            } else {
-                char cwd[1024];
-                if (getcwd(cwd, sizeof(cwd)) != NULL){
-                snprintf(cFileName2, sizeof(cFileName2), "%s\\%s", cwd, cFileName);
-            }
-            //printf("NOW CHECKING %s \n",cFileName2);
-            if (simple_fexists(cFileName)) {
-                
-            } else {
-                //printf("NOW CHECKING AGAIN %i \n",status);
-            }
-            }
+            
         } 
 	/* Switch To File Folder */
 	strcpy(cFileName2,cFileName);
