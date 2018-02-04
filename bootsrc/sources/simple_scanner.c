@@ -107,7 +107,7 @@ int simple_scanner_readfile ( SimpleState *pSimpleState,char *cFileName )
         } 
 	/* Switch To File Folder */
 	strcpy(cFileName2,cFileName);
-	fp = SIMPLE_OPENFILE(cFileName , "r");
+	fp = SIMPLE_OPENFILE(cFileName2 , "r");
 	/* Avoid switching if it's the first file */
 	if ( nFreeFilesList == 0 ) {
 		simple_switchtofilefolder(cFileName2);
