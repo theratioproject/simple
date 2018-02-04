@@ -59,8 +59,8 @@ typedef struct Parser {
 	SimpleState *pSimpleState  ;
 } Parser ;
 /* Error Messages */
-#define PARSER_ERROR_PARALIST "Error (C1) : Error in parameters list, expected identifier"
-#define PARSER_ERROR_CLASSNAME "Error (C2) : Error in class name"
+#define PARSER_ERROR_PARALIST "COMPILER ERROR 6 : Check your parameters, Identifier expected"
+#define PARSER_ERROR_CLASSNAME "COMPILER ERROR 6 : Invalid class name"
 #define PARSER_ERROR_END "COMPILER ERROR 6 : The structure is not closed missing end | {}"
 #define PARSER_ERROR_BLOCKNAME "COMPILER ERROR 6 : Invalid block name"
 #define PARSER_ERROR_LISTITEM "Error (C7) : Error in list items"
