@@ -1038,7 +1038,7 @@ int simple_parser_stmt ( Parser *parser )
 				}
 			}
 			/* Other */
-			if ( simple_parser_iskeyword(parser,KEYWORD_OTHER) || simple_parser_iskeyword(parser,KEYWORD_ELSE) ) {
+			if (simple_parser_iskeyword(parser,KEYWORD_ELSE) ) {
 				simple_parser_nexttoken(parser);
 				/* Generate Code */
 				nMark1 = simple_parser_icg_newlabel(parser);
