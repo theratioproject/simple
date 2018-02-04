@@ -85,7 +85,7 @@ int simple_scanner_readfile ( SimpleState *pSimpleState,char *cFileName )
 			}
 			return 1 ;
 		}
-	} printf("THE DIR : %s\n", cFileName2);
+	} printf("THE DIR : %s\n", cFileName);
 	/* Switch To File Folder */
 	strcpy(cFileName2,cFileName);
 	fp = SIMPLE_OPENFILE(cFileName , "r");
