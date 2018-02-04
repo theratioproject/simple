@@ -89,7 +89,7 @@ int simple_scanner_readfile ( SimpleState *pSimpleState,char *cFileName )
         if (simple_fexists(cFileName)) {
             printf("yea '%s' exists \n",cFileName);
         } else {
-            char* SIMPLEPATH = getenv("GOROOT");
+            char* SIMPLEPATH = getenv("SIMPLE_PATH");
             //if (SIMPLEPATH != NULL) {
                 snprintf(cFileName2, sizeof(cFileName2), "%s/simple%s/modules/%s", SIMPLEPATH, SIMPLE_VERSION, cFileName);
                 printf("IN MODULES : %s\n", cFileName2);
