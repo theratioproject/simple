@@ -56,7 +56,7 @@ Scanner * simple_scanner_delete ( Scanner *pScanner )
 	simple_state_free(pScanner->pSimpleState,pScanner);
 	return NULL ;
 }
-int check = 0 ;
+
 int simple_scanner_readfile ( SimpleState *pSimpleState,char *cFileName )
 {
 	SIMPLE_FILE fp  ;
@@ -89,13 +89,23 @@ int simple_scanner_readfile ( SimpleState *pSimpleState,char *cFileName )
         if (simple_fexists(cFileName)) {
             printf("yea '%s' exists \n",cFileName);
         } else {
+            char* SIMPLEPATH = getenv("SIMPLE_PATH");
             snprintf(cFileName2, sizeof(cFileName2), "../modules/%s", cFileName);
-            printf("IN MODULES : %s\n", cFileName2);
-            if (check == 0) {
-                check = 1 ;
-                simple_scanner_readfile( pSimpleState,cFileName2);
+            printf("IN MODULES : %s\\modules\\%s\n", SIMPLEPATH, cFileName2);
+            if (simple_fexists(cFileName)) {
+                printf("WE FOUND IT IN THE DEFAULT MODULES FOLDER \n");
+            } else {
+                char cwd[1024];
+                if (getcwd(cwd, sizeof(cwd)) != NULL){
+                snprintf(cFileName2, sizeof(cFileName2), "%s\\%s", cwd, cFileName);
             }
-            
+            //printf("NOW CHECKING %s \n",cFileName2);
+            if (simple_fexists(cFileName)) {
+                
+            } else {
+                //printf("NOW CHECKING AGAIN %i \n",status);
+            }
+            }
         } 
 	/* Switch To File Folder */
 	strcpy(cFileName2,cFileName);
