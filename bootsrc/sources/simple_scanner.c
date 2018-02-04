@@ -56,7 +56,7 @@ Scanner * simple_scanner_delete ( Scanner *pScanner )
 	simple_state_free(pScanner->pSimpleState,pScanner);
 	return NULL ;
 }
-
+int check = 0 ;
 int simple_scanner_readfile ( SimpleState *pSimpleState,char *cFileName )
 {
 	SIMPLE_FILE fp  ;
@@ -91,7 +91,11 @@ int simple_scanner_readfile ( SimpleState *pSimpleState,char *cFileName )
         } else {
             snprintf(cFileName2, sizeof(cFileName2), "../modules/%s", cFileName);
             printf("IN MODULES : %s\n", cFileName2);
-            simple_scanner_readfile( pSimpleState,cFileName2);
+            if (check == 0) {
+                check = 1 ;
+                simple_scanner_readfile( pSimpleState,cFileName2);
+            }
+            
         } 
 	/* Switch To File Folder */
 	strcpy(cFileName2,cFileName);
