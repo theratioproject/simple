@@ -485,10 +485,10 @@ int simple_parser_stmt ( Parser *parser )
 								if ( parser->ActiveToken == parser->TokensCount ) {
 									break ;
 								}
-							} printf("DEBUG 1 : %s and Loop : %d\n", parser->TokenText, KEYWORD_LOOP);
+							} 
 							if ( simple_parser_iskeyword(parser,KEYWORD_END) || simple_parser_csbraceend(parser) ) {
 								/* Generate Code */
-								nMark3 = simple_parser_icg_newlabel(parser); printf("DEBUG  : %s IS LOOP\n", parser->TokenText);
+								nMark3 = simple_parser_icg_newlabel(parser); 
 								/* Increment Jump */
 								simple_parser_icg_newoperation(parser,ICO_INCJUMP);
 								simple_parser_icg_newoperand(parser,simple_string_get(pString));
@@ -588,7 +588,7 @@ int simple_parser_stmt ( Parser *parser )
 							break ;
 						}
 					}
-					if ( simple_parser_iskeyword(parser,KEYWORD_LOOP) || simple_parser_iskeyword(parser,KEYWORD_END) || simple_parser_csbraceend(parser) ) {
+					if ( simple_parser_iskeyword(parser,KEYWORD_END) || simple_parser_csbraceend(parser) ) {
 						simple_parser_nexttoken(parser);
 						/* Generate Code */
 						nMark3 = simple_parser_icg_newlabel(parser);
