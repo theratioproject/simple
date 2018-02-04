@@ -95,10 +95,10 @@ int simple_scanner_readfile ( SimpleState *pSimpleState,char *cFileName )
                 snprintf(cFileName2, sizeof(cFileName2), "%s/simple%s/modules/%s", SIMPLEPATH, SIMPLE_VERSION, cFileName);
             }
             if (!simple_fexists(cFileName2)) {
-                get_file_folder ( DEFAULT_FILE_NAME );
-                snprintf(cFileName2, sizeof(cFileName2), "%s%s", DEFAULT_FILE_NAME, cFileName);
-                printf("The default file : %s\n", DEFAULT_FILE_NAME);
-                printf("FILE : %s not in modules\n", cFileName2);
+                snprintf(cFileName2, sizeof(cFileName2), "%s%s", DEFAULT_FILE_PATH, cFileName);
+                if (!simple_fexists(cFileName2)) {
+                    printf("FILE : %s not in start file dir \n", cFileName2);
+                }
             } /**else {
                 char cwd[1024];
                 if (getcwd(cwd, sizeof(cwd)) != NULL){
@@ -115,7 +115,8 @@ int simple_scanner_readfile ( SimpleState *pSimpleState,char *cFileName )
         /* Switch To File Folder */
         if (is_start_file) {
             strcpy(cFileName2,cFileName);
-            DEFAULT_FILE_NAME = cFileName2 ;
+            DEFAULT_FILE_NAME = cFileName2 ; DEFAULT_FILE_PATH = cFileName2 ;
+            get_file_folder ( DEFAULT_FILE_PATH );
         }
 	fp = SIMPLE_OPENFILE(cFileName2 , "r");
 	/* Avoid switching if it's the first file */
