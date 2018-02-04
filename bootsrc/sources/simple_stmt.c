@@ -680,7 +680,7 @@ int simple_parser_stmt ( Parser *parser )
 					#if SIMPLE_PARSERTRACE
 					SIMPLE_STATE_CHECKPRINTRULES
 
-					puts("Rule : Else If  --> 'else if' Expr {Statement}");
+					puts("Rule : Elif  --> 'elif' Expr {Statement}");
 					#endif
 					while ( simple_parser_stmt(parser) ) {
 						if ( parser->ActiveToken == parser->TokensCount ) {
