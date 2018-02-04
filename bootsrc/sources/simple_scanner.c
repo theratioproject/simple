@@ -92,7 +92,8 @@ int simple_scanner_readfile ( SimpleState *pSimpleState,char *cFileName )
             printf("yea '%s' it exists \n",cFileName);
         } else if (getcwd(cwd, sizeof(cwd)) != NULL){
             fprintf(stdout, "Current working dir: %s\n", cwd);
-            strcpy(cFileName2,cwd);
+            //strcpy(cFileName2,cwd);
+            snprintf(cFileName2, sizeof(cFileName2), "%s\\%s", cwd, cFileName);
         } else {
             printf("the file/module '%s' does not exist\n", cFileName);
         }
