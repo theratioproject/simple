@@ -253,73 +253,62 @@ int simple_parser_stmt ( Parser *parser )
 	nLoadModules = 0 ;
 	assert(parser != NULL);
 	/* Statement --> Load Literal */
-	if ( simple_parser_iskeyword(parser,KEYWORD_CALL) ) {
-		simple_parser_nexttoken(parser);
-		if ( simple_parser_iskeyword(parser,KEYWORD_MODULE) ) {
-			simple_parser_nexttoken(parser);
-			nLoadModules = 1 ;
-			parser->pSimpleState->nCustomGlobalScopeCounter++ ;
-			simple_list_addint_gc(parser->pSimpleState,parser->pSimpleState->aCustomGlobalScopeStack,parser->pSimpleState->nCustomGlobalScopeCounter);
-		}
-		if ( simple_parser_isliteral(parser) ) {
-			/* Check File in the Simple/bin folder */
-			strcpy(cFileName,parser->TokenText);
-			if ( simple_fexists(parser->TokenText) == 0 ) {
+	if ( simple_parser_iskeyword(pParser,KEYWORD_CALL) ) {
+            simple_parser_nexttoken(pParser); 
+		if ( simple_parser_isliteral(pParser) ) {
+			/* Check File in the simple/bin folder */
+			strcpy(cFileName,pParser->TokenText);
+			if ( simple_fexists(pParser->TokenText) == 0 ) {
 				simple_exefolder(cFileName);
-				strcat(cFileName,parser->TokenText);
+				strcat(cFileName,pParser->TokenText);
 				if ( simple_fexists(cFileName) == 0 ) {
-					strcpy(cFileName,parser->TokenText);
+					strcpy(cFileName,pParser->TokenText);
 				}
 			}
-			/*
-			**  Generate Code 
-			**  Load Modules - New Global Scope 
-			*/
-			if ( nLoadModules ) {
-				simple_parser_icg_newoperation(parser,ICO_NEWGLOBALSCOPE);
-			}
-			simple_parser_icg_newoperation(parser,ICO_FILENAME);
-			simple_parser_icg_newoperand(parser,cFileName);
-			simple_parser_icg_newoperation(parser,ICO_BLOCKFLAG);
-			pMark = simple_parser_icg_getactiveoperation(parser);
+			/* Generate Code */
+			simple_parser_icg_newoperation(pParser,ICO_FILENAME);
+			simple_parser_icg_newoperand(pParser,cFileName);
+			simple_parser_icg_newoperation(pParser,ICO_BLOCKFLAG);
+			pMark = simple_parser_icg_getactiveoperation(pParser);
 			#if SIMPLE_PARSERTRACE
-			SIMPLE_STATE_CHECKPRINTRULES 
-			
-			puts("Rule : Statement  --> 'Load' Literal");
+			SIMPLE_STATE_CHECKPRINTRULES
+
+			puts("Rule : Statement  --> 'call' Literal");
 			#endif
-			/* Set Global Scope */
-			simple_parser_icg_newoperation(parser,ICO_SETGLOBALSCOPE);
-			simple_parser_icg_newoperandint(parser,simple_list_getint(parser->pSimpleState->aCustomGlobalScopeStack,simple_list_getsize(parser->pSimpleState->aCustomGlobalScopeStack)));
-			/* No modules at the start of the file */
-			parser->ClassesMap = parser->pSimpleState->pSimpleClassesMap ;
+			/* No package at the start of the file */
+			pParser->ClassesMap = pParser->pSimpleState->pSimpleClassesMap ;
 			/* Save the Current Directory */
 			simple_currentdir(cCurrentDir);
 			/* Read The File */
-			x = simple_scanner_readfile(parser->pSimpleState,cFileName);
+			x = simple_scanner_readfile(pParser->pSimpleState,cFileName);
 			/* Restore the Current Directory */
 			simple_chdir(cCurrentDir);
 			/*
-			**  Generate Code 
-			**  Return NULL 
+			**  Generate Code
+			**  Return NULL
 			*/
-			simple_parser_icg_newoperation(parser,ICO_RETNULL);
-			nMark1 = simple_parser_icg_newlabel(parser);
-			simple_parser_icg_addoperandint(parser,pMark,nMark1);
-			/* Load Modules - End Global Scope */
-			if ( nLoadModules ) {
-				simple_parser_icg_newoperation(parser,ICO_ENDGLOBALSCOPE);
-				simple_list_deletelastitem_gc(parser->pSimpleState,parser->pSimpleState->aCustomGlobalScopeStack);
-				/* Set Global Scope */
-				simple_parser_icg_newoperation(parser,ICO_SETGLOBALSCOPE);
-				simple_parser_icg_newoperandint(parser,simple_list_getint(parser->pSimpleState->aCustomGlobalScopeStack,simple_list_getsize(parser->pSimpleState->aCustomGlobalScopeStack)));
-			}
+			simple_parser_icg_newoperation(pParser,ICO_RETNULL);
+			nMark1 = simple_parser_icg_newlabel(pParser);
+			simple_parser_icg_addoperandint(pParser,pMark,nMark1);
 			/* Set Active File */
-			simple_parser_icg_newoperation(parser,ICO_FILENAME);
-			simple_parser_icg_newoperand(parser,simple_list_getstring(parser->pSimpleState->pSimpleFilesStack,simple_list_getsize(parser->pSimpleState->pSimpleFilesStack)));
-			simple_parser_icg_newoperation(parser,ICO_FREESTACK);
-			simple_parser_nexttoken(parser);
+			simple_parser_icg_newoperation(pParser,ICO_FILENAME);
+			simple_parser_icg_newoperand(pParser,simple_list_getstring(pParser->pSimpleState->pSimpleFilesStack,simple_list_getsize(pParser->pSimpleState->pSimpleFilesStack)));
+			simple_parser_icg_newoperation(pParser,ICO_FREESTACK);
+			simple_parser_nexttoken(pParser); 
+                        if (isPointer(pParser)) {
+                            return loadPackage(pParser);
+                        }
 			return x ;
-		}
+		} else {
+                    /* Generate Code */
+                    simple_parser_icg_newoperation(pParser,ICO_IMPORT);
+                    #if SIMPLE_PARSERTRACE
+                    SIMPLE_STATE_CHECKPRINTRULES
+
+                    puts("Rule : Statement  --> 'Import' Identifier{'.'identifier}");
+                    #endif
+                    return simple_parser_namedotname(pParser) ;
+                } 
 		return 0 ;
 	}
 	/* Statement --> display Expr */
