@@ -35,6 +35,8 @@ extern int SKIP_ERROR ;
 
 extern char *DEFAULT_FILE_NAME ;
 
+extern char *DEFAULT_FILE_PATH ;
+
 /*Functions*/
 
 void display_help();

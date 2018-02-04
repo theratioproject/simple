@@ -96,6 +96,7 @@ int simple_scanner_readfile ( SimpleState *pSimpleState,char *cFileName )
             }
             if (!simple_fexists(cFileName2)) {
                 get_file_folder ( DEFAULT_FILE_NAME );
+                snprintf(cFileName2, sizeof(cFileName2), "%s%s", DEFAULT_FILE_NAME, cFileName);
                 printf("The default file : %s\n", DEFAULT_FILE_NAME);
                 printf("FILE : %s not in modules\n", cFileName2);
             } /**else {
