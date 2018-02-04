@@ -150,8 +150,7 @@ char* get_time_different(double diff) {
     return msg ;
 }
 
-void *get_file_folder ( char *absolute_path ) {
-	char absolute_path[SIMPLE_PATHSIZE]  ;
+void get_file_folder ( char *absolute_path ) {
 	char cDir2[SIMPLE_PATHSIZE]  ;
 	int x,x2,nSize  ;
 	nSize = strlen( absolute_path ) ;

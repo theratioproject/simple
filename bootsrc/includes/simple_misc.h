@@ -44,7 +44,7 @@ const char *file_real_name(const char *absolute_name);
 
 const char *change_file_ext(const char *absolute_name, const char *extension);
 
-void *get_file_folder ( char *absolute_path ) ;
+void get_file_folder ( char *absolute_path ) ;
 
 #if SIMPLE_TESTPERFORMANCE
 
