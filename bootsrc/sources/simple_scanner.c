@@ -484,53 +484,56 @@ void simple_scanner_keywords ( Scanner *pScanner )
 {
 	assert(pScanner != NULL);
 	pScanner->Keywords = simple_list_new_gc(pScanner->pSimpleState,0);
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"if");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"to");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Keywords,"if");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Keywords,"to");
 	/* Logic */
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"or");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"and");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"not");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"for");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"new");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"block");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"from");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"load");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"else");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"display");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"while");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"class");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"return");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"end");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"read");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"bye");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"exit");
-	/* Try-Catch-Done */
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"try");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"catch");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"done");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Keywords,"or");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Keywords,"and");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Keywords,"not");
+        simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Keywords,"for");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Keywords,"new");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Keywords,"block");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Keywords,"inherit");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Keywords,"loop");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Keywords,"call");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Keywords,"else");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Keywords,"display");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Keywords,"while");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Keywords,"class");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Keywords,"return");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Keywords,"end");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Keywords,"read");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Keywords,"__exit__");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Keywords,"break");
+	/* try-catch-finally */
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Keywords,"try");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Keywords,"catch");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Keywords,"finally");
 	/* Switch */
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"switch");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"on");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"off");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"in");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"continue");
-	/* Moduless */
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"module");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"import");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"private");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"step");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"do");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"again");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"call");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"elif");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"case");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Keywords,"switch");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Keywords,"default");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Keywords,"in");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Keywords,"continue");
+	/* Packages */
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Keywords,"package");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Keywords,"private");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Keywords,"step");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Keywords,"do");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Keywords,"exec");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Keywords,"elif");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Keywords,"get");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Keywords,"case");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Keywords,"def");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Keywords,"endfunc");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Keywords,"endclass");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Keywords,"endpackage");
 	/*
 	**  The next keywords are sensitive to the order and keywords count 
 	**  if you will add new keywords revise constants and simple_scanner_checktoken() 
 	*/
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"changeringkeyword");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"changeringoperator");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"loadsyntax");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Keywords,"changesimplekeyword");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Keywords,"changesimpleoperator");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Keywords,"loadsyntax");
 	simple_list_genhashtable_gc(pScanner->pSimpleState,pScanner->Keywords);
 }
 
