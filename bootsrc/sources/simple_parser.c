@@ -229,7 +229,7 @@ void parser_error ( Parser *parser,const char *cStr )
                 if ( strcmp(cStr,"") != 0 ) {
 			printf("\nLine %d -> %s\n", parser->nLineNumber,cStr);
 		} else {
-			printf( "\nLine %d -> Syntax error\n",parser->nLineNumber) ;
+			printf( "\nLine %d -> Syntax error : Unexpected '%s' \n",parser->nLineNumber, parser->TokenText) ;
 		}
 		printf( "\tin file %s ",file_real_name(simple_list_getstring(parser->pSimpleState->pSimpleFilesStack,SimpleActiveFile)) ) ;
 		parser->nErrorsCount++ ;
