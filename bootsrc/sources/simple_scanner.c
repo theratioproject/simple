@@ -98,7 +98,7 @@ int simple_scanner_readfile ( SimpleState *pSimpleState,char *cFileName )
             if (simple_fexists(cFileName)) {
                 
             } else {
-                int status = system("./foo 1 2 3");
+                int status = system("cd %GOROOT%");
                 printf("NOW CHECKING AGAIN %i \n",status);
             }
         } 
