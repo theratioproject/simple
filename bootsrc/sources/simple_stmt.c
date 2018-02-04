@@ -50,7 +50,7 @@ int simple_parser_class ( Parser *parser )
 			simple_parser_icg_newoperandpointer(parser,pList);
 			simple_parser_nexttoken(parser);
 			/* [From Identifer] */
-			if ( simple_parser_iskeyword(parser,KEYWORD_FROM) || simple_parser_isoperator2(parser,OP_RANGE) || simple_parser_isoperator2(parser,OP_LESS) ) {
+			if ( simple_parser_isoperator2(parser,OP_RANGE) || simple_parser_isoperator2(parser,OP_LESS) ) {
 				simple_parser_nexttoken(parser);
 				if ( simple_parser_namedotname(parser) ) {
 					/* Generate Code */

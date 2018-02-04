@@ -14,15 +14,15 @@
 
 #include "../includes/simple.h"
 /* Keywords */
-const char * SIMPLE_KEYWORDS[] = {"if","to","or","and","NOT","FOR","NEW","block", 
+const char * SIMPLE_KEYWORDS[] = {"if","to","or","and","not","for","new","block", 
 
-"FROM","LOAD","else","display","WHILE","CLASS","RETURN", 
+"inherit","loop","call","else","display","while","class","return", "end",
 
-"end","read","BYE","EXIT","TRY","CATCH","DONE","SWITCH","ON","OFF", 
+"read","__exit__","break","try","catch","finally","switch","default", 
 
-"IN","module","IMPORT","PRIVATE","STEP","DO","AGAIN","CALL","elif", 
+"in","continue","package","private","step","do","exec","elif", 
 
-"CASE","CHANGERINGKEYWORD","CHANGERINGOPERATOR","LOADSYNTAX"} ;
+"get","case", "changesimplekeyword","changesimpleoperator","loadsyntax"} ;
 /* Functions */
 
 Scanner * simple_scanner_new ( SimpleState *pSimpleState )
