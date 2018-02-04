@@ -969,13 +969,13 @@ int simple_parser_stmt ( Parser *parser )
 		simple_parser_icg_newoperation(parser,ICO_EXIT);
 		return 1 ;
 	}
-	/* Statement --> Loop (Continue) */
-	if ( simple_parser_iskeyword(parser,KEYWORD_LOOP) ) {
+	/* Statement --> continue (Continue) */
+	if ( simple_parser_iskeyword(parser,KEYWORD_CONTINUE) ) {
 		simple_parser_nexttoken(parser);
 		#if SIMPLE_PARSERTRACE
 		SIMPLE_STATE_CHECKPRINTRULES 
 		
-		puts("Rule : Statement  --> 'Loop'");
+		puts("Rule : Statement  --> 'continue'");
 		#endif
 		/* Check Number  (Continue from more than one loop) */
 		if ( simple_parser_isnumber(parser) || simple_parser_isidentifier(parser) ) {

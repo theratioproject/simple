@@ -516,6 +516,7 @@ void simple_scanner_keywords ( Scanner *pScanner )
 	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"other");
 	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"off");
 	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"in");
+	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"continue");
 	/* Moduless */
 	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"module");
 	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"import");
