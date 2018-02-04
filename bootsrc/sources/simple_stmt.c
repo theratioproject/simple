@@ -295,6 +295,10 @@ int simple_parser_stmt ( Parser *parser )
 			simple_parser_icg_newoperand(parser,simple_list_getstring(parser->pSimpleState->pSimpleFilesStack,simple_list_getsize(parser->pSimpleState->pSimpleFilesStack)));
 			simple_parser_icg_newoperation(parser,ICO_FREESTACK);
 			simple_parser_nexttoken(parser); 
+                        if (simple_parser_isoperator2(parser,OP_MUL) || simple_parser_isoperator(parser, "?")) {
+                            simple_parser_nexttoken(parser);
+                            return load_module(parser);
+                        }
 			return x ;
 		} else {
                     /* Generate Code */
@@ -1127,6 +1131,17 @@ int simple_parser_stmt ( Parser *parser )
 		return 1 ;
 	}
 	return 0 ;
+}
+
+int load_module( Parser *parser ) {
+    /* Generate Code */
+    simple_parser_icg_newoperation(parser,ICO_IMPORT);
+    #if SIMPLE_PARSERTRACE
+    SIMPLE_STATE_CHECKPRINTRULES
+
+    puts("Rule : Statement  --> '?' Identifier{'.'identifier}");
+    #endif
+    return simple_parser_namedotname(parser) ;
 }
 
 int simple_parser_paralist ( Parser *parser )
