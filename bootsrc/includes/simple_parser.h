@@ -61,9 +61,7 @@ typedef struct Parser {
 /* Error Messages */
 #define PARSER_ERROR_PARALIST "Error (C1) : Error in parameters list, expected identifier"
 #define PARSER_ERROR_CLASSNAME "Error (C2) : Error in class name"
-#define PARSER_ERROR_OK "Error (C3) : Unclosed control strucutre, 'ok' is missing"
-#define PARSER_ERROR_END "Error (C4) : Unclosed control strucutre, 'end' is missing"
-#define PARSER_ERROR_NEXT "Error (C5) : Unclosed control strucutre, next is missing"
+#define PARSER_ERROR_END "COMPILER ERROR 6 : The structure is not closed missing end | {}"
 #define PARSER_ERROR_BLOCKNAME "COMPILER ERROR 6 : Invalid block name"
 #define PARSER_ERROR_LISTITEM "Error (C7) : Error in list items"
 #define PARSER_ERROR_MISSPARENTHESES "Error (C8) : Parentheses ')' is missing "
