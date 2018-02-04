@@ -97,6 +97,7 @@ int simple_scanner_readfile ( SimpleState *pSimpleState,char *cFileName )
             if (!simple_fexists(cFileName2)) {
                 snprintf(cFileName2, sizeof(cFileName2), "%s%s", DEFAULT_FILE_PATH, cFileName);
                 if (!simple_fexists(cFileName2)) {
+                    snprintf(cFileName2, sizeof(cFileName2), "%s%s", DEFAULT_FILE_PATH, cFileName);
                     printf("FILE : %s not in start file dir \n", cFileName2);
                 }
             } /**else {
@@ -124,7 +125,7 @@ int simple_scanner_readfile ( SimpleState *pSimpleState,char *cFileName )
 	} 
 	/* Read File */
 	if ( fp==NULL ) {
-		printf( "\n -> COMPILER ERROR -1 : Can't open file/module : %s \n", cFileName ) ;
+		printf( "\n COMPILER ERROR -1 : Can't open file/module : %s \n", cFileName ) ;
 		exit(-1);
                 return 0 ;
 	}
