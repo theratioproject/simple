@@ -109,12 +109,10 @@ int simple_scanner_readfile ( SimpleState *pSimpleState,char *cFileName )
             }
             }**/
         } 
-        char cDirPath[SIMPLE_PATHSIZE]  ;
-        simple_currentdir(cDirPath);
-        printf("Current Dir : %s\n", cDirPath);
-	/* Switch To File Folder */
+        /* Switch To File Folder */
         if (is_start_file) {
             strcpy(cFileName2,cFileName);
+            get_file_folder ( cFileName2 );
             printf("The default file : %s\n", cFileName2);
         }
 	fp = SIMPLE_OPENFILE(cFileName2 , "r");

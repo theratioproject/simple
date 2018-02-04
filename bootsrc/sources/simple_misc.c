@@ -151,19 +151,18 @@ char* get_time_different(double diff) {
 }
 
 void *get_file_folder ( char *absolute_path ) {
-	char cDir[SIMPLE_PATHSIZE]  ;
+	char absolute_path[SIMPLE_PATHSIZE]  ;
 	char cDir2[SIMPLE_PATHSIZE]  ;
 	int x,x2,nSize  ;
-	simple_exefilename(cDir);
-	nSize = strlen( cDir ) ;
+	nSize = strlen( absolute_path ) ;
 	for ( x = nSize-1 ; x >= 0 ; x-- ) {
-		if ( (cDir[x] == '\\') || (cDir[x] == '/') ) {
+		if ( (absolute_path[x] == '\\') || (absolute_path[x] == '/') ) {
 			for ( x2 = x ; x2 >= 0 ; x2-- ) {
-				cDir2[x2] = cDir[x2] ;
+				cDir2[x2] = absolute_path[x2] ;
 			}
 			cDir2[x+1] = '\0' ;
 			break ;
 		}
 	}
-	strcpy(cDirPath,cDir2);
+	strcpy(absolute_path,cDir2);
 }
