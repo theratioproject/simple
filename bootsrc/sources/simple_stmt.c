@@ -253,61 +253,61 @@ int simple_parser_stmt ( Parser *parser )
 	nLoadModules = 0 ;
 	assert(parser != NULL);
 	/* Statement --> Load Literal */
-	if ( simple_parser_iskeyword(pParser,KEYWORD_CALL) ) {
-            simple_parser_nexttoken(pParser); 
-		if ( simple_parser_isliteral(pParser) ) {
+	if ( simple_parser_iskeyword(parser,KEYWORD_CALL) ) {
+            simple_parser_nexttoken(parser); 
+		if ( simple_parser_isliteral(parser) ) {
 			/* Check File in the simple/bin folder */
-			strcpy(cFileName,pParser->TokenText);
-			if ( simple_fexists(pParser->TokenText) == 0 ) {
+			strcpy(cFileName,parser->TokenText);
+			if ( simple_fexists(parser->TokenText) == 0 ) {
 				simple_exefolder(cFileName);
-				strcat(cFileName,pParser->TokenText);
+				strcat(cFileName,parser->TokenText);
 				if ( simple_fexists(cFileName) == 0 ) {
-					strcpy(cFileName,pParser->TokenText);
+					strcpy(cFileName,parser->TokenText);
 				}
 			}
 			/* Generate Code */
-			simple_parser_icg_newoperation(pParser,ICO_FILENAME);
-			simple_parser_icg_newoperand(pParser,cFileName);
-			simple_parser_icg_newoperation(pParser,ICO_BLOCKFLAG);
-			pMark = simple_parser_icg_getactiveoperation(pParser);
+			simple_parser_icg_newoperation(parser,ICO_FILENAME);
+			simple_parser_icg_newoperand(parser,cFileName);
+			simple_parser_icg_newoperation(parser,ICO_BLOCKFLAG);
+			pMark = simple_parser_icg_getactiveoperation(parser);
 			#if SIMPLE_PARSERTRACE
 			SIMPLE_STATE_CHECKPRINTRULES
 
 			puts("Rule : Statement  --> 'call' Literal");
 			#endif
 			/* No package at the start of the file */
-			pParser->ClassesMap = pParser->pSimpleState->pSimpleClassesMap ;
+			parser->ClassesMap = parser->pSimpleState->pSimpleClassesMap ;
 			/* Save the Current Directory */
 			simple_currentdir(cCurrentDir);
 			/* Read The File */
-			x = simple_scanner_readfile(pParser->pSimpleState,cFileName);
+			x = simple_scanner_readfile(parser->pSimpleState,cFileName);
 			/* Restore the Current Directory */
 			simple_chdir(cCurrentDir);
 			/*
 			**  Generate Code
 			**  Return NULL
 			*/
-			simple_parser_icg_newoperation(pParser,ICO_RETNULL);
-			nMark1 = simple_parser_icg_newlabel(pParser);
-			simple_parser_icg_addoperandint(pParser,pMark,nMark1);
+			simple_parser_icg_newoperation(parser,ICO_RETNULL);
+			nMark1 = simple_parser_icg_newlabel(parser);
+			simple_parser_icg_addoperandint(parser,pMark,nMark1);
 			/* Set Active File */
-			simple_parser_icg_newoperation(pParser,ICO_FILENAME);
-			simple_parser_icg_newoperand(pParser,simple_list_getstring(pParser->pSimpleState->pSimpleFilesStack,simple_list_getsize(pParser->pSimpleState->pSimpleFilesStack)));
-			simple_parser_icg_newoperation(pParser,ICO_FREESTACK);
-			simple_parser_nexttoken(pParser); 
-                        if (isPointer(pParser)) {
-                            return loadPackage(pParser);
-                        }
+			simple_parser_icg_newoperation(parser,ICO_FILENAME);
+			simple_parser_icg_newoperand(parser,simple_list_getstring(parser->pSimpleState->pSimpleFilesStack,simple_list_getsize(parser->pSimpleState->pSimpleFilesStack)));
+			simple_parser_icg_newoperation(parser,ICO_FREESTACK);
+			simple_parser_nexttoken(parser); 
+                        /**if (isPointer(parser)) {
+                            return loadPackage(parser);
+                        }**/
 			return x ;
 		} else {
                     /* Generate Code */
-                    simple_parser_icg_newoperation(pParser,ICO_IMPORT);
+                    simple_parser_icg_newoperation(parser,ICO_IMPORT);
                     #if SIMPLE_PARSERTRACE
                     SIMPLE_STATE_CHECKPRINTRULES
 
                     puts("Rule : Statement  --> 'Import' Identifier{'.'identifier}");
                     #endif
-                    return simple_parser_namedotname(pParser) ;
+                    return simple_parser_namedotname(parser) ;
                 } 
 		return 0 ;
 	}
