@@ -98,7 +98,7 @@ int simple_scanner_readfile ( SimpleState *pSimpleState,char *cFileName )
             }
             
         } else {
-            
+            printf("'%s' does not exists \n",cFileName);
         } 
 	/* Switch To File Folder */
 	strcpy(cFileName2,cFileName);
