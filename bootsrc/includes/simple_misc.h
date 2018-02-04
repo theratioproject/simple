@@ -27,9 +27,13 @@ extern "C" {
 #define SIMPLE_LICENCE "MIT Licence"
 #define KB_BYTE_SIZE 1024
     
+/*Fields*/
+    
 extern int NOT_CASE_SENSITIVE ;
+
 extern int SKIP_ERROR ;
 
+/*Functions*/
 void display_help();
 
 void display_licence();
