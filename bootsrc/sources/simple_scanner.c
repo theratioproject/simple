@@ -20,7 +20,7 @@ const char * SIMPLE_KEYWORDS[] = {"IF","TO","OR","AND","NOT","FOR","NEW","block"
 
 "END","read","BYE","EXIT","TRY","CATCH","DONE","SWITCH","ON","OTHER","OFF", 
 
-"IN","LOOP","module","IMPORT","PRIVATE","STEP","DO","AGAIN","CALL","ELSEIF", 
+"IN","module","IMPORT","PRIVATE","STEP","DO","AGAIN","CALL","ELSEIF", 
 
 "CASE","CHANGERINGKEYWORD","CHANGERINGOPERATOR","LOADSYNTAX"} ;
 /* Functions */
@@ -517,7 +517,6 @@ void simple_scanner_keywords ( Scanner *pScanner )
 	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"other");
 	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"off");
 	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"in");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"loop");
 	/* Moduless */
 	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"module");
 	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Keywords,"import");
