@@ -725,11 +725,11 @@ int simple_parser_stmt ( Parser *parser )
 				#if SIMPLE_PARSERTRACE
 				SIMPLE_STATE_CHECKPRINTRULES
 
-				puts("Rule : Ok  --> 'OK'");
+				puts("Rule : End  --> 'end'");
 				#endif
 				return 1 ;
 			} else {
-				parser_error(parser, "classical");
+				parser_error(parser, PARSER_ERROR_END);
 				simple_list_delete_gc(parser->pSimpleState,pList2);
 			}
 		}
