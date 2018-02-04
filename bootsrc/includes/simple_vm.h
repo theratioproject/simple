@@ -711,14 +711,14 @@ List * simple_vm_getglobalscope ( VM *vm ) ;
 #define SIMPLE_VM_TRACEEVENT_BEFORECBLOCK 5
 #define SIMPLE_VM_TRACEEVENT_AFTERCBLOCK 6
 /* Runtime Error Messages */
-#define SIMPLE_VM_ERROR_DIVIDEBYZERO "RUNTIME ERROR 24 : Can't divide by zero "
-#define SIMPLE_VM_ERROR_INDEXOUTOFRANGE "RUNTIME ERROR 24 : Array Access (Index out of range) "
-#define SIMPLE_VM_ERROR_BLOCKNOTFOUND "RUNTIME ERROR 24 : Calling Block without definition "
-#define SIMPLE_VM_ERROR_STACKOVERFLOW "RUNTIME ERROR 24 : Stack Overflow "
-#define SIMPLE_VM_ERROR_OBJECTISNOTLIST "RUNTIME ERROR 24 : Can't access the list item, Object is not list !"
-#define SIMPLE_VM_ERROR_NOTVARIABLE "RUNTIME ERROR 24 : A variable is required"
-#define SIMPLE_VM_ERROR_VALUEMORETHANONECHAR "RUNTIME ERROR 24 : String letter assignment is to one character only"
-#define SIMPLE_VM_ERROR_VARISNOTSTRING "RUNTIME ERROR 24 : The variable is not a string "
+#define SIMPLE_VM_ERROR_DIVIDEBYZERO "RUNTIME ERROR 1 : Can't divide by zero "
+#define SIMPLE_VM_ERROR_INDEXOUTOFRANGE "RUNTIME ERROR 2 : Array Access (Index out of range) "
+#define SIMPLE_VM_ERROR_BLOCKNOTFOUND "RUNTIME ERROR 2 : Calling Block without definition "
+#define SIMPLE_VM_ERROR_STACKOVERFLOW "RUNTIME ERROR 3 : Stack Overflow "
+#define SIMPLE_VM_ERROR_OBJECTISNOTLIST "RUNTIME ERROR 4 : Can't access the list item, Object is not list !"
+#define SIMPLE_VM_ERROR_NOTVARIABLE "RUNTIME ERROR 5 : A variable is required"
+#define SIMPLE_VM_ERROR_VALUEMORETHANONECHAR "RUNTIME ERROR 6 : String letter assignment is to one character only"
+#define SIMPLE_VM_ERROR_VARISNOTSTRING "RUNTIME ERROR 7 : The variable is not a string "
 #define SIMPLE_VM_ERROR_EXITWITHOUTLOOP "RUNTIME ERROR 24 : Using exit command outside loop "
 #define SIMPLE_VM_ERROR_EXITNUMBEROUTSIDERANGE "RUNTIME ERROR 24 : Using exit command with number outside the range "
 #define SIMPLE_VM_ERROR_CLASSNOTFOUND "RUNTIME ERROR 24 : Invalid class name, Class not found "

@@ -953,7 +953,7 @@ int simple_parser_stmt ( Parser *parser )
 		puts("Rule : Statement  --> '__exit' ");
 		#endif
 		/* Generate Code */
-		simple_parser_icg_newoperation(parser,ICO_EXIT);
+		simple_parser_icg_newoperation(parser,ICO_EXITPROGRAM);
 		return 1 ;
 	}
 	/* Statement --> break (Go to outside the loop) */
