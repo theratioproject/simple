@@ -86,8 +86,6 @@ int simple_scanner_readfile ( SimpleState *pSimpleState,char *cFileName )
 			return 1 ;
 		}
 	} 
-        char cwd[1024];
-        //printf("THE DIR : %s\n", cFileName);
         if (simple_fexists(cFileName)) {
             printf("yea '%s' exists \n",cFileName);
         } else {
@@ -95,6 +93,7 @@ int simple_scanner_readfile ( SimpleState *pSimpleState,char *cFileName )
             if (simple_fexists(cFileName)) {
                 printf("WE FOUND IT IN THE DEFAULT MODULES FOLDER \n");
             } else {
+                char cwd[1024];
                 if (getcwd(cwd, sizeof(cwd)) != NULL){
                 snprintf(cFileName2, sizeof(cFileName2), "%s\\%s", cwd, cFileName);
             }
@@ -115,8 +114,9 @@ int simple_scanner_readfile ( SimpleState *pSimpleState,char *cFileName )
 	} 
 	/* Read File */
 	if ( fp==NULL ) {
-		printf( "\nCan't open file %s \n",cFileName ) ;
-		return 0 ;
+		printf( "\nCOMPILER ERROR -1 : Can't open file/module : %s \n", cFileName ) ;
+		exit(-1);
+                return 0 ;
 	}
 	SIMPLE_READCHAR(fp,c,nSize);
 	pScanner = simple_scanner_new(pSimpleState);
