@@ -253,7 +253,7 @@ int simple_parser_stmt ( Parser *parser )
 	nLoadModules = 0 ;
 	assert(parser != NULL);
 	/* Statement --> Load Literal */
-	if ( simple_parser_iskeyword(parser,KEYWORD_LOAD) ) {
+	if ( simple_parser_iskeyword(parser,KEYWORD_CALL) ) {
 		simple_parser_nexttoken(parser);
 		if ( simple_parser_iskeyword(parser,KEYWORD_MODULE) ) {
 			simple_parser_nexttoken(parser);
