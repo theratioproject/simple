@@ -449,7 +449,7 @@ int simple_parser_stmt ( Parser *parser )
 					nMark1 = simple_parser_icg_newlabel(parser);
 					simple_parser_icg_newoperation(parser,ICO_LOADAPUSHV);
 					simple_parser_icg_newoperand(parser,simple_string_get(pString));
-					if ( simple_parser_iskeyword(parser,K_TO) ) {
+					if ( simple_parser_iskeyword(parser,KEYWORD_TO) ) {
 						simple_parser_nexttoken(parser);
 						parser->nAssignmentFlag = 0 ; 
 						if ( simple_parser_csexpr(parser) ) {
