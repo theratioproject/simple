@@ -80,7 +80,7 @@ void simple_vm_refmeta_locals ( void *pPointer )
 	pList2 = SIMPLE_API_NEWLIST ;
 	for ( x = 1 ; x <= simple_list_getsize(pList) ; x++ ) {
 		pList3 = simple_list_getlist(pList,x);
-		simple_list_addstsimple_gc(((VM *) pPointer)->pSimpleState,pList2,simple_list_getstring(pList3,SIMPLE_VAR_NAME));
+		simple_list_addstring_gc(((VM *) pPointer)->pSimpleState,pList2,simple_list_getstring(pList3,SIMPLE_VAR_NAME));
 	}
 	SIMPLE_API_RETLIST(pList2);
 }
@@ -96,7 +96,7 @@ void simple_vm_refmeta_globals ( void *pPointer )
 	/* We avoid internal global variables like true, false */
 	for ( x = SIMPLE_VM_INTERNALGLOBALSCOUNT + 1 ; x <= simple_list_getsize(pList) ; x++ ) {
 		pList3 = simple_list_getlist(pList,x);
-		simple_list_addstsimple_gc(((VM *) pPointer)->pSimpleState,pList2,simple_list_getstring(pList3,SIMPLE_VAR_NAME));
+		simple_list_addstring_gc(((VM *) pPointer)->pSimpleState,pList2,simple_list_getstring(pList3,SIMPLE_VAR_NAME));
 	}
 	SIMPLE_API_RETLIST(pList2);
 }
@@ -110,7 +110,7 @@ void simple_vm_refmeta_functions ( void *pPointer )
 	pList = SIMPLE_API_NEWLIST ;
 	for ( x = 1 ; x <= simple_list_getsize(vm->pFunctionsMap) ; x++ ) {
 		pList2 = simple_list_getlist(vm->pFunctionsMap,x);
-		simple_list_addstsimple_gc(((VM *) pPointer)->pSimpleState,pList,simple_list_getstring(pList2,SIMPLE_BLOCKMAP_NAME));
+		simple_list_addstring_gc(((VM *) pPointer)->pSimpleState,pList,simple_list_getstring(pList2,SIMPLE_BLOCKMAP_NAME));
 	}
 	SIMPLE_API_RETLIST(pList);
 }
@@ -124,7 +124,7 @@ void simple_vm_refmeta_cfunctions ( void *pPointer )
 	pList = SIMPLE_API_NEWLIST ;
 	for ( x = 1 ; x <= simple_list_getsize(vm->pCFunctionsList) ; x++ ) {
 		pList2 = simple_list_getlist(vm->pCFunctionsList,x);
-		simple_list_addstsimple_gc(((VM *) pPointer)->pSimpleState,pList,simple_list_getstring(pList2,SIMPLE_BLOCKMAP_NAME));
+		simple_list_addstring_gc(((VM *) pPointer)->pSimpleState,pList,simple_list_getstring(pList2,SIMPLE_BLOCKMAP_NAME));
 	}
 	SIMPLE_API_RETLIST(pList);
 }
@@ -248,7 +248,7 @@ void simple_vm_refmeta_moduless ( void *pPointer )
 	pList = SIMPLE_API_NEWLIST ;
 	for ( x = 1 ; x <= simple_list_getsize(vm->pModulessMap) ; x++ ) {
 		pList2 = simple_list_getlist(vm->pModulessMap,x);
-		simple_list_addstsimple_gc(((VM *) pPointer)->pSimpleState,pList,simple_list_getstring(pList2,SIMPLE_MODULENAME));
+		simple_list_addstring_gc(((VM *) pPointer)->pSimpleState,pList,simple_list_getstring(pList2,SIMPLE_MODULENAME));
 	}
 	SIMPLE_API_RETLIST(pList);
 }
@@ -290,7 +290,7 @@ void simple_vm_refmeta_classes ( void *pPointer )
 	pList = SIMPLE_API_NEWLIST ;
 	for ( x = 1 ; x <= simple_list_getsize(vm->pClassesMap) ; x++ ) {
 		pList2 = simple_list_getlist(vm->pClassesMap,x);
-		simple_list_addstsimple_gc(((VM *) pPointer)->pSimpleState,pList,simple_list_getstring(pList2,SIMPLE_CLASSMAP_CLASSNAME));
+		simple_list_addstring_gc(((VM *) pPointer)->pSimpleState,pList,simple_list_getstring(pList2,SIMPLE_CLASSMAP_CLASSNAME));
 	}
 	SIMPLE_API_RETLIST(pList);
 }
@@ -345,7 +345,7 @@ void simple_vm_refmeta_modulesclasses ( void *pPointer )
 				pList2 = simple_list_getlist(pList2,SIMPLE_CLASSESLIST) ;
 				/* We can use the variable x for the loop again because we have return */
 				for ( x = 1 ; x <= simple_list_getsize(pList2) ; x++ ) {
-					simple_list_addstsimple_gc(((VM *) pPointer)->pSimpleState,pList3,simple_list_getstring(simple_list_getlist(pList2,x),SIMPLE_CLASSMAP_CLASSNAME));
+					simple_list_addstring_gc(((VM *) pPointer)->pSimpleState,pList3,simple_list_getstring(simple_list_getlist(pList2,x),SIMPLE_CLASSMAP_CLASSNAME));
 				}
 				SIMPLE_API_RETLIST(pList3);
 				return ;
@@ -451,7 +451,7 @@ void simple_vm_refmeta_attributes ( void *pPointer )
 			pList = simple_list_getlist(pList,SIMPLE_OBJECT_OBJECTDATA);
 			pList2 = SIMPLE_API_NEWLIST ;
 			for ( x = 3 ; x <= simple_list_getsize(pList) ; x++ ) {
-				simple_list_addstsimple_gc(((VM *) pPointer)->pSimpleState,pList2,simple_list_getstring(simple_list_getlist(pList,x),SIMPLE_VAR_NAME));
+				simple_list_addstring_gc(((VM *) pPointer)->pSimpleState,pList2,simple_list_getstring(simple_list_getlist(pList,x),SIMPLE_VAR_NAME));
 			}
 			SIMPLE_API_RETLIST(pList2);
 		} else {
@@ -477,7 +477,7 @@ void simple_vm_refmeta_methods ( void *pPointer )
 			pList = simple_list_getlist(pList,SIMPLE_CLASSMAP_METHODSLIST);
 			pList2 = SIMPLE_API_NEWLIST ;
 			for ( x = 1 ; x <= simple_list_getsize(pList) ; x++ ) {
-				simple_list_addstsimple_gc(((VM *) pPointer)->pSimpleState,pList2,simple_list_getstring(simple_list_getlist(pList,x),SIMPLE_BLOCKMAP_NAME));
+				simple_list_addstring_gc(((VM *) pPointer)->pSimpleState,pList2,simple_list_getstring(simple_list_getlist(pList,x),SIMPLE_BLOCKMAP_NAME));
 			}
 			SIMPLE_API_RETLIST(pList2);
 		} else {

@@ -771,8 +771,8 @@ int simple_vm_eval ( VM *vm,const char *cStr )
 	}
 	nPC = vm->nPC ;
 	/* Add virtual file name */
-	simple_list_addstsimple_gc(vm->pSimpleState,vm->pSimpleState->pSimpleFilesList,"executeCode");
-	simple_list_addstsimple_gc(vm->pSimpleState,vm->pSimpleState->pSimpleFilesStack,"executeCode");
+	simple_list_addstring_gc(vm->pSimpleState,vm->pSimpleState->pSimpleFilesList,"executeCode");
+	simple_list_addstring_gc(vm->pSimpleState,vm->pSimpleState->pSimpleFilesStack,"executeCode");
 	pScanner = simple_scanner_new(vm->pSimpleState);
 	for ( x = 0 ; x < nSize ; x++ ) {
 		simple_scanner_readchar(pScanner,cStr[x]);
@@ -1014,8 +1014,8 @@ void simple_vm_init ( SimpleState *pSimpleState )
 		pSimpleState->pSimpleFilesStack = simple_list_new_gc(pSimpleState,0);
 		nFreeFilesList = 1 ;
 	}
-	simple_list_addstsimple_gc(pSimpleState,pSimpleState->pSimpleFilesList,"Simple_EmbeddedCode");
-	simple_list_addstsimple_gc(pSimpleState,pSimpleState->pSimpleFilesStack,"Simple_EmbeddedCode");
+	simple_list_addstring_gc(pSimpleState,pSimpleState->pSimpleFilesList,"Simple_EmbeddedCode");
+	simple_list_addstring_gc(pSimpleState,pSimpleState->pSimpleFilesStack,"Simple_EmbeddedCode");
 	/* Read File */
 	pScanner = simple_scanner_new(pSimpleState);
 	/* Add Token "End of Line" to the end of any program */
@@ -1229,7 +1229,7 @@ void simple_vm_addglobalvariables ( VM *vm )
 	simple_list_setlist_gc(vm->pSimpleState,pList,SIMPLE_VAR_VALUE);
 	pList = simple_list_getlist(pList,SIMPLE_VAR_VALUE);
 	for ( x = 0 ; x < vm->pSimpleState->argc ; x++ ) {
-		simple_list_addstsimple_gc(vm->pSimpleState,pList,vm->pSimpleState->argv[x]);
+		simple_list_addstring_gc(vm->pSimpleState,pList,vm->pSimpleState->argv[x]);
 	}
 }
 /* Threads */
@@ -1361,16 +1361,16 @@ void simple_vm_traceevent ( VM *vm,char nEvent )
 		/* Add Line Number */
 		simple_list_adddouble_gc(vm->pSimpleState,vm->pTraceData,vm->nLineNumber);
 		/* Add File Name */
-		simple_list_addstsimple_gc(vm->pSimpleState,vm->pTraceData,vm->cFileName);
+		simple_list_addstring_gc(vm->pSimpleState,vm->pTraceData,vm->cFileName);
 		/* Add Function/Method Name */
 		if ( simple_list_getsize(vm->pFuncCallList) > 0 ) {
 			pList = simple_list_getlist(vm->pFuncCallList,simple_list_getsize(vm->pFuncCallList)) ;
-			simple_list_addstsimple_gc(vm->pSimpleState,vm->pTraceData,simple_list_getstring(pList,SIMPLE_BLOCKCL_NAME));
+			simple_list_addstring_gc(vm->pSimpleState,vm->pTraceData,simple_list_getstring(pList,SIMPLE_BLOCKCL_NAME));
 			/* Method of Function */
 			simple_list_adddouble_gc(vm->pSimpleState,vm->pTraceData,simple_list_getint(pList,SIMPLE_BLOCKCL_METHODORBLOCK));
 		}
 		else {
-			simple_list_addstsimple_gc(vm->pSimpleState,vm->pTraceData,"");
+			simple_list_addstring_gc(vm->pSimpleState,vm->pTraceData,"");
 			/* Method of Function */
 			simple_list_adddouble_gc(vm->pSimpleState,vm->pTraceData,0);
 		}

@@ -72,13 +72,13 @@ int simple_scanner_readfile ( SimpleState *pSimpleState,char *cFileName )
 	if ( pSimpleState->pSimpleFilesList == NULL ) {
 		pSimpleState->pSimpleFilesList = simple_list_new_gc(pSimpleState,0);
 		pSimpleState->pSimpleFilesStack = simple_list_new_gc(pSimpleState,0);
-		simple_list_addstsimple_gc(pSimpleState,pSimpleState->pSimpleFilesList,cFileName);
-		simple_list_addstsimple_gc(pSimpleState,pSimpleState->pSimpleFilesStack,cFileName);
+		simple_list_addstring_gc(pSimpleState,pSimpleState->pSimpleFilesList,cFileName);
+		simple_list_addstring_gc(pSimpleState,pSimpleState->pSimpleFilesStack,cFileName);
 		nFreeFilesList = 1 ;
 	} else {
 		if ( simple_list_findstring(pSimpleState->pSimpleFilesList,cFileName,0) == 0 ) {
-			simple_list_addstsimple_gc(pSimpleState,pSimpleState->pSimpleFilesList,cFileName);
-			simple_list_addstsimple_gc(pSimpleState,pSimpleState->pSimpleFilesStack,cFileName);
+			simple_list_addstring_gc(pSimpleState,pSimpleState->pSimpleFilesList,cFileName);
+			simple_list_addstring_gc(pSimpleState,pSimpleState->pSimpleFilesStack,cFileName);
 		} else {
 			if ( pSimpleState->nWarning ) {
 				printf( "\nWarning, Duplication in FileName, %s \n",cFileName ) ;
@@ -541,7 +541,7 @@ void simple_scanner_addtoken ( Scanner *pScanner,int type )
 	/* Add Token Type */
 	simple_list_addint_gc(pScanner->pSimpleState,pList,type);
 	/* Add Token Text */
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pList,simple_string_get(pScanner->ActiveToken));
+	simple_list_addstring_gc(pScanner->pSimpleState,pList,simple_string_get(pScanner->ActiveToken));
 	/* Add Token Index */
 	simple_list_addint_gc(pScanner->pSimpleState,pList,pScanner->nTokenIndex);
 	pScanner->nTokenIndex = 0 ;
@@ -657,29 +657,29 @@ void simple_scanner_operators ( Scanner *pScanner )
 {
 	assert(pScanner != NULL);
 	pScanner->Operators = simple_list_new_gc(pScanner->pSimpleState,0);
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Operators,"+");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Operators,"-");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Operators,"*");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Operators,"/");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Operators,"%");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Operators,".");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Operators,"(");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Operators,")");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Operators,"=");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Operators,",");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Operators,"!");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Operators,">");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Operators,"<");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Operators,"[");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Operators,"]");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Operators,":");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Operators,"{");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Operators,"}");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Operators,"&");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Operators,"|");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Operators,"~");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Operators,"^");
-	simple_list_addstsimple_gc(pScanner->pSimpleState,pScanner->Operators,"?");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Operators,"+");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Operators,"-");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Operators,"*");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Operators,"/");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Operators,"%");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Operators,".");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Operators,"(");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Operators,")");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Operators,"=");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Operators,",");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Operators,"!");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Operators,">");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Operators,"<");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Operators,"[");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Operators,"]");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Operators,":");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Operators,"{");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Operators,"}");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Operators,"&");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Operators,"|");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Operators,"~");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Operators,"^");
+	simple_list_addstring_gc(pScanner->pSimpleState,pScanner->Operators,"?");
 	simple_list_genhashtable_gc(pScanner->pSimpleState,pScanner->Operators);
 }
 
@@ -860,8 +860,8 @@ void simple_scanner_runobjfile ( SimpleState *pSimpleState,char *cFileName )
 	/* Files List */
 	pSimpleState->pSimpleFilesList = simple_list_new_gc(pSimpleState,0);
 	pSimpleState->pSimpleFilesStack = simple_list_new_gc(pSimpleState,0);
-	simple_list_addstsimple_gc(pSimpleState,pSimpleState->pSimpleFilesList,cFileName);
-	simple_list_addstsimple_gc(pSimpleState,pSimpleState->pSimpleFilesStack,cFileName);
+	simple_list_addstring_gc(pSimpleState,pSimpleState->pSimpleFilesList,cFileName);
+	simple_list_addstring_gc(pSimpleState,pSimpleState->pSimpleFilesStack,cFileName);
 	if ( simple_objfile_readfile(pSimpleState,cFileName) ) {
 		simple_scanner_runprogram(pSimpleState);
 	}
@@ -872,8 +872,8 @@ void simple_scanner_runobjstring ( SimpleState *pSimpleState,char *cString,const
 	/* Files List */
 	pSimpleState->pSimpleFilesList = simple_list_new_gc(pSimpleState,0);
 	pSimpleState->pSimpleFilesStack = simple_list_new_gc(pSimpleState,0);
-	simple_list_addstsimple_gc(pSimpleState,pSimpleState->pSimpleFilesList,cFileName);
-	simple_list_addstsimple_gc(pSimpleState,pSimpleState->pSimpleFilesStack,cFileName);
+	simple_list_addstring_gc(pSimpleState,pSimpleState->pSimpleFilesList,cFileName);
+	simple_list_addstring_gc(pSimpleState,pSimpleState->pSimpleFilesStack,cFileName);
 	if ( simple_objfile_readstring(pSimpleState,cString) ) {
 		simple_scanner_runprogram(pSimpleState);
 	}

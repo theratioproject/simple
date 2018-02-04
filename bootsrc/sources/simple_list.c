@@ -454,7 +454,7 @@ SIMPLE_API void simple_list_setstring2_gc ( void *pState,List *pList, int index 
 	simple_string_set2_gc(pState,pString,str,nStrSize);
 }
 
-SIMPLE_API void simple_list_addstsimple_gc ( void *pState,List *pList,const char *str )
+SIMPLE_API void simple_list_addstring_gc ( void *pState,List *pList,const char *str )
 {
 	assert(pList != NULL);
 	simple_list_newitem_gc(pState,pList);
@@ -1178,7 +1178,7 @@ SIMPLE_API void simple_list_setstring2 ( List *pList, int index ,const char *str
 
 SIMPLE_API void simple_list_addstring ( List *pList,const char *str )
 {
-	simple_list_addstsimple_gc(NULL,pList,str);
+	simple_list_addstring_gc(NULL,pList,str);
 }
 
 SIMPLE_API void simple_list_addstring2 ( List *pList,const char *str,int nStrSize )

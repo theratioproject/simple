@@ -1020,10 +1020,10 @@ int simple_parser_factor ( Parser *parser,int *nFlag )
 		pMark = simple_parser_icg_getactiveoperation(parser);
 		/* Define the Function - as public (not related to any class) */
 		pList = simple_list_newlist_gc(parser->pSimpleState,parser->pSimpleState->pSimpleFunctionsMap);
-		simple_list_addstsimple_gc(parser->pSimpleState,pList,cFuncName);
+		simple_list_addstring_gc(parser->pSimpleState,pList,cFuncName);
 		/* Note +1 because instruction ICO_NEWBLOCK will come next */
 		simple_list_addint_gc(parser->pSimpleState,pList,SIMPLE_PARSER_OPERATIONID+1);
-		simple_list_addstsimple_gc(parser->pSimpleState,pList,simple_list_getstring(parser->pSimpleState->pSimpleFilesStack,simple_list_getsize(parser->pSimpleState->pSimpleFilesStack)));
+		simple_list_addstring_gc(parser->pSimpleState,pList,simple_list_getstring(parser->pSimpleState->pSimpleFilesStack,simple_list_getsize(parser->pSimpleState->pSimpleFilesStack)));
 		simple_list_addint_gc(parser->pSimpleState,pList,0);
 		simple_parser_icg_newoperation(parser,ICO_NEWBLOCK);
 		simple_parser_icg_newoperand(parser,cFuncName);

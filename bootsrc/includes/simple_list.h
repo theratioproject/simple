@@ -77,7 +77,7 @@ SIMPLE_API void simple_list_setstsimple_gc ( void *pState,List *pList, int index
 
 SIMPLE_API void simple_list_setstring2_gc ( void *pState,List *pList, int index ,const char *str,int nStrSize ) ;
 
-SIMPLE_API void simple_list_addstsimple_gc ( void *pState,List *pList,const char *str ) ;
+SIMPLE_API void simple_list_addstring_gc ( void *pState,List *pList,const char *str ) ;
 
 SIMPLE_API void simple_list_addstring2_gc ( void *pState,List *pList,const char *str,int nStrSize ) ;
 /* List */

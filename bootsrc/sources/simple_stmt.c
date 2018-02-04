@@ -44,7 +44,7 @@ int simple_parser_class ( Parser *parser )
 				}
 			}
 			pList = simple_list_newlist_gc(parser->pSimpleState,pList);
-			simple_list_addstsimple_gc(parser->pSimpleState,pList,parser->TokenText);
+			simple_list_addstring_gc(parser->pSimpleState,pList,parser->TokenText);
 			simple_list_addint_gc(parser->pSimpleState,pList,simple_list_getsize(parser->GenCode));
 			/* Add class pointer to generated code */
 			simple_parser_icg_newoperandpointer(parser,pList);
@@ -61,7 +61,7 @@ int simple_parser_class ( Parser *parser )
 						return 0 ;
 					}
 					/* Set Parent Class Name in Classes Map */
-					simple_list_addstsimple_gc(parser->pSimpleState,pList,simple_list_getstring(pList3,4));
+					simple_list_addstring_gc(parser->pSimpleState,pList,simple_list_getstring(pList3,4));
 					#if SIMPLE_PARSERTRACE
 					SIMPLE_STATE_CHECKPRINTRULES 
 					
@@ -73,7 +73,7 @@ int simple_parser_class ( Parser *parser )
 				}
 			} else {
 				/* Set Parent Class Name In Classes Map */
-				simple_list_addstsimple_gc(parser->pSimpleState,pList,"");
+				simple_list_addstring_gc(parser->pSimpleState,pList,"");
 				#if SIMPLE_PARSERTRACE
 				SIMPLE_STATE_CHECKPRINTRULES 
 				
@@ -95,7 +95,7 @@ int simple_parser_class ( Parser *parser )
 				simple_list_addpointer_gc(parser->pSimpleState,pList,pList3);
 				/* Add List point to General Classes point to the class in the modules */
 				pList2 = simple_list_newlist_gc(parser->pSimpleState,parser->pSimpleState->pSimpleClassesMap);
-				simple_list_addstsimple_gc(parser->pSimpleState,pList2,"");
+				simple_list_addstring_gc(parser->pSimpleState,pList2,"");
 				simple_list_addpointer_gc(parser->pSimpleState,pList2,pList);
 				/* Ignore Adding Pointer to File Name */
 				simple_list_addpointer_gc(parser->pSimpleState,pList2,NULL);
@@ -148,9 +148,9 @@ int simple_parser_class ( Parser *parser )
 				}
 			}
 			pList2 = simple_list_newlist_gc(parser->pSimpleState,pList2);
-			simple_list_addstsimple_gc(parser->pSimpleState,pList2,parser->TokenText);
+			simple_list_addstring_gc(parser->pSimpleState,pList2,parser->TokenText);
 			simple_list_addint_gc(parser->pSimpleState,pList2,simple_list_getsize(parser->GenCode));
-			simple_list_addstsimple_gc(parser->pSimpleState,pList2,simple_list_getstring(parser->pSimpleState->pSimpleFilesStack,simple_list_getsize(parser->pSimpleState->pSimpleFilesStack)));
+			simple_list_addstring_gc(parser->pSimpleState,pList2,simple_list_getstring(parser->pSimpleState->pSimpleFilesStack,simple_list_getsize(parser->pSimpleState->pSimpleFilesStack)));
 			if ( parser->nClassStart == 1 ) {
 				simple_list_addint_gc(parser->pSimpleState,pList2,parser->nPrivateFlag);
 			} else {
@@ -205,7 +205,7 @@ int simple_parser_class ( Parser *parser )
 			}
 			pList2 = simple_list_newlist_gc(parser->pSimpleState,parser->pSimpleState->pSimpleModulessMap);
 			/* Add Modules Name */
-			simple_list_addstsimple_gc(parser->pSimpleState,pList2,simple_list_getstring(pList,2));
+			simple_list_addstring_gc(parser->pSimpleState,pList2,simple_list_getstring(pList,2));
 			/* Add Modules Classes List */
 			parser->ClassesMap = simple_list_newlist_gc(parser->pSimpleState,pList2);
 			/* Support using { } around the modules code and using 'end' after the content */

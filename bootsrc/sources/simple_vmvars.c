@@ -239,9 +239,9 @@ List * simple_vm_newvar2 ( VM *vm,const char *cStr,List *pParent )
 	List *pList  ;
 	/* This function is called by all of the other functions that create new varaibles */
 	pList = simple_list_newlist_gc(vm->pSimpleState,pParent);
-	simple_list_addstsimple_gc(vm->pSimpleState,pList,cStr);
+	simple_list_addstring_gc(vm->pSimpleState,pList,cStr);
 	simple_list_addint_gc(vm->pSimpleState,pList,SIMPLE_VM_NULL);
-	simple_list_addstsimple_gc(vm->pSimpleState,pList,"NULL");
+	simple_list_addstring_gc(vm->pSimpleState,pList,"NULL");
 	/* Pointer Type */
 	simple_list_addint_gc(vm->pSimpleState,pList,0);
 	/* Private Flag */
@@ -320,7 +320,7 @@ void simple_vm_addnewcpointervar ( VM *vm,const char *cStr,void *pPointer,const 
 	/* Add Pointer */
 	simple_list_addpointer_gc(vm->pSimpleState,pList2,pPointer);
 	/* Add Type */
-	simple_list_addstsimple_gc(vm->pSimpleState,pList2,cStr2);
+	simple_list_addstring_gc(vm->pSimpleState,pList2,cStr2);
 	/* Add Status Number */
 	simple_list_addint_gc(vm->pSimpleState,pList2,SIMPLE_CPOINTERSTATUS_NOTCOPIED);
 }
