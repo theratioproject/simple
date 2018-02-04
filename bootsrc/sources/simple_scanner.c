@@ -89,14 +89,13 @@ int simple_scanner_readfile ( SimpleState *pSimpleState,char *cFileName )
         char cwd[1024];
         //printf("THE DIR : %s\n", cFileName);
         if (simple_fexists(cFileName)) {
-            printf("yea '%s' it exists \n",cFileName);
+            printf("yea '%s' exists \n",cFileName);
         } else {
             snprintf(cFileName2, sizeof(cFileName2), "../modules/%s", cFileName);
             if (simple_fexists(cFileName)) {
                 printf("WE FOUND IT IN THE DEFAULT MODULES FOLDER \n");
-                break ;
-            }
-            if (getcwd(cwd, sizeof(cwd)) != NULL){
+            } else {
+                if (getcwd(cwd, sizeof(cwd)) != NULL){
                 snprintf(cFileName2, sizeof(cFileName2), "%s\\%s", cwd, cFileName);
             }
             //printf("NOW CHECKING %s \n",cFileName2);
@@ -104,6 +103,7 @@ int simple_scanner_readfile ( SimpleState *pSimpleState,char *cFileName )
                 
             } else {
                 //printf("NOW CHECKING AGAIN %i \n",status);
+            }
             }
         } 
 	/* Switch To File Folder */
