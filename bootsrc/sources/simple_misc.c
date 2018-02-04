@@ -33,7 +33,7 @@ void display_help(){
     printf("The OPTIONS include : \n");
     printf("  -h -help                    Displays this help and exits.\n");
     printf("  -k -show-tokens             Scans and outputs the tokens in the source file.\n");
-    printf("  -s -simplify                Compile simple file to one complex file.\n");
+    //printf("  -s -simplify                Compile simple file to one complex file.\n");
     printf("  -t -time                    Shows time before and after program execution.\n");
     printf("  -c -case-insensitive        Make simple case insensitive 'a=A'.\n");
     printf("  -v -verbose                 Displays all the modules and libraries of SIMPLE and exits.\n");
