@@ -96,13 +96,12 @@ int simple_scanner_readfile ( SimpleState *pSimpleState,char *cFileName )
             }
             if (!simple_fexists(cFileName2)) {
                 snprintf(cFileName2, sizeof(cFileName2), "%s%s", DEFAULT_FILE_PATH, cFileName);
-                printf("LOOKUP FILE : %s in PATH : %s \n", cFileName2, DEFAULT_FILE_PATH);
                 if (!simple_fexists(cFileName2)) {
                     snprintf(cFileName2, sizeof(cFileName2), "%s/modules/%s", DEFAULT_FILE_PATH, cFileName);
                     if (!simple_fexists(cFileName2)) {
                         snprintf(cFileName2, sizeof(cFileName2), "%s/library/%s", DEFAULT_FILE_PATH, cFileName);
                         if (!simple_fexists(cFileName2)) {
-                            //
+                            //already checked all assumed folders
                         }
                     }
                     
@@ -138,6 +137,8 @@ int simple_scanner_readfile ( SimpleState *pSimpleState,char *cFileName )
 	}
 	SIMPLE_READCHAR(fp,c,nSize);
 	pScanner = simple_scanner_new(pSimpleState);
+        /*Assign default file dir */
+        if (is_start_file) {get_file_folder ( DEFAULT_FILE_PATH );}
 	/* Check Startup file */
 	if ( simple_fexists("startup.sim") && pScanner->pSimpleState->lStartup == 0 ) {
 		pScanner->pSimpleState->lStartup = 1 ;
@@ -222,7 +223,7 @@ int simple_scanner_readfile ( SimpleState *pSimpleState,char *cFileName )
 		if ( pSimpleState->nPrintICFinal ) {
 			simple_parser_icg_showoutput(pSimpleState->pSimpleGenCode,2);
 		}
-	} get_file_folder ( DEFAULT_FILE_PATH );
+	} 
 	return nRunVM ;
 }
 
