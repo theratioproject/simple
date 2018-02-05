@@ -16,6 +16,15 @@
 #include "../includes/simple.h"
 /* Functions */
 
+int accept_token_token( Parser *parser, SCANNER_OPERATOR nType ) {
+	assert(parser != NULL);
+	if ( simple_parser_isoperator2(parser, nType) ) {
+            simple_parser_nexttoken(parser);
+            parser->nControlStructureBrace++ ;
+            return TRUE ;
+	}
+}
+
 int simple_parser_start ( List *pTokens,SimpleState *pSimpleState )
 {
 	Parser *parser  ;
@@ -220,9 +229,9 @@ void parser_error ( Parser *parser,const char *cStr )
                 if ( strcmp(cStr,"") != 0 ) {
 			printf("\nLine %d -> %s\n", parser->nLineNumber,cStr);
 		} else {
-			printf( "\nLine %d -> Syntax error\n",parser->nLineNumber) ;
+			printf( "\nLine %d -> Syntax error : Unexpected '%s' \n",parser->nLineNumber, parser->TokenText) ;
 		}
-		printf( "\tin file%s ",file_real_name(simple_list_getstring(parser->pSimpleState->pSimpleFilesStack,SimpleActiveFile)) ) ;
+		printf( "\tin file %s ",file_real_name(simple_list_getstring(parser->pSimpleState->pSimpleFilesStack,SimpleActiveFile)) ) ;
 		parser->nErrorsCount++ ;
 		return ;
 	} else if ( strcmp(cStr,"") != 0 ) {
@@ -230,7 +239,7 @@ void parser_error ( Parser *parser,const char *cStr )
 	}
 	if ( strcmp(cStr,"") != 0 ) {
 		printf( "\nLine %d -> %s\n",parser->nLineNumber,cStr ) ;
-		printf( "\tin file%s",file_real_name(simple_list_getstring(parser->pSimpleState->pSimpleFilesStack,SimpleActiveFile)) ) ;
+		printf( "\tin file %s",file_real_name(simple_list_getstring(parser->pSimpleState->pSimpleFilesStack,SimpleActiveFile)) ) ;
 	}
         if (SKIP_ERROR == 0) { exit(1); }
 }

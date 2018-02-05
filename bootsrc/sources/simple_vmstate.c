@@ -270,7 +270,7 @@ List * simple_vm_savestack ( VM *vm )
 	pList = simple_list_new_gc(vm->pSimpleState,0);
 	while ( vm->nSP  != 0 ) {
 		if ( SIMPLE_VM_STACK_ISSTRING ) {
-			simple_list_addstsimple_gc(vm->pSimpleState,pList,SIMPLE_VM_STACK_READC);
+			simple_list_addstring_gc(vm->pSimpleState,pList,SIMPLE_VM_STACK_READC);
 		}
 		else if ( SIMPLE_VM_STACK_ISNUMBER ) {
 			simple_list_adddouble_gc(vm->pSimpleState,pList,SIMPLE_VM_STACK_READN);

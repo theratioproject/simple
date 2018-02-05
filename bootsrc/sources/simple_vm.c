@@ -184,7 +184,7 @@ VM * simple_vm_new ( SimpleState *pSimpleState )
 	/* Dynamic List of Self Items and PC */
 	vm->aDynamicSelfItems = simple_list_new_gc(vm->pSimpleState,0);
 	/* The active modules name (after using import command) */
-	vm->pModulesName = simple_stsimple_new_gc(vm->pSimpleState,"");
+	vm->pModulesName = simple_string_new_gc(vm->pSimpleState,"");
 	/*
 	**  Trace Program (After Each Line) 
 	**  lTrace = Logical Value (Trace is Active or Not) 
@@ -193,7 +193,7 @@ VM * simple_vm_new ( SimpleState *pSimpleState )
 	**  nTraceEvent = The Trace Event (1 = New Line , etc) 
 	*/
 	vm->lTrace = 0 ;
-	vm->pTrace = simple_stsimple_new_gc(vm->pSimpleState,"");
+	vm->pTrace = simple_string_new_gc(vm->pSimpleState,"");
 	vm->lTraceActive = 0 ;
 	vm->nTraceEvent = 0 ;
 	vm->pTraceData = simple_list_new_gc(vm->pSimpleState,0) ;
@@ -256,8 +256,8 @@ VM * simple_vm_delete ( VM *vm )
 	}
 	/* Delete List */
 	vm->aDynamicSelfItems = simple_list_delete_gc(vm->pSimpleState,vm->aDynamicSelfItems);
-	vm->pModulesName = simple_stsimple_delete_gc(vm->pSimpleState,vm->pModulesName);
-	vm->pTrace = simple_stsimple_delete_gc(vm->pSimpleState,vm->pTrace);
+	vm->pModulesName = simple_string_delete_gc(vm->pSimpleState,vm->pModulesName);
+	vm->pTrace = simple_string_delete_gc(vm->pSimpleState,vm->pTrace);
 	vm->pTraceData = simple_list_delete_gc(vm->pSimpleState,vm->pTraceData);
 	/* Custom Global Scope (using Load Modules) */
 	vm->aGlobalScopes = simple_list_delete_gc(vm->pSimpleState,vm->aGlobalScopes);
@@ -543,7 +543,7 @@ void simple_vm_execute ( VM *vm )
 			simple_vm_give(vm);
 			break ;
 		/* End Program - Exit from Loop - Loop (Continue) */
-		case ICO_BYE :
+		case ICO_EXITPROGRAM :
 			simple_vm_bye(vm);
 			break ;
 		case ICO_EXITMARK :
@@ -771,8 +771,8 @@ int simple_vm_eval ( VM *vm,const char *cStr )
 	}
 	nPC = vm->nPC ;
 	/* Add virtual file name */
-	simple_list_addstsimple_gc(vm->pSimpleState,vm->pSimpleState->pSimpleFilesList,"executeCode");
-	simple_list_addstsimple_gc(vm->pSimpleState,vm->pSimpleState->pSimpleFilesStack,"executeCode");
+	simple_list_addstring_gc(vm->pSimpleState,vm->pSimpleState->pSimpleFilesList,"executeCode");
+	simple_list_addstring_gc(vm->pSimpleState,vm->pSimpleState->pSimpleFilesStack,"executeCode");
 	pScanner = simple_scanner_new(vm->pSimpleState);
 	for ( x = 0 ; x < nSize ; x++ ) {
 		simple_scanner_readchar(pScanner,cStr[x]);
@@ -941,11 +941,11 @@ void simple_vm_returneval ( VM *vm )
 void simple_vm_error2 ( VM *vm,const char *cStr,const char *cStr2 )
 {
 	String *pError  ;
-	pError = simple_stsimple_new_gc(vm->pSimpleState,cStr);
-	simple_stsimple_add_gc(vm->pSimpleState,pError,": ");
-	simple_stsimple_add_gc(vm->pSimpleState,pError,cStr2);
-	simple_vm_error(vm,simple_stsimple_get(pError));
-	simple_stsimple_delete_gc(vm->pSimpleState,pError);
+	pError = simple_string_new_gc(vm->pSimpleState,cStr);
+	simple_string_add_gc(vm->pSimpleState,pError,": ");
+	simple_string_add_gc(vm->pSimpleState,pError,cStr2);
+	simple_vm_error(vm,simple_string_get(pError));
+	simple_string_delete_gc(vm->pSimpleState,pError);
 }
 
 void simple_vm_newbytecodeitem ( VM *vm,int x )
@@ -1014,8 +1014,8 @@ void simple_vm_init ( SimpleState *pSimpleState )
 		pSimpleState->pSimpleFilesStack = simple_list_new_gc(pSimpleState,0);
 		nFreeFilesList = 1 ;
 	}
-	simple_list_addstsimple_gc(pSimpleState,pSimpleState->pSimpleFilesList,"Simple_EmbeddedCode");
-	simple_list_addstsimple_gc(pSimpleState,pSimpleState->pSimpleFilesStack,"Simple_EmbeddedCode");
+	simple_list_addstring_gc(pSimpleState,pSimpleState->pSimpleFilesList,"Simple_EmbeddedCode");
+	simple_list_addstring_gc(pSimpleState,pSimpleState->pSimpleFilesStack,"Simple_EmbeddedCode");
 	/* Read File */
 	pScanner = simple_scanner_new(pSimpleState);
 	/* Add Token "End of Line" to the end of any program */
@@ -1229,7 +1229,7 @@ void simple_vm_addglobalvariables ( VM *vm )
 	simple_list_setlist_gc(vm->pSimpleState,pList,SIMPLE_VAR_VALUE);
 	pList = simple_list_getlist(pList,SIMPLE_VAR_VALUE);
 	for ( x = 0 ; x < vm->pSimpleState->argc ; x++ ) {
-		simple_list_addstsimple_gc(vm->pSimpleState,pList,vm->pSimpleState->argv[x]);
+		simple_list_addstring_gc(vm->pSimpleState,pList,vm->pSimpleState->argv[x]);
 	}
 }
 /* Threads */
@@ -1335,7 +1335,7 @@ SIMPLE_API void simple_vm_runcodefromthread ( VM *vm,const char *cStr )
 SIMPLE_API void simple_vm_callfunction ( VM *vm,char *cFuncName )
 {
 	/* Lower Case and pass () in the end */
-	simple_stsimple_lower(cFuncName);
+	simple_string_lower(cFuncName);
 	/* Prepare (Remove effects of the currect function) */
 	simple_list_deletelastitem_gc(vm->pSimpleState,vm->pFuncCallList);
 	/* Load the function and call it */
@@ -1361,21 +1361,21 @@ void simple_vm_traceevent ( VM *vm,char nEvent )
 		/* Add Line Number */
 		simple_list_adddouble_gc(vm->pSimpleState,vm->pTraceData,vm->nLineNumber);
 		/* Add File Name */
-		simple_list_addstsimple_gc(vm->pSimpleState,vm->pTraceData,vm->cFileName);
+		simple_list_addstring_gc(vm->pSimpleState,vm->pTraceData,vm->cFileName);
 		/* Add Function/Method Name */
 		if ( simple_list_getsize(vm->pFuncCallList) > 0 ) {
 			pList = simple_list_getlist(vm->pFuncCallList,simple_list_getsize(vm->pFuncCallList)) ;
-			simple_list_addstsimple_gc(vm->pSimpleState,vm->pTraceData,simple_list_getstring(pList,SIMPLE_BLOCKCL_NAME));
+			simple_list_addstring_gc(vm->pSimpleState,vm->pTraceData,simple_list_getstring(pList,SIMPLE_BLOCKCL_NAME));
 			/* Method of Function */
 			simple_list_adddouble_gc(vm->pSimpleState,vm->pTraceData,simple_list_getint(pList,SIMPLE_BLOCKCL_METHODORBLOCK));
 		}
 		else {
-			simple_list_addstsimple_gc(vm->pSimpleState,vm->pTraceData,"");
+			simple_list_addstring_gc(vm->pSimpleState,vm->pTraceData,"");
 			/* Method of Function */
 			simple_list_adddouble_gc(vm->pSimpleState,vm->pTraceData,0);
 		}
 		/* Execute Trace Function */
-		simple_vm_runcode(vm,simple_stsimple_get(vm->pTrace));
+		simple_vm_runcode(vm,simple_string_get(vm->pTrace));
 		vm->lTraceActive = 0 ;
 		vm->nTraceEvent = 0 ;
 	}

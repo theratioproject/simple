@@ -16,6 +16,8 @@
 
 int NOT_CASE_SENSITIVE = 0 ;
 int SKIP_ERROR = 0 ;
+char *DEFAULT_FILE_NAME = "" ;
+char *DEFAULT_FILE_PATH = "" ;
 
 SIMPLE_API void print_line ( void )
 {
@@ -31,14 +33,14 @@ void display_help(){
     printf("The OPTIONS include : \n");
     printf("  -h -help                    Displays this help and exits.\n");
     printf("  -k -show-tokens             Scans and outputs the tokens in the source file.\n");
-    printf("  -s -simplify                Compile simple file to one complex file.\n");
+    //printf("  -s -simplify                Compile simple file to one complex file.\n");
     printf("  -t -time                    Shows time before and after program execution.\n");
     printf("  -c -case-insensitive        Make simple case insensitive 'a=A'.\n");
     printf("  -v -verbose                 Displays all the modules and libraries of SIMPLE and exits.\n");
     printf("  -a -about                   Display the SIMPLE Property and exits.\n");
     printf("  -l -license                 Print the current SIMPLE LICENCE and exits.\n");
     printf("  -n -no-run                  Compile the program but don't run it.\n");
-    printf("  -b -byte-code               Print the program Byte Code after compilation.\n");
+    //printf("  -b -byte-code               Print the program Byte Code after compilation.\n");
     printf("  -e -error                   Skip all error instance and print error report in console.\n");
     //printf("  -l [PATH] -log-error [PATH] Skip all error instance and print error report in file.\n");
     //print_line(); printf("MORE OPTION BELOW"); print_line(); 
@@ -117,4 +119,51 @@ const char *file_real_name(const char *absolute_name){
     }
 
     return filename;
+}
+
+const char *change_file_ext(const char *absolute_name, const char *extension){
+    const char* file_name = file_real_name(absolute_name); int name_lenght = strlen(file_name);
+    const char *name = "" ;
+    for(int a = 0; a<name_lenght;a++) {
+        if (file_name[a] == '.'){
+            break;
+        }
+        //name[a] = file_name[a];
+    }
+    return name;
+}
+
+void simple_showtime ( time_t before_execution, time_t after_execution )
+{
+    time(&after_execution);
+    double seconds = difftime(after_execution, before_execution);
+    printf("\nExecution Time : %s", get_time_different(seconds));
+}
+
+char* get_time_different(double diff) {
+    char message[100] = "" ; float newdiff = 0.0 ;
+    if (diff < 60) {
+        snprintf(message, sizeof message, "%.5f seconds ", diff);
+    } else if (diff > 60 && diff < 3600) {
+        newdiff = diff / 60 ;
+        snprintf(message, sizeof message, "%.5f minutes ", newdiff);
+    }
+    char* msg = message ;
+    return msg ;
+}
+
+void get_file_folder ( char *absolute_path ) {
+	char cDir2[SIMPLE_PATHSIZE]  ;
+	int x,x2,nSize  ;
+	nSize = strlen( absolute_path ) ;
+	for ( x = nSize-1 ; x >= 0 ; x-- ) {
+		if ( (absolute_path[x] == '\\') || (absolute_path[x] == '/') ) {
+			for ( x2 = x ; x2 >= 0 ; x2-- ) {
+				cDir2[x2] = absolute_path[x2] ;
+			}
+			cDir2[x+1] = '\0' ;
+			break ;
+		}
+	}
+	strcpy(absolute_path,cDir2);
 }

@@ -67,7 +67,7 @@ void simple_parser_icg_newoperand ( Parser *parser , const char *cStr )
 {
 	assert(parser != NULL);
 	assert(parser->ActiveGenCodeList);
-	simple_list_addstsimple_gc(parser->pSimpleState,parser->ActiveGenCodeList,cStr);
+	simple_list_addstring_gc(parser->pSimpleState,parser->ActiveGenCodeList,cStr);
 	#if SIMPLE_SHOWIC
 	printf( " Operand : %s ",cStr ) ;
 	#endif
@@ -120,7 +120,7 @@ Items * simple_parser_icg_getoperationpos ( Parser *parser )
 void simple_parser_icg_addoperand ( Parser *parser ,List *pList , const char *cStr )
 {
 	assert(pList != NULL);
-	simple_list_addstsimple_gc(parser->pSimpleState,pList,cStr);
+	simple_list_addstring_gc(parser->pSimpleState,pList,cStr);
 }
 
 void simple_parser_icg_addoperandint ( Parser *parser ,List *pList , int nValue )
