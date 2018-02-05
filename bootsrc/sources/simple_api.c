@@ -95,8 +95,6 @@ SIMPLE_API void simple_vm_loadcfunctions ( SimpleState *pSimpleState )
 	simple_vm_funcregister("isspace",simple_vmlib_isspace);
 	simple_vm_funcregister("isupper",simple_vmlib_isupper);
 	simple_vm_funcregister("isxdigit",simple_vmlib_isxdigit);
-	/* Other Modules */
-	simple_vm_extension(pSimpleState);
 	/* Garbage Collector & Variable Pointer */
 	simple_vm_funcregister("callgc",simple_vmlib_callgc);
 	simple_vm_funcregister("varptr",simple_vmlib_varptr);
