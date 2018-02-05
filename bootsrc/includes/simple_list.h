@@ -77,7 +77,7 @@ SIMPLE_API void simple_list_setstsimple_gc ( void *pState,List *pList, int index
 
 SIMPLE_API void simple_list_setstring2_gc ( void *pState,List *pList, int index ,const char *str,int nStrSize ) ;
 
-SIMPLE_API void simple_list_addstring_gc ( void *pState,List *pList,const char *str ) ;
+SIMPLE_API void simple_list_addstsimple_gc ( void *pState,List *pList,const char *str ) ;
 
 SIMPLE_API void simple_list_addstring2_gc ( void *pState,List *pList,const char *str,int nStrSize ) ;
 /* List */
@@ -174,9 +174,9 @@ SIMPLE_API int simple_list_deliteminsidelist ( List *pList,Item *pItem ) ;
 #define simple_list_getfuncpointer(pList,index) ( simple_list_getitem(pList,index)->data.pFunc )
 #define simple_list_callfuncpointer(pList,index,x) ( simple_list_getitem(pList,index)->data.pFunc(x) )
 #define simple_list_getdouble(pList,index) simple_list_getitem(pList,index)->data.dNumber
-#define simple_list_getstring(pList,index) ( simple_string_get(simple_item_getstring(simple_list_getitem(pList,index))) )
+#define simple_list_getstring(pList,index) ( simple_stsimple_get(simple_item_getstring(simple_list_getitem(pList,index))) )
 #define simple_list_getstringobject(pList,index) ( simple_item_getstring(simple_list_getitem(pList,index)) )
-#define simple_list_getstringsize(pList,index) ( simple_string_size(simple_item_getstring(simple_list_getitem(pList,index))) )
+#define simple_list_getstringsize(pList,index) ( simple_stsimple_size(simple_item_getstring(simple_list_getitem(pList,index))) )
 #define simple_list_getsize(x) (x->nSize)
 #define SIMPLE_VM_LISTOFOBJS_FINDSTRING 1
 #define SIMPLE_VM_LISTOFOBJS_FINDNUMBER 0

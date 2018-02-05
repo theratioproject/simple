@@ -34,6 +34,10 @@ static int nSimpleStateCGI  ;
 
 static void simple_testallunits ( void ) ;
 #endif
+#if SIMPLE_TESTPERFORMANCE
+
+static void simple_showtime ( void ) ;
+#endif
 
 void segfaultaction ( int sig ) ;
 /* API Functions */
@@ -151,7 +155,7 @@ SIMPLE_API List * simple_state_newvar ( SimpleState *pSimpleState,const char *cS
 SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 {
 	int x,nCGI,nRun,nPrintIC,nPrintICFinal,nTokens,nRules,nIns,nPerformance,nSRC,nGenObj,nWarn  ;
-	char *cStr  ; time_t before_execution, after_execution; 
+	char *cStr  ;
 	/* Init Values */
 	nCGI = 0 ;
 	nRun = 1 ;
@@ -168,7 +172,6 @@ SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 	nSimpleStateDEBUGSEGFAULT = 0 ;
 	nSimpleStateCGI = 0 ;
 	signal(SIGSEGV,segfaultaction);
-        time(&before_execution); 
 	#if SIMPLE_TESTUNITS
 	simple_testallunits();
 	#endif
@@ -234,7 +237,7 @@ SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 	simple_execute(cStr,nCGI,nRun,nPrintIC,nPrintICFinal,nTokens,nRules,nIns,nGenObj,nWarn,argc,argv);
 	#if SIMPLE_TESTPERFORMANCE
 	if ( nPerformance ) {
-		simple_showtime( before_execution, after_execution );
+		simple_showtime();
 	}
 	#endif
 }
@@ -258,11 +261,30 @@ SIMPLE_API void simple_state_runobjectstring ( SimpleState *pSimpleState,char *c
 static void simple_testallunits ( void )
 {
 	/* Test */
-	simple_string_test();
+	simple_stsimple_test();
 	simple_list_test();
 	simple_hashtable_test();
 	printf( "end of test \n  " ) ;
 	getchar();
+}
+#endif
+#if SIMPLE_TESTPERFORMANCE
+
+static void simple_showtime ( void )
+{
+	time_t timer  ;
+	char buffer[50]  ;
+	struct tm*tm_info  ;
+	clock_t myclock  ;
+	time(&timer);
+	tm_info = localtime(&timer);
+	strftime(buffer,50,"Date  : %Y/%m/%d Time : %H:%M:%S", tm_info);
+	printf( "\n" ) ;
+	print_line();
+	puts(buffer);
+	myclock = clock();
+	printf( "Clock : %ld \n", myclock ) ;
+	print_line();
 }
 #endif
 

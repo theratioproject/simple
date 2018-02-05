@@ -90,7 +90,7 @@ void simple_vm_give ( VM *vm )
 			pItem = (Item *) SIMPLE_VM_STACK_READP ;
 			SIMPLE_VM_STACK_POP ;
 			simple_item_settype_gc(vm->pSimpleState,pItem,ITEMTYPE_STRING);
-			simple_string_set_gc(vm->pSimpleState,simple_item_getstring(pItem),cLine);
+			simple_stsimple_set_gc(vm->pSimpleState,simple_item_getstring(pItem),cLine);
 		}
 	}
 }

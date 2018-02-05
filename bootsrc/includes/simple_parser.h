@@ -59,30 +59,33 @@ typedef struct Parser {
 	SimpleState *pSimpleState  ;
 } Parser ;
 /* Error Messages */
-#define PARSER_ERROR_PARALIST "COMPILER ERROR 0 : Check your parameters, Identifier expected"
-#define PARSER_ERROR_CLASSNAME "COMPILER ERROR 1 : Invalid class name"
-#define PARSER_ERROR_END "COMPILER ERROR 2 : The structure is not closed missing end | {}"
-#define PARSER_ERROR_BLOCKNAME "COMPILER ERROR 3 : Invalid block name"
-#define PARSER_ERROR_LISTITEM "COMPILER ERROR 4 : Error in list items"
-#define PARSER_ERROR_MISSPARENTHESES "COMPILER ERROR 5 : Parentheses ')' is required "
-#define PARSER_ERROR_MISSBRACKETS "COMPILER ERROR 6 : Brackets ']' is required "
-#define PARSER_ERROR_PRENTCLASSNAME "COMPILER ERROR 7 : You need to provide a valid parent class name"
-#define PARSER_ERROR_EXPROPERATOR "COMPILER ERROR 8 : Unknown expression operator"
-#define PARSER_ERROR_NOCLASSDEFINED "COMPILER ERROR 9 : Specified class is not defined"
-#define PARSER_ERROR_VARNAME "COMPILER ERROR 10 : Invalid variable name"
-#define PARSER_ERROR_NOCATCH "COMPILER ERROR 11 : 'catch' keyword is missing in try | catch"
-#define PARSER_ERROR_SWITCHEXPR "COMPILER ERROR 12 : Error in Switch statement expression"
-#define PARSER_ERROR_BRACESNOTCLOSED "COMPILER ERROR 13 : Missing closing brace for the opened block"
-#define PARSER_ERROR_NUMERICOVERFLOW "COMPILER ERROR 14 : Numeric Overflow!"
-#define PARSER_ERROR_MODULENAME "COMPILER ERROR 15 : Error in module name"
-#define PARSER_ERROR_BLOCKREDEFINE "COMPILER ERROR 16 : The block is already defined "
-#define PARSER_ERROR_USINGBRACTAFTERNUM "COMPILER ERROR 17 : Using '(' after number"
-#define PARSER_ERROR_PARENTLIKESUBCLASS "COMPILER ERROR 18 : The parent class name is identical to class name"
-#define PARSER_ERROR_ACCESSSELFREF "COMPILER ERROR 19 : Object reference is out of context"
-#define PARSER_ERROR_CLASSREDEFINE "COMPILER ERROR 20 : Class is already defined"
+#define PARSER_ERROR_PARALIST "Error (C1) : Error in parameters list, expected identifier"
+#define PARSER_ERROR_CLASSNAME "Error (C2) : Error in class name"
+#define PARSER_ERROR_OK "Error (C3) : Unclosed control strucutre, 'ok' is missing"
+#define PARSER_ERROR_END "Error (C4) : Unclosed control strucutre, 'end' is missing"
+#define PARSER_ERROR_NEXT "Error (C5) : Unclosed control strucutre, next is missing"
+#define PARSER_ERROR_BLOCKNAME "COMPILER ERROR 6 : Invalid block name"
+#define PARSER_ERROR_LISTITEM "Error (C7) : Error in list items"
+#define PARSER_ERROR_MISSPARENTHESES "Error (C8) : Parentheses ')' is missing "
+#define PARSER_ERROR_MISSBRACKETS "Error (C9) : Brackets ']' is missing "
+#define PARSER_ERROR_PRENTCLASSNAME "Error (C10) : Error in parent class name"
+#define PARSER_ERROR_EXPROPERATOR "Error (C11) : Error in expression operator"
+#define PARSER_ERROR_NOCLASSDEFINED "COMPILER ERROR 12 : Class not defined"
+#define PARSER_ERROR_VARNAME "Error (C13) : Error in variable name"
+#define PARSER_ERROR_NOCATCH "Error (C14) : Try/Catch miss the Catch keyword!"
+#define PARSER_ERROR_NODONE "Error (C15) : Try/Catch miss the Done keyword!"
+#define PARSER_ERROR_SWITCHEXPR "Error (C16) : Error in Switch statement expression!"
+#define PARSER_ERROR_SWITCHOFF "Error (C17) : Switch statement without OFF"
+#define PARSER_ERROR_BRACESNOTCLOSED "Error (C18) : Missing closing brace for the block opened!"
+#define PARSER_ERROR_NUMERICOVERFLOW "Error (C19) : Numeric Overflow!"
+#define PARSER_ERROR_MODULENAME "Error (C20) : Error in modules name"
+#define PARSER_ERROR_AGAIN "Error (C21) : Unclosed control strucutre, 'again' is missing"
+#define PARSER_ERROR_BLOCKREDEFINE "COMPILER ERROR 22 : The block is already defined "
+#define PARSER_ERROR_USINGBRACTAFTERNUM "Error (C23) : Using '(' after number!"
+#define PARSER_ERROR_PARENTLIKESUBCLASS "Error (C24) : The parent class name is identical to the subclass name"
+#define PARSER_ERROR_ACCESSSELFREF "Error (C25) : Trying to access the self reference after the object name"
+#define PARSER_ERROR_CLASSREDEFINE "COMPILER ERROR 6 : Class is already defined"
 /* Functions */
-
-int accept_token_token( Parser *parser, SCANNER_OPERATOR nType );
 
 int simple_parser_start ( List *pTokens,SimpleState *pSimpleState ) ;
 
@@ -98,8 +101,6 @@ int simple_parser_class ( Parser *parser ) ;
 int simple_parser_stmt ( Parser *parser ) ;
 
 int simple_parser_step ( Parser *parser,int *nMark1 ) ;
-
-int load_module( Parser *parser );
 
 int simple_parser_paralist ( Parser *parser ) ;
 

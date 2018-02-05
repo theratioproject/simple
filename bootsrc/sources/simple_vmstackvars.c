@@ -116,13 +116,13 @@ void simple_vm_assignment ( VM *vm )
 	}
 	else if ( SIMPLE_VM_STACK_PREVOBJTYPE ==SIMPLE_OBJTYPE_VARIABLE ) {
 		if ( (SIMPLE_VM_STACK_ISSTRING) && (vm->nBeforeEqual <= 1 ) ) {
-			cStr1 = simple_string_new2_gc(vm->pSimpleState,SIMPLE_VM_STACK_READC,SIMPLE_VM_STACK_STRINGSIZE);
+			cStr1 = simple_stsimple_new2_gc(vm->pSimpleState,SIMPLE_VM_STACK_READC,SIMPLE_VM_STACK_STRINGSIZE);
 			SIMPLE_VM_STACK_POP ;
 			pVar = (List *) SIMPLE_VM_STACK_READP ;
 			SIMPLE_VM_STACK_POP ;
 			if ( vm->nBeforeEqual == 0 ) {
 				simple_list_setint_gc(vm->pSimpleState,pVar, SIMPLE_VAR_TYPE ,SIMPLE_VM_STRING);
-				simple_list_setstring2_gc(vm->pSimpleState,pVar, SIMPLE_VAR_VALUE , simple_string_get(cStr1),simple_string_size(cStr1));
+				simple_list_setstring2_gc(vm->pSimpleState,pVar, SIMPLE_VAR_VALUE , simple_stsimple_get(cStr1),simple_stsimple_size(cStr1));
 			} else {
 				/* Check NULL Variable */
 				if ( simple_list_getint(pVar,SIMPLE_VAR_TYPE) == SIMPLE_VM_NULL ) {
@@ -131,13 +131,13 @@ void simple_vm_assignment ( VM *vm )
 				}
 				if ( simple_list_isstring(pVar,SIMPLE_VAR_VALUE) ) {
 					pString = simple_list_getstringobject(pVar,SIMPLE_VAR_VALUE);
-					simple_string_add2_gc(vm->pSimpleState,pString,simple_string_get(cStr1),simple_string_size(cStr1));
+					simple_stsimple_add2_gc(vm->pSimpleState,pString,simple_stsimple_get(cStr1),simple_stsimple_size(cStr1));
 				}
 				else if ( simple_list_isnumber(pVar,SIMPLE_VAR_VALUE) ) {
-					simple_list_setdouble_gc(vm->pSimpleState,pVar, SIMPLE_VAR_VALUE ,simple_list_getdouble(pVar,SIMPLE_VAR_VALUE) +simple_vm_stringtonum(vm,simple_string_get(cStr1)));
+					simple_list_setdouble_gc(vm->pSimpleState,pVar, SIMPLE_VAR_VALUE ,simple_list_getdouble(pVar,SIMPLE_VAR_VALUE) +simple_vm_stringtonum(vm,simple_stsimple_get(cStr1)));
 				}
 			}
-			simple_string_delete_gc(vm->pSimpleState,cStr1);
+			simple_stsimple_delete_gc(vm->pSimpleState,cStr1);
 		}
 		else if ( SIMPLE_VM_STACK_ISNUMBER ) {
 			nNum1 = SIMPLE_VM_STACK_READN ;
@@ -419,7 +419,7 @@ void simple_vm_beforeequallist ( VM *vm,List *pVar,double nNum1 )
 	}
 	else if ( (simple_list_isstring(pVar,SIMPLE_VAR_VALUE) == 1) && (vm->nBeforeEqual == 1) ) {
 		pString = simple_list_getstringobject(pVar,SIMPLE_VAR_VALUE);
-		simple_string_add_gc(vm->pSimpleState,pString,simple_vm_numtostring(vm,nNum1,cStr));
+		simple_stsimple_add_gc(vm->pSimpleState,pString,simple_vm_numtostring(vm,nNum1,cStr));
 	} else {
 		simple_vm_error(vm,SIMPLE_VM_ERROR_BADVALUES);
 		return ;
@@ -455,7 +455,7 @@ void simple_vm_beforeequalitem ( VM *vm,Item *pItem,double nNum1 )
 	}
 	else if ( (simple_item_isstring(pItem) == 1)  && (vm->nBeforeEqual == 1) ) {
 		pString = simple_item_getstring(pItem);
-		simple_string_add_gc(vm->pSimpleState,pString,simple_vm_numtostring(vm,nNum1,cStr));
+		simple_stsimple_add_gc(vm->pSimpleState,pString,simple_vm_numtostring(vm,nNum1,cStr));
 	} else {
 		simple_vm_error(vm,SIMPLE_VM_ERROR_BADVALUES);
 		return ;

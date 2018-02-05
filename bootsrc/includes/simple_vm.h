@@ -546,7 +546,7 @@ List * simple_vm_getglobalscope ( VM *vm ) ;
 **  Stack 
 **  Add 
 */
-#define SIMPLE_VM_STACK_PUSHC vm->nSP++ ; simple_itemarray_setstring2(vm->aStack, vm->nSP, simple_string_get(vm->pByteCodeIR->aData[1]->data.pString), simple_string_size(vm->pByteCodeIR->aData[1]->data.pString))
+#define SIMPLE_VM_STACK_PUSHC vm->nSP++ ; simple_itemarray_setstring2(vm->aStack, vm->nSP, simple_stsimple_get(vm->pByteCodeIR->aData[1]->data.pString), simple_stsimple_size(vm->pByteCodeIR->aData[1]->data.pString))
 #define SIMPLE_VM_STACK_PUSHN vm->nSP++ ; simple_itemarray_setdouble(vm->aStack, vm->nSP , vm->pByteCodeIR->aData[1]->data.dNumber)
 #define SIMPLE_VM_STACK_PUSHP vm->nSP++ ; simple_itemarray_setpointer(vm->aStack, vm->nSP , vm->pByteCodeIR->aData[1]->data.pPointer )
 /* Note, use SIMPLE_VM_STACK_OBJTYPE to read/write the pointer type */
@@ -596,8 +596,8 @@ List * simple_vm_getglobalscope ( VM *vm ) ;
 #define SIMPLE_VM_POINTER 4
 /* IR (Instruction Register) */
 #define SIMPLE_VM_JUMP vm->nPC = vm->pByteCodeIR->aData[1]->data.iNumber
-#define SIMPLE_VM_IR_READC simple_string_get(vm->pByteCodeIR->aData[1]->data.pString)
-#define SIMPLE_VM_IR_READCVALUE(x) simple_string_get(vm->pByteCodeIR->aData[x]->data.pString)
+#define SIMPLE_VM_IR_READC simple_stsimple_get(vm->pByteCodeIR->aData[1]->data.pString)
+#define SIMPLE_VM_IR_READCVALUE(x) simple_stsimple_get(vm->pByteCodeIR->aData[x]->data.pString)
 #define SIMPLE_VM_IR_READP vm->pByteCodeIR->aData[1]->data.pPointer
 #define SIMPLE_VM_IR_READPVALUE(x) vm->pByteCodeIR->aData[x]->data.pPointer
 #define SIMPLE_VM_IR_READI vm->pByteCodeIR->aData[1]->data.iNumber
@@ -606,7 +606,7 @@ List * simple_vm_getglobalscope ( VM *vm ) ;
 #define SIMPLE_VM_IR_READDVALUE(x) vm->pByteCodeIR->aData[x]->data.dNumber
 #define SIMPLE_VM_IR_PARACOUNT vm->pByteCodeIR->nSize
 #define SIMPLE_VM_IR_OPCODE vm->pByteCodeIR->aData[0]->data.iNumber
-#define SIMPLE_VM_IR_SETCVALUE(x,y) simple_string_set_gc(vm->pSimpleState,vm->pByteCodeIR->aData[x]->data.pString,y)
+#define SIMPLE_VM_IR_SETCVALUE(x,y) simple_stsimple_set_gc(vm->pSimpleState,vm->pByteCodeIR->aData[x]->data.pString,y)
 #define SIMPLE_VM_IR_ITEM(x) vm->pByteCodeIR->aData[x]
 #define SIMPLE_VM_IR_LIST vm->pByteCodeIR->pList
 #define SIMPLE_VM_IR_LOAD vm->pByteCodeIR = vm->pByteCode + vm->nPC - 1
@@ -711,45 +711,45 @@ List * simple_vm_getglobalscope ( VM *vm ) ;
 #define SIMPLE_VM_TRACEEVENT_BEFORECBLOCK 5
 #define SIMPLE_VM_TRACEEVENT_AFTERCBLOCK 6
 /* Runtime Error Messages */
-#define SIMPLE_VM_ERROR_DIVIDEBYZERO "RUNTIME ERROR 1 : Can't divide by zero "
-#define SIMPLE_VM_ERROR_INDEXOUTOFRANGE "RUNTIME ERROR 2 : Array Access (Index out of range) "
-#define SIMPLE_VM_ERROR_BLOCKNOTFOUND "RUNTIME ERROR 2 : Calling Block without definition "
-#define SIMPLE_VM_ERROR_STACKOVERFLOW "RUNTIME ERROR 3 : Stack Overflow "
-#define SIMPLE_VM_ERROR_OBJECTISNOTLIST "RUNTIME ERROR 4 : Can't access the list item, Object is not list !"
-#define SIMPLE_VM_ERROR_NOTVARIABLE "RUNTIME ERROR 5 : A variable is required"
-#define SIMPLE_VM_ERROR_VALUEMORETHANONECHAR "RUNTIME ERROR 6 : String letter assignment is to one character only"
-#define SIMPLE_VM_ERROR_VARISNOTSTRING "RUNTIME ERROR 7 : The variable is not a string "
-#define SIMPLE_VM_ERROR_EXITWITHOUTLOOP "RUNTIME ERROR 24 : Using exit command outside loop "
-#define SIMPLE_VM_ERROR_EXITNUMBEROUTSIDERANGE "RUNTIME ERROR 24 : Using exit command with number outside the range "
-#define SIMPLE_VM_ERROR_CLASSNOTFOUND "RUNTIME ERROR 24 : Invalid class name, Class not found "
-#define SIMPLE_VM_ERROR_PROPERTYNOTFOUND "RUNTIME ERROR 24 : Invalid property name, property not found"
-#define SIMPLE_VM_ERROR_NOTOBJECT "RUNTIME ERROR 24 : Object is required"
-#define SIMPLE_VM_ERROR_METHODNOTFOUND "RUNTIME ERROR 24 : Calling Block without definition "
-#define SIMPLE_VM_ERROR_PARENTCLASSNOTFOUND "RUNTIME ERROR 24 : Invalid parent class name, class not found"
-#define SIMPLE_VM_ERROR_BRACEWITHOUTOBJECT "RUNTIME ERROR 24 : Using braces to access unknown object "
-#define SIMPLE_VM_ERROR_SUPERCLASSNOTFOUND "RUNTIME ERROR 24 : error, using 'Super' without parent class "
-#define SIMPLE_VM_ERROR_NUMERICOVERFLOW "RUNTIME ERROR 24 : Numeric Overflow! "
-#define SIMPLE_VM_ERROR_LESSPARAMETERSCOUNT "RUNTIME ERROR 24 : Calling function with less parameters!"
-#define SIMPLE_VM_ERROR_EXTRAPARAMETERSCOUNT "RUNTIME ERROR 24 : Calling function with extra parameters!"
-#define SIMPLE_VM_ERROR_BADVALUES "RUNTIME ERROR 24 : Using operator with values of incorrect type"
-#define SIMPLE_VM_ERROR_LOOPWITHOUTLOOP "RUNTIME ERROR 24 : Using loop command outside loops "
-#define SIMPLE_VM_ERROR_LOOPNUMBEROUTSIDERANGE "RUNTIME ERROR 24 : Using loop command with number outside the range "
-#define SIMPLE_VM_ERROR_USINGNULLVARIABLE "RUNTIME ERROR 24 : The varible is not initialized"
-#define SIMPLE_VM_ERROR_MODULENOTFOUND "RUNTIME ERROR 24 : Invalid modules name, Modules not found! "
-#define SIMPLE_VM_ERROR_CALLINGPRIVATEMETHOD "RUNTIME ERROR 24 : Private blocks is inaccesible from outside class "
-#define SIMPLE_VM_ERROR_USINGPRIVATEATTRIBUTE "RUNTIME ERROR 24 : Using private attribute from outside the class "
-#define SIMPLE_VM_ERROR_FORSTEPDATATYPE "RUNTIME ERROR 24 : The step value is not valid"
-#define SIMPLE_VM_ERROR_FORLOOPDATATYPE "RUNTIME ERROR 24 : Using bad data type in for loop"
-#define SIMPLE_VM_ERROR_PARENTCLASSLIKESUBCLASS "RUNTIME ERROR 24 : The parent and child class cannot have the same name "
-#define SIMPLE_VM_ERROR_TRYINGTOMODIFYTHESELFPOINTER "RUNTIME ERROR 24 : Trying to destory the object using the this reference "
-#define SIMPLE_VM_ERROR_BADCALLPARA "RUNTIME ERROR 24 : The CALL command expect a variable contains string"
-#define SIMPLE_VM_ERROR_BADDECIMALNUMBER "RUNTIME ERROR 24 : The decimals number is out of range (correct range >= 0 and <=14) !"
-#define SIMPLE_VM_ERROR_ASSIGNNOTVARIABLE "RUNTIME ERROR 24 : Variable is required for the assignment operation"
-#define SIMPLE_VM_ERROR_CANTOPENFILE "RUNTIME ERROR 24 : Can't create/open the file!"
-#define SIMPLE_VM_ERROR_BADCOLUMNNUMBER "RUNTIME ERROR 24 : The column number is not correct! It's greater than the number of columns in the list"
-#define SIMPLE_VM_ERROR_BADCOMMAND "RUNTIME ERROR 24 : Sorry, The command is not supported in this context"
-#define SIMPLE_VM_ERROR_LIBLOADERROR "RUNTIME ERROR 24 : Runtime Error Occur while loading the dynamic library!"
-#define SIMPLE_VM_ERROR_TEMPFILENAME "RUNTIME ERROR 24 : Error occurred while creating unique filename."
+#define SIMPLE_VM_ERROR_DIVIDEBYZERO "Error (R1) : Cann't divide by zero !"
+#define SIMPLE_VM_ERROR_INDEXOUTOFRANGE "Error (R2) : Array Access (Index out of range) !"
+#define SIMPLE_VM_ERROR_BLOCKNOTFOUND "Error (R3) : Calling Function without definition !"
+#define SIMPLE_VM_ERROR_STACKOVERFLOW "Error (R4) : Stack Overflow !"
+#define SIMPLE_VM_ERROR_OBJECTISNOTLIST "Error (R5) : Can't access the list item, Object is not list !"
+#define SIMPLE_VM_ERROR_NOTVARIABLE "Error (R6) : Variable is required"
+#define SIMPLE_VM_ERROR_VALUEMORETHANONECHAR "Error (R7) : Can't assign to a string letter more than one character"
+#define SIMPLE_VM_ERROR_VARISNOTSTRING "Error (R8) : Variable is not a string "
+#define SIMPLE_VM_ERROR_EXITWITHOUTLOOP "Error (R9) : Using exit command outside loops "
+#define SIMPLE_VM_ERROR_EXITNUMBEROUTSIDERANGE "Error (R10) : Using exit command with number outside the range "
+#define SIMPLE_VM_ERROR_CLASSNOTFOUND "Error (R11) : error in class name, class not found! "
+#define SIMPLE_VM_ERROR_PROPERTYNOTFOUND "Error (R12) : error in property name, property not found! "
+#define SIMPLE_VM_ERROR_NOTOBJECT "Error (R13) : Object is required"
+#define SIMPLE_VM_ERROR_METHODNOTFOUND "Error (R14) : Calling Method without definition !"
+#define SIMPLE_VM_ERROR_PARENTCLASSNOTFOUND "Error (R15) : error in parent class name, class not found! "
+#define SIMPLE_VM_ERROR_BRACEWITHOUTOBJECT "Error (R16) : Using braces to access unknown object ! "
+#define SIMPLE_VM_ERROR_SUPERCLASSNOTFOUND "Error (R17) : error, using 'Super' without parent class! "
+#define SIMPLE_VM_ERROR_NUMERICOVERFLOW "Error (R18) : Numeric Overflow! "
+#define SIMPLE_VM_ERROR_LESSPARAMETERSCOUNT "Error (R19) : Calling function with less number of parameters!"
+#define SIMPLE_VM_ERROR_EXTRAPARAMETERSCOUNT "Error (R20) : Calling function with extra number of parameters!"
+#define SIMPLE_VM_ERROR_BADVALUES "Error (R21) : Using operator with values of incorrect type"
+#define SIMPLE_VM_ERROR_LOOPWITHOUTLOOP "Error (R22) : Using loop command outside loops "
+#define SIMPLE_VM_ERROR_LOOPNUMBEROUTSIDERANGE "Error (R23) : Using loop command with number outside the range "
+#define SIMPLE_VM_ERROR_USINGNULLVARIABLE "RUNTIME ERROR 24 : Using uninitialized variable "
+#define SIMPLE_VM_ERROR_MODULENOTFOUND "Error (R25) : Error in modules name, Modules not found! "
+#define SIMPLE_VM_ERROR_CALLINGPRIVATEMETHOD "Error (R26) : Calling private method from outside the class "
+#define SIMPLE_VM_ERROR_USINGPRIVATEATTRIBUTE "Error (R27) : Using private attribute from outside the class "
+#define SIMPLE_VM_ERROR_FORSTEPDATATYPE "Error (R28) : Using bad data type as step value"
+#define SIMPLE_VM_ERROR_FORLOOPDATATYPE "Error (R29) : Using bad data type in for loop"
+#define SIMPLE_VM_ERROR_PARENTCLASSLIKESUBCLASS "Error (R30) : parent class name is identical to child class name "
+#define SIMPLE_VM_ERROR_TRYINGTOMODIFYTHESELFPOINTER "Error (R31) : Trying to destory the object using the self reference "
+#define SIMPLE_VM_ERROR_BADCALLPARA "Error (R32) : The CALL command expect a variable contains string!"
+#define SIMPLE_VM_ERROR_BADDECIMALNUMBER "Error (R33) : Bad decimals number (correct range >= 0 and <=14) !"
+#define SIMPLE_VM_ERROR_ASSIGNNOTVARIABLE "Error (R34) : Variable is required for the assignment operation"
+#define SIMPLE_VM_ERROR_CANTOPENFILE "Error (R35) : Can't create/open the file!"
+#define SIMPLE_VM_ERROR_BADCOLUMNNUMBER "Error (R36) : The column number is not correct! It's greater than the number of columns in the list"
+#define SIMPLE_VM_ERROR_BADCOMMAND "Error (R37) : Sorry, The command is not supported in this context"
+#define SIMPLE_VM_ERROR_LIBLOADERROR "Error (R38) : Runtime Error in loading the dynamic library!"
+#define SIMPLE_VM_ERROR_TEMPFILENAME "Error (R39) : Error occurred creating unique filename."
 /* Extra Size (for codeExecution) */
 #define SIMPLE_VM_EXTRASIZE 2
 /* Variables Location */

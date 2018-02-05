@@ -98,8 +98,8 @@ SIMPLE_API void simple_item_setstring2_gc ( void *pState,Item *pItem,const char 
 #define simple_itemarray_getint(pList,index) ( pList[index].data.iNumber )
 #define simple_itemarray_getpointer(pList,index) ( pList[index].data.pPointer )
 #define simple_itemarray_getdouble(pList,index) pList[index].data.dNumber
-#define simple_itemarray_getstring(pList,index) simple_string_get(pList[index].data.pString )
-#define simple_itemarray_getstringsize(pList,index) simple_string_size(pList[index].data.pString )
+#define simple_itemarray_getstring(pList,index) simple_stsimple_get(pList[index].data.pString )
+#define simple_itemarray_getstringsize(pList,index) simple_stsimple_size(pList[index].data.pString )
 /* Check */
 #define simple_itemarray_isstring(pList,index) (pList[index].nType == ITEMTYPE_STRING)
 #define simple_itemarray_isnumber(pList,index) (pList[index].nType == ITEMTYPE_NUMBER)
