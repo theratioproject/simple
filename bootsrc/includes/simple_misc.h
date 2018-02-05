@@ -19,6 +19,9 @@
 extern "C" {
 #endif
     
+#define SIMPLE_VM_LISTBLOCKS 1
+#define SIMPLE_VM_DLL 1
+    
 #define SIMPLE_VERSION "0.3.2"
 #define PRIMARY_AUTHOR "Azeez Adewale"
 #define START_YEAR 2016
