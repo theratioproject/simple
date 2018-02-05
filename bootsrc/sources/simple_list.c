@@ -226,7 +226,7 @@ SIMPLE_API Item * simple_list_getitem ( List *pList,int index )
 		/* Quickly Get The First or The Last Item */
 		if ( index == 0 ) {
 			pList->pLastItemLastAccess = pList->pFirst ;
-			pList->nNextItemAfterLastAccess = index  ;
+			pList->nNextItemAfterLastAccess = index + 1  ;
 			return pList->pFirst->pValue ;
 		}
 		else if ( index == simple_list_getsize(pList) ) {
