@@ -2104,3 +2104,31 @@ void simple_vmlib_state_mainfile ( void *pPointer )
 	pSimpleState->nDontDeleteTheVM = 1 ;
 	simple_scanner_readfile(pSimpleState,cStr);
 }
+
+void simple_vm_extension ( SimpleState *pSimpleState )
+{
+	/* Reflection and Meta-programming */
+	#if SIMPLE_VM_REFMETA
+	simple_vm_refmeta_loadfunctions(pSimpleState);
+	#endif
+	/* List Functions */
+	#if SIMPLE_VM_LISTBLOCKS
+	simple_vm_listfuncs_loadfunctions(pSimpleState);
+	#endif
+	/* Math */
+	#if SIMPLE_VM_MATH
+	simple_vm_math_loadfunctions(pSimpleState);
+	#endif
+	/* File */
+	#if SIMPLE_VM_FILE
+	simple_vm_file_loadfunctions(pSimpleState);
+	#endif
+	/* OS */
+	#if SIMPLE_VM_OS
+	simple_vm_os_loadfunctions(pSimpleState);
+	#endif
+	/* DLL */
+	#if SIMPLE_VM_DLL
+	simple_vm_dll_loadfunctions(pSimpleState);
+	#endif
+}
