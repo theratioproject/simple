@@ -216,7 +216,7 @@ SIMPLE_API Item * simple_list_getitem ( List *pList,int index )
 	int x  ;
 	Items *pItems  ;
 	Item *pItem  ;
-	pItem = NULL ;
+	pItem = NULL ; index ++ ;
 	assert(pList != NULL);
 	if ( index >= 0 && ( simple_list_getsize(pList) >= 0 ) && index <= simple_list_getsize(pList) ) {
 		/* Quickly get item from ItemsArray */
@@ -237,7 +237,8 @@ SIMPLE_API Item * simple_list_getitem ( List *pList,int index )
 		else if ( ( index == pList->nNextItemAfterLastAccess ) && ( pList->pLastItemLastAccess != NULL ) ) {
 			if ( pList->pLastItemLastAccess->pNext  != NULL ) {
 				pList->pLastItemLastAccess = pList->pLastItemLastAccess->pNext ;
-				pList->nNextItemAfterLastAccess++ ;
+				pList->nNextItemAfterLastAccess++ ; 
+                                printf("INDEX : %d\n", index);
 				return pList->pLastItemLastAccess->pValue ;
 			}
 		}
