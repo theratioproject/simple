@@ -841,7 +841,7 @@ void display_tokens ( Scanner *pScanner )
         switch ( token_type ) {
             case SCANNER_TOKEN_KEYWORD :
                 index = atoi(token_name) ;
-                printf( "   Token: TokenType=%s,\tValue=\"%s\" \n","Keyword",SIMPLE_KEYWORDS[index] ) ;
+                printf( "   Token: TokenType=%s,\tValue=\"%s\" \n","Keyword",SIMPLE_KEYWORDS[index-1] ) ;
                 break ;
             case SCANNER_TOKEN_OPERATOR :
                 printf( "   Token: TokenType=%s,\tValue=\"%s\" \n","Operator",token_name ) ;
