@@ -77,4 +77,27 @@ void simple_hashtable_rebuild ( HashTable *pHashTable ) ;
 void simple_hashtable_newnumber ( HashTable *pHashTable,const char *cKey,int x ) ;
 
 void simple_hashtable_newpointer ( HashTable *pHashTable,const char *cKey,void *x ) ;
+
+/* Data */
+typedef struct PoolData {
+	union PoolDataTypes {
+		String vString  ;
+		Item vItem  ;
+		Items vItems  ;
+		List vList  ;
+		HashTable vHashTable  ;
+		HashItem vHashItem  ;
+		char vChar[64]  ;
+	} PoolDataTypes ;
+	struct PoolData *pNext  ;
+} PoolData ;
+typedef struct PoolManager {
+	PoolData *pCurrentItem  ;
+	void *pBlockStart  ;
+	void *pBlockEnd  ;
+} PoolManager ;
+/* Macro */
+#define SIMPLE_POOLMANAGER_ITEMSINBLOCK 10000
+#define SIMPLE_POOLMANAGER_ITEMSIZE 64
+#define SIMPLE_USEPOOLMANAGER 0
 #endif
