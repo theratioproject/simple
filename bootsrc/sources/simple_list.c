@@ -96,7 +96,7 @@ SIMPLE_API void simple_list_copy_gc ( void *pState,List *pNewList, List *pList )
 	if ( simple_list_getsize(pList) == 0 ) {
 		return ;
 	}
-	for ( x = 1 ; x <= simple_list_getsize(pList) ; x++ ) {
+	for ( x = 0 ; x <= simple_list_getsize(pList) ; x++ ) {
 		if ( simple_list_isint(pList,x) ) {
 			simple_list_addint_gc(pState,pNewList,simple_list_getint(pList,x));
 		}
@@ -221,7 +221,7 @@ SIMPLE_API Item * simple_list_getitem ( List *pList,int index )
 	if ( index >= 0 && ( simple_list_getsize(pList) >= 0 ) && index <= simple_list_getsize(pList) ) {
 		/* Quickly get item from ItemsArray */
 		if ( pList->pItemsArray != NULL ) {
-			return pList->pItemsArray[index-1] ;
+			return pList->pItemsArray[index] ;
 		}
 		/* Quickly Get The First or The Last Item */
 		if ( index == 0 ) {
