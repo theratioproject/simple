@@ -144,4 +144,23 @@ SIMPLE_API void simple_item_setpointer ( Item *pItem,void *pValue ) ;
 SIMPLE_API void simple_item_setint ( Item *pItem,int x ) ;
 
 SIMPLE_API void simple_item_setstring2 ( Item *pItem,const char *cStr,int nStrSize ) ;
+
+/* Data */
+typedef struct Items {
+	struct Item *pValue  ;
+	struct Items *pNext  ;
+	struct Items *pPrev  ;
+} Items ;
+/* Functions */
+
+Items * simple_items_new_gc ( void *pState ) ;
+
+Items * simple_items_delete_gc ( void *pState,Items *pItems ) ;
+
+void simple_items_print ( Items *pItems ) ;
+/* Functions without State pointer */
+
+Items * simple_items_new ( void ) ;
+
+Items * simple_items_delete ( Items *pItems ) ;
 #endif
