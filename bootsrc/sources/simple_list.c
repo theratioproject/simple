@@ -242,13 +242,13 @@ SIMPLE_API Item * simple_list_getitem ( List *pList,int index )
 			}
 		}
 		/* Quickly get the current item */
-		else if ( (index == pList->nNextItemAfterLastAccess - 1) && ( pList->pLastItemLastAccess != NULL ) ) {
+		else if ( (index == pList->nNextItemAfterLastAccess ) && ( pList->pLastItemLastAccess != NULL ) ) {
 			return pList->pLastItemLastAccess->pValue ;
 		}
 		/* Quickly get item after the current item */
 		else if ( ( index > pList->nNextItemAfterLastAccess )  && ( pList->pLastItemLastAccess != NULL ) ) {
 			pItems = pList->pLastItemLastAccess ;
-			for ( x = pList->nNextItemAfterLastAccess - 1 ; x <= index ; x++ ) {
+			for ( x = pList->nNextItemAfterLastAccess  ; x <= index ; x++ ) {
 				if ( x == index ) {
 					pList->nNextItemAfterLastAccess = index+1 ;
 					pList->pLastItemLastAccess = pItems ;
