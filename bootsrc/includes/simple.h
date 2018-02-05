@@ -96,12 +96,10 @@
 /* Include Project Headers */
 #include "simple_misc.h"
 #include "simple_string.h"
-#include "simple_vmgcdata.h"
 #include "simple_item.h"
 #include "simple_items.h"
 #include "simple_list.h"
 #include "simple_hashtable.h"
-#include "simple_pooldata.h"
 #include "simple_state.h"
 #include "simple_scanner.h"
 #include "simple_parser.h"
