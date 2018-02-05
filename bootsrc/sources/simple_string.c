@@ -39,7 +39,7 @@ SIMPLE_API String * simple_string_new2_gc ( void *pState,const char *str,int nSt
 	}
 	/* Copy String */
 	for ( x = 0 ; x < nStrSize ; x++ ) {
-		pString->cStr[x] = str[x] ; printf("it here dude\n");
+		pString->cStr[x] = str[x] ; 
 	}
 	pString->cStr[nStrSize] = '\0' ;
 	pString->nSize = nStrSize ;
