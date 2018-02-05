@@ -64,6 +64,18 @@ void simple_showtime ( time_t before_execution, time_t after_execution ) ;
 
 char* get_time_different(double diff) ;
 
+unsigned simple_hash(unsigned pid);
+unsigned simple_add_hash(unsigned char *key, int len);
+unsigned simple_xor_hash(unsigned char *key, int len);
+unsigned simple_rot_hash(unsigned char *key, int len);
+unsigned simple_djb_hash(unsigned char *key, int len);
+unsigned simple_sax_hash(unsigned char *key, int len);
+unsigned simple_fnv_hash(unsigned char *key, int len);
+unsigned simple_oat_hash(unsigned char *key, int len);
+unsigned simple_elf_hash(unsigned char *key, int len);
+unsigned simple_jen_hash(unsigned char *k, unsigned length, unsigned initval);
+unsigned int simple_murmur3_32(const char *key, unsigned int len, unsigned int seed) ;
+
 #endif
 
 #ifdef __cplusplus
