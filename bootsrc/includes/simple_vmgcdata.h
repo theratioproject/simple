@@ -15,7 +15,5 @@
 
 #ifndef simple_vmgcdata
 #define simple_vmgcdata
-typedef struct GCData {
-	int nReferenceCount  ;
-} GCData ;
+
 #endif
