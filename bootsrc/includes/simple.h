@@ -112,22 +112,7 @@
 #include "simple_vmgc.h"
 #include "simple_api.h"
 #include "simple_objfile.h"
-/* Extensions Headers */
-#ifdef SIMPLE_VM_MATH
-#include "simple_vmmath.h"
-#endif
-#ifdef SIMPLE_VM_FILE
-#include "simple_vmfile.h"
-#endif
-#ifdef SIMPLE_VM_OS
-#include "simple_vmos.h"
-#endif
-#ifdef SIMPLE_VM_LISTBLOCKS
-#include "simple_vmlistfuncs.h"
-#endif
-#ifdef SIMPLE_VM_REFMETA
-#include "simple_vmrefmeta.h"
-#endif
+
 #ifdef SIMPLE_VM_DLL
 #include "simple_vmdll.h"
 #endif
