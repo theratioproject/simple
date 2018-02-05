@@ -218,7 +218,7 @@ SIMPLE_API Item * simple_list_getitem ( List *pList,int index )
 	Item *pItem  ;
 	pItem = NULL ;
 	assert(pList != NULL);
-	if ( index > 0 && ( simple_list_getsize(pList) > 0 ) && index <= simple_list_getsize(pList) ) {
+	if ( index >= 0 && ( simple_list_getsize(pList) >= 0 ) && index <= simple_list_getsize(pList) ) {
 		/* Quickly get item from ItemsArray */
 		if ( pList->pItemsArray != NULL ) {
 			return pList->pItemsArray[index-1] ;
