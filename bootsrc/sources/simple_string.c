@@ -58,7 +58,7 @@ SIMPLE_API String * simple_string_delete_gc ( void *pState,String *pString )
 SIMPLE_API int simple_string_size ( String *pString )
 {
 	assert(pString != NULL);
-	return pString->nSize - 1 ;
+	return pString->nSize - 2 ;
 }
 
 SIMPLE_API void simple_string_set_gc ( void *pState,String *pString,const char *str )
