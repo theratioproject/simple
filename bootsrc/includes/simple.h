@@ -95,7 +95,6 @@
 #include <errno.h>
 /* Include Project Headers */
 #include "simple_misc.h"
-#include "simple_ext.h"
 #include "simple_string.h"
 #include "simple_vmgcdata.h"
 #include "simple_item.h"
