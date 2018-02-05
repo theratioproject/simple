@@ -250,7 +250,7 @@ SIMPLE_API Item * simple_list_getitem ( List *pList,int index )
 			pItems = pList->pLastItemLastAccess ;
 			for ( x = pList->nNextItemAfterLastAccess  ; x <= index ; x++ ) {
 				if ( x == index ) {
-					pList->nNextItemAfterLastAccess = index+1 ;
+					pList->nNextItemAfterLastAccess = index ;
 					pList->pLastItemLastAccess = pItems ;
 				}
 				pItem = pItems->pValue ;
