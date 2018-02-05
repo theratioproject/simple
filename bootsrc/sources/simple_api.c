@@ -2095,7 +2095,6 @@ void simple_vmlib_state_mainfile ( void *pPointer )
 	pSimpleState->argv = argv ;
 	/*
 	**  Don't Delete the VM after execution 
-	**  We may run GUI app from GUI app 
 	**  In this case the caller already called qApp.Exec() 
 	**  Deleting the VM in sub program after execution 
 	**  Will lead to crash when we execute events (like button click) in the sub program 
@@ -2105,30 +2104,4 @@ void simple_vmlib_state_mainfile ( void *pPointer )
 	simple_scanner_readfile(pSimpleState,cStr);
 }
 
-void simple_vm_extension ( SimpleState *pSimpleState )
-{
-	/* Reflection and Meta-programming */
-	#if SIMPLE_VM_REFMETA
-	simple_vm_refmeta_loadfunctions(pSimpleState);
-	#endif
-	/* List Functions */
-	#if SIMPLE_VM_LISTBLOCKS
-	simple_vm_listfuncs_loadfunctions(pSimpleState);
-	#endif
-	/* Math */
-	#if SIMPLE_VM_MATH
-	simple_vm_math_loadfunctions(pSimpleState);
-	#endif
-	/* File */
-	#if SIMPLE_VM_FILE
-	simple_vm_file_loadfunctions(pSimpleState);
-	#endif
-	/* OS */
-	#if SIMPLE_VM_OS
-	simple_vm_os_loadfunctions(pSimpleState);
-	#endif
-	/* DLL */
-	#if SIMPLE_VM_DLL
-	simple_vm_dll_loadfunctions(pSimpleState);
-	#endif
-}
+

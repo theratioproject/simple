@@ -38,8 +38,6 @@ SIMPLE_API void * simple_vm_api_getcpointer ( void *pPointer,int x,const char *c
 
 SIMPLE_API void simple_vm_api_setcpointernull ( void *pPointer,int x ) ;
 
-void simple_vm_extension ( SimpleState *pSimpleState ) ;
-
 SIMPLE_API void * simple_vm_api_varptr ( void *pPointer,const char  *cStr,const char *cStr2 ) ;
 
 SIMPLE_API void simple_vm_api_intvalue ( void *pPointer,const char  *cStr ) ;
