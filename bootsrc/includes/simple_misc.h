@@ -18,8 +18,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-    
-#define SIMPLE_VM_LISTBLOCKS 1
+
 #define SIMPLE_VM_DLL 1
     
 #define SIMPLE_VERSION "0.3.2"
