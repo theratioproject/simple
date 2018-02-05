@@ -205,7 +205,7 @@ SIMPLE_API void simple_list_newitem_gc ( void *pState,List *pList )
 		pList->pFirst = pItems ;
 		pList->pLast = pItems ;
 	}
-	pList->nSize = pList->nSize + 1 ;
+	pList->nSize = pList->nSize  ;
 	/* Refresh The Cache */
 	pList->nNextItemAfterLastAccess = 0 ;
 	pList->pLastItemLastAccess = NULL ;
