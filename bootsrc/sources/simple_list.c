@@ -127,7 +127,7 @@ SIMPLE_API void simple_list_print ( List *pList )
 	if ( simple_list_getsize(pList) < 0 ) {
 		return ;
 	}
-	for ( x = 1 ; x <= simple_list_getsize(pList) ; x++ ) {
+	for ( x = 1 ; x <= simple_list_getsize(pList) ; x++ ) { 
 		if ( simple_list_isstring(pList,x) ) {
 			cStr = simple_list_getstring(pList,x) ;
 			nSize = simple_list_getstringsize(pList,x);
