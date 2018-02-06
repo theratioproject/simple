@@ -35,7 +35,7 @@ SIMPLE_API void simple_vm_loadcfunctions ( SimpleState *pSimpleState )
 	simple_vm_funcregister("sysget",simple_vmlib_get);
 	simple_vm_funcregister("clock",simple_vmlib_clock);
 	simple_vm_funcregister("$__lower",simple_vmlib_lower);
-	simple_vm_funcregister("upper",simple_vmlib_upper);
+	simple_vm_funcregister("$__upper",simple_vmlib_upper);
 	simple_vm_funcregister("input",simple_vmlib_input);
 	simple_vm_funcregister("ascii",simple_vmlib_ascii);
 	simple_vm_funcregister("char",simple_vmlib_char);
