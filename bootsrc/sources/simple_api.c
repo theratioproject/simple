@@ -77,7 +77,7 @@ SIMPLE_API void simple_vm_loadcfunctions ( SimpleState *pSimpleState )
 	simple_vm_funcregister("copy",simple_vmlib_copy);
 	simple_vm_funcregister("substr",simple_vmlib_substr);
 	simple_vm_funcregister("lines",simple_vmlib_lines);
-	simple_vm_funcregister("strcmp",simple_vmlib_strcmp);
+	simple_vm_funcregister("stringCompare",simple_vmlib_strcmp);
 	/* Functional */
 	simple_vm_funcregister("executeCode",simple_vmlib_eval);
 	/* Error Handling */
