@@ -53,7 +53,7 @@ void simple_vm_stsimple_assignment ( VM *vm )
 
 void simple_vm_stsimple_index ( VM *vm, String *pString, double nNum1 )
 {
-	char *newstr  ; int idex = 0 ; if (INDEX_START_FROM_ONE) idex = 1 ;
+	char *newstr  ; int idex = 0 ; if (INDEX_START_FROM_ONE) { idex = 1 ; }
 	/* We will push a pointer of the sub char to the stack */
 	if ( nNum1 < idex || nNum1 > simple_string_size(pString) ) {
 		simple_vm_error(vm,SIMPLE_VM_ERROR_INDEXOUTOFRANGE);
