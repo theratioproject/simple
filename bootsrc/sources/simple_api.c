@@ -1522,7 +1522,7 @@ void simple_vmlib_copy ( void *pPointer )
 			cStr = SIMPLE_API_GETSTRING(1) ;
 			pString = simple_string_new_gc(((VM *) pPointer)->pSimpleState,"");
 			nSize = SIMPLE_API_GETNUMBER(2) ;
-			for ( x = 1 ; x <= nSize ; x++ ) {
+			for ( x = 0 ; x <= nSize ; x++ ) {
 				simple_string_add2_gc(((VM *) pPointer)->pSimpleState,pString,cStr,SIMPLE_API_GETSTRINGSIZE(1));
 			}
 			SIMPLE_API_RETSTRING2(simple_string_get(pString),simple_string_size(pString));
