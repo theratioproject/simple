@@ -56,8 +56,9 @@ void simple_vm_stsimple_index ( VM *vm, String *pString, double nNum1 )
 	char *newstr  ;
 	/* We will push a pointer of the sub char to the stack */
 	if ( nNum1 < 0 || nNum1 > simple_string_size(pString) + 1 ) {
-		simple_vm_error(vm,SIMPLE_VM_ERROR_INDEXOUTOFRANGE);
-		return ;
+            printf("\n-->THE ERROR IS HERE \n");
+            simple_vm_error(vm,SIMPLE_VM_ERROR_INDEXOUTOFRANGE);
+            return ;
 	}
 	newstr = pString->cStr ;
 	newstr = newstr + ((int) (nNum1 - 0) ) ;
