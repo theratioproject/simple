@@ -518,7 +518,7 @@ int simple_parser_stmt ( Parser *parser )
 				} 
 			} else if ( simple_parser_iskeyword(parser,KEYWORD_IN) ) {
 				/* Generate Code */
-				sprintf( cStr , "n_sys_var_%d" , simple_parser_icg_instructionscount(parser) - 1 ) ;
+				sprintf( cStr , "n_sys_var_%d" , simple_parser_icg_instructionscount(parser) ) ;
 				/* Mark for Exit command to go to outside the loop */
 				simple_parser_icg_newoperation(parser,ICO_EXITMARK);
 				pMark3 = simple_parser_icg_getactiveoperation(parser);
