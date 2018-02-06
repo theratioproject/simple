@@ -94,6 +94,7 @@ void simple_vm_give ( VM *vm )
 		}
 	}
 }
+
 /* User Interface Functions (Another implementation) - Flexibile (We can replace functions in Simple Code) */
 
 void simple_vmlib_see ( void *pPointer )
