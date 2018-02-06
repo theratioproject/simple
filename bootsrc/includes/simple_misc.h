@@ -41,7 +41,7 @@ extern char *DEFAULT_FILE_NAME ;
 
 extern char *DEFAULT_FILE_PATH ;
 
-extern int INDEX_START_FROM_ONE ;
+extern int list_index ;
 
 /*Functions*/
 
