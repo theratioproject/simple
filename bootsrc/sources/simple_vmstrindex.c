@@ -53,14 +53,14 @@ void simple_vm_stsimple_assignment ( VM *vm )
 
 void simple_vm_stsimple_index ( VM *vm, String *pString, double nNum1 )
 {
-	char *newstr  ; int idex = 0 ; if (INDEX_START_FROM_ONE) { idex = 1 ; }
+	char *newstr  ;
 	/* We will push a pointer of the sub char to the stack */
-	if ( nNum1 < idex || nNum1 > simple_string_size(pString) ) {
+	if ( nNum1 < 0 || nNum1 > simple_string_size(pString) ) {
 		simple_vm_error(vm,SIMPLE_VM_ERROR_INDEXOUTOFRANGE);
 		return ;
 	}
 	newstr = pString->cStr ;
-	newstr = newstr + ((int) (nNum1 - idex) ) ;
+	newstr = newstr + ((int) (nNum1 ) ) ;
 	SIMPLE_VM_STACK_PUSHPVALUE(newstr);
 	SIMPLE_VM_STACK_OBJTYPE = SIMPLE_OBJTYPE_SUBSTRING ;
 }
