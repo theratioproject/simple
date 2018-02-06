@@ -480,7 +480,7 @@ void simple_vmlib_len ( void *pPointer )
 		return ;
 	}
 	if ( SIMPLE_API_ISSTRING(1) ) {
-		SIMPLE_API_RETNUMBER(SIMPLE_API_GETSTRINGSIZE(1));
+		SIMPLE_API_RETNUMBER(SIMPLE_API_GETSTRINGSIZE(1) - 1);
 	}
 	else if ( SIMPLE_API_ISLIST(1) ) {
 		if ( simple_vm_oop_isobject(SIMPLE_API_GETLIST(1)) == 0 ) {
