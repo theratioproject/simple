@@ -60,7 +60,7 @@ void simple_vm_stsimple_index ( VM *vm, String *pString, double nNum1 )
 		return ;
 	}
 	newstr = pString->cStr ;
-	newstr = newstr + ((int) (nNum1 ) ) ;
+	newstr = newstr + ((int) (nNum1 - 1) ) ;
 	SIMPLE_VM_STACK_PUSHPVALUE(newstr);
 	SIMPLE_VM_STACK_OBJTYPE = SIMPLE_OBJTYPE_SUBSTRING ;
 }
