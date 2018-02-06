@@ -81,7 +81,7 @@ SIMPLE_API void simple_vm_loadcfunctions ( SimpleState *pSimpleState )
 	/* Functional */
 	simple_vm_funcregister("executeCode",simple_vmlib_eval);
 	/* Error Handling */
-	simple_vm_funcregister("raise",simple_vmlib_raise);
+	simple_vm_funcregister("throw",simple_vmlib_raise);
 	simple_vm_funcregister("assert",simple_vmlib_assert);
 	/* Check Characters */
 	simple_vm_funcregister("isalnum",simple_vmlib_isalnum);
