@@ -231,7 +231,7 @@ SIMPLE_API Item * simple_list_getitem ( List *pList,int index )
 		}
 		else if ( index == simple_list_getsize(pList) ) {
 			pList->pLastItemLastAccess = pList->pLast ;
-			pList->nNextItemAfterLastAccess = index + 1 ;
+			pList->nNextItemAfterLastAccess = index  ;
 			return pList->pLast->pValue ;
 		}
 		/* Quickly get the next item */
