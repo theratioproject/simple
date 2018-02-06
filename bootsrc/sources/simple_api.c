@@ -29,7 +29,7 @@ SIMPLE_API void simple_vm_funcregister2 ( SimpleState *pSimpleState,const char *
 SIMPLE_API void simple_vm_loadcfunctions ( SimpleState *pSimpleState )
 {
 	/* General */
-	simple_vm_funcregister("len",simple_vmlib_len);
+	simple_vm_funcregister("lenghtOf",simple_vmlib_len);
 	simple_vm_funcregister("add",simple_vmlib_add);
 	simple_vm_funcregister("del",simple_vmlib_del);
 	simple_vm_funcregister("sysget",simple_vmlib_get);
