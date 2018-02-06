@@ -216,12 +216,12 @@ SIMPLE_API Item * simple_list_getitem ( List *pList,int index )
 	int x  ;
 	Items *pItems  ;
 	Item *pItem  ;
-	pItem = NULL ;
+	pItem = NULL ; 
 	assert(pList != NULL);
 	if ( index > 0 && ( simple_list_getsize(pList) > 0 ) && index <= simple_list_getsize(pList) ) {
 		/* Quickly get item from ItemsArray */
 		if ( pList->pItemsArray != NULL ) {
-			return pList->pItemsArray[index-1] ;
+			return pList->pItemsArray[index-1] ; printf("\n-->iT HERE\n");
 		}
 		/* Quickly Get The First or The Last Item */
 		if ( index == 1 ) {
