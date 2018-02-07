@@ -95,16 +95,22 @@ int simple_scanner_readfile ( SimpleState *pSimpleState,char *cFileName )
                 snprintf(cFileName2, sizeof(cFileName2), "%s/simple%s/modules/%s", SIMPLEPATH, SIMPLE_VERSION, cFileName);
             }
             if (!simple_fexists(cFileName2)) {
-                snprintf(cFileName2, sizeof(cFileName2), "%s%s", DEFAULT_FILE_PATH, cFileName);
+                char* SIMPLEMODULEPATH = getenv("SIMPLE_MODULE_PATH"); is_start_file = 0 ;
+                if (SIMPLEMODULEPATH != NULL) {
+                    snprintf(cFileName2, sizeof(cFileName2), "%s/%s", SIMPLEMODULEPATH, cFileName);
+                }
                 if (!simple_fexists(cFileName2)) {
-                    snprintf(cFileName2, sizeof(cFileName2), "%s/modules/%s", DEFAULT_FILE_PATH, cFileName);
+                    snprintf(cFileName2, sizeof(cFileName2), "%s%s", DEFAULT_FILE_PATH, cFileName);
                     if (!simple_fexists(cFileName2)) {
-                        snprintf(cFileName2, sizeof(cFileName2), "%s/library/%s", DEFAULT_FILE_PATH, cFileName);
+                        snprintf(cFileName2, sizeof(cFileName2), "%s/modules/%s", DEFAULT_FILE_PATH, cFileName);
                         if (!simple_fexists(cFileName2)) {
-                            //already checked all assumed folders
+                            snprintf(cFileName2, sizeof(cFileName2), "%s/library/%s", DEFAULT_FILE_PATH, cFileName);
+                            if (!simple_fexists(cFileName2)) {
+                                //already checked all assumed folders
+                            }
                         }
+
                     }
-                    
                 }
             } /**else {
                 char cwd[1024];
