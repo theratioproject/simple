@@ -364,7 +364,7 @@ SIMPLE_API int api_is_object ( void *pPointer,int x )
 	return 0 ;
 }
 
-SIMPLE_API int simple_vm_api_cpointercmp ( List *list,List *list2 )
+SIMPLE_API int api_cpointer_cmp ( List *list,List *list2 )
 {
 	if ( simple_list_getpointer(list,SIMPLE_CPOINTER_POINTER) == simple_list_getpointer(list2,SIMPLE_CPOINTER_POINTER) ) {
 		return 1 ;
@@ -1949,7 +1949,7 @@ void simple_vmlib_ptrcmp ( void *pPointer )
 	if ( SIMPLE_API_ISCPOINTER(1) && SIMPLE_API_ISCPOINTER(2) ) {
 		list = SIMPLE_API_GETLIST(1) ;
 		list2 = SIMPLE_API_GETLIST(2) ;
-		SIMPLE_API_RETNUMBER(simple_vm_api_cpointercmp(list,list2));
+		SIMPLE_API_RETNUMBER(api_cpointer_cmp(list,list2));
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}

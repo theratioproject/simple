@@ -50,7 +50,7 @@ SIMPLE_API int api_is_cpointer ( void *pPointer,int x ) ;
 
 SIMPLE_API int api_is_object ( void *pPointer,int x ) ;
 
-SIMPLE_API int simple_vm_api_cpointercmp ( List *list,List *list2 ) ;
+SIMPLE_API int api_cpointer_cmp ( List *list,List *list2 ) ;
 
 SIMPLE_API int simple_vm_api_ispointer ( void *pPointer,int x ) ;
 

@@ -810,7 +810,7 @@ SIMPLE_API int simple_list_findcpointer ( List *list,List *pValue,int nColumn )
 				if ( simple_list_islist(list,x) ) {
 					list2 = simple_list_getlist(list,x);
 					if ( api_iscpointer_list(list2) ) {
-						if ( simple_vm_api_cpointercmp(list2,pValue) ) {
+						if ( api_cpointer_cmp(list2,pValue) ) {
 							return x ;
 						}
 					}
@@ -825,7 +825,7 @@ SIMPLE_API int simple_list_findcpointer ( List *list,List *pValue,int nColumn )
 				list2 = simple_list_getlist(list,x);
 				if ( simple_list_islist(list2,nColumn) ) {
 					list3 = simple_list_getlist(list2,nColumn);
-					if ( simple_vm_api_cpointercmp(list3,pValue) ) {
+					if ( api_cpointer_cmp(list3,pValue) ) {
 						return x ;
 					}
 				}
