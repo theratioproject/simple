@@ -25,18 +25,18 @@ const char * SIMPLE_KEYWORDS[] = {"if","to","or","and","not","for","new","block"
 "get","case", "changesimplekeyword","changesimpleoperator","loadsyntax"} ;
 /* Functions */
 
-Scanner * simple_scanner_new ( SimpleState *state )
+Scanner * simple_scanner_new ( SimpleState *sState )
 {
 	Scanner *pScanner  ;
-	pScanner = (Scanner *) simple_state_malloc(state,sizeof(Scanner));
+	pScanner = (Scanner *) simple_state_malloc(sState,sizeof(Scanner));
 	if ( pScanner == NULL ) {
 		printf( SIMPLE_OOM ) ;
 		exit(0);
 	}
-	pScanner->state = state ;
+	pScanner->sState = sState ;
 	pScanner->state = SCANNER_STATE_GENERAL ;
-	pScanner->ActiveToken = simple_string_new_gc(state,"");
-	pScanner->Tokens = simple_list_new_gc(state,0);
+	pScanner->ActiveToken = simple_string_new_gc(sState,"");
+	pScanner->Tokens = simple_list_new_gc(sState,0);
 	simple_scanner_keywords(pScanner);
 	simple_scanner_operators(pScanner);
 	pScanner->LinesCount = 1 ;
@@ -49,15 +49,15 @@ Scanner * simple_scanner_new ( SimpleState *state )
 Scanner * simple_scanner_delete ( Scanner *pScanner )
 {
 	assert(pScanner != NULL);
-	pScanner->Keywords = simple_list_delete_gc(pScanner->state,pScanner->Keywords);
-	pScanner->Operators = simple_list_delete_gc(pScanner->state,pScanner->Operators);
-	pScanner->Tokens = simple_list_delete_gc(pScanner->state,pScanner->Tokens);
-	pScanner->ActiveToken = simple_string_delete_gc(pScanner->state,pScanner->ActiveToken);
-	simple_state_free(pScanner->state,pScanner);
+	pScanner->Keywords = simple_list_delete_gc(pScanner->sState,pScanner->Keywords);
+	pScanner->Operators = simple_list_delete_gc(pScanner->sState,pScanner->Operators);
+	pScanner->Tokens = simple_list_delete_gc(pScanner->sState,pScanner->Tokens);
+	pScanner->ActiveToken = simple_string_delete_gc(pScanner->sState,pScanner->ActiveToken);
+	simple_state_free(pScanner->sState,pScanner);
 	return NULL ;
 }
 
-int simple_scanner_readfile ( SimpleState *state,char *cFileName )
+int simple_scanner_readfile ( SimpleState *sState,char *cFileName )
 {
 	SIMPLE_FILE fp  ;
 	/* Must be signed char to work fine on Android, because it uses -1 as NULL instead of Zero */
@@ -70,18 +70,18 @@ int simple_scanner_readfile ( SimpleState *state,char *cFileName )
 	char cFileName2[200]  ;
         int is_start_file = 1 ;
 	/* Check file */
-	if ( state->pSimpleFilesList == NULL ) {
-		state->pSimpleFilesList = simple_list_new_gc(state,0);
-		state->pSimpleFilesStack = simple_list_new_gc(state,0);
-		simple_list_addstring_gc(state,state->pSimpleFilesList,cFileName);
-		simple_list_addstring_gc(state,state->pSimpleFilesStack,cFileName);
+	if ( sState->pSimpleFilesList == NULL ) {
+		sState->pSimpleFilesList = simple_list_new_gc(sState,0);
+		sState->pSimpleFilesStack = simple_list_new_gc(sState,0);
+		simple_list_addstring_gc(sState,sState->pSimpleFilesList,cFileName);
+		simple_list_addstring_gc(sState,sState->pSimpleFilesStack,cFileName);
 		nFreeFilesList = 1 ;
 	} else {
-		if ( simple_list_findstring(state->pSimpleFilesList,cFileName,0) == 0 ) {
-			simple_list_addstring_gc(state,state->pSimpleFilesList,cFileName);
-			simple_list_addstring_gc(state,state->pSimpleFilesStack,cFileName);
+		if ( simple_list_findstring(sState->pSimpleFilesList,cFileName,0) == 0 ) {
+			simple_list_addstring_gc(sState,sState->pSimpleFilesList,cFileName);
+			simple_list_addstring_gc(sState,sState->pSimpleFilesStack,cFileName);
 		} else {
-			if ( state->nWarning ) {
+			if ( sState->nWarning ) {
 				printf( "\nWarning, Duplication in FileName, %s \n",cFileName ) ;
 			}
 			return 1 ;
@@ -142,12 +142,12 @@ int simple_scanner_readfile ( SimpleState *state,char *cFileName )
                 return 0 ;
 	}
 	SIMPLE_READCHAR(fp,c,nSize);
-	pScanner = simple_scanner_new(state);
+	pScanner = simple_scanner_new(sState);
         /*Assign default file dir */
         if (is_start_file) {get_file_folder ( DEFAULT_FILE_PATH );}
 	/* Check Startup file */
-	if ( simple_fexists("startup.sim") && pScanner->state->lStartup == 0 ) {
-		pScanner->state->lStartup = 1 ;
+	if ( simple_fexists("startup.sim") && pScanner->sState->lStartup == 0 ) {
+		pScanner->sState->lStartup = 1 ;
 		strcpy(cStartup,"Load 'startup.sim'");
 		/* Load "startup.sim" */
 		for ( x = 0 ; x < 19 ; x++ ) {
@@ -159,7 +159,7 @@ int simple_scanner_readfile ( SimpleState *state,char *cFileName )
 		**  To avoid increasing the line number of the code 
 		**  so the first line in the source code file still the first line (not second line) 
 		*/
-		simple_string_setfromint_gc(state,pScanner->ActiveToken,0);
+		simple_string_setfromint_gc(sState,pScanner->ActiveToken,0);
 		simple_scanner_addtoken(pScanner,SCANNER_TOKEN_ENDLINE);
 	}
 	nSize = 1 ;
@@ -172,13 +172,13 @@ int simple_scanner_readfile ( SimpleState *state,char *cFileName )
 	simple_scanner_endofline(pScanner);
 	SIMPLE_CLOSEFILE(fp);
 	/* Print Tokens */
-	if ( state->nPrintTokens ) {
+	if ( sState->nPrintTokens ) {
 		display_tokens(pScanner);
 	}
 	/* Call Parser */
 	if ( nCont == 1 ) {
 		#if SIMPLE_PARSERTRACE
-		if ( pScanner->state->nPrintRules ) {
+		if ( pScanner->sState->nPrintRules ) {
 			printf( "\n" ) ;
 			print_line();
 			puts("Grammar Rules Used by The Parser ");
@@ -186,48 +186,48 @@ int simple_scanner_readfile ( SimpleState *state,char *cFileName )
 			printf( "\nRule : Program --> {Statement}\n\nLine 1\n" ) ;
 		}
 		#endif
-		nRunVM = simple_parser_start(pScanner->Tokens,state);
+		nRunVM = simple_parser_start(pScanner->Tokens,sState);
 		#if SIMPLE_PARSERTRACE
-		if ( pScanner->state->nPrintRules ) {
+		if ( pScanner->sState->nPrintRules ) {
 			printf( "\n" ) ;
 			print_line();
 			printf( "\n" ) ;
 		}
 		#endif
 	} else {
-		simple_list_deleteitem_gc(state,state->pSimpleFilesStack,simple_list_getsize(state->pSimpleFilesStack));
+		simple_list_deleteitem_gc(sState,sState->pSimpleFilesStack,simple_list_getsize(sState->pSimpleFilesStack));
 		simple_scanner_delete(pScanner);
 		return 0 ;
 	}
 	simple_scanner_delete(pScanner);
 	/* Files List */
-	simple_list_deleteitem_gc(state,state->pSimpleFilesStack,simple_list_getsize(state->pSimpleFilesStack));
+	simple_list_deleteitem_gc(sState,sState->pSimpleFilesStack,simple_list_getsize(sState->pSimpleFilesStack));
 	if ( nFreeFilesList ) {
 		/* Generate the Object File */
-		if ( state->nGenObj ) {
-			simple_objfile_writefile(state);
+		if ( sState->nGenObj ) {
+			simple_objfile_writefile(sState);
 		}
 		/* Run the Program */
 		#if SIMPLE_RUNVM
 		if ( nRunVM == 1 ) {
 			/* Add return to the end of the program */
-			simple_scanner_addreturn(state);
-			if ( state->nPrintIC ) {
-				simple_parser_icg_showoutput(state->pSimpleGenCode,1);
+			simple_scanner_addreturn(sState);
+			if ( sState->nPrintIC ) {
+				simple_parser_icg_showoutput(sState->pSimpleGenCode,1);
 			}
-			if ( ! state->nRun ) {
+			if ( ! sState->nRun ) {
 				return 1 ;
 			}
-			vm = simple_vm_new(state);
-			simple_vm_start(state,vm);
-			if ( ! state->nDontDeleteTheVM ) {
+			vm = simple_vm_new(sState);
+			simple_vm_start(sState,vm);
+			if ( ! sState->nDontDeleteTheVM ) {
 				simple_vm_delete(vm);
 			}
 		}
 		#endif
 		/* Display Generated Code */
-		if ( state->nPrintICFinal ) {
-			simple_parser_icg_showoutput(state->pSimpleGenCode,2);
+		if ( sState->nPrintICFinal ) {
+			simple_parser_icg_showoutput(sState->pSimpleGenCode,2);
 		}
 	} 
 	return nRunVM ;
@@ -252,7 +252,7 @@ void simple_scanner_readchar ( Scanner *pScanner,char c )
 			if ( simple_list_getsize(pScanner->Tokens) == 0 ) {
 				/* UTF8 */
 				if ( strcmp(simple_string_get(pScanner->ActiveToken),"\xEF\xBB\xBF") == 0 ) {
-					simple_string_set_gc(pScanner->state,pScanner->ActiveToken,"");
+					simple_string_set_gc(pScanner->sState,pScanner->ActiveToken,"");
 					/* Don't use reading so the new character can be scanned */
 				}
 			}
@@ -261,7 +261,7 @@ void simple_scanner_readchar ( Scanner *pScanner,char c )
 				if ( simple_scanner_isoperator(pScanner,cStr) ) {
 					nTokenIndex = pScanner->nTokenIndex ;
 					simple_scanner_checktoken(pScanner);
-					simple_string_set_gc(pScanner->state,pScanner->ActiveToken,cStr);
+					simple_string_set_gc(pScanner->sState,pScanner->ActiveToken,cStr);
 					#if SIMPLE_SCANNEROUTPUT
 					printf( "\nTOKEN (Operator) = %s  \n",simple_string_get(pScanner->ActiveToken) ) ;
 					#endif
@@ -269,7 +269,7 @@ void simple_scanner_readchar ( Scanner *pScanner,char c )
 					if ( (strcmp(cStr,"*") == 0) && (simple_scanner_lasttokentype(pScanner) ==SCANNER_TOKEN_OPERATOR) ) {
 						pList = simple_list_getlist(pScanner->Tokens,simple_list_getsize(pScanner->Tokens));
 						if ( strcmp(simple_list_getstring(pList,2),"/") == 0 ) {
-							simple_list_deleteitem_gc(pScanner->state,pScanner->Tokens,simple_list_getsize(pScanner->Tokens));
+							simple_list_deleteitem_gc(pScanner->sState,pScanner->Tokens,simple_list_getsize(pScanner->Tokens));
 							pScanner->state = SCANNER_STATE_MLCOMMENT ;
 							#if SIMPLE_SCANNEROUTPUT
 							printf( "\nMultiline comments start, ignore /* \n" ) ;
@@ -292,10 +292,10 @@ void simple_scanner_readchar ( Scanner *pScanner,char c )
 						if ( strcmp(cStr,simple_scanner_lasttokenvalue(pScanner)) ==  0 ) {
 							if ( strcmp(cStr,"<") == 0 ) {
 								SIMPLE_SCANNER_DELETELASTTOKEN ;
-								simple_string_set_gc(pScanner->state,pScanner->ActiveToken,"<<");
+								simple_string_set_gc(pScanner->sState,pScanner->ActiveToken,"<<");
 							} else {
 								SIMPLE_SCANNER_DELETELASTTOKEN ;
-								simple_string_set_gc(pScanner->state,pScanner->ActiveToken,">>");
+								simple_string_set_gc(pScanner->sState,pScanner->ActiveToken,">>");
 							}
 							#if SIMPLE_SCANNEROUTPUT
 							printf( "\nTOKEN (Operator) = %s , merge previous two operators in one \n",simple_string_get(pScanner->ActiveToken) ) ;
@@ -308,31 +308,31 @@ void simple_scanner_readchar ( Scanner *pScanner,char c )
 						nTokenIndex += 100 ;
 						if ( strcmp(simple_scanner_lasttokenvalue(pScanner),"+") == 0 ) {
 							SIMPLE_SCANNER_DELETELASTTOKEN ;
-							simple_string_set_gc(pScanner->state,pScanner->ActiveToken,"+=");
+							simple_string_set_gc(pScanner->sState,pScanner->ActiveToken,"+=");
 						}
 						else if ( strcmp(simple_scanner_lasttokenvalue(pScanner),"-") == 0 ) {
 							SIMPLE_SCANNER_DELETELASTTOKEN ;
-							simple_string_set_gc(pScanner->state,pScanner->ActiveToken,"-=");
+							simple_string_set_gc(pScanner->sState,pScanner->ActiveToken,"-=");
 						}
 						else if ( strcmp(simple_scanner_lasttokenvalue(pScanner),"*") == 0 ) {
 							SIMPLE_SCANNER_DELETELASTTOKEN ;
-							simple_string_set_gc(pScanner->state,pScanner->ActiveToken,"*=");
+							simple_string_set_gc(pScanner->sState,pScanner->ActiveToken,"*=");
 						}
 						else if ( strcmp(simple_scanner_lasttokenvalue(pScanner),"/") == 0 ) {
 							SIMPLE_SCANNER_DELETELASTTOKEN ;
-							simple_string_set_gc(pScanner->state,pScanner->ActiveToken,"/=");
+							simple_string_set_gc(pScanner->sState,pScanner->ActiveToken,"/=");
 						}
 						else if ( strcmp(simple_scanner_lasttokenvalue(pScanner),"%") == 0 ) {
 							SIMPLE_SCANNER_DELETELASTTOKEN ;
-							simple_string_set_gc(pScanner->state,pScanner->ActiveToken,"%=");
+							simple_string_set_gc(pScanner->sState,pScanner->ActiveToken,"%=");
 						}
 						else if ( strcmp(simple_scanner_lasttokenvalue(pScanner),"&") == 0 ) {
 							SIMPLE_SCANNER_DELETELASTTOKEN ;
-							simple_string_set_gc(pScanner->state,pScanner->ActiveToken,"&=");
+							simple_string_set_gc(pScanner->sState,pScanner->ActiveToken,"&=");
 						}
 						else if ( strcmp(simple_scanner_lasttokenvalue(pScanner),"|") == 0 ) {
 							SIMPLE_SCANNER_DELETELASTTOKEN ;
-							simple_string_set_gc(pScanner->state,pScanner->ActiveToken,"|=");
+							simple_string_set_gc(pScanner->sState,pScanner->ActiveToken,"|=");
 						}
 						else if ( strcmp(simple_scanner_lasttokenvalue(pScanner),"^") == 0 ) {
 							SIMPLE_SCANNER_DELETELASTTOKEN ;
@@ -340,11 +340,11 @@ void simple_scanner_readchar ( Scanner *pScanner,char c )
 						}
 						else if ( strcmp(simple_scanner_lasttokenvalue(pScanner),"<<") == 0 ) {
 							SIMPLE_SCANNER_DELETELASTTOKEN ;
-							simple_string_set_gc(pScanner->state,pScanner->ActiveToken,"<<=");
+							simple_string_set_gc(pScanner->sState,pScanner->ActiveToken,"<<=");
 						}
 						else if ( strcmp(simple_scanner_lasttokenvalue(pScanner),">>") == 0 ) {
 							SIMPLE_SCANNER_DELETELASTTOKEN ;
-							simple_string_set_gc(pScanner->state,pScanner->ActiveToken,">>=");
+							simple_string_set_gc(pScanner->sState,pScanner->ActiveToken,">>=");
 						}
 						else {
 							nTokenIndex -= 100 ;
@@ -354,14 +354,14 @@ void simple_scanner_readchar ( Scanner *pScanner,char c )
 					else if ( strcmp(cStr,"+") == 0 ) {
 						if ( strcmp(simple_scanner_lasttokenvalue(pScanner),"+") == 0 ) {
 							SIMPLE_SCANNER_DELETELASTTOKEN ;
-							simple_string_set_gc(pScanner->state,pScanner->ActiveToken,"++");
+							simple_string_set_gc(pScanner->sState,pScanner->ActiveToken,"++");
 							nTokenIndex += 100 ;
 						}
 					}
 					else if ( strcmp(cStr,"-") == 0 ) {
 						if ( strcmp(simple_scanner_lasttokenvalue(pScanner),"-") == 0 ) {
 							SIMPLE_SCANNER_DELETELASTTOKEN ;
-							simple_string_set_gc(pScanner->state,pScanner->ActiveToken,"--");
+							simple_string_set_gc(pScanner->sState,pScanner->ActiveToken,"--");
 							nTokenIndex += 100 ;
 						}
 					}
@@ -369,21 +369,21 @@ void simple_scanner_readchar ( Scanner *pScanner,char c )
 					else if ( strcmp(cStr,"&") == 0 ) {
 						if ( strcmp(simple_scanner_lasttokenvalue(pScanner),"&") == 0 ) {
 							SIMPLE_SCANNER_DELETELASTTOKEN ;
-							simple_string_set_gc(pScanner->state,pScanner->ActiveToken,"&&");
+							simple_string_set_gc(pScanner->sState,pScanner->ActiveToken,"&&");
 							nTokenIndex += 100 ;
 						}
 					}
 					else if ( strcmp(cStr,"|") == 0 ) {
 						if ( strcmp(simple_scanner_lasttokenvalue(pScanner),"|") == 0 ) {
 							SIMPLE_SCANNER_DELETELASTTOKEN ;
-							simple_string_set_gc(pScanner->state,pScanner->ActiveToken,"||");
+							simple_string_set_gc(pScanner->sState,pScanner->ActiveToken,"||");
 							nTokenIndex += 100 ;
 						}
 					}
 					pScanner->nTokenIndex = nTokenIndex ;
 					simple_scanner_addtoken(pScanner,SCANNER_TOKEN_OPERATOR);
 				} else {
-					simple_string_add_gc(pScanner->state,pScanner->ActiveToken,cStr);
+					simple_string_add_gc(pScanner->sState,pScanner->ActiveToken,cStr);
 					#if SIMPLE_DEBUG
 					printf( "\nActive Token = %s",simple_string_get(pScanner->ActiveToken) ) ;
 					#endif
@@ -425,7 +425,7 @@ void simple_scanner_readchar ( Scanner *pScanner,char c )
 				#endif
 				simple_scanner_addtoken(pScanner,SCANNER_TOKEN_LITERAL);
 			} else {
-				simple_string_add_gc(pScanner->state,pScanner->ActiveToken,cStr);
+				simple_string_add_gc(pScanner->sState,pScanner->ActiveToken,cStr);
 			}
 			break ;
 		case SCANNER_STATE_COMMENT :
@@ -435,9 +435,9 @@ void simple_scanner_readchar ( Scanner *pScanner,char c )
 				#if SIMPLE_SCANNEROUTPUT
 				printf( "\n Not TOKEN (Comment) = %s  \n",simple_string_get(pScanner->ActiveToken) ) ;
 				#endif
-				simple_string_set_gc(pScanner->state,pScanner->ActiveToken,"");
+				simple_string_set_gc(pScanner->sState,pScanner->ActiveToken,"");
 			} else {
-				simple_string_add_gc(pScanner->state,pScanner->ActiveToken,cStr);
+				simple_string_add_gc(pScanner->sState,pScanner->ActiveToken,cStr);
 			}
 			break ;
 		case SCANNER_STATE_MLCOMMENT :
@@ -456,7 +456,7 @@ void simple_scanner_readchar ( Scanner *pScanner,char c )
 						printf( "\nMultiline comments end \n" ) ;
 						#endif
 						/* The next step is important to avoid storing * as identifier! */
-						simple_string_set_gc(pScanner->state,pScanner->ActiveToken,"");
+						simple_string_set_gc(pScanner->sState,pScanner->ActiveToken,"");
 					}
 					pScanner->cMLComment = 0 ;
 					return ;
@@ -470,9 +470,9 @@ void simple_scanner_readchar ( Scanner *pScanner,char c )
 				printf( "\n Change Keyword = %s  \n",simple_string_get(pScanner->ActiveToken) ) ;
 				#endif
 				simple_scanner_changekeyword(pScanner);
-				simple_string_set_gc(pScanner->state,pScanner->ActiveToken,"");
+				simple_string_set_gc(pScanner->sState,pScanner->ActiveToken,"");
 			} else {
-				simple_string_add_gc(pScanner->state,pScanner->ActiveToken,cStr);
+				simple_string_add_gc(pScanner->sState,pScanner->ActiveToken,cStr);
 			}
 			break ;
 		case SCANNER_STATE_CHANGEOPERATOR :
@@ -483,9 +483,9 @@ void simple_scanner_readchar ( Scanner *pScanner,char c )
 				printf( "\n Change operator = %s  \n",simple_string_get(pScanner->ActiveToken) ) ;
 				#endif
 				simple_scanner_changeoperator(pScanner);
-				simple_string_set_gc(pScanner->state,pScanner->ActiveToken,"");
+				simple_string_set_gc(pScanner->sState,pScanner->ActiveToken,"");
 			} else {
-				simple_string_add_gc(pScanner->state,pScanner->ActiveToken,cStr);
+				simple_string_add_gc(pScanner->sState,pScanner->ActiveToken,cStr);
 			}
 			break ;
 		case SCANNER_STATE_LOADSYNTAX :
@@ -496,9 +496,9 @@ void simple_scanner_readchar ( Scanner *pScanner,char c )
 				printf( "\n Load Syntax = %s  \n",simple_string_get(pScanner->ActiveToken) ) ;
 				#endif
 				simple_scanner_loadsyntax(pScanner);
-				simple_string_set_gc(pScanner->state,pScanner->ActiveToken,"");
+				simple_string_set_gc(pScanner->sState,pScanner->ActiveToken,"");
 			} else {
-				simple_string_add_gc(pScanner->state,pScanner->ActiveToken,cStr);
+				simple_string_add_gc(pScanner->sState,pScanner->ActiveToken,cStr);
 			}
 			break ;
 	}
@@ -510,17 +510,17 @@ void simple_scanner_readchar ( Scanner *pScanner,char c )
 	}
 	if ( ( c == ';' || c == '\n' ) && ( pScanner->state == SCANNER_STATE_GENERAL ) ) {
 		if ( (simple_scanner_lasttokentype(pScanner) != SCANNER_TOKEN_ENDLINE ) ) {
-			simple_string_setfromint_gc(pScanner->state,pScanner->ActiveToken,pScanner->LinesCount);
+			simple_string_setfromint_gc(pScanner->sState,pScanner->ActiveToken,pScanner->LinesCount);
 			simple_scanner_addtoken(pScanner,SCANNER_TOKEN_ENDLINE);
 			#if SIMPLE_SCANNEROUTPUT
 			printf( "\nTOKEN (ENDLINE)  \n" ) ;
 			#endif
 		} else {
 			pList = simple_list_getlist(pScanner->Tokens,simple_list_getsize(pScanner->Tokens));
-			pString = simple_string_new_gc(pScanner->state,"");
-			simple_string_setfromint_gc(pScanner->state,pString,pScanner->LinesCount);
-			simple_list_setstsimple_gc(pScanner->state,pList,2,simple_string_get(pString));
-			simple_string_delete_gc(pScanner->state,pString);
+			pString = simple_string_new_gc(pScanner->sState,"");
+			simple_string_setfromint_gc(pScanner->sState,pString,pScanner->LinesCount);
+			simple_list_setstsimple_gc(pScanner->sState,pList,2,simple_string_get(pString));
+			simple_string_delete_gc(pScanner->sState,pString);
 		}
 	}
 }
@@ -528,70 +528,70 @@ void simple_scanner_readchar ( Scanner *pScanner,char c )
 void simple_scanner_keywords ( Scanner *pScanner )
 {
 	assert(pScanner != NULL);
-	pScanner->Keywords = simple_list_new_gc(pScanner->state,0);
-	simple_list_addstring_gc(pScanner->state,pScanner->Keywords,"if");
-	simple_list_addstring_gc(pScanner->state,pScanner->Keywords,"to");
+	pScanner->Keywords = simple_list_new_gc(pScanner->sState,0);
+	simple_list_addstring_gc(pScanner->sState,pScanner->Keywords,"if");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Keywords,"to");
 	/* Logic */
-	simple_list_addstring_gc(pScanner->state,pScanner->Keywords,"or");
-	simple_list_addstring_gc(pScanner->state,pScanner->Keywords,"and");
-	simple_list_addstring_gc(pScanner->state,pScanner->Keywords,"not");
-        simple_list_addstring_gc(pScanner->state,pScanner->Keywords,"for");
-	simple_list_addstring_gc(pScanner->state,pScanner->Keywords,"new");
-	simple_list_addstring_gc(pScanner->state,pScanner->Keywords,"block");
-	simple_list_addstring_gc(pScanner->state,pScanner->Keywords,"inherit");
-	simple_list_addstring_gc(pScanner->state,pScanner->Keywords,"loop");
-	simple_list_addstring_gc(pScanner->state,pScanner->Keywords,"call");
-	simple_list_addstring_gc(pScanner->state,pScanner->Keywords,"else");
-	simple_list_addstring_gc(pScanner->state,pScanner->Keywords,"display");
-	simple_list_addstring_gc(pScanner->state,pScanner->Keywords,"while");
-	simple_list_addstring_gc(pScanner->state,pScanner->Keywords,"class");
-	simple_list_addstring_gc(pScanner->state,pScanner->Keywords,"return");
-	simple_list_addstring_gc(pScanner->state,pScanner->Keywords,"end");
-	simple_list_addstring_gc(pScanner->state,pScanner->Keywords,"read");
-	simple_list_addstring_gc(pScanner->state,pScanner->Keywords,"__exit__");
-	simple_list_addstring_gc(pScanner->state,pScanner->Keywords,"break");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Keywords,"or");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Keywords,"and");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Keywords,"not");
+        simple_list_addstring_gc(pScanner->sState,pScanner->Keywords,"for");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Keywords,"new");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Keywords,"block");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Keywords,"inherit");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Keywords,"loop");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Keywords,"call");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Keywords,"else");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Keywords,"display");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Keywords,"while");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Keywords,"class");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Keywords,"return");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Keywords,"end");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Keywords,"read");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Keywords,"__exit__");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Keywords,"break");
 	/* try-catch-finally */
-	simple_list_addstring_gc(pScanner->state,pScanner->Keywords,"try");
-	simple_list_addstring_gc(pScanner->state,pScanner->Keywords,"catch");
-	simple_list_addstring_gc(pScanner->state,pScanner->Keywords,"finally");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Keywords,"try");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Keywords,"catch");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Keywords,"finally");
 	/* Switch */
-	simple_list_addstring_gc(pScanner->state,pScanner->Keywords,"switch");
-	simple_list_addstring_gc(pScanner->state,pScanner->Keywords,"default");
-	simple_list_addstring_gc(pScanner->state,pScanner->Keywords,"in");
-	simple_list_addstring_gc(pScanner->state,pScanner->Keywords,"continue");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Keywords,"switch");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Keywords,"default");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Keywords,"in");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Keywords,"continue");
 	/* Modules */
-	simple_list_addstring_gc(pScanner->state,pScanner->Keywords,"module");
-	simple_list_addstring_gc(pScanner->state,pScanner->Keywords,"private");
-	simple_list_addstring_gc(pScanner->state,pScanner->Keywords,"step");
-	simple_list_addstring_gc(pScanner->state,pScanner->Keywords,"do");
-	simple_list_addstring_gc(pScanner->state,pScanner->Keywords,"exec");
-	simple_list_addstring_gc(pScanner->state,pScanner->Keywords,"elif");
-	simple_list_addstring_gc(pScanner->state,pScanner->Keywords,"get");
-	simple_list_addstring_gc(pScanner->state,pScanner->Keywords,"case");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Keywords,"module");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Keywords,"private");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Keywords,"step");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Keywords,"do");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Keywords,"exec");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Keywords,"elif");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Keywords,"get");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Keywords,"case");
 	/*
 	**  The next keywords are sensitive to the order and keywords count 
 	**  if you will add new keywords revise constants and simple_scanner_checktoken() 
 	*/
-	simple_list_addstring_gc(pScanner->state,pScanner->Keywords,"changesimplekeyword");
-	simple_list_addstring_gc(pScanner->state,pScanner->Keywords,"changesimpleoperator");
-	simple_list_addstring_gc(pScanner->state,pScanner->Keywords,"loadsyntax");
-	simple_list_genhashtable_gc(pScanner->state,pScanner->Keywords);
+	simple_list_addstring_gc(pScanner->sState,pScanner->Keywords,"changesimplekeyword");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Keywords,"changesimpleoperator");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Keywords,"loadsyntax");
+	simple_list_genhashtable_gc(pScanner->sState,pScanner->Keywords);
 }
 
 void simple_scanner_addtoken ( Scanner *pScanner,int type )
 {
 	List *pList  ;
 	assert(pScanner != NULL);
-	pList = simple_list_newlist_gc(pScanner->state,pScanner->Tokens);
+	pList = simple_list_newlist_gc(pScanner->sState,pScanner->Tokens);
 	/* Add Token Type */
-	simple_list_addint_gc(pScanner->state,pList,type);
+	simple_list_addint_gc(pScanner->sState,pList,type);
 	/* Add Token Text */
-	simple_list_addstring_gc(pScanner->state,pList,simple_string_get(pScanner->ActiveToken));
+	simple_list_addstring_gc(pScanner->sState,pList,simple_string_get(pScanner->ActiveToken));
 	/* Add Token Index */
-	simple_list_addint_gc(pScanner->state,pList,pScanner->nTokenIndex);
+	simple_list_addint_gc(pScanner->sState,pList,pScanner->nTokenIndex);
 	pScanner->nTokenIndex = 0 ;
 	simple_scanner_floatmark(pScanner,type);
-	simple_string_set_gc(pScanner->state,pScanner->ActiveToken,"");
+	simple_string_set_gc(pScanner->sState,pScanner->ActiveToken,"");
 }
 
 void simple_scanner_checktoken ( Scanner *pScanner )
@@ -609,19 +609,19 @@ void simple_scanner_checktoken ( Scanner *pScanner )
 		#endif
 		if ( nResult < SIMPLE_SCANNER_CHANGERINGKEYWORD ) {
 			sprintf( cStr , "%d" , nResult ) ;
-			simple_string_set_gc(pScanner->state,pScanner->ActiveToken,cStr);
+			simple_string_set_gc(pScanner->sState,pScanner->ActiveToken,cStr);
 			simple_scanner_addtoken(pScanner,SCANNER_TOKEN_KEYWORD);
 		}
 		else if ( nResult == SIMPLE_SCANNER_CHANGERINGOPERATOR ) {
-			simple_string_set_gc(pScanner->state,pScanner->ActiveToken,"");
+			simple_string_set_gc(pScanner->sState,pScanner->ActiveToken,"");
 			pScanner->state = SCANNER_STATE_CHANGEOPERATOR ;
 		}
 		else if ( nResult == SIMPLE_SCANNER_LOADSYNTAX ) {
-			simple_string_set_gc(pScanner->state,pScanner->ActiveToken,"");
+			simple_string_set_gc(pScanner->sState,pScanner->ActiveToken,"");
 			pScanner->state = SCANNER_STATE_LOADSYNTAX ;
 		}
 		else {
-			simple_string_set_gc(pScanner->state,pScanner->ActiveToken,"");
+			simple_string_set_gc(pScanner->sState,pScanner->ActiveToken,"");
 			pScanner->state = SCANNER_STATE_CHANGEKEYWORD ;
 		}
 	} else {
@@ -676,7 +676,7 @@ int simple_scanner_checklasttoken ( Scanner *pScanner )
 		}
 	}
 	if ( pScanner->state == SCANNER_STATE_LITERAL ) {
-		simple_state_cgiheader(pScanner->state);
+		simple_state_cgiheader(pScanner->sState);
 		printf( "Error (S1) : In Line %d , Literal not closed, expected \" in the end\n",pScanner->nLiteralLine ) ;
 		return 0 ;
 	}
@@ -701,31 +701,31 @@ int simple_scanner_isoperator ( Scanner *pScanner, const char *cStr )
 void simple_scanner_operators ( Scanner *pScanner )
 {
 	assert(pScanner != NULL);
-	pScanner->Operators = simple_list_new_gc(pScanner->state,0);
-	simple_list_addstring_gc(pScanner->state,pScanner->Operators,"+");
-	simple_list_addstring_gc(pScanner->state,pScanner->Operators,"-");
-	simple_list_addstring_gc(pScanner->state,pScanner->Operators,"*");
-	simple_list_addstring_gc(pScanner->state,pScanner->Operators,"/");
-	simple_list_addstring_gc(pScanner->state,pScanner->Operators,"%");
-	simple_list_addstring_gc(pScanner->state,pScanner->Operators,".");
-	simple_list_addstring_gc(pScanner->state,pScanner->Operators,"(");
-	simple_list_addstring_gc(pScanner->state,pScanner->Operators,")");
-	simple_list_addstring_gc(pScanner->state,pScanner->Operators,"=");
-	simple_list_addstring_gc(pScanner->state,pScanner->Operators,",");
-	simple_list_addstring_gc(pScanner->state,pScanner->Operators,"!");
-	simple_list_addstring_gc(pScanner->state,pScanner->Operators,">");
-	simple_list_addstring_gc(pScanner->state,pScanner->Operators,"<");
-	simple_list_addstring_gc(pScanner->state,pScanner->Operators,"[");
-	simple_list_addstring_gc(pScanner->state,pScanner->Operators,"]");
-	simple_list_addstring_gc(pScanner->state,pScanner->Operators,":");
-	simple_list_addstring_gc(pScanner->state,pScanner->Operators,"{");
-	simple_list_addstring_gc(pScanner->state,pScanner->Operators,"}");
-	simple_list_addstring_gc(pScanner->state,pScanner->Operators,"&");
-	simple_list_addstring_gc(pScanner->state,pScanner->Operators,"|");
-	simple_list_addstring_gc(pScanner->state,pScanner->Operators,"~");
-	simple_list_addstring_gc(pScanner->state,pScanner->Operators,"^");
-	simple_list_addstring_gc(pScanner->state,pScanner->Operators,"?");
-	simple_list_genhashtable_gc(pScanner->state,pScanner->Operators);
+	pScanner->Operators = simple_list_new_gc(pScanner->sState,0);
+	simple_list_addstring_gc(pScanner->sState,pScanner->Operators,"+");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Operators,"-");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Operators,"*");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Operators,"/");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Operators,"%");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Operators,".");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Operators,"(");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Operators,")");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Operators,"=");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Operators,",");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Operators,"!");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Operators,">");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Operators,"<");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Operators,"[");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Operators,"]");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Operators,":");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Operators,"{");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Operators,"}");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Operators,"&");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Operators,"|");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Operators,"~");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Operators,"^");
+	simple_list_addstring_gc(pScanner->sState,pScanner->Operators,"?");
+	simple_list_genhashtable_gc(pScanner->sState,pScanner->Operators);
 }
 
 int simple_scanner_lasttokentype ( Scanner *pScanner )
@@ -775,13 +775,13 @@ void simple_scanner_floatmark ( Scanner *pScanner,int type )
 		case 2 :
 			if ( type == SCANNER_TOKEN_NUMBER ) {
 				pList = simple_list_getlist(pScanner->Tokens,simple_list_getsize(pScanner->Tokens));
-				pString = simple_string_new_gc(pScanner->state,simple_list_getstring(pList,2)) ;
-				simple_list_deleteitem_gc(pScanner->state,pScanner->Tokens,simple_list_getsize(pScanner->Tokens));
-				simple_list_deleteitem_gc(pScanner->state,pScanner->Tokens,simple_list_getsize(pScanner->Tokens));
+				pString = simple_string_new_gc(pScanner->sState,simple_list_getstring(pList,2)) ;
+				simple_list_deleteitem_gc(pScanner->sState,pScanner->Tokens,simple_list_getsize(pScanner->Tokens));
+				simple_list_deleteitem_gc(pScanner->sState,pScanner->Tokens,simple_list_getsize(pScanner->Tokens));
 				pList = simple_list_getlist(pScanner->Tokens,simple_list_getsize(pScanner->Tokens));
-				simple_string_add_gc(pScanner->state,simple_item_getstring(simple_list_getitem(pList,2)),".");
-				simple_string_add_gc(pScanner->state,simple_item_getstring(simple_list_getitem(pList,2)),simple_string_get(pString));
-				simple_string_delete_gc(pScanner->state,pString);
+				simple_string_add_gc(pScanner->sState,simple_item_getstring(simple_list_getitem(pList,2)),".");
+				simple_string_add_gc(pScanner->sState,simple_item_getstring(simple_list_getitem(pList,2)),simple_string_get(pString));
+				simple_string_delete_gc(pScanner->sState,pString);
 				#if SIMPLE_SCANNEROUTPUT
 				printf( "\nFloat Found, Removed 2 tokens from the end, update value to float ! \n" ) ;
 				printf( "\nFloat Value = %s  \n",simple_list_getstring(pList,2) ) ;
@@ -796,7 +796,7 @@ void simple_scanner_endofline ( Scanner *pScanner )
 {
 	/* Add Token "End of Line" to the end of any program */
 	if ( simple_scanner_lasttokentype(pScanner) != SCANNER_TOKEN_ENDLINE ) {
-		simple_string_setfromint_gc(pScanner->state,pScanner->ActiveToken,pScanner->LinesCount);
+		simple_string_setfromint_gc(pScanner->sState,pScanner->ActiveToken,pScanner->LinesCount);
 		simple_scanner_addtoken(pScanner,SCANNER_TOKEN_ENDLINE);
 		#if SIMPLE_SCANNEROUTPUT
 		printf( "\nTOKEN (ENDLINE)  \n" ) ;
@@ -804,31 +804,31 @@ void simple_scanner_endofline ( Scanner *pScanner )
 	}
 }
 
-void simple_scanner_addreturn ( SimpleState *state )
+void simple_scanner_addreturn ( SimpleState *sState )
 {
 	List *pList  ;
 	/* Add return to the end of the program */
-	pList = simple_list_newlist_gc(state,state->pSimpleGenCode);
-	simple_list_addint_gc(state,pList,ICO_RETNULL);
+	pList = simple_list_newlist_gc(sState,sState->pSimpleGenCode);
+	simple_list_addint_gc(sState,pList,ICO_RETNULL);
 }
 
-void simple_scanner_addreturn2 ( SimpleState *state )
+void simple_scanner_addreturn2 ( SimpleState *sState )
 {
 	List *pList  ;
 	/* Add return to the end of the program */
-	pList = simple_list_newlist_gc(state,state->pSimpleGenCode);
-	simple_list_addint_gc(state,pList,ICO_RETURN);
+	pList = simple_list_newlist_gc(sState,sState->pSimpleGenCode);
+	simple_list_addint_gc(sState,pList,ICO_RETURN);
 }
 
-void simple_scanner_addreturn3 ( SimpleState *state, int aPara[3] )
+void simple_scanner_addreturn3 ( SimpleState *sState, int aPara[3] )
 {
 	List *pList  ;
 	/* Add return from executeCode to the end of the executeCode() code */
-	pList = simple_list_newlist_gc(state,state->pSimpleGenCode);
-	simple_list_addint_gc(state,pList,ICO_RETFROMEVAL);
-	simple_list_addint_gc(state,pList,aPara[0]);
-	simple_list_addint_gc(state,pList,aPara[1]);
-	simple_list_addint_gc(state,pList,aPara[2]);
+	pList = simple_list_newlist_gc(sState,sState->pSimpleGenCode);
+	simple_list_addint_gc(sState,pList,ICO_RETFROMEVAL);
+	simple_list_addint_gc(sState,pList,aPara[0]);
+	simple_list_addint_gc(sState,pList,aPara[1]);
+	simple_list_addint_gc(sState,pList,aPara[2]);
 }
 
 void display_tokens ( Scanner *pScanner )
@@ -873,26 +873,26 @@ void display_tokens ( Scanner *pScanner )
 
 SIMPLE_API void simple_execute ( char *cFileName, int nISCGI,int nRun,int nPrintIC,int nPrintICFinal,int nTokens,int nRules,int nIns,int nGenObj,int nWarn,int argc,char *argv[] )
 {
-	SimpleState *state  ;
-	state = simple_state_new();
-	state->nISCGI = nISCGI ;
-	state->nRun = nRun ;
-	state->nPrintIC = nPrintIC ;
-	state->nPrintICFinal = nPrintICFinal ;
-	state->nPrintTokens = nTokens ;
-	state->nPrintRules = nRules ;
-	state->nPrintInstruction = nIns ;
-	state->nGenObj = nGenObj ;
-	state->nWarning = nWarn ;
-	state->argc = argc ;
-	state->argv = argv ;
+	SimpleState *sState  ;
+	sState = simple_state_new();
+	sState->nISCGI = nISCGI ;
+	sState->nRun = nRun ;
+	sState->nPrintIC = nPrintIC ;
+	sState->nPrintICFinal = nPrintICFinal ;
+	sState->nPrintTokens = nTokens ;
+	sState->nPrintRules = nRules ;
+	sState->nPrintInstruction = nIns ;
+	sState->nGenObj = nGenObj ;
+	sState->nWarning = nWarn ;
+	sState->argc = argc ;
+	sState->argv = argv ;
 	if ( is_simple_file(cFileName) ) {
-		simple_scanner_readfile(state,cFileName);
+		simple_scanner_readfile(sState,cFileName);
 	}
 	else {
-		simple_scanner_runobjfile(state,cFileName);
+		simple_scanner_runobjfile(sState,cFileName);
 	}
-	simple_state_delete(state);
+	simple_state_delete(sState);
 }
 
 const char * simple_scanner_getkeywordtext ( const char *cStr )
@@ -900,47 +900,47 @@ const char * simple_scanner_getkeywordtext ( const char *cStr )
 	return SIMPLE_KEYWORDS[atoi(cStr)-1] ;
 }
 
-void simple_scanner_runobjfile ( SimpleState *state,char *cFileName )
+void simple_scanner_runobjfile ( SimpleState *sState,char *cFileName )
 {
 	/* Files List */
-	state->pSimpleFilesList = simple_list_new_gc(state,0);
-	state->pSimpleFilesStack = simple_list_new_gc(state,0);
-	simple_list_addstring_gc(state,state->pSimpleFilesList,cFileName);
-	simple_list_addstring_gc(state,state->pSimpleFilesStack,cFileName);
-	if ( simple_objfile_readfile(state,cFileName) ) {
-		simple_scanner_runprogram(state);
+	sState->pSimpleFilesList = simple_list_new_gc(sState,0);
+	sState->pSimpleFilesStack = simple_list_new_gc(sState,0);
+	simple_list_addstring_gc(sState,sState->pSimpleFilesList,cFileName);
+	simple_list_addstring_gc(sState,sState->pSimpleFilesStack,cFileName);
+	if ( simple_objfile_readfile(sState,cFileName) ) {
+		simple_scanner_runprogram(sState);
 	}
 }
 
-void simple_scanner_runobjstring ( SimpleState *state,char *cString,const char *cFileName )
+void simple_scanner_runobjstring ( SimpleState *sState,char *cString,const char *cFileName )
 {
 	/* Files List */
-	state->pSimpleFilesList = simple_list_new_gc(state,0);
-	state->pSimpleFilesStack = simple_list_new_gc(state,0);
-	simple_list_addstring_gc(state,state->pSimpleFilesList,cFileName);
-	simple_list_addstring_gc(state,state->pSimpleFilesStack,cFileName);
-	if ( simple_objfile_readstring(state,cString) ) {
-		simple_scanner_runprogram(state);
+	sState->pSimpleFilesList = simple_list_new_gc(sState,0);
+	sState->pSimpleFilesStack = simple_list_new_gc(sState,0);
+	simple_list_addstring_gc(sState,sState->pSimpleFilesList,cFileName);
+	simple_list_addstring_gc(sState,sState->pSimpleFilesStack,cFileName);
+	if ( simple_objfile_readstring(sState,cString) ) {
+		simple_scanner_runprogram(sState);
 	}
 }
 
-void simple_scanner_runprogram ( SimpleState *state )
+void simple_scanner_runprogram ( SimpleState *sState )
 {
 	VM *vm  ;
 	/* Add return to the end of the program */
-	simple_scanner_addreturn(state);
-	if ( state->nPrintIC ) {
-		simple_parser_icg_showoutput(state->pSimpleGenCode,1);
+	simple_scanner_addreturn(sState);
+	if ( sState->nPrintIC ) {
+		simple_parser_icg_showoutput(sState->pSimpleGenCode,1);
 	}
-	if ( ! state->nRun ) {
+	if ( ! sState->nRun ) {
 		return ;
 	}
-	vm = simple_vm_new(state);
-	simple_vm_start(state,vm);
+	vm = simple_vm_new(sState);
+	simple_vm_start(sState,vm);
 	simple_vm_delete(vm);
 	/* Display Generated Code */
-	if ( state->nPrintICFinal ) {
-		simple_parser_icg_showoutput(state->pSimpleGenCode,2);
+	if ( sState->nPrintICFinal ) {
+		simple_parser_icg_showoutput(sState->pSimpleGenCode,2);
 	}
 }
 
@@ -952,8 +952,8 @@ void simple_scanner_changekeyword ( Scanner *pScanner )
 	char cStr2[2]  ;
 	cStr2[1] = '\0' ;
 	/* Create Strings */
-	word1 = simple_string_new_gc(pScanner->state,"");
-	word2 = simple_string_new_gc(pScanner->state,"");
+	word1 = simple_string_new_gc(pScanner->sState,"");
+	word2 = simple_string_new_gc(pScanner->sState,"");
 	cStr = simple_string_get(pScanner->ActiveToken) ;
 	activeword = word1 ;
 	for ( x = 0 ; x < simple_string_size(pScanner->ActiveToken) ; x++ ) {
@@ -964,7 +964,7 @@ void simple_scanner_changekeyword ( Scanner *pScanner )
 		}
 		else {
 			cStr2[0] = cStr[x] ;
-			simple_string_add_gc(pScanner->state,activeword,cStr2);
+			simple_string_add_gc(pScanner->sState,activeword,cStr2);
 		}
 	}
 	/* To Lower Case */
@@ -977,8 +977,8 @@ void simple_scanner_changekeyword ( Scanner *pScanner )
 	else {
 		nResult = simple_hashtable_findnumber(simple_list_gethashtable(pScanner->Keywords),simple_string_get(word1));
 		if ( nResult > 0 ) {
-			simple_list_setstsimple_gc(pScanner->state,pScanner->Keywords,nResult,simple_string_get(word2));
-			simple_list_genhashtable_gc(pScanner->state,pScanner->Keywords);
+			simple_list_setstsimple_gc(pScanner->sState,pScanner->Keywords,nResult,simple_string_get(word2));
+			simple_list_genhashtable_gc(pScanner->sState,pScanner->Keywords);
 		}
 		else {
 			puts("Warning : Compiler command ChangeSimpleKeyword - Keyword not found !");
@@ -986,8 +986,8 @@ void simple_scanner_changekeyword ( Scanner *pScanner )
 		}
 	}
 	/* Delete Strings */
-	simple_string_delete_gc(pScanner->state,word1);
-	simple_string_delete_gc(pScanner->state,word2);
+	simple_string_delete_gc(pScanner->sState,word1);
+	simple_string_delete_gc(pScanner->sState,word2);
 }
 
 void simple_scanner_changeoperator ( Scanner *pScanner )
@@ -998,8 +998,8 @@ void simple_scanner_changeoperator ( Scanner *pScanner )
 	char cStr2[2]  ;
 	cStr2[1] = '\0' ;
 	/* Create Strings */
-	word1 = simple_string_new_gc(pScanner->state,"");
-	word2 = simple_string_new_gc(pScanner->state,"");
+	word1 = simple_string_new_gc(pScanner->sState,"");
+	word2 = simple_string_new_gc(pScanner->sState,"");
 	cStr = simple_string_get(pScanner->ActiveToken) ;
 	activeword = word1 ;
 	for ( x = 0 ; x < simple_string_size(pScanner->ActiveToken) ; x++ ) {
@@ -1010,7 +1010,7 @@ void simple_scanner_changeoperator ( Scanner *pScanner )
 		}
 		else {
 			cStr2[0] = cStr[x] ;
-			simple_string_add_gc(pScanner->state,activeword,cStr2);
+			simple_string_add_gc(pScanner->sState,activeword,cStr2);
 		}
 	}
 	/* To Lower Case */
@@ -1023,8 +1023,8 @@ void simple_scanner_changeoperator ( Scanner *pScanner )
 	else {
 		nResult = simple_hashtable_findnumber(simple_list_gethashtable(pScanner->Operators),simple_string_get(word1));
 		if ( nResult > 0 ) {
-			simple_list_setstsimple_gc(pScanner->state,pScanner->Operators,nResult,simple_string_get(word2));
-			simple_list_genhashtable_gc(pScanner->state,pScanner->Operators);
+			simple_list_setstsimple_gc(pScanner->sState,pScanner->Operators,nResult,simple_string_get(word2));
+			simple_list_genhashtable_gc(pScanner->sState,pScanner->Operators);
 		}
 		else {
 			puts("Warning : Compiler command ChangeSimpleOperator - Operator not found !");
@@ -1032,8 +1032,8 @@ void simple_scanner_changeoperator ( Scanner *pScanner )
 		}
 	}
 	/* Delete Strings */
-	simple_string_delete_gc(pScanner->state,word1);
-	simple_string_delete_gc(pScanner->state,word2);
+	simple_string_delete_gc(pScanner->sState,word1);
+	simple_string_delete_gc(pScanner->sState,word2);
 }
 
 void simple_scanner_loadsyntax ( Scanner *pScanner )
@@ -1071,7 +1071,7 @@ void simple_scanner_loadsyntax ( Scanner *pScanner )
 		return ;
 	}
 	nSize = 1 ;
-	simple_string_set_gc(pScanner->state,pScanner->ActiveToken,"");
+	simple_string_set_gc(pScanner->sState,pScanner->ActiveToken,"");
 	SIMPLE_READCHAR(fp,c,nSize);
 	while ( (c != EOF) && (nSize != 0) ) {
 		simple_scanner_readchar(pScanner,c);

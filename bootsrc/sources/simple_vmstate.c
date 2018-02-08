@@ -19,50 +19,50 @@
 void simple_vm_savestate ( VM *vm,List *pList )
 {
 	List *pThis  ;
-	pList = simple_list_newlist_gc(vm->state,pList);
-	simple_list_addint_gc(vm->state,pList,simple_list_getsize(vm->pMem));
-	simple_list_addint_gc(vm->state,pList,simple_list_getsize(vm->pFuncCallList));
-	simple_list_addint_gc(vm->state,pList,vm->nFuncExecute);
-	simple_list_addint_gc(vm->state,pList,vm->nSP);
-	simple_list_addint_gc(vm->state,pList,vm->nFuncSP);
-	simple_list_addint_gc(vm->state,pList,simple_list_getsize(vm->pObjState));
-	simple_list_addint_gc(vm->state,pList,simple_list_getsize(vm->aBraceObjects));
-	simple_list_addpointer_gc(vm->state,pList,vm->pBraceObject);
-	simple_list_addpointer_gc(vm->state,pList,vm->cFileName);
-	simple_list_addint_gc(vm->state,pList,simple_list_getsize(vm->aPCBlockFlag));
-	simple_list_addint_gc(vm->state,pList,vm->nBlockFlag);
-	simple_list_addint_gc(vm->state,pList,simple_list_getsize(vm->aScopeNewObj));
-	simple_list_addint_gc(vm->state,pList,simple_list_getsize(vm->aActiveModules));
-	simple_list_addint_gc(vm->state,pList,simple_list_getsize(vm->aScopeID));
-	simple_list_addint_gc(vm->state,pList,vm->nActiveScopeID);
-	simple_list_addint_gc(vm->state,pList,simple_list_getsize(vm->pExitMark));
-	simple_list_addint_gc(vm->state,pList,simple_list_getsize(vm->pLoopMark));
-	simple_list_addint_gc(vm->state,pList,simple_list_getsize(vm->pTry));
-	simple_list_addpointer_gc(vm->state,pList,vm->pActiveMem);
-	simple_list_addint_gc(vm->state,pList,vm->nListStart);
-	simple_list_addpointer_gc(vm->state,pList,vm->pNestedLists);
-	simple_list_addint_gc(vm->state,pList,vm->nInsideBraceFlag);
-	simple_list_addint_gc(vm->state,pList,simple_list_getsize(vm->aForStep));
-	simple_list_addint_gc(vm->state,pList,simple_list_getsize(vm->aBeforeObjState));
-	simple_list_addpointer_gc(vm->state,pList,vm->aPCBlockFlag);
-	simple_list_addint_gc(vm->state,pList,vm->nLineNumber);
-	simple_list_addint_gc(vm->state,pList,vm->nInClassRegion);
-	simple_list_addint_gc(vm->state,pList,vm->nPrivateFlag);
-	simple_list_addint_gc(vm->state,pList,vm->nGetSetProperty);
-	simple_list_addpointer_gc(vm->state,pList,vm->pGetSetObject);
-	simple_list_addint_gc(vm->state,pList,vm->nGetSetObjType);
-	simple_list_addpointer_gc(vm->state,pList,vm->pAssignment);
-	simple_list_addint_gc(vm->state,pList,vm->nBeforeEqual);
-	simple_list_addint_gc(vm->state,pList,vm->nNOAssignment);
-	simple_list_addint_gc(vm->state,pList,vm->nFuncExecute2);
-	simple_list_addint_gc(vm->state,pList,vm->nCallClassInit);
-	simple_list_addpointer_gc(vm->state,pList,vm->aLoadAddressScope);
-	simple_list_addint_gc(vm->state,pList,simple_list_getsize(vm->pLoadAddressScope));
+	pList = simple_list_newlist_gc(vm->sState,pList);
+	simple_list_addint_gc(vm->sState,pList,simple_list_getsize(vm->pMem));
+	simple_list_addint_gc(vm->sState,pList,simple_list_getsize(vm->pFuncCallList));
+	simple_list_addint_gc(vm->sState,pList,vm->nFuncExecute);
+	simple_list_addint_gc(vm->sState,pList,vm->nSP);
+	simple_list_addint_gc(vm->sState,pList,vm->nFuncSP);
+	simple_list_addint_gc(vm->sState,pList,simple_list_getsize(vm->pObjState));
+	simple_list_addint_gc(vm->sState,pList,simple_list_getsize(vm->aBraceObjects));
+	simple_list_addpointer_gc(vm->sState,pList,vm->pBraceObject);
+	simple_list_addpointer_gc(vm->sState,pList,vm->cFileName);
+	simple_list_addint_gc(vm->sState,pList,simple_list_getsize(vm->aPCBlockFlag));
+	simple_list_addint_gc(vm->sState,pList,vm->nBlockFlag);
+	simple_list_addint_gc(vm->sState,pList,simple_list_getsize(vm->aScopeNewObj));
+	simple_list_addint_gc(vm->sState,pList,simple_list_getsize(vm->aActiveModules));
+	simple_list_addint_gc(vm->sState,pList,simple_list_getsize(vm->aScopeID));
+	simple_list_addint_gc(vm->sState,pList,vm->nActiveScopeID);
+	simple_list_addint_gc(vm->sState,pList,simple_list_getsize(vm->pExitMark));
+	simple_list_addint_gc(vm->sState,pList,simple_list_getsize(vm->pLoopMark));
+	simple_list_addint_gc(vm->sState,pList,simple_list_getsize(vm->pTry));
+	simple_list_addpointer_gc(vm->sState,pList,vm->pActiveMem);
+	simple_list_addint_gc(vm->sState,pList,vm->nListStart);
+	simple_list_addpointer_gc(vm->sState,pList,vm->pNestedLists);
+	simple_list_addint_gc(vm->sState,pList,vm->nInsideBraceFlag);
+	simple_list_addint_gc(vm->sState,pList,simple_list_getsize(vm->aForStep));
+	simple_list_addint_gc(vm->sState,pList,simple_list_getsize(vm->aBeforeObjState));
+	simple_list_addpointer_gc(vm->sState,pList,vm->aPCBlockFlag);
+	simple_list_addint_gc(vm->sState,pList,vm->nLineNumber);
+	simple_list_addint_gc(vm->sState,pList,vm->nInClassRegion);
+	simple_list_addint_gc(vm->sState,pList,vm->nPrivateFlag);
+	simple_list_addint_gc(vm->sState,pList,vm->nGetSetProperty);
+	simple_list_addpointer_gc(vm->sState,pList,vm->pGetSetObject);
+	simple_list_addint_gc(vm->sState,pList,vm->nGetSetObjType);
+	simple_list_addpointer_gc(vm->sState,pList,vm->pAssignment);
+	simple_list_addint_gc(vm->sState,pList,vm->nBeforeEqual);
+	simple_list_addint_gc(vm->sState,pList,vm->nNOAssignment);
+	simple_list_addint_gc(vm->sState,pList,vm->nFuncExecute2);
+	simple_list_addint_gc(vm->sState,pList,vm->nCallClassInit);
+	simple_list_addpointer_gc(vm->sState,pList,vm->aLoadAddressScope);
+	simple_list_addint_gc(vm->sState,pList,simple_list_getsize(vm->pLoadAddressScope));
 	/* Save This variable */
 	pThis = simple_list_getlist(simple_vm_getglobalscope(vm),SIMPLE_VM_STATICVAR_THIS) ;
-	simple_list_addpointer_gc(vm->state,pList,simple_list_getpointer(pThis,SIMPLE_VAR_VALUE));
-	simple_list_addint_gc(vm->state,pList,simple_list_getint(pThis,SIMPLE_VAR_PVALUETYPE));
-	simple_list_addint_gc(vm->state,pList,vm->nCurrentGlobalScope);
+	simple_list_addpointer_gc(vm->sState,pList,simple_list_getpointer(pThis,SIMPLE_VAR_VALUE));
+	simple_list_addint_gc(vm->sState,pList,simple_list_getint(pThis,SIMPLE_VAR_PVALUETYPE));
+	simple_list_addint_gc(vm->sState,pList,vm->nCurrentGlobalScope);
 }
 
 void simple_vm_restorestate ( VM *vm,List *pList,int nPos,int nFlag )
@@ -96,7 +96,7 @@ void simple_vm_restorestate ( VM *vm,List *pList,int nPos,int nFlag )
 	vm->cFileName = (char *) simple_list_getpointer(pList,9) ;
 	/* aPCBlockFlag, aScopeNewObj , aActiveModules & aScopeID */
 	if ( ((List *) simple_list_getpointer(pList,25)) != vm->aPCBlockFlag ) {
-		vm->aPCBlockFlag = simple_list_delete_gc(vm->state,vm->aPCBlockFlag);
+		vm->aPCBlockFlag = simple_list_delete_gc(vm->sState,vm->aPCBlockFlag);
 		vm->aPCBlockFlag = (List *) simple_list_getpointer(pList,25) ;
 	}
 	simple_vm_backstate(vm,simple_list_getint(pList,10),vm->aPCBlockFlag);
@@ -119,7 +119,7 @@ void simple_vm_restorestate ( VM *vm,List *pList,int nPos,int nFlag )
 	/* List Status */
 	vm->nListStart = simple_list_getint(pList,20) ;
 	if ( simple_list_getpointer(pList,21) != vm->pNestedLists ) {
-		vm->pNestedLists = simple_list_delete_gc(vm->state,vm->pNestedLists);
+		vm->pNestedLists = simple_list_delete_gc(vm->sState,vm->pNestedLists);
 		vm->pNestedLists = (List *) simple_list_getpointer(pList,21) ;
 	}
 	vm->nInsideBraceFlag = simple_list_getint(pList,22) ;
@@ -145,8 +145,8 @@ void simple_vm_restorestate ( VM *vm,List *pList,int nPos,int nFlag )
 	vm->nCurrentGlobalScope = simple_list_getint(pList,41) ;
 	/* Restore This variable */
 	pThis = simple_list_getlist(simple_vm_getglobalscope(vm),SIMPLE_VM_STATICVAR_THIS) ;
-	simple_list_setpointer_gc(vm->state,pThis,SIMPLE_VAR_VALUE,simple_list_getpointer(pList,39));
-	simple_list_setint_gc(vm->state,pThis,SIMPLE_VAR_PVALUETYPE,simple_list_getint(pList,40));
+	simple_list_setpointer_gc(vm->sState,pThis,SIMPLE_VAR_VALUE,simple_list_getpointer(pList,39));
+	simple_list_setint_gc(vm->sState,pThis,SIMPLE_VAR_PVALUETYPE,simple_list_getint(pList,40));
 }
 /* Save/Restore State 2 - Used by Function Call & Return */
 
@@ -154,47 +154,47 @@ void simple_vm_savestate2 ( VM *vm,List *pList )
 {
 	List *pThis  ;
 	/* Save State */
-	simple_list_addint_gc(vm->state,pList,simple_list_getsize(vm->pExitMark));
-	simple_list_addint_gc(vm->state,pList,simple_list_getsize(vm->pLoopMark));
-	simple_list_addint_gc(vm->state,pList,simple_list_getsize(vm->pTry));
-	simple_list_addint_gc(vm->state,pList,simple_list_getsize(vm->aBraceObjects));
-	simple_list_addpointer_gc(vm->state,pList,vm->pBraceObject);
-	simple_list_addint_gc(vm->state,pList,simple_list_getsize(vm->pObjState));
-	simple_list_addint_gc(vm->state,pList,vm->nInsideBraceFlag);
-	simple_list_addint_gc(vm->state,pList,simple_list_getsize(vm->aForStep));
-	simple_list_addpointer_gc(vm->state,pList,vm->pActiveMem);
-	simple_list_addint_gc(vm->state,pList,vm->nFuncExecute2);
+	simple_list_addint_gc(vm->sState,pList,simple_list_getsize(vm->pExitMark));
+	simple_list_addint_gc(vm->sState,pList,simple_list_getsize(vm->pLoopMark));
+	simple_list_addint_gc(vm->sState,pList,simple_list_getsize(vm->pTry));
+	simple_list_addint_gc(vm->sState,pList,simple_list_getsize(vm->aBraceObjects));
+	simple_list_addpointer_gc(vm->sState,pList,vm->pBraceObject);
+	simple_list_addint_gc(vm->sState,pList,simple_list_getsize(vm->pObjState));
+	simple_list_addint_gc(vm->sState,pList,vm->nInsideBraceFlag);
+	simple_list_addint_gc(vm->sState,pList,simple_list_getsize(vm->aForStep));
+	simple_list_addpointer_gc(vm->sState,pList,vm->pActiveMem);
+	simple_list_addint_gc(vm->sState,pList,vm->nFuncExecute2);
 	vm->nInsideBraceFlag = 0 ;
 	/* Save BlockFlag */
-	simple_list_addint_gc(vm->state,pList,vm->nBlockFlag);
-	simple_list_addpointer_gc(vm->state,pList,vm->aPCBlockFlag);
+	simple_list_addint_gc(vm->sState,pList,vm->nBlockFlag);
+	simple_list_addpointer_gc(vm->sState,pList,vm->aPCBlockFlag);
 	vm->nBlockFlag = 0 ;
-	vm->aPCBlockFlag = simple_list_new_gc(vm->state,0);
+	vm->aPCBlockFlag = simple_list_new_gc(vm->sState,0);
 	/* Save nPrivateFlag, set it to 0 (public not private) */
-	simple_list_addint_gc(vm->state,pList,vm->nPrivateFlag);
+	simple_list_addint_gc(vm->sState,pList,vm->nPrivateFlag);
 	vm->nPrivateFlag = 0 ;
 	/* Save nCallClassInit */
-	simple_list_addint_gc(vm->state,pList,vm->nCallClassInit);
+	simple_list_addint_gc(vm->sState,pList,vm->nCallClassInit);
 	vm->nCallClassInit = 0 ;
-	simple_list_addint_gc(vm->state,pList,vm->nFuncExecute);
-	simple_list_addpointer_gc(vm->state,pList,vm->pAssignment);
-	simple_list_addint_gc(vm->state,pList,vm->nInClassRegion);
-	simple_list_addint_gc(vm->state,pList,vm->nActiveScopeID);
-	simple_list_addint_gc(vm->state,pList,simple_list_getsize(vm->aScopeNewObj));
-	simple_list_addint_gc(vm->state,pList,simple_list_getsize(vm->aScopeID));
-	simple_list_addint_gc(vm->state,pList,vm->nLineNumber);
-	simple_list_addint_gc(vm->state,pList,vm->nBeforeEqual);
-	simple_list_addint_gc(vm->state,pList,vm->nNOAssignment);
-	simple_list_addint_gc(vm->state,pList,vm->nGetSetProperty);
-	simple_list_addint_gc(vm->state,pList,vm->nGetSetObjType);
-	simple_list_addpointer_gc(vm->state,pList,vm->pGetSetObject);
-	simple_list_addpointer_gc(vm->state,pList,vm->aLoadAddressScope);
-	simple_list_addint_gc(vm->state,pList,simple_list_getsize(vm->pLoadAddressScope));
+	simple_list_addint_gc(vm->sState,pList,vm->nFuncExecute);
+	simple_list_addpointer_gc(vm->sState,pList,vm->pAssignment);
+	simple_list_addint_gc(vm->sState,pList,vm->nInClassRegion);
+	simple_list_addint_gc(vm->sState,pList,vm->nActiveScopeID);
+	simple_list_addint_gc(vm->sState,pList,simple_list_getsize(vm->aScopeNewObj));
+	simple_list_addint_gc(vm->sState,pList,simple_list_getsize(vm->aScopeID));
+	simple_list_addint_gc(vm->sState,pList,vm->nLineNumber);
+	simple_list_addint_gc(vm->sState,pList,vm->nBeforeEqual);
+	simple_list_addint_gc(vm->sState,pList,vm->nNOAssignment);
+	simple_list_addint_gc(vm->sState,pList,vm->nGetSetProperty);
+	simple_list_addint_gc(vm->sState,pList,vm->nGetSetObjType);
+	simple_list_addpointer_gc(vm->sState,pList,vm->pGetSetObject);
+	simple_list_addpointer_gc(vm->sState,pList,vm->aLoadAddressScope);
+	simple_list_addint_gc(vm->sState,pList,simple_list_getsize(vm->pLoadAddressScope));
 	/* Save This variable */
 	pThis = simple_list_getlist(simple_vm_getglobalscope(vm),SIMPLE_VM_STATICVAR_THIS) ;
-	simple_list_addpointer_gc(vm->state,pList,simple_list_getpointer(pThis,SIMPLE_VAR_VALUE));
-	simple_list_addint_gc(vm->state,pList,simple_list_getint(pThis,SIMPLE_VAR_PVALUETYPE));
-	simple_list_addint_gc(vm->state,pList,vm->nCurrentGlobalScope);
+	simple_list_addpointer_gc(vm->sState,pList,simple_list_getpointer(pThis,SIMPLE_VAR_VALUE));
+	simple_list_addint_gc(vm->sState,pList,simple_list_getint(pThis,SIMPLE_VAR_PVALUETYPE));
+	simple_list_addint_gc(vm->sState,pList,vm->nCurrentGlobalScope);
 	vm->nInClassRegion = 0 ;
 	vm->pAssignment = NULL ;
 	vm->nNOAssignment = 0 ;
@@ -215,7 +215,7 @@ void simple_vm_restorestate2 ( VM *vm,List *pList,int x )
 	vm->pActiveMem = (List *) simple_list_getpointer(pList,x+8) ;
 	vm->nFuncExecute2 = simple_list_getint(pList,x+9) ;
 	/* Restore BlockFLag */
-	vm->aPCBlockFlag = simple_list_delete_gc(vm->state,vm->aPCBlockFlag);
+	vm->aPCBlockFlag = simple_list_delete_gc(vm->sState,vm->aPCBlockFlag);
 	vm->nBlockFlag = simple_list_getint(pList,x+10) ;
 	vm->aPCBlockFlag = (List *) simple_list_getpointer(pList,x+11) ;
 	/* Restore nPrivateFlag */
@@ -240,8 +240,8 @@ void simple_vm_restorestate2 ( VM *vm,List *pList,int x )
 	vm->nCurrentGlobalScope = simple_list_getint(pList,x+30) ;
 	/* Restore This variable */
 	pThis = simple_list_getlist(simple_vm_getglobalscope(vm),SIMPLE_VM_STATICVAR_THIS) ;
-	simple_list_setpointer_gc(vm->state,pThis,SIMPLE_VAR_VALUE,simple_list_getpointer(pList,x+28));
-	simple_list_setint_gc(vm->state,pThis,SIMPLE_VAR_PVALUETYPE,simple_list_getint(pList,x+29));
+	simple_list_setpointer_gc(vm->sState,pThis,SIMPLE_VAR_VALUE,simple_list_getpointer(pList,x+28));
+	simple_list_setint_gc(vm->sState,pThis,SIMPLE_VAR_PVALUETYPE,simple_list_getint(pList,x+29));
 	/* Update Self Object if we are inside braces */
 	if ( simple_list_getsize(vm->aBraceObjects) > 0 ) {
 		simple_vm_oop_updateselfpointer2(vm,(List *) simple_list_getpointer(simple_list_getlist(vm->aBraceObjects,simple_list_getsize(vm->aBraceObjects)),1));
@@ -255,7 +255,7 @@ void simple_vm_backstate ( VM *vm,int x,List *pList )
 	if ( x < simple_list_getsize(pList) ) {
 		nLimit = simple_list_getsize(pList) ;
 		for ( y = x + 1 ; y <= nLimit ; y++ ) {
-			simple_list_deleteitem_gc(vm->state,pList,simple_list_getsize(pList));
+			simple_list_deleteitem_gc(vm->sState,pList,simple_list_getsize(pList));
 		}
 	}
 }
@@ -267,18 +267,18 @@ List * simple_vm_savestack ( VM *vm )
 	List *pList, *pList2  ;
 	nSP = vm->nSP ;
 	/* Create List */
-	pList = simple_list_new_gc(vm->state,0);
+	pList = simple_list_new_gc(vm->sState,0);
 	while ( vm->nSP  != 0 ) {
 		if ( SIMPLE_VM_STACK_ISSTRING ) {
-			simple_list_addstring_gc(vm->state,pList,SIMPLE_VM_STACK_READC);
+			simple_list_addstring_gc(vm->sState,pList,SIMPLE_VM_STACK_READC);
 		}
 		else if ( SIMPLE_VM_STACK_ISNUMBER ) {
-			simple_list_adddouble_gc(vm->state,pList,SIMPLE_VM_STACK_READN);
+			simple_list_adddouble_gc(vm->sState,pList,SIMPLE_VM_STACK_READN);
 		}
 		else if ( SIMPLE_VM_STACK_ISPOINTER ) {
-			pList2 = simple_list_newlist_gc(vm->state,pList);
-			simple_list_addpointer_gc(vm->state,pList2,SIMPLE_VM_STACK_READP);
-			simple_list_addint_gc(vm->state,pList2,SIMPLE_VM_STACK_OBJTYPE);
+			pList2 = simple_list_newlist_gc(vm->sState,pList);
+			simple_list_addpointer_gc(vm->sState,pList2,SIMPLE_VM_STACK_READP);
+			simple_list_addint_gc(vm->sState,pList2,SIMPLE_VM_STACK_OBJTYPE);
 		}
 		SIMPLE_VM_STACK_POP ;
 	}

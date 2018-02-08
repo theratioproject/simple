@@ -1019,12 +1019,12 @@ int simple_parser_factor ( Parser *parser,int *nFlag )
 		simple_parser_icg_newoperation(parser,ICO_JUMP);
 		pMark = simple_parser_icg_getactiveoperation(parser);
 		/* Define the Function - as public (not related to any class) */
-		pList = simple_list_newlist_gc(parser->state,parser->state->pSimpleFunctionsMap);
-		simple_list_addstring_gc(parser->state,pList,cFuncName);
+		pList = simple_list_newlist_gc(parser->sState,parser->sState->pSimpleFunctionsMap);
+		simple_list_addstring_gc(parser->sState,pList,cFuncName);
 		/* Note +1 because instruction ICO_NEWBLOCK will come next */
-		simple_list_addint_gc(parser->state,pList,SIMPLE_PARSER_OPERATIONID+1);
-		simple_list_addstring_gc(parser->state,pList,simple_list_getstring(parser->state->pSimpleFilesStack,simple_list_getsize(parser->state->pSimpleFilesStack)));
-		simple_list_addint_gc(parser->state,pList,0);
+		simple_list_addint_gc(parser->sState,pList,SIMPLE_PARSER_OPERATIONID+1);
+		simple_list_addstring_gc(parser->sState,pList,simple_list_getstring(parser->sState->pSimpleFilesStack,simple_list_getsize(parser->sState->pSimpleFilesStack)));
+		simple_list_addint_gc(parser->sState,pList,0);
 		simple_parser_icg_newoperation(parser,ICO_NEWBLOCK);
 		simple_parser_icg_newoperand(parser,cFuncName);
 		/* Get Function Parameters */
@@ -1139,13 +1139,13 @@ int simple_parser_mixer ( Parser *parser )
 		if ( simple_parser_icg_getlastoperation(parser) == ICO_LOADADDRESS ) {
 			simple_parser_icg_setlastoperation(parser,ICO_LOADBLOCK);
 			/* Delete Locations for Getter */
-			simple_list_deleteitem_gc(parser->state,simple_parser_icg_getactiveoperation(parser),3);
+			simple_list_deleteitem_gc(parser->sState,simple_parser_icg_getactiveoperation(parser),3);
 		}
 		else if ( simple_parser_icg_getlastoperation(parser) == ICO_LOADSUBADDRESS ) {
 			simple_parser_icg_setlastoperation(parser,ICO_LOADMETHOD);
 			/* Delete Locations for Setter/Getter */
-			simple_list_deleteitem_gc(parser->state,simple_parser_icg_getactiveoperation(parser),4);
-			simple_list_deleteitem_gc(parser->state,simple_parser_icg_getactiveoperation(parser),3);
+			simple_list_deleteitem_gc(parser->sState,simple_parser_icg_getactiveoperation(parser),4);
+			simple_list_deleteitem_gc(parser->sState,simple_parser_icg_getactiveoperation(parser),3);
 			nCallMethod = 1 ;
 		}
 		simple_parser_nexttoken(parser);

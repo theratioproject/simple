@@ -56,7 +56,7 @@ typedef struct Parser {
 	/* Flag - We started using braces {} in control structure - we have { */
 	int nControlStructureBrace  ;
 	/* Simple State */
-	SimpleState *state  ;
+	SimpleState *sState  ;
 } Parser ;
 /* Error Messages */
 #define PARSER_ERROR_PARALIST "COMPILER ERROR 0 : Check your parameters, Identifier expected"
@@ -84,9 +84,9 @@ typedef struct Parser {
 
 int accept_token_token( Parser *parser, SCANNER_OPERATOR nType );
 
-int simple_parser_start ( List *pTokens,SimpleState *state ) ;
+int simple_parser_start ( List *pTokens,SimpleState *sState ) ;
 
-Parser * simple_parser_new ( List *pTokens,SimpleState *state ) ;
+Parser * simple_parser_new ( List *pTokens,SimpleState *sState ) ;
 
 Parser * simple_parser_delete ( Parser *parser ) ;
 

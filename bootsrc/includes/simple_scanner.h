@@ -37,7 +37,7 @@ typedef struct Scanner {
 	/* Multiline comment end ( 0 = start  1 = * ) */
 	char cMLComment  ;
 	/* Simple State */
-	SimpleState *state  ;
+	SimpleState *sState  ;
 	/* Index of Keyword/Operator */
 	int nTokenIndex  ;
 	/* Literal Line */
@@ -114,11 +114,11 @@ typedef enum SCANNER_OPERATOR {
 } SCANNER_OPERATOR ;
 /* Functions */
 
-Scanner * simple_scanner_new ( SimpleState *state ) ;
+Scanner * simple_scanner_new ( SimpleState *sState ) ;
 
 Scanner * simple_scanner_delete ( Scanner *pScanner ) ;
 
-int simple_scanner_readfile ( SimpleState *state,char *cFileName ) ;
+int simple_scanner_readfile ( SimpleState *sState,char *cFileName ) ;
 
 void simple_scanner_readchar ( Scanner *pScanner,char c ) ;
 
@@ -144,11 +144,11 @@ void simple_scanner_floatmark ( Scanner *pScanner,int type ) ;
 
 void simple_scanner_endofline ( Scanner *pScanner ) ;
 
-void simple_scanner_addreturn ( SimpleState *state ) ;
+void simple_scanner_addreturn ( SimpleState *sState ) ;
 
-void simple_scanner_addreturn2 ( SimpleState *state ) ;
+void simple_scanner_addreturn2 ( SimpleState *sState ) ;
 
-void simple_scanner_addreturn3 ( SimpleState *state,int aPara[3] ) ;
+void simple_scanner_addreturn3 ( SimpleState *sState,int aPara[3] ) ;
 
 void display_tokens ( Scanner *pScanner ) ;
 
@@ -156,9 +156,9 @@ SIMPLE_API void simple_execute ( char *cFileName, int nISCGI,int nRun,int nPrint
 
 const char * simple_scanner_getkeywordtext ( const char *cStr ) ;
 
-void simple_scanner_runobjfile ( SimpleState *state,char *cFileName ) ;
+void simple_scanner_runobjfile ( SimpleState *sState,char *cFileName ) ;
 
-void simple_scanner_runprogram ( SimpleState *state ) ;
+void simple_scanner_runprogram ( SimpleState *sState ) ;
 
 void simple_scanner_changekeyword ( Scanner *pScanner ) ;
 
@@ -166,7 +166,7 @@ void simple_scanner_changeoperator ( Scanner *pScanner ) ;
 
 void simple_scanner_loadsyntax ( Scanner *pScanner ) ;
 
-void simple_scanner_runobjstring ( SimpleState *state,char *cString,const char *cFileName ) ;
+void simple_scanner_runobjstring ( SimpleState *sState,char *cString,const char *cFileName ) ;
 /* MACRO */
 #define SIMPLE_SCANNER_DELETELASTTOKEN simple_list_deleteitem(pScanner->Tokens,simple_list_getsize(pScanner->Tokens))
 /*
