@@ -109,6 +109,4 @@
 #include "simple_objfile.h"
 #include "simple_vmdll.h"
 
-void holla();
-
 #endif
