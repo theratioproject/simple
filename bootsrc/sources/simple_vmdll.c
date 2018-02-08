@@ -25,20 +25,20 @@ void simple_vm_dll_loadfunctions ( SimpleState *sState )
 
 void simple_vm_dll_loadlib ( void *pPointer )
 {
-	LpHandleType handle  ;
-	const char *cDLL  ;
-	loadlibfuncptr pFunc  ;
-	VM *vm  ;
-	SimpleState *sState  ;
-	vm = (VM *) pPointer ;
-	sState = vm->sState ;
-        char library_path[200]  ;
-	if ( SIMPLE_API_PARACOUNT != 1 ) {
-		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
-		return ;
-	}
-	if ( SIMPLE_API_ISSTRING(1) ) {
-            if (simple_fexists(SIMPLE_API_GETSTRING(1))) {
+    LpHandleType handle  ;
+    const char *cDLL  ;
+    loadlibfuncptr pFunc  ;
+    VM *vm  ;
+    SimpleState *sState  ;
+    vm = (VM *) pPointer ;
+    sState = vm->sState ;
+    char library_path[200]  ;
+    if ( SIMPLE_API_PARACOUNT != 1 ) {
+            SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
+            return ;
+    }
+    if ( SIMPLE_API_ISSTRING(1) ) {
+        if (simple_fexists(SIMPLE_API_GETSTRING(1))) {
             
         } else {
             char* SIMPLEPATH = getenv("SIMPLE_PATH"); 
@@ -65,27 +65,27 @@ void simple_vm_dll_loadlib ( void *pPointer )
                 }
             } 
         }
-		cDLL = SIMPLE_API_GETSTRING(1);
-		handle = LoadDLL(cDLL);
-		if ( handle == NULL ) {
-			printf( "\nLibrary File : %s",SIMPLE_API_GETSTRING(1) ) ;
-			SIMPLE_API_ERROR(SIMPLE_VM_ERROR_LIBLOADERROR);
-			return ;
-		}
-		pFunc = (loadlibfuncptr) GetDLLFunc(handle, "init_simple_lib") ;
-		if ( pFunc == NULL ) {
-			printf( "\nLibrary File : %s", file_real_name(SIMPLE_API_GETSTRING(1)) ) ;
-			SIMPLE_API_ERROR("The dynamic library doesn't contain the init_simple_lib() function!");
-			return ;
-		}
-		simple_list_deletearray_gc(sState,sState->c_blocks);
-		(*pFunc)(sState) ;
-		simple_list_genarray_gc(sState,sState->c_blocks);
-		simple_list_genhashtable2_gc(sState,sState->c_blocks);
-		SIMPLE_API_RETCPOINTER(handle,"DLL");
-	} else {
-		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
-	}
+        cDLL = library_path;
+        handle = LoadDLL(cDLL);
+        if ( handle == NULL ) {
+                printf( "\nLibrary File : %s",SIMPLE_API_GETSTRING(1) ) ;
+                SIMPLE_API_ERROR(SIMPLE_VM_ERROR_LIBLOADERROR);
+                return ;
+        }
+        pFunc = (loadlibfuncptr) GetDLLFunc(handle, "init_simple_lib") ;
+        if ( pFunc == NULL ) {
+                printf( "\nLibrary File : %s", file_real_name(SIMPLE_API_GETSTRING(1)) ) ;
+                SIMPLE_API_ERROR("The dynamic library doesn't contain the init_simple_lib() function!");
+                return ;
+        }
+        simple_list_deletearray_gc(sState,sState->c_blocks);
+        (*pFunc)(sState) ;
+        simple_list_genarray_gc(sState,sState->c_blocks);
+        simple_list_genhashtable2_gc(sState,sState->c_blocks);
+        SIMPLE_API_RETCPOINTER(handle,"DLL");
+    } else {
+            SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+    }
 }
 
 void simple_vm_dll_closelib ( void *pPointer )
