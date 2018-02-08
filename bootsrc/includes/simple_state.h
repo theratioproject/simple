@@ -18,12 +18,12 @@
 /* Data */
 typedef struct SimpleState {
 	/* First use by simple_scanner_readfile */
-	List *pSimpleFilesList  ;
-	List *pSimpleFilesStack  ;
+	List *files_list  ;
+	List *files_stack  ;
 	/* First use by simple_parser_new */
 	List *pSimpleGenCode  ;
-	List *pSimpleFunctionsMap  ;
-	List *pSimpleClassesMap  ;
+	List *blocks_map  ;
+	List *classes_map  ;
 	List *modules_map  ;
 	/* First use by simple_vm_new */
 	List *c_blocks  ;

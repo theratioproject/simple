@@ -46,11 +46,11 @@ SIMPLE_API SimpleState * simple_state_new ( void )
 		printf( SIMPLE_OOM ) ;
 		exit(0);
 	}
-	sState->pSimpleFilesList = NULL ;
-	sState->pSimpleFilesStack = NULL ;
+	sState->files_list = NULL ;
+	sState->files_stack = NULL ;
 	sState->pSimpleGenCode = NULL ;
-	sState->pSimpleFunctionsMap = NULL ;
-	sState->pSimpleClassesMap = NULL ;
+	sState->blocks_map = NULL ;
+	sState->classes_map = NULL ;
 	sState->modules_map = NULL ;
 	sState->c_blocks = NULL ;
 	sState->nISCGI = 0 ;
@@ -79,14 +79,14 @@ SIMPLE_API SimpleState * simple_state_new ( void )
 
 SIMPLE_API SimpleState * simple_state_delete ( SimpleState *sState )
 {
-	if ( sState->pSimpleFilesList != NULL ) {
-		sState->pSimpleFilesList = simple_list_delete_gc(sState,sState->pSimpleFilesList);
-		sState->pSimpleFilesStack = simple_list_delete_gc(sState,sState->pSimpleFilesStack);
+	if ( sState->files_list != NULL ) {
+		sState->files_list = simple_list_delete_gc(sState,sState->files_list);
+		sState->files_stack = simple_list_delete_gc(sState,sState->files_stack);
 	}
 	if ( sState->pSimpleGenCode   != NULL ) {
 		sState->pSimpleGenCode = simple_list_delete_gc(sState,sState->pSimpleGenCode);
-		sState->pSimpleFunctionsMap = simple_list_delete_gc(sState,sState->pSimpleFunctionsMap);
-		sState->pSimpleClassesMap = simple_list_delete_gc(sState,sState->pSimpleClassesMap);
+		sState->blocks_map = simple_list_delete_gc(sState,sState->blocks_map);
+		sState->classes_map = simple_list_delete_gc(sState,sState->classes_map);
 		sState->modules_map = simple_list_delete_gc(sState,sState->modules_map);
 		if ( sState->c_blocks != NULL ) {
 			/* We check because the execution may end by the compiler error */

@@ -87,14 +87,14 @@ int simple_parser_class ( Parser *parser )
 			/* Set Active Functions List to be Class Methods */
 			parser->FunctionsMap = list2 ;
 			/* Make class visible using ModulesName.ClassName if we have modules */
-			if ( parser->ClassesMap != parser->sState->pSimpleClassesMap ) {
+			if ( parser->ClassesMap != parser->sState->classes_map ) {
 				/* Get Modules Name */
 				list3 = simple_list_getlist(parser->sState->modules_map,simple_list_getsize(parser->sState->modules_map));
 				pString = simple_string_new_gc(parser->sState,simple_list_getstring(list3,1));
 				/* Add pointer to the Modules in the Class List */
 				simple_list_addpointer_gc(parser->sState,list,list3);
 				/* Add List point to General Classes point to the class in the modules */
-				list2 = simple_list_newlist_gc(parser->sState,parser->sState->pSimpleClassesMap);
+				list2 = simple_list_newlist_gc(parser->sState,parser->sState->classes_map);
 				simple_list_addstring_gc(parser->sState,list2,"");
 				simple_list_addpointer_gc(parser->sState,list2,list);
 				/* Ignore Adding Pointer to File Name */
@@ -114,7 +114,7 @@ int simple_parser_class ( Parser *parser )
 			parser->nPrivateFlag = 0 ;
 			/* Generate Code - Set The File Name */
 			simple_parser_icg_newoperation(parser,ICO_FILENAME);
-			simple_parser_icg_newoperand(parser,simple_list_getstring(parser->sState->pSimpleFilesStack,simple_list_getsize(parser->sState->pSimpleFilesStack)));
+			simple_parser_icg_newoperand(parser,simple_list_getstring(parser->sState->files_stack,simple_list_getsize(parser->sState->files_stack)));
 			/* Set Global Scope */
 			simple_parser_icg_newoperation(parser,ICO_SETGLOBALSCOPE);
 			simple_parser_icg_newoperandint(parser,simple_list_getint(parser->sState->aCustomGlobalScopeStack,simple_list_getsize(parser->sState->aCustomGlobalScopeStack)));
@@ -150,7 +150,7 @@ int simple_parser_class ( Parser *parser )
 			list2 = simple_list_newlist_gc(parser->sState,list2);
 			simple_list_addstring_gc(parser->sState,list2,parser->TokenText);
 			simple_list_addint_gc(parser->sState,list2,simple_list_getsize(parser->GenCode));
-			simple_list_addstring_gc(parser->sState,list2,simple_list_getstring(parser->sState->pSimpleFilesStack,simple_list_getsize(parser->sState->pSimpleFilesStack)));
+			simple_list_addstring_gc(parser->sState,list2,simple_list_getstring(parser->sState->files_stack,simple_list_getsize(parser->sState->files_stack)));
 			if ( parser->nClassStart == 1 ) {
 				simple_list_addint_gc(parser->sState,list2,parser->nPrivateFlag);
 			} else {
@@ -276,7 +276,7 @@ int simple_parser_stmt ( Parser *parser )
 			puts("Rule : Statement  --> 'call' Literal");
 			#endif
 			/* No package at the start of the file */
-			parser->ClassesMap = parser->sState->pSimpleClassesMap ;
+			parser->ClassesMap = parser->sState->classes_map ;
 			/* Save the Current Directory */
 			simple_currentdir(cCurrentDir);
 			/* Read The File */
@@ -292,7 +292,7 @@ int simple_parser_stmt ( Parser *parser )
 			simple_parser_icg_addoperandint(parser,pMark,nMark1);
 			/* Set Active File */
 			simple_parser_icg_newoperation(parser,ICO_FILENAME);
-			simple_parser_icg_newoperand(parser,simple_list_getstring(parser->sState->pSimpleFilesStack,simple_list_getsize(parser->sState->pSimpleFilesStack)));
+			simple_parser_icg_newoperand(parser,simple_list_getstring(parser->sState->files_stack,simple_list_getsize(parser->sState->files_stack)));
 			simple_parser_icg_newoperation(parser,ICO_FREESTACK);
 			simple_parser_nexttoken(parser); 
                         if (simple_parser_isoperator2(parser,OP_MUL) || simple_parser_isoperator(parser, "?")) {

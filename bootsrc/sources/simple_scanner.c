@@ -70,16 +70,16 @@ int simple_scanner_readfile ( SimpleState *sState,char *cFileName )
 	char cFileName2[200]  ;
         int is_start_file = 1 ;
 	/* Check file */
-	if ( sState->pSimpleFilesList == NULL ) {
-		sState->pSimpleFilesList = simple_list_new_gc(sState,0);
-		sState->pSimpleFilesStack = simple_list_new_gc(sState,0);
-		simple_list_addstring_gc(sState,sState->pSimpleFilesList,cFileName);
-		simple_list_addstring_gc(sState,sState->pSimpleFilesStack,cFileName);
+	if ( sState->files_list == NULL ) {
+		sState->files_list = simple_list_new_gc(sState,0);
+		sState->files_stack = simple_list_new_gc(sState,0);
+		simple_list_addstring_gc(sState,sState->files_list,cFileName);
+		simple_list_addstring_gc(sState,sState->files_stack,cFileName);
 		nFreeFilesList = 1 ;
 	} else {
-		if ( simple_list_findstring(sState->pSimpleFilesList,cFileName,0) == 0 ) {
-			simple_list_addstring_gc(sState,sState->pSimpleFilesList,cFileName);
-			simple_list_addstring_gc(sState,sState->pSimpleFilesStack,cFileName);
+		if ( simple_list_findstring(sState->files_list,cFileName,0) == 0 ) {
+			simple_list_addstring_gc(sState,sState->files_list,cFileName);
+			simple_list_addstring_gc(sState,sState->files_stack,cFileName);
 		} else {
 			if ( sState->nWarning ) {
 				printf( "\nWarning, Duplication in FileName, %s \n",cFileName ) ;
@@ -195,13 +195,13 @@ int simple_scanner_readfile ( SimpleState *sState,char *cFileName )
 		}
 		#endif
 	} else {
-		simple_list_deleteitem_gc(sState,sState->pSimpleFilesStack,simple_list_getsize(sState->pSimpleFilesStack));
+		simple_list_deleteitem_gc(sState,sState->files_stack,simple_list_getsize(sState->files_stack));
 		simple_scanner_delete(pScanner);
 		return 0 ;
 	}
 	simple_scanner_delete(pScanner);
 	/* Files List */
-	simple_list_deleteitem_gc(sState,sState->pSimpleFilesStack,simple_list_getsize(sState->pSimpleFilesStack));
+	simple_list_deleteitem_gc(sState,sState->files_stack,simple_list_getsize(sState->files_stack));
 	if ( nFreeFilesList ) {
 		/* Generate the Object File */
 		if ( sState->nGenObj ) {
@@ -903,10 +903,10 @@ const char * simple_scanner_getkeywordtext ( const char *cStr )
 void simple_scanner_runobjfile ( SimpleState *sState,char *cFileName )
 {
 	/* Files List */
-	sState->pSimpleFilesList = simple_list_new_gc(sState,0);
-	sState->pSimpleFilesStack = simple_list_new_gc(sState,0);
-	simple_list_addstring_gc(sState,sState->pSimpleFilesList,cFileName);
-	simple_list_addstring_gc(sState,sState->pSimpleFilesStack,cFileName);
+	sState->files_list = simple_list_new_gc(sState,0);
+	sState->files_stack = simple_list_new_gc(sState,0);
+	simple_list_addstring_gc(sState,sState->files_list,cFileName);
+	simple_list_addstring_gc(sState,sState->files_stack,cFileName);
 	if ( simple_objfile_readfile(sState,cFileName) ) {
 		simple_scanner_runprogram(sState);
 	}
@@ -915,10 +915,10 @@ void simple_scanner_runobjfile ( SimpleState *sState,char *cFileName )
 void simple_scanner_runobjstring ( SimpleState *sState,char *cString,const char *cFileName )
 {
 	/* Files List */
-	sState->pSimpleFilesList = simple_list_new_gc(sState,0);
-	sState->pSimpleFilesStack = simple_list_new_gc(sState,0);
-	simple_list_addstring_gc(sState,sState->pSimpleFilesList,cFileName);
-	simple_list_addstring_gc(sState,sState->pSimpleFilesStack,cFileName);
+	sState->files_list = simple_list_new_gc(sState,0);
+	sState->files_stack = simple_list_new_gc(sState,0);
+	simple_list_addstring_gc(sState,sState->files_list,cFileName);
+	simple_list_addstring_gc(sState,sState->files_stack,cFileName);
 	if ( simple_objfile_readstring(sState,cString) ) {
 		simple_scanner_runprogram(sState);
 	}

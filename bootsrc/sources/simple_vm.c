@@ -93,8 +93,8 @@ VM * simple_vm_new ( SimpleState *sState )
 	vm->nInClassRegion = 0 ;
 	vm->pModulessMap = NULL ;
 	/* Set the main File Name */
-	vm->cFileName = simple_list_getstring(vm->sState->pSimpleFilesList,1) ;
-	vm->cPrevFileName = simple_list_getstring(vm->sState->pSimpleFilesList,1) ;
+	vm->cFileName = simple_list_getstring(vm->sState->files_list,1) ;
+	vm->cPrevFileName = simple_list_getstring(vm->sState->files_list,1) ;
 	/* We keep information about active modules to access its classes directly with new/from */
 	vm->aActiveModules = simple_list_new_gc(vm->sState,0);
 	/* Scope of class attribute ( 0 = public 1 = private ) */
@@ -291,8 +291,8 @@ SIMPLE_API void simple_vm_loadcode ( VM *vm )
 void simple_vm_start ( SimpleState *sState,VM *vm )
 {
 	vm->pCode = sState->pSimpleGenCode ;
-	vm->pFunctionsMap = sState->pSimpleFunctionsMap ;
-	vm->pClassesMap = sState->pSimpleClassesMap ;
+	vm->pFunctionsMap = sState->blocks_map ;
+	vm->pClassesMap = sState->classes_map ;
 	vm->pModulessMap = sState->modules_map ;
 	simple_vm_loadcode(vm);
 	loadcfunctions(sState);
@@ -771,8 +771,8 @@ int simple_vm_eval ( VM *vm,const char *cStr )
 	}
 	nPC = vm->nPC ;
 	/* Add virtual file name */
-	simple_list_addstring_gc(vm->sState,vm->sState->pSimpleFilesList,"executeCode");
-	simple_list_addstring_gc(vm->sState,vm->sState->pSimpleFilesStack,"executeCode");
+	simple_list_addstring_gc(vm->sState,vm->sState->files_list,"executeCode");
+	simple_list_addstring_gc(vm->sState,vm->sState->files_stack,"executeCode");
 	pScanner = simple_scanner_new(vm->sState);
 	for ( x = 0 ; x < nSize ; x++ ) {
 		simple_scanner_readchar(pScanner,cStr[x]);
@@ -848,8 +848,8 @@ int simple_vm_eval ( VM *vm,const char *cStr )
 		return 0 ;
 	}
 	simple_scanner_delete(pScanner);
-	simple_list_deletelastitem_gc(vm->sState,vm->sState->pSimpleFilesList);
-	simple_list_deletelastitem_gc(vm->sState,vm->sState->pSimpleFilesStack);
+	simple_list_deletelastitem_gc(vm->sState,vm->sState->files_list);
+	simple_list_deletelastitem_gc(vm->sState,vm->sState->files_stack);
 	return nRunVM ;
 }
 
@@ -1009,13 +1009,13 @@ void simple_vm_init ( SimpleState *sState )
 	VM *vm  ;
 	int nRunVM,nFreeFilesList = 0 ;
 	/* Check file */
-	if ( sState->pSimpleFilesList == NULL ) {
-		sState->pSimpleFilesList = simple_list_new_gc(sState,0);
-		sState->pSimpleFilesStack = simple_list_new_gc(sState,0);
+	if ( sState->files_list == NULL ) {
+		sState->files_list = simple_list_new_gc(sState,0);
+		sState->files_stack = simple_list_new_gc(sState,0);
 		nFreeFilesList = 1 ;
 	}
-	simple_list_addstring_gc(sState,sState->pSimpleFilesList,"Simple_EmbeddedCode");
-	simple_list_addstring_gc(sState,sState->pSimpleFilesStack,"Simple_EmbeddedCode");
+	simple_list_addstring_gc(sState,sState->files_list,"Simple_EmbeddedCode");
+	simple_list_addstring_gc(sState,sState->files_stack,"Simple_EmbeddedCode");
 	/* Read File */
 	pScanner = simple_scanner_new(sState);
 	/* Add Token "End of Line" to the end of any program */
@@ -1024,7 +1024,7 @@ void simple_vm_init ( SimpleState *sState )
 	nRunVM = simple_parser_start(pScanner->Tokens,sState);
 	simple_scanner_delete(pScanner);
 	/* Files List */
-	simple_list_deleteitem_gc(sState,sState->pSimpleFilesStack,simple_list_getsize(sState->pSimpleFilesStack));
+	simple_list_deleteitem_gc(sState,sState->files_stack,simple_list_getsize(sState->files_stack));
 	if ( nFreeFilesList ) {
 		/* Run the Program */
 		if ( nRunVM == 1 ) {
@@ -1160,7 +1160,7 @@ SIMPLE_API void simple_vm_showerrormessage ( VM *vm,const char *cStr )
 		}
 	}
 	if ( lFunctionCall ) {
-		printf( "in file %s ",file_real_name(simple_list_getstring(vm->sState->pSimpleFilesList,1) )) ;
+		printf( "in file %s ",file_real_name(simple_list_getstring(vm->sState->files_list,1) )) ;
 	}
 	else {
 		if ( vm->nInClassRegion ) {
@@ -1290,12 +1290,12 @@ SIMPLE_API void simple_vm_runcodefromthread ( VM *vm,const char *cStr )
 	list4 = pState->vm->pModulessMap ;
 	list5 = pState->vm->pCFunctionsList ;
 	/* Share the code between the VMs */
-	pState->vm->pFunctionsMap = vm->sState->pSimpleFunctionsMap ;
-	pState->vm->pClassesMap = vm->sState->pSimpleClassesMap ;
+	pState->vm->pFunctionsMap = vm->sState->blocks_map ;
+	pState->vm->pClassesMap = vm->sState->classes_map ;
 	pState->vm->pModulessMap = vm->sState->modules_map ;
 	pState->vm->pCFunctionsList = vm->pCFunctionsList ;
-	pState->pSimpleFunctionsMap = vm->sState->pSimpleFunctionsMap ;
-	pState->pSimpleClassesMap = vm->sState->pSimpleClassesMap ;
+	pState->blocks_map = vm->sState->blocks_map ;
+	pState->classes_map = vm->sState->classes_map ;
 	pState->modules_map = vm->sState->modules_map ;
 	pState->c_blocks = vm->sState->c_blocks ;
 	/* Get a copy from the byte code List */
@@ -1319,8 +1319,8 @@ SIMPLE_API void simple_vm_runcodefromthread ( VM *vm,const char *cStr )
 	pState->vm->pModulessMap = list4 ;
 	pState->vm->pCFunctionsList = list5 ;
 	pState->pSimpleGenCode = list ;
-	pState->pSimpleFunctionsMap = list2 ;
-	pState->pSimpleClassesMap = list3 ;
+	pState->blocks_map = list2 ;
+	pState->classes_map = list3 ;
 	pState->modules_map = list4 ;
 	pState->c_blocks = list5 ;
 	pState->vm->pMutex = NULL ;

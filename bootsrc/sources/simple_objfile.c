@@ -23,17 +23,17 @@ void simple_objfile_writefile ( SimpleState *sState )
 	FILE *fObj;
 	char cFileName[400]  ;
 	/* Create File */
-	sprintf( cFileName , "%splex" , simple_list_getstring(sState->pSimpleFilesList,1) ) ;
-        //printf("TO COMPLEX : %s", change_file_ext(simple_list_getstring(sState->pSimpleFilesList,1), "complex"));
+	sprintf( cFileName , "%splex" , simple_list_getstring(sState->files_list,1) ) ;
+        //printf("TO COMPLEX : %s", change_file_ext(simple_list_getstring(sState->files_list,1), "complex"));
 	fObj = fopen(cFileName , "w+b" );
 	fprintf( fObj , "# Simple Object File\n"  ) ;
 	fprintf( fObj , "# Version 1.1\n"  ) ;
 	/* Write Functions Lists */
 	fprintf( fObj , "# Functions List\n"  ) ;
-	simple_objfile_writelist(sState->pSimpleFunctionsMap,fObj);
+	simple_objfile_writelist(sState->blocks_map,fObj);
 	/* Write Classes List */
 	fprintf( fObj , "# Classes List\n"  ) ;
-	simple_objfile_writelist(sState->pSimpleClassesMap,fObj);
+	simple_objfile_writelist(sState->classes_map,fObj);
 	/* Write Moduless */
 	fprintf( fObj , "# Moduless List\n"  ) ;
 	simple_objfile_writelist(sState->modules_map,fObj);
@@ -124,8 +124,8 @@ int simple_objfile_readfromsource ( SimpleState *sState,char *cSource,int nSourc
 	simple_list_print(sState->pSimpleGenCode);
 	#endif
 	/* Update Lists */
-	sState->pSimpleFunctionsMap = listFunctions ;
-	sState->pSimpleClassesMap = listClasses ;
+	sState->blocks_map = listFunctions ;
+	sState->classes_map = listClasses ;
 	sState->modules_map = listModuless ;
 	sState->pSimpleGenCode = listCode ;
 	#ifdef DEBUG_OBJFILE
@@ -491,8 +491,8 @@ void simple_objfile_updateclassespointers ( SimpleState *sState )
 		list = simple_list_getlist(sState->pSimpleGenCode,x);
 		if ( simple_list_getint(list,1) == ICO_NEWCLASS ) {
 			cString = simple_list_getstring(list,2);
-			for ( x2 = 1 ; x2 <= simple_list_getsize(sState->pSimpleClassesMap) ; x2++ ) {
-				list2 = simple_list_getlist(sState->pSimpleClassesMap,x2);
+			for ( x2 = 1 ; x2 <= simple_list_getsize(sState->classes_map) ; x2++ ) {
+				list2 = simple_list_getlist(sState->classes_map,x2);
 				if ( strcmp(cString,simple_list_getstring(list2,1)) == 0 ) {
 					lFound = 0 ;
 					simple_list_setpointer_gc(sState,list,3,list2);
@@ -512,8 +512,8 @@ void simple_objfile_updateclassespointers ( SimpleState *sState )
 	**  Update Class Pointers in Classes Map when the class belong to a Modules 
 	**  This updates works when the class name is : modulesname.classname 
 	*/
-	for ( x = 1 ; x <= simple_list_getsize(sState->pSimpleClassesMap) ; x++ ) {
-		list = simple_list_getlist(sState->pSimpleClassesMap,x);
+	for ( x = 1 ; x <= simple_list_getsize(sState->classes_map) ; x++ ) {
+		list = simple_list_getlist(sState->classes_map,x);
 		cString = simple_list_getstring(list,1);
 		if ( simple_list_getstringsize(list,1)  > 400 ) {
 			/* Avoid large names - we have limits (400 letters per modules name - 400 letters for class name) */

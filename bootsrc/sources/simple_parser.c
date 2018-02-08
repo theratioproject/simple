@@ -45,10 +45,10 @@ int simple_parser_start ( List *pTokens,SimpleState *sState )
 		}
 	} while (parser->ActiveToken !=parser->TokensCount)  ;
 	/* Display Errors Count */
-	SimpleActiveFile = simple_list_getsize(parser->sState->pSimpleFilesStack);
+	SimpleActiveFile = simple_list_getsize(parser->sState->files_stack);
 	if ( parser->nErrorsCount == 0 ) {
 		#if SIMPLE_PARSERFINAL
-		printf( "\n%s compiling done, no errors.\n",simple_list_getstring(parser->sState->pSimpleFilesStack,SimpleActiveFile) ) ;
+		printf( "\n%s compiling done, no errors.\n",simple_list_getstring(parser->sState->files_stack,SimpleActiveFile) ) ;
 		#endif
 		simple_parser_delete(parser);
 		return 1 ;
@@ -79,16 +79,16 @@ Parser * simple_parser_new ( List *pTokens,SimpleState *sState )
 	parser->nErrorsCount = 0 ;
 	if ( sState->pSimpleGenCode == NULL ) {
 		sState->pSimpleGenCode = simple_list_new(0);
-		sState->pSimpleFunctionsMap = simple_list_new(0);
-		sState->pSimpleClassesMap = simple_list_new(0);
+		sState->blocks_map = simple_list_new(0);
+		sState->classes_map = simple_list_new(0);
 		sState->modules_map = simple_list_new(0);
 	}
 	parser->GenCode = sState->pSimpleGenCode ;
-	parser->FunctionsMap = sState->pSimpleFunctionsMap ;
+	parser->FunctionsMap = sState->blocks_map ;
 	parser->ActiveGenCodeList = NULL ;
 	parser->nAssignmentFlag = 1 ;
 	parser->nClassStart = 0 ;
-	parser->ClassesMap = sState->pSimpleClassesMap ;
+	parser->ClassesMap = sState->classes_map ;
 	parser->ModulessMap = sState->modules_map ;
 	parser->nClassMark = 0 ;
 	parser->nPrivateFlag = 0 ;
@@ -223,7 +223,7 @@ void parser_error ( Parser *parser,const char *cStr )
 {
 	int SimpleActiveFile  ;
 	simple_state_cgiheader(parser->sState);
-	SimpleActiveFile = simple_list_getsize(parser->sState->pSimpleFilesStack);
+	SimpleActiveFile = simple_list_getsize(parser->sState->files_stack);
 	if ( parser->nErrorLine != parser->nLineNumber ) {
 		parser->nErrorLine = parser->nLineNumber ;
                 if ( strcmp(cStr,"") != 0 ) {
@@ -231,7 +231,7 @@ void parser_error ( Parser *parser,const char *cStr )
 		} else {
 			printf( "\nLine %d -> Syntax error : Unexpected '%s' \n",parser->nLineNumber, parser->TokenText) ;
 		}
-		printf( "\tin file %s ",file_real_name(simple_list_getstring(parser->sState->pSimpleFilesStack,SimpleActiveFile)) ) ;
+		printf( "\tin file %s ",file_real_name(simple_list_getstring(parser->sState->files_stack,SimpleActiveFile)) ) ;
 		parser->nErrorsCount++ ;
 		return ;
 	} else if ( strcmp(cStr,"") != 0 ) {
@@ -239,7 +239,7 @@ void parser_error ( Parser *parser,const char *cStr )
 	}
 	if ( strcmp(cStr,"") != 0 ) {
 		printf( "\nLine %d -> %s\n",parser->nLineNumber,cStr ) ;
-		printf( "\tin file %s",file_real_name(simple_list_getstring(parser->sState->pSimpleFilesStack,SimpleActiveFile)) ) ;
+		printf( "\tin file %s",file_real_name(simple_list_getstring(parser->sState->files_stack,SimpleActiveFile)) ) ;
 	}
         if (SKIP_ERROR == 0) { exit(1); }
 }
