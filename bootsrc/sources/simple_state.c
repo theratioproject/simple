@@ -51,7 +51,7 @@ SIMPLE_API SimpleState * simple_state_new ( void )
 	sState->pSimpleGenCode = NULL ;
 	sState->pSimpleFunctionsMap = NULL ;
 	sState->pSimpleClassesMap = NULL ;
-	sState->pSimpleModulessMap = NULL ;
+	sState->modules_map = NULL ;
 	sState->c_blocks = NULL ;
 	sState->nISCGI = 0 ;
 	sState->nRun = 1 ;
@@ -87,7 +87,7 @@ SIMPLE_API SimpleState * simple_state_delete ( SimpleState *sState )
 		sState->pSimpleGenCode = simple_list_delete_gc(sState,sState->pSimpleGenCode);
 		sState->pSimpleFunctionsMap = simple_list_delete_gc(sState,sState->pSimpleFunctionsMap);
 		sState->pSimpleClassesMap = simple_list_delete_gc(sState,sState->pSimpleClassesMap);
-		sState->pSimpleModulessMap = simple_list_delete_gc(sState,sState->pSimpleModulessMap);
+		sState->modules_map = simple_list_delete_gc(sState,sState->modules_map);
 		if ( sState->c_blocks != NULL ) {
 			/* We check because the execution may end by the compiler error */
 			sState->c_blocks = simple_list_delete_gc(sState,sState->c_blocks);

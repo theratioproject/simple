@@ -81,7 +81,7 @@ Parser * simple_parser_new ( List *pTokens,SimpleState *sState )
 		sState->pSimpleGenCode = simple_list_new(0);
 		sState->pSimpleFunctionsMap = simple_list_new(0);
 		sState->pSimpleClassesMap = simple_list_new(0);
-		sState->pSimpleModulessMap = simple_list_new(0);
+		sState->modules_map = simple_list_new(0);
 	}
 	parser->GenCode = sState->pSimpleGenCode ;
 	parser->FunctionsMap = sState->pSimpleFunctionsMap ;
@@ -89,7 +89,7 @@ Parser * simple_parser_new ( List *pTokens,SimpleState *sState )
 	parser->nAssignmentFlag = 1 ;
 	parser->nClassStart = 0 ;
 	parser->ClassesMap = sState->pSimpleClassesMap ;
-	parser->ModulessMap = sState->pSimpleModulessMap ;
+	parser->ModulessMap = sState->modules_map ;
 	parser->nClassMark = 0 ;
 	parser->nPrivateFlag = 0 ;
 	parser->nBraceFlag = 0 ;

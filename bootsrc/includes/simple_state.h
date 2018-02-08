@@ -24,7 +24,7 @@ typedef struct SimpleState {
 	List *pSimpleGenCode  ;
 	List *pSimpleFunctionsMap  ;
 	List *pSimpleClassesMap  ;
-	List *pSimpleModulessMap  ;
+	List *modules_map  ;
 	/* First use by simple_vm_new */
 	List *c_blocks  ;
 	/* ISCGI is 1 if we are using the language as for CGI development */

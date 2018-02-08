@@ -293,7 +293,7 @@ void simple_vm_start ( SimpleState *sState,VM *vm )
 	vm->pCode = sState->pSimpleGenCode ;
 	vm->pFunctionsMap = sState->pSimpleFunctionsMap ;
 	vm->pClassesMap = sState->pSimpleClassesMap ;
-	vm->pModulessMap = sState->pSimpleModulessMap ;
+	vm->pModulessMap = sState->modules_map ;
 	simple_vm_loadcode(vm);
 	loadcfunctions(sState);
 	/* Generate Items Array &  Hash Table */
@@ -1292,11 +1292,11 @@ SIMPLE_API void simple_vm_runcodefromthread ( VM *vm,const char *cStr )
 	/* Share the code between the VMs */
 	pState->vm->pFunctionsMap = vm->sState->pSimpleFunctionsMap ;
 	pState->vm->pClassesMap = vm->sState->pSimpleClassesMap ;
-	pState->vm->pModulessMap = vm->sState->pSimpleModulessMap ;
+	pState->vm->pModulessMap = vm->sState->modules_map ;
 	pState->vm->pCFunctionsList = vm->pCFunctionsList ;
 	pState->pSimpleFunctionsMap = vm->sState->pSimpleFunctionsMap ;
 	pState->pSimpleClassesMap = vm->sState->pSimpleClassesMap ;
-	pState->pSimpleModulessMap = vm->sState->pSimpleModulessMap ;
+	pState->modules_map = vm->sState->modules_map ;
 	pState->c_blocks = vm->sState->c_blocks ;
 	/* Get a copy from the byte code List */
 	pState->vm->nScopeID = vm->nScopeID + 10000 ;
@@ -1321,7 +1321,7 @@ SIMPLE_API void simple_vm_runcodefromthread ( VM *vm,const char *cStr )
 	pState->pSimpleGenCode = list ;
 	pState->pSimpleFunctionsMap = list2 ;
 	pState->pSimpleClassesMap = list3 ;
-	pState->pSimpleModulessMap = list4 ;
+	pState->modules_map = list4 ;
 	pState->c_blocks = list5 ;
 	pState->vm->pMutex = NULL ;
 	pState->vm->pFuncMutexDestroy = NULL ;

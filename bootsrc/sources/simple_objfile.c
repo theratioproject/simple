@@ -36,7 +36,7 @@ void simple_objfile_writefile ( SimpleState *sState )
 	simple_objfile_writelist(sState->pSimpleClassesMap,fObj);
 	/* Write Moduless */
 	fprintf( fObj , "# Moduless List\n"  ) ;
-	simple_objfile_writelist(sState->pSimpleModulessMap,fObj);
+	simple_objfile_writelist(sState->modules_map,fObj);
 	/* Write Code */
 	fprintf( fObj , "# Program Code\n"  ) ;
 	simple_objfile_writelist(sState->pSimpleGenCode,fObj);
@@ -126,7 +126,7 @@ int simple_objfile_readfromsource ( SimpleState *sState,char *cSource,int nSourc
 	/* Update Lists */
 	sState->pSimpleFunctionsMap = listFunctions ;
 	sState->pSimpleClassesMap = listClasses ;
-	sState->pSimpleModulessMap = listModuless ;
+	sState->modules_map = listModuless ;
 	sState->pSimpleGenCode = listCode ;
 	#ifdef DEBUG_OBJFILE
 	puts("Update Done! ");
@@ -541,8 +541,8 @@ void simple_objfile_updateclassespointers ( SimpleState *sState )
 				printf( "Class Name %s \n  ",cClassName ) ;
 				#endif
 				/* Get The Modules List */
-				for ( x3 = 1 ; x3 <= simple_list_getsize(sState->pSimpleModulessMap) ; x3++ ) {
-					list2 = simple_list_getlist(sState->pSimpleModulessMap,x3);
+				for ( x3 = 1 ; x3 <= simple_list_getsize(sState->modules_map) ; x3++ ) {
+					list2 = simple_list_getlist(sState->modules_map,x3);
 					if ( strcmp(simple_list_getstring(list2,1),cModulesName) == 0 ) {
 						/* Get The Class List */
 						list2 = simple_list_getlist(list2,2);
@@ -561,8 +561,8 @@ void simple_objfile_updateclassespointers ( SimpleState *sState )
 		}
 	}
 	/* Update Modules Pointers in Moduless Classes */
-	for ( x = 1 ; x <= simple_list_getsize(sState->pSimpleModulessMap) ; x++ ) {
-		list = simple_list_getlist(sState->pSimpleModulessMap,x);
+	for ( x = 1 ; x <= simple_list_getsize(sState->modules_map) ; x++ ) {
+		list = simple_list_getlist(sState->modules_map,x);
 		/* Get The Class List */
 		list2 = simple_list_getlist(list,2);
 		for ( x2 = 1 ; x2 <= simple_list_getsize(list2) ; x2++ ) {

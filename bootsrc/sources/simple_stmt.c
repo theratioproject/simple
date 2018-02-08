@@ -89,7 +89,7 @@ int simple_parser_class ( Parser *parser )
 			/* Make class visible using ModulesName.ClassName if we have modules */
 			if ( parser->ClassesMap != parser->sState->pSimpleClassesMap ) {
 				/* Get Modules Name */
-				list3 = simple_list_getlist(parser->sState->pSimpleModulessMap,simple_list_getsize(parser->sState->pSimpleModulessMap));
+				list3 = simple_list_getlist(parser->sState->modules_map,simple_list_getsize(parser->sState->modules_map));
 				pString = simple_string_new_gc(parser->sState,simple_list_getstring(list3,1));
 				/* Add pointer to the Modules in the Class List */
 				simple_list_addpointer_gc(parser->sState,list,list3);
@@ -196,14 +196,14 @@ int simple_parser_class ( Parser *parser )
 			/* Add Modules to Moduless List */
 			list = simple_parser_icg_getactiveoperation(parser);
 			/* Check early definition of the modules */
-			for ( x = 1 ; x <= simple_list_getsize(parser->sState->pSimpleModulessMap) ; x++ ) {
-				list3 = simple_list_getlist(parser->sState->pSimpleModulessMap,x);
+			for ( x = 1 ; x <= simple_list_getsize(parser->sState->modules_map) ; x++ ) {
+				list3 = simple_list_getlist(parser->sState->modules_map,x);
 				if ( strcmp(simple_list_getstring(list3,1),simple_list_getstring(list,2)) == 0 ) {
 					parser->ClassesMap = simple_list_getlist(list3,2);
 					return 1 ;
 				}
 			}
-			list2 = simple_list_newlist_gc(parser->sState,parser->sState->pSimpleModulessMap);
+			list2 = simple_list_newlist_gc(parser->sState,parser->sState->modules_map);
 			/* Add Modules Name */
 			simple_list_addstring_gc(parser->sState,list2,simple_list_getstring(list,2));
 			/* Add Modules Classes List */
