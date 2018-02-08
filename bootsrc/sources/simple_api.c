@@ -29,102 +29,102 @@ SIMPLE_API void register_block_t ( SimpleState *sState,const char *cStr, void (*
 SIMPLE_API void loadcfunctions ( SimpleState *sState )
 {
 	/* General */
-	simple_vm_funcregister("lengthOf",simple_vmlib_len);
-	simple_vm_funcregister("add",simple_vmlib_add);
-	simple_vm_funcregister("del",simple_vmlib_del);
-	simple_vm_funcregister("sysget",simple_vmlib_get);
-	simple_vm_funcregister("clock",simple_vmlib_clock);
-	simple_vm_funcregister("$__lower",simple_vmlib_lower);
-	simple_vm_funcregister("$__upper",simple_vmlib_upper);
-	simple_vm_funcregister("input",simple_vmlib_input);
-	simple_vm_funcregister("ascii",simple_vmlib_ascii);
-	simple_vm_funcregister("char",simple_vmlib_char);
-	simple_vm_funcregister("date",simple_vmlib_date);
-	simple_vm_funcregister("time",simple_vmlib_time);
-	simple_vm_funcregister("filename",simple_vmlib_filename);
-	simple_vm_funcregister("getchar",simple_vmlib_getchar);
-	simple_vm_funcregister("system",simple_vmlib_system);
-	simple_vm_funcregister("random",simple_vmlib_random);
-	simple_vm_funcregister("timelist",simple_vmlib_timelist);
-	simple_vm_funcregister("adddays",simple_vmlib_adddays);
-	simple_vm_funcregister("diffdays",simple_vmlib_diffdays);
-	simple_vm_funcregister("getSimpleVersion",simple_vmlib_version);
-	simple_vm_funcregister("clockspersecond",simple_vmlib_clockspersecond);
-	simple_vm_funcregister("prevfilename",simple_vmlib_prevfilename);
-	simple_vm_funcregister("swap",simple_vmlib_swap);
-	simple_vm_funcregister("shutdown",simple_vmlib_shutdown);
+	register_block("lengthOf",simple_vmlib_len);
+	register_block("add",simple_vmlib_add);
+	register_block("del",simple_vmlib_del);
+	register_block("sysget",simple_vmlib_get);
+	register_block("clock",simple_vmlib_clock);
+	register_block("$__lower",simple_vmlib_lower);
+	register_block("$__upper",simple_vmlib_upper);
+	register_block("input",simple_vmlib_input);
+	register_block("ascii",simple_vmlib_ascii);
+	register_block("char",simple_vmlib_char);
+	register_block("date",simple_vmlib_date);
+	register_block("time",simple_vmlib_time);
+	register_block("filename",simple_vmlib_filename);
+	register_block("getchar",simple_vmlib_getchar);
+	register_block("system",simple_vmlib_system);
+	register_block("random",simple_vmlib_random);
+	register_block("timelist",simple_vmlib_timelist);
+	register_block("adddays",simple_vmlib_adddays);
+	register_block("diffdays",simple_vmlib_diffdays);
+	register_block("getSimpleVersion",simple_vmlib_version);
+	register_block("clockspersecond",simple_vmlib_clockspersecond);
+	register_block("prevfilename",simple_vmlib_prevfilename);
+	register_block("swap",simple_vmlib_swap);
+	register_block("shutdown",simple_vmlib_shutdown);
 	/* Check Data Type */
-	simple_vm_funcregister("isstring",simple_vmlib_isstring);
-	simple_vm_funcregister("isnumber",simple_vmlib_isnumber);
-	simple_vm_funcregister("islist",simple_vmlib_islist);
-	simple_vm_funcregister("type",simple_vmlib_type);
-	simple_vm_funcregister("isnull",simple_vmlib_isnull);
-	simple_vm_funcregister("isobject",simple_vmlib_isobject);
+	register_block("isstring",simple_vmlib_isstring);
+	register_block("isnumber",simple_vmlib_isnumber);
+	register_block("islist",simple_vmlib_islist);
+	register_block("type",simple_vmlib_type);
+	register_block("isnull",simple_vmlib_isnull);
+	register_block("isobject",simple_vmlib_isobject);
 	/* Conversion */
-	simple_vm_funcregister("hex",simple_vmlib_hex);
-	simple_vm_funcregister("dec",simple_vmlib_dec);
-	simple_vm_funcregister("number",simple_vmlib_number);
-	simple_vm_funcregister("string",simple_vmlib_string);
-	simple_vm_funcregister("str2hex",simple_vmlib_str2hex);
-	simple_vm_funcregister("hex2str",simple_vmlib_hex2str);
-	simple_vm_funcregister("str2list",simple_vmlib_str2list);
-	simple_vm_funcregister("list2str",simple_vmlib_list2str);
-	simple_vm_funcregister("str2hexcstyle",simple_vmlib_str2hexcstyle);
+	register_block("hex",simple_vmlib_hex);
+	register_block("dec",simple_vmlib_dec);
+	register_block("number",simple_vmlib_number);
+	register_block("string",simple_vmlib_string);
+	register_block("str2hex",simple_vmlib_str2hex);
+	register_block("hex2str",simple_vmlib_hex2str);
+	register_block("str2list",simple_vmlib_str2list);
+	register_block("list2str",simple_vmlib_list2str);
+	register_block("str2hexcstyle",simple_vmlib_str2hexcstyle);
 	/* String */
-	simple_vm_funcregister("left",simple_vmlib_left);
-	simple_vm_funcregister("right",simple_vmlib_right);
-	simple_vm_funcregister("trim",simple_vmlib_trim);
-	simple_vm_funcregister("copy",simple_vmlib_copy);
-	simple_vm_funcregister("substr",simple_vmlib_substr);
-	simple_vm_funcregister("lines",simple_vmlib_lines);
-	simple_vm_funcregister("stringCompare",simple_vmlib_strcmp);
+	register_block("left",simple_vmlib_left);
+	register_block("right",simple_vmlib_right);
+	register_block("trim",simple_vmlib_trim);
+	register_block("copy",simple_vmlib_copy);
+	register_block("substr",simple_vmlib_substr);
+	register_block("lines",simple_vmlib_lines);
+	register_block("stringCompare",simple_vmlib_strcmp);
 	/* Functional */
-	simple_vm_funcregister("executeCode",simple_vmlib_eval);
+	register_block("executeCode",simple_vmlib_eval);
 	/* Error Handling */
-	simple_vm_funcregister("throw",simple_vmlib_raise);
-	simple_vm_funcregister("assert",simple_vmlib_assert);
+	register_block("throw",simple_vmlib_raise);
+	register_block("assert",simple_vmlib_assert);
 	/* Check Characters */
-	simple_vm_funcregister("isalnum",simple_vmlib_isalnum);
-	simple_vm_funcregister("isalpha",simple_vmlib_isalpha);
-	simple_vm_funcregister("iscntrl",simple_vmlib_iscntrl);
-	simple_vm_funcregister("isdigit",simple_vmlib_isdigit);
-	simple_vm_funcregister("isgraph",simple_vmlib_isgraph);
-	simple_vm_funcregister("islower",simple_vmlib_islower);
-	simple_vm_funcregister("isprint",simple_vmlib_isprint);
-	simple_vm_funcregister("ispunct",simple_vmlib_ispunct);
-	simple_vm_funcregister("isspace",simple_vmlib_isspace);
-	simple_vm_funcregister("isupper",simple_vmlib_isupper);
-	simple_vm_funcregister("isxdigit",simple_vmlib_isxdigit);
+	register_block("isalnum",simple_vmlib_isalnum);
+	register_block("isalpha",simple_vmlib_isalpha);
+	register_block("iscntrl",simple_vmlib_iscntrl);
+	register_block("isdigit",simple_vmlib_isdigit);
+	register_block("isgraph",simple_vmlib_isgraph);
+	register_block("islower",simple_vmlib_islower);
+	register_block("isprint",simple_vmlib_isprint);
+	register_block("ispunct",simple_vmlib_ispunct);
+	register_block("isspace",simple_vmlib_isspace);
+	register_block("isupper",simple_vmlib_isupper);
+	register_block("isxdigit",simple_vmlib_isxdigit);
 	/* Garbage Collector & Variable Pointer */
-	simple_vm_funcregister("callgc",simple_vmlib_callgc);
-	simple_vm_funcregister("varptr",simple_vmlib_varptr);
-	simple_vm_funcregister("intvalue",simple_vmlib_intvalue);
-	simple_vm_funcregister("object2pointer",simple_vmlib_object2pointer);
-	simple_vm_funcregister("pointer2object",simple_vmlib_pointer2object);
-	simple_vm_funcregister("nullpointer",simple_vmlib_nullpointer);
-	simple_vm_funcregister("space",simple_vmlib_space);
-	simple_vm_funcregister("ptrcmp",simple_vmlib_ptrcmp);
+	register_block("callgc",simple_vmlib_callgc);
+	register_block("varptr",simple_vmlib_varptr);
+	register_block("intvalue",simple_vmlib_intvalue);
+	register_block("object2pointer",simple_vmlib_object2pointer);
+	register_block("pointer2object",simple_vmlib_pointer2object);
+	register_block("nullpointer",simple_vmlib_nullpointer);
+	register_block("space",simple_vmlib_space);
+	register_block("ptrcmp",simple_vmlib_ptrcmp);
 	/* Simple State */
-	simple_vm_funcregister("simple_state_init",simple_vmlib_state_init);
-	simple_vm_funcregister("simple_state_runcode",simple_vmlib_state_runcode);
-	simple_vm_funcregister("simple_state_delete",simple_vmlib_state_delete);
-	simple_vm_funcregister("simple_state_runfile",simple_vmlib_state_runfile);
-	simple_vm_funcregister("simple_state_findvar",simple_vmlib_state_findvar);
-	simple_vm_funcregister("simple_state_newvar",simple_vmlib_state_newvar);
-	simple_vm_funcregister("simple_state_runobjectfile",simple_vmlib_state_runobjectfile);
-	simple_vm_funcregister("simple_state_main",simple_vmlib_state_main);
-	simple_vm_funcregister("simple_state_setvar",simple_vmlib_state_setvar);
-	simple_vm_funcregister("simple_state_new",simple_vmlib_state_new);
-	simple_vm_funcregister("simple_state_mainfile",simple_vmlib_state_mainfile);
+	register_block("simple_state_init",simple_vmlib_state_init);
+	register_block("simple_state_runcode",simple_vmlib_state_runcode);
+	register_block("simple_state_delete",simple_vmlib_state_delete);
+	register_block("simple_state_runfile",simple_vmlib_state_runfile);
+	register_block("simple_state_findvar",simple_vmlib_state_findvar);
+	register_block("simple_state_newvar",simple_vmlib_state_newvar);
+	register_block("simple_state_runobjectfile",simple_vmlib_state_runobjectfile);
+	register_block("simple_state_main",simple_vmlib_state_main);
+	register_block("simple_state_setvar",simple_vmlib_state_setvar);
+	register_block("simple_state_new",simple_vmlib_state_new);
+	register_block("simple_state_mainfile",simple_vmlib_state_mainfile);
 	/*
 	**  Simple See and Give 
 	**  We will use simplevm_display() and ringvm_read() to change the behavior of see and give 
 	**  Also we can use simple_see() and simple_give() to use the original behavior when we redefine it 
 	*/
-	simple_vm_funcregister("simplevm_display",simple_vmlib_see);
-	simple_vm_funcregister("ringvm_read",simple_vmlib_give);
-	simple_vm_funcregister("simple_see",simple_vmlib_see);
-	simple_vm_funcregister("simple_give",simple_vmlib_give);
+	register_block("simplevm_display",simple_vmlib_see);
+	register_block("ringvm_read",simple_vmlib_give);
+	register_block("simple_see",simple_vmlib_see);
+	register_block("simple_give",simple_vmlib_give);
 }
 
 int simple_vm_api_islist ( void *pPointer,int x )
