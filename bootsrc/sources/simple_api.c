@@ -15,9 +15,8 @@
 #include "../includes/simple.h"
 /* Support for C Functions */
 
-SIMPLE_API void register_block_t( SimpleState *sState,const char *cStr, void (*pFunc)(void *) )
+SIMPLE_API void register_block_t ( SimpleState *sState,const char *cStr, void (*pFunc)(void *) )
 {
-    printf("%s -> GOT HERE\n", cStr);
 	List *list  ;
 	if ( sState->c_blocks == NULL ) {
 		sState->c_blocks = simple_list_new_gc(sState,0);
