@@ -19,8 +19,8 @@
 
 void simple_vm_dll_loadfunctions ( SimpleState *sState )
 {
-	register_block("$__loadlib",simple_vm_dll_loadlib);
-	register_block("$__closelib",simple_vm_dll_closelib);
+	register_block("callDynamiclibrary",simple_vm_dll_loadlib);
+	register_block("closeDynamiclibrary",simple_vm_dll_closelib);
 }
 
 void simple_vm_dll_loadlib ( void *pPointer )
