@@ -324,7 +324,7 @@ SIMPLE_API void api_int_value ( void *pPointer,const char  *cStr )
 	}
 }
 
-SIMPLE_API void simple_list_addcpointer ( List *list,void *pGeneral,const char *cType )
+SIMPLE_API void list_add_cpointer ( List *list,void *pGeneral,const char *cType )
 {
 	List *list2  ;
 	/* create sub list */
@@ -454,7 +454,7 @@ SIMPLE_API void * api_get_cpointer2pointer ( void *pPointer,int x,const char *cT
 	return NULL ;
 }
 
-SIMPLE_API void simple_list_addcpointer_gc ( void *pState,List *list,void *pGeneral,const char *cType )
+SIMPLE_API void list_add_cpointer_gc ( void *pState,List *list,void *pGeneral,const char *cType )
 {
 	List *list2  ;
 	/* create sub list */

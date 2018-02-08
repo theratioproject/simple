@@ -42,7 +42,7 @@ SIMPLE_API void * api_var_ptr ( void *pPointer,const char  *cStr,const char *cSt
 
 SIMPLE_API void api_int_value ( void *pPointer,const char  *cStr ) ;
 
-SIMPLE_API void simple_list_addcpointer ( List *list,void *pGeneral,const char *cType ) ;
+SIMPLE_API void list_add_cpointer ( List *list,void *pGeneral,const char *cType ) ;
 
 SIMPLE_API int api_iscpointer_list ( List *list ) ;
 
@@ -56,7 +56,7 @@ SIMPLE_API int simple_vm_api_ispointer ( void *pPointer,int x ) ;
 
 SIMPLE_API void * api_get_cpointer2pointer ( void *pPointer,int x,const char *cType ) ;
 
-SIMPLE_API void simple_list_addcpointer_gc ( void *pState,List *list,void *pGeneral,const char *cType ) ;
+SIMPLE_API void list_add_cpointer_gc ( void *pState,List *list,void *pGeneral,const char *cType ) ;
 /*
 **  Library 
 **  General 
