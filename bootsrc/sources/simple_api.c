@@ -337,7 +337,7 @@ SIMPLE_API void simple_list_addcpointer ( List *list,void *pGeneral,const char *
 	simple_list_addint(list2,2);
 }
 
-SIMPLE_API int simple_vm_api_iscpointerlist ( List *list )
+SIMPLE_API int api_iscpointer_list ( List *list )
 {
 	if ( simple_list_getsize(list) != 3 ) {
 		return 0 ;
@@ -351,7 +351,7 @@ SIMPLE_API int simple_vm_api_iscpointerlist ( List *list )
 SIMPLE_API int simple_vm_api_iscpointer ( void *pPointer,int x )
 {
 	if ( SIMPLE_API_ISLIST(x) ) {
-		return simple_vm_api_iscpointerlist(SIMPLE_API_GETLIST(x)) ;
+		return api_iscpointer_list(SIMPLE_API_GETLIST(x)) ;
 	}
 	return 0 ;
 }

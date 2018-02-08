@@ -809,7 +809,7 @@ SIMPLE_API int simple_list_findcpointer ( List *list,List *pValue,int nColumn )
 			for ( x = 1 ; x <= nCount ; x++ ) {
 				if ( simple_list_islist(list,x) ) {
 					list2 = simple_list_getlist(list,x);
-					if ( simple_vm_api_iscpointerlist(list2) ) {
+					if ( api_iscpointer_list(list2) ) {
 						if ( simple_vm_api_cpointercmp(list2,pValue) ) {
 							return x ;
 						}

@@ -44,7 +44,7 @@ SIMPLE_API void simple_vm_api_intvalue ( void *pPointer,const char  *cStr ) ;
 
 SIMPLE_API void simple_list_addcpointer ( List *list,void *pGeneral,const char *cType ) ;
 
-SIMPLE_API int simple_vm_api_iscpointerlist ( List *list ) ;
+SIMPLE_API int api_iscpointer_list ( List *list ) ;
 
 SIMPLE_API int simple_vm_api_iscpointer ( void *pPointer,int x ) ;
 
