@@ -295,7 +295,7 @@ void simple_vm_start ( SimpleState *sState,VM *vm )
 	vm->pClassesMap = sState->pSimpleClassesMap ;
 	vm->pModulessMap = sState->pSimpleModulessMap ;
 	simple_vm_loadcode(vm);
-	simple_vm_loadcfunctions(sState);
+	loadcfunctions(sState);
 	/* Generate Items Array &  Hash Table */
 	simple_list_genarray(sState->pSimpleCFunctions);
 	simple_list_genhashtable2(sState->pSimpleCFunctions);

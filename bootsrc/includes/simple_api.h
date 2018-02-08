@@ -22,7 +22,7 @@
 
 SIMPLE_API void simple_vm_funcregister2 ( SimpleState *sState,const char *cStr, void (*pFunc)(void *) ) ;
 
-SIMPLE_API void simple_vm_loadcfunctions ( SimpleState *sState ) ;
+SIMPLE_API void loadcfunctions ( SimpleState *sState ) ;
 
 SIMPLE_API List * simple_vm_api_getlist ( void *pPointer,int x ) ;
 

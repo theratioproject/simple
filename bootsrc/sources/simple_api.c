@@ -26,7 +26,7 @@ SIMPLE_API void simple_vm_funcregister2 ( SimpleState *sState,const char *cStr, 
 	simple_list_addfuncpointer_gc(sState,pList,pFunc);
 }
 
-SIMPLE_API void simple_vm_loadcfunctions ( SimpleState *sState )
+SIMPLE_API void loadcfunctions ( SimpleState *sState )
 {
 	/* General */
 	simple_vm_funcregister("lengthOf",simple_vmlib_len);
