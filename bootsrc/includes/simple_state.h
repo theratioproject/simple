@@ -26,7 +26,7 @@ typedef struct SimpleState {
 	List *pSimpleClassesMap  ;
 	List *pSimpleModulessMap  ;
 	/* First use by simple_vm_new */
-	List *pSimpleCFunctions  ;
+	List *c_blocks  ;
 	/* ISCGI is 1 if we are using the language as for CGI development */
 	unsigned int nISCGI : 1  ;
 	/* RUN is 0 if we need to compile only */

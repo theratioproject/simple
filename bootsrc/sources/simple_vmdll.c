@@ -50,10 +50,10 @@ void simple_vm_dll_loadlib ( void *pPointer )
 			SIMPLE_API_ERROR("The dynamic library doesn't contain the ringlib_init() function!");
 			return ;
 		}
-		simple_list_deletearray_gc(sState,sState->pSimpleCFunctions);
+		simple_list_deletearray_gc(sState,sState->c_blocks);
 		(*pFunc)(sState) ;
-		simple_list_genarray_gc(sState,sState->pSimpleCFunctions);
-		simple_list_genhashtable2_gc(sState,sState->pSimpleCFunctions);
+		simple_list_genarray_gc(sState,sState->c_blocks);
+		simple_list_genhashtable2_gc(sState,sState->c_blocks);
 		SIMPLE_API_RETCPOINTER(handle,"DLL");
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);

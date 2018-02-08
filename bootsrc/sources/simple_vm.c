@@ -61,10 +61,10 @@ VM * simple_vm_new ( SimpleState *sState )
 	vm->pFuncCallList = simple_list_new_gc(vm->sState,0);
 	vm->nFuncSP = 0 ;
 	vm->nFuncExecute = 0 ;
-	if ( sState->pSimpleCFunctions == NULL ) {
-		sState->pSimpleCFunctions = simple_list_new_gc(vm->sState,0);
+	if ( sState->c_blocks == NULL ) {
+		sState->c_blocks = simple_list_new_gc(vm->sState,0);
 	}
-	vm->pCFunctionsList = sState->pSimpleCFunctions ;
+	vm->pCFunctionsList = sState->c_blocks ;
 	vm->nCallMainFunction = 0 ;
 	/* Support for Exit/Loop Commands inside For/While loops. */
 	vm->pExitMark = simple_list_new_gc(vm->sState,0);
@@ -297,8 +297,8 @@ void simple_vm_start ( SimpleState *sState,VM *vm )
 	simple_vm_loadcode(vm);
 	loadcfunctions(sState);
 	/* Generate Items Array &  Hash Table */
-	simple_list_genarray(sState->pSimpleCFunctions);
-	simple_list_genhashtable2(sState->pSimpleCFunctions);
+	simple_list_genarray(sState->c_blocks);
+	simple_list_genhashtable2(sState->c_blocks);
 	if ( simple_list_getsize(vm->pCode) > 0 ) {
 		vm->nPC = 1 ;
 		simple_vm_mainloop(vm);
@@ -1297,7 +1297,7 @@ SIMPLE_API void simple_vm_runcodefromthread ( VM *vm,const char *cStr )
 	pState->pSimpleFunctionsMap = vm->sState->pSimpleFunctionsMap ;
 	pState->pSimpleClassesMap = vm->sState->pSimpleClassesMap ;
 	pState->pSimpleModulessMap = vm->sState->pSimpleModulessMap ;
-	pState->pSimpleCFunctions = vm->sState->pSimpleCFunctions ;
+	pState->c_blocks = vm->sState->c_blocks ;
 	/* Get a copy from the byte code List */
 	pState->vm->nScopeID = vm->nScopeID + 10000 ;
 	pState->vm->pCode = simple_list_new_gc(vm->sState,0) ;
@@ -1322,7 +1322,7 @@ SIMPLE_API void simple_vm_runcodefromthread ( VM *vm,const char *cStr )
 	pState->pSimpleFunctionsMap = list2 ;
 	pState->pSimpleClassesMap = list3 ;
 	pState->pSimpleModulessMap = list4 ;
-	pState->pSimpleCFunctions = list5 ;
+	pState->c_blocks = list5 ;
 	pState->vm->pMutex = NULL ;
 	pState->vm->pFuncMutexDestroy = NULL ;
 	pState->vm->pFuncMutexLock = NULL ;

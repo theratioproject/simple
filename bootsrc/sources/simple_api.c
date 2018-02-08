@@ -18,10 +18,10 @@
 SIMPLE_API void register_block_t ( SimpleState *sState,const char *cStr, void (*pFunc)(void *) )
 {
 	List *list  ;
-	if ( sState->pSimpleCFunctions == NULL ) {
-		sState->pSimpleCFunctions = simple_list_new_gc(sState,0);
+	if ( sState->c_blocks == NULL ) {
+		sState->c_blocks = simple_list_new_gc(sState,0);
 	}
-	list = simple_list_newlist_gc(sState,sState->pSimpleCFunctions);
+	list = simple_list_newlist_gc(sState,sState->c_blocks);
 	simple_list_addstring_gc(sState,list,cStr);
 	simple_list_addfuncpointer_gc(sState,list,pFunc);
 }
