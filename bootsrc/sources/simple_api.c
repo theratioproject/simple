@@ -348,7 +348,7 @@ SIMPLE_API int api_iscpointer_list ( List *list )
 	return 0 ;
 }
 
-SIMPLE_API int simple_vm_api_iscpointer ( void *pPointer,int x )
+SIMPLE_API int api_is_cpointer ( void *pPointer,int x )
 {
 	if ( SIMPLE_API_ISLIST(x) ) {
 		return api_iscpointer_list(SIMPLE_API_GETLIST(x)) ;
@@ -356,7 +356,7 @@ SIMPLE_API int simple_vm_api_iscpointer ( void *pPointer,int x )
 	return 0 ;
 }
 
-SIMPLE_API int simple_vm_api_isobject ( void *pPointer,int x )
+SIMPLE_API int api_is_object ( void *pPointer,int x )
 {
 	if ( SIMPLE_API_ISLIST(x) ) {
 		return simple_vm_oop_isobject(SIMPLE_API_GETLIST(x)) ;

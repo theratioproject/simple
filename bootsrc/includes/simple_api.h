@@ -46,9 +46,9 @@ SIMPLE_API void list_add_cpointer ( List *list,void *pGeneral,const char *cType 
 
 SIMPLE_API int api_iscpointer_list ( List *list ) ;
 
-SIMPLE_API int simple_vm_api_iscpointer ( void *pPointer,int x ) ;
+SIMPLE_API int api_is_cpointer ( void *pPointer,int x ) ;
 
-SIMPLE_API int simple_vm_api_isobject ( void *pPointer,int x ) ;
+SIMPLE_API int api_is_object ( void *pPointer,int x ) ;
 
 SIMPLE_API int simple_vm_api_cpointercmp ( List *list,List *list2 ) ;
 
@@ -269,8 +269,8 @@ void simple_vmlib_give ( void *pPointer ) ;
 #define SIMPLE_API_ACCEPTINTVALUE(x) SIMPLE_API_INTVALUE(SIMPLE_API_GETSTRING(x))
 #define SIMPLE_API_GETDOUBLEPOINTER(x) SIMPLE_API_VARPOINTER(SIMPLE_API_GETSTRING(x),"double")
 #define SIMPLE_API_IGNORECPOINTERTYPE ((VM *) pPointer)->nIgnoreCPointerTypeCheck = 1
-#define SIMPLE_API_ISCPOINTER(x) simple_vm_api_iscpointer(pPointer,x)
-#define SIMPLE_API_ISOBJECT(x) simple_vm_api_isobject(pPointer,x)
+#define SIMPLE_API_ISCPOINTER(x) api_is_cpointer(pPointer,x)
+#define SIMPLE_API_ISOBJECT(x) api_is_object(pPointer,x)
 #define SIMPLE_API_GETCPOINTER2POINTER(x,y) (api_get_cpointer2pointer((VM *) pPointer,x,y))
 /* Constants/MACRO */
 #define SIMPLE_API_MISS1PARA "Bad parameters count, the function expect one parameter"
