@@ -239,7 +239,7 @@ SIMPLE_API void * api_get_cpointer ( void *pPointer,int x,const char *cType )
 	return NULL ;
 }
 
-SIMPLE_API void simple_vm_api_setcpointernull ( void *pPointer,int x )
+SIMPLE_API void api_set_cpointer_null ( void *pPointer,int x )
 {
 	List *list, *list2  ;
 	int y  ;
@@ -260,7 +260,7 @@ SIMPLE_API void simple_vm_api_setcpointernull ( void *pPointer,int x )
 	}
 }
 
-SIMPLE_API void * simple_vm_api_varptr ( void *pPointer,const char  *cStr,const char *cStr2 )
+SIMPLE_API void * api_var_ptr ( void *pPointer,const char  *cStr,const char *cStr2 )
 {
 	VM *vm  ;
 	List *list, *pActiveMem  ;
@@ -1871,7 +1871,7 @@ void simple_vmlib_varptr ( void *pPointer )
 	if ( SIMPLE_API_ISSTRING(1) && SIMPLE_API_ISSTRING(2) ) {
 		cStr = SIMPLE_API_GETSTRING(1);
 		cStr2 = SIMPLE_API_GETSTRING(2);
-		SIMPLE_API_RETCPOINTER(simple_vm_api_varptr(pPointer,cStr,cStr2),cStr2);
+		SIMPLE_API_RETCPOINTER(api_var_ptr(pPointer,cStr,cStr2),cStr2);
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}

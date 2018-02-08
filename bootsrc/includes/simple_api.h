@@ -36,9 +36,9 @@ SIMPLE_API void api_ret_cpointer ( void *pPointer,void *pGeneral,const char *cTy
 
 SIMPLE_API void * api_get_cpointer ( void *pPointer,int x,const char *cType ) ;
 
-SIMPLE_API void simple_vm_api_setcpointernull ( void *pPointer,int x ) ;
+SIMPLE_API void api_set_cpointer_null ( void *pPointer,int x ) ;
 
-SIMPLE_API void * simple_vm_api_varptr ( void *pPointer,const char  *cStr,const char *cStr2 ) ;
+SIMPLE_API void * api_var_ptr ( void *pPointer,const char  *cStr,const char *cStr2 ) ;
 
 SIMPLE_API void simple_vm_api_intvalue ( void *pPointer,const char  *cStr ) ;
 
@@ -260,10 +260,10 @@ void simple_vmlib_give ( void *pPointer ) ;
 #define SIMPLE_API_OBJTYPE ((VM *) pPointer)->aStack[((VM *) pPointer)->nSP].nObjectType
 #define SIMPLE_BLOCK(x) void x(void *pPointer)
 #define SIMPLE_API_GETSTRINGSIZE(x) (simple_list_getstringsize(simple_list_getlist(SIMPLE_API_PARALIST,x),3))
-#define SIMPLE_API_SETNULLPOINTER(x) (simple_vm_api_setcpointernull((VM *) pPointer,x))
+#define SIMPLE_API_SETNULLPOINTER(x) (api_set_cpointer_null((VM *) pPointer,x))
 #define SIMPLE_API_GETCPOINTERSTATUS(x) simple_list_getint(SIMPLE_API_GETLIST(x),SIMPLE_CPOINTER_STATUS)
 #define SIMPLE_API_ISCPOINTERNOTASSIGNED(x) (SIMPLE_API_GETCPOINTERSTATUS(x) == SIMPLE_CPOINTERSTATUS_NOTASSIGNED)
-#define SIMPLE_API_VARPOINTER(x,y) (simple_vm_api_varptr(pPointer,x,y))
+#define SIMPLE_API_VARPOINTER(x,y) (api_var_ptr(pPointer,x,y))
 #define SIMPLE_API_INTVALUE(x) (simple_vm_api_intvalue(pPointer,x))
 #define SIMPLE_API_GETINTPOINTER(x) (int *) SIMPLE_API_VARPOINTER(SIMPLE_API_GETSTRING(x),"int")
 #define SIMPLE_API_ACCEPTINTVALUE(x) SIMPLE_API_INTVALUE(SIMPLE_API_GETSTRING(x))
