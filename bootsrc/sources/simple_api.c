@@ -127,7 +127,7 @@ SIMPLE_API void loadcfunctions ( SimpleState *sState )
 	register_block("simple_give",simple_vmlib_give);
 }
 
-int simple_vm_api_islist ( void *pPointer,int x )
+int api_is_list ( void *pPointer,int x )
 {
 	int nType  ;
 	if ( SIMPLE_API_ISPOINTER(x) ) {
@@ -158,7 +158,7 @@ SIMPLE_API List * api_get_list ( void *pPointer,int x )
 	return NULL ;
 }
 
-SIMPLE_API void simple_vm_api_retlist ( void *pPointer,List *list )
+SIMPLE_API void api_ret_list ( void *pPointer,List *list )
 {
 	List *list2,*list3  ;
 	VM *vm  ;
@@ -174,14 +174,14 @@ SIMPLE_API void simple_vm_api_retlist ( void *pPointer,List *list )
 	SIMPLE_API_OBJTYPE = SIMPLE_OBJTYPE_VARIABLE ;
 }
 
-SIMPLE_API List * simple_vm_api_newlist ( VM *vm )
+SIMPLE_API List * api_new_list ( VM *vm )
 {
 	List *list  ;
 	list = simple_list_newlist_gc(vm->sState,vm->pActiveMem);
 	return list ;
 }
 
-SIMPLE_API void simple_vm_api_retcpointer ( void *pPointer,void *pGeneral,const char *cType )
+SIMPLE_API void api_ret_cpointer ( void *pPointer,void *pGeneral,const char *cType )
 {
 	List *list  ;
 	/* Create the list */
@@ -195,7 +195,7 @@ SIMPLE_API void simple_vm_api_retcpointer ( void *pPointer,void *pGeneral,const 
 	SIMPLE_API_RETLIST(list);
 }
 
-SIMPLE_API void * simple_vm_api_getcpointer ( void *pPointer,int x,const char *cType )
+SIMPLE_API void * api_get_cpointer ( void *pPointer,int x,const char *cType )
 {
 	List *list, *list2  ;
 	int y  ;
@@ -407,7 +407,7 @@ SIMPLE_API int simple_vm_api_ispointer ( void *pPointer,int x )
 	return 0 ;
 }
 
-SIMPLE_API void * simple_vm_api_getcpointer2pointer ( void *pPointer,int x,const char *cType )
+SIMPLE_API void * api_get_cpointer2pointer ( void *pPointer,int x,const char *cType )
 {
 	List *list, *list2  ;
 	int y  ;

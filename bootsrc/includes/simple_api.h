@@ -26,15 +26,15 @@ SIMPLE_API void loadcfunctions ( SimpleState *sState ) ;
 
 SIMPLE_API List * api_get_list ( void *pPointer,int x ) ;
 
-int simple_vm_api_islist ( void *pPointer,int x ) ;
+int api_is_list ( void *pPointer,int x ) ;
 
-SIMPLE_API void simple_vm_api_retlist ( void *pPointer,List *list ) ;
+SIMPLE_API void api_ret_list ( void *pPointer,List *list ) ;
 
-SIMPLE_API List * simple_vm_api_newlist ( VM *vm ) ;
+SIMPLE_API List * api_new_list ( VM *vm ) ;
 
-SIMPLE_API void simple_vm_api_retcpointer ( void *pPointer,void *pGeneral,const char *cType ) ;
+SIMPLE_API void api_ret_cpointer ( void *pPointer,void *pGeneral,const char *cType ) ;
 
-SIMPLE_API void * simple_vm_api_getcpointer ( void *pPointer,int x,const char *cType ) ;
+SIMPLE_API void * api_get_cpointer ( void *pPointer,int x,const char *cType ) ;
 
 SIMPLE_API void simple_vm_api_setcpointernull ( void *pPointer,int x ) ;
 
@@ -54,7 +54,7 @@ SIMPLE_API int simple_vm_api_cpointercmp ( List *list,List *list2 ) ;
 
 SIMPLE_API int simple_vm_api_ispointer ( void *pPointer,int x ) ;
 
-SIMPLE_API void * simple_vm_api_getcpointer2pointer ( void *pPointer,int x,const char *cType ) ;
+SIMPLE_API void * api_get_cpointer2pointer ( void *pPointer,int x,const char *cType ) ;
 
 SIMPLE_API void simple_list_addcpointer_gc ( void *pState,List *list,void *pGeneral,const char *cType ) ;
 /*
@@ -247,15 +247,15 @@ void simple_vmlib_give ( void *pPointer ) ;
 #define SIMPLE_API_ISPOINTER(x) (simple_vm_api_ispointer((VM *) pPointer,x))
 #define SIMPLE_API_GETPOINTERTYPE(x) (simple_list_getint(simple_list_getlist(SIMPLE_API_PARALIST,x),4))
 #define SIMPLE_API_ERROR(x) (simple_vm_error((VM *) pPointer,x))
-#define SIMPLE_API_ISLIST(x) (simple_vm_api_islist((VM *) pPointer,x))
+#define SIMPLE_API_ISLIST(x) (api_is_list((VM *) pPointer,x))
 #define SIMPLE_API_GETLIST(x) (api_get_list((VM *) pPointer,x))
 #define SIMPLE_API_RETNUMBER(x) ((VM *) pPointer)->nSP++ ; simple_itemarray_setdouble(((VM *) pPointer)->aStack, ((VM *) pPointer)->nSP , x)
 #define SIMPLE_API_RETSTRING(x) ((VM *) pPointer)->nSP++ ; simple_itemarray_setstring(((VM *) pPointer)->aStack, ((VM *) pPointer)->nSP, x)
 #define SIMPLE_API_RETSTRING2(x,y) ((VM *) pPointer)->nSP++ ; simple_itemarray_setstring2(((VM *) pPointer)->aStack, ((VM *) pPointer)->nSP, x,y)
-#define SIMPLE_API_RETLIST(x) simple_vm_api_retlist((VM *) pPointer,x)
-#define SIMPLE_API_NEWLIST simple_vm_api_newlist((VM *) pPointer)
-#define SIMPLE_API_RETCPOINTER(x,y) (simple_vm_api_retcpointer((VM *) pPointer,(void *) x,y))
-#define SIMPLE_API_GETCPOINTER(x,y) (simple_vm_api_getcpointer((VM *) pPointer,x,y))
+#define SIMPLE_API_RETLIST(x) api_ret_list((VM *) pPointer,x)
+#define SIMPLE_API_NEWLIST api_new_list((VM *) pPointer)
+#define SIMPLE_API_RETCPOINTER(x,y) (api_ret_cpointer((VM *) pPointer,(void *) x,y))
+#define SIMPLE_API_GETCPOINTER(x,y) (api_get_cpointer((VM *) pPointer,x,y))
 #define SIMPLE_API_PUSHPVALUE(x) ((VM *) pPointer)->nSP++ ; simple_itemarray_setpointer(((VM *) pPointer)->aStack, ((VM *) pPointer)->nSP , x )
 #define SIMPLE_API_OBJTYPE ((VM *) pPointer)->aStack[((VM *) pPointer)->nSP].nObjectType
 #define SIMPLE_BLOCK(x) void x(void *pPointer)
@@ -271,7 +271,7 @@ void simple_vmlib_give ( void *pPointer ) ;
 #define SIMPLE_API_IGNORECPOINTERTYPE ((VM *) pPointer)->nIgnoreCPointerTypeCheck = 1
 #define SIMPLE_API_ISCPOINTER(x) simple_vm_api_iscpointer(pPointer,x)
 #define SIMPLE_API_ISOBJECT(x) simple_vm_api_isobject(pPointer,x)
-#define SIMPLE_API_GETCPOINTER2POINTER(x,y) (simple_vm_api_getcpointer2pointer((VM *) pPointer,x,y))
+#define SIMPLE_API_GETCPOINTER2POINTER(x,y) (api_get_cpointer2pointer((VM *) pPointer,x,y))
 /* Constants/MACRO */
 #define SIMPLE_API_MISS1PARA "Bad parameters count, the function expect one parameter"
 #define SIMPLE_API_MISS2PARA "Bad parameters count, the function expect two parameters"
