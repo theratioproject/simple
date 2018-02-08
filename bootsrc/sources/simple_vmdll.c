@@ -19,8 +19,8 @@
 
 void simple_vm_dll_loadfunctions ( SimpleState *sState )
 {
-	register_block("callDynamiclibrary",simple_vm_dll_loadlib);
-	register_block("closeDynamiclibrary",simple_vm_dll_closelib);
+	register_block("callDynamicModule",simple_vm_dll_loadlib);
+	register_block("closeDynamicModule",simple_vm_dll_closelib);
 }
 
 void simple_vm_dll_loadlib ( void *pPointer )
@@ -39,11 +39,11 @@ void simple_vm_dll_loadlib ( void *pPointer )
     }
     if ( SIMPLE_API_ISSTRING(1) ) {
         if (simple_fexists(SIMPLE_API_GETSTRING(1))) {
-            
+            strcpy(library_path,SIMPLE_API_GETSTRING(1));
         } else {
             char* SIMPLEPATH = getenv("SIMPLE_PATH"); 
             if (SIMPLEPATH != NULL) {
-                snprintf(library_path, sizeof(library_path), "%s/simple%s/modules/%s", SIMPLEPATH, SIMPLE_VERSION, SIMPLE_API_GETSTRING(1));
+                snprintf(library_path, sizeof(library_path), "%s/simple%s/dynamic_modules/%s", SIMPLEPATH, SIMPLE_VERSION, SIMPLE_API_GETSTRING(1));
             }
             if (!simple_fexists(library_path)) {
                 char* SIMPLEMODULEPATH = getenv("SIMPLE_MODULE_PATH"); 
