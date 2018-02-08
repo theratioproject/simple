@@ -20,7 +20,7 @@
 **  Support for C Functions 
 */
 
-SIMPLE_API void simple_vm_funcregister2 ( SimpleState *sState,const char *cStr, void (*pFunc)(void *) ) ;
+SIMPLE_API void register_block_t ( SimpleState *sState,const char *cStr, void (*pFunc)(void *) ) ;
 
 SIMPLE_API void loadcfunctions ( SimpleState *sState ) ;
 
@@ -283,7 +283,7 @@ void simple_vmlib_give ( void *pPointer ) ;
 #define SIMPLE_API_NOTPOINTER "Error in parameter, not pointer!"
 #define SIMPLE_API_NULLPOINTER "Error in parameter, NULL pointer!"
 #define SIMPLE_API_EMPTYLIST "Bad parameter, empty list!"
-#define simple_vm_funcregister(x,y) simple_vm_funcregister2(sState,x,y)
+#define simple_vm_funcregister(x,y) register_block_t(sState,x,y)
 /*
 **  Note : The C Function Get Lists as pointers because of (List Pass by Reference) 
 **  The List Maybe a Variable/ListItem or may represent Object or C Pointer inside a List 

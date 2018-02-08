@@ -15,7 +15,7 @@
 #include "../includes/simple.h"
 /* Support for C Functions */
 
-SIMPLE_API void simple_vm_funcregister2 ( SimpleState *sState,const char *cStr, void (*pFunc)(void *) )
+SIMPLE_API void register_block_t ( SimpleState *sState,const char *cStr, void (*pFunc)(void *) )
 {
 	List *pList  ;
 	if ( sState->pSimpleCFunctions == NULL ) {
