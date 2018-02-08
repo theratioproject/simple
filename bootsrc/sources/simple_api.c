@@ -96,6 +96,7 @@ SIMPLE_API void loadcfunctions ( SimpleState *sState )
 	register_block("isupper",simple_vmlib_isupper);
 	register_block("isxdigit",simple_vmlib_isxdigit);
 	/* Garbage Collector & Variable Pointer */
+        simple_vm_dll_loadfunctions(sState);
 	register_block("callgc",simple_vmlib_callgc);
 	register_block("varptr",simple_vmlib_varptr);
 	register_block("intvalue",simple_vmlib_intvalue);
