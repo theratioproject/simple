@@ -12,8 +12,8 @@
  * Created on July 10, 2017, 1:10 PM
  */
 
-#ifndef simple_h
-#define simple_h
+#ifndef SIMPLE_H
+#define SIMPLE_H
 /*
 **  DLL/So 
 **  Check Operating System 
