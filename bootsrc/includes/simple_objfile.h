@@ -22,7 +22,7 @@
 
 void simple_objfile_writefile ( SimpleState *sState ) ;
 
-void simple_objfile_writelist ( List *pList,FILE *fObj ) ;
+void simple_objfile_writelist ( List *list,FILE *fObj ) ;
 
 int simple_objfile_readfile ( SimpleState *sState,char *cFileName ) ;
 
@@ -30,9 +30,9 @@ int simple_objfile_readstring ( SimpleState *sState,char *cString ) ;
 
 int simple_objfile_readfromsource ( SimpleState *sState,char *cSource,int nSourceType ) ;
 
-int simple_objfile_processfile ( SimpleState *sState,char *cFileName,List *pListFunctions,List  *pListClasses,List  *pListModuless,List  *pListCode,List  *pListStack ) ;
+int simple_objfile_processfile ( SimpleState *sState,char *cFileName,List *listFunctions,List  *listClasses,List  *listModuless,List  *listCode,List  *listStack ) ;
 
-int simple_objfile_processstring ( SimpleState *sState,char *cContent,List *pListFunctions,List  *pListClasses,List  *pListModuless,List  *pListCode,List  *pListStack ) ;
+int simple_objfile_processstring ( SimpleState *sState,char *cContent,List *listFunctions,List  *listClasses,List  *listModuless,List  *listCode,List  *listStack ) ;
 
 void simple_objfile_updateclassespointers ( SimpleState *sState ) ;
 

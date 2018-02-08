@@ -20,7 +20,7 @@ void simple_vm_see ( VM *vm )
 {
 	Item *pItem  ;
 	char cStr[100]  ;
-	List *pList  ;
+	List *list  ;
 	char *cString  ;
 	int x  ;
 	if ( vm->nFuncExecute > 0 ) {
@@ -38,20 +38,20 @@ void simple_vm_see ( VM *vm )
 	}
 	else if ( SIMPLE_VM_STACK_ISPOINTER ) {
 		if ( SIMPLE_VM_STACK_OBJTYPE == SIMPLE_OBJTYPE_VARIABLE ) {
-			pList = simple_list_getlist((List *) SIMPLE_VM_STACK_READP,SIMPLE_VAR_VALUE);
-			if ( simple_vm_oop_isobject(pList) ) {
-				simple_vm_oop_printobj(vm,pList);
+			list = simple_list_getlist((List *) SIMPLE_VM_STACK_READP,SIMPLE_VAR_VALUE);
+			if ( simple_vm_oop_isobject(list) ) {
+				simple_vm_oop_printobj(vm,list);
 			} else {
-				simple_list_print(pList);
+				simple_list_print(list);
 			}
 		}
 		else if ( SIMPLE_VM_STACK_OBJTYPE ==SIMPLE_OBJTYPE_LISTITEM ) {
 			pItem = (Item *) SIMPLE_VM_STACK_READP ;
-			pList = simple_item_getlist(pItem) ;
-			if ( simple_vm_oop_isobject(pList) ) {
-				simple_vm_oop_printobj(vm,pList);
+			list = simple_item_getlist(pItem) ;
+			if ( simple_vm_oop_isobject(list) ) {
+				simple_vm_oop_printobj(vm,list);
 			} else {
-				simple_list_print(pList);
+				simple_list_print(list);
 			}
 		}
 	}
@@ -102,7 +102,7 @@ void simple_vmlib_see ( void *pPointer )
 	char *cString  ;
 	int x  ;
 	char cStr[100]  ;
-	List *pList  ;
+	List *list  ;
 	VM *vm  ;
 	vm = (VM *) pPointer ;
 	if ( SIMPLE_API_ISSTRING(1) ) {
@@ -120,11 +120,11 @@ void simple_vmlib_see ( void *pPointer )
 		printf( "%s",cStr ) ;
 	}
 	else if ( SIMPLE_API_ISLIST(1) ) {
-		pList = SIMPLE_API_GETLIST(1);
-		if ( simple_vm_oop_isobject(pList) ) {
-			simple_vm_oop_printobj(vm,pList);
+		list = SIMPLE_API_GETLIST(1);
+		if ( simple_vm_oop_isobject(list) ) {
+			simple_vm_oop_printobj(vm,list);
 		} else {
-			simple_list_print(pList);
+			simple_list_print(list);
 		}
 	}
 	fflush(stdout);

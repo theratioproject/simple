@@ -28,7 +28,7 @@ SIMPLE_API List * simple_vm_api_getlist ( void *pPointer,int x ) ;
 
 int simple_vm_api_islist ( void *pPointer,int x ) ;
 
-SIMPLE_API void simple_vm_api_retlist ( void *pPointer,List *pList ) ;
+SIMPLE_API void simple_vm_api_retlist ( void *pPointer,List *list ) ;
 
 SIMPLE_API List * simple_vm_api_newlist ( VM *vm ) ;
 
@@ -42,21 +42,21 @@ SIMPLE_API void * simple_vm_api_varptr ( void *pPointer,const char  *cStr,const 
 
 SIMPLE_API void simple_vm_api_intvalue ( void *pPointer,const char  *cStr ) ;
 
-SIMPLE_API void simple_list_addcpointer ( List *pList,void *pGeneral,const char *cType ) ;
+SIMPLE_API void simple_list_addcpointer ( List *list,void *pGeneral,const char *cType ) ;
 
-SIMPLE_API int simple_vm_api_iscpointerlist ( List *pList ) ;
+SIMPLE_API int simple_vm_api_iscpointerlist ( List *list ) ;
 
 SIMPLE_API int simple_vm_api_iscpointer ( void *pPointer,int x ) ;
 
 SIMPLE_API int simple_vm_api_isobject ( void *pPointer,int x ) ;
 
-SIMPLE_API int simple_vm_api_cpointercmp ( List *pList,List *pList2 ) ;
+SIMPLE_API int simple_vm_api_cpointercmp ( List *list,List *list2 ) ;
 
 SIMPLE_API int simple_vm_api_ispointer ( void *pPointer,int x ) ;
 
 SIMPLE_API void * simple_vm_api_getcpointer2pointer ( void *pPointer,int x,const char *cType ) ;
 
-SIMPLE_API void simple_list_addcpointer_gc ( void *pState,List *pList,void *pGeneral,const char *cType ) ;
+SIMPLE_API void simple_list_addcpointer_gc ( void *pState,List *list,void *pGeneral,const char *cType ) ;
 /*
 **  Library 
 **  General 

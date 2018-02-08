@@ -117,29 +117,29 @@ Items * simple_parser_icg_getoperationpos ( Parser *parser )
 	return parser->GenCode->pLast ;
 }
 
-void simple_parser_icg_addoperand ( Parser *parser ,List *pList , const char *cStr )
+void simple_parser_icg_addoperand ( Parser *parser ,List *list , const char *cStr )
 {
-	assert(pList != NULL);
-	simple_list_addstring_gc(parser->sState,pList,cStr);
+	assert(list != NULL);
+	simple_list_addstring_gc(parser->sState,list,cStr);
 }
 
-void simple_parser_icg_addoperandint ( Parser *parser ,List *pList , int nValue )
+void simple_parser_icg_addoperandint ( Parser *parser ,List *list , int nValue )
 {
-	assert(pList != NULL);
-	simple_list_addint_gc(parser->sState,pList,nValue);
+	assert(list != NULL);
+	simple_list_addint_gc(parser->sState,list,nValue);
 }
 
-void simple_parser_icg_addoperandpointer ( Parser *parser ,List *pList , void *pValue )
+void simple_parser_icg_addoperandpointer ( Parser *parser ,List *list , void *pValue )
 {
-	assert(pList != NULL);
-	simple_list_addpointer_gc(parser->sState,pList,pValue);
+	assert(list != NULL);
+	simple_list_addpointer_gc(parser->sState,list,pValue);
 }
 
-void simple_parser_icg_showoutput ( List *pListGenCode,int nStatus )
+void simple_parser_icg_showoutput ( List *listGenCode,int nStatus )
 {
 	int x,y,nCount,nCount2  ;
-	List *pList  ;
-	assert(pListGenCode != NULL);
+	List *list  ;
+	assert(listGenCode != NULL);
 	/* Header */
 	printf( "\n\n" ) ;
 	print_line();
@@ -150,26 +150,26 @@ void simple_parser_icg_showoutput ( List *pListGenCode,int nStatus )
 		puts("Byte Code - After Execution by the VM");
 	}
 	print_line();
-	nCount = simple_list_getsize(pListGenCode);
+	nCount = simple_list_getsize(listGenCode);
 	if ( nCount > 0 ) {
 		printf( "\n %6s  %10s  %10s\n", "PC","OPCode","Data" ) ;
 		for ( x = 1 ; x <= nCount ; x++ ) {
-			pList = simple_list_getlist(pListGenCode,x);
-			nCount2 = simple_list_getsize(pList);
-			printf( "\n %6d  %10s  ", x , SIMPLE_IC_OP[simple_list_getint(pList,1)] ) ;
+			list = simple_list_getlist(listGenCode,x);
+			nCount2 = simple_list_getsize(list);
+			printf( "\n %6d  %10s  ", x , SIMPLE_IC_OP[simple_list_getint(list,1)] ) ;
 			if ( nCount2 > 1 ) {
 				for ( y = 2 ; y <= nCount2 ; y++ ) {
-					if ( simple_list_isstring(pList,y) ) {
-						printf( " %5s ",simple_list_getstring(pList,y) ) ;
+					if ( simple_list_isstring(list,y) ) {
+						printf( " %5s ",simple_list_getstring(list,y) ) ;
 					}
-					else if ( simple_list_isnumber(pList,y) ) {
-						if ( simple_list_isdouble(pList,y) ) {
-							printf( " %f",simple_list_getdouble(pList,y) ) ;
+					else if ( simple_list_isnumber(list,y) ) {
+						if ( simple_list_isdouble(list,y) ) {
+							printf( " %f",simple_list_getdouble(list,y) ) ;
 						} else {
-							printf( " %5d ",simple_list_getint(pList,y) ) ;
+							printf( " %5d ",simple_list_getint(list,y) ) ;
 						}
 					} else {
-						printf( " %5p ",simple_list_getpointer(pList,y) ) ;
+						printf( " %5p ",simple_list_getpointer(list,y) ) ;
 					}
 				}
 			}
@@ -192,7 +192,7 @@ void simple_parser_icg_deletelastoperation ( Parser *parser )
 
 void simple_parser_icg_duplicate ( Parser *parser,int nStart,int nEnd )
 {
-	List *pList,*pList2  ;
+	List *list,*list2  ;
 	int x  ;
 	#if SIMPLE_SHOWIC
 	int y,nCount2  ;
@@ -200,25 +200,25 @@ void simple_parser_icg_duplicate ( Parser *parser,int nStart,int nEnd )
 	assert(parser != NULL);
 	if ( (nStart <= nEnd) && ( nEnd <= simple_parser_icg_instructionscount(parser) ) ) {
 		for ( x = nStart ; x <= nEnd ; x++ ) {
-			pList = simple_list_newlist_gc(parser->sState,parser->GenCode);
-			pList2 = simple_list_getlist(parser->GenCode,x);
-			simple_list_copy(pList,pList2);
+			list = simple_list_newlist_gc(parser->sState,parser->GenCode);
+			list2 = simple_list_getlist(parser->GenCode,x);
+			simple_list_copy(list,list2);
 			#if SIMPLE_SHOWIC
-			nCount2 = simple_list_getsize(pList);
-			printf( "\n %6d [ %s ] ", simple_list_getsize(parser->GenCode) , SIMPLE_IC_OP[simple_list_getint(pList,1)] ) ;
+			nCount2 = simple_list_getsize(list);
+			printf( "\n %6d [ %s ] ", simple_list_getsize(parser->GenCode) , SIMPLE_IC_OP[simple_list_getint(list,1)] ) ;
 			if ( nCount2 > 1 ) {
 				for ( y = 2 ; y <= nCount2 ; y++ ) {
-					if ( simple_list_isstring(pList,y) ) {
-						printf( " Operand : %s ",simple_list_getstring(pList,y) ) ;
+					if ( simple_list_isstring(list,y) ) {
+						printf( " Operand : %s ",simple_list_getstring(list,y) ) ;
 					}
-					else if ( simple_list_isnumber(pList,y) ) {
-						if ( simple_list_isdouble(pList,y) ) {
-							printf( " Operand : %f ",simple_list_getdouble(pList,y) ) ;
+					else if ( simple_list_isnumber(list,y) ) {
+						if ( simple_list_isdouble(list,y) ) {
+							printf( " Operand : %f ",simple_list_getdouble(list,y) ) ;
 						} else {
-							printf( " Operand : %5d ",simple_list_getint(pList,y) ) ;
+							printf( " Operand : %5d ",simple_list_getint(list,y) ) ;
 						}
 					} else {
-						printf( " Operand : %5p ",simple_list_getpointer(pList,y) ) ;
+						printf( " Operand : %5p ",simple_list_getpointer(list,y) ) ;
 					}
 				}
 			}

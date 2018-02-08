@@ -32,7 +32,7 @@ typedef struct Item {
 		double dNumber  ;
 		int iNumber  ;
 		void *pPointer  ;
-		struct List *pList  ;
+		struct List *list  ;
 		void (*pFunc)(void *) ;
 	} data ;
 	/* Garbage Collector Data (Reference Counting) */
@@ -64,18 +64,18 @@ SIMPLE_API void simple_item_content_delete_gc ( void *pState,Item *pItem ) ;
 **  int 
 */
 
-SIMPLE_API void simple_itemarray_setint_gc ( void *pState,Item pList[], int index ,int number ) ;
+SIMPLE_API void simple_itemarray_setint_gc ( void *pState,Item list[], int index ,int number ) ;
 /* Pointers */
 
-SIMPLE_API void simple_itemarray_setpointer_gc ( void *pState,Item pList[], int index ,void *pValue ) ;
+SIMPLE_API void simple_itemarray_setpointer_gc ( void *pState,Item list[], int index ,void *pValue ) ;
 /* double */
 
-SIMPLE_API void simple_itemarray_setdouble_gc ( void *pState,Item pList[], int index ,double number ) ;
+SIMPLE_API void simple_itemarray_setdouble_gc ( void *pState,Item list[], int index ,double number ) ;
 /* String */
 
-SIMPLE_API void simple_itemarray_setstsimple_gc ( void *pState,Item pList[], int index ,const char *str ) ;
+SIMPLE_API void simple_itemarray_setstsimple_gc ( void *pState,Item list[], int index ,const char *str ) ;
 
-SIMPLE_API void simple_itemarray_setstring2_gc ( void *pState,Item pList[], int index ,const char *str,int nStrSize ) ;
+SIMPLE_API void simple_itemarray_setstring2_gc ( void *pState,Item list[], int index ,const char *str,int nStrSize ) ;
 /* Functions to deal with one item */
 
 SIMPLE_API void simple_item_setstsimple_gc ( void *pState,Item *pItem,const char *cStr ) ;
@@ -92,18 +92,18 @@ SIMPLE_API void simple_item_setstring2_gc ( void *pState,Item *pItem,const char 
 #define simple_item_getnumber(x) x->data.dNumber
 #define simple_item_getdouble(x) x->data.dNumber
 #define simple_item_getint(x) x->data.iNumber
-#define simple_item_getlist(x) x->data.pList
+#define simple_item_getlist(x) x->data.list
 #define simple_item_getpointer(x) x->data.pPointer
 #define simple_item_gettype(x) x->nType
-#define simple_itemarray_getint(pList,index) ( pList[index].data.iNumber )
-#define simple_itemarray_getpointer(pList,index) ( pList[index].data.pPointer )
-#define simple_itemarray_getdouble(pList,index) pList[index].data.dNumber
-#define simple_itemarray_getstring(pList,index) simple_string_get(pList[index].data.pString )
-#define simple_itemarray_getstringsize(pList,index) simple_string_size(pList[index].data.pString )
+#define simple_itemarray_getint(list,index) ( list[index].data.iNumber )
+#define simple_itemarray_getpointer(list,index) ( list[index].data.pPointer )
+#define simple_itemarray_getdouble(list,index) list[index].data.dNumber
+#define simple_itemarray_getstring(list,index) simple_string_get(list[index].data.pString )
+#define simple_itemarray_getstringsize(list,index) simple_string_size(list[index].data.pString )
 /* Check */
-#define simple_itemarray_isstring(pList,index) (pList[index].nType == ITEMTYPE_STRING)
-#define simple_itemarray_isnumber(pList,index) (pList[index].nType == ITEMTYPE_NUMBER)
-#define simple_itemarray_ispointer(pList,index) (pList[index].nType == ITEMTYPE_POINTER)
+#define simple_itemarray_isstring(list,index) (list[index].nType == ITEMTYPE_STRING)
+#define simple_itemarray_isnumber(list,index) (list[index].nType == ITEMTYPE_NUMBER)
+#define simple_itemarray_ispointer(list,index) (list[index].nType == ITEMTYPE_POINTER)
 #define simple_item_isstring(x) (x->nType == ITEMTYPE_STRING)
 #define simple_item_islist(x) (x->nType == ITEMTYPE_LIST)
 #define simple_item_isdouble(x) ( (x->nType == ITEMTYPE_NUMBER) && ( x->NumberFlag == ITEM_NUMBERFLAG_DOUBLE ) )
@@ -121,18 +121,18 @@ SIMPLE_API void simple_item_content_delete ( Item *pItem ) ;
 **  int 
 */
 
-SIMPLE_API void simple_itemarray_setint ( Item pList[], int index ,int number ) ;
+SIMPLE_API void simple_itemarray_setint ( Item list[], int index ,int number ) ;
 /* Pointers */
 
-SIMPLE_API void simple_itemarray_setpointer ( Item pList[], int index ,void *pValue ) ;
+SIMPLE_API void simple_itemarray_setpointer ( Item list[], int index ,void *pValue ) ;
 /* double */
 
-SIMPLE_API void simple_itemarray_setdouble ( Item pList[], int index ,double number ) ;
+SIMPLE_API void simple_itemarray_setdouble ( Item list[], int index ,double number ) ;
 /* String */
 
-SIMPLE_API void simple_itemarray_setstring ( Item pList[], int index ,const char *str ) ;
+SIMPLE_API void simple_itemarray_setstring ( Item list[], int index ,const char *str ) ;
 
-SIMPLE_API void simple_itemarray_setstring2 ( Item pList[], int index ,const char *str,int nStrSize ) ;
+SIMPLE_API void simple_itemarray_setstring2 ( Item list[], int index ,const char *str,int nStrSize ) ;
 /* Functions to deal with one item */
 
 SIMPLE_API void simple_item_setstring ( Item *pItem,const char *cStr ) ;

@@ -26,7 +26,7 @@
 typedef struct ByteCode {
 	Item *aData[SIMPLE_VM_BC_ITEMS_COUNT]  ;
 	char nSize  ;
-	List *pList  ;
+	List *list  ;
 } ByteCode ;
 typedef struct VM {
 	int nPC  ;
@@ -177,9 +177,9 @@ void simple_vm_freestack ( VM *vm ) ;
 
 void simple_vm_setreference ( VM *vm ) ;
 
-void simple_vm_list_copy ( VM *vm,List *pNewList, List *pList ) ;
+void simple_vm_list_copy ( VM *vm,List *pNewList, List *list ) ;
 
-void simple_vm_list_simpointercopy ( VM *vm,List *pList ) ;
+void simple_vm_list_simpointercopy ( VM *vm,List *list ) ;
 
 void simple_vm_beforeequallist ( VM *vm,List *pVar,double nNum1 ) ;
 
@@ -235,7 +235,7 @@ void simple_vm_plusplus ( VM *vm ) ;
 
 void simple_vm_minusminus ( VM *vm ) ;
 
-void simple_vm_addlisttolist ( VM *vm,List *pList,List *pList2 ) ;
+void simple_vm_addlisttolist ( VM *vm,List *list,List *list2 ) ;
 /* Logic */
 
 void simple_vm_and ( VM *vm ) ;
@@ -249,7 +249,7 @@ void simple_vm_newscope ( VM *vm ) ;
 
 int simple_vm_findvar ( VM *vm,const char *cStr ) ;
 
-int simple_vm_findvar2 ( VM *vm,int x,List *pList2,const char *cStr ) ;
+int simple_vm_findvar2 ( VM *vm,int x,List *list2,const char *cStr ) ;
 
 void simple_vm_newvar ( VM *vm,const char *cStr ) ;
 
@@ -263,11 +263,11 @@ void simple_vm_deletescope ( VM *vm ) ;
 
 void simple_vm_addnewpointervar ( VM *vm,const char *cStr,void *x,int y ) ;
 
-void simple_vm_newtempvar ( VM *vm,const char *cStr, List *TempList ) ;
+void simple_vm_newtempvar ( VM *vm,const char *cStr, List *Temlist ) ;
 
 void simple_vm_addnewstringvar2 ( VM *vm,const char *cStr,const char *cStr2,int nStrSize ) ;
 
-List * simple_vm_newtempvar2 ( VM *vm,const char *cStr,List *pList3 ) ;
+List * simple_vm_newtempvar2 ( VM *vm,const char *cStr,List *list3 ) ;
 
 void simple_vm_addnewcpointervar ( VM *vm,const char *cStr,void *pPointer,const char *cStr2 ) ;
 /* Jump */
@@ -326,7 +326,7 @@ void simple_vm_removeblockflag ( VM *vm ) ;
 
 void simple_vm_movetoprevscope ( VM *vm ) ;
 
-void simple_vm_createtemplist ( VM *vm ) ;
+void simple_vm_createtemlist ( VM *vm ) ;
 
 void simple_vm_saveloadaddressscope ( VM *vm ) ;
 
@@ -371,7 +371,7 @@ void simple_vm_oop_newobj ( VM *vm ) ;
 
 void simple_vm_oop_property ( VM *vm ) ;
 
-int simple_vm_oop_isobject ( List *pList ) ;
+int simple_vm_oop_isobject ( List *list ) ;
 
 List * simple_vm_oop_getobj ( VM *vm ) ;
 
@@ -381,15 +381,15 @@ void simple_vm_oop_aftercallmethod ( VM *vm ) ;
 
 void simple_vm_oop_setscope ( VM *vm ) ;
 
-void simple_vm_oop_printobj ( VM *vm,List *pList ) ;
+void simple_vm_oop_printobj ( VM *vm,List *list ) ;
 
-void simple_vm_oop_parentinit ( VM *vm,List *pList ) ;
+void simple_vm_oop_parentinit ( VM *vm,List *list ) ;
 
-void simple_vm_oop_parentmethods ( VM *vm,List *pList ) ;
+void simple_vm_oop_parentmethods ( VM *vm,List *list ) ;
 
 void simple_vm_oop_newclass ( VM *vm ) ;
 
-void simple_vm_oop_setbraceobj ( VM *vm,List *pList ) ;
+void simple_vm_oop_setbraceobj ( VM *vm,List *list ) ;
 
 void simple_vm_oop_bracestart ( VM *vm ) ;
 
@@ -405,17 +405,17 @@ void simple_vm_oop_loadsuperobjmethod ( VM *vm,List *pSuper ) ;
 
 void simple_vm_oop_import ( VM *vm ) ;
 
-List * simple_vm_oop_checkpointertoclassinmodules ( VM *vm,List *pList ) ;
+List * simple_vm_oop_checkpointertoclassinmodules ( VM *vm,List *list ) ;
 
 void simple_vm_oop_import2 ( VM *vm,const char *cModules ) ;
 
-void simple_vm_oop_import3 ( VM *vm,List *pList ) ;
+void simple_vm_oop_import3 ( VM *vm,List *list ) ;
 
 int simple_vm_oop_visibleclassescount ( VM *vm ) ;
 
 List * simple_vm_oop_visibleclassitem ( VM *vm,int x ) ;
 
-void simple_vm_oop_pushclassmodules ( VM *vm,List *pList ) ;
+void simple_vm_oop_pushclassmodules ( VM *vm,List *list ) ;
 
 void simple_vm_oop_popclassmodules ( VM *vm ) ;
 
@@ -429,15 +429,15 @@ void simple_vm_oop_setproperty ( VM *vm ) ;
 
 void simple_vm_oop_operatoroverloading ( VM *vm,List *pObj,const char *cStr1,int nType,const char *cStr2,double nNum1,void *pPointer,int nPointerType ) ;
 
-List * simple_vm_oop_objvarfromobjlist ( List *pList ) ;
+List * simple_vm_oop_objvarfromobjlist ( List *list ) ;
 
-int simple_vm_oop_objtypefromobjlist ( List *pList ) ;
+int simple_vm_oop_objtypefromobjlist ( List *list ) ;
 
-Item * simple_vm_oop_objitemfromobjlist ( List *pList ) ;
+Item * simple_vm_oop_objitemfromobjlist ( List *list ) ;
 
 void simple_vm_oop_callmethodfrombrace ( VM *vm ) ;
 
-int simple_vm_oop_ismethod ( VM *vm,List *pList,const char *cStr ) ;
+int simple_vm_oop_ismethod ( VM *vm,List *list,const char *cStr ) ;
 
 void simple_vm_oop_updateselfpointer ( VM *vm,List *pObj,int nType,void *pContainer ) ;
 
@@ -484,19 +484,19 @@ void simple_vm_popexitmark ( VM *vm ) ;
 void simple_vm_exit ( VM *vm,int nType ) ;
 /* State */
 
-void simple_vm_savestate ( VM *vm,List *pList ) ;
+void simple_vm_savestate ( VM *vm,List *list ) ;
 
-void simple_vm_restorestate ( VM *vm,List *pList,int nPos,int nFlag ) ;
+void simple_vm_restorestate ( VM *vm,List *list,int nPos,int nFlag ) ;
 
-void simple_vm_backstate ( VM *vm,int x,List *pList ) ;
+void simple_vm_backstate ( VM *vm,int x,List *list ) ;
 
-void simple_vm_savestate2 ( VM *vm,List *pList ) ;
+void simple_vm_savestate2 ( VM *vm,List *list ) ;
 
-void simple_vm_restorestate2 ( VM *vm,List *pList,int x ) ;
+void simple_vm_restorestate2 ( VM *vm,List *list,int x ) ;
 
 List * simple_vm_savestack ( VM *vm ) ;
 
-void simple_vm_restorestack ( VM *vm,List *pList ) ;
+void simple_vm_restorestack ( VM *vm,List *list ) ;
 /* Bitwise */
 
 void simple_vm_bitand ( VM *vm ) ;
@@ -608,7 +608,7 @@ List * simple_vm_getglobalscope ( VM *vm ) ;
 #define SIMPLE_VM_IR_OPCODE vm->pByteCodeIR->aData[0]->data.iNumber
 #define SIMPLE_VM_IR_SETCVALUE(x,y) simple_string_set_gc(vm->sState,vm->pByteCodeIR->aData[x]->data.pString,y)
 #define SIMPLE_VM_IR_ITEM(x) vm->pByteCodeIR->aData[x]
-#define SIMPLE_VM_IR_LIST vm->pByteCodeIR->pList
+#define SIMPLE_VM_IR_LIST vm->pByteCodeIR->list
 #define SIMPLE_VM_IR_LOAD vm->pByteCodeIR = vm->pByteCode + vm->nPC - 1
 #define SIMPLE_VM_IR_UNLOAD vm->pByteCodeIR = vm->pByteCode + vm->nPC - 2
 /*

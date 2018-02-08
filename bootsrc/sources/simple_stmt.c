@@ -18,7 +18,7 @@
 
 int simple_parser_class ( Parser *parser )
 {
-	List *pList,*pList2,*pList3  ;
+	List *list,*list2,*list3  ;
 	int x  ;
 	String *pString  ;
 	/* Statement --> Class Identifier  [ From Identifier ] */
@@ -33,35 +33,35 @@ int simple_parser_class ( Parser *parser )
 			simple_parser_icg_newoperation(parser,ICO_NEWCLASS);
 			simple_parser_icg_newoperand(parser,parser->TokenText);
 			/* Add Class to Classes Table */
-			pList = parser->ClassesMap ;
+			list = parser->ClassesMap ;
 			/* Check Class Redefinition */
-			if ( simple_list_getsize(pList) > 0 ) {
-				for ( x = 1 ; x <= simple_list_getsize(pList) ; x++ ) {
-					if ( strcmp(simple_list_getstring(simple_list_getlist(pList,x),1),parser->TokenText) == 0 ) {
+			if ( simple_list_getsize(list) > 0 ) {
+				for ( x = 1 ; x <= simple_list_getsize(list) ; x++ ) {
+					if ( strcmp(simple_list_getstring(simple_list_getlist(list,x),1),parser->TokenText) == 0 ) {
 						parser_error(parser,PARSER_ERROR_CLASSREDEFINE);
 						return 0 ;
 					}
 				}
 			}
-			pList = simple_list_newlist_gc(parser->sState,pList);
-			simple_list_addstring_gc(parser->sState,pList,parser->TokenText);
-			simple_list_addint_gc(parser->sState,pList,simple_list_getsize(parser->GenCode));
+			list = simple_list_newlist_gc(parser->sState,list);
+			simple_list_addstring_gc(parser->sState,list,parser->TokenText);
+			simple_list_addint_gc(parser->sState,list,simple_list_getsize(parser->GenCode));
 			/* Add class pointer to generated code */
-			simple_parser_icg_newoperandpointer(parser,pList);
+			simple_parser_icg_newoperandpointer(parser,list);
 			simple_parser_nexttoken(parser);
 			/* [From Identifer] */
 			if ( simple_parser_isoperator2(parser,OP_RANGE) || simple_parser_isoperator2(parser,OP_LESS) ) {
 				simple_parser_nexttoken(parser);
 				if ( simple_parser_namedotname(parser) ) {
 					/* Generate Code */
-					pList3 = simple_parser_icg_getactiveoperation(parser);
+					list3 = simple_parser_icg_getactiveoperation(parser);
 					/* Check if parent class name = subclass name */
-					if ( strcmp(simple_list_getstring(pList,1),simple_list_getstring(pList3,4)) == 0 ) {
+					if ( strcmp(simple_list_getstring(list,1),simple_list_getstring(list3,4)) == 0 ) {
 						parser_error(parser,PARSER_ERROR_PARENTLIKESUBCLASS);
 						return 0 ;
 					}
 					/* Set Parent Class Name in Classes Map */
-					simple_list_addstring_gc(parser->sState,pList,simple_list_getstring(pList3,4));
+					simple_list_addstring_gc(parser->sState,list,simple_list_getstring(list3,4));
 					#if SIMPLE_PARSERTRACE
 					SIMPLE_STATE_CHECKPRINTRULES 
 					
@@ -73,7 +73,7 @@ int simple_parser_class ( Parser *parser )
 				}
 			} else {
 				/* Set Parent Class Name In Classes Map */
-				simple_list_addstring_gc(parser->sState,pList,"");
+				simple_list_addstring_gc(parser->sState,list,"");
 				#if SIMPLE_PARSERTRACE
 				SIMPLE_STATE_CHECKPRINTRULES 
 				
@@ -81,32 +81,32 @@ int simple_parser_class ( Parser *parser )
 				#endif
 			}
 			/* Add Method/Functions List to Class in Class Table */
-			pList2 = simple_list_newlist_gc(parser->sState,pList);
+			list2 = simple_list_newlist_gc(parser->sState,list);
 			/* Add Flag ( IS Parent Class information collected  ) */
-			simple_list_addint_gc(parser->sState,pList,0);
+			simple_list_addint_gc(parser->sState,list,0);
 			/* Set Active Functions List to be Class Methods */
-			parser->FunctionsMap = pList2 ;
+			parser->FunctionsMap = list2 ;
 			/* Make class visible using ModulesName.ClassName if we have modules */
 			if ( parser->ClassesMap != parser->sState->pSimpleClassesMap ) {
 				/* Get Modules Name */
-				pList3 = simple_list_getlist(parser->sState->pSimpleModulessMap,simple_list_getsize(parser->sState->pSimpleModulessMap));
-				pString = simple_string_new_gc(parser->sState,simple_list_getstring(pList3,1));
+				list3 = simple_list_getlist(parser->sState->pSimpleModulessMap,simple_list_getsize(parser->sState->pSimpleModulessMap));
+				pString = simple_string_new_gc(parser->sState,simple_list_getstring(list3,1));
 				/* Add pointer to the Modules in the Class List */
-				simple_list_addpointer_gc(parser->sState,pList,pList3);
+				simple_list_addpointer_gc(parser->sState,list,list3);
 				/* Add List point to General Classes point to the class in the modules */
-				pList2 = simple_list_newlist_gc(parser->sState,parser->sState->pSimpleClassesMap);
-				simple_list_addstring_gc(parser->sState,pList2,"");
-				simple_list_addpointer_gc(parser->sState,pList2,pList);
+				list2 = simple_list_newlist_gc(parser->sState,parser->sState->pSimpleClassesMap);
+				simple_list_addstring_gc(parser->sState,list2,"");
+				simple_list_addpointer_gc(parser->sState,list2,list);
 				/* Ignore Adding Pointer to File Name */
-				simple_list_addpointer_gc(parser->sState,pList2,NULL);
+				simple_list_addpointer_gc(parser->sState,list2,NULL);
 				/* Add Class Name to Modules Name */
 				simple_string_add_gc(parser->sState,pString,".");
-				simple_string_add_gc(parser->sState,pString,simple_list_getstring(pList,1));
-				simple_list_setstsimple_gc(parser->sState,pList2,1,simple_string_get(pString));
+				simple_string_add_gc(parser->sState,pString,simple_list_getstring(list,1));
+				simple_list_setstsimple_gc(parser->sState,list2,1,simple_string_get(pString));
 				simple_string_delete_gc(parser->sState,pString);
 			} else {
 				/* Add pointer to the Modules in the Class List */
-				simple_list_addpointer_gc(parser->sState,pList,NULL);
+				simple_list_addpointer_gc(parser->sState,list,NULL);
 			}
 			parser->nClassStart = 1 ;
 			/* Create label to be used by Private */
@@ -137,24 +137,24 @@ int simple_parser_class ( Parser *parser )
 			simple_parser_icg_newoperation(parser,ICO_NEWBLOCK);
 			simple_parser_icg_newoperand(parser,parser->TokenText);
 			/* Add function to Functions Table */
-			pList2 = parser->FunctionsMap ;
+			list2 = parser->FunctionsMap ;
 			/* Check Function Redefinition */
-			if ( simple_list_getsize(pList2) > 0 ) {
-				for ( x = 1 ; x <= simple_list_getsize(pList2) ; x++ ) {
-					if ( strcmp(simple_list_getstring(simple_list_getlist(pList2,x),1),parser->TokenText) == 0 ) {
+			if ( simple_list_getsize(list2) > 0 ) {
+				for ( x = 1 ; x <= simple_list_getsize(list2) ; x++ ) {
+					if ( strcmp(simple_list_getstring(simple_list_getlist(list2,x),1),parser->TokenText) == 0 ) {
 						parser_error(parser,PARSER_ERROR_BLOCKREDEFINE);
 						return 0 ; 
 					}
 				}
 			}
-			pList2 = simple_list_newlist_gc(parser->sState,pList2);
-			simple_list_addstring_gc(parser->sState,pList2,parser->TokenText);
-			simple_list_addint_gc(parser->sState,pList2,simple_list_getsize(parser->GenCode));
-			simple_list_addstring_gc(parser->sState,pList2,simple_list_getstring(parser->sState->pSimpleFilesStack,simple_list_getsize(parser->sState->pSimpleFilesStack)));
+			list2 = simple_list_newlist_gc(parser->sState,list2);
+			simple_list_addstring_gc(parser->sState,list2,parser->TokenText);
+			simple_list_addint_gc(parser->sState,list2,simple_list_getsize(parser->GenCode));
+			simple_list_addstring_gc(parser->sState,list2,simple_list_getstring(parser->sState->pSimpleFilesStack,simple_list_getsize(parser->sState->pSimpleFilesStack)));
 			if ( parser->nClassStart == 1 ) {
-				simple_list_addint_gc(parser->sState,pList2,parser->nPrivateFlag);
+				simple_list_addint_gc(parser->sState,list2,parser->nPrivateFlag);
 			} else {
-				simple_list_addint_gc(parser->sState,pList2,0);
+				simple_list_addint_gc(parser->sState,list2,0);
 			}
 			simple_parser_nexttoken(parser);
 			if ( simple_parser_isidentifier(parser) || simple_parser_isoperator2(parser,OP_FOPEN) ) {
@@ -194,20 +194,20 @@ int simple_parser_class ( Parser *parser )
 		#endif
 		if ( simple_parser_namedotname(parser) ) {
 			/* Add Modules to Moduless List */
-			pList = simple_parser_icg_getactiveoperation(parser);
+			list = simple_parser_icg_getactiveoperation(parser);
 			/* Check early definition of the modules */
 			for ( x = 1 ; x <= simple_list_getsize(parser->sState->pSimpleModulessMap) ; x++ ) {
-				pList3 = simple_list_getlist(parser->sState->pSimpleModulessMap,x);
-				if ( strcmp(simple_list_getstring(pList3,1),simple_list_getstring(pList,2)) == 0 ) {
-					parser->ClassesMap = simple_list_getlist(pList3,2);
+				list3 = simple_list_getlist(parser->sState->pSimpleModulessMap,x);
+				if ( strcmp(simple_list_getstring(list3,1),simple_list_getstring(list,2)) == 0 ) {
+					parser->ClassesMap = simple_list_getlist(list3,2);
 					return 1 ;
 				}
 			}
-			pList2 = simple_list_newlist_gc(parser->sState,parser->sState->pSimpleModulessMap);
+			list2 = simple_list_newlist_gc(parser->sState,parser->sState->pSimpleModulessMap);
 			/* Add Modules Name */
-			simple_list_addstring_gc(parser->sState,pList2,simple_list_getstring(pList,2));
+			simple_list_addstring_gc(parser->sState,list2,simple_list_getstring(list,2));
 			/* Add Modules Classes List */
-			parser->ClassesMap = simple_list_newlist_gc(parser->sState,pList2);
+			parser->ClassesMap = simple_list_newlist_gc(parser->sState,list2);
 			/* Support using { } around the modules code and using 'end' after the content */
 			return simple_parser_bracesandend(parser,1,KEYWORD_END) ;
 		} else {
@@ -221,9 +221,9 @@ int simple_parser_class ( Parser *parser )
 			/* Generate Code */
 			simple_parser_icg_newoperation(parser,ICO_RETNULL);
 			/* Change Label After Class to BlockFlag to Jump to Private */
-			pList = simple_parser_icg_getoperationlist(parser,parser->nClassMark);
-			simple_list_setint_gc(parser->sState,pList,1,ICO_BLOCKFLAG);
-			simple_list_addint_gc(parser->sState,pList,simple_parser_icg_newlabel(parser));
+			list = simple_parser_icg_getoperationlist(parser,parser->nClassMark);
+			simple_list_setint_gc(parser->sState,list,1,ICO_BLOCKFLAG);
+			simple_list_addint_gc(parser->sState,list,simple_parser_icg_newlabel(parser));
 			simple_parser_icg_newoperation(parser,ICO_PRIVATE);
 			#if SIMPLE_PARSERTRACE
 			SIMPLE_STATE_CHECKPRINTRULES 
@@ -244,7 +244,7 @@ int simple_parser_stmt ( Parser *parser )
 {
 	int x,nMark1,nMark2,nMark3,nStart,nEnd,nPerformanceLocations,nFlag,nLoadModules  ;
 	String *pString  ;
-	List *pMark,*pMark2,*pMark3,*pList2  ;
+	List *pMark,*pMark2,*pMark3,*list2  ;
 	double nNum1  ;
 	char cStr[50]  ;
 	char cFileName[SIMPLE_PATHSIZE]  ;
@@ -650,9 +650,9 @@ int simple_parser_stmt ( Parser *parser )
 				}
 			}
 			/* Generate Code */
-			pList2 = simple_list_new_gc(parser->sState,0);
+			list2 = simple_list_new_gc(parser->sState,0);
 			simple_parser_icg_newoperation(parser,ICO_JUMP);
-			simple_list_addpointer_gc(parser->sState,pList2,simple_parser_icg_getactiveoperation(parser));
+			simple_list_addpointer_gc(parser->sState,list2,simple_parser_icg_getactiveoperation(parser));
 			/* { 'else if' Statements } 'else' Statements */  
 			while (simple_parser_iskeyword(parser,KEYWORD_ELSEIF) ) {
 				/* Generate Code */ 
@@ -679,7 +679,7 @@ int simple_parser_stmt ( Parser *parser )
 					}
 					/* Generate Code */
 					simple_parser_icg_newoperation(parser,ICO_JUMP);
-					simple_list_addpointer_gc(parser->sState,pList2,simple_parser_icg_getactiveoperation(parser));
+					simple_list_addpointer_gc(parser->sState,list2,simple_parser_icg_getactiveoperation(parser));
 				} 
 			}
 			if ( simple_parser_iskeyword(parser,KEYWORD_ELSE) ) {
@@ -705,12 +705,12 @@ int simple_parser_stmt ( Parser *parser )
 				if ( pMark != NULL ) {
 					simple_parser_icg_addoperandint(parser,pMark,nMark1);
 				}
-				if ( simple_list_getsize(pList2) > 0 ) {
-					for ( x = 1 ; x <= simple_list_getsize(pList2) ; x++ ) {
-						simple_parser_icg_addoperandint(parser,((List *) simple_list_getpointer(pList2,x)),nMark1);
+				if ( simple_list_getsize(list2) > 0 ) {
+					for ( x = 1 ; x <= simple_list_getsize(list2) ; x++ ) {
+						simple_parser_icg_addoperandint(parser,((List *) simple_list_getpointer(list2,x)),nMark1);
 					}
 				}
-				simple_list_delete_gc(parser->sState,pList2);
+				simple_list_delete_gc(parser->sState,list2);
 				simple_parser_nexttoken(parser);
 				#if SIMPLE_PARSERTRACE
 				SIMPLE_STATE_CHECKPRINTRULES
@@ -720,7 +720,7 @@ int simple_parser_stmt ( Parser *parser )
 				return 1 ;
 			} else {
 				parser_error(parser, PARSER_ERROR_END);
-				simple_list_delete_gc(parser->sState,pList2);
+				simple_list_delete_gc(parser->sState,list2);
 			}
 		}
 		return 0 ;
@@ -1003,7 +1003,7 @@ int simple_parser_stmt ( Parser *parser )
 			#endif
 			SIMPLE_PARSER_IGNORENEWLINE ;
 			/* ON|CASE Statements */
-			pList2 = simple_list_new_gc(parser->sState,0);
+			list2 = simple_list_new_gc(parser->sState,0);
 			pMark = NULL ;
 			while (simple_parser_iskeyword(parser,KEYWORD_CASE) ) {
 				simple_parser_nexttoken(parser);
@@ -1033,7 +1033,7 @@ int simple_parser_stmt ( Parser *parser )
 					}
 					/* Generate Code */
 					simple_parser_icg_newoperation(parser,ICO_JUMP);
-					simple_list_addpointer_gc(parser->sState,pList2,simple_parser_icg_getactiveoperation(parser));
+					simple_list_addpointer_gc(parser->sState,list2,simple_parser_icg_getactiveoperation(parser));
 				}
 			}
 			/* default */
@@ -1065,12 +1065,12 @@ int simple_parser_stmt ( Parser *parser )
 				if ( pMark != NULL ) {
 					simple_parser_icg_addoperandint(parser,pMark,nMark1);
 				}
-				if ( simple_list_getsize(pList2) > 0 ) {
-					for ( x = 1 ; x <= simple_list_getsize(pList2) ; x++ ) {
-						simple_parser_icg_addoperandint(parser,((List *) simple_list_getpointer(pList2,x)),nMark1);
+				if ( simple_list_getsize(list2) > 0 ) {
+					for ( x = 1 ; x <= simple_list_getsize(list2) ; x++ ) {
+						simple_parser_icg_addoperandint(parser,((List *) simple_list_getpointer(list2,x)),nMark1);
 					}
 				}
-				simple_list_delete_gc(parser->sState,pList2);
+				simple_list_delete_gc(parser->sState,list2);
 				simple_parser_icg_newoperation(parser,ICO_FREESTACK);
 				#if SIMPLE_PARSERTRACE
 				SIMPLE_STATE_CHECKPRINTRULES

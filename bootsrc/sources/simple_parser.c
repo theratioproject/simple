@@ -112,12 +112,12 @@ Parser * simple_parser_delete ( Parser *parser )
 
 void simple_parser_loadtoken ( Parser *parser )
 {
-	List *pList  ;
+	List *list  ;
 	assert(parser != NULL);
-	pList = simple_list_getlist(parser->Tokens,parser->ActiveToken);
-	parser->TokenType = simple_list_getint(pList,1) ;
-	parser->TokenText = simple_list_getstring(pList,2) ;
-	parser->nTokenIndex = simple_list_getint(pList,3) ;
+	list = simple_list_getlist(parser->Tokens,parser->ActiveToken);
+	parser->TokenType = simple_list_getint(list,1) ;
+	parser->TokenText = simple_list_getstring(list,2) ;
+	parser->nTokenIndex = simple_list_getint(list,3) ;
 }
 
 int simple_parser_nexttoken ( Parser *parser )

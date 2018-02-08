@@ -709,7 +709,7 @@ void simple_vm_execute ( VM *vm )
 
 SIMPLE_API void simple_vm_error ( VM *vm,const char *cStr )
 {
-	List *pList  ;
+	List *list  ;
 	/* Check if we have active error */
 	if ( vm->nActiveError ) {
 		return ;
@@ -718,10 +718,10 @@ SIMPLE_API void simple_vm_error ( VM *vm,const char *cStr )
 	/* Check BraceError() */
 	if ( (simple_list_getsize(vm->pObjState) > 0) && (simple_vm_oop_callmethodinsideclass(vm) == 0 ) && (vm->nCallMethod == 0) ) {
 		if ( simple_vm_findvar(vm,"self") ) {
-			pList = simple_vm_oop_getobj(vm);
+			list = simple_vm_oop_getobj(vm);
 			SIMPLE_VM_STACK_POP ;
-			if ( simple_vm_oop_isobject(pList) ) {
-				if ( simple_vm_oop_ismethod(vm, pList,"braceerror") ) {
+			if ( simple_vm_oop_isobject(list) ) {
+				if ( simple_vm_oop_ismethod(vm, list,"braceerror") ) {
 					simple_list_setstsimple_gc(vm->sState,simple_list_getlist(simple_vm_getglobalscope(vm),6),3,cStr);
 					simple_vm_runcode(vm,"braceerror()");
 					vm->nActiveError = 0 ;
@@ -863,7 +863,7 @@ void simple_vm_tobytecode ( VM *vm,int x )
 	pIR = simple_list_getlist(vm->pCode,x);
 	pByteCode->nSize = simple_list_getsize(pIR) ;
 	#if SIMPLE_SHOWICFINAL
-	pByteCode->pList = pIR ;
+	pByteCode->list = pIR ;
 	#endif
 	/* Check Instruction Size */
 	if ( simple_list_getsize(pIR) > SIMPLE_VM_BC_ITEMS_COUNT ) {
@@ -1040,7 +1040,7 @@ void simple_vm_init ( SimpleState *sState )
 
 void simple_vm_retitemref ( VM *vm )
 {
-	List *pList  ;
+	List *list  ;
 	vm->nRetItemRef++ ;
 	/* We free the stack to avoid effects on aLoadAddressScope which is used by isstackpointertoobjstate */
 	simple_vm_freestack(vm);
@@ -1052,8 +1052,8 @@ void simple_vm_retitemref ( VM *vm )
 	**  This to avoid using & two times like  &  & 
 	*/
 	if ( simple_list_getsize(vm->pFuncCallList) > 0 ) {
-		pList = simple_list_getlist(vm->pFuncCallList,simple_list_getsize(vm->pFuncCallList));
-		if ( strcmp(simple_list_getstring(pList,SIMPLE_BLOCKCL_NAME),"operator") == 0 ) {
+		list = simple_list_getlist(vm->pFuncCallList,simple_list_getsize(vm->pFuncCallList));
+		if ( strcmp(simple_list_getstring(list,SIMPLE_BLOCKCL_NAME),"operator") == 0 ) {
 			vm->nRetItemRef++ ;
 		}
 	}
@@ -1104,7 +1104,7 @@ void simple_vm_callclassinit ( VM *vm )
 SIMPLE_API void simple_vm_showerrormessage ( VM *vm,const char *cStr )
 {
 	int x,lFunctionCall  ;
-	List *pList  ;
+	List *list  ;
 	const char *cFile  ;
 	/* CGI Support */
 	simple_state_cgiheader(vm->sState);
@@ -1113,34 +1113,34 @@ SIMPLE_API void simple_vm_showerrormessage ( VM *vm,const char *cStr )
 	/* Print Calling Information */
 	lFunctionCall = 0 ;
 	for ( x = simple_list_getsize(vm->pFuncCallList) ; x >= 1 ; x-- ) {
-		pList = simple_list_getlist(vm->pFuncCallList,x);
+		list = simple_list_getlist(vm->pFuncCallList,x);
 		/*
 		**  If we have ICO_LoadFunc but not ICO_CALL then we need to pass 
 		**  ICO_LOADBLOCK is executed, but still ICO_CALL is not executed! 
 		*/
-		if ( simple_list_getsize(pList) < SIMPLE_BLOCKCL_CALLERPC ) {
+		if ( simple_list_getsize(list) < SIMPLE_BLOCKCL_CALLERPC ) {
 			continue ;
 		}
-		if ( simple_list_getint(pList,SIMPLE_BLOCKCL_TYPE) == SIMPLE_BLOCKTYPE_SCRIPT ) {
+		if ( simple_list_getint(list,SIMPLE_BLOCKCL_TYPE) == SIMPLE_BLOCKTYPE_SCRIPT ) {
 			/*
 			**  Prepare Message 
 			**  In 
 			*/
 			printf( "\tat " ) ;
 			/* Method or Function */
-			/*if ( simple_list_getint(pList,SIMPLE_BLOCKCL_METHODORBLOCK) ) {
+			/*if ( simple_list_getint(list,SIMPLE_BLOCKCL_METHODORBLOCK) ) {
 				printf( "method " ) ;
 			}
 			else {
 				printf( "block " ) ;
 			}*/
 			/* Function Name */
-			printf( "%s",simple_list_getstring(pList,SIMPLE_BLOCKCL_NAME) ) ;
+			printf( "%s",simple_list_getstring(list,SIMPLE_BLOCKCL_NAME) ) ;
 			/* Adding () */
 			printf( "() in file " ) ;
 			/* File Name */
 			if ( lFunctionCall == 1 ) {
-				cFile = (const char *) simple_list_getpointer(pList,SIMPLE_BLOCKCL_NEWFILENAME) ;
+				cFile = (const char *) simple_list_getpointer(list,SIMPLE_BLOCKCL_NEWFILENAME) ;
 			}
 			else {
 				if ( vm->nInClassRegion ) {
@@ -1152,11 +1152,11 @@ SIMPLE_API void simple_vm_showerrormessage ( VM *vm,const char *cStr )
 			}
 			printf( "%s",file_real_name(cFile) ) ;
 			/* Called From */
-			printf( "\n\tat line %d ",simple_list_getint(pList,SIMPLE_BLOCKCL_LINENUMBER) ) ;
+			printf( "\n\tat line %d ",simple_list_getint(list,SIMPLE_BLOCKCL_LINENUMBER) ) ;
 			lFunctionCall = 1 ;
 		}
 		else {
-			printf( "In %s ",file_real_name(simple_list_getstring(pList,SIMPLE_BLOCKCL_NAME)) ) ;
+			printf( "In %s ",file_real_name(simple_list_getstring(list,SIMPLE_BLOCKCL_NAME)) ) ;
 		}
 	}
 	if ( lFunctionCall ) {
@@ -1203,7 +1203,7 @@ void simple_vm_endfuncexec ( VM *vm )
 
 void simple_vm_addglobalvariables ( VM *vm )
 {
-	List *pList  ;
+	List *list  ;
 	int x  ;
 	/*
 	**  Add Variables 
@@ -1224,12 +1224,12 @@ void simple_vm_addglobalvariables ( VM *vm )
 	simple_vm_addnewstringvar(vm,"tab","\t");
 	simple_vm_addnewstringvar(vm,"cr","\r");
 	/* Add Command Line Parameters */
-	pList = simple_vm_newvar2(vm,"sysargv",vm->pActiveMem);
-	simple_list_setint_gc(vm->sState,pList,SIMPLE_VAR_TYPE,SIMPLE_VM_LIST);
-	simple_list_setlist_gc(vm->sState,pList,SIMPLE_VAR_VALUE);
-	pList = simple_list_getlist(pList,SIMPLE_VAR_VALUE);
+	list = simple_vm_newvar2(vm,"sysargv",vm->pActiveMem);
+	simple_list_setint_gc(vm->sState,list,SIMPLE_VAR_TYPE,SIMPLE_VM_LIST);
+	simple_list_setlist_gc(vm->sState,list,SIMPLE_VAR_VALUE);
+	list = simple_list_getlist(list,SIMPLE_VAR_VALUE);
 	for ( x = 0 ; x < vm->sState->argc ; x++ ) {
-		simple_list_addstring_gc(vm->sState,pList,vm->sState->argv[x]);
+		simple_list_addstring_gc(vm->sState,list,vm->sState->argv[x]);
 	}
 }
 /* Threads */
@@ -1269,7 +1269,7 @@ SIMPLE_API void simple_vm_mutexdestroy ( VM *vm )
 SIMPLE_API void simple_vm_runcodefromthread ( VM *vm,const char *cStr )
 {
 	SimpleState *pState  ;
-	List *pList,*pList2,*pList3,*pList4,*pList5  ;
+	List *list,*list2,*list3,*list4,*list5  ;
 	Item *pItem  ;
 	/* Create the SimpleState */
 	pState = simple_state_init();
@@ -1284,11 +1284,11 @@ SIMPLE_API void simple_vm_runcodefromthread ( VM *vm,const char *cStr )
 	pItem = pState->vm->pMem->pFirst->pValue ;
 	pState->vm->pMem->pFirst->pValue = vm->pMem->pFirst->pValue ;
 	/* Save the state */
-	pList = pState->vm->pCode ;
-	pList2 = pState->vm->pFunctionsMap ;
-	pList3 = pState->vm->pClassesMap ;
-	pList4 = pState->vm->pModulessMap ;
-	pList5 = pState->vm->pCFunctionsList ;
+	list = pState->vm->pCode ;
+	list2 = pState->vm->pFunctionsMap ;
+	list3 = pState->vm->pClassesMap ;
+	list4 = pState->vm->pModulessMap ;
+	list5 = pState->vm->pCFunctionsList ;
 	/* Share the code between the VMs */
 	pState->vm->pFunctionsMap = vm->sState->pSimpleFunctionsMap ;
 	pState->vm->pClassesMap = vm->sState->pSimpleClassesMap ;
@@ -1313,16 +1313,16 @@ SIMPLE_API void simple_vm_runcodefromthread ( VM *vm,const char *cStr )
 	/* Restore the first scope - global scope */
 	pState->vm->pMem->pFirst->pValue = pItem ;
 	/* Avoid deleteing the shared code and the Mutex */
-	pState->vm->pCode = pList ;
-	pState->vm->pFunctionsMap = pList2 ;
-	pState->vm->pClassesMap = pList3 ;
-	pState->vm->pModulessMap = pList4 ;
-	pState->vm->pCFunctionsList = pList5 ;
-	pState->pSimpleGenCode = pList ;
-	pState->pSimpleFunctionsMap = pList2 ;
-	pState->pSimpleClassesMap = pList3 ;
-	pState->pSimpleModulessMap = pList4 ;
-	pState->pSimpleCFunctions = pList5 ;
+	pState->vm->pCode = list ;
+	pState->vm->pFunctionsMap = list2 ;
+	pState->vm->pClassesMap = list3 ;
+	pState->vm->pModulessMap = list4 ;
+	pState->vm->pCFunctionsList = list5 ;
+	pState->pSimpleGenCode = list ;
+	pState->pSimpleFunctionsMap = list2 ;
+	pState->pSimpleClassesMap = list3 ;
+	pState->pSimpleModulessMap = list4 ;
+	pState->pSimpleCFunctions = list5 ;
 	pState->vm->pMutex = NULL ;
 	pState->vm->pFuncMutexDestroy = NULL ;
 	pState->vm->pFuncMutexLock = NULL ;
@@ -1352,7 +1352,7 @@ SIMPLE_API void simple_vm_callfunction ( VM *vm,char *cFuncName )
 
 void simple_vm_traceevent ( VM *vm,char nEvent )
 {
-	List *pList  ;
+	List *list  ;
 	if ( (vm->lTrace == 1) && (vm->lTraceActive == 0) ) {
 		vm->lTraceActive = 1 ;
 		vm->nTraceEvent = nEvent ;
@@ -1364,10 +1364,10 @@ void simple_vm_traceevent ( VM *vm,char nEvent )
 		simple_list_addstring_gc(vm->sState,vm->pTraceData,vm->cFileName);
 		/* Add Function/Method Name */
 		if ( simple_list_getsize(vm->pFuncCallList) > 0 ) {
-			pList = simple_list_getlist(vm->pFuncCallList,simple_list_getsize(vm->pFuncCallList)) ;
-			simple_list_addstring_gc(vm->sState,vm->pTraceData,simple_list_getstring(pList,SIMPLE_BLOCKCL_NAME));
+			list = simple_list_getlist(vm->pFuncCallList,simple_list_getsize(vm->pFuncCallList)) ;
+			simple_list_addstring_gc(vm->sState,vm->pTraceData,simple_list_getstring(list,SIMPLE_BLOCKCL_NAME));
 			/* Method of Function */
-			simple_list_adddouble_gc(vm->sState,vm->pTraceData,simple_list_getint(pList,SIMPLE_BLOCKCL_METHODORBLOCK));
+			simple_list_adddouble_gc(vm->sState,vm->pTraceData,simple_list_getint(list,SIMPLE_BLOCKCL_METHODORBLOCK));
 		}
 		else {
 			simple_list_addstring_gc(vm->sState,vm->pTraceData,"");

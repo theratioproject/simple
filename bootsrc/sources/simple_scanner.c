@@ -236,7 +236,7 @@ int simple_scanner_readfile ( SimpleState *sState,char *cFileName )
 void simple_scanner_readchar ( Scanner *pScanner,char c )
 {
 	char cStr[2]  ;
-	List *pList  ;
+	List *list  ;
 	String *pString  ;
 	int nTokenIndex  ;
 	assert(pScanner != NULL);
@@ -267,8 +267,8 @@ void simple_scanner_readchar ( Scanner *pScanner,char c )
 					#endif
 					/* Check Multiline Comment */
 					if ( (strcmp(cStr,"*") == 0) && (simple_scanner_lasttokentype(pScanner) ==SCANNER_TOKEN_OPERATOR) ) {
-						pList = simple_list_getlist(pScanner->Tokens,simple_list_getsize(pScanner->Tokens));
-						if ( strcmp(simple_list_getstring(pList,2),"/") == 0 ) {
+						list = simple_list_getlist(pScanner->Tokens,simple_list_getsize(pScanner->Tokens));
+						if ( strcmp(simple_list_getstring(list,2),"/") == 0 ) {
 							simple_list_deleteitem_gc(pScanner->sState,pScanner->Tokens,simple_list_getsize(pScanner->Tokens));
 							pScanner->state = SCANNER_STATE_MLCOMMENT ;
 							#if SIMPLE_SCANNEROUTPUT
@@ -516,10 +516,10 @@ void simple_scanner_readchar ( Scanner *pScanner,char c )
 			printf( "\nTOKEN (ENDLINE)  \n" ) ;
 			#endif
 		} else {
-			pList = simple_list_getlist(pScanner->Tokens,simple_list_getsize(pScanner->Tokens));
+			list = simple_list_getlist(pScanner->Tokens,simple_list_getsize(pScanner->Tokens));
 			pString = simple_string_new_gc(pScanner->sState,"");
 			simple_string_setfromint_gc(pScanner->sState,pString,pScanner->LinesCount);
-			simple_list_setstsimple_gc(pScanner->sState,pList,2,simple_string_get(pString));
+			simple_list_setstsimple_gc(pScanner->sState,list,2,simple_string_get(pString));
 			simple_string_delete_gc(pScanner->sState,pString);
 		}
 	}
@@ -580,15 +580,15 @@ void simple_scanner_keywords ( Scanner *pScanner )
 
 void simple_scanner_addtoken ( Scanner *pScanner,int type )
 {
-	List *pList  ;
+	List *list  ;
 	assert(pScanner != NULL);
-	pList = simple_list_newlist_gc(pScanner->sState,pScanner->Tokens);
+	list = simple_list_newlist_gc(pScanner->sState,pScanner->Tokens);
 	/* Add Token Type */
-	simple_list_addint_gc(pScanner->sState,pList,type);
+	simple_list_addint_gc(pScanner->sState,list,type);
 	/* Add Token Text */
-	simple_list_addstring_gc(pScanner->sState,pList,simple_string_get(pScanner->ActiveToken));
+	simple_list_addstring_gc(pScanner->sState,list,simple_string_get(pScanner->ActiveToken));
 	/* Add Token Index */
-	simple_list_addint_gc(pScanner->sState,pList,pScanner->nTokenIndex);
+	simple_list_addint_gc(pScanner->sState,list,pScanner->nTokenIndex);
 	pScanner->nTokenIndex = 0 ;
 	simple_scanner_floatmark(pScanner,type);
 	simple_string_set_gc(pScanner->sState,pScanner->ActiveToken,"");
@@ -731,12 +731,12 @@ void simple_scanner_operators ( Scanner *pScanner )
 int simple_scanner_lasttokentype ( Scanner *pScanner )
 {
 	int x  ;
-	List *pList  ;
+	List *list  ;
 	assert(pScanner != NULL);
 	x = simple_list_getsize(pScanner->Tokens);
 	if ( x > 0 ) {
-		pList = simple_list_getlist(pScanner->Tokens,x);
-		return simple_list_getint(pList,1) ;
+		list = simple_list_getlist(pScanner->Tokens,x);
+		return simple_list_getint(list,1) ;
 	}
 	return SCANNER_TOKEN_NOTOKEN ;
 }
@@ -744,19 +744,19 @@ int simple_scanner_lasttokentype ( Scanner *pScanner )
 char * simple_scanner_lasttokenvalue ( Scanner *pScanner )
 {
 	int x  ;
-	List *pList  ;
+	List *list  ;
 	assert(pScanner != NULL);
 	x = simple_list_getsize(pScanner->Tokens);
 	if ( x > 0 ) {
-		pList = simple_list_getlist(pScanner->Tokens,x);
-		return simple_list_getstring(pList,2) ;
+		list = simple_list_getlist(pScanner->Tokens,x);
+		return simple_list_getstring(list,2) ;
 	}
 	return (char *) "" ;
 }
 
 void simple_scanner_floatmark ( Scanner *pScanner,int type )
 {
-	List *pList  ;
+	List *list  ;
 	String *pString  ;
 	assert(pScanner != NULL);
 	switch ( pScanner->FloatMark ) {
@@ -774,17 +774,17 @@ void simple_scanner_floatmark ( Scanner *pScanner,int type )
 			break ;
 		case 2 :
 			if ( type == SCANNER_TOKEN_NUMBER ) {
-				pList = simple_list_getlist(pScanner->Tokens,simple_list_getsize(pScanner->Tokens));
-				pString = simple_string_new_gc(pScanner->sState,simple_list_getstring(pList,2)) ;
+				list = simple_list_getlist(pScanner->Tokens,simple_list_getsize(pScanner->Tokens));
+				pString = simple_string_new_gc(pScanner->sState,simple_list_getstring(list,2)) ;
 				simple_list_deleteitem_gc(pScanner->sState,pScanner->Tokens,simple_list_getsize(pScanner->Tokens));
 				simple_list_deleteitem_gc(pScanner->sState,pScanner->Tokens,simple_list_getsize(pScanner->Tokens));
-				pList = simple_list_getlist(pScanner->Tokens,simple_list_getsize(pScanner->Tokens));
-				simple_string_add_gc(pScanner->sState,simple_item_getstring(simple_list_getitem(pList,2)),".");
-				simple_string_add_gc(pScanner->sState,simple_item_getstring(simple_list_getitem(pList,2)),simple_string_get(pString));
+				list = simple_list_getlist(pScanner->Tokens,simple_list_getsize(pScanner->Tokens));
+				simple_string_add_gc(pScanner->sState,simple_item_getstring(simple_list_getitem(list,2)),".");
+				simple_string_add_gc(pScanner->sState,simple_item_getstring(simple_list_getitem(list,2)),simple_string_get(pString));
 				simple_string_delete_gc(pScanner->sState,pString);
 				#if SIMPLE_SCANNEROUTPUT
 				printf( "\nFloat Found, Removed 2 tokens from the end, update value to float ! \n" ) ;
-				printf( "\nFloat Value = %s  \n",simple_list_getstring(pList,2) ) ;
+				printf( "\nFloat Value = %s  \n",simple_list_getstring(list,2) ) ;
 				#endif
 			}
 			pScanner->FloatMark = 0 ;
@@ -806,29 +806,29 @@ void simple_scanner_endofline ( Scanner *pScanner )
 
 void simple_scanner_addreturn ( SimpleState *sState )
 {
-	List *pList  ;
+	List *list  ;
 	/* Add return to the end of the program */
-	pList = simple_list_newlist_gc(sState,sState->pSimpleGenCode);
-	simple_list_addint_gc(sState,pList,ICO_RETNULL);
+	list = simple_list_newlist_gc(sState,sState->pSimpleGenCode);
+	simple_list_addint_gc(sState,list,ICO_RETNULL);
 }
 
 void simple_scanner_addreturn2 ( SimpleState *sState )
 {
-	List *pList  ;
+	List *list  ;
 	/* Add return to the end of the program */
-	pList = simple_list_newlist_gc(sState,sState->pSimpleGenCode);
-	simple_list_addint_gc(sState,pList,ICO_RETURN);
+	list = simple_list_newlist_gc(sState,sState->pSimpleGenCode);
+	simple_list_addint_gc(sState,list,ICO_RETURN);
 }
 
 void simple_scanner_addreturn3 ( SimpleState *sState, int aPara[3] )
 {
-	List *pList  ;
+	List *list  ;
 	/* Add return from executeCode to the end of the executeCode() code */
-	pList = simple_list_newlist_gc(sState,sState->pSimpleGenCode);
-	simple_list_addint_gc(sState,pList,ICO_RETFROMEVAL);
-	simple_list_addint_gc(sState,pList,aPara[0]);
-	simple_list_addint_gc(sState,pList,aPara[1]);
-	simple_list_addint_gc(sState,pList,aPara[2]);
+	list = simple_list_newlist_gc(sState,sState->pSimpleGenCode);
+	simple_list_addint_gc(sState,list,ICO_RETFROMEVAL);
+	simple_list_addint_gc(sState,list,aPara[0]);
+	simple_list_addint_gc(sState,list,aPara[1]);
+	simple_list_addint_gc(sState,list,aPara[2]);
 }
 
 void display_tokens ( Scanner *pScanner )

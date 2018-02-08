@@ -125,27 +125,27 @@ SIMPLE_API void simple_state_runcode ( SimpleState *sState,const char *cStr )
 SIMPLE_API List * simple_state_findvar ( SimpleState *sState,const char *cStr )
 {
 	VM *vm  ;
-	List *pList  ;
+	List *list  ;
 	vm = sState->vm ;
-	pList = NULL ;
+	list = NULL ;
 	if ( simple_vm_findvar(vm,cStr) ) {
-		pList = (List *) SIMPLE_VM_STACK_READP ;
+		list = (List *) SIMPLE_VM_STACK_READP ;
 		SIMPLE_VM_STACK_POP ;
 	}
-	return pList ;
+	return list ;
 }
 
 SIMPLE_API List * simple_state_newvar ( SimpleState *sState,const char *cStr )
 {
 	VM *vm  ;
-	List *pList  ;
+	List *list  ;
 	vm = sState->vm ;
 	if ( simple_vm_findvar(vm,cStr) == 0 ) {
 		simple_vm_newvar(vm,cStr);
 	}
-	pList = (List *) SIMPLE_VM_STACK_READP ;
+	list = (List *) SIMPLE_VM_STACK_READP ;
 	SIMPLE_VM_STACK_POP ;
-	return pList ;
+	return list ;
 }
 
 SIMPLE_API void simple_state_main ( int argc, char *argv[] )

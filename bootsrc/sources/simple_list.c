@@ -21,23 +21,23 @@
 
 SIMPLE_API List * simple_list_new_gc ( void *pState,int nSize )
 {
-	List *pList  ;
-	pList = (List *) simple_state_malloc(pState,sizeof(List));
-	if ( pList == NULL ) {
+	List *list  ;
+	list = (List *) simple_state_malloc(pState,sizeof(List));
+	if ( list == NULL ) {
 		printf( SIMPLE_OOM ) ;
 		exit(0);
 	}
-	return simple_list_new2_gc(pState,pList,nSize) ;
+	return simple_list_new2_gc(pState,list,nSize) ;
 }
 
-SIMPLE_API List * simple_list_new2_gc ( void *pState,List *pList,int nSize )
+SIMPLE_API List * simple_list_new2_gc ( void *pState,List *list,int nSize )
 {
 	int x  ;
 	Items *pItems,*pItemsLast  ;
-	pList->nSize = nSize ;
+	list->nSize = nSize ;
 	if ( nSize > 0 ) {
 		pItems = simple_items_new_gc(pState);
-		pList->pFirst = pItems ;
+		list->pFirst = pItems ;
 		pItemsLast = pItems ;
 		for ( x = 2 ; x <= nSize ; x++ ) {
 			pItems = simple_items_new_gc(pState);
@@ -49,22 +49,22 @@ SIMPLE_API List * simple_list_new2_gc ( void *pState,List *pList,int nSize )
 			pItems->pPrev = pItemsLast ;
 			pItemsLast = pItems ;
 		}
-		pList->pLast = pItems ;
+		list->pLast = pItems ;
 	} else {
-		pList->pFirst = NULL ;
-		pList->pLast = NULL ;
+		list->pFirst = NULL ;
+		list->pLast = NULL ;
 	}
-	pList->nNextItemAfterLastAccess = 0 ;
-	pList->pLastItemLastAccess = NULL ;
-	pList->pItemsArray = NULL ;
-	pList->pHashTable = NULL ;
-	return pList ;
+	list->nNextItemAfterLastAccess = 0 ;
+	list->pLastItemLastAccess = NULL ;
+	list->pItemsArray = NULL ;
+	list->pHashTable = NULL ;
+	return list ;
 }
 
-SIMPLE_API List * simple_list_delete_gc ( void *pState,List *pList )
+SIMPLE_API List * simple_list_delete_gc ( void *pState,List *list )
 {
 	Items *pItems,*pItemsNext  ;
-	pItems = pList->pFirst ;
+	pItems = list->pFirst ;
 	pItemsNext = pItems ;
 	/* Delete Items */
 	while ( pItemsNext != NULL ) {
@@ -73,101 +73,101 @@ SIMPLE_API List * simple_list_delete_gc ( void *pState,List *pList )
 		pItems = pItemsNext ;
 	}
 	/* Free Items Array */
-	simple_list_deletearray_gc(pState,pList);
+	simple_list_deletearray_gc(pState,list);
 	/* Free HashTable */
-	if ( pList->pHashTable != NULL ) {
-		pList->pHashTable = simple_hashtable_delete_gc(pState,pList->pHashTable);
+	if ( list->pHashTable != NULL ) {
+		list->pHashTable = simple_hashtable_delete_gc(pState,list->pHashTable);
 	}
-	simple_state_free(pState,pList);
-	pList = NULL ;
-	return pList ;
+	simple_state_free(pState,list);
+	list = NULL ;
+	return list ;
 }
 
-SIMPLE_API void simple_list_copy_gc ( void *pState,List *pNewList, List *pList )
+SIMPLE_API void simple_list_copy_gc ( void *pState,List *pNewList, List *list )
 {
 	int x  ;
 	List *pNewList2  ;
-	assert(pList != NULL);
+	assert(list != NULL);
 	/*
 	**  This function don't add a new list before copying items 
 	**  if you want to add a list to another one, create new list in the target then copy to it 
 	**  Copy Items 
 	*/
-	if ( simple_list_getsize(pList) == 0 ) {
+	if ( simple_list_getsize(list) == 0 ) {
 		return ;
 	}
-	for ( x = 1 ; x <= simple_list_getsize(pList) ; x++ ) {
-		if ( simple_list_isint(pList,x) ) {
-			simple_list_addint_gc(pState,pNewList,simple_list_getint(pList,x));
+	for ( x = 1 ; x <= simple_list_getsize(list) ; x++ ) {
+		if ( simple_list_isint(list,x) ) {
+			simple_list_addint_gc(pState,pNewList,simple_list_getint(list,x));
 		}
-		else if ( simple_list_isdouble(pList,x) ) {
-			simple_list_adddouble_gc(pState,pNewList,simple_list_getdouble(pList,x));
+		else if ( simple_list_isdouble(list,x) ) {
+			simple_list_adddouble_gc(pState,pNewList,simple_list_getdouble(list,x));
 		}
-		else if ( simple_list_isstring(pList,x) ) {
-			simple_list_addstring2_gc(pState,pNewList,simple_list_getstring(pList,x),simple_list_getstringsize(pList,x));
+		else if ( simple_list_isstring(list,x) ) {
+			simple_list_addstring2_gc(pState,pNewList,simple_list_getstring(list,x),simple_list_getstringsize(list,x));
 		}
-		else if ( simple_list_ispointer(pList,x) ) {
-			simple_list_addpointer_gc(pState,pNewList,simple_list_getpointer(pList,x));
+		else if ( simple_list_ispointer(list,x) ) {
+			simple_list_addpointer_gc(pState,pNewList,simple_list_getpointer(list,x));
 		}
-		else if ( simple_list_islist(pList,x) ) {
+		else if ( simple_list_islist(list,x) ) {
 			pNewList2 = simple_list_newlist_gc(pState,pNewList);
-			simple_list_copy_gc(pState,pNewList2,simple_list_getlist(pList,x));
+			simple_list_copy_gc(pState,pNewList2,simple_list_getlist(list,x));
 		}
 	}
 }
 
-SIMPLE_API void simple_list_print ( List *pList )
+SIMPLE_API void simple_list_print ( List *list )
 {
 	int x,t,nSize  ;
 	double y  ;
 	const char *cStr  ;
-	List *pList2  ;
-	assert(pList != NULL);
+	List *list2  ;
+	assert(list != NULL);
 	/* Print Items */
-	if ( simple_list_getsize(pList) < 0 ) {
+	if ( simple_list_getsize(list) < 0 ) {
 		return ;
 	}
-	for ( x = 1 ; x <= simple_list_getsize(pList) ; x++ ) { 
-		if ( simple_list_isstring(pList,x) ) {
-			cStr = simple_list_getstring(pList,x) ;
-			nSize = simple_list_getstringsize(pList,x);
+	for ( x = 1 ; x <= simple_list_getsize(list) ; x++ ) { 
+		if ( simple_list_isstring(list,x) ) {
+			cStr = simple_list_getstring(list,x) ;
+			nSize = simple_list_getstringsize(list,x);
 			for ( t = 0 ; t < nSize ; t++ ) {
 				printf( "%c",cStr[t] ) ;
 			}
 			printf( "\n" ) ;
 		}
-		else if ( simple_list_isnumber(pList,x) ) {
-			if ( simple_list_isdouble(pList,x) ) {
-				y = simple_list_getdouble(pList,x) ;
+		else if ( simple_list_isnumber(list,x) ) {
+			if ( simple_list_isdouble(list,x) ) {
+				y = simple_list_getdouble(list,x) ;
 				if ( y == (int) y ) {
 					printf( "%.0f\n",y ) ;
 				} else {
 					printf( "%.2f\n",y ) ;
 				}
 			}
-			else if ( simple_list_isint(pList,x) ) {
-				printf( "%d\n",simple_list_getint(pList,x) ) ;
+			else if ( simple_list_isint(list,x) ) {
+				printf( "%d\n",simple_list_getint(list,x) ) ;
 			}
 		}
-		else if ( simple_list_islist(pList,x) ) {
-			pList2 = simple_list_getlist(pList,x) ;
-			if ( simple_vm_oop_isobject(pList2) ) {
-				simple_vm_oop_printobj(NULL,pList2);
+		else if ( simple_list_islist(list,x) ) {
+			list2 = simple_list_getlist(list,x) ;
+			if ( simple_vm_oop_isobject(list2) ) {
+				simple_vm_oop_printobj(NULL,list2);
 			}
 			else {
-				simple_list_print(pList2);
+				simple_list_print(list2);
 			}
 		}
-		else if ( simple_list_ispointer(pList,x) ) {
-			printf( "%p\n",simple_list_getpointer(pList,x) ) ;
+		else if ( simple_list_ispointer(list,x) ) {
+			printf( "%p\n",simple_list_getpointer(list,x) ) ;
 		}
 	}
 }
 
-SIMPLE_API void simple_list_deleteallitems_gc ( void *pState,List *pList )
+SIMPLE_API void simple_list_deleteallitems_gc ( void *pState,List *list )
 {
 	Items *pItems,*pItemsNext  ;
-	pItems = pList->pFirst ;
+	pItems = list->pFirst ;
 	if ( pItems == NULL ) {
 		return ;
 	}
@@ -178,81 +178,81 @@ SIMPLE_API void simple_list_deleteallitems_gc ( void *pState,List *pList )
 		simple_items_delete_gc(pState,pItems);
 		pItems = pItemsNext ;
 	}
-	pList->pFirst = NULL ;
-	pList->pLast = NULL ;
-	pList->pLastItemLastAccess = NULL ;
-	pList->nSize = 0 ;
-	pList->nNextItemAfterLastAccess = 0 ;
+	list->pFirst = NULL ;
+	list->pLast = NULL ;
+	list->pLastItemLastAccess = NULL ;
+	list->nSize = 0 ;
+	list->nNextItemAfterLastAccess = 0 ;
 	/* Free Items Array */
-	simple_list_deletearray_gc(pState,pList);
+	simple_list_deletearray_gc(pState,list);
 	/* Free HashTable */
-	if ( pList->pHashTable != NULL ) {
-		pList->pHashTable = simple_hashtable_delete_gc(pState,pList->pHashTable);
+	if ( list->pHashTable != NULL ) {
+		list->pHashTable = simple_hashtable_delete_gc(pState,list->pHashTable);
 	}
 }
 /* List Items */
 
-SIMPLE_API void simple_list_newitem_gc ( void *pState,List *pList )
+SIMPLE_API void simple_list_newitem_gc ( void *pState,List *list )
 {
 	Items *pItems  ;
-	assert(pList != NULL);
+	assert(list != NULL);
 	pItems = simple_items_new_gc(pState);
-	if ( (pList->nSize) > 0 ) {
-		pList->pLast->pNext = pItems ;
-		pItems->pPrev = pList->pLast ;
-		pList->pLast = pItems ;
+	if ( (list->nSize) > 0 ) {
+		list->pLast->pNext = pItems ;
+		pItems->pPrev = list->pLast ;
+		list->pLast = pItems ;
 	} else {
-		pList->pFirst = pItems ;
-		pList->pLast = pItems ;
+		list->pFirst = pItems ;
+		list->pLast = pItems ;
 	}
-	pList->nSize = pList->nSize + 1 ;
+	list->nSize = list->nSize + 1 ;
 	/* Refresh The Cache */
-	pList->nNextItemAfterLastAccess = 0 ;
-	pList->pLastItemLastAccess = NULL ;
+	list->nNextItemAfterLastAccess = 0 ;
+	list->pLastItemLastAccess = NULL ;
 }
 
-SIMPLE_API Item * simple_list_getitem ( List *pList,int index )
+SIMPLE_API Item * simple_list_getitem ( List *list,int index )
 {
 	int x  ;
 	Items *pItems  ;
 	Item *pItem  ;
 	pItem = NULL ; 
-	assert(pList != NULL);
-	if ( index > 0 && ( simple_list_getsize(pList) > 0 ) && index <= simple_list_getsize(pList) ) {
+	assert(list != NULL);
+	if ( index > 0 && ( simple_list_getsize(list) > 0 ) && index <= simple_list_getsize(list) ) {
 		/* Quickly get item from ItemsArray */
-		if ( pList->pItemsArray != NULL ) {
-			return pList->pItemsArray[index-1] ; 
+		if ( list->pItemsArray != NULL ) {
+			return list->pItemsArray[index-1] ; 
 		}
 		/* Quickly Get The First or The Last Item */
 		if ( index == 0 ) {
-			pList->pLastItemLastAccess = pList->pFirst ;
-			pList->nNextItemAfterLastAccess = index + 1 ;
-			return pList->pFirst->pValue ;
+			list->pLastItemLastAccess = list->pFirst ;
+			list->nNextItemAfterLastAccess = index + 1 ;
+			return list->pFirst->pValue ;
 		}
-		else if ( index == simple_list_getsize(pList) ) {
-			pList->pLastItemLastAccess = pList->pLast ;
-			pList->nNextItemAfterLastAccess = index + 1 ;
-			return pList->pLast->pValue ;
+		else if ( index == simple_list_getsize(list) ) {
+			list->pLastItemLastAccess = list->pLast ;
+			list->nNextItemAfterLastAccess = index + 1 ;
+			return list->pLast->pValue ;
 		}
 		/* Quickly get the next item */
-		else if ( ( index == pList->nNextItemAfterLastAccess ) && ( pList->pLastItemLastAccess != NULL ) ) {
-			if ( pList->pLastItemLastAccess->pNext  != NULL ) {
-				pList->pLastItemLastAccess = pList->pLastItemLastAccess->pNext ;
-				pList->nNextItemAfterLastAccess++ ;
-				return pList->pLastItemLastAccess->pValue ;
+		else if ( ( index == list->nNextItemAfterLastAccess ) && ( list->pLastItemLastAccess != NULL ) ) {
+			if ( list->pLastItemLastAccess->pNext  != NULL ) {
+				list->pLastItemLastAccess = list->pLastItemLastAccess->pNext ;
+				list->nNextItemAfterLastAccess++ ;
+				return list->pLastItemLastAccess->pValue ;
 			}
 		}
 		/* Quickly get the current item */
-		else if ( (index == pList->nNextItemAfterLastAccess - 1) && ( pList->pLastItemLastAccess != NULL ) ) {
-			return pList->pLastItemLastAccess->pValue ;
+		else if ( (index == list->nNextItemAfterLastAccess - 1) && ( list->pLastItemLastAccess != NULL ) ) {
+			return list->pLastItemLastAccess->pValue ;
 		}
 		/* Quickly get item after the current item */
-		else if ( ( index > pList->nNextItemAfterLastAccess )  && ( pList->pLastItemLastAccess != NULL ) ) {
-			pItems = pList->pLastItemLastAccess ;
-			for ( x = pList->nNextItemAfterLastAccess - 1 ; x <= index ; x++ ) {
+		else if ( ( index > list->nNextItemAfterLastAccess )  && ( list->pLastItemLastAccess != NULL ) ) {
+			pItems = list->pLastItemLastAccess ;
+			for ( x = list->nNextItemAfterLastAccess - 1 ; x <= index ; x++ ) {
 				if ( x == index ) {
-					pList->nNextItemAfterLastAccess = index+1 ;
-					pList->pLastItemLastAccess = pItems ;
+					list->nNextItemAfterLastAccess = index+1 ;
+					list->pLastItemLastAccess = pItems ;
 				}
 				pItem = pItems->pValue ;
 				pItems = pItems->pNext ;
@@ -260,12 +260,12 @@ SIMPLE_API Item * simple_list_getitem ( List *pList,int index )
 			return pItem ;
 		}
 		/* Quickly get item before the current item */
-		else if ( ( ( pList->nNextItemAfterLastAccess - index ) < index ) && ( pList->pLastItemLastAccess != NULL ) ) {
-			pItems = pList->pLastItemLastAccess ;
-			for ( x = pList->nNextItemAfterLastAccess - 1 ; x >= index ; x-- ) {
+		else if ( ( ( list->nNextItemAfterLastAccess - index ) < index ) && ( list->pLastItemLastAccess != NULL ) ) {
+			pItems = list->pLastItemLastAccess ;
+			for ( x = list->nNextItemAfterLastAccess - 1 ; x >= index ; x-- ) {
 				if ( x == index ) {
-					pList->nNextItemAfterLastAccess = index+1 ;
-					pList->pLastItemLastAccess = pItems ;
+					list->nNextItemAfterLastAccess = index+1 ;
+					list->pLastItemLastAccess = pItems ;
 				}
 				pItem = pItems->pValue ;
 				pItems = pItems->pPrev ;
@@ -273,11 +273,11 @@ SIMPLE_API Item * simple_list_getitem ( List *pList,int index )
 			return pItem ;
 		}
 		/* Linear Search  From Start */
-		pItems = pList->pFirst ;
+		pItems = list->pFirst ;
 		for ( x = 1 ; x <= index ; x++ ) {
 			if ( x == index ) {
-				pList->nNextItemAfterLastAccess = index+1 ;
-				pList->pLastItemLastAccess = pItems ;
+				list->nNextItemAfterLastAccess = index+1 ;
+				list->pLastItemLastAccess = pItems ;
 			}
 			pItem = pItems->pValue ;
 			pItems = pItems->pNext ;
@@ -286,28 +286,28 @@ SIMPLE_API Item * simple_list_getitem ( List *pList,int index )
 	return pItem ;
 }
 
-SIMPLE_API void simple_list_setactiveitem ( List *pList, Items *pItems, int index )
+SIMPLE_API void simple_list_setactiveitem ( List *list, Items *pItems, int index )
 {
-	assert(pList != NULL);
-	pList->pLastItemLastAccess = pItems ;
-	pList->nNextItemAfterLastAccess = index + 1 ;
+	assert(list != NULL);
+	list->pLastItemLastAccess = pItems ;
+	list->nNextItemAfterLastAccess = index + 1 ;
 }
 
-SIMPLE_API void simple_list_deleteitem_gc ( void *pState,List *pList,int index )
+SIMPLE_API void simple_list_deleteitem_gc ( void *pState,List *list,int index )
 {
 	int x  ;
 	Items *pItems,*pItemsPrev  ;
-	assert(pList != NULL);
+	assert(list != NULL);
 	/* Goto the Item */
-	if ( index > 0 && ( simple_list_getsize(pList) > 0 ) && index <= simple_list_getsize(pList) ) {
+	if ( index > 0 && ( simple_list_getsize(list) > 0 ) && index <= simple_list_getsize(list) ) {
 		/* Quickly Get the Last Item */
-		if ( index == simple_list_getsize(pList) ) {
-			pItems = pList->pLast ;
+		if ( index == simple_list_getsize(list) ) {
+			pItems = list->pLast ;
 			pItemsPrev = pItems->pPrev ;
 		}
 		/* Linear Search */
 		else {
-			pItems = pList->pFirst ;
+			pItems = list->pFirst ;
 			pItemsPrev = NULL ;
 			for ( x = 1 ; x < index ; x++ ) {
 				pItemsPrev = pItems ;
@@ -316,10 +316,10 @@ SIMPLE_API void simple_list_deleteitem_gc ( void *pState,List *pList,int index )
 		}
 		/* Delete The Item */
 		if ( index == 1 ) {
-			pList->pFirst = pItems->pNext ;
+			list->pFirst = pItems->pNext ;
 		}
-		if ( index == simple_list_getsize(pList) ) {
-			pList->pLast = pItemsPrev ;
+		if ( index == simple_list_getsize(list) ) {
+			list->pLast = pItemsPrev ;
 		}
 		if ( pItemsPrev != NULL ) {
 			pItemsPrev->pNext = pItems->pNext ;
@@ -328,197 +328,197 @@ SIMPLE_API void simple_list_deleteitem_gc ( void *pState,List *pList,int index )
 			pItems->pNext->pPrev = pItemsPrev ;
 		}
 		simple_items_delete_gc(pState,pItems);
-		pList->nSize = pList->nSize - 1 ;
+		list->nSize = list->nSize - 1 ;
 	}
 	/* Refresh The Cache */
-	pList->nNextItemAfterLastAccess = 0 ;
-	pList->pLastItemLastAccess = NULL ;
+	list->nNextItemAfterLastAccess = 0 ;
+	list->pLastItemLastAccess = NULL ;
 }
 
-SIMPLE_API int simple_list_gettype ( List *pList, int index )
+SIMPLE_API int simple_list_gettype ( List *list, int index )
 {
 	Item *pItem  ;
-	assert(pList != NULL);
-	pItem = simple_list_getitem(pList,index);
+	assert(list != NULL);
+	pItem = simple_list_getitem(list,index);
 	if ( pItem != NULL ) {
 		return simple_item_gettype(pItem) ;
 	}
 	return 0 ;
 }
 
-SIMPLE_API int simple_list_isstring ( List *pList, int index )
+SIMPLE_API int simple_list_isstring ( List *list, int index )
 {
-	if ( simple_list_gettype(pList,index) == ITEMTYPE_STRING ) {
+	if ( simple_list_gettype(list,index) == ITEMTYPE_STRING ) {
 		return 1 ;
 	}
 	return 0 ;
 }
 
-SIMPLE_API int simple_list_isnumber ( List *pList, int index )
+SIMPLE_API int simple_list_isnumber ( List *list, int index )
 {
-	if ( simple_list_gettype(pList,index) == ITEMTYPE_NUMBER ) {
+	if ( simple_list_gettype(list,index) == ITEMTYPE_NUMBER ) {
 		return 1 ;
 	}
 	return 0 ;
 }
 
-SIMPLE_API int simple_list_islist ( List *pList, int index )
+SIMPLE_API int simple_list_islist ( List *list, int index )
 {
-	if ( simple_list_gettype(pList,index) == ITEMTYPE_LIST ) {
+	if ( simple_list_gettype(list,index) == ITEMTYPE_LIST ) {
 		return 1 ;
 	}
 	return 0 ;
 }
 
-SIMPLE_API int simple_list_ispointer ( List *pList, int index )
+SIMPLE_API int simple_list_ispointer ( List *list, int index )
 {
-	if ( simple_list_gettype(pList,index) == ITEMTYPE_POINTER ) {
+	if ( simple_list_gettype(list,index) == ITEMTYPE_POINTER ) {
 		return 1 ;
 	}
 	return 0 ;
 }
 /* int */
 
-SIMPLE_API void simple_list_setint_gc ( void *pState,List *pList, int index ,int number )
+SIMPLE_API void simple_list_setint_gc ( void *pState,List *list, int index ,int number )
 {
 	Item *pItem  ;
-	assert(pList != NULL);
-	pItem = simple_list_getitem(pList,index);
+	assert(list != NULL);
+	pItem = simple_list_getitem(list,index);
 	simple_item_settype_gc(pState,pItem,ITEMTYPE_NUMBER);
 	pItem->data.iNumber = number ;
 	pItem->NumberFlag = ITEM_NUMBERFLAG_INT ;
 }
 
-SIMPLE_API void simple_list_addint_gc ( void *pState,List *pList,int x )
+SIMPLE_API void simple_list_addint_gc ( void *pState,List *list,int x )
 {
-	assert(pList != NULL);
-	simple_list_newitem_gc(pState,pList);
-	simple_list_setint_gc(pState,pList,simple_list_getsize(pList),x);
+	assert(list != NULL);
+	simple_list_newitem_gc(pState,list);
+	simple_list_setint_gc(pState,list,simple_list_getsize(list),x);
 }
 /* Pointers */
 
-SIMPLE_API void simple_list_setpointer_gc ( void *pState,List *pList, int index ,void *pValue )
+SIMPLE_API void simple_list_setpointer_gc ( void *pState,List *list, int index ,void *pValue )
 {
 	Item *pItem  ;
-	assert(pList != NULL);
-	pItem = simple_list_getitem(pList,index);
+	assert(list != NULL);
+	pItem = simple_list_getitem(list,index);
 	simple_item_settype_gc(pState,pItem,ITEMTYPE_POINTER);
 	pItem->data.pPointer = pValue ;
 }
 
-SIMPLE_API void simple_list_addpointer_gc ( void *pState,List *pList,void *pValue )
+SIMPLE_API void simple_list_addpointer_gc ( void *pState,List *list,void *pValue )
 {
-	assert(pList != NULL);
-	simple_list_newitem_gc(pState,pList);
-	simple_list_setpointer_gc(pState,pList,simple_list_getsize(pList),pValue);
+	assert(list != NULL);
+	simple_list_newitem_gc(pState,list);
+	simple_list_setpointer_gc(pState,list,simple_list_getsize(list),pValue);
 }
 /* double */
 
-SIMPLE_API void simple_list_setdouble_gc ( void *pState,List *pList, int index ,double number )
+SIMPLE_API void simple_list_setdouble_gc ( void *pState,List *list, int index ,double number )
 {
 	Item *pItem  ;
-	assert(pList != NULL);
-	pItem = simple_list_getitem(pList,index);
+	assert(list != NULL);
+	pItem = simple_list_getitem(list,index);
 	simple_item_settype_gc(pState,pItem,ITEMTYPE_NUMBER);
 	pItem->data.dNumber = number ;
 	pItem->NumberFlag = ITEM_NUMBERFLAG_DOUBLE ;
 }
 
-SIMPLE_API void simple_list_adddouble_gc ( void *pState,List *pList,double x )
+SIMPLE_API void simple_list_adddouble_gc ( void *pState,List *list,double x )
 {
-	assert(pList != NULL);
-	simple_list_newitem_gc(pState,pList);
-	simple_list_setdouble_gc(pState,pList,simple_list_getsize(pList),x);
+	assert(list != NULL);
+	simple_list_newitem_gc(pState,list);
+	simple_list_setdouble_gc(pState,list,simple_list_getsize(list),x);
 }
 /* String */
 
-SIMPLE_API void simple_list_setstsimple_gc ( void *pState,List *pList, int index ,const char *str )
+SIMPLE_API void simple_list_setstsimple_gc ( void *pState,List *list, int index ,const char *str )
 {
 	Item *pItem  ;
 	String *pString  ;
-	assert(pList != NULL);
-	pItem = simple_list_getitem(pList,index);
+	assert(list != NULL);
+	pItem = simple_list_getitem(list,index);
 	simple_item_settype_gc(pState,pItem,ITEMTYPE_STRING);
 	pString = simple_item_getstring(pItem);
 	simple_string_set_gc(pState,pString,str);
 }
 
-SIMPLE_API void simple_list_setstring2_gc ( void *pState,List *pList, int index ,const char *str,int nStrSize )
+SIMPLE_API void simple_list_setstring2_gc ( void *pState,List *list, int index ,const char *str,int nStrSize )
 {
 	Item *pItem  ;
 	String *pString  ;
-	assert(pList != NULL);
-	pItem = simple_list_getitem(pList,index);
+	assert(list != NULL);
+	pItem = simple_list_getitem(list,index);
 	simple_item_settype_gc(pState,pItem,ITEMTYPE_STRING);
 	pString = simple_item_getstring(pItem);
 	simple_string_set2_gc(pState,pString,str,nStrSize);
 }
 
-SIMPLE_API void simple_list_addstring_gc ( void *pState,List *pList,const char *str )
+SIMPLE_API void simple_list_addstring_gc ( void *pState,List *list,const char *str )
 {
-	assert(pList != NULL);
-	simple_list_newitem_gc(pState,pList);
-	simple_list_setstsimple_gc(pState,pList,simple_list_getsize(pList),str);
+	assert(list != NULL);
+	simple_list_newitem_gc(pState,list);
+	simple_list_setstsimple_gc(pState,list,simple_list_getsize(list),str);
 }
 
-SIMPLE_API void simple_list_addstring2_gc ( void *pState,List *pList,const char *str,int nStrSize )
+SIMPLE_API void simple_list_addstring2_gc ( void *pState,List *list,const char *str,int nStrSize )
 {
-	assert(pList != NULL);
-	simple_list_newitem_gc(pState,pList);
-	simple_list_setstring2_gc(pState,pList,simple_list_getsize(pList),str,nStrSize);
+	assert(list != NULL);
+	simple_list_newitem_gc(pState,list);
+	simple_list_setstring2_gc(pState,list,simple_list_getsize(list),str,nStrSize);
 }
 /* List */
 
-SIMPLE_API List * simple_list_newlist_gc ( void *pState,List *pList )
+SIMPLE_API List * simple_list_newlist_gc ( void *pState,List *list )
 {
 	Item *pItem  ;
-	List *pList2  ;
-	assert(pList != NULL);
-	simple_list_newitem_gc(pState,pList);
-	pItem = simple_list_getitem(pList,simple_list_getsize(pList));
+	List *list2  ;
+	assert(list != NULL);
+	simple_list_newitem_gc(pState,list);
+	pItem = simple_list_getitem(list,simple_list_getsize(list));
 	simple_item_settype_gc(pState,pItem,ITEMTYPE_LIST);
-	pList2 = simple_item_getlist(pItem);
-	return pList2 ;
+	list2 = simple_item_getlist(pItem);
+	return list2 ;
 }
 
-SIMPLE_API void simple_list_setlist_gc ( void *pState,List *pList, int index )
+SIMPLE_API void simple_list_setlist_gc ( void *pState,List *list, int index )
 {
 	Item *pItem  ;
-	assert(pList != NULL);
-	pItem = simple_list_getitem(pList,index);
+	assert(list != NULL);
+	pItem = simple_list_getitem(list,index);
 	simple_item_settype_gc(pState,pItem,ITEMTYPE_LIST);
 }
 
-SIMPLE_API List * simple_list_getlist ( List *pList, int index )
+SIMPLE_API List * simple_list_getlist ( List *list, int index )
 {
 	Item *pItem  ;
-	List *pList2  ;
-	assert(pList != NULL);
-	pItem = simple_list_getitem(pList,index);
-	pList2 = simple_item_getlist(pItem);
-	return pList2 ;
+	List *list2  ;
+	assert(list != NULL);
+	pItem = simple_list_getitem(list,index);
+	list2 = simple_item_getlist(pItem);
+	return list2 ;
 }
 /* Function Pointers */
 
-SIMPLE_API void simple_list_setfuncpointer_gc ( void *pState,List *pList, int index ,void (*pFunc)(void *) )
+SIMPLE_API void simple_list_setfuncpointer_gc ( void *pState,List *list, int index ,void (*pFunc)(void *) )
 {
 	Item *pItem  ;
-	assert(pList != NULL);
-	pItem = simple_list_getitem(pList,index);
+	assert(list != NULL);
+	pItem = simple_list_getitem(list,index);
 	simple_item_settype_gc(pState,pItem,ITEMTYPE_BLOCKPOINTER);
 	pItem->data.pFunc = pFunc ;
 }
 
-SIMPLE_API void simple_list_addfuncpointer_gc ( void *pState,List *pList,void (*pFunc)(void *) )
+SIMPLE_API void simple_list_addfuncpointer_gc ( void *pState,List *list,void (*pFunc)(void *) )
 {
-	assert(pList != NULL);
-	simple_list_newitem_gc(pState,pList);
-	simple_list_setfuncpointer_gc(pState,pList,simple_list_getsize(pList),pFunc);
+	assert(list != NULL);
+	simple_list_newitem_gc(pState,list);
+	simple_list_setfuncpointer_gc(pState,list,simple_list_getsize(list),pFunc);
 }
 
-SIMPLE_API int simple_list_isfuncpointer ( List *pList, int index )
+SIMPLE_API int simple_list_isfuncpointer ( List *list, int index )
 {
-	if ( simple_list_gettype(pList,index) == ITEMTYPE_BLOCKPOINTER ) {
+	if ( simple_list_gettype(list,index) == ITEMTYPE_BLOCKPOINTER ) {
 		return 1 ;
 	}
 	return 0 ;
@@ -526,114 +526,114 @@ SIMPLE_API int simple_list_isfuncpointer ( List *pList, int index )
 
 void simple_list_testfuncpointer ( void *pPointer )
 {
-	List *pList  ;
-	pList = (List *) pPointer ;
+	List *list  ;
+	list = (List *) pPointer ;
 	puts(" Message from a function called by function pointer  ");
-	printf( "List Size %d  \n",pList->nSize ) ;
+	printf( "List Size %d  \n",list->nSize ) ;
 }
 /*
 **  Insert Items 
 **  When you insert item, it will be inserted after nPos 
 */
 
-SIMPLE_API void simple_list_insertitem_gc ( void *pState,List *pList,int x )
+SIMPLE_API void simple_list_insertitem_gc ( void *pState,List *list,int x )
 {
 	Items *pItems  ;
-	assert(pList != NULL);
-	if ( ( x < 0 ) || ( x > simple_list_getsize(pList) ) ) {
+	assert(list != NULL);
+	if ( ( x < 0 ) || ( x > simple_list_getsize(list) ) ) {
 		return ;
 	}
-	else if ( x == simple_list_getsize(pList) ) {
-		simple_list_newitem_gc(pState,pList);
+	else if ( x == simple_list_getsize(list) ) {
+		simple_list_newitem_gc(pState,list);
 		return ;
 	}
 	pItems = simple_items_new_gc(pState);
 	/* Insert Item at the first of the list */
 	if ( x==0 ) {
-		pItems->pNext = pList->pFirst ;
+		pItems->pNext = list->pFirst ;
 		pItems->pPrev = NULL ;
-		pList->pFirst->pPrev = pItems ;
-		pList->pFirst = pItems ;
-		pList->nSize = pList->nSize + 1 ;
+		list->pFirst->pPrev = pItems ;
+		list->pFirst = pItems ;
+		list->nSize = list->nSize + 1 ;
 		return ;
 	}
-	simple_list_getitem(pList,x);
+	simple_list_getitem(list,x);
 	/* When we get an item, pLastItemLastAccess will be changed to Items * of that item */
-	pItems->pNext = pList->pLastItemLastAccess->pNext ;
+	pItems->pNext = list->pLastItemLastAccess->pNext ;
 	pItems->pNext->pPrev = pItems ;
-	pItems->pPrev = pList->pLastItemLastAccess ;
-	pList->pLastItemLastAccess->pNext = pItems ;
-	pList->nSize = pList->nSize + 1 ;
+	pItems->pPrev = list->pLastItemLastAccess ;
+	list->pLastItemLastAccess->pNext = pItems ;
+	list->nSize = list->nSize + 1 ;
 }
 
-SIMPLE_API void simple_list_insertint_gc ( void *pState,List *pList,int nPos,int x )
+SIMPLE_API void simple_list_insertint_gc ( void *pState,List *list,int nPos,int x )
 {
-	assert(pList != NULL);
-	simple_list_insertitem_gc(pState,pList,nPos);
-	simple_list_setint_gc(pState,pList,nPos+1,x);
+	assert(list != NULL);
+	simple_list_insertitem_gc(pState,list,nPos);
+	simple_list_setint_gc(pState,list,nPos+1,x);
 }
 
-SIMPLE_API void simple_list_insertdouble_gc ( void *pState,List *pList,int nPos,double x )
+SIMPLE_API void simple_list_insertdouble_gc ( void *pState,List *list,int nPos,double x )
 {
-	assert(pList != NULL);
-	simple_list_insertitem_gc(pState,pList,nPos);
-	simple_list_setdouble_gc(pState,pList,nPos+1,x);
+	assert(list != NULL);
+	simple_list_insertitem_gc(pState,list,nPos);
+	simple_list_setdouble_gc(pState,list,nPos+1,x);
 }
 
-SIMPLE_API void simple_list_insertpointer_gc ( void *pState,List *pList,int nPos,void *pValue )
+SIMPLE_API void simple_list_insertpointer_gc ( void *pState,List *list,int nPos,void *pValue )
 {
-	assert(pList != NULL);
-	simple_list_insertitem_gc(pState,pList,nPos);
-	simple_list_setpointer_gc(pState,pList,nPos+1,pValue);
+	assert(list != NULL);
+	simple_list_insertitem_gc(pState,list,nPos);
+	simple_list_setpointer_gc(pState,list,nPos+1,pValue);
 }
 
-SIMPLE_API void simple_list_insertstsimple_gc ( void *pState,List *pList,int nPos,const char *str )
+SIMPLE_API void simple_list_insertstsimple_gc ( void *pState,List *list,int nPos,const char *str )
 {
-	assert(pList != NULL);
-	simple_list_insertitem_gc(pState,pList,nPos);
-	simple_list_setstsimple_gc(pState,pList,nPos+1,str);
+	assert(list != NULL);
+	simple_list_insertitem_gc(pState,list,nPos);
+	simple_list_setstsimple_gc(pState,list,nPos+1,str);
 }
 
-SIMPLE_API void simple_list_insertstring2_gc ( void *pState,List *pList,int nPos,const char *str,int nStrSize )
+SIMPLE_API void simple_list_insertstring2_gc ( void *pState,List *list,int nPos,const char *str,int nStrSize )
 {
-	assert(pList != NULL);
-	simple_list_insertitem_gc(pState,pList,nPos);
-	simple_list_setstring2_gc(pState,pList,nPos+1,str,nStrSize);
+	assert(list != NULL);
+	simple_list_insertitem_gc(pState,list,nPos);
+	simple_list_setstring2_gc(pState,list,nPos+1,str,nStrSize);
 }
 
-SIMPLE_API void simple_list_insertfuncpointer_gc ( void *pState,List *pList,int nPos,void (*pFunc)(void *) )
+SIMPLE_API void simple_list_insertfuncpointer_gc ( void *pState,List *list,int nPos,void (*pFunc)(void *) )
 {
-	assert(pList != NULL);
-	simple_list_insertitem_gc(pState,pList,nPos);
-	simple_list_setfuncpointer_gc(pState,pList,nPos+1,pFunc);
+	assert(list != NULL);
+	simple_list_insertitem_gc(pState,list,nPos);
+	simple_list_setfuncpointer_gc(pState,list,nPos+1,pFunc);
 }
 
-SIMPLE_API List * simple_list_insertlist_gc ( void *pState,List *pList,int nPos )
+SIMPLE_API List * simple_list_insertlist_gc ( void *pState,List *list,int nPos )
 {
 	Item *pItem  ;
-	List *pList2  ;
-	assert(pList != NULL);
-	simple_list_insertitem_gc(pState,pList,nPos);
-	pItem = simple_list_getitem(pList,nPos+1);
+	List *list2  ;
+	assert(list != NULL);
+	simple_list_insertitem_gc(pState,list,nPos);
+	pItem = simple_list_getitem(list,nPos+1);
 	simple_item_settype_gc(pState,pItem,ITEMTYPE_LIST);
-	pList2 = simple_item_getlist(pItem);
-	return pList2 ;
+	list2 = simple_item_getlist(pItem);
+	return list2 ;
 }
 /* Is item inside list, support nested Lists */
 
-SIMPLE_API int simple_list_isiteminsidelist ( List *pList,Item *pItem )
+SIMPLE_API int simple_list_isiteminsidelist ( List *list,Item *pItem )
 {
 	int x  ;
 	Item *pItem2  ;
-	List *pList2  ;
-	for ( x = 1 ; x <= simple_list_getsize(pList) ; x++ ) {
-		pItem2 = simple_list_getitem(pList,x);
+	List *list2  ;
+	for ( x = 1 ; x <= simple_list_getsize(list) ; x++ ) {
+		pItem2 = simple_list_getitem(list,x);
 		if ( pItem == pItem2 ) {
 			return 1 ;
 		}
-		if ( simple_list_islist(pList,x) ) {
-			pList2 = simple_item_getlist(pItem2);
-			if ( simple_list_isiteminsidelist(pList2,pItem) ) {
+		if ( simple_list_islist(list,x) ) {
+			list2 = simple_item_getlist(pItem2);
+			if ( simple_list_isiteminsidelist(list2,pItem) ) {
 				return 1 ;
 			}
 		}
@@ -642,20 +642,20 @@ SIMPLE_API int simple_list_isiteminsidelist ( List *pList,Item *pItem )
 }
 /* Delete item from list using the item pointer */
 
-SIMPLE_API int simple_list_deliteminsidelist ( List *pList,Item *pItem )
+SIMPLE_API int simple_list_deliteminsidelist ( List *list,Item *pItem )
 {
 	int x  ;
 	Item *pItem2  ;
-	List *pList2  ;
-	for ( x = 1 ; x <= simple_list_getsize(pList) ; x++ ) {
-		pItem2 = simple_list_getitem(pList,x);
+	List *list2  ;
+	for ( x = 1 ; x <= simple_list_getsize(list) ; x++ ) {
+		pItem2 = simple_list_getitem(list,x);
 		if ( pItem == pItem2 ) {
-			simple_list_deleteitem(pList,x);
+			simple_list_deleteitem(list,x);
 			return 1 ;
 		}
-		if ( simple_list_islist(pList,x) ) {
-			pList2 = simple_item_getlist(pItem2);
-			if ( simple_list_isiteminsidelist(pList2,pItem) ) {
+		if ( simple_list_islist(list,x) ) {
+			list2 = simple_item_getlist(pItem2);
+			if ( simple_list_isiteminsidelist(list2,pItem) ) {
 				return 1 ;
 			}
 		}
@@ -664,18 +664,18 @@ SIMPLE_API int simple_list_deliteminsidelist ( List *pList,Item *pItem )
 }
 /* Linear Search */
 
-SIMPLE_API int simple_list_findstring ( List *pList,const char *str,int nColumn )
+SIMPLE_API int simple_list_findstring ( List *list,const char *str,int nColumn )
 {
 	int x,nCount  ;
-	List *pList2  ;
-	assert(pList != NULL);
-	nCount = simple_list_getsize(pList);
+	List *list2  ;
+	assert(list != NULL);
+	nCount = simple_list_getsize(list);
 	/* Find Item */
 	if ( nCount > 0 ) {
 		if ( nColumn == 0 ) {
 			for ( x = 1 ; x <= nCount ; x++ ) {
-				if ( simple_list_isstring(pList,x) ) {
-					if ( strcmp(str,simple_list_getstring(pList,x)) == 0 ) {
+				if ( simple_list_isstring(list,x) ) {
+					if ( strcmp(str,simple_list_getstring(list,x)) == 0 ) {
 						return x ;
 					}
 				}
@@ -683,15 +683,15 @@ SIMPLE_API int simple_list_findstring ( List *pList,const char *str,int nColumn 
 		}
 		else {
 			for ( x = 1 ; x <= nCount ; x++ ) {
-				if ( simple_list_islist(pList,x) == 0 ) {
+				if ( simple_list_islist(list,x) == 0 ) {
 					continue ;
 				}
-				pList2 = simple_list_getlist(pList,x);
-				if ( simple_list_getsize(pList2)< nColumn ) {
+				list2 = simple_list_getlist(list,x);
+				if ( simple_list_getsize(list2)< nColumn ) {
 					return -1 ;
 				}
-				if ( simple_list_isstring(pList2,nColumn) ) {
-					if ( strcmp(str,simple_list_getstring(pList2,nColumn)) == 0 ) {
+				if ( simple_list_isstring(list2,nColumn) ) {
+					if ( strcmp(str,simple_list_getstring(list2,nColumn)) == 0 ) {
 						return x ;
 					}
 				}
@@ -701,18 +701,18 @@ SIMPLE_API int simple_list_findstring ( List *pList,const char *str,int nColumn 
 	return 0 ;
 }
 
-SIMPLE_API int simple_list_finddouble ( List *pList,double nNum1,int nColumn )
+SIMPLE_API int simple_list_finddouble ( List *list,double nNum1,int nColumn )
 {
 	int x,nCount  ;
-	List *pList2  ;
-	assert(pList != NULL);
-	nCount = simple_list_getsize(pList);
+	List *list2  ;
+	assert(list != NULL);
+	nCount = simple_list_getsize(list);
 	/* Find Item */
 	if ( nCount > 0 ) {
 		if ( nColumn == 0 ) {
 			for ( x = 1 ; x <= nCount ; x++ ) {
-				if ( simple_list_isdouble(pList,x) ) {
-					if ( simple_list_getdouble(pList,x) == nNum1 ) {
+				if ( simple_list_isdouble(list,x) ) {
+					if ( simple_list_getdouble(list,x) == nNum1 ) {
 						return x ;
 					}
 				}
@@ -720,15 +720,15 @@ SIMPLE_API int simple_list_finddouble ( List *pList,double nNum1,int nColumn )
 		}
 		else {
 			for ( x = 1 ; x <= nCount ; x++ ) {
-				if ( simple_list_islist(pList,x) == 0 ) {
+				if ( simple_list_islist(list,x) == 0 ) {
 					continue ;
 				}
-				pList2 = simple_list_getlist(pList,x);
-				if ( simple_list_getsize(pList2)< nColumn ) {
+				list2 = simple_list_getlist(list,x);
+				if ( simple_list_getsize(list2)< nColumn ) {
 					return -1 ;
 				}
-				if ( simple_list_isdouble(pList2,nColumn) ) {
-					if ( simple_list_getdouble(pList2,nColumn) == nNum1 ) {
+				if ( simple_list_isdouble(list2,nColumn) ) {
+					if ( simple_list_getdouble(list2,nColumn) == nNum1 ) {
 						return x ;
 					}
 				}
@@ -738,12 +738,12 @@ SIMPLE_API int simple_list_finddouble ( List *pList,double nNum1,int nColumn )
 	return 0 ;
 }
 
-SIMPLE_API int simple_list_findpointer ( List *pList,void *pPointer )
+SIMPLE_API int simple_list_findpointer ( List *list,void *pPointer )
 {
 	int x  ;
-	for ( x = 1 ; x <= simple_list_getsize(pList) ; x++ ) {
-		if ( simple_list_ispointer(pList,x) ) {
-			if ( simple_list_getpointer(pList,x) == pPointer ) {
+	for ( x = 1 ; x <= simple_list_getsize(list) ; x++ ) {
+		if ( simple_list_ispointer(list,x) ) {
+			if ( simple_list_getpointer(list,x) == pPointer ) {
 				return x ;
 			}
 		}
@@ -751,44 +751,44 @@ SIMPLE_API int simple_list_findpointer ( List *pList,void *pPointer )
 	return 0 ;
 }
 
-SIMPLE_API int simple_list_findinlistofobjs ( List *pList,int nType,double nNum1,const char *str,int nColumn,char *cAttribute )
+SIMPLE_API int simple_list_findinlistofobjs ( List *list,int nType,double nNum1,const char *str,int nColumn,char *cAttribute )
 {
 	int x,nCount,nPos  ;
-	List *pList2  ;
-	assert(pList != NULL);
-	nCount = simple_list_getsize(pList);
+	List *list2  ;
+	assert(list != NULL);
+	nCount = simple_list_getsize(list);
 	simple_string_lower(cAttribute);
 	/* Find Item */
 	if ( (nCount > 0) && (nColumn > 0) ) {
 		for ( x = 1 ; x <= nCount ; x++ ) {
-			if ( simple_list_islist(pList,x) == 0 ) {
+			if ( simple_list_islist(list,x) == 0 ) {
 				continue ;
 			}
-			pList2 = simple_list_getlist(pList,x);
+			list2 = simple_list_getlist(list,x);
 			if ( nColumn > 1 ) {
-				if ( simple_list_islist(pList2,nColumn) ) {
-					pList2 = simple_list_getlist(pList2,nColumn);
+				if ( simple_list_islist(list2,nColumn) ) {
+					list2 = simple_list_getlist(list2,nColumn);
 				}
 				else {
 					continue ;
 				}
 			}
-			if ( simple_vm_oop_isobject(pList2) == 0 ) {
+			if ( simple_vm_oop_isobject(list2) == 0 ) {
 				continue ;
 			}
-			nPos = simple_list_findstring(simple_list_getlist(pList2,SIMPLE_OBJECT_OBJECTDATA),cAttribute,SIMPLE_VAR_NAME);
+			nPos = simple_list_findstring(simple_list_getlist(list2,SIMPLE_OBJECT_OBJECTDATA),cAttribute,SIMPLE_VAR_NAME);
 			if ( nPos == 0 ) {
 				return -1 ;
 			}
-			pList2 = simple_list_getlist(pList2,SIMPLE_OBJECT_OBJECTDATA) ;
-			pList2 = simple_list_getlist(pList2,nPos) ;
+			list2 = simple_list_getlist(list2,SIMPLE_OBJECT_OBJECTDATA) ;
+			list2 = simple_list_getlist(list2,nPos) ;
 			if ( nType  == SIMPLE_VM_LISTOFOBJS_FINDSTRING ) {
-				if ( strcmp(str,simple_list_getstring(pList2,SIMPLE_VAR_VALUE)) == 0 ) {
+				if ( strcmp(str,simple_list_getstring(list2,SIMPLE_VAR_VALUE)) == 0 ) {
 					return x ;
 				}
 			}
 			else {
-				if ( simple_list_getdouble(pList2,SIMPLE_VAR_VALUE) == nNum1 ) {
+				if ( simple_list_getdouble(list2,SIMPLE_VAR_VALUE) == nNum1 ) {
 					return x ;
 				}
 			}
@@ -797,20 +797,20 @@ SIMPLE_API int simple_list_findinlistofobjs ( List *pList,int nType,double nNum1
 	return 0 ;
 }
 
-SIMPLE_API int simple_list_findcpointer ( List *pList,List *pValue,int nColumn )
+SIMPLE_API int simple_list_findcpointer ( List *list,List *pValue,int nColumn )
 {
 	int x,nCount  ;
-	List *pList2, *pList3  ;
-	assert(pList != NULL);
-	nCount = simple_list_getsize(pList);
+	List *list2, *list3  ;
+	assert(list != NULL);
+	nCount = simple_list_getsize(list);
 	/* Find Item */
 	if ( nCount > 0 ) {
 		if ( nColumn == 0 ) {
 			for ( x = 1 ; x <= nCount ; x++ ) {
-				if ( simple_list_islist(pList,x) ) {
-					pList2 = simple_list_getlist(pList,x);
-					if ( simple_vm_api_iscpointerlist(pList2) ) {
-						if ( simple_vm_api_cpointercmp(pList2,pValue) ) {
+				if ( simple_list_islist(list,x) ) {
+					list2 = simple_list_getlist(list,x);
+					if ( simple_vm_api_iscpointerlist(list2) ) {
+						if ( simple_vm_api_cpointercmp(list2,pValue) ) {
 							return x ;
 						}
 					}
@@ -819,13 +819,13 @@ SIMPLE_API int simple_list_findcpointer ( List *pList,List *pValue,int nColumn )
 		}
 		else {
 			for ( x = 1 ; x <= nCount ; x++ ) {
-				if ( simple_list_islist(pList,x) == 0 ) {
+				if ( simple_list_islist(list,x) == 0 ) {
 					continue ;
 				}
-				pList2 = simple_list_getlist(pList,x);
-				if ( simple_list_islist(pList2,nColumn) ) {
-					pList3 = simple_list_getlist(pList2,nColumn);
-					if ( simple_vm_api_cpointercmp(pList3,pValue) ) {
+				list2 = simple_list_getlist(list,x);
+				if ( simple_list_islist(list2,nColumn) ) {
+					list3 = simple_list_getlist(list2,nColumn);
+					if ( simple_vm_api_cpointercmp(list3,pValue) ) {
 						return x ;
 					}
 				}
@@ -836,76 +836,76 @@ SIMPLE_API int simple_list_findcpointer ( List *pList,List *pValue,int nColumn )
 }
 /* Sort (QuickSort) and Binary Search */
 
-SIMPLE_API void simple_list_sortnum ( List *pList,int left,int right,int nColumn,const char *cAttribute )
+SIMPLE_API void simple_list_sortnum ( List *list,int left,int right,int nColumn,const char *cAttribute )
 {
 	int x,y,mid  ;
 	double midvalue  ;
 	x = left ;
 	y = right ;
 	mid = (x+y)/2 ;
-	midvalue = simple_list_getdoublecolumn(pList,mid,nColumn,cAttribute);
+	midvalue = simple_list_getdoublecolumn(list,mid,nColumn,cAttribute);
 	while ( x <= y ) {
-		while ( simple_list_getdoublecolumn(pList,x,nColumn,cAttribute) < midvalue ) {
+		while ( simple_list_getdoublecolumn(list,x,nColumn,cAttribute) < midvalue ) {
 			x++ ;
 		}
-		while ( simple_list_getdoublecolumn(pList,y,nColumn,cAttribute) > midvalue ) {
+		while ( simple_list_getdoublecolumn(list,y,nColumn,cAttribute) > midvalue ) {
 			y-- ;
 		}
 		if ( x <= y ) {
-			simple_list_swap(pList,x,y);
+			simple_list_swap(list,x,y);
 			x++ ;
 			y-- ;
 		}
 	}
 	if ( left < y ) {
-		simple_list_sortnum(pList, left, y,nColumn,cAttribute);
+		simple_list_sortnum(list, left, y,nColumn,cAttribute);
 	}
 	if ( y < right ) {
-		simple_list_sortnum(pList, x, right,nColumn,cAttribute);
+		simple_list_sortnum(list, x, right,nColumn,cAttribute);
 	}
 }
 
-SIMPLE_API void simple_list_sortstr_gc ( void *pState,List *pList,int left,int right,int nColumn,const char *cAttribute )
+SIMPLE_API void simple_list_sortstr_gc ( void *pState,List *list,int left,int right,int nColumn,const char *cAttribute )
 {
 	int x,y,mid  ;
 	String *midvalue  ;
 	x = left ;
 	y = right ;
 	mid = (x+y)/2 ;
-	midvalue = simple_string_new_gc(pState,simple_list_getstringcolumn(pList,mid,nColumn,cAttribute));
+	midvalue = simple_string_new_gc(pState,simple_list_getstringcolumn(list,mid,nColumn,cAttribute));
 	while ( x <= y ) {
-		while ( strcmp(simple_list_getstringcolumn(pList,x,nColumn,cAttribute),simple_string_get(midvalue)) < 0 ) {
+		while ( strcmp(simple_list_getstringcolumn(list,x,nColumn,cAttribute),simple_string_get(midvalue)) < 0 ) {
 			x++ ;
 		}
-		while ( strcmp(simple_list_getstringcolumn(pList,y,nColumn,cAttribute),simple_string_get(midvalue)) > 0 ) {
+		while ( strcmp(simple_list_getstringcolumn(list,y,nColumn,cAttribute),simple_string_get(midvalue)) > 0 ) {
 			y-- ;
 		}
 		if ( x <= y ) {
-			simple_list_swap(pList,x,y);
+			simple_list_swap(list,x,y);
 			x++ ;
 			y-- ;
 		}
 	}
 	simple_string_delete_gc(pState,midvalue);
 	if ( left < y ) {
-		simple_list_sortstr_gc(pState,pList, left, y,nColumn,cAttribute);
+		simple_list_sortstr_gc(pState,list, left, y,nColumn,cAttribute);
 	}
 	if ( y < right ) {
-		simple_list_sortstr_gc(pState,pList, x, right, nColumn,cAttribute);
+		simple_list_sortstr_gc(pState,list, x, right, nColumn,cAttribute);
 	}
 }
 
-SIMPLE_API int simple_list_binarysearchnum ( List *pList,double nNum1,int nColumn,const char *cAttribute )
+SIMPLE_API int simple_list_binarysearchnum ( List *list,double nNum1,int nColumn,const char *cAttribute )
 {
 	int nFirst,nMiddle,nLast  ;
 	nFirst = 1 ;
-	nLast = simple_list_getsize(pList) ;
+	nLast = simple_list_getsize(list) ;
 	while ( nFirst <= nLast ) {
 		nMiddle = (nFirst+nLast)/2 ;
-		if ( simple_list_getdoublecolumn(pList,nMiddle,nColumn,cAttribute) == nNum1 ) {
+		if ( simple_list_getdoublecolumn(list,nMiddle,nColumn,cAttribute) == nNum1 ) {
 			return nMiddle ;
 		}
-		else if ( simple_list_getdoublecolumn(pList,nMiddle,nColumn,cAttribute) < nNum1 ) {
+		else if ( simple_list_getdoublecolumn(list,nMiddle,nColumn,cAttribute) < nNum1 ) {
 			nFirst = nMiddle + 1 ;
 		}
 		else {
@@ -915,14 +915,14 @@ SIMPLE_API int simple_list_binarysearchnum ( List *pList,double nNum1,int nColum
 	return 0 ;
 }
 
-SIMPLE_API int simple_list_binarysearchstr ( List *pList,const char *cFind,int nColumn,const char *cAttribute )
+SIMPLE_API int simple_list_binarysearchstr ( List *list,const char *cFind,int nColumn,const char *cAttribute )
 {
 	int nFirst,nMiddle,nLast,nRes  ;
 	nFirst = 1 ;
-	nLast = simple_list_getsize(pList) ;
+	nLast = simple_list_getsize(list) ;
 	while ( nFirst <= nLast ) {
 		nMiddle = (nFirst+nLast)/2 ;
-		nRes = strcmp(simple_list_getstringcolumn(pList,nMiddle,nColumn,cAttribute) ,cFind) ;
+		nRes = strcmp(simple_list_getstringcolumn(list,nMiddle,nColumn,cAttribute) ,cFind) ;
 		if ( nRes == 0 ) {
 			return nMiddle ;
 		}
@@ -936,38 +936,38 @@ SIMPLE_API int simple_list_binarysearchstr ( List *pList,const char *cFind,int n
 	return 0 ;
 }
 
-SIMPLE_API void simple_list_swap ( List *pList,int x,int y )
+SIMPLE_API void simple_list_swap ( List *list,int x,int y )
 {
 	Item *pItem  ;
 	Items *pItems  ;
-	pItem = simple_list_getitem(pList,x);
-	pItems = pList->pLastItemLastAccess ;
-	simple_list_getitem(pList,y);
-	pItems->pValue = pList->pLastItemLastAccess->pValue ;
-	pList->pLastItemLastAccess->pValue = pItem ;
+	pItem = simple_list_getitem(list,x);
+	pItems = list->pLastItemLastAccess ;
+	simple_list_getitem(list,y);
+	pItems->pValue = list->pLastItemLastAccess->pValue ;
+	list->pLastItemLastAccess->pValue = pItem ;
 }
 
-SIMPLE_API double simple_list_getdoublecolumn ( List *pList,int nIndex,int nColumn,const char *cAttribute )
+SIMPLE_API double simple_list_getdoublecolumn ( List *list,int nIndex,int nColumn,const char *cAttribute )
 {
 	int nPos  ;
 	if ( nColumn == 0 ) {
-		return simple_list_getdouble(pList,nIndex) ;
+		return simple_list_getdouble(list,nIndex) ;
 	}
 	else {
 		if ( strcmp(cAttribute,"") == 0 ) {
-			return simple_list_getdouble(simple_list_getlist(pList,nIndex),nColumn) ;
+			return simple_list_getdouble(simple_list_getlist(list,nIndex),nColumn) ;
 		}
 		else {
-			pList = simple_list_getlist(pList,nIndex);
+			list = simple_list_getlist(list,nIndex);
 			if ( nColumn > 1 ) {
-				pList = simple_list_getlist(pList,nColumn);
+				list = simple_list_getlist(list,nColumn);
 			}
-			if ( simple_vm_oop_isobject(pList) ) {
-				nPos = simple_list_findstring(simple_list_getlist(pList,SIMPLE_OBJECT_OBJECTDATA),cAttribute,SIMPLE_VAR_NAME);
-				pList = simple_list_getlist(pList,SIMPLE_OBJECT_OBJECTDATA) ;
-				pList = simple_list_getlist(pList,nPos) ;
-				if ( simple_list_isdouble(pList,SIMPLE_VAR_VALUE) ) {
-					return simple_list_getdouble(pList,SIMPLE_VAR_VALUE) ;
+			if ( simple_vm_oop_isobject(list) ) {
+				nPos = simple_list_findstring(simple_list_getlist(list,SIMPLE_OBJECT_OBJECTDATA),cAttribute,SIMPLE_VAR_NAME);
+				list = simple_list_getlist(list,SIMPLE_OBJECT_OBJECTDATA) ;
+				list = simple_list_getlist(list,nPos) ;
+				if ( simple_list_isdouble(list,SIMPLE_VAR_VALUE) ) {
+					return simple_list_getdouble(list,SIMPLE_VAR_VALUE) ;
 				}
 			}
 		}
@@ -975,28 +975,28 @@ SIMPLE_API double simple_list_getdoublecolumn ( List *pList,int nIndex,int nColu
 	return 0.0 ;
 }
 
-SIMPLE_API char * simple_list_getstringcolumn ( List *pList,int nIndex,int nColumn,const char *cAttribute )
+SIMPLE_API char * simple_list_getstringcolumn ( List *list,int nIndex,int nColumn,const char *cAttribute )
 {
 	int nPos  ;
 	static char nullstring[] = "" ;
 	if ( nColumn == 0 ) {
-		return simple_list_getstring(pList,nIndex) ;
+		return simple_list_getstring(list,nIndex) ;
 	}
 	else {
 		if ( strcmp(cAttribute,"") == 0 ) {
-			return simple_list_getstring(simple_list_getlist(pList,nIndex),nColumn) ;
+			return simple_list_getstring(simple_list_getlist(list,nIndex),nColumn) ;
 		}
 		else {
-			pList = simple_list_getlist(pList,nIndex);
+			list = simple_list_getlist(list,nIndex);
 			if ( nColumn > 1 ) {
-				pList = simple_list_getlist(pList,nColumn);
+				list = simple_list_getlist(list,nColumn);
 			}
-			if ( simple_vm_oop_isobject(pList) ) {
-				nPos = simple_list_findstring(simple_list_getlist(pList,SIMPLE_OBJECT_OBJECTDATA),cAttribute,SIMPLE_VAR_NAME);
-				pList = simple_list_getlist(pList,SIMPLE_OBJECT_OBJECTDATA) ;
-				pList = simple_list_getlist(pList,nPos) ;
-				if ( simple_list_isstring(pList,SIMPLE_VAR_VALUE) ) {
-					return simple_list_getstring(pList,SIMPLE_VAR_VALUE) ;
+			if ( simple_vm_oop_isobject(list) ) {
+				nPos = simple_list_findstring(simple_list_getlist(list,SIMPLE_OBJECT_OBJECTDATA),cAttribute,SIMPLE_VAR_NAME);
+				list = simple_list_getlist(list,SIMPLE_OBJECT_OBJECTDATA) ;
+				list = simple_list_getlist(list,nPos) ;
+				if ( simple_list_isstring(list,SIMPLE_VAR_VALUE) ) {
+					return simple_list_getstring(list,SIMPLE_VAR_VALUE) ;
 				}
 			}
 		}
@@ -1005,89 +1005,89 @@ SIMPLE_API char * simple_list_getstringcolumn ( List *pList,int nIndex,int nColu
 }
 /* List Items to Array */
 
-SIMPLE_API void simple_list_genarray_gc ( void *pState,List *pList )
+SIMPLE_API void simple_list_genarray_gc ( void *pState,List *list )
 {
 	int x  ;
 	Item **pArray  ;
-	if ( simple_list_getsize(pList) == 0 ) {
+	if ( simple_list_getsize(list) == 0 ) {
 		return ;
 	}
-	if ( pList->pItemsArray != NULL ) {
-		simple_state_free(pState,pList->pItemsArray);
+	if ( list->pItemsArray != NULL ) {
+		simple_state_free(pState,list->pItemsArray);
 	}
 	/*
-	**  Here we save the pointer in pArray and not in pList->pItemsArray 
+	**  Here we save the pointer in pArray and not in list->pItemsArray 
 	**  Because we will fill the array with items pointers using simple_list_getitem() 
-	**  And simple_list_getitem() check for using pList->pItemsArray 
+	**  And simple_list_getitem() check for using list->pItemsArray 
 	*/
-	pArray = (Item **) simple_state_malloc(pState,simple_list_getsize(pList) * sizeof(Item *));
+	pArray = (Item **) simple_state_malloc(pState,simple_list_getsize(list) * sizeof(Item *));
 	if ( pArray == NULL ) {
 		printf( SIMPLE_OOM ) ;
 		exit(0);
 	}
-	for ( x = 1 ; x <= simple_list_getsize(pList) ; x++ ) {
-		pArray[x-1] = simple_list_getitem(pList,x);
+	for ( x = 1 ; x <= simple_list_getsize(list) ; x++ ) {
+		pArray[x-1] = simple_list_getitem(list,x);
 	}
-	pList->pItemsArray = pArray ;
+	list->pItemsArray = pArray ;
 }
 
-SIMPLE_API void simple_list_deletearray_gc ( void *pState,List *pList )
+SIMPLE_API void simple_list_deletearray_gc ( void *pState,List *list )
 {
-	if ( pList->pItemsArray != NULL ) {
-		simple_state_free(pState,pList->pItemsArray);
-		pList->pItemsArray = NULL ;
+	if ( list->pItemsArray != NULL ) {
+		simple_state_free(pState,list->pItemsArray);
+		list->pItemsArray = NULL ;
 	}
 }
 /* List Items to HashTable */
 
-SIMPLE_API void simple_list_genhashtable_gc ( void *pState,List *pList )
+SIMPLE_API void simple_list_genhashtable_gc ( void *pState,List *list )
 {
 	int x  ;
-	if ( pList->pHashTable != NULL ) {
-		pList->pHashTable = simple_hashtable_delete_gc(pState,pList->pHashTable);
+	if ( list->pHashTable != NULL ) {
+		list->pHashTable = simple_hashtable_delete_gc(pState,list->pHashTable);
 	}
-	pList->pHashTable = simple_hashtable_new_gc(pState);
-	for ( x = 1 ; x <= simple_list_getsize(pList) ; x++ ) {
-		simple_hashtable_newnumber_gc(pState,pList->pHashTable,simple_list_getstring(pList,x),x);
+	list->pHashTable = simple_hashtable_new_gc(pState);
+	for ( x = 1 ; x <= simple_list_getsize(list) ; x++ ) {
+		simple_hashtable_newnumber_gc(pState,list->pHashTable,simple_list_getstring(list,x),x);
 	}
 }
 
-SIMPLE_API void simple_list_genhashtable2_gc ( void *pState,List *pList )
+SIMPLE_API void simple_list_genhashtable2_gc ( void *pState,List *list )
 {
 	int x  ;
-	List *pList2  ;
+	List *list2  ;
 	/* This Func. Take list of lists , the first item of the sub list is a string (key) */
-	if ( pList->pHashTable != NULL ) {
-		pList->pHashTable = simple_hashtable_delete_gc(pState,pList->pHashTable);
+	if ( list->pHashTable != NULL ) {
+		list->pHashTable = simple_hashtable_delete_gc(pState,list->pHashTable);
 	}
-	pList->pHashTable = simple_hashtable_new_gc(pState);
-	for ( x = 1 ; x <= simple_list_getsize(pList) ; x++ ) {
-		pList2 = simple_list_getlist(pList,x);
-		simple_hashtable_newpointer_gc(pState,pList->pHashTable,simple_list_getstring(pList2,1),pList2);
+	list->pHashTable = simple_hashtable_new_gc(pState);
+	for ( x = 1 ; x <= simple_list_getsize(list) ; x++ ) {
+		list2 = simple_list_getlist(list,x);
+		simple_hashtable_newpointer_gc(pState,list->pHashTable,simple_list_getstring(list2,1),list2);
 	}
 }
 /* Copy list by reference */
 
-SIMPLE_API void simple_list_refcopy ( List *pNewList, List *pList )
+SIMPLE_API void simple_list_refcopy ( List *pNewList, List *list )
 {
-	pNewList->pFirst = pList->pFirst ;
-	pNewList->pLast = pList->pLast ;
-	pNewList->nSize = pList->nSize ;
-	pNewList->nNextItemAfterLastAccess = pList->nNextItemAfterLastAccess ;
-	pNewList->pLastItemLastAccess = pList->pLastItemLastAccess ;
-	pNewList->pItemsArray = pList->pItemsArray ;
-	pNewList->pHashTable = pList->pHashTable ;
+	pNewList->pFirst = list->pFirst ;
+	pNewList->pLast = list->pLast ;
+	pNewList->nSize = list->nSize ;
+	pNewList->nNextItemAfterLastAccess = list->nNextItemAfterLastAccess ;
+	pNewList->pLastItemLastAccess = list->pLastItemLastAccess ;
+	pNewList->pItemsArray = list->pItemsArray ;
+	pNewList->pHashTable = list->pHashTable ;
 }
 
-SIMPLE_API void simple_list_clear ( List *pList )
+SIMPLE_API void simple_list_clear ( List *list )
 {
-	pList->pFirst = NULL ;
-	pList->pLast = NULL ;
-	pList->nSize = 0 ;
-	pList->nNextItemAfterLastAccess = 0 ;
-	pList->pLastItemLastAccess = NULL ;
-	pList->pItemsArray = NULL ;
-	pList->pHashTable = NULL ;
+	list->pFirst = NULL ;
+	list->pLast = NULL ;
+	list->nSize = 0 ;
+	list->nNextItemAfterLastAccess = 0 ;
+	list->pLastItemLastAccess = NULL ;
+	list->pItemsArray = NULL ;
+	list->pHashTable = NULL ;
 }
 /* Define functions without State Pointer */
 
@@ -1096,196 +1096,196 @@ SIMPLE_API List * simple_list_new ( int nSize )
 	return simple_list_new_gc(NULL,nSize) ;
 }
 
-SIMPLE_API void simple_list_genarray ( List *pList )
+SIMPLE_API void simple_list_genarray ( List *list )
 {
-	simple_list_genarray_gc(NULL,pList);
+	simple_list_genarray_gc(NULL,list);
 }
 
-SIMPLE_API List * simple_list_delete ( List *pList )
+SIMPLE_API List * simple_list_delete ( List *list )
 {
-	return simple_list_delete_gc(NULL,pList) ;
+	return simple_list_delete_gc(NULL,list) ;
 }
 
-SIMPLE_API void simple_list_deletearray ( List *pList )
+SIMPLE_API void simple_list_deletearray ( List *list )
 {
-	simple_list_deletearray_gc(NULL,pList);
+	simple_list_deletearray_gc(NULL,list);
 }
 
-SIMPLE_API void simple_list_newitem ( List *pList )
+SIMPLE_API void simple_list_newitem ( List *list )
 {
-	simple_list_newitem_gc(NULL,pList);
+	simple_list_newitem_gc(NULL,list);
 }
 
-SIMPLE_API void simple_list_deleteitem ( List *pList,int index )
+SIMPLE_API void simple_list_deleteitem ( List *list,int index )
 {
-	simple_list_deleteitem_gc(NULL,pList,index);
+	simple_list_deleteitem_gc(NULL,list,index);
 }
 /* int */
 
-SIMPLE_API void simple_list_setint ( List *pList, int index ,int number )
+SIMPLE_API void simple_list_setint ( List *list, int index ,int number )
 {
-	simple_list_setint_gc(NULL,pList,index,number);
+	simple_list_setint_gc(NULL,list,index,number);
 }
 
-SIMPLE_API void simple_list_addint ( List *pList,int x )
+SIMPLE_API void simple_list_addint ( List *list,int x )
 {
-	simple_list_addint_gc(NULL,pList,x);
+	simple_list_addint_gc(NULL,list,x);
 }
 /* Pointers */
 
-SIMPLE_API void simple_list_setpointer ( List *pList, int index ,void *pValue )
+SIMPLE_API void simple_list_setpointer ( List *list, int index ,void *pValue )
 {
-	simple_list_setpointer_gc(NULL,pList,index,pValue);
+	simple_list_setpointer_gc(NULL,list,index,pValue);
 }
 
-SIMPLE_API void simple_list_addpointer ( List *pList,void *pValue )
+SIMPLE_API void simple_list_addpointer ( List *list,void *pValue )
 {
-	simple_list_addpointer_gc(NULL,pList,pValue);
+	simple_list_addpointer_gc(NULL,list,pValue);
 }
 /* Function Pointers */
 
-SIMPLE_API void simple_list_setfuncpointer ( List *pList, int index ,void (*pFunc)(void *) )
+SIMPLE_API void simple_list_setfuncpointer ( List *list, int index ,void (*pFunc)(void *) )
 {
-	simple_list_setfuncpointer_gc(NULL,pList,index,pFunc);
+	simple_list_setfuncpointer_gc(NULL,list,index,pFunc);
 }
 
-SIMPLE_API void simple_list_addfuncpointer ( List *pList,void (*pFunc)(void *) )
+SIMPLE_API void simple_list_addfuncpointer ( List *list,void (*pFunc)(void *) )
 {
-	simple_list_addfuncpointer_gc(NULL,pList,pFunc);
+	simple_list_addfuncpointer_gc(NULL,list,pFunc);
 }
 /* double */
 
-SIMPLE_API void simple_list_setdouble ( List *pList, int index ,double number )
+SIMPLE_API void simple_list_setdouble ( List *list, int index ,double number )
 {
-	simple_list_setdouble_gc(NULL,pList,index,number);
+	simple_list_setdouble_gc(NULL,list,index,number);
 }
 
-SIMPLE_API void simple_list_adddouble ( List *pList,double x )
+SIMPLE_API void simple_list_adddouble ( List *list,double x )
 {
-	simple_list_adddouble_gc(NULL,pList,x);
+	simple_list_adddouble_gc(NULL,list,x);
 }
 /* String */
 
-SIMPLE_API void simple_list_setstring ( List *pList, int index ,const char *str )
+SIMPLE_API void simple_list_setstring ( List *list, int index ,const char *str )
 {
-	simple_list_setstsimple_gc(NULL,pList,index,str);
+	simple_list_setstsimple_gc(NULL,list,index,str);
 }
 
-SIMPLE_API void simple_list_setstring2 ( List *pList, int index ,const char *str,int nStrSize )
+SIMPLE_API void simple_list_setstring2 ( List *list, int index ,const char *str,int nStrSize )
 {
-	simple_list_setstring2_gc(NULL,pList,index,str,nStrSize);
+	simple_list_setstring2_gc(NULL,list,index,str,nStrSize);
 }
 
-SIMPLE_API void simple_list_addstring ( List *pList,const char *str )
+SIMPLE_API void simple_list_addstring ( List *list,const char *str )
 {
-	simple_list_addstring_gc(NULL,pList,str);
+	simple_list_addstring_gc(NULL,list,str);
 }
 
-SIMPLE_API void simple_list_addstring2 ( List *pList,const char *str,int nStrSize )
+SIMPLE_API void simple_list_addstring2 ( List *list,const char *str,int nStrSize )
 {
-	simple_list_addstring2_gc(NULL,pList,str,nStrSize);
+	simple_list_addstring2_gc(NULL,list,str,nStrSize);
 }
 /* List */
 
-SIMPLE_API List * simple_list_newlist ( List *pList )
+SIMPLE_API List * simple_list_newlist ( List *list )
 {
-	return simple_list_newlist_gc(NULL,pList) ;
+	return simple_list_newlist_gc(NULL,list) ;
 }
 
-SIMPLE_API void simple_list_setlist ( List *pList, int index )
+SIMPLE_API void simple_list_setlist ( List *list, int index )
 {
-	simple_list_setlist_gc(NULL,pList,index);
+	simple_list_setlist_gc(NULL,list,index);
 }
 
-SIMPLE_API void simple_list_copy ( List *pNewList, List *pList )
+SIMPLE_API void simple_list_copy ( List *pNewList, List *list )
 {
-	simple_list_copy_gc(NULL,pNewList,pList);
+	simple_list_copy_gc(NULL,pNewList,list);
 }
 
-SIMPLE_API void simple_list_deleteallitems ( List *pList )
+SIMPLE_API void simple_list_deleteallitems ( List *list )
 {
-	simple_list_deleteallitems_gc(NULL,pList);
+	simple_list_deleteallitems_gc(NULL,list);
 }
 /* Insert Items */
 
-SIMPLE_API void simple_list_insertitem ( List *pList,int x )
+SIMPLE_API void simple_list_insertitem ( List *list,int x )
 {
-	simple_list_insertitem_gc(NULL,pList,x);
+	simple_list_insertitem_gc(NULL,list,x);
 }
 
-SIMPLE_API void simple_list_insertint ( List *pList,int nPos,int x )
+SIMPLE_API void simple_list_insertint ( List *list,int nPos,int x )
 {
-	simple_list_insertint_gc(NULL,pList,nPos,x);
+	simple_list_insertint_gc(NULL,list,nPos,x);
 }
 
-SIMPLE_API void simple_list_insertdouble ( List *pList,int nPos,double x )
+SIMPLE_API void simple_list_insertdouble ( List *list,int nPos,double x )
 {
-	simple_list_insertdouble_gc(NULL,pList,nPos,x);
+	simple_list_insertdouble_gc(NULL,list,nPos,x);
 }
 
-SIMPLE_API void simple_list_insertpointer ( List *pList,int nPos,void *pValue )
+SIMPLE_API void simple_list_insertpointer ( List *list,int nPos,void *pValue )
 {
-	simple_list_insertpointer_gc(NULL,pList,nPos,pValue);
+	simple_list_insertpointer_gc(NULL,list,nPos,pValue);
 }
 
-SIMPLE_API void simple_list_insertstring ( List *pList,int nPos,const char *str )
+SIMPLE_API void simple_list_insertstring ( List *list,int nPos,const char *str )
 {
-	simple_list_insertstsimple_gc(NULL,pList,nPos,str);
+	simple_list_insertstsimple_gc(NULL,list,nPos,str);
 }
 
-SIMPLE_API void simple_list_insertstring2 ( List *pList,int nPos,const char *str,int nStrSize )
+SIMPLE_API void simple_list_insertstring2 ( List *list,int nPos,const char *str,int nStrSize )
 {
-	simple_list_insertstring2_gc(NULL,pList,nPos,str,nStrSize);
+	simple_list_insertstring2_gc(NULL,list,nPos,str,nStrSize);
 }
 
-SIMPLE_API void simple_list_insertfuncpointer ( List *pList,int nPos,void (*pFunc)(void *) )
+SIMPLE_API void simple_list_insertfuncpointer ( List *list,int nPos,void (*pFunc)(void *) )
 {
-	simple_list_insertfuncpointer_gc(NULL,pList,nPos,pFunc);
+	simple_list_insertfuncpointer_gc(NULL,list,nPos,pFunc);
 }
 
-SIMPLE_API List * simple_list_insertlist ( List *pList,int nPos )
+SIMPLE_API List * simple_list_insertlist ( List *list,int nPos )
 {
-	return simple_list_insertlist_gc(NULL,pList,nPos) ;
+	return simple_list_insertlist_gc(NULL,list,nPos) ;
 }
 
-SIMPLE_API void simple_list_sortstr ( List *pList,int left,int right,int nColumn,const char *cAttribute )
+SIMPLE_API void simple_list_sortstr ( List *list,int left,int right,int nColumn,const char *cAttribute )
 {
-	simple_list_sortstr_gc(NULL,pList,left,right,nColumn,cAttribute);
+	simple_list_sortstr_gc(NULL,list,left,right,nColumn,cAttribute);
 }
 /* List Items to HashTable */
 
-SIMPLE_API void simple_list_genhashtable ( List *pList )
+SIMPLE_API void simple_list_genhashtable ( List *list )
 {
-	simple_list_genhashtable_gc(NULL,pList);
+	simple_list_genhashtable_gc(NULL,list);
 }
 
-SIMPLE_API void simple_list_genhashtable2 ( List *pList )
+SIMPLE_API void simple_list_genhashtable2 ( List *list )
 {
-	simple_list_genhashtable2_gc(NULL,pList);
+	simple_list_genhashtable2_gc(NULL,list);
 }
 /* Test */
 
 void simple_list_test ( void )
 {
-	List *pList,*pList2  ;
+	List *list,*list2  ;
 	int x  ;
 	Item *pItem  ;
 	String *pString  ;
 	char mystr[20]  ;
 	printf( "Create new list, size = 10 \n" ) ;
-	pList = simple_list_new(10);
-	printf( "List(1) size %d    \n", simple_list_getsize(pList) ) ;
+	list = simple_list_new(10);
+	printf( "List(1) size %d    \n", simple_list_getsize(list) ) ;
 	printf( "Create empty list \n" ) ;
-	pList2 = simple_list_new(0);
+	list2 = simple_list_new(0);
 	printf( "adding 15 items to the list \n" ) ;
 	for ( x = 1 ; x <= 15 ; x++ ) {
 		printf( "x : %d  \n" , x ) ;
-		simple_list_newitem(pList2);
+		simple_list_newitem(list2);
 	}
-	printf( "List(2) size %d    \n", simple_list_getsize(pList2) ) ;
+	printf( "List(2) size %d    \n", simple_list_getsize(list2) ) ;
 	for ( x = 1 ; x <= 10 ; x++ ) {
 		/* Work on items */
-		pItem = simple_list_getitem(pList2,x);
+		pItem = simple_list_getitem(list2,x);
 		simple_item_settype(pItem,ITEMTYPE_STRING);
 		pString = simple_item_getstring(pItem);
 		sprintf( mystr , "The Item Number %d" , x ) ;
@@ -1294,130 +1294,130 @@ void simple_list_test ( void )
 	}
 	for ( x = 11 ; x <= 15 ; x++ ) {
 		/* Work on items */
-		pItem = simple_list_getitem(pList2,x);
+		pItem = simple_list_getitem(list2,x);
 		simple_item_settype(pItem,ITEMTYPE_NUMBER);
 	}
 	/* Delete Items */
 	printf( "Delete item number 5 \n" ) ;
-	simple_list_deleteitem(pList2,5);
-	pItem = simple_list_getitem(pList2,5);
+	simple_list_deleteitem(list2,5);
+	pItem = simple_list_getitem(list2,5);
 	pString = simple_item_getstring(pItem);
 	simple_string_print(pString);
 	printf( "Delete item number 1 \n" ) ;
 	/* Print Item */
-	simple_list_deleteitem(pList2,1);
-	pItem = simple_list_getitem(pList2,1);
+	simple_list_deleteitem(list2,1);
+	pItem = simple_list_getitem(list2,1);
 	pString = simple_item_getstring(pItem);
 	simple_string_print(pString);
-	printf( "Delete item number %d \n",simple_list_getsize(pList2) ) ;
+	printf( "Delete item number %d \n",simple_list_getsize(list2) ) ;
 	/* Print Item */
-	simple_list_deleteitem(pList2,simple_list_getsize(pList2));
-	printf( "get item number %d \n",simple_list_getsize(pList2) ) ;
+	simple_list_deleteitem(list2,simple_list_getsize(list2));
+	printf( "get item number %d \n",simple_list_getsize(list2) ) ;
 	/* Delete Lists */
 	printf( "Deleting List 1 \n" ) ;
-	simple_list_delete(pList);
+	simple_list_delete(list);
 	printf( "Deleting List 2 \n" ) ;
-	simple_list_delete(pList2);
+	simple_list_delete(list2);
 	getchar();
 	/* Create/Delete Large List */
 	printf( "Create List of 1000000 Items  \n" ) ;
-	pList = simple_list_new(1000000);
+	list = simple_list_new(1000000);
 	printf( "Before Loop  \n" ) ;
 	for ( x = 1 ; x <= 1000000 ; x++ ) {
-		simple_list_setstring(pList,x,"empty item");
+		simple_list_setstring(list,x,"empty item");
 	}
 	printf( "Done  \n" ) ;
 	getchar();
 	printf( "Deleting List 1 \n" ) ;
-	simple_list_delete(pList);
+	simple_list_delete(list);
 	getchar();
 	/* Create Nested Lists */
 	printf( "List = {'first item',{'item (2) item(1)','item(2) item(2)'},'lastitem' , 50 , Pointer to int } \n  " ) ;
-	pList = simple_list_new(5);
+	list = simple_list_new(5);
 	/* Set Item 1 */
-	pItem = simple_list_getitem(pList,1);
+	pItem = simple_list_getitem(list,1);
 	simple_item_settype(pItem,ITEMTYPE_STRING);
 	pString = simple_item_getstring(pItem);
 	simple_string_set(pString,mystr);
 	simple_string_print(pString);
 	/* Set Item 2 */
-	pItem = simple_list_getitem(pList,2);
+	pItem = simple_list_getitem(list,2);
 	simple_item_settype(pItem,ITEMTYPE_LIST);
-	pList2 = simple_item_getlist(pItem);
-	simple_list_newitem(pList2);
-	simple_list_newitem(pList2);
+	list2 = simple_item_getlist(pItem);
+	simple_list_newitem(list2);
+	simple_list_newitem(list2);
 	/* Work on items */
-	pItem = simple_list_getitem(pList2,1);
+	pItem = simple_list_getitem(list2,1);
 	simple_item_settype(pItem,ITEMTYPE_STRING);
 	pString = simple_item_getstring(pItem);
 	sprintf( mystr , "Item (2) Item (1) "  ) ;
 	simple_string_set(pString,mystr);
 	simple_string_print(pString);
 	/* Work on items */
-	pItem = simple_list_getitem(pList2,2);
+	pItem = simple_list_getitem(list2,2);
 	simple_item_settype(pItem,ITEMTYPE_STRING);
 	pString = simple_item_getstring(pItem);
 	sprintf( mystr , "Item (2) Item (2) "  ) ;
 	simple_string_set(pString,mystr);
 	simple_string_print(pString);
 	/* Set Item 3 */
-	pItem = simple_list_getitem(pList,3);
+	pItem = simple_list_getitem(list,3);
 	simple_item_settype(pItem,ITEMTYPE_STRING);
 	pString = simple_item_getstring(pItem);
 	sprintf( mystr , "last item"  ) ;
 	simple_string_set(pString,mystr);
 	simple_string_print(pString);
 	/* set item 4 */
-	pItem = simple_list_getitem(pList,4);
+	pItem = simple_list_getitem(list,4);
 	simple_item_settype(pItem,ITEMTYPE_NUMBER);
 	/* set item 5 */
-	pItem = simple_list_getitem(pList,5);
+	pItem = simple_list_getitem(list,5);
 	simple_item_settype(pItem,ITEMTYPE_POINTER);
 	printf( "Printing list \n  " ) ;
-	simple_list_print(pList);
+	simple_list_print(list);
 	/* Copy List */
 	printf( "\n Copy List1 to List 2 \n  " ) ;
-	pList2 = simple_list_new(0);
-	simple_list_copy(pList2,pList);
+	list2 = simple_list_new(0);
+	simple_list_copy(list2,list);
 	printf( "\n Printing List 2 \n  " ) ;
-	simple_list_print(pList2);
-	simple_list_delete(pList2);
-	simple_list_delete(pList);
+	simple_list_print(list2);
+	simple_list_delete(list2);
+	simple_list_delete(list);
 	/* Use list_setstring & list_getstring */
 	printf( "\n use simple_list_setstring and simple_list_getstring  \n" ) ;
-	pList = simple_list_new(3);
-	simple_list_setstring(pList,1,"one");
-	simple_list_setstring(pList,2,"two");
-	simple_list_setstring(pList,3,"three");
+	list = simple_list_new(3);
+	simple_list_setstring(list,1,"one");
+	simple_list_setstring(list,2,"two");
+	simple_list_setstring(list,3,"three");
 	for ( x = 1 ; x <= 3 ; x++ ) {
-		printf( "Item Number %d = %s  \n",x,simple_list_getstring(pList,x) ) ;
+		printf( "Item Number %d = %s  \n",x,simple_list_getstring(list,x) ) ;
 	}
-	simple_list_delete(pList);
+	simple_list_delete(list);
 	/* using list_addstring */
 	printf( "using simple_list_addstring  \n" ) ;
-	pList = simple_list_new(0);
-	simple_list_addstring(pList,"item 1");
-	simple_list_addstring(pList,"item 2");
-	simple_list_addstring(pList,"item 3");
-	simple_list_addstring(pList,"item 4");
-	simple_list_addstring(pList,"item 5");
-	for ( x = 1 ; x <= simple_list_getsize(pList) ; x++ ) {
-		printf( "Item Number %d = %s  \n",x,simple_list_getstring(pList,x) ) ;
+	list = simple_list_new(0);
+	simple_list_addstring(list,"item 1");
+	simple_list_addstring(list,"item 2");
+	simple_list_addstring(list,"item 3");
+	simple_list_addstring(list,"item 4");
+	simple_list_addstring(list,"item 5");
+	for ( x = 1 ; x <= simple_list_getsize(list) ; x++ ) {
+		printf( "Item Number %d = %s  \n",x,simple_list_getstring(list,x) ) ;
 	}
 	/* Test Get item */
-	printf( "Item Number 1 = %s  \n",simple_list_getstring(pList,1) ) ;
-	printf( "Item Number 5 = %s  \n",simple_list_getstring(pList,5) ) ;
-	printf( "Item Number 4 = %s  \n",simple_list_getstring(pList,4) ) ;
-	printf( "Item Number 3 = %s  \n",simple_list_getstring(pList,3) ) ;
-	printf( "Item Number 3 = %s  \n",simple_list_getstring(pList,3) ) ;
-	printf( "Item Number 2 = %s  \n",simple_list_getstring(pList,2) ) ;
-	printf( "Item Number 3 = %s  \n",simple_list_getstring(pList,3) ) ;
-	simple_list_delete(pList);
+	printf( "Item Number 1 = %s  \n",simple_list_getstring(list,1) ) ;
+	printf( "Item Number 5 = %s  \n",simple_list_getstring(list,5) ) ;
+	printf( "Item Number 4 = %s  \n",simple_list_getstring(list,4) ) ;
+	printf( "Item Number 3 = %s  \n",simple_list_getstring(list,3) ) ;
+	printf( "Item Number 3 = %s  \n",simple_list_getstring(list,3) ) ;
+	printf( "Item Number 2 = %s  \n",simple_list_getstring(list,2) ) ;
+	printf( "Item Number 3 = %s  \n",simple_list_getstring(list,3) ) ;
+	simple_list_delete(list);
 	/* Function Pointers */
-	pList = simple_list_new(0);
-	simple_list_addfuncpointer(pList,simple_list_testfuncpointer);
+	list = simple_list_new(0);
+	simple_list_addfuncpointer(list,simple_list_testfuncpointer);
 	puts(" *** Test Function Pointer *** ");
-	simple_list_callfuncpointer(pList,1,pList);
-	simple_list_delete(pList);
+	simple_list_callfuncpointer(list,1,list);
+	simple_list_delete(list);
 	getchar();
 }

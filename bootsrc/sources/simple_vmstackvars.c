@@ -19,7 +19,7 @@
 void simple_vm_pushv ( VM *vm )
 {
 	List *pVar  ;
-	List *pList  ;
+	List *list  ;
 	if ( vm->nSP <= vm->nFuncSP ) {
 		/* Happens after using EVAL() in this case we avoid PUSHV */
 		return ;
@@ -58,8 +58,8 @@ void simple_vm_pushv ( VM *vm )
 			}
 			else if ( simple_list_islist(pVar,SIMPLE_VAR_VALUE) ) {
 				/* Support using { } to access object after object name */
-				pList = simple_list_getlist(pVar,SIMPLE_VAR_VALUE) ;
-				simple_vm_oop_setbraceobj(vm,pList);
+				list = simple_list_getlist(pVar,SIMPLE_VAR_VALUE) ;
+				simple_vm_oop_setbraceobj(vm,list);
 			}
 		}
 	}
@@ -100,7 +100,7 @@ void simple_vm_loadaddress ( VM *vm )
 
 void simple_vm_assignment ( VM *vm )
 {
-	List *pVar,*pList  ;
+	List *pVar,*list  ;
 	String *cStr1, *pString  ;
 	double nNum1  ;
 	Item *pItem  ;
@@ -165,8 +165,8 @@ void simple_vm_assignment ( VM *vm )
 					pItem = (Item *) SIMPLE_VM_STACK_READP ;
 					pVar = simple_item_getlist(pItem);
 				}
-				pList = simple_list_new_gc(vm->sState,0);
-				simple_list_copy(pList,pVar);
+				list = simple_list_new_gc(vm->sState,0);
+				simple_list_copy(list,pVar);
 				/*
 				**  We use (Temp) List - to avoid problems when coping from parent list to child list 
 				**  Simulate C Pointer copy on the original list because we works on the temp list 
@@ -177,12 +177,12 @@ void simple_vm_assignment ( VM *vm )
 				SIMPLE_VM_STACK_POP ;
 				simple_list_setint_gc(vm->sState,pVar, SIMPLE_VAR_TYPE ,SIMPLE_VM_LIST);
 				simple_list_setlist_gc(vm->sState,pVar,SIMPLE_VAR_VALUE);
-				simple_vm_list_copy(vm,simple_list_getlist(pVar,SIMPLE_VAR_VALUE),pList);
+				simple_vm_list_copy(vm,simple_list_getlist(pVar,SIMPLE_VAR_VALUE),list);
 				/* Update self object pointer */
 				if ( simple_vm_oop_isobject(simple_list_getlist(pVar,SIMPLE_VAR_VALUE)) ) {
 					simple_vm_oop_updateselfpointer(vm,simple_list_getlist(pVar,SIMPLE_VAR_VALUE),SIMPLE_OBJTYPE_VARIABLE,pVar);
 				}
-				simple_list_delete_gc(vm->sState,pList);
+				simple_list_delete_gc(vm->sState,list);
 			}
 		} else {
 			simple_vm_error(vm,SIMPLE_VM_ERROR_BADVALUES);
@@ -241,7 +241,7 @@ void simple_vm_newline ( VM *vm )
 void simple_vm_freestack ( VM *vm )
 {
 	int nSP  ;
-	List *pList  ;
+	List *list  ;
 	/* Clear Assignment Pointer */
 	vm->pAssignment = NULL ;
 	/* Clear Load Address Result Scope Array */
@@ -259,8 +259,8 @@ void simple_vm_freestack ( VM *vm )
 		**  This feature is GREAT in the language where we can quickly move applications from 
 		**  Using procedural programming and global variables to Classes and Object Attributes 
 		*/
-		pList = simple_list_getlist(vm->aScopeNewObj,simple_list_getsize(vm->aScopeNewObj));
-		nSP = simple_list_getint(pList,SIMPLE_ASCOPENEWOBJ_SP) ;
+		list = simple_list_getlist(vm->aScopeNewObj,simple_list_getsize(vm->aScopeNewObj));
+		nSP = simple_list_getint(list,SIMPLE_ASCOPENEWOBJ_SP) ;
 		if ( vm->nSP > nSP + SIMPLE_VM_FREE_STACK_IN_CLASS_REGION_AFTER ) {
 			vm->nSP = nSP+SIMPLE_VM_FREE_STACK_IN_CLASS_REGION_AFTER ;
 		}
@@ -283,7 +283,7 @@ void simple_vm_freestack ( VM *vm )
 
 void simple_vm_setreference ( VM *vm )
 {
-	List *pList  ;
+	List *list  ;
 	int nType  ;
 	void *pPointer  ;
 	/*
@@ -299,91 +299,91 @@ void simple_vm_setreference ( VM *vm )
 	nType = SIMPLE_VM_STACK_OBJTYPE ;
 	SIMPLE_VM_STACK_POP ;
 	/* Read Destination */
-	pList = (List *) SIMPLE_VM_STACK_READP ;
+	list = (List *) SIMPLE_VM_STACK_READP ;
 	SIMPLE_VM_STACK_POP ;
 	/* Reference Counting to Destination before copy from Source */
-	simple_vm_gc_checkupdatereference(pList);
+	simple_vm_gc_checkupdatereference(list);
 	/* Copy by reference */
-	simple_list_setint_gc(vm->sState,pList,SIMPLE_VAR_TYPE,SIMPLE_VM_POINTER);
-	simple_list_setpointer_gc(vm->sState,pList,SIMPLE_VAR_VALUE,pPointer);
-	simple_list_setint_gc(vm->sState,pList,SIMPLE_VAR_PVALUETYPE,nType);
+	simple_list_setint_gc(vm->sState,list,SIMPLE_VAR_TYPE,SIMPLE_VM_POINTER);
+	simple_list_setpointer_gc(vm->sState,list,SIMPLE_VAR_VALUE,pPointer);
+	simple_list_setint_gc(vm->sState,list,SIMPLE_VAR_PVALUETYPE,nType);
 	/* Reference Counting (To Source After copy to Destination) */
 	simple_vm_gc_checknewreference(pPointer,nType);
 }
 
-void simple_vm_list_copy ( VM *vm,List *pNewList, List *pList )
+void simple_vm_list_copy ( VM *vm,List *pNewList, List *list )
 {
 	int x  ;
 	List *pNewList2  ;
-	assert(pList != NULL);
+	assert(list != NULL);
 	/* Copy Items */
-	if ( simple_list_getsize(pList) == 0 ) {
+	if ( simple_list_getsize(list) == 0 ) {
 		return ;
 	}
-	for ( x = 1 ; x <= simple_list_getsize(pList) ; x++ ) {
-		if ( simple_list_isint(pList,x) ) {
-			simple_list_addint_gc(vm->sState,pNewList,simple_list_getint(pList,x));
+	for ( x = 1 ; x <= simple_list_getsize(list) ; x++ ) {
+		if ( simple_list_isint(list,x) ) {
+			simple_list_addint_gc(vm->sState,pNewList,simple_list_getint(list,x));
 		}
-		else if ( simple_list_isdouble(pList,x) ) {
-			simple_list_adddouble_gc(vm->sState,pNewList,simple_list_getdouble(pList,x));
+		else if ( simple_list_isdouble(list,x) ) {
+			simple_list_adddouble_gc(vm->sState,pNewList,simple_list_getdouble(list,x));
 		}
-		else if ( simple_list_isstring(pList,x) ) {
-			simple_list_addstring2_gc(vm->sState,pNewList,simple_list_getstring(pList,x),simple_list_getstringsize(pList,x));
+		else if ( simple_list_isstring(list,x) ) {
+			simple_list_addstring2_gc(vm->sState,pNewList,simple_list_getstring(list,x),simple_list_getstringsize(list,x));
 		}
-		else if ( simple_list_ispointer(pList,x) ) {
-			simple_list_addpointer_gc(vm->sState,pNewList,simple_list_getpointer(pList,x));
+		else if ( simple_list_ispointer(list,x) ) {
+			simple_list_addpointer_gc(vm->sState,pNewList,simple_list_getpointer(list,x));
 		}
-		else if ( simple_list_islist(pList,x) ) {
+		else if ( simple_list_islist(list,x) ) {
 			pNewList2 = simple_list_newlist_gc(vm->sState,pNewList);
-			simple_vm_list_copy(vm,pNewList2,simple_list_getlist(pList,x));
+			simple_vm_list_copy(vm,pNewList2,simple_list_getlist(list,x));
 		}
 	}
 	/* Check if the List if a C Pointer List */
-	if ( simple_list_getsize(pList) == SIMPLE_CPOINTER_LISTSIZE ) {
-		if ( simple_list_ispointer(pList,SIMPLE_CPOINTER_POINTER)  && simple_list_isstring(pList,SIMPLE_CPOINTER_TYPE) && simple_list_isint(pList,SIMPLE_CPOINTER_STATUS) ) {
+	if ( simple_list_getsize(list) == SIMPLE_CPOINTER_LISTSIZE ) {
+		if ( simple_list_ispointer(list,SIMPLE_CPOINTER_POINTER)  && simple_list_isstring(list,SIMPLE_CPOINTER_TYPE) && simple_list_isint(list,SIMPLE_CPOINTER_STATUS) ) {
 			/* Check value to avoid adding the pointer to the C Pointer list again */
-			if ( simple_list_getint(pList,SIMPLE_CPOINTER_STATUS) == SIMPLE_CPOINTERSTATUS_NOTCOPIED ) {
+			if ( simple_list_getint(list,SIMPLE_CPOINTER_STATUS) == SIMPLE_CPOINTERSTATUS_NOTCOPIED ) {
 				/* Mark C Pointer List As Copied */
-				simple_list_setint_gc(vm->sState,pList,SIMPLE_CPOINTER_STATUS,SIMPLE_CPOINTERSTATUS_COPIED);
+				simple_list_setint_gc(vm->sState,list,SIMPLE_CPOINTER_STATUS,SIMPLE_CPOINTERSTATUS_COPIED);
 				simple_list_setint_gc(vm->sState,pNewList,SIMPLE_CPOINTER_STATUS,SIMPLE_CPOINTERSTATUS_COPIED);
 				/* Add the pointer to the C Poiners List */
-				if ( simple_list_findpointer(vm->aCPointers,simple_list_getpointer(pList,SIMPLE_CPOINTER_POINTER)) == 0 ) {
-					simple_list_addpointer_gc(vm->sState,vm->aCPointers,simple_list_getpointer(pList,SIMPLE_CPOINTER_POINTER));
+				if ( simple_list_findpointer(vm->aCPointers,simple_list_getpointer(list,SIMPLE_CPOINTER_POINTER)) == 0 ) {
+					simple_list_addpointer_gc(vm->sState,vm->aCPointers,simple_list_getpointer(list,SIMPLE_CPOINTER_POINTER));
 				}
 			}
-			else if ( simple_list_getint(pList,SIMPLE_CPOINTER_STATUS) == SIMPLE_CPOINTERSTATUS_NOTASSIGNED ) {
+			else if ( simple_list_getint(list,SIMPLE_CPOINTER_STATUS) == SIMPLE_CPOINTERSTATUS_NOTASSIGNED ) {
 				/* Mark the C Pointer List as Not Copied */
-				simple_list_setint_gc(vm->sState,pList,SIMPLE_CPOINTER_STATUS,SIMPLE_CPOINTERSTATUS_NOTCOPIED);
+				simple_list_setint_gc(vm->sState,list,SIMPLE_CPOINTER_STATUS,SIMPLE_CPOINTERSTATUS_NOTCOPIED);
 				simple_list_setint_gc(vm->sState,pNewList,SIMPLE_CPOINTER_STATUS,SIMPLE_CPOINTERSTATUS_NOTCOPIED);
 			}
 		}
 	}
 }
 
-void simple_vm_list_simpointercopy ( VM *vm,List *pList )
+void simple_vm_list_simpointercopy ( VM *vm,List *list )
 {
 	int x  ;
-	assert(pList != NULL);
+	assert(list != NULL);
 	/* Copy Items */
-	if ( simple_list_getsize(pList) == 0 ) {
+	if ( simple_list_getsize(list) == 0 ) {
 		return ;
 	}
-	for ( x = 1 ; x <= simple_list_getsize(pList) ; x++ ) {
-		if ( simple_list_islist(pList,x) ) {
-			simple_vm_list_simpointercopy(vm,simple_list_getlist(pList,x));
+	for ( x = 1 ; x <= simple_list_getsize(list) ; x++ ) {
+		if ( simple_list_islist(list,x) ) {
+			simple_vm_list_simpointercopy(vm,simple_list_getlist(list,x));
 		}
 	}
 	/* Check if the List if a C Pointer List */
-	if ( simple_list_getsize(pList) == SIMPLE_CPOINTER_LISTSIZE ) {
-		if ( simple_list_ispointer(pList,SIMPLE_CPOINTER_POINTER)  && simple_list_isstring(pList,SIMPLE_CPOINTER_TYPE) && simple_list_isint(pList,SIMPLE_CPOINTER_STATUS) ) {
+	if ( simple_list_getsize(list) == SIMPLE_CPOINTER_LISTSIZE ) {
+		if ( simple_list_ispointer(list,SIMPLE_CPOINTER_POINTER)  && simple_list_isstring(list,SIMPLE_CPOINTER_TYPE) && simple_list_isint(list,SIMPLE_CPOINTER_STATUS) ) {
 			/* Check value to avoid adding the pointer to the C Pointer list again */
-			if ( simple_list_getint(pList,SIMPLE_CPOINTER_STATUS) == SIMPLE_CPOINTERSTATUS_NOTCOPIED ) {
+			if ( simple_list_getint(list,SIMPLE_CPOINTER_STATUS) == SIMPLE_CPOINTERSTATUS_NOTCOPIED ) {
 				/* Mark C Pointer List As Copied */
-				simple_list_setint_gc(vm->sState,pList,SIMPLE_CPOINTER_STATUS,SIMPLE_CPOINTERSTATUS_COPIED);
+				simple_list_setint_gc(vm->sState,list,SIMPLE_CPOINTER_STATUS,SIMPLE_CPOINTERSTATUS_COPIED);
 			}
-			else if ( simple_list_getint(pList,SIMPLE_CPOINTER_STATUS) == SIMPLE_CPOINTERSTATUS_NOTASSIGNED ) {
+			else if ( simple_list_getint(list,SIMPLE_CPOINTER_STATUS) == SIMPLE_CPOINTERSTATUS_NOTASSIGNED ) {
 				/* Mark the C Pointer List as Not Copied */
-				simple_list_setint_gc(vm->sState,pList,SIMPLE_CPOINTER_STATUS,SIMPLE_CPOINTERSTATUS_NOTCOPIED);
+				simple_list_setint_gc(vm->sState,list,SIMPLE_CPOINTER_STATUS,SIMPLE_CPOINTERSTATUS_NOTCOPIED);
 			}
 		}
 	}
@@ -464,13 +464,13 @@ void simple_vm_beforeequalitem ( VM *vm,Item *pItem,double nNum1 )
 
 void simple_vm_plusplus ( VM *vm )
 {
-	List *pList  ;
+	List *list  ;
 	Item *pItem  ;
 	if ( SIMPLE_VM_STACK_ISPOINTER ) {
 		if ( SIMPLE_VM_STACK_OBJTYPE == SIMPLE_OBJTYPE_VARIABLE ) {
-			pList = (List *) SIMPLE_VM_STACK_READP ;
-			if ( simple_list_isdouble(pList,SIMPLE_VAR_VALUE) ) {
-				simple_list_setdouble_gc(vm->sState,pList,SIMPLE_VAR_VALUE,simple_list_getdouble(pList,SIMPLE_VAR_VALUE)+1);
+			list = (List *) SIMPLE_VM_STACK_READP ;
+			if ( simple_list_isdouble(list,SIMPLE_VAR_VALUE) ) {
+				simple_list_setdouble_gc(vm->sState,list,SIMPLE_VAR_VALUE,simple_list_getdouble(list,SIMPLE_VAR_VALUE)+1);
 				return ;
 			}
 		}
@@ -491,13 +491,13 @@ void simple_vm_plusplus ( VM *vm )
 
 void simple_vm_minusminus ( VM *vm )
 {
-	List *pList  ;
+	List *list  ;
 	Item *pItem  ;
 	if ( SIMPLE_VM_STACK_ISPOINTER ) {
 		if ( SIMPLE_VM_STACK_OBJTYPE == SIMPLE_OBJTYPE_VARIABLE ) {
-			pList = (List *) SIMPLE_VM_STACK_READP ;
-			if ( simple_list_isdouble(pList,SIMPLE_VAR_VALUE) ) {
-				simple_list_setdouble_gc(vm->sState,pList,SIMPLE_VAR_VALUE,simple_list_getdouble(pList,SIMPLE_VAR_VALUE)-1);
+			list = (List *) SIMPLE_VM_STACK_READP ;
+			if ( simple_list_isdouble(list,SIMPLE_VAR_VALUE) ) {
+				simple_list_setdouble_gc(vm->sState,list,SIMPLE_VAR_VALUE,simple_list_getdouble(list,SIMPLE_VAR_VALUE)-1);
 				return ;
 			}
 		}
@@ -518,22 +518,22 @@ void simple_vm_minusminus ( VM *vm )
 
 void simple_vm_assignmentpointer ( VM *vm )
 {
-	List *pList, *pList2  ;
+	List *list, *list2  ;
 	Item *pItem  ;
 	int x  ;
 	if ( vm->nNOAssignment == 0 ) {
 		vm->pAssignment = SIMPLE_VM_STACK_READP ;
 		/* Check trying to change the self pointer */
-		pList = NULL ;
+		list = NULL ;
 		if ( SIMPLE_VM_STACK_OBJTYPE == SIMPLE_OBJTYPE_VARIABLE ) {
 			if ( simple_list_islist((List *) vm->pAssignment,SIMPLE_VAR_VALUE) ) {
-				pList = simple_list_getlist((List *) vm->pAssignment,SIMPLE_VAR_VALUE) ;
+				list = simple_list_getlist((List *) vm->pAssignment,SIMPLE_VAR_VALUE) ;
 			}
 		}
 		else if ( SIMPLE_VM_STACK_OBJTYPE == SIMPLE_OBJTYPE_LISTITEM ) {
 			pItem = (Item *) vm->pAssignment ;
 			if ( simple_item_gettype(pItem) == ITEMTYPE_LIST ) {
-				pList = simple_item_getlist(pItem) ;
+				list = simple_item_getlist(pItem) ;
 			}
 			else {
 				return ;
@@ -542,11 +542,11 @@ void simple_vm_assignmentpointer ( VM *vm )
 		else {
 			return ;
 		}
-		if ( simple_vm_oop_isobject(pList)  && (simple_list_getsize(vm->pObjState) > 0 ) ) {
+		if ( simple_vm_oop_isobject(list)  && (simple_list_getsize(vm->pObjState) > 0 ) ) {
 			/* We loop to prevent passing self to function that destory the self */
 			for ( x = 1 ; x <= simple_list_getsize(vm->pObjState) ; x++ ) {
-				pList2 = simple_list_getlist(vm->pObjState,x);
-				if ( simple_list_getpointer(pList,SIMPLE_OBJECT_OBJECTDATA) == simple_list_getpointer(pList2,SIMPLE_OBJSTATE_SCOPE) ) {
+				list2 = simple_list_getlist(vm->pObjState,x);
+				if ( simple_list_getpointer(list,SIMPLE_OBJECT_OBJECTDATA) == simple_list_getpointer(list2,SIMPLE_OBJSTATE_SCOPE) ) {
 					simple_vm_error(vm,SIMPLE_VM_ERROR_TRYINGTOMODIFYTHESELFPOINTER);
 					return ;
 				}

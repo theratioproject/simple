@@ -45,41 +45,41 @@ void simple_objfile_writefile ( SimpleState *sState )
 	fclose( fObj ) ;
 }
 
-void simple_objfile_writelist ( List *pList,FILE *fObj )
+void simple_objfile_writelist ( List *list,FILE *fObj )
 {
-	List *pList2  ;
+	List *list2  ;
 	int x,x2  ;
 	char *cString  ;
 	char cKey[11]  ;
 	strcpy(cKey,"ringstring");
 	fprintf( fObj , "{\n"  ) ;
 	/* Write List Items */
-	for ( x = 1 ; x <= simple_list_getsize(pList) ; x++ ) {
-		pList2 = simple_list_getlist(pList,x);
+	for ( x = 1 ; x <= simple_list_getsize(list) ; x++ ) {
+		list2 = simple_list_getlist(list,x);
 		fprintf( fObj , "[T]\n"  ) ;
-		for ( x2 = 1 ; x2 <= simple_list_getsize(pList2) ; x2++ ) {
-			if ( simple_list_isstring(pList2,x2) ) {
-				fprintf( fObj , "[S][%d]" , simple_list_getstringsize(pList2,x2) ) ;
+		for ( x2 = 1 ; x2 <= simple_list_getsize(list2) ; x2++ ) {
+			if ( simple_list_isstring(list2,x2) ) {
+				fprintf( fObj , "[S][%d]" , simple_list_getstringsize(list2,x2) ) ;
 				/* Encrypt String */
-				cString = simple_list_getstring(pList2,x2) ;
-				simple_objfile_xorstring(cString,simple_list_getstringsize(pList2,x2),cKey,10);
-				fwrite( simple_list_getstring(pList2,x2) , 1 , simple_list_getstringsize(pList2,x2) , fObj );
+				cString = simple_list_getstring(list2,x2) ;
+				simple_objfile_xorstring(cString,simple_list_getstringsize(list2,x2),cKey,10);
+				fwrite( simple_list_getstring(list2,x2) , 1 , simple_list_getstringsize(list2,x2) , fObj );
 				/* Decrypt String */
-				simple_objfile_xorstring(cString,simple_list_getstringsize(pList2,x2),cKey,10);
+				simple_objfile_xorstring(cString,simple_list_getstringsize(list2,x2),cKey,10);
 				fprintf( fObj , "\n"  ) ;
 			}
-			else if ( simple_list_isint(pList2,x2) ) {
-				fprintf( fObj , "[I]%d\n" , simple_list_getint(pList2,x2) ) ;
+			else if ( simple_list_isint(list2,x2) ) {
+				fprintf( fObj , "[I]%d\n" , simple_list_getint(list2,x2) ) ;
 			}
-			else if ( simple_list_isdouble(pList2,x2) ) {
-				fprintf( fObj , "[D]%f\n" , simple_list_getdouble(pList2,x2) ) ;
+			else if ( simple_list_isdouble(list2,x2) ) {
+				fprintf( fObj , "[D]%f\n" , simple_list_getdouble(list2,x2) ) ;
 			}
-			else if ( simple_list_ispointer(pList2,x2) ) {
-				fprintf( fObj , "[P]%p\n" , (void *) simple_list_getpointer(pList2,x2) ) ;
+			else if ( simple_list_ispointer(list2,x2) ) {
+				fprintf( fObj , "[P]%p\n" , (void *) simple_list_getpointer(list2,x2) ) ;
 			}
-			else if ( simple_list_islist(pList2,x2) ) {
+			else if ( simple_list_islist(list2,x2) ) {
 				fprintf( fObj , "[L]\n"  ) ;
-				simple_objfile_writelist(simple_list_getlist(pList2,x2) ,fObj);
+				simple_objfile_writelist(simple_list_getlist(list2,x2) ,fObj);
 			}
 		}
 		fprintf( fObj , "[E]\n"  ) ;
@@ -99,35 +99,35 @@ int simple_objfile_readstring ( SimpleState *sState,char *cString )
 
 int simple_objfile_readfromsource ( SimpleState *sState,char *cSource,int nSource )
 {
-	List *pListFunctions, *pListClasses, *pListModuless, *pListCode, *pListStack  ;
+	List *listFunctions, *listClasses, *listModuless, *listCode, *listStack  ;
 	/* Create Lists */
-	pListFunctions = simple_list_new_gc(sState,0);
-	pListClasses = simple_list_new_gc(sState,0);
-	pListModuless = simple_list_new_gc(sState,0);
-	pListCode = simple_list_new_gc(sState,0);
-	pListStack = simple_list_new_gc(sState,0);
+	listFunctions = simple_list_new_gc(sState,0);
+	listClasses = simple_list_new_gc(sState,0);
+	listModuless = simple_list_new_gc(sState,0);
+	listCode = simple_list_new_gc(sState,0);
+	listStack = simple_list_new_gc(sState,0);
 	/* Process Content (File or String) */
 	if ( nSource == SIMPLE_OBJFILE_READFROMFILE ) {
-		if ( ! simple_objfile_processfile(sState,cSource,pListFunctions, pListClasses, pListModuless, pListCode, pListStack) ) {
+		if ( ! simple_objfile_processfile(sState,cSource,listFunctions, listClasses, listModuless, listCode, listStack) ) {
 			return 0 ;
 		}
 	}
 	else if ( nSource ==SIMPLE_OBJFILE_READFROMSTRING ) {
-		if ( ! simple_objfile_processstring(sState,cSource,pListFunctions, pListClasses, pListModuless, pListCode, pListStack) ) {
+		if ( ! simple_objfile_processstring(sState,cSource,listFunctions, listClasses, listModuless, listCode, listStack) ) {
 			return 0 ;
 		}
 	}
-	simple_list_delete(pListStack);
+	simple_list_delete(listStack);
 	/* Update Simple State */
 	#ifdef DEBUG_OBJFILE
 	puts("Old Code List ");
 	simple_list_print(sState->pSimpleGenCode);
 	#endif
 	/* Update Lists */
-	sState->pSimpleFunctionsMap = pListFunctions ;
-	sState->pSimpleClassesMap = pListClasses ;
-	sState->pSimpleModulessMap = pListModuless ;
-	sState->pSimpleGenCode = pListCode ;
+	sState->pSimpleFunctionsMap = listFunctions ;
+	sState->pSimpleClassesMap = listClasses ;
+	sState->pSimpleModulessMap = listModuless ;
+	sState->pSimpleGenCode = listCode ;
 	#ifdef DEBUG_OBJFILE
 	puts("Update Done! ");
 	puts("New Code List ");
@@ -138,7 +138,7 @@ int simple_objfile_readfromsource ( SimpleState *sState,char *cSource,int nSourc
 	return 1 ;
 }
 
-int simple_objfile_processfile ( SimpleState *sState,char *cFileName,List *pListFunctions,List  *pListClasses,List  *pListModuless,List  *pListCode,List  *pListStack )
+int simple_objfile_processfile ( SimpleState *sState,char *cFileName,List *listFunctions,List  *listClasses,List  *listModuless,List  *listCode,List  *listStack )
 {
 	FILE *fObj;
 	signed char c  ;
@@ -148,11 +148,11 @@ int simple_objfile_processfile ( SimpleState *sState,char *cFileName,List *pList
 	char cKey[11]  ;
 	char cFileType[100]  ;
 	strcpy(cKey,"ringstring");
-	List *pList  ;
+	List *list  ;
 	/* Set Active List (1=functions 2=classes 3=moduless 4=code) */
 	nActiveList = 0 ;
 	nBraceEnd = 0 ;
-	pList = NULL ;
+	list = NULL ;
 	/* Open File */
 	fObj = fopen(cFileName , "rb" );
 	if ( fObj==NULL ) {
@@ -193,16 +193,16 @@ int simple_objfile_processfile ( SimpleState *sState,char *cFileName,List *pList
 				nActiveList++ ;
 				switch ( nActiveList ) {
 					case 1 :
-						pList = pListFunctions ;
+						list = listFunctions ;
 						break ;
 					case 2 :
-						pList = pListClasses ;
+						list = listClasses ;
 						break ;
 					case 3 :
-						pList = pListModuless ;
+						list = listModuless ;
 						break ;
 					case 4 :
-						pList = pListCode ;
+						list = listCode ;
 						break ;
 				}
 				break ;
@@ -217,7 +217,7 @@ int simple_objfile_processfile ( SimpleState *sState,char *cFileName,List *pList
 						cString[nValue] = '\0' ;
 						/* Decrypt String */
 						simple_objfile_xorstring(cString,nValue,cKey,10);
-						simple_list_addstring2_gc(sState,pList,cString,nValue);
+						simple_list_addstring2_gc(sState,list,cString,nValue);
 						simple_state_free(sState,cString);
 						#ifdef DEBUG_OBJFILE
 						printf( "Read String %s Size %d \n",cString,nValue ) ;
@@ -226,7 +226,7 @@ int simple_objfile_processfile ( SimpleState *sState,char *cFileName,List *pList
 					case 'I' :
 						c = getc(fObj);
 						fscanf( fObj , "%d" , &nValue ) ;
-						simple_list_addint_gc(sState,pList,nValue);
+						simple_list_addint_gc(sState,list,nValue);
 						#ifdef DEBUG_OBJFILE
 						printf( "Read Number %d \n  ",nValue ) ;
 						#endif
@@ -234,13 +234,13 @@ int simple_objfile_processfile ( SimpleState *sState,char *cFileName,List *pList
 					case 'D' :
 						c = getc(fObj);
 						fscanf( fObj , "%lf" , &dValue ) ;
-						simple_list_adddouble_gc(sState,pList,dValue);
+						simple_list_adddouble_gc(sState,list,dValue);
 						#ifdef DEBUG_OBJFILE
 						printf( "Read Double %d  \n",dValue ) ;
 						#endif
 						break ;
 					case 'P' :
-						simple_list_addpointer_gc(sState,pList,NULL);
+						simple_list_addpointer_gc(sState,list,NULL);
 						/* Read Line */
 						while ( c != '\n' ) {
 							c = getc(fObj);
@@ -250,8 +250,8 @@ int simple_objfile_processfile ( SimpleState *sState,char *cFileName,List *pList
 						#endif
 						break ;
 					case 'T' :
-						simple_list_addpointer_gc(sState,pListStack,pList);
-						pList = simple_list_newlist_gc(sState,pList);
+						simple_list_addpointer_gc(sState,listStack,list);
+						list = simple_list_newlist_gc(sState,list);
 						/* Read Line */
 						while ( c != '\n' ) {
 							c = getc(fObj);
@@ -261,8 +261,8 @@ int simple_objfile_processfile ( SimpleState *sState,char *cFileName,List *pList
 						#endif
 						break ;
 					case 'E' :
-						pList = (List *) simple_list_getpointer(pListStack,simple_list_getsize(pListStack)) ;
-						simple_list_deletelastitem(pListStack);
+						list = (List *) simple_list_getpointer(listStack,simple_list_getsize(listStack)) ;
+						simple_list_deletelastitem(listStack);
 						/* Read Line */
 						while ( c != '\n' ) {
 							c = getc(fObj);
@@ -276,8 +276,8 @@ int simple_objfile_processfile ( SimpleState *sState,char *cFileName,List *pList
 						while ( c != '{' ) {
 							c = getc(fObj);
 						}
-						simple_list_addpointer_gc(sState,pListStack,pList);
-						pList = simple_list_newlist_gc(sState,pList);
+						simple_list_addpointer_gc(sState,listStack,list);
+						list = simple_list_newlist_gc(sState,list);
 						nBraceEnd++ ;
 						#ifdef DEBUG_OBJFILE
 						puts("Read L ");
@@ -287,8 +287,8 @@ int simple_objfile_processfile ( SimpleState *sState,char *cFileName,List *pList
 				break ;
 			case '}' :
 				if ( nBraceEnd ) {
-					pList = (List *) simple_list_getpointer(pListStack,simple_list_getsize(pListStack)) ;
-					simple_list_deletelastitem(pListStack);
+					list = (List *) simple_list_getpointer(listStack,simple_list_getsize(listStack)) ;
+					simple_list_deletelastitem(listStack);
 					nBraceEnd-- ;
 					#ifdef DEBUG_OBJFILE
 					puts("Read } ");
@@ -303,7 +303,7 @@ int simple_objfile_processfile ( SimpleState *sState,char *cFileName,List *pList
 	return 1 ;
 }
 
-int simple_objfile_processstring ( SimpleState *sState,char *cContent,List *pListFunctions,List  *pListClasses,List  *pListModuless,List  *pListCode,List  *pListStack )
+int simple_objfile_processstring ( SimpleState *sState,char *cContent,List *listFunctions,List  *listClasses,List  *listModuless,List  *listCode,List  *listStack )
 {
 	signed char c  ;
 	int nActiveList,nValue,nBraceEnd  ;
@@ -312,11 +312,11 @@ int simple_objfile_processstring ( SimpleState *sState,char *cContent,List *pLis
 	char cKey[11]  ;
 	char cFileType[100]  ;
 	strcpy(cKey,"ringstring");
-	List *pList  ;
+	List *list  ;
 	/* Set Active List (1=functions 2=classes 3=moduless 4=code) */
 	nActiveList = 0 ;
 	nBraceEnd = 0 ;
-	pList = NULL ;
+	list = NULL ;
 	cData = cContent ;
 	/* Check Type and Version */
 	simple_objfile_readc(sState,&cData,cFileType,18);
@@ -353,16 +353,16 @@ int simple_objfile_processstring ( SimpleState *sState,char *cContent,List *pLis
 				nActiveList++ ;
 				switch ( nActiveList ) {
 					case 1 :
-						pList = pListFunctions ;
+						list = listFunctions ;
 						break ;
 					case 2 :
-						pList = pListClasses ;
+						list = listClasses ;
 						break ;
 					case 3 :
-						pList = pListModuless ;
+						list = listModuless ;
 						break ;
 					case 4 :
-						pList = pListCode ;
+						list = listCode ;
 						break ;
 				}
 				break ;
@@ -382,7 +382,7 @@ int simple_objfile_processstring ( SimpleState *sState,char *cContent,List *pLis
 						cString[nValue] = '\0' ;
 						/* Decrypt String */
 						simple_objfile_xorstring(cString,nValue,cKey,10);
-						simple_list_addstring2_gc(sState,pList,cString,nValue);
+						simple_list_addstring2_gc(sState,list,cString,nValue);
 						simple_state_free(sState,cString);
 						#ifdef DEBUG_OBJFILE
 						printf( "Read String %s Size %d \n",cString,nValue ) ;
@@ -397,7 +397,7 @@ int simple_objfile_processstring ( SimpleState *sState,char *cContent,List *pLis
 							c = simple_objfile_getc(sState,&cData);
 						}
 						cData-- ;
-						simple_list_addint_gc(sState,pList,nValue);
+						simple_list_addint_gc(sState,list,nValue);
 						#ifdef DEBUG_OBJFILE
 						printf( "Read Number %d \n  ",nValue ) ;
 						#endif
@@ -411,13 +411,13 @@ int simple_objfile_processstring ( SimpleState *sState,char *cContent,List *pLis
 							c = simple_objfile_getc(sState,&cData);
 						}
 						cData-- ;
-						simple_list_adddouble_gc(sState,pList,dValue);
+						simple_list_adddouble_gc(sState,list,dValue);
 						#ifdef DEBUG_OBJFILE
 						printf( "Read Double %d  \n",dValue ) ;
 						#endif
 						break ;
 					case 'P' :
-						simple_list_addpointer_gc(sState,pList,NULL);
+						simple_list_addpointer_gc(sState,list,NULL);
 						/* Read Line */
 						while ( c != '\n' ) {
 							c = simple_objfile_getc(sState,&cData);
@@ -427,8 +427,8 @@ int simple_objfile_processstring ( SimpleState *sState,char *cContent,List *pLis
 						#endif
 						break ;
 					case 'T' :
-						simple_list_addpointer_gc(sState,pListStack,pList);
-						pList = simple_list_newlist_gc(sState,pList);
+						simple_list_addpointer_gc(sState,listStack,list);
+						list = simple_list_newlist_gc(sState,list);
 						/* Read Line */
 						while ( c != '\n' ) {
 							c = simple_objfile_getc(sState,&cData);
@@ -438,8 +438,8 @@ int simple_objfile_processstring ( SimpleState *sState,char *cContent,List *pLis
 						#endif
 						break ;
 					case 'E' :
-						pList = (List *) simple_list_getpointer(pListStack,simple_list_getsize(pListStack)) ;
-						simple_list_deletelastitem(pListStack);
+						list = (List *) simple_list_getpointer(listStack,simple_list_getsize(listStack)) ;
+						simple_list_deletelastitem(listStack);
 						/* Read Line */
 						while ( c != '\n' ) {
 							c = simple_objfile_getc(sState,&cData);
@@ -453,8 +453,8 @@ int simple_objfile_processstring ( SimpleState *sState,char *cContent,List *pLis
 						while ( c != '{' ) {
 							c = simple_objfile_getc(sState,&cData);
 						}
-						simple_list_addpointer_gc(sState,pListStack,pList);
-						pList = simple_list_newlist_gc(sState,pList);
+						simple_list_addpointer_gc(sState,listStack,list);
+						list = simple_list_newlist_gc(sState,list);
 						nBraceEnd++ ;
 						#ifdef DEBUG_OBJFILE
 						puts("Read L ");
@@ -464,8 +464,8 @@ int simple_objfile_processstring ( SimpleState *sState,char *cContent,List *pLis
 				break ;
 			case '}' :
 				if ( nBraceEnd ) {
-					pList = (List *) simple_list_getpointer(pListStack,simple_list_getsize(pListStack)) ;
-					simple_list_deletelastitem(pListStack);
+					list = (List *) simple_list_getpointer(listStack,simple_list_getsize(listStack)) ;
+					simple_list_deletelastitem(listStack);
 					nBraceEnd-- ;
 					#ifdef DEBUG_OBJFILE
 					puts("Read } ");
@@ -481,21 +481,21 @@ int simple_objfile_processstring ( SimpleState *sState,char *cContent,List *pLis
 void simple_objfile_updateclassespointers ( SimpleState *sState )
 {
 	int x,x2,x3,x4,lFound  ;
-	List *pList, *pList2, *pList3  ;
+	List *list, *list2, *list3  ;
 	const char *cString  ;
 	char cModulesName[400]  ;
 	char cClassName[400]  ;
 	/* Update Class Pointer in Code */
 	lFound = 0 ;
 	for ( x = 1 ; x <= simple_list_getsize(sState->pSimpleGenCode) ; x++ ) {
-		pList = simple_list_getlist(sState->pSimpleGenCode,x);
-		if ( simple_list_getint(pList,1) == ICO_NEWCLASS ) {
-			cString = simple_list_getstring(pList,2);
+		list = simple_list_getlist(sState->pSimpleGenCode,x);
+		if ( simple_list_getint(list,1) == ICO_NEWCLASS ) {
+			cString = simple_list_getstring(list,2);
 			for ( x2 = 1 ; x2 <= simple_list_getsize(sState->pSimpleClassesMap) ; x2++ ) {
-				pList2 = simple_list_getlist(sState->pSimpleClassesMap,x2);
-				if ( strcmp(cString,simple_list_getstring(pList2,1)) == 0 ) {
+				list2 = simple_list_getlist(sState->pSimpleClassesMap,x2);
+				if ( strcmp(cString,simple_list_getstring(list2,1)) == 0 ) {
 					lFound = 0 ;
-					simple_list_setpointer_gc(sState,pList,3,pList2);
+					simple_list_setpointer_gc(sState,list,3,list2);
 					#ifdef DEBUG_OBJFILE
 					puts("Pointer Updated ");
 					#endif
@@ -504,7 +504,7 @@ void simple_objfile_updateclassespointers ( SimpleState *sState )
 			}
 			/* If we can't find the list (the class is inside a modules) */
 			if ( lFound == 0 ) {
-				simple_list_setpointer_gc(sState,pList,3,NULL);
+				simple_list_setpointer_gc(sState,list,3,NULL);
 			}
 		}
 	}
@@ -513,13 +513,13 @@ void simple_objfile_updateclassespointers ( SimpleState *sState )
 	**  This updates works when the class name is : modulesname.classname 
 	*/
 	for ( x = 1 ; x <= simple_list_getsize(sState->pSimpleClassesMap) ; x++ ) {
-		pList = simple_list_getlist(sState->pSimpleClassesMap,x);
-		cString = simple_list_getstring(pList,1);
-		if ( simple_list_getstringsize(pList,1)  > 400 ) {
+		list = simple_list_getlist(sState->pSimpleClassesMap,x);
+		cString = simple_list_getstring(list,1);
+		if ( simple_list_getstringsize(list,1)  > 400 ) {
 			/* Avoid large names - we have limits (400 letters per modules name - 400 letters for class name) */
 			continue ;
 		}
-		for ( x2 = simple_list_getstringsize(pList,1) - 1 ; x2 >= 0 ; x2-- ) {
+		for ( x2 = simple_list_getstringsize(list,1) - 1 ; x2 >= 0 ; x2-- ) {
 			if ( cString[x2] == '.' ) {
 				/*
 				**  Now we have a class name stored as modulesname.classname 
@@ -533,24 +533,24 @@ void simple_objfile_updateclassespointers ( SimpleState *sState )
 				printf( "Modules Name %s \n  ",cModulesName ) ;
 				#endif
 				/* Get Class Name */
-				for ( x3 = x2+1 ; x3 <= simple_list_getstringsize(pList,1) - 1 ; x3++ ) {
+				for ( x3 = x2+1 ; x3 <= simple_list_getstringsize(list,1) - 1 ; x3++ ) {
 					cClassName[x3-x2-1] = cString[x3] ;
 				}
-				cClassName[simple_list_getstringsize(pList,1) - 1 - x2] = '\0' ;
+				cClassName[simple_list_getstringsize(list,1) - 1 - x2] = '\0' ;
 				#ifdef DEBUG_OBJFILE
 				printf( "Class Name %s \n  ",cClassName ) ;
 				#endif
 				/* Get The Modules List */
 				for ( x3 = 1 ; x3 <= simple_list_getsize(sState->pSimpleModulessMap) ; x3++ ) {
-					pList2 = simple_list_getlist(sState->pSimpleModulessMap,x3);
-					if ( strcmp(simple_list_getstring(pList2,1),cModulesName) == 0 ) {
+					list2 = simple_list_getlist(sState->pSimpleModulessMap,x3);
+					if ( strcmp(simple_list_getstring(list2,1),cModulesName) == 0 ) {
 						/* Get The Class List */
-						pList2 = simple_list_getlist(pList2,2);
-						for ( x4 = 1 ; x4 <= simple_list_getsize(pList2) ; x4++ ) {
-							pList3 = simple_list_getlist(pList2,x4);
-							if ( strcmp(simple_list_getstring(pList3,1),cClassName) == 0 ) {
+						list2 = simple_list_getlist(list2,2);
+						for ( x4 = 1 ; x4 <= simple_list_getsize(list2) ; x4++ ) {
+							list3 = simple_list_getlist(list2,x4);
+							if ( strcmp(simple_list_getstring(list3,1),cClassName) == 0 ) {
 								/* Now We have the Class - Update Pointer */
-								simple_list_setpointer_gc(sState,pList,2,(void *) pList3);
+								simple_list_setpointer_gc(sState,list,2,(void *) list3);
 								break ;
 							}
 						}
@@ -562,12 +562,12 @@ void simple_objfile_updateclassespointers ( SimpleState *sState )
 	}
 	/* Update Modules Pointers in Moduless Classes */
 	for ( x = 1 ; x <= simple_list_getsize(sState->pSimpleModulessMap) ; x++ ) {
-		pList = simple_list_getlist(sState->pSimpleModulessMap,x);
+		list = simple_list_getlist(sState->pSimpleModulessMap,x);
 		/* Get The Class List */
-		pList2 = simple_list_getlist(pList,2);
-		for ( x2 = 1 ; x2 <= simple_list_getsize(pList2) ; x2++ ) {
-			pList3 = simple_list_getlist(pList2,x2);
-			simple_list_setpointer_gc(sState,pList3,SIMPLE_CLASSMAP_POINTERTOMODULE,pList);
+		list2 = simple_list_getlist(list,2);
+		for ( x2 = 1 ; x2 <= simple_list_getsize(list2) ; x2++ ) {
+			list3 = simple_list_getlist(list2,x2);
+			simple_list_setpointer_gc(sState,list3,SIMPLE_CLASSMAP_POINTERTOMODULE,list);
 		}
 	}
 }

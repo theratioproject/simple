@@ -626,7 +626,7 @@ int simple_parser_range ( Parser *parser )
 int simple_parser_factor ( Parser *parser,int *nFlag )
 {
 	int x,x2,x3,nLastOperation,nCount,nNOOP,nToken,nMark  ;
-	List *pLoadAPos, *pList, *pMark  ;
+	List *pLoadAPos, *list, *pMark  ;
 	char lSetProperty,lequal,nBeforeEqual  ;
 	char cFuncName[100]  ;
 	char cKeyword[100]  ;
@@ -660,7 +660,7 @@ int simple_parser_factor ( Parser *parser,int *nFlag )
 		**  Save State before changes by Check Operator 
 		*/
 		nLastOperation = simple_parser_icg_getlastoperation(parser) ;
-		pList = simple_parser_icg_getactiveoperation(parser) ;
+		list = simple_parser_icg_getactiveoperation(parser) ;
 		/* Check Operator */
 		lequal = 1 ;
 		if ( simple_parser_isoperator2(parser,OP_EQUAL) ) {
@@ -711,7 +711,7 @@ int simple_parser_factor ( Parser *parser,int *nFlag )
 				lSetProperty = 0 ;
 				/* When the assignment is after LoadAddress */
 				if ( nLastOperation == ICO_LOADADDRESS ) {
-					pLoadAPos = pList ;
+					pLoadAPos = list ;
 				}
 			}
 			/* Generate Code */
@@ -1019,12 +1019,12 @@ int simple_parser_factor ( Parser *parser,int *nFlag )
 		simple_parser_icg_newoperation(parser,ICO_JUMP);
 		pMark = simple_parser_icg_getactiveoperation(parser);
 		/* Define the Function - as public (not related to any class) */
-		pList = simple_list_newlist_gc(parser->sState,parser->sState->pSimpleFunctionsMap);
-		simple_list_addstring_gc(parser->sState,pList,cFuncName);
+		list = simple_list_newlist_gc(parser->sState,parser->sState->pSimpleFunctionsMap);
+		simple_list_addstring_gc(parser->sState,list,cFuncName);
 		/* Note +1 because instruction ICO_NEWBLOCK will come next */
-		simple_list_addint_gc(parser->sState,pList,SIMPLE_PARSER_OPERATIONID+1);
-		simple_list_addstring_gc(parser->sState,pList,simple_list_getstring(parser->sState->pSimpleFilesStack,simple_list_getsize(parser->sState->pSimpleFilesStack)));
-		simple_list_addint_gc(parser->sState,pList,0);
+		simple_list_addint_gc(parser->sState,list,SIMPLE_PARSER_OPERATIONID+1);
+		simple_list_addstring_gc(parser->sState,list,simple_list_getstring(parser->sState->pSimpleFilesStack,simple_list_getsize(parser->sState->pSimpleFilesStack)));
+		simple_list_addint_gc(parser->sState,list,0);
 		simple_parser_icg_newoperation(parser,ICO_NEWBLOCK);
 		simple_parser_icg_newoperand(parser,cFuncName);
 		/* Get Function Parameters */

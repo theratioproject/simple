@@ -17,13 +17,13 @@
 
 SIMPLE_API void register_block_t ( SimpleState *sState,const char *cStr, void (*pFunc)(void *) )
 {
-	List *pList  ;
+	List *list  ;
 	if ( sState->pSimpleCFunctions == NULL ) {
 		sState->pSimpleCFunctions = simple_list_new_gc(sState,0);
 	}
-	pList = simple_list_newlist_gc(sState,sState->pSimpleCFunctions);
-	simple_list_addstring_gc(sState,pList,cStr);
-	simple_list_addfuncpointer_gc(sState,pList,pFunc);
+	list = simple_list_newlist_gc(sState,sState->pSimpleCFunctions);
+	simple_list_addstring_gc(sState,list,cStr);
+	simple_list_addfuncpointer_gc(sState,list,pFunc);
 }
 
 SIMPLE_API void loadcfunctions ( SimpleState *sState )
@@ -143,12 +143,12 @@ SIMPLE_API List * simple_vm_api_getlist ( void *pPointer,int x )
 {
 	int nType  ;
 	Item *pItem  ;
-	List *pList  ;
+	List *list  ;
 	if ( SIMPLE_API_ISPOINTER(x) ) {
 		nType = SIMPLE_API_GETPOINTERTYPE(x);
 		if ( nType == SIMPLE_OBJTYPE_VARIABLE ) {
-			pList = (List *) SIMPLE_API_GETPOINTER(x) ;
-			return simple_list_getlist(pList,3) ;
+			list = (List *) SIMPLE_API_GETPOINTER(x) ;
+			return simple_list_getlist(list,3) ;
 		}
 		else if ( nType == SIMPLE_OBJTYPE_LISTITEM ) {
 			pItem = (Item *) SIMPLE_API_GETPOINTER(x) ;
@@ -158,68 +158,68 @@ SIMPLE_API List * simple_vm_api_getlist ( void *pPointer,int x )
 	return NULL ;
 }
 
-SIMPLE_API void simple_vm_api_retlist ( void *pPointer,List *pList )
+SIMPLE_API void simple_vm_api_retlist ( void *pPointer,List *list )
 {
-	List *pList2,*pList3  ;
+	List *list2,*list3  ;
 	VM *vm  ;
 	vm = (VM *) pPointer ;
-	pList2 = simple_list_getlist(vm->pMem,simple_list_getsize(vm->pMem)-1);
-	pList3 = simple_vm_newvar2(vm,SIMPLE_TEMP_VARIABLE,pList2);
-	simple_list_setint_gc(((VM *) pPointer)->sState,pList3,SIMPLE_VAR_TYPE,SIMPLE_VM_LIST);
-	simple_list_setlist_gc(((VM *) pPointer)->sState,pList3,SIMPLE_VAR_VALUE);
-	pList2 = simple_list_getlist(pList3,SIMPLE_VAR_VALUE);
+	list2 = simple_list_getlist(vm->pMem,simple_list_getsize(vm->pMem)-1);
+	list3 = simple_vm_newvar2(vm,SIMPLE_TEMP_VARIABLE,list2);
+	simple_list_setint_gc(((VM *) pPointer)->sState,list3,SIMPLE_VAR_TYPE,SIMPLE_VM_LIST);
+	simple_list_setlist_gc(((VM *) pPointer)->sState,list3,SIMPLE_VAR_VALUE);
+	list2 = simple_list_getlist(list3,SIMPLE_VAR_VALUE);
 	/* Copy the list */
-	simple_list_copy(pList2,pList);
-	SIMPLE_API_PUSHPVALUE(pList3);
+	simple_list_copy(list2,list);
+	SIMPLE_API_PUSHPVALUE(list3);
 	SIMPLE_API_OBJTYPE = SIMPLE_OBJTYPE_VARIABLE ;
 }
 
 SIMPLE_API List * simple_vm_api_newlist ( VM *vm )
 {
-	List *pList  ;
-	pList = simple_list_newlist_gc(vm->sState,vm->pActiveMem);
-	return pList ;
+	List *list  ;
+	list = simple_list_newlist_gc(vm->sState,vm->pActiveMem);
+	return list ;
 }
 
 SIMPLE_API void simple_vm_api_retcpointer ( void *pPointer,void *pGeneral,const char *cType )
 {
-	List *pList  ;
+	List *list  ;
 	/* Create the list */
-	pList = SIMPLE_API_NEWLIST ;
+	list = SIMPLE_API_NEWLIST ;
 	/* The variable value will be a list contains the pointer */
-	simple_list_addpointer_gc(((VM *) pPointer)->sState,pList,pGeneral);
+	simple_list_addpointer_gc(((VM *) pPointer)->sState,list,pGeneral);
 	/* Add the pointer type */
-	simple_list_addstring_gc(((VM *) pPointer)->sState,pList,cType);
+	simple_list_addstring_gc(((VM *) pPointer)->sState,list,cType);
 	/* Add the status number ( 0 = Not Copied ,1 = Copied  2 = Not Assigned yet) */
-	simple_list_addint_gc(((VM *) pPointer)->sState,pList,2);
-	SIMPLE_API_RETLIST(pList);
+	simple_list_addint_gc(((VM *) pPointer)->sState,list,2);
+	SIMPLE_API_RETLIST(list);
 }
 
 SIMPLE_API void * simple_vm_api_getcpointer ( void *pPointer,int x,const char *cType )
 {
-	List *pList, *pList2  ;
+	List *list, *list2  ;
 	int y  ;
 	if ( SIMPLE_API_ISLIST(x) ) {
-		pList = SIMPLE_API_GETLIST(x) ;
-		if ( simple_list_ispointer(pList,1) ) {
-			if ( simple_list_getpointer(pList,1) != NULL ) {
-				if ( (strcmp(simple_list_getstring(pList,2),cType) == 0) || (((VM *) pPointer)->nIgnoreCPointerTypeCheck==1) ) {
+		list = SIMPLE_API_GETLIST(x) ;
+		if ( simple_list_ispointer(list,1) ) {
+			if ( simple_list_getpointer(list,1) != NULL ) {
+				if ( (strcmp(simple_list_getstring(list,2),cType) == 0) || (((VM *) pPointer)->nIgnoreCPointerTypeCheck==1) ) {
 					/*
 					**  Check if the pointer is copied or not 
 					**  We check for 2 (not assigned) also, happens when f1 ( x , f2() ) and f2 return C pointer 
 					*/
-					if ( (simple_list_getint(pList,3) == 0) || (simple_list_getint(pList,3) == 2) ) {
-						return simple_list_getpointer(pList,1) ;
+					if ( (simple_list_getint(list,3) == 0) || (simple_list_getint(list,3) == 2) ) {
+						return simple_list_getpointer(list,1) ;
 					}
-					pList2 = ((VM *) pPointer)->aCPointers ;
-					if ( simple_list_getsize(pList2) > 0 ) {
-						for ( y = 1 ; y <= simple_list_getsize(pList2) ; y++ ) {
-							if ( simple_list_getpointer(pList,1) == simple_list_getpointer(pList2,y) ) {
-								return simple_list_getpointer(pList,1) ;
+					list2 = ((VM *) pPointer)->aCPointers ;
+					if ( simple_list_getsize(list2) > 0 ) {
+						for ( y = 1 ; y <= simple_list_getsize(list2) ; y++ ) {
+							if ( simple_list_getpointer(list,1) == simple_list_getpointer(list2,y) ) {
+								return simple_list_getpointer(list,1) ;
 							}
 						}
 					}
-					simple_list_setpointer_gc(((VM *) pPointer)->sState,pList,1,NULL);
+					simple_list_setpointer_gc(((VM *) pPointer)->sState,list,1,NULL);
 					SIMPLE_API_ERROR(SIMPLE_API_NULLPOINTER);
 					return NULL ;
 				}
@@ -227,7 +227,7 @@ SIMPLE_API void * simple_vm_api_getcpointer ( void *pPointer,int x,const char *c
 				return NULL ;
 			}
 			else {
-				if ( strcmp(simple_list_getstring(pList,2),"NULLPOINTER") == 0 ) {
+				if ( strcmp(simple_list_getstring(list,2),"NULLPOINTER") == 0 ) {
 					return NULL ;
 				}
 			}
@@ -241,20 +241,20 @@ SIMPLE_API void * simple_vm_api_getcpointer ( void *pPointer,int x,const char *c
 
 SIMPLE_API void simple_vm_api_setcpointernull ( void *pPointer,int x )
 {
-	List *pList, *pList2  ;
+	List *list, *list2  ;
 	int y  ;
-	pList = (List *) SIMPLE_API_GETLIST(x) ;
+	list = (List *) SIMPLE_API_GETLIST(x) ;
 	/* Check pointer status ( 0 = copied , 1 = Not copied ) */
-	if ( simple_list_getint(pList,3) == 0 ) {
-		simple_list_setpointer_gc(((VM *) pPointer)->sState,pList,1,NULL);
+	if ( simple_list_getint(list,3) == 0 ) {
+		simple_list_setpointer_gc(((VM *) pPointer)->sState,list,1,NULL);
 		return ;
 	}
-	pList2 = ((VM *) pPointer)->aCPointers ;
-	if ( simple_list_getsize(pList2) > 0 ) {
-		for ( y = simple_list_getsize(pList2) ; y >= 1 ; y-- ) {
-			if ( simple_list_getpointer(pList,1) == simple_list_getpointer(pList2,y) ) {
-				simple_list_deleteitem_gc(((VM *) pPointer)->sState,pList2,y);
-				simple_list_setpointer_gc(((VM *) pPointer)->sState,pList,1,NULL);
+	list2 = ((VM *) pPointer)->aCPointers ;
+	if ( simple_list_getsize(list2) > 0 ) {
+		for ( y = simple_list_getsize(list2) ; y >= 1 ; y-- ) {
+			if ( simple_list_getpointer(list,1) == simple_list_getpointer(list2,y) ) {
+				simple_list_deleteitem_gc(((VM *) pPointer)->sState,list2,y);
+				simple_list_setpointer_gc(((VM *) pPointer)->sState,list,1,NULL);
 			}
 		}
 	}
@@ -263,7 +263,7 @@ SIMPLE_API void simple_vm_api_setcpointernull ( void *pPointer,int x )
 SIMPLE_API void * simple_vm_api_varptr ( void *pPointer,const char  *cStr,const char *cStr2 )
 {
 	VM *vm  ;
-	List *pList, *pActiveMem  ;
+	List *list, *pActiveMem  ;
 	Item *pItem  ;
 	/*
 	**  Usage 
@@ -282,10 +282,10 @@ SIMPLE_API void * simple_vm_api_varptr ( void *pPointer,const char  *cStr,const 
 	}
 	/* Restore the Active Scope */
 	vm->pActiveMem = pActiveMem ;
-	pList = (List *) SIMPLE_VM_STACK_READP ;
+	list = (List *) SIMPLE_VM_STACK_READP ;
 	SIMPLE_VM_STACK_POP ;
-	if ( simple_list_getint(pList,SIMPLE_VAR_TYPE) == SIMPLE_VM_NUMBER ) {
-		pItem = simple_list_getitem(pList,SIMPLE_VAR_VALUE);
+	if ( simple_list_getint(list,SIMPLE_VAR_TYPE) == SIMPLE_VM_NUMBER ) {
+		pItem = simple_list_getitem(list,SIMPLE_VAR_VALUE);
 		if ( strcmp(cStr2,"double") == 0 ) {
 			return &(pItem->data.dNumber) ;
 		}
@@ -293,8 +293,8 @@ SIMPLE_API void * simple_vm_api_varptr ( void *pPointer,const char  *cStr,const 
 			return &(pItem->data.iNumber) ;
 		}
 	}
-	else if ( simple_list_getint(pList,SIMPLE_VAR_TYPE) == SIMPLE_VM_STRING ) {
-		pItem = simple_list_getitem(pList,SIMPLE_VAR_VALUE);
+	else if ( simple_list_getint(list,SIMPLE_VAR_TYPE) == SIMPLE_VM_STRING ) {
+		pItem = simple_list_getitem(list,SIMPLE_VAR_VALUE);
 		return pItem->data.pString->cStr ;
 	}
 	return NULL ;
@@ -303,7 +303,7 @@ SIMPLE_API void * simple_vm_api_varptr ( void *pPointer,const char  *cStr,const 
 SIMPLE_API void simple_vm_api_intvalue ( void *pPointer,const char  *cStr )
 {
 	VM *vm  ;
-	List *pList  ;
+	List *list  ;
 	Item *pItem  ;
 	/*
 	**  Usage 
@@ -316,33 +316,33 @@ SIMPLE_API void simple_vm_api_intvalue ( void *pPointer,const char  *cStr )
 		SIMPLE_API_ERROR(SIMPLE_VM_ERROR_NOTVARIABLE);
 		return ;
 	}
-	pList = (List *) SIMPLE_VM_STACK_READP ;
+	list = (List *) SIMPLE_VM_STACK_READP ;
 	SIMPLE_VM_STACK_POP ;
-	if ( simple_list_getint(pList,SIMPLE_VAR_TYPE) == SIMPLE_VM_NUMBER ) {
-		pItem = simple_list_getitem(pList,SIMPLE_VAR_VALUE);
+	if ( simple_list_getint(list,SIMPLE_VAR_TYPE) == SIMPLE_VM_NUMBER ) {
+		pItem = simple_list_getitem(list,SIMPLE_VAR_VALUE);
 		pItem->data.dNumber = (double) pItem->data.iNumber ;
 	}
 }
 
-SIMPLE_API void simple_list_addcpointer ( List *pList,void *pGeneral,const char *cType )
+SIMPLE_API void simple_list_addcpointer ( List *list,void *pGeneral,const char *cType )
 {
-	List *pList2  ;
+	List *list2  ;
 	/* create sub list */
-	pList2 = simple_list_newlist(pList);
+	list2 = simple_list_newlist(list);
 	/* The variable value will be a list contains the pointer */
-	simple_list_addpointer(pList2,pGeneral);
+	simple_list_addpointer(list2,pGeneral);
 	/* Add the pointer type */
-	simple_list_addstring(pList2,cType);
+	simple_list_addstring(list2,cType);
 	/* Add the status number ( 0 = Not Copied ,1 = Copied  2 = Not Assigned yet) */
-	simple_list_addint(pList2,2);
+	simple_list_addint(list2,2);
 }
 
-SIMPLE_API int simple_vm_api_iscpointerlist ( List *pList )
+SIMPLE_API int simple_vm_api_iscpointerlist ( List *list )
 {
-	if ( simple_list_getsize(pList) != 3 ) {
+	if ( simple_list_getsize(list) != 3 ) {
 		return 0 ;
 	}
-	if ( simple_list_ispointer(pList,1) && simple_list_isstring(pList,2) && simple_list_isnumber(pList,3) ) {
+	if ( simple_list_ispointer(list,1) && simple_list_isstring(list,2) && simple_list_isnumber(list,3) ) {
 		return 1 ;
 	}
 	return 0 ;
@@ -364,9 +364,9 @@ SIMPLE_API int simple_vm_api_isobject ( void *pPointer,int x )
 	return 0 ;
 }
 
-SIMPLE_API int simple_vm_api_cpointercmp ( List *pList,List *pList2 )
+SIMPLE_API int simple_vm_api_cpointercmp ( List *list,List *list2 )
 {
-	if ( simple_list_getpointer(pList,SIMPLE_CPOINTER_POINTER) == simple_list_getpointer(pList2,SIMPLE_CPOINTER_POINTER) ) {
+	if ( simple_list_getpointer(list,SIMPLE_CPOINTER_POINTER) == simple_list_getpointer(list2,SIMPLE_CPOINTER_POINTER) ) {
 		return 1 ;
 	}
 	else {
@@ -376,31 +376,31 @@ SIMPLE_API int simple_vm_api_cpointercmp ( List *pList,List *pList2 )
 
 SIMPLE_API int simple_vm_api_ispointer ( void *pPointer,int x )
 {
-	List *pList, *pList2  ;
+	List *list, *list2  ;
 	VM *vm  ;
 	Item *pItem  ;
 	vm = (VM *) pPointer ;
-	pList = simple_list_getlist(SIMPLE_API_PARALIST,x) ;
-	if ( simple_list_ispointer(pList,SIMPLE_VAR_VALUE) ) {
+	list = simple_list_getlist(SIMPLE_API_PARALIST,x) ;
+	if ( simple_list_ispointer(list,SIMPLE_VAR_VALUE) ) {
 		return 1 ;
 	}
-	else if ( simple_list_isstring(pList,SIMPLE_VAR_VALUE) ) {
+	else if ( simple_list_isstring(list,SIMPLE_VAR_VALUE) ) {
 		/* Treat NULL Strings as NULL Pointers - so we can use NULL instead of NULLPOINTER() */
-		if ( strcmp(simple_list_getstring(pList,SIMPLE_VAR_VALUE),"") == 0 ) {
+		if ( strcmp(simple_list_getstring(list,SIMPLE_VAR_VALUE),"") == 0 ) {
 			/* Create the list for the NULL Pointer */
-			simple_list_setint_gc(((VM *) pPointer)->sState,pList,SIMPLE_VAR_TYPE,SIMPLE_VM_POINTER);
-			pList2 = SIMPLE_API_NEWLIST ;
+			simple_list_setint_gc(((VM *) pPointer)->sState,list,SIMPLE_VAR_TYPE,SIMPLE_VM_POINTER);
+			list2 = SIMPLE_API_NEWLIST ;
 			pItem = simple_list_getitem(vm->pActiveMem,simple_list_getsize(vm->pActiveMem));
 			/* Increase the References count for the item */
 			simple_vm_gc_newitemreference(pItem);
-			simple_list_setpointer_gc(((VM *) pPointer)->sState,pList,SIMPLE_VAR_VALUE,pItem);
-			simple_list_setint_gc(((VM *) pPointer)->sState,pList,SIMPLE_VAR_PVALUETYPE,SIMPLE_OBJTYPE_LISTITEM);
+			simple_list_setpointer_gc(((VM *) pPointer)->sState,list,SIMPLE_VAR_VALUE,pItem);
+			simple_list_setint_gc(((VM *) pPointer)->sState,list,SIMPLE_VAR_PVALUETYPE,SIMPLE_OBJTYPE_LISTITEM);
 			/* The variable value will be a list contains the pointer */
-			simple_list_addpointer_gc(((VM *) pPointer)->sState,pList2,NULL);
+			simple_list_addpointer_gc(((VM *) pPointer)->sState,list2,NULL);
 			/* Add the pointer type */
-			simple_list_addstring_gc(((VM *) pPointer)->sState,pList2,"NULLPOINTER");
+			simple_list_addstring_gc(((VM *) pPointer)->sState,list2,"NULLPOINTER");
 			/* Add the status number ( 0 = Not Copied ,1 = Copied  2 = Not Assigned yet) */
-			simple_list_addint_gc(((VM *) pPointer)->sState,pList2,2);
+			simple_list_addint_gc(((VM *) pPointer)->sState,list2,2);
 			return 1 ;
 		}
 	}
@@ -409,32 +409,32 @@ SIMPLE_API int simple_vm_api_ispointer ( void *pPointer,int x )
 
 SIMPLE_API void * simple_vm_api_getcpointer2pointer ( void *pPointer,int x,const char *cType )
 {
-	List *pList, *pList2  ;
+	List *list, *list2  ;
 	int y  ;
 	Item *pItem  ;
 	if ( SIMPLE_API_ISLIST(x) ) {
-		pList = SIMPLE_API_GETLIST(x) ;
-		if ( simple_list_ispointer(pList,1) ) {
-			if ( simple_list_getpointer(pList,1) != NULL ) {
-				if ( (strcmp(simple_list_getstring(pList,2),cType) == 0) || (((VM *) pPointer)->nIgnoreCPointerTypeCheck==1) ) {
+		list = SIMPLE_API_GETLIST(x) ;
+		if ( simple_list_ispointer(list,1) ) {
+			if ( simple_list_getpointer(list,1) != NULL ) {
+				if ( (strcmp(simple_list_getstring(list,2),cType) == 0) || (((VM *) pPointer)->nIgnoreCPointerTypeCheck==1) ) {
 					/*
 					**  Check if the pointer is copied or not 
 					**  We check for 2 (not assigned) also, happens when f1 ( x , f2() ) and f2 return C pointer 
 					*/
-					if ( (simple_list_getint(pList,3) == 0) || (simple_list_getint(pList,3) == 2) ) {
-						pItem = simple_list_getitem(pList,1);
+					if ( (simple_list_getint(list,3) == 0) || (simple_list_getint(list,3) == 2) ) {
+						pItem = simple_list_getitem(list,1);
 						return & (pItem->data.pPointer) ;
 					}
-					pList2 = ((VM *) pPointer)->aCPointers ;
-					if ( simple_list_getsize(pList2) > 0 ) {
-						for ( y = 1 ; y <= simple_list_getsize(pList2) ; y++ ) {
-							if ( simple_list_getpointer(pList,1) == simple_list_getpointer(pList2,y) ) {
-								pItem = simple_list_getitem(pList,1);
+					list2 = ((VM *) pPointer)->aCPointers ;
+					if ( simple_list_getsize(list2) > 0 ) {
+						for ( y = 1 ; y <= simple_list_getsize(list2) ; y++ ) {
+							if ( simple_list_getpointer(list,1) == simple_list_getpointer(list2,y) ) {
+								pItem = simple_list_getitem(list,1);
 								return & (pItem->data.pPointer) ;
 							}
 						}
 					}
-					simple_list_setpointer_gc(((VM *) pPointer)->sState,pList,1,NULL);
+					simple_list_setpointer_gc(((VM *) pPointer)->sState,list,1,NULL);
 					SIMPLE_API_ERROR(SIMPLE_API_NULLPOINTER);
 					return NULL ;
 				}
@@ -442,7 +442,7 @@ SIMPLE_API void * simple_vm_api_getcpointer2pointer ( void *pPointer,int x,const
 				return NULL ;
 			}
 			else {
-				if ( strcmp(simple_list_getstring(pList,2),"NULLPOINTER") == 0 ) {
+				if ( strcmp(simple_list_getstring(list,2),"NULLPOINTER") == 0 ) {
 					return NULL ;
 				}
 			}
@@ -454,17 +454,17 @@ SIMPLE_API void * simple_vm_api_getcpointer2pointer ( void *pPointer,int x,const
 	return NULL ;
 }
 
-SIMPLE_API void simple_list_addcpointer_gc ( void *pState,List *pList,void *pGeneral,const char *cType )
+SIMPLE_API void simple_list_addcpointer_gc ( void *pState,List *list,void *pGeneral,const char *cType )
 {
-	List *pList2  ;
+	List *list2  ;
 	/* create sub list */
-	pList2 = simple_list_newlist_gc(pState,pList);
+	list2 = simple_list_newlist_gc(pState,list);
 	/* The variable value will be a list contains the pointer */
-	simple_list_addpointer_gc(pState,pList2,pGeneral);
+	simple_list_addpointer_gc(pState,list2,pGeneral);
 	/* Add the pointer type */
-	simple_list_addstring_gc(pState,pList2,cType);
+	simple_list_addstring_gc(pState,list2,cType);
 	/* Add the status number ( 0 = Not Copied ,1 = Copied  2 = Not Assigned yet) */
-	simple_list_addint_gc(pState,pList2,2);
+	simple_list_addint_gc(pState,list2,2);
 }
 /*
 **  Library 
@@ -499,7 +499,7 @@ void simple_vmlib_len ( void *pPointer )
 
 void simple_vmlib_add ( void *pPointer )
 {
-	List *pList,*pList2  ;
+	List *list,*list2  ;
 	VM *vm  ;
 	vm = (VM *) pPointer ;
 	if ( SIMPLE_API_PARACOUNT != 2 ) {
@@ -507,18 +507,18 @@ void simple_vmlib_add ( void *pPointer )
 		return ;
 	}
 	if ( SIMPLE_API_ISLIST(1) ) {
-		pList = SIMPLE_API_GETLIST(1) ;
+		list = SIMPLE_API_GETLIST(1) ;
 		if ( SIMPLE_API_ISSTRING(2) ) {
-			simple_list_addstring2_gc(vm->sState,pList,SIMPLE_API_GETSTRING(2),SIMPLE_API_GETSTRINGSIZE(2));
+			simple_list_addstring2_gc(vm->sState,list,SIMPLE_API_GETSTRING(2),SIMPLE_API_GETSTRINGSIZE(2));
 			SIMPLE_API_RETSTRING2(SIMPLE_API_GETSTRING(2),SIMPLE_API_GETSTRINGSIZE(2));
 		}
 		else if ( SIMPLE_API_ISNUMBER(2) ) {
-			simple_list_adddouble_gc(vm->sState,pList,SIMPLE_API_GETNUMBER(2));
+			simple_list_adddouble_gc(vm->sState,list,SIMPLE_API_GETNUMBER(2));
 			SIMPLE_API_RETNUMBER(SIMPLE_API_GETNUMBER(2));
 		}
 		else if ( SIMPLE_API_ISLIST(2) ) {
-			pList2 = SIMPLE_API_GETLIST(2) ;
-			simple_vm_addlisttolist(vm,pList2,pList);
+			list2 = SIMPLE_API_GETLIST(2) ;
+			simple_vm_addlisttolist(vm,list2,list);
 		}
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
@@ -527,21 +527,21 @@ void simple_vmlib_add ( void *pPointer )
 
 void simple_vmlib_del ( void *pPointer )
 {
-	List *pList  ;
+	List *list  ;
 	double nNum1  ;
 	if ( SIMPLE_API_PARACOUNT != 2 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
 		return ;
 	}
 	if ( SIMPLE_API_ISLIST(1) ) {
-		pList = SIMPLE_API_GETLIST(1) ;
+		list = SIMPLE_API_GETLIST(1) ;
 		if ( SIMPLE_API_ISNUMBER(2) ) {
 			nNum1 = SIMPLE_API_GETNUMBER(2) ;
-			if ( ( nNum1 < 1 ) || ( nNum1 > simple_list_getsize(pList) ) ) {
+			if ( ( nNum1 < 1 ) || ( nNum1 > simple_list_getsize(list) ) ) {
 				SIMPLE_API_ERROR("Error in second parameter, item number outside the list size range!");
 				return ;
 			}
-			simple_list_deleteitem_gc(((VM *) pPointer)->sState,pList,nNum1);
+			simple_list_deleteitem_gc(((VM *) pPointer)->sState,list,nNum1);
 		} else {
 			SIMPLE_API_ERROR("Error in second parameter, Function requires number!");
 			return ;
@@ -677,7 +677,7 @@ void simple_vmlib_filename ( void *pPointer )
 {
 	VM *vm  ;
 	int nPos  ;
-	List *pList  ;
+	List *list  ;
 	vm = (VM *) pPointer ;
 	if ( vm->nInClassRegion ) {
 		SIMPLE_API_RETSTRING(vm->cFileNameInClassRegion);
@@ -690,9 +690,9 @@ void simple_vmlib_filename ( void *pPointer )
 		*/
 		nPos = simple_list_getsize(vm->pFuncCallList)  -  (vm->nFuncExecute2 - 1) ;
 		if ( (nPos > 0) && (nPos <= simple_list_getsize(vm->pFuncCallList)) ) {
-			pList = simple_list_getlist(vm->pFuncCallList,nPos);
-			if ( simple_list_getsize(pList) >= SIMPLE_BLOCKCL_FILENAME ) {
-				SIMPLE_API_RETSTRING((char *) simple_list_getpointer(pList,SIMPLE_BLOCKCL_FILENAME ));
+			list = simple_list_getlist(vm->pFuncCallList,nPos);
+			if ( simple_list_getsize(list) >= SIMPLE_BLOCKCL_FILENAME ) {
+				SIMPLE_API_RETSTRING((char *) simple_list_getpointer(list,SIMPLE_BLOCKCL_FILENAME ));
 			}
 		}
 		return ;
@@ -749,8 +749,8 @@ void simple_vmlib_timelist ( void *pPointer )
 	time_t timer  ;
 	char buffer[25]  ;
 	struct tm*tm_info  ;
-	List *pList  ;
-	pList = SIMPLE_API_NEWLIST ;
+	List *list  ;
+	list = SIMPLE_API_NEWLIST ;
 	time(&timer);
 	tm_info = localtime(&timer);
 	/*
@@ -758,68 +758,68 @@ void simple_vmlib_timelist ( void *pPointer )
 	**  abbreviated weekday name 
 	*/
 	strftime(buffer,25,"%a", tm_info);
-	simple_list_addstring_gc(((VM *) pPointer)->sState,pList,buffer);
+	simple_list_addstring_gc(((VM *) pPointer)->sState,list,buffer);
 	/* full weekday name */
 	strftime(buffer,25,"%A", tm_info);
-	simple_list_addstring_gc(((VM *) pPointer)->sState,pList,buffer);
+	simple_list_addstring_gc(((VM *) pPointer)->sState,list,buffer);
 	/* abbreviated month name */
 	strftime(buffer,25,"%b", tm_info);
-	simple_list_addstring_gc(((VM *) pPointer)->sState,pList,buffer);
+	simple_list_addstring_gc(((VM *) pPointer)->sState,list,buffer);
 	/* full month name */
 	strftime(buffer,25,"%B", tm_info);
-	simple_list_addstring_gc(((VM *) pPointer)->sState,pList,buffer);
+	simple_list_addstring_gc(((VM *) pPointer)->sState,list,buffer);
 	/* Date & Time */
 	strftime(buffer,25,"%c", tm_info);
-	simple_list_addstring_gc(((VM *) pPointer)->sState,pList,buffer);
+	simple_list_addstring_gc(((VM *) pPointer)->sState,list,buffer);
 	/* Day of the month */
 	strftime(buffer,25,"%d", tm_info);
-	simple_list_addstring_gc(((VM *) pPointer)->sState,pList,buffer);
+	simple_list_addstring_gc(((VM *) pPointer)->sState,list,buffer);
 	/* Hour (24) */
 	strftime(buffer,25,"%H", tm_info);
-	simple_list_addstring_gc(((VM *) pPointer)->sState,pList,buffer);
+	simple_list_addstring_gc(((VM *) pPointer)->sState,list,buffer);
 	/* Hour (12) */
 	strftime(buffer,25,"%I", tm_info);
-	simple_list_addstring_gc(((VM *) pPointer)->sState,pList,buffer);
+	simple_list_addstring_gc(((VM *) pPointer)->sState,list,buffer);
 	/* Day of the year */
 	strftime(buffer,25,"%j", tm_info);
-	simple_list_addstring_gc(((VM *) pPointer)->sState,pList,buffer);
+	simple_list_addstring_gc(((VM *) pPointer)->sState,list,buffer);
 	/* Month of the year */
 	strftime(buffer,25,"%m", tm_info);
-	simple_list_addstring_gc(((VM *) pPointer)->sState,pList,buffer);
+	simple_list_addstring_gc(((VM *) pPointer)->sState,list,buffer);
 	/* Minutes after hour */
 	strftime(buffer,25,"%M", tm_info);
-	simple_list_addstring_gc(((VM *) pPointer)->sState,pList,buffer);
+	simple_list_addstring_gc(((VM *) pPointer)->sState,list,buffer);
 	/* AM or PM */
 	strftime(buffer,25,"%p", tm_info);
-	simple_list_addstring_gc(((VM *) pPointer)->sState,pList,buffer);
+	simple_list_addstring_gc(((VM *) pPointer)->sState,list,buffer);
 	/* Seconds after the hour */
 	strftime(buffer,25,"%S", tm_info);
-	simple_list_addstring_gc(((VM *) pPointer)->sState,pList,buffer);
+	simple_list_addstring_gc(((VM *) pPointer)->sState,list,buffer);
 	/* Week of the year (sun-sat) */
 	strftime(buffer,25,"%U", tm_info);
-	simple_list_addstring_gc(((VM *) pPointer)->sState,pList,buffer);
+	simple_list_addstring_gc(((VM *) pPointer)->sState,list,buffer);
 	/* day of the week */
 	strftime(buffer,25,"%w", tm_info);
-	simple_list_addstring_gc(((VM *) pPointer)->sState,pList,buffer);
+	simple_list_addstring_gc(((VM *) pPointer)->sState,list,buffer);
 	/* date */
 	strftime(buffer,25,"%x", tm_info);
-	simple_list_addstring_gc(((VM *) pPointer)->sState,pList,buffer);
+	simple_list_addstring_gc(((VM *) pPointer)->sState,list,buffer);
 	/* time */
 	strftime(buffer,25,"%X", tm_info);
-	simple_list_addstring_gc(((VM *) pPointer)->sState,pList,buffer);
+	simple_list_addstring_gc(((VM *) pPointer)->sState,list,buffer);
 	/* year of the century */
 	strftime(buffer,25,"%y", tm_info);
-	simple_list_addstring_gc(((VM *) pPointer)->sState,pList,buffer);
+	simple_list_addstring_gc(((VM *) pPointer)->sState,list,buffer);
 	/* year */
 	strftime(buffer,25,"%Y", tm_info);
-	simple_list_addstring_gc(((VM *) pPointer)->sState,pList,buffer);
+	simple_list_addstring_gc(((VM *) pPointer)->sState,list,buffer);
 	/* time zone */
 	strftime(buffer,25,"%Z", tm_info);
-	simple_list_addstring_gc(((VM *) pPointer)->sState,pList,buffer);
+	simple_list_addstring_gc(((VM *) pPointer)->sState,list,buffer);
 	/* percent sign */
 	strftime(buffer,25,"%%", tm_info);
-	simple_list_addstring_gc(((VM *) pPointer)->sState,pList,buffer);
-	SIMPLE_API_RETLIST(pList);
+	simple_list_addstring_gc(((VM *) pPointer)->sState,list,buffer);
+	SIMPLE_API_RETLIST(list);
 }
 
 void simple_vmlib_adddays ( void *pPointer )
@@ -986,20 +986,20 @@ int simple_vmlib_adddays_isleapyear ( int nYear )
 
 void simple_vmlib_swap ( void *pPointer )
 {
-	List *pList  ;
+	List *list  ;
 	int nNum1,nNum2,nSize  ;
 	if ( SIMPLE_API_PARACOUNT != 3 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS3PARA);
 		return ;
 	}
 	if ( SIMPLE_API_ISLIST(1) ) {
-		pList = SIMPLE_API_GETLIST(1) ;
+		list = SIMPLE_API_GETLIST(1) ;
 		if ( SIMPLE_API_ISNUMBER(2)  && SIMPLE_API_ISNUMBER(3) ) {
 			nNum1 = (int) SIMPLE_API_GETNUMBER(2) ;
 			nNum2 = (int) SIMPLE_API_GETNUMBER(3) ;
-			nSize = simple_list_getsize(pList);
+			nSize = simple_list_getsize(list);
 			if ( (nNum1 > 0) && (nNum2 > 0) && (nNum1!= nNum2) && (nNum1<= nSize) && (nNum2 <= nSize) ) {
-				simple_list_swap(pList,nNum1, nNum2);
+				simple_list_swap(list,nNum1, nNum2);
 			} else {
 				SIMPLE_API_ERROR(SIMPLE_API_BADPARARANGE);
 			}
@@ -1066,7 +1066,7 @@ void simple_vmlib_islist ( void *pPointer )
 
 void simple_vmlib_type ( void *pPointer )
 {
-	List *pList  ;
+	List *list  ;
 	if ( SIMPLE_API_PARACOUNT != 1 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
 		return ;
@@ -1079,8 +1079,8 @@ void simple_vmlib_type ( void *pPointer )
 		SIMPLE_API_RETSTRING("NUMBER");
 	}
 	else if ( SIMPLE_API_ISCPOINTER(1) ) {
-		pList = SIMPLE_API_GETLIST(1) ;
-		SIMPLE_API_RETSTRING(simple_list_getstring(pList,SIMPLE_CPOINTER_TYPE));
+		list = SIMPLE_API_GETLIST(1) ;
+		SIMPLE_API_RETSTRING(simple_list_getstring(list,SIMPLE_CPOINTER_TYPE));
 	}
 	else if ( SIMPLE_API_ISOBJECT(1) ) {
 		SIMPLE_API_RETSTRING("OBJECT");
@@ -1276,7 +1276,7 @@ void simple_vmlib_str2list ( void *pPointer )
 {
 	char *cStr  ;
 	int x,nSize,nStart  ;
-	List *pList  ;
+	List *list  ;
 	if ( SIMPLE_API_PARACOUNT != 1 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
 		return ;
@@ -1285,26 +1285,26 @@ void simple_vmlib_str2list ( void *pPointer )
 		cStr = SIMPLE_API_GETSTRING(1) ;
 		nSize = SIMPLE_API_GETSTRINGSIZE(1) ;
 		nStart = 0 ;
-		pList = SIMPLE_API_NEWLIST ;
+		list = SIMPLE_API_NEWLIST ;
 		for ( x = 0 ; x < nSize ; x++ ) {
 			if ( cStr[x] == '\n' ) {
 				if ( x > nStart ) {
 					if ( cStr[x-1] == '\r' ) {
-						simple_list_addstring2_gc(((VM *) pPointer)->sState,pList,cStr+nStart,x-nStart-1);
+						simple_list_addstring2_gc(((VM *) pPointer)->sState,list,cStr+nStart,x-nStart-1);
 					}
 					else {
-						simple_list_addstring2_gc(((VM *) pPointer)->sState,pList,cStr+nStart,x-nStart);
+						simple_list_addstring2_gc(((VM *) pPointer)->sState,list,cStr+nStart,x-nStart);
 					}
 				} else {
-					simple_list_addstring_gc(((VM *) pPointer)->sState,pList,"");
+					simple_list_addstring_gc(((VM *) pPointer)->sState,list,"");
 				}
 				nStart = x+1 ;
 			}
 		}
 		if ( nSize > nStart ) {
-			simple_list_addstring2_gc(((VM *) pPointer)->sState,pList,cStr+nStart,nSize-nStart);
+			simple_list_addstring2_gc(((VM *) pPointer)->sState,list,cStr+nStart,nSize-nStart);
 		}
-		SIMPLE_API_RETLIST(pList);
+		SIMPLE_API_RETLIST(list);
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
@@ -1312,7 +1312,7 @@ void simple_vmlib_str2list ( void *pPointer )
 
 void simple_vmlib_list2str ( void *pPointer )
 {
-	List *pList  ;
+	List *list  ;
 	String *pString  ;
 	int x  ;
 	char cStr[100]  ;
@@ -1321,20 +1321,20 @@ void simple_vmlib_list2str ( void *pPointer )
 		return ;
 	}
 	if ( SIMPLE_API_ISLIST(1) ) {
-		pList = SIMPLE_API_GETLIST(1) ;
+		list = SIMPLE_API_GETLIST(1) ;
 		pString = simple_string_new_gc(((VM *) pPointer)->sState,"");
-		for ( x = 1 ; x <= simple_list_getsize(pList) ; x++ ) {
-			if ( simple_list_isstring(pList,x) ) {
+		for ( x = 1 ; x <= simple_list_getsize(list) ; x++ ) {
+			if ( simple_list_isstring(list,x) ) {
 				if ( x != 1 ) {
 					simple_string_add_gc(((VM *) pPointer)->sState,pString,"\n");
 				}
-				simple_string_add_gc(((VM *) pPointer)->sState,pString,simple_list_getstring(pList,x));
+				simple_string_add_gc(((VM *) pPointer)->sState,pString,simple_list_getstring(list,x));
 			}
-			else if ( simple_list_isnumber(pList,x) ) {
+			else if ( simple_list_isnumber(list,x) ) {
 				if ( x != 1 ) {
 					simple_string_add_gc(((VM *) pPointer)->sState,pString,"\n");
 				}
-				simple_vm_numtostring((VM *) pPointer,simple_list_getdouble(pList,x) ,cStr);
+				simple_vm_numtostring((VM *) pPointer,simple_list_getdouble(list,x) ,cStr);
 				simple_string_add_gc(((VM *) pPointer)->sState,pString,cStr);
 			}
 		}
@@ -1858,7 +1858,7 @@ void simple_vmlib_isxdigit ( void *pPointer )
 
 void simple_vmlib_callgc ( void *pPointer )
 {
-	simple_vm_gc_deletetemplists((VM *) pPointer);
+	simple_vm_gc_deletetemlists((VM *) pPointer);
 }
 
 void simple_vmlib_varptr ( void *pPointer )
@@ -1894,7 +1894,7 @@ void simple_vmlib_intvalue ( void *pPointer )
 
 void simple_vmlib_object2pointer ( void *pPointer )
 {
-	List *pList  ;
+	List *list  ;
 	if ( SIMPLE_API_PARACOUNT != 1 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
 		return ;
@@ -1902,8 +1902,8 @@ void simple_vmlib_object2pointer ( void *pPointer )
 	if ( ! SIMPLE_API_ISLIST(1) ) {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
-	pList = SIMPLE_API_GETLIST(1) ;
-	SIMPLE_API_RETCPOINTER((void *) pList,"OBJECTPOINTER");
+	list = SIMPLE_API_GETLIST(1) ;
+	SIMPLE_API_RETCPOINTER((void *) list,"OBJECTPOINTER");
 }
 
 void simple_vmlib_pointer2object ( void *pPointer )
@@ -1941,15 +1941,15 @@ void simple_vmlib_space ( void *pPointer )
 
 void simple_vmlib_ptrcmp ( void *pPointer )
 {
-	List *pList, *pList2  ;
+	List *list, *list2  ;
 	if ( SIMPLE_API_PARACOUNT != 2 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
 		return ;
 	}
 	if ( SIMPLE_API_ISCPOINTER(1) && SIMPLE_API_ISCPOINTER(2) ) {
-		pList = SIMPLE_API_GETLIST(1) ;
-		pList2 = SIMPLE_API_GETLIST(2) ;
-		SIMPLE_API_RETNUMBER(simple_vm_api_cpointercmp(pList,pList2));
+		list = SIMPLE_API_GETLIST(1) ;
+		list2 = SIMPLE_API_GETLIST(2) ;
+		SIMPLE_API_RETNUMBER(simple_vm_api_cpointercmp(list,list2));
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
@@ -1990,24 +1990,24 @@ void simple_vmlib_state_runfile ( void *pPointer )
 
 void simple_vmlib_state_findvar ( void *pPointer )
 {
-	List *pList  ;
+	List *list  ;
 	if ( SIMPLE_API_PARACOUNT != 2 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
 		return ;
 	}
-	pList = simple_state_findvar((SimpleState *) SIMPLE_API_GETCPOINTER(1,"SIMPLESTATE"),SIMPLE_API_GETSTRING(2));
-	SIMPLE_API_RETLIST(pList);
+	list = simple_state_findvar((SimpleState *) SIMPLE_API_GETCPOINTER(1,"SIMPLESTATE"),SIMPLE_API_GETSTRING(2));
+	SIMPLE_API_RETLIST(list);
 }
 
 void simple_vmlib_state_newvar ( void *pPointer )
 {
-	List *pList  ;
+	List *list  ;
 	if ( SIMPLE_API_PARACOUNT != 2 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
 		return ;
 	}
-	pList = simple_state_newvar((SimpleState *) SIMPLE_API_GETCPOINTER(1,"SIMPLESTATE"),SIMPLE_API_GETSTRING(2));
-	SIMPLE_API_RETLIST(pList);
+	list = simple_state_newvar((SimpleState *) SIMPLE_API_GETCPOINTER(1,"SIMPLESTATE"),SIMPLE_API_GETSTRING(2));
+	SIMPLE_API_RETLIST(list);
 }
 
 void simple_vmlib_state_runobjectfile ( void *pPointer )
@@ -2037,33 +2037,33 @@ void simple_vmlib_state_main ( void *pPointer )
 
 void simple_vmlib_state_setvar ( void *pPointer )
 {
-	List *pList, *pList2, *pList3  ;
+	List *list, *list2, *list3  ;
 	VM *vm  ;
 	vm = (VM *) pPointer ;
 	if ( SIMPLE_API_PARACOUNT != 3 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS3PARA);
 		return ;
 	}
-	pList = simple_state_findvar((SimpleState *) SIMPLE_API_GETCPOINTER(1,"SIMPLESTATE"),SIMPLE_API_GETSTRING(2));
+	list = simple_state_findvar((SimpleState *) SIMPLE_API_GETCPOINTER(1,"SIMPLESTATE"),SIMPLE_API_GETSTRING(2));
 	/* Check Variable before usage */
-	if ( pList==NULL ) {
+	if ( list==NULL ) {
 		SIMPLE_API_ERROR("Variable doesn't exist!");
 		return ;
 	}
 	if ( SIMPLE_API_ISSTRING(3) ) {
-		simple_list_setint_gc(vm->sState,pList, SIMPLE_VAR_TYPE ,SIMPLE_VM_STRING);
-		simple_list_setstring2_gc(vm->sState,pList, SIMPLE_VAR_VALUE , SIMPLE_API_GETSTRING(3),SIMPLE_API_GETSTRINGSIZE(3));
+		simple_list_setint_gc(vm->sState,list, SIMPLE_VAR_TYPE ,SIMPLE_VM_STRING);
+		simple_list_setstring2_gc(vm->sState,list, SIMPLE_VAR_VALUE , SIMPLE_API_GETSTRING(3),SIMPLE_API_GETSTRINGSIZE(3));
 	}
 	else if ( SIMPLE_API_ISNUMBER(3) ) {
-		simple_list_setint_gc(vm->sState,pList, SIMPLE_VAR_TYPE ,SIMPLE_VM_NUMBER);
-		simple_list_setdouble_gc(vm->sState,pList, SIMPLE_VAR_VALUE ,SIMPLE_API_GETNUMBER(3));
+		simple_list_setint_gc(vm->sState,list, SIMPLE_VAR_TYPE ,SIMPLE_VM_NUMBER);
+		simple_list_setdouble_gc(vm->sState,list, SIMPLE_VAR_VALUE ,SIMPLE_API_GETNUMBER(3));
 	}
 	else if ( SIMPLE_API_ISLIST(3) ) {
-		pList2 = SIMPLE_API_GETLIST(3) ;
-		simple_list_setint_gc(vm->sState,pList, SIMPLE_VAR_TYPE ,SIMPLE_VM_LIST);
-		simple_list_setlist_gc(vm->sState,pList, SIMPLE_VAR_VALUE);
-		pList3 = simple_list_getlist(pList,SIMPLE_VAR_VALUE);
-		simple_list_copy(pList3,pList2);
+		list2 = SIMPLE_API_GETLIST(3) ;
+		simple_list_setint_gc(vm->sState,list, SIMPLE_VAR_TYPE ,SIMPLE_VM_LIST);
+		simple_list_setlist_gc(vm->sState,list, SIMPLE_VAR_VALUE);
+		list3 = simple_list_getlist(list,SIMPLE_VAR_VALUE);
+		simple_list_copy(list3,list2);
 	}
 }
 

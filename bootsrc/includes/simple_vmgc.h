@@ -21,13 +21,13 @@ void simple_vm_gc_checkreferences ( VM *vm ) ;
 
 void simple_vm_gc_checknewreference ( void *pPointer,int nType ) ;
 
-void simple_vm_gc_checkupdatereference ( List *pList ) ;
+void simple_vm_gc_checkupdatereference ( List *list ) ;
 
 void simple_vm_gc_deleteitem ( Item *pItem ) ;
 
 void simple_vm_gc_killreference ( VM *vm ) ;
 
-void simple_vm_gc_deletetemplists ( VM *vm ) ;
+void simple_vm_gc_deletetemlists ( VM *vm ) ;
 
 void simple_vm_gc_newitemreference ( Item *pItem ) ;
 /* Memory Functions (General) */

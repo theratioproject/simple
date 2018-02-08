@@ -69,19 +69,19 @@ void simple_vm_stsimple_index ( VM *vm, String *pString, double nNum1 )
 
 void simple_vm_try ( VM *vm )
 {
-	List *pList  ;
-	pList = simple_list_newlist_gc(vm->sState,vm->pTry);
-	simple_list_addint_gc(vm->sState,pList,SIMPLE_VM_IR_READI);
-	simple_vm_savestate(vm,pList);
+	List *list  ;
+	list = simple_list_newlist_gc(vm->sState,vm->pTry);
+	simple_list_addint_gc(vm->sState,list,SIMPLE_VM_IR_READI);
+	simple_vm_savestate(vm,list);
 	vm->nActiveCatch = 0 ;
 }
 
 void simple_vm_catch ( VM *vm,const char *cError )
 {
-	List *pList  ;
-	pList = simple_list_getlist(vm->pTry,simple_list_getsize(vm->pTry));
-	vm->nPC = simple_list_getint(pList,1) ;
-	simple_vm_restorestate(vm,pList,2,SIMPLE_STATE_TRYCATCH);
+	List *list  ;
+	list = simple_list_getlist(vm->pTry,simple_list_getsize(vm->pTry));
+	vm->nPC = simple_list_getint(list,1) ;
+	simple_vm_restorestate(vm,list,2,SIMPLE_STATE_TRYCATCH);
 	/* Define variable __err__ to contain the error message */
 	simple_list_setstsimple_gc(vm->sState,simple_list_getlist(simple_vm_getglobalscope(vm),6),3,cError);
 	/* Tell C-API caller (CALL command) that catch happens! */

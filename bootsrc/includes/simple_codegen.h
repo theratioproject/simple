@@ -163,13 +163,13 @@ void simple_parser_icg_newoperandpointer ( Parser *parser , void *pValue ) ;
 
 List * simple_parser_icg_getactiveoperation ( Parser *parser ) ;
 
-void simple_parser_icg_addoperand ( Parser *parser ,List *pList , const char *cStr ) ;
+void simple_parser_icg_addoperand ( Parser *parser ,List *list , const char *cStr ) ;
 
-void simple_parser_icg_addoperandint ( Parser *parser ,List *pList , int nValue ) ;
+void simple_parser_icg_addoperandint ( Parser *parser ,List *list , int nValue ) ;
 
-void simple_parser_icg_addoperandpointer ( Parser *parser ,List *pList , void *pValue ) ;
+void simple_parser_icg_addoperandpointer ( Parser *parser ,List *list , void *pValue ) ;
 
-void simple_parser_icg_showoutput ( List *pListGenCode,int nStatus ) ;
+void simple_parser_icg_showoutput ( List *listGenCode,int nStatus ) ;
 
 Items * simple_parser_icg_getoperationpos ( Parser *parser ) ;
 
