@@ -139,7 +139,7 @@ int simple_vm_api_islist ( void *pPointer,int x )
 	return 0 ;
 }
 
-SIMPLE_API List * simple_vm_api_getlist ( void *pPointer,int x )
+SIMPLE_API List * api_get_list ( void *pPointer,int x )
 {
 	int nType  ;
 	Item *pItem  ;

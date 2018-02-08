@@ -24,7 +24,7 @@ SIMPLE_API void register_block_t ( SimpleState *sState,const char *cStr, void (*
 
 SIMPLE_API void loadcfunctions ( SimpleState *sState ) ;
 
-SIMPLE_API List * simple_vm_api_getlist ( void *pPointer,int x ) ;
+SIMPLE_API List * api_get_list ( void *pPointer,int x ) ;
 
 int simple_vm_api_islist ( void *pPointer,int x ) ;
 
@@ -248,7 +248,7 @@ void simple_vmlib_give ( void *pPointer ) ;
 #define SIMPLE_API_GETPOINTERTYPE(x) (simple_list_getint(simple_list_getlist(SIMPLE_API_PARALIST,x),4))
 #define SIMPLE_API_ERROR(x) (simple_vm_error((VM *) pPointer,x))
 #define SIMPLE_API_ISLIST(x) (simple_vm_api_islist((VM *) pPointer,x))
-#define SIMPLE_API_GETLIST(x) (simple_vm_api_getlist((VM *) pPointer,x))
+#define SIMPLE_API_GETLIST(x) (api_get_list((VM *) pPointer,x))
 #define SIMPLE_API_RETNUMBER(x) ((VM *) pPointer)->nSP++ ; simple_itemarray_setdouble(((VM *) pPointer)->aStack, ((VM *) pPointer)->nSP , x)
 #define SIMPLE_API_RETSTRING(x) ((VM *) pPointer)->nSP++ ; simple_itemarray_setstring(((VM *) pPointer)->aStack, ((VM *) pPointer)->nSP, x)
 #define SIMPLE_API_RETSTRING2(x,y) ((VM *) pPointer)->nSP++ ; simple_itemarray_setstring2(((VM *) pPointer)->aStack, ((VM *) pPointer)->nSP, x,y)
