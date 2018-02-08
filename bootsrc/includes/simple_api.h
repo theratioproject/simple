@@ -52,7 +52,7 @@ SIMPLE_API int api_is_object ( void *pPointer,int x ) ;
 
 SIMPLE_API int api_cpointer_cmp ( List *list,List *list2 ) ;
 
-SIMPLE_API int simple_vm_api_ispointer ( void *pPointer,int x ) ;
+SIMPLE_API int api_is_pointer ( void *pPointer,int x ) ;
 
 SIMPLE_API void * api_get_cpointer2pointer ( void *pPointer,int x,const char *cType ) ;
 
@@ -244,7 +244,7 @@ void simple_vmlib_give ( void *pPointer ) ;
 #define SIMPLE_API_GETPOINTER(x) (simple_list_getpointer(simple_list_getlist(SIMPLE_API_PARALIST,x),3))
 #define SIMPLE_API_ISSTRING(x) (simple_list_isstring(simple_list_getlist(SIMPLE_API_PARALIST,x),3))
 #define SIMPLE_API_ISNUMBER(x) (simple_list_isnumber(simple_list_getlist(SIMPLE_API_PARALIST,x),3))
-#define SIMPLE_API_ISPOINTER(x) (simple_vm_api_ispointer((VM *) pPointer,x))
+#define SIMPLE_API_ISPOINTER(x) (api_is_pointer((VM *) pPointer,x))
 #define SIMPLE_API_GETPOINTERTYPE(x) (simple_list_getint(simple_list_getlist(SIMPLE_API_PARALIST,x),4))
 #define SIMPLE_API_ERROR(x) (simple_vm_error((VM *) pPointer,x))
 #define SIMPLE_API_ISLIST(x) (api_is_list((VM *) pPointer,x))
