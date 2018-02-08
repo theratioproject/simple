@@ -25,11 +25,11 @@ int accept_token_token( Parser *parser, SCANNER_OPERATOR nType ) {
 	}
 }
 
-int simple_parser_start ( List *pTokens,SimpleState *pSimpleState )
+int simple_parser_start ( List *pTokens,SimpleState *state )
 {
 	Parser *parser  ;
 	int nResult,SimpleActiveFile  ;
-	parser = simple_parser_new(pTokens,pSimpleState);
+	parser = simple_parser_new(pTokens,state);
 	#if SIMPLE_PARSERSTART
 	/* Parse Tokens */
 	simple_parser_nexttoken(parser);
@@ -45,10 +45,10 @@ int simple_parser_start ( List *pTokens,SimpleState *pSimpleState )
 		}
 	} while (parser->ActiveToken !=parser->TokensCount)  ;
 	/* Display Errors Count */
-	SimpleActiveFile = simple_list_getsize(parser->pSimpleState->pSimpleFilesStack);
+	SimpleActiveFile = simple_list_getsize(parser->state->pSimpleFilesStack);
 	if ( parser->nErrorsCount == 0 ) {
 		#if SIMPLE_PARSERFINAL
-		printf( "\n%s compiling done, no errors.\n",simple_list_getstring(parser->pSimpleState->pSimpleFilesStack,SimpleActiveFile) ) ;
+		printf( "\n%s compiling done, no errors.\n",simple_list_getstring(parser->state->pSimpleFilesStack,SimpleActiveFile) ) ;
 		#endif
 		simple_parser_delete(parser);
 		return 1 ;
@@ -60,16 +60,16 @@ int simple_parser_start ( List *pTokens,SimpleState *pSimpleState )
 	return 0 ;
 }
 
-Parser * simple_parser_new ( List *pTokens,SimpleState *pSimpleState )
+Parser * simple_parser_new ( List *pTokens,SimpleState *state )
 {
 	Parser *parser  ;
-	parser = (Parser *) simple_state_malloc(pSimpleState,sizeof(Parser));
+	parser = (Parser *) simple_state_malloc(state,sizeof(Parser));
 	if ( parser == NULL ) {
 		printf( SIMPLE_OOM ) ;
 		exit(0);
 	}
 	/* Simple State */
-	parser->pSimpleState = pSimpleState ;
+	parser->state = state ;
 	parser->Tokens = pTokens ;
 	parser->ActiveToken = 0 ;
 	parser->TokensCount = simple_list_getsize(parser->Tokens) ;
@@ -77,19 +77,19 @@ Parser * simple_parser_new ( List *pTokens,SimpleState *pSimpleState )
 	parser->nLineNumber = 1 ;
 	parser->nErrorLine = 0 ;
 	parser->nErrorsCount = 0 ;
-	if ( pSimpleState->pSimpleGenCode == NULL ) {
-		pSimpleState->pSimpleGenCode = simple_list_new(0);
-		pSimpleState->pSimpleFunctionsMap = simple_list_new(0);
-		pSimpleState->pSimpleClassesMap = simple_list_new(0);
-		pSimpleState->pSimpleModulessMap = simple_list_new(0);
+	if ( state->pSimpleGenCode == NULL ) {
+		state->pSimpleGenCode = simple_list_new(0);
+		state->pSimpleFunctionsMap = simple_list_new(0);
+		state->pSimpleClassesMap = simple_list_new(0);
+		state->pSimpleModulessMap = simple_list_new(0);
 	}
-	parser->GenCode = pSimpleState->pSimpleGenCode ;
-	parser->FunctionsMap = pSimpleState->pSimpleFunctionsMap ;
+	parser->GenCode = state->pSimpleGenCode ;
+	parser->FunctionsMap = state->pSimpleFunctionsMap ;
 	parser->ActiveGenCodeList = NULL ;
 	parser->nAssignmentFlag = 1 ;
 	parser->nClassStart = 0 ;
-	parser->ClassesMap = pSimpleState->pSimpleClassesMap ;
-	parser->ModulessMap = pSimpleState->pSimpleModulessMap ;
+	parser->ClassesMap = state->pSimpleClassesMap ;
+	parser->ModulessMap = state->pSimpleModulessMap ;
 	parser->nClassMark = 0 ;
 	parser->nPrivateFlag = 0 ;
 	parser->nBraceFlag = 0 ;
@@ -105,7 +105,7 @@ Parser * simple_parser_new ( List *pTokens,SimpleState *pSimpleState )
 Parser * simple_parser_delete ( Parser *parser )
 {
 	assert(parser != NULL);
-	simple_state_free(parser->pSimpleState,parser);
+	simple_state_free(parser->state,parser);
 	return NULL ;
 }
 /* Check Token */
@@ -222,8 +222,8 @@ int simple_parser_isoperator2 ( Parser *parser,SCANNER_OPERATOR nType )
 void parser_error ( Parser *parser,const char *cStr )
 {
 	int SimpleActiveFile  ;
-	simple_state_cgiheader(parser->pSimpleState);
-	SimpleActiveFile = simple_list_getsize(parser->pSimpleState->pSimpleFilesStack);
+	simple_state_cgiheader(parser->state);
+	SimpleActiveFile = simple_list_getsize(parser->state->pSimpleFilesStack);
 	if ( parser->nErrorLine != parser->nLineNumber ) {
 		parser->nErrorLine = parser->nLineNumber ;
                 if ( strcmp(cStr,"") != 0 ) {
@@ -231,7 +231,7 @@ void parser_error ( Parser *parser,const char *cStr )
 		} else {
 			printf( "\nLine %d -> Syntax error : Unexpected '%s' \n",parser->nLineNumber, parser->TokenText) ;
 		}
-		printf( "\tin file %s ",file_real_name(simple_list_getstring(parser->pSimpleState->pSimpleFilesStack,SimpleActiveFile)) ) ;
+		printf( "\tin file %s ",file_real_name(simple_list_getstring(parser->state->pSimpleFilesStack,SimpleActiveFile)) ) ;
 		parser->nErrorsCount++ ;
 		return ;
 	} else if ( strcmp(cStr,"") != 0 ) {
@@ -239,7 +239,7 @@ void parser_error ( Parser *parser,const char *cStr )
 	}
 	if ( strcmp(cStr,"") != 0 ) {
 		printf( "\nLine %d -> %s\n",parser->nLineNumber,cStr ) ;
-		printf( "\tin file %s",file_real_name(simple_list_getstring(parser->pSimpleState->pSimpleFilesStack,SimpleActiveFile)) ) ;
+		printf( "\tin file %s",file_real_name(simple_list_getstring(parser->state->pSimpleFilesStack,SimpleActiveFile)) ) ;
 	}
         if (SKIP_ERROR == 0) { exit(1); }
 }

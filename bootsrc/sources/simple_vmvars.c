@@ -23,10 +23,10 @@
 
 void simple_vm_newscope ( VM *vm )
 {
-	vm->pActiveMem = simple_list_newlist_gc(vm->pSimpleState,vm->pMem);
+	vm->pActiveMem = simple_list_newlist_gc(vm->state,vm->pMem);
 	/* Save Local Scope Information */
 	vm->nScopeID++ ;
-	simple_list_addint_gc(vm->pSimpleState,vm->aScopeID,vm->nScopeID);
+	simple_list_addint_gc(vm->state,vm->aScopeID,vm->nScopeID);
 	vm->nActiveScopeID = vm->nScopeID ;
 }
 
@@ -87,7 +87,7 @@ int simple_vm_findvar ( VM *vm,const char *cStr )
 			else {
 				/* Search Using the HashTable */
 				if ( pList->pHashTable == NULL ) {
-					simple_list_genhashtable2_gc(vm->pSimpleState,pList);
+					simple_list_genhashtable2_gc(vm->state,pList);
 				}
 				pList2 = (List *) simple_hashtable_findpointer(pList->pHashTable,cStr);
 				if ( pList2 != NULL ) {
@@ -231,21 +231,21 @@ void simple_vm_newvar ( VM *vm,const char *cStr )
 		vm->nVarScope = SIMPLE_VARSCOPE_NOTHING ;
 	}
 	/* Add Scope to aLoadAddressScope */
-	simple_list_addint_gc(vm->pSimpleState,vm->aLoadAddressScope,vm->nVarScope);
+	simple_list_addint_gc(vm->state,vm->aLoadAddressScope,vm->nVarScope);
 }
 
 List * simple_vm_newvar2 ( VM *vm,const char *cStr,List *pParent )
 {
 	List *pList  ;
 	/* This function is called by all of the other functions that create new varaibles */
-	pList = simple_list_newlist_gc(vm->pSimpleState,pParent);
-	simple_list_addstring_gc(vm->pSimpleState,pList,cStr);
-	simple_list_addint_gc(vm->pSimpleState,pList,SIMPLE_VM_NULL);
-	simple_list_addstring_gc(vm->pSimpleState,pList,"NULL");
+	pList = simple_list_newlist_gc(vm->state,pParent);
+	simple_list_addstring_gc(vm->state,pList,cStr);
+	simple_list_addint_gc(vm->state,pList,SIMPLE_VM_NULL);
+	simple_list_addstring_gc(vm->state,pList,"NULL");
 	/* Pointer Type */
-	simple_list_addint_gc(vm->pSimpleState,pList,0);
+	simple_list_addint_gc(vm->state,pList,0);
 	/* Private Flag */
-	simple_list_addint_gc(vm->pSimpleState,pList,0);
+	simple_list_addint_gc(vm->state,pList,0);
 	/* Add Pointer to the HashTable */
 	if ( pParent->pHashTable == NULL ) {
 		pParent->pHashTable = simple_hashtable_new();
@@ -258,33 +258,33 @@ void simple_vm_addnewnumbervar ( VM *vm,const char *cStr,double x )
 {
 	List *pList  ;
 	pList = simple_vm_newvar2(vm,cStr,vm->pActiveMem);
-	simple_list_setint_gc(vm->pSimpleState,pList,SIMPLE_VAR_TYPE,SIMPLE_VM_NUMBER);
-	simple_list_setdouble_gc(vm->pSimpleState,pList,SIMPLE_VAR_VALUE,x);
+	simple_list_setint_gc(vm->state,pList,SIMPLE_VAR_TYPE,SIMPLE_VM_NUMBER);
+	simple_list_setdouble_gc(vm->state,pList,SIMPLE_VAR_VALUE,x);
 }
 
 void simple_vm_addnewstringvar ( VM *vm,const char *cStr,const char *cStr2 )
 {
 	List *pList  ;
 	pList = simple_vm_newvar2(vm,cStr,vm->pActiveMem);
-	simple_list_setint_gc(vm->pSimpleState,pList,SIMPLE_VAR_TYPE,SIMPLE_VM_STRING);
-	simple_list_setstsimple_gc(vm->pSimpleState,pList,SIMPLE_VAR_VALUE,cStr2);
+	simple_list_setint_gc(vm->state,pList,SIMPLE_VAR_TYPE,SIMPLE_VM_STRING);
+	simple_list_setstsimple_gc(vm->state,pList,SIMPLE_VAR_VALUE,cStr2);
 }
 
 void simple_vm_addnewstringvar2 ( VM *vm,const char *cStr,const char *cStr2,int nStrSize )
 {
 	List *pList  ;
 	pList = simple_vm_newvar2(vm,cStr,vm->pActiveMem);
-	simple_list_setint_gc(vm->pSimpleState,pList,SIMPLE_VAR_TYPE,SIMPLE_VM_STRING);
-	simple_list_setstring2_gc(vm->pSimpleState,pList,SIMPLE_VAR_VALUE,cStr2,nStrSize);
+	simple_list_setint_gc(vm->state,pList,SIMPLE_VAR_TYPE,SIMPLE_VM_STRING);
+	simple_list_setstring2_gc(vm->state,pList,SIMPLE_VAR_VALUE,cStr2,nStrSize);
 }
 
 void simple_vm_addnewpointervar ( VM *vm,const char *cStr,void *x,int y )
 {
 	List *pList  ;
 	pList = simple_vm_newvar2(vm,cStr,vm->pActiveMem);
-	simple_list_setint_gc(vm->pSimpleState,pList,SIMPLE_VAR_TYPE,SIMPLE_VM_POINTER);
-	simple_list_setpointer_gc(vm->pSimpleState,pList,SIMPLE_VAR_VALUE,x);
-	simple_list_setint_gc(vm->pSimpleState,pList,SIMPLE_VAR_PVALUETYPE,y);
+	simple_list_setint_gc(vm->state,pList,SIMPLE_VAR_TYPE,SIMPLE_VM_POINTER);
+	simple_list_setpointer_gc(vm->state,pList,SIMPLE_VAR_VALUE,x);
+	simple_list_setint_gc(vm->state,pList,SIMPLE_VAR_PVALUETYPE,y);
 	/* Reference Counting */
 	simple_vm_gc_checknewreference(x,y);
 }
@@ -302,10 +302,10 @@ List * simple_vm_newtempvar2 ( VM *vm,const char *cStr,List *pList3 )
 {
 	List *pList,*pList2  ;
 	pList = simple_vm_newvar2(vm,cStr,vm->pTempMem);
-	simple_list_setint_gc(vm->pSimpleState,pList,SIMPLE_VAR_TYPE,SIMPLE_VM_LIST);
-	simple_list_setlist_gc(vm->pSimpleState,pList,SIMPLE_VAR_VALUE);
+	simple_list_setint_gc(vm->state,pList,SIMPLE_VAR_TYPE,SIMPLE_VM_LIST);
+	simple_list_setlist_gc(vm->state,pList,SIMPLE_VAR_VALUE);
 	pList2 = simple_list_getlist(pList,SIMPLE_VAR_VALUE);
-	simple_list_deleteallitems_gc(vm->pSimpleState,pList2);
+	simple_list_deleteallitems_gc(vm->state,pList2);
 	simple_list_copy(pList2,pList3);
 	return pList ;
 }
@@ -314,15 +314,15 @@ void simple_vm_addnewcpointervar ( VM *vm,const char *cStr,void *pPointer,const 
 {
 	List *pList, *pList2  ;
 	pList = simple_vm_newvar2(vm,cStr,vm->pActiveMem);
-	simple_list_setint_gc(vm->pSimpleState,pList,SIMPLE_VAR_TYPE,SIMPLE_VM_LIST);
-	simple_list_setlist_gc(vm->pSimpleState,pList,SIMPLE_VAR_VALUE);
+	simple_list_setint_gc(vm->state,pList,SIMPLE_VAR_TYPE,SIMPLE_VM_LIST);
+	simple_list_setlist_gc(vm->state,pList,SIMPLE_VAR_VALUE);
 	pList2 = simple_list_getlist(pList,SIMPLE_VAR_VALUE);
 	/* Add Pointer */
-	simple_list_addpointer_gc(vm->pSimpleState,pList2,pPointer);
+	simple_list_addpointer_gc(vm->state,pList2,pPointer);
 	/* Add Type */
-	simple_list_addstring_gc(vm->pSimpleState,pList2,cStr2);
+	simple_list_addstring_gc(vm->state,pList2,cStr2);
 	/* Add Status Number */
-	simple_list_addint_gc(vm->pSimpleState,pList2,SIMPLE_CPOINTERSTATUS_NOTCOPIED);
+	simple_list_addint_gc(vm->state,pList2,SIMPLE_CPOINTERSTATUS_NOTCOPIED);
 }
 
 void simple_vm_deletescope ( VM *vm )
@@ -333,24 +333,24 @@ void simple_vm_deletescope ( VM *vm )
 	}
 	/* Check References */
 	simple_vm_gc_checkreferences(vm);
-	simple_list_deleteitem_gc(vm->pSimpleState,vm->pMem,simple_list_getsize(vm->pMem));
+	simple_list_deleteitem_gc(vm->state,vm->pMem,simple_list_getsize(vm->pMem));
 	vm->pActiveMem = simple_list_getlist(vm->pMem,simple_list_getsize(vm->pMem));
 	/* Delete Local Scope information */
-	simple_list_deleteitem_gc(vm->pSimpleState,vm->aScopeID,simple_list_getsize(vm->aScopeID));
+	simple_list_deleteitem_gc(vm->state,vm->aScopeID,simple_list_getsize(vm->aScopeID));
 	vm->nActiveScopeID = simple_list_getint(vm->aScopeID,simple_list_getsize(vm->aScopeID)) ;
 }
 /* Custom Global Scope */
 
 void simple_vm_newglobalscope ( VM *vm )
 {
-	vm->pActiveMem = simple_list_newlist_gc(vm->pSimpleState,vm->aGlobalScopes);
-	simple_list_addpointer_gc(vm->pSimpleState,vm->aActiveGlobalScopes,vm->pActiveMem);
+	vm->pActiveMem = simple_list_newlist_gc(vm->state,vm->aGlobalScopes);
+	simple_list_addpointer_gc(vm->state,vm->aActiveGlobalScopes,vm->pActiveMem);
 	simple_vm_addglobalvariables(vm);
 }
 
 void simple_vm_endglobalscope ( VM *vm )
 {
-	simple_list_deletelastitem_gc(vm->pSimpleState,vm->aActiveGlobalScopes);
+	simple_list_deletelastitem_gc(vm->state,vm->aActiveGlobalScopes);
 	if ( simple_list_getsize(vm->aActiveGlobalScopes) == 0 ) {
 		vm->pActiveMem = simple_list_getlist(vm->pMem,1);
 	}

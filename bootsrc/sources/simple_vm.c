@@ -19,30 +19,30 @@
 **  Main 
 */
 
-VM * simple_vm_new ( SimpleState *pSimpleState )
+VM * simple_vm_new ( SimpleState *state )
 {
 	VM *vm  ;
 	int x  ;
-	vm = (VM *) simple_state_malloc(pSimpleState,sizeof(VM));
+	vm = (VM *) simple_state_malloc(state,sizeof(VM));
 	if ( vm == NULL ) {
 		printf( SIMPLE_OOM ) ;
 		exit(0);
 	}
 	/* Simple State */
-	vm->pSimpleState = pSimpleState ;
-	pSimpleState->vm = vm ;
+	vm->state = state ;
+	state->vm = vm ;
 	vm->nPC = 1 ;
 	vm->pCode = NULL ;
 	vm->pFunctionsMap = NULL ;
 	vm->nOPCode = 0 ;
 	vm->nSP = 0 ;
-	vm->pMem = simple_list_new_gc(vm->pSimpleState,0);
+	vm->pMem = simple_list_new_gc(vm->state,0);
 	vm->pActiveMem = NULL ;
-	vm->pTempMem = simple_list_new_gc(vm->pSimpleState,0);
+	vm->pTempMem = simple_list_new_gc(vm->state,0);
 	vm->nLineNumber = 1 ;
 	/* Information to test the lifetime of the local scope */
 	vm->nScopeID = 0 ;
-	vm->aScopeID = simple_list_new_gc(vm->pSimpleState,0);
+	vm->aScopeID = simple_list_new_gc(vm->state,0);
 	simple_vm_newscope(vm);
 	for ( x = 0 ; x < SIMPLE_VM_STACK_SIZE ; x++ ) {
 		vm->aStack[x].nType = ITEMTYPE_NOTHING ;
@@ -53,33 +53,33 @@ VM * simple_vm_new ( SimpleState *pSimpleState )
 	simple_vm_addglobalvariables(vm);
 	/* Lists */
 	vm->nListStart = 0 ;
-	vm->pNestedLists = simple_list_new_gc(vm->pSimpleState,0);
+	vm->pNestedLists = simple_list_new_gc(vm->state,0);
 	/* Support for nested Load Instructions */
 	vm->nBlockFlag = 0 ;
-	vm->aPCBlockFlag = simple_list_new_gc(vm->pSimpleState,0);
+	vm->aPCBlockFlag = simple_list_new_gc(vm->state,0);
 	/* Calling Functions */
-	vm->pFuncCallList = simple_list_new_gc(vm->pSimpleState,0);
+	vm->pFuncCallList = simple_list_new_gc(vm->state,0);
 	vm->nFuncSP = 0 ;
 	vm->nFuncExecute = 0 ;
-	if ( pSimpleState->pSimpleCFunctions == NULL ) {
-		pSimpleState->pSimpleCFunctions = simple_list_new_gc(vm->pSimpleState,0);
+	if ( state->pSimpleCFunctions == NULL ) {
+		state->pSimpleCFunctions = simple_list_new_gc(vm->state,0);
 	}
-	vm->pCFunctionsList = pSimpleState->pSimpleCFunctions ;
+	vm->pCFunctionsList = state->pSimpleCFunctions ;
 	vm->nCallMainFunction = 0 ;
 	/* Support for Exit/Loop Commands inside For/While loops. */
-	vm->pExitMark = simple_list_new_gc(vm->pSimpleState,0);
-	vm->pLoopMark = simple_list_new_gc(vm->pSimpleState,0);
+	vm->pExitMark = simple_list_new_gc(vm->state,0);
+	vm->pLoopMark = simple_list_new_gc(vm->state,0);
 	/* Try-Catch-Done */
-	vm->pTry = simple_list_new_gc(vm->pSimpleState,0);
+	vm->pTry = simple_list_new_gc(vm->state,0);
 	/* Saving scope when creating new objects and calling class init method */
-	vm->aScopeNewObj = simple_list_new_gc(vm->pSimpleState,0);
+	vm->aScopeNewObj = simple_list_new_gc(vm->state,0);
 	/* Flag ( 0 = Call Function  1 = Call Method After writing object name using dot ) */
 	vm->nCallMethod = 0 ;
 	/* List of Lists used like Stack, list structure [Pointer to State , Pointer to Methods] */
-	vm->pObjState = simple_list_new_gc(vm->pSimpleState,0);
+	vm->pObjState = simple_list_new_gc(vm->state,0);
 	/* Support for using Braces to access object state */
 	vm->pBraceObject = NULL ;
-	vm->aBraceObjects = simple_list_new_gc(vm->pSimpleState,0);
+	vm->aBraceObjects = simple_list_new_gc(vm->state,0);
 	/* Used by BraceStart, BraceEnd & FreeStack */
 	vm->nInsideBraceFlag = 0 ;
 	/* Variable scope, where is the varaible (when we use findvar) */
@@ -93,23 +93,23 @@ VM * simple_vm_new ( SimpleState *pSimpleState )
 	vm->nInClassRegion = 0 ;
 	vm->pModulessMap = NULL ;
 	/* Set the main File Name */
-	vm->cFileName = simple_list_getstring(vm->pSimpleState->pSimpleFilesList,1) ;
-	vm->cPrevFileName = simple_list_getstring(vm->pSimpleState->pSimpleFilesList,1) ;
+	vm->cFileName = simple_list_getstring(vm->state->pSimpleFilesList,1) ;
+	vm->cPrevFileName = simple_list_getstring(vm->state->pSimpleFilesList,1) ;
 	/* We keep information about active modules to access its classes directly with new/from */
-	vm->aActiveModules = simple_list_new_gc(vm->pSimpleState,0);
+	vm->aActiveModules = simple_list_new_gc(vm->state,0);
 	/* Scope of class attribute ( 0 = public 1 = private ) */
 	vm->nPrivateFlag = 0 ;
 	/* Set/Get Property */
 	vm->nGetSetProperty = 0 ;
 	vm->pGetSetObject = NULL ;
 	vm->nGetSetObjType = 0 ;
-	vm->aSetProperty = simple_list_new_gc(vm->pSimpleState,0);
+	vm->aSetProperty = simple_list_new_gc(vm->state,0);
 	/* Assignment Pointer */
 	vm->pAssignment = NULL ;
 	/* C Pointers List (Copied Pointers Only that are active i.e. Not NULL) */
-	vm->aCPointers = simple_list_new_gc(vm->pSimpleState,0) ;
+	vm->aCPointers = simple_list_new_gc(vm->state,0) ;
 	/* For Loop - Step List */
-	vm->aForStep = simple_list_new_gc(vm->pSimpleState,0);
+	vm->aForStep = simple_list_new_gc(vm->state,0);
 	/* Flag for LoadA , when = 1 , if it's a pointer we get First Var. not the Pointer */
 	vm->nFirstAddress = 0 ;
 	/* Used to know operator before = like += -= *= /= */
@@ -123,15 +123,15 @@ VM * simple_vm_new ( SimpleState *pSimpleState )
 	*/
 	vm->nNOAssignment = 0 ;
 	/* List contains the scope of the result of Load Address */
-	vm->aLoadAddressScope = simple_list_new_gc(vm->pSimpleState,0);
+	vm->aLoadAddressScope = simple_list_new_gc(vm->state,0);
 	/* List contains what to add  later to pObjState, prepare by loadmethod, add before call */
-	vm->aBeforeObjState = simple_list_new_gc(vm->pSimpleState,0) ;
+	vm->aBeforeObjState = simple_list_new_gc(vm->state,0) ;
 	/* Saving pointers to aLoadAddressScope before func. para. to restore after them */
-	vm->pLoadAddressScope = simple_list_new_gc(vm->pSimpleState,0);
+	vm->pLoadAddressScope = simple_list_new_gc(vm->state,0);
 	/* Another flag like nFuncExec but not used by see command or return command */
 	vm->nFuncExecute2 = 0 ;
 	/* Create List for Temp Items (added to ByteCode) inside TempMem */
-	vm->aNewByteCodeItems = simple_list_new_gc(vm->pSimpleState,0);
+	vm->aNewByteCodeItems = simple_list_new_gc(vm->state,0);
 	/* Eval can be called from C code (OOP Set/Get/Operator Overloading) or from ring code using executeCode() */
 	vm->nEvalCalledFromSimpleCode = 0 ;
 	/* Number of decimals after the point */
@@ -182,9 +182,9 @@ VM * simple_vm_new ( SimpleState *pSimpleState )
 	/* Flag that we have runtime error to avoid calling the error function again */
 	vm->nActiveError = 0 ;
 	/* Dynamic List of Self Items and PC */
-	vm->aDynamicSelfItems = simple_list_new_gc(vm->pSimpleState,0);
+	vm->aDynamicSelfItems = simple_list_new_gc(vm->state,0);
 	/* The active modules name (after using import command) */
-	vm->pModulesName = simple_string_new_gc(vm->pSimpleState,"");
+	vm->pModulesName = simple_string_new_gc(vm->state,"");
 	/*
 	**  Trace Program (After Each Line) 
 	**  lTrace = Logical Value (Trace is Active or Not) 
@@ -193,10 +193,10 @@ VM * simple_vm_new ( SimpleState *pSimpleState )
 	**  nTraceEvent = The Trace Event (1 = New Line , etc) 
 	*/
 	vm->lTrace = 0 ;
-	vm->pTrace = simple_string_new_gc(vm->pSimpleState,"");
+	vm->pTrace = simple_string_new_gc(vm->state,"");
 	vm->lTraceActive = 0 ;
 	vm->nTraceEvent = 0 ;
-	vm->pTraceData = simple_list_new_gc(vm->pSimpleState,0) ;
+	vm->pTraceData = simple_list_new_gc(vm->state,0) ;
 	/* Eval In Scope function is Active : ringvm_evalinscope() */
 	vm->nEvalInScope = 0 ;
 	/* Pass error in simple_vm_error() from ringvm_passerror() */
@@ -204,8 +204,8 @@ VM * simple_vm_new ( SimpleState *pSimpleState )
 	/* Hide Error message - don't display it in simple_vm_error() */
 	vm->lHideErrorMsg = 0 ;
 	/* Custom Global Scopes (using load modules) */
-	vm->aGlobalScopes = simple_list_new_gc(vm->pSimpleState,0);
-	vm->aActiveGlobalScopes = simple_list_new_gc(vm->pSimpleState,0);
+	vm->aGlobalScopes = simple_list_new_gc(vm->state,0);
+	vm->aActiveGlobalScopes = simple_list_new_gc(vm->state,0);
 	vm->nCurrentGlobalScope = 0 ;
 	/* File name in the class region */
 	vm->cFileNameInClassRegion = NULL ;
@@ -218,31 +218,31 @@ VM * simple_vm_delete ( VM *vm )
 	List *pRecord  ;
 	Item *pItem  ;
 	assert(vm);
-	vm->pMem = simple_list_delete_gc(vm->pSimpleState,vm->pMem);
-	vm->pNestedLists = simple_list_delete_gc(vm->pSimpleState,vm->pNestedLists);
-	vm->pFuncCallList = simple_list_delete_gc(vm->pSimpleState,vm->pFuncCallList);
-	vm->aPCBlockFlag = simple_list_delete_gc(vm->pSimpleState,vm->aPCBlockFlag);
-	vm->pTempMem = simple_list_delete_gc(vm->pSimpleState,vm->pTempMem);
-	vm->pExitMark = simple_list_delete_gc(vm->pSimpleState,vm->pExitMark);
-	vm->pLoopMark = simple_list_delete_gc(vm->pSimpleState,vm->pLoopMark);
-	vm->pTry = simple_list_delete_gc(vm->pSimpleState,vm->pTry);
-	vm->aScopeNewObj = simple_list_delete_gc(vm->pSimpleState,vm->aScopeNewObj);
-	vm->pObjState = simple_list_delete_gc(vm->pSimpleState,vm->pObjState);
-	vm->aBraceObjects = simple_list_delete_gc(vm->pSimpleState,vm->aBraceObjects);
-	vm->aScopeID = simple_list_delete_gc(vm->pSimpleState,vm->aScopeID);
-	vm->aActiveModules = simple_list_delete_gc(vm->pSimpleState,vm->aActiveModules);
-	vm->aSetProperty = simple_list_delete_gc(vm->pSimpleState,vm->aSetProperty);
-	vm->aCPointers = simple_list_delete_gc(vm->pSimpleState,vm->aCPointers);
-	vm->aForStep = simple_list_delete_gc(vm->pSimpleState,vm->aForStep);
-	vm->aLoadAddressScope = simple_list_delete_gc(vm->pSimpleState,vm->aLoadAddressScope);
-	vm->aBeforeObjState = simple_list_delete_gc(vm->pSimpleState,vm->aBeforeObjState);
-	vm->pLoadAddressScope = simple_list_delete_gc(vm->pSimpleState,vm->pLoadAddressScope);
-	vm->aNewByteCodeItems = simple_list_delete_gc(vm->pSimpleState,vm->aNewByteCodeItems);
+	vm->pMem = simple_list_delete_gc(vm->state,vm->pMem);
+	vm->pNestedLists = simple_list_delete_gc(vm->state,vm->pNestedLists);
+	vm->pFuncCallList = simple_list_delete_gc(vm->state,vm->pFuncCallList);
+	vm->aPCBlockFlag = simple_list_delete_gc(vm->state,vm->aPCBlockFlag);
+	vm->pTempMem = simple_list_delete_gc(vm->state,vm->pTempMem);
+	vm->pExitMark = simple_list_delete_gc(vm->state,vm->pExitMark);
+	vm->pLoopMark = simple_list_delete_gc(vm->state,vm->pLoopMark);
+	vm->pTry = simple_list_delete_gc(vm->state,vm->pTry);
+	vm->aScopeNewObj = simple_list_delete_gc(vm->state,vm->aScopeNewObj);
+	vm->pObjState = simple_list_delete_gc(vm->state,vm->pObjState);
+	vm->aBraceObjects = simple_list_delete_gc(vm->state,vm->aBraceObjects);
+	vm->aScopeID = simple_list_delete_gc(vm->state,vm->aScopeID);
+	vm->aActiveModules = simple_list_delete_gc(vm->state,vm->aActiveModules);
+	vm->aSetProperty = simple_list_delete_gc(vm->state,vm->aSetProperty);
+	vm->aCPointers = simple_list_delete_gc(vm->state,vm->aCPointers);
+	vm->aForStep = simple_list_delete_gc(vm->state,vm->aForStep);
+	vm->aLoadAddressScope = simple_list_delete_gc(vm->state,vm->aLoadAddressScope);
+	vm->aBeforeObjState = simple_list_delete_gc(vm->state,vm->aBeforeObjState);
+	vm->pLoadAddressScope = simple_list_delete_gc(vm->state,vm->pLoadAddressScope);
+	vm->aNewByteCodeItems = simple_list_delete_gc(vm->state,vm->aNewByteCodeItems);
 	/* Free Stack */
 	for ( x = 0 ; x < SIMPLE_VM_STACK_SIZE ; x++ ) {
 		simple_item_content_delete(&(vm->aStack[x]));
 	}
-	simple_state_free(vm->pSimpleState,vm->pByteCode);
+	simple_state_free(vm->state,vm->pByteCode);
 	/* Delete Mutex */
 	simple_vm_mutexdestroy(vm);
 	/*
@@ -252,18 +252,18 @@ VM * simple_vm_delete ( VM *vm )
 	for ( x = 1 ; x <= simple_list_getsize(vm->aDynamicSelfItems) ; x++ ) {
 		pRecord = simple_list_getlist(vm->aDynamicSelfItems,x);
 		pItem = (Item *) simple_list_getpointer(pRecord,2);
-		simple_state_free(vm->pSimpleState,pItem);
+		simple_state_free(vm->state,pItem);
 	}
 	/* Delete List */
-	vm->aDynamicSelfItems = simple_list_delete_gc(vm->pSimpleState,vm->aDynamicSelfItems);
-	vm->pModulesName = simple_string_delete_gc(vm->pSimpleState,vm->pModulesName);
-	vm->pTrace = simple_string_delete_gc(vm->pSimpleState,vm->pTrace);
-	vm->pTraceData = simple_list_delete_gc(vm->pSimpleState,vm->pTraceData);
+	vm->aDynamicSelfItems = simple_list_delete_gc(vm->state,vm->aDynamicSelfItems);
+	vm->pModulesName = simple_string_delete_gc(vm->state,vm->pModulesName);
+	vm->pTrace = simple_string_delete_gc(vm->state,vm->pTrace);
+	vm->pTraceData = simple_list_delete_gc(vm->state,vm->pTraceData);
 	/* Custom Global Scope (using Load Modules) */
-	vm->aGlobalScopes = simple_list_delete_gc(vm->pSimpleState,vm->aGlobalScopes);
-	vm->aActiveGlobalScopes = simple_list_delete_gc(vm->pSimpleState,vm->aActiveGlobalScopes);
-	vm->pSimpleState->vm = NULL ;
-	simple_state_free(vm->pSimpleState,vm);
+	vm->aGlobalScopes = simple_list_delete_gc(vm->state,vm->aGlobalScopes);
+	vm->aActiveGlobalScopes = simple_list_delete_gc(vm->state,vm->aActiveGlobalScopes);
+	vm->state->vm = NULL ;
+	simple_state_free(vm->state,vm);
 	vm = NULL ;
 	return vm ;
 }
@@ -277,7 +277,7 @@ SIMPLE_API void simple_vm_loadcode ( VM *vm )
 	**  This optimization increase the performance of applications that uses executeCode() 
 	*/
 	nSize = (simple_list_getsize(vm->pCode))*SIMPLE_VM_EXTRASIZE ;
-	vm->pByteCode = (ByteCode *) simple_state_calloc(vm->pSimpleState,nSize,sizeof(ByteCode));
+	vm->pByteCode = (ByteCode *) simple_state_calloc(vm->state,nSize,sizeof(ByteCode));
 	if ( vm->pByteCode == NULL ) {
 		printf( SIMPLE_OOM ) ;
 		exit(0);
@@ -288,17 +288,17 @@ SIMPLE_API void simple_vm_loadcode ( VM *vm )
 	vm->nEvalReallocationSize = nSize ;
 }
 
-void simple_vm_start ( SimpleState *pSimpleState,VM *vm )
+void simple_vm_start ( SimpleState *state,VM *vm )
 {
-	vm->pCode = pSimpleState->pSimpleGenCode ;
-	vm->pFunctionsMap = pSimpleState->pSimpleFunctionsMap ;
-	vm->pClassesMap = pSimpleState->pSimpleClassesMap ;
-	vm->pModulessMap = pSimpleState->pSimpleModulessMap ;
+	vm->pCode = state->pSimpleGenCode ;
+	vm->pFunctionsMap = state->pSimpleFunctionsMap ;
+	vm->pClassesMap = state->pSimpleClassesMap ;
+	vm->pModulessMap = state->pSimpleModulessMap ;
 	simple_vm_loadcode(vm);
-	simple_vm_loadcfunctions(pSimpleState);
+	simple_vm_loadcfunctions(state);
 	/* Generate Items Array &  Hash Table */
-	simple_list_genarray(pSimpleState->pSimpleCFunctions);
-	simple_list_genhashtable2(pSimpleState->pSimpleCFunctions);
+	simple_list_genarray(state->pSimpleCFunctions);
+	simple_list_genhashtable2(state->pSimpleCFunctions);
 	if ( simple_list_getsize(vm->pCode) > 0 ) {
 		vm->nPC = 1 ;
 		simple_vm_mainloop(vm);
@@ -309,7 +309,7 @@ void simple_vm_mainloop ( VM *vm )
 {
 	#if SIMPLE_VMSHOWOPCODE
 	/* Preprocessor Allows showing the OPCODE */
-	if ( vm->pSimpleState->nPrintInstruction ) {
+	if ( vm->state->nPrintInstruction ) {
 		do {
 			simple_vm_fetch2(vm);
 			if ( vm->nPC <= vm->nEvalReturnPC ) {
@@ -354,7 +354,7 @@ void simple_vm_fetch2 ( VM *vm )
 	vm->pByteCodeIR = vm->pByteCode + vm->nPC - 1 ;
 	vm->nOPCode = SIMPLE_VM_IR_OPCODE ;
 	#if SIMPLE_VMSHOWOPCODE
-	if ( vm->pSimpleState->nPrintInstruction ) {
+	if ( vm->state->nPrintInstruction ) {
 		print_line();
 		printf( "\nVM Pointer  : %p  " , (void *) vm ) ;
 		printf( "\nOperation  : %s  " , SIMPLE_IC_OP[vm->nOPCode] ) ;
@@ -368,7 +368,7 @@ void simple_vm_fetch2 ( VM *vm )
 	vm->nPC++ ;
 	simple_vm_execute(vm);
 	#if SIMPLE_VMSHOWOPCODE
-	if ( vm->pSimpleState->nPrintInstruction ) {
+	if ( vm->state->nPrintInstruction ) {
 		printf( "\nSP (After) : %d  - FuncSP : %d \n LineNumber %d \n" , (int) vm->nSP,vm->nFuncSP,vm->nLineNumber ) ;
 		print_line();
 	}
@@ -722,7 +722,7 @@ SIMPLE_API void simple_vm_error ( VM *vm,const char *cStr )
 			SIMPLE_VM_STACK_POP ;
 			if ( simple_vm_oop_isobject(pList) ) {
 				if ( simple_vm_oop_ismethod(vm, pList,"braceerror") ) {
-					simple_list_setstsimple_gc(vm->pSimpleState,simple_list_getlist(simple_vm_getglobalscope(vm),6),3,cStr);
+					simple_list_setstsimple_gc(vm->state,simple_list_getlist(simple_vm_getglobalscope(vm),6),3,cStr);
 					simple_vm_runcode(vm,"braceerror()");
 					vm->nActiveError = 0 ;
 					return ;
@@ -771,9 +771,9 @@ int simple_vm_eval ( VM *vm,const char *cStr )
 	}
 	nPC = vm->nPC ;
 	/* Add virtual file name */
-	simple_list_addstring_gc(vm->pSimpleState,vm->pSimpleState->pSimpleFilesList,"executeCode");
-	simple_list_addstring_gc(vm->pSimpleState,vm->pSimpleState->pSimpleFilesStack,"executeCode");
-	pScanner = simple_scanner_new(vm->pSimpleState);
+	simple_list_addstring_gc(vm->state,vm->state->pSimpleFilesList,"executeCode");
+	simple_list_addstring_gc(vm->state,vm->state->pSimpleFilesStack,"executeCode");
+	pScanner = simple_scanner_new(vm->state);
 	for ( x = 0 ; x < nSize ; x++ ) {
 		simple_scanner_readchar(pScanner,cStr[x]);
 	}
@@ -787,9 +787,9 @@ int simple_vm_eval ( VM *vm,const char *cStr )
 	aPara[2] = simple_list_getsize(vm->pClassesMap) ;
 	/* Call Parser */
 	if ( nCont == 1 ) {
-		vm->pSimpleState->lNoLineNumber = 1 ;
-		nRunVM = simple_parser_start(pScanner->Tokens,vm->pSimpleState);
-		vm->pSimpleState->lNoLineNumber = 0 ;
+		vm->state->lNoLineNumber = 1 ;
+		nRunVM = simple_parser_start(pScanner->Tokens,vm->state);
+		vm->state->lNoLineNumber = 0 ;
 	} else {
 		simple_vm_error(vm,"Error in executeCode!");
 		simple_scanner_delete(pScanner);
@@ -802,15 +802,15 @@ int simple_vm_eval ( VM *vm,const char *cStr )
 		*/
 		simple_list_genhashtable2(vm->pFunctionsMap);
 		if ( vm->nEvalCalledFromSimpleCode ) {
-			simple_scanner_addreturn3(vm->pSimpleState,aPara);
+			simple_scanner_addreturn3(vm->state,aPara);
 		}
 		else {
-			simple_scanner_addreturn2(vm->pSimpleState);
+			simple_scanner_addreturn2(vm->state);
 		}
 		simple_vm_blockflag2(vm,nPC);
 		vm->nPC = nLastPC+1 ;
 		if ( simple_list_getsize(vm->pCode)  > vm->nEvalReallocationSize ) {
-			pByteCode = (ByteCode *) simple_state_realloc(vm->pSimpleState,vm->pByteCode , sizeof(ByteCode) * simple_list_getsize(vm->pCode));
+			pByteCode = (ByteCode *) simple_state_realloc(vm->state,vm->pByteCode , sizeof(ByteCode) * simple_list_getsize(vm->pCode));
 			if ( pByteCode == NULL ) {
 				printf( SIMPLE_OOM ) ;
 				simple_scanner_delete(pScanner);
@@ -848,8 +848,8 @@ int simple_vm_eval ( VM *vm,const char *cStr )
 		return 0 ;
 	}
 	simple_scanner_delete(pScanner);
-	simple_list_deletelastitem_gc(vm->pSimpleState,vm->pSimpleState->pSimpleFilesList);
-	simple_list_deletelastitem_gc(vm->pSimpleState,vm->pSimpleState->pSimpleFilesStack);
+	simple_list_deletelastitem_gc(vm->state,vm->state->pSimpleFilesList);
+	simple_list_deletelastitem_gc(vm->state,vm->state->pSimpleFilesStack);
 	return nRunVM ;
 }
 
@@ -910,11 +910,11 @@ void simple_vm_returneval ( VM *vm )
 		**  We do that to avoid memory leaks 
 		*/
 		while ( simple_list_getsize(vm->pCode) != aPara[0] ) {
-			simple_list_deletelastitem_gc(vm->pSimpleState,vm->pCode);
+			simple_list_deletelastitem_gc(vm->state,vm->pCode);
 		}
 		if ( vm->nEvalReallocationFlag == 1 ) {
 			vm->nEvalReallocationFlag = 0 ;
-			pByteCode = (ByteCode *) simple_state_realloc(vm->pSimpleState,vm->pByteCode , sizeof(ByteCode) * simple_list_getsize(vm->pCode));
+			pByteCode = (ByteCode *) simple_state_realloc(vm->state,vm->pByteCode , sizeof(ByteCode) * simple_list_getsize(vm->pCode));
 			if ( pByteCode == NULL ) {
 				printf( SIMPLE_OOM ) ;
 				exit(0);
@@ -941,17 +941,17 @@ void simple_vm_returneval ( VM *vm )
 void simple_vm_error2 ( VM *vm,const char *cStr,const char *cStr2 )
 {
 	String *pError  ;
-	pError = simple_string_new_gc(vm->pSimpleState,cStr);
-	simple_string_add_gc(vm->pSimpleState,pError,": ");
-	simple_string_add_gc(vm->pSimpleState,pError,cStr2);
+	pError = simple_string_new_gc(vm->state,cStr);
+	simple_string_add_gc(vm->state,pError,": ");
+	simple_string_add_gc(vm->state,pError,cStr2);
 	simple_vm_error(vm,simple_string_get(pError));
-	simple_string_delete_gc(vm->pSimpleState,pError);
+	simple_string_delete_gc(vm->state,pError);
 }
 
 void simple_vm_newbytecodeitem ( VM *vm,int x )
 {
 	Item *pItem  ;
-	simple_list_addint_gc(vm->pSimpleState,vm->aNewByteCodeItems,0);
+	simple_list_addint_gc(vm->state,vm->aNewByteCodeItems,0);
 	pItem = simple_list_getitem(vm->aNewByteCodeItems,simple_list_getsize(vm->aNewByteCodeItems));
 	SIMPLE_VM_IR_ITEM(x) = pItem ;
 }
@@ -995,7 +995,7 @@ SIMPLE_API void simple_vm_runcode ( VM *vm,const char *cStr )
 		simple_vm_restorestack(vm,pStackList);
 	}
 	/* Here we free the list because, restorestack() don't free it */
-	simple_list_delete_gc(vm->pSimpleState,pStackList);
+	simple_list_delete_gc(vm->state,pStackList);
 	/* Restore Stack to avoid Stack Overflow */
 	vm->nSP = nSP ;
 	vm->nFuncSP = nFuncSP ;
@@ -1003,36 +1003,36 @@ SIMPLE_API void simple_vm_runcode ( VM *vm,const char *cStr )
 	vm->nRetEvalDontDelete = nRetEvalDontDelete ;
 }
 
-void simple_vm_init ( SimpleState *pSimpleState )
+void simple_vm_init ( SimpleState *state )
 {
 	Scanner *pScanner  ;
 	VM *vm  ;
 	int nRunVM,nFreeFilesList = 0 ;
 	/* Check file */
-	if ( pSimpleState->pSimpleFilesList == NULL ) {
-		pSimpleState->pSimpleFilesList = simple_list_new_gc(pSimpleState,0);
-		pSimpleState->pSimpleFilesStack = simple_list_new_gc(pSimpleState,0);
+	if ( state->pSimpleFilesList == NULL ) {
+		state->pSimpleFilesList = simple_list_new_gc(state,0);
+		state->pSimpleFilesStack = simple_list_new_gc(state,0);
 		nFreeFilesList = 1 ;
 	}
-	simple_list_addstring_gc(pSimpleState,pSimpleState->pSimpleFilesList,"Simple_EmbeddedCode");
-	simple_list_addstring_gc(pSimpleState,pSimpleState->pSimpleFilesStack,"Simple_EmbeddedCode");
+	simple_list_addstring_gc(state,state->pSimpleFilesList,"Simple_EmbeddedCode");
+	simple_list_addstring_gc(state,state->pSimpleFilesStack,"Simple_EmbeddedCode");
 	/* Read File */
-	pScanner = simple_scanner_new(pSimpleState);
+	pScanner = simple_scanner_new(state);
 	/* Add Token "End of Line" to the end of any program */
 	simple_scanner_endofline(pScanner);
 	/* Call Parser */
-	nRunVM = simple_parser_start(pScanner->Tokens,pSimpleState);
+	nRunVM = simple_parser_start(pScanner->Tokens,state);
 	simple_scanner_delete(pScanner);
 	/* Files List */
-	simple_list_deleteitem_gc(pSimpleState,pSimpleState->pSimpleFilesStack,simple_list_getsize(pSimpleState->pSimpleFilesStack));
+	simple_list_deleteitem_gc(state,state->pSimpleFilesStack,simple_list_getsize(state->pSimpleFilesStack));
 	if ( nFreeFilesList ) {
 		/* Run the Program */
 		if ( nRunVM == 1 ) {
 			/* Add return to the end of the program */
-			simple_scanner_addreturn(pSimpleState);
-			vm = simple_vm_new(pSimpleState);
-			simple_vm_start(pSimpleState,vm);
-			pSimpleState->vm = vm ;
+			simple_scanner_addreturn(state);
+			vm = simple_vm_new(state);
+			simple_vm_start(state,vm);
+			state->vm = vm ;
 		}
 	}
 	return ;
@@ -1107,7 +1107,7 @@ SIMPLE_API void simple_vm_showerrormessage ( VM *vm,const char *cStr )
 	List *pList  ;
 	const char *cFile  ;
 	/* CGI Support */
-	simple_state_cgiheader(vm->pSimpleState);
+	simple_state_cgiheader(vm->state);
 	/* Print the Error Message */
 	printf( "\nLine %d -> %s \n",vm->nLineNumber,cStr ) ;
 	/* Print Calling Information */
@@ -1160,7 +1160,7 @@ SIMPLE_API void simple_vm_showerrormessage ( VM *vm,const char *cStr )
 		}
 	}
 	if ( lFunctionCall ) {
-		printf( "in file %s ",file_real_name(simple_list_getstring(vm->pSimpleState->pSimpleFilesList,1) )) ;
+		printf( "in file %s ",file_real_name(simple_list_getstring(vm->state->pSimpleFilesList,1) )) ;
 	}
 	else {
 		if ( vm->nInClassRegion ) {
@@ -1225,11 +1225,11 @@ void simple_vm_addglobalvariables ( VM *vm )
 	simple_vm_addnewstringvar(vm,"cr","\r");
 	/* Add Command Line Parameters */
 	pList = simple_vm_newvar2(vm,"sysargv",vm->pActiveMem);
-	simple_list_setint_gc(vm->pSimpleState,pList,SIMPLE_VAR_TYPE,SIMPLE_VM_LIST);
-	simple_list_setlist_gc(vm->pSimpleState,pList,SIMPLE_VAR_VALUE);
+	simple_list_setint_gc(vm->state,pList,SIMPLE_VAR_TYPE,SIMPLE_VM_LIST);
+	simple_list_setlist_gc(vm->state,pList,SIMPLE_VAR_VALUE);
 	pList = simple_list_getlist(pList,SIMPLE_VAR_VALUE);
-	for ( x = 0 ; x < vm->pSimpleState->argc ; x++ ) {
-		simple_list_addstring_gc(vm->pSimpleState,pList,vm->pSimpleState->argv[x]);
+	for ( x = 0 ; x < vm->state->argc ; x++ ) {
+		simple_list_addstring_gc(vm->state,pList,vm->state->argv[x]);
 	}
 }
 /* Threads */
@@ -1273,7 +1273,7 @@ SIMPLE_API void simple_vm_runcodefromthread ( VM *vm,const char *cStr )
 	Item *pItem  ;
 	/* Create the SimpleState */
 	pState = simple_state_init();
-	pState->nPrintInstruction = vm->pSimpleState->nPrintInstruction ;
+	pState->nPrintInstruction = vm->state->nPrintInstruction ;
 	/* Share the same Mutex between VMs */
 	simple_vm_mutexlock(vm);
 	pState->vm->pMutex = vm->pMutex ;
@@ -1290,18 +1290,18 @@ SIMPLE_API void simple_vm_runcodefromthread ( VM *vm,const char *cStr )
 	pList4 = pState->vm->pModulessMap ;
 	pList5 = pState->vm->pCFunctionsList ;
 	/* Share the code between the VMs */
-	pState->vm->pFunctionsMap = vm->pSimpleState->pSimpleFunctionsMap ;
-	pState->vm->pClassesMap = vm->pSimpleState->pSimpleClassesMap ;
-	pState->vm->pModulessMap = vm->pSimpleState->pSimpleModulessMap ;
+	pState->vm->pFunctionsMap = vm->state->pSimpleFunctionsMap ;
+	pState->vm->pClassesMap = vm->state->pSimpleClassesMap ;
+	pState->vm->pModulessMap = vm->state->pSimpleModulessMap ;
 	pState->vm->pCFunctionsList = vm->pCFunctionsList ;
-	pState->pSimpleFunctionsMap = vm->pSimpleState->pSimpleFunctionsMap ;
-	pState->pSimpleClassesMap = vm->pSimpleState->pSimpleClassesMap ;
-	pState->pSimpleModulessMap = vm->pSimpleState->pSimpleModulessMap ;
-	pState->pSimpleCFunctions = vm->pSimpleState->pSimpleCFunctions ;
+	pState->pSimpleFunctionsMap = vm->state->pSimpleFunctionsMap ;
+	pState->pSimpleClassesMap = vm->state->pSimpleClassesMap ;
+	pState->pSimpleModulessMap = vm->state->pSimpleModulessMap ;
+	pState->pSimpleCFunctions = vm->state->pSimpleCFunctions ;
 	/* Get a copy from the byte code List */
 	pState->vm->nScopeID = vm->nScopeID + 10000 ;
-	pState->vm->pCode = simple_list_new_gc(vm->pSimpleState,0) ;
-	simple_list_copy(pState->vm->pCode,vm->pSimpleState->pSimpleGenCode);
+	pState->vm->pCode = simple_list_new_gc(vm->state,0) ;
+	simple_list_copy(pState->vm->pCode,vm->state->pSimpleGenCode);
 	pState->pSimpleGenCode = pState->vm->pCode ;
 	simple_vm_loadcode(pState->vm);
 	/* Avoid the call to the main block */
@@ -1309,7 +1309,7 @@ SIMPLE_API void simple_vm_runcodefromthread ( VM *vm,const char *cStr )
 	simple_vm_mutexunlock(vm);
 	/* Run the code */
 	simple_state_runcode(pState,cStr);
-	simple_list_delete_gc(vm->pSimpleState,pState->vm->pCode);
+	simple_list_delete_gc(vm->state,pState->vm->pCode);
 	/* Restore the first scope - global scope */
 	pState->vm->pMem->pFirst->pValue = pItem ;
 	/* Avoid deleteing the shared code and the Mutex */
@@ -1337,7 +1337,7 @@ SIMPLE_API void simple_vm_callfunction ( VM *vm,char *cFuncName )
 	/* Lower Case and pass () in the end */
 	simple_string_lower(cFuncName);
 	/* Prepare (Remove effects of the currect function) */
-	simple_list_deletelastitem_gc(vm->pSimpleState,vm->pFuncCallList);
+	simple_list_deletelastitem_gc(vm->state,vm->pFuncCallList);
 	/* Load the function and call it */
 	simple_vm_loadfunc2(vm,cFuncName,0);
 	simple_vm_call2(vm);
@@ -1357,22 +1357,22 @@ void simple_vm_traceevent ( VM *vm,char nEvent )
 		vm->lTraceActive = 1 ;
 		vm->nTraceEvent = nEvent ;
 		/* Prepare Trace Data */
-		simple_list_deleteallitems_gc(vm->pSimpleState,vm->pTraceData);
+		simple_list_deleteallitems_gc(vm->state,vm->pTraceData);
 		/* Add Line Number */
-		simple_list_adddouble_gc(vm->pSimpleState,vm->pTraceData,vm->nLineNumber);
+		simple_list_adddouble_gc(vm->state,vm->pTraceData,vm->nLineNumber);
 		/* Add File Name */
-		simple_list_addstring_gc(vm->pSimpleState,vm->pTraceData,vm->cFileName);
+		simple_list_addstring_gc(vm->state,vm->pTraceData,vm->cFileName);
 		/* Add Function/Method Name */
 		if ( simple_list_getsize(vm->pFuncCallList) > 0 ) {
 			pList = simple_list_getlist(vm->pFuncCallList,simple_list_getsize(vm->pFuncCallList)) ;
-			simple_list_addstring_gc(vm->pSimpleState,vm->pTraceData,simple_list_getstring(pList,SIMPLE_BLOCKCL_NAME));
+			simple_list_addstring_gc(vm->state,vm->pTraceData,simple_list_getstring(pList,SIMPLE_BLOCKCL_NAME));
 			/* Method of Function */
-			simple_list_adddouble_gc(vm->pSimpleState,vm->pTraceData,simple_list_getint(pList,SIMPLE_BLOCKCL_METHODORBLOCK));
+			simple_list_adddouble_gc(vm->state,vm->pTraceData,simple_list_getint(pList,SIMPLE_BLOCKCL_METHODORBLOCK));
 		}
 		else {
-			simple_list_addstring_gc(vm->pSimpleState,vm->pTraceData,"");
+			simple_list_addstring_gc(vm->state,vm->pTraceData,"");
 			/* Method of Function */
-			simple_list_adddouble_gc(vm->pSimpleState,vm->pTraceData,0);
+			simple_list_adddouble_gc(vm->state,vm->pTraceData,0);
 		}
 		/* Execute Trace Function */
 		simple_vm_runcode(vm,simple_string_get(vm->pTrace));

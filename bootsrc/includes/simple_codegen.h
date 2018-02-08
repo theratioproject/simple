@@ -183,7 +183,7 @@ void simple_parser_icg_insertoperation ( Parser *parser , int nPos , IC_OPERATIO
 /* Macro */
 #define simple_parser_icg_newlabel(x) ( simple_list_getsize(x->GenCode) + 1 )
 #define simple_parser_icg_getlastoperation(parser) simple_list_getint(parser->ActiveGenCodeList,1)
-#define simple_parser_icg_setlastoperation(parser,x) simple_list_setint_gc(parser->pSimpleState,parser->ActiveGenCodeList,1,x)
+#define simple_parser_icg_setlastoperation(parser,x) simple_list_setint_gc(parser->state,parser->ActiveGenCodeList,1,x)
 #define simple_parser_icg_instructionscount(parser) simple_list_getsize(parser->GenCode)
 #define simple_parser_icg_getoperationlist(parser,x) simple_list_getlist(parser->GenCode,x)
 #define SIMPLE_PARSER_ICG_GOTOLASTOP parser->ActiveGenCodeList = simple_list_getlist(parser->GenCode,simple_list_getsize(parser->GenCode))

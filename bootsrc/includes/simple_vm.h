@@ -80,7 +80,7 @@ typedef struct VM {
 	char nFirstAddress  ;
 	char nBeforeEqual  ;
 	char nNOAssignment  ;
-	SimpleState *pSimpleState  ;
+	SimpleState *state  ;
 	List *aLoadAddressScope  ;
 	List *aBeforeObjState  ;
 	List *pLoadAddressScope  ;
@@ -124,13 +124,13 @@ typedef struct VM {
 **  Main 
 */
 
-VM * simple_vm_new ( SimpleState *pSimpleState ) ;
+VM * simple_vm_new ( SimpleState *state ) ;
 
 VM * simple_vm_delete ( VM *vm ) ;
 
 SIMPLE_API void simple_vm_loadcode ( VM *vm ) ;
 
-void simple_vm_start ( SimpleState *pSimpleState,VM *vm ) ;
+void simple_vm_start ( SimpleState *state,VM *vm ) ;
 
 void simple_vm_fetch ( VM *vm ) ;
 
@@ -152,7 +152,7 @@ void simple_vm_mainloop ( VM *vm ) ;
 
 SIMPLE_API void simple_vm_runcode ( VM *vm,const char *cStr ) ;
 
-void simple_vm_init ( SimpleState *pSimpleState ) ;
+void simple_vm_init ( SimpleState *state ) ;
 
 void simple_vm_printstack ( VM *vm ) ;
 
@@ -606,7 +606,7 @@ List * simple_vm_getglobalscope ( VM *vm ) ;
 #define SIMPLE_VM_IR_READDVALUE(x) vm->pByteCodeIR->aData[x]->data.dNumber
 #define SIMPLE_VM_IR_PARACOUNT vm->pByteCodeIR->nSize
 #define SIMPLE_VM_IR_OPCODE vm->pByteCodeIR->aData[0]->data.iNumber
-#define SIMPLE_VM_IR_SETCVALUE(x,y) simple_string_set_gc(vm->pSimpleState,vm->pByteCodeIR->aData[x]->data.pString,y)
+#define SIMPLE_VM_IR_SETCVALUE(x,y) simple_string_set_gc(vm->state,vm->pByteCodeIR->aData[x]->data.pString,y)
 #define SIMPLE_VM_IR_ITEM(x) vm->pByteCodeIR->aData[x]
 #define SIMPLE_VM_IR_LIST vm->pByteCodeIR->pList
 #define SIMPLE_VM_IR_LOAD vm->pByteCodeIR = vm->pByteCode + vm->nPC - 1

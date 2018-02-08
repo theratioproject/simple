@@ -66,29 +66,29 @@ typedef struct SimpleState {
 
 SIMPLE_API SimpleState * simple_state_new ( void ) ;
 
-SIMPLE_API SimpleState * simple_state_delete ( SimpleState *pSimpleState ) ;
+SIMPLE_API SimpleState * simple_state_delete ( SimpleState *state ) ;
 
-void simple_state_cgiheader ( SimpleState *pSimpleState ) ;
+void simple_state_cgiheader ( SimpleState *state ) ;
 
 SIMPLE_API void print_line ( void ) ;
 
 SIMPLE_API SimpleState * simple_state_init ( void ) ;
 
-SIMPLE_API void simple_state_runcode ( SimpleState *pSimpleState,const char *cStr ) ;
+SIMPLE_API void simple_state_runcode ( SimpleState *state,const char *cStr ) ;
 
-SIMPLE_API List * simple_state_findvar ( SimpleState *pSimpleState,const char *cStr ) ;
+SIMPLE_API List * simple_state_findvar ( SimpleState *state,const char *cStr ) ;
 
-SIMPLE_API List * simple_state_newvar ( SimpleState *pSimpleState,const char *cStr ) ;
+SIMPLE_API List * simple_state_newvar ( SimpleState *state,const char *cStr ) ;
 
 SIMPLE_API void simple_state_main ( int argc, char *argv[] ) ;
 
-SIMPLE_API void simple_state_runfile ( SimpleState *pSimpleState,char *cFileName ) ;
+SIMPLE_API void simple_state_runfile ( SimpleState *state,char *cFileName ) ;
 
-SIMPLE_API void simple_state_runobjectfile ( SimpleState *pSimpleState,char *cFileName ) ;
+SIMPLE_API void simple_state_runobjectfile ( SimpleState *state,char *cFileName ) ;
 
-SIMPLE_API void simple_state_runobjectstring ( SimpleState *pSimpleState,char *cString,const char *cFileName ) ;
+SIMPLE_API void simple_state_runobjectstring ( SimpleState *state,char *cString,const char *cFileName ) ;
 /* MACRO */
-#define SIMPLE_STATE_CHECKPRINTRULES if ( parser->pSimpleState->nPrintRules )
+#define SIMPLE_STATE_CHECKPRINTRULES if ( parser->state->nPrintRules )
 /* General Functions */
 
 int simple_fexists ( const char *cFileName ) ;

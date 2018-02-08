@@ -32,16 +32,16 @@ void simple_vm_stsimple_assignment ( VM *vm )
 	String *cStr1  ;
 	char *newstr  ;
 	if ( SIMPLE_VM_STACK_ISSTRING ) {
-		cStr1 = simple_string_new_gc(vm->pSimpleState,SIMPLE_VM_STACK_READC);
+		cStr1 = simple_string_new_gc(vm->state,SIMPLE_VM_STACK_READC);
 		SIMPLE_VM_STACK_POP ;
 		if ( simple_string_size(cStr1) == 1 ) {
 			newstr = (char *) SIMPLE_VM_STACK_READP ;
 			SIMPLE_VM_STACK_POP ;
 			newstr[0] = simple_string_get(cStr1)[0] ;
-			simple_string_delete_gc(vm->pSimpleState,cStr1);
+			simple_string_delete_gc(vm->state,cStr1);
 			return ;
 		} else {
-			simple_string_delete_gc(vm->pSimpleState,cStr1);
+			simple_string_delete_gc(vm->state,cStr1);
 			simple_vm_error(vm,SIMPLE_VM_ERROR_VALUEMORETHANONECHAR);
 			return ;
 		}
@@ -70,8 +70,8 @@ void simple_vm_stsimple_index ( VM *vm, String *pString, double nNum1 )
 void simple_vm_try ( VM *vm )
 {
 	List *pList  ;
-	pList = simple_list_newlist_gc(vm->pSimpleState,vm->pTry);
-	simple_list_addint_gc(vm->pSimpleState,pList,SIMPLE_VM_IR_READI);
+	pList = simple_list_newlist_gc(vm->state,vm->pTry);
+	simple_list_addint_gc(vm->state,pList,SIMPLE_VM_IR_READI);
 	simple_vm_savestate(vm,pList);
 	vm->nActiveCatch = 0 ;
 }
@@ -83,7 +83,7 @@ void simple_vm_catch ( VM *vm,const char *cError )
 	vm->nPC = simple_list_getint(pList,1) ;
 	simple_vm_restorestate(vm,pList,2,SIMPLE_STATE_TRYCATCH);
 	/* Define variable __err__ to contain the error message */
-	simple_list_setstsimple_gc(vm->pSimpleState,simple_list_getlist(simple_vm_getglobalscope(vm),6),3,cError);
+	simple_list_setstsimple_gc(vm->state,simple_list_getlist(simple_vm_getglobalscope(vm),6),3,cError);
 	/* Tell C-API caller (CALL command) that catch happens! */
 	vm->nActiveCatch = 1 ;
 	/* Catch Statements must be executed without try effects */
@@ -92,5 +92,5 @@ void simple_vm_catch ( VM *vm,const char *cError )
 
 void simple_vm_done ( VM *vm )
 {
-	simple_list_deleteitem_gc(vm->pSimpleState,vm->pTry,simple_list_getsize(vm->pTry));
+	simple_list_deleteitem_gc(vm->state,vm->pTry,simple_list_getsize(vm->pTry));
 }

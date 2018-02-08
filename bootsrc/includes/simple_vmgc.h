@@ -55,11 +55,11 @@ void simple_vm_gc_deleteitem_gc ( void *pState,Item *pItem ) ;
 #define GCLog 0
 /* Pool Manager Functions */
 
-void simple_poolmanager_newblock ( SimpleState *pSimpleState ) ;
+void simple_poolmanager_newblock ( SimpleState *state ) ;
 
-void * simple_poolmanager_allocate ( SimpleState *pSimpleState,size_t size ) ;
+void * simple_poolmanager_allocate ( SimpleState *state,size_t size ) ;
 
-void simple_poolmanager_free ( SimpleState *pSimpleState,void *pMemory ) ;
+void simple_poolmanager_free ( SimpleState *state,void *pMemory ) ;
 
-void simple_poolmanager_delete ( SimpleState *pSimpleState ) ;
+void simple_poolmanager_delete ( SimpleState *state ) ;
 #endif

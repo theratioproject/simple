@@ -40,93 +40,93 @@ void segfaultaction ( int sig ) ;
 
 SIMPLE_API SimpleState * simple_state_new ( void )
 {
-	SimpleState *pSimpleState  ;
-	pSimpleState = (SimpleState *) simple_malloc(sizeof(SimpleState));
-	if ( pSimpleState == NULL ) {
+	SimpleState *state  ;
+	state = (SimpleState *) simple_malloc(sizeof(SimpleState));
+	if ( state == NULL ) {
 		printf( SIMPLE_OOM ) ;
 		exit(0);
 	}
-	pSimpleState->pSimpleFilesList = NULL ;
-	pSimpleState->pSimpleFilesStack = NULL ;
-	pSimpleState->pSimpleGenCode = NULL ;
-	pSimpleState->pSimpleFunctionsMap = NULL ;
-	pSimpleState->pSimpleClassesMap = NULL ;
-	pSimpleState->pSimpleModulessMap = NULL ;
-	pSimpleState->pSimpleCFunctions = NULL ;
-	pSimpleState->nISCGI = 0 ;
-	pSimpleState->nRun = 1 ;
-	pSimpleState->nPrintIC = 0 ;
-	pSimpleState->nPrintICFinal = 0 ;
-	pSimpleState->nPrintTokens = 0 ;
-	pSimpleState->nPrintRules = 0 ;
-	pSimpleState->nPrintInstruction = 0 ;
-	pSimpleState->nGenObj = 0 ;
-	pSimpleState->nWarning = 0 ;
-	pSimpleState->argc = 0 ;
-	pSimpleState->argv = NULL ;
-	pSimpleState->vm = NULL ;
-	pSimpleState->lStartup = 0 ;
-	pSimpleState->vPoolManager.pCurrentItem = NULL ;
-	pSimpleState->vPoolManager.pBlockStart = NULL ;
-	pSimpleState->vPoolManager.pBlockEnd = NULL ;
-	pSimpleState->nDontDeleteTheVM = 0 ;
-	pSimpleState->lNoLineNumber = 0 ;
-	pSimpleState->nCustomGlobalScopeCounter = 0 ;
-	pSimpleState->aCustomGlobalScopeStack = simple_list_new(0) ;
-	simple_list_addint(pSimpleState->aCustomGlobalScopeStack,pSimpleState->nCustomGlobalScopeCounter);
-	return pSimpleState ;
+	state->pSimpleFilesList = NULL ;
+	state->pSimpleFilesStack = NULL ;
+	state->pSimpleGenCode = NULL ;
+	state->pSimpleFunctionsMap = NULL ;
+	state->pSimpleClassesMap = NULL ;
+	state->pSimpleModulessMap = NULL ;
+	state->pSimpleCFunctions = NULL ;
+	state->nISCGI = 0 ;
+	state->nRun = 1 ;
+	state->nPrintIC = 0 ;
+	state->nPrintICFinal = 0 ;
+	state->nPrintTokens = 0 ;
+	state->nPrintRules = 0 ;
+	state->nPrintInstruction = 0 ;
+	state->nGenObj = 0 ;
+	state->nWarning = 0 ;
+	state->argc = 0 ;
+	state->argv = NULL ;
+	state->vm = NULL ;
+	state->lStartup = 0 ;
+	state->vPoolManager.pCurrentItem = NULL ;
+	state->vPoolManager.pBlockStart = NULL ;
+	state->vPoolManager.pBlockEnd = NULL ;
+	state->nDontDeleteTheVM = 0 ;
+	state->lNoLineNumber = 0 ;
+	state->nCustomGlobalScopeCounter = 0 ;
+	state->aCustomGlobalScopeStack = simple_list_new(0) ;
+	simple_list_addint(state->aCustomGlobalScopeStack,state->nCustomGlobalScopeCounter);
+	return state ;
 }
 
-SIMPLE_API SimpleState * simple_state_delete ( SimpleState *pSimpleState )
+SIMPLE_API SimpleState * simple_state_delete ( SimpleState *state )
 {
-	if ( pSimpleState->pSimpleFilesList != NULL ) {
-		pSimpleState->pSimpleFilesList = simple_list_delete_gc(pSimpleState,pSimpleState->pSimpleFilesList);
-		pSimpleState->pSimpleFilesStack = simple_list_delete_gc(pSimpleState,pSimpleState->pSimpleFilesStack);
+	if ( state->pSimpleFilesList != NULL ) {
+		state->pSimpleFilesList = simple_list_delete_gc(state,state->pSimpleFilesList);
+		state->pSimpleFilesStack = simple_list_delete_gc(state,state->pSimpleFilesStack);
 	}
-	if ( pSimpleState->pSimpleGenCode   != NULL ) {
-		pSimpleState->pSimpleGenCode = simple_list_delete_gc(pSimpleState,pSimpleState->pSimpleGenCode);
-		pSimpleState->pSimpleFunctionsMap = simple_list_delete_gc(pSimpleState,pSimpleState->pSimpleFunctionsMap);
-		pSimpleState->pSimpleClassesMap = simple_list_delete_gc(pSimpleState,pSimpleState->pSimpleClassesMap);
-		pSimpleState->pSimpleModulessMap = simple_list_delete_gc(pSimpleState,pSimpleState->pSimpleModulessMap);
-		if ( pSimpleState->pSimpleCFunctions != NULL ) {
+	if ( state->pSimpleGenCode   != NULL ) {
+		state->pSimpleGenCode = simple_list_delete_gc(state,state->pSimpleGenCode);
+		state->pSimpleFunctionsMap = simple_list_delete_gc(state,state->pSimpleFunctionsMap);
+		state->pSimpleClassesMap = simple_list_delete_gc(state,state->pSimpleClassesMap);
+		state->pSimpleModulessMap = simple_list_delete_gc(state,state->pSimpleModulessMap);
+		if ( state->pSimpleCFunctions != NULL ) {
 			/* We check because the execution may end by the compiler error */
-			pSimpleState->pSimpleCFunctions = simple_list_delete_gc(pSimpleState,pSimpleState->pSimpleCFunctions);
+			state->pSimpleCFunctions = simple_list_delete_gc(state,state->pSimpleCFunctions);
 		}
 	}
-	if ( pSimpleState->vm != NULL ) {
-		simple_vm_delete(pSimpleState->vm);
+	if ( state->vm != NULL ) {
+		simple_vm_delete(state->vm);
 	}
-	simple_poolmanager_delete(pSimpleState);
-	pSimpleState->aCustomGlobalScopeStack = simple_list_delete(pSimpleState->aCustomGlobalScopeStack);
-	simple_free(pSimpleState);
+	simple_poolmanager_delete(state);
+	state->aCustomGlobalScopeStack = simple_list_delete(state->aCustomGlobalScopeStack);
+	simple_free(state);
 	return NULL ;
 }
 
-void simple_state_cgiheader ( SimpleState *pSimpleState )
+void simple_state_cgiheader ( SimpleState *state )
 {
-	if ( pSimpleState->nISCGI == 1 ) {
+	if ( state->nISCGI == 1 ) {
 		printf( "Content-Type: text/plain \n\n" ) ;
 	}
 }
 
 SIMPLE_API SimpleState * simple_state_init ( void )
 {
-	SimpleState *pSimpleState  ;
-	pSimpleState = simple_state_new();
-	simple_vm_init(pSimpleState);
-	return pSimpleState ;
+	SimpleState *state  ;
+	state = simple_state_new();
+	simple_vm_init(state);
+	return state ;
 }
 
-SIMPLE_API void simple_state_runcode ( SimpleState *pSimpleState,const char *cStr )
+SIMPLE_API void simple_state_runcode ( SimpleState *state,const char *cStr )
 {
-	simple_vm_runcode(pSimpleState->vm,cStr);
+	simple_vm_runcode(state->vm,cStr);
 }
 
-SIMPLE_API List * simple_state_findvar ( SimpleState *pSimpleState,const char *cStr )
+SIMPLE_API List * simple_state_findvar ( SimpleState *state,const char *cStr )
 {
 	VM *vm  ;
 	List *pList  ;
-	vm = pSimpleState->vm ;
+	vm = state->vm ;
 	pList = NULL ;
 	if ( simple_vm_findvar(vm,cStr) ) {
 		pList = (List *) SIMPLE_VM_STACK_READP ;
@@ -135,11 +135,11 @@ SIMPLE_API List * simple_state_findvar ( SimpleState *pSimpleState,const char *c
 	return pList ;
 }
 
-SIMPLE_API List * simple_state_newvar ( SimpleState *pSimpleState,const char *cStr )
+SIMPLE_API List * simple_state_newvar ( SimpleState *state,const char *cStr )
 {
 	VM *vm  ;
 	List *pList  ;
-	vm = pSimpleState->vm ;
+	vm = state->vm ;
 	if ( simple_vm_findvar(vm,cStr) == 0 ) {
 		simple_vm_newvar(vm,cStr);
 	}
@@ -239,19 +239,19 @@ SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 	#endif
 }
 
-SIMPLE_API void simple_state_runfile ( SimpleState *pSimpleState,char *cFileName )
+SIMPLE_API void simple_state_runfile ( SimpleState *state,char *cFileName )
 {
-	simple_scanner_readfile(pSimpleState,cFileName);
+	simple_scanner_readfile(state,cFileName);
 }
 
-SIMPLE_API void simple_state_runobjectfile ( SimpleState *pSimpleState,char *cFileName )
+SIMPLE_API void simple_state_runobjectfile ( SimpleState *state,char *cFileName )
 {
-	simple_scanner_runobjfile(pSimpleState,cFileName);
+	simple_scanner_runobjfile(state,cFileName);
 }
 
-SIMPLE_API void simple_state_runobjectstring ( SimpleState *pSimpleState,char *cString,const char *cFileName )
+SIMPLE_API void simple_state_runobjectstring ( SimpleState *state,char *cString,const char *cFileName )
 {
-	simple_scanner_runobjstring(pSimpleState,cString,cFileName);
+	simple_scanner_runobjstring(state,cString,cFileName);
 }
 #if SIMPLE_TESTUNITS
 

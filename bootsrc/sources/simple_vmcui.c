@@ -83,14 +83,14 @@ void simple_vm_give ( VM *vm )
 		if ( SIMPLE_VM_STACK_OBJTYPE == SIMPLE_OBJTYPE_VARIABLE ) {
 			pVar = (List *) SIMPLE_VM_STACK_READP ;
 			SIMPLE_VM_STACK_POP ;
-			simple_list_setint_gc(vm->pSimpleState,pVar, SIMPLE_VAR_TYPE ,SIMPLE_VM_STRING);
-			simple_list_setstsimple_gc(vm->pSimpleState,pVar, SIMPLE_VAR_VALUE, cLine);
+			simple_list_setint_gc(vm->state,pVar, SIMPLE_VAR_TYPE ,SIMPLE_VM_STRING);
+			simple_list_setstsimple_gc(vm->state,pVar, SIMPLE_VAR_VALUE, cLine);
 		}
 		else if ( SIMPLE_VM_STACK_OBJTYPE ==SIMPLE_OBJTYPE_LISTITEM ) {
 			pItem = (Item *) SIMPLE_VM_STACK_READP ;
 			SIMPLE_VM_STACK_POP ;
-			simple_item_settype_gc(vm->pSimpleState,pItem,ITEMTYPE_STRING);
-			simple_string_set_gc(vm->pSimpleState,simple_item_getstring(pItem),cLine);
+			simple_item_settype_gc(vm->state,pItem,ITEMTYPE_STRING);
+			simple_string_set_gc(vm->state,simple_item_getstring(pItem),cLine);
 		}
 	}
 }
