@@ -6,7 +6,7 @@
 */
 
 /* 
- * File:   simple.h
+ * File:   simple_scanner.h
  * Author: thecarisma
  *
  * Created on July 10, 2017, 1:10 PM
