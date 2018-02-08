@@ -44,10 +44,10 @@ void simple_vm_dll_loadlib ( void *pPointer )
 			SIMPLE_API_ERROR(SIMPLE_VM_ERROR_LIBLOADERROR);
 			return ;
 		}
-		pFunc = (loadlibfuncptr) GetDLLFunc(handle, "ringlib_init") ;
+		pFunc = (loadlibfuncptr) GetDLLFunc(handle, "init_simple_lib") ;
 		if ( pFunc == NULL ) {
-			printf( "\nLibrary File : %s",SIMPLE_API_GETSTRING(1) ) ;
-			SIMPLE_API_ERROR("The dynamic library doesn't contain the ringlib_init() function!");
+			printf( "\nLibrary File : %s", file_real_name(SIMPLE_API_GETSTRING(1)) ) ;
+			SIMPLE_API_ERROR("The dynamic library doesn't contain the init_simple_lib() function!");
 			return ;
 		}
 		simple_list_deletearray_gc(sState,sState->c_blocks);
