@@ -32,11 +32,39 @@ void simple_vm_dll_loadlib ( void *pPointer )
 	SimpleState *sState  ;
 	vm = (VM *) pPointer ;
 	sState = vm->sState ;
+        char library_path[200]  ;
 	if ( SIMPLE_API_PARACOUNT != 1 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
 		return ;
 	}
 	if ( SIMPLE_API_ISSTRING(1) ) {
+            if (simple_fexists(SIMPLE_API_GETSTRING(1))) {
+            
+        } else {
+            char* SIMPLEPATH = getenv("SIMPLE_PATH"); 
+            if (SIMPLEPATH != NULL) {
+                snprintf(library_path, sizeof(library_path), "%s/simple%s/modules/%s", SIMPLEPATH, SIMPLE_VERSION, SIMPLE_API_GETSTRING(1));
+            }
+            if (!simple_fexists(library_path)) {
+                char* SIMPLEMODULEPATH = getenv("SIMPLE_MODULE_PATH"); 
+                if (SIMPLEMODULEPATH != NULL) {
+                    snprintf(library_path, sizeof(library_path), "%s/%s", SIMPLEMODULEPATH, SIMPLE_API_GETSTRING(1));
+                }
+                if (!simple_fexists(library_path)) {
+                    snprintf(library_path, sizeof(library_path), "%s%s", DEFAULT_FILE_PATH, SIMPLE_API_GETSTRING(1));
+                    if (!simple_fexists(library_path)) {
+                        snprintf(library_path, sizeof(library_path), "%s/modules/%s", DEFAULT_FILE_PATH, SIMPLE_API_GETSTRING(1));
+                        if (!simple_fexists(library_path)) {
+                            snprintf(library_path, sizeof(library_path), "%s/library/%s", DEFAULT_FILE_PATH, SIMPLE_API_GETSTRING(1));
+                            if (!simple_fexists(library_path)) {
+                                //already checked all assumed folders
+                            }
+                        }
+
+                    }
+                }
+            } 
+        }
 		cDLL = SIMPLE_API_GETSTRING(1);
 		handle = LoadDLL(cDLL);
 		if ( handle == NULL ) {
