@@ -40,7 +40,7 @@ SIMPLE_API void api_set_cpointer_null ( void *pPointer,int x ) ;
 
 SIMPLE_API void * api_var_ptr ( void *pPointer,const char  *cStr,const char *cStr2 ) ;
 
-SIMPLE_API void simple_vm_api_intvalue ( void *pPointer,const char  *cStr ) ;
+SIMPLE_API void api_int_value ( void *pPointer,const char  *cStr ) ;
 
 SIMPLE_API void simple_list_addcpointer ( List *list,void *pGeneral,const char *cType ) ;
 
@@ -264,7 +264,7 @@ void simple_vmlib_give ( void *pPointer ) ;
 #define SIMPLE_API_GETCPOINTERSTATUS(x) simple_list_getint(SIMPLE_API_GETLIST(x),SIMPLE_CPOINTER_STATUS)
 #define SIMPLE_API_ISCPOINTERNOTASSIGNED(x) (SIMPLE_API_GETCPOINTERSTATUS(x) == SIMPLE_CPOINTERSTATUS_NOTASSIGNED)
 #define SIMPLE_API_VARPOINTER(x,y) (api_var_ptr(pPointer,x,y))
-#define SIMPLE_API_INTVALUE(x) (simple_vm_api_intvalue(pPointer,x))
+#define SIMPLE_API_INTVALUE(x) (api_int_value(pPointer,x))
 #define SIMPLE_API_GETINTPOINTER(x) (int *) SIMPLE_API_VARPOINTER(SIMPLE_API_GETSTRING(x),"int")
 #define SIMPLE_API_ACCEPTINTVALUE(x) SIMPLE_API_INTVALUE(SIMPLE_API_GETSTRING(x))
 #define SIMPLE_API_GETDOUBLEPOINTER(x) SIMPLE_API_VARPOINTER(SIMPLE_API_GETSTRING(x),"double")

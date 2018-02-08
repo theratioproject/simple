@@ -300,7 +300,7 @@ SIMPLE_API void * api_var_ptr ( void *pPointer,const char  *cStr,const char *cSt
 	return NULL ;
 }
 
-SIMPLE_API void simple_vm_api_intvalue ( void *pPointer,const char  *cStr )
+SIMPLE_API void api_int_value ( void *pPointer,const char  *cStr )
 {
 	VM *vm  ;
 	List *list  ;
@@ -1886,7 +1886,7 @@ void simple_vmlib_intvalue ( void *pPointer )
 	}
 	if ( SIMPLE_API_ISSTRING(1) ) {
 		cStr = SIMPLE_API_GETSTRING(1);
-		simple_vm_api_intvalue(pPointer,cStr);
+		api_int_value(pPointer,cStr);
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
