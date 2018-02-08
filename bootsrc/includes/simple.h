@@ -109,7 +109,4 @@
 #include "simple_objfile.h"
 #include "simple_vmdll.h"
 
-#ifdef SIMPLE_VM_DLL
-
-#endif
 #endif
