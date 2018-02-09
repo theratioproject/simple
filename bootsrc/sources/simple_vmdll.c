@@ -23,14 +23,14 @@ void simple_vm_dll_loadfunctions ( SimpleState *sState )
 	register_block("closeDynamicModule",simple_vm_dll_closelib);
 }
 
-void simple_vm_dll_loadlib ( void *pPointer )
+void simple_vm_dll_loadlib ( void *pointer )
 {
     LpHandleType handle  ;
     const char *cDLL  ;
     loadlibfuncptr pFunc  ;
     VM *vm  ;
     SimpleState *sState  ;
-    vm = (VM *) pPointer ;
+    vm = (VM *) pointer ;
     sState = vm->sState ;
     char library_path[200]  ;
     if ( SIMPLE_API_PARACOUNT != 1 ) {
@@ -88,7 +88,7 @@ void simple_vm_dll_loadlib ( void *pPointer )
     }
 }
 
-void simple_vm_dll_closelib ( void *pPointer )
+void simple_vm_dll_closelib ( void *pointer )
 {
 	LpHandleType handle  ;
 	if ( SIMPLE_API_PARACOUNT != 1 ) {
@@ -186,14 +186,14 @@ void simple_vm_give ( VM *vm )
 
 /* User Interface Functions (Another implementation) - Flexibile (We can replace functions in Simple Code) */
 
-void simple_vmlib_see ( void *pPointer )
+void simple_vmlib_see ( void *pointer )
 {
 	char *cString  ;
 	int x  ;
 	char cStr[100]  ;
 	List *list  ;
 	VM *vm  ;
-	vm = (VM *) pPointer ;
+	vm = (VM *) pointer ;
 	if ( SIMPLE_API_ISSTRING(1) ) {
 		cString = SIMPLE_API_GETSTRING(1) ;
 		if ( strlen(cString) != (unsigned int) SIMPLE_API_GETSTRINGSIZE(1) ) {
@@ -219,7 +219,7 @@ void simple_vmlib_see ( void *pPointer )
 	fflush(stdout);
 }
 
-void simple_vmlib_give ( void *pPointer )
+void simple_vmlib_give ( void *pointer )
 {
 	int x  ;
 	char cLine[256]  ;

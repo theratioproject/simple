@@ -310,7 +310,7 @@ List * simple_vm_newtempvar2 ( VM *vm,const char *cStr,List *list3 )
 	return list ;
 }
 
-void simple_vm_addnewcpointervar ( VM *vm,const char *cStr,void *pPointer,const char *cStr2 )
+void simple_vm_addnewcpointervar ( VM *vm,const char *cStr,void *pointer,const char *cStr2 )
 {
 	List *list, *list2  ;
 	list = simple_vm_newvar2(vm,cStr,vm->pActiveMem);
@@ -318,7 +318,7 @@ void simple_vm_addnewcpointervar ( VM *vm,const char *cStr,void *pPointer,const 
 	simple_list_setlist_gc(vm->sState,list,SIMPLE_VAR_VALUE);
 	list2 = simple_list_getlist(list,SIMPLE_VAR_VALUE);
 	/* Add Pointer */
-	simple_list_addpointer_gc(vm->sState,list2,pPointer);
+	simple_list_addpointer_gc(vm->sState,list2,pointer);
 	/* Add Type */
 	simple_list_addstring_gc(vm->sState,list2,cStr2);
 	/* Add Status Number */

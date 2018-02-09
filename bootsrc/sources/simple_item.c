@@ -28,7 +28,7 @@ SIMPLE_API Item * simple_item_new_gc ( void *pState,int ItemType )
 	/* Set Type */
 	pItem->nType = ITEMTYPE_NOTHING ;
 	/* Delete pointer information */
-	pItem->data.pPointer = NULL ;
+	pItem->data.pointer = NULL ;
 	pItem->nObjectType = 0 ;
 	/* Delete number information */
 	pItem->data.dNumber = 0 ;
@@ -70,7 +70,7 @@ SIMPLE_API void simple_item_print ( Item *pItem )
 			break ;
 		case ITEMTYPE_POINTER :
 			/* Work */
-			printf( "%p",pItem->data.pPointer ) ;
+			printf( "%p",pItem->data.pointer ) ;
 			break ;
 		case ITEMTYPE_LIST :
 			/* Work */
@@ -95,7 +95,7 @@ SIMPLE_API void simple_item_content_delete_gc ( void *pState,Item *pItem )
 	/* Set Type */
 	pItem->nType = ITEMTYPE_NOTHING ;
 	/* Delete pointer information */
-	pItem->data.pPointer = NULL ;
+	pItem->data.pointer = NULL ;
 	pItem->nObjectType = 0 ;
 	/* Delete number information */
 	pItem->data.dNumber = 0 ;
@@ -123,7 +123,7 @@ SIMPLE_API void simple_item_settype_gc ( void *pState,Item *pItem,int ItemType )
 			break ;
 		case ITEMTYPE_POINTER :
 			pItem->nType = ITEMTYPE_POINTER ;
-			pItem->data.pPointer = NULL ;
+			pItem->data.pointer = NULL ;
 			pItem->nObjectType = 0 ;
 			break ;
 		case ITEMTYPE_LIST :
@@ -152,7 +152,7 @@ SIMPLE_API void simple_itemarray_setint_gc ( void *pState,Item list[], int index
 SIMPLE_API void simple_itemarray_setpointer_gc ( void *pState,Item list[], int index ,void *pValue )
 {
 	simple_item_settype_gc(pState,&list[index],ITEMTYPE_POINTER);
-	list[index].data.pPointer = pValue ;
+	list[index].data.pointer = pValue ;
 	list[index].nObjectType = 0 ;
 }
 /* double */
@@ -164,7 +164,7 @@ SIMPLE_API void simple_itemarray_setdouble_gc ( void *pState,Item list[], int in
 	list[index].NumberFlag = ITEM_NUMBERFLAG_DOUBLE ;
 }
 #define simple_list_getint(list,index) ( simple_list_getitem(list,index)->data.iNumber )
-#define simple_list_getpointer(list,index) ( simple_list_getitem(list,index)->data.pPointer )
+#define simple_list_getpointer(list,index) ( simple_list_getitem(list,index)->data.pointer )
 #define simple_list_getfuncpointer(list,index) ( simple_list_getitem(list,index)->data.pFunc )
 #define simple_list_callfuncpointer(list,index,x) ( simple_list_getitem(list,index)->data.pFunc(x) )
 #define simple_list_getdouble(list,index) simple_list_getitem(list,index)->data.dNumber
@@ -208,7 +208,7 @@ SIMPLE_API void simple_item_setdouble_gc ( void *pState,Item *pItem,double x )
 SIMPLE_API void simple_item_setpointer_gc ( void *pState,Item *pItem,void *pValue )
 {
 	simple_item_settype_gc(pState,pItem,ITEMTYPE_POINTER);
-	pItem->data.pPointer = pValue ;
+	pItem->data.pointer = pValue ;
 	pItem->nObjectType = 0 ;
 }
 

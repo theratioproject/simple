@@ -403,7 +403,7 @@ SIMPLE_API void simple_list_setpointer_gc ( void *pState,List *list, int index ,
 	assert(list != NULL);
 	pItem = simple_list_getitem(list,index);
 	simple_item_settype_gc(pState,pItem,ITEMTYPE_POINTER);
-	pItem->data.pPointer = pValue ;
+	pItem->data.pointer = pValue ;
 }
 
 SIMPLE_API void simple_list_addpointer_gc ( void *pState,List *list,void *pValue )
@@ -524,10 +524,10 @@ SIMPLE_API int simple_list_isfuncpointer ( List *list, int index )
 	return 0 ;
 }
 
-void simple_list_testfuncpointer ( void *pPointer )
+void simple_list_testfuncpointer ( void *pointer )
 {
 	List *list  ;
-	list = (List *) pPointer ;
+	list = (List *) pointer ;
 	puts(" Message from a function called by function pointer  ");
 	printf( "List Size %d  \n",list->nSize ) ;
 }
@@ -738,12 +738,12 @@ SIMPLE_API int simple_list_finddouble ( List *list,double nNum1,int nColumn )
 	return 0 ;
 }
 
-SIMPLE_API int simple_list_findpointer ( List *list,void *pPointer )
+SIMPLE_API int simple_list_findpointer ( List *list,void *pointer )
 {
 	int x  ;
 	for ( x = 1 ; x <= simple_list_getsize(list) ; x++ ) {
 		if ( simple_list_ispointer(list,x) ) {
-			if ( simple_list_getpointer(list,x) == pPointer ) {
+			if ( simple_list_getpointer(list,x) == pointer ) {
 				return x ;
 			}
 		}

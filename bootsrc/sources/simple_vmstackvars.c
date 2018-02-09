@@ -285,7 +285,7 @@ void simple_vm_setreference ( VM *vm )
 {
 	List *list  ;
 	int nType  ;
-	void *pPointer  ;
+	void *pointer  ;
 	/*
 	**  Check if we have value (string/number) not variable 
 	**  In this case we need assignment 
@@ -295,7 +295,7 @@ void simple_vm_setreference ( VM *vm )
 		return ;
 	}
 	/* Read Source */
-	pPointer = SIMPLE_VM_STACK_READP ;
+	pointer = SIMPLE_VM_STACK_READP ;
 	nType = SIMPLE_VM_STACK_OBJTYPE ;
 	SIMPLE_VM_STACK_POP ;
 	/* Read Destination */
@@ -305,10 +305,10 @@ void simple_vm_setreference ( VM *vm )
 	simple_vm_gc_checkupdatereference(list);
 	/* Copy by reference */
 	simple_list_setint_gc(vm->sState,list,SIMPLE_VAR_TYPE,SIMPLE_VM_POINTER);
-	simple_list_setpointer_gc(vm->sState,list,SIMPLE_VAR_VALUE,pPointer);
+	simple_list_setpointer_gc(vm->sState,list,SIMPLE_VAR_VALUE,pointer);
 	simple_list_setint_gc(vm->sState,list,SIMPLE_VAR_PVALUETYPE,nType);
 	/* Reference Counting (To Source After copy to Destination) */
-	simple_vm_gc_checknewreference(pPointer,nType);
+	simple_vm_gc_checknewreference(pointer,nType);
 }
 
 void simple_vm_list_copy ( VM *vm,List *pNewList, List *list )
