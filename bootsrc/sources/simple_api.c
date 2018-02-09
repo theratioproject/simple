@@ -68,14 +68,6 @@ SIMPLE_API void loadcfunctions ( SimpleState *sState )
 	register_block("str2list",simple_vmlib_str2list);
 	register_block("list2str",simple_vmlib_list2str);
 	register_block("str2hexcstyle",simple_vmlib_str2hexcstyle);
-	/* String */
-	register_block("left",simple_vmlib_left);
-	register_block("right",simple_vmlib_right);
-	register_block("trim",simple_vmlib_trim);
-	register_block("copy",simple_vmlib_copy);
-	register_block("substr",simple_vmlib_substr);
-	register_block("lines",simple_vmlib_lines);
-	register_block("stringCompare",simple_vmlib_strcmp);
 	/* Functional */
 	register_block("executeCode",simple_vmlib_eval);
 	/* Error Handling */
