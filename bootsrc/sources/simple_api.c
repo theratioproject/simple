@@ -542,25 +542,6 @@ void simple_vmlib_del ( void *pointer )
 	}
 }
 
-void simple_vmlib_get ( void *pointer )
-{
-	char *pData  ;
-	if ( SIMPLE_API_PARACOUNT != 1 ) {
-		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
-		return ;
-	}
-	if ( SIMPLE_API_ISSTRING(1) ) {
-		pData = getenv(SIMPLE_API_GETSTRING(1));
-		if ( pData != NULL ) {
-			SIMPLE_API_RETSTRING(pData);
-		} else {
-			SIMPLE_API_RETSTRING("");
-		}
-	} else {
-		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
-	}
-}
-
 void simple_vmlib_clock ( void *pointer )
 {
 	clock_t nNum1  ;

@@ -68,8 +68,6 @@ void simple_vmlib_add ( void *pointer ) ;
 
 void simple_vmlib_del ( void *pointer ) ;
 
-void simple_vmlib_get ( void *pointer ) ;
-
 void simple_vmlib_clock ( void *pointer ) ;
 
 void simple_vmlib_input ( void *pointer ) ;
