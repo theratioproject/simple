@@ -34,8 +34,6 @@ SIMPLE_API void loadcfunctions ( SimpleState *sState )
 	register_block("del",simple_vmlib_del);
 	register_block("sysget",simple_vmlib_get);
 	register_block("clock",simple_vmlib_clock);
-	register_block("$__lower",simple_vmlib_lower);
-	register_block("$__upper",simple_vmlib_upper);
 	register_block("input",simple_vmlib_input);
 	register_block("ascii",simple_vmlib_ascii);
 	register_block("char",simple_vmlib_char);

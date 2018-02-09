@@ -72,10 +72,6 @@ void simple_vmlib_get ( void *pPointer ) ;
 
 void simple_vmlib_clock ( void *pPointer ) ;
 
-void simple_vmlib_lower ( void *pPointer ) ;
-
-void simple_vmlib_upper ( void *pPointer ) ;
-
 void simple_vmlib_input ( void *pPointer ) ;
 
 void simple_vmlib_ascii ( void *pPointer ) ;
@@ -143,21 +139,7 @@ void simple_vmlib_str2list ( void *pPointer ) ;
 void simple_vmlib_list2str ( void *pPointer ) ;
 
 void simple_vmlib_str2hexcstyle ( void *pPointer ) ;
-/* String */
 
-void simple_vmlib_left ( void *pPointer ) ;
-
-void simple_vmlib_right ( void *pPointer ) ;
-
-void simple_vmlib_trim ( void *pPointer ) ;
-
-void simple_vmlib_copy ( void *pPointer ) ;
-
-void simple_vmlib_substr ( void *pPointer ) ;
-
-void simple_vmlib_lines ( void *pPointer ) ;
-
-void simple_vmlib_strcmp ( void *pPointer ) ;
 /* Functional */
 
 void simple_vmlib_eval ( void *pPointer ) ;
