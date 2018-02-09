@@ -1224,7 +1224,7 @@ void simple_vm_addglobalvariables ( VM *vm )
 	simple_vm_addnewstringvar(vm,"tab","\t");
 	simple_vm_addnewstringvar(vm,"cr","\r");
 	/* Add Command Line Parameters */
-	list = simple_vm_newvar2(vm,"sysargv",vm->pActiveMem);
+	list = simple_vm_newvar2(vm,"cmdparams",vm->pActiveMem);
 	simple_list_setint_gc(vm->sState,list,SIMPLE_VAR_TYPE,SIMPLE_VM_LIST);
 	simple_list_setlist_gc(vm->sState,list,SIMPLE_VAR_VALUE);
 	list = simple_list_getlist(list,SIMPLE_VAR_VALUE);
