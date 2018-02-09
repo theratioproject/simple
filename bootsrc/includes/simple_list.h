@@ -65,7 +65,7 @@ SIMPLE_API void simple_list_addfuncpointer_gc ( void *pState,List *list,void (*p
 
 SIMPLE_API int simple_list_isfuncpointer ( List *list, int index ) ;
 
-void simple_list_testfuncpointer ( void *pPointer ) ;
+void simple_list_testfuncpointer ( void *pointer ) ;
 /* double */
 
 SIMPLE_API void simple_list_setdouble_gc ( void *pState,List *list, int index ,double number ) ;
@@ -127,7 +127,7 @@ SIMPLE_API int simple_list_findstring ( List *list,const char *str,int nColumn )
 
 SIMPLE_API int simple_list_finddouble ( List *list,double nNum1,int nColumn ) ;
 
-SIMPLE_API int simple_list_findpointer ( List *list,void *pPointer ) ;
+SIMPLE_API int simple_list_findpointer ( List *list,void *pointer ) ;
 
 SIMPLE_API int simple_list_findinlistofobjs ( List *list,int nType,double nNum1,const char *str,int nColumn,char *cAttribute ) ;
 
@@ -170,7 +170,7 @@ SIMPLE_API int simple_list_deliteminsidelist ( List *list,Item *pItem ) ;
 #define simple_list_deletelastitem(x) simple_list_deleteitem(x,simple_list_getsize(x))
 #define simple_list_gethashtable(x) (x->pHashTable)
 #define simple_list_getint(list,index) ( simple_list_getitem(list,index)->data.iNumber )
-#define simple_list_getpointer(list,index) ( simple_list_getitem(list,index)->data.pPointer )
+#define simple_list_getpointer(list,index) ( simple_list_getitem(list,index)->data.pointer )
 #define simple_list_getfuncpointer(list,index) ( simple_list_getitem(list,index)->data.pFunc )
 #define simple_list_callfuncpointer(list,index,x) ( simple_list_getitem(list,index)->data.pFunc(x) )
 #define simple_list_getdouble(list,index) simple_list_getitem(list,index)->data.dNumber

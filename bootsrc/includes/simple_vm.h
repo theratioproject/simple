@@ -269,7 +269,7 @@ void simple_vm_addnewstringvar2 ( VM *vm,const char *cStr,const char *cStr2,int 
 
 List * simple_vm_newtempvar2 ( VM *vm,const char *cStr,List *list3 ) ;
 
-void simple_vm_addnewcpointervar ( VM *vm,const char *cStr,void *pPointer,const char *cStr2 ) ;
+void simple_vm_addnewcpointervar ( VM *vm,const char *cStr,void *pointer,const char *cStr2 ) ;
 /* Jump */
 
 void simple_vm_jump ( VM *vm ) ;
@@ -427,7 +427,7 @@ void simple_vm_oop_setget ( VM *vm,List *pVar ) ;
 
 void simple_vm_oop_setproperty ( VM *vm ) ;
 
-void simple_vm_oop_operatoroverloading ( VM *vm,List *pObj,const char *cStr1,int nType,const char *cStr2,double nNum1,void *pPointer,int nPointerType ) ;
+void simple_vm_oop_operatoroverloading ( VM *vm,List *pObj,const char *cStr1,int nType,const char *cStr2,double nNum1,void *pointer,int nPointerType ) ;
 
 List * simple_vm_oop_objvarfromobjlist ( List *list ) ;
 
@@ -548,7 +548,7 @@ List * simple_vm_getglobalscope ( VM *vm ) ;
 */
 #define SIMPLE_VM_STACK_PUSHC vm->nSP++ ; simple_itemarray_setstring2(vm->aStack, vm->nSP, simple_string_get(vm->pByteCodeIR->aData[1]->data.pString), simple_string_size(vm->pByteCodeIR->aData[1]->data.pString))
 #define SIMPLE_VM_STACK_PUSHN vm->nSP++ ; simple_itemarray_setdouble(vm->aStack, vm->nSP , vm->pByteCodeIR->aData[1]->data.dNumber)
-#define SIMPLE_VM_STACK_PUSHP vm->nSP++ ; simple_itemarray_setpointer(vm->aStack, vm->nSP , vm->pByteCodeIR->aData[1]->data.pPointer )
+#define SIMPLE_VM_STACK_PUSHP vm->nSP++ ; simple_itemarray_setpointer(vm->aStack, vm->nSP , vm->pByteCodeIR->aData[1]->data.pointer )
 /* Note, use SIMPLE_VM_STACK_OBJTYPE to read/write the pointer type */
 #define SIMPLE_VM_STACK_TRUE simple_itemarray_setdouble(vm->aStack,vm->nSP, 1)
 #define SIMPLE_VM_STACK_FALSE simple_itemarray_setdouble(vm->aStack,vm->nSP, 0)
@@ -598,8 +598,8 @@ List * simple_vm_getglobalscope ( VM *vm ) ;
 #define SIMPLE_VM_JUMP vm->nPC = vm->pByteCodeIR->aData[1]->data.iNumber
 #define SIMPLE_VM_IR_READC simple_string_get(vm->pByteCodeIR->aData[1]->data.pString)
 #define SIMPLE_VM_IR_READCVALUE(x) simple_string_get(vm->pByteCodeIR->aData[x]->data.pString)
-#define SIMPLE_VM_IR_READP vm->pByteCodeIR->aData[1]->data.pPointer
-#define SIMPLE_VM_IR_READPVALUE(x) vm->pByteCodeIR->aData[x]->data.pPointer
+#define SIMPLE_VM_IR_READP vm->pByteCodeIR->aData[1]->data.pointer
+#define SIMPLE_VM_IR_READPVALUE(x) vm->pByteCodeIR->aData[x]->data.pointer
 #define SIMPLE_VM_IR_READI vm->pByteCodeIR->aData[1]->data.iNumber
 #define SIMPLE_VM_IR_READIVALUE(x) vm->pByteCodeIR->aData[x]->data.iNumber
 #define SIMPLE_VM_IR_READD vm->pByteCodeIR->aData[1]->data.dNumber

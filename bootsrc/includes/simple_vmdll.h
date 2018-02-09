@@ -32,7 +32,7 @@ typedef void (*loadlibfuncptr)(SimpleState *) ;
 
 void simple_vm_dll_loadfunctions ( SimpleState *sState ) ;
 
-void simple_vm_dll_loadlib ( void *pPointer ) ;
+void simple_vm_dll_loadlib ( void *pointer ) ;
 
-void simple_vm_dll_closelib ( void *pPointer ) ;
+void simple_vm_dll_closelib ( void *pointer ) ;
 #endif

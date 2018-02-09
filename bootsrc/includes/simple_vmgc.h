@@ -19,7 +19,7 @@
 
 void simple_vm_gc_checkreferences ( VM *vm ) ;
 
-void simple_vm_gc_checknewreference ( void *pPointer,int nType ) ;
+void simple_vm_gc_checknewreference ( void *pointer,int nType ) ;
 
 void simple_vm_gc_checkupdatereference ( List *list ) ;
 

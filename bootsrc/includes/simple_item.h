@@ -31,7 +31,7 @@ typedef struct Item {
 		struct String *pString  ;
 		double dNumber  ;
 		int iNumber  ;
-		void *pPointer  ;
+		void *pointer  ;
 		struct List *list  ;
 		void (*pFunc)(void *) ;
 	} data ;
@@ -93,10 +93,10 @@ SIMPLE_API void simple_item_setstring2_gc ( void *pState,Item *pItem,const char 
 #define simple_item_getdouble(x) x->data.dNumber
 #define simple_item_getint(x) x->data.iNumber
 #define simple_item_getlist(x) x->data.list
-#define simple_item_getpointer(x) x->data.pPointer
+#define simple_item_getpointer(x) x->data.pointer
 #define simple_item_gettype(x) x->nType
 #define simple_itemarray_getint(list,index) ( list[index].data.iNumber )
-#define simple_itemarray_getpointer(list,index) ( list[index].data.pPointer )
+#define simple_itemarray_getpointer(list,index) ( list[index].data.pointer )
 #define simple_itemarray_getdouble(list,index) list[index].data.dNumber
 #define simple_itemarray_getstring(list,index) simple_string_get(list[index].data.pString )
 #define simple_itemarray_getstringsize(list,index) simple_string_size(list[index].data.pString )
