@@ -929,7 +929,7 @@ void simple_vm_returneval ( VM *vm )
 	**  If we don't terminate the sub main loop , this is just an extra overhead 
 	**  Also terminating the sub main loop is a must when we do GUI programming 
 	**  Because in GUI programming, the main loop calls the GUI Main Loop 
-	**  During GUI main loop when event happens that calls a ring code 
+	**  During GUI main loop when event happens that calls a simple code 
 	**  Eval will be used and a sub main loop will be executed 
 	**  If we don't terminate the sub main loop, we can't return to the GUI Main Loop 
 	**  It's necessary to return to the GUI main loop 
