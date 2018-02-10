@@ -470,7 +470,7 @@ void simple_vmlib_len ( void *pointer )
 	}
 	else if ( SIMPLE_API_ISLIST(1) ) {
 		if ( simple_vm_oop_isobject(SIMPLE_API_GETLIST(1)) == 0 ) {
-			SIMPLE_API_RETNUMBER(simple_list_getsize(SIMPLE_API_GETLIST(1)) - 2);
+			SIMPLE_API_RETNUMBER(simple_list_getsize(SIMPLE_API_GETLIST(1)) );
 		}
 		else {
 			SIMPLE_VM_STACK_PUSHPVALUE(SIMPLE_API_GETPOINTER(1));
