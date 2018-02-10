@@ -80,8 +80,6 @@ void simple_vmlib_date ( void *pointer ) ;
 
 void simple_vmlib_time ( void *pointer ) ;
 
-void simple_vmlib_filename ( void *pointer ) ;
-
 void simple_vmlib_getchar ( void *pointer ) ;
 
 void simple_vmlib_system ( void *pointer ) ;

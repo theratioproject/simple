@@ -38,7 +38,6 @@ SIMPLE_API void loadcfunctions ( SimpleState *sState )
 	register_block("char",simple_vmlib_char);
 	register_block("date",simple_vmlib_date);
 	register_block("time",simple_vmlib_time);
-	register_block("filename",simple_vmlib_filename); 
 	register_block("getchar",simple_vmlib_getchar);
 	register_block("system",simple_vmlib_system);
 	register_block("random",simple_vmlib_random);
@@ -641,33 +640,6 @@ void simple_vmlib_time ( void *pointer )
 	tm_info = localtime(&timer);
 	strftime(buffer,25,"%H:%M:%S", tm_info);
 	SIMPLE_API_RETSTRING(buffer);
-}
-
-void simple_vmlib_filename ( void *pointer )
-{
-	VM *vm  ;
-	int nPos  ;
-	List *list  ;
-	vm = (VM *) pointer ;
-	if ( vm->nInClassRegion ) {
-		SIMPLE_API_RETSTRING(vm->cFileNameInClassRegion);
-		return ;
-	}
-	if ( (vm->nFuncExecute2 > 0) && (simple_list_getsize(vm->pFuncCallList)>0) ) {
-		/*
-		**  Here we have Load Function Instruction - But Still the function is not called 
-		**  FunctionName (  ***Parameters**** We are here! ) 
-		*/
-		nPos = simple_list_getsize(vm->pFuncCallList)  -  (vm->nFuncExecute2 - 1) ;
-		if ( (nPos > 0) && (nPos <= simple_list_getsize(vm->pFuncCallList)) ) {
-			list = simple_list_getlist(vm->pFuncCallList,nPos);
-			if ( simple_list_getsize(list) >= SIMPLE_BLOCKCL_FILENAME ) {
-				SIMPLE_API_RETSTRING((char *) simple_list_getpointer(list,SIMPLE_BLOCKCL_FILENAME ));
-			}
-		}
-		return ;
-	}
-	SIMPLE_API_RETSTRING(vm->cFileName);
 }
 
 void simple_vmlib_getchar ( void *pointer )
