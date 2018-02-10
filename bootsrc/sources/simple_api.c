@@ -38,7 +38,7 @@ SIMPLE_API void loadcfunctions ( SimpleState *sState )
 	register_block("char",simple_vmlib_char);
 	register_block("date",simple_vmlib_date);
 	register_block("time",simple_vmlib_time);
-	register_block("filename",simple_vmlib_filename);
+	register_block("filename",simple_vmlib_filename); 
 	register_block("getchar",simple_vmlib_getchar);
 	register_block("system",simple_vmlib_system);
 	register_block("random",simple_vmlib_random);
