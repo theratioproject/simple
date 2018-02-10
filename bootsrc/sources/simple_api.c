@@ -46,7 +46,7 @@ SIMPLE_API void loadcfunctions ( SimpleState *sState )
 	register_block("diffdays",simple_vmlib_diffdays);
 	register_block("getSimpleVersion",simple_vmlib_version);
 	register_block("clockspersecond",simple_vmlib_clockspersecond);
-	register_block("prevfilename",simple_vmlib_prevfilename);
+	register_block("prevfilename",simple_vmlib_prevfilename); 
 	register_block("swap",simple_vmlib_swap);
 	/* Check Data Type */
 	register_block("isstring",simple_vmlib_isstring);
