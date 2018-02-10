@@ -96,8 +96,6 @@ void simple_vmlib_version ( void *pointer ) ;
 
 void simple_vmlib_clockspersecond ( void *pointer ) ;
 
-void simple_vmlib_prevfilename ( void *pointer ) ;
-
 int simple_vmlib_adddays_isleapyear ( int nYear ) ;
 
 void simple_vmlib_swap ( void *pointer ) ;

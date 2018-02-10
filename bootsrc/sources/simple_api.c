@@ -46,7 +46,6 @@ SIMPLE_API void loadcfunctions ( SimpleState *sState )
 	register_block("diffdays",simple_vmlib_diffdays);
 	register_block("getSimpleVersion",simple_vmlib_version);
 	register_block("clockspersecond",simple_vmlib_clockspersecond);
-	register_block("prevfilename",simple_vmlib_prevfilename); 
 	register_block("swap",simple_vmlib_swap);
 	/* Check Data Type */
 	register_block("isstring",simple_vmlib_isstring);
@@ -908,11 +907,6 @@ void simple_vmlib_version ( void *pointer )
 void simple_vmlib_clockspersecond ( void *pointer )
 {
 	SIMPLE_API_RETNUMBER(CLOCKS_PER_SEC);
-}
-
-void simple_vmlib_prevfilename ( void *pointer )
-{
-	SIMPLE_API_RETSTRING(((VM *) pointer)->cPrevFileName);
 }
 
 int simple_vmlib_adddays_isleapyear ( int nYear )
