@@ -49,7 +49,6 @@ SIMPLE_API void loadcfunctions ( SimpleState *sState )
 	register_block("clockspersecond",simple_vmlib_clockspersecond);
 	register_block("prevfilename",simple_vmlib_prevfilename);
 	register_block("swap",simple_vmlib_swap);
-	register_block("shutdown",simple_vmlib_shutdown);
 	/* Check Data Type */
 	register_block("isstring",simple_vmlib_isstring);
 	register_block("isnumber",simple_vmlib_isnumber);
@@ -982,16 +981,6 @@ void simple_vmlib_swap ( void *pointer )
 	}
 }
 
-void simple_vmlib_shutdown ( void *pointer )
-{
-	if ( SIMPLE_API_PARACOUNT == 1 ) {
-		if ( SIMPLE_API_ISNUMBER(1) ) {
-			exit(SIMPLE_API_GETNUMBER(1));
-			return ;
-		}
-	}
-	exit(0);
-}
 /* Check Data Type */
 
 void simple_vmlib_isstring ( void *pointer )

@@ -104,7 +104,6 @@ int simple_vmlib_adddays_isleapyear ( int nYear ) ;
 
 void simple_vmlib_swap ( void *pointer ) ;
 
-void simple_vmlib_shutdown ( void *pointer ) ;
 /* Check Data Type */
 
 void simple_vmlib_isstring ( void *pointer ) ;
