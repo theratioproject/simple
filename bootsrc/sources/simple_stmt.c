@@ -535,7 +535,7 @@ int simple_parser_stmt ( Parser *parser )
 				simple_parser_icg_newoperation(parser,ICO_LOADAPUSHV);
 				simple_parser_icg_newoperand(parser,cStr);
 				simple_parser_icg_newoperation(parser,ICO_LOADBLOCK);
-				simple_parser_icg_newoperand(parser,"len");
+				simple_parser_icg_newoperand(parser,"lengthOf");
 				nStart = simple_parser_icg_instructionscount(parser) + 1 ;
 				simple_parser_nexttoken(parser);
 				parser->nAssignmentFlag = 0 ;

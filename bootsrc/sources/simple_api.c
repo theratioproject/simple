@@ -475,7 +475,7 @@ void simple_vmlib_len ( void *pointer )
 		else {
 			SIMPLE_VM_STACK_PUSHPVALUE(SIMPLE_API_GETPOINTER(1));
 			SIMPLE_VM_STACK_OBJTYPE = SIMPLE_API_GETPOINTERTYPE(1) ;
-			simple_vm_expr_npoo(vm,"len",0);
+			simple_vm_expr_npoo(vm,"lengthOf",0);
 			vm->nIgnoreNULL = 1 ;
 		}
 	} else {
