@@ -39,7 +39,6 @@ SIMPLE_API void loadcfunctions ( SimpleState *sState )
 	register_block("date",simple_vmlib_date);
 	register_block("time",simple_vmlib_time);
 	register_block("getchar",simple_vmlib_getchar);
-	register_block("system",simple_vmlib_system);
 	register_block("random",simple_vmlib_random);
 	register_block("timelist",simple_vmlib_timelist);
 	register_block("adddays",simple_vmlib_adddays);
@@ -647,19 +646,6 @@ void simple_vmlib_getchar ( void *pointer )
 	SIMPLE_SETBINARY ;
 	cStr[0] = getchar() ;
 	SIMPLE_API_RETSTRING2(cStr,1);
-}
-
-void simple_vmlib_system ( void *pointer )
-{
-	if ( SIMPLE_API_PARACOUNT != 1 ) {
-		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
-		return ;
-	}
-	if ( SIMPLE_API_ISSTRING(1) ) {
-		system(SIMPLE_API_GETSTRING(1));
-	} else {
-		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
-	}
 }
 
 void simple_vmlib_random ( void *pointer )

@@ -82,8 +82,6 @@ void simple_vmlib_time ( void *pointer ) ;
 
 void simple_vmlib_getchar ( void *pointer ) ;
 
-void simple_vmlib_system ( void *pointer ) ;
-
 void simple_vmlib_random ( void *pointer ) ;
 
 void simple_vmlib_timelist ( void *pointer ) ;
