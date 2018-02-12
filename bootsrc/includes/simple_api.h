@@ -206,9 +206,9 @@ void simple_vmlib_state_new ( void *pointer ) ;
 void simple_vmlib_state_mainfile ( void *pointer ) ;
 /* Simple See and Give */
 
-void simple_vmlib_see ( void *pointer ) ;
+void display_string ( void *pointer ) ;
 
-void simple_vmlib_give ( void *pointer ) ;
+void read_string ( void *pointer ) ;
 /* API For C Functions */
 #define SIMPLE_API_PARALIST (((VM *) pointer)->pActiveMem)
 #define SIMPLE_API_PARACOUNT (((VM *) pointer)->nCFuncParaCount)

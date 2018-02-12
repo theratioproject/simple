@@ -186,7 +186,7 @@ void simple_vm_give ( VM *vm )
 
 /* User Interface Functions (Another implementation) - Flexibile (We can replace functions in Simple Code) */
 
-void simple_vmlib_see ( void *pointer )
+void display_string ( void *pointer )
 {
 	char *cString  ;
 	int x  ;
@@ -219,7 +219,7 @@ void simple_vmlib_see ( void *pointer )
 	fflush(stdout);
 }
 
-void simple_vmlib_give ( void *pointer )
+void read_string ( void *pointer )
 {
 	int x  ;
 	char cLine[256]  ;
