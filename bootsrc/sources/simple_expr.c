@@ -1210,7 +1210,7 @@ int simple_parser_mixer ( Parser *parser )
 		
 		puts("Rule : Mixer --> '{' {Statement} BraceEnd");
 		#endif
-		/* if ismethod(self,"bracestart") bracestart() ok */
+		/* if isblock(self,"bracestart") bracestart() ok */
 		simple_parser_gencallbracemethod(parser,"bracestart");
 		simple_parser_nexttoken(parser);
 		nStatus = parser->nAssignmentFlag ;
@@ -1225,7 +1225,7 @@ int simple_parser_mixer ( Parser *parser )
 			parser->nBraceFlag-- ;
 			/*
 			**  Generate Code 
-			**  if ismethod(self,"braceend") braceend() ok 
+			**  if isblock(self,"braceend") braceend() ok 
 			*/
 			simple_parser_gencallbracemethod(parser,"braceend");
 			simple_parser_icg_newoperation(parser,ICO_BRACEEND);
@@ -1302,9 +1302,9 @@ void simple_parser_gencallbracemethod ( Parser *parser,const char *cMethod )
 {
 	int nMark1  ;
 	List *pMark  ;
-	/* if ismethod(self,cMethod) cMethod() ok */
+	/* if isblock(self,cMethod) cMethod() ok */
 	simple_parser_icg_newoperation(parser,ICO_LOADBLOCK);
-	simple_parser_icg_newoperand(parser,"ismethod");
+	simple_parser_icg_newoperand(parser,"isblock");
 	simple_parser_icg_newoperation(parser,ICO_LOADADDRESS);
 	simple_parser_icg_newoperand(parser,"self");
 	simple_parser_icg_newoperandint(parser,0);

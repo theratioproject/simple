@@ -1101,9 +1101,9 @@ int simple_parser_stmt ( Parser *parser )
 		**  Call expreval() if we are inside { } 
 		*/
 		if ( parser->nBraceFlag ) {
-			/* if ismethod(self,"braceexpreval") braceexpreval() ok */
+			/* if isblock(self,"braceexpreval") braceexpreval() ok */
 			simple_parser_icg_newoperation(parser,ICO_LOADBLOCK);
-			simple_parser_icg_newoperand(parser,"ismethod");
+			simple_parser_icg_newoperand(parser,"isblock");
 			simple_parser_icg_newoperation(parser,ICO_LOADADDRESS);
 			simple_parser_icg_newoperand(parser,"self");
 			simple_parser_icg_newoperandint(parser,0);

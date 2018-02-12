@@ -437,7 +437,7 @@ Item * simple_vm_oop_objitemfromobjlist ( List *list ) ;
 
 void simple_vm_oop_callmethodfrombrace ( VM *vm ) ;
 
-int simple_vm_oop_ismethod ( VM *vm,List *list,const char *cStr ) ;
+int simple_vm_oop_isblock ( VM *vm,List *list,const char *cStr ) ;
 
 void simple_vm_oop_updateselfpointer ( VM *vm,List *pObj,int nType,void *pContainer ) ;
 
