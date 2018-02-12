@@ -91,7 +91,7 @@ SIMPLE_API void loadcfunctions ( SimpleState *sState )
 	register_block("space",simple_vmlib_space);
 	register_block("ptrcmp",simple_vmlib_ptrcmp);
 	/* Simple State */
-	register_block("simple_state_init",simple_vmlib_state_init);
+	register_block("_SimpleState",simple_vmlib_state_init);
 	register_block("simple_state_runcode",simple_vmlib_state_runcode);
 	register_block("simple_state_delete",simple_vmlib_state_delete);
 	register_block("simple_state_runfile",simple_vmlib_state_runfile);
