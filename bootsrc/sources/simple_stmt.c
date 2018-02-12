@@ -318,7 +318,7 @@ int simple_parser_stmt ( Parser *parser )
 		#if SIMPLE_USEDISPLAYBLOCKTION
 		/* Generate code to use the display function */
 		simple_parser_icg_newoperation(parser,ICO_LOADBLOCK);
-		simple_parser_icg_newoperand(parser,"simplevm_display");
+		simple_parser_icg_newoperand(parser,"display");
 		/* Parameters */
 		nFlag = parser->nAssignmentFlag ;
 		parser->nAssignmentFlag = 0 ;

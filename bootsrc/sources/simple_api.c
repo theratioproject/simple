@@ -104,10 +104,10 @@ SIMPLE_API void loadcfunctions ( SimpleState *sState )
 	register_block("simple_state_mainfile",simple_vmlib_state_mainfile);
 	/*
 	**  Simple See and Give 
-	**  Also we add the see() and give() block to the api
+	**  Also we add the display() and read() block to the api
 	*/
-	register_block("see",display_string);
-	register_block("give",read_string);
+	register_block("display",display_string);
+	register_block("read",read_string);
 }
 
 int api_is_list ( void *pointer,int x )
