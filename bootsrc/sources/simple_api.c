@@ -28,12 +28,14 @@ SIMPLE_API void register_block_t ( SimpleState *sState,const char *cStr, void (*
 
 SIMPLE_API void loadcblocks ( SimpleState *sState )
 {
-	/* General */
+	/** General **/
 	register_block("lengthOf",simple_vmlib_len);
 	register_block("add",simple_vmlib_add);
 	register_block("getSimpleVersion",simple_vmlib_version);
-        /* Functional Execution */
+        /** Functional Execution **/
 	register_block("executeCode",simple_vmlib_eval);
+        /** Load DLL Extension  **/
+        simple_vm_dll_loadblocks(sState);
 	/*
 	**  Simple Display and Read 
 	**  Also we add the display() and read() block to the api
