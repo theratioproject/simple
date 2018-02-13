@@ -357,7 +357,7 @@ void simple_vm_try ( VM *vm ) ;
 
 void simple_vm_catch ( VM *vm,const char *cError ) ;
 
-void simple_vm_done ( VM *vm ) ;
+void simple_vm_finally ( VM *vm ) ;
 /* Duplicate and Range */
 
 void simple_vm_dup ( VM *vm ) ;

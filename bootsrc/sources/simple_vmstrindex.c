@@ -87,10 +87,10 @@ void simple_vm_catch ( VM *vm,const char *cError )
 	/* Tell C-API caller (CALL command) that catch happens! */
 	vm->nActiveCatch = 1 ;
 	/* Catch Statements must be executed without try effects */
-	simple_vm_done(vm);
+	simple_vm_finally(vm);
 }
 
-void simple_vm_done ( VM *vm )
+void simple_vm_finally ( VM *vm )
 {
 	simple_list_deleteitem_gc(vm->sState,vm->pTry,simple_list_getsize(vm->pTry));
 }

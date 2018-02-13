@@ -602,7 +602,7 @@ void simple_vm_execute ( VM *vm )
 			simple_vm_try(vm);
 			break ;
 		case ICO_DONE :
-			simple_vm_done(vm);
+			simple_vm_finally(vm);
 			break ;
 		/* Duplicate and Range */
 		case ICO_DUPLICATE :
