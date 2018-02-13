@@ -93,6 +93,7 @@
 #define SIMPLE_SETBINARY ((void)0)
 #endif
 #include <errno.h>
+
 /* Include Project Headers */
 #include "simple_misc.h"
 #include "simple_string.h"
