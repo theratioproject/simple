@@ -132,7 +132,7 @@ SIMPLE_API void simple_item_settype_gc ( void *pState,Item *pItem,int ItemType )
 			break ;
 		case ITEMTYPE_BLOCKPOINTER :
 			pItem->nType = ITEMTYPE_BLOCKPOINTER ;
-			pItem->data.pFunc = NULL ;
+			pItem->data.pBlock = NULL ;
 			break ;
 	}
 }
@@ -165,8 +165,8 @@ SIMPLE_API void simple_itemarray_setdouble_gc ( void *pState,Item list[], int in
 }
 #define simple_list_getint(list,index) ( simple_list_getitem(list,index)->data.iNumber )
 #define simple_list_getpointer(list,index) ( simple_list_getitem(list,index)->data.pointer )
-#define simple_list_getfuncpointer(list,index) ( simple_list_getitem(list,index)->data.pFunc )
-#define simple_list_callfuncpointer(list,index,x) ( simple_list_getitem(list,index)->data.pFunc(x) )
+#define simple_list_getblockpointer(list,index) ( simple_list_getitem(list,index)->data.pBlock )
+#define simple_list_callblockpointer(list,index,x) ( simple_list_getitem(list,index)->data.pBlock(x) )
 #define simple_list_getdouble(list,index) simple_list_getitem(list,index)->data.dNumber
 #define simple_list_getstring(list,index) ( simple_string_get(simple_item_getstring(simple_list_getitem(list,index))) )
 #define simple_list_getstringobject(list,index) ( simple_item_getstring(simple_list_getitem(list,index)) )

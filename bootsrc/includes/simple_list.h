@@ -59,13 +59,13 @@ SIMPLE_API void simple_list_setpointer_gc ( void *pState,List *list, int index ,
 SIMPLE_API void simple_list_addpointer_gc ( void *pState,List *list,void *pValue ) ;
 /* Block Pointers */
 
-SIMPLE_API void simple_list_setfuncpointer_gc ( void *pState,List *list, int index ,void (*pFunc)(void *) ) ;
+SIMPLE_API void simple_list_setblockpointer_gc ( void *pState,List *list, int index ,void (*pBlock)(void *) ) ;
 
-SIMPLE_API void simple_list_addfuncpointer_gc ( void *pState,List *list,void (*pFunc)(void *) ) ;
+SIMPLE_API void simple_list_addblockpointer_gc ( void *pState,List *list,void (*pBlock)(void *) ) ;
 
-SIMPLE_API int simple_list_isfuncpointer ( List *list, int index ) ;
+SIMPLE_API int simple_list_isblockpointer ( List *list, int index ) ;
 
-void simple_list_testfuncpointer ( void *pointer ) ;
+void simple_list_testblockpointer ( void *pointer ) ;
 /* double */
 
 SIMPLE_API void simple_list_setdouble_gc ( void *pState,List *list, int index ,double number ) ;
@@ -115,7 +115,7 @@ SIMPLE_API void simple_list_insertstsimple_gc ( void *pState,List *list,int nPos
 
 SIMPLE_API void simple_list_insertstring2_gc ( void *pState,List *list,int nPos,const char *str,int nStrSize ) ;
 
-SIMPLE_API void simple_list_insertfuncpointer_gc ( void *pState,List *list,int nPos,void (*pFunc)(void *) ) ;
+SIMPLE_API void simple_list_insertblockpointer_gc ( void *pState,List *list,int nPos,void (*pBlock)(void *) ) ;
 
 SIMPLE_API List * simple_list_insertlist_gc ( void *pState,List *list,int nPos ) ;
 /* Is item inside list, support nested Lists */
@@ -171,8 +171,8 @@ SIMPLE_API int simple_list_deliteminsidelist ( List *list,Item *pItem ) ;
 #define simple_list_gethashtable(x) (x->pHashTable)
 #define simple_list_getint(list,index) ( simple_list_getitem(list,index)->data.iNumber )
 #define simple_list_getpointer(list,index) ( simple_list_getitem(list,index)->data.pointer )
-#define simple_list_getfuncpointer(list,index) ( simple_list_getitem(list,index)->data.pFunc )
-#define simple_list_callfuncpointer(list,index,x) ( simple_list_getitem(list,index)->data.pFunc(x) )
+#define simple_list_getblockpointer(list,index) ( simple_list_getitem(list,index)->data.pBlock )
+#define simple_list_callblockpointer(list,index,x) ( simple_list_getitem(list,index)->data.pBlock(x) )
 #define simple_list_getdouble(list,index) simple_list_getitem(list,index)->data.dNumber
 #define simple_list_getstring(list,index) ( simple_string_get(simple_item_getstring(simple_list_getitem(list,index))) )
 #define simple_list_getstringobject(list,index) ( simple_item_getstring(simple_list_getitem(list,index)) )
@@ -206,9 +206,9 @@ SIMPLE_API void simple_list_setpointer ( List *list, int index ,void *pValue ) ;
 SIMPLE_API void simple_list_addpointer ( List *list,void *pValue ) ;
 /* Block Pointers */
 
-SIMPLE_API void simple_list_setfuncpointer ( List *list, int index ,void (*pFunc)(void *) ) ;
+SIMPLE_API void simple_list_setblockpointer ( List *list, int index ,void (*pBlock)(void *) ) ;
 
-SIMPLE_API void simple_list_addfuncpointer ( List *list,void (*pFunc)(void *) ) ;
+SIMPLE_API void simple_list_addblockpointer ( List *list,void (*pBlock)(void *) ) ;
 /* double */
 
 SIMPLE_API void simple_list_setdouble ( List *list, int index ,double number ) ;
@@ -246,7 +246,7 @@ SIMPLE_API void simple_list_insertstring ( List *list,int nPos,const char *str )
 
 SIMPLE_API void simple_list_insertstring2 ( List *list,int nPos,const char *str,int nStrSize ) ;
 
-SIMPLE_API void simple_list_insertfuncpointer ( List *list,int nPos,void (*pFunc)(void *) ) ;
+SIMPLE_API void simple_list_insertblockpointer ( List *list,int nPos,void (*pBlock)(void *) ) ;
 
 SIMPLE_API List * simple_list_insertlist ( List *list,int nPos ) ;
 

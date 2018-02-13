@@ -628,7 +628,7 @@ int simple_parser_factor ( Parser *parser,int *nFlag )
 	int x,x2,x3,nLastOperation,nCount,nNOOP,nToken,nMark  ;
 	List *pLoadAPos, *list, *pMark  ;
 	char lSetProperty,lequal,nBeforeEqual  ;
-	char cFuncName[100]  ;
+	char cBlockName[100]  ;
 	char cKeyword[100]  ;
 	/* Set Identifier Flag - is 1 when we have Factor -->Identifier */
 	*nFlag = 0 ;
@@ -984,9 +984,9 @@ int simple_parser_factor ( Parser *parser,int *nFlag )
 				/* Generate Location for nPC of Getter */
 				simple_parser_icg_newoperandint(parser,0);
 				/* Block Parameters */
-				parser->nFuncCallOnly = 1 ;
+				parser->nBlockCallOnly = 1 ;
 				simple_parser_mixer(parser);
-				parser->nFuncCallOnly = 0 ;
+				parser->nBlockCallOnly = 0 ;
 				/* Generate Code (End Brace) */
 				simple_parser_icg_newoperation(parser,ICO_CALLCLASSINIT);
 				simple_parser_icg_newoperandint(parser,0);
@@ -1014,19 +1014,19 @@ int simple_parser_factor ( Parser *parser,int *nFlag )
 		*/
 		simple_parser_icg_newoperation(parser,ICO_PUSHC);
 		/* Note : the block name must be in lower case */
-		sprintf( cFuncName , "_simple_anonymous_func_%d" , SIMPLE_PARSER_OPERATIONID ) ;
-		simple_parser_icg_newoperand(parser,cFuncName);
+		sprintf( cBlockName , "_simple_anonymous_block_%d" , SIMPLE_PARSER_OPERATIONID ) ;
+		simple_parser_icg_newoperand(parser,cBlockName);
 		simple_parser_icg_newoperation(parser,ICO_JUMP);
 		pMark = simple_parser_icg_getactiveoperation(parser);
 		/* Define the Block - as public (not related to any class) */
 		list = simple_list_newlist_gc(parser->sState,parser->sState->blocks_map);
-		simple_list_addstring_gc(parser->sState,list,cFuncName);
+		simple_list_addstring_gc(parser->sState,list,cBlockName);
 		/* Note +1 because instruction ICO_NEWBLOCK will come next */
 		simple_list_addint_gc(parser->sState,list,SIMPLE_PARSER_OPERATIONID+1);
 		simple_list_addstring_gc(parser->sState,list,simple_list_getstring(parser->sState->files_stack,simple_list_getsize(parser->sState->files_stack)));
 		simple_list_addint_gc(parser->sState,list,0);
 		simple_parser_icg_newoperation(parser,ICO_NEWBLOCK);
-		simple_parser_icg_newoperand(parser,cFuncName);
+		simple_parser_icg_newoperand(parser,cBlockName);
 		/* Get Block Parameters */
 		if ( simple_parser_isidentifier(parser) || simple_parser_isoperator2(parser,OP_FOPEN) ) {
 			if (! simple_parser_paralist(parser)) return 0 ;
@@ -1056,7 +1056,7 @@ int simple_parser_factor ( Parser *parser,int *nFlag )
 				#if SIMPLE_PARSERTRACE
 				SIMPLE_STATE_CHECKPRINTRULES 
 				
-				puts("Rule : AnonymousBlock --> Func ParaList '{' Statement '}'");
+				puts("Rule : AnonymousBlock --> Block ParaList '{' Statement '}'");
 				#endif
 				return 1 ;
 			}
@@ -1196,7 +1196,7 @@ int simple_parser_mixer ( Parser *parser )
 		}
 	}
 	/* Block Call Only */
-	if ( parser->nFuncCallOnly == 1 ) {
+	if ( parser->nBlockCallOnly == 1 ) {
 		return 1 ;
 	}
 	/* '{' {Statement} '}' */

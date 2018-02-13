@@ -272,12 +272,12 @@ void simple_vm_jumpvarlplenum ( VM *vm )
 	}
 }
 
-void simple_vm_loadfuncp ( VM *vm )
+void simple_vm_loadblockp ( VM *vm )
 {
 	List *list  ;
-	vm->nFuncExecute++ ;
-	vm->nFuncExecute2++ ;
-	list = simple_list_newlist_gc(vm->sState,vm->pFuncCallList);
+	vm->nBlockExecute++ ;
+	vm->nBlockExecute2++ ;
+	list = simple_list_newlist_gc(vm->sState,vm->pBlockCallList);
 	simple_list_addint_gc(vm->sState,list,SIMPLE_VM_IR_READIVALUE(3));
 	simple_list_addstring_gc(vm->sState,list,SIMPLE_VM_IR_READC);
 	simple_list_addint_gc(vm->sState,list,SIMPLE_VM_IR_READIVALUE(2));

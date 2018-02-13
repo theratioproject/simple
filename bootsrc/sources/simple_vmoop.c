@@ -8,7 +8,7 @@
 **  vm->pObjState  (  [ Pointer to Scope, Pointer to Methods , Pointer to Classs, Optional True) 
 **  The optional True used with LoadMethod so we can Know that we are inside class method during RT 
 **  We don't check the True value, we just check that the size of the list is 4 
-**  used in simple_vmfuncs , block simple_vm_loadfunc2() 
+**  used in simple_vmblocks , block simple_vm_loadblock2() 
 **  used in simple_vmvars , block simple_vm_findvar2() 
 **  pBraceObject : The list that represent the object directly (not varaible/list item) 
 **  aBraceObjects ( pBraceObject, nSP, nListStart, pNestedLists) 
@@ -46,7 +46,7 @@ void simple_vm_oop_newobj ( VM *vm )
 						nCont = 0 ;
 					}
 				}
-				if ( vm->nFuncExecute > 0 ) {
+				if ( vm->nBlockExecute > 0 ) {
 					nCont = 1 ;
 				}
 				if ( nCont == 1 ) {
@@ -103,16 +103,16 @@ void simple_vm_oop_newobj ( VM *vm )
 				/* Save the current Scope, List and Stack */
 				list4 = simple_list_newlist_gc(vm->sState,vm->aScopeNewObj);
 				simple_list_addpointer_gc(vm->sState,list4,vm->pActiveMem);
-				/* Store List information to allow calling block from list item and creating lists from that funct */
+				/* Store List information to allow calling block from list item and creating lists from that blockt */
 				simple_list_addint_gc(vm->sState,list4,vm->nListStart);
 				simple_list_addpointer_gc(vm->sState,list4,vm->pNestedLists);
 				vm->nListStart = 0 ;
 				vm->pNestedLists = simple_list_new_gc(vm->sState,0);
 				/* Save Stack Information */
 				simple_list_addint_gc(vm->sState,list4,vm->nSP);
-				/* Save FuncExecute */
-				simple_list_addint_gc(vm->sState,list4,vm->nFuncExecute);
-				vm->nFuncExecute = 0 ;
+				/* Save BlockExecute */
+				simple_list_addint_gc(vm->sState,list4,vm->nBlockExecute);
+				vm->nBlockExecute = 0 ;
 				/* Save Private Flag Status */
 				simple_list_addint_gc(vm->sState,list4,vm->nPrivateFlag);
 				/* Save InsideBrace Flag */
@@ -125,7 +125,7 @@ void simple_vm_oop_newobj ( VM *vm )
 				/* Save Line Number */
 				simple_list_addint_gc(vm->sState,list4,vm->nLineNumber);
 				/* Save Block Stack */
-				simple_list_addint_gc(vm->sState,list4,vm->nFuncSP);
+				simple_list_addint_gc(vm->sState,list4,vm->nBlockSP);
 				/* Save Assignment Pointer */
 				simple_list_addpointer_gc(vm->sState,list4,vm->pAssignment);
 				/* Save the Object Pointer and Type */
@@ -260,8 +260,8 @@ void simple_vm_oop_setscope ( VM *vm )
 	**  Restore Stack Information 
 	*/
 	vm->nSP = simple_list_getint(list,4) ;
-	/* Restore FuncExecute */
-	vm->nFuncExecute = simple_list_getint(list,5) ;
+	/* Restore BlockExecute */
+	vm->nBlockExecute = simple_list_getint(list,5) ;
 	/* Restore Private Flag */
 	vm->nPrivateFlag = simple_list_getint(list,6) ;
 	/* Restore InsideBrace Flag */
@@ -272,7 +272,7 @@ void simple_vm_oop_setscope ( VM *vm )
 	/* Restore nLineNumber */
 	vm->nLineNumber = simple_list_getint(list,10) ;
 	/* Restore Block Stack */
-	vm->nFuncSP = simple_list_getint(list,11) ;
+	vm->nBlockSP = simple_list_getint(list,11) ;
 	/* Restore Assignment Pointer */
 	vm->pAssignment = (List *) simple_list_getpointer(list,12) ;
 	/* Restore the scope (before creating the object using new) */
@@ -438,7 +438,7 @@ void simple_vm_oop_loadmethod ( VM *vm )
 	pVar = vm->pBlocksMap ;
 	vm->pBlocksMap = list3 ;
 	vm->nCallMethod = 1 ;
-	lResult = simple_vm_loadfunc(vm);
+	lResult = simple_vm_loadblock(vm);
 	vm->nCallMethod = 0 ;
 	vm->pBlocksMap = pVar ;
 	/* Move list from pObjState to aBeforeObjState */
@@ -616,13 +616,13 @@ void simple_vm_oop_braceend ( VM *vm )
 void simple_vm_oop_bracestack ( VM *vm )
 {
 	vm->nSP = simple_list_getint(simple_list_getlist(vm->aBraceObjects,simple_list_getsize(vm->aBraceObjects)),2) ;
-	if ( vm->nFuncSP > vm->nSP ) {
+	if ( vm->nBlockSP > vm->nSP ) {
 		/*
 		**  This fixes a problem when we use oObject {  executeCode(code) } return cString 
-		**  Where vm->nSP maybe less than vm->nFuncSP while we are inside block 
+		**  Where vm->nSP maybe less than vm->nBlockSP while we are inside block 
 		*/
-		if ( simple_list_getsize(vm->pFuncCallList) > 0 ) {
-			vm->nSP = vm->nFuncSP ;
+		if ( simple_list_getsize(vm->pBlockCallList) > 0 ) {
+			vm->nSP = vm->nBlockSP ;
 		}
 	}
 }
@@ -701,7 +701,7 @@ void simple_vm_oop_loadsuperobjmethod ( VM *vm,List *pSuper )
 	pVar = vm->pBlocksMap ;
 	vm->pBlocksMap = pMethods ;
 	vm->nCallMethod = 1 ;
-	simple_vm_loadfunc(vm);
+	simple_vm_loadblock(vm);
 	vm->nCallMethod = 0 ;
 	vm->pBlocksMap = pVar ;
 }
@@ -822,9 +822,9 @@ int simple_vm_oop_callmethodinsideclass ( VM *vm )
 	**  Braces & Methods calls can be nested 
 	**  Check Calling from block 
 	*/
-	if ( simple_list_getsize(vm->pFuncCallList) > 0 ) {
-		for ( x = simple_list_getsize(vm->pFuncCallList) ; x >= 1 ; x-- ) {
-			list = simple_list_getlist(vm->pFuncCallList,x);
+	if ( simple_list_getsize(vm->pBlockCallList) > 0 ) {
+		for ( x = simple_list_getsize(vm->pBlockCallList) ; x >= 1 ; x-- ) {
+			list = simple_list_getlist(vm->pBlockCallList,x);
 			/* Be sure that the block is already called using ICO_CALL */
 			if ( simple_list_getsize(list) >= SIMPLE_BLOCKCL_CALLERPC ) {
 				if ( simple_list_getint(list,SIMPLE_BLOCKCL_METHODORBLOCK) == 0 ) {
@@ -1153,8 +1153,8 @@ void simple_vm_oop_callmethodfrombrace ( VM *vm )
 		list = simple_list_getlist(vm->pObjState,simple_list_getsize(vm->pObjState)) ;
 		/* Pass Brace when we call class init , using new object() */
 		if ( (simple_list_getsize(vm->pObjState) > 1) && (vm->nCallClassInit) ) {
-			if ( simple_list_getsize(vm->pFuncCallList) > 0 ) {
-				list2 = simple_list_getlist(vm->pFuncCallList,simple_list_getsize(vm->pFuncCallList));
+			if ( simple_list_getsize(vm->pBlockCallList) > 0 ) {
+				list2 = simple_list_getlist(vm->pBlockCallList,simple_list_getsize(vm->pBlockCallList));
 				cStr = simple_list_getstring(list2,SIMPLE_BLOCKCL_NAME);
 				if ( strcmp(cStr,cStr) != 0 ) {
 					list = simple_list_getlist(vm->pObjState,simple_list_getsize(vm->pObjState)-1) ;

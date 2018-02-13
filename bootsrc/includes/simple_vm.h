@@ -48,9 +48,9 @@ typedef struct VM {
 	List *pNestedLists  ;
 	int nBlockFlag  ;
 	List *aPCBlockFlag  ;
-	List *pFuncCallList  ;
-	int nFuncSP  ;
-	int nFuncExecute  ;
+	List *pBlockCallList  ;
+	int nBlockSP  ;
+	int nBlockExecute  ;
 	List *pCBlocksList  ;
 	List *pExitMark  ;
 	List *pLoopMark  ;
@@ -84,19 +84,19 @@ typedef struct VM {
 	List *aLoadAddressScope  ;
 	List *aBeforeObjState  ;
 	List *pLoadAddressScope  ;
-	int nFuncExecute2  ;
+	int nBlockExecute2  ;
 	List *aNewByteCodeItems  ;
 	char nEvalCalledFromSimpleCode  ;
 	char nDecimals  ;
 	char nEvalReallocationFlag  ;
 	int nEvalReallocationSize  ;
-	int nCFuncParaCount  ;
+	int nCBlockParaCount  ;
 	char nIgnoreNULL  ;
 	int nEvalReturnPC  ;
 	char nRetItemRef  ;
-	void (*pFuncMutexDestroy)(void *) ;
-	void (*pFuncMutexLock)(void *) ;
-	void (*pFuncMutexUnlock)(void *) ;
+	void (*pBlockMutexDestroy)(void *) ;
+	void (*pBlockMutexLock)(void *) ;
+	void (*pBlockMutexUnlock)(void *) ;
 	void *pMutex  ;
 	char nIgnoreCPointerTypeCheck  ;
 	char nCallClassInit  ;
@@ -193,7 +193,7 @@ void simple_vm_setfilename ( VM *vm ) ;
 
 void simple_vm_loadaddressfirst ( VM *vm ) ;
 
-void simple_vm_endfuncexec ( VM *vm ) ;
+void simple_vm_endblockexec ( VM *vm ) ;
 /* Compare */
 
 void simple_vm_equal ( VM *vm ) ;
@@ -302,9 +302,9 @@ void simple_vm_listgetvalue ( VM *vm,List *pVar,const char *cStr ) ;
 int simple_vm_strcmpnotcasesensitive ( const char *string_one,const char *cStr2 ) ;
 /* Blocks */
 
-int simple_vm_loadfunc ( VM *vm ) ;
+int simple_vm_loadblock ( VM *vm ) ;
 
-int simple_vm_loadfunc2 ( VM *vm,const char *cStr,int nPerformance ) ;
+int simple_vm_loadblock2 ( VM *vm,const char *cStr,int nPerformance ) ;
 
 void simple_vm_call ( VM *vm ) ;
 
@@ -316,7 +316,7 @@ void simple_vm_returnnull ( VM *vm ) ;
 
 void simple_vm_returneval ( VM *vm ) ;
 
-void simple_vm_newfunc ( VM *vm ) ;
+void simple_vm_newblock ( VM *vm ) ;
 
 void simple_vm_blockflag ( VM *vm ) ;
 
@@ -462,7 +462,7 @@ void simple_vm_jumpvarlenum ( VM *vm ) ;
 
 void simple_vm_jumpvarplenum ( VM *vm ) ;
 
-void simple_vm_loadfuncp ( VM *vm ) ;
+void simple_vm_loadblockp ( VM *vm ) ;
 
 void simple_vm_pushplocal ( VM *vm ) ;
 
@@ -517,7 +517,7 @@ void simple_vm_stepnumber ( VM *vm ) ;
 void simple_vm_popstep ( VM *vm ) ;
 /* Threads */
 
-SIMPLE_API void simple_vm_mutexblocks ( VM *vm,void *(*pFunc)(void),void (*pFuncLock)(void *),void (*pFuncUnlock)(void *),void (*pFuncDestroy)(void *) ) ;
+SIMPLE_API void simple_vm_mutexblocks ( VM *vm,void *(*pBlock)(void),void (*pBlockLock)(void *),void (*pBlockUnlock)(void *),void (*pBlockDestroy)(void *) ) ;
 
 SIMPLE_API void simple_vm_mutexlock ( VM *vm ) ;
 
@@ -531,7 +531,7 @@ SIMPLE_API void simple_vm_runcodefromthread ( VM *vm,const char *cStr ) ;
 void simple_vm_traceevent ( VM *vm,char nEvent ) ;
 /* Fast Block Call for Extensions (Without Eval) */
 
-SIMPLE_API void simple_vm_callblock ( VM *vm,char *cFuncName ) ;
+SIMPLE_API void simple_vm_callblock ( VM *vm,char *cBlockName ) ;
 /* Custom Global Scope */
 
 void simple_vm_newglobalscope ( VM *vm ) ;
@@ -614,7 +614,7 @@ List * simple_vm_getglobalscope ( VM *vm ) ;
 /*
 **  Calling Blocks 
 **  Note : When you insert items check performance blocks for update too! 
-**  pFuncCallList ( Type, Func Name , Position(PC) , Stack Pointer , TempMem, ... 
+**  pBlockCallList ( Type, Block Name , Position(PC) , Stack Pointer , TempMem, ... 
 **  Types 
 */
 #define SIMPLE_BLOCKTYPE_SCRIPT 1
@@ -633,7 +633,7 @@ List * simple_vm_getglobalscope ( VM *vm ) ;
 #define SIMPLE_BLOCKCL_LISTSTART 12
 #define SIMPLE_BLOCKCL_NESTEDLISTS 13
 #define SIMPLE_BLOCKCL_STATE 14
-/* pBlocksMap ( Func Name , Position , File Name, Private Flag) */
+/* pBlocksMap ( Block Name , Position , File Name, Private Flag) */
 #define SIMPLE_BLOCKMAP_NAME 1
 #define SIMPLE_BLOCKMAP_PC 2
 #define SIMPLE_BLOCKMAP_FILENAME 3

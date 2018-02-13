@@ -31,8 +31,8 @@ void simple_vm_liststart ( VM *vm )
 				}
 			}
 		}
-		if ( (vm->nFuncExecute > 0)  || ( nCont == 1 ) ) {
-			if ( simple_list_getsize(vm->pFuncCallList) > 0 ) {
+		if ( (vm->nBlockExecute > 0)  || ( nCont == 1 ) ) {
+			if ( simple_list_getsize(vm->pBlockCallList) > 0 ) {
 				simple_vm_createtemlist(vm);
 			} else {
 				/* Create the list in the General Temp Memory */

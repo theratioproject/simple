@@ -15,18 +15,18 @@
 #include "../includes/simple.h"
 /* Blocks */
 
-int simple_vm_loadfunc ( VM *vm )
+int simple_vm_loadblock ( VM *vm )
 {
-	return simple_vm_loadfunc2(vm,SIMPLE_VM_IR_READC,1) ;
+	return simple_vm_loadblock2(vm,SIMPLE_VM_IR_READC,1) ;
 }
 
-int simple_vm_loadfunc2 ( VM *vm,const char *block_name,int nPerformance )
+int simple_vm_loadblock2 ( VM *vm,const char *block_name,int nPerformance )
 {
 	List *list,*list2,*list3  ;
 	int y  ;
-	/* nFuncExecute is used also by See command while nFuncExecute2 is not */
-	vm->nFuncExecute++ ;
-	vm->nFuncExecute2++ ;
+	/* nBlockExecute is used also by See command while nBlockExecute2 is not */
+	vm->nBlockExecute++ ;
+	vm->nBlockExecute2++ ;
 	/* Search */
 	for ( y = 2 ; y >= 1 ; y-- ) {
 		/* For OOP Support - Search in the Class Methods */
@@ -63,7 +63,7 @@ int simple_vm_loadfunc2 ( VM *vm,const char *block_name,int nPerformance )
 					return 0 ;
 				}
 			}
-			list3 = simple_list_newlist_gc(vm->sState,vm->pFuncCallList);
+			list3 = simple_list_newlist_gc(vm->sState,vm->pBlockCallList);
 			simple_list_addint_gc(vm->sState,list3,SIMPLE_BLOCKTYPE_SCRIPT);
 			/* Add the block name */
 			simple_list_addstring_gc(vm->sState,list3,block_name);
@@ -123,19 +123,19 @@ int simple_vm_loadfunc2 ( VM *vm,const char *block_name,int nPerformance )
 	if ( vm->nCallMethod == 1 ) {
 		/* Pass The Call Instruction and the AfterCallMethod Instruction */
 		vm->nPC += 2 ;
-		/* Decrement FuncExecute Counter */
-		vm->nFuncExecute-- ;
-		vm->nFuncExecute2-- ;
+		/* Decrement BlockExecute Counter */
+		vm->nBlockExecute-- ;
+		vm->nBlockExecute2-- ;
 		simple_vm_error2(vm,SIMPLE_VM_ERROR_METHODNOTFOUND,block_name);
 		return 0 ;
 	}
 	/* Find Block in C Blocks List */
 	list = (List *) simple_hashtable_findpointer(simple_list_gethashtable(vm->pCBlocksList),block_name);
 	if ( list != NULL ) {
-		list2 = simple_list_newlist_gc(vm->sState,vm->pFuncCallList);
+		list2 = simple_list_newlist_gc(vm->sState,vm->pBlockCallList);
 		simple_list_addint_gc(vm->sState,list2,SIMPLE_BLOCKTYPE_C);
 		simple_list_addstring_gc(vm->sState,list2,block_name);
-		simple_list_addfuncpointer_gc(vm->sState,list2,simple_list_getfuncpointer(list,SIMPLE_BLOCKMAP_PC));
+		simple_list_addblockpointer_gc(vm->sState,list2,simple_list_getblockpointer(list,SIMPLE_BLOCKMAP_PC));
 		simple_list_addint_gc(vm->sState,list2,vm->nSP);
 		/* Create Temp Memory */
 		simple_list_newlist_gc(vm->sState,list2);
@@ -169,10 +169,10 @@ int simple_vm_loadfunc2 ( VM *vm,const char *block_name,int nPerformance )
 	vm->nPC++ ;
 	/*
 	**  Display Error Message 
-	**  Decrement FuncExecute Counter 
+	**  Decrement BlockExecute Counter 
 	*/
-	vm->nFuncExecute-- ;
-	vm->nFuncExecute2-- ;
+	vm->nBlockExecute-- ;
+	vm->nBlockExecute2-- ;
 	simple_vm_error2(vm,SIMPLE_VM_ERROR_BLOCKNOTFOUND,block_name);
 	return 0 ;
 }
@@ -201,15 +201,15 @@ void simple_vm_call ( VM *vm )
 void simple_vm_call2 ( VM *vm )
 {
 	List *list, *pActiveMem  ;
-	int x,nSP,nMax1,nFuncEx  ;
-	/* Decrement FuncExecute Counter */
-	if ( vm->nFuncExecute > 0 ) {
-		vm->nFuncExecute-- ;
-		vm->nFuncExecute2-- ;
+	int x,nSP,nMax1,nBlockEx  ;
+	/* Decrement BlockExecute Counter */
+	if ( vm->nBlockExecute > 0 ) {
+		vm->nBlockExecute-- ;
+		vm->nBlockExecute2-- ;
 	}
 	/* Restore aLoadAddressScope from pLoadAddressScope */
 	simple_vm_restoreloadaddressscope(vm);
-	list = simple_list_getlist(vm->pFuncCallList,simple_list_getsize(vm->pFuncCallList));
+	list = simple_list_getlist(vm->pBlockCallList,simple_list_getsize(vm->pBlockCallList));
 	/* Calling Method from brace */
 	if ( simple_list_getsize(list) >= SIMPLE_BLOCKCL_METHODORBLOCK ) {
 		/* The first test to be sure it's not a C Block Call */
@@ -219,13 +219,13 @@ void simple_vm_call2 ( VM *vm )
 	}
 	/* Store the Caller Position */
 	simple_list_addint_gc(vm->sState,list,vm->nPC);
-	/* Store FuncExe Counter Value */
-	simple_list_addint_gc(vm->sState,list,vm->nFuncExecute);
-	nFuncEx = vm->nFuncExecute ;
-	vm->nFuncExecute = 0 ;
+	/* Store BlockExe Counter Value */
+	simple_list_addint_gc(vm->sState,list,vm->nBlockExecute);
+	nBlockEx = vm->nBlockExecute ;
+	vm->nBlockExecute = 0 ;
 	/* Call Block */
 	if ( simple_list_getint(list,SIMPLE_BLOCKCL_TYPE) == SIMPLE_BLOCKTYPE_SCRIPT ) {
-		/* Store List information to allow calling block from list item and creating lists from that funct */
+		/* Store List information to allow calling block from list item and creating lists from that blockt */
 		simple_list_addint_gc(vm->sState,list,vm->nListStart);
 		simple_list_addpointer_gc(vm->sState,list,vm->pNestedLists);
 		vm->nListStart = 0 ;
@@ -256,7 +256,7 @@ void simple_vm_call2 ( VM *vm )
 		/* Create New Scope */
 		simple_vm_newscope(vm);
 		/* Get Parameters */
-		vm->nCFuncParaCount = 0 ;
+		vm->nCBlockParaCount = 0 ;
 		nSP = simple_list_getint(list,SIMPLE_BLOCKCL_SP) ;
 		/* Use Order (First In - First Out) As Queue , the first parameter comes first */
 		if ( nSP < vm->nSP ) {
@@ -272,7 +272,7 @@ void simple_vm_call2 ( VM *vm )
 				else if ( SIMPLE_VM_STACK_ISPOINTER ) {
 					simple_vm_addnewpointervar(vm,"",SIMPLE_VM_STACK_READP,SIMPLE_VM_STACK_OBJTYPE);
 				}
-				vm->nCFuncParaCount++ ;
+				vm->nCBlockParaCount++ ;
 			}
 			vm->nSP = nSP ;
 		}
@@ -281,11 +281,11 @@ void simple_vm_call2 ( VM *vm )
 		/* Enable C Pointer Type Check */
 		vm->nIgnoreCPointerTypeCheck = 0 ;
 		/* Call Block */
-		simple_list_callfuncpointer(list,SIMPLE_BLOCKCL_PC,vm);
+		simple_list_callblockpointer(list,SIMPLE_BLOCKCL_PC,vm);
 		/* Trace */
 		simple_vm_traceevent(vm,SIMPLE_VM_TRACEEVENT_AFTERCBLOCK);
-		/* Restore nFuncEx state */
-		vm->nFuncExecute = nFuncEx ;
+		/* Restore nBlockEx state */
+		vm->nBlockExecute = nBlockEx ;
 		/* Check for block termination by try/catch */
 		if ( vm->nActiveCatch == 1 ) {
 			/*
@@ -311,16 +311,16 @@ void simple_vm_call2 ( VM *vm )
 			simple_vm_movetoprevscope(vm);
 		}
 		/* Return (Delete Scope, Restore ActiveMem) */
-		simple_list_deleteitem_gc(vm->sState,vm->pFuncCallList,simple_list_getsize(vm->pFuncCallList));
+		simple_list_deleteitem_gc(vm->sState,vm->pBlockCallList,simple_list_getsize(vm->pBlockCallList));
 		simple_vm_deletescope(vm);
 		/* Restore ActiveMem */
 		vm->pActiveMem = pActiveMem ;
-		/* Restore nFuncSP value */
-		if ( simple_list_getsize(vm->pFuncCallList) > 0 ) {
-			list = simple_list_getlist(vm->pFuncCallList,simple_list_getsize(vm->pFuncCallList));
-			vm->nFuncSP = simple_list_getint(list,SIMPLE_BLOCKCL_SP) ;
+		/* Restore nBlockSP value */
+		if ( simple_list_getsize(vm->pBlockCallList) > 0 ) {
+			list = simple_list_getlist(vm->pBlockCallList,simple_list_getsize(vm->pBlockCallList));
+			vm->nBlockSP = simple_list_getint(list,SIMPLE_BLOCKCL_SP) ;
 		} else {
-			vm->nFuncSP = 0 ;
+			vm->nBlockSP = 0 ;
 		}
 		/* if executeCode() is called, start the main loop again */
 		if ( vm->nEvalCalledFromSimpleCode == 1 ) {
@@ -355,10 +355,10 @@ void simple_vm_return ( VM *vm )
 			return ;
 		}
 	}
-	if ( simple_list_getsize(vm->pFuncCallList) > 0 ) {
-		list = simple_list_getlist(vm->pFuncCallList,simple_list_getsize(vm->pFuncCallList));
+	if ( simple_list_getsize(vm->pBlockCallList) > 0 ) {
+		list = simple_list_getlist(vm->pBlockCallList,simple_list_getsize(vm->pBlockCallList));
 		vm->nPC = simple_list_getint(list,SIMPLE_BLOCKCL_CALLERPC) ;
-		vm->nFuncExecute = simple_list_getint(list,SIMPLE_BLOCKCL_BLOCKEXE) ;
+		vm->nBlockExecute = simple_list_getint(list,SIMPLE_BLOCKCL_BLOCKEXE) ;
 		/* Restore List Status */
 		vm->nListStart = simple_list_getint(list,SIMPLE_BLOCKCL_LISTSTART) ;
 		if ( vm->pNestedLists != simple_list_getpointer(list,SIMPLE_BLOCKCL_NESTEDLISTS) ) {
@@ -382,13 +382,13 @@ void simple_vm_return ( VM *vm )
 		simple_vm_deletescope(vm);
 		/* Restore State */
 		simple_vm_restorestate2(vm,list,SIMPLE_BLOCKCL_STATE);
-		simple_list_deleteitem_gc(vm->sState,vm->pFuncCallList,simple_list_getsize(vm->pFuncCallList));
-		/* Restore nFuncSP value */
-		if ( simple_list_getsize(vm->pFuncCallList) > 0 ) {
-			list = simple_list_getlist(vm->pFuncCallList,simple_list_getsize(vm->pFuncCallList));
-			vm->nFuncSP = simple_list_getint(list,SIMPLE_BLOCKCL_SP) ;
+		simple_list_deleteitem_gc(vm->sState,vm->pBlockCallList,simple_list_getsize(vm->pBlockCallList));
+		/* Restore nBlockSP value */
+		if ( simple_list_getsize(vm->pBlockCallList) > 0 ) {
+			list = simple_list_getlist(vm->pBlockCallList,simple_list_getsize(vm->pBlockCallList));
+			vm->nBlockSP = simple_list_getint(list,SIMPLE_BLOCKCL_SP) ;
 		} else {
-			vm->nFuncSP = 0 ;
+			vm->nBlockSP = 0 ;
 		}
 		/* Trace */
 		simple_vm_traceevent(vm,SIMPLE_VM_TRACEEVENT_RETURN);
@@ -397,7 +397,7 @@ void simple_vm_return ( VM *vm )
 		if ( vm->nCallMainBlock == 0 ) {
 			vm->nPC-- ;
 			vm->nSP = 0 ;
-			if ( simple_vm_loadfunc2(vm,"main",0) ) {
+			if ( simple_vm_loadblock2(vm,"main",0) ) {
 				simple_vm_call(vm);
 				vm->nCallMainBlock = 1 ;
 				return ;
@@ -414,17 +414,17 @@ void simple_vm_returnnull ( VM *vm )
 	simple_vm_return(vm);
 }
 
-void simple_vm_newfunc ( VM *vm )
+void simple_vm_newblock ( VM *vm )
 {
 	int x,nSP  ;
 	List *list  ;
 	assert(vm != NULL);
 	simple_vm_newscope(vm);
 	/* Set the SP then Check Parameters */
-	list = simple_list_getlist(vm->pFuncCallList,simple_list_getsize(vm->pFuncCallList));
+	list = simple_list_getlist(vm->pBlockCallList,simple_list_getsize(vm->pBlockCallList));
 	assert(list != NULL);
 	nSP = simple_list_getint(list,SIMPLE_BLOCKCL_SP) ;
-	vm->nFuncSP = nSP ;
+	vm->nBlockSP = nSP ;
 	if ( SIMPLE_VM_IR_PARACOUNT > 2 ) {
 		for ( x = SIMPLE_VM_IR_PARACOUNT ; x >= 3 ; x-- ) {
 			if ( nSP < vm->nSP ) {
@@ -534,7 +534,7 @@ void simple_vm_createtemlist ( VM *vm )
 	**  The advantage of TempMem over Scope is that TempMem out of search domain (Var Name is not important) 
 	**  Variable name in TemMem is not important, we use it for storage (no search) 
 	*/
-	list = simple_list_getlist(vm->pFuncCallList,simple_list_getsize(vm->pFuncCallList));
+	list = simple_list_getlist(vm->pBlockCallList,simple_list_getsize(vm->pBlockCallList));
 	list = simple_list_getlist(list,SIMPLE_BLOCKCL_TEMPMEM);
 	simple_vm_newtempvar(vm,SIMPLE_TEMP_VARIABLE,list);
 }
@@ -558,7 +558,7 @@ void simple_vm_anonymous ( VM *vm )
 	if ( SIMPLE_VM_STACK_ISSTRING ) {
 		cStr = SIMPLE_VM_STACK_READC ;
 		SIMPLE_VM_STACK_POP ;
-		simple_vm_loadfunc2(vm,cStr,0);
+		simple_vm_loadblock2(vm,cStr,0);
 	}
 	else {
 		simple_vm_error(vm,SIMPLE_VM_ERROR_BADCALLPARA);

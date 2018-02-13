@@ -27,7 +27,7 @@ void simple_vm_dll_loadlib ( void *pointer )
 {
     LpHandleType handle  ;
     const char *cDLL  ;
-    loadlibfuncptr pFunc  ;
+    loadlibblockptr pBlock  ;
     VM *vm  ;
     SimpleState *sState  ;
     vm = (VM *) pointer ;
@@ -72,14 +72,14 @@ void simple_vm_dll_loadlib ( void *pointer )
                 SIMPLE_API_ERROR(SIMPLE_VM_ERROR_LIBLOADERROR);
                 return ;
         }
-        pFunc = (loadlibfuncptr) GetDLLFunc(handle, "init_simple_module") ;
-        if ( pFunc == NULL ) {
+        pBlock = (loadlibblockptr) GetDLLBlock(handle, "init_simple_module") ;
+        if ( pBlock == NULL ) {
                 printf( "\nLibrary File : %s", file_real_name(SIMPLE_API_GETSTRING(1)) ) ;
                 SIMPLE_API_ERROR("The dynamic library doesn't contain the init_simple_module() block!");
                 return ;
         }
         simple_list_deletearray_gc(sState,sState->c_blocks);
-        (*pFunc)(sState) ;
+        (*pBlock)(sState) ;
         simple_list_genarray_gc(sState,sState->c_blocks);
         simple_list_genhashtable2_gc(sState,sState->c_blocks);
         SIMPLE_API_RETCPOINTER(handle,"DLL");
@@ -112,8 +112,8 @@ void simple_vm_display ( VM *vm )
 	List *list  ;
 	char *cString  ;
 	int x  ;
-	if ( vm->nFuncExecute > 0 ) {
-		vm->nFuncExecute-- ;
+	if ( vm->nBlockExecute > 0 ) {
+		vm->nBlockExecute-- ;
 	}
 	if ( SIMPLE_VM_STACK_ISSTRING ) {
 		cString = SIMPLE_VM_STACK_READC ;

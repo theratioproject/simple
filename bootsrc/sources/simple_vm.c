@@ -57,9 +57,9 @@ VM * simple_vm_new ( SimpleState *sState )
 	vm->nBlockFlag = 0 ;
 	vm->aPCBlockFlag = simple_list_new_gc(vm->sState,0);
 	/* Calling Blocks */
-	vm->pFuncCallList = simple_list_new_gc(vm->sState,0);
-	vm->nFuncSP = 0 ;
-	vm->nFuncExecute = 0 ;
+	vm->pBlockCallList = simple_list_new_gc(vm->sState,0);
+	vm->nBlockSP = 0 ;
+	vm->nBlockExecute = 0 ;
 	if ( sState->c_blocks == NULL ) {
 		sState->c_blocks = simple_list_new_gc(vm->sState,0);
 	}
@@ -125,10 +125,10 @@ VM * simple_vm_new ( SimpleState *sState )
 	vm->aLoadAddressScope = simple_list_new_gc(vm->sState,0);
 	/* List contains what to add  later to pObjState, prepare by loadmethod, add before call */
 	vm->aBeforeObjState = simple_list_new_gc(vm->sState,0) ;
-	/* Saving pointers to aLoadAddressScope before func. para. to restore after them */
+	/* Saving pointers to aLoadAddressScope before block. para. to restore after them */
 	vm->pLoadAddressScope = simple_list_new_gc(vm->sState,0);
-	/* Another flag like nFuncExec but not used by see command or return command */
-	vm->nFuncExecute2 = 0 ;
+	/* Another flag like nBlockExec but not used by see command or return command */
+	vm->nBlockExecute2 = 0 ;
 	/* Create List for Temp Items (added to ByteCode) inside TempMem */
 	vm->aNewByteCodeItems = simple_list_new_gc(vm->sState,0);
 	/* Eval can be called from C code (OOP Set/Get/Operator Overloading) or from ring code using executeCode() */
@@ -143,7 +143,7 @@ VM * simple_vm_new ( SimpleState *sState )
 	/* Flag ( 1 = we need space over allocated size so we have to do reallocation ) */
 	vm->nEvalReallocationFlag = 0 ;
 	/* Parameters Count Passed to C Block */
-	vm->nCFuncParaCount = 0 ;
+	vm->nCBlockParaCount = 0 ;
 	/*
 	**  Flag to Ignore NULL output after calling C Block 
 	**  This flag is used by the len() block when we use len(object) 
@@ -155,9 +155,9 @@ VM * simple_vm_new ( SimpleState *sState )
 	/* Flag to return Item Reference (of object state) */
 	vm->nRetItemRef = 0 ;
 	/* Mutex Blocks Pointers - for threads/lock/unlock */
-	vm->pFuncMutexLock = NULL ;
-	vm->pFuncMutexUnlock = NULL ;
-	vm->pFuncMutexDestroy = NULL ;
+	vm->pBlockMutexLock = NULL ;
+	vm->pBlockMutexUnlock = NULL ;
+	vm->pBlockMutexDestroy = NULL ;
 	vm->pMutex = NULL ;
 	/* Ignore C Pointer Type Check in extension blocks */
 	vm->nIgnoreCPointerTypeCheck = 0 ;
@@ -219,7 +219,7 @@ VM * simple_vm_delete ( VM *vm )
 	assert(vm);
 	vm->pMem = simple_list_delete_gc(vm->sState,vm->pMem);
 	vm->pNestedLists = simple_list_delete_gc(vm->sState,vm->pNestedLists);
-	vm->pFuncCallList = simple_list_delete_gc(vm->sState,vm->pFuncCallList);
+	vm->pBlockCallList = simple_list_delete_gc(vm->sState,vm->pBlockCallList);
 	vm->aPCBlockFlag = simple_list_delete_gc(vm->sState,vm->aPCBlockFlag);
 	vm->pTempMem = simple_list_delete_gc(vm->sState,vm->pTempMem);
 	vm->pExitMark = simple_list_delete_gc(vm->sState,vm->pExitMark);
@@ -368,7 +368,7 @@ void simple_vm_fetch2 ( VM *vm )
 	simple_vm_execute(vm);
 	#if SIMPLE_VMSHOWOPCODE
 	if ( vm->sState->nPrintInstruction ) {
-		printf( "\nSP (After) : %d  - FuncSP : %d \n LineNumber %d \n" , (int) vm->nSP,vm->nFuncSP,vm->nLineNumber ) ;
+		printf( "\nSP (After) : %d  - BlockSP : %d \n LineNumber %d \n" , (int) vm->nSP,vm->nBlockSP,vm->nLineNumber ) ;
 		print_line();
 	}
 	#endif
@@ -502,7 +502,7 @@ void simple_vm_execute ( VM *vm )
 			break ;
 		/* Blocks */
 		case ICO_LOADBLOCK :
-			simple_vm_loadfunc(vm);
+			simple_vm_loadblock(vm);
 			break ;
 		case ICO_CALL :
 			simple_vm_call(vm);
@@ -520,16 +520,16 @@ void simple_vm_execute ( VM *vm )
 			simple_vm_retitemref(vm);
 			break ;
 		case ICO_NEWBLOCK :
-			simple_vm_newfunc(vm);
+			simple_vm_newblock(vm);
 			break ;
 		case ICO_BLOCKFLAG :
 			simple_vm_blockflag(vm);
 			break ;
 		case ICO_BLOCKEXE :
-			vm->nFuncExecute++ ;
+			vm->nBlockExecute++ ;
 			break ;
 		case ICO_ENDBLOCKEXE :
-			simple_vm_endfuncexec(vm);
+			simple_vm_endblockexec(vm);
 			break ;
 		case ICO_ANONYMOUS :
 			simple_vm_anonymous(vm);
@@ -580,7 +580,7 @@ void simple_vm_execute ( VM *vm )
 			simple_vm_jumpvarplenum(vm);
 			break ;
 		case ICO_LOADBLOCKP :
-			simple_vm_loadfuncp(vm);
+			simple_vm_loadblockp(vm);
 			break ;
 		case ICO_PUSHPLOCAL :
 			simple_vm_pushplocal(vm);
@@ -957,7 +957,7 @@ void simple_vm_newbytecodeitem ( VM *vm,int x )
 
 SIMPLE_API void simple_vm_runcode ( VM *vm,const char *cStr )
 {
-	int nEvalReturnPC,nEvalReallocationFlag,nPC,nRunVM,nSP,nFuncSP,nLineNumber,nRetEvalDontDelete  ;
+	int nEvalReturnPC,nEvalReallocationFlag,nPC,nRunVM,nSP,nBlockSP,nLineNumber,nRetEvalDontDelete  ;
 	List *pStackList  ;
 	/* Save state to take in mind nested events execution */
 	vm->nRunCode++ ;
@@ -965,7 +965,7 @@ SIMPLE_API void simple_vm_runcode ( VM *vm,const char *cStr )
 	nEvalReallocationFlag = vm->nEvalReallocationFlag ;
 	nPC = vm->nPC ;
 	nSP = vm->nSP ;
-	nFuncSP = vm->nFuncSP ;
+	nBlockSP = vm->nBlockSP ;
 	pStackList = simple_vm_savestack(vm);
 	nLineNumber = vm->nLineNumber ;
 	nRetEvalDontDelete = vm->nRetEvalDontDelete ;
@@ -980,8 +980,8 @@ SIMPLE_API void simple_vm_runcode ( VM *vm,const char *cStr )
 	vm->nEvalCalledFromSimpleCode = 0 ;
 	simple_vm_mutexunlock(vm);
 	if ( nRunVM ) {
-		vm->nFuncExecute = 0 ;
-		vm->nFuncExecute2 = 0 ;
+		vm->nBlockExecute = 0 ;
+		vm->nBlockExecute2 = 0 ;
 		simple_vm_mainloop(vm);
 	}
 	/* Restore state to take in mind nested events execution */
@@ -997,7 +997,7 @@ SIMPLE_API void simple_vm_runcode ( VM *vm,const char *cStr )
 	simple_list_delete_gc(vm->sState,pStackList);
 	/* Restore Stack to avoid Stack Overflow */
 	vm->nSP = nSP ;
-	vm->nFuncSP = nFuncSP ;
+	vm->nBlockSP = nBlockSP ;
 	vm->nLineNumber = nLineNumber ;
 	vm->nRetEvalDontDelete = nRetEvalDontDelete ;
 }
@@ -1050,8 +1050,8 @@ void simple_vm_retitemref ( VM *vm )
 	**  The second one before return from executeCode() that is used by operator overloading 
 	**  This to avoid using & two times like  &  & 
 	*/
-	if ( simple_list_getsize(vm->pFuncCallList) > 0 ) {
-		list = simple_list_getlist(vm->pFuncCallList,simple_list_getsize(vm->pFuncCallList));
+	if ( simple_list_getsize(vm->pBlockCallList) > 0 ) {
+		list = simple_list_getlist(vm->pBlockCallList,simple_list_getsize(vm->pBlockCallList));
 		if ( strcmp(simple_list_getstring(list,SIMPLE_BLOCKCL_NAME),"operator") == 0 ) {
 			vm->nRetItemRef++ ;
 		}
@@ -1111,10 +1111,10 @@ SIMPLE_API void simple_vm_showerrormessage ( VM *vm,const char *cStr )
 	printf( "\nLine %d -> %s \n",vm->nLineNumber,cStr ) ;
 	/* Print Calling Information */
 	lBlockCall = 0 ;
-	for ( x = simple_list_getsize(vm->pFuncCallList) ; x >= 1 ; x-- ) {
-		list = simple_list_getlist(vm->pFuncCallList,x);
+	for ( x = simple_list_getsize(vm->pBlockCallList) ; x >= 1 ; x-- ) {
+		list = simple_list_getlist(vm->pBlockCallList,x);
 		/*
-		**  If we have ICO_LoadFunc but not ICO_CALL then we need to pass 
+		**  If we have ICO_LoadBlock but not ICO_CALL then we need to pass 
 		**  ICO_LOADBLOCK is executed, but still ICO_CALL is not executed! 
 		*/
 		if ( simple_list_getsize(list) < SIMPLE_BLOCKCL_CALLERPC ) {
@@ -1193,10 +1193,10 @@ void simple_vm_loadaddressfirst ( VM *vm )
 	vm->nFirstAddress = 0 ;
 }
 
-void simple_vm_endfuncexec ( VM *vm )
+void simple_vm_endblockexec ( VM *vm )
 {
-	if ( vm->nFuncExecute > 0 ) {
-		vm->nFuncExecute-- ;
+	if ( vm->nBlockExecute > 0 ) {
+		vm->nBlockExecute-- ;
 	}
 }
 
@@ -1233,34 +1233,34 @@ void simple_vm_addglobalvariables ( VM *vm )
 }
 /* Threads */
 
-SIMPLE_API void simple_vm_mutexblocks ( VM *vm,void *(*pFunc)(void),void (*pFuncLock)(void *),void (*pFuncUnlock)(void *),void (*pFuncDestroy)(void *) )
+SIMPLE_API void simple_vm_mutexblocks ( VM *vm,void *(*pBlock)(void),void (*pBlockLock)(void *),void (*pBlockUnlock)(void *),void (*pBlockDestroy)(void *) )
 {
 	if ( vm->pMutex == NULL ) {
-		vm->pMutex = pFunc() ;
-		vm->pFuncMutexLock = pFuncLock ;
-		vm->pFuncMutexUnlock = pFuncUnlock ;
-		vm->pFuncMutexDestroy = pFuncDestroy ;
+		vm->pMutex = pBlock() ;
+		vm->pBlockMutexLock = pBlockLock ;
+		vm->pBlockMutexUnlock = pBlockUnlock ;
+		vm->pBlockMutexDestroy = pBlockDestroy ;
 	}
 }
 
 SIMPLE_API void simple_vm_mutexlock ( VM *vm )
 {
 	if ( vm->pMutex != NULL ) {
-		vm->pFuncMutexLock(vm->pMutex);
+		vm->pBlockMutexLock(vm->pMutex);
 	}
 }
 
 SIMPLE_API void simple_vm_mutexunlock ( VM *vm )
 {
 	if ( vm->pMutex != NULL ) {
-		vm->pFuncMutexUnlock(vm->pMutex);
+		vm->pBlockMutexUnlock(vm->pMutex);
 	}
 }
 
 SIMPLE_API void simple_vm_mutexdestroy ( VM *vm )
 {
 	if ( vm->pMutex != NULL ) {
-		vm->pFuncMutexDestroy(vm->pMutex);
+		vm->pBlockMutexDestroy(vm->pMutex);
 		vm->pMutex = NULL ;
 	}
 }
@@ -1276,9 +1276,9 @@ SIMPLE_API void simple_vm_runcodefromthread ( VM *vm,const char *cStr )
 	/* Share the same Mutex between VMs */
 	simple_vm_mutexlock(vm);
 	pState->vm->pMutex = vm->pMutex ;
-	pState->vm->pFuncMutexDestroy = vm->pFuncMutexDestroy ;
-	pState->vm->pFuncMutexLock = vm->pFuncMutexLock ;
-	pState->vm->pFuncMutexUnlock = vm->pFuncMutexUnlock ;
+	pState->vm->pBlockMutexDestroy = vm->pBlockMutexDestroy ;
+	pState->vm->pBlockMutexLock = vm->pBlockMutexLock ;
+	pState->vm->pBlockMutexUnlock = vm->pBlockMutexUnlock ;
 	/* Share the global scope between threads */
 	pItem = pState->vm->pMem->pFirst->pValue ;
 	pState->vm->pMem->pFirst->pValue = vm->pMem->pFirst->pValue ;
@@ -1323,22 +1323,22 @@ SIMPLE_API void simple_vm_runcodefromthread ( VM *vm,const char *cStr )
 	pState->modules_map = list4 ;
 	pState->c_blocks = list5 ;
 	pState->vm->pMutex = NULL ;
-	pState->vm->pFuncMutexDestroy = NULL ;
-	pState->vm->pFuncMutexLock = NULL ;
-	pState->vm->pFuncMutexUnlock = NULL ;
+	pState->vm->pBlockMutexDestroy = NULL ;
+	pState->vm->pBlockMutexLock = NULL ;
+	pState->vm->pBlockMutexUnlock = NULL ;
 	/* Delete the SimpleState */
 	free_simple_state(pState);
 }
 /* Fast Block Call for Extensions (Without Eval) */
 
-SIMPLE_API void simple_vm_callblock ( VM *vm,char *cFuncName )
+SIMPLE_API void simple_vm_callblock ( VM *vm,char *cBlockName )
 {
 	/* Lower Case and pass () in the end */
-	simple_string_lower(cFuncName);
+	simple_string_lower(cBlockName);
 	/* Prepare (Remove effects of the currect block) */
-	simple_list_deletelastitem_gc(vm->sState,vm->pFuncCallList);
+	simple_list_deletelastitem_gc(vm->sState,vm->pBlockCallList);
 	/* Load the block and call it */
-	simple_vm_loadfunc2(vm,cFuncName,0);
+	simple_vm_loadblock2(vm,cBlockName,0);
 	simple_vm_call2(vm);
 	/* Execute the block */
 	simple_vm_mainloop(vm);
@@ -1362,8 +1362,8 @@ void simple_vm_traceevent ( VM *vm,char nEvent )
 		/* Add File Name */
 		simple_list_addstring_gc(vm->sState,vm->pTraceData,vm->file_name);
 		/* Add Block/Method Name */
-		if ( simple_list_getsize(vm->pFuncCallList) > 0 ) {
-			list = simple_list_getlist(vm->pFuncCallList,simple_list_getsize(vm->pFuncCallList)) ;
+		if ( simple_list_getsize(vm->pBlockCallList) > 0 ) {
+			list = simple_list_getlist(vm->pBlockCallList,simple_list_getsize(vm->pBlockCallList)) ;
 			simple_list_addstring_gc(vm->sState,vm->pTraceData,simple_list_getstring(list,SIMPLE_BLOCKCL_NAME));
 			/* Method of Block */
 			simple_list_adddouble_gc(vm->sState,vm->pTraceData,simple_list_getint(list,SIMPLE_BLOCKCL_METHODORBLOCK));

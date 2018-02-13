@@ -15,7 +15,7 @@
 #include "../includes/simple.h"
 /* Support for C Blocks */
 
-SIMPLE_API void register_block_t ( SimpleState *sState,const char *cStr, void (*pFunc)(void *) )
+SIMPLE_API void register_block_t ( SimpleState *sState,const char *cStr, void (*pBlock)(void *) )
 {
 	List *list  ;
 	if ( sState->c_blocks == NULL ) {
@@ -23,7 +23,7 @@ SIMPLE_API void register_block_t ( SimpleState *sState,const char *cStr, void (*
 	}
 	list = simple_list_newlist_gc(sState,sState->c_blocks);
 	simple_list_addstring_gc(sState,list,cStr);
-	simple_list_addfuncpointer_gc(sState,list,pFunc);
+	simple_list_addblockpointer_gc(sState,list,pBlock);
 }
 
 SIMPLE_API void loadcblocks ( SimpleState *sState )

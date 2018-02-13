@@ -96,7 +96,7 @@ Parser * simple_parser_new ( List *pTokens,SimpleState *sState )
 	parser->nInsertFlag = 0 ;
 	parser->nInsertCounter = 0 ;
 	parser->nNoAssignment = 0 ;
-	parser->nFuncCallOnly = 0 ;
+	parser->nBlockCallOnly = 0 ;
 	parser->nControlStructureExpr = 0 ;
 	parser->nControlStructureBrace = 0 ;
 	return parser ;

@@ -20,7 +20,7 @@
 **  Support for C Functions 
 */
 
-SIMPLE_API void register_block_t ( SimpleState *sState,const char *cStr, void (*pFunc)(void *) ) ;
+SIMPLE_API void register_block_t ( SimpleState *sState,const char *cStr, void (*pBlock)(void *) ) ;
 
 SIMPLE_API void loadcblocks ( SimpleState *sState ) ;
 
@@ -74,7 +74,7 @@ void read_string ( void *pointer ) ;
 
 /* API For C Functions */
 #define SIMPLE_API_PARALIST (((VM *) pointer)->pActiveMem)
-#define SIMPLE_API_PARACOUNT (((VM *) pointer)->nCFuncParaCount)
+#define SIMPLE_API_PARACOUNT (((VM *) pointer)->nCBlockParaCount)
 #define SIMPLE_API_GETSTRING(x) (simple_list_getstring(simple_list_getlist(SIMPLE_API_PARALIST,x),3))
 #define SIMPLE_API_GETNUMBER(x) (simple_list_getdouble(simple_list_getlist(SIMPLE_API_PARALIST,x),3))
 #define SIMPLE_API_GETPOINTER(x) (simple_list_getpointer(simple_list_getlist(SIMPLE_API_PARALIST,x),3))

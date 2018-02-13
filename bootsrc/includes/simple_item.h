@@ -33,7 +33,7 @@ typedef struct Item {
 		int iNumber  ;
 		void *pointer  ;
 		struct List *list  ;
-		void (*pFunc)(void *) ;
+		void (*pBlock)(void *) ;
 	} data ;
 	/* Garbage Collector Data (Reference Counting) */
 	GCData gc  ;

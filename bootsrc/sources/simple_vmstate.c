@@ -21,10 +21,10 @@ void simple_vm_savestate ( VM *vm,List *list )
 	List *pThis  ;
 	list = simple_list_newlist_gc(vm->sState,list);
 	simple_list_addint_gc(vm->sState,list,simple_list_getsize(vm->pMem));
-	simple_list_addint_gc(vm->sState,list,simple_list_getsize(vm->pFuncCallList));
-	simple_list_addint_gc(vm->sState,list,vm->nFuncExecute);
+	simple_list_addint_gc(vm->sState,list,simple_list_getsize(vm->pBlockCallList));
+	simple_list_addint_gc(vm->sState,list,vm->nBlockExecute);
 	simple_list_addint_gc(vm->sState,list,vm->nSP);
-	simple_list_addint_gc(vm->sState,list,vm->nFuncSP);
+	simple_list_addint_gc(vm->sState,list,vm->nBlockSP);
 	simple_list_addint_gc(vm->sState,list,simple_list_getsize(vm->pObjState));
 	simple_list_addint_gc(vm->sState,list,simple_list_getsize(vm->aBraceObjects));
 	simple_list_addpointer_gc(vm->sState,list,vm->pBraceObject);
@@ -54,7 +54,7 @@ void simple_vm_savestate ( VM *vm,List *list )
 	simple_list_addpointer_gc(vm->sState,list,vm->pAssignment);
 	simple_list_addint_gc(vm->sState,list,vm->nBeforeEqual);
 	simple_list_addint_gc(vm->sState,list,vm->nNOAssignment);
-	simple_list_addint_gc(vm->sState,list,vm->nFuncExecute2);
+	simple_list_addint_gc(vm->sState,list,vm->nBlockExecute2);
 	simple_list_addint_gc(vm->sState,list,vm->nCallClassInit);
 	simple_list_addpointer_gc(vm->sState,list,vm->aLoadAddressScope);
 	simple_list_addint_gc(vm->sState,list,simple_list_getsize(vm->pLoadAddressScope));
@@ -83,11 +83,11 @@ void simple_vm_restorestate ( VM *vm,List *list,int nPos,int nFlag )
 		}
 	}
 	/* We also return to the block call list */
-	simple_vm_backstate(vm,simple_list_getint(list,2),vm->pFuncCallList);
+	simple_vm_backstate(vm,simple_list_getint(list,2),vm->pBlockCallList);
 	/* Stack & Executing Blocks */
-	vm->nFuncExecute = simple_list_getint(list,3) ;
+	vm->nBlockExecute = simple_list_getint(list,3) ;
 	vm->nSP = simple_list_getint(list,4) ;
-	vm->nFuncSP = simple_list_getint(list,5) ;
+	vm->nBlockSP = simple_list_getint(list,5) ;
 	/* We also return to the Active Object */
 	simple_vm_backstate(vm,simple_list_getint(list,6),vm->pObjState);
 	simple_vm_backstate(vm,simple_list_getint(list,7),vm->aBraceObjects);
@@ -137,7 +137,7 @@ void simple_vm_restorestate ( VM *vm,List *list,int nPos,int nFlag )
 	vm->pAssignment = (void *) simple_list_getpointer(list,32) ;
 	vm->nBeforeEqual = simple_list_getint(list,33) ;
 	vm->nNOAssignment = simple_list_getint(list,34) ;
-	vm->nFuncExecute2 = simple_list_getint(list,35) ;
+	vm->nBlockExecute2 = simple_list_getint(list,35) ;
 	vm->nCallClassInit = simple_list_getint(list,36) ;
 	vm->aLoadAddressScope = (List *) simple_list_getpointer(list,37) ;
 	simple_vm_backstate(vm,simple_list_getint(list,38),vm->pLoadAddressScope);
@@ -163,7 +163,7 @@ void simple_vm_savestate2 ( VM *vm,List *list )
 	simple_list_addint_gc(vm->sState,list,vm->nInsideBraceFlag);
 	simple_list_addint_gc(vm->sState,list,simple_list_getsize(vm->aForStep));
 	simple_list_addpointer_gc(vm->sState,list,vm->pActiveMem);
-	simple_list_addint_gc(vm->sState,list,vm->nFuncExecute2);
+	simple_list_addint_gc(vm->sState,list,vm->nBlockExecute2);
 	vm->nInsideBraceFlag = 0 ;
 	/* Save BlockFlag */
 	simple_list_addint_gc(vm->sState,list,vm->nBlockFlag);
@@ -176,7 +176,7 @@ void simple_vm_savestate2 ( VM *vm,List *list )
 	/* Save nCallClassInit */
 	simple_list_addint_gc(vm->sState,list,vm->nCallClassInit);
 	vm->nCallClassInit = 0 ;
-	simple_list_addint_gc(vm->sState,list,vm->nFuncExecute);
+	simple_list_addint_gc(vm->sState,list,vm->nBlockExecute);
 	simple_list_addpointer_gc(vm->sState,list,vm->pAssignment);
 	simple_list_addint_gc(vm->sState,list,vm->nInClassRegion);
 	simple_list_addint_gc(vm->sState,list,vm->nActiveScopeID);
@@ -213,7 +213,7 @@ void simple_vm_restorestate2 ( VM *vm,List *list,int x )
 	vm->nInsideBraceFlag = simple_list_getint(list,x+6) ;
 	simple_vm_backstate(vm,simple_list_getint(list,x+7),vm->aForStep);
 	vm->pActiveMem = (List *) simple_list_getpointer(list,x+8) ;
-	vm->nFuncExecute2 = simple_list_getint(list,x+9) ;
+	vm->nBlockExecute2 = simple_list_getint(list,x+9) ;
 	/* Restore BlockFLag */
 	vm->aPCBlockFlag = simple_list_delete_gc(vm->sState,vm->aPCBlockFlag);
 	vm->nBlockFlag = simple_list_getint(list,x+10) ;
@@ -222,7 +222,7 @@ void simple_vm_restorestate2 ( VM *vm,List *list,int x )
 	vm->nPrivateFlag = simple_list_getint(list,x+12) ;
 	/* Restore nCallClassInit */
 	vm->nCallClassInit = simple_list_getint(list,x+13) ;
-	vm->nFuncExecute = simple_list_getint(list,x+14) ;
+	vm->nBlockExecute = simple_list_getint(list,x+14) ;
 	vm->pAssignment = (void *) simple_list_getpointer(list,x+15) ;
 	vm->nInClassRegion = simple_list_getint(list,x+16) ;
 	vm->nActiveScopeID = simple_list_getint(list,x+17) ;

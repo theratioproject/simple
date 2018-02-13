@@ -500,23 +500,23 @@ SIMPLE_API List * simple_list_getlist ( List *list, int index )
 }
 /* Block Pointers */
 
-SIMPLE_API void simple_list_setfuncpointer_gc ( void *pState,List *list, int index ,void (*pFunc)(void *) )
+SIMPLE_API void simple_list_setblockpointer_gc ( void *pState,List *list, int index ,void (*pBlock)(void *) )
 {
 	Item *pItem  ;
 	assert(list != NULL);
 	pItem = simple_list_getitem(list,index);
 	simple_item_settype_gc(pState,pItem,ITEMTYPE_BLOCKPOINTER);
-	pItem->data.pFunc = pFunc ;
+	pItem->data.pBlock = pBlock ;
 }
 
-SIMPLE_API void simple_list_addfuncpointer_gc ( void *pState,List *list,void (*pFunc)(void *) )
+SIMPLE_API void simple_list_addblockpointer_gc ( void *pState,List *list,void (*pBlock)(void *) )
 {
 	assert(list != NULL);
 	simple_list_newitem_gc(pState,list);
-	simple_list_setfuncpointer_gc(pState,list,simple_list_getsize(list),pFunc);
+	simple_list_setblockpointer_gc(pState,list,simple_list_getsize(list),pBlock);
 }
 
-SIMPLE_API int simple_list_isfuncpointer ( List *list, int index )
+SIMPLE_API int simple_list_isblockpointer ( List *list, int index )
 {
 	if ( simple_list_gettype(list,index) == ITEMTYPE_BLOCKPOINTER ) {
 		return 1 ;
@@ -524,7 +524,7 @@ SIMPLE_API int simple_list_isfuncpointer ( List *list, int index )
 	return 0 ;
 }
 
-void simple_list_testfuncpointer ( void *pointer )
+void simple_list_testblockpointer ( void *pointer )
 {
 	List *list  ;
 	list = (List *) pointer ;
@@ -601,11 +601,11 @@ SIMPLE_API void simple_list_insertstring2_gc ( void *pState,List *list,int nPos,
 	simple_list_setstring2_gc(pState,list,nPos+1,str,nStrSize);
 }
 
-SIMPLE_API void simple_list_insertfuncpointer_gc ( void *pState,List *list,int nPos,void (*pFunc)(void *) )
+SIMPLE_API void simple_list_insertblockpointer_gc ( void *pState,List *list,int nPos,void (*pBlock)(void *) )
 {
 	assert(list != NULL);
 	simple_list_insertitem_gc(pState,list,nPos);
-	simple_list_setfuncpointer_gc(pState,list,nPos+1,pFunc);
+	simple_list_setblockpointer_gc(pState,list,nPos+1,pBlock);
 }
 
 SIMPLE_API List * simple_list_insertlist_gc ( void *pState,List *list,int nPos )
@@ -1056,7 +1056,7 @@ SIMPLE_API void simple_list_genhashtable2_gc ( void *pState,List *list )
 {
 	int x  ;
 	List *list2  ;
-	/* This Func. Take list of lists , the first item of the sub list is a string (key) */
+	/* This Block. Take list of lists , the first item of the sub list is a string (key) */
 	if ( list->pHashTable != NULL ) {
 		list->pHashTable = simple_hashtable_delete_gc(pState,list->pHashTable);
 	}
@@ -1144,14 +1144,14 @@ SIMPLE_API void simple_list_addpointer ( List *list,void *pValue )
 }
 /* Block Pointers */
 
-SIMPLE_API void simple_list_setfuncpointer ( List *list, int index ,void (*pFunc)(void *) )
+SIMPLE_API void simple_list_setblockpointer ( List *list, int index ,void (*pBlock)(void *) )
 {
-	simple_list_setfuncpointer_gc(NULL,list,index,pFunc);
+	simple_list_setblockpointer_gc(NULL,list,index,pBlock);
 }
 
-SIMPLE_API void simple_list_addfuncpointer ( List *list,void (*pFunc)(void *) )
+SIMPLE_API void simple_list_addblockpointer ( List *list,void (*pBlock)(void *) )
 {
-	simple_list_addfuncpointer_gc(NULL,list,pFunc);
+	simple_list_addblockpointer_gc(NULL,list,pBlock);
 }
 /* double */
 
@@ -1238,9 +1238,9 @@ SIMPLE_API void simple_list_insertstring2 ( List *list,int nPos,const char *str,
 	simple_list_insertstring2_gc(NULL,list,nPos,str,nStrSize);
 }
 
-SIMPLE_API void simple_list_insertfuncpointer ( List *list,int nPos,void (*pFunc)(void *) )
+SIMPLE_API void simple_list_insertblockpointer ( List *list,int nPos,void (*pBlock)(void *) )
 {
-	simple_list_insertfuncpointer_gc(NULL,list,nPos,pFunc);
+	simple_list_insertblockpointer_gc(NULL,list,nPos,pBlock);
 }
 
 SIMPLE_API List * simple_list_insertlist ( List *list,int nPos )
@@ -1415,9 +1415,9 @@ void simple_list_test ( void )
 	simple_list_delete(list);
 	/* Block Pointers */
 	list = simple_list_new(0);
-	simple_list_addfuncpointer(list,simple_list_testfuncpointer);
+	simple_list_addblockpointer(list,simple_list_testblockpointer);
 	puts(" *** Test Block Pointer *** ");
-	simple_list_callfuncpointer(list,1,list);
+	simple_list_callblockpointer(list,1,list);
 	simple_list_delete(list);
 	getchar();
 }

@@ -50,7 +50,7 @@ typedef struct Parser {
 	/* required for using { } after using new object to avoid assignment */
 	char nNoAssignment  ;
 	/* Object ClassName() Uses mixer for one purpose only( block call)  - don't continue to get braces { } */
-	char nFuncCallOnly  ;
+	char nBlockCallOnly  ;
 	/* Flag to tell { } that we are inside control structure (if/for/while/...) expression */
 	int nControlStructureExpr  ;
 	/* Flag - We started using braces {} in control structure - we have { */

@@ -20,7 +20,7 @@ void simple_vm_pushv ( VM *vm )
 {
 	List *pVar  ;
 	List *list  ;
-	if ( vm->nSP <= vm->nFuncSP ) {
+	if ( vm->nSP <= vm->nBlockSP ) {
 		/* Happens after using EVAL() in this case we avoid PUSHV */
 		return ;
 	}
@@ -266,14 +266,14 @@ void simple_vm_freestack ( VM *vm )
 		}
 		return ;
 	}
-	if ( ( simple_list_getsize(vm->pFuncCallList) == 0 ) && (vm->nInsideBraceFlag == 0) ) {
+	if ( ( simple_list_getsize(vm->pBlockCallList) == 0 ) && (vm->nInsideBraceFlag == 0) ) {
 		vm->nSP = 0 ;
-		vm->nFuncSP = 0 ;
+		vm->nBlockSP = 0 ;
 		/* Clear General Temp Memory */
 		simple_list_deleteallitems_gc(vm->sState,vm->pTempMem);
 	} else {
 		if ( vm->nInsideBraceFlag == 0 ) {
-			vm->nSP = vm->nFuncSP ;
+			vm->nSP = vm->nBlockSP ;
 		}
 		else {
 			simple_vm_oop_bracestack(vm);
