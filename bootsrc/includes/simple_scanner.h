@@ -16,7 +16,7 @@
 #ifndef simple_scanner_h
 #define simple_scanner_h
 
-/* Compiler - Scanner - Reading Files Functions */
+/* Compiler - Scanner - Reading Files Blocks */
 #define SIMPLE_FILE FILE *
 #define SIMPLE_OPENFILE(x,y) fopen(x,y)
 #define SIMPLE_CLOSEFILE(x) fclose(x)
@@ -112,7 +112,7 @@ typedef enum SCANNER_OPERATOR {
 	OP_BITNOT ,
 	OP_XOR 
 } SCANNER_OPERATOR ;
-/* Functions */
+/* Blocks */
 
 Scanner * new_simple_scanner ( SimpleState *sState ) ;
 

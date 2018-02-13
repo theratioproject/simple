@@ -15,9 +15,9 @@
 
 #include "../includes/simple.h"
 #include "../includes/simple_vmdll.h"
-/* Functions */
+/* Blocks */
 
-void simple_vm_dll_loadfunctions ( SimpleState *sState )
+void simple_vm_dll_loadblocks ( SimpleState *sState )
 {
 	register_block("callDynamicModule",simple_vm_dll_loadlib);
 	register_block("closeDynamicModule",simple_vm_dll_closelib);
@@ -75,7 +75,7 @@ void simple_vm_dll_loadlib ( void *pointer )
         pFunc = (loadlibfuncptr) GetDLLFunc(handle, "init_simple_module") ;
         if ( pFunc == NULL ) {
                 printf( "\nLibrary File : %s", file_real_name(SIMPLE_API_GETSTRING(1)) ) ;
-                SIMPLE_API_ERROR("The dynamic library doesn't contain the init_simple_module() function!");
+                SIMPLE_API_ERROR("The dynamic library doesn't contain the init_simple_module() block!");
                 return ;
         }
         simple_list_deletearray_gc(sState,sState->c_blocks);
@@ -103,7 +103,7 @@ void simple_vm_dll_closelib ( void *pointer )
 	}
 }
 
-/* User Interface - Commands Implementation (Faster) - Because we don't have functions call */
+/* User Interface - Commands Implementation (Faster) - Because we don't have blocks call */
 
 void simple_vm_display ( VM *vm )
 {
@@ -184,7 +184,7 @@ void simple_vm_read ( VM *vm )
 	}
 }
 
-/* User Interface Functions (Another implementation) - Flexibile (We can replace functions in Simple Code) */
+/* User Interface Blocks (Another implementation) - Flexibile (We can replace blocks in Simple Code) */
 
 void display_string ( void *pointer )
 {

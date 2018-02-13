@@ -26,8 +26,8 @@ typedef struct List {
 	struct HashTable *pHashTable  ;
 } List ;
 /*
-**  Functions 
-**  Main List Functions 
+**  Blocks 
+**  Main List Blocks 
 */
 
 SIMPLE_API List * simple_list_new_gc ( void *pState,int nSize ) ;
@@ -57,7 +57,7 @@ SIMPLE_API void simple_list_addint_gc ( void *pState,List *list,int x ) ;
 SIMPLE_API void simple_list_setpointer_gc ( void *pState,List *list, int index ,void *pValue ) ;
 
 SIMPLE_API void simple_list_addpointer_gc ( void *pState,List *list,void *pValue ) ;
-/* Function Pointers */
+/* Block Pointers */
 
 SIMPLE_API void simple_list_setfuncpointer_gc ( void *pState,List *list, int index ,void (*pFunc)(void *) ) ;
 
@@ -181,7 +181,7 @@ SIMPLE_API int simple_list_deliteminsidelist ( List *list,Item *pItem ) ;
 #define SIMPLE_VM_LISTOFOBJS_FINDSTRING 1
 #define SIMPLE_VM_LISTOFOBJS_FINDNUMBER 0
 #define simple_list_deletelastitem_gc(s,x) simple_list_deleteitem_gc(s,x,simple_list_getsize(x))
-/* Define functions without SimpleState * */
+/* Define blocks without SimpleState * */
 
 SIMPLE_API List * simple_list_new ( int nSize ) ;
 
@@ -204,7 +204,7 @@ SIMPLE_API void simple_list_addint ( List *list,int x ) ;
 SIMPLE_API void simple_list_setpointer ( List *list, int index ,void *pValue ) ;
 
 SIMPLE_API void simple_list_addpointer ( List *list,void *pValue ) ;
-/* Function Pointers */
+/* Block Pointers */
 
 SIMPLE_API void simple_list_setfuncpointer ( List *list, int index ,void (*pFunc)(void *) ) ;
 

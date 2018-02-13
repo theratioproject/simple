@@ -14,7 +14,7 @@
 
 
 #include "../includes/simple.h"
-/* Functions */
+/* Blocks */
 
 int accept_token_token( Parser *parser, SCANNER_OPERATOR nType ) {
 	assert(parser != NULL);
@@ -84,7 +84,7 @@ Parser * simple_parser_new ( List *pTokens,SimpleState *sState )
 		sState->modules_map = simple_list_new(0);
 	}
 	parser->GenCode = sState->pSimpleGenCode ;
-	parser->FunctionsMap = sState->blocks_map ;
+	parser->BlocksMap = sState->blocks_map ;
 	parser->ActiveGenCodeList = NULL ;
 	parser->nAssignmentFlag = 1 ;
 	parser->nClassStart = 0 ;

@@ -15,7 +15,7 @@
 
 #include "../includes/simple.h"
 /*
-**  Functions 
+**  Blocks 
 **  List 
 */
 
@@ -89,7 +89,7 @@ SIMPLE_API void simple_list_copy_gc ( void *pState,List *pNewList, List *list )
 	List *pNewList2  ;
 	assert(list != NULL);
 	/*
-	**  This function don't add a new list before copying items 
+	**  This block don't add a new list before copying items 
 	**  if you want to add a list to another one, create new list in the target then copy to it 
 	**  Copy Items 
 	*/
@@ -498,7 +498,7 @@ SIMPLE_API List * simple_list_getlist ( List *list, int index )
 	list2 = simple_item_getlist(pItem);
 	return list2 ;
 }
-/* Function Pointers */
+/* Block Pointers */
 
 SIMPLE_API void simple_list_setfuncpointer_gc ( void *pState,List *list, int index ,void (*pFunc)(void *) )
 {
@@ -528,7 +528,7 @@ void simple_list_testfuncpointer ( void *pointer )
 {
 	List *list  ;
 	list = (List *) pointer ;
-	puts(" Message from a function called by function pointer  ");
+	puts(" Message from a block called by block pointer  ");
 	printf( "List Size %d  \n",list->nSize ) ;
 }
 /*
@@ -1089,7 +1089,7 @@ SIMPLE_API void simple_list_clear ( List *list )
 	list->pItemsArray = NULL ;
 	list->pHashTable = NULL ;
 }
-/* Define functions without State Pointer */
+/* Define blocks without State Pointer */
 
 SIMPLE_API List * simple_list_new ( int nSize )
 {
@@ -1142,7 +1142,7 @@ SIMPLE_API void simple_list_addpointer ( List *list,void *pValue )
 {
 	simple_list_addpointer_gc(NULL,list,pValue);
 }
-/* Function Pointers */
+/* Block Pointers */
 
 SIMPLE_API void simple_list_setfuncpointer ( List *list, int index ,void (*pFunc)(void *) )
 {
@@ -1413,10 +1413,10 @@ void simple_list_test ( void )
 	printf( "Item Number 2 = %s  \n",simple_list_getstring(list,2) ) ;
 	printf( "Item Number 3 = %s  \n",simple_list_getstring(list,3) ) ;
 	simple_list_delete(list);
-	/* Function Pointers */
+	/* Block Pointers */
 	list = simple_list_new(0);
 	simple_list_addfuncpointer(list,simple_list_testfuncpointer);
-	puts(" *** Test Function Pointer *** ");
+	puts(" *** Test Block Pointer *** ");
 	simple_list_callfuncpointer(list,1,list);
 	simple_list_delete(list);
 	getchar();

@@ -13,7 +13,7 @@
  */
 
 #include "../includes/simple.h"
-/* Functions */
+/* Blocks */
 
 HashTable * simple_hashtable_new_gc ( void *pState )
 {
@@ -266,7 +266,7 @@ void simple_hashtable_test ( void )
 	puts("\nEnd of HashTable Test ");
 	exit(0);
 }
-/* Functions without the State pointer */
+/* Blocks without the State pointer */
 
 HashTable * simple_hashtable_new ( void )
 {

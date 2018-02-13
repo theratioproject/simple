@@ -14,7 +14,7 @@
 
 #include "../includes/simple.h"
 /*
-**  Functions 
+**  Blocks 
 **  Main 
 */
 
@@ -32,7 +32,7 @@ VM * simple_vm_new ( SimpleState *sState )
 	sState->vm = vm ;
 	vm->nPC = 1 ;
 	vm->pCode = NULL ;
-	vm->pFunctionsMap = NULL ;
+	vm->pBlocksMap = NULL ;
 	vm->nOPCode = 0 ;
 	vm->nSP = 0 ;
 	vm->pMem = simple_list_new_gc(vm->sState,0);
@@ -56,15 +56,15 @@ VM * simple_vm_new ( SimpleState *sState )
 	/* Support for nested Load Instructions */
 	vm->nBlockFlag = 0 ;
 	vm->aPCBlockFlag = simple_list_new_gc(vm->sState,0);
-	/* Calling Functions */
+	/* Calling Blocks */
 	vm->pFuncCallList = simple_list_new_gc(vm->sState,0);
 	vm->nFuncSP = 0 ;
 	vm->nFuncExecute = 0 ;
 	if ( sState->c_blocks == NULL ) {
 		sState->c_blocks = simple_list_new_gc(vm->sState,0);
 	}
-	vm->pCFunctionsList = sState->c_blocks ;
-	vm->nCallMainFunction = 0 ;
+	vm->pCBlocksList = sState->c_blocks ;
+	vm->nCallMainBlock = 0 ;
 	/* Support for Exit/Loop Commands inside For/While loops. */
 	vm->pExitMark = simple_list_new_gc(vm->sState,0);
 	vm->pLoopMark = simple_list_new_gc(vm->sState,0);
@@ -72,7 +72,7 @@ VM * simple_vm_new ( SimpleState *sState )
 	vm->pTry = simple_list_new_gc(vm->sState,0);
 	/* Saving scope when creating new objects and calling class init method */
 	vm->aScopeNewObj = simple_list_new_gc(vm->sState,0);
-	/* Flag ( 0 = Call Function  1 = Call Method After writing object name using dot ) */
+	/* Flag ( 0 = Call Block  1 = Call Method After writing object name using dot ) */
 	vm->nCallMethod = 0 ;
 	/* List of Lists used like Stack, list structure [Pointer to State , Pointer to Methods] */
 	vm->pObjState = simple_list_new_gc(vm->sState,0);
@@ -117,7 +117,7 @@ VM * simple_vm_new ( SimpleState *sState )
 	**  NOAssignment used to disable instruction AssignmentPointer 
 	**  We uses this when we change assignment to set property 
 	**  It's important for ListStart to create Temp List when we use setter 
-	**  and try to set attribute value to a list and a function setproperty() will be called 
+	**  and try to set attribute value to a list and a block setproperty() will be called 
 	**  With this list as parameter stored in temp memory 
 	*/
 	vm->nNOAssignment = 0 ;
@@ -142,11 +142,11 @@ VM * simple_vm_new ( SimpleState *sState )
 	vm->nEvalReallocationSize = 0 ;
 	/* Flag ( 1 = we need space over allocated size so we have to do reallocation ) */
 	vm->nEvalReallocationFlag = 0 ;
-	/* Parameters Count Passed to C Function */
+	/* Parameters Count Passed to C Block */
 	vm->nCFuncParaCount = 0 ;
 	/*
-	**  Flag to Ignore NULL output after calling C Function 
-	**  This flag is used by the len() function when we use len(object) 
+	**  Flag to Ignore NULL output after calling C Block 
+	**  This flag is used by the len() block when we use len(object) 
 	**  So operator overloading can return the result from the method 
 	*/
 	vm->nIgnoreNULL = 0 ;
@@ -154,12 +154,12 @@ VM * simple_vm_new ( SimpleState *sState )
 	vm->nEvalReturnPC = 0 ;
 	/* Flag to return Item Reference (of object state) */
 	vm->nRetItemRef = 0 ;
-	/* Mutex Functions Pointers - for threads/lock/unlock */
+	/* Mutex Blocks Pointers - for threads/lock/unlock */
 	vm->pFuncMutexLock = NULL ;
 	vm->pFuncMutexUnlock = NULL ;
 	vm->pFuncMutexDestroy = NULL ;
 	vm->pMutex = NULL ;
-	/* Ignore C Pointer Type Check in extension functions */
+	/* Ignore C Pointer Type Check in extension blocks */
 	vm->nIgnoreCPointerTypeCheck = 0 ;
 	/*
 	**  Flag when we call class init using new obj() 
@@ -178,7 +178,7 @@ VM * simple_vm_new ( SimpleState *sState )
 	vm->nRetEvalDontDelete = 0 ;
 	/* Counter to know if we are inside simple_vm_runcode() */
 	vm->nRunCode = 0 ;
-	/* Flag that we have runtime error to avoid calling the error function again */
+	/* Flag that we have runtime error to avoid calling the error block again */
 	vm->nActiveError = 0 ;
 	/* Dynamic List of Self Items and PC */
 	vm->aDynamicSelfItems = simple_list_new_gc(vm->sState,0);
@@ -187,8 +187,8 @@ VM * simple_vm_new ( SimpleState *sState )
 	/*
 	**  Trace Program (After Each Line) 
 	**  lTrace = Logical Value (Trace is Active or Not) 
-	**  pTrace = String contains the code to be executed (Trace Function) 
-	**  lTraceActive = The Trace Function is Active - Don't Call Trace function from Trace Function 
+	**  pTrace = String contains the code to be executed (Trace Block) 
+	**  lTraceActive = The Trace Block is Active - Don't Call Trace block from Trace Block 
 	**  nTraceEvent = The Trace Event (1 = New Line , etc) 
 	*/
 	vm->lTrace = 0 ;
@@ -196,7 +196,7 @@ VM * simple_vm_new ( SimpleState *sState )
 	vm->lTraceActive = 0 ;
 	vm->nTraceEvent = 0 ;
 	vm->pTraceData = simple_list_new_gc(vm->sState,0) ;
-	/* Eval In Scope function is Active : ringvm_evalinscope() */
+	/* Eval In Scope block is Active : ringvm_evalinscope() */
 	vm->nEvalInScope = 0 ;
 	/* Pass error in simple_vm_error() from ringvm_passerror() */
 	vm->lPassError = 0 ;
@@ -290,11 +290,11 @@ SIMPLE_API void simple_vm_loadcode ( VM *vm )
 void simple_vm_start ( SimpleState *sState,VM *vm )
 {
 	vm->pCode = sState->pSimpleGenCode ;
-	vm->pFunctionsMap = sState->blocks_map ;
+	vm->pBlocksMap = sState->blocks_map ;
 	vm->pClassesMap = sState->classes_map ;
 	vm->pModulessMap = sState->modules_map ;
 	simple_vm_loadcode(vm);
-	loadcfunctions(sState);
+	loadcblocks(sState);
 	/* Generate Items Array &  Hash Table */
 	simple_list_genarray(sState->c_blocks);
 	simple_list_genhashtable2(sState->c_blocks);
@@ -500,7 +500,7 @@ void simple_vm_execute ( VM *vm )
 		case ICO_LOADINDEXADDRESS :
 			simple_vm_loadindexaddress(vm);
 			break ;
-		/* Functions */
+		/* Blocks */
 		case ICO_LOADBLOCK :
 			simple_vm_loadfunc(vm);
 			break ;
@@ -780,9 +780,9 @@ int simple_vm_eval ( VM *vm,const char *cStr )
 	/* Add Token "End of Line" to the end of any program */
 	simple_scanner_endofline(scanner);
 	nLastPC = simple_list_getsize(vm->pCode);
-	/* Get Functions/Classes Size before change by parser */
+	/* Get Blocks/Classes Size before change by parser */
 	aPara[0] = nLastPC ;
-	aPara[1] = simple_list_getsize(vm->pFunctionsMap) ;
+	aPara[1] = simple_list_getsize(vm->pBlocksMap) ;
 	aPara[2] = simple_list_getsize(vm->pClassesMap) ;
 	/* Call Parser */
 	if ( nCont == 1 ) {
@@ -799,7 +799,7 @@ int simple_vm_eval ( VM *vm,const char *cStr )
 		**  Generate Code 
 		**  Generate  Hash Table 
 		*/
-		simple_list_genhashtable2(vm->pFunctionsMap);
+		simple_list_genhashtable2(vm->pBlocksMap);
 		if ( vm->nEvalCalledFromSimpleCode ) {
 			simple_scanner_addreturn3(vm->sState,aPara);
 		}
@@ -817,7 +817,7 @@ int simple_vm_eval ( VM *vm,const char *cStr )
 			}
 			vm->pByteCode = pByteCode ;
 			if ( vm->nEvalCalledFromSimpleCode ) {
-				/* Here executeCode() function is called from .sim files ( not by the VM for setter/getter/operator overloading) */
+				/* Here executeCode() block is called from .sim files ( not by the VM for setter/getter/operator overloading) */
 				vm->nEvalReallocationFlag = 1 ;
 			}
 		}
@@ -832,10 +832,10 @@ int simple_vm_eval ( VM *vm,const char *cStr )
 		**  The mainloop will be called again 
 		**  We do this to execute executeCode instructions directly 
 		**  This is necessary when we have GUI library that takes the event loop 
-		**  Then an event uses the executeCode() function to execute instructions 
+		**  Then an event uses the executeCode() block to execute instructions 
 		**  We don't call the main loop here we call it from simple_vm_call() 
 		**  We do this to execute the executeCode() instructions in the correct scope 
-		**  Because when we call a C Function like executeCode() we have parameters scope 
+		**  Because when we call a C Block like executeCode() we have parameters scope 
 		**  Before we call the main loop from simple_vm_call the parameters scope will be deleted 
 		**  And the local scope will be restored so we can use it from executeCode() 
 		**  Update ReallocationSize 
@@ -902,9 +902,9 @@ void simple_vm_returneval ( VM *vm )
 	aPara[0] = SIMPLE_VM_IR_READIVALUE(1) ;
 	aPara[1] = SIMPLE_VM_IR_READIVALUE(2) ;
 	aPara[2] = SIMPLE_VM_IR_READIVALUE(3) ;
-	if ( ( vm->nRetEvalDontDelete == 0 ) && (aPara[1] == simple_list_getsize(vm->pFunctionsMap)) && (aPara[2] == simple_list_getsize(vm->pClassesMap)) ) {
+	if ( ( vm->nRetEvalDontDelete == 0 ) && (aPara[1] == simple_list_getsize(vm->pBlocksMap)) && (aPara[2] == simple_list_getsize(vm->pClassesMap)) ) {
 		/*
-		**  The code interpreted by eval doesn't add new functions or new classes 
+		**  The code interpreted by eval doesn't add new blocks or new classes 
 		**  This means that the code can be deleted without any problems 
 		**  We do that to avoid memory leaks 
 		*/
@@ -973,7 +973,7 @@ SIMPLE_API void simple_vm_runcode ( VM *vm,const char *cStr )
 	vm->nEvalCalledFromSimpleCode = 1 ;
 	/* Check removing the new byte code */
 	if ( vm->nRunCode != 1 ) {
-		/* We have nested events that call this function */
+		/* We have nested events that call this block */
 		vm->nRetEvalDontDelete = 1 ;
 	}
 	nRunVM = simple_vm_eval(vm,cStr);
@@ -1102,7 +1102,7 @@ void simple_vm_callclassinit ( VM *vm )
 
 SIMPLE_API void simple_vm_showerrormessage ( VM *vm,const char *cStr )
 {
-	int x,lFunctionCall  ;
+	int x,lBlockCall  ;
 	List *list  ;
 	const char *cFile  ;
 	/* CGI Support */
@@ -1110,7 +1110,7 @@ SIMPLE_API void simple_vm_showerrormessage ( VM *vm,const char *cStr )
 	/* Print the Error Message */
 	printf( "\nLine %d -> %s \n",vm->nLineNumber,cStr ) ;
 	/* Print Calling Information */
-	lFunctionCall = 0 ;
+	lBlockCall = 0 ;
 	for ( x = simple_list_getsize(vm->pFuncCallList) ; x >= 1 ; x-- ) {
 		list = simple_list_getlist(vm->pFuncCallList,x);
 		/*
@@ -1126,19 +1126,19 @@ SIMPLE_API void simple_vm_showerrormessage ( VM *vm,const char *cStr )
 			**  In 
 			*/
 			printf( "\tat " ) ;
-			/* Method or Function */
+			/* Method or Block */
 			/*if ( simple_list_getint(list,SIMPLE_BLOCKCL_METHODORBLOCK) ) {
 				printf( "method " ) ;
 			}
 			else {
 				printf( "block " ) ;
 			}*/
-			/* Function Name */
+			/* Block Name */
 			printf( "%s",simple_list_getstring(list,SIMPLE_BLOCKCL_NAME) ) ;
 			/* Adding () */
 			printf( "() in file " ) ;
 			/* File Name */
-			if ( lFunctionCall == 1 ) {
+			if ( lBlockCall == 1 ) {
 				cFile = (const char *) simple_list_getpointer(list,SIMPLE_BLOCKCL_NEWFILENAME) ;
 			}
 			else {
@@ -1152,13 +1152,13 @@ SIMPLE_API void simple_vm_showerrormessage ( VM *vm,const char *cStr )
 			printf( "%s",file_real_name(cFile) ) ;
 			/* Called From */
 			printf( "\n\tat line %d ",simple_list_getint(list,SIMPLE_BLOCKCL_LINENUMBER) ) ;
-			lFunctionCall = 1 ;
+			lBlockCall = 1 ;
 		}
 		else {
 			printf( "In %s ",file_real_name(simple_list_getstring(list,SIMPLE_BLOCKCL_NAME)) ) ;
 		}
 	}
-	if ( lFunctionCall ) {
+	if ( lBlockCall ) {
 		printf( "in file %s ",file_real_name(simple_list_getstring(vm->sState->files_list,1) )) ;
 	}
 	else {
@@ -1233,7 +1233,7 @@ void simple_vm_addglobalvariables ( VM *vm )
 }
 /* Threads */
 
-SIMPLE_API void simple_vm_mutexfunctions ( VM *vm,void *(*pFunc)(void),void (*pFuncLock)(void *),void (*pFuncUnlock)(void *),void (*pFuncDestroy)(void *) )
+SIMPLE_API void simple_vm_mutexblocks ( VM *vm,void *(*pFunc)(void),void (*pFuncLock)(void *),void (*pFuncUnlock)(void *),void (*pFuncDestroy)(void *) )
 {
 	if ( vm->pMutex == NULL ) {
 		vm->pMutex = pFunc() ;
@@ -1284,15 +1284,15 @@ SIMPLE_API void simple_vm_runcodefromthread ( VM *vm,const char *cStr )
 	pState->vm->pMem->pFirst->pValue = vm->pMem->pFirst->pValue ;
 	/* Save the state */
 	list = pState->vm->pCode ;
-	list2 = pState->vm->pFunctionsMap ;
+	list2 = pState->vm->pBlocksMap ;
 	list3 = pState->vm->pClassesMap ;
 	list4 = pState->vm->pModulessMap ;
-	list5 = pState->vm->pCFunctionsList ;
+	list5 = pState->vm->pCBlocksList ;
 	/* Share the code between the VMs */
-	pState->vm->pFunctionsMap = vm->sState->blocks_map ;
+	pState->vm->pBlocksMap = vm->sState->blocks_map ;
 	pState->vm->pClassesMap = vm->sState->classes_map ;
 	pState->vm->pModulessMap = vm->sState->modules_map ;
-	pState->vm->pCFunctionsList = vm->pCFunctionsList ;
+	pState->vm->pCBlocksList = vm->pCBlocksList ;
 	pState->blocks_map = vm->sState->blocks_map ;
 	pState->classes_map = vm->sState->classes_map ;
 	pState->modules_map = vm->sState->modules_map ;
@@ -1304,7 +1304,7 @@ SIMPLE_API void simple_vm_runcodefromthread ( VM *vm,const char *cStr )
 	pState->pSimpleGenCode = pState->vm->pCode ;
 	simple_vm_loadcode(pState->vm);
 	/* Avoid the call to the main block */
-	pState->vm->nCallMainFunction = 1 ;
+	pState->vm->nCallMainBlock = 1 ;
 	simple_vm_mutexunlock(vm);
 	/* Run the code */
 	execute_simple_code(pState,cStr);
@@ -1313,10 +1313,10 @@ SIMPLE_API void simple_vm_runcodefromthread ( VM *vm,const char *cStr )
 	pState->vm->pMem->pFirst->pValue = pItem ;
 	/* Avoid deleteing the shared code and the Mutex */
 	pState->vm->pCode = list ;
-	pState->vm->pFunctionsMap = list2 ;
+	pState->vm->pBlocksMap = list2 ;
 	pState->vm->pClassesMap = list3 ;
 	pState->vm->pModulessMap = list4 ;
-	pState->vm->pCFunctionsList = list5 ;
+	pState->vm->pCBlocksList = list5 ;
 	pState->pSimpleGenCode = list ;
 	pState->blocks_map = list2 ;
 	pState->classes_map = list3 ;
@@ -1329,22 +1329,22 @@ SIMPLE_API void simple_vm_runcodefromthread ( VM *vm,const char *cStr )
 	/* Delete the SimpleState */
 	free_simple_state(pState);
 }
-/* Fast Function Call for Extensions (Without Eval) */
+/* Fast Block Call for Extensions (Without Eval) */
 
-SIMPLE_API void simple_vm_callfunction ( VM *vm,char *cFuncName )
+SIMPLE_API void simple_vm_callblock ( VM *vm,char *cFuncName )
 {
 	/* Lower Case and pass () in the end */
 	simple_string_lower(cFuncName);
-	/* Prepare (Remove effects of the currect function) */
+	/* Prepare (Remove effects of the currect block) */
 	simple_list_deletelastitem_gc(vm->sState,vm->pFuncCallList);
-	/* Load the function and call it */
+	/* Load the block and call it */
 	simple_vm_loadfunc2(vm,cFuncName,0);
 	simple_vm_call2(vm);
-	/* Execute the function */
+	/* Execute the block */
 	simple_vm_mainloop(vm);
 	/* Free Stack */
 	simple_vm_freestack(vm);
-	/* Avoid normal steps after this function, because we deleted the scope in Prepare */
+	/* Avoid normal steps after this block, because we deleted the scope in Prepare */
 	vm->nActiveCatch = 1 ;
 }
 /* Trace */
@@ -1361,19 +1361,19 @@ void simple_vm_traceevent ( VM *vm,char nEvent )
 		simple_list_adddouble_gc(vm->sState,vm->pTraceData,vm->nLineNumber);
 		/* Add File Name */
 		simple_list_addstring_gc(vm->sState,vm->pTraceData,vm->file_name);
-		/* Add Function/Method Name */
+		/* Add Block/Method Name */
 		if ( simple_list_getsize(vm->pFuncCallList) > 0 ) {
 			list = simple_list_getlist(vm->pFuncCallList,simple_list_getsize(vm->pFuncCallList)) ;
 			simple_list_addstring_gc(vm->sState,vm->pTraceData,simple_list_getstring(list,SIMPLE_BLOCKCL_NAME));
-			/* Method of Function */
+			/* Method of Block */
 			simple_list_adddouble_gc(vm->sState,vm->pTraceData,simple_list_getint(list,SIMPLE_BLOCKCL_METHODORBLOCK));
 		}
 		else {
 			simple_list_addstring_gc(vm->sState,vm->pTraceData,"");
-			/* Method of Function */
+			/* Method of Block */
 			simple_list_adddouble_gc(vm->sState,vm->pTraceData,0);
 		}
-		/* Execute Trace Function */
+		/* Execute Trace Block */
 		simple_vm_runcode(vm,simple_string_get(vm->pTrace));
 		vm->lTraceActive = 0 ;
 		vm->nTraceEvent = 0 ;

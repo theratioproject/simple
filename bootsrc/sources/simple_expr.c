@@ -18,7 +18,7 @@
 
 #include "../includes/simple.h"
 /*
-**  Functions 
+**  Blocks 
 **  Grammar 
 */
 
@@ -978,12 +978,12 @@ int simple_parser_factor ( Parser *parser,int *nFlag )
 				simple_parser_icg_newoperation(parser,ICO_BRACESTART);
 				simple_parser_icg_newoperation(parser,ICO_CALLCLASSINIT);
 				simple_parser_icg_newoperandint(parser,1);
-				/* Generate Code ( Call Function ) */
+				/* Generate Code ( Call Block ) */
 				simple_parser_icg_newoperation(parser,ICO_LOADADDRESS);
 				simple_parser_icg_newoperand(parser,class_name);
 				/* Generate Location for nPC of Getter */
 				simple_parser_icg_newoperandint(parser,0);
-				/* Function Parameters */
+				/* Block Parameters */
 				parser->nFuncCallOnly = 1 ;
 				simple_parser_mixer(parser);
 				parser->nFuncCallOnly = 0 ;
@@ -1005,20 +1005,20 @@ int simple_parser_factor ( Parser *parser,int *nFlag )
 			return 1 ;
 		}
 	}
-	/* Factor --> Anonymous Function */
+	/* Factor --> Anonymous Block */
 	if ( simple_parser_iskeyword(parser,KEYWORD_BLOCK) ) {
 		simple_parser_nexttoken(parser);
 		/*
 		**  Generate Code 
-		**  Push Function Name, then jump after the function code 
+		**  Push Block Name, then jump after the block code 
 		*/
 		simple_parser_icg_newoperation(parser,ICO_PUSHC);
-		/* Note : the function name must be in lower case */
+		/* Note : the block name must be in lower case */
 		sprintf( cFuncName , "_simple_anonymous_func_%d" , SIMPLE_PARSER_OPERATIONID ) ;
 		simple_parser_icg_newoperand(parser,cFuncName);
 		simple_parser_icg_newoperation(parser,ICO_JUMP);
 		pMark = simple_parser_icg_getactiveoperation(parser);
-		/* Define the Function - as public (not related to any class) */
+		/* Define the Block - as public (not related to any class) */
 		list = simple_list_newlist_gc(parser->sState,parser->sState->blocks_map);
 		simple_list_addstring_gc(parser->sState,list,cFuncName);
 		/* Note +1 because instruction ICO_NEWBLOCK will come next */
@@ -1027,11 +1027,11 @@ int simple_parser_factor ( Parser *parser,int *nFlag )
 		simple_list_addint_gc(parser->sState,list,0);
 		simple_parser_icg_newoperation(parser,ICO_NEWBLOCK);
 		simple_parser_icg_newoperand(parser,cFuncName);
-		/* Get Function Parameters */
+		/* Get Block Parameters */
 		if ( simple_parser_isidentifier(parser) || simple_parser_isoperator2(parser,OP_FOPEN) ) {
 			if (! simple_parser_paralist(parser)) return 0 ;
 		}
-		/* Get Function Code */
+		/* Get Block Code */
 		if ( simple_parser_isoperator2(parser,OP_BRACEOPEN) ) {
 			simple_parser_nexttoken(parser);
 			x = parser->nAssignmentFlag ;
@@ -1056,7 +1056,7 @@ int simple_parser_factor ( Parser *parser,int *nFlag )
 				#if SIMPLE_PARSERTRACE
 				SIMPLE_STATE_CHECKPRINTRULES 
 				
-				puts("Rule : AnonymousFunction --> Func ParaList '{' Statement '}'");
+				puts("Rule : AnonymousBlock --> Func ParaList '{' Statement '}'");
 				#endif
 				return 1 ;
 			}
@@ -1195,7 +1195,7 @@ int simple_parser_mixer ( Parser *parser )
 			SIMPLE_PARSER_IGNORENEWLINE ;
 		}
 	}
-	/* Function Call Only */
+	/* Block Call Only */
 	if ( parser->nFuncCallOnly == 1 ) {
 		return 1 ;
 	}
@@ -1242,7 +1242,7 @@ int simple_parser_mixer ( Parser *parser )
 			parser_error(parser,PARSER_ERROR_BRACESNOTCLOSED);
 		}
 	}
-	/* This function return 1 because the mixer is optional and comes after identifier */
+	/* This block return 1 because the mixer is optional and comes after identifier */
 	return 1 ;
 }
 
@@ -1262,7 +1262,7 @@ void simple_parser_gencall ( Parser *parser,int nCallMethod )
 		simple_parser_icg_newoperandint(parser,0);
 		/*
 		**  The No Operation Instruction may be converted to AfterCallMethod during runtime 
-		**  This happens when we call method like functions inside object { } 
+		**  This happens when we call method like blocks inside object { } 
 		*/
 		simple_parser_icg_newoperation(parser,ICO_NOOP);
 	}

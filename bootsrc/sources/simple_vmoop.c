@@ -1,21 +1,21 @@
 /*
 **  pClassesMap ( cClass Name ,  iPC , cParentClass, aMethodsList , nFlagIsParentClassInformation 
 **  pClassesMap ( cClass Name, Pointer to List that represent class inside a Modules, Pointer to File 
-**  pFunctionsMap ( Name, PC, FileName, Private Flag ) 
+**  pBlocksMap ( Name, PC, FileName, Private Flag ) 
 **  Moduless List ( Modules Name , Classes List ) 
 **  Object ( is a list of two items , (1) Class Pointer  (2) Object Data  ) 
 **  vm->aScopeNewObj : (1) Previous scope (2) nListStart (3) pNestedLists (4) nSP 
 **  vm->pObjState  (  [ Pointer to Scope, Pointer to Methods , Pointer to Classs, Optional True) 
 **  The optional True used with LoadMethod so we can Know that we are inside class method during RT 
 **  We don't check the True value, we just check that the size of the list is 4 
-**  used in simple_vmfuncs , function simple_vm_loadfunc2() 
-**  used in simple_vmvars , function simple_vm_findvar2() 
+**  used in simple_vmfuncs , block simple_vm_loadfunc2() 
+**  used in simple_vmvars , block simple_vm_findvar2() 
 **  pBraceObject : The list that represent the object directly (not varaible/list item) 
 **  aBraceObjects ( pBraceObject, nSP, nListStart, pNestedLists) 
 **  aSetProperty ( Object Pointer , Type (Variable/ListItem)  , Property Name, Property Variable , nBeforeEqual) 
 */
 #include "../includes/simple.h"
-/* Functions */
+/* Blocks */
 
 void simple_vm_oop_newobj ( VM *vm )
 {
@@ -103,7 +103,7 @@ void simple_vm_oop_newobj ( VM *vm )
 				/* Save the current Scope, List and Stack */
 				list4 = simple_list_newlist_gc(vm->sState,vm->aScopeNewObj);
 				simple_list_addpointer_gc(vm->sState,list4,vm->pActiveMem);
-				/* Store List information to allow calling function from list item and creating lists from that funct */
+				/* Store List information to allow calling block from list item and creating lists from that funct */
 				simple_list_addint_gc(vm->sState,list4,vm->nListStart);
 				simple_list_addpointer_gc(vm->sState,list4,vm->pNestedLists);
 				vm->nListStart = 0 ;
@@ -124,7 +124,7 @@ void simple_vm_oop_newobj ( VM *vm )
 				vm->nCallClassInit = 0 ;
 				/* Save Line Number */
 				simple_list_addint_gc(vm->sState,list4,vm->nLineNumber);
-				/* Save Function Stack */
+				/* Save Block Stack */
 				simple_list_addint_gc(vm->sState,list4,vm->nFuncSP);
 				/* Save Assignment Pointer */
 				simple_list_addpointer_gc(vm->sState,list4,vm->pAssignment);
@@ -253,7 +253,7 @@ void simple_vm_oop_newclass ( VM *vm )
 void simple_vm_oop_setscope ( VM *vm )
 {
 	List *list  ;
-	/* This function called after creating new object and executing class init */
+	/* This block called after creating new object and executing class init */
 	list = simple_list_getlist(vm->aScopeNewObj,simple_list_getsize(vm->aScopeNewObj)) ;
 	/*
 	**  Restore State 
@@ -271,7 +271,7 @@ void simple_vm_oop_setscope ( VM *vm )
 	vm->nCallClassInit = simple_list_getint(list,9) ;
 	/* Restore nLineNumber */
 	vm->nLineNumber = simple_list_getint(list,10) ;
-	/* Restore Function Stack */
+	/* Restore Block Stack */
 	vm->nFuncSP = simple_list_getint(list,11) ;
 	/* Restore Assignment Pointer */
 	vm->pAssignment = (List *) simple_list_getpointer(list,12) ;
@@ -435,12 +435,12 @@ void simple_vm_oop_loadmethod ( VM *vm )
 	/* Get Parent Classes Methods */
 	simple_vm_oop_parentmethods(vm,list);
 	/* Call Method */
-	pVar = vm->pFunctionsMap ;
-	vm->pFunctionsMap = list3 ;
+	pVar = vm->pBlocksMap ;
+	vm->pBlocksMap = list3 ;
 	vm->nCallMethod = 1 ;
 	lResult = simple_vm_loadfunc(vm);
 	vm->nCallMethod = 0 ;
-	vm->pFunctionsMap = pVar ;
+	vm->pBlocksMap = pVar ;
 	/* Move list from pObjState to aBeforeObjState */
 	if ( lResult ) {
 		simple_vm_oop_movetobeforeobjstate(vm);
@@ -619,7 +619,7 @@ void simple_vm_oop_bracestack ( VM *vm )
 	if ( vm->nFuncSP > vm->nSP ) {
 		/*
 		**  This fixes a problem when we use oObject {  executeCode(code) } return cString 
-		**  Where vm->nSP maybe less than vm->nFuncSP while we are inside function 
+		**  Where vm->nSP maybe less than vm->nFuncSP while we are inside block 
 		*/
 		if ( simple_list_getsize(vm->pFuncCallList) > 0 ) {
 			vm->nSP = vm->nFuncSP ;
@@ -698,12 +698,12 @@ void simple_vm_oop_loadsuperobjmethod ( VM *vm,List *pSuper )
 	simple_list_addpointer_gc(vm->sState,list,pMethods);
 	simple_list_addpointer_gc(vm->sState,list,pClass);
 	/* Call Method */
-	pVar = vm->pFunctionsMap ;
-	vm->pFunctionsMap = pMethods ;
+	pVar = vm->pBlocksMap ;
+	vm->pBlocksMap = pMethods ;
 	vm->nCallMethod = 1 ;
 	simple_vm_loadfunc(vm);
 	vm->nCallMethod = 0 ;
-	vm->pFunctionsMap = pVar ;
+	vm->pBlocksMap = pVar ;
 }
 
 void simple_vm_oop_import ( VM *vm )
@@ -813,19 +813,19 @@ int simple_vm_oop_callmethodinsideclass ( VM *vm )
 	List *list, *list2  ;
 	int x  ;
 	/*
-	**  This function tell us if we are inside Class method during runtime or not 
+	**  This block tell us if we are inside Class method during runtime or not 
 	**  pObjState is used when we Call Method or We use braces { } to access object 
 	**  if the size of pObjState List is 4 , then it's class method execution not brace 
 	**  Braces can be used before calling class methods 
 	**  Also braces can be used inside class methods to access objects 
 	**  Inside class method you can access any object using { } , you can access the self object 
 	**  Braces & Methods calls can be nested 
-	**  Check Calling from function 
+	**  Check Calling from block 
 	*/
 	if ( simple_list_getsize(vm->pFuncCallList) > 0 ) {
 		for ( x = simple_list_getsize(vm->pFuncCallList) ; x >= 1 ; x-- ) {
 			list = simple_list_getlist(vm->pFuncCallList,x);
-			/* Be sure that the function is already called using ICO_CALL */
+			/* Be sure that the block is already called using ICO_CALL */
 			if ( simple_list_getsize(list) >= SIMPLE_BLOCKCL_CALLERPC ) {
 				if ( simple_list_getint(list,SIMPLE_BLOCKCL_METHODORBLOCK) == 0 ) {
 					return 0 ;
@@ -838,7 +838,7 @@ int simple_vm_oop_callmethodinsideclass ( VM *vm )
 	}
 	/*
 	**  pObjState can know about method call if it's called using callmethod 
-	**  Or it's called from inside { } as function 
+	**  Or it's called from inside { } as block 
 	**  Return 1 if last item is a method 
 	*/
 	if ( simple_list_getsize(vm->pObjState) >= 1 ) {
@@ -1243,7 +1243,7 @@ void simple_vm_oop_updateselfpointer2 ( VM *vm, List *list )
 	int x,lFound  ;
 	List *pRecord  ;
 	/*
-	**  This function will create new item 
+	**  This block will create new item 
 	**  Then Add the Object List Pointer to this temp item 
 	**  Then update the self pointer to use this item pointer 
 	**  This fix the self pointer before usage using braces { } or methods calls 

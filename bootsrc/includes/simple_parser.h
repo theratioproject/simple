@@ -32,8 +32,8 @@ typedef struct Parser {
 	char nAssignmentFlag  ;
 	/* Variable to determine the start of the class definition */
 	char nClassStart  ;
-	/* Lists of Lists, Functions in Program or in Class */
-	List *FunctionsMap  ;
+	/* Lists of Lists, Blocks in Program or in Class */
+	List *BlocksMap  ;
 	/* Lists of Lists, Classes in Program or in Class */
 	List *ClassesMap  ;
 	/* List of Lists, Moduless in the program */
@@ -49,7 +49,7 @@ typedef struct Parser {
 	int nInsertCounter  ;
 	/* required for using { } after using new object to avoid assignment */
 	char nNoAssignment  ;
-	/* Object ClassName() Uses mixer for one purpose only( function call)  - don't continue to get braces { } */
+	/* Object ClassName() Uses mixer for one purpose only( block call)  - don't continue to get braces { } */
 	char nFuncCallOnly  ;
 	/* Flag to tell { } that we are inside control structure (if/for/while/...) expression */
 	int nControlStructureExpr  ;
@@ -80,7 +80,7 @@ typedef struct Parser {
 #define PARSER_ERROR_PARENTLIKESUBCLASS "COMPILER ERROR 18 : The parent class name is identical to class name"
 #define PARSER_ERROR_ACCESSSELFREF "COMPILER ERROR 19 : Object reference is out of context"
 #define PARSER_ERROR_CLASSREDEFINE "COMPILER ERROR 20 : Class is already defined"
-/* Functions */
+/* Blocks */
 
 int accept_token_token( Parser *parser, SCANNER_OPERATOR nType );
 

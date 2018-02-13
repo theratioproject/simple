@@ -16,13 +16,13 @@
 #ifndef simple_api_h
 #define simple_api_h
 /*
-**  Functions 
+**  Blocks 
 **  Support for C Functions 
 */
 
 SIMPLE_API void register_block_t ( SimpleState *sState,const char *cStr, void (*pFunc)(void *) ) ;
 
-SIMPLE_API void loadcfunctions ( SimpleState *sState ) ;
+SIMPLE_API void loadcblocks ( SimpleState *sState ) ;
 
 SIMPLE_API List * api_get_list ( void *pointer,int x ) ;
 
@@ -110,10 +110,10 @@ void read_string ( void *pointer ) ;
 #define SIMPLE_API_GETCPOINTER2POINTER(x,y) (api_get_cpointer2pointer((VM *) pointer,x,y))
 
 /* Constants/MACRO */
-#define SIMPLE_API_MISS1PARA "Bad parameters count, the function expect one parameter"
-#define SIMPLE_API_MISS2PARA "Bad parameters count, the function expect two parameters"
-#define SIMPLE_API_MISS3PARA "Bad parameters count, the function expect three parameters"
-#define SIMPLE_API_MISS4PARA "Bad parameters count, the function expect four parameters"
+#define SIMPLE_API_MISS1PARA "Bad parameters count, the block expect one parameter"
+#define SIMPLE_API_MISS2PARA "Bad parameters count, the block expect two parameters"
+#define SIMPLE_API_MISS3PARA "Bad parameters count, the block expect three parameters"
+#define SIMPLE_API_MISS4PARA "Bad parameters count, the block expect four parameters"
 #define SIMPLE_API_BADPARATYPE "Bad parameter type!"
 #define SIMPLE_API_BADPARACOUNT "Bad parameters count!"
 #define SIMPLE_API_BADPARARANGE "Bad parameters value, error in range!"

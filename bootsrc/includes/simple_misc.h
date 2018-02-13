@@ -43,7 +43,7 @@ extern char *DEFAULT_FILE_PATH ;
 
 extern int list_index ;
 
-/*Functions*/
+/*Blocks*/
 
 void display_help();
 

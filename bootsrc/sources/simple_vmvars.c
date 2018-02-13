@@ -41,7 +41,7 @@ int simple_vm_findvar ( VM *vm,const char *cStr )
 	if ( nMax1 > 0 ) {
 		/* Loop to search in each Scope */
 		for ( x = 1 ; x <= 3 ; x++ ) {
-			/* 1 = last scope (function) , 2 = Object State , 3 = global scope */
+			/* 1 = last scope (block) , 2 = Object State , 3 = global scope */
 			if ( x == 1 ) {
 				list = vm->pActiveMem ;
 			}
@@ -237,7 +237,7 @@ void simple_vm_newvar ( VM *vm,const char *cStr )
 List * simple_vm_newvar2 ( VM *vm,const char *cStr,List *pParent )
 {
 	List *list  ;
-	/* This function is called by all of the other functions that create new varaibles */
+	/* This block is called by all of the other blocks that create new varaibles */
 	list = simple_list_newlist_gc(vm->sState,pParent);
 	simple_list_addstring_gc(vm->sState,list,cStr);
 	simple_list_addint_gc(vm->sState,list,SIMPLE_VM_NULL);

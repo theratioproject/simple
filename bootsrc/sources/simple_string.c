@@ -14,7 +14,7 @@
 
 
 #include "../includes/simple.h"
-/* Functions */
+/* Blocks */
 
 SIMPLE_API String * simple_string_new_gc ( void *pState,const char *str )
 {
@@ -211,7 +211,7 @@ SIMPLE_API char * simple_string_find3_gc ( void *pState,char *string_one,int nSt
 	char *cStr3  ;
 	char *cStr4  ;
 	char *pOutput  ;
-	/* This function is not case sensitive and work on a copy from string_one and cStr2 */
+	/* This block is not case sensitive and work on a copy from string_one and cStr2 */
 	nPos = 0 ;
 	if ( (nStrSize1 - nStrSize2) < 0 ) {
 		return NULL ;
@@ -276,7 +276,7 @@ void simple_string_test ( void )
 	simple_string_delete(pString);
 	getchar();
 }
-/* Functions without state pointer */
+/* Blocks without state pointer */
 
 SIMPLE_API String * simple_string_new2 ( const char *str,int nStrSize )
 {

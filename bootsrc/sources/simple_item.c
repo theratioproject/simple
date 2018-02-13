@@ -137,7 +137,7 @@ SIMPLE_API void simple_item_settype_gc ( void *pState,Item *pItem,int ItemType )
 	}
 }
 /*
-**  Functions to deal with array of items 
+**  Blocks to deal with array of items 
 **  int 
 */
 
@@ -184,7 +184,7 @@ SIMPLE_API void simple_itemarray_setstring2_gc ( void *pState,Item list[], int i
 	simple_item_settype_gc(pState,&list[index],ITEMTYPE_STRING);
 	simple_string_set2_gc(pState,list[index].data.pString ,str,nStrSize);
 }
-/* Functions to deal with one item */
+/* Blocks to deal with one item */
 
 SIMPLE_API void simple_item_setstsimple_gc ( void *pState,Item *pItem,const char *cStr )
 {
@@ -218,7 +218,7 @@ SIMPLE_API void simple_item_setint_gc ( void *pState,Item *pItem,int x )
 	pItem->data.iNumber = x ;
 	pItem->NumberFlag = ITEM_NUMBERFLAG_INT ;
 }
-/* Functions without state pointer */
+/* Blocks without state pointer */
 
 SIMPLE_API Item * simple_item_new ( int ItemType )
 {
@@ -240,7 +240,7 @@ SIMPLE_API void simple_item_content_delete ( Item *pItem )
 	simple_item_content_delete_gc(NULL,pItem);
 }
 /*
-**  Functions to deal with array of items 
+**  Blocks to deal with array of items 
 **  int 
 */
 
@@ -271,7 +271,7 @@ SIMPLE_API void simple_itemarray_setstring2 ( Item list[], int index ,const char
 {
 	simple_itemarray_setstring2_gc(NULL,list,index,str,nStrSize);
 }
-/* Functions to deal with one item */
+/* Blocks to deal with one item */
 
 SIMPLE_API void simple_item_setstring ( Item *pItem,const char *cStr )
 {
@@ -326,7 +326,7 @@ void simple_items_print ( Items *pItems )
 	assert(pItems != NULL);
 	simple_item_print(pItems->pValue);
 }
-/* Functions without State pointer */
+/* Blocks without State pointer */
 
 Items * simple_items_new ( void )
 {

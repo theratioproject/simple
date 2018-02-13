@@ -80,12 +80,12 @@ int simple_parser_class ( Parser *parser )
 				puts("Rule : Statement  --> 'Class' Identifier ");
 				#endif
 			}
-			/* Add Method/Functions List to Class in Class Table */
+			/* Add Method/Blocks List to Class in Class Table */
 			list2 = simple_list_newlist_gc(parser->sState,list);
 			/* Add Flag ( IS Parent Class information collected  ) */
 			simple_list_addint_gc(parser->sState,list,0);
-			/* Set Active Functions List to be Class Methods */
-			parser->FunctionsMap = list2 ;
+			/* Set Active Blocks List to be Class Methods */
+			parser->BlocksMap = list2 ;
 			/* Make class visible using ModulesName.ClassName if we have modules */
 			if ( parser->ClassesMap != parser->sState->classes_map ) {
 				/* Get Modules Name */
@@ -136,9 +136,9 @@ int simple_parser_class ( Parser *parser )
 			simple_parser_icg_newoperation(parser,ICO_RETNULL);
 			simple_parser_icg_newoperation(parser,ICO_NEWBLOCK);
 			simple_parser_icg_newoperand(parser,parser->TokenText);
-			/* Add function to Functions Table */
-			list2 = parser->FunctionsMap ;
-			/* Check Function Redefinition */
+			/* Add block to Blocks Table */
+			list2 = parser->BlocksMap ;
+			/* Check Block Redefinition */
 			if ( simple_list_getsize(list2) > 0 ) {
 				for ( x = 1 ; x <= simple_list_getsize(list2) ; x++ ) {
 					if ( strcmp(simple_list_getstring(simple_list_getlist(list2,x),1),parser->TokenText) == 0 ) {
@@ -166,7 +166,7 @@ int simple_parser_class ( Parser *parser )
 			simple_parser_icg_newoperation(parser,ICO_SETGLOBALSCOPE);
 			simple_parser_icg_newoperandint(parser,simple_list_getint(parser->sState->aCustomGlobalScopeStack,simple_list_getsize(parser->sState->aCustomGlobalScopeStack)));
 			if ( x ) {
-				/* Support using { } around the function code and using 'end' after the content */
+				/* Support using { } around the block code and using 'end' after the content */
 				return simple_parser_bracesandend(parser,0,KEYWORD_END) ;
 			}
 			#if SIMPLE_PARSERTRACE
@@ -316,7 +316,7 @@ int simple_parser_stmt ( Parser *parser )
 	if ( simple_parser_iskeyword(parser,KEYWORD_DISPLAY)) {
 		simple_parser_nexttoken(parser);
 		#if SIMPLE_USEDISPLAYBLOCKTION
-		/* Generate code to use the display function */
+		/* Generate code to use the display block */
 		simple_parser_icg_newoperation(parser,ICO_LOADBLOCK);
 		simple_parser_icg_newoperand(parser,"display");
 		/* Parameters */
@@ -387,7 +387,7 @@ int simple_parser_stmt ( Parser *parser )
 			puts("Rule : Statement  --> 'read' Identifier|ListItem|Object.Attribute");
 			#endif
 			#if SIMPLE_USEGIVEBLOCKTION
-			/* Generate code to use the read function */
+			/* Generate code to use the read block */
 			simple_parser_icg_newoperation(parser,ICO_ASSIGNMENTPOINTER);
 			simple_parser_icg_newoperation(parser,ICO_LOADBLOCK);
 			simple_parser_icg_newoperand(parser,"read");
@@ -1381,8 +1381,8 @@ int simple_parser_csbraceend ( Parser *parser )
 int simple_parser_bracesandend ( Parser *parser,int lClass,SCANNER_KEYWORD nKeyword )
 {
 	/*
-	**  This function is used to support braces { } around moduless/classes/functions 
-	**  Also support using 'end' after moduless/classes/functions 
+	**  This block is used to support braces { } around moduless/classes/blocks 
+	**  Also support using 'end' after moduless/classes/blocks 
 	**  IF The Parameter : lClass = True we call simple_parser_class() instead of simple_parser_stmt() 
 	**  When we support braces { } 
 	**  But the support for 'end' always uses simple_parser_class() 

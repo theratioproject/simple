@@ -31,7 +31,7 @@ typedef struct ByteCode {
 typedef struct VM {
 	int nPC  ;
 	List *pCode  ;
-	List *pFunctionsMap  ;
+	List *pBlocksMap  ;
 	List *pClassesMap  ;
 	List *pModulessMap  ;
 	int nOPCode  ;
@@ -51,10 +51,10 @@ typedef struct VM {
 	List *pFuncCallList  ;
 	int nFuncSP  ;
 	int nFuncExecute  ;
-	List *pCFunctionsList  ;
+	List *pCBlocksList  ;
 	List *pExitMark  ;
 	List *pLoopMark  ;
-	int nCallMainFunction  ;
+	int nCallMainBlock  ;
 	List *pTry  ;
 	List *aScopeNewObj  ;
 	char nCallMethod  ;
@@ -120,7 +120,7 @@ typedef struct VM {
 	char *cFileNameInClassRegion  ;
 } VM ;
 /*
-**  Functions 
+**  Blocks 
 **  Main 
 */
 
@@ -300,7 +300,7 @@ void simple_vm_listassignment ( VM *vm ) ;
 void simple_vm_listgetvalue ( VM *vm,List *pVar,const char *cStr ) ;
 
 int simple_vm_strcmpnotcasesensitive ( const char *string_one,const char *cStr2 ) ;
-/* Functions */
+/* Blocks */
 
 int simple_vm_loadfunc ( VM *vm ) ;
 
@@ -517,7 +517,7 @@ void simple_vm_stepnumber ( VM *vm ) ;
 void simple_vm_popstep ( VM *vm ) ;
 /* Threads */
 
-SIMPLE_API void simple_vm_mutexfunctions ( VM *vm,void *(*pFunc)(void),void (*pFuncLock)(void *),void (*pFuncUnlock)(void *),void (*pFuncDestroy)(void *) ) ;
+SIMPLE_API void simple_vm_mutexblocks ( VM *vm,void *(*pFunc)(void),void (*pFuncLock)(void *),void (*pFuncUnlock)(void *),void (*pFuncDestroy)(void *) ) ;
 
 SIMPLE_API void simple_vm_mutexlock ( VM *vm ) ;
 
@@ -529,9 +529,9 @@ SIMPLE_API void simple_vm_runcodefromthread ( VM *vm,const char *cStr ) ;
 /* Trace */
 
 void simple_vm_traceevent ( VM *vm,char nEvent ) ;
-/* Fast Function Call for Extensions (Without Eval) */
+/* Fast Block Call for Extensions (Without Eval) */
 
-SIMPLE_API void simple_vm_callfunction ( VM *vm,char *cFuncName ) ;
+SIMPLE_API void simple_vm_callblock ( VM *vm,char *cFuncName ) ;
 /* Custom Global Scope */
 
 void simple_vm_newglobalscope ( VM *vm ) ;
@@ -612,8 +612,8 @@ List * simple_vm_getglobalscope ( VM *vm ) ;
 #define SIMPLE_VM_IR_LOAD vm->pByteCodeIR = vm->pByteCode + vm->nPC - 1
 #define SIMPLE_VM_IR_UNLOAD vm->pByteCodeIR = vm->pByteCode + vm->nPC - 2
 /*
-**  Calling Functions 
-**  Note : When you insert items check performance functions for update too! 
+**  Calling Blocks 
+**  Note : When you insert items check performance blocks for update too! 
 **  pFuncCallList ( Type, Func Name , Position(PC) , Stack Pointer , TempMem, ... 
 **  Types 
 */
@@ -633,12 +633,12 @@ List * simple_vm_getglobalscope ( VM *vm ) ;
 #define SIMPLE_BLOCKCL_LISTSTART 12
 #define SIMPLE_BLOCKCL_NESTEDLISTS 13
 #define SIMPLE_BLOCKCL_STATE 14
-/* pFunctionsMap ( Func Name , Position , File Name, Private Flag) */
+/* pBlocksMap ( Func Name , Position , File Name, Private Flag) */
 #define SIMPLE_BLOCKMAP_NAME 1
 #define SIMPLE_BLOCKMAP_PC 2
 #define SIMPLE_BLOCKMAP_FILENAME 3
 #define SIMPLE_BLOCKMAP_PRIVATEFLAG 4
-/* FunctionMap List Size */
+/* BlockMap List Size */
 #define SIMPLE_BLOCKMAP_NORMALSIZE 4
 /* Variable Scope */
 #define SIMPLE_VARSCOPE_NOTHING 0
@@ -729,8 +729,8 @@ List * simple_vm_getglobalscope ( VM *vm ) ;
 #define SIMPLE_VM_ERROR_BRACEWITHOUTOBJECT "RUNTIME ERROR 24 : Using braces to access unknown object "
 #define SIMPLE_VM_ERROR_SUPERCLASSNOTFOUND "RUNTIME ERROR 24 : error, using 'Super' without parent class "
 #define SIMPLE_VM_ERROR_NUMERICOVERFLOW "RUNTIME ERROR 24 : Numeric Overflow! "
-#define SIMPLE_VM_ERROR_LESSPARAMETERSCOUNT "RUNTIME ERROR 24 : Calling function with less parameters!"
-#define SIMPLE_VM_ERROR_EXTRAPARAMETERSCOUNT "RUNTIME ERROR 24 : Calling function with extra parameters!"
+#define SIMPLE_VM_ERROR_LESSPARAMETERSCOUNT "RUNTIME ERROR 24 : Calling block with less parameters!"
+#define SIMPLE_VM_ERROR_EXTRAPARAMETERSCOUNT "RUNTIME ERROR 24 : Calling block with extra parameters!"
 #define SIMPLE_VM_ERROR_BADVALUES "RUNTIME ERROR 24 : Using operator with values of incorrect type"
 #define SIMPLE_VM_ERROR_LOOPWITHOUTLOOP "RUNTIME ERROR 24 : Using loop command outside loops "
 #define SIMPLE_VM_ERROR_LOOPNUMBEROUTSIDERANGE "RUNTIME ERROR 24 : Using loop command with number outside the range "

@@ -24,7 +24,7 @@ const char * SIMPLE_KEYWORDS[] = {"if","to","or","and","not","for","new","block"
 "in","continue","module","private","step","do","exec","elif", 
 
 "get","case"/**, "changesimplekeyword","changesimpleoperator","loadsyntax"**/} ;
-/* Functions */
+/* Blocks */
 
 Scanner * new_simple_scanner ( SimpleState *sState )
 {
@@ -595,7 +595,7 @@ void simple_scanner_checktoken ( Scanner *scanner )
 {
 	int nResult  ;
 	char cStr[5]  ;
-	/* This function determine if the TOKEN is a Keyword or Identifier or Number */
+	/* This block determine if the TOKEN is a Keyword or Identifier or Number */
 	assert(scanner != NULL);
 	/* Not Case Sensitive */
 	simple_string_tolower(scanner->ActiveToken);

@@ -31,7 +31,7 @@ typedef struct HashTable {
 	int nLinkedLists  ;
 	int nRebuildSize  ;
 } HashTable ;
-/* Functions */
+/* Blocks */
 
 HashTable * simple_hashtable_new_gc ( void *pState ) ;
 
@@ -62,7 +62,7 @@ void simple_hashtable_rebuild_gc ( void *pState,HashTable *pHashTable ) ;
 #define SIMPLE_HASHITEMTYPE_NOTYPE 0
 #define SIMPLE_HASHITEMTYPE_NUMBER 1
 #define SIMPLE_HASHITEMTYPE_POINTER 2
-/* Functions without the State pointer */
+/* Blocks without the State pointer */
 
 HashTable * simple_hashtable_new ( void ) ;
 

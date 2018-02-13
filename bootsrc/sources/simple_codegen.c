@@ -34,7 +34,7 @@ const char * SIMPLE_IC_OP[] = {"NewLine","FileName","Print","Class","Func","Dup"
 
 "INCPJUMPSTEP1","JUMPVARPLENUMSTEP1","ANONYMOUS","CallClassInit","NewGlobalScope","EndGlobalScope","SetGlobalScope"} ;
 /*
-**  Functions 
+**  Blocks 
 **  Generate Intermediate Code 
 */
 

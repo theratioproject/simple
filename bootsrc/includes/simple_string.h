@@ -21,7 +21,7 @@ typedef struct String {
 	int nSize  ;
 	/* Note : nSize is (Allocation Size - 1) */
 } String ;
-/* Functions */
+/* Blocks */
 
 SIMPLE_API String * simple_string_new_gc ( void *pState,const char *str ) ;
 
@@ -62,7 +62,7 @@ void simple_string_test ( void ) ;
 #define simple_string_tolower(x) simple_string_lower(x->cStr)
 #define simple_string_toupper(x) simple_string_upper(x->cStr)
 #define simple_string_get(x) (x->cStr)
-/* Functions without state pointer */
+/* Blocks without state pointer */
 
 SIMPLE_API String * simple_string_new2 ( const char *str,int nStrSize ) ;
 

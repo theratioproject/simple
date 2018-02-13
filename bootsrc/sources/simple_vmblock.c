@@ -13,7 +13,7 @@
  */
 
 #include "../includes/simple.h"
-/* Functions */
+/* Blocks */
 
 int simple_vm_loadfunc ( VM *vm )
 {
@@ -48,8 +48,8 @@ int simple_vm_loadfunc2 ( VM *vm,const char *block_name,int nPerformance )
 			}
 		}
 		else {
-			/* pFunctionsMap is a list of lists (Functions in the program) */
-			list = vm->pFunctionsMap ;
+			/* pBlocksMap is a list of lists (Blocks in the program) */
+			list = vm->pBlocksMap ;
 		}
 		if ( simple_list_gethashtable(list) == NULL ) {
 			simple_list_genhashtable2_gc(vm->sState,list);
@@ -65,7 +65,7 @@ int simple_vm_loadfunc2 ( VM *vm,const char *block_name,int nPerformance )
 			}
 			list3 = simple_list_newlist_gc(vm->sState,vm->pFuncCallList);
 			simple_list_addint_gc(vm->sState,list3,SIMPLE_BLOCKTYPE_SCRIPT);
-			/* Add the function name */
+			/* Add the block name */
 			simple_list_addstring_gc(vm->sState,list3,block_name);
 			simple_list_addint_gc(vm->sState,list3,simple_list_getint(list2,SIMPLE_BLOCKMAP_PC));
 			simple_list_addint_gc(vm->sState,list3,vm->nSP);
@@ -76,7 +76,7 @@ int simple_vm_loadfunc2 ( VM *vm,const char *block_name,int nPerformance )
 			vm->cPrevFileName = vm->file_name ;
 			vm->file_name = simple_list_getstring(list2,SIMPLE_BLOCKMAP_FILENAME) ;
 			simple_list_addpointer_gc(vm->sState,list3,vm->file_name);
-			/* Method or Function */
+			/* Method or Block */
 			if ( (y == 1) && (vm->nCallMethod != 1) ) {
 				simple_list_addint_gc(vm->sState,list3,0);
 			} else {
@@ -86,12 +86,12 @@ int simple_vm_loadfunc2 ( VM *vm,const char *block_name,int nPerformance )
 			simple_list_addint_gc(vm->sState,list3,vm->nLineNumber);
 			if ( (strcmp(block_name,"main") != 0 ) && (vm->nCallMethod != 1) && (y != 2) && (nPerformance == 1) ) {
 				/*
-				**  We check that we will convert Functions only, not methods 
+				**  We check that we will convert Blocks only, not methods 
 				**  Replace Instruction with ICO_LOADBLOCKP for better performance 
 				*/
 				SIMPLE_VM_IR_OPCODE = ICO_LOADBLOCKP ;
 				/*
-				**  Leave the first parameter (contains the function name as wanted) 
+				**  Leave the first parameter (contains the block name as wanted) 
 				**  Create the items 
 				*/
 				simple_vm_newbytecodeitem(vm,2);
@@ -129,8 +129,8 @@ int simple_vm_loadfunc2 ( VM *vm,const char *block_name,int nPerformance )
 		simple_vm_error2(vm,SIMPLE_VM_ERROR_METHODNOTFOUND,block_name);
 		return 0 ;
 	}
-	/* Find Function in C Functions List */
-	list = (List *) simple_hashtable_findpointer(simple_list_gethashtable(vm->pCFunctionsList),block_name);
+	/* Find Block in C Blocks List */
+	list = (List *) simple_hashtable_findpointer(simple_list_gethashtable(vm->pCBlocksList),block_name);
 	if ( list != NULL ) {
 		list2 = simple_list_newlist_gc(vm->sState,vm->pFuncCallList);
 		simple_list_addint_gc(vm->sState,list2,SIMPLE_BLOCKTYPE_C);
@@ -146,7 +146,7 @@ int simple_vm_loadfunc2 ( VM *vm,const char *block_name,int nPerformance )
 		simple_list_addpointer_gc(vm->sState,list2,vm->file_name);
 		/* The new source file name */
 		simple_list_addpointer_gc(vm->sState,list2,vm->file_name);
-		/* Method or Function */
+		/* Method or Block */
 		simple_list_addint_gc(vm->sState,list2,0);
 		/* Line Number */
 		simple_list_addint_gc(vm->sState,list2,vm->nLineNumber);
@@ -155,7 +155,7 @@ int simple_vm_loadfunc2 ( VM *vm,const char *block_name,int nPerformance )
 		return 1 ;
 	}
 	/* Avoid Error if it is automatic call to the main block */
-	if ( vm->nCallMainFunction == 0 ) {
+	if ( vm->nCallMainBlock == 0 ) {
 		if ( strcmp(block_name,"main") == 0 ) {
 			return 0 ;
 		}
@@ -163,7 +163,7 @@ int simple_vm_loadfunc2 ( VM *vm,const char *block_name,int nPerformance )
 	/*
 	**  Pass The Call Instruction 
 	**  We need this when we execute braceerror() 
-	**  In this case, no parameters and the call instruction is directly after the load function instruction 
+	**  In this case, no parameters and the call instruction is directly after the load block instruction 
 	**  So it's correct to use vm->nPC++ 
 	*/
 	vm->nPC++ ;
@@ -212,7 +212,7 @@ void simple_vm_call2 ( VM *vm )
 	list = simple_list_getlist(vm->pFuncCallList,simple_list_getsize(vm->pFuncCallList));
 	/* Calling Method from brace */
 	if ( simple_list_getsize(list) >= SIMPLE_BLOCKCL_METHODORBLOCK ) {
-		/* The first test to be sure it's not a C Function Call */
+		/* The first test to be sure it's not a C Block Call */
 		if ( simple_list_getint(list,SIMPLE_BLOCKCL_METHODORBLOCK) == 1 ) {
 			simple_vm_oop_callmethodfrombrace(vm);
 		}
@@ -223,9 +223,9 @@ void simple_vm_call2 ( VM *vm )
 	simple_list_addint_gc(vm->sState,list,vm->nFuncExecute);
 	nFuncEx = vm->nFuncExecute ;
 	vm->nFuncExecute = 0 ;
-	/* Call Function */
+	/* Call Block */
 	if ( simple_list_getint(list,SIMPLE_BLOCKCL_TYPE) == SIMPLE_BLOCKTYPE_SCRIPT ) {
-		/* Store List information to allow calling function from list item and creating lists from that funct */
+		/* Store List information to allow calling block from list item and creating lists from that funct */
 		simple_list_addint_gc(vm->sState,list,vm->nListStart);
 		simple_list_addpointer_gc(vm->sState,list,vm->pNestedLists);
 		vm->nListStart = 0 ;
@@ -249,7 +249,7 @@ void simple_vm_call2 ( VM *vm )
 		/*
 		**  Save Active Memory 
 		**  We save Active Memory to restore it , we don't depend on scopes list of lists 
-		**  because we may call function from class constructor
+		**  because we may call block from class constructor
 		**  and class constructor don't create new scope for executing constructor
 		*/
 		pActiveMem = vm->pActiveMem ;
@@ -276,27 +276,27 @@ void simple_vm_call2 ( VM *vm )
 			}
 			vm->nSP = nSP ;
 		}
-		/* Prepare to check function termination by try/catch */
+		/* Prepare to check block termination by try/catch */
 		vm->nActiveCatch = 0 ;
 		/* Enable C Pointer Type Check */
 		vm->nIgnoreCPointerTypeCheck = 0 ;
-		/* Call Function */
+		/* Call Block */
 		simple_list_callfuncpointer(list,SIMPLE_BLOCKCL_PC,vm);
 		/* Trace */
 		simple_vm_traceevent(vm,SIMPLE_VM_TRACEEVENT_AFTERCBLOCK);
 		/* Restore nFuncEx state */
 		vm->nFuncExecute = nFuncEx ;
-		/* Check for function termination by try/catch */
+		/* Check for block termination by try/catch */
 		if ( vm->nActiveCatch == 1 ) {
 			/*
-			**  We don't remove the function from call list because simple_vm_catch() do when restore state 
+			**  We don't remove the block from call list because simple_vm_catch() do when restore state 
 			**  We don't delete the scope because simple_vm_catch() will do when restore state 
 			**  Restore ActiveMem 
 			*/
 			vm->pActiveMem = pActiveMem ;
 			return ;
 		}
-		/* Function Output */
+		/* Block Output */
 		if ( nSP == vm->nSP ) {
 			/* IgnoreNULL is Used by len(object) to get output from operator overloading method */
 			if ( vm->nIgnoreNULL  == 0 ) {
@@ -326,7 +326,7 @@ void simple_vm_call2 ( VM *vm )
 		if ( vm->nEvalCalledFromSimpleCode == 1 ) {
 			vm->nEvalCalledFromSimpleCode = 0 ;
 			/*
-			**  We use Stack POP to remove the empty string that we return after functions 
+			**  We use Stack POP to remove the empty string that we return after blocks 
 			**  This enable the code generated from executeCode() to be able to return any value 
 			**  Using the return command 
 			*/
@@ -339,7 +339,7 @@ void simple_vm_call2 ( VM *vm )
 void simple_vm_return ( VM *vm )
 {
 	List *list  ;
-	/* Check if the ringvm_evalinscope() function is active */
+	/* Check if the ringvm_evalinscope() block is active */
 	if ( vm->nEvalInScope >= 1 ) {
 		/*
 		**  Bad Command - But don't display the message 
@@ -350,7 +350,7 @@ void simple_vm_return ( VM *vm )
 	/* Support for nested "Load" instructions */
 	if ( vm->nBlockFlag >= 1 ) {
 		simple_vm_removeblockflag(vm);
-		/* Be sure it's not a function call or method call */
+		/* Be sure it's not a block call or method call */
 		if ( vm->nPC != 0 ) {
 			return ;
 		}
@@ -394,12 +394,12 @@ void simple_vm_return ( VM *vm )
 		simple_vm_traceevent(vm,SIMPLE_VM_TRACEEVENT_RETURN);
 	} else {
 		/* Call Main block */
-		if ( vm->nCallMainFunction == 0 ) {
+		if ( vm->nCallMainBlock == 0 ) {
 			vm->nPC-- ;
 			vm->nSP = 0 ;
 			if ( simple_vm_loadfunc2(vm,"main",0) ) {
 				simple_vm_call(vm);
-				vm->nCallMainFunction = 1 ;
+				vm->nCallMainBlock = 1 ;
 				return ;
 			}
 		}
@@ -490,7 +490,7 @@ void simple_vm_movetoprevscope ( VM *vm )
 	Item *pItem  ;
 	List *list,*list2,*list3  ;
 	/*
-	**  When the function return a value of type List or nested List 
+	**  When the block return a value of type List or nested List 
 	**  We copy the list to the previous scope, change the pointer 
 	*/
 	if ( simple_list_getsize(vm->pMem) < 2 ) {
@@ -530,7 +530,7 @@ void simple_vm_createtemlist ( VM *vm )
 {
 	List *list  ;
 	/*
-	**  Create the list in the TempMem related to the function 
+	**  Create the list in the TempMem related to the block 
 	**  The advantage of TempMem over Scope is that TempMem out of search domain (Var Name is not important) 
 	**  Variable name in TemMem is not important, we use it for storage (no search) 
 	*/

@@ -85,22 +85,22 @@ void simple_vm_gc_deletetemlists ( VM *vm )
 		return ;
 	}
 	/*
-	**  This function is called from Simple code by callgc() 
-	**  Function Goal 
-	**  When we return Lists/Pointers from functions we create variable called simple_sys_temp 
-	**  This variable is created in the previous scope instead of the active function scope 
-	**  This is necessary because the function scope will be deleted and we need the varaible 
+	**  This block is called from Simple code by callgc() 
+	**  Block Goal 
+	**  When we return Lists/Pointers from blocks we create variable called simple_sys_temp 
+	**  This variable is created in the previous scope instead of the active block scope 
+	**  This is necessary because the block scope will be deleted and we need the varaible 
 	**  This is important because we may assign the variable to variable name 
 	**  The problem happens when we have a loop that uses f1(f2()) 
 	**  and f2() return a lists/pointer 
-	**  The temp list/C Pointer will not be deleted until the end of the function 
+	**  The temp list/C Pointer will not be deleted until the end of the block 
 	**  But we have a loop and this will lead to a memory leak during loop execution 
 	**  When testing al_map_rgb() in Allegro Library this problem becomes critical 
-	**  This function solves this problem, by deleting temp lists/C Pointers in the current scope 
-	**  We use -1 to skip the currect scope of the Simple function (callgc()) 
+	**  This block solves this problem, by deleting temp lists/C Pointers in the current scope 
+	**  We use -1 to skip the currect scope of the Simple block (callgc()) 
 	*/
 	pScope = simple_list_getlist(vm->pMem,simple_list_getsize(vm->pMem)-1) ;
-	/* The function works only when we expect to have temp variables */
+	/* The block works only when we expect to have temp variables */
 	if ( simple_list_getsize(pScope) >= 1 ) {
 		for ( x = simple_list_getsize(pScope) ; x >= 1 ; x-- ) {
 			list = simple_list_getlist(pScope,x);
@@ -124,7 +124,7 @@ void simple_vm_gc_newitemreference ( Item *pItem )
 {
 	pItem->gc.nReferenceCount++ ;
 }
-/* Memory Functions (General) */
+/* Memory Blocks (General) */
 
 SIMPLE_API void * simple_malloc ( size_t size )
 {
@@ -145,7 +145,7 @@ SIMPLE_API void * simple_realloc ( void *ptr, size_t size )
 {
 	return realloc(ptr,size) ;
 }
-/* Memory Functions (SimpleState Aware) */
+/* Memory Blocks (SimpleState Aware) */
 
 SIMPLE_API void * simple_state_malloc ( void *pState,size_t size )
 {
@@ -185,7 +185,7 @@ void simple_vm_gc_deleteitem ( Item *pItem )
 {
 	simple_vm_gc_deleteitem_gc(NULL,pItem);
 }
-/* Pool Manager Functions */
+/* Pool Manager Blocks */
 
 void simple_poolmanager_newblock ( SimpleState *sState )
 {

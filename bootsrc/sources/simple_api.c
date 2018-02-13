@@ -13,7 +13,7 @@
  */
 
 #include "../includes/simple.h"
-/* Support for C Functions */
+/* Support for C Blocks */
 
 SIMPLE_API void register_block_t ( SimpleState *sState,const char *cStr, void (*pFunc)(void *) )
 {
@@ -26,7 +26,7 @@ SIMPLE_API void register_block_t ( SimpleState *sState,const char *cStr, void (*
 	simple_list_addfuncpointer_gc(sState,list,pFunc);
 }
 
-SIMPLE_API void loadcfunctions ( SimpleState *sState )
+SIMPLE_API void loadcblocks ( SimpleState *sState )
 {
 	/* General */
 	register_block("lengthOf",simple_vmlib_len);
@@ -180,7 +180,7 @@ SIMPLE_API void * api_var_ptr ( void *pointer,const char  *cStr,const char *cStr
 	/*
 	**  Usage 
 	**  To get pointer to a ring variable value (pointer to double or int) i.e. int * or double * 
-	**  We need this because some C Functions get int * or double * as parameter 
+	**  We need this because some C Blocks get int * or double * as parameter 
 	*/
 	vm = (VM *) pointer ;
 	/* Set the Active Scope */
@@ -220,7 +220,7 @@ SIMPLE_API void api_int_value ( void *pointer,const char  *cStr )
 	/*
 	**  Usage 
 	**  Convert the variable value from int to double 
-	**  When we pass int * for Simple Variable Value to a C Function 
+	**  When we pass int * for Simple Variable Value to a C Block 
 	**  We need to convert again from int to double, because Simple uses double 
 	*/
 	vm = (VM *) pointer ;

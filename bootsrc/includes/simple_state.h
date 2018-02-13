@@ -60,7 +60,7 @@ typedef struct SimpleState {
 	int nCustomGlobalScopeCounter  ;
 	List *aCustomGlobalScopeStack  ;
 } SimpleState ;
-/* Functions */
+/* Blocks */
 
 SIMPLE_API SimpleState * simple_state_new ( void ) ;
 
@@ -85,7 +85,7 @@ SIMPLE_API void execute_simple_file ( SimpleState *sState,char *file_name ) ;
 SIMPLE_API void simple_state_runobjectstring ( SimpleState *sState,char *cString,const char *file_name ) ;
 /* MACRO */
 #define SIMPLE_STATE_CHECKPRINTRULES if ( parser->sState->nPrintRules )
-/* General Functions */
+/* General Blocks */
 
 int simple_fexists ( const char *file_name ) ;
 

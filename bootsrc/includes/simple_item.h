@@ -48,7 +48,7 @@ typedef struct Item {
 #define ITEM_NUMBERFLAG_NOTHING 0
 #define ITEM_NUMBERFLAG_INT 1
 #define ITEM_NUMBERFLAG_DOUBLE 2
-/* Functions */
+/* Blocks */
 
 SIMPLE_API Item * simple_item_new_gc ( void *pState,int ItemType ) ;
 
@@ -60,7 +60,7 @@ SIMPLE_API void simple_item_print ( Item *pItem ) ;
 
 SIMPLE_API void simple_item_content_delete_gc ( void *pState,Item *pItem ) ;
 /*
-**  Functions to deal with array of items 
+**  Blocks to deal with array of items 
 **  int 
 */
 
@@ -76,7 +76,7 @@ SIMPLE_API void simple_itemarray_setdouble_gc ( void *pState,Item list[], int in
 SIMPLE_API void simple_itemarray_setstsimple_gc ( void *pState,Item list[], int index ,const char *str ) ;
 
 SIMPLE_API void simple_itemarray_setstring2_gc ( void *pState,Item list[], int index ,const char *str,int nStrSize ) ;
-/* Functions to deal with one item */
+/* Blocks to deal with one item */
 
 SIMPLE_API void simple_item_setstsimple_gc ( void *pState,Item *pItem,const char *cStr ) ;
 
@@ -107,7 +107,7 @@ SIMPLE_API void simple_item_setstring2_gc ( void *pState,Item *pItem,const char 
 #define simple_item_isstring(x) (x->nType == ITEMTYPE_STRING)
 #define simple_item_islist(x) (x->nType == ITEMTYPE_LIST)
 #define simple_item_isdouble(x) ( (x->nType == ITEMTYPE_NUMBER) && ( x->NumberFlag == ITEM_NUMBERFLAG_DOUBLE ) )
-/* Functions without state pointer */
+/* Blocks without state pointer */
 
 SIMPLE_API Item * simple_item_new ( int ItemType ) ;
 
@@ -117,7 +117,7 @@ SIMPLE_API void simple_item_settype ( Item *pItem,int ItemType ) ;
 
 SIMPLE_API void simple_item_content_delete ( Item *pItem ) ;
 /*
-**  Functions to deal with array of items 
+**  Blocks to deal with array of items 
 **  int 
 */
 
@@ -133,7 +133,7 @@ SIMPLE_API void simple_itemarray_setdouble ( Item list[], int index ,double numb
 SIMPLE_API void simple_itemarray_setstring ( Item list[], int index ,const char *str ) ;
 
 SIMPLE_API void simple_itemarray_setstring2 ( Item list[], int index ,const char *str,int nStrSize ) ;
-/* Functions to deal with one item */
+/* Blocks to deal with one item */
 
 SIMPLE_API void simple_item_setstring ( Item *pItem,const char *cStr ) ;
 
@@ -151,14 +151,14 @@ typedef struct Items {
 	struct Items *pNext  ;
 	struct Items *pPrev  ;
 } Items ;
-/* Functions */
+/* Blocks */
 
 Items * simple_items_new_gc ( void *pState ) ;
 
 Items * simple_items_delete_gc ( void *pState,Items *pItems ) ;
 
 void simple_items_print ( Items *pItems ) ;
-/* Functions without State pointer */
+/* Blocks without State pointer */
 
 Items * simple_items_new ( void ) ;
 

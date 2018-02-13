@@ -12,7 +12,7 @@ void simple_vm_liststart ( VM *vm )
 	pItem = NULL ;
 	vm->nListStart++ ;
 	if ( vm->nListStart == 1 ) {
-		/* Check if we need to create temp list when we call function, pass list by value */
+		/* Check if we need to create temp list when we call block, pass list by value */
 		nCont = 0 ;
 		if ( SIMPLE_VM_STACK_ISPOINTER ) {
 			if ( vm->pAssignment != SIMPLE_VM_STACK_READP ) {

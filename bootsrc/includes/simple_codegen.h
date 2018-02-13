@@ -67,7 +67,7 @@ typedef enum IC_OPERATIONS {
 	ICO_NEG ,
 	ICO_INC ,
 	ICO_INCP ,
-	/* Functions/Methods */
+	/* Blocks/Methods */
 	ICO_LOADBLOCK ,
 	ICO_CALL ,
 	ICO_RETURN ,
@@ -137,7 +137,7 @@ typedef enum IC_OPERATIONS {
 	ICO_LOADAFIRST ,
 	ICO_INCPJUMPSTEP1 ,
 	ICO_JUMPVARPLENUMSTEP1 ,
-	/* Anonymous Functions */
+	/* Anonymous Blocks */
 	ICO_ANONYMOUS ,
 	/* Class Init */
 	ICO_CALLCLASSINIT ,
@@ -147,7 +147,7 @@ typedef enum IC_OPERATIONS {
 	ICO_SETGLOBALSCOPE 
 } IC_OPERATIONS ;
 /*
-**  Functions 
+**  Blocks 
 **  Generate Intermediate Code 
 */
 

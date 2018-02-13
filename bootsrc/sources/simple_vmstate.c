@@ -72,7 +72,7 @@ void simple_vm_restorestate ( VM *vm,List *list,int nPos,int nFlag )
 	/* Set Scope */
 	vm->pActiveMem = (List *) simple_list_getpointer(list,19) ;
 	/*
-	**  Delete Scopes using the correct function 
+	**  Delete Scopes using the correct block 
 	**  We need to delete each scope using simple_vm_deletescope() - so don't use simple_vm_backstate 
 	**  We also avoid doing this in the Class Region (After class name) 
 	**  Because in the class region we don't use vm->pMEM 
@@ -82,9 +82,9 @@ void simple_vm_restorestate ( VM *vm,List *list,int nPos,int nFlag )
 			simple_vm_deletescope(vm);
 		}
 	}
-	/* We also return to the function call list */
+	/* We also return to the block call list */
 	simple_vm_backstate(vm,simple_list_getint(list,2),vm->pFuncCallList);
-	/* Stack & Executing Functions */
+	/* Stack & Executing Blocks */
 	vm->nFuncExecute = simple_list_getint(list,3) ;
 	vm->nSP = simple_list_getint(list,4) ;
 	vm->nFuncSP = simple_list_getint(list,5) ;
@@ -148,7 +148,7 @@ void simple_vm_restorestate ( VM *vm,List *list,int nPos,int nFlag )
 	simple_list_setpointer_gc(vm->sState,pThis,SIMPLE_VAR_VALUE,simple_list_getpointer(list,39));
 	simple_list_setint_gc(vm->sState,pThis,SIMPLE_VAR_PVALUETYPE,simple_list_getint(list,40));
 }
-/* Save/Restore State 2 - Used by Function Call & Return */
+/* Save/Restore State 2 - Used by Block Call & Return */
 
 void simple_vm_savestate2 ( VM *vm,List *list )
 {
@@ -313,7 +313,7 @@ void simple_vm_restorestack ( VM *vm,List *list )
 
 void exit_simple_vm ( VM *vm )
 {
-	/* Check if the vm_evalinscope() function is active */
+	/* Check if the vm_evalinscope() block is active */
 	if ( vm->nEvalInScope >= 1 ) {
 		puts(SIMPLE_VM_ERROR_BADCOMMAND);
 		return ;
@@ -346,7 +346,7 @@ void simple_vm_exit ( VM *vm,int nType )
 {
 	List *list,*pActiveList  ;
 	int x,y,nStep  ;
-	/* Check if the ringvm_evalinscope() function is active */
+	/* Check if the ringvm_evalinscope() block is active */
 	if ( vm->nEvalInScope >= 1 ) {
 		puts(SIMPLE_VM_ERROR_BADCOMMAND);
 		return ;

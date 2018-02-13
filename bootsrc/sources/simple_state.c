@@ -29,14 +29,14 @@
 /* General Options (Only for simple_state_main()) */
 static int nSimpleStateDEBUGSEGFAULT  ;
 static int nSimpleStateCGI  ;
-/* Define Functions */
+/* Define Blocks */
 #if SIMPLE_TESTUNITS
 
 static void simple_testallunits ( void ) ;
 #endif
 
 void segfaultaction ( int sig ) ;
-/* API Functions */
+/* API Blocks */
 
 SIMPLE_API SimpleState * simple_state_new ( void )
 {
@@ -268,7 +268,7 @@ void segfaultaction ( int sig )
 	exit(0);
 }
 
-/* General Functions */
+/* General Blocks */
 
 int simple_fexists ( const char *file_name )
 {

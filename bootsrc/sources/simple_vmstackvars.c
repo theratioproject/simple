@@ -253,7 +253,7 @@ void simple_vm_freestack ( VM *vm )
 		**  In the class Region we don't free stack to support Object + New Object 
 		**  So we can add objects quickly to lists and access them using braces { } 
 		**  But If we did this only we may get stack overflow if we did some work in the class region like 
-		**  Using Switch (Which use duplication) or calling functions without storing the output using Assignment 
+		**  Using Switch (Which use duplication) or calling blocks without storing the output using Assignment 
 		**  To solve this situation we Use SIMPLE_VM_FREE_STACK_IN_CLASS_REGION_AFTER 
 		**  So we can support Object + New Object and avoid Stack Overflow too! 
 		**  This feature is GREAT in the language where we can quickly move applications from 
@@ -543,7 +543,7 @@ void simple_vm_assignmentpointer ( VM *vm )
 			return ;
 		}
 		if ( simple_vm_oop_isobject(list)  && (simple_list_getsize(vm->pObjState) > 0 ) ) {
-			/* We loop to prevent passing self to function that destory the self */
+			/* We loop to prevent passing self to block that destory the self */
 			for ( x = 1 ; x <= simple_list_getsize(vm->pObjState) ; x++ ) {
 				list2 = simple_list_getlist(vm->pObjState,x);
 				if ( simple_list_getpointer(list,SIMPLE_OBJECT_OBJECTDATA) == simple_list_getpointer(list2,SIMPLE_OBJSTATE_SCOPE) ) {
