@@ -201,9 +201,9 @@ void main_simple_state_block ( void *pointer ) ;
 
 void set_simple_state_variable_block ( void *pointer ) ;
 
-void simple_vmlib_state_new ( void *pointer ) ;
+void new_simple_state_block ( void *pointer ) ;
 
-void simple_vmlib_state_mainfile ( void *pointer ) ;
+void simple_state_main_file_block ( void *pointer ) ;
 /* Simple See and Give */
 
 void display_string ( void *pointer ) ;

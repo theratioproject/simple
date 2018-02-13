@@ -99,8 +99,8 @@ SIMPLE_API void loadcfunctions ( SimpleState *sState )
 	register_block("init_simple_variable",simple_vmlib_state_newvar);
 	register_block("main_simple_state",main_simple_state_block);
 	register_block("set_simple_state_variable",set_simple_state_variable_block);
-	register_block("simple_state_new",simple_vmlib_state_new);
-	register_block("simple_state_mainfile",simple_vmlib_state_mainfile);
+	register_block("new_simple_state",new_simple_state_block);
+	register_block("simple_state_main_file",simple_state_main_file_block);
 	/*
 	**  Simple See and Give 
 	**  Also we add the display() and read() block to the api
@@ -1633,12 +1633,12 @@ void set_simple_state_variable_block ( void *pointer )
 	}
 }
 
-void simple_vmlib_state_new ( void *pointer )
+void new_simple_state_block ( void *pointer )
 {
 	SIMPLE_API_RETCPOINTER(simple_state_new(),"SIMPLESTATE");
 }
 
-void simple_vmlib_state_mainfile ( void *pointer )
+void simple_state_main_file_block ( void *pointer )
 {
 	SimpleState *sState  ;
 	char *cStr  ;
