@@ -1,10 +1,18 @@
-/*
-**  Copyright (c) 2013-2016 Mahmoud Fayed <msfclipper@yahoo.com> 
-**  Remember, When we read from the stack LIFO 
-**  If we have two parameters, we read the second parameter first 
+
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 simple 
+
 */
+
+/* 
+ * File:   simple_vmexpr.c
+ * Author: thecarisma
+ *
+ * Created on July 10, 2017, 2:10 PM
+ */
+
 #include "../includes/simple.h"
-/* Math */
 
 void simple_vm_sum ( VM *vm )
 {

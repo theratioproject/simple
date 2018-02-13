@@ -12,7 +12,6 @@
  * Created on July 10, 2017, 1:10 PM
  */
 
-
 #include "../includes/simple.h"
 /*
 **  Functions 
