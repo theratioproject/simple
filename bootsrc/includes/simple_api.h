@@ -189,15 +189,15 @@ void execute_simple_code_block ( void *pointer ) ;
 
 void free_simple_state_block ( void *pointer ) ;
 
-void simple_vmlib_state_runfile ( void *pointer ) ;
+void execute_simple_file_block ( void *pointer ) ;
 
-void simple_vmlib_state_findvar ( void *pointer ) ;
+void find_simple_variable_block ( void *pointer ) ;
 
 void simple_vmlib_state_newvar ( void *pointer ) ;
 
 void simple_vmlib_state_runobjectfile ( void *pointer ) ;
 
-void simple_vmlib_state_main ( void *pointer ) ;
+void main_simple_state_block ( void *pointer ) ;
 
 void simple_vmlib_state_setvar ( void *pointer ) ;
 

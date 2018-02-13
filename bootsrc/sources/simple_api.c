@@ -94,10 +94,10 @@ SIMPLE_API void loadcfunctions ( SimpleState *sState )
 	register_block("init_simple_state",init_simple_state_block);
 	register_block("execute_simple_code",execute_simple_code_block);
 	register_block("free_simple_state",free_simple_state_block);
-	register_block("execute_simple_file",simple_vmlib_state_runfile);
-	register_block("simple_state_findvar",simple_vmlib_state_findvar);
+	register_block("execute_simple_file",execute_simple_file_block);
+	register_block("find_simple_variable",find_simple_variable_block);
 	register_block("init_simple_variable",simple_vmlib_state_newvar);
-	register_block("simple_state_main",simple_vmlib_state_main);
+	register_block("main_simple_state",main_simple_state_block);
 	register_block("simple_state_setvar",simple_vmlib_state_setvar);
 	register_block("simple_state_new",simple_vmlib_state_new);
 	register_block("simple_state_mainfile",simple_vmlib_state_mainfile);
@@ -1554,7 +1554,7 @@ void free_simple_state_block ( void *pointer )
 	free_simple_state((SimpleState *) SIMPLE_API_GETCPOINTER(1,"SIMPLESTATE"));
 }
 
-void simple_vmlib_state_runfile ( void *pointer )
+void execute_simple_file_block ( void *pointer )
 {
 	if ( SIMPLE_API_PARACOUNT != 2 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
@@ -1563,7 +1563,7 @@ void simple_vmlib_state_runfile ( void *pointer )
 	execute_simple_file((SimpleState *) SIMPLE_API_GETCPOINTER(1,"SIMPLESTATE"),SIMPLE_API_GETSTRING(2));
 }
 
-void simple_vmlib_state_findvar ( void *pointer )
+void find_simple_variable_block ( void *pointer )
 {
 	List *list  ;
 	if ( SIMPLE_API_PARACOUNT != 2 ) {
@@ -1585,7 +1585,7 @@ void simple_vmlib_state_newvar ( void *pointer )
 	SIMPLE_API_RETLIST(list);
 }
 
-void simple_vmlib_state_main ( void *pointer )
+void main_simple_state_block ( void *pointer )
 {
 	char *cStr  ;
 	int argc  ;
