@@ -70,6 +70,8 @@ void simple_vmlib_version ( void *pointer ) ;
 
 void simple_vmlib_eval ( void *pointer ) ;
 
+void simple_vmlib_char ( void *pointer ) ;
+
 /* Simple Display and Read */
 
 void display_string ( void *pointer ) ;

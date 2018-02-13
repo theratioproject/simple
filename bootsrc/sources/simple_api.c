@@ -31,6 +31,7 @@ SIMPLE_API void loadcblocks ( SimpleState *sState )
 	/** General **/
 	register_block("lengthOf",simple_vmlib_len);
 	register_block("add",simple_vmlib_add);
+	register_block("char",simple_vmlib_char);
 	register_block("getSimpleVersion",simple_vmlib_version);
         /** Functional Execution **/
 	register_block("executeCode",simple_vmlib_eval);
@@ -472,3 +473,23 @@ void simple_vmlib_eval ( void *pointer )
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
 }
+
+void simple_vmlib_char ( void *pointer )
+{
+	int x  ;
+	char cStr[2]  ;
+	if ( SIMPLE_API_PARACOUNT != 1 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
+		return ;
+	}
+	if ( SIMPLE_API_ISNUMBER(1) ) {
+		x = SIMPLE_API_GETNUMBER(1) ;
+		cStr[0] = (char) x ;
+		cStr[1] = '\0' ;
+		SIMPLE_API_RETSTRING2(cStr,1);
+	} else {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+	}
+}
+
+
