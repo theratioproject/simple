@@ -23,7 +23,7 @@ const char * SIMPLE_KEYWORDS[] = {"if","to","or","and","not","for","new","block"
 
 "in","continue","module","private","step","do","exec","elif", 
 
-"get","case", "changesimplekeyword","changesimpleoperator","loadsyntax"} ;
+"get","case"/**, "changesimplekeyword","changesimpleoperator","loadsyntax"**/} ;
 /* Functions */
 
 Scanner * new_simple_scanner ( SimpleState *sState )
@@ -569,9 +569,9 @@ void simple_scanner_keywords ( Scanner *scanner )
 	**  The next keywords are sensitive to the order and keywords count 
 	**  if you will add new keywords revise constants and simple_scanner_checktoken() 
 	*/
-	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"changesimplekeyword");
+	/**simple_list_addstring_gc(scanner->sState,scanner->Keywords,"changesimplekeyword");
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"changesimpleoperator");
-	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"loadsyntax");
+	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"loadsyntax");**/
 	simple_list_genhashtable_gc(scanner->sState,scanner->Keywords);
 }
 
