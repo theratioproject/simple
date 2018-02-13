@@ -31,6 +31,7 @@ SIMPLE_API void loadcblocks ( SimpleState *sState )
 	/* General */
 	register_block("lengthOf",simple_vmlib_len);
 	register_block("add",simple_vmlib_add);
+	register_block("getSimpleVersion",simple_vmlib_version);
 	/*
 	**  Simple See and Give 
 	**  Also we add the display() and read() block to the api
@@ -437,3 +438,7 @@ void simple_vmlib_add ( void *pointer )
 	}
 }
 
+void simple_vmlib_version ( void *pointer )
+{
+	SIMPLE_API_RETSTRING(SIMPLE_VERSION);
+}

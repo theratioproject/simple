@@ -66,6 +66,8 @@ void simple_vmlib_len ( void *pointer ) ;
 
 void simple_vmlib_add ( void *pointer ) ;
 
+void simple_vmlib_version ( void *pointer ) ;
+
 /* Simple Display and Read */
 
 void display_string ( void *pointer ) ;
