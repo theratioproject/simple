@@ -185,9 +185,9 @@ void simple_vmlib_ptrcmp ( void *pointer ) ;
 
 void init_simple_state_block ( void *pointer ) ;
 
-void simple_vmlib_state_runcode ( void *pointer ) ;
+void execute_simple_code_block ( void *pointer ) ;
 
-void simple_vmlib_state_delete ( void *pointer ) ;
+void free_simple_state_block ( void *pointer ) ;
 
 void simple_vmlib_state_runfile ( void *pointer ) ;
 

@@ -92,8 +92,8 @@ SIMPLE_API void loadcfunctions ( SimpleState *sState )
 	register_block("ptrcmp",simple_vmlib_ptrcmp);
 	/* Simple State */
 	register_block("init_simple_state",init_simple_state_block);
-	register_block("execute_simple_code",simple_vmlib_state_runcode);
-	register_block("free_simple_state",simple_vmlib_state_delete);
+	register_block("execute_simple_code",execute_simple_code_block);
+	register_block("free_simple_state",free_simple_state_block);
 	register_block("execute_simple_file",simple_vmlib_state_runfile);
 	register_block("simple_state_findvar",simple_vmlib_state_findvar);
 	register_block("init_simple_variable",simple_vmlib_state_newvar);
@@ -1536,7 +1536,7 @@ void init_simple_state_block ( void *pointer )
 	SIMPLE_API_RETCPOINTER(init_simple_state(),"SIMPLESTATE");
 }
 
-void simple_vmlib_state_runcode ( void *pointer )
+void execute_simple_code_block ( void *pointer )
 {
 	if ( SIMPLE_API_PARACOUNT != 2 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
@@ -1545,7 +1545,7 @@ void simple_vmlib_state_runcode ( void *pointer )
 	execute_simple_code((SimpleState *) SIMPLE_API_GETCPOINTER(1,"SIMPLESTATE"),SIMPLE_API_GETSTRING(2));
 }
 
-void simple_vmlib_state_delete ( void *pointer )
+void free_simple_state_block ( void *pointer )
 {
 	if ( SIMPLE_API_PARACOUNT != 1 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
