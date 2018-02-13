@@ -66,149 +66,12 @@ void simple_vmlib_len ( void *pointer ) ;
 
 void simple_vmlib_add ( void *pointer ) ;
 
-void simple_vmlib_del ( void *pointer ) ;
-
-void simple_vmlib_clock ( void *pointer ) ;
-
-void simple_vmlib_input ( void *pointer ) ;
-
-void simple_vmlib_ascii ( void *pointer ) ;
-
-void simple_vmlib_char ( void *pointer ) ;
-
-void simple_vmlib_date ( void *pointer ) ;
-
-void simple_vmlib_time ( void *pointer ) ;
-
-void simple_vmlib_getchar ( void *pointer ) ;
-
-void simple_vmlib_random ( void *pointer ) ;
-
-void simple_vmlib_timelist ( void *pointer ) ;
-
-void simple_vmlib_adddays ( void *pointer ) ;
-
-void simple_vmlib_diffdays ( void *pointer ) ;
-
-void simple_vmlib_version ( void *pointer ) ;
-
-void simple_vmlib_clockspersecond ( void *pointer ) ;
-
-int simple_vmlib_adddays_isleapyear ( int nYear ) ;
-
-void simple_vmlib_swap ( void *pointer ) ;
-
-/* Check Data Type */
-
-void simple_vmlib_isstring ( void *pointer ) ;
-
-void simple_vmlib_isnumber ( void *pointer ) ;
-
-void simple_vmlib_islist ( void *pointer ) ;
-
-void simple_vmlib_type ( void *pointer ) ;
-
-void simple_vmlib_isnull ( void *pointer ) ;
-
-void simple_vmlib_isobject ( void *pointer ) ;
-/* Conversion */
-
-void simple_vmlib_hex ( void *pointer ) ;
-
-void simple_vmlib_dec ( void *pointer ) ;
-
-void simple_vmlib_number ( void *pointer ) ;
-
-void simple_vmlib_string ( void *pointer ) ;
-
-void simple_vmlib_str2hex ( void *pointer ) ;
-
-void simple_vmlib_hex2str ( void *pointer ) ;
-
-void simple_vmlib_str2list ( void *pointer ) ;
-
-void simple_vmlib_list2str ( void *pointer ) ;
-
-void simple_vmlib_str2hexcstyle ( void *pointer ) ;
-
-/* Functional */
-
-void simple_vmlib_eval ( void *pointer ) ;
-/* Error Handling */
-
-void simple_vmlib_raise ( void *pointer ) ;
-
-void simple_vmlib_assert ( void *pointer ) ;
-/* Check Characters */
-
-void simple_vmlib_isfunc ( void *pointer,int (*pFunc)(int) ) ;
-
-void simple_vmlib_isalnum ( void *pointer ) ;
-
-void simple_vmlib_isalpha ( void *pointer ) ;
-
-void simple_vmlib_iscntrl ( void *pointer ) ;
-
-void simple_vmlib_isdigit ( void *pointer ) ;
-
-void simple_vmlib_isgraph ( void *pointer ) ;
-
-void simple_vmlib_islower ( void *pointer ) ;
-
-void simple_vmlib_isprint ( void *pointer ) ;
-
-void simple_vmlib_ispunct ( void *pointer ) ;
-
-void simple_vmlib_isspace ( void *pointer ) ;
-
-void simple_vmlib_isupper ( void *pointer ) ;
-
-void simple_vmlib_isxdigit ( void *pointer ) ;
-/* Garbage Collector & Variable Pointer */
-
-void simple_vmlib_callgc ( void *pointer ) ;
-
-void simple_vmlib_varptr ( void *pointer ) ;
-
-void simple_vmlib_intvalue ( void *pointer ) ;
-
-void simple_vmlib_object2pointer ( void *pointer ) ;
-
-void simple_vmlib_pointer2object ( void *pointer ) ;
-
-void simple_vmlib_nullpointer ( void *pointer ) ;
-
-void simple_vmlib_space ( void *pointer ) ;
-
-void simple_vmlib_ptrcmp ( void *pointer ) ;
-/* Simple State */
-
-void init_simple_state_block ( void *pointer ) ;
-
-void execute_simple_code_block ( void *pointer ) ;
-
-void free_simple_state_block ( void *pointer ) ;
-
-void execute_simple_file_block ( void *pointer ) ;
-
-void find_simple_variable_block ( void *pointer ) ;
-
-void simple_vmlib_state_newvar ( void *pointer ) ;
-
-void simple_vmlib_state_runobjectfile ( void *pointer ) ;
-
-void main_simple_state_block ( void *pointer ) ;
-
-void set_simple_state_variable_block ( void *pointer ) ;
-
-void new_simple_state_block ( void *pointer ) ;
-
-void simple_state_main_file_block ( void *pointer ) ;
-/* Simple See and Give */
+/* Simple Display and Read */
 
 void display_string ( void *pointer ) ;
 
 void read_string ( void *pointer ) ;
+
 /* API For C Functions */
 #define SIMPLE_API_PARALIST (((VM *) pointer)->pActiveMem)
 #define SIMPLE_API_PARACOUNT (((VM *) pointer)->nCFuncParaCount)
@@ -245,6 +108,7 @@ void read_string ( void *pointer ) ;
 #define SIMPLE_API_ISCPOINTER(x) api_is_cpointer(pointer,x)
 #define SIMPLE_API_ISOBJECT(x) api_is_object(pointer,x)
 #define SIMPLE_API_GETCPOINTER2POINTER(x,y) (api_get_cpointer2pointer((VM *) pointer,x,y))
+
 /* Constants/MACRO */
 #define SIMPLE_API_MISS1PARA "Bad parameters count, the function expect one parameter"
 #define SIMPLE_API_MISS2PARA "Bad parameters count, the function expect two parameters"
