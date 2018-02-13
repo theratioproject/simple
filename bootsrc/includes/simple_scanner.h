@@ -118,7 +118,7 @@ Scanner * simple_scanner_new ( SimpleState *sState ) ;
 
 Scanner * simple_scanner_delete ( Scanner *pScanner ) ;
 
-int simple_scanner_readfile ( SimpleState *sState,char *cFileName ) ;
+int simple_scanner_readfile ( SimpleState *sState,char *file_name ) ;
 
 void simple_scanner_readchar ( Scanner *pScanner,char c ) ;
 
@@ -152,7 +152,7 @@ void simple_scanner_addreturn3 ( SimpleState *sState,int aPara[3] ) ;
 
 void display_tokens ( Scanner *pScanner ) ;
 
-SIMPLE_API void simple_execute ( char *cFileName, int nISCGI,int nRun,int nPrintIC,int nPrintICFinal,int nTokens,int nRules,int nIns,int nGenObj,int nWarn,int argc,char *argv[] ) ;
+SIMPLE_API void simple_execute ( char *file_name, int nISCGI,int nRun,int nPrintIC,int nPrintICFinal,int nTokens,int nRules,int nIns,int nGenObj,int nWarn,int argc,char *argv[] ) ;
 
 const char * simple_scanner_getkeywordtext ( const char *cStr ) ;
 

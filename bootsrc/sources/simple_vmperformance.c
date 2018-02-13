@@ -283,10 +283,10 @@ void simple_vm_loadfuncp ( VM *vm )
 	simple_list_addint_gc(vm->sState,list,SIMPLE_VM_IR_READIVALUE(2));
 	simple_list_addint_gc(vm->sState,list,vm->nSP);
 	simple_list_newlist_gc(vm->sState,list);
-	simple_list_addpointer_gc(vm->sState,list,vm->cFileName);
-	vm->cPrevFileName = vm->cFileName ;
-	vm->cFileName = (char *) SIMPLE_VM_IR_READPVALUE(4) ;
-	simple_list_addpointer_gc(vm->sState,list,vm->cFileName);
+	simple_list_addpointer_gc(vm->sState,list,vm->file_name);
+	vm->cPrevFileName = vm->file_name ;
+	vm->file_name = (char *) SIMPLE_VM_IR_READPVALUE(4) ;
+	simple_list_addpointer_gc(vm->sState,list,vm->file_name);
 	simple_list_addint_gc(vm->sState,list,SIMPLE_VM_IR_READIVALUE(5));
 	simple_list_addint_gc(vm->sState,list,SIMPLE_VM_IR_READIVALUE(6));
 	simple_vm_saveloadaddressscope(vm);

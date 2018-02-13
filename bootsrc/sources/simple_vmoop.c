@@ -742,7 +742,7 @@ void simple_vm_oop_import3 ( VM *vm,List *list )
 		list3 = simple_list_newlist_gc(vm->sState,vm->pClassesMap);
 		simple_list_addstring_gc(vm->sState,list3,simple_list_getstring(list2,1));
 		simple_list_addpointer_gc(vm->sState,list3,list2);
-		simple_list_addpointer_gc(vm->sState,list3,vm->cFileName);
+		simple_list_addpointer_gc(vm->sState,list3,vm->file_name);
 	}
 }
 
@@ -750,7 +750,7 @@ List * simple_vm_oop_checkpointertoclassinmodules ( VM *vm,List *list )
 {
 	if ( simple_list_getsize(list) == 3 ) {
 		if ( simple_list_getpointer(list,3) != NULL ) {
-			if ( strcmp((char *) simple_list_getpointer(list,3),vm->cFileName) != 0 ) {
+			if ( strcmp((char *) simple_list_getpointer(list,3),vm->file_name) != 0 ) {
 				return NULL ;
 			}
 		}

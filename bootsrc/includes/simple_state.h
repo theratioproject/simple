@@ -80,14 +80,14 @@ SIMPLE_API List * simple_state_newvar ( SimpleState *sState,const char *cStr ) ;
 
 SIMPLE_API void simple_state_main ( int argc, char *argv[] ) ;
 
-SIMPLE_API void execute_simple_file ( SimpleState *sState,char *cFileName ) ;
+SIMPLE_API void execute_simple_file ( SimpleState *sState,char *file_name ) ;
 
-SIMPLE_API void simple_state_runobjectstring ( SimpleState *sState,char *cString,const char *cFileName ) ;
+SIMPLE_API void simple_state_runobjectstring ( SimpleState *sState,char *cString,const char *file_name ) ;
 /* MACRO */
 #define SIMPLE_STATE_CHECKPRINTRULES if ( parser->sState->nPrintRules )
 /* General Functions */
 
-int simple_fexists ( const char *cFileName ) ;
+int simple_fexists ( const char *file_name ) ;
 
 int simple_currentdir ( char *cDirPath ) ;
 
@@ -97,9 +97,9 @@ int simple_chdir ( const char *cDir ) ;
 
 void simple_exefolder ( char *cDirPath ) ;
 
-void simple_switchtofilefolder ( char *cFileName ) ;
+void simple_switchtofilefolder ( char *file_name ) ;
 
-int simple_justfilepath ( char *cFileName ) ;
+int simple_justfilepath ( char *file_name ) ;
 
-void simple_justfilename ( char *cFileName ) ;
+void simple_justfilename ( char *file_name ) ;
 #endif

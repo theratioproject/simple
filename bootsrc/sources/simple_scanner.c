@@ -57,7 +57,7 @@ Scanner * simple_scanner_delete ( Scanner *pScanner )
 	return NULL ;
 }
 
-int simple_scanner_readfile ( SimpleState *sState,char *cFileName )
+int simple_scanner_readfile ( SimpleState *sState,char *file_name )
 {
 	SIMPLE_FILE fp  ;
 	/* Must be signed char to work fine on Android, because it uses -1 as NULL instead of Zero */
@@ -65,47 +65,47 @@ int simple_scanner_readfile ( SimpleState *sState,char *cFileName )
 	Scanner *pScanner  ;
 	VM *vm  ;
 	int nCont,nRunVM,nFreeFilesList = 0 ;
-	char cStartup[30]  ;
+	char start_up[30]  ;
 	int x,nSize  ;
-	char cFileName2[200]  ;
+	char file_name_two[200]  ;
         int is_start_file = 1 ;
 	/* Check file */
 	if ( sState->files_list == NULL ) {
 		sState->files_list = simple_list_new_gc(sState,0);
 		sState->files_stack = simple_list_new_gc(sState,0);
-		simple_list_addstring_gc(sState,sState->files_list,cFileName);
-		simple_list_addstring_gc(sState,sState->files_stack,cFileName);
+		simple_list_addstring_gc(sState,sState->files_list,file_name);
+		simple_list_addstring_gc(sState,sState->files_stack,file_name);
 		nFreeFilesList = 1 ;
 	} else {
-		if ( simple_list_findstring(sState->files_list,cFileName,0) == 0 ) {
-			simple_list_addstring_gc(sState,sState->files_list,cFileName);
-			simple_list_addstring_gc(sState,sState->files_stack,cFileName);
+		if ( simple_list_findstring(sState->files_list,file_name,0) == 0 ) {
+			simple_list_addstring_gc(sState,sState->files_list,file_name);
+			simple_list_addstring_gc(sState,sState->files_stack,file_name);
 		} else {
 			if ( sState->nWarning ) {
-				printf( "\nWarning, Duplication in FileName, %s \n",cFileName ) ;
+				printf( "\nWarning, Duplication in FileName, %s \n",file_name ) ;
 			}
 			return 1 ;
 		}
 	} 
-        if (simple_fexists(cFileName)) {
+        if (simple_fexists(file_name)) {
             
         } else {
             char* SIMPLEPATH = getenv("SIMPLE_PATH"); is_start_file = 0 ;
             if (SIMPLEPATH != NULL) {
-                snprintf(cFileName2, sizeof(cFileName2), "%s/simple%s/modules/%s", SIMPLEPATH, SIMPLE_VERSION, cFileName);
+                snprintf(file_name_two, sizeof(file_name_two), "%s/simple%s/modules/%s", SIMPLEPATH, SIMPLE_VERSION, file_name);
             }
-            if (!simple_fexists(cFileName2)) {
+            if (!simple_fexists(file_name_two)) {
                 char* SIMPLEMODULEPATH = getenv("SIMPLE_MODULE_PATH"); is_start_file = 0 ;
                 if (SIMPLEMODULEPATH != NULL) {
-                    snprintf(cFileName2, sizeof(cFileName2), "%s/%s", SIMPLEMODULEPATH, cFileName);
+                    snprintf(file_name_two, sizeof(file_name_two), "%s/%s", SIMPLEMODULEPATH, file_name);
                 }
-                if (!simple_fexists(cFileName2)) {
-                    snprintf(cFileName2, sizeof(cFileName2), "%s%s", DEFAULT_FILE_PATH, cFileName);
-                    if (!simple_fexists(cFileName2)) {
-                        snprintf(cFileName2, sizeof(cFileName2), "%s/modules/%s", DEFAULT_FILE_PATH, cFileName);
-                        if (!simple_fexists(cFileName2)) {
-                            snprintf(cFileName2, sizeof(cFileName2), "%s/library/%s", DEFAULT_FILE_PATH, cFileName);
-                            if (!simple_fexists(cFileName2)) {
+                if (!simple_fexists(file_name_two)) {
+                    snprintf(file_name_two, sizeof(file_name_two), "%s%s", DEFAULT_FILE_PATH, file_name);
+                    if (!simple_fexists(file_name_two)) {
+                        snprintf(file_name_two, sizeof(file_name_two), "%s/modules/%s", DEFAULT_FILE_PATH, file_name);
+                        if (!simple_fexists(file_name_two)) {
+                            snprintf(file_name_two, sizeof(file_name_two), "%s/library/%s", DEFAULT_FILE_PATH, file_name);
+                            if (!simple_fexists(file_name_two)) {
                                 //already checked all assumed folders
                             }
                         }
@@ -115,10 +115,10 @@ int simple_scanner_readfile ( SimpleState *sState,char *cFileName )
             } /**else {
                 char cwd[1024];
                 if (getcwd(cwd, sizeof(cwd)) != NULL){
-                snprintf(cFileName2, sizeof(cFileName2), "%s\\%s", cwd, cFileName);
+                snprintf(file_name_two, sizeof(file_name_two), "%s\\%s", cwd, file_name);
             }
-            //printf("NOW CHECKING %s \n",cFileName2);
-            if (simple_fexists(cFileName)) {
+            //printf("NOW CHECKING %s \n",file_name_two);
+            if (simple_fexists(file_name)) {
                 
             } else {
                 //printf("NOW CHECKING AGAIN %i \n",status);
@@ -127,17 +127,17 @@ int simple_scanner_readfile ( SimpleState *sState,char *cFileName )
         } 
         /* Switch To File Folder */
         if (is_start_file) {
-            strcpy(cFileName2,cFileName);
-            DEFAULT_FILE_NAME = cFileName2 ; DEFAULT_FILE_PATH = cFileName2 ;
+            strcpy(file_name_two,file_name);
+            DEFAULT_FILE_NAME = file_name_two ; DEFAULT_FILE_PATH = file_name_two ;
         }
-	fp = SIMPLE_OPENFILE(cFileName2 , "r");
+	fp = SIMPLE_OPENFILE(file_name_two , "r");
 	/* Avoid switching if it's the first file */
 	if ( nFreeFilesList == 0 ) {
-		simple_switchtofilefolder(cFileName2);
+		simple_switchtofilefolder(file_name_two);
 	} 
 	/* Read File */
 	if ( fp==NULL ) {
-		printf( "\n COMPILER ERROR -1 : Can't open file/module : %s \n", cFileName ) ;
+		printf( "\n COMPILER ERROR -1 : Can't open file/module : %s \n", file_name ) ;
 		exit(-1);
                 return 0 ;
 	}
@@ -148,10 +148,10 @@ int simple_scanner_readfile ( SimpleState *sState,char *cFileName )
 	/* Check Startup file */
 	if ( simple_fexists("startup.sim") && pScanner->sState->lStartup == 0 ) {
 		pScanner->sState->lStartup = 1 ;
-		strcpy(cStartup,"Load 'startup.sim'");
+		strcpy(start_up,"Load 'startup.sim'");
 		/* Load "startup.sim" */
 		for ( x = 0 ; x < 19 ; x++ ) {
-			simple_scanner_readchar(pScanner,cStartup[x]);
+			simple_scanner_readchar(pScanner,start_up[x]);
 		}
 		/*
 		**  Add new line 
@@ -866,7 +866,7 @@ void display_tokens ( Scanner *pScanner )
     exit(0);
 }
 
-SIMPLE_API void simple_execute ( char *cFileName, int nISCGI,int nRun,int nPrintIC,int nPrintICFinal,int nTokens,int nRules,int nIns,int nGenObj,int nWarn,int argc,char *argv[] )
+SIMPLE_API void simple_execute ( char *file_name, int nISCGI,int nRun,int nPrintIC,int nPrintICFinal,int nTokens,int nRules,int nIns,int nGenObj,int nWarn,int argc,char *argv[] )
 {
 	SimpleState *sState  ;
 	sState = simple_state_new();
@@ -880,8 +880,8 @@ SIMPLE_API void simple_execute ( char *cFileName, int nISCGI,int nRun,int nPrint
 	sState->nWarning = nWarn ;
 	sState->argc = argc ;
 	sState->argv = argv ;
-	if ( is_simple_file(cFileName) ) {
-		simple_scanner_readfile(sState,cFileName);
+	if ( is_simple_file(file_name) ) {
+		simple_scanner_readfile(sState,file_name);
 	}
 	free_simple_state(sState);
 }
@@ -1005,36 +1005,36 @@ void simple_scanner_changeoperator ( Scanner *pScanner )
 
 void simple_scanner_loadsyntax ( Scanner *pScanner )
 {
-	char *cFileName  ;
+	char *file_name  ;
 	SIMPLE_FILE fp  ;
 	/* Must be signed char to work fine on Android, because it uses -1 as NULL instead of Zero */
 	signed char c  ;
 	int nSize  ;
-	char cFileName2[200]  ;
+	char file_name_two[200]  ;
 	unsigned int x  ;
-	cFileName = simple_string_get(pScanner->ActiveToken) ;
+	file_name = simple_string_get(pScanner->ActiveToken) ;
 	/* Remove Spaces and " " from file name */
 	x = 0 ;
-	while ( ( (cFileName[x] == ' ') || (cFileName[x] == '"') ) && (x <= strlen(cFileName)) ) {
-		cFileName++ ;
+	while ( ( (file_name[x] == ' ') || (file_name[x] == '"') ) && (x <= strlen(file_name)) ) {
+		file_name++ ;
 	}
-	x = strlen(cFileName) ;
-	while ( ( (cFileName[x-1] == ' ') || (cFileName[x-1] == '"') ) && (x >= 1) ) {
-		cFileName[x-1] = '\0' ;
+	x = strlen(file_name) ;
+	while ( ( (file_name[x-1] == ' ') || (file_name[x-1] == '"') ) && (x >= 1) ) {
+		file_name[x-1] = '\0' ;
 		x-- ;
 	}
 	/* Support File Location in Simple/bin Folder */
-	strcpy(cFileName2,cFileName);
-	if ( simple_fexists(cFileName) == 0 ) {
-		simple_exefolder(cFileName2);
-		strcat(cFileName2,cFileName);
-		if ( simple_fexists(cFileName2) == 0 ) {
-			strcpy(cFileName,cFileName2);
+	strcpy(file_name_two,file_name);
+	if ( simple_fexists(file_name) == 0 ) {
+		simple_exefolder(file_name_two);
+		strcat(file_name_two,file_name);
+		if ( simple_fexists(file_name_two) == 0 ) {
+			strcpy(file_name,file_name_two);
 		}
 	}
-	fp = SIMPLE_OPENFILE(cFileName2 , "r");
+	fp = SIMPLE_OPENFILE(file_name_two , "r");
 	if ( fp==NULL ) {
-		printf( "\nCan't open file %s \n",cFileName ) ;
+		printf( "\nCan't open file %s \n",file_name ) ;
 		return ;
 	}
 	nSize = 1 ;

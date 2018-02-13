@@ -238,9 +238,9 @@ SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 	#endif
 }
 
-SIMPLE_API void execute_simple_file ( SimpleState *sState,char *cFileName )
+SIMPLE_API void execute_simple_file ( SimpleState *sState,char *file_name )
 {
-	simple_scanner_readfile(sState,cFileName);
+	simple_scanner_readfile(sState,file_name);
 }
 
 #if SIMPLE_TESTUNITS
@@ -270,10 +270,10 @@ void segfaultaction ( int sig )
 
 /* General Functions */
 
-int simple_fexists ( const char *cFileName )
+int simple_fexists ( const char *file_name )
 {
 	FILE *fp  ;
-	fp = fopen(cFileName , "r" );
+	fp = fopen(file_name , "r" );
 	if ( fp ) {
 		fclose( fp ) ;
 		return 1 ;
@@ -336,40 +336,40 @@ void simple_exefolder ( char *cDirPath )
 	strcpy(cDirPath,cDir2);
 }
 
-void simple_switchtofilefolder ( char *cFileName )
+void simple_switchtofilefolder ( char *file_name )
 {
-	char cFileName2[SIMPLE_PATHSIZE]  ;
-	strcpy(cFileName2,cFileName);
-	if ( simple_justfilepath(cFileName2) ) {
-		simple_chdir(cFileName2);
+	char file_name_two[SIMPLE_PATHSIZE]  ;
+	strcpy(file_name_two,file_name);
+	if ( simple_justfilepath(file_name_two) ) {
+		simple_chdir(file_name_two);
 		/* Remove The Path from the file Name - Keep the File Name Only */
-		simple_justfilename(cFileName);
+		simple_justfilename(file_name);
 		return ;
 	}
 }
 
-int simple_justfilepath ( char *cFileName )
+int simple_justfilepath ( char *file_name )
 {
 	int x,nSize  ;
-	nSize = strlen( cFileName ) ;
+	nSize = strlen( file_name ) ;
 	for ( x = nSize-1 ; x >= 0 ; x-- ) {
-		if ( (cFileName[x] == '\\') || (cFileName[x] == '/') ) {
-			cFileName[x+1] = '\0' ;
+		if ( (file_name[x] == '\\') || (file_name[x] == '/') ) {
+			file_name[x+1] = '\0' ;
 			return 1 ;
 		}
 	}
 	return 0 ;
 }
 
-void simple_justfilename ( char *cFileName )
+void simple_justfilename ( char *file_name )
 {
 	int x,nSize,r  ;
-	nSize = strlen( cFileName ) ;
+	nSize = strlen( file_name ) ;
 	for ( x = nSize-1 ; x >= 0 ; x-- ) {
-		if ( (cFileName[x] == '\\') || (cFileName[x] == '/') ) {
+		if ( (file_name[x] == '\\') || (file_name[x] == '/') ) {
 			r = 0 ;
 			for ( x = x+1 ; x <= nSize+1 ; x++ ) {
-				cFileName[r] = cFileName[x] ;
+				file_name[r] = file_name[x] ;
 				r++ ;
 			}
 			break ;

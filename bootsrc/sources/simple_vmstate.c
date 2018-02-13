@@ -28,7 +28,7 @@ void simple_vm_savestate ( VM *vm,List *list )
 	simple_list_addint_gc(vm->sState,list,simple_list_getsize(vm->pObjState));
 	simple_list_addint_gc(vm->sState,list,simple_list_getsize(vm->aBraceObjects));
 	simple_list_addpointer_gc(vm->sState,list,vm->pBraceObject);
-	simple_list_addpointer_gc(vm->sState,list,vm->cFileName);
+	simple_list_addpointer_gc(vm->sState,list,vm->file_name);
 	simple_list_addint_gc(vm->sState,list,simple_list_getsize(vm->aPCBlockFlag));
 	simple_list_addint_gc(vm->sState,list,vm->nBlockFlag);
 	simple_list_addint_gc(vm->sState,list,simple_list_getsize(vm->aScopeNewObj));
@@ -93,7 +93,7 @@ void simple_vm_restorestate ( VM *vm,List *list,int nPos,int nFlag )
 	simple_vm_backstate(vm,simple_list_getint(list,7),vm->aBraceObjects);
 	vm->pBraceObject = (List *) simple_list_getpointer(list,8) ;
 	/* FileName & Moduless */
-	vm->cFileName = (char *) simple_list_getpointer(list,9) ;
+	vm->file_name = (char *) simple_list_getpointer(list,9) ;
 	/* aPCBlockFlag, aScopeNewObj , aActiveModules & aScopeID */
 	if ( ((List *) simple_list_getpointer(list,25)) != vm->aPCBlockFlag ) {
 		vm->aPCBlockFlag = simple_list_delete_gc(vm->sState,vm->aPCBlockFlag);

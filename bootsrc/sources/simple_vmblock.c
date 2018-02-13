@@ -72,10 +72,10 @@ int simple_vm_loadfunc2 ( VM *vm,const char *block_name,int nPerformance )
 			/* Create Temp Memory */
 			simple_list_newlist_gc(vm->sState,list3);
 			/* File Name */
-			simple_list_addpointer_gc(vm->sState,list3,vm->cFileName);
-			vm->cPrevFileName = vm->cFileName ;
-			vm->cFileName = simple_list_getstring(list2,SIMPLE_BLOCKMAP_FILENAME) ;
-			simple_list_addpointer_gc(vm->sState,list3,vm->cFileName);
+			simple_list_addpointer_gc(vm->sState,list3,vm->file_name);
+			vm->cPrevFileName = vm->file_name ;
+			vm->file_name = simple_list_getstring(list2,SIMPLE_BLOCKMAP_FILENAME) ;
+			simple_list_addpointer_gc(vm->sState,list3,vm->file_name);
 			/* Method or Function */
 			if ( (y == 1) && (vm->nCallMethod != 1) ) {
 				simple_list_addint_gc(vm->sState,list3,0);
@@ -143,9 +143,9 @@ int simple_vm_loadfunc2 ( VM *vm,const char *block_name,int nPerformance )
 		**  File Name 
 		**  The old source file name 
 		*/
-		simple_list_addpointer_gc(vm->sState,list2,vm->cFileName);
+		simple_list_addpointer_gc(vm->sState,list2,vm->file_name);
 		/* The new source file name */
-		simple_list_addpointer_gc(vm->sState,list2,vm->cFileName);
+		simple_list_addpointer_gc(vm->sState,list2,vm->file_name);
 		/* Method or Function */
 		simple_list_addint_gc(vm->sState,list2,0);
 		/* Line Number */
@@ -366,8 +366,8 @@ void simple_vm_return ( VM *vm )
 			vm->pNestedLists = (List *) simple_list_getpointer(list,SIMPLE_BLOCKCL_NESTEDLISTS) ;
 		}
 		/* Restore File Name */
-		vm->cPrevFileName = vm->cFileName ;
-		vm->cFileName = (char *) simple_list_getpointer(list,SIMPLE_BLOCKCL_FILENAME) ;
+		vm->cPrevFileName = vm->file_name ;
+		vm->file_name = (char *) simple_list_getpointer(list,SIMPLE_BLOCKCL_FILENAME) ;
 		/* Move returned List to the previous scope */
 		if ( SIMPLE_VM_STACK_ISPOINTER ) {
 			/*

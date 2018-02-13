@@ -42,7 +42,7 @@ typedef struct VM {
 	List *pTempMem  ;
 	ByteCode *pByteCode  ;
 	ByteCode *pByteCodeIR  ;
-	char *cFileName  ;
+	char *file_name  ;
 	int nLineNumber  ;
 	int nListStart  ;
 	List *pNestedLists  ;

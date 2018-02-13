@@ -247,7 +247,7 @@ int simple_parser_stmt ( Parser *parser )
 	List *pMark,*pMark2,*pMark3,*list2  ;
 	double nNum1  ;
 	char cStr[50]  ;
-	char cFileName[SIMPLE_PATHSIZE]  ;
+	char file_name[SIMPLE_PATHSIZE]  ;
 	char cCurrentDir[SIMPLE_PATHSIZE]  ;
 	nPerformanceLocations = 0 ;
 	nLoadModules = 0 ;
@@ -257,17 +257,17 @@ int simple_parser_stmt ( Parser *parser )
             simple_parser_nexttoken(parser); 
 		if ( simple_parser_isliteral(parser) ) {
 			/* Check File in the simple/bin folder */
-			strcpy(cFileName,parser->TokenText);
+			strcpy(file_name,parser->TokenText);
 			if ( simple_fexists(parser->TokenText) == 0 ) {
-				simple_exefolder(cFileName);
-				strcat(cFileName,parser->TokenText);
-				if ( simple_fexists(cFileName) == 0 ) {
-					strcpy(cFileName,parser->TokenText);
+				simple_exefolder(file_name);
+				strcat(file_name,parser->TokenText);
+				if ( simple_fexists(file_name) == 0 ) {
+					strcpy(file_name,parser->TokenText);
 				}
 			}
 			/* Generate Code */
 			simple_parser_icg_newoperation(parser,ICO_FILENAME);
-			simple_parser_icg_newoperand(parser,cFileName);
+			simple_parser_icg_newoperand(parser,file_name);
 			simple_parser_icg_newoperation(parser,ICO_BLOCKFLAG);
 			pMark = simple_parser_icg_getactiveoperation(parser);
 			#if SIMPLE_PARSERTRACE
@@ -280,7 +280,7 @@ int simple_parser_stmt ( Parser *parser )
 			/* Save the Current Directory */
 			simple_currentdir(cCurrentDir);
 			/* Read The File */
-			x = simple_scanner_readfile(parser->sState,cFileName);
+			x = simple_scanner_readfile(parser->sState,file_name);
 			/* Restore the Current Directory */
 			simple_chdir(cCurrentDir);
 			/*

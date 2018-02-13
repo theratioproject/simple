@@ -92,7 +92,7 @@ VM * simple_vm_new ( SimpleState *sState )
 	vm->nInClassRegion = 0 ;
 	vm->pModulessMap = NULL ;
 	/* Set the main File Name */
-	vm->cFileName = simple_list_getstring(vm->sState->files_list,1) ;
+	vm->file_name = simple_list_getstring(vm->sState->files_list,1) ;
 	vm->cPrevFileName = simple_list_getstring(vm->sState->files_list,1) ;
 	/* We keep information about active modules to access its classes directly with new/from */
 	vm->aActiveModules = simple_list_new_gc(vm->sState,0);
@@ -358,7 +358,7 @@ void simple_vm_fetch2 ( VM *vm )
 		printf( "\nVM Pointer  : %p  " , (void *) vm ) ;
 		printf( "\nOperation  : %s  " , SIMPLE_IC_OP[vm->nOPCode] ) ;
 		printf( "\nPC         : %d  " ,vm->nPC ) ;
-		printf( "\nLine Number    : %d  , File %s \n " ,vm->nLineNumber,vm->cFileName ) ;
+		printf( "\nLine Number    : %d  , File %s \n " ,vm->nLineNumber,vm->file_name ) ;
 		if ( (vm->nOPCode == ICO_PUSHC) || (vm->nOPCode == ICO_LOADADDRESS) || (vm->nOPCode == ICO_LOADBLOCK) ) {
 			printf( "\nData       : %s \n",SIMPLE_VM_IR_READC ) ;
 		}
@@ -867,7 +867,7 @@ void simple_vm_tobytecode ( VM *vm,int x )
 	/* Check Instruction Size */
 	if ( simple_list_getsize(pIR) > SIMPLE_VM_BC_ITEMS_COUNT ) {
 		printf( SIMPLE_LONGINSTRUCTION ) ;
-		printf( "In File : %s  - Byte-Code PC : %d  ",vm->cFileName,x ) ;
+		printf( "In File : %s  - Byte-Code PC : %d  ",vm->file_name,x ) ;
 		exit(0);
 	}
 	for ( x2 = 1 ; x2 <= simple_list_getsize(pIR) ; x2++ ) {
@@ -1146,7 +1146,7 @@ SIMPLE_API void simple_vm_showerrormessage ( VM *vm,const char *cStr )
 					cFile = vm->cFileNameInClassRegion ;
 				}
 				else {
-					cFile = vm->cFileName ;
+					cFile = vm->file_name ;
 				}
 			}
 			printf( "%s",file_real_name(cFile) ) ;
@@ -1166,7 +1166,7 @@ SIMPLE_API void simple_vm_showerrormessage ( VM *vm,const char *cStr )
 			cFile = vm->cFileNameInClassRegion ;
 		}
 		else {
-			cFile = file_real_name(vm->cFileName) ;
+			cFile = file_real_name(vm->file_name) ;
 		}
 		printf( "\tin file %s ",cFile ) ;
 	}
@@ -1177,13 +1177,13 @@ void simple_vm_setfilename ( VM *vm )
 	if ( vm->nInClassRegion ) {
 		/*
 		**  We are using special attribute for this region to avoid save/restore file name 
-		**  If we used vm->cFileName we could get problem in finding classes and moduless 
+		**  If we used vm->file_name we could get problem in finding classes and moduless 
 		*/
 		vm->cFileNameInClassRegion = SIMPLE_VM_IR_READC ;
 		return ;
 	}
-	vm->cPrevFileName = vm->cFileName ;
-	vm->cFileName = SIMPLE_VM_IR_READC ;
+	vm->cPrevFileName = vm->file_name ;
+	vm->file_name = SIMPLE_VM_IR_READC ;
 }
 
 void simple_vm_loadaddressfirst ( VM *vm )
@@ -1360,7 +1360,7 @@ void simple_vm_traceevent ( VM *vm,char nEvent )
 		/* Add Line Number */
 		simple_list_adddouble_gc(vm->sState,vm->pTraceData,vm->nLineNumber);
 		/* Add File Name */
-		simple_list_addstring_gc(vm->sState,vm->pTraceData,vm->cFileName);
+		simple_list_addstring_gc(vm->sState,vm->pTraceData,vm->file_name);
 		/* Add Function/Method Name */
 		if ( simple_list_getsize(vm->pFuncCallList) > 0 ) {
 			list = simple_list_getlist(vm->pFuncCallList,simple_list_getsize(vm->pFuncCallList)) ;
