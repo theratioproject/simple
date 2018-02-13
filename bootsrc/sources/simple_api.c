@@ -444,3 +444,29 @@ void simple_vmlib_version ( void *pointer )
 {
 	SIMPLE_API_RETSTRING(SIMPLE_VERSION);
 }
+
+/* Functional Execution */
+
+void simple_vmlib_eval ( void *pointer )
+{
+	const char *cStr  ;
+	VM *vm  ;
+	if ( SIMPLE_API_PARACOUNT != 1 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
+		return ;
+	}
+	if ( SIMPLE_API_ISSTRING(1) ) {
+		cStr = SIMPLE_API_GETSTRING(1);
+		vm = (VM *) pointer ;
+		vm->nEvalCalledFromSimpleCode = 1 ;
+		if ( simple_vm_eval(vm,cStr) == 0 ) {
+			vm->nEvalCalledFromSimpleCode = 0 ;
+		}
+		/*
+		**  The CALL instruction will check nEvalCalledFromSimpleCode to execute the main loop again 
+		**  Before executing the main loop again, The CALL instruction will set nEvalCalledFromSimpleCode to 0 
+		*/
+	} else {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+	}
+}
