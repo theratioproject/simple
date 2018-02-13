@@ -536,10 +536,10 @@ void simple_vm_execute ( VM *vm )
 			break ;
 		/* User Interface */
 		case ICO_DISPLAY :
-			simple_vm_see(vm);
+			simple_vm_display(vm);
 			break ;
 		case ICO_GIVE :
-			simple_vm_give(vm);
+			simple_vm_read(vm);
 			break ;
 		/* End Program - Exit from Loop - Loop (Continue) */
 		case ICO_EXITPROGRAM :

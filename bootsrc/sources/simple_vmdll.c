@@ -105,7 +105,7 @@ void simple_vm_dll_closelib ( void *pointer )
 
 /* User Interface - Commands Implementation (Faster) - Because we don't have functions call */
 
-void simple_vm_see ( VM *vm )
+void simple_vm_display ( VM *vm )
 {
 	Item *pItem  ;
 	char cStr[100]  ;
@@ -153,7 +153,7 @@ void simple_vm_see ( VM *vm )
 	fflush(stdout);
 }
 
-void simple_vm_give ( VM *vm )
+void simple_vm_read ( VM *vm )
 {
 	int x  ;
 	char cLine[256]  ;

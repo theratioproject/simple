@@ -341,9 +341,9 @@ void simple_vm_retitemref ( VM *vm ) ;
 void simple_vm_callclassinit ( VM *vm ) ;
 /* User Interface */
 
-void simple_vm_see ( VM *vm ) ;
+void simple_vm_display ( VM *vm ) ;
 
-void simple_vm_give ( VM *vm ) ;
+void simple_vm_read ( VM *vm ) ;
 /* String As Array */
 
 void simple_vm_stsimple_pushv ( VM *vm ) ;
