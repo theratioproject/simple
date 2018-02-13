@@ -4,14 +4,14 @@
 **  pBlocksMap ( Name, PC, FileName, Private Flag ) 
 **  Moduless List ( Modules Name , Classes List ) 
 **  Object ( is a list of two items , (1) Class Pointer  (2) Object Data  ) 
-**  vm->aScopeNewObj : (1) Previous scope (2) nListStart (3) pNestedLists (4) nSP 
+**  vm->aScopeNewObj : (1) Previous scope (2) nListStart (3) pNestedLists (4) nsp 
 **  vm->pObjState  (  [ Pointer to Scope, Pointer to Methods , Pointer to Classs, Optional True) 
 **  The optional True used with LoadMethod so we can Know that we are inside class method during RT 
 **  We don't check the True value, we just check that the size of the list is 4 
 **  used in simple_vmblocks , block simple_vm_loadblock2() 
 **  used in simple_vmvars , block simple_vm_findvar2() 
 **  pBraceObject : The list that represent the object directly (not varaible/list item) 
-**  aBraceObjects ( pBraceObject, nSP, nListStart, pNestedLists) 
+**  aBraceObjects ( pBraceObject, nsp, nListStart, pNestedLists) 
 **  aSetProperty ( Object Pointer , Type (Variable/ListItem)  , Property Name, Property Variable , nBeforeEqual) 
 */
 #include "../includes/simple.h"
@@ -21,11 +21,11 @@ void simple_vm_oop_newobj ( VM *vm )
 {
 	const char *cClassName,*cClassName2  ;
 	int x,nLimit,nClassPC,nType,nCont  ;
-	List *list,*list2,*list3,*list4,*list5,*pVar,*pSelf  ;
+	List *list,*list2,*list3,*list4,*list5,*var,*pSelf  ;
 	Item *pItem  ;
 	const char *cTempName = SIMPLE_TEMP_OBJECT ;
 	list2 = NULL ;
-	pVar = NULL ;
+	var = NULL ;
 	pItem = NULL ;
 	cClassName = SIMPLE_VM_IR_READC ;
 	nLimit = simple_vm_oop_visibleclassescount(vm);
@@ -51,25 +51,25 @@ void simple_vm_oop_newobj ( VM *vm )
 				}
 				if ( nCont == 1 ) {
 					simple_vm_newvar(vm,cTempName);
-					pVar = (List *) SIMPLE_VM_STACK_READP ;
+					var = (List *) SIMPLE_VM_STACK_READP ;
 					nType = SIMPLE_VM_STACK_OBJTYPE ;
-					simple_list_setint_gc(vm->sState,pVar,SIMPLE_VAR_TYPE,SIMPLE_VM_LIST);
-					simple_list_setlist_gc(vm->sState,pVar,SIMPLE_VAR_VALUE);
-					list2 = simple_list_getlist(pVar,SIMPLE_VAR_VALUE);
+					simple_list_setint_gc(vm->sState,var,SIMPLE_VAR_TYPE,SIMPLE_VM_LIST);
+					simple_list_setlist_gc(vm->sState,var,SIMPLE_VAR_VALUE);
+					list2 = simple_list_getlist(var,SIMPLE_VAR_VALUE);
 				}
 				else {
 					/* Prepare Object List */
 					if ( SIMPLE_VM_STACK_OBJTYPE == SIMPLE_OBJTYPE_VARIABLE ) {
-						pVar = (List *) SIMPLE_VM_STACK_READP ;
-						simple_list_setint_gc(vm->sState,pVar,SIMPLE_VAR_TYPE,SIMPLE_VM_LIST);
-						simple_list_setlist_gc(vm->sState,pVar,SIMPLE_VAR_VALUE);
-						list2 = simple_list_getlist(pVar,SIMPLE_VAR_VALUE);
+						var = (List *) SIMPLE_VM_STACK_READP ;
+						simple_list_setint_gc(vm->sState,var,SIMPLE_VAR_TYPE,SIMPLE_VM_LIST);
+						simple_list_setlist_gc(vm->sState,var,SIMPLE_VAR_VALUE);
+						list2 = simple_list_getlist(var,SIMPLE_VAR_VALUE);
 					}
 					else if ( SIMPLE_VM_STACK_OBJTYPE == SIMPLE_OBJTYPE_LISTITEM ) {
 						pItem = (Item *) SIMPLE_VM_STACK_READP ;
 						simple_item_settype_gc(vm->sState,pItem,ITEMTYPE_LIST);
-						pVar = simple_item_getlist(pItem);
-						list2 = pVar ;
+						var = simple_item_getlist(pItem);
+						list2 = var ;
 					}
 					nType = SIMPLE_VM_STACK_OBJTYPE ;
 				}
@@ -84,7 +84,7 @@ void simple_vm_oop_newobj ( VM *vm )
 				pSelf = simple_vm_newvar2(vm,"self",list3);
 				simple_list_setint_gc(vm->sState,pSelf,SIMPLE_VAR_TYPE,SIMPLE_VM_POINTER);
 				if ( nType == SIMPLE_OBJTYPE_VARIABLE ) {
-					simple_list_setpointer_gc(vm->sState,pSelf,SIMPLE_VAR_VALUE,pVar);
+					simple_list_setpointer_gc(vm->sState,pSelf,SIMPLE_VAR_VALUE,var);
 				}
 				else if ( nType == SIMPLE_OBJTYPE_LISTITEM ) {
 					simple_list_setpointer_gc(vm->sState,pSelf,SIMPLE_VAR_VALUE,pItem);
@@ -109,7 +109,7 @@ void simple_vm_oop_newobj ( VM *vm )
 				vm->nListStart = 0 ;
 				vm->pNestedLists = simple_list_new_gc(vm->sState,0);
 				/* Save Stack Information */
-				simple_list_addint_gc(vm->sState,list4,vm->nSP);
+				simple_list_addint_gc(vm->sState,list4,vm->nsp);
 				/* Save BlockExecute */
 				simple_list_addint_gc(vm->sState,list4,vm->nBlockExecute);
 				vm->nBlockExecute = 0 ;
@@ -259,7 +259,7 @@ void simple_vm_oop_setscope ( VM *vm )
 	**  Restore State 
 	**  Restore Stack Information 
 	*/
-	vm->nSP = simple_list_getint(list,4) ;
+	vm->nsp = simple_list_getint(list,4) ;
 	/* Restore BlockExecute */
 	vm->nBlockExecute = simple_list_getint(list,5) ;
 	/* Restore Private Flag */
@@ -316,54 +316,54 @@ int simple_vm_oop_isobject ( List *list )
 
 List * simple_vm_oop_getobj ( VM *vm )
 {
-	List *pVar  ;
+	List *var  ;
 	Item *pItem  ;
-	pVar = NULL ;
+	var = NULL ;
 	/* Get Object Data */
 	if ( ! SIMPLE_VM_STACK_ISPOINTER ) {
 		simple_vm_error(vm,SIMPLE_VM_ERROR_NOTOBJECT);
 		return NULL ;
 	}
 	if ( SIMPLE_VM_STACK_OBJTYPE == SIMPLE_OBJTYPE_VARIABLE ) {
-		pVar = (List *) SIMPLE_VM_STACK_READP ;
-		if ( simple_list_getint(pVar,SIMPLE_VAR_TYPE) == SIMPLE_VM_NULL ) {
-			simple_vm_error2(vm,SIMPLE_VM_ERROR_USINGNULLVARIABLE,simple_list_getstring(pVar,SIMPLE_VAR_NAME));
+		var = (List *) SIMPLE_VM_STACK_READP ;
+		if ( simple_list_getint(var,SIMPLE_VAR_TYPE) == SIMPLE_VM_NULL ) {
+			simple_vm_error2(vm,SIMPLE_VM_ERROR_USINGNULLVARIABLE,simple_list_getstring(var,SIMPLE_VAR_NAME));
 			return NULL ;
 		}
-		if ( ! simple_list_islist(pVar,SIMPLE_VAR_VALUE  ) ) {
+		if ( ! simple_list_islist(var,SIMPLE_VAR_VALUE  ) ) {
 			simple_vm_error(vm,SIMPLE_VM_ERROR_NOTOBJECT);
 			return NULL ;
 		}
-		pVar = simple_list_getlist(pVar,SIMPLE_VAR_VALUE);
+		var = simple_list_getlist(var,SIMPLE_VAR_VALUE);
 	}
 	else if ( SIMPLE_VM_STACK_OBJTYPE == SIMPLE_OBJTYPE_LISTITEM ) {
 		pItem = (Item *) SIMPLE_VM_STACK_READP ;
-		pVar = simple_item_getlist(pItem);
+		var = simple_item_getlist(pItem);
 	}
-	if ( simple_vm_oop_isobject(pVar) == 0 ) {
+	if ( simple_vm_oop_isobject(var) == 0 ) {
 		simple_vm_error(vm,SIMPLE_VM_ERROR_NOTOBJECT);
 		return NULL ;
 	}
 	SIMPLE_VM_STACK_POP ;
-	return pVar ;
+	return var ;
 }
 
 void simple_vm_oop_property ( VM *vm )
 {
-	List *pVar,*pScope  ;
+	List *var,*pScope  ;
 	/* Get Object Pointer Before being a list by getobj */
 	if ( SIMPLE_VM_STACK_ISPOINTER ) {
 		vm->pGetSetObject = SIMPLE_VM_STACK_READP ;
 		vm->nGetSetObjType = SIMPLE_VM_STACK_OBJTYPE ;
 	}
 	/* Get Object Data */
-	pVar = simple_vm_oop_getobj(vm);
-	if ( pVar == NULL ) {
+	var = simple_vm_oop_getobj(vm);
+	if ( var == NULL ) {
 		return ;
 	}
 	/* Get Object State */
 	pScope = vm->pActiveMem ;
-	vm->pActiveMem = simple_list_getlist(pVar,2);
+	vm->pActiveMem = simple_list_getlist(var,2);
 	vm->nGetSetProperty = 1 ;
 	if ( simple_vm_findvar(vm, SIMPLE_VM_IR_READC ) == 0 ) {
 		/* Create the attribute if we are in the class region after the class name */
@@ -401,7 +401,7 @@ void simple_vm_oop_property ( VM *vm )
 
 void simple_vm_oop_loadmethod ( VM *vm )
 {
-	List *pVar,*list,*list2,*list3,*pSuper  ;
+	List *var,*list,*list2,*list3,*pSuper  ;
 	int lResult  ;
 	/* Check calling method related to Parent Class */
 	pSuper = simple_vm_oop_getsuperobj(vm);
@@ -412,19 +412,19 @@ void simple_vm_oop_loadmethod ( VM *vm )
 		return ;
 	}
 	/* Get Object Data */
-	pVar = simple_vm_oop_getobj(vm);
-	if ( pVar == NULL ) {
+	var = simple_vm_oop_getobj(vm);
+	if ( var == NULL ) {
 		return ;
 	}
 	/* Update Self Pointer Using Temp. Item */
-	simple_vm_oop_updateselfpointer2(vm,pVar);
+	simple_vm_oop_updateselfpointer2(vm,var);
 	/* Get Object Class */
-	list = (List *) simple_list_getpointer(pVar,1);
+	list = (List *) simple_list_getpointer(var,1);
 	/* Push Class Modules */
 	simple_vm_oop_pushclassmodules(vm,list);
 	/* Get Object State */
 	list2 = simple_list_newlist_gc(vm->sState,vm->pObjState);
-	simple_list_addpointer_gc(vm->sState,list2,simple_list_getlist(pVar,2));
+	simple_list_addpointer_gc(vm->sState,list2,simple_list_getlist(var,2));
 	/* Get Class Methods */
 	list3 = simple_list_getlist(list,4);
 	simple_list_addpointer_gc(vm->sState,list2,list3);
@@ -435,12 +435,12 @@ void simple_vm_oop_loadmethod ( VM *vm )
 	/* Get Parent Classes Methods */
 	simple_vm_oop_parentmethods(vm,list);
 	/* Call Method */
-	pVar = vm->pBlocksMap ;
+	var = vm->pBlocksMap ;
 	vm->pBlocksMap = list3 ;
 	vm->nCallMethod = 1 ;
 	lResult = simple_vm_loadblock(vm);
 	vm->nCallMethod = 0 ;
-	vm->pBlocksMap = pVar ;
+	vm->pBlocksMap = var ;
 	/* Move list from pObjState to aBeforeObjState */
 	if ( lResult ) {
 		simple_vm_oop_movetobeforeobjstate(vm);
@@ -577,7 +577,7 @@ void simple_vm_oop_bracestart ( VM *vm )
 	/* Add Brace Object & Stack Pointer to List */
 	list = simple_list_newlist_gc(vm->sState,vm->aBraceObjects);
 	simple_list_addpointer(list,vm->pBraceObject);
-	simple_list_addint_gc(vm->sState,list,vm->nSP);
+	simple_list_addint_gc(vm->sState,list,vm->nsp);
 	/* Store List information to allow using braces from list item and creating lists from that brace */
 	simple_list_addint_gc(vm->sState,list,vm->nListStart);
 	simple_list_addpointer_gc(vm->sState,list,vm->pNestedLists);
@@ -600,7 +600,7 @@ void simple_vm_oop_braceend ( VM *vm )
 		vm->pNestedLists = (List *) simple_list_getpointer(list,4) ;
 	}
 	/* Restore Stack Status */
-	vm->nSP = simple_list_getint(list,2) ;
+	vm->nsp = simple_list_getint(list,2) ;
 	simple_list_deleteitem_gc(vm->sState,vm->aBraceObjects,simple_list_getsize(vm->aBraceObjects));
 	simple_list_deleteitem_gc(vm->sState,vm->pObjState,simple_list_getsize(vm->pObjState));
 	if ( simple_list_getsize(vm->aBraceObjects) > 0 ) {
@@ -615,14 +615,14 @@ void simple_vm_oop_braceend ( VM *vm )
 
 void simple_vm_oop_bracestack ( VM *vm )
 {
-	vm->nSP = simple_list_getint(simple_list_getlist(vm->aBraceObjects,simple_list_getsize(vm->aBraceObjects)),2) ;
-	if ( vm->nBlockSP > vm->nSP ) {
+	vm->nsp = simple_list_getint(simple_list_getlist(vm->aBraceObjects,simple_list_getsize(vm->aBraceObjects)),2) ;
+	if ( vm->nBlockSP > vm->nsp ) {
 		/*
 		**  This fixes a problem when we use oObject {  executeCode(code) } return cString 
-		**  Where vm->nSP maybe less than vm->nBlockSP while we are inside block 
+		**  Where vm->nsp maybe less than vm->nBlockSP while we are inside block 
 		*/
 		if ( simple_list_getsize(vm->pBlockCallList) > 0 ) {
-			vm->nSP = vm->nBlockSP ;
+			vm->nsp = vm->nBlockSP ;
 		}
 	}
 }
@@ -659,14 +659,14 @@ void simple_vm_oop_newsuperobj ( VM *vm,List *pState,List *pClass )
 
 List * simple_vm_oop_getsuperobj ( VM *vm )
 {
-	List *pVar  ;
+	List *var  ;
 	if ( ( SIMPLE_VM_STACK_ISPOINTER ) && ( simple_list_getsize(vm->pObjState) != 0    ) ) {
 		if ( SIMPLE_VM_STACK_OBJTYPE == SIMPLE_OBJTYPE_VARIABLE ) {
-			pVar = (List *) SIMPLE_VM_STACK_READP ;
-			if ( (simple_list_islist(pVar,3)) && (strcmp(simple_list_getstring(pVar,1),"super") == 0 ) ) {
-				pVar = simple_list_getlist(pVar,3);
+			var = (List *) SIMPLE_VM_STACK_READP ;
+			if ( (simple_list_islist(var,3)) && (strcmp(simple_list_getstring(var,1),"super") == 0 ) ) {
+				var = simple_list_getlist(var,3);
 				SIMPLE_VM_STACK_POP ;
-				return pVar ;
+				return var ;
 			}
 		}
 	}
@@ -676,7 +676,7 @@ List * simple_vm_oop_getsuperobj ( VM *vm )
 void simple_vm_oop_loadsuperobjmethod ( VM *vm,List *pSuper )
 {
 	int x  ;
-	List *pState,*pMethods,*pClass,*pVar,*list  ;
+	List *pState,*pMethods,*pClass,*var,*list  ;
 	list = simple_list_getlist(vm->pObjState,simple_list_getsize(vm->pObjState));
 	pState = simple_list_getlist(list,SIMPLE_OBJSTATE_SCOPE);
 	pMethods = simple_list_getlist(list,SIMPLE_OBJSTATE_METHODS);
@@ -698,12 +698,12 @@ void simple_vm_oop_loadsuperobjmethod ( VM *vm,List *pSuper )
 	simple_list_addpointer_gc(vm->sState,list,pMethods);
 	simple_list_addpointer_gc(vm->sState,list,pClass);
 	/* Call Method */
-	pVar = vm->pBlocksMap ;
+	var = vm->pBlocksMap ;
 	vm->pBlocksMap = pMethods ;
 	vm->nCallMethod = 1 ;
 	simple_vm_loadblock(vm);
 	vm->nCallMethod = 0 ;
-	vm->pBlocksMap = pVar ;
+	vm->pBlocksMap = var ;
 }
 
 void simple_vm_oop_import ( VM *vm )
@@ -866,16 +866,16 @@ int simple_vm_oop_callmethodinsideclass ( VM *vm )
 	return 0 ;
 }
 
-void simple_vm_oop_setget ( VM *vm,List *pVar )
+void simple_vm_oop_setget ( VM *vm,List *var )
 {
 	List *list, *list2  ;
 	Item *pItem, *pItem2  ;
 	String *pString, *pString2  ;
 	/* Create String */
 	pString = simple_string_new_gc(vm->sState,"if isblock(simple_gettemp_var,'get");
-	simple_string_add_gc(vm->sState,pString,simple_list_getstring(pVar,1));
+	simple_string_add_gc(vm->sState,pString,simple_list_getstring(var,1));
 	simple_string_add_gc(vm->sState,pString,"')\nreturn simple_gettemp_var.'get");
-	simple_string_add_gc(vm->sState,pString,simple_list_getstring(pVar,1));
+	simple_string_add_gc(vm->sState,pString,simple_list_getstring(var,1));
 	simple_string_add_gc(vm->sState,pString,"'() ok");
 	/* Set Variable simple_gettemp_var  , Number 5 in Public Memory */
 	list = simple_list_getlist(simple_vm_getglobalscope(vm),5) ;
@@ -890,7 +890,7 @@ void simple_vm_oop_setget ( VM *vm,List *pVar )
 		**  Check to do a Stack POP for the Attribute List 
 		*/
 		pString2 = simple_string_new_gc(vm->sState,"get");
-		simple_string_add_gc(vm->sState,pString2,simple_list_getstring(pVar,1));
+		simple_string_add_gc(vm->sState,pString2,simple_list_getstring(var,1));
 		/* Check Type */
 		list2 = NULL ;
 		if ( vm->nGetSetObjType == SIMPLE_OBJTYPE_VARIABLE ) {
@@ -929,9 +929,9 @@ void simple_vm_oop_setget ( VM *vm,List *pVar )
 		simple_list_addpointer_gc(vm->sState,list,vm->pGetSetObject);
 		simple_list_addint_gc(vm->sState,list,vm->nGetSetObjType);
 		/* Add property name */
-		simple_list_addstring_gc(vm->sState,list,simple_list_getstring(pVar,1));
+		simple_list_addstring_gc(vm->sState,list,simple_list_getstring(var,1));
 		/* Property Variable */
-		simple_list_addpointer_gc(vm->sState,list,pVar);
+		simple_list_addpointer_gc(vm->sState,list,var);
 	}
 	/* Delete String */
 	simple_string_delete_gc(vm->sState,pString);

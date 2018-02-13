@@ -18,9 +18,9 @@
 
 void simple_vm_pushv ( VM *vm )
 {
-	List *pVar  ;
+	List *var  ;
 	List *list  ;
-	if ( vm->nSP <= vm->nBlockSP ) {
+	if ( vm->nsp <= vm->nBlockSP ) {
 		/* Happens after using EVAL() in this case we avoid PUSHV */
 		return ;
 	}
@@ -32,16 +32,16 @@ void simple_vm_pushv ( VM *vm )
 	}
 	else if ( SIMPLE_VM_STACK_OBJTYPE == SIMPLE_OBJTYPE_VARIABLE ) {
 		if ( SIMPLE_VM_STACK_ISPOINTER ) {
-			pVar = (List *) SIMPLE_VM_STACK_READP ;
+			var = (List *) SIMPLE_VM_STACK_READP ;
 			/* Check NULL Value */
 			if ( vm->nInClassRegion == 0 ) {
-				if ( simple_list_getint(pVar,SIMPLE_VAR_TYPE) == SIMPLE_VM_NULL ) {
-					if ( simple_list_isstring(pVar,SIMPLE_VAR_VALUE) ) {
-						if ( strcmp(simple_list_getstring(pVar,SIMPLE_VAR_VALUE),"NULL") == 0 ) {
-							simple_vm_error2(vm,SIMPLE_VM_ERROR_USINGNULLVARIABLE,simple_list_getstring(pVar,SIMPLE_VAR_NAME));
-							if ( simple_list_getlist(vm->pActiveMem,simple_list_getsize(vm->pActiveMem)) == pVar ) {
+				if ( simple_list_getint(var,SIMPLE_VAR_TYPE) == SIMPLE_VM_NULL ) {
+					if ( simple_list_isstring(var,SIMPLE_VAR_VALUE) ) {
+						if ( strcmp(simple_list_getstring(var,SIMPLE_VAR_VALUE),"NULL") == 0 ) {
+							simple_vm_error2(vm,SIMPLE_VM_ERROR_USINGNULLVARIABLE,simple_list_getstring(var,SIMPLE_VAR_NAME));
+							if ( simple_list_getlist(vm->pActiveMem,simple_list_getsize(vm->pActiveMem)) == var ) {
 								/* Delete the Item from the HashTable */
-								simple_hashtable_deleteitem(vm->pActiveMem->pHashTable,simple_list_getstring(pVar,SIMPLE_VAR_NAME));
+								simple_hashtable_deleteitem(vm->pActiveMem->pHashTable,simple_list_getstring(var,SIMPLE_VAR_NAME));
 								simple_list_deletelastitem_gc(vm->sState,vm->pActiveMem);
 							}
 							return ;
@@ -50,15 +50,15 @@ void simple_vm_pushv ( VM *vm )
 				}
 			}
 			/* We don't use POP, because PUSHCVAR and PUSHNVAR don't do SP++ */
-			if ( simple_list_isstring(pVar,SIMPLE_VAR_VALUE) ) {
+			if ( simple_list_isstring(var,SIMPLE_VAR_VALUE) ) {
 				SIMPLE_VM_STACK_PUSHCVAR ;
 			}
-			else if ( simple_list_isnumber(pVar,SIMPLE_VAR_VALUE) ) {
+			else if ( simple_list_isnumber(var,SIMPLE_VAR_VALUE) ) {
 				SIMPLE_VM_STACK_PUSHNVAR ;
 			}
-			else if ( simple_list_islist(pVar,SIMPLE_VAR_VALUE) ) {
+			else if ( simple_list_islist(var,SIMPLE_VAR_VALUE) ) {
 				/* Support using { } to access object after object name */
-				list = simple_list_getlist(pVar,SIMPLE_VAR_VALUE) ;
+				list = simple_list_getlist(var,SIMPLE_VAR_VALUE) ;
 				simple_vm_oop_setbraceobj(vm,list);
 			}
 		}
@@ -100,7 +100,7 @@ void simple_vm_loadaddress ( VM *vm )
 
 void simple_vm_assignment ( VM *vm )
 {
-	List *pVar,*list  ;
+	List *var,*list  ;
 	String *string_one, *pString  ;
 	double nNum1  ;
 	Item *pItem  ;
@@ -118,23 +118,23 @@ void simple_vm_assignment ( VM *vm )
 		if ( (SIMPLE_VM_STACK_ISSTRING) && (vm->nBeforeEqual <= 1 ) ) {
 			string_one = simple_string_new2_gc(vm->sState,SIMPLE_VM_STACK_READC,SIMPLE_VM_STACK_STRINGSIZE);
 			SIMPLE_VM_STACK_POP ;
-			pVar = (List *) SIMPLE_VM_STACK_READP ;
+			var = (List *) SIMPLE_VM_STACK_READP ;
 			SIMPLE_VM_STACK_POP ;
 			if ( vm->nBeforeEqual == 0 ) {
-				simple_list_setint_gc(vm->sState,pVar, SIMPLE_VAR_TYPE ,SIMPLE_VM_STRING);
-				simple_list_setstring2_gc(vm->sState,pVar, SIMPLE_VAR_VALUE , simple_string_get(string_one),simple_string_size(string_one));
+				simple_list_setint_gc(vm->sState,var, SIMPLE_VAR_TYPE ,SIMPLE_VM_STRING);
+				simple_list_setstring2_gc(vm->sState,var, SIMPLE_VAR_VALUE , simple_string_get(string_one),simple_string_size(string_one));
 			} else {
 				/* Check NULL Variable */
-				if ( simple_list_getint(pVar,SIMPLE_VAR_TYPE) == SIMPLE_VM_NULL ) {
-					simple_vm_error2(vm,SIMPLE_VM_ERROR_USINGNULLVARIABLE,simple_list_getstring(pVar,SIMPLE_VAR_NAME));
+				if ( simple_list_getint(var,SIMPLE_VAR_TYPE) == SIMPLE_VM_NULL ) {
+					simple_vm_error2(vm,SIMPLE_VM_ERROR_USINGNULLVARIABLE,simple_list_getstring(var,SIMPLE_VAR_NAME));
 					return ;
 				}
-				if ( simple_list_isstring(pVar,SIMPLE_VAR_VALUE) ) {
-					pString = simple_list_getstringobject(pVar,SIMPLE_VAR_VALUE);
+				if ( simple_list_isstring(var,SIMPLE_VAR_VALUE) ) {
+					pString = simple_list_getstringobject(var,SIMPLE_VAR_VALUE);
 					simple_string_add2_gc(vm->sState,pString,simple_string_get(string_one),simple_string_size(string_one));
 				}
-				else if ( simple_list_isnumber(pVar,SIMPLE_VAR_VALUE) ) {
-					simple_list_setdouble_gc(vm->sState,pVar, SIMPLE_VAR_VALUE ,simple_list_getdouble(pVar,SIMPLE_VAR_VALUE) +simple_vm_stringtonum(vm,simple_string_get(string_one)));
+				else if ( simple_list_isnumber(var,SIMPLE_VAR_VALUE) ) {
+					simple_list_setdouble_gc(vm->sState,var, SIMPLE_VAR_VALUE ,simple_list_getdouble(var,SIMPLE_VAR_VALUE) +simple_vm_stringtonum(vm,simple_string_get(string_one)));
 				}
 			}
 			simple_string_delete_gc(vm->sState,string_one);
@@ -142,45 +142,45 @@ void simple_vm_assignment ( VM *vm )
 		else if ( SIMPLE_VM_STACK_ISNUMBER ) {
 			nNum1 = SIMPLE_VM_STACK_READN ;
 			SIMPLE_VM_STACK_POP ;
-			pVar = (List *) SIMPLE_VM_STACK_READP ;
+			var = (List *) SIMPLE_VM_STACK_READP ;
 			SIMPLE_VM_STACK_POP ;
 			if ( vm->nBeforeEqual == 0 ) {
-				simple_list_setint_gc(vm->sState,pVar, SIMPLE_VAR_TYPE ,SIMPLE_VM_NUMBER);
-				simple_list_setdouble_gc(vm->sState,pVar, SIMPLE_VAR_VALUE , nNum1);
+				simple_list_setint_gc(vm->sState,var, SIMPLE_VAR_TYPE ,SIMPLE_VM_NUMBER);
+				simple_list_setdouble_gc(vm->sState,var, SIMPLE_VAR_VALUE , nNum1);
 			} else {
 				/* Check NULL Variable */
-				if ( simple_list_getint(pVar,SIMPLE_VAR_TYPE) == SIMPLE_VM_NULL ) {
-					simple_vm_error2(vm,SIMPLE_VM_ERROR_USINGNULLVARIABLE,simple_list_getstring(pVar,SIMPLE_VAR_NAME));
+				if ( simple_list_getint(var,SIMPLE_VAR_TYPE) == SIMPLE_VM_NULL ) {
+					simple_vm_error2(vm,SIMPLE_VM_ERROR_USINGNULLVARIABLE,simple_list_getstring(var,SIMPLE_VAR_NAME));
 					return ;
 				}
-				simple_vm_beforeequallist(vm,pVar,nNum1);
+				simple_vm_beforeequallist(vm,var,nNum1);
 			}
 		}
 		else if ( (SIMPLE_VM_STACK_ISPOINTER) && (vm->nBeforeEqual == 0 ) ) {
 			if ( (SIMPLE_VM_STACK_OBJTYPE == SIMPLE_OBJTYPE_VARIABLE) || (SIMPLE_VM_STACK_OBJTYPE ==SIMPLE_OBJTYPE_LISTITEM) ) {
 				/* Get The Source List */
 				if ( SIMPLE_VM_STACK_OBJTYPE == SIMPLE_OBJTYPE_VARIABLE ) {
-					pVar = simple_list_getlist((List *) SIMPLE_VM_STACK_READP,SIMPLE_VAR_VALUE);
+					var = simple_list_getlist((List *) SIMPLE_VM_STACK_READP,SIMPLE_VAR_VALUE);
 				} else {
 					pItem = (Item *) SIMPLE_VM_STACK_READP ;
-					pVar = simple_item_getlist(pItem);
+					var = simple_item_getlist(pItem);
 				}
 				list = simple_list_new_gc(vm->sState,0);
-				simple_list_copy(list,pVar);
+				simple_list_copy(list,var);
 				/*
 				**  We use (Temp) List - to avoid problems when coping from parent list to child list 
 				**  Simulate C Pointer copy on the original list because we works on the temp list 
 				*/
-				simple_vm_list_simpointercopy(vm,pVar);
+				simple_vm_list_simpointercopy(vm,var);
 				SIMPLE_VM_STACK_POP ;
-				pVar = (List *) SIMPLE_VM_STACK_READP ;
+				var = (List *) SIMPLE_VM_STACK_READP ;
 				SIMPLE_VM_STACK_POP ;
-				simple_list_setint_gc(vm->sState,pVar, SIMPLE_VAR_TYPE ,SIMPLE_VM_LIST);
-				simple_list_setlist_gc(vm->sState,pVar,SIMPLE_VAR_VALUE);
-				simple_vm_list_copy(vm,simple_list_getlist(pVar,SIMPLE_VAR_VALUE),list);
+				simple_list_setint_gc(vm->sState,var, SIMPLE_VAR_TYPE ,SIMPLE_VM_LIST);
+				simple_list_setlist_gc(vm->sState,var,SIMPLE_VAR_VALUE);
+				simple_vm_list_copy(vm,simple_list_getlist(var,SIMPLE_VAR_VALUE),list);
 				/* Update self object pointer */
-				if ( simple_vm_oop_isobject(simple_list_getlist(pVar,SIMPLE_VAR_VALUE)) ) {
-					simple_vm_oop_updateselfpointer(vm,simple_list_getlist(pVar,SIMPLE_VAR_VALUE),SIMPLE_OBJTYPE_VARIABLE,pVar);
+				if ( simple_vm_oop_isobject(simple_list_getlist(var,SIMPLE_VAR_VALUE)) ) {
+					simple_vm_oop_updateselfpointer(vm,simple_list_getlist(var,SIMPLE_VAR_VALUE),SIMPLE_OBJTYPE_VARIABLE,var);
 				}
 				simple_list_delete_gc(vm->sState,list);
 			}
@@ -198,7 +198,7 @@ void simple_vm_assignment ( VM *vm )
 
 void simple_vm_inc ( VM *vm )
 {
-	List *pVar  ;
+	List *var  ;
 	if ( simple_vm_findvar(vm, SIMPLE_VM_IR_READC ) == 0 ) {
 		simple_vm_newvar(vm, SIMPLE_VM_IR_READC);
 	}
@@ -207,14 +207,14 @@ void simple_vm_inc ( VM *vm )
 		SIMPLE_VM_IR_OPCODE = ICO_INCP ;
 		simple_item_setpointer_gc(vm->sState,SIMPLE_VM_IR_ITEM(1),SIMPLE_VM_STACK_READP);
 	}
-	pVar = (List *) SIMPLE_VM_STACK_READP ;
+	var = (List *) SIMPLE_VM_STACK_READP ;
 	SIMPLE_VM_STACK_POP ;
-	simple_list_setdouble_gc(vm->sState,pVar,SIMPLE_VAR_VALUE,simple_list_getdouble(pVar,SIMPLE_VAR_VALUE) + 1);
+	simple_list_setdouble_gc(vm->sState,var,SIMPLE_VAR_VALUE,simple_list_getdouble(var,SIMPLE_VAR_VALUE) + 1);
 }
 
 void simple_vm_loadapushv ( VM *vm )
 {
-	List *pVar  ;
+	List *var  ;
 	if ( simple_vm_findvar(vm, SIMPLE_VM_IR_READC  ) == 0 ) {
 		simple_vm_newvar(vm, SIMPLE_VM_IR_READC);
 	}
@@ -223,11 +223,11 @@ void simple_vm_loadapushv ( VM *vm )
 		SIMPLE_VM_IR_OPCODE = ICO_PUSHPV ;
 		simple_item_setpointer_gc(vm->sState,SIMPLE_VM_IR_ITEM(1),SIMPLE_VM_STACK_READP);
 	}
-	pVar = (List *) SIMPLE_VM_STACK_READP ;
-	if ( simple_list_isstring(pVar,SIMPLE_VAR_VALUE) ) {
+	var = (List *) SIMPLE_VM_STACK_READP ;
+	if ( simple_list_isstring(var,SIMPLE_VAR_VALUE) ) {
 		SIMPLE_VM_STACK_PUSHCVAR ;
 	}
-	else if ( simple_list_isnumber(pVar,SIMPLE_VAR_VALUE) ) {
+	else if ( simple_list_isnumber(var,SIMPLE_VAR_VALUE) ) {
 		SIMPLE_VM_STACK_PUSHNVAR ;
 	}
 }
@@ -240,7 +240,7 @@ void simple_vm_newline ( VM *vm )
 
 void simple_vm_freestack ( VM *vm )
 {
-	int nSP  ;
+	int nsp  ;
 	List *list  ;
 	/* Clear Assignment Pointer */
 	vm->pAssignment = NULL ;
@@ -260,20 +260,20 @@ void simple_vm_freestack ( VM *vm )
 		**  Using procedural programming and global variables to Classes and Object Attributes 
 		*/
 		list = simple_list_getlist(vm->aScopeNewObj,simple_list_getsize(vm->aScopeNewObj));
-		nSP = simple_list_getint(list,SIMPLE_ASCOPENEWOBJ_SP) ;
-		if ( vm->nSP > nSP + SIMPLE_VM_FREE_STACK_IN_CLASS_REGION_AFTER ) {
-			vm->nSP = nSP+SIMPLE_VM_FREE_STACK_IN_CLASS_REGION_AFTER ;
+		nsp = simple_list_getint(list,SIMPLE_ASCOPENEWOBJ_SP) ;
+		if ( vm->nsp > nsp + SIMPLE_VM_FREE_STACK_IN_CLASS_REGION_AFTER ) {
+			vm->nsp = nsp+SIMPLE_VM_FREE_STACK_IN_CLASS_REGION_AFTER ;
 		}
 		return ;
 	}
 	if ( ( simple_list_getsize(vm->pBlockCallList) == 0 ) && (vm->nInsideBraceFlag == 0) ) {
-		vm->nSP = 0 ;
+		vm->nsp = 0 ;
 		vm->nBlockSP = 0 ;
 		/* Clear General Temp Memory */
 		simple_list_deleteallitems_gc(vm->sState,vm->pTempMem);
 	} else {
 		if ( vm->nInsideBraceFlag == 0 ) {
-			vm->nSP = vm->nBlockSP ;
+			vm->nsp = vm->nBlockSP ;
 		}
 		else {
 			simple_vm_oop_bracestack(vm);
@@ -389,36 +389,36 @@ void simple_vm_list_simpointercopy ( VM *vm,List *list )
 	}
 }
 
-void simple_vm_beforeequallist ( VM *vm,List *pVar,double nNum1 )
+void simple_vm_beforeequallist ( VM *vm,List *var,double nNum1 )
 {
 	String *pString  ;
 	char cStr[100]  ;
-	if ( simple_list_isdouble(pVar,SIMPLE_VAR_VALUE) ) {
+	if ( simple_list_isdouble(var,SIMPLE_VAR_VALUE) ) {
 		if ( vm->nBeforeEqual == 1 ) {
-			simple_list_setdouble_gc(vm->sState,pVar, SIMPLE_VAR_VALUE ,simple_list_getdouble(pVar,SIMPLE_VAR_VALUE) + nNum1);
+			simple_list_setdouble_gc(vm->sState,var, SIMPLE_VAR_VALUE ,simple_list_getdouble(var,SIMPLE_VAR_VALUE) + nNum1);
 		} else if ( vm->nBeforeEqual == 2 ) {
-			simple_list_setdouble_gc(vm->sState,pVar, SIMPLE_VAR_VALUE ,simple_list_getdouble(pVar,SIMPLE_VAR_VALUE) - nNum1);
+			simple_list_setdouble_gc(vm->sState,var, SIMPLE_VAR_VALUE ,simple_list_getdouble(var,SIMPLE_VAR_VALUE) - nNum1);
 		} else if ( vm->nBeforeEqual == 3 ) {
-			simple_list_setdouble_gc(vm->sState,pVar, SIMPLE_VAR_VALUE ,simple_list_getdouble(pVar,SIMPLE_VAR_VALUE) * nNum1);
+			simple_list_setdouble_gc(vm->sState,var, SIMPLE_VAR_VALUE ,simple_list_getdouble(var,SIMPLE_VAR_VALUE) * nNum1);
 		} else if ( vm->nBeforeEqual == 4 ) {
-			simple_list_setdouble_gc(vm->sState,pVar, SIMPLE_VAR_VALUE ,simple_list_getdouble(pVar,SIMPLE_VAR_VALUE) / nNum1);
+			simple_list_setdouble_gc(vm->sState,var, SIMPLE_VAR_VALUE ,simple_list_getdouble(var,SIMPLE_VAR_VALUE) / nNum1);
 		} else if ( vm->nBeforeEqual == 5 ) {
-			simple_list_setdouble_gc(vm->sState,pVar, SIMPLE_VAR_VALUE , fmod(simple_list_getdouble(pVar,SIMPLE_VAR_VALUE), nNum1));
+			simple_list_setdouble_gc(vm->sState,var, SIMPLE_VAR_VALUE , fmod(simple_list_getdouble(var,SIMPLE_VAR_VALUE), nNum1));
 		} else if ( vm->nBeforeEqual == 6 ) {
-			simple_list_setdouble_gc(vm->sState,pVar, SIMPLE_VAR_VALUE , (int) simple_list_getdouble(pVar,SIMPLE_VAR_VALUE) & (int) nNum1);
+			simple_list_setdouble_gc(vm->sState,var, SIMPLE_VAR_VALUE , (int) simple_list_getdouble(var,SIMPLE_VAR_VALUE) & (int) nNum1);
 		} else if ( vm->nBeforeEqual == 7 ) {
-			simple_list_setdouble(pVar, SIMPLE_VAR_VALUE , (int) simple_list_getdouble(pVar,SIMPLE_VAR_VALUE) | (int) nNum1);
-			simple_list_setdouble_gc(vm->sState,pVar, SIMPLE_VAR_VALUE , (int) simple_list_getdouble(pVar,SIMPLE_VAR_VALUE) | (int) nNum1);
+			simple_list_setdouble(var, SIMPLE_VAR_VALUE , (int) simple_list_getdouble(var,SIMPLE_VAR_VALUE) | (int) nNum1);
+			simple_list_setdouble_gc(vm->sState,var, SIMPLE_VAR_VALUE , (int) simple_list_getdouble(var,SIMPLE_VAR_VALUE) | (int) nNum1);
 		} else if ( vm->nBeforeEqual == 8 ) {
-			simple_list_setdouble_gc(vm->sState,pVar, SIMPLE_VAR_VALUE , (int) simple_list_getdouble(pVar,SIMPLE_VAR_VALUE) ^ (int) nNum1);
+			simple_list_setdouble_gc(vm->sState,var, SIMPLE_VAR_VALUE , (int) simple_list_getdouble(var,SIMPLE_VAR_VALUE) ^ (int) nNum1);
 		} else if ( vm->nBeforeEqual == 9 ) {
-			simple_list_setdouble_gc(vm->sState,pVar, SIMPLE_VAR_VALUE , (int) simple_list_getdouble(pVar,SIMPLE_VAR_VALUE) << (int) nNum1);
+			simple_list_setdouble_gc(vm->sState,var, SIMPLE_VAR_VALUE , (int) simple_list_getdouble(var,SIMPLE_VAR_VALUE) << (int) nNum1);
 		} else if ( vm->nBeforeEqual == 10 ) {
-			simple_list_setdouble_gc(vm->sState,pVar, SIMPLE_VAR_VALUE , (int) simple_list_getdouble(pVar,SIMPLE_VAR_VALUE) >> (int) nNum1);
+			simple_list_setdouble_gc(vm->sState,var, SIMPLE_VAR_VALUE , (int) simple_list_getdouble(var,SIMPLE_VAR_VALUE) >> (int) nNum1);
 		}
 	}
-	else if ( (simple_list_isstring(pVar,SIMPLE_VAR_VALUE) == 1) && (vm->nBeforeEqual == 1) ) {
-		pString = simple_list_getstringobject(pVar,SIMPLE_VAR_VALUE);
+	else if ( (simple_list_isstring(var,SIMPLE_VAR_VALUE) == 1) && (vm->nBeforeEqual == 1) ) {
+		pString = simple_list_getstringobject(var,SIMPLE_VAR_VALUE);
 		simple_string_add_gc(vm->sState,pString,simple_vm_numtostring(vm,nNum1,cStr));
 	} else {
 		simple_vm_error(vm,SIMPLE_VM_ERROR_BADVALUES);

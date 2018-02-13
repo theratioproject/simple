@@ -68,7 +68,7 @@ int simple_vm_loadblock2 ( VM *vm,const char *block_name,int nPerformance )
 			/* Add the block name */
 			simple_list_addstring_gc(vm->sState,list3,block_name);
 			simple_list_addint_gc(vm->sState,list3,simple_list_getint(list2,SIMPLE_BLOCKMAP_PC));
-			simple_list_addint_gc(vm->sState,list3,vm->nSP);
+			simple_list_addint_gc(vm->sState,list3,vm->nsp);
 			/* Create Temp Memory */
 			simple_list_newlist_gc(vm->sState,list3);
 			/* File Name */
@@ -136,7 +136,7 @@ int simple_vm_loadblock2 ( VM *vm,const char *block_name,int nPerformance )
 		simple_list_addint_gc(vm->sState,list2,SIMPLE_BLOCKTYPE_C);
 		simple_list_addstring_gc(vm->sState,list2,block_name);
 		simple_list_addblockpointer_gc(vm->sState,list2,simple_list_getblockpointer(list,SIMPLE_BLOCKMAP_PC));
-		simple_list_addint_gc(vm->sState,list2,vm->nSP);
+		simple_list_addint_gc(vm->sState,list2,vm->nsp);
 		/* Create Temp Memory */
 		simple_list_newlist_gc(vm->sState,list2);
 		/*
@@ -201,7 +201,7 @@ void simple_vm_call ( VM *vm )
 void simple_vm_call2 ( VM *vm )
 {
 	List *list, *pActiveMem  ;
-	int x,nSP,nMax1,nBlockEx  ;
+	int x,nsp,nMax1,nBlockEx  ;
 	/* Decrement BlockExecute Counter */
 	if ( vm->nBlockExecute > 0 ) {
 		vm->nBlockExecute-- ;
@@ -257,12 +257,12 @@ void simple_vm_call2 ( VM *vm )
 		simple_vm_newscope(vm);
 		/* Get Parameters */
 		vm->nCBlockParaCount = 0 ;
-		nSP = simple_list_getint(list,SIMPLE_BLOCKCL_SP) ;
+		nsp = simple_list_getint(list,SIMPLE_BLOCKCL_SP) ;
 		/* Use Order (First In - First Out) As Queue , the first parameter comes first */
-		if ( nSP < vm->nSP ) {
-			nMax1 = vm->nSP ;
-			for ( x = nSP+1 ; x <= nMax1 ; x++ ) {
-				vm->nSP = x ;
+		if ( nsp < vm->nsp ) {
+			nMax1 = vm->nsp ;
+			for ( x = nsp+1 ; x <= nMax1 ; x++ ) {
+				vm->nsp = x ;
 				if ( SIMPLE_VM_STACK_ISSTRING ) {
 					simple_vm_addnewstringvar2(vm,"",SIMPLE_VM_STACK_READC,SIMPLE_VM_STACK_STRINGSIZE);
 				}
@@ -274,7 +274,7 @@ void simple_vm_call2 ( VM *vm )
 				}
 				vm->nCBlockParaCount++ ;
 			}
-			vm->nSP = nSP ;
+			vm->nsp = nsp ;
 		}
 		/* Prepare to check block termination by try/catch */
 		vm->nActiveCatch = 0 ;
@@ -297,7 +297,7 @@ void simple_vm_call2 ( VM *vm )
 			return ;
 		}
 		/* Block Output */
-		if ( nSP == vm->nSP ) {
+		if ( nsp == vm->nsp ) {
 			/* IgnoreNULL is Used by len(object) to get output from operator overloading method */
 			if ( vm->nIgnoreNULL  == 0 ) {
 				SIMPLE_VM_STACK_PUSHCVALUE("");
@@ -396,7 +396,7 @@ void simple_vm_return ( VM *vm )
 		/* Call Main block */
 		if ( vm->nCallMainBlock == 0 ) {
 			vm->nPC-- ;
-			vm->nSP = 0 ;
+			vm->nsp = 0 ;
 			if ( simple_vm_loadblock2(vm,"main",0) ) {
 				simple_vm_call(vm);
 				vm->nCallMainBlock = 1 ;
@@ -416,18 +416,18 @@ void simple_vm_returnnull ( VM *vm )
 
 void simple_vm_newblock ( VM *vm )
 {
-	int x,nSP  ;
+	int x,nsp  ;
 	List *list  ;
 	assert(vm != NULL);
 	simple_vm_newscope(vm);
 	/* Set the SP then Check Parameters */
 	list = simple_list_getlist(vm->pBlockCallList,simple_list_getsize(vm->pBlockCallList));
 	assert(list != NULL);
-	nSP = simple_list_getint(list,SIMPLE_BLOCKCL_SP) ;
-	vm->nBlockSP = nSP ;
+	nsp = simple_list_getint(list,SIMPLE_BLOCKCL_SP) ;
+	vm->nBlockSP = nsp ;
 	if ( SIMPLE_VM_IR_PARACOUNT > 2 ) {
 		for ( x = SIMPLE_VM_IR_PARACOUNT ; x >= 3 ; x-- ) {
-			if ( nSP < vm->nSP ) {
+			if ( nsp < vm->nsp ) {
 				if ( SIMPLE_VM_STACK_ISSTRING ) {
 					simple_vm_addnewstringvar2(vm,SIMPLE_VM_IR_READCVALUE(x-1),SIMPLE_VM_STACK_READC,SIMPLE_VM_STACK_STRINGSIZE);
 					SIMPLE_VM_STACK_POP ;
@@ -446,7 +446,7 @@ void simple_vm_newblock ( VM *vm )
 			}
 		}
 	}
-	if ( nSP < vm->nSP ) {
+	if ( nsp < vm->nsp ) {
 		simple_vm_error(vm,SIMPLE_VM_ERROR_EXTRAPARAMETERSCOUNT);
 	}
 	/* Support this in the method */

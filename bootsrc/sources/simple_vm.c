@@ -34,7 +34,7 @@ VM * simple_vm_new ( SimpleState *sState )
 	vm->pCode = NULL ;
 	vm->pBlocksMap = NULL ;
 	vm->nOPCode = 0 ;
-	vm->nSP = 0 ;
+	vm->nsp = 0 ;
 	vm->pMem = simple_list_new_gc(vm->sState,0);
 	vm->pActiveMem = NULL ;
 	vm->pTempMem = simple_list_new_gc(vm->sState,0);
@@ -343,7 +343,7 @@ void simple_vm_fetch ( VM *vm )
 	vm->nOPCode = SIMPLE_VM_IR_OPCODE ;
 	vm->nPC++ ;
 	simple_vm_execute(vm);
-	if ( vm->nSP > SIMPLE_VM_STACK_CHECKOVERFLOW ) {
+	if ( vm->nsp > SIMPLE_VM_STACK_CHECKOVERFLOW ) {
 		simple_vm_error(vm,SIMPLE_VM_ERROR_STACKOVERFLOW);
 	}
 }
@@ -368,11 +368,11 @@ void simple_vm_fetch2 ( VM *vm )
 	simple_vm_execute(vm);
 	#if SIMPLE_VMSHOWOPCODE
 	if ( vm->sState->nPrintInstruction ) {
-		printf( "\nSP (After) : %d  - BlockSP : %d \n LineNumber %d \n" , (int) vm->nSP,vm->nBlockSP,vm->nLineNumber ) ;
+		printf( "\nsp (After) : %d  - BlockSP : %d \n LineNumber %d \n" , (int) vm->nsp,vm->nBlockSP,vm->nLineNumber ) ;
 		print_line();
 	}
 	#endif
-	if ( vm->nSP > SIMPLE_VM_STACK_CHECKOVERFLOW ) {
+	if ( vm->nsp > SIMPLE_VM_STACK_CHECKOVERFLOW ) {
 		simple_vm_error(vm,SIMPLE_VM_ERROR_STACKOVERFLOW);
 	}
 }
@@ -957,14 +957,14 @@ void simple_vm_newbytecodeitem ( VM *vm,int x )
 
 SIMPLE_API void simple_vm_runcode ( VM *vm,const char *cStr )
 {
-	int nEvalReturnPC,nEvalReallocationFlag,nPC,nRunVM,nSP,nBlockSP,nLineNumber,nRetEvalDontDelete  ;
+	int nEvalReturnPC,nEvalReallocationFlag,nPC,nRunVM,nsp,nBlockSP,nLineNumber,nRetEvalDontDelete  ;
 	List *pStackList  ;
 	/* Save state to take in mind nested events execution */
 	vm->nRunCode++ ;
 	nEvalReturnPC = vm->nEvalReturnPC ;
 	nEvalReallocationFlag = vm->nEvalReallocationFlag ;
 	nPC = vm->nPC ;
-	nSP = vm->nSP ;
+	nsp = vm->nsp ;
 	nBlockSP = vm->nBlockSP ;
 	pStackList = simple_vm_savestack(vm);
 	nLineNumber = vm->nLineNumber ;
@@ -996,7 +996,7 @@ SIMPLE_API void simple_vm_runcode ( VM *vm,const char *cStr )
 	/* Here we free the list because, restorestack() don't free it */
 	simple_list_delete_gc(vm->sState,pStackList);
 	/* Restore Stack to avoid Stack Overflow */
-	vm->nSP = nSP ;
+	vm->nsp = nsp ;
 	vm->nBlockSP = nBlockSP ;
 	vm->nLineNumber = nLineNumber ;
 	vm->nRetEvalDontDelete = nRetEvalDontDelete ;
@@ -1060,12 +1060,12 @@ void simple_vm_retitemref ( VM *vm )
 
 void simple_vm_printstack ( VM *vm )
 {
-	int x,nSP  ;
+	int x,nsp  ;
 	printf( "\n*****************************************\n" ) ;
-	printf( "Stack Size %d \n",vm->nSP ) ;
-	nSP = vm->nSP ;
-	if ( nSP > 0 ) {
-		for ( x = 1 ; x <= nSP ; x++ ) {
+	printf( "Stack Size %d \n",vm->nsp ) ;
+	nsp = vm->nsp ;
+	if ( nsp > 0 ) {
+		for ( x = 1 ; x <= nsp ; x++ ) {
 			/* Print Values */
 			if ( SIMPLE_VM_STACK_ISSTRING ) {
 				printf( "(String) : %s  \n",SIMPLE_VM_STACK_READC ) ;

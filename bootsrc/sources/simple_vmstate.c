@@ -23,7 +23,7 @@ void simple_vm_savestate ( VM *vm,List *list )
 	simple_list_addint_gc(vm->sState,list,simple_list_getsize(vm->pMem));
 	simple_list_addint_gc(vm->sState,list,simple_list_getsize(vm->pBlockCallList));
 	simple_list_addint_gc(vm->sState,list,vm->nBlockExecute);
-	simple_list_addint_gc(vm->sState,list,vm->nSP);
+	simple_list_addint_gc(vm->sState,list,vm->nsp);
 	simple_list_addint_gc(vm->sState,list,vm->nBlockSP);
 	simple_list_addint_gc(vm->sState,list,simple_list_getsize(vm->pObjState));
 	simple_list_addint_gc(vm->sState,list,simple_list_getsize(vm->aBraceObjects));
@@ -86,7 +86,7 @@ void simple_vm_restorestate ( VM *vm,List *list,int nPos,int nFlag )
 	simple_vm_backstate(vm,simple_list_getint(list,2),vm->pBlockCallList);
 	/* Stack & Executing Blocks */
 	vm->nBlockExecute = simple_list_getint(list,3) ;
-	vm->nSP = simple_list_getint(list,4) ;
+	vm->nsp = simple_list_getint(list,4) ;
 	vm->nBlockSP = simple_list_getint(list,5) ;
 	/* We also return to the Active Object */
 	simple_vm_backstate(vm,simple_list_getint(list,6),vm->pObjState);
@@ -263,12 +263,12 @@ void simple_vm_backstate ( VM *vm,int x,List *list )
 
 List * simple_vm_savestack ( VM *vm )
 {
-	int nSP  ;
+	int nsp  ;
 	List *list, *list2  ;
-	nSP = vm->nSP ;
+	nsp = vm->nsp ;
 	/* Create List */
 	list = simple_list_new_gc(vm->sState,0);
-	while ( vm->nSP  != 0 ) {
+	while ( vm->nsp  != 0 ) {
 		if ( SIMPLE_VM_STACK_ISSTRING ) {
 			simple_list_addstring_gc(vm->sState,list,SIMPLE_VM_STACK_READC);
 		}
@@ -282,7 +282,7 @@ List * simple_vm_savestack ( VM *vm )
 		}
 		SIMPLE_VM_STACK_POP ;
 	}
-	vm->nSP = nSP ;
+	vm->nsp = nsp ;
 	return list ;
 }
 
@@ -290,7 +290,7 @@ void simple_vm_restorestack ( VM *vm,List *list )
 {
 	int x  ;
 	List *list2  ;
-	vm->nSP = 0 ;
+	vm->nsp = 0 ;
 	if ( simple_list_getsize(list) == 0 ) {
 		return ;
 	}
@@ -446,7 +446,7 @@ void simple_vm_range ( VM *vm )
 	int x  ;
 	char cStr[2]  ;
 	String *pString1,*pString2  ;
-	List *pVar  ;
+	List *var  ;
 	if ( SIMPLE_VM_STACK_ISNUMBER ) {
 		nNum1 = SIMPLE_VM_STACK_READN ;
 		SIMPLE_VM_STACK_POP ;
@@ -454,16 +454,16 @@ void simple_vm_range ( VM *vm )
 			nNum2 = SIMPLE_VM_STACK_READN ;
 			SIMPLE_VM_STACK_POP ;
 			/* Create List Variable */
-			pVar = simple_vm_range_newlist(vm);
+			var = simple_vm_range_newlist(vm);
 			/* Create List */
 			if ( nNum2 <= nNum1 ) {
 				for ( x = nNum2 ; x <= nNum1 ; x++ ) {
-					simple_list_adddouble_gc(vm->sState,pVar,x);
+					simple_list_adddouble_gc(vm->sState,var,x);
 				}
 			}
 			else {
 				for ( x = nNum2 ; x >= nNum1 ; x-- ) {
-					simple_list_adddouble_gc(vm->sState,pVar,x);
+					simple_list_adddouble_gc(vm->sState,var,x);
 				}
 			}
 		}
@@ -480,18 +480,18 @@ void simple_vm_range ( VM *vm )
 					nNum1 = pString1->cStr[0] ;
 					nNum2 = pString2->cStr[0] ;
 					/* Create List Variable */
-					pVar = simple_vm_range_newlist(vm);
+					var = simple_vm_range_newlist(vm);
 					/* Create List */
 					if ( nNum2 <= nNum1 ) {
 						for ( x = nNum2 ; x <= nNum1 ; x++ ) {
 							cStr[0] = (char) x ;
-							simple_list_addstring_gc(vm->sState,pVar,cStr);
+							simple_list_addstring_gc(vm->sState,var,cStr);
 						}
 					}
 					else {
 						for ( x = nNum2 ; x >= nNum1 ; x-- ) {
 							cStr[0] = (char) x ;
-							simple_list_addstring_gc(vm->sState,pVar,cStr);
+							simple_list_addstring_gc(vm->sState,var,cStr);
 						}
 					}
 				}
@@ -505,16 +505,16 @@ void simple_vm_range ( VM *vm )
 List * simple_vm_range_newlist ( VM *vm )
 {
 	char cVarName[50]  ;
-	List *pVar  ;
+	List *var  ;
 	/* Create List Variable */
 	sprintf( cVarName , "n_sys_var_%d" , vm->nPC ) ;
 	if ( simple_vm_findvar(vm, cVarName  ) == 0 ) {
 		simple_vm_newvar(vm,cVarName);
 	}
-	pVar = (List *) SIMPLE_VM_STACK_READP ;
-	simple_list_setint_gc(vm->sState,pVar,SIMPLE_VAR_TYPE,SIMPLE_VM_LIST);
-	simple_list_setlist_gc(vm->sState,pVar,SIMPLE_VAR_VALUE);
-	simple_list_deleteallitems_gc(vm->sState,simple_list_getlist(pVar,SIMPLE_VAR_VALUE));
-	pVar = simple_list_getlist(pVar,SIMPLE_VAR_VALUE);
-	return pVar ;
+	var = (List *) SIMPLE_VM_STACK_READP ;
+	simple_list_setint_gc(vm->sState,var,SIMPLE_VAR_TYPE,SIMPLE_VM_LIST);
+	simple_list_setlist_gc(vm->sState,var,SIMPLE_VAR_VALUE);
+	simple_list_deleteallitems_gc(vm->sState,simple_list_getlist(var,SIMPLE_VAR_VALUE));
+	var = simple_list_getlist(var,SIMPLE_VAR_VALUE);
+	return var ;
 }

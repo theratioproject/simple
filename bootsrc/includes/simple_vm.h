@@ -36,7 +36,7 @@ typedef struct VM {
 	List *pModulessMap  ;
 	int nOPCode  ;
 	Item aStack[SIMPLE_VM_STACK_SIZE]  ;
-	unsigned char nSP  ;
+	unsigned char nsp  ;
 	List *pMem  ;
 	List *pActiveMem  ;
 	List *pTempMem  ;
@@ -181,7 +181,7 @@ void simple_vm_list_copy ( VM *vm,List *pNewList, List *list ) ;
 
 void simple_vm_list_simpointercopy ( VM *vm,List *list ) ;
 
-void simple_vm_beforeequallist ( VM *vm,List *pVar,double nNum1 ) ;
+void simple_vm_beforeequallist ( VM *vm,List *var,double nNum1 ) ;
 
 void simple_vm_beforeequalitem ( VM *vm,Item *pItem,double nNum1 ) ;
 
@@ -297,7 +297,7 @@ void simple_vm_listpushv ( VM *vm ) ;
 
 void simple_vm_listassignment ( VM *vm ) ;
 
-void simple_vm_listgetvalue ( VM *vm,List *pVar,const char *cStr ) ;
+void simple_vm_listgetvalue ( VM *vm,List *var,const char *cStr ) ;
 
 int simple_vm_strcmpnotcasesensitive ( const char *string_one,const char *cStr2 ) ;
 /* Blocks */
@@ -423,7 +423,7 @@ void simple_vm_oop_deletemodulessafter ( VM *vm,int x ) ;
 
 int simple_vm_oop_callmethodinsideclass ( VM *vm ) ;
 
-void simple_vm_oop_setget ( VM *vm,List *pVar ) ;
+void simple_vm_oop_setget ( VM *vm,List *var ) ;
 
 void simple_vm_oop_setproperty ( VM *vm ) ;
 
@@ -546,35 +546,35 @@ List * simple_vm_getglobalscope ( VM *vm ) ;
 **  Stack 
 **  Add 
 */
-#define SIMPLE_VM_STACK_PUSHC vm->nSP++ ; simple_itemarray_setstring2(vm->aStack, vm->nSP, simple_string_get(vm->pByteCodeIR->aData[1]->data.pString), simple_string_size(vm->pByteCodeIR->aData[1]->data.pString))
-#define SIMPLE_VM_STACK_PUSHN vm->nSP++ ; simple_itemarray_setdouble(vm->aStack, vm->nSP , vm->pByteCodeIR->aData[1]->data.dNumber)
-#define SIMPLE_VM_STACK_PUSHP vm->nSP++ ; simple_itemarray_setpointer(vm->aStack, vm->nSP , vm->pByteCodeIR->aData[1]->data.pointer )
+#define SIMPLE_VM_STACK_PUSHC vm->nsp++ ; simple_itemarray_setstring2(vm->aStack, vm->nsp, simple_string_get(vm->pByteCodeIR->aData[1]->data.pString), simple_string_size(vm->pByteCodeIR->aData[1]->data.pString))
+#define SIMPLE_VM_STACK_PUSHN vm->nsp++ ; simple_itemarray_setdouble(vm->aStack, vm->nsp , vm->pByteCodeIR->aData[1]->data.dNumber)
+#define SIMPLE_VM_STACK_PUSHP vm->nsp++ ; simple_itemarray_setpointer(vm->aStack, vm->nsp , vm->pByteCodeIR->aData[1]->data.pointer )
 /* Note, use SIMPLE_VM_STACK_OBJTYPE to read/write the pointer type */
-#define SIMPLE_VM_STACK_TRUE simple_itemarray_setdouble(vm->aStack,vm->nSP, 1)
-#define SIMPLE_VM_STACK_FALSE simple_itemarray_setdouble(vm->aStack,vm->nSP, 0)
-#define SIMPLE_VM_STACK_PUSHCVAR simple_itemarray_setstring2(vm->aStack,vm->nSP,simple_list_getstring(pVar,3),simple_list_getstringsize(pVar,3))
-#define SIMPLE_VM_STACK_PUSHNVAR simple_itemarray_setdouble(vm->aStack,vm->nSP,simple_list_getdouble(pVar,3))
-#define SIMPLE_VM_STACK_PUSHPVALUE(x) vm->nSP++ ; simple_itemarray_setpointer(vm->aStack, vm->nSP , x )
-#define SIMPLE_VM_STACK_PUSHCVALUE(x) vm->nSP++ ; simple_itemarray_setstring(vm->aStack, vm->nSP, x)
-#define SIMPLE_VM_STACK_PUSHNVALUE(x) vm->nSP++ ; simple_itemarray_setdouble(vm->aStack, vm->nSP , x)
-#define SIMPLE_VM_STACK_SETCVALUE(x) simple_itemarray_setstring(vm->aStack, vm->nSP, x)
-#define SIMPLE_VM_STACK_SETNVALUE(x) simple_itemarray_setdouble(vm->aStack, vm->nSP , x)
-#define SIMPLE_VM_STACK_SETPVALUE(x) simple_itemarray_setpointer(vm->aStack, vm->nSP , x )
-#define SIMPLE_VM_STACK_SETCVALUE2(x,y) simple_itemarray_setstring2(vm->aStack, vm->nSP, x,y)
+#define SIMPLE_VM_STACK_TRUE simple_itemarray_setdouble(vm->aStack,vm->nsp, 1)
+#define SIMPLE_VM_STACK_FALSE simple_itemarray_setdouble(vm->aStack,vm->nsp, 0)
+#define SIMPLE_VM_STACK_PUSHCVAR simple_itemarray_setstring2(vm->aStack,vm->nsp,simple_list_getstring(var,3),simple_list_getstringsize(var,3))
+#define SIMPLE_VM_STACK_PUSHNVAR simple_itemarray_setdouble(vm->aStack,vm->nsp,simple_list_getdouble(var,3))
+#define SIMPLE_VM_STACK_PUSHPVALUE(x) vm->nsp++ ; simple_itemarray_setpointer(vm->aStack, vm->nsp , x )
+#define SIMPLE_VM_STACK_PUSHCVALUE(x) vm->nsp++ ; simple_itemarray_setstring(vm->aStack, vm->nsp, x)
+#define SIMPLE_VM_STACK_PUSHNVALUE(x) vm->nsp++ ; simple_itemarray_setdouble(vm->aStack, vm->nsp , x)
+#define SIMPLE_VM_STACK_SETCVALUE(x) simple_itemarray_setstring(vm->aStack, vm->nsp, x)
+#define SIMPLE_VM_STACK_SETNVALUE(x) simple_itemarray_setdouble(vm->aStack, vm->nsp , x)
+#define SIMPLE_VM_STACK_SETPVALUE(x) simple_itemarray_setpointer(vm->aStack, vm->nsp , x )
+#define SIMPLE_VM_STACK_SETCVALUE2(x,y) simple_itemarray_setstring2(vm->aStack, vm->nsp, x,y)
 /* Check */
-#define SIMPLE_VM_STACK_ISSTRING simple_itemarray_isstring(vm->aStack,vm->nSP)
-#define SIMPLE_VM_STACK_ISNUMBER simple_itemarray_isnumber(vm->aStack,vm->nSP)
-#define SIMPLE_VM_STACK_ISPOINTER simple_itemarray_ispointer(vm->aStack,vm->nSP)
+#define SIMPLE_VM_STACK_ISSTRING simple_itemarray_isstring(vm->aStack,vm->nsp)
+#define SIMPLE_VM_STACK_ISNUMBER simple_itemarray_isnumber(vm->aStack,vm->nsp)
+#define SIMPLE_VM_STACK_ISPOINTER simple_itemarray_ispointer(vm->aStack,vm->nsp)
 #define SIMPLE_VM_STACK_ISPOINTERVALUE(x) simple_itemarray_ispointer(vm->aStack,x)
 /* Read */
-#define SIMPLE_VM_STACK_READC simple_itemarray_getstring(vm->aStack,vm->nSP)
-#define SIMPLE_VM_STACK_STRINGSIZE simple_itemarray_getstringsize(vm->aStack,vm->nSP)
-#define SIMPLE_VM_STACK_READN simple_itemarray_getdouble(vm->aStack,vm->nSP)
-#define SIMPLE_VM_STACK_READP simple_itemarray_getpointer(vm->aStack,vm->nSP)
-#define SIMPLE_VM_STACK_OBJTYPE vm->aStack[vm->nSP].nObjectType
-#define SIMPLE_VM_STACK_PREVOBJTYPE vm->aStack[vm->nSP-1].nObjectType
+#define SIMPLE_VM_STACK_READC simple_itemarray_getstring(vm->aStack,vm->nsp)
+#define SIMPLE_VM_STACK_STRINGSIZE simple_itemarray_getstringsize(vm->aStack,vm->nsp)
+#define SIMPLE_VM_STACK_READN simple_itemarray_getdouble(vm->aStack,vm->nsp)
+#define SIMPLE_VM_STACK_READP simple_itemarray_getpointer(vm->aStack,vm->nsp)
+#define SIMPLE_VM_STACK_OBJTYPE vm->aStack[vm->nsp].nObjectType
+#define SIMPLE_VM_STACK_PREVOBJTYPE vm->aStack[vm->nsp-1].nObjectType
 /* Delete */
-#define SIMPLE_VM_STACK_POP vm->nSP--
+#define SIMPLE_VM_STACK_POP vm->nsp--
 /* Objects/Pointer  - Type */
 #define SIMPLE_OBJTYPE_VARIABLE 1
 #define SIMPLE_OBJTYPE_LISTITEM 2

@@ -115,7 +115,7 @@ int simple_vm_findvar2 ( VM *vm,int x,List *list2,const char *cStr )
 		x = SIMPLE_VARSCOPE_NEWOBJSTATE ;
 	}
 	vm->nVarScope = x ;
-	vm->nSP++ ;
+	vm->nsp++ ;
 	if ( simple_list_getint(list2,SIMPLE_VAR_TYPE) == SIMPLE_VM_POINTER ) {
 		if ( vm->nFirstAddress  == 1 ) {
 			SIMPLE_VM_STACK_SETPVALUE(list2);
@@ -218,7 +218,7 @@ void simple_vm_newvar ( VM *vm,const char *cStr )
 	List *list  ;
 	assert(vm->pActiveMem);
 	list = simple_vm_newvar2(vm,cStr,vm->pActiveMem);
-	vm->nSP++ ;
+	vm->nsp++ ;
 	SIMPLE_VM_STACK_SETPVALUE(list);
 	SIMPLE_VM_STACK_OBJTYPE = SIMPLE_OBJTYPE_VARIABLE ;
 	/* Set the scope of the new variable */
@@ -293,7 +293,7 @@ void simple_vm_newtempvar ( VM *vm,const char *cStr, List *Temlist )
 {
 	List *list  ;
 	list = simple_vm_newvar2(vm,cStr,Temlist);
-	vm->nSP++ ;
+	vm->nsp++ ;
 	SIMPLE_VM_STACK_SETPVALUE(list);
 	SIMPLE_VM_STACK_OBJTYPE = SIMPLE_OBJTYPE_VARIABLE ;
 }

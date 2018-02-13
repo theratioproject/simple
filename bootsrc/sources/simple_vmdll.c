@@ -157,7 +157,7 @@ void simple_vm_read ( VM *vm )
 {
 	int x  ;
 	char cLine[256]  ;
-	List *pVar  ;
+	List *var  ;
 	Item *pItem  ;
 	/* Get Input From the User and save it in the variable */
 	fgets(cLine , 256 , stdin );
@@ -170,10 +170,10 @@ void simple_vm_read ( VM *vm )
 	}
 	if ( SIMPLE_VM_STACK_ISPOINTER ) {
 		if ( SIMPLE_VM_STACK_OBJTYPE == SIMPLE_OBJTYPE_VARIABLE ) {
-			pVar = (List *) SIMPLE_VM_STACK_READP ;
+			var = (List *) SIMPLE_VM_STACK_READP ;
 			SIMPLE_VM_STACK_POP ;
-			simple_list_setint_gc(vm->sState,pVar, SIMPLE_VAR_TYPE ,SIMPLE_VM_STRING);
-			simple_list_setstsimple_gc(vm->sState,pVar, SIMPLE_VAR_VALUE, cLine);
+			simple_list_setint_gc(vm->sState,var, SIMPLE_VAR_TYPE ,SIMPLE_VM_STRING);
+			simple_list_setstsimple_gc(vm->sState,var, SIMPLE_VAR_VALUE, cLine);
 		}
 		else if ( SIMPLE_VM_STACK_OBJTYPE ==SIMPLE_OBJTYPE_LISTITEM ) {
 			pItem = (Item *) SIMPLE_VM_STACK_READP ;

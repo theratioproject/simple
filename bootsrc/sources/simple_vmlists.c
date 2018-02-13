@@ -4,11 +4,11 @@
 
 void simple_vm_liststart ( VM *vm )
 {
-	List *pVar,*list  ;
+	List *var,*list  ;
 	int nType  ;
 	Item *pItem  ;
 	int nCont  ;
-	pVar = NULL ;
+	var = NULL ;
 	pItem = NULL ;
 	vm->nListStart++ ;
 	if ( vm->nListStart == 1 ) {
@@ -38,7 +38,7 @@ void simple_vm_liststart ( VM *vm )
 				/* Create the list in the General Temp Memory */
 				simple_vm_newtempvar(vm, SIMPLE_TEMP_VARIABLE ,vm->pTempMem);
 			}
-			pVar = (List *) SIMPLE_VM_STACK_READP ;
+			var = (List *) SIMPLE_VM_STACK_READP ;
 			nType = SIMPLE_VM_STACK_OBJTYPE ;
 			/* Set the Address Scope As Local */
 			simple_list_addint_gc(vm->sState,vm->aLoadAddressScope,SIMPLE_VARSCOPE_LOCAL);
@@ -52,21 +52,21 @@ void simple_vm_liststart ( VM *vm )
 			if ( nType == SIMPLE_OBJTYPE_LISTITEM ) {
 				pItem = (Item *) SIMPLE_VM_STACK_READP ;
 			} else {
-				pVar = (List *) SIMPLE_VM_STACK_READP ;
+				var = (List *) SIMPLE_VM_STACK_READP ;
 			}
 			SIMPLE_VM_STACK_POP ;
 		}
 		if ( nType == SIMPLE_OBJTYPE_VARIABLE ) {
-			simple_list_setint_gc(vm->sState,pVar, SIMPLE_VAR_TYPE ,SIMPLE_VM_LIST);
-			simple_list_setlist_gc(vm->sState,pVar, SIMPLE_VAR_VALUE);
-			simple_list_deleteallitems_gc(vm->sState,simple_list_getlist(pVar,SIMPLE_VAR_VALUE));
-			simple_list_addpointer_gc(vm->sState,vm->pNestedLists,simple_list_getlist(pVar,SIMPLE_VAR_VALUE));
+			simple_list_setint_gc(vm->sState,var, SIMPLE_VAR_TYPE ,SIMPLE_VM_LIST);
+			simple_list_setlist_gc(vm->sState,var, SIMPLE_VAR_VALUE);
+			simple_list_deleteallitems_gc(vm->sState,simple_list_getlist(var,SIMPLE_VAR_VALUE));
+			simple_list_addpointer_gc(vm->sState,vm->pNestedLists,simple_list_getlist(var,SIMPLE_VAR_VALUE));
 		}
 		else if ( (nType == SIMPLE_OBJTYPE_LISTITEM) && (pItem != NULL) ) {
 			simple_item_settype_gc(vm->sState,pItem,ITEMTYPE_LIST);
-			pVar = simple_item_getlist(pItem);
-			simple_list_deleteallitems_gc(vm->sState,pVar);
-			simple_list_addpointer_gc(vm->sState,vm->pNestedLists,pVar);
+			var = simple_item_getlist(pItem);
+			simple_list_deleteallitems_gc(vm->sState,var);
+			simple_list_addpointer_gc(vm->sState,vm->pNestedLists,var);
 		}
 	} else {
 		list = (List *) simple_list_getpointer(vm->pNestedLists,simple_list_getsize(vm->pNestedLists));
@@ -119,7 +119,7 @@ void simple_vm_listend ( VM *vm )
 void simple_vm_loadindexaddress ( VM *vm )
 {
 	double nNum1  ;
-	List *pVar  ;
+	List *var  ;
 	Item *pItem  ;
 	char cStr2[2]  ;
 	String *pString  ;
@@ -128,29 +128,29 @@ void simple_vm_loadindexaddress ( VM *vm )
 		SIMPLE_VM_STACK_POP ;
 		if ( SIMPLE_VM_STACK_ISPOINTER ) {
 			if ( SIMPLE_VM_STACK_OBJTYPE == SIMPLE_OBJTYPE_VARIABLE ) {
-				pVar = (List *) SIMPLE_VM_STACK_READP ;
-				if ( simple_list_islist(pVar,SIMPLE_VAR_VALUE) ) {
-					pVar = simple_list_getlist(pVar,SIMPLE_VAR_VALUE);
+				var = (List *) SIMPLE_VM_STACK_READP ;
+				if ( simple_list_islist(var,SIMPLE_VAR_VALUE) ) {
+					var = simple_list_getlist(var,SIMPLE_VAR_VALUE);
 					/* Check that it's list not object */
-					if ( simple_vm_oop_isobject(pVar) == 1 ) {
+					if ( simple_vm_oop_isobject(var) == 1 ) {
 						simple_vm_expr_npoo(vm,"[]",nNum1);
 						return ;
 					} nNum1 = nNum1 + 1 + list_index ; /*currently making index 0*/
 					SIMPLE_VM_STACK_POP ;
-					if ( nNum1 < 1 || nNum1 > simple_list_getsize(pVar) ) {
+					if ( nNum1 < 1 || nNum1 > simple_list_getsize(var) ) {
 						simple_vm_error(vm,SIMPLE_VM_ERROR_INDEXOUTOFRANGE);
 						return ;
 					}
-					pItem = simple_list_getitem(pVar,nNum1);
+					pItem = simple_list_getitem(var,nNum1);
 					SIMPLE_VM_STACK_PUSHPVALUE(pItem);
 				}
-				else if ( simple_list_isstring(pVar,SIMPLE_VAR_VALUE) ) {
+				else if ( simple_list_isstring(var,SIMPLE_VAR_VALUE) ) {
 					SIMPLE_VM_STACK_POP ;
-					if ( simple_list_getint(pVar,SIMPLE_VAR_TYPE) == SIMPLE_VM_NULL ) {
+					if ( simple_list_getint(var,SIMPLE_VAR_TYPE) == SIMPLE_VM_NULL ) {
 						simple_vm_error(vm,SIMPLE_VM_ERROR_USINGNULLVARIABLE);
 						return ;
 					}
-					pString = simple_list_getstringobject(pVar,SIMPLE_VAR_VALUE) ;
+					pString = simple_list_getstringobject(var,SIMPLE_VAR_VALUE) ;
 					simple_vm_stsimple_index(vm,pString,nNum1);
 					return ;
 				} else {
@@ -162,18 +162,18 @@ void simple_vm_loadindexaddress ( VM *vm )
 			else if ( SIMPLE_VM_STACK_OBJTYPE == SIMPLE_OBJTYPE_LISTITEM ) {
 				pItem = (Item *) SIMPLE_VM_STACK_READP ;
 				if ( simple_item_islist(pItem) ) {
-					pVar = simple_item_getlist(pItem);
+					var = simple_item_getlist(pItem);
 					/* Check that it's list not object */
-					if ( simple_vm_oop_isobject(pVar) == 1 ) {
+					if ( simple_vm_oop_isobject(var) == 1 ) {
 						simple_vm_expr_npoo(vm,"[]",nNum1);
 						return ;
 					}
 					SIMPLE_VM_STACK_POP ;
-					if ( nNum1 < 1 || nNum1 > simple_list_getsize(pVar) ) {
+					if ( nNum1 < 1 || nNum1 > simple_list_getsize(var) ) {
 						simple_vm_error(vm,SIMPLE_VM_ERROR_INDEXOUTOFRANGE);
 						return ;
 					}
-					pItem = simple_list_getitem(pVar,nNum1);
+					pItem = simple_list_getitem(var,nNum1);
 					SIMPLE_VM_STACK_PUSHPVALUE(pItem);
 				}
 				else if ( simple_item_isstring(pItem) ) {
@@ -208,17 +208,17 @@ void simple_vm_loadindexaddress ( VM *vm )
 		/* Use String to find the item */
 		if ( SIMPLE_VM_STACK_ISPOINTER ) {
 			if ( SIMPLE_VM_STACK_OBJTYPE == SIMPLE_OBJTYPE_VARIABLE ) {
-				pVar = (List *) SIMPLE_VM_STACK_READP ;
+				var = (List *) SIMPLE_VM_STACK_READP ;
 				SIMPLE_VM_STACK_POP ;
-				if ( simple_list_islist(pVar,SIMPLE_VAR_VALUE) ) {
-					pVar = simple_list_getlist(pVar,SIMPLE_VAR_VALUE);
+				if ( simple_list_islist(var,SIMPLE_VAR_VALUE) ) {
+					var = simple_list_getlist(var,SIMPLE_VAR_VALUE);
 					/* Check that it's list not object */
-					if ( simple_vm_oop_isobject(pVar) == 1 ) {
-						vm->nSP++ ;
+					if ( simple_vm_oop_isobject(var) == 1 ) {
+						vm->nsp++ ;
 						simple_vm_expr_spoo(vm,"[]",simple_string_get(pString),simple_string_size(pString));
 						return ;
 					}
-					simple_vm_listgetvalue(vm,pVar,simple_string_get(pString));
+					simple_vm_listgetvalue(vm,var,simple_string_get(pString));
 				} else {
 					simple_vm_error(vm,SIMPLE_VM_ERROR_OBJECTISNOTLIST);
 				}
@@ -227,14 +227,14 @@ void simple_vm_loadindexaddress ( VM *vm )
 				pItem = (Item *) SIMPLE_VM_STACK_READP ;
 				SIMPLE_VM_STACK_POP ;
 				if ( simple_item_islist(pItem) ) {
-					pVar = simple_item_getlist(pItem);
+					var = simple_item_getlist(pItem);
 					/* Check that it's list not object */
-					if ( simple_vm_oop_isobject(pVar) == 1 ) {
-						vm->nSP++ ;
+					if ( simple_vm_oop_isobject(var) == 1 ) {
+						vm->nsp++ ;
 						simple_vm_expr_spoo(vm,"[]",simple_string_get(pString),simple_string_size(pString));
 						return ;
 					}
-					simple_vm_listgetvalue(vm,pVar,simple_string_get(pString));
+					simple_vm_listgetvalue(vm,var,simple_string_get(pString));
 				} else {
 					simple_vm_error(vm,SIMPLE_VM_ERROR_OBJECTISNOTLIST);
 				}
@@ -264,7 +264,7 @@ void simple_vm_listpushv ( VM *vm )
 			vm->nRetItemRef-- ;
 			return ;
 		}
-		vm->nSP++ ;
+		vm->nsp++ ;
 		SIMPLE_VM_STACK_SETCVALUE2(simple_string_get(simple_item_getstring(pItem)),simple_string_size(simple_item_getstring(pItem)));
 	}
 	else if ( simple_item_gettype(pItem) == ITEMTYPE_NUMBER ) {
@@ -291,8 +291,8 @@ void simple_vm_listassignment ( VM *vm )
 	Item *pItem  ;
 	String *string_one, *pString  ;
 	double nNum1  ;
-	List *list,*pVar  ;
-	pVar = NULL ;
+	List *list,*var  ;
+	var = NULL ;
 	if ( (SIMPLE_VM_STACK_ISSTRING) && (vm->nBeforeEqual <= 1) ) {
 		string_one = simple_string_new_gc(vm->sState,SIMPLE_VM_STACK_READC);
 		assert(string_one != NULL);
@@ -328,12 +328,12 @@ void simple_vm_listassignment ( VM *vm )
 	else if ( (SIMPLE_VM_STACK_ISPOINTER) && (vm->nBeforeEqual == 0) ) {
 		/* Get Source */
 		if ( SIMPLE_VM_STACK_OBJTYPE == SIMPLE_OBJTYPE_VARIABLE ) {
-			pVar = (List *) SIMPLE_VM_STACK_READP ;
-			pVar = simple_list_getlist(pVar,SIMPLE_VAR_VALUE);
+			var = (List *) SIMPLE_VM_STACK_READP ;
+			var = simple_list_getlist(var,SIMPLE_VAR_VALUE);
 		}
 		else if ( SIMPLE_VM_STACK_OBJTYPE == SIMPLE_OBJTYPE_LISTITEM ) {
 			pItem = (Item *) SIMPLE_VM_STACK_READP ;
-			pVar = simple_item_getlist(pItem);
+			var = simple_item_getlist(pItem);
 		}
 		SIMPLE_VM_STACK_POP ;
 		pItem = (Item *) SIMPLE_VM_STACK_READP ;
@@ -341,7 +341,7 @@ void simple_vm_listassignment ( VM *vm )
 		simple_item_settype_gc(vm->sState,pItem,ITEMTYPE_LIST);
 		list = simple_item_getlist(pItem);
 		simple_list_deleteallitems_gc(vm->sState,list);
-		simple_vm_list_copy(vm,list,pVar);
+		simple_vm_list_copy(vm,list,var);
 		/* Update self object Pointer */
 		if ( simple_vm_oop_isobject(list) ) {
 			simple_vm_oop_updateselfpointer(vm,list,SIMPLE_OBJTYPE_LISTITEM,pItem);
@@ -351,16 +351,16 @@ void simple_vm_listassignment ( VM *vm )
 	}
 }
 
-void simple_vm_listgetvalue ( VM *vm,List *pVar,const char *cStr )
+void simple_vm_listgetvalue ( VM *vm,List *var,const char *cStr )
 {
 	int x  ;
 	List *list  ;
 	Item *pItem  ;
 	const char *cStr2  ;
-	if ( simple_list_getsize(pVar) > 0 ) {
-		for ( x = 1 ; x <= simple_list_getsize(pVar) ; x++ ) {
-			if ( simple_list_islist(pVar,x) ) {
-				list = simple_list_getlist(pVar,x);
+	if ( simple_list_getsize(var) > 0 ) {
+		for ( x = 1 ; x <= simple_list_getsize(var) ; x++ ) {
+			if ( simple_list_islist(var,x) ) {
+				list = simple_list_getlist(var,x);
 				if ( simple_list_getsize(list)  >= SIMPLE_LISTHASH_SIZE ) {
 					if ( simple_list_isstring(list,SIMPLE_LISTHASH_KEY) ) {
 						cStr2 = simple_list_getstring(list,SIMPLE_LISTHASH_KEY);
@@ -376,7 +376,7 @@ void simple_vm_listgetvalue ( VM *vm,List *pVar,const char *cStr )
 		}
 	}
 	/* Add Item if not found */
-	list = simple_list_newlist_gc(vm->sState,pVar);
+	list = simple_list_newlist_gc(vm->sState,var);
 	simple_list_addstring_gc(vm->sState,list,cStr);
 	simple_list_addstring_gc(vm->sState,list,"");
 	pItem = simple_list_getitem(list,SIMPLE_LISTHASH_VALUE);

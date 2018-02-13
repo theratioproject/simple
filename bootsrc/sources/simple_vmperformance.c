@@ -33,27 +33,27 @@ void simple_vm_pushplocal ( VM *vm )
 
 void simple_vm_incp ( VM *vm )
 {
-	List *pVar  ;
-	pVar = (List *) SIMPLE_VM_IR_READP ;
-	simple_list_setdouble_gc(vm->sState,pVar,SIMPLE_VAR_VALUE,simple_list_getdouble(pVar,SIMPLE_VAR_VALUE) + 1);
+	List *var  ;
+	var = (List *) SIMPLE_VM_IR_READP ;
+	simple_list_setdouble_gc(vm->sState,var,SIMPLE_VAR_VALUE,simple_list_getdouble(var,SIMPLE_VAR_VALUE) + 1);
 }
 
 void simple_vm_pushpv ( VM *vm )
 {
-	List *pVar  ;
-	pVar = (List *) SIMPLE_VM_IR_READP ;
-	vm->nSP++ ;
-	if ( simple_list_isstring(pVar,SIMPLE_VAR_VALUE) ) {
+	List *var  ;
+	var = (List *) SIMPLE_VM_IR_READP ;
+	vm->nsp++ ;
+	if ( simple_list_isstring(var,SIMPLE_VAR_VALUE) ) {
 		SIMPLE_VM_STACK_PUSHCVAR ;
 	}
-	else if ( simple_list_isnumber(pVar,SIMPLE_VAR_VALUE) ) {
+	else if ( simple_list_isnumber(var,SIMPLE_VAR_VALUE) ) {
 		SIMPLE_VM_STACK_PUSHNVAR ;
 	}
 }
 
 void simple_vm_incjump ( VM *vm )
 {
-	List *pVar  ;
+	List *var  ;
 	double nNum1,nNum2  ;
 	if ( simple_vm_findvar(vm, SIMPLE_VM_IR_READC ) == 0 ) {
 		simple_vm_newvar(vm, SIMPLE_VM_IR_READC);
@@ -75,48 +75,48 @@ void simple_vm_incjump ( VM *vm )
 		simple_item_setpointer_gc(vm->sState,SIMPLE_VM_IR_ITEM(3),SIMPLE_VM_STACK_READP);
 		simple_item_setint_gc(vm->sState,SIMPLE_VM_IR_ITEM(4),simple_list_getint(vm->aScopeID,simple_list_getsize(vm->aScopeID)));
 	}
-	pVar = (List *) SIMPLE_VM_STACK_READP ;
+	var = (List *) SIMPLE_VM_STACK_READP ;
 	SIMPLE_VM_STACK_POP ;
 	/* Check Data */
-	if ( simple_list_isstring(pVar,SIMPLE_VAR_VALUE) ) {
-		nNum2 = simple_vm_stringtonum(vm,simple_list_getstring(pVar,SIMPLE_VAR_VALUE));
-		simple_list_setdouble_gc(vm->sState,pVar,SIMPLE_VAR_VALUE,nNum2);
+	if ( simple_list_isstring(var,SIMPLE_VAR_VALUE) ) {
+		nNum2 = simple_vm_stringtonum(vm,simple_list_getstring(var,SIMPLE_VAR_VALUE));
+		simple_list_setdouble_gc(vm->sState,var,SIMPLE_VAR_VALUE,nNum2);
 	}
-	else if ( simple_list_isnumber(pVar,SIMPLE_VAR_VALUE) ) {
-		nNum2 = simple_list_getdouble(pVar,SIMPLE_VAR_VALUE) ;
+	else if ( simple_list_isnumber(var,SIMPLE_VAR_VALUE) ) {
+		nNum2 = simple_list_getdouble(var,SIMPLE_VAR_VALUE) ;
 	} else {
 		simple_vm_error(vm,SIMPLE_VM_ERROR_FORLOOPDATATYPE);
 		return ;
 	}
-	simple_list_setdouble_gc(vm->sState,pVar,SIMPLE_VAR_VALUE,nNum2 +nNum1);
+	simple_list_setdouble_gc(vm->sState,var,SIMPLE_VAR_VALUE,nNum2 +nNum1);
 	/* Jump */
 	vm->nPC = SIMPLE_VM_IR_READIVALUE(2) ;
 }
 
 void simple_vm_incpjump ( VM *vm )
 {
-	List *pVar  ;
+	List *var  ;
 	double nNum1,nNum2  ;
-	pVar = (List *) SIMPLE_VM_IR_READP ;
+	var = (List *) SIMPLE_VM_IR_READP ;
 	nNum1 = simple_list_getdouble(vm->aForStep,simple_list_getsize(vm->aForStep));
 	/* Check Data */
-	if ( simple_list_isstring(pVar,SIMPLE_VAR_VALUE) ) {
-		nNum2 = simple_vm_stringtonum(vm,simple_list_getstring(pVar,SIMPLE_VAR_VALUE));
+	if ( simple_list_isstring(var,SIMPLE_VAR_VALUE) ) {
+		nNum2 = simple_vm_stringtonum(vm,simple_list_getstring(var,SIMPLE_VAR_VALUE));
 	}
-	else if ( simple_list_isnumber(pVar,SIMPLE_VAR_VALUE) ) {
-		nNum2 = simple_list_getdouble(pVar,SIMPLE_VAR_VALUE) ;
+	else if ( simple_list_isnumber(var,SIMPLE_VAR_VALUE) ) {
+		nNum2 = simple_list_getdouble(var,SIMPLE_VAR_VALUE) ;
 	} else {
 		simple_vm_error(vm,SIMPLE_VM_ERROR_FORLOOPDATATYPE);
 		return ;
 	}
-	simple_list_setdouble_gc(vm->sState,pVar,SIMPLE_VAR_VALUE,nNum2 + nNum1);
+	simple_list_setdouble_gc(vm->sState,var,SIMPLE_VAR_VALUE,nNum2 + nNum1);
 	/* Jump */
 	vm->nPC = SIMPLE_VM_IR_READIVALUE(2) ;
 }
 
 void simple_vm_inclpjump ( VM *vm )
 {
-	List *pVar  ;
+	List *var  ;
 	double nNum1,nNum2  ;
 	/* Check Scope Life Time */
 	if ( SIMPLE_VM_IR_READIVALUE(4) != vm->nActiveScopeID ) {
@@ -131,26 +131,26 @@ void simple_vm_inclpjump ( VM *vm )
 		vm->nPC-- ;
 		return ;
 	}
-	pVar = (List *) SIMPLE_VM_IR_READPVALUE(3) ;
+	var = (List *) SIMPLE_VM_IR_READPVALUE(3) ;
 	nNum1 = simple_list_getdouble(vm->aForStep,simple_list_getsize(vm->aForStep));
 	/* Check Data */
-	if ( simple_list_isstring(pVar,SIMPLE_VAR_VALUE) ) {
-		nNum2 = simple_vm_stringtonum(vm,simple_list_getstring(pVar,SIMPLE_VAR_VALUE));
+	if ( simple_list_isstring(var,SIMPLE_VAR_VALUE) ) {
+		nNum2 = simple_vm_stringtonum(vm,simple_list_getstring(var,SIMPLE_VAR_VALUE));
 	}
-	else if ( simple_list_isnumber(pVar,SIMPLE_VAR_VALUE) ) {
-		nNum2 = simple_list_getdouble(pVar,SIMPLE_VAR_VALUE) ;
+	else if ( simple_list_isnumber(var,SIMPLE_VAR_VALUE) ) {
+		nNum2 = simple_list_getdouble(var,SIMPLE_VAR_VALUE) ;
 	} else {
 		simple_vm_error(vm,SIMPLE_VM_ERROR_FORLOOPDATATYPE);
 		return ;
 	}
-	simple_list_setdouble_gc(vm->sState,pVar,SIMPLE_VAR_VALUE,nNum2 + nNum1);
+	simple_list_setdouble_gc(vm->sState,var,SIMPLE_VAR_VALUE,nNum2 + nNum1);
 	/* Jump */
 	vm->nPC = SIMPLE_VM_IR_READIVALUE(2) ;
 }
 
 void simple_vm_jumpvarlenum ( VM *vm )
 {
-	List *pVar  ;
+	List *var  ;
 	double nNum1,nNum2  ;
 	if ( simple_vm_findvar(vm, SIMPLE_VM_IR_READC  ) == 0 ) {
 		simple_vm_newvar(vm, SIMPLE_VM_IR_READC);
@@ -177,15 +177,15 @@ void simple_vm_jumpvarlenum ( VM *vm )
 		simple_list_addint_gc(vm->sState,SIMPLE_VM_IR_LIST,simple_list_getint(vm->aScopeID,simple_list_getsize(vm->aScopeID)));
 		#endif
 	}
-	pVar = (List *) SIMPLE_VM_STACK_READP ;
+	var = (List *) SIMPLE_VM_STACK_READP ;
 	SIMPLE_VM_STACK_POP ;
 	/* Check Data */
-	if ( simple_list_isstring(pVar,SIMPLE_VAR_VALUE) ) {
-		nNum2 = simple_vm_stringtonum(vm,simple_list_getstring(pVar,SIMPLE_VAR_VALUE));
-		simple_list_setdouble_gc(vm->sState,pVar,SIMPLE_VAR_VALUE,nNum2);
+	if ( simple_list_isstring(var,SIMPLE_VAR_VALUE) ) {
+		nNum2 = simple_vm_stringtonum(vm,simple_list_getstring(var,SIMPLE_VAR_VALUE));
+		simple_list_setdouble_gc(vm->sState,var,SIMPLE_VAR_VALUE,nNum2);
 	}
-	else if ( simple_list_isnumber(pVar,SIMPLE_VAR_VALUE) ) {
-		nNum2 = simple_list_getdouble(pVar,SIMPLE_VAR_VALUE) ;
+	else if ( simple_list_isnumber(var,SIMPLE_VAR_VALUE) ) {
+		nNum2 = simple_list_getdouble(var,SIMPLE_VAR_VALUE) ;
 	} else {
 		simple_vm_error(vm,SIMPLE_VM_ERROR_FORLOOPDATATYPE);
 		return ;
@@ -205,16 +205,16 @@ void simple_vm_jumpvarlenum ( VM *vm )
 
 void simple_vm_jumpvarplenum ( VM *vm )
 {
-	List *pVar  ;
+	List *var  ;
 	double nNum1,nNum2  ;
-	pVar = (List *) SIMPLE_VM_IR_READP ;
+	var = (List *) SIMPLE_VM_IR_READP ;
 	nNum1 = simple_list_getdouble(vm->aForStep,simple_list_getsize(vm->aForStep));
 	/* Check Data */
-	if ( simple_list_isstring(pVar,SIMPLE_VAR_VALUE) ) {
-		nNum2 = simple_vm_stringtonum(vm,simple_list_getstring(pVar,SIMPLE_VAR_VALUE));
+	if ( simple_list_isstring(var,SIMPLE_VAR_VALUE) ) {
+		nNum2 = simple_vm_stringtonum(vm,simple_list_getstring(var,SIMPLE_VAR_VALUE));
 	}
-	else if ( simple_list_isnumber(pVar,SIMPLE_VAR_VALUE) ) {
-		nNum2 = simple_list_getdouble(pVar,SIMPLE_VAR_VALUE) ;
+	else if ( simple_list_isnumber(var,SIMPLE_VAR_VALUE) ) {
+		nNum2 = simple_list_getdouble(var,SIMPLE_VAR_VALUE) ;
 	} else {
 		simple_vm_error(vm,SIMPLE_VM_ERROR_FORLOOPDATATYPE);
 		return ;
@@ -234,7 +234,7 @@ void simple_vm_jumpvarplenum ( VM *vm )
 
 void simple_vm_jumpvarlplenum ( VM *vm )
 {
-	List *pVar  ;
+	List *var  ;
 	double nNum1,nNum2  ;
 	/* Check Scope Life Time */
 	if ( SIMPLE_VM_IR_READIVALUE(5)  != vm->nActiveScopeID ) {
@@ -247,14 +247,14 @@ void simple_vm_jumpvarlplenum ( VM *vm )
 		vm->nPC-- ;
 		return ;
 	}
-	pVar = (List *) SIMPLE_VM_IR_READPVALUE(4) ;
+	var = (List *) SIMPLE_VM_IR_READPVALUE(4) ;
 	nNum1 = simple_list_getdouble(vm->aForStep,simple_list_getsize(vm->aForStep));
 	/* Check Data */
-	if ( simple_list_isstring(pVar,SIMPLE_VAR_VALUE) ) {
-		nNum2 = simple_vm_stringtonum(vm,simple_list_getstring(pVar,SIMPLE_VAR_VALUE));
+	if ( simple_list_isstring(var,SIMPLE_VAR_VALUE) ) {
+		nNum2 = simple_vm_stringtonum(vm,simple_list_getstring(var,SIMPLE_VAR_VALUE));
 	}
-	else if ( simple_list_isnumber(pVar,SIMPLE_VAR_VALUE) ) {
-		nNum2 = simple_list_getdouble(pVar,SIMPLE_VAR_VALUE) ;
+	else if ( simple_list_isnumber(var,SIMPLE_VAR_VALUE) ) {
+		nNum2 = simple_list_getdouble(var,SIMPLE_VAR_VALUE) ;
 	} else {
 		simple_vm_error(vm,SIMPLE_VM_ERROR_FORLOOPDATATYPE);
 		return ;
@@ -281,7 +281,7 @@ void simple_vm_loadblockp ( VM *vm )
 	simple_list_addint_gc(vm->sState,list,SIMPLE_VM_IR_READIVALUE(3));
 	simple_list_addstring_gc(vm->sState,list,SIMPLE_VM_IR_READC);
 	simple_list_addint_gc(vm->sState,list,SIMPLE_VM_IR_READIVALUE(2));
-	simple_list_addint_gc(vm->sState,list,vm->nSP);
+	simple_list_addint_gc(vm->sState,list,vm->nsp);
 	simple_list_newlist_gc(vm->sState,list);
 	simple_list_addpointer_gc(vm->sState,list,vm->file_name);
 	vm->cPrevFileName = vm->file_name ;
@@ -295,23 +295,23 @@ void simple_vm_loadblockp ( VM *vm )
 
 void simple_vm_incpjumpstep1 ( VM *vm )
 {
-	List *pVar  ;
+	List *var  ;
 	double nNum1  ;
-	pVar = (List *) SIMPLE_VM_IR_READP ;
+	var = (List *) SIMPLE_VM_IR_READP ;
 	/* We Don't Check Data Type */
-	nNum1 = simple_list_getdouble(pVar,SIMPLE_VAR_VALUE) ;
-	simple_list_setdouble_gc(vm->sState,pVar,SIMPLE_VAR_VALUE,nNum1 + 1);
+	nNum1 = simple_list_getdouble(var,SIMPLE_VAR_VALUE) ;
+	simple_list_setdouble_gc(vm->sState,var,SIMPLE_VAR_VALUE,nNum1 + 1);
 	/* Jump */
 	vm->nPC = SIMPLE_VM_IR_READIVALUE(2) ;
 }
 
 void simple_vm_jumpvarplenumstep1 ( VM *vm )
 {
-	List *pVar  ;
+	List *var  ;
 	double nNum1  ;
-	pVar = (List *) SIMPLE_VM_IR_READP ;
+	var = (List *) SIMPLE_VM_IR_READP ;
 	/* We don't Check Data type */
-	nNum1 = simple_list_getdouble(pVar,SIMPLE_VAR_VALUE) ;
+	nNum1 = simple_list_getdouble(var,SIMPLE_VAR_VALUE) ;
 	if ( nNum1 > SIMPLE_VM_IR_READDVALUE(2) ) {
 		/* Jump */
 		vm->nPC = SIMPLE_VM_IR_READIVALUE(3) ;
