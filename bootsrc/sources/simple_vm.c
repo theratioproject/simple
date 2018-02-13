@@ -761,7 +761,7 @@ SIMPLE_API void simple_vm_error ( VM *vm,const char *cStr )
 int simple_vm_eval ( VM *vm,const char *cStr )
 {
 	int nPC,nCont,nLastPC,nRunVM,x,nSize  ;
-	Scanner *pScanner  ;
+	Scanner *scanner  ;
 	int aPara[3]  ;
 	ByteCode *pByteCode  ;
 	nSize = strlen( cStr ) ;
@@ -772,13 +772,13 @@ int simple_vm_eval ( VM *vm,const char *cStr )
 	/* Add virtual file name */
 	simple_list_addstring_gc(vm->sState,vm->sState->files_list,"executeCode");
 	simple_list_addstring_gc(vm->sState,vm->sState->files_stack,"executeCode");
-	pScanner = simple_scanner_new(vm->sState);
+	scanner = new_simple_scanner(vm->sState);
 	for ( x = 0 ; x < nSize ; x++ ) {
-		simple_scanner_readchar(pScanner,cStr[x]);
+		simple_scanner_readchar(scanner,cStr[x]);
 	}
-	nCont = simple_scanner_checklasttoken(pScanner);
+	nCont = simple_scanner_checklasttoken(scanner);
 	/* Add Token "End of Line" to the end of any program */
-	simple_scanner_endofline(pScanner);
+	simple_scanner_endofline(scanner);
 	nLastPC = simple_list_getsize(vm->pCode);
 	/* Get Functions/Classes Size before change by parser */
 	aPara[0] = nLastPC ;
@@ -787,11 +787,11 @@ int simple_vm_eval ( VM *vm,const char *cStr )
 	/* Call Parser */
 	if ( nCont == 1 ) {
 		vm->sState->lNoLineNumber = 1 ;
-		nRunVM = simple_parser_start(pScanner->Tokens,vm->sState);
+		nRunVM = simple_parser_start(scanner->Tokens,vm->sState);
 		vm->sState->lNoLineNumber = 0 ;
 	} else {
 		simple_vm_error(vm,"Error in executeCode!");
-		simple_scanner_delete(pScanner);
+		delete_simple_scanner(scanner);
 		return 0 ;
 	}
 	if ( nRunVM == 1 ) {
@@ -812,7 +812,7 @@ int simple_vm_eval ( VM *vm,const char *cStr )
 			pByteCode = (ByteCode *) simple_state_realloc(vm->sState,vm->pByteCode , sizeof(ByteCode) * simple_list_getsize(vm->pCode));
 			if ( pByteCode == NULL ) {
 				printf( SIMPLE_OOM ) ;
-				simple_scanner_delete(pScanner);
+				delete_simple_scanner(scanner);
 				exit(0);
 			}
 			vm->pByteCode = pByteCode ;
@@ -843,10 +843,10 @@ int simple_vm_eval ( VM *vm,const char *cStr )
 		vm->nEvalReallocationSize = vm->nEvalReallocationSize - (simple_list_getsize(vm->pCode)-nLastPC) ;
 	} else {
 		simple_vm_error(vm,"Error in executeCode!");
-		simple_scanner_delete(pScanner);
+		delete_simple_scanner(scanner);
 		return 0 ;
 	}
-	simple_scanner_delete(pScanner);
+	delete_simple_scanner(scanner);
 	simple_list_deletelastitem_gc(vm->sState,vm->sState->files_list);
 	simple_list_deletelastitem_gc(vm->sState,vm->sState->files_stack);
 	return nRunVM ;
@@ -1004,7 +1004,7 @@ SIMPLE_API void simple_vm_runcode ( VM *vm,const char *cStr )
 
 void simple_vm_init ( SimpleState *sState )
 {
-	Scanner *pScanner  ;
+	Scanner *scanner  ;
 	VM *vm  ;
 	int nRunVM,nFreeFilesList = 0 ;
 	/* Check file */
@@ -1016,12 +1016,12 @@ void simple_vm_init ( SimpleState *sState )
 	simple_list_addstring_gc(sState,sState->files_list,"Simple_EmbeddedCode");
 	simple_list_addstring_gc(sState,sState->files_stack,"Simple_EmbeddedCode");
 	/* Read File */
-	pScanner = simple_scanner_new(sState);
+	scanner = new_simple_scanner(sState);
 	/* Add Token "End of Line" to the end of any program */
-	simple_scanner_endofline(pScanner);
+	simple_scanner_endofline(scanner);
 	/* Call Parser */
-	nRunVM = simple_parser_start(pScanner->Tokens,sState);
-	simple_scanner_delete(pScanner);
+	nRunVM = simple_parser_start(scanner->Tokens,sState);
+	delete_simple_scanner(scanner);
 	/* Files List */
 	simple_list_deleteitem_gc(sState,sState->files_stack,simple_list_getsize(sState->files_stack));
 	if ( nFreeFilesList ) {

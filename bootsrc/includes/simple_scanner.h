@@ -114,35 +114,35 @@ typedef enum SCANNER_OPERATOR {
 } SCANNER_OPERATOR ;
 /* Functions */
 
-Scanner * simple_scanner_new ( SimpleState *sState ) ;
+Scanner * new_simple_scanner ( SimpleState *sState ) ;
 
-Scanner * simple_scanner_delete ( Scanner *pScanner ) ;
+Scanner * delete_simple_scanner ( Scanner *scanner ) ;
 
 int simple_scanner_readfile ( SimpleState *sState,char *file_name ) ;
 
-void simple_scanner_readchar ( Scanner *pScanner,char c ) ;
+void simple_scanner_readchar ( Scanner *scanner,char c ) ;
 
-void simple_scanner_keywords ( Scanner *pScanner ) ;
+void simple_scanner_keywords ( Scanner *scanner ) ;
 
-void simple_scanner_addtoken ( Scanner *pScanner,int type ) ;
+void simple_scanner_addtoken ( Scanner *scanner,int type ) ;
 
-void simple_scanner_checktoken ( Scanner *pScanner ) ;
+void simple_scanner_checktoken ( Scanner *scanner ) ;
 
 int simple_scanner_isnumber ( char *cStr ) ;
 
-int simple_scanner_checklasttoken ( Scanner *pScanner ) ;
+int simple_scanner_checklasttoken ( Scanner *scanner ) ;
 
-int simple_scanner_isoperator ( Scanner *pScanner,const char *cStr ) ;
+int simple_scanner_isoperator ( Scanner *scanner,const char *cStr ) ;
 
-void simple_scanner_operators ( Scanner *pScanner ) ;
+void simple_scanner_operators ( Scanner *scanner ) ;
 
-int simple_scanner_lasttokentype ( Scanner *pScanner ) ;
+int simple_scanner_lasttokentype ( Scanner *scanner ) ;
 
-char * simple_scanner_lasttokenvalue ( Scanner *pScanner ) ;
+char * simple_scanner_lasttokenvalue ( Scanner *scanner ) ;
 
-void simple_scanner_floatmark ( Scanner *pScanner,int type ) ;
+void simple_scanner_floatmark ( Scanner *scanner,int type ) ;
 
-void simple_scanner_endofline ( Scanner *pScanner ) ;
+void simple_scanner_endofline ( Scanner *scanner ) ;
 
 void simple_scanner_addreturn ( SimpleState *sState ) ;
 
@@ -150,7 +150,7 @@ void simple_scanner_addreturn2 ( SimpleState *sState ) ;
 
 void simple_scanner_addreturn3 ( SimpleState *sState,int aPara[3] ) ;
 
-void display_tokens ( Scanner *pScanner ) ;
+void display_tokens ( Scanner *scanner ) ;
 
 SIMPLE_API void simple_execute ( char *file_name, int nISCGI,int nRun,int nPrintIC,int nPrintICFinal,int nTokens,int nRules,int nIns,int nGenObj,int nWarn,int argc,char *argv[] ) ;
 
@@ -158,14 +158,14 @@ const char * simple_scanner_getkeywordtext ( const char *cStr ) ;
 
 void simple_scanner_runprogram ( SimpleState *sState ) ;
 
-void simple_scanner_changekeyword ( Scanner *pScanner ) ;
+void simple_scanner_changekeyword ( Scanner *scanner ) ;
 
-void simple_scanner_changeoperator ( Scanner *pScanner ) ;
+void simple_scanner_changeoperator ( Scanner *scanner ) ;
 
-void simple_scanner_loadsyntax ( Scanner *pScanner ) ;
+void simple_scanner_loadsyntax ( Scanner *scanner ) ;
 
 /* MACRO */
-#define SIMPLE_SCANNER_DELETELASTTOKEN simple_list_deleteitem(pScanner->Tokens,simple_list_getsize(pScanner->Tokens))
+#define SIMPLE_SCANNER_DELETELASTTOKEN simple_list_deleteitem(scanner->Tokens,simple_list_getsize(scanner->Tokens))
 /*
 **  Constants 
 **  General 
