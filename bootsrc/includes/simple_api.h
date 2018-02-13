@@ -183,7 +183,7 @@ void simple_vmlib_space ( void *pointer ) ;
 void simple_vmlib_ptrcmp ( void *pointer ) ;
 /* Simple State */
 
-void simple_vmlib_state_init ( void *pointer ) ;
+void init_simple_state_block ( void *pointer ) ;
 
 void simple_vmlib_state_runcode ( void *pointer ) ;
 

@@ -91,7 +91,7 @@ SIMPLE_API void loadcfunctions ( SimpleState *sState )
 	register_block("space",simple_vmlib_space);
 	register_block("ptrcmp",simple_vmlib_ptrcmp);
 	/* Simple State */
-	register_block("init_simple_state",simple_vmlib_state_init);
+	register_block("init_simple_state",init_simple_state_block);
 	register_block("execute_simple_code",simple_vmlib_state_runcode);
 	register_block("free_simple_state",simple_vmlib_state_delete);
 	register_block("execute_simple_file",simple_vmlib_state_runfile);
@@ -1531,7 +1531,7 @@ void simple_vmlib_ptrcmp ( void *pointer )
 }
 /* Simple State */
 
-void simple_vmlib_state_init ( void *pointer )
+void init_simple_state_block ( void *pointer )
 {
 	SIMPLE_API_RETCPOINTER(init_simple_state(),"SIMPLESTATE");
 }
