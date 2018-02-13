@@ -404,7 +404,7 @@ void simple_vm_return ( VM *vm )
 			}
 		}
 		/* End the execution Loop (Close the program) */
-		simple_vm_bye(vm);
+		exit_simple_vm(vm);
 	}
 }
 

@@ -106,7 +106,6 @@
 #include "simple_vm.h"
 #include "simple_vmgc.h"
 #include "simple_api.h"
-#include "simple_objfile.h"
 #include "simple_vmdll.h"
 
 #endif

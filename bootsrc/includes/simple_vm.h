@@ -475,7 +475,7 @@ void simple_vm_incpjumpstep1 ( VM *vm ) ;
 void simple_vm_jumpvarplenumstep1 ( VM *vm ) ;
 /* End Program / Exit from Loop / Loop (Continue) */
 
-void simple_vm_bye ( VM *vm ) ;
+void exit_simple_vm ( VM *vm ) ;
 
 void simple_vm_exitmark ( VM *vm ) ;
 

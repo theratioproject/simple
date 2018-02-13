@@ -544,7 +544,7 @@ void simple_vm_execute ( VM *vm )
 			break ;
 		/* End Program - Exit from Loop - Loop (Continue) */
 		case ICO_EXITPROGRAM :
-			simple_vm_bye(vm);
+			exit_simple_vm(vm);
 			break ;
 		case ICO_EXITMARK :
 			simple_vm_exitmark(vm);
