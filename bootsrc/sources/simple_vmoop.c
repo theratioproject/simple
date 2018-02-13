@@ -1084,7 +1084,7 @@ Item * simple_vm_oop_objitemfromobjlist ( List *list )
 	return pItem ;
 }
 
-void simple_vm_oop_operatoroverloading ( VM *vm,List *pObj,const char *cStr1,int nType,const char *cStr2,double nNum1,void *pointer,int nPointerType )
+void simple_vm_oop_operatoroverloading ( VM *vm,List *pObj,const char *string_one,int nType,const char *cStr2,double nNum1,void *pointer,int nPointerType )
 {
 	List *list2  ;
 	Item *pItem  ;
@@ -1120,7 +1120,7 @@ void simple_vm_oop_operatoroverloading ( VM *vm,List *pObj,const char *cStr1,int
 	if ( SIMPLE_VM_IR_READIVALUE(1) == 0 ) {
 		/* Create String */
 		pString = simple_string_new_gc(vm->sState,"if isblock(simple_gettemp_var,'operator')\nreturn simple_gettemp_var.operator('");
-		simple_string_add_gc(vm->sState,pString,cStr1);
+		simple_string_add_gc(vm->sState,pString,string_one);
 		simple_string_add_gc(vm->sState,pString,"',simple_settemp_var)\nelse\nraise('Object does not support operator overloading')\nok\n");
 		/* Eval the string */
 		pItem = SIMPLE_VM_IR_ITEM(1) ;

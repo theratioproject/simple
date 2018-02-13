@@ -76,16 +76,16 @@ void simple_vm_liststart ( VM *vm )
 
 void simple_vm_listitem ( VM *vm )
 {
-	String *cStr1  ;
+	String *string_one  ;
 	double nNum1  ;
 	List *list,*list2,*list3  ;
 	Item *pItem  ;
 	list = (List *) simple_list_getpointer(vm->pNestedLists,simple_list_getsize(vm->pNestedLists));
 	if ( SIMPLE_VM_STACK_ISSTRING ) {
-		cStr1 = simple_string_new_gc(vm->sState,SIMPLE_VM_STACK_READC);
+		string_one = simple_string_new_gc(vm->sState,SIMPLE_VM_STACK_READC);
 		SIMPLE_VM_STACK_POP ;
-		simple_list_addstring_gc(vm->sState,list, simple_string_get(cStr1));
-		simple_string_delete_gc(vm->sState,cStr1);
+		simple_list_addstring_gc(vm->sState,list, simple_string_get(string_one));
+		simple_string_delete_gc(vm->sState,string_one);
 	}
 	else if ( SIMPLE_VM_STACK_ISNUMBER ) {
 		nNum1 = SIMPLE_VM_STACK_READN ;
@@ -289,29 +289,29 @@ void simple_vm_listpushv ( VM *vm )
 void simple_vm_listassignment ( VM *vm )
 {
 	Item *pItem  ;
-	String *cStr1, *pString  ;
+	String *string_one, *pString  ;
 	double nNum1  ;
 	List *list,*pVar  ;
 	pVar = NULL ;
 	if ( (SIMPLE_VM_STACK_ISSTRING) && (vm->nBeforeEqual <= 1) ) {
-		cStr1 = simple_string_new_gc(vm->sState,SIMPLE_VM_STACK_READC);
-		assert(cStr1 != NULL);
+		string_one = simple_string_new_gc(vm->sState,SIMPLE_VM_STACK_READC);
+		assert(string_one != NULL);
 		SIMPLE_VM_STACK_POP ;
 		pItem = (Item *) SIMPLE_VM_STACK_READP ;
 		assert(pItem != NULL);
 		SIMPLE_VM_STACK_POP ;
 		if ( vm->nBeforeEqual == 0 ) {
-			simple_item_setstsimple_gc(vm->sState,pItem, simple_string_get(cStr1));
+			simple_item_setstsimple_gc(vm->sState,pItem, simple_string_get(string_one));
 		} else {
 			if ( simple_item_isstring(pItem) ) {
 				pString = simple_item_getstring(pItem);
-				simple_string_add_gc(vm->sState,pString,simple_string_get(cStr1));
+				simple_string_add_gc(vm->sState,pString,simple_string_get(string_one));
 			}
 			else if ( simple_item_isdouble(pItem) ) {
-				simple_item_setdouble_gc(vm->sState,pItem,simple_item_getdouble(pItem)+simple_vm_stringtonum(vm,simple_string_get(cStr1)));
+				simple_item_setdouble_gc(vm->sState,pItem,simple_item_getdouble(pItem)+simple_vm_stringtonum(vm,simple_string_get(string_one)));
 			}
 		}
-		simple_string_delete_gc(vm->sState,cStr1);
+		simple_string_delete_gc(vm->sState,string_one);
 	}
 	else if ( SIMPLE_VM_STACK_ISNUMBER ) {
 		nNum1 = SIMPLE_VM_STACK_READN ;
@@ -384,17 +384,17 @@ void simple_vm_listgetvalue ( VM *vm,List *pVar,const char *cStr )
 	SIMPLE_VM_STACK_OBJTYPE = SIMPLE_OBJTYPE_LISTITEM ;
 }
 
-int simple_vm_strcmpnotcasesensitive ( const char *cStr1,const char *cStr2 )
+int simple_vm_strcmpnotcasesensitive ( const char *string_one,const char *cStr2 )
 {
     int nNum1  ;
     while ( 1 ) {
         if( NOT_CASE_SENSITIVE ){
-            nNum1 = tolower(*cStr1) - tolower(*cStr2) ;
+            nNum1 = tolower(*string_one) - tolower(*cStr2) ;
         } else {
-            nNum1 = *cStr1 - *cStr2 ;
-        } if ( nNum1 != 0 || !*cStr1 || !*cStr2 ) {
+            nNum1 = *string_one - *cStr2 ;
+        } if ( nNum1 != 0 || !*string_one || !*cStr2 ) {
                 return nNum1 ;
         }
-        cStr1++ ; cStr2++ ;
+        string_one++ ; cStr2++ ;
     }
 }

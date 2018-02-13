@@ -299,7 +299,7 @@ void simple_vm_listassignment ( VM *vm ) ;
 
 void simple_vm_listgetvalue ( VM *vm,List *pVar,const char *cStr ) ;
 
-int simple_vm_strcmpnotcasesensitive ( const char *cStr1,const char *cStr2 ) ;
+int simple_vm_strcmpnotcasesensitive ( const char *string_one,const char *cStr2 ) ;
 /* Functions */
 
 int simple_vm_loadfunc ( VM *vm ) ;
@@ -427,7 +427,7 @@ void simple_vm_oop_setget ( VM *vm,List *pVar ) ;
 
 void simple_vm_oop_setproperty ( VM *vm ) ;
 
-void simple_vm_oop_operatoroverloading ( VM *vm,List *pObj,const char *cStr1,int nType,const char *cStr2,double nNum1,void *pointer,int nPointerType ) ;
+void simple_vm_oop_operatoroverloading ( VM *vm,List *pObj,const char *string_one,int nType,const char *cStr2,double nNum1,void *pointer,int nPointerType ) ;
 
 List * simple_vm_oop_objvarfromobjlist ( List *list ) ;
 

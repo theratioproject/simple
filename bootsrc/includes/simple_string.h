@@ -51,11 +51,11 @@ SIMPLE_API char * simple_string_lower2 ( char *cStr,int nStrSize ) ;
 
 SIMPLE_API char * simple_string_upper2 ( char *cStr,int nStrSize ) ;
 
-SIMPLE_API char * simple_string_find_gc ( void *pState,char *cStr1,char *cStr2 ) ;
+SIMPLE_API char * simple_string_find_gc ( void *pState,char *string_one,char *cStr2 ) ;
 
-SIMPLE_API char * simple_string_find2_gc ( void *pState,char *cStr1,int nStrSize1,char *cStr2,int nStrSize2 ) ;
+SIMPLE_API char * simple_string_find2_gc ( void *pState,char *string_one,int nStrSize1,char *cStr2,int nStrSize2 ) ;
 
-SIMPLE_API char * simple_string_find3_gc ( void *pState,char *cStr1,int nStrSize1,char *cStr2,int nStrSize2 ) ;
+SIMPLE_API char * simple_string_find3_gc ( void *pState,char *string_one,int nStrSize1,char *cStr2,int nStrSize2 ) ;
 
 void simple_string_test ( void ) ;
 /* Macro */
@@ -76,11 +76,11 @@ SIMPLE_API void simple_string_set ( String *pString,const char *str ) ;
 
 SIMPLE_API void simple_string_set2 ( String *pString,const char *str,int nStrSize ) ;
 
-SIMPLE_API char * simple_string_find ( char *cStr1,char *cStr2 ) ;
+SIMPLE_API char * simple_string_find ( char *string_one,char *cStr2 ) ;
 
-SIMPLE_API char * simple_string_find2 ( char *cStr1,int nStrSize1,char *cStr2,int nStrSize2 ) ;
+SIMPLE_API char * simple_string_find2 ( char *string_one,int nStrSize1,char *cStr2,int nStrSize2 ) ;
 
-SIMPLE_API char * simple_string_find3 ( char *cStr1,int nStrSize1,char *cStr2,int nStrSize2 ) ;
+SIMPLE_API char * simple_string_find3 ( char *string_one,int nStrSize1,char *cStr2,int nStrSize2 ) ;
 
 SIMPLE_API String * simple_string_delete ( String *pString ) ;
 

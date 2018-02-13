@@ -180,12 +180,12 @@ SIMPLE_API char * simple_string_upper2 ( char *cStr,int nStrSize )
 	return cStr ;
 }
 
-SIMPLE_API char * simple_string_find_gc ( void *pState,char *cStr1,char *cStr2 )
+SIMPLE_API char * simple_string_find_gc ( void *pState,char *string_one,char *cStr2 )
 {
-	return simple_string_find2_gc(pState,cStr1,strlen(cStr1),cStr2,strlen(cStr2)) ;
+	return simple_string_find2_gc(pState,string_one,strlen(string_one),cStr2,strlen(cStr2)) ;
 }
 
-SIMPLE_API char * simple_string_find2_gc ( void *pState,char *cStr1,int nStrSize1,char *cStr2,int nStrSize2 )
+SIMPLE_API char * simple_string_find2_gc ( void *pState,char *string_one,int nStrSize1,char *cStr2,int nStrSize2 )
 {
 	int nPos,x  ;
 	nPos = 0 ;
@@ -194,24 +194,24 @@ SIMPLE_API char * simple_string_find2_gc ( void *pState,char *cStr1,int nStrSize
 	}
 	while ( nPos <= (nStrSize1 - nStrSize2) ) {
 		x = 0 ;
-		while ( (x < nStrSize2) && (cStr1[nPos+x] == cStr2[x] ) ) {
+		while ( (x < nStrSize2) && (string_one[nPos+x] == cStr2[x] ) ) {
 			x++ ;
 		}
 		if ( x == nStrSize2 ) {
-			return cStr1+nPos ;
+			return string_one+nPos ;
 		}
 		nPos++ ;
 	}
 	return NULL ;
 }
 
-SIMPLE_API char * simple_string_find3_gc ( void *pState,char *cStr1,int nStrSize1,char *cStr2,int nStrSize2 )
+SIMPLE_API char * simple_string_find3_gc ( void *pState,char *string_one,int nStrSize1,char *cStr2,int nStrSize2 )
 {
 	int nPos,x  ;
 	char *cStr3  ;
 	char *cStr4  ;
 	char *pOutput  ;
-	/* This function is not case sensitive and work on a copy from cStr1 and cStr2 */
+	/* This function is not case sensitive and work on a copy from string_one and cStr2 */
 	nPos = 0 ;
 	if ( (nStrSize1 - nStrSize2) < 0 ) {
 		return NULL ;
@@ -224,7 +224,7 @@ SIMPLE_API char * simple_string_find3_gc ( void *pState,char *cStr1,int nStrSize
 		exit(0);
 	}
 	for ( x = 0 ; x <= nStrSize1 ; x++ ) {
-		cStr3[x] = cStr1[x] ;
+		cStr3[x] = string_one[x] ;
 	}
 	for ( x = 0 ; x <= nStrSize2 ; x++ ) {
 		cStr4[x] = cStr2[x] ;
@@ -238,7 +238,7 @@ SIMPLE_API char * simple_string_find3_gc ( void *pState,char *cStr1,int nStrSize
 			x++ ;
 		}
 		if ( x == nStrSize2 ) {
-			pOutput = cStr1+nPos ;
+			pOutput = string_one+nPos ;
 			break ;
 		}
 		nPos++ ;
@@ -308,19 +308,19 @@ SIMPLE_API void simple_string_set2 ( String *pString,const char *str,int nStrSiz
 	simple_string_set2_gc(NULL,pString,str,nStrSize);
 }
 
-SIMPLE_API char * simple_string_find ( char *cStr1,char *cStr2 )
+SIMPLE_API char * simple_string_find ( char *string_one,char *cStr2 )
 {
-	return simple_string_find_gc(NULL,cStr1,cStr2) ;
+	return simple_string_find_gc(NULL,string_one,cStr2) ;
 }
 
-SIMPLE_API char * simple_string_find2 ( char *cStr1,int nStrSize1,char *cStr2,int nStrSize2 )
+SIMPLE_API char * simple_string_find2 ( char *string_one,int nStrSize1,char *cStr2,int nStrSize2 )
 {
-	return simple_string_find2_gc(NULL,cStr1,nStrSize1,cStr2,nStrSize2) ;
+	return simple_string_find2_gc(NULL,string_one,nStrSize1,cStr2,nStrSize2) ;
 }
 
-SIMPLE_API char * simple_string_find3 ( char *cStr1,int nStrSize1,char *cStr2,int nStrSize2 )
+SIMPLE_API char * simple_string_find3 ( char *string_one,int nStrSize1,char *cStr2,int nStrSize2 )
 {
-	return simple_string_find3_gc(NULL,cStr1,nStrSize1,cStr2,nStrSize2) ;
+	return simple_string_find3_gc(NULL,string_one,nStrSize1,cStr2,nStrSize2) ;
 }
 
 SIMPLE_API String * simple_string_delete ( String *pString )

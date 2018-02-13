@@ -6,7 +6,7 @@
 */
 
 /* 
- * File:   simple.h
+ * File:   simple_vmstrindex.h
  * Author: thecarisma
  *
  * Created on July 10, 2017, 1:10 PM
@@ -29,19 +29,19 @@ void simple_vm_stsimple_pushv ( VM *vm )
 
 void simple_vm_stsimple_assignment ( VM *vm )
 {
-	String *cStr1  ;
+	String *string_one  ;
 	char *newstr  ;
 	if ( SIMPLE_VM_STACK_ISSTRING ) {
-		cStr1 = simple_string_new_gc(vm->sState,SIMPLE_VM_STACK_READC);
+		string_one = simple_string_new_gc(vm->sState,SIMPLE_VM_STACK_READC);
 		SIMPLE_VM_STACK_POP ;
-		if ( simple_string_size(cStr1) == 1 ) {
+		if ( simple_string_size(string_one) == 1 ) {
 			newstr = (char *) SIMPLE_VM_STACK_READP ;
 			SIMPLE_VM_STACK_POP ;
-			newstr[0] = simple_string_get(cStr1)[0] ;
-			simple_string_delete_gc(vm->sState,cStr1);
+			newstr[0] = simple_string_get(string_one)[0] ;
+			simple_string_delete_gc(vm->sState,string_one);
 			return ;
 		} else {
-			simple_string_delete_gc(vm->sState,cStr1);
+			simple_string_delete_gc(vm->sState,string_one);
 			simple_vm_error(vm,SIMPLE_VM_ERROR_VALUEMORETHANONECHAR);
 			return ;
 		}

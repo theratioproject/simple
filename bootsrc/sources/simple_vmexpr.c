@@ -16,7 +16,7 @@
 
 void simple_vm_sum ( VM *vm )
 {
-	String *cStr1,*cStr2  ;
+	String *string_one,*cStr2  ;
 	double nNum1,nNum2  ;
 	char cStr3[100]  ;
 	/*
@@ -27,32 +27,32 @@ void simple_vm_sum ( VM *vm )
 	**  list1 + list2 ---> add list2 items to list 1 
 	*/
 	if ( SIMPLE_VM_STACK_ISSTRING ) {
-		cStr1 = simple_string_new2_gc(vm->sState,SIMPLE_VM_STACK_READC,SIMPLE_VM_STACK_STRINGSIZE) ;
+		string_one = simple_string_new2_gc(vm->sState,SIMPLE_VM_STACK_READC,SIMPLE_VM_STACK_STRINGSIZE) ;
 		SIMPLE_VM_STACK_POP ;
 		if ( SIMPLE_VM_STACK_ISSTRING ) {
 			cStr2 = simple_string_new2_gc(vm->sState,SIMPLE_VM_STACK_READC,SIMPLE_VM_STACK_STRINGSIZE) ;
-			simple_string_add2_gc(vm->sState,cStr2,simple_string_get(cStr1),simple_string_size(cStr1));
+			simple_string_add2_gc(vm->sState,cStr2,simple_string_get(string_one),simple_string_size(string_one));
 			SIMPLE_VM_STACK_SETCVALUE2(simple_string_get(cStr2),simple_string_size(cStr2));
 			simple_string_delete_gc(vm->sState,cStr2);
 		}
 		else if ( SIMPLE_VM_STACK_ISNUMBER ) {
 			nNum2 = SIMPLE_VM_STACK_READN ;
-			if ( strcmp(simple_string_get(cStr1),"\n") == 0 ) {
+			if ( strcmp(simple_string_get(string_one),"\n") == 0 ) {
 				cStr2 = simple_string_new_gc(vm->sState,"") ;
 				simple_string_add_gc(vm->sState,cStr2,simple_vm_numtostring(vm,nNum2,cStr3));
-				simple_string_add_gc(vm->sState,cStr2,simple_string_get(cStr1));
+				simple_string_add_gc(vm->sState,cStr2,simple_string_get(string_one));
 				SIMPLE_VM_STACK_SETCVALUE(simple_string_get(cStr2));
 				simple_string_delete_gc(vm->sState,cStr2);
 			} else {
-				SIMPLE_VM_STACK_SETNVALUE(nNum2 + simple_vm_stringtonum(vm,simple_string_get(cStr1)));
+				SIMPLE_VM_STACK_SETNVALUE(nNum2 + simple_vm_stringtonum(vm,simple_string_get(string_one)));
 			}
 		}
 		else if ( SIMPLE_VM_STACK_ISPOINTER ) {
-			simple_vm_expr_spoo(vm,"+",simple_string_get(cStr1),simple_string_size(cStr1));
-			simple_string_delete_gc(vm->sState,cStr1);
+			simple_vm_expr_spoo(vm,"+",simple_string_get(string_one),simple_string_size(string_one));
+			simple_string_delete_gc(vm->sState,string_one);
 			return ;
 		}
-		simple_string_delete_gc(vm->sState,cStr1);
+		simple_string_delete_gc(vm->sState,string_one);
 	}
 	else if ( SIMPLE_VM_STACK_ISNUMBER ) {
 		nNum1 = SIMPLE_VM_STACK_READN ;
@@ -85,7 +85,7 @@ void simple_vm_sum ( VM *vm )
 void simple_vm_sub ( VM *vm )
 {
 	double nNum1=0,nNum2=0  ;
-	String *cStr1  ;
+	String *string_one  ;
 	if ( SIMPLE_VM_STACK_ISNUMBER ) {
 		nNum1 = SIMPLE_VM_STACK_READN ;
 		SIMPLE_VM_STACK_POP ;
@@ -101,7 +101,7 @@ void simple_vm_sub ( VM *vm )
 		}
 	}
 	else if ( SIMPLE_VM_STACK_ISSTRING ) {
-		cStr1 = simple_string_new2_gc(vm->sState,SIMPLE_VM_STACK_READC,SIMPLE_VM_STACK_STRINGSIZE) ;
+		string_one = simple_string_new2_gc(vm->sState,SIMPLE_VM_STACK_READC,SIMPLE_VM_STACK_STRINGSIZE) ;
 		nNum1 = simple_vm_stringtonum(vm,SIMPLE_VM_STACK_READC);
 		SIMPLE_VM_STACK_POP ;
 		if ( SIMPLE_VM_STACK_ISSTRING ) {
@@ -111,11 +111,11 @@ void simple_vm_sub ( VM *vm )
 			nNum2 = SIMPLE_VM_STACK_READN ;
 		}
 		else if ( SIMPLE_VM_STACK_ISPOINTER ) {
-			simple_vm_expr_spoo(vm,"-",simple_string_get(cStr1),simple_string_size(cStr1));
-			simple_string_delete_gc(vm->sState,cStr1);
+			simple_vm_expr_spoo(vm,"-",simple_string_get(string_one),simple_string_size(string_one));
+			simple_string_delete_gc(vm->sState,string_one);
 			return ;
 		}
-		simple_string_delete_gc(vm->sState,cStr1);
+		simple_string_delete_gc(vm->sState,string_one);
 	}
 	else if ( SIMPLE_VM_STACK_ISPOINTER ) {
 		simple_vm_expr_ppoo(vm,"-");
@@ -127,7 +127,7 @@ void simple_vm_sub ( VM *vm )
 void simple_vm_mul ( VM *vm )
 {
 	double nNum1=0,nNum2=0  ;
-	String *cStr1  ;
+	String *string_one  ;
 	char cStr2[100]  ;
 	char cStr3[100]  ;
 	if ( SIMPLE_VM_STACK_ISNUMBER ) {
@@ -145,7 +145,7 @@ void simple_vm_mul ( VM *vm )
 		}
 	}
 	else if ( SIMPLE_VM_STACK_ISSTRING ) {
-		cStr1 = simple_string_new2_gc(vm->sState,SIMPLE_VM_STACK_READC,SIMPLE_VM_STACK_STRINGSIZE) ;
+		string_one = simple_string_new2_gc(vm->sState,SIMPLE_VM_STACK_READC,SIMPLE_VM_STACK_STRINGSIZE) ;
 		nNum1 = simple_vm_stringtonum(vm,SIMPLE_VM_STACK_READC);
 		SIMPLE_VM_STACK_POP ;
 		if ( SIMPLE_VM_STACK_ISSTRING ) {
@@ -155,11 +155,11 @@ void simple_vm_mul ( VM *vm )
 			nNum2 = SIMPLE_VM_STACK_READN ;
 		}
 		else if ( SIMPLE_VM_STACK_ISPOINTER ) {
-			simple_vm_expr_spoo(vm,"*",simple_string_get(cStr1),simple_string_size(cStr1));
-			simple_string_delete_gc(vm->sState,cStr1);
+			simple_vm_expr_spoo(vm,"*",simple_string_get(string_one),simple_string_size(string_one));
+			simple_string_delete_gc(vm->sState,string_one);
 			return ;
 		}
-		simple_string_delete_gc(vm->sState,cStr1);
+		simple_string_delete_gc(vm->sState,string_one);
 	}
 	else if ( SIMPLE_VM_STACK_ISPOINTER ) {
 		simple_vm_expr_ppoo(vm,"*");
@@ -176,7 +176,7 @@ void simple_vm_mul ( VM *vm )
 void simple_vm_div ( VM *vm )
 {
 	double nNum1=0,nNum2=0  ;
-	String *cStr1  ;
+	String *string_one  ;
 	char cStr2[100]  ;
 	char cStr3[100]  ;
 	if ( SIMPLE_VM_STACK_ISNUMBER ) {
@@ -198,7 +198,7 @@ void simple_vm_div ( VM *vm )
 		}
 	}
 	else if ( SIMPLE_VM_STACK_ISSTRING ) {
-		cStr1 = simple_string_new2_gc(vm->sState,SIMPLE_VM_STACK_READC,SIMPLE_VM_STACK_STRINGSIZE) ;
+		string_one = simple_string_new2_gc(vm->sState,SIMPLE_VM_STACK_READC,SIMPLE_VM_STACK_STRINGSIZE) ;
 		nNum1 = simple_vm_stringtonum(vm,SIMPLE_VM_STACK_READC);
 		SIMPLE_VM_STACK_POP ;
 		if ( SIMPLE_VM_STACK_ISSTRING ) {
@@ -208,11 +208,11 @@ void simple_vm_div ( VM *vm )
 			nNum2 = SIMPLE_VM_STACK_READN ;
 		}
 		else if ( SIMPLE_VM_STACK_ISPOINTER ) {
-			simple_vm_expr_spoo(vm,"/",simple_string_get(cStr1),simple_string_size(cStr1));
-			simple_string_delete_gc(vm->sState,cStr1);
+			simple_vm_expr_spoo(vm,"/",simple_string_get(string_one),simple_string_size(string_one));
+			simple_string_delete_gc(vm->sState,string_one);
 			return ;
 		}
-		simple_string_delete_gc(vm->sState,cStr1);
+		simple_string_delete_gc(vm->sState,string_one);
 	}
 	else if ( SIMPLE_VM_STACK_ISPOINTER ) {
 		simple_vm_expr_ppoo(vm,"/");
@@ -229,7 +229,7 @@ void simple_vm_div ( VM *vm )
 void simple_vm_mod ( VM *vm )
 {
 	double nNum1=0,nNum2=0  ;
-	String *cStr1  ;
+	String *string_one  ;
 	char cStr2[100]  ;
 	char cStr3[100]  ;
 	if ( SIMPLE_VM_STACK_ISNUMBER ) {
@@ -251,7 +251,7 @@ void simple_vm_mod ( VM *vm )
 		}
 	}
 	else if ( SIMPLE_VM_STACK_ISSTRING ) {
-		cStr1 = simple_string_new2_gc(vm->sState,SIMPLE_VM_STACK_READC,SIMPLE_VM_STACK_STRINGSIZE) ;
+		string_one = simple_string_new2_gc(vm->sState,SIMPLE_VM_STACK_READC,SIMPLE_VM_STACK_STRINGSIZE) ;
 		nNum1 = simple_vm_stringtonum(vm,SIMPLE_VM_STACK_READC);
 		SIMPLE_VM_STACK_POP ;
 		if ( SIMPLE_VM_STACK_ISSTRING ) {
@@ -261,11 +261,11 @@ void simple_vm_mod ( VM *vm )
 			nNum2 = SIMPLE_VM_STACK_READN ;
 		}
 		else if ( SIMPLE_VM_STACK_ISPOINTER ) {
-			simple_vm_expr_spoo(vm,"%",simple_string_get(cStr1),simple_string_size(cStr1));
-			simple_string_delete_gc(vm->sState,cStr1);
+			simple_vm_expr_spoo(vm,"%",simple_string_get(string_one),simple_string_size(string_one));
+			simple_string_delete_gc(vm->sState,string_one);
 			return ;
 		}
-		simple_string_delete_gc(vm->sState,cStr1);
+		simple_string_delete_gc(vm->sState,string_one);
 	}
 	else if ( SIMPLE_VM_STACK_ISPOINTER ) {
 		simple_vm_expr_ppoo(vm,"%");
@@ -301,15 +301,15 @@ void simple_vm_neg ( VM *vm )
 
 void simple_vm_equal ( VM *vm )
 {
-	String *cStr1,*cStr2  ;
+	String *string_one,*cStr2  ;
 	double nNum1,nNum2  ;
 	char cStr3[100]  ;
 	if ( SIMPLE_VM_STACK_ISSTRING ) {
-		cStr1 = simple_string_new_gc(vm->sState,SIMPLE_VM_STACK_READC);
+		string_one = simple_string_new_gc(vm->sState,SIMPLE_VM_STACK_READC);
 		SIMPLE_VM_STACK_POP ;
 		if ( SIMPLE_VM_STACK_ISSTRING ) {
 			cStr2 = simple_string_new_gc(vm->sState,SIMPLE_VM_STACK_READC);
-			if ( strcmp(simple_string_get(cStr1),simple_string_get(cStr2)) == 0 ) {
+			if ( strcmp(simple_string_get(string_one),simple_string_get(cStr2)) == 0 ) {
 				SIMPLE_VM_STACK_TRUE ;
 			} else {
 				SIMPLE_VM_STACK_FALSE ;
@@ -319,18 +319,18 @@ void simple_vm_equal ( VM *vm )
 		else if ( SIMPLE_VM_STACK_ISNUMBER ) {
 			nNum1 = SIMPLE_VM_STACK_READN ;
 			simple_vm_numtostring(vm,nNum1,cStr3);
-			if ( strcmp(simple_string_get(cStr1),cStr3) == 0 ) {
+			if ( strcmp(simple_string_get(string_one),cStr3) == 0 ) {
 				SIMPLE_VM_STACK_TRUE ;
 			} else {
 				SIMPLE_VM_STACK_FALSE ;
 			}
 		}
 		else if ( SIMPLE_VM_STACK_ISPOINTER ) {
-			simple_vm_expr_spoo(vm,"=",simple_string_get(cStr1),simple_string_size(cStr1));
-			simple_string_delete_gc(vm->sState,cStr1);
+			simple_vm_expr_spoo(vm,"=",simple_string_get(string_one),simple_string_size(string_one));
+			simple_string_delete_gc(vm->sState,string_one);
 			return ;
 		}
-		simple_string_delete_gc(vm->sState,cStr1);
+		simple_string_delete_gc(vm->sState,string_one);
 	}
 	else if ( SIMPLE_VM_STACK_ISNUMBER ) {
 		nNum1 = SIMPLE_VM_STACK_READN ;
@@ -363,7 +363,7 @@ void simple_vm_equal ( VM *vm )
 void simple_vm_lessequal ( VM *vm )
 {
 	double nNum1=0,nNum2=0  ;
-	String *cStr1  ;
+	String *string_one  ;
 	if ( SIMPLE_VM_STACK_ISNUMBER ) {
 		nNum1 = SIMPLE_VM_STACK_READN ;
 		SIMPLE_VM_STACK_POP ;
@@ -379,7 +379,7 @@ void simple_vm_lessequal ( VM *vm )
 		}
 	}
 	else if ( SIMPLE_VM_STACK_ISSTRING ) {
-		cStr1 = simple_string_new_gc(vm->sState,SIMPLE_VM_STACK_READC);
+		string_one = simple_string_new_gc(vm->sState,SIMPLE_VM_STACK_READC);
 		nNum1 = simple_vm_stringtonum(vm,SIMPLE_VM_STACK_READC);
 		SIMPLE_VM_STACK_POP ;
 		if ( SIMPLE_VM_STACK_ISSTRING ) {
@@ -389,11 +389,11 @@ void simple_vm_lessequal ( VM *vm )
 			nNum2 = SIMPLE_VM_STACK_READN ;
 		}
 		else if ( SIMPLE_VM_STACK_ISPOINTER ) {
-			simple_vm_expr_spoo(vm,"<=",simple_string_get(cStr1),simple_string_size(cStr1));
-			simple_string_delete_gc(vm->sState,cStr1);
+			simple_vm_expr_spoo(vm,"<=",simple_string_get(string_one),simple_string_size(string_one));
+			simple_string_delete_gc(vm->sState,string_one);
 			return ;
 		}
-		simple_string_delete_gc(vm->sState,cStr1);
+		simple_string_delete_gc(vm->sState,string_one);
 	}
 	else if ( SIMPLE_VM_STACK_ISPOINTER ) {
 		simple_vm_expr_ppoo(vm,"<=");
@@ -410,7 +410,7 @@ void simple_vm_lessequal ( VM *vm )
 void simple_vm_less ( VM *vm )
 {
 	double nNum1=0,nNum2=0  ;
-	String *cStr1  ;
+	String *string_one  ;
 	if ( SIMPLE_VM_STACK_ISNUMBER ) {
 		nNum1 = SIMPLE_VM_STACK_READN ;
 		SIMPLE_VM_STACK_POP ;
@@ -426,7 +426,7 @@ void simple_vm_less ( VM *vm )
 		}
 	}
 	else if ( SIMPLE_VM_STACK_ISSTRING ) {
-		cStr1 = simple_string_new_gc(vm->sState,SIMPLE_VM_STACK_READC);
+		string_one = simple_string_new_gc(vm->sState,SIMPLE_VM_STACK_READC);
 		nNum1 = simple_vm_stringtonum(vm,SIMPLE_VM_STACK_READC);
 		SIMPLE_VM_STACK_POP ;
 		if ( SIMPLE_VM_STACK_ISSTRING ) {
@@ -436,11 +436,11 @@ void simple_vm_less ( VM *vm )
 			nNum2 = SIMPLE_VM_STACK_READN ;
 		}
 		else if ( SIMPLE_VM_STACK_ISPOINTER ) {
-			simple_vm_expr_spoo(vm,"<",simple_string_get(cStr1),simple_string_size(cStr1));
-			simple_string_delete_gc(vm->sState,cStr1);
+			simple_vm_expr_spoo(vm,"<",simple_string_get(string_one),simple_string_size(string_one));
+			simple_string_delete_gc(vm->sState,string_one);
 			return ;
 		}
-		simple_string_delete_gc(vm->sState,cStr1);
+		simple_string_delete_gc(vm->sState,string_one);
 	}
 	else if ( SIMPLE_VM_STACK_ISPOINTER ) {
 		simple_vm_expr_ppoo(vm,"<");
@@ -457,7 +457,7 @@ void simple_vm_less ( VM *vm )
 void simple_vm_greater ( VM *vm )
 {
 	double nNum1=0,nNum2=0  ;
-	String *cStr1  ;
+	String *string_one  ;
 	if ( SIMPLE_VM_STACK_ISNUMBER ) {
 		nNum1 = SIMPLE_VM_STACK_READN ;
 		SIMPLE_VM_STACK_POP ;
@@ -473,7 +473,7 @@ void simple_vm_greater ( VM *vm )
 		}
 	}
 	else if ( SIMPLE_VM_STACK_ISSTRING ) {
-		cStr1 = simple_string_new_gc(vm->sState,SIMPLE_VM_STACK_READC);
+		string_one = simple_string_new_gc(vm->sState,SIMPLE_VM_STACK_READC);
 		nNum1 = simple_vm_stringtonum(vm,SIMPLE_VM_STACK_READC);
 		SIMPLE_VM_STACK_POP ;
 		if ( SIMPLE_VM_STACK_ISSTRING ) {
@@ -483,11 +483,11 @@ void simple_vm_greater ( VM *vm )
 			nNum2 = SIMPLE_VM_STACK_READN ;
 		}
 		else if ( SIMPLE_VM_STACK_ISPOINTER ) {
-			simple_vm_expr_spoo(vm,">",simple_string_get(cStr1),simple_string_size(cStr1));
-			simple_string_delete_gc(vm->sState,cStr1);
+			simple_vm_expr_spoo(vm,">",simple_string_get(string_one),simple_string_size(string_one));
+			simple_string_delete_gc(vm->sState,string_one);
 			return ;
 		}
-		simple_string_delete_gc(vm->sState,cStr1);
+		simple_string_delete_gc(vm->sState,string_one);
 	}
 	else if ( SIMPLE_VM_STACK_ISPOINTER ) {
 		simple_vm_expr_ppoo(vm,">");
@@ -504,7 +504,7 @@ void simple_vm_greater ( VM *vm )
 void simple_vm_greaterequal ( VM *vm )
 {
 	double nNum1=0,nNum2=0  ;
-	String *cStr1  ;
+	String *string_one  ;
 	if ( SIMPLE_VM_STACK_ISNUMBER ) {
 		nNum1 = SIMPLE_VM_STACK_READN ;
 		SIMPLE_VM_STACK_POP ;
@@ -520,7 +520,7 @@ void simple_vm_greaterequal ( VM *vm )
 		}
 	}
 	else if ( SIMPLE_VM_STACK_ISSTRING ) {
-		cStr1 = simple_string_new_gc(vm->sState,SIMPLE_VM_STACK_READC);
+		string_one = simple_string_new_gc(vm->sState,SIMPLE_VM_STACK_READC);
 		nNum1 = simple_vm_stringtonum(vm,SIMPLE_VM_STACK_READC);
 		SIMPLE_VM_STACK_POP ;
 		if ( SIMPLE_VM_STACK_ISSTRING ) {
@@ -530,11 +530,11 @@ void simple_vm_greaterequal ( VM *vm )
 			nNum2 = SIMPLE_VM_STACK_READN ;
 		}
 		else if ( SIMPLE_VM_STACK_ISPOINTER ) {
-			simple_vm_expr_spoo(vm,">=",simple_string_get(cStr1),simple_string_size(cStr1));
-			simple_string_delete_gc(vm->sState,cStr1);
+			simple_vm_expr_spoo(vm,">=",simple_string_get(string_one),simple_string_size(string_one));
+			simple_string_delete_gc(vm->sState,string_one);
 			return ;
 		}
-		simple_string_delete_gc(vm->sState,cStr1);
+		simple_string_delete_gc(vm->sState,string_one);
 	}
 	else if ( SIMPLE_VM_STACK_ISPOINTER ) {
 		simple_vm_expr_ppoo(vm,">=");
@@ -550,16 +550,16 @@ void simple_vm_greaterequal ( VM *vm )
 
 void simple_vm_notequal ( VM *vm )
 {
-	String *cStr1,*cStr2  ;
+	String *string_one,*cStr2  ;
 	double nNum1,nNum2  ;
 	char cStr3[100]  ;
 	if ( SIMPLE_VM_STACK_ISSTRING ) {
-		cStr1 = simple_string_new_gc(vm->sState,SIMPLE_VM_STACK_READC);
+		string_one = simple_string_new_gc(vm->sState,SIMPLE_VM_STACK_READC);
 		SIMPLE_VM_STACK_POP ;
 		if ( SIMPLE_VM_STACK_ISSTRING ) {
 			cStr2 = simple_string_new_gc(vm->sState,SIMPLE_VM_STACK_READC);
 			/* Compare */
-			if ( strcmp(simple_string_get(cStr1),simple_string_get(cStr2)) == 0 ) {
+			if ( strcmp(simple_string_get(string_one),simple_string_get(cStr2)) == 0 ) {
 				SIMPLE_VM_STACK_FALSE ;
 			} else {
 				SIMPLE_VM_STACK_TRUE ;
@@ -568,7 +568,7 @@ void simple_vm_notequal ( VM *vm )
 		}
 		else if ( SIMPLE_VM_STACK_ISNUMBER ) {
 			nNum2 = SIMPLE_VM_STACK_READN ;
-			nNum1 = simple_vm_stringtonum(vm,simple_string_get(cStr1)) ;
+			nNum1 = simple_vm_stringtonum(vm,simple_string_get(string_one)) ;
 			/* Compare */
 			if ( nNum1 == nNum2 ) {
 				SIMPLE_VM_STACK_FALSE ;
@@ -577,11 +577,11 @@ void simple_vm_notequal ( VM *vm )
 			}
 		}
 		else if ( SIMPLE_VM_STACK_ISPOINTER ) {
-			simple_vm_expr_spoo(vm,"!=",simple_string_get(cStr1),simple_string_size(cStr1));
-			simple_string_delete_gc(vm->sState,cStr1);
+			simple_vm_expr_spoo(vm,"!=",simple_string_get(string_one),simple_string_size(string_one));
+			simple_string_delete_gc(vm->sState,string_one);
 			return ;
 		}
-		simple_string_delete_gc(vm->sState,cStr1);
+		simple_string_delete_gc(vm->sState,string_one);
 	}
 	else if ( SIMPLE_VM_STACK_ISNUMBER ) {
 		nNum1 = SIMPLE_VM_STACK_READN ;
@@ -621,7 +621,7 @@ void simple_vm_notequal ( VM *vm )
 void simple_vm_and ( VM *vm )
 {
 	double nNum1,nNum2  ;
-	String *cStr1  ;
+	String *string_one  ;
 	if ( SIMPLE_VM_STACK_ISNUMBER ) {
 		nNum1 = SIMPLE_VM_STACK_READN ;
 		SIMPLE_VM_STACK_POP ;
@@ -638,7 +638,7 @@ void simple_vm_and ( VM *vm )
 		}
 	}
 	else if ( SIMPLE_VM_STACK_ISSTRING ) {
-		cStr1 = simple_string_new_gc(vm->sState,SIMPLE_VM_STACK_READC);
+		string_one = simple_string_new_gc(vm->sState,SIMPLE_VM_STACK_READC);
 		nNum1 = simple_vm_stringtonum(vm,SIMPLE_VM_STACK_READC);
 		SIMPLE_VM_STACK_POP ;
 		if ( SIMPLE_VM_STACK_ISNUMBER ) {
@@ -649,11 +649,11 @@ void simple_vm_and ( VM *vm )
 			SIMPLE_VM_STACK_SETNVALUE((nNum1 && nNum2));
 		}
 		else if ( SIMPLE_VM_STACK_ISPOINTER ) {
-			simple_vm_expr_spoo(vm,"and",simple_string_get(cStr1),simple_string_size(cStr1));
-			simple_string_delete_gc(vm->sState,cStr1);
+			simple_vm_expr_spoo(vm,"and",simple_string_get(string_one),simple_string_size(string_one));
+			simple_string_delete_gc(vm->sState,string_one);
 			return ;
 		}
-		simple_string_delete_gc(vm->sState,cStr1);
+		simple_string_delete_gc(vm->sState,string_one);
 	}
 	else if ( SIMPLE_VM_STACK_ISPOINTER ) {
 		simple_vm_expr_ppoo(vm,"and");
@@ -663,7 +663,7 @@ void simple_vm_and ( VM *vm )
 void simple_vm_or ( VM *vm )
 {
 	double nNum1,nNum2  ;
-	String *cStr1  ;
+	String *string_one  ;
 	if ( SIMPLE_VM_STACK_ISNUMBER ) {
 		nNum1 = SIMPLE_VM_STACK_READN ;
 		SIMPLE_VM_STACK_POP ;
@@ -680,7 +680,7 @@ void simple_vm_or ( VM *vm )
 		}
 	}
 	else if ( SIMPLE_VM_STACK_ISSTRING ) {
-		cStr1 = simple_string_new_gc(vm->sState,SIMPLE_VM_STACK_READC);
+		string_one = simple_string_new_gc(vm->sState,SIMPLE_VM_STACK_READC);
 		nNum1 = simple_vm_stringtonum(vm,SIMPLE_VM_STACK_READC);
 		SIMPLE_VM_STACK_POP ;
 		if ( SIMPLE_VM_STACK_ISNUMBER ) {
@@ -691,11 +691,11 @@ void simple_vm_or ( VM *vm )
 			SIMPLE_VM_STACK_SETNVALUE((nNum1 || nNum2));
 		}
 		else if ( SIMPLE_VM_STACK_ISPOINTER ) {
-			simple_vm_expr_spoo(vm,"or",simple_string_get(cStr1),simple_string_size(cStr1));
-			simple_string_delete_gc(vm->sState,cStr1);
+			simple_vm_expr_spoo(vm,"or",simple_string_get(string_one),simple_string_size(string_one));
+			simple_string_delete_gc(vm->sState,string_one);
 			return ;
 		}
-		simple_string_delete_gc(vm->sState,cStr1);
+		simple_string_delete_gc(vm->sState,string_one);
 	}
 	else if ( SIMPLE_VM_STACK_ISPOINTER ) {
 		simple_vm_expr_ppoo(vm,"or");
@@ -730,7 +730,7 @@ void simple_vm_not ( VM *vm )
 void simple_vm_bitand ( VM *vm )
 {
 	double nNum1,nNum2  ;
-	String *cStr1  ;
+	String *string_one  ;
 	if ( SIMPLE_VM_STACK_ISNUMBER ) {
 		nNum1 = SIMPLE_VM_STACK_READN ;
 		SIMPLE_VM_STACK_POP ;
@@ -747,7 +747,7 @@ void simple_vm_bitand ( VM *vm )
 		}
 	}
 	else if ( SIMPLE_VM_STACK_ISSTRING ) {
-		cStr1 = simple_string_new_gc(vm->sState,SIMPLE_VM_STACK_READC);
+		string_one = simple_string_new_gc(vm->sState,SIMPLE_VM_STACK_READC);
 		nNum1 = simple_vm_stringtonum(vm,SIMPLE_VM_STACK_READC);
 		SIMPLE_VM_STACK_POP ;
 		if ( SIMPLE_VM_STACK_ISNUMBER ) {
@@ -758,11 +758,11 @@ void simple_vm_bitand ( VM *vm )
 			SIMPLE_VM_STACK_SETNVALUE(((int) nNum1 & (int) nNum2));
 		}
 		else if ( SIMPLE_VM_STACK_ISPOINTER ) {
-			simple_vm_expr_spoo(vm,"&",simple_string_get(cStr1),simple_string_size(cStr1));
-			simple_string_delete_gc(vm->sState,cStr1);
+			simple_vm_expr_spoo(vm,"&",simple_string_get(string_one),simple_string_size(string_one));
+			simple_string_delete_gc(vm->sState,string_one);
 			return ;
 		}
-		simple_string_delete_gc(vm->sState,cStr1);
+		simple_string_delete_gc(vm->sState,string_one);
 	}
 	else if ( SIMPLE_VM_STACK_ISPOINTER ) {
 		simple_vm_expr_ppoo(vm,"&");
@@ -772,7 +772,7 @@ void simple_vm_bitand ( VM *vm )
 void simple_vm_bitor ( VM *vm )
 {
 	double nNum1,nNum2  ;
-	String *cStr1  ;
+	String *string_one  ;
 	if ( SIMPLE_VM_STACK_ISNUMBER ) {
 		nNum1 = SIMPLE_VM_STACK_READN ;
 		SIMPLE_VM_STACK_POP ;
@@ -789,7 +789,7 @@ void simple_vm_bitor ( VM *vm )
 		}
 	}
 	else if ( SIMPLE_VM_STACK_ISSTRING ) {
-		cStr1 = simple_string_new_gc(vm->sState,SIMPLE_VM_STACK_READC);
+		string_one = simple_string_new_gc(vm->sState,SIMPLE_VM_STACK_READC);
 		nNum1 = simple_vm_stringtonum(vm,SIMPLE_VM_STACK_READC);
 		SIMPLE_VM_STACK_POP ;
 		if ( SIMPLE_VM_STACK_ISNUMBER ) {
@@ -800,11 +800,11 @@ void simple_vm_bitor ( VM *vm )
 			SIMPLE_VM_STACK_SETNVALUE(((int) nNum1 | (int) nNum2));
 		}
 		else if ( SIMPLE_VM_STACK_ISPOINTER ) {
-			simple_vm_expr_spoo(vm,"|",simple_string_get(cStr1),simple_string_size(cStr1));
-			simple_string_delete_gc(vm->sState,cStr1);
+			simple_vm_expr_spoo(vm,"|",simple_string_get(string_one),simple_string_size(string_one));
+			simple_string_delete_gc(vm->sState,string_one);
 			return ;
 		}
-		simple_string_delete_gc(vm->sState,cStr1);
+		simple_string_delete_gc(vm->sState,string_one);
 	}
 	else if ( SIMPLE_VM_STACK_ISPOINTER ) {
 		simple_vm_expr_ppoo(vm,"|");
@@ -814,7 +814,7 @@ void simple_vm_bitor ( VM *vm )
 void simple_vm_bitshl ( VM *vm )
 {
 	double nNum1,nNum2  ;
-	String *cStr1  ;
+	String *string_one  ;
 	if ( SIMPLE_VM_STACK_ISNUMBER ) {
 		nNum1 = SIMPLE_VM_STACK_READN ;
 		SIMPLE_VM_STACK_POP ;
@@ -831,7 +831,7 @@ void simple_vm_bitshl ( VM *vm )
 		}
 	}
 	else if ( SIMPLE_VM_STACK_ISSTRING ) {
-		cStr1 = simple_string_new_gc(vm->sState,SIMPLE_VM_STACK_READC);
+		string_one = simple_string_new_gc(vm->sState,SIMPLE_VM_STACK_READC);
 		nNum1 = simple_vm_stringtonum(vm,SIMPLE_VM_STACK_READC);
 		SIMPLE_VM_STACK_POP ;
 		if ( SIMPLE_VM_STACK_ISNUMBER ) {
@@ -842,11 +842,11 @@ void simple_vm_bitshl ( VM *vm )
 			SIMPLE_VM_STACK_SETNVALUE(((int) nNum2 << (int) nNum1));
 		}
 		else if ( SIMPLE_VM_STACK_ISPOINTER ) {
-			simple_vm_expr_spoo(vm,"<<",simple_string_get(cStr1),simple_string_size(cStr1));
-			simple_string_delete_gc(vm->sState,cStr1);
+			simple_vm_expr_spoo(vm,"<<",simple_string_get(string_one),simple_string_size(string_one));
+			simple_string_delete_gc(vm->sState,string_one);
 			return ;
 		}
-		simple_string_delete_gc(vm->sState,cStr1);
+		simple_string_delete_gc(vm->sState,string_one);
 	}
 	else if ( SIMPLE_VM_STACK_ISPOINTER ) {
 		simple_vm_expr_ppoo(vm,"<<");
@@ -856,7 +856,7 @@ void simple_vm_bitshl ( VM *vm )
 void simple_vm_bitshr ( VM *vm )
 {
 	double nNum1,nNum2  ;
-	String *cStr1  ;
+	String *string_one  ;
 	if ( SIMPLE_VM_STACK_ISNUMBER ) {
 		nNum1 = SIMPLE_VM_STACK_READN ;
 		SIMPLE_VM_STACK_POP ;
@@ -873,7 +873,7 @@ void simple_vm_bitshr ( VM *vm )
 		}
 	}
 	else if ( SIMPLE_VM_STACK_ISSTRING ) {
-		cStr1 = simple_string_new_gc(vm->sState,SIMPLE_VM_STACK_READC);
+		string_one = simple_string_new_gc(vm->sState,SIMPLE_VM_STACK_READC);
 		nNum1 = simple_vm_stringtonum(vm,SIMPLE_VM_STACK_READC);
 		SIMPLE_VM_STACK_POP ;
 		if ( SIMPLE_VM_STACK_ISNUMBER ) {
@@ -884,11 +884,11 @@ void simple_vm_bitshr ( VM *vm )
 			SIMPLE_VM_STACK_SETNVALUE(((int) nNum2 >> (int) nNum1));
 		}
 		else if ( SIMPLE_VM_STACK_ISPOINTER ) {
-			simple_vm_expr_spoo(vm,">>",simple_string_get(cStr1),simple_string_size(cStr1));
-			simple_string_delete_gc(vm->sState,cStr1);
+			simple_vm_expr_spoo(vm,">>",simple_string_get(string_one),simple_string_size(string_one));
+			simple_string_delete_gc(vm->sState,string_one);
 			return ;
 		}
-		simple_string_delete_gc(vm->sState,cStr1);
+		simple_string_delete_gc(vm->sState,string_one);
 	}
 	else if ( SIMPLE_VM_STACK_ISPOINTER ) {
 		simple_vm_expr_ppoo(vm,">>");
@@ -898,7 +898,7 @@ void simple_vm_bitshr ( VM *vm )
 void simple_vm_bitxor ( VM *vm )
 {
 	double nNum1,nNum2  ;
-	String *cStr1  ;
+	String *string_one  ;
 	if ( SIMPLE_VM_STACK_ISNUMBER ) {
 		nNum1 = SIMPLE_VM_STACK_READN ;
 		SIMPLE_VM_STACK_POP ;
@@ -915,7 +915,7 @@ void simple_vm_bitxor ( VM *vm )
 		}
 	}
 	else if ( SIMPLE_VM_STACK_ISSTRING ) {
-		cStr1 = simple_string_new_gc(vm->sState,SIMPLE_VM_STACK_READC);
+		string_one = simple_string_new_gc(vm->sState,SIMPLE_VM_STACK_READC);
 		nNum1 = simple_vm_stringtonum(vm,SIMPLE_VM_STACK_READC);
 		SIMPLE_VM_STACK_POP ;
 		if ( SIMPLE_VM_STACK_ISNUMBER ) {
@@ -926,11 +926,11 @@ void simple_vm_bitxor ( VM *vm )
 			SIMPLE_VM_STACK_SETNVALUE(((int) nNum1 ^ (int) nNum2));
 		}
 		else if ( SIMPLE_VM_STACK_ISPOINTER ) {
-			simple_vm_expr_spoo(vm,"^",simple_string_get(cStr1),simple_string_size(cStr1));
-			simple_string_delete_gc(vm->sState,cStr1);
+			simple_vm_expr_spoo(vm,"^",simple_string_get(string_one),simple_string_size(string_one));
+			simple_string_delete_gc(vm->sState,string_one);
 			return ;
 		}
-		simple_string_delete_gc(vm->sState,cStr1);
+		simple_string_delete_gc(vm->sState,string_one);
 	}
 	else if ( SIMPLE_VM_STACK_ISPOINTER ) {
 		simple_vm_expr_ppoo(vm,"^");
