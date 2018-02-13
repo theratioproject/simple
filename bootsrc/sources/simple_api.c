@@ -98,7 +98,7 @@ SIMPLE_API void loadcfunctions ( SimpleState *sState )
 	register_block("find_simple_variable",find_simple_variable_block);
 	register_block("init_simple_variable",simple_vmlib_state_newvar);
 	register_block("main_simple_state",main_simple_state_block);
-	register_block("simple_state_setvar",simple_vmlib_state_setvar);
+	register_block("set_simple_state_variable",set_simple_state_variable_block);
 	register_block("simple_state_new",simple_vmlib_state_new);
 	register_block("simple_state_mainfile",simple_vmlib_state_mainfile);
 	/*
@@ -1601,7 +1601,7 @@ void main_simple_state_block ( void *pointer )
 	simple_state_free(((VM *) pointer)->sState,argv[1]);
 }
 
-void simple_vmlib_state_setvar ( void *pointer )
+void set_simple_state_variable_block ( void *pointer )
 {
 	List *list, *list2, *list3  ;
 	VM *vm  ;

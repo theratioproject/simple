@@ -199,7 +199,7 @@ void simple_vmlib_state_runobjectfile ( void *pointer ) ;
 
 void main_simple_state_block ( void *pointer ) ;
 
-void simple_vmlib_state_setvar ( void *pointer ) ;
+void set_simple_state_variable_block ( void *pointer ) ;
 
 void simple_vmlib_state_new ( void *pointer ) ;
 
