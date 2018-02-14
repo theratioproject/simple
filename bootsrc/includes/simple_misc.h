@@ -27,7 +27,7 @@ typedef struct GCData {
 #define PRIMARY_AUTHOR "Azeez Adewale"
 #define START_YEAR 2016
 #define CURRENT_YEAR 2018
-#define AUTHOR "The Simpletons"
+#define AUTHOR "The Simple Team"
 #define SIMPLE_LICENCE "MIT Licence"
 #define KB_BYTE_SIZE 1024
     
