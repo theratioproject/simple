@@ -1,6 +1,6 @@
 # Simple
 
-Yet the simplest programming language with the most roboust application base
+The Simple Intelligent and Modular Programming Language and Environment
 
 ## Getting Started
 
@@ -43,15 +43,5 @@ Please read [CONTRIBUTING.md](https://gist.github.com/Simple/b246794b0057c63ec42
 
 We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
 
-## Authors
 
-* **Carisman** - *Author* - [Thecarisma](https://github.com/Thecarisma)
-* **Bahat** - *Contributor* - [Bahat159](https://github.com/Bahat159)
-* **Reggie C.** - *Contributor* - [ebiboy2](https://gitlab.com/ebiboy2)
-
-See also the list of [contributors](https://github.com/simple/contributors) who participated in this project.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
