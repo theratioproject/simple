@@ -114,7 +114,6 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
                                 if (!simple_fexists(file_name_two)) {
                                     #if SIMPLE_DEVELOPMENT
                                         snprintf(file_name_two, sizeof(file_name_two), "%s/%s", "C:/Users/thecarisma/Documents/SIMPLE GITHUB/modules", file_name);
-                                        printf("NOW CHECKING AGAIN %s \n",file_name_two);
                                     #else
                                         //deduct_char_from_behind(simple_folder, 4); //to remove bin
                                         snprintf(file_name_two, sizeof(file_name_two), "%s/s%s/modules/%s", simple_folder, SIMPLE_VERSION, file_name);
