@@ -201,6 +201,7 @@ SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 				nPerformance = 1 ;
 			} else if ( strcmp(argv[x],"-c") == 0 || strcmp(argv[x],"-cgi") == 0 ) {
 				nCGI = 1 ;
+                                printf( "Content-Type: text/plain \n\n" ) ;
 			}
 			else if ( strcmp(argv[x],"-rulesgfgdf") == 0 ) {
 				nRules = 1 ;
