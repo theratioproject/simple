@@ -107,7 +107,9 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
                         if (!simple_fexists(file_name_two)) {
                             snprintf(file_name_two, sizeof(file_name_two), "%s/library/%s", DEFAULT_FILE_PATH, file_name);
                             if (!simple_fexists(file_name_two)) {
-                                //already checked all assumed folders
+                                /** we go further because web cgi is a bit crazy in finding modules **/
+                                char * simple_folder; simple_exefolder(simple_folder);
+                                snprintf(file_name_two, sizeof(file_name_two), "%s/s%s/modules/%s", simple_folder, SIMPLE_VERSION, simple_folder);
                             }
                         }
 
@@ -137,8 +139,8 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
 		simple_switchtofilefolder(file_name_two);
 	} 
 	/* Read File */
-	if ( fp==NULL ) { simple_exefolder(file_name);
-		printf( "\n COMPILER ERROR -1 : Can't open file/module : %s so %s\n", file_name_two,  file_name) ;
+	if ( fp==NULL ) { 
+		printf( "\n COMPILER ERROR -1 : Can't open file/module : %s\n", file_name_two) ;
 		exit(-1);
                 return 0 ;
 	}
