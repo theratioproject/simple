@@ -199,6 +199,8 @@ SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 				nPrintICFinal = 1 ;  nRun = 0 ;
 			} else if ( strcmp(argv[x],"-t") == 0 || strcmp(argv[x],"-time") == 0 ) {
 				nPerformance = 1 ;
+			} else if ( strcmp(argv[x],"-c") == 0 || strcmp(argv[x],"-cgi") == 0 ) {
+				nISCGI = 1 ;
 			}
 			else if ( strcmp(argv[x],"-rulesgfgdf") == 0 ) {
 				nRules = 1 ;
@@ -217,13 +219,13 @@ SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 		}
 	}
 	srand(time(NULL));
-	/* Check Startup ring.sim */
-	if ( simple_fexists("ring.sim") && argc == 1 ) {
-		simple_execute("ring.sim",nCGI,nRun,nPrintIC,nPrintICFinal,nTokens,nRules,nIns,nGenObj,nWarn,argc,argv);
+	/* Check Startup simple.sim */
+	if ( simple_fexists("simple.sim") && argc == 1 ) {
+		simple_execute("simple.sim",nCGI,nRun,nPrintIC,nPrintICFinal,nTokens,nRules,nIns,nGenObj,nWarn,argc,argv);
 		exit(0);
 	}
-	if ( simple_fexists("ring.complex") && argc == 1 ) {
-		simple_execute("ring.complex",nCGI,nRun,nPrintIC,nPrintICFinal,nTokens,nRules,nIns,nGenObj,nWarn,argc,argv);
+	if ( simple_fexists("simple.complex") && argc == 1 ) {
+		simple_execute("simple.complex",nCGI,nRun,nPrintIC,nPrintICFinal,nTokens,nRules,nIns,nGenObj,nWarn,argc,argv);
 		exit(0);
 	}
 	/* Print Version */

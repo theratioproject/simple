@@ -130,6 +130,7 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
         if (is_start_file) {
             strcpy(file_name_two,file_name);
             DEFAULT_FILE_NAME = file_name_two ; DEFAULT_FILE_PATH = file_name_two ;
+            printf("the first file %s", file_name_two);
         }
 	fp = SIMPLE_OPENFILE(file_name_two , "r");
 	/* Avoid switching if it's the first file */
