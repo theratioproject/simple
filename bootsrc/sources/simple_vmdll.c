@@ -57,7 +57,13 @@ void simple_vm_dll_loadlib ( void *pointer )
                         if (!simple_fexists(library_path)) {
                             snprintf(library_path, sizeof(library_path), "%s/library/%s", DEFAULT_FILE_PATH, SIMPLE_API_GETSTRING(1));
                             if (!simple_fexists(library_path)) {
-                                //already checked all assumed folders
+                                #if SIMPLE_DEVELOPMENT
+                                        snprintf(library_path, sizeof(library_path), "%s/%s", "C:/Users/thecarisma/Documents/SIMPLE GITHUB/modules/dynamic_modules", SIMPLE_API_GETSTRING(1));
+                                    #else
+                                        //deduct_char_from_behind(simple_folder, 4); //to remove bin
+                                        snprintf(file_name_two, sizeof(file_name_two), "%s/s%s/modules/%s", simple_folder, SIMPLE_VERSION, file_name);
+                                        printf("NOW CHECKING AGAIN %s \n",file_name_two);
+                                    #endif
                             }
                         }
 
