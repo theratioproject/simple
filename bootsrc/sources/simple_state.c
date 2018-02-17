@@ -200,7 +200,7 @@ SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 			} else if ( strcmp(argv[x],"-t") == 0 || strcmp(argv[x],"-time") == 0 ) {
 				nPerformance = 1 ;
 			} else if ( strcmp(argv[x],"-c") == 0 || strcmp(argv[x],"-cgi") == 0 ) {
-				nISCGI = 1 ;
+				nCGI = 1 ;
 			}
 			else if ( strcmp(argv[x],"-rulesgfgdf") == 0 ) {
 				nRules = 1 ;

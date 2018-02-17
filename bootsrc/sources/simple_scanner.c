@@ -107,7 +107,7 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
                         if (!simple_fexists(file_name_two)) {
                             snprintf(file_name_two, sizeof(file_name_two), "%s/library/%s", DEFAULT_FILE_PATH, file_name);
                             if (!simple_fexists(file_name_two)) {
-                                //already checked all assumed folders
+                                printf("the final check %s\n", file_name_two);
                             }
                         }
 
@@ -128,9 +128,8 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
         } 
         /* Switch To File Folder */
         if (is_start_file) {
-            strcpy(file_name_two,file_name);
-            DEFAULT_FILE_NAME = file_name_two ; DEFAULT_FILE_PATH = file_name_two ;
-            printf("the first file %s", file_name_two);
+            strcpy(file_name_two,file_name); 
+            DEFAULT_FILE_NAME = file_name_two ; 
         }
 	fp = SIMPLE_OPENFILE(file_name_two , "r");
 	/* Avoid switching if it's the first file */
