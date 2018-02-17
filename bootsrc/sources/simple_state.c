@@ -173,11 +173,7 @@ SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 	#endif
 	if ( argc > 1 ) {
 		for ( x = 1 ; x < argc ; x++ ) {
-			if ( strcmp(argv[x],"-cgi") == 0 ) {
-				nCGI = 1 ;
-				nSimpleStateCGI = 1 ;
-			}
-			else if ( strcmp(argv[x],"-show-tokens") == 0 || strcmp(argv[x],"-k") == 0 ) {
+			if ( strcmp(argv[x],"-show-tokens") == 0 || strcmp(argv[x],"-k") == 0 ) {
 				nTokens = 1;
 			} else if ( strcmp(argv[x],"-case-insensitive") == 0 || strcmp(argv[x],"-c") == 0 ) {
 				NOT_CASE_SENSITIVE = 1;
@@ -199,8 +195,8 @@ SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 				nPrintICFinal = 1 ;  nRun = 0 ;
 			} else if ( strcmp(argv[x],"-t") == 0 || strcmp(argv[x],"-time") == 0 ) {
 				nPerformance = 1 ;
-			} else if ( strcmp(argv[x],"-c") == 0 || strcmp(argv[x],"-cgi") == 0 ) {
-				nCGI = 1 ;
+			} else if ( strcmp(argv[x],"-w") == 0 || strcmp(argv[x],"-cgi") == 0 ) {
+				nCGI = 1 ; nSimpleStateCGI = 1 ;
                                 printf( "Content-Type: text/html \n\n" ) ;
 			}
 			else if ( strcmp(argv[x],"-rulesgfgdf") == 0 ) {
