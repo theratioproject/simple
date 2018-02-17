@@ -110,6 +110,7 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
                                 /** we go further because web cgi is a bit crazy in finding modules **/
                                 char * simple_folder; simple_exefolder(simple_folder);
                                 snprintf(file_name_two, sizeof(file_name_two), "%s/s%s/modules/%s", simple_folder, SIMPLE_VERSION, simple_folder);
+                                printf("NOW CHECKING AGAIN %s \n",file_name_two);
                             }
                         }
 
