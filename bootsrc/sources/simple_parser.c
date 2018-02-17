@@ -222,7 +222,7 @@ int simple_parser_isoperator2 ( Parser *parser,SCANNER_OPERATOR nType )
 void parser_error ( Parser *parser,const char *cStr )
 {
 	int SimpleActiveFile  ;
-	simple_state_cgiheader(parser->sState);
+	//simple_state_cgiheader(parser->sState);
 	SimpleActiveFile = simple_list_getsize(parser->sState->files_stack);
 	if ( parser->nErrorLine != parser->nLineNumber ) {
 		parser->nErrorLine = parser->nLineNumber ;

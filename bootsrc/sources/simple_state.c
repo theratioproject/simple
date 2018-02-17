@@ -105,7 +105,6 @@ void simple_state_cgiheader ( SimpleState *sState )
 {
 	if ( sState->nISCGI == 1 ) {
 		printf( "Content-Type: text/plain \n\n" ) ;
-                printf("Hello Worlder it an error \n");
 	}
 }
 
