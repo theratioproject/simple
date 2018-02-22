@@ -25,113 +25,113 @@ SIMPLE_API String * simple_string_new_gc ( void *pState,const char *str )
 
 SIMPLE_API String * simple_string_new2_gc ( void *pState,const char *str,int str_size )
 {
-	String *pString  ;
+	String *string  ;
 	int x  ;
-	pString = (struct String *) simple_state_malloc(pState,sizeof(struct String));
-	if ( pString == NULL ) {
+	string = (struct String *) simple_state_malloc(pState,sizeof(struct String));
+	if ( string == NULL ) {
 		printf( SIMPLE_OOM ) ;
 		exit(0);
 	}
-	pString->cStr = (char *) simple_state_malloc(pState,str_size+1);
-	if ( pString->cStr  == NULL ) {
+	string->cStr = (char *) simple_state_malloc(pState,str_size+1);
+	if ( string->cStr  == NULL ) {
 		printf( SIMPLE_OOM ) ;
 		exit(0);
 	}
 	/* Copy String */
 	for ( x = 0 ; x < str_size ; x++ ) {
-		pString->cStr[x] = str[x] ;
+		string->cStr[x] = str[x] ;
 	}
-	pString->cStr[str_size] = '\0' ;
-	pString->nSize = str_size ;
-	return pString ;
+	string->cStr[str_size] = '\0' ;
+	string->nSize = str_size ;
+	return string ;
 }
 
-SIMPLE_API String * simple_string_delete_gc ( void *pState,String *pString )
+SIMPLE_API String * simple_string_delete_gc ( void *pState,String *string )
 {
-	assert(pString != NULL);
-	simple_state_free(pState,pString->cStr);
-	pString->cStr = NULL ;
-	simple_state_free(pState,pString);
+	assert(string != NULL);
+	simple_state_free(pState,string->cStr);
+	string->cStr = NULL ;
+	simple_state_free(pState,string);
 	return NULL ;
 }
 
-SIMPLE_API int simple_string_size ( String *pString )
+SIMPLE_API int simple_string_size ( String *string )
 {
-	assert(pString != NULL);
-	return pString->nSize ;
+	assert(string != NULL);
+	return string->nSize ;
 }
 
-SIMPLE_API void simple_string_set_gc ( void *pState,String *pString,const char *str )
+SIMPLE_API void simple_string_set_gc ( void *pState,String *string,const char *str )
 {
 	int x  ;
-	assert(pString != NULL);
+	assert(string != NULL);
 	x = strlen( str ) ;
-	simple_string_set2_gc(pState,pString,str,x);
+	simple_string_set2_gc(pState,string,str,x);
 }
 
-SIMPLE_API void simple_string_set2_gc ( void *pState,String *pString,const char *str,int str_size )
+SIMPLE_API void simple_string_set2_gc ( void *pState,String *string,const char *str,int str_size )
 {
 	int x  ;
-	assert(pString != NULL);
-	assert(pString->cStr != NULL);
-	simple_state_free(pState,pString->cStr);
-	pString->cStr = (char *) simple_state_malloc(pState,str_size+1);
-	if ( pString->cStr  == NULL ) {
+	assert(string != NULL);
+	assert(string->cStr != NULL);
+	simple_state_free(pState,string->cStr);
+	string->cStr = (char *) simple_state_malloc(pState,str_size+1);
+	if ( string->cStr  == NULL ) {
 		printf( SIMPLE_OOM ) ;
 		exit(0);
 	}
 	/* Copy String */
 	for ( x = 0 ; x < str_size ; x++ ) {
-		pString->cStr[x] = str[x] ;
+		string->cStr[x] = str[x] ;
 	}
-	pString->cStr[str_size] = '\0' ;
-	pString->nSize = str_size ;
+	string->cStr[str_size] = '\0' ;
+	string->nSize = str_size ;
 }
 
-SIMPLE_API void simple_string_add_gc ( void *pState,String *pString,const char *str )
+SIMPLE_API void simple_string_add_gc ( void *pState,String *string,const char *str )
 {
 	int x  ;
 	x = strlen( str ) ;
-	simple_string_add2_gc(pState,pString,str,x);
+	simple_string_add2_gc(pState,string,str,x);
 }
 
-SIMPLE_API void simple_string_add2_gc ( void *pState,String *pString,const char *str,int str_size )
+SIMPLE_API void simple_string_add2_gc ( void *pState,String *string,const char *str,int str_size )
 {
 	int x  ;
 	int x2  ;
 	char *cStr  ;
-	assert(pString != NULL);
-	x2 = str_size+simple_string_size(pString) ;
-	cStr = pString->cStr ;
-	pString->cStr = (char *) simple_state_malloc(pState,x2+1);
-	if ( pString->cStr  == NULL ) {
+	assert(string != NULL);
+	x2 = str_size+simple_string_size(string) ;
+	cStr = string->cStr ;
+	string->cStr = (char *) simple_state_malloc(pState,x2+1);
+	if ( string->cStr  == NULL ) {
 		printf( SIMPLE_OOM ) ;
 		exit(0);
 	}
 	/* Copy String */
-	for ( x = 0 ; x < simple_string_size(pString) ; x++ ) {
-		pString->cStr[x] = cStr[x] ;
+	for ( x = 0 ; x < simple_string_size(string) ; x++ ) {
+		string->cStr[x] = cStr[x] ;
 	}
 	for ( x = 0 ; x < str_size ; x++ ) {
-		pString->cStr[x+simple_string_size(pString)] = str[x] ;
+		string->cStr[x+simple_string_size(string)] = str[x] ;
 	}
-	pString->cStr[x2] = '\0' ;
-	pString->nSize = x2 ;
+	string->cStr[x2] = '\0' ;
+	string->nSize = x2 ;
 	simple_state_free(pState,cStr);
 }
 
-SIMPLE_API void simple_string_print ( String *pString )
+SIMPLE_API void simple_string_print ( String *string )
 {
-	assert(pString != NULL);
-	printf( "%s \n",pString->cStr ) ;
+	assert(string != NULL);
+	printf( "%s \n",string->cStr ) ;
 }
 
-SIMPLE_API void simple_string_setfromint_gc ( void *pState,String *pString,int x )
+SIMPLE_API void simple_string_setfromint_gc ( void *pState,String *string,int x )
 {
 	char cStr[20]  ;
-	assert(pString != NULL);
+	assert(string != NULL);
 	sprintf( cStr , "%d" , x ) ;
-	simple_string_set_gc(pState,pString,cStr);
+	simple_string_set_gc(pState,string,cStr);
 }
 
 SIMPLE_API char * simple_string_lower ( char *cStr )
@@ -254,7 +254,7 @@ void simple_string_test ( void )
 	#define nMaxValue 10
 	String *mystr[nMaxValue]  ;
 	int x  ;
-	String *pString  ;
+	String *string  ;
 	for ( x = 0 ; x < nMaxValue ; x++ ) {
 		mystr[x] = simple_string_new("Wow Really i like the c language so much");
 		simple_string_print(mystr[x]);
@@ -263,17 +263,17 @@ void simple_string_test ( void )
 		mystr[x] = simple_string_delete(mystr[x]);
 	}
 	/* Test String Add */
-	pString = simple_string_new("Hello ");
-	simple_string_add(pString,"World");
-	printf( "\nTest String Add , Output = %s\n",simple_string_get(pString) ) ;
-	simple_string_add(pString," Welcome to the C programming language");
-	printf( "\nTest String Add , Output = %s\n",simple_string_get(pString) ) ;
-	simple_string_delete(pString);
+	string = simple_string_new("Hello ");
+	simple_string_add(string,"World");
+	printf( "\nTest String Add , Output = %s\n",simple_string_get(string) ) ;
+	simple_string_add(string," Welcome to the C programming language");
+	printf( "\nTest String Add , Output = %s\n",simple_string_get(string) ) ;
+	simple_string_delete(string);
 	/* Test String to Lower */
-	pString = simple_string_new("Welcome to my StrinG");
+	string = simple_string_new("Welcome to my StrinG");
 	printf( "Test string to lower \n" ) ;
-	printf( "%s\n",simple_string_tolower(pString) ) ;
-	simple_string_delete(pString);
+	printf( "%s\n",simple_string_tolower(string) ) ;
+	simple_string_delete(string);
 	getchar();
 }
 /* Blocks without state pointer */
@@ -288,24 +288,24 @@ SIMPLE_API String * simple_string_new ( const char *str )
 	return simple_string_new_gc(NULL,str) ;
 }
 
-SIMPLE_API void simple_string_add ( String *pString,const char *str )
+SIMPLE_API void simple_string_add ( String *string,const char *str )
 {
-	simple_string_add_gc(NULL,pString,str);
+	simple_string_add_gc(NULL,string,str);
 }
 
-SIMPLE_API void simple_string_add2 ( String *pString,const char *str,int str_size )
+SIMPLE_API void simple_string_add2 ( String *string,const char *str,int str_size )
 {
-	simple_string_add2_gc(NULL,pString,str,str_size);
+	simple_string_add2_gc(NULL,string,str,str_size);
 }
 
-SIMPLE_API void simple_string_set ( String *pString,const char *str )
+SIMPLE_API void simple_string_set ( String *string,const char *str )
 {
-	simple_string_set_gc(NULL,pString,str);
+	simple_string_set_gc(NULL,string,str);
 }
 
-SIMPLE_API void simple_string_set2 ( String *pString,const char *str,int str_size )
+SIMPLE_API void simple_string_set2 ( String *string,const char *str,int str_size )
 {
-	simple_string_set2_gc(NULL,pString,str,str_size);
+	simple_string_set2_gc(NULL,string,str,str_size);
 }
 
 SIMPLE_API char * simple_string_find ( char *string_one,char *cStr2 )
@@ -323,12 +323,12 @@ SIMPLE_API char * simple_string_find3 ( char *string_one,int str_size1,char *cSt
 	return simple_string_find3_gc(NULL,string_one,str_size1,cStr2,str_size2) ;
 }
 
-SIMPLE_API String * simple_string_delete ( String *pString )
+SIMPLE_API String * simple_string_delete ( String *string )
 {
-	return simple_string_delete_gc(NULL,pString) ;
+	return simple_string_delete_gc(NULL,string) ;
 }
 
-SIMPLE_API void simple_string_setfromint ( String *pString,int x )
+SIMPLE_API void simple_string_setfromint ( String *string,int x )
 {
-	simple_string_setfromint_gc(NULL,pString,x);
+	simple_string_setfromint_gc(NULL,string,x);
 }

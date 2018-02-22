@@ -435,23 +435,23 @@ SIMPLE_API void simple_list_adddouble_gc ( void *pState,List *list,double x )
 SIMPLE_API void simple_list_setstsimple_gc ( void *pState,List *list, int index ,const char *str )
 {
 	Item *pItem  ;
-	String *pString  ;
+	String *string  ;
 	assert(list != NULL);
 	pItem = simple_list_getitem(list,index);
 	simple_item_settype_gc(pState,pItem,ITEMTYPE_STRING);
-	pString = simple_item_getstring(pItem);
-	simple_string_set_gc(pState,pString,str);
+	string = simple_item_getstring(pItem);
+	simple_string_set_gc(pState,string,str);
 }
 
 SIMPLE_API void simple_list_setstring2_gc ( void *pState,List *list, int index ,const char *str,int str_size )
 {
 	Item *pItem  ;
-	String *pString  ;
+	String *string  ;
 	assert(list != NULL);
 	pItem = simple_list_getitem(list,index);
 	simple_item_settype_gc(pState,pItem,ITEMTYPE_STRING);
-	pString = simple_item_getstring(pItem);
-	simple_string_set2_gc(pState,pString,str,str_size);
+	string = simple_item_getstring(pItem);
+	simple_string_set2_gc(pState,string,str,str_size);
 }
 
 SIMPLE_API void simple_list_addstring_gc ( void *pState,List *list,const char *str )
@@ -1270,7 +1270,7 @@ void simple_list_test ( void )
 	List *list,*list2  ;
 	int x  ;
 	Item *pItem  ;
-	String *pString  ;
+	String *string  ;
 	char mystr[20]  ;
 	printf( "Create new list, size = 10 \n" ) ;
 	list = simple_list_new(10);
@@ -1287,10 +1287,10 @@ void simple_list_test ( void )
 		/* Work on items */
 		pItem = simple_list_getitem(list2,x);
 		simple_item_settype(pItem,ITEMTYPE_STRING);
-		pString = simple_item_getstring(pItem);
+		string = simple_item_getstring(pItem);
 		sprintf( mystr , "The Item Number %d" , x ) ;
-		simple_string_set(pString,mystr);
-		simple_string_print(pString);
+		simple_string_set(string,mystr);
+		simple_string_print(string);
 	}
 	for ( x = 11 ; x <= 15 ; x++ ) {
 		/* Work on items */
@@ -1301,14 +1301,14 @@ void simple_list_test ( void )
 	printf( "Delete item number 5 \n" ) ;
 	simple_list_deleteitem(list2,5);
 	pItem = simple_list_getitem(list2,5);
-	pString = simple_item_getstring(pItem);
-	simple_string_print(pString);
+	string = simple_item_getstring(pItem);
+	simple_string_print(string);
 	printf( "Delete item number 1 \n" ) ;
 	/* Print Item */
 	simple_list_deleteitem(list2,1);
 	pItem = simple_list_getitem(list2,1);
-	pString = simple_item_getstring(pItem);
-	simple_string_print(pString);
+	string = simple_item_getstring(pItem);
+	simple_string_print(string);
 	printf( "Delete item number %d \n",simple_list_getsize(list2) ) ;
 	/* Print Item */
 	simple_list_deleteitem(list2,simple_list_getsize(list2));
@@ -1337,9 +1337,9 @@ void simple_list_test ( void )
 	/* Set Item 1 */
 	pItem = simple_list_getitem(list,1);
 	simple_item_settype(pItem,ITEMTYPE_STRING);
-	pString = simple_item_getstring(pItem);
-	simple_string_set(pString,mystr);
-	simple_string_print(pString);
+	string = simple_item_getstring(pItem);
+	simple_string_set(string,mystr);
+	simple_string_print(string);
 	/* Set Item 2 */
 	pItem = simple_list_getitem(list,2);
 	simple_item_settype(pItem,ITEMTYPE_LIST);
@@ -1349,24 +1349,24 @@ void simple_list_test ( void )
 	/* Work on items */
 	pItem = simple_list_getitem(list2,1);
 	simple_item_settype(pItem,ITEMTYPE_STRING);
-	pString = simple_item_getstring(pItem);
+	string = simple_item_getstring(pItem);
 	sprintf( mystr , "Item (2) Item (1) "  ) ;
-	simple_string_set(pString,mystr);
-	simple_string_print(pString);
+	simple_string_set(string,mystr);
+	simple_string_print(string);
 	/* Work on items */
 	pItem = simple_list_getitem(list2,2);
 	simple_item_settype(pItem,ITEMTYPE_STRING);
-	pString = simple_item_getstring(pItem);
+	string = simple_item_getstring(pItem);
 	sprintf( mystr , "Item (2) Item (2) "  ) ;
-	simple_string_set(pString,mystr);
-	simple_string_print(pString);
+	simple_string_set(string,mystr);
+	simple_string_print(string);
 	/* Set Item 3 */
 	pItem = simple_list_getitem(list,3);
 	simple_item_settype(pItem,ITEMTYPE_STRING);
-	pString = simple_item_getstring(pItem);
+	string = simple_item_getstring(pItem);
 	sprintf( mystr , "last item"  ) ;
-	simple_string_set(pString,mystr);
-	simple_string_print(pString);
+	simple_string_set(string,mystr);
+	simple_string_print(string);
 	/* set item 4 */
 	pItem = simple_list_getitem(list,4);
 	simple_item_settype(pItem,ITEMTYPE_NUMBER);

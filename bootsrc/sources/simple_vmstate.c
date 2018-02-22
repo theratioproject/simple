@@ -419,14 +419,14 @@ void simple_vm_popstep ( VM *vm )
 
 void simple_vm_dup ( VM *vm )
 {
-	String *pString  ;
+	String *string  ;
 	double nNum1  ;
 	void *pointer  ;
 	int nType  ;
 	if ( SIMPLE_VM_STACK_ISSTRING ) {
-		pString = simple_string_new_gc(vm->sState,SIMPLE_VM_STACK_READC);
-		SIMPLE_VM_STACK_PUSHCVALUE(simple_string_get(pString));
-		simple_string_delete_gc(vm->sState,pString);
+		string = simple_string_new_gc(vm->sState,SIMPLE_VM_STACK_READC);
+		SIMPLE_VM_STACK_PUSHCVALUE(simple_string_get(string));
+		simple_string_delete_gc(vm->sState,string);
 	}
 	else if ( SIMPLE_VM_STACK_ISNUMBER ) {
 		nNum1 = SIMPLE_VM_STACK_READN ;

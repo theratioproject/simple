@@ -27,21 +27,21 @@ SIMPLE_API String * simple_string_new_gc ( void *pState,const char *str ) ;
 
 SIMPLE_API String * simple_string_new2_gc ( void *pState,const char *str,int str_size ) ;
 
-SIMPLE_API String * simple_string_delete_gc ( void *pState,String *pString ) ;
+SIMPLE_API String * simple_string_delete_gc ( void *pState,String *string ) ;
 
-SIMPLE_API int simple_string_size ( String *pString ) ;
+SIMPLE_API int simple_string_size ( String *string ) ;
 
-SIMPLE_API void simple_string_set_gc ( void *pState,String *pString,const char *str ) ;
+SIMPLE_API void simple_string_set_gc ( void *pState,String *string,const char *str ) ;
 
-SIMPLE_API void simple_string_set2_gc ( void *pState,String *pString,const char *str,int str_size ) ;
+SIMPLE_API void simple_string_set2_gc ( void *pState,String *string,const char *str,int str_size ) ;
 
-SIMPLE_API void simple_string_add_gc ( void *pState,String *pString,const char *str ) ;
+SIMPLE_API void simple_string_add_gc ( void *pState,String *string,const char *str ) ;
 
-SIMPLE_API void simple_string_add2_gc ( void *pState,String *pString,const char *str,int str_size ) ;
+SIMPLE_API void simple_string_add2_gc ( void *pState,String *string,const char *str,int str_size ) ;
 
-SIMPLE_API void simple_string_print ( String *pString ) ;
+SIMPLE_API void simple_string_print ( String *string ) ;
 
-SIMPLE_API void simple_string_setfromint_gc ( void *pState,String *pString,int x ) ;
+SIMPLE_API void simple_string_setfromint_gc ( void *pState,String *string,int x ) ;
 
 SIMPLE_API char * simple_string_lower ( char *cStr ) ;
 
@@ -68,13 +68,13 @@ SIMPLE_API String * simple_string_new2 ( const char *str,int str_size ) ;
 
 SIMPLE_API String * simple_string_new ( const char *str ) ;
 
-SIMPLE_API void simple_string_add ( String *pString,const char *str ) ;
+SIMPLE_API void simple_string_add ( String *string,const char *str ) ;
 
-SIMPLE_API void simple_string_add2 ( String *pString,const char *str,int str_size ) ;
+SIMPLE_API void simple_string_add2 ( String *string,const char *str,int str_size ) ;
 
-SIMPLE_API void simple_string_set ( String *pString,const char *str ) ;
+SIMPLE_API void simple_string_set ( String *string,const char *str ) ;
 
-SIMPLE_API void simple_string_set2 ( String *pString,const char *str,int str_size ) ;
+SIMPLE_API void simple_string_set2 ( String *string,const char *str,int str_size ) ;
 
 SIMPLE_API char * simple_string_find ( char *string_one,char *cStr2 ) ;
 
@@ -82,7 +82,7 @@ SIMPLE_API char * simple_string_find2 ( char *string_one,int str_size1,char *cSt
 
 SIMPLE_API char * simple_string_find3 ( char *string_one,int str_size1,char *cStr2,int str_size2 ) ;
 
-SIMPLE_API String * simple_string_delete ( String *pString ) ;
+SIMPLE_API String * simple_string_delete ( String *string ) ;
 
-SIMPLE_API void simple_string_setfromint ( String *pString,int x ) ;
+SIMPLE_API void simple_string_setfromint ( String *string,int x ) ;
 #endif
