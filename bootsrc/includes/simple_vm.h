@@ -25,7 +25,7 @@
 #define SIMPLE_VM_BC_ITEMS_COUNT 24
 typedef struct ByteCode {
 	Item *aData[SIMPLE_VM_BC_ITEMS_COUNT]  ;
-	char nSize  ;
+	char size  ;
 	List *list  ;
 } ByteCode ;
 typedef struct VM {
