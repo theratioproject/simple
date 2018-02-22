@@ -158,7 +158,7 @@ void simple_vm_oop_parentinit ( VM *vm,List *list )
 	const char *cClassName,*cClassName2  ;
 	int x,x2,nFound,nMark  ;
 	List *list2, *pClassesList  ;
-	String *pString  ;
+	String *string  ;
 	/* Get the parent class name from the Class List Pointer */
 	cClassName = simple_list_getstring(list,3) ;
 	/* Create List for Classes Pointers */
@@ -179,12 +179,12 @@ void simple_vm_oop_parentinit ( VM *vm,List *list )
 				/* Check that the parent class is not one of the subclasses */
 				for ( x2 = 1 ; x2  <= simple_list_getsize(pClassesList) ; x2++ ) {
 					if ( ((List *) simple_list_getpointer(pClassesList,x2)) == list2 ) {
-						pString = simple_string_new_gc(vm->sState,"When creating class ");
-						simple_string_add_gc(vm->sState,pString,simple_list_getstring(list,1));
-						simple_string_add_gc(vm->sState,pString," from class ");
-						simple_string_add_gc(vm->sState,pString,cClassName);
-						simple_vm_error2(vm,SIMPLE_VM_ERROR_PARENTCLASSLIKESUBCLASS,simple_string_get(pString));
-						simple_string_delete_gc(vm->sState,pString);
+						string = simple_string_new_gc(vm->sState,"When creating class ");
+						simple_string_add_gc(vm->sState,string,simple_list_getstring(list,1));
+						simple_string_add_gc(vm->sState,string," from class ");
+						simple_string_add_gc(vm->sState,string,cClassName);
+						simple_vm_error2(vm,SIMPLE_VM_ERROR_PARENTCLASSLIKESUBCLASS,simple_string_get(string));
+						simple_string_delete_gc(vm->sState,string);
 						/* Delete Classes Pointers List */
 						simple_list_delete_gc(vm->sState,pClassesList);
 						return ;
@@ -870,13 +870,13 @@ void simple_vm_oop_setget ( VM *vm,List *var )
 {
 	List *list, *list2  ;
 	Item *pItem, *pItem2  ;
-	String *pString, *pString2  ;
+	String *string, *pString2  ;
 	/* Create String */
-	pString = simple_string_new_gc(vm->sState,"if isblock(simple_gettemp_var,'get");
-	simple_string_add_gc(vm->sState,pString,simple_list_getstring(var,1));
-	simple_string_add_gc(vm->sState,pString,"')\nreturn simple_gettemp_var.'get");
-	simple_string_add_gc(vm->sState,pString,simple_list_getstring(var,1));
-	simple_string_add_gc(vm->sState,pString,"'() ok");
+	string = simple_string_new_gc(vm->sState,"if isblock(simple_gettemp_var,'get");
+	simple_string_add_gc(vm->sState,string,simple_list_getstring(var,1));
+	simple_string_add_gc(vm->sState,string,"')\nreturn simple_gettemp_var.'get");
+	simple_string_add_gc(vm->sState,string,simple_list_getstring(var,1));
+	simple_string_add_gc(vm->sState,string,"'() ok");
 	/* Set Variable simple_gettemp_var  , Number 5 in Public Memory */
 	list = simple_list_getlist(simple_vm_getglobalscope(vm),5) ;
 	simple_list_setpointer_gc(vm->sState,list,SIMPLE_VAR_VALUE,vm->pGetSetObject);
@@ -908,7 +908,7 @@ void simple_vm_oop_setget ( VM *vm,List *var )
 			pItem = SIMPLE_VM_IR_ITEM(2) ;
 			vm->nEvalCalledFromSimpleCode = 0 ;
 			vm->nRetEvalDontDelete = 1 ;
-			simple_vm_eval(vm,simple_string_get(pString));
+			simple_vm_eval(vm,simple_string_get(string));
 			/* We don't use SIMPLE_VM_IR because Eval reallocation change mem. locations */
 			simple_item_setint_gc(vm->sState,pItem,vm->nPC);
 		}
@@ -934,14 +934,14 @@ void simple_vm_oop_setget ( VM *vm,List *var )
 		simple_list_addpointer_gc(vm->sState,list,var);
 	}
 	/* Delete String */
-	simple_string_delete_gc(vm->sState,pString);
+	simple_string_delete_gc(vm->sState,string);
 }
 
 void simple_vm_oop_setproperty ( VM *vm )
 {
 	List *list, *list2  ;
 	Item *pItem,*pItem2  ;
-	String *pString  ;
+	String *string  ;
 	/* To Access Property Data */
 	if ( simple_list_getsize(vm->aSetProperty) < 1 ) {
 		/* This case happens when using This.Attribute inside nested braces in a class method */
@@ -986,20 +986,20 @@ void simple_vm_oop_setproperty ( VM *vm )
 		vm->nPC-- ;
 		if ( SIMPLE_VM_IR_READIVALUE(2)  == 0 ) {
 			/* Create String */
-			pString = simple_string_new_gc(vm->sState,"if isblock(simple_gettemp_var,'set");
-			simple_string_add_gc(vm->sState,pString,simple_list_getstring(list,3));
-			simple_string_add_gc(vm->sState,pString,"')\nsimple_gettemp_var.'set");
-			simple_string_add_gc(vm->sState,pString,simple_list_getstring(list,3));
-			simple_string_add_gc(vm->sState,pString,"'(simple_settemp_var)\nsimple_tempflag_var = 0\nelse\nsimple_tempflag_var = 1\nok");
+			string = simple_string_new_gc(vm->sState,"if isblock(simple_gettemp_var,'set");
+			simple_string_add_gc(vm->sState,string,simple_list_getstring(list,3));
+			simple_string_add_gc(vm->sState,string,"')\nsimple_gettemp_var.'set");
+			simple_string_add_gc(vm->sState,string,simple_list_getstring(list,3));
+			simple_string_add_gc(vm->sState,string,"'(simple_settemp_var)\nsimple_tempflag_var = 0\nelse\nsimple_tempflag_var = 1\nok");
 			/* Eval the string */
 			pItem = SIMPLE_VM_IR_ITEM(2) ;
 			vm->nEvalCalledFromSimpleCode = 0 ;
 			vm->nRetEvalDontDelete = 1 ;
-			simple_vm_eval(vm,simple_string_get(pString));
+			simple_vm_eval(vm,simple_string_get(string));
 			/* We don't use SIMPLE_VM_IR because Eval reallocation change mem. locations */
 			simple_item_setint_gc(vm->sState,pItem,vm->nPC);
 			/* Delete String */
-			simple_string_delete_gc(vm->sState,pString);
+			simple_string_delete_gc(vm->sState,string);
 		}
 		else {
 			simple_vm_blockflag2(vm,vm->nPC);
@@ -1088,7 +1088,7 @@ void simple_vm_oop_operatoroverloading ( VM *vm,List *pObj,const char *string_on
 {
 	List *list2  ;
 	Item *pItem  ;
-	String *pString  ;
+	String *string  ;
 	int nObjType  ;
 	nObjType = simple_vm_oop_objtypefromobjlist(pObj);
 	/* Set Variable simple_gettemp_var  , Number 5 in Public Memory */
@@ -1119,18 +1119,18 @@ void simple_vm_oop_operatoroverloading ( VM *vm,List *pObj,const char *string_on
 	}
 	if ( SIMPLE_VM_IR_READIVALUE(1) == 0 ) {
 		/* Create String */
-		pString = simple_string_new_gc(vm->sState,"if isblock(simple_gettemp_var,'operator')\nreturn simple_gettemp_var.operator('");
-		simple_string_add_gc(vm->sState,pString,string_one);
-		simple_string_add_gc(vm->sState,pString,"',simple_settemp_var)\nelse\nraise('Object does not support operator overloading')\nok\n");
+		string = simple_string_new_gc(vm->sState,"if isblock(simple_gettemp_var,'operator')\nreturn simple_gettemp_var.operator('");
+		simple_string_add_gc(vm->sState,string,string_one);
+		simple_string_add_gc(vm->sState,string,"',simple_settemp_var)\nelse\nraise('Object does not support operator overloading')\nok\n");
 		/* Eval the string */
 		pItem = SIMPLE_VM_IR_ITEM(1) ;
 		vm->nEvalCalledFromSimpleCode = 0 ;
 		vm->nRetEvalDontDelete = 1 ;
-		simple_vm_eval(vm,simple_string_get(pString));
+		simple_vm_eval(vm,simple_string_get(string));
 		/* We don't use SIMPLE_VM_IR because Eval reallocation change mem. locations */
 		simple_item_setint_gc(vm->sState,pItem,vm->nPC);
 		/* Delete String */
-		simple_string_delete_gc(vm->sState,pString);
+		simple_string_delete_gc(vm->sState,string);
 	}
 	else {
 		simple_vm_blockflag2(vm,vm->nPC);

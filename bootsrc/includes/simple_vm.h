@@ -350,7 +350,7 @@ void simple_vm_stsimple_pushv ( VM *vm ) ;
 
 void simple_vm_stsimple_assignment ( VM *vm ) ;
 
-void simple_vm_stsimple_index ( VM *vm , String *pString , double x ) ;
+void simple_vm_stsimple_index ( VM *vm , String *string , double x ) ;
 /* Try Catch Done */
 
 void simple_vm_try ( VM *vm ) ;
@@ -546,7 +546,7 @@ List * simple_vm_getglobalscope ( VM *vm ) ;
 **  Stack 
 **  Add 
 */
-#define SIMPLE_VM_STACK_PUSHC vm->nsp++ ; simple_itemarray_setstring2(vm->aStack, vm->nsp, simple_string_get(vm->pByteCodeIR->aData[1]->data.pString), simple_string_size(vm->pByteCodeIR->aData[1]->data.pString))
+#define SIMPLE_VM_STACK_PUSHC vm->nsp++ ; simple_itemarray_setstring2(vm->aStack, vm->nsp, simple_string_get(vm->pByteCodeIR->aData[1]->data.string), simple_string_size(vm->pByteCodeIR->aData[1]->data.string))
 #define SIMPLE_VM_STACK_PUSHN vm->nsp++ ; simple_itemarray_setdouble(vm->aStack, vm->nsp , vm->pByteCodeIR->aData[1]->data.dNumber)
 #define SIMPLE_VM_STACK_PUSHP vm->nsp++ ; simple_itemarray_setpointer(vm->aStack, vm->nsp , vm->pByteCodeIR->aData[1]->data.pointer )
 /* Note, use SIMPLE_VM_STACK_OBJTYPE to read/write the pointer type */
@@ -596,8 +596,8 @@ List * simple_vm_getglobalscope ( VM *vm ) ;
 #define SIMPLE_VM_POINTER 4
 /* IR (Instruction Register) */
 #define SIMPLE_VM_JUMP vm->nPC = vm->pByteCodeIR->aData[1]->data.iNumber
-#define SIMPLE_VM_IR_READC simple_string_get(vm->pByteCodeIR->aData[1]->data.pString)
-#define SIMPLE_VM_IR_READCVALUE(x) simple_string_get(vm->pByteCodeIR->aData[x]->data.pString)
+#define SIMPLE_VM_IR_READC simple_string_get(vm->pByteCodeIR->aData[1]->data.string)
+#define SIMPLE_VM_IR_READCVALUE(x) simple_string_get(vm->pByteCodeIR->aData[x]->data.string)
 #define SIMPLE_VM_IR_READP vm->pByteCodeIR->aData[1]->data.pointer
 #define SIMPLE_VM_IR_READPVALUE(x) vm->pByteCodeIR->aData[x]->data.pointer
 #define SIMPLE_VM_IR_READI vm->pByteCodeIR->aData[1]->data.iNumber
@@ -606,7 +606,7 @@ List * simple_vm_getglobalscope ( VM *vm ) ;
 #define SIMPLE_VM_IR_READDVALUE(x) vm->pByteCodeIR->aData[x]->data.dNumber
 #define SIMPLE_VM_IR_PARACOUNT vm->pByteCodeIR->nSize
 #define SIMPLE_VM_IR_OPCODE vm->pByteCodeIR->aData[0]->data.iNumber
-#define SIMPLE_VM_IR_SETCVALUE(x,y) simple_string_set_gc(vm->sState,vm->pByteCodeIR->aData[x]->data.pString,y)
+#define SIMPLE_VM_IR_SETCVALUE(x,y) simple_string_set_gc(vm->sState,vm->pByteCodeIR->aData[x]->data.string,y)
 #define SIMPLE_VM_IR_ITEM(x) vm->pByteCodeIR->aData[x]
 #define SIMPLE_VM_IR_LIST vm->pByteCodeIR->list
 #define SIMPLE_VM_IR_LOAD vm->pByteCodeIR = vm->pByteCode + vm->nPC - 1

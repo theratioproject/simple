@@ -246,7 +246,7 @@ void simple_scanner_readchar ( Scanner *scanner,char c )
 {
 	char cStr[2]  ;
 	List *list  ;
-	String *pString  ;
+	String *string  ;
 	int nTokenIndex  ;
 	assert(scanner != NULL);
 	cStr[0] = c ;
@@ -526,10 +526,10 @@ void simple_scanner_readchar ( Scanner *scanner,char c )
 			#endif
 		} else {
 			list = simple_list_getlist(scanner->Tokens,simple_list_getsize(scanner->Tokens));
-			pString = simple_string_new_gc(scanner->sState,"");
-			simple_string_setfromint_gc(scanner->sState,pString,scanner->LinesCount);
-			simple_list_setstsimple_gc(scanner->sState,list,2,simple_string_get(pString));
-			simple_string_delete_gc(scanner->sState,pString);
+			string = simple_string_new_gc(scanner->sState,"");
+			simple_string_setfromint_gc(scanner->sState,string,scanner->LinesCount);
+			simple_list_setstsimple_gc(scanner->sState,list,2,simple_string_get(string));
+			simple_string_delete_gc(scanner->sState,string);
 		}
 	}
 }
@@ -766,7 +766,7 @@ char * simple_scanner_lasttokenvalue ( Scanner *scanner )
 void simple_scanner_floatmark ( Scanner *scanner,int type )
 {
 	List *list  ;
-	String *pString  ;
+	String *string  ;
 	assert(scanner != NULL);
 	switch ( scanner->FloatMark ) {
 		case 0 :
@@ -784,13 +784,13 @@ void simple_scanner_floatmark ( Scanner *scanner,int type )
 		case 2 :
 			if ( type == SCANNER_TOKEN_NUMBER ) {
 				list = simple_list_getlist(scanner->Tokens,simple_list_getsize(scanner->Tokens));
-				pString = simple_string_new_gc(scanner->sState,simple_list_getstring(list,2)) ;
+				string = simple_string_new_gc(scanner->sState,simple_list_getstring(list,2)) ;
 				simple_list_deleteitem_gc(scanner->sState,scanner->Tokens,simple_list_getsize(scanner->Tokens));
 				simple_list_deleteitem_gc(scanner->sState,scanner->Tokens,simple_list_getsize(scanner->Tokens));
 				list = simple_list_getlist(scanner->Tokens,simple_list_getsize(scanner->Tokens));
 				simple_string_add_gc(scanner->sState,simple_item_getstring(simple_list_getitem(list,2)),".");
-				simple_string_add_gc(scanner->sState,simple_item_getstring(simple_list_getitem(list,2)),simple_string_get(pString));
-				simple_string_delete_gc(scanner->sState,pString);
+				simple_string_add_gc(scanner->sState,simple_item_getstring(simple_list_getitem(list,2)),simple_string_get(string));
+				simple_string_delete_gc(scanner->sState,string);
 				#if SIMPLE_SCANNEROUTPUT
 				printf( "\nFloat Found, Removed 2 tokens from the end, update value to float ! \n" ) ;
 				printf( "\nFloat Value = %s  \n",simple_list_getstring(list,2) ) ;

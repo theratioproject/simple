@@ -28,7 +28,7 @@ typedef struct Item {
 	unsigned int nObjectType:2  ;
 	/* Data */
 	union {
-		struct String *pString  ;
+		struct String *string  ;
 		double dNumber  ;
 		int iNumber  ;
 		void *pointer  ;
@@ -88,7 +88,7 @@ SIMPLE_API void simple_item_setint_gc ( void *pState,Item *pItem,int x ) ;
 
 SIMPLE_API void simple_item_setstring2_gc ( void *pState,Item *pItem,const char *cStr,int nStrSize ) ;
 /* Macro */
-#define simple_item_getstring(x) x->data.pString
+#define simple_item_getstring(x) x->data.string
 #define simple_item_getnumber(x) x->data.dNumber
 #define simple_item_getdouble(x) x->data.dNumber
 #define simple_item_getint(x) x->data.iNumber
@@ -98,8 +98,8 @@ SIMPLE_API void simple_item_setstring2_gc ( void *pState,Item *pItem,const char 
 #define simple_itemarray_getint(list,index) ( list[index].data.iNumber )
 #define simple_itemarray_getpointer(list,index) ( list[index].data.pointer )
 #define simple_itemarray_getdouble(list,index) list[index].data.dNumber
-#define simple_itemarray_getstring(list,index) simple_string_get(list[index].data.pString )
-#define simple_itemarray_getstringsize(list,index) simple_string_size(list[index].data.pString )
+#define simple_itemarray_getstring(list,index) simple_string_get(list[index].data.string )
+#define simple_itemarray_getstringsize(list,index) simple_string_size(list[index].data.string )
 /* Check */
 #define simple_itemarray_isstring(list,index) (list[index].nType == ITEMTYPE_STRING)
 #define simple_itemarray_isnumber(list,index) (list[index].nType == ITEMTYPE_NUMBER)

@@ -58,7 +58,7 @@ SIMPLE_API void simple_item_print ( Item *pItem )
 			break ;
 		case ITEMTYPE_STRING :
 			/* Work */
-			simple_string_print(pItem->data.pString);
+			simple_string_print(pItem->data.string);
 			break ;
 		case ITEMTYPE_NUMBER :
 			/* Work */
@@ -85,7 +85,7 @@ SIMPLE_API void simple_item_content_delete_gc ( void *pState,Item *pItem )
 	switch ( pItem->nType ) {
 		case ITEMTYPE_STRING :
 			/* Work */
-			pItem->data.pString = simple_string_delete_gc(pState,pItem->data.pString);
+			pItem->data.string = simple_string_delete_gc(pState,pItem->data.string);
 			break ;
 		case ITEMTYPE_LIST :
 			/* Work */
@@ -114,7 +114,7 @@ SIMPLE_API void simple_item_settype_gc ( void *pState,Item *pItem,int ItemType )
 			break ;
 		case ITEMTYPE_STRING :
 			pItem->nType = ITEMTYPE_STRING ;
-			pItem->data.pString = simple_string_new_gc(pState,"");
+			pItem->data.string = simple_string_new_gc(pState,"");
 			break ;
 		case ITEMTYPE_NUMBER :
 			pItem->nType = ITEMTYPE_NUMBER ;
@@ -176,13 +176,13 @@ SIMPLE_API void simple_itemarray_setdouble_gc ( void *pState,Item list[], int in
 SIMPLE_API void simple_itemarray_setstsimple_gc ( void *pState,Item list[], int index ,const char *str )
 {
 	simple_item_settype_gc(pState,&list[index],ITEMTYPE_STRING);
-	simple_string_set_gc(pState,list[index].data.pString ,str);
+	simple_string_set_gc(pState,list[index].data.string ,str);
 }
 
 SIMPLE_API void simple_itemarray_setstring2_gc ( void *pState,Item list[], int index ,const char *str,int nStrSize )
 {
 	simple_item_settype_gc(pState,&list[index],ITEMTYPE_STRING);
-	simple_string_set2_gc(pState,list[index].data.pString ,str,nStrSize);
+	simple_string_set2_gc(pState,list[index].data.string ,str,nStrSize);
 }
 /* Blocks to deal with one item */
 
