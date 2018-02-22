@@ -19,7 +19,7 @@
 typedef struct List {
 	struct Items *pFirst  ;
 	struct Items *pLast  ;
-	int nSize  ;
+	int size  ;
 	int nNextItemAfterLastAccess  ;
 	struct Items *pLastItemLastAccess  ;
 	struct Item **pItemsArray  ;
@@ -30,9 +30,9 @@ typedef struct List {
 **  Main List Blocks 
 */
 
-SIMPLE_API List * simple_list_new_gc ( void *pState,int nSize ) ;
+SIMPLE_API List * simple_list_new_gc ( void *pState,int size ) ;
 
-SIMPLE_API List * simple_list_new2_gc ( void *pState,List *list,int nSize ) ;
+SIMPLE_API List * simple_list_new2_gc ( void *pState,List *list,int size ) ;
 
 SIMPLE_API void simple_list_newitem_gc ( void *pState,List *list ) ;
 
@@ -177,13 +177,13 @@ SIMPLE_API int simple_list_deliteminsidelist ( List *list,Item *pItem ) ;
 #define simple_list_getstring(list,index) ( simple_string_get(simple_item_getstring(simple_list_getitem(list,index))) )
 #define simple_list_getstringobject(list,index) ( simple_item_getstring(simple_list_getitem(list,index)) )
 #define simple_list_getstringsize(list,index) ( simple_string_size(simple_item_getstring(simple_list_getitem(list,index))) )
-#define simple_list_getsize(x) (x->nSize)
+#define simple_list_getsize(x) (x->size)
 #define SIMPLE_VM_LISTOFOBJS_FINDSTRING 1
 #define SIMPLE_VM_LISTOFOBJS_FINDNUMBER 0
 #define simple_list_deletelastitem_gc(s,x) simple_list_deleteitem_gc(s,x,simple_list_getsize(x))
 /* Define blocks without SimpleState * */
 
-SIMPLE_API List * simple_list_new ( int nSize ) ;
+SIMPLE_API List * simple_list_new ( int size ) ;
 
 SIMPLE_API void simple_list_genarray ( List *list ) ;
 

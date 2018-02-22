@@ -67,7 +67,7 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
 	VM *vm  ;
 	int nCont,nRunVM,nFreeFilesList = 0 ;
 	char start_up[30]  ;
-	int x,nSize  ;
+	int x,size  ;
 	char file_name_two[200]  ;
         int is_start_file = 1 ;
 	/* Check file */
@@ -154,7 +154,7 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
 		exit(-1);
                 return 0 ;
 	}
-	SIMPLE_READCHAR(fp,c,nSize);
+	SIMPLE_READCHAR(fp,c,size);
 	scanner = new_simple_scanner(sState);
         /*Assign default file dir */
         if (is_start_file) {get_file_folder ( DEFAULT_FILE_PATH );}
@@ -175,10 +175,10 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
 		simple_string_setfromint_gc(sState,scanner->ActiveToken,0);
 		simple_scanner_addtoken(scanner,SCANNER_TOKEN_ENDLINE);
 	}
-	nSize = 1 ;
-	while ( (c != EOF) && (nSize != 0) ) {
+	size = 1 ;
+	while ( (c != EOF) && (size != 0) ) {
 		simple_scanner_readchar(scanner,c);
-		SIMPLE_READCHAR(fp,c,nSize);
+		SIMPLE_READCHAR(fp,c,size);
 	}
 	nCont = simple_scanner_checklasttoken(scanner);
 	/* Add Token "End of Line" to the end of any program */
@@ -1022,7 +1022,7 @@ void simple_scanner_loadsyntax ( Scanner *scanner )
 	SIMPLE_FILE fp  ;
 	/* Must be signed char to work fine on Android, because it uses -1 as NULL instead of Zero */
 	signed char c  ;
-	int nSize  ;
+	int size  ;
 	char file_name_two[200]  ;
 	unsigned int x  ;
 	file_name = simple_string_get(scanner->ActiveToken) ;
@@ -1050,12 +1050,12 @@ void simple_scanner_loadsyntax ( Scanner *scanner )
 		printf( "\nCan't open file %s \n",file_name ) ;
 		return ;
 	}
-	nSize = 1 ;
+	size = 1 ;
 	simple_string_set_gc(scanner->sState,scanner->ActiveToken,"");
-	SIMPLE_READCHAR(fp,c,nSize);
-	while ( (c != EOF) && (nSize != 0) ) {
+	SIMPLE_READCHAR(fp,c,size);
+	while ( (c != EOF) && (size != 0) ) {
 		simple_scanner_readchar(scanner,c);
-		SIMPLE_READCHAR(fp,c,nSize);
+		SIMPLE_READCHAR(fp,c,size);
 	}
 	SIMPLE_CLOSEFILE(fp);
 	simple_scanner_readchar(scanner,'\n');

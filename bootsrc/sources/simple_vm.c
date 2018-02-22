@@ -269,14 +269,14 @@ VM * simple_vm_delete ( VM *vm )
 
 SIMPLE_API void simple_vm_loadcode ( VM *vm )
 {
-	int x,nSize  ;
+	int x,size  ;
 	/*
 	**  We may allocation double of the size that we need to avoid reallocation when we use executeCode() 
 	**  executeCode() will check if there is a need to reallocation or not 
 	**  This optimization increase the performance of applications that uses executeCode() 
 	*/
-	nSize = (simple_list_getsize(vm->pCode))*SIMPLE_VM_EXTRASIZE ;
-	vm->pByteCode = (ByteCode *) simple_state_calloc(vm->sState,nSize,sizeof(ByteCode));
+	size = (simple_list_getsize(vm->pCode))*SIMPLE_VM_EXTRASIZE ;
+	vm->pByteCode = (ByteCode *) simple_state_calloc(vm->sState,size,sizeof(ByteCode));
 	if ( vm->pByteCode == NULL ) {
 		printf( SIMPLE_OOM ) ;
 		exit(0);
@@ -284,7 +284,7 @@ SIMPLE_API void simple_vm_loadcode ( VM *vm )
 	for ( x = 1 ; x <= simple_list_getsize(vm->pCode) ; x++ ) {
 		simple_vm_tobytecode(vm,x);
 	}
-	vm->nEvalReallocationSize = nSize ;
+	vm->nEvalReallocationSize = size ;
 }
 
 void simple_vm_start ( SimpleState *sState,VM *vm )
@@ -760,12 +760,12 @@ SIMPLE_API void simple_vm_error ( VM *vm,const char *str )
 
 int simple_vm_eval ( VM *vm,const char *str )
 {
-	int nPC,nCont,nLastPC,nRunVM,x,nSize  ;
+	int nPC,nCont,nLastPC,nRunVM,x,size  ;
 	Scanner *scanner  ;
 	int aPara[3]  ;
 	ByteCode *pByteCode  ;
-	nSize = strlen( str ) ;
-	if ( nSize == 0 ) {
+	size = strlen( str ) ;
+	if ( size == 0 ) {
 		return 0 ;
 	}
 	nPC = vm->nPC ;
@@ -773,7 +773,7 @@ int simple_vm_eval ( VM *vm,const char *str )
 	simple_list_addstring_gc(vm->sState,vm->sState->files_list,"executeCode");
 	simple_list_addstring_gc(vm->sState,vm->sState->files_stack,"executeCode");
 	scanner = new_simple_scanner(vm->sState);
-	for ( x = 0 ; x < nSize ; x++ ) {
+	for ( x = 0 ; x < size ; x++ ) {
 		simple_scanner_readchar(scanner,str[x]);
 	}
 	nCont = simple_scanner_checklasttoken(scanner);
@@ -860,7 +860,7 @@ void simple_vm_tobytecode ( VM *vm,int x )
 	Item *pItem  ;
 	pByteCode = vm->pByteCode + x - 1 ;
 	pIR = simple_list_getlist(vm->pCode,x);
-	pByteCode->nSize = simple_list_getsize(pIR) ;
+	pByteCode->size = simple_list_getsize(pIR) ;
 	#if SIMPLE_SHOWICFINAL
 	pByteCode->list = pIR ;
 	#endif

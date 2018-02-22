@@ -282,29 +282,29 @@ int simple_fexists ( const char *file_name )
 
 int simple_currentdir ( char *cDirPath )
 {
-	int nSize  ;
-	nSize = SIMPLE_PATHSIZE ;
-	if ( !GetCurrentDir(cDirPath, nSize) ) {
+	int size  ;
+	size = SIMPLE_PATHSIZE ;
+	if ( !GetCurrentDir(cDirPath, size) ) {
 		return errno ;
 	}
-	cDirPath[nSize-1] = '\0' ;
+	cDirPath[size-1] = '\0' ;
 	return 0 ;
 }
 
 int simple_exefilename ( char *cDirPath )
 {
-	unsigned int nSize  ;
-	nSize = SIMPLE_PATHSIZE ;
+	unsigned int size  ;
+	size = SIMPLE_PATHSIZE ;
 	#ifdef _WIN32
 	/* Windows only */
-	GetModuleFileName(NULL,cDirPath,nSize);
+	GetModuleFileName(NULL,cDirPath,size);
 	#elif __MACH__
 	/* Mac OS X */
-	_NSGetExecutablePath(cDirPath,&nSize);
+	_NSGetExecutablePath(cDirPath,&size);
 	#elif __linux__
 	/* readlink() doesn't null terminate */
-	memset(cDirPath,0,nSize);
-	if ( ! readlink("/proc/self/exe",cDirPath,nSize) ) {
+	memset(cDirPath,0,size);
+	if ( ! readlink("/proc/self/exe",cDirPath,size) ) {
 		return 0 ;
 	}
 	#endif
@@ -320,10 +320,10 @@ void simple_exefolder ( char *cDirPath )
 {
 	char cDir[SIMPLE_PATHSIZE]  ;
 	char cDir2[SIMPLE_PATHSIZE]  ;
-	int x,x2,nSize  ;
+	int x,x2,size  ;
 	simple_exefilename(cDir);
-	nSize = strlen( cDir ) ;
-	for ( x = nSize-1 ; x >= 0 ; x-- ) {
+	size = strlen( cDir ) ;
+	for ( x = size-1 ; x >= 0 ; x-- ) {
 		if ( (cDir[x] == '\\') || (cDir[x] == '/') ) {
 			for ( x2 = x ; x2 >= 0 ; x2-- ) {
 				cDir2[x2] = cDir[x2] ;
@@ -349,9 +349,9 @@ void simple_switchtofilefolder ( char *file_name )
 
 int simple_justfilepath ( char *file_name )
 {
-	int x,nSize  ;
-	nSize = strlen( file_name ) ;
-	for ( x = nSize-1 ; x >= 0 ; x-- ) {
+	int x,size  ;
+	size = strlen( file_name ) ;
+	for ( x = size-1 ; x >= 0 ; x-- ) {
 		if ( (file_name[x] == '\\') || (file_name[x] == '/') ) {
 			file_name[x+1] = '\0' ;
 			return 1 ;
@@ -362,12 +362,12 @@ int simple_justfilepath ( char *file_name )
 
 void simple_justfilename ( char *file_name )
 {
-	int x,nSize,r  ;
-	nSize = strlen( file_name ) ;
-	for ( x = nSize-1 ; x >= 0 ; x-- ) {
+	int x,size,r  ;
+	size = strlen( file_name ) ;
+	for ( x = size-1 ; x >= 0 ; x-- ) {
 		if ( (file_name[x] == '\\') || (file_name[x] == '/') ) {
 			r = 0 ;
-			for ( x = x+1 ; x <= nSize+1 ; x++ ) {
+			for ( x = x+1 ; x <= size+1 ; x++ ) {
 				file_name[r] = file_name[x] ;
 				r++ ;
 			}

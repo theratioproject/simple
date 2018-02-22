@@ -1078,7 +1078,7 @@ void simple_vm_expr_npoo ( VM *vm,const char *str,double nNum1 )
 }
 /* Stack String then Stack Pointer - Operator Overloading */
 
-void simple_vm_expr_spoo ( VM *vm,const char *str,const char *cStr2,int nSize )
+void simple_vm_expr_spoo ( VM *vm,const char *str,const char *cStr2,int size )
 {
 	List *list  ;
 	Item *pItem  ;
@@ -1095,7 +1095,7 @@ void simple_vm_expr_spoo ( VM *vm,const char *str,const char *cStr2,int nSize )
 	}
 	if ( strcmp(str,"+") == 0 ) {
 		if ( simple_vm_oop_isobject(list) == 0 ) {
-			simple_list_addstring2_gc(vm->sState,list,cStr2,nSize);
+			simple_list_addstring2_gc(vm->sState,list,cStr2,size);
 			return ;
 		}
 	}

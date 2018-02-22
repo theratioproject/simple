@@ -42,7 +42,7 @@ SIMPLE_API String * simple_string_new2_gc ( void *pState,const char *str,int str
 		string->str[x] = str[x] ;
 	}
 	string->str[string_size] = '\0' ;
-	string->nSize = string_size ;
+	string->size = string_size ;
 	return string ;
 }
 
@@ -58,7 +58,7 @@ SIMPLE_API String * simple_string_delete_gc ( void *pState,String *string )
 SIMPLE_API int simple_string_size ( String *string )
 {
 	assert(string != NULL);
-	return string->nSize ;
+	return string->size ;
 }
 
 SIMPLE_API void simple_string_set_gc ( void *pState,String *string,const char *str )
@@ -85,7 +85,7 @@ SIMPLE_API void simple_string_set2_gc ( void *pState,String *string,const char *
 		string->str[x] = str[x] ;
 	}
 	string->str[string_size] = '\0' ;
-	string->nSize = string_size ;
+	string->size = string_size ;
 }
 
 SIMPLE_API void simple_string_add_gc ( void *pState,String *string,const char *str )
@@ -116,7 +116,7 @@ SIMPLE_API void simple_string_add2_gc ( void *pState,String *string,const char *
 		string->str[x+simple_string_size(string)] = str[x] ;
 	}
 	string->str[x2] = '\0' ;
-	string->nSize = x2 ;
+	string->size = x2 ;
 	simple_state_free(pState,str);
 }
 

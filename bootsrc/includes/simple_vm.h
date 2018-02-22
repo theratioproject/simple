@@ -25,7 +25,7 @@
 #define SIMPLE_VM_BC_ITEMS_COUNT 24
 typedef struct ByteCode {
 	Item *aData[SIMPLE_VM_BC_ITEMS_COUNT]  ;
-	char nSize  ;
+	char size  ;
 	List *list  ;
 } ByteCode ;
 typedef struct VM {
@@ -229,7 +229,7 @@ void simple_vm_expr_ppoo ( VM *vm,const char *str ) ;
 
 void simple_vm_expr_npoo ( VM *vm,const char *str,double nNum1 ) ;
 
-void simple_vm_expr_spoo ( VM *vm,const char *str,const char *cStr2,int nSize ) ;
+void simple_vm_expr_spoo ( VM *vm,const char *str,const char *cStr2,int size ) ;
 
 void simple_vm_plusplus ( VM *vm ) ;
 
@@ -604,7 +604,7 @@ List * simple_vm_getglobalscope ( VM *vm ) ;
 #define SIMPLE_VM_IR_READIVALUE(x) vm->pByteCodeIR->aData[x]->data.iNumber
 #define SIMPLE_VM_IR_READD vm->pByteCodeIR->aData[1]->data.dNumber
 #define SIMPLE_VM_IR_READDVALUE(x) vm->pByteCodeIR->aData[x]->data.dNumber
-#define SIMPLE_VM_IR_PARACOUNT vm->pByteCodeIR->nSize
+#define SIMPLE_VM_IR_PARACOUNT vm->pByteCodeIR->size
 #define SIMPLE_VM_IR_OPCODE vm->pByteCodeIR->aData[0]->data.iNumber
 #define SIMPLE_VM_IR_SETCVALUE(x,y) simple_string_set_gc(vm->sState,vm->pByteCodeIR->aData[x]->data.string,y)
 #define SIMPLE_VM_IR_ITEM(x) vm->pByteCodeIR->aData[x]

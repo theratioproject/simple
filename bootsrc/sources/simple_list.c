@@ -19,7 +19,7 @@
 **  List 
 */
 
-SIMPLE_API List * simple_list_new_gc ( void *pState,int nSize )
+SIMPLE_API List * simple_list_new_gc ( void *pState,int size )
 {
 	List *list  ;
 	list = (List *) simple_state_malloc(pState,sizeof(List));
@@ -27,19 +27,19 @@ SIMPLE_API List * simple_list_new_gc ( void *pState,int nSize )
 		printf( SIMPLE_OOM ) ;
 		exit(0);
 	}
-	return simple_list_new2_gc(pState,list,nSize) ;
+	return simple_list_new2_gc(pState,list,size) ;
 }
 
-SIMPLE_API List * simple_list_new2_gc ( void *pState,List *list,int nSize )
+SIMPLE_API List * simple_list_new2_gc ( void *pState,List *list,int size )
 {
 	int x  ;
 	Items *pItems,*pItemsLast  ;
-	list->nSize = nSize ;
-	if ( nSize > 0 ) {
+	list->size = size ;
+	if ( size > 0 ) {
 		pItems = simple_items_new_gc(pState);
 		list->pFirst = pItems ;
 		pItemsLast = pItems ;
-		for ( x = 2 ; x <= nSize ; x++ ) {
+		for ( x = 2 ; x <= size ; x++ ) {
 			pItems = simple_items_new_gc(pState);
 			if ( pItems == NULL ) {
 				printf( "OUT OF MEMEORY \n  " ) ;
@@ -118,7 +118,7 @@ SIMPLE_API void simple_list_copy_gc ( void *pState,List *pNewList, List *list )
 
 SIMPLE_API void simple_list_print ( List *list )
 {
-	int x,t,nSize  ;
+	int x,t,size  ;
 	double y  ;
 	const char *str  ;
 	List *list2  ;
@@ -130,8 +130,8 @@ SIMPLE_API void simple_list_print ( List *list )
 	for ( x = 1 ; x <= simple_list_getsize(list) ; x++ ) { 
 		if ( simple_list_isstring(list,x) ) {
 			str = simple_list_getstring(list,x) ;
-			nSize = simple_list_getstringsize(list,x);
-			for ( t = 0 ; t < nSize ; t++ ) {
+			size = simple_list_getstringsize(list,x);
+			for ( t = 0 ; t < size ; t++ ) {
 				printf( "%c",str[t] ) ;
 			}
 			printf( "\n" ) ;
@@ -181,7 +181,7 @@ SIMPLE_API void simple_list_deleteallitems_gc ( void *pState,List *list )
 	list->pFirst = NULL ;
 	list->pLast = NULL ;
 	list->pLastItemLastAccess = NULL ;
-	list->nSize = 0 ;
+	list->size = 0 ;
 	list->nNextItemAfterLastAccess = 0 ;
 	/* Free Items Array */
 	simple_list_deletearray_gc(pState,list);
@@ -197,7 +197,7 @@ SIMPLE_API void simple_list_newitem_gc ( void *pState,List *list )
 	Items *pItems  ;
 	assert(list != NULL);
 	pItems = simple_items_new_gc(pState);
-	if ( (list->nSize) > 0 ) {
+	if ( (list->size) > 0 ) {
 		list->pLast->pNext = pItems ;
 		pItems->pPrev = list->pLast ;
 		list->pLast = pItems ;
@@ -205,7 +205,7 @@ SIMPLE_API void simple_list_newitem_gc ( void *pState,List *list )
 		list->pFirst = pItems ;
 		list->pLast = pItems ;
 	}
-	list->nSize = list->nSize + 1 ;
+	list->size = list->size + 1 ;
 	/* Refresh The Cache */
 	list->nNextItemAfterLastAccess = 0 ;
 	list->pLastItemLastAccess = NULL ;
@@ -328,7 +328,7 @@ SIMPLE_API void simple_list_deleteitem_gc ( void *pState,List *list,int index )
 			pItems->pNext->pPrev = pItemsPrev ;
 		}
 		simple_items_delete_gc(pState,pItems);
-		list->nSize = list->nSize - 1 ;
+		list->size = list->size - 1 ;
 	}
 	/* Refresh The Cache */
 	list->nNextItemAfterLastAccess = 0 ;
@@ -529,7 +529,7 @@ void simple_list_testblockpointer ( void *pointer )
 	List *list  ;
 	list = (List *) pointer ;
 	puts(" Message from a block called by block pointer  ");
-	printf( "List Size %d  \n",list->nSize ) ;
+	printf( "List Size %d  \n",list->size ) ;
 }
 /*
 **  Insert Items 
@@ -554,7 +554,7 @@ SIMPLE_API void simple_list_insertitem_gc ( void *pState,List *list,int x )
 		pItems->pPrev = NULL ;
 		list->pFirst->pPrev = pItems ;
 		list->pFirst = pItems ;
-		list->nSize = list->nSize + 1 ;
+		list->size = list->size + 1 ;
 		return ;
 	}
 	simple_list_getitem(list,x);
@@ -563,7 +563,7 @@ SIMPLE_API void simple_list_insertitem_gc ( void *pState,List *list,int x )
 	pItems->pNext->pPrev = pItems ;
 	pItems->pPrev = list->pLastItemLastAccess ;
 	list->pLastItemLastAccess->pNext = pItems ;
-	list->nSize = list->nSize + 1 ;
+	list->size = list->size + 1 ;
 }
 
 SIMPLE_API void simple_list_insertint_gc ( void *pState,List *list,int nPos,int x )
@@ -1072,7 +1072,7 @@ SIMPLE_API void simple_list_refcopy ( List *pNewList, List *list )
 {
 	pNewList->pFirst = list->pFirst ;
 	pNewList->pLast = list->pLast ;
-	pNewList->nSize = list->nSize ;
+	pNewList->size = list->size ;
 	pNewList->nNextItemAfterLastAccess = list->nNextItemAfterLastAccess ;
 	pNewList->pLastItemLastAccess = list->pLastItemLastAccess ;
 	pNewList->pItemsArray = list->pItemsArray ;
@@ -1083,7 +1083,7 @@ SIMPLE_API void simple_list_clear ( List *list )
 {
 	list->pFirst = NULL ;
 	list->pLast = NULL ;
-	list->nSize = 0 ;
+	list->size = 0 ;
 	list->nNextItemAfterLastAccess = 0 ;
 	list->pLastItemLastAccess = NULL ;
 	list->pItemsArray = NULL ;
@@ -1091,9 +1091,9 @@ SIMPLE_API void simple_list_clear ( List *list )
 }
 /* Define blocks without State Pointer */
 
-SIMPLE_API List * simple_list_new ( int nSize )
+SIMPLE_API List * simple_list_new ( int size )
 {
-	return simple_list_new_gc(NULL,nSize) ;
+	return simple_list_new_gc(NULL,size) ;
 }
 
 SIMPLE_API void simple_list_genarray ( List *list )

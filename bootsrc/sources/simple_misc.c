@@ -156,9 +156,9 @@ char* get_time_different(double diff) {
 
 void get_file_folder ( char *absolute_path ) {
 	char cDir2[SIMPLE_PATHSIZE]  ;
-	int x,x2,nSize  ;
-	nSize = strlen( absolute_path ) ;
-	for ( x = nSize-1 ; x >= 0 ; x-- ) {
+	int x,x2,size  ;
+	size = strlen( absolute_path ) ;
+	for ( x = size-1 ; x >= 0 ; x-- ) {
 		if ( (absolute_path[x] == '\\') || (absolute_path[x] == '/') ) {
 			for ( x2 = x ; x2 >= 0 ; x2-- ) {
 				cDir2[x2] = absolute_path[x2] ;

@@ -18,8 +18,8 @@
 /* Data */
 typedef struct String {
 	char *str  ;
-	int nSize  ;
-	/* Note : nSize is (Allocation Size - 1) */
+	int size  ;
+	/* Note : size is (Allocation Size - 1) */
 } String ;
 /* Blocks */
 
