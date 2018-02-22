@@ -20,7 +20,7 @@
 **  Support for C Functions 
 */
 
-SIMPLE_API void register_block_t ( SimpleState *sState,const char *cStr, void (*pBlock)(void *) ) ;
+SIMPLE_API void register_block_t ( SimpleState *sState,const char *str, void (*pBlock)(void *) ) ;
 
 SIMPLE_API void loadcblocks ( SimpleState *sState ) ;
 
@@ -38,9 +38,9 @@ SIMPLE_API void * api_get_cpointer ( void *pointer,int x,const char *cType ) ;
 
 SIMPLE_API void api_set_cpointer_null ( void *pointer,int x ) ;
 
-SIMPLE_API void * api_var_ptr ( void *pointer,const char  *cStr,const char *cStr2 ) ;
+SIMPLE_API void * api_var_ptr ( void *pointer,const char  *str,const char *cStr2 ) ;
 
-SIMPLE_API void api_int_value ( void *pointer,const char  *cStr ) ;
+SIMPLE_API void api_int_value ( void *pointer,const char  *str ) ;
 
 SIMPLE_API void list_add_cpointer ( List *list,void *pGeneral,const char *cType ) ;
 

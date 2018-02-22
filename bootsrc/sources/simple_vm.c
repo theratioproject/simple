@@ -706,7 +706,7 @@ void simple_vm_execute ( VM *vm )
 	}
 }
 
-SIMPLE_API void simple_vm_error ( VM *vm,const char *cStr )
+SIMPLE_API void simple_vm_error ( VM *vm,const char *str )
 {
 	List *list  ;
 	/* Check if we have active error */
@@ -721,7 +721,7 @@ SIMPLE_API void simple_vm_error ( VM *vm,const char *cStr )
 			SIMPLE_VM_STACK_POP ;
 			if ( simple_vm_oop_isobject(list) ) {
 				if ( simple_vm_oop_isblock(vm, list,"braceerror") ) {
-					simple_list_setstsimple_gc(vm->sState,simple_list_getlist(simple_vm_getglobalscope(vm),6),3,cStr);
+					simple_list_setstsimple_gc(vm->sState,simple_list_getlist(simple_vm_getglobalscope(vm),6),3,str);
 					simple_vm_runcode(vm,"braceerror()");
 					vm->nActiveError = 0 ;
 					return ;
@@ -731,7 +731,7 @@ SIMPLE_API void simple_vm_error ( VM *vm,const char *cStr )
 	}
 	if ( simple_list_getsize(vm->pTry) == 0 ) {
 		if ( vm->lHideErrorMsg == 0 ) {
-			simple_vm_showerrormessage(vm,cStr);
+			simple_vm_showerrormessage(vm,str);
 		}
 		/* Trace */
 		vm->nActiveError = 0 ;
@@ -749,22 +749,22 @@ SIMPLE_API void simple_vm_error ( VM *vm,const char *cStr )
 	**  We just display the error message and continue 
 	*/
 	if ( vm->nEvalInScope ) {
-		simple_vm_showerrormessage(vm,cStr);
+		simple_vm_showerrormessage(vm,str);
 		vm->nActiveError = 0 ;
 		simple_vm_freestack(vm);
 		return ;
 	}
-	simple_vm_catch(vm,cStr);
+	simple_vm_catch(vm,str);
 	vm->nActiveError = 0 ;
 }
 
-int simple_vm_eval ( VM *vm,const char *cStr )
+int simple_vm_eval ( VM *vm,const char *str )
 {
 	int nPC,nCont,nLastPC,nRunVM,x,nSize  ;
 	Scanner *scanner  ;
 	int aPara[3]  ;
 	ByteCode *pByteCode  ;
-	nSize = strlen( cStr ) ;
+	nSize = strlen( str ) ;
 	if ( nSize == 0 ) {
 		return 0 ;
 	}
@@ -774,7 +774,7 @@ int simple_vm_eval ( VM *vm,const char *cStr )
 	simple_list_addstring_gc(vm->sState,vm->sState->files_stack,"executeCode");
 	scanner = new_simple_scanner(vm->sState);
 	for ( x = 0 ; x < nSize ; x++ ) {
-		simple_scanner_readchar(scanner,cStr[x]);
+		simple_scanner_readchar(scanner,str[x]);
 	}
 	nCont = simple_scanner_checklasttoken(scanner);
 	/* Add Token "End of Line" to the end of any program */
@@ -937,10 +937,10 @@ void simple_vm_returneval ( VM *vm )
 	vm->nEvalReturnPC = aPara[0] ;
 }
 
-void simple_vm_error2 ( VM *vm,const char *cStr,const char *cStr2 )
+void simple_vm_error2 ( VM *vm,const char *str,const char *cStr2 )
 {
 	String *pError  ;
-	pError = simple_string_new_gc(vm->sState,cStr);
+	pError = simple_string_new_gc(vm->sState,str);
 	simple_string_add_gc(vm->sState,pError,": ");
 	simple_string_add_gc(vm->sState,pError,cStr2);
 	simple_vm_error(vm,simple_string_get(pError));
@@ -955,7 +955,7 @@ void simple_vm_newbytecodeitem ( VM *vm,int x )
 	SIMPLE_VM_IR_ITEM(x) = pItem ;
 }
 
-SIMPLE_API void simple_vm_runcode ( VM *vm,const char *cStr )
+SIMPLE_API void simple_vm_runcode ( VM *vm,const char *str )
 {
 	int nEvalReturnPC,nEvalReallocationFlag,nPC,nRunVM,nsp,nBlockSP,nLineNumber,nRetEvalDontDelete  ;
 	List *pStackList  ;
@@ -976,7 +976,7 @@ SIMPLE_API void simple_vm_runcode ( VM *vm,const char *cStr )
 		/* We have nested events that call this block */
 		vm->nRetEvalDontDelete = 1 ;
 	}
-	nRunVM = simple_vm_eval(vm,cStr);
+	nRunVM = simple_vm_eval(vm,str);
 	vm->nEvalCalledFromSimpleCode = 0 ;
 	simple_vm_mutexunlock(vm);
 	if ( nRunVM ) {
@@ -1100,7 +1100,7 @@ void simple_vm_callclassinit ( VM *vm )
 	}
 }
 
-SIMPLE_API void simple_vm_showerrormessage ( VM *vm,const char *cStr )
+SIMPLE_API void simple_vm_showerrormessage ( VM *vm,const char *str )
 {
 	int x,lBlockCall  ;
 	List *list  ;
@@ -1108,7 +1108,7 @@ SIMPLE_API void simple_vm_showerrormessage ( VM *vm,const char *cStr )
 	/* CGI Support */
 	simple_state_cgiheader(vm->sState);
 	/* Print the Error Message */
-	printf( "\nLine %d -> %s \n",vm->nLineNumber,cStr ) ;
+	printf( "\nLine %d -> %s \n",vm->nLineNumber,str ) ;
 	/* Print Calling Information */
 	lBlockCall = 0 ;
 	for ( x = simple_list_getsize(vm->pBlockCallList) ; x >= 1 ; x-- ) {
@@ -1265,7 +1265,7 @@ SIMPLE_API void simple_vm_mutexdestroy ( VM *vm )
 	}
 }
 
-SIMPLE_API void simple_vm_runcodefromthread ( VM *vm,const char *cStr )
+SIMPLE_API void simple_vm_runcodefromthread ( VM *vm,const char *str )
 {
 	SimpleState *pState  ;
 	List *list,*list2,*list3,*list4,*list5  ;
@@ -1307,7 +1307,7 @@ SIMPLE_API void simple_vm_runcodefromthread ( VM *vm,const char *cStr )
 	pState->vm->nCallMainBlock = 1 ;
 	simple_vm_mutexunlock(vm);
 	/* Run the code */
-	execute_simple_code(pState,cStr);
+	execute_simple_code(pState,str);
 	simple_list_delete_gc(vm->sState,pState->vm->pCode);
 	/* Restore the first scope - global scope */
 	pState->vm->pMem->pFirst->pValue = pItem ;

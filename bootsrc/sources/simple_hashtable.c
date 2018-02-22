@@ -229,7 +229,7 @@ void simple_hashtable_print ( HashTable *pHashTable )
 void simple_hashtable_test ( void )
 {
 	HashTable *pHashTable  ;
-	char cStr[20]  ;
+	char str[20]  ;
 	int x  ;
 	puts("\nSimple - HashTable Test");
 	pHashTable = simple_hashtable_new();
@@ -245,10 +245,10 @@ void simple_hashtable_test ( void )
 	simple_hashtable_newnumber(pHashTable,"eight",8);
 	simple_hashtable_newnumber(pHashTable,"nine",9);
 	simple_hashtable_newnumber(pHashTable,"ten",10);
-	simple_hashtable_newpointer(pHashTable,"mypointer",cStr);
+	simple_hashtable_newpointer(pHashTable,"mypointer",str);
 	for ( x = 1 ; x <= 100 ; x++ ) {
-		sprintf( cStr , "test%d" , x ) ;
-		simple_hashtable_newnumber(pHashTable,cStr,x);
+		sprintf( str , "test%d" , x ) ;
+		simple_hashtable_newnumber(pHashTable,str,x);
 	}
 	puts("\nPrint HashTable Items ");
 	simple_hashtable_print(pHashTable);

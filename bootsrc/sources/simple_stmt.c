@@ -246,7 +246,7 @@ int simple_parser_stmt ( Parser *parser )
 	String *string  ;
 	List *pMark,*pMark2,*pMark3,*list2  ;
 	double nNum1  ;
-	char cStr[50]  ;
+	char str[50]  ;
 	char file_name[SIMPLE_PATHSIZE]  ;
 	char cCurrentDir[SIMPLE_PATHSIZE]  ;
 	nPerformanceLocations = 0 ;
@@ -518,12 +518,12 @@ int simple_parser_stmt ( Parser *parser )
 				} 
 			} else if ( simple_parser_iskeyword(parser,KEYWORD_IN) ) {
 				/* Generate Code */
-				sprintf( cStr , "n_sys_var_%d" , simple_parser_icg_instructionscount(parser) ) ;
+				sprintf( str , "n_sys_var_%d" , simple_parser_icg_instructionscount(parser) ) ;
 				/* Mark for Exit command to go to outside the loop */
 				simple_parser_icg_newoperation(parser,ICO_EXITMARK);
 				pMark3 = simple_parser_icg_getactiveoperation(parser);
 				simple_parser_icg_newoperation(parser,ICO_LOADADDRESS);
-				simple_parser_icg_newoperand(parser,cStr);
+				simple_parser_icg_newoperand(parser,str);
 				simple_parser_icg_newoperation(parser,ICO_PUSHN);
 				simple_parser_icg_newoperanddouble(parser,1.0);
 				/* Before Equal ( = ) not += , -= ,... etc */
@@ -533,7 +533,7 @@ int simple_parser_stmt ( Parser *parser )
 				/* Generate Code */
 				nMark1 = simple_parser_icg_newlabel(parser);
 				simple_parser_icg_newoperation(parser,ICO_LOADAPUSHV);
-				simple_parser_icg_newoperand(parser,cStr);
+				simple_parser_icg_newoperand(parser,str);
 				simple_parser_icg_newoperation(parser,ICO_LOADBLOCK);
 				simple_parser_icg_newoperand(parser,"lengthOf");
 				nStart = simple_parser_icg_instructionscount(parser) + 1 ;
@@ -556,7 +556,7 @@ int simple_parser_stmt ( Parser *parser )
 					simple_parser_icg_newoperand(parser,simple_string_get(string));
 					simple_parser_icg_duplicate(parser,nStart,nEnd);
 					simple_parser_icg_newoperation(parser,ICO_LOADAPUSHV);
-					simple_parser_icg_newoperand(parser,cStr);
+					simple_parser_icg_newoperand(parser,str);
 					simple_parser_icg_newoperation(parser,ICO_LOADINDEXADDRESS);
 					/* Generate 0 For Operator OverLoading */
 					simple_parser_icg_newoperandint(parser,0);
@@ -584,7 +584,7 @@ int simple_parser_stmt ( Parser *parser )
 						nMark3 = simple_parser_icg_newlabel(parser);
 						/* Increment Jump */
 						simple_parser_icg_newoperation(parser,ICO_INCJUMP);
-						simple_parser_icg_newoperand(parser,cStr);
+						simple_parser_icg_newoperand(parser,str);
 						simple_parser_icg_newoperandint(parser,nMark1);
 						/* Add Locations needed for instruction change for performance */
 						simple_parser_icg_newoperandint(parser,0);

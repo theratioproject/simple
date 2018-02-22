@@ -116,31 +116,31 @@ SIMPLE_API SimpleState * init_simple_state ( void )
 	return sState ;
 }
 
-SIMPLE_API void execute_simple_code ( SimpleState *sState,const char *cStr )
+SIMPLE_API void execute_simple_code ( SimpleState *sState,const char *str )
 {
-	simple_vm_runcode(sState->vm,cStr);
+	simple_vm_runcode(sState->vm,str);
 }
 
-SIMPLE_API List * simple_state_findvar ( SimpleState *sState,const char *cStr )
+SIMPLE_API List * simple_state_findvar ( SimpleState *sState,const char *str )
 {
 	VM *vm  ;
 	List *list  ;
 	vm = sState->vm ;
 	list = NULL ;
-	if ( simple_vm_findvar(vm,cStr) ) {
+	if ( simple_vm_findvar(vm,str) ) {
 		list = (List *) SIMPLE_VM_STACK_READP ;
 		SIMPLE_VM_STACK_POP ;
 	}
 	return list ;
 }
 
-SIMPLE_API List * simple_state_newvar ( SimpleState *sState,const char *cStr )
+SIMPLE_API List * simple_state_newvar ( SimpleState *sState,const char *str )
 {
 	VM *vm  ;
 	List *list  ;
 	vm = sState->vm ;
-	if ( simple_vm_findvar(vm,cStr) == 0 ) {
-		simple_vm_newvar(vm,cStr);
+	if ( simple_vm_findvar(vm,str) == 0 ) {
+		simple_vm_newvar(vm,str);
 	}
 	list = (List *) SIMPLE_VM_STACK_READP ;
 	SIMPLE_VM_STACK_POP ;
@@ -150,7 +150,7 @@ SIMPLE_API List * simple_state_newvar ( SimpleState *sState,const char *cStr )
 SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 {
 	int x,nCGI,nRun,nPrintIC,nPrintICFinal,nTokens,nRules,nIns,nPerformance,nSRC,nGenObj,nWarn  ;
-	char *cStr  ; time_t before_execution, after_execution; 
+	char *str  ; time_t before_execution, after_execution; 
 	/* Init Values */
 	nCGI = 0 ;
 	nRun = 1 ;
@@ -160,7 +160,7 @@ SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 	nRules = 0 ;
 	nIns = 0 ;
 	nPerformance = 0 ;
-	cStr = NULL ;
+	str = NULL ;
 	nSRC = 0 ;
 	nGenObj = 0 ;
 	nWarn = 0 ;
@@ -210,7 +210,7 @@ SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 				nSimpleStateDEBUGSEGFAULT = 1 ;
 			}
 			else if ( ( is_simple_file(argv[x]) || is_complex_file(argv[x])) && nSRC == 0 ) {
-				cStr = argv[x] ;
+				str = argv[x] ;
 				nSRC = 1 ;
 			}
 		}
@@ -226,10 +226,10 @@ SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 		exit(0);
 	}
 	/* Print Version */
-	if ( (argc == 1) || (cStr == NULL) ) {
+	if ( (argc == 1) || (str == NULL) ) {
 		display_help();
 	}
-	simple_execute(cStr,nCGI,nRun,nPrintIC,nPrintICFinal,nTokens,nRules,nIns,nGenObj,nWarn,argc,argv);
+	simple_execute(str,nCGI,nRun,nPrintIC,nPrintICFinal,nTokens,nRules,nIns,nGenObj,nWarn,argc,argv);
 	#if SIMPLE_TESTPERFORMANCE
 	if ( nPerformance ) {
 		simple_showtime( before_execution, after_execution );

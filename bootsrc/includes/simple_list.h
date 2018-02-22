@@ -75,11 +75,11 @@ SIMPLE_API void simple_list_adddouble_gc ( void *pState,List *list,double x ) ;
 
 SIMPLE_API void simple_list_setstsimple_gc ( void *pState,List *list, int index ,const char *str ) ;
 
-SIMPLE_API void simple_list_setstring2_gc ( void *pState,List *list, int index ,const char *str,int nStrSize ) ;
+SIMPLE_API void simple_list_setstring2_gc ( void *pState,List *list, int index ,const char *str,int string_size ) ;
 
 SIMPLE_API void simple_list_addstring_gc ( void *pState,List *list,const char *str ) ;
 
-SIMPLE_API void simple_list_addstring2_gc ( void *pState,List *list,const char *str,int nStrSize ) ;
+SIMPLE_API void simple_list_addstring2_gc ( void *pState,List *list,const char *str,int string_size ) ;
 /* List */
 
 SIMPLE_API List * simple_list_newlist_gc ( void *pState,List *list ) ;
@@ -113,7 +113,7 @@ SIMPLE_API void simple_list_insertpointer_gc ( void *pState,List *list,int nPos,
 
 SIMPLE_API void simple_list_insertstsimple_gc ( void *pState,List *list,int nPos,const char *str ) ;
 
-SIMPLE_API void simple_list_insertstring2_gc ( void *pState,List *list,int nPos,const char *str,int nStrSize ) ;
+SIMPLE_API void simple_list_insertstring2_gc ( void *pState,List *list,int nPos,const char *str,int string_size ) ;
 
 SIMPLE_API void simple_list_insertblockpointer_gc ( void *pState,List *list,int nPos,void (*pBlock)(void *) ) ;
 
@@ -218,11 +218,11 @@ SIMPLE_API void simple_list_adddouble ( List *list,double x ) ;
 
 SIMPLE_API void simple_list_setstring ( List *list, int index ,const char *str ) ;
 
-SIMPLE_API void simple_list_setstring2 ( List *list, int index ,const char *str,int nStrSize ) ;
+SIMPLE_API void simple_list_setstring2 ( List *list, int index ,const char *str,int string_size ) ;
 
 SIMPLE_API void simple_list_addstring ( List *list,const char *str ) ;
 
-SIMPLE_API void simple_list_addstring2 ( List *list,const char *str,int nStrSize ) ;
+SIMPLE_API void simple_list_addstring2 ( List *list,const char *str,int string_size ) ;
 /* List */
 
 SIMPLE_API List * simple_list_newlist ( List *list ) ;
@@ -244,7 +244,7 @@ SIMPLE_API void simple_list_insertpointer ( List *list,int nPos,void *pValue ) ;
 
 SIMPLE_API void simple_list_insertstring ( List *list,int nPos,const char *str ) ;
 
-SIMPLE_API void simple_list_insertstring2 ( List *list,int nPos,const char *str,int nStrSize ) ;
+SIMPLE_API void simple_list_insertstring2 ( List *list,int nPos,const char *str,int string_size ) ;
 
 SIMPLE_API void simple_list_insertblockpointer ( List *list,int nPos,void (*pBlock)(void *) ) ;
 

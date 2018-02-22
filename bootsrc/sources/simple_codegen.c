@@ -63,13 +63,13 @@ void simple_parser_icg_insertoperation ( Parser *parser , int nPos , IC_OPERATIO
 	#endif
 }
 
-void simple_parser_icg_newoperand ( Parser *parser , const char *cStr )
+void simple_parser_icg_newoperand ( Parser *parser , const char *str )
 {
 	assert(parser != NULL);
 	assert(parser->ActiveGenCodeList);
-	simple_list_addstring_gc(parser->sState,parser->ActiveGenCodeList,cStr);
+	simple_list_addstring_gc(parser->sState,parser->ActiveGenCodeList,str);
 	#if SIMPLE_SHOWIC
-	printf( " Operand : %s ",cStr ) ;
+	printf( " Operand : %s ",str ) ;
 	#endif
 }
 
@@ -117,10 +117,10 @@ Items * simple_parser_icg_getoperationpos ( Parser *parser )
 	return parser->GenCode->pLast ;
 }
 
-void simple_parser_icg_addoperand ( Parser *parser ,List *list , const char *cStr )
+void simple_parser_icg_addoperand ( Parser *parser ,List *list , const char *str )
 {
 	assert(list != NULL);
-	simple_list_addstring_gc(parser->sState,list,cStr);
+	simple_list_addstring_gc(parser->sState,list,str);
 }
 
 void simple_parser_icg_addoperandint ( Parser *parser ,List *list , int nValue )

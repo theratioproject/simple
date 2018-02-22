@@ -30,7 +30,7 @@ void simple_vm_newscope ( VM *vm )
 	vm->nActiveScopeID = vm->nScopeID ;
 }
 
-int simple_vm_findvar ( VM *vm,const char *cStr )
+int simple_vm_findvar ( VM *vm,const char *str )
 {
 	int x,nPos,nMax1  ;
 	List *list,*list2  ;
@@ -76,11 +76,11 @@ int simple_vm_findvar ( VM *vm,const char *cStr )
 			}
 			if ( simple_list_getsize(list) < 10 ) {
 				/* Search Using Linear Search */
-				nPos = simple_list_findstring(list,cStr,1);
+				nPos = simple_list_findstring(list,str,1);
 				if ( nPos != 0 ) {
 					if ( simple_list_islist(list,nPos) ) {
 						list2 = simple_list_getlist(list,nPos);
-						return simple_vm_findvar2(vm,x,list2,cStr) ;
+						return simple_vm_findvar2(vm,x,list2,str) ;
 					}
 				}
 			}
@@ -89,9 +89,9 @@ int simple_vm_findvar ( VM *vm,const char *cStr )
 				if ( list->pHashTable == NULL ) {
 					simple_list_genhashtable2_gc(vm->sState,list);
 				}
-				list2 = (List *) simple_hashtable_findpointer(list->pHashTable,cStr);
+				list2 = (List *) simple_hashtable_findpointer(list->pHashTable,str);
 				if ( list2 != NULL ) {
-					return simple_vm_findvar2(vm,x,list2,cStr) ;
+					return simple_vm_findvar2(vm,x,list2,str) ;
 				}
 			}
 		}
@@ -99,7 +99,7 @@ int simple_vm_findvar ( VM *vm,const char *cStr )
 	return 0 ;
 }
 
-int simple_vm_findvar2 ( VM *vm,int x,List *list2,const char *cStr )
+int simple_vm_findvar2 ( VM *vm,int x,List *list2,const char *str )
 {
 	int nPC,nType,lPrivateError  ;
 	Item *pItem  ;
@@ -130,7 +130,7 @@ int simple_vm_findvar2 ( VM *vm,int x,List *list2,const char *cStr )
 		**  And this case happens with setter/getter of the attributes using executeCode() 
 		**  Here we avoid this change if the variable name is "Self" to return self by reference 
 		*/
-		if ( strcmp(cStr,"self") != 0 ) {
+		if ( strcmp(str,"self") != 0 ) {
 			vm->nVarScope = SIMPLE_VARSCOPE_NOTHING ;
 		}
 	} else {
@@ -149,7 +149,7 @@ int simple_vm_findvar2 ( VM *vm,int x,List *list2,const char *cStr )
 						}
 					}
 					if ( lPrivateError ) {
-						simple_vm_error2(vm,SIMPLE_VM_ERROR_USINGPRIVATEATTRIBUTE,cStr);
+						simple_vm_error2(vm,SIMPLE_VM_ERROR_USINGPRIVATEATTRIBUTE,str);
 						return 0 ;
 					}
 				}
@@ -213,11 +213,11 @@ int simple_vm_findvar2 ( VM *vm,int x,List *list2,const char *cStr )
 	return 1 ;
 }
 
-void simple_vm_newvar ( VM *vm,const char *cStr )
+void simple_vm_newvar ( VM *vm,const char *str )
 {
 	List *list  ;
 	assert(vm->pActiveMem);
-	list = simple_vm_newvar2(vm,cStr,vm->pActiveMem);
+	list = simple_vm_newvar2(vm,str,vm->pActiveMem);
 	vm->nsp++ ;
 	SIMPLE_VM_STACK_SETPVALUE(list);
 	SIMPLE_VM_STACK_OBJTYPE = SIMPLE_OBJTYPE_VARIABLE ;
@@ -234,12 +234,12 @@ void simple_vm_newvar ( VM *vm,const char *cStr )
 	simple_list_addint_gc(vm->sState,vm->aLoadAddressScope,vm->nVarScope);
 }
 
-List * simple_vm_newvar2 ( VM *vm,const char *cStr,List *pParent )
+List * simple_vm_newvar2 ( VM *vm,const char *str,List *pParent )
 {
 	List *list  ;
 	/* This block is called by all of the other blocks that create new varaibles */
 	list = simple_list_newlist_gc(vm->sState,pParent);
-	simple_list_addstring_gc(vm->sState,list,cStr);
+	simple_list_addstring_gc(vm->sState,list,str);
 	simple_list_addint_gc(vm->sState,list,SIMPLE_VM_NULL);
 	simple_list_addstring_gc(vm->sState,list,"NULL");
 	/* Pointer Type */
@@ -250,38 +250,38 @@ List * simple_vm_newvar2 ( VM *vm,const char *cStr,List *pParent )
 	if ( pParent->pHashTable == NULL ) {
 		pParent->pHashTable = simple_hashtable_new();
 	}
-	simple_hashtable_newpointer(pParent->pHashTable,cStr,list);
+	simple_hashtable_newpointer(pParent->pHashTable,str,list);
 	return list ;
 }
 
-void simple_vm_addnewnumbervar ( VM *vm,const char *cStr,double x )
+void simple_vm_addnewnumbervar ( VM *vm,const char *str,double x )
 {
 	List *list  ;
-	list = simple_vm_newvar2(vm,cStr,vm->pActiveMem);
+	list = simple_vm_newvar2(vm,str,vm->pActiveMem);
 	simple_list_setint_gc(vm->sState,list,SIMPLE_VAR_TYPE,SIMPLE_VM_NUMBER);
 	simple_list_setdouble_gc(vm->sState,list,SIMPLE_VAR_VALUE,x);
 }
 
-void simple_vm_addnewstringvar ( VM *vm,const char *cStr,const char *cStr2 )
+void simple_vm_addnewstringvar ( VM *vm,const char *str,const char *cStr2 )
 {
 	List *list  ;
-	list = simple_vm_newvar2(vm,cStr,vm->pActiveMem);
+	list = simple_vm_newvar2(vm,str,vm->pActiveMem);
 	simple_list_setint_gc(vm->sState,list,SIMPLE_VAR_TYPE,SIMPLE_VM_STRING);
 	simple_list_setstsimple_gc(vm->sState,list,SIMPLE_VAR_VALUE,cStr2);
 }
 
-void simple_vm_addnewstringvar2 ( VM *vm,const char *cStr,const char *cStr2,int nStrSize )
+void simple_vm_addnewstringvar2 ( VM *vm,const char *str,const char *cStr2,int string_size )
 {
 	List *list  ;
-	list = simple_vm_newvar2(vm,cStr,vm->pActiveMem);
+	list = simple_vm_newvar2(vm,str,vm->pActiveMem);
 	simple_list_setint_gc(vm->sState,list,SIMPLE_VAR_TYPE,SIMPLE_VM_STRING);
-	simple_list_setstring2_gc(vm->sState,list,SIMPLE_VAR_VALUE,cStr2,nStrSize);
+	simple_list_setstring2_gc(vm->sState,list,SIMPLE_VAR_VALUE,cStr2,string_size);
 }
 
-void simple_vm_addnewpointervar ( VM *vm,const char *cStr,void *x,int y )
+void simple_vm_addnewpointervar ( VM *vm,const char *str,void *x,int y )
 {
 	List *list  ;
-	list = simple_vm_newvar2(vm,cStr,vm->pActiveMem);
+	list = simple_vm_newvar2(vm,str,vm->pActiveMem);
 	simple_list_setint_gc(vm->sState,list,SIMPLE_VAR_TYPE,SIMPLE_VM_POINTER);
 	simple_list_setpointer_gc(vm->sState,list,SIMPLE_VAR_VALUE,x);
 	simple_list_setint_gc(vm->sState,list,SIMPLE_VAR_PVALUETYPE,y);
@@ -289,19 +289,19 @@ void simple_vm_addnewpointervar ( VM *vm,const char *cStr,void *x,int y )
 	simple_vm_gc_checknewreference(x,y);
 }
 
-void simple_vm_newtempvar ( VM *vm,const char *cStr, List *Temlist )
+void simple_vm_newtempvar ( VM *vm,const char *str, List *Temlist )
 {
 	List *list  ;
-	list = simple_vm_newvar2(vm,cStr,Temlist);
+	list = simple_vm_newvar2(vm,str,Temlist);
 	vm->nsp++ ;
 	SIMPLE_VM_STACK_SETPVALUE(list);
 	SIMPLE_VM_STACK_OBJTYPE = SIMPLE_OBJTYPE_VARIABLE ;
 }
 
-List * simple_vm_newtempvar2 ( VM *vm,const char *cStr,List *list3 )
+List * simple_vm_newtempvar2 ( VM *vm,const char *str,List *list3 )
 {
 	List *list,*list2  ;
-	list = simple_vm_newvar2(vm,cStr,vm->pTempMem);
+	list = simple_vm_newvar2(vm,str,vm->pTempMem);
 	simple_list_setint_gc(vm->sState,list,SIMPLE_VAR_TYPE,SIMPLE_VM_LIST);
 	simple_list_setlist_gc(vm->sState,list,SIMPLE_VAR_VALUE);
 	list2 = simple_list_getlist(list,SIMPLE_VAR_VALUE);
@@ -310,10 +310,10 @@ List * simple_vm_newtempvar2 ( VM *vm,const char *cStr,List *list3 )
 	return list ;
 }
 
-void simple_vm_addnewcpointervar ( VM *vm,const char *cStr,void *pointer,const char *cStr2 )
+void simple_vm_addnewcpointervar ( VM *vm,const char *str,void *pointer,const char *cStr2 )
 {
 	List *list, *list2  ;
-	list = simple_vm_newvar2(vm,cStr,vm->pActiveMem);
+	list = simple_vm_newvar2(vm,str,vm->pActiveMem);
 	simple_list_setint_gc(vm->sState,list,SIMPLE_VAR_TYPE,SIMPLE_VM_LIST);
 	simple_list_setlist_gc(vm->sState,list,SIMPLE_VAR_VALUE);
 	list2 = simple_list_getlist(list,SIMPLE_VAR_VALUE);

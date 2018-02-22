@@ -153,7 +153,7 @@ typedef enum IC_OPERATIONS {
 
 void simple_parser_icg_newoperation ( Parser *parser , IC_OPERATIONS opcode ) ;
 
-void simple_parser_icg_newoperand ( Parser *parser , const char *cStr ) ;
+void simple_parser_icg_newoperand ( Parser *parser , const char *str ) ;
 
 void simple_parser_icg_newoperandint ( Parser *parser , int nValue ) ;
 
@@ -163,7 +163,7 @@ void simple_parser_icg_newoperandpointer ( Parser *parser , void *pValue ) ;
 
 List * simple_parser_icg_getactiveoperation ( Parser *parser ) ;
 
-void simple_parser_icg_addoperand ( Parser *parser ,List *list , const char *cStr ) ;
+void simple_parser_icg_addoperand ( Parser *parser ,List *list , const char *str ) ;
 
 void simple_parser_icg_addoperandint ( Parser *parser ,List *list , int nValue ) ;
 

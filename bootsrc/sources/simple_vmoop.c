@@ -520,7 +520,7 @@ void simple_vm_oop_printobj ( VM *vm,List *list )
 {
 	List *list2,*list3  ;
 	int x  ;
-	char cStr[100]  ;
+	char str[100]  ;
 	list = simple_list_getlist(list,2);
 	for ( x = 3 ; x <= simple_list_getsize(list) ; x++ ) {
 		list2 = simple_list_getlist(list,x);
@@ -530,8 +530,8 @@ void simple_vm_oop_printobj ( VM *vm,List *list )
 		}
 		else if ( simple_list_isnumber(list2,3) ) {
 			if ( vm != NULL ) {
-				simple_vm_numtostring(vm,simple_list_getdouble(list2,3),cStr);
-				printf( "%s\n" ,cStr ) ;
+				simple_vm_numtostring(vm,simple_list_getdouble(list2,3),str);
+				printf( "%s\n" ,str ) ;
 			}
 			else {
 				printf( "%f\n" , simple_list_getdouble(list2,3) ) ;
@@ -1141,7 +1141,7 @@ void simple_vm_oop_operatoroverloading ( VM *vm,List *pObj,const char *string_on
 void simple_vm_oop_callmethodfrombrace ( VM *vm )
 {
 	List *list,*list2  ;
-	const char *cStr  ;
+	const char *str  ;
 	/*
 	**  We uses AfterCallMethod2 instead of AfterCallMethod to avoid conflict with normal method call 
 	**  AfterCallMethod2 is the same instruction as AfterCallMethod 
@@ -1155,8 +1155,8 @@ void simple_vm_oop_callmethodfrombrace ( VM *vm )
 		if ( (simple_list_getsize(vm->pObjState) > 1) && (vm->nCallClassInit) ) {
 			if ( simple_list_getsize(vm->pBlockCallList) > 0 ) {
 				list2 = simple_list_getlist(vm->pBlockCallList,simple_list_getsize(vm->pBlockCallList));
-				cStr = simple_list_getstring(list2,SIMPLE_BLOCKCL_NAME);
-				if ( strcmp(cStr,cStr) != 0 ) {
+				str = simple_list_getstring(list2,SIMPLE_BLOCKCL_NAME);
+				if ( strcmp(str,str) != 0 ) {
 					list = simple_list_getlist(vm->pObjState,simple_list_getsize(vm->pObjState)-1) ;
 				}
 			}
@@ -1175,7 +1175,7 @@ void simple_vm_oop_callmethodfrombrace ( VM *vm )
 	SIMPLE_VM_IR_UNLOAD ;
 }
 
-int simple_vm_oop_isblock ( VM *vm,List *list,const char *cStr )
+int simple_vm_oop_isblock ( VM *vm,List *list,const char *str )
 {
 	List *list2,*list3  ;
 	int x  ;
@@ -1189,7 +1189,7 @@ int simple_vm_oop_isblock ( VM *vm,List *list,const char *cStr )
 	if ( simple_list_getsize(list2) > 0 ) {
 		for ( x = 1 ; x <= simple_list_getsize(list2) ; x++ ) {
 			list3 = simple_list_getlist(list2,x);
-			if ( strcmp(simple_list_getstring(list3,SIMPLE_BLOCKMAP_NAME),cStr) == 0 ) {
+			if ( strcmp(simple_list_getstring(list3,SIMPLE_BLOCKMAP_NAME),str) == 0 ) {
 				if ( simple_list_getint(list3,SIMPLE_BLOCKMAP_PRIVATEFLAG) ) {
 					return 2 ;
 				}

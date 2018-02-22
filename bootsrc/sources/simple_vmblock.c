@@ -554,11 +554,11 @@ void simple_vm_restoreloadaddressscope ( VM *vm )
 
 void simple_vm_anonymous ( VM *vm )
 {
-	const char *cStr  ;
+	const char *str  ;
 	if ( SIMPLE_VM_STACK_ISSTRING ) {
-		cStr = SIMPLE_VM_STACK_READC ;
+		str = SIMPLE_VM_STACK_READC ;
 		SIMPLE_VM_STACK_POP ;
-		simple_vm_loadblock2(vm,cStr,0);
+		simple_vm_loadblock2(vm,str,0);
 	}
 	else {
 		simple_vm_error(vm,SIMPLE_VM_ERROR_BADCALLPARA);

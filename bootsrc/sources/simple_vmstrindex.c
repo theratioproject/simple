@@ -19,12 +19,12 @@
 void simple_vm_stsimple_pushv ( VM *vm )
 {
 	char *newstr  ;
-	char cStr[2]  ;
+	char str[2]  ;
 	newstr = (char *) SIMPLE_VM_STACK_READP ;
 	SIMPLE_VM_STACK_POP ;
-	cStr[0] = newstr[0] ;
-	cStr[1] = '\0' ;
-	SIMPLE_VM_STACK_PUSHCVALUE(cStr);
+	str[0] = newstr[0] ;
+	str[1] = '\0' ;
+	SIMPLE_VM_STACK_PUSHCVALUE(str);
 }
 
 void simple_vm_stsimple_assignment ( VM *vm )
@@ -59,7 +59,7 @@ void simple_vm_stsimple_index ( VM *vm, String *string, double nNum1 )
             simple_vm_error(vm,SIMPLE_VM_ERROR_INDEXOUTOFRANGE);
             return ;
 	}
-	newstr = string->cStr ;
+	newstr = string->str ;
 	newstr = newstr + ((int) (nNum1 - list_index) ) ;
 	SIMPLE_VM_STACK_PUSHPVALUE(newstr);
 	SIMPLE_VM_STACK_OBJTYPE = SIMPLE_OBJTYPE_SUBSTRING ;

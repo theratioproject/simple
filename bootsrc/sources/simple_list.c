@@ -120,7 +120,7 @@ SIMPLE_API void simple_list_print ( List *list )
 {
 	int x,t,nSize  ;
 	double y  ;
-	const char *cStr  ;
+	const char *str  ;
 	List *list2  ;
 	assert(list != NULL);
 	/* Print Items */
@@ -129,10 +129,10 @@ SIMPLE_API void simple_list_print ( List *list )
 	}
 	for ( x = 1 ; x <= simple_list_getsize(list) ; x++ ) { 
 		if ( simple_list_isstring(list,x) ) {
-			cStr = simple_list_getstring(list,x) ;
+			str = simple_list_getstring(list,x) ;
 			nSize = simple_list_getstringsize(list,x);
 			for ( t = 0 ; t < nSize ; t++ ) {
-				printf( "%c",cStr[t] ) ;
+				printf( "%c",str[t] ) ;
 			}
 			printf( "\n" ) ;
 		}
@@ -443,7 +443,7 @@ SIMPLE_API void simple_list_setstsimple_gc ( void *pState,List *list, int index 
 	simple_string_set_gc(pState,string,str);
 }
 
-SIMPLE_API void simple_list_setstring2_gc ( void *pState,List *list, int index ,const char *str,int nStrSize )
+SIMPLE_API void simple_list_setstring2_gc ( void *pState,List *list, int index ,const char *str,int string_size )
 {
 	Item *pItem  ;
 	String *string  ;
@@ -451,7 +451,7 @@ SIMPLE_API void simple_list_setstring2_gc ( void *pState,List *list, int index ,
 	pItem = simple_list_getitem(list,index);
 	simple_item_settype_gc(pState,pItem,ITEMTYPE_STRING);
 	string = simple_item_getstring(pItem);
-	simple_string_set2_gc(pState,string,str,nStrSize);
+	simple_string_set2_gc(pState,string,str,string_size);
 }
 
 SIMPLE_API void simple_list_addstring_gc ( void *pState,List *list,const char *str )
@@ -461,11 +461,11 @@ SIMPLE_API void simple_list_addstring_gc ( void *pState,List *list,const char *s
 	simple_list_setstsimple_gc(pState,list,simple_list_getsize(list),str);
 }
 
-SIMPLE_API void simple_list_addstring2_gc ( void *pState,List *list,const char *str,int nStrSize )
+SIMPLE_API void simple_list_addstring2_gc ( void *pState,List *list,const char *str,int string_size )
 {
 	assert(list != NULL);
 	simple_list_newitem_gc(pState,list);
-	simple_list_setstring2_gc(pState,list,simple_list_getsize(list),str,nStrSize);
+	simple_list_setstring2_gc(pState,list,simple_list_getsize(list),str,string_size);
 }
 /* List */
 
@@ -594,11 +594,11 @@ SIMPLE_API void simple_list_insertstsimple_gc ( void *pState,List *list,int nPos
 	simple_list_setstsimple_gc(pState,list,nPos+1,str);
 }
 
-SIMPLE_API void simple_list_insertstring2_gc ( void *pState,List *list,int nPos,const char *str,int nStrSize )
+SIMPLE_API void simple_list_insertstring2_gc ( void *pState,List *list,int nPos,const char *str,int string_size )
 {
 	assert(list != NULL);
 	simple_list_insertitem_gc(pState,list,nPos);
-	simple_list_setstring2_gc(pState,list,nPos+1,str,nStrSize);
+	simple_list_setstring2_gc(pState,list,nPos+1,str,string_size);
 }
 
 SIMPLE_API void simple_list_insertblockpointer_gc ( void *pState,List *list,int nPos,void (*pBlock)(void *) )
@@ -1171,9 +1171,9 @@ SIMPLE_API void simple_list_setstring ( List *list, int index ,const char *str )
 	simple_list_setstsimple_gc(NULL,list,index,str);
 }
 
-SIMPLE_API void simple_list_setstring2 ( List *list, int index ,const char *str,int nStrSize )
+SIMPLE_API void simple_list_setstring2 ( List *list, int index ,const char *str,int string_size )
 {
-	simple_list_setstring2_gc(NULL,list,index,str,nStrSize);
+	simple_list_setstring2_gc(NULL,list,index,str,string_size);
 }
 
 SIMPLE_API void simple_list_addstring ( List *list,const char *str )
@@ -1181,9 +1181,9 @@ SIMPLE_API void simple_list_addstring ( List *list,const char *str )
 	simple_list_addstring_gc(NULL,list,str);
 }
 
-SIMPLE_API void simple_list_addstring2 ( List *list,const char *str,int nStrSize )
+SIMPLE_API void simple_list_addstring2 ( List *list,const char *str,int string_size )
 {
-	simple_list_addstring2_gc(NULL,list,str,nStrSize);
+	simple_list_addstring2_gc(NULL,list,str,string_size);
 }
 /* List */
 
@@ -1233,9 +1233,9 @@ SIMPLE_API void simple_list_insertstring ( List *list,int nPos,const char *str )
 	simple_list_insertstsimple_gc(NULL,list,nPos,str);
 }
 
-SIMPLE_API void simple_list_insertstring2 ( List *list,int nPos,const char *str,int nStrSize )
+SIMPLE_API void simple_list_insertstring2 ( List *list,int nPos,const char *str,int string_size )
 {
-	simple_list_insertstring2_gc(NULL,list,nPos,str,nStrSize);
+	simple_list_insertstring2_gc(NULL,list,nPos,str,string_size);
 }
 
 SIMPLE_API void simple_list_insertblockpointer ( List *list,int nPos,void (*pBlock)(void *) )

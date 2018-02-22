@@ -142,11 +142,11 @@ int simple_parser_iskeyword ( Parser *parser,SCANNER_KEYWORD x )
 	return 0 ;
 }
 
-int simple_parser_isoperator ( Parser *parser,const char *cStr )
+int simple_parser_isoperator ( Parser *parser,const char *str )
 {
 	assert(parser != NULL);
 	if ( parser->TokenType == SCANNER_TOKEN_OPERATOR ) {
-		if ( strcmp( parser->TokenText,cStr) == 0 ) {
+		if ( strcmp( parser->TokenText,str) == 0 ) {
 			return 1 ;
 		}
 	}
@@ -219,26 +219,26 @@ int simple_parser_isoperator2 ( Parser *parser,SCANNER_OPERATOR nType )
 }
 /* Display Errors */
 
-void parser_error ( Parser *parser,const char *cStr )
+void parser_error ( Parser *parser,const char *str )
 {
 	int SimpleActiveFile  ;
 	//simple_state_cgiheader(parser->sState);
 	SimpleActiveFile = simple_list_getsize(parser->sState->files_stack);
 	if ( parser->nErrorLine != parser->nLineNumber ) {
 		parser->nErrorLine = parser->nLineNumber ;
-                if ( strcmp(cStr,"") != 0 ) {
-			printf("\nLine %d -> %s\n", parser->nLineNumber,cStr);
+                if ( strcmp(str,"") != 0 ) {
+			printf("\nLine %d -> %s\n", parser->nLineNumber,str);
 		} else {
 			printf( "\nLine %d -> Syntax error : Unexpected '%s' \n",parser->nLineNumber, parser->TokenText) ;
 		}
 		printf( "\tin file %s ",file_real_name(simple_list_getstring(parser->sState->files_stack,SimpleActiveFile)) ) ;
 		parser->nErrorsCount++ ;
 		return ;
-	} else if ( strcmp(cStr,"") != 0 ) {
+	} else if ( strcmp(str,"") != 0 ) {
 		parser->nErrorsCount++ ;
 	}
-	if ( strcmp(cStr,"") != 0 ) {
-		printf( "\nLine %d -> %s\n",parser->nLineNumber,cStr ) ;
+	if ( strcmp(str,"") != 0 ) {
+		printf( "\nLine %d -> %s\n",parser->nLineNumber,str ) ;
 		printf( "\tin file %s",file_real_name(simple_list_getstring(parser->sState->files_stack,SimpleActiveFile)) ) ;
 	}
         if (SKIP_ERROR == 0) { exit(1); }

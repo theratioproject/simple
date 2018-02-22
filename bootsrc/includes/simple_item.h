@@ -75,10 +75,10 @@ SIMPLE_API void simple_itemarray_setdouble_gc ( void *pState,Item list[], int in
 
 SIMPLE_API void simple_itemarray_setstsimple_gc ( void *pState,Item list[], int index ,const char *str ) ;
 
-SIMPLE_API void simple_itemarray_setstring2_gc ( void *pState,Item list[], int index ,const char *str,int nStrSize ) ;
+SIMPLE_API void simple_itemarray_setstring2_gc ( void *pState,Item list[], int index ,const char *str,int string_size ) ;
 /* Blocks to deal with one item */
 
-SIMPLE_API void simple_item_setstsimple_gc ( void *pState,Item *pItem,const char *cStr ) ;
+SIMPLE_API void simple_item_setstsimple_gc ( void *pState,Item *pItem,const char *str ) ;
 
 SIMPLE_API void simple_item_setdouble_gc ( void *pState,Item *pItem,double x ) ;
 
@@ -86,7 +86,7 @@ SIMPLE_API void simple_item_setpointer_gc ( void *pState,Item *pItem,void *pValu
 
 SIMPLE_API void simple_item_setint_gc ( void *pState,Item *pItem,int x ) ;
 
-SIMPLE_API void simple_item_setstring2_gc ( void *pState,Item *pItem,const char *cStr,int nStrSize ) ;
+SIMPLE_API void simple_item_setstring2_gc ( void *pState,Item *pItem,const char *str,int string_size ) ;
 /* Macro */
 #define simple_item_getstring(x) x->data.string
 #define simple_item_getnumber(x) x->data.dNumber
@@ -132,10 +132,10 @@ SIMPLE_API void simple_itemarray_setdouble ( Item list[], int index ,double numb
 
 SIMPLE_API void simple_itemarray_setstring ( Item list[], int index ,const char *str ) ;
 
-SIMPLE_API void simple_itemarray_setstring2 ( Item list[], int index ,const char *str,int nStrSize ) ;
+SIMPLE_API void simple_itemarray_setstring2 ( Item list[], int index ,const char *str,int string_size ) ;
 /* Blocks to deal with one item */
 
-SIMPLE_API void simple_item_setstring ( Item *pItem,const char *cStr ) ;
+SIMPLE_API void simple_item_setstring ( Item *pItem,const char *str ) ;
 
 SIMPLE_API void simple_item_setdouble ( Item *pItem,double x ) ;
 
@@ -143,7 +143,7 @@ SIMPLE_API void simple_item_setpointer ( Item *pItem,void *pValue ) ;
 
 SIMPLE_API void simple_item_setint ( Item *pItem,int x ) ;
 
-SIMPLE_API void simple_item_setstring2 ( Item *pItem,const char *cStr,int nStrSize ) ;
+SIMPLE_API void simple_item_setstring2 ( Item *pItem,const char *str,int string_size ) ;
 
 /* Data */
 typedef struct Items {

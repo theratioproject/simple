@@ -15,14 +15,14 @@
 #include "../includes/simple.h"
 /* Support for C Blocks */
 
-SIMPLE_API void register_block_t ( SimpleState *sState,const char *cStr, void (*pBlock)(void *) )
+SIMPLE_API void register_block_t ( SimpleState *sState,const char *str, void (*pBlock)(void *) )
 {
 	List *list  ;
 	if ( sState->c_blocks == NULL ) {
 		sState->c_blocks = simple_list_new_gc(sState,0);
 	}
 	list = simple_list_newlist_gc(sState,sState->c_blocks);
-	simple_list_addstring_gc(sState,list,cStr);
+	simple_list_addstring_gc(sState,list,str);
 	simple_list_addblockpointer_gc(sState,list,pBlock);
 }
 
@@ -178,7 +178,7 @@ SIMPLE_API void api_set_cpointer_null ( void *pointer,int x )
 	}
 }
 
-SIMPLE_API void * api_var_ptr ( void *pointer,const char  *cStr,const char *cStr2 )
+SIMPLE_API void * api_var_ptr ( void *pointer,const char  *str,const char *cStr2 )
 {
 	VM *vm  ;
 	List *list, *pActiveMem  ;
@@ -192,7 +192,7 @@ SIMPLE_API void * api_var_ptr ( void *pointer,const char  *cStr,const char *cStr
 	/* Set the Active Scope */
 	pActiveMem = vm->pActiveMem ;
 	vm->pActiveMem = simple_list_getlist(vm->pMem,simple_list_getsize(vm->pMem)-1);
-	if ( simple_vm_findvar(vm, cStr ) == 0 ) {
+	if ( simple_vm_findvar(vm, str ) == 0 ) {
 		/* Restore the Active Scope */
 		vm->pActiveMem = pActiveMem ;
 		SIMPLE_API_ERROR(SIMPLE_VM_ERROR_NOTVARIABLE);
@@ -213,12 +213,12 @@ SIMPLE_API void * api_var_ptr ( void *pointer,const char  *cStr,const char *cStr
 	}
 	else if ( simple_list_getint(list,SIMPLE_VAR_TYPE) == SIMPLE_VM_STRING ) {
 		pItem = simple_list_getitem(list,SIMPLE_VAR_VALUE);
-		return pItem->data.string->cStr ;
+		return pItem->data.string->str ;
 	}
 	return NULL ;
 }
 
-SIMPLE_API void api_int_value ( void *pointer,const char  *cStr )
+SIMPLE_API void api_int_value ( void *pointer,const char  *str )
 {
 	VM *vm  ;
 	List *list  ;
@@ -230,7 +230,7 @@ SIMPLE_API void api_int_value ( void *pointer,const char  *cStr )
 	**  We need to convert again from int to double, because Simple uses double 
 	*/
 	vm = (VM *) pointer ;
-	if ( simple_vm_findvar(vm, cStr ) == 0 ) {
+	if ( simple_vm_findvar(vm, str ) == 0 ) {
 		SIMPLE_API_ERROR(SIMPLE_VM_ERROR_NOTVARIABLE);
 		return ;
 	}
@@ -452,17 +452,17 @@ void simple_vmlib_version ( void *pointer )
 
 void simple_vmlib_eval ( void *pointer )
 {
-	const char *cStr  ;
+	const char *str  ;
 	VM *vm  ;
 	if ( SIMPLE_API_PARACOUNT != 1 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
 		return ;
 	}
 	if ( SIMPLE_API_ISSTRING(1) ) {
-		cStr = SIMPLE_API_GETSTRING(1);
+		str = SIMPLE_API_GETSTRING(1);
 		vm = (VM *) pointer ;
 		vm->nEvalCalledFromSimpleCode = 1 ;
-		if ( simple_vm_eval(vm,cStr) == 0 ) {
+		if ( simple_vm_eval(vm,str) == 0 ) {
 			vm->nEvalCalledFromSimpleCode = 0 ;
 		}
 		/*
@@ -477,16 +477,16 @@ void simple_vmlib_eval ( void *pointer )
 void simple_vmlib_char ( void *pointer )
 {
 	int x  ;
-	char cStr[2]  ;
+	char str[2]  ;
 	if ( SIMPLE_API_PARACOUNT != 1 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
 		return ;
 	}
 	if ( SIMPLE_API_ISNUMBER(1) ) {
 		x = SIMPLE_API_GETNUMBER(1) ;
-		cStr[0] = (char) x ;
-		cStr[1] = '\0' ;
-		SIMPLE_API_RETSTRING2(cStr,1);
+		str[0] = (char) x ;
+		str[1] = '\0' ;
+		SIMPLE_API_RETSTRING2(str,1);
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}

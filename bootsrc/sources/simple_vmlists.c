@@ -351,7 +351,7 @@ void simple_vm_listassignment ( VM *vm )
 	}
 }
 
-void simple_vm_listgetvalue ( VM *vm,List *var,const char *cStr )
+void simple_vm_listgetvalue ( VM *vm,List *var,const char *str )
 {
 	int x  ;
 	List *list  ;
@@ -364,7 +364,7 @@ void simple_vm_listgetvalue ( VM *vm,List *var,const char *cStr )
 				if ( simple_list_getsize(list)  >= SIMPLE_LISTHASH_SIZE ) {
 					if ( simple_list_isstring(list,SIMPLE_LISTHASH_KEY) ) {
 						cStr2 = simple_list_getstring(list,SIMPLE_LISTHASH_KEY);
-						if ( simple_vm_strcmpnotcasesensitive(cStr,cStr2)  == 0 ) {
+						if ( simple_vm_strcmpnotcasesensitive(str,cStr2)  == 0 ) {
 							pItem = simple_list_getitem(list,SIMPLE_LISTHASH_VALUE);
 							SIMPLE_VM_STACK_PUSHPVALUE(pItem);
 							SIMPLE_VM_STACK_OBJTYPE = SIMPLE_OBJTYPE_LISTITEM ;
@@ -377,7 +377,7 @@ void simple_vm_listgetvalue ( VM *vm,List *var,const char *cStr )
 	}
 	/* Add Item if not found */
 	list = simple_list_newlist_gc(vm->sState,var);
-	simple_list_addstring_gc(vm->sState,list,cStr);
+	simple_list_addstring_gc(vm->sState,list,str);
 	simple_list_addstring_gc(vm->sState,list,"");
 	pItem = simple_list_getitem(list,SIMPLE_LISTHASH_VALUE);
 	SIMPLE_VM_STACK_PUSHPVALUE(pItem);

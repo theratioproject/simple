@@ -152,7 +152,7 @@ int simple_parser_nexttoken ( Parser *parser ) ;
 
 int simple_parser_iskeyword ( Parser *parser,SCANNER_KEYWORD x ) ;
 
-int simple_parser_isoperator ( Parser *parser,const char *cStr ) ;
+int simple_parser_isoperator ( Parser *parser,const char *str ) ;
 
 int simple_parser_isliteral ( Parser *parser ) ;
 
@@ -169,7 +169,7 @@ int simple_parser_isanykeyword ( Parser *parser ) ;
 int simple_parser_isoperator2 ( Parser *parser,SCANNER_OPERATOR nType ) ;
 /* Display Errors */
 
-void parser_error ( Parser *parser,const char *cStr ) ;
+void parser_error ( Parser *parser,const char *str ) ;
 /* Generate Code */
 
 void simple_parser_gencall ( Parser *parser,int nCallMethod ) ;

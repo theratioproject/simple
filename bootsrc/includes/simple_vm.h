@@ -138,25 +138,25 @@ void simple_vm_fetch2 ( VM *vm ) ;
 
 void simple_vm_execute ( VM *vm ) ;
 
-SIMPLE_API void simple_vm_error ( VM *vm,const char *cStr ) ;
+SIMPLE_API void simple_vm_error ( VM *vm,const char *str ) ;
 
-int simple_vm_eval ( VM *vm,const char *cStr ) ;
+int simple_vm_eval ( VM *vm,const char *str ) ;
 
 void simple_vm_tobytecode ( VM *vm,int x ) ;
 
-void simple_vm_error2 ( VM *vm,const char *cStr,const char *cStr2 ) ;
+void simple_vm_error2 ( VM *vm,const char *str,const char *cStr2 ) ;
 
 void simple_vm_newbytecodeitem ( VM *vm,int x ) ;
 
 void simple_vm_mainloop ( VM *vm ) ;
 
-SIMPLE_API void simple_vm_runcode ( VM *vm,const char *cStr ) ;
+SIMPLE_API void simple_vm_runcode ( VM *vm,const char *str ) ;
 
 void simple_vm_init ( SimpleState *sState ) ;
 
 void simple_vm_printstack ( VM *vm ) ;
 
-SIMPLE_API void simple_vm_showerrormessage ( VM *vm,const char *cStr ) ;
+SIMPLE_API void simple_vm_showerrormessage ( VM *vm,const char *str ) ;
 
 void simple_vm_addglobalvariables ( VM *vm ) ;
 /* Stack and Variables */
@@ -221,15 +221,15 @@ void simple_vm_mod ( VM *vm ) ;
 
 void simple_vm_neg ( VM *vm ) ;
 
-char * simple_vm_numtostring ( VM *vm,double nNum1,char *cStr ) ;
+char * simple_vm_numtostring ( VM *vm,double nNum1,char *str ) ;
 
-double simple_vm_stringtonum ( VM *vm,const char *cStr ) ;
+double simple_vm_stringtonum ( VM *vm,const char *str ) ;
 
-void simple_vm_expr_ppoo ( VM *vm,const char *cStr ) ;
+void simple_vm_expr_ppoo ( VM *vm,const char *str ) ;
 
-void simple_vm_expr_npoo ( VM *vm,const char *cStr,double nNum1 ) ;
+void simple_vm_expr_npoo ( VM *vm,const char *str,double nNum1 ) ;
 
-void simple_vm_expr_spoo ( VM *vm,const char *cStr,const char *cStr2,int nSize ) ;
+void simple_vm_expr_spoo ( VM *vm,const char *str,const char *cStr2,int nSize ) ;
 
 void simple_vm_plusplus ( VM *vm ) ;
 
@@ -247,29 +247,29 @@ void simple_vm_not ( VM *vm ) ;
 
 void simple_vm_newscope ( VM *vm ) ;
 
-int simple_vm_findvar ( VM *vm,const char *cStr ) ;
+int simple_vm_findvar ( VM *vm,const char *str ) ;
 
-int simple_vm_findvar2 ( VM *vm,int x,List *list2,const char *cStr ) ;
+int simple_vm_findvar2 ( VM *vm,int x,List *list2,const char *str ) ;
 
-void simple_vm_newvar ( VM *vm,const char *cStr ) ;
+void simple_vm_newvar ( VM *vm,const char *str ) ;
 
-List * simple_vm_newvar2 ( VM *vm,const char *cStr,List *pParent ) ;
+List * simple_vm_newvar2 ( VM *vm,const char *str,List *pParent ) ;
 
-void simple_vm_addnewnumbervar ( VM *vm,const char *cStr,double x ) ;
+void simple_vm_addnewnumbervar ( VM *vm,const char *str,double x ) ;
 
-void simple_vm_addnewstringvar ( VM *vm,const char *cStr,const char *cStr2 ) ;
+void simple_vm_addnewstringvar ( VM *vm,const char *str,const char *cStr2 ) ;
 
 void simple_vm_deletescope ( VM *vm ) ;
 
-void simple_vm_addnewpointervar ( VM *vm,const char *cStr,void *x,int y ) ;
+void simple_vm_addnewpointervar ( VM *vm,const char *str,void *x,int y ) ;
 
-void simple_vm_newtempvar ( VM *vm,const char *cStr, List *Temlist ) ;
+void simple_vm_newtempvar ( VM *vm,const char *str, List *Temlist ) ;
 
-void simple_vm_addnewstringvar2 ( VM *vm,const char *cStr,const char *cStr2,int nStrSize ) ;
+void simple_vm_addnewstringvar2 ( VM *vm,const char *str,const char *cStr2,int string_size ) ;
 
-List * simple_vm_newtempvar2 ( VM *vm,const char *cStr,List *list3 ) ;
+List * simple_vm_newtempvar2 ( VM *vm,const char *str,List *list3 ) ;
 
-void simple_vm_addnewcpointervar ( VM *vm,const char *cStr,void *pointer,const char *cStr2 ) ;
+void simple_vm_addnewcpointervar ( VM *vm,const char *str,void *pointer,const char *cStr2 ) ;
 /* Jump */
 
 void simple_vm_jump ( VM *vm ) ;
@@ -297,14 +297,14 @@ void simple_vm_listpushv ( VM *vm ) ;
 
 void simple_vm_listassignment ( VM *vm ) ;
 
-void simple_vm_listgetvalue ( VM *vm,List *var,const char *cStr ) ;
+void simple_vm_listgetvalue ( VM *vm,List *var,const char *str ) ;
 
 int simple_vm_strcmpnotcasesensitive ( const char *string_one,const char *cStr2 ) ;
 /* Blocks */
 
 int simple_vm_loadblock ( VM *vm ) ;
 
-int simple_vm_loadblock2 ( VM *vm,const char *cStr,int nPerformance ) ;
+int simple_vm_loadblock2 ( VM *vm,const char *str,int nPerformance ) ;
 
 void simple_vm_call ( VM *vm ) ;
 
@@ -437,7 +437,7 @@ Item * simple_vm_oop_objitemfromobjlist ( List *list ) ;
 
 void simple_vm_oop_callmethodfrombrace ( VM *vm ) ;
 
-int simple_vm_oop_isblock ( VM *vm,List *list,const char *cStr ) ;
+int simple_vm_oop_isblock ( VM *vm,List *list,const char *str ) ;
 
 void simple_vm_oop_updateselfpointer ( VM *vm,List *pObj,int nType,void *pContainer ) ;
 
@@ -525,7 +525,7 @@ SIMPLE_API void simple_vm_mutexunlock ( VM *vm ) ;
 
 SIMPLE_API void simple_vm_mutexdestroy ( VM *vm ) ;
 
-SIMPLE_API void simple_vm_runcodefromthread ( VM *vm,const char *cStr ) ;
+SIMPLE_API void simple_vm_runcodefromthread ( VM *vm,const char *str ) ;
 /* Trace */
 
 void simple_vm_traceevent ( VM *vm,char nEvent ) ;
