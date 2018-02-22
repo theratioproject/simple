@@ -34,7 +34,7 @@ SIMPLE_API void loadcblocks ( SimpleState *sState )
 	register_block("char",simple_vmlib_char);
 	register_block("getSimpleVersion",simple_vmlib_version);
         /** Functional Execution **/
-	register_block("executeCode",simple_vmlib_eval);
+	register_block("executeCode",simple_vmlib_exec);
         /** Load DLL Extension  **/
         simple_vm_dll_loadblocks(sState);
 	/*
@@ -450,7 +450,7 @@ void simple_vmlib_version ( void *pointer )
 
 /* Functional Execution */
 
-void simple_vmlib_eval ( void *pointer )
+SIMPLE_API void simple_vmlib_exec ( void *pointer )
 {
 	const char *cStr  ;
 	VM *vm  ;

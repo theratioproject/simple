@@ -68,7 +68,7 @@ void simple_vmlib_add ( void *pointer ) ;
 
 void simple_vmlib_version ( void *pointer ) ;
 
-void simple_vmlib_eval ( void *pointer ) ;
+SIMPLE_API void simple_vmlib_exec ( void *pointer ) ;
 
 void simple_vmlib_char ( void *pointer ) ;
 
