@@ -140,7 +140,7 @@ void simple_vm_execute ( VM *vm ) ;
 
 SIMPLE_API void simple_vm_error ( VM *vm,const char *cStr ) ;
 
-int simple_vm_eval ( VM *vm,const char *cStr ) ;
+SIMPLE_API int simple_vm_exec ( VM *vm,const char *cStr ) ;
 
 void simple_vm_tobytecode ( VM *vm,int x ) ;
 

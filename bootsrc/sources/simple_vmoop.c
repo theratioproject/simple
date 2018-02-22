@@ -908,7 +908,7 @@ void simple_vm_oop_setget ( VM *vm,List *var )
 			pItem = SIMPLE_VM_IR_ITEM(2) ;
 			vm->nEvalCalledFromSimpleCode = 0 ;
 			vm->nRetEvalDontDelete = 1 ;
-			simple_vm_eval(vm,simple_string_get(string));
+			simple_vm_exec(vm,simple_string_get(string));
 			/* We don't use SIMPLE_VM_IR because Eval reallocation change mem. locations */
 			simple_item_setint_gc(vm->sState,pItem,vm->nPC);
 		}
@@ -995,7 +995,7 @@ void simple_vm_oop_setproperty ( VM *vm )
 			pItem = SIMPLE_VM_IR_ITEM(2) ;
 			vm->nEvalCalledFromSimpleCode = 0 ;
 			vm->nRetEvalDontDelete = 1 ;
-			simple_vm_eval(vm,simple_string_get(string));
+			simple_vm_exec(vm,simple_string_get(string));
 			/* We don't use SIMPLE_VM_IR because Eval reallocation change mem. locations */
 			simple_item_setint_gc(vm->sState,pItem,vm->nPC);
 			/* Delete String */
@@ -1126,7 +1126,7 @@ void simple_vm_oop_operatoroverloading ( VM *vm,List *pObj,const char *string_on
 		pItem = SIMPLE_VM_IR_ITEM(1) ;
 		vm->nEvalCalledFromSimpleCode = 0 ;
 		vm->nRetEvalDontDelete = 1 ;
-		simple_vm_eval(vm,simple_string_get(string));
+		simple_vm_exec(vm,simple_string_get(string));
 		/* We don't use SIMPLE_VM_IR because Eval reallocation change mem. locations */
 		simple_item_setint_gc(vm->sState,pItem,vm->nPC);
 		/* Delete String */
