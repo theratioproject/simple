@@ -477,8 +477,8 @@ void simple_vm_range ( VM *vm )
 				SIMPLE_VM_STACK_POP ;
 				if ( simple_string_size(pString2)  == 1 ) {
 					cStr[1] = '\0' ;
-					nNum1 = pString1->cStr[0] ;
-					nNum2 = pString2->cStr[0] ;
+					nNum1 = pString1->str[0] ;
+					nNum2 = pString2->str[0] ;
 					/* Create List Variable */
 					var = simple_vm_range_newlist(vm);
 					/* Create List */

@@ -177,7 +177,7 @@ SIMPLE_API int simple_list_deliteminsidelist ( List *list,Item *pItem ) ;
 #define simple_list_getstring(list,index) ( simple_string_get(simple_item_getstring(simple_list_getitem(list,index))) )
 #define simple_list_getstringobject(list,index) ( simple_item_getstring(simple_list_getitem(list,index)) )
 #define simple_list_getstringsize(list,index) ( simple_string_size(simple_item_getstring(simple_list_getitem(list,index))) )
-#define simple_list_getsize(x) (x->nSize)
+#define simple_list_getsize(x) (x->size)
 #define SIMPLE_VM_LISTOFOBJS_FINDSTRING 1
 #define SIMPLE_VM_LISTOFOBJS_FINDNUMBER 0
 #define simple_list_deletelastitem_gc(s,x) simple_list_deleteitem_gc(s,x,simple_list_getsize(x))

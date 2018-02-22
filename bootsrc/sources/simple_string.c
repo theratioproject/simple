@@ -32,25 +32,25 @@ SIMPLE_API String * simple_string_new2_gc ( void *pState,const char *str,int str
 		printf( SIMPLE_OOM ) ;
 		exit(0);
 	}
-	string->cStr = (char *) simple_state_malloc(pState,str_size+1);
-	if ( string->cStr  == NULL ) {
+	string->str = (char *) simple_state_malloc(pState,str_size+1);
+	if ( string->str  == NULL ) {
 		printf( SIMPLE_OOM ) ;
 		exit(0);
 	}
 	/* Copy String */
 	for ( x = 0 ; x < str_size ; x++ ) {
-		string->cStr[x] = str[x] ;
+		string->str[x] = str[x] ;
 	}
-	string->cStr[str_size] = '\0' ;
-	string->nSize = str_size ;
+	string->str[str_size] = '\0' ;
+	string->size = str_size ;
 	return string ;
 }
 
 SIMPLE_API String * simple_string_delete_gc ( void *pState,String *string )
 {
 	assert(string != NULL);
-	simple_state_free(pState,string->cStr);
-	string->cStr = NULL ;
+	simple_state_free(pState,string->str);
+	string->str = NULL ;
 	simple_state_free(pState,string);
 	return NULL ;
 }
@@ -58,7 +58,7 @@ SIMPLE_API String * simple_string_delete_gc ( void *pState,String *string )
 SIMPLE_API int simple_string_size ( String *string )
 {
 	assert(string != NULL);
-	return string->nSize ;
+	return string->size ;
 }
 
 SIMPLE_API void simple_string_set_gc ( void *pState,String *string,const char *str )
@@ -73,19 +73,19 @@ SIMPLE_API void simple_string_set2_gc ( void *pState,String *string,const char *
 {
 	int x  ;
 	assert(string != NULL);
-	assert(string->cStr != NULL);
-	simple_state_free(pState,string->cStr);
-	string->cStr = (char *) simple_state_malloc(pState,str_size+1);
-	if ( string->cStr  == NULL ) {
+	assert(string->str != NULL);
+	simple_state_free(pState,string->str);
+	string->str = (char *) simple_state_malloc(pState,str_size+1);
+	if ( string->str  == NULL ) {
 		printf( SIMPLE_OOM ) ;
 		exit(0);
 	}
 	/* Copy String */
 	for ( x = 0 ; x < str_size ; x++ ) {
-		string->cStr[x] = str[x] ;
+		string->str[x] = str[x] ;
 	}
-	string->cStr[str_size] = '\0' ;
-	string->nSize = str_size ;
+	string->str[str_size] = '\0' ;
+	string->size = str_size ;
 }
 
 SIMPLE_API void simple_string_add_gc ( void *pState,String *string,const char *str )
@@ -102,28 +102,28 @@ SIMPLE_API void simple_string_add2_gc ( void *pState,String *string,const char *
 	char *cStr  ;
 	assert(string != NULL);
 	x2 = str_size+simple_string_size(string) ;
-	cStr = string->cStr ;
-	string->cStr = (char *) simple_state_malloc(pState,x2+1);
-	if ( string->cStr  == NULL ) {
+	cStr = string->str ;
+	string->str = (char *) simple_state_malloc(pState,x2+1);
+	if ( string->str  == NULL ) {
 		printf( SIMPLE_OOM ) ;
 		exit(0);
 	}
 	/* Copy String */
 	for ( x = 0 ; x < simple_string_size(string) ; x++ ) {
-		string->cStr[x] = cStr[x] ;
+		string->str[x] = cStr[x] ;
 	}
 	for ( x = 0 ; x < str_size ; x++ ) {
-		string->cStr[x+simple_string_size(string)] = str[x] ;
+		string->str[x+simple_string_size(string)] = str[x] ;
 	}
-	string->cStr[x2] = '\0' ;
-	string->nSize = x2 ;
+	string->str[x2] = '\0' ;
+	string->size = x2 ;
 	simple_state_free(pState,cStr);
 }
 
 SIMPLE_API void simple_string_print ( String *string )
 {
 	assert(string != NULL);
-	printf( "%s \n",string->cStr ) ;
+	printf( "%s \n",string->str ) ;
 }
 
 SIMPLE_API void simple_string_setfromint_gc ( void *pState,String *string,int x )

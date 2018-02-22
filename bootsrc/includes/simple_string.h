@@ -59,9 +59,9 @@ SIMPLE_API char * simple_string_find3_gc ( void *pState,char *string_one,int str
 
 void simple_string_test ( void ) ;
 /* Macro */
-#define simple_string_tolower(x) simple_string_lower(x->cStr)
-#define simple_string_toupper(x) simple_string_upper(x->cStr)
-#define simple_string_get(x) (x->cStr)
+#define simple_string_tolower(x) simple_string_lower(x->str)
+#define simple_string_toupper(x) simple_string_upper(x->str)
+#define simple_string_get(x) (x->str)
 /* Blocks without state pointer */
 
 SIMPLE_API String * simple_string_new2 ( const char *str,int str_size ) ;

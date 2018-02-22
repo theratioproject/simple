@@ -59,7 +59,7 @@ void simple_vm_stsimple_index ( VM *vm, String *string, double nNum1 )
             simple_vm_error(vm,SIMPLE_VM_ERROR_INDEXOUTOFRANGE);
             return ;
 	}
-	newstr = string->cStr ;
+	newstr = string->str ;
 	newstr = newstr + ((int) (nNum1 - list_index) ) ;
 	SIMPLE_VM_STACK_PUSHPVALUE(newstr);
 	SIMPLE_VM_STACK_OBJTYPE = SIMPLE_OBJTYPE_SUBSTRING ;

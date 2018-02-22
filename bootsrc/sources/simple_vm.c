@@ -860,7 +860,7 @@ void simple_vm_tobytecode ( VM *vm,int x )
 	Item *pItem  ;
 	pByteCode = vm->pByteCode + x - 1 ;
 	pIR = simple_list_getlist(vm->pCode,x);
-	pByteCode->nSize = simple_list_getsize(pIR) ;
+	pByteCode->size = simple_list_getsize(pIR) ;
 	#if SIMPLE_SHOWICFINAL
 	pByteCode->list = pIR ;
 	#endif

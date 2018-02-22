@@ -604,7 +604,7 @@ List * simple_vm_getglobalscope ( VM *vm ) ;
 #define SIMPLE_VM_IR_READIVALUE(x) vm->pByteCodeIR->aData[x]->data.iNumber
 #define SIMPLE_VM_IR_READD vm->pByteCodeIR->aData[1]->data.dNumber
 #define SIMPLE_VM_IR_READDVALUE(x) vm->pByteCodeIR->aData[x]->data.dNumber
-#define SIMPLE_VM_IR_PARACOUNT vm->pByteCodeIR->nSize
+#define SIMPLE_VM_IR_PARACOUNT vm->pByteCodeIR->size
 #define SIMPLE_VM_IR_OPCODE vm->pByteCodeIR->aData[0]->data.iNumber
 #define SIMPLE_VM_IR_SETCVALUE(x,y) simple_string_set_gc(vm->sState,vm->pByteCodeIR->aData[x]->data.string,y)
 #define SIMPLE_VM_IR_ITEM(x) vm->pByteCodeIR->aData[x]

@@ -213,7 +213,7 @@ SIMPLE_API void * api_var_ptr ( void *pointer,const char  *cStr,const char *cStr
 	}
 	else if ( simple_list_getint(list,SIMPLE_VAR_TYPE) == SIMPLE_VM_STRING ) {
 		pItem = simple_list_getitem(list,SIMPLE_VAR_VALUE);
-		return pItem->data.string->cStr ;
+		return pItem->data.string->str ;
 	}
 	return NULL ;
 }
