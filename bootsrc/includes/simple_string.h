@@ -17,8 +17,8 @@
 #define simple_string_h
 /* Data */
 typedef struct String {
-	char *cStr  ;
-	int nSize  ;
+	char *str  ;
+	int size  ;
 	/* Note : nSize is (Allocation Size - 1) */
 } String ;
 /* Blocks */

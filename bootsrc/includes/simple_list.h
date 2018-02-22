@@ -19,7 +19,7 @@
 typedef struct List {
 	struct Items *pFirst  ;
 	struct Items *pLast  ;
-	int nSize  ;
+	int size  ;
 	int nNextItemAfterLastAccess  ;
 	struct Items *pLastItemLastAccess  ;
 	struct Item **pItemsArray  ;
