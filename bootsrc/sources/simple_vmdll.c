@@ -114,7 +114,7 @@ void simple_vm_dll_closelib ( void *pointer )
 void simple_vm_display ( VM *vm )
 {
 	Item *pItem  ;
-	char str[100]  ;
+	char cStr[100]  ;
 	List *list  ;
 	char *cString  ;
 	int x  ;
@@ -151,8 +151,8 @@ void simple_vm_display ( VM *vm )
 		}
 	}
 	else if ( SIMPLE_VM_STACK_ISNUMBER ) {
-		simple_vm_numtostring(vm,SIMPLE_VM_STACK_READN,str);
-		printf( "%s",str ) ;
+		simple_vm_numtostring(vm,SIMPLE_VM_STACK_READN,cStr);
+		printf( "%s",cStr ) ;
 	}
 	SIMPLE_VM_STACK_POP ;
 	simple_vm_freestack(vm);
@@ -196,7 +196,7 @@ void display_string ( void *pointer )
 {
 	char *cString  ;
 	int x  ;
-	char str[100]  ;
+	char cStr[100]  ;
 	List *list  ;
 	VM *vm  ;
 	vm = (VM *) pointer ;
@@ -211,8 +211,8 @@ void display_string ( void *pointer )
 		}
 	}
 	else if ( SIMPLE_API_ISNUMBER(1) ) {
-		simple_vm_numtostring(vm,SIMPLE_API_GETNUMBER(1),str);
-		printf( "%s",str ) ;
+		simple_vm_numtostring(vm,SIMPLE_API_GETNUMBER(1),cStr);
+		printf( "%s",cStr ) ;
 	}
 	else if ( SIMPLE_API_ISLIST(1) ) {
 		list = SIMPLE_API_GETLIST(1);

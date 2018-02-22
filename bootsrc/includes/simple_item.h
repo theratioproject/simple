@@ -28,7 +28,7 @@ typedef struct Item {
 	unsigned int nObjectType:2  ;
 	/* Data */
 	union {
-		struct String *string  ;
+		struct String *pString  ;
 		double dNumber  ;
 		int iNumber  ;
 		void *pointer  ;
@@ -75,10 +75,10 @@ SIMPLE_API void simple_itemarray_setdouble_gc ( void *pState,Item list[], int in
 
 SIMPLE_API void simple_itemarray_setstsimple_gc ( void *pState,Item list[], int index ,const char *str ) ;
 
-SIMPLE_API void simple_itemarray_setstring2_gc ( void *pState,Item list[], int index ,const char *str,int string_size ) ;
+SIMPLE_API void simple_itemarray_setstring2_gc ( void *pState,Item list[], int index ,const char *str,int str_size ) ;
 /* Blocks to deal with one item */
 
-SIMPLE_API void simple_item_setstsimple_gc ( void *pState,Item *pItem,const char *str ) ;
+SIMPLE_API void simple_item_setstsimple_gc ( void *pState,Item *pItem,const char *cStr ) ;
 
 SIMPLE_API void simple_item_setdouble_gc ( void *pState,Item *pItem,double x ) ;
 
@@ -86,9 +86,9 @@ SIMPLE_API void simple_item_setpointer_gc ( void *pState,Item *pItem,void *pValu
 
 SIMPLE_API void simple_item_setint_gc ( void *pState,Item *pItem,int x ) ;
 
-SIMPLE_API void simple_item_setstring2_gc ( void *pState,Item *pItem,const char *str,int string_size ) ;
+SIMPLE_API void simple_item_setstring2_gc ( void *pState,Item *pItem,const char *cStr,int str_size ) ;
 /* Macro */
-#define simple_item_getstring(x) x->data.string
+#define simple_item_getstring(x) x->data.pString
 #define simple_item_getnumber(x) x->data.dNumber
 #define simple_item_getdouble(x) x->data.dNumber
 #define simple_item_getint(x) x->data.iNumber
@@ -98,8 +98,8 @@ SIMPLE_API void simple_item_setstring2_gc ( void *pState,Item *pItem,const char 
 #define simple_itemarray_getint(list,index) ( list[index].data.iNumber )
 #define simple_itemarray_getpointer(list,index) ( list[index].data.pointer )
 #define simple_itemarray_getdouble(list,index) list[index].data.dNumber
-#define simple_itemarray_getstring(list,index) simple_string_get(list[index].data.string )
-#define simple_itemarray_getstringsize(list,index) simple_string_size(list[index].data.string )
+#define simple_itemarray_getstring(list,index) simple_string_get(list[index].data.pString )
+#define simple_itemarray_getstringsize(list,index) simple_string_size(list[index].data.pString )
 /* Check */
 #define simple_itemarray_isstring(list,index) (list[index].nType == ITEMTYPE_STRING)
 #define simple_itemarray_isnumber(list,index) (list[index].nType == ITEMTYPE_NUMBER)
@@ -132,10 +132,10 @@ SIMPLE_API void simple_itemarray_setdouble ( Item list[], int index ,double numb
 
 SIMPLE_API void simple_itemarray_setstring ( Item list[], int index ,const char *str ) ;
 
-SIMPLE_API void simple_itemarray_setstring2 ( Item list[], int index ,const char *str,int string_size ) ;
+SIMPLE_API void simple_itemarray_setstring2 ( Item list[], int index ,const char *str,int str_size ) ;
 /* Blocks to deal with one item */
 
-SIMPLE_API void simple_item_setstring ( Item *pItem,const char *str ) ;
+SIMPLE_API void simple_item_setstring ( Item *pItem,const char *cStr ) ;
 
 SIMPLE_API void simple_item_setdouble ( Item *pItem,double x ) ;
 
@@ -143,7 +143,7 @@ SIMPLE_API void simple_item_setpointer ( Item *pItem,void *pValue ) ;
 
 SIMPLE_API void simple_item_setint ( Item *pItem,int x ) ;
 
-SIMPLE_API void simple_item_setstring2 ( Item *pItem,const char *str,int string_size ) ;
+SIMPLE_API void simple_item_setstring2 ( Item *pItem,const char *cStr,int str_size ) ;
 
 /* Data */
 typedef struct Items {

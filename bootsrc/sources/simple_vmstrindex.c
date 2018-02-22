@@ -19,12 +19,12 @@
 void simple_vm_stsimple_pushv ( VM *vm )
 {
 	char *newstr  ;
-	char str[2]  ;
+	char cStr[2]  ;
 	newstr = (char *) SIMPLE_VM_STACK_READP ;
 	SIMPLE_VM_STACK_POP ;
-	str[0] = newstr[0] ;
-	str[1] = '\0' ;
-	SIMPLE_VM_STACK_PUSHCVALUE(str);
+	cStr[0] = newstr[0] ;
+	cStr[1] = '\0' ;
+	SIMPLE_VM_STACK_PUSHCVALUE(cStr);
 }
 
 void simple_vm_stsimple_assignment ( VM *vm )
@@ -51,15 +51,15 @@ void simple_vm_stsimple_assignment ( VM *vm )
 	}
 }
 
-void simple_vm_stsimple_index ( VM *vm, String *string, double nNum1 )
+void simple_vm_stsimple_index ( VM *vm, String *pString, double nNum1 )
 {
 	char *newstr  ; 
 	/* We will push a pointer of the sub char to the stack */
-	if ( nNum1 < list_index || nNum1 > simple_string_size(string) ) {
+	if ( nNum1 < list_index || nNum1 > simple_string_size(pString) ) {
             simple_vm_error(vm,SIMPLE_VM_ERROR_INDEXOUTOFRANGE);
             return ;
 	}
-	newstr = string->str ;
+	newstr = pString->cStr ;
 	newstr = newstr + ((int) (nNum1 - list_index) ) ;
 	SIMPLE_VM_STACK_PUSHPVALUE(newstr);
 	SIMPLE_VM_STACK_OBJTYPE = SIMPLE_OBJTYPE_SUBSTRING ;

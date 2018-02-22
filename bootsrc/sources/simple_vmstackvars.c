@@ -101,7 +101,7 @@ void simple_vm_loadaddress ( VM *vm )
 void simple_vm_assignment ( VM *vm )
 {
 	List *var,*list  ;
-	String *string_one, *string  ;
+	String *string_one, *pString  ;
 	double nNum1  ;
 	Item *pItem  ;
 	if ( SIMPLE_VM_STACK_PREVOBJTYPE == SIMPLE_OBJTYPE_SUBSTRING ) {
@@ -130,8 +130,8 @@ void simple_vm_assignment ( VM *vm )
 					return ;
 				}
 				if ( simple_list_isstring(var,SIMPLE_VAR_VALUE) ) {
-					string = simple_list_getstringobject(var,SIMPLE_VAR_VALUE);
-					simple_string_add2_gc(vm->sState,string,simple_string_get(string_one),simple_string_size(string_one));
+					pString = simple_list_getstringobject(var,SIMPLE_VAR_VALUE);
+					simple_string_add2_gc(vm->sState,pString,simple_string_get(string_one),simple_string_size(string_one));
 				}
 				else if ( simple_list_isnumber(var,SIMPLE_VAR_VALUE) ) {
 					simple_list_setdouble_gc(vm->sState,var, SIMPLE_VAR_VALUE ,simple_list_getdouble(var,SIMPLE_VAR_VALUE) +simple_vm_stringtonum(vm,simple_string_get(string_one)));
@@ -391,8 +391,8 @@ void simple_vm_list_simpointercopy ( VM *vm,List *list )
 
 void simple_vm_beforeequallist ( VM *vm,List *var,double nNum1 )
 {
-	String *string  ;
-	char str[100]  ;
+	String *pString  ;
+	char cStr[100]  ;
 	if ( simple_list_isdouble(var,SIMPLE_VAR_VALUE) ) {
 		if ( vm->nBeforeEqual == 1 ) {
 			simple_list_setdouble_gc(vm->sState,var, SIMPLE_VAR_VALUE ,simple_list_getdouble(var,SIMPLE_VAR_VALUE) + nNum1);
@@ -418,8 +418,8 @@ void simple_vm_beforeequallist ( VM *vm,List *var,double nNum1 )
 		}
 	}
 	else if ( (simple_list_isstring(var,SIMPLE_VAR_VALUE) == 1) && (vm->nBeforeEqual == 1) ) {
-		string = simple_list_getstringobject(var,SIMPLE_VAR_VALUE);
-		simple_string_add_gc(vm->sState,string,simple_vm_numtostring(vm,nNum1,str));
+		pString = simple_list_getstringobject(var,SIMPLE_VAR_VALUE);
+		simple_string_add_gc(vm->sState,pString,simple_vm_numtostring(vm,nNum1,cStr));
 	} else {
 		simple_vm_error(vm,SIMPLE_VM_ERROR_BADVALUES);
 		return ;
@@ -428,8 +428,8 @@ void simple_vm_beforeequallist ( VM *vm,List *var,double nNum1 )
 
 void simple_vm_beforeequalitem ( VM *vm,Item *pItem,double nNum1 )
 {
-	String *string  ;
-	char str[100]  ;
+	String *pString  ;
+	char cStr[100]  ;
 	if ( simple_item_isdouble(pItem) ) {
 		if ( vm->nBeforeEqual == 1 ) {
 			simple_item_setdouble_gc(vm->sState,pItem ,simple_item_getdouble(pItem) + nNum1);
@@ -454,8 +454,8 @@ void simple_vm_beforeequalitem ( VM *vm,Item *pItem,double nNum1 )
 		}
 	}
 	else if ( (simple_item_isstring(pItem) == 1)  && (vm->nBeforeEqual == 1) ) {
-		string = simple_item_getstring(pItem);
-		simple_string_add_gc(vm->sState,string,simple_vm_numtostring(vm,nNum1,str));
+		pString = simple_item_getstring(pItem);
+		simple_string_add_gc(vm->sState,pString,simple_vm_numtostring(vm,nNum1,cStr));
 	} else {
 		simple_vm_error(vm,SIMPLE_VM_ERROR_BADVALUES);
 		return ;

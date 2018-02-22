@@ -19,7 +19,7 @@
 typedef struct List {
 	struct Items *pFirst  ;
 	struct Items *pLast  ;
-	int size  ;
+	int nSize  ;
 	int nNextItemAfterLastAccess  ;
 	struct Items *pLastItemLastAccess  ;
 	struct Item **pItemsArray  ;
@@ -30,9 +30,9 @@ typedef struct List {
 **  Main List Blocks 
 */
 
-SIMPLE_API List * simple_list_new_gc ( void *pState,int size ) ;
+SIMPLE_API List * simple_list_new_gc ( void *pState,int nSize ) ;
 
-SIMPLE_API List * simple_list_new2_gc ( void *pState,List *list,int size ) ;
+SIMPLE_API List * simple_list_new2_gc ( void *pState,List *list,int nSize ) ;
 
 SIMPLE_API void simple_list_newitem_gc ( void *pState,List *list ) ;
 
@@ -75,11 +75,11 @@ SIMPLE_API void simple_list_adddouble_gc ( void *pState,List *list,double x ) ;
 
 SIMPLE_API void simple_list_setstsimple_gc ( void *pState,List *list, int index ,const char *str ) ;
 
-SIMPLE_API void simple_list_setstring2_gc ( void *pState,List *list, int index ,const char *str,int string_size ) ;
+SIMPLE_API void simple_list_setstring2_gc ( void *pState,List *list, int index ,const char *str,int str_size ) ;
 
 SIMPLE_API void simple_list_addstring_gc ( void *pState,List *list,const char *str ) ;
 
-SIMPLE_API void simple_list_addstring2_gc ( void *pState,List *list,const char *str,int string_size ) ;
+SIMPLE_API void simple_list_addstring2_gc ( void *pState,List *list,const char *str,int str_size ) ;
 /* List */
 
 SIMPLE_API List * simple_list_newlist_gc ( void *pState,List *list ) ;
@@ -113,7 +113,7 @@ SIMPLE_API void simple_list_insertpointer_gc ( void *pState,List *list,int nPos,
 
 SIMPLE_API void simple_list_insertstsimple_gc ( void *pState,List *list,int nPos,const char *str ) ;
 
-SIMPLE_API void simple_list_insertstring2_gc ( void *pState,List *list,int nPos,const char *str,int string_size ) ;
+SIMPLE_API void simple_list_insertstring2_gc ( void *pState,List *list,int nPos,const char *str,int str_size ) ;
 
 SIMPLE_API void simple_list_insertblockpointer_gc ( void *pState,List *list,int nPos,void (*pBlock)(void *) ) ;
 
@@ -177,13 +177,13 @@ SIMPLE_API int simple_list_deliteminsidelist ( List *list,Item *pItem ) ;
 #define simple_list_getstring(list,index) ( simple_string_get(simple_item_getstring(simple_list_getitem(list,index))) )
 #define simple_list_getstringobject(list,index) ( simple_item_getstring(simple_list_getitem(list,index)) )
 #define simple_list_getstringsize(list,index) ( simple_string_size(simple_item_getstring(simple_list_getitem(list,index))) )
-#define simple_list_getsize(x) (x->size)
+#define simple_list_getsize(x) (x->nSize)
 #define SIMPLE_VM_LISTOFOBJS_FINDSTRING 1
 #define SIMPLE_VM_LISTOFOBJS_FINDNUMBER 0
 #define simple_list_deletelastitem_gc(s,x) simple_list_deleteitem_gc(s,x,simple_list_getsize(x))
 /* Define blocks without SimpleState * */
 
-SIMPLE_API List * simple_list_new ( int size ) ;
+SIMPLE_API List * simple_list_new ( int nSize ) ;
 
 SIMPLE_API void simple_list_genarray ( List *list ) ;
 
@@ -218,11 +218,11 @@ SIMPLE_API void simple_list_adddouble ( List *list,double x ) ;
 
 SIMPLE_API void simple_list_setstring ( List *list, int index ,const char *str ) ;
 
-SIMPLE_API void simple_list_setstring2 ( List *list, int index ,const char *str,int string_size ) ;
+SIMPLE_API void simple_list_setstring2 ( List *list, int index ,const char *str,int str_size ) ;
 
 SIMPLE_API void simple_list_addstring ( List *list,const char *str ) ;
 
-SIMPLE_API void simple_list_addstring2 ( List *list,const char *str,int string_size ) ;
+SIMPLE_API void simple_list_addstring2 ( List *list,const char *str,int str_size ) ;
 /* List */
 
 SIMPLE_API List * simple_list_newlist ( List *list ) ;
@@ -244,7 +244,7 @@ SIMPLE_API void simple_list_insertpointer ( List *list,int nPos,void *pValue ) ;
 
 SIMPLE_API void simple_list_insertstring ( List *list,int nPos,const char *str ) ;
 
-SIMPLE_API void simple_list_insertstring2 ( List *list,int nPos,const char *str,int string_size ) ;
+SIMPLE_API void simple_list_insertstring2 ( List *list,int nPos,const char *str,int str_size ) ;
 
 SIMPLE_API void simple_list_insertblockpointer ( List *list,int nPos,void (*pBlock)(void *) ) ;
 

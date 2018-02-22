@@ -954,24 +954,24 @@ void simple_vm_bitnot ( VM *vm )
 }
 /* Conversion */
 
-char * simple_vm_numtostring ( VM *vm,double nNum1,char *str )
+char * simple_vm_numtostring ( VM *vm,double nNum1,char *cStr )
 {
 	char cOptions[10]  ;
 	if ( nNum1 == (int) nNum1 ) {
-		sprintf( str , "%.0f" , nNum1 ) ;
+		sprintf( cStr , "%.0f" , nNum1 ) ;
 	}
 	else {
 		sprintf( cOptions , "%s%df" , "%.",vm->nDecimals ) ;
-		sprintf( str , cOptions , nNum1 ) ;
+		sprintf( cStr , cOptions , nNum1 ) ;
 	}
-	return str ;
+	return cStr ;
 }
 
-double simple_vm_stringtonum ( VM *vm,const char *str )
+double simple_vm_stringtonum ( VM *vm,const char *cStr )
 {
 	double nResult  ;
-	if ( strlen(str) <= 15 ) {
-		nResult = atof(str);
+	if ( strlen(cStr) <= 15 ) {
+		nResult = atof(cStr);
 	} else {
 		simple_vm_error(vm,SIMPLE_VM_ERROR_NUMERICOVERFLOW);
 		return 0.0 ;
@@ -983,7 +983,7 @@ double simple_vm_stringtonum ( VM *vm,const char *str )
 **  Stack Pointer then Stack Pointer - Operator Overloading 
 */
 
-void simple_vm_expr_ppoo ( VM *vm,const char *str )
+void simple_vm_expr_ppoo ( VM *vm,const char *cStr )
 {
 	List *list,*list2  ;
 	Item *pItem  ;
@@ -1016,13 +1016,13 @@ void simple_vm_expr_ppoo ( VM *vm,const char *str )
 			simple_vm_error(vm,SIMPLE_VM_ERROR_BADVALUES);
 			return ;
 		}
-		if ( strcmp(str,"+") == 0 ) {
+		if ( strcmp(cStr,"+") == 0 ) {
 			if ( (simple_vm_oop_isobject(list2) == 0) ) {
 				simple_vm_addlisttolist(vm,list,list2);
 				return ;
 			}
 		}
-		else if ( strcmp(str,"=") == 0 ) {
+		else if ( strcmp(cStr,"=") == 0 ) {
 			if ( api_iscpointer_list(list) && api_iscpointer_list(list2) ) {
 				SIMPLE_VM_STACK_POP ;
 				if ( api_cpointer_cmp(list,list2) ) {
@@ -1036,7 +1036,7 @@ void simple_vm_expr_ppoo ( VM *vm,const char *str )
 		}
 		if ( simple_vm_oop_isobject(list2) == 1 ) {
 			/* Operator Overloading */
-			simple_vm_oop_operatoroverloading(vm,list2,str,SIMPLE_OOPARA_POINTER,"",0,pointer,nType);
+			simple_vm_oop_operatoroverloading(vm,list2,cStr,SIMPLE_OOPARA_POINTER,"",0,pointer,nType);
 			SIMPLE_VM_STACK_POP ;
 		} else {
 			simple_vm_error(vm,SIMPLE_VM_ERROR_BADVALUES);
@@ -1047,7 +1047,7 @@ void simple_vm_expr_ppoo ( VM *vm,const char *str )
 }
 /* Stack Number then Stack Pointer - Operator Overloading */
 
-void simple_vm_expr_npoo ( VM *vm,const char *str,double nNum1 )
+void simple_vm_expr_npoo ( VM *vm,const char *cStr,double nNum1 )
 {
 	List *list  ;
 	Item *pItem  ;
@@ -1062,7 +1062,7 @@ void simple_vm_expr_npoo ( VM *vm,const char *str,double nNum1 )
 		simple_vm_error(vm,SIMPLE_VM_ERROR_BADVALUES);
 		return ;
 	}
-	if ( strcmp(str,"+") == 0 ) {
+	if ( strcmp(cStr,"+") == 0 ) {
 		if ( simple_vm_oop_isobject(list) == 0 ) {
 			simple_list_adddouble_gc(vm->sState,list,nNum1);
 			return ;
@@ -1070,7 +1070,7 @@ void simple_vm_expr_npoo ( VM *vm,const char *str,double nNum1 )
 	}
 	if ( simple_vm_oop_isobject(list) == 1 ) {
 		/* Operator Overloading */
-		simple_vm_oop_operatoroverloading(vm,list,str,SIMPLE_OOPARA_NUMBER,"",nNum1,NULL,0);
+		simple_vm_oop_operatoroverloading(vm,list,cStr,SIMPLE_OOPARA_NUMBER,"",nNum1,NULL,0);
 		SIMPLE_VM_STACK_POP ;
 	} else {
 		simple_vm_error(vm,SIMPLE_VM_ERROR_BADVALUES);
@@ -1078,7 +1078,7 @@ void simple_vm_expr_npoo ( VM *vm,const char *str,double nNum1 )
 }
 /* Stack String then Stack Pointer - Operator Overloading */
 
-void simple_vm_expr_spoo ( VM *vm,const char *str,const char *cStr2,int size )
+void simple_vm_expr_spoo ( VM *vm,const char *cStr,const char *cStr2,int nSize )
 {
 	List *list  ;
 	Item *pItem  ;
@@ -1093,15 +1093,15 @@ void simple_vm_expr_spoo ( VM *vm,const char *str,const char *cStr2,int size )
 		simple_vm_error(vm,SIMPLE_VM_ERROR_BADVALUES);
 		return ;
 	}
-	if ( strcmp(str,"+") == 0 ) {
+	if ( strcmp(cStr,"+") == 0 ) {
 		if ( simple_vm_oop_isobject(list) == 0 ) {
-			simple_list_addstring2_gc(vm->sState,list,cStr2,size);
+			simple_list_addstring2_gc(vm->sState,list,cStr2,nSize);
 			return ;
 		}
 	}
 	if ( simple_vm_oop_isobject(list) == 1 ) {
 		/* Operator Overloading */
-		simple_vm_oop_operatoroverloading(vm,list,str,SIMPLE_OOPARA_STRING,cStr2,0,NULL,0);
+		simple_vm_oop_operatoroverloading(vm,list,cStr,SIMPLE_OOPARA_STRING,cStr2,0,NULL,0);
 		SIMPLE_VM_STACK_POP ;
 	} else {
 		simple_vm_error(vm,SIMPLE_VM_ERROR_BADVALUES);

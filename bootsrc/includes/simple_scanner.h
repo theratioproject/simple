@@ -128,11 +128,11 @@ void simple_scanner_addtoken ( Scanner *scanner,int type ) ;
 
 void simple_scanner_checktoken ( Scanner *scanner ) ;
 
-int simple_scanner_isnumber ( char *str ) ;
+int simple_scanner_isnumber ( char *cStr ) ;
 
 int simple_scanner_checklasttoken ( Scanner *scanner ) ;
 
-int simple_scanner_isoperator ( Scanner *scanner,const char *str ) ;
+int simple_scanner_isoperator ( Scanner *scanner,const char *cStr ) ;
 
 void simple_scanner_operators ( Scanner *scanner ) ;
 
@@ -154,7 +154,7 @@ void display_tokens ( Scanner *scanner ) ;
 
 SIMPLE_API void simple_execute ( char *file_name, int nISCGI,int nRun,int nPrintIC,int nPrintICFinal,int nTokens,int nRules,int nIns,int nGenObj,int nWarn,int argc,char *argv[] ) ;
 
-const char * simple_scanner_getkeywordtext ( const char *str ) ;
+const char * simple_scanner_getkeywordtext ( const char *cStr ) ;
 
 void simple_scanner_runprogram ( SimpleState *sState ) ;
 

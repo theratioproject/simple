@@ -116,31 +116,31 @@ SIMPLE_API SimpleState * init_simple_state ( void )
 	return sState ;
 }
 
-SIMPLE_API void execute_simple_code ( SimpleState *sState,const char *str )
+SIMPLE_API void execute_simple_code ( SimpleState *sState,const char *cStr )
 {
-	simple_vm_runcode(sState->vm,str);
+	simple_vm_runcode(sState->vm,cStr);
 }
 
-SIMPLE_API List * simple_state_findvar ( SimpleState *sState,const char *str )
+SIMPLE_API List * simple_state_findvar ( SimpleState *sState,const char *cStr )
 {
 	VM *vm  ;
 	List *list  ;
 	vm = sState->vm ;
 	list = NULL ;
-	if ( simple_vm_findvar(vm,str) ) {
+	if ( simple_vm_findvar(vm,cStr) ) {
 		list = (List *) SIMPLE_VM_STACK_READP ;
 		SIMPLE_VM_STACK_POP ;
 	}
 	return list ;
 }
 
-SIMPLE_API List * simple_state_newvar ( SimpleState *sState,const char *str )
+SIMPLE_API List * simple_state_newvar ( SimpleState *sState,const char *cStr )
 {
 	VM *vm  ;
 	List *list  ;
 	vm = sState->vm ;
-	if ( simple_vm_findvar(vm,str) == 0 ) {
-		simple_vm_newvar(vm,str);
+	if ( simple_vm_findvar(vm,cStr) == 0 ) {
+		simple_vm_newvar(vm,cStr);
 	}
 	list = (List *) SIMPLE_VM_STACK_READP ;
 	SIMPLE_VM_STACK_POP ;
@@ -150,7 +150,7 @@ SIMPLE_API List * simple_state_newvar ( SimpleState *sState,const char *str )
 SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 {
 	int x,nCGI,nRun,nPrintIC,nPrintICFinal,nTokens,nRules,nIns,nPerformance,nSRC,nGenObj,nWarn  ;
-	char *str  ; time_t before_execution, after_execution; 
+	char *cStr  ; time_t before_execution, after_execution; 
 	/* Init Values */
 	nCGI = 0 ;
 	nRun = 1 ;
@@ -160,7 +160,7 @@ SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 	nRules = 0 ;
 	nIns = 0 ;
 	nPerformance = 0 ;
-	str = NULL ;
+	cStr = NULL ;
 	nSRC = 0 ;
 	nGenObj = 0 ;
 	nWarn = 0 ;
@@ -210,7 +210,7 @@ SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 				nSimpleStateDEBUGSEGFAULT = 1 ;
 			}
 			else if ( ( is_simple_file(argv[x]) || is_complex_file(argv[x])) && nSRC == 0 ) {
-				str = argv[x] ;
+				cStr = argv[x] ;
 				nSRC = 1 ;
 			}
 		}
@@ -226,10 +226,10 @@ SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 		exit(0);
 	}
 	/* Print Version */
-	if ( (argc == 1) || (str == NULL) ) {
+	if ( (argc == 1) || (cStr == NULL) ) {
 		display_help();
 	}
-	simple_execute(str,nCGI,nRun,nPrintIC,nPrintICFinal,nTokens,nRules,nIns,nGenObj,nWarn,argc,argv);
+	simple_execute(cStr,nCGI,nRun,nPrintIC,nPrintICFinal,nTokens,nRules,nIns,nGenObj,nWarn,argc,argv);
 	#if SIMPLE_TESTPERFORMANCE
 	if ( nPerformance ) {
 		simple_showtime( before_execution, after_execution );
@@ -282,29 +282,29 @@ int simple_fexists ( const char *file_name )
 
 int simple_currentdir ( char *cDirPath )
 {
-	int size  ;
-	size = SIMPLE_PATHSIZE ;
-	if ( !GetCurrentDir(cDirPath, size) ) {
+	int nSize  ;
+	nSize = SIMPLE_PATHSIZE ;
+	if ( !GetCurrentDir(cDirPath, nSize) ) {
 		return errno ;
 	}
-	cDirPath[size-1] = '\0' ;
+	cDirPath[nSize-1] = '\0' ;
 	return 0 ;
 }
 
 int simple_exefilename ( char *cDirPath )
 {
-	unsigned int size  ;
-	size = SIMPLE_PATHSIZE ;
+	unsigned int nSize  ;
+	nSize = SIMPLE_PATHSIZE ;
 	#ifdef _WIN32
 	/* Windows only */
-	GetModuleFileName(NULL,cDirPath,size);
+	GetModuleFileName(NULL,cDirPath,nSize);
 	#elif __MACH__
 	/* Mac OS X */
-	_NSGetExecutablePath(cDirPath,&size);
+	_NSGetExecutablePath(cDirPath,&nSize);
 	#elif __linux__
 	/* readlink() doesn't null terminate */
-	memset(cDirPath,0,size);
-	if ( ! readlink("/proc/self/exe",cDirPath,size) ) {
+	memset(cDirPath,0,nSize);
+	if ( ! readlink("/proc/self/exe",cDirPath,nSize) ) {
 		return 0 ;
 	}
 	#endif
@@ -320,10 +320,10 @@ void simple_exefolder ( char *cDirPath )
 {
 	char cDir[SIMPLE_PATHSIZE]  ;
 	char cDir2[SIMPLE_PATHSIZE]  ;
-	int x,x2,size  ;
+	int x,x2,nSize  ;
 	simple_exefilename(cDir);
-	size = strlen( cDir ) ;
-	for ( x = size-1 ; x >= 0 ; x-- ) {
+	nSize = strlen( cDir ) ;
+	for ( x = nSize-1 ; x >= 0 ; x-- ) {
 		if ( (cDir[x] == '\\') || (cDir[x] == '/') ) {
 			for ( x2 = x ; x2 >= 0 ; x2-- ) {
 				cDir2[x2] = cDir[x2] ;
@@ -349,9 +349,9 @@ void simple_switchtofilefolder ( char *file_name )
 
 int simple_justfilepath ( char *file_name )
 {
-	int x,size  ;
-	size = strlen( file_name ) ;
-	for ( x = size-1 ; x >= 0 ; x-- ) {
+	int x,nSize  ;
+	nSize = strlen( file_name ) ;
+	for ( x = nSize-1 ; x >= 0 ; x-- ) {
 		if ( (file_name[x] == '\\') || (file_name[x] == '/') ) {
 			file_name[x+1] = '\0' ;
 			return 1 ;
@@ -362,12 +362,12 @@ int simple_justfilepath ( char *file_name )
 
 void simple_justfilename ( char *file_name )
 {
-	int x,size,r  ;
-	size = strlen( file_name ) ;
-	for ( x = size-1 ; x >= 0 ; x-- ) {
+	int x,nSize,r  ;
+	nSize = strlen( file_name ) ;
+	for ( x = nSize-1 ; x >= 0 ; x-- ) {
 		if ( (file_name[x] == '\\') || (file_name[x] == '/') ) {
 			r = 0 ;
-			for ( x = x+1 ; x <= size+1 ; x++ ) {
+			for ( x = x+1 ; x <= nSize+1 ; x++ ) {
 				file_name[r] = file_name[x] ;
 				r++ ;
 			}

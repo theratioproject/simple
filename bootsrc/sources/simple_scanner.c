@@ -67,7 +67,7 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
 	VM *vm  ;
 	int nCont,nRunVM,nFreeFilesList = 0 ;
 	char start_up[30]  ;
-	int x,size  ;
+	int x,nSize  ;
 	char file_name_two[200]  ;
         int is_start_file = 1 ;
 	/* Check file */
@@ -154,7 +154,7 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
 		exit(-1);
                 return 0 ;
 	}
-	SIMPLE_READCHAR(fp,c,size);
+	SIMPLE_READCHAR(fp,c,nSize);
 	scanner = new_simple_scanner(sState);
         /*Assign default file dir */
         if (is_start_file) {get_file_folder ( DEFAULT_FILE_PATH );}
@@ -175,10 +175,10 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
 		simple_string_setfromint_gc(sState,scanner->ActiveToken,0);
 		simple_scanner_addtoken(scanner,SCANNER_TOKEN_ENDLINE);
 	}
-	size = 1 ;
-	while ( (c != EOF) && (size != 0) ) {
+	nSize = 1 ;
+	while ( (c != EOF) && (nSize != 0) ) {
 		simple_scanner_readchar(scanner,c);
-		SIMPLE_READCHAR(fp,c,size);
+		SIMPLE_READCHAR(fp,c,nSize);
 	}
 	nCont = simple_scanner_checklasttoken(scanner);
 	/* Add Token "End of Line" to the end of any program */
@@ -244,13 +244,13 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
 
 void simple_scanner_readchar ( Scanner *scanner,char c )
 {
-	char str[2]  ;
+	char cStr[2]  ;
 	List *list  ;
-	String *string  ;
+	String *pString  ;
 	int nTokenIndex  ;
 	assert(scanner != NULL);
-	str[0] = c ;
-	str[1] = '\0' ;
+	cStr[0] = c ;
+	cStr[1] = '\0' ;
 	#if SIMPLE_DEBUG
 	printf("%c",c);
 	printf( "\n State : %d \n  \n",scanner->state ) ;
@@ -267,15 +267,15 @@ void simple_scanner_readchar ( Scanner *scanner,char c )
 			}
 			/* Check Space/Tab/New Line */
 			if ( c != ' ' && c != '\n' && c != '\t' && c != '\"' && c != '\'' && c != '\r' && c != '`' ) {
-				if ( simple_scanner_isoperator(scanner,str) ) {
+				if ( simple_scanner_isoperator(scanner,cStr) ) {
 					nTokenIndex = scanner->nTokenIndex ;
 					simple_scanner_checktoken(scanner);
-					simple_string_set_gc(scanner->sState,scanner->ActiveToken,str);
+					simple_string_set_gc(scanner->sState,scanner->ActiveToken,cStr);
 					#if SIMPLE_SCANNEROUTPUT
 					printf( "\nTOKEN (Operator) = %s  \n",simple_string_get(scanner->ActiveToken) ) ;
 					#endif
 					/* Check Multiline Comment */
-					if ( (strcmp(str,"*") == 0) && (simple_scanner_lasttokentype(scanner) ==SCANNER_TOKEN_OPERATOR) ) {
+					if ( (strcmp(cStr,"*") == 0) && (simple_scanner_lasttokentype(scanner) ==SCANNER_TOKEN_OPERATOR) ) {
 						list = simple_list_getlist(scanner->Tokens,simple_list_getsize(scanner->Tokens));
 						if ( strcmp(simple_list_getstring(list,2),"/") == 0 ) {
 							simple_list_deleteitem_gc(scanner->sState,scanner->Tokens,simple_list_getsize(scanner->Tokens));
@@ -287,7 +287,7 @@ void simple_scanner_readchar ( Scanner *scanner,char c )
 						}
 					}
 					/* Check comment using // */
-					if ( strcmp(str,"/") == 0 ) {
+					if ( strcmp(cStr,"/") == 0 ) {
 						if ( simple_scanner_lasttokentype(scanner) ==SCANNER_TOKEN_OPERATOR ) {
 							if ( strcmp("/",simple_scanner_lasttokenvalue(scanner)) ==  0 ) {
 								SIMPLE_SCANNER_DELETELASTTOKEN ;
@@ -297,9 +297,9 @@ void simple_scanner_readchar ( Scanner *scanner,char c )
 						}
 					}
 					/* Check << | >> operators */
-					if ( ( strcmp(str,"<") == 0 ) | ( strcmp(str,">") == 0 ) ) {
-						if ( strcmp(str,simple_scanner_lasttokenvalue(scanner)) ==  0 ) {
-							if ( strcmp(str,"<") == 0 ) {
+					if ( ( strcmp(cStr,"<") == 0 ) | ( strcmp(cStr,">") == 0 ) ) {
+						if ( strcmp(cStr,simple_scanner_lasttokenvalue(scanner)) ==  0 ) {
+							if ( strcmp(cStr,"<") == 0 ) {
 								SIMPLE_SCANNER_DELETELASTTOKEN ;
 								simple_string_set_gc(scanner->sState,scanner->ActiveToken,"<<");
 							} else {
@@ -313,7 +313,7 @@ void simple_scanner_readchar ( Scanner *scanner,char c )
 						}
 					}
 					/* Check += -= *= /= %= &= |= ^= <<= >>= */
-					else if ( strcmp(str,"=") == 0 ) {
+					else if ( strcmp(cStr,"=") == 0 ) {
 						nTokenIndex += 100 ;
 						if ( strcmp(simple_scanner_lasttokenvalue(scanner),"+") == 0 ) {
 							SIMPLE_SCANNER_DELETELASTTOKEN ;
@@ -360,14 +360,14 @@ void simple_scanner_readchar ( Scanner *scanner,char c )
 						}
 					}
 					/* Check ++ and -- */
-					else if ( strcmp(str,"+") == 0 ) {
+					else if ( strcmp(cStr,"+") == 0 ) {
 						if ( strcmp(simple_scanner_lasttokenvalue(scanner),"+") == 0 ) {
 							SIMPLE_SCANNER_DELETELASTTOKEN ;
 							simple_string_set_gc(scanner->sState,scanner->ActiveToken,"++");
 							nTokenIndex += 100 ;
 						}
 					}
-					else if ( strcmp(str,"-") == 0 ) {
+					else if ( strcmp(cStr,"-") == 0 ) {
 						if ( strcmp(simple_scanner_lasttokenvalue(scanner),"-") == 0 ) {
 							SIMPLE_SCANNER_DELETELASTTOKEN ;
 							simple_string_set_gc(scanner->sState,scanner->ActiveToken,"--");
@@ -375,14 +375,14 @@ void simple_scanner_readchar ( Scanner *scanner,char c )
 						}
 					}
 					/* Check && and || */
-					else if ( strcmp(str,"&") == 0 ) {
+					else if ( strcmp(cStr,"&") == 0 ) {
 						if ( strcmp(simple_scanner_lasttokenvalue(scanner),"&") == 0 ) {
 							SIMPLE_SCANNER_DELETELASTTOKEN ;
 							simple_string_set_gc(scanner->sState,scanner->ActiveToken,"&&");
 							nTokenIndex += 100 ;
 						}
 					}
-					else if ( strcmp(str,"|") == 0 ) {
+					else if ( strcmp(cStr,"|") == 0 ) {
 						if ( strcmp(simple_scanner_lasttokenvalue(scanner),"|") == 0 ) {
 							SIMPLE_SCANNER_DELETELASTTOKEN ;
 							simple_string_set_gc(scanner->sState,scanner->ActiveToken,"||");
@@ -392,7 +392,7 @@ void simple_scanner_readchar ( Scanner *scanner,char c )
 					scanner->nTokenIndex = nTokenIndex ;
 					simple_scanner_addtoken(scanner,SCANNER_TOKEN_OPERATOR);
 				} else {
-					simple_string_add_gc(scanner->sState,scanner->ActiveToken,str);
+					simple_string_add_gc(scanner->sState,scanner->ActiveToken,cStr);
 					#if SIMPLE_DEBUG
 					printf( "\nActive Token = %s",simple_string_get(scanner->ActiveToken) ) ;
 					#endif
@@ -434,7 +434,7 @@ void simple_scanner_readchar ( Scanner *scanner,char c )
 				#endif
 				simple_scanner_addtoken(scanner,SCANNER_TOKEN_LITERAL);
 			} else {
-				simple_string_add_gc(scanner->sState,scanner->ActiveToken,str);
+				simple_string_add_gc(scanner->sState,scanner->ActiveToken,cStr);
 			}
 			break ;
 		case SCANNER_STATE_COMMENT :
@@ -446,20 +446,20 @@ void simple_scanner_readchar ( Scanner *scanner,char c )
 				#endif
 				simple_string_set_gc(scanner->sState,scanner->ActiveToken,"");
 			} else {
-				simple_string_add_gc(scanner->sState,scanner->ActiveToken,str);
+				simple_string_add_gc(scanner->sState,scanner->ActiveToken,cStr);
 			}
 			break ;
 		case SCANNER_STATE_MLCOMMENT :
 			/* Check Multiline Comment */
 			switch ( scanner->cMLComment ) {
 				case 0 :
-					if ( strcmp(str,"*") == 0 ) {
+					if ( strcmp(cStr,"*") == 0 ) {
 						scanner->cMLComment = 1 ;
 						return ;
 					}
 					break ;
 				case 1 :
-					if ( strcmp(str,"/") == 0 ) {
+					if ( strcmp(cStr,"/") == 0 ) {
 						scanner->state = SCANNER_STATE_GENERAL ;
 						#if SIMPLE_SCANNEROUTPUT
 						printf( "\nMultiline comments end \n" ) ;
@@ -481,7 +481,7 @@ void simple_scanner_readchar ( Scanner *scanner,char c )
 				simple_scanner_changekeyword(scanner);
 				simple_string_set_gc(scanner->sState,scanner->ActiveToken,"");
 			} else {
-				simple_string_add_gc(scanner->sState,scanner->ActiveToken,str);
+				simple_string_add_gc(scanner->sState,scanner->ActiveToken,cStr);
 			}
 			break ;
 		case SCANNER_STATE_CHANGEOPERATOR :
@@ -494,7 +494,7 @@ void simple_scanner_readchar ( Scanner *scanner,char c )
 				simple_scanner_changeoperator(scanner);
 				simple_string_set_gc(scanner->sState,scanner->ActiveToken,"");
 			} else {
-				simple_string_add_gc(scanner->sState,scanner->ActiveToken,str);
+				simple_string_add_gc(scanner->sState,scanner->ActiveToken,cStr);
 			}
 			break ;
 		case SCANNER_STATE_LOADSYNTAX :
@@ -507,7 +507,7 @@ void simple_scanner_readchar ( Scanner *scanner,char c )
 				simple_scanner_loadsyntax(scanner);
 				simple_string_set_gc(scanner->sState,scanner->ActiveToken,"");
 			} else {
-				simple_string_add_gc(scanner->sState,scanner->ActiveToken,str);
+				simple_string_add_gc(scanner->sState,scanner->ActiveToken,cStr);
 			}
 			break ;
 	}
@@ -526,10 +526,10 @@ void simple_scanner_readchar ( Scanner *scanner,char c )
 			#endif
 		} else {
 			list = simple_list_getlist(scanner->Tokens,simple_list_getsize(scanner->Tokens));
-			string = simple_string_new_gc(scanner->sState,"");
-			simple_string_setfromint_gc(scanner->sState,string,scanner->LinesCount);
-			simple_list_setstsimple_gc(scanner->sState,list,2,simple_string_get(string));
-			simple_string_delete_gc(scanner->sState,string);
+			pString = simple_string_new_gc(scanner->sState,"");
+			simple_string_setfromint_gc(scanner->sState,pString,scanner->LinesCount);
+			simple_list_setstsimple_gc(scanner->sState,list,2,simple_string_get(pString));
+			simple_string_delete_gc(scanner->sState,pString);
 		}
 	}
 }
@@ -606,7 +606,7 @@ void simple_scanner_addtoken ( Scanner *scanner,int type )
 void simple_scanner_checktoken ( Scanner *scanner )
 {
 	int nResult  ;
-	char str[5]  ;
+	char cStr[5]  ;
 	/* This block determine if the TOKEN is a Keyword or Identifier or Number */
 	assert(scanner != NULL);
 	/* Not Case Sensitive */
@@ -617,8 +617,8 @@ void simple_scanner_checktoken ( Scanner *scanner )
 		printf( "\nTOKEN (Keyword) = %s  \n",simple_string_get(scanner->ActiveToken) ) ;
 		#endif
 		if ( nResult < SIMPLE_SCANNER_CHANGERINGKEYWORD ) {
-			sprintf( str , "%d" , nResult ) ;
-			simple_string_set_gc(scanner->sState,scanner->ActiveToken,str);
+			sprintf( cStr , "%d" , nResult ) ;
+			simple_string_set_gc(scanner->sState,scanner->ActiveToken,cStr);
 			simple_scanner_addtoken(scanner,SCANNER_TOKEN_KEYWORD);
 		}
 		else if ( nResult == SIMPLE_SCANNER_CHANGERINGOPERATOR ) {
@@ -651,25 +651,25 @@ void simple_scanner_checktoken ( Scanner *scanner )
 	}
 }
 
-int simple_scanner_isnumber ( char *str )
+int simple_scanner_isnumber ( char *cStr )
 {
 	unsigned int x  ;
 	unsigned int x2  ;
-	for ( x = 0 ; x < strlen(str) ; x++ ) {
+	for ( x = 0 ; x < strlen(cStr) ; x++ ) {
 		/* Accept _ in the number */
-		if ( (str[x] == '_') && (x > 0) && (x < strlen(str) - 1) ) {
-			for ( x2 = x ; x2 < strlen(str) ; x2++ ) {
-				str[x2] = str[x2+1] ;
+		if ( (cStr[x] == '_') && (x > 0) && (x < strlen(cStr) - 1) ) {
+			for ( x2 = x ; x2 < strlen(cStr) ; x2++ ) {
+				cStr[x2] = cStr[x2+1] ;
 			}
 			x-- ;
 			continue ;
 		}
 		/* Accept f in the end of the number */
-		if ( (x > 0) && (x == strlen(str) - 1) && ( (str[x] == 'f') || (str[x] == 'F') ) ) {
-			str[x] = '\0' ;
+		if ( (x > 0) && (x == strlen(cStr) - 1) && ( (cStr[x] == 'f') || (cStr[x] == 'F') ) ) {
+			cStr[x] = '\0' ;
 			return 1 ;
 		}
-		if ( (str[x] < 48 || str[x] > 57) ) {
+		if ( (cStr[x] < 48 || cStr[x] > 57) ) {
 			return 0 ;
 		}
 	}
@@ -695,11 +695,11 @@ int simple_scanner_checklasttoken ( Scanner *scanner )
 	return 1 ;
 }
 
-int simple_scanner_isoperator ( Scanner *scanner, const char *str )
+int simple_scanner_isoperator ( Scanner *scanner, const char *cStr )
 {
 	int nPos  ;
 	assert(scanner != NULL);
-	nPos = simple_hashtable_findnumber(simple_list_gethashtable(scanner->Operators),str) ;
+	nPos = simple_hashtable_findnumber(simple_list_gethashtable(scanner->Operators),cStr) ;
 	if ( nPos > 0 ) {
 		scanner->nTokenIndex = nPos ;
 		return 1 ;
@@ -766,7 +766,7 @@ char * simple_scanner_lasttokenvalue ( Scanner *scanner )
 void simple_scanner_floatmark ( Scanner *scanner,int type )
 {
 	List *list  ;
-	String *string  ;
+	String *pString  ;
 	assert(scanner != NULL);
 	switch ( scanner->FloatMark ) {
 		case 0 :
@@ -784,13 +784,13 @@ void simple_scanner_floatmark ( Scanner *scanner,int type )
 		case 2 :
 			if ( type == SCANNER_TOKEN_NUMBER ) {
 				list = simple_list_getlist(scanner->Tokens,simple_list_getsize(scanner->Tokens));
-				string = simple_string_new_gc(scanner->sState,simple_list_getstring(list,2)) ;
+				pString = simple_string_new_gc(scanner->sState,simple_list_getstring(list,2)) ;
 				simple_list_deleteitem_gc(scanner->sState,scanner->Tokens,simple_list_getsize(scanner->Tokens));
 				simple_list_deleteitem_gc(scanner->sState,scanner->Tokens,simple_list_getsize(scanner->Tokens));
 				list = simple_list_getlist(scanner->Tokens,simple_list_getsize(scanner->Tokens));
 				simple_string_add_gc(scanner->sState,simple_item_getstring(simple_list_getitem(list,2)),".");
-				simple_string_add_gc(scanner->sState,simple_item_getstring(simple_list_getitem(list,2)),simple_string_get(string));
-				simple_string_delete_gc(scanner->sState,string);
+				simple_string_add_gc(scanner->sState,simple_item_getstring(simple_list_getitem(list,2)),simple_string_get(pString));
+				simple_string_delete_gc(scanner->sState,pString);
 				#if SIMPLE_SCANNEROUTPUT
 				printf( "\nFloat Found, Removed 2 tokens from the end, update value to float ! \n" ) ;
 				printf( "\nFloat Value = %s  \n",simple_list_getstring(list,2) ) ;
@@ -899,9 +899,9 @@ SIMPLE_API void simple_execute ( char *file_name, int nISCGI,int nRun,int nPrint
 	free_simple_state(sState);
 }
 
-const char * simple_scanner_getkeywordtext ( const char *str )
+const char * simple_scanner_getkeywordtext ( const char *cStr )
 {
-	return SIMPLE_KEYWORDS[atoi(str)-1] ;
+	return SIMPLE_KEYWORDS[atoi(cStr)-1] ;
 }
 
 void simple_scanner_runprogram ( SimpleState *sState )
@@ -926,7 +926,7 @@ void simple_scanner_runprogram ( SimpleState *sState )
 
 void simple_scanner_changekeyword ( Scanner *scanner )
 {
-	char *str  ;
+	char *cStr  ;
 	int x,nResult  ;
 	String *word1, *word2, *activeword  ;
 	char cStr2[2]  ;
@@ -934,16 +934,16 @@ void simple_scanner_changekeyword ( Scanner *scanner )
 	/* Create Strings */
 	word1 = simple_string_new_gc(scanner->sState,"");
 	word2 = simple_string_new_gc(scanner->sState,"");
-	str = simple_string_get(scanner->ActiveToken) ;
+	cStr = simple_string_get(scanner->ActiveToken) ;
 	activeword = word1 ;
 	for ( x = 0 ; x < simple_string_size(scanner->ActiveToken) ; x++ ) {
-		if ( (str[x] == ' ') || (str[x] == '\t') ) {
+		if ( (cStr[x] == ' ') || (cStr[x] == '\t') ) {
 			if ( (activeword == word1) && (simple_string_size(activeword) >= 1) ) {
 				activeword = word2 ;
 			}
 		}
 		else {
-			cStr2[0] = str[x] ;
+			cStr2[0] = cStr[x] ;
 			simple_string_add_gc(scanner->sState,activeword,cStr2);
 		}
 	}
@@ -972,7 +972,7 @@ void simple_scanner_changekeyword ( Scanner *scanner )
 
 void simple_scanner_changeoperator ( Scanner *scanner )
 {
-	char *str  ;
+	char *cStr  ;
 	int x,nResult  ;
 	String *word1, *word2, *activeword  ;
 	char cStr2[2]  ;
@@ -980,16 +980,16 @@ void simple_scanner_changeoperator ( Scanner *scanner )
 	/* Create Strings */
 	word1 = simple_string_new_gc(scanner->sState,"");
 	word2 = simple_string_new_gc(scanner->sState,"");
-	str = simple_string_get(scanner->ActiveToken) ;
+	cStr = simple_string_get(scanner->ActiveToken) ;
 	activeword = word1 ;
 	for ( x = 0 ; x < simple_string_size(scanner->ActiveToken) ; x++ ) {
-		if ( (str[x] == ' ') || (str[x] == '\t') ) {
+		if ( (cStr[x] == ' ') || (cStr[x] == '\t') ) {
 			if ( (activeword == word1) && (simple_string_size(activeword) >= 1) ) {
 				activeword = word2 ;
 			}
 		}
 		else {
-			cStr2[0] = str[x] ;
+			cStr2[0] = cStr[x] ;
 			simple_string_add_gc(scanner->sState,activeword,cStr2);
 		}
 	}
@@ -1022,7 +1022,7 @@ void simple_scanner_loadsyntax ( Scanner *scanner )
 	SIMPLE_FILE fp  ;
 	/* Must be signed char to work fine on Android, because it uses -1 as NULL instead of Zero */
 	signed char c  ;
-	int size  ;
+	int nSize  ;
 	char file_name_two[200]  ;
 	unsigned int x  ;
 	file_name = simple_string_get(scanner->ActiveToken) ;
@@ -1050,12 +1050,12 @@ void simple_scanner_loadsyntax ( Scanner *scanner )
 		printf( "\nCan't open file %s \n",file_name ) ;
 		return ;
 	}
-	size = 1 ;
+	nSize = 1 ;
 	simple_string_set_gc(scanner->sState,scanner->ActiveToken,"");
-	SIMPLE_READCHAR(fp,c,size);
-	while ( (c != EOF) && (size != 0) ) {
+	SIMPLE_READCHAR(fp,c,nSize);
+	while ( (c != EOF) && (nSize != 0) ) {
 		simple_scanner_readchar(scanner,c);
-		SIMPLE_READCHAR(fp,c,size);
+		SIMPLE_READCHAR(fp,c,nSize);
 	}
 	SIMPLE_CLOSEFILE(fp);
 	simple_scanner_readchar(scanner,'\n');

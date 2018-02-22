@@ -25,7 +25,7 @@
 #define SIMPLE_VM_BC_ITEMS_COUNT 24
 typedef struct ByteCode {
 	Item *aData[SIMPLE_VM_BC_ITEMS_COUNT]  ;
-	char size  ;
+	char nSize  ;
 	List *list  ;
 } ByteCode ;
 typedef struct VM {
@@ -138,25 +138,25 @@ void simple_vm_fetch2 ( VM *vm ) ;
 
 void simple_vm_execute ( VM *vm ) ;
 
-SIMPLE_API void simple_vm_error ( VM *vm,const char *str ) ;
+SIMPLE_API void simple_vm_error ( VM *vm,const char *cStr ) ;
 
-int simple_vm_eval ( VM *vm,const char *str ) ;
+int simple_vm_eval ( VM *vm,const char *cStr ) ;
 
 void simple_vm_tobytecode ( VM *vm,int x ) ;
 
-void simple_vm_error2 ( VM *vm,const char *str,const char *cStr2 ) ;
+void simple_vm_error2 ( VM *vm,const char *cStr,const char *cStr2 ) ;
 
 void simple_vm_newbytecodeitem ( VM *vm,int x ) ;
 
 void simple_vm_mainloop ( VM *vm ) ;
 
-SIMPLE_API void simple_vm_runcode ( VM *vm,const char *str ) ;
+SIMPLE_API void simple_vm_runcode ( VM *vm,const char *cStr ) ;
 
 void simple_vm_init ( SimpleState *sState ) ;
 
 void simple_vm_printstack ( VM *vm ) ;
 
-SIMPLE_API void simple_vm_showerrormessage ( VM *vm,const char *str ) ;
+SIMPLE_API void simple_vm_showerrormessage ( VM *vm,const char *cStr ) ;
 
 void simple_vm_addglobalvariables ( VM *vm ) ;
 /* Stack and Variables */
@@ -221,15 +221,15 @@ void simple_vm_mod ( VM *vm ) ;
 
 void simple_vm_neg ( VM *vm ) ;
 
-char * simple_vm_numtostring ( VM *vm,double nNum1,char *str ) ;
+char * simple_vm_numtostring ( VM *vm,double nNum1,char *cStr ) ;
 
-double simple_vm_stringtonum ( VM *vm,const char *str ) ;
+double simple_vm_stringtonum ( VM *vm,const char *cStr ) ;
 
-void simple_vm_expr_ppoo ( VM *vm,const char *str ) ;
+void simple_vm_expr_ppoo ( VM *vm,const char *cStr ) ;
 
-void simple_vm_expr_npoo ( VM *vm,const char *str,double nNum1 ) ;
+void simple_vm_expr_npoo ( VM *vm,const char *cStr,double nNum1 ) ;
 
-void simple_vm_expr_spoo ( VM *vm,const char *str,const char *cStr2,int size ) ;
+void simple_vm_expr_spoo ( VM *vm,const char *cStr,const char *cStr2,int nSize ) ;
 
 void simple_vm_plusplus ( VM *vm ) ;
 
@@ -247,29 +247,29 @@ void simple_vm_not ( VM *vm ) ;
 
 void simple_vm_newscope ( VM *vm ) ;
 
-int simple_vm_findvar ( VM *vm,const char *str ) ;
+int simple_vm_findvar ( VM *vm,const char *cStr ) ;
 
-int simple_vm_findvar2 ( VM *vm,int x,List *list2,const char *str ) ;
+int simple_vm_findvar2 ( VM *vm,int x,List *list2,const char *cStr ) ;
 
-void simple_vm_newvar ( VM *vm,const char *str ) ;
+void simple_vm_newvar ( VM *vm,const char *cStr ) ;
 
-List * simple_vm_newvar2 ( VM *vm,const char *str,List *pParent ) ;
+List * simple_vm_newvar2 ( VM *vm,const char *cStr,List *pParent ) ;
 
-void simple_vm_addnewnumbervar ( VM *vm,const char *str,double x ) ;
+void simple_vm_addnewnumbervar ( VM *vm,const char *cStr,double x ) ;
 
-void simple_vm_addnewstringvar ( VM *vm,const char *str,const char *cStr2 ) ;
+void simple_vm_addnewstringvar ( VM *vm,const char *cStr,const char *cStr2 ) ;
 
 void simple_vm_deletescope ( VM *vm ) ;
 
-void simple_vm_addnewpointervar ( VM *vm,const char *str,void *x,int y ) ;
+void simple_vm_addnewpointervar ( VM *vm,const char *cStr,void *x,int y ) ;
 
-void simple_vm_newtempvar ( VM *vm,const char *str, List *Temlist ) ;
+void simple_vm_newtempvar ( VM *vm,const char *cStr, List *Temlist ) ;
 
-void simple_vm_addnewstringvar2 ( VM *vm,const char *str,const char *cStr2,int string_size ) ;
+void simple_vm_addnewstringvar2 ( VM *vm,const char *cStr,const char *cStr2,int str_size ) ;
 
-List * simple_vm_newtempvar2 ( VM *vm,const char *str,List *list3 ) ;
+List * simple_vm_newtempvar2 ( VM *vm,const char *cStr,List *list3 ) ;
 
-void simple_vm_addnewcpointervar ( VM *vm,const char *str,void *pointer,const char *cStr2 ) ;
+void simple_vm_addnewcpointervar ( VM *vm,const char *cStr,void *pointer,const char *cStr2 ) ;
 /* Jump */
 
 void simple_vm_jump ( VM *vm ) ;
@@ -297,14 +297,14 @@ void simple_vm_listpushv ( VM *vm ) ;
 
 void simple_vm_listassignment ( VM *vm ) ;
 
-void simple_vm_listgetvalue ( VM *vm,List *var,const char *str ) ;
+void simple_vm_listgetvalue ( VM *vm,List *var,const char *cStr ) ;
 
 int simple_vm_strcmpnotcasesensitive ( const char *string_one,const char *cStr2 ) ;
 /* Blocks */
 
 int simple_vm_loadblock ( VM *vm ) ;
 
-int simple_vm_loadblock2 ( VM *vm,const char *str,int nPerformance ) ;
+int simple_vm_loadblock2 ( VM *vm,const char *cStr,int nPerformance ) ;
 
 void simple_vm_call ( VM *vm ) ;
 
@@ -350,7 +350,7 @@ void simple_vm_stsimple_pushv ( VM *vm ) ;
 
 void simple_vm_stsimple_assignment ( VM *vm ) ;
 
-void simple_vm_stsimple_index ( VM *vm , String *string , double x ) ;
+void simple_vm_stsimple_index ( VM *vm , String *pString , double x ) ;
 /* Try Catch Done */
 
 void simple_vm_try ( VM *vm ) ;
@@ -437,7 +437,7 @@ Item * simple_vm_oop_objitemfromobjlist ( List *list ) ;
 
 void simple_vm_oop_callmethodfrombrace ( VM *vm ) ;
 
-int simple_vm_oop_isblock ( VM *vm,List *list,const char *str ) ;
+int simple_vm_oop_isblock ( VM *vm,List *list,const char *cStr ) ;
 
 void simple_vm_oop_updateselfpointer ( VM *vm,List *pObj,int nType,void *pContainer ) ;
 
@@ -525,7 +525,7 @@ SIMPLE_API void simple_vm_mutexunlock ( VM *vm ) ;
 
 SIMPLE_API void simple_vm_mutexdestroy ( VM *vm ) ;
 
-SIMPLE_API void simple_vm_runcodefromthread ( VM *vm,const char *str ) ;
+SIMPLE_API void simple_vm_runcodefromthread ( VM *vm,const char *cStr ) ;
 /* Trace */
 
 void simple_vm_traceevent ( VM *vm,char nEvent ) ;
@@ -546,7 +546,7 @@ List * simple_vm_getglobalscope ( VM *vm ) ;
 **  Stack 
 **  Add 
 */
-#define SIMPLE_VM_STACK_PUSHC vm->nsp++ ; simple_itemarray_setstring2(vm->aStack, vm->nsp, simple_string_get(vm->pByteCodeIR->aData[1]->data.string), simple_string_size(vm->pByteCodeIR->aData[1]->data.string))
+#define SIMPLE_VM_STACK_PUSHC vm->nsp++ ; simple_itemarray_setstring2(vm->aStack, vm->nsp, simple_string_get(vm->pByteCodeIR->aData[1]->data.pString), simple_string_size(vm->pByteCodeIR->aData[1]->data.pString))
 #define SIMPLE_VM_STACK_PUSHN vm->nsp++ ; simple_itemarray_setdouble(vm->aStack, vm->nsp , vm->pByteCodeIR->aData[1]->data.dNumber)
 #define SIMPLE_VM_STACK_PUSHP vm->nsp++ ; simple_itemarray_setpointer(vm->aStack, vm->nsp , vm->pByteCodeIR->aData[1]->data.pointer )
 /* Note, use SIMPLE_VM_STACK_OBJTYPE to read/write the pointer type */
@@ -596,17 +596,17 @@ List * simple_vm_getglobalscope ( VM *vm ) ;
 #define SIMPLE_VM_POINTER 4
 /* IR (Instruction Register) */
 #define SIMPLE_VM_JUMP vm->nPC = vm->pByteCodeIR->aData[1]->data.iNumber
-#define SIMPLE_VM_IR_READC simple_string_get(vm->pByteCodeIR->aData[1]->data.string)
-#define SIMPLE_VM_IR_READCVALUE(x) simple_string_get(vm->pByteCodeIR->aData[x]->data.string)
+#define SIMPLE_VM_IR_READC simple_string_get(vm->pByteCodeIR->aData[1]->data.pString)
+#define SIMPLE_VM_IR_READCVALUE(x) simple_string_get(vm->pByteCodeIR->aData[x]->data.pString)
 #define SIMPLE_VM_IR_READP vm->pByteCodeIR->aData[1]->data.pointer
 #define SIMPLE_VM_IR_READPVALUE(x) vm->pByteCodeIR->aData[x]->data.pointer
 #define SIMPLE_VM_IR_READI vm->pByteCodeIR->aData[1]->data.iNumber
 #define SIMPLE_VM_IR_READIVALUE(x) vm->pByteCodeIR->aData[x]->data.iNumber
 #define SIMPLE_VM_IR_READD vm->pByteCodeIR->aData[1]->data.dNumber
 #define SIMPLE_VM_IR_READDVALUE(x) vm->pByteCodeIR->aData[x]->data.dNumber
-#define SIMPLE_VM_IR_PARACOUNT vm->pByteCodeIR->size
+#define SIMPLE_VM_IR_PARACOUNT vm->pByteCodeIR->nSize
 #define SIMPLE_VM_IR_OPCODE vm->pByteCodeIR->aData[0]->data.iNumber
-#define SIMPLE_VM_IR_SETCVALUE(x,y) simple_string_set_gc(vm->sState,vm->pByteCodeIR->aData[x]->data.string,y)
+#define SIMPLE_VM_IR_SETCVALUE(x,y) simple_string_set_gc(vm->sState,vm->pByteCodeIR->aData[x]->data.pString,y)
 #define SIMPLE_VM_IR_ITEM(x) vm->pByteCodeIR->aData[x]
 #define SIMPLE_VM_IR_LIST vm->pByteCodeIR->list
 #define SIMPLE_VM_IR_LOAD vm->pByteCodeIR = vm->pByteCode + vm->nPC - 1

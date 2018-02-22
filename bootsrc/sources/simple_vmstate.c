@@ -419,14 +419,14 @@ void simple_vm_popstep ( VM *vm )
 
 void simple_vm_dup ( VM *vm )
 {
-	String *string  ;
+	String *pString  ;
 	double nNum1  ;
 	void *pointer  ;
 	int nType  ;
 	if ( SIMPLE_VM_STACK_ISSTRING ) {
-		string = simple_string_new_gc(vm->sState,SIMPLE_VM_STACK_READC);
-		SIMPLE_VM_STACK_PUSHCVALUE(simple_string_get(string));
-		simple_string_delete_gc(vm->sState,string);
+		pString = simple_string_new_gc(vm->sState,SIMPLE_VM_STACK_READC);
+		SIMPLE_VM_STACK_PUSHCVALUE(simple_string_get(pString));
+		simple_string_delete_gc(vm->sState,pString);
 	}
 	else if ( SIMPLE_VM_STACK_ISNUMBER ) {
 		nNum1 = SIMPLE_VM_STACK_READN ;
@@ -444,7 +444,7 @@ void simple_vm_range ( VM *vm )
 {
 	double nNum1,nNum2  ;
 	int x  ;
-	char str[2]  ;
+	char cStr[2]  ;
 	String *pString1,*pString2  ;
 	List *var  ;
 	if ( SIMPLE_VM_STACK_ISNUMBER ) {
@@ -476,22 +476,22 @@ void simple_vm_range ( VM *vm )
 				pString2 = simple_string_new_gc(vm->sState,SIMPLE_VM_STACK_READC);
 				SIMPLE_VM_STACK_POP ;
 				if ( simple_string_size(pString2)  == 1 ) {
-					str[1] = '\0' ;
-					nNum1 = pString1->str[0] ;
-					nNum2 = pString2->str[0] ;
+					cStr[1] = '\0' ;
+					nNum1 = pString1->cStr[0] ;
+					nNum2 = pString2->cStr[0] ;
 					/* Create List Variable */
 					var = simple_vm_range_newlist(vm);
 					/* Create List */
 					if ( nNum2 <= nNum1 ) {
 						for ( x = nNum2 ; x <= nNum1 ; x++ ) {
-							str[0] = (char) x ;
-							simple_list_addstring_gc(vm->sState,var,str);
+							cStr[0] = (char) x ;
+							simple_list_addstring_gc(vm->sState,var,cStr);
 						}
 					}
 					else {
 						for ( x = nNum2 ; x >= nNum1 ; x-- ) {
-							str[0] = (char) x ;
-							simple_list_addstring_gc(vm->sState,var,str);
+							cStr[0] = (char) x ;
+							simple_list_addstring_gc(vm->sState,var,cStr);
 						}
 					}
 				}
