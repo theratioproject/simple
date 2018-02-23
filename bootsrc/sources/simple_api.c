@@ -462,7 +462,7 @@ SIMPLE_API void simple_vmlib_exec ( void *pointer )
 		cStr = SIMPLE_API_GETSTRING(1);
                 printf("TO EXECUTE : %s\n", cStr);
 		vm = (VM *) pointer ;
-		//vm->nEvalCalledFromSimpleCode = 1 ;
+		vm->nEvalCalledFromSimpleCode = 1 ;
 		if ( simple_vm_exec(vm,cStr) == 0 ) {
 			vm->nEvalCalledFromSimpleCode = 0 ;
 		}
