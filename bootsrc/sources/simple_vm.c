@@ -769,13 +769,13 @@ SIMPLE_API int simple_vm_exec ( VM *vm,const char *cStr )
 		return 0 ;
 	}
 	nPC = vm->nPC ;
-	/* Add virtual file name */ printf("TO EXECUTE : %s\n", cStr);
+	/* Add virtual file name */
 	simple_list_addstring_gc(vm->sState,vm->sState->files_list,"executeCode");
 	simple_list_addstring_gc(vm->sState,vm->sState->files_stack,"executeCode");
 	scanner = new_simple_scanner(vm->sState);
 	for ( x = 0 ; x < nSize ; x++ ) {
 		simple_scanner_readchar(scanner,cStr[x]);
-	}
+	}  printf("TO EXECUTE : %s - L : %i\n", cStr, nSize);
 	nCont = simple_scanner_checklasttoken(scanner);
 	/* Add Token "End of Line" to the end of any program */
 	simple_scanner_endofline(scanner);
