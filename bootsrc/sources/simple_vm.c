@@ -798,10 +798,10 @@ SIMPLE_API int simple_vm_exec ( VM *vm,const char *cStr )
 		/*
 		**  Generate Code 
 		**  Generate  Hash Table 
-		*/printf("TO EXECUTE : %s - L : %i - VM : %s\n", cStr, nSize, vm->file_name);
+		*/
 		simple_list_genhashtable2(vm->pBlocksMap);
 		if ( vm->nEvalCalledFromSimpleCode ) {
-			simple_scanner_addreturn3(vm->sState,aPara);
+			simple_scanner_addreturn3(vm->sState,aPara); 
 		}
 		else {
 			simple_scanner_addreturn2(vm->sState);
@@ -819,7 +819,7 @@ SIMPLE_API int simple_vm_exec ( VM *vm,const char *cStr )
 			if ( vm->nEvalCalledFromSimpleCode ) {
 				/* Here executeCode() block is called from .sim files ( not by the VM for setter/getter/operator overloading) */
 				vm->nEvalReallocationFlag = 1 ;
-			}
+			} printf("TO EXECUTE : %s - L : %i - VM : %s\n", cStr, nSize, vm->file_name);
 		}
 		else {
 			vm->nEvalReallocationFlag = 0 ;
