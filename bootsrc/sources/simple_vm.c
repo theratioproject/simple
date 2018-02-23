@@ -775,7 +775,7 @@ SIMPLE_API int simple_vm_exec ( VM *vm,const char *cStr )
 	scanner = new_simple_scanner(vm->sState);
 	for ( x = 0 ; x < nSize ; x++ ) {
 		simple_scanner_readchar(scanner,cStr[x]);
-	}  
+	}
 	nCont = simple_scanner_checklasttoken(scanner);
 	/* Add Token "End of Line" to the end of any program */
 	simple_scanner_endofline(scanner);
@@ -801,7 +801,7 @@ SIMPLE_API int simple_vm_exec ( VM *vm,const char *cStr )
 		*/
 		simple_list_genhashtable2(vm->pBlocksMap);
 		if ( vm->nEvalCalledFromSimpleCode ) {
-			simple_scanner_addreturn3(vm->sState,aPara); 
+			simple_scanner_addreturn3(vm->sState,aPara);
 		}
 		else {
 			simple_scanner_addreturn2(vm->sState);
@@ -819,11 +819,11 @@ SIMPLE_API int simple_vm_exec ( VM *vm,const char *cStr )
 			if ( vm->nEvalCalledFromSimpleCode ) {
 				/* Here executeCode() block is called from .sim files ( not by the VM for setter/getter/operator overloading) */
 				vm->nEvalReallocationFlag = 1 ;
-			} 
+			}
 		}
 		else {
 			vm->nEvalReallocationFlag = 0 ;
-		} 
+		}
 		/* Load New Code */
 		for ( x = vm->nPC ; x <= simple_list_getsize(vm->pCode) ; x++ ) {
 			simple_vm_tobytecode(vm,x);
@@ -849,7 +849,7 @@ SIMPLE_API int simple_vm_exec ( VM *vm,const char *cStr )
 	delete_simple_scanner(scanner);
 	simple_list_deletelastitem_gc(vm->sState,vm->sState->files_list);
 	simple_list_deletelastitem_gc(vm->sState,vm->sState->files_stack);
-	return 0 ;
+	return nRunVM ;
 }
 
 void simple_vm_tobytecode ( VM *vm,int x )
