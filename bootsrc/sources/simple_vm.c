@@ -819,11 +819,11 @@ SIMPLE_API int simple_vm_exec ( VM *vm,const char *cStr )
 			if ( vm->nEvalCalledFromSimpleCode ) {
 				/* Here executeCode() block is called from .sim files ( not by the VM for setter/getter/operator overloading) */
 				vm->nEvalReallocationFlag = 1 ;
-			} printf("TO EXECUTE : %s - L : %i - VM : %s\n", cStr, nSize, vm->file_name);
+			} 
 		}
 		else {
 			vm->nEvalReallocationFlag = 0 ;
-		}
+		} 
 		/* Load New Code */
 		for ( x = vm->nPC ; x <= simple_list_getsize(vm->pCode) ; x++ ) {
 			simple_vm_tobytecode(vm,x);
@@ -849,7 +849,7 @@ SIMPLE_API int simple_vm_exec ( VM *vm,const char *cStr )
 	delete_simple_scanner(scanner);
 	simple_list_deletelastitem_gc(vm->sState,vm->sState->files_list);
 	simple_list_deletelastitem_gc(vm->sState,vm->sState->files_stack);
-	return nRunVM ;
+	return 0 ;
 }
 
 void simple_vm_tobytecode ( VM *vm,int x )
