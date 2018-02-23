@@ -775,7 +775,7 @@ SIMPLE_API int simple_vm_exec ( VM *vm,const char *cStr )
 	scanner = new_simple_scanner(vm->sState);
 	for ( x = 0 ; x < nSize ; x++ ) {
 		simple_scanner_readchar(scanner,cStr[x]);
-	}  printf("TO EXECUTE : %s - L : %i - VM : %s\n", cStr, nSize, vm->file_name);
+	}  
 	nCont = simple_scanner_checklasttoken(scanner);
 	/* Add Token "End of Line" to the end of any program */
 	simple_scanner_endofline(scanner);
@@ -798,7 +798,7 @@ SIMPLE_API int simple_vm_exec ( VM *vm,const char *cStr )
 		/*
 		**  Generate Code 
 		**  Generate  Hash Table 
-		*/
+		*/printf("TO EXECUTE : %s - L : %i - VM : %s\n", cStr, nSize, vm->file_name);
 		simple_list_genhashtable2(vm->pBlocksMap);
 		if ( vm->nEvalCalledFromSimpleCode ) {
 			simple_scanner_addreturn3(vm->sState,aPara);
