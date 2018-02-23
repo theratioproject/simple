@@ -769,7 +769,7 @@ SIMPLE_API int simple_vm_exec ( VM *vm,const char *cStr )
 		return 0 ;
 	}
 	nPC = vm->nPC ;
-	/* Add virtual file name */
+	/* Add virtual file name */ printf("TO EXECUTE : %s\n", cStr);
 	simple_list_addstring_gc(vm->sState,vm->sState->files_list,"executeCode");
 	simple_list_addstring_gc(vm->sState,vm->sState->files_stack,"executeCode");
 	scanner = new_simple_scanner(vm->sState);
