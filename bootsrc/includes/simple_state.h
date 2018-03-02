@@ -64,7 +64,7 @@ typedef struct SimpleState {
 
 SIMPLE_API SimpleState * simple_state_new ( void ) ;
 
-SIMPLE_API SimpleState * free_simple_state ( SimpleState *sState ) ;
+SIMPLE_API SimpleState * finalize ( SimpleState *sState ) ;
 
 void simple_state_cgiheader ( SimpleState *sState ) ;
 

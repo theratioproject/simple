@@ -896,7 +896,7 @@ SIMPLE_API void simple_execute ( char *file_name, int nISCGI,int nRun,int nPrint
 	if ( is_simple_file(file_name) ) {
 		simple_scanner_readfile(sState,file_name);
 	}
-	free_simple_state(sState);
+	finalize(sState);
 }
 
 const char * simple_scanner_getkeywordtext ( const char *cStr )

@@ -76,7 +76,7 @@ SIMPLE_API SimpleState * simple_state_new ( void )
 	return sState ;
 }
 
-SIMPLE_API SimpleState * free_simple_state ( SimpleState *sState )
+SIMPLE_API SimpleState * finalize ( SimpleState *sState )
 {
 	if ( sState->files_list != NULL ) {
 		sState->files_list = simple_list_delete_gc(sState,sState->files_list);

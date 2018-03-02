@@ -1327,7 +1327,7 @@ SIMPLE_API void simple_vm_runcodefromthread ( VM *vm,const char *cStr )
 	pState->vm->pBlockMutexLock = NULL ;
 	pState->vm->pBlockMutexUnlock = NULL ;
 	/* Delete the SimpleState */
-	free_simple_state(pState);
+	finalize(pState);
 }
 /* Fast Block Call for Extensions (Without Eval) */
 
