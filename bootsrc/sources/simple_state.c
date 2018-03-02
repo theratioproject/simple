@@ -108,7 +108,7 @@ void simple_state_cgiheader ( SimpleState *sState )
 	}
 }
 
-SIMPLE_API SimpleState * init_simple_state ( void )
+SIMPLE_API SimpleState * create_instance ( void )
 {
 	SimpleState *sState  ;
 	sState = simple_state_new();
@@ -116,7 +116,7 @@ SIMPLE_API SimpleState * init_simple_state ( void )
 	return sState ;
 }
 
-SIMPLE_API void execute_simple_code ( SimpleState *sState,const char *cStr )
+SIMPLE_API void execute_code ( SimpleState *sState,const char *cStr )
 {
 	simple_vm_runcode(sState->vm,cStr);
 }

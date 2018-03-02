@@ -70,9 +70,9 @@ void simple_state_cgiheader ( SimpleState *sState ) ;
 
 SIMPLE_API void print_line ( void ) ;
 
-SIMPLE_API SimpleState * init_simple_state ( void ) ;
+SIMPLE_API SimpleState * create_instance ( void ) ;
 
-SIMPLE_API void execute_simple_code ( SimpleState *sState,const char *cStr ) ;
+SIMPLE_API void execute_code ( SimpleState *sState,const char *cStr ) ;
 
 SIMPLE_API List * simple_state_findvar ( SimpleState *sState,const char *cStr ) ;
 

@@ -1271,7 +1271,7 @@ SIMPLE_API void simple_vm_runcodefromthread ( VM *vm,const char *cStr )
 	List *list,*list2,*list3,*list4,*list5  ;
 	Item *pItem  ;
 	/* Create the SimpleState */
-	pState = init_simple_state();
+	pState = create_instance();
 	pState->nPrintInstruction = vm->sState->nPrintInstruction ;
 	/* Share the same Mutex between VMs */
 	simple_vm_mutexlock(vm);
@@ -1307,7 +1307,7 @@ SIMPLE_API void simple_vm_runcodefromthread ( VM *vm,const char *cStr )
 	pState->vm->nCallMainBlock = 1 ;
 	simple_vm_mutexunlock(vm);
 	/* Run the code */
-	execute_simple_code(pState,cStr);
+	execute_code(pState,cStr);
 	simple_list_delete_gc(vm->sState,pState->vm->pCode);
 	/* Restore the first scope - global scope */
 	pState->vm->pMem->pFirst->pValue = pItem ;
