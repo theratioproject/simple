@@ -1,0 +1,6 @@
+*.gch
+*.dylib
+*.o
+simple
+tasks.json
+.DS_STORE

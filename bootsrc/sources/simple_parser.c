@@ -21,7 +21,7 @@ int accept_token_token( Parser *parser, SCANNER_OPERATOR nType ) {
 	if ( simple_parser_isoperator2(parser, nType) ) {
             simple_parser_nexttoken(parser);
             parser->nControlStructureBrace++ ;
-            return TRUE ;
+            return true ;
 	}
 }
 
