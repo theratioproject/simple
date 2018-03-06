@@ -3,6 +3,7 @@
 [![Simple Build](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/simple-lang/simple/) 
 [![Simple release](https://img.shields.io/github/release/simple-lang/simple/all.svg)](https://github.com/simple-lang/simple/releases/)
 [![Last Commit](https://img.shields.io/github/last-commit/simple-lang/simple.svg)](https://github.com/simple-lang/simple/commits/master)
+[![Pull Request](https://img.shields.io/github/issues-pr-closed/simple-lang/simple.svg)](https://github.com/simple-lang/simple/commits/master)
 
 # Simple
 
