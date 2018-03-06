@@ -1,4 +1,4 @@
-
+[![Boot App Build](https://img.shields.io/badge/bootapp--build-passed-brightgreen.svg)](https://github.com/simple-lang/simple/tree/master/bootsrc/) 
 
 # Simple
 
