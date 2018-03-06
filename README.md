@@ -1,4 +1,4 @@
-[![Boot App Build](https://img.shields.io/badge/bootapp--build-passed-brightgreen.svg)](https://github.com/simple-lang/simple/tree/master/bootsrc/) [![Simple Build](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/simple-lang/simple/) 
+[![Boot App Build](https://img.shields.io/badge/bootapp--build-passed-brightgreen.svg)](https://github.com/simple-lang/simple/tree/master/bootsrc/) [![Simple Build](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/simple-lang/simple/) [![Simple Version](https://img.shields.io/badge/version-0.3.XXX-red.svg)](https://github.com/simple-lang/simple/releases/) 
 
 # Simple
 
