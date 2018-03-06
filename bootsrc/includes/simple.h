@@ -69,7 +69,7 @@
 /* See and Give - use simplevm_display() and read_string() */
 #define SIMPLE_USEDISPLAYBLOCKTION 1
 #define SIMPLE_USEGIVEBLOCKTION 1
-#define true 1
+#define TRUE 1
 /*
 **  Include Files 
 **  Include C Headers 
