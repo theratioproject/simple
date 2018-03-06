@@ -1,4 +1,5 @@
 [![Simple License](https://img.shields.io/github/license/simple-lang/simple.svg)](https://github.com/simple-lang/simple/blob/master/LICENSE)
+[![Popular Language](https://img.shields.io/github/languages/top/simple-lang/simple.svg)](https://github.com/simple-lang/simple/search?l=c)
 [![Boot App Build](https://img.shields.io/badge/bootapp--build-passed-brightgreen.svg)](https://github.com/simple-lang/simple/tree/master/bootsrc/) 
 [![Simple Build](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/simple-lang/simple/) 
 [![Simple release](https://img.shields.io/github/release/simple-lang/simple/all.svg)](https://github.com/simple-lang/simple/releases/)
