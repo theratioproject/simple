@@ -33,6 +33,13 @@ SIMPLE_API void loadcblocks ( SimpleState *sState )
 	register_block("add",simple_vmlib_add);
 	register_block("char",simple_vmlib_char);
 	register_block("getSimpleVersion",simple_vmlib_version);
+        /* Check Data Type */
+        register_block("isString",simple_vmlib_isstring);
+	register_block("isNumber",simple_vmlib_isnumber);
+	register_block("isList",simple_vmlib_islist);
+	register_block("getType",simple_vmlib_type);
+	register_block("isNull",simple_vmlib_isnull);
+	register_block("isObject",simple_vmlib_isobject);
         /** Functional Execution **/
 	register_block("executeCode",simple_vmlib_exec);
         /** Load DLL Extension  **/
