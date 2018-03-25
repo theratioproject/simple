@@ -68,6 +68,20 @@ void simple_vmlib_add ( void *pointer ) ;
 
 void simple_vmlib_version ( void *pointer ) ;
 
+/* Check Data Type */
+
+void simple_vmlib_isstring ( void *pointer ) ;
+
+void simple_vmlib_isnumber ( void *pointer ) ;
+
+void simple_vmlib_islist ( void *pointer ) ;
+
+void simple_vmlib_type ( void *pointer ) ;
+
+void simple_vmlib_isnull ( void *pointer ) ;
+
+void simple_vmlib_isobject ( void *pointer ) ;
+
 SIMPLE_API void simple_vmlib_exec ( void *pointer ) ;
 
 void simple_vmlib_char ( void *pointer ) ;

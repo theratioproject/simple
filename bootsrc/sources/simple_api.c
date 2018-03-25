@@ -455,6 +455,121 @@ void simple_vmlib_version ( void *pointer )
 	SIMPLE_API_RETSTRING(SIMPLE_VERSION);
 }
 
+/* Check Data Type */
+
+void simple_vmlib_isstring ( void *pointer )
+{
+	if ( SIMPLE_API_PARACOUNT != 1 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
+		return ;
+	}
+	if ( SIMPLE_API_ISSTRING(1) ) {
+		SIMPLE_API_RETNUMBER(1);
+	} else {
+		SIMPLE_API_RETNUMBER(0);
+	}
+}
+
+void simple_vmlib_isnumber ( void *pointer )
+{
+	if ( SIMPLE_API_PARACOUNT != 1 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
+		return ;
+	}
+	if ( SIMPLE_API_ISNUMBER(1) ) {
+		SIMPLE_API_RETNUMBER(1);
+	} else {
+		SIMPLE_API_RETNUMBER(0);
+	}
+}
+
+void simple_vmlib_islist ( void *pointer )
+{
+	if ( SIMPLE_API_PARACOUNT != 1 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
+		return ;
+	}
+	if ( SIMPLE_API_ISLIST(1) ) {
+		if ( simple_vm_oop_isobject(SIMPLE_API_GETLIST(1) ) == 0 ) {
+			SIMPLE_API_RETNUMBER(1);
+			return ;
+		}
+	}
+	SIMPLE_API_RETNUMBER(0);
+}
+
+void simple_vmlib_type ( void *pointer )
+{
+	List *list  ;
+	if ( SIMPLE_API_PARACOUNT != 1 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
+		return ;
+	}
+	/* The order of checking C Pointer and OBJECT before List is important because the list can be both of them */
+	if ( SIMPLE_API_ISSTRING(1) ) {
+		SIMPLE_API_RETSTRING("STRING");
+	}
+	else if ( SIMPLE_API_ISNUMBER(1) ) {
+		SIMPLE_API_RETSTRING("NUMBER");
+	}
+	else if ( SIMPLE_API_ISCPOINTER(1) ) {
+		list = SIMPLE_API_GETLIST(1) ;
+		SIMPLE_API_RETSTRING(simple_list_getstring(list,SIMPLE_CPOINTER_TYPE));
+	}
+	else if ( SIMPLE_API_ISOBJECT(1) ) {
+		SIMPLE_API_RETSTRING("OBJECT");
+	}
+	else if ( SIMPLE_API_ISLIST(1) ) {
+		SIMPLE_API_RETSTRING("LIST");
+	} else {
+		SIMPLE_API_RETSTRING("UNKNOWN");
+	}
+}
+
+void simple_vmlib_isnull ( void *pointer )
+{
+	char *cStr  ;
+	if ( SIMPLE_API_PARACOUNT != 1 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
+		return ;
+	}
+	if ( SIMPLE_API_ISSTRING(1) ) {
+		if ( strcmp(SIMPLE_API_GETSTRING(1),"") == 0 ) {
+			SIMPLE_API_RETNUMBER(1);
+			return ;
+		}
+		else if ( SIMPLE_API_GETSTRINGSIZE(1) == 4 ) {
+			cStr = SIMPLE_API_GETSTRING(1) ;
+			if ( (cStr[0] == 'n' || cStr[0] == 'N') && (cStr[1] == 'u' || cStr[1] == 'U') && (cStr[2] == 'l' || cStr[2] == 'L') && (cStr[3] == 'l' || cStr[3] == 'L') ) {
+				SIMPLE_API_RETNUMBER(1);
+				return ;
+			}
+		}
+	}
+	else if ( SIMPLE_API_ISPOINTER(1) ) {
+		if ( SIMPLE_API_GETPOINTER(1) == NULL ) {
+			SIMPLE_API_RETNUMBER(1);
+			return ;
+		}
+	}
+	SIMPLE_API_RETNUMBER(0);
+}
+
+void simple_vmlib_isobject ( void *pointer )
+{
+	if ( SIMPLE_API_PARACOUNT != 1 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
+		return ;
+	}
+	if ( SIMPLE_API_ISLIST(1) ) {
+		if ( simple_vm_oop_isobject(SIMPLE_API_GETLIST(1) ) == 1 ) {
+			SIMPLE_API_RETNUMBER(1);
+			return ;
+		}
+	}
+	SIMPLE_API_RETNUMBER(0);
+}
+
 /* Functional Execution */
 
 SIMPLE_API void simple_vmlib_exec ( void *pointer )
