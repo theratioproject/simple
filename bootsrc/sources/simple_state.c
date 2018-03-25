@@ -225,7 +225,7 @@ SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 		simple_execute("simple.complex",nCGI,nRun,nPrintIC,nPrintICFinal,nTokens,nRules,nIns,nGenObj,nWarn,argc,argv);
 		exit(0);
 	}
-	/* Print Version */
+	/* Print Help */
 	if ( (argc == 1) || (cStr == NULL) ) {
 		display_help();
 	}
