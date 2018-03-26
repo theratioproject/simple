@@ -1333,21 +1333,25 @@ SIMPLE_API void simple_vm_runcodefromthread ( VM *vm,const char *cStr )
 
 SIMPLE_API void simple_vm_callblock ( VM *vm,char *cBlockName )
 {
-    String *string = simple_string_new_gc(vm->sState,cBlockName); //to be removed later
+    VM *vmi = vm ;
+    SimpleState *sState = create_instance();
+    execute_code(sState, cBlockName);
+    finalize(sState);
+    String *string = simple_string_new_gc(vmi->sState,cBlockName); //to be removed later
     /* Lower Case and pass () in the end */
     simple_string_lower(simple_string_get(string));
-    /* Prepare (Remove effects of the currect block) */ VM *vmi = vm ;
-    simple_list_deletelastitem_gc(vmi->sState,vm->pBlockCallList);
+    /* Prepare (Remove effects of the currect block) */ 
+    simple_list_deletelastitem_gc(vmi->sState,vmi->pBlockCallList);
     /* Load the block and call it */
     simple_vm_loadblock2(vmi,simple_string_get(string),0);
     simple_vm_call2(vmi);
     /* Execute the block */
-    simple_vm_mainloop(vm);
+    simple_vm_mainloop(vmi);
     /* Free Stack */
-    simple_vm_freestack(vm);
+    simple_vm_freestack(vmi);
     /* Avoid normal steps after this block, because we deleted the scope in Prepare */
-    vm->nActiveCatch = 1 ;
-    simple_string_delete_gc(vm->sState,string); //to be removed later
+    vmi->nActiveCatch = 1 ;
+    simple_string_delete_gc(vmi->sState,string); //to be removed later
 }
 /* Trace */
 
