@@ -1335,23 +1335,10 @@ SIMPLE_API void simple_vm_callblock ( VM *vm,char *cBlockName )
 {
     VM *vmi = vm ;
     SimpleState *sState = create_instance();
+    sState->vm->sState->blocks_map = vm->sState->c_blocks ;
+    sState->vm->sState = vm->sState ;
     execute_code(sState, cBlockName);
     finalize(sState);
-    String *string = simple_string_new_gc(vmi->sState,cBlockName); //to be removed later
-    /* Lower Case and pass () in the end */
-    simple_string_lower(simple_string_get(string));
-    /* Prepare (Remove effects of the currect block) */ 
-    simple_list_deletelastitem_gc(vmi->sState,vmi->pBlockCallList);
-    /* Load the block and call it */
-    simple_vm_loadblock2(vmi,simple_string_get(string),0);
-    simple_vm_call2(vmi);
-    /* Execute the block */
-    simple_vm_mainloop(vmi);
-    /* Free Stack */
-    simple_vm_freestack(vmi);
-    /* Avoid normal steps after this block, because we deleted the scope in Prepare */
-    vmi->nActiveCatch = 1 ;
-    simple_string_delete_gc(vmi->sState,string); //to be removed later
 }
 /* Trace */
 
