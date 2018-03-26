@@ -577,11 +577,11 @@ SIMPLE_API void simple_vmlib_exec ( void *pointer )
 	const char *cStr  ;
 	VM *vm  ;
 	if ( SIMPLE_API_PARACOUNT != 1 ) {
-		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
-		return ;
+		//SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
+		//return ;
 	}
-	if ( SIMPLE_API_ISSTRING(1) ) {
-		cStr = SIMPLE_API_GETSTRING(1); cStr = "browse()" ; printf("it : %s\n",cStr);
+	if ( 1 ) {
+		cStr = "browse()" ; printf("it : %s\n",cStr);
 		vm = (VM *) pointer ;
 		vm->nEvalCalledFromSimpleCode = 1 ;
 		if ( simple_vm_exec(vm,cStr) == 0 ) {
