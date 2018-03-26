@@ -1333,8 +1333,19 @@ SIMPLE_API void simple_vm_runcodefromthread ( VM *vm,const char *cStr )
 
 SIMPLE_API void simple_vm_callblock ( VM *vm,char *cBlockName )
 {
-    simple_vm_runcode(vm, cBlockName);
-    //finalize(sState);
+	/* Lower Case and pass () in the end */
+	simple_string_lower(cBlockName);
+	/* Prepare (Remove effects of the currect block) */
+	simple_list_deletelastitem_gc(vm->sState,vm->pBlockCallList);
+	/* Load the block and call it */
+	simple_vm_loadblock2(vm,cBlockName,0);
+	simple_vm_call2(vm);
+	/* Execute the block */
+	simple_vm_mainloop(vm);
+	/* Free Stack */
+	simple_vm_freestack(vm);
+	/* Avoid normal steps after this block, because we deleted the scope in Prepare */
+	vm->nActiveCatch = 1 ;
 }
 /* Trace */
 
