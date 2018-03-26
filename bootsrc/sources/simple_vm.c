@@ -1333,12 +1333,8 @@ SIMPLE_API void simple_vm_runcodefromthread ( VM *vm,const char *cStr )
 
 SIMPLE_API void simple_vm_callblock ( VM *vm,char *cBlockName )
 {
-    VM *vmi = vm ;
-    SimpleState *sState = create_instance();
-    sState->vm->sState->blocks_map = vm->sState->c_blocks ;
-    sState->vm->sState = vm->sState ;
-    execute_code(sState, cBlockName);
-    finalize(sState);
+    simple_vm_runcode(vm, cBlockName);
+    //finalize(sState);
 }
 /* Trace */
 
