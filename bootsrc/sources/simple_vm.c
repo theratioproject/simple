@@ -1343,9 +1343,9 @@ SIMPLE_API void simple_vm_callblock ( VM *vm,char *cBlockName )
 	/* Execute the block */
 	simple_vm_mainloop(vm);
 	/* Free Stack */
-	//simple_vm_freestack(vm);
+	simple_vm_freestack(vm);
 	/* Avoid normal steps after this block, because we deleted the scope in Prepare */
-	//vm->nActiveCatch = 1 ;
+	vm->nActiveCatch = 1 ;
 }
 /* Trace */
 
