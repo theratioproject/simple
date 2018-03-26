@@ -1335,11 +1335,11 @@ SIMPLE_API void simple_vm_callblock ( VM *vm,char *cBlockName )
 {
     String *string = simple_string_new_gc(vm->sState,cBlockName); //to be removed later
     /* Lower Case and pass () in the end */
-    simple_string_lower(ring_string_get(string));
+    simple_string_lower(simple_string_get(string));
     /* Prepare (Remove effects of the currect block) */
     simple_list_deletelastitem_gc(vm->sState,vm->pBlockCallList);
     /* Load the block and call it */
-    simple_vm_loadblock2(vm,ring_string_get(string),0);
+    simple_vm_loadblock2(vm,simple_string_get(string),0);
     simple_vm_call2(vm);
     /* Execute the block */
     simple_vm_mainloop(vm);
