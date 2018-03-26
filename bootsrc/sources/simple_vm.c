@@ -1336,16 +1336,16 @@ SIMPLE_API void simple_vm_callblock ( VM *vm,char *cBlockName )
 	/* Lower Case and pass () in the end */
 	simple_string_lower(cBlockName);
 	/* Prepare (Remove effects of the currect block) */
-	simple_list_deletelastitem_gc(vm->sState,vm->pBlockCallList);
+	//simple_list_deletelastitem_gc(vm->sState,vm->pBlockCallList);
 	/* Load the block and call it */
 	simple_vm_loadblock2(vm,cBlockName,0);
 	simple_vm_call2(vm);
 	/* Execute the block */
 	simple_vm_mainloop(vm);
 	/* Free Stack */
-	simple_vm_freestack(vm);
+	//simple_vm_freestack(vm);
 	/* Avoid normal steps after this block, because we deleted the scope in Prepare */
-	vm->nActiveCatch = 1 ;
+	//vm->nActiveCatch = 1 ;
 }
 /* Trace */
 
