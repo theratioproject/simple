@@ -23,7 +23,7 @@ typedef struct GCData {
 	int nReferenceCount  ;
 } GCData ;
 
-#define SIMPLE_VERSION "0.3.213"
+#define SIMPLE_VERSION "0.3.215"
 #define PRIMARY_AUTHOR "Azeez Adewale"
 #define START_YEAR 2018
 #define CURRENT_YEAR 2018
