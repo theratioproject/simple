@@ -7,7 +7,7 @@ program_CXX_OBJS := ${program_CXX_SRCS:.cpp=.o}
 program_OBJS := $(program_C_OBJS) $(program_CXX_OBJS)
 program_CFLAGS := -c -fpic -g
 program_LFLAGS := -lm -ldl
-LDFLAGS			="-Wl,-rpath,../libs/"
+LDFLAGS			="-Wl,-rpath,../dist"
 
 .PHONY: all clean distclean
 
