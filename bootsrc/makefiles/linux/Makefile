@@ -19,7 +19,7 @@ $(program_NAME): $(program_OBJS)
 	mv simple ../dist
 	
 	#ADD LIBARRY TO PATH
-	LD_LIBRARY_PATH=./$LD_LIBRARY_PATH
+	LD_LIBRARY_PATH=../dist:${LD_LIBRARY_PATH}
 	export LD_LIBRARY_PATH=./$LD_LIBRARY_PATH
 
 $(program_OBJS): $(program_C_SRCS)
