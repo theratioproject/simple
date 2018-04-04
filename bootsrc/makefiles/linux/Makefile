@@ -21,10 +21,7 @@ $(program_NAME): $(program_OBJS)
 	#ADD LIBARRY TO PATH
 	#You can choose to move the executable and library (simple and simple.so) 
 	#to your desired folder before adding it to path
-	#LD_LIBRARY_PATH=./$LD_LIBRARY_PATH
-	#export LD_LIBRARY_PATH=./$LD_LIBRARY_PATH
-	LD_LIBRARY_PATH=../dist:${LD_LIBRARY_PATH}
-	export LD_LIBRARY_PATH
+	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:../dist
 
 $(program_OBJS): $(program_C_SRCS)
 	$(CC) $(program_CFLAGS) $(program_C_SRCS)
