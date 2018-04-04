@@ -7,12 +7,13 @@ program_CXX_OBJS := ${program_CXX_SRCS:.cpp=.o}
 program_OBJS := $(program_C_OBJS) $(program_CXX_OBJS)
 program_CFLAGS := -c -fpic -g
 program_LFLAGS := -lm -ldl
+LDFLAGS			="-Wl,-rpath,../libs/"
 
 .PHONY: all clean distclean
 
 $(program_NAME): $(program_OBJS)
 	$(CC) -shared -o $(program_LIBRARY) $(program_OBJS)
-	$(CC) $(program_LFLAGS) -o $(program_NAME) ../simple.c  $(program_LIBRARY)
+	$(CC) $(program_LFLAGS) $(LDFLAGS) -o $(program_NAME) ../simple.c  $(program_LIBRARY)
 	mkdir -p ../dist
 	rm -rf *.o
 	mv simple.so ../dist
