@@ -24,8 +24,10 @@ Hello World!
 If you were able to write and run the First Programe successfully, you should not have problems 
 running the rest of the codes in following chapters.
 
+```
 block main() 
 	display("Hello World!"+crlf)
+```
 
 This simple code will print out:
 Hello World!
@@ -33,11 +35,11 @@ Simple functions are like the subroutines, methods, procedures in other programm
 Main will call other functions to help perform its job, some that you wrote, and others from libraries that are provided for you.
 
 The above program could be re-written like this:
-
+```
 block main()
      display(“Hello” + crlf)
      display (“World! + crlf)
-
+```
 Or it could siply be written as:
 
 display "Hello World!"
@@ -48,7 +50,7 @@ the program output more readable.There is no need for excessive braces but it ma
 Variables Declaration
 This program claculate and prints a table of farenheit temperatures and their centigrade or celcius eqivalent.
 
- 
+ ```
 lower = 0;
 upper = 300;
 step = 20;
@@ -59,17 +61,17 @@ for i = lower to upper
       display  fahr, + celsius + crlf
       fahr = fahr + step;
 end
-
+```
 Simple provides no real data types, therefore prefixing data types before your varible declaration is not needed otherwise it 
 returns unexpected result. The  most basic example of declaring and assigning values to a varible in simple is: 
-
+```
 lower = 0;
 upper = 300;
 step = 20;
 
 fahr = lower;
 step = fahr;
-
+```
 
 Note: you will not declare variables surplus of requirement, programmers familiar with python programming should understand this 
 clearly. You declare on the go pattern, as needed.
@@ -80,22 +82,22 @@ clearly. You declare on the go pattern, as needed.
 If-Else
 
 The if-else statement is used to express decisions. Formally the syntax is
-
+```
               if (expression)
                           statement 1
                     else
                         statement 2
-
+```
 where the else part is optional. The expression is evaluated; if it is true (that is, if expression
 has a non-zero value), statement 1 is executed. If it is false (expression is zero) and if there is an
 else part, statement 2 is executed instead.
-
+```
 if ( n == 20 && n > 12) 
 	display "  holla it twenty and greater than 12" + crlf
 else 
 	display "  i dont know" + crlf
 end
-
+```
 
 
 ElIf
@@ -105,7 +107,7 @@ If an expression is true, the statement associated with it is executed, and this
 for each statement is either a single statement, or a group of them.
 
 The construction
-
+```
          if (expression)
                   statement
              elif (expression)
@@ -125,7 +127,7 @@ elif ( n > 10 )
 	display "  well you inputed " + n + " which is greater than 10" + crlf
 	n = 34
 end
-
+```
 
 
 
@@ -133,7 +135,7 @@ Switch
 
 The switch statement is a multi-way decision that tests whether an expression matches one of
 a number of constant integer values, and branches accordingly.
-
+```
               switch (expression) 
                     case const-expr
           statements
@@ -141,14 +143,14 @@ a number of constant integer values, and branches accordingly.
           statements
                     default
          statements
-
+```
 Each case is labeled by one or more integer-valued constants or constant expressions. If a case
 matches the expression value, execution starts at that case. All case expressions must be
 different. The case labeled default is executed if none of the other cases are satisfied. A
 default is optional; if it isn't there and if none of the cases match, no action at all takes place.
 Cases and the default clause can occur in any order.
 
-
+```
 switch (n) 
 	case 2
 		display "it is two"
@@ -157,7 +159,7 @@ switch (n)
 	default
 		display "i dont know but it "+n
 end 
-
+```
 
 
 Loops - While and For
@@ -170,7 +172,7 @@ statement
 The expression is evaluated. If it is non-zero(True), statement is executed and expression is re-
 evaluated. This cycle continues until expression becomes zero(false), at which point execution
 resumes after statement.
-
+```
 while n < 10  
 	display " "+n + " "
 	n++
@@ -192,13 +194,13 @@ while true
                 display __err__
         end
 end
-
+```
 
 
 
 
 The For Statement
-
+```
               for index = Start to Stop
 
 
@@ -221,28 +223,28 @@ The For Statement
     end display crlf
 end
 
-
+```
 
  Do-While
 
 The while and for loops test the termination condition at the top. By contrast, the third loop in C, the do-while , tests at the
 bottom after making each pass through the loop body; the body is always executed at least once. The syntax of the do is
-
+```
               do
                 statement
             while (expression);
-
+```
 The statement is executed, then expression is evaluated. If it is true, statement is evaluated
 again, and so on. When the expression becomes false, the loop terminates. Except for the sense
 of the test, do-while is equivalent to the Pascal repeat-until statement.
 
 
-
+```
 do {
 	display " "+n + " "
 	n++
 } while  n < 10 
-
+```
 
 
 
@@ -251,7 +253,7 @@ Break and Exit
 It is sometimes convenient to be able to exit from a loop other than by testing at the top or
 bottom. The break statement provides an early exit from for , while , and do , just as from
 switch . A break causes loop to be exited immediately. The __exit__ keyword is used to stop the program at any point.
-
+```
 n = 40
 display "n is " + n + " "
 
@@ -261,7 +263,7 @@ for i = 0 to n
 end
 __exit__
 display "you cant see me"
-
+```
 
 Block and Program Structure
 block in simple are like Function in C or C++, Methods in Java and all other programming languages using block break large tasks 
@@ -269,19 +271,21 @@ into smaller ones, and enable programmers to build on whatothers have done inste
 hide details ofoperation from parts of the program that don't need to know about them, thus clarifying thewhole, and easing the 
 pain of making changes.
 
+```
 block mainone() {
 	return 1021 ;
 }
 
 block maintwo(one, two) 
 	return one * two ;
+```
 
 Using block you can choose to return or not to return any value. Instead of using the the void type for the non-return functions 
 in C, and Int or other fundamental data types in other strongly typed programming languages to return.
 
 The Call Statement
  The call statement in simple works just like the import statement in java, include file in C or C++.
-
+```
 call "module.sim"
 call "block.sim" 
 
@@ -291,13 +295,14 @@ i.miner()
 display i
 
 #3
-display "hello : "+maintwo(9, mainone()) + crlf 
 
+display "hello : "+maintwo(9, mainone()) + crlf 
+```
 
 
 Class
 contain data and procedures (known as class methods) themselves, i.e. classes contain the data members and member functions
-
+```
 class Empty {
 
 }
@@ -309,5 +314,6 @@ class pack {
 	}	
 
 }
+```
 
-
+More examples can be found [here](https://github.com/simple-lang/examples)
