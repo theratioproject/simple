@@ -14,6 +14,9 @@ Current Version : 0.3.213
 ### About Simple
 SIMPLE is a plain and innovative programming with multi-paradigm. It can be embedded in C/C++ projects. The language is portable to various OS including windows, macOS, any linux and unix distros and other OS. The language is small and fast.
 
+### Version.
+Simple is still in beta state and still under rigoruous testing. There will be a major release soon.
+
 ### Features
 Simple has features every programming language will have such as variable declarations, functional programming, Object oriented programming etc and more to come. It houses all these features as it parent architecture comes from **C**. Simple is weakly typed, no explicit end of line required and can be embedded in C and C++ projects. Portability with javascript is a major goal we're trying and going to achieve.
 
@@ -32,15 +35,11 @@ $ cp bootsrc/makefiles/linux/Makefile bootsrc/sources
 # install simple with the "make" command.
 $ make
 ```
-Wait for a few moments, probably a minute. The make file installs simple in a folder *dist* located in the **bootsrc** folder. start the SIMPLE compiler with the command 
+Wait for a few moments, probably a minute. The make file installs simple in a folder *dist* located in the **bootsrc** folder. start the SIMPLE compiler with this and you'll be greeted with a warm screen : 
 ```sh
-./simple
+simple
 ```
-##### Got an error ?
-Was there an error stating **simple.so** couldn't be found ?. Use this command every time once you're in the folder via the console.
-```sh
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:./
-```
+
 ##### Unable to add to global path.
 Sadly, we're working on that issue and a fix will be issued in the next release.
 
@@ -58,7 +57,7 @@ Boom, we have simple installed.
 ### Getting started.
 You can check the unofficial documentation / guide to simple as the official documentation comes up. Get acquainted with SIMPLE's syntax [**HERE**](https://github.com/simple-lang/simple/blob/master/doc/Simple-Mini-Tutorial-v1.0.md)
 ### Contributors.
-We love contributors. This is an open source project and needs the supports of the community extensively. Check out the [contributing guide](/contributors.md)
+We love contributors. This is an open source project and needs the supports of the community extensively. Check out the [contributing guide](/CONTRIBUTORS.MD)
 ### License
 MIT License 
 
