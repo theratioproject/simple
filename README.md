@@ -5,7 +5,6 @@
 [![Simple release](https://img.shields.io/github/release/simple-lang/simple/all.svg)](https://github.com/simple-lang/simple/releases/)
 [![Last Commit](https://img.shields.io/github/last-commit/simple-lang/simple.svg)](https://github.com/simple-lang/simple/commits/master)
 [![Pull Request](https://img.shields.io/github/issues-pr-closed/simple-lang/simple.svg)](https://github.com/simple-lang/simple/issues?q=is%3Apr+is%3Aclosed)
-
 # Simple
 
 The Simple Intelligent and Modular Programming Language and Environment</br>
@@ -38,7 +37,7 @@ Wait for a few moments, probably a minute. The make file installs simple in a fo
 ./simple
 ```
 ##### Got an error ?
-Was there an error stating **simple.so** couldn't be found ?. Use this command everytime once you're in the folder via the console.
+Was there an error stating **simple.so** couldn't be found ?. Use this command every time once you're in the folder via the console.
 ```sh
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:./
 ```
@@ -57,10 +56,12 @@ $ make
 Boom, we have simple installed.
 
 ### Getting started.
-You can check the unofficial documentation / guide to simple as the official documentation comes up. Get aquainted with SIMPLE's syntax [**HERE**](https://github.com/simple-lang/simple/blob/master/doc/Simple-Mini-Tutorial-v1.0)
+You can check the unofficial documentation / guide to simple as the official documentation comes up. Get acquainted with SIMPLE's syntax [**HERE**](https://github.com/simple-lang/simple/blob/master/doc/Simple-Mini-Tutorial-v1.0)
 ### Contributors.
 We love contributors. This is an open source project and needs the supports of the community extensively. Check out the [contributing guide](/contributors.md)
 ### License
 MIT License 
 
 Copyright (c) 2018 simple
+
+ Built with :heart: in Nigeria
