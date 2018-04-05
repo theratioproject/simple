@@ -15,25 +15,52 @@ Current Version : 0.3.213
 ### About Simple
 SIMPLE is a plain and innovative programming with multi-paradigm. It can be embedded in C/C++ projects. The language is portable to various OS including windows, macOS, any linux and unix distros and other OS. The language is small and fast.
 
-### FEATURES
-- Object Oriented and Functional programming
-- Can Be Embedded in C/C++ Projects
-- Polymorphism
-- Dynamic Programming
-- Intelligent Garbage Collector
-- Weakly Typed
-- Portable to various OS
-- Optional Main Function (Runs From Top)
-- Dynamic Typing
-- Index Start From 1 or 0 (Experimental)
-- Package With Various Modules And Environments
-- Supports Multi Line Literal
-- Multiple Control Structures
-- Error Handling With The throw And warn() Blocks
-- Execute Code During Run-Time
-- Case Sensitive and Insensitive (Experimental)
-- Single Inheritance
-- Extensible and Plugin-able With C Program
-- No Explicit End Of Line Required (; or . or ENTER is Optional)
-- Written in ANSI C
+### Features
+Simple has features every programming language will have such as variable declarations, functional programming, Object oriented programming etc and more to come. It houses all these features as it parent architecture comes from **C**. Simple is weakly typed, no explicit end of line required and can be embedded in C and C++ projects. Portability with javascript is a major goal we're trying and going to achieve.
 
+### Downloading & Installing SIMPLE.
+Simple has compilers that can be installed in our Windows/Linux/Mac systems. Simple can either be cloned, downloaded as zip or gotten from [here](https://simple-lang.sourceforge.io/)
+Below are the procedures for installing on each system respectively.
+
+#### Installing on Windows.
+This is quite the easiest installation. Download the windows type file from [here](https://simple-lang.sourceforge.io/) and run.
+
+#### Installing on Linux 
+After downloading simple from either methods listed above, unzip/move into the SIMPLE folder from your console and follow the instructions below.
+```sh
+# Copy make file from bootsrc/makefiles/inux to sources
+$ cp bootsrc/makefiles/linux/Makefile bootsrc/sources
+# install simple with the "make" command.
+$ make
+```
+Wait for a few moments, probably a minute. The make file installs simple in a folder *dist* located in the **bootsrc** folder. start the SIMPLE compiler with the command 
+```sh
+./simple
+```
+##### Got an error ?
+Was there an error stating **simple.so** couldn't be found ?. Use this command everytime once you're in the folder via the console.
+```sh
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:./
+```
+##### Unable to add to global path.
+Sadly, we're working on that issue and a fix will be issued in the next release.
+
+#### Installing on Mac
+To install on Mac, the same procedures are followed but some small differences. Steps to install..
+After downloading the Mac package, navigate to the home folder of SIMPLE and run commands.
+```sh
+# Copy make file from bootsrc/makefiles/inux to sources
+$ cp bootsrc/makefiles/mac/Makefile bootsrc/sources
+# install simple with the "make" command.
+$ make
+```
+Boom, we have simple installed.
+
+### Getting started.
+You can check the unofficial documentation / guide to simple as the official documentation comes up. Get aquainted with SIMPLE's syntax [**HERE**](https://github.com/simple-lang/simple/blob/master/doc/Simple-Mini-Tutorial-v1.0)
+### Contributors.
+We love contributors. This is an open source project and needs the supports of the community extensively. Check out the [contributing guide](/contributors.md)
+### License
+MIT License 
+
+Copyright (c) 2018 simple
