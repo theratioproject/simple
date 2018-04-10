@@ -15,7 +15,26 @@ if exist "../src/Makefile-Windows.mks" (
 	echo `
 	echo 		SIMPLE s0.3.302-debug build 
 	echo 		The file 'Makefile-Windows.mk' does not exist in src folder
-	echo 		Stopping Build
+	echo 		Skipping simple Build
 )
 
-~Build has been successful
+REM has been successful create and copy executable to s0.3.302-debug folder
+if exist "../src/dist/simple.exe" (
+
+) else (
+
+)
+
+if exist "../src/dist/simple.exe" (
+	echo `
+	echo `
+	echo 		Copying simple.exe and simple.dll to ../../s0.3.302-debug/bin folder
+	cp ../src/dist/simple.exe ../../s0.3.302-debug/bin
+	exit /b
+) else (
+	echo `
+	echo `
+	echo 		SIMPLE s0.3.302-debug build 
+	echo 		The file 'Makefile-Windows.mk' does not exist in src folder
+	echo 		Stopping Build
+)
