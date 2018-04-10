@@ -19,6 +19,17 @@ if exist "../src/Makefile-Windows.mks" (
 )
 
 REM BULDING DYNAMIC LIBRARIES
+if exist "../../modules" (
+	cd "../src"
+	echo `
+	echo		Building dynamic modules
+	make -f Makefile-Windows.mk
+	cd ../build
+) else (
+	echo `
+	echo 		modules repository does not exist
+	echo 		Clone the repository in the same folder as simple repository
+)
 
 REM has been successful create and copy executable to s0.3.302-debug folder
 echo 	Copying Executable and building s0.3.302-debug
