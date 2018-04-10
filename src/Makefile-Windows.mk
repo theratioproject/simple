@@ -28,7 +28,7 @@ CCC=g++
 CXX=g++
 
 # Flags
-CFLAGS=
+CLFLAGS= -lm -ldl
 CCFLAGS=
 CXXFLAGS=
 
@@ -69,6 +69,10 @@ OBJECTFILES= \
 	${OBJECTDIR}/sources/simple_vmstrindex.o \
 	${OBJECTDIR}/sources/simple_vmvars.o
 	
+# Simple Object File
+SIMPLE_OBJECTFILES= \
+	${OBJECTDIR}/simple.o
+	
 # Link Libraries and Options
 LDLIBSOPTIONS=
 
@@ -77,7 +81,7 @@ ${CND_DISTDIR}/${CND_PLATFORM}/simple.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${LINK.c} -o ${CND_DISTDIR}/${CND_PLATFORM}/simple.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -static-libgcc -shared
 	
 	#Building Executable simple.exe
-	$(COMPILE.c) $(program_LFLAGS) $(LDFLAGS) -o $(program_NAME) ../simple.c  $(program_LIBRARY)
+	${LINK.c} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/simple ${OBJECTFILES} ${LDLIBSOPTIONS}
 	
 	#Removing Build File(s)
 	
@@ -205,6 +209,11 @@ ${OBJECTDIR}/sources/simple_vmvars.o: sources/simple_vmvars.c
 	${MKDIR} -p ${OBJECTDIR}/sources
 	${RM} "$@.d"
 	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/sources/simple_vmvars.o sources/simple_vmvars.c
+	
+${OBJECTDIR}/simple.o: simple.c
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/simple.o simple.c
 
 
 #This Makefile-Windows.mk was written in adaptation to the MINGW
