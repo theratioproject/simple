@@ -19,10 +19,11 @@ if exist "../src/Makefile-Windows.mks" (
 )
 
 REM has been successful create and copy executable to s0.3.302-debug folder
-if exist "../src/dist/simple.exe" (
-
+if exist "../../s0.3.302-debug/bin/" (
+	echo yea
 ) else (
-
+	echo 		Creating the ../../s0.3.302-debug/bin/ folder
+	mkdir -p "../../s0.3.302-debug/bin/"
 )
 
 if exist "../src/dist/simple.exe" (
