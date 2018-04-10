@@ -18,6 +18,8 @@
 
 # Environment
 MKDIR=mkdir
+RMDIR=rmdir
+RM=rm
 GREP=grep
 CCADMIN=CCadmin
 RANLIB=ranlib
@@ -74,9 +76,15 @@ ${CND_DISTDIR}/${CND_PLATFORM}/simple.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_PLATFORM}
 	${LINK.c} -o ${CND_DISTDIR}/${CND_PLATFORM}/simple.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -static-libgcc -shared
 	
+	#Building Executable simple.exe
+	$(COMPILE.c) $(program_LFLAGS) $(LDFLAGS) -o $(program_NAME) ../simple.c  $(program_LIBRARY)
+	
 	#Removing Build File(s)
+	
 	${RM} ${OBJECTDIR}/sources/*.o
 	${RM} ${OBJECTDIR}/sources/*.d
+	${RMDIR} ${OBJECTDIR}/sources
+	${RMDIR} ${OBJECTDIR}
 
 ${OBJECTDIR}/sources/simple_api.o: sources/simple_api.c
 	${MKDIR} -p ${OBJECTDIR}/sources
