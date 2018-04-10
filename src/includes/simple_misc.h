@@ -51,15 +51,15 @@ void display_licence();
 
 void display_about();
 
-int is_simple_file( const char *file_name );
+SIMPLE_API int is_simple_file( const char *file_name );
 
-int is_complex_file( const char *file_name );
+SIMPLE_API int is_complex_file( const char *file_name );
 
-const char *file_real_name(const char *absolute_name);
+SIMPLE_API const char *file_real_name(const char *absolute_name);
 
-const char *change_file_ext(const char *absolute_name, const char *extension);
+SIMPLE_API const char *change_file_ext(const char *absolute_name, const char *extension);
 
-void get_file_folder ( char *absolute_path ) ;
+SIMPLE_API void get_file_folder ( char *absolute_path ) ;
 
 #if SIMPLE_TESTPERFORMANCE
 
