@@ -23,20 +23,24 @@ REM BULDING DYNAMIC LIBRARIES
 	echo `
 	echo 	Building Dynamic modules
 	
-if exist "../../moduless" (
+if exist "../../modules" (
 	cd "../../modules"
-	echo		Building dynamic modules
-	if exist "../dynamic_modules/Makefile-Windows.mks" (
+	echo			Modules repository detected
+	if exist "./dynamic_modules/Makefile-Windows.mk" (
+		cd ./dynamic_modules
 		echo		Starting Build...
 		make -f Makefile-Windows.mk
-		cd ../build
+		cd ../
 	) else (
 		echo 		dynamic_modules folder does not exist
 		echo 		Kindly Clone the modules repository again
 	)
+	cd ../simple/build
 ) else (
 	echo 		modules repository does not exist
 	echo 		Clone the repository in the same folder as simple repository
+	echo 		if you want to build them else ignore
+	echo 		if ignored only the simple.exe and simple.dll will be built
 )
 
 REM has been successful create and copy executable to s0.3.302-debug folder
