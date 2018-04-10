@@ -93,8 +93,8 @@ ${CND_DISTDIR}/${CND_PLATFORM}/simple.${CND_DEXE_EXT}: ${OBJECTFILES} ${SIMPLE_O
 	${RMDIR} ${OBJECTDIR}
 	
 	#Copy the Generated Binary to debug folder 
-	${MKDIR} -p ${CLEAN_DEBUGDIR}/${BINARYDIR}
-	${CP} ${CND_DISTDIR}/${CND_PLATFORM}/* ${CLEAN_DEBUGDIR}/${BINARYDIR}
+	#${MKDIR} -p ${CLEAN_DEBUGDIR}/${BINARYDIR}
+	#${CP} ${CND_DISTDIR}/${CND_PLATFORM}/* ${CLEAN_DEBUGDIR}/${BINARYDIR}
 
 ${OBJECTDIR}/sources/simple_api.o: sources/simple_api.c
 	${MKDIR} -p ${OBJECTDIR}/sources
