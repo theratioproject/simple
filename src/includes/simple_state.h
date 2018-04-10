@@ -83,23 +83,26 @@ SIMPLE_API void simple_state_main ( int argc, char *argv[] ) ;
 SIMPLE_API void execute_simple_file ( SimpleState *sState,char *file_name ) ;
 
 SIMPLE_API void simple_state_runobjectstring ( SimpleState *sState,char *cString,const char *file_name ) ;
-/* MACRO */
-#define SIMPLE_STATE_CHECKPRINTRULES if ( parser->sState->nPrintRules )
+
 /* General Blocks */
 
-int simple_fexists ( const char *file_name ) ;
+SIMPLE_API int simple_fexists ( const char *file_name ) ;
 
-int simple_currentdir ( char *cDirPath ) ;
+SIMPLE_API int simple_currentdir ( char *cDirPath ) ;
 
-int simple_exefilename ( char *cDirPath ) ;
+SIMPLE_API int simple_exefilename ( char *cDirPath ) ;
 
-int simple_chdir ( const char *cDir ) ;
+SIMPLE_API int simple_chdir ( const char *cDir ) ;
 
-void simple_exefolder ( char *cDirPath ) ;
+SIMPLE_API void simple_exefolder ( char *cDirPath ) ;
 
-void simple_switchtofilefolder ( char *file_name ) ;
+SIMPLE_API void simple_switchtofilefolder ( char *file_name ) ;
 
-int simple_justfilepath ( char *file_name ) ;
+SIMPLE_API int simple_justfilepath ( char *file_name ) ;
 
-void simple_justfilename ( char *file_name ) ;
+SIMPLE_API void simple_justfilename ( char *file_name ) ;
+
+/* MACRO */
+#define SIMPLE_STATE_CHECKPRINTRULES if ( parser->sState->nPrintRules )
+
 #endif
