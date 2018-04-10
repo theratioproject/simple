@@ -2,7 +2,7 @@ echo off
 cls
 
 REM BULDING SIMPLE.EXE and SIMPLE.DLL
-if exist "../src/Makefile-Windows.mk" (
+if exist "../src/Makefile-Windows.mks" (
 	cd "../src"
 	echo `
 	echo `
@@ -10,7 +10,6 @@ if exist "../src/Makefile-Windows.mk" (
 	echo		Building simple.dll and simple.exe
 	make -f Makefile-Windows.mk
 	cd ../build
-	exit /b
 ) else (
 	echo `
 	echo `
@@ -44,3 +43,11 @@ if exist "../src/dist/simple.exe" (
 	echo 		The file 'Makefile-Windows.mk' does not exist in src folder
 	echo 		Stopping Build
 )
+
+REM CLEANING UP
+if exist "./-p" (
+	rmdir -f "./-p"
+}
+
+
+exit /b
