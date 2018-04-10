@@ -19,6 +19,7 @@
 # Environment
 MKDIR=mkdir
 RMDIR=rmdir
+CP=CP
 RM=rm
 GREP=grep
 CCADMIN=CCadmin
@@ -37,7 +38,9 @@ CND_PLATFORM=
 CND_DLIB_EXT=dll
 CND_DEXE_EXT=exe
 CND_BUILDDIR=build
-CND_DISTDIR=../dist
+CND_DISTDIR=./dist
+CLEAN_DEBUGDIR=../s0.3.302-debug
+BINARYDIR=bin
 
 # Object Directory
 OBJECTDIR=${CND_DISTDIR}/${CND_BUILDDIR}/${CND_PLATFORM}
@@ -74,10 +77,7 @@ SIMPLE_OBJECTFILES= \
 	${OBJECTDIR}/simple.o
 	
 # Link Libraries and Options
-LDLIBSOPTIONS=${CND_DISTDIR}/${CND_PLATFORM}/simple.${CND_DLIB_EXT}
-	
-
-	
+LDLIBSOPTIONS=${CND_DISTDIR}/${CND_PLATFORM}/simple.${CND_DLIB_EXT}	
 
 ${CND_DISTDIR}/${CND_PLATFORM}/simple.${CND_DEXE_EXT}: ${OBJECTFILES} ${SIMPLE_OBJECTFILES} 
 	${MKDIR} -p ${CND_DISTDIR}/${CND_PLATFORM}
@@ -89,6 +89,10 @@ ${CND_DISTDIR}/${CND_PLATFORM}/simple.${CND_DEXE_EXT}: ${OBJECTFILES} ${SIMPLE_O
 	${RM} ${OBJECTDIR}/sources/*.d
 	${RMDIR} ${OBJECTDIR}/sources
 	${RMDIR} ${OBJECTDIR}
+	
+	#Copy the Generated Binary to debug folder 
+	${MKDIR} -p ${CLEAN_DEBUGDIR}/${BINARYDIR}
+	${CP} ${CND_DISTDIR}/${CND_PLATFORM}/* ${CLEAN_DEBUGDIR}/${BINARYDIR}
 
 ${OBJECTDIR}/sources/simple_api.o: sources/simple_api.c
 	${MKDIR} -p ${OBJECTDIR}/sources
