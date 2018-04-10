@@ -31,11 +31,11 @@ CCFLAGS=
 CXXFLAGS=
 
 # Macros
-CND_PLATFORM=Windows
+CND_PLATFORM=
 CND_DLIB_EXT=dll
 CND_DEXE_EXT=exe
 CND_BUILDDIR=build
-CND_DISTDIR=../../dist
+CND_DISTDIR=../dist
 
 # Object Directory
 OBJECTDIR=${CND_DISTDIR}/${CND_BUILDDIR}/${CND_PLATFORM}
@@ -70,15 +70,13 @@ OBJECTFILES= \
 # Link Libraries and Options
 LDLIBSOPTIONS=
 
-#${CND_DISTDIR}/${CND_PLATFORM}/parser.${CND_DLIB_EXT}: ../../../simple/src/dist/Debug/MinGW-Windows/simple.dll
-
-${CND_DISTDIR}/${CND_PLATFORM}/parser.${CND_DLIB_EXT}: ${OBJECTFILES}
-	${MKDIR} -p ${CND_DISTDIR}/${CND_PLATFORM}
-	${LINK.c} -o ${CND_DISTDIR}/${CND_PLATFORM}/parser.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared
-
 ${CND_DISTDIR}/${CND_PLATFORM}/simple.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_PLATFORM}
 	${LINK.c} -o ${CND_DISTDIR}/${CND_PLATFORM}/simple.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -static-libgcc -shared
+	
+	#Removing Build File(s)
+	${RM} ${OBJECTDIR}/sources/*.o
+	${RM} ${OBJECTDIR}/sources/*.d
 
 ${OBJECTDIR}/sources/simple_api.o: sources/simple_api.c
 	${MKDIR} -p ${OBJECTDIR}/sources
