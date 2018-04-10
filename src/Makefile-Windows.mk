@@ -39,7 +39,7 @@ CND_DLIB_EXT=dll
 CND_DEXE_EXT=exe
 CND_BUILDDIR=build
 CND_DISTDIR=./dist
-CLEAN_DEBUGDIR=../s0.3.302-debug
+CLEAN_DEBUGDIR=../../s0.3.302-debug
 BINARYDIR=bin
 
 # Object Directory
@@ -87,6 +87,8 @@ ${CND_DISTDIR}/${CND_PLATFORM}/simple.${CND_DEXE_EXT}: ${OBJECTFILES} ${SIMPLE_O
 	#Removing Build File(s)
 	${RM} ${OBJECTDIR}/sources/*.o
 	${RM} ${OBJECTDIR}/sources/*.d
+	${RM} ${OBJECTDIR}/*.o
+	${RM} ${OBJECTDIR}/*.d
 	${RMDIR} ${OBJECTDIR}/sources
 	${RMDIR} ${OBJECTDIR}
 	
