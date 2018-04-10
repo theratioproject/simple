@@ -75,16 +75,15 @@ SIMPLE_OBJECTFILES= \
 	
 # Link Libraries and Options
 LDLIBSOPTIONS=${CND_DISTDIR}/${CND_PLATFORM}/simple.${CND_DLIB_EXT}
+	
+${CND_DISTDIR}/${CND_PLATFORM}/simple.${CND_DEXE_EXT}: ${SIMPLE_OBJECTFILES}
+	${LINK.c} -o ${CND_DISTDIR}/${CND_PLATFORM}/simple.${CND_DEXE_EXT} ${SIMPLE_OBJECTFILES} ${LDLIBSOPTIONS}
 
 ${CND_DISTDIR}/${CND_PLATFORM}/simple.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_PLATFORM}
 	${LINK.c} -o ${CND_DISTDIR}/${CND_PLATFORM}/simple.${CND_DLIB_EXT} ${OBJECTFILES} -static-libgcc -shared
 	
-	#Building Executable simple.exe
-	${LINK.c} -o ${CND_DISTDIR}/${CND_PLATFORM}/simple.exe ${SIMPLE_OBJECTFILES} ${LDLIBSOPTIONS}
-	
 	#Removing Build File(s)
-	
 	#${RM} ${OBJECTDIR}/sources/*.o
 	#${RM} ${OBJECTDIR}/sources/*.d
 	#${RMDIR} ${OBJECTDIR}/sources
