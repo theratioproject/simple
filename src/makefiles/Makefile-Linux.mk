@@ -170,3 +170,18 @@ clean:
 	@- $(RM) $(program_OBJS)
 
 distclean: clean
+
+#This Makefile-Windows.mk was written in adaptation to the standard
+#method of writing makefiles
+#
+#If this make file does not work on your LINUX PC feel free to 
+#write your own Makefile and send us a pull request at 
+#https://github.com/simple-lang/simple . Your make file must follow 
+#the below format for request to be accepted
+#
+#File-Name : Makefile-Linux-{distro}.mk
+#
+#e.g Makefile-Linux-mint-cinnamon.mk
+#
+#looking forward to your contribution
+#Thank You
