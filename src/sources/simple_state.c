@@ -335,6 +335,24 @@ void simple_exefolder ( char *cDirPath )
 	strcpy(cDirPath,cDir2);
 }
 
+void simple_distro_folder(char *dirPath) {
+        char cDir[SIMPLE_PATHSIZE]  ;
+	char cDir2[SIMPLE_PATHSIZE]  ;
+	int x,x2,nSize  ;
+	simple_exefilename(cDir);
+	nSize = strlen( cDir ) ;
+	for ( x = nSize-1 ; x >= 0 ; x-- ) {
+		if ( (cDir[x] == '\\') || (cDir[x] == '/') ) {
+			for ( x2 = x ; x2 >= 0 ; x2-- ) {
+				cDir2[x2] = cDir[x2] ;
+			}
+			cDir2[x+1] = '\0' ;
+			break ;
+		}
+	}
+	strcpy(dirPath,cDir2);
+}
+
 void simple_switchtofilefolder ( char *file_name )
 {
 	char file_name_two[SIMPLE_PATHSIZE]  ;
