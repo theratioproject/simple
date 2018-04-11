@@ -111,6 +111,17 @@ if exist "../../modules/dynamic_modules/security/bin/libeay32.dll" (
 	echo 		not included in your cloned repository. Download it from reliable source
 )
 
+REM libcurl.dll
+	echo 		`libeay32.dll
+if exist "../../modules/dynamic_modules/security/bin/libeay32.dll" (
+	echo 		Copying libeay32.dll to ../../s0.3.302-debug/bin folder
+	cp ../../modules/dynamic_modules/security/bin/libeay32.dll ../../s0.3.302-debug/bin
+) else (
+	echo 		The dependency libeay32.dll cannot be found you can copy it 
+	echo 		in to the ../../s0.3.302-debug/bin folder manually if it is 
+	echo 		not included in your cloned repository. Download it from reliable source
+)
+
 REM Copy the simple modules
 	echo `
 	echo 	Copying Simple Modules to s0.3.302-debug
