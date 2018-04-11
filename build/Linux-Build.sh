@@ -51,6 +51,7 @@ if [ -e ../../modules ]; then
 		echo "		dynamic_modules folder is missing "
 		echo "		simply clone the modules repository again "
 	fi
+	cd ../simple/build
 else
 	echo "		Modules repository does not exist"
 	echo "		Clone the repository in the same folder as simple and environment"
