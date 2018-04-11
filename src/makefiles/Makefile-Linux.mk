@@ -1,7 +1,7 @@
 
 # Flags
 CFLAGS= -c -fpic -g
-LFlAG= -lm -ldl
+LFlAGS= -lm -ldl
 LDFLAGS= "-Wl,-rpath,../dist/"
 
 # Macros
@@ -49,7 +49,7 @@ SIMPLE_OBJECTFILES= \
 
 $(CND_DISTDIR)/$(CND_PLATFORM)/simple: $(OBJECTFILES)
 	$(CC) -shared -o $(CND_DISTDIR)/simple.$(CND_DLIB_EXT) $(OBJECTFILES)
-	$(CC) $(LFLAGS) $(LDFLAGS) -o $(CND_DISTDIR)/simple ../simple.c $(CND_DISTDIR)/simple.$(CND_DLIB_EXT)
+	$(CC) $(LFlAGS) $(LDFLAGS) -o $(CND_DISTDIR)/simple ../simple.c $(CND_DISTDIR)/simple.$(CND_DLIB_EXT)
 
 $(OBJECTDIR)/simple_api.o: $(SOURCE_DIR)/simple_api.c
 	mkdir -p ../dist/build
