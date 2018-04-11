@@ -150,7 +150,7 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
 	} 
 	/* Read File */
 	if ( fp==NULL ) { 
-		printf( "\n COMPILER ERROR -1 : Can't open file/module : %s\n", file_name_two) ;
+		printf( "\n COMPILER ERROR -1 : Can't open file/module : %s\n", file_name) ;
 		exit(-1);
                 return 0 ;
 	}
