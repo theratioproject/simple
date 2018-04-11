@@ -77,6 +77,58 @@ else
 	echo "		rebuild the modules individually to resolve issue"
 fi
 
+#Resolve dependency
+#All the current dependencies are built into linux
+
+#Copy the simple modules
+	echo "~"
+	echo "	Copying Simple Modules to $SIMPLE_DEBUG_VERSION folder"
+
+#Simple core modules
+	echo "		~simple core modules"
+if [ -e ../../modules/simple ]; then
+	echo "		Copying simple module to ../../$SIMPLE_DEBUG_VERSION/modules/simple folder"
+	cp -R "../../modules/simple" "../../$SIMPLE_DEBUG_VERSION/modules/simple"
+else
+	echo "		simple module cannot be found"
+	echo "		The repository appear to be currupted. Try clonning again"
+	echo "		to resolve the issue"
+fi
+
+#archive modules
+	echo "		~archive module"
+if [ -e ../../modules/archive ]; then
+	echo "		Copying archive module to ../../$SIMPLE_DEBUG_VERSION/modules/archive folder"
+	cp -R "../../modules/archive" "../../$SIMPLE_DEBUG_VERSION/modules/archive"
+else
+	echo "		archive module cannot be found"
+	echo "		The repository appear to be currupted. Try clonning again"
+	echo "		to resolve the issue"
+fi
+
+#web modules
+	echo "		~web module"
+if [ -e ../../modules/web ]; then
+	echo "		Copying web module to ../../$SIMPLE_DEBUG_VERSION/modules/web folder"
+	cp -R "../../modules/web" "../../$SIMPLE_DEBUG_VERSION/modules/web"
+else
+	echo "		web module cannot be found"
+	echo "		The repository appear to be currupted. Try clonning again"
+	echo "		to resolve the issue"
+fi
+
+#fulltick(GUI) modules
+	echo "		~fulltick module"
+if [ -e ../../modules/fulltick ]; then
+	echo "		Copying fulltick module to ../../$SIMPLE_DEBUG_VERSION/modules/fulltick folder"
+	cp -R "../../modules/fulltick" "../../$SIMPLE_DEBUG_VERSION/modules/fulltick"
+else
+	echo "		fulltick module cannot be found"
+	echo "		The repository appear to be currupted. Try clonning again"
+	echo "		to resolve the issue"
+fi
+
+
 
 
 
