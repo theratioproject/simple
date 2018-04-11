@@ -74,29 +74,81 @@ $(OBJECTDIR)/simple_item.o: $(SOURCE_DIR)/simple_item.c
 	$(CC) $(CFLAGS) $(SOURCE_DIR)/simple_item.c
 	mv simple_item.o $(OBJECTDIR)
 
-$(OBJECTDIR)/simple_hashtable.o: $(SOURCE_DIR)/simple_hashtable.c
-	$(CC) $(CFLAGS) $(SOURCE_DIR)/simple_hashtable.c
-	mv simple_hashtable.o $(OBJECTDIR)
+$(OBJECTDIR)/simple_list.o: $(SOURCE_DIR)/simple_list.c
+	$(CC) $(CFLAGS) $(SOURCE_DIR)/simple_list.c
+	mv simple_list.o $(OBJECTDIR)
 
-$(OBJECTDIR)/simple_hashtable.o: $(SOURCE_DIR)/simple_hashtable.c
-	$(CC) $(CFLAGS) $(SOURCE_DIR)/simple_hashtable.c
-	mv simple_hashtable.o $(OBJECTDIR)
+$(OBJECTDIR)/simple_misc.o: $(SOURCE_DIR)/simple_misc.c
+	$(CC) $(CFLAGS) $(SOURCE_DIR)/simple_misc.c
+	mv simple_misc.o $(OBJECTDIR)
 
-$(OBJECTDIR)/simple_hashtable.o: $(SOURCE_DIR)/simple_hashtable.c
-	$(CC) $(CFLAGS) $(SOURCE_DIR)/simple_hashtable.c
-	mv simple_hashtable.o $(OBJECTDIR)
+$(OBJECTDIR)/simple_parser.o: $(SOURCE_DIR)/simple_parser.c
+	$(CC) $(CFLAGS) $(SOURCE_DIR)/simple_parser.c
+	mv simple_parser.o $(OBJECTDIR)
 
-$(OBJECTDIR)/simple_hashtable.o: $(SOURCE_DIR)/simple_hashtable.c
-	$(CC) $(CFLAGS) $(SOURCE_DIR)/simple_hashtable.c
-	mv simple_hashtable.o $(OBJECTDIR)
+$(OBJECTDIR)/simple_scanner.o: $(SOURCE_DIR)/simple_scanner.c
+	$(CC) $(CFLAGS) $(SOURCE_DIR)/simple_scanner.c
+	mv simple_scanner.o $(OBJECTDIR)
 
-$(OBJECTDIR)/simple_hashtable.o: $(SOURCE_DIR)/simple_hashtable.c
-	$(CC) $(CFLAGS) $(SOURCE_DIR)/simple_hashtable.c
-	mv simple_hashtable.o $(OBJECTDIR)
+$(OBJECTDIR)/simple_state.o: $(SOURCE_DIR)/simple_state.c
+	$(CC) $(CFLAGS) $(SOURCE_DIR)/simple_state.c
+	mv simple_state.o $(OBJECTDIR)
 
-$(OBJECTDIR)/simple_hashtable.o: $(SOURCE_DIR)/simple_hashtable.c
-	$(CC) $(CFLAGS) $(SOURCE_DIR)/simple_hashtable.c
-	mv simple_hashtable.o $(OBJECTDIR)
+$(OBJECTDIR)/simple_stmt.o: $(SOURCE_DIR)/simple_stmt.c
+	$(CC) $(CFLAGS) $(SOURCE_DIR)/simple_stmt.c
+	mv simple_stmt.o $(OBJECTDIR)
+
+$(OBJECTDIR)/simple_string.o: $(SOURCE_DIR)/simple_string.c
+	$(CC) $(CFLAGS) $(SOURCE_DIR)/simple_string.c
+	mv simple_string.o $(OBJECTDIR)
+
+$(OBJECTDIR)/simple_vm.o: $(SOURCE_DIR)/simple_vm.c
+	$(CC) $(CFLAGS) $(SOURCE_DIR)/simple_vm.c
+	mv simple_vm.o $(OBJECTDIR)
+
+$(OBJECTDIR)/simple_vmblock.o: $(SOURCE_DIR)/simple_vmblock.c
+	$(CC) $(CFLAGS) $(SOURCE_DIR)/simple_vmblock.c
+	mv simple_vmblock.o $(OBJECTDIR)
+
+$(OBJECTDIR)/simple_vmdll.o: $(SOURCE_DIR)/simple_vmdll.c
+	$(CC) $(CFLAGS) $(SOURCE_DIR)/simple_vmdll.c
+	mv simple_vmdll.o $(OBJECTDIR)
+
+$(OBJECTDIR)/simple_vmexpr.o: $(SOURCE_DIR)/simple_vmexpr.c
+	$(CC) $(CFLAGS) $(SOURCE_DIR)/simple_vmexpr.c
+	mv simple_vmexpr.o $(OBJECTDIR)
+
+$(OBJECTDIR)/simple_vmgc.o: $(SOURCE_DIR)/simple_vmgc.c
+	$(CC) $(CFLAGS) $(SOURCE_DIR)/simple_vmgc.c
+	mv simple_vmgc.o $(OBJECTDIR)
+
+$(OBJECTDIR)/simple_vmlists.o: $(SOURCE_DIR)/simple_vmlists.c
+	$(CC) $(CFLAGS) $(SOURCE_DIR)/simple_vmlists.c
+	mv simple_vmlists.o $(OBJECTDIR)
+
+$(OBJECTDIR)/simple_vmoop.o: $(SOURCE_DIR)/simple_vmoop.c
+	$(CC) $(CFLAGS) $(SOURCE_DIR)/simple_vmoop.c
+	mv simple_vmoop.o $(OBJECTDIR)
+
+$(OBJECTDIR)/simple_vmperformance.o: $(SOURCE_DIR)/simple_vmperformance.c
+	$(CC) $(CFLAGS) $(SOURCE_DIR)/simple_vmperformance.c
+	mv simple_vmperformance.o $(OBJECTDIR)
+
+$(OBJECTDIR)/simple_stmt.o: $(SOURCE_DIR)/simple_stmt.c
+	$(CC) $(CFLAGS) $(SOURCE_DIR)/simple_stmt.c
+	mv simple_stmt.o $(OBJECTDIR)
+
+$(OBJECTDIR)/simple_stmt.o: $(SOURCE_DIR)/simple_stmt.c
+	$(CC) $(CFLAGS) $(SOURCE_DIR)/simple_stmt.c
+	mv simple_stmt.o $(OBJECTDIR)
+
+$(OBJECTDIR)/simple_stmt.o: $(SOURCE_DIR)/simple_stmt.c
+	$(CC) $(CFLAGS) $(SOURCE_DIR)/simple_stmt.c
+	mv simple_stmt.o $(OBJECTDIR)
+
+$(OBJECTDIR)/simple_stmt.o: $(SOURCE_DIR)/simple_stmt.c
+	$(CC) $(CFLAGS) $(SOURCE_DIR)/simple_stmt.c
+	mv simple_stmt.o $(OBJECTDIR)
 
 clean:
 	@- $(RM) $(OBJECTDIR)/*.o
