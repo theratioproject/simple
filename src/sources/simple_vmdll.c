@@ -83,13 +83,13 @@ void simple_vm_dll_loadlib ( void *pointer )
                 printf( "\nLibrary File : %s",SIMPLE_API_GETSTRING(1) ) ;
                 SIMPLE_API_ERROR(SIMPLE_VM_ERROR_LIBLOADERROR);
                 return ;
-        }
+        } 
         pBlock = (loadlibblockptr) GetDLLBlock(handle, "init_simple_module") ;
         if ( pBlock == NULL ) {
                 printf( "\nLibrary File : %s", file_real_name(SIMPLE_API_GETSTRING(1)) ) ;
                 SIMPLE_API_ERROR("The dynamic library doesn't contain the init_simple_module() block!");
                 return ;
-        }
+        } 
         simple_list_deletearray_gc(sState,sState->c_blocks);
         (*pBlock)(sState) ;
         simple_list_genarray_gc(sState,sState->c_blocks);
