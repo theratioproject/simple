@@ -41,36 +41,40 @@ void simple_vm_dll_loadlib ( void *pointer )
         if (simple_fexists(SIMPLE_API_GETSTRING(1))) {
             strcpy(library_path,SIMPLE_API_GETSTRING(1));
         } else {
-            char* SIMPLEPATH = getenv("SIMPLE_PATH"); 
-            if (SIMPLEPATH != NULL) {
-                snprintf(library_path, sizeof(library_path), "%s/s%s/modules/dynamic_modules/%s", SIMPLEPATH, SIMPLE_VERSION, SIMPLE_API_GETSTRING(1));
-            }
+            char* simple_folder ; simple_distro_folder(simple_folder); 
+            snprintf(library_path, sizeof(library_path), "%smodules\\dynamic_modules\\%s", simple_folder,SIMPLE_API_GETSTRING(1));
             if (!simple_fexists(library_path)) {
-                char* SIMPLEMODULEPATH = getenv("SIMPLE_MODULE_PATH"); 
-                if (SIMPLEMODULEPATH != NULL) {
-                    snprintf(library_path, sizeof(library_path), "%s/%s", SIMPLEMODULEPATH, SIMPLE_API_GETSTRING(1));
+                char* SIMPLEPATH = getenv("SIMPLE_PATH"); 
+                if (SIMPLEPATH != NULL) {
+                    snprintf(library_path, sizeof(library_path), "%s/s%s/modules/dynamic_modules/%s", SIMPLEPATH, SIMPLE_VERSION, SIMPLE_API_GETSTRING(1));
                 }
                 if (!simple_fexists(library_path)) {
-                    snprintf(library_path, sizeof(library_path), "%s%s", DEFAULT_FILE_PATH, SIMPLE_API_GETSTRING(1));
-                    if (!simple_fexists(library_path)) {
-                        snprintf(library_path, sizeof(library_path), "%s/modules/%s", DEFAULT_FILE_PATH, SIMPLE_API_GETSTRING(1));
-                        if (!simple_fexists(library_path)) {
-                            snprintf(library_path, sizeof(library_path), "%s/library/%s", DEFAULT_FILE_PATH, SIMPLE_API_GETSTRING(1));
-                            if (!simple_fexists(library_path)) {
-                                #if SIMPLE_DEVELOPMENT
-                                        snprintf(library_path, sizeof(library_path), "%s/%s", "C:/Users/thecarisma/Documents/SIMPLE GITHUB/modules/dynamic_modules", SIMPLE_API_GETSTRING(1));
-                                    #else
-                                        //deduct_char_from_behind(simple_folder, 4); //to remove bin
-                                        snprintf(file_name_two, sizeof(file_name_two), "%s/s%s/modules/%s", simple_folder, SIMPLE_VERSION, file_name);
-                                        printf("NOW CHECKING AGAIN %s \n",file_name_two);
-                                    #endif
-                            }
-                        }
-
+                    char* SIMPLEMODULEPATH = getenv("SIMPLE_MODULE_PATH"); 
+                    if (SIMPLEMODULEPATH != NULL) {
+                        snprintf(library_path, sizeof(library_path), "%s/%s", SIMPLEMODULEPATH, SIMPLE_API_GETSTRING(1));
                     }
-                }
-            }  
-        }
+                    if (!simple_fexists(library_path)) {
+                        snprintf(library_path, sizeof(library_path), "%s%s", DEFAULT_FILE_PATH, SIMPLE_API_GETSTRING(1));
+                        if (!simple_fexists(library_path)) {
+                            snprintf(library_path, sizeof(library_path), "%s/modules/%s", DEFAULT_FILE_PATH, SIMPLE_API_GETSTRING(1));
+                            if (!simple_fexists(library_path)) {
+                                snprintf(library_path, sizeof(library_path), "%s/library/%s", DEFAULT_FILE_PATH, SIMPLE_API_GETSTRING(1));
+                                if (!simple_fexists(library_path)) {
+                                    #if SIMPLE_DEVELOPMENT
+                                            snprintf(library_path, sizeof(library_path), "%s/%s", "C:/Users/thecarisma/Documents/SIMPLE GITHUB/modules/dynamic_modules", SIMPLE_API_GETSTRING(1));
+                                        #else
+                                            //deduct_char_from_behind(simple_folder, 4); //to remove bin
+                                            snprintf(file_name_two, sizeof(file_name_two), "%s/s%s/modules/%s", simple_folder, SIMPLE_VERSION, file_name);
+                                            printf("NOW CHECKING AGAIN %s \n",file_name_two);
+                                        #endif
+                                }
+                            }
+
+                        }
+                    }
+                }  
+            }
+            }
         cDLL = library_path;
         handle = LoadDLL(cDLL);
         if ( handle == NULL ) {
