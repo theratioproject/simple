@@ -43,9 +43,13 @@ if [ -e ../../modules ]; then
 	cd ../../modules
 	echo "		Modules repository detected"
 	if [ -e ./dynamic_modules/makefiles/Makefile-Linux.mk ]; then
-
+		cd ./dynamic_modules/makefiles/
+		echo "		Starting build..."
+		make -f Makefile-Linux.mk
+		cd ../../
 	else
-
+		echo "		dynamic_modules folder is missing "
+		echo "		simply clone the modules repository again "
 	fi
 else
 	echo "		Modules repository does not exist"
@@ -54,11 +58,24 @@ else
 	echo "		ignore it and continue building simple "
 fi
 
+#moving the modules to the debug folder
+	echo "~"
+	echo "	Moving the Dynamic Modules to $SIMPLE_DEBUG_VERSION folder"
 
+if [ -e ../../$SIMPLE_DEBUG_VERSION/modules/dynamic_modules/ ]; then
+	echo "	the ../../$SIMPLE_DEBUG_VERSION/modules/dynamic_modules already exist"
+else
+	echo "		Creating the ../../$SIMPLE_DEBUG_VERSION/modules/dynamic_modules folder"
+	mkdir -p "../../$SIMPLE_DEBUG_VERSION/modules/dynamic_modules"
+fi
 
-
-
-
+if [ -e ../../modules/dist/systemic.dll ]; then
+	echo "		Copying dynamic_modules to ../../$SIMPLE_DEBUG_VERSION/modules/dynamic_modules"
+	cp ../../modules/dynamic_modules/dist/*.so ../../$SIMPLE_DEBUG_VERSION/modules/dynamic_modules
+else
+	echo "		Building of dynamic modules fails"
+	echo "		rebuild the modules individually to resolve issue"
+fi
 
 
 
