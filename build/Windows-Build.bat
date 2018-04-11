@@ -49,15 +49,15 @@ if exist "../../modules" (
 	cd "../../modules"
 	echo			Modules repository detected
 	if exist "./dynamic_modules/makefiles/Makefile-Windows.mk" (
-		cd ./makefiles/dynamic_modules
+		cd ./dynamic_modules/makefiles
 		echo		Starting Build...
 		make -f Makefile-Windows.mk
-		cd ../
+		cd ../../
 	) else (
 		echo 		dynamic_modules folder does not exist
 		echo 		Kindly Clone the modules repository again
 	)
-	cd ../../simple/build
+	cd ../simple/build
 ) else (
 	echo 		modules repository does not exist
 	echo 		Clone the repository in the same folder as simple repository
