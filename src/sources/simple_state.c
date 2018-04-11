@@ -346,7 +346,7 @@ void simple_distro_folder(char *dirPath) {
 			for ( x2 = x ; x2 >= 0 ; x2-- ) {
 				cDir2[x2] = cDir[x2] ;
 			}
-                        cDir2[x] = '\0' ; cDir2[x+1] = '\0' ;
+                        cDir2[x-1] = '\0' ; cDir2[x] = '\0' ; cDir2[x+1] = '\0' ;
 			break ;
 		}
 	}
