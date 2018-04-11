@@ -40,13 +40,9 @@ void simple_vm_dll_loadlib ( void *pointer )
     if ( SIMPLE_API_ISSTRING(1) ) {
         if (simple_fexists(SIMPLE_API_GETSTRING(1))) {
             strcpy(library_path,SIMPLE_API_GETSTRING(1));
-            printf("we found it 001 %s\n",library_path);
         } else {
             char* simple_folder ; simple_distro_folder(simple_folder); 
-            snprintf(library_path, sizeof(library_path), "%s/modules/dynamic_modules/%s", simple_folder,SIMPLE_API_GETSTRING(1));
-            if (simple_fexists(library_path)) {
-                printf("we found it %s\n",library_path);
-            }
+            snprintf(library_path, sizeof(library_path), "C:\\Users\\thecarisma\\Documents\\SIMPLE GITHUB\\s0.3.302-debug\\modules\\dynamic_modules\\%s", SIMPLE_API_GETSTRING(1));
             if (!simple_fexists(library_path)) {
                 char* SIMPLEPATH = getenv("SIMPLE_PATH"); 
                 if (SIMPLEPATH != NULL) {
