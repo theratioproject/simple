@@ -15,7 +15,7 @@
 # Flags
 CFLAGS= -c -fpic -g
 LFlAGS= -lm -ldl
-LDFLAGS= "-Wl,-rpath,../dist/"
+LDFLAGS= "-Wl,-rpath,./"
 
 # Macros
 CND_PLATFORM=
