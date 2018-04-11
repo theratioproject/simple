@@ -34,3 +34,47 @@ else
 	echo "		../src/dist folder. Try rebuilding the program individually"
 	echo "		ff it ails again run the build individually"
 fi
+
+#Buld dynamic modules
+	echo "~"
+	echo "	Building Dynamic Modules "
+
+if [ -e ../../modules ]; then
+	cd ../../modules
+	echo "		Modules repository detected"
+	if [ -e ./dynamic_modules/makefiles/Makefile-Linux.mk ]; then
+
+	else
+
+	fi
+else
+	echo "		Modules repository does not exist"
+	echo "		Clone the repository in the same folder as simple and environment"
+	echo "		if you want to build the modules and dynamic_modules else you can "
+	echo "		ignore it and continue building simple "
+fi
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
