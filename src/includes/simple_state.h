@@ -96,6 +96,8 @@ SIMPLE_API int simple_chdir ( const char *cDir ) ;
 
 SIMPLE_API void simple_exefolder ( char *cDirPath ) ;
 
+SIMPLE_API void simple_distro_folder(char *dirPath) ;
+
 SIMPLE_API void simple_switchtofilefolder ( char *file_name ) ;
 
 SIMPLE_API int simple_justfilepath ( char *file_name ) ;

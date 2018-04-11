@@ -342,11 +342,11 @@ void simple_distro_folder(char *dirPath) {
 	simple_exefilename(cDir);
 	nSize = strlen( cDir ) ;
 	for ( x = nSize-1 ; x >= 0 ; x-- ) {
-		if ( (cDir[x] == '\\') || (cDir[x] == '/') ) {
+		if ( (cDir[x] == 'b') ) {
 			for ( x2 = x ; x2 >= 0 ; x2-- ) {
 				cDir2[x2] = cDir[x2] ;
 			}
-			cDir2[x+1] = '\0' ;
+                        cDir2[x] = '\0' ; cDir2[x+1] = '\0' ;
 			break ;
 		}
 	}
