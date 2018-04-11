@@ -15,7 +15,7 @@
 # Flags
 CFLAGS= -c -fpic -g
 LFlAGS= -lm -ldl
-LDFLAGS= "-Wl,-rpath,../../../s0.3.302-debug/bin/"
+LDFLAGS= "-Wl,-rpath,./"
 
 # Macros
 CND_PLATFORM=
