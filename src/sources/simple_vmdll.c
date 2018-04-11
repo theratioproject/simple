@@ -42,7 +42,7 @@ void simple_vm_dll_loadlib ( void *pointer )
             strcpy(library_path,SIMPLE_API_GETSTRING(1));
         } else {
             char* simple_folder ; simple_distro_folder(simple_folder); 
-            snprintf(library_path, sizeof(library_path), "%s\\modules\\dynamic_modules\\%s", simple_folder,SIMPLE_API_GETSTRING(1));
+            snprintf(library_path, sizeof(library_path), "%smodules\\dynamic_modules\\%s", simple_folder,SIMPLE_API_GETSTRING(1));
             printf("We found it %s\n",library_path);
             if (!simple_fexists(library_path)) {
                 
