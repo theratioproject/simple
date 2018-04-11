@@ -128,10 +128,36 @@ else
 	echo "		to resolve the issue"
 fi
 
+#ENVIRONMENT PROGRAMS
+	echo "~"
+	echo "	Copying Environment Programs to $SIMPLE_DEBUG_VERSION folder"
 
+if [ -e ../../$SIMPLE_DEBUG_VERSION/environment ]; then
+	echo "		the ../../$SIMPLE_DEBUG_VERSION/environment already exist"
+else 
+	echo "		Creating the ../../$SIMPLE_DEBUG_VERSION/environment directory"
+	mkdir "../../$SIMPLE_DEBUG_VERSION/environment"
+fi
 
+#modular
+	echo "		~modular"
+if [ -e ../../environment/modular/modular.sim ]; then
+	echo "		Copying modular to ../../$SIMPLE_DEBUG_VERSION/environment folder"
+	cp "../../environment/modular/modular.sim" "../../$SIMPLE_DEBUG_VERSION/environment"
+else
+	echo "		../../environment/modular/modular.sim cannot be found"
+	echo "		skipping modular"
+fi
 
-
+#repl
+	echo "		~repl"
+if [ -e ../../environment/modular/SimpleRepl.sim ]; then
+	echo "		Copying SimpleRepl.sim to ../../$SIMPLE_DEBUG_VERSION/environment folder"
+	cp "../../environment/repl/SimpleRepl.sim" "../../$SIMPLE_DEBUG_VERSION/environment"
+else
+	echo "		../../environment/modular/modular.sim cannot be found"
+	echo "		skipping modular"
+fi
 
 
 
