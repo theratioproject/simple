@@ -1,3 +1,16 @@
+#Build simple for LINUX
+#
+#There is no tool or dependency needed on a typical linux
+#installation. To build the simple.so and simple change your
+#directory to the simple/src/makefiles/ folder 
+#
+#user $ cd simple/src/makefiles/  
+#
+#This is to ensure That the output generated are in 
+#appropriate `dist` folder in modules folder. 
+#Execute the below command in your command prompt of bash
+#
+#simple/src/makefiles/ $ make -f Makefile-Linux.mk
 
 # Flags
 CFLAGS= -c -fpic -g

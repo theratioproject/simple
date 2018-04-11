@@ -1,5 +1,5 @@
-#Build simple `Dynamic Modules` for WINDOWS 
-# PARSER
+#Build simple for WINDOWS 
+# SIMPLE
 #
 #Tools Needed
 #	MINGWN 
@@ -8,13 +8,13 @@
 #a custome make file. The below command is for a typical 
 #make in the MINGW Toolchain
 #
-#cd to the modules/dynamic_modules/parser/  folder. 
+#user $ cd simple/src/makefiles/   
 #
 #This is to ensure That the output generated are in 
 #appropriate `dist` folder in modules folder. 
 #Execute the below command in your command prompt of bash
 #
-#modules/dynamic_modules/parser/ $ make -f Makefile-Windows.mk
+#simple/src/makefiles/ $ make -f Makefile-Windows.mk
 
 # Environment
 MKDIR=mkdir
@@ -179,13 +179,13 @@ ${OBJECTDIR}/simple.o: ../simple.c
 #If this make file does not work on your Windows PC or you use 
 #alternative compiler e.g Visual Studio, Cygwin e.t.c feel free to 
 #write your own Makefile and send us a pull request at 
-#https://github.com/simple-lang/modules . Your make file must follow 
+#https://github.com/simple-lang/simple . Your make file must follow 
 #the below format for request to be accepted
 #
 #File-Name : Makefile-Windows-{Compiler}-{WindowsVersion}.mk
 #
 #e.g Makefile-Windows-cygwin-Windows8.mk
 #
-#looking forward to your contribution
+#looking forward to your contributions
 #Thank You
 
