@@ -2,7 +2,7 @@
 
 SIMPLE_DEBUG_VERSION=s0.3.302-debug
 
-if [ -e ../src/makefiles/Makefile-Linux.mk s]; then 
+if [ -e ../src/makefiles/Makefile-Linux.mk ]; then 
 	cd ../src/makefiles
 	echo "SIMPLE $SIMPLE_DEBUG_VERSION build"
 	echo "		Building simple and simple.so"
