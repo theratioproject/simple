@@ -11,21 +11,13 @@ program_LIBRARIES :=
 CPPFLAGS += $(foreach includedir,$(program_INCLUDE_DIRS),-I$(includedir))
 LDFLAGS += $(foreach librarydir,$(program_LIBRARY_DIRS),-L$(librarydir))
 LDFLAGS += $(foreach library,$(program_LIBRARIES),-l$(library))
-
-.PHONY: all clean distclean
-
+ 
 all: $(program_NAME)
 
 $(program_NAME): $(program_OBJS)
-	$(CC) -dynamiclib *.o -o simple.dylib
-	$(CC) ../simple.c -id simple.dylib
+	$(CC) -dynamiclib ../../sources/*.c -o simple.dylib
+	$(CC) ../../simple.c -id simple.dylib
 	rm -rf *.o
 	mkdir -p ../../dist
-	mv "./simple.dylib" "../../dist/simple.dylib"
-	mv "./a.out" "../../dist/simple"
-
-clean:
-	@- $(RM) $(program_NAME)
-	@- $(RM) $(program_OBJS)
-
-distclean: clean
+	mv "./simple.dylib" "../../../dist/simple.dylib"
+	mv "./a.out" "../../../dist/simple"
