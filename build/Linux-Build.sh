@@ -155,11 +155,31 @@ if [ -e ../../environment/modular/SimpleRepl.sim ]; then
 	echo "		Copying SimpleRepl.sim to ../../$SIMPLE_DEBUG_VERSION/environment folder"
 	cp "../../environment/repl/SimpleRepl.sim" "../../$SIMPLE_DEBUG_VERSION/environment"
 else
-	echo "		../../environment/modular/modular.sim cannot be found"
-	echo "		skipping modular"
+	echo "		../../environment/repl/SimpleRepl.sim cannot be found"
+	echo "		skipping repl"
 fi
 
+#SimplePad
+	echo "		~simplepad"
+if [ -e ../../environment/simplepad/SimplePad.sim ]; then
+	echo "		Copying SimplePad.sim to ../../$SIMPLE_DEBUG_VERSION/environment folder"
+	cp "../../environment/simplepad/SimplePad.sim" "../../$SIMPLE_DEBUG_VERSION/environment"
+else
+	echo "		../../environment/simplepad/SimplePad.sim cannot be found"
+	echo "		skipping simplepad"
+fi
 
+#smake (undone)
+
+#spider
+	echo "		~spider"
+if [ -e ../../environment/spider/spider.sim ]; then
+	echo "		Copying spider.sim to ../../$SIMPLE_DEBUG_VERSION/environment folder"
+	cp "../../environment/spider/spider.sim" "../../$SIMPLE_DEBUG_VERSION/environment"
+else
+	echo "		../../environment/spider/spider.sim cannot be found"
+	echo "		skipping spider"
+fi
 
 
 
