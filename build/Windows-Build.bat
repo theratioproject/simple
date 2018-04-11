@@ -18,31 +18,6 @@ if exist "../src/makefiles/Makefile-Windows.mk" (
 	echo 		Skipping simple Build
 )
 
-REM BULDING DYNAMIC LIBRARIES
-
-	echo `
-	echo 	Building Dynamic modules
-	
-if exist "../../modules" (
-	cd "../../modules"
-	echo			Modules repository detected
-	if exist "./dynamic_modules/Makefile-Windows.mk" (
-		cd ./dynamic_modules
-		echo		Starting Build...
-		make -f Makefile-Windows.mk
-		cd ../
-	) else (
-		echo 		dynamic_modules folder does not exist
-		echo 		Kindly Clone the modules repository again
-	)
-	cd ../simple/build
-) else (
-	echo 		modules repository does not exist
-	echo 		Clone the repository in the same folder as simple repository
-	echo 		if you want to build them else ignore
-	echo 		if ignored only the simple.exe and simple.dll will be built
-)
-
 REM simple.exe and simple.dll has been successful create and copy executable to s0.3.302-debug folder
 	echo `
 	echo 	Copying Executable and building s0.3.302-debug
@@ -63,6 +38,31 @@ if exist "../src/dist/simple.exe" (
 	echo 		Build fails simple.exe and simple.dll cannot be found
 	echo 		in the ../src/dist/ folder try rebuilding again if it
 	echo 		fails again run the build individually
+)
+
+REM BULDING DYNAMIC LIBRARIES
+
+	echo `
+	echo 	Building Dynamic modules
+	
+if exist "../../modules" (
+	cd "../../modules"
+	echo			Modules repository detected
+	if exist "./dynamic_modules/makefiles/Makefile-Windows.mk" (
+		cd ./makefiles/dynamic_modules
+		echo		Starting Build...
+		make -f Makefile-Windows.mk
+		cd ../
+	) else (
+		echo 		dynamic_modules folder does not exist
+		echo 		Kindly Clone the modules repository again
+	)
+	cd ../../simple/build
+) else (
+	echo 		modules repository does not exist
+	echo 		Clone the repository in the same folder as simple repository
+	echo 		if you want to build them else ignore
+	echo 		if ignored only the simple.exe and simple.dll will be built
 )
 
 REM the dynamic libraries has been successful generated now copy them to s0.3.302-debug folder
