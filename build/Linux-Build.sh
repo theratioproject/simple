@@ -70,7 +70,7 @@ else
 	mkdir -p "../../$SIMPLE_DEBUG_VERSION/modules/dynamic_modules"
 fi
 
-if [ -e ../../modules/dynamic_modules/dist/systemic.dll ]; then
+if [ -e ../../modules/dynamic_modules/dist/systemic.so ]; then
 	echo "		Copying dynamic_modules to ../../$SIMPLE_DEBUG_VERSION/modules/dynamic_modules"
 	cp ../../modules/dynamic_modules/dist/*.so ../../$SIMPLE_DEBUG_VERSION/modules/dynamic_modules
 else
