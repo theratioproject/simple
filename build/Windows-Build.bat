@@ -115,7 +115,7 @@ REM libcurl.dll
 	echo 		`libcurl.dll
 if exist "../../modules/dynamic_modules/networker/lib/libcurl.dll" (
 	echo 		Copying libcurl.dll to ../../s0.3.302-debug/bin folder
-	cp ../../modules/dynamic_modules/security/lib/libcurl.dll ../../s0.3.302-debug/bin
+	cp ../../modules/dynamic_modules/networker/lib/libcurl.dll ../../s0.3.302-debug/bin
 ) else (
 	echo 		The dependency libcurl.dll cannot be found you can copy it 
 	echo 		in to the ../../s0.3.302-debug/bin folder manually if it is 
