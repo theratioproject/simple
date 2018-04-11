@@ -1,18 +1,10 @@
-program_NAME := simple
-program_LIBRARY := simple.so
-program_C_SRCS := $(wildcard ../sources/*.c)
-program_CXX_SRCS := $(wildcard ../sources/*.cpp)
-program_C_OBJS := .${program_C_SRCS:.c=.o}
-program_CXX_OBJS := ${program_CXX_SRCS:.cpp=.o}
-program_OBJS := ../dist/build/$(program_C_OBJS) $(program_CXX_OBJS)
-program_CFLAGS := -c -fpic -g
-program_LFLAGS := -lm -ldl
-LDFLAGS			= "-Wl,-rpath,../dist"
 
+# Flags
 CFLAGS= -c -fpic -g
 LFlAG= -lm -ldl
 LDFLAGS= "-Wl,-rpath,../dist/"
 
+# Macros
 CND_PLATFORM=
 CND_DLIB_EXT=so
 CND_BUILDDIR=build
@@ -21,8 +13,10 @@ CLEAN_DEBUGDIR=../../../s0.3.302-debug
 BINARYDIR=bin
 SOURCE_DIR=../sources
 
+# Object Directory
 OBJECTDIR=$(CND_DISTDIR)/$(CND_BUILDDIR)/$(CND_PLATFORM)
 
+# Object Files
 OBJECTFILES= \
 	$(OBJECTDIR)/simple_api.o \
 	$(OBJECTDIR)/simple_codegen.o \
@@ -48,6 +42,10 @@ OBJECTFILES= \
 	${OBJECTDIR}/simple_vmstate.o \
 	${OBJECTDIR}/simple_vmstrindex.o \
 	${OBJECTDIR}/simple_vmvars.o
+	
+# Simple Object File
+SIMPLE_OBJECTFILES= \
+	${OBJECTDIR}/simple.o
 
 $(CND_DISTDIR)/$(CND_PLATFORM)/simple: $(OBJECTFILES)
 	$(CC) -shared -o $(CND_DISTDIR)/simple.$(CND_DLIB_EXT) $(OBJECTFILES)
@@ -134,21 +132,25 @@ $(OBJECTDIR)/simple_vmperformance.o: $(SOURCE_DIR)/simple_vmperformance.c
 	$(CC) $(CFLAGS) $(SOURCE_DIR)/simple_vmperformance.c
 	mv simple_vmperformance.o $(OBJECTDIR)
 
-$(OBJECTDIR)/simple_stmt.o: $(SOURCE_DIR)/simple_stmt.c
-	$(CC) $(CFLAGS) $(SOURCE_DIR)/simple_stmt.c
-	mv simple_stmt.o $(OBJECTDIR)
+$(OBJECTDIR)/simple_vmstackvars.o: $(SOURCE_DIR)/simple_vmstackvars.c
+	$(CC) $(CFLAGS) $(SOURCE_DIR)/simple_vmstackvars.c
+	mv simple_vmstackvars.o $(OBJECTDIR)
 
-$(OBJECTDIR)/simple_stmt.o: $(SOURCE_DIR)/simple_stmt.c
-	$(CC) $(CFLAGS) $(SOURCE_DIR)/simple_stmt.c
-	mv simple_stmt.o $(OBJECTDIR)
+$(OBJECTDIR)/simple_vmstate.o: $(SOURCE_DIR)/simple_vmstate.c
+	$(CC) $(CFLAGS) $(SOURCE_DIR)/simple_vmstate.c
+	mv simple_vmstate.o $(OBJECTDIR)
 
-$(OBJECTDIR)/simple_stmt.o: $(SOURCE_DIR)/simple_stmt.c
-	$(CC) $(CFLAGS) $(SOURCE_DIR)/simple_stmt.c
-	mv simple_stmt.o $(OBJECTDIR)
+$(OBJECTDIR)/simple_vmstrindex.o: $(SOURCE_DIR)/simple_vmstrindex.c
+	$(CC) $(CFLAGS) $(SOURCE_DIR)/simple_vmstrindex.c
+	mv simple_vmstrindex.o $(OBJECTDIR)
 
-$(OBJECTDIR)/simple_stmt.o: $(SOURCE_DIR)/simple_stmt.c
-	$(CC) $(CFLAGS) $(SOURCE_DIR)/simple_stmt.c
-	mv simple_stmt.o $(OBJECTDIR)
+$(OBJECTDIR)/simple.o: $(SOURCE_DIR)/simple.c
+	$(CC) $(CFLAGS) ../simple.c
+	mv simple.o $(OBJECTDIR)
+	
+$(OBJECTDIR)/simple_vmvars.o: $(SOURCE_DIR)/simple_vmvars.c
+	$(CC) $(CFLAGS) $(SOURCE_DIR)/simple_vmvars.c
+	mv simple_vmvars.o $(OBJECTDIR)
 
 clean:
 	@- $(RM) $(OBJECTDIR)/*.o
