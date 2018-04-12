@@ -85,6 +85,18 @@ if exist "../../modules/dynamic_modules/dist/systemic.dll" (
 	echo 		rebuilding if it fails again build individually 
 )
 
+REM fulltick(GUI) dynamic module
+	echo `
+	echo 	Building of fulltick(GUI) modules not currently supported
+if exist "../../modules/dynamic_modules/fulltick/dist/fulltick.dll" (
+	echo 		Copying fulltick.dll to ../../s0.3.302-debug/bin folder
+	cp ../../modules/dynamic_modules/security/bin/libeay32.dll ../../s0.3.302-debug/bin
+) else (
+	echo 		The dependency libeay32.dll cannot be found you can copy it 
+	echo 		in to the ../../s0.3.302-debug/bin folder manually if it is 
+	echo 		not included in your cloned repository. Download it from reliable source
+)
+
 REM resolve dependencies
 	echo `
 	echo 	Resolving SIMPLE dependencies
