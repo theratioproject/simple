@@ -178,7 +178,7 @@ ${OBJECTDIR}/simple.o: ../simple.c
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/simple.o ../simple.c
 	
 ${OBJECTDIR}/simple.o: ../simplew.c
-	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -mwindows -o ${OBJECTDIR}/simple.o ../simple.c
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -mwindows -o ${OBJECTDIR}/simplew.o ../simplew.c
 
 
 #This Makefile-Windows.mk was written in adaptation to the MINGW
