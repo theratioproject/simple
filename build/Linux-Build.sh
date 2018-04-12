@@ -79,6 +79,8 @@ else
 fi
 
 #Build the fulltick(GUI) dynamic module
+	echo "~"
+	echo "	Building of fulltick(GUI) modules not currently supported"
 
 if [ -e ../../modules/dynamic_modules/fulltick/dist/fulltick.so ]; then
 	echo "		Copying fulltick(GUI) dynamic module to ../../$SIMPLE_DEBUG_VERSION/modules/dynamic_modules"
