@@ -83,7 +83,7 @@ SIMPLEW_OBJECTFILES= \
 # Link Libraries and Options
 LDLIBSOPTIONS=${CND_DISTDIR}/${CND_PLATFORM}/simple.${CND_DLIB_EXT}	
 
-${CND_DISTDIR}/${CND_PLATFORM}/simple.${CND_DEXE_EXT}: ${OBJECTFILES} ${SIMPLE_OBJECTFILES} 
+${CND_DISTDIR}/${CND_PLATFORM}/simple.${CND_DEXE_EXT}: ${OBJECTFILES} ${SIMPLEW_OBJECTFILES} ${SIMPLE_OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_PLATFORM}
 	${LINK.c} -o ${CND_DISTDIR}/${CND_PLATFORM}/simple.${CND_DLIB_EXT} ${OBJECTFILES} -static-libgcc -shared
 	${LINK.c} -o ${CND_DISTDIR}/${CND_PLATFORM}/simplew.${CND_DEXE_EXT} ${SIMPLEW_OBJECTFILES} ${LDLIBSOPTIONS}
@@ -177,7 +177,7 @@ ${OBJECTDIR}/sources/simple_vmvars.o: ../sources/simple_vmvars.c
 ${OBJECTDIR}/simple.o: ../simple.c
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/simple.o ../simple.c
 	
-${OBJECTDIR}/simple.o: ../simplew.c
+${OBJECTDIR}/simplew.o: ../simplew.c
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -mwindows -o ${OBJECTDIR}/simplew.o ../simplew.c
 
 
