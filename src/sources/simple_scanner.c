@@ -91,6 +91,13 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
         if (simple_fexists(file_name)) {
             
         } else {
+            char simple_folder[100] ; simple_distro_folder(simple_folder);  char __library_path[200]  ;
+            snprintf(__library_path, sizeof(__library_path), "%s\\modules\\%s", simple_folder,file_name);
+            if (simple_fexists(__library_path)) {
+                strcpy(file_name,__library_path);
+            } else {
+                
+            }
             /** char* SIMPLEPATH = getenv("SIMPLE_PATH"); is_start_file = 0 ;
              if (SIMPLEPATH != NULL) {
                 snprintf(file_name_two, sizeof(file_name_two), "%s/s%s/modules/%s", SIMPLEPATH, SIMPLE_VERSION, file_name);
