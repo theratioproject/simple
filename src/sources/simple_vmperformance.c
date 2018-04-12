@@ -1,4 +1,16 @@
-/* Copyright (c) 2013-2018 Mahmoud Fayed <msfclipper@yahoo.com> */
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/* 
+ * File:   simple.c
+ * Author: thecarisma
+ *
+ * Created on July 24, 2017, 09:31 PM
+ */
+
 #include "../includes/simple.h"
 /* For Better Performance */
 
