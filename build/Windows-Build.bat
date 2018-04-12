@@ -90,11 +90,10 @@ REM fulltick(GUI) dynamic module
 	echo 	Building of fulltick(GUI) modules not currently supported
 if exist "../../modules/dynamic_modules/fulltick/dist/fulltick.dll" (
 	echo 		Copying fulltick.dll to ../../s0.3.302-debug/bin folder
-	cp ../../modules/dynamic_modules/security/bin/libeay32.dll ../../s0.3.302-debug/bin
+	cp ../../modules/dynamic_modules/fulltick/dist/fulltick.dll ../../s0.3.302-debug/modules/dynamic_modules
 ) else (
-	echo 		The dependency libeay32.dll cannot be found you can copy it 
-	echo 		in to the ../../s0.3.302-debug/bin folder manually if it is 
-	echo 		not included in your cloned repository. Download it from reliable source
+	echo 		The fulltick built module cannot be found 
+	echo 		Skipping the GUI module build
 )
 
 REM resolve dependencies
