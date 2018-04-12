@@ -92,7 +92,7 @@ if exist "../../modules/dynamic_modules/fulltick/dist/fulltick.dll" (
 	echo 		Copying fulltick.dll to ../../s0.3.302-debug/bin folder
 	cp ../../modules/dynamic_modules/fulltick/dist/fulltick.dll ../../s0.3.302-debug/modules/dynamic_modules
 ) else (
-	echo 		The fulltick built module cannot be found 
+	echo 		The fulltick.dll built module cannot be found 
 	echo 		Skipping the GUI module build
 )
 

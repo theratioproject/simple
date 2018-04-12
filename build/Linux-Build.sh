@@ -78,6 +78,16 @@ else
 	echo "		rebuild the modules individually to resolve issue"
 fi
 
+#Build the fulltick(GUI) dynamic module
+
+if [ -e ../../modules/dynamic_modules/fulltick/dist/fulltick.so ]; then
+	echo "		Copying fulltick(GUI) dynamic module to ../../$SIMPLE_DEBUG_VERSION/modules/dynamic_modules"
+	cp ../../modules/dynamic_modules/fulltick/dist/fulltick.so ../../$SIMPLE_DEBUG_VERSION/modules/dynamic_modules
+else
+	echo "		The fulltick.so built module cannot be found "
+	echo "		Skipping the GUI module build"
+fi
+
 #Resolve dependency
 #All the current dependencies are built into linux
 
