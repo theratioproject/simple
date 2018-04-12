@@ -55,7 +55,7 @@
 #define SIMPLE_SHOWIC 0
 #define SIMPLE_RUNVM 1
 #define SIMPLE_VMSHOWOPCODE 1
-#define SIMPLE_DEVELOPMENT 1
+#define SIMPLE_DEVELOPMENT 0
 #ifndef NDEBUG
 #define NDEBUG
 #endif
