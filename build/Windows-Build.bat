@@ -33,6 +33,7 @@ if exist "../../s0.3.302-debug/bin/" (
 if exist "../src/dist/simple.exe" (
 	echo 		Copying simple.exe and simple.dll to ../../s0.3.302-debug/bin folder
 	cp ../src/dist/simple.exe ../../s0.3.302-debug/bin
+	cp ../src/dist/simplew.exe ../../s0.3.302-debug/bin
 	cp ../src/dist/simple.dll ../../s0.3.302-debug/bin
 ) else (
 	echo 		Build fails simple.exe and simple.dll cannot be found
