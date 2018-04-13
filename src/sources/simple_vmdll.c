@@ -44,8 +44,8 @@ void simple_vm_dll_loadlib ( void *pointer )
             char simple_folder[100] ; simple_distro_folder(simple_folder); 
             char __library_path[200]  ;
             snprintf(__library_path, sizeof(__library_path), "%s/modules/dynamic_modules/%s", simple_folder,SIMPLE_API_GETSTRING(1));
-			if (simple_fexists(__library_path)) {
-				strcpy(library_path,__library_path);
+            if (simple_fexists(__library_path)) {
+                    strcpy(library_path,__library_path);
             } 
         }
         cDLL = library_path;
