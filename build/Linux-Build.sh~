@@ -152,7 +152,7 @@ fi
 
 #repl
 	echo "		~repl"
-if [ -e ../../environment/repl/SimpleRepl.sim ]; then
+if [ -e ../../environment/modular/SimpleRepl.sim ]; then
 	echo "		Copying SimpleRepl.sim to ../../$SIMPLE_DEBUG_VERSION/environment folder"
 	cp "../../environment/repl/SimpleRepl.sim" "../../$SIMPLE_DEBUG_VERSION/environment"
 else
