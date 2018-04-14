@@ -246,6 +246,11 @@ if exist "../../environment/spider/spider.sim" (
 	echo 		skipping spider
 )
 
+REM build environment programs executable
+
+
+
+
 REM not copying example repository if you want it in the debug folder 
 REM you can copy it manually
 
