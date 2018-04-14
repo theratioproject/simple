@@ -35,6 +35,17 @@ else
 	echo "		ff it ails again run the build individually"
 fi
 
+#copying the includes folder for developers
+	echo "		~includes"
+if [ -e ../src/includes ]; then
+	echo "		Copying includes to ../../$SIMPLE_DEBUG_VERSION/includes folder"
+	cp -R "../src/includes" "../../$SIMPLE_DEBUG_VERSION/includes"
+else
+	echo "		simple includes cannot be found"
+	echo "		The repository appear to be corrupted. Try cloning again"
+	echo "		to resolve the issue"
+fi
+
 #Buld dynamic modules
 	echo "~"
 	echo "	Building Dynamic Modules "
