@@ -46,7 +46,19 @@ void simple_vm_dll_loadlib ( void *pointer )
             snprintf(__library_path, sizeof(__library_path), "%s/modules/dynamic_modules/%s", simple_folder,SIMPLE_API_GETSTRING(1));
             if (simple_fexists(__library_path)) {
                     strcpy(library_path,__library_path);
-            } 
+            } else {
+                //checking using environment variable if SIMPLE_PATH and SIMPLE_MODULE_PATH are set
+				char* simple_env_path = getenv("SIMPLE_PATH");  snprintf(__library_path, sizeof(__library_path), "%s/s%s/modules/dynamic_modules/%s", simple_env_path, SIMPLE_VERSION, SIMPLE_API_GETSTRING(1)); 
+				if (simple_fexists(__library_path)) { strcpy(library_path,__library_path); }
+				else {
+					char* simple_env_path = getenv("SIMPLE_MODULE_PATH"); snprintf(__library_path, sizeof(__library_path), "%s/dynamic_modules/%s", simple_env_path, SIMPLE_API_GETSTRING(1));
+					printf("Modeule : %s\n",__library_path);
+					if (simple_fexists(__library_path)) { strcpy(library_path,__library_path);}
+					else {
+						//find the dynamic module in relative to run folder
+					}
+				} 
+            }
         }
         cDLL = library_path;
         handle = LoadDLL(cDLL);
