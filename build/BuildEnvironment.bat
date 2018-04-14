@@ -16,9 +16,9 @@ if exist "../../s0.3.302-debug/environment/smake.sim" (
 REM Builing SimplePad
 echo 		`SimplePad
 if exist "../../s0.3.302-debug/environment/SimplePad.sim" (
-	if exist ../../simple-arts/environment/SimplePad.ico (
+	if exist ../../simple-arts/environment/simplepad.ico (
 		echo 		Building SimplePad with icon
-		simple ../../s0.3.302-debug/environment/smake.sim -I/../../simple-arts/environment/SimplePad.ico -delete ../../s0.3.302-debug/environment/SimplePad.sim	
+		simple ../../s0.3.302-debug/environment/smake.sim -I/../../simple-arts/environment/simplepad.ico -delete ../../s0.3.302-debug/environment/SimplePad.sim	
 	) else (
 		echo 		Building SimplePad
 		simple ../../s0.3.302-debug/environment/smake.sim -delete ../../s0.3.302-debug/environment/SimplePad.sim
