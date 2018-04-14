@@ -102,10 +102,10 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
 				else {
 					char* simple_env_path = getenv("SIMPLE_MODULE_PATH"); 
 					snprintf(__library_path, sizeof(__library_path), "%s/%s", simple_env_path, file_name);
-					printf("Modeule : %s\n",__library_path);
+					//printf("Modeule : %s\n",__library_path);
 					if (simple_fexists(__library_path)) { strcpy(file_name,__library_path);}
 					else {
-						
+						//find the module in relative to run folder (UNDONE)
 					}
 				} 
             }

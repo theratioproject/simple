@@ -52,10 +52,10 @@ void simple_vm_dll_loadlib ( void *pointer )
 				if (simple_fexists(__library_path)) { strcpy(library_path,__library_path); }
 				else {
 					char* simple_env_path = getenv("SIMPLE_MODULE_PATH"); snprintf(__library_path, sizeof(__library_path), "%s/dynamic_modules/%s", simple_env_path, SIMPLE_API_GETSTRING(1));
-					printf("Modeule : %s\n",__library_path);
+					//printf("Modeule : %s\n",__library_path);
 					if (simple_fexists(__library_path)) { strcpy(library_path,__library_path);}
 					else {
-						//find the dynamic module in relative to run folder
+						//find the dynamic module in relative to run folder (UNDONE)
 					}
 				} 
             }
