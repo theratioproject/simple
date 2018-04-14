@@ -43,6 +43,17 @@ if exist "../src/dist/simple.exe" (
 	echo 		fails again run the build individually
 )
 
+REM COPY THE INCLUDE DIRECTORY	
+	echo 		`copying includes folder for developers
+if exist "../src/includes" (
+	echo 		Copying includes to ../../%SIMPLE_DEBUG_VERSION%/ folder
+	xcopy "../src/includes" "../../%SIMPLE_DEBUG_VERSION%/includes" /s /h /e /i /k /f /c
+) else (
+	echo 		The includes folder cannot be found
+	echo 		The repository appears to be currupted. Try clonning
+	echo 		the simple repository again to resolve the issue
+)
+
 REM BULDING DYNAMIC LIBRARIES
 
 	echo `
