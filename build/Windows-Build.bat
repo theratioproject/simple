@@ -219,14 +219,22 @@ REM simplepad
 if exist "../../environment/simplepad/SimplePad.sim" (
 	echo 		Copying simplepad to ../../s0.3.302-debug/environment folder
 	cp ../../environment/simplepad/SimplePad.sim ../../s0.3.302-debug/environment
-	cp ../../environment/simplepad/runwindows.bat ../../s0.3.302-debug/environment
-	cp ../../environment/simplepad/debugwindows.bat ../../s0.3.302-debug/environment
+	REM cp ../../environment/simplepad/runwindows.bat ../../s0.3.302-debug/environment
+	REM cp ../../environment/simplepad/debugwindows.bat ../../s0.3.302-debug/environment
 ) else (
 	echo 		../../environment/simplepad/SimplePad.sim cannot be found
 	echo 		skipping simplepad
 )
 
-REM smake (undone)
+REM smake 
+echo 		`smake
+if exist "../../environment/smake/smake.sim" (
+	echo 		Copying smake to ../../s0.3.302-debug/environment folder
+	cp ../../environment/smake/smake.sim ../../s0.3.302-debug/environment
+) else (
+	echo 		../../environment/smake/SimplePad.sim cannot be found
+	echo 		skipping smake
+)
 
 REM spider
 	echo 		`spider
