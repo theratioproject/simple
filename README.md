@@ -28,18 +28,13 @@ This is quite the easiest installation. Download the windows type file from [her
 After downloading simple from either methods listed above, unzip/move into the SIMPLE folder from your console and follow the instructions below.
 ```sh
 # Copy make file from bootsrc/makefiles/inux to sources
-$ cp bootsrc/makefiles/linux/Makefile bootsrc/sources
+$ cd build && chmod +x Linux-Build.sh
 # install simple with the "make" command.
-$ make
+$ ./Linux-build.sh
 ```
-Wait for a few moments, probably a minute. The make file installs simple in a folder *dist* located in the **bootsrc** folder. start the SIMPLE compiler with the command 
+Wait for a few moments, probably a minute. The make file installs simple in a folder *dist* located in the **src** folder. start the SIMPLE compiler with the command 
 ```sh
-./simple
-```
-##### Got an error ?
-Was there an error stating **simple.so** couldn't be found ?. Use this command every time once you're in the folder via the console.
-```sh
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:./
+$ simple
 ```
 ##### Unable to add to global path.
 Sadly, we're working on that issue and a fix will be issued in the next release.
@@ -47,11 +42,9 @@ Sadly, we're working on that issue and a fix will be issued in the next release.
 #### Installing on Mac
 To install on Mac, the same procedures are followed but some small differences. Steps to install..
 After downloading the Mac package, navigate to the home folder of SIMPLE and run commands.
+The makefile for Mac is under testing and further instructions will be disbursed later.
 ```sh
-# Copy make file from bootsrc/makefiles/inux to sources
-$ cp bootsrc/makefiles/mac/Makefile bootsrc/sources
-# install simple with the "make" command.
-$ make
+
 ```
 Boom, we have simple installed.
 
