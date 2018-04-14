@@ -5,8 +5,7 @@ echo off
 	
 REM Confirm smake is present
 if exist "../../s0.3.302-debug/environment/smake.sim" (
-	echo 		Smake Found. yea Starting Build..
-	simple smake.sim -I/window.ico ../../backup/smake/SimpleRepl.sim
+	echo 		Smake Found. yea Starting Build...
 ) else (
 	echo 		smake.sim cannot be found
 	echo 		no smake no build bye
@@ -17,8 +16,13 @@ if exist "../../s0.3.302-debug/environment/smake.sim" (
 REM Builing SimplePad
 echo 		`SimplePad
 if exist "../../s0.3.302-debug/environment/SimplePad.sim" (
-	echo 		Building SimplePad
-	
+	if exist ../../simple-arts/environment/SimplePad.ico (
+		echo 		Building SimplePad with icon
+		simple ../../s0.3.302-debug/environment/smake.sim -I/../../simple-arts/environment/SimplePad.ico -delete ../../s0.3.302-debug/environment/SimplePad.sim	
+	) else (
+		echo 		Building SimplePad
+		simple ../../s0.3.302-debug/environment/smake.sim -delete ../../s0.3.302-debug/environment/SimplePad.sim
+	)
 ) else (
 	echo 		../../s0.3.302-debug/environment/SimplePad.sim cannot be found
 	echo 		skipping SimplePad
