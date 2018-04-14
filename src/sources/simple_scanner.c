@@ -97,9 +97,12 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
                 strcpy(file_name,__library_path);
             } else {
                 //checking using environment variable if SIMPLE_PATH and SIMPLE_MODULE_PATH are set
-				char* simple_env_path = getenv("SIMPLE_PATH"); 
-				snprintf(__library_path, sizeof(__library_path), "%s/s%s/modules/%s", simple_env_path, SIMPLE_VERSION, file_name);
-				printf("Modeule : %s\n",__library_path);
+				char* simple_env_path = getenv("SIMPLE_PATH");  snprintf(__library_path, sizeof(__library_path), "%s/s%s/modules/%s", simple_env_path, SIMPLE_VERSION, file_name); 
+				if (!simple_fexists(__library_path)) {
+					char* simple_env_path = getenv("SIMPLE_MODULE_PATH"); 
+					snprintf(__library_path, sizeof(__library_path), "%s/%s", simple_env_path, file_name);
+					printf("Modeule : %s\n",__library_path);
+				} 
             }
             /** char* SIMPLEPATH = getenv("SIMPLE_PATH"); is_start_file = 0 ;
              if (SIMPLEPATH != NULL) {
