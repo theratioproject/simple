@@ -321,6 +321,37 @@ if exist "../../%SIMPLE_DEBUG_VERSION%/environment/SimpleRepl.sim" (
 	echo 		skipping SimpleRepl
 )
 
+REM Building modular
+echo 		`modular
+if exist "../../%SIMPLE_DEBUG_VERSION%/environment/modular.sim" (
+	if exist ../../simple-arts/environment/modular.ico (
+		echo 		Building modular with icon
+		%SIMPLE% %SMAKE% -I/../../simple-arts/environment/simpleprepl.ico -delete ../../%SIMPLE_DEBUG_VERSION%/environment/modular.sim	
+	) else (
+		echo 		Building modular
+		%SIMPLE% %SMAKE% -delete ../../%SIMPLE_DEBUG_VERSION%/environment/modular.sim
+	)
+) else (
+	echo 		../../%SIMPLE_DEBUG_VERSION%/environment/modular.sim cannot be found
+	echo 		skipping modular
+)
+
+REM Building spider
+echo 		`spider
+if exist "../../%SIMPLE_DEBUG_VERSION%/environment/spider.sim" (
+	if exist ../../simple-arts/environment/spider.ico (
+		echo 		Building spider with icon
+		%SIMPLE% %SMAKE% -I/../../simple-arts/environment/simpleprepl.ico -delete ../../%SIMPLE_DEBUG_VERSION%/environment/spider.sim	
+	) else (
+		echo 		Building spider
+		%SIMPLE% %SMAKE% -delete ../../%SIMPLE_DEBUG_VERSION%/environment/spider.sim
+	)
+) else (
+	echo 		../../%SIMPLE_DEBUG_VERSION%/environment/spider.sim cannot be found
+	echo 		skipping spider
+)
+
+REM Building smake should be the last build or first whatever ok ok last is better
 REM Building SMAKE
 echo 		`Smake
 if exist "../../%SIMPLE_DEBUG_VERSION%/environment/smake.sim" (
