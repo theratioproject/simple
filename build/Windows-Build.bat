@@ -299,7 +299,7 @@ if exist "../../%SIMPLE_DEBUG_VERSION%/environment/SimplePad.sim" (
 		%SIMPLE% %SMAKE% -I/../../simple-arts/environment/simplepad.ico -gui -delete ../../%SIMPLE_DEBUG_VERSION%/environment/SimplePad.sim	
 	) else (
 		echo 		Building SimplePad
-		%SIMPLE% %SMAKE% -delete ../../%SIMPLE_DEBUG_VERSION%/environment/SimplePad.sim
+		%SIMPLE% %SMAKE% -gui -delete ../../%SIMPLE_DEBUG_VERSION%/environment/SimplePad.sim
 	)
 ) else (
 	echo 		../../%SIMPLE_DEBUG_VERSION%/environment/SimplePad.sim cannot be found
