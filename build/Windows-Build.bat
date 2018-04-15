@@ -322,18 +322,18 @@ if exist "../../%SIMPLE_DEBUG_VERSION%/environment/SimpleRepl.sim" (
 )
 
 REM Building SMAKE
-echo 		`SimpleRepl
+echo 		`Smake
 if exist "../../%SIMPLE_DEBUG_VERSION%/environment/smake.sim" (
 	if exist ../../simple-arts/environment/smake.ico (
-		echo 		Building SimpleRepl with icon
-		%SIMPLE% %SMAKE% -I/../../simple-arts/environment/simpleprepl.ico -delete ../../%SIMPLE_DEBUG_VERSION%/environment/SimpleRepl.sim	
+		echo 		Building smake with icon
+		%SIMPLE% %SMAKE% -I/../../simple-arts/environment/smake.ico -delete ../../%SIMPLE_DEBUG_VERSION%/environment/smake.sim	
 	) else (
-		echo 		Building SimpleRepl
-		%SIMPLE% %SMAKE% -delete ../../%SIMPLE_DEBUG_VERSION%/environment/SimpleRepl.sim
+		echo 		Building smake
+		%SIMPLE% %SMAKE% -delete ../../%SIMPLE_DEBUG_VERSION%/environment/smake.sim
 	)
 ) else (
-	echo 		../../%SIMPLE_DEBUG_VERSION%/environment/SimpleRepl.sim cannot be found
-	echo 		skipping SimpleRepl
+	echo 		../../%SIMPLE_DEBUG_VERSION%/environment/smake.sim cannot be found
+	echo 		skipping smake
 )
 
 
