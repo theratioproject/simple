@@ -971,6 +971,7 @@ SIMPLE_API void simple_vm_runcode ( VM *vm,const char *cStr )
 	nRetEvalDontDelete = vm->nRetEvalDontDelete ;
 	simple_vm_mutexlock(vm);
 	vm->nEvalCalledFromSimpleCode = 1 ;
+	printf("The counter 3 : %i\n",vm->sState->argc);
 	/* Check removing the new byte code */
 	if ( vm->nRunCode != 1 ) {
 		/* We have nested events that call this block */
