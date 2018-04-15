@@ -1227,7 +1227,7 @@ void simple_vm_addglobalvariables ( VM *vm )
 	simple_list_setint_gc(vm->sState,list,SIMPLE_VAR_TYPE,SIMPLE_VM_LIST);
 	simple_list_setlist_gc(vm->sState,list,SIMPLE_VAR_VALUE);
 	list = simple_list_getlist(list,SIMPLE_VAR_VALUE);
-            printf("The count : %s\n",vm->sState->argc);
+            printf("The count : %i\n",vm->sState->argc);
 	for ( x = 0 ; x < vm->sState->argc ; x++ ) {
 		simple_list_addstring_gc(vm->sState,list,vm->sState->argv[x]);
 	}
