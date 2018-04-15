@@ -335,7 +335,6 @@ void simple_vm_mainloop ( VM *vm )
 		}
 	} while (vm->nPC <= simple_list_getsize(vm->pCode))  ;
 	#endif
-        printf("The counter 16 : %i\n",vm->sState->argc);
 }
 
 void simple_vm_fetch ( VM *vm )
