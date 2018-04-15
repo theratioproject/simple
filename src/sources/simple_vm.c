@@ -342,6 +342,7 @@ void simple_vm_fetch ( VM *vm )
 	vm->pByteCodeIR = vm->pByteCode + vm->nPC - 1 ;
 	vm->nOPCode = SIMPLE_VM_IR_OPCODE ;
 	vm->nPC++ ;
+                printf("The counter 16 : %i\n",vm->sState->argc);
 	simple_vm_execute(vm);
 	if ( vm->nsp > SIMPLE_VM_STACK_CHECKOVERFLOW ) {
 		simple_vm_error(vm,SIMPLE_VM_ERROR_STACKOVERFLOW);
@@ -982,7 +983,7 @@ SIMPLE_API void simple_vm_runcode ( VM *vm,const char *cStr )
 	if ( nRunVM ) {
 		vm->nBlockExecute = 0 ;
 		vm->nBlockExecute2 = 0 ;
-		//simple_vm_mainloop(vm);
+		simple_vm_mainloop(vm);
 	}
 	/* Restore state to take in mind nested events execution */
 	vm->nRunCode-- ;
