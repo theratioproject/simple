@@ -321,6 +321,21 @@ if exist "../../%SIMPLE_DEBUG_VERSION%/environment/SimpleRepl.sim" (
 	echo 		skipping SimpleRepl
 )
 
+REM Building SMAKE
+echo 		`SimpleRepl
+if exist "../../%SIMPLE_DEBUG_VERSION%/environment/smake.sim" (
+	if exist ../../simple-arts/environment/smake.ico (
+		echo 		Building SimpleRepl with icon
+		%SIMPLE% %SMAKE% -I/../../simple-arts/environment/simpleprepl.ico -delete ../../%SIMPLE_DEBUG_VERSION%/environment/SimpleRepl.sim	
+	) else (
+		echo 		Building SimpleRepl
+		%SIMPLE% %SMAKE% -delete ../../%SIMPLE_DEBUG_VERSION%/environment/SimpleRepl.sim
+	)
+) else (
+	echo 		../../%SIMPLE_DEBUG_VERSION%/environment/SimpleRepl.sim cannot be found
+	echo 		skipping SimpleRepl
+)
+
 
 REM not copying example repository if you want it in the debug folder 
 REM you can copy it manually
