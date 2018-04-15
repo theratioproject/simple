@@ -764,6 +764,7 @@ SIMPLE_API int simple_vm_exec ( VM *vm,const char *cStr )
 	Scanner *scanner  ;
 	int aPara[3]  ;
 	ByteCode *pByteCode  ;
+        printf("The counter 14 : %i\n",vm->sState->argc);
 	nSize = strlen( cStr ) ;
 	if ( nSize == 0 ) {
 		return 0 ;
@@ -976,9 +977,7 @@ SIMPLE_API void simple_vm_runcode ( VM *vm,const char *cStr )
 		/* We have nested events that call this block */
 		vm->nRetEvalDontDelete = 1 ;
 	}
-                printf("The counter 12 : %i\n",vm->sState->argc);
-	//nRunVM = simple_vm_exec(vm,cStr);
-                printf("The counter 13 : %i\n",vm->sState->argc);
+	nRunVM = simple_vm_exec(vm,cStr);
 	vm->nEvalCalledFromSimpleCode = 0 ;
 	simple_vm_mutexunlock(vm);
 	if ( nRunVM ) {
