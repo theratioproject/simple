@@ -984,21 +984,17 @@ SIMPLE_API void simple_vm_runcode ( VM *vm,const char *cStr )
 		vm->nBlockExecute2 = 0 ;
 		simple_vm_mainloop(vm);
 	}
-	printf("The counter 4 : %i\n",vm->sState->argc);
 	/* Restore state to take in mind nested events execution */
 	vm->nRunCode-- ;
 	vm->nEvalReturnPC = nEvalReturnPC ;
 	vm->nEvalReallocationFlag = nEvalReallocationFlag ;
 	vm->nPC = nPC ;
-	printf("The counter 5 : %i\n",vm->sState->argc);
 	if ( vm->nRunCode != 0 ) {
 		/* It's a nested event (Here we don't care about the output and we can restore the stack) */
 		simple_vm_restorestack(vm,pStackList);
 	}
 	/* Here we free the list because, restorestack() don't free it */
-	printf("The counter 6 : %i\n",vm->sState->argc);
 	simple_list_delete_gc(vm->sState,pStackList);
-	printf("The counter 7 : %i\n",vm->sState->argc);
 	/* Restore Stack to avoid Stack Overflow */
 	vm->nsp = nsp ;
 	vm->nBlockSP = nBlockSP ;
