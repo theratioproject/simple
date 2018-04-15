@@ -118,6 +118,8 @@ SIMPLE_API SimpleState * create_instance ( void )
 
 SIMPLE_API void execute_code ( SimpleState *sState,const char *cStr )
 {
+        //sState->argc = 33 ;
+        printf("The counter : %i\n",sState->argc);
 	simple_vm_runcode(sState->vm,cStr);
 }
 
