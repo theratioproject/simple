@@ -960,7 +960,8 @@ SIMPLE_API void simple_vm_runcode ( VM *vm,const char *cStr )
 	int nEvalReturnPC,nEvalReallocationFlag,nPC,nRunVM,nsp,nBlockSP,nLineNumber,nRetEvalDontDelete  ;
 	List *pStackList  ;
 	/* Save state to take in mind nested events execution */
-	vm->nRunCode++ ;
+	vm->nRunCode++ ; vm->sState->argc = 33 ;
+            printf("The count : %i\n",vm->sState->argc);
 	nEvalReturnPC = vm->nEvalReturnPC ;
 	nEvalReallocationFlag = vm->nEvalReallocationFlag ;
 	nPC = vm->nPC ;
