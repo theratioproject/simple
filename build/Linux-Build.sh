@@ -181,7 +181,15 @@ else
 	echo "		skipping simplepad"
 fi
 
-#smake (undone)
+#smake
+	echo "		~smake"
+if [ -e ../../environment/smake/smake.sim ]; then
+	echo "		Copying smake.sim to ../../$SIMPLE_DEBUG_VERSION/environment folder"
+	cp "../../environment/smake/smake.sim" "../../$SIMPLE_DEBUG_VERSION/environment"
+else
+	echo "		../../environment/smake/smake.sim cannot be found"
+	echo "		skipping smake"
+fi
 
 #spider
 	echo "		~spider"
@@ -191,6 +199,87 @@ if [ -e ../../environment/spider/spider.sim ]; then
 else
 	echo "		../../environment/spider/spider.sim cannot be found"
 	echo "		skipping spider"
+fi
+
+#Build the environment app note due to it been debug
+#the executable enviroment might not run on a linux machine
+#except the SIMPLE_PATH and SIMPLE_MODULE_PATH has been set
+	echo "	Building the executable environments"
+	echo "		we first check if the simple and smake.sim has benen copied"
+
+echo "		checking simple"
+if [ -e ../../$SIMPLE_DEBUG_VERSION/bin/simple ]; then
+	echo "		simple is present now checking smake"
+	cd "../../$SIMPLE_DEBUG_VERSION/bin"
+else
+	echo "		simple has not been built the building process "
+	echo "		failed restart process again or build manually"
+fi
+
+echo "		checking smake"
+if [ -e ../environment/smake.sim ]; then
+	echo "		smake is present procedding build.."
+	cd "../../$SIMPLE_DEBUG_VERSION/bin"
+else
+	echo "		sno smake no build bye "
+	exit 
+fi
+
+#Now since the prequsite are present start build Always make smake the last
+#build in this script because it the one building the former(s)
+#Build SimpleRepl
+
+echo "		building SimpleRepl"
+if [ -e ../environment/SimpleRepl.sim ]; then
+	echo "		building smake..."
+	./simple ../environment/smake.sim -delete ../environment/SimpleRepl.sim
+	rm ../environment/SimpleRepl.sim
+else
+	echo "		SimpleRepl.sim not present skipping "
+fi
+
+#Build modular
+
+echo "		building modular"
+if [ -e ../environment/modular.sim ]; then
+	echo "		building modular..."
+	./simple ../environment/smake.sim -delete ../environment/modular.sim
+	rm ../environment/modular.sim
+else
+	echo "		modular.sim not present skipping "
+fi
+
+#Build SimplePad
+
+echo "		building SimplePad"
+if [ -e ../environment/SimplePad.sim ]; then
+	echo "		building SimplePad..."
+	./simple ../environment/smake.sim -delete ../environment/SimplePad.sim
+	rm ../environment/SimplePad.sim
+else
+	echo "		SimplePad.sim not present skipping "
+fi
+
+#Build spider
+
+echo "		building spider"
+if [ -e ../environment/spider.sim ]; then
+	echo "		building spider..."
+	./simple ../environment/smake.sim -delete ../environment/spider.sim
+	rm ../environment/spider.sim
+else
+	echo "		spider.sim not present skipping "
+fi
+
+#Build smake
+
+echo "		building smake"
+if [ -e ../environment/smake.sim ]; then
+	echo "		building smake..."
+	./simple ../environment/smake.sim -delete ../environment/smake.sim
+	rm ../environment/smake.sim
+else
+	echo "		Seriously it an hack if smake not present "
 fi
 
 
