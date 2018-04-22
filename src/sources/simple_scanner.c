@@ -68,22 +68,22 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
 	int nCont,nRunVM,nFreeFilesList = 0 ;
 	char start_up[30]  ;
 	int x,nSize  ;
-	char file_name_two[200]  ;
-        int is_start_file = 1 ;
+	char file_name_two[200]  ; char logable_name[30] ; strcpy(logable_name,file_name); simple_justfilename(logable_name) ;
+        int is_start_file = 1 ; 
 	/* Check file */
 	if ( sState->files_list == NULL ) {
 		sState->files_list = simple_list_new_gc(sState,0);
 		sState->files_stack = simple_list_new_gc(sState,0);
-		simple_list_addstring_gc(sState,sState->files_list,file_name);
-		simple_list_addstring_gc(sState,sState->files_stack,file_name);
+		simple_list_addstring_gc(sState,sState->files_list,logable_name);
+		simple_list_addstring_gc(sState,sState->files_stack,logable_name);
 		nFreeFilesList = 1 ;
 	} else {
-		if ( simple_list_findstring(sState->files_list,file_name,0) == 0 ) {
-			simple_list_addstring_gc(sState,sState->files_list,file_name);
-			simple_list_addstring_gc(sState,sState->files_stack,file_name);
+		if ( simple_list_findstring(sState->files_list,logable_name,0) == 0 ) {
+			simple_list_addstring_gc(sState,sState->files_list,logable_name);
+			simple_list_addstring_gc(sState,sState->files_stack,logable_name);
 		} else {
 			if ( sState->nWarning ) {
-				printf( "\nWarning, Duplication in FileName, %s \n",file_name ) ;
+				printf( "\nWarning, Duplication in FileName, %s \n",logable_name ) ;
 			}
 			return 1 ;
 		}
