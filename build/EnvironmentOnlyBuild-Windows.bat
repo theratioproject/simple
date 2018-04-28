@@ -1,4 +1,7 @@
 REM ENVIRONMENT PROGRAMS
+
+SET SIMPLE_DEBUG_VERSION="s0.3.302-debug"
+
 REM move the environment to %SIMPLE_DEBUG_VERSION% folder
 	echo `
 	echo 	Copying Environment Programs to %SIMPLE_DEBUG_VERSION%
