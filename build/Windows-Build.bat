@@ -219,23 +219,23 @@ if exist "../../environment/modular/modular.sim" (
 
 REM repl
 	echo 		`repl
-if exist "../../environment/repl/SimpleRepl.sim" (
+if exist "../../environment/repl/simplerepl.sim" (
 	echo 		Copying repl to ../../%SIMPLE_DEBUG_VERSION%/environment folder
-	cp ../../environment/repl/SimpleRepl.sim ../../%SIMPLE_DEBUG_VERSION%/environment
+	cp ../../environment/repl/simplerepl.sim ../../%SIMPLE_DEBUG_VERSION%/environment
 ) else (
-	echo 		../../environment/repl/SimpleRepl.sim cannot be found
+	echo 		../../environment/repl/simplerepl.sim cannot be found
 	echo 		skipping repl
 )
 
 REM simplepad
 	echo 		`simplepad
-if exist "../../environment/simplepad/SimplePad.sim" (
+if exist "../../environment/simplepad/simplepad.sim" (
 	echo 		Copying simplepad to ../../%SIMPLE_DEBUG_VERSION%/environment folder
-	cp ../../environment/simplepad/SimplePad.sim ../../%SIMPLE_DEBUG_VERSION%/environment
+	cp ../../environment/simplepad/simplepad.sim ../../%SIMPLE_DEBUG_VERSION%/environment
 	REM cp ../../environment/simplepad/runwindows.bat ../../%SIMPLE_DEBUG_VERSION%/environment
 	REM cp ../../environment/simplepad/debugwindows.bat ../../%SIMPLE_DEBUG_VERSION%/environment
 ) else (
-	echo 		../../environment/simplepad/SimplePad.sim cannot be found
+	echo 		../../environment/simplepad/simplepad.sim cannot be found
 	echo 		skipping simplepad
 )
 
@@ -245,7 +245,7 @@ if exist "../../environment/smake/smake.sim" (
 	echo 		Copying smake to ../../%SIMPLE_DEBUG_VERSION%/environment folder
 	cp ../../environment/smake/smake.sim ../../%SIMPLE_DEBUG_VERSION%/environment
 ) else (
-	echo 		../../environment/smake/SimplePad.sim cannot be found
+	echo 		../../environment/smake/simplepad.sim cannot be found
 	echo 		skipping smake
 )
 
@@ -255,7 +255,7 @@ if exist "../../environment/spider/spider.sim" (
 	echo 		Copying spider to ../../%SIMPLE_DEBUG_VERSION%/environment folder
 	cp ../../environment/spider/spider.sim ../../%SIMPLE_DEBUG_VERSION%/environment
 ) else (
-	echo 		../../environment/spider/SimplePad.sim cannot be found
+	echo 		../../environment/spider/simplepad.sim cannot be found
 	echo 		skipping spider
 )
 
@@ -291,34 +291,34 @@ if exist "../../%SIMPLE_DEBUG_VERSION%/environment/smake.sim" (
 	exit 
 )
 
-REM Builing SimplePad
-echo 		`SimplePad
-if exist "../../%SIMPLE_DEBUG_VERSION%/environment/SimplePad.sim" (
+REM Builing simplepad
+echo 		`simplepad
+if exist "../../%SIMPLE_DEBUG_VERSION%/environment/simplepad.sim" (
 	if exist ../../simple-arts/environment/simplepad.ico (
-		echo 		Building SimplePad with icon
-		%SIMPLE% %SMAKE% -I/../../simple-arts/environment/simplepad.ico -gui -delete ../../%SIMPLE_DEBUG_VERSION%/environment/SimplePad.sim	
+		echo 		Building simplepad with icon
+		%SIMPLE% %SMAKE% -I/../../simple-arts/environment/simplepad.ico -gui -delete ../../%SIMPLE_DEBUG_VERSION%/environment/simplepad.sim	
 	) else (
-		echo 		Building SimplePad
-		%SIMPLE% %SMAKE% -gui -delete ../../%SIMPLE_DEBUG_VERSION%/environment/SimplePad.sim
+		echo 		Building simplepad
+		%SIMPLE% %SMAKE% -gui -delete ../../%SIMPLE_DEBUG_VERSION%/environment/simplepad.sim
 	)
 ) else (
-	echo 		../../%SIMPLE_DEBUG_VERSION%/environment/SimplePad.sim cannot be found
-	echo 		skipping SimplePad
+	echo 		../../%SIMPLE_DEBUG_VERSION%/environment/simplepad.sim cannot be found
+	echo 		skipping simplepad
 )
 
 REM Builing REPL
-echo 		`SimpleRepl
-if exist "../../%SIMPLE_DEBUG_VERSION%/environment/SimpleRepl.sim" (
+echo 		`simplerepl
+if exist "../../%SIMPLE_DEBUG_VERSION%/environment/simplerepl.sim" (
 	if exist ../../simple-arts/environment/simplerepl.ico (
-		echo 		Building SimpleRepl with icon
-		%SIMPLE% %SMAKE% -I/../../simple-arts/environment/simpleprepl.ico -delete ../../%SIMPLE_DEBUG_VERSION%/environment/SimpleRepl.sim	
+		echo 		Building simplerepl with icon
+		%SIMPLE% %SMAKE% -I/../../simple-arts/environment/simpleprepl.ico -delete ../../%SIMPLE_DEBUG_VERSION%/environment/simplerepl.sim	
 	) else (
-		echo 		Building SimpleRepl
-		%SIMPLE% %SMAKE% -delete ../../%SIMPLE_DEBUG_VERSION%/environment/SimpleRepl.sim
+		echo 		Building simplerepl
+		%SIMPLE% %SMAKE% -delete ../../%SIMPLE_DEBUG_VERSION%/environment/simplerepl.sim
 	)
 ) else (
-	echo 		../../%SIMPLE_DEBUG_VERSION%/environment/SimpleRepl.sim cannot be found
-	echo 		skipping SimpleRepl
+	echo 		../../%SIMPLE_DEBUG_VERSION%/environment/simplerepl.sim cannot be found
+	echo 		skipping simplerepl
 )
 
 REM Building modular
