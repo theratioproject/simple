@@ -195,6 +195,17 @@ if exist "../../modules/fulltick" (
 	echo 		the modules repository again to resolve the issue
 )
 
+REM modules-dependencies.conf	
+	echo 		`fulltick(GUI) module
+if exist "../../modules/modules-dependencies.conf" (
+	echo 		Copying fulltick module to ../../%SIMPLE_DEBUG_VERSION%/modules folder
+	xcopy "../../modules/fulltick" "../../%SIMPLE_DEBUG_VERSION%/modules/fulltick/" /s /h /e /i /k /f /c
+) else (
+	echo 		modules-dependencies.conf cannot be found
+	echo 		The repository appears to be currupted. Try clonning
+	echo 		the modules repository again to resolve the issue
+)
+
 REM ENVIRONMENT PROGRAMS
 REM move the environment to %SIMPLE_DEBUG_VERSION% folder
 	echo `
