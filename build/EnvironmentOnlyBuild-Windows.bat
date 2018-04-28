@@ -80,7 +80,7 @@ if exist "../../%SIMPLE_DEBUG_VERSION%/bin/simple.exe" (
 ) else (
 	echo 		simple cannot be found
 	echo 		The build process failed bye
-	exit 
+	REM exit 
 )
 	
 REM Confirm smake is present
@@ -91,7 +91,7 @@ if exist "../../%SIMPLE_DEBUG_VERSION%/environment/smake.sim" (
 ) else (
 	echo 		smake.sim cannot be found
 	echo 		no smake no build bye
-	exit 
+	REM exit 
 )
 
 REM Builing simplepad
@@ -180,4 +180,4 @@ if exist "./-p" (
 }
 
 
-exit /b
+REM exit /b
