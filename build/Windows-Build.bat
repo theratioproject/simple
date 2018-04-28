@@ -196,10 +196,10 @@ if exist "../../modules/fulltick" (
 )
 
 REM modules-dependencies.conf	
-	echo 		`fulltick(GUI) module
+	echo 		`modules-dependencies.conf
 if exist "../../modules/modules-dependencies.conf" (
-	echo 		Copying fulltick module to ../../%SIMPLE_DEBUG_VERSION%/modules folder
-	xcopy "../../modules/fulltick" "../../%SIMPLE_DEBUG_VERSION%/modules/fulltick/" /s /h /e /i /k /f /c
+	echo 		Copying modules-dependencies.conf to ../../%SIMPLE_DEBUG_VERSION%/modules folder
+	cp "../../modules/modules-dependencies.conf" "../../%SIMPLE_DEBUG_VERSION%/modules/fulltick/" 
 ) else (
 	echo 		modules-dependencies.conf cannot be found
 	echo 		The repository appears to be currupted. Try clonning
