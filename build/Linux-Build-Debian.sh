@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SIMPLE_DEBUG_VERSION=s0.3.302-debug
+SIMPLE_DEBUG_VERSION=s0.3.303-debug
 
 if [ -e ../src/makefiles/Makefile-Linux.mk ]; then 
 	cd ../src/makefiles
