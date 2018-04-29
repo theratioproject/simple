@@ -199,7 +199,7 @@ REM modules-dependencies.conf
 	echo 		`modules-dependencies.conf
 if exist "../../modules/modules-dependencies.conf" (
 	echo 		Copying modules-dependencies.conf to ../../%SIMPLE_DEBUG_VERSION%/modules folder
-	cp "../../modules/modules-dependencies.conf" "../../%SIMPLE_DEBUG_VERSION%/modules/fulltick/" 
+	cp "../../modules/modules-dependencies.conf" "../../%SIMPLE_DEBUG_VERSION%/modules/" 
 ) else (
 	echo 		modules-dependencies.conf cannot be found
 	echo 		The repository appears to be currupted. Try clonning

@@ -146,7 +146,7 @@ if [ -e ../../modules/modules-dependencies.conf ]; then
 	echo "		Copying modules-dependencies.conf to ../../$SIMPLE_DEBUG_VERSION/modules folder"
 	cp "../../modules/modules-dependencies.conf" "../../$SIMPLE_DEBUG_VERSION/modules"
 else
-	echo "		fulltick module cannot be found"
+	echo "		modules-dependencies.conf module cannot be found"
 	echo "		The repository appear to be currupted. Try clonning again"
 	echo "		to resolve the issue"
 fi
