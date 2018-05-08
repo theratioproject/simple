@@ -5,6 +5,7 @@
 [![Simple release](https://img.shields.io/github/release/simple-lang/simple/all.svg)](https://github.com/simple-lang/simple/releases/)
 [![Last Commit](https://img.shields.io/github/last-commit/simple-lang/simple.svg)](https://github.com/simple-lang/simple/commits/master)
 [![Pull Request](https://img.shields.io/github/issues-pr-closed/simple-lang/simple.svg)](https://github.com/simple-lang/simple/issues?q=is%3Apr+is%3Aclosed)
+[![Pull Request](https://www.codetriage.com/simple-lang/simple/badges/users.svg)](https://www.codetriage.com/simple-lang/simple)
 # Simple
 
 The Simple Intelligent and Modular Programming Language and Environment</br>
