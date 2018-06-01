@@ -184,6 +184,7 @@ install: simple
     mkdir -p $(DESTDIR)$(PREFIX)/lib
     mkdir -p $(DESTDIR)$(PREFIX)/include
     install $(CND_DISTDIR)/simple $(DESTDIR)$(PREFIX)/bin/
+    install $(CND_DISTDIR)/simple.$(CND_DLIB_EXT) $(DESTDIR)$(PREFIX)/lib/
 
 .PHONY: uninstall
 uninstall:
