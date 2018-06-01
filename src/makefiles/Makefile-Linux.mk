@@ -190,6 +190,8 @@ install: simple
 .PHONY: uninstall
 uninstall:
     rm -f $(DESTDIR)$(PREFIX)/bin/simple
+	rm -f $(DESTDIR)$(PREFIX)/lib/simple.$(CND_DLIB_EXT)
+	rm -f $(DESTDIR)$(PREFIX)/include/simple*
 
 #This Makefile-Windows.mk was written in adaptation to the standard
 #method of writing makefiles
