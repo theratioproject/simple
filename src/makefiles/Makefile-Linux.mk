@@ -174,9 +174,9 @@ clean:
 
 distclean: clean
 
-ifeq ($(PREFIX),)
-    PREFIX := /usr/local
-endif
+#ifeq ($(PREFIX),)
+#    PREFIX := /usr/local
+#endif
 
 .PHONY: install
 install: $(CND_DISTDIR)/simple
