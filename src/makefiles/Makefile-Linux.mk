@@ -189,7 +189,7 @@ install: simple
 
 .PHONY: uninstall
 uninstall:
-    rm -f $(DESTDIR)$(PREFIX)/$(VERSION)/bin/simple
+    rm -f $(DESTDIR)$(PREFIX)/bin/simple
 
 #This Makefile-Windows.mk was written in adaptation to the standard
 #method of writing makefiles
