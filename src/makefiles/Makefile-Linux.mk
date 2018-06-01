@@ -18,6 +18,7 @@ LFlAGS= -lm -ldl
 LDFLAGS= "-Wl,-rpath,./"
 
 # Macros
+VERSION=s0.3.302
 CND_PLATFORM=
 CND_DLIB_EXT=so
 CND_BUILDDIR=build
@@ -25,6 +26,7 @@ CND_DISTDIR =../dist
 CLEAN_DEBUGDIR=../../../s0.3.302-debug
 BINARYDIR=bin
 SOURCE_DIR=../sources
+INCLUDES_DIR=../includes
 
 # Object Directory
 OBJECTDIR=$(CND_DISTDIR)/$(CND_BUILDDIR)/$(CND_PLATFORM)
@@ -171,6 +173,19 @@ clean:
 	@- $(RM) $(program_OBJS)
 
 distclean: clean
+
+ifeq ($(PREFIX),)
+    PREFIX := /usr/local
+endif
+
+.PHONY: install
+install: simple
+    mkdir -p $(DESTDIR)$(PREFIX)/$(VERSION)/bin
+    cp $< $(DESTDIR)$(PREFIX)/$(VERSION)/bin/simple
+
+.PHONY: uninstall
+uninstall:
+    rm -f $(DESTDIR)$(PREFIX)/$(VERSION)/bin/simple
 
 #This Makefile-Windows.mk was written in adaptation to the standard
 #method of writing makefiles
