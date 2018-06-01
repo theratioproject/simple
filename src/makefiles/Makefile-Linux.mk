@@ -64,7 +64,7 @@ SIMPLE_OBJECTFILES= \
 
 $(CND_DISTDIR)/$(CND_PLATFORM)/simple: $(OBJECTFILES)
 	$(CC) -shared -o ./simple.$(CND_DLIB_EXT) $(OBJECTFILES)
-	$(CC) $(LDFLAGS) $(LFlAGS) -o $(CND_DISTDIR)/simple ../simple.c ./simple.$(CND_DLIB_EXT)
+	$(CC) $(LDFLAGS) $(LFlAGS) -o $(CND_DISTDIR)/simple ../simple.c simple.$(CND_DLIB_EXT)
 	cp ./simple.$(CND_DLIB_EXT) $(CND_DISTDIR)
 	
 $(OBJECTDIR)/simple_api.o: $(SOURCE_DIR)/simple_api.c
