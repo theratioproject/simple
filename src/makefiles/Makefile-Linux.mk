@@ -15,7 +15,7 @@
 # Flags
 CFLAGS= -c -fpic -g
 LFlAGS= -lm -ldl
-LDFLAGS= "-Wl,-rpath,./"
+LDFLAGS= 
 
 # Macros
 VERSION=s0.3.302
