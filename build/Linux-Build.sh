@@ -6,7 +6,9 @@ if [ -e ../src/makefiles/Makefile-Linux.mk ]; then
 	cd ../src/makefiles
 	echo "SIMPLE $SIMPLE_DEBUG_VERSION build"
 	echo "		Building simple and simple.so"
+	sudo make -f Makefile-Linux.mk uninstall 
 	make -f Makefile-Linux.mk
+	sudo make -f Makefile-Linux.mk install 
 	cd ../../build
 else 
 	echo "SIMPLE s0.3.302-debug build"
