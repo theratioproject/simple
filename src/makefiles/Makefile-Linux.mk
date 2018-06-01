@@ -180,7 +180,9 @@ endif
 
 .PHONY: install
 install: simple
-    mkdir -p $(DESTDIR)$(PREFIX)/$(VERSION)/bin
+    mkdir -p $(DESTDIR)$(PREFIX)/bin
+    mkdir -p $(DESTDIR)$(PREFIX)/lib
+    mkdir -p $(DESTDIR)$(PREFIX)/include
     cp $< $(DESTDIR)$(PREFIX)/$(VERSION)/bin/simple
 
 .PHONY: uninstall
