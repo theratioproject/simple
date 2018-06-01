@@ -180,12 +180,12 @@ endif
 
 .PHONY: install
 install: simple
-    mkdir -p $(DESTDIR)$(PREFIX)/bin
-    mkdir -p $(DESTDIR)$(PREFIX)/lib
-    mkdir -p $(DESTDIR)$(PREFIX)/include
-    install -m 644 $(CND_DISTDIR)/simple $(DESTDIR)$(PREFIX)/bin/
-    install -m 644 $(CND_DISTDIR)/simple.$(CND_DLIB_EXT) $(DESTDIR)$(PREFIX)/lib/
-    install -m 644 $(INCLUDES_DIR)/simple* $(DESTDIR)$(PREFIX)/include/
+	mkdir -p $(DESTDIR)$(PREFIX)/bin
+	mkdir -p $(DESTDIR)$(PREFIX)/lib
+	mkdir -p $(DESTDIR)$(PREFIX)/include
+	install -m 644 $(CND_DISTDIR)/simple $(DESTDIR)$(PREFIX)/bin/
+	install -m 644 $(CND_DISTDIR)/simple.$(CND_DLIB_EXT) $(DESTDIR)$(PREFIX)/lib/
+	install -m 644 $(INCLUDES_DIR)/simple* $(DESTDIR)$(PREFIX)/include/
 
 .PHONY: uninstall
 uninstall:
