@@ -298,7 +298,7 @@ else
 	echo "		Seriously it an hack if smake not present "
 fi
 
-
+#Add Simple to path
 
 
 
