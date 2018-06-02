@@ -1,3 +1,4 @@
+program_VERSION := s0.3.303
 program_NAME := simple
 program_SOURCE_DIR := ../sources
 program_C_SRCS := $(wildcard $(program_SOURCE_DIR)/*.c)
