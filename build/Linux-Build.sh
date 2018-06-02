@@ -1,5 +1,6 @@
 #!/bin/bash
 
+VERSION=s0.3.303
 SIMPLE_DEBUG_VERSION=s0.3.303-debug
 
 if [ -e ../src/makefiles/Makefile-Linux.mk ]; then 
