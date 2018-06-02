@@ -18,12 +18,12 @@ LFlAGS= -lm -ldl
 LDFLAGS= 
 
 # Macros
-VERSION=s0.3.302
+VERSION=s0.3.303
 CND_PLATFORM=
 CND_DLIB_EXT=so
 CND_BUILDDIR=build
 CND_DISTDIR =../dist
-CLEAN_DEBUGDIR=../../../s0.3.302-debug
+CLEAN_DEBUGDIR=../../../s0.3.303-debug
 BINARYDIR=bin
 SOURCE_DIR=../sources
 INCLUDES_DIR=../includes
