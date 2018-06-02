@@ -299,7 +299,7 @@ else
 fi
 
 #Add Simple to path
-echo "SIMPLE_PATH=\"\\simple\\\"" >> /etc/environment
+echo "SIMPLE_PATH=\"/simple/\"" >> /etc/environment
 
 
 
