@@ -59,7 +59,9 @@ if [ -e ../../modules ]; then
 	if [ -e ./dynamic_modules/makefiles/Makefile-Linux.mk ]; then
 		cd ./dynamic_modules/makefiles/
 		echo "		Starting build..."
+		sudo make -f Makefile-Linux.mk uninstall
 		make -f Makefile-Linux.mk
+		sudo make -f Makefile-Linux.mk install
 		cd ../../
 	else
 		echo "		dynamic_modules folder is missing "
