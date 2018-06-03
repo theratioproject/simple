@@ -9,7 +9,7 @@
 # Simple
 
 The Simple Intelligent and Modular Programming Language and Environment</br>
-Current Version : 0.3.213
+Current Version : 0.3.303
 ![simple-repl](https://i.imgur.com/qx5bbc3.png)
 
 ### About Simple
@@ -38,8 +38,7 @@ Wait for a few moments, probably a minute. The make file installs simple in a fo
 ```sh
 $ simple
 ```
-##### Unable to add to global path.
-Sadly, we're working on that issue and a fix will be issued in the next release.
+
 
 #### Installing on Mac
 To install on Mac, the same procedures are followed but some small differences. Steps to install..
