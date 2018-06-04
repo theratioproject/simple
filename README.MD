@@ -29,9 +29,7 @@ This is quite the easiest installation. Download the windows type file from [her
 #### Installing on Linux
 After downloading simple from either methods listed above, unzip/move into the SIMPLE folder from your console and follow the instructions below.
 ```sh
-# Copy make file from bootsrc/makefiles/inux to sources
 $ cd build && chmod +x Linux-Build.sh
-# install simple with the "make" command.
 $ ./Linux-build.sh
 ```
 Wait for a few moments, probably a minute. The make file installs simple in a folder *dist* located in the **src** folder. start the SIMPLE compiler with the command
