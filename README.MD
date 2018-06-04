@@ -32,7 +32,7 @@ After downloading simple from either methods listed above, unzip/move into the S
 $ cd build && chmod +x Linux-Build.sh
 $ ./Linux-build.sh
 ```
-Wait for a few moments, probably a minute. The make file installs simple in a folder *dist* located in the **src** folder. start the SIMPLE compiler with the command
+Wait for a few moments, probably a minute. The make file installs simple in a folder linux system. start the SIMPLE compiler with the command
 ```sh
 $ simple
 ```
