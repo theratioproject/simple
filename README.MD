@@ -37,7 +37,6 @@ Wait for a few moments, probably a minute. The make file installs simple in a fo
 $ simple
 ```
 
-
 #### Installing on Mac
 To install on Mac, the same procedures are followed but some small differences. Steps to install..
 After downloading the Mac package, navigate to the home folder of SIMPLE and run commands.
