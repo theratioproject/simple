@@ -434,7 +434,7 @@ int simple_parser_stmt ( Parser *parser )
 					**  Before Equal ( = ) not += , -= ,... etc
 					*/
 					simple_parser_icg_newoperation(parser,ICO_BEFOREEQUAL);
-					simple_parser_icg_newoperandint(parser,1);
+					simple_parser_icg_newoperandint(parser,0);
 					simple_parser_icg_newoperation(parser,ICO_ASSIGNMENT);
 					nMark1 = simple_parser_icg_newlabel(parser);
 					simple_parser_icg_newoperation(parser,ICO_LOADAPUSHV);
