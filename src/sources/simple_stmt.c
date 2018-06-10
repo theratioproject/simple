@@ -594,7 +594,7 @@ int simple_parser_stmt ( Parser *parser )
 						/* Set Exit Mark */
 						simple_parser_icg_addoperandint(parser,pMark3,nMark2);
 						/* Set Loop Mark */
-						simple_parser_icg_addoperandint(parser,pMark3,nMark3);
+						//simple_parser_icg_addoperandint(parser,pMark3,nMark3);
 						/* End Loop (Remove Exit Mark) */
 						simple_parser_icg_newoperation(parser,ICO_POPEXITMARK);
 						/* POP Step */
