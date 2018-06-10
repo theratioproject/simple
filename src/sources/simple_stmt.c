@@ -536,7 +536,7 @@ int simple_parser_stmt ( Parser *parser )
 				simple_parser_icg_newoperand(parser,cStr);
 				simple_parser_icg_newoperation(parser,ICO_LOADBLOCK);
 				simple_parser_icg_newoperand(parser,"lengthOf");
-				nStart = simple_parser_icg_instructionscount(parser)  ;
+				nStart = simple_parser_icg_instructionscount(parser) + ;
 				simple_parser_nexttoken(parser);
 				parser->nAssignmentFlag = 0 ;
 				if ( simple_parser_csexpr(parser) ) {
@@ -545,7 +545,7 @@ int simple_parser_stmt ( Parser *parser )
 					nEnd = simple_parser_icg_instructionscount(parser) ;
 					/* Note (nEnd-1) , -1 to remove instruction PushV (avoid error with for x in string) */
 					if ( simple_parser_icg_getlastoperation(parser) == ICO_PUSHV ) {
-						nEnd-- ;
+						//nEnd-- ;
 					}
 					simple_parser_icg_newoperation(parser,ICO_CALL);
 					/* Generate 0 For Operator OverLoading */
