@@ -96,7 +96,7 @@ SIMPLE_API void simple_list_copy_gc ( void *pState,List *pNewList, List *list )
 	if ( simple_list_getsize(list) == 0 ) {
 		return ;
 	}
-	for ( x = 1 ; x <= simple_list_getsize(list) ; x++ ) {
+	for ( x = 0 ; x <= simple_list_getsize(list) ; x++ ) {
 		if ( simple_list_isint(list,x) ) {
 			simple_list_addint_gc(pState,pNewList,simple_list_getint(list,x));
 		}
