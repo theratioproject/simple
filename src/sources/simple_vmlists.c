@@ -147,7 +147,7 @@ void simple_vm_loadindexaddress ( VM *vm )
 					if ( simple_vm_oop_isobject(var) == 1 ) {
 						simple_vm_expr_npoo(vm,"[]",nNum1);
 						return ;
-					} nNum1 = nNum1 + 1 + list_index ; /*currently making index 0*/
+					} nNum1 = nNum1 + 1 ; /*currently making index 0*/
 					SIMPLE_VM_STACK_POP ;
 					if ( nNum1 < 1 || nNum1 > simple_list_getsize(var) ) {
 						simple_vm_error(vm,SIMPLE_VM_ERROR_INDEXOUTOFRANGE);

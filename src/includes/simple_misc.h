@@ -42,6 +42,7 @@ extern char *DEFAULT_FILE_NAME ;
 extern char *DEFAULT_FILE_PATH ;
 
 extern int list_index ;
+extern char* time_frame ;
 
 /*Blocks*/
 
@@ -63,9 +64,8 @@ SIMPLE_API void get_file_folder ( char *absolute_path ) ;
 
 #if SIMPLE_TESTPERFORMANCE
 
-void simple_showtime ( time_t before_execution, time_t after_execution ) ;
-
-char* get_time_different(double diff) ;
+void simple_showtime ( clock_t before_execution, clock_t after_execution ) ;
+float get_time_different(float diff) ;
 
 unsigned simple_hash(unsigned pid);
 unsigned simple_add_hash(unsigned char *key, int len);

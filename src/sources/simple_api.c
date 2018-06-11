@@ -192,7 +192,7 @@ SIMPLE_API void * api_var_ptr ( void *pointer,const char  *cStr,const char *cStr
 	Item *pItem  ;
 	/*
 	**  Usage 
-	**  To get pointer to a ring variable value (pointer to double or int) i.e. int * or double * 
+	**  To get pointer to a simple variable value (pointer to double or int) i.e. int * or double * 
 	**  We need this because some C Blocks get int * or double * as parameter 
 	*/
 	vm = (VM *) pointer ;

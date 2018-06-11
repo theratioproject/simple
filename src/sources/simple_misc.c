@@ -20,6 +20,7 @@ char *DEFAULT_FILE_NAME = "" ;
 char *DEFAULT_FILE_PATH = "" ;
 
 int list_index = 0 ;
+char* time_frame = "seconds" ;
 
 SIMPLE_API void print_line ( void )
 {
@@ -41,7 +42,7 @@ void display_help(){
     printf("  -v -verbose                 Displays all the modules and libraries of SIMPLE and exits.\n");
     printf("  -a -about                   Display the SIMPLE Property and exits.\n");
     printf("  -l -license                 Print the current SIMPLE LICENCE and exits.\n");
-    printf("  -n -no-run                  Compile the program but don't run it.\n");
+    //printf("  -n -no-run                  Compile the program but don't run it.\n");
     //printf("  -b -byte-code               Print the program Byte Code after compilation.\n");
     printf("  -e -error                   Skip all error instance and print error report in console.\n");
     //printf("  -l [PATH] -log-error [PATH] Skip all error instance and print error report in file.\n");
@@ -135,23 +136,18 @@ const char *change_file_ext(const char *absolute_name, const char *extension){
     return name;
 }
 
-void simple_showtime ( time_t before_execution, time_t after_execution )
+void simple_showtime ( clock_t before_execution, clock_t after_execution )
 {
-    time(&after_execution);
-    double seconds = difftime(after_execution, before_execution);
-    printf("\nExecution Time : %s", get_time_different(seconds));
+    after_execution = clock();
+    float seconds = get_time_different((float)(after_execution - before_execution) / CLOCKS_PER_SEC);
+    printf("\nExecution Time : %.5f %s", seconds, time_frame);
 }
 
-char* get_time_different(double diff) {
-    char message[100] = "" ; float newdiff = 0.0 ;
-    if (diff < 60) {
-        snprintf(message, sizeof message, "%.5f seconds ", diff);
-    } else if (diff > 60 && diff < 3600) {
-        newdiff = diff / 60 ;
-        snprintf(message, sizeof message, "%.5f minutes ", newdiff);
+float get_time_different(float current_seconds) { 
+    if (current_seconds > 60 && current_seconds < 3600) {
+        time_frame = "minutes" ; return (current_seconds / 60 );  
     }
-    char* msg = message ;
-    return msg ;
+    return current_seconds ;
 }
 
 void get_file_folder ( char *absolute_path ) {
