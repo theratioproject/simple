@@ -2,6 +2,7 @@
 /* 
 	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com"> 
 	MIT License Copyright (c) 2017 simple 
+
 */
 
 /* 
@@ -1303,7 +1304,7 @@ void simple_parser_gencallbracemethod ( Parser *parser,const char *cMethod )
 	List *pMark  ;
 	/* if isblock(self,cMethod) cMethod() ok */
 	simple_parser_icg_newoperation(parser,ICO_LOADBLOCK);
-	simple_parser_icg_newoperand(parser,"isBlock");
+	simple_parser_icg_newoperand(parser,"isblock");
 	simple_parser_icg_newoperation(parser,ICO_LOADADDRESS);
 	simple_parser_icg_newoperand(parser,"self");
 	simple_parser_icg_newoperandint(parser,0);
@@ -1357,3 +1358,4 @@ int simple_parser_objattributes ( Parser *parser )
 	}
 	return 1 ;
 }
+

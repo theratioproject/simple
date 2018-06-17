@@ -149,8 +149,8 @@ SIMPLE_API List * simple_state_newvar ( SimpleState *sState,const char *cStr )
 
 SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 {
-	int x,nCGI,nRun,nPrintIC,nPrintICFinal,nTokens,nRules,nIns,show_time,nSRC,nGenObj,nWarn  ;
-	char *cStr  ; clock_t before_execution, after_execution; 
+	int x,nCGI,nRun,nPrintIC,nPrintICFinal,nTokens,nRules,nIns,nPerformance,nSRC,nGenObj,nWarn  ;
+	char *cStr  ; time_t before_execution, after_execution; 
 	/* Init Values */
 	nCGI = 0 ;
 	nRun = 1 ;
@@ -159,7 +159,7 @@ SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 	nTokens = 0 ;
 	nRules = 0 ;
 	nIns = 0 ;
-	show_time = 0 ;
+	nPerformance = 0 ;
 	cStr = NULL ;
 	nSRC = 0 ;
 	nGenObj = 0 ;
@@ -167,37 +167,37 @@ SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 	nSimpleStateDEBUGSEGFAULT = 0 ;
 	nSimpleStateCGI = 0 ;
 	signal(SIGSEGV,segfaultaction);
-        before_execution = clock(); 
+        time(&before_execution); 
 	#if SIMPLE_TESTUNITS
 	simple_testallunits();
 	#endif
 	if ( argc > 1 ) {
 		for ( x = 1 ; x < argc ; x++ ) {
-			if ( strcmp(argv[x],"-show-tokens") == 0 || strcmp(argv[x],"--k") == 0 ) {
+			if ( strcmp(argv[x],"-show-tokens") == 0 || strcmp(argv[x],"-k") == 0 ) {
 				nTokens = 1;
-			} else if ( strcmp(argv[x],"-case-insensitive") == 0 || strcmp(argv[x],"--c") == 0 ) {
+			} else if ( strcmp(argv[x],"-case-insensitive") == 0 || strcmp(argv[x],"-c") == 0 ) {
 				NOT_CASE_SENSITIVE = 1;
-			} else if ( strcmp(argv[x],"-error") == 0 || strcmp(argv[x],"--e") == 0 ) {
+			} else if ( strcmp(argv[x],"-error") == 0 || strcmp(argv[x],"-e") == 0 ) {
 				SKIP_ERROR = 1;
-			} else if ( strcmp(argv[x],"-license") == 0 || strcmp(argv[x],"--l") == 0 ) {
+			} else if ( strcmp(argv[x],"-license") == 0 || strcmp(argv[x],"-l") == 0 ) {
 				display_licence();
-			} else if ( strcmp(argv[x],"-help") == 0 || strcmp(argv[x],"--h") == 0 ) {
+			} else if ( strcmp(argv[x],"-help") == 0 || strcmp(argv[x],"-h") == 0 ) {
 				display_help();
-			} else if ( strcmp(argv[x],"-about") == 0 || strcmp(argv[x],"--a") == 0 ) {
+			} else if ( strcmp(argv[x],"-about") == 0 || strcmp(argv[x],"-a") == 0 ) {
 				display_about();
-			} else if ( strcmp(argv[x],"--s") == 0 || strcmp(argv[x],"-simplify") == 0 ) {
+			} else if ( strcmp(argv[x],"-s") == 0 || strcmp(argv[x],"-simplify") == 0 ) {
 				nGenObj = 1 ; nRun = 0 ;
-			} else if ( strcmp(argv[x],"--n") == 0 || strcmp(argv[x],"-no-run") == 0 ) {
+			} else if ( strcmp(argv[x],"-n") == 0 || strcmp(argv[x],"-no-run") == 0 ) {
 				nRun = 0 ;
-			} else if ( strcmp(argv[x],"--b") == 0 || strcmp(argv[x],"-byte-code") == 0 ) {
+			} else if ( strcmp(argv[x],"-b") == 0 || strcmp(argv[x],"-byte-code") == 0 ) {
 				nPrintIC = 1 ;  nRun = 0 ;
-			} else if ( strcmp(argv[x],"--b-f") == 0 || strcmp(argv[x],"-byte-code-final") == 0 ) {
+			} else if ( strcmp(argv[x],"-bf") == 0 || strcmp(argv[x],"-byte-code-final") == 0 ) {
 				nPrintICFinal = 1 ;  nRun = 0 ;
-			} else if ( strcmp(argv[x],"--t") == 0 || strcmp(argv[x],"-time") == 0 ) {
-				show_time = 1 ;
-			} else if ( strcmp(argv[x],"--i") == 0 || strcmp(argv[x],"-cgi") == 0 ) {
-                                nCGI = 1 ; nSimpleStateCGI = 1 ;
-                                //printf( "Content-Type: text/html \n\n" ) ;
+			} else if ( strcmp(argv[x],"-t") == 0 || strcmp(argv[x],"-time") == 0 ) {
+				nPerformance = 1 ;
+			} else if ( strcmp(argv[x],"-w") == 0 || strcmp(argv[x],"-cgi") == 0 ) {
+				nCGI = 1 ; nSimpleStateCGI = 1 ;
+                                printf( "Content-Type: text/html \n\n" ) ;
 			}
 			else if ( strcmp(argv[x],"-rulesgfgdf") == 0 ) {
 				nRules = 1 ;
@@ -205,7 +205,7 @@ SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 			else if ( strcmp(argv[x],"-instteret") == 0 ) {
 				nIns = 1 ;
 			}
-			else if ( strcmp(argv[x],"--w") == 0 ) {
+			else if ( strcmp(argv[x],"-w") == 0 ) {
 				nWarn = 1 ;
 				nSimpleStateDEBUGSEGFAULT = 1 ;
 			}
@@ -231,7 +231,7 @@ SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 	}
 	simple_execute(cStr,nCGI,nRun,nPrintIC,nPrintICFinal,nTokens,nRules,nIns,nGenObj,nWarn,argc,argv);
 	#if SIMPLE_TESTPERFORMANCE
-	if ( show_time ) {
+	if ( nPerformance ) {
 		simple_showtime( before_execution, after_execution );
 	}
 	#endif
