@@ -5,3 +5,23 @@ simple
 simple.so
 tasks.json
 .DS_STORE
+
+#simple
+simple/nbproject/*
+simple/build/*
+simple/dist/*
+simple/Makefile
+simple/.dep.inc
+simple/simple.rar
+simple/simple.zip
+
+#modules
+#dynamic modules
+modules/dynamic_modules/dist/*
+
+#core dynamic module
+modules/dynamic_modules/core_dynamic_module/build/*
+modules/dynamic_modules/core_dynamic_module/nbproject/*
+modules/dynamic_modules/core_dynamic_module/dist/*
+modules/dynamic_modules/core_dynamic_module/.dep.inc
+modules/dynamic_modules/core_dynamic_module/Makefile

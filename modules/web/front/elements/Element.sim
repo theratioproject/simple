@@ -1,0 +1,122 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+module web.front.elements
+
+call "web/style/StyleAttributes.sim" call "web/style/StyleColor.sim" ? web.style
+
+class Element
+
+	elementName = "element"
+	elementHead = '<element '
+	elementStyle = 'style="'
+	elementHeight = ""
+	elementWidth = ""
+	elementScript = "<script> "
+	elementContent = ""
+	styleClass = 'class="'
+	elementId = ""
+	inline = false
+	elementSetClass = false
+	elementSetStyle = false
+	
+	block init(name)
+		elementName = name
+		elementHead = '<'+elementName+' '
+	
+	block addHTML(inelement)
+		elementContent += "\n\t\t"+inelement + crlf
+		
+	block add(element)
+		try 
+			elementContent += "\n\t\t"+element.toString() + crlf
+		catch
+			for a = 0 to lengthOf(element)
+				elementContent += "\n\t\t"+element[a].toString() + crlf
+			end
+		end
+		
+	
+	block setPostion(pos)
+		elementStyle += 'position:'+pos+';'
+		elementSetStyle = true
+		
+	block setBottom(px)
+		elementStyle += 'bottom:'+px+';'
+		elementSetStyle = true
+		
+	block setTop(px)
+		elementStyle += 'top:'+px+';'
+		elementSetStyle = true
+		
+	block setLeft(px)
+		elementStyle += 'left:'+px+';'
+		elementSetStyle = true
+		
+	block setRight(px)
+		elementStyle += 'right:'+px+';'
+		elementSetStyle = true
+	
+	block setBackground(icolor)
+		elementStyle += 'background:'+icolor+';'
+		elementSetStyle = true
+		
+	block setTextColor(icolor)
+		elementStyle += 'color:'+icolor+';'
+		elementSetStyle = true
+		
+	block setHeight(height)
+		setSize(height, elementWidth)
+		elementSetStyle = true
+		
+	block getHeight()
+		return elementHeight
+	
+	block setWidth(width)
+		setSize(elementHeight, width)
+		elementSetStyle = true
+		
+	block getWidth()
+		return elementWidth
+		
+	block addStyleClass(iStyleClass)
+		styleClass += ' '+iStyleClass
+		elementSetClass = true
+		
+	block addStyle(style)
+		elementStyle += style
+		elementSetStyle = true
+		
+	block setStyleClass(iStyleClass)
+		styleClass += iStyleClass
+		elementSetClass = true
+		
+	block setId(id)
+		elementId += ' id="'+id+'" '
+		
+	block setInline(con)
+		inline = con
+		
+	block toString()
+		finalDiv = '\t\t'+elementHead + elementId+' '
+		if elementSetStyle
+			finalDiv += elementStyle+'" '
+		end
+		if elementSetClass 
+			finalDiv += styleClass+'" ' 
+		end
+		finalDiv += '> '+elementContent
+		if inline 
+			finalDiv += '</'+elementName+'>' 
+		else 
+			finalDiv += '
+		\t</'+elementName+'>'
+		end
+		
+		return finalDiv
+		
+	block render()
+		display toString()

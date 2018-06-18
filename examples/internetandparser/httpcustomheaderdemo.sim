@@ -1,0 +1,25 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 SIMPLE 
+
+*/
+
+/*
+	@Demo
+	
+	The 
+
+*/
+
+call "simple/internet/curl/CurlHTTP.sim"
+
+block main() 
+	testcurlhttp = new CurlHTTP("https://api.sandbox.ebay.com/buy/browse/v1/item_summary/search?q=drone&limit=3")
+	testcurlhttp.addHeader("Authorization:Bearer v^1.1#i^1#f^0#p^1#r^0#I^3#t^H4sIAAAAAAAAAOVXb2wURRTvtdfWUigJmhbBD9dFCP92b3fvbru74Q6vIG0JtIU7mlJS6v6ZbRfudi87s20PFJtiMGKIiqICmlQjRBqNYMwRQvigMajRRDEaY1KDkmgM0WBsjKIQnd0e5a4SekCJJN6Xy8y8efP7/d5783bogbKKxbsad/0+w1NePDRADxR7PEwlXVFWuqSqpHhOaRGdY+AZGrh/wDtY8uMyKCUTKXE9gCnTgMDXn0wYUHQnw4RtGaIpQR2KhpQEUESKGIuuXSOyFC2mLBOZipkgfE0rw0RQUVSBZ1WBlTkuxCt41rjiM26GiRBXp8i0Jkm8qgGFwcsQ2qDJgEgyUJhgaYYnaZZkuThTJ9JBMchSHM93EL42YEHdNLAJRRMRF63o7rVyoF4fqQQhsBB2QkSaoqtiLdGmlQ82x5f5c3xFsjLEkIRsmD9aYarA1yYlbHD9Y6BrLcZsRQEQEv7I2An5TsXoFTA3Ad9VWpBUNRhiBYZRg3JAqJsSKVeZVlJC18fhzOgqqbmmIjCQjtKTKYrVkLcABWVHzdhF00qf87fOlhK6pgMrTDxYH90YbW0lItFtAGyLqoDcYOi9GKxExurbSYahOT4gqwESSILGS4yWPWjMW1bmCSetMA1Vd0SDvmYT1QOMGuRrw4mhHG2wUYvRYkU15CDKtRPGNWQ6nKCORdFGPYYTV5DEQvjc4eQRGN+NkKXLNgLjHiYuuBKFCSmV0lVi4qKbi9n06YdhogehlOj39/X1UX0ByrS6/SxNM/72tWtiSg9ISoRj69S6a69PvoHUXSoKwDuhLqJ0CmPpx7mKARjdRIQVghxXl9U9H1Zk4uy/JnI4+/MrYqoqBKgay/FBAAICxwrqlFw2kWyS+h0cQJbSZFKytgKUSkgKIBWcZ3YSWLoqBkIaG+A1QKqcoJFBQdNIOaRyJKMBQAMgy4rA/58KpdBUjylmCrSaCV1JT03CT1WyByy1VbJQut5O43EMJBL4r9DcvyZV6FC9nSSdWr9xoo4PiJ1IKZ1yMpxSzKTflPDV5kx1uah9hRj5ZTtNddsAIgxbxd2l4E06ThEKF4pa+JaxMsQECt+Cv1xUW0HuQbcUSB23+TsqVzHjMeq6OtafKZc/BXsVygLQtC38aUK1OO0qbm4FBi5+ZJmJBLDamFtSYgob1X/TpK7JSknoWMauO41Z3u3vHSxmJu8AN5nfErqzmDMhRuC4IMezt8RrhRvXePr23sI3Tq/RhKjwK+kGvqv8+Y+8SJH7YwY9p+hBzwn8TqTraJJZQi8qK9ngLZlOQHwRU1AyVNnsp3RJo6DebeBHjAWorSCdknSruMyzae755ZdynpdDnfTs8QdmRQlTmfPapO+7ulLKzKyZwfA0y3JMHR0Msh30vKurXqbae0/5ruY2+uTId5n67vmovHz9172L5tEzxo08ntIi76CnqPvYvj2XMuu5X6t/GH0tVrUwLr9yNvOScbB9oT08und5PHm8664D057TlS/R6sbMOeajTfzTR0Y3T6Mbzp974MNl4merf6rmHh1688VDHx/c2bln/nv7L8x9p3N+de26w98uOFP+828Lq+5uOH76+z/7/9h9usR45qHPD1w+scfaUrvlg8fombPaH1FHznY2asVHR57tozeHnlca2rx7d9b2lG8YfuvYE9NeHX157/DS5ticwxv9qZqjl/f9vaQlgzp2pJfWdjy8v6rMmEXII4+HayrP7Nv9VKayd/DTQOmpb964OPx21+v1DdN3vlvx/qrtnl++OrJte9G9NU8u+Otk5sKOqP3FxU+GFw/PfmHk0FgY/wHCiwHr+A8AAA==")
+	testcurlhttp.addHeader("Content-type: application/json")
+	testcurlhttp.addHeader("X-EBAY-C-ENDUSERCTX: affiliateCampaignId=<ePNCampaignId>,affiliateReferenceId=<referenceId> ")
+	testcurlhttp.prepare()
+	
+	display testcurlhttp.getStringOutput() 
+	testcurlhttp.safeFlush()
+	

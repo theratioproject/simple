@@ -1,0 +1,226 @@
+ 
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 SIMPLE 
+
+*/
+
+/*
+	MODULAR 
+	This is a simple environment for installing new modules and environments
+
+*/
+
+call "simple/utilities/Console.sim"
+call "simple/core/String.sim"
+call "simple/internet/Download.sim"
+call "simple/io/File.sim"
+call "simple/utilities/parser/json/JsonObject.sim"
+call "simple/security/Hash.sim" ? simple.security
+call "archive/zip/Zip.sim" 
+call "archive/zip/ZipMode.sim"
+call "simple/system/System.sim"
+
+monkeyFace = '
+			    __,__
+		    .--.  .-"	"-.  .--.
+		 / ..  \/ .-.  .-.  \/ ..  \
+		| |  `|  /    Y    \  |`  | |
+		| \   \  \  0 | 0  /  /   / |
+		 \  `- ,\.-"""""""-./, -`  /
+		   ``-`  /_  ^ ^  _\  `-``
+					| \._   _./ |
+				\  \ `~` /  /
+				 `._`-=-`_.`
+					`-----`
+	'
+
+simpleTitle = " 
+                                                                                                         | 
+     ----------    --     --------         --------    ------------     ---             --------------   | A simple, plain and innovative programming
+    |          |  |   |  |        |       |        |  |            |   |   |           |              |  | with multi-paradigm. It can be embedded in 
+    |    ------   |   |  |    -    |     |    -    |  |    -----    |  |   |           |    ----------   | C/C++ projects. The language is portable 
+    |   |         |   |  |   |  |   |    |   | |   |  |   |     |   |  |   |           |   |             | to various OS including windows, macOS, any
+    |   |         |   |  |   |   |   |  |   |  |   |  |   |     |   |  |   |           |   |             | linux and unix distros and other OS.
+    |          |  |   |  |   |     |      |    |   |  |    ----    |   |   |           |    ---------    | This is the official REPL program for the
+     ------    |  |   |  |   |      ------     |   |  |           |    |   |           |    ---------    | Language. 
+           |   |  |   |  |   |                 |   |  |    -------     |   |           |   |             | 
+           |   |  |   |  |   |                 |   |  |   |            |   |           |   |             | Modular - This is a simple environment for
+     ------    |  |   |  |   |                 |   |  |   |            |    - -------  |    ---------    | installing and updating modules and environments
+    |          |  |   |  |   |                 |   |  |   |            |            |  |             |   | Version 1.0.1
+     ----------    ---    ---                   ---    ---              ------------    -------------    | Author : Azeez Adewale
+                                                                                                         | 
+"
+
+TYPE = 1 #1 for get and 0 for update
+DOWNLOAD_PATH = "C:\\Simple\\s"+getSimpleVersion()+"\\modules\\"
+MODULE_JSON_URL = "https://raw.githubusercontent.com/simple-lang/environment/master/modular/modules-dependencies.json"
+ENVIRONMENT_JSON_URL = "" 
+JSON_CONTENT  = ""
+
+verifierUrl = "https://www.simple-lang.sourceforge.net/verifiers"
+cmdlen = lengthOf(cmdparams)
+isupdate = false
+isinstall = false
+type = "whichever"
+package = ""
+version = "latest"
+ostype = "auto-detect"
+deleteTemp = true
+
+#error messages
+PLATFORM_UNAVAILABLE = "This package is not available for your operating system" 
+UNKNOWN_ERROR = "The status of this package cannot be defined"+crlf+"Visit their website : "
+STALL_PACKAGE = "This package is pending verification. "+crlf+"If you wish to join package verifiers visit : "+verifierUrl
+INSTALLATION_UNATHORIZED = "Installation not authorized "+crlf+"DONE"
+
+block main()
+	if cmdlen <= 1 displayHelp() end
+	for a = 0 to cmdlen 
+		if stringEndsWith(cmdparams[a],"shell") or stringEndsWith(cmdparams[a],"su") shell() break
+		elif stringEndsWith(cmdparams[a],"help") or stringEndsWith(cmdparams[a],"h") displayHelp()
+		#Installation type
+		elif stringEndsWith(cmdparams[a],"update") or stringEndsWith(cmdparams[a],"u") or stringEndsWith(cmdparams[a],"upgrade") isupdate = true 
+		elif stringEndsWith(cmdparams[a],"get") or stringEndsWith(cmdparams[a],"download") or stringEndsWith(cmdparams[a],"install") isinstall = true 
+		#Module or Environment
+		elif stringEndsWith(cmdparams[a],"environment") or stringEndsWith(cmdparams[a],"env") /*or stringEndsWith(cmdparams[a],"e") */ type = "environment"
+		elif stringEndsWith(cmdparams[a],"module") or stringEndsWith(cmdparams[a],"mod") /*or stringEndsWith(cmdparams[a],"m") */ type = "module"
+		#Version and Attribute
+		elif stringEndsWith(cmdparams[a],"v") or stringEndsWith(cmdparams[a],"version") version = cmdparams[a++]  
+		elif stringEndsWith(cmdparams[a],"os") or stringEndsWith(cmdparams[a],"system") ostype = cmdparams[a++] 
+		else package = cmdparams[a] end
+	end
+	goGetIt()
+	
+block goGetIt()
+	fetchInfo(package)
+	
+block fetchInfo(name)
+	jsonContent = download(MODULE_JSON_URL) 
+	object = new JsonObject(jsonContent) 
+	jsonContent = download(object.getObject(name).getStringContent())
+	object =  new JsonObject(jsonContent) 
+	checkLocal(object)
+	
+block checkLocal(object)
+	otype = object.getObject("type").getStringContent()
+	if (type == 'environment' and otype != 'environment') or (type == 'module' and otype != 'module')
+		displayError("The Package '"+package+"' is not an "+type + crlf + "DONE")
+	end
+	type = otype
+	#check version 
+	if version == "latest" 
+		version = object.getObject("latest_version").getStringContent()
+	end
+	display "Checking your simple distribution for "+package+" "+version+ crlf
+	#displayError(package + ' ' + version )
+	showInfo(object)
+	
+block showInfo(object)
+	status = object.getObject("status").getStringContent()
+	website = object.getObject("website").getStringContent()
+	display "	Name : "+object.getObject("name").getStringContent()+crlf
+	display "	Description : "+object.getObject("description").getStringContent()+crlf
+	display "	Author : "+object.getObject("author").getStringContent()+crlf
+	display "	Latest Version : "+object.getObject("latest_version").getStringContent()+crlf
+	display "	Website : "+website+crlf
+	display "	Date : "+object.getObject("date").getStringContent()+crlf
+	#check verification status 
+	if status == "stall"
+		displayError(STALL_PACKAGE)
+	elif status == "verified" 
+	else displayError(UNKNOWN_ERROR+website)
+	end
+	#check os
+	if ostype == "auto-detect"
+		if isWindows()
+			ostype = "windows"
+		elif isLinux()
+			ostype = "linux"
+		elif isMacosx()
+			ostype = "mac"
+		else 
+			ostype = "unknown"
+			display "Your OS cannot be detected"
+		end
+	end
+	downloadjson = object.getObject("version").getObject(version)
+	downloadurl = downloadjson.getObject("all").getStringContent()
+	if downloadurl == "no" 
+		if ostype = "unknown" { displayError(PLATFORM_UNAVAILABLE) } 
+		display "This package is not available on all platform "+crlf+"Checking if it available for your os "+crlf
+		try { downloadurl = downloadjson.getObject(ostype).getStringContent()
+		catch displayError(PLATFORM_UNAVAILABLE) }
+	end
+	#request permission
+	display "Do you want to continue with installation (y/n) : " read ans
+	if ans == 'y'
+		name = object.getObject("name").getStringContent() 
+		__download(downloadurl,name,(md5(downloadurl+version)))
+	else
+		displayError(INSTALLATION_UNATHORIZED)
+	end
+	
+block __download(url,name,sname)
+	display "	Installing... " + crlf
+	saveLocation  = "./"+sname+".zip"
+	d = new Download(url) d.saveLocation(saveLocation)
+	d.execute()
+	installLocation = getSystemEnvironment("SIMPLE_MODULE_PATH")+"/"
+	if installLocation == '(null)/' 
+		if not __exists('../modules/local-modules-dependencies.conf') 
+			if type == 'environment'
+				installLocation = '../environment/'
+			else
+				installLocation = '../modules/'
+			end
+		else
+			display "	The default module directory cannot be found"+crlf
+			display "Type your installation folder : " read installLocation
+		end
+	else
+		if type == 'environment'
+			installLocation = '../environment/'
+		end
+	end
+	display "	Installing "+package+" to "+installLocation+crlf
+	z = new Zip(saveLocation,"r")
+	z.extractAll(installLocation)  z.closeZip()
+	display tab+'"'+name+'" Module successfully installed At '+installLocation+ crlf
+	delTemp([new File(saveLocation)])
+	display "	DONE"
+	
+block delTemp(temp)
+	tlen = lengthOf(temp)
+	for a = 0 to tlen
+		if deleteTemp
+			temp[a].delete()
+		end
+	end
+	
+block displayError(msg)
+	display msg
+	__exit__
+
+block displayHelp()
+	help = "
+	
+	"
+	display help __exit__
+	
+block shell()
+	while true #displayError("No command")
+		Console.printLineWithColor(ConsoleColor.RED(), null)
+		Console.printWithFG(ConsoleColor.RED(), simpleTitle)
+		Console.printLineWithColor(ConsoleColor.RED(), null)
+		Console.printWithFG(ConsoleColor.RED(), "modular $ ")
+		read command
+		executeCommand(stringSplit(command," "))
+	end
+	
+/*
+
+
+*/
+	
+	

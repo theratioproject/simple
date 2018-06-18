@@ -1,0 +1,22 @@
+
+#1
+newLine = char(13) + char(10)
+
+display "   Please Enter Your Max Number Count " + crlf
+
+display "Max Count : " read maxCount
+
+display "I am going to count 0 to "+maxCount+" in just one line 
+	how cool is that hun "+newLine
+
+for i = 0 to maxCount
+	display char(13) display "downloading : "+ i +"%"
+end
+
+display crlf + "Now you can play Game"
+
+
+/*
+	char(13) - clears the line
+	to be used for printInLine() block in Console class
+*/

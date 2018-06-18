@@ -1,0 +1,13 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+module web.style
+
+CSS_COLOR_WHITE = "white"
+
+CSS_COLOR_BLACK = "black"
+
+CSS_COLOR_GREY = "grey"

@@ -1,0 +1,104 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 SIMPLE 
+
+*/
+
+/*
+	@Demo 
+	
+	The is a basic demo for the output type of widget in the 
+	@Module fulltick 
+
+*/
+
+call "fulltick/widget/menu/FMenuBar.sim"
+call "fulltick/widget/menu/FMenuItem.sim"
+call "fulltick/widget/menu/FMenuButton.sim"
+call "fulltick/raw/FMenuType.sim"
+call "fulltick/widget/FButton.sim"
+call "fulltick/widget/FWindow.sim" ? fulltick.widget
+call "fulltick/core/FApp.sim" ? fulltick.core
+
+WIDTH = 700
+
+block main()  
+	md = new MenuDemo md.render()
+	
+	
+class MenuDemo : FWindow
+
+	mBar = new FMenuBar() mButton = new FMenuButton()
+	menu = [
+		["File", 
+			[["New",[
+				["Project", "test()"],
+				["Website", "test()",FMENU_DEACTIVATED]]],
+			["Open", "test()"],
+			["Save", "test()"],
+			["Save As..", "test()"]]			
+		],
+		["Edit", 
+			[["Undo", "test()"],
+			["Copy", "test()"],
+			["Cut", "cut()"],
+			["Paste", "paste()"]	,
+			["_Delete", "delete()"],
+			["Word Wrap", "wordWrap()",FMENU_CHECKBOX],
+			["Line Number", "lineNumber()",FMENU_CHECKBOX]]		
+		],
+		["Search", 
+			[["Find", "find()"],
+			["Replace", "replace()"]]		
+		],
+		["Run", 
+			[["Run", "runSource()"],
+			["Debug", "debugSource()"]]		
+		],
+		["About", "test()"]
+	]
+	
+	b1 = new FButton("Clear Menubar") b2 = new FButton("Recreate Menubar")
+	b3 = new FButton("Remove File Menu") b4 = new FButton("Find Item")
+	tm = new FMenuItem("Holla") tm2 = new FMenuItem("Index 0")
+
+	block render
+		#the menu bar
+		mBar.setWidth(WIDTH)
+		mBar.addMenu(menu) mBar.setSelectionColor(81)
+		mBar.addItem(tm) mBar.insertMenuItemAt(0,tm2)
+		mBar.setDownBox(3)  
+		#the menu button
+		mButton.setPosition(50,100) mButton.addItem([tm,tm2])
+		mButton.setLabel("Menu Button") mButton.type(3)
+
+		setTitle("FMENU(S) DEMO").setSize(WIDTH, 210) 
+		addWidget([mBar,b1,b2,mButton]) 
+		misc()
+		run()
+		
+	block misc()
+		b1.setPosition(10,40) b2.setPosition(150,40) b3.setPosition(290,40)
+		b4.setPosition(430,40) 
+		b1.callback("clearBar(-1)") b2.callback("recreateBar()")
+		b3.callback("clearBar(0)") b4.callback("changeCallback(tm)")
+	
+block clearBar(index) if (index<0) mBar.clear() else mBar.clearSubmenuAt(index) end
+block recreateBar() mBar.addMenu(menu)
+block itemName(name) display mBar.findMenu(name).getTypeName() + crlf 
+block changeCallback(widget) widget.callback("test()") 
+block test() 
+	display "you selected : "+mBar.lastSelectedMenuItemValue()+crlf
+	if (mBar.getModeAt(0)==FMENU_NORMAL) 
+	mBar.mode(0,FMENU_CHECKBOX) else mBar.mode(0,FMENU_NORMAL) end
+	display mBar.getLastSelectedItemPointer()
+	#mBar.remove(0)
+	mBar.replaceValueAt(6, "Opener")
+	mBar.setonly(tm2) A = 97
+	mBar.setMenuItemShortcutAt(6,A)
+	display ""+mBar.size() +" is the size of this menu"+crlf
+	display mBar.text()+" - name at 6 : "+ mBar.textAt(6)+crlf
+	colo = new FColor colo.setRGB(120,5,95) mBar.setTextColor(colo)
+	mBar.setTextFont(3) mBar.setTextSize(20)
+	display "selected item index is "+mBar.getIndexOfLastSelectedItem()+crlf
+	display "index of 'tm' is "+mBar.getIndexOf(tm)

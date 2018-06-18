@@ -1,0 +1,98 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 SIMPLE 
+
+*/
+
+/*
+	@Demo 
+	
+	@Module fulltick 
+
+*/
+
+call "fulltick/all.sim" 
+call "simple/utilities/Console.sim"
+
+text = "123456789012345
+	Hello we here so where we going next
+	Hello we here so where we going next
+	Hello we here so where we going next
+"
+
+block main()  
+	md = new TextEditorDemo md.render()
+	
+	
+class TextEditorDemo : FWindow
+
+	editor = new FTextEditor() c d e f l
+	
+	block render() 
+		editor.setPosition(10,10).setSize(380,300).setText(text).showLineNumber()
+		#editor.setCursorColor(FColor.RED()).setCaretStyle(NORMAL_CARET) 
+		begin()
+			e = new FInput("") e.setPosition(10,320).setWidth(240)
+			b = new FButton("Insert Text") b.setPosition(260,320).callback("insert()")
+			b = new FButton("Count Lines") b.setPosition(10,360).callback("Console.println('Total Lines : '+editor.totalLines())")
+			b = new FButton("Selected 0 to 10") b.setPosition(150,360).callback("Console.println('0 to 5 in Selection ? : '+editor.inSelection(0,10))")
+			l = new FLabel("Size") l.setPosition(280,360) b = new FButton("I") b.setWidth(20).setPosition(320,360).callback("increasefont()")
+			b = new FButton("D") b.setWidth(20).setPosition(350,360).callback("decreasefont()")
+			c = new FToggleButton("Line Number") c.setPosition(10,400).callback("linenumber(c)").setValue(1)
+			d = new FIntInput() d.setPosition(150,400).setWidth(50).setText('76')
+			b = new FButton("Bg") b.setPosition(210,400).callback("bg(d.getRealValue())").setWidth(50)
+			f = new FIntInput() f.setPosition(270,400).setWidth(50).setText('255')
+			b = new FButton("Fg") b.setPosition(270+60,400).callback("fg(f.getRealValue())").setWidth(60)
+			b = new FButton("Up") b.setWidth(50).setPosition(60,450).callback("editor.moveUp()")
+			b = new FButton("Left") b.setWidth(50).setPosition(10,480).callback("editor.moveLeft()")
+			b = new FButton("Right") b.setWidth(50).setPosition(110,480).callback("editor.moveRight()")
+			b = new FButton("Down") b.setWidth(50).setPosition(60,510).callback("editor.moveDown()")
+			b = new FButton("Next Word") b.setWidth(100).setPosition(170,450).callback("editor.overstrike('Hello')")
+			b = new FButton("Previous Word") b.setWidth(110).setPosition(280,450).callback("editor.previousWord()")
+		End() setTitle("FTEXTDISPLAY DEMO") setSize(400, 600)		
+		testAttribs() addWidget(editor) run() 
+
+block testAttribs() 
+	Console.println("Column to X : "+editor.columnToX(30)+" | X to Column : "+editor.xToColumn(editor.columnToX(30)))
+	Console.println("Line Count From 0 to 400: "+editor.countLines(0,400))
+	Console.println("0 to 5 in Selection ? : "+editor.inSelection(0,5))
+	Console.println("Start Line at 67 : "+editor.getLineStartAt(67))
+	editor.setLineNumberFont(FFONT_TIMES_BOLD)
+	editor.redisplayRange(0,79)
+	
+block insert()
+	#editor.setInsertPosition(10)
+	editor.insert(e.getText()) 
+	editor.insertAtLineStart(e.getText()) 
+	editor.insertAtLineEnd(e.getText()) 
+	display 'Inserted at '+editor.getInsertPosition()+crlf
+	
+block linenumber(c)
+	if c.getValue() 
+		editor.showLineNumber()
+	else 
+		editor.hideLineNumber()
+	end
+	
+	
+block bg(val)
+	editor.setLineNumberBackground(val)
+	editor.setBackground(val)
+	
+block fg(val)
+	editor.setLineNumberTextColor(val)
+	editor.setTextColor(val)
+	
+block increasefont()
+	newfont = editor.getLineNumberFontSize() + 1
+	editor.setLineNumberFontSize(newfont)
+	editor.setFontSize(newfont)
+
+block decreasefont()
+	newfont = editor.getLineNumberFontSize() - 1
+	editor.setLineNumberFontSize(newfont)
+	editor.setFontSize(newfont)
+	
+	
+
+

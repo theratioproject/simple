@@ -1,0 +1,56 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 SIMPLE 
+
+*/
+
+/*
+	@Demo 
+	
+	@Module fulltick 
+
+*/
+
+call "fulltick/all.sim" 
+
+block main()  
+	md = new TextEditorDemo md.render()
+	
+	
+class TextEditorDemo : FWindow
+	
+	group1 = new FGroup() group2 = new FGroup() 
+	c d ii i
+	
+	block render() 
+		group1.begin() 
+			ii = new FInput("in group 1") ii.setPosition(10,10).setWidth(270)
+			b = new FButton("Clear Group 1") b.setPosition(10,50).callback("group1.clear()")
+			c = new FButton("is Clipping") c.setPosition(150,50).callback("isClipping(group1)")	
+			d = new FButton("Find Widget") d.setPosition(10,90).callback("find(group1,c)")	
+			e = new FLabel("Hello this is group 1") e.setPosition(150,90)
+			f = new FButton("Focus") f.setPosition(10,130).callback("group1.focus(ii)")	
+			f = new FButton("Child Count") f.setPosition(150,130).callback("display 'Count : '+group1.childrenCount()+' - '")
+			f = new FButton("Move Widget") f.setPosition(10,170).callback("group2.insert(i)")
+			f = new FButton("Remove Widget") f.setPosition(150,170).callback("group1.removeAt(2)")
+		group1.endConstruct()
+		
+		group2.begin() 
+			i = new FInput("in group 2") i.setPosition(10,10).setWidth(270)
+			b = new FButton("Clear Group 2") b.setPosition(10,50).callback("group2.clear()")
+			c = new FButton("is Clipping") c.setPosition(150,50).callback("isClipping(group2)")	
+			d = new FButton("Find Widget") d.setPosition(10,90).callback("find(group2,d)")
+			e = new FLabel("Hello this is group 2") e.setPosition(150,90)
+			f = new FButton("Focus") f.setPosition(10,130).callback("group2.focus(i)")	
+			f = new FButton("Child Count") f.setPosition(150,130).callback("display 'Count : '+group2.childrenCount()+' - '")
+			f = new FButton("Move Widget") f.setPosition(10,170).callback("group1.insert(i)")
+			f = new FButton("Remove Widget") f.setPosition(150,170).callback("group2.remove(d)")
+		group2.endConstruct()
+		
+		group1.setPosition(10,0).setTooltip("Group 1")
+		group2.setPosition(10,250).setTooltip("Group 2")
+		setTitle("FFILEBROWSER DEMO").setSize(300, 500) 
+		addWidget([group1,group2]) 
+		run() 
+block isClipping(group) display " is clipping : "+ group.isClippingChildren() group.clipChildren(true)
+block find(group,widget) display ""+group.find(widget)+" | "

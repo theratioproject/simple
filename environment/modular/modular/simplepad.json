@@ -1,0 +1,22 @@
+{
+	
+	"name":"simplepad",
+	"type":"environment",
+	"description":"Write, run and debug your simple files and programs",
+	"author":"Azeez Adewale",
+	"website":"http://www.twitter.com/iamthecarisma",
+	"status":"verified",
+	"latest_version":"0.1.0",
+	"date":"03 March 2018",
+	"license":"MIT License",
+	"platform":"windows",
+	"dependencies":{
+		"none":"yes",
+	},
+	"version":{
+		"0.1.0":{
+			"all":"no",
+			"windows":"http://localhost/testcurl/simplepad.zip",
+		},
+	},
+}

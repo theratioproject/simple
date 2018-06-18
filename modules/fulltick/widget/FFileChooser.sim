@@ -1,0 +1,251 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 SIMPLE
+
+*/
+
+/* 
+ * @Filename - FFileChooser.sim
+ * @Author - Azeez Adewale
+ * @Date - 26 March 2018
+ * @Time - 10:43 AM
+ *
+ */
+
+module fulltick.widget.menu
+
+#call the @Class FWidget File for blocks inheritance
+call "./FFileListBox.sim" ? fulltick.core
+
+#This @Class FFileChooser @Skip
+#  ________________________________________________________
+# |________________________________________________________|
+#@EndSkip @Image FFileChooser
+class FFileChooser : FFileListBox
+	
+	/* STRING */
+	FILE_CHOOSER_DIRECTORY = "." #the initial directory is the current working folder
+	FILE_CHOOSER_FILTER = "*" #the initial filter for the file chooser
+	FILE_CHOOSER_OK_LABEL = "ok" #the default value of the ok button
+	
+	/* NUMBER */
+	FILE_CHOOSER_SELECTION_TYPE = 0 #the type of selection mode single by default
+	FILE_CHOOSER_ICON_SIZE = 20 #the default icon size
+	
+	/* TYPE */
+	FILE_CHOOSER_COLOR = new FColor #the default color is black
+	
+	/* BOOLEAN */
+	FILE_CHOOSER_PREVIEW = false #the widget does not preview by default
+	
+	setTypeName("FFileChooser") #change the name of the widget
+	
+	block FFileChooser(dir,title)
+		initialize() #initialize the widget at once
+		setDirectory(dir)
+		setTitle(title)
+		
+	#Display the @Class FFileChooser widget window to select @Class File
+	#and navigate through @Class Directory. The type of selection mode 
+	#can be changed calling the @Block setSelectionMode(mode)
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block show()
+		__show_file_chooser(WIDGETPOINTER)
+		waitTillSelection()
+		return this
+		
+	#change the list items @Class FColor color of this widget 
+	#The @Class FColor can be passed as parameter to the block which get the 
+	#color value from the @Class FColor or @DataType NUMBER can be passed 
+	#directly 
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block setColor(color)
+		if isNumber(color)
+			FILE_CHOOSER_COLOR = new FColor
+			FILE_CHOOSER_COLOR.setColorValue(color)
+		else
+			FILE_CHOOSER_COLOR = color
+		end
+		__file_chooser_color(WIDGETPOINTER, FILE_CHOOSER_COLOR.getColor())
+		return this
+		
+	#Get the current color of the widget 
+	#@Returns widget color in form of the @Class FColor to support 
+	#and allow more color usage	
+	block getColor()
+		return FILE_CHOOSER_COLOR
+		
+	#Change the file filter that is rendered in the widget it accept the 
+	#The filter follows the normal string pattern such as @Bold * @EndBold
+	#for all files, @Bold *.sim @EndBold for .sim files. Also it accept 
+	#multiple extension files by seperating them with the ~ symbol
+	#e.g `filter = *.sim~*.cpp ` will have a filter for C and Simple files
+	#In addition filter can be provided in human readable label with the 
+	#extension filter inside parenthesis e.g 
+	#`filter = Simple Files (*.sim)~Simple Webpage (*.swp)` 
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block filter(filter)
+		FILE_CHOOSER_FILTER = replaceString(filter,'~',tab)
+		__file_chooser_filter(WIDGETPOINTER, -2, FILE_CHOOSER_FILTER)
+		return this
+		
+	#Get the current filter value of this widget 
+	#@Returns the filter value @DataType STRING
+	block getFilter()
+		return FILE_CHOOSER_FILTER
+		
+	#Get the currently selected filter index from the widget
+	#@Return the filter index @DataType NUMBER
+	block getSelectedFilterIndex()
+		return __file_chooser_filter(WIDGETPOINTER, -1, "")
+		
+	#Change the @Class FFileChooser selected filter to the index sent into
+	#this block
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block selectFilterAt(index)
+		__file_chooser_filter(WIDGETPOINTER, index, "")
+		return this
+		
+	#Get the number of selected files in the widget 
+	#@Returns the number of selected files @DataType NUMBER
+	block getCount()
+		return __file_chooser_count(WIDGETPOINTER)
+		
+	#Change the current directory or folder that is loaded by the 
+	#@Class FFileChooser. The block accept string as parameter if the 
+	#directory supplied does not exits nothing is loaded into the widget
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block setDirectory(directory)
+		FILE_CHOOSER_DIRECTORY = directory
+		__file_chooser_directory(WIDGETPOINTER, FILE_CHOOSER_DIRECTORY)
+		return this
+		
+	#Get the current directory/folder of the @Class FFileChooser widget
+	#@Return the directory @Class STRING
+	block getDirectory()
+		FILE_CHOOSER_DIRECTORY = __file_chooser_get_directory(WIDGETPOINTER)
+		return FILE_CHOOSER_DIRECTORY
+		
+	#Hide the @Class FFileChooser Window while it is visible	
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block hide()
+		__hide_file_chooser(WIDGETPOINTER)
+		return this
+		
+	#Set the size of the icons in the widget
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget	
+	block setIconSize(size)
+		FILE_CHOOSER_ICON_SIZE = size
+		__file_chooser_iconsize(WIDGETPOINTER,FILE_CHOOSER_ICON_SIZE)
+		return this
+		
+	#Get the size of the list item icons of the @Class FFileChooser widget
+	#@Return icon size @DataType NUMBER
+	block getIconSize()
+		return FILE_CHOOSER_ICON_SIZE
+		
+	#Set the label of the @Class FFileChooser title bar 
+	#@Note It @Returns this which is the widget to allow the in line usage 
+	#of the widget	
+	block setTitle(title)
+		WIDGET_TITLE = title
+		__file_chooser_label(WIDGETPOINTER,WIDGET_TITLE)
+		return this
+		
+	#Get the current title of the @Class FFileChooser window
+	#@Return window title @DataType STRING
+	block getTitle()
+		return WIDGET_TITLE
+		
+	#Set the label of the @Class FFileChooser ok button 
+	#@Note It @Returns this which is the widget to allow the in line usage 
+	#of the widget	
+	block setAcceptLabel(label)
+		FILE_CHOOSER_OK_LABEL = label
+		__file_chooser_ok_label(WIDGETPOINTER,FILE_CHOOSER_OK_LABEL)
+		return this
+		
+	#Get the current label of the @Class FFileChooser ok button
+	#@Return ok button label @DataType STRING
+	block getAcceptLabel()
+		return FILE_CHOOSER_OK_LABEL
+		
+	#the function is same as @Block setAcceptLabel(label)
+	block setOkLabel(label) return setAcceptLabel(label)
+	
+	#the function is same as @Block getAcceptLabel()
+	block getOkLabel() return getAcceptLabel()
+	
+	#Enable and disable previewing of selected file in the 
+	#@Class FFileChooser widget 
+	#@Note It @Returns this which is the widget to allow the in line usage 
+	#of the widget	
+	block preview(condition)
+		FILE_CHOOSER_PREVIEW = condition
+		__file_chooser_preview(WIDGETPOINTER,FILE_CHOOSER_PREVIEW)
+		return this
+		
+	#Check whether the @Class FFileChooser widget is previewing selected
+	#file 
+	#@Return is widget previewing file @DataType BOOLEAN
+	block isPreviewing()
+		return FILE_CHOOSER_PREVIEW
+		
+	#Reload the current directory in the @Class FFileChooser widget	
+	#@Note It @Returns this which is the widget to allow the in line usage 
+	#of the widget		
+	block rescan()
+		__file_chooser_rescan(WIDGETPOINTER)
+		return this
+		
+	#the function is same as @Block rescan()
+	block refresh() return rescan()
+	
+	#Return true if @Block show() has been called on this widget and the
+	#@Block hide() has not been called or while the widget is still active
+	#@Return if widget is active @DataType BOOLEAN
+	block isShown()
+		return __file_chooser_is_shown(WIDGETPOINTER)
+		
+	#Set the file value for the @Class FFileChooser widget to be selected
+	#when it is shown/visible
+	#@Note It @Returns this which is the widget to allow the in line usage 
+	#of the widget
+	block setValue(value)
+		FILE_CHOOSER_VALUE = value
+		__file_chooser_value(WIDGETPOINTER,true,FILE_CHOOSER_VALUE)
+		return this
+	
+	#Get the value of the selected file or files
+	#@Return selected file(s) @DataType STRING
+	block getValue()
+		FILE_CHOOSER_VALUE = __file_chooser_value(WIDGETPOINTER,false,null)
+		return FILE_CHOOSER_VALUE
+	
+	#Create an instance of the FFileChooser Widget with Widget Width and 
+	#Height, 
+	#@Note @Important you do should never call this block from child
+	#class as it resets all the attributes and properties of the widget
+	#do not call
+	block initialize()
+		WIDGETPOINTER = __init_file_chooser(FILE_CHOOSER_DIRECTORY, FILE_CHOOSER_FILTER, FILE_CHOOSER_SELECTION_TYPE, WIDGET_TITLE)
+		
+	#all the private attributes, fields and block not accessible #outside the class
+	private 
+	
+		#Pause the GUI thread to allow selection in the @Class FFileChooser
+		#widget to be possible
+		block waitTillSelection()
+		__file_chooser_wait(WIDGETPOINTER)
+	
+	
+	
+	
+	

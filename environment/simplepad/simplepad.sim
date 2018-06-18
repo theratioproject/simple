@@ -1,0 +1,131 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 SIMPLE
+
+*/
+
+/* 
+ * @Filename - SimplePad.sim
+ * @Author - Azeez Adewale
+ * @Date - 27 Febuary 2018
+ * @Time - 04:09 AM
+ */
+ /*
+		SIMPLEPAD
+		This application is a small micro text editor intended to be packed
+		as an environment in the simple distribution. It does simple functions
+		as 
+		Create New File
+		Save File
+		Open File
+		Run File
+		it also support syntax highlighting and other basic and simple functions
+ */
+
+call "fulltick/all.sim"
+call "simple/system/Runtime.sim"
+call "simple/io/File.sim"
+
+block main()  
+	sp = new SimplePad sp.render()
+	
+	
+class SimplePad : FWindow
+
+	file = null 
+	backGround = FColor.WHITE() #FColor.fromRGB(8,12,10)
+	textColor = FColor.BLACK() #FColor.fromRGB(78,82,80)
+	lineNumberWidth = 30
+	
+	menu = [
+		["File", "",
+			[["New", "newFile()"],
+			["Open", "open()"],
+			["Save", "save()"],
+			["Save As..", "saveAs()"],
+			["Close", "close()"],
+			["Exit", "exit()"]]			
+		],
+		["Edit", "",
+			[["Undo", "undo()"],
+			["Copy", "copy()"],
+			["Cut", "cut()"],
+			["Delete", "delete()"],
+			["Read Only", "editable()",2],
+			["Word Wrap", "wordWrap()",2],
+			["Line Number", "lineNumber()",2],
+			["Show Output", "noOutput()",2]]		
+		],
+		["Search", "",
+			[["Find", "find()"],
+			["Replace", "replace()"]]		
+		],
+		["Program", "",
+			[["Run", "runSource()"],
+			["_Debug", "debugSource()"],
+			["Build Executable", "build()"]]		
+		],
+		["About", "about()"]
+	]
+	#widgets here
+	menuBar = new FMenuBar() editor = new FTextEditor() 
+
+	block render() 
+		setTitle("SIMPLEPAD") setSize(400, 480) 
+		setBackground(backGround).setPosition(30,30) addComponents() run() 
+		
+	block addComponents()
+		#menu
+		menuBar.setSize(getWidth(),30).setBackground(backGround).addMenu(menu).setBoxType(FBOX_FLAT_BOX).setTextColor(textColor).setDownColor(FBOX_FLAT_BOX)
+		#editor
+		editor.setPosition(10,30).setSize(380,430).setBackground(backGround).setTextColor(textColor).setCursorColor(textColor).hideScrollBar()
+		editor.setBoxType(FBOX_FLAT_BOX)
+		editor./*setLineNumberWidth(lineNumberWidth).*/setLineNumberBackground(backGround).setLineNumberTextColor(textColor)
+		addResizableWidget([menuBar,editor]) #notifyMenu(0) 
+		
+block exeFolder()
+	return getSystemEnvironment("SIMPLE_PATH")+'/'
+	
+#FILE	
+block newFile() editor.clear() file = null
+block open() file = new File("../smake/test.sim") editor.setText(file.readFileAsString()) notifyMenu(1)
+block save() file.write(editor.getText())
+block saveAs() display "Nothing yet.... "
+block close() editor.clear() file = null notifyMenu(0) block exit() __exit__
+#EDIT
+block undo() editor.undo() block copy() editor.copy() block paste() editor.paste() block delete() editor.delete()
+block cut() editor.cut()
+block lineNumber() if editor.isLineNumberEnabled() editor.hideLineNumber() else editor.setLineNumberWidth(lineNumberWidth)  end
+block wordWrap() if editor.isWrapping() editor.wrap(false) else editor.wrap(true) end
+block editable() if not editor.isReadOnly() editor.setReadOnly(true) else editor.setReadOnly(false) end
+block noOutput() if output.isVisible() output.setVisibility(false) else output.setVisibility(true) end
+#SEARCH
+block find()
+block replace()
+#PROGRAM
+block runSource() program(1)
+block debugSource() program(2)
+block build() program(3)
+#ABOUT
+block about() display "SimplePad "
+
+block program(type)
+	if isWindows() 
+		Runtime.execute('exec.bat '+type+' simple "'+file.absolutePath()+'"')
+	elif isLinux()
+		
+	end
+	
+block notifyMenu(con)
+	if con == 0
+		menuBar.mode(3,1) #save
+		menuBar.mode(5,1) #close
+		menuBar.mode(23,1) #run
+		menuBar.mode(24,1) #debug
+	else 
+		menuBar.mode(3,0) #save
+		menuBar.mode(5,0) #close
+		menuBar.mode(23,0) #run
+		menuBar.mode(24,0) #debug
+	end
+	
