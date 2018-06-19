@@ -2,9 +2,8 @@
 
 VERSION=s0.3.303
 SIMPLE_DEBUG_VERSION=s0.3.303-debug
-FULLTICK_BUILD_ISSUE=https://github.com/simple-lang/simple/issues/35
+FULLTICK_BUILD_ISSUE=<https://github.com/simple-lang/simple/issues/35>
 
-<<<<<<< HEAD
 echo "	simple-lang build $SIMPLE_DEBUG_VERSION"
 
 #Remove previous build of current version
@@ -22,12 +21,6 @@ if [ -e ../simple/makefiles/Makefile-Linux.mk ]; then
 		echo "simple: removing previous simple build"
 		rm -R ../dist/
 	fi
-=======
-if [ -e ../simple/makefiles/Makefile-Linux.mk ]; then 
-	cd ../simple/makefiles
-	echo "SIMPLE $SIMPLE_DEBUG_VERSION build"
-	echo "		Building simple and simple.so"
->>>>>>> 56d403169453e98eeed570a1804950de0f7d9ca8
 	make -f Makefile-Linux.mk uninstall 
 	make -f Makefile-Linux.mk
 	make -f Makefile-Linux.mk install 
@@ -49,7 +42,6 @@ else
 fi
 
 if [ -e ../simple/dist/simple ]; then
-<<<<<<< HEAD
 	echo "simple: copying simple and simple.so to ../../$SIMPLE_DEBUG_VERSION/bin folder"
 	cp "../simple/dist/simple" "../../$SIMPLE_DEBUG_VERSION/bin"
 	cp "../simple/dist/simple.so" "../../$SIMPLE_DEBUG_VERSION/bin"
@@ -59,24 +51,9 @@ else
 fi
 
 #copying the includes folder for developers
-	echo "copying includes directory for developer"
+	echo "	copying includes directory for developer"
 if [ -e ../simple/includes ]; then
 	echo "includes: copying includes to ../../$SIMPLE_DEBUG_VERSION/includes folder"
-=======
-	echo "		Copying simple and simple.so to ../../$SIMPLE_DEBUG_VERSION/bin folder"
-	cp "../simple/dist/simple" "../../$SIMPLE_DEBUG_VERSION/bin"
-	cp "../simple/dist/simple.so" "../../$SIMPLE_DEBUG_VERSION/bin"
-else
-	echo "		Build fails. Simple and simple.so cannot be found in the"
-	echo "		../simple/dist folder. Try rebuilding the program individually"
-	echo "		ff it ails again run the build individually"
-fi
-
-#copying the includes folder for developers
-	echo "		~includes"
-if [ -e ../simple/includes ]; then
-	echo "		Copying includes to ../../$SIMPLE_DEBUG_VERSION/includes folder"
->>>>>>> 56d403169453e98eeed570a1804950de0f7d9ca8
 	cp -R "../simple/includes" "../../$SIMPLE_DEBUG_VERSION/includes"
 else
 	echo "error:includes: the includes directory cannot be found"
