@@ -1,0 +1,34 @@
+/* 
+	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+/* 
+ * #filename - Type.sim
+ * #author - Azeez Adewale
+ * #date - 7 Febuary 2017
+ */
+
+# Low Level Types
+char 		= :char 
+unsigned 	= :unsigned
+signed 		= :signed 
+int 		= :int 
+short 		= :short 
+long 		= :long 
+float 		= :float 
+double 		= :double 
+void 		= :void 
+
+# High Level Types 
+string 		= :string 
+list 		= :list 
+number 		= :number 
+object		= :object
+
+OBJECT_TYPE = 0
+STRING_TYPE = 1
+NUMBER_TYPE = 2
+LIST_TYPE 	= 3
+

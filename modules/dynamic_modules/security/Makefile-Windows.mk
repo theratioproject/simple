@@ -44,7 +44,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/security.o
 	
 # Link Libraries and Options
-LDLIBSOPTIONS=../../../simple/dist/simple.dll ./bin/ssleay32.dll ./bin/libeay32.dll 
+LDLIBSOPTIONS=../../../simple/dist/simple.dll ./bin/libeay32.dll 
 
 ${CND_DISTDIR}/${CND_PLATFORM}/security.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_PLATFORM}

@@ -1,0 +1,36 @@
+/* 
+	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+/* 
+ * #filename - Object.sim
+ * #author - Azeez Adewale
+ * #date - 5 Febuary 2017
+ */
+ 
+module simple.core
+
+call "simple/security/Hash.sim"
+call "Types.sim"
+call "BaseFields.sim"
+
+class Object 
+
+	objectName = "Object"
+
+	block toString()
+		return "[simple.core.Object:"+getHashCode()+"]"
+		
+	block getHashCode()
+		return hash(objectName)
+
+	block equals(compare)
+		#empty for now
+		
+	block getType()
+		return objectName
+		
+	block getTypeCode
+		return OBJECT_TYPE

@@ -1,0 +1,17 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+/* 
+ * #filename - Throw.sim
+ * #author - Azeez Adewale
+ * #date - 18 Febuary 2018
+ */
+ 
+module simple.debugging
+ 
+block throw(value)
+	display value 
+	__exit__

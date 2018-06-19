@@ -1,0 +1,61 @@
+/* 
+	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+/* 
+ * #filename - loadcblocks.sim
+ * #author - Azeez Adewale
+ * #date - 7 Febuary 2017
+ */
+ 
+module simple.core
+
+callDynamicModule("string_savant.so")
+callDynamicModule("systemic.so")
+call "simple/core/String.sim"
+ 
+	dynamicModules = []
+ 
+block callModule(path) 
+	path = formatPathName(path)
+	#add(dynamicModules, path)
+	callDynamicModule(path)
+	
+block formatPathName(path)
+	if isWindows() 
+		if stringEndsWith(path, ".so") 
+			path = replaceString(path, ".so", ".dll")
+		elif stringEndsWith(path, ".dylib")
+			path = replaceString(path, ".dylib", ".dll")
+		end
+	elif isLinux()
+		if stringEndsWith(path, ".dll") 
+			path = replaceString(path, ".dll", ".so")
+		elif stringEndsWith(path, ".dylib")
+			path = replaceString(path, ".dylib", ".so")
+		end
+	elif isMacosx()
+		if stringEndsWith(path, ".dll") 
+			path = replaceString(path, ".dll", ".dylib")
+		elif stringEndsWith(path, ".so")
+			path = replaceString(path, ".so", ".dylib")
+		end
+	else
+		if stringEndsWith(path, ".dll") 
+			path = replaceString(path, ".dll", ".so")
+		elif stringEndsWith(path, ".dylib")
+			path = replaceString(path, ".dylib", ".so")
+		end
+	end
+	if not stringEndsWith(path, ".dll") && isWindows() path+=".dll" 
+	elif not stringEndsWith(path, ".so") && isLinux() path+=".so" 
+	elif not stringEndsWith(path, ".dylib") && isMacosx() path+=".dylib" 
+	end
+	return path
+ 
+block getDynamicModules()
+	return dynamicModules
+	
+	

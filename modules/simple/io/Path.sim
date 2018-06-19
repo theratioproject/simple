@@ -1,0 +1,46 @@
+/* 
+	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+/* 
+ * #filename - Path.sim
+ * #author - Azeez Adewale
+ * #date - 10 Febuary 2017
+ */
+ 
+module simple.io
+
+call "loadfilesavantlib.sim"
+call "simple/core/String.sim"
+
+block curePathSlashes(path)
+	if isPath(path) ret = path.toString() end
+	ret = replaceString(path, "//", "/")
+	ret = replaceString(ret, '\\', '/')
+	ret = replaceString(ret, '\', '/')
+	return ret 
+
+block isPath(ipath)
+	try 
+		p = ipath.path() #free(p)
+		return true
+	catch 
+		return false
+	end
+ 
+class Path
+
+	block Path(ipath)
+		filePath = ipath
+		
+	block toString()
+		return filePath
+		
+	block path()
+		"[just for checking]"
+	
+	private 
+		filePath = "(null)"
+	

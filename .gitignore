@@ -1,7 +1,6 @@
 *.gch
 *.dylib
 *.o
-simple
 simple.so
 tasks.json
 .DS_STORE
