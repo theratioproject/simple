@@ -1,6 +1,6 @@
 
 extern "C" {
-	#include "../../../simple/src/includes/simple.h"
+	#include "../../../simple/includes/simple.h"
 	
 }
 

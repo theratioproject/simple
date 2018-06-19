@@ -53,7 +53,7 @@
 extern "C" {
 #endif
 
-#include "../../../simple/src/includes/simple.h"
+#include "../../../simple/includes/simple.h"
 
 class CallbackStruct
 {
