@@ -1,0 +1,44 @@
+/* 
+	Copyright (c) 2018 Abdulazeez Adeshina Abdulazeez <laisibizness@gmail.com"> 
+	MIT License Copyright (c) 2018 simple 
+*/
+
+/* 
+ * @Filename - ListExample.sim
+ * @Author - Abdulazeez Abdulazeez Adeshina
+ * @Date - 16 June 2018
+ * @Time - 15:37 PM
+ */
+
+call "simple/core/List.sim"
+
+/* Define / create a new array. */
+myList = new List(["s", "i", "m", "p", "l", "e"])
+
+/* Testing the methods embedded to List
+*@ push() - Add another element or value to the area.
+*@pop() - Remove an element from the list using the index number.
+*@keys() - Get the elements of the array.
+*@reverse() - Reverse the array.
+*@indexOf() - Get the element using the index number.
+ */
+
+/* .push() method */
+myList.push([" l", "a", "n", "g"])
+
+display myList /* simple lang */ 
+
+/* .pop() method */
+mylist.pop(4)
+
+display mylist /* simpe lang */
+
+/* .keys */
+myList.keys
+
+/* .reverse() */
+myList.reverse()
+
+/* .indexOf() */
+myList.indexOf(5)
+
