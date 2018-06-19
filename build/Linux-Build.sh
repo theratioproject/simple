@@ -3,8 +3,8 @@
 VERSION=s0.3.303
 SIMPLE_DEBUG_VERSION=s0.3.303-debug
 
-if [ -e ../src/makefiles/Makefile-Linux.mk ]; then 
-	cd ../src/makefiles
+if [ -e ../simple/makefiles/Makefile-Linux.mk ]; then 
+	cd ../simple/makefiles
 	echo "SIMPLE $SIMPLE_DEBUG_VERSION build"
 	echo "		Building simple and simple.so"
 	make -f Makefile-Linux.mk uninstall 
@@ -28,21 +28,21 @@ else
 	mkdir -p "../../$SIMPLE_DEBUG_VERSION/bin"
 fi
 
-if [ -e ../src/dist/simple ]; then
+if [ -e ../simple/dist/simple ]; then
 	echo "		Copying simple and simple.so to ../../$SIMPLE_DEBUG_VERSION/bin folder"
-	cp "../src/dist/simple" "../../$SIMPLE_DEBUG_VERSION/bin"
-	cp "../src/dist/simple.so" "../../$SIMPLE_DEBUG_VERSION/bin"
+	cp "../simple/dist/simple" "../../$SIMPLE_DEBUG_VERSION/bin"
+	cp "../simple/dist/simple.so" "../../$SIMPLE_DEBUG_VERSION/bin"
 else
 	echo "		Build fails. Simple and simple.so cannot be found in the"
-	echo "		../src/dist folder. Try rebuilding the program individually"
+	echo "		../simple/dist folder. Try rebuilding the program individually"
 	echo "		ff it ails again run the build individually"
 fi
 
 #copying the includes folder for developers
 	echo "		~includes"
-if [ -e ../src/includes ]; then
+if [ -e ../simple/includes ]; then
 	echo "		Copying includes to ../../$SIMPLE_DEBUG_VERSION/includes folder"
-	cp -R "../src/includes" "../../$SIMPLE_DEBUG_VERSION/includes"
+	cp -R "../simple/includes" "../../$SIMPLE_DEBUG_VERSION/includes"
 else
 	echo "		simple includes cannot be found"
 	echo "		The repository appear to be corrupted. Try cloning again"
