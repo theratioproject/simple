@@ -3,6 +3,10 @@ cls
 
 SET VERSION="s0.3.303"
 SET SIMPLE_DEBUG_VERSION="s0.3.303-debug"
+FULLTICK_BUILD_ISSUE="https://github.com/simple-lang/simple/issues/35"
+
+echo 	simple-lang build %SIMPLE_DEBUG_VERSION%
+
 
 REM Remove previous build of the current versions
 if exist "../../%SIMPLE_DEBUG_VERSION%/" (
@@ -14,12 +18,16 @@ if exist "../../%SIMPLE_DEBUG_VERSION%/" (
 REM BULDING SIMPLE.EXE and SIMPLE.DLL
 if exist "../simple/makefiles/Makefile-Windows.mk" (
 	cd "../simple/makefiles"
-	echo SIMPLE %SIMPLE_DEBUG_VERSION% build 
+	echo simple: simple-lang %SIMPLE_DEBUG_VERSION% build 
 	echo simple: building simple.dll and simple.exe
+	if exist "../dist/"  (
+		echo "simple: removing previous simple build"
+		rm -r ../dist/
+	)
 	make -f Makefile-Windows.mk
 	cd ../../build
 ) else (
-	echo SIMPLE %SIMPLE_DEBUG_VERSION% build 
+	echo error:simple: simple-lang %SIMPLE_DEBUG_VERSION% build 
 	echo error:simple: the file 'Makefile-Windows.mk' does not exist in simple directory
 	echo error:simple: skipping simple Build
 )
@@ -46,7 +54,7 @@ if exist "../simple/dist/simple.exe" (
 )
 
 REM COPY THE INCLUDE DIRECTORY	
-	echo copying includes directory for developers
+	echo copying includes directory for developer
 if exist "../simple/includes" (
 	echo includes: copying includes to ../../%SIMPLE_DEBUG_VERSION%/ directory
 	xcopy "../simple/includes" "../../%SIMPLE_DEBUG_VERSION%/includes" /s /h /e /i /k /f /c
@@ -101,6 +109,10 @@ if exist "../modules" (
 	echo modules: modules repository detected
 	if exist "./dynamic_modules/makefiles/Makefile-Windows.mk" (
 		cd ./dynamic_modules/makefiles
+		if exist "../dist" (
+			echo dynamic_modules: removing previous dynamic modules build
+			rm -R ../dist/
+		)
 		echo dynamic_modules: build starting...
 		make -f Makefile-Windows.mk
 		cd ../
@@ -134,14 +146,25 @@ if exist "../modules/dynamic_modules/dist/systemic.dll" (
 )
 
 REM fulltick(GUI) dynamic module
-	echo Building of fulltick(GUI) modules not currently supported
-if exist "../modules/dynamic_modules/fulltick/dist/fulltick.dll" (
-	echo fulltick: copying fulltick.dll to ../../%SIMPLE_DEBUG_VERSION%/bin directory
-	cp ../modules/dynamic_modules/fulltick/dist/fulltick.dll ../../%SIMPLE_DEBUG_VERSION%/modules/dynamic_modules
+	echo dynamic_modules:fulltick: checking if fulltick build successfully
+if exist "../../%SIMPLE_DEBUG_VERSION%/modules/dynamic_modules" (
+	echo dynamic_modules:fulltick: fulltick dynamic module built successfully
 ) else (
-	echo error:fulltick: the fulltick.dll built module cannot be found 
-	echo error:fulltick skipping the GUI module build
-)
+	echo error:dynamic_modules:fulltick: fulltick dynamic module build failed
+	echo error:dynamic_modules:fulltick: fulltick build is sure to fail if you don't have fltk library installed or it is not configured as shared library
+	echo error:dynamic_modules:fulltick: visit %FULLTICK_BUILD_ISSUE% for build instruction
+	echo dynamic_modules:fulltick: falling back on available backup build.
+	if exist "../modules/dynamic_modules/fulltick/dist/fulltick.dll" (
+		echo dynamic_modules:fulltick: backup build found but might be outdated
+		echo fulltick: copying fulltick.dll to ../../%SIMPLE_DEBUG_VERSION%/modules/dynamic_modules directory
+		cp ../modules/dynamic_modules/fulltick/dist/fulltick.dll ../../%SIMPLE_DEBUG_VERSION%/modules/dynamic_modules
+	) else (
+		echo error:dynamic_modules:fulltick: the backup fulltick dynamic module cannot be found
+		echo error:dynamic_modules:fulltick: the repository appears to be currupted. 
+		echo error:dynamic_modules:fulltick: try clonning the simple repository again to resolve the issue
+		echo error:dynamic_modules:fulltick: or visit $FULLTICK_BUILD_ISSUE to build instruction
+	)
+) 
 
 REM Copy the simple modules
 	echo Copying Simple Modules to %SIMPLE_DEBUG_VERSION%
@@ -204,7 +227,6 @@ if exist "../modules/modules-dependencies.conf" (
 REM ENVIRONMENT PROGRAMS
 REM move the environment to %SIMPLE_DEBUG_VERSION% directory
 	echo Copying Environment Programs to %SIMPLE_DEBUG_VERSION%
-	
 if exist "../../%SIMPLE_DEBUG_VERSION%/environment" (
 	echo environment: the ../../%SIMPLE_DEBUG_VERSION%/environment directory already exist
 ) else (
@@ -223,13 +245,13 @@ if exist "../environment/modular/modular.sim" (
 )
 
 REM repl
-	echo environment:repl: repl
+	echo environment:simplerepl: simplerepl
 if exist "../environment/repl/simplerepl.sim" (
-	echo environment:repl: copying repl to ../../%SIMPLE_DEBUG_VERSION%/environment directory
+	echo environment:repl: copying simplerepl to ../../%SIMPLE_DEBUG_VERSION%/environment directory
 	cp ../environment/repl/simplerepl.sim ../../%SIMPLE_DEBUG_VERSION%/environment
 ) else (
-	echo error:environment:repl: ../environment/repl/simplerepl.sim cannot be found
-	echo error:environment:repl: skipping repl
+	echo error:environment:simplerepl: ../environment/repl/simplerepl.sim cannot be found
+	echo error:environment:simplerepl: skipping simplerepl
 )
 
 REM simplepad
@@ -244,24 +266,24 @@ if exist "../environment/simplepad/simplepad.sim" (
 	echo error:environment:simplepad: skipping simplepad
 )
 
-REM smake 
-	echo environment:smake smake
-if exist "../environment/smake/smake.sim" (
-	echo environment:smake: copying smake to ../../%SIMPLE_DEBUG_VERSION%/environment directory
-	cp ../environment/smake/smake.sim ../../%SIMPLE_DEBUG_VERSION%/environment
+REM bake 
+	echo environment:bake bake
+if exist "../environment/bake/bake.sim" (
+	echo environment:bake: copying bake to ../../%SIMPLE_DEBUG_VERSION%/environment directory
+	cp ../environment/bake/bake.sim ../../%SIMPLE_DEBUG_VERSION%/environment
 ) else (
-	echo error:environment:smake: ../environment/smake/simplepad.sim cannot be found
-	echo error:environment:smake: skipping smake
+	echo error:environment:bake: ../environment/bake/bake.sim cannot be found
+	echo error:environment:bake: skipping bake
 )
 
-REM spider
-	echo environment:spider: spider
-if exist "../environment/spider/spider.sim" (
-	echo environment:spider: copying spider to ../../%SIMPLE_DEBUG_VERSION%/environment directory
-	cp ../environment/spider/spider.sim ../../%SIMPLE_DEBUG_VERSION%/environment
+REM webworker
+	echo environment:webworker: webworker
+if exist "../environment/webworker/webworker.sim" (
+	echo environment:webworker: copying webworker to ../../%SIMPLE_DEBUG_VERSION%/environment directory
+	cp ../environment/webworker/webworker.sim ../../%SIMPLE_DEBUG_VERSION%/environment
 ) else (
-	echo error:environment:spider: ../environment/spider/simplepad.sim cannot be found
-	echo error:environment:spider: skipping spider
+	echo error:environment:webworker: ../environment/webworker/webworker.sim cannot be found
+	echo error:environment:webworker: skipping webworker
 )
 
 REM build environment programs executable
@@ -276,7 +298,7 @@ SET SIMPLE=""
 REM Confirm simple is present
 
 if exist "../../%SIMPLE_DEBUG_VERSION%/bin/simple.exe" (
-	echo build:environment: simple Found. yea now to check for smake...
+	echo build:environment: simple Found. yea now to check for bake...
 	SET SIMPLE="../../%SIMPLE_DEBUG_VERSION%/bin/simple.exe"
 ) else (
 	echo error:build:environment: simple cannot be found
@@ -284,14 +306,14 @@ if exist "../../%SIMPLE_DEBUG_VERSION%/bin/simple.exe" (
 	exit 
 )
 	
-REM Confirm smake is present
+REM Confirm bake is present
 
-if exist "../../%SIMPLE_DEBUG_VERSION%/environment/smake.sim" (
-	echo build:environment: smake Found. yea Starting Build...
-	SET SMAKE="../../%SIMPLE_DEBUG_VERSION%/environment/smake.sim"
+if exist "../../%SIMPLE_DEBUG_VERSION%/environment/bake.sim" (
+	echo build:environment: bake Found. yea Starting Build...
+	SET SMAKE="../../%SIMPLE_DEBUG_VERSION%/environment/bake.sim"
 ) else (
-	echo error:build:environment: smake.sim cannot be found
-	echo error:build:environment: no smake no build bye
+	echo error:build:environment: bake.sim cannot be found
+	echo error:build:environment: no bake no build bye
 	exit 
 )
 
@@ -340,35 +362,35 @@ if exist "../../%SIMPLE_DEBUG_VERSION%/environment/modular.sim" (
 	echo 		skipping modular
 )
 
-REM Building spider
-		echo spider
-if exist "../../%SIMPLE_DEBUG_VERSION%/environment/spider.sim" (
-	if exist ../../simple-arts/environment/spider.ico (
-		echo 		Building spider with icon
-		%SIMPLE% %SMAKE% -I/../../simple-arts/environment/simpleprepl.ico -delete ../../%SIMPLE_DEBUG_VERSION%/environment/spider.sim	
+REM Building webworker
+		echo build:environment: webworker
+if exist "../../%SIMPLE_DEBUG_VERSION%/environment/webworker.sim" (
+	if exist ../../simple-arts/environment/webworker.ico (
+		echo 		Building webworker with icon
+		%SIMPLE% %SMAKE% -I/../../simple-arts/environment/simpleprepl.ico -delete ../../%SIMPLE_DEBUG_VERSION%/environment/webworker.sim	
 	) else (
-		echo 		Building spider
-		%SIMPLE% %SMAKE% -delete ../../%SIMPLE_DEBUG_VERSION%/environment/spider.sim
+		echo 		Building webworker
+		%SIMPLE% %SMAKE% -delete ../../%SIMPLE_DEBUG_VERSION%/environment/webworker.sim
 	)
 ) else (
-	echo 		../../%SIMPLE_DEBUG_VERSION%/environment/spider.sim cannot be found
-	echo 		skipping spider
+	echo 		../../%SIMPLE_DEBUG_VERSION%/environment/webworker.sim cannot be found
+	echo 		skipping webworker
 )
 
-REM Building smake should be the last build or first whatever ok ok last is better
+REM Building bake should be the last build or first whatever ok ok last is better
 REM Building SMAKE
-	echo build:environment: smake
-if exist "../../%SIMPLE_DEBUG_VERSION%/environment/smake.sim" (
-	if exist ../../simple-arts/environment/smake.ico (
-		echo 		Building smake with icon
-		%SIMPLE% %SMAKE% -I/../../simple-arts/environment/smake.ico -delete ../../%SIMPLE_DEBUG_VERSION%/environment/smake.sim	
+	echo build:environment: bake
+if exist "../../%SIMPLE_DEBUG_VERSION%/environment/bake.sim" (
+	if exist ../../simple-arts/environment/bake.ico (
+		echo 		Building bake with icon
+		%SIMPLE% %SMAKE% -I/../../simple-arts/environment/bake.ico -delete ../../%SIMPLE_DEBUG_VERSION%/environment/bake.sim	
 	) else (
-		echo 		Building smake
-		%SIMPLE% %SMAKE% -delete ../../%SIMPLE_DEBUG_VERSION%/environment/smake.sim
+		echo 		Building bake
+		%SIMPLE% %SMAKE% -delete ../../%SIMPLE_DEBUG_VERSION%/environment/bake.sim
 	)
 ) else (
-	echo 		../../%SIMPLE_DEBUG_VERSION%/environment/smake.sim cannot be found
-	echo 		skipping smake
+	echo 		../../%SIMPLE_DEBUG_VERSION%/environment/bake.sim cannot be found
+	echo 		skipping bake
 )
 
 

@@ -13,7 +13,7 @@
 #simple/src/makefiles/consoler/ $ make -f Makefile-Linux.mk
 
 # Flags
-CFLAGS= -c -fpic -g
+CFLAGS= -c -fpic -g -w
 LFlAGS= -lm -ldl
 LDFLAGS= "-Wl,-rpath,../../bin/" 
 
@@ -27,7 +27,7 @@ CND_DISTDIR =../dist
 OBJECTDIR=$(CND_DISTDIR)/$(CND_BUILDDIR)/$(CND_PLATFORM)
 
 # Simple Object Directory
-SIMPLE_OBJECTDIR=../../../simple/src/dist/$(CND_BUILDDIR)/$(CND_PLATFORM)
+SIMPLE_OBJECTDIR=../../../simple/dist/$(CND_BUILDDIR)/$(CND_PLATFORM)
 
 # Object Files
 OBJECTFILES= \
@@ -40,7 +40,7 @@ SIMPLE_OBJECTFILES = \
 	
 	
 # Link Libraries and Options
-LDLIBSOPTIONS=../../../simple/src/dist/simple.so
+LDLIBSOPTIONS=../../../simple/dist/simple.so
 
 ${CND_DISTDIR}/${CND_PLATFORM}/consoler.${CND_DLIB_EXT}: $(OBJECTFILES) $(SIMPLE_OBJECTFILES)
 	$(CC) -shared -o $(CND_DISTDIR)/$(CND_PLATFORM)/consoler.$(CND_DLIB_EXT) $(SIMPLE_OBJECTFILES) $(OBJECTFILES) 

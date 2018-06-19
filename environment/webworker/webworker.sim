@@ -5,13 +5,13 @@
 */
 
 /* 
- * @Filename - spider.sim
+ * @Filename - webworker.sim
  * @Author - Azeez Adewale
  * @Date - 06 April 2018
  * @Time - 02:56 AM
  */
  /*
-		WEBSPIDER
+		WEBWORKER
 		This program is able to download any webpage and save it on the
 		computer system. Webpage content can be display in console or 
 		downloaded as file into specified folder.
@@ -117,7 +117,7 @@ block main()
 block help() header() 
 	display "This program is use to prepare your server for web development with
 simple cgi and web module. Visit simple environments page for more included features
-Usage:  ./spider ([OPTIONS]) ([FLAGS]) [PATH]
+Usage:  ./webworker ([OPTIONS]) ([FLAGS]) [PATH]
 
 Flags :
 	-H/<url>		url, link or address of the website | must start with http or https
@@ -151,7 +151,7 @@ block printError(msg) header()
 	
 block header()
 	display crlf+"=======================================================
-	SPIDER : web spider Program : 2018
+	SPIDER : web webworker Program : 2018
 	This program is part of simple environments 
 ======================================================="+crlf
 	

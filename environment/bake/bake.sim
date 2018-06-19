@@ -5,14 +5,14 @@
 */
 
 /* 
- * @Filename - smake.sim
+ * @Filename - bake.sim
  * @Author - Azeez Adewale
  * @Date - 08 April 2018
  * @Time - 02:56 AM
  */
  
  /*
-		SMAKE
+		BAKE
 		This program is is use for building distributable program
 		written in simple to allow application or program written
 		in simple to run on client or consumer computer without the 
@@ -125,7 +125,7 @@ block writeCode()
 
 		/* 
 		 * File:   main.c
-		 * Author: smake
+		 * Author: bake
 		 *
 		 * Created on April 04, 2018, 12:11 PM
 		 */
@@ -168,10 +168,10 @@ block writeCode()
 		}
 
 ' 
-	tempFile = new File(filePath+".smake.c") 
+	tempFile = new File(filePath+".bake.c") 
 	display "-->Writing obj code to "+tempFile.toString()+crlf
 	tempFile.write(code)
-	createExecutable(filePath+".smake.c")
+	createExecutable(filePath+".bake.c")
 	
 block createExecutable(path)
 	createIcon(path)
@@ -234,7 +234,7 @@ block windowBuildVS(path)
 	display cmd + crlf 
 	tempFile = new File(path+".bat")  display "		Create batch file "+tempFile.toString()+crlf tempFile.write(cmd)
 	display "		Executing build command " + crlf __exec(tempFile.toString())
-	fi = new File(filePath+".smake.exe") if fi.exists() fi.renameTo(outputName+".exe") end 
+	fi = new File(filePath+".bake.exe") if fi.exists() fi.renameTo(outputName+".exe") end 
 	cleanTempFiles([removeString(path, ".c")+".obj",path+".bat",path]) treatProgramAttr()
 	
 block windowBuildMingw(mingwBuildTool,path)
@@ -246,7 +246,8 @@ block windowBuildMingw(mingwBuildTool,path)
 	cleanTempFiles([path,path+".o.d",path+".o",path+'.rc',path+'.res']) treatProgramAttr()
 
 block linuxBuild(path)
-	cmd = 'cc -fpic -g -lm -ldl -o '+outputName+" "+path+' "-Wl,-rpath,../bin/" "'+exeFolder()+'simple.so"'
+	cmd = 'cc "-Wl,--no-as-needed" -lm -ldl -o "'+outputName+'" "'+path+'" '+' '+exeFolder()+'simple.so'
+	#cmd = 'cc -fpic -g -lm -ldl -o '+outputName+" "+path+' "-Wl,--no-as-needed" "'+exeFolder()+'simple.so"'
 	display cmd + crlf
 	display "		Executing compilation command "/*cmd */+ crlf
 	display "		Executing build command "/*cmd */+ crlf
@@ -316,7 +317,7 @@ block formatString(value)
 				
 block help()
 	display "This program is use to build simple source to platform executable
-Usage:  ./smake ([OPTIONS]) [PATH]
+Usage:  bake ([OPTIONS]) [PATH]
 	
 The OPTIONS include :
 	-F/</path>	specify the folder to place the program file
@@ -340,13 +341,13 @@ The OPTIONS include :
 	__exit__
 
 block printError(msg)
-	display "SMAKE : "+msg + crlf
+	display "BAKE : "+msg + crlf
 	display "======================================================="+crlf
 	__exit__
 	
 block header()
 	display crlf+"=======================================================
-	SMAKE : simple Make Program : 2018
+	BAKE : simple Make Program : 2018
 	This program is part of simple environments 
 ======================================================="+crlf
 	

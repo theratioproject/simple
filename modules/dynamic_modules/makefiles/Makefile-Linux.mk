@@ -25,6 +25,9 @@
 #	security
 #	systemic
 #	core_dynamic_module
+#	fulltick
+#
+#if you are modifying this file always build fulltick last
 
 # Environment
 MKDIR=mkdir
@@ -53,6 +56,7 @@ clean:
 	cd ../security/ && $(MAKE) -f Makefile-Linux.mk
 	cd ../systemic/ && $(MAKE) -f Makefile-Linux.mk
 	cd ../core_dynamic_module/ && $(MAKE) -f Makefile-Linux.mk
+	cd ../fulltick/ && $(MAKE) -f Makefile-Linux.mk
 	
 	${RM} ${CND_DISTDIR}/build/*.o
 	#${RM} ${CND_DISTDIR}/build/*.d
@@ -72,11 +76,17 @@ install:
 	cp -R $(MODULE_BASE)/fulltick $(DESTDIR)$(PREFIX)/simple/$(VERSION)/modules/
 	cp -R $(MODULE_BASE)/simple $(DESTDIR)$(PREFIX)/simple/$(VERSION)/modules/
 	cp -R $(MODULE_BASE)/web $(DESTDIR)$(PREFIX)/simple/$(VERSION)/modules/
+
+#ifeq ($(PREFIX),)
+#    PREFIX := /usr/local
+#endif
 	
 .PHONY: uninstall
 uninstall:
-	rm -r $(DESTDIR)$(PREFIX)/simple/$(VERSION)/modules/
 	rm -r $(DESTDIR)$(PREFIX)/simple/$(VERSION)/modules/dynamic_modules/
+	rm -r $(DESTDIR)$(PREFIX)/simple/$(VERSION)/modules/
+	rm -r $(DESTDIR)$(PREFIX)/simple/$(VERSION)/
+	rm -r $(DESTDIR)$(PREFIX)/simple/
 
 #If this make file does not work on your Windows PC or you use 
 #alternative compiler e.g Visual Studio, Cygwin e.t.c feel free to 

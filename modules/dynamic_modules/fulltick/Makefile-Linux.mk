@@ -14,7 +14,7 @@
 
 # Flags
 CFLAGS= -c -fpic -g
-LFlAGS= -fvisibility-inlines-hidden -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -D_THREAD_SAFE -D_REENTRANT 
+FLTKFlAGS= 
 LDFLAGS= -lpthread -ldl -lm -lX11
 
 # Macros
@@ -22,34 +22,18 @@ CND_PLATFORM=
 CND_DLIB_EXT=so
 CND_BUILDDIR=build
 CND_DISTDIR =../dist
-
-# Object Directory
-OBJECTDIR=$(CND_DISTDIR)/$(CND_BUILDDIR)/$(CND_PLATFORM)
-
-# Object Files
-OBJECTFILES= \
-	$(OBJECTDIR)/fulltick.o \
-	$(OBJECTDIR)/fulltick_delegate.o
+FULLTICK_FILES='./fulltick.cpp' './fulltick_delegate.cpp'
 	
 # Link Libraries and Options
-LDLIBSOPTIONS=../../../simple/dist/simple.so
+LDLIBSOPTIONS=-Lsimple.so
 
-${CND_DISTDIR}/${CND_PLATFORM}/fulltick.${CND_DLIB_EXT}: $(OBJECTFILES) 
-	g++ -shared -I/usr/local/include -I/usr/local/include/FL/images $(LFLAGS) -o '$(CND_DISTDIR)/$(CND_PLATFORM)/fulltick.$(CND_DLIB_EXT)' $(OBJECTFILES)  /usr/local/lib/libfltk.a $(LDFLAGS) $(LDLIBSOPTIONS)
+ifeq ($(PREFIX),)
+    PREFIX := /usr/local
+endif
 
-$(OBJECTDIR)/fulltick.o: fulltick.cpp
-	mkdir -p $(OBJECTDIR)
-	g++ $(CFLAGS) fulltick.cpp
-	mv fulltick.o $(OBJECTDIR)
-
-$(OBJECTDIR)/fulltick_delegate.o: fulltick_delegate.cpp
-	mkdir -p $(OBJECTDIR)
-	g++ $(CFLAGS) fulltick_delegate.cpp
-	mv fulltick_delegate.o $(OBJECTDIR)
-
-clean:
-	@- $(RM) $(OBJECTDIR)/*.o
-	@- $(RM) $(program_OBJS)
+clean: 
+	g++ -shared -I$(DESTDIR)$(PREFIX)/include -I$(DESTDIR)$(PREFIX)/include/FL/images ${FLTKFLAGS}  -fvisibility-inlines-hidden -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -D_THREAD_SAFE -D_REENTRANT -o '$(CND_DISTDIR)/$(CND_PLATFORM)/fulltick.$(CND_DLIB_EXT)' $(FULLTICK_FILES)  $(DESTDIR)$(PREFIX)/lib/libfltk.a $(LDFLAGS) $(LDLIBSOPTIONS)
+	cp -R ${CND_DISTDIR}/${CND_PLATFORM}/fulltick.${CND_DLIB_EXT} ./dist
 
 distclean: clean
 

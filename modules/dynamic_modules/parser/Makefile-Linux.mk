@@ -13,9 +13,9 @@
 #simple/src/makefiles/parser/ $ make -f Makefile-Linux.mk
 
 # Flags
-CFLAGS= -c -fpic -g
+CFLAGS= -c -fpic -g -w
 LFlAGS= -lm -ldl
-LDFLAGS= "-Wl,-rpath,../../../simple/src/dist/"
+LDFLAGS= "-Wl,-rpath,../../../simple/dist/"
 
 # Macros
 CND_PLATFORM=
@@ -27,7 +27,7 @@ CND_DISTDIR =../dist
 OBJECTDIR=$(CND_DISTDIR)/$(CND_BUILDDIR)/$(CND_PLATFORM)
 
 # Simple Object Directory
-SIMPLE_OBJECTDIR=../../../simple/src/dist/$(CND_BUILDDIR)/$(CND_PLATFORM)
+SIMPLE_OBJECTDIR=../../../simple/dist/$(CND_BUILDDIR)/$(CND_PLATFORM)
 
 # Object Files
 OBJECTFILES= \
@@ -45,7 +45,7 @@ SIMPLE_OBJECTFILES = \
 	$(SIMPLE_OBJECTDIR)/simple_api.o 
 	
 # Link Libraries and Options
-LDLIBSOPTIONS= ../../../simple/src/dist/simple.so
+LDLIBSOPTIONS= ../../../simple/dist/simple.so
 
 ${CND_DISTDIR}/${CND_PLATFORM}/parser.${CND_DLIB_EXT}: $(OBJECTFILES)
 	$(CC) -shared -o $(CND_DISTDIR)/$(CND_PLATFORM)/parser.$(CND_DLIB_EXT) $(SIMPLE_OBJECTFILES) $(OBJECTFILES)

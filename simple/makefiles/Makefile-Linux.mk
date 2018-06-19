@@ -10,12 +10,12 @@
 #appropriate `dist` folder in modules folder. 
 #Execute the below command in your command prompt of bash
 #
-#simple/src/makefiles/ $ make -f Makefile-Linux.mk
+#simple/makefiles/ $ make -f Makefile-Linux.mk
 
 # Flags
 CFLAGS= -c -fpic -g
 LFlAGS= -lm -ldl
-LDFLAGS= 
+LDFLAGS= "-Wl,--no-as-needed"
 
 # Macros
 VERSION=s0.3.303
@@ -65,7 +65,8 @@ SIMPLE_OBJECTFILES= \
 $(CND_DISTDIR)/$(CND_PLATFORM)/simple: $(OBJECTFILES)
 	$(CC) -shared -o ./simple.$(CND_DLIB_EXT) $(OBJECTFILES)
 	$(CC) $(LDFLAGS) $(LFlAGS) -o $(CND_DISTDIR)/simple ../simple.c simple.$(CND_DLIB_EXT)
-	cp ./simple.$(CND_DLIB_EXT) $(CND_DISTDIR)
+	mv ./simple.$(CND_DLIB_EXT) $(CND_DISTDIR)
+	#rm -R ${OBJECTDIR}
 	
 $(OBJECTDIR)/simple_api.o: $(SOURCE_DIR)/simple_api.c
 	mkdir -p ../dist/build
