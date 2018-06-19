@@ -43,7 +43,7 @@ CND_DLIB_EXT=so
 CND_DISTDIR=../dist
 MODULE_BASE=../../
 CLEAN_DEBUGDIR=../../../s0.3.303-debug
-DYNAMIC_MODULEDIR=.modules/dynamic_modules
+DYNAMIC_MODULEDIR=modules/dynamic_modules
 
 clean: 
 	cd ../archiver/ && $(MAKE) -f Makefile-Linux.mk
@@ -71,7 +71,7 @@ clean:
 install:
 	mkdir -p $(DESTDIR)$(PREFIX)/simple/$(VERSION)/modules/
 	mkdir -p $(DESTDIR)$(PREFIX)/simple/$(VERSION)/modules/dynamic_modules/
-	install $(CND_DISTDIR)/*.so $(DESTDIR)$(PREFIX)/simple/$(VERSION)/modules/dynamic_modules/
+	install *.so $(DESTDIR)$(PREFIX)/simple/$(VERSION)/modules/dynamic_modules/
 	cp -R $(MODULE_BASE)/archive $(DESTDIR)$(PREFIX)/simple/$(VERSION)/modules/
 	cp -R $(MODULE_BASE)/fulltick $(DESTDIR)$(PREFIX)/simple/$(VERSION)/modules/
 	cp -R $(MODULE_BASE)/simple $(DESTDIR)$(PREFIX)/simple/$(VERSION)/modules/

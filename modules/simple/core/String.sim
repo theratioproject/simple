@@ -327,6 +327,8 @@ class String : Object
 		
 	block lastAfterChar(lst)
 		return lastStringAfterChar(str, lst)
+	block indexOf(n)
+		return str[n]
 	
 end
 
