@@ -1,0 +1,105 @@
+/* 
+	Copyright (c) 2018 Abdulazeez Adeshina Abdulazeez <laisibizness@gmail.com"> 
+	MIT License Copyright (c) 2018 simple 
+*/
+
+/* 
+ * @Filename - List.sim
+ * @Author - Abdulazeez Abdulazeez Adeshina
+ * @Date - 15 June 2018
+ * @Time - 19:49 PM
+ */
+
+module simple.core
+
+call "Object.sim"
+
+/* Adds a new value to list/array */
+block addToList(list, value)
+    # Check if value to be added to the array is a List, String or number.
+    if (isList(value) || isString(value) || isNumber(value))
+        list + value
+        display list +crlf
+        # Else throw an error.
+        else
+            display  __err__
+end
+
+/* Remove a value from the list using the index number as an ID. */
+block removeFromList(list, indexNumber)
+    # Verify that value passed is a number e.g 0, 1, 2 etc.
+    if(isNumber(indexNumber))
+        list[indexNumber] = ""
+        display list +crlf
+        else
+            display __err__
+end
+
+/*
+*@  Reversing an array 
+ *@  Changes the array from ascending to descending and vice versa.
+ *@  It changes the indexNumber also.
+*/
+block reverseList(List)
+            x = 0
+            list = []
+            # This is subject to Fix in the next version of simple.
+            do { list + List[lengthOf(List) - x] x++ } while x < lengthOf(List) + 1
+            List = list
+            display List
+end
+
+# block indexOf(List, value) 
+    
+class List : Object
+    objectName = "list"
+    list = []
+
+    block List(List)
+        list = List
+        return List
+
+    block indexOf(n)
+        display list[n]
+
+    block push(x)
+        list + x
+        display list
+
+# Still needs some little adjustments and changes.
+    block pop(x)
+        list[x] = ""
+        display list
+
+    block keys()
+        display list
+
+    block reverse()
+        x = 0
+        reverserArray = []
+        do {
+            reverserArray + list[lengthOf(list) - x] x++
+        } while x < lengthOf(list) + 1
+        list = reverserArray
+        display list
+    end
+
+/* A replica of indexOf  but will be improved soon.*/
+block slice(n)
+    # Slicing only one element - This returns the element according to the index number passed as an argument.
+    if (isNumber(n))
+        switch(n)
+            case 0
+                display list
+            case n
+                display list[n]
+            default
+                display "Input index number next time."
+    end
+end
+
+
+/* Sorts arrays just like the javascript's .sort() function. It's not working yet */
+block sort(a, b)
+    # return b - a
+    return list[b] - list[a]
