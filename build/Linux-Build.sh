@@ -2,7 +2,7 @@
 
 VERSION=s0.3.303
 SIMPLE_DEBUG_VERSION=s0.3.303-debug
-FULLTICK_BUILD_ISSUE=<https://github.com/simple-lang/simple/issues/35>
+FULLTICK_BUILD_ISSUE=<https://github.com/simple-lang/simple/issues/16>
 
 echo "	simple-lang build $SIMPLE_DEBUG_VERSION"
 

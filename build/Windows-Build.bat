@@ -3,7 +3,7 @@ cls
 
 SET VERSION="s0.3.303"
 SET SIMPLE_DEBUG_VERSION="s0.3.303-debug"
-FULLTICK_BUILD_ISSUE="https://github.com/simple-lang/simple/issues/35"
+SET FULLTICK_BUILD_ISSUE="<https://github.com/simple-lang/simple/issues/16>"
 
 echo 	simple-lang build %SIMPLE_DEBUG_VERSION%
 
@@ -21,7 +21,7 @@ if exist "../simple/makefiles/Makefile-Windows.mk" (
 	echo simple: simple-lang %SIMPLE_DEBUG_VERSION% build 
 	echo simple: building simple.dll and simple.exe
 	if exist "../dist/"  (
-		echo "simple: removing previous simple build"
+		echo simple: removing previous simple build
 		rm -r ../dist/
 	)
 	make -f Makefile-Windows.mk
@@ -147,7 +147,7 @@ if exist "../modules/dynamic_modules/dist/systemic.dll" (
 
 REM fulltick(GUI) dynamic module
 	echo dynamic_modules:fulltick: checking if fulltick build successfully
-if exist "../../%SIMPLE_DEBUG_VERSION%/modules/dynamic_modules" (
+if exist "../../%SIMPLE_DEBUG_VERSION%/modules/dynamic_modules/fulltick.dll" (
 	echo dynamic_modules:fulltick: fulltick dynamic module built successfully
 ) else (
 	echo error:dynamic_modules:fulltick: fulltick dynamic module build failed
