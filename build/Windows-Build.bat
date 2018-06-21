@@ -236,20 +236,21 @@ if exist "../modules/modules-dependencies.conf" (
 )
 
 REM ENVIRONMENT PROGRAMS
+REM The environment programs will also be installed in same bin directory as simple
 REM move the environment to %SIMPLE_DEBUG_VERSION% directory
 	echo Copying Environment Programs to %SIMPLE_DEBUG_VERSION%
-if exist "../../%SIMPLE_DEBUG_VERSION%/environment" (
-	echo environment: the ../../%SIMPLE_DEBUG_VERSION%/environment directory already exist
+if exist "../../%SIMPLE_DEBUG_VERSION%/bin" (
+	echo environment: the ../../%SIMPLE_DEBUG_VERSION%/bin directory already exist
 ) else (
-	echo environment: creating the ../../%SIMPLE_DEBUG_VERSION%/environment directory
-	mkdir "../../%SIMPLE_DEBUG_VERSION%/environment"
+	echo environment: creating the ../../%SIMPLE_DEBUG_VERSION%/bin directory
+	mkdir "../../%SIMPLE_DEBUG_VERSION%/bin"
 )
 
 REM modular	
 	echo environment:modular: modular
 if exist "../environment/modular/modular.sim" (
-	echo environment:modular: copying modular to ../../%SIMPLE_DEBUG_VERSION%/environment directory
-	cp ../environment/modular/modular.sim ../../%SIMPLE_DEBUG_VERSION%/environment
+	echo environment:modular: copying modular to ../../%SIMPLE_DEBUG_VERSION%/bin directory
+	cp ../environment/modular/modular.sim ../../%SIMPLE_DEBUG_VERSION%/bin
 ) else (
 	echo error:environment:modular: ../environment/modular/modular.sim cannot be found
 	echo error:environment:modular: skipping modular
@@ -258,8 +259,8 @@ if exist "../environment/modular/modular.sim" (
 REM repl
 	echo environment:simplerepl: simplerepl
 if exist "../environment/repl/simplerepl.sim" (
-	echo environment:repl: copying simplerepl to ../../%SIMPLE_DEBUG_VERSION%/environment directory
-	cp ../environment/repl/simplerepl.sim ../../%SIMPLE_DEBUG_VERSION%/environment
+	echo environment:repl: copying simplerepl to ../../%SIMPLE_DEBUG_VERSION%/bin directory
+	cp ../environment/repl/simplerepl.sim ../../%SIMPLE_DEBUG_VERSION%/bin
 ) else (
 	echo error:environment:simplerepl: ../environment/repl/simplerepl.sim cannot be found
 	echo error:environment:simplerepl: skipping simplerepl
@@ -268,8 +269,8 @@ if exist "../environment/repl/simplerepl.sim" (
 REM simplepad
 	echo environment:simplepad: simplepad
 if exist "../environment/simplepad/simplepad.sim" (
-	echo environment:simplepad: copying simplepad to ../../%SIMPLE_DEBUG_VERSION%/environment directory
-	cp ../environment/simplepad/simplepad.sim ../../%SIMPLE_DEBUG_VERSION%/environment
+	echo environment:simplepad: copying simplepad to ../../%SIMPLE_DEBUG_VERSION%/bin directory
+	cp ../environment/simplepad/simplepad.sim ../../%SIMPLE_DEBUG_VERSION%/bin
 	REM cp ../environment/simplepad/runwindows.bat ../../%SIMPLE_DEBUG_VERSION%/environment
 	REM cp ../environment/simplepad/debugwindows.bat ../../%SIMPLE_DEBUG_VERSION%/environment
 ) else (
@@ -280,8 +281,8 @@ if exist "../environment/simplepad/simplepad.sim" (
 REM bake 
 	echo environment:bake bake
 if exist "../environment/bake/bake.sim" (
-	echo environment:bake: copying bake to ../../%SIMPLE_DEBUG_VERSION%/environment directory
-	cp ../environment/bake/bake.sim ../../%SIMPLE_DEBUG_VERSION%/environment
+	echo environment:bake: copying bake to ../../%SIMPLE_DEBUG_VERSION%/bin directory
+	cp ../environment/bake/bake.sim ../../%SIMPLE_DEBUG_VERSION%/bin
 ) else (
 	echo error:environment:bake: ../environment/bake/bake.sim cannot be found
 	echo error:environment:bake: skipping bake
@@ -290,8 +291,8 @@ if exist "../environment/bake/bake.sim" (
 REM webworker
 	echo environment:webworker: webworker
 if exist "../environment/webworker/webworker.sim" (
-	echo environment:webworker: copying webworker to ../../%SIMPLE_DEBUG_VERSION%/environment directory
-	cp ../environment/webworker/webworker.sim ../../%SIMPLE_DEBUG_VERSION%/environment
+	echo environment:webworker: copying webworker to ../../%SIMPLE_DEBUG_VERSION%/bin directory
+	cp ../environment/webworker/webworker.sim ../../%SIMPLE_DEBUG_VERSION%/bin
 ) else (
 	echo error:environment:webworker: ../environment/webworker/webworker.sim cannot be found
 	echo error:environment:webworker: skipping webworker
@@ -319,9 +320,9 @@ if exist "../../%SIMPLE_DEBUG_VERSION%/bin/simple.exe" (
 	
 REM Confirm bake is present
 
-if exist "../../%SIMPLE_DEBUG_VERSION%/environment/bake.sim" (
+if exist "../../%SIMPLE_DEBUG_VERSION%/bin/bake.sim" (
 	echo build:environment: bake Found. yea Starting Build...
-	SET SMAKE="../../%SIMPLE_DEBUG_VERSION%/environment/bake.sim"
+	SET SMAKE="../../%SIMPLE_DEBUG_VERSION%/bin/bake.sim"
 ) else (
 	echo error:build:environment: bake.sim cannot be found
 	echo error:build:environment: no bake no build bye
@@ -330,77 +331,77 @@ if exist "../../%SIMPLE_DEBUG_VERSION%/environment/bake.sim" (
 
 REM Builing simplepad
 	echo build:environment: simplepad
-if exist "../../%SIMPLE_DEBUG_VERSION%/environment/simplepad.sim" (
+if exist "../../%SIMPLE_DEBUG_VERSION%/bin/simplepad.sim" (
 	if exist ../../simple-arts/environment/simplepad.ico (
 		echo 		Building simplepad with icon
-		%SIMPLE% %SMAKE% -I/../../simple-arts/environment/simplepad.ico -gui -delete ../../%SIMPLE_DEBUG_VERSION%/environment/simplepad.sim	
+		%SIMPLE% %SMAKE% -I/../../simple-arts/environment/simplepad.ico -gui -delete ../../%SIMPLE_DEBUG_VERSION%/bin/simplepad.sim	
 	) else (
 		echo 		Building simplepad
-		%SIMPLE% %SMAKE% -gui -delete ../../%SIMPLE_DEBUG_VERSION%/environment/simplepad.sim
+		%SIMPLE% %SMAKE% -gui -delete ../../%SIMPLE_DEBUG_VERSION%/bin/simplepad.sim
 	)
 ) else (
-	echo 		../../%SIMPLE_DEBUG_VERSION%/environment/simplepad.sim cannot be found
+	echo 		../../%SIMPLE_DEBUG_VERSION%/bin/simplepad.sim cannot be found
 	echo 		skipping simplepad
 )
 
 REM Builing REPL
 		echo build:environment: simplerepl
-if exist "../../%SIMPLE_DEBUG_VERSION%/environment/simplerepl.sim" (
+if exist "../../%SIMPLE_DEBUG_VERSION%/bin/simplerepl.sim" (
 	if exist ../../simple-arts/environment/simplerepl.ico (
 		echo 		Building simplerepl with icon
-		%SIMPLE% %SMAKE% -I/../../simple-arts/environment/simpleprepl.ico -delete ../../%SIMPLE_DEBUG_VERSION%/environment/simplerepl.sim	
+		%SIMPLE% %SMAKE% -I/../../simple-arts/environment/simpleprepl.ico -delete ../../%SIMPLE_DEBUG_VERSION%/bin/simplerepl.sim	
 	) else (
 		echo 		Building simplerepl
-		%SIMPLE% %SMAKE% -delete ../../%SIMPLE_DEBUG_VERSION%/environment/simplerepl.sim
+		%SIMPLE% %SMAKE% -delete ../../%SIMPLE_DEBUG_VERSION%/bin/simplerepl.sim
 	)
 ) else (
-	echo 		../../%SIMPLE_DEBUG_VERSION%/environment/simplerepl.sim cannot be found
+	echo 		../../%SIMPLE_DEBUG_VERSION%/bin/simplerepl.sim cannot be found
 	echo 		skipping simplerepl
 )
 
 REM Building modular
 		echo build:environment: modular
-if exist "../../%SIMPLE_DEBUG_VERSION%/environment/modular.sim" (
+if exist "../../%SIMPLE_DEBUG_VERSION%/bin/modular.sim" (
 	if exist ../../simple-arts/environment/modular.ico (
 		echo 		Building modular with icon
-		%SIMPLE% %SMAKE% -I/../../simple-arts/environment/simpleprepl.ico -delete ../../%SIMPLE_DEBUG_VERSION%/environment/modular.sim	
+		%SIMPLE% %SMAKE% -I/../../simple-arts/environment/simpleprepl.ico -delete ../../%SIMPLE_DEBUG_VERSION%/bin/modular.sim	
 	) else (
 		echo 		Building modular
-		%SIMPLE% %SMAKE% -delete ../../%SIMPLE_DEBUG_VERSION%/environment/modular.sim
+		%SIMPLE% %SMAKE% -delete ../../%SIMPLE_DEBUG_VERSION%/bin/modular.sim
 	)
 ) else (
-	echo 		../../%SIMPLE_DEBUG_VERSION%/environment/modular.sim cannot be found
+	echo 		../../%SIMPLE_DEBUG_VERSION%/bin/modular.sim cannot be found
 	echo 		skipping modular
 )
 
 REM Building webworker
 		echo build:environment: webworker
-if exist "../../%SIMPLE_DEBUG_VERSION%/environment/webworker.sim" (
+if exist "../../%SIMPLE_DEBUG_VERSION%/bin/webworker.sim" (
 	if exist ../../simple-arts/environment/webworker.ico (
 		echo 		Building webworker with icon
-		%SIMPLE% %SMAKE% -I/../../simple-arts/environment/simpleprepl.ico -delete ../../%SIMPLE_DEBUG_VERSION%/environment/webworker.sim	
+		%SIMPLE% %SMAKE% -I/../../simple-arts/environment/simpleprepl.ico -delete ../../%SIMPLE_DEBUG_VERSION%/bin/webworker.sim	
 	) else (
 		echo 		Building webworker
-		%SIMPLE% %SMAKE% -delete ../../%SIMPLE_DEBUG_VERSION%/environment/webworker.sim
+		%SIMPLE% %SMAKE% -delete ../../%SIMPLE_DEBUG_VERSION%/bin/webworker.sim
 	)
 ) else (
-	echo 		../../%SIMPLE_DEBUG_VERSION%/environment/webworker.sim cannot be found
+	echo 		../../%SIMPLE_DEBUG_VERSION%/bin/webworker.sim cannot be found
 	echo 		skipping webworker
 )
 
 REM Building bake should be the last build or first whatever ok ok last is better
 REM Building SMAKE
 	echo build:environment: bake
-if exist "../../%SIMPLE_DEBUG_VERSION%/environment/bake.sim" (
+if exist "../../%SIMPLE_DEBUG_VERSION%/bin/bake.sim" (
 	if exist ../../simple-arts/environment/bake.ico (
 		echo 		Building bake with icon
-		%SIMPLE% %SMAKE% -I/../../simple-arts/environment/bake.ico -delete ../../%SIMPLE_DEBUG_VERSION%/environment/bake.sim	
+		%SIMPLE% %SMAKE% -I/../../simple-arts/environment/bake.ico -delete ../../%SIMPLE_DEBUG_VERSION%/bin/bake.sim	
 	) else (
 		echo 		Building bake
-		%SIMPLE% %SMAKE% -delete ../../%SIMPLE_DEBUG_VERSION%/environment/bake.sim
+		%SIMPLE% %SMAKE% -delete ../../%SIMPLE_DEBUG_VERSION%/bin/bake.sim
 	)
 ) else (
-	echo 		../../%SIMPLE_DEBUG_VERSION%/environment/bake.sim cannot be found
+	echo 		../../%SIMPLE_DEBUG_VERSION%/bin/bake.sim cannot be found
 	echo 		skipping bake
 )
 
