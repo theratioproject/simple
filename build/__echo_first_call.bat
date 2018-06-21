@@ -1,0 +1,1 @@
+echo callDynamicModule("systemic.%2") callDynamicModule("string_savant.%2") >> ../../%1/modules/simple/core/__first_calls.sim

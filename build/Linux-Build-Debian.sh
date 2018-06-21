@@ -1,7 +1,7 @@
 #!/bin/bash
 
-VERSION=s0.3.303
-SIMPLE_DEBUG_VERSION=s0.3.303-debug
+VERSION=s0.3.34
+SIMPLE_DEBUG_VERSION=s0.3.34-debug
 
 if [ -e ../simple/makefiles/Makefile-Linux.mk ]; then 
 	cd ../simple/makefiles
@@ -12,12 +12,12 @@ if [ -e ../simple/makefiles/Makefile-Linux.mk ]; then
 	make -f Makefile-Linux.mk install 
 	cd ../../build
 else 
-	echo "SIMPLE s0.3.303-debug build"
+	echo "SIMPLE s0.3.34-debug build"
 	echo "		The 'File Makefile-Linux.mk' does not exists"
 	echo "		Skipping simple Build"
 fi
 
-#copy simple and simple.so to s0.3.303-debug folder
+#copy simple and simple.so to s0.3.34-debug folder
 	echo "~"
 	echo "	Copying simple executable and building $SIMPLE_DEBUG_VERSION "
 

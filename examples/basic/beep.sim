@@ -9,6 +9,6 @@ call "simple/utilities/Console.sim"
 
 Console.singleBeep()
 
-Console.beep(10.0, 21)
+Console.beep(10, 21)
 
 

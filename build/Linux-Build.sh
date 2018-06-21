@@ -1,7 +1,7 @@
 #!/bin/bash
 
-VERSION=s0.3.303
-SIMPLE_DEBUG_VERSION=s0.3.303-debug
+VERSION=s0.3.34
+SIMPLE_DEBUG_VERSION=s0.3.34-debug
 FULLTICK_BUILD_ISSUE=<https://github.com/simple-lang/simple/issues/16>
 
 echo "	simple-lang build $SIMPLE_DEBUG_VERSION"
@@ -31,7 +31,7 @@ else
 	echo "error:simple: skipping simple Build"
 fi
 
-#copy simple and simple.so to s0.3.303-debug folder
+#copy simple and simple.so to s0.3.34-debug folder
 	echo "	Copying simple executable and building $SIMPLE_DEBUG_VERSION "
 
 if [ -e ../../$SIMPLE_DEBUG_VERSION/bin/ ]; then

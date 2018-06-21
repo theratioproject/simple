@@ -37,12 +37,12 @@ RM=rm
 MAKE=make
 
 # Macros
-VERSION=s0.3.303
+VERSION=s0.3.34
 CND_PLATFORM=Linux
 CND_DLIB_EXT=so
 CND_DISTDIR=../dist
 MODULE_BASE=../../
-CLEAN_DEBUGDIR=../../../s0.3.303-debug
+CLEAN_DEBUGDIR=../../../s0.3.34-debug
 DYNAMIC_MODULEDIR=modules/dynamic_modules
 
 clean: 

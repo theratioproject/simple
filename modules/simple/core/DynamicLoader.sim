@@ -12,8 +12,7 @@
  
 module simple.core
 
-callDynamicModule("string_savant.so")
-callDynamicModule("systemic.so")
+call "__first_calls.sim"
 call "simple/core/String.sim"
  
 	dynamicModules = []

@@ -1,8 +1,8 @@
 echo off
 cls
 
-SET VERSION="s0.3.303"
-SET SIMPLE_DEBUG_VERSION="s0.3.303-debug"
+SET VERSION="s0.3.34"
+SET SIMPLE_DEBUG_VERSION="s0.3.34-debug"
 
 REM BULDING SIMPLE.EXE and SIMPLE.DLL
 if exist "../src/makefiles/Makefile-Windows.mk" (

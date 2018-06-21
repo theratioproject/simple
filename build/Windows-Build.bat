@@ -1,8 +1,8 @@
 echo off
 cls
 
-SET VERSION="s0.3.303"
-SET SIMPLE_DEBUG_VERSION="s0.3.303-debug"
+SET VERSION="s0.3.34"
+SET SIMPLE_DEBUG_VERSION="s0.3.34-debug"
 SET FULLTICK_BUILD_ISSUE="<https://github.com/simple-lang/simple/issues/16>"
 
 echo 	simple-lang build %SIMPLE_DEBUG_VERSION%
@@ -212,6 +212,17 @@ if exist "../modules/fulltick" (
 	echo error:modules: the repository appears to be currupted. 
 	echo error:modules: try clonning the simple repository again to resolve the issue
 )
+
+REM The __first_calls.sim File is important for simple-lang modules to function 
+	echo modules:simple: treating the __first_calls.sim file 
+if exist "../../%SIMPLE_DEBUG_VERSION%/modules/simple/core/__first_calls.sim" (
+	echo modules:simple: this is a windows system the corresponding callDynamicModule are filled
+	call __echo_first_call.bat %SIMPLE_DEBUG_VERSION% dll
+) else (
+	echo error:modules:simple: the __first_calls.sim file cannot be found
+	echo error:modules:simple: the repository appears to be currupted. 
+	echo error:modules:simple: try clonning the simple repository again to resolve the issue
+) 
 
 REM modules-dependencies.conf	
 	echo modules: modules-dependencies.conf

@@ -13,7 +13,7 @@
 #
 
 # Macros
-VERSION=s0.3.303-debug
+VERSION=s0.3.34-debug
 CND_PLATFORM=Linux
 ENV_DISTDIR=../../$(VERSION)/environment
 
