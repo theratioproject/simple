@@ -14,6 +14,11 @@ module simple.core
 
 call "Object.sim"
 
+/*
+* @The functional way. This methods below can be used only for Lists created without the array initialization style.
+* @ This methods should be used only for minor works / little jobs.
+*/
+
 /* Adds a new value to list/array */
 block addToList(list, value)
     # Check if value to be added to the array is a List, String or number.
@@ -50,7 +55,13 @@ block reverseList(List)
 end
 
 # block indexOf(List, value) 
-    
+
+/*
+* @These methods below are used for Lists created using the class initialization method.
+* @ e.g, myList = new List(["a",  "b", 1, "c", "d", "e"])
+*@ These method / style of List operation should be used for large projects / operations.
+*/
+
 class List : Object
     objectName = "list"
     list = []
