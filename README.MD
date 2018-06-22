@@ -9,7 +9,7 @@
 # Simple
 
 The Simple Intelligent and Modular Programming Language and Environment</br>
-Current Version : 0.3.304
+Current Version : 0.3.34
 ![simple-repl](https://i.imgur.com/qx5bbc3.png)
 
 ### About Simple
