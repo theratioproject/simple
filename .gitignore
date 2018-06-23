@@ -1,3 +1,11 @@
+# Handle files endings automatically for files as text and leave
+# all files detected as binary untouched
+* text=auto
+
+# Reserve extensions for linux and unix files 
+*.sh text eol=lf
+*.bash text eol=lf
+
 *.gch
 *.dylib
 *.o

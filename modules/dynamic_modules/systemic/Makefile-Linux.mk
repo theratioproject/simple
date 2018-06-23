@@ -15,7 +15,7 @@
 # Flags
 CFLAGS= -c -fpic -g -w
 LFlAGS= -lm -ldl
-LDFLAGS= "-Wl,-rpath,../../../simple/dist/"
+LDFLAGS= "-Wl,--no-as-needed"
 
 # Macros
 CND_PLATFORM=
@@ -38,7 +38,7 @@ SIMPLE_OBJECTFILES = \
 	$(SIMPLE_OBJECTDIR)/simple_api.o 
 	
 # Link Libraries and Options
-LDLIBSOPTIONS=../../../simple/dist/simple.so
+LDLIBSOPTIONS=-Lsimple.so
 
 ${CND_DISTDIR}/${CND_PLATFORM}/systemic.${CND_DLIB_EXT}: $(OBJECTFILES)
 	$(CC) -shared -o $(CND_DISTDIR)/$(CND_PLATFORM)/systemic.$(CND_DLIB_EXT) $(SIMPLE_OBJECTFILES) $(OBJECTFILES)

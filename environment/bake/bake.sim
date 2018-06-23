@@ -61,7 +61,8 @@ useMINGW = false useCygwin = false useVS = false
 specifysavepath = false specifyname = false
 folder = "" name = "" isgui = false hasicon = false 
 cflags = "" deletesim = false icon = "" isdebug = false
-hassimpleh = false simpleh = ""
+hassimpleh = false 
+simpleh = ""
 buildsucced = false
 
 #Program dependencies
@@ -112,7 +113,11 @@ block main() header()
 block setDepLocation(location)
 	simpleLibPath = '"'+exeFolder()+location+'simple.lib"' 
 	simpleDllPath = '"'+exeFolder()+location+'simple.dll"' 
-	simpleHPath = '"'+exeFolder()+location+'../includes/simple.h"' 
+	if isLinux() || isMacosx() || isUnix()
+		simpleHPath = "<simple.h>"
+	else
+		simpleHPath = '"'+exeFolder()+location+'../includes/simple.h"' 
+	end
 	
 block writeCode()
 	display "Writing ANSI C Wrapper Code... "+crlf
@@ -131,7 +136,7 @@ block writeCode()
 		 */
 		'
 			if isdebug code += '
-			#include "../../simple/src/includes/simple.h" '+crlf
+			#include "../../simple/includes/simple.h" '+crlf
 			elif hassimpleh 
 			code += '
 			#include "'+simpleh+'" '+crlf
@@ -246,16 +251,20 @@ block windowBuildMingw(mingwBuildTool,path)
 	cleanTempFiles([path,path+".o.d",path+".o",path+'.rc',path+'.res']) treatProgramAttr()
 
 block linuxBuild(path)
-	cmd = 'cc "-Wl,--no-as-needed" -lm -ldl -o "'+outputName+'" "'+path+'" '+' '+exeFolder()+'simple.so'
+	/* link at runtime */
+	#cmd = 'cc -I/$DESTDIR/$PREFIX/include "-Wl,--no-as-needed" -lm -ldl -o "'+outputName+'" "'+path+'" '+' -Lsimple.so'
+	/* link at build time */
+	cmd = 'cc -I/$DESTDIR/$PREFIX/include "-Wl,--no-as-needed" -lm -ldl -o "'+outputName+'" "'+path+'" '+exeFolder()+'../lib/simple.so'
+	#cmd = 'cc "-Wl,--no-as-needed" -lm -ldl -o "'+outputName+'" "'+path+'" '+' '+exeFolder()+'simple.so'
 	#cmd = 'cc -fpic -g -lm -ldl -o '+outputName+" "+path+' "-Wl,--no-as-needed" "'+exeFolder()+'simple.so"'
 	display cmd + crlf
 	display "		Executing compilation command "/*cmd */+ crlf
 	display "		Executing build command "/*cmd */+ crlf
 	display cmd + crlf
 	__exec(cmd)
-	cleanTempFiles([path,path+".o"]) treatProgramAttr()
+	treatProgramAttr() cleanTempFiles([path,path+".o"]) 
 	
-block treatProgramAttr()
+block treatProgramAttr() 
 	if specifyname
 		display "Renaming "+outputName+".exe to "+name +".exe"+ crlf
 		f = new File(outputName+".exe") display f.absolutePath()+crlf 
@@ -263,9 +272,11 @@ block treatProgramAttr()
 		outputName = removeString(outputName,stringAfterLast(curePathSlashes(outputName),'\'))+name
 	end
 	if specifysavepath 
-		display "Moving "+outputName+".exe to "+folder + crlf
-		if isWindows()
+		display "Moving "+outputName+" to "+folder + crlf
+		if isWindows() 
 			__exec("mv "+outputName+'.exe '+folder+"/")
+		elif isLinux()
+			__exec("mv "+outputName+' '+folder+"/")
 		else
 		
 		end
