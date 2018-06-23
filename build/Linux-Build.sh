@@ -63,7 +63,11 @@ fi
 
 VERSION=s0.3.34
 SIMPLE_DEBUG_VERSION=s0.3.34-debug
+<<<<<<< HEAD
 FULLTICK_BUILD_ISSUE="<https://github.com/simple-lang/simple/issues/16>"
+=======
+FULLTICK_BUILD_ISSUE=https://github.com/simple-lang/simple/issues/16
+>>>>>>> c1d8e25f06f45f210f5d7957893cf21c652ed9c4
 
 echo "	simple-lang build $SIMPLE_DEBUG_VERSION"
 
