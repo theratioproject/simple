@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #check if the current user and session is a sudoer or root
-echo $UID $EUID
+#echo $UID $EUID
 if [ "$(id -u)" -ne 0 ]; then 
 	echo "simple-lang:root: it appear you are not running the script as root"
 	echo "simple-lang:root: the script is reinitiated as root"
@@ -88,7 +88,7 @@ if [ $EXEC_TYPE = "configure" ] || [ $EXEC_TYPE = "install-configure" ]; then
 	echo "============================================================="
 
 	if [ $EXEC_TYPE = "install-configure" ]; then
-		EXEC_TYPE = "install"
+		EXEC_TYPE="install"
 	else
 		echo "simple-lang:configure: you can now install using 'sudo sh Linux-Build.sh --i'" 
 		echo "simple-lang:configure: configuration completed exiting"
