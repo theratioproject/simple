@@ -119,7 +119,7 @@ if [ $EXEC_TYPE = "configure" ] || [ $EXEC_TYPE = "install-configure" ]; then
 				elif [ $i = "libcurl*dev" ]; then
 					sudo apt install libcurl4-gnutls-dev
 					sudo apt install libcurl4-nss-dev
-					sudo apt install libcurl4-gnutls-dev
+					sudo apt install libcurl4-openssl-dev
 				else
 
 				fi
