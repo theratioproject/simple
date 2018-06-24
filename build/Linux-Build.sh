@@ -19,8 +19,10 @@ if [ ! $1 ]; then
 elif [ $1 = "-i" ] || [ $1 = "--install" ]; then
 	EXEC_TYPE="install"
 elif [ $1 = "-c" ] || [ $1 = "--configure" ]; then
-	if [ $2 = "-i" ] || [ $2 = "--install" ]
 	EXEC_TYPE="configure"
+	if [ $2 = "-i" ] || [ $2 = "--install" ]; then
+		EXEC_TYPE="install-configure"
+	fi
 elif [ $1 = "-u" ] || [ $1 = "--uninstall" ]; then
 
 	#Remove all instance of the simple-lang from the system
@@ -79,12 +81,12 @@ VERSION=s0.3.34
 SIMPLE_DEBUG_VERSION=s0.3.34-debug
 FULLTICK_BUILD_ISSUE="<https://github.com/simple-lang/simple/issues/16>"
 
-if [ $EXEC_TYPE = "configure" ] || [ $EXEC_TYPE = "install-config" ]; then
+if [ $EXEC_TYPE = "configure" ] || [ $EXEC_TYPE = "install-configure" ]; then
 	echo "============================================================="
 	echo "simple-lang:configure: configure build $SIMPLE_DEBUG_VERSION"
 	echo "============================================================="
 
-	if [ $EXEC_TYPE = "install-config" ]; then
+	if [ $EXEC_TYPE = "install-configure" ]; then
 		EXEC_TYPE = "install"
 	else
 		echo "simple-lang:configure: you can now install using 'sudo sh Linux-Build.sh --i'" 
