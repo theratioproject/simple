@@ -79,7 +79,9 @@ SIMPLE_DEBUG_VERSION=s0.3.34-debug
 FULLTICK_BUILD_ISSUE="<https://github.com/simple-lang/simple/issues/16>"
 
 if [ $EXEC_TYPE = "debug" ]; then
-echo "	simple-lang build $SIMPLE_DEBUG_VERSION"
+	echo "============================================================="
+	echo "simple-lang:uninstall: debug build $SIMPLE_DEBUG_VERSION"
+	echo "============================================================="
 elif [ $EXEC_TYPE = "install" ]; then
 
 fi
