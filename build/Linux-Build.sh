@@ -121,8 +121,8 @@ if [ $EXEC_TYPE = "configure" ] || [ $EXEC_TYPE = "install-configure" ]; then
 					sudo apt -y install libcurl4-nss-dev
 					sudo apt -y install libcurl4-openssl-dev
 				else
-					echo "simple-lang:configure: package cannot be determined"
-					sudo apt -y install "$1"
+					echo "simple-lang:configure: $i package cannot be determined"
+					sudo apt -y install $i
 					exit
 				fi
 			fi
