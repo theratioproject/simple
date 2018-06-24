@@ -80,10 +80,12 @@ FULLTICK_BUILD_ISSUE="<https://github.com/simple-lang/simple/issues/16>"
 
 if [ $EXEC_TYPE = "debug" ]; then
 	echo "============================================================="
-	echo "simple-lang:uninstall: debug build $SIMPLE_DEBUG_VERSION"
+	echo "simple-lang:debug: debug build $SIMPLE_DEBUG_VERSION"
 	echo "============================================================="
 elif [ $EXEC_TYPE = "install" ]; then
-
+	echo "============================================================="
+	echo "simple-lang:debug: debug build $SIMPLE_VERSION"
+	echo "============================================================="
 fi
 
 
