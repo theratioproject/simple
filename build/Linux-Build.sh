@@ -3,7 +3,8 @@
 #check if the current user and session is a sudoer or root
 echo $UID $EUID
 if [ "$(id -u)" -ne 0 ]; then 
-	echo "Please run as root"
+	echo "simple-lang:root: it appear you are not running the script as root"
+	echo "simple-lang:root: the script is reinitiated as root"
   	exit
 fi
 exit
