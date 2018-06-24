@@ -20,7 +20,8 @@ elif [ $1 = "-i" ] || [ $1 = "--install" ]; then
 	EXEC_TYPE="install"
 elif [ $1 = "-c" ] || [ $1 = "--configure" ]; then
 	EXEC_TYPE="configure"
-	if [ ! $2 ]; then
+	if [ ! $2 ]; then 
+		echo "simple-lang:configure: simple-lang configuration only"
 	elif [ $2 = "-i" ] || [ $2 = "--install" ]; then
 		EXEC_TYPE="install-configure"
 	fi
