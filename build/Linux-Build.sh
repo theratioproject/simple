@@ -88,6 +88,7 @@ if [ $EXEC_TYPE = "configure" ] || [ $EXEC_TYPE = "install-configure" ]; then
 	echo "============================================================="
 	echo "simple-lang:configure: configure build $SIMPLE_DEBUG_VERSION"
 	echo "============================================================="
+	ALLOW_DEP_INSTALL="0"
 	DEPENDENCIES='gcc libcurl*dev'
 	for i in $DEPENDENCIES; do
 		echo "simple-lang:configure: checking if $i is installed"
@@ -99,7 +100,7 @@ if [ $EXEC_TYPE = "configure" ] || [ $EXEC_TYPE = "install-configure" ]; then
 				read -p "Do you want to continue?(yes/no) "
 				echo "answer is $1"
 			else
-				echo ""
+				echo "install allowed"
 			fi
 		}
 	done
