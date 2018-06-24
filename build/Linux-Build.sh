@@ -90,13 +90,12 @@ if [ $EXEC_TYPE = "configure" ] || [ $EXEC_TYPE = "install-configure" ]; then
 	echo "============================================================="
 	list='"g++" "gcc" "cc"'
 	for i in $list; do
-		echo "A LIB : "+$i
+		dpkg -s $i >/dev/null 2>&1 && {
+        	echo "$i is installed."
+		} || {
+			echo "$i is not installed."
+		}
 	done
-	dpkg -s "gccd" >/dev/null 2>&1 && {
-        echo "gccd is installed."
-    } || {
-        echo "gccd is not installed."
-    }
 	if [ $EXEC_TYPE = "install-configure" ]; then
 		EXEC_TYPE="install"
 	else
