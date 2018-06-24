@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 #check if the current user and session is a sudoer or root
 if [ $EUID -ne 0 ]; then 
