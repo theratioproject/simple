@@ -88,11 +88,11 @@ if [ $EXEC_TYPE = "configure" ] || [ $EXEC_TYPE = "install-configure" ]; then
 	echo "============================================================="
 	echo "simple-lang:configure: configure build $SIMPLE_DEBUG_VERSION"
 	echo "============================================================="
-
+	
 	if [ $EXEC_TYPE = "install-configure" ]; then
 		EXEC_TYPE="install"
 	else
-		echo "simple-lang:configure: you can now install using 'sudo sh Linux-Build.sh --i'" 
+		echo "simple-lang:configure: you can now install using 'sudo sh Linux-Build.sh -i'" 
 		echo "simple-lang:configure: configuration completed exiting"
 		exit 
 	fi
