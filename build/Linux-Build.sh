@@ -94,7 +94,7 @@ if [ $EXEC_TYPE = "configure" ] || [ $EXEC_TYPE = "install-configure" ]; then
 		dpkg -s $i >/dev/null 2>&1 && {
         	echo "simple-lang:configure: $i is installed on this machine."
 		} || {
-			echo "simple-lang:configure $i is not installed on this machine ."
+			echo "simple-lang:configure: $i is not installed on this machine ."
 		}
 	done
 	if [ $EXEC_TYPE = "install-configure" ]; then
