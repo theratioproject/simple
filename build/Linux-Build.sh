@@ -53,7 +53,7 @@ elif [ $1 = "-u" ] || [ $1 = "--uninstall" ]; then
 	sudo make -f Makefile-Linux.mk uninstall
 	cd ../../../build
 	echo "============================================================="
-	echo "simple-lang:uninstall: reinstall with 'sudo sh Linux-Build.sh --i'"
+	echo "simple-lang:uninstall: reinstall with 'sudo sh Linux-Build.sh -i'"
 	echo "simple-lang:uninstall: uninstallation complete "
 	echo "============================================================="
 	exit 0
@@ -68,6 +68,7 @@ elif [ $1 != "--install" -a $1 != "-i" ] && [ $1 != "--uninstall" -a $1 != "-u" 
 	fi
 	echo "Usage: ./sudo sh Linux-Build.sh [FLAG]"
 	echo "[FLAGS] :"
+	echo "	-c --configure	configure your system for simple-lang successfull build"
 	echo "	-i --install	install simple-lang on your system"
 	echo "	-u --uninstall	uninstall simple-lang from your system"
 	echo "	-d --debug	creat a distributable version in ../../ source directory"
