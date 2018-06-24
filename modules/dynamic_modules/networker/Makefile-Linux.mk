@@ -15,7 +15,7 @@
 # Flags
 CFLAGS= -c -fpic -g -w
 LFlAGS= -lm -ldl
-LDFLAGS= 
+LDFLAGS= "-Wl,--no-as-needed"
 
 # Macros
 CND_PLATFORM=
@@ -45,7 +45,7 @@ ${CND_DISTDIR}/${CND_PLATFORM}/networker.${CND_DLIB_EXT}: $(OBJECTFILES)
 
 $(OBJECTDIR)/networker.o: networker.c
 	mkdir -p $(OBJECTDIR)
-	$(CC) $(CFLAGS) networker.c 
+	$(CC) $(CFLAGS) networker.c -lcurl
 	mv networker.o $(OBJECTDIR)
 
 clean:
