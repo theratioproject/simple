@@ -26,7 +26,7 @@ block main()
 	dff.write(fcon) */
 	
 	#instead we can use the @Class Download
-	d = new Download("https://raw.githubusercontent.com/simple-lang/simple/master/README.md")
+	d = new Download("https://raw.githubusercontent.com/simple-lang/simple/master/README.MD")
 	d.saveLocation("simplereadme.md")
 	d.execute()
 	
