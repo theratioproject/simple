@@ -74,7 +74,7 @@ if [ $EXEC_TYPE="debug" ]; then
 	if [ -e ../../$SIMPLE_DEBUG_VERSION/ ]; then
 		echo "a previous simple build $SIMPLE_DEBUG_VERSION is detected"
 		echo "removing previous build and performing a clean build"
-	sudo rm -R ../../$SIMPLE_DEBUG_VERSION/ 
+		sudo rm -R ../../$SIMPLE_DEBUG_VERSION/ 
 	fi
 fi
 
