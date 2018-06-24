@@ -89,7 +89,7 @@ elif [ $EXEC_TYPE = "install" ]; then
 fi
 
 
-if [ $EXEC_TYPE = "configure" ]; then
+if [ $EXEC_TYPE = "configure" ] || [ $EXEC_TYPE = "install-config" ]; then
 	echo "============================================================="
 	echo "simple-lang:configure: configure build $SIMPLE_DEBUG_VERSION"
 	echo "============================================================="
