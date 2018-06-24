@@ -14,11 +14,6 @@ module simple.core
 
 call "Object.sim"
 
-/*
-* @The functional way. This methods below can be used only for Lists created without the array initialization style.
-* @ This methods should be used only for minor works / little jobs.
-*/
-
 /* Adds a new value to list/array */
 block addToList(list, value)
     # Check if value to be added to the array is a List, String or number.
@@ -55,13 +50,7 @@ block reverseList(List)
 end
 
 # block indexOf(List, value) 
-
-/*
-* @These methods below are used for Lists created using the class initialization method.
-* @ e.g, myList = new List(["a",  "b", 1, "c", "d", "e"])
-*@ These method / style of List operation should be used for large projects / operations.
-*/
-
+    
 class List : Object
     objectName = "list"
     list = []
@@ -95,19 +84,22 @@ class List : Object
         display list
     end
 
-/* A replica of indexOf  but will be improved soon.*/
-block slice(n)
-    # Slicing only one element - This returns the element according to the index number passed as an argument.
-    if (isNumber(n))
-        switch(n)
-            case 0
-                display list
-            case n
-                display list[n]
-            default
-                display "Input index number next time."
+/* Array slice function. Supports 2 parameter alone, if you intend to pass an argument alone, use the .indexOf() method */
+block slice(x, y)
+    if (isNumber(x) && isNumber(y))
+        if (x = 0 && y = 0)
+             display "[]"
+            end
+        if (list[x + 1] == list[y])
+            display list[x]
+        elif (list[x + 1]  != list[y])
+            do {
+                display list[x++ - 1]
+            } while x < list[y]
+        else
+            display "[]"
+            end        
     end
-end
 
 
 /* Sorts arrays just like the javascript's .sort() function. It's not working yet */
