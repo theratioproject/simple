@@ -84,7 +84,7 @@ if [ $EXEC_TYPE = "debug" ]; then
 	echo "============================================================="
 elif [ $EXEC_TYPE = "install" ]; then
 	echo "============================================================="
-	echo "simple-lang:debug: debug build $SIMPLE_VERSION"
+	echo "simple-lang:install: install simple-lang $SIMPLE_VERSION"
 	echo "============================================================="
 fi
 
