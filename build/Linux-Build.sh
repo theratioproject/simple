@@ -115,14 +115,14 @@ if [ $EXEC_TYPE = "configure" ] || [ $EXEC_TYPE = "install-configure" ]; then
 			if [ $ALLOW_DEP_INSTALL="1" ]; then
 				echo "simple-lang:configure: installing $i"
 				if [ $i = "gcc" ]; then
-					sudo apt install build-essential
+					sudo apt -y install build-essential
 				elif [ $i = "libcurl*dev" ]; then
-					sudo apt install libcurl4-gnutls-dev
-					sudo apt install libcurl4-nss-dev
-					sudo apt install libcurl4-openssl-dev
+					sudo apt -y install libcurl4-gnutls-dev
+					sudo apt -y install libcurl4-nss-dev
+					sudo apt -y install libcurl4-openssl-dev
 				else
 					echo "simple-lang:configure: package cannot be determined"
-					sudo apt install "$1"
+					sudo apt -y install "$1"
 					exit
 				fi
 			fi
