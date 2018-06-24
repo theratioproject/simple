@@ -82,6 +82,10 @@ if [ $EXEC_TYPE = "configure" ] || [ $EXEC_TYPE = "install-config" ]; then
 	echo "============================================================="
 	echo "simple-lang:configure: configure build $SIMPLE_DEBUG_VERSION"
 	echo "============================================================="
+
+	if [ $EXEC_TYPE = "install-config" ]; then
+		EXEC_TYPE = "install" 
+	fi
 fi
 
 if [ $EXEC_TYPE = "debug" ]; then
