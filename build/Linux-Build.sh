@@ -88,7 +88,7 @@ if [ $EXEC_TYPE = "configure" ] || [ $EXEC_TYPE = "install-configure" ]; then
 	echo "============================================================="
 	echo "simple-lang:configure: configure build $SIMPLE_DEBUG_VERSION"
 	echo "============================================================="
-	list='"g++" "gcc" "cc"'
+	list='g++ gcc cc'
 	for i in $list; do
 		dpkg -s $i >/dev/null 2>&1 && {
         	echo "$i is installed."
