@@ -306,7 +306,15 @@ void system_sleep ( void *pointer )
         #ifdef _WIN32
 	Sleep(SIMPLE_API_GETNUMBER(1));
 	#else
-	_sleep(SIMPLE_API_GETNUMBER(1));
+	//_sleep(SIMPLE_API_GETNUMBER(1));
+		#if _POSIX_C_SOURCE >= 199309L
+		    struct timespec ts;
+		    ts.tv_sec = (int)SIMPLE_API_GETNUMBER(1) / 1000;
+		    ts.tv_nsec = ((int)SIMPLE_API_GETNUMBER(1) % 1000) * 1000000;
+		    nanosleep(&ts, NULL);
+		#else
+		    usleep((int)SIMPLE_API_GETNUMBER(1) * 1000);
+		#endif
 	#endif
     } else {
             SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
