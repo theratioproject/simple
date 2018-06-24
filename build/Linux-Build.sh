@@ -122,7 +122,8 @@ if [ $EXEC_TYPE = "configure" ] || [ $EXEC_TYPE = "install-configure" ]; then
 					sudo apt install libcurl4-openssl-dev
 				else
 					echo "simple-lang:configure: package cannot be determined"
-					sudo apt install $1 exit
+					sudo apt install $1 
+					exit
 				fi
 			fi
 		}
