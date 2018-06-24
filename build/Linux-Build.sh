@@ -2,7 +2,7 @@
 
 #check if the current user and session is a sudoer or root
 echo $UID $EUID
-if [ ! $UID ]; then 
+if [ "$(id -u)" -ne 0 ]; then 
 	echo "Please run as root"
   	exit
 fi
