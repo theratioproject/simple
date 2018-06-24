@@ -90,8 +90,9 @@ if [ $EXEC_TYPE = "configure" ] || [ $EXEC_TYPE = "install-configure" ]; then
 	echo "============================================================="
 	DEPENDENCIES='g++ gcc libfltk'
 	for i in $DEPENDENCIES; do
+		echo "simple-lang:configure: checking if $i is installed"
 		dpkg -s $i >/dev/null 2>&1 && {
-        	echo "$i is installed."
+        	echo "$i is installed on this machine."
 		} || {
 			echo "$i is not installed."
 		}
