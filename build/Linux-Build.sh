@@ -5,6 +5,7 @@ echo $UID $EUID
 if [ "$(id -u)" -ne 0 ]; then 
 	echo "simple-lang:root: it appear you are not running the script as root"
 	echo "simple-lang:root: the script is reinitiated as root"
+	sudo sh Linux-Build.sh --c --i
   	exit
 fi
 exit
