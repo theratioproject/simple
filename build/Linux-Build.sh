@@ -112,6 +112,9 @@ if [ $EXEC_TYPE = "configure" ] || [ $EXEC_TYPE = "install-configure" ]; then
 			else
 				echo "simple-lang:configure: installation already permitted"
 			fi
+			if [ $ALLOW_DEP_INSTALL="1" ]; then
+				
+			fi
 		}
 	done
 	if [ $EXEC_TYPE = "install-configure" ]; then
