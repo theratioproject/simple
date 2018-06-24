@@ -90,7 +90,9 @@ fi
 
 
 if [ $EXEC_TYPE = "configure" ]; then
-	echo "simple-lang:configure:"
+	echo "============================================================="
+	echo "simple-lang:configure: configure build $SIMPLE_DEBUG_VERSION"
+	echo "============================================================="
 fi
 
 if [ $EXEC_TYPE="debug" ]; then
