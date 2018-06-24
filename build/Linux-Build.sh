@@ -78,6 +78,12 @@ VERSION=s0.3.34
 SIMPLE_DEBUG_VERSION=s0.3.34-debug
 FULLTICK_BUILD_ISSUE="<https://github.com/simple-lang/simple/issues/16>"
 
+if [ $EXEC_TYPE = "configure" ] || [ $EXEC_TYPE = "install-config" ]; then
+	echo "============================================================="
+	echo "simple-lang:configure: configure build $SIMPLE_DEBUG_VERSION"
+	echo "============================================================="
+fi
+
 if [ $EXEC_TYPE = "debug" ]; then
 	echo "============================================================="
 	echo "simple-lang:debug: debug build $SIMPLE_DEBUG_VERSION"
@@ -85,13 +91,6 @@ if [ $EXEC_TYPE = "debug" ]; then
 elif [ $EXEC_TYPE = "install" ]; then
 	echo "============================================================="
 	echo "simple-lang:install: install simple-lang $SIMPLE_VERSION"
-	echo "============================================================="
-fi
-
-
-if [ $EXEC_TYPE = "configure" ] || [ $EXEC_TYPE = "install-config" ]; then
-	echo "============================================================="
-	echo "simple-lang:configure: configure build $SIMPLE_DEBUG_VERSION"
 	echo "============================================================="
 fi
 
