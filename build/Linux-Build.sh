@@ -78,7 +78,10 @@ VERSION=s0.3.34
 SIMPLE_DEBUG_VERSION=s0.3.34-debug
 FULLTICK_BUILD_ISSUE="<https://github.com/simple-lang/simple/issues/16>"
 
+if [ $EXEC_TYPE = "debug" ]; then
 echo "	simple-lang build $SIMPLE_DEBUG_VERSION"
+else [ $EXEC_TYPE = "install" ]
+
 
 if [ $EXEC_TYPE = "configure" ]; then
 	echo "simple-lang:configure:"
