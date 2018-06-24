@@ -89,7 +89,7 @@ if [ $EXEC_TYPE = "configure" ] || [ $EXEC_TYPE = "install-configure" ]; then
 	echo "simple-lang:configure: configure build $SIMPLE_DEBUG_VERSION"
 	echo "============================================================="
 	ALLOW_DEP_INSTALL="0"
-	DEPENDENCIES='gcc fltk.so openssl libcurl*dev'
+	DEPENDENCIES='gcc fltk.so openssl libcurl'
 	for i in $DEPENDENCIES; do
 		echo "simple-lang:configure: checking if $i is installed"
 		ldconfig -p | grep $i >/dev/null 2>&1 && {
@@ -120,7 +120,7 @@ if [ $EXEC_TYPE = "configure" ] || [ $EXEC_TYPE = "install-configure" ]; then
 					sudo apt -y install libfltk1.3-dev
 				elif [ $i = "openssl" ]; then
 					sudo apt -y install libssl-dev
-				elif [ $i = "libcurl*dev" ]; then
+				elif [ $i = "libcurl" ]; then
 					sudo apt -y install libcurl4-gnutls-dev
 					sudo apt -y install libcurl4-nss-dev
 					sudo apt -y install libcurl4-openssl-dev
