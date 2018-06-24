@@ -80,7 +80,9 @@ FULLTICK_BUILD_ISSUE="<https://github.com/simple-lang/simple/issues/16>"
 
 if [ $EXEC_TYPE = "debug" ]; then
 echo "	simple-lang build $SIMPLE_DEBUG_VERSION"
-else [ $EXEC_TYPE = "install" ]
+elif [ $EXEC_TYPE = "install" ]; then
+
+fi
 
 
 if [ $EXEC_TYPE = "configure" ]; then
