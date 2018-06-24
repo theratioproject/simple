@@ -97,7 +97,13 @@ if [ $EXEC_TYPE = "configure" ] || [ $EXEC_TYPE = "install-configure" ]; then
 		} || {
 			echo "simple-lang:configure: $i is not installed on this machine ."
 			if [ $ALLOW_DEP_INSTALL = "0" ]; then
-				echo "Do you want to continue?(yes/no) "; read allow
+				echo "Do you want to continue?(yes/no) " 
+				read allow
+				if [ $asllow ] && [ $allow = "yes"] || [ $allow = "y" ]; then
+
+				else
+
+				fi
 				echo "answer is $allow"
 			else
 				echo "install allowed"
