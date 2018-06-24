@@ -115,7 +115,7 @@ if [ $EXEC_TYPE = "configure" ] || [ $EXEC_TYPE = "install-configure" ]; then
 			if [ $ALLOW_DEP_INSTALL="1" ]; then
 				echo "simple-lang:configure: installing $i"
 				if [ $i = "gcc" ]; then
-					
+					sudo apt install build-essentials
 				else
 
 				fi
