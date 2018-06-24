@@ -116,6 +116,8 @@ if [ $EXEC_TYPE = "configure" ] || [ $EXEC_TYPE = "install-configure" ]; then
 				echo "simple-lang:configure: installing $i"
 				if [ $i = "gcc" ]; then
 					sudo apt -y install build-essential
+				elif [ $i = "fltk.so" ]; then
+					sudo apt -y install libfltk1.3-dev
 				elif [ $i = "libcurl*dev" ]; then
 					sudo apt -y install libcurl4-gnutls-dev
 					sudo apt -y install libcurl4-nss-dev
