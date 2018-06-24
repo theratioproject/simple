@@ -13,34 +13,34 @@ elif [ $1 = "-u" ] || [ $1 = "--uninstall" ]; then
 
 	#Remove all instance of the simple-lang from the system
 	echo "============================================================="
-	echo "simple:uninstall: unlinking environment and library"
+	echo "simple-lang:uninstall: unlinking environment and library"
 	echo "============================================================="
-	echo "simple:unlink: unlinking simplepad from ~/Desktop"
+	echo "simple-lang:unlink: unlinking simplepad from ~/Desktop"
 	unlink ~/Desktop/simplepad
-	echo "simple:unlink: unlinking libsimple.so and libsimple.$VER.so from $DESTDIR/$PREFIX/lib/"
+	echo "simple-lang:unlink: unlinking libsimple.so and libsimple.$VER.so from $DESTDIR/$PREFIX/lib/"
 	sudo unlink $DESTDIR/$PREFIX/lib/libsimple.$VER.so
 	sudo unlink $DESTDIR/$PREFIX/lib/libsimple.so
 	echo "============================================================="
-	echo "simple:uninstall: uninstalling simple-lang core executables"
+	echo "simple-lang:uninstall: uninstalling simple-lang core executables"
 	echo "============================================================="
 	cd ../simple/makefiles
 	sudo make -f Makefile-Linux.mk uninstall 
 	cd ../../build 
 	echo "============================================================="
-	echo "simple:uninstall: uninstalling simple-lang environments "
+	echo "simple-lang:uninstall: uninstalling simple-lang environments "
 	echo "============================================================="
 	cd ../environment
 	sudo make -f Linux-Install.mk uninstall
 	cd ../build
 	echo "============================================================="
-	echo "simple:uninstall: uninstalling simple-lang modules "
+	echo "simple-lang:uninstall: uninstalling simple-lang modules "
 	echo "============================================================="
 	cd ../modules/dynamic_modules/makefiles 
 	sudo make -f Makefile-Linux.mk uninstall
 	cd ../../../build
 	echo "============================================================="
-	echo "simple:uninstall: reinstall with 'sudo sh Linux-Build.sh --i'"
-	echo "simple:uninstall: uninstallation complete "
+	echo "simple-lang:uninstall: reinstall with 'sudo sh Linux-Build.sh --i'"
+	echo "simple-lang:uninstall: uninstallation complete "
 	echo "============================================================="
 	exit 0
 
@@ -49,7 +49,7 @@ elif [ $1 = "-d" ] || [ $1 = "--debug" ]; then
 elif [ $1 != "--install" -a $1 != "-i" ] && [ $1 != "--uninstall" -a $1 != "-u" ] && [ $1 != "--debug" -a $1 != "-d" ] ; then
 	if [ $1 != "-h" ] && [ $1 != "--help" ]; then
 		echo "======================================"
-		echo "simple:build: invalid flag : $1"
+		echo "simple-lang:build: invalid flag : $1"
 		echo "======================================"
 	fi
 	echo "Usage: ./sudo sh Linux-Build.sh [FLAG]"
@@ -69,6 +69,10 @@ FULLTICK_BUILD_ISSUE="<https://github.com/simple-lang/simple/issues/16>"
 
 echo "	simple-lang build $SIMPLE_DEBUG_VERSION"
 
+if [ $EXEC_TYPE = "configure" ]; then
+	echo "simple-lang:configure:"
+fi
+
 if [ $EXEC_TYPE="debug" ]; then
 #Remove previous debug build of current version
 	if [ -e ../../$SIMPLE_DEBUG_VERSION/ ]; then
@@ -80,13 +84,13 @@ fi
 
 if [ -e ../simple/makefiles/Makefile-Linux.mk ]; then 
 	cd ../simple/makefiles
-	echo "simple: simple-lang $SIMPLE_DEBUG_VERSION build" 
-	echo "simple: building simple.so and simple"
+	echo "simple-lang: simple-lang $SIMPLE_DEBUG_VERSION build" 
+	echo "simple-lang: building simple.so and simple"
 	if [ -e "../dist/" ]
-		echo "simple: removing previous simple build"
+		echo "simple-lang: removing previous simple build"
 		sudo rm -r ../dist/
 	then
-		echo "simple: removing previous simple build"
+		echo "simple-lang: removing previous simple build"
 	fi
 	sudo make -f Makefile-Linux.mk uninstall 
 	sudo make -f Makefile-Linux.mk
@@ -95,9 +99,9 @@ if [ -e ../simple/makefiles/Makefile-Linux.mk ]; then
 	fi 
 	cd ../../build
 else 
-	echo "error:simple: simple-lang $SIMPLE_DEBUG_VERSION build "
-	echo "error:simple: the file 'Makefile-Linux.mk' does not exist in simple directory"
-	echo "error:simple: skipping simple Build"
+	echo "error:simple-lang: simple-lang $SIMPLE_DEBUG_VERSION build "
+	echo "error:simple-lang: the file 'Makefile-Linux.mk' does not exist in simple directory"
+	echo "error:simple-lang: skipping simple Build"
 fi
 
 #copy simple and simple.so to s0.3.34-debug folder if built for debugging
@@ -105,19 +109,19 @@ if [ $EXEC_TYPE = "debug" ]; then
 		echo "	Copying simple executable and building $SIMPLE_DEBUG_VERSION "
 	
 	if [ -e ../../$SIMPLE_DEBUG_VERSION/bin/ ]; then
-		echo "simple:bin: the ../../$SIMPLE_DEBUG_VERSION/bin already exist"
+		echo "simple-lang:bin: the ../../$SIMPLE_DEBUG_VERSION/bin already exist"
 	else
-		echo "simple:bin: creating the ../../$SIMPLE_DEBUG_VERSION/bin folder"
+		echo "simple-lang:bin: creating the ../../$SIMPLE_DEBUG_VERSION/bin folder"
 		mkdir -p "../../$SIMPLE_DEBUG_VERSION/bin"
 	fi
 	
 	if [ -e ../simple/dist/simple ]; then
-		echo "simple: copying simple and simple.so to ../../$SIMPLE_DEBUG_VERSION/bin folder"
+		echo "simple-lang: copying simple and simple.so to ../../$SIMPLE_DEBUG_VERSION/bin folder"
 		cp "../simple/dist/simple" "../../$SIMPLE_DEBUG_VERSION/bin"
 		cp "../simple/dist/simple.so" "../../$SIMPLE_DEBUG_VERSION/bin"
 	else
-		echo "error:simple: build fails simple.exe and simple.dll cannot be found"
-		echo "error:simple: try rebuilding individually"
+		echo "error:simple-lang: build fails simple.exe and simple.dll cannot be found"
+		echo "error:simple-lang: try rebuilding individually"
 	fi
 
 	#copying the includes folder for developers
@@ -193,14 +197,14 @@ else
 fi
 
 # The __first_calls.sim is important for the simple-lang modules to function
-echo "modules:simple:core: treating the __first_calls.sim file"
-	echo "modules:simple:core: this is a linux system modify to correspond"
+echo "modules:simple-lang:core: treating the __first_calls.sim file"
+	echo "modules:simple-lang:core: this is a linux system modify to correspond"
 if [ $EXEC_TYPE = "install" ]; then
 	if [ -e $DESTDIR/$PREFIX/simple/$VERSION/modules/simple/core/__first_calls.sim ]; then
 		sudo echo "callDynamicModule(\"systemic.so\") callDynamicModule(\"string_savant.so\")" >> $DESTDIR/$PREFIX/simple/$VERSION/modules/simple/core/__first_calls.sim
 	else
-		echo "error:modules:simple:core: the location of the __first_calls.sim could not be verified"
-		echo "modules:simple:core: using the SIMPLE_PATH environment instead"
+		echo "error:modules:simple-lang:core: the location of the __first_calls.sim could not be verified"
+		echo "modules:simple-lang:core: using the SIMPLE_PATH environment instead"
 		sudo echo "callDynamicModule(\"systemic.so\") callDynamicModule(\"string_savant.so\")" >> $SIMPLE_PATH/$VERSION/modules/simple/core/__first_calls.sim
 	fi
 fi
@@ -486,17 +490,18 @@ if [ $EXEC_TYPE = "install" ]; then
 echo "SIMPLE_PATH=\"/simple/\"" >> /etc/environment
 
 	echo "============================================================="
-	echo "simple:link: linking environment and library"
+	echo "simple-lang:link: linking environment and library"
 	echo "============================================================="
-	echo "simple:link: linking simple.so to libsimple.so and libsimple.$VER.so"
+	echo "simple-lang:link: linking simple.so to libsimple.so and libsimple.$VER.so"
 	sudo link $DESTDIR/$PREFIX/lib/simple.so $DESTDIR/$PREFIX/lib/libsimple.so
 	sudo link $DESTDIR/$PREFIX/lib/simple.so $DESTDIR/$PREFIX/lib/libsimple.$VER.so
-	echo "simple:link: linking simplepad to user ~/Desktop"
+	echo "simple-lang:link: linking simplepad to user ~/Desktop"
 	sudo link $DESTDIR/$PREFIX/bin/simplepad ~/Desktop/simplepad
 
 	echo "============================================================="
-	echo "simple:build: testing installtion > simple"
+	echo "simple-lang:build: testing installtion > simple"
 	echo "============================================================="
+	
 	simple
 
 fi
