@@ -89,7 +89,7 @@ if [ $EXEC_TYPE = "configure" ] || [ $EXEC_TYPE = "install-configure" ]; then
 	echo "simple-lang:configure: configure build $SIMPLE_DEBUG_VERSION"
 	echo "============================================================="
 	ALLOW_DEP_INSTALL="0"
-	DEPENDENCIES='gcc fltk libcurl*dev'
+	DEPENDENCIES='gcc fltkk libcurl*dev'
 	for i in $DEPENDENCIES; do
 		echo "simple-lang:configure: checking if $i is installed"
 		ldconfig -p | grep $i >/dev/null 2>&1 && {
