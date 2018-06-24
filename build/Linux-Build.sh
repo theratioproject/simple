@@ -84,7 +84,9 @@ if [ $EXEC_TYPE = "configure" ] || [ $EXEC_TYPE = "install-config" ]; then
 	echo "============================================================="
 
 	if [ $EXEC_TYPE = "install-config" ]; then
-		EXEC_TYPE = "install" 
+		EXEC_TYPE = "install"
+	else
+		exit 
 	fi
 fi
 
