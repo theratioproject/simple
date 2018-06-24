@@ -86,8 +86,9 @@ if [ $EXEC_TYPE = "configure" ] || [ $EXEC_TYPE = "install-config" ]; then
 	if [ $EXEC_TYPE = "install-config" ]; then
 		EXEC_TYPE = "install"
 	else
-		exit
-		echo "simple-lang:configure: configuration completed exiting" 
+		echo "simple-lang:configure: you can now install using 'sudo sh Linux-Build.sh --i'" 
+		echo "simple-lang:configure: configuration completed exiting"
+		exit 
 	fi
 fi
 
