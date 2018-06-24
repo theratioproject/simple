@@ -41,7 +41,7 @@ SIMPLE_OBJECTFILES = \
 LDLIBSOPTIONS= -Lsimple.so
 
 ${CND_DISTDIR}/${CND_PLATFORM}/networker.${CND_DLIB_EXT}: $(OBJECTFILES)
-	$(CC) -shared -o $(CND_DISTDIR)/$(CND_PLATFORM)/networker.$(CND_DLIB_EXT) $(SIMPLE_OBJECTFILES) $(OBJECTFILES)
+	$(CC) -shared -o $(CND_DISTDIR)/$(CND_PLATFORM)/networker.$(CND_DLIB_EXT) $(SIMPLE_OBJECTFILES) $(OBJECTFILES) -lcurl
 
 $(OBJECTDIR)/networker.o: networker.c
 	mkdir -p $(OBJECTDIR)
