@@ -15,7 +15,7 @@
 # Flags
 CFLAGS= -c -fpic -g -w
 LFlAGS= -lm -ldl
-LDFLAGS= "-Wl,--no-as-needed"
+LDFLAGS= 
 
 # Macros
 CND_PLATFORM=
