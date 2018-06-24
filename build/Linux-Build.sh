@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #check if the current user and session is a sudoer or root
-if [ ! $EUID ]; then 
+if [ ! $UID ]; then 
 	echo "Please run as root"
   	exit
 fi
