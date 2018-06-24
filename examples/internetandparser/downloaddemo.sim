@@ -27,6 +27,6 @@ block main()
 	
 	#instead we can use the @Class Download
 	d = new Download("https://raw.githubusercontent.com/simple-lang/simple/master/README.md")
-	d.saveLocation("simplereadme.md")
+	d.saveLocation("~/Documents/simplereadme.md")
 	d.execute()
 	
