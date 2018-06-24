@@ -88,7 +88,7 @@ if [ $EXEC_TYPE = "configure" ] || [ $EXEC_TYPE = "install-configure" ]; then
 	echo "============================================================="
 	echo "simple-lang:configure: configure build $SIMPLE_DEBUG_VERSION"
 	echo "============================================================="
-	list='"item 1" "item 2" "item 3"'
+	list='"g++" "gcc" "cc"'
 	for i in $list; do
 		echo $i
 	done
