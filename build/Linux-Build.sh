@@ -116,6 +116,10 @@ if [ $EXEC_TYPE = "configure" ] || [ $EXEC_TYPE = "install-configure" ]; then
 				echo "simple-lang:configure: installing $i"
 				if [ $i = "gcc" ]; then
 					sudo apt install build-essential
+				elif [ $i = "libcurl*dev" ]; then
+					sudo apt install libcurl4-gnutls-dev
+					sudo apt install libcurl4-gnutls-dev
+					sudo apt install libcurl4-gnutls-dev
 				else
 
 				fi
