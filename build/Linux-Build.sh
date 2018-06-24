@@ -19,6 +19,7 @@ if [ ! $1 ]; then
 elif [ $1 = "-i" ] || [ $1 = "--install" ]; then
 	EXEC_TYPE="install"
 elif [ $1 = "-c" ] || [ $1 = "--configure" ]; then
+	if [ $2 = "-i" ] || [ $2 = "--install" ]
 	EXEC_TYPE="configure"
 elif [ $1 = "-u" ] || [ $1 = "--uninstall" ]; then
 
