@@ -90,7 +90,7 @@ if [ $EXEC_TYPE = "configure" ] || [ $EXEC_TYPE = "install-configure" ]; then
 	echo "============================================================="
 	list='"g++" "gcc" "cc"'
 	for i in $list; do
-		echo $i
+		echo "A LIB : "+$i
 	done
 	dpkg -s "gccd" >/dev/null 2>&1 && {
         echo "gccd is installed."
