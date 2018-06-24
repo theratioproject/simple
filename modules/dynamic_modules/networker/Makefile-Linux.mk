@@ -45,7 +45,7 @@ ${CND_DISTDIR}/${CND_PLATFORM}/networker.${CND_DLIB_EXT}: $(OBJECTFILES)
 
 $(OBJECTDIR)/networker.o: networker.c
 	mkdir -p $(OBJECTDIR)
-	$(CC) $(CFLAGS) networker.c -lcurl
+	$(CC) $(CFLAGS) networker.c 
 	mv networker.o $(OBJECTDIR)
 
 clean:
