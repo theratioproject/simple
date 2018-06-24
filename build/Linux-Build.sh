@@ -151,8 +151,6 @@ elif [ $EXEC_TYPE = "install" ]; then
 	echo "============================================================="
 fi
 
-exit
-
 if [ $EXEC_TYPE="debug" ]; then
 #Remove previous debug build of current version
 	if [ -e ../../$SIMPLE_DEBUG_VERSION/ ]; then
