@@ -99,7 +99,7 @@ if [ $EXEC_TYPE = "configure" ] || [ $EXEC_TYPE = "install-configure" ]; then
 			if [ $ALLOW_DEP_INSTALL = "0" ]; then
 				echo "simple-lang:configure: try installing mising dependencies"
 				echo "simple-lang:configure: internet connection is required"
-				echo "Do you want to continue?(yes/no) " 
+				echo "Do you want to continue?(y/n) " 
 				read allow
 				if [ $asllow ] && [ $allow = "yes"] || [ $allow = "y" ]; then
 					echo "simple-lang:configure: installation permitted on your machine"
