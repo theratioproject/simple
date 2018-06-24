@@ -7,6 +7,8 @@ if [ ! $1 ]; then
 	EXEC_TYPE="install"
 elif [ $1 = "-i" ] || [ $1 = "--install" ]; then
 	EXEC_TYPE="install"
+elif [ $1 = "-c" ] || [ $1 = "--configure" ]; then
+	
 elif [ $1 = "-u" ] || [ $1 = "--uninstall" ]; then
 
 	#Remove all instance of the simple-lang from the system
