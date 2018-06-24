@@ -70,7 +70,7 @@ FULLTICK_BUILD_ISSUE="<https://github.com/simple-lang/simple/issues/16>"
 echo "	simple-lang build $SIMPLE_DEBUG_VERSION"
 
 if [ $EXEC_TYPE="debug" ]; then
-#Remove previous build of current version
+#Remove previous debug build of current version
 	if [ -e ../../$SIMPLE_DEBUG_VERSION/ ]; then
 		echo "a previous simple build $SIMPLE_DEBUG_VERSION is detected"
 		echo "removing previous build and performing a clean build"
