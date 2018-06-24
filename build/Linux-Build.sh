@@ -100,11 +100,10 @@ if [ $EXEC_TYPE = "configure" ] || [ $EXEC_TYPE = "install-configure" ]; then
 				echo "Do you want to continue?(yes/no) " 
 				read allow
 				if [ $asllow ] && [ $allow = "yes"] || [ $allow = "y" ]; then
-
+					echo "simple-lang:configure installing $i on your machine"
 				else
 
 				fi
-				echo "answer is $allow"
 			else
 				echo "install allowed"
 			fi
