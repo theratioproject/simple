@@ -95,7 +95,11 @@ if [ $EXEC_TYPE = "configure" ] || [ $EXEC_TYPE = "install-configure" ]; then
         	echo "simple-lang:configure: $i is installed on this machine."
 		} || {
 			echo "simple-lang:configure: $i is not installed on this machine ."
-			if [ $ALLOW_DEP_INSTALL = 0 ]
+			if [ $ALLOW_DEP_INSTALL = 0 ]; then
+				read -p "Do you want to continue?(yes/no) "
+			else
+
+			fi
 		}
 	done
 	if [ $EXEC_TYPE = "install-configure" ]; then
