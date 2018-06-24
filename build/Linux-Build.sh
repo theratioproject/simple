@@ -88,7 +88,12 @@ if [ $EXEC_TYPE = "configure" ] || [ $EXEC_TYPE = "install-configure" ]; then
 	echo "============================================================="
 	echo "simple-lang:configure: configure build $SIMPLE_DEBUG_VERSION"
 	echo "============================================================="
-	
+
+	dpkg -s "gcc" >/dev/null 2>&1 && {
+        echo "gcc is installed."
+    } || {
+        echo "gcc is not installed."
+    }
 	if [ $EXEC_TYPE = "install-configure" ]; then
 		EXEC_TYPE="install"
 	else
