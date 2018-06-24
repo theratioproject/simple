@@ -86,7 +86,8 @@ if [ $EXEC_TYPE = "configure" ] || [ $EXEC_TYPE = "install-config" ]; then
 	if [ $EXEC_TYPE = "install-config" ]; then
 		EXEC_TYPE = "install"
 	else
-		exit 
+		exit
+		echo "simple-lang:configure: configuration completed exiting" 
 	fi
 fi
 
