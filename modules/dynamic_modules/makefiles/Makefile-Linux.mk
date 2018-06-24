@@ -59,34 +59,31 @@ clean:
 	cd ../fulltick/ && $(MAKE) -f Makefile-Linux.mk
 	
 	${RM} ${CND_DISTDIR}/build/*.o
-	#${RM} ${CND_DISTDIR}/build/*.d
-	#${RM} ${CND_DISTDIR}/build/includes/*.o
-	#${RM} ${CND_DISTDIR}/build/includes/*.d
-	#${RMDIR} ${CND_DISTDIR}/build/includes
 	${RMDIR} ${CND_DISTDIR}/build
-	#${MKDIR} -p ${CLEAN_DEBUGDIR}/${DYNAMIC_MODULEDIR}
-	#${CP} ${CND_DISTDIR}/${CND_PLATFORM}/*.${CND_DLIB_EXT} ${CLEAN_DEBUGDIR}/${DYNAMIC_MODULEDIR}
 
 .PHONY: install
 install:
 	mkdir -p $(DESTDIR)$(PREFIX)/simple/$(VERSION)/modules/
 	mkdir -p $(DESTDIR)$(PREFIX)/simple/$(VERSION)/modules/dynamic_modules/
-	install *.so $(DESTDIR)$(PREFIX)/simple/$(VERSION)/modules/dynamic_modules/
+	install $(CND_DISTDIR)/*.so $(DESTDIR)$(PREFIX)/simple/$(VERSION)/modules/dynamic_modules/
 	cp -R $(MODULE_BASE)/archive $(DESTDIR)$(PREFIX)/simple/$(VERSION)/modules/
 	cp -R $(MODULE_BASE)/fulltick $(DESTDIR)$(PREFIX)/simple/$(VERSION)/modules/
 	cp -R $(MODULE_BASE)/simple $(DESTDIR)$(PREFIX)/simple/$(VERSION)/modules/
 	cp -R $(MODULE_BASE)/web $(DESTDIR)$(PREFIX)/simple/$(VERSION)/modules/
+	rm -r -f $(CND_DISTDIR)/
 
 #ifeq ($(PREFIX),)
 #    PREFIX := /usr/local
 #endif
 	
+#We should not remove the main simple directory because it might contain 
+#other simple-lang dependencies and modules for another version
+#rm -r -f $(DESTDIR)$(PREFIX)/simple/
 .PHONY: uninstall
 uninstall:
-	rm -r $(DESTDIR)$(PREFIX)/simple/$(VERSION)/modules/dynamic_modules/
-	rm -r $(DESTDIR)$(PREFIX)/simple/$(VERSION)/modules/
-	rm -r $(DESTDIR)$(PREFIX)/simple/$(VERSION)/
-	rm -r $(DESTDIR)$(PREFIX)/simple/
+	rm -r -f $(DESTDIR)$(PREFIX)/simple/$(VERSION)/modules/dynamic_modules/
+	rm -r -f $(DESTDIR)$(PREFIX)/simple/$(VERSION)/modules/
+	rm -r -f $(DESTDIR)$(PREFIX)/simple/$(VERSION)/
 
 #If this make file does not work on your Windows PC or you use 
 #alternative compiler e.g Visual Studio, Cygwin e.t.c feel free to 

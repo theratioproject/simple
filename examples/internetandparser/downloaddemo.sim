@@ -21,12 +21,12 @@ block main()
 	#this get the content in to string and can be written to a file
 	#it simple write the file content to our new file
 	/*fcon = download("localhost/testcurl/bootsrc.rar")
-	dff = new File("C:\Users\thecarisma\Documents\SIMPLE GITHUB\examples\internetandparser\test.rar") 
+	dff = new File("~\Documents\SIMPLE GITHUB\examples\internetandparser\test.rar") 
 	#display fcon
 	dff.write(fcon) */
 	
 	#instead we can use the @Class Download
-	d = new Download("https://raw.githubusercontent.com/simple-lang/simple/master/README.md")
+	d = new Download("https://raw.githubusercontent.com/simple-lang/simple/master/README.MD")
 	d.saveLocation("simplereadme.md")
 	d.execute()
 	

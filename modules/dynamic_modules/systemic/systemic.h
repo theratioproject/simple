@@ -19,6 +19,8 @@
 extern "C" {
 #endif
 
+#define _sleep(x) sleep((x))
+
 void init_simple_module ( SimpleState *pSimpleState ) ;
 
 void os_ismsdos ( void *pointer ) ;

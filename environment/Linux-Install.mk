@@ -10,12 +10,24 @@
 #	modular
 #	bake
 #	webworker
+#	simplebridge
 #
 
 # Macros
+SIMPLE=simple
+BAKE=./bake/bake.sim
 VERSION=s0.3.34-debug
 CND_PLATFORM=Linux
-ENV_DISTDIR=../../$(VERSION)/environment
+ENV_DISTDIR=./dist
+
+clean: 
+	mkdir -p $(ENV_DISTDIR)
+	$(SIMPLE) $(BAKE) -F/$(ENV_DISTDIR) ./repl/simplerepl.sim
+	$(SIMPLE) $(BAKE) -F/$(ENV_DISTDIR) ./modular/modular.sim
+	$(SIMPLE) $(BAKE) -F/$(ENV_DISTDIR) ./simplepad/simplepad.sim
+	$(SIMPLE) $(BAKE) -F/$(ENV_DISTDIR) ./simplebridge/simplebridge.sim
+	$(SIMPLE) $(BAKE) -F/$(ENV_DISTDIR) ./webworker/webworker.sim
+	$(SIMPLE) $(BAKE) -F/$(ENV_DISTDIR) $(BAKE)
 
 #ifeq ($(PREFIX),)
 #    PREFIX := /usr/local
@@ -25,11 +37,13 @@ ENV_DISTDIR=../../$(VERSION)/environment
 install:
 	mkdir -p $(DESTDIR)$(PREFIX)/bin
 	install $(ENV_DISTDIR)/* $(DESTDIR)$(PREFIX)/bin/
+	rm -r -f $(ENV_DISTDIR)
 	
 .PHONY: uninstall
 uninstall:
 	rm -f $(DESTDIR)$(PREFIX)/bin/simplerepl
 	rm -f $(DESTDIR)$(PREFIX)/bin/simplepad
+	rm -f $(DESTDIR)$(PREFIX)/bin/simplebridge
 	rm -f $(DESTDIR)$(PREFIX)/bin/modular
 	rm -f $(DESTDIR)$(PREFIX)/bin/bake
 	rm -f $(DESTDIR)$(PREFIX)/bin/webworker
