@@ -7,7 +7,7 @@ if [ "$(id -u)" -ne 0 ]; then
 	echo "simple-lang:root: the script is reinitiated as root"
 	echo "simple-lang;root: if it fails to re execute the Linux-Build.sh script with sudo"
 	echo "simple-lang:root: manualy run the script with 'sudo sh Linux-Build.sh --c --i'"
-	sudo sh Linux-Build.sh --c --i
+	sudo sh Linux-Build.sh -c -i
   	exit
 fi
 
