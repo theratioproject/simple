@@ -588,6 +588,14 @@ echo "SIMPLE_PATH=\"/simple/\"" >> /etc/environment
 	echo "simple-lang:link: add simplepad to the system menu"
 	echo "============================================================="
 	echo "[Desktop Entry]" >> ~/.local/share/applications/simplepad.desktop
+	echo "Version=1.0" >> ~/.local/share/applications/simplepad.desktop
+	echo "Type=Application" >> ~/.local/share/applications/simplepad.desktop
+	echo "Name=Simple Pad" >> ~/.local/share/applications/simplepad.desktop
+	echo "Icon=/home/simple/Documents/vscode/Visual-Studio-Code/resources/app/resources/linux/code.png" >> ~/.local/share/applications/simplepad.desktop
+	echo "Exec=simplepad" >> ~/.local/share/applications/simplepad.desktop
+	echo "[Desktop Entry]" >> ~/.local/share/applications/simplepad.desktop
+	echo "[Desktop Entry]" >> ~/.local/share/applications/simplepad.desktop
+	echo "[Desktop Entry]" >> ~/.local/share/applications/simplepad.desktop
 
 	echo "============================================================="
 	echo "simple-lang:build: testing installtion > simple"
