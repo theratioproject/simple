@@ -595,6 +595,8 @@ echo "SIMPLE_PATH=\"/simple/\"" >> /etc/environment
 	sudo echo "Icon=/simple/$SIMPLE_VER/resources/enviroment.jpg" >> ~/.local/share/applications/simplepad.desktop
 	if [ -e $DESTDIR/$PREFIX/bin/simplepad ]; then
 		sudo echo "Exec=$DESTDIR/$PREFIX/bin/simplepad" >> ~/.local/share/applications/simplepad.desktop
+	elif [ -e /usr/local/bin/simplepad ]; then
+		sudo echo "Exec=/usr/local/bin/simplepad" >> ~/.local/share/applications/simplepad.desktop
 	else
 		sudo echo "Exec=simplepad" >> ~/.local/share/applications/simplepad.desktop
 	fi
