@@ -597,7 +597,7 @@ echo "SIMPLE_PATH=\"/simple/\"" >> /etc/environment
 	sudo echo "Type=Application" >> ~/.local/share/applications/simplepad.desktop
 	sudo echo "Name=Simple Pad" >> ~/.local/share/applications/simplepad.desktop
 	sudo echo "GenericName=Awesome App" >> ~/.local/share/applications/simplepad.desktop
-	sudo echo "Icon=/simple/$SIMPLE_VER/resources/enviroment.jpg" >> ~/.local/share/applications/simplepad.desktop
+	sudo echo "Icon=/simple/$SIMPLE_VER/resources/simplepad.jpg" >> ~/.local/share/applications/simplepad.desktop
 	if [ -e $DESTDIR/$PREFIX/bin/simplepad ]; then
 		sudo echo "Exec=$DESTDIR/$PREFIX/bin/simplepad" >> ~/.local/share/applications/simplepad.desktop
 	elif [ -e /usr/local/bin/simplepad ]; then
