@@ -593,7 +593,11 @@ echo "SIMPLE_PATH=\"/simple/\"" >> /etc/environment
 	sudo echo "Name=Simple Pad" >> ~/.local/share/applications/simplepad.desktop
 	sudo echo "GenericName=Awesome App" >> ~/.local/share/applications/simplepad.desktop
 	sudo echo "Icon=/simple/$SIMPLE_VER/resources/enviroment.jpg" >> ~/.local/share/applications/simplepad.desktop
-	sudo echo "Exec=simplepad" >> ~/.local/share/applications/simplepad.desktop
+	if [ -e $DESTDIR/$PREFIX/bin/simplepad ]; then
+		sudo echo "Exec=$DESTDIR/$PREFIX/bin/simplepad" >> ~/.local/share/applications/simplepad.desktop
+	else
+		sudo echo "Exec=simplepad" >> ~/.local/share/applications/simplepad.desktop
+	fi
 	sudo echo "Comment=Simple Pad code simple-lang with ease" >> ~/.local/share/applications/simplepad.desktop
 	sudo echo "Categories=Development;IDE;" >> ~/.local/share/applications/simplepad.desktop
 	sudo echo "Terminal=false" >> ~/.local/share/applications/simplepad.desktop
