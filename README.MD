@@ -34,7 +34,7 @@ $ cd build & chmod +x Linux-Build.sh
 ##### Installing SIMPLE as a program file alone.
 This method of installation, installs **SIMPLE** as a program file without building its debug folder.
 ```sh
-$ sudo ./Linux-build.sh -c & sudo ./Linux-build.sh -i
+$ sudo sh ./Linux-Build.sh -c -i
 ```
 ##### Installing SIMPLE for debugging purpose.
 This method of installation does not install **SIMPLE** to the system but only installs the debugging folder *s0.3.34* and houses four folders:

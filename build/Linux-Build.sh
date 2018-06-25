@@ -7,7 +7,7 @@ if [ "$(id -u)" -ne 0 ]; then
 	echo "simple-lang:root: the script is reinitiated as root"
 	echo "simple-lang;root: if it fails to re execute the Linux-Build.sh script with sudo"
 	echo "simple-lang:root: manualy run the script with 'sudo sh Linux-Build.sh --c --i'"
-	sudo sh Linux-Build.sh --c --i
+	sudo sh Linux-Build.sh $1 $2
   	exit
 fi
 
@@ -29,13 +29,22 @@ elif [ $1 = "-u" ] || [ $1 = "--uninstall" ]; then
 
 	#Remove all instance of the simple-lang from the system
 	echo "============================================================="
+	echo "simple-lang:uninstall: removing system menu shortcuts"
+	echo "============================================================="
+	echo "simple-lang:menu: removing simplepad menu entry"
+	sudo rm -f ~/.local/share/applications/simplepad.desktop
+	echo "============================================================="
 	echo "simple-lang:uninstall: unlinking environment and library"
 	echo "============================================================="
 	echo "simple-lang:unlink: unlinking simplepad from ~/Desktop"
 	unlink ~/Desktop/simplepad
-	echo "simple-lang:unlink: unlinking libsimple.so and libsimple.$VER.so from $DESTDIR/$PREFIX/lib/"
+	echo "simple-lang:unlink: unlinking libsimple.so and libsimple.$VER.so "
 	sudo unlink $DESTDIR/$PREFIX/lib/libsimple.$VER.so
 	sudo unlink $DESTDIR/$PREFIX/lib/libsimple.so
+	sudo unlink /usr/lib/libsimple.$VER.so
+	sudo unlink /usr/lib/libsimple.so
+	sudo unlink /usr/local/lib/libsimple.$VER.so
+	sudo unlink /usr/local/lib/libsimple.so
 	echo "============================================================="
 	echo "simple-lang:uninstall: uninstalling simple-lang core executables"
 	echo "============================================================="
@@ -573,8 +582,34 @@ echo "SIMPLE_PATH=\"/simple/\"" >> /etc/environment
 	echo "simple-lang:link: linking simple.so to libsimple.so and libsimple.$VER.so"
 	sudo link $DESTDIR/$PREFIX/lib/simple.so $DESTDIR/$PREFIX/lib/libsimple.so
 	sudo link $DESTDIR/$PREFIX/lib/simple.so $DESTDIR/$PREFIX/lib/libsimple.$VER.so
+	sudo link $DESTDIR/$PREFIX/lib/simple.so /usr/lib/libsimple.so
+	sudo link $DESTDIR/$PREFIX/lib/simple.so /usr/lib/libsimple.$VER.so
+	sudo link $DESTDIR/$PREFIX/lib/simple.so /usr/local/lib/libsimple.so
+	sudo link $DESTDIR/$PREFIX/lib/simple.so /usr/local/lib/libsimple.$VER.so
 	echo "simple-lang:link: linking simplepad to user ~/Desktop"
 	sudo link $DESTDIR/$PREFIX/bin/simplepad ~/Desktop/simplepad
+
+	echo "============================================================="
+	echo "simple-lang:link: add simplepad to the system menu"
+	echo "============================================================="
+	sudo echo "[Desktop Entry]" >> ~/.local/share/applications/simplepad.desktop
+	sudo echo "Version=1.0" >> ~/.local/share/applications/simplepad.desktop
+	sudo echo "Type=Application" >> ~/.local/share/applications/simplepad.desktop
+	sudo echo "Name=Simple Pad" >> ~/.local/share/applications/simplepad.desktop
+	sudo echo "GenericName=Awesome App" >> ~/.local/share/applications/simplepad.desktop
+	sudo echo "Icon=/simple/$SIMPLE_VER/resources/simplepad.png" >> ~/.local/share/applications/simplepad.desktop
+	if [ -e $DESTDIR/$PREFIX/bin/simplepad ]; then
+		sudo echo "Exec=$DESTDIR/$PREFIX/bin/simplepad" >> ~/.local/share/applications/simplepad.desktop
+	elif [ -e /usr/local/bin/simplepad ]; then
+		sudo echo "Exec=/usr/local/bin/simplepad" >> ~/.local/share/applications/simplepad.desktop
+	elif [ -e /usr/bin/simplepad ]; then
+		sudo echo "Exec=/usr/bin/simplepad" >> ~/.local/share/applications/simplepad.desktop
+	else
+		sudo echo "Exec=simplepad" >> ~/.local/share/applications/simplepad.desktop
+	fi
+	sudo echo "Comment=Simple Pad code simple-lang with ease" >> ~/.local/share/applications/simplepad.desktop
+	sudo echo "Categories=Development;IDE;" >> ~/.local/share/applications/simplepad.desktop
+	sudo echo "Terminal=false" >> ~/.local/share/applications/simplepad.desktop
 
 	echo "============================================================="
 	echo "simple-lang:build: testing installtion > simple"
