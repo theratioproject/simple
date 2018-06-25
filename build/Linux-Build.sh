@@ -591,6 +591,7 @@ echo "SIMPLE_PATH=\"/simple/\"" >> /etc/environment
 	echo "Version=1.0" >> ~/.local/share/applications/simplepad.desktop
 	echo "Type=Application" >> ~/.local/share/applications/simplepad.desktop
 	echo "Name=Simple Pad" >> ~/.local/share/applications/simplepad.desktop
+	echo "GenericName=Awesome App" >> ~/.local/share/applications/simplepad.desktop
 	echo "Icon=/home/simple/Documents/vscode/Visual-Studio-Code/resources/app/resources/linux/code.png" >> ~/.local/share/applications/simplepad.desktop
 	echo "Exec=simplepad" >> ~/.local/share/applications/simplepad.desktop
 	echo "Comment=Simple Pad code simple-lang with ease" >> ~/.local/share/applications/simplepad.desktop
