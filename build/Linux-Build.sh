@@ -575,6 +575,8 @@ echo "SIMPLE_PATH=\"/simple/\"" >> /etc/environment
 	sudo link $DESTDIR/$PREFIX/lib/simple.so $DESTDIR/$PREFIX/lib/libsimple.$VER.so
 	sudo link $DESTDIR/$PREFIX/lib/simple.so /usr/lib/libsimple.so
 	sudo link $DESTDIR/$PREFIX/lib/simple.so /usr/lib/libsimple.$VER.so
+	sudo link $DESTDIR/$PREFIX/lib/simple.so /usr/local/lib/libsimple.so
+	sudo link $DESTDIR/$PREFIX/lib/simple.so /usr/local/lib/libsimple.$VER.so
 	echo "simple-lang:link: linking simplepad to user ~/Desktop"
 	sudo link $DESTDIR/$PREFIX/bin/simplepad ~/Desktop/simplepad
 
