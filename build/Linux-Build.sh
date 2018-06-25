@@ -37,7 +37,7 @@ elif [ $1 = "-u" ] || [ $1 = "--uninstall" ]; then
 	echo "simple-lang:uninstall: unlinking environment and library"
 	echo "============================================================="
 	echo "simple-lang:unlink: unlinking simplepad from ~/Desktop"
-	unlink "~/Desktop/Simple Pad"
+	unlink ~/Desktop/Simple Pad
 	echo "simple-lang:unlink: unlinking libsimple.so and libsimple.$VER.so "
 	sudo unlink $DESTDIR/$PREFIX/lib/libsimple.$VER.so
 	sudo unlink $DESTDIR/$PREFIX/lib/libsimple.so
@@ -587,7 +587,7 @@ echo "SIMPLE_PATH=\"/simple/\"" >> /etc/environment
 	sudo link $DESTDIR/$PREFIX/lib/simple.so /usr/local/lib/libsimple.so
 	sudo link $DESTDIR/$PREFIX/lib/simple.so /usr/local/lib/libsimple.$VER.so
 	echo "simple-lang:link: linking simplepad to user ~/Desktop"
-	sudo link $DESTDIR/$PREFIX/bin/simplepad "~/Desktop/Simple Pad"
+	sudo link $DESTDIR/$PREFIX/bin/simplepad ~/Desktop/Simple Pad
 
 	echo "============================================================="
 	echo "simple-lang:link: add simplepad to the system menu"
