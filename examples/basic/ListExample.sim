@@ -29,16 +29,16 @@ myList.push([" l", "a", "n", "g"])
 display myList /* simple lang */ 
 
 /* .pop() method */
-mylist.pop(4)
+myList.pop(4)
 
-display mylist /* simpe lang */
+display myList /* simpe lang */
 
 /* .keys */
-myList.keys
+myList.keys()
 
 /* .reverse() */
 myList.reverse()
 
 /* .indexOf() */
-myList.indexOf(5)
+myList.indexOf(5) +crlf
 
