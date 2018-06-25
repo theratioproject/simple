@@ -36,7 +36,7 @@ elif [ $1 = "-u" ] || [ $1 = "--uninstall" ]; then
 	echo "simple-lang:unlink: unlinking libsimple.so and libsimple.$VER.so "
 	sudo unlink $DESTDIR/$PREFIX/lib/libsimple.$VER.so
 	sudo unlink $DESTDIR/$PREFIX/lib/libsimple.so
-	sudo unlink /usr/lib/libsimple.$VER.so
+	sudo unlink -f /usr/lib/libsimple.$VER.so
 	sudo unlink /usr/lib/libsimple.so
 	sudo unlink /usr/local/lib/libsimple.$VER.so
 	sudo unlink /usr/local/lib/libsimple.so
