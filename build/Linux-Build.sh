@@ -585,6 +585,11 @@ echo "SIMPLE_PATH=\"/simple/\"" >> /etc/environment
 	sudo link $DESTDIR/$PREFIX/bin/simplepad ~/Desktop/simplepad
 
 	echo "============================================================="
+	echo "simple-lang:link: add simple pad to the system menu"
+	echo "============================================================="
+	echo "" >> 	
+
+	echo "============================================================="
 	echo "simple-lang:build: testing installtion > simple"
 	echo "============================================================="
 	
