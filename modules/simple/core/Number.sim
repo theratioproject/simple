@@ -11,3 +11,12 @@
  */
 
  module simple.core
+
+call "Object.sim"
+
+class Number : Object
+	objectName = "number"
+	number
+
+	block toString()
+		return number

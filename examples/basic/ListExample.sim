@@ -31,7 +31,7 @@ display myList /* simple lang */
 /* .pop() method */
 myList.pop(4)
 
-display myList /* simpe lang */
+# display myList /* simpe lang */
 
 /* .keys */
 myList.keys()
@@ -42,3 +42,6 @@ myList.reverse()
 /* .indexOf() */
 myList.indexOf(5) +crlf
 
+/* .slice() */
+? "" +crlf
+myList.slice(0,5)
