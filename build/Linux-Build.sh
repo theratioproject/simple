@@ -31,7 +31,7 @@ elif [ $1 = "-u" ] || [ $1 = "--uninstall" ]; then
 	echo "============================================================="
 	echo "simple-lang:uninstall: removing system menu shortcuts"
 	echo "============================================================="
-	
+	echo "simple-lang:menu: removing simplepad menu entry"
 	echo "============================================================="
 	echo "simple-lang:uninstall: unlinking environment and library"
 	echo "============================================================="
