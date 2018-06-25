@@ -573,6 +573,8 @@ echo "SIMPLE_PATH=\"/simple/\"" >> /etc/environment
 	echo "simple-lang:link: linking simple.so to libsimple.so and libsimple.$VER.so"
 	sudo link $DESTDIR/$PREFIX/lib/simple.so $DESTDIR/$PREFIX/lib/libsimple.so
 	sudo link $DESTDIR/$PREFIX/lib/simple.so $DESTDIR/$PREFIX/lib/libsimple.$VER.so
+	sudo link $DESTDIR/$PREFIX/lib/simple.so /usr/lib/libsimple.so
+	sudo link $DESTDIR/$PREFIX/lib/simple.so /usr/lib/libsimple.$VER.so
 	echo "simple-lang:link: linking simplepad to user ~/Desktop"
 	sudo link $DESTDIR/$PREFIX/bin/simplepad ~/Desktop/simplepad
 
