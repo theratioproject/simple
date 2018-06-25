@@ -37,7 +37,7 @@ elif [ $1 = "-u" ] || [ $1 = "--uninstall" ]; then
 	echo "simple-lang:uninstall: unlinking environment and library"
 	echo "============================================================="
 	echo "simple-lang:unlink: unlinking simplepad from ~/Desktop"
-	unlink ~/Desktop/simplepad
+	unlink "~/Desktop/Simple Pad"
 	echo "simple-lang:unlink: unlinking libsimple.so and libsimple.$VER.so "
 	sudo unlink $DESTDIR/$PREFIX/lib/libsimple.$VER.so
 	sudo unlink $DESTDIR/$PREFIX/lib/libsimple.so
