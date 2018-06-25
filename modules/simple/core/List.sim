@@ -84,19 +84,22 @@ class List : Object
         display list
     end
 
-/* A replica of indexOf  but will be improved soon.*/
-block slice(n)
-    # Slicing only one element - This returns the element according to the index number passed as an argument.
-    if (isNumber(n))
-        switch(n)
-            case 0
-                display list
-            case n
-                display list[n]
-            default
-                display "Input index number next time."
+/* Array slice function. Supports 2 parameter alone, if you intend to pass an argument alone, use the .indexOf() method */
+block slice(x, y)
+    if (isNumber(x) && isNumber(y))
+        if (x = 0 && y = 0)
+             display "[]"
+            end
+        if (list[x + 1] == list[y])
+            display list[x]
+        elif (list[x + 1]  != list[y])
+            do {
+                display list[x++ - 1]
+            } while x < list[y]
+        else
+            display "[]"
+            end        
     end
-end
 
 
 /* Sorts arrays just like the javascript's .sort() function. It's not working yet */

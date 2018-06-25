@@ -9,7 +9,7 @@
 # Simple
 
 The Simple Intelligent and Modular Programming Language and Environment</br>
-Current Version : 0.3.304
+Current Version : 0.3.34
 ![simple-repl](https://i.imgur.com/qx5bbc3.png)
 
 ### About Simple
@@ -30,9 +30,28 @@ This is quite the easiest installation. Download the windows type file from [her
 After downloading simple from either methods listed above, unzip/move into the SIMPLE folder from your console and follow the instructions below.
 ```sh
 $ cd build & chmod +x Linux-Build.sh
-$ ./Linux-build.sh
 ```
-Wait for a few moments, probably a minute. The script installs simple on your linux system. Simple will be available system wide when next you sign-in. start the SIMPLE compiler with the command
+##### Installing SIMPLE as a program file alone.
+This method of installation, installs **SIMPLE** as a program file without building its debug folder.
+```sh
+$ sudo ./Linux-build.sh -c & sudo ./Linux-build.sh -i
+```
+##### Installing SIMPLE for debugging purpose.
+This method of installation does not install **SIMPLE** to the system but only installs the debugging folder *s0.3.34* and houses four folders:
++ bin
+    - simple
+    - simple.so
++ enviroment
+    - bake
+    - modular
+    - simplerepl
+    - simplebridge
+    - simplepad
+    - webworker.
++ modules
+    - ...
+
+### Running the SIMPLE compiler.
 ```sh
 $ simple
 ```
