@@ -587,7 +587,7 @@ echo "SIMPLE_PATH=\"/simple/\"" >> /etc/environment
 	echo "============================================================="
 	echo "simple-lang:link: add simplepad to the system menu"
 	echo "============================================================="
-	echo "" >> ~/.local/share/applications/
+	echo "" >> ~/.local/share/applications/simplepad.desktop
 
 	echo "============================================================="
 	echo "simple-lang:build: testing installtion > simple"
