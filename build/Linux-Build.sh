@@ -29,6 +29,10 @@ elif [ $1 = "-u" ] || [ $1 = "--uninstall" ]; then
 
 	#Remove all instance of the simple-lang from the system
 	echo "============================================================="
+	echo "simple-lang:uninstall: removing system menu shortcuts"
+	echo "============================================================="
+	
+	echo "============================================================="
 	echo "simple-lang:uninstall: unlinking environment and library"
 	echo "============================================================="
 	echo "simple-lang:unlink: unlinking simplepad from ~/Desktop"
