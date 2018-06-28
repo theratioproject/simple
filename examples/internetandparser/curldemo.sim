@@ -21,7 +21,7 @@
 call "simple/internet/curl/CurlCore.sim"
 
 block main() 
-	testcurl = new CurlCore("http://localhost/simple-lang.sourceforge.io/pages/contributors.sim")
+	testcurl = new CurlCore("http://simple-lang.sourceforge.io/pages/contributors.sim")
 	
 	display testcurl.getStringOutput() 
 	testcurl.flush()
