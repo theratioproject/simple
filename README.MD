@@ -51,6 +51,11 @@ This method of installation does not install **SIMPLE** to the system but only i
 + modules
     - ...
 
+To do this, run the command:
+```sh
+sudo ./Linux-Build.sh -d
+```
+
 ### Running the SIMPLE compiler.
 ```sh
 $ simple
