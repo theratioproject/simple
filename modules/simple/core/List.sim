@@ -19,10 +19,10 @@ block addToList(list, value)
     # Check if value to be added to the array is a List, String or number.
     if (isList(value) || isString(value) || isNumber(value))
         list + value
-        display list +crlf
+        return list +crlf
         # Else throw an error.
         else
-            display  __err__
+            return  __err__
 end
 
 /* Remove a value from the list using the index number as an ID. */
@@ -30,9 +30,9 @@ block removeFromList(list, indexNumber)
     # Verify that value passed is a number e.g 0, 1, 2 etc.
     if(isNumber(indexNumber))
         list[indexNumber] = ""
-        display list +crlf
+        return list +crlf
         else
-            display __err__
+            return __err__
 end
 
 /*
@@ -46,7 +46,7 @@ block reverseList(List)
             # This is subject to Fix in the next version of simple.
             do { list + List[lengthOf(List) - x] x++ } while x < lengthOf(List) + 1
             List = list
-            display List
+            return List
 end
 
 # block indexOf(List, value) 
@@ -60,19 +60,19 @@ class List : Object
         return List
 
     block indexOf(n)
-        display list[n]
+        return list[n]
 
     block push(x)
         list + x
-        display list
+        return list
 
 # Still needs some little adjustments and changes.
     block pop(x)
         list[x] = ""
-        display list
+        return list
 
     block keys()
-        display list
+        return list
 
     block reverse()
         x = 0
@@ -81,23 +81,23 @@ class List : Object
             reverserArray + list[lengthOf(list) - x] x++
         } while x < lengthOf(list) + 1
         list = reverserArray
-        display list
+        return list
     end
 
 /* Array slice function. Supports 2 parameter alone, if you intend to pass an argument alone, use the .indexOf() method */
 block slice(x, y)
     if (isNumber(x) && isNumber(y))
         if (x = 0 && y = 0)
-             display "[]"
+             return "[]"
             end
         if (list[x + 1] == list[y])
-            display list[x]
+            return list[x]
         elif (list[x + 1]  != list[y])
             do {
-                display list[x++ - 1]
+                return list[x++ - 1]
             } while x < list[y]
         else
-            display "[]"
+            return "[]"
             end        
     end
 
