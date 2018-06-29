@@ -47,9 +47,9 @@ class Head
 	block toString()
 		return '<head>
 			'+title+
-					'\t\t\t'+icon+'\t\t
-		'+ headContent+'\t\t
-		\t'+toppings+'
+					'\t'+icon+'\t
+		'+ headContent+'\t
+		'+toppings+'
 		</head>'
 		
 		

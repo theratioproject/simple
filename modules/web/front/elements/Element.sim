@@ -101,7 +101,7 @@ class Element
 		inline = con
 		
 	block toString()
-		finalDiv = '\t\t'+elementHead + elementId+' '
+		finalDiv = '\t'+elementHead + elementId+' '
 		if elementSetStyle
 			finalDiv += elementStyle+'" '
 		end
