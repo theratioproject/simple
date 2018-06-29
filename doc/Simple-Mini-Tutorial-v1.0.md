@@ -1,12 +1,11 @@
-                        SIMPLE LANGUAGE MINI TUTORIAL TO GET YOU STARTED
-
+# SIMPLE LANGUAGE MINI TUTORIAL TO GET YOU STARTED
 
 Developed By Azeez Adewale
-Tutorial By Busari Habibullaah
+Tutorial By Busari Habibullaah 
+Edited by Abdulazeez Abdulazeez Adeshina
 
 
-
- Introduction
+##  Introduction
 
 Simple is a mini Language, developed as a project during the year 2017, it is still evolving, it is not strongly Typed like C, 
 C++, or Java. It extensively support Object oriented programming. It was created as simple to understand programming language, 
@@ -15,7 +14,7 @@ in these tutorial,beginner programmer should read the pages line by line to full
                                                                                                     Busari Habibullaah.
 
 
- Getting Started
+## Getting Started
 I believe to understand how to write a programming langauage, you must read and write it. The first
 program to write is the same for all languages:
 
@@ -44,7 +43,7 @@ Or it could siply be written as:
 
 display "Hello World!"
 
-where /crlf/ are optional. cr means Carriage Return while lf means Line Feed, both cr and lf are escape sequence which makes 
+where **crlf** are optional. cr means Carriage Return while lf means Line Feed, both cr and lf are escape sequence which makes 
 the program output more readable.There is no need for excessive braces but it makes the code more readable.
 
 Variables Declaration
@@ -77,9 +76,9 @@ Note: you will not declare variables surplus of requirement, programmers familia
 clearly. You declare on the go pattern, as needed.
 
 
- Conditional Expressions
+## Conditional Expressions
 
-If-Else
+### If-Else
 
 The if-else statement is used to express decisions. Formally the syntax is
 ```
@@ -100,7 +99,7 @@ end
 ```
 
 
-ElIf
+### ElIf
 
 This sequence of if statements isthe most general way of writing a multi-way decision. The expressions are evaluated in order. 
 If an expression is true, the statement associated with it is executed, and this terminates thewhole chain. As always, the code 
@@ -131,7 +130,7 @@ end
 
 
 
-Switch
+### Switch
 
 The switch statement is a multi-way decision that tests whether an expression matches one of
 a number of constant integer values, and branches accordingly.
@@ -162,9 +161,9 @@ end
 ```
 
 
-Loops - While and For
+### Loops - While and For
 
-The While Statement
+#### The While Statement
 
 while (expression)
 statement
@@ -199,7 +198,7 @@ end
 
 
 
-The For Statement
+#### The For Statement
 ```
               for index = Start to Stop
 
@@ -225,7 +224,7 @@ end
 
 ```
 
- Do-While
+#### Do-While
 
 The while and for loops test the termination condition at the top. By contrast, the third loop in C, the do-while , tests at the
 bottom after making each pass through the loop body; the body is always executed at least once. The syntax of the do is
@@ -249,7 +248,7 @@ do {
 
 
 
-Break and Exit
+#### Break and Exit
 It is sometimes convenient to be able to exit from a loop other than by testing at the top or
 bottom. The break statement provides an early exit from for , while , and do , just as from
 switch . A break causes loop to be exited immediately. The __exit__ keyword is used to stop the program at any point.
@@ -265,8 +264,9 @@ __exit__
 display "you cant see me"
 ```
 
-Block and Program Structure
-block in simple are like Function in C or C++, Methods in Java and all other programming languages using block break large tasks 
+## Block and Program Structure
+
+Block in simple are like Function in C or C++, Methods in Java and all other programming languages using block break large tasks 
 into smaller ones, and enable programmers to build on whatothers have done instead of starting over from scratch. Using block 
 hide details ofoperation from parts of the program that don't need to know about them, thus clarifying thewhole, and easing the 
 pain of making changes.
@@ -283,7 +283,8 @@ block maintwo(one, two)
 Using block you can choose to return or not to return any value. Instead of using the the void type for the non-return functions 
 in C, and Int or other fundamental data types in other strongly typed programming languages to return.
 
-The Call Statement
+## The Call Statement
+
  The call statement in simple works just like the import statement in java, include file in C or C++.
 ```
 call "module.sim"
@@ -300,7 +301,8 @@ display "hello : "+maintwo(9, mainone()) + crlf
 ```
 
 
-Class
+## Class
+
 contain data and procedures (known as class methods) themselves, i.e. classes contain the data members and member functions
 ```
 class Empty {
@@ -316,4 +318,26 @@ class pack {
 }
 ```
 
-More examples can be found [here](https://github.com/simple-lang/examples)
+
+## List
+This data type is the same as the **javascript** *array* and **Python's** *list*. The List houses a lot of methods: A list can be defined in two ways:
+### 1. Defining a List without access to it's method.
+This basically means defining a list like this;
+```
+myList = ["a", "b", "c"]
+```
+### 2. Defining a List with access to it's method.
+A list is defined in this method by creating it from a class. The List that houses all it's method has been built into a **MOdule**. To define a list and explore it's function, do it as follows:
+```
+call "simple/core/List.sim"
+
+myList = new List(["a", "b", "c", "d", "e"])
+```
+A lot of method are embedded and can be performed on list built using the above style. Such methods include:
++ .push()
+* .pop()
+- .slice()
+* .reverse() 
++ etc..
+
+More examples can be found [here](https://github.com/simple-lang/simple/examples)
