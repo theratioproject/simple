@@ -60,7 +60,7 @@ class List : Object
 		is thrown
 	*/
     block List(list)
-		if ! isList(list) { __NOT_LIST_ERROR }
+		if ! isList(list) { throw(__NOT_LIST_ERROR) }
         this.__OBJECT = list
         return this.__OBJECT
 
