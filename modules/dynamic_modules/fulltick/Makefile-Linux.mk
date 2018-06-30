@@ -14,8 +14,8 @@
 
 # Flags
 CFLAGS= -c -fpic -g
-FLTKFlAGS= 
-LDFLAGS= -lpthread -ldl -lm -lX11
+FLTKFlAGS=
+LDFLAGS= -lpthread -ldl -lm -lX11 -lXfixes -lXinerama -lfontconfig -lXft -lXcursor
 
 # Macros
 CND_PLATFORM=
