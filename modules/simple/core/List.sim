@@ -94,11 +94,11 @@ class List : Object
 		
 	*/
     block List(list)
-		try display "yea yea : "+list.getType()
+		try 
 			if list.getType() == getType() 
 				this = list
-				return __OBJECT
-			end
+			end display "yea yea : "+list.getType()
+			return __OBJECT
 		catch end
 		if !isList(list) && !isString(list) { throw(__NOT_LIST_ERROR) }
         __OBJECT = list
