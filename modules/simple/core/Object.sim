@@ -21,7 +21,7 @@ class Object
 	objectName = "Object"
 
 	block toString()
-		return "[simple.core.Object:"+getHashCode()+"]"
+		return "[simple.core."+objectName+":"+getHashCode()+"]"
 		
 	block getHashCode()
 		return hash(objectName)
