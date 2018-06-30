@@ -5,17 +5,17 @@ SET EXEC_TYPE="install"
 SET VER="0.3.34"
 
 REM if [ $1 != "-h" ] && [ $1 != "--help" ]; then
-	echo "======================================"
-	echo "simple-lang:build: invalid flag : $1"
-	echo "======================================"
+	echo ======================================
+	echo simple-lang:build: invalid flag : $1
+	echo ======================================
 REM fi
 echo Usage: ./sudo sh Windows-Build.bat [FLAG]
 echo [FLAGS] :
-echo 	-c --configure	configure your system for simple-lang successfull build"
-echo "	-i --install	install simple-lang on your system"
-echo "	-u --uninstall	uninstall simple-lang from your system"
-echo "	-d --debug	creat a distributable version in ../../ source directory"
-echo "	-h --help	print this help message"
+echo 	-c --configure	configure your system for simple-lang successfull build
+echo 	-i --install	install simple-lang on your system
+echo 	-u --uninstall	uninstall simple-lang from your system
+echo 	-d --debug	create a distributable version in ../../ source directory
+echo 	-h --help	print this help message"
 exit /b
 
 SET VERSION="s0.3.34"
