@@ -24,7 +24,8 @@ myList = new List(["s", "i", "m", "p", "l", "e"])
  */
  
 /*
- * Create a fake List class with a string as parameter. we catch the error too
+ * Create a fake List class with a number as parameter. we catch the error too
+ * Not string is also a list on low-level a string is simple an object of char array
  */
 myFakeList = new List("this is a string not list")
 
