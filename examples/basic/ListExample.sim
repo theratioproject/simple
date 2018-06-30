@@ -23,10 +23,11 @@ myList = new List(["s", "i", "m", "p", "l", "e"])
 *@indexOf() - Get the element using the index number.
  */
 
+display myList.toString()
 /* .push() method */
 myList.push([" l", "a", "n", "g"])
 
-display myList /* simple lang */ 
+myList /* simple lang */ 
 
 /* .pop() method */
 myList.pop(4)
