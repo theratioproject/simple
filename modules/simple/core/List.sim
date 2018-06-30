@@ -121,7 +121,7 @@ class List : Object
 		end
 		
 	/*
-		
+		Get the length or size of the current list object of the class
 	*/
 	block length()
 		return lengthOf(__OBJECT)
