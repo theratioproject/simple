@@ -13,7 +13,8 @@
 module simple.debugging
  
 block throw(value)
-	display value 
-	__exit__
+	__err__ = value
 	
 block blowError(value)
+	display value 
+	__exit__
