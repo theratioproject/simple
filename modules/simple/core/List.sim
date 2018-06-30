@@ -50,6 +50,11 @@ block reverseList(List)
 end
 
 # block indexOf(List, value) 
+
+class Error
+
+	block Error(var)
+		display "yea yea"
     
 class List : Object
     __OBJECT_NAME 		= "List"
@@ -60,7 +65,7 @@ class List : Object
 		is thrown
 	*/
     block List(list)
-		if ! isList(list) { call new Error(__NOT_LIST_ERROR) }
+		if ! isList(list) { call Error(__NOT_LIST_ERROR) }
         this.__OBJECT = list
         return this.__OBJECT
 
