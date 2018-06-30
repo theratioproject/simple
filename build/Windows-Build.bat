@@ -9,9 +9,9 @@ REM if [ $1 != "-h" ] && [ $1 != "--help" ]; then
 	echo "simple-lang:build: invalid flag : $1"
 	echo "======================================"
 REM fi
-echo "Usage: ./sudo sh Linux-Build.sh [FLAG]"
-echo "[FLAGS] :"
-echo "	-c --configure	configure your system for simple-lang successfull build"
+echo Usage: ./sudo sh Windows-Build.bat [FLAG]
+echo [FLAGS] :
+echo 	-c --configure	configure your system for simple-lang successfull build"
 echo "	-i --install	install simple-lang on your system"
 echo "	-u --uninstall	uninstall simple-lang from your system"
 echo "	-d --debug	creat a distributable version in ../../ source directory"
