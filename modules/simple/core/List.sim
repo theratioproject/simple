@@ -98,7 +98,7 @@ class List : Object
 			if (list.getType() == getType()) {
 				this.__OBJECT = list.object()
 			}
-			return __OBJECT
+			return
 		catch end
 		if !isList(list) && !isString(list) { throw(__NOT_LIST_ERROR) }
         __OBJECT = list
