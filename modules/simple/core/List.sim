@@ -96,7 +96,7 @@ class List : Object
     block List(list)
 		try 
 			if (list.getType() == getType()) {
-				display "err: the type "+list.object()+crlf
+				display list.object()
 			}
 			return __OBJECT
 		catch end
