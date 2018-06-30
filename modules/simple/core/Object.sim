@@ -37,3 +37,7 @@ class Object
 		return OBJECT_TYPE
 		
 	block object()
+		return __OBJECT
+		
+	block realObject()
+		return __OBJECT
