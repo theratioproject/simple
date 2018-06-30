@@ -29,7 +29,10 @@ myList = new List(["s", "i", "m", "p", "l", "e"])
 display myList.toString()
 
 /*
- * Display the created myList Variable
+ * Display the created myList Variable.
+ * Note different between 
+ *		display myList
+ *		display myList.realValue() and myList.toList() 
  */
 display myList
  
