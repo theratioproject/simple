@@ -51,9 +51,7 @@ end
 
 # block indexOf(List, value) 
 
-class Error
-
-	block Error(var)
+block Error(var)
 		display "yea yea"
     
 class List : Object
