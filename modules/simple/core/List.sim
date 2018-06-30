@@ -84,7 +84,8 @@ class List : Object
 			@Code
 			li1 = new List(["a","a"])
 			li2 = new List(li)
-			#li2 and li3 is simply the same thing
+			#li2 and li3 is simply the same thing but li2 
+			#with more function
 			
 			
 		else an error is thrown
