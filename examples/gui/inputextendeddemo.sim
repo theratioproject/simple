@@ -23,7 +23,7 @@ call "fulltick/painting/FColor.sim" ? fulltick.painting
 call "fulltick/widget/FWindow.sim" ? fulltick.widget
 call "fulltick/core/FApp.sim" ? fulltick.core
 
-input = new FInput() 
+input = new FInput("") 
 input.setTitle("Normal : ").setPosition(90, 10) 
 input.setCursorColor(FColor.RED())
 
