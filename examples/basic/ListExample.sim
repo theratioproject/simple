@@ -35,6 +35,7 @@ display myList.toString()
  *		myList.realValue() and myList.toList() 
  */
 display myList
+display myList.realValue()
  
 /* .push() method */
 myList.push([" l", "a", "n", "g"])
