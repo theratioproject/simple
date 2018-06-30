@@ -117,7 +117,7 @@ class List : Object
 		end
 
     block push(x)
-        list + x
+        __OBJECT + x
         return list
 
 # Still needs some little adjustments and changes.
