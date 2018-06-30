@@ -1,6 +1,7 @@
 echo off
 cls 
 
+SET EXEC_TYPE="install"
 SET VER="0.3.34"
 
 SET VERSION="s0.3.34"
