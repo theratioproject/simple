@@ -4,9 +4,7 @@ cls
 SET EXEC_TYPE="install"
 SET VER="0.3.34"
 
-if %1 == "" (
-	echo no param
-)
+
 
 SET VERSION="s0.3.34"
 SET SIMPLE_DEBUG_VERSION="s0.3.34-debug"
