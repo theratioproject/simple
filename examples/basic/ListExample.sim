@@ -31,8 +31,8 @@ display myList.toString()
 /*
  * Display the created myList Variable.
  * Note different between 
- *		display myList
- *		display myList.realValue() and myList.toList() 
+ *		myList
+ *		myList.realValue() and myList.toList() 
  */
 display myList
  
