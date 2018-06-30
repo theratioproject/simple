@@ -56,7 +56,8 @@ class List : Object
     __OBJECT			= []
 
 	/*
-		The @Class list constructor accepting a list as parameter
+		The @Class list constructor accepting a list as parameter else an error 
+		is thrown
 	*/
     block List(list)
         this.__OBJECT = list
