@@ -82,7 +82,7 @@ elif [ $1 != "--install" -a $1 != "-i" ] && [ $1 != "--uninstall" -a $1 != "-u" 
 	echo "	-c --configure	configure your system for simple-lang successfull build"
 	echo "	-i --install	install simple-lang on your system"
 	echo "	-u --uninstall	uninstall simple-lang from your system"
-	echo "	-d --debug	creat a distributable version in ../../ source directory"
+	echo "	-d --debug	create a distributable version in ../../ source directory"
 	echo "	-h --help	print this help message"
 	exit 1
 else 
