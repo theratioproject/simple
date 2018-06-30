@@ -16,7 +16,7 @@ module simple.debugging
 block throw(value)
 	__err__ = value + crlf
 	
-block blowError(value)
+block raise(value)
 	display value 
 	__exit__
 	
