@@ -52,8 +52,8 @@ end
 # block indexOf(List, value) 
     
 class List : Object
-    __OBJECT_NAME = "List"
-    __OBJECT = []
+    __OBJECT_NAME 		= "List"
+    __OBJECT			= []
 
     block List(list)
         self.lister = list
