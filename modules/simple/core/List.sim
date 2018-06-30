@@ -95,9 +95,9 @@ class List : Object
 	*/
     block List(list)
 		try 
-			if list.getType() == getType() 
-				__OBJECT = list.__OBJECT 
-			end 
+			if (list.getType() == getType()) {
+				this.__OBJECT = list.__OBJECT 
+			}
 			return __OBJECT
 		catch end
 		if !isList(list) && !isString(list) { throw(__NOT_LIST_ERROR) }
