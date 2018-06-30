@@ -129,7 +129,7 @@ class List : Object
 
 # Still needs some little adjustments and changes.
     block pop(x)
-        list[x] = ""
+        list[x] = null
         return list
 
     block keys()
