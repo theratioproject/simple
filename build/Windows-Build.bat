@@ -16,7 +16,7 @@ echo "	-i --install	install simple-lang on your system"
 echo "	-u --uninstall	uninstall simple-lang from your system"
 echo "	-d --debug	creat a distributable version in ../../ source directory"
 echo "	-h --help	print this help message"
-exit 1
+exit /b
 
 SET VERSION="s0.3.34"
 SET SIMPLE_DEBUG_VERSION="s0.3.34-debug"
@@ -332,7 +332,7 @@ if exist "../../%SIMPLE_DEBUG_VERSION%/bin/simple.exe" (
 ) else (
 	echo error:build:environment: simple cannot be found
 	echo error:build:environment: the build process failed bye
-	exit 
+	exit /b
 )
 	
 REM Confirm bake is present
@@ -343,7 +343,7 @@ if exist "../../%SIMPLE_DEBUG_VERSION%/bin/bake.sim" (
 ) else (
 	echo error:build:environment: bake.sim cannot be found
 	echo error:build:environment: no bake no build bye
-	exit 
+	exit /b
 )
 
 REM Builing simplepad
