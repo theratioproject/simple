@@ -111,6 +111,7 @@ class List : Object
 		@Ignore Awesome for production @End
 	*/
     block indexOf(n)
+		#check to ensure the n index specified is not more than size of list
 		if isNumber(n)
 			return __OBJECT[n]
 		else 
