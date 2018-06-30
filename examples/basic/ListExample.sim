@@ -29,7 +29,7 @@ myList = new List(["s", "i", "m", "p", "l", "e"])
 display myList.toString()
 
 /*
- * Display the list
+ * Display the created myList Variable
  */
 /* .push() method */
 myList.push([" l", "a", "n", "g"])
