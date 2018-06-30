@@ -39,7 +39,7 @@ display myList.toString() + crlf
  * Display the created myList Variable.
  * Note different between 
  *		myList
- *		myList.realValue() and myList.toList() 
+ *		myList.object() and myList.toList() 
  */
 display myList
 display myList.realValue()
