@@ -13,7 +13,7 @@
 call "simple/core/List.sim"
 
 /* Define / create a new array. */
-myList = new List(["s", "i", "m", "p", "l", "e"])
+myOldList = new List(["s", "i", "m", "p", "l", "e"])
 
 /* Testing the methods embedded to List
 *@ push() - Add another element or value to the area.
@@ -33,6 +33,7 @@ myFakeList = new List("this is a string not list") #pass
 /*
 	Pass the myOldList as parameter to the new myList variable
  */
+myList = new List(myOldList)
 
 /*
  * Display the toString() block of @Class List as inherited from @Class Object
