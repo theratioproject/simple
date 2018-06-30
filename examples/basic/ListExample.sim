@@ -23,6 +23,9 @@ myList = new List(["s", "i", "m", "p", "l", "e"])
 *@indexOf() - Get the element using the index number.
  */
 
+/*
+ * Display the toString() block of @Class List as inherited from @Class Object
+ */
 display myList.toString()
 /* .push() method */
 myList.push([" l", "a", "n", "g"])
