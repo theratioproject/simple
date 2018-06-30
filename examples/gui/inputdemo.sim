@@ -27,7 +27,7 @@ call "fulltick/core/FApp.sim" ? fulltick.core
 
 block main()
 
-	input = new FInput() 
+	input = new FInput("") 
 	input.setTitle("Normal : ").setPosition(90, 10)
 	
 	finput = new FFloatInput()

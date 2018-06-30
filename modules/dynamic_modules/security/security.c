@@ -39,7 +39,7 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
 {
     register_block("__hash",security_lib_hash);
     register_block("__md5",security_lib_md5);
-    register_block("__sha1",security_lib_sha1);
+    register_block("__SHA1",security_lib_SHA1);
     register_block("__sha256",security_lib_sha256);
     register_block("__sha512",security_lib_sha512);
     register_block("__sha384",security_lib_sha384);
@@ -94,7 +94,7 @@ void security_lib_md5 ( void *pointer )
 	}
 }
 
-void security_lib_sha1 ( void *pointer )
+void security_lib_SHA1 ( void *pointer )
 {
 	unsigned char digest[SHA_DIGEST_LENGTH]  ;
 	char string[SHA_DIGEST_LENGTH*2+1]  ;

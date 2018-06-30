@@ -37,3 +37,5 @@ call "./painting/FColor.sim"
 #drawing
 call "./drawing/FFont.sim"
 call "./drawing/FCaretStyle.sim"
+#core
+call "./core/FApp.sim"

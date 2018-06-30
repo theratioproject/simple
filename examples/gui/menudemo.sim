@@ -70,7 +70,7 @@ class MenuDemo : FWindow
 		mBar.setDownBox(3)  
 		#the menu button
 		mButton.setPosition(50,100) mButton.addItem([tm,tm2])
-		mButton.setLabel("Menu Button") mButton.type(3)
+		mButton.setLabel("Menu Button") mButton.setType(3)
 
 		setTitle("FMENU(S) DEMO").setSize(WIDTH, 210) 
 		addWidget([mBar,b1,b2,mButton]) 

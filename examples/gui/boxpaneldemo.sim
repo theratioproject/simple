@@ -45,7 +45,7 @@ block main()
 	window.setTitle("FBOX/FPANEL DEMO").setSize(500, 500)
 	window.setBackground(FColor.MAGENTA())
 	window.addWidget([box, box2, box3, box4])
-	window.resizable(true)
+	# window.resizable(true)
 	
 	display window.getHash()+crlf
 	display box.getHash()+crlf
