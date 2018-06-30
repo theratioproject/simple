@@ -1,5 +1,5 @@
 echo off
-cls
+cls 
 
 SET VERSION="s0.3.34"
 SET SIMPLE_DEBUG_VERSION="s0.3.34-debug"
