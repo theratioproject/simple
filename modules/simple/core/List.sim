@@ -105,7 +105,7 @@ class List : Object
         return __OBJECT
 
     block indexOf(n)
-        return list[n]
+        return __OBJECT[n]
 
     block push(x)
         list + x
