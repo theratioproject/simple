@@ -46,9 +46,14 @@ class Object
 				str = new String("this is a string")
 				display str.object()
 			@EndCode
+			The block call str.object() will display the value "this is a string"
+		because it the actual object in the class 
 	*/
 	block object()
 		return __OBJECT
 		
+	/*
+		function same as @Block object
+	*/
 	block realObject()
 		return __OBJECT
