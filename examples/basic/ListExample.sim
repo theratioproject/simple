@@ -37,7 +37,7 @@ myList.pop(4)
 myList.keys()
 
 /* .reverse() */
-display myList.reverse()
+myList.reverse()
 
 /* .indexOf() */
 myList.indexOf(5) +crlf
