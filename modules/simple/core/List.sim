@@ -113,7 +113,7 @@ class List : Object
 	#check to ensure the n index specified is not more than size of list
 	#confirm it number only then get index
     block indexOf(n)
-		if n > length() { throw(__INDEX_GREATER_THAN_SIZE) }
+		if n > getTypeLength(__OBJECT) { throw(__INDEX_GREATER_THAN_SIZE) }
 		if isNumber(n)
 			return __OBJECT[n]
 		else 
