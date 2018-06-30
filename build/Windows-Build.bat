@@ -7,7 +7,7 @@ SET FULLTICK_BUILD_ISSUE="<https://github.com/simple-lang/simple/issues/16>"
 
 echo 	simple-lang build %SIMPLE_DEBUG_VERSION%
 
-exit
+exit /b
 REM Remove previous build of the current versions
 if exist "../../%SIMPLE_DEBUG_VERSION%/" (
 	echo a previous simple build %SIMPLE_DEBUG_VERSION% is detected
