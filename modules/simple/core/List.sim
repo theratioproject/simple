@@ -53,7 +53,7 @@ end
     
 class List : Object
     objectName = "List"
-    list = []
+    lister = []
 
     block List(list)
         self.list = list
