@@ -96,7 +96,7 @@ class List : Object
     block List(list)
 		try 
 			if list.getType() == getType() 
-				self = list 
+				this = list 
 			end 
 			return __OBJECT
 		catch display crlf+"err : "+__err__ end
