@@ -96,7 +96,7 @@ class List : Object
     block List(list)
 		try 
 			if list.getType() == getType() 
-				this = list display "yea yea : "+list.getType()
+				this = list 
 			end 
 			return __OBJECT
 		catch end
