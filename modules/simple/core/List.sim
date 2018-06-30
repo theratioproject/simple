@@ -77,6 +77,13 @@ class List : Object
 			@EndCode
 		
 		@Class List
+		In a situation whereby the parameter is an instance of @Class List
+		all the previous attribute of the current class is disposed and the 
+		attribute of the parameter class is transfered into this class. 
+		e.g 
+			@Code
+			li1 = new List(["a","a"])
+			li2 = new List(li)
 			
 		else an error is thrown
 	*/
