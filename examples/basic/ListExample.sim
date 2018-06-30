@@ -40,7 +40,7 @@ myList.keys()
 myList.reverse()
 
 /* .indexOf() */
-myList.indexOf(5) +crlf
+display myList.indexOf(5) +crlf
 
 /* .slice() */
 ? "" +crlf
