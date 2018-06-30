@@ -52,7 +52,7 @@ end
 # block indexOf(List, value) 
     
 class List : Object
-    objectName = "list"
+    objectName = "List"
     list = []
 
     block List(List)
