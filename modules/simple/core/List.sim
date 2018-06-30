@@ -57,7 +57,7 @@ class List : Object
 
     block List(list)
         list = list
-        return List
+        return list
 
     block indexOf(n)
         return list[n]
