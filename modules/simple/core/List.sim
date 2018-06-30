@@ -96,7 +96,7 @@ class List : Object
     block List(list)
 		try 
 			if list.getType() == getType() 
-				
+				this = list
 			end
 		catch end
 		if !isList(list) && !isString(list) { throw(__NOT_LIST_ERROR) }
