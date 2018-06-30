@@ -120,6 +120,9 @@ class List : Object
 			throw(__NUMBER_REQUIRED_ERROR)
 		end
 		
+	/*
+		
+	*/
 	block length()
 		return lengthOf(__OBJECT)
 
