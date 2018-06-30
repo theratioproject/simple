@@ -105,7 +105,11 @@ class List : Object
         return __OBJECT
 
     block indexOf(n)
-        return __OBJECT[n]
+		if isNumber(n)
+			return __OBJECT[n]
+		else 
+			throw(__NUMBER_REQUIRED_ERROR)
+		end
 
     block push(x)
         list + x
