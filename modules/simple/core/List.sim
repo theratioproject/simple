@@ -55,6 +55,9 @@ class List : Object
     __OBJECT_NAME 		= "List"
     __OBJECT			= []
 
+	/*
+		The @Class list constructor accepting a list as parameter
+	*/
     block List(list)
         this.__OBJECT = list
         return this.__OBJECT
