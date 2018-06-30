@@ -60,7 +60,8 @@ class List : Object
 			@DataType List
 			@DataType String
 			@Class List
-		If @DataType List is sent as parameter the the class treat
+		@DataType LIST
+		If list is sent as parameter the the class treat
 		the parameter. If @DataType String is the parameter it is also
 		treated as @DataType List. 
 		In simple-lang @DataType string is simply a list of char arrays
@@ -70,6 +71,7 @@ class List : Object
 			#is simply same as
 			str = ["s","t","r","i","n","g"]
 			@EndCode
+		
 			
 		else an error is thrown
 	*/
