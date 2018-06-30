@@ -66,9 +66,9 @@ class List : Object
 		In simple-lang @DataType string is simply a list of char arrays
 		e.g 
 			@Code
-			str = "thisisastring"
+			str = "string"
 			#is simply same as
-			str = "s"+"t"+"r"+"i"+"n"+"g"
+			str = ["s","t","r","i","n","g"]
 			@EndCode
 			
 		else an error is thrown
