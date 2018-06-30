@@ -48,6 +48,9 @@ display myList.toString() + crlf
  */
 display myList
 display myList.object()
+
+/* .indexOf() */
+display myList.indexOf(5) +crlf
  
 /* .push() method */
 myList.push([" l", "a", "n", "g"])
@@ -64,9 +67,6 @@ myList.keys()
 
 /* .reverse() */
 myList.reverse()
-
-/* .indexOf() */
-myList.indexOf(5) +crlf
 
 /* .slice() */
 ? "" +crlf
