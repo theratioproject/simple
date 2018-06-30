@@ -101,8 +101,8 @@ class List : Object
 			end
 		catch end
 		if !isList(list) && !isString(list) { throw(__NOT_LIST_ERROR) }
-        this.__OBJECT = list
-        return this.__OBJECT
+        __OBJECT = list
+        return __OBJECT
 
     block indexOf(n)
         return list[n]
