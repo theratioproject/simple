@@ -83,7 +83,7 @@ class List : Object
 		e.g 
 			@Code
 			li1 = new List(["a","a"])
-			li2 = new List(li)
+			li2 = new List(li1)
 			li3 = li1
 			
 			#li2 and li3 is simply the same thing but li2 
