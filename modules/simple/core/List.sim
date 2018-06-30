@@ -56,7 +56,7 @@ class List : Object
     list = []
 
     block List(list)
-        this.list = list
+        self.list = list
         return list
 
     block indexOf(n)
