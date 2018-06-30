@@ -6,7 +6,7 @@ SET VER="0.3.34"
 
 REM if [ $1 != "-h" ] && [ $1 != "--help" ]; then
 	echo ======================================
-	echo simple-lang:build: invalid flag : $1
+	echo simple-lang:build: invalid flag : %1
 	echo ======================================
 REM fi
 echo Usage: ./sudo sh Windows-Build.bat [FLAG]
