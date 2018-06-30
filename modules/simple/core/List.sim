@@ -111,3 +111,7 @@ block slice(x, y)
 block sort(a, b)
     # return b - a
     return list[b] - list[a]
+	
+	
+	private 
+		__NOT_LIST_ERROR = "the parameter is not a list"
