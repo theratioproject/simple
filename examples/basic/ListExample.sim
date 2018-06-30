@@ -50,7 +50,7 @@ display myList
 display myList.object()
 
 /* .indexOf() */
-display myList.indexOf(5) +crlf
+display "Index of 5 : "+myList.indexOf(5) +crlf
  
 /* .push() method */
 myList.push([" l", "a", "n", "g"])
