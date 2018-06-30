@@ -51,8 +51,6 @@ end
 
 # block indexOf(List, value) 
 
-Error = ""
-
 block Error(var)
 		display "yea yea"
     
