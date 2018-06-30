@@ -13,7 +13,6 @@
 module simple.debugging
  
 block throw(value)
-	kjk = 3434
 	__err__ = value + crlf
 	
 block blowError(value)
