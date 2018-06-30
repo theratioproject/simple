@@ -51,7 +51,7 @@ end
 
 # block indexOf(List, value) 
     
-class List : Object
+class Liste : Object
     objectName = "lister"
     list = []
 
