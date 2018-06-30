@@ -23,23 +23,23 @@ callModule("security")
 block intHash(content)
 	hash1 = (5381<<16) + 5381 hash2 = hash1
 	a = 0 len = lengthOf(content)
-	while len  > 2
-		hash1 = ((hash1 << 5) + hash1 + (hash1 >> 27)) ^ a
-		hash2 = ((hash2 << 5) + hash2 + (hash2 >> 27)) ^ a
-		a += 2 len  -= 4 
-	end
-	if len > 0
-		hash1 = ((hash1 << 5) + hash1 + (hash1 >> 27)) ^ a
-	end
-	#decimals(0) 
+	while len  > 2SHA1
+		hash1 = ((SHA1hash1 << 5) + hash1 + (hash1 >> 27)) ^ a
+		hash2 = ((SHA1hash2 << 5) + hash2 + (hash2 >> 27)) ^ a
+		a += 2 lenSHA1  -= 4 
+	endSHA1
+	if len > 0SHA1
+		hash1 = ((SHA1hash1 << 5) + hash1 + (hash1 >> 27)) ^ a
+	endSHA1
+	#decimals(0) SHA1
 	return toDecimal(( - hash1 + (hash2 * 1566083941)), 0)
 	
 #hash a string using unsigned int on each character in the string along with
 #the characters binary (02) value
-#@Note currently using sha1 and md5 hash of content until a standard or
+#@Note currently using SHA1 and md5 hash of content until a standard or
 #preferred method for the hash has been created
 block hash(content)
-	return __sha1(content) /*+ __hash("simple") */+ __md5(content)
+	return __SHA1(content) /*+ __hash("simple") */+ __md5(content)
 
 #calculate the md5 value of a string 
 #this block is a delegate to the __md5(content)	block in the security.dll
@@ -47,11 +47,11 @@ block hash(content)
 block md5(content)
 	return __md5(content)
 
-#calculate the sha1 value of a string 
-#this block is a delegate to the __sha1(content)	block in the security.dll
+#calculate the SHA1 value of a string 
+#this block is a delegate to the __SHA1(content)	block in the security.dll
 #dependency	
-block sha1(content)
-	return __sha1(content)
+block SHA1(content)
+	return __SHA1(content)
 	
 #calculate the sha256 value of a string 
 #this block is a delegate to the __sha256(content)	block in the security.dll
