@@ -53,7 +53,7 @@ end
     
 class List : Object
     __OBJECT_NAME = "List"
-    lister = []
+    __OBJECT = []
 
     block List(list)
         self.lister = list
