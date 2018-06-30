@@ -24,7 +24,7 @@ myList = new List(["s", "i", "m", "p", "l", "e"])
  */
  
 /*
- * 
+ * Create a face List class with a string as parameter. we catch the error too
  */
 
 /*
