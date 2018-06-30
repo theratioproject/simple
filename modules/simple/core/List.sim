@@ -159,3 +159,4 @@ block sort(a, b)
 	
 	private 
 		__NOT_LIST_ERROR = "the parameter is not a list"
+		__NUMBER_REQUIRED_ERROR = "number is required as parameter "
