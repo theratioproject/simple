@@ -42,7 +42,7 @@ display myList.toString() + crlf
  *		myList.object() and myList.toList() 
  */
 display myList
-display myList.realValue()
+display myList.object()
  
 /* .push() method */
 myList.push([" l", "a", "n", "g"])
