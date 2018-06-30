@@ -13,7 +13,7 @@
 module simple.debugging
  
 block throw(value)
-	__err__ = value
+	__err__ = value + crlf
 	
 block blowError(value)
 	display value 
