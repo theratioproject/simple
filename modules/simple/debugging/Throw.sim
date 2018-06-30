@@ -15,3 +15,5 @@ module simple.debugging
 block throw(value)
 	display value 
 	__exit__
+	
+block blowError(value)
