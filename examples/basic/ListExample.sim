@@ -27,7 +27,7 @@ display myList.toString()
 /* .push() method */
 myList.push([" l", "a", "n", "g"])
 
-myList /* simple lang */ 
+#display myList /* simple lang */ 
 
 /* .pop() method */
 myList.pop(4)
