@@ -19,7 +19,7 @@ call "BaseFields.sim"
 class Object 
 
 	__OBJECT_NAME 	= "Object"
-	__OBJECT		= ""
+	__OBJECT		= null
 
 	block toString()
 		return "[simple.core."+__OBJECT_NAME+":"+getHashCode()+"]"
@@ -36,4 +36,4 @@ class Object
 	block getTypeCode
 		return OBJECT_TYPE
 		
-	
+	block object()
