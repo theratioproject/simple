@@ -31,6 +31,8 @@ display myList.toString()
 /*
  * Display the created myList Variable
  */
+display myList
+ 
 /* .push() method */
 myList.push([" l", "a", "n", "g"])
 
