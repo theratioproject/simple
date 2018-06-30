@@ -14,7 +14,6 @@ module simple.debugging
  
 #really need a big touch
 block throw(value)
-	jhj = ll
 	__err__ = value + crlf
 	
 block raise(value)
