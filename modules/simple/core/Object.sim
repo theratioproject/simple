@@ -36,6 +36,17 @@ class Object
 	block getTypeCode
 		return OBJECT_TYPE
 		
+	/*
+		Every class inheriting @Class Object should definitely define the value
+		of @Var __OBJECT . The actual value of the @Var __OBJECT will be verily 
+		available through this block and the @Block realObject() block. If the 
+		value of @Var __OBJECT is not set null will be returned instead.
+		@Bold Example 
+			@Code
+				str = new String("this is a string")
+				display str.object()
+			@EndCode
+	*/
 	block object()
 		return __OBJECT
 		
