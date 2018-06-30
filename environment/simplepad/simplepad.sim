@@ -107,7 +107,27 @@ block runSource() program(1)
 block debugSource() program(2)
 block build() program(3)
 #ABOUT
-block about() display "SimplePad "
+block about()
+	label = new FLabel("SIMPLEPAD
+		This application is a small micro text editor intended to be packed
+		as an environment in the simple distribution. It does simple functions
+		as 
+		Create New File
+		Save File
+		Open File
+		Run File
+		it also support syntax highlighting and other basic and simple functions"
+		)
+		label.setPosition(10,20)
+		label.setBackground(FColor.WHITE())
+
+	window = new FWindow()
+	window.setTitle("simplepad - About")
+	window.setSize(600,210)
+	window.setBackground(FColor.WHITE())
+	window.addWidget(label)
+	window.show()
+	window.setLocation(530,150)
 
 block program(type)
 	if isWindows() 
