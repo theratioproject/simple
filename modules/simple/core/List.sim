@@ -96,7 +96,7 @@ class List : Object
     block List(list)
 		try 
 			if (list.getType() == getType()) {
-				display list.__OBJECT 
+				display list. 
 			}
 			return __OBJECT
 		catch end
