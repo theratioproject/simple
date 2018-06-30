@@ -99,7 +99,7 @@ class List : Object
 				this.__OBJECT = list.__OBJECT 
 			end 
 			return __OBJECT
-		catch display crlf+"err : "+__err__ end
+		catch end
 		if !isList(list) && !isString(list) { throw(__NOT_LIST_ERROR) }
         __OBJECT = list
         return __OBJECT
