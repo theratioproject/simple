@@ -22,6 +22,10 @@ myList = new List(["s", "i", "m", "p", "l", "e"])
 *@reverse() - Reverse the array.
 *@indexOf() - Get the element using the index number.
  */
+ 
+/*
+ * 
+ */
 
 /*
  * Display the toString() block of @Class List as inherited from @Class Object
