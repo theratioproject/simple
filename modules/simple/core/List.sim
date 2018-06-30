@@ -107,7 +107,8 @@ class List : Object
 	/*
 		.indexOf(n) block is a safe block for getting the item in the list
 		at an index n very similar to using the block quote [n] to get the index
-		but with more type check and safe call. @Ignore Awesome for production @End
+		but with more type check and safe call. 
+		@Ignore Awesome for production @End
 	*/
     block indexOf(n)
 		if isNumber(n)
