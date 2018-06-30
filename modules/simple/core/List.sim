@@ -55,8 +55,8 @@ class List : Object
     objectName = "List"
     list = []
 
-    block List(List)
-        list = List
+    block List(list)
+        list = list
         return List
 
     block indexOf(n)
