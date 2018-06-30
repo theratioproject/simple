@@ -25,7 +25,7 @@ void security_lib_hash ( void *pointer ) ;
 
 void security_lib_md5 ( void *pointer ) ;
 
-void security_lib_sha1 ( void *pointer ) ;
+void security_lib_SHA1 ( void *pointer ) ;
 
 void security_lib_sha256 ( void *pointer ) ;
 
