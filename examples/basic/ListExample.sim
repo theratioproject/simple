@@ -29,7 +29,8 @@ myList = new List(["s", "i", "m", "p", "l", "e"])
  */
 myFakeList = new List("this is a string not list") #pass
 try 
-	myFakeList = new List(0123456) #bomb the compiler
+	myFakeList = new List(0123456) #bomb the compiler 
+	display __err__
 catch 
 	display __err__
 	display "we have a bomb squad around" + crlf
