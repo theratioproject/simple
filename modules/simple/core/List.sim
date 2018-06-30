@@ -90,8 +90,8 @@ class List : Object
 			#with more function. You can review the source code of @Class List 
 			[HERE](https://github.com/simple-lang/simple/blob/master/modules/simple/core/List.sim)
 			
-			
-		else an error is thrown
+		Any other type of parameter is an Error
+		
 	*/
     block List(list)
 		if !isList(list) && !isString(list) { throw(__NOT_LIST_ERROR) }
