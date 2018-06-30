@@ -27,6 +27,10 @@ myList = new List(["s", "i", "m", "p", "l", "e"])
  * Display the toString() block of @Class List as inherited from @Class Object
  */
 display myList.toString()
+
+/*
+ * Display the list
+ */
 /* .push() method */
 myList.push([" l", "a", "n", "g"])
 
