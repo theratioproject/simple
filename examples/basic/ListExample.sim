@@ -31,7 +31,8 @@ myFakeList = new List("this is a string not list") #pass
 try 
 	myFakeList = new List(0123456) #bomb the compiler
 catch 
-
+	display __err__
+	display "we have a bomb squad around"
 end
 
 /*
