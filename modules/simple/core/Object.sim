@@ -35,3 +35,5 @@ class Object
 		
 	block getTypeCode
 		return OBJECT_TYPE
+		
+	
