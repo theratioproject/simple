@@ -110,8 +110,8 @@ class List : Object
 		but with more type check and safe call. 
 		@Ignore Awesome for production @End
 	*/
+	#check to ensure the n index specified is not more than size of list
     block indexOf(n)
-		#check to ensure the n index specified is not more than size of list
 		if n > __OBJECT.length() { throw(__INDEX_GREATER_THAN_SIZE) }
 		#confirm it number only then get index
 		if isNumber(n)
