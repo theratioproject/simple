@@ -21,16 +21,16 @@ class Object
 	__OBJECT_NAME = "Object"
 
 	block toString()
-		return "[simple.core."+objectName+":"+getHashCode()+"]"
+		return "[simple.core."+__OBJECT_NAME+":"+getHashCode()+"]"
 		
 	block getHashCode()
-		return hash(objectName)
+		return hash(__OBJECT_NAME)
 
 	block equals(compare)
 		#empty for now
 		
 	block getType()
-		return objectName
+		return __OBJECT_NAME
 		
 	block getTypeCode
 		return OBJECT_TYPE
