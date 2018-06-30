@@ -87,7 +87,8 @@ class List : Object
 			li3 = li1
 			
 			#li2 and li3 is simply the same thing but li2 
-			#with more function
+			#with more function. You can review the source code of @Class List 
+			[HERE](https://github.com/simple-lang/simple/blob/master/modules/simple/core/List.sim)
 			
 			
 		else an error is thrown
