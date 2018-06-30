@@ -31,6 +31,10 @@ myFakeList = new List("this is a string not list") #pass
 #myFakeList = new List(0123456) #bomb the compiler
 
 /*
+	Pass the myOldList as parameter to the new myList variable
+ */
+
+/*
  * Display the toString() block of @Class List as inherited from @Class Object
  */
 display myList.toString() + crlf
