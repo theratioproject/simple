@@ -168,3 +168,4 @@ block sort(a, b)
 	private 
 		__NOT_LIST_ERROR = "the parameter is not a list"
 		__NUMBER_REQUIRED_ERROR = "only number is required as parameter "
+		__INDEX_GREATER_THAN_SIZE = "the provided n index is greater than list size"
