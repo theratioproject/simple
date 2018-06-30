@@ -32,7 +32,7 @@ try
 	myFakeList = new List(0123456) #bomb the compiler
 catch 
 	display __err__
-	display "we have a bomb squad around"
+	display "we have a bomb squad around" + crlf
 end
 
 /*
