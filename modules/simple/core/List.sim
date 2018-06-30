@@ -94,7 +94,7 @@ class List : Object
 		
 	*/
     block List(list)
-		try 
+		try display "yea yea : "+list.getType()
 			if list.getType() == getType() 
 				this = list
 				return __OBJECT
