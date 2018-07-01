@@ -114,6 +114,7 @@ exit /b %ERRORLEVEL%
 	echo =============================================================
 	echo simple-lang:configure:buildtool determining if a specific tool is specified
 	if !THERE_IS_VS!=="true" (
+		echo bb arc !BUILD_ARC!
 		call:locatevisualstudio !BUILD_ARC!
 		exit /b 0
 	)
