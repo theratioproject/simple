@@ -462,3 +462,4 @@ exit /b
 
 :uninstall
 	echo unintstalling
+	exit /b 0
