@@ -18,7 +18,7 @@ for %%x in (%*) do (
 		call:uninstall
 	)
 )
-echo.&pause&goto:eof
+EXIT /B %ERRORLEVEL%
 
 :: Functions
 
