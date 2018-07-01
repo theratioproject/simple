@@ -251,26 +251,25 @@ exit /b %ERRORLEVEL%
 			rm -r ..\..\%SIMPLE_DEBUG_VERSION%\
 		) 
 	)
+	REM BULDING SIMPLE.EXE and SIMPLE.DLL
+	if exist "../simple/makefiles/Makefile-Windows.mk" (
+		cd "../simple/makefiles"
+		echo simple: simple-lang %SIMPLE_DEBUG_VERSION% build 
+		echo simple: building simple.dll and simple.exe
+		if exist "../dist/"  (
+			echo simple: removing previous simple build
+			rm -r ../dist/
+		)
+		make -f Makefile-Windows.mk
+		cd ../../build
+	) else (
+		echo error:simple: simple-lang %SIMPLE_DEBUG_VERSION% build 
+		echo error:simple: the file 'Makefile-Windows.mk' does not exist in simple directory
+		echo error:simple: skipping simple Build
+	)
 	
 	echo simple-lang: !THERE_IS_VS!
 	exit /b 0
-
-REM BULDING SIMPLE.EXE and SIMPLE.DLL
-if exist "../simple/makefiles/Makefile-Windows.mk" (
-	cd "../simple/makefiles"
-	echo simple: simple-lang %SIMPLE_DEBUG_VERSION% build 
-	echo simple: building simple.dll and simple.exe
-	if exist "../dist/"  (
-		echo simple: removing previous simple build
-		rm -r ../dist/
-	)
-	make -f Makefile-Windows.mk
-	cd ../../build
-) else (
-	echo error:simple: simple-lang %SIMPLE_DEBUG_VERSION% build 
-	echo error:simple: the file 'Makefile-Windows.mk' does not exist in simple directory
-	echo error:simple: skipping simple Build
-)
 
 REM simple.exe and simple.dll has been successful create and copy executable to %SIMPLE_DEBUG_VERSION% directory
 	echo Copying Executable and building %SIMPLE_DEBUG_VERSION%
