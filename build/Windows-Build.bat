@@ -108,13 +108,14 @@ exit /b %ERRORLEVEL%
 			if exist !MVS!s (
 				echo simple-lang:configure !MVS! found
 			) else (
-				echo error:simple-lang:configure Microsoft Visual Studio not found
-				echo simple-lang:configure please enter your C/C++ toolchain folder
+				echo error:simple-lang:configure:msvisualstudio Microsoft Visual Studio not found
+				echo simple-lang:configure:compiler please enter your C/C++ toolchain folder
 				SET /p COMPILER_PATH=Enter your C/C++ Toolchain directory : 
-				echo simple-lang:configure your C/C++ Toolchain Directory ~ !COMPILER_PATH!
-				echo simple-lang:configure checking the presence of toolchain : gcc
+				echo simple-lang:configure:compiler your C/C++ Toolchain Directory ~ !COMPILER_PATH!
+				echo simple-lang:configure:compiler checking the presence of toolchain : gcc
 				if exist !COMPILER_PATH!/gcc.exe (
 					echo simple-lang:configure:compiler gcc : found
+					
 				) else (
 				
 				)
