@@ -91,7 +91,7 @@ exit /b %ERRORLEVEL%
 	echo simple-lang:configure serching for mingw and msys
 	if exist "C:/MinGW/bin/gccs.exe" (
 		echo simple-lang:configure found MinGW Build Toolchain
-		if (
+		if !EXEC_TYPE!=="install-configure" (
 			call:setcompilerenv C:/MinGW/bin/
 		) else (
 			SET PATH=!PATH!;C:/MinGW/bin/
