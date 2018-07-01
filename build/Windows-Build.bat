@@ -269,6 +269,7 @@ exit /b %ERRORLEVEL%
 		rm -r ../dist/
 	)
 	if %THERE_IS_VS%=="true" (
+		call:getsimplecfiles
 		echo yea Visual Studio and flies are !SIMPLE_C_FILES!
 		
 	) else (
