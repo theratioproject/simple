@@ -714,7 +714,9 @@ exit /b
 	exit /b 0
 	
 :callmsvisualstudio 
-call:%1
+	call:%1
+
+	exit /v 0
 	
 :compilernotfound
 	echo error:simple-lang:compiler %1 not found 
