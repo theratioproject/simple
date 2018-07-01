@@ -1,8 +1,5 @@
 echo off
 cls 
- :: C:\Program Files (x86)\Notepad++
- notepad++
- exit /b 0
 
 setlocal enabledelayedexpansion
 
