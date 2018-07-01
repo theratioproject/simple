@@ -5,7 +5,7 @@ setlocal enabledelayedexpansion
 
 SET EXEC_TYPE=""
 SET BUILD_ARC="x86"
-SET VER="0.3.34"
+SET VER="0.3.35"
 SET THERE_IS_VS="false"
 
 for %%x in (%*) do (
@@ -72,8 +72,8 @@ if !EXEC_TYPE!=="" (
 	SET EXEC_TYPE="install"
 )
 
-SET VERSION="s0.3.34"
-SET SIMPLE_DEBUG_VERSION="s0.3.34-debug"
+SET VERSION="s0.3.35"
+SET SIMPLE_DEBUG_VERSION="s0.3.35-debug"
 SET FULLTICK_BUILD_ISSUE="<https://github.com/simple-lang/simple/issues/16>"
 
 if !EXEC_TYPE!=="install" (
