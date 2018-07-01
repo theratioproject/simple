@@ -2,6 +2,7 @@ echo off
 cls 
 
 SET EXEC_TYPE="install"
+SET BUILD_ARC="x86"
 SET VER="0.3.34"
 
 for %%x in (%*) do (
