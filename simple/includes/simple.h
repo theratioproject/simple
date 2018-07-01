@@ -37,7 +37,7 @@
 */
 #ifdef snprintf
 #else
-#define snprintf _sprintf
+#define snprintf _snprintf
 #endif
 /* Linux */
 #else
