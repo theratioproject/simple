@@ -172,6 +172,7 @@ exit /b %ERRORLEVEL%
 	for %%x in (%*) do (
 		SET PATH=!PATH!;%%x
 	)
+	echo simple-lang:configure:compiler the C/C++ Toolchain directory has been added to PATH
 
 	exit /b 
 
