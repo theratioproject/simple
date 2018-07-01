@@ -19,10 +19,10 @@ for %%x in (%*) do (
 	)
 )
 
+echo Installation Type : %EXEC_TYPE%
+
 :uninstall
 	echo unintstalling
-
-echo Installation Type : %EXEC_TYPE%
 
 exit /b
 REM if "%1%"=="" (
