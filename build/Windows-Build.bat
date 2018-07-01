@@ -674,7 +674,7 @@ exit /b
 		break
 	)
 			:: call "!MVS!\VC\vcvarsall.bat" x86
-	if not !MVS!=="" (
+	if !MVS!=="" (
 		echo simple-lang:configure:buildtool found !MVS!
 		if exist "!MVS!\VC\vcvarsall.bat" (
 			echo yea yea
