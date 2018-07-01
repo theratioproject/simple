@@ -61,6 +61,8 @@ REM echo Installation Type : !EXEC_TYPE!
 REM echo Architecture : %BUILD_ARC%
 exit /b %ERRORLEVEL%
 
+:configure
+
 :uninstall
 	echo unintstalling
 	exit /b 0
