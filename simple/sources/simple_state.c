@@ -26,9 +26,6 @@
 #include <mach-o/dyld.h>
 #endif
 #endif
-
-extern "C" {
-
 /* General Options (Only for simple_state_main()) */
 static int nSimpleStateDEBUGSEGFAULT  ;
 static int nSimpleStateCGI  ;
@@ -395,6 +392,4 @@ void simple_justfilename ( char *file_name )
 			break ;
 		}
 	}
-}
-
 }
