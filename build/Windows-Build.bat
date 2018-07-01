@@ -93,6 +93,7 @@ exit /b %ERRORLEVEL%
 	) else (
 		
 	)
+	gcc ../../temp_simple_configure.c 2> ../../temp_simple_configure
 	
 	exit /b 0
 
