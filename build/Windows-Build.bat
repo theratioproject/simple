@@ -154,7 +154,7 @@ exit /b %ERRORLEVEL%
 	for %%x in (%*) do (
 		SET PATH=!PATH!;%%x
 	)
-	echo %PATH%
+	echo !PATH!
 
 	exit /b 
 
