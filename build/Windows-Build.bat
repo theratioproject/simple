@@ -109,9 +109,7 @@ exit /b %ERRORLEVEL%
 				echo simple-lang:configure !MVS! found
 			) else (
 				echo error:simple-lang:configure Microsoft Visual Studio not found
-				echo simple-lang:configure creating dummy C file
-				echo void main() {} > ../../temp_simple_configure.c
-				gcc ../../temp_simple_configure.c 2> ../../temp_simple_configure
+				echo simple-lang:configure please enter your C/C++ toolchain folder
 			)
 		)
 	)
