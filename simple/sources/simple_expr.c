@@ -951,12 +951,13 @@ int simple_parser_factor ( Parser *parser,int *nFlag )
 	}
 	/* Factor --> New Identifier */
 	if ( simple_parser_iskeyword(parser,KEYWORD_NEW) ) {
-		simple_parser_nexttoken(parser); const char *class_name = parser->TokenText;
+		simple_parser_nexttoken(parser); 
 		SIMPLE_PARSER_IGNORENEWLINE ;
 		/* Generate Code */
 		simple_parser_icg_newoperation(parser,ICO_NEWOBJ); 
 		#if SIMPLE_PARSERTRACE
 		SIMPLE_STATE_CHECKPRINTRULES 
+		const char *class_name = parser->TokenText;
 		
 		puts("Rule : Factor --> New Identifier {'.' Identifier }  ");
 		#endif
