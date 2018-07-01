@@ -156,7 +156,7 @@ exit /b %ERRORLEVEL%
 	exit /b 0
 
 :install
-echo 	simple-lang build %SIMPLE_DEBUG_VERSION%
+	echo 	simple-lang build %SIMPLE_DEBUG_VERSION%
 
 REM Remove previous build of the current versions
 if exist "../../%SIMPLE_DEBUG_VERSION%/" (
