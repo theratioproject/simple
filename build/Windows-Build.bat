@@ -9,7 +9,7 @@ for %%x in (%*) do (
 )
 
 REM if "%1%"=="" (
-REmM   echo Var1 set
+REM   echo Var1 set
 REM )
 
 REM if [ $1 != "-h" ] && [ $1 != "--help" ]; then
