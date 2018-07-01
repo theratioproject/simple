@@ -52,10 +52,10 @@ for %%x in (%*) do (
 		call:uninstall
 	)
 	if "%%x"=="--help" (
-		call:uninstall
+		call:help
 	) 
 	if "%%x"=="-h" (
-		call:uninstall
+		call:help
 	)
 )
 
@@ -82,23 +82,6 @@ echo =============================================================
 :uninstall
 	echo unintstalling
 	exit /b 0
-
-REM if "%1%"=="" (
-REM   echo Var1 set
-REM )
-
-REM if [ $1 != "-h" ] && [ $1 != "--help" ]; then
-	echo ======================================
-	echo simple-lang:build: invalid flag : %1
-	echo ======================================
-REM fi
-echo Usage: ./sudo Windows-Build.bat [FLAG]
-echo [FLAGS] :
-echo 	-c --configure	configure your system for simple-lang successfull build
-echo 	-i --install	install simple-lang on your system
-echo 	-u --uninstall	uninstall simple-lang from your system
-echo 	-d --debug	create a distributable version in ../../ source directory
-echo 	-h --help	print this help message"
 
 
 
