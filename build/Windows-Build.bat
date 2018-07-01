@@ -84,10 +84,11 @@ exit /b %ERRORLEVEL%
 	echo =============================================================
 	echo simple-lang:configure: configure build %SIMPLE_DEBUG_VERSION%
 	echo =============================================================
-
+	exit /b 0
 
 :uninstall
 	echo unintstalling
+	
 	exit /b 0
 
 :help
@@ -101,6 +102,7 @@ exit /b %ERRORLEVEL%
 	echo 	-u --uninstall	uninstall simple-lang from your system
 	echo 	-d --debug	create a distributable version in ../../ source directory
 	echo 	-h --help	print this help message"
+	
 	exit /b 0
 
 echo 	simple-lang build %SIMPLE_DEBUG_VERSION%
