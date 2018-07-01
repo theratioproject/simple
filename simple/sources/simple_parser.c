@@ -122,8 +122,7 @@ void simple_parser_loadtoken ( Parser *parser )
 
 int simple_parser_nexttoken ( Parser *parser )
 {
-	
-	return 0 ;
+	return 1;
 }
 
 int simple_parser_iskeyword ( Parser *parser,SCANNER_KEYWORD x )
