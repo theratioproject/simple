@@ -115,7 +115,6 @@ exit /b %ERRORLEVEL%
 	) else (
 		call:compilernotfound gcc
 	)
-	exit /b 0
 	echo simple-lang:configure serching for mingw and msys
 	if exist "C:\MinGW\msys\1.0\bin\" (
 		echo simple-lang:configure found MinGW Build Toolchain
