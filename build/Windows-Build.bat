@@ -94,7 +94,6 @@ exit /b %ERRORLEVEL%
 	echo simple-lang:configure checking if gcc is present in path
 	gcc 2> ../../simple_build_configure
 	SET /p GCCVAL=<../../simple_build_configure
-	echo value : %GCCVAL%
 	if %GCCVAL%=="gcc: fatal error: no input files" (
 		echo yea yea 
 	)	
