@@ -148,7 +148,7 @@ int simple_parser_bracesandend ( Parser *parser,int lClass,SCANNER_KEYWORD nKeyw
 
 void simple_parser_loadtoken ( Parser *parser ) ;
 
-int simple_parser_nexttoken (Parser *parser);
+int simple_parser_nexttoken ( Parser *parser) ;
 
 int simple_parser_iskeyword ( Parser *parser,SCANNER_KEYWORD x ) ;
 

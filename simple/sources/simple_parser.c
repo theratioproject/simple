@@ -120,9 +120,15 @@ void simple_parser_loadtoken ( Parser *parser )
 	parser->nTokenIndex = simple_list_getint(list,3) ;
 }
 
-int simple_parser_nexttoken (Parser *parser)
+int simple_parser_nexttoken ( Parser *parser )
 {
-	return 1;
+	assert(parser != NULL);
+	if ( parser->ActiveToken < parser->TokensCount ) {
+		parser->ActiveToken++ ;
+		simple_parser_loadtoken(parser);
+		return 1 ;
+	}
+	return 0 ;
 }
 
 int simple_parser_iskeyword ( Parser *parser,SCANNER_KEYWORD x )
