@@ -28,12 +28,12 @@ void simple_vm_dll_loadlib ( void *pointer )
 {
     LpHandleType handle  ;
     const char *cDLL  ;
+    char library_path[200]  ;
     loadlibblockptr pBlock  ;
     VM *vm  ;
     SimpleState *sState  ;
     vm = (VM *) pointer ;
     sState = vm->sState ;
-    char library_path[200]  ;
     if ( SIMPLE_API_PARACOUNT != 1 ) {
             SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
             return ;
