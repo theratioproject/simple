@@ -52,6 +52,9 @@ for %%x in (%*) do (
 	if "%%x"=="x86" (
 		SET BUILD_ARC="x86"
 	)
+	if "%%x"=="--32-bit" (
+		SET BUILD_ARC="x86"
+	)
 	if "%%x"=="--uninstall" (
 		call:uninstall
 	) 
