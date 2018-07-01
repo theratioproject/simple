@@ -57,6 +57,11 @@ if !EXEC_TYPE!=="" (
 	SET EXEC_TYPE="install"
 )
 
+SET VERSION="s0.3.34"
+SET SIMPLE_DEBUG_VERSION="s0.3.34-debug"
+SET FULLTICK_BUILD_ISSUE="<https://github.com/simple-lang/simple/issues/16>"
+
+
 echo =============================================================
 echo simple-lang:configure: configure build %SIMPLE_DEBUG_VERSION%
 echo =============================================================
@@ -90,9 +95,6 @@ echo 	-d --debug	create a distributable version in ../../ source directory
 echo 	-h --help	print this help message"
 
 
-SET VERSION="s0.3.34"
-SET SIMPLE_DEBUG_VERSION="s0.3.34-debug"
-SET FULLTICK_BUILD_ISSUE="<https://github.com/simple-lang/simple/issues/16>"
 
 echo 	simple-lang build %SIMPLE_DEBUG_VERSION%
 
