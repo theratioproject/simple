@@ -94,12 +94,12 @@ exit /b %ERRORLEVEL%
 	if exist "C:/MinGW/bin/gccs.exe" (
 		echo simple-lang:configure found MinGW Build Toolchain
 	) else (
-		echo simple-lang:configure MinGW not fund
+		echo error:simple-lang:configure MinGW not fund
 		echo simple-lang:configure searching for cygwin
 		if exist "C:/cygwin/" (
 			echo simple-lang:configure found CygWIN Build Toolchain
 		) else (
-			echo simple-lang:configure CygWIN not found
+			echo error:simple-lang:configure CygWIN not found
 			echo simple-lang:configure searching for Microsoft Visual Studio
 			SET THERE_IS_VS="false"
 			for /d %%a in ("%programfiles%\Microsoft Visual Studio*") do (
@@ -110,7 +110,7 @@ exit /b %ERRORLEVEL%
 			if exist !MVS! (
 				echo simple-lang:configure !MVS! found
 			) else (
-				echo error !THERE_IS_VS!
+				echo error:simple-lang:configure Microsoft Visual Studio not found
 			)
 		)
 	)
