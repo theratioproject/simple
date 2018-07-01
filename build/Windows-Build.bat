@@ -680,7 +680,7 @@ exit /b
 	echo 	-u --uninstall	uninstall simple-lang from your system
 	echo 	-d --debug	create a distributable version in ..\..\ source directory
 	echo 	-h --help	print this help message
-	echo  
+	echo  ---------------------
 	echo 	-gcc --gnu		build simple with available GNU toolchain
 	echo 	-vs --visual-studio	build simple with Microsoft Visual Studio
 	
