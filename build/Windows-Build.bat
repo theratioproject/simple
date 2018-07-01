@@ -105,13 +105,7 @@ exit /b %ERRORLEVEL%
 	echo =============================================================
 	echo simple-lang:configure:buildtool determining if a specific tool is specified
 	if !THERE_IS_VS!=="true" (
-		echo simple-lang:configure:buildtool Microsoft Visual Studio is specified
-		echo simple-lang:configure:buildtool searching for Microsoft Visual Studio
-		for /d %%a in ("%programfiles%\Microsoft Visual Studio*") do (
-			for /f "tokens=3 delims=\" %%x in ("%%a") do SET THERE_IS_VS="true"  
-			SET MVS=%%a\
-			break
-		)
+		
 		exit /b 0
 	)
 	echo simple-lang:configure preparing to find build toolchain...
