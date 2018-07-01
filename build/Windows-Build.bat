@@ -85,7 +85,7 @@ exit /b %ERRORLEVEL%
 	echo simple-lang:configure: configure build %SIMPLE_DEBUG_VERSION%
 	echo =============================================================
 	echo simple-lang:configure preparing to find build toolchain...
-	echo simple-lang:configue
+	echo simple-lang:configure
 	
 	exit /b 0
 
