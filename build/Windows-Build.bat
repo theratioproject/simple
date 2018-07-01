@@ -51,6 +51,12 @@ for %%x in (%*) do (
 	if "%%x"=="-u" (
 		call:uninstall
 	)
+	if "%%x"=="--help" (
+		call:uninstall
+	) 
+	if "%%x"=="-h" (
+		call:uninstall
+	)
 )
 
 if !EXEC_TYPE!=="" (
