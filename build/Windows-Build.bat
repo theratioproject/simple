@@ -92,7 +92,7 @@ exit /b %ERRORLEVEL%
 		FOR /F "tokens=* USEBACKQ" %%F IN (`command`) DO (
 		SET var=%%F
 		)
-		rem ECHO %var%
+		ECHO %var%
 		echo nooo
 	)
 	
