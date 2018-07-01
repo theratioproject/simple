@@ -260,7 +260,8 @@ exit /b %ERRORLEVEL%
 			rm -r ..\..\%SIMPLE_DEBUG_VERSION%\
 		) 
 	) 
-	
+
+:buildsimpledllexe	
 	REM BULDING SIMPLE.EXE and SIMPLE.DLL
 	if exist "../simple/makefiles/Makefile-Windows.mk" (
 		cd "../simple/makefiles"
