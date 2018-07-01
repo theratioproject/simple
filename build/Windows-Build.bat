@@ -195,7 +195,7 @@ exit /b %ERRORLEVEL%
 
 :install
 	echo 	simple-lang build %SIMPLE_DEBUG_VERSION%
-	echo %THERE_IS_VISUAL_STUDIO%
+	echo simple-lang: %THERE_IS_VISUAL_STUDIO%
 	exit /b 0
 	
 REM Remove previous build of the current versions
