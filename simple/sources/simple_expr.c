@@ -951,7 +951,7 @@ int simple_parser_factor ( Parser *parser,int *nFlag )
 	}
 	/* Factor --> New Identifier */
 	if ( simple_parser_iskeyword(parser,KEYWORD_NEW) ) {
-		simple_parser_nexttoken(parser); const char class_name[90] ;
+		simple_parser_nexttoken(parser); char *class_name ;
 		class_name = parser->TokenText;
 		SIMPLE_PARSER_IGNORENEWLINE ;
 		/* Generate Code */
