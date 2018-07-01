@@ -6,6 +6,12 @@ SET BUILD_ARC="x86"
 SET VER="0.3.34"
 
 for %%x in (%*) do (
+	if "%%x"=="--configure" (
+		SET EXEC_TYPE="configure"
+	) 
+	if "%%x"=="-c" (
+		SET EXEC_TYPE="configure"
+	)
 	if "%%x"=="--install" (
 		SET EXEC_TYPE="install"
 	) 
