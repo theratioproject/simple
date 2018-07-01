@@ -235,10 +235,10 @@ exit /b %ERRORLEVEL%
 	echo 	-i --install	install simple-lang on your system
 	echo 	-u --uninstall	uninstall simple-lang from your system
 	echo 	-d --debug	create a distributable version in ..\..\ source directory
-	echo 	-h --help	print this help message"
+	echo 	-h --help	print this help message
 	echo Build Tool [FLAGS] :
-	echo 	-gcc	print this help message"
-	echo 	-h --help	print this help message"
+	echo 	-gcc		build simple with available gcc toolchain
+	echo 	-vs --visual-studio	print this help message
 	
 	exit /b 0
 
