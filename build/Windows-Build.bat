@@ -238,7 +238,7 @@ exit /b %ERRORLEVEL%
 	echo 	-h --help	print this help message
 	echo Build Tool [FLAGS] :
 	echo 	-gcc		build simple with available gcc toolchain
-	echo 	-vs --visual-studio	print this help message
+	echo 	-vs --visual-studio	build simple with Visual Studio
 	
 	exit /b 0
 
