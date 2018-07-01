@@ -5,9 +5,9 @@ SET EXEC_TYPE="install"
 SET VER="0.3.34"
 
 for %%x in (%*) do (
-   if %%x=="-i" (
-   
-   )
+	if %%x=="-i" (
+		SET EXEC_TYPE="install"
+	)
 )
 
 REM if "%1%"=="" (
