@@ -178,7 +178,7 @@ exit /b %ERRORLEVEL%
 			)
 			if exist !MVS! (
 				echo simple-lang:configure !MVS! found
-				call:locatevisualstudio
+				call:locatevisualstudio !BUILD_ARC!
 			) else (
 				echo error:simple-lang:configure:msvisualstudio Microsoft Visual Studio not found
 				echo simple-lang:configure:compiler please enter your C/C++ toolchain folder
