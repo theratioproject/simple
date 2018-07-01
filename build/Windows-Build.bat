@@ -74,7 +74,6 @@ if !EXEC_TYPE!=="install-configure" (
 )
 if !EXEC_TYPE!=="configure" (
 	call:configure
-	call:install
 )
 if !EXEC_TYPE!=="install" (
 	call:configure
