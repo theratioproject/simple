@@ -670,6 +670,12 @@ if exist "../simple/dist/" (
 )
 
 exit /b
+
+:locatevisualstudio
+if exist "C:\Program Files\Microsoft Visual Studio 10.0\VC\vcvarsall.bat" (
+	call "C:\Program Files\Microsoft Visual Studio 10.0\VC\vcvarsall.bat" x86
+	exit /b
+)
 	
 :compilernotfound
 	echo error:simple-lang:compiler %1 not found 
