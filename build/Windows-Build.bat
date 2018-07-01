@@ -3,6 +3,7 @@ cls
 
 echo %PATH%
  :: C:\Program Files (x86)\Notepad++
+ exit /b 0
 
 setlocal enabledelayedexpansion
 
