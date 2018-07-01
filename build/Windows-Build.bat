@@ -92,7 +92,7 @@ exit /b %ERRORLEVEL%
 		>nul find "Request time" "%filePath%%1.txt" && (
 		  echo %1,"X">>"%fOut%"
 		) || (
-		  echo %1,"O">>"%fOut%"
+		  echo "not found "
 		)
 		echo nooo
 	)
