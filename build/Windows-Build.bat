@@ -679,7 +679,7 @@ if exist "../simple/dist/" (
 exit /b
 
 :getsimplecfiles
-SIMPLE_C_FILES
+	SET SIMPLE_C_FILES="../simple/sources/simple-api.c"
 
 :locatevisualstudio
 	echo simple-lang:configure:buildtool Microsoft Visual Studio is specified
