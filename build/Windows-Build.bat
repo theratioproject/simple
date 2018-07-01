@@ -108,7 +108,7 @@ exit /b %ERRORLEVEL%
 				break
 			)
 			if exist !MVS! (
-				echo !MVS!
+				echo simple-lang:configure !MVS! found
 			) else (
 				echo error !THERE_IS_VS!
 			)
