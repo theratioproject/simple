@@ -720,13 +720,11 @@ exit /b
 	
 :callmsvisualstudio 
 	echo simple-lang:configure:visual-studio calling Microsoft Visual Studio CMD File
-	cl
 	if !BUILD_ARC!=="x64" (
 		call %1 x64
 	) else (
 		call %1 x86
 	)
-	cl
 
 	exit /b 0
 	
