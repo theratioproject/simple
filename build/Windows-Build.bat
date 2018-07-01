@@ -9,7 +9,11 @@ SET VER="0.3.34"
 
 for %%x in (%*) do (
 	if "%%x"=="--configure" (
-		SET EXEC_TYPE="configure"
+		if !EXEC_TYPE!=="install" (
+			SET EXEC_TYPE="install-configure"
+		) else (
+			SET EXEC_TYPE="configure"
+		)
 	) 
 	if "%%x"=="-c" (
 		if !EXEC_TYPE!=="install" (
