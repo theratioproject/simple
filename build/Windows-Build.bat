@@ -101,9 +101,10 @@ exit /b %ERRORLEVEL%
 		) else (
 			echo simple-lang:configure CygWIN not found
 			echo simple-lang:configure searching for Microsoft Visual Studio
-			SET THERE_IS_VS=false
+			SET THERE_IS_VS="false"
 			for /d %%a in ("%programfiles%\Microsoft Visual Studio*") do (
-				for /f "tokens=3 delims=\" %%x in ("%%a") do SET THERE_IS_VS=true  
+				for /f "tokens=3 delims=\" %%x in ("%%a") do 
+				SET THERE_IS_VS="true"  
 				SET MVS=%%a\
 				break
 			)
