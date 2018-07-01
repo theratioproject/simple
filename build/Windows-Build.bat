@@ -145,6 +145,8 @@ exit /b %ERRORLEVEL%
 	exit /b 0
 	
 :setcompilerenv
+	echo simple-lang:configure:compiler adding the directory to PATH for this session
+	echo simple-lang:configure:compiler 
 	for %%x in (%*) do (
 		SET PATH=!PATH!;%%x
 	)
