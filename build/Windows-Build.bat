@@ -12,6 +12,9 @@ for %%x in (%*) do (
 	if "%%x"=="-i" (
 		SET EXEC_TYPE="install"
 	)
+	if "%%x"=="x86" (
+		SET EXEC_TYPE="install"
+	)
 	if "%%x"=="--uninstall" (
 		call:uninstall
 	) 
