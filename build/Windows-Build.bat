@@ -12,6 +12,12 @@ for %%x in (%*) do (
 	if "%%x"=="-i" (
 		SET EXEC_TYPE="install"
 	)
+	if "%%x"=="--debug" (
+		SET EXEC_TYPE="debug"
+	) 
+	if "%%x"=="-d" (
+		SET EXEC_TYPE="debug"
+	)
 	if "%%x"=="x64" (
 		SET BUILD_ARC="x64"
 	)
