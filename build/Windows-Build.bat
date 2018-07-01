@@ -11,9 +11,9 @@ for %%x in (%*) do (
 		SET EXEC_TYPE="install"
 	)
 	if %%x=="--uninstall" (
-		
+		goto Uninstall
 	) if %%x=="-u" (
-		
+		goto Uninstall
 	)
 )
 
