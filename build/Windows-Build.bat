@@ -17,7 +17,9 @@ call:myDosFunc
 echo.returned from myDosFunc
 	) 
 	if %%x=="-u" (
-		call:uninstall
+		echo.going to execute myDosFunc
+call:myDosFunc
+echo.returned from myDosFunc
 	)
 )
 
