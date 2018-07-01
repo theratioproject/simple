@@ -677,6 +677,7 @@ exit /b
 	if !MVS!=="" (
 		echo simple-lang:configure:buildtool Microsoft Visual Studio not found
 		echo simple-lang:configure:buildtool Looking for 32 bit x86 MS Visual Studio 
+		call:locatevisualstudio x86
 	) else (
 		echo simple-lang:configure:buildtool found !MVS!
 		if exist "!MVS!\VC\vcvarsall.bat" (
