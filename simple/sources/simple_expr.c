@@ -22,9 +22,6 @@
 **  Grammar 
 */
 
-extern "C" {
-
-__declspec(dllexport)
 int simple_parser_expr ( Parser *parser )
 {
 	int x,nMark  ;
@@ -1362,4 +1359,3 @@ int simple_parser_objattributes ( Parser *parser )
 	return 1 ;
 }
 
-} // extern "C"
