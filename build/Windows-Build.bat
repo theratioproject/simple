@@ -680,6 +680,8 @@ if not !MVS!=="" (
 		echo yea yea
 	)
 )
+
+exit /b 0
 	
 :compilernotfound
 	echo error:simple-lang:compiler %1 not found 
