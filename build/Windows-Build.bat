@@ -681,7 +681,7 @@ exit /b
 	echo 	-d --debug	create a distributable version in ..\..\ source directory
 	echo 	-h --help	print this help message
 	echo  `
-	echo 	-gcc --gnu		build simple with available GNU toolchain
-	echo 	-vs --visual-studio	build simple with Microsoft Visual Studio
+	echo 	-gcc --gnu	build simple with available GNU toolchain
+	echo 	-vs --visual-studio build simple with Microsoft Visual Studio
 	
 	exit /b 0
