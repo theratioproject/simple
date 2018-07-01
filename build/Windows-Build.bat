@@ -273,7 +273,7 @@ exit /b %ERRORLEVEL%
 	if %THERE_IS_VS%=="true" (
 		call:getsimplecfiles
 		echo yea Visual Studio and flies are !SIMPLE_C_FILES!
-		
+		cl.exe /D_USRDLL /D_WINDLL !SIMPLE_C_FILES! /MT /link /DLL /OUT:helowrld.dll
 	) else (
 		if exist "../simple/makefiles/Makefile-Windows.mk" (
 			cd "../simple/makefiles"
