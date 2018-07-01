@@ -101,6 +101,7 @@ exit /b %ERRORLEVEL%
 		g++ 2> ..\..\simple_build_configure
 		SET /p GCCVAL=<..\..\simple_build_configure
 		if "!GCCVAL!"=="g++: fatal error: no input files" (
+			call:deletetempfiles ..\..\simple_build_configure
 			echo simple-lang:configure:compiler g++ found
 			echo simple-lang:configure:compiler checking if make is present in path
 			make 2> ..\..\simple_build_configure
