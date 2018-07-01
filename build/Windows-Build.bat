@@ -62,10 +62,6 @@ SET SIMPLE_DEBUG_VERSION="s0.3.34-debug"
 SET FULLTICK_BUILD_ISSUE="<https://github.com/simple-lang/simple/issues/16>"
 
 
-echo =============================================================
-echo simple-lang:configure: configure build %SIMPLE_DEBUG_VERSION%
-echo =============================================================
-
 
 REM echo Installation Type : !EXEC_TYPE!
 REM echo Architecture : %BUILD_ARC%
