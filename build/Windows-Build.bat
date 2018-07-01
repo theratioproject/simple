@@ -19,6 +19,7 @@ echo.returned from myDosFunc
 	if %%x=="-u" (
 		echo yea it reached
 		call:uninstall
+		SET EXEC_TYPE="uninstall"
 	)
 )
 
