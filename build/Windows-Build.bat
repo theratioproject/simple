@@ -682,7 +682,7 @@ exit /b
 	if exist "../simple/sources/" (
 		SET SIMPLE_C_FILES="../simple/sources/*.c"
 	) else (
-	
+		SET SIMPLE_C_FILES="none/*.c"
 	)
 	
 	exit /b 0
