@@ -2,6 +2,7 @@ echo off
 cls 
 
 echo %PATH%
+ :: C:\Program Files (x86)\Notepad++
 
 setlocal enabledelayedexpansion
 
