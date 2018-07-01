@@ -682,7 +682,7 @@ exit /b
 	echo 	-h --help	print this help message
 	echo 	-gcc --gnu	build simple with available GNU toolchain
 	echo 	-vs --visual-studio	build simple with Microsoft Visual Studio
-	echo 	-x86 --32-bit	build simple with Microsoft Visual Studio
+	echo 	-x86 --32-bit	build 32 bit version of simple-lang
 	echo 	-vs --visual-studio	build simple with Microsoft Visual Studio
 	
 	exit /b 0
