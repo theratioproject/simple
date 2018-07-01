@@ -54,6 +54,7 @@ for %%x in (%*) do (
 	)
 	if "%%x"=="--help" (
 		call:help
+		exit /b 0
 	) 
 	if "%%x"=="-h" (
 		call:help
