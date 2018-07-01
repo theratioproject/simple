@@ -89,6 +89,11 @@ exit /b %ERRORLEVEL%
 	if exist "C:/MinGW/bin/gcc.exe" (
 		echo simple-lang:configure found MinGW Build Toolchain
 	) else (
+		>nul find "Request time" "%filePath%%1.txt" && (
+		  echo %1,"X">>"%fOut%"
+		) || (
+		  echo %1,"O">>"%fOut%"
+		)
 		echo nooo
 	)
 	
