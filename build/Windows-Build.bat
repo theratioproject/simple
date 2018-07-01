@@ -260,6 +260,7 @@ exit /b %ERRORLEVEL%
 			rm -r ..\..\%SIMPLE_DEBUG_VERSION%\
 		) 
 	) 
+	call:buildsimpledllexe
 
 :buildsimpledllexe	
 	REM BULDING SIMPLE.EXE and SIMPLE.DLL
