@@ -30,7 +30,11 @@
 #define _WIN32_WINNT 0x502
 #define SIMPLE_USEDLL 1
 #define SIMPLE_BUILDLIB 1
-#ifdef
+#ifdef snprintf
+/*
+** Do nothing if snprintf is defined
+*/
+#else
 #define snprintf _sprintf
 #endif
 /* Linux */
