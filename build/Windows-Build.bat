@@ -93,7 +93,7 @@ exit /b %ERRORLEVEL%
 	echo simple-lang:configure preparing to find build toolchain...
 	echo simple-lang:configure checking if gcc is present in path
 	gcc 2> ../../simple_build_configure
-	SET gccval < ../../simple_build_configure
+	SET gccval=../../simple_build_configure
 	exit /b 0
 	echo simple-lang:configure serching for mingw and msys
 	if exist "C:\MinGW\msys\1.0\bin\" (
