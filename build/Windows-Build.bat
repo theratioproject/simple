@@ -94,7 +94,7 @@ exit /b %ERRORLEVEL%
 		if !EXEC_TYPE!=="install-configure" (
 			call:setcompilerenv C:\MinGW\bin\ C:\MinGW\msys\1.0\bin
 		) else (
-			SET PATH=!PATH!;C:\MinGW\bin\ C:\MinGW\msys\1.0\bin
+			SET PATH=!PATH!;C:\MinGW\bin\;C:\MinGW\msys\1.0\bin
 		)
 	) else (
 		echo error:simple-lang:configure MinGW not fund
