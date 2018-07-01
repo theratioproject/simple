@@ -262,8 +262,9 @@ exit /b %ERRORLEVEL%
 		)
 		if !THERE_IS_VS!==true (
 		
-		) 
-		make -f Makefile-Windows.mk
+		) else (
+			make -f Makefile-Windows.mk
+		)
 		cd ../../build
 	) else (
 		echo error:simple: simple-lang %SIMPLE_DEBUG_VERSION% build 
