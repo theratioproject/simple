@@ -1,7 +1,7 @@
 echo off
 cls 
 
-SET EXEC_TYPE=""
+SETLOCAL EXEC_TYPE=""
 SET BUILD_ARC="x86"
 SET VER="0.3.34"
 
