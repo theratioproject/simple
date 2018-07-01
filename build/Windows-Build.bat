@@ -278,8 +278,8 @@ exit /b %ERRORLEVEL%
 		cl.exe /D_USRDLL /D_WINDLL /TC !SIMPLE_C_FILES! /MT /I %~dp0\..\simple\includes\ /link /DLL /OUT:%~dp0\..\simple\dist\simple.dll libcmt.lib
 		call:deletetempfiles *.obj *.exp *.cod
 		REM move *.lib %~dp0\..\simple\dist
-		if exist "..\simple\dist\simple.dll" (
-			cl.exe /TC %~dp0\..\simple\simple.c 
+		if exist "..\simple\dist\simple.lib" (
+			cl.exe /TC %~dp0\..\simple\simple.c ..\simple\dist\simple.lib
 		)
 		exit /b 0
 	) else (
