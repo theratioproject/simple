@@ -64,7 +64,7 @@ SIMPLE_API void get_file_folder ( char *absolute_path ) ;
 
 #if SIMPLE_TESTPERFORMANCE
 
-void simple_showtime ( clock_t before_execution, clock_t after_execution ) ;
+void simple_showtime ( clock_t before_execution ) ;
 float get_time_different(float diff) ;
 
 unsigned simple_hash(unsigned pid);
