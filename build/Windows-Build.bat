@@ -100,6 +100,10 @@ exit /b %ERRORLEVEL%
 		g++ 2> ../../simple_build_configure
 		SET /p GCCVAL=<../../simple_build_configure
 		if "%GCCVAL%"=="g++: fatal error: no input files" (
+		
+		) else (
+			call:compilernotfound g++
+		)
 	) else (
 		call:compilernotfound gcc
 	)
