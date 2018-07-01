@@ -143,6 +143,10 @@ exit /b %ERRORLEVEL%
 	)
 	
 	exit /b 0
+	
+:setcompilerenv
+
+	exit /b 0
 
 :uninstall
 	echo unintstalling
