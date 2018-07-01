@@ -229,6 +229,9 @@ exit /b %ERRORLEVEL%
 	exit /b 0
 
 :installdebug
+	if !EXEC_TYPE!=="install" (
+		call:configure
+	)
 	echo =============================================================
 	echo simple-lang:install: install simple-lang %SIMPLE_VERSION%
 	echo =============================================================
