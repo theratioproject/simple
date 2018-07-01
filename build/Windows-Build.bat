@@ -292,6 +292,9 @@ exit /b %ERRORLEVEL%
 	)
 	
 	exit /b 0
+	
+	
+:copysimpledllexe
 
 REM simple.exe and simple.dll has been successful create and copy executable to %SIMPLE_DEBUG_VERSION% directory
 	echo Copying Executable and building %SIMPLE_DEBUG_VERSION%
