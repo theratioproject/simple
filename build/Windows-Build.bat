@@ -6,6 +6,8 @@ SET VER="0.3.34"
 
 for %%x in (%*) do (
    if %%x=="-i" (
+   
+   )
 )
 
 REM if "%1%"=="" (
