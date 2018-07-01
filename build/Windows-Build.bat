@@ -85,7 +85,7 @@ exit /b %ERRORLEVEL%
 
 :configure
 	echo =============================================================
-	echo simple-lang:configure: configure build %SIMPLE_DEBUG_VERSION%
+	echo simple-lang:configure: configure build %SIMPLE_VERSION%
 	echo =============================================================
 	echo simple-lang:configure preparing to find build toolchain...
 	echo simple-lang:configure serching for mingw and msys
