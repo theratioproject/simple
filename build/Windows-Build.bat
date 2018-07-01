@@ -18,7 +18,8 @@ for %%x in (%*) do (
 		call:uninstall
 	)
 )
-EXIT /B %ERRORLEVEL%
+
+exit /b %ERRORLEVEL%
 
 :: Functions
 
