@@ -87,8 +87,6 @@ exit /b %ERRORLEVEL%
 	echo =============================================================
 	echo simple-lang:configure: configure build %SIMPLE_DEBUG_VERSION%
 	echo =============================================================
-	echo simple-lang:configure creating dummy C file
-	echo void main() {} > ../../temp_simple_configure.c
 	echo simple-lang:configure preparing to find build toolchain...
 	echo simple-lang:configure serching for mingw and msys
 	if exist "C:/MinGW/bin/gccs.exe" (
@@ -111,6 +109,8 @@ exit /b %ERRORLEVEL%
 				echo simple-lang:configure !MVS! found
 			) else (
 				echo error:simple-lang:configure Microsoft Visual Studio not found
+				echo simple-lang:configure creating dummy C file
+				echo void main() {} > ../../temp_simple_configure.c
 				gcc ../../temp_simple_configure.c 2> ../../temp_simple_configure
 			)
 		)
