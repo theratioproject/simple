@@ -1102,7 +1102,7 @@ void simple_vm_callclassinit ( VM *vm )
 
 SIMPLE_API void simple_vm_showerrormessage ( VM *vm,const char *cStr )
 {
-	int x,lBlockCall  ;
+	int x,lBlockCall,is_last_block  ;
 	List *list  ;
 	const char *cFile  ;
 	/* CGI Support */
@@ -1110,7 +1110,7 @@ SIMPLE_API void simple_vm_showerrormessage ( VM *vm,const char *cStr )
 	/* Print the Error Message */
 	printf( "\nLine %d -> %s \n",vm->nLineNumber,cStr ) ;
 	/* Print Calling Information */
-	lBlockCall = 0 ;
+	lBlockCall = 0 ; is_last_block = 1 ;
 	for ( x = simple_list_getsize(vm->pBlockCallList) ; x >= 1 ; x-- ) {
 		list = simple_list_getlist(vm->pBlockCallList,x);
 		/*
@@ -1125,7 +1125,7 @@ SIMPLE_API void simple_vm_showerrormessage ( VM *vm,const char *cStr )
 			**  Prepare Message 
 			**  In 
 			*/
-			printf( "at " ) ;
+			if (is_last_block) { printf( "\tat " ) ; } else { printf( "at " ) ; is_last_block = 0 }
 			/* Method or Block */
 			/*if ( simple_list_getint(list,SIMPLE_BLOCKCL_METHODORBLOCK) ) {
 				printf( "method " ) ;
