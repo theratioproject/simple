@@ -1,7 +1,9 @@
 echo off
 cls 
 
-SETLOCAL EXEC_TYPE
+setlocal enabledelayedexpansion
+
+SET EXEC_TYPE=""
 SET BUILD_ARC="x86"
 SET VER="0.3.34"
 
