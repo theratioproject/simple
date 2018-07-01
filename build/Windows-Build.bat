@@ -266,9 +266,9 @@ exit /b %ERRORLEVEL%
 
 :buildsimpledllexe	
 	REM BULDING SIMPLE.EXE and SIMPLE.DLL
-	if exist "../dist/"  (
+	if exist "..\dist\"  (
 		echo simple: removing previous simple build
-		rm -r ../dist/
+		rm -r ..\dist\
 	)
 	if %THERE_IS_VS%=="true" (
 		call:getsimplecfiles
@@ -279,7 +279,7 @@ exit /b %ERRORLEVEL%
 			cd "../simple/makefiles"
 			echo simple: building simple.dll and simple.exe
 			make -f Makefile-Windows.mk
-			cd ../../build
+			cd ..\..\build
 		) else (
 			echo error:simple: simple-lang %SIMPLE_DEBUG_VERSION% build 
 			echo error:simple: the file 'Makefile-Windows.mk' does not exist in simple directory
