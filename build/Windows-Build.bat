@@ -12,7 +12,9 @@ for %%x in (%*) do (
 		SET EXEC_TYPE="install"
 	)
 	if %%x=="--uninstall" (
-		call:uninstall
+		echo.going to execute myDosFunc
+call:myDosFunc
+echo.returned from myDosFunc
 	) 
 	if %%x=="-u" (
 		call:uninstall
@@ -28,5 +30,5 @@ exit /b %ERRORLEVEL%
 	exit /b 0
 
 :uninstall
-	echo unintstalling
+	echo myDosFunc
 	exit /b 0
