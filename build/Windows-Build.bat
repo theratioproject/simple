@@ -105,6 +105,10 @@ exit /b %ERRORLEVEL%
 			make 2> ../../simple_build_configure
 			SET /p GCCVAL=<../../simple_build_configure
 			if "%GCCVAL%"=="make: fatal error: no input files" (
+				echo simple-lang:configure:compiler make found
+			) else (
+				call:compilernotfound make
+			)
 		) else (
 			call:compilernotfound g++
 		)
