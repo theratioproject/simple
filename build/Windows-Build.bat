@@ -4,6 +4,7 @@ notepad++
 SET PATH=%PATH%
 echo %PATH%
  :: C:\Program Files (x86)\Notepad++
+ notepad++
  exit /b 0
 
 setlocal enabledelayedexpansion
