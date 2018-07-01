@@ -17,6 +17,8 @@ for %%x in (%*) do (
 	)
 )
 
+:uninstall
+
 echo Installation Type : %EXEC_TYPE%
 
 exit /b
