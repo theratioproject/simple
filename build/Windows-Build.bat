@@ -683,7 +683,7 @@ exit /b
 	if "%1"==""x64"" (
 		SET "PROGRAMFILESPATH=%ProgramFiles%"
 	)
-	if "%1"=="x86" (
+	if "%1"==""x86"" (
 		SET "PROGRAMFILESPATH=%ProgramFiles(x86)%"
 	)
 	echo patter %PROGRAMFILESPATH%
