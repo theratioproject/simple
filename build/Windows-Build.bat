@@ -677,7 +677,8 @@ exit /b
 	if %1%=="x86" (
 		SET PROGRAMFILESPATH=%ProgramFiles(x86)%
 	)
-	for /d %%a in ("%programfiles%\Microsoft Visual Studio*") do (
+	echo the patter %PROGRAMFILESPATH%
+	for /d %%a in ("%PROGRAMFILESPATH%\Microsoft Visual Studio*") do (
 		for /f "tokens=3 delims=\" %%x in ("%%a") do SET THERE_IS_VS="true"  
 		SET MVS=%%a\
 		break
