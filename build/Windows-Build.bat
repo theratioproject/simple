@@ -112,6 +112,7 @@ exit /b %ERRORLEVEL%
 			SET MVS=%%a\
 			break
 		)
+		exit /b 0
 	)
 	echo simple-lang:configure preparing to find build toolchain...
 	echo simple-lang:configure:compiler checking if gcc is present in path
