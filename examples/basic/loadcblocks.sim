@@ -12,6 +12,6 @@
  
 call "simple/core/DynamicLoader.sim"
  
-callModule("dynamic_modules\simple_core\dist\Debug\MinGW-Windows\simple_core.dll")
+callModule("simple_core.dll")
 
 test_block()
