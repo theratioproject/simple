@@ -117,7 +117,7 @@ exit /b %ERRORLEVEL%
 				SET MVS=%%a\
 				break
 			)
-			if exist !MVS!s (
+			if exist !MVS! (
 				echo simple-lang:configure !MVS! found
 			) else (
 				echo error:simple-lang:configure:msvisualstudio Microsoft Visual Studio not found
