@@ -125,10 +125,10 @@ exit /b %ERRORLEVEL%
 							call:compilernotfound make
 						)
 					) else (
-					
+						call:compilernotfound g++
 					)
 				) else (
-				
+					call:compilernotfound gcc
 				)
 			)
 		)
