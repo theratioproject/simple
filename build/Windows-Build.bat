@@ -17,7 +17,7 @@ for %%x in (%*) do (
 		)
 	)
 	if "%%x"=="--install" (
-		if %EXEC_TYPE%=="configure" (
+		if %EXEC_TYPE%==!configure! (
 			SET EXEC_TYPE="install-configure"
 		) else (
 			SET EXEC_TYPE="install"
