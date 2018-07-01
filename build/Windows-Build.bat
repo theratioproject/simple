@@ -95,9 +95,7 @@ exit /b %ERRORLEVEL%
 	gcc 2> ..\..\simple_build_configure
 	SET /p GCCVAL=<..\..\simple_build_configure
 	if "%GCCVAL%"=="gcc: fatal error: no input files" (
-		echo %~dp0
 		del /f %~dp0..\..\simple_build_configure
-		exit /b 0
 		echo simple-lang:configure:compiler gcc found
 		echo simple-lang:configure:compiler checking if g++ is present in path
 		g++s 2> ..\..\simple_build_configure
