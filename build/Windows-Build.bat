@@ -104,7 +104,7 @@ exit /b %ERRORLEVEL%
 	echo simple-lang:configure: configure build %VERSION%
 	echo =============================================================
 	echo simple-lang:configure:buildtool determining if a specific tool is specified
-	if !BUILD_TOOL!=="gcc" (
+	if !THERE_IS_VS!=="true" (
 		
 	)
 	echo simple-lang:configure preparing to find build toolchain...
