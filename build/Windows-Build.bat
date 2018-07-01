@@ -274,7 +274,7 @@ exit /b %ERRORLEVEL%
 		call:getsimplecfiles
 		echo yea Visual Studio and flies are !SIMPLE_C_FILES!
 		mkdir %~dp0\..\simple\dist
-		cl.exe /D_USRDLL /D_WINDLL /WD /LD /Tc !SIMPLE_C_FILES! /MT /link /DLL /OUT:%~dp0\..\simple\dist\heloworld.dll
+		cl.exe /D_USRDLL /D_WINDLL /WD"4024" /LD /Tc !SIMPLE_C_FILES! /MT /link /DLL /OUT:%~dp0\..\simple\dist\heloworld.dll
 		call:deletetempfiles *.obj *.exp
 		move *.lib %~dp0\..\simple\dist
 	) else (
