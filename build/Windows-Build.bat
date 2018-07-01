@@ -268,7 +268,7 @@ exit /b %ERRORLEVEL%
 	REM BULDING SIMPLE.EXE and SIMPLE.DLL
 	if exist "..\dist\"  (
 		echo simple: removing previous simple build
-		del -r ..\dist\
+		del -f ..\dist\
 	)
 	if %THERE_IS_VS%=="true" (
 		call:getsimplecfiles
