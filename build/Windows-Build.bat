@@ -1,6 +1,6 @@
 echo off
 cls 
-
+notepad++
 SET PATH=%PATH%
 echo %PATH%
  :: C:\Program Files (x86)\Notepad++
