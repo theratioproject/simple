@@ -1361,3 +1361,4 @@ int simple_parser_objattributes ( Parser *parser )
 	return 1 ;
 }
 
+} // extern "C"
