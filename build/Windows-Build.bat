@@ -260,7 +260,9 @@ exit /b %ERRORLEVEL%
 			echo simple: removing previous simple build
 			rm -r ../dist/
 		)
+		if !THERE_IS_VS!==true (
 		
+		) 
 		make -f Makefile-Windows.mk
 		cd ../../build
 	) else (
