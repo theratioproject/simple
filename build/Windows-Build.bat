@@ -16,7 +16,6 @@ echo 	-i --install	install simple-lang on your system
 echo 	-u --uninstall	uninstall simple-lang from your system
 echo 	-d --debug	create a distributable version in ../../ source directory
 echo 	-h --help	print this help message"
-exit /b
 
 SET VERSION="s0.3.34"
 SET SIMPLE_DEBUG_VERSION="s0.3.34-debug"
@@ -24,7 +23,6 @@ SET FULLTICK_BUILD_ISSUE="<https://github.com/simple-lang/simple/issues/16>"
 
 echo 	simple-lang build %SIMPLE_DEBUG_VERSION%
 
-exit /b
 REM Remove previous build of the current versions
 if exist "../../%SIMPLE_DEBUG_VERSION%/" (
 	echo a previous simple build %SIMPLE_DEBUG_VERSION% is detected
