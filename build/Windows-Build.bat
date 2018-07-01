@@ -662,12 +662,15 @@ exit /b
 	echo error:simple-lang:compiler %1 not found 
 	echo error:simple-lang:compiler please confirm your installation folder
 	echo error:simple-lang:compiler restart the build process again
+	
 	exit /b 0
 	
 :deletetempfiles
 	for %%x in (%*) do (
 		del /f %~dp0\%%x
 	)
+	
+	exit /b 0
 
 :help
 	echo =============================================================
