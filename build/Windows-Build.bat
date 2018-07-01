@@ -672,7 +672,7 @@ if exist "../simple/dist/" (
 exit /b
 
 :locatevisualstudio
-if exist "C:\Program Files\Microsoft Visual Studio 10.0\VC\vcvarsall.bat" (
+if exist "%1\VC\vcvarsall.bat" (
 	call "C:\Program Files\Microsoft Visual Studio 10.0\VC\vcvarsall.bat" x86
 	exit /b
 )
