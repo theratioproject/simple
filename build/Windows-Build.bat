@@ -91,7 +91,7 @@ exit /b %ERRORLEVEL%
 	if exist "C:/MinGW/bin/gccs.exe" (
 		echo simple-lang:configure found MinGW Build Toolchain
 	) else (
-		echo nooo
+		gcc ../../temp_simple_configure.c ../../temp_simple_configure
 	)
 	
 	exit /b 0
