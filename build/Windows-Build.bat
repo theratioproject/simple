@@ -240,6 +240,7 @@ exit /b %ERRORLEVEL%
 	exit /b 0
 
 :installdebug
+	echo !THERE_IS_VS!
 	if !EXEC_TYPE!=="install" (
 		echo =============================================================
 		echo simple-lang:install: install simple-lang %VERSION%
