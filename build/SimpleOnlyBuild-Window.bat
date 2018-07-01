@@ -1,8 +1,8 @@
 echo off
 cls
 
-SET VERSION="s0.3.34"
-SET SIMPLE_DEBUG_VERSION="s0.3.34-debug"
+SET VERSION="s0.3.35"
+SET SIMPLE_DEBUG_VERSION="s0.3.35-debug"
 SET FULLTICK_BUILD_ISSUE="<https://github.com/simple-lang/simple/issues/16>"
 
 echo 	simple-lang build %SIMPLE_DEBUG_VERSION%

@@ -12,7 +12,7 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 EXEC_TYPE=""
-VER=0.3.34
+VER=0.3.35
 
 if [ ! $1 ]; then
 	EXEC_TYPE="install"
@@ -89,8 +89,8 @@ else
 	EXEC_TYPE=$1
 fi
 
-VERSION=s0.3.34
-SIMPLE_DEBUG_VERSION=s0.3.34-debug
+VERSION=s0.3.35
+SIMPLE_DEBUG_VERSION=s0.3.35-debug
 FULLTICK_BUILD_ISSUE="<https://github.com/simple-lang/simple/issues/16>"
 
 if [ $EXEC_TYPE = "configure" ] || [ $EXEC_TYPE = "install-configure" ]; then
@@ -191,7 +191,7 @@ else
 	echo "error:simple-lang: skipping simple Build"
 fi
 
-#copy simple and simple.so to s0.3.34-debug folder if built for debugging
+#copy simple and simple.so to s0.3.35-debug folder if built for debugging
 if [ $EXEC_TYPE = "debug" ]; then
 		echo "	Copying simple executable and building $SIMPLE_DEBUG_VERSION "
 	
