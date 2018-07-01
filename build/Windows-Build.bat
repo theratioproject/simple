@@ -10,7 +10,7 @@ for %%x in (%*) do (
 		SET EXEC_TYPE="configure"
 	) 
 	if "%%x"=="-c" (
-		SET EXEC_TYPE="configure"
+		%EXEC_TYPE%="configure"
 	)
 	if "%%x"=="--install" (
 		if %EXEC_TYPE%=="configure" (
