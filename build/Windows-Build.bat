@@ -70,6 +70,7 @@ SET FULLTICK_BUILD_ISSUE="<https://github.com/simple-lang/simple/issues/16>"
 
 if !EXEC_TYPE!=="install-configure" (
 	call:configure
+	SET EXEC_TYPE="install"
 	call:installdebug
 )
 if !EXEC_TYPE!=="configure" (
