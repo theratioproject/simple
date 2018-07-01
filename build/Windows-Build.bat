@@ -280,8 +280,8 @@ exit /b %ERRORLEVEL%
 		REM move *.lib %~dp0\..\simple\dist
 		exit /b 0
 	) else (
-		if exist "../simple/makefiles/Makefile-Windows.mk" (
-			cd "../simple/makefiles"
+		if exist "..\simple\makefiles\Makefile-Windows.mk" (
+			cd "..\simple\makefiles"
 			echo simple: building simple.dll and simple.exe
 			make -f Makefile-Windows.mk
 			cd ..\..\build
@@ -296,12 +296,12 @@ exit /b %ERRORLEVEL%
 	
 	
 :copysimpledllexe
-	
+	echo Copying Executable and building %SIMPLE_DEBUG_VERSION%
 	
 	exit /b 0
 
 REM simple.exe and simple.dll has been successful create and copy executable to %SIMPLE_DEBUG_VERSION% directory
-	echo Copying Executable and building %SIMPLE_DEBUG_VERSION%
+	
 
 
 if exist "../../%SIMPLE_DEBUG_VERSION%/bin/" (
