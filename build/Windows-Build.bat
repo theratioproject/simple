@@ -72,6 +72,10 @@ if !EXEC_TYPE!=="install" (
 	call:configure
 	call:installdebug
 )
+if !EXEC_TYPE!=="debug" (
+	call:configure
+	call:installdebug
+)
 if !EXEC_TYPE!=="install-configure" (
 	call:configure
 	SET EXEC_TYPE="install"
