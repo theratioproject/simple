@@ -112,6 +112,7 @@ exit /b %ERRORLEVEL%
 			SET MVS=%%a\
 			break
 		)
+		echo simple-lang:configure:buildtool found !MVS!
 		exit /b 0
 	)
 	echo simple-lang:configure preparing to find build toolchain...
