@@ -13,15 +13,17 @@ for %%x in (%*) do (
 		SET EXEC_TYPE="configure"
 	)
 	if "%%x"=="--install" (
-		SET EXEC_TYPE="install"
 		if %EXEC_TYPE%=="configure" (
 			SET EXEC_TYPE="install-configure"
+		) else (
+			SET EXEC_TYPE="install"
 		)
 	) 
 	if "%%x"=="-i" (
-		SET EXEC_TYPE="install"
 		if %EXEC_TYPE%=="configure" (
 			SET EXEC_TYPE="install-configure"
+		) else (
+			SET EXEC_TYPE="install"
 		)
 	)
 	if "%%x"=="--debug" (
