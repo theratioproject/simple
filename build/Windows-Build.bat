@@ -269,7 +269,6 @@ exit /b %ERRORLEVEL%
 	if exist "%~dp0\..\simple\dist"  (
 		echo simple: removing previous simple build
 		rmdir %~dp0\..\simple\dist
-		exit /b 0
 	)
 	if %THERE_IS_VS%=="true" (
 		call:getsimplecfiles
