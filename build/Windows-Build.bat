@@ -145,6 +145,7 @@ exit /b %ERRORLEVEL%
 	exit /b 0
 	
 :setcompilerenv
+	echo %PATH%
 
 	exit /b 
 
