@@ -69,6 +69,7 @@ SET FULLTICK_BUILD_ISSUE="<https://github.com/simple-lang/simple/issues/16>"
 
 
 
+
 REM echo Installation Type : !EXEC_TYPE!
 REM echo Architecture : %BUILD_ARC%
 exit /b %ERRORLEVEL%
