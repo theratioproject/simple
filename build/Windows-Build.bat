@@ -91,11 +91,16 @@ exit /b %ERRORLEVEL%
 	if exist "C:/MinGW/bin/gcc.exe" (
 		echo simple-lang:configure found MinGW Build Toolchain
 	) else (
-		echo simple-lang:configure searching Microsoft Visual Studio
+		echo simple-lang:configure searching for cygwin
 		if exist "" (
 		
 		) else (
+			echo simple-lang:configure searching for Microsoft Visual Studio
+			if exist "" (
 			
+			) else (
+				
+			)
 		)
 		gcc ../../temp_simple_configure.c 2> ../../temp_simple_configure
 	)
