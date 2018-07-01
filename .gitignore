@@ -13,6 +13,7 @@
 *.lib
 *.def
 *.exp
+*.obj
 simple.so
 tasks.json
 .DS_STORE
