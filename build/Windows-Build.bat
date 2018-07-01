@@ -271,6 +271,7 @@ exit /b %ERRORLEVEL%
 	if %THERE_IS_VS%=="true" (
 		call:getsimplecfiles
 		echo yea Visual Studio and flies are !SIMPLE_C_FILES!
+		:: cl.exe /D_USRDLL /D_WINDLL %~dp0\..\..\helloworld.cpp %~dp0\..\..\helloworld2.cpp /MT /link /DLL /OUT:%~dp0\..\..\helloworld.dll
 		
 	) else (
 	
@@ -278,10 +279,7 @@ exit /b %ERRORLEVEL%
 	if exist "../simple/makefiles/Makefile-Windows.mk" (
 		cd "../simple/makefiles"
 		echo simple: building simple.dll and simple.exe
-		:: cl.exe /D_USRDLL /D_WINDLL %~dp0\..\..\helloworld.cpp %~dp0\..\..\helloworld2.cpp /MT /link /DLL /OUT:%~dp0\..\..\helloworld.dll
-		
-			make -f Makefile-Windows.mk
-		)
+		make -f Makefile-Windows.mk
 		cd ../../build
 	) else (
 		echo error:simple: simple-lang %SIMPLE_DEBUG_VERSION% build 
