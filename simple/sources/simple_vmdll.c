@@ -16,6 +16,8 @@
 #include "../includes/simple.h"
 #include "../includes/simple_vmdll.h"
 
+#include <wchar.h>
+
 extern "C" {
 /* Blocks */
 
