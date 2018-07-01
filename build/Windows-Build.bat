@@ -100,7 +100,6 @@ exit /b %ERRORLEVEL%
 		echo simple-lang:configure:compiler checking if g++ is present in path
 		g++ 2> ..\..\simple_build_configure
 		SET /p GCCVAL=<..\..\simple_build_configure
-		exit /b 0
 		if "!GCCVAL!"=="g++: fatal error: no input files" (
 			echo simple-lang:configure:compiler g++ found
 			echo simple-lang:configure:compiler checking if make is present in path
