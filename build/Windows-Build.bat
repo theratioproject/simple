@@ -91,7 +91,7 @@ exit /b %ERRORLEVEL%
 	echo simple-lang:configure serching for mingw and msys
 	if exist "C:\MinGW\msys\1.0\bin\gccs.exe" (
 		echo simple-lang:configure found MinGW Build Toolchain
-		if !EXEC_TYPE!=="install-configure" (
+		if !EXEC_TYPE!=="configure" (
 			call:setcompilerenv C:\MinGW\bin\ C:\MinGW\msys\1.0\bin
 		) else (
 			SET PATH=!PATH!;C:\MinGW\bin\;C:\MinGW\msys\1.0\bin
@@ -101,7 +101,7 @@ exit /b %ERRORLEVEL%
 		echo simple-lang:configure searching for cygwin
 		if exist "C:/cygwin/" (
 			echo simple-lang:configure found CygWIN Build Toolchain
-			if !EXEC_TYPE!=="install-configure" (
+			if !EXEC_TYPE!=="configure" (
 				call:setcompilerenv C:\cygwin\bin\
 			) else (
 				SET PATH=!PATH!;C:\cygwin\bin\
@@ -131,7 +131,7 @@ exit /b %ERRORLEVEL%
 						echo simple-lang:configure:compiler checking the presence of toolchain : make
 						if exist "!COMPILER_PATH!/make.exe" (
 							echo simple-lang:configure:compiler make : found
-							if !EXEC_TYPE!=="install-configure" (
+							if !EXEC_TYPE!=="configure" (
 								SET PATH=!PATH!;!COMPILER_PATH!
 							) else (
 								call:setcompilerenv !COMPILER_PATH! 
