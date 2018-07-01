@@ -110,7 +110,7 @@ exit /b %ERRORLEVEL%
 			) else (
 				echo error:simple-lang:configure Microsoft Visual Studio not found
 				echo simple-lang:configure please enter your C/C++ toolchain folder
-				read NAME
+				SET /p COMPILER_PATH=Enter some text: 
 			)
 		)
 	)
