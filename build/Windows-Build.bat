@@ -53,6 +53,10 @@ for %%x in (%*) do (
 	)
 )
 
+if !EXEC_TYPE!=="" (
+	SET EXEC_TYPE="install"
+)
+
 echo Installation Type : !EXEC_TYPE!
 echo Architecture : %BUILD_ARC%
 exit /b %ERRORLEVEL%
