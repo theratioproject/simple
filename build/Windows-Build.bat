@@ -108,7 +108,8 @@ exit /b %ERRORLEVEL%
 				echo simple-lang:configure:compiler make found
 			) else (
 				call:compilernotfound make
-				exit
+				echo simple-lang:configure:compiler proceeding to build...
+				exit /b 0
 			)
 		) else (
 			call:compilernotfound g++
