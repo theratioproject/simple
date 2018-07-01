@@ -143,7 +143,7 @@ exit /b %ERRORLEVEL%
 							if exist "!COMPILER_PATH2!/make.exe" (
 								echo simple-lang:configure:compiler make : found
 								if !EXEC_TYPE!=="configure" (
-									SET PATH=%PATH%;%COMPILER_PATH%;%COMPILER_PATH2%
+									SET PATH='%PATH%;%COMPILER_PATH%;%COMPILER_PATH2%'
 								) else (
 									call:setcompilerenv !COMPILER_PATH! !COMPILER_PATH2!
 								)
