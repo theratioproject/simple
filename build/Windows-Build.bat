@@ -273,7 +273,7 @@ exit /b %ERRORLEVEL%
 		)
 		:: cl.exe /D_USRDLL /D_WINDLL %~dp0\..\..\helloworld.cpp %~dp0\..\..\helloworld2.cpp /MT /link /DLL /OUT:%~dp0\..\..\helloworld.dll
 		if %THERE_IS_VS%=="true" (
-			call:getsimplesfiles
+			call:getsimplecfiles
 			echo yea Visual Studio and flies are !SIMPLE_C_FILES!
 			
 		) else (
@@ -679,6 +679,7 @@ if exist "../simple/dist/" (
 exit /b
 
 :getsimplecfiles
+SIMPLE_C_FILES
 
 :locatevisualstudio
 	echo simple-lang:configure:buildtool Microsoft Visual Studio is specified
