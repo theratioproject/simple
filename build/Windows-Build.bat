@@ -304,7 +304,7 @@ REM simple.exe and simple.dll has been successful create and copy executable to 
 :copysimpledllexe
 	echo Copying Executable and building %VERSION% and %SIMPLE_DEBUG_VERSION% 
 	if !EXEC_TYPE!=="install" (
-		if exist "..\..\%SIMPLE_DEBUG_VERSION%\bin\" (
+		if exist "!INSTALLATION_FOLDER!\%SIMPLE_DEBUG_VERSION%\bin\" (
 			echo simple/bin: the ..\..\%SIMPLE_DEBUG_VERSION%\bin\ directory already exist
 		) else (
 			echo simple/bin: creating the ..\..\%SIMPLE_DEBUG_VERSION%\bin\ directory
