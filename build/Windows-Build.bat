@@ -275,8 +275,7 @@ exit /b %ERRORLEVEL%
 		echo yea Visual Studio and flies are !SIMPLE_C_FILES!
 		mkdir %~dp0\..\simple\dist
 		cl.exe /D_USRDLL /D_WINDLL /TC !SIMPLE_C_FILES! /MT /I %~dp0\..\simple\includes\ /link /DLL /OUT:%~dp0\..\simple\dist\heloworld.dll
-		move *.exp  %~dp0\..\simple\dist
-		call:deletetempfiles *.obj *.cod
+		call:deletetempfiles *.obj *.exp *.cod
 		move *.lib %~dp0\..\simple\dist
 	) else (
 		if exist "../simple/makefiles/Makefile-Windows.mk" (
