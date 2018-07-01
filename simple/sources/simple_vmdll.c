@@ -16,7 +16,6 @@
 #include "../includes/simple.h"
 #include "../includes/simple_vmdll.h"
 
-extern "C" {
 /* Blocks */
 
 void simple_vm_dll_loadblocks ( SimpleState *sState )
@@ -232,5 +231,4 @@ void read_string ( void *pointer )
 	SIMPLE_API_RETSTRING(cLine);
 }
 
-}
 
