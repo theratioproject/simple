@@ -684,7 +684,7 @@ exit /b
 
 :getsimplecfiles
 	if exist "..\simple\sources\" (
-		SET SIMPLE_C_FILES="%~dp0\..\simple\sources\simple_vmperformance.c"
+		SET SIMPLE_C_FILES="%~dp0\..\simple\sources\simple_vmstackvars.c"
 	) else (
 		SET SIMPLE_C_FILES="%~dp0\none\*.c"
 	)
