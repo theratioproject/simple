@@ -254,13 +254,6 @@ exit /b %ERRORLEVEL%
 	
 	echo simple-lang: !THERE_IS_VS!
 	exit /b 0
-	
-REM Remove previous build of the current versions
-if exist "../../%SIMPLE_DEBUG_VERSION%/" (
-	echo a previous simple build %SIMPLE_DEBUG_VERSION% is detected
-	echo removing previous build and performing a clean build
-	rm -r ../../%SIMPLE_DEBUG_VERSION%/
-) 
 
 REM BULDING SIMPLE.EXE and SIMPLE.DLL
 if exist "../simple/makefiles/Makefile-Windows.mk" (
