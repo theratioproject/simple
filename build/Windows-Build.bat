@@ -230,11 +230,14 @@ exit /b %ERRORLEVEL%
 	echo simple-lang:help
 	echo =============================================================
 	echo Usage: ./sudo Windows-Build.bat [FLAG]
-	echo [FLAGS] :
+	echo Basic [FLAGS] :
 	echo 	-c --configure	configure your system for simple-lang successfull build
 	echo 	-i --install	install simple-lang on your system
 	echo 	-u --uninstall	uninstall simple-lang from your system
 	echo 	-d --debug	create a distributable version in ..\..\ source directory
+	echo 	-h --help	print this help message"
+	echo Build Tool [FLAGS] :
+	echo 	-h --help	print this help message"
 	echo 	-h --help	print this help message"
 	
 	exit /b 0
