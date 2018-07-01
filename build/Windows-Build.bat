@@ -679,10 +679,10 @@ if exist "../simple/dist/" (
 exit /b
 
 :getsimplecfiles
-	if exist "../simple/sources/" (
-		SET SIMPLE_C_FILES="../simple/sources/*.c"
+	if exist "..\simple\sources\" (
+		SET SIMPLE_C_FILES="..\simple\sources\*.c"
 	) else (
-		SET SIMPLE_C_FILES="none/*.c"
+		SET SIMPLE_C_FILES="none\*.c"
 	)
 	
 	exit /b 0
