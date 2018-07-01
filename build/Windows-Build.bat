@@ -1,36 +1,290 @@
 echo off
-cls
+cls 
 
-SET VERSION="s0.3.34"
-SET SIMPLE_DEBUG_VERSION="s0.3.34-debug"
+setlocal enabledelayedexpansion
+
+SET EXEC_TYPE=""
+SET BUILD_ARC="x86"
+SET VER="0.3.35"
+SET THERE_IS_VS="false"
+
+for %%x in (%*) do (
+	if "%%x"=="--configure" (
+		if !EXEC_TYPE!=="install" (
+			SET EXEC_TYPE="install-configure"
+		) else (
+			SET EXEC_TYPE="configure"
+		)
+	) 
+	if "%%x"=="-c" (
+		if !EXEC_TYPE!=="install" (
+			SET EXEC_TYPE="install-configure"
+		) else (
+			SET EXEC_TYPE="configure"
+		)
+	)
+	if "%%x"=="--install" (
+		if !EXEC_TYPE!=="configure" (
+			SET EXEC_TYPE="install-configure"
+		) else (
+			SET EXEC_TYPE="install"
+		)
+	) 
+	if "%%x"=="-i" (
+		if !EXEC_TYPE!=="configure" (
+			SET EXEC_TYPE="install-configure"
+		) else (
+			SET EXEC_TYPE="install"
+		)
+	)
+	if "%%x"=="--debug" (
+		SET EXEC_TYPE="debug"
+	) 
+	if "%%x"=="-d" (
+		SET EXEC_TYPE="debug"
+	)
+	if "%%x"=="x64" (
+		SET BUILD_ARC="x64"
+	)
+	if "%%x"=="--64-bit" (
+		SET BUILD_ARC="x64"
+	)
+	if "%%x"=="x86" (
+		SET BUILD_ARC="x86"
+	)
+	if "%%x"=="--32-bit" (
+		SET BUILD_ARC="x86"
+	)
+	if "%%x"=="--uninstall" (
+		call:uninstall
+	) 
+	if "%%x"=="-u" (
+		call:uninstall
+	)
+	if "%%x"=="--help" (
+		call:help
+		exit /b 0
+	) 
+	if "%%x"=="-h" (
+		call:help
+		exit /b 0
+	)
+	if "%%x"=="-vs" (
+		SET THERE_IS_VS="true"
+	)
+	if "%%x"=="--visual-studio" (
+		SET THERE_IS_VS="true"
+	)
+)
+
+if !EXEC_TYPE!=="" (
+	SET EXEC_TYPE="install"
+)
+
+SET VERSION="s0.3.35"
+SET SIMPLE_DEBUG_VERSION="s0.3.35-debug"
 SET FULLTICK_BUILD_ISSUE="<https://github.com/simple-lang/simple/issues/16>"
 
-echo 	simple-lang build %SIMPLE_DEBUG_VERSION%
-
-
-REM Remove previous build of the current versions
-if exist "../../%SIMPLE_DEBUG_VERSION%/" (
-	echo a previous simple build %SIMPLE_DEBUG_VERSION% is detected
-	echo removing previous build and performing a clean build
-	rm -r ../../%SIMPLE_DEBUG_VERSION%/
-) 
-
-REM BULDING SIMPLE.EXE and SIMPLE.DLL
-if exist "../simple/makefiles/Makefile-Windows.mk" (
-	cd "../simple/makefiles"
-	echo simple: simple-lang %SIMPLE_DEBUG_VERSION% build 
-	echo simple: building simple.dll and simple.exe
-	if exist "../dist/"  (
-		echo simple: removing previous simple build
-		rm -r ../dist/
-	)
-	make -f Makefile-Windows.mk
-	cd ../../build
-) else (
-	echo error:simple: simple-lang %SIMPLE_DEBUG_VERSION% build 
-	echo error:simple: the file 'Makefile-Windows.mk' does not exist in simple directory
-	echo error:simple: skipping simple Build
+if !EXEC_TYPE!=="install" (
+	call:configure
+	call:installdebug
 )
+if !EXEC_TYPE!=="debug" (
+	call:configure
+	call:installdebug
+)
+if !EXEC_TYPE!=="install-configure" (
+	call:configure
+	SET EXEC_TYPE="install"
+	call:installdebug
+)
+if !EXEC_TYPE!=="configure" (
+	call:configure
+)
+
+	:: configure and install for now
+
+REM echo Installation Type : !EXEC_TYPE!
+REM echo Architecture : %BUILD_ARC%
+exit /b %ERRORLEVEL%
+
+:configure
+	echo =============================================================
+	echo simple-lang:configure: configure build %VERSION%
+	echo =============================================================
+	echo simple-lang:configure:buildtool determining if a specific tool is specified
+	if !THERE_IS_VS!=="true" (
+		call:locatevisualstudio !BUILD_ARC!
+		exit /b 0
+	)
+	echo simple-lang:configure preparing to find build toolchain...
+	echo simple-lang:configure:compiler checking if gcc is present in path
+	gcc 2> ..\..\simple_build_configure
+	SET /p GCCVAL=<..\..\simple_build_configure
+	if "!GCCVAL!"=="gcc: fatal error: no input files" (
+		call:deletetempfiles ..\..\simple_build_configure
+		echo simple-lang:configure:compiler gcc found
+		echo simple-lang:configure:compiler checking if g++ is present in path
+		g++ 2> ..\..\simple_build_configure
+		SET /p GCCVAL=<..\..\simple_build_configure
+		if "!GCCVAL!"=="g++: fatal error: no input files" (
+			call:deletetempfiles ..\..\simple_build_configure
+			echo simple-lang:configure:compiler g++ found
+			echo simple-lang:configure:compiler checking if make is present in path
+			make 2> ..\..\simple_build_configure
+			SET /p GCCVAL=<..\..\simple_build_configure
+			if "!GCCVAL!"=="make: *** No targets specified and no makefile found.  Stop." (
+				call:deletetempfiles ..\..\simple_build_configure
+				echo simple-lang:configure:compiler make found
+				echo simple-lang:configure:compiler proceeding to build...
+				exit /b 0
+			) else (
+				call:compilernotfound make
+				call:deletetempfiles ..\..\simple_build_configure
+			)
+		) else (
+			call:compilernotfound g++
+			call:deletetempfiles ..\..\simple_build_configure
+		)
+	) else (
+		call:compilernotfound gcc
+		call:deletetempfiles ..\..\simple_build_configure
+	)
+	echo simple-lang:configure serching for mingw and msys
+	if exist "C:\MinGW\msys\1.0\bin\" (
+		echo simple-lang:configure found MinGW Build Toolchain
+		if !EXEC_TYPE!=="configure" (
+			call:setcompilerenv C:\MinGW\bin\ C:\MinGW\msys\1.0\bin
+		) else (
+			SET PATH=!PATH!;C:\MinGW\bin\;C:\MinGW\msys\1.0\bin
+		)
+	) else (
+		echo error:simple-lang:configure MinGW not fund
+		echo simple-lang:configure searching for cygwin
+		if exist "C:/cygwin/" (
+			echo simple-lang:configure found CygWIN Build Toolchain
+			if !EXEC_TYPE!=="configure" (
+				call:setcompilerenv C:\cygwin\bin\
+			) else (
+				SET PATH=!PATH!;C:\cygwin\bin\
+			) 
+		) else (
+			echo error:simple-lang:configure CygWIN not found
+			echo simple-lang:configure searching for Microsoft Visual Studio
+			for /d %%a in ("%programfiles%\Microsoft Visual Studio*") do (
+				for /f "tokens=3 delims=\" %%x in ("%%a") do SET THERE_IS_VS="true"  
+				SET MVS=%%a\
+				break
+			)
+			if exist !MVS! (
+				echo simple-lang:configure !MVS! found
+				call:locatevisualstudio !BUILD_ARC!
+			) else (
+				echo error:simple-lang:configure:msvisualstudio Microsoft Visual Studio not found
+				echo simple-lang:configure:compiler please enter your C/C++ toolchain folder
+				SET /p COMPILER_PATH=Enter your C/C++ Toolchain directory : 
+				echo simple-lang:configure:compiler your C/C++ Toolchain Directory ~ !COMPILER_PATH!
+				echo simple-lang:configure:compiler checking the presence of toolchain : gcc
+				if exist !COMPILER_PATH!/gcc.exe (
+					echo simple-lang:configure:compiler gcc : found
+					echo simple-lang:configure:compiler checking the presence of toolchain : g++
+					if exist "!COMPILER_PATH!/g++.exe" (
+						echo simple-lang:configure:compiler g++ : found
+						echo simple-lang:configure:compiler checking the presence of toolchain : make
+						if exist "!COMPILER_PATH!/make.exe" (
+							echo simple-lang:configure:compiler make : found
+							if !EXEC_TYPE!=="configure" (
+								SET PATH=!PATH!;!COMPILER_PATH!
+							) else (
+								call:setcompilerenv !COMPILER_PATH! 
+							)
+						) else (
+							echo error:simple-lang:configure make not found
+							echo simple-lang:configure enter make.exe folder if different from !COMPILER_PATH!
+							SET /p COMPILER_PATH2=Enter your Make.exe directory : 
+							if exist "!COMPILER_PATH2!/make.exe" (
+								echo simple-lang:configure:compiler make : found
+								if !EXEC_TYPE!=="configure" (
+									SET PATH="%PATH%;%COMPILER_PATH%;%COMPILER_PATH2%"
+								) else (
+									call:setcompilerenv !COMPILER_PATH! !COMPILER_PATH2!
+								)
+							) else (
+								call:compilernotfound make
+							)
+						)
+					) else (
+						call:compilernotfound g++
+					)
+				) else (
+					call:compilernotfound gcc
+				)
+			)
+		)
+	)
+	
+	exit /b 0
+	
+:setcompilerenv
+	echo simple-lang:configure:compiler adding the directory to PATH for this session
+	echo simple-lang:configure:compiler the environment is available for only this session
+	echo simple-lang:configure:compiler your PATH variable is never affected in any way
+	for %%x in (%*) do (
+		SET PATH=!PATH!;%%x
+	)
+	echo simple-lang:configure:compiler the C/C++ Toolchain directory has been added to PATH
+	echo simple-lang:configure:compiler proceeding build...
+
+	exit /b 
+
+:uninstall
+	echo unintstalling
+	
+	exit /b 0
+
+:installdebug
+	if !EXEC_TYPE!=="install" (
+		echo =============================================================
+		echo simple-lang:install: install simple-lang %VERSION%
+		echo =============================================================
+	)
+	if !EXEC_TYPE!=="debug" (
+		echo =============================================================
+		echo simple-lang:install: debug build %SIMPLE_DEBUG_VERSION%
+		echo =============================================================
+		
+		REM Remove previous build of the current versions
+		if exist "..\..\%SIMPLE_DEBUG_VERSION%/" (
+			echo a previous simple build %SIMPLE_DEBUG_VERSION% is detected
+			echo removing previous build and performing a clean build
+			rm -r ..\..\%SIMPLE_DEBUG_VERSION%\
+		) 
+	) 
+	call:buildsimpledllexe
+
+:buildsimpledllexe	
+	REM BULDING SIMPLE.EXE and SIMPLE.DLL
+	if exist "../simple/makefiles/Makefile-Windows.mk" (
+		cd "../simple/makefiles"
+		echo simple: building simple.dll and simple.exe
+		if exist "../dist/"  (
+			echo simple: removing previous simple build
+			rm -r ../dist/
+		)
+		if %THERE_IS_VS%=="true" (
+			echo yea Visual Studio
+			cl.exe /D_USRDLL /D_WINDLL ../../helowrld.cpp /MT /link /DLL /OUT:../../helowrld.dll
+		) else (
+			make -f Makefile-Windows.mk
+		)
+		cd ../../build
+	) else (
+		echo error:simple: simple-lang %SIMPLE_DEBUG_VERSION% build 
+		echo error:simple: the file 'Makefile-Windows.mk' does not exist in simple directory
+		echo error:simple: skipping simple Build
+	)
+	
+	exit /b 0
 
 REM simple.exe and simple.dll has been successful create and copy executable to %SIMPLE_DEBUG_VERSION% directory
 	echo Copying Executable and building %SIMPLE_DEBUG_VERSION%
@@ -315,7 +569,7 @@ if exist "../../%SIMPLE_DEBUG_VERSION%/bin/simple.exe" (
 ) else (
 	echo error:build:environment: simple cannot be found
 	echo error:build:environment: the build process failed bye
-	exit 
+	exit /b
 )
 	
 REM Confirm bake is present
@@ -326,7 +580,7 @@ if exist "../../%SIMPLE_DEBUG_VERSION%/bin/bake.sim" (
 ) else (
 	echo error:build:environment: bake.sim cannot be found
 	echo error:build:environment: no bake no build bye
-	exit 
+	exit /b
 )
 
 REM Builing simplepad
@@ -420,6 +674,88 @@ if exist "../simple/dist/" (
 	rmdir -f "../simple/dist/"
 )
 
+exit /b
 
+:locatevisualstudio
+	echo simple-lang:configure:buildtool Microsoft Visual Studio is specified
+	echo simple-lang:configure:buildtool searching for Microsoft Visual Studio
+	if "%1"=="" (
+		SET "PROGRAMFILESPATH=%ProgramFiles%"
+	)
+	if "%1"==""x64"" (
+		SET "PROGRAMFILESPATH=%ProgramFiles%"
+	)
+	if "%1"==""x86"" (
+		SET "PROGRAMFILESPATH=%ProgramFiles(x86)%"
+	)
+	for /d %%a in ("%PROGRAMFILESPATH%\Microsoft Visual Studio*") do (
+		for /f "tokens=3 delims=\" %%x in ("%%a") do SET THERE_IS_VS="true"  
+		SET MVS=%%a\
+		break
+	)
+	if !BUILD_ARC!=="x86" (
+		if exist "!MVS!\VC\vcvarsall.bat" (
+			echo simple-lang:configure:buildtool found !MVS!
+			call:callmsvisualstudio "!MVS!\VC\vcvarsall.bat"
+			exit /b 0
+		) else (
+			echo simple-lang:configure:buildtool Microsoft Visual Studio not found
+			echo simple-lang:configure:buildtool Looking for 32 bit x86 MS Visual Studio 
+			call:locatevisualstudio x86
+			exit /b 0
+		)
+	) else (
+		if exist "!MVS!\VC\vcvarsall.bat" (
+			echo simple-lang:configure:buildtool found !MVS!
+			call:callmsvisualstudio "!MVS!\VC\vcvarsall.bat"
+			exit /b 0
+		) else (
+			echo simple-lang:configure:buildtool resolve to 32 bit
+			call:locatevisualstudio x86
+			exit /b 0
+		)
+	)
 
-REM exit /b
+	exit /b 0
+	
+:callmsvisualstudio 
+	echo simple-lang:configure:visual-studio calling Microsoft Visual Studio CMD File
+	if !BUILD_ARC!=="x64" (
+		call %1 x64
+	) else (
+		call %1 x86
+	)
+
+	exit /b 0
+	
+:compilernotfound
+	echo error:simple-lang:compiler %1 not found 
+	echo error:simple-lang:compiler please confirm your installation folder
+	echo error:simple-lang:compiler restart the build process again
+	
+	exit /b 0
+	
+:deletetempfiles
+	for %%x in (%*) do (
+		del /f %~dp0\%%x
+	)
+	
+	exit /b 0
+
+:help
+	echo =============================================================
+	echo simple-lang:build help %VERSION%
+	echo =============================================================
+	echo Usage: ./sudo Windows-Build.bat [FLAG]
+	echo [FLAGS] :
+	echo 	-c --configure	configure your system for simple-lang successfull build
+	echo 	-i --install	install simple-lang on your system
+	echo 	-u --uninstall	uninstall simple-lang from your system
+	echo 	-d --debug	create a distributable version in ..\..\ source directory
+	echo 	-h --help	print this help message
+	echo 	-gcc --gnu	build simple with available GNU toolchain
+	echo 	-vs --visual-studio	build simple with Microsoft Visual Studio
+	echo 	x86 --32-bit	build 32 bit version of simple-lang
+	echo 	x64 --64-bit	build 64 bit version of simple-lang
+	
+	exit /b 0

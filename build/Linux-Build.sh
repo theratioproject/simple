@@ -12,7 +12,7 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 EXEC_TYPE=""
-VER=0.3.34
+VER=0.3.35
 
 if [ ! $1 ]; then
 	EXEC_TYPE="install"
@@ -82,20 +82,20 @@ elif [ $1 != "--install" -a $1 != "-i" ] && [ $1 != "--uninstall" -a $1 != "-u" 
 	echo "	-c --configure	configure your system for simple-lang successfull build"
 	echo "	-i --install	install simple-lang on your system"
 	echo "	-u --uninstall	uninstall simple-lang from your system"
-	echo "	-d --debug	creat a distributable version in ../../ source directory"
+	echo "	-d --debug	create a distributable version in ../../ source directory"
 	echo "	-h --help	print this help message"
 	exit 1
 else 
 	EXEC_TYPE=$1
 fi
 
-VERSION=s0.3.34
-SIMPLE_DEBUG_VERSION=s0.3.34-debug
+VERSION=s0.3.35
+SIMPLE_DEBUG_VERSION=s0.3.35-debug
 FULLTICK_BUILD_ISSUE="<https://github.com/simple-lang/simple/issues/16>"
 
 if [ $EXEC_TYPE = "configure" ] || [ $EXEC_TYPE = "install-configure" ]; then
 	echo "============================================================="
-	echo "simple-lang:configure: configure build $SIMPLE_DEBUG_VERSION"
+	echo "simple-lang:configure: configure build $VERSION"
 	echo "============================================================="
 	ALLOW_DEP_INSTALL="0"
 	DEPENDENCIES='gcc fltk.so openssl libcurl'
@@ -156,7 +156,7 @@ if [ $EXEC_TYPE = "debug" ]; then
 	echo "============================================================="
 elif [ $EXEC_TYPE = "install" ]; then
 	echo "============================================================="
-	echo "simple-lang:install: install simple-lang $SIMPLE_VERSION"
+	echo "simple-lang:install: install simple-lang $VERSION"
 	echo "============================================================="
 fi
 
@@ -191,7 +191,7 @@ else
 	echo "error:simple-lang: skipping simple Build"
 fi
 
-#copy simple and simple.so to s0.3.34-debug folder if built for debugging
+#copy simple and simple.so to s0.3.35-debug folder if built for debugging
 if [ $EXEC_TYPE = "debug" ]; then
 		echo "	Copying simple executable and building $SIMPLE_DEBUG_VERSION "
 	

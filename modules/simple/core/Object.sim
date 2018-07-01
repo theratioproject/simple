@@ -1,5 +1,5 @@
 /* 
-	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com> 
 	MIT License Copyright (c) 2018 simple 
 
 */
@@ -18,19 +18,42 @@ call "BaseFields.sim"
 
 class Object 
 
-	objectName = "Object"
+	__OBJECT_NAME 	= "Object"
+	__OBJECT		= null
 
 	block toString()
-		return "[simple.core.Object:"+getHashCode()+"]"
+		return "[simple.core."+__OBJECT_NAME+":"+getHashCode()+"]"
 		
 	block getHashCode()
-		return hash(objectName)
+		return hash(__OBJECT_NAME)
 
 	block equals(compare)
 		#empty for now
 		
 	block getType()
-		return objectName
+		return __OBJECT_NAME
 		
 	block getTypeCode
 		return OBJECT_TYPE
+		
+	/*
+		Every class inheriting @Class Object should definitely define the value
+		of @Var __OBJECT . The actual value of the @Var __OBJECT will be verily 
+		available through this block and the @Block realObject() block. If the 
+		value of @Var __OBJECT is not set null will be returned instead.
+		@Bold Example 
+			@Code
+				str = new String("this is a string")
+				display str.object()
+			@EndCode
+			The block call str.object() will display the value "this is a string"
+		because it the actual object in the class 
+	*/
+	block object()
+		return __OBJECT
+		
+	/*
+		function same as @Block object()
+	*/
+	block realObject()
+		return __OBJECT

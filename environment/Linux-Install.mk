@@ -16,7 +16,7 @@
 # Macros
 SIMPLE=simple
 BAKE=./bake/bake.sim
-VERSION=s0.3.34-debug
+VERSION=s0.3.35-debug
 CND_PLATFORM=Linux
 ENV_DISTDIR=./dist
 

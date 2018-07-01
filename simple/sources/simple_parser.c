@@ -226,7 +226,7 @@ void parser_error ( Parser *parser,const char *cStr )
 	SimpleActiveFile = simple_list_getsize(parser->sState->files_stack);
 	if ( parser->nErrorLine != parser->nLineNumber ) {
 		parser->nErrorLine = parser->nLineNumber ;
-                if ( strcmp(cStr,"") != 0 ) {
+        if ( strcmp(cStr,"") != 0 ) {
 			printf("\nLine %d -> %s\n", parser->nLineNumber,cStr);
 		} else {
 			printf( "\nLine %d -> Syntax error : Unexpected '%s' \n",parser->nLineNumber, parser->TokenText) ;

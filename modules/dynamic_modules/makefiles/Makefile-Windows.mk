@@ -39,7 +39,7 @@ RM=rm
 CND_PLATFORM=Windows
 CND_DLIB_EXT=dll
 CND_DISTDIR=../dist
-CLEAN_DEBUGDIR=../../../s0.3.34-debug
+CLEAN_DEBUGDIR=../../../s0.3.35-debug
 DYNAMIC_MODULEDIR=.modules/dynamic_modules
 
 clean: 

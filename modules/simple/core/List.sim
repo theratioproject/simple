@@ -52,19 +52,83 @@ end
 # block indexOf(List, value) 
     
 class List : Object
-    objectName = "list"
-    list = []
+    __OBJECT_NAME 		= "List"
+    __OBJECT			= []
 
-    block List(List)
-        list = List
-        return List
+	/*
+		The @Class list constructor accepting 
+			@DataType List
+			@DataType String
+			@Class List
+			
+		@DataType LIST
+		If list is sent as parameter the the class treat
+		the parameter.
 
+		@DataType STRING
+		If string is the parameter it is also
+		treated as @DataType List. 
+		In simple-lang @DataType string is simply a list of char arrays
+		e.g 
+			@Code
+			str = "string"
+			#is simply same as
+			str = ["s","t","r","i","n","g"]
+			@EndCode
+		
+		@Class List
+		In a situation whereby the parameter is an instance of @Class List
+		all the previous attribute of the current class is disposed and the 
+		attribute of the parameter class is transfered into this class. 
+		e.g 
+			@Code
+			li1 = new List(["a","a"])
+			li2 = new List(li1)
+			li3 = li1
+			
+			#li2 and li3 is simply the same thing but li2 
+			#with more function. You can review the source code of @Class List 
+			[HERE](https://github.com/simple-lang/simple/blob/master/modules/simple/core/List.sim)
+			
+		Any other type of parameter is an Error
+		
+	*/
+    block List(list)
+		try 
+			if (list.getType() == getType()) {
+				this.__OBJECT = list.object()
+			}
+			return
+		catch end
+		if !isList(list) && !isString(list) { throw(__NOT_LIST_ERROR) }
+        __OBJECT = list
+        return __OBJECT
+
+	/*
+		.indexOf(n) block is a safe block for getting the item in the list
+		at n index very similar to using the block quote [n] to get the index
+		but with more type check and safe call. 
+		@Ignore Awesome for production @End
+	*/
+	#check to ensure the n index specified is not more than size of list
+	#confirm it number only then get index
     block indexOf(n)
-        return list[n]
+		if n > length() { throw(__INDEX_GREATER_THAN_SIZE) }
+		if isNumber(n)
+			return __OBJECT[n]
+		else 
+			throw(__NUMBER_REQUIRED_ERROR)
+		end
+		
+	/*
+		Get the length or size of the current list object of the class
+	*/
+	block length()
+		return lengthOf(__OBJECT)
 
     block push(x)
-        list + x
-        return list
+        __OBJECT + x
+        return __OBJECT
 
 # Still needs some little adjustments and changes.
     block pop(x)
@@ -106,3 +170,9 @@ block slice(x, y)
 block sort(a, b)
     # return b - a
     return list[b] - list[a]
+	
+	
+	private 
+		__NOT_LIST_ERROR = "the parameter is not a list"
+		__NUMBER_REQUIRED_ERROR = "only number is required as parameter "
+		__INDEX_GREATER_THAN_SIZE = "the provided n index is greater than list size"

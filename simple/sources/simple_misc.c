@@ -117,9 +117,11 @@ const char *file_real_name(const char *absolute_name){
     char *filename = (char*)calloc(1, sizeof(KB_BYTE_SIZE));
     if (strstr(absolute_name, "\\") != NULL ) {
         filename = (strrchr(absolute_name, '\\'))+1;
-    } else {
+    } else if (strstr(absolute_name, "/") != NULL ) {
         filename = (strrchr(absolute_name, '/'))+1;
-    }
+    } else {
+		return absolute_name;
+	}
 
     return filename;
 }

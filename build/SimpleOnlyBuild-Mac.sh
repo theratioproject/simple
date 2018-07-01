@@ -1,7 +1,7 @@
 #!/bin/bash
 
-VERSION=s0.3.34
-SIMPLE_DEBUG_VERSION=s0.3.34-debug
+VERSION=s0.3.35
+SIMPLE_DEBUG_VERSION=s0.3.35-debug
 PWD=$(pwd)
 
 cd build
