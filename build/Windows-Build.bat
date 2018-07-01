@@ -223,7 +223,7 @@ exit /b %ERRORLEVEL%
 	echo 	-c --configure	configure your system for simple-lang successfull build
 	echo 	-i --install	install simple-lang on your system
 	echo 	-u --uninstall	uninstall simple-lang from your system
-	echo 	-d --debug	create a distributable version in ../../ source directory
+	echo 	-d --debug	create a distributable version in ..\..\ source directory
 	echo 	-h --help	print this help message"
 	
 	exit /b 0
