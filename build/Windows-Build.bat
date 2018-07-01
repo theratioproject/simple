@@ -69,7 +69,6 @@ if !EXEC_TYPE!=="" (
 	SET EXEC_TYPE="install"
 )
 
-SET THERE_IS_VS="false"
 SET VERSION="s0.3.34"
 SET SIMPLE_DEBUG_VERSION="s0.3.34-debug"
 SET FULLTICK_BUILD_ISSUE="<https://github.com/simple-lang/simple/issues/16>"
