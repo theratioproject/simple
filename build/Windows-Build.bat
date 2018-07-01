@@ -89,9 +89,7 @@ exit /b %ERRORLEVEL%
 	if exist "C:/MinGW/bin/gccs.exe" (
 		echo simple-lang:configure found MinGW Build Toolchain
 	) else (
-		FOR /F "tokens=* USEBACKQ" %%F IN (`gcc`) DO (
-		SET var=%%F
-		)
+		for /f %%i in ('application arg0 arg1') do set VAR=%%i
 		rem ECHO %var%
 		echo nooo
 	)
