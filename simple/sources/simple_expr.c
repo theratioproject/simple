@@ -24,6 +24,7 @@
 
 extern "C" {
 
+__declspec(dllexport)
 int simple_parser_expr ( Parser *parser )
 {
 	int x,nMark  ;
