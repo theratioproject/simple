@@ -271,7 +271,7 @@ exit /b %ERRORLEVEL%
 		if !THERE_IS_VS!=="true" (
 			echo yea Visual Studio
 		) else (
-			make -f Makefile-Windows.mk
+			:: make -f Makefile-Windows.mk
 		)
 		cd ../../build
 	) else (
