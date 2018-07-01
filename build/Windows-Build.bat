@@ -720,6 +720,7 @@ exit /b
 	exit /b 0
 	
 :callmsvisualstudio 
+	echo simple-lang:configure:visual-studio calling Microsoft Visual Studio CMD File
 	call:%1
 
 	exit /v 0
