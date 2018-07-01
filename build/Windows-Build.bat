@@ -687,6 +687,7 @@ exit /b
 			:: call "!MVS!\VC\vcvarsall.bat" x86
 	if !BUILD_ARC!=="x86" (
 		if exist "!MVS!\VC\vcvarsall.bat" (
+			echo simple-lang:configure:buildtool found !MVS!
 			echo yea yea
 		) else (
 			echo simple-lang:configure:buildtool Microsoft Visual Studio not found
@@ -695,12 +696,6 @@ exit /b
 		)
 	) else (
 	
-	)
-	if !MVS!=="" (
-		
-	) else (
-		echo simple-lang:configure:buildtool found !MVS!
-		
 	)
 
 	exit /b 0
