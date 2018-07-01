@@ -234,6 +234,11 @@ exit /b %ERRORLEVEL%
 		echo simple-lang:install: install simple-lang %SIMPLE_VERSION%
 		echo =============================================================
 	)
+	if !EXEC_TYPE!=="debug" (
+		echo =============================================================
+		echo simple-lang:install: install simple-lang %SIMPLE_VERSION%
+		echo =============================================================
+	)
 	echo simple-lang: !THERE_IS_VS!
 	exit /b 0
 	
