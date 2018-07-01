@@ -115,6 +115,8 @@ exit /b %ERRORLEVEL%
 				echo simple-lang:configure checking the presence of toolchain gcc
 				if exist "C:/MinGW/bin/gccs.exe" (
 				
+				) else (
+				
 				)
 			)
 		)
