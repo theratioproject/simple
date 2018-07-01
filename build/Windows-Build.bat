@@ -725,6 +725,7 @@ exit /b
 	) else (
 		call %1 x86
 	)
+	cl
 
 	exit /b 0
 	
