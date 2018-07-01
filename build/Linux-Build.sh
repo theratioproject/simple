@@ -95,7 +95,7 @@ FULLTICK_BUILD_ISSUE="<https://github.com/simple-lang/simple/issues/16>"
 
 if [ $EXEC_TYPE = "configure" ] || [ $EXEC_TYPE = "install-configure" ]; then
 	echo "============================================================="
-	echo "simple-lang:configure: configure build $SIMPLE_DEBUG_VERSION"
+	echo "simple-lang:configure: configure build $VERSION"
 	echo "============================================================="
 	ALLOW_DEP_INSTALL="0"
 	DEPENDENCIES='gcc fltk.so openssl libcurl'
