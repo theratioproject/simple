@@ -4,7 +4,7 @@ cls
 SET EXEC_TYPE="install"
 SET VER="0.3.34"
 
-if DEFINED %1% (
+if DEFINED %1 (
     echo Var1 set
 )
 
