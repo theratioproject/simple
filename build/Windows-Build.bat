@@ -10,6 +10,11 @@ for %%x in (%*) do (
 	) if %%x=="-i" (
 		SET EXEC_TYPE="install"
 	)
+	if %%x=="--uninstall" (
+		
+	) if %%x=="-u" (
+		
+	)
 )
 
 echo Installation Type : %EXEC_TYPE%
