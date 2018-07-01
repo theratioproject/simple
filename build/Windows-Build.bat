@@ -113,7 +113,7 @@ exit /b %ERRORLEVEL%
 				SET /p COMPILER_PATH=Enter your C/C++ Toolchain directory : 
 				echo simple-lang:configure your C/C++ Toolchain Directory ~ !COMPILER_PATH!
 				echo simple-lang:configure checking the presence of toolchain gcc
-				if exist "C:/MinGW/bin/gccs.exe" (
+				if exist !COMPILER_PATH!/gccs.exe (
 				
 				) else (
 				
