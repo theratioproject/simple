@@ -105,7 +105,7 @@ exit /b %ERRORLEVEL%
 			echo simple-lang:configure:compiler checking if make is present in path
 			make 2> ..\..\simple_build_configure
 			SET /p GCCVAL=<..\..\simple_build_configure
-			if "!GCCVAL!"=="make: fatal error: no input files" (
+			if "!GCCVAL!"=="make: *** No targets specified and no makefile found.  Stop." (
 				echo simple-lang:configure:compiler make found
 			) else (
 				call:compilernotfound make
