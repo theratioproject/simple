@@ -74,6 +74,9 @@ if !EXEC_TYPE!=="install-configure" (
 if !EXEC_TYPE!=="configure" (
 	call:configure
 )
+if !EXEC_TYPE!=="install" (
+	call:install
+)
 
 
 REM echo Installation Type : !EXEC_TYPE!
@@ -98,12 +101,19 @@ exit /b %ERRORLEVEL%
 		) else (
 			echo simple-lang:configure CygWIN not found
 			echo simple-lang:configure searching for Microsoft Visual Studio
+			SET THERE_IS_VS=false
 			for /d %%a in ("%programfiles%\Microsoft Visual Studio*") do (
-			for /f "tokens=3 delims=\" %%x in ("%%a") do echo %%x
+				for /f "tokens=3 delims=\" %%x in ("%%a") do SET THERE_IS_VS=true  
+				SET MVS="Microsoft Visual Studio %%x"
+				break
 			)
-			pause >nul
+			echo !THERE_IS_VS!
+			if !THERE_IS_VS!==true (
+				echo !MVS!
+			) else (
+				echo error
+			)
 		)
-		gcc ../../temp_simple_configure.c 2> ../../temp_simple_configure
 	)
 	
 	exit /b 0
