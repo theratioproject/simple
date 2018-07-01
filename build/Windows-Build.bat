@@ -68,6 +68,10 @@ SET VERSION="s0.3.34"
 SET SIMPLE_DEBUG_VERSION="s0.3.34-debug"
 SET FULLTICK_BUILD_ISSUE="<https://github.com/simple-lang/simple/issues/16>"
 
+if !EXEC_TYPE!=="install" (
+	call:configure
+	call:installdebug
+)
 if !EXEC_TYPE!=="install-configure" (
 	call:configure
 	SET EXEC_TYPE="install"
@@ -75,10 +79,6 @@ if !EXEC_TYPE!=="install-configure" (
 )
 if !EXEC_TYPE!=="configure" (
 	call:configure
-)
-if !EXEC_TYPE!=="install" (
-	call:configure
-	call:installdebug
 )
 
 	:: configure and install for now
