@@ -707,9 +707,13 @@ exit /b
 		)
 	) else (
 		if exist "!MVS!\VC\vcvarsall.bat" (
-			
+			echo simple-lang:configure:buildtool found !MVS!
+			call:callmsvisualstudio
+			exit /b 0
 		) else (
-		
+			echo simple-lang:configure:buildtool resolve to 32 bit
+			call:callmsvisualstudio
+			exit /b 0
 		)
 	)
 
