@@ -107,7 +107,6 @@ exit /b %ERRORLEVEL%
 				SET MVS=%%a\
 				break
 			)
-			echo !THERE_IS_VS!
 			if exist !MVS! (
 				echo !MVS!
 			) else (
