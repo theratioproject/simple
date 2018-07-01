@@ -261,6 +261,8 @@ exit /b %ERRORLEVEL%
 		) 
 	) 
 	call:buildsimpledllexe
+	
+	exit /b 0
 
 :buildsimpledllexe	
 	REM BULDING SIMPLE.EXE and SIMPLE.DLL
