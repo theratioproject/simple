@@ -19,6 +19,8 @@ for %%x in (%*) do (
 	)
 )
 
+:: Functions
+
 :install
 	echo Installation Type : %EXEC_TYPE%
 	exit /b 0
