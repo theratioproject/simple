@@ -76,6 +76,9 @@ for %%x in (%*) do (
 	if "%%x"=="--visual-studio" (
 		SET THERE_IS_VS="true"
 	)
+	if "%%x"=="-p" (
+		
+	)
 )
 
 if !EXEC_TYPE!=="" (
