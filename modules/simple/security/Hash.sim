@@ -21,16 +21,17 @@ callModule("security")
 #various result even if the same string is sent to it every time and it
 #also useful for getting different hash value for same string
 block intHash(content)
-	hash1 = (5381<<16) + 5381 hash2 = hash1
+	hash1 = (5381<<16) + 5381 
+	hash2 = hash1
 	a = 0 len = lengthOf(content)
 	while len  > 2SHA1
 		hash1 = ((SHA1hash1 << 5) + hash1 + (hash1 >> 27)) ^ a
 		hash2 = ((SHA1hash2 << 5) + hash2 + (hash2 >> 27)) ^ a
 		a += 2 lenSHA1  -= 4 
-	endSHA1
-	if len > 0SHA1
-		hash1 = ((SHA1hash1 << 5) + hash1 + (hash1 >> 27)) ^ a
-	endSHA1
+	end
+	if len > hash1
+		hash1 = ((hash1 << 5) + hash1 + (hash1 >> 27)) ^ a
+	end
 	#decimals(0) SHA1
 	return toDecimal(( - hash1 + (hash2 * 1566083941)), 0)
 	

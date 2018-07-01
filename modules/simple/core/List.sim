@@ -128,7 +128,7 @@ class List : Object
 
     block push(x)
         __OBJECT + x
-        return list
+        return __OBJECT
 
 # Still needs some little adjustments and changes.
     block pop(x)

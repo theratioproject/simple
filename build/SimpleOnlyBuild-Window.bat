@@ -3,43 +3,44 @@ cls
 
 SET VERSION="s0.3.34"
 SET SIMPLE_DEBUG_VERSION="s0.3.34-debug"
+SET FULLTICK_BUILD_ISSUE="<https://github.com/simple-lang/simple/issues/16>"
+
+echo 	simple-lang build %SIMPLE_DEBUG_VERSION%
 
 REM BULDING SIMPLE.EXE and SIMPLE.DLL
-if exist "../src/makefiles/Makefile-Windows.mk" (
-	cd "../src/makefiles"
-	echo `
-	echo `
-	echo 	SIMPLE %SIMPLE_DEBUG_VERSION% build 
-	echo		Building simple.dll and simple.exe
+if exist "../simple/makefiles/Makefile-Windows.mk" (
+	cd "../simple/makefiles"
+	echo simple: simple-lang %SIMPLE_DEBUG_VERSION% build 
+	echo simple: building simple.dll and simple.exe
+	if exist "../dist/"  (
+		echo simple: removing previous simple build
+		rm -r ../dist/
+	)
 	make -f Makefile-Windows.mk
 	cd ../../build
 ) else (
-	echo `
-	echo `
-	echo 	SIMPLE %SIMPLE_DEBUG_VERSION% build 
-	echo 		The file 'Makefile-Windows.mk' does not exist in src folder
-	echo 		Skipping simple Build
+	echo error:simple: simple-lang %SIMPLE_DEBUG_VERSION% build 
+	echo error:simple: the file 'Makefile-Windows.mk' does not exist in simple directory
+	echo error:simple: skipping simple Build
 )
 
-REM simple.exe and simple.dll has been successful create and copy executable to %SIMPLE_DEBUG_VERSION% folder
-	echo `
-	echo 	Copying Executable and building %SIMPLE_DEBUG_VERSION%
+REM simple.exe and simple.dll has been successful create and copy executable to %SIMPLE_DEBUG_VERSION% directory
+	echo Copying Executable and building %SIMPLE_DEBUG_VERSION%
 
 
 if exist "../../%SIMPLE_DEBUG_VERSION%/bin/" (
-	echo 		the ../../%SIMPLE_DEBUG_VERSION%/bin/ folder already exist
+	echo simple/bin: the ../../%SIMPLE_DEBUG_VERSION%/bin/ directory already exist
 ) else (
-	echo 		Creating the ../../%SIMPLE_DEBUG_VERSION%/bin/ folder
+	echo simple/bin: creating the ../../%SIMPLE_DEBUG_VERSION%/bin/ directory
 	mkdir "../../%SIMPLE_DEBUG_VERSION%/bin/"
 )
 
-if exist "../src/dist/simple.exe" (
-	echo 		Copying simple.exe and simple.dll to ../../%SIMPLE_DEBUG_VERSION%/bin folder
-	cp ../src/dist/simple.exe ../../%SIMPLE_DEBUG_VERSION%/bin
-	cp ../src/dist/simplew.exe ../../%SIMPLE_DEBUG_VERSION%/bin
-	cp ../src/dist/simple.dll ../../%SIMPLE_DEBUG_VERSION%/bin
+if exist "../simple/dist/simple.exe" (
+	echo simple: copying simple.exe and simple.dll to ../../%SIMPLE_DEBUG_VERSION%/bin directory
+	cp ../simple/dist/simple.exe ../../%SIMPLE_DEBUG_VERSION%/bin
+	cp ../simple/dist/simplew.exe ../../%SIMPLE_DEBUG_VERSION%/bin
+	cp ../simple/dist/simple.dll ../../%SIMPLE_DEBUG_VERSION%/bin
 ) else (
-	echo 		Build fails simple.exe and simple.dll cannot be found
-	echo 		in the ../src/dist/ folder try rebuilding again if it
-	echo 		fails again run the build individually
+	echo error:simple: build fails simple.exe and simple.dll cannot be found
+	echo error:simple: try rebuilding individually
 )
