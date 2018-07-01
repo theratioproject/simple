@@ -974,6 +974,7 @@ int simple_parser_factor ( Parser *parser,int *nFlag )
 				**  Calling the init method using { } 
 				**  Generate Code (Start Brace) 
 				*/
+				const char *class_name = parser->TokenText;
 				simple_parser_icg_newoperation(parser,ICO_PUSHV);
 				simple_parser_icg_newoperation(parser,ICO_BRACESTART);
 				simple_parser_icg_newoperation(parser,ICO_CALLCLASSINIT);
