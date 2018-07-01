@@ -22,6 +22,8 @@
 **  Grammar 
 */
 
+extern "C" {
+
 int simple_parser_expr ( Parser *parser )
 {
 	int x,nMark  ;
