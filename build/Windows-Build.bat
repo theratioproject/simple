@@ -85,7 +85,7 @@ exit /b %ERRORLEVEL%
 	echo simple-lang:configure: configure build %SIMPLE_DEBUG_VERSION%
 	echo =============================================================
 	echo simple-lang:configure preparing to find build toolchain...
-	echo 
+	echo simple-lang:configue
 	
 	exit /b 0
 
@@ -96,7 +96,7 @@ exit /b %ERRORLEVEL%
 
 :help
 	echo =============================================================
-	echo simple-lang:configure: help  
+	echo simple-lang:help
 	echo =============================================================
 	echo Usage: ./sudo Windows-Build.bat [FLAG]
 	echo [FLAGS] :
