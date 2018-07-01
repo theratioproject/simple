@@ -107,10 +107,10 @@ exit /b %ERRORLEVEL%
 			SET /p GCCVAL=<..\..\simple_build_configure
 			if "!GCCVAL!"=="make: *** No targets specified and no makefile found.  Stop." (
 				echo simple-lang:configure:compiler make found
-			) else (
-				call:compilernotfound make
 				echo simple-lang:configure:compiler proceeding to build...
 				exit /b 0
+			) else (
+				call:compilernotfound make
 			)
 		) else (
 			call:compilernotfound g++
