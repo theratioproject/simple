@@ -695,7 +695,7 @@ exit /b
 			call:locatevisualstudio x86
 		)
 	) else (
-	
+		echo looking for 64 bit
 	)
 
 	exit /b 0
