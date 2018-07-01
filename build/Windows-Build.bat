@@ -274,17 +274,16 @@ exit /b %ERRORLEVEL%
 		:: cl.exe /D_USRDLL /D_WINDLL %~dp0\..\..\helloworld.cpp %~dp0\..\..\helloworld2.cpp /MT /link /DLL /OUT:%~dp0\..\..\helloworld.dll
 		
 	) else (
-	
-	)
-	if exist "../simple/makefiles/Makefile-Windows.mk" (
-		cd "../simple/makefiles"
-		echo simple: building simple.dll and simple.exe
-		make -f Makefile-Windows.mk
-		cd ../../build
-	) else (
-		echo error:simple: simple-lang %SIMPLE_DEBUG_VERSION% build 
-		echo error:simple: the file 'Makefile-Windows.mk' does not exist in simple directory
-		echo error:simple: skipping simple Build
+		if exist "../simple/makefiles/Makefile-Windows.mk" (
+			cd "../simple/makefiles"
+			echo simple: building simple.dll and simple.exe
+			make -f Makefile-Windows.mk
+			cd ../../build
+		) else (
+			echo error:simple: simple-lang %SIMPLE_DEBUG_VERSION% build 
+			echo error:simple: the file 'Makefile-Windows.mk' does not exist in simple directory
+			echo error:simple: skipping simple Build
+		)
 	)
 	
 	exit /b 0
