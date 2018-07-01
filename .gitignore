@@ -14,6 +14,7 @@
 *.def
 *.exp
 *.obj
+*.cod
 simple.so
 tasks.json
 .DS_STORE
