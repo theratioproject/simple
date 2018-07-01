@@ -57,8 +57,8 @@ if !EXEC_TYPE!=="" (
 	SET EXEC_TYPE="install"
 )
 
-echo Installation Type : !EXEC_TYPE!
-echo Architecture : %BUILD_ARC%
+REM echo Installation Type : !EXEC_TYPE!
+REM echo Architecture : %BUILD_ARC%
 exit /b %ERRORLEVEL%
 
 :uninstall
