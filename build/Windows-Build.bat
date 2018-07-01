@@ -22,6 +22,10 @@ for %%x in (%*) do (
 echo Installation Type : %EXEC_TYPE%
 exit /b %ERRORLEVEL%
 
+:uninstall
+	echo unintstalling
+	exit /b 0
+
 REM if "%1%"=="" (
 REM   echo Var1 set
 REM )
@@ -459,7 +463,3 @@ if exist "../simple/dist/" (
 )
 
 exit /b
-
-:uninstall
-	echo unintstalling
-	exit /b 0
