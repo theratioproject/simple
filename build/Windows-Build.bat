@@ -726,7 +726,6 @@ exit /b
 	) else (
 	
 	)
-	call:%1
 
 	exit /v 0
 	
