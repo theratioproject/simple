@@ -678,6 +678,8 @@ if exist "../simple/dist/" (
 
 exit /b
 
+:getsimplecfiles
+
 :locatevisualstudio
 	echo simple-lang:configure:buildtool Microsoft Visual Studio is specified
 	echo simple-lang:configure:buildtool searching for Microsoft Visual Studio
