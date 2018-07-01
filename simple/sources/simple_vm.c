@@ -1125,7 +1125,7 @@ SIMPLE_API void simple_vm_showerrormessage ( VM *vm,const char *cStr )
 			**  Prepare Message 
 			**  In 
 			*/
-			if (is_last_block == 1) { printf( "\tat " ) ; } else { printf( "at " ) ; is_last_block = 0 }
+			if (is_last_block) { printf("\tat "); } else { printf("at "); is_last_block = 0; }
 			/* Method or Block */
 			/*if ( simple_list_getint(list,SIMPLE_BLOCKCL_METHODORBLOCK) ) {
 				printf( "method " ) ;
