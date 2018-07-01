@@ -92,7 +92,7 @@ exit /b %ERRORLEVEL%
 	echo =============================================================
 	echo simple-lang:configure preparing to find build toolchain...
 	echo simple-lang:configure checking if gcc is present in path
-	gcc 2> ../../simple_build_configure
+	gccs 2> ../../simple_build_configure
 	SET /p GCCVAL=<../../simple_build_configure
 	if "%GCCVAL%"=="gcc: fatal error: no input files" (
 		echo yea yea 
