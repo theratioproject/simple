@@ -230,11 +230,10 @@ exit /b %ERRORLEVEL%
 
 :installdebug
 	if !EXEC_TYPE!=="install" (
-		call:configure
+		echo =============================================================
+		echo simple-lang:install: install simple-lang %SIMPLE_VERSION%
+		echo =============================================================
 	)
-	echo =============================================================
-	echo simple-lang:install: install simple-lang %SIMPLE_VERSION%
-	echo =============================================================
 	echo simple-lang: !THERE_IS_VS!
 	exit /b 0
 	
