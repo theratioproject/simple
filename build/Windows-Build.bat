@@ -674,7 +674,7 @@ for /d %%a in ("%programfiles%\Microsoft Visual Studio*") do (
 	break
 )
 		:: call "!MVS!\VC\vcvarsall.bat" x86
-if !MVS!=="" (
+if ! !MVS!=="" (
 	echo simple-lang:configure:buildtool found !MVS!
 	if exist "!MVS!\VC\vcvarsall.bat" (
 		echo yea yea
