@@ -273,6 +273,7 @@ exit /b %ERRORLEVEL%
 		)
 		:: cl.exe /D_USRDLL /D_WINDLL %~dp0\..\..\helloworld.cpp %~dp0\..\..\helloworld2.cpp /MT /link /DLL /OUT:%~dp0\..\..\helloworld.dll
 		if %THERE_IS_VS%=="true" (
+			call:getsimplesfiles
 			echo yea Visual Studio and flies are !SIMPLE_C_FILES!
 			
 		) else (
