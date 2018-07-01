@@ -67,7 +67,7 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
 	VM *vm  ;
 	int nCont,nRunVM,nFreeFilesList = 0 ;
 	char start_up[30]  ;
-	int x,nSize  ;
+	int x,nSize,is_start_file  ;
 	char file_name_two[200]  ; char logable_name[30] ; strcpy(logable_name,file_name); simple_justfilename(logable_name) ;
     is_start_file = 1 ; 
 	/* Check file */
