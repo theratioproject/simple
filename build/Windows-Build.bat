@@ -84,6 +84,7 @@ exit /b %ERRORLEVEL%
 	echo =============================================================
 	echo simple-lang:configure: configure build %SIMPLE_DEBUG_VERSION%
 	echo =============================================================
+	echo simple-lang:configure creating dummy C file
 	echo simple-lang:configure preparing to find build toolchain...
 	echo simple-lang:configure serching for mingw and msys
 	if exist "C:/MinGW/bin/gccs.exe" (
