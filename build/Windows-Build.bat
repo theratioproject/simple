@@ -309,7 +309,6 @@ REM simple.exe and simple.dll has been successful create and copy executable to 
 			echo simple/bin: creating the ..\..\%SIMPLE_DEBUG_VERSION%\bin\ directory
 			mkdir "..\..\%SIMPLE_DEBUG_VERSION%/bin/"
 		)
-
 		if exist "../simple/dist/simple.exe" (
 			echo simple: copying simple.exe and simple.dll to ../../%SIMPLE_DEBUG_VERSION%/bin directory
 			cp ../simple/dist/simple.exe ../../%SIMPLE_DEBUG_VERSION%/bin
