@@ -3,7 +3,7 @@ cls
 
 setlocal enabledelayedexpansion
 
-SET EXEC_TYPE="install"
+SET EXEC_TYPE=""
 SET BUILD_ARC="x86"
 SET VER="0.3.34"
 
