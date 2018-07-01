@@ -111,6 +111,7 @@ exit /b %ERRORLEVEL%
 				echo simple-lang:configure !MVS! found
 			) else (
 				echo error:simple-lang:configure Microsoft Visual Studio not found
+				gcc ../../temp_simple_configure.c 2> ../../temp_simple_configure
 			)
 		)
 	)
