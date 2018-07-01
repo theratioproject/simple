@@ -102,11 +102,10 @@ exit /b %ERRORLEVEL%
 		if exist "C:/cygwin/" (
 			echo simple-lang:configure found CygWIN Build Toolchain
 			if !EXEC_TYPE!=="install-configure" (
-			
+				call:setcompilerenv C:/cygwin/
 			) else (
 			
-			)
-			call:setcompilerenv C:/cygwin/ 
+			) 
 		) else (
 			echo error:simple-lang:configure CygWIN not found
 			echo simple-lang:configure searching for Microsoft Visual Studio
