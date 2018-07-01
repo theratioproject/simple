@@ -68,6 +68,10 @@ REM echo Architecture : %BUILD_ARC%
 exit /b %ERRORLEVEL%
 
 :configure
+echo =============================================================
+echo simple-lang:configure: configure build %SIMPLE_DEBUG_VERSION%
+echo =============================================================
+
 
 :uninstall
 	echo unintstalling
