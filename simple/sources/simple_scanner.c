@@ -68,7 +68,9 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
 	int nCont,nRunVM,nFreeFilesList = 0 ;
 	char start_up[30]  ;
 	int x,nSize,is_start_file  ;
-	char file_name_two[200]  ; char logable_name[30] ; strcpy(logable_name,file_name); simple_justfilename(logable_name) ;
+	char file_name_two[200]  ; char logable_name[30] ; 
+	char simple_folder[100] ;
+	strcpy(logable_name,file_name); simple_justfilename(logable_name) ;
     is_start_file = 1 ; 
 	/* Check file */
 	if ( sState->files_list == NULL ) {
