@@ -7,6 +7,7 @@ SET EXEC_TYPE=""
 SET BUILD_ARC="x86"
 SET VER="0.3.35"
 SET THERE_IS_VS="false"
+SET INSTALLATION_FOLDER="C:\Simple\"
 
 for %%x in (%*) do (
 	if "%%x"=="--configure" (
