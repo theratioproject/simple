@@ -19,7 +19,9 @@ for %%x in (%*) do (
 	)
 )
 
-echo Installation Type : %EXEC_TYPE%
+:install
+	echo Installation Type : %EXEC_TYPE%
+	exit /b 0
 
 
 
