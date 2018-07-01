@@ -46,6 +46,9 @@ for %%x in (%*) do (
 	if "%%x"=="x64" (
 		SET BUILD_ARC="x64"
 	)
+	if "%%x"=="--64-bit" (
+		SET BUILD_ARC="x64"
+	)
 	if "%%x"=="x86" (
 		SET BUILD_ARC="x86"
 	)
