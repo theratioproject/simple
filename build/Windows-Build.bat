@@ -8,10 +8,6 @@ for %%x in (%*) do (
    echo var %%x
 )
 
-if "%1%"=="" (
-    echo Var1 set
-)
-
 REM if [ $1 != "-h" ] && [ $1 != "--help" ]; then
 	echo ======================================
 	echo simple-lang:build: invalid flag : %1
