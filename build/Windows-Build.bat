@@ -668,7 +668,6 @@ exit /b
 :locatevisualstudio
 	echo simple-lang:configure:buildtool Microsoft Visual Studio is specified
 	echo simple-lang:configure:buildtool searching for Microsoft Visual Studio
-	
 	for /d %%a in ("%programfiles%\Microsoft Visual Studio*") do (
 		for /f "tokens=3 delims=\" %%x in ("%%a") do SET THERE_IS_VS="true"  
 		SET MVS=%%a\
@@ -677,11 +676,12 @@ exit /b
 			:: call "!MVS!\VC\vcvarsall.bat" x86
 	if !MVS!=="" (
 		echo simple-lang:configure:buildtool Microsoft Visual Studio not found
-		echo simple-lang:configure:buildtool Looking for 32 bit x86 MS Visual Studio 
-		:locatevisualstudio x86
+		echo simple-lang:configure:buildtool Looking for 32 bit (x86) MS Visual Studio 
 	) else (
 		echo simple-lang:configure:buildtool found !MVS!
-		
+		if exist "!MVS!\VC\vcvarsall.bat" (
+			echo yea yea
+		)
 	)
 
 	exit /b 0
