@@ -88,7 +88,7 @@ exit /b %ERRORLEVEL%
 	echo void main() {} > ../../temp_simple_configure.c
 	echo simple-lang:configure preparing to find build toolchain...
 	echo simple-lang:configure serching for mingw and msys
-	if exist "C:/MinGW/bin/gccs.exe" (
+	if exist "C:/MinGW/bin/gcc.exe" (
 		echo simple-lang:configure found MinGW Build Toolchain
 	) else (
 		gcc ../../temp_simple_configure.c 2> ../../temp_simple_configure
