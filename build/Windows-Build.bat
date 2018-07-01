@@ -300,7 +300,7 @@ REM simple.exe and simple.dll has been successful create and copy executable to 
 :copysimpledllexe
 	echo Copying Executable and building %SIMPLE_DEBUG_VERSION%
 	if !EXEC_TYPE!=="install" (
-	
+		echo it install yo
 	)
 	if !EXEC_TYPE!=="debug" (
 		if exist "..\..\%SIMPLE_DEBUG_VERSION%\bin\" (
