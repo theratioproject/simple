@@ -120,7 +120,7 @@ void simple_parser_loadtoken ( Parser *parser )
 	parser->nTokenIndex = simple_list_getint(list,3) ;
 }
 
-int simple_parser_nexttoken ( Parser *parser )
+int simple_parser_nexttoken (Parser *parser)
 {
 	return 1;
 }
