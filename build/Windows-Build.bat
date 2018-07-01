@@ -272,6 +272,7 @@ exit /b %ERRORLEVEL%
 			echo yea Visual Studio
 		) else (
 			:: make -f Makefile-Windows.mk
+			echo yea gcc
 		)
 		cd ../../build
 	) else (
