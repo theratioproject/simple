@@ -86,7 +86,7 @@ exit /b %ERRORLEVEL%
 	echo =============================================================
 	echo simple-lang:configure preparing to find build toolchain...
 	echo simple-lang:configure serching for mingw and msys
-	if exist "C:/MinGW/bin/gcc" (
+	if exist "C:/MinGW/bin/gcc.exe" (
 		echo simple-lang:configure found MinGW Build Toolchain
 	) else (
 		
