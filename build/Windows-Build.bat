@@ -67,7 +67,7 @@ SET VERSION="s0.3.34"
 SET SIMPLE_DEBUG_VERSION="s0.3.34-debug"
 SET FULLTICK_BUILD_ISSUE="<https://github.com/simple-lang/simple/issues/16>"
 
-
+if !EXEC_TYPE!="install-configure"
 
 
 REM echo Installation Type : !EXEC_TYPE!
