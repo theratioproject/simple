@@ -15,7 +15,7 @@ for %%x in (%*) do (
 		call:uninstall
 	) 
 	echo the x is %%x
-	if %%x=="-u" (
+	if "%%x"=="-u" (
 	echo the x is %%x
 		call:uninstall
 	)
