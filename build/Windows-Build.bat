@@ -5,7 +5,7 @@ SET EXEC_TYPE="install"
 SET VER="0.3.34"
 
 for %%x in (%*) do (
-   echo var %%x
+   if %%x=="-i" (
 )
 
 REM if "%1%"=="" (
