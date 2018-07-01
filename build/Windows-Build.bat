@@ -102,9 +102,9 @@ exit /b %ERRORLEVEL%
 		if exist "C:/cygwin/" (
 			echo simple-lang:configure found CygWIN Build Toolchain
 			if !EXEC_TYPE!=="install-configure" (
-				call:setcompilerenv C:/cygwin/
+				call:setcompilerenv C:\cygwin\bin\
 			) else (
-				SET PATH=!PATH!;C:/cygwin/bin/
+				SET PATH=!PATH!;C:\cygwin\bin\
 			) 
 		) else (
 			echo error:simple-lang:configure CygWIN not found
