@@ -669,7 +669,7 @@ exit /b
 	echo simple-lang:configure:buildtool Microsoft Visual Studio is specified
 	echo simple-lang:configure:buildtool searching for Microsoft Visual Studio
 	if "%1"=="" (
-		SET "PROGRAMFILESPATH=%ProgramFiles(x86)%)"
+		SET PROGRAMFILESPATH=%ProgramFiles(x86))%
 	)
 	if "%1"=="x64" (
 		SET PROGRAMFILESPATH=%programfiles%
@@ -677,6 +677,7 @@ exit /b
 	if "%1"=="x86" (
 		SET PROGRAMFILESPATH=%ProgramFiles(x86)%
 	)
+	echo patter %PROGRAMFILESPATH%
 	for /d %%a in ("%PROGRAMFILESPATH%\Microsoft Visual Studio*") do (
 		for /f "tokens=3 delims=\" %%x in ("%%a") do SET THERE_IS_VS="true"  
 		SET MVS=%%a\
