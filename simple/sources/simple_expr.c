@@ -630,6 +630,7 @@ int simple_parser_factor ( Parser *parser,int *nFlag )
 	char lSetProperty,lequal,nBeforeEqual  ;
 	char cBlockName[100]  ;
 	char cKeyword[100]  ;
+	const char *class_name = parser->TokenText;
 	/* Set Identifier Flag - is 1 when we have Factor -->Identifier */
 	*nFlag = 0 ;
 	/* Factor --> Identifier  {mixer} [ '=' Expr ] */
