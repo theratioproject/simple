@@ -684,7 +684,7 @@ exit /b
 
 :getsimplecfiles
 	if exist "..\simple\sources\" (
-		SET SIMPLE_C_FILES="%~dp0\..\simple\sources\simple_vmlists.c"
+		SET SIMPLE_C_FILES="%~dp0\..\simple\sources\simple_vmoop.c"
 	) else (
 		SET SIMPLE_C_FILES="%~dp0\none\*.c"
 	)
