@@ -21,7 +21,7 @@ for %%x in (%*) do (
 
 echo Installation Type : %EXEC_TYPE%
 
-exit /b
+
 REM if "%1%"=="" (
 REM   echo Var1 set
 REM )
@@ -39,7 +39,6 @@ echo 	-u --uninstall	uninstall simple-lang from your system
 echo 	-d --debug	create a distributable version in ../../ source directory
 echo 	-h --help	print this help message"
 
-exit /b
 
 SET VERSION="s0.3.34"
 SET SIMPLE_DEBUG_VERSION="s0.3.34-debug"
