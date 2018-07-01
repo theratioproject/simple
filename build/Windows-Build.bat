@@ -705,13 +705,15 @@ exit /b
 		)
 	) else (
 		if exist "!MVS!\VC\vcvarsall.bat" (
-		
+			
 		) else (
 		
 		)
 	)
 
 	exit /b 0
+	
+:callmsvisualstudio
 	
 :compilernotfound
 	echo error:simple-lang:compiler %1 not found 
