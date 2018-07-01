@@ -960,7 +960,6 @@ int simple_parser_factor ( Parser *parser,int *nFlag )
 		
 		puts("Rule : Factor --> New Identifier {'.' Identifier }  ");
 		#endif
-		const char *class_name = parser->TokenText;
 		if ( simple_parser_namedotname(parser) ) {
 			/* Generate Code */ 
 			simple_parser_icg_newoperation(parser,ICO_SETSCOPE);
