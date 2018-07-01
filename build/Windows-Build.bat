@@ -77,7 +77,7 @@ for %%x in (%*) do (
 		SET THERE_IS_VS="true"
 	)
 	if "%%x"=="-p" (
-		SET /p INSTALLATION_FOLDER=Enter your C/C++ Toolchain directory : 
+		SET /p INSTALLATION_FOLDER=Enter the folder you want to install simple-lang to : 
 	)
 )
 
