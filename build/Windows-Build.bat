@@ -121,6 +121,7 @@ exit /b %ERRORLEVEL%
 						echo simple-lang:configure:compiler checking the presence of toolchain : make
 						if exist "!COMPILER_PATH!/make.exe" (
 							echo simple-lang:configure:compiler make : found
+							call:setcompilerenv !COMPILER_PATH! 
 						) else (
 							echo error:simple-lang:configure make not found
 							echo simple-lang:configure enter make.exe folder if different from !COMPILER_PATH!
