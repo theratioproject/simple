@@ -673,7 +673,7 @@ exit /b
 
 :locatevisualstudio
 if exist "%1\VC\vcvarsall.bat" (
-	call "C:\Program Files\Microsoft Visual Studio 10.0\VC\vcvarsall.bat" x86
+	call "%1\VC\vcvarsall.bat" x86
 	exit /b
 )
 	
