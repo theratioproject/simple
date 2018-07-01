@@ -675,10 +675,10 @@ if exist "../simple/dist/" (
 exit /b
 
 :locatevisualstudio
-	echo param %1
 	echo simple-lang:configure:buildtool Microsoft Visual Studio is specified
 	echo simple-lang:configure:buildtool searching for Microsoft Visual Studio
 	if "%1"=="" (
+	echo param %1
 		SET "PROGRAMFILESPATH=%ProgramFiles%"
 	)
 	if "%1"=="x64" (
