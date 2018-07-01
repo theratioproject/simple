@@ -256,7 +256,8 @@ exit /b %ERRORLEVEL%
 			echo removing previous build and performing a clean build
 			rm -r ..\..\%SIMPLE_DEBUG_VERSION%\
 		) 
-	)
+	) echo !THERE_IS_VS! 
+	exit /b 0
 	REM BULDING SIMPLE.EXE and SIMPLE.DLL
 	if exist "../simple/makefiles/Makefile-Windows.mk" (
 		cd "../simple/makefiles"
