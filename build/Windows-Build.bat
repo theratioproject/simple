@@ -268,7 +268,7 @@ exit /b %ERRORLEVEL%
 			rm -r ../dist/
 		)
 	echo simple-lang: !THERE_IS_VS!
-		if "!THERE_IS_VS!"=="true" (
+		if %THERE_IS_VS%=="true" (
 			echo !THERE_IS_VS! 
 			echo yea Visual Studio
 		) else (
