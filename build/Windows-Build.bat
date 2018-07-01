@@ -57,7 +57,7 @@ for %%x in (%*) do (
 	if "%%x"=="-h" (
 		call:help
 	)
-	if "%%x"=="vs" (
+	if "%%x"=="-vs" (
 		SET THERE_IS_VS="true"
 	)
 )
