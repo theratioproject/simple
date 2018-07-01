@@ -53,7 +53,7 @@ for %%x in (%*) do (
 	)
 )
 
-echo Installation Type : %EXEC_TYPE%
+echo Installation Type : !EXEC_TYPE!
 echo Architecture : %BUILD_ARC%
 exit /b %ERRORLEVEL%
 
