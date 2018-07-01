@@ -89,7 +89,7 @@ exit /b %ERRORLEVEL%
 	if exist "C:/MinGW/bin/gcc" (
 		echo simple-lang:configure found MinGW Build Toolchain
 	) else (
-	
+		
 	)
 	
 	exit /b 0
