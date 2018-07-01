@@ -74,16 +74,23 @@ REM echo Architecture : %BUILD_ARC%
 exit /b %ERRORLEVEL%
 
 :configure
-echo =============================================================
-echo simple-lang:configure: configure build %SIMPLE_DEBUG_VERSION%
-echo =============================================================
+	echo =============================================================
+	echo simple-lang:configure: configure build %SIMPLE_DEBUG_VERSION%
+	echo =============================================================
 
 
 :uninstall
 	echo unintstalling
 	exit /b 0
 
-
+:help
+	echo Usage: ./sudo Windows-Build.bat [FLAG]
+	echo [FLAGS] :
+	echo 	-c --configure	configure your system for simple-lang successfull build
+	echo 	-i --install	install simple-lang on your system
+	echo 	-u --uninstall	uninstall simple-lang from your system
+	echo 	-d --debug	create a distributable version in ../../ source directory
+	echo 	-h --help	print this help message"
 
 echo 	simple-lang build %SIMPLE_DEBUG_VERSION%
 
