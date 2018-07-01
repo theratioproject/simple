@@ -22,7 +22,6 @@ echo.returned from myDosFunc
 	)
 )
 
-exit /b %ERRORLEVEL%
 
 :: Functions
 
