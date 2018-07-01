@@ -63,6 +63,7 @@ if !EXEC_TYPE!=="" (
 	SET EXEC_TYPE="install"
 )
 
+SET THERE_IS_VS="false"
 SET VERSION="s0.3.34"
 SET SIMPLE_DEBUG_VERSION="s0.3.34-debug"
 SET FULLTICK_BUILD_ISSUE="<https://github.com/simple-lang/simple/issues/16>"
@@ -109,7 +110,6 @@ exit /b %ERRORLEVEL%
 		) else (
 			echo error:simple-lang:configure CygWIN not found
 			echo simple-lang:configure searching for Microsoft Visual Studio
-			SET THERE_IS_VS="false"
 			for /d %%a in ("%programfiles%\Microsoft Visual Studio*") do (
 				for /f "tokens=3 delims=\" %%x in ("%%a") do SET THERE_IS_VS="true"  
 				SET MVS=%%a\
