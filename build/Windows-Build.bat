@@ -704,7 +704,11 @@ exit /b
 			call:locatevisualstudio x86
 		)
 	) else (
-		echo looking for 64 bit
+		if exist "!MVS!\VC\vcvarsall.bat" (
+		
+		) else (
+		
+		)
 	)
 
 	exit /b 0
