@@ -93,7 +93,7 @@ exit /b %ERRORLEVEL%
 	) else (
 		echo simple-lang:configure searching for cygwin
 		if exist "C:/cygwin/" (
-		
+			echo simple-lang:configure found CygWIN Build Toolchain
 		) else (
 			echo simple-lang:configure searching for Microsoft Visual Studio
 			if exist "" (
