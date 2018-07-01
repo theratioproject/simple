@@ -226,23 +226,6 @@ exit /b %ERRORLEVEL%
 	
 	exit /b 0
 
-:help
-	echo =============================================================
-	echo simple-lang:help
-	echo =============================================================
-	echo Usage: ./sudo Windows-Build.bat [FLAG]
-	echo [FLAGS] :
-	echo 	-c --configure	configure your system for simple-lang successfull build
-	echo 	-i --install	install simple-lang on your system
-	echo 	-u --uninstall	uninstall simple-lang from your system
-	echo 	-d --debug	create a distributable version in ..\..\ source directory
-	echo 	-h --help	print this help message
-	echo 
-	echo 	-gcc --gnu		build simple with available GNU toolchain
-	echo 	-vs --visual-studio	build simple with Microsoft Visual Studio
-	
-	exit /b 0
-
 :installdebug
 	if !EXEC_TYPE!=="install" (
 		echo =============================================================
@@ -685,3 +668,20 @@ exit /b
 	for %%x in (%*) do (
 		del /f %~dp0\%%x
 	)
+
+:help
+	echo =============================================================
+	echo simple-lang:help
+	echo =============================================================
+	echo Usage: ./sudo Windows-Build.bat [FLAG]
+	echo [FLAGS] :
+	echo 	-c --configure	configure your system for simple-lang successfull build
+	echo 	-i --install	install simple-lang on your system
+	echo 	-u --uninstall	uninstall simple-lang from your system
+	echo 	-d --debug	create a distributable version in ..\..\ source directory
+	echo 	-h --help	print this help message
+	echo 
+	echo 	-gcc --gnu		build simple with available GNU toolchain
+	echo 	-vs --visual-studio	build simple with Microsoft Visual Studio
+	
+	exit /b 0
