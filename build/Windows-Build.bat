@@ -21,7 +21,6 @@ for %%x in (%*) do (
 
 :uninstall
 	echo unintstalling
-goto:eof
 
 echo Installation Type : %EXEC_TYPE%
 
