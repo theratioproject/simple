@@ -20,7 +20,7 @@ for %%x in (%*) do (
 )
 
 :uninstall
-	echo unintstalling
+echo unintstalling
 
 echo Installation Type : %EXEC_TYPE%
 
