@@ -245,10 +245,10 @@ exit /b %ERRORLEVEL%
 		echo =============================================================
 	)
 	REM Remove previous build of the current versions
-	if exist "../../%SIMPLE_DEBUG_VERSION%/" (
+	if exist "..\..\%SIMPLE_DEBUG_VERSION%/" (
 		echo a previous simple build %SIMPLE_DEBUG_VERSION% is detected
 		echo removing previous build and performing a clean build
-		rm -r ../../%SIMPLE_DEBUG_VERSION%/
+		rm -r ..\..\%SIMPLE_DEBUG_VERSION%\
 	) 
 	echo simple-lang: !THERE_IS_VS!
 	exit /b 0
