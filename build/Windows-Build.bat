@@ -104,7 +104,7 @@ exit /b %ERRORLEVEL%
 			if !EXEC_TYPE!=="install-configure" (
 				call:setcompilerenv C:/cygwin/
 			) else (
-			
+				SET PATH=!PATH!;C:/cygwin/bin/
 			) 
 		) else (
 			echo error:simple-lang:configure CygWIN not found
