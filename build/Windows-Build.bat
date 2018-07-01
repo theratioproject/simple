@@ -89,11 +89,10 @@ exit /b %ERRORLEVEL%
 	if exist "C:/MinGW/bin/gccs.exe" (
 		echo simple-lang:configure found MinGW Build Toolchain
 	) else (
-		if gcc 1 (
-		  echo "found"
-		) || (
-		  echo "not found "
+		FOR /F "tokens=* USEBACKQ" %%F IN (`command`) DO (
+		SET var=%%F
 		)
+		ECHO %var%
 		echo nooo
 	)
 	
