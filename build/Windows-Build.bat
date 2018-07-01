@@ -264,13 +264,13 @@ exit /b %ERRORLEVEL%
 
 :buildsimpledllexe	
 	REM BULDING SIMPLE.EXE and SIMPLE.DLL
+	if exist "../dist/"  (
+		echo simple: removing previous simple build
+		rm -r ../dist/
+	)
 	if exist "../simple/makefiles/Makefile-Windows.mk" (
 		cd "../simple/makefiles"
 		echo simple: building simple.dll and simple.exe
-		if exist "../dist/"  (
-			echo simple: removing previous simple build
-			rm -r ../dist/
-		)
 		:: cl.exe /D_USRDLL /D_WINDLL %~dp0\..\..\helloworld.cpp %~dp0\..\..\helloworld2.cpp /MT /link /DLL /OUT:%~dp0\..\..\helloworld.dll
 		if %THERE_IS_VS%=="true" (
 			call:getsimplecfiles
