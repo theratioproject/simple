@@ -159,7 +159,9 @@ exit /b %ERRORLEVEL%
 	echo 	simple-lang build %SIMPLE_DEBUG_VERSION%
 	
 :compilernotfound
-	
+	echo error:simple-lang:compiler %1 not found 
+	echo error:simple-lang:compiler please confirm your installation folder
+	echo error:simple-lang:compiler restart the build process again
 
 REM Remove previous build of the current versions
 if exist "../../%SIMPLE_DEBUG_VERSION%/" (
