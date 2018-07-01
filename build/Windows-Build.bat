@@ -90,7 +90,7 @@ exit /b %ERRORLEVEL%
 		echo simple-lang:configure found MinGW Build Toolchain
 	) else (
 		for /f %%i in ('application arg0 arg1') do set VAR=%%i
-		rem ECHO %var%
+		ECHO %var%
 		echo nooo
 	)
 	
