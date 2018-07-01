@@ -146,7 +146,7 @@ exit /b %ERRORLEVEL%
 	
 :setcompilerenv
 	for %%x in (%*) do (
-		SET PATH="!PATH!;%%x"
+		SET PATH=!PATH!;%%x
 	)
 	echo %PATH%
 
