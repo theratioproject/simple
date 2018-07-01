@@ -307,26 +307,6 @@ REM simple.exe and simple.dll has been successful create and copy executable to 
 	)
 	exit /b 0
 
-	
-
-
-if exist "../../%SIMPLE_DEBUG_VERSION%/bin/" (
-	echo simple/bin: the ../../%SIMPLE_DEBUG_VERSION%/bin/ directory already exist
-) else (
-	echo simple/bin: creating the ../../%SIMPLE_DEBUG_VERSION%/bin/ directory
-	mkdir "../../%SIMPLE_DEBUG_VERSION%/bin/"
-)
-
-if exist "../simple/dist/simple.exe" (
-	echo simple: copying simple.exe and simple.dll to ../../%SIMPLE_DEBUG_VERSION%/bin directory
-	cp ../simple/dist/simple.exe ../../%SIMPLE_DEBUG_VERSION%/bin
-	cp ../simple/dist/simplew.exe ../../%SIMPLE_DEBUG_VERSION%/bin
-	cp ../simple/dist/simple.dll ../../%SIMPLE_DEBUG_VERSION%/bin
-) else (
-	echo error:simple: build fails simple.exe and simple.dll cannot be found
-	echo error:simple: try rebuilding individually
-)
-
 REM COPY THE INCLUDE DIRECTORY	
 	echo copying includes directory for developer
 if exist "../simple/includes" (
