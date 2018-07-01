@@ -84,7 +84,8 @@ exit /b %ERRORLEVEL%
 	echo =============================================================
 	echo simple-lang:configure: configure build %SIMPLE_DEBUG_VERSION%
 	echo =============================================================
-	echo simple-lang:configure detecting available build toolchain
+	echo simple-lang:configure preparing to find build toolchain...
+	
 	exit /b 0
 
 :uninstall
