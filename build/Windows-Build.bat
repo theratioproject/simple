@@ -671,7 +671,7 @@ exit /b
 
 :help
 	echo =============================================================
-	echo simple-lang:help
+	echo simple-lang:build help
 	echo =============================================================
 	echo Usage: ./sudo Windows-Build.bat [FLAG]
 	echo [FLAGS] :
