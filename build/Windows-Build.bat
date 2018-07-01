@@ -23,6 +23,7 @@ echo Installation Type : %EXEC_TYPE%
 
 :uninstall
 	echo unintstalling
+goto:eof
 
 exit /b
 REM if "%1%"=="" (
