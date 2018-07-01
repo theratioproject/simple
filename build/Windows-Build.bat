@@ -306,8 +306,8 @@ REM simple.exe and simple.dll has been successful create and copy executable to 
 		if exist "..\..\%SIMPLE_DEBUG_VERSION%\bin\" (
 			echo simple/bin: the ..\..\%SIMPLE_DEBUG_VERSION%\bin\ directory already exist
 		) else (
-			echo simple/bin: creating the ../../%SIMPLE_DEBUG_VERSION%/bin/ directory
-			mkdir "../../%SIMPLE_DEBUG_VERSION%/bin/"
+			echo simple/bin: creating the ..\..\%SIMPLE_DEBUG_VERSION%\bin\ directory
+			mkdir "..\..\%SIMPLE_DEBUG_VERSION%/bin/"
 		)
 
 		if exist "../simple/dist/simple.exe" (
