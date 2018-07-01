@@ -88,7 +88,7 @@ block exeFolder()
 	
 #FILE	
 block newFile() editor.clear() file = null
-block open() file = new File("../smake/test.sim") editor.setText(file.readFileAsString()) notifyMenu(1)
+block open() file = new File("../bake/test.sim") editor.setText(file.readFileAsString()) notifyMenu(1)
 block save() file.write(editor.getText())
 block saveAs() display "Nothing yet.... "
 block close() editor.clear() file = null notifyMenu(0) block exit() __exit__
