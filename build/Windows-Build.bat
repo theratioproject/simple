@@ -157,6 +157,9 @@ exit /b %ERRORLEVEL%
 
 :install
 	echo 	simple-lang build %SIMPLE_DEBUG_VERSION%
+	
+:compilernotfound
+	
 
 REM Remove previous build of the current versions
 if exist "../../%SIMPLE_DEBUG_VERSION%/" (
