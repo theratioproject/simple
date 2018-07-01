@@ -727,7 +727,7 @@ exit /b
 		call:%1 x86
 	)
 
-	exit /v 0
+	exit /b 0
 	
 :compilernotfound
 	echo error:simple-lang:compiler %1 not found 
