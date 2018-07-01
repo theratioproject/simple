@@ -84,6 +84,7 @@ exit /b %ERRORLEVEL%
 	echo =============================================================
 	echo simple-lang:configure: configure build %SIMPLE_DEBUG_VERSION%
 	echo =============================================================
+	
 	exit /b 0
 
 :uninstall
