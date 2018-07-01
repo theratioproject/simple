@@ -1,6 +1,8 @@
 echo off
 cls 
 
+echo %PATH%
+
 setlocal enabledelayedexpansion
 
 SET EXEC_TYPE=""
