@@ -5,7 +5,6 @@ SET EXEC_TYPE="install"
 SET VER="0.3.34"
 
 for %%x in (%*) do (
-	echo the x is %%x
 	if %%x=="--install" (
 		SET EXEC_TYPE="install"
 	) 
@@ -15,6 +14,7 @@ for %%x in (%*) do (
 	if %%x=="--uninstall" (
 		call:uninstall
 	) 
+	echo the x is %%x
 	if %%x=="-u" (
 		call:uninstall
 	)
