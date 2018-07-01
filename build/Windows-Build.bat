@@ -673,6 +673,13 @@ for /d %%a in ("%programfiles%\Microsoft Visual Studio*") do (
 	SET MVS=%%a\
 	break
 )
+if !MVS!!="" (
+	echo simple-lang:configure:buildtool found !MVS!
+	if exist "%1\VC\vcvarsall.bat" (
+		call "%1\VC\vcvarsall.bat" x86
+		exit /b
+	)
+)
 	
 :compilernotfound
 	echo error:simple-lang:compiler %1 not found 
