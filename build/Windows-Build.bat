@@ -108,7 +108,7 @@ exit /b %ERRORLEVEL%
 				break
 			)
 			echo !THERE_IS_VS!
-			if !THERE_IS_VS!=="true" (
+			if exist !MVS! (
 				echo !MVS!
 			) else (
 				echo error !THERE_IS_VS!
