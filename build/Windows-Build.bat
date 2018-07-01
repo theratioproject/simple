@@ -84,6 +84,9 @@ exit /b %ERRORLEVEL%
 	exit /b 0
 
 :help
+	echo =============================================================
+	echo simple-lang:configure: help  
+	echo =============================================================
 	echo Usage: ./sudo Windows-Build.bat [FLAG]
 	echo [FLAGS] :
 	echo 	-c --configure	configure your system for simple-lang successfull build
