@@ -122,6 +122,8 @@ exit /b %ERRORLEVEL%
 						if exist "!COMPILER_PATH!/make.exe" (
 							echo simple-lang:configure:compiler make : found
 						) else (
+							echo simple-lang:configure make not found
+							echo simple-lang:configure enter make.exe folder if different from !COMPILER_PATH!
 							call:compilernotfound make
 						)
 					) else (
