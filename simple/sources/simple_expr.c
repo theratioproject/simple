@@ -957,7 +957,6 @@ int simple_parser_factor ( Parser *parser,int *nFlag )
 		simple_parser_icg_newoperation(parser,ICO_NEWOBJ); 
 		#if SIMPLE_PARSERTRACE
 		SIMPLE_STATE_CHECKPRINTRULES 
-		const char *class_name = parser->TokenText;
 		
 		puts("Rule : Factor --> New Identifier {'.' Identifier }  ");
 		#endif
