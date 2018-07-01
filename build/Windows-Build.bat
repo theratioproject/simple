@@ -90,7 +90,7 @@ exit /b %ERRORLEVEL%
 		echo simple-lang:configure found MinGW Build Toolchain
 	) else (
 		>nul find "Request time" "%filePath%%1.txt" && (
-		  echo %1,"X">>"%fOut%"
+		  echo "found"
 		) || (
 		  echo "not found "
 		)
