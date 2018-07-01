@@ -57,6 +57,11 @@ if !EXEC_TYPE!=="" (
 	SET EXEC_TYPE="install"
 )
 
+echo "============================================================="
+echo "simple-lang:configure: configure build $SIMPLE_DEBUG_VERSION"
+echo "============================================================="
+
+
 REM echo Installation Type : !EXEC_TYPE!
 REM echo Architecture : %BUILD_ARC%
 exit /b %ERRORLEVEL%
