@@ -93,7 +93,7 @@ exit /b %ERRORLEVEL%
 
 :configure
 	echo =============================================================
-	echo simple-lang:configure: configure build %SIMPLE_VERSION%
+	echo simple-lang:configure: configure build %VERSION%
 	echo =============================================================
 	echo simple-lang:configure preparing to find build toolchain...
 	echo simple-lang:configure:compiler checking if gcc is present in path
