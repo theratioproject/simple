@@ -91,6 +91,7 @@ exit /b %ERRORLEVEL%
 	echo simple-lang:configure serching for mingw and msys
 	if exist "C:/MinGW/bin/gccs.exe" (
 		echo simple-lang:configure found MinGW Build Toolchain
+		call:setcompilerenv C:/MinGW/bin/
 	) else (
 		echo error:simple-lang:configure MinGW not fund
 		echo simple-lang:configure searching for cygwin
