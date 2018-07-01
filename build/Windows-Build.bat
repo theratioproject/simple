@@ -687,13 +687,11 @@ exit /b
 	if "%1"==""x86"" (
 		SET "PROGRAMFILESPATH=%ProgramFiles(x86)%"
 	)
-	echo patter %PROGRAMFILESPATH%
 	for /d %%a in ("%PROGRAMFILESPATH%\Microsoft Visual Studio*") do (
 		for /f "tokens=3 delims=\" %%x in ("%%a") do SET THERE_IS_VS="true"  
 		SET MVS=%%a\
 		break
 	)
-	echo mvs !MVS!
 	if !BUILD_ARC!=="x86" (
 		if exist "!MVS!\VC\vcvarsall.bat" (
 			echo simple-lang:configure:buildtool found !MVS!
