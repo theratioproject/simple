@@ -683,6 +683,7 @@ exit /b
 		SET MVS=%%a\
 		break
 	)
+	echo mvs !MVS!
 			:: call "!MVS!\VC\vcvarsall.bat" x86
 	if !MVS!=="" (
 		echo simple-lang:configure:buildtool Microsoft Visual Studio not found
