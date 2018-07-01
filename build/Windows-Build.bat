@@ -18,6 +18,7 @@ for %%x in (%*) do (
 		call:uninstall
 	)
 )
+echo.&pause&goto:eof
 
 :: Functions
 
