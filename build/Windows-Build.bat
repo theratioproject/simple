@@ -57,6 +57,7 @@ for %%x in (%*) do (
 	) 
 	if "%%x"=="-h" (
 		call:help
+		exit /b 0
 	)
 	if "%%x"=="-vs" (
 		SET THERE_IS_VS="true"
