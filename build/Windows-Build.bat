@@ -228,7 +228,7 @@ exit /b %ERRORLEVEL%
 	
 	exit /b 0
 
-:install
+:installdebug
 	echo =============================================================
 	echo simple-lang:install: install simple-lang %SIMPLE_VERSION%
 	echo =============================================================
