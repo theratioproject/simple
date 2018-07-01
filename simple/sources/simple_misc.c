@@ -138,7 +138,7 @@ const char *change_file_ext(const char *absolute_name, const char *extension){
     return name;
 }
 
-void simple_showtime ( clock_t before_execution, clock_t after_execution )
+void simple_showtime ( clock_t before_execution)
 {
     after_execution = clock();
     float seconds = get_time_different((float)(after_execution - before_execution) / CLOCKS_PER_SEC);
