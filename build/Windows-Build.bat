@@ -15,7 +15,7 @@ for %%x in (%*) do (
 		call:uninstall
 	) 
 	if %%x=="-u" (
-		call:uninstall
+		goto uninstall
 	)
 )
 
