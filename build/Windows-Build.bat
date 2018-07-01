@@ -119,6 +119,11 @@ exit /b %ERRORLEVEL%
 					if exist "!COMPILER_PATH!/g++.exe" (
 						echo simple-lang:configure:compiler g++ : found
 						echo simple-lang:configure:compiler checking the presence of toolchain : make
+						if exist "!COMPILER_PATH!/make.exe" (
+						
+						) else (
+						
+						)
 					) else (
 					
 					)
