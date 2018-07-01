@@ -459,6 +459,7 @@ if exist "../simple/dist/" (
 	rmdir -f "../simple/dist/"
 )
 
+exit /b
 
-
-REM exit /b
+:uninstall
+	echo unintstalling
