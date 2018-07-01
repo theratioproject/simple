@@ -1149,7 +1149,7 @@ SIMPLE_API void simple_vm_showerrormessage ( VM *vm,const char *cStr )
 					cFile = vm->file_name ;
 				}
 			}
-			printf( "%s",cFile ) ;
+			printf( "%s",file_real_name(cFile) ) ;
 			/* Called From */
 			printf( "\n\tat line %d ",simple_list_getint(list,SIMPLE_BLOCKCL_LINENUMBER) ) ;
 			lBlockCall = 1 ;
