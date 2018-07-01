@@ -1,30 +1,20 @@
-echo off
-cls 
+@echo off
 
-SET EXEC_TYPE="install"
-SET VER="0.3.34"
+echo.going to execute myDosFunc with different arguments
+call:myDosFunc 100 YeePEE
+call:myDosFunc 100 "for me"
+call:myDosFunc 100,"for me"
+call:myDosFunc 100,for me
 
-for %%x in (%*) do (
-	if %%x=="--install" (
-		SET EXEC_TYPE="install"
-	) 
-	if %%x=="-i" (
-		SET EXEC_TYPE="install"
-	)
-	if %%x=="--uninstall" (
-		call:uninstall
-	) 
-	if %%x=="-u" (
-		call:uninstall
-	)
-)
+echo.&pause&goto:eof
 
-:: Functions
 
-:install
-	echo Installation Type : %EXEC_TYPE%
-	exit /b 0
+::--------------------------------------------------------
+::-- Function section starts below here
+::--------------------------------------------------------
 
-:uninstall
-	echo unintstalling
-	exit /b 0
+:myDosFunc    - here starts my function identified by it's label
+echo.
+echo. here the myDosFunc function is executing a group of commands
+echo. it could do %~1 of things %~2.
+goto:eof
