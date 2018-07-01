@@ -122,7 +122,7 @@ exit /b %ERRORLEVEL%
 						if exist "!COMPILER_PATH!/make.exe" (
 							echo simple-lang:configure:compiler make : found
 						) else (
-						
+							call:compilernotfound make
 						)
 					) else (
 					
