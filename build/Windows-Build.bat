@@ -273,7 +273,7 @@ exit /b %ERRORLEVEL%
 		)
 		if %THERE_IS_VS%=="true" (
 			echo yea Visual Studio
-			cl.exe /D_USRDLL /D_WINDLL ../../heloworld.cpp /MT /link /DLL /OUT:../../heloworld.dll
+			cl.exe /D_USRDLL /D_WINDLL ../../helloworld.cpp /MT /link /DLL /OUT:../../helloworld.dll
 		) else (
 			make -f Makefile-Windows.mk
 		)
