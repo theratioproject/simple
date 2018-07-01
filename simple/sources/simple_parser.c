@@ -125,7 +125,7 @@ int simple_parser_nexttoken ( Parser *parser )
 	assert(parser != NULL);
 	if ( parser->ActiveToken < parser->TokensCount ) {
 		parser->ActiveToken++ ;
-		//simple_parser_loadtoken(parser);
+		simple_parser_loadtoken(parser);
 		return 1 ;
 	}
 	return 0 ;
