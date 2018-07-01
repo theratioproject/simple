@@ -681,9 +681,7 @@ exit /b
 		:locatevisualstudio x86
 	) else (
 		echo simple-lang:configure:buildtool found !MVS!
-		if exist "!MVS!\VC\vcvarsall.bat" (
-			echo yea yea
-		)
+		
 	)
 
 	exit /b 0
