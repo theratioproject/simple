@@ -280,6 +280,7 @@ exit /b %ERRORLEVEL%
 		REM move *.lib %~dp0\..\simple\dist
 		if exist "..\simple\dist\simple.lib" (
 			cl.exe /MT /TC %~dp0\..\simple\simple.c %~dp0\..\simple\dist\simple.lib 
+			call:deletetempfiles *.obj *.exp *.cod
 		)
 		exit /b 0
 	) else (
