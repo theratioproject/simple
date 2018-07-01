@@ -237,7 +237,7 @@ exit /b %ERRORLEVEL%
 	echo 	-d --debug	create a distributable version in ..\..\ source directory
 	echo 	-h --help	print this help message"
 	echo Build Tool [FLAGS] :
-	echo 	-h --help	print this help message"
+	echo 	-gcc	print this help message"
 	echo 	-h --help	print this help message"
 	
 	exit /b 0
