@@ -12,7 +12,7 @@ for %%x in (%*) do (
 		SET EXEC_TYPE="configure"
 	) 
 	if "%%x"=="-c" (
-		if %EXEC_TYPE%=="install" (
+		if !EXEC_TYPE!=="install" (
 			SET EXEC_TYPE="install-configure"
 		) else (
 			SET EXEC_TYPE="configure"
