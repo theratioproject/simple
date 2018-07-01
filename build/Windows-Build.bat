@@ -173,6 +173,7 @@ exit /b %ERRORLEVEL%
 		SET PATH=!PATH!;%%x
 	)
 	echo simple-lang:configure:compiler the C/C++ Toolchain directory has been added to PATH
+	echo simple-lang:configure:compiler proceeding build...
 
 	exit /b 
 
