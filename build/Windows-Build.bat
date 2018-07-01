@@ -4,6 +4,10 @@ cls
 SET EXEC_TYPE="install"
 SET VER="0.3.34"
 
+for %%x in (%*) do (
+   echo var %x%
+)
+
 if "%1%"=="" (
     echo Var1 set
 )
