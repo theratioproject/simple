@@ -696,7 +696,7 @@ exit /b
 	if !BUILD_ARC!=="x86" (
 		if exist "!MVS!\VC\vcvarsall.bat" (
 			echo simple-lang:configure:buildtool found !MVS!
-			call:callmsvisualstudio !MVS!\VC\vcvarsall.bat
+			call:callmsvisualstudio "!MVS!\VC\vcvarsall.bat"
 			exit /b 0
 		) else (
 			echo simple-lang:configure:buildtool Microsoft Visual Studio not found
@@ -707,7 +707,7 @@ exit /b
 	) else (
 		if exist "!MVS!\VC\vcvarsall.bat" (
 			echo simple-lang:configure:buildtool found !MVS!
-			call:callmsvisualstudio !MVS!\VC\vcvarsall.bat
+			call:callmsvisualstudio "!MVS!\VC\vcvarsall.bat"
 			exit /b 0
 		) else (
 			echo simple-lang:configure:buildtool resolve to 32 bit
