@@ -17,9 +17,8 @@ call:myDosFunc
 echo.returned from myDosFunc
 	) 
 	if %%x=="-u" (
-		echo.going to execute myDosFunc
-call:myDosFunc
-echo.returned from myDosFunc
+		echo yea it reached
+		call:uninstall
 	)
 )
 
