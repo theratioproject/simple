@@ -276,7 +276,6 @@ exit /b %ERRORLEVEL%
 		mkdir %~dp0\..\simple\dist
 		cl.exe /D_USRDLL /D_WINDLL /TC !SIMPLE_C_FILES! /MT /I %~dp0\..\simple\includes\ /link /DLL /OUT:%~dp0\..\simple\dist\heloworld.dll
 		call:deletetempfiles *.obj *.exp *.cod
-		move *.lib %~dp0\..\simple\dist
 	) else (
 		if exist "../simple/makefiles/Makefile-Windows.mk" (
 			cd "../simple/makefiles"
