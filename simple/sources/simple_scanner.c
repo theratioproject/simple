@@ -93,7 +93,7 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
         if (simple_fexists(file_name)) {
             
         } else {
-            simple_distro_folder(simple_folder);  char __library_path[200]  ;
+            simple_distro_folder(simple_folder); 
             snprintf(__library_path, sizeof(__library_path), "%s/modules/%s", simple_folder,file_name);
             if (simple_fexists(__library_path)) {
                 strcpy(file_name,__library_path);
