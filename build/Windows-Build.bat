@@ -677,6 +677,7 @@ exit /b
 	if "%1"=="x86" (
 		SET "PROGRAMFILESPATH=%ProgramFiles(x86)%"
 	)
+	echo patter %PROGRAMFILESPATH%
 	for /d %%a in ("%PROGRAMFILESPATH%\Microsoft Visual Studio*") do (
 		for /f "tokens=3 delims=\" %%x in ("%%a") do SET THERE_IS_VS="true"  
 		SET MVS=%%a\
@@ -688,7 +689,11 @@ exit /b
 		if exist "!MVS!\VC\vcvarsall.bat" (
 			echo simple-lang:configure:buildtool found !MVS!
 			echo yea yea
-		) 
+		) else (
+			echo simple-lang:configure:buildtool Microsoft Visual Studio not found
+			echo simple-lang:configure:buildtool Looking for 32 bit x86 MS Visual Studio 
+			call:locatevisualstudio x86
+		)
 	) else (
 	
 	)
