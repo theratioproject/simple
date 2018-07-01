@@ -78,7 +78,6 @@ if !EXEC_TYPE!=="configure" (
 if !EXEC_TYPE!=="install" (
 	call:configure
 	call:install
-	:: configure and install for now
 )
 
 
