@@ -146,7 +146,7 @@ exit /b %ERRORLEVEL%
 	
 :setcompilerenv
 	echo simple-lang:configure:compiler adding the directory to PATH for this session
-	echo simple-lang:configure:compiler 
+	echo simple-lang:configure:compiler the environment is available for only this session
 	for %%x in (%*) do (
 		SET PATH=!PATH!;%%x
 	)
