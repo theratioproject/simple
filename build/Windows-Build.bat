@@ -266,7 +266,6 @@ exit /b %ERRORLEVEL%
 	REM BULDING SIMPLE.EXE and SIMPLE.DLL
 	if exist "../simple/makefiles/Makefile-Windows.mk" (
 		cd "../simple/makefiles"
-		echo simple: simple-lang %SIMPLE_DEBUG_VERSION% build 
 		echo simple: building simple.dll and simple.exe
 		if exist "../dist/"  (
 			echo simple: removing previous simple build
