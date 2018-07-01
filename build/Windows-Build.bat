@@ -96,7 +96,9 @@ exit /b %ERRORLEVEL%
 	SET /p GCCVAL=<../../simple_build_configure
 	if "%GCCVAL%"=="gcc: fatal error: no input files" (
 		echo simple-lang:configure:compiler gcc found
-	)	
+	) else (
+	
+	)
 	exit /b 0
 	echo simple-lang:configure serching for mingw and msys
 	if exist "C:\MinGW\msys\1.0\bin\" (
