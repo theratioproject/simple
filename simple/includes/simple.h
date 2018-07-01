@@ -83,7 +83,6 @@
 #include <math.h>
 #include "signal.h"
 #ifdef _WIN32
-#define snprintf _snprintf
 #include "io.h"
 #include "fcntl.h"
 /* Required to get binary data from stdin (to be able to upload and read using cgi) */
