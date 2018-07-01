@@ -80,6 +80,7 @@ if !EXEC_TYPE!=="install" (
 	call:install
 )
 
+	:: configure and install for now
 
 REM echo Installation Type : !EXEC_TYPE!
 REM echo Architecture : %BUILD_ARC%
