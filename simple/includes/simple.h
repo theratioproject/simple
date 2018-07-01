@@ -32,7 +32,9 @@
 #define SIMPLE_BUILDLIB 1
 #ifdef snprintf
 /*
-** Do nothing if snprintf is defined
+**	Do nothing if snprintf is defined
+**	Else define it
+**	Issue with Microsoft Visual Studio
 */
 #else
 #define snprintf _sprintf
