@@ -295,6 +295,8 @@ exit /b %ERRORLEVEL%
 	exit /b 0
 	
 	
+REM simple.exe and simple.dll has been successful create and copy executable to %SIMPLE_DEBUG_VERSION% directory
+
 :copysimpledllexe
 	echo Copying Executable and building %SIMPLE_DEBUG_VERSION%
 	if !EXEC_TYPE!=="install" (
@@ -305,7 +307,6 @@ exit /b %ERRORLEVEL%
 	)
 	exit /b 0
 
-REM simple.exe and simple.dll has been successful create and copy executable to %SIMPLE_DEBUG_VERSION% directory
 	
 
 
