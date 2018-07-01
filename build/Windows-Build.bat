@@ -669,9 +669,12 @@ exit /b
 	echo simple-lang:configure:buildtool Microsoft Visual Studio is specified
 	echo simple-lang:configure:buildtool searching for Microsoft Visual Studio
 	if "%1"=="" (
-		SET PROGRAMFILESPATH=%programfiles%
+		SET PROGRAMFILESPATH=%ProgramFiles(x86)%
 	)
 	if "%1"=="x64" (
+		SET PROGRAMFILESPATH=%programfiles%
+	)
+	if "%1"=="x86" (
 		SET PROGRAMFILESPATH=%ProgramFiles(x86)%
 	)
 	echo the patter %PROGRAMFILESPATH%
