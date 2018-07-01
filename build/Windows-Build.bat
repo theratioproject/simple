@@ -96,6 +96,10 @@ exit /b %ERRORLEVEL%
 			echo simple-lang:configure found CygWIN Build Toolchain
 		) else (
 			echo simple-lang:configure searching for Microsoft Visual Studio
+			for /d %%a in ("%programfiles%\Microsoft Visual Studio*") do (
+			for /f "tokens=3 delims=\" %%x in ("%%a") do echo %%x
+			)
+			pause >nul
 			if exist "" (
 			
 			) else (
