@@ -681,9 +681,9 @@ exit /b
 
 :getsimplecfiles
 	if exist "..\simple\sources\" (
-		SET SIMPLE_C_FILES="..\simple\sources\*.c"
+		SET SIMPLE_C_FILES="%~dp0\..\simple\sources\*.c"
 	) else (
-		SET SIMPLE_C_FILES="none\*.c"
+		SET SIMPLE_C_FILES="%~dp0\none\*.c"
 	)
 	
 	exit /b 0
