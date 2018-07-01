@@ -12,6 +12,7 @@ for %%x in (%*) do (
 
 echo Installation Type : %EXEC_TYPE%
 
+exit /b
 REM if "%1%"=="" (
 REM   echo Var1 set
 REM )
