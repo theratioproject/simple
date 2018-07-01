@@ -1,0 +1,6 @@
+
+block main()
+	one()
+	
+block one()
+	display this is it
