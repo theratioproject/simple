@@ -6,6 +6,7 @@ setlocal enabledelayedexpansion
 SET EXEC_TYPE=""
 SET BUILD_ARC="x86"
 SET VER="0.3.34"
+SET THERE_IS_VS="false"
 
 for %%x in (%*) do (
 	if "%%x"=="--configure" (
