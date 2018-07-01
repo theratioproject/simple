@@ -23,6 +23,7 @@ int accept_token_token( Parser *parser, SCANNER_OPERATOR nType ) {
             parser->nControlStructureBrace++ ;
             return TRUE ;
 	}
+	return FALSE;
 }
 
 int simple_parser_start ( List *pTokens,SimpleState *sState )
