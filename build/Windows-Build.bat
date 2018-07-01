@@ -89,7 +89,7 @@ exit /b %ERRORLEVEL%
 	if exist "C:/MinGW/bin/gccs.exe" (
 		echo simple-lang:configure found MinGW Build Toolchain
 	) else (
-		gcc >nul (
+		gccs >nul (
 		  echo "found"
 		) || (
 		  echo "not found "
