@@ -92,7 +92,7 @@ exit /b %ERRORLEVEL%
 	echo =============================================================
 	echo simple-lang:configure preparing to find build toolchain...
 	echo simple-lang:configure:compiler checking if gcc is present in path
-	gcc 2> ../../simple_build_configure
+	gcc 2> ..\..\simple_build_configure
 	SET /p GCCVAL=<..\..\simple_build_configure
 	if "%GCCVAL%"=="gcc: fatal error: no input files" (
 		echo %~dp0
@@ -101,14 +101,14 @@ exit /b %ERRORLEVEL%
 		echo simple-lang:configure:compiler gcc found
 		echo simple-lang:configure:compiler checking if g++ is present in path
 		g++s 2> ..\..\simple_build_configure
-		SET /p GCCVAL=<../../simple_build_configure
+		SET /p GCCVAL=<..\..\simple_build_configure
 		echo value %GCCVAL% 
 		exit /b 0
 		if "%GCCVAL%"=="g++: fatal error: no input files" (
 			echo simple-lang:configure:compiler g++ found
 			echo simple-lang:configure:compiler checking if make is present in path
-			make 2> ../../simple_build_configure
-			SET /p GCCVAL=<../../simple_build_configure
+			make 2> ..\..\simple_build_configure
+			SET /p GCCVAL=<..\..\simple_build_configure
 			if "%GCCVAL%"=="make: fatal error: no input files" (
 				echo simple-lang:configure:compiler make found
 			) else (
