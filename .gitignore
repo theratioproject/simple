@@ -10,6 +10,9 @@
 *.dylib
 *.o
 *.zip
+*.lib
+*.def
+*.exp
 simple.so
 tasks.json
 .DS_STORE
