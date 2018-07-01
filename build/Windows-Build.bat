@@ -111,6 +111,7 @@ exit /b %ERRORLEVEL%
 				echo error:simple-lang:configure Microsoft Visual Studio not found
 				echo simple-lang:configure please enter your C/C++ toolchain folder
 				SET /p COMPILER_PATH=Enter your C/C++ Toolchain directory : 
+				echo simple-lang:configure your C/C++ Toolchain Directory ~ COMPILER_PATH
 			)
 		)
 	)
