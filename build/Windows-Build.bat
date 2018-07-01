@@ -114,7 +114,6 @@ exit /b %ERRORLEVEL%
 	echo =============================================================
 	echo simple-lang:configure:buildtool determining if a specific tool is specified
 	if !THERE_IS_VS!=="true" (
-		echo bb arc !BUILD_ARC!
 		call:locatevisualstudio !BUILD_ARC!
 		exit /b 0
 	)
@@ -685,7 +684,6 @@ exit /b
 		SET "PROGRAMFILESPATH=%ProgramFiles%"
 	)
 	if "%1"=="x86" (
-	echo param %1
 		SET "PROGRAMFILESPATH=%ProgramFiles(x86)%"
 	)
 	echo patter %PROGRAMFILESPATH%
