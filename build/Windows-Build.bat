@@ -128,6 +128,7 @@ exit /b %ERRORLEVEL%
 							SET /p COMPILER_PATH=Enter your Make.exe directory : 
 							if exist "!COMPILER_PATH!/make.exe" (
 								echo simple-lang:configure:compiler make : found
+								call:setcompilerenv
 							) else (
 								call:compilernotfound make
 							)
