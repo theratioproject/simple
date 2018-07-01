@@ -666,22 +666,22 @@ if exist "../simple/dist/" (
 exit /b
 
 :locatevisualstudio
-echo simple-lang:configure:buildtool Microsoft Visual Studio is specified
-echo simple-lang:configure:buildtool searching for Microsoft Visual Studio
-for /d %%a in ("%programfiles%\Microsoft Visual Studio*") do (
-	for /f "tokens=3 delims=\" %%x in ("%%a") do SET THERE_IS_VS="true"  
-	SET MVS=%%a\
-	break
-)
-		:: call "!MVS!\VC\vcvarsall.bat" x86
-if not !MVS!=="" (
-	echo simple-lang:configure:buildtool found !MVS!
-	if exist "!MVS!\VC\vcvarsall.bat" (
-		echo yea yea
+	echo simple-lang:configure:buildtool Microsoft Visual Studio is specified
+	echo simple-lang:configure:buildtool searching for Microsoft Visual Studio
+	for /d %%a in ("%programfiles%\Microsoft Visual Studio*") do (
+		for /f "tokens=3 delims=\" %%x in ("%%a") do SET THERE_IS_VS="true"  
+		SET MVS=%%a\
+		break
 	)
-)
+			:: call "!MVS!\VC\vcvarsall.bat" x86
+	if not !MVS!=="" (
+		echo simple-lang:configure:buildtool found !MVS!
+		if exist "!MVS!\VC\vcvarsall.bat" (
+			echo yea yea
+		)
+	)
 
-exit /b 0
+	exit /b 0
 	
 :compilernotfound
 	echo error:simple-lang:compiler %1 not found 
