@@ -89,7 +89,7 @@ exit /b %ERRORLEVEL%
 	if exist "C:/MinGW/bin/gccs.exe" (
 		echo simple-lang:configure found MinGW Build Toolchain
 	) else (
-		for /f %%i in ("gcc ^2> nul") do set VAR=%%i
+		for /f %%i in ("gcc232 ^2> nul") do set VAR=%%i
 		ECHO %var%
 		echo nooo
 	)
