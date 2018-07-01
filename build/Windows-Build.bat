@@ -268,11 +268,9 @@ exit /b %ERRORLEVEL%
 			rm -r ../dist/
 		)
 		if %THERE_IS_VS%=="true" (
-			echo !THERE_IS_VS! 
 			echo yea Visual Studio
 		) else (
-			:: make -f Makefile-Windows.mk
-			echo yea gcc
+			make -f Makefile-Windows.mk
 		)
 		cd ../../build
 	) else (
