@@ -19,6 +19,8 @@ simple.so
 tasks.json
 .DS_STORE
 
+build/*.exe
+
 #simple
 simple/nbproject/*
 simple/build/*
