@@ -394,7 +394,7 @@ REM COPY THE INCLUDE DIRECTORY
 REM RESOLVE DEPENDENCIES
 
 :resolvedependencies
-	if !EXEC_TYPE!=="install" (
+	if !EXEC_TYPE!=="debug" (
 	
 	)
 	exit /b 0
