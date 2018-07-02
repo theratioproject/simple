@@ -350,7 +350,7 @@ exit /b %ERRORLEVEL%
 	REM call:copysimpledllexe
 	REM call:copysimpleincludes
 	REM call:resolvedependencies
-	REM call:builddynamicmodules
+	call:builddynamicmodules
 	call:copydynamicmodules
 	
 	if !KEEP_DIST!=="false" (
