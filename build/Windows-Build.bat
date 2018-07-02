@@ -580,7 +580,7 @@ REM BULDING DYNAMIC LIBRARIES
 	if !EXEC_TYPE!=="debug" (
 		if exist "../modules/dynamic_modules/dist/systemic.dll" (
 			echo dynamic_modules: copying dynamic modules to ../../%SIMPLE_DEBUG_VERSION%/modules/dynamic_modules directory
-			cp ../modules/dynamic_modules/dist/*.dll ../../%SIMPLE_DEBUG_VERSION%/modules/dynamic_modules
+			copy ../modules/dynamic_modules/dist/*.dll ../../%SIMPLE_DEBUG_VERSION%/modules/dynamic_modules
 		) else (
 			echo error:dynamic_modules: build fails the dynamic modules cannot be found
 			echo error:dynamic_modules:	try building each module individually 
