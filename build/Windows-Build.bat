@@ -537,36 +537,34 @@ REM BULDING DYNAMIC LIBRARIES
 	if !THERE_IS_VS!=="true" (
 		echo it vs 
 	) else (
-		echo it gcc
+		if exist "../modules" (
+			cd "../modules"
+			echo modules: modules repository detected
+			if exist "./dynamic_modules/makefiles/Makefile-Windows.mk" (
+				cd ./dynamic_modules/makefiles
+				if exist "../dist" (
+					echo dynamic_modules: removing previous dynamic modules build
+					rm -R ../dist/
+				)
+				echo dynamic_modules: build starting...
+				make -f Makefile-Windows.mk
+				cd ../
+			) else (
+				echo error:dynamic_modules directory does not exist
+				echo error:dynamic_modules: the repository appears to be currupted. 
+				echo error:dynamic_modules: try clonning the simple repository again to resolve the issue
+			)
+			cd ../../build
+		) else (
+			echo error:modules: modules directory does not exist
+			echo error:modules: the repository appears to be currupted. 
+			echo error:modules: try clonning the simple repository again to resolve the issue
+		)
 	)
 	
 	exit /b 0
 
 	echo Building Dynamic modules
-	
-if exist "../modules" (
-	cd "../modules"
-	echo modules: modules repository detected
-	if exist "./dynamic_modules/makefiles/Makefile-Windows.mk" (
-		cd ./dynamic_modules/makefiles
-		if exist "../dist" (
-			echo dynamic_modules: removing previous dynamic modules build
-			rm -R ../dist/
-		)
-		echo dynamic_modules: build starting...
-		make -f Makefile-Windows.mk
-		cd ../
-	) else (
-		echo error:dynamic_modules directory does not exist
-		echo error:dynamic_modules: the repository appears to be currupted. 
-		echo error:dynamic_modules: try clonning the simple repository again to resolve the issue
-	)
-	cd ../../build
-) else (
-	echo error:modules: modules directory does not exist
-	echo error:modules: the repository appears to be currupted. 
-	echo error:modules: try clonning the simple repository again to resolve the issue
-)
 
 REM the dynamic libraries has been successful generated now copy them to %SIMPLE_DEBUG_VERSION% directory
 	echo dynamic_modules: copying Dynamic Modules to %SIMPLE_DEBUG_VERSION%
