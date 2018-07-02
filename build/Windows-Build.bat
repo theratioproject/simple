@@ -118,6 +118,11 @@ if !EXEC_TYPE!=="" (
 	SET EXEC_TYPE="install"
 )
 
+if !EXEC_TYPE!=="simple-only" (
+	call:configure
+	call:installdebug
+)
+
 if !EXEC_TYPE!=="install" (
 	call:configure
 	call:installdebug
