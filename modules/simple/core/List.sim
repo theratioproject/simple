@@ -62,7 +62,7 @@ class List : Object
 			@Class List
 			
 		@DataType LIST
-		If list is sent as parameter the the class treat
+		If list is sent as parameter then the class treat
 		the parameter.
 
 		@DataType STRING

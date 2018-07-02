@@ -275,8 +275,8 @@ exit /b %ERRORLEVEL%
 		) 
 	) 
 	call:buildsimpledllexe
-	call:copysimpledllexe
-	call:copysimpleincludes
+	REM call:copysimpledllexe
+	REM call:copysimpleincludes
 	
 	exit /b 0
 
@@ -294,7 +294,7 @@ exit /b %ERRORLEVEL%
 		call:deletetempfiles *.obj *.exp *.cod
 		REM move *.lib %~dp0\..\simple\dist
 		if exist "..\simple\dist\simple.lib" (
-			cl.exe /Fo.\.\ /Fe.\.\ /GA /MT /TC %~dp0\..\simple\simple.c %~dp0\..\simple\dist\simple.lib 
+			cl.exe /GA /MT /TC %~dp0\..\simple\simple.c /link /LIBPATH:%~dp0\..\simple\dist\ simple.lib
 			call:deletetempfiles *.obj *.exp *.cod
 		)
 		exit /b 0

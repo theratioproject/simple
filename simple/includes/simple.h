@@ -113,12 +113,12 @@
 
 /*
 **	Do nothing if snprintf is defined
-**	Else define it
+**	Else define it as _snprintf_s since we dont need return values
 **	Issue with Microsoft Visual Studio
 */
 #ifdef snprintf
 #else
-#define snprintf _snprintf
+#define snprintf(buf,len, format,...) _snprintf_s(buf, len,len, format, __VA_ARGS__)
 #endif
 
 #endif
