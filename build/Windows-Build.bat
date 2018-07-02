@@ -62,6 +62,12 @@ for %%x in (%*) do (
 	if "%%x"=="-u" (
 		call:uninstall
 	)
+	if "%%x"=="--keep" (
+		SET KEEP_DIST="true"
+	) 
+	if "%%x"=="-k" (
+		SET KEEP_DIST="true"
+	)
 	if "%%x"=="--help" (
 		call:help
 		exit /b 0
