@@ -437,6 +437,7 @@ REM COPY THE INCLUDE DIRECTORY
 	if !EXEC_TYPE!=="debug" (
 		if exist "..\simple\includes" (
 			echo includes: copying includes to ..\..\%SIMPLE_DEBUG_VERSION%\ directory
+			call:deletedirectories "..\..\%SIMPLE_DEBUG_VERSION%\includes"
 			xcopy "..\simple\includes" "..\..\%SIMPLE_DEBUG_VERSION%\includes" /s /h /e /i /k /f /c
 		) else (
 			echo error:includes: the includes directory cannot be found
