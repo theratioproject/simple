@@ -128,9 +128,9 @@ if !EXEC_TYPE!=="configure" (
 
 	:: configure and install for now
 
-REM echo Installation Type : !EXEC_TYPE!
-REM echo Architecture : %BUILD_ARC%
 exit /b %ERRORLEVEL%
+
+
 
 :configure
 	echo =============================================================
