@@ -139,8 +139,6 @@ for %%x in (%*) do (
 		SET THERE_IS_VS="false"
 	)
 )
-echo EXEC !EXEC_TYPE!
-exit /b 0
 
 if !EXEC_TYPE!=="" (
 	SET EXEC_TYPE="install"
