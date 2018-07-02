@@ -180,7 +180,7 @@ if !EXEC_TYPE!=="includes-only-install" (
 )
 if !EXEC_TYPE!=="includes-only-debug" (
 	SET EXEC_TYPE="debug"
-	REM call:copysimpleincludes
+	call:copysimpleincludes
 )
 
 	:: configure and install for now
