@@ -100,6 +100,7 @@ for %%x in (%*) do (
 		SET EXEC_TYPE="simple-only"
 	)  
 	if "%%x"=="--simple-only" (
+		if !EXEC_TYPE!=="install" (
 		SET EXEC_TYPE="simple-only"
 	)  
 	if "%%x"=="-do" (
