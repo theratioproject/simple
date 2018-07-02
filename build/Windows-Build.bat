@@ -285,9 +285,7 @@ exit /b %ERRORLEVEL%
 	call:copysimpledllexe
 	call:copysimpleincludes
 	
-	if !KEEP_DIST!=="false" (
-		call:deletedirectories ..\simple\dist ..\modules\dynamic_modules\dist\
-	)
+	
 	
 	exit /b 0
 
