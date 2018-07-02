@@ -888,7 +888,7 @@ exit /b
 	echo 	-vs --visual-studio	build simple with Microsoft Visual Studio
 	echo.
 	echo [STANDALONE BUILD FLAGS]
-	echo 	-so --simple-only	enter a custom folder to install simple-lang
+	echo 	-so --simple-only	build only simple.exe, simplew.exe and simple.dll
 	echo 	-do --dep-only		enter a custom folder to install simple-lang
 	
 	exit /b 0
