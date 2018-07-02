@@ -281,9 +281,10 @@ exit /b %ERRORLEVEL%
 			call:deletedirectories %~dp0\..\..\%SIMPLE_DEBUG_VERSION%\
 		) 
 	) 
-	call:buildsimpledllexe
-	call:copysimpledllexe
-	call:copysimpleincludes
+	REM call:buildsimpledllexe
+	REM call:copysimpledllexe
+	REM call:copysimpleincludes
+	call::resolvedependencies
 	
 	if !KEEP_DIST!=="false" (
 		call:deletedirectories %~dp0\..\simple\dist %~dp0\..\modules\dynamic_modules\dist\
