@@ -550,9 +550,7 @@ REM BULDING DYNAMIC LIBRARIES
 				make -f Makefile-Windows.mk
 				cd ..\
 			) else (
-				echo error:dynamic_modules directory does not exist
-				echo error:dynamic_modules: the repository appears to be currupted. 
-				echo error:dynamic_modules: try clonning the simple repository again to resolve the issue
+				call:repocurrupterror dynamic_modules
 			)
 			cd ..\..\build
 		) else (
