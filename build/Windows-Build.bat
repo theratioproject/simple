@@ -536,7 +536,7 @@ REM BULDING DYNAMIC LIBRARIES
 	)
 	if !THERE_IS_VS!=="true" (
 		echo building archiver dynamic module
-		cl.exe /D_USRDLL /D_WINDLL /TC !DYNAMIC_MODULE_FILES! /MT /I %~dp0\..\simple\includes\ /link /DLL /OUT:%~dp0\..\simple\dist\simple.dll
+		cl.exe /D_USRDLL /D_WINDLL /TC !DYNAMIC_MODULE_FILES! /MT /I !DY_MODULE_INCLUDE_DIR! /link /DLL /OUT:%~dp0\..\simple\dist\simple.dll
 	) else (
 		if exist "..\modules" (
 			cd "..\modules"
