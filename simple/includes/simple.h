@@ -111,4 +111,14 @@
 #include "simple_api.h"
 #include "simple_vmdll.h"
 
+/*
+**	Do nothing if snprintf is defined
+**	Else define it
+**	Issue with Microsoft Visual Studio
+*/
+#ifdef snprintf
+#else
+#define snprintf _snprintf
+#endif
+
 #endif
