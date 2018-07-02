@@ -820,7 +820,7 @@ exit /b
 	
 :deletedirectories
 	for %%x in (%*) do (
-		rmdir /S /Q %~dp0\%%x 2> nul
+		rmdir /S /Q %~dp0\%%x 
 	)
 	
 	exit /b 0
