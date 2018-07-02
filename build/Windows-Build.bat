@@ -130,13 +130,15 @@ if !EXEC_TYPE!=="configure" (
 
 exit /b %ERRORLEVEL%
 
-
-
-:configure
+:header
 	echo =============================================================
 	echo simple-lang:configure: configure build %VERSION%
 	echo =============================================================
 	echo simple-lang:configure:buildtool determining if a specific tool is specified
+	
+	exit /b 0
+
+:configure
 	if !THERE_IS_VS!=="true" (
 		call:locatevisualstudio !BUILD_ARC!
 		exit /b 0
