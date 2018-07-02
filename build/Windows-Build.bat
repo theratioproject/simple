@@ -582,8 +582,7 @@ REM BULDING DYNAMIC LIBRARIES
 			echo dynamic_modules: copying dynamic modules to ../../%SIMPLE_DEBUG_VERSION%/modules/dynamic_modules directory
 			copy ../modules/dynamic_modules/dist/*.dll ../../%SIMPLE_DEBUG_VERSION%/modules/dynamic_modules
 		) else (
-			echo error:dynamic_modules: build fails the dynamic modules cannot be found
-			echo error:dynamic_modules:	try building each module individually 
+			
 		)
 		if exist "..\simple\includes" (
 			echo includes: copying includes to ..\..\%SIMPLE_DEBUG_VERSION%\ directory
@@ -599,6 +598,8 @@ REM BULDING DYNAMIC LIBRARIES
 	exit /b 0
 	
 :dynamicmoduleserror
+	echo error:dynamic_modules: build fails the dynamic modules cannot be found
+	echo error:dynamic_modules:	try building each module individually 
 	
 	exit /b 0
 
