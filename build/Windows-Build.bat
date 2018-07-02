@@ -584,15 +584,6 @@ REM BULDING DYNAMIC LIBRARIES
 		) else (
 			call:dynamicmoduleserror
 		)
-		if exist "..\simple\includes" (
-			echo includes: copying includes to ..\..\%SIMPLE_DEBUG_VERSION%\ directory
-			call:deletedirectories "..\..\%SIMPLE_DEBUG_VERSION%\includes"
-			xcopy "..\simple\includes" "..\..\%SIMPLE_DEBUG_VERSION%\includes" /s /h /e /i /k /f /c
-		) else (
-			echo error:includes: the includes directory cannot be found
-			echo error:includes: the repository appears to be currupted. 
-			echo error:includes: try clonning the simple repository again to resolve the issue
-		)
 	)
 
 	exit /b 0
