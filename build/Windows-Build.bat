@@ -824,9 +824,9 @@ exit /b
 	echo 	-i --install	install simple-lang on your system
 	echo 	-u --uninstall	uninstall simple-lang from your system
 	echo 	-d --debug	create a distributable version in ..\..\ source directory
-	echo 	-p --install-folder	enter a custom folder to install simple-lang
 	echo 	-gcc --gnu	build simple with available GNU toolchain
 	echo 	-vs --visual-studio	build simple with Microsoft Visual Studio
+	echo 	-p --install-folder	enter a custom folder to install simple-lang
 	echo 	x86 --32-bit	build 32 bit version of simple-lang
 	echo 	x64 --64-bit	build 64 bit version of simple-lang
 	echo 	-k --keep	keep the */dist/ folder(s) in source tree
