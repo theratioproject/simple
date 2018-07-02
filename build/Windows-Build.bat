@@ -364,7 +364,7 @@ exit /b %ERRORLEVEL%
 		echo simple: removing previous simple build
 		call:deletedirectories %~dp0\..\simple\dist
 	)
-	if %THERE_IS_VS%=="true" (
+	if !THERE_IS_VS!=="true" (
 		call:getsimplecfiles
 		echo simple-lang:install:visual-studio flies are !SIMPLE_C_FILES!
 		mkdir %~dp0\..\simple\dist
