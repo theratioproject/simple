@@ -405,12 +405,15 @@ REM RESOLVE DEPENDENCIES
 			call:dependencieserror ssleay32.dll
 		)
 	)
+	
 	exit /b 0	
 	
 :dependencieserror
 	echo error:dependencies: the dependency %1 cannot be found 
 	echo error:dependencies: search for %1 for !BUILD_ARC! and download from reliable source
 	echo error:dependencies: manually copy to ..\..\%SIMPLE_DEBUG_VERSION%\bin directory
+	
+	exit /b 0
 
 
 REM libeay32.dll
