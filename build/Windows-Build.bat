@@ -410,9 +410,9 @@ REM RESOLVE DEPENDENCIES
 	exit /b 0	
 	
 :dependencieserror
-	echo error:dependencies: the dependency ssleay32.dll cannot be found 
-	echo error:dependencies: search for ssleay32.dll and download from reliable source
-	echo error:dependencies: manually copy to ..\..\%SIMPLE_DEBUG_VERSION%/bin directory
+	echo error:dependencies: the dependency %1 cannot be found 
+	echo error:dependencies: search for %1 and download from reliable source
+	echo error:dependencies: manually copy to ..\..\%SIMPLE_DEBUG_VERSION%\bin directory
 
 
 REM libeay32.dll
