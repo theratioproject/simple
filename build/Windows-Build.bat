@@ -139,6 +139,7 @@ exit /b %ERRORLEVEL%
 	exit /b 0
 
 :configure
+	
 	if !THERE_IS_VS!=="true" (
 		call:locatevisualstudio !BUILD_ARC!
 		exit /b 0
