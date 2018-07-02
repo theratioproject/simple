@@ -411,7 +411,7 @@ REM RESOLVE DEPENDENCIES
 	
 :dependencieserror
 	echo error:dependencies: the dependency %1 cannot be found 
-	echo error:dependencies: search for %1 and download from reliable source
+	echo error:dependencies: search for %1 for !BUILD_ARC! and download from reliable source
 	echo error:dependencies: manually copy to ..\..\%SIMPLE_DEBUG_VERSION%\bin directory
 
 
