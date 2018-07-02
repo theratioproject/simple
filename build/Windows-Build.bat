@@ -464,20 +464,7 @@ REM RESOLVE DEPENDENCIES
 	echo error:dependencies: search for %1 for !BUILD_ARC! and download from reliable source
 	echo error:dependencies: manually copy to ..\..\%SIMPLE_DEBUG_VERSION%\bin directory
 	
-	exit /b 0
-
-REM libcurl.dll
-	echo dependencies: libcurl.dll
-if exist "../modules/dynamic_modules/networker/lib/libcurl.dll" (
-	echo dependencies: copying libcurl.dll to ../../%SIMPLE_DEBUG_VERSION%/bin directory
-	cp ../modules/dynamic_modules/networker/lib/libcurl.dll ../../%SIMPLE_DEBUG_VERSION%/bin
-) else (
-	echo error:dependencies: the dependency libcurl.dll cannot be found 
-	echo error:dependencies: search for libcurl.dll and download from reliable source
-	echo error:dependencies: manually copy to ../../%SIMPLE_DEBUG_VERSION%/bin directory
-)
-
-	
+	exit /b 0	
 
 REM BULDING DYNAMIC LIBRARIES
 
