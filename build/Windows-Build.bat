@@ -149,7 +149,7 @@ if !EXEC_TYPE!=="install" (
 )
 if !EXEC_TYPE!=="debug" (
 	if !THERE_IS_VS!=="false" (
-		exit /b 0
+		call:configure
 	)
 	
 	call:installdebug
