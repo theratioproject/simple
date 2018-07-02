@@ -433,13 +433,13 @@ REM RESOLVE DEPENDENCIES
 	REM libeay32.dll
 		echo dependencies: libeay32.dll
 	if !BUILD_ARC!=="x64" (
-		if exist "..\modules\dynamic_modules\security\bin\libeay64.dll" (
+		if exist "..\modules\dynamic_modules\networker\lib\libeay64.dll" (
 			call:movedependencytobin libeay64.dll libeay32.dll %~dp0\..\modules\dynamic_modules\networker\lib\
 		) else (
 			call:dependencieserror libeay64.dll
 		)
 	) else (
-		if exist "..\modules\dynamic_modules\security\bin\libeay32.dll" (
+		if exist "..\modules\dynamic_modules\networker\lib\libeay32.dll" (
 			call:movedependencytobin libeay32.dll libeay32.dll %~dp0\..\modules\dynamic_modules\networker\lib\
 		) else (
 			call:dependencieserror libeay32.dll
