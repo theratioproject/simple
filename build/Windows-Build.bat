@@ -591,7 +591,7 @@ REM DYNAMIC MODULE ERROR
 	
 	exit /b 0
 	
-REM MODULE ERROR
+REM CURRUPT REPOSITORY ERROR
 	
 :repocurrupterror
 	echo error:%1: %1 directory does not exist
