@@ -320,7 +320,7 @@ REM simple.exe and simple.dll has been successful create and copy executable to 
 			mkdir "!INSTALLATION_FOLDER!\%VERSION%\bin\"
 		)
 		if exist "../simple/dist/simple.dll" (
-			echo simple: copying simple.exe and simple.dll to ..\..\%SIMPLE_DEBUG_VERSION%\bin directory
+			echo simple: copying simple.exe and simple.dll to !INSTALLATION_FOLDER!\%VERSION%\bin\ directory
 			copy ..\simple\dist\simple* ..\..\%SIMPLE_DEBUG_VERSION%\bin
 		) else (
 			echo error:simple: build fails simple.exe and simple.dll cannot be found
