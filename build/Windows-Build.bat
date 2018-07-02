@@ -351,6 +351,7 @@ exit /b %ERRORLEVEL%
 	REM call:copysimpleincludes
 	REM call:resolvedependencies
 	call:builddynamicmodules
+	call:copydynamicmodules
 	
 	if !KEEP_DIST!=="false" (
 		call:deletedirectories %~dp0\..\simple\dist %~dp0\..\modules\dynamic_modules\dist\
