@@ -162,8 +162,8 @@ if !EXEC_TYPE!=="simple-only-debug" (
 	call:buildsimpledllexe
 	call:copysimpledllexe
 )
-if !EXEC_TYPE!=="includes-only-debug" (
-	SET EXEC_TYPE="debug"
+if !EXEC_TYPE!=="includes-only-install" (
+	SET EXEC_TYPE="install"
 	call:copysimpleincludes
 )
 
