@@ -90,11 +90,13 @@ for %%x in (%*) do (
 		SET /p INSTALLATION_FOLDER=Enter the folder you want to install simple-lang to : 
 	) 
 	if "%%x"=="-so" (
+		call:header install "install simple-lang %VERSION%"
 		call:buildsimpledllexe
 		call:copysimpledllexe
 		exit /b 0
 	)  
 	if "%%x"=="--simple-only" (
+		call:header install "install simple-lang %VERSION%"
 		call:buildsimpledllexe
 		call:copysimpledllexe
 		exit /b 0
@@ -281,9 +283,7 @@ exit /b %ERRORLEVEL%
 		)
 	)
 	if !EXEC_TYPE!=="debug" (
-		echo =============================================================
-		echo simple-lang:install: debug build %SIMPLE_DEBUG_VERSION%
-		echo =============================================================
+		call:header install "debug build %SIMPLE_DEBUG_VERSION%"
 		
 		REM Remove previous build of the current versions
 		if exist "..\..\%SIMPLE_DEBUG_VERSION%\" (
