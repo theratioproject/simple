@@ -535,7 +535,9 @@ REM BULDING DYNAMIC LIBRARIES
 		call:deletedirectories %~dp0\..\modules\dynamic_modules\dist\
 	)
 	if !THERE_IS_VS!=="true" (
-	
+		echo it vs 
+	) else (
+		echo it gcc
 	)
 	
 	exit /b 0
