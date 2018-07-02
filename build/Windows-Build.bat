@@ -353,6 +353,7 @@ REM simple.exe and simple.dll has been successful create and copy executable to 
 	exit /b 0
 	
 :copysimpleincludes
+	echo copying includes directory for developer
 	if !EXEC_TYPE!=="install" (
 	
 	)
@@ -363,7 +364,7 @@ REM simple.exe and simple.dll has been successful create and copy executable to 
 	exit /b 0
 
 REM COPY THE INCLUDE DIRECTORY	
-	echo copying includes directory for developer
+	
 if exist "../simple/includes" (
 	echo includes: copying includes to ../../%SIMPLE_DEBUG_VERSION%/ directory
 	xcopy "../simple/includes" "../../%SIMPLE_DEBUG_VERSION%/includes" /s /h /e /i /k /f /c
