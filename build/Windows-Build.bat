@@ -135,7 +135,7 @@ for %%x in (%*) do (
 	if "%%x"=="-gcc" (
 		SET THERE_IS_VS="false"
 	)
-	if "%%x"=="--visual-studio" (
+	if "%%x"=="--gnu" (
 		SET THERE_IS_VS="false"
 	)
 )
