@@ -104,7 +104,7 @@ ${CND_DISTDIR}/${CND_PLATFORM}/simple.${CND_DEXE_EXT}: ${OBJECTFILES} ${SIMPLEW_
 
 ${OBJECTDIR}/sources/simple_api.o: ../sources/simple_api.c
 	${MKDIR} -p ${OBJECTDIR}/sources
-	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/sources/simple_api.o ../sources/simple_api.c
+	$(COMPILE.c)  -m64 -g  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/sources/simple_api.o ../sources/simple_api.c
 
 ${OBJECTDIR}/sources/simple_codegen.o: ../sources/simple_codegen.c
 	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/sources/simple_codegen.o ../sources/simple_codegen.c
