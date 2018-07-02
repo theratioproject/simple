@@ -162,12 +162,6 @@ if !EXEC_TYPE!=="simple-only-debug" (
 	call:buildsimpledllexe
 	call:copysimpledllexe
 )
-if !EXEC_TYPE!=="includes-only-debug" (
-	SET EXEC_TYPE="debug"
-	call:header debug "debug simple-lang %VERSION%"
-	call:buildsimpledllexe
-	call:copysimpledllexe
-)
 
 	:: configure and install for now
 
