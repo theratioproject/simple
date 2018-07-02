@@ -417,8 +417,9 @@ REM COPY THE INCLUDE DIRECTORY
 REM RESOLVE DEPENDENCIES
 
 :resolvedependencies
+	call:header install 'resolving simple-lang dependencies'
 	echo =============================================================
-	echo simple-lang:install: resolving simple-lang dependencies
+	echo simple-lang:install: 
 	echo =============================================================
 	
 	REM ssleay32.dll
