@@ -422,7 +422,11 @@ REM RESOLVE DEPENDENCIES
 
 :movedependencytobin
 	echo dependencies: copying %1 to ..\..\%SIMPLE_DEBUG_VERSION%\bin directory
-	cp %2 ..\..\%SIMPLE_DEBUG_VERSION%\bin
+	if !EXEC_TYPE!=="debug" (
+		cp %2 ..\..\%SIMPLE_DEBUG_VERSION%\bin
+	)
+	
+	exit /b 0
 	
 :dependencieserror
 	echo error:dependencies: the dependency %1 cannot be found 
