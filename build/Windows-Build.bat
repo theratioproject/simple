@@ -123,13 +123,6 @@ for %%x in (%*) do (
 if !EXEC_TYPE!=="" (
 	SET EXEC_TYPE="install"
 )
-
-if !EXEC_TYPE!=="simple-only-install" (
-	call:header install "install simple-lang %VERSION%"
-	call:buildsimpledllexe
-	call:copysimpledllexe
-)
-
 if !EXEC_TYPE!=="install" (
 	call:configure
 	call:installdebug
