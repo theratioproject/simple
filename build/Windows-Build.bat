@@ -899,6 +899,7 @@ exit /b
 :getdynamicmodulefiles
 	if exist "..\modules\dynamic_modules\" (
 		if %1=="archiver" (
+			SET DYNAMIC_MODULE_INCLUDE="%~dp0\..\modules\dynamic_modules\archiver\*.c"
 			SET DYNAMIC_MODULE_FILES="%~dp0\..\modules\dynamic_modules\archiver\*.c"
 		)
 	) else (
