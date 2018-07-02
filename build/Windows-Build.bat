@@ -278,7 +278,7 @@ exit /b %ERRORLEVEL%
 		if exist "..\..\%SIMPLE_DEBUG_VERSION%\" (
 			echo a previous simple build %SIMPLE_DEBUG_VERSION% is detected
 			echo removing previous build and performing a clean build
-			rmdir /S /Q ..\..\%SIMPLE_DEBUG_VERSION%\
+			call:deletedirectories ..\..\%SIMPLE_DEBUG_VERSION%\
 		) 
 	) 
 	call:buildsimpledllexe
