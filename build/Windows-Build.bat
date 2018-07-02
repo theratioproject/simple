@@ -136,9 +136,7 @@ for %%x in (%*) do (
 		SET THERE_IS_VS="false"
 	)
 	if "%%x"=="--visual-studio" (
-		SET THERE_IS_VS="true"
-		call:header configure "configure build %VERSION%"
-		call:locatevisualstudio !BUILD_ARC!
+		SET THERE_IS_VS="false"
 	)
 )
 
