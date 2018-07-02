@@ -93,10 +93,8 @@ for %%x in (%*) do (
 		SET /p INSTALLATION_FOLDER=Enter the folder you want to install simple-lang to : 
 	) 
 	if "%%x"=="-so" (
-		call:header install "install simple-lang %VERSION%"
-		call:buildsimpledllexe
-		call:copysimpledllexe
-		exit /b 0
+		simple-only
+		
 	)  
 	if "%%x"=="--simple-only" (
 		call:header install "install simple-lang %VERSION%"
