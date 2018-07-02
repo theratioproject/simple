@@ -350,6 +350,7 @@ exit /b %ERRORLEVEL%
 	call:copysimpledllexe
 	call:copysimpleincludes
 	call:resolvedependencies
+	call:builddynamicmodules
 	
 	if !KEEP_DIST!=="false" (
 		call:deletedirectories %~dp0\..\simple\dist %~dp0\..\modules\dynamic_modules\dist\
