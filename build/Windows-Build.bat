@@ -461,6 +461,7 @@ REM RESOLVE DEPENDENCIES
 		copy %3\%1 !INSTALLATION_FOLDER!\%VERSION%\bin\%2
 	)
 	if !EXEC_TYPE!=="debug" (
+		call:confirmfolderelsecreate  "..\..\%SIMPLE_DEBUG_VERSION%\bin\"
 		copy %3\%1 ..\..\%SIMPLE_DEBUG_VERSION%\bin\%2
 	)
 	
