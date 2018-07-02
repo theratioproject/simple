@@ -282,7 +282,7 @@ exit /b %ERRORLEVEL%
 		) 
 	) 
 	REM call:buildsimpledllexe
-	REM call:copysimpledllexe
+	call:copysimpledllexe
 	call:copysimpleincludes
 	call::resolvedependencies
 	
