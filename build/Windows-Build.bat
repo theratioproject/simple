@@ -314,9 +314,9 @@ REM simple.exe and simple.dll has been successful create and copy executable to 
 		echo installation folder !INSTALLATION_FOLDER!\%VERSION%\
 		exit /b 0
 		if exist "!INSTALLATION_FOLDER!\%VERSION%\bin\" (
-			echo simple/bin: the ..\..\%SIMPLE_DEBUG_VERSION%\bin\ directory already exist
+			echo simple/bin: the !INSTALLATION_FOLDER!\%VERSION%\bin\ directory already exist
 		) else (
-			echo simple/bin: creating the ..\..\%SIMPLE_DEBUG_VERSION%\bin\ directory
+			echo simple/bin: creating the !INSTALLATION_FOLDER!\%VERSION%\bin\ directory
 			mkdir "!INSTALLATION_FOLDER!\%VERSION%\bin\"
 		)
 		if exist "../simple/dist/simple.dll" (
