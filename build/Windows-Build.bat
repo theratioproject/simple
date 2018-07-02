@@ -197,7 +197,7 @@ exit /b %ERRORLEVEL%
 :configure
 	call:header configure "configure build %VERSION%"
 	echo simple-lang:configure:buildtool determining if a specific tool is specified
-	echo EXEC !EXEC_TYPE! VS !THERE_IS_VS!
+	echo EXEC !EXEC_TYPE! VS "!THERE_IS_VS!"
 	if "!THERE_IS_VS!"==""true"" (
 		exit /b 0
 	)
