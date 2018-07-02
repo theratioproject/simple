@@ -92,7 +92,7 @@ for %%x in (%*) do (
 	if "%%x"=="-so" (
 		call:help
 		exit /b 0
-	)  
+	)  --simple-only
 )
 
 if !EXEC_TYPE!=="" (
