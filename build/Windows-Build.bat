@@ -123,8 +123,11 @@ for %%x in (%*) do (
 		exit /b 0
 	)  
 	if "%%x"=="--includes-only" (
-		call:resolvedependencies
-		exit /b 0
+		if !EXEC_TYPE!=="install" (
+			SET EXEC_TYPE="simple-only-install"
+		) else (
+			SET EXEC_TYPE="simple-only-debug"
+		)
 	)  
 )
 
