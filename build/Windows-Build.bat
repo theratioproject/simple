@@ -422,6 +422,7 @@ REM RESOLVE DEPENDENCIES
 
 :movedependencytobin
 	
+	
 :dependencieserror
 	echo error:dependencies: the dependency %1 cannot be found 
 	echo error:dependencies: search for %1 for !BUILD_ARC! and download from reliable source
