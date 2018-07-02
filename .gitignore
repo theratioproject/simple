@@ -20,6 +20,7 @@ tasks.json
 .DS_STORE
 
 build/*.exe
+build/*.obj
 
 #simple
 simple/nbproject/*
