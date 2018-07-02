@@ -199,7 +199,6 @@ exit /b %ERRORLEVEL%
 	echo simple-lang:configure:buildtool determining if a specific tool is specified
 	echo EXEC !EXEC_TYPE! VS "!THERE_IS_VS!"
 	if !THERE_IS_VS!=="true" (
-		echo escaped
 		exit /b 0
 	) 
 	echo simple-lang:configure preparing to find build toolchain...
