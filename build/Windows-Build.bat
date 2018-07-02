@@ -103,7 +103,7 @@ for %%x in (%*) do (
 		if !EXEC_TYPE!=="install" (
 			SET EXEC_TYPE="simple-only-install"
 		) else (
-		
+			SET EXEC_TYPE="simple-only-debug"
 		)
 	)  
 	if "%%x"=="-do" (
