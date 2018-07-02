@@ -197,9 +197,6 @@ exit /b %ERRORLEVEL%
 :configure
 	call:header configure "configure build %VERSION%"
 	echo simple-lang:configure:buildtool determining if a specific tool is specified
-	if !THERE_IS_VS!=="true" (
-		exit /b 0
-	)
 	echo simple-lang:configure preparing to find build toolchain...
 	echo simple-lang:configure:compiler checking if gcc is present in path
 	gcc 2> ..\..\simple_build_configure
