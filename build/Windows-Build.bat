@@ -825,10 +825,11 @@ exit /b
 	echo 	-u --uninstall	uninstall simple-lang from your system
 	echo 	-d --debug	create a distributable version in ..\..\ source directory
 	echo 	-p --install-folder	enter a custom folder to install simple-lang
-	echo 	-h --help	print this help message
 	echo 	-gcc --gnu	build simple with available GNU toolchain
 	echo 	-vs --visual-studio	build simple with Microsoft Visual Studio
 	echo 	x86 --32-bit	build 32 bit version of simple-lang
 	echo 	x64 --64-bit	build 64 bit version of simple-lang
+	echo 	-k --keep	keep the */dist/ folder(s) in source tree
+	echo 	-h --help	print this help message
 	
 	exit /b 0
