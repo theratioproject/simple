@@ -402,15 +402,19 @@ REM RESOLVE DEPENDENCIES
 		REM ssleay32.dll
 			echo dependencies: ssleay32.dll
 		if !BUILD_ARC!=="x64" (
-		
+			if exist "..\modules\dynamic_modules\security\bin\ssleay32.dll" (
+				echo dependencies: copying ssleay32.dll to ..\..\%SIMPLE_DEBUG_VERSION%\bin directory
+				cp ..\modules\dynamic_modules\security\bin\ssleay32.dll ..\..\%SIMPLE_DEBUG_VERSION%\bin
+			) else (
+				call:dependencieserror ssleay32.dll
+			)
 		) else (
-		
-		)
-		if exist "..\modules\dynamic_modules\security\bin\ssleay32.dll" (
-			echo dependencies: copying ssleay32.dll to ..\..\%SIMPLE_DEBUG_VERSION%\bin directory
-			cp ..\modules\dynamic_modules\security\bin\ssleay32.dll ..\..\%SIMPLE_DEBUG_VERSION%\bin
-		) else (
-			call:dependencieserror ssleay32.dll
+			if exist "..\modules\dynamic_modules\security\bin\ssleay32.dll" (
+				echo dependencies: copying ssleay32.dll to ..\..\%SIMPLE_DEBUG_VERSION%\bin directory
+				cp ..\modules\dynamic_modules\security\bin\ssleay32.dll ..\..\%SIMPLE_DEBUG_VERSION%\bin
+			) else (
+				call:dependencieserror ssleay32.dll
+			)
 		)
 	)
 	
