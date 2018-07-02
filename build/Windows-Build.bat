@@ -294,7 +294,7 @@ exit /b %ERRORLEVEL%
 		call:deletetempfiles *.obj *.exp *.cod
 		if exist "..\simple\dist\simple.lib" (
 			cl.exe /GA /MT /TC %~dp0\..\simple\simple.c /link /LIBPATH:%~dp0\..\simple\dist\ simple.lib /OUT:%~dp0\..\simple\dist\simple.exe
-			cl.exe /GA /MT /TC %~dp0\..\simple\simplew.c /link /LIBPATH:%~dp0\..\simple\dist\ simple.lib /OUT:%~dp0\..\simple\dist\simple.exe
+			cl.exe /GA /MT /TC %~dp0\..\simple\simplew.c /link /LIBPATH:%~dp0\..\simple\dist\ simple.lib /OUT:%~dp0\..\simple\dist\simplew.exe
 			call:deletetempfiles *.obj *.exp *.cod
 		)
 		exit /b 0
