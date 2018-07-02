@@ -394,6 +394,8 @@ REM RESOLVE DEPENDENCIES
 
 :resolvedependencies
 
+	exit /b 0
+
 
 
 	echo Resolving SIMPLE dependencies
@@ -430,6 +432,8 @@ if exist "../modules/dynamic_modules/networker/lib/libcurl.dll" (
 	echo error:dependencies: search for libcurl.dll and download from reliable source
 	echo error:dependencies: manually copy to ../../%SIMPLE_DEBUG_VERSION%/bin directory
 )
+
+	
 
 REM BULDING DYNAMIC LIBRARIES
 
