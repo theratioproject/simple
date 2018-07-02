@@ -349,7 +349,7 @@ REM SIMPLE.EXE AND SIMPLE.DLL HAS BEEN SUCCESSFUL CREATE AND COPY EXECUTABLE TO 
 :copysimpledllexe
 	echo Copying Executable and building %VERSION% and %SIMPLE_DEBUG_VERSION% 
 	if !EXEC_TYPE!=="install" (
-		echo installation folder !INSTALLATION_FOLDER!\%VERSION%\
+		echo installation folder "!INSTALLATION_FOLDER!\%VERSION%\"
 		call:confirmfolderelsecreate "!INSTALLATION_FOLDER!\%VERSION%\bin\"
 		if exist "../simple/dist/simple.dll" (
 			echo simple: copying simple.exe and simple.dll to !INSTALLATION_FOLDER!\%VERSION%\bin\ directory
@@ -360,12 +360,7 @@ REM SIMPLE.EXE AND SIMPLE.DLL HAS BEEN SUCCESSFUL CREATE AND COPY EXECUTABLE TO 
 		)
 	)
 	if !EXEC_TYPE!=="debug" (
-		if exist "..\..\%SIMPLE_DEBUG_VERSION%\bin\" (
-			echo simple/bin: the ..\..\%SIMPLE_DEBUG_VERSION%\bin\ directory already exist
-		) else (
-			echo simple/bin: creating the ..\..\%SIMPLE_DEBUG_VERSION%\bin\ directory
-			mkdir "..\..\%SIMPLE_DEBUG_VERSION%\bin\"
-		)
+		call:confirmfolderelsecreate "..\..\%SIMPLE_DEBUG_VERSION%\bin\"
 		if exist "../simple/dist/simple.dll" (
 			echo simple: copying simple.exe and simple.dll to ..\..\%SIMPLE_DEBUG_VERSION%\bin directory
 			copy ..\simple\dist\simple* ..\..\%SIMPLE_DEBUG_VERSION%\bin
