@@ -102,15 +102,11 @@ for %%x in (%*) do (
 		exit /b 0
 	)  
 	if "%%x"=="-do" (
-		call:header install "install simple-lang %VERSION%"
-		call:buildsimpledllexe
-		call:copysimpledllexe
+		call:resolvedependencies
 		exit /b 0
 	)  
 	if "%%x"=="--dep-only" (
-		call:header install "install simple-lang %VERSION%"
-		call:buildsimpledllexe
-		call:copysimpledllexe
+		call:resolvedependencies
 		exit /b 0
 	)  
 )
