@@ -201,10 +201,7 @@ exit /b %ERRORLEVEL%
 	if !THERE_IS_VS!=="true" (
 		echo escaped
 		exit /b 0
-	) else (
-		echo now ~!THERE_IS_VS!~
-		exit /b 0
-	)
+	) 
 	echo simple-lang:configure preparing to find build toolchain...
 	echo simple-lang:configure:compiler checking if gcc is present in path
 	gcc 2> ..\..\simple_build_configure
