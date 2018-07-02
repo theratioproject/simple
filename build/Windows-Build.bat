@@ -822,30 +822,3 @@ exit /b
 	echo 	-p --install-folder	enter a custom folder to install simple-lang
 	
 	exit /b 0
-	
-REM COPY THE INCLUDE DIRECTORY	
-	
-:copysimpleincludes
-	echo copying includes directory for developer
-	if !EXEC_TYPE!=="install" (
-		if exist "..\simple\includes" (
-			echo includes: copying includes to !INSTALLATION_FOLDER!\%VERSION%\ directory
-			xcopy "..\simple\includes" "!INSTALLATION_FOLDER!\%VERSION%\includes" /s /h /e /i /k /f /c
-		) else (
-			echo error:includes: the includes directory cannot be found
-			echo error:includes: the repository appears to be currupted. 
-			echo error:includes: try clonning the simple repository again to resolve the issue
-		)
-	)
-	if !EXEC_TYPE!=="debug" (
-		if exist "..\simple\includes" (
-			echo includes: copying includes to ..\..\%SIMPLE_DEBUG_VERSION%\ directory
-			xcopy "..\simple\includes" "..\..\%SIMPLE_DEBUG_VERSION%\includes" /s /h /e /i /k /f /c
-		) else (
-			echo error:includes: the includes directory cannot be found
-			echo error:includes: the repository appears to be currupted. 
-			echo error:includes: try clonning the simple repository again to resolve the issue
-		)
-	)
-	
-	exit /b 0
