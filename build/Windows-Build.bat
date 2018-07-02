@@ -286,7 +286,7 @@ exit /b %ERRORLEVEL%
 	call:copysimpleincludes
 	
 	if !KEEP_DIST!=="false" (
-		call:deletedirectories %~dp0\..\simple\dist %~dp0\..\modules\dynamic_modules\dist\
+		call:deletedirectories ..\simple\dist ..\modules\dynamic_modules\dist\
 	)
 	
 	exit /b 0
