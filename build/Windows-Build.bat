@@ -522,6 +522,8 @@ REM RESOLVE DEPENDENCIES
 	echo error:dependencies: manually copy to ..\..\%SIMPLE_DEBUG_VERSION%\bin directory
 	
 	exit /b 0	
+	
+:builddynamicmodules
 
 REM BULDING DYNAMIC LIBRARIES
 
