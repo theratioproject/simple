@@ -321,7 +321,7 @@ REM simple.exe and simple.dll has been successful create and copy executable to 
 		)
 		if exist "../simple/dist/simple.dll" (
 			echo simple: copying simple.exe and simple.dll to !INSTALLATION_FOLDER!\%VERSION%\bin\ directory
-			copy ..\simple\dist\simple* ..\..\%SIMPLE_DEBUG_VERSION%\bin
+			copy ..\simple\dist\simple* !INSTALLATION_FOLDER!\%VERSION%\bin\
 		) else (
 			echo error:simple: build fails simple.exe and simple.dll cannot be found
 			echo error:simple: try rebuilding individually
