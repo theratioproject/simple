@@ -357,7 +357,7 @@ REM COPY THE INCLUDE DIRECTORY
 :copysimpleincludes
 	echo copying includes directory for developer
 	if !EXEC_TYPE!=="install" (
-		
+		echo developer
 	)
 	if !EXEC_TYPE!=="debug" (
 		if exist "..\simple\includes" (
