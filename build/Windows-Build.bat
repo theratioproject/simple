@@ -430,19 +430,19 @@ REM RESOLVE DEPENDENCIES
 		)
 	)
 	
-	REM libeay32.dll
-		echo dependencies: libeay32.dll
+	REM libcurl.dll
+		echo dependencies: libcurl.dll
 	if !BUILD_ARC!=="x64" (
-		if exist "..\modules\dynamic_modules\networker\lib\libeay64.dll" (
-			call:movedependencytobin libeay64.dll libeay32.dll %~dp0\..\modules\dynamic_modules\networker\lib\
+		if exist "..\modules\dynamic_modules\networker\lib\libcurl64.dll" (
+			call:movedependencytobin libcurl64.dll libcurl.dll %~dp0\..\modules\dynamic_modules\networker\lib\
 		) else (
-			call:dependencieserror libeay64.dll
+			call:dependencieserror libcurl64.dll
 		)
 	) else (
-		if exist "..\modules\dynamic_modules\networker\lib\libeay32.dll" (
-			call:movedependencytobin libeay32.dll libeay32.dll %~dp0\..\modules\dynamic_modules\networker\lib\
+		if exist "..\modules\dynamic_modules\networker\lib\libcurl.dll" (
+			call:movedependencytobin libcurl.dll libcurl.dll %~dp0\..\modules\dynamic_modules\networker\lib\
 		) else (
-			call:dependencieserror libeay32.dll
+			call:dependencieserror libcurl.dll
 		)
 	)
 	
