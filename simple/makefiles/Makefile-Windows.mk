@@ -30,7 +30,7 @@ CXX=g++
 
 # Flags
 CLFLAGS= -lm -ldl
-CCFLAGS= -m64
+CCFLAGS=
 CXXFLAGS=
 
 # Macros
