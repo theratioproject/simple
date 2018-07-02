@@ -398,7 +398,7 @@ REM RESOLVE DEPENDENCIES
 	if !EXEC_TYPE!=="debug" (
 		REM ssleay32.dll
 			echo dependencies: ssleay32.dll
-		if exist "..\modules\dynamic_modules\security\bin\ssleay32.dll" (
+		if exist "..\modules\dynamic_modules\security\bin\ssleay32s.dll" (
 			echo dependencies: copying ssleay32.dll to ..\..\%SIMPLE_DEBUG_VERSION%\bin directory
 			cp ..\modules\dynamic_modules\security\bin\ssleay32.dll ..\..\%SIMPLE_DEBUG_VERSION%\bin
 		) else (
