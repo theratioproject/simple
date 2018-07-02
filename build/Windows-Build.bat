@@ -271,9 +271,7 @@ exit /b %ERRORLEVEL%
 
 :installdebug
 	if !EXEC_TYPE!=="install" (
-		echo =============================================================
-		echo simple-lang:install: install simple-lang %VERSION%
-		echo =============================================================
+		call:header install "install simple-lang %VERSION%"
 		
 		REM Remove previous build of the current versions
 		if exist "!INSTALLATION_FOLDER!\%VERSION%\" (
