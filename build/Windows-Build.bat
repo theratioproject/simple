@@ -408,7 +408,7 @@ REM RESOLVE DEPENDENCIES
 		)
 	) else (
 		if exist "..\modules\dynamic_modules\security\bin\ssleay32.dll" (
-			call:movedependencytobin ssleay32.dll ssleay32.dll %~dp0..\modules\dynamic_modules\security\bin\ssleay32.dll
+			call:movedependencytobin ssleay32.dll ssleay32.dll %~dp0..\modules\dynamic_modules\security\bin\
 		) else (
 			call:dependencieserror ssleay32.dll
 		)
@@ -418,13 +418,13 @@ REM RESOLVE DEPENDENCIES
 		echo dependencies: ssleay32.dll
 	if !BUILD_ARC!=="x64" (
 		if exist "..\modules\dynamic_modules\security\bin\ssleay64.dll" (
-			call:movedependencytobin ssleay64.dll ssleay32.dll %~dp0..\modules\dynamic_modules\security\bin\ssleay64.dll
+			call:movedependencytobin ssleay64.dll ssleay32.dll %~dp0..\modules\dynamic_modules\security\bin\
 		) else (
 			call:dependencieserror ssleay64.dll
 		)
 	) else (
-		if exist "..\modules\dynamic_modules\security\bin\ssleay32.dll" (
-			call:movedependencytobin ssleay32.dll ssleay32.dll %~dp0..\modules\dynamic_modules\security\bin\ssleay32.dll
+		if exist "..\modules\dynamic_modules\security\bin\libeay32.dll" (
+			call:movedependencytobin ssleay32.dll libeay32.dll %~dp0..\modules\dynamic_modules\security\bin\
 		) else (
 			call:dependencieserror ssleay32.dll
 		)
