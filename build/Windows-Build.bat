@@ -118,6 +118,14 @@ for %%x in (%*) do (
 		call:resolvedependencies
 		exit /b 0
 	)  
+	if "%%x"=="-io" (
+		call:resolvedependencies
+		exit /b 0
+	)  
+	if "%%x"=="--includes-only" (
+		call:resolvedependencies
+		exit /b 0
+	)  
 )
 
 if !EXEC_TYPE!=="" (
