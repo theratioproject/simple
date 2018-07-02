@@ -398,22 +398,20 @@ REM RESOLVE DEPENDENCIES
 	echo simple-lang:install: resolving simple-lang dependencies
 	echo =============================================================
 	
-	if !EXEC_TYPE!=="debug" (
-		REM ssleay32.dll
-			echo dependencies: ssleay32.dll
-		if !BUILD_ARC!=="x64" (
-			if exist "..\modules\dynamic_modules\security\bin\ssleay32.dll" (
-				movedependencytobin ssleay32.dll ..\modules\dynamic_modules\security\bin\ssleay32.dll
-			) else (
-				call:dependencieserror ssleay32.dll
-			)
+	REM ssleay32.dll
+		echo dependencies: ssleay32.dll
+	if !BUILD_ARC!=="x64" (
+		if exist "..\modules\dynamic_modules\security\bin\ssleay32.dll" (
+			movedependencytobin ssleay32.dll ..\modules\dynamic_modules\security\bin\ssleay32.dll
 		) else (
-			if exist "..\modules\dynamic_modules\security\bin\ssleay32.dll" (
-				echo dependencies: copying ssleay32.dll to ..\..\%SIMPLE_DEBUG_VERSION%\bin directory
-				cp ..\modules\dynamic_modules\security\bin\ssleay32.dll ..\..\%SIMPLE_DEBUG_VERSION%\bin
-			) else (
-				call:dependencieserror ssleay32.dll
-			)
+			call:dependencieserror ssleay32.dll
+		)
+	) else (
+		if exist "..\modules\dynamic_modules\security\bin\ssleay32.dll" (
+			echo dependencies: copying ssleay32.dll to ..\..\%SIMPLE_DEBUG_VERSION%\bin directory
+			cp ..\modules\dynamic_modules\security\bin\ssleay32.dll ..\..\%SIMPLE_DEBUG_VERSION%\bin
+		) else (
+			call:dependencieserror ssleay32.dll
 		)
 	)
 	
