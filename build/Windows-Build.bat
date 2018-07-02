@@ -887,7 +887,7 @@ exit /b
 	echo 	-gcc --gnu	build simple with available GNU toolchain
 	echo 	-vs --visual-studio	build simple with Microsoft Visual Studio
 	echo [STANDALONE BUILD FLAGS]
-	echo 	-p --install-folder	enter a custom folder to install simple-lang
-	echo 	-p --install-folder	enter a custom folder to install simple-lang
+	echo 	-so --simple-only	enter a custom folder to install simple-lang
+	echo 	-do --dep-only	enter a custom folder to install simple-lang
 	
 	exit /b 0
