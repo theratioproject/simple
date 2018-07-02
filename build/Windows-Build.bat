@@ -283,7 +283,7 @@ exit /b %ERRORLEVEL%
 	) 
 	REM call:buildsimpledllexe
 	REM call:copysimpledllexe
-	call:copysimpleincludes
+	REM call:copysimpleincludes
 	call::resolvedependencies
 	
 	if !KEEP_DIST!=="false" (
