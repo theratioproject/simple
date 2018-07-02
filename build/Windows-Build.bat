@@ -889,6 +889,6 @@ exit /b
 	echo.
 	echo [STANDALONE BUILD FLAGS]
 	echo 	-so --simple-only	enter a custom folder to install simple-lang
-	echo 	-do --dep-only	enter a custom folder to install simple-lang
+	echo 	-do --dep-only		enter a custom folder to install simple-lang
 	
 	exit /b 0
