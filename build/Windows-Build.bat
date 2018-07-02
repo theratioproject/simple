@@ -886,7 +886,7 @@ exit /b
 	echo 	-h --help	print this help message
 	echo 	-gcc --gnu	build simple with available GNU toolchain
 	echo 	-vs --visual-studio	build simple with Microsoft Visual Studio
-	echo .
+	echo.
 	echo [STANDALONE BUILD FLAGS]
 	echo 	-so --simple-only	enter a custom folder to install simple-lang
 	echo 	-do --dep-only	enter a custom folder to install simple-lang
