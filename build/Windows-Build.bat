@@ -119,14 +119,17 @@ for %%x in (%*) do (
 		exit /b 0
 	)  
 	if "%%x"=="-io" (
-		call:resolvedependencies
-		exit /b 0
+		if !EXEC_TYPE!=="install" (
+			SET EXEC_TYPE="includes-only-install"
+		) else (
+			SET EXEC_TYPE="includes-only-debug"
+		)
 	)  
 	if "%%x"=="--includes-only" (
 		if !EXEC_TYPE!=="install" (
-			SET EXEC_TYPE="simple-only-install"
+			SET EXEC_TYPE="includes-only-install"
 		) else (
-			SET EXEC_TYPE="simple-only-debug"
+			SET EXEC_TYPE="includes-only-debug"
 		)
 	)  
 )
