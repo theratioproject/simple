@@ -92,10 +92,12 @@ for %%x in (%*) do (
 	if "%%x"=="-so" (
 		call:buildsimpledllexe
 		call:copysimpledllexe
+		exit /b 0
 	)  
 	if "%%x"=="--simple-only" (
 		call:buildsimpledllexe
 		call:copysimpledllexe
+		exit /b 0
 	)  
 )
 
