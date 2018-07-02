@@ -597,7 +597,7 @@ REM DYNAMIC MODULE ERROR
 	
 REM MODULE ERROR
 	
-:dynamicmoduleserror
+:moduleerror
 	echo error:dynamic_modules: build fails the dynamic modules cannot be found
 	echo error:dynamic_modules:	try building each module individually 
 	
