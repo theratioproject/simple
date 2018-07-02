@@ -117,8 +117,9 @@ if !EXEC_TYPE!=="" (
 )
 
 if !EXEC_TYPE!=="simple-only" (
-	call:configure
-	call:installdebug
+	call:header install "install simple-lang %VERSION%"
+	call:buildsimpledllexe
+	call:copysimpledllexe
 )
 
 if !EXEC_TYPE!=="install" (
