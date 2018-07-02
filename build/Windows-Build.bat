@@ -415,7 +415,7 @@ REM RESOLVE DEPENDENCIES
 	)
 	
 	REM libeay32.dll
-		echo dependencies: ssleay32.dll
+		echo dependencies: libeay32.dll
 	if !BUILD_ARC!=="x64" (
 		if exist "..\modules\dynamic_modules\security\bin\libeay64.dll" (
 			call:movedependencytobin libeay64.dll libeay32.dll %~dp0..\modules\dynamic_modules\security\bin\
