@@ -883,10 +883,10 @@ exit /b
 	
 :confirmfolderelsecreate
 	if exist %1 (
-		echo simple/confirmfolderelsecreate: the !INSTALLATION_FOLDER!\%VERSION%\bin\ directory already exist
+		echo simple/confirmfolderelsecreate: the %1 directory already exist
 	) else (
-		echo simple/bin: creating the !INSTALLATION_FOLDER!\%VERSION%\bin\ directory
-		mkdir "!INSTALLATION_FOLDER!\%VERSION%\bin\"
+		echo simple/bin: creating the % directory
+		mkdir %1
 	)
 
 :help
