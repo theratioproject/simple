@@ -350,12 +350,7 @@ REM SIMPLE.EXE AND SIMPLE.DLL HAS BEEN SUCCESSFUL CREATE AND COPY EXECUTABLE TO 
 	echo Copying Executable and building %VERSION% and %SIMPLE_DEBUG_VERSION% 
 	if !EXEC_TYPE!=="install" (
 		echo installation folder !INSTALLATION_FOLDER!\%VERSION%\
-		if exist "!INSTALLATION_FOLDER!\%VERSION%\bin\" (
-			echo simple/bin: the !INSTALLATION_FOLDER!\%VERSION%\bin\ directory already exist
-		) else (
-			echo simple/bin: creating the !INSTALLATION_FOLDER!\%VERSION%\bin\ directory
-			mkdir "!INSTALLATION_FOLDER!\%VERSION%\bin\"
-		)
+		
 		if exist "../simple/dist/simple.dll" (
 			echo simple: copying simple.exe and simple.dll to !INSTALLATION_FOLDER!\%VERSION%\bin\ directory
 			copy ..\simple\dist\simple* !INSTALLATION_FOLDER!\%VERSION%\bin\
