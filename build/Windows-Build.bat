@@ -418,9 +418,6 @@ REM RESOLVE DEPENDENCIES
 
 :resolvedependencies
 	call:header install 'resolving simple-lang dependencies'
-	echo =============================================================
-	echo simple-lang:install: 
-	echo =============================================================
 	
 	REM ssleay32.dll
 		echo dependencies: ssleay32.dll
