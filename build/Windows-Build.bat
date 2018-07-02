@@ -278,7 +278,7 @@ exit /b %ERRORLEVEL%
 		if exist "..\..\%SIMPLE_DEBUG_VERSION%\" (
 			echo a previous simple build %SIMPLE_DEBUG_VERSION% is detected
 			echo removing previous build and performing a clean build
-			call:deletedirectories ..\..\%SIMPLE_DEBUG_VERSION%\
+			call:deletedirectories %~dp0\..\..\%SIMPLE_DEBUG_VERSION%\
 		) 
 	) 
 	call:buildsimpledllexe
@@ -286,7 +286,7 @@ exit /b %ERRORLEVEL%
 	call:copysimpleincludes
 	
 	if !KEEP_DIST!=="false" (
-		call:deletedirectories ..\simple\dist ..\modules\dynamic_modules\dist\
+		call:deletedirectories %~dp0\..\simple\dist %~dp0\..\modules\dynamic_modules\dist\
 	)
 	
 	exit /b 0
@@ -295,7 +295,7 @@ exit /b %ERRORLEVEL%
 	REM BULDING SIMPLE.EXE and SIMPLE.DLL
 	if exist "%~dp0\..\simple\dist"  (
 		echo simple: removing previous simple build
-		call:deletedirectories ..\simple\dist
+		call:deletedirectories %~dp0\..\simple\dist
 	)
 	if %THERE_IS_VS%=="true" (
 		call:getsimplecfiles
