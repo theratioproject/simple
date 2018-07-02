@@ -405,6 +405,7 @@ REM RESOLVE DEPENDENCIES
 			if exist "..\modules\dynamic_modules\security\bin\ssleay32.dll" (
 				echo dependencies: copying ssleay32.dll to ..\..\%SIMPLE_DEBUG_VERSION%\bin directory
 				cp ..\modules\dynamic_modules\security\bin\ssleay32.dll ..\..\%SIMPLE_DEBUG_VERSION%\bin
+				movedependencytobin
 			) else (
 				call:dependencieserror ssleay32.dll
 			)
