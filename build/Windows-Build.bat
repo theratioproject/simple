@@ -882,8 +882,8 @@ exit /b
 	exit /b 0
 	
 :confirmfolderelsecreate
-	if exist "!INSTALLATION_FOLDER!\%VERSION%\bin\" (
-		echo simple/bin: the !INSTALLATION_FOLDER!\%VERSION%\bin\ directory already exist
+	if exist %1 (
+		echo simple/confirmfolderelsecreate: the !INSTALLATION_FOLDER!\%VERSION%\bin\ directory already exist
 	) else (
 		echo simple/bin: creating the !INSTALLATION_FOLDER!\%VERSION%\bin\ directory
 		mkdir "!INSTALLATION_FOLDER!\%VERSION%\bin\"
