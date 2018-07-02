@@ -587,6 +587,16 @@ REM BULDING DYNAMIC LIBRARIES
 
 	exit /b 0
 	
+REM DYNAMIC MODULE ERROR
+	
+:dynamicmoduleserror
+	echo error:dynamic_modules: build fails the dynamic modules cannot be found
+	echo error:dynamic_modules:	try building each module individually 
+	
+	exit /b 0
+	
+REM MODULE ERROR
+	
 :dynamicmoduleserror
 	echo error:dynamic_modules: build fails the dynamic modules cannot be found
 	echo error:dynamic_modules:	try building each module individually 
