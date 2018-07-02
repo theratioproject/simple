@@ -524,12 +524,12 @@ REM RESOLVE DEPENDENCIES
 	
 	exit /b 0	
 	
+REM BULDING DYNAMIC LIBRARIES
+	
 :builddynamicmodules
 	call:header dynamic_modules "dynamic modules for buiild %VERSION%"
 	
 	exit /b 0
-
-REM BULDING DYNAMIC LIBRARIES
 
 	echo Building Dynamic modules
 	
