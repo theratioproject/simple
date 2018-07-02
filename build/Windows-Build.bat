@@ -869,8 +869,7 @@ exit /b
 		SET "PROGRAMFILESPATH=%ProgramFiles(x86)%"
 	)
 	for /d %%a in ("%PROGRAMFILESPATH%\Microsoft Visual Studio*") do (
-		for /f "tokens=3 delims=\" %%x in ("%%a") do
-		SET MVS=%%a\
+		for /f "tokens=3 delims=\" %%x in ("%%a") do SET MVS=%%a\
 		break
 	)
 	if !BUILD_ARC!=="x86" (
