@@ -595,7 +595,7 @@ REM DYNAMIC MODULE ERROR
 	
 REM MODULE ERROR
 	
-:moduleerror
+:repocurrupterror
 	echo error:modules: modules directory does not exist
 	echo error:modules: the repository appears to be currupted. 
 	echo error:modules: try clonning the simple repository again to resolve the issue
