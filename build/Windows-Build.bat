@@ -166,6 +166,10 @@ if !EXEC_TYPE!=="includes-only-install" (
 	SET EXEC_TYPE="install"
 	call:copysimpleincludes
 )
+if !EXEC_TYPE!=="includes-only-debug" (
+	SET EXEC_TYPE="debug"
+	call:copysimpleincludes
+)
 
 	:: configure and install for now
 
