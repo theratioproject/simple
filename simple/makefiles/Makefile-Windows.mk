@@ -29,8 +29,8 @@ CCC=g++
 CXX=g++
 
 # Flags
-CLFLAGS= -lm -ldl -m64
-CCFLAGS=
+CLFLAGS= -lm -ldl
+CCFLAGS= -m64
 CXXFLAGS=
 
 # Macros
