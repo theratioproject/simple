@@ -390,10 +390,12 @@ REM COPY THE INCLUDE DIRECTORY
 	
 	exit /b 0
 	
+REM RESOLVE DEPENDENCIES
+
 :resolvedependencies
 
 
-REM resolve dependencies
+
 	echo Resolving SIMPLE dependencies
 	
 REM ssleay32.dll
