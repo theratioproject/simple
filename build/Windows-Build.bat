@@ -423,7 +423,7 @@ REM RESOLVE DEPENDENCIES
 :movedependencytobin
 	echo dependencies: copying %1 to ..\..\%SIMPLE_DEBUG_VERSION%\bin directory
 	if !EXEC_TYPE!=="install" (
-		cp %2 ..\..\%SIMPLE_DEBUG_VERSION%\bin
+		cp %2 !INSTALLATION_FOLDER!\%VERSION%\bin\
 	)
 	if !EXEC_TYPE!=="debug" (
 		cp %2 ..\..\%SIMPLE_DEBUG_VERSION%\bin
