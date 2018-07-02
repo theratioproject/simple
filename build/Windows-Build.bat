@@ -402,7 +402,7 @@ REM RESOLVE DEPENDENCIES
 		echo dependencies: ssleay32.dll
 	if !BUILD_ARC!=="x64" (
 		if exist "..\modules\dynamic_modules\security\bin\ssleay64.dll" (
-			call:movedependencytobin ssleay64.dll ssleay32.dll %~dp0..\modules\dynamic_modules\security\bin\ssleay64.dll
+			call:movedependencytobin ssleay64.dll ssleay32.dll %~dp0..\modules\dynamic_modules\security\bin\
 		) else (
 			call:dependencieserror ssleay64.dll
 		)
