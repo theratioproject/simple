@@ -200,7 +200,6 @@ exit /b %ERRORLEVEL%
 	echo EXEC !EXEC_TYPE! VS !THERE_IS_VS!
 	if !THERE_IS_VS!=="true" (
 		exit /b 0
-		echo it escaped
 	)
 	echo simple-lang:configure preparing to find build toolchain...
 	echo simple-lang:configure:compiler checking if gcc is present in path
