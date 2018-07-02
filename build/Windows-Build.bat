@@ -274,8 +274,8 @@ exit /b %ERRORLEVEL%
 			rmdir /S /Q ..\..\%SIMPLE_DEBUG_VERSION%\
 		) 
 	) 
-	REM call:buildsimpledllexe
-	REM call:copysimpledllexe
+	call:buildsimpledllexe
+	call:copysimpledllexe
 	call:copysimpleincludes
 	
 	exit /b 0
@@ -314,7 +314,7 @@ exit /b %ERRORLEVEL%
 	exit /b 0
 	
 	
-REM simple.exe and simple.dll has been successful create and copy executable to %SIMPLE_DEBUG_VERSION% directory
+REM SIMPLE.EXE AND SIMPLE.DLL HAS BEEN SUCCESSFUL CREATE AND COPY EXECUTABLE TO %SIMPLE_DEBUG_VERSION% DIRECTORY
 
 :copysimpledllexe
 	echo Copying Executable and building %VERSION% and %SIMPLE_DEBUG_VERSION% 
