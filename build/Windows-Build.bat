@@ -889,6 +889,6 @@ exit /b
 	echo.
 	echo [STANDALONE BUILD FLAGS]
 	echo 	-so --simple-only	build only simple.exe, simplew.exe and simple.dll
-	echo 	-do --dep-only		enter a custom folder to install simple-lang
+	echo 	-do --dep-only		build only the dependencies
 	
 	exit /b 0
