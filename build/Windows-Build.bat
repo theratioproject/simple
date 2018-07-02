@@ -346,7 +346,7 @@ exit /b %ERRORLEVEL%
 			call:deletedirectories %~dp0\..\..\%SIMPLE_DEBUG_VERSION%\
 		) 
 	) 
-	REM call:buildsimpledllexe
+	call:buildsimpledllexe
 	REM call:copysimpledllexe
 	REM call:copysimpleincludes
 	REM call:resolvedependencies
