@@ -406,12 +406,7 @@ REM RESOLVE DEPENDENCIES
 			echo error:dependencies: manually copy to ../../%SIMPLE_DEBUG_VERSION%/bin directory
 		)
 	)
-	exit /b 0
-
-
-
-	echo Resolving SIMPLE dependencies
-	
+	exit /b 0	
 
 
 REM libeay32.dll
