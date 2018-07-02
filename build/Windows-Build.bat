@@ -80,16 +80,6 @@ for %%x in (%*) do (
 		call:help
 		exit /b 0
 	)
-	if "%%x"=="-vs" (
-		SET THERE_IS_VS="true"
-		call:header configure "configure build %VERSION%"
-		call:locatevisualstudio !BUILD_ARC!
-	)
-	if "%%x"=="--visual-studio" (
-		SET THERE_IS_VS="true"
-		call:header configure "configure build %VERSION%"
-		call:locatevisualstudio !BUILD_ARC!
-	)
 	if "%%x"=="-p" (
 		SET /p INSTALLATION_FOLDER=Enter the folder you want to install simple-lang to : 
 	)
