@@ -402,10 +402,7 @@ REM RESOLVE DEPENDENCIES
 			echo dependencies: copying ssleay32.dll to ..\..\%SIMPLE_DEBUG_VERSION%\bin directory
 			cp ..\modules\dynamic_modules\security\bin\ssleay32.dll ..\..\%SIMPLE_DEBUG_VERSION%\bin
 		) else (
-			call:dependencieserror
-			echo error:dependencies: the dependency ssleay32.dll cannot be found 
-			echo error:dependencies: search for ssleay32.dll and download from reliable source
-			echo error:dependencies: manually copy to ..\..\%SIMPLE_DEBUG_VERSION%/bin directory
+			call:dependencieserror ssleay32.dll
 		)
 	)
 	exit /b 0	
