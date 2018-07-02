@@ -124,7 +124,7 @@ if !EXEC_TYPE!=="" (
 	SET EXEC_TYPE="install"
 )
 
-if !EXEC_TYPE!=="simple-only" (
+if !EXEC_TYPE!=="simple-only-install" (
 	call:header install "install simple-lang %VERSION%"
 	call:buildsimpledllexe
 	call:copysimpledllexe
