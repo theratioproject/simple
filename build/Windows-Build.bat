@@ -101,13 +101,13 @@ for %%x in (%*) do (
 		call:copysimpledllexe
 		exit /b 0
 	)  
-	if "%%x"=="-so" (
+	if "%%x"=="-do" (
 		call:header install "install simple-lang %VERSION%"
 		call:buildsimpledllexe
 		call:copysimpledllexe
 		exit /b 0
 	)  
-	if "%%x"=="--simple-only" (
+	if "%%x"=="--dep-only" (
 		call:header install "install simple-lang %VERSION%"
 		call:buildsimpledllexe
 		call:copysimpledllexe
