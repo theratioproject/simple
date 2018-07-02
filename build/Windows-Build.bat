@@ -582,7 +582,7 @@ REM BULDING DYNAMIC LIBRARIES
 			echo dynamic_modules: copying dynamic modules to ../../%SIMPLE_DEBUG_VERSION%/modules/dynamic_modules directory
 			copy ../modules/dynamic_modules/dist/*.dll ../../%SIMPLE_DEBUG_VERSION%/modules/dynamic_modules
 		) else (
-			
+			call:dynamicmoduleserror
 		)
 		if exist "..\simple\includes" (
 			echo includes: copying includes to ..\..\%SIMPLE_DEBUG_VERSION%\ directory
