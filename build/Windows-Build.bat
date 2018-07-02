@@ -9,6 +9,9 @@ SET VER="0.3.35"
 SET THERE_IS_VS="false"
 SET KEEP_DIST="false"
 SET INSTALLATION_FOLDER="C:\Simple\"
+SET VERSION="s0.3.35"
+SET SIMPLE_DEBUG_VERSION="s0.3.35-debug"
+SET FULLTICK_BUILD_ISSUE="<https://github.com/simple-lang/simple/issues/16>"
 
 for %%x in (%*) do (
 	if "%%x"=="--configure" (
@@ -114,10 +117,6 @@ for %%x in (%*) do (
 if !EXEC_TYPE!=="" (
 	SET EXEC_TYPE="install"
 )
-
-SET VERSION="s0.3.35"
-SET SIMPLE_DEBUG_VERSION="s0.3.35-debug"
-SET FULLTICK_BUILD_ISSUE="<https://github.com/simple-lang/simple/issues/16>"
 
 if !EXEC_TYPE!=="install" (
 	call:configure
