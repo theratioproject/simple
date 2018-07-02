@@ -285,6 +285,10 @@ exit /b %ERRORLEVEL%
 	call:copysimpledllexe
 	call:copysimpleincludes
 	
+	if !KEEP_DIST!=="false" (
+		
+	)
+	
 	exit /b 0
 
 :buildsimpledllexe	
