@@ -133,10 +133,10 @@ for %%x in (%*) do (
 		call:locatevisualstudio !BUILD_ARC!
 	)
 	if "%%x"=="-gcc" (
-		SET THERE_IS_VS="false"
+		SET "THERE_IS_VS="false""
 	)
 	if "%%x"=="--gnu" (
-		SET THERE_IS_VS="false"
+		SET "THERE_IS_VS="false""
 	)
 )
 
