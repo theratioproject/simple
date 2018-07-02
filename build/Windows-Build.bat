@@ -390,6 +390,7 @@ REM COPY THE INCLUDE DIRECTORY
 	
 	exit /b 0
 	
+:resolvedependencies
 
 
 REM resolve dependencies
