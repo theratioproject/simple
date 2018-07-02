@@ -414,7 +414,7 @@ REM RESOLVE DEPENDENCIES
 		)
 	)
 	
-	REM ssleay32.dll
+	REM libeay32.dll
 		echo dependencies: ssleay32.dll
 	if !BUILD_ARC!=="x64" (
 		if exist "..\modules\dynamic_modules\security\bin\ssleay64.dll" (
@@ -449,18 +449,6 @@ REM RESOLVE DEPENDENCIES
 	echo error:dependencies: manually copy to ..\..\%SIMPLE_DEBUG_VERSION%\bin directory
 	
 	exit /b 0
-
-
-REM libeay32.dll
-	echo dependencies: libeay32.dll
-if exist "../modules/dynamic_modules/security/bin/libeay32.dll" (
-	echo dependencies: copying libeay32.dll to ../../%SIMPLE_DEBUG_VERSION%/bin directory
-	cp ../modules/dynamic_modules/security/bin/libeay32.dll ../../%SIMPLE_DEBUG_VERSION%/bin
-) else (
-	echo error:dependencies: the dependency libeay32.dll cannot be found 
-	echo error:dependencies: search for libeay32.dll and download from reliable source
-	echo error:dependencies: manually copy to ../../%SIMPLE_DEBUG_VERSION%/bin directory
-)
 
 REM libcurl.dll
 	echo dependencies: libcurl.dll
