@@ -420,7 +420,7 @@ REM RESOLVE DEPENDENCIES
 	
 	exit /b 0
 
-:movedependencytobin	
+:movedependencytobin
 	
 :dependencieserror
 	echo error:dependencies: the dependency %1 cannot be found 
