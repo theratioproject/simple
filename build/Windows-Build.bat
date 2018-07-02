@@ -565,7 +565,7 @@ REM BULDING DYNAMIC LIBRARIES
 	exit /b 0
 	
 :copydynamicmodules
-	call:header dynamic_modules "copying dynamic_modules to %SIMPLE_DEBUG_VERSION%"
+	call:header dynamic_modules "copying dynamic_modules to %VERSION%"
 
 	exit /b 0
 
