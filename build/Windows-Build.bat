@@ -406,7 +406,7 @@ REM SIMPLE.EXE AND SIMPLE.DLL HAS BEEN SUCCESSFUL CREATE AND COPY EXECUTABLE TO 
 REM COPY THE INCLUDE DIRECTORY	
 	
 :copysimpleincludes
-	echo copying includes directory for developer
+	call:header includes "copying includes directory for developer"
 	if !EXEC_TYPE!=="install" (
 		if exist "..\simple\includes" (
 			echo includes: copying includes to !INSTALLATION_FOLDER!\%VERSION%\ directory
