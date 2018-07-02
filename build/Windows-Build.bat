@@ -568,9 +568,9 @@ REM BULDING DYNAMIC LIBRARIES
 	call:header dynamic_modules "copying dynamic_modules to %VERSION%"
 	if !EXEC_TYPE!=="install" (
 		if exist "..\modules\dynamic_modules\dist\systemic.dll" (
-			echo dynamic_modules: copying dynamic modules to ..\..\%SIMPLE_DEBUG_VERSION%\modules\dynamic_modules directory
-			call:confirmfolderelsecreate "%~dp0\..\..\%SIMPLE_DEBUG_VERSION%\modules\dynamic_modules"
-			copy ..\modules\dynamic_modules\dist\*.dll ..\..\%SIMPLE_DEBUG_VERSION%\modules\dynamic_modules
+			echo dynamic_modules: copying dynamic modules to !INSTALLATION_FOLDER!\%VERSION%\modules\dynamic_modules directory
+			call:confirmfolderelsecreate "!INSTALLATION_FOLDER!\%VERSION%\modules\dynamic_modules"
+			copy ..\modules\dynamic_modules\dist\*.dll !INSTALLATION_FOLDER!\%VERSION%\modules\dynamic_modules
 		) else (
 			call:dynamicmoduleserror
 		)
