@@ -896,6 +896,15 @@ exit /b
 	
 	exit /b 0
 
+:getdynamicmodulefiles
+	if exist "..\simple\sources\" (
+		SET SIMPLE_C_FILES="%~dp0\..\simple\sources\simple_*.c"
+	) else (
+		SET SIMPLE_C_FILES="%~dp0\none\*.c"
+	)
+	
+	exit /b 0
+
 :locatevisualstudio
 	echo simple-lang:configure:buildtool Microsoft Visual Studio is specified
 	echo simple-lang:configure:buildtool searching for Microsoft Visual Studio
