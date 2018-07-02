@@ -363,7 +363,7 @@ REM BULDING SIMPLE.EXE and SIMPLE.DLL
 :buildsimpledllexe	
 	if exist "%~dp0\..\simple\dist"  (
 		echo simple: removing previous simple build
-		call:deletedirectories %~dp0\..\simple\dist
+		REM call:deletedirectories %~dp0\..\simple\dist
 	)
 	if !THERE_IS_VS!=="true" (
 		call:getsimplecfiles
