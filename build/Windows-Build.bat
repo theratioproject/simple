@@ -276,6 +276,7 @@ exit /b %ERRORLEVEL%
 	) 
 	call:buildsimpledllexe
 	call:copysimpledllexe
+	call:copysimpleincludes
 	
 	exit /b 0
 
