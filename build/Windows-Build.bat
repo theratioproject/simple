@@ -796,6 +796,7 @@ exit /b
 	echo 	-i --install	install simple-lang on your system
 	echo 	-u --uninstall	uninstall simple-lang from your system
 	echo 	-d --debug	create a distributable version in ..\..\ source directory
+	echo 	-p --install-folder	enter a custom folder to install simple-lang
 	echo 	-h --help	print this help message
 	echo 	-gcc --gnu	build simple with available GNU toolchain
 	echo 	-vs --visual-studio	build simple with Microsoft Visual Studio
