@@ -101,7 +101,10 @@ for %%x in (%*) do (
 	)  
 	if "%%x"=="--simple-only" (
 		if !EXEC_TYPE!=="install" (
-		SET EXEC_TYPE="simple-only"
+			SET EXEC_TYPE="simple-only-install"
+		) else (
+		
+		)
 	)  
 	if "%%x"=="-do" (
 		call:resolvedependencies
