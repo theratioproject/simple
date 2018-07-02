@@ -440,7 +440,7 @@ REM RESOLVE DEPENDENCIES
 		)
 	) else (
 		if exist "..\modules\dynamic_modules\security\bin\libeay32.dll" (
-			call:movedependencytobin libeay32.dll libeay32.dll %~dp0\..\modules\dynamic_modules\security\bin\
+			call:movedependencytobin libeay32.dll libeay32.dll %~dp0\..\modules\dynamic_modules\networker\lib\
 		) else (
 			call:dependencieserror libeay32.dll
 		)
