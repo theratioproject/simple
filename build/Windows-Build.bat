@@ -283,7 +283,7 @@ exit /b %ERRORLEVEL%
 	) 
 	call:buildsimpledllexe
 	call:copysimpledllexe
-	call:copyincludesfiles
+	call:copysimpleincludes
 	
 	if !KEEP_DIST!=="false" (
 		call:deletedirectories %~dp0\..\simple\dist %~dp0\..\modules\dynamic_modules\dist\
@@ -365,7 +365,7 @@ REM SIMPLE.EXE AND SIMPLE.DLL HAS BEEN SUCCESSFUL CREATE AND COPY EXECUTABLE TO 
 
 REM COPY THE INCLUDE DIRECTORY	
 	
-:copyincludesfiles
+:copysimpleincludes
 	echo copying includes directory for developer
 	if !EXEC_TYPE!=="install" (
 		if exist "..\simple\includes" (
