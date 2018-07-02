@@ -29,7 +29,7 @@ CCC=g++
 CXX=g++
 
 # Flags
-CLFLAGS= -lm -ldl
+CLFLAGS= -lm -ldl -m64
 CCFLAGS=
 CXXFLAGS=
 
