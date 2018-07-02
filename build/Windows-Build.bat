@@ -97,7 +97,11 @@ for %%x in (%*) do (
 		SET /p INSTALLATION_FOLDER=Enter the folder you want to install simple-lang to : 
 	) 
 	if "%%x"=="-so" (
-		SET EXEC_TYPE="simple-only"
+		if !EXEC_TYPE!=="install" (
+			SET EXEC_TYPE="simple-only-install"
+		) else (
+			SET EXEC_TYPE="simple-only-debug"
+		)
 	)  
 	if "%%x"=="--simple-only" (
 		if !EXEC_TYPE!=="install" (
