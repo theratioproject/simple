@@ -96,10 +96,7 @@ for %%x in (%*) do (
 		SET EXEC_TYPE="simple-only"
 	)  
 	if "%%x"=="--simple-only" (
-		call:header install "install simple-lang %VERSION%"
-		call:buildsimpledllexe
-		call:copysimpledllexe
-		exit /b 0
+		SET EXEC_TYPE="simple-only"
 	)  
 	if "%%x"=="-do" (
 		call:resolvedependencies
