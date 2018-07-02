@@ -353,7 +353,12 @@ REM simple.exe and simple.dll has been successful create and copy executable to 
 	exit /b 0
 	
 :copysimpleincludes
+	if !EXEC_TYPE!=="install" (
 	
+	)
+	if !EXEC_TYPE!=="debug" (
+	
+	)
 
 REM COPY THE INCLUDE DIRECTORY	
 	echo copying includes directory for developer
