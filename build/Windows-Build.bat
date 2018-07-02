@@ -358,8 +358,8 @@ REM COPY THE INCLUDE DIRECTORY
 	echo copying includes directory for developer
 	if !EXEC_TYPE!=="install" (
 		if exist "..\simple\includes" (
-			echo includes: copying includes to ..\..\%SIMPLE_DEBUG_VERSION%\ directory
-			xcopy "..\simple\includes" "..\..\%SIMPLE_DEBUG_VERSION%\includes" /s /h /e /i /k /f /c
+			echo includes: copying includes to !INSTALLATION_FOLDER!\%VERSION%\ directory
+			xcopy "..\simple\includes" "!INSTALLATION_FOLDER!\%VERSION%\includes" /s /h /e /i /k /f /c
 		) else (
 			echo error:includes: the includes directory cannot be found
 			echo error:includes: the repository appears to be currupted. 
