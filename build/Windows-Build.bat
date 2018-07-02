@@ -283,6 +283,7 @@ exit /b %ERRORLEVEL%
 	) 
 	call:buildsimpledllexe
 	call:copysimpledllexe
+	call:copysimpleincludes
 	
 	if !KEEP_DIST!=="false" (
 		call:deletedirectories %~dp0\..\simple\dist %~dp0\..\modules\dynamic_modules\dist\
