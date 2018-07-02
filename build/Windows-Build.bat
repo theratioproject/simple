@@ -256,10 +256,10 @@ exit /b %ERRORLEVEL%
 		echo =============================================================
 		
 		REM Remove previous build of the current versions
-		if exist "..\..\%SIMPLE_DEBUG_VERSION%\" (
-			echo a previous simple build %SIMPLE_DEBUG_VERSION% is detected
+		if exist "!INSTALLATION_FOLDER!\%VERSION%\" (
+			echo a previous simple build %VERSION% is detected
 			echo removing previous build and performing a clean build
-			rmdir /S /Q ..\..\%SIMPLE_DEBUG_VERSION%\
+			rmdir /S /Q !INSTALLATION_FOLDER!\%VERSION%\
 		)
 	)
 	if !EXEC_TYPE!=="debug" (
