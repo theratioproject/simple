@@ -198,6 +198,7 @@ exit /b %ERRORLEVEL%
 	call:header configure "configure build %VERSION%"
 	echo simple-lang:configure:buildtool determining if a specific tool is specified
 	if !THERE_IS_VS!=="true" (
+		echo in here again again
 		exit /b 0
 	)
 	echo simple-lang:configure preparing to find build toolchain...
