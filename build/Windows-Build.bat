@@ -900,7 +900,7 @@ exit /b
 	if exist "..\simple\sources\" (
 		SET SIMPLE_C_FILES="%~dp0\..\simple\sources\simple_*.c"
 	) else (
-		SET SIMPLE_C_FILES="%~dp0\none\*.c"
+		call:repocurrupterror dynamic_modules
 	)
 	
 	exit /b 0
