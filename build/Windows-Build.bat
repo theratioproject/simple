@@ -266,7 +266,7 @@ exit /b %ERRORLEVEL%
 		if exist "!INSTALLATION_FOLDER!\%VERSION%\" (
 			echo a previous simple build %VERSION% is detected
 			echo removing previous build and performing a clean build
-			rmdir /S /Q !INSTALLATION_FOLDER!\%VERSION%\
+			call:deletedirectories !INSTALLATION_FOLDER!\%VERSION%\
 		)
 	)
 	if !EXEC_TYPE!=="debug" (
