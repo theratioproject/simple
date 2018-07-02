@@ -530,7 +530,7 @@ REM BULDING DYNAMIC LIBRARIES
 	
 :builddynamicmodules
 	call:header dynamic_modules "dynamic modules for buiild %VERSION%"
-	if exist "%~dp0\..\simple\dist"  (
+	if exist "%~dp0\..\modules\dynamic_modules\dist\"  (
 		echo simple: removing previous simple build
 		call:deletedirectories %~dp0\..\simple\dist
 	)
