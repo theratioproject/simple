@@ -528,6 +528,7 @@ REM BULDING DYNAMIC LIBRARIES
 	
 :builddynamicmodules
 	call:header dynamic_modules "dynamic modules for buiild %VERSION%"
+	if 
 	
 	exit /b 0
 
