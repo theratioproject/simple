@@ -292,7 +292,6 @@ exit /b %ERRORLEVEL%
 		mkdir %~dp0\..\simple\dist
 		cl.exe /D_USRDLL /D_WINDLL /TC !SIMPLE_C_FILES! /MT /I %~dp0\..\simple\includes\ /link /DLL /OUT:%~dp0\..\simple\dist\simple.dll
 		call:deletetempfiles *.obj *.exp *.cod
-		REM move *.lib %~dp0\..\simple\dist
 		if exist "..\simple\dist\simple.lib" (
 			cl.exe /GA /MT /TC %~dp0\..\simple\simple.c /link /LIBPATH:%~dp0\..\simple\dist\ simple.lib /OUT:%~dp0\..\simple\dist\simple.exe
 			call:deletetempfiles *.obj *.exp *.cod
