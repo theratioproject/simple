@@ -274,8 +274,8 @@ exit /b %ERRORLEVEL%
 			rmdir /S /Q ..\..\%SIMPLE_DEBUG_VERSION%\
 		) 
 	) 
-	call:buildsimpledllexe
-	call:copysimpledllexe
+	REM call:buildsimpledllexe
+	REM call:copysimpledllexe
 	call:copysimpleincludes
 	
 	exit /b 0
