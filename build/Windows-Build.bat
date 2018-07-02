@@ -149,10 +149,10 @@ if !EXEC_TYPE!=="install" (
 )
 if !EXEC_TYPE!=="debug" (
 	if !THERE_IS_VS!=="false" (
-		call:configure
-	)
 echo EXEC !EXEC_TYPE!
 exit /b 0
+		call:configure
+	)
 	call:installdebug
 )
 if !EXEC_TYPE!=="install-configure" (
