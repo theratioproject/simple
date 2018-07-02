@@ -567,14 +567,12 @@ REM BULDING DYNAMIC LIBRARIES
 :copydynamicmodules
 	call:header dynamic_modules "copying dynamic_modules to %VERSION%"
 	if !EXEC_TYPE!=="install" (
-		if exist "..\simple\includes" (
-			echo includes: copying includes to !INSTALLATION_FOLDER!\%VERSION%\ directory
-			call:deletedirectories "!INSTALLATION_FOLDER!\%VERSION%\includes"
-			xcopy "..\simple\includes" "!INSTALLATION_FOLDER!\%VERSION%\includes" /s /h /e /i /k /f /c
+		if exist "..\modules\dynamic_modules\dist\systemic.dll" (
+			echo dynamic_modules: copying dynamic modules to ..\..\%SIMPLE_DEBUG_VERSION%\modules\dynamic_modules directory
+			call:confirmfolderelsecreate "%~dp0\..\..\%SIMPLE_DEBUG_VERSION%\modules\dynamic_modules"
+			copy ..\modules\dynamic_modules\dist\*.dll ..\..\%SIMPLE_DEBUG_VERSION%\modules\dynamic_modules
 		) else (
-			echo error:includes: the includes directory cannot be found
-			echo error:includes: the repository appears to be currupted. 
-			echo error:includes: try clonning the simple repository again to resolve the issue
+			call:dynamicmoduleserror
 		)
 	)
 	if !EXEC_TYPE!=="debug" (
