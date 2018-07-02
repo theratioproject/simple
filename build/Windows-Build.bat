@@ -88,7 +88,11 @@ for %%x in (%*) do (
 	)
 	if "%%x"=="--install-folder" (
 		SET /p INSTALLATION_FOLDER=Enter the folder you want to install simple-lang to : 
-	)
+	) 
+	if "%%x"=="-so" (
+		call:help
+		exit /b 0
+	)  
 )
 
 if !EXEC_TYPE!=="" (
