@@ -408,7 +408,7 @@ REM RESOLVE DEPENDENCIES
 		)
 	) else (
 		if exist "..\modules\dynamic_modules\security\bin\ssleay32.dll" (
-			call:movedependencytobin ssleay32.dll %~dp0..\modules\dynamic_modules\security\bin\ssleay32.dll
+			call:movedependencytobin ssleay32.dll ssleay32.dll %~dp0..\modules\dynamic_modules\security\bin\ssleay32.dll
 		) else (
 			call:dependencieserror ssleay32.dll
 		)
