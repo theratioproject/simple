@@ -394,7 +394,10 @@ REM COPY THE INCLUDE DIRECTORY
 REM RESOLVE DEPENDENCIES
 
 :resolvedependencies
-	echo Resolving simple-lang dependencies
+	echo =============================================================
+	echo simple-lang:install: resolving simple-lang dependencies
+	echo =============================================================
+	
 	if !EXEC_TYPE!=="debug" (
 		REM ssleay32.dll
 			echo dependencies: ssleay32.dll
