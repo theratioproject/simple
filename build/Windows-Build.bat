@@ -556,7 +556,7 @@ REM BULDING DYNAMIC LIBRARIES
 			)
 			cd ..\..\build
 		) else (
-			
+			call:repocurrupterror modules
 		)
 	)
 	
