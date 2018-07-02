@@ -132,6 +132,14 @@ for %%x in (%*) do (
 		call:header configure "configure build %VERSION%"
 		call:locatevisualstudio !BUILD_ARC!
 	)
+	if "%%x"=="-gcc" (
+		SET THERE_IS_VS="false"
+	)
+	if "%%x"=="--visual-studio" (
+		SET THERE_IS_VS="true"
+		call:header configure "configure build %VERSION%"
+		call:locatevisualstudio !BUILD_ARC!
+	)
 )
 
 if !EXEC_TYPE!=="" (
