@@ -524,6 +524,7 @@ REM RESOLVE DEPENDENCIES
 	exit /b 0	
 	
 :builddynamicmodules
+	call:header dynamic_modules 
 
 REM BULDING DYNAMIC LIBRARIES
 
