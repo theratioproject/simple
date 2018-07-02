@@ -139,9 +139,18 @@ if !EXEC_TYPE!=="install-configure" (
 if !EXEC_TYPE!=="configure" (
 	call:configure
 )
+
+REM STANDALONE BUILDS
+
 if !EXEC_TYPE!=="simple-only-install" (
 	SET EXEC_TYPE="install"
 	call:header install "install simple-lang %VERSION%"
+	call:buildsimpledllexe
+	call:copysimpledllexe
+)
+if !EXEC_TYPE!=="simple-only-debug" (
+	SET EXEC_TYPE="debug"
+	call:header debug "debug simple-lang %VERSION%"
 	call:buildsimpledllexe
 	call:copysimpledllexe
 )
