@@ -403,7 +403,6 @@ REM RESOLVE DEPENDENCIES
 	if !BUILD_ARC!=="x64" (
 		if exist "..\modules\dynamic_modules\security\bin\ssleay64.dll" (
 			movedependencytobin ssleay64.dll ..\modules\dynamic_modules\security\bin\ssleay64.dll
-			
 		) else (
 			call:dependencieserror ssleay32.dll
 		)
