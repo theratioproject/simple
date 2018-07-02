@@ -426,6 +426,7 @@ REM COPY THE INCLUDE DIRECTORY
 	if !EXEC_TYPE!=="install" (
 		if exist "..\simple\includes" (
 			echo includes: copying includes to !INSTALLATION_FOLDER!\%VERSION%\ directory
+			call:deletedirectories  
 			xcopy "..\simple\includes" "!INSTALLATION_FOLDER!\%VERSION%\includes" /s /h /e /i /k /f /c
 		) else (
 			echo error:includes: the includes directory cannot be found
