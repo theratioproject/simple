@@ -123,6 +123,7 @@ for %%x in (%*) do (
 		)
 	)
 	if "%%x"=="-vs" (
+		SET THERE_IS_VS="true"
 		call:header configure "configure build %VERSION%"
 		call:locatevisualstudio !BUILD_ARC!
 	)
