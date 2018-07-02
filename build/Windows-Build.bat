@@ -739,13 +739,13 @@ REM you can copy it manually
 
 REM CLEANING UP
 if exist "./-p" (
-	rmdir -f "./-p"
+	call:deletedirectories "./-p"
 }
 if exist "../modules/dynamic_modules/dist/" (
-	rmdir -f "../modules/dynamic_modules/dist/"
+	call:deletedirectories "../modules/dynamic_modules/dist/"
 )
 if exist "../simple/dist/" (
-	rmdir -f "../simple/dist/"
+	call:deletedirectories "../simple/dist/"
 )
 
 exit /b
