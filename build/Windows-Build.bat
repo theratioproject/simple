@@ -355,7 +355,7 @@ REM simple.exe and simple.dll has been successful create and copy executable to 
 :copysimpleincludes
 	echo copying includes directory for developer
 	if !EXEC_TYPE!=="install" (
-	
+		
 	)
 	if !EXEC_TYPE!=="debug" (
 	
