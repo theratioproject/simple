@@ -153,7 +153,6 @@ if !EXEC_TYPE!=="debug" (
 	if !THERE_IS_VS!=="false" (
 		call:configure
 	)
-	
 	call:installdebug
 )
 if !EXEC_TYPE!=="install-configure" (
