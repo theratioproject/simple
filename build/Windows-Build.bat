@@ -556,9 +556,7 @@ REM BULDING DYNAMIC LIBRARIES
 			)
 			cd ..\..\build
 		) else (
-			echo error:modules: modules directory does not exist
-			echo error:modules: the repository appears to be currupted. 
-			echo error:modules: try clonning the simple repository again to resolve the issue
+			
 		)
 	)
 	
@@ -598,8 +596,9 @@ REM DYNAMIC MODULE ERROR
 REM MODULE ERROR
 	
 :moduleerror
-	echo error:dynamic_modules: build fails the dynamic modules cannot be found
-	echo error:dynamic_modules:	try building each module individually 
+	echo error:modules: modules directory does not exist
+	echo error:modules: the repository appears to be currupted. 
+	echo error:modules: try clonning the simple repository again to resolve the issue
 	
 	exit /b 0
 
