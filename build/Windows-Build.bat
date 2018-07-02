@@ -349,7 +349,11 @@ REM simple.exe and simple.dll has been successful create and copy executable to 
 			echo error:simple: try rebuilding individually
 		)
 	)
+	
 	exit /b 0
+	
+:copysimpleincludes
+	
 
 REM COPY THE INCLUDE DIRECTORY	
 	echo copying includes directory for developer
