@@ -403,8 +403,7 @@ REM RESOLVE DEPENDENCIES
 			echo dependencies: ssleay32.dll
 		if !BUILD_ARC!=="x64" (
 			if exist "..\modules\dynamic_modules\security\bin\ssleay32.dll" (
-				echo dependencies: copying ssleay32.dll to ..\..\%SIMPLE_DEBUG_VERSION%\bin directory
-				cp ..\modules\dynamic_modules\security\bin\ssleay32.dll ..\..\%SIMPLE_DEBUG_VERSION%\bin
+				
 			) else (
 				call:dependencieserror ssleay32.dll
 			)
@@ -421,7 +420,8 @@ REM RESOLVE DEPENDENCIES
 	exit /b 0
 
 :movedependencytobin
-	
+	echo dependencies: copying ssleay32.dll to ..\..\%SIMPLE_DEBUG_VERSION%\bin directory
+	cp ..\modules\dynamic_modules\security\bin\ssleay32.dll ..\..\%SIMPLE_DEBUG_VERSION%\bin
 	
 :dependencieserror
 	echo error:dependencies: the dependency %1 cannot be found 
