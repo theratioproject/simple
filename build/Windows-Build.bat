@@ -898,7 +898,9 @@ exit /b
 
 :getdynamicmodulefiles
 	if exist "..\modules\dynamic_modules\" (
-		SET SIMPLE_C_FILES="%~dp0\..\simple\sources\simple_*.c"
+		if %1=="archiver" (
+		
+		)
 	) else (
 		call:repocurrupterror dynamic_modules
 	)
