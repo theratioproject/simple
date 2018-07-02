@@ -564,8 +564,6 @@ REM BULDING DYNAMIC LIBRARIES
 	
 	exit /b 0
 
-	echo Building Dynamic modules
-
 REM the dynamic libraries has been successful generated now copy them to %SIMPLE_DEBUG_VERSION% directory
 	echo dynamic_modules: copying Dynamic Modules to %SIMPLE_DEBUG_VERSION%
 if exist "../../%SIMPLE_DEBUG_VERSION%/modules/dynamic_modules" (
