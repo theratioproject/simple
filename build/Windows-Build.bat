@@ -897,7 +897,7 @@ exit /b
 	
 	exit /b 0
 
-:getdynamicmodulefiles
+:getdynamicmodulefiles 
 	if exist "..\modules\dynamic_modules\" (
 		if %1=="fulltick" (
 			SET DY_MODULE_INCLUDE_DIR="%~dp0\..\modules\dynamic_modules\archiver\"
@@ -905,13 +905,6 @@ exit /b
 		) else (
 			SET DY_MODULE_INCLUDE_DIR="%~dp0\..\modules\dynamic_modules\consoler\"
 			SET DY_MODULE_FILES="%~dp0\..\modules\dynamic_modules\consoler\*.c"
-		)
-		if %1=="consoler" (
-			
-		)
-		if %1=="core_dynamic_module" (
-			SET DY_MODULE_INCLUDE_DIR="%~dp0\..\modules\dynamic_modules\core_dynamic_module\"
-			SET DY_MODULE_FILES="%~dp0\..\modules\dynamic_modules\core_dynamic_module\*.c"
 		)
 	) else (
 		call:repocurrupterror dynamic_modules
