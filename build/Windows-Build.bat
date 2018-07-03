@@ -49,7 +49,6 @@ for %%x in (%*) do (
 		SET EXEC_TYPE="debug"
 	)
 	if "%%x"=="x64" (
-		echo yes it is realy here x64
 		SET BUILD_ARC="x64"
 	)
 	if "%%x"=="--64-bit" (
@@ -923,7 +922,6 @@ exit /b
 :locatevisualstudio
 	echo simple-lang:configure:buildtool Microsoft Visual Studio is specified
 	echo simple-lang:configure:buildtool searching for Microsoft Visual Studio
-	echo this is the %1 
 	if "%1"=="" (
 		SET "PROGRAMFILESPATH=%ProgramFiles%"
 	)
