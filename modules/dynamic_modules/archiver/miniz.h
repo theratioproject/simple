@@ -4916,8 +4916,7 @@ void *mz_zip_extract_archive_file_to_heap(const char *pZip_filename, const char 
   mz_zip_reader_end(&zip_archive);
   return p;
 }
-#ifdef __SIMPLE_BUILD
-#else
+#endif
 
 #endif // #ifndef MINIZ_NO_STDIO
 
