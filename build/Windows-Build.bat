@@ -921,6 +921,7 @@ exit /b
 :locatevisualstudio
 	echo simple-lang:configure:buildtool Microsoft Visual Studio is specified
 	echo simple-lang:configure:buildtool searching for Microsoft Visual Studio
+	echo this is the %1 
 	if "%1"=="" (
 		SET "PROGRAMFILESPATH=%ProgramFiles%"
 	)
