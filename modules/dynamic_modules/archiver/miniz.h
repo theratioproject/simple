@@ -1008,10 +1008,14 @@ mz_ulong mz_crc32(mz_ulong crc, const mz_uint8 *ptr, size_t buf_len)
   return ~crcu32;
 }
 
+#ifdef !__SIMPLE_BUILD
+
 void mz_free(void *p)
 {
   MZ_FREE(p);
 }
+
+#endif
 
 #ifndef MINIZ_NO_ZLIB_APIS
 
