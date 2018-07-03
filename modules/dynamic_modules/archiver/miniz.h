@@ -1226,10 +1226,13 @@ int mz_inflateInit2(mz_streamp pStream, int window_bits)
   return MZ_OK;
 }
 
+#ifdef __SIMPLE_BUILD
+#else
 int mz_inflateInit(mz_streamp pStream)
 {
    return mz_inflateInit2(pStream, MZ_DEFAULT_WINDOW_BITS);
 }
+#endif
 
 #ifdef __SIMPLE_BUILD
 #else
