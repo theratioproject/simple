@@ -49,6 +49,7 @@ for %%x in (%*) do (
 		SET EXEC_TYPE="debug"
 	)
 	if "%%x"=="x64" (
+		echo yes it is realy here x64
 		SET BUILD_ARC="x64"
 	)
 	if "%%x"=="--64-bit" (
