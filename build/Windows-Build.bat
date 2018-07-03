@@ -542,6 +542,8 @@ REM BULDING DYNAMIC LIBRARIES
 		call:builddymodule c file_savant
 		call:builddymodule cpp fulltick
 		call:builddymodule c mathic
+		call:builddymodule c networker
+		call:builddymodule c mathic
 		REM call:builddymodule c parser
 		
 		call:confirmfolderelsecreate "..\modules\dynamic_modules\dist\"
