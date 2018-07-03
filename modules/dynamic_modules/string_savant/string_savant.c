@@ -402,7 +402,7 @@ void string_replace ( void *pointer )
 
 void string_last_char ( void *pointer )
 {
-	char *filename
+	char *filename;
 	if ( SIMPLE_API_PARACOUNT != 2 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
 		return ;
