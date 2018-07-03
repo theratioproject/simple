@@ -159,7 +159,6 @@
 
 #ifndef MINIZ_HEADER_INCLUDED
 #define MINIZ_HEADER_INCLUDED
-//#define __SIMPLE_BUILD 0
 
 //#include <stdlib.h>
 
@@ -983,8 +982,6 @@ typedef unsigned char mz_validate_uint64[sizeof(mz_uint64)==8 ? 1 : -1];
 
 // ------------------- zlib-style API's
 
-#ifdef __SIMPLE_BUILD
-#else
 mz_ulong mz_adler32(mz_ulong adler, const unsigned char *ptr, size_t buf_len)
 {
   mz_uint32 i, s1 = (mz_uint32)(adler & 0xffff), s2 = (mz_uint32)(adler >> 16); size_t block_len = buf_len % 5552;
@@ -999,10 +996,7 @@ mz_ulong mz_adler32(mz_ulong adler, const unsigned char *ptr, size_t buf_len)
   }
   return (s2 << 16) + s1;
 }
-#endif
 
-#ifdef __SIMPLE_BUILD
-#else
 // Karl Malbrain's compact CRC-32. See "A compact CCITT crc16 and crc32 C implementation that balances processor cache usage against speed": http://www.geocities.com/malbrain/
 mz_ulong mz_crc32(mz_ulong crc, const mz_uint8 *ptr, size_t buf_len)
 {
@@ -1013,15 +1007,11 @@ mz_ulong mz_crc32(mz_ulong crc, const mz_uint8 *ptr, size_t buf_len)
   crcu32 = ~crcu32; while (buf_len--) { mz_uint8 b = *ptr++; crcu32 = (crcu32 >> 4) ^ s_crc32[(crcu32 & 0xF) ^ (b & 0xF)]; crcu32 = (crcu32 >> 4) ^ s_crc32[(crcu32 & 0xF) ^ (b >> 4)]; }
   return ~crcu32;
 }
-#endif
 
-#ifdef __SIMPLE_BUILD
-#else
 void mz_free(void *p)
 {
   MZ_FREE(p);
 }
-#endif
 
 #ifndef MINIZ_NO_ZLIB_APIS
 
@@ -1029,15 +1019,10 @@ static void *def_alloc_func(void *opaque, size_t items, size_t size) { (void)opa
 static void def_free_func(void *opaque, void *address) { (void)opaque, (void)address; MZ_FREE(address); }
 static void *def_realloc_func(void *opaque, void *address, size_t items, size_t size) { (void)opaque, (void)address, (void)items, (void)size; return MZ_REALLOC(address, items * size); }
 
-#ifdef __SIMPLE_BUILD
-#else
-#ifdef __SIMPLE_BUILD
-#else
 const char *mz_version(void)
 {
   return MZ_VERSION;
 }
-#endif
 
 int mz_deflateInit(mz_streamp pStream, int level)
 {
@@ -1228,16 +1213,11 @@ int mz_inflateInit2(mz_streamp pStream, int window_bits)
   return MZ_OK;
 }
 
-#ifdef __SIMPLE_BUILD
-#else
 int mz_inflateInit(mz_streamp pStream)
 {
    return mz_inflateInit2(pStream, MZ_DEFAULT_WINDOW_BITS);
 }
-#endif
 
-#ifdef __SIMPLE_BUILD
-#else
 int mz_inflate(mz_streamp pStream, int flush)
 {
   inflate_state* pState;
@@ -1328,10 +1308,7 @@ int mz_inflate(mz_streamp pStream, int flush)
 
   return ((status == TINFL_STATUS_DONE) && (!pState->m_dict_avail)) ? MZ_STREAM_END : MZ_OK;
 }
-#endif
 
-#ifdef __SIMPLE_BUILD
-#else
 int mz_inflateEnd(mz_streamp pStream)
 {
   if (!pStream)
@@ -1343,10 +1320,7 @@ int mz_inflateEnd(mz_streamp pStream)
   }
   return MZ_OK;
 }
-#endif
 
-#ifdef __SIMPLE_BUILD
-#else
 int mz_uncompress(unsigned char *pDest, mz_ulong *pDest_len, const unsigned char *pSource, mz_ulong source_len)
 {
   mz_stream stream;
@@ -1375,7 +1349,6 @@ int mz_uncompress(unsigned char *pDest, mz_ulong *pDest_len, const unsigned char
 
   return mz_inflateEnd(&stream);
 }
-#endif
 
 const char *mz_error(int err)
 {
@@ -3057,9 +3030,8 @@ static MZ_FORCEINLINE mz_bool mz_zip_array_ensure_room(mz_zip_archive *pZip, mz_
 
 static MZ_FORCEINLINE mz_bool mz_zip_array_push_back(mz_zip_archive *pZip, mz_zip_array *pArray, const void *pElements, size_t n)
 {
-  size_t orig_size;
   if( 0 == n ) return MZ_TRUE;
-  orig_size = pArray->m_size; if (!mz_zip_array_resize(pZip, pArray, orig_size + n, MZ_TRUE)) return MZ_FALSE;
+  size_t orig_size = pArray->m_size; if (!mz_zip_array_resize(pZip, pArray, orig_size + n, MZ_TRUE)) return MZ_FALSE;
   memcpy((mz_uint8*)pArray->m_p + orig_size * pArray->m_element_size, pElements, n * pArray->m_element_size);
   return MZ_TRUE;
 }
@@ -4916,7 +4888,6 @@ void *mz_zip_extract_archive_file_to_heap(const char *pZip_filename, const char 
   mz_zip_reader_end(&zip_archive);
   return p;
 }
-#endif //end __SIMPLE_BUILD
 
 #endif // #ifndef MINIZ_NO_STDIO
 
