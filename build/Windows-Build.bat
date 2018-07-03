@@ -141,7 +141,9 @@ for %%x in (%*) do (
 	)
 )
 
-if !THERE_IS_VS!
+if !THERE_IS_VS!=="true" (
+
+)
 
 if !EXEC_TYPE!=="" (
 	SET EXEC_TYPE="install"
