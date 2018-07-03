@@ -254,6 +254,7 @@ const char *zip_entry_name_by_index(ZIP_T *zip,int index) {
         return NULL;
     }	
     return info.m_filename ;*/
+	return "errorfornow" ;
 }
 
 
