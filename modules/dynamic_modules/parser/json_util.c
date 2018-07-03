@@ -9,7 +9,7 @@
  *
  */
 
-#include "config.h"
+#include "includes/config.h"
 #undef realloc
 
 #include <stdio.h>
@@ -47,13 +47,13 @@
 #endif
 
 
-#include "bits.h"
-#include "debug.h"
-#include "printbuf.h"
-#include "json_inttypes.h"
-#include "json_object.h"
-#include "json_tokener.h"
-#include "json_util.h"
+#include "includes/bits.h"
+#include "includes/debug.h"
+#include "includes/printbuf.h"
+#include "includes/json_inttypes.h"
+#include "includes/json_object.h"
+#include "includes/json_tokener.h"
+#include "includes/json_util.h"
 
 struct json_object* json_object_from_file(const char *filename)
 {
