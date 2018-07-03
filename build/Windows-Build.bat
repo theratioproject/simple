@@ -571,7 +571,6 @@ REM BULDING DYNAMIC LIBRARIES
 	echo building %2 dynamic module
 	call:getdynamicmodulefiles %1 %2
 	cl.exe /D_USRDLL /D_WINDLL /LD /MT !DY_MODULE_FILES! /link /DLL /LIBPATH:%~dp0\..\simple\dist\ simple.lib 
-	echo cl.exe /D_USRDLL /D_WINDLL /LD /MT !DY_MODULE_FILES! /link /DLL /LIBPATH:%~dp0\..\simple\dist\ simple.lib 
 	call:deletetempfiles *.obj *.exp *.cod
 		
 	exit /b 0
