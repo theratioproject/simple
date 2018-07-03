@@ -922,7 +922,7 @@ exit /b
 	if exist "..\modules\dynamic_modules\" (
 		SET DY_MODULE_INCLUDE_DIR="%~dp0\..\modules\dynamic_modules\%2\"
 		if %1=="parser" (
-			
+			SET DY_MODULE_FILES="%~dp0\..\modules\dynamic_modules\%2\*.%1"
 		) else (
 			SET DY_MODULE_FILES="%~dp0\..\modules\dynamic_modules\%2\*.%1"
 		)
