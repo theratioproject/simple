@@ -2,7 +2,7 @@
 #ifndef _json_inttypes_h_
 #define _json_inttypes_h_
 
-#if defined(_MSC_VER) && _MSC_VER < 1900
+#if defined(_MSC_VER) && _MSC_VER < 1600
 
 /* Anything less than Visual Studio C++ 10 is missing stdint.h and inttypes.h */
 typedef __int64 int64_t;
