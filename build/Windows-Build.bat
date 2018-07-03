@@ -538,7 +538,7 @@ REM BULDING DYNAMIC LIBRARIES
 	if !THERE_IS_VS!=="true" (
 		call:builddymodule c archiver
 		call:builddymodule c consoler
-		call:builddymodule c file_savant
+		call:builddymodule c core_dynamic_module
 		call:builddymodule c file_savant
 		call:builddymodule c mathic
 		REM call:builddymodule c parser
