@@ -299,6 +299,7 @@ int zip_entry_open(struct zip_t *zip, const char *entryname) {
 }
 
 int zip_entry_openbyindex(struct zip_t *zip, int index) {
+	const mz_uint8 *pHeader;
     mz_zip_archive *pZip = NULL;
     if (!zip) {
         // zip_t handler is not initialized
@@ -316,7 +317,7 @@ int zip_entry_openbyindex(struct zip_t *zip, int index) {
         return -1;
     }
 
-    const mz_uint8 *pHeader = &MZ_ZIP_ARRAY_ELEMENT(&pZip->m_pState->m_central_dir, mz_uint8, MZ_ZIP_ARRAY_ELEMENT(&pZip->m_pState->m_central_dir_offsets, mz_uint32, index));
+    pHeader = &MZ_ZIP_ARRAY_ELEMENT(&pZip->m_pState->m_central_dir, mz_uint8, MZ_ZIP_ARRAY_ELEMENT(&pZip->m_pState->m_central_dir_offsets, mz_uint32, index));
     if (!pHeader) {
         // cannot find header in central directory
         return -1;
