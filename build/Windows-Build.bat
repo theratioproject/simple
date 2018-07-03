@@ -540,7 +540,7 @@ REM BULDING DYNAMIC LIBRARIES
 		REM call:builddymodule c consoler
 		call:builddymodule c core_dynamic_module
 		call:builddymodule c file_savant
-		call:builddymodule cpp fulltick
+		REM call:builddymodule cpp fulltick
 		call:builddymodule c mathic
 		call:builddymodule c networker
 		call:builddymodule c parser
