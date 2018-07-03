@@ -54,9 +54,8 @@ typedef union Simple_uData {
 #include <sys/stat.h>
 
 /*
-**	Do nothing if snprintf is defined
-**	Else define it as _snprintf_s since we dont need return values
-**	Issue with Microsoft Visual Studio
+**	Do nothing if S_ISDIR is defined
+**	Else define it Issue with Microsoft Visual Studio
 */
 #ifdef S_ISDIR
 #else
