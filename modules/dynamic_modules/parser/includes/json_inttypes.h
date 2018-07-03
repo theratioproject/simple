@@ -12,7 +12,7 @@ typedef __int64 int64_t;
 #else
 
 #ifdef HAVE_INTTYPES_H
-#include "inttypes.h"
+#include <cinttypes>
 #endif
 /* inttypes.h includes stdint.h */
 
