@@ -1334,6 +1334,8 @@ int mz_inflateEnd(mz_streamp pStream)
   return MZ_OK;
 }
 
+#ifdef __SIMPLE_BUILD
+#else
 int mz_uncompress(unsigned char *pDest, mz_ulong *pDest_len, const unsigned char *pSource, mz_ulong source_len)
 {
   mz_stream stream;
@@ -1362,6 +1364,7 @@ int mz_uncompress(unsigned char *pDest, mz_ulong *pDest_len, const unsigned char
 
   return mz_inflateEnd(&stream);
 }
+#endif
 
 const char *mz_error(int err)
 {
