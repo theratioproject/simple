@@ -21,7 +21,7 @@ extern "C" {
 
 #define _sleep(x) sleep((x))
 
-void init_simple_module ( SimpleState *pSimpleState ) ;
+SIMPLE_API void init_simple_module(SimpleState *sState) ;
 
 void os_ismsdos ( void *pointer ) ;
 
