@@ -393,6 +393,7 @@ REM BULDING SIMPLE.EXE and SIMPLE.DLL
 	
 	exit /b 0
 	
+	
 REM SIMPLE.EXE AND SIMPLE.DLL HAS BEEN SUCCESSFUL CREATE AND COPY EXECUTABLE TO %SIMPLE_DEBUG_VERSION% DIRECTORY
 
 :copysimpledllexe
@@ -536,8 +537,7 @@ REM BULDING DYNAMIC LIBRARIES
 	if !THERE_IS_VS!=="true" (
 		echo building consoler dynamic module
 		call:getdynamicmodulefiles c file_savant
-		cl.exe /D_USRDLL /D_WINDLL /TC !SIMPLE_C_FILES! /MT /I %~dp0\..\simple\includes\ /link /DLL /OUT:%~dp0\..\simple\dist\simple.dll
-		echo cl.exe /D_USRDLL /D_WINDLL !DY_MODULE_FILES! /MT /I !DY_MODULE_INCLUDE_DIR! /link /DLL /OUT:%~dp0\..\modules\dynamic_modules\dist\file_savant.dll
+		cl.exe /D_USRDLL /D_WINDLL /MT !DY_MODULE_FILES! /I !DY_MODULE_INCLUDE_DIR! /link /DLL /LIBPATH:%~dp0\..\simple\dist\ simple.lib /OUT:%~dp0\..\modules\dynamic_modules\dist\file_savant.dll
 	) else (
 		if exist "..\modules" (
 			cd "..\modules"
@@ -560,6 +560,11 @@ REM BULDING DYNAMIC LIBRARIES
 		)
 	)
 	
+	exit /b 0
+	
+:builddymodule
+	
+		
 	exit /b 0
 	
 :copydynamicmodules
