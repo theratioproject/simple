@@ -9,7 +9,6 @@
  */
 
 #include "zip.h"
-#include "miniz.h"
 
 #include <errno.h>
 #include <sys/stat.h>
