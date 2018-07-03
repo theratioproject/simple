@@ -246,7 +246,7 @@ void current_filename ( void *pointer )
         */
         nPos = simple_list_getsize(vm->pBlockCallList)  -  (vm->nBlockExecute2 - 1) ;
         if ( (nPos > 0) && (nPos <= simple_list_getsize(vm->pBlockCallList)) ) {
-            list = (int) simple_list_getlist(vm->nBlockExecute2,nPos);
+            list = simple_list_getlist(vm->nBlockExecute2,nPos);
             if ( simple_list_getsize(list) >= SIMPLE_BLOCKCL_FILENAME ) {
                     SIMPLE_API_RETSTRING((char *) file_real_name(simple_list_getpointer(list,SIMPLE_BLOCKCL_FILENAME )));
             }
