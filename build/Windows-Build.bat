@@ -903,11 +903,11 @@ exit /b
 			SET DY_MODULE_INCLUDE_DIR="%~dp0\..\modules\dynamic_modules\archiver\"
 			SET DY_MODULE_FILES="%~dp0\..\modules\dynamic_modules\archiver\*.c"
 		) else (
-		
-		)
-		if %1=="consoler" (
 			SET DY_MODULE_INCLUDE_DIR="%~dp0\..\modules\dynamic_modules\consoler\"
 			SET DY_MODULE_FILES="%~dp0\..\modules\dynamic_modules\consoler\*.c"
+		)
+		if %1=="consoler" (
+			
 		)
 		if %1=="core_dynamic_module" (
 			SET DY_MODULE_INCLUDE_DIR="%~dp0\..\modules\dynamic_modules\core_dynamic_module\"
