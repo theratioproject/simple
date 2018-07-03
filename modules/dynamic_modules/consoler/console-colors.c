@@ -173,7 +173,6 @@ int cc_fprintf(cc_color_t color, FILE* stream, const char* format, ...) {
         result = Write(stream, format, ap);
         goto finish;
     }
-    
     if (!GetConsoleScreenBufferInfo(console, &csbi)) {
         result = Write(stream, format, ap);
         goto finish;
