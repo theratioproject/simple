@@ -9,7 +9,7 @@
  *
  */
 
-#include "config.h"
+#include "includes/config.h"
 
 #if STDC_HEADERS
 # include <stdlib.h>

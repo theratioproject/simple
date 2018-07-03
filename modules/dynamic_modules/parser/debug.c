@@ -9,7 +9,7 @@
  *
  */
 
-#include "config.h"
+#include "includes/config.h"
 
 #include <stdio.h>
 #include <stdlib.h>
