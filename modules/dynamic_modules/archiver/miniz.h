@@ -1322,6 +1322,8 @@ int mz_inflate(mz_streamp pStream, int flush)
   return ((status == TINFL_STATUS_DONE) && (!pState->m_dict_avail)) ? MZ_STREAM_END : MZ_OK;
 }
 
+#ifdef __SIMPLE_BUILD
+#else
 int mz_inflateEnd(mz_streamp pStream)
 {
   if (!pStream)
@@ -1333,6 +1335,7 @@ int mz_inflateEnd(mz_streamp pStream)
   }
   return MZ_OK;
 }
+#endif
 
 #ifdef __SIMPLE_BUILD
 #else
