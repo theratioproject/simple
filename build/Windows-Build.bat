@@ -535,8 +535,8 @@ REM BULDING DYNAMIC LIBRARIES
 		call:deletedirectories %~dp0\..\modules\dynamic_modules\dist\
 	)
 	if !THERE_IS_VS!=="true" (
-		echo building archiver dynamic module
-		call:getdynamicmodulefiles "archiver"
+		echo building consoler dynamic module
+		call:getdynamicmodulefiles "consoler"
 		cl.exe /D_USRDLL /D_WINDLL /TC !DY_MODULE_FILES! /MT /I !DY_MODULE_INCLUDE_DIR! /link /DLL /OUT:%~dp0\..\modules\dynamic_modules\dist\archiver.dll
 	) else (
 		if exist "..\modules" (
@@ -902,6 +902,10 @@ exit /b
 		if %1=="archiver" (
 			SET DY_MODULE_INCLUDE_DIR="%~dp0\..\modules\dynamic_modules\archiver\"
 			SET DY_MODULE_FILES="%~dp0\..\modules\dynamic_modules\archiver\*.c"
+		)
+		if %1=="consoler" (
+			SET DY_MODULE_INCLUDE_DIR="%~dp0\..\modules\dynamic_modules\consoler\"
+			SET DY_MODULE_FILES="%~dp0\..\modules\dynamic_modules\consoler\*.c"
 		)
 	) else (
 		call:repocurrupterror dynamic_modules
