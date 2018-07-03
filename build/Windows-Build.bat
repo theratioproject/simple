@@ -922,6 +922,9 @@ exit /b
 	if exist "..\modules\dynamic_modules\" (
 		SET DY_MODULE_INCLUDE_DIR="%~dp0\..\modules\dynamic_modules\%2\"
 		SET DY_MODULE_FILES="%~dp0\..\modules\dynamic_modules\%2\*.%1"
+		if %2=parser (
+		
+		)
 	) else (
 		call:repocurrupterror dynamic_modules
 	)
