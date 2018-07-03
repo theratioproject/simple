@@ -542,7 +542,7 @@ REM BULDING DYNAMIC LIBRARIES
 		REM s call:builddymodule c file_savant
 		REM call:builddymodule cpp fulltick
 		REM s call:builddymodule c mathic
-		REM call:builddymodule c networker
+		call:builddymodule c networker
 		REM failed call:builddymodule c parser
 		REM call:builddymodule c security
 		REM s call:builddymodule c string_savant
