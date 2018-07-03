@@ -542,11 +542,11 @@ REM BULDING DYNAMIC LIBRARIES
 		call:builddymodule c file_savant
 		REM call:builddymodule cpp fulltick
 		call:builddymodule c mathic
-		call:builddymodule c networker
-		call:builddymodule c parser
-		call:builddymodule c security
-		call:builddymodule c string_savant
-		call:builddymodule c systemic
+		REM call:builddymodule c networker
+		REM call:builddymodule c parser
+		REM call:builddymodule c security
+		REM call:builddymodule c string_savant
+		REM call:builddymodule c systemic
 		
 		call:confirmfolderelsecreate "..\modules\dynamic_modules\dist\"
 		move *.lib "..\modules\dynamic_modules\dist\"
