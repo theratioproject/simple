@@ -545,7 +545,7 @@ REM BULDING DYNAMIC LIBRARIES
 		REM call:builddymodule c networker
 		REM call:builddymodule c parser
 		REM call:builddymodule c security
-		call:builddymodule c string_savant
+		REM s call:builddymodule c string_savant
 		REM s call:builddymodule c systemic
 		
 		call:confirmfolderelsecreate "..\modules\dynamic_modules\dist\"
