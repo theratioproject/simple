@@ -1031,6 +1031,8 @@ static void *def_realloc_func(void *opaque, void *address, size_t items, size_t 
 
 #ifdef __SIMPLE_BUILD
 #else
+#ifdef __SIMPLE_BUILD
+#else
 const char *mz_version(void)
 {
   return MZ_VERSION;
