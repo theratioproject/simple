@@ -537,7 +537,7 @@ REM BULDING DYNAMIC LIBRARIES
 	if !THERE_IS_VS!=="true" (
 		echo building consoler dynamic module
 		call:getdynamicmodulefiles c file_savant
-		SET CMD=cl.exe /D_USRDLL /D_WINDLL /MT !DY_MODULE_FILES! /I !DY_MODULE_INCLUDE_DIR! /link /DLL /LIBPATH:%~dp0\..\simple\dist\ simple.lib /OUT:%~dp0\..\modules\dynamic_modules\dist\file_savant.dll
+		SET "CMD=cl.exe /D_USRDLL /D_WINDLL /MT !DY_MODULE_FILES! /I !DY_MODULE_INCLUDE_DIR! /link /DLL /LIBPATH:%~dp0\..\simple\dist\ simple.lib /OUT:%~dp0\..\modules\dynamic_modules\dist\file_savant.dll"
 		echo %CMD%
 	) else (
 		if exist "..\modules" (
