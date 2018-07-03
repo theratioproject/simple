@@ -159,6 +159,7 @@
 
 #ifndef MINIZ_HEADER_INCLUDED
 #define MINIZ_HEADER_INCLUDED
+#define __SIMPLE_BUILD 0
 
 //#include <stdlib.h>
 
