@@ -229,7 +229,7 @@ void close_zip_file ( void *pointer )
 }
 
 int zip_files_count(ZIP_T *zip) {
-	/*return mz_zip_reader_get_num_files((mz_zip_archive *) zip);*/
+	return mz_zip_reader_get_num_files((mz_zip_archive *) zip);
 }
 
 
