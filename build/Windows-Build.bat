@@ -543,7 +543,7 @@ REM BULDING DYNAMIC LIBRARIES
 		REM call:builddymodule cpp fulltick
 		REM s call:builddymodule c mathic
 		REM call:builddymodule c networker
-		REM call:builddymodule c parser
+		call:builddymodule c parser
 		REM call:builddymodule c security
 		REM s call:builddymodule c string_savant
 		REM s call:builddymodule c systemic
