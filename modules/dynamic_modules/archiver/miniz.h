@@ -1008,6 +1008,16 @@ mz_ulong mz_crc32(mz_ulong crc, const mz_uint8 *ptr, size_t buf_len)
   return ~crcu32;
 }
 
+#ifdef __SIMPLE_BUILD
+#else
+
+void mz_free(void *p)
+{
+  MZ_FREE(p);
+}
+
+#endif
+
 #ifndef MINIZ_NO_ZLIB_APIS
 
 static void *def_alloc_func(void *opaque, size_t items, size_t size) { (void)opaque, (void)items, (void)size; return MZ_MALLOC(items * size); }
