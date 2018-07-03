@@ -18,7 +18,8 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-    
+#define __SIMPLE_BUILD 0
+
 typedef struct zip_t ZIP_T ;
 
 struct buffer_t {
