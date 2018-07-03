@@ -307,7 +307,7 @@ void extract_zip_entry ( void *pointer )
     cZIPFile = SIMPLE_API_GETSTRING(1);
     cFile    = SIMPLE_API_GETSTRING(2);
 
-    struct zip_t *zip = zip_open(cZIPFile, 0, 'r');
+    zip = zip_open(cZIPFile, 0, 'r');
     {
         zip_entry_open(zip, cFile);
         {
