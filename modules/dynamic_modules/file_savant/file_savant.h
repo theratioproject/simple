@@ -53,6 +53,8 @@ typedef union Simple_uData {
 #include <sys/types.h>
 #include <sys/stat.h>
 
+#define S_ISDIR(m) (((m) & 0170000) == (0040000))
+
 #ifdef __cplusplus
 }
 #endif
