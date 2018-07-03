@@ -537,13 +537,13 @@ REM BULDING DYNAMIC LIBRARIES
 	)
 	if !THERE_IS_VS!=="true" (
 		REM call:builddymodule c archiver
-		REM call:builddymodule c consoler
+		call:builddymodule c consoler
 		REM s call:builddymodule c core_dynamic_module
 		REM s call:builddymodule c file_savant
 		REM call:builddymodule cpp fulltick
 		REM s call:builddymodule c mathic
 		REM call:builddymodule c networker
-		REM f call:builddymodule c parser
+		REM failed call:builddymodule c parser
 		REM call:builddymodule c security
 		REM s call:builddymodule c string_savant
 		REM s call:builddymodule c systemic
