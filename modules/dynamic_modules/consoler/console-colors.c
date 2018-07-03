@@ -153,6 +153,7 @@ int cc_fprintf(cc_color_t color, FILE* stream, const char* format, ...) {
     va_list ap;
 #ifdef _WIN32
     HANDLE console;
+	CONSOLE_SCREEN_BUFFER_INFO csbi;
 #endif  /* _WIN32 */
 
     va_start(ap, format);
@@ -172,6 +173,7 @@ int cc_fprintf(cc_color_t color, FILE* stream, const char* format, ...) {
         result = Write(stream, format, ap);
         goto finish;
     }
+    
     if (!GetConsoleScreenBufferInfo(console, &csbi)) {
         result = Write(stream, format, ap);
         goto finish;
