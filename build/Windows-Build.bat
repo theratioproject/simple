@@ -537,7 +537,7 @@ REM BULDING DYNAMIC LIBRARIES
 	)
 	if !THERE_IS_VS!=="true" (
 		REM call:builddymodule c archiver
-		call:builddymodule c consoler
+		REM s call:builddymodule c consoler
 		REM s call:builddymodule c core_dynamic_module
 		REM s call:builddymodule c file_savant
 		REM call:builddymodule cpp fulltick
