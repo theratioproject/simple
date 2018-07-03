@@ -897,12 +897,10 @@ exit /b
 	
 	exit /b 0
 
-:getdynamicmodulefiles
+:getdynamicmodulefiles 
 	if exist "..\modules\dynamic_modules\" (
-		if %1=="archiver" (
-			SET DY_MODULE_INCLUDE_DIR="%~dp0\..\modules\dynamic_modules\archiver\"
-			SET DY_MODULE_FILES="%~dp0\..\modules\dynamic_modules\archiver\*.c"
-		)
+		SET DY_MODULE_INCLUDE_DIR="%~dp0\..\modules\dynamic_modules\%2\"
+		SET DY_MODULE_FILES="%~dp0\..\modules\dynamic_modules\%2\*.%1"
 	) else (
 		call:repocurrupterror dynamic_modules
 	)
