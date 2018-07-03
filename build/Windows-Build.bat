@@ -899,7 +899,7 @@ exit /b
 
 :getdynamicmodulefiles 
 	if exist "..\modules\dynamic_modules\" (
-		if %1=="fulltick" (
+		if %1=="c" (
 			SET DY_MODULE_INCLUDE_DIR="%~dp0\..\modules\dynamic_modules\archiver\"
 			SET DY_MODULE_FILES="%~dp0\..\modules\dynamic_modules\archiver\*.c"
 		) else (
