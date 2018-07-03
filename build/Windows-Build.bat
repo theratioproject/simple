@@ -921,8 +921,7 @@ exit /b
 :getdynamicmodulefiles 
 	if exist "..\modules\dynamic_modules\" (
 		SET DY_MODULE_INCLUDE_DIR="%~dp0\..\modules\dynamic_modules\%2\"
-		echo %1
-		if %1=="parser" (
+		if %2=="parser" (
 			SET DY_MODULE_FILES="%~dp0\..\modules\dynamic_modules\%2\includes\*.%1"
 		) else (
 			SET DY_MODULE_FILES="%~dp0\..\modules\dynamic_modules\%2\*.%1"
