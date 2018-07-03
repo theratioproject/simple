@@ -301,6 +301,7 @@ int zip_entry_open(struct zip_t *zip, const char *entryname) {
 int zip_entry_openbyindex(struct zip_t *zip, int index) {
 	const mz_uint8 *pHeader;
 	mz_uint namelen;
+	const char *pFilename;
     mz_zip_archive *pZip = NULL;
     if (!zip) {
         // zip_t handler is not initialized
@@ -325,7 +326,7 @@ int zip_entry_openbyindex(struct zip_t *zip, int index) {
     }
 
     namelen = MZ_READ_LE16(pHeader + MZ_ZIP_CDH_FILENAME_LEN_OFS);
-    const char *pFilename = (const char *)pHeader + MZ_ZIP_CENTRAL_DIR_HEADER_SIZE;
+    pFilename = (const char *)pHeader + MZ_ZIP_CENTRAL_DIR_HEADER_SIZE;
     if (!pFilename) {
         // entry name is NULL
         return -1;
