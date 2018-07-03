@@ -536,8 +536,8 @@ REM BULDING DYNAMIC LIBRARIES
 		call:deletedirectories %~dp0\..\modules\dynamic_modules\dist\
 	)
 	if !THERE_IS_VS!=="true" (
-		call:builddymodule c file_savant
-		call:builddymodule c file_savant
+		call:builddymodule c archiver
+		call:builddymodule c consoler
 		call:builddymodule c file_savant
 		call:builddymodule c file_savant
 		call:builddymodule c mathic
