@@ -535,8 +535,7 @@ REM BULDING DYNAMIC LIBRARIES
 		call:deletedirectories %~dp0\..\modules\dynamic_modules\dist\
 	)
 	if !THERE_IS_VS!=="true" (
-		echo building consoler dynamic module
-		
+		call:getdynamicmodulefiles c file_savant
 	) else (
 		if exist "..\modules" (
 			cd "..\modules"
