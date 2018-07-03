@@ -26,7 +26,7 @@ CCC=g++
 CXX=g++
 
 # Flags
-CFLAGS=-g -MMD -MP -w -MF "$@.d"
+CFLAGS=-g -MMD -MP -MF "$@.d"
 CCFLAGS=
 CXXFLAGS=
 
