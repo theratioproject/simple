@@ -12,7 +12,10 @@ typedef __int64 int64_t;
 #else
 
 #ifdef HAVE_INTTYPES_H
-#include <stdint.h>
+/* Anything less than Visual Studio C++ 10 is missing stdint.h and inttypes.h */
+typedef __int64 int64_t;
+#define PRId64 "I64d"
+#define SCNd64 "I64d"
 #endif
 /* inttypes.h includes stdint.h */
 
