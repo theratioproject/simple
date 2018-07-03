@@ -539,6 +539,7 @@ REM BULDING DYNAMIC LIBRARIES
 		
 		call:confirmfolderelsecreate "..\modules\dynamic_modules\dist\"
 		move *.lib "..\modules\dynamic_modules\dist\"
+		move *.dll "..\modules\dynamic_modules\dist\"
 	) else (
 		if exist "..\modules" (
 			cd "..\modules"
