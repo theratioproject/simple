@@ -921,12 +921,7 @@ exit /b
 :getdynamicmodulefiles 
 	if exist "..\modules\dynamic_modules\" (
 		SET DY_MODULE_INCLUDE_DIR="%~dp0\..\modules\dynamic_modules\%2\"
-		if "%2"=="parser" (
-			SET DY_MODULE_FILES="%~dp0\..\modules\dynamic_modules\%2\*.%1 %~dp0\..\modules\dynamic_modules\%2\includes\*.%1"
-			echo this is the dy files !DY_MODULE_FILES!
-		) else (
-			SET DY_MODULE_FILES="%~dp0\..\modules\dynamic_modules\%2\*.%1"
-		)
+		SET DY_MODULE_FILES="%~dp0\..\modules\dynamic_modules\%2\*.%1"
 	) else (
 		call:repocurrupterror dynamic_modules
 	)
