@@ -20,8 +20,8 @@
 # include <strings.h>
 #endif /* HAVE_STRINGS_H */
 
-#include "bits.h"
-#include "arraylist.h"
+#include "includes/bits.h"
+#include "includes/arraylist.h"
 
 struct array_list*
 array_list_new(array_list_free_fn *free_fn)
