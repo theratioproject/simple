@@ -537,8 +537,11 @@ REM BULDING DYNAMIC LIBRARIES
 	)
 	if !THERE_IS_VS!=="true" (
 		call:builddymodule c file_savant
+		call:builddymodule c file_savant
+		call:builddymodule c file_savant
+		call:builddymodule c file_savant
 		call:builddymodule c mathic
-		call:builddymodule c parser
+		REM call:builddymodule c parser
 		
 		call:confirmfolderelsecreate "..\modules\dynamic_modules\dist\"
 		move *.lib "..\modules\dynamic_modules\dist\"
