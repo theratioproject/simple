@@ -1029,10 +1029,13 @@ static void *def_alloc_func(void *opaque, size_t items, size_t size) { (void)opa
 static void def_free_func(void *opaque, void *address) { (void)opaque, (void)address; MZ_FREE(address); }
 static void *def_realloc_func(void *opaque, void *address, size_t items, size_t size) { (void)opaque, (void)address, (void)items, (void)size; return MZ_REALLOC(address, items * size); }
 
+#ifdef __SIMPLE_BUILD
+#else
 const char *mz_version(void)
 {
   return MZ_VERSION;
 }
+#endif
 
 int mz_deflateInit(mz_streamp pStream, int level)
 {
