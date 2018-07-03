@@ -65,6 +65,7 @@ void print_with_foreground_background ( void *pointer )
 
 void console_beep ( void *pointer )
 {
+	HANDLE lHStdOut;
 	int lFd;
     if ( SIMPLE_API_PARACOUNT != 2 ) {
         SIMPLE_API_ERROR(SIMPLE_API_MISS3PARA);
@@ -76,7 +77,6 @@ void console_beep ( void *pointer )
         return ;
     }
     #ifdef _WIN32
-	HANDLE lHStdOut;
         
         if ( !GetConsoleWindow() && AttachConsole(ATTACH_PARENT_PROCESS) )
         {
