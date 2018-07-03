@@ -287,6 +287,7 @@ static size_t on_extract(void *arg, unsigned long long offset, const void *data,
 
 void extract_zip_entry ( void *pointer )
 {
+	struct zip_t *zip;
     const char *cZIPFile;
     const char *cFile;
     struct buffer_t buf = {0};
