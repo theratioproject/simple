@@ -13,8 +13,8 @@
  */
 
 #include "../../../simple/includes/simple.h"
+#include "parser.h"
 #include <stdint.h>
-#include "includes/json.h"
 
 #ifdef _WIN32
 	#define SIMPLE_API __declspec(dllexport)
