@@ -1188,6 +1188,7 @@ SIMPLE_API void simple_vm_cgi_showerrormessage ( VM *vm,const char *cStr )
 	/* Print Calling Information */
 	lBlockCall = 0 ; is_last_block = 1 ;
 	for ( x = simple_list_getsize(vm->pBlockCallList) ; x >= 1 ; x-- ) {
+		printf("tr");
 		list = simple_list_getlist(vm->pBlockCallList,x);
 		/*
 		**  If we have ICO_LoadBlock but not ICO_CALL then we need to pass 
@@ -1233,6 +1234,7 @@ SIMPLE_API void simple_vm_cgi_showerrormessage ( VM *vm,const char *cStr )
 		else {
 			printf( "In %s ",file_real_name(simple_list_getstring(list,SIMPLE_BLOCKCL_NAME)) ) ;
 		}
+		printf("</tr>\n");
 	}
 	if ( lBlockCall ) {
 		printf( "in file %s ",file_real_name(simple_list_getstring(vm->sState->files_list,1) )) ;
