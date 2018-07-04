@@ -193,11 +193,10 @@ SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 				nPrintIC = 1 ;  nRun = 0 ;
 			} else if ( strcmp(argv[x],"-b-f") == 0 || strcmp(argv[x],"--byte-code-final") == 0 ) {
 				nPrintICFinal = 1 ;  nRun = 0 ;
-			} else if ( strcmp(argv[x],"--t") == 0 || strcmp(argv[x],"-time") == 0 ) {
+			} else if ( strcmp(argv[x],"-t") == 0 || strcmp(argv[x],"--time") == 0 ) {
 				show_time = 1 ;
-			} else if ( strcmp(argv[x],"--i") == 0 || strcmp(argv[x],"-cgi") == 0 ) {
-                                nCGI = 1 ; nSimpleStateCGI = 1 ;
-                                //printf( "Content-Type: text/html \n\n" ) ;
+			} else if ( strcmp(argv[x],"-i") == 0 || strcmp(argv[x],"-cgi") == 0 )|| strcmp(argv[x],"--web") == 0 ) {
+				nCGI = 1 ; nSimpleStateCGI = 1 ;
 			}
 			else if ( strcmp(argv[x],"-rulesgfgdf") == 0 ) {
 				nRules = 1 ;
