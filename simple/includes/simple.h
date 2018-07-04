@@ -44,6 +44,15 @@
 #else
 #define SIMPLE_API extern
 #endif
+#ifdef FALSE
+#else
+#define FALSE 0
+#endif
+#ifdef TRUE
+#else
+#define TRUE 1
+#endif
+
 /* Constants */
 #define SIMPLE_DEBUG 0
 #define SIMPLE_TESTUNITS 0

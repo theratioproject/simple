@@ -964,9 +964,9 @@ exit /b
 
 :removestubornfiles
 	if !EXEC_TYPE!=="install" (
-		call:deletetempfilesna !INSTALLATION_FOLDER!\%VERSION%\bin\*.exp REM !INSTALLATION_FOLDER!\%VERSION%\modules\dynamic_modules\*.exp
+		call:deletetempfilesna !INSTALLATION_FOLDER!\%VERSION%\bin\*.exp 
 	) else (
-		call:deletetempfiles ..\..\%SIMPLE_DEBUG_VERSION%\bin\*.exp REM ..\..\%SIMPLE_DEBUG_VERSION%\modules\dynamic_modules\*.exp
+		call:deletetempfiles ..\..\%SIMPLE_DEBUG_VERSION%\bin\*.exp 
 	)
 	call:deletetempfiles ..\simple\dist\*.exp modules\dynamic_modules\dist\*.exp
 	
@@ -1100,7 +1100,7 @@ exit /b
 	echo [STANDALONE BUILD FLAGS]
 	echo 	-so --simple-only	build only simple.exe, simplew.exe and simple.dll
 	echo 	-do --dep-only		build only the dependencies
-	echo 	-io --includes-only		copy only the simple includes files
-	echo 	-yo --dymodules-only		build only the dynamic module
+	echo 	-io --includes-only	copy only the simple includes files
+	echo 	-yo --dymodules-only	build only the dynamic module
 	
 	exit /b 0
