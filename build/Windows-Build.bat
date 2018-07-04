@@ -961,6 +961,11 @@ if exist "../simple/dist/" (
 
 exit /b
 
+:removestubornfiles
+	call:call:deletetempfiles
+	
+	exit /b 0
+
 :getsimplecfiles
 	if exist "..\simple\sources\" (
 		SET SIMPLE_C_FILES="%~dp0\..\simple\sources\simple_*.c"
