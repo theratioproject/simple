@@ -859,6 +859,8 @@ REM CONFIRM SIMPLE.EXE IS BUILT SUCCESSFULLY
 	
 	exit /b 0
 	
+REM ENVIRONMENT PROGRAM BUILD ERROR
+	
 :environmentnotfound 
 	echo error:environment: %1 not found in distribution folder
 	echo error:environment: stopping the environment build
