@@ -287,7 +287,7 @@ exit /b %ERRORLEVEL%
 	if !BUILD_TOOL!=="any" (
 		echo simple-lang:configure preparing to find build toolchain...
 		echo simple-lang:configure serching for mingw and msys
-				
+		
 	) else (
 		exit /b 0
 	)
