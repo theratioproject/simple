@@ -711,8 +711,7 @@ REM COPY THE SIMPLE MODULES
 	
 :copysimplemodule
 	call:header modules copying simple modules to %SIMPLE_DEBUG_VERSION%
-	call:copysinglesimplemodule simple
-	
+	call:copymodulesinloop simple
 
 	exit /b 0
 	
