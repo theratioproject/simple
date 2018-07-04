@@ -950,7 +950,6 @@ void simple_vm_error2 ( VM *vm,const char *cStr,const char *cStr2 )
 	pError = simple_string_new_gc(vm->sState,cStr);
 	simple_string_add_gc(vm->sState,pError,": ");
 	simple_string_add_gc(vm->sState,pError,cStr2);
-	simple_vm_error(vm,simple_string_get(pError));
 	simple_string_delete_gc(vm->sState,pError);
 }
 
