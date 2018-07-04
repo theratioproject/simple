@@ -653,7 +653,7 @@ REM FULLTICK(GUI) DYNAMIC MODULE
 			echo error:dynamic_modules:fulltick: the backup fulltick dynamic module cannot be found
 			echo error:dynamic_modules:fulltick: the repository appears to be currupted. 
 			echo error:dynamic_modules:fulltick: try clonning the simple repository again to resolve the issue
-			echo error:dynamic_modules:fulltick: or visit $FULLTICK_BUILD_ISSUE to build instruction
+			echo error:dynamic_modules:fulltick: or visit %FULLTICK_BUILD_ISSUE% to build instruction
 		)
 	) 
 	
