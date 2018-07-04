@@ -118,7 +118,7 @@ block about()
 		Run File
 		it also support syntax highlighting and other basic and simple functions"
 		)
-		label.setPosition(10,20)
+		label.setPosition(0,0)
 		label.setBackground(FColor.WHITE())
 
 	window = new FWindow()
