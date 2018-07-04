@@ -747,6 +747,7 @@ SIMPLE_API void simple_vm_error ( VM *vm,const char *cStr )
 		vm->nActiveError = 1 ;
 		if (SKIP_ERROR == 0) { exit(0); } 
 	}
+	printf("leaking");
 	/*
 	**  Check Eval In Scope 
 	**  When we have ringvm_evalinscope() We don't support try/catch 
