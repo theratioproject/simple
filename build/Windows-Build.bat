@@ -724,9 +724,7 @@ REM COPY THE SIMPLE MODULES
 		echo modules: copying simple module to ../../%SIMPLE_DEBUG_VERSION%/modules directory
 		xcopy "../modules/simple" "../../%SIMPLE_DEBUG_VERSION%/modules/simple/" /s /h /e /k /f /c
 	) else (
-		echo error:modules: the simple core module cannot be found
-		echo error:modules: the repository appears to be currupted. 
-		echo error:modules: try clonning the simple repository again to resolve the issue
+		call:modulecurrupterror "simple core"
 	)
 
 	exit /b 0
@@ -734,6 +732,9 @@ REM COPY THE SIMPLE MODULES
 REM CURRUPT MODULE ERROR
 
 :modulecurrupterror
+	echo error:modules: the %1 module cannot be found
+	echo error:modules: the repository appears to be currupted. 
+	echo error:modules: try clonning the simple repository again to resolve the issue
 
 	exit /b 0
 
