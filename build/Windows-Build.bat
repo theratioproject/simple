@@ -709,7 +709,7 @@ REM CURRUPT REPOSITORY ERROR
 	
 REM COPY THE SIMPLE MODULES
 	
-:copysimplestandardmodule
+:copysimplemodule
 	call:header modules copying simple modules to %SIMPLE_DEBUG_VERSION%
 	for %%x in (%*) do (
 		echo %%x
