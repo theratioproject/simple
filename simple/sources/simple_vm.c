@@ -730,7 +730,7 @@ SIMPLE_API void simple_vm_error ( VM *vm,const char *cStr )
 		}
 	}
 	if ( simple_list_getsize(vm->pTry) == 0 ) {
-		if ( vm->lHideErrorMsg == 0 ) {
+		if ( vm->lHideErrorMsg == 1 ) {
 				printf("<br /><br />skippy %i <br /><br />",SKIP_ERROR);
 			if (vm->sState->nISCGI == 1 ) 
 				simple_vm_cgi_showerrormessage(vm,cStr);
@@ -745,7 +745,7 @@ SIMPLE_API void simple_vm_error ( VM *vm,const char *cStr )
 			return ;
 		}
 		vm->nActiveError = 1 ;
-		if (SKIP_ERROR == 0) { exit(0); } else { printf("<br />kipping error <br /><br />"); }
+		if (SKIP_ERROR == 0) { exit(0); } 
 	}
 	/*
 	**  Check Eval In Scope 
