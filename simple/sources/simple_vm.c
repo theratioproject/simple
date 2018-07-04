@@ -729,7 +729,7 @@ SIMPLE_API void simple_vm_error ( VM *vm,const char *cStr )
 			}
 		}
 	}
-	if ( simple_list_getsize(vm->pTry) == 0 ) {
+	/*if ( simple_list_getsize(vm->pTry) == 0 ) {
 		if ( vm->lHideErrorMsg == 0 ) {
 				printf("<br /><br />skippy %i <br /><br />",SKIP_ERROR);
 			if (vm->sState->nISCGI == 1 ) 
@@ -737,7 +737,7 @@ SIMPLE_API void simple_vm_error ( VM *vm,const char *cStr )
 			else 
 				simple_vm_showerrormessage(vm,cStr);
 		}
-		/* Trace */
+		/* Trace *
 		vm->nActiveError = 0 ;
 		simple_vm_traceevent(vm,SIMPLE_VM_TRACEEVENT_ERROR);
 		if ( vm->lPassError  == 1 ) {
@@ -745,7 +745,7 @@ SIMPLE_API void simple_vm_error ( VM *vm,const char *cStr )
 			return ;
 		}
 		if (SKIP_ERROR == 0) { vm->nActiveError = 1 ; exit(0); } else { return; }
-	}
+	} */
 	printf("leaking");
 	/*
 	**  Check Eval In Scope 
