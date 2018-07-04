@@ -213,7 +213,7 @@ block windowsBuild(path)
 			display "--> Building Executable with CYGWIN"+crlf
 		else
 			display " Resolving to build using Visual Studio"+crlf
-			#windowBuildVS(path)
+			windowBuildVS(path)
 		end
 	end
 	
