@@ -35,7 +35,7 @@ void display_help(){
     printf("[FLAGS]	 : The flags/options to pass to the Simple VM/Simplify.\n\n");
     printf("MAIN [FLAGS] include : \n");
     printf("  -h --help		Displays this help and exits.\n");
-    printf("  -k --show-tokens		Scans and outputs the tokens in the source file.\n");
+    printf("  -k --show-tokens	Scans and outputs the tokens in the source file.\n");
     printf("  -t --time		Shows time before and after program execution.\n");
     printf("  -c --case-insensitive	Make simple-lang case insensitive 'a=A'.\n");
     printf("  -i -cgi --web		Optimize simple-lang for web development.\n");
