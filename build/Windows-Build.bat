@@ -711,16 +711,15 @@ REM COPY THE SIMPLE MODULES
 	
 :copysimplemodule
 	call:header modules copying simple modules to %SIMPLE_DEBUG_VERSION%
+	call:copysinglesimplemodule "simple core"
 	for %%x in (%*) do (
 		echo %%x
 	)
 
 	exit /b 0
 	
-:copysinglesimplemodule
-
-	REM simple core module	
-		echo modules: simple core module
+:copysinglesimplemodule	
+		echo modules: %1 module
 	if exist "../modules/simple" (
 		echo modules: copying simple module to ../../%SIMPLE_DEBUG_VERSION%/modules directory
 		xcopy "../modules/simple" "../../%SIMPLE_DEBUG_VERSION%/modules/simple/" /s /h /e /k /f /c
