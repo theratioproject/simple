@@ -1184,6 +1184,7 @@ SIMPLE_API void simple_vm_cgi_showerrormessage ( VM *vm,const char *cStr )
 	const char *cFile  ;
 	/* Print the Error Message */
 	printf("<table border='1' cellspacing='0' cellpadding='2'>");
+	printf("<tr><th align='left' style='background:rgb(190,25,49);' colspan='5'><span style='color:white;'> Line 30 : RUNTIME ERROR 24 : The varible is not initialized: f in C:\wamp\www\unittests\testphp.sim</br></span></th></tr>");
 	printf( "\nLine %d -> %s \n",vm->nLineNumber,cStr ) ;
 	/* Print Calling Information */
 	lBlockCall = 0 ; is_last_block = 1 ;
