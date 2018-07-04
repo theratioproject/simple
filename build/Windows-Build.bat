@@ -904,19 +904,6 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 
 	exit /b 0
 
-REM CLEANING UP
-if exist "./-p" (
-	call:deletedirectories "./-p"
-}
-if exist "../modules/dynamic_modules/dist/" (
-	call:deletedirectories "../modules/dynamic_modules/dist/"
-)
-if exist "../simple/dist/" (
-	call:deletedirectories "../simple/dist/"
-)
-
-exit /b
-
 :removestubornfiles
 	if !EXEC_TYPE!=="install" (
 		call:deletetempfilesna !INSTALLATION_FOLDER!\%VERSION%\bin\*.exp 
