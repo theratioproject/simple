@@ -31,6 +31,7 @@ class FileBrowserDemo : FWindow
 	fb = new FFileListBox()  fb.setFileType(FILES_TYPE).setIconSize(60)
 	fb.setPosition(10,50).setSize(340,340)
 	fb.callback("selected()")
+	addWidget([input,button,fb])
 
 	block render() 
 		setTitle("FFILEBROWSER DEMO").setSize(360, 400) 
