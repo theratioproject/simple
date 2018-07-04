@@ -208,6 +208,7 @@ if !EXEC_TYPE!=="dymodules-only-install" (
 	call:removedistfolders
 )
 if !EXEC_TYPE!=="dymodules-only-debug" (
+	SET EXEC_TYPE="debug"
 	call:header install "install simple-lang %VERSION%"
 	call:buildsimpledllexe
 	call:builddynamicmodules
