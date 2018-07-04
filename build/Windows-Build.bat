@@ -197,6 +197,14 @@ if !EXEC_TYPE!=="includes-only-debug" (
 	SET EXEC_TYPE="debug"
 	call:copysimpleincludes
 )
+if !EXEC_TYPE!=="dymodules-only-install" (
+	SET EXEC_TYPE="install"
+	call:header debug "debug simple-lang %VERSION%"
+)
+if !EXEC_TYPE!=="dymodules-only-debug" (
+	SET EXEC_TYPE="debug"
+	call:copysimpleincludes
+)
 
 	:: configure and install for now
 
