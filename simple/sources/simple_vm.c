@@ -731,7 +731,10 @@ SIMPLE_API void simple_vm_error ( VM *vm,const char *cStr )
 	}
 	if ( simple_list_getsize(vm->pTry) == 0 ) {
 		if ( vm->lHideErrorMsg == 0 ) {
-			simple_vm_showerrormessage(vm,cStr);
+			if () 
+				simple_vm_showerrormessage(vm,cStr);
+			else 
+				simple_vm_showerrormessage(vm,cStr);
 		}
 		/* Trace */
 		vm->nActiveError = 0 ;
