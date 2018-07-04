@@ -347,10 +347,10 @@ exit /b %ERRORLEVEL%
 			call:deletedirectories %~dp0\..\..\%SIMPLE_DEBUG_VERSION%\
 		) 
 	) 
-	REM call:buildsimpledllexe
-	REM call:copysimpledllexe
-	REM call:copysimpleincludes
-	REM call:resolvedependencies
+	call:buildsimpledllexe
+	call:copysimpledllexe
+	call:copysimpleincludes
+	call:resolvedependencies
 	call:builddynamicmodules
 	call:copydynamicmodules
 	
@@ -511,11 +511,11 @@ REM RESOLVE DEPENDENCIES
 	
 :generatelibfromdll
 	if !THERE_IS_VS!=="true" (
-		call:header configure "configure build %VERSION%"
-		call:locatevisualstudio !BUILD_ARC!
-		dumpbin /EXPORTS %1 > %1.txt
-		findstr %2 %1.txt > %1.2.txt
-		findstr %3 %1.2.txt > %1.3.txt
+		REM call:header configure "configure build %VERSION%"
+		REM call:locatevisualstudio !BUILD_ARC!
+		REM dumpbin /EXPORTS %1 > %1.txt
+		REM findstr %2 %1.txt > %1.2.txt
+		REM findstr %3 %1.2.txt > %1.3.txt
 		SET THERE_IS_VS="false"
 	)
 	
@@ -550,17 +550,17 @@ REM BULDING DYNAMIC LIBRARIES
 		call:deletedirectories %~dp0\..\modules\dynamic_modules\dist\
 	)
 	if !THERE_IS_VS!=="true" (
-		REM s call:builddymodule c archiver
-		REM s call:builddymodule c consoler
-		REM s call:builddymodule c core_dynamic_module
-		REM s call:builddymodule c file_savant
+		call:builddymodule c archiver
+		call:builddymodule c consoler
+		call:builddymodule c core_dynamic_module
+		call:builddymodule c file_savant
+		call:builddymodule c mathic
 		REM call:builddymodule cpp fulltick
-		REM s call:builddymodule c mathic
-		call:builddymodule c networker
+		REM require .lib call:builddymodule c networker
 		REM failed call:builddymodule c parser
-		REM call:builddymodule c security
-		REM s call:builddymodule c string_savant
-		REM s call:builddymodule c systemic
+		REM require .lib call:builddymodule c security
+		call:builddymodule c string_savant
+		call:builddymodule c systemic
 		
 		call:confirmfolderelsecreate "..\modules\dynamic_modules\dist\"
 		move *.lib "..\modules\dynamic_modules\dist\"
@@ -1044,5 +1044,7 @@ exit /b
 	echo [STANDALONE BUILD FLAGS]
 	echo 	-so --simple-only	build only simple.exe, simplew.exe and simple.dll
 	echo 	-do --dep-only		build only the dependencies
+	echo 	-io --includes-only		copy only the simple includes files
+	echo 	-yo --dymodules-only		build only the dynamic module
 	
 	exit /b 0

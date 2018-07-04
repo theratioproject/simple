@@ -9,7 +9,7 @@
  *
  */
 
-#include "includes/config.h"
+#include "config.h"
 
 #if STDC_HEADERS
 # include <stdlib.h>
@@ -20,8 +20,8 @@
 # include <strings.h>
 #endif /* HAVE_STRINGS_H */
 
-#include "includes/bits.h"
-#include "includes/arraylist.h"
+#include "bits.h"
+#include "arraylist.h"
 
 struct array_list*
 array_list_new(array_list_free_fn *free_fn)

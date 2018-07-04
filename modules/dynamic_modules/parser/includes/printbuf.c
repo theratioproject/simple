@@ -13,7 +13,7 @@
  * (http://www.opensource.org/licenses/mit-license.php)
  */
 
-#include "includes/config.h"
+#include "config.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -25,9 +25,9 @@
 # error Not enough var arg support!
 #endif /* HAVE_STDARG_H */
 
-#include "includes/bits.h"
-#include "includes/debug.h"
-#include "includes/printbuf.h"
+#include "bits.h"
+#include "debug.h"
+#include "printbuf.h"
 
 struct printbuf* printbuf_new(void)
 {

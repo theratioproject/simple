@@ -9,7 +9,7 @@
  *
  */
 
-#include "includes/config.h"
+#include "config.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -28,7 +28,7 @@
 #include <sys/param.h>
 #endif /* HAVE_SYS_PARAM_H */
 
-#include "includes/debug.h"
+#include "debug.h"
 
 static int _syslog = 0;
 static int _debug = 0;

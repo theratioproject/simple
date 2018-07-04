@@ -13,7 +13,7 @@
  * (http://www.opensource.org/licenses/mit-license.php)
  */
 
-#include "includes/config.h"
+#include "config.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -22,14 +22,14 @@
 #include <string.h>
 #include <limits.h>
 
-#include "includes/bits.h"
-#include "includes/debug.h"
-#include "includes/printbuf.h"
-#include "includes/arraylist.h"
-#include "includes/json_inttypes.h"
-#include "includes/json_object.h"
-#include "includes/json_tokener.h"
-#include "includes/json_util.h"
+#include "bits.h"
+#include "debug.h"
+#include "printbuf.h"
+#include "arraylist.h"
+#include "json_inttypes.h"
+#include "json_object.h"
+#include "json_tokener.h"
+#include "json_util.h"
 
 #if !HAVE_STRNCASECMP && defined(_MSC_VER)
   /* MSC has the version as _strnicmp */

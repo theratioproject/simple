@@ -9,21 +9,21 @@
  *
  */
 
-#include "includes/config.h"
+#include "config.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <stddef.h>
 #include <string.h>
 
-#include "includes/debug.h"
-#include "includes/printbuf.h"
-#include "includes/linkhash.h"
-#include "includes/arraylist.h"
-#include "includes/json_inttypes.h"
-#include "includes/json_object.h"
-#include "includes/json_object_private.h"
-#include "includes/json_util.h"
+#include "debug.h"
+#include "printbuf.h"
+#include "linkhash.h"
+#include "arraylist.h"
+#include "json_inttypes.h"
+#include "json_object.h"
+#include "json_object_private.h"
+#include "json_util.h"
 
 #if !HAVE_STRNDUP
   char* strndup(const char* str, size_t n);

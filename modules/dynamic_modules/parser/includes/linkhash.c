@@ -16,7 +16,7 @@
 #include <stddef.h>
 #include <limits.h>
 
-#include "includes/linkhash.h"
+#include "linkhash.h"
 
 void lh_abort(const char *msg, ...)
 {

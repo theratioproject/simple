@@ -1,3 +1,0 @@
-curl_easy_duphandle
-          3    2 00004090 curl_easy_escape
-          4    3 000039F0 curl_easy_getinfo
