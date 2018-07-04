@@ -1212,10 +1212,8 @@ SIMPLE_API void simple_vm_cgi_showerrormessage ( VM *vm,const char *cStr )
 				printf( "block " ) ;
 			}*/
 			/* Block Name */
-			printf( "%s",simple_list_getstring(list,SIMPLE_BLOCKCL_NAME) ) ;
 			printf("<td bgcolor='#eeeeec' align='center'>%s()</td>",simple_list_getstring(list,SIMPLE_BLOCKCL_NAME) ) ;
 			/* Adding () */
-			printf( "() in file " ) ;
 			/* File Name */
 			if ( lBlockCall == 1 ) {
 				cFile = (const char *) simple_list_getpointer(list,SIMPLE_BLOCKCL_NEWFILENAME) ;
@@ -1228,10 +1226,8 @@ SIMPLE_API void simple_vm_cgi_showerrormessage ( VM *vm,const char *cStr )
 					cFile = vm->file_name ;
 				}
 			}
-			printf( "%s",file_real_name(cFile) ) ;
 			printf("<td bgcolor='#eeeeec' align='center'>%s</td>",file_real_name(cFile) ) ;
 			/* Called From */
-			printf( "\n\tat line %d ",simple_list_getint(list,SIMPLE_BLOCKCL_LINENUMBER) ) ;
 			printf("<td bgcolor='#eeeeec' align='center'>Line %d</td>",simple_list_getint(list,SIMPLE_BLOCKCL_LINENUMBER) ) ;
 			printf("<td title='%s' bgcolor='#eeeeec' ><a href='ftp://%s' >%s</a></td>",simple_list_getstring(vm->sState->files_list,1),simple_list_getstring(vm->sState->files_list,1),file_real_name(cFile) ) ;
 			lBlockCall = 1 ;
@@ -1242,7 +1238,6 @@ SIMPLE_API void simple_vm_cgi_showerrormessage ( VM *vm,const char *cStr )
 		printf("</tr>\n");
 	}
 	if ( lBlockCall ) {
-		printf( "in file %s ",file_real_name(simple_list_getstring(vm->sState->files_list,1) )) ;
 		printf("<tr><th bgcolor='#eeeeec' align='right' colspan='5'> from file %s</th></tr>",simple_list_getstring(vm->sState->files_list,1)) ;
 	}
 	else {
@@ -1252,7 +1247,6 @@ SIMPLE_API void simple_vm_cgi_showerrormessage ( VM *vm,const char *cStr )
 		else {
 			cFile = file_real_name(vm->file_name) ;
 		}
-		printf( "\tin file %s ",cFile ) ;
 		printf("<tr><th bgcolor='#eeeeec' align='right' colspan='5'> from file %s</th></tr>",cFile) ;
 	}
 	printf("\n</table>");
