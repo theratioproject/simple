@@ -127,7 +127,7 @@ block about()
 	window.setBackground(FColor.WHITE())
 	window.addWidget(label)
 	window.show()
-	window.setLocation(530,150)
+	window.setLocation(60,150)
 
 block program(type)
 	if isWindows() 
