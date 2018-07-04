@@ -1212,7 +1212,7 @@ SIMPLE_API void simple_vm_cgi_showerrormessage ( VM *vm,const char *cStr )
 				printf( "block " ) ;
 			}*/
 			/* Block Name */
-			printf("<td bgcolor='#eeeeec' align='right'>%s()</td>",simple_list_getstring(list,SIMPLE_BLOCKCL_NAME) ) ;
+			printf("<td bgcolor='#eeeeec' align='center'>%s()</td>",simple_list_getstring(list,SIMPLE_BLOCKCL_NAME) ) ;
 			/* Adding () */
 			/* File Name */
 			if ( lBlockCall == 1 ) {
