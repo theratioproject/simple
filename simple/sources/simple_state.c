@@ -204,7 +204,7 @@ SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 			else if ( strcmp(argv[x],"-instteret") == 0 ) {
 				nIns = 1 ;
 			}
-			else if ( strcmp(argv[x],"--w") == 0 ) {
+			else if ( strcmp(argv[x],"-w") == 0 || strcmp(argv[x],"--warn") == 0 ) {
 				nWarn = 1 ;
 				nSimpleStateDEBUGSEGFAULT = 1 ;
 			}
