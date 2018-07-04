@@ -730,8 +730,10 @@ REM COPY THE SIMPLE MODULES
 	)
 
 	exit /b 0
+	
+REM CURRUPT MODULE ERROR
 
-:moduleerror
+:modulecurrupterror
 
 	exit /b 0
 
