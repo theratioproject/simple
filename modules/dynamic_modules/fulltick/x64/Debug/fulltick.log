@@ -2,3 +2,17 @@
      1>Project "C:\Users\thecarisma\Documents\SIMPLE_GITHUB\simple\modules\dynamic_modules\fulltick\fulltick.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\CL.exe /c /I"C:\Users\thecarisma\Downloads\fltk-1.3.4-2" /Zi /nologo /W3 /WX- /Od /D WIN32 /D _DEBUG /D _LIB /D _WINDLL /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc110.pdb" /Gd /TP /errorReport:prompt fulltick.cpp fulltick_delegate.cpp
+         fulltick_delegate.cpp
+         fulltick.cpp
+         Generating Code...
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\thecarisma\Downloads\fltk-1.3.4-2\ide\VisualC2010\x64\Debug\fulltick.dll" /INCREMENTAL:NO /NOLOGO /LIBPATH:..\..\..\simple\dist kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib simple.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\thecarisma\Downloads\fltk-1.3.4-2\ide\VisualC2010\x64\Debug\fulltick.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\thecarisma\Downloads\fltk-1.3.4-2\ide\VisualC2010\x64\Debug\fulltick.lib" /MACHINE:X64 /DLL x64\Debug\fulltick.obj
+         x64\Debug\fulltick_delegate.obj
+         "C:\Users\thecarisma\Downloads\fltk-1.3.4-2\lib\fltkd.lib"
+            Creating library C:\Users\thecarisma\Downloads\fltk-1.3.4-2\ide\VisualC2010\x64\Debug\fulltick.lib and object C:\Users\thecarisma\Downloads\fltk-1.3.4-2\ide\VisualC2010\x64\Debug\fulltick.exp
+         fulltick.vcxproj -> C:\Users\thecarisma\Downloads\fltk-1.3.4-2\ide\VisualC2010\x64\Debug\fulltick.dll
+     1>Done Building Project "C:\Users\thecarisma\Documents\SIMPLE_GITHUB\simple\modules\dynamic_modules\fulltick\fulltick.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:13.07
