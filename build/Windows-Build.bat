@@ -1063,6 +1063,13 @@ exit /b
 	
 	exit /b 0
 	
+:deletetempfilesna
+	for %%x in (%*) do (
+		del /f %%x
+	)
+	
+	exit /b 0
+	
 :confirmfolderelsecreate
 	if exist %1 (
 		echo simple/confirmfolderelsecreate: the %1 directory already exist
