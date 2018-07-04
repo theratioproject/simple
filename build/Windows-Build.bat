@@ -847,7 +847,7 @@ REM THE ENVIRONMENT PROGRAMS WILL ALSO BE INSTALLED IN SAME BIN DIRECTORY AS SIM
 		echo environment:build: %1
 		if exist "..\environment\%1\%1.sim" (
 			if "%1"=="simplepad" (
-				SET BAKE_FLAG_GUI=-gui
+				SET BAKE_FLAG_GUI=""
 			) else (
 				SET BAKE_FLAG_GUI=""
 			)
