@@ -38,7 +38,7 @@ void display_help(){
     printf("  -k --show-tokens	Scans and outputs the tokens in the source file.\n");
     printf("  -t --time			Shows time before and after program execution.\n");
     printf("  -c --case-insensitive		Make simple-lang case insensitive 'a=A'.\n");
-    printf("  -i -cgi --web			Make simple-lang case insensitive 'a=A'.\n");
+    printf("  -i -cgi --web			Optimize simple-lang for web development.\n");
     printf("  -v --verbose			Displays all the modules and libraries of SIMPLE and exits.\n");
     printf("  -e --error			Skip all error instance and print error report in console.\n");
     printf("  -w --warning			Show all warning. \n");
