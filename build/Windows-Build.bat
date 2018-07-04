@@ -966,7 +966,7 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 	if "%1"==""x86"" (
 		SET "PROGRAMFILESPATH=%ProgramFiles(x86)%"
 	)
-	for /d %%a in ("%PROGRAMFILESPATH%\Micgrosoft Visual Studio*") do (
+	for /d %%a in ("%PROGRAMFILESPATH%\Microsoft Visual Studio*") do (
 		for /f "tokens=3 delims=\" %%x in ("%%a") do SET MVS=%%a\
 		break
 	)
