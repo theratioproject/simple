@@ -1054,10 +1054,12 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 	echo 	x64 --64-bit	build 64 bit version of simple-lang
 	echo 	-k --keep	keep the */dist/ folder(s) in source tree
 	echo 	-h --help	print this help message
+	echo.
+	echo [STANDALONE BUILD FLAGS]
 	echo 	-gcc --gnu	build simple with available GNU toolchain
-	echo 	-vs --visual-studio	build simple with Microsoft Visual Studio
 	echo 	-mg --mingw	build simple with Microsoft Visual Studio
 	echo 	-cy --cygwin	build simple with Microsoft Visual Studio
+	echo 	-vs --visual-studio	build simple with Microsoft Visual Studio
 	echo.
 	echo [STANDALONE BUILD FLAGS]
 	echo 	-so --simple-only	build only simple.exe, simplew.exe and simple.dll
