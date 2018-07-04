@@ -625,6 +625,7 @@ REM BULDING DYNAMIC LIBRARIES
 			call:repocurrupterror modules
 		)
 	)
+	call:confirmfulltickdymodule
 	
 	exit /b 0
 	
@@ -656,7 +657,6 @@ REM BULDING DYNAMIC LIBRARIES
 			call:dynamicmoduleserror
 		)
 	)
-	call:confirmfulltickdymodule
 
 	exit /b 0
 	
