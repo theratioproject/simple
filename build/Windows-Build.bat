@@ -121,6 +121,20 @@ for %%x in (%*) do (
 		) else (
 			SET EXEC_TYPE="includes-only-debug"
 		)
+	) 
+	if "%%x"=="-yo" (
+		if !EXEC_TYPE!=="install" (
+			SET EXEC_TYPE="includes-only-install"
+		) else (
+			SET EXEC_TYPE="includes-only-debug"
+		)
+	)  
+	if "%%x"=="--dymodules-only" (
+		if !EXEC_TYPE!=="install" (
+			SET EXEC_TYPE="includes-only-install"
+		) else (
+			SET EXEC_TYPE="includes-only-debug"
+		)
 	)
 	if "%%x"=="-vs" (
 		SET THERE_IS_VS="true"
