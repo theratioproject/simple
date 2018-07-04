@@ -1203,8 +1203,6 @@ SIMPLE_API void simple_vm_cgi_showerrormessage ( VM *vm,const char *cStr )
 			**  Prepare Message 
 			**  In 
 			*/
-			/* Block Name */
-			printf("<td bgcolor='#eeeeec' align='center'>%s()</td>",simple_list_getstring(list,SIMPLE_BLOCKCL_NAME) ) ;
 			/* Adding () */
 			/* File Name */
 			if ( lBlockCall == 1 ) {
@@ -1221,6 +1219,8 @@ SIMPLE_API void simple_vm_cgi_showerrormessage ( VM *vm,const char *cStr )
 			//<td title='C:\wamp\www\unittests\testphp.php' bgcolor='#eeeeec'>http://localhost/unittests/testphp.html<b>:</b>27</td></tr>");
 			lBlockCall = 1 ;
 			printf("<td bgcolor='#eeeeec' align='center'>%i</td><td bgcolor='#eeeeec' align='center'>Line %d</td>",1,simple_list_getint(list,SIMPLE_BLOCKCL_LINENUMBER));
+			/* Block Name */
+			printf("<td bgcolor='#eeeeec' align='center'>%s()</td>",simple_list_getstring(list,SIMPLE_BLOCKCL_NAME) ) ;
 			/* Called From */
 			printf( "<td bgcolor='#eeeeec'>%s</td>",file_real_name(cFile) ) ;
 			
