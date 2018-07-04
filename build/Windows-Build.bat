@@ -309,7 +309,7 @@ exit /b %ERRORLEVEL%
 		call:locategcc !BUILD_ARC!
 		call:locatemingw !BUILD_ARC!
 		call:locatecygwin !BUILD_ARC!
-		REM call:locatevisualstudio !BUILD_ARC!
+		call:locatevisualstudio !BUILD_ARC!
 		echo simple-lang:configure preparing to find build toolchain...
 		echo simple-lang:configure serching for mingw and msys
 		echo simple-lang:configure:compiler please enter your C/C++ toolchain folder
