@@ -831,8 +831,8 @@ REM THE ENVIRONMENT PROGRAMS WILL ALSO BE INSTALLED IN SAME BIN DIRECTORY AS SIM
 		echo.
 	) else (
 		if exist "..\environment\bake\bake.sim" (
-			echo environment: ..\environment\bake\bake.sim found 
-			echo environment: starting environment programs build...
+			echo environment:bake.sim: ..\environment\bake\bake.sim found 
+			echo environment:bake.sim: starting environment programs build...
 		) else (
 			call:environmentnotfound ..\environment\bake\bake.sim
 		)
@@ -850,8 +850,8 @@ REM CONFIRM SIMPLE.EXE IS BUILT SUCCESSFULLY
 		SET SIMPLE_EXECUTABLE="%~dp0\..\..\%SIMPLE_DEBUG_VERSION%\bin\simple.exe"
 	)
 	if exist !SIMPLE_EXECUTABLE! (
-		echo environment: simple.exe found 
-		echo environment: proceeding to detect bake.sim 
+		echo environment:simple: simple.exe found 
+		echo environment:simple: proceeding to detect bake.sim 
 	) else (
 		call:environmentnotfound simple.exe
 		SET SIMPLE_EXECUTABLE="notfound"
