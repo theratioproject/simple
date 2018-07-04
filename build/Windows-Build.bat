@@ -845,7 +845,7 @@ REM THE ENVIRONMENT PROGRAMS WILL ALSO BE INSTALLED IN SAME BIN DIRECTORY AS SIM
 	for %%x in (%*) do (
 		echo modules: %%x module
 		echo build:environment: simplepad
-		if exist "../../%SIMPLE_DEBUG_VERSION%/bin/simplepad.sim" (
+		if exist "..\..\%SIMPLE_DEBUG_VERSION%/bin/simplepad.sim" (
 			if exist ../../simple-arts/environment/simplepad.ico (
 				echo 		Building simplepad with icon
 				%SIMPLE% %SMAKE% -I/../../simple-arts/environment/simplepad.ico -gui -delete ../../%SIMPLE_DEBUG_VERSION%/bin/simplepad.sim	
