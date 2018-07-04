@@ -493,16 +493,30 @@ REM RESOLVE DEPENDENCIES
 		echo dependencies: libcurl.dll
 	if !BUILD_ARC!=="x64" (
 		if exist "..\modules\dynamic_modules\networker\lib\libcurl64.dll" (
+			call:generatelibfromdll %~dp0\..\modules\dynamic_modules\networker\lib\libcurl64.dll curl_* 000*
 			call:movedependencytobin libcurl64.dll libcurl.dll %~dp0\..\modules\dynamic_modules\networker\lib\
 		) else (
 			call:dependencieserror libcurl64.dll
 		)
 	) else (
 		if exist "..\modules\dynamic_modules\networker\lib\libcurl.dll" (
+			call:generatelibfromdll %~dp0\..\modules\dynamic_modules\networker\lib\libcurl.dll curl_* 000*
 			call:movedependencytobin libcurl.dll libcurl.dll %~dp0\..\modules\dynamic_modules\networker\lib\
 		) else (
 			call:dependencieserror libcurl.dll
 		)
+	)
+	
+	exit /b 0
+	
+:generatelibfromdll
+	if !THERE_IS_VS!=="true" (
+		call:header configure "configure build %VERSION%"
+		call:locatevisualstudio !BUILD_ARC!
+		dumpbin /EXPORTS %1 > %1.txt
+		findstr %2 %1.txt > %1.2.txt
+		findstr %3 %1.2.txt > %1.3.txt
+		SET THERE_IS_VS="false"
 	)
 	
 	exit /b 0
