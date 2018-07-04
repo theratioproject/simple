@@ -202,11 +202,13 @@ if !EXEC_TYPE!=="dymodules-only-install" (
 	call:header install "install simple-lang %VERSION%"
 	call:buildsimpledllexe
 	call:builddynamicmodules
+	call:copydynamicmodules
 )
 if !EXEC_TYPE!=="dymodules-only-debug" (
 	call:header install "install simple-lang %VERSION%"
 	call:buildsimpledllexe
 	call:builddynamicmodules
+	call:copydynamicmodules
 )
 
 	:: configure and install for now
@@ -384,6 +386,9 @@ exit /b %ERRORLEVEL%
 	)
 	
 	exit /b 0
+	
+:removedistfolders
+	
 	
 REM BULDING SIMPLE.EXE and SIMPLE.DLL
 
