@@ -659,7 +659,7 @@ REM BULDING DYNAMIC LIBRARIES
 
 	exit /b 0
 	
-REM fulltick(GUI) dynamic module
+REM FULLTICK(GUI) DYNAMIC MODULE
 	echo dynamic_modules:fulltick: checking if fulltick build successfully
 if exist "../../%SIMPLE_DEBUG_VERSION%/modules/dynamic_modules/fulltick.dll" (
 	echo dynamic_modules:fulltick: fulltick dynamic module built successfully
