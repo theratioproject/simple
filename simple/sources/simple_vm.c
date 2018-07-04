@@ -731,7 +731,7 @@ SIMPLE_API void simple_vm_error ( VM *vm,const char *cStr )
 	}
 	if ( simple_list_getsize(vm->pTry) == 0 ) {
 		if ( vm->lHideErrorMsg == 0 ) {
-			if () 
+			if (vm->sState->nISCGI == 1 ) 
 				simple_vm_cgi_showerrormessage(vm,cStr);
 			else 
 				simple_vm_showerrormessage(vm,cStr);
@@ -752,7 +752,10 @@ SIMPLE_API void simple_vm_error ( VM *vm,const char *cStr )
 	**  We just display the error message and continue 
 	*/
 	if ( vm->nEvalInScope ) {
-		simple_vm_showerrormessage(vm,cStr);
+		if (vm->sState->nISCGI == 1 ) 
+			simple_vm_cgi_showerrormessage(vm,cStr);
+		else 
+			simple_vm_showerrormessage(vm,cStr);
 		vm->nActiveError = 0 ;
 		simple_vm_freestack(vm);
 		return ;
