@@ -378,8 +378,8 @@ exit /b %ERRORLEVEL%
 	exit /b 0
 	
 :locatecygwin
-	echo simple-lang:configure:compiler checking if cygwin is present in path C:/cygwin/
-	if exist "C:/cygwin/" (
+	echo simple-lang:configure:compiler checking if cygwin is present in path C:\cygwin\
+	if exist "C:\cygwin\" (
 		echo simple-lang:configure found CygWIN Build Toolchain
 		if !EXEC_TYPE!=="configure" (
 			call:setcompilerenv C:\cygwin\bin\
@@ -387,7 +387,7 @@ exit /b %ERRORLEVEL%
 			SET PATH=!PATH!;C:\cygwin\bin\
 		) 
 	) else (
-		call:compilernotfound C:/cygwin/
+		call:compilernotfound C:\cygwin\
 	)
 		
 	exit /b 0
