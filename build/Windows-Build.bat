@@ -970,7 +970,7 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 		for /f "tokens=3 delims=\" %%x in ("%%a") do SET MVS=%%a\
 		break
 	)
-	if "%1"=="x86" (
+	if !BUILD_ARC!=="x86" (
 		if exist "!MVS!\VC\vcvarsall.bat" (
 			echo simple-lang:configure:buildtool found !MVS!
 			call:callmsvisualstudio "!MVS!\VC\vcvarsall.bat"
