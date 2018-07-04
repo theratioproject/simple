@@ -964,9 +964,9 @@ exit /b
 
 :removestubornfiles
 	if !EXEC_TYPE!=="install" (
-		call:deletetempfilesna !INSTALLATION_FOLDER!\%VERSION%\bin\*.exp !INSTALLATION_FOLDER!\%VERSION%\modules\dynamic_modules\*.exp
+		call:deletetempfilesna !INSTALLATION_FOLDER!\%VERSION%\bin\*.exp REM !INSTALLATION_FOLDER!\%VERSION%\modules\dynamic_modules\*.exp
 	) else (
-		call:deletetempfiles ..\..\%SIMPLE_DEBUG_VERSION%\bin\*.exp ..\..\%SIMPLE_DEBUG_VERSION%\modules\dynamic_modules\*.exp
+		call:deletetempfiles ..\..\%SIMPLE_DEBUG_VERSION%\bin\*.exp REM ..\..\%SIMPLE_DEBUG_VERSION%\modules\dynamic_modules\*.exp
 	)
 	call:deletetempfiles ..\simple\dist\*.exp modules\dynamic_modules\dist\*.exp
 	
