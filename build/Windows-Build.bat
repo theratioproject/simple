@@ -306,6 +306,7 @@ exit /b %ERRORLEVEL%
 	echo simple-lang:configure:buildtool determining if a specific tool is specified
 	if !BUILD_TOOL!=="any" (
 		call:locategcc !BUILD_ARC!
+		echo 1 1111
 		call:locatemingw !BUILD_ARC!
 		call:locatecygwin !BUILD_ARC!
 		REM call:locatevisualstudio !BUILD_ARC!
