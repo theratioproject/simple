@@ -276,7 +276,7 @@ block treatProgramAttr()
 		if isWindows() 
 			__exec("move "+outputName+'.exe '+folder+"/")
 		elif isLinux()
-			__exec("move "+outputName+' '+folder+"/")
+			__exec("mv "+outputName+' '+folder+"/")
 		else
 		
 		end
