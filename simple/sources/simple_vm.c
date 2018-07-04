@@ -1227,8 +1227,8 @@ SIMPLE_API void simple_vm_cgi_showerrormessage ( VM *vm,const char *cStr )
 			}
 			printf( "%s",file_real_name(cFile) ) ;
 			/* Called From */
-			printf("<tr><td bgcolor='#eeeeec' align='center'>%i</td><td bgcolor='#eeeeec' align='center'>Line %d",1,simple_list_getint(list,SIMPLE_BLOCKCL_LINENUMBER));
-			//</td><td bgcolor='#eeeeec' align='right'>getFour()</td><td bgcolor='#eeeeec'>testsimple.sim</td><td title='C:\wamp\www\unittests\testphp.php' bgcolor='#eeeeec'>http://localhost/unittests/testphp.html<b>:</b>27</td></tr>");
+			printf("<tr><td bgcolor='#eeeeec' align='center'>%i</td><td bgcolor='#eeeeec' align='center'>Line %d</td>",1,simple_list_getint(list,SIMPLE_BLOCKCL_LINENUMBER));
+			//<td bgcolor='#eeeeec' align='right'>getFour()</td><td bgcolor='#eeeeec'>testsimple.sim</td><td title='C:\wamp\www\unittests\testphp.php' bgcolor='#eeeeec'>http://localhost/unittests/testphp.html<b>:</b>27</td></tr>");
 			lBlockCall = 1 ;
 		}
 		else {
