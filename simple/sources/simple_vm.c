@@ -1188,7 +1188,7 @@ SIMPLE_API void simple_vm_cgi_showerrormessage ( VM *vm,const char *cStr )
 	//<th align='left' bgcolor='#eeeeec'>Location</th>
 	/* Print Calling Information */
 	lBlockCall = 0 ; is_last_block = 1 ;
-	for ( x = simple_list_getsize(vm->pBlockCallList) ; x >= 2 ; x-- ) {
+	for ( x = simple_list_getsize(vm->pBlockCallList) ; x >= 1 ; x-- ) {
 		printf("<tr>");
 		list = simple_list_getlist(vm->pBlockCallList,x);
 		/*
