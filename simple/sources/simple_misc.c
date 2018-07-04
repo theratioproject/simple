@@ -44,12 +44,6 @@ void display_help(){
     printf("\nABOUT [FLAGS] : \n");
     printf("  -a --about			Display the SIMPLE Property and exits.\n");
     printf("  -l --license			Print the current SIMPLE LICENCE and exits.\n");
-    //printf("  -s -simplify                Compile simple file to one complex file.\n");
-    //printf("  -n -no-run                  Compile the program but don't run it.\n");
-    //printf("  -b -byte-code               Print the program Byte Code after compilation.\n");
-    //printf("  -l [PATH] -log-error [PATH] Skip all error instance and print error report in file.\n");
-    //print_line(); printf("MORE OPTION BELOW"); print_line(); 
-    //printf("\t-k [PATH] -show-tokens [PATH]             Save the token into a file for debugging.\n");
     exit(0);
 }
 
