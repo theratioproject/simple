@@ -696,7 +696,6 @@ int simple_scanner_checklasttoken ( Scanner *scanner )
 		}
 	}
 	if ( scanner->state == SCANNER_STATE_LITERAL ) {
-		simple_state_cgiheader(scanner->sState);
 		printf( "Error (S1) : In Line %d , Literal not closed, expected \" in the end\n",scanner->nLiteralLine ) ;
 		return 0 ;
 	}
