@@ -964,10 +964,11 @@ exit /b
 
 :removestubornfiles
 	if !EXEC_TYPE!=="install" (
-	
+		call:deletetempfiles ..\..\%SIMPLE_DEBUG_VERSION%\..\simple\dist\*.exp ..\..\%SIMPLE_DEBUG_VERSION%\modules\dynamic_modules\dist\*.exp
 	) else (
-	
+		call:deletetempfiles ..\..\%SIMPLE_DEBUG_VERSION%\..\simple\dist\*.exp ..\..\%SIMPLE_DEBUG_VERSION%\modules\dynamic_modules\dist\*.exp
 	)
+	call:deletetempfiles ..\simple\dist\*.exp modules\dynamic_modules\dist\*.exp
 	
 	exit /b 0 
 
