@@ -418,6 +418,8 @@ exit /b %ERRORLEVEL%
 		) else (
 			SET PATH=!PATH!;C:\cygwin\bin\
 		) 
+	) else (
+		call:compilernotfound C:/cygwin/
 	)
 		
 	exit /b 0
