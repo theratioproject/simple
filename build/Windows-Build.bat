@@ -1073,7 +1073,7 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 	echo =============================================================
 	echo simple-lang:build help %VERSION%
 	echo =============================================================
-	echo Usage: ./sudo Windows-Build.bat [FLAG]
+	echo Usage: Windows-Build.bat [FLAG]
 	echo [FLAGS] :
 	echo 	-c --configure	configure your system for simple-lang successfull build
 	echo 	-i --install	install simple-lang on your system
@@ -1087,8 +1087,8 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 	echo.
 	echo [C/C++ COMPILER FLAGS]
 	echo 	-gcc --gnu	build simple with available GNU toolchain
-	echo 	-mg --mingw	build simple with Microsoft Visual Studio
-	echo 	-cy --cygwin	build simple with Microsoft Visual Studio
+	echo 	-mg --mingw	build simple with MinGW tool chain
+	echo 	-cy --cygwin	build simple with Cygwin toolchain
 	echo 	-vs --visual-studio	build simple with Microsoft Visual Studio
 	echo.
 	echo [STANDALONE BUILD FLAGS]
@@ -1097,6 +1097,6 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 	echo 	-io --includes-only	copy only the simple includes files
 	echo 	-mo --modules-only	copy only the standard modules
 	echo 	-yo --dymodules-only	build only the dynamic modules
-	echo 	-eo --environment-only	build only the dynamic modules
+	echo 	-eo --environment-only	build only the environment programs
 	
 	exit /b 0
