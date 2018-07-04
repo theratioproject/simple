@@ -1218,11 +1218,11 @@ SIMPLE_API void simple_vm_cgi_showerrormessage ( VM *vm,const char *cStr )
 					cFile = vm->file_name ;
 				}
 			}
-			/* Called From */
 			//<td title='C:\wamp\www\unittests\testphp.php' bgcolor='#eeeeec'>http://localhost/unittests/testphp.html<b>:</b>27</td></tr>");
 			lBlockCall = 1 ;
-			printf( "<td bgcolor='#eeeeec'>%s</td>",file_real_name(cFile) ) ;
 			printf("<td bgcolor='#eeeeec' align='center'>%i</td><td bgcolor='#eeeeec' align='center'>Line %d</td>",1,simple_list_getint(list,SIMPLE_BLOCKCL_LINENUMBER));
+			/* Called From */
+			printf( "<td bgcolor='#eeeeec'>%s</td>",file_real_name(cFile) ) ;
 			
 		}
 		else {
