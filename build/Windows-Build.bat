@@ -711,7 +711,7 @@ REM COPY THE SIMPLE MODULES
 	
 :copysimplemodule
 	call:header modules copying simple modules to %SIMPLE_DEBUG_VERSION%
-	call:copysinglesimplemodule "simple core"
+	call:copysinglesimplemodule simple
 	for %%x in (%*) do (
 		echo %%x
 	)
