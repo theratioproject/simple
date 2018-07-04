@@ -541,7 +541,9 @@ REM RESOLVE DEPENDENCIES
 
 :resolvedependencies
 	call:header install "resolving simple-lang dependencies"
-	
+	if !THERE_IS_VS!=="true" (
+		SET THERE_IS_VS_TEMP="true"
+	)
 	REM ssleay32.dll
 		echo dependencies: ssleay32.dll
 	if !BUILD_ARC!=="x64" (
