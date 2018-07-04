@@ -853,8 +853,8 @@ REM THE ENVIRONMENT PROGRAMS WILL ALSO BE INSTALLED IN SAME BIN DIRECTORY AS SIM
 			)
 			if exist ../../simple-arts/environment/%1.ico (
 				
-				call:buildsingleenvironment %1 !BAKE_FLAG_GUI! 
-				REM %SIMPLE% %SMAKE% -I/../../simple-arts/environment/%1.ico -gui -delete ../../%SIMPLE_DEBUG_VERSION%/bin/simplepad.sim	
+				call:buildsingleenvironment %1 !BAKE_FLAG_GUI! -I/../../simple-arts/environment/%1.ico
+				REM %SIMPLE% %SMAKE%  -gui -delete ../../%SIMPLE_DEBUG_VERSION%/bin/simplepad.sim	
 			) else (
 				call:buildsingleenvironment %1 !BAKE_FLAG_GUI! 
 			)
@@ -869,7 +869,7 @@ REM THE ENVIRONMENT PROGRAMS WILL ALSO BE INSTALLED IN SAME BIN DIRECTORY AS SIM
 :buildsingleenvironment 
 	echo environment:build: building %1 
 	if !EXEC_TYPE!=="install" (
-		!SIMPLE_EXECUTABLE! !BAKE_EXECUTABLE! %2 -F/!INSTALLATION_FOLDER!\%VERSION%\bin\ ..\environment\%1\%1.sim
+		!SIMPLE_EXECUTABLE! !BAKE_EXECUTABLE! %3 %2 -F/!INSTALLATION_FOLDER!\%VERSION%\bin\ ..\environment\%1\%1.sim
 	)
 	if !EXEC_TYPE!=="debug" (
 		!SIMPLE_EXECUTABLE! !BAKE_EXECUTABLE! %2 -F/..\..\%SIMPLE_DEBUG_VERSION%\bin\ ..\environment\%1\%1.sim
