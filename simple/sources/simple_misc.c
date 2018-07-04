@@ -30,9 +30,9 @@ SIMPLE_API void print_line ( void )
 void display_help(){
     printf("Usage:  simple [FLAGS] [PATH] [ARGS...]\n");
     printf("\t\t\t<to run a simple or complex file>\n\n");
-    printf("[PATH]	: The Simple/Complex source file to execute.\n");
-    printf("[ARG...]	: The arguments to pass to your simple application.\n");
-    printf("[FLAGS]	: The flags/options to pass to the Simple VM/Simplify.\n\n");
+    printf("[PATH]	 : The Simple/Complex source file to execute.\n");
+    printf("[ARG...] : The arguments to pass to your simple application.\n");
+    printf("[FLAGS]	 : The flags/options to pass to the Simple VM/Simplify.\n\n");
     printf("MAIN [FLAGS] include : \n");
     printf("  -h --help			Displays this help and exits.\n");
     printf("  -k --show-tokens	Scans and outputs the tokens in the source file.\n");
