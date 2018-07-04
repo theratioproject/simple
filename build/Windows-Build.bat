@@ -295,7 +295,7 @@ exit /b %ERRORLEVEL%
 				SET PATH=!PATH!;C:\MinGW\bin\;C:\MinGW\msys\1.0\bin
 			)
 		) else (
-			echo error:simple-lang:configure MinGW not fund
+			echo error:simple-lang:configure MinGW not found
 			echo simple-lang:configure searching for cygwin
 			if exist "C:/cygwin/" (
 				echo simple-lang:configure found CygWIN Build Toolchain
