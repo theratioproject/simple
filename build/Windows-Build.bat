@@ -257,7 +257,7 @@ if !EXEC_TYPE!=="dymodules-only-debug" (
 	call:buildsimpledllexe
 	call:builddynamicmodules
 	call:copydynamicmodules
-	call:removedistfolders
+	REM call:removedistfolders
 )
 
 	:: configure and install for now
