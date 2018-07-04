@@ -352,7 +352,7 @@ exit /b %ERRORLEVEL%
 	exit /b 0
 	
 :locatemingw
-	echo simple-lang:configure:compiler checking for mingw in C:\MinGW\msys\1.0\bin\
+	echo simple-lang:configure: checking for mingw in C:\MinGW\msys\1.0\bin\
 	if exist "C:\MinGW\msys\1.0\bin\" (
 		echo simple-lang:configure found MinGW Build Toolchain
 		if !EXEC_TYPE!=="configure" (
@@ -360,13 +360,15 @@ exit /b %ERRORLEVEL%
 		) else (
 			SET PATH=!PATH!;C:\MinGW\bin\;C:\MinGW\msys\1.0\bin
 		)
+		exit /b 0
 	)
+	echo 
 	call:locategcc
 	
 	exit /b 0
 	
 :locatecygwin
-	echo simple-lang:configure:compiler checking for cygwin in C:\cygwin\
+	echo simple-lang:configure: checking for cygwin in C:\cygwin\
 	if exist "C:\cygwin\" (
 		echo simple-lang:configure found CygWIN Build Toolchain
 		if !EXEC_TYPE!=="configure" (
