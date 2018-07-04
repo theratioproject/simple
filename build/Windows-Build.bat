@@ -366,15 +366,6 @@ exit /b %ERRORLEVEL%
 	exit /b 0
 	
 :locategcc
-	echo simple-lang:configure:compiler checking if gcc is present in path C:\MinGW\msys\1.0\bin\
-	if exist "C:\MinGW\msys\1.0\bin\" (
-		echo simple-lang:configure found MinGW Build Toolchain
-		if !EXEC_TYPE!=="configure" (
-			call:setcompilerenv C:\MinGW\bin\ C:\MinGW\msys\1.0\bin
-		) else (
-			SET PATH=!PATH!;C:\MinGW\bin\;C:\MinGW\msys\1.0\bin
-		)
-	)
 	echo simple-lang:configure:compiler checking if gcc is present in path
 	gcc 2> ..\..\simple_build_configure
 	SET /p GCCVAL=<..\..\simple_build_configure
