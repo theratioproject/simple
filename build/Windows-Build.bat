@@ -1055,7 +1055,7 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 	echo 	-k --keep	keep the */dist/ folder(s) in source tree
 	echo 	-h --help	print this help message
 	echo.
-	echo [STANDALONE BUILD FLAGS]
+	echo [C/C++ COMPILER FLAGS]
 	echo 	-gcc --gnu	build simple with available GNU toolchain
 	echo 	-mg --mingw	build simple with Microsoft Visual Studio
 	echo 	-cy --cygwin	build simple with Microsoft Visual Studio
