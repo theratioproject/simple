@@ -708,14 +708,14 @@ REM CURRUPT REPOSITORY ERROR
 	exit /b 0 
 	
 :copysimplestandardmodule
-	
+	for %%x in (%*) do (
+		echo %%x
+	)
 
 	exit /b 0
 	
 :copysinglesimplemodule
-	for %%x in (%*) do (
-		rmdir /S /Q %%x 2> nul
-	)
+	
 
 	exit /b 0
 
