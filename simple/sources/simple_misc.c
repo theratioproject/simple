@@ -34,17 +34,17 @@ void display_help(){
     printf("[ARG...] : The arguments to pass to your simple application.\n");
     printf("[FLAGS]	 : The flags/options to pass to the Simple VM/Simplify.\n\n");
     printf("MAIN [FLAGS] include : \n");
-    printf("  -h --help			Displays this help and exits.\n");
-    printf("  -k --show-tokens	Scans and outputs the tokens in the source file.\n");
-    printf("  -t --time			Shows time before and after program execution.\n");
-    printf("  -c --case-insensitive		Make simple-lang case insensitive 'a=A'.\n");
-    printf("  -i -cgi --web			Optimize simple-lang for web development.\n");
-    printf("  -v --verbose			Displays all the modules and libraries of SIMPLE and exits.\n");
-    printf("  -e --error			Skip all error instance and print error report in console.\n");
-    printf("  -w --warning			Show all warning. \n");
+    printf("  -h --help		Displays this help and exits.\n");
+    printf("  -k --show-tokens		Scans and outputs the tokens in the source file.\n");
+    printf("  -t --time		Shows time before and after program execution.\n");
+    printf("  -c --case-insensitive	Make simple-lang case insensitive 'a=A'.\n");
+    printf("  -i -cgi --web		Optimize simple-lang for web development.\n");
+    printf("  -v --verbose		Displays all the modules and libraries of SIMPLE and exits.\n");
+    printf("  -e --error		Skip all error instance and print error report in console.\n");
+    printf("  -w --warning		Show all warning. \n");
     printf("\nABOUT [FLAGS] : \n");
-    printf("  -a --about			Display the SIMPLE Property and exits.\n");
-    printf("  -l --license			Print the current SIMPLE LICENCE and exits.\n");
+    printf("  -a --about		Display the SIMPLE Property and exits.\n");
+    printf("  -l --license		Print the current SIMPLE LICENCE and exits.\n");
     exit(0);
 }
 
