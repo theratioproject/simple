@@ -1246,6 +1246,7 @@ SIMPLE_API void simple_vm_cgi_showerrormessage ( VM *vm,const char *cStr )
 		}
 		printf( "\tin file %s ",cFile ) ;
 	}
+	printf("</table>");
 }
 
 void simple_vm_setfilename ( VM *vm )
