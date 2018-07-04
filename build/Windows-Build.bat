@@ -674,16 +674,7 @@ REM CURRUPT REPOSITORY ERROR
 	echo error:%1: the repository appears to be currupted. 
 	echo error:%1: try clonning the simple repository again to resolve the issue
 	
-	exit /b 0
-
-REM the dynamic libraries has been successful generated now copy them to %SIMPLE_DEBUG_VERSION% directory
-	echo dynamic_modules: copying Dynamic Modules to %SIMPLE_DEBUG_VERSION%
-if exist "../../%SIMPLE_DEBUG_VERSION%/modules/dynamic_modules" (
-	echo dynamic_modules: the ../../%SIMPLE_DEBUG_VERSION%/modules/dynamic_modules directory already exist
-) else (
-	echo dynamic_modules: creating the ../../%SIMPLE_DEBUG_VERSION%/modules/dynamic_modules directory
-	mkdir "../../%SIMPLE_DEBUG_VERSION%/modules/dynamic_modules"
-) 
+	exit /b 0 
 
 REM fulltick(GUI) dynamic module
 	echo dynamic_modules:fulltick: checking if fulltick build successfully
