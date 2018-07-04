@@ -430,6 +430,7 @@ exit /b %ERRORLEVEL%
 	call:builddynamicmodules
 	call:copydynamicmodules
 	call:copysimplemodule
+	call:buildsimplelangenvironments
 	
 	call:removedistfolders
 	call:removestubornfiles
