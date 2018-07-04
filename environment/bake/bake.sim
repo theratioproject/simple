@@ -122,15 +122,10 @@ block setDepLocation(location)
 block writeCode()
 	display "Writing ANSI C Wrapper Code... "+crlf
 	tCode = formatCode(sourceFile.readFileAsString())
-	code = '/*
-		 * To change this license header, choose License Headers in Project Properties.
-		 * To change this template file, choose Tools | Templates
-		 * and open the template in the editor.
-		 */
-
+	code = '
 		/* 
-		 * File:   main.c
-		 * Author: bake
+		 * File:   bake.c
+		 * Author: bake || Simple executable file builder
 		 *
 		 * Created on April 04, 2018, 12:11 PM
 		 */
