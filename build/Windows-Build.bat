@@ -850,8 +850,6 @@ REM THE ENVIRONMENT PROGRAMS WILL ALSO BE INSTALLED IN SAME BIN DIRECTORY AS SIM
 				%SIMPLE% %SMAKE% -I/../../simple-arts/environment/%1.ico -gui -delete ../../%SIMPLE_DEBUG_VERSION%/bin/simplepad.sim	
 			) else (
 				call:buildsingleenvironment %1 "-gui"
-				echo environment:build: building %1
-				%SIMPLE% %SMAKE% -gui ../../%SIMPLE_DEBUG_VERSION%/bin/%1.sim
 			)
 		) else (
 			echo error:environment:build ..\environment\%1\%1.sim cannot be found
@@ -862,11 +860,12 @@ REM THE ENVIRONMENT PROGRAMS WILL ALSO BE INSTALLED IN SAME BIN DIRECTORY AS SIM
 	exit /b 0
 	
 :buildsingleenvironment 
+	echo environment:build: building %1
 	if !EXEC_TYPE!=="install" (
 		%SIMPLE% %SMAKE% %2 ../../%SIMPLE_DEBUG_VERSION%/bin/%1.sim
 	)
 	if !EXEC_TYPE!=="debug" (
-	
+		%SIMPLE% %SMAKE% %2 ../../%SIMPLE_DEBUG_VERSION%/bin/%1.sim
 	)
 	
 	exit /b 0
