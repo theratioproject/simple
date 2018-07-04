@@ -44,7 +44,7 @@ void simple_vm_pushv ( VM *vm )
 								simple_hashtable_deleteitem(vm->pActiveMem->pHashTable,simple_list_getstring(var,SIMPLE_VAR_NAME));
 								simple_list_deletelastitem_gc(vm->sState,vm->pActiveMem);
 							}
-							//return ;
+							return ;
 						}
 					}
 				}
