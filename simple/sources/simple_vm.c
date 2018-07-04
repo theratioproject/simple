@@ -1189,7 +1189,7 @@ SIMPLE_API void simple_vm_cgi_showerrormessage ( VM *vm,const char *cStr )
 	lBlockCall = 0 ; is_last_block = 1 ;
 	for ( x = simple_list_getsize(vm->pBlockCallList) ; x >= 1 ; x-- ) {
 		printf("<tr>");
-		printf("<td bgcolor='#eeeeec' align='center'>%1</td>",x ) ;
+		printf("<td bgcolor='#eeeeec' align='center'>%i</td>",x ) ;
 		list = simple_list_getlist(vm->pBlockCallList,x);
 		/*
 		**  If we have ICO_LoadBlock but not ICO_CALL then we need to pass 
