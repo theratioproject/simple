@@ -1199,7 +1199,6 @@ SIMPLE_API void simple_vm_cgi_showerrormessage ( VM *vm,const char *cStr )
 			continue ;
 		}
 		if ( simple_list_getint(list,SIMPLE_BLOCKCL_TYPE) == SIMPLE_BLOCKTYPE_SCRIPT ) {
-			printf("<td bgcolor='#eeeeec' align='center'>%i</td><td bgcolor='#eeeeec' align='center'>Line %d</td>",1,simple_list_getint(list,SIMPLE_BLOCKCL_LINENUMBER));
 			/*
 			**  Prepare Message 
 			**  In 
@@ -1223,6 +1222,8 @@ SIMPLE_API void simple_vm_cgi_showerrormessage ( VM *vm,const char *cStr )
 			/* Called From */
 			//<td title='C:\wamp\www\unittests\testphp.php' bgcolor='#eeeeec'>http://localhost/unittests/testphp.html<b>:</b>27</td></tr>");
 			lBlockCall = 1 ;
+			printf("<td bgcolor='#eeeeec' align='center'>%i</td><td bgcolor='#eeeeec' align='center'>Line %d</td>",1,simple_list_getint(list,SIMPLE_BLOCKCL_LINENUMBER));
+			
 		}
 		else {
 			printf( "In %s ",file_real_name(simple_list_getstring(list,SIMPLE_BLOCKCL_NAME)) ) ;
