@@ -1242,6 +1242,7 @@ SIMPLE_API void simple_vm_cgi_showerrormessage ( VM *vm,const char *cStr )
 	}
 	if ( lBlockCall ) {
 		printf( "in file %s ",file_real_name(simple_list_getstring(vm->sState->files_list,1) )) ;
+		printf("<tr><th align='left' style='background:rgb(190,25,49);' colspan='5'><span style='color:white;'> Line %d : %s in %s</br></span></th></tr>\n",vm->nLineNumber,cStr,"filepath");
 		printf("<tr><th bgcolor='#eeeeec' align='center'> from file %s</th></tr>",simple_list_getstring(vm->sState->files_list,1)) ;
 	}
 	else {
