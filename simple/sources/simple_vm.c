@@ -1183,13 +1183,11 @@ SIMPLE_API void simple_vm_cgi_showerrormessage ( VM *vm,const char *cStr )
 	const char *cFile  ;
 	/* Print the Error Message */
 	printf("<table border='1' cellspacing='0' cellpadding='2'>\n");
-	printf("<tr><th align='left' style='background:rgb(190,25,49);' colspan='5'><span style='color:white;'> Line %d : %s in %s</br></span></th></tr>\n",vm->nLineNumber,cStr,vm->file_name);
-	printf("<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Location</th><th align='left' bgcolor='#eeeeec'>Block</th><th align='left' bgcolor='#eeeeec'>File</th></tr>");
-	//<th align='left' bgcolor='#eeeeec'>Location</th>
+	printf("<tr><th align='left' style='background:rgb(190,25,49);' colspan='5'><span style='color:white;'> Line %d : %s in %s</br></span></th></tr>",vm->nLineNumber,cStr,"filepath");
+	printf("<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Location</th><th align='left' bgcolor='#eeeeec'>Block</th><th align='left' bgcolor='#eeeeec'>File</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>");
 	/* Print Calling Information */
 	lBlockCall = 0 ; is_last_block = 1 ;
 	for ( x = simple_list_getsize(vm->pBlockCallList) ; x >= 1 ; x-- ) {
-		printf("<tr>");
 		list = simple_list_getlist(vm->pBlockCallList,x);
 		/*
 		**  If we have ICO_LoadBlock but not ICO_CALL then we need to pass 
@@ -1203,7 +1201,20 @@ SIMPLE_API void simple_vm_cgi_showerrormessage ( VM *vm,const char *cStr )
 			**  Prepare Message 
 			**  In 
 			*/
+			printf("<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>Line 27");
+			//</td><td bgcolor='#eeeeec' align='right'>getFour()</td><td bgcolor='#eeeeec'>testsimple.sim</td><td title='C:\wamp\www\unittests\testphp.php' bgcolor='#eeeeec'>http://localhost/unittests/testphp.html<b>:</b>27</td></tr>");
+			//if (is_last_block == 1) { printf("\tat "); is_last_block = 0; } else { printf("at "); }
+			/* Method or Block */
+			/*if ( simple_list_getint(list,SIMPLE_BLOCKCL_METHODORBLOCK) ) {
+				printf( "method " ) ;
+			}
+			else {
+				printf( "block " ) ;
+			}*/
+			/* Block Name */
+			printf( "%s",simple_list_getstring(list,SIMPLE_BLOCKCL_NAME) ) ;
 			/* Adding () */
+			printf( "() in file " ) ;
 			/* File Name */
 			if ( lBlockCall == 1 ) {
 				cFile = (const char *) simple_list_getpointer(list,SIMPLE_BLOCKCL_NEWFILENAME) ;
@@ -1216,19 +1227,14 @@ SIMPLE_API void simple_vm_cgi_showerrormessage ( VM *vm,const char *cStr )
 					cFile = vm->file_name ;
 				}
 			}
-			//<td title='C:\wamp\www\unittests\testphp.php' bgcolor='#eeeeec'>http://localhost/unittests/testphp.html<b>:</b>27</td></tr>");
-			lBlockCall = 1 ;
-			printf("<td bgcolor='#eeeeec' align='center'>%i</td><td bgcolor='#eeeeec' align='center'>Line %d</td>",1,simple_list_getint(list,SIMPLE_BLOCKCL_LINENUMBER));
-			/* Block Name */
-			printf("<td bgcolor='#eeeeec' align='center'>%s()</td>",simple_list_getstring(list,SIMPLE_BLOCKCL_NAME) ) ;
+			printf( "%s",file_real_name(cFile) ) ;
 			/* Called From */
-			printf( "<td bgcolor='#eeeeec'>%s</td>",file_real_name(cFile) ) ;
-			
+			printf( "\n\tat line %d ",simple_list_getint(list,SIMPLE_BLOCKCL_LINENUMBER) ) ;
+			lBlockCall = 1 ;
 		}
 		else {
 			printf( "In %s ",file_real_name(simple_list_getstring(list,SIMPLE_BLOCKCL_NAME)) ) ;
 		}
-		printf("<tr>\n");
 	}
 	if ( lBlockCall ) {
 		printf( "in file %s ",file_real_name(simple_list_getstring(vm->sState->files_list,1) )) ;
