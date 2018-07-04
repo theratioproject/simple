@@ -856,18 +856,6 @@ REM THE ENVIRONMENT PROGRAMS WILL ALSO BE INSTALLED IN SAME BIN DIRECTORY AS SIM
 			echo 		../../%SIMPLE_DEBUG_VERSION%/bin/simplepad.sim cannot be found
 			echo 		skipping simplepad
 		)
-		if exist "..\modules\%%x" (
-			if !EXEC_TYPE!=="install" (
-				echo modules: copying %%x module to !INSTALLATION_FOLDER!\%VERSION%\modules directory
-				xcopy "../modules/%%x" "!INSTALLATION_FOLDER!\%VERSION%\modules\%%x\" /s /h /e /k /f /c
-			)
-			if !EXEC_TYPE!=="debug" (
-				echo modules: copying %%x module to ..\..\%SIMPLE_DEBUG_VERSION%\modules directory
-				xcopy "../modules/%%x" "%~dp0\..\..\%SIMPLE_DEBUG_VERSION%\modules\%%x\" /s /h /e /k /f /c
-			)
-		) else (
-			call:modulecurrupterror %%x
-		)
 	)
 
 	exit /b 0
