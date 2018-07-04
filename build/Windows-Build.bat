@@ -718,6 +718,8 @@ REM COPY THE SIMPLE MODULES
 
 	exit /b 0
 	
+:copymodulesinloop
+	
 REM COPY SINGLE MODULE TO DIST FOLDER
 	
 :copysinglesimplemodule	
