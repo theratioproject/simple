@@ -844,8 +844,8 @@ REM THE ENVIRONMENT PROGRAMS WILL ALSO BE INSTALLED IN SAME BIN DIRECTORY AS SIM
 :buildenvironmentinloop
 	for %%x in (%*) do (
 		echo environment:build: %1
-		if exist "..\..\%SIMPLE_DEBUG_VERSION%/bin/simplepad.sim" (
-			if exist ../../simple-arts/environment/simplepad.ico (
+		if exist "..\environment\%1\%1.sim" (
+			if exist ../../simple-arts/environment/%1.ico (
 				echo 		Building simplepad with icon
 				%SIMPLE% %SMAKE% -I/../../simple-arts/environment/simplepad.ico -gui -delete ../../%SIMPLE_DEBUG_VERSION%/bin/simplepad.sim	
 			) else (
