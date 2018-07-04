@@ -375,6 +375,8 @@ exit /b %ERRORLEVEL%
 			SET PATH=!PATH!;C:\MinGW\bin\;C:\MinGW\msys\1.0\bin
 		)
 	)
+	call:locategcc
+	
 	exit /b 0
 	
 :locatecygwin
@@ -386,9 +388,8 @@ exit /b %ERRORLEVEL%
 		) else (
 			SET PATH=!PATH!;C:\cygwin\bin\
 		) 
-	) else (
-		call:compilernotfound C:\cygwin\
-	)
+	) 
+	call:locategcc
 		
 	exit /b 0
 	
