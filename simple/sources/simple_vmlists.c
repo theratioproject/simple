@@ -158,10 +158,10 @@ void simple_vm_loadindexaddress ( VM *vm )
 				}
 				else if ( simple_list_isstring(var,SIMPLE_VAR_VALUE) ) {
 					SIMPLE_VM_STACK_POP ;
-					if ( simple_list_getint(var,SIMPLE_VAR_TYPE) == SIMPLE_VM_NULL ) {
+					/*if ( simple_list_getint(var,SIMPLE_VAR_TYPE) == SIMPLE_VM_NULL ) {
 						simple_vm_error(vm,SIMPLE_VM_ERROR_USINGNULLVARIABLE);
 						return ;
-					}
+					}*/
 					string = simple_list_getstringobject(var,SIMPLE_VAR_VALUE) ;
 					simple_vm_stsimple_index(vm,string,nNum1);
 					return ;
