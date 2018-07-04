@@ -136,6 +136,34 @@ for %%x in (%*) do (
 			SET EXEC_TYPE="dymodules-only-debug"
 		)
 	)
+	if "%%x"=="-mo" (
+		if !EXEC_TYPE!=="install" (
+			SET EXEC_TYPE="modules-only-install"
+		) else (
+			SET EXEC_TYPE="modules-only-debug"
+		)
+	)  
+	if "%%x"=="--modules-only" (
+		if !EXEC_TYPE!=="install" (
+			SET EXEC_TYPE="modules-only-install"
+		) else (
+			SET EXEC_TYPE="modules-only-debug"
+		)
+	)
+	if "%%x"=="-eo" (
+		if !EXEC_TYPE!=="install" (
+			SET EXEC_TYPE="environment-only-install"
+		) else (
+			SET EXEC_TYPE="environment-only-debug"
+		)
+	) 
+	if "%%x"=="--environment-only" (
+		if !EXEC_TYPE!=="install" (
+			SET EXEC_TYPE="environment-only-install"
+		) else (
+			SET EXEC_TYPE="environment-only-debug"
+		)
+	) 
 	if "%%x"=="-vs" (
 		SET THERE_IS_VS="true"
 	)
@@ -198,6 +226,22 @@ if !EXEC_TYPE!=="includes-only-install" (
 if !EXEC_TYPE!=="includes-only-debug" (
 	SET EXEC_TYPE="debug"
 	call:copysimpleincludes
+)
+if !EXEC_TYPE!=="modules-only-install" (
+	SET EXEC_TYPE="install"
+	call:copysimplemodule
+)
+if !EXEC_TYPE!=="modules-only-debug" (
+	SET EXEC_TYPE="debug"
+	call:copysimplemodule
+)
+if !EXEC_TYPE!=="environment-only-install" (
+	SET EXEC_TYPE="install"
+	call:buildsimplelangenvironments
+)
+if !EXEC_TYPE!=="environment-only-debug" (
+	SET EXEC_TYPE="debug"
+	call:buildsimplelangenvironments
 )
 if !EXEC_TYPE!=="dymodules-only-install" (
 	SET EXEC_TYPE="install"
@@ -379,12 +423,12 @@ exit /b %ERRORLEVEL%
 			call:deletedirectories %~dp0\..\..\%SIMPLE_DEBUG_VERSION%\
 		) 
 	) 
-	REM call:buildsimpledllexe
-	REM call:copysimpledllexe
-	REM call:copysimpleincludes
-	REM call:resolvedependencies
-	REM call:builddynamicmodules
-	REM call:copydynamicmodules
+	call:buildsimpledllexe
+	call:copysimpledllexe
+	call:copysimpleincludes
+	call:resolvedependencies
+	call:builddynamicmodules
+	call:copydynamicmodules
 	call:copysimplemodule
 	
 	call:removedistfolders
@@ -714,6 +758,8 @@ REM COPY THE SIMPLE MODULES
 :copysimplemodule
 	call:header modules "copying simple modules to %SIMPLE_DEBUG_VERSION%"
 	call:copymodulesinloop archive fulltick simple web
+	call:resolvefirstcalls
+	copy "..\modules\modules-dependencies.conf" "%~dp0\..\..\%SIMPLE_DEBUG_VERSION%\modules\"
 
 	exit /b 0
 	
@@ -724,7 +770,7 @@ REM COPY ALL THE MODULE IN LOOP MODE
 		echo modules: %%x module
 		if exist "..\modules\%%x" (
 			if !EXEC_TYPE!=="install" (
-				echo modules: copying %%x module to !INSTALLATION_FOLDER!\%VERSION%/modules directory
+				echo modules: copying %%x module to !INSTALLATION_FOLDER!\%VERSION%\modules directory
 				xcopy "../modules/%%x" "!INSTALLATION_FOLDER!\%VERSION%\modules\%%x\" /s /h /e /k /f /c
 			)
 			if !EXEC_TYPE!=="debug" (
@@ -738,6 +784,34 @@ REM COPY ALL THE MODULE IN LOOP MODE
 
 	exit /b 0
 	
+REM THE __FIRST_CALLS.SIM FILE IS IMPORTANT FOR SIMPLE-LANG MODULES TO FUNCTION 
+	
+:resolvefirstcalls
+	echo modules:simple: treating the __first_calls.sim file 
+	if !EXEC_TYPE!=="install" (
+		if exist "!INSTALLATION_FOLDER!\%VERSION%\modules\simple\core\__first_calls.sim" (
+			echo modules:simple: this is a windows system the corresponding callDynamicModule are filled
+			call:echodycalls !INSTALLATION_FOLDER!\%VERSION%\modules\simple\core\__first_calls.sim dll
+		) else (
+			call:modulecurrupterror "__first_calls.sim file in"
+		)
+	)
+	if !EXEC_TYPE!=="debug" (
+		if exist "..\..\%SIMPLE_DEBUG_VERSION%\modules\simple\core\__first_calls.sim" (
+			echo modules:simple: this is a windows system the corresponding callDynamicModule are filled
+			call:echodycalls %~dp0\..\..\%SIMPLE_DEBUG_VERSION%\modules\simple\core\__first_calls.sim dll
+		) else (
+			call:modulecurrupterror "__first_calls.sim file in"
+		)
+	)
+	
+	exit /b 0
+	
+:echodycalls
+	echo callDynamicModule("systemic.%2") callDynamicModule("string_savant.%2") >> %1
+	
+	exit /b 0
+	
 REM CURRUPT MODULE ERROR
 
 :modulecurrupterror
@@ -745,73 +819,52 @@ REM CURRUPT MODULE ERROR
 	echo error:modules: the repository appears to be currupted. 
 	echo error:modules: try clonning the simple repository again to resolve the issue
 
+	exit /b 0 
+	
+REM SIMPLE_LANG ENVIRONMENT PROGRAMS
+REM THE ENVIRONMENT PROGRAMS WILL ALSO BE INSTALLED IN SAME BIN DIRECTORY AS SIMPLE
+
+:buildsimplelangenvironments
+	call:header environment "environment program build %VERSION%"
+	call:confirmsimplebuild
+	if !SIMPLE_EXECUTABLE!=="notfound" (
+		echo.
+	) else (
+		if exist "..\environment\bake\bake.sim" (
+			echo environment: ..\environment\bake\bake.sim found 
+			echo environment: starting environment programs build...
+		) else (
+			call:environmentnotfound ..\environment\bake\bake.sim
+		)
+	)
+
 	exit /b 0
+	
+REM CONFIRM SIMPLE.EXE IS BUILT SUCCESSFULLY
+	
+:confirmsimplebuild
+	if !EXEC_TYPE!=="install" (
+		SET SIMPLE_EXECUTABLE="!INSTALLATION_FOLDER!\%VERSION%\bin\simple.exe"
+	)
+	if !EXEC_TYPE!=="debug" (
+		SET SIMPLE_EXECUTABLE="%~dp0\..\..\%SIMPLE_DEBUG_VERSION%\bin\simple.exe"
+	)
+	if exist !SIMPLE_EXECUTABLE! (
+		echo environment: simple.exe found 
+		echo environment: proceeding to detect bake.sim 
+	) else (
+		call:environmentnotfound simple.exe
+		SET SIMPLE_EXECUTABLE="notfound"
+	) 
+	
+	exit /b 0
+	
+:environmentnotfound 
+	echo error:environment: %1 not found in distribution folder
+	echo error:environment: stopping the environment build
+	echo error:environment: try cloning the simple directory again to resolve error
 
-REM archive module	
-	echo modules: archive module
-if exist "../modules/archive" (
-	echo modules: copying archive module to ../../%SIMPLE_DEBUG_VERSION%/modules directory
-	xcopy "../modules/archive" "../../%SIMPLE_DEBUG_VERSION%/modules/archive/" /s /h /e /i /k /f /c
-) else (
-	echo error:modules: the archive module cannot be found
-	echo error:modules: the repository appears to be currupted. 
-	echo error:modules: try clonning the simple repository again to resolve the issue
-)
-
-REM web module	
-	echo modules: web module
-if exist "../modules/web" (
-	echo modules: copying web module to ../../%SIMPLE_DEBUG_VERSION%/modules directory
-	xcopy "../modules/web" "../../%SIMPLE_DEBUG_VERSION%/modules/web/" /s /h /e /i /k /f /c
-) else (
-	echo error:modules: the web module module cannot be found
-	echo error:modules: the repository appears to be currupted. 
-	echo error:modules: try clonning the simple repository again to resolve the issue
-)
-
-REM fulltick(GUI) module	
-	echo modules: fulltick GUI module
-if exist "../modules/fulltick" (
-	echo modules: copying fulltick module to ../../%SIMPLE_DEBUG_VERSION%/modules directory
-	xcopy "../modules/fulltick" "../../%SIMPLE_DEBUG_VERSION%/modules/fulltick/" /s /h /e /i /k /f /c
-) else (
-	echo error:modules: the fulltick GUI module cannot be found
-	echo error:modules: the repository appears to be currupted. 
-	echo error:modules: try clonning the simple repository again to resolve the issue
-)
-
-REM The __first_calls.sim File is important for simple-lang modules to function 
-	echo modules:simple: treating the __first_calls.sim file 
-if exist "../../%SIMPLE_DEBUG_VERSION%/modules/simple/core/__first_calls.sim" (
-	echo modules:simple: this is a windows system the corresponding callDynamicModule are filled
-	call __echo_first_call.bat %SIMPLE_DEBUG_VERSION% dll
-) else (
-	echo error:modules:simple: the __first_calls.sim file cannot be found
-	echo error:modules:simple: the repository appears to be currupted. 
-	echo error:modules:simple: try clonning the simple repository again to resolve the issue
-) 
-
-REM modules-dependencies.conf	
-	echo modules: modules-dependencies.conf
-if exist "../modules/modules-dependencies.conf" (
-	echo modules: copying modules-dependencies.conf to ../../%SIMPLE_DEBUG_VERSION%/modules directory
-	cp "../modules/modules-dependencies.conf" "../../%SIMPLE_DEBUG_VERSION%/modules/" 
-) else (
-	echo error:modules: modules-dependencies.conf cannot be found
-	echo error:modules: the repository appears to be currupted. 
-	echo error:modules: try clonning the simple repository again to resolve the issue
-)
-
-REM ENVIRONMENT PROGRAMS
-REM The environment programs will also be installed in same bin directory as simple
-REM move the environment to %SIMPLE_DEBUG_VERSION% directory
-	echo Copying Environment Programs to %SIMPLE_DEBUG_VERSION%
-if exist "../../%SIMPLE_DEBUG_VERSION%/bin" (
-	echo environment: the ../../%SIMPLE_DEBUG_VERSION%/bin directory already exist
-) else (
-	echo environment: creating the ../../%SIMPLE_DEBUG_VERSION%/bin directory
-	mkdir "../../%SIMPLE_DEBUG_VERSION%/bin"
-)
+	exit /b 0
 
 REM modular	
 	echo environment:modular: modular
@@ -1128,6 +1181,8 @@ exit /b
 	echo 	-so --simple-only	build only simple.exe, simplew.exe and simple.dll
 	echo 	-do --dep-only		build only the dependencies
 	echo 	-io --includes-only	copy only the simple includes files
-	echo 	-yo --dymodules-only	build only the dynamic module
+	echo 	-mo --modules-only	copy only the standard modules
+	echo 	-yo --dymodules-only	build only the dynamic modules
+	echo 	-eo --environment-only	build only the dynamic modules
 	
 	exit /b 0
