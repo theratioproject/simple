@@ -347,8 +347,8 @@ int simple_parser_stmt ( Parser *parser )
 		#endif
 		return x ;
 	}
-	/* Statement --> ? Expr */
-	if ( simple_parser_isoperator(parser,"?") ) {
+	/* Statement --> @ Expr */
+	if ( simple_parser_isoperator(parser,"@") ) {
 		simple_parser_nexttoken(parser);
 		/* Generate Code */
 		simple_parser_icg_newoperation(parser,ICO_BLOCKEXE);
@@ -364,7 +364,7 @@ int simple_parser_stmt ( Parser *parser )
 		#if SIMPLE_PARSERTRACE
 		SIMPLE_STATE_CHECKPRINTRULES 
 		
-		puts("Rule : Statement  --> '?' Expr");
+		puts("Rule : Statement  --> '@' Expr");
 		#endif
 		return x ;
 	}
@@ -1139,7 +1139,7 @@ int load_module( Parser *parser ) {
     #if SIMPLE_PARSERTRACE
     SIMPLE_STATE_CHECKPRINTRULES
 
-    puts("Rule : Statement  --> '?' Identifier{'.'identifier}");
+    puts("Rule : Statement  --> '?'['@'] Identifier{'.'identifier}");
     #endif
     return simple_parser_namedotname(parser) ;
 }
