@@ -215,6 +215,7 @@ SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 			}
 		}
 	}
+		simple_state_cgiheader(scanner->sState);
 	srand(time(NULL));
 	/* Check Startup simple.sim */
 	if ( simple_fexists("simple.sim") && argc == 1 ) {

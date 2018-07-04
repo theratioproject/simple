@@ -905,7 +905,7 @@ SIMPLE_API void simple_execute ( char *file_name, int nISCGI,int nRun,int nPrint
 	sState->argc = argc ;
 	sState->argv = argv ;
 	if (sState->nISCGI)
-		simple_state_cgiheader(nISCGI);
+		simple_state_cgiheader(sState);
 	if ( is_simple_file(file_name) ) {
 		simple_scanner_readfile(sState,file_name);
 	}
