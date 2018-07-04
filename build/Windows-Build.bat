@@ -983,6 +983,91 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 	)
 	
 	exit /b 0
+	
+:locatemingw
+	echo simple-lang:configure: checking for mingw in C:\MinGW\msys\1.0\bin\
+	if exist "C:\MinGW\msys\1.0\bin\" (
+		echo simple-lang:configure found MinGW Build Toolchain
+		if !EXEC_TYPE!=="configure" (
+			call:setcompilerenv C:\MinGW\bin\ C:\MinGW\msys\1.0\bin
+		) else (
+			SET PATH=!PATH!;C:\MinGW\bin\;C:\MinGW\msys\1.0\bin
+		)
+		exit /b 0
+	)
+	echo simple-lang:configure: mingw not found in C:\MinGW\msys\1.0\bin\
+	call:locategcc
+	
+	exit /b 0
+	
+:locatecygwin
+	echo simple-lang:configure: checking for cygwin in C:\cygwin\
+	if exist "C:\cygwin\" (
+		echo simple-lang:configure found CygWIN Build Toolchain
+		if !EXEC_TYPE!=="configure" (
+			call:setcompilerenv C:\cygwin\bin\
+		) else (
+			SET PATH=!PATH!;C:\cygwin\bin\
+		) 
+		exit /b 0
+	)
+	echo simple-lang:configure: cygwin not found in C:\cygwin\
+	call:locategcc
+		
+	exit /b 0
+	
+:locategcc
+	echo simple-lang:configure:compiler: checking if gcc is present in path
+	gcc 2> ..\..\simple_build_configure
+	SET /p GCCVAL=<..\..\simple_build_configure
+	if "!GCCVAL!"=="gcc: fatal error: no input files" (
+		call:deletetempfiles ..\..\simple_build_configure
+		echo simple-lang:configure:compiler: gcc found
+		echo simple-lang:configure:compiler: checking if g++ is present in path
+		g++ 2> ..\..\simple_build_configure
+		SET /p GCCVAL=<..\..\simple_build_configure
+		if "!GCCVAL!"=="g++: fatal error: no input files" (
+			call:deletetempfiles ..\..\simple_build_configure
+			echo simple-lang:configure:compiler g++ found
+			echo simple-lang:configure:compiler checking if make is present in path
+			make 2> ..\..\simple_build_configure
+			SET /p GCCVAL=<..\..\simple_build_configure
+			if "!GCCVAL!"=="make: *** No targets specified and no makefile found.  Stop." (
+				call:deletetempfiles ..\..\simple_build_configure
+				echo simple-lang:configure:compiler make found
+				echo simple-lang:configure:compiler proceeding to build...
+				exit /b 0
+			) else (
+				call:compilernotfound make
+				call:deletetempfiles ..\..\simple_build_configure
+			)
+		) else (
+			call:compilernotfound g++
+			call:deletetempfiles ..\..\simple_build_configure
+		)
+	) else (
+		call:compilernotfound gcc
+		call:deletetempfiles ..\..\simple_build_configure
+	)
+	
+	exit /b 0
+	
+:setcompilerenv
+	echo simple-lang:configure:compiler adding the directory to PATH for this session
+	echo simple-lang:configure:compiler the environment is available for only this session
+	echo simple-lang:configure:compiler your PATH variable is never affected in any way
+	for %%x in (%*) do (
+		SET PATH=!PATH!;%%x
+	)
+	echo simple-lang:configure:compiler the C/C++ Toolchain directory has been added to PATH
+	echo simple-lang:configure:compiler proceeding build...
+
+	exit /b 
+
+:uninstall
+	echo unintstalling
+	
+	exit /b 0
 
 :help
 	echo =============================================================
