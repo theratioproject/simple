@@ -1183,6 +1183,7 @@ SIMPLE_API void simple_vm_cgi_showerrormessage ( VM *vm,const char *cStr )
 	List *list  ;
 	const char *cFile  ;
 	/* Print the Error Message */
+	printf("<table border='1' cellspacing='0' cellpadding='2'>");
 	printf( "\nLine %d -> %s \n",vm->nLineNumber,cStr ) ;
 	/* Print Calling Information */
 	lBlockCall = 0 ; is_last_block = 1 ;
