@@ -712,13 +712,16 @@ REM COPY THE SIMPLE MODULES
 :copysimplemodule
 	call:header modules copying simple modules to %SIMPLE_DEBUG_VERSION%
 	call:copysinglesimplemodule simple
-	for %%x in (%*) do (
-		echo %%x
-	)
+	
 
 	exit /b 0
 	
 :copymodulesinloop
+	for %%x in (%*) do (
+		call:copysinglesimplemodule %%x
+	)
+
+	exit /b 0
 	
 REM COPY SINGLE MODULE TO DIST FOLDER
 	
