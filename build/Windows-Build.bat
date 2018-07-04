@@ -176,6 +176,12 @@ for %%x in (%*) do (
 	if "%%x"=="--gnu" (
 		SET BUILD_TOOL="gcc"
 	)
+	if "%%x"=="-mg" (
+		SET  BUILD_TOOL="mingw"
+	)
+	if "%%x"=="--mingw" (
+		SET BUILD_TOOL="mingw"
+	)
 )
 
 if !THERE_IS_VS!=="true" (
