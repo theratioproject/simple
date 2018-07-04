@@ -718,6 +718,8 @@ REM COPY THE SIMPLE MODULES
 
 	exit /b 0
 	
+REM COPY SINGLE MODULE TO DIST FOLDER
+	
 :copysinglesimplemodule	
 	echo modules: %1 module
 	if exist "..\modules\%1" (
