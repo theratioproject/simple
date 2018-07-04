@@ -863,7 +863,7 @@ REM THE ENVIRONMENT PROGRAMS WILL ALSO BE INSTALLED IN SAME BIN DIRECTORY AS SIM
 :buildsingleenvironment 
 	echo environment:build: building %1 %3
 	if !EXEC_TYPE!=="install" (
-		!SIMPLE_EXECUTABLE! !BAKE_EXECUTABLE! %2 !INSTALLATION_FOLDER!\%VERSION%\bin\%1.sim
+		!SIMPLE_EXECUTABLE! !BAKE_EXECUTABLE! %2 -F/!INSTALLATION_FOLDER!\%VERSION%\bin\ ..\environment\%1\%1.sim
 	)
 	if !EXEC_TYPE!=="debug" (
 		!SIMPLE_EXECUTABLE! !BAKE_EXECUTABLE! %2 -F/..\..\%SIMPLE_DEBUG_VERSION%\bin\ ..\environment\%1\%1.sim
