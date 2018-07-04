@@ -644,12 +644,12 @@ REM BULDING DYNAMIC LIBRARIES
 		REM call:builddymodule c consoler
 		REM call:builddymodule c core_dynamic_module
 		REM call:builddymodule c file_savant
-		REM call:builddymodule c mathic
+		call:builddymodule c mathic
 		REM call:builddymodule cpp fulltick
 		REM require .lib call:builddymodule c networker
 		REM failed call:builddymodule c parser
 		REM require .lib call:builddymodule c security
-		call:builddymodule c string_savant
+		REM call:builddymodule c string_savant
 		call:builddymodule c systemic
 		
 		call:confirmfolderelsecreate "..\modules\dynamic_modules\dist\"
