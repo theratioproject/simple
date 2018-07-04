@@ -181,17 +181,17 @@ SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 				SKIP_ERROR = 1;
 			} else if ( strcmp(argv[x],"--license") == 0 || strcmp(argv[x],"-l") == 0 ) {
 				display_licence();
-			} else if ( strcmp(argv[x],"-help") == 0 || strcmp(argv[x],"-h") == 0 ) {
+			} else if ( strcmp(argv[x],"--help") == 0 || strcmp(argv[x],"-h") == 0 ) {
 				display_help();
-			} else if ( strcmp(argv[x],"-about") == 0 || strcmp(argv[x],"-a") == 0 ) {
+			} else if ( strcmp(argv[x],"--about") == 0 || strcmp(argv[x],"-a") == 0 ) {
 				display_about();
-			} else if ( strcmp(argv[x],"--s") == 0 || strcmp(argv[x],"--simplify") == 0 ) {
+			} else if ( strcmp(argv[x],"-s") == 0 || strcmp(argv[x],"--simplify") == 0 ) {
 				nGenObj = 1 ; nRun = 0 ;
 			} else if ( strcmp(argv[x],"-n") == 0 || strcmp(argv[x],"--no-run") == 0 ) {
 				nRun = 0 ;
 			} else if ( strcmp(argv[x],"-b") == 0 || strcmp(argv[x],"--byte-code") == 0 ) {
 				nPrintIC = 1 ;  nRun = 0 ;
-			} else if ( strcmp(argv[x],"--b-f") == 0 || strcmp(argv[x],"-byte-code-final") == 0 ) {
+			} else if ( strcmp(argv[x],"-b-f") == 0 || strcmp(argv[x],"--byte-code-final") == 0 ) {
 				nPrintICFinal = 1 ;  nRun = 0 ;
 			} else if ( strcmp(argv[x],"--t") == 0 || strcmp(argv[x],"-time") == 0 ) {
 				show_time = 1 ;
