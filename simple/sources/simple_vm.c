@@ -708,7 +708,60 @@ void simple_vm_execute ( VM *vm )
 
 SIMPLE_API void simple_vm_error ( VM *vm,const char *cStr )
 {
-	
+	List *list  ;
+	/* Check if we have active error */
+	if ( vm->nActiveError ) {
+		return ;
+	}
+	vm->nActiveError = 1 ;
+	/* Check BraceError() */
+	if ( (simple_list_getsize(vm->pObjState) > 0) && (simple_vm_oop_callmethodinsideclass(vm) == 0 ) && (vm->nCallMethod == 0) ) {
+		if ( simple_vm_findvar(vm,"self") ) {
+			list = simple_vm_oop_getobj(vm);
+			SIMPLE_VM_STACK_POP ;
+			if ( simple_vm_oop_isobject(list) ) {
+				if ( simple_vm_oop_isblock(vm, list,"braceerror") ) {
+					simple_list_setstsimple_gc(vm->sState,simple_list_getlist(simple_vm_getglobalscope(vm),6),3,cStr);
+					simple_vm_runcode(vm,"braceerror()");
+					vm->nActiveError = 0 ;
+					return ;
+				}
+			}
+		}
+	}
+	if ( simple_list_getsize(vm->pTry) == 0 ) {
+		if ( vm->lHideErrorMsg == 0 ) {
+				printf("<br /><br />skippy %i <br /><br />",SKIP_ERROR);
+			if (vm->sState->nISCGI == 1 ) 
+				simple_vm_cgi_showerrormessage(vm,cStr);
+			else 
+				simple_vm_showerrormessage(vm,cStr);
+		}
+		/* Trace */
+		vm->nActiveError = 0 ;
+		simple_vm_traceevent(vm,SIMPLE_VM_TRACEEVENT_ERROR);
+		if ( vm->lPassError  == 1 ) {
+			vm->lPassError = 0 ;
+			return ;
+		}
+		if (SKIP_ERROR == 0) { vm->nActiveError = 1 ; exit(0); } else { return; }
+	}
+	/*
+	**  Check Eval In Scope 
+	**  When we have ringvm_evalinscope() We don't support try/catch 
+	**  We just display the error message and continue 
+	*/
+	if ( vm->nEvalInScope ) {
+		if (vm->sState->nISCGI == 1 ) 
+			simple_vm_cgi_showerrormessage(vm,cStr);
+		else 
+			simple_vm_showerrormessage(vm,cStr);
+		vm->nActiveError = 0 ;
+		simple_vm_freestack(vm);
+		return ;
+	}
+	simple_vm_catch(vm,cStr);
+	vm->nActiveError = 0 ;
 }
 
 SIMPLE_API int simple_vm_exec ( VM *vm,const char *cStr )
