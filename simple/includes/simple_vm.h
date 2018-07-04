@@ -158,6 +158,8 @@ void simple_vm_printstack ( VM *vm ) ;
 
 SIMPLE_API void simple_vm_showerrormessage ( VM *vm,const char *cStr ) ;
 
+SIMPLE_API void simple_vm_cgi_showerrormessage ( VM *vm,const char *cStr ) ;
+
 void simple_vm_addglobalvariables ( VM *vm ) ;
 /* Stack and Variables */
 
