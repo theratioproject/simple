@@ -719,7 +719,19 @@ REM COPY ALL THE MODULE IN LOOP MODE
 	
 :copymodulesinloop
 	for %%x in (%*) do (
-		call:copysinglesimplemodule %%x
+		echo modules: %1 module
+		if exist "..\modules\%1" (
+			if !EXEC_TYPE!=="install" (
+				echo modules: copying %1 module to ../../%SIMPLE_DEBUG_VERSION%/modules directory
+				xcopy "../modules/%1" "%~dp0\..\..\%SIMPLE_DEBUG_VERSION%\modules\%1\" /s /h /e /k /f /c
+			)
+			if !EXEC_TYPE!=="install" (
+				echo modules: copying %1 module to ../../%SIMPLE_DEBUG_VERSION%/modules directory
+				xcopy "../modules/%1" "%~dp0\..\..\%SIMPLE_DEBUG_VERSION%\modules\%1\" /s /h /e /k /f /c
+			)
+		) else (
+			call:modulecurrupterror %1
+		)
 	)
 
 	exit /b 0
@@ -727,19 +739,7 @@ REM COPY ALL THE MODULE IN LOOP MODE
 REM COPY SINGLE MODULE TO DIST FOLDER
 	
 :copysinglesimplemodule	
-	echo modules: %1 module
-	if exist "..\modules\%1" (
-		if !EXEC_TYPE!=="install" (
-			echo modules: copying %1 module to ../../%SIMPLE_DEBUG_VERSION%/modules directory
-			xcopy "../modules/%1" "%~dp0\..\..\%SIMPLE_DEBUG_VERSION%\modules\%1\" /s /h /e /k /f /c
-		)
-		if !EXEC_TYPE!=="install" (
-			echo modules: copying %1 module to ../../%SIMPLE_DEBUG_VERSION%/modules directory
-			xcopy "../modules/%1" "%~dp0\..\..\%SIMPLE_DEBUG_VERSION%\modules\%1\" /s /h /e /k /f /c
-		)
-	) else (
-		call:modulecurrupterror %1
-	)
+	
 
 	exit /b 0
 	
