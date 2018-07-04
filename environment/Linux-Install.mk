@@ -22,7 +22,7 @@ ENV_DISTDIR=./dist
 
 clean: 
 	mkdir -p $(ENV_DISTDIR)
-	$(SIMPLE) $(BAKE) -F/$(ENV_DISTDIR) ./repl/simplerepl.sim
+	$(SIMPLE) $(BAKE) -F/$(ENV_DISTDIR) ./simplerepl/simplerepl.sim
 	$(SIMPLE) $(BAKE) -F/$(ENV_DISTDIR) ./modular/modular.sim
 	$(SIMPLE) $(BAKE) -F/$(ENV_DISTDIR) ./simplepad/simplepad.sim
 	$(SIMPLE) $(BAKE) -F/$(ENV_DISTDIR) ./simplebridge/simplebridge.sim
