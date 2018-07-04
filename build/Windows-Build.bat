@@ -989,6 +989,7 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 			echo simple-lang:configure:buildtool Microsoft Visual Studio not found in x64 directory
 			echo simple-lang:configure:buildtool resolve to 32 bit
 			echo simple-lang:configure:buildtool Looking for 32 bit x86 MS Visual Studio 
+			SET BUILD_ARC="x86"
 			call:locatevisualstudio x86
 			exit /b 0
 		)
