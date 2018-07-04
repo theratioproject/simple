@@ -834,7 +834,7 @@ REM THE ENVIRONMENT PROGRAMS WILL ALSO BE INSTALLED IN SAME BIN DIRECTORY AS SIM
 		if exist !BAKE_EXECUTABLE! (
 			echo environment:bake.sim: ..\environment\bake\bake.sim found 
 			echo environment:bake.sim: starting environment programs build...
-			call:buildenvironmentinloop simplepad
+			call:buildenvironmentinloop bake modular repl simplebridge simplepad webworker
 		) else (
 			call:environmentnotfound ..\environment\bake\bake.sim
 		)
