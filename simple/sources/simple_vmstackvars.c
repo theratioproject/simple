@@ -39,7 +39,10 @@ void simple_vm_pushv ( VM *vm )
 					if ( simple_list_isstring(var,SIMPLE_VAR_VALUE) ) {
 						if ( strcmp(simple_list_getstring(var,SIMPLE_VAR_VALUE),"NULL") == 0 ) {
 							simple_vm_error2(vm,SIMPLE_VM_ERROR_USINGNULLVARIABLE,simple_list_getstring(var,SIMPLE_VAR_NAME));
-							
+							if ( simple_list_getlist(vm->pActiveMem,simple_list_getsize(vm->pActiveMem)) == var ) {
+								
+							}
+							return ;
 						}
 					}
 				}
