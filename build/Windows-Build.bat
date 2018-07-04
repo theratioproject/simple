@@ -81,11 +81,11 @@ for %%x in (%*) do (
 		call:help
 		exit /b 0
 	)
-	if "%%x"=="-p" (
+	if "%%x"=="-b" (
 		SET /p INSTALLATION_FOLDER=Enter the folder you want to install simple-lang to : 
 	)
 	if "%%x"=="--install-folder" (
-		SET /p INSTALLATION_FOLDER=Enter the folder you want to install simple-lang to : 
+		SET /b INSTALLATION_FOLDER=Enter the folder you want to install simple-lang to : 
 	) 
 	if "%%x"=="-so" (
 		if !EXEC_TYPE!=="install" (
@@ -1077,7 +1077,7 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 	echo [FLAGS] :
 	echo 	-c --configure	configure your system for simple-lang successfull build
 	echo 	-i --install	install simple-lang on your system
-	echo 	-p --build-dir	install simple-lang on your system
+	echo 	-b --build-dir	install simple-lang on your system
 	echo 	-u --uninstall	uninstall simple-lang from your system
 	echo 	-d --debug	create a distributable version in ..\..\ source directory
 	echo 	x86 --32-bit	build 32 bit version of simple-lang
