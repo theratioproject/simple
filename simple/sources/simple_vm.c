@@ -1212,7 +1212,7 @@ SIMPLE_API void simple_vm_cgi_showerrormessage ( VM *vm,const char *cStr )
 			/* Block Name */
 			printf( "%s",simple_list_getstring(list,SIMPLE_BLOCKCL_NAME) ) ;
 			/* Adding () */
-			printf( "() in file " ) ;
+			printf( "() in file here " ) ;
 			/* File Name */
 			if ( lBlockCall == 1 ) {
 				cFile = (const char *) simple_list_getpointer(list,SIMPLE_BLOCKCL_NEWFILENAME) ;
