@@ -1229,7 +1229,7 @@ SIMPLE_API void simple_vm_cgi_showerrormessage ( VM *vm,const char *cStr )
 			printf( "%s",file_real_name(cFile) ) ;
 			/* Called From */
 			printf( "\n\tat line %d ",simple_list_getint(list,SIMPLE_BLOCKCL_LINENUMBER) ) ;
-			printf("<td bgcolor='#eeeeec' align='center'>Line %d()</td>",simple_list_getint(list,SIMPLE_BLOCKCL_LINENUMBER) ) ;
+			
 			lBlockCall = 1 ;
 		}
 		else {
