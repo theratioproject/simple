@@ -732,6 +732,7 @@ SIMPLE_API void simple_vm_error ( VM *vm,const char *cStr )
 	if ( simple_list_getsize(vm->pTry) == 0 ) {
 		if ( vm->lHideErrorMsg == 0 ) {
 			if (vm->sState->nISCGI == 1 ) 
+				printf("<br /><br />skippy %i <br /><br />",SKIP_ERROR);
 				simple_vm_cgi_showerrormessage(vm,cStr);
 			else 
 				simple_vm_showerrormessage(vm,cStr);
