@@ -410,6 +410,18 @@ exit /b %ERRORLEVEL%
 	
 	exit /b 0
 	
+:locatecygwin
+	if exist "C:/cygwin/" (
+		echo simple-lang:configure found CygWIN Build Toolchain
+		if !EXEC_TYPE!=="configure" (
+			call:setcompilerenv C:\cygwin\bin\
+		) else (
+			SET PATH=!PATH!;C:\cygwin\bin\
+		) 
+	)
+		
+	exit /b 0
+	
 :setcompilerenv
 	echo simple-lang:configure:compiler adding the directory to PATH for this session
 	echo simple-lang:configure:compiler the environment is available for only this session
