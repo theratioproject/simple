@@ -104,7 +104,7 @@ SIMPLE_API SimpleState * finalize ( SimpleState *sState )
 void simple_state_cgiheader ( SimpleState *sState )
 {
 	if ( sState->nISCGI == 1 ) {
-		printf( "Content-Type: text/plain \n\n" ) ;
+		printf( "Content-Type: text/html \n\n" ) ;
 	}
 }
 
