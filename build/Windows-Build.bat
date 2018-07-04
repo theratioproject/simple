@@ -706,6 +706,11 @@ REM CURRUPT REPOSITORY ERROR
 	echo error:%1: try clonning the simple repository again to resolve the issue
 	
 	exit /b 0 
+	
+:copysimplestandardmodule
+	
+
+	exit /b 0
 
 REM Copy the simple modules
 	echo Copying Simple Modules to %SIMPLE_DEBUG_VERSION%
