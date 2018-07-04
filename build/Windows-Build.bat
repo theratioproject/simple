@@ -830,11 +830,31 @@ REM THE ENVIRONMENT PROGRAMS WILL ALSO BE INSTALLED IN SAME BIN DIRECTORY AS SIM
 	if !SIMPLE_EXECUTABLE!=="notfound" (
 		echo.
 	) else (
+		SET SIMPLE_EXECUTABLE="..\environment\bake\bake.sim"
 		if exist "..\environment\bake\bake.sim" (
 			echo environment:bake.sim: ..\environment\bake\bake.sim found 
 			echo environment:bake.sim: starting environment programs build...
 		) else (
 			call:environmentnotfound ..\environment\bake\bake.sim
+		)
+	)
+
+	exit /b 0
+	
+:buildenvironmentinloop
+	for %%x in (%*) do (
+		echo modules: %%x module
+		if exist "..\modules\%%x" (
+			if !EXEC_TYPE!=="install" (
+				echo modules: copying %%x module to !INSTALLATION_FOLDER!\%VERSION%\modules directory
+				xcopy "../modules/%%x" "!INSTALLATION_FOLDER!\%VERSION%\modules\%%x\" /s /h /e /k /f /c
+			)
+			if !EXEC_TYPE!=="debug" (
+				echo modules: copying %%x module to ..\..\%SIMPLE_DEBUG_VERSION%\modules directory
+				xcopy "../modules/%%x" "%~dp0\..\..\%SIMPLE_DEBUG_VERSION%\modules\%%x\" /s /h /e /k /f /c
+			)
+		) else (
+			call:modulecurrupterror %%x
 		)
 	)
 
