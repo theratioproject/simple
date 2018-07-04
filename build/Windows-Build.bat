@@ -182,6 +182,12 @@ for %%x in (%*) do (
 	if "%%x"=="--mingw" (
 		SET BUILD_TOOL="mingw"
 	)
+	if "%%x"=="-cy" (
+		SET  BUILD_TOOL="cygwin"
+	)
+	if "%%x"=="--cygwin" (
+		SET BUILD_TOOL="cygwin"
+	)
 )
 
 if !THERE_IS_VS!=="true" (
