@@ -385,6 +385,8 @@ exit /b %ERRORLEVEL%
 	call:resolvedependencies
 	call:builddynamicmodules
 	call:copydynamicmodules
+	call:copysimplemodule
+	
 	call:removedistfolders
 	call:removestubornfiles
 	
