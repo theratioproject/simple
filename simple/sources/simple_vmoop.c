@@ -326,10 +326,10 @@ List * simple_vm_oop_getobj ( VM *vm )
 	}
 	if ( SIMPLE_VM_STACK_OBJTYPE == SIMPLE_OBJTYPE_VARIABLE ) {
 		var = (List *) SIMPLE_VM_STACK_READP ;
-		if ( simple_list_getint(var,SIMPLE_VAR_TYPE) == SIMPLE_VM_NULL ) {
+		/*if ( simple_list_getint(var,SIMPLE_VAR_TYPE) == SIMPLE_VM_NULL ) {
 			simple_vm_error2(vm,SIMPLE_VM_ERROR_USINGNULLVARIABLE,simple_list_getstring(var,SIMPLE_VAR_NAME));
 			return NULL ;
-		}
+		} */
 		if ( ! simple_list_islist(var,SIMPLE_VAR_VALUE  ) ) {
 			simple_vm_error(vm,SIMPLE_VM_ERROR_NOTOBJECT);
 			return NULL ;
