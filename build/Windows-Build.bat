@@ -719,9 +719,10 @@ REM COPY THE SIMPLE MODULES
 	exit /b 0
 	
 :copysinglesimplemodule	
-		echo modules: %1 module
+	echo modules: %1 module
 	if exist "..\modules\%1" (
-		echo modules: copying simple module to ../../%SIMPLE_DEBUG_VERSION%/modules directory
+		
+		echo modules: copying %1 module to ../../%SIMPLE_DEBUG_VERSION%/modules directory
 		xcopy "../modules/simple" "../../%SIMPLE_DEBUG_VERSION%/modules/simple/" /s /h /e /k /f /c
 	) else (
 		call:modulecurrupterror "simple core"
