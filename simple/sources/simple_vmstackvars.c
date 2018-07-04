@@ -42,7 +42,6 @@ void simple_vm_pushv ( VM *vm )
 							if ( simple_list_getlist(vm->pActiveMem,simple_list_getsize(vm->pActiveMem)) == var ) {
 								
 							}
-							return ;
 						}
 					}
 				}
