@@ -543,6 +543,7 @@ REM RESOLVE DEPENDENCIES
 			call:dependencieserror libcurl.dll
 		)
 	)
+	SET THERE_IS_VS="true"
 	
 	exit /b 0
 	
