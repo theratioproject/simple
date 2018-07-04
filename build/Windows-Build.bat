@@ -8,7 +8,7 @@ SET BUILD_ARC="x86"
 SET VER=0.3.35
 SET THERE_IS_VS="false"
 SET KEEP_DIST="false"
-SET INSTALLATION_FOLDER="C:\Simple\"
+SET INSTALLATION_FOLDER=C:\Simple\
 SET VERSION=s0.3.35
 SET SIMPLE_DEBUG_VERSION=s0.3.35-debug
 SET FULLTICK_BUILD_ISSUE="<https://github.com/simple-lang/simple/issues/16>"
@@ -827,7 +827,6 @@ REM THE ENVIRONMENT PROGRAMS WILL ALSO BE INSTALLED IN SAME BIN DIRECTORY AS SIM
 :buildsingleenvironment 
 	echo environment:build: building %1 
 	if !EXEC_TYPE!=="install" (
-		echo "!SIMPLE_EXECUTABLE! !BAKE_EXECUTABLE! %2 %3 -F/!INSTALLATION_FOLDER!\%VERSION%\bin\ ..\environment\%1\%1.sim"
 		!SIMPLE_EXECUTABLE! !BAKE_EXECUTABLE! %2 %3 -F/!INSTALLATION_FOLDER!\%VERSION%\bin\ ..\environment\%1\%1.sim
 	)
 	if !EXEC_TYPE!=="debug" (
