@@ -846,7 +846,7 @@ REM THE ENVIRONMENT PROGRAMS WILL ALSO BE INSTALLED IN SAME BIN DIRECTORY AS SIM
 		echo environment:build: %1
 		if exist "..\environment\%1\%1.sim" (
 			if exist ../../simple-arts/environment/%1.ico (
-				echo 		Building simplepad with icon
+				echo environment:build: building %1 with icon
 				%SIMPLE% %SMAKE% -I/../../simple-arts/environment/simplepad.ico -gui -delete ../../%SIMPLE_DEBUG_VERSION%/bin/simplepad.sim	
 			) else (
 				echo 		Building simplepad
