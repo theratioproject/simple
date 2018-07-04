@@ -964,7 +964,7 @@ exit /b
 :removestubornfiles
 	call:call:deletetempfiles
 	
-	exit /b 0
+	exit /b 0 
 
 :getsimplecfiles
 	if exist "..\simple\sources\" (
