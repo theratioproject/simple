@@ -1188,6 +1188,7 @@ SIMPLE_API void simple_vm_cgi_showerrormessage ( VM *vm,const char *cStr )
 	/* Print Calling Information */
 	lBlockCall = 0 ; is_last_block = 1 ;
 	for ( x = simple_list_getsize(vm->pBlockCallList) ; x >= 1 ; x-- ) {
+		printf("file_real_name(cFile)");
 		list = simple_list_getlist(vm->pBlockCallList,x);
 		/*
 		**  If we have ICO_LoadBlock but not ICO_CALL then we need to pass 
@@ -1226,7 +1227,7 @@ SIMPLE_API void simple_vm_cgi_showerrormessage ( VM *vm,const char *cStr )
 			}
 			printf( "<td bgcolor='#eeeeec'>%s</td>",file_real_name(cFile) ) ;
 			/* Called From */
-			printf("<tr><td bgcolor='#eeeeec' align='center'>%i</td><td bgcolor='#eeeeec' align='center'>Line %d</td>",1,simple_list_getint(list,SIMPLE_BLOCKCL_LINENUMBER));
+			printf("<td bgcolor='#eeeeec' align='center'>%i</td><td bgcolor='#eeeeec' align='center'>Line %d</td>",1,simple_list_getint(list,SIMPLE_BLOCKCL_LINENUMBER));
 			//<td title='C:\wamp\www\unittests\testphp.php' bgcolor='#eeeeec'>http://localhost/unittests/testphp.html<b>:</b>27</td></tr>");
 			lBlockCall = 1 ;
 		}
