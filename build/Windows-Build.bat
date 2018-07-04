@@ -305,6 +305,7 @@ exit /b %ERRORLEVEL%
 	call:header configure "configure build %VERSION%"
 	echo simple-lang:configure:buildtool determining if a specific tool is specified
 	if !BUILD_TOOL!=="any" (
+		
 		echo simple-lang:configure preparing to find build toolchain...
 		echo simple-lang:configure serching for mingw and msys
 		echo simple-lang:configure:compiler please enter your C/C++ toolchain folder
