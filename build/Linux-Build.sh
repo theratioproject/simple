@@ -271,7 +271,7 @@ if [ -e ../modules ]; then
 		fi
 		cd ../
 	else
-		echo "error:dynamic_modules directory does not exist"
+		echo "error:dynamic_modules: directory does not exist"
 		echo "error:dynamic_modules: the repository appears to be currupted. "
 		echo "error:dynamic_modules: try clonning the simple repository again to resolve the issue"
 	fi
