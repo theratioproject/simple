@@ -173,9 +173,9 @@ SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 	#endif
 	if ( argc > 1 ) {
 		for ( x = 1 ; x < argc ; x++ ) {
-			if ( strcmp(argv[x],"--show-tokens") == 0 || strcmp(argv[x],"--k") == 0 ) {
+			if ( strcmp(argv[x],"--show-tokens") == 0 || strcmp(argv[x],"-k") == 0 ) {
 				nTokens = 1;
-			} else if ( strcmp(argv[x],"-case-insensitive") == 0 || strcmp(argv[x],"-c") == 0 ) {
+			} else if ( strcmp(argv[x],"--case-insensitive") == 0 || strcmp(argv[x],"-c") == 0 ) {
 				NOT_CASE_SENSITIVE = 1;
 			} else if ( strcmp(argv[x],"--error") == 0 || strcmp(argv[x],"-e") == 0 ) {
 				SKIP_ERROR = 1;
