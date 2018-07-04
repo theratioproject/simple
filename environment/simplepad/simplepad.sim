@@ -86,10 +86,33 @@ class SimplePad : FWindow
 block exeFolder()
 	return getSystemEnvironment("SIMPLE_PATH")+'/'
 	
-#FILE	
+#FILE
+		# block selected() display "Select : "+fb.index()+". Value : "+fb.getSelectedText() + crlf
+block openFile()
+# block changeDir() fb.loadDirectory(input.getText()) fb.select(0)
+	fileName = new FInput("./") fileName.setWidth(200) fileName.setPosition(15,15)
+		openButton = new FButton("Open")
+		openButton.setPosition(200,15)
+		fb = new FFileListBox() fb.setFileType(FILES_TYPE).setIconSize(60)
+		fb.setPosition(10,50).setSize(340,340)
+		# fb.callback("selected()")
+		window = new FWindow()
+		window.setTitle("Open File")
+		window.setSize(400,500)
+		window.setBackground(FColor.WHITE())
+		window.addWidget([fileName,openButton,fb])
+		window.show()	
+
 block newFile() editor.clear() file = null
-block open() file = new File("../bake/test.sim") editor.setText(file.readFileAsString()) notifyMenu(1)
-block save() file.write(editor.getText())
+block open() 
+	openFile() 
+		editor.setText(fb.loadDirectory(input.getText()).readFileAsString()) notifyMenu(1)
+block save() 
+	if ( file == null )
+		openFile()
+		else
+			file.write(editor.getText())
+	end
 block saveAs() display "Nothing yet.... "
 block close() editor.clear() file = null notifyMenu(0) block exit() __exit__
 #EDIT
