@@ -199,7 +199,8 @@ if !EXEC_TYPE!=="includes-only-debug" (
 )
 if !EXEC_TYPE!=="dymodules-only-install" (
 	SET EXEC_TYPE="install"
-	call:header debug "debug simple-lang %VERSION%"
+	call:header install "install simple-lang %VERSION%"
+	call:buildsimpledllexe
 )
 if !EXEC_TYPE!=="dymodules-only-debug" (
 	SET EXEC_TYPE="debug"
