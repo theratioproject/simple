@@ -241,5 +241,5 @@ void parser_error ( Parser *parser,const char *cStr )
 		printf( "\nLine %d -> %s\n",parser->nLineNumber,cStr ) ;
 		printf( "\tin file %s",file_real_name(simple_list_getstring(parser->sState->files_stack,SimpleActiveFile)) ) ;
 	}
-        if (SKIP_ERROR == 0) { exit(1); }
+        if (SKIP_ERROR == 0) { exit(0); }
 }

@@ -744,7 +744,7 @@ SIMPLE_API void simple_vm_error ( VM *vm,const char *cStr )
 			return ;
 		}
 		vm->nActiveError = 1 ;
-		exit(0);
+		if (SKIP_ERROR == 0) { exit(0); }
 	}
 	/*
 	**  Check Eval In Scope 
