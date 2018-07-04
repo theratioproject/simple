@@ -1,27 +1,12 @@
-﻿Build started 04-Jul-18 5:37:25 AM.
+﻿Build started 04-Jul-18 5:41:57 AM.
      1>Project "C:\Users\thecarisma\Documents\SIMPLE_GITHUB\simple\modules\dynamic_modules\fulltick\fulltick.vcxproj" on node 2 (Build target(s)).
      1>Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\thecarisma\Downloads\fltk-1.3.4-2\ide\VisualC2010\x64\Debug\fulltick.dll" /INCREMENTAL:NO /NOLOGO /LIBPATH:"C:\Users\thecarisma\Documents\SIMPLE GITHUB\modules\dynamic_modules\fulltick\lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib simple.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\thecarisma\Downloads\fltk-1.3.4-2\ide\VisualC2010\x64\Debug\fulltick.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\thecarisma\Downloads\fltk-1.3.4-2\ide\VisualC2010\x64\Debug\fulltick.lib" /MACHINE:X64 /DLL x64\Debug\fulltick.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\thecarisma\Downloads\fltk-1.3.4-2\ide\VisualC2010\x64\Debug\fulltick.dll" /INCREMENTAL:NO /NOLOGO /LIBPATH:..\..\..\simple\dist kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib simple.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\thecarisma\Downloads\fltk-1.3.4-2\ide\VisualC2010\x64\Debug\fulltick.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\thecarisma\Downloads\fltk-1.3.4-2\ide\VisualC2010\x64\Debug\fulltick.lib" /MACHINE:X64 /DLL x64\Debug\fulltick.obj
          x64\Debug\fulltick_delegate.obj
          "C:\Users\thecarisma\Downloads\fltk-1.3.4-2\lib\fltkd.lib"
-            Creating library C:\Users\thecarisma\Downloads\fltk-1.3.4-2\ide\VisualC2010\x64\Debug\fulltick.lib and object C:\Users\thecarisma\Downloads\fltk-1.3.4-2\ide\VisualC2010\x64\Debug\fulltick.exp
-     1>fulltick.obj : error LNK2019: unresolved external symbol simple_string_new_gc referenced in function "void __cdecl set_scheme(void *)" (?set_scheme@@YAXPEAX@Z)
-     1>fulltick.obj : error LNK2019: unresolved external symbol simple_itemarray_setdouble referenced in function "void __cdecl run_fulltick(void *)" (?run_fulltick@@YAXPEAX@Z)
-     1>fulltick.obj : error LNK2019: unresolved external symbol simple_itemarray_setstring referenced in function "void __cdecl get_input_index(void *)" (?get_input_index@@YAXPEAX@Z)
-     1>fulltick.obj : error LNK2019: unresolved external symbol simple_list_getitem referenced in function "void __cdecl test_gui(void *)" (?test_gui@@YAXPEAX@Z)
-     1>fulltick.obj : error LNK2019: unresolved external symbol simple_list_getlist referenced in function "void __cdecl test_gui(void *)" (?test_gui@@YAXPEAX@Z)
-     1>fulltick.obj : error LNK2019: unresolved external symbol simple_list_isnumber referenced in function "void __cdecl set_widget_background(void *)" (?set_widget_background@@YAXPEAX@Z)
-     1>fulltick.obj : error LNK2019: unresolved external symbol simple_list_isstring referenced in function "void __cdecl test_gui(void *)" (?test_gui@@YAXPEAX@Z)
-     1>fulltick.obj : error LNK2019: unresolved external symbol simple_vm_error referenced in function "void __cdecl test_gui(void *)" (?test_gui@@YAXPEAX@Z)
-     1>fulltick.obj : error LNK2019: unresolved external symbol simple_vm_runcode referenced in function SimpleCallBack
-     1>fulltick.obj : error LNK2019: unresolved external symbol register_block_t referenced in function init_full_tick
-     1>fulltick.obj : error LNK2019: unresolved external symbol api_ret_cpointer referenced in function "void __cdecl get_parent_widget(void *)" (?get_parent_widget@@YAXPEAX@Z)
-     1>fulltick.obj : error LNK2019: unresolved external symbol api_get_cpointer referenced in function "void __cdecl resizable_object(void *)" (?resizable_object@@YAXPEAX@Z)
-     1>fulltick.obj : error LNK2019: unresolved external symbol api_is_cpointer referenced in function "void __cdecl on_click(void *)" (?on_click@@YAXPEAX@Z)
-     1>fulltick.obj : error LNK2019: unresolved external symbol api_is_pointer referenced in function "void __cdecl resizable_object(void *)" (?resizable_object@@YAXPEAX@Z)
-     1>C:\Users\thecarisma\Downloads\fltk-1.3.4-2\ide\VisualC2010\x64\Debug\fulltick.dll : fatal error LNK1120: 14 unresolved externals
+     1>LINK : fatal error LNK1181: cannot open input file 'simple.lib'
      1>Done Building Project "C:\Users\thecarisma\Documents\SIMPLE_GITHUB\simple\modules\dynamic_modules\fulltick\fulltick.vcxproj" (Build target(s)) -- FAILED.
 
 Build FAILED.
 
-Time Elapsed 00:00:01.83
+Time Elapsed 00:00:01.18
