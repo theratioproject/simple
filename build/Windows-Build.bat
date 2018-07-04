@@ -171,16 +171,26 @@ for %%x in (%*) do (
 		SET THERE_IS_VS="true"
 	)
 	if "%%x"=="-gcc" (
-		SET THERE_IS_VS="false"
+		SET  BUILD_TOOL="gcc"
 	)
 	if "%%x"=="--gnu" (
-		SET THERE_IS_VS="false"
+		SET BUILD_TOOL="gcc"
 	)
 )
 
 if !THERE_IS_VS!=="true" (
 	call:header configure "configure build %VERSION%"
 	call:locatevisualstudio !BUILD_ARC!
+)
+if !BUILD_TOOL!=="gcc" (
+	call:header configure "configure build %VERSION%"
+	call:locategcc !BUILD_ARC!
+)
+if !NO_BUILDTOOL!=="true" (
+	echo error:simple-lang:configure: no C/C++ compiler to found 
+	echo error:simple-lang:configure: re-build with no C/C++ compiler flag to find available build tool 
+	echo error:simple-lang:configure: stopping build...
+	exit /b 0
 )
 
 if !EXEC_TYPE!=="" (
@@ -254,10 +264,10 @@ if !EXEC_TYPE!=="dymodules-only-install" (
 if !EXEC_TYPE!=="dymodules-only-debug" (
 	SET EXEC_TYPE="debug"
 	call:header install "install simple-lang %VERSION%"
-	REM call:buildsimpledllexe
+	call:buildsimpledllexe
 	call:builddynamicmodules
 	call:copydynamicmodules
-	REM call:removedistfolders
+	call:removedistfolders
 )
 
 	:: configure and install for now
@@ -274,10 +284,88 @@ exit /b %ERRORLEVEL%
 :configure
 	call:header configure "configure build %VERSION%"
 	echo simple-lang:configure:buildtool determining if a specific tool is specified
-	if !THERE_IS_VS!=="true" (
+	if !BUILD_TOOL!=="any" (
+		echo simple-lang:configure preparing to find build toolchain...
+		echo simple-lang:configure serching for mingw and msys
+		if exist "C:\MinGW\msys\1.0\bin\" (
+			echo simple-lang:configure found MinGW Build Toolchain
+			if !EXEC_TYPE!=="configure" (
+				call:setcompilerenv C:\MinGW\bin\ C:\MinGW\msys\1.0\bin
+			) else (
+				SET PATH=!PATH!;C:\MinGW\bin\;C:\MinGW\msys\1.0\bin
+			)
+		) else (
+			echo error:simple-lang:configure MinGW not fund
+			echo simple-lang:configure searching for cygwin
+			if exist "C:/cygwin/" (
+				echo simple-lang:configure found CygWIN Build Toolchain
+				if !EXEC_TYPE!=="configure" (
+					call:setcompilerenv C:\cygwin\bin\
+				) else (
+					SET PATH=!PATH!;C:\cygwin\bin\
+				) 
+			) else (
+				echo error:simple-lang:configure CygWIN not found
+				echo simple-lang:configure searching for Microsoft Visual Studio
+				for /d %%a in ("%programfiles%\Microsoft Visual Studio*") do (
+					for /f "tokens=3 delims=\" %%x in ("%%a") do SET THERE_IS_VS="true"  
+					SET MVS=%%a\
+					break
+				)
+				if exist !MVS! (
+					echo simple-lang:configure !MVS! found
+					call:locatevisualstudio !BUILD_ARC!
+				) else (
+					echo error:simple-lang:configure:msvisualstudio Microsoft Visual Studio not found
+					echo simple-lang:configure:compiler please enter your C/C++ toolchain folder
+					SET /p COMPILER_PATH=Enter your C/C++ Toolchain directory : 
+					echo simple-lang:configure:compiler your C/C++ Toolchain Directory ~ !COMPILER_PATH!
+					echo simple-lang:configure:compiler checking the presence of toolchain : gcc
+					if exist !COMPILER_PATH!/gcc.exe (
+						echo simple-lang:configure:compiler gcc : found
+						echo simple-lang:configure:compiler checking the presence of toolchain : g++
+						if exist "!COMPILER_PATH!/g++.exe" (
+							echo simple-lang:configure:compiler g++ : found
+							echo simple-lang:configure:compiler checking the presence of toolchain : make
+							if exist "!COMPILER_PATH!/make.exe" (
+								echo simple-lang:configure:compiler make : found
+								if !EXEC_TYPE!=="configure" (
+									SET PATH=!PATH!;!COMPILER_PATH!
+								) else (
+									call:setcompilerenv !COMPILER_PATH! 
+								)
+							) else (
+								echo error:simple-lang:configure make not found
+								echo simple-lang:configure enter make.exe folder if different from !COMPILER_PATH!
+								SET /p COMPILER_PATH2=Enter your Make.exe directory : 
+								if exist "!COMPILER_PATH2!/make.exe" (
+									echo simple-lang:configure:compiler make : found
+									if !EXEC_TYPE!=="configure" (
+										SET PATH="%PATH%;%COMPILER_PATH%;%COMPILER_PATH2%"
+									) else (
+										call:setcompilerenv !COMPILER_PATH! !COMPILER_PATH2!
+									)
+								) else (
+									call:compilernotfound make
+								)
+							)
+						) else (
+							call:compilernotfound g++
+						)
+					) else (
+						call:compilernotfound gcc
+					)
+				)
+			)
+		)
+		
+	) else (
 		exit /b 0
-	) 
-	echo simple-lang:configure preparing to find build toolchain...
+	)
+	
+	exit /b 0
+	
+:locategcc
 	echo simple-lang:configure:compiler checking if gcc is present in path
 	gcc 2> ..\..\simple_build_configure
 	SET /p GCCVAL=<..\..\simple_build_configure
@@ -309,78 +397,6 @@ exit /b %ERRORLEVEL%
 	) else (
 		call:compilernotfound gcc
 		call:deletetempfiles ..\..\simple_build_configure
-	)
-	echo simple-lang:configure serching for mingw and msys
-	if exist "C:\MinGW\msys\1.0\bin\" (
-		echo simple-lang:configure found MinGW Build Toolchain
-		if !EXEC_TYPE!=="configure" (
-			call:setcompilerenv C:\MinGW\bin\ C:\MinGW\msys\1.0\bin
-		) else (
-			SET PATH=!PATH!;C:\MinGW\bin\;C:\MinGW\msys\1.0\bin
-		)
-	) else (
-		echo error:simple-lang:configure MinGW not fund
-		echo simple-lang:configure searching for cygwin
-		if exist "C:/cygwin/" (
-			echo simple-lang:configure found CygWIN Build Toolchain
-			if !EXEC_TYPE!=="configure" (
-				call:setcompilerenv C:\cygwin\bin\
-			) else (
-				SET PATH=!PATH!;C:\cygwin\bin\
-			) 
-		) else (
-			echo error:simple-lang:configure CygWIN not found
-			echo simple-lang:configure searching for Microsoft Visual Studio
-			for /d %%a in ("%programfiles%\Microsoft Visual Studio*") do (
-				for /f "tokens=3 delims=\" %%x in ("%%a") do SET THERE_IS_VS="true"  
-				SET MVS=%%a\
-				break
-			)
-			if exist !MVS! (
-				echo simple-lang:configure !MVS! found
-				call:locatevisualstudio !BUILD_ARC!
-			) else (
-				echo error:simple-lang:configure:msvisualstudio Microsoft Visual Studio not found
-				echo simple-lang:configure:compiler please enter your C/C++ toolchain folder
-				SET /p COMPILER_PATH=Enter your C/C++ Toolchain directory : 
-				echo simple-lang:configure:compiler your C/C++ Toolchain Directory ~ !COMPILER_PATH!
-				echo simple-lang:configure:compiler checking the presence of toolchain : gcc
-				if exist !COMPILER_PATH!/gcc.exe (
-					echo simple-lang:configure:compiler gcc : found
-					echo simple-lang:configure:compiler checking the presence of toolchain : g++
-					if exist "!COMPILER_PATH!/g++.exe" (
-						echo simple-lang:configure:compiler g++ : found
-						echo simple-lang:configure:compiler checking the presence of toolchain : make
-						if exist "!COMPILER_PATH!/make.exe" (
-							echo simple-lang:configure:compiler make : found
-							if !EXEC_TYPE!=="configure" (
-								SET PATH=!PATH!;!COMPILER_PATH!
-							) else (
-								call:setcompilerenv !COMPILER_PATH! 
-							)
-						) else (
-							echo error:simple-lang:configure make not found
-							echo simple-lang:configure enter make.exe folder if different from !COMPILER_PATH!
-							SET /p COMPILER_PATH2=Enter your Make.exe directory : 
-							if exist "!COMPILER_PATH2!/make.exe" (
-								echo simple-lang:configure:compiler make : found
-								if !EXEC_TYPE!=="configure" (
-									SET PATH="%PATH%;%COMPILER_PATH%;%COMPILER_PATH2%"
-								) else (
-									call:setcompilerenv !COMPILER_PATH! !COMPILER_PATH2!
-								)
-							) else (
-								call:compilernotfound make
-							)
-						)
-					) else (
-						call:compilernotfound g++
-					)
-				) else (
-					call:compilernotfound gcc
-				)
-			)
-		)
 	)
 	
 	exit /b 0
@@ -640,16 +656,16 @@ REM BULDING DYNAMIC LIBRARIES
 		call:deletedirectories %~dp0\..\modules\dynamic_modules\dist\
 	)
 	if !THERE_IS_VS!=="true" (
-		REM call:builddymodule c archiver
-		REM call:builddymodule c consoler
-		REM call:builddymodule c core_dynamic_module
-		REM call:builddymodule c file_savant
+		call:builddymodule c archiver
+		call:builddymodule c consoler
+		call:builddymodule c core_dynamic_module
+		call:builddymodule c file_savant
 		call:builddymodule c mathic
 		REM call:builddymodule cpp fulltick
 		REM require .lib call:builddymodule c networker
 		REM failed call:builddymodule c parser
 		REM require .lib call:builddymodule c security
-		REM call:builddymodule c string_savant
+		call:builddymodule c string_savant
 		call:builddymodule c systemic
 		
 		call:confirmfolderelsecreate "..\modules\dynamic_modules\dist\"
@@ -950,19 +966,18 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 	if "%1"==""x86"" (
 		SET "PROGRAMFILESPATH=%ProgramFiles(x86)%"
 	)
-	for /d %%a in ("%PROGRAMFILESPATH%\Microsoft Visual Studio*") do (
+	for /d %%a in ("%PROGRAMFILESPATH%\Micgrosoft Visual Studio*") do (
 		for /f "tokens=3 delims=\" %%x in ("%%a") do SET MVS=%%a\
 		break
 	)
-	if !BUILD_ARC!=="x86" (
+	if "%1"=="x86" (
 		if exist "!MVS!\VC\vcvarsall.bat" (
 			echo simple-lang:configure:buildtool found !MVS!
 			call:callmsvisualstudio "!MVS!\VC\vcvarsall.bat"
 			exit /b 0
 		) else (
 			echo simple-lang:configure:buildtool Microsoft Visual Studio not found
-			echo simple-lang:configure:buildtool Looking for 32 bit x86 MS Visual Studio 
-			call:locatevisualstudio x86
+			SET NO_BUILDTOOL="true"
 			exit /b 0
 		)
 	) else (
@@ -971,7 +986,9 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 			call:callmsvisualstudio "!MVS!\VC\vcvarsall.bat"
 			exit /b 0
 		) else (
+			echo simple-lang:configure:buildtool Microsoft Visual Studio not found in x64 directory
 			echo simple-lang:configure:buildtool resolve to 32 bit
+			echo simple-lang:configure:buildtool Looking for 32 bit x86 MS Visual Studio 
 			call:locatevisualstudio x86
 			exit /b 0
 		)
@@ -993,6 +1010,7 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 	echo error:simple-lang:compiler %1 not found 
 	echo error:simple-lang:compiler please confirm your installation folder
 	echo error:simple-lang:compiler restart the build process again
+	SET NO_BUILDTOOL="true"
 	
 	exit /b 0
 	
