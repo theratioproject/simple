@@ -438,7 +438,7 @@ exit /b %ERRORLEVEL%
 	
 :removedistfolders
 	if !KEEP_DIST!=="false" (
-		call:deletedirectories %~dp0\..\simple\dist %~dp0\..\modules\dynamic_modules\dist\
+		call:deletedirectories %~dp0.\-p %~dp0\..\simple\dist %~dp0\..\modules\dynamic_modules\dist\
 	)
 	
 	exit /b 0
