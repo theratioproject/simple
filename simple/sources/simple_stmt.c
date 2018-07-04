@@ -348,6 +348,7 @@ int simple_parser_stmt ( Parser *parser )
 		return x ;
 	}
 	/* Statement --> @ Expr */
+	/* This is most useful for web development to avoid so much typing*/
 	if ( simple_parser_isoperator(parser,"@") ) {
 		simple_parser_nexttoken(parser);
 		/* Generate Code */
