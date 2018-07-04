@@ -713,7 +713,7 @@ REM COPY THE SIMPLE MODULES
 	
 :copysimplemodule
 	call:header modules "copying simple modules to %SIMPLE_DEBUG_VERSION%"
-	call:copymodulesinloop simple archive fulltick
+	call:copymodulesinloop archive fulltick simple web
 
 	exit /b 0
 	
