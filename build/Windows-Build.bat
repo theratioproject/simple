@@ -188,6 +188,14 @@ if !THERE_IS_VS!=="true" (
 	call:header configure "configure build %VERSION%"
 	call:locatevisualstudio !BUILD_ARC!
 )
+if !BUILD_TOOL!=="mingw" (
+	call:header configure "configure build %VERSION%"
+	call:mingw !BUILD_ARC!
+)
+if !BUILD_TOOL!=="gcc" (
+	call:header configure "configure build %VERSION%"
+	call:locategcc !BUILD_ARC!
+)
 if !BUILD_TOOL!=="gcc" (
 	call:header configure "configure build %VERSION%"
 	call:locategcc !BUILD_ARC!
