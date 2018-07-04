@@ -190,11 +190,11 @@ if !THERE_IS_VS!=="true" (
 )
 if !BUILD_TOOL!=="mingw" (
 	call:header configure "configure build %VERSION%"
-	call:mingw !BUILD_ARC!
+	call:locatemingw !BUILD_ARC!
 )
-if !BUILD_TOOL!=="gcc" (
+if !BUILD_TOOL!=="cygwin" (
 	call:header configure "configure build %VERSION%"
-	call:locategcc !BUILD_ARC!
+	call:locatecygwin !BUILD_ARC!
 )
 if !BUILD_TOOL!=="gcc" (
 	call:header configure "configure build %VERSION%"
