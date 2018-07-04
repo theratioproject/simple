@@ -665,11 +665,11 @@ REM FULLTICK(GUI) DYNAMIC MODULE
 :confirmfulltickdymodule
 	echo dynamic_modules:fulltick: checking if fulltick build successfully
 	if !BUILD_ARC!=="x64" (
-		SET FULLTICK_DYMODULE="fulltick.dll"
+		SET FULLTICK_DY_MODULE="fulltick.dll"
 	) else (
-		SET FULLTICK_DYMODULE="fulltick64.dll"
+		SET FULLTICK_DY_MODULE="fulltick64.dll"
 	)
-	if exist "../../%SIMPLE_DEBUG_VERSION%/modules/dynamic_modules/fulltick.dll" (
+	if exist "../../%SIMPLE_DEBUG_VERSION%/modules/dynamic_modules/%FULLTICK_DY_MODULE%" (
 		echo dynamic_modules:fulltick: fulltick dynamic module built successfully
 	) else (
 		echo error:dynamic_modules:fulltick: fulltick dynamic module build failed
