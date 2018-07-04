@@ -629,6 +629,36 @@ REM BULDING DYNAMIC LIBRARIES
 	
 	exit /b 0
 	
+REM FULLTICK(GUI) DYNAMIC MODULE
+
+:confirmfulltickdymodule
+	echo dynamic_modules:fulltick: checking if fulltick build successfully
+	if !BUILD_ARC!=="x64" (
+		SET FULLTICK_DY_MODULE="fulltick.dll"
+	) else (
+		SET FULLTICK_DY_MODULE="fulltick64.dll"
+	)
+	if exist "..\modules\dynamic_modules\dist\%FULLTICK_DY_MODULE%" (
+		echo dynamic_modules:fulltick: fulltick dynamic module built successfully
+	) else (
+		echo error:dynamic_modules:fulltick: fulltick dynamic module build failed
+		echo error:dynamic_modules:fulltick: fulltick build is sure to fail if you don't have fltk library installed or it is not configured as shared library
+		echo error:dynamic_modules:fulltick: visit %FULLTICK_BUILD_ISSUE% for build instruction
+		echo dynamic_modules:fulltick: falling back on available backup build.
+		if exist "..\modules\dynamic_modules\fulltick\dist\%FULLTICK_DY_MODULE%" (
+			echo dynamic_modules:fulltick: backup build found but might be outdated
+			echo fulltick: copying fulltick.dll to "..\modules\dynamic_modules\dist\fulltick.dll" directory
+			copy "..\modules\dynamic_modules\fulltick\dist\%FULLTICK_DY_MODULE%" "..\modules\dynamic_modules\dist\fulltick.dll"
+		) else (
+			echo error:dynamic_modules:fulltick: the backup fulltick dynamic module cannot be found
+			echo error:dynamic_modules:fulltick: the repository appears to be currupted. 
+			echo error:dynamic_modules:fulltick: try clonning the simple repository again to resolve the issue
+			echo error:dynamic_modules:fulltick: or visit $FULLTICK_BUILD_ISSUE to build instruction
+		)
+	) 
+	
+	exit /b 0
+	
 :builddymodule
 	echo building %2 dynamic module
 	call:getdynamicmodulefiles %1 %2
@@ -658,36 +688,6 @@ REM BULDING DYNAMIC LIBRARIES
 		)
 	)
 
-	exit /b 0
-	
-REM FULLTICK(GUI) DYNAMIC MODULE
-
-:confirmfulltickdymodule
-	echo dynamic_modules:fulltick: checking if fulltick build successfully
-	if !BUILD_ARC!=="x64" (
-		SET FULLTICK_DY_MODULE="fulltick.dll"
-	) else (
-		SET FULLTICK_DY_MODULE="fulltick64.dll"
-	)
-	if exist "..\modules\dynamic_modules\dist\%FULLTICK_DY_MODULE%" (
-		echo dynamic_modules:fulltick: fulltick dynamic module built successfully
-	) else (
-		echo error:dynamic_modules:fulltick: fulltick dynamic module build failed
-		echo error:dynamic_modules:fulltick: fulltick build is sure to fail if you don't have fltk library installed or it is not configured as shared library
-		echo error:dynamic_modules:fulltick: visit %FULLTICK_BUILD_ISSUE% for build instruction
-		echo dynamic_modules:fulltick: falling back on available backup build.
-		if exist "..\modules\dynamic_modules\fulltick\dist\%FULLTICK_DY_MODULE%" (
-			echo dynamic_modules:fulltick: backup build found but might be outdated
-			echo fulltick: copying fulltick.dll to "..\modules\dynamic_modules\dist\fulltick.dll" directory
-			copy "..\modules\dynamic_modules\fulltick\dist\%FULLTICK_DY_MODULE%" "..\modules\dynamic_modules\dist\fulltick.dll"
-		) else (
-			echo error:dynamic_modules:fulltick: the backup fulltick dynamic module cannot be found
-			echo error:dynamic_modules:fulltick: the repository appears to be currupted. 
-			echo error:dynamic_modules:fulltick: try clonning the simple repository again to resolve the issue
-			echo error:dynamic_modules:fulltick: or visit $FULLTICK_BUILD_ISSUE to build instruction
-		)
-	) 
-	
 	exit /b 0
 	
 REM DYNAMIC MODULE ERROR
