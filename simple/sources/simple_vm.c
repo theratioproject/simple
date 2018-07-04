@@ -1178,7 +1178,6 @@ SIMPLE_API void simple_vm_showerrormessage ( VM *vm,const char *cStr )
 
 SIMPLE_API void simple_vm_cgi_showerrormessage ( VM *vm,const char *cStr )
 {
-	printf("\n\nit for cgi \n\n");
 	int x,lBlockCall,is_last_block  ;
 	List *list  ;
 	const char *cFile  ;
