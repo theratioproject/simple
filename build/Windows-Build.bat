@@ -650,7 +650,7 @@ REM BULDING DYNAMIC LIBRARIES
 		REM failed call:builddymodule c parser
 		REM require .lib call:builddymodule c security
 		call:builddymodule c string_savant
-		REM call:builddymodule c systemic
+		call:builddymodule c systemic
 		
 		call:confirmfolderelsecreate "..\modules\dynamic_modules\dist\"
 		move *.lib "..\modules\dynamic_modules\dist\"
