@@ -1242,7 +1242,7 @@ SIMPLE_API void simple_vm_cgi_showerrormessage ( VM *vm,const char *cStr )
 	}
 	if ( lBlockCall ) {
 		printf( "in file %s ",file_real_name(simple_list_getstring(vm->sState->files_list,1) )) ;
-		printf("<th bgcolor='#eeeeec' align='center'> from file %s</th>",simple_list_getstring(vm->sState->files_list,1)) ;
+		printf("<tr><th bgcolor='#eeeeec' align='center'> from file %s</th></tr>",simple_list_getstring(vm->sState->files_list,1)) ;
 	}
 	else {
 		if ( vm->nInClassRegion ) {
@@ -1252,7 +1252,7 @@ SIMPLE_API void simple_vm_cgi_showerrormessage ( VM *vm,const char *cStr )
 			cFile = file_real_name(vm->file_name) ;
 		}
 		printf( "\tin file %s ",cFile ) ;
-		printf("<th bgcolor='#eeeeec' align='center'> from file %s</th>",cFile) ;
+		printf("<tr><th bgcolor='#eeeeec' align='center'> from file %s</th></tr>",cFile) ;
 	}
 	printf("\n</table>");
 }
