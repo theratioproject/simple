@@ -1201,9 +1201,7 @@ SIMPLE_API void simple_vm_cgi_showerrormessage ( VM *vm,const char *cStr )
 			**  Prepare Message 
 			**  In 
 			*/
-			printf("<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>Line 27");
-			//</td><td bgcolor='#eeeeec' align='right'>getFour()</td><td bgcolor='#eeeeec'>testsimple.sim</td><td title='C:\wamp\www\unittests\testphp.php' bgcolor='#eeeeec'>http://localhost/unittests/testphp.html<b>:</b>27</td></tr>");
-			//if (is_last_block == 1) { printf("\tat "); is_last_block = 0; } else { printf("at "); }
+			if (is_last_block == 1) { printf("\tat "); is_last_block = 0; } else { printf("at "); }
 			/* Method or Block */
 			/*if ( simple_list_getint(list,SIMPLE_BLOCKCL_METHODORBLOCK) ) {
 				printf( "method " ) ;
