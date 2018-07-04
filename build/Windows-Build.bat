@@ -847,10 +847,10 @@ REM THE ENVIRONMENT PROGRAMS WILL ALSO BE INSTALLED IN SAME BIN DIRECTORY AS SIM
 		echo environment:build: %1
 		if exist "..\environment\%1\%1.sim" (
 			if exist ../../simple-arts/environment/%1.ico (
-				call:buildsingleenvironment %1 "-gui" "with icon"
+				call:buildsingleenvironment %1 "with icon" "-gui" 
 				REM %SIMPLE% %SMAKE% -I/../../simple-arts/environment/%1.ico -gui -delete ../../%SIMPLE_DEBUG_VERSION%/bin/simplepad.sim	
 			) else (
-				call:buildsingleenvironment %1 "-gui"
+				call:buildsingleenvironment %1 "" -gui
 			)
 		) else (
 			echo error:environment:build ..\environment\%1\%1.sim cannot be found
