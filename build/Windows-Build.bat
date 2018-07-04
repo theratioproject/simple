@@ -853,8 +853,8 @@ REM THE ENVIRONMENT PROGRAMS WILL ALSO BE INSTALLED IN SAME BIN DIRECTORY AS SIM
 				%SIMPLE% %SMAKE% -gui -delete ../../%SIMPLE_DEBUG_VERSION%/bin/simplepad.sim
 			)
 		) else (
-			echo 		../../%SIMPLE_DEBUG_VERSION%/bin/simplepad.sim cannot be found
-			echo 		skipping simplepad
+			echo error:environment:build ..\environment\%1\%1.sim cannot be found
+			echo error:environment:build skipping %1
 		)
 	)
 
