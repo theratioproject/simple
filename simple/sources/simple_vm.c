@@ -738,13 +738,13 @@ SIMPLE_API void simple_vm_error ( VM *vm,const char *cStr )
 				simple_vm_showerrormessage(vm,cStr);
 		}
 		/* Trace */
-		/*vm->nActiveError = 0 ;
+		vm->nActiveError = 0 ;
 		simple_vm_traceevent(vm,SIMPLE_VM_TRACEEVENT_ERROR);
 		if ( vm->lPassError  == 1 ) {
 			vm->lPassError = 0 ;
 			return ;
 		}
-		vm->nActiveError = 1 ; */
+		vm->nActiveError = 1 ;
 		if (SKIP_ERROR == 0) { exit(0); } else { printf("<br />kipping error <br /><br />"); }
 	}
 	/*
