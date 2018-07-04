@@ -715,6 +715,8 @@ REM COPY THE SIMPLE MODULES
 
 	exit /b 0
 	
+REM COPY ALL THE MODULE IN LOOP MODE
+	
 :copymodulesinloop
 	for %%x in (%*) do (
 		call:copysinglesimplemodule %%x
