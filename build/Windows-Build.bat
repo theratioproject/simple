@@ -676,27 +676,6 @@ REM CURRUPT REPOSITORY ERROR
 	
 	exit /b 0 
 
-REM fulltick(GUI) dynamic module
-	echo dynamic_modules:fulltick: checking if fulltick build successfully
-if exist "../../%SIMPLE_DEBUG_VERSION%/modules/dynamic_modules/fulltick.dll" (
-	echo dynamic_modules:fulltick: fulltick dynamic module built successfully
-) else (
-	echo error:dynamic_modules:fulltick: fulltick dynamic module build failed
-	echo error:dynamic_modules:fulltick: fulltick build is sure to fail if you don't have fltk library installed or it is not configured as shared library
-	echo error:dynamic_modules:fulltick: visit %FULLTICK_BUILD_ISSUE% for build instruction
-	echo dynamic_modules:fulltick: falling back on available backup build.
-	if exist "../modules/dynamic_modules/fulltick/dist/fulltick.dll" (
-		echo dynamic_modules:fulltick: backup build found but might be outdated
-		echo fulltick: copying fulltick.dll to ../../%SIMPLE_DEBUG_VERSION%/modules/dynamic_modules directory
-		cp ../modules/dynamic_modules/fulltick/dist/fulltick.dll ../../%SIMPLE_DEBUG_VERSION%/modules/dynamic_modules
-	) else (
-		echo error:dynamic_modules:fulltick: the backup fulltick dynamic module cannot be found
-		echo error:dynamic_modules:fulltick: the repository appears to be currupted. 
-		echo error:dynamic_modules:fulltick: try clonning the simple repository again to resolve the issue
-		echo error:dynamic_modules:fulltick: or visit $FULLTICK_BUILD_ISSUE to build instruction
-	)
-) 
-
 REM Copy the simple modules
 	echo Copying Simple Modules to %SIMPLE_DEBUG_VERSION%
 
