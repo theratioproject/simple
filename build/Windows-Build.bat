@@ -182,12 +182,14 @@ if !EXEC_TYPE!=="simple-only-install" (
 	call:header install "install simple-lang %VERSION%"
 	call:buildsimpledllexe
 	call:copysimpledllexe
+	call:removedistfolders
 )
 if !EXEC_TYPE!=="simple-only-debug" (
 	SET EXEC_TYPE="debug"
 	call:header debug "debug simple-lang %VERSION%"
 	call:buildsimpledllexe
 	call:copysimpledllexe
+	call:removedistfolders
 )
 if !EXEC_TYPE!=="includes-only-install" (
 	SET EXEC_TYPE="install"
@@ -203,12 +205,14 @@ if !EXEC_TYPE!=="dymodules-only-install" (
 	call:buildsimpledllexe
 	call:builddynamicmodules
 	call:copydynamicmodules
+	call:removedistfolders
 )
 if !EXEC_TYPE!=="dymodules-only-debug" (
 	call:header install "install simple-lang %VERSION%"
 	call:buildsimpledllexe
 	call:builddynamicmodules
 	call:copydynamicmodules
+	call:removedistfolders
 )
 
 	:: configure and install for now
