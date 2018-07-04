@@ -723,6 +723,7 @@ REM COPY THE SIMPLE MODULES
 	if exist "..\modules\%1" (
 		if !EXEC_TYPE!=="install" (
 			echo modules: copying %1 module to ../../%SIMPLE_DEBUG_VERSION%/modules directory
+			"%~dp0\..\..\%SIMPLE_DEBUG_VERSION%\modules\simple"
 			xcopy "../modules/simple" "../../%SIMPLE_DEBUG_VERSION%/modules/simple/" /s /h /e /k /f /c
 		)
 		if !EXEC_TYPE!=="install" (
