@@ -638,7 +638,6 @@ REM FULLTICK(GUI) DYNAMIC MODULE
 	) else (
 		SET FULLTICK_DY_MODULE="fulltick.dll"
 	)
-	echo it 
 	if exist "..\modules\dynamic_modules\dist\%FULLTICK_DY_MODULE%" (
 		echo dynamic_modules:fulltick: fulltick dynamic module built successfully
 	) else (
