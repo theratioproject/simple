@@ -295,7 +295,7 @@ int simple_parser_stmt ( Parser *parser )
 			simple_parser_icg_newoperand(parser,simple_list_getstring(parser->sState->files_stack,simple_list_getsize(parser->sState->files_stack)));
 			simple_parser_icg_newoperation(parser,ICO_FREESTACK);
 			simple_parser_nexttoken(parser); 
-                        if (simple_parser_isoperator2(parser,OP_MUL) || simple_parser_isoperator(parser, "?")) {
+                        if (simple_parser_isoperator2(parser,OP_MUL) || simple_parser_isoperator(parser, "?") || simple_parser_isoperator(parser, "@")) {
                             simple_parser_nexttoken(parser);
                             return load_module(parser);
                         }
