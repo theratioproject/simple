@@ -744,8 +744,7 @@ SIMPLE_API void simple_vm_error ( VM *vm,const char *cStr )
 			vm->lPassError = 0 ;
 			return ;
 		}
-		vm->nActiveError = 1 ;
-		if (SKIP_ERROR == 0) { exit(0); } else { return; }
+		if (SKIP_ERROR == 0) { vm->nActiveError = 1 ; exit(0); } else { return; }
 	}
 	printf("leaking");
 	/*
