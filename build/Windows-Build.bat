@@ -830,7 +830,7 @@ REM THE ENVIRONMENT PROGRAMS WILL ALSO BE INSTALLED IN SAME BIN DIRECTORY AS SIM
 	if !SIMPLE_EXECUTABLE!=="notfound" (
 		echo.
 	) else (
-		SET SIMPLE_EXECUTABLE="..\environment\bake\bake.sim"
+		SET BAKE_EXECUTABLE="..\environment\bake\bake.sim"
 		if exist "..\environment\bake\bake.sim" (
 			echo environment:bake.sim: ..\environment\bake\bake.sim found 
 			echo environment:bake.sim: starting environment programs build...
@@ -844,6 +844,19 @@ REM THE ENVIRONMENT PROGRAMS WILL ALSO BE INSTALLED IN SAME BIN DIRECTORY AS SIM
 :buildenvironmentinloop
 	for %%x in (%*) do (
 		echo modules: %%x module
+		echo build:environment: simplepad
+		if exist "../../%SIMPLE_DEBUG_VERSION%/bin/simplepad.sim" (
+			if exist ../../simple-arts/environment/simplepad.ico (
+				echo 		Building simplepad with icon
+				%SIMPLE% %SMAKE% -I/../../simple-arts/environment/simplepad.ico -gui -delete ../../%SIMPLE_DEBUG_VERSION%/bin/simplepad.sim	
+			) else (
+				echo 		Building simplepad
+				%SIMPLE% %SMAKE% -gui -delete ../../%SIMPLE_DEBUG_VERSION%/bin/simplepad.sim
+			)
+		) else (
+			echo 		../../%SIMPLE_DEBUG_VERSION%/bin/simplepad.sim cannot be found
+			echo 		skipping simplepad
+		)
 		if exist "..\modules\%%x" (
 			if !EXEC_TYPE!=="install" (
 				echo modules: copying %%x module to !INSTALLATION_FOLDER!\%VERSION%\modules directory
