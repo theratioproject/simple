@@ -1056,6 +1056,8 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 	echo 	-h --help	print this help message
 	echo 	-gcc --gnu	build simple with available GNU toolchain
 	echo 	-vs --visual-studio	build simple with Microsoft Visual Studio
+	echo 	-mg --mingw	build simple with Microsoft Visual Studio
+	echo 	-cy --cygwin	build simple with Microsoft Visual Studio
 	echo.
 	echo [STANDALONE BUILD FLAGS]
 	echo 	-so --simple-only	build only simple.exe, simplew.exe and simple.dll
