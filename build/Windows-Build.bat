@@ -362,7 +362,7 @@ exit /b %ERRORLEVEL%
 		)
 		exit /b 0
 	)
-	echo 
+	echo simple-lang:configure: mingw not found in C:\MinGW\msys\1.0\bin\
 	call:locategcc
 	
 	exit /b 0
@@ -376,19 +376,21 @@ exit /b %ERRORLEVEL%
 		) else (
 			SET PATH=!PATH!;C:\cygwin\bin\
 		) 
-	) 
+		exit /b 0
+	)
+	echo simple-lang:configure: cygwin not found in C:\cygwin\
 	call:locategcc
 		
 	exit /b 0
 	
 :locategcc
-	echo simple-lang:configure:compiler checking if gcc is present in path
+	echo simple-lang:configure:compiler: checking if gcc is present in path
 	gcc 2> ..\..\simple_build_configure
 	SET /p GCCVAL=<..\..\simple_build_configure
 	if "!GCCVAL!"=="gcc: fatal error: no input files" (
 		call:deletetempfiles ..\..\simple_build_configure
-		echo simple-lang:configure:compiler gcc found
-		echo simple-lang:configure:compiler checking if g++ is present in path
+		echo simple-lang:configure:compiler: gcc found
+		echo simple-lang:configure:compiler: checking if g++ is present in path
 		g++ 2> ..\..\simple_build_configure
 		SET /p GCCVAL=<..\..\simple_build_configure
 		if "!GCCVAL!"=="g++: fatal error: no input files" (
