@@ -1198,6 +1198,7 @@ SIMPLE_API void simple_vm_cgi_showerrormessage ( VM *vm,const char *cStr )
 			continue ;
 		}
 		if ( simple_list_getint(list,SIMPLE_BLOCKCL_TYPE) == SIMPLE_BLOCKTYPE_SCRIPT ) {
+			printf("<td bgcolor='#eeeeec' align='center'>%i</td><td bgcolor='#eeeeec' align='center'>Line %d</td>",1,simple_list_getint(list,SIMPLE_BLOCKCL_LINENUMBER));
 			/*
 			**  Prepare Message 
 			**  In 
