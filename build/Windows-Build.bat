@@ -676,7 +676,7 @@ REM FULLTICK(GUI) DYNAMIC MODULE
 		echo error:dynamic_modules:fulltick: fulltick build is sure to fail if you don't have fltk library installed or it is not configured as shared library
 		echo error:dynamic_modules:fulltick: visit %FULLTICK_BUILD_ISSUE% for build instruction
 		echo dynamic_modules:fulltick: falling back on available backup build.
-		if exist "../modules/dynamic_modules/fulltick/dist/fulltick.dll" (
+		if exist "..\modules\dynamic_modules\fulltick\dist\%FULLTICK_DY_MODULE%" (
 			echo dynamic_modules:fulltick: backup build found but might be outdated
 			echo fulltick: copying fulltick.dll to ../../%SIMPLE_DEBUG_VERSION%/modules/dynamic_modules directory
 			cp ../modules/dynamic_modules/fulltick/dist/fulltick.dll ../../%SIMPLE_DEBUG_VERSION%/modules/dynamic_modules
