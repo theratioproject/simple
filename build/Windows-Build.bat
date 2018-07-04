@@ -707,6 +707,8 @@ REM CURRUPT REPOSITORY ERROR
 	
 	exit /b 0 
 	
+REM COPY THE SIMPLE MODULES
+	
 :copysimplestandardmodule
 	for %%x in (%*) do (
 		echo %%x
@@ -715,23 +717,22 @@ REM CURRUPT REPOSITORY ERROR
 	exit /b 0
 	
 :copysinglesimplemodule
-	
+		echo Copying Simple Modules to %SIMPLE_DEBUG_VERSION%
+
+	REM simple core module	
+		echo modules: simple core module
+	if exist "../modules/simple" (
+		echo modules: copying simple module to ../../%SIMPLE_DEBUG_VERSION%/modules directory
+		xcopy "../modules/simple" "../../%SIMPLE_DEBUG_VERSION%/modules/simple/" /s /h /e /k /f /c
+	) else (
+		echo error:modules: the simple core module cannot be found
+		echo error:modules: the repository appears to be currupted. 
+		echo error:modules: try clonning the simple repository again to resolve the issue
+	)
 
 	exit /b 0
 
-REM Copy the simple modules
-	echo Copying Simple Modules to %SIMPLE_DEBUG_VERSION%
 
-REM simple core module	
-	echo modules: simple core module
-if exist "../modules/simple" (
-	echo modules: copying simple module to ../../%SIMPLE_DEBUG_VERSION%/modules directory
-	xcopy "../modules/simple" "../../%SIMPLE_DEBUG_VERSION%/modules/simple/" /s /h /e /k /f /c
-) else (
-	echo error:modules: the simple core module cannot be found
-	echo error:modules: the repository appears to be currupted. 
-	echo error:modules: try clonning the simple repository again to resolve the issue
-)
 
 REM archive module	
 	echo modules: archive module
