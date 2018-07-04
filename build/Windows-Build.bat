@@ -204,8 +204,9 @@ if !EXEC_TYPE!=="dymodules-only-install" (
 	call:builddynamicmodules
 )
 if !EXEC_TYPE!=="dymodules-only-debug" (
-	SET EXEC_TYPE="debug"
-	call:copysimpleincludes
+	call:header install "install simple-lang %VERSION%"
+	call:buildsimpledllexe
+	call:builddynamicmodules
 )
 
 	:: configure and install for now
