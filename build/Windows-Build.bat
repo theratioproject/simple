@@ -963,7 +963,7 @@ if exist "../simple/dist/" (
 exit /b
 
 :removestubornfiles
-	call:deletetempfiles ..\simple\dist\*.exp modules\dynamic_modules\dist/*.exp
+	call:deletetempfiles ..\simple\dist\*.exp modules\dynamic_modules\dist\*.exp
 	
 	exit /b 0 
 
