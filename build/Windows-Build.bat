@@ -831,7 +831,7 @@ REM THE ENVIRONMENT PROGRAMS WILL ALSO BE INSTALLED IN SAME BIN DIRECTORY AS SIM
 		echo.
 	) else (
 		SET BAKE_EXECUTABLE="..\environment\bake\bake.sim"
-		if exist "..\environment\bake\bake.sim" (
+		if exist !BAKE_EXECUTABLE! (
 			echo environment:bake.sim: ..\environment\bake\bake.sim found 
 			echo environment:bake.sim: starting environment programs build...
 		) else (
