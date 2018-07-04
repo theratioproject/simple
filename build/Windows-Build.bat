@@ -727,7 +727,7 @@ REM COPY ALL THE MODULE IN LOOP MODE
 				echo modules: copying %%x module to !INSTALLATION_FOLDER!\%VERSION%/modules directory
 				xcopy "../modules/%%x" "!INSTALLATION_FOLDER!\%VERSION%\modules\%%x\" /s /h /e /k /f /c
 			)
-			if !EXEC_TYPE!=="install" (
+			if !EXEC_TYPE!=="debug" (
 				echo modules: copying %%x module to ..\..\%SIMPLE_DEBUG_VERSION%\modules directory
 				xcopy "../modules/%%x" "%~dp0\..\..\%SIMPLE_DEBUG_VERSION%\modules\%%x\" /s /h /e /k /f /c
 			)
