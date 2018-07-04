@@ -1105,8 +1105,6 @@ SIMPLE_API void simple_vm_showerrormessage ( VM *vm,const char *cStr )
 	int x,lBlockCall,is_last_block  ;
 	List *list  ;
 	const char *cFile  ;
-	/* CGI Support */
-	simple_state_cgiheader(vm->sState);
 	/* Print the Error Message */
 	printf( "\nLine %d -> %s \n",vm->nLineNumber,cStr ) ;
 	/* Print Calling Information */
