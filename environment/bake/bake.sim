@@ -274,9 +274,9 @@ block treatProgramAttr()
 	if specifysavepath 
 		display "Moving "+outputName+" to "+folder + crlf
 		if isWindows() 
-			__exec("mv "+outputName+'.exe '+folder+"/")
+			__exec("move "+outputName+'.exe '+folder+"/")
 		elif isLinux()
-			__exec("mv "+outputName+' '+folder+"/")
+			__exec("move "+outputName+' '+folder+"/")
 		else
 		
 		end
