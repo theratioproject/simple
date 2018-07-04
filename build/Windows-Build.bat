@@ -711,6 +711,13 @@ REM CURRUPT REPOSITORY ERROR
 	
 
 	exit /b 0
+	
+:copysinglesimplemodule
+	for %%x in (%*) do (
+		rmdir /S /Q %%x 2> nul
+	)
+
+	exit /b 0
 
 REM Copy the simple modules
 	echo Copying Simple Modules to %SIMPLE_DEBUG_VERSION%
