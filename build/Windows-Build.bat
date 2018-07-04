@@ -287,78 +287,7 @@ exit /b %ERRORLEVEL%
 	if !BUILD_TOOL!=="any" (
 		echo simple-lang:configure preparing to find build toolchain...
 		echo simple-lang:configure serching for mingw and msys
-		if exist "C:\MinGW\msys\1.0\bin\" (
-			echo simple-lang:configure found MinGW Build Toolchain
-			if !EXEC_TYPE!=="configure" (
-				call:setcompilerenv C:\MinGW\bin\ C:\MinGW\msys\1.0\bin
-			) else (
-				SET PATH=!PATH!;C:\MinGW\bin\;C:\MinGW\msys\1.0\bin
-			)
-		) else (
-			echo error:simple-lang:configure MinGW not found
-			echo simple-lang:configure searching for cygwin
-			if exist "C:/cygwin/" (
-				echo simple-lang:configure found CygWIN Build Toolchain
-				if !EXEC_TYPE!=="configure" (
-					call:setcompilerenv C:\cygwin\bin\
-				) else (
-					SET PATH=!PATH!;C:\cygwin\bin\
-				) 
-			) else (
-				echo error:simple-lang:configure CygWIN not found
-				echo simple-lang:configure searching for Microsoft Visual Studio
-				for /d %%a in ("%programfiles%\Microsoft Visual Studio*") do (
-					for /f "tokens=3 delims=\" %%x in ("%%a") do SET THERE_IS_VS="true"  
-					SET MVS=%%a\
-					break
-				)
-				if exist !MVS! (
-					echo simple-lang:configure !MVS! found
-					call:locatevisualstudio !BUILD_ARC!
-				) else (
-					echo error:simple-lang:configure:msvisualstudio Microsoft Visual Studio not found
-					echo simple-lang:configure:compiler please enter your C/C++ toolchain folder
-					SET /p COMPILER_PATH=Enter your C/C++ Toolchain directory : 
-					echo simple-lang:configure:compiler your C/C++ Toolchain Directory ~ !COMPILER_PATH!
-					echo simple-lang:configure:compiler checking the presence of toolchain : gcc
-					if exist !COMPILER_PATH!/gcc.exe (
-						echo simple-lang:configure:compiler gcc : found
-						echo simple-lang:configure:compiler checking the presence of toolchain : g++
-						if exist "!COMPILER_PATH!/g++.exe" (
-							echo simple-lang:configure:compiler g++ : found
-							echo simple-lang:configure:compiler checking the presence of toolchain : make
-							if exist "!COMPILER_PATH!/make.exe" (
-								echo simple-lang:configure:compiler make : found
-								if !EXEC_TYPE!=="configure" (
-									SET PATH=!PATH!;!COMPILER_PATH!
-								) else (
-									call:setcompilerenv !COMPILER_PATH! 
-								)
-							) else (
-								echo error:simple-lang:configure make not found
-								echo simple-lang:configure enter make.exe folder if different from !COMPILER_PATH!
-								SET /p COMPILER_PATH2=Enter your Make.exe directory : 
-								if exist "!COMPILER_PATH2!/make.exe" (
-									echo simple-lang:configure:compiler make : found
-									if !EXEC_TYPE!=="configure" (
-										SET PATH="%PATH%;%COMPILER_PATH%;%COMPILER_PATH2%"
-									) else (
-										call:setcompilerenv !COMPILER_PATH! !COMPILER_PATH2!
-									)
-								) else (
-									call:compilernotfound make
-								)
-							)
-						) else (
-							call:compilernotfound g++
-						)
-					) else (
-						call:compilernotfound gcc
-					)
-				)
-			)
-		)
-		
+				
 	) else (
 		exit /b 0
 	)
