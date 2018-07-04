@@ -844,22 +844,22 @@ REM THE ENVIRONMENT PROGRAMS WILL ALSO BE INSTALLED IN SAME BIN DIRECTORY AS SIM
 	
 :buildenvironmentinloop
 	for %%x in (%*) do (
-		echo environment:build: %1
-		if exist "..\environment\%1\%1.sim" (
-			if "%1"=="simplepad" (
+		echo environment:build: %%x
+		if exist "..\environment\%%x\%%x.sim" (
+			if "%%x"=="simplepad" (
 				SET BAKE_FLAG_GUI=-gui
 			) else (
 				SET BAKE_FLAG_GUI=
 			)
-			if exist ../../simple-arts/environment/%1.ico (
+			if exist ../../simple-arts/environment/%%x.ico (
 				
-				call:buildsingleenvironment %1 !BAKE_FLAG_GUI! -I/../../simple-arts/environment/%1.ico
+				call:buildsingleenvironment %%x !BAKE_FLAG_GUI! -I/../../simple-arts/environment/%%x.ico
 			) else (
-				call:buildsingleenvironment %1 !BAKE_FLAG_GUI! 
+				call:buildsingleenvironment %%x !BAKE_FLAG_GUI! 
 			)
 		) else (
-			echo error:environment:build ..\environment\%1\%1.sim cannot be found
-			echo error:environment:build skipping %1
+			echo error:environment:build ..\environment\%%x\%%x.sim cannot be found
+			echo error:environment:build skipping %%x
 		)
 	)
 
