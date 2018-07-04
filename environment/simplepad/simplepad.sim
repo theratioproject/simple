@@ -87,16 +87,16 @@ block exeFolder()
 	return getSystemEnvironment("SIMPLE_PATH")+'/'
 	
 #FILE
-block openFile()
+block openFile1()
 	setLookAndFeel(PLASTIC_SCHEME)
-	open = new Test open.render()
+	open = new Test open.openFile() open.render()
 
 block newFile() editor file = null
 block open() 
-	openFile()
+	openFile1()
 block save() file
 	if ( file == null )
-		openFile()
+		# openFile1()
 		else
 			file.write(editor.getText())
 	end
@@ -159,7 +159,7 @@ block notifyMenu(con)
 		menuBar.mode(24,0) #debug
 	end
 
-class Test : FWindow
+class Test : FWindow : File : FTextEditor
 		fileName = new FInput("./") fileName.setWidth(200) fileName.setPosition(10,10)
 		openButton = new FButton("Open")
 		openButton.setPosition(200,10).callback('changeDir()')
@@ -177,6 +177,10 @@ class Test : FWindow
 			setTitle('Open File').setSize(360, 400)
 			run()
 
+		block openFile()
+			file = new File(fileName.getText())
+			editor = new FTextEditor
+			editor.setText(fileName.getText())
 
 block changeDir() fb.loadDirectory(fileName.getText()) fb.select(0)
 block selected() display "Select : "+fb.index()+". Value : "+fb.getSelectedText() + crlf
