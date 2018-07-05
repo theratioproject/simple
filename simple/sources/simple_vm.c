@@ -1184,6 +1184,7 @@ SIMPLE_API void simple_vm_cgi_showerrormessage ( VM *vm,const char *cStr )
 		current_file = 1 ;
 	else
 		current_file = simple_list_findstring(vm->sState->files_list,vm->file_name,0);
+	printf("<br />current file : %i </br>",current_file);
 	/* Print the Error Message */
 	printf("<table border='1' cellspacing='0' cellpadding='2'>\n");
 	printf("<tr><th align='left' style='background:rgb(190,25,49);' colspan='5'><span style='color:white;'> Line %d : %s in %s</br></span></th></tr>\n",vm->nLineNumber,cStr,simple_list_getstring(vm->sState->files_list,current_file));
