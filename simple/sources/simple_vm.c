@@ -1227,7 +1227,7 @@ SIMPLE_API void simple_vm_cgi_showerrormessage ( VM *vm,const char *cStr )
 			printf("<td bgcolor='#eeeeec' align='center'>%s</td>",file_real_name(cFile) ) ;
 			/* Called From */
 			printf("<td bgcolor='#eeeeec' align='center'>Line %d</td>",simple_list_getint(list,SIMPLE_BLOCKCL_LINENUMBER) ) ;
-			printf("<td title='%s' bgcolor='#eeeeec' ><a href='ftp://%s' >%s</a></td>",simple_list_getstring(vm->sState->files_stack,1),simple_list_getstring(vm->sState->files_stack,1),file_real_name(cFile) ) ;
+			printf("<td title='%s' bgcolor='#eeeeec' ><a href='ftp://%s' >%s</a></td>",simple_list_getstring(vm->sState->files_stack,0),simple_list_getstring(vm->sState->files_stack,0),file_real_name(cFile) ) ;
 			lBlockCall = 1 ;
 		}
 		else {
