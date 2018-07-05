@@ -1,0 +1,19 @@
+/* 
+	Copyright (c) 2018 Abdulazeez Adeshina Abdulazeez <laisibizness@gmail.com> 
+	MIT License Copyright (c) 2018 simple 
+*/
+
+/* 
+ * @Filename - ListExample.sim
+ * @Author - Abdulazeez Abdulazeez Adeshina
+ * @Date - 16 June 2018
+ * @Time - 15:37 PM
+ */
+
+class Test 
+
+
+class TypeOne
+
+	block msgTypeOne()
+		@"message from type one "
