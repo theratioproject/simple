@@ -15,7 +15,7 @@ block main()
 	t.test()
 	
 
-class Test : TypeOne : TypeTwo
+class Test : TypeTwo : TypeOne 
 
 	block test()
 		msgTypeTwo()
