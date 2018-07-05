@@ -74,15 +74,15 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
 	printf("real file name %s\n",file_name);
     is_start_file = 1 ; 
 	/* Check file */
-	if ( sState->files_list == NULL ) {
+	if ( sState->files_stack == NULL ) {
 		sState->files_list = simple_list_new_gc(sState,0);
 		sState->files_stack = simple_list_new_gc(sState,0);
-		simple_list_addstring_gc(sState,sState->files_list,logable_name);
+		simple_list_addstring_gc(sState,sState->files_list,file_name);
 		simple_list_addstring_gc(sState,sState->files_stack,logable_name);
 		nFreeFilesList = 1 ;
 	} else {
 		if ( simple_list_findstring(sState->files_stack,logable_name,0) == 0 ) {
-			simple_list_addstring_gc(sState,sState->files_list,logable_name);
+			simple_list_addstring_gc(sState,sState->files_list,file_name);
 			simple_list_addstring_gc(sState,sState->files_stack,logable_name);
 		} else {
 			if ( sState->nWarning ) {
