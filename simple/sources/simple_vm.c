@@ -1181,6 +1181,7 @@ SIMPLE_API void simple_vm_cgi_showerrormessage ( VM *vm,const char *cStr )
 	List *list  ;
 	const char *cFile  ;
 	current_file = simple_list_findstring(vm->sState->files_list,vm->file_name,0);
+	printf("<br />current file : %i </br>",current_file);
 	if (simple_list_findstring(vm->sState->files_list,vm->file_name,0)==0 || simple_list_findstring(vm->sState->files_list,vm->file_name,0)==1) 
 		current_file += 1 ;
 	printf("<br />current file : %i </br>",current_file);
