@@ -16,4 +16,9 @@ class Test
 class TypeOne
 
 	block msgTypeOne()
-		@"message from type one "
+		@"message from type one "+crlf
+		
+clss Typethree
+
+	block msgTypeTwo
+		@"message from two "+crlf
