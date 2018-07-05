@@ -10,13 +10,14 @@
  * @Time - 15:37 PM
  */
  
-block main(cmd)
+block main()
 	t = new Test
 	t.test()
 	
 
 class Test 
 
+	block test()
 
 class TypeOne
 
