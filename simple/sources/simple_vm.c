@@ -93,7 +93,6 @@ VM * simple_vm_new ( SimpleState *sState )
 	vm->pModulessMap = NULL ;
 	/* Set the main File Name */
 	vm->file_name = simple_list_getstring(vm->sState->files_list,1) ;
-	vm->active_file_path = simple_list_getstring(vm->sState->files_stack,1) ;
 	vm->cPrevFileName = simple_list_getstring(vm->sState->files_list,1) ;
 	/* We keep information about active modules to access its classes directly with new/from */
 	vm->aActiveModules = simple_list_new_gc(vm->sState,0);
@@ -1181,7 +1180,7 @@ SIMPLE_API void simple_vm_cgi_showerrormessage ( VM *vm,const char *cStr )
 	int x,lBlockCall,is_last_block  ;
 	List *list  ;
 	const char *cFile  ;
-	printf("find result of last file name  %s <br />",vm->active_file_path);
+	printf("find result of call2  %i <br />",simple_list_getsize(vm->pBlockCallList));
 	/* Print the Error Message */
 	printf("<table border='1' cellspacing='0' cellpadding='2'>\n");
 	printf("<tr><th align='left' style='background:rgb(190,25,49);' colspan='5'><span style='color:white;'> Line %d : %s in %s</br></span></th></tr>\n",vm->nLineNumber,cStr,simple_list_getstring(vm->sState->files_list,1));
