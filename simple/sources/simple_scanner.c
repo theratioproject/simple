@@ -80,7 +80,7 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
 		simple_list_addstring_gc(sState,sState->files_stack,logable_name);
 		nFreeFilesList = 1 ;
 	} else {
-		if ( simple_list_findstring(sState->files_stack,logable_name,0) == 0 ) {
+		if ( simple_list_findstring(sState->files_list,logable_name,0) == 0 ) {
 			simple_list_addstring_gc(sState,sState->files_list,logable_name);
 			simple_list_addstring_gc(sState,sState->files_stack,logable_name);
 		} else {
