@@ -1180,10 +1180,9 @@ SIMPLE_API void simple_vm_cgi_showerrormessage ( VM *vm,const char *cStr )
 	int x,lBlockCall,is_last_block,current_file  ;
 	List *list  ;
 	const char *cFile  ;
-	if (simple_list_findstring(vm->sState->files_list,vm->file_name,0)==0) 
-		current_file = 1 ;
-	else
-		current_file = simple_list_findstring(vm->sState->files_list,vm->file_name,0);
+	current_file = simple_list_findstring(vm->sState->files_list,vm->file_name,0);
+	if (simple_list_findstring(vm->sState->files_list,vm->file_name,0)==0 || simple_list_findstring(vm->sState->files_list,vm->file_name,0)==1) 
+		current_file += 1 ;
 	printf("<br />current file : %i </br>",current_file);
 	/* Print the Error Message */
 	printf("<table border='1' cellspacing='0' cellpadding='2'>\n");
