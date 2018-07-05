@@ -70,8 +70,8 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
 	int x,nSize,is_start_file  ;
 	char file_name_two[200]  ; char logable_name[30] ; 
 	char simple_folder[100] ; char __library_path[200] ;
-	//strcpy(logable_name,file_name); simple_justfilename(logable_name) ;
-	//printf("real file name %s\n",file_name);
+	strcpy(logable_name,file_name); simple_justfilename(logable_name) ;
+	printf("real file name %s\n",file_name);
     is_start_file = 1 ; 
 	/* Check file */
 	if ( sState->files_list == NULL ) {
@@ -81,7 +81,7 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
 		simple_list_addstring_gc(sState,sState->files_stack,file_name);
 		nFreeFilesList = 1 ;
 	} else {
-		if ( simple_list_findstring(file_real_name(sState->files_list),file_real_name(file_name),0) == 0 ) {
+		if ( simple_list_findstring(sState->files_list,logable_name,0) == 0 ) {
 			simple_list_addstring_gc(sState,sState->files_list,file_name);
 			simple_list_addstring_gc(sState,sState->files_stack,file_name);
 		} else {
