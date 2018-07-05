@@ -1182,7 +1182,7 @@ SIMPLE_API void simple_vm_cgi_showerrormessage ( VM *vm,const char *cStr )
 	const char *cFile  ;
 	/* Print the Error Message */
 	printf("<table border='1' cellspacing='0' cellpadding='2'>\n");
-	printf("<tr><th align='left' style='background:rgb(190,25,49);' colspan='5'><span style='color:white;'> Line %d : %s in %s</br></span></th></tr>\n",vm->nLineNumber,cStr,simple_list_getstring(vm->sState->files_list,1));
+	printf("<tr><th align='left' style='background:rgb(190,25,49);' colspan='5'><span style='color:white;'> Line %d : %s in %s</br></span></th></tr>\n",vm->nLineNumber,cStr,vm->file_name);
 	printf("<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Block</th><th align='left' bgcolor='#eeeeec'>File</th><th align='left' bgcolor='#eeeeec'>Location</th><th align='left' bgcolor='#eeeeec'>File Path</th></tr>\n");
 	/* Print Calling Information */
 	lBlockCall = 0 ; is_last_block = 1 ;
