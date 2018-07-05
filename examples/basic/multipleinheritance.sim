@@ -15,10 +15,10 @@ block main()
 	t.test()
 	
 
-class Test : TypeOne : TypeTwo
+class Test : TypeTwo
 
 	block test()
-		msgTypeOne()
+		#msgTypeOne()
 		msgTypeTwo()
 
 class TypeOne
