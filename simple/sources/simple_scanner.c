@@ -71,7 +71,6 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
 	char file_name_two[200]  ; char logable_name[30] ; 
 	char simple_folder[100] ; char __library_path[200] ;
 	strcpy(logable_name,file_name); simple_justfilename(logable_name) ;
-	printf("real file name %s\n",file_name);
     is_start_file = 1 ; 
 	/* Check file */
 	if ( sState->files_stack == NULL ) {
