@@ -1180,7 +1180,7 @@ SIMPLE_API void simple_vm_cgi_showerrormessage ( VM *vm,const char *cStr )
 	int x,lBlockCall,is_last_block  ;
 	List *list  ;
 	const char *cFile  ;
-	printf("find result of call2  %i <br />",simple_list_getsize(vm->pBlockCallList));
+	printf("find result of call2  %i <br />",simple_list_getsize(vm->sState->files_list));
 	/* Print the Error Message */
 	printf("<table border='1' cellspacing='0' cellpadding='2'>\n");
 	printf("<tr><th align='left' style='background:rgb(190,25,49);' colspan='5'><span style='color:white;'> Line %d : %s in %s</br></span></th></tr>\n",vm->nLineNumber,cStr,simple_list_getstring(vm->sState->files_list,1));
