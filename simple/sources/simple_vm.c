@@ -93,6 +93,7 @@ VM * simple_vm_new ( SimpleState *sState )
 	vm->pModulessMap = NULL ;
 	/* Set the main File Name */
 	vm->file_name = simple_list_getstring(vm->sState->files_list,1) ;
+	vm->active_file_path = simple_list_getstring(vm->sState->files_list,1) ;
 	vm->cPrevFileName = simple_list_getstring(vm->sState->files_list,1) ;
 	/* We keep information about active modules to access its classes directly with new/from */
 	vm->aActiveModules = simple_list_new_gc(vm->sState,0);
