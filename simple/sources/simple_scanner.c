@@ -78,15 +78,15 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
 		sState->files_list = simple_list_new_gc(sState,0);
 		sState->files_stack = simple_list_new_gc(sState,0);
 		simple_list_addstring_gc(sState,sState->files_list,logable_name);
-		simple_list_addstring_gc(sState,sState->files_stack,file_name);
+		simple_list_addstring_gc(sState,sState->files_stack,logable_name);
 		nFreeFilesList = 1 ;
 	} else {
 		if ( simple_list_findstring(sState->files_list,logable_name,0) == 0 ) {
 			simple_list_addstring_gc(sState,sState->files_list,logable_name);
-			simple_list_addstring_gc(sState,sState->files_stack,file_name);
+			simple_list_addstring_gc(sState,sState->files_stack,logable_name);
 		} else {
 			if ( sState->nWarning ) {
-				printf( "\nWarning, Duplication in FileName, %s \n",file_name ) ;
+				printf( "\nWarning, Duplication in FileName, %s \n",logable_name ) ;
 			}
 			return 1 ;
 		}
