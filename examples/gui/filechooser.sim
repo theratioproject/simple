@@ -25,7 +25,8 @@ class FileChooserDemo : FWindow
 	dirinput = new FInput(".") titleinput = new FInput("It simple-lang")
 	okinput = new FInput("Accept") previewtoggle = new FRadioButton("")
 	filterinput = new FIntInput()
-	
+	addWidget([button, input, dirinput, okinput, filterinput])
+
 	block render()  
 		button.setPosition(90,250).callback("browse()")
 		input.setPosition(90,10).setTitle("Filter : ").setWidth(280)
