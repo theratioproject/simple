@@ -12,7 +12,7 @@
  
 block main(cmd)
 	t = new Test
-	t.try()
+	t.test()
 	
 
 class Test 
