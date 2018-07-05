@@ -18,6 +18,8 @@ block main()
 class Test 
 
 	block test()
+		msgTypeOne()
+		msgTypeTwo()
 
 class TypeOne
 
