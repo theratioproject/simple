@@ -9,6 +9,11 @@
  * @Date - 16 June 2018
  * @Time - 15:37 PM
  */
+ 
+block main(cmd)
+	t = new Test
+	t.try()
+	
 
 class Test 
 
@@ -18,7 +23,7 @@ class TypeOne
 	block msgTypeOne()
 		@"message from type one "+crlf
 		
-clss Typethree
+class Typethree
 
 	block msgTypeTwo()
 		@"message from two "+crlf
