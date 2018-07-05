@@ -15,7 +15,7 @@ block main()
 	t.test()
 	
 
-class Test : TypeOne
+class Test : TypeOne : TypeTwo
 
 	block test()
 		msgTypeOne()
@@ -24,9 +24,9 @@ class Test : TypeOne
 class TypeOne
 
 	block msgTypeOne()
-		@"message from type one "+crlf
+		display "message from type one "+crlf
 		
-class Typethree
+class TypeTwo
 
 	block msgTypeTwo()
-		@"message from two "+crlf
+		display "message from two "+crlf
