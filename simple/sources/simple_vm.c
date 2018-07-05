@@ -1180,7 +1180,7 @@ SIMPLE_API void simple_vm_cgi_showerrormessage ( VM *vm,const char *cStr )
 	int x,lBlockCall,is_last_block  ;
 	List *list  ;
 	const char *cFile  ;
-	for (int y = 0; y < simple_list_getsize(vm->sState->files_list) ; y++) {
+	for (int y = 0; y <= simple_list_getsize(vm->sState->files_list) ; y++) {
 		printf("%i %s <br />",y,simple_list_getstring(vm->sState->files_list,y));
 	}
 	/* Print the Error Message */
