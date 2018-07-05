@@ -41,8 +41,8 @@ void simple_vm_pushv ( VM *vm )
 							simple_vm_error2(vm,SIMPLE_VM_ERROR_USINGNULLVARIABLE,simple_list_getstring(var,SIMPLE_VAR_NAME));
 							if ( simple_list_getlist(vm->pActiveMem,simple_list_getsize(vm->pActiveMem)) == var ) {
 								/* Delete the Item from the HashTable */
-								simple_hashtable_deleteitem(vm->pActiveMem->pHashTable,simple_list_getstring(var,SIMPLE_VAR_NAME));
-								//simple_list_deletelastitem_gc(vm->sState,vm->pActiveMem);
+								//simple_hashtable_deleteitem(vm->pActiveMem->pHashTable,simple_list_getstring(var,SIMPLE_VAR_NAME));
+								simple_list_deletelastitem_gc(vm->sState,vm->pActiveMem);
 							}
 							return ;
 						}
