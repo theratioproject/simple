@@ -594,17 +594,17 @@ REM BULDING DYNAMIC LIBRARIES
 		call:deletedirectories %~dp0\..\modules\dynamic_modules\dist\
 	)
 	if !THERE_IS_VS!=="true" (
-		REM call:builddymodule c archiver
-		REM call:builddymodule c consoler
+		call:builddymodule c archiver
+		call:builddymodule c consoler
 		call:builddymodule c core_dynamic_module
-		REM call:builddymodule c file_savant
-		REM call:builddymodule c mathic
+		call:builddymodule c file_savant
+		call:builddymodule c mathic
 		REM call:builddymodule cpp fulltick
 		REM require .lib call:builddymodule c networker
 		REM failed call:builddymodule c parser
 		REM require .lib call:builddymodule c security
-		REM call:builddymodule c string_savant
-		REM call:builddymodule c systemic
+		call:builddymodule c string_savant
+		call:builddymodule c systemic
 		
 		call:confirmfolderelsecreate "..\modules\dynamic_modules\dist\"
 		move *.lib "..\modules\dynamic_modules\dist\"
