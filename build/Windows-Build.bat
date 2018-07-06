@@ -1012,7 +1012,7 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 		) else (
 			SET PATH=!PATH!;C:\cygwin\bin\
 		) 
-		SET NO_BUILDTOOL="true"
+		SET NO_BUILDTOOL="false"
 		exit /b 0
 	)
 	echo simple-lang:configure: cygwin not found in C:\cygwin\
