@@ -22,6 +22,11 @@ for %%x in (%*) do (
 		) else (
 			SET EXEC_TYPE="configure"
 		)
+	)
+	if "%%x"=="-yoi" (
+		SET DYNAMIC_MODULE=%%x
+		echo the dy module is !DYNAMIC_MODULE!
+		exit /b 0
 	) 
 	if "%%x"=="-c" (
 		if !EXEC_TYPE!=="install" (
