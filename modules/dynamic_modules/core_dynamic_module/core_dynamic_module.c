@@ -44,7 +44,7 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
 void error_stack_trace(void *pointer)
 {
 	String *string  ;
-	pString = simple_string_new_gc(((VM *) pointer)->sState,"");
+	string = simple_string_new_gc(((VM *) pointer)->sState,"");
 	simple_string_add_gc(((VM *) pointer)->sState,string,"ade ");
 	simple_string_add_gc(((VM *) pointer)->sState,string,"wale");
 	simple_string_add_gc(((VM *) pointer)->sState,string," is a ");
