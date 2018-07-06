@@ -22,6 +22,14 @@ call "../core/loadcoredymodule.sim"
 	thrown in the format bellow
 	@Code
 	
+		Line 24 -> Unknown Error Occur
+			at throw() in file Throw.sim
+			at line 40 at three() in file debugging.sim
+			at line 37 at two() in file debugging.sim
+			at line 34 at one() in file debugging.sim
+			at line 29 at main() in file debugging.sim
+			at line 21 in file debugging.sim
+			
 	@EndCode
 */
 block throw(errorvalue)
