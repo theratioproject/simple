@@ -25,8 +25,15 @@ errorList = [
 ]
 
 for a = 0 to getTypeLength(errorList) {
-	__throw(errorList[a])
+	one(errorList[a])
 }
 
 
+block one(a)
+	two(a)
 
+block two(a)
+	three(a)
+	
+block four(a)
+	__throw(a)
