@@ -943,7 +943,6 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 		call %1 x86
 	)
 	SET NO_BUILDTOOL="false"
-	echo is build tool found - !NO_BUILDTOOL!
 
 	exit /b 0
 	
