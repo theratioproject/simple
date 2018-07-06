@@ -11,6 +11,8 @@
  */
  
 module simple.debugging
+
+call "../core/loadcoredymodule.sim"
  
 /*
 	
