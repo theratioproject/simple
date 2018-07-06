@@ -45,7 +45,9 @@ block throw(errorvalue)
 	}
 	__exit__
 	
-
+/*
+	Want to make the program 
+*/
 block throwOnly(errorvalue)
 	if errorvalue = "" {
 		errorvalue = "Unknown Error Occur"
