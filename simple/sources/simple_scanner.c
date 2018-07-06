@@ -890,7 +890,7 @@ void display_tokens ( Scanner *scanner )
     exit(0);
 }
 
-SIMPLE_API void simple_execute ( char *file_name, int nISCGI,int nRun,int nPrintIC,int nPrintICFinal,int nTokens,int nRules,int nIns,int nGenObj,int nWarn,int argc,char *argv[] )
+SIMPLE_API void simple_execute ( char *file_name, int nISCGI,int nRun,int nPrintIC,int nPrintICFinal,int nTokens,int nRules,int nIns,int nGenObj,int nWarn,int argc,char *argv[], int skip_error)
 {
 	SimpleState *sState  ;
 	sState = simple_state_new();

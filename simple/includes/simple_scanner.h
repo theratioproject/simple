@@ -152,7 +152,7 @@ void simple_scanner_addreturn3 ( SimpleState *sState,int aPara[3] ) ;
 
 void display_tokens ( Scanner *scanner ) ;
 
-SIMPLE_API void simple_execute ( char *file_name, int nISCGI,int nRun,int nPrintIC,int nPrintICFinal,int nTokens,int nRules,int nIns,int nGenObj,int nWarn,int argc,char *argv[] ) ;
+SIMPLE_API void simple_execute ( char *file_name, int nISCGI,int nRun,int nPrintIC,int nPrintICFinal,int nTokens,int nRules,int nIns,int nGenObj,int nWarn,int argc,char *argv[],int skip_error) ;
 
 const char * simple_scanner_getkeywordtext ( const char *cStr ) ;
 
