@@ -35,8 +35,6 @@ typedef struct GCData {
     
 extern int NOT_CASE_SENSITIVE ;
 
-extern int SKIP_ERROR ;
-
 extern char *DEFAULT_FILE_NAME ;
 
 extern char *DEFAULT_FILE_PATH ;
