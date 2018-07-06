@@ -40,6 +40,5 @@ block throw(errorvalue)
 		errorvalue = "Unknown Error Occur"
 	}
 	__throw(errorvalue)
-	__exit__
 	
 	
