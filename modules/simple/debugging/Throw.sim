@@ -5,14 +5,16 @@
 */
 
 /* 
- * #filename - Throw.sim
- * #author - Azeez Adewale
- * #date - 18 Febuary 2018
+ * @filename - Throw.sim
+ * @author - Azeez Adewale
+ * @date - 18 Febuary 2018
  */
  
 module simple.debugging
  
-#really need a big touch
+/*
+	
+*/
 block throw(value)
 	return raise(value)
 	__err__ = value + crlf

@@ -1,0 +1,31 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com> 
+	MIT License Copyright (c) 2018 simple-lang
+*/
+
+/* 
+ * @Filename - debugging.sim
+ * @Author - Azeez Adewale
+ * @Date - 06 July 2018
+ * @Time - 02:37 PM
+ */
+
+/*
+	This file is a stress and elaborating example of using the 
+	simple-lang debugging module @Module simple/debugging/
+*/
+
+call "simple/utilities/Length.sim"
+
+errorList = [
+	"ERROR NOT VALID ",
+	"",
+	"This file cannot be found in the directory"
+]
+
+for a = 0 to getTypeLength(errorList) {
+	throw(errorList[a])
+}
+
+
+
