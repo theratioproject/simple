@@ -1098,5 +1098,7 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 	echo 	-mo --modules-only	copy only the standard modules
 	echo 	-yo --dymodules-only	build only the dynamic modules
 	echo 	-eo --environment-only	build only the environment programs
+	echo.
+	echo 	-yoi [dynamic_module_name]	build only the dynamic modules
 	
 	exit /b 0
