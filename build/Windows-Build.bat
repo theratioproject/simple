@@ -1099,6 +1099,6 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 	echo 	-yo --dymodules-only	build all the dynamic modules only
 	echo 	-eo --environment-only	build only the environment programs
 	echo.
-	echo 	-yoi [dy_module_name]	build only the dy_module_name
+	echo 	-yoi [dy_module_name]	build only the dy_module_name specified e.g -yoi string_savant
 	
 	exit /b 0
