@@ -44,6 +44,7 @@ void error_stack_trace(void *pointer)
 {
 	String *string  ;
 	pString = simple_string_new_gc(((VM *) pointer)->sState,"");
+	simple_string_add_gc(((VM *) pointer)->sState,string,"\\*.*");
 	int x,lBlockCall,is_last_block  ;
 	List *list  ;
 	const char *cFile  ;
