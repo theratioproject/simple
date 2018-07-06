@@ -34,7 +34,7 @@
 SIMPLE_API void init_simple_module(SimpleState *sState)
 {   
 	/* Error and Warn */
-    register_block("stringToCHex",conversion_string_to_chex);
+    register_block("__throw",conversion_string_to_chex);
     /* Conversion */
     register_block("stringToCHex",conversion_string_to_chex);
     register_block("stringToList",conversion_string_to_list);
