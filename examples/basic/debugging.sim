@@ -25,7 +25,7 @@ errorList = [
 ]
 
 for a = 0 to getTypeLength(errorList) {
-	throw(errorList[a])
+	__throw(errorList[a])
 }
 
 
