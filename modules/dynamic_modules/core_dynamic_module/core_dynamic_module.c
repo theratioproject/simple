@@ -130,9 +130,9 @@ void error_stack_trace(void *pointer)
 void error_throw(void *pointer)
 {
 	if ( SIMPLE_API_PARACOUNT != 1 ) {
-		vm->skip_error = 1;
+		vm->sState->skip_error = 1;
 		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
-		vm->skip_error = 0;
+		vm->sState->skip_error = 0;
 		return ;
 	}
 	if ( SIMPLE_API_ISSTRING(1) ) {
