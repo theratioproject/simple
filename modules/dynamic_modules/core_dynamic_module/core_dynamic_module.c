@@ -47,12 +47,16 @@ void error_stack_trace(void *pointer)
 	List *list, *list2;
 	int x,lBlockCall,is_last_block  ;
 	const char *cFile  ;
+	VM *vm;
+	//string = simple_string_new_gc(((VM *) pointer)->sState,"");
+	//simple_list_addstring_gc(((VM *) pointer)->sState,list2,string);
+	
 	list2 = SIMPLE_API_NEWLIST ;
 	if ( SIMPLE_API_PARACOUNT != 0 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARACOUNT);
 		return ;
 	} else {
-		VM *vm = ((VM *) pointer);
+		vm = ((VM *) pointer);
 		/* Print Calling Information */
 		lBlockCall = 0 ; is_last_block = 1 ;
 		for ( x = simple_list_getsize(vm->pBlockCallList) ; x >= 1 ; x-- ) {
