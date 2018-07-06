@@ -21,6 +21,10 @@ extern "C" {
     
 SIMPLE_API void init_simple_module(SimpleState *sState) ;
 
+/* Error and Warn */
+
+void error_throw(void *pointer);
+
 /* Conversion */
 void conversion_string_to_chex ( void *pointer ) ;
 
