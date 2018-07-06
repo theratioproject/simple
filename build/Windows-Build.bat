@@ -923,6 +923,7 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 		if exist "!MVS!\VC\vcvarsall.bat" (
 			echo simple-lang:configure:buildtool found !MVS!
 			call:callmsvisualstudio "!MVS!\VC\vcvarsall.bat"
+			SET NO_BUILDTOOL="false"
 			exit /b 0
 		) else (
 			echo simple-lang:configure:buildtool Microsoft Visual Studio not found in x64 directory
