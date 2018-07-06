@@ -118,7 +118,7 @@ void error_throw(void *pointer)
 		return ;
 	}
 	if ( SIMPLE_API_ISSTRING(1) ) {
-		SIMPLE_API_ERROR(SIMPLE_API_GETSTRING(1));
+		simple_vm_showerrormessage(((VM *) pointer),SIMPLE_API_GETSTRING(1));
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}

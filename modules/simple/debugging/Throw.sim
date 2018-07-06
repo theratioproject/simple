@@ -19,7 +19,7 @@ call "../core/loadcoredymodule.sim"
 	the parameter @Bold errorvalue @End is the main error message
 	display when the error is thrown. Calling this block ends the 
 	program after the error has been displayed. The error is 
-	thrown in the format bellow
+	thrown in the format below
 	@Code
 	
 		Line 24 -> Unknown Error Occur
@@ -40,6 +40,17 @@ block throw(errorvalue)
 		errorvalue = "Unknown Error Occur"
 	}
 	__throw(errorvalue)
-	@"hello World"
+	if isLinux() {
+		@ crlf
+	}
+	__exit__
+	
+block throwOnly(errorvalue)
+	
+
+
+
+
+
 	
 	
