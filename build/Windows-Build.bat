@@ -306,10 +306,21 @@ exit /b %ERRORLEVEL%
 	call:header configure "configure build %VERSION%"
 	echo simple-lang:configure:buildtool determining if a specific tool is specified
 	if !BUILD_TOOL!=="any" (
-		call:locategcc !BUILD_ARC!
-		call:locatemingw !BUILD_ARC!
-		call:locatecygwin !BUILD_ARC!
-		call:locatevisualstudio !BUILD_ARC!
+		if !NO_BUILDTOOL!=="true" (
+			call:locategcc !BUILD_ARC!
+		)
+		if !NO_BUILDTOOL!=="true" (
+			call:locatemingw !BUILD_ARC!
+		)
+		if !NO_BUILDTOOL!=="true" (
+			call:locatecygwin !BUILD_ARC!
+		)
+		if !NO_BUILDTOOL!=="true" (
+			call:locatevisualstudio !BUILD_ARC!
+		)
+		
+		
+		
 		echo simple-lang:configure no toolchain found resolveing to manual search...
 		echo simple-lang:configure serching for mingw and msys
 		echo simple-lang:configure:compiler please enter your C/C++ toolchain folder
