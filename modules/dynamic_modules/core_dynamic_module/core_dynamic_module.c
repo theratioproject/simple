@@ -42,7 +42,15 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
 
 void error_throw(void *pointer)
 {
-	
+	if ( SIMPLE_API_PARACOUNT != 1 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
+		return ;
+	}
+	if ( SIMPLE_API_PARACOUNT(1) ) {
+		SIMPLE_API_ERROR(SIMPLE_API_GETSTRING(1));
+	} else {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+	}
 }
 
 void conversion_string_to_chex ( void *pointer )
