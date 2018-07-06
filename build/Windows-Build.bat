@@ -285,10 +285,10 @@ if !EXEC_TYPE!=="dymodules-only-install" (
 if !EXEC_TYPE!=="dymodules-only-debug" (
 	SET EXEC_TYPE="debug"
 	call:header install "install simple-lang %VERSION%"
-	REM call:buildsimpledllexe
+	call:buildsimpledllexe
 	call:builddynamicmodules
 	call:copydynamicmodules
-	REM call:removedistfolders
+	call:removedistfolders
 )
 
 	:: configure and install for now
@@ -912,6 +912,7 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 		if exist "!MVS!\VC\vcvarsall.bat" (
 			echo simple-lang:configure:buildtool found !MVS!
 			call:callmsvisualstudio "!MVS!\VC\vcvarsall.bat"
+			SET NO_BUILDTOOL="false"
 			exit /b 0
 		) else (
 			echo simple-lang:configure:buildtool Microsoft Visual Studio not found
@@ -993,6 +994,7 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 		) else (
 			SET PATH=!PATH!;C:\MinGW\bin\;C:\MinGW\msys\1.0\bin
 		)
+		SET NO_BUILDTOOL="true"
 		exit /b 0
 	)
 	echo simple-lang:configure: mingw not found in C:\MinGW\msys\1.0\bin\
@@ -1009,6 +1011,7 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 		) else (
 			SET PATH=!PATH!;C:\cygwin\bin\
 		) 
+		SET NO_BUILDTOOL="true"
 		exit /b 0
 	)
 	echo simple-lang:configure: cygwin not found in C:\cygwin\
@@ -1036,6 +1039,7 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 				call:deletetempfiles ..\..\simple_build_configure
 				echo simple-lang:configure:compiler make found
 				echo simple-lang:configure:compiler proceeding to build...
+				SET NO_BUILDTOOL="false"
 				exit /b 0
 			) else (
 				call:compilernotfound make
