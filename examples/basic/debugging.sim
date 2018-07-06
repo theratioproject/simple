@@ -29,6 +29,11 @@ for a = 0 to getTypeLength(errorList) {
 	one(errorList[a])
 }
 
+@crlf
+@crlf
+
+stactTrace = __stack_trace()
+
 
 block one(a)
 	two(a)
