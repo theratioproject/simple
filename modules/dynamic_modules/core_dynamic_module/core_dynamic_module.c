@@ -48,6 +48,7 @@ void error_stack_trace(void *pointer)
 	simple_string_add_gc(((VM *) pointer)->sState,string,"wale");
 	simple_string_add_gc(((VM *) pointer)->sState,string," is a ");
 	simple_string_add_gc(((VM *) pointer)->sState,string,"programmer");
+	SIMPLE_API_RETSTRING(string); return;
 	int x,lBlockCall,is_last_block  ;
 	List *list  ;
 	const char *cFile  ;
