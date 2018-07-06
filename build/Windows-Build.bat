@@ -13,7 +13,6 @@ SET VERSION=s0.3.35
 SET SIMPLE_DEBUG_VERSION=s0.3.35-debug
 SET FULLTICK_BUILD_ISSUE="<https://github.com/simple-lang/simple/issues/16>"
 SET BUILD_TOOL="any"
-SET DYNAMIC_MODULE="any"
 
 for %%x in (%*) do (
 	if "%%x"=="--configure" (
@@ -22,11 +21,6 @@ for %%x in (%*) do (
 		) else (
 			SET EXEC_TYPE="configure"
 		)
-	)
-	if "%%x"=="-yoi" (
-		SET DYNAMIC_MODULE=%%x
-		echo the dy module is !DYNAMIC_MODULE!
-		exit /b 0
 	) 
 	if "%%x"=="-c" (
 		if !EXEC_TYPE!=="install" (
@@ -1102,9 +1096,7 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 	echo 	-do --dep-only		build only the dependencies
 	echo 	-io --includes-only	copy only the simple includes files
 	echo 	-mo --modules-only	copy only the standard modules
-	echo 	-yo --dymodules-only	build all the dynamic modules only
+	echo 	-yo --dymodules-only	build only the dynamic modules
 	echo 	-eo --environment-only	build only the environment programs
-	echo.
-	echo 	-yoi [dy_module_name]	build only the dy_module_name specified e.g -yoi string_savant
 	
 	exit /b 0
