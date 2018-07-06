@@ -51,7 +51,8 @@ block throw(errorvalue)
 	not exit the program after the error has been thrown. It definitely 
 	far from safe as the reason why it is thrown is defied as the error 
 	will be carried along to another throwOnly() statement because the
-	error will still be active. 
+	error will still be active. so to prevent a very erroneous program 
+	the @Block throw(errorvalue) should be called instead
 */
 block throwOnly(errorvalue)
 	if errorvalue = "" {
