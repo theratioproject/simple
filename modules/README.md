@@ -6,4 +6,6 @@ Simple Intelligent and Modular Programming Language
 
 this repo host all the simple modules
 
-TEMP INFO : 
+TEMP INFO : the right documentation is in fulltick module and start from 
+simple/debugging module other file older than Debug.sim require thorough 
+debugging.
