@@ -19,20 +19,23 @@ call "simple/utilities/Length.sim"
 call "simple/debugging/Throw.sim"
 
 block main()
-errorList = [
-	"ERROR NOT VALID ",
-	"",
-	"This file cannot be found in the directory"
-]
+	errorList = [
+		"ERROR NOT VALID ",
+		"",
+		"This file cannot be found in the directory"
+	]
 
-for a = 0 to getTypeLength(errorList) {
-	one(errorList[a])
-}
+	for a = 0 to getTypeLength(errorList) {
+		one(errorList[a])
+	}
 
-@crlf
-@crlf
-
-four()
+	four()
+	
+	try {
+		one(errorList[0])
+	catch
+		@ __err__
+	}
 
 block one(a)
 	two(a)
@@ -50,4 +53,4 @@ block three(a)
 	
 block four()
 	stactTrace = __stack_trace()
-	@stactTrace[0]
+	@crlf @stactTrace

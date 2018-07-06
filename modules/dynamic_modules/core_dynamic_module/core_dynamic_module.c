@@ -43,34 +43,100 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
 
 void error_stack_trace(void *pointer)
 {
-	String *string;
+	String *string,*string2;
 	List *list, *list2;
 	int x,lBlockCall,is_last_block  ;
 	const char *cFile  ;
-	VM *vm;
-	//string = simple_string_new_gc(((VM *) pointer)->sState,"");
-	//simple_list_addstring_gc(((VM *) pointer)->sState,list2,string);
-	
+	VM *vm;	
 	list2 = SIMPLE_API_NEWLIST ;
 	if ( SIMPLE_API_PARACOUNT != 0 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARACOUNT);
 		return ;
 	} else {
 		vm = ((VM *) pointer);
-		simple_list_addstring_gc(vm,list2,"hello");
-		simple_list_addstring_gc(vm,list2,"world");
+		/* Print the Error Message */
+		string = simple_string_new_gc(((VM *) pointer)->sState,"at line ");
+			string2 = simple_string_new_gc(((VM *) pointer)->sState,"");
+			simple_string_setfromint_gc(((VM *) pointer)->sState,string2,vm->nLineNumber);
+		simple_string_add_gc(((VM *) pointer)->sState,string,string2->str);
+		/* Print Calling Information */
+		lBlockCall = 0 ; is_last_block = 1 ;
+		for ( x = simple_list_getsize(vm->pBlockCallList) ; x >= 1 ; x-- ) {
+			list = simple_list_getlist(vm->pBlockCallList,x);
+			/*
+			**  If we have ICO_LoadBlock but not ICO_CALL then we need to pass 
+			**  ICO_LOADBLOCK is executed, but still ICO_CALL is not executed! 
+			*/
+			if ( simple_list_getsize(list) < SIMPLE_BLOCKCL_CALLERPC ) {
+				continue ;
+			}
+			if ( simple_list_getint(list,SIMPLE_BLOCKCL_TYPE) == SIMPLE_BLOCKTYPE_SCRIPT ) {
+				/*
+				**  Prepare Message 
+				**  In 
+				*/
+				simple_string_add_gc(((VM *) pointer)->sState,string," at ");
+				simple_string_add_gc(((VM *) pointer)->sState,string,simple_list_getstring(list,SIMPLE_BLOCKCL_NAME));
+				/* Adding () */
+				simple_string_add_gc(((VM *) pointer)->sState,string,"() in file ");
+				/* File Name */
+				if ( lBlockCall == 1 ) {
+					cFile = (const char *) simple_list_getpointer(list,SIMPLE_BLOCKCL_NEWFILENAME) ;
+				}
+				else {
+					if ( vm->nInClassRegion ) {
+						cFile = vm->cFileNameInClassRegion ;
+					}
+					else {
+						cFile = vm->file_name ;
+					}
+				}
+				simple_string_add_gc(((VM *) pointer)->sState,string,file_real_name(cFile));
+				simple_list_addstring_gc(vm,list2,string->str);
+				/* Called From */
+				string = simple_string_new_gc(((VM *) pointer)->sState,"at line ");
+					string2 = simple_string_new_gc(((VM *) pointer)->sState,"");
+					simple_string_setfromint_gc(((VM *) pointer)->sState,string2,simple_list_getint(list,SIMPLE_BLOCKCL_LINENUMBER));
+				simple_string_add_gc(((VM *) pointer)->sState,string,string2->str);
+				is_last_block = 0; 
+				lBlockCall = 1 ;
+			}
+			else {
+				simple_string_add_gc(((VM *) pointer)->sState,string," in ");
+				simple_string_add_gc(((VM *) pointer)->sState,string,file_real_name(simple_list_getstring(list,SIMPLE_BLOCKCL_NAME)));
+			}
+		}
+		if ( lBlockCall ) {
+			simple_string_add_gc(((VM *) pointer)->sState,string," in file ");
+			simple_string_add_gc(((VM *) pointer)->sState,string,file_real_name(simple_list_getstring(vm->sState->files_list,1)));
+		} else {
+			if ( vm->nInClassRegion ) {
+				cFile = vm->cFileNameInClassRegion ;
+			}
+			else {
+				cFile = file_real_name(vm->file_name) ;
+			}
+			simple_string_add_gc(((VM *) pointer)->sState,string," in file ");
+			simple_string_add_gc(((VM *) pointer)->sState,string,cFile);
+		}
+		simple_list_addstring_gc(vm,list2,string->str);
+		simple_string_delete_gc(((VM *) pointer)->sState,string);
+		simple_string_delete_gc(((VM *) pointer)->sState,string2);
 		SIMPLE_API_RETLIST(list2);
+		return;
 	}
 }
 
 void error_throw(void *pointer)
 {
 	if ( SIMPLE_API_PARACOUNT != 1 ) {
+		vm->SKIP_ERROR = 1;
 		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
+		vm->skip_error = 0;
 		return ;
 	}
 	if ( SIMPLE_API_ISSTRING(1) ) {
-		simple_vm_showerrormessage(((VM *) pointer),SIMPLE_API_GETSTRING(1));
+		SIMPLE_API_ERROR(SIMPLE_API_GETSTRING(1));
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}

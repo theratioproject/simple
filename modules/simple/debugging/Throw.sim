@@ -11,6 +11,16 @@
  */
 
 /*
+	To prevent error in operation and at all level of a program the 
+	@Block throw(errorvalue) and @Block throwOnly(errorvalue) can be use 
+	to show error detail and print the stack trace to locate the error 
+	position. 
+		The @Block throw(errorvalue) shows error detail and exit the 
+	program. This is most useful to prevent erroneous program and to catch 
+	error just in time.
+		The @Block throwOnly(errorvalue) behaves slightly different from 
+	the @Block throw(errorvalue) block as it does not force the program to
+	exit after the error detail has been displayed
 	
 */
  
