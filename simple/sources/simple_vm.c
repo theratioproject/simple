@@ -1158,7 +1158,7 @@ SIMPLE_API void simple_vm_showerrormessage ( VM *vm,const char *cStr )
 			lBlockCall = 1 ;
 		}
 		else {
-			printf( "In %s ",file_real_name(simple_list_getstring(list,SIMPLE_BLOCKCL_NAME)) ) ;
+			printf( "\tin %s ",file_real_name(simple_list_getstring(list,SIMPLE_BLOCKCL_NAME)) ) ;
 		}
 	}
 	if ( lBlockCall ) {
