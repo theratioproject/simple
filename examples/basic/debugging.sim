@@ -32,8 +32,7 @@ for a = 0 to getTypeLength(errorList) {
 @crlf
 @crlf
 
-stactTrace = __stack_trace()
-
+four()
 
 block one(a)
 	two(a)
@@ -48,3 +47,7 @@ block two(a)
 */
 block three(a)
 	throwOnly(a)
+	
+block four()
+	stactTrace = __stack_trace()
+	@stactTrace[0]

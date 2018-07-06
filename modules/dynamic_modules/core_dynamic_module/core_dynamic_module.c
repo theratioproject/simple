@@ -43,79 +43,86 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
 
 void error_stack_trace(void *pointer)
 {
-	String *string  ;
-	string = simple_string_new_gc(((VM *) pointer)->sState,"");
-	simple_string_add_gc(((VM *) pointer)->sState,string,"ade ");
-	simple_string_add_gc(((VM *) pointer)->sState,string,"wale");
-	simple_string_add_gc(((VM *) pointer)->sState,string," is a ");
-	simple_string_add_gc(((VM *) pointer)->sState,string,"programmer");
-	SIMPLE_API_RETSTRING(string); return;
+	String *string;
+	List *list, *list2;
 	int x,lBlockCall,is_last_block  ;
-	List *list  ;
 	const char *cFile  ;
-	VM *vm = ((VM *) pointer);
-	/* Print the Error Message */
-	printf( "\nLine %d -> %s \n",vm->nLineNumber,SIMPLE_API_GETSTRING(1) ) ;
-	/* Print Calling Information */
-	lBlockCall = 0 ; is_last_block = 1 ;
-	for ( x = simple_list_getsize(vm->pBlockCallList) ; x >= 1 ; x-- ) {
-		list = simple_list_getlist(vm->pBlockCallList,x);
-		/*
-		**  If we have ICO_LoadBlock but not ICO_CALL then we need to pass 
-		**  ICO_LOADBLOCK is executed, but still ICO_CALL is not executed! 
-		*/
-		if ( simple_list_getsize(list) < SIMPLE_BLOCKCL_CALLERPC ) {
-			continue ;
-		}
-		if ( simple_list_getint(list,SIMPLE_BLOCKCL_TYPE) == SIMPLE_BLOCKTYPE_SCRIPT ) {
+	list2 = SIMPLE_API_NEWLIST ;
+	if ( SIMPLE_API_PARACOUNT != 0 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARACOUNT);
+		return ;
+	} else {
+		VM *vm = ((VM *) pointer);
+		/* Print Calling Information */
+		lBlockCall = 0 ; is_last_block = 1 ;
+		for ( x = simple_list_getsize(vm->pBlockCallList) ; x >= 1 ; x-- ) {
+			string = simple_string_new_gc(((VM *) pointer)->sState,"");
+			list = simple_list_getlist(vm->pBlockCallList,x);
 			/*
-			**  Prepare Message 
-			**  In 
+			**  If we have ICO_LoadBlock but not ICO_CALL then we need to pass 
+			**  ICO_LOADBLOCK is executed, but still ICO_CALL is not executed! 
 			*/
-			if (is_last_block == 1) { printf("\tat "); is_last_block = 0; } else { printf("at "); }
-			/* Method or Block */
-			/*if ( simple_list_getint(list,SIMPLE_BLOCKCL_METHODORBLOCK) ) {
-				printf( "method " ) ;
+			if ( simple_list_getsize(list) < SIMPLE_BLOCKCL_CALLERPC ) {
+				continue ;
 			}
-			else {
-				printf( "block " ) ;
-			}*/
-			/* Block Name */
-			printf( "%s",simple_list_getstring(list,SIMPLE_BLOCKCL_NAME) ) ;
-			/* Adding () */
-			printf( "() in file " ) ;
-			/* File Name */
-			if ( lBlockCall == 1 ) {
-				cFile = (const char *) simple_list_getpointer(list,SIMPLE_BLOCKCL_NEWFILENAME) ;
-			}
-			else {
-				if ( vm->nInClassRegion ) {
-					cFile = vm->cFileNameInClassRegion ;
+			if ( simple_list_getint(list,SIMPLE_BLOCKCL_TYPE) == SIMPLE_BLOCKTYPE_SCRIPT ) {
+				/*
+				**  Prepare Message 
+				**  In 
+				*/
+				simple_string_add_gc(((VM *) pointer)->sState,string,"at");
+				if (is_last_block == 1) { printf("\tat "); is_last_block = 0; } else { printf("at "); }
+				/* Method or Block */
+				/*if ( simple_list_getint(list,SIMPLE_BLOCKCL_METHODORBLOCK) ) {
+					printf( "method " ) ;
 				}
 				else {
-					cFile = vm->file_name ;
+					printf( "block " ) ;
+				}*/
+				/* Block Name */
+				simple_string_add_gc(((VM *) pointer)->sState,string,simple_list_getstring(list,SIMPLE_BLOCKCL_NAME));
+				printf( "%s",simple_list_getstring(list,SIMPLE_BLOCKCL_NAME) ) ;
+				/* Adding () */
+				simple_string_add_gc(((VM *) pointer)->sState,string,"() in file ");
+				printf( "() in file " ) ;
+				/* File Name */
+				if ( lBlockCall == 1 ) {
+					cFile = (const char *) simple_list_getpointer(list,SIMPLE_BLOCKCL_NEWFILENAME) ;
 				}
+				else {
+					if ( vm->nInClassRegion ) {
+						cFile = vm->cFileNameInClassRegion ;
+					}
+					else {
+						cFile = vm->file_name ;
+					}
+				}
+				simple_string_add_gc(((VM *) pointer)->sState,string,file_real_name(cFile));
+				printf( "%s",file_real_name(cFile) ) ;
+				/* Called From */
+				simple_string_add_gc(((VM *) pointer)->sState,string,"at line ");
+				simple_string_add_gc(((VM *) pointer)->sState,string,simple_list_getint(list,SIMPLE_BLOCKCL_LINENUMBER));
+				printf( "\n\tat line %d ",simple_list_getint(list,SIMPLE_BLOCKCL_LINENUMBER) ) ;
+				lBlockCall = 1 ;
+				simple_list_addstring_gc(((VM *) pointer)->sState,list2,string);
 			}
-			printf( "%s",file_real_name(cFile) ) ;
-			/* Called From */
-			printf( "\n\tat line %d ",simple_list_getint(list,SIMPLE_BLOCKCL_LINENUMBER) ) ;
-			lBlockCall = 1 ;
+			else {
+				//printf( "\tin %s ",file_real_name(simple_list_getstring(list,SIMPLE_BLOCKCL_NAME)) ) ;
+			}
+		}
+		if ( lBlockCall ) {
+			printf( "in file %s ",file_real_name(simple_list_getstring(vm->sState->files_list,1) )) ;
 		}
 		else {
-			//printf( "\tin %s ",file_real_name(simple_list_getstring(list,SIMPLE_BLOCKCL_NAME)) ) ;
+			if ( vm->nInClassRegion ) {
+				cFile = vm->cFileNameInClassRegion ;
+			}
+			else {
+				cFile = file_real_name(vm->file_name) ;
+			}
+			printf( "\tin file %s ",cFile ) ;
 		}
-	}
-	if ( lBlockCall ) {
-		printf( "in file %s ",file_real_name(simple_list_getstring(vm->sState->files_list,1) )) ;
-	}
-	else {
-		if ( vm->nInClassRegion ) {
-			cFile = vm->cFileNameInClassRegion ;
-		}
-		else {
-			cFile = file_real_name(vm->file_name) ;
-		}
-		printf( "\tin file %s ",cFile ) ;
+		SIMPLE_API_RETLIST(list2);
 	}
 }
 
