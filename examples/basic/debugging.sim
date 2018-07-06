@@ -36,5 +36,10 @@ block one(a)
 block two(a)
 	three(a)
 	
+/*
+	Right here the throwOnly() only block is called 
+	so we can keep the error coming without having
+	to exit the program purely error tolerance
+*/
 block three(a)
 	throwOnly(a)
