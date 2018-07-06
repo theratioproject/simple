@@ -13,6 +13,7 @@ SET VERSION=s0.3.35
 SET SIMPLE_DEBUG_VERSION=s0.3.35-debug
 SET FULLTICK_BUILD_ISSUE="<https://github.com/simple-lang/simple/issues/16>"
 SET BUILD_TOOL="any"
+SET DYNAMIC_MODULE="any"
 
 for %%x in (%*) do (
 	if "%%x"=="--configure" (
