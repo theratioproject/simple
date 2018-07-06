@@ -31,6 +31,9 @@ call "../core/loadcoredymodule.sim"
 			at line 21 in file debugging.sim
 			
 	@EndCode
+	
+	If intention is to show an error the @Block throwOnly(errorvalue)
+	should be called instead because it does not exit the program
 */
 block throw(errorvalue)
 	if errorvalue = "" {
