@@ -40,5 +40,6 @@ block throw(errorvalue)
 		errorvalue = "Unknown Error Occur"
 	}
 	__throw(errorvalue)
+	@"hello World"
 	
 	
