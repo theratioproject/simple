@@ -45,7 +45,6 @@ typedef struct VM {
 	char *file_name  ;
 	int nLineNumber  ;
 	int nListStart  ;
-	int skip_error  ;
 	List *pNestedLists  ;
 	int nBlockFlag  ;
 	List *aPCBlockFlag  ;

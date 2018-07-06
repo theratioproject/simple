@@ -902,6 +902,7 @@ SIMPLE_API void simple_execute ( char *file_name, int nISCGI,int nRun,int nPrint
 	sState->nPrintRules = nRules ;
 	sState->nPrintInstruction = nIns ;
 	sState->nWarning = nWarn ;
+	sState->skip_error= skip_error ;
 	sState->argc = argc ;
 	sState->argv = argv ;
 	if (sState->nISCGI)
