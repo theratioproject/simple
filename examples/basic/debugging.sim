@@ -20,7 +20,7 @@ call "simple/debugging/Throw.sim"
 
 errorList = [
 	"ERROR NOT VALID ",
-	"",
+	"s",
 	"This file cannot be found in the directory"
 ]
 
