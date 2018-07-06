@@ -912,7 +912,6 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 		if exist "!MVS!\VC\vcvarsall.bat" (
 			echo simple-lang:configure:buildtool found !MVS!
 			call:callmsvisualstudio "!MVS!\VC\vcvarsall.bat"
-			SET NO_BUILDTOOL="false"
 			exit /b 0
 		) else (
 			echo simple-lang:configure:buildtool Microsoft Visual Studio not found
@@ -923,7 +922,6 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 		if exist "!MVS!\VC\vcvarsall.bat" (
 			echo simple-lang:configure:buildtool found !MVS!
 			call:callmsvisualstudio "!MVS!\VC\vcvarsall.bat"
-			SET NO_BUILDTOOL="false"
 			exit /b 0
 		) else (
 			echo simple-lang:configure:buildtool Microsoft Visual Studio not found in x64 directory
@@ -944,6 +942,7 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 	) else (
 		call %1 x86
 	)
+	SET NO_BUILDTOOL="false"
 
 	exit /b 0
 	
@@ -1012,7 +1011,7 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 		) else (
 			SET PATH=!PATH!;C:\cygwin\bin\
 		) 
-		SET NO_BUILDTOOL="false"
+		SET NO_BUILDTOOL="true"
 		exit /b 0
 	)
 	echo simple-lang:configure: cygwin not found in C:\cygwin\
