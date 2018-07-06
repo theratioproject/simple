@@ -42,6 +42,8 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
 
 void error_stack_trace(void *pointer)
 {
+	String *string  ;
+	pString = simple_string_new_gc(((VM *) pointer)->sState,"");
 	int x,lBlockCall,is_last_block  ;
 	List *list  ;
 	const char *cFile  ;
