@@ -17,13 +17,13 @@ call "../core/loadcoredymodule.sim"
 /*
 	
 */
-block throw(value)
-	return raise(value)
-	__err__ = value + crlf
-	
-block raise(value)
-	display value 
+block throw(errorvalue)
+	if errorvalue = "" {
+		errorvalue = "Unknown Error Occur"
+	}
+	__throw(errorvalue)
 	__exit__
+	
 	
 	
 	

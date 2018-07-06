@@ -40,6 +40,77 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
     register_block("stringToList",conversion_string_to_list);
 }
 
+void error_stack_trace(void *pointer)
+{
+	int x,lBlockCall,is_last_block  ;
+	List *list  ;
+	const char *cFile  ;
+	VM *vm = ((VM *) pointer);
+	/* Print the Error Message */
+	printf( "\nLine %d -> %s \n",vm->nLineNumber,SIMPLE_API_GETSTRING(1) ) ;
+	/* Print Calling Information */
+	lBlockCall = 0 ; is_last_block = 1 ;
+	for ( x = simple_list_getsize(vm->pBlockCallList) ; x >= 1 ; x-- ) {
+		list = simple_list_getlist(vm->pBlockCallList,x);
+		/*
+		**  If we have ICO_LoadBlock but not ICO_CALL then we need to pass 
+		**  ICO_LOADBLOCK is executed, but still ICO_CALL is not executed! 
+		*/
+		if ( simple_list_getsize(list) < SIMPLE_BLOCKCL_CALLERPC ) {
+			continue ;
+		}
+		if ( simple_list_getint(list,SIMPLE_BLOCKCL_TYPE) == SIMPLE_BLOCKTYPE_SCRIPT ) {
+			/*
+			**  Prepare Message 
+			**  In 
+			*/
+			if (is_last_block == 1) { printf("\tat "); is_last_block = 0; } else { printf("at "); }
+			/* Method or Block */
+			/*if ( simple_list_getint(list,SIMPLE_BLOCKCL_METHODORBLOCK) ) {
+				printf( "method " ) ;
+			}
+			else {
+				printf( "block " ) ;
+			}*/
+			/* Block Name */
+			printf( "%s",simple_list_getstring(list,SIMPLE_BLOCKCL_NAME) ) ;
+			/* Adding () */
+			printf( "() in file " ) ;
+			/* File Name */
+			if ( lBlockCall == 1 ) {
+				cFile = (const char *) simple_list_getpointer(list,SIMPLE_BLOCKCL_NEWFILENAME) ;
+			}
+			else {
+				if ( vm->nInClassRegion ) {
+					cFile = vm->cFileNameInClassRegion ;
+				}
+				else {
+					cFile = vm->file_name ;
+				}
+			}
+			printf( "%s",file_real_name(cFile) ) ;
+			/* Called From */
+			printf( "\n\tat line %d ",simple_list_getint(list,SIMPLE_BLOCKCL_LINENUMBER) ) ;
+			lBlockCall = 1 ;
+		}
+		else {
+			//printf( "\tin %s ",file_real_name(simple_list_getstring(list,SIMPLE_BLOCKCL_NAME)) ) ;
+		}
+	}
+	if ( lBlockCall ) {
+		printf( "in file %s ",file_real_name(simple_list_getstring(vm->sState->files_list,1) )) ;
+	}
+	else {
+		if ( vm->nInClassRegion ) {
+			cFile = vm->cFileNameInClassRegion ;
+		}
+		else {
+			cFile = file_real_name(vm->file_name) ;
+		}
+		printf( "\tin file %s ",cFile ) ;
+	}
+}
+
 void error_throw(void *pointer)
 {
 	if ( SIMPLE_API_PARACOUNT != 1 ) {

@@ -18,6 +18,7 @@
 call "simple/utilities/Length.sim"
 call "simple/debugging/Throw.sim"
 
+block main()
 errorList = [
 	"ERROR NOT VALID ",
 	"",
@@ -25,7 +26,7 @@ errorList = [
 ]
 
 for a = 0 to getTypeLength(errorList) {
-	one(errorList[a])
+	one("")
 }
 
 
@@ -36,4 +37,4 @@ block two(a)
 	three(a)
 	
 block three(a)
-	__throw(a)
+	throw(a)
