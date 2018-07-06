@@ -15,7 +15,14 @@ module simple.debugging
 call "../core/loadcoredymodule.sim"
  
 /*
+	Throw an error at any point in the program with this block
+	the parameter @Bold errorvalue @End is the main error message
+	display when the error is thrown. Calling this block ends the 
+	program after the error has been displayed. The error is 
+	thrown in the format bellow
+	@Code
 	
+	@EndCode
 */
 block throw(errorvalue)
 	if errorvalue = "" {
