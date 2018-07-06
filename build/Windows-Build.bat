@@ -310,7 +310,7 @@ exit /b %ERRORLEVEL%
 		call:locatemingw !BUILD_ARC!
 		call:locatecygwin !BUILD_ARC!
 		call:locatevisualstudio !BUILD_ARC!
-		echo simple-lang:configure preparing to find build toolchain...
+		echo simple-lang:configure no toolchain found resolveing to manual search...
 		echo simple-lang:configure serching for mingw and msys
 		echo simple-lang:configure:compiler please enter your C/C++ toolchain folder
 		SET /p COMPILER_PATH=Enter your C/C++ Toolchain directory : 
