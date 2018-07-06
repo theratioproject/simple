@@ -44,6 +44,8 @@ typedef struct SimpleState {
 	/* set to 1 if we need to display warnings */
 	unsigned int nWarning : 1  ;
 	/* Set to 1 to tell the scanner to don't delete the VM after execution */
+	int skip_error  ;
+	/* Set to 1 to tell the skip all the error instance */
 	unsigned int nDontDeleteTheVM : 1  ;
 	/* command line parameters */
 	int argc  ;
