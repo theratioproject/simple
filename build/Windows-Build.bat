@@ -308,19 +308,24 @@ exit /b %ERRORLEVEL%
 	if !BUILD_TOOL!=="any" (
 		if !NO_BUILDTOOL!=="true" (
 			call:locategcc !BUILD_ARC!
+		) else (
+			exit /b 0 
 		)
 		if !NO_BUILDTOOL!=="true" (
 			call:locatemingw !BUILD_ARC!
+		) else (
+			exit /b 0 
 		)
 		if !NO_BUILDTOOL!=="true" (
 			call:locatecygwin !BUILD_ARC!
+		) else (
+			exit /b 0 
 		)
 		if !NO_BUILDTOOL!=="true" (
 			call:locatevisualstudio !BUILD_ARC!
+		) else (
+			exit /b 0 
 		)
-		
-		
-		
 		echo simple-lang:configure no toolchain found resolveing to manual search...
 		echo simple-lang:configure serching for mingw and msys
 		echo simple-lang:configure:compiler please enter your C/C++ toolchain folder
