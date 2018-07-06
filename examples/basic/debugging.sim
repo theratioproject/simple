@@ -25,8 +25,17 @@ errorList = [
 ]
 
 for a = 0 to getTypeLength(errorList) {
+	one("test.dll")
 	throw(errorList[a])
 }
 
+block one(s)
+	two(s)
+	
+block two(s)
+	three(s)
+	
+block three(s)
+	callDynamicModule(s)
 
 
