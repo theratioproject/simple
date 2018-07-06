@@ -46,7 +46,12 @@ block throw(errorvalue)
 	__exit__
 	
 /*
-	Want to make the program 
+	Want to make the program error tolerant then this block is 
+	the right block to call instead of the @Block throw because it does
+	not exit the program after the error has been thrown. It definitely 
+	far from safe as the reason why it is thrown is defied as the error 
+	will be carried along to another throwOnly() statement because the
+	error will still be active. 
 */
 block throwOnly(errorvalue)
 	if errorvalue = "" {
