@@ -37,4 +37,4 @@ block two(a)
 	three(a)
 	
 block three(a)
-	throw(a)
+	throwOnly(a)

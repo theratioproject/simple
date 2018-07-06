@@ -45,7 +45,15 @@ block throw(errorvalue)
 	}
 	__exit__
 	
+
 block throwOnly(errorvalue)
+	if errorvalue = "" {
+		errorvalue = "Unknown Error Occur"
+	}
+	__throw(errorvalue)
+	if isLinux() {
+		@ crlf
+	}
 	
 
 
