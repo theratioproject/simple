@@ -178,7 +178,7 @@ SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 			} else if ( strcmp(argv[x],"--case-neutral") == 0 || strcmp(argv[x],"-c") == 0 ) {
 				NOT_CASE_SENSITIVE = 1;
 			} else if ( strcmp(argv[x],"--error") == 0 || strcmp(argv[x],"-e") == 0 ) {
-				SKIP_ERROR = 1;
+				vm->skip_error = 1;
 			} else if ( strcmp(argv[x],"--license") == 0 || strcmp(argv[x],"-l") == 0 ) {
 				display_licence();
 			} else if ( strcmp(argv[x],"--help") == 0 || strcmp(argv[x],"-h") == 0 ) {
