@@ -149,7 +149,7 @@ SIMPLE_API List * simple_state_newvar ( SimpleState *sState,const char *cStr )
 
 SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 {
-	int x,nCGI,nRun,nPrintIC,nPrintICFinal,nTokens,nRules,nIns,show_time,nSRC,nGenObj,nWarn  ;
+	int x,nCGI,nRun,nPrintIC,nPrintICFinal,nTokens,nRules,nIns,show_time,nSRC,nGenObj,nWarn,skip_error  ;
 	char *cStr  ; clock_t before_execution ; 
 	/* Init Values */
 	nCGI = 0 ;
@@ -164,6 +164,7 @@ SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 	nSRC = 0 ;
 	nGenObj = 0 ;
 	nWarn = 0 ;
+	skip_error=0;
 	nSimpleStateDEBUGSEGFAULT = 0 ;
 	nSimpleStateCGI = 0 ;
 	signal(SIGSEGV,segfaultaction);
@@ -178,7 +179,7 @@ SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 			} else if ( strcmp(argv[x],"--case-neutral") == 0 || strcmp(argv[x],"-c") == 0 ) {
 				NOT_CASE_SENSITIVE = 1;
 			} else if ( strcmp(argv[x],"--error") == 0 || strcmp(argv[x],"-e") == 0 ) {
-				vm->skip_error = 1;
+				skip_error = 1;
 			} else if ( strcmp(argv[x],"--license") == 0 || strcmp(argv[x],"-l") == 0 ) {
 				display_licence();
 			} else if ( strcmp(argv[x],"--help") == 0 || strcmp(argv[x],"-h") == 0 ) {
@@ -217,18 +218,18 @@ SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 	srand(time(NULL));
 	/* Check Startup simple.sim */
 	if ( simple_fexists("simple.sim") && argc == 1 ) {
-		simple_execute("simple.sim",nCGI,nRun,nPrintIC,nPrintICFinal,nTokens,nRules,nIns,nGenObj,nWarn,argc,argv);
+		simple_execute("simple.sim",nCGI,nRun,nPrintIC,nPrintICFinal,nTokens,nRules,nIns,nGenObj,nWarn,argc,argv,skip_error);
 		exit(0);
 	}
 	if ( simple_fexists("simple.complex") && argc == 1 ) {
-		simple_execute("simple.complex",nCGI,nRun,nPrintIC,nPrintICFinal,nTokens,nRules,nIns,nGenObj,nWarn,argc,argv);
+		simple_execute("simple.complex",nCGI,nRun,nPrintIC,nPrintICFinal,nTokens,nRules,nIns,nGenObj,nWarn,argc,argv,skip_error);
 		exit(0);
 	}
 	/* Print Help */
 	if ( (argc == 1) || (cStr == NULL) ) {
 		display_help();
 	}
-	simple_execute(cStr,nCGI,nRun,nPrintIC,nPrintICFinal,nTokens,nRules,nIns,nGenObj,nWarn,argc,argv);
+	simple_execute(cStr,nCGI,nRun,nPrintIC,nPrintICFinal,nTokens,nRules,nIns,nGenObj,nWarn,argc,argv,skip_error);
 	#if SIMPLE_TESTPERFORMANCE
 	if ( show_time ) {
 		simple_showtime( before_execution);
