@@ -73,9 +73,9 @@ block generateFunctionFromBatch()
 	@"The final functions are : "+crlf+crlf
 	#@finalFunc
 	@removeString(dllFile.absolutePath(),".dll")
+	@"creating .def file from the generated functions"+crlf
 	defFile = new File(removeString(dllFile.absolutePath(),".dll")+".def")
 	defFile.write(finalFunc)
-	
 	generateLib(defFile.absolutePath())
 	
 block finalFunction(func)
