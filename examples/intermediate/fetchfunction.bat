@@ -1,3 +1,6 @@
+echo off
+cls 
+
 SET NO_BUILDTOOL="true"
 
 call:generatelibfromdll %1 %2
