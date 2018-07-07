@@ -16,8 +16,9 @@
 */
 
 cmdlen = lengthOf(cmdparams)
+dllFile = "nodll"
 
 block main()
 	for a = 0 to cmdlen {
-	
+		if stringEndsWith(cmdparams[a],"dll") dllFile = cmdparams[a]
 	}
