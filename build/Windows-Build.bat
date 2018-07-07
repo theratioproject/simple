@@ -586,7 +586,10 @@ REM RESOLVE DEPENDENCIES
 :generatelibfromdll
 	if !THERE_IS_VS!=="true" (
 		if exist "../examples/intermediate/libfromdll.sim" (
-			if exist "../simple/dist/simple.exe"
+			if exist "../simple/dist/simple.exe" (
+				"../simple/dist/simple.exe"
+				
+			) 
 		) else (
 			call:dependencieserror %1
 		)
