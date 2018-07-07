@@ -21,7 +21,7 @@ exit /b 0
 
 :generatelibfromdef
 	echo %2 from %1
-	lib.exe /def:%1 /OUT:%2
+	lib.exe /def:%1 /OUT:%2 /MACHINE:!BUILD_ARC!
 	exit /b 0
 
 
