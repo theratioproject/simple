@@ -21,4 +21,5 @@ dllFile = "nodll"
 block main()
 	for a = 0 to cmdlen {
 		if stringEndsWith(cmdparams[a],"dll") dllFile = cmdparams[a]
+		elif stringEndsWith(cmdparams[a],"t") || stringEndsWith(cmdparams[a],"temp")
 	}
