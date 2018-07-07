@@ -44,8 +44,9 @@ block generateFunctionFromBatch()
 	__exec("fetchfunction.bat "+dllFile.absolutePath()+" "+arch)
 	funcFile = new File(dllFile.absolutePath()+".txt")
 	if funcFile.exists()
-		@ funcFile.readFileAsString()
+		
 	end
+	@ funcFile.readFileAsString()
 
 
 
