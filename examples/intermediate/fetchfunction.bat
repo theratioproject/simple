@@ -13,7 +13,7 @@ exit /b 0
 
 
 :generatelibfromdll
-	call:locatevisualstudio %2
+	call:locatevisualstudio !BUILD_ARC!
 	echo !DLLNAME! and !BUILD_ARC! and !NO_BUILDTOOL!
 	exit /b 0
 	dumpbin /EXPORTS %1 > %1.txt
@@ -27,13 +27,12 @@ exit /b 0
 	if "%1"=="" (
 		SET "PROGRAMFILESPATH=%ProgramFiles%"
 	)
-	if "%1"==""x64"" (
+	if "%1"=="x64" (
 		SET "PROGRAMFILESPATH=%ProgramFiles%"
 	)
-	if "%1"==""x86"" (
+	if "%1"=="x86" (
 		SET "PROGRAMFILESPATH=%ProgramFiles(x86)%"
 	)
-	echo %PROGRAMFILESPATH%
 	for /d %%a in ("%PROGRAMFILESPATH%\Microsoft Visual Studio*") do (
 		for /f "tokens=3 delims=\" %%x in ("%%a") do SET MVS=%%a\
 		break
