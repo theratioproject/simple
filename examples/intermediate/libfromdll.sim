@@ -15,5 +15,9 @@
 	Visual Studio Command Line tools
 */
 
+cmdlen = lengthOf(cmdparams)
+
 block main()
+	for a = 0 to cmdlen {
 	
+	}
