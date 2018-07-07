@@ -10,7 +10,7 @@ SET MVS=""
 
 call:locatevisualstudio !BUILD_ARC!
 if !NO_BUILDTOOL!=="false" (
-	call:generatelibfromdll !DLLNAME! !BUILD_ARC!
+	call:generatelibfromdll !DLLNAME! curl_* 000*
 )
 exit /b 0
 
@@ -19,6 +19,7 @@ exit /b 0
 	echo !DLLNAME! and !BUILD_ARC! and !NO_BUILDTOOL!
 	dumpbin /EXPORTS %1 > %1.txt
 	findstr %2 %1.txt > %1.2.txt
+	findstr %3 %1.2.txt > %1.3.txt
 	exit /b 0
 
 :locatevisualstudio
