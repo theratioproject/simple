@@ -36,4 +36,13 @@ block main()
 		throw("The DLL file : "+dllFilePath+" cannot be found")
 	}
 	@ "dll file : "+dllFile.absolutePath()
+	generateFunctionFromBatch()
+	
+block generateFunctionFromBatch()
+	System.execute("fetchfunction.bat")
+
+
+
+
+
 	
