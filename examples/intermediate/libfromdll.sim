@@ -20,15 +20,16 @@ call "simple/debugging/Throw.sim"
 call "simple/io/File.sim"
 
 cmdlen = lengthOf(cmdparams)
-dllFile = "nodll"
+dllFile = null
+dllFilePath = ""
 keepTemp = false
 
 block main()
 	for a = 2 to cmdlen {
-		if stringEndsWith(cmdparams[a],"dll") dllFile = cmdparams[a] 
+		if stringEndsWith(cmdparams[a],"dll") dllFilePath = cmdparams[a] 
 		elif stringEndsWith(cmdparams[a],"t") || stringEndsWith(cmdparams[a],"temp") keepTemp = true
 		else throw("Unknown Flag sent as parameter") 
 		end
 	}
-	dllFile = new File("")
-	@ "dll file : "+dllFile
+	dllFile = new File(dllFilePath)
+	@ "dll file : "+dllFile.absolutePath()
