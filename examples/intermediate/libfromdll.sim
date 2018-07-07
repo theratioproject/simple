@@ -59,6 +59,7 @@ block generateFunctionFromBatch()
 	for a = startCount to lengthOf(funcs)
 		newFuncs+=funcs[a]
 	end
+	@newFuncs
 	#funcs = splitString(funcs,"name")
 
 
