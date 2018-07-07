@@ -20,7 +20,8 @@ if !NO_BUILDTOOL!=="false" (
 exit /b 0
 
 :generatelibfromdef
-	echo %1 and %2
+	echo %2 from %1
+	lib.exe /def:%1 /OUT:%2
 	exit /b 0
 
 
