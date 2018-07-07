@@ -49,10 +49,10 @@ block generateFunctionFromBatch()
 	end
 	funcs = new String(funcFile.readFileAsString())
 	#@funcs
-	for a = 0 to getTypeLength(funcs)
+	for a = 0 to lengthOf(funcs)
 		@ funcs[a]
-		if funcs[a] == "n" and funcs[a+1] == "a" and funcs[a+2] == "m" and funcs[a+3] == "e"
-			break
+		if funcs[a] == "n" && funcs[a+1] == "a" && funcs[a+2] == "m" && funcs[a+3] == "e"
+			break;
 		end
 	end
 	#funcs = splitString(funcs,"name")
