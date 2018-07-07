@@ -5,6 +5,7 @@ setlocal enabledelayedexpansion
 SET DLLNAME=%1
 SET BUILD_ARC=%2
 SET TYPE=%3
+SET LIBNAME=%4
 SET NO_BUILDTOOL="true"
 SET MVS=""
 
@@ -13,7 +14,7 @@ if !NO_BUILDTOOL!=="false" (
 	if "!TYPE!"=="txt" (
 		call:generatelibfromdll !DLLNAME! curl_* 000*
 	) else (
-		echo yea yea
+		call:generatelibfromdef !DLLNAME! !LIBNAME!
 	)
 )
 exit /b 0
