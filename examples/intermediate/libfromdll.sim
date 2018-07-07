@@ -71,7 +71,10 @@ block generateFunctionFromBatch()
 	#funcs = splitString(funcs,"name")
 	
 block finalFunction(func)
-	@ lengthOf(func)
+	blen = lengthOf(func)
+	if blen <= 0 else
+		@ blen
+	end
 
 
 
