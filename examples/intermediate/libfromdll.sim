@@ -59,7 +59,7 @@ block generateFunctionFromBatch()
 	@ "The function off set is "+startCount
 	for a = startCount to lengthOf(funcs)
 		newFuncs+=funcs[a]
-		if funcs[a] = "S" && funcs[a+1] = "u" && funcs[a+2] = "m" && funcs[a+2] = "m" && funcs[a+2] = "a" && funcs[a+2] = "r" && funcs[a+2] = "y"
+		if funcs[a] == "S" && funcs[a+1] == "u" && funcs[a+2] == "m" && funcs[a+3] == "m" && funcs[a+4] == "a" && funcs[a+5] == "r" && funcs[a+6] == "y"
 			break
 		end
 	end
