@@ -19,6 +19,7 @@ call "simple/core/String.sim"
 call "simple/debugging/Throw.sim"
 call "simple/io/File.sim"
 call "simple/system/System.sim"
+call "simple/utilities/Length.sim"
 
 cmdlen = lengthOf(cmdparams)
 dllFile = null
@@ -47,8 +48,14 @@ block generateFunctionFromBatch()
 		throw("The batch file failed to exports the dll functions")
 	end
 	funcs = new String(funcFile.readFileAsString())
-	@funcs
-	funcs = 
+	#@funcs
+	for a = 0 to getTypeLength(funcs)
+		@ funcs[a]
+		if funcs[a] == "n" and funcs[a+1] == "a" and funcs[a+2] == "m" and funcs[a+3] == "e"
+			break
+		end
+	end
+	#funcs = splitString(funcs,"name")
 
 
 
