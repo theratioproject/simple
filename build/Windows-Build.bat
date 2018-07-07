@@ -557,7 +557,7 @@ REM RESOLVE DEPENDENCIES
 		)
 	) else (
 		if exist "..\modules\dynamic_modules\networker\lib\libcurl.dll" (
-			call:generatelibfromdll %~dp0\..\modules\dynamic_modules\networker\lib\libcurl.dll curl_* 000*
+			call:generatelibfromdll %~dp0\..\modules\dynamic_modules\networker\lib\libcurl.dll 
 			call:movedependencytobin libcurl.dll libcurl.dll %~dp0\..\modules\dynamic_modules\networker\lib\
 		) else (
 			call:dependencieserror libcurl.dll
@@ -571,12 +571,7 @@ REM RESOLVE DEPENDENCIES
 	
 :generatelibfromdll
 	if !THERE_IS_VS!=="true" (
-		REM call:header configure "configure build %VERSION%"
-		REM call:locatevisualstudio !BUILD_ARC!
-		REM dumpbin /EXPORTS %1 > %1.txt
-		REM findstr %2 %1.txt > %1.2.txt
-		REM findstr %3 %1.2.txt > %1.3.txt
-		SET THERE_IS_VS="false"
+		
 	)
 	
 	exit /b 0
