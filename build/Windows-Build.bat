@@ -107,10 +107,13 @@ for %%x in (%*) do (
 		) else (
 			SET EXEC_TYPE="dependencies-only-debug"
 		)
-		exit /b 0
 	)  
 	if "%%x"=="--dep-only" (
-		
+		if !EXEC_TYPE!=="install" (
+			SET EXEC_TYPE="dependencies-only-install"
+		) else (
+			SET EXEC_TYPE="dependencies-only-debug"
+		)
 	)  
 	if "%%x"=="-io" (
 		if !EXEC_TYPE!=="install" (
@@ -253,11 +256,11 @@ if !EXEC_TYPE!=="simple-only-debug" (
 	call:copysimpledllexe
 	call:removedistfolders
 )
-if !EXEC_TYPE!=="simple-only-install" (
+if !EXEC_TYPE!=="dependencies-only-install" (
 	SET EXEC_TYPE="install"
 	call:resolvedependencies
 )
-if !EXEC_TYPE!=="simple-only-debug" (
+if !EXEC_TYPE!=="dependencies-only-debug" (
 	SET EXEC_TYPE="debug"
 	call:resolvedependencies
 )
