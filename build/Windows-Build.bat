@@ -107,7 +107,6 @@ for %%x in (%*) do (
 		) else (
 			SET EXEC_TYPE="dependencies-only-debug"
 		)
-		call:resolvedependencies
 		exit /b 0
 	)  
 	if "%%x"=="--dep-only" (
@@ -253,6 +252,14 @@ if !EXEC_TYPE!=="simple-only-debug" (
 	call:buildsimpledllexe
 	call:copysimpledllexe
 	call:removedistfolders
+)
+if !EXEC_TYPE!=="simple-only-install" (
+	SET EXEC_TYPE="install"
+	call:resolvedependencies
+)
+if !EXEC_TYPE!=="simple-only-debug" (
+	SET EXEC_TYPE="debug"
+	call:resolvedependencies
 )
 if !EXEC_TYPE!=="includes-only-install" (
 	SET EXEC_TYPE="install"
