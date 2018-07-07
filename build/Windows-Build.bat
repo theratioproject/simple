@@ -592,7 +592,7 @@ REM RESOLVE DEPENDENCIES
 				exit /b 0
 			)
 			if exist "../simple/dist/simple.exe" (
-				"../simple/dist/simple.exe" "../examples/intermediate/libfromdll.sim" -b !LIBDLLBATCHPATH! %1
+				"../simple/dist/simple.exe" "../examples/intermediate/libfromdll.sim" -bat !LIBDLLBATCHPATH! %1
 			) 
 		) else (
 			call:dependencieserror %1
