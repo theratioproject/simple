@@ -66,12 +66,12 @@ block generateFunctionFromBatch()
 	newFuncs2 = splitString(newFuncs,crlf)
 	for a = 0 to lengthOf(newFuncs2) 
 		innerF = splitString(newFuncs2[a]," ")
-		val = innerF[0]
+		finalFunction(innerF)
 	end
 	#funcs = splitString(funcs,"name")
 	
 block finalFunction(func)
-	@func[0]
+	@ lengthOf(func)
 
 
 
