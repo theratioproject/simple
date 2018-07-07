@@ -27,6 +27,7 @@ keepTemp = false
 arch = "x86"
 isFirst = true
 finalFunc = ""
+batchPath = "fetchfunction.bat"
 
 block main()
 	for a = 2 to cmdlen {
@@ -44,7 +45,7 @@ block main()
 	generateFunctionFromBatch()
 	
 block generateFunctionFromBatch()
-	__exec("fetchfunction.bat "+dllFile.absolutePath()+" "+arch+" txt")
+	__exec(batchPath+" "+dllFile.absolutePath()+" "+arch+" txt")
 	funcFile = new File(dllFile.absolutePath()+".txt")
 	if not funcFile.exists()
 		throw("The batch file failed to exports the dll functions")
@@ -92,7 +93,7 @@ block generateLib(defFile)
 	libPath = removeString(defFile,".def")+".lib"
 	@"generating "+libPath+" from "+defFile+crlf
 	
-	__exec("fetchfunction.bat "+defFile+" "+arch+" lib "+libPath)
+	__exec(batchPath+" "+defFile+" "+arch+" lib "+libPath)
 	libFile = new File(libPath)
 	if libFile.exists()
 		@"Generation of .lib successful"
