@@ -68,7 +68,6 @@ block generateFunctionFromBatch()
 		innerF = splitString(newFuncs2[a]," ")
 		finalFunction(innerF)
 	end
-	#funcs = splitString(funcs,"name")
 	
 block finalFunction(func)
 	finalFunc = ""
