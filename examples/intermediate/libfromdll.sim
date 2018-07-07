@@ -59,6 +59,9 @@ block generateFunctionFromBatch()
 	@ "The function off set is "+startCount
 	for a = startCount to lengthOf(funcs)
 		newFuncs+=funcs[a]
+		if funcs[a] = "S" && funcs[a+1] = "u" && funcs[a+2] = "m" && funcs[a+2] = "m" && funcs[a+2] = "a" && funcs[a+2] = "r" && funcs[a+2] = "y"
+			break
+		end
 	end
 	@newFuncs
 	#funcs = splitString(funcs,"name")
