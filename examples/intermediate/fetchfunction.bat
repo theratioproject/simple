@@ -8,14 +8,15 @@ SET BUILD_ARC=%2
 SET NO_BUILDTOOL="true"
 SET MVS=""
 
-call:generatelibfromdll !DLLNAME! !BUILD_ARC!
+call:locatevisualstudio !BUILD_ARC!
+if !NO_BUILDTOOL!=="false" (
+	call:generatelibfromdll !DLLNAME! !BUILD_ARC!
+)
 exit /b 0
 
 
 :generatelibfromdll
-	call:locatevisualstudio !BUILD_ARC!
 	echo !DLLNAME! and !BUILD_ARC! and !NO_BUILDTOOL!
-	exit /b 0
 	dumpbin /EXPORTS %1 > %1.txt
 	findstr %2 %1.txt > %1.2.txt
 	findstr %3 %1.2.txt > %1.3.txt
