@@ -72,8 +72,8 @@ block generateFunctionFromBatch()
 	end
 	@"The final functions are : "+crlf+crlf
 	#@finalFunc
-	@dllFile.getPath()+" | "+dllFile.getName()
-	defFile = new File(dllFile.getName())
+	@dllFile.directory()+" | "+dllFile.name()
+	#defFile = new File(dllFile.getName())
 	
 block finalFunction(func)
 	blen = lengthOf(func)
