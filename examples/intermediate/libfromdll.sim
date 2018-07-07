@@ -88,8 +88,8 @@ block finalFunction(func)
 	
 block generateLib(defFile)
 	@"generating .lib from "+defFile+crlf
-	#lib /def:C:\mypath\mylib.def /OUT:C:\mypath\mylib.lib
-	__exec()
+	#
+	__exec("lib.exe /def:"+defFile+" /OUT:C:\mypath\mylib.lib")
 
 
 
