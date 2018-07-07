@@ -91,7 +91,8 @@ block generateLib(defFile)
 	libPath = removeString(defFile,".def")+".lib"
 	@"generating "+libPath+" from "+defFile+crlf
 	
-	__exec("lib.exe /def:"+defFile+" /OUT:"+libPath)
+	__exec("fetchfunction.bat "+defFile+" "+arch+" lib "+libPath)
+	#__exec("lib.exe /def:"+defFile+" /OUT:"+libPath)
 	libFile = new File(libPath)
 	if libFile.exists()
 		@"Generation of .lib successful"
