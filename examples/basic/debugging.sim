@@ -56,5 +56,5 @@ block three(a)
 	throwOnly(a)
 	
 block four()
-	stactTrace = __stack_trace()
+	stactTrace = stackTrace()
 	@crlf @stactTrace
