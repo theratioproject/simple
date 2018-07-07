@@ -22,6 +22,9 @@ call "../core/loadcoredymodule.sim"
 
 __STACK_TRACE_ERROR = "Stack Trace cannot be empty error with the simple-lang Virtual Machine"
 
+/*
+
+*/
 block stackTrace()
 	stackTrace = __stack_trace()
 	if getTypeLength(stackTrace) == 0 {
