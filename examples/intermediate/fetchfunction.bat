@@ -14,13 +14,6 @@ if !NO_BUILDTOOL!=="false" (
 )
 exit /b 0
 
-
-:generatelibfromdll
-	dumpbin /EXPORTS %1 > %1.txt
-	findstr %2 %1.txt > %1.2.txt
-	findstr %3 %1.2.txt > %1.3.txt
-	exit /b 0
-
 :locatevisualstudio
 	echo simple-lang:configure:buildtool Microsoft Visual Studio is specified
 	echo simple-lang:configure:buildtool searching for Microsoft Visual Studio
@@ -74,3 +67,11 @@ exit /b 0
 	SET NO_BUILDTOOL="false"
 
 	exit /b 0
+
+
+:generatelibfromdll
+	dumpbin /EXPORTS %1 > %1.txt
+	findstr %2 %1.txt > %1.2.txt
+	findstr %3 %1.2.txt > %1.3.txt
+	exit /b 0
+
