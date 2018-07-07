@@ -87,9 +87,10 @@ block finalFunction(func)
 	end
 	
 block generateLib(defFile)
-	@"generating .lib from "+defFile+crlf
-	#
-	__exec("lib.exe /def:"+defFile+" /OUT:C:\mypath\mylib.lib")
+	libPath = removeString(defFile.absolutePath(),".def")+".lib"
+	@"generating "+libPath+" from "+defFile+crlf
+	
+	#__exec("lib.exe /def:"+defFile+" /OUT:"+)
 
 
 
