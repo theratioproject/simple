@@ -4,15 +4,20 @@ cls
 setlocal enabledelayedexpansion
 
 SET DLLNAME=%1
-SET BUILD_ARC="%2"
+SET BUILD_ARC=%2
 SET NO_BUILDTOOL="true"
 SET MVS=""
 
-all:locatevisualstudio x64
-if !NO_BUILDTOOL!=="false" (
-	call:generatelibfromdll !DLLNAME! 
-)
+call:generatelibfromdll !DLLNAME! !BUILD_ARC!
 exit /b 0
+
+
+:generatelibfromdll
+	call:locatevisualstudio %2
+	dumpbin /EXPORTS %1 > %1.txt
+	findstr %2 %1.txt > %1.2.txt
+	findstr %3 %1.2.txt > %1.3.txt
+	exit /b 0
 
 :locatevisualstudio
 	echo simple-lang:configure:buildtool Microsoft Visual Studio is specified
@@ -67,11 +72,3 @@ exit /b 0
 	SET NO_BUILDTOOL="false"
 
 	exit /b 0
-
-
-:generatelibfromdll
-	dumpbin /EXPORTS %1 > %1.txt
-	findstr %2 %1.txt > %1.2.txt
-	findstr %3 %1.2.txt > %1.3.txt
-	exit /b 0
-
