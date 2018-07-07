@@ -76,6 +76,8 @@ block generateFunctionFromBatch()
 	defFile = new File(removeString(dllFile.absolutePath(),".dll")+".def")
 	defFile.write(finalFunc)
 	
+	generateLib(defFile.absolutePath())
+	
 block finalFunction(func)
 	blen = lengthOf(func)
 	if blen <= 0 else
@@ -85,7 +87,9 @@ block finalFunction(func)
 	end
 	
 block generateLib(defFile)
+	@"generating .lib from "+defFile+crlf
 	#lib /def:C:\mypath\mylib.def /OUT:C:\mypath\mylib.lib
+	__exec()
 
 
 
