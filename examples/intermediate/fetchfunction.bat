@@ -19,12 +19,14 @@ if !NO_BUILDTOOL!=="false" (
 )
 exit /b 0
 
+:generatelibfromdef
+	echo %1 and %2
+	exit /b 0
+
 
 :generatelibfromdll
 	echo !DLLNAME! and !BUILD_ARC! and !NO_BUILDTOOL!
 	dumpbin /EXPORTS %1 > %1.txt
-	REM findstr %2 %1.txt > %1.2.txt
-	REM findstr %3 %1.2.txt > %1.3.txt
 	exit /b 0
 
 :locatevisualstudio
