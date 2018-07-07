@@ -4,11 +4,11 @@ cls
 setlocal enabledelayedexpansion
 
 SET DLLNAME=%1
-SET BUILD_ARC=%2
+SET BUILD_ARC="%2"
 SET NO_BUILDTOOL="true"
 SET MVS=""
 
-all:locatevisualstudio !BUILD_ARC!
+all:locatevisualstudio x64
 if !NO_BUILDTOOL!=="false" (
 	call:generatelibfromdll !DLLNAME! 
 )
