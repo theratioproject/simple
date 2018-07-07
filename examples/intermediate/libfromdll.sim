@@ -97,7 +97,8 @@ block generateLib(defFile)
 		@"Generation of .lib successful"
 		if !keepTemp 
 			@"Removing temporary files..."
-			f = new File()
+			f = new File(removeString(defFile,".def")+".exp")
+			if f.exists() f.delete() end
 		end
 	else
 		@"Generation of .lib failed"
