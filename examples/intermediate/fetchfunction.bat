@@ -10,7 +10,11 @@ SET MVS=""
 
 call:locatevisualstudio !BUILD_ARC!
 if !NO_BUILDTOOL!=="false" (
-	call:generatelibfromdll !DLLNAME! curl_* 000*
+	if "!TYPE!"=="txt" (
+		call:generatelibfromdll !DLLNAME! curl_* 000*
+	) else (
+		echo yea yea
+	)
 )
 exit /b 0
 
