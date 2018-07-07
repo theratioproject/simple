@@ -97,15 +97,17 @@ block generateLib(defFile)
 		@"Generation of .lib successful"
 		if !keepTemp 
 			@"Removing temporary files..."
-			f = new File(removeString(defFile,".def")+".exp")
-			if f.exists() f.delete() end
+			removeTemp([new File(removeString(defFile,".def")+".exp")])
 		end
 	else
 		@"Generation of .lib failed"
 	end
 
 
-
+block removeTemp(files)
+	for a = 0 to lengthOf(files)
+		if files[a].exists() files[a].delete() end
+	end
 
 
 	
