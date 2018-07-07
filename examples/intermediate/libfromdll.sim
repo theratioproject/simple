@@ -1,0 +1,16 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com> 
+	MIT License Copyright (c) 2018 simple-lang
+*/
+
+/* 
+ * @Filename - libfromdll.sim
+ * @Author - Azeez Adewale
+ * @Date - 07 July 2018
+ * @Time - 01:22 AM
+ */
+
+/*
+	This file is a stress and elaborating example of using the 
+	simple-lang debugging module @Module simple/debugging/
+*/
