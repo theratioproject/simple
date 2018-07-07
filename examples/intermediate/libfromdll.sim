@@ -43,8 +43,8 @@ block main()
 block generateFunctionFromBatch()
 	__exec("fetchfunction.bat "+dllFile.absolutePath()+" "+arch)
 	funcFile = new File(dllFile.absolutePath()+".txt")
-	if funcFile.exists()
-		
+	if not funcFile.exists()
+		throw("The batch file failed to exports the dll functions")
 	end
 	@ funcFile.readFileAsString()
 
