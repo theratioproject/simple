@@ -571,7 +571,11 @@ REM RESOLVE DEPENDENCIES
 	
 :generatelibfromdll
 	if !THERE_IS_VS!=="true" (
-		
+		if exist "../examples/intermediate/libfromdll.sim" (
+			echo yea it good 
+		) else (
+			call:dependencieserror %1
+		)
 	)
 	
 	exit /b 0
