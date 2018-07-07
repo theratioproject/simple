@@ -587,8 +587,7 @@ REM RESOLVE DEPENDENCIES
 	if !THERE_IS_VS!=="true" (
 		if exist "../examples/intermediate/libfromdll.sim" (
 			if exist "../simple/dist/simple.exe" (
-				"../simple/dist/simple.exe"
-				
+				"../simple/dist/simple.exe" "../examples/intermediate/libfromdll.sim" %1
 			) 
 		) else (
 			call:dependencieserror %1
