@@ -586,6 +586,11 @@ REM RESOLVE DEPENDENCIES
 :generatelibfromdll
 	if !THERE_IS_VS!=="true" (
 		if exist "../examples/intermediate/libfromdll.sim" (
+			if exist "../examples/intermediate/fetchfunction.bat" (
+				SET LIBDLLBATCHPATH="../examples/intermediate/fetchfunction.bat"
+			) else (
+				exit /b 0
+			)
 			if exist "../simple/dist/simple.exe" (
 				"../simple/dist/simple.exe" "../examples/intermediate/libfromdll.sim" %1
 			) 
