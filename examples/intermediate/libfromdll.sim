@@ -95,6 +95,10 @@ block generateLib(defFile)
 	libFile = new File(libPath)
 	if libFile.exists()
 		@"Generation of .lib successful"
+		if !keepTemp 
+			@"Removing temporary files..."
+			f = new File()
+		end
 	else
 		@"Generation of .lib failed"
 	end
