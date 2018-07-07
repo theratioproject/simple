@@ -49,7 +49,7 @@ block generateFunctionFromBatch()
 	funcs = funcFile.readFileAsString()
 	for a = 0 to lengthOf(funcs) {
 		@ funcs[a]
-		if funcs[a] == "n" && funcs[a+1] == "a" && funcs[a+2] == "m" && funcs[a+3] == "e"
+		if funcs[a] == "n" && funcs[a+1] == "a" && funcs[a+2] == "m" && funcs[a+3] == "e" && funcs[a+4] != "s"
 			__exit__
 		end
 	end
