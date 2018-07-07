@@ -65,9 +65,9 @@ block generateFunctionFromBatch()
 	end
 	newFuncs2 = splitString(newFuncs,crlf)
 	for a = 0 to lengthOf(newFuncs2) 
-		innerF = splitString(newFuncs," ")
+		innerF = splitString(newFuncs2[a]," ")
+		@innerF[2]
 	end
-	@">>"+newFuncs2[11]+"<<"
 	#funcs = splitString(funcs,"name")
 
 
