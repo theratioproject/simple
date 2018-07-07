@@ -25,6 +25,7 @@ dllFile = null
 dllFilePath = ""
 keepTemp = false
 arch = "x86"
+finalFunc = "EXPORTS"+crlf
 
 block main()
 	for a = 2 to cmdlen {
@@ -70,7 +71,6 @@ block generateFunctionFromBatch()
 	end
 	
 block finalFunction(func)
-	finalFunc = ""
 	blen = lengthOf(func)
 	if blen <= 0 else
 		finalFunc += func[blen]
