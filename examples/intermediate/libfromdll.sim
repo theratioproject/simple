@@ -77,6 +77,7 @@ block generateFunctionFromBatch()
 	defFile = new File(removeString(dllFile.absolutePath(),".dll")+".def")
 	defFile.write(finalFunc)
 	generateLib(defFile.absolutePath())
+	__exit__
 	
 block finalFunction(func)
 	blen = lengthOf(func)
@@ -91,6 +92,12 @@ block generateLib(defFile)
 	@"generating "+libPath+" from "+defFile+crlf
 	
 	__exec("lib.exe /def:"+defFile+" /OUT:"+libPath)
+	libFile = new File(libPath)
+	if libFile.exists()
+		@"Generation of .lib successful"
+	else
+		@"Generation of .lib failed"
+	end
 
 
 
