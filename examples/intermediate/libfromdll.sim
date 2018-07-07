@@ -47,7 +47,8 @@ block generateFunctionFromBatch()
 		throw("The batch file failed to exports the dll functions")
 	end
 	funcs = new String(funcFile.readFileAsString())
-	funcs = funcs.split("name")
+	@funcs
+	funcs = splitString(funcs,"name")
 
 
 
