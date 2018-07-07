@@ -63,7 +63,8 @@ block generateFunctionFromBatch()
 		end
 		newFuncs+=funcs[a]
 	end
-	@newFuncs
+	newFuncs2 = splitString(newFuncs," ")
+	@newFuncs2[10]
 	#funcs = splitString(funcs,"name")
 
 
