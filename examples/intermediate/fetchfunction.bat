@@ -3,10 +3,12 @@ cls
 
 setlocal enabledelayedexpansion
 
+SET DLLNAME=%1
+SET BUILD_ARC=%2
 SET NO_BUILDTOOL="true"
 SET MVS=""
 
-call:generatelibfromdll %1 %2
+call:generatelibfromdll !DLLNAME! !BUILD_ARC!
 exit /b 0
 
 
