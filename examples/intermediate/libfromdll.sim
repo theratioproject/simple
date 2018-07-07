@@ -73,7 +73,7 @@ block generateFunctionFromBatch()
 	@"The final functions are : "+crlf+crlf
 	#@finalFunc
 	@removeString(dllFile.absolutePath(),".dll")
-	@"creating .def file from the generated functions"+crlf
+	@"creating .def file from the generated functions"
 	defFile = new File(removeString(dllFile.absolutePath(),".dll")+".def")
 	defFile.write(finalFunc)
 	generateLib(defFile.absolutePath())
@@ -87,10 +87,10 @@ block finalFunction(func)
 	end
 	
 block generateLib(defFile)
-	libPath = removeString(defFile.absolutePath(),".def")+".lib"
+	libPath = removeString(defFile,".def")+".lib"
 	@"generating "+libPath+" from "+defFile+crlf
 	
-	#__exec("lib.exe /def:"+defFile+" /OUT:"+)
+	__exec("lib.exe /def:"+defFile+" /OUT:"+libPath)
 
 
 
