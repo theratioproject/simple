@@ -11,6 +11,9 @@
  */
 
 /*
-	This file is a stress and elaborating example of using the 
-	simple-lang debugging module @Module simple/debugging/
+	Generate .lib file from a .dll on windows os using the 
+	Visual Studio Command Line tools
 */
+
+block main()
+	
