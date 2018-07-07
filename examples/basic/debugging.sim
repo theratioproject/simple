@@ -31,10 +31,14 @@ block main()
 
 	four()
 	
+	/*
+		Now we catch an error in one of the error thrown above
+	*/
 	try {
-		one(errorList[0])
+		one(errorList[2])
 	catch
-		@ __err__
+		@"This error was catched |> " @ __err__ 
+		@"<<<"
 	}
 
 block one(a)
