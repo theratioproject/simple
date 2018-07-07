@@ -102,12 +102,16 @@ for %%x in (%*) do (
 		)
 	)  
 	if "%%x"=="-do" (
+		if !EXEC_TYPE!=="install" (
+			SET EXEC_TYPE="dependencies-only-install"
+		) else (
+			SET EXEC_TYPE="dependencies-only-debug"
+		)
 		call:resolvedependencies
 		exit /b 0
 	)  
 	if "%%x"=="--dep-only" (
-		call:resolvedependencies
-		exit /b 0
+		
 	)  
 	if "%%x"=="-io" (
 		if !EXEC_TYPE!=="install" (
