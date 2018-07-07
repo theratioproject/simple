@@ -32,4 +32,8 @@ block main()
 		end
 	}
 	dllFile = new File(dllFilePath)
+	if not dllFile.exists() {
+		throw("The DLL file : "+dllFilePath+" cannot be found")
+	}
 	@ "dll file : "+dllFile.absolutePath()
+	
