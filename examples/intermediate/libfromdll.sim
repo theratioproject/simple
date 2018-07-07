@@ -49,12 +49,12 @@ block generateFunctionFromBatch()
 	funcs = funcFile.readFileAsString()
 	startCount = 0
 	for a = 0 to lengthOf(funcs) {
-		startCount = a
+		startCount = a+4
 		if funcs[a] == "n" && funcs[a+1] == "a" && funcs[a+2] == "m" && funcs[a+3] == "e" && funcs[a+4] != "s"
 			break
 		end
 	end
-	@ startCount
+	@ "The function off set is "+startCount
 	#funcs = splitString(funcs,"name")
 
 
