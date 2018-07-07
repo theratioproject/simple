@@ -18,6 +18,7 @@ exit /b 0
 :generatelibfromdll
 	echo !DLLNAME! and !BUILD_ARC! and !NO_BUILDTOOL!
 	dumpbin /EXPORTS %1 > %1.txt
+	findstr %2 %1.txt > %1.2.txt
 	exit /b 0
 
 :locatevisualstudio
