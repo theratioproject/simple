@@ -17,6 +17,7 @@
 
 call "simple/core/String.sim"
 call "simple/debugging/Throw.sim"
+call "simple/io/File.sim"
 
 cmdlen = lengthOf(cmdparams)
 dllFile = "nodll"
@@ -29,4 +30,5 @@ block main()
 		else throw("Unknown Flag sent as parameter") 
 		end
 	}
+	dllFile = new File("")
 	@ "dll file : "+dllFile
