@@ -16,15 +16,17 @@
 */
 
 call "simple/core/String.sim"
+call "simple/debugging/Throw.sim"
 
 cmdlen = lengthOf(cmdparams)
 dllFile = "nodll"
 keepTemp = false
 
 block main()
-	for a = 0 to cmdlen {
+	for a = 1 to cmdlen {
 		if stringEndsWith(cmdparams[a],"dll") dllFile = cmdparams[a] {
 		elif stringEndsWith(cmdparams[a],"t") || stringEndsWith(cmdparams[a],"temp") keepTemp = true
-		else throw("Unknown Flag sent as parameter") }
+		else throw("Unknown Flag sent as parameter") 
+		end
 	}
 	
