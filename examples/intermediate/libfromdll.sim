@@ -18,6 +18,7 @@
 call "simple/core/String.sim"
 call "simple/debugging/Throw.sim"
 call "simple/io/File.sim"
+call "simple/system/System.sim"
 
 cmdlen = lengthOf(cmdparams)
 dllFile = null
@@ -40,7 +41,7 @@ block main()
 	generateFunctionFromBatch()
 	
 block generateFunctionFromBatch()
-	System.execute("fetchfunction.bat "+dllFile.absolutePath()+" arch")
+	__exec("fetchfunction.bat "+dllFile.absolutePath()+" arch")
 
 
 
