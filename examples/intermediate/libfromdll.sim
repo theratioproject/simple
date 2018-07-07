@@ -41,7 +41,7 @@ block main()
 	generateFunctionFromBatch()
 	
 block generateFunctionFromBatch()
-	__exec("fetchfunction.bat "+dllFile.absolutePath()+" arch")
+	__exec("fetchfunction.bat "+dllFile.absolutePath()+" "+arch)
 
 
 
