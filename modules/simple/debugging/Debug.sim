@@ -1,16 +1,24 @@
 /* 
-	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com> 
-	MIT License Copyright (c) 2018 simple-lang
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 simple 
+
 */
 
 /* 
- * @Filename - debugging.sim
- * @Author - Azeez Adewale
- * @Date - 06 July 2018
- * @Time - 02:37 PM
+ * @filename - Debug.sim
+ * @author - Azeez Adewale
+ * @date - 07 July 2018
+ * @Time - 02:27 PM
  */
 
 /*
-	This file is a stress and elaborating example of using the 
-	simple-lang debugging module @Module simple/debugging/
+	To 
+	
 */
+ 
+module simple.debugging
+
+call "../core/loadcoredymodule.sim"
+
+block stackTrace()
+	
