@@ -27,7 +27,7 @@
  
 module simple.debugging
 
-call "../core/loadcoredymodule.sim"
+call "Debug.sim"
  
 /*
 	Throw an error at any point in the program with this block

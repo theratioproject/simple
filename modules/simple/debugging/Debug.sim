@@ -21,4 +21,7 @@ module simple.debugging
 call "../core/loadcoredymodule.sim"
 
 block stackTrace()
-	
+	stactTrace = __stack_trace()
+	if getTypeLength(stackTrace) == 0 {
+		
+	}
