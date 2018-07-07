@@ -97,7 +97,7 @@ block generateLib(defFile)
 		@"Generation of .lib successful"
 		if !keepTemp 
 			@"Removing temporary files..."
-			removeTemp([new File(removeString(defFile,".def")+".exp")])
+			removeTemp([new File(removeString(defFile,".def")+".exp"),new File(removeString(defFile,".def")+".def")])
 		end
 	else
 		@"Generation of .lib failed"
