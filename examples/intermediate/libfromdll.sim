@@ -83,6 +83,9 @@ block finalFunction(func)
 			finalFunc = "EXPORTS"+crlf end
 		finalFunc += func[blen] + crlf
 	end
+	
+block generateLib(defFile)
+	#lib /def:C:\mypath\mylib.def /OUT:C:\mypath\mylib.lib
 
 
 
