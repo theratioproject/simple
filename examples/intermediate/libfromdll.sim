@@ -23,6 +23,7 @@ cmdlen = lengthOf(cmdparams)
 dllFile = null
 dllFilePath = ""
 keepTemp = false
+arch = "x86"
 
 block main()
 	for a = 2 to cmdlen {
@@ -39,7 +40,7 @@ block main()
 	generateFunctionFromBatch()
 	
 block generateFunctionFromBatch()
-	System.execute("fetchfunction.bat")
+	System.execute("fetchfunction.bat "+dllFile.absolutePath()+" arch")
 
 
 
