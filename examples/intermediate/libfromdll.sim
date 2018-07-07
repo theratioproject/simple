@@ -15,11 +15,16 @@
 	Visual Studio Command Line tools
 */
 
+call "simple/core/String.sim"
+
 cmdlen = lengthOf(cmdparams)
 dllFile = "nodll"
+keepTemp = false
 
 block main()
 	for a = 0 to cmdlen {
-		if stringEndsWith(cmdparams[a],"dll") dllFile = cmdparams[a]
-		elif stringEndsWith(cmdparams[a],"t") || stringEndsWith(cmdparams[a],"temp")
+		if stringEndsWith(cmdparams[a],"dll") dllFile = cmdparams[a] {
+		elif stringEndsWith(cmdparams[a],"t") || stringEndsWith(cmdparams[a],"temp") keepTemp = true
+		else throw("Unknown Flag sent as parameter") }
 	}
+	
