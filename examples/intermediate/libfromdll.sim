@@ -72,7 +72,7 @@ block generateFunctionFromBatch()
 	end
 	@"The final functions are : "+crlf+crlf
 	#@finalFunc
-	@dllFile.directory()+" | "+dllFile.name()
+	@removeString(dllFile.absolutePath(),".dll")
 	#defFile = new File(dllFile.getName())
 	
 block finalFunction(func)
