@@ -46,10 +46,13 @@ block generateFunctionFromBatch()
 	if not funcFile.exists()
 		throw("The batch file failed to exports the dll functions")
 	end
-	funcs = new String(funcFile.readFileAsString())
+	funcs = funcFile.readFileAsString()
 	for a = 0 to lengthOf(funcs) {
-		display funcs
-	}
+		@ funcs[a]
+		if funcs[a] == "n" && funcs[a+1] == "a" && funcs[a+2] == "m" && funcs[a+3] == "e"
+			__exit__
+		end
+	end
 	#funcs = splitString(funcs,"name")
 
 
