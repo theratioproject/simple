@@ -1,7 +1,10 @@
 echo off
 cls 
 
+setlocal enabledelayedexpansion
+
 SET NO_BUILDTOOL="true"
+SET MVS=""
 
 call:generatelibfromdll %1 %2
 exit /b 0
