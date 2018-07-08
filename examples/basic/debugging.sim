@@ -35,6 +35,12 @@ block main()
 	four()
 	
 	/*
+		The throwWithTitle() block are used to create an error with a custom 
+		title and message
+	*/
+	throwWithTitle(errorList[3],errorList[4])
+	
+	/*
 		Now we catch an error in one of the error thrown above
 	*/
 	try {
@@ -43,12 +49,6 @@ block main()
 		@"This error was catched |> " @ __err__ 
 		@"<<<"
 	}
-	
-	/*
-		The throwWithTitle() block are used to create an error with a custom 
-		title and message
-	*/
-	throwWithTitle(errorList[3],errorList[4])
 
 block one(a)
 	two(a)
