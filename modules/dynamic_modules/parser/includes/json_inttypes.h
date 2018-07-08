@@ -8,6 +8,7 @@
 typedef __int64 int64_t;
 #define PRId64 "I64d"
 #define SCNd64 "I64d"
+#include "inttypes.h"
 
 #else
 
