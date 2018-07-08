@@ -60,7 +60,13 @@ block warn(warnmessage)
 	__warn(crlf+"Warning : "+warnmessage+crlf)
 	
 /*
-	
+	Check and confirm whether the value sent as parameter is true 
+	The value can be a 
+		statemens e.g @Code assert(( 2 > 4 && 5 < 9)) @EndCode
+		it can be a single variable e.g @Code assert(false) @EndCode 
+		it can be a block that reurn an evaluation e.g 
+		@Code assert(getEval()) @EndCode
+	if the value 
 */	
 block assert(value)
 	if !isNumber(value) { throw(__DEBUG_ASSERT_BOOLEAN_ONLY) }
