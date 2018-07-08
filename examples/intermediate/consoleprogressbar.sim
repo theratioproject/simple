@@ -12,3 +12,4 @@
 
 call "simple/utilities/Console.sim"
 
+Console.singleBeep()
