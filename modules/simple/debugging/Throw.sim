@@ -80,6 +80,8 @@ block throwOnly(errorvalue)
 		@ crlf
 	}
 	
+block throwOnlyWithTitle(title,errorvalue)
+	__throwWithTitle(title,errorvalue,__DEBUG_THROW_ONLY)
 
 block __throwWithTitle(title,errorvalue,type)
 	finalErrorValue = ""
