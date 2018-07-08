@@ -79,7 +79,8 @@ block throwOnly(errorvalue)
 	}
 	
 
-block throwWithTitle(
+block throwWithTitle(title,errorvalue)
+	
 
 
 
