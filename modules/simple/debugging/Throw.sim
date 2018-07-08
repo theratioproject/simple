@@ -82,9 +82,15 @@ block throwOnly(errorvalue)
 		@ crlf
 	}
 	
+/*
+	Throw an error with a custom title and error message then exit the program
+*/
 block throwWithTitle(title,errorvalue)
 	__throwWithTitle(title,errorvalue,__DEBUG_TYPE_THROW)
 	
+/*
+	Throw an error with a custom title and error message with out exiting the program
+*/
 block throwOnlyWithTitle(title,errorvalue)
 	__throwWithTitle(title,errorvalue,__DEBUG_TYPE_THROW_ONLY)
 
