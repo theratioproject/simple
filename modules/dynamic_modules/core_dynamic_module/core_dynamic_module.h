@@ -28,9 +28,9 @@ void error_stack_trace(void *pointer);
 void error_throw(void *pointer);
 
 /* Conversion */
-void conversion_string_to_chex ( void *pointer ) ;
+void conversion_string_to_chex (void *pointer) ;
 
-void conversion_string_to_list ( void *pointer ) ;
+void conversion_string_to_list (void *pointer) ;
 
 #ifdef __cplusplus
 }
