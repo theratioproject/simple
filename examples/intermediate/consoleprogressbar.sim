@@ -33,13 +33,15 @@ for a = 0 to limit-limit+10 {
 
 @"A progress bar using #######"
 for a = 0 to limit {
-	display char(13)+"	["+joinChar("#",((a/limit)*100))+"]   "
+	@((a/limit)*100)
+	display char(13)+"	["#"]   "
+	@((a/limit)*100)
 	__flush_console()
 }
 @""+crlf
 
 block joinChar(character,times)
-	fChar = "#" @times
+	fChar = "#"
 	for a = 0 to times {
 		fChar+=character
 		display char(13)+times
