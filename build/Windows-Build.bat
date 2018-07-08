@@ -668,6 +668,12 @@ REM BULDING DYNAMIC LIBRARIES
 			call:deletetempfiles ..\simple\dist\libcurl!ARC!.lib
 			REM call:builddymodule c security libeay!ARC!.lib ssleay!ARC!.lib
 		)
+		if exist "%~dp0\..\modules\dynamic_modules\networker\lib\libcurl!ARC!.lib" (
+			copy "%~dp0\..\modules\dynamic_modules\networker\lib\libcurl!ARC!.lib" "%~dp0\..\simple\dist\"
+			call:builddymodule c networker libcurl!ARC!.lib
+			call:deletetempfiles ..\simple\dist\libcurl!ARC!.lib
+			REM call:builddymodule c security libeay!ARC!.lib ssleay!ARC!.lib
+		)
 		
 		call:confirmfolderelsecreate "..\modules\dynamic_modules\dist\"
 		move *.lib "..\modules\dynamic_modules\dist\"
