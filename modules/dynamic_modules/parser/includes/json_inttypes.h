@@ -8,7 +8,12 @@
 typedef __int64 int64_t;
 #define PRId64 "I64d"
 #define SCNd64 "I64d"
+
 #include "inttypes.h"
+#ifdef snprintf
+#else
+#define snprintf(buf,len, format,...) _snprintf_s(buf, len,len, format, __VA_ARGS__)
+#endif
 
 #else
 
