@@ -14,8 +14,9 @@ call "simple/utilities/Console.sim"
 
 @"A Progress That count from 0 to 15000"
 @"Drawback is it blink indefinitely"
+
 for a = 0 to 15000 {
-	display char(13)+" currently counting at "+a
+	display char(13)+"	currently counting at "+a
 }
 @""+crlf
 
@@ -23,5 +24,6 @@ for a = 0 to 15000 {
 @"Watch closely the same count from 0 to 15000 without blink"
 
 for a = 0 to 15000 {
-	display char(13)+" currently counting at "+a
+	display char(13)+"	currently counting at "+a
+	__flush_console()
 }
