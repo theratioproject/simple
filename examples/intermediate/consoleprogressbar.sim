@@ -24,7 +24,7 @@ for a = 0 to 10000 {
 @"Watch closely the same count from 0 to 10000 without blink : fails"
 
 for a = 0 to 10000 {
-	display char(13)+"	currently counting at "+((a/10000)*100)+"% "+i+" "+i
+	display char(13)+"	currently counting at "+((a/10000)*100)+"% "+a+" "+a
 	__flush_console()
 }
 @""+crlf
