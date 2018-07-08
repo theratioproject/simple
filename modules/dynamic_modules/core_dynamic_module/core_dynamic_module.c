@@ -137,7 +137,8 @@ void error_throw(void *pointer)
 		if (((VM *) pointer)->sState->skip_error == 0) 
 			((VM *) pointer)->sState->skip_error = 1;
 		SIMPLE_API_ERROR(SIMPLE_API_GETSTRING(1));
-		((VM *) pointer)->sState->skip_error = 0;
+		if (((VM *) pointer)->sState->skip_error == 1) 
+			((VM *) pointer)->sState->skip_error = 0;
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
