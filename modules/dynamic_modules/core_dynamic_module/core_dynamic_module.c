@@ -50,7 +50,8 @@ SIMPLE_API void error_warn(void *pointer)
 	}
 	if ( SIMPLE_API_ISSTRING(1) ) {
 		if (((VM *) pointer)->sState->nWarning) 
-			SIMPLE_API_ERROR(SIMPLE_API_GETSTRING(1));
+			printf("\nWarning : %s\n",SIMPLE_API_GETSTRING(1));
+		return;
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
