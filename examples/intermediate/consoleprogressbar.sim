@@ -12,12 +12,12 @@
 
 call "simple/utilities/Console.sim"
 
-limit = 10000
+limit = 1000000
 
 @"A Progress That count from 0 to "+limit
 @"Drawback is it blink indefinitely"
 
-for a = 0 to limit {
+for a = 0 to limit-limit+10 {
 	display char(13)+"	currently counting at "+a
 }
 @""+crlf
