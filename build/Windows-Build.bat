@@ -668,10 +668,10 @@ REM BULDING DYNAMIC LIBRARIES
 			call:deletetempfiles ..\simple\dist\libcurl!ARC!.lib
 			REM call:builddymodule c security libeay!ARC!.lib ssleay!ARC!.lib
 		)
-		if exist "%~dp0\..\modules\dynamic_modules\networker\bin\libcurl!ARC!.lib" (
-			copy "%~dp0\..\modules\dynamic_modules\networker\lib\libcurl!ARC!.lib" "%~dp0\..\simple\dist\"
-			call:builddymodule c security libeay!ARC!.lib ssleay!ARC!.lib
-			call:deletetempfiles ..\simple\dist\libcurl!ARC!.lib
+		if exist "%~dp0\..\modules\dynamic_modules\security\bin\libeay!ARC!.lib" (
+			copy "%~dp0\..\modules\dynamic_modules\security\bin\libeay!ARC!.lib" "%~dp0\..\simple\dist\"
+			call:builddymodule c security libeay!ARC!.lib 
+			call:deletetempfiles ..\simple\dist\libeay!ARC!.lib
 		)
 		
 		call:confirmfolderelsecreate "..\modules\dynamic_modules\dist\"
