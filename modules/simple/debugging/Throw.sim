@@ -88,40 +88,41 @@ block throwWithTitle(title,errorvalue)
 block throwOnlyWithTitle(title,errorvalue)
 	__throwWithTitle(title,errorvalue,__DEBUG_TYPE_THROW_ONLY)
 
-/*
 
-	Use a custom title for error been thrown in the program 
-	the integrity of the error title and content is verified to prevent vague
-	error message. This block should not be called from any point in the 
-	program as it a delegate block the two block that should be called instead are
-	>	throwWithTitle(title,errorvalue)
-	>	throwOnlyWithTitle(title,errorvalue)
+	private 
 	
-*/
-block __throwWithTitle(title,errorvalue,type)
-	finalErrorValue = ""
-	if title == "" {
-		finalErrorValue += ""
-	else
-		finalErrorValue += title
-	}
-	finalErrorValue += " : "
-	if errorvalue == "" {
-		finalErrorValue += "Unknown Error Occur"
-	else
-		finalErrorValue += errorvalue
-	}
-	if finalErrorValue == "" {
-		throw(__FINAL_ERROR_EMPTY)
-		__exit__
-	}
-	if type == __DEBUG_TYPE_THROW_ONLY {
-		throwOnly(finalErrorValue)
-	else
-		throw(finalErrorValue)
-	}
+		/*
 
-
-
+			Use a custom title for error been thrown in the program 
+			the integrity of the error title and content is verified to prevent vague
+			error message. This block should not be called from any point in the 
+			program as it a delegate block the two block that should be called instead are
+			>	throwWithTitle(title,errorvalue)
+			>	throwOnlyWithTitle(title,errorvalue)
+			
+		*/
+		block __throwWithTitle(title,errorvalue,type)
+			finalErrorValue = ""
+			if title == "" {
+				finalErrorValue += ""
+			else
+				finalErrorValue += title
+			}
+			finalErrorValue += " : "
+			if errorvalue == "" {
+				finalErrorValue += "Unknown Error Occur"
+			else
+				finalErrorValue += errorvalue
+			}
+			if finalErrorValue == "" {
+				throw(__FINAL_ERROR_EMPTY)
+				__exit__
+			}
+			if type == __DEBUG_TYPE_THROW_ONLY {
+				throwOnly(finalErrorValue)
+			else
+				throw(finalErrorValue)
+			}
+		
 	
 	
