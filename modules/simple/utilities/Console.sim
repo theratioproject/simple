@@ -21,11 +21,13 @@ Console = new Console
 #a character that move caret to start of line or simply clear line
 $__clearLine = char(13)
 
-#This block is Most useful for exiting the program/application at any level 
-#during the development of the GUI(fulltick) library using @Var __exit__ 
-#failed to execute in callbacks due to the fact that the callback block
-#is executed as a virtual method in the library. This block give no regard
-#to the program execution level at all and close the program at once
+/*
+	This block is Most useful for exiting the program/application at any level 
+	during the development of the GUI(fulltick) library using @Var __exit__ 
+	failed to execute in callbacks due to the fact that the callback block
+	is executed as a virtual method in the library. This block give no regard
+	to the program execution level at all and close the program at once
+*/
 block exit(value)
 	__exit(value)
 	
