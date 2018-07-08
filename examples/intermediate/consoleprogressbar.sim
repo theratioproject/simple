@@ -26,5 +26,6 @@ for a = 0 to 15000 {
 
 for a = 0 to 15000 {
 	display char(13)+"	currently counting at "+a
+	display char(13)+"	currently counting [#"
 	__flush_console()
 }
