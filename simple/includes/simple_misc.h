@@ -26,6 +26,9 @@ extern "C" {
 #ifdef TRUE 
 #else
 #define TRUE 1
+#endif
+#ifdef FALSE
+#else
 #define FALSE 0
 #endif
     
