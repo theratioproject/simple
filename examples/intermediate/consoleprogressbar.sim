@@ -12,19 +12,21 @@
 
 call "simple/utilities/Console.sim"
 
-@"A Progress That count from 0 to 10000"
+limit = 10000
+
+@"A Progress That count from 0 to "+limit
 @"Drawback is it blink indefinitely"
 
-for a = 0 to 10000 {
+for a = 0 to limit {
 	display char(13)+"	currently counting at "+a
 }
 @""+crlf
 
 @"To prevent blinking we flush the console standard output"
-@"Watch closely the same count from 0 to 10000 without blink : fails"
+@"Watch closely the same count from 0 to "+limit+" without blink : fails"
 
-for a = 0 to 10000 {
-	display char(13)+"	currently counting at "+((a/10000)*100)+"% "+a+" "+a
+for a = 0 to limit {
+	display char(13)+"	currently counting at "+((a/limit)*100)+"%   "
 	__flush_console()
 }
 @""+crlf
