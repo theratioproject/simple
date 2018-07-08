@@ -47,7 +47,7 @@ block main()
 	try {
 		one(errorList[2])
 	catch
-		@" "
+		@" "+crlf
 		@"This error was catched |> " + __err__ + " <<<"
 	}
 
