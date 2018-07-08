@@ -39,9 +39,11 @@ for a = 0 to limit {
 @""+crlf
 
 block joinChar(character,times)
+	fChar = "#"
 	for a = 0 to times {
-		character+=character
+		fChar+=character
+		display char(13)+a
 	}
-	return character
+	return fChar
 
 	
