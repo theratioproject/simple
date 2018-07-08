@@ -81,7 +81,7 @@ block throwOnly(errorvalue)
 	}
 	
 
-block throwWithTitle(title,errorvalue)
+block _throwWithTitle(title,errorvalue,type)
 	finalErrorValue = ""
 	if title == "" {
 		finalErrorValue += ""
@@ -98,6 +98,7 @@ block throwWithTitle(title,errorvalue)
 		throw(__FINAL_ERROR_EMPTY)
 		__exit__
 	}
+	throw(finalErrorValue)
 
 
 
