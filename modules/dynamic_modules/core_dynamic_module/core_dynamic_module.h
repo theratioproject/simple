@@ -23,6 +23,8 @@ SIMPLE_API void init_simple_module(SimpleState *sState) ;
 
 /* Error and Warn */
 
+void error_warn(void *pointer);
+
 void error_stack_trace(void *pointer);
 
 void error_throw(void *pointer);

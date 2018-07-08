@@ -42,6 +42,23 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
     register_block("stringToList",conversion_string_to_list);
 }
 
+void error_warn(void *pointer)
+{
+	if ( SIMPLE_API_PARACOUNT != 1 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
+		return ;
+	}
+	if ( SIMPLE_API_ISSTRING(1) ) {
+		if (((VM *) pointer)->sState->skip_error == 0) 
+			((VM *) pointer)->sState->skip_error = 1;
+		SIMPLE_API_ERROR(SIMPLE_API_GETSTRING(1));
+		if (((VM *) pointer)->sState->skip_error == 1) 
+			((VM *) pointer)->sState->skip_error = 0;
+	} else {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+	}
+}
+
 void error_stack_trace(void *pointer)
 {
 	String *string,*string2;
