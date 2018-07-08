@@ -653,15 +653,15 @@ REM BULDING DYNAMIC LIBRARIES
 		call:deletedirectories %~dp0\..\modules\dynamic_modules\dist\
 	)
 	if !THERE_IS_VS!=="true" (
-		REM call:builddymodule c archiver
-		REM call:builddymodule c consoler
-		REM call:builddymodule c core_dynamic_module
-		REM call:builddymodule c file_savant
-		REM call:builddymodule c mathic
-		REM call:builddymodule cpp fulltick
+		call:builddymodule c archiver
+		call:builddymodule c consoler
+		call:builddymodule c core_dynamic_module
+		call:builddymodule c file_savant
+		call:builddymodule c mathic
+		call:builddymodule cpp fulltick
 		call:builddymodule c parser
-		REM call:builddymodule c string_savant
-		REM call:builddymodule c systemic
+		call:builddymodule c string_savant
+		call:builddymodule c systemic
 		if exist "%~dp0\..\modules\dynamic_modules\networker\lib\libcurl!ARC!.lib" (
 			copy "%~dp0\..\modules\dynamic_modules\networker\lib\libcurl!ARC!.lib" "%~dp0\..\simple\dist\"
 			call:builddymodule c networker libcurl!ARC!.lib
