@@ -82,6 +82,9 @@ block throwOnly(errorvalue)
 		@ crlf
 	}
 	
+block throwWithTitle(title,errorvalue)
+	__throwWithTitle(title,errorvalue,__DEBUG_TYPE_THROW)
+	
 block throwOnlyWithTitle(title,errorvalue)
 	__throwWithTitle(title,errorvalue,__DEBUG_TYPE_THROW_ONLY)
 
