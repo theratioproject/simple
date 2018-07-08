@@ -80,7 +80,12 @@ block throwOnly(errorvalue)
 	
 
 block throwWithTitle(title,errorvalue)
-	
+	finalErrorValue = ""
+	if title == "" {
+		finalErrorValue += ""
+	} else {
+		
+	}
 
 
 
