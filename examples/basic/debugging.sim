@@ -53,8 +53,9 @@ block main()
 	warn("Final Warning")
 	
 	/*
-		Assertion 
+		Assertion : only boolean and number is asserted
 	*/
+	assert((true == 0))
 	
 	/*
 		Now we catch an error in one of the error thrown above
