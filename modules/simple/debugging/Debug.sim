@@ -45,11 +45,15 @@ block stackTrace()
 	return stackTrace
 	
 /*
-	
+	Show warning in your program if the program is executed along with the
+	-w or --warning flag. Warning should not be destructive in a program i.e 
+	a warning should simply be a plain info of a way to do it better or what you
+	have made better while a bad thing was to occur. If the warning is an information
+	that could break the program it should be throw instead
 */
 block warn(warnmessage)
 	if warnmessage == "" {
 		return 
 	}
-	__warn(warnmessage)
+	__warn(crlf+"Warning : "+warnmessage+crlf)
 	

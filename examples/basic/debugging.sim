@@ -42,6 +42,17 @@ block main()
 	throwOnlyWithTitle(errorList[3],errorList[4])
 	
 	/*
+		Now we go ahead to warn
+		Warning is only possible if simple-lang is executed with 
+			-w or --warning flag
+		if it now executed with the flags then the error is never displayed
+		to force error to show use the throwOnly(errrovalue) block instead
+	*/
+	warn("This is a warning you see this if executed with -w")
+	warn("This is a warning you see this if executed with --warining")
+	warn("Final Warning")
+	
+	/*
 		Now we catch an error in one of the error thrown above
 	*/
 	try {
