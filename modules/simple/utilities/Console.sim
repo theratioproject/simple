@@ -1,13 +1,13 @@
 /* 
-	Copyright (c) 2016-2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	Copyright (c) 2016-2018 Azeez Adewale <azeezadewale98@gmail.com> 
 	MIT License Copyright (c) 2018 simple 
 
 */
 
 /* 
- * #filename - Console.sim
- * #author - thecarisma
- * #date - 5 Febuary 2017
+ * @filename - Console.sim
+ * @author - Azeez Adewale
+ * @date - 5 Febuary 2017
  */
  
 module simple.utilities
