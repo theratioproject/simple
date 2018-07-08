@@ -17,6 +17,11 @@ call "simple/utilities/Console.sim"
 for a = 0 to 15000 {
 	display char(13)+" currently counting at "+a
 }
-@""
+@""+crlf
 
 @"To prevent blinking we flush the console standard output"
+@"Watch closely the same count from 0 to 15000 without blink"
+
+for a = 0 to 15000 {
+	display char(13)+" currently counting at "+a
+}
