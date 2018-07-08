@@ -13,7 +13,7 @@
 call "simple/utilities/Console.sim"
 call "simple/utilities/Math.sim"
 
-limit = 100000
+limit = 100
 
 @"A Progress That count from 0 to "+limit
 @"Drawback is it blink indefinitely"
@@ -34,10 +34,9 @@ for a = 0 to limit-limit+10 {
 
 @"A progress bar using #######"
 for a = 0 to limit {
-	noDecimal()
+	#noDecimal()
 	val = ((a/limit)*100)
-	#display char(13)+"	["+joinChar("#",((a/limit)*100))+"]   "
-	@val
+	display char(13)+"	["+joinChar("#",val)+"]   "
 	__flush_console()
 }
 @""+crlf
