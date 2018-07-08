@@ -28,6 +28,8 @@
 module simple.debugging
 
 call "Debug.sim"
+
+	__FINAL_ERROR_EMPTY = "The error can never be empty: forcing exit of the program"
  
 /*
 	Throw an error at any point in the program with this block
@@ -94,6 +96,7 @@ block throwWithTitle(title,errorvalue)
 	}
 	if finalErrorValue == "" {
 		throw(__FINAL_ERROR_EMPTY)
+		__exit__
 	}
 
 
