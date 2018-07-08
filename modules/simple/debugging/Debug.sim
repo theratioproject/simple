@@ -59,6 +59,9 @@ block warn(warnmessage)
 	}
 	__warn(crlf+"Warning : "+warnmessage+crlf)
 	
+/*
+	
+*/	
 block assert(value)
 	if !isNumber(value) { throw(__DEBUG_ASSERT_BOOLEAN_ONLY) }
 	if value != true { 
