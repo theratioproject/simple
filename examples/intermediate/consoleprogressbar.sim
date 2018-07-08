@@ -35,7 +35,7 @@ for a = 0 to limit-limit+10 {
 @"A progress bar using #######"
 for a = 0 to limit {
 	noDecimal()
-	val = decimal(((a/limit)*100),0)
+	val = ((a/limit)*100)
 	#display char(13)+"	["+joinChar("#",((a/limit)*100))+"]   "
 	@val
 	__flush_console()

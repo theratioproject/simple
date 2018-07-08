@@ -52,7 +52,7 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
     register_block("pow",math_pow);
     register_block("sqrt",math_sqrt);
     register_block("unsigned",math_unsigned);
-    register_block("decimals",math_decimals);
+    register_block("__decimals",math_decimals);
 }
 
 void math_sin ( void *pointer )
