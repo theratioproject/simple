@@ -38,7 +38,8 @@ block main()
 		The throwWithTitle() block are used to create an error with a custom 
 		title and message
 	*/
-	throwWithTitle(errorList[3],errorList[4])
+	#throwWithTitle(errorList[3],errorList[4])
+	throwOnlyWithTitle(errorList[3],errorList[4])
 	
 	/*
 		Now we catch an error in one of the error thrown above
@@ -46,6 +47,7 @@ block main()
 	try {
 		one(errorList[2])
 	catch
+		@
 		@"This error was catched |> " @ __err__ 
 		@"<<<"
 	}
