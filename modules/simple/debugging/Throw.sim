@@ -83,8 +83,8 @@ block throwWithTitle(title,errorvalue)
 	finalErrorValue = ""
 	if title == "" {
 		finalErrorValue += ""
-	} else {
-		
+	else
+		finalErrorValue += title
 	}
 
 
