@@ -1,0 +1,13 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com> 
+	MIT License Copyright (c) 2018 simple-lang
+*/
+
+/* 
+ * @Filename - consoleprogressbar.sim
+ * @Author - Azeez Adewale
+ * @Date - 08 July 2018
+ * @Time - 09:42 PM
+ */
+
+call "simple/utilities/Console.sim"
