@@ -11,14 +11,13 @@
  */
 
 call "simple/utilities/Console.sim"
-call "simple/utilities/Math.sim"
 
-limit = 100000
+limit = 10000
 
 @"A Progress That count from 0 to "+limit
 @"Drawback is it blink indefinitely"
 
-for a = 0 to limit-limit+10 {
+for a = 0 to limit {
 	display char(13)+"	currently counting at "+a
 }
 @""+crlf
@@ -26,7 +25,7 @@ for a = 0 to limit-limit+10 {
 @"To prevent blinking we flush the console standard output"
 @"Watch closely the same count from 0 to "+limit+" without blink : fails"
 
-for a = 0 to limit-limit+10 {
+for a = 0 to limit {
 	display char(13)+"	currently counting at "+((a/limit)*100)+"%   "
 	__flush_console()
 }
@@ -34,20 +33,31 @@ for a = 0 to limit-limit+10 {
 
 @"A progress bar using #######"
 for a = 0 to limit {
-	noDecimal()
 	val = ((a/limit)*100)
-	#display char(13)+"	["+joinChar("#",((a/limit)*100))+"]   "
-	@val
+	display char(13)+"Downloading at "+val+"%       	["+joinChar("#",val)+"]"
 	__flush_console()
 }
 @""+crlf
 
+@"A progress bar 2 using #######"
+progressBar = "...................................................................................................."
+for a = 0 to limit {
+	val = ((a/limit)*100)
+	display char(269)+"Downloading at "+val+"%       	["+joinChar2(progressBar,val)+"]"
+}
+@""+crlf
+
 block joinChar(character,times)
-	fChar = "#"
-	for a = 0 to times {
-		fChar+=character
-		display char(13)+times
+	fchar = ""
+	for b = 0 to times {
+		fchar+=character
 	}
-	return fChar
+	return fchar
+
+block joinChar2(character,times)
+	for b = 0 to times {
+		character[b] = "#"
+	}
+	return character
 
 	

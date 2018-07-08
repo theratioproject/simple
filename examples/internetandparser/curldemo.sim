@@ -1,5 +1,5 @@
 /* 
-	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com> 
 	MIT License Copyright (c) 2018 SIMPLE 
 
 */
@@ -21,7 +21,8 @@
 call "simple/internet/curl/CurlCore.sim"
 
 block main() 
-	testcurl = new CurlCore("http://simple-lang.sourceforge.io/pages/contributors.sim")
+	#testcurl = new CurlCore("http://simple-lang.sourceforge.io/pages/contributors.sim")
+	testcurl = new CurlCore("http://localhost/")
 	
 	display testcurl.getStringOutput() 
 	testcurl.flush()
