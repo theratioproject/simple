@@ -92,6 +92,9 @@ block throwWithTitle(title,errorvalue)
 	else
 		finalErrorValue += errorvalue
 	}
+	if finalErrorValue == "" {
+		throw(__FINAL_ERROR_EMPTY)
+	}
 
 
 
