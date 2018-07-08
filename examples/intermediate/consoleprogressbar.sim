@@ -15,16 +15,17 @@ call "simple/utilities/Console.sim"
 @"A Progress That count from 0 to 10000"
 @"Drawback is it blink indefinitely"
 
-for a = 0 to 1000 {
+for a = 0 to 15000 {
 	display char(13)+"	currently counting at "+a
-	__flush_console()
 }
 @""+crlf
 
 @"To prevent blinking we flush the console standard output"
-@"Watch closely the same count from 0 to 10000 without blink"
+@"Watch closely the same count from 0 to 10000 without blink : fails"
 
 for a = 0 to 15000 {
 	display "	currently counting at "+a+char(13)
 	__flush_console()
 }
+
+@"A progress bar using #######"
