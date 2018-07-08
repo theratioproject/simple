@@ -66,7 +66,8 @@ block warn(warnmessage)
 		it can be a single variable e.g @Code assert(false) @EndCode 
 		it can be a block that reurn an evaluation e.g 
 		@Code assert(getEval()) @EndCode
-	If the value is not a number then the 
+	If the value is not a number then an error is throw also if the value 
+	is not evaluated to true a evaluation fail error is also thrown
 */	
 block assert(value)
 	if !isNumber(value) { throw(__DEBUG_ASSERT_BOOLEAN_ONLY) }
