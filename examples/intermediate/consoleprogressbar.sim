@@ -24,6 +24,6 @@ for a = 0 to 1000 {
 @"Watch closely the same count from 0 to 10000 without blink"
 
 for a = 0 to 10000 {
-	display char(13)+"	currently counting at "+a+crlf
-	__flush_console(6)
+	display char(13)+"	currently counting at "+a
+	__flush_console()
 }
