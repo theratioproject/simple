@@ -55,8 +55,9 @@ block main()
 	/*
 		Assertion : only boolean and number is asserted
 	*/
-	assert("string not assert able") #fa\
-	assert((true == false)) #fails
+	#assert("string not assert able") #fails
+	#assert((true == false)) #fails
+	assert((1 > -300)) #pass
 	
 	/*
 		Now we catch an error in one of the error thrown above
