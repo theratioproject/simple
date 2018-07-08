@@ -19,15 +19,7 @@
 extern "C" {
 #endif
 
-/*
-	Support for GCC Compiler with no TRUE and FALSE predefine
-	Starting with Haiku OS
-*/
-#ifdef TRUE && FALSE
-#else
-#define TRUE 1
-#define FALSE 0
-#endif
+
     
 typedef struct GCData {
 	int nReferenceCount  ;
