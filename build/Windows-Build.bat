@@ -664,7 +664,8 @@ REM BULDING DYNAMIC LIBRARIES
 		REM call:builddymodule c systemic
 		if exist "%~dp0\..\modules\dynamic_modules\networker\lib\libcurl!ARC!.lib" (
 			copy "%~dp0\..\modules\dynamic_modules\networker\lib\libcurl!ARC!.lib" "%~dp0\..\simple\dist\"
-			REM call:builddymodule c networker libcurl!ARC!.lib
+			call:builddymodule c networker libcurl!ARC!.lib
+			call:deletetempfiles ..\simple\dist\libcurl!ARC!.lib
 			REM call:builddymodule c security libeay!ARC!.lib ssleay!ARC!.lib
 		)
 		
