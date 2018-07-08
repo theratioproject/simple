@@ -947,6 +947,7 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 :getdynamicmodulefiles 
 	if exist "..\modules\dynamic_modules\" (
 		SET DY_MODULE_INCLUDE_DIR="%~dp0\..\modules\dynamic_modules\%2\"
+		echo dy module %2
 		SET DY_MODULE_FILES="%~dp0\..\modules\dynamic_modules\%2\*.%1"
 	) else (
 		call:repocurrupterror dynamic_modules
