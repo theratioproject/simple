@@ -12,4 +12,8 @@
 
 call "simple/utilities/Console.sim"
 
-Console.singleBeep()
+@"A Progress That count from 0 to 1000"
+@"Drawback is it blink indefinitely"
+for a = 0 to 1000 {
+
+}
