@@ -155,6 +155,7 @@ SIMPLE_API void error_throw(void *pointer)
 		SIMPLE_API_ERROR(SIMPLE_API_GETSTRING(1));
 		if (((VM *) pointer)->sState->skip_error == 1) 
 			((VM *) pointer)->sState->skip_error = 0;
+		return;
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
