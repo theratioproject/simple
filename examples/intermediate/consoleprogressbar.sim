@@ -33,7 +33,11 @@ for a = 0 to limit {
 
 @"A progress bar using #######"
 for a = 0 to limit {
-	display char(13)+"	currently counting at "+((a/limit)*100)+"%   "
+	display char(13)+"	["+((a/limit)*100)+"]   "
 	__flush_console()
 }
 @""+crlf
+
+block joinChar(character,times)
+
+	
