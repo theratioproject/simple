@@ -41,6 +41,11 @@ block main()
 		@"This error was catched |> " @ __err__ 
 		@"<<<"
 	}
+	
+	/*
+		The throwWithTitle() block are used to create an error with a custom 
+		title and message
+	*/
 
 block one(a)
 	two(a)
