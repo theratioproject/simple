@@ -53,6 +53,10 @@ block main()
 	warn("Final Warning")
 	
 	/*
+		Assertion 
+	*/
+	
+	/*
 		Now we catch an error in one of the error thrown above
 	*/
 	try {

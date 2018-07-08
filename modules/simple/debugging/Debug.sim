@@ -20,7 +20,9 @@ module simple.debugging
 
 call "../core/loadcoredymodule.sim"
 
-__STACK_TRACE_ERROR = "Stack Trace cannot be empty error with the simple-lang Virtual Machine"
+	__STACK_TRACE_ERROR = "Stack Trace cannot be empty error with the simple-lang Virtual Machine"
+	__DEBUG_ASSERT_BOOLEAN_ONLY = "Only Boolean and Number can be asserted"
+	__DEBUG_ASSERTION_FAILED = "Assertion Failed"
 
 /*
 	A list that returns all the lines, blocks called in all the imported file from 
@@ -56,4 +58,11 @@ block warn(warnmessage)
 		return 
 	}
 	__warn(crlf+"Warning : "+warnmessage+crlf)
+	
+block assert(value)
+	if !isNumber(value) { throw(__DEBUG_ASSERT_BOOLEAN_ONLY) }
+	if value != true { 
+		throw(__DEBUG_ASSERTION_FAILED)
+	}
+
 	
