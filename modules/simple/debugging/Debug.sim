@@ -45,7 +45,7 @@ block stackTrace()
 	return stackTrace
 	
 /*
-
+	
 */
 block warn(warnmessage)
 	if warnmessage == "" {
