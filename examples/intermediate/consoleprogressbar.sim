@@ -42,5 +42,6 @@ block joinChar(character,times)
 	for a = 0 to times {
 		character+=character
 	}
+	return character
 
 	
