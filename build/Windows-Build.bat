@@ -671,7 +671,7 @@ REM BULDING DYNAMIC LIBRARIES
 			copy "%~dp0\..\modules\dynamic_modules\security\bin\libeay!ARC!.lib" "%~dp0\..\simple\dist\"
 			copy "%~dp0\..\modules\dynamic_modules\security\bin\ssleay!ARC!.lib" "%~dp0\..\simple\dist\"
 			call:builddymodule c security libeay!ARC!.lib ssleay!ARC!.lib
-			call:deletetempfiles ..\simple\dist\libeay!ARC!.lib
+			call:deletetempfiles ..\simple\dist\libeay!ARC!.lib ..\simple\dist\ssleay!ARC!.lib
 		)
 		
 		call:confirmfolderelsecreate "..\modules\dynamic_modules\dist\"
