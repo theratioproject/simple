@@ -49,11 +49,8 @@ SIMPLE_API void error_warn(void *pointer)
 		return ;
 	}
 	if ( SIMPLE_API_ISSTRING(1) ) {
-		if (((VM *) pointer)->sState->skip_error == 0) 
-			((VM *) pointer)->sState->skip_error = 1;
-		SIMPLE_API_ERROR(SIMPLE_API_GETSTRING(1));
-		if (((VM *) pointer)->sState->skip_error == 1) 
-			((VM *) pointer)->sState->skip_error = 0;
+		if (((VM *) pointer)->sState->nWarning) 
+			SIMPLE_API_ERROR(SIMPLE_API_GETSTRING(1));
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
