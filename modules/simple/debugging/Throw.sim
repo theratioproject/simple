@@ -29,7 +29,9 @@ module simple.debugging
 
 call "Debug.sim"
 
-	__FINAL_ERROR_EMPTY = "The error can never be empty: forcing exit of the program"
+	__DEBUG_FINAL_ERROR_EMPTY = "The error can never be empty: forcing exit of the program"
+	__DEBUG_TYPE_THROW_ONLY = 0
+	__DEBUG_TYPE_THROW = 1
  
 /*
 	Throw an error at any point in the program with this block
@@ -81,7 +83,7 @@ block throwOnly(errorvalue)
 	}
 	
 block throwOnlyWithTitle(title,errorvalue)
-	__throwWithTitle(title,errorvalue,__DEBUG_THROW_ONLY)
+	__throwWithTitle(title,errorvalue,__DEBUG_TYPE_THROW_ONLY)
 
 block __throwWithTitle(title,errorvalue,type)
 	finalErrorValue = ""
@@ -100,7 +102,7 @@ block __throwWithTitle(title,errorvalue,type)
 		throw(__FINAL_ERROR_EMPTY)
 		__exit__
 	}
-	if type == __DEBUG_THROW_ONLY {
+	if type == __DEBUG_TYPE_THROW_ONLY {
 		throwOnly(finalErrorValue)
 	else
 		throw(finalErrorValue)
