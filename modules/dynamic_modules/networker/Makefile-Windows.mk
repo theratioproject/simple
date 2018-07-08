@@ -44,16 +44,16 @@ OBJECTFILES= \
 	${OBJECTDIR}/networker.o 
 	
 # Link Libraries and Options
-LDLIBSOPTIONS=lib/libcurl.dll ../../../simple/dist/simple.dll
+LDLIBSOPTIONS=lib/libcurl$(ARC).dll ../../../simple/dist/simple.dll
 
 ${CND_DISTDIR}/${CND_PLATFORM}/networker.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_PLATFORM}
-	${LINK.c} -o ${CND_DISTDIR}/${CND_PLATFORM}/networker.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared
+	${LINK.c} $(ARC_FLAG) -o ${CND_DISTDIR}/${CND_PLATFORM}/networker.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared
 
 ${OBJECTDIR}/networker.o: networker.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} ${OBJECTDIR}/*d
-	$(COMPILE.c) $(CFLAGS) -o ${OBJECTDIR}/networker.o networker.c
+	$(COMPILE.c) $(CFLAGS) $(ARC_FLAG) -o ${OBJECTDIR}/networker.o networker.c
 
 
 #This Makefile-Windows.mk was written in adaptation to the MINGW

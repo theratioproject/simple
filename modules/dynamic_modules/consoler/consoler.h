@@ -19,6 +19,8 @@
 extern "C" {
 #endif
 
+void program_flush_console(void *pointer);
+
 void print_with_foreground_background ( void *pointer ) ;
 
 void console_beep ( void *pointer ) ;

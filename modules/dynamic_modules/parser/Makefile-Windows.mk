@@ -55,47 +55,47 @@ LDLIBSOPTIONS=../../../simple/dist/simple.dll
 
 ${CND_DISTDIR}/${CND_PLATFORM}/parser.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_PLATFORM}
-	${LINK.c} -o ${CND_DISTDIR}/${CND_PLATFORM}/parser.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared
+	${LINK.c} $(ARC_FLAG) -o ${CND_DISTDIR}/${CND_PLATFORM}/parser.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared
 
 ${OBJECTDIR}/parser.o: parser.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} ${OBJECTDIR}/*d
-	$(COMPILE.c) $(CFLAGS) -o ${OBJECTDIR}/parser.o parser.c
+	$(COMPILE.c) $(CFLAGS) $(ARC_FLAG) -o ${OBJECTDIR}/parser.o parser.c
 	
 ${OBJECTDIR}/includes/arraylist.o: includes/arraylist.c
 	${MKDIR} -p ${OBJECTDIR}/includes
 	${RM} "$@.d"
-	$(COMPILE.c) $(CFLAGS) -o ${OBJECTDIR}/includes/arraylist.o includes/arraylist.c
+	$(COMPILE.c) $(CFLAGS) $(ARC_FLAG) -o ${OBJECTDIR}/includes/arraylist.o includes/arraylist.c
 
 ${OBJECTDIR}/includes/debug.o: includes/debug.c
 	${MKDIR} -p ${OBJECTDIR}/includes
 	${RM} "$@.d"
-	$(COMPILE.c) $(CFLAGS) -o ${OBJECTDIR}/includes/debug.o includes/debug.c
+	$(COMPILE.c) $(CFLAGS) $(ARC_FLAG) -o ${OBJECTDIR}/includes/debug.o includes/debug.c
 
 ${OBJECTDIR}/includes/json_object.o: includes/json_object.c
 	${MKDIR} -p ${OBJECTDIR}/includes
 	${RM} "$@.d"
-	$(COMPILE.c) $(CFLAGS) -o ${OBJECTDIR}/includes/json_object.o includes/json_object.c
+	$(COMPILE.c) $(CFLAGS) $(ARC_FLAG) -o ${OBJECTDIR}/includes/json_object.o includes/json_object.c
 
 ${OBJECTDIR}/includes/json_tokener.o: includes/json_tokener.c
 	${MKDIR} -p ${OBJECTDIR}/includes
 	${RM} "$@.d"
-	$(COMPILE.c) $(CFLAGS) -o ${OBJECTDIR}/includes/json_tokener.o includes/json_tokener.c
+	$(COMPILE.c) $(CFLAGS) $(ARC_FLAG) -o ${OBJECTDIR}/includes/json_tokener.o includes/json_tokener.c
 
 ${OBJECTDIR}/includes/json_util.o: includes/json_util.c
 	${MKDIR} -p ${OBJECTDIR}/includes
 	${RM} "$@.d"
-	$(COMPILE.c) $(CFLAGS) -o ${OBJECTDIR}/includes/json_util.o includes/json_util.c
+	$(COMPILE.c) $(CFLAGS) $(ARC_FLAG) -o ${OBJECTDIR}/includes/json_util.o includes/json_util.c
 
 ${OBJECTDIR}/includes/linkhash.o: includes/linkhash.c
 	${MKDIR} -p ${OBJECTDIR}/includes
 	${RM} "$@.d"
-	$(COMPILE.c) $(CFLAGS) -o ${OBJECTDIR}/includes/linkhash.o includes/linkhash.c
+	$(COMPILE.c) $(CFLAGS) $(ARC_FLAG) -o ${OBJECTDIR}/includes/linkhash.o includes/linkhash.c
 
 ${OBJECTDIR}/includes/printbuf.o: includes/printbuf.c
 	${MKDIR} -p ${OBJECTDIR}/includes
 	${RM} "$@.d"
-	$(COMPILE.c) $(CFLAGS) -o ${OBJECTDIR}/includes/printbuf.o includes/printbuf.c
+	$(COMPILE.c) $(CFLAGS) $(ARC_FLAG) -o ${OBJECTDIR}/includes/printbuf.o includes/printbuf.c
 
 
 #This Makefile-Windows.mk was written in adaptation to the MINGW

@@ -50,22 +50,22 @@ LDLIBSOPTIONS=../../../simple/dist/simple.dll
 
 ${CND_DISTDIR}/${CND_PLATFORM}/consoler.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_PLATFORM}
-	${LINK.c} -o ${CND_DISTDIR}/${CND_PLATFORM}/consoler.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared
+	${LINK.c} $(ARC_FLAG) -o ${CND_DISTDIR}/${CND_PLATFORM}/consoler.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared
 
 ${OBJECTDIR}/consoler.o: consoler.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} ${OBJECTDIR}/*d
-	$(COMPILE.c) $(CFLAGS) -o ${OBJECTDIR}/consoler.o consoler.c
+	$(COMPILE.c) $(CFLAGS) $(ARC_FLAG) -o ${OBJECTDIR}/consoler.o consoler.c
 	
 ${OBJECTDIR}/console-colors.o: console-colors.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) $(CFLAGS) -o ${OBJECTDIR}/console-colors.o console-colors.c
+	$(COMPILE.c) $(CFLAGS) $(ARC_FLAG) -o ${OBJECTDIR}/console-colors.o console-colors.c
 	
 ${OBJECTDIR}/toot.o: toot.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) $(CFLAGS) -o ${OBJECTDIR}/toot.o toot.c
+	$(COMPILE.c) $(CFLAGS) $(ARC_FLAG) -o ${OBJECTDIR}/toot.o toot.c
 
 
 #This Makefile-Windows.mk was written in adaptation to the MINGW

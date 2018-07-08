@@ -48,12 +48,12 @@ LDLIBSOPTIONS=../../../simple/dist/simple.dll
 
 ${CND_DISTDIR}/${CND_PLATFORM}/file_savant.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_PLATFORM}
-	${LINK.c} -o ${CND_DISTDIR}/${CND_PLATFORM}/file_savant.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared
+	${LINK.c} $(ARC_FLAG) -o ${CND_DISTDIR}/${CND_PLATFORM}/file_savant.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared
 
 ${OBJECTDIR}/file_savant.o: file_savant.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} ${OBJECTDIR}/*d
-	$(COMPILE.c) $(CFLAGS) -o ${OBJECTDIR}/file_savant.o file_savant.c
+	$(COMPILE.c) $(CFLAGS) $(ARC_FLAG) -o ${OBJECTDIR}/file_savant.o file_savant.c
 
 
 #This Makefile-Windows.mk was written in adaptation to the MINGW

@@ -86,9 +86,9 @@ LDLIBSOPTIONS=${CND_DISTDIR}/${CND_PLATFORM}/simple.${CND_DLIB_EXT}
 
 ${CND_DISTDIR}/${CND_PLATFORM}/simple.${CND_DEXE_EXT}: ${OBJECTFILES} ${SIMPLEW_OBJECTFILES} ${SIMPLE_OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_PLATFORM}
-	${LINK.c} -o ${CND_DISTDIR}/${CND_PLATFORM}/simple.${CND_DLIB_EXT} ${OBJECTFILES} -static-libgcc -shared
-	${LINK.c} -mwindows -o ${CND_DISTDIR}/${CND_PLATFORM}/simplew.${CND_DEXE_EXT} ${SIMPLEW_OBJECTFILES} ${LDLIBSOPTIONS}
-	${LINK.c} -o ${CND_DISTDIR}/${CND_PLATFORM}/simple.${CND_DEXE_EXT} ${SIMPLE_OBJECTFILES} ${LDLIBSOPTIONS}
+	${LINK.c} $(ARC_FLAG) -o ${CND_DISTDIR}/${CND_PLATFORM}/simple.${CND_DLIB_EXT} ${OBJECTFILES} -static-libgcc -shared
+	${LINK.c} -mwindows $(ARC_FLAG) -o ${CND_DISTDIR}/${CND_PLATFORM}/simplew.${CND_DEXE_EXT} ${SIMPLEW_OBJECTFILES} ${LDLIBSOPTIONS}
+	${LINK.c} $(ARC_FLAG) -o ${CND_DISTDIR}/${CND_PLATFORM}/simple.${CND_DEXE_EXT} ${SIMPLE_OBJECTFILES} ${LDLIBSOPTIONS}
 	
 	#Removing Build File(s)
 	${RM} ${OBJECTDIR}/sources/*.o
@@ -104,82 +104,82 @@ ${CND_DISTDIR}/${CND_PLATFORM}/simple.${CND_DEXE_EXT}: ${OBJECTFILES} ${SIMPLEW_
 
 ${OBJECTDIR}/sources/simple_api.o: ../sources/simple_api.c
 	${MKDIR} -p ${OBJECTDIR}/sources
-	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/sources/simple_api.o ../sources/simple_api.c
+	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" $(ARC_FLAG) -o ${OBJECTDIR}/sources/simple_api.o ../sources/simple_api.c
 
 ${OBJECTDIR}/sources/simple_codegen.o: ../sources/simple_codegen.c
-	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/sources/simple_codegen.o ../sources/simple_codegen.c
+	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" $(ARC_FLAG) -o ${OBJECTDIR}/sources/simple_codegen.o ../sources/simple_codegen.c
 
 ${OBJECTDIR}/sources/simple_expr.o: ../sources/simple_expr.c
-	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/sources/simple_expr.o ../sources/simple_expr.c
+	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" $(ARC_FLAG) -o ${OBJECTDIR}/sources/simple_expr.o ../sources/simple_expr.c
 
 ${OBJECTDIR}/sources/simple_hashtable.o: ../sources/simple_hashtable.c
-	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/sources/simple_hashtable.o ../sources/simple_hashtable.c
+	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" $(ARC_FLAG) -o ${OBJECTDIR}/sources/simple_hashtable.o ../sources/simple_hashtable.c
 
 ${OBJECTDIR}/sources/simple_item.o: ../sources/simple_item.c
-	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/sources/simple_item.o ../sources/simple_item.c
+	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" $(ARC_FLAG) -o ${OBJECTDIR}/sources/simple_item.o ../sources/simple_item.c
 
 ${OBJECTDIR}/sources/simple_list.o: ../sources/simple_list.c
-	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/sources/simple_list.o ../sources/simple_list.c
+	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" $(ARC_FLAG) -o ${OBJECTDIR}/sources/simple_list.o ../sources/simple_list.c
 
 ${OBJECTDIR}/sources/simple_misc.o: ../sources/simple_misc.c
-	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/sources/simple_misc.o ../sources/simple_misc.c
+	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" $(ARC_FLAG) -o ${OBJECTDIR}/sources/simple_misc.o ../sources/simple_misc.c
 
 ${OBJECTDIR}/sources/simple_parser.o: ../sources/simple_parser.c
-	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/sources/simple_parser.o ../sources/simple_parser.c
+	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" $(ARC_FLAG) -o ${OBJECTDIR}/sources/simple_parser.o ../sources/simple_parser.c
 
 ${OBJECTDIR}/sources/simple_scanner.o: ../sources/simple_scanner.c
-	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/sources/simple_scanner.o ../sources/simple_scanner.c
+	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" $(ARC_FLAG) -o ${OBJECTDIR}/sources/simple_scanner.o ../sources/simple_scanner.c
 
 ${OBJECTDIR}/sources/simple_state.o: ../sources/simple_state.c
-	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/sources/simple_state.o ../sources/simple_state.c
+	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" $(ARC_FLAG) -o ${OBJECTDIR}/sources/simple_state.o ../sources/simple_state.c
 
 ${OBJECTDIR}/sources/simple_stmt.o: ../sources/simple_stmt.c
-	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/sources/simple_stmt.o ../sources/simple_stmt.c
+	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" $(ARC_FLAG) -o ${OBJECTDIR}/sources/simple_stmt.o ../sources/simple_stmt.c
 
 ${OBJECTDIR}/sources/simple_string.o: ../sources/simple_string.c
-	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/sources/simple_string.o ../sources/simple_string.c
+	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" $(ARC_FLAG) -o ${OBJECTDIR}/sources/simple_string.o ../sources/simple_string.c
 
 ${OBJECTDIR}/sources/simple_vm.o: ../sources/simple_vm.c
-	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/sources/simple_vm.o ../sources/simple_vm.c
+	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" $(ARC_FLAG) -o ${OBJECTDIR}/sources/simple_vm.o ../sources/simple_vm.c
 
 ${OBJECTDIR}/sources/simple_vmblock.o: ../sources/simple_vmblock.c
-	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/sources/simple_vmblock.o ../sources/simple_vmblock.c
+	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" $(ARC_FLAG) -o ${OBJECTDIR}/sources/simple_vmblock.o ../sources/simple_vmblock.c
 
 ${OBJECTDIR}/sources/simple_vmdll.o: ../sources/simple_vmdll.c
-	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/sources/simple_vmdll.o ../sources/simple_vmdll.c
+	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" $(ARC_FLAG) -o ${OBJECTDIR}/sources/simple_vmdll.o ../sources/simple_vmdll.c
 
 ${OBJECTDIR}/sources/simple_vmexpr.o: ../sources/simple_vmexpr.c
-	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/sources/simple_vmexpr.o ../sources/simple_vmexpr.c
+	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" $(ARC_FLAG) -o ${OBJECTDIR}/sources/simple_vmexpr.o ../sources/simple_vmexpr.c
 
 ${OBJECTDIR}/sources/simple_vmgc.o: ../sources/simple_vmgc.c
-	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/sources/simple_vmgc.o ../sources/simple_vmgc.c
+	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" $(ARC_FLAG) -o ${OBJECTDIR}/sources/simple_vmgc.o ../sources/simple_vmgc.c
 
 ${OBJECTDIR}/sources/simple_vmlists.o: ../sources/simple_vmlists.c
-	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/sources/simple_vmlists.o ../sources/simple_vmlists.c
+	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" $(ARC_FLAG) -o ${OBJECTDIR}/sources/simple_vmlists.o ../sources/simple_vmlists.c
 
 ${OBJECTDIR}/sources/simple_vmoop.o: ../sources/simple_vmoop.c
-	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/sources/simple_vmoop.o ../sources/simple_vmoop.c
+	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" $(ARC_FLAG) -o ${OBJECTDIR}/sources/simple_vmoop.o ../sources/simple_vmoop.c
 
 ${OBJECTDIR}/sources/simple_vmperformance.o: ../sources/simple_vmperformance.c
-	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/sources/simple_vmperformance.o ../sources/simple_vmperformance.c
+	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" $(ARC_FLAG) -o ${OBJECTDIR}/sources/simple_vmperformance.o ../sources/simple_vmperformance.c
 
 ${OBJECTDIR}/sources/simple_vmstackvars.o: ../sources/simple_vmstackvars.c
-	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/sources/simple_vmstackvars.o ../sources/simple_vmstackvars.c
+	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" $(ARC_FLAG) -o ${OBJECTDIR}/sources/simple_vmstackvars.o ../sources/simple_vmstackvars.c
 
 ${OBJECTDIR}/sources/simple_vmstate.o: ../sources/simple_vmstate.c
-	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/sources/simple_vmstate.o ../sources/simple_vmstate.c
+	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" $(ARC_FLAG) -o ${OBJECTDIR}/sources/simple_vmstate.o ../sources/simple_vmstate.c
 
 ${OBJECTDIR}/sources/simple_vmstrindex.o: ../sources/simple_vmstrindex.c
-	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/sources/simple_vmstrindex.o ../sources/simple_vmstrindex.c
+	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" $(ARC_FLAG) -o ${OBJECTDIR}/sources/simple_vmstrindex.o ../sources/simple_vmstrindex.c
 
 ${OBJECTDIR}/sources/simple_vmvars.o: ../sources/simple_vmvars.c
-	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/sources/simple_vmvars.o ../sources/simple_vmvars.c
+	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" $(ARC_FLAG) -o ${OBJECTDIR}/sources/simple_vmvars.o ../sources/simple_vmvars.c
 	
 ${OBJECTDIR}/simple.o: ../simple.c
-	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/simple.o ../simple.c
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" $(ARC_FLAG) -o ${OBJECTDIR}/simple.o ../simple.c
 	
 ${OBJECTDIR}/simplew.o: ../simplew.c
-	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -mwindows -o ${OBJECTDIR}/simplew.o ../simplew.c
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -mwindows $(ARC_FLAG) -o ${OBJECTDIR}/simplew.o ../simplew.c
 
 
 #This Makefile-Windows.mk was written in adaptation to the MINGW

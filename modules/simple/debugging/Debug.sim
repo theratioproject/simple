@@ -23,7 +23,19 @@ call "../core/loadcoredymodule.sim"
 __STACK_TRACE_ERROR = "Stack Trace cannot be empty error with the simple-lang Virtual Machine"
 
 /*
-
+	A list that returns all the lines, blocks called in all the imported file from 
+	the beginning of the program to the point where the stackTrace() block is called. 
+	Ann example result of the code above will be
+	@Code
+		at line 26 in __stack_trace at stackTrace() in file Debug.sim
+		at line 60 at four() in file debugging.sim
+		at line 33 at main() in file debugging.sim
+		at line 22 in file debugging.sim
+	@EndCode
+	The number of item in the stackTrace list depends on the position that is is 
+	being called from. This block can be used to create custom error and decision 
+	on error base on the programmer want.
+	@Return stackTrace @DataType LIST
 */
 block stackTrace()
 	stackTrace = __stack_trace()
@@ -31,3 +43,13 @@ block stackTrace()
 			return throw(__STACK_TRACE_ERROR)
 	}
 	return stackTrace
+	
+/*
+
+*/
+block warn(warnmessage)
+	if warnmessage == "" {
+		return 
+	}
+	__warn(warnmessage)
+	

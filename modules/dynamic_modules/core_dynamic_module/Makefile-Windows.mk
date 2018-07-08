@@ -50,12 +50,12 @@ LDLIBSOPTIONS=../../../simple/dist/simple.dll
 
 ${CND_DISTDIR}/${CND_PLATFORM}/core_dynamic_module.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_PLATFORM}
-	${LINK.c} -o ${CND_DISTDIR}/${CND_PLATFORM}/core_dynamic_module.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared
+	${LINK.c} $(ARC_FLAG) -o ${CND_DISTDIR}/${CND_PLATFORM}/core_dynamic_module.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared
 
 ${OBJECTDIR}/core_dynamic_module.o: core_dynamic_module.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} ${OBJECTDIR}/*d
-	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/core_dynamic_module.o core_dynamic_module.c
+	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" $(ARC_FLAG) -o ${OBJECTDIR}/core_dynamic_module.o core_dynamic_module.c
 
 
 #This Makefile-Windows.mk was written in adaptation to the MINGW

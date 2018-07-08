@@ -13,6 +13,9 @@ SET VERSION=s0.3.35
 SET SIMPLE_DEBUG_VERSION=s0.3.35-debug
 SET FULLTICK_BUILD_ISSUE="<https://github.com/simple-lang/simple/issues/16>"
 SET BUILD_TOOL="any"
+SET NO_BUILDTOOL="true"
+SET GCC_ARC_VAR=-m32
+SET ARC=32
 
 for %%x in (%*) do (
 	if "%%x"=="--configure" (
@@ -213,6 +216,9 @@ if !BUILD_TOOL!=="gcc" (
 	call:header configure "configure build %VERSION%"
 	call:locategcc !BUILD_ARC!
 )
+if !BUILD_TOOL!=="any" (
+	call:configure
+)
 if !NO_BUILDTOOL!=="true" (
 	echo error:simple-lang:configure: no C/C++ compiler to found 
 	echo error:simple-lang:configure: re-build with no C/C++ compiler flag to find available build tool 
@@ -226,15 +232,18 @@ if !EXEC_TYPE!=="" (
 if !EXEC_TYPE!=="install" (
 	call:configure
 	call:installdebug
+	call:treatfinal
 )
 if !EXEC_TYPE!=="debug" (
 	call:configure
 	call:installdebug
+	call:treatfinal
 )
 if !EXEC_TYPE!=="install-configure" (
 	call:configure
 	SET EXEC_TYPE="install"
 	call:installdebug
+	call:treatfinal
 )
 if !EXEC_TYPE!=="configure" (
 	call:configure
@@ -304,7 +313,6 @@ if !EXEC_TYPE!=="dymodules-only-debug" (
 	call:copydynamicmodules
 	call:removedistfolders
 )
-
 	:: configure and install for now
 
 exit /b %ERRORLEVEL%
@@ -336,9 +344,11 @@ exit /b %ERRORLEVEL%
 			exit /b 0 
 		)
 		if !NO_BUILDTOOL!=="true" (
-			call:locatevisualstudio !BUILD_ARC!
-		) else (
-			exit /b 0 
+			echo visual studio still erroneous 
+			REM call:locatevisualstudio !BUILD_ARC!
+		) 
+		if !NO_BUILDTOOL!=="false" (
+			exit /b 0
 		)
 		echo simple-lang:configure no toolchain found resolveing to manual search...
 		echo simple-lang:configure serching for mingw and msys
@@ -359,6 +369,10 @@ exit /b %ERRORLEVEL%
 					) else (
 						call:setcompilerenv !COMPILER_PATH! 
 					)
+					SET NO_BUILDTOOL="false"
+					if !BUILD_ARC!=="x64" (
+						call:confirmgccis64bits
+					)
 				) else (
 					echo error:simple-lang:configure make not found
 					echo simple-lang:configure enter make.exe folder if different from !COMPILER_PATH!
@@ -369,6 +383,10 @@ exit /b %ERRORLEVEL%
 							SET PATH="%PATH%;%COMPILER_PATH%;%COMPILER_PATH2%"
 						) else (
 							call:setcompilerenv !COMPILER_PATH! !COMPILER_PATH2!
+						)
+						SET NO_BUILDTOOL="false"
+						if !BUILD_ARC!=="x64" (
+							call:confirmgccis64bits
 						)
 					) else (
 						call:compilernotfound make
@@ -452,7 +470,7 @@ REM BULDING SIMPLE.EXE and SIMPLE.DLL
 		if exist "..\simple\makefiles\Makefile-Windows.mk" (
 			cd "..\simple\makefiles"
 			echo simple: building simple.dll and simple.exe
-			make -f Makefile-Windows.mk
+			make -f Makefile-Windows.mk ARC_FLAG=!GCC_ARC_VAR! ARC=!ARC!
 			cd ..\..\build
 		) else (
 			echo error:simple: simple-lang %SIMPLE_DEBUG_VERSION% build 
@@ -532,12 +550,14 @@ REM RESOLVE DEPENDENCIES
 		echo dependencies: ssleay32.dll
 	if !BUILD_ARC!=="x64" (
 		if exist "..\modules\dynamic_modules\security\bin\ssleay64.dll" (
+			call:generatelibfromdll %~dp0\..\modules\dynamic_modules\security\bin\ssleay64.dll
 			call:movedependencytobin ssleay64.dll ssleay32.dll %~dp0\..\modules\dynamic_modules\security\bin\
 		) else (
 			call:dependencieserror ssleay64.dll
 		)
 	) else (
 		if exist "..\modules\dynamic_modules\security\bin\ssleay32.dll" (
+			call:generatelibfromdll %~dp0\..\modules\dynamic_modules\security\bin\ssleay32.dll
 			call:movedependencytobin ssleay32.dll ssleay32.dll %~dp0\..\modules\dynamic_modules\security\bin\
 		) else (
 			call:dependencieserror ssleay32.dll
@@ -548,12 +568,14 @@ REM RESOLVE DEPENDENCIES
 		echo dependencies: libeay32.dll
 	if !BUILD_ARC!=="x64" (
 		if exist "..\modules\dynamic_modules\security\bin\libeay64.dll" (
+			call:generatelibfromdll %~dp0\..\modules\dynamic_modules\security\bin\libeay64.dll
 			call:movedependencytobin libeay64.dll libeay32.dll %~dp0\..\modules\dynamic_modules\security\bin\
 		) else (
 			call:dependencieserror libeay64.dll
 		)
 	) else (
 		if exist "..\modules\dynamic_modules\security\bin\libeay32.dll" (
+			call:generatelibfromdll %~dp0\..\modules\dynamic_modules\security\bin\libeay32.dll 
 			call:movedependencytobin libeay32.dll libeay32.dll %~dp0\..\modules\dynamic_modules\security\bin\
 		) else (
 			call:dependencieserror libeay32.dll
@@ -564,17 +586,17 @@ REM RESOLVE DEPENDENCIES
 		echo dependencies: libcurl.dll
 	if !BUILD_ARC!=="x64" (
 		if exist "..\modules\dynamic_modules\networker\lib\libcurl64.dll" (
-			call:generatelibfromdll %~dp0\..\modules\dynamic_modules\networker\lib\libcurl64.dll curl_* 000*
+			call:generatelibfromdll %~dp0\..\modules\dynamic_modules\networker\lib\libcurl64.dll 
 			call:movedependencytobin libcurl64.dll libcurl.dll %~dp0\..\modules\dynamic_modules\networker\lib\
 		) else (
 			call:dependencieserror libcurl64.dll
 		)
 	) else (
-		if exist "..\modules\dynamic_modules\networker\lib\libcurl.dll" (
-			call:generatelibfromdll %~dp0\..\modules\dynamic_modules\networker\lib\libcurl.dll 
-			call:movedependencytobin libcurl.dll libcurl.dll %~dp0\..\modules\dynamic_modules\networker\lib\
+		if exist "..\modules\dynamic_modules\networker\lib\libcurl32.dll" (
+			call:generatelibfromdll %~dp0\..\modules\dynamic_modules\networker\lib\libcurl32.dll 
+			call:movedependencytobin libcurl32.dll libcurl.dll %~dp0\..\modules\dynamic_modules\networker\lib\
 		) else (
-			call:dependencieserror libcurl.dll
+			call:dependencieserror libcurl32.dll
 		)
 	)
 	if !THERE_IS_VS_TEMP!=="true" (
@@ -587,12 +609,13 @@ REM RESOLVE DEPENDENCIES
 	if !THERE_IS_VS!=="true" (
 		if exist "../examples/intermediate/libfromdll.sim" (
 			if exist "../examples/intermediate/fetchfunction.bat" (
-				SET LIBDLLBATCHPATH="../examples/intermediate/fetchfunction.bat"
+				SET LIBDLLBATCHPATH="%~dp0\..\examples\intermediate\fetchfunction.bat"
 			) else (
 				exit /b 0
 			)
 			if exist "../simple/dist/simple.exe" (
-				"../simple/dist/simple.exe" "../examples/intermediate/libfromdll.sim" -bat !LIBDLLBATCHPATH! %1
+				"%~dp0\..\simple\dist\simple.exe" "../examples/intermediate/libfromdll.sim" -bat !LIBDLLBATCHPATH! %1
+				exit /b 0
 			) 
 		) else (
 			call:dependencieserror %1
@@ -636,11 +659,14 @@ REM BULDING DYNAMIC LIBRARIES
 		call:builddymodule c file_savant
 		call:builddymodule c mathic
 		REM call:builddymodule cpp fulltick
-		REM require .lib call:builddymodule c networker
 		REM failed call:builddymodule c parser
-		REM require .lib call:builddymodule c security
 		call:builddymodule c string_savant
 		call:builddymodule c systemic
+		if exist "%~dp0\..\modules\dynamic_modules\networker\lib\libcurl!ARC!.lib" (
+			copy "%~dp0\..\modules\dynamic_modules\networker\lib\libcurl!ARC!.lib" "%~dp0\..\simple\dist\"
+			call:builddymodule c networker libcurl!ARC!.lib
+			REM call:builddymodule c security libeay!ARC!.lib ssleay!ARC!.lib
+		)
 		
 		call:confirmfolderelsecreate "..\modules\dynamic_modules\dist\"
 		move *.lib "..\modules\dynamic_modules\dist\"
@@ -656,7 +682,7 @@ REM BULDING DYNAMIC LIBRARIES
 					rm -R ..\dist\
 				)
 				echo dynamic_modules: build starting...
-				make -f Makefile-Windows.mk
+				make -f Makefile-Windows.mk ARC_FLAG=!GCC_ARC_VAR! ARC=!ARC!
 				cd ..\
 			) else (
 				call:repocurrupterror dynamic_modules
@@ -703,7 +729,7 @@ REM FULLTICK(GUI) DYNAMIC MODULE
 :builddymodule
 	echo building %2 dynamic module
 	call:getdynamicmodulefiles %1 %2
-	cl.exe /D_USRDLL /D_WINDLL /LD /MT !DY_MODULE_FILES! /link /DLL /LIBPATH:%~dp0\..\simple\dist\ simple.lib 
+	cl.exe /D_USRDLL /D_WINDLL /LD /MT !DY_MODULE_FILES! /link /DLL /LIBPATH:%~dp0\..\simple\dist\ simple.lib %3 %4
 	call:deletetempfiles *.obj *.exp *.cod
 		
 	exit /b 0
@@ -979,6 +1005,7 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 		call %1 x86
 	)
 	SET NO_BUILDTOOL="false"
+	SET THERE_IS_VS="true"
 
 	exit /b 0
 	
@@ -1022,37 +1049,131 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 	exit /b 0
 	
 :locatemingw
-	echo simple-lang:configure: checking for mingw in C:\MinGW\msys\1.0\bin\
-	if exist "C:\MinGW\msys\1.0\bin\" (
-		echo simple-lang:configure found MinGW Build Toolchain
-		if !EXEC_TYPE!=="configure" (
-			call:setcompilerenv C:\MinGW\bin\ C:\MinGW\msys\1.0\bin
-		) else (
-			SET PATH=!PATH!;C:\MinGW\bin\;C:\MinGW\msys\1.0\bin
+	echo simple-lang:configure: checking for mingw !BUILD_ARC! in C:\MinGW!BUILD_ARC!\msys\1.0\bin\
+	if !BUILD_ARC!=="x64" (
+		if exist "C:\MinGW64\bin\" (
+			echo simple-lang:configure found MinGW64 Build Toolchain
+			call:setcompilerenv C:\MinGW64\bin\
+			if exist "C:\MinGW64\msys\1.0\bin\make.exe" (
+				call:setcompilerenv C:\MinGW64\msys\1.0\bin\
+			) else (
+				echo error:configure:mingw make.exe not found enter directory location
+				SET /p MAKE_PATH=Enter your Make.exe directory : 
+				if exist "!MAKE_PATH!\make.exe" (
+					call:setcompilerenv !MAKE_PATH!
+				) else (
+					echo error:configure:mingw make.exe not found in !MAKE_PATH! trying again...
+					SET /p "TA=Try Search for mingw again (y/n) : "  
+					if "!TA!"=="y" (
+						call:locatemingw
+						exit /b 0
+					) else (
+						SET NO_BUILDTOOL="true"
+						exit /b 0
+					)
+				)
+			)
+			SET GCC_ARC_VAR=-m64
+			SET ARC=64
+			SET NO_BUILDTOOL="false"
+			call:confirmgccis64bits
+			exit /b 0
 		)
-		SET NO_BUILDTOOL="true"
-		exit /b 0
+	) else (
+		if exist "C:\MinGW\bin\" (
+			echo simple-lang:configure found MinGW Build Toolchain
+			call:setcompilerenv C:\MinGW\bin\
+			if exist "C:\MinGW\msys\1.0\bin\make.exe" (
+				call:setcompilerenv C:\MinGW\msys\1.0\bin\
+			) else (
+				echo error:configure:mingw make.exe not found enter directory location
+				SET /p MAKE_PATH=Enter your Make.exe directory : 
+				if exist "!MAKE_PATH!\make.exe" (
+					call:setcompilerenv !MAKE_PATH!
+				) else (
+					echo error:configure:mingw make.exe not found in !MAKE_PATH! trying again...
+					SET /p "TA=Try Search for mingw again (y/n) : "  
+					if "!TA!"=="y" (
+						call:locatemingw
+						exit /b 0
+					) else (
+						SET NO_BUILDTOOL="true"
+						exit /b 0
+					)
+				)
+			)
+			SET NO_BUILDTOOL="false"
+			exit /b 0
+		)
 	)
+	
 	echo simple-lang:configure: mingw not found in C:\MinGW\msys\1.0\bin\
 	call:locategcc
 	
 	exit /b 0
 	
 :locatecygwin
-	echo simple-lang:configure: checking for cygwin in C:\cygwin\
-	if exist "C:\cygwin\" (
-		echo simple-lang:configure found CygWIN Build Toolchain
-		if !EXEC_TYPE!=="configure" (
+	echo simple-lang:configure: checking for cygwin !BUILD_ARC! in C:\cygwin!BUILD_ARC!\bin\
+	if !BUILD_ARC!=="x64" (
+		if exist "C:\cygwin64\bin\" (
+			echo simple-lang:configure found cygwin64 Build Toolchain
+			call:setcompilerenv C:\cygwin64\bin\
+			if exist "C:\cygwin\bin\make.exe" (
+				call:setcompilerenv C:\cygwin\bin\
+			) else (
+				echo error:configure:cygwin make.exe not found enter directory location
+				SET /p MAKE_PATH=Enter your Make.exe directory : 
+				if exist "!MAKE_PATH!\make.exe" (
+					call:setcompilerenv !MAKE_PATH!
+				) else (
+					echo error:configure:cygwin make.exe not found in !MAKE_PATH! trying again...
+					SET /p "TA=Try Search for cygwin again (y/n) : "  
+					if "!TA!"=="y" (
+						call:locatecygwin
+						exit /b 0
+					) else (
+						SET NO_BUILDTOOL="true"
+						exit /b 0
+					)
+				)
+			)
+			SET GCC_ARC_VAR=-m64
+			SET ARC=64
+			SET NO_BUILDTOOL="false"
+			call:confirmgccis64bits
+			exit /b 0
+		)
+	) else (
+		if exist "C:\cygwin\bin\" (
+			echo simple-lang:configure found cygwin Build Toolchain
 			call:setcompilerenv C:\cygwin\bin\
-		) else (
-			SET PATH=!PATH!;C:\cygwin\bin\
-		) 
-		SET NO_BUILDTOOL="true"
-		exit /b 0
+			if exist "C:\cygwin\bin\make.exe" (
+				call:setcompilerenv C:\cygwin\bin\
+			) else (
+				echo error:configure:cygwin make.exe not found enter directory location
+				SET /p MAKE_PATH=Enter your Make.exe directory : 
+				if exist "!MAKE_PATH!\make.exe" (
+					call:setcompilerenv !MAKE_PATH!
+				) else (
+					echo error:configure:cygwin make.exe not found in !MAKE_PATH! trying again...
+					SET /p "TA=Try Search for cygwin again (y/n) : "  
+					if "!TA!"=="y" (
+						call:locatecygwin
+						exit /b 0
+					) else (
+						SET NO_BUILDTOOL="true"
+						exit /b 0
+					)
+				)
+			)
+			SET NO_BUILDTOOL="false"
+			exit /b 0
+		)
 	)
-	echo simple-lang:configure: cygwin not found in C:\cygwin\
+	
+	echo simple-lang:configure: cygwin not found in C:\cygwin\bin\
 	call:locategcc
-		
+	
 	exit /b 0
 	
 :locategcc
@@ -1076,6 +1197,12 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 				echo simple-lang:configure:compiler make found
 				echo simple-lang:configure:compiler proceeding to build...
 				SET NO_BUILDTOOL="false"
+				if !BUILD_ARC!=="x64" (
+					SET GCC_ARC_VAR=-m64
+					SET ARC=64
+					SET NO_BUILDTOOL="false"
+					call:confirmgccis64bits
+				)
 				exit /b 0
 			) else (
 				call:compilernotfound make
@@ -1092,6 +1219,22 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 	
 	exit /b 0
 	
+
+	
+:confirmgccis64bits
+	echo int main() { return 0;} > ../../test_64_bit_gcc.c
+	gcc.exe -m64 -o ../../test_64_bit_gcc.o ../../test_64_bit_gcc.c 2> nul
+	if exist "../../test_64_bit_gcc.o" (
+		call:deletetempfiles "..\..\test_64_bit_gcc.o" "..\..\test_64_bit_gcc.c"
+	) else (
+		echo error:configure:gcc the compiler specified is not 64 bit 
+		echo error:configure:gcc specify the correct folder of a 64 bit gcc compiler
+		echo error:configure:gcc try building with the x86 flag for 32 bits build 
+		SET NO_BUILDTOOL="true"
+	)
+
+	exit /b 0
+	
 :setcompilerenv
 	echo simple-lang:configure:compiler adding the directory to PATH for this session
 	echo simple-lang:configure:compiler the environment is available for only this session
@@ -1103,6 +1246,48 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 	echo simple-lang:configure:compiler proceeding build...
 
 	exit /b 
+	
+:treatfinal
+	call:createsimplelib
+	
+	exit /b 0
+	
+:createsimplelib
+	call:header final "checking if simple.lib is present"
+	if !EXEC_TYPE!=="install" (
+		SET SIMPLE_EXE="!INSTALLATION_FOLDER!\%VERSION%\bin\simple.exe"
+		SET SIMPLE_DLL="!INSTALLATION_FOLDER!\%VERSION%\bin\simple.dll"
+		SET SIMPLE_LIB="!INSTALLATION_FOLDER!\%VERSION%\bin\simple.lib"
+		SET SIMPLE_MODULE_PATH="!INSTALLATION_FOLDER!\%VERSION%\modules\"
+	)
+	if !EXEC_TYPE!=="debug" (
+		SET SIMPLE_EXE="%~dp0\..\..\%SIMPLE_DEBUG_VERSION%\bin\simple.exe"
+		SET SIMPLE_DLL="%~dp0\..\..\%SIMPLE_DEBUG_VERSION%\bin\simple.dll"
+		SET SIMPLE_LIB="%~dp0\..\..\%SIMPLE_DEBUG_VERSION%\bin\simple.lib"
+		SET SIMPLE_MODULE_PATH="%~dp0\..\..\%SIMPLE_DEBUG_VERSION%\modules\"
+	)
+	if exist !SIMPLE_LIB! (
+		echo simple-lang:lib: simple.lib is already generated
+		exit /b 0
+	)
+	call:locatevisualstudio
+	if !THERE_IS_VS!=="true" (
+		if exist "..\examples\intermediate\libfromdll.sim" (
+			if exist "..\examples\intermediate\fetchfunction.bat" (
+				SET LIBDLLBATCHPATH="%~dp0\..\examples\intermediate\fetchfunction.bat"
+			) else (
+				exit /b 0
+			)
+			if exist !SIMPLE_EXE! (
+				!SIMPLE_EXE! "..\examples\intermediate\libfromdll.sim" -bat !LIBDLLBATCHPATH! !SIMPLE_DLL!
+				exit /b 0
+			) 
+		) else (
+			call:dependencieserror simple.lib
+		)
+	) 
+
+	exit /b 0
 
 :uninstall
 	echo unintstalling

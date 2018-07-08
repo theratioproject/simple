@@ -43,16 +43,16 @@ CLEAN_DEBUGDIR=../../../s0.3.35-debug
 DYNAMIC_MODULEDIR=.modules/dynamic_modules
 
 clean: 
-	cd ../archiver/ && $(MAKE) -f Makefile-Windows.mk
-	cd ../consoler/ && $(MAKE) -f Makefile-Windows.mk
-	cd ../file_savant/ && $(MAKE) -f Makefile-Windows.mk
-	cd ../mathic/ && $(MAKE) -f Makefile-Windows.mk
-	cd ../string_savant/ && $(MAKE) -f Makefile-Windows.mk
-	cd ../networker/ && $(MAKE) -f Makefile-Windows.mk
-	cd ../parser/ && $(MAKE) -f Makefile-Windows.mk
-	cd ../security/ && $(MAKE) -f Makefile-Windows.mk
-	cd ../systemic/ && $(MAKE) -f Makefile-Windows.mk
-	cd ../core_dynamic_module/ && $(MAKE) -f Makefile-Windows.mk
+	cd ../archiver/ && $(MAKE) -f Makefile-Windows.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
+	cd ../consoler/ && $(MAKE) -f Makefile-Windows.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
+	cd ../file_savant/ && $(MAKE) -f Makefile-Windows.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
+	cd ../mathic/ && $(MAKE) -f Makefile-Windows.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
+	cd ../string_savant/ && $(MAKE) -f Makefile-Windows.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
+	cd ../networker/ && $(MAKE) -f Makefile-Windows.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
+	cd ../parser/ && $(MAKE) -f Makefile-Windows.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
+	cd ../security/ && $(MAKE) -f Makefile-Windows.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
+	cd ../systemic/ && $(MAKE) -f Makefile-Windows.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
+	cd ../core_dynamic_module/ && $(MAKE) -f Makefile-Windows.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
 	
 	${RM} ${CND_DISTDIR}/build/*.o
 	${RM} ${CND_DISTDIR}/build/*.d

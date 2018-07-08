@@ -38,11 +38,23 @@
 
 SIMPLE_API void init_simple_module(SimpleState *sState)
 {   
+    register_block("__flush_console",program_flush_console);
     register_block("__printwfb",print_with_foreground_background);
     register_block("__beep",console_beep);
     register_block("__exit",program_exit);
     register_block("__sleep",program_sleep);
     
+}
+
+void program_flush_console(void *pointer)
+{
+	if ( SIMPLE_API_PARACOUNT != 0 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+		return ;
+	} else {
+		fflush(stdout);
+		return;
+	}
 }
 
 void print_with_foreground_background ( void *pointer )
