@@ -25,8 +25,9 @@ for a = 0 to 10000 {
 
 for a = 0 to 10000 {
 	display char(13)+"	currently counting at "+((a/10000)*100)+"%"
-	display char(13) __flush_console()
+	display char(13) 
 }
+display char(13) 
 @""+crlf
 
 @"A progress bar using #######"
