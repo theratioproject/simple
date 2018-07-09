@@ -144,7 +144,7 @@ block moduleEnviron(depConf,packageList)
 	for a = 0 to latestPackage[:supporting_modules_count] {
 		@"		"+latestPackage[:supporting_modules][a+1]
 	}
-	totalDownloadSize = 
+	allDownloadablePackages = getSupportingModulesInfo()
 	downlaodPackage(latestPackage,localPackage,totalDownloadSize)
 	
 block downlaodPackage(latestPackage,localPackage,totalDownloadSize)
@@ -163,7 +163,7 @@ block downlaodPackage(latestPackage,localPackage,totalDownloadSize)
 	@"Total Download Size: "+totalDownloadSize+crlf
 	display " :: Do you want to proceed [y/n] " read respond @""
 	
-	
+block getSupportingModulesInfo()
 	
 block loadPackageAndDep()
 	latestPackage = []
