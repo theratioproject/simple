@@ -151,7 +151,9 @@ block downloadPackages(allDownloadablePackages)
 	@crlf+"Total Download Size: "+allDownloadablePackages[:downloadSize]+crlf
 	display " :: Do you want to proceed [y/n] " read respond @""
 	if respond == "y" {
-		
+		for a = 0 to lengthOf(allDownloadablePackages) {
+			downloadPackage(allDownloadablePackages[a])
+		}
 	else
 		@"Stopping upgrade..."
 		__exit__
