@@ -60,6 +60,7 @@ packageUrl = modularUrl+"package-installer.sim"
 simpleDistDirectory = "/bin/"
 
 deleteTemp = true
+showInfo = false
 
 if isWindows() {
 	simpleDistDirectory = "C:\Simple\"
@@ -133,6 +134,11 @@ block moduleEnviron(depConf,packageList)
 	@"resolving dependencies..."
 	#loading bar here
 	latestPackage = loadPackageAndDep()
+	if latestPackage[:version] == localPackage[:version] {
+		@package+" "+type+" is up to date"
+		@"Modular operation completed"
+		__exit__
+	}
 	@"packages ("+(latestPackage[:supporting_modules_count]+2)+")	"+package
 	for a = 0 to latestPackage[:supporting_modules_count] {
 		@"		"+latestPackage[:supporting_modules][a+1]
@@ -153,11 +159,7 @@ block downlaodPackage(latestPackage,localPackage)
 		#@" :: "+latestPackage[:download_url]
 	}
 	
-	if latestPackage[:version] == localPackage[:version] {
-		@crlf+package+" "+type+" is up to date"
-		@"Modular operation completed"
-		__exit__
-	}
+	
 	
 	
 block loadPackageAndDep()
