@@ -179,7 +179,9 @@ block downloadPackage(downloadablePackage)
 	downloadedPackage.execute()
 	if downloadedPackage.exists() {
 		downloadedPackageZip = new Zip(downloadedPackage.absolutePath(),"r")
-		downloadedPackageZip.extractAll(modulesDirectory+"/../")
+		extractedPackage = new File(modulesDirectory+"/../")
+		downloadedPackageZip.extractAll(extractedPackage.absolutePath())
+		
 		@"yea yea"
 	}
 	
