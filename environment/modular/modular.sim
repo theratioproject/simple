@@ -132,7 +132,9 @@ block moduleEnviron(depConf,packageList)
 	
 block loadPackageAndDep()
 	latestPackage = [:count="0"]
-	packageJson = download(simpleUpdateUrl+"?package="+package+"&type="+type+"&version="+version+"&os="+ostype)
+	packageJson = download(packageUrl+"?package="+package+"&type="+type+"&version="+version+"&os="+ostype)
+	@ostype
+	@packageJson
 	
 	return latestPackage
 	
