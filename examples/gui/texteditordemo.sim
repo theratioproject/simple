@@ -63,8 +63,8 @@ block testAttribs()
 block insert()
 	#editor.setInsertPosition(10)
 	editor.insert(e.getText()) 
-	editor.insertAtLineStart(e.getText()) 
-	editor.insertAtLineEnd(e.getText()) 
+	# editor.insertAtLineStart(e.getText()) 
+	# editor.insertAtLineEnd(e.getText()) 
 	display 'Inserted at '+editor.getInsertPosition()+crlf
 	
 block linenumber(c)
