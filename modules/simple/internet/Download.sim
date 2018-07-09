@@ -19,7 +19,7 @@ call "simple/io/File.sim"
 block download(url)
 	return __curl_download(url)
 
-class Download 
+class Download : File
 
 	/* TYPE */
 	DOWNLOAD_CONTENT = null #the content is null be default
