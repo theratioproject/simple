@@ -64,6 +64,7 @@ modulesDirectory = getSystemEnvironment("SIMPLE_MODULE_PATH")+"//"
 
 deleteTemp = true
 showInfo = false
+askPermission = true
 
 if isWindows() {
 	simpleDistDirectory = "C:\Simple\"
@@ -99,6 +100,7 @@ block main()
 		elif stringEquals(cmdparams[a],"-p",false) or stringEquals(cmdparams[a],"--path",false) simpleDistDirectory = cmdparams[a++] @simpleDistDirectory
 		elif stringEquals(cmdparams[a],"-t",false) or stringEquals(cmdparams[a],"--temp",false) deleteTemp = false
 		elif stringEquals(cmdparams[a],"-s",false) or stringEquals(cmdparams[a],"--show-info",false) showInfo = true
+		elif stringEquals(cmdparams[a],"-y",false) or stringEquals(cmdparams[a],"--yes",false) askPermission = false
 		else package = cmdparams[a] end
 	}
 	if ostype == "auto-detect" {
