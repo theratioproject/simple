@@ -95,6 +95,7 @@ block main()
 		#Others
 		elif stringEquals(cmdparams[a],"-p",false) or stringEquals(cmdparams[a],"--path",false) simpleDistDirectory = cmdparams[a++] @simpleDistDirectory
 		elif stringEquals(cmdparams[a],"-t",false) or stringEquals(cmdparams[a],"--temp",false) deleteTemp = false
+		elif stringEquals(cmdparams[a],"-s",false) or stringEquals(cmdparams[a],"--show-info",false) showInfo = true
 		else package = cmdparams[a] end
 	}
 	if ostype == "auto-detect" {
@@ -146,7 +147,7 @@ block moduleEnviron(depConf,packageList)
 	downlaodPackage(latestPackage,localPackage)
 	
 block downlaodPackage(latestPackage,localPackage)
-	if !showInfo {
+	if showInfo {
 		@""
 		@" :: "+latestPackage[:status] 
 		@" :: "+latestPackage[:name]
