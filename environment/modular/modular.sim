@@ -150,6 +150,13 @@ block moduleEnviron(depConf,packageList)
 block downloadPackages(allDownloadablePackages)
 	@crlf+"Total Download Size: "+allDownloadablePackages[:downloadSize]+crlf
 	display " :: Do you want to proceed [y/n] " read respond @""
+	if respond == "y" {
+		
+	else
+		@"Stopping upgrade..."
+		__exit__
+	}
+	
 	
 block downloadPackage(downloadablePackage)
 	if showInfo {
