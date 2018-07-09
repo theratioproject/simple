@@ -135,6 +135,7 @@ block moduleEnviron(depConf,packageList)
 	
 block loadPackageAndDep()
 	latestPackage = [:count="0"]
+	@"looking up "+packageUrl
 	packageJson = download(packageUrl+"?package="+package+"&type="+type+"&version="+version+"&os="+ostype)
 	if packageJson == null {
 		@"Internet connection is required to upgrade simple-lang"
