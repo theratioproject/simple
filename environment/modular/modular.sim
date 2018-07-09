@@ -116,10 +116,11 @@ block moduleAndEnviron(depConf)
 	executeCode(depConf.readFileAsString())
 	for a = 0 to lengthOf(modulesList) {
 		if modulesList[a][:name] == package {
-			@"	:: local package: "+package+" "+type+" "+modulesList[a][:version]
+			@"local package: "+package+" "+type+" "+modulesList[a][:version]
 			if modulesList[a][:version] == version {
-				@"	:: installed "+type+" "+package+" is up to date"
+				@"installed "+type+" "+package+" is up to date"
 				@"Modular operation completed"
+				__exit__
 			}
 		}
 	}
