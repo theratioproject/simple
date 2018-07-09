@@ -127,6 +127,7 @@ block moduleInstall(depConf)
 		}
 	}
 	@"resolving dependencies..."
+	display "packages ("+latestPackagesCount+") "
 	
 	
 block upgradeSimpleDistro()
