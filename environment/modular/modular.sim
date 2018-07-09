@@ -175,7 +175,7 @@ block downloadPackage(downloadablePackage)
 		@" :: "+downloadablePackage[:date]
 	}
 	downloadedPackage = new Download(downloadablePackage[:download_url])
-	downloadedPackage.saveLocation(modulesDirectory)
+	downloadedPackage.saveLocation(modulesDirectory+hash(package)+".zip")
 	downloadedPackage.execute()
 	
 	
