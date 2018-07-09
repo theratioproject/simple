@@ -175,7 +175,7 @@ class Test : FWindow : File : FTextEditor
 
 		block render()
 			setTitle('Open File').setSize(360, 400)
-			run()
+			show()
 
 		block openFile()
 			file = new File(fileName.getText())
