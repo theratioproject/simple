@@ -110,9 +110,8 @@ block moduleAndEnviron()
 	depConf = new File(getSystemEnvironment("SIMPLE_MODULE_PATH")+"/modules-dependencies.conf")
 	executeCode(depConf.readFileAsString())
 	for a = 0 to lengthOf(modulesList) {
-		if modulesList[0]
+		@ modulesList[a]
 	}
-	@modulesList[package]
 	@"resolving dependencies..."
 	
 block upgradeSimpleDistro()
