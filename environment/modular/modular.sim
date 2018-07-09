@@ -124,7 +124,8 @@ block moduleAndEnviron(depConf)
 			}
 		}
 	}
-	@"	:: resolving dependencies..."
+	@"resolving dependencies..."
+	
 	
 block upgradeSimpleDistro()
 	@"Preparing to upgrade simple-lang, environments and modules"
