@@ -121,8 +121,9 @@ block moduleEnviron(depConf,packageList)
 	@"checking locally installed version of "+package+"..."
 	for a = 0 to lengthOf(packageList) {
 		if packageList[a][:name] == package {
-			@"local package: "+package+" "+type+" "+packageList[a][:version]
-			if packageList[a][:version] == version {
+			localPackage = packageList[a]
+			@"local package: "+package+" "+type+" "+localPackage[:version]
+			if localPackage[:version] == version {
 				@"installed "+type+" "+package+" is up to date"
 				@"Modular operation completed"
 				__exit__
@@ -137,7 +138,7 @@ block moduleEnviron(depConf,packageList)
 		@"		"+latestPackage[:supporting_modules][a+1]
 	}
 	@crlf
-	downlaodPackage(latestPackage)
+	downlaodPackage(latestPackage,localPackage)
 	
 block downlaodPackage(latestPackage,localPackage)
 	@" :: "+latestPackage[:status] 
@@ -151,7 +152,7 @@ block downlaodPackage(latestPackage,localPackage)
 	#@" :: "+latestPackage[:download_url]
 	
 	if latestPackage[:version] == localPackage[:version] {
-		@package+" "+type+" is up to date"
+		@crlf+package+" "+type+" is up to date"
 		__exit__
 	}
 	
