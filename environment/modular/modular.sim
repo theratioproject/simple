@@ -165,6 +165,8 @@ block downlaodPackage(allDownloadablePackages)
 	
 block getSupportingModulesInfo(initialPackage)
 	allDownloadablePackages = [initialPackage]
+	
+	allDownloadablePackages[:downloadSize] = "6.04 MB"
 	return allDownloadablePackages
 	
 block loadPackageAndDep()
