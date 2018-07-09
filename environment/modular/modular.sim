@@ -100,8 +100,12 @@ block main()
 	else 
 		@package+" | type : "+type+" | version : "+version+" | os : "+ostype
 		#@getSystemEnvironment("SIMPLE_MODULE_PATH")+"/modules-dependencies.conf"
-		depConf = new File(getSystemEnvironment("SIMPLE_MODULE_PATH")+"/modules-dependencies.conf")
-		if !depConf.exists() { @"error: module configuration file cannot be found" __exit__ }
+		depConf = new File(getSystemEnvironment("SIMPLE_MODULE_PATH")+"/modules-dependencies.confs")
+		if !depConf.exists() { 
+			@"error: module configuration file cannot be found" 
+			@"module install failed. "
+			__exit__ 
+		}
 		
 		moduleAndEnviron(depConf)
 	}
