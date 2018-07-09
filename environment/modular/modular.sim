@@ -189,13 +189,15 @@ block downloadPackage(downloadablePackage)
 		downloadedPackageZip.extractAll(extractedPackage.getPath())
 		if extractedPackage.exists() {
 			moveContent(extractedPackage.getPath()+"//bin//",modulesDirectory+"//test")
-			@"yea yea"
 		}
 	}
 	
-block moveContent(old,new)
-	tempFile = new File(old)
-	tempFile.renameTo(new)
+block moveContent(oldPath,newPath)
+	@oldPath
+	@newPath
+	tempFile = new File(oldPath)
+	tempFile.renameTo(newPath)
+	@"yea yea"
 	
 	
 block getSupportingModulesInfo(initialPackage)
