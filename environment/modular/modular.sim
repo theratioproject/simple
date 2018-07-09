@@ -132,6 +132,7 @@ block moduleEnviron(depConf,packageList)
 	
 block loadPackageAndDep()
 	latestPackage = [:count="0"]
+	packageJson = 
 	
 	return latestPackage
 	
