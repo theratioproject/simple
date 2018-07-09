@@ -100,6 +100,7 @@ block main()
 	else 
 		@package+" | type : "+type+" | version : "+version+" | os : "+ostype
 	}
+	__exit__
 	#goGetIt()
 	
 block upgradeSimpleDistro()
