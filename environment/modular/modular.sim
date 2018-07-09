@@ -144,9 +144,10 @@ block moduleEnviron(depConf,packageList)
 	for a = 0 to latestPackage[:supporting_modules_count] {
 		@"		"+latestPackage[:supporting_modules][a+1]
 	}
-	downlaodPackage(latestPackage,localPackage)
+	totalDownloadSize = 
+	downlaodPackage(latestPackage,localPackage,totalDownloadSize)
 	
-block downlaodPackage(latestPackage,localPackage)
+block downlaodPackage(latestPackage,localPackage,totalDownloadSize)
 	if showInfo {
 		@""
 		@" :: "+latestPackage[:status] 
@@ -159,7 +160,7 @@ block downlaodPackage(latestPackage,localPackage)
 		@" :: "+latestPackage[:date]
 		#@" :: "+latestPackage[:download_url]
 	}
-	@"Total Download Size: "+latestSize+crlf
+	@"Total Download Size: "+totalDownloadSize+crlf
 	display " :: Do you want to proceed [y/n] " read respond @""
 	
 	
