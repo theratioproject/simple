@@ -132,8 +132,10 @@ block moduleEnviron(depConf,packageList)
 	@"resolving dependencies..."
 	#loading bar here
 	latestPackage = loadPackageAndDep()
-	@crlf+"packages ("+(latestPackage[:supporting_modules_count]+2)+")	"+package
-	@"			"
+	@"packages ("+(latestPackage[:supporting_modules_count]+2)+")	"+package
+	for a = 0 to latestPackage[:supporting_modules_count] {
+		@"			"+latestPackage[:supporting_modules][a+1]
+	}
 	@crlf
 	downlaodPackage(latestPackage)
 	
