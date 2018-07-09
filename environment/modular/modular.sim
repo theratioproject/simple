@@ -178,8 +178,8 @@ block downloadPackage(downloadablePackage)
 	downloadedPackage.saveLocation(modulesDirectory+hash(package)+".zip")
 	downloadedPackage.execute()
 	if downloadedPackage.exists() {
+		__extract_zip_entry(downloadedPackage.absolutePath(),"s0.3.36")
 		@"yea yea"
-		__extract_zip_entry(downloadedPackage.absolutePath(),"module")
 	}
 	
 	
