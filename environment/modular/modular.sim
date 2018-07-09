@@ -177,7 +177,7 @@ block downloadPackage(downloadablePackage)
 	downloadedPackage = new Download(downloadablePackage[:download_url])
 	downloadedPackage.saveLocation(modulesDirectory+hash(package)+".zip")
 	downloadedPackage.execute()
-	if downloadablePackage.exists() {
+	if downloadedPackage.exists() {
 		@"yea yea"
 	}
 	
