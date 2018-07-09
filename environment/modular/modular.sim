@@ -105,6 +105,8 @@ block main()
 
 block moduleAndEnviron()
 	@"Preparing to install package: "+package+" - "+type+" "+version
+	@"checking local version of "+package
+	
 	@"resolving dependencies..."
 	
 block upgradeSimpleDistro()
