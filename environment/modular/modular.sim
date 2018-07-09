@@ -108,7 +108,8 @@ block main()
 			__exit__ 
 		}
 		executeCode(depConf.readFileAsString())
-		moduleEnviron(depConf,modulesList)
+		if type == "module" { packageList = modulesList else packageList = environmentList }
+		moduleEnviron(depConf,packageList)
 	}
 	__exit__
 
