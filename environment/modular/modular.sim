@@ -113,12 +113,12 @@ block main()
 	}
 	__exit__
 
-block moduleEnviron(depConf)
+block moduleEnviron(depConf,packageList)
 	@"checking locally installed version of "+package+"..."
-	for a = 0 to lengthOf(modulesList) {
-		if modulesList[a][:name] == package {
-			@"local package: "+package+" "+type+" "+modulesList[a][:version]
-			if modulesList[a][:version] == version {
+	for a = 0 to lengthOf(packageList) {
+		if packageList[a][:name] == package {
+			@"local package: "+package+" "+type+" "+packageList[a][:version]
+			if packageList[a][:version] == version {
 				@"installed "+type+" "+package+" is up to date"
 				@"Modular operation completed"
 				__exit__
