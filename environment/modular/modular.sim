@@ -52,28 +52,25 @@ simpleTitle = "
                                                                                                          | 
 "
 
-
-simpleUpdateUrl = "http://localhost/simple-lang/modular/simple-lang-upgrade.sim"
+verifierUrl = "https://www.simple-lang.sourceforge.net/verifiers"
+modularUrl = "http://localhost/simple-lang/modular/"
+simpleUpdateUrl = modularUrl+"simple-lang-upgrade.sim"
+packageUrl = modularUrl+"package-installer.sim"
 simpleDistDirectory = "/bin/"
+
+deleteTemp = true
+
 if isWindows() {
 	simpleDistDirectory = "C:\Simple\"
 elif isLinux()
 
 }
 
-TYPE = 1 #1 for get and 0 for update
-DOWNLOAD_PATH = "C:\\Simple\\s"+getSimpleVersion()+"\\modules\\"
-MODULE_JSON_URL = "https://raw.githubusercontent.com/simple-lang/environment/master/modular/modules-dependencies.json"
-ENVIRONMENT_JSON_URL = "" 
-JSON_CONTENT  = ""
-
-verifierUrl = "https://www.simple-lang.sourceforge.net/verifiers"
 cmdlen = lengthOf(cmdparams)
 type = "whichever"
 package = ""
 version = "latest"
 ostype = "auto-detect"
-deleteTemp = true
 
 #error messages
 PLATFORM_UNAVAILABLE = "This package is not available for your operating system" 
@@ -93,6 +90,9 @@ block main()
 		elif stringEquals(cmdparams[a],"-v",false) or stringEquals(cmdparams[a],"--version",false) version = cmdparams[a++]  
 		elif stringEquals(cmdparams[a],"-os",false) or stringEquals(cmdparams[a],"--system",false) ostype = cmdparams[a++]  
 		elif stringEquals(cmdparams[a],"--upgrade",false) or stringEquals(cmdparams[a],"--update",false) or stringEquals(cmdparams[a],"-u",false) type = "upgrade" break
+		#Others
+		elif stringEquals(cmdparams[a],"-p",false) or stringEquals(cmdparams[a],"--path",false) simpleDistDirectory = cmdparams[a++] @simpleDistDirectory
+		elif stringEquals(cmdparams[a],"-t",false) or stringEquals(cmdparams[a],"--temp",false) deleteTemp = false
 		else package = cmdparams[a] end
 	}
 	if type == "upgrade" {
@@ -123,7 +123,7 @@ block upgradeSimpleDistro()
 			__exit__
 		else 
 			@"Total Download Size: "+latestSize+crlf
-			display " :: Do you want to proceed [y/n] " read respond
+			display " :: Do you want to proceed [y/n] " read respond @""
 			if respond == "y" {
 				@"Downloading simple-lang: "+latestCodename
 				downloadedFile = download(latestDownloadUrl)
@@ -138,7 +138,7 @@ block upgradeSimpleDistro()
 					if latestInstalledDir.exists() {
 						@"simple-lang upgraded from "+localVersion+" to "+latestVersion
 					}
-					if latestSimple.exists() { latestSimple.delete() }
+					removeTempFiles([latestSimple])
 				else
 					@"Upgrade failed. Stopping upgrade"
 				} 
@@ -146,6 +146,13 @@ block upgradeSimpleDistro()
 				@"Stopping upgrade..."
 				__exit__
 			}
+		}
+	}
+	
+block removeTempFiles(files)
+	if deleteTemp {
+		for a = 0 to lengthOf(files) {
+			if files[a].exists() { files[a].delete() }
 		}
 	}
 	
