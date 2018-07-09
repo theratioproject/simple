@@ -128,10 +128,10 @@ block moduleEnviron(depConf,packageList)
 			}
 		}
 	}
-	@"resolving dependencies..."+crlf
+	@"resolving dependencies..."
 	#loading bar here
 	latestPackage = loadPackageAndDep()
-	display "packages ("+latestPackage[:count]+") "
+	display crlf+"packages ("+latestPackage[:count]+") "
 	
 block loadPackageAndDep()
 	latestPackage = [:count="0"]
