@@ -159,7 +159,8 @@ block downlaodPackage(latestPackage,localPackage)
 		@" :: "+latestPackage[:date]
 		#@" :: "+latestPackage[:download_url]
 	}
-	
+	@"Total Download Size: "+latestSize+crlf
+	display " :: Do you want to proceed [y/n] " read respond @""
 	
 	
 	
