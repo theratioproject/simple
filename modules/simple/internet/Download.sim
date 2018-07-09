@@ -26,21 +26,20 @@ class Download : File
 	
 	/* STRING */
 	DOWNLOAD_URL = "" #Empty url 
-	DOWNLAOD_SAVE_LOCATION = "" #Where the file will be saved on your computer
+	#__FILE_PATH = "" #Where the file will be saved on your computer
 
 	block Download(url)
 		DOWNLOAD_URL = url
 		
 	block execute()
 		DOWNLOAD_CONTENT = __curl_download(DOWNLOAD_URL)
-		if isStringEmpty(DOWNLAOD_SAVE_LOCATION) 
-			DOWNLAOD_SAVE_LOCATION = url
+		if isStringEmpty(__FILE_PATH) 
+			__FILE_PATH = url
 		end
-		f = new File(DOWNLAOD_SAVE_LOCATION) 
-		f.write(DOWNLOAD_CONTENT)
+		write(DOWNLOAD_CONTENT)
 		
 	block saveLocation(location)
-		DOWNLAOD_SAVE_LOCATION = location
+		__FILE_PATH = location
 		
 	block setSaveDirectory(dir)
 		DOWNLAOD_SAVE_DIR = dir
