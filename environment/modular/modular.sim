@@ -109,7 +109,7 @@ block moduleAndEnviron()
 	@getSystemEnvironment("SIMPLE_MODULE_PATH")+"/modules-dependencies.conf"
 	depConf = new File(getSystemEnvironment("SIMPLE_MODULE_PATH")+"/modules-dependencies.conf")
 	executeCode(depConf.readFileAsString())
-	@modulesList[package]
+	@modulesList[:package]
 	@"resolving dependencies..."
 	
 block upgradeSimpleDistro()
