@@ -99,6 +99,8 @@ block main()
 		upgradeSimpleDistro()
 	else 
 		@package+" | type : "+type+" | version : "+version+" | os : "+ostype
+		depConf = new File(getSystemEnvironment("SIMPLE_MODULE_PATH")+"/modules-dependencies.conf")
+		if !depConf.exists() { @"error: module configuration file cannot be found" }
 		moduleAndEnviron()
 	}
 	__exit__
