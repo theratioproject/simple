@@ -140,6 +140,7 @@ block loadPackageAndDep()
 		@"Internet connection is required to upgrade simple-lang"
 		__exit__
 	}
+	packageObject = new JsonObject(packageJson)
 	
 	return latestPackage
 	
