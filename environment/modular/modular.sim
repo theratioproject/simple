@@ -101,13 +101,12 @@ block main()
 		#@package+" | type : "+type+" | version : "+version+" | os : "+ostype
 		#@getSystemEnvironment("SIMPLE_MODULE_PATH")+"/modules-dependencies.conf"
 		@"Preparing to install package: "+package+" - "+type+" "+version
-		depConf = new File(getSystemEnvironment("SIMPLE_MODULE_PATH")+"/modules-dependencies.confs")
+		depConf = new File(getSystemEnvironment("SIMPLE_MODULE_PATH")+"/modules-dependencies.conf")
 		if !depConf.exists() { 
 			@"error occur modules configuration file cannot be found" 
 			@"module install failed. "
 			__exit__ 
 		}
-		
 		moduleAndEnviron(depConf)
 	}
 	__exit__
@@ -117,10 +116,10 @@ block moduleAndEnviron(depConf)
 	executeCode(depConf.readFileAsString())
 	for a = 0 to lengthOf(modulesList) {
 		if modulesList[a][:name] == package {
-			@" :: local package: "+package+" "+type+" "+modulesList[a][:version]
+			@"	:: local package: "+package+" "+type+" "+modulesList[a][:version]
 		}
 	}
-	@"resolving dependencies..."
+	@"	:: resolving dependencies..."
 	
 block upgradeSimpleDistro()
 	@"Preparing to upgrade simple-lang, environments and modules"
