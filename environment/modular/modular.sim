@@ -148,7 +148,7 @@ block downlaodPackage(latestPackage)
 	#@" :: "+latestPackage[:download_url]
 	
 block loadPackageAndDep()
-	latestPackage = [:count="0"]
+	latestPackage = []
 	@"looking up "+packageUrl
 	packageJson = download(packageUrl+"?package="+package+"&type="+type+"&version="+version+"&os="+ostype)
 	if packageJson == null {
@@ -179,6 +179,7 @@ block loadPackageAndDep()
 		latestPackageSM = packageObject.getObject("supporting_modules").getStringContent()
 		latestPackageSM = stringSplit(latestPackageSM," ")
 	latestPackage[:supporting_modules] = latestPackageSM
+	latestPackage[:supporting_modules_count] = lengthOf(latestPackageSM)
 	
 	return latestPackage
 	
