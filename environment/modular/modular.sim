@@ -156,7 +156,7 @@ block loadPackageAndDep()
 		__exit__
 	}
 	latestPackage[:status] = packageObject.getObject("status").getStringContent()
-	latestPackage[:status] = packageObject.getObject("status").getStringContent()
+	latestPackage[:name] = packageObject.getObject("name").getStringContent()
 	@latestPackage[:status]
 	
 	return latestPackage
