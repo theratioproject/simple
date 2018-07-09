@@ -158,8 +158,14 @@ block loadPackageAndDep()
 	latestPackage[:status] = packageObject.getObject("status").getStringContent()
 	latestPackage[:name] = packageObject.getObject("name").getStringContent()
 	latestPackage[:description] = packageObject.getObject("description").getStringContent()
+	latestPackage[:author] = packageObject.getObject("author").getStringContent()
+	latestPackage[:version] = packageObject.getObject("version").getStringContent()
+	latestPackage[:author] = packageObject.getObject("author").getStringContent()
 	@" :: "+latestPackage[:status] 
 	@" :: "+latestPackage[:name]
+	@" :: "+latestPackage[:description]
+	@" :: "+latestPackage[:author]
+	@" :: "+latestPackage[:description]
 	@" :: "+latestPackage[:description]
 	
 	return latestPackage
