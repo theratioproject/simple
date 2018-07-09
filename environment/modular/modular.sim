@@ -145,15 +145,14 @@ block moduleEnviron(depConf,packageList)
 		@"		"+latestPackage[:supporting_modules][a+1]
 	}
 	allDownloadablePackages = getSupportingModulesInfo(latestPackage)
-	downlaodPackages(allDownloadablePackages)
+	downloadPackages(allDownloadablePackages)
 	
 block downloadPackages(allDownloadablePackages)
-	@"Total Download Size: "+allDownloadablePackages[:downloadSize]+crlf
+	@crlf+"Total Download Size: "+allDownloadablePackages[:downloadSize]+crlf
 	display " :: Do you want to proceed [y/n] " read respond @""
 	
-block downlaodPackage(downloadablePackage)
+block downloadPackage(downloadablePackage)
 	if showInfo {
-		@""
 		@" :: "+downloadablePackage[:status] 
 		@" :: "+downloadablePackage[:name]
 		@" :: "+downloadablePackage[:description]
