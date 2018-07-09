@@ -60,6 +60,7 @@ packageUrl = modularUrl+"package-installer.sim"
 simpleDistDirectory = "/bin/"
 
 modulesDirectory = getSystemEnvironment("SIMPLE_MODULE_PATH")
+#blocks to find modules path
 
 deleteTemp = true
 showInfo = false
@@ -173,8 +174,8 @@ block downloadPackage(downloadablePackage)
 		@" :: "+downloadablePackage[:website]
 		@" :: "+downloadablePackage[:date]
 	}
-	downloadedPackage = new Download("https://raw.githubusercontent.com/simple-lang/simple/master/README.MD")
-	downloadedPackage.saveLocation(downloadablePackage[:download_url])
+	downloadedPackage = new Download(downloadablePackage[:download_url])
+	downloadedPackage.saveLocation(modulesDirectory)
 	downloadedPackage.execute()
 	
 	
