@@ -143,11 +143,11 @@ block moduleEnviron(depConf,packageList)
 	for a = 0 to latestPackage[:supporting_modules_count] {
 		@"		"+latestPackage[:supporting_modules][a+1]
 	}
-	@crlf
 	downlaodPackage(latestPackage,localPackage)
 	
 block downlaodPackage(latestPackage,localPackage)
-	if showInfo {
+	if !showInfo {
+		@""
 		@" :: "+latestPackage[:status] 
 		@" :: "+latestPackage[:name]
 		@" :: "+latestPackage[:description]
