@@ -126,7 +126,8 @@ block moduleInstall(depConf)
 			}
 		}
 	}
-	@"resolving dependencies..."
+	@"resolving dependencies..."+crlf
+	latestPackagesCount = 21
 	display "packages ("+latestPackagesCount+") "
 	
 	
