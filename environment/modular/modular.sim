@@ -107,11 +107,13 @@ block main()
 			@"module install failed. "
 			__exit__ 
 		}
-		moduleAndEnviron(depConf)
+		if type == "module" {
+			moduleInstall(depConf)
+		}
 	}
 	__exit__
 
-block moduleAndEnviron(depConf)
+block moduleInstall(depConf)
 	@"checking locally installed version of "+package+"..."
 	executeCode(depConf.readFileAsString())
 	for a = 0 to lengthOf(modulesList) {
