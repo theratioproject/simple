@@ -111,7 +111,7 @@ block moduleAndEnviron()
 	executeCode(depConf.readFileAsString())
 	for a = 0 to lengthOf(modulesList) {
 		if modulesList[a][:name] == package {
-			@" :: local "+package+" "+type+" "+modulesList[a][:version]
+			@" :: local package: "+package+" "+type+" "+modulesList[a][:version]
 		}
 	}
 	@"resolving dependencies..."
