@@ -136,11 +136,12 @@ block moduleEnviron(depConf,packageList)
 block loadPackageAndDep()
 	latestPackage = [:count="0"]
 	packageJson = download(packageUrl+"?package="+package+"&type="+type+"&version="+version+"&os="+ostype)
-	if packageJson == "" {
+	if packageJson == null {
 		@"Internet connection is required to upgrade simple-lang"
 		__exit__
 	elif stringContains(packageJson, "Not Found") 
-	
+		@"The update link is broken please report this to <whatisthis914@gmail.com>"
+		__exit__
 	}
 	@packageJson
 	packageObject = new JsonObject(packageJson)
@@ -157,6 +158,9 @@ block upgradeSimpleDistro()
 	upgradeJson = download(simpleUpdateUrl+"?os=Windows%2032") #encode(getOS())
 	if upgradeJson == null {
 		@"Internet connection is required to upgrade simple-lang"
+	elif stringContains(upgradeJson, "Not Found") 
+		@"The upgrade link is broken please report this to <whatisthis914@gmail.com>"
+		__exit__
 	else 
 		upgradeObject = (new JsonObject(upgradeJson))
 		latestVersion = upgradeObject.getObject("latest_version").getStringContent()
