@@ -150,7 +150,10 @@ block downlaodPackage(latestPackage)
 	@" :: "+latestPackage[:date]
 	#@" :: "+latestPackage[:download_url]
 	
-	if latestPackage[:version] == packageList[a][:version]
+	if latestPackage[:version] == packageList[a][:version] {
+		@package+" "+type+" is up to date"
+		__exit__
+	}
 	
 	
 block loadPackageAndDep()
