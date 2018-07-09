@@ -53,8 +53,8 @@ simpleTitle = "
 "
 
 verifierUrl = "https://www.simple-lang.sourceforge.net/verifiers"
-addPackageUrl = 
 modularUrl = "http://localhost/simple-lang/modular/"
+addPackageUrl = modularUrl+"add-package.sim"
 simpleUpdateUrl = modularUrl+"simple-lang-upgrade.sim"
 packageUrl = modularUrl+"package-installer.sim"
 simpleDistDirectory = "/bin/"
