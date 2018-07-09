@@ -179,6 +179,7 @@ block downloadPackage(downloadablePackage)
 	downloadedPackage.execute()
 	if downloadedPackage.exists() {
 		@"yea yea"
+		__extract_zip_entry(downloadedPackage.absolutePath(),"module")
 	}
 	
 	
