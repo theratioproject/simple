@@ -188,7 +188,7 @@ block downloadPackage(downloadablePackage)
 		extractedPackage = new Directory(modulesDirectory+hash(package))
 		downloadedPackageZip.extractAll(extractedPackage.getPath())
 		if extractedPackage.exists() {
-			moveContent(extractedPackage.getPath()+"//"+package+"//bin//simple.exe",modulesDirectory+"test")
+			moveContent(extractedPackage.getPath()+"//"+hash(package)+"//s0.3.36//bin//simple.exe",modulesDirectory+"test")
 		}
 	}
 	
