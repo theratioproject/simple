@@ -145,7 +145,6 @@ block loadPackageAndDep()
 		@"The update link is broken please report this to <whatisthis914@gmail.com>"
 		__exit__
 	}
-	@packageJson
 	packageObject = new JsonObject(packageJson)
 	latestPackage[:value] = packageObject.getObject("value").getStringContent()
 	latestPackage[:message] = packageObject.getObject("message").getStringContent()
