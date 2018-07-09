@@ -104,7 +104,7 @@ block main()
 	__exit__
 
 block moduleAndEnviron()
-	@"Preparing to install latest "+package
+	@"Preparing to install latest package: "+package
 	
 block upgradeSimpleDistro()
 	@"Preparing to upgrade simple-lang, environments and modules"
