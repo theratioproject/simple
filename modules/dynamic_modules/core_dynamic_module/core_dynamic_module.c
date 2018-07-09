@@ -36,12 +36,28 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
 	/* Error and Warn */
     register_block("__throw",error_throw);
     register_block("__stack_trace",error_stack_trace);
+    register_block("__warn",error_warn);
     /* Conversion */
     register_block("stringToCHex",conversion_string_to_chex);
     register_block("stringToList",conversion_string_to_list);
 }
 
-void error_stack_trace(void *pointer)
+SIMPLE_API void error_warn(void *pointer)
+{
+	if ( SIMPLE_API_PARACOUNT != 1 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
+		return ;
+	}
+	if ( SIMPLE_API_ISSTRING(1) ) {
+		if (((VM *) pointer)->sState->nWarning) 
+			printf("%s",SIMPLE_API_GETSTRING(1));
+		return;
+	} else {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+	}
+}
+
+SIMPLE_API void error_stack_trace(void *pointer)
 {
 	String *string,*string2;
 	List *list, *list2;
@@ -127,22 +143,25 @@ void error_stack_trace(void *pointer)
 	}
 }
 
-void error_throw(void *pointer)
+SIMPLE_API void error_throw(void *pointer)
 {
 	if ( SIMPLE_API_PARACOUNT != 1 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
 		return ;
 	}
 	if ( SIMPLE_API_ISSTRING(1) ) {
-		((VM *) pointer)->sState->skip_error = 1;
+		if (((VM *) pointer)->sState->skip_error == 0) 
+			((VM *) pointer)->sState->skip_error = 1;
 		SIMPLE_API_ERROR(SIMPLE_API_GETSTRING(1));
-		((VM *) pointer)->sState->skip_error = 0;
+		if (((VM *) pointer)->sState->skip_error == 1) 
+			((VM *) pointer)->sState->skip_error = 0;
+		return;
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
 }
 
-void conversion_string_to_chex ( void *pointer )
+SIMPLE_API void conversion_string_to_chex ( void *pointer )
 {
 	char str[3]  ;
 	unsigned char *cString  ;
@@ -184,7 +203,7 @@ void conversion_string_to_chex ( void *pointer )
 	}
 }
 
-void conversion_string_to_list ( void *pointer )
+SIMPLE_API void conversion_string_to_list ( void *pointer )
 {
 	char *str  ;
 	int x,size,start  ;

@@ -1,13 +1,13 @@
 /* 
-	Copyright (c) 2016-2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	Copyright (c) 2016-2018 Azeez Adewale <azeezadewale98@gmail.com> 
 	MIT License Copyright (c) 2018 simple 
 
 */
 
 /* 
- * #filename - Console.sim
- * #author - thecarisma
- * #date - 5 Febuary 2017
+ * @filename - Console.sim
+ * @author - Azeez Adewale
+ * @date - 5 Febuary 2017
  */
  
 module simple.utilities
@@ -21,11 +21,13 @@ Console = new Console
 #a character that move caret to start of line or simply clear line
 $__clearLine = char(13)
 
-#This block is Most useful for exiting the program/application at any level 
-#during the development of the GUI(fulltick) library using @Var __exit__ 
-#failed to execute in callbacks due to the fact that the callback block
-#is executed as a virtual method in the library. This block give no regard
-#to the program execution level at all and close the program at once
+/*
+	This block is Most useful for exiting the program/application at any level 
+	during the development of the GUI(fulltick) library using @Var __exit__ 
+	failed to execute in callbacks due to the fact that the callback block
+	is executed as a virtual method in the library. This block give no regard
+	to the program execution level at all and close the program at once
+*/
 block exit(value)
 	__exit(value)
 	

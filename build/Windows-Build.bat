@@ -308,9 +308,9 @@ if !EXEC_TYPE!=="dymodules-only-install" (
 if !EXEC_TYPE!=="dymodules-only-debug" (
 	SET EXEC_TYPE="debug"
 	call:header install "install simple-lang %VERSION%"
-	call:buildsimpledllexe
+	REM call:buildsimpledllexe
 	call:builddynamicmodules
-	call:copydynamicmodules
+	REM call:copydynamicmodules
 	call:removedistfolders
 )
 	:: configure and install for now
@@ -658,19 +658,26 @@ REM BULDING DYNAMIC LIBRARIES
 		call:builddymodule c core_dynamic_module
 		call:builddymodule c file_savant
 		call:builddymodule c mathic
-		REM call:builddymodule cpp fulltick
-		REM failed call:builddymodule c parser
+		call:builddymodule cpp fulltick
+		call:builddymodule c parser
 		call:builddymodule c string_savant
 		call:builddymodule c systemic
 		if exist "%~dp0\..\modules\dynamic_modules\networker\lib\libcurl!ARC!.lib" (
 			copy "%~dp0\..\modules\dynamic_modules\networker\lib\libcurl!ARC!.lib" "%~dp0\..\simple\dist\"
 			call:builddymodule c networker libcurl!ARC!.lib
-			REM call:builddymodule c security libeay!ARC!.lib ssleay!ARC!.lib
+			call:deletetempfiles ..\simple\dist\libcurl!ARC!.lib
+		)
+		if exist "%~dp0\..\modules\dynamic_modules\security\bin\libeay!ARC!.lib" (
+			copy "%~dp0\..\modules\dynamic_modules\security\bin\libeay!ARC!.lib" "%~dp0\..\simple\dist\"
+			copy "%~dp0\..\modules\dynamic_modules\security\bin\ssleay!ARC!.lib" "%~dp0\..\simple\dist\"
+			call:builddymodule c security libeay!ARC!.lib ssleay!ARC!.lib
+			call:deletetempfiles ..\simple\dist\libeay!ARC!.lib ..\simple\dist\ssleay!ARC!.lib
 		)
 		
 		call:confirmfolderelsecreate "..\modules\dynamic_modules\dist\"
 		move *.lib "..\modules\dynamic_modules\dist\"
 		move *.dll "..\modules\dynamic_modules\dist\"
+		call:deletetempfiles ..\modules\dynamic_modules\dist\*.lib
 	) else (
 		if exist "..\modules" (
 			cd "..\modules"
@@ -947,7 +954,12 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 :getdynamicmodulefiles 
 	if exist "..\modules\dynamic_modules\" (
 		SET DY_MODULE_INCLUDE_DIR="%~dp0\..\modules\dynamic_modules\%2\"
-		SET DY_MODULE_FILES="%~dp0\..\modules\dynamic_modules\%2\*.%1"
+		if "%2"=="parser" (
+			SET "DY_MODULE_FILES=%~dp0\..\modules\dynamic_modules\%2\*.%1 %~dp0\..\modules\dynamic_modules\%2\includes\*.%1"
+		) else (
+			SET DY_MODULE_FILES="%~dp0\..\modules\dynamic_modules\%2\*.%1"
+		)
+		
 	) else (
 		call:repocurrupterror dynamic_modules
 	)

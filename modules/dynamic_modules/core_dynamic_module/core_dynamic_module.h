@@ -23,14 +23,16 @@ SIMPLE_API void init_simple_module(SimpleState *sState) ;
 
 /* Error and Warn */
 
-void error_stack_trace(void *pointer);
+SIMPLE_API void error_warn(void *pointer);
 
-void error_throw(void *pointer);
+SIMPLE_API void error_stack_trace(void *pointer);
+
+SIMPLE_API void error_throw(void *pointer);
 
 /* Conversion */
-void conversion_string_to_chex ( void *pointer ) ;
+SIMPLE_API void conversion_string_to_chex (void *pointer) ;
 
-void conversion_string_to_list ( void *pointer ) ;
+SIMPLE_API void conversion_string_to_list (void *pointer) ;
 
 #ifdef __cplusplus
 }

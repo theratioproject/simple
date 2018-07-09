@@ -87,10 +87,13 @@ block exeFolder()
 	return getSystemEnvironment("SIMPLE_PATH")+'/'
 	
 #FILE
+block openFile1()
+	setLookAndFeel(PLASTIC_SCHEME)
+	open = new Test open.openFile() open.render()
 
 block newFile() editor file = null
 block open() 
-	# Working on it .. Nothing yet.
+	openFile1()
 block save() file
 	if ( file == null )
 		# openFile1()
@@ -156,3 +159,28 @@ block notifyMenu(con)
 		menuBar.mode(24,0) #debug
 	end
 
+class Test : FWindow : File : FTextEditor
+		fileName = new FInput("./") fileName.setWidth(200) fileName.setPosition(10,10)
+		openButton = new FButton("Open")
+		openButton.setPosition(200,10).callback('changeDir()')
+		fb = new FFileListBox() fb.setFileType(FILES_TYPE).setIconSize(60)
+		fb.setPosition(10,50).setSize(340,340)
+		fb.callback("selected()")
+		addWidget([fileName,openButton,fb])
+		# window = new FWindow()
+		# window.setTitle("Open File")
+		# window.setSize(400,500)
+		# window.setBackground(FColor.WHITE())
+		# window.show()	
+
+		block render()
+			setTitle('Open File').setSize(360, 400)
+			show()
+
+		block openFile()
+			file = new File(fileName.getText())
+			editor = new FTextEditor
+			editor.setText(fileName.getText())
+
+block changeDir() fb.loadDirectory(fileName.getText()) fb.select(0)
+block selected() display "Select : "+fb.index()+". Value : "+fb.getSelectedText() + crlf

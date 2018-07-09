@@ -23,7 +23,9 @@ block main()
 	errorList = [
 		"ERROR NOT VALID ",
 		"",
-		"This file cannot be found in the directory"
+		"This file cannot be found in the directory",
+		"This is the title",
+		"Error occur and it thrown With title in index [2]"
 	]
 
 	for a = 0 to getTypeLength(errorList) {
@@ -33,13 +35,38 @@ block main()
 	four()
 	
 	/*
+		The throwWithTitle() block are used to create an error with a custom 
+		title and message
+	*/
+	#throwWithTitle(errorList[3],errorList[4])
+	throwOnlyWithTitle(errorList[3],errorList[4])
+	
+	/*
+		Now we go ahead to warn
+		Warning is only possible if simple-lang is executed with 
+			-w or --warning flag
+		if it now executed with the flags then the error is never displayed
+		to force error to show use the throwOnly(errrovalue) block instead
+	*/
+	warn("This is a warning you see this if executed with -w")
+	warn("This is a warning you see this if executed with --warining")
+	warn("Final Warning")
+	
+	/*
+		Assertion : only boolean and number is asserted
+	*/
+	#assert("string not assert able") #fails
+	#assert((true == false)) #fails
+	assert((1 > -300)) #pass
+	
+	/*
 		Now we catch an error in one of the error thrown above
 	*/
 	try {
 		one(errorList[2])
 	catch
-		@"This error was catched |> " @ __err__ 
-		@"<<<"
+		@" "+crlf
+		@"This error was catched |> " + __err__ + " <<<"
 	}
 
 block one(a)

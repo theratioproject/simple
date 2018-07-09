@@ -15,10 +15,10 @@ call "simple/utilities/Console.sim"
 call "simple/core/String.sim"
 call "simple/internet/Download.sim"
 call "simple/io/File.sim"
+call "simple/io/Directory.sim"
 call "simple/utilities/parser/json/JsonObject.sim"
 call "simple/security/Hash.sim" ? simple.security
 call "archive/zip/Zip.sim" 
-call "archive/zip/ZipMode.sim"
 call "simple/system/System.sim"
 
 monkeyFace = '
@@ -52,6 +52,15 @@ simpleTitle = "
                                                                                                          | 
 "
 
+
+simpleUpdateUrl = "http://localhost/simple-lang/modular/simple-lang-upgrade.sim"
+simpleDistDirectory = "/bin/"
+if isWindows() {
+	simpleDistDirectory = "C:\Simple\"
+elif isLinux()
+
+}
+
 TYPE = 1 #1 for get and 0 for update
 DOWNLOAD_PATH = "C:\\Simple\\s"+getSimpleVersion()+"\\modules\\"
 MODULE_JSON_URL = "https://raw.githubusercontent.com/simple-lang/environment/master/modular/modules-dependencies.json"
@@ -60,8 +69,6 @@ JSON_CONTENT  = ""
 
 verifierUrl = "https://www.simple-lang.sourceforge.net/verifiers"
 cmdlen = lengthOf(cmdparams)
-isupdate = false
-isinstall = false
 type = "whichever"
 package = ""
 version = "latest"
@@ -75,23 +82,77 @@ STALL_PACKAGE = "This package is pending verification. "+crlf+"If you wish to jo
 INSTALLATION_UNATHORIZED = "Installation not authorized "+crlf+"DONE"
 
 block main()
-	if cmdlen <= 1 displayHelp() end
-	for a = 0 to cmdlen 
-		if stringEndsWith(cmdparams[a],"shell") or stringEndsWith(cmdparams[a],"su") shell() break
-		elif stringEndsWith(cmdparams[a],"help") or stringEndsWith(cmdparams[a],"h") displayHelp()
-		#Installation type
-		elif stringEndsWith(cmdparams[a],"update") or stringEndsWith(cmdparams[a],"u") or stringEndsWith(cmdparams[a],"upgrade") isupdate = true 
-		elif stringEndsWith(cmdparams[a],"get") or stringEndsWith(cmdparams[a],"download") or stringEndsWith(cmdparams[a],"install") isinstall = true 
+	if cmdlen <= 1 { displayHelp() }
+	for a = 0 to cmdlen {
+		if stringEquals(cmdparams[a],"--shell",false) or stringEquals(cmdparams[a],"-su",false) shell() break
+		elif stringEquals(cmdparams[a],"--help",false) or stringEquals(cmdparams[a],"-h",false) or stringEquals(cmdparams[a],"--h",false) displayHelp()
 		#Module or Environment
-		elif stringEndsWith(cmdparams[a],"environment") or stringEndsWith(cmdparams[a],"env") /*or stringEndsWith(cmdparams[a],"e") */ type = "environment"
-		elif stringEndsWith(cmdparams[a],"module") or stringEndsWith(cmdparams[a],"mod") /*or stringEndsWith(cmdparams[a],"m") */ type = "module"
+		elif stringEquals(cmdparams[a],"--env",false) or stringEquals(cmdparams[a],"-e",false) type = "environment"
+		elif stringEquals(cmdparams[a],"--mod",false) or stringEquals(cmdparams[a],"-m",false) type = "module"
 		#Version and Attribute
-		elif stringEndsWith(cmdparams[a],"v") or stringEndsWith(cmdparams[a],"version") version = cmdparams[a++]  
-		elif stringEndsWith(cmdparams[a],"os") or stringEndsWith(cmdparams[a],"system") ostype = cmdparams[a++] 
+		elif stringEquals(cmdparams[a],"-v",false) or stringEquals(cmdparams[a],"--version",false) version = cmdparams[a++]  
+		elif stringEquals(cmdparams[a],"-os",false) or stringEquals(cmdparams[a],"--system",false) ostype = cmdparams[a++]  
+		elif stringEquals(cmdparams[a],"--upgrade",false) or stringEquals(cmdparams[a],"--update",false) or stringEquals(cmdparams[a],"-u",false) type = "upgrade" break
 		else package = cmdparams[a] end
-	end
-	goGetIt()
+	}
+	if type == "upgrade" {
+		upgradeSimpleDistro()
+	else 
+		@package+" | type : "+type+" | version : "+version+" | os : "+ostype
+	}
+	#goGetIt()
 	
+block upgradeSimpleDistro()
+	@"Preparing to upgrade simple-lang, environments and modules"
+	@"Checking installed simple-lang version..."
+	localVersion = getSimpleVersion()
+	@"Installed version: "+localVersion 
+	upgradeJson = download(simpleUpdateUrl+"?os=Windows%2032") #encode(getOS())
+	if upgradeJson == null {
+		@"Internet connection is required to upgrade simple-lang"
+	else 
+		upgradeObject = (new JsonObject(upgradeJson))
+		latestVersion = upgradeObject.getObject("latest_version").getStringContent()
+		latestSize = upgradeObject.getObject("download_size").getStringContent()
+		latestDownloadUrl = upgradeObject.getObject("download_url").getStringContent()
+		latestCodename = upgradeObject.getObject("code_name").getStringContent()
+		latestExtensionType = upgradeObject.getObject("file_extension").getStringContent()
+		@"Latest version: "+latestVersion
+		if localVersion == latestVersion {
+			@"Your simple-lang installation is up to date"
+			__exit__
+		else 
+			@"Total Download Size: "+latestSize+crlf
+			display " :: Do you want to proceed [y/n] " read respond
+			if respond == "y" {
+				@"Downloading simple-lang: "+latestCodename
+				downloadedFile = download(latestDownloadUrl)
+				latestSimple = new File(simpleDistDirectory+hash(latestCodename)+"."+latestExtensionType)
+				latestSimple.write(downloadedFile)
+				if latestSimple.exists() {
+					latestSimpleZip = new Zip(latestSimple.absolutePath(), "r")
+					@"Extracting simple-lang "+latestVersion+" into "+simpleDistDirectory
+					latestSimpleZip.extractAll(simpleDistDirectory)
+					#latestSimpleZip.closeZip()
+					latestInstalledDir = new Directory(simpleDistDirectory+latestVersion)
+					if latestInstalledDir.exists() {
+						@"simple-lang upgraded from "+localVersion+" to "+latestVersion
+					}
+					if latestSimple.exists() { latestSimple.delete() }
+				else
+					@"Upgrade failed. Stopping upgrade"
+				} 
+			else
+				@"Stopping upgrade..."
+				__exit__
+			}
+		}
+	}
+	
+
+
+	
+#total re write	
 block goGetIt()
 	fetchInfo(package)
 	
@@ -204,7 +265,7 @@ block displayError(msg)
 
 block displayHelp()
 	help = "
-	
+		no help yet
 	"
 	display help __exit__
 	
