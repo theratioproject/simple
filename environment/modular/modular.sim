@@ -53,6 +53,7 @@ simpleTitle = "
 "
 
 verifierUrl = "https://www.simple-lang.sourceforge.net/verifiers"
+addPackageUrl = 
 modularUrl = "http://localhost/simple-lang/modular/"
 simpleUpdateUrl = modularUrl+"simple-lang-upgrade.sim"
 packageUrl = modularUrl+"package-installer.sim"
@@ -150,7 +151,8 @@ block loadPackageAndDep()
 	latestPackage[:message] = packageObject.getObject("message").getStringContent()
 	if latestPackage[:value] == "failed" {
 		@latestPackage[:message]
-		@"if you owned the module simply add it to the simple-lang package index"
+		@"if you owned the module simply add it to the simple-lang package index at "
+		@addPackageUrl
 		__exit__
 	}
 	latestPackage[:status] = packageObject.getObject("status").getStringContent()
