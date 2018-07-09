@@ -110,7 +110,9 @@ block moduleAndEnviron()
 	depConf = new File(getSystemEnvironment("SIMPLE_MODULE_PATH")+"/modules-dependencies.conf")
 	executeCode(depConf.readFileAsString())
 	for a = 0 to lengthOf(modulesList) {
-		if modulesList[a][:name]
+		if modulesList[a][:name] == package {
+			@" :: local "+package+" "+type+" "+modulesList[a][:version]
+		}
 	}
 	@"resolving dependencies..."
 	
