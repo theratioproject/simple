@@ -141,18 +141,21 @@ block moduleEnviron(depConf,packageList)
 	downlaodPackage(latestPackage,localPackage)
 	
 block downlaodPackage(latestPackage,localPackage)
-	@" :: "+latestPackage[:status] 
-	@" :: "+latestPackage[:name]
-	@" :: "+latestPackage[:description]
-	@" :: "+latestPackage[:author]
-	@" :: "+latestPackage[:version]
-	@" :: "+latestPackage[:license]
-	@" :: "+latestPackage[:website]
-	@" :: "+latestPackage[:date]
-	#@" :: "+latestPackage[:download_url]
+	if showInfo {
+		@" :: "+latestPackage[:status] 
+		@" :: "+latestPackage[:name]
+		@" :: "+latestPackage[:description]
+		@" :: "+latestPackage[:author]
+		@" :: "+latestPackage[:version]
+		@" :: "+latestPackage[:license]
+		@" :: "+latestPackage[:website]
+		@" :: "+latestPackage[:date]
+		#@" :: "+latestPackage[:download_url]
+	}
 	
 	if latestPackage[:version] == localPackage[:version] {
 		@crlf+package+" "+type+" is up to date"
+		@"Modular operation completed"
 		__exit__
 	}
 	
