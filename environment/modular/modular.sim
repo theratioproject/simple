@@ -149,7 +149,9 @@ block loadPackageAndDep()
 	latestPackage[:status] = packageObject.getObject("status").getStringContent()
 	latestPackage[:message] = packageObject.getObject("message").getStringContent()
 	if latestPackage[:status] == "failed" {
-		
+		@"the "+package+" "+type+" cannot be found "
+		@"if you owned the module simply add it to the simple-lang package index"
+		__exit__
 	}
 	latestPackage[:status] = packageObject.getObject("status").getStringContent()
 	latestPackage[:status] = packageObject.getObject("status").getStringContent()
