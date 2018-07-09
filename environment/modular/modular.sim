@@ -105,7 +105,7 @@ block main()
 
 block moduleAndEnviron()
 	@"Preparing to install package: "+package+" - "+type+" "+version
-	@"checking local version of "+package
+	@"checking locally installed version of "+package+"..."
 	@getSystemEnvironment("SIMPLE_MODULE_PATH")+"/modules-dependencies.conf"
 	depConf = new File(getSystemEnvironment("SIMPLE_MODULE_PATH")+"/modules-dependencies.conf")
 	executeCode(depConf.readFileAsString())
