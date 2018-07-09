@@ -135,6 +135,10 @@ block loadPackageAndDep()
 	packageJson = download(packageUrl+"?package="+package+"&type="+type+"&version="+version+"&os="+ostype)
 	@ostype
 	@packageJson
+	if packageJson == "" {
+		@"Internet connection is required to upgrade simple-lang"
+		__exit__
+	}
 	
 	return latestPackage
 	
