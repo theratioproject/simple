@@ -132,7 +132,19 @@ block moduleEnviron(depConf,packageList)
 	@"resolving dependencies..."
 	#loading bar here
 	latestPackage = loadPackageAndDep()
-	display crlf+"packages ("+latestPackage[:count]+") "
+	@ crlf+"packages ("+latestPackage[:count]+") "
+	downlaodPackage(latestPackage)
+	
+block downlaodPackage(latestPackage)
+	@" :: "+latestPackage[:status] 
+	@" :: "+latestPackage[:name]
+	@" :: "+latestPackage[:description]
+	@" :: "+latestPackage[:author]
+	@" :: "+latestPackage[:version]
+	@" :: "+latestPackage[:license]
+	@" :: "+latestPackage[:website]
+	@" :: "+latestPackage[:date]
+	@" :: "+latestPackage[:download_url]
 	
 block loadPackageAndDep()
 	latestPackage = [:count="0"]
