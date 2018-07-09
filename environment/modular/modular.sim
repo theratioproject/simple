@@ -95,6 +95,9 @@ block main()
 		elif stringEquals(cmdparams[a],"-t",false) or stringEquals(cmdparams[a],"--temp",false) deleteTemp = false
 		else package = cmdparams[a] end
 	}
+	if ostype == "auto-detect" {
+		ostype = getOS()
+	}
 	if type == "upgrade" {
 		upgradeSimpleDistro()
 	else 
@@ -133,8 +136,6 @@ block moduleEnviron(depConf,packageList)
 block loadPackageAndDep()
 	latestPackage = [:count="0"]
 	packageJson = download(packageUrl+"?package="+package+"&type="+type+"&version="+version+"&os="+ostype)
-	@ostype
-	@packageJson
 	if packageJson == "" {
 		@"Internet connection is required to upgrade simple-lang"
 		__exit__
