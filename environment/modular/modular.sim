@@ -146,7 +146,8 @@ block loadPackageAndDep()
 	}
 	@packageJson
 	packageObject = new JsonObject(packageJson)
-	
+	latestPackage[:status] = packageObject.getObject("status").getStringContent()
+	@latestPackage[:status]
 	
 	return latestPackage
 	
