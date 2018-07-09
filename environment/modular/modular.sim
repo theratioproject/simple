@@ -171,7 +171,9 @@ block downloadPackage(downloadablePackage)
 		@" :: "+downloadablePackage[:website]
 		@" :: "+downloadablePackage[:date]
 	}
-	downloadedPackage = download(downloadablePackage[:download_url])
+	downloadedPackage = new Download("https://raw.githubusercontent.com/simple-lang/simple/master/README.MD")
+	downloadedPackage.saveLocation(downloadablePackage[:download_url])
+	downloadedPackage.execute()
 	
 	
 block getSupportingModulesInfo(initialPackage)
