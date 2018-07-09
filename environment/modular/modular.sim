@@ -147,6 +147,12 @@ block loadPackageAndDep()
 	@packageJson
 	packageObject = new JsonObject(packageJson)
 	latestPackage[:status] = packageObject.getObject("status").getStringContent()
+	latestPackage[:message] = packageObject.getObject("message").getStringContent()
+	if latestPackage[:status] == "failed" {
+		
+	}
+	latestPackage[:status] = packageObject.getObject("status").getStringContent()
+	latestPackage[:status] = packageObject.getObject("status").getStringContent()
 	@latestPackage[:status]
 	
 	return latestPackage
