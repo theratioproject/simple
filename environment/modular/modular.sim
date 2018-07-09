@@ -147,10 +147,12 @@ block moduleEnviron(depConf,packageList)
 	allDownloadablePackages = getSupportingModulesInfo(latestPackage)
 	downlaodPackage(allDownloadablePackages)
 	
+block downloadPackages(allDownloadablePackages)
+	
 block downlaodPackage(allDownloadablePackages)
 	if showInfo {
 		@""
-		@" :: "+latestPackage[:status] 
+		@" :: "+downloadablePackage[:status] 
 		@" :: "+latestPackage[:name]
 		@" :: "+latestPackage[:description]
 		@" :: "+latestPackage[:author]
