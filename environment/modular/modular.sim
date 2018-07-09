@@ -146,10 +146,10 @@ block loadPackageAndDep()
 	}
 	@packageJson
 	packageObject = new JsonObject(packageJson)
-	latestPackage[:status] = packageObject.getObject("status").getStringContent()
+	latestPackage[:value] = packageObject.getObject("value").getStringContent()
 	latestPackage[:message] = packageObject.getObject("message").getStringContent()
-	if latestPackage[:status] == "failed" {
-		@"the "+package+" "+type+" cannot be found "
+	if latestPackage[:value] == "failed" {
+		@latestPackage[:message]
 		@"if you owned the module simply add it to the simple-lang package index"
 		__exit__
 	}
