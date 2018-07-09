@@ -164,8 +164,9 @@ block loadPackageAndDep()
 	latestPackage[:website] = packageObject.getObject("website").getStringContent()
 	latestPackage[:date] = packageObject.getObject("date").getStringContent()
 	latestPackage[:download_url] = packageObject.getObject("download_url").getStringContent()
-	latestPackageSM = packageObject.getObject("supporting_modules").getStringContent()
-	latestPackageSM = stringSplit(latestPackageSM," ")
+		latestPackageSM = packageObject.getObject("supporting_modules").getStringContent()
+		latestPackageSM = stringSplit(latestPackageSM," ")
+	latestPackage[:supporting_modules] = latestPackageSM
 	@" :: "+latestPackage[:status] 
 	@" :: "+latestPackage[:name]
 	@" :: "+latestPackage[:description]
@@ -175,7 +176,7 @@ block loadPackageAndDep()
 	@" :: "+latestPackage[:website]
 	@" :: "+latestPackage[:date]
 	@" :: "+latestPackage[:download_url]
-	@latestPackageSM
+	@" :: "+latestPackage[:supporting_modules]
 	
 	return latestPackage
 	
