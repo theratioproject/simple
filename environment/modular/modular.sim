@@ -139,8 +139,12 @@ block loadPackageAndDep()
 	if packageJson == "" {
 		@"Internet connection is required to upgrade simple-lang"
 		__exit__
+	elif stringContains(packageJson, "kkjkj") 
+	
 	}
+	@packageJson
 	packageObject = new JsonObject(packageJson)
+	
 	
 	return latestPackage
 	
