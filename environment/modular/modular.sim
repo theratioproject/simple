@@ -130,6 +130,9 @@ block moduleEnviron(depConf,packageList)
 	latestPackagesCount = 21
 	display "packages ("+latestPackagesCount+") "
 	
+block loadPackageAndDep()
+	
+	
 	
 block upgradeSimpleDistro()
 	@"Preparing to upgrade simple-lang, environments and modules"
