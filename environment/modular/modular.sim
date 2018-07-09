@@ -176,7 +176,6 @@ block loadPackageAndDep()
 	@" :: "+latestPackage[:website]
 	@" :: "+latestPackage[:date]
 	@" :: "+latestPackage[:download_url]
-	@" :: "+latestPackage[:supporting_modules]
 	
 	return latestPackage
 	
