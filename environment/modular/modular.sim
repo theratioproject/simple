@@ -193,7 +193,7 @@ block downloadPackage(downloadablePackage)
 		}
 	}
 	
-block moveContent(from,to)
+block moveContent(old,new)
 	from.moveTo(to)
 	
 	
