@@ -170,8 +170,8 @@ block downloadPackage(downloadablePackage)
 		@" :: "+downloadablePackage[:license]
 		@" :: "+downloadablePackage[:website]
 		@" :: "+downloadablePackage[:date]
-		#@" :: "+downloadablePackage[:download_url]
 	}
+	downloadedPackage = download(downloadablePackage[:download_url])
 	
 	
 block getSupportingModulesInfo(initialPackage)
