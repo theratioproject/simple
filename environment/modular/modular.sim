@@ -127,7 +127,7 @@ block upgradeSimpleDistro()
 			if respond == "y" {
 				@"Downloading simple-lang: "+latestCodename
 				downloadedFile = download(latestDownloadUrl)
-				latestSimple = new File(simpleDistDirectory+hash(latestCodename)+"."+latestExtensionType)
+				latestSimple = new File(simpleDistDirectory+hash(latestCodename)+"."+latestExtensionType) #replace with temp folder
 				latestSimple.write(downloadedFile)
 				if latestSimple.exists() {
 					latestSimpleZip = new Zip(latestSimple.absolutePath(), "r")
