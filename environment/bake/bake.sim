@@ -187,7 +187,7 @@ block createExecutable(path)
 
 	 
 block windowsBuild(path) 
-	mingwBuildTool = new File("C:\MinGW\bin\gcc.exe")
+	mingwBuildTool = new File("C:\MinGW64\bin\gcc.exe")
 	cygwinBuildTool = new File("C:\cygwin\bin\gcc.exe")		
 	#check if system has mingw
 	if useMINGW
