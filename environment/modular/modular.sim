@@ -107,6 +107,8 @@ block moduleAndEnviron()
 	@"Preparing to install package: "+package+" - "+type+" "+version
 	@"checking local version of "+package
 	@getSystemEnvironment("SIMPLE_MODULE_PATH")+"/modules-dependencies.conf"
+	depConf = new File(getSystemEnvironment("SIMPLE_MODULE_PATH")+"/modules-dependencies.conf")
+	@depConf.readContentAsString()
 	@"resolving dependencies..."
 	
 block upgradeSimpleDistro()
