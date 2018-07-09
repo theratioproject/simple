@@ -106,7 +106,7 @@ block main()
 block moduleAndEnviron()
 	@"Preparing to install package: "+package+" - "+type+" "+version
 	@"checking local version of "+package
-	@getSystemEnvironment("SIMPLE_PATH")+"/modules/"
+	@getSystemEnvironment("SIMPLE_MODULE_PATH")+"/modules-dependencies.conf"
 	@"resolving dependencies..."
 	
 block upgradeSimpleDistro()
