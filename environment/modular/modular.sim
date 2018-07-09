@@ -151,7 +151,6 @@ block downloadPackages(allDownloadablePackages)
 	@crlf+"Total Download Size: "+allDownloadablePackages[:downloadSize]+crlf
 	display " :: Do you want to proceed [y/n] " read respond @""
 	if respond == "y" {
-		@lengthOf(allDownloadablePackages)
 		for a = 0 to lengthOf(allDownloadablePackages) - 1 {
 			downloadPackage(allDownloadablePackages[a])
 		}
@@ -173,6 +172,7 @@ block downloadPackage(downloadablePackage)
 		@" :: "+downloadablePackage[:date]
 		#@" :: "+downloadablePackage[:download_url]
 	}
+	
 	
 block getSupportingModulesInfo(initialPackage)
 	allDownloadablePackages = [initialPackage]
