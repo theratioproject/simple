@@ -1,0 +1,188 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 SIMPLE
+
+*/
+
+/* 
+ * @Filename - FMenuItem.sim
+ * @Author - Azeez Adewale
+ * @Date - 14 March 2018
+ * @Time - 06:35 PM
+ *
+ */
+
+module fulltick.widget.menu
+
+#call the @Class FMenu File for blocks inheritance
+call "fulltick/widget/menu/FMenu.sim" ? fulltick.widget.menu
+call "fulltick/core/FWidget.sim" ? fulltick.core
+
+#This @Class FMenuBar @Skip
+#  ________________________________________________________
+# |________________________________________________________|
+#@EndSkip @Image FMenuItem
+class FMenuItem : FWidget
+
+	/* STRING */
+	MENU_WIDGET_VALUE = ""
+	MENU_WIDGET_NAME = ""
+	MENU_WIDGET_CALLBACK = ""
+	MENU_WIDGET_TYPE_NAME = "FMENUITEM"
+	WIDGETPOINTER = null #the menu item pointer
+	
+	/* POINTERS AND CLASSES */
+	MENU_WIDGET_USER_DATA = null #the user data for the menu
+	
+	/* NUMBER */
+	MENU_WIDGET_FLAG = 0 #the type of the menu item 
+	
+	/* BOOLEAN */
+	MENU_WIDGET_IS_SUB_MENU = false #to set whether this menu widget is submenu
+	MENU_WIDGET_HAS_VALID_POINTER = false #to set whether this menu widget is submenu
+	
+	/* LIST */
+	MENU_WIDGET_ITEMS_LIST = [] #all the list of menu items in the widget and itself
+
+	#initialize the @Class MenuItem with a defined value which will be 
+	#rendered on the @Class MenuBar and it parent @Class MenuItem
+	block FMenuItem(name)
+		MENU_WIDGET_VALUE = name 
+		setName(name)
+		initialize() 
+		
+	#Get the value of the @Class MenuItem 
+	#@Return the widget value @DataType STRING
+	block getValue()
+		return MENU_WIDGET_VALUE
+		
+	block setValue(value)
+		MENU_WIDGET_VALUE = value
+		
+	block getName()
+		return MENU_WIDGET_NAME
+		
+	block callback(callback)
+		MENU_WIDGET_CALLBACK = callback
+		if (MENU_WIDGET_HAS_VALID_POINTER) 
+			__menu_item_callback(WIDGETPOINTER, callback)			
+		end
+		
+	block getCallback()
+		return MENU_WIDGET_CALLBACK
+		
+	#Get all the item i.e sub menus / sub items 
+	#@Return sub menu items @DataType LIST
+	block getItems()
+		return MENU_WIDGET_ITEMS_LIST
+		
+	#add sub menu items to the current @Class MenuItem also this block
+	#accept list of @Class MenuItem and Strings to be added to the parent
+	#menu item
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the menu
+	#@Note In no case whatsoever should this block be used in line like
+	#obj.addItem(menuitem).addItem(menuitem) it does not work for now 
+	#to be resolved later
+	block addItem(menuitem) {
+		MENU_WIDGET_IS_SUB_MENU = true 
+		if (isList(menuitem)) 
+			for a = 0 to lengthOf(menuitem) 
+				try 
+					menuitem[a].check() menuitem[a].setValue(getValue()+"/"+menuitem[a].getValue()) 
+					menuitem[a].notifyWidget()	
+					add(MENU_WIDGET_ITEMS_LIST,menuitem[a])
+					/* if menuitem[a].isSubMenu() display lengthOf(menuitem[a].getItems()) +" Here "
+						for a = 0 to 2 
+							menuitem[a].getItems()[a].setValue(getValue()+"/"+getItems()[a].getName()) display getItems()[a].getValue()+" "
+						end 
+					end	*/
+				catch 
+					addItemRaw(getValue()+"/"+menuitem[a])
+				end
+			end
+		else 
+			try 
+				menuitem.check() menuitem.setValue(getValue()+"/"+menuitem.getValue()) 
+				menuitem.notifyWidget()	
+				add(MENU_WIDGET_ITEMS_LIST,menuitem)
+			catch
+				addItemRaw(getValue()+"/"+menuitem)
+			end
+		end
+		return this
+	}
+		
+	block addItemRaw(menuitem)
+		temp = new FMenuItem(menuitem) temp.notifyWidget()
+		add(MENU_WIDGET_ITEMS_LIST,temp) 
+		
+	#Check whether this @Class FMenuItem is a sub menu parenting other
+	#menu items and sub menus 
+	#@Return condition indicating the @Class MenuItem is a sub menu
+	#@DataType BOOLEAN
+	block isSubMenu()
+		return MENU_WIDGET_IS_SUB_MENU
+		
+	block notifyWidget() 
+		
+		
+	block cure()
+		if (MENU_WIDGET_HAS_VALID_POINTER) 
+			__menu_item_callback(WIDGETPOINTER, MENU_WIDGET_CALLBACK)
+		end
+		
+	block setWidgetPointer(pointer)
+		WIDGETPOINTER = pointer
+		MENU_WIDGET_HAS_VALID_POINTER = true
+		
+	block getWidgetPointer()
+		return WIDGETPOINTER
+		
+	block setUserData(userdata)
+		MENU_WIDGET_USER_DATA = userdata
+		
+	block getUserData()
+		return MENU_WIDGET_USER_DATA
+		
+	block setFlag(flag)
+		MENU_WIDGET_FLAG = flag
+		
+	block getFlag()
+		return MENU_WIDGET_FLAG
+		
+	block getTypeName()
+		return MENU_WIDGET_TYPE_NAME
+		
+		
+	#all the private attributes, fields and block not accessible outside
+	#the class
+	private 
+		
+		#this block is very dumb it useless too @HashWord it not useful
+		#in any way but it just there to assign value to the 
+		#@Attribute WIDGETPOINTER to make all block call in the parent
+		#@Class FWidget to be usable to be dispose in later release
+		block initialize()
+			#WIDGETPOINTER = __init_menu_item("")
+	
+		#this block is used to confirm the item sent into the 
+		#@Block addItem(menuitem) is an instance of @Class FMenuItem
+		block check()
+		
+		#@Block setName(name) is used to set the real name of the 
+		#@Class FMenuItem but the real name can be gotten from outside
+		#the class using the @Block getName(). If you intent to get the 
+		#absolute value instead call the @Block getValue() which can also 
+		#be altered using the @Block setValue(value)
+		#@Note the actual name of the widget is gotten by the last index of 
+		#'/' which is calculated in this block but currently not efficient 
+		#but it usage is of highly importance it will be modified to use
+		#an instance of the @Class String to get last index in future
+		block setName(name)
+			index = 0
+			for a = 0 to lengthOf(name) if (name[a] == '/') index = a + 1 end end 
+			MENU_WIDGET_NAME = ""
+			if (index == 0) MENU_WIDGET_NAME = name 
+			else for a = index to lengthOf(name) MENU_WIDGET_NAME+= name[a]  end end 
+		

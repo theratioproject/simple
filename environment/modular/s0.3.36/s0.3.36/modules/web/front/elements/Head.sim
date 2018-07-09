@@ -1,0 +1,105 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+module web.front.elements
+
+class Head
+
+	headContent = "" ;
+	title = "<title>SIMPLE WEB</title>"
+	icon = ""
+	toppings = "
+	
+			"
+	
+	block setTitle(ititle)
+		title = '<title>'+ititle+'</title>' + crlf
+		
+	block setIcon(iconLocation)
+		icon = '<link rel="icon" href="'+iconLocation+'" >' + crlf
+		
+	block setFavicon(iconLocation)
+		setIcon(iconLocation)
+	
+	block addElement(element)
+		headContent += '\t'+element.toString() + '
+		'
+		
+	block addMeta(headMeta)
+		headContent += '\t'+headMeta.toString() + '
+		'
+		
+	block addLink(headLink)
+		headContent += '\t'+headLink.toString() + '
+		'
+		
+	block addScript(script)
+		headContent += '\t'+script.toString() + '
+		'
+		
+	block addContent(itoppings)
+		toppings += '\t'+istoppings + '
+		'
+	
+	block toString()
+		return '<head>
+			'+title+
+					'\t'+icon+'\t
+		'+ headContent+'\t
+		'+toppings+'
+		</head>'
+		
+		
+class HeadMeta
+	
+	headMetaData = "<meta "
+
+	block setName(name)
+		headMetaData += 'name="'+name+'" '
+
+	block setProperty(prop)
+		headMetaData += 'property="'+prop+'" '
+		
+	block setItemProp(item)
+		headMetaData += 'itemprop="'+item+'" '
+		
+	block setContent(content)
+		headMetaData += 'content="'+content+'" '
+		
+	block toString()
+		headMetaData += '/>'
+		return headMetaData
+		
+class HeadLink
+
+	headLink = "<link "
+
+	block setRel(rel)
+		headLink += 'rel="'+rel+'" '
+		
+	block setType(type)
+		headLink += 'type="'+type+'" '
+		
+	block setTitle(title)
+		headLink += 'title="'+title+'" '
+		
+	block setLink(link)
+		headLink += 'href="'+link+'" '
+		
+	block setHref(link)
+		headLink += 'href="'+link+'" '
+	
+	block toString()
+		headLink += '/>'
+		return headLink
+	
+	
+	
+	
+	
+	
+	
+	

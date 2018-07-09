@@ -1,0 +1,98 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+module web.front.elements
+
+call "web/front/elements/Element.sim" ? web.front.elements
+
+class Link : Element 
+
+	elementName = "a"
+	init(elementName)
+	
+	block Link(title, address)
+		setAddress(address)
+		setTitle(title)
+		setInline(true)
+	
+	block setAddress(address)
+		elementHead += 'href="'+address+'" '
+		
+	block setTitle(title)
+		elementContent += title
+		
+class Ul : Element
+	
+	elementName = "ul"
+	init(elementName)
+	
+
+class Li : Element
+	
+	elementName = "li"
+	init(elementName)
+	
+	block Li(id)
+		setId(id)	
+		setInline(true)
+	
+class Header : Div
+
+	elementName = "header"
+	init(elementName)
+	
+	block Header(id)
+		setId(id)
+		
+class Section : Div
+
+	elementName = "section"
+	init(elementName)
+	
+	block Section(id)
+		setId(id)
+		
+class H1 : Element
+	
+	elementName = "h1"
+	init(elementName)
+
+	block H1(id)
+		setId(id)	
+		setInline(true)
+
+class H2 : Element
+	
+	elementName = "h1"
+	init(elementName)	
+
+	block H2(id)
+		setId(id)
+		setInline(true)
+		
+class Nav : Element
+	
+	elementName = "nav"
+	init(elementName)	
+
+	block Nav(id)
+		setId(id)
+		
+class Article : Element
+	
+	elementName = "article"
+	init(elementName)	
+
+	block Article(id)
+		setId(id)
+		
+	
+		
+	
+		
+	
+
+	

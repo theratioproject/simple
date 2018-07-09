@@ -1,0 +1,70 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 SIMPLE
+
+*/
+
+/* 
+ * @Filename - FTextEditor.sim
+ * @Author - Azeez Adewale
+ * @Date - 1 May 2018
+ * @Time - 02:06 PM
+ *
+ */
+
+module fulltick.widget
+
+#call the @Class FGroup File for blocks inheritance
+call "./FTextDisplay.sim" ? fulltick.widget
+
+#This @Class FTextEditor is 
+# @Skip
+#  ~~~~~~~image~~~~~~~~
+#@EndSkip @Image FTextEditor
+#The @Class FTextEditor is the parenting class for the following widget @Tree
+#		@Class FWidget
+#			|
+#			|
+#		@Class FGroup
+#			|
+#			|
+#		@Class FTextDisplay
+#			|
+#			|
+#		@Bold @Class FTextEditor
+#
+#@EndTreee
+class FTextEditor : FTextDisplay
+
+	setTypeName("FTextEditor") #change the name of the widget
+
+	/* NUMBER */
+	WIDGET_HEIGHT = 200 #Since it a group panel like input increase default height
+	WIDGET_WIDTH = 300 #Since it a group panel like input increase default width
+	TEXTDISPLAY_WIDGET_CARET_VISIBILITY = true #caret is visible in this widget
+	
+	/* BOOLEAN */
+	
+	#Initialize the @Class FTextEditor widget 
+	block FTextEditor()
+		init() #initialize the widget at once
+		initTextBuffer()
+		setBuffer(TEXT_DISPLAY_WIDGET_BUFFER)
+	
+	#Create an instance of the FTextEditor Widget with 
+	#custom width and height to avoid invisible widget
+	#@Note @Important you should carefully call this block from child
+	#class as it resets all the attributes and properties of the widget
+	#do not call
+	block init() initialize()
+	
+	#all the private attributes, fields and block not accessible #outside the class
+	private 
+	
+		#Create an instance of the FTextEditor Widget with 
+		#custom width and height to avoid invisible widget
+		block initialize()
+			WIDGETPOINTER = __init_text_editor(WIDGET_X, WIDGET_Y, WIDGET_WIDTH, WIDGET_HEIGHT) 
+	
+	
+	

@@ -178,7 +178,8 @@ block downloadPackage(downloadablePackage)
 	downloadedPackage.saveLocation(modulesDirectory+hash(package)+".zip")
 	downloadedPackage.execute()
 	if downloadedPackage.exists() {
-		downloadedPackage.extractAll("s0.3.36")
+		downloadedPackageZip = new Zip(downloadedPackage.absolutePath(),"r")
+		downloadedPackageZip.extractAll("s0.3.36")
 		@"yea yea"
 	}
 	
