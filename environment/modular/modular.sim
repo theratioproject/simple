@@ -127,11 +127,13 @@ block moduleEnviron(depConf,packageList)
 	}
 	@"resolving dependencies..."+crlf
 	#loading bar here
-	latestPackages = loadPackageAndDep()
-	display "packages ("+latestPackages[:count]+") "
+	latestPackage = loadPackageAndDep()
+	display "packages ("+latestPackage[:count]+") "
 	
 block loadPackageAndDep()
+	latestPackage = [:count="0"]
 	
+	return latestPackage
 	
 	
 block upgradeSimpleDistro()
