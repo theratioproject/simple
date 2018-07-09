@@ -99,16 +99,17 @@ block main()
 		upgradeSimpleDistro()
 	else 
 		@package+" | type : "+type+" | version : "+version+" | os : "+ostype
+		#@getSystemEnvironment("SIMPLE_MODULE_PATH")+"/modules-dependencies.conf"
 		depConf = new File(getSystemEnvironment("SIMPLE_MODULE_PATH")+"/modules-dependencies.conf")
-		if !depConf.exists() { @"error: module configuration file cannot be found" }
-		moduleAndEnviron()
+		if !depConf.exists() { @"error: module configuration file cannot be found" __exit__ }
+		
+		moduleAndEnviron(depConf)
 	}
 	__exit__
 
-block moduleAndEnviron()
+block moduleAndEnviron(depConf)
 	@"Preparing to install package: "+package+" - "+type+" "+version
 	@"checking locally installed version of "+package+"..."
-	@getSystemEnvironment("SIMPLE_MODULE_PATH")+"/modules-dependencies.conf"
 	executeCode(depConf.readFileAsString())
 	for a = 0 to lengthOf(modulesList) {
 		if modulesList[a][:name] == package {
