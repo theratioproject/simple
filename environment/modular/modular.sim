@@ -117,6 +117,7 @@ block moduleAndEnviron(depConf)
 	for a = 0 to lengthOf(modulesList) {
 		if modulesList[a][:name] == package {
 			@"	:: local package: "+package+" "+type+" "+modulesList[a][:version]
+			if 
 		}
 	}
 	@"	:: resolving dependencies..."
