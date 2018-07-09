@@ -101,7 +101,9 @@ block main()
 		@package+" | type : "+type+" | version : "+version+" | os : "+ostype
 	}
 	__exit__
-	#goGetIt()
+
+block moduleAndEnviron()
+	
 	
 block upgradeSimpleDistro()
 	@"Preparing to upgrade simple-lang, environments and modules"
