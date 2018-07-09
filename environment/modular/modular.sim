@@ -134,7 +134,7 @@ block moduleEnviron(depConf,packageList)
 	latestPackage = loadPackageAndDep()
 	@"packages ("+(latestPackage[:supporting_modules_count]+2)+")	"+package
 	for a = 0 to latestPackage[:supporting_modules_count] {
-		@"			"+latestPackage[:supporting_modules][a+1]
+		@"		"+latestPackage[:supporting_modules][a+1]
 	}
 	@crlf
 	downlaodPackage(latestPackage)
