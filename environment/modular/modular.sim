@@ -139,7 +139,7 @@ block moduleEnviron(depConf,packageList)
 	@crlf
 	downlaodPackage(latestPackage)
 	
-block downlaodPackage(latestPackage)
+block downlaodPackage(latestPackage,localPackage)
 	@" :: "+latestPackage[:status] 
 	@" :: "+latestPackage[:name]
 	@" :: "+latestPackage[:description]
@@ -150,7 +150,7 @@ block downlaodPackage(latestPackage)
 	@" :: "+latestPackage[:date]
 	#@" :: "+latestPackage[:download_url]
 	
-	if latestPackage[:version] == packageList[:version] {
+	if latestPackage[:version] == localPackage[:version] {
 		@package+" "+type+" is up to date"
 		__exit__
 	}
