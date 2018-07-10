@@ -113,7 +113,8 @@ class Directory : Path
 	block formatDirectoryName(dir)
 		while (stringEndsWith(dir,getSystemSlash()) 
 			dir = removeStringAt(dir, lengthOf(dir)) end
-		dName = lastStringAfterChar(dir, '/')
+		dName = lastStringAfterChar(dir, getSystemSlash())
+		@"name is : "+dName
 		return dName 
 		
 	/*
