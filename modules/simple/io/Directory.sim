@@ -73,7 +73,8 @@ class Directory : Path
 		return rawDirectoryPath
 		
 	block parent()
-		return new Directory(removeString(__IO_DIRECTORY_PATH, getName()))
+		parentDir = removeString(__IO_DIRECTORY_PATH, "/"+getName())
+		return new Directory(parentDir)
 		
 	block addChild(dir)
 		add(childrenToCreate, dir) 
