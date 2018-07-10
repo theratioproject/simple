@@ -111,6 +111,25 @@ class Directory : Path
 			if __delete_directory(__IO_DIRECTORY_TEMP_DIRECTORIES[b]) != true {
 				display(__IO_PACKAGE+" : "+__IO_DIRECTORY_TEMP_DIRECTORIES[b]+" is stubborn")+crlf
 				__delete_directory(__IO_DIRECTORY_TEMP_DIRECTORIES[b])
+				__delete_directory(__IO_DIRECTORY_TEMP_DIRECTORIES[b])
+				__delete_directory(__IO_DIRECTORY_TEMP_DIRECTORIES[b])
+				__delete_directory(__IO_DIRECTORY_TEMP_DIRECTORIES[b])
+				__delete_directory(__IO_DIRECTORY_TEMP_DIRECTORIES[b])
+				__delete_directory(__IO_DIRECTORY_TEMP_DIRECTORIES[b])
+				__delete_directory(__IO_DIRECTORY_TEMP_DIRECTORIES[b])
+				__delete_directory(__IO_DIRECTORY_TEMP_DIRECTORIES[b])
+				__delete_directory(__IO_DIRECTORY_TEMP_DIRECTORIES[b])
+				__delete_directory(__IO_DIRECTORY_TEMP_DIRECTORIES[b])
+				__delete_directory(__IO_DIRECTORY_TEMP_DIRECTORIES[b])
+				__delete_directory(__IO_DIRECTORY_TEMP_DIRECTORIES[b])
+				__delete_directory(__IO_DIRECTORY_TEMP_DIRECTORIES[b])
+				__delete_directory(__IO_DIRECTORY_TEMP_DIRECTORIES[b])
+				__delete_directory(__IO_DIRECTORY_TEMP_DIRECTORIES[b])
+				__delete_directory(__IO_DIRECTORY_TEMP_DIRECTORIES[b])
+				__delete_directory(__IO_DIRECTORY_TEMP_DIRECTORIES[b])
+				__delete_directory(__IO_DIRECTORY_TEMP_DIRECTORIES[b])
+				__delete_directory(__IO_DIRECTORY_TEMP_DIRECTORIES[b])
+				__delete_directory(__IO_DIRECTORY_TEMP_DIRECTORIES[b])
 			}
 		}
 		
