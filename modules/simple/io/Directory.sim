@@ -130,7 +130,7 @@ class Directory : Path
 		}
 		tempDir = new Directory(newName)
 		if tempDir.exists() {
-			throw(__IO_DIRECTORY_EXISTS)
+			throwWithTitle(__IO_PACKAGE,__IO_DIRECTORY_EXISTS)
 		}
 		return __renameTo(__IO_DIRECTORY_PATH,newName)
 		
