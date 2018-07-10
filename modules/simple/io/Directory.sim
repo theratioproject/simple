@@ -118,13 +118,16 @@ class Directory : Path
 		
 	/*
 		Rename a @Directory to another a rather fast way of moving directory
-		about in the same disk partition
+		about in the same disk partition. This take the new absolute directory 
+		to be rename to which must be a string. 
 	*/
 	block renameTo(newName) 
 		if !isString(newName) {
 			throwWithTitle(__IO_PACKAGE,__IO_DIRECTORY_ONLY_STRING_ALLOWED)
 		}
 		__renameTo(__IO_DIRECTORY_PATH,newName)
+		
+	block moveTo
 	
 	private
 		__IO_DIRECTORY_PATH = ""
