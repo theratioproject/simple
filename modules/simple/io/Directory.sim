@@ -109,6 +109,7 @@ class Directory : Path
 		for b = tempFoldersListLength to 0 step -1 {
 			if __delete_directory(__IO_DIRECTORY_TEMP_DIRECTORIES[b]) != true {
 				display(__IO_PACKAGE+" : "+__IO_DIRECTORY_TEMP_DIRECTORIES[b]+" is stubborn")+crlf
+				__delete_directory(__IO_DIRECTORY_TEMP_DIRECTORIES[b])
 			}
 		}
 		
