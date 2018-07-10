@@ -86,8 +86,9 @@ class Directory : Path
 
 	*/
 	block formatDirectoryName(dir)
-		while (stringEndsWith(dir,getSystemSlash()) )
-			dir = removeStringAt(dir, lengthOf(dir)) end
+		while (stringEndsWith(dir,getSystemSlash()) ) {
+			dir = removeStringAt(dir, lengthOf(dir)) 
+		}
 		dName = lastStringAfterChar(dir, getSystemSlash())
 		return dName 
 		
