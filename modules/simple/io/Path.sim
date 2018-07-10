@@ -73,6 +73,20 @@ class Path
 		return __rename(oldname, newname)
 		
 	/*
+		Rename a @Directory to another a rather fast way of moving directory
+		about in the same disk partition. This take the new absolute directory 
+		to be rename to which must be a string. 
+		@See @Class Path @Block __renameTo(oldname,newname)
+		@Return the rename operation @DataType Number
+	*/
+	block _renameTo(newName) 
+		newName = curePathSlashes(newName)
+		if !isString(newName) {
+			throwWithTitle(__IO_PACKAGE,__IO_DIRECTORY_ONLY_STRING_ALLOWED)
+		}
+		return __renameTo(__IO_DIRECTORY_PATH,newName)
+		
+	/*
 		Get the system compatible slash to avoid error in input and output
 		operations. Some of the known slashes are:
 		@BlockQuote
