@@ -131,6 +131,7 @@ class Directory : Path
 		if isPath(newFolder) {
 			__newFolder = newFolder.toString()
 		}
+		
 	
 	private
 		__IO_DIRECTORY_PATH = ""
