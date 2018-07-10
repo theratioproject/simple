@@ -69,14 +69,14 @@ class Path
 		@End
 		@Return the value of the rename operation @DataType Number
 	*/
-	block __renameTo(oldname,newname)
-		return __rename(oldname, newname)
+	block __renameTo(oldName,newName)
+		return __rename(oldName, newName)
 		
 	/*
 		Rename a @Directory to another a rather fast way of moving directory
 		about in the same disk partition. This take the new absolute directory 
 		to be rename to which must be a string. 
-		@See @Class Path @Block __renameTo(oldname,newname)
+		@See @Block __renameTo(oldName,newName)
 		@Return the rename operation @DataType Number
 	*/
 	block _renameTo(newName) 
