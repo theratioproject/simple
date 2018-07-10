@@ -212,6 +212,8 @@ block loadPackageAndDep()
 	latestPackage = []
 	@"looking up "+packageUrl
 	packageJson = download(packageUrl+"?package="+package+"&type="+type+"&version="+version+"&os="+ostype)
+	@packageJson
+	__exit__
 	if packageJson == null {
 		@"Internet connection is required to install "+package+" "+type+" package"
 		__exit__
