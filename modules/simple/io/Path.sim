@@ -46,14 +46,6 @@ class Path
 		to the operating system standard to allow the system treat the path
 		as it own and not reject operation due to incorrect path format. 
 		It also remove multiple slashes and convert it to os single slash
-		@BlockQuote
-			Windows 	- \
-			Linux		- /
-			MacOS		- /
-			Haiku		- /
-			Unix		- /
-			Android		- /
-		@End
 	*/
 	block curePathSlashes(path)
 		if isPath(path) { ret = path.toString() }
@@ -71,6 +63,19 @@ class Path
 	block __renameTo(oldname,newname)
 		return __rename(oldname, newname)
 		
+	/*
+		Get the system compatible slash to avoid error in input and output
+		operations. Some of the known slashes are:
+		@BlockQuote
+			Windows 	- \
+			Linux		- /
+			MacOS		- /
+			Haiku		- /
+			Unix		- /
+			Android		- /
+		@End
+		@Return the system slash char @DataType String
+	*/
 	block getSystemSlash()
 		if isWindows() {
 			return '\'
