@@ -108,9 +108,9 @@ class Directory : Path
 		@Return the rename operation value @DataType Number
 	*/
 	block renameTo(newName)
-		tempDir = new Path(curePathSlashes(newName))
-		if tempDir.exists() {
-			throwWithTitle(__IO_PACKAGE,newName+" - "+__IO_DIRECTORY_EXISTS)
+		tempPath = new Path(newName)
+		if tempPath.exists() {
+			throwWithTitle(__IO_PACKAGE,tempPath.toString()+" - "+__IO_DIRECTORY_EXISTS)
 		}
 		return _renameTo(__IO_DIRECTORY_PATH,newName)
 		
