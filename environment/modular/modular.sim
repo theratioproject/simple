@@ -190,14 +190,14 @@ block downloadPackage(downloadablePackage)
 		extractedPackage = new Directory(modulesDirectory+hash(package))
 		downloadedPackageZip.extractAll(extractedPackage.getPath())
 		if extractedPackage.exists() {
-			moveContent(extractedPackage.getPath()+"/docs/","C:/Users/thecarisma/Documents/SIMPLE_GITHUB/s0.3.35-debug/modules")
+			moveContent(extractedPackage.getPath()+"/docs/",modulesDirectory)
 		}
 	}
 	
 block moveContent(oldPath,newFolder)
 	tempDir = new Directory(oldPath)
 	if tempDir.exists() {
-		@ tempDir.moveTo(newFolder)
+		@ tempDir.renameTo(newFolder)
 		@"yea yea"
 	}
 	
