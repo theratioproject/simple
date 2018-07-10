@@ -127,6 +127,8 @@ class Directory : Path
 		if !isString(newName) {
 			throwWithTitle(__IO_PACKAGE,__IO_DIRECTORY_ONLY_STRING_ALLOWED)
 		}
+		tempDir = new Directory(newName)
+		if 
 		return __renameTo(__IO_DIRECTORY_PATH,newName)
 		
 	/*
