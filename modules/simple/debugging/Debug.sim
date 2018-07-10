@@ -19,6 +19,7 @@
 module simple.debugging
 
 call "../core/loadcoredymodule.sim"
+call "../utilities/Length.sim"
 
 	__STACK_TRACE_ERROR = "Stack Trace cannot be empty error with the simple-lang Virtual Machine"
 	__DEBUG_ASSERT_BOOLEAN_ONLY = "Only Boolean and Number can be asserted"
