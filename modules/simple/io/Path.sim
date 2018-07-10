@@ -66,9 +66,9 @@ class Path
 	#-2 means the error is unknown (uncommon) 	
 	#In this block trailing '/' or '\' are completely striped off (untreated)
 	block rawExists()
-		while (stringEndsWith(__IO_DIRECTORY_PATH,'/') || stringEndsWith(__IO_DIRECTORY_PATH,'\')) 
-				__IO_DIRECTORY_PATH = removeStringAt(__IO_DIRECTORY_PATH, lengthOf(__IO_DIRECTORY_PATH)) end
-		return __dir_exists(__IO_DIRECTORY_PATH)
+		while (stringEndsWith(__IO_PATH,'/') || stringEndsWith(__IO_PATH,'\')) 
+				__IO_PATH = removeStringAt(__IO_PATH, lengthOf(__IO_PATH)) end
+		return __dir_exists(__IO_PATH)
 		
 	/*
 		Format the slashes in @Class File, @Class Directory and @Class Path
@@ -113,7 +113,7 @@ class Path
 		if !isString(newName) {
 			throwWithTitle(__IO_PACKAGE,__IO_DIRECTORY_ONLY_STRING_ALLOWED)
 		}
-		return __renameTo(__IO_DIRECTORY_PATH,newName)
+		return __renameTo(__IO_PATH,newName)
 		
 	/*
 		Get the system compatible slash to avoid error in input and output
