@@ -197,6 +197,7 @@ block downloadPackage(downloadablePackage)
 block moveContent(oldPath,newFolder)
 	tempDir = new Directory(oldPath)
 	@newFolder
+	di = new Directory(modulesDirectory+'test')
 	if tempDir.exists() {
 		@tempDir.forceRenameTo(newFolder)
 		@"yea yea"
