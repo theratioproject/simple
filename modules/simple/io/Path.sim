@@ -31,6 +31,8 @@ block isDirectory(directoryPath)
 	return false
  
 class Path
+	
+	__IO_PATH_ONLY_STRING_ALLOWED = "Only string should be sent as parameter "
 
 	block Path(ipath)
 		__IO_PATH = ipath
@@ -111,7 +113,7 @@ class Path
 	block _renameTo(oldName,newName) 
 		newName = curePathSlashes(newName)
 		if !isString(newName) {
-			throwWithTitle(__IO_PACKAGE,__IO_DIRECTORY_ONLY_STRING_ALLOWED)
+			throwWithTitle(__IO_PACKAGE,__IO_PATH_ONLY_STRING_ALLOWED)
 		}
 		return __renameTo(oldName,newName)
 		

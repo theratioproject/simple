@@ -20,7 +20,6 @@ block mkdir(path)
 class Directory : Path
 
 	__IO_PACKAGE = "simple.io.Directory"
-	__IO_DIRECTORY_ONLY_STRING_ALLOWED = "Only string should be sent as parameter "
 	__IO_DIRECTORY_EXISTS = "The directory already exists you should remove the directory first"
 
 	block Directory(path)
