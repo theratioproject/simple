@@ -98,6 +98,9 @@ class Directory : Path
 	block deleteFolderRecursively(theFolder) 
 		tempFolder = new Directory(theFolder)
 		filesStack = tempFolder.listFiles()
+		for a = 0 to filesStackLength {
+			__delete()
+		}
 		
 	/*
 
