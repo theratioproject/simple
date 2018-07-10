@@ -141,7 +141,6 @@ block moduleEnviron(depConf,packageList)
 	if localPackage == null {
 		
 	}
-	@"resolving dependencies..."
 	#loading bar here
 	latestPackage = loadPackageAndDep()
 	if isList(localPackage) && localPackage[0] != null {
