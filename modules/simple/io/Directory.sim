@@ -117,6 +117,8 @@ class Directory : Path
 		dName = lastStringAfterChar(dir, getSystemSlash())
 		return dName 
 		
+	block 
+		
 	/*
 		Rename a @Directory to another a rather fast way of moving directory
 		about in the same disk partition. This take the new absolute directory 
