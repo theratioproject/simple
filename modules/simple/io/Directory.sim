@@ -60,35 +60,6 @@ class Directory : Path
 		end
 		return folderList
 		
-	block isADirectory()
-		if (rawExists() == 1)
-			return true
-		end
-		return false
-		
-	block isAFile()
-		if (rawExists() == 0)
-			return true
-		end
-		return false
-		
-	block exists()
-		if (rawExists() == 1) 
-			return true
-		end
-		return false
-		
-	#This block confirms if the path is a directory it return 
-	#@DataType TRUE	(1) if it is a directory and return @DataType FALSE (0)
-	#if it is not a directory on other cases of other return number 
-	#-1 means it does not exist at all
-	#-2 means the error is unknown (uncommon) 	
-	#In this block trailing '/' or '\' are completely striped off (untreated)
-	block rawExists()
-		while (stringEndsWith(__IO_DIRECTORY_PATH,'/') || stringEndsWith(__IO_DIRECTORY_PATH,'\')) 
-				__IO_DIRECTORY_PATH = removeStringAt(__IO_DIRECTORY_PATH, lengthOf(__IO_DIRECTORY_PATH)) end
-		return __dir_exists(__IO_DIRECTORY_PATH)
-		
 	block toPath()
 		return new Path(__IO_DIRECTORY_PATH)
 		
