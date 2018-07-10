@@ -74,6 +74,14 @@ class Path
 	*/
 	block __renameTo(oldname,newname)
 		return __rename(oldname, newname)
+		
+	block getSystemSlash()
+		if isWindows() {
+			return '\'
+		elif isLinux()
+			return '/'
+		}		
+		return '/'
 	
 	private 
 		__IO_PATH = "(null)"
