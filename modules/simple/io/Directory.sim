@@ -87,14 +87,7 @@ class Directory : Path
 		
 	block delete()
 		if exists() {
-			deleteFolderRecursively('C:\Users\thecarisma\Documents\SIMPLE_GITHUB\s0.3.35-debug\modules\doc')
-			/*contentStack = explode()
-			contentStackLength = lengthOf(contentStack)
-			for a = 0 to contentStackLength {
-				@getPath()
-				@contentStack[a][1]
-				@"Parent folder : "+parent().getPath()
-			} */
+			deleteFolderRecursively(new Directory('C:\Users\thecarisma\Documents\SIMPLE_GITHUB\s0.3.35-debug\modules\doc'))
 		}
 		return __delete_directory(__IO_DIRECTORY_PATH)
 		
