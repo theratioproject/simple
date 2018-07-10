@@ -117,11 +117,15 @@ class Directory : Path
 		dName = lastStringAfterChar(dir, getSystemSlash())
 		return dName 
 		
+	/*
+
+	*/
 	block renameTo(newName)
 		tempDir = new Path(newName)
 		if tempDir.exists() {
 			throwWithTitle(__IO_PACKAGE,newName+" - "+__IO_DIRECTORY_EXISTS)
 		}
+		return _renameTo(newName)
 		
 	/*
 		Move a directory from one folder to another. This operation will require the 
