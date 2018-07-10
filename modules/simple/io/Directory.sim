@@ -93,6 +93,7 @@ class Directory : Path
 	*/
 	block renameTo(newName)
 		tempDir = new Path(newName)
+		@newName
 		if tempDir.exists() {
 			throwWithTitle(__IO_PACKAGE,newName+" - "+__IO_DIRECTORY_EXISTS)
 		}
