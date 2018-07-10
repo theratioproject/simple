@@ -74,6 +74,7 @@ class Directory : Path
 		
 	block parent()
 		tRemove = lastStringAfterChar(__IO_DIRECTORY_PATH, "/")
+		@"last char : "+tRemove
 		return new Directory(removeString(__IO_DIRECTORY_PATH, "/"+tRemove))
 		
 	block addChild(dir)
@@ -90,6 +91,7 @@ class Directory : Path
 			contentStack = explode()
 			contentStackLength = lengthOf(contentStack)
 			for a = 0 to contentStackLength {
+				@getPath()
 				@contentStack[a][1]
 				@"Parent folder : "+parent().getPath()
 			}
