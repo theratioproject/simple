@@ -90,7 +90,7 @@ class Directory : Path
 			deleteFolderRecursively(this)
 		}
 		clearTemporaryDirectories()
-		@__IO_DIRECTORY_TEMP_DIRECTORIES[1]
+		@__IO_DIRECTORY_TEMP_DIRECTORIES
 		return __delete_directory(__IO_DIRECTORY_PATH)
 		
 	block deleteFolderRecursively(tempFolder) 
