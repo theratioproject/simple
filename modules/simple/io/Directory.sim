@@ -144,7 +144,7 @@ class Directory : Path
 		}
 		@__newFolder+getSystemSlash()+getName()
 		if stringEndsWith(__newFolder,getSystemSlash()) {
-		
+			
 		}
 		return renameTo(__newFolder+getSystemSlash()+getName())
 		
