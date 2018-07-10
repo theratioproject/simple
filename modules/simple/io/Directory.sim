@@ -95,7 +95,7 @@ class Directory : Path
 		folderStack = tempFolder.listDirectories()
 		folderStackLength = lengthOf(folderStack)
 		for a = 0 to folderStackLength {
-			__delete(folderStack[a].absolutePath())
+			deleteFolderRecursively(folderStack[a].getPath())
 		}
 		filesStack = tempFolder.listFiles()
 		filesStackLength = lengthOf(filesStack)
