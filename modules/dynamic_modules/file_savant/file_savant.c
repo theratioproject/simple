@@ -166,7 +166,7 @@ void file_delete_folder ( void *pointer )
 	}
 	if ( SIMPLE_API_ISSTRING(1) ) {
 		#ifdef _WIN32
-			SIMPLE_API_RETNUMBER(RemoveDirectory(SIMPLE_API_GETSTRING(1)));
+			SIMPLE_API_RETNUMBER(RemoveDirectoryA(SIMPLE_API_GETSTRING(1)));
 		#else
 			#ifdef rmdir
 				SIMPLE_API_RETNUMBER(rmdir(SIMPLE_API_GETSTRING(1)));
