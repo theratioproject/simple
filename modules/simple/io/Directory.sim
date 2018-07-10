@@ -96,7 +96,7 @@ class Directory : Path
 	*/
 	block exists() 
 		tempPath = new Path(__IO_DIRECTORY_PATH)
-		return tempPath.exist
+		return tempPath.exists()
 		
 	/*
 
