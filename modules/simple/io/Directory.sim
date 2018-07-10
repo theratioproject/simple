@@ -92,10 +92,10 @@ class Directory : Path
 		return __delete_directory(__IO_DIRECTORY_PATH)
 		
 	block deleteFolderRecursively(tempFolder) 
-		filesStack = tempFolder.listFiles()
-		filesStackLength = lengthOf(filesStack)
-		for a = 0 to filesStackLength {
-			__delete(filesStack[a].absolutePath())
+		folderStack = tempFolder.listDirectories()
+		folderStackLength = lengthOf(folderStack)
+		for a = 0 to folderStackLength {
+			__delete(folderStack[a].absolutePath())
 		}
 		filesStack = tempFolder.listFiles()
 		filesStackLength = lengthOf(filesStack)
