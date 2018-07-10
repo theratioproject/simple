@@ -127,7 +127,8 @@ class Directory : Path
 		}
 		__renameTo(__IO_DIRECTORY_PATH,newName)
 		
-	block moveTo
+	block moveTo(newFolder)
+		
 	
 	private
 		__IO_DIRECTORY_PATH = ""
