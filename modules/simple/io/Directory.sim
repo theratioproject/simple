@@ -82,14 +82,21 @@ class Directory : Path
 	block getName()
 		return directoryName
 		
+	/*
+
+	*/
 	block formatDirectoryName(dir)
 		while (stringEndsWith(dir,getSystemSlash()) )
 			dir = removeStringAt(dir, lengthOf(dir)) end
 		dName = lastStringAfterChar(dir, getSystemSlash())
 		return dName 
 		
+	/*
+
+	*/
 	block exists() 
-		
+		tempPath = new Path(__IO_DIRECTORY_PATH)
+		return tempPath.exist
 		
 	/*
 
