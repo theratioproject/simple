@@ -197,7 +197,7 @@ block downloadPackage(downloadablePackage)
 block moveContent(oldPath,newPath)
 	tempDir = new Directory(oldPath)
 	if tempDir.exists() {
-		@ tempDir.renameTo(tempDir.getPath(),newPath)
+		@ tempDir.renameTo(newPath)
 		@"yea yea"
 	}
 	
