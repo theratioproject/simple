@@ -118,7 +118,7 @@ class Path
 		return __renameTo(oldName,newName)
 		
 	block delete()
-		
+		return __delete(__IO_PATH)
 		
 	/*
 		Get the system compatible slash to avoid error in input and output
