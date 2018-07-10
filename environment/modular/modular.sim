@@ -139,7 +139,7 @@ block moduleEnviron(depConf,packageList)
 		}
 	}
 	if localPackage == null {
-	
+		
 	}
 	@"resolving dependencies..."
 	#loading bar here
