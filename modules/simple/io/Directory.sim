@@ -112,6 +112,9 @@ class Directory : Path
 			dir = removeStringAt(dir, lengthOf(dir)) end
 		dName = lastStringAfterChar(dir, '/')
 		return dName 
+		
+	block renameTo(newName) 
+		
 	
 	private
 		__IO_DIRECTORY_PATH = ""
