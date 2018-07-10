@@ -54,7 +54,7 @@ class Path
 		return false
 		
 	block exists()
-		if (rawExists() == 1) 
+		if ( isAFile() || isADirectory() ) 
 			return true
 		end
 		return false
