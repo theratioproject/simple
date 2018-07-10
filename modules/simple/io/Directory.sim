@@ -92,7 +92,9 @@ class Directory : Path
 		return dName 
 		
 	/*
-		Confirm if the directory already exist 
+		Confirm if the directory already exist return true if it exists and 
+		false if it does not exists
+		@Return if the directory exists @DataType Boolean
 	*/
 	block exists() 
 		tempPath = new Path(__IO_DIRECTORY_PATH)
