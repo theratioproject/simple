@@ -119,7 +119,7 @@ class Directory : Path
 		}
 		__renameTo(__IO_DIRECTORY_PATH,newName)
 	
-	private
+	
 		__IO_DIRECTORY_PATH = ""
 		rawDirectoryPath = ""
 		directoryName = ""
