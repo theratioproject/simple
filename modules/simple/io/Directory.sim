@@ -93,6 +93,7 @@ class Directory : Path
 				@contentStack[a]
 			}
 		}
+		return __delete_directory(__IO_DIRECTORY_PATH)
 		
 	/*
 
