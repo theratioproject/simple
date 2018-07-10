@@ -59,11 +59,7 @@ class Path
 		if isPath(path) { ret = path.toString() }
 		ret = replaceString(path,'//','/')
 		ret = replaceString(ret,'\\','/')
-		if isWindows() {
-			ret = replaceString(ret,'/','\')
-		else 
-			ret = replaceString(ret,'\','/')
-		}
+		ret = replaceString(ret,'/',getSystemSlash())
 		return ret 
 		
 	/*
@@ -85,4 +81,5 @@ class Path
 	
 	private 
 		__IO_PATH = "(null)"
+		__IO_PATH_SYSTEM_SLASH = getSystemSlash()
 	
