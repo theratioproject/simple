@@ -21,26 +21,26 @@ class Directory : Path
 
 	block Directory(path)
 		if isPath(path)
-			directoryPath = path.toString()
+			__IO_DIRECTORY_PATH = path.toString()
 		else 
-			directoryPath = path
+			__IO_DIRECTORY_PATH = path
 			rawDirectoryPath = path
 		end
-		directoryPath = curePathSlashes(directoryPath)
-		directoryName = formatDirectoryName(directoryPath)
+		__IO_DIRECTORY_PATH = curePathSlashes(__IO_DIRECTORY_PATH)
+		directoryName = formatDirectoryName(__IO_DIRECTORY_PATH)
 		
 	block create()
 		ensureParent()
-		display mkdir(directoryPath)
+		display mkdir(__IO_DIRECTORY_PATH)
 		
 	block explode()
-		return blow_dir(directoryPath)
+		return blow_dir(__IO_DIRECTORY_PATH)
 		
 	block listFiles()
 		eDir = explode()
 		for a = 0 to lengthOf(eDir)
 			if !eDir[a][2]
-				nFile = new File(directoryPath+"/"+eDir[a][1])
+				nFile = new File(__IO_DIRECTORY_PATH+"/"+eDir[a][1])
 				add(filesList, nFile)
 			end
 		end
@@ -50,7 +50,7 @@ class Directory : Path
 		eDir = explode()
 		for a = 0 to lengthOf(eDir)
 			if eDir[a][2]
-				nDir = new Directory(directoryPath+"/"+eDir[a][1])
+				nDir = new Directory(__IO_DIRECTORY_PATH+"/"+eDir[a][1])
 				add(folderList, nDir)
 			end
 		end
@@ -81,22 +81,22 @@ class Directory : Path
 	#-2 means the error is unknown (uncommon) 	
 	#In this block trailing '/' or '\' are completely striped off (untreated)
 	block rawExists()
-		while (stringEndsWith(directoryPath,'/') || stringEndsWith(directoryPath,'\')) 
-				directoryPath = removeStringAt(directoryPath, lengthOf(directoryPath)) end
-		return __dir_exists(directoryPath)
+		while (stringEndsWith(__IO_DIRECTORY_PATH,'/') || stringEndsWith(__IO_DIRECTORY_PATH,'\')) 
+				__IO_DIRECTORY_PATH = removeStringAt(__IO_DIRECTORY_PATH, lengthOf(__IO_DIRECTORY_PATH)) end
+		return __dir_exists(__IO_DIRECTORY_PATH)
 		
 	block toPath()
-		return new Path(directoryPath)
+		return new Path(__IO_DIRECTORY_PATH)
 		
 	block getPath()
-		return directoryPath
+		return __IO_DIRECTORY_PATH
 		
 	block toString()
 		return rawDirectoryPath
 		
 	block parent()
-		tRemove = lastStringAfterChar(directoryPath, "/")
-		return new Directory(removeString(directoryPath, "/"+tRemove))
+		tRemove = lastStringAfterChar(__IO_DIRECTORY_PATH, "/")
+		return new Directory(removeString(__IO_DIRECTORY_PATH, "/"+tRemove))
 		
 	block addChild(dir)
 		add(childrenToCreate, dir) 
@@ -114,7 +114,7 @@ class Directory : Path
 		return dName 
 	
 	private
-		directoryPath = ""
+		__IO_DIRECTORY_PATH = ""
 		rawDirectoryPath = ""
 		directoryName = ""
 		filesList = []
@@ -122,8 +122,8 @@ class Directory : Path
 		childrenToCreate = []
 		
 		block ensureParent() 
-			dir = removeString(directoryPath,lastStringAfterChar(directoryPath, '/'))
-			pd = new Directory(dir) pd.addChild(directoryPath)
+			dir = removeString(__IO_DIRECTORY_PATH,lastStringAfterChar(__IO_DIRECTORY_PATH, '/'))
+			pd = new Directory(dir) pd.addChild(__IO_DIRECTORY_PATH)
 			if (!pd.exists()) pd.create() else mkdir(pd.getPendinChildern()[0]) end
 		
 		
