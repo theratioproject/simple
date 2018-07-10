@@ -106,7 +106,7 @@ class Directory : Path
 		if tempDir.exists() {
 			throwWithTitle(__IO_PACKAGE,newName+" - "+__IO_DIRECTORY_EXISTS)
 		}
-		return _renameTo(newName)
+		return _renameTo(__IO_DIRECTORY_PATH,newName)
 		
 	/*
 		Move a directory from one folder to another. This operation will require the 

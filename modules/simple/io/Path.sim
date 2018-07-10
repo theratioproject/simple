@@ -108,12 +108,12 @@ class Path
 		@See @Block __renameTo(oldName,newName)
 		@Return the rename operation @DataType Number
 	*/
-	block _renameTo(newName) 
+	block _renameTo(oldName,newName) 
 		newName = curePathSlashes(newName)
 		if !isString(newName) {
 			throwWithTitle(__IO_PACKAGE,__IO_DIRECTORY_ONLY_STRING_ALLOWED)
 		}
-		return __renameTo(__IO_PATH,newName)
+		return __renameTo(oldName,newName)
 		
 	/*
 		Get the system compatible slash to avoid error in input and output
