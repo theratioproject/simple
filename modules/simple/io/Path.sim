@@ -14,13 +14,7 @@ module simple.io
 
 call "loadfilesavantlib.sim"
 call "simple/core/String.sim"
-
-block curePathSlashes(path)
-	if isPath(path) ret = path.toString() end
-	ret = replaceString(path, "//", "/")
-	ret = replaceString(ret, '\\', '/')
-	ret = replaceString(ret, '\', '/')
-	return ret 
+call "simple/system/System.sim"
 
 block isPath(ipath)
 	try 
@@ -40,6 +34,23 @@ class Path
 		
 	block path()
 		"[just for checking]"
+		
+	block curePathSlashes(path)
+		if isPath(path) ret = path.toString() end
+		ret = replaceString(path, "//", "/")
+		ret = replaceString(ret, '\\', '/')
+		ret = replaceString(ret, '\', '/')
+		return ret 
+		
+	/*
+		Change the name of a @Class Directory or @Class File to new name, It can be 
+		use in moving files and folder from one directory to another. Operation of 
+		this block is very fast compare to buffering the content of @Directory or 
+		@Class file from one folder to another
+		
+	*/
+	block __renameTo(oldname,newname)
+		return __rename(oldname, newname)
 	
 	private 
 		filePath = "(null)"

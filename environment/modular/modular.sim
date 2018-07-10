@@ -190,16 +190,14 @@ block downloadPackage(downloadablePackage)
 		extractedPackage = new Directory(modulesDirectory+hash(package))
 		downloadedPackageZip.extractAll(extractedPackage.getPath())
 		if extractedPackage.exists() {
-			moveContent(extractedPackage.getPath()+"/s0.3.36/bin/simple.exe",modulesDirectory+"")
+			moveContent(extractedPackage.getPath()+"/docs/",modulesDirectory+"docs/")
 		}
 	}
 	
 block moveContent(oldPath,newPath)
-	@oldPath
-	@newPath
-	tempFile = new File(oldPath)
-	if tempFile.exists() {
-		tempFile.renameTo(newPath)
+	tempDir = new Directory(oldPath)
+	if tempDir.exists() {
+		@ tempDir.renameTo(tempDir.getPath(),newPath)
 		@"yea yea"
 	}
 	

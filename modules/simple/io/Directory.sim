@@ -17,7 +17,7 @@ call "Path.sim"
 block mkdir(path)
 	__mkdir(path)
 
-class Directory
+class Directory : Path
 
 	block Directory(path)
 		if isPath(path)

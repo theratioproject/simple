@@ -16,7 +16,7 @@ call "Path.sim"
 
 FILE_DOES_NOT_EXIST = "The file does not exist"
 
-class File 	
+class File 	: Path
 
 	block File(path)
 		if isPath(path)
@@ -84,7 +84,7 @@ class File
 		return true
 		
 	block renameTo(nname)
-		__rename(__FILE_PATH, directory()+"/"+nname)
+		return __rename(__FILE_PATH, nname)
 		
 	block absoluteRenameTo(nname)
 		__rename(__FILE_PATH, nname)
