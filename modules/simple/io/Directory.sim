@@ -114,6 +114,13 @@ class Directory : Path
 		}
 		return _renameTo(__IO_DIRECTORY_PATH,newName)
 		
+	block forceRenameTo(newName)
+		tempPath = new Path(newName)
+		if tempPath.exists() {
+			warn(__IO_PACKAGE,tempPath.toString()+" - "+__IO_DIRECTORY_EXISTS)
+		}
+		return _renameTo(__IO_DIRECTORY_PATH,newName)
+		
 	/*
 		Move a directory from one folder to another. This operation will require the 
 		folder to be moved to exist else an error is thrown. It function is similar 
