@@ -87,7 +87,8 @@ class Directory : Path
 		
 	block delete()
 		if exists() {
-			deleteFolderRecursively(new Directory('C:\Users\thecarisma\Documents\SIMPLE_GITHUB\s0.3.35-debug\modules\doc'))
+			dir = new Directory('C:\Users\thecarisma\Documents\SIMPLE_GITHUB\s0.3.35-debug\modules\doc\')
+			deleteFolderRecursively(dir)
 		}
 		return __delete_directory(__IO_DIRECTORY_PATH)
 		
