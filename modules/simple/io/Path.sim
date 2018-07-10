@@ -25,7 +25,7 @@ block isPath(ipath)
 	end
 	
 block isDirectory(directoryPath)
-	if __dir_exists(__IO_DIRECTORY_PATH) == 1 {
+	if __dir_exists(directoryPath) == 1 {
 		return true
 	}
 	return false
