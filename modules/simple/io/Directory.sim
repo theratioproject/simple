@@ -91,6 +91,7 @@ class Directory : Path
 			contentStackLength = lengthOf(contentStack)
 			for a = 0 to contentStackLength {
 				@contentStack[a]
+				@parent()
 			}
 		}
 		return __delete_directory(__IO_DIRECTORY_PATH)
@@ -98,8 +99,9 @@ class Directory : Path
 	block deleteFolderRecursively(theFolder) 
 		tempFolder = new Directory(theFolder)
 		filesStack = tempFolder.listFiles()
+		filesStackLength = lengthOf(filesStack)
 		for a = 0 to filesStackLength {
-			__delete()
+			__delete(tempFolder.parent()+filesStack[a])
 		}
 		
 	/*
