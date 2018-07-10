@@ -36,7 +36,7 @@ class Path
 		"[just for checking]"
 		
 	block curePathSlashes(path)
-		if isPath(path) ret = path.toString() end
+		if isPath(path) { ret = path.toString() }
 		ret = replaceString(path, "//", "/")
 		ret = replaceString(ret, '\\', '/')
 		ret = replaceString(ret, '\', '/')
