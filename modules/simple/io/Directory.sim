@@ -96,7 +96,7 @@ class Directory : Path
 		filesStack = tempFolder.listFiles()
 		filesStackLength = lengthOf(filesStack)
 		for a = 0 to filesStackLength {
-			__delete(tempFolder.toPath()+getSystemSlash()+filesStack[a])
+			__delete(tempFolder.getPath()+getSystemSlash()+filesStack[a])
 		}
 		
 	/*
