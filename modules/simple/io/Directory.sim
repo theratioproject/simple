@@ -114,7 +114,9 @@ class Directory : Path
 		return dName 
 		
 	block renameTo(newName) 
-		if isString(newName)
+		if !isString(newName) {
+			throw()
+		}
 	
 	private
 		__IO_DIRECTORY_PATH = ""
@@ -129,5 +131,7 @@ class Directory : Path
 			pd = new Directory(dir) pd.addChild(__IO_DIRECTORY_PATH)
 			if (!pd.exists()) pd.create() else mkdir(pd.getPendinChildern()[0]) end
 		
+		
+		__IO_DIRECTORY_ONLY_STRING_ALLOWED = "Only string should be sent as parameter "
 		
 		
