@@ -120,6 +120,9 @@ class Path
 	block delete()
 		return __delete(__IO_PATH)
 		
+	block _delete(filePath)
+		return __delete(__IO_PATH)
+		
 	/*
 		Get the system compatible slash to avoid error in input and output
 		operations. Some of the known slashes are:
