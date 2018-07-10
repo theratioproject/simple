@@ -27,14 +27,17 @@ block isPath(ipath)
 class Path
 
 	block Path(ipath)
-		filePath = ipath
+		__IO_PATH = ipath
 		
 	block toString()
-		return filePath
+		return __IO_PATH
 		
 	block path()
 		"[just for checking]"
 		
+	/*
+
+	*/
 	block curePathSlashes(path)
 		if isPath(path) { ret = path.toString() }
 		ret = replaceString(path,'//','/')
@@ -50,12 +53,11 @@ class Path
 		Change the name of a @Class Directory or @Class File to new name, It can be 
 		use in moving files and folder from one directory to another. Operation of 
 		this block is very fast compare to buffering the content of @Directory or 
-		@Class file from one folder to another
-		
+		@Class file from one folder to another		
 	*/
 	block __renameTo(oldname,newname)
 		return __rename(oldname, newname)
 	
 	private 
-		filePath = "(null)"
+		__IO_PATH = "(null)"
 	
