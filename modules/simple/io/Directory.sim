@@ -89,20 +89,26 @@ class Directory : Path
 		if exists() {
 			deleteFolderRecursively(this)
 		}
+		clearTemporaryDirectories()
 		return __delete_directory(__IO_DIRECTORY_PATH)
 		
 	block deleteFolderRecursively(tempFolder) 
 		folderStack = tempFolder.listDirectories()
 		folderStackLength = lengthOf(folderStack)
 		for a = 0 to folderStackLength {
-			childFolder = folderStack[a].getPath()
-			@childFolder
-			deleteFolderRecursively(childFolder)
+			add(__IO_DIRECTORY_TEMP_DIRECTORIES,folderStack[a].getPath())
+			deleteFolderRecursively(folderStack[a])
 		}
 		filesStack = tempFolder.listFiles()
 		filesStackLength = lengthOf(filesStack)
-		for a = 0 to filesStackLength {
-			__delete(filesStack[a].absolutePath())
+		for i = 0 to filesStackLength step -1 {
+			__delete(filesStack[i].absolutePath())
+		}
+		
+	block clearTemporaryDirectories()
+		tempFoldersListLength = lengthOf(__IO_DIRECTORY_TEMP_DIRECTORIES)
+		for b = tempFoldersListLength to 0 {
+			__delete_directory(__IO_DIRECTORY_TEMP_DIRECTORIES[b])
 		}
 		
 	/*
@@ -179,6 +185,7 @@ class Directory : Path
 		
 	
 	private
+		__IO_DIRECTORY_TEMP_DIRECTORIES = []
 		rawDirectoryPath = ""
 		directoryName = ""
 		filesList = []
