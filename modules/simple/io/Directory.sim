@@ -119,9 +119,9 @@ class Directory : Path
 	block forceRenameTo(newName)
 		tempPath = new Path(newName)
 		if tempPath.exists() {
-			warn(__IO_PACKAGE,tempPath.toString()+" - "+__IO_DIRECTORY_EXISTS_DELETE)
+			warn(__IO_PACKAGE+" : "+tempPath.toString()+" - "+__IO_DIRECTORY_EXISTS_DELETE)
 			if !tempPath.delete() {
-				throw(__IO_DIRECTORY_DELETE)
+				throwWithTitle(__IO_PACKAGE,tempPath.toString()+" - "+__IO_DIRECTORY_DELETE)
 			}
 		}
 		return _renameTo(__IO_DIRECTORY_PATH,newName)
