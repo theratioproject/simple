@@ -418,10 +418,30 @@ block displayError(msg)
 	__exit__
 
 block displayHelp()
+	# help = "
+	# 		@ monkeyFace
+	# "
+	@ monkeyFace
 	help = "
-		no help yet
+		usage:  modular [OPTIONS] 
+
+	[OPTION] : Option passed to the modular program.
+
+	The OPTIONS include: 
+
+	-h    --help		Displays the help message.
+	-su --shell		Opens the modular shell (or repl).
+	-e   --env              Install an environment.
+	-m   --mod              Install a module.
+	-v    --version      	Get the current version of modular.
+	-os --system       	Get the operating system type of the host system.
+	-u    --upgrade    	Upgrade and/or update the version of Simple on your computer.
+	-p    --path            Path to SIMPLE's directory if installed in a different place.
+	-t    --temp           	Delete temp files.
+	-s    --show-info 	Display processes currently carried out by modular.
+	-y    --yes						Ask for permission in cases where you are not a top priviledge user.
 	"
-	display help __exit__
+	 display help __exit__
 	
 block shell()
 	while true #displayError("No command")
