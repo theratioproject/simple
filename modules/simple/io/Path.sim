@@ -59,7 +59,7 @@ class Path
 		if isPath(path) { ret = path.toString() }
 		ret = replaceString(path,'//','/')
 		ret = replaceString(ret,'\\','/')
-		ret = replaceString(ret,'/',getSystemSlash())
+		ret = replaceString(ret,'/',__IO_PATH_SYSTEM_SLASH)
 		return ret 
 		
 	/*
