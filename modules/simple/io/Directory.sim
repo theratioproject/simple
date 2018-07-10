@@ -115,8 +115,9 @@ class Directory : Path
 		
 	block renameTo(newName) 
 		if !isString(newName) {
-			throw()
+			throwWithTitle(__IO_PACKAGE,__IO_DIRECTORY_ONLY_STRING_ALLOWED)
 		}
+		__renameTo(__IO_DIRECTORY_PATH,newName)
 	
 	private
 		__IO_DIRECTORY_PATH = ""
@@ -132,6 +133,7 @@ class Directory : Path
 			if (!pd.exists()) pd.create() else mkdir(pd.getPendinChildern()[0]) end
 		
 		
+		__IO_PACKAGE = "simple.io.Directory"
 		__IO_DIRECTORY_ONLY_STRING_ALLOWED = "Only string should be sent as parameter "
 		
 		
