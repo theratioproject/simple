@@ -125,7 +125,7 @@ class Directory : Path
 		if !isString(newName) {
 			throwWithTitle(__IO_PACKAGE,__IO_DIRECTORY_ONLY_STRING_ALLOWED)
 		}
-		__renameTo(__IO_DIRECTORY_PATH,newName)
+		return __renameTo(__IO_DIRECTORY_PATH,newName)
 		
 	block moveTo(newFolder)
 		__newFolder = newFolder
@@ -134,6 +134,8 @@ class Directory : Path
 		elif isDirectory(newFolder)
 			__newFolder = __newFolder.getPath()
 		}
+		@__newFolder+getSystemSlash()+getName()
+		return renameTo(__newFolder+getSystemSlash()+getName())
 		
 	
 	private
