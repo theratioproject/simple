@@ -52,28 +52,31 @@ simpleTitle = "
                                                                                                          | 
 "
 
-
-simpleUpdateUrl = "http://localhost/simple-lang/modular/simple-lang-upgrade.sim"
+verifierUrl = "https://www.simple-lang.sourceforge.net/verifiers"
+modularUrl = "http://localhost/simple-lang/modular/"
+addPackageUrl = modularUrl+"add-package.sim"
+simpleUpdateUrl = modularUrl+"simple-lang-upgrade.sim"
+packageUrl = modularUrl+"package-installer.sim"
 simpleDistDirectory = "/bin/"
+
+modulesDirectory = getSystemEnvironment("SIMPLE_MODULE_PATH")+"//"
+#blocks to find modules path
+
+deleteTemp = true
+showInfo = false
+askPermission = true
+
 if isWindows() {
 	simpleDistDirectory = "C:\Simple\"
 elif isLinux()
 
 }
 
-TYPE = 1 #1 for get and 0 for update
-DOWNLOAD_PATH = "C:\\Simple\\s"+getSimpleVersion()+"\\modules\\"
-MODULE_JSON_URL = "https://raw.githubusercontent.com/simple-lang/environment/master/modular/modules-dependencies.json"
-ENVIRONMENT_JSON_URL = "" 
-JSON_CONTENT  = ""
-
-verifierUrl = "https://www.simple-lang.sourceforge.net/verifiers"
 cmdlen = lengthOf(cmdparams)
 type = "whichever"
 package = ""
 version = "latest"
 ostype = "auto-detect"
-deleteTemp = true
 
 #error messages
 PLATFORM_UNAVAILABLE = "This package is not available for your operating system" 
@@ -93,23 +96,167 @@ block main()
 		elif stringEquals(cmdparams[a],"-v",false) or stringEquals(cmdparams[a],"--version",false) version = cmdparams[a++]  
 		elif stringEquals(cmdparams[a],"-os",false) or stringEquals(cmdparams[a],"--system",false) ostype = cmdparams[a++]  
 		elif stringEquals(cmdparams[a],"--upgrade",false) or stringEquals(cmdparams[a],"--update",false) or stringEquals(cmdparams[a],"-u",false) type = "upgrade" break
+		#Others
+		elif stringEquals(cmdparams[a],"-p",false) or stringEquals(cmdparams[a],"--path",false) simpleDistDirectory = cmdparams[a++] @simpleDistDirectory
+		elif stringEquals(cmdparams[a],"-t",false) or stringEquals(cmdparams[a],"--temp",false) deleteTemp = false
+		elif stringEquals(cmdparams[a],"-s",false) or stringEquals(cmdparams[a],"--show-info",false) showInfo = true
+		elif stringEquals(cmdparams[a],"-y",false) or stringEquals(cmdparams[a],"--yes",false) askPermission = false
 		else package = cmdparams[a] end
+	}
+	if ostype == "auto-detect" {
+		ostype = getOS()
 	}
 	if type == "upgrade" {
 		upgradeSimpleDistro()
 	else 
-		@package+" | type : "+type+" | version : "+version+" | os : "+ostype
+		#@package+" | type : "+type+" | version : "+version+" | os : "+ostype
+		#@getSystemEnvironment("SIMPLE_MODULE_PATH")+"/modules-dependencies.conf"
+		@"Preparing to install package: "+package+" - "+type+" "+version
+		depConf = new File(getSystemEnvironment("SIMPLE_MODULE_PATH")+"/modules-dependencies.conf")
+		if !depConf.exists() { 
+			@"error occur modules configuration file cannot be found" 
+			@"module install failed. "
+			__exit__ 
+		}
+		executeCode(depConf.readFileAsString())
+		if type == "module" { packageList = modulesList else packageList = environmentList }
+		moduleEnviron(depConf,packageList)
 	}
-	#goGetIt()
+	__exit__
+
+block moduleEnviron(depConf,packageList)
+	@"checking locally installed version of "+package+"..."
+	for a = 0 to lengthOf(packageList) {
+		if packageList[a][:name] == package {
+			localPackage = packageList[a]
+			@"local package: "+package+" "+type+" "+localPackage[:version]
+			if localPackage[:version] == version {
+				@"installed "+type+" "+package+" is up to date"
+				@"Modular operation completed"
+				__exit__
+			}
+		}
+	}
+	@"resolving dependencies..."
+	#loading bar here
+	latestPackage = loadPackageAndDep()
+	if latestPackage[:version] == localPackage[:version] {
+		@package+" "+type+" is up to date"
+		@"Modular operation completed"
+		__exit__
+	}
+	@"packages ("+(latestPackage[:supporting_modules_count]+2)+")	"+package
+	for a = 0 to latestPackage[:supporting_modules_count] {
+		@"		"+latestPackage[:supporting_modules][a+1]
+	}
+	allDownloadablePackages = getSupportingModulesInfo(latestPackage)
+	downloadPackages(allDownloadablePackages)
+	
+block downloadPackages(allDownloadablePackages)
+	@crlf+"Total Download Size: "+allDownloadablePackages[:downloadSize]+crlf
+	if askPermission {
+		display " :: Do you want to proceed [y/n] " read respond @""
+	else 
+		respond = "y"
+	}
+	if respond == "y" {
+		for a = 0 to lengthOf(allDownloadablePackages) - 1 {
+			downloadPackage(allDownloadablePackages[a])
+		}
+	else
+		@"Stopping upgrade..."
+		__exit__
+	}
+	
+	
+block downloadPackage(downloadablePackage)
+	if showInfo {
+		@" :: "+downloadablePackage[:status] 
+		@" :: "+downloadablePackage[:name]
+		@" :: "+downloadablePackage[:description]
+		@" :: "+downloadablePackage[:author]
+		@" :: "+downloadablePackage[:version]
+		@" :: "+downloadablePackage[:license]
+		@" :: "+downloadablePackage[:website]
+		@" :: "+downloadablePackage[:date]
+	}
+	downloadedPackage = new Download(downloadablePackage[:download_url])
+	downloadedPackage.saveLocation(modulesDirectory+hash(package)+".zip")
+	downloadedPackage.execute()
+	if downloadedPackage.exists() {
+		downloadedPackageZip = new Zip(downloadedPackage.absolutePath(),"r")
+		extractedPackage = new Directory(modulesDirectory+hash(package))
+		downloadedPackageZip.extractAll(extractedPackage.getPath())
+		if extractedPackage.exists() {
+			moveContent(extractedPackage.getPath()+"//s0.3.36//bin//gsimple.exe",modulesDirectory+"test")
+		}
+	}
+	
+block moveContent(oldPath,newPath)
+	@oldPath
+	@newPath
+	tempFile = new File(oldPath)
+	if tempFile.exists() {
+		tempFile.renameTo(newPath)
+		@"yea yea"
+	}
+	
+	
+block getSupportingModulesInfo(initialPackage)
+	allDownloadablePackages = [initialPackage]
+	
+	allDownloadablePackages[:downloadSize] = "6.04 MB"
+	return allDownloadablePackages
+	
+block loadPackageAndDep()
+	latestPackage = []
+	@"looking up "+packageUrl
+	packageJson = download(packageUrl+"?package="+package+"&type="+type+"&version="+version+"&os="+ostype)
+	if packageJson == null {
+		@"Internet connection is required to upgrade simple-lang"
+		__exit__
+	elif stringContains(packageJson, "Not Found") 
+		@"The update link is broken please report this to <whatisthis914@gmail.com>"
+		__exit__
+	}
+	packageObject = new JsonObject(packageJson)
+	latestPackage[:value] = packageObject.getObject("value").getStringContent()
+	latestPackage[:message] = packageObject.getObject("message").getStringContent()
+	if latestPackage[:value] == "failed" {
+		@latestPackage[:message]
+		@"if you owned the module simply add it to the simple-lang package index at "
+		@addPackageUrl
+		__exit__
+	}
+	latestPackage[:status] = packageObject.getObject("status").getStringContent()
+	latestPackage[:name] = packageObject.getObject("name").getStringContent()
+	latestPackage[:description] = packageObject.getObject("description").getStringContent()
+	latestPackage[:author] = packageObject.getObject("author").getStringContent()
+	latestPackage[:version] = packageObject.getObject("version").getStringContent()
+	latestPackage[:license] = packageObject.getObject("license").getStringContent()
+	latestPackage[:website] = packageObject.getObject("website").getStringContent()
+	latestPackage[:date] = packageObject.getObject("date").getStringContent()
+	latestPackage[:download_url] = packageObject.getObject("download_url").getStringContent()
+		latestPackageSM = packageObject.getObject("supporting_modules").getStringContent()
+		latestPackageSM = stringSplit(latestPackageSM," ")
+	latestPackage[:supporting_modules] = latestPackageSM
+	latestPackage[:supporting_modules_count] = lengthOf(latestPackageSM)
+	
+	return latestPackage
+	
 	
 block upgradeSimpleDistro()
 	@"Preparing to upgrade simple-lang, environments and modules"
 	@"Checking installed simple-lang version..."
 	localVersion = getSimpleVersion()
 	@"Installed version: "+localVersion 
+	@"looking up "+simpleUpdateUrl
 	upgradeJson = download(simpleUpdateUrl+"?os=Windows%2032") #encode(getOS())
 	if upgradeJson == null {
 		@"Internet connection is required to upgrade simple-lang"
+	elif stringContains(upgradeJson, "Not Found") 
+		@"The upgrade link is broken please report this to <whatisthis914@gmail.com>"
+		__exit__
 	else 
 		upgradeObject = (new JsonObject(upgradeJson))
 		latestVersion = upgradeObject.getObject("latest_version").getStringContent()
@@ -123,11 +270,11 @@ block upgradeSimpleDistro()
 			__exit__
 		else 
 			@"Total Download Size: "+latestSize+crlf
-			display " :: Do you want to proceed [y/n] " read respond
+			display " :: Do you want to proceed [y/n] " read respond @""
 			if respond == "y" {
 				@"Downloading simple-lang: "+latestCodename
 				downloadedFile = download(latestDownloadUrl)
-				latestSimple = new File(simpleDistDirectory+hash(latestCodename)+"."+latestExtensionType)
+				latestSimple = new File(simpleDistDirectory+hash(latestCodename)+"."+latestExtensionType) #replace with temp folder
 				latestSimple.write(downloadedFile)
 				if latestSimple.exists() {
 					latestSimpleZip = new Zip(latestSimple.absolutePath(), "r")
@@ -138,7 +285,7 @@ block upgradeSimpleDistro()
 					if latestInstalledDir.exists() {
 						@"simple-lang upgraded from "+localVersion+" to "+latestVersion
 					}
-					if latestSimple.exists() { latestSimple.delete() }
+					removeTempFiles([latestSimple])
 				else
 					@"Upgrade failed. Stopping upgrade"
 				} 
@@ -146,6 +293,13 @@ block upgradeSimpleDistro()
 				@"Stopping upgrade..."
 				__exit__
 			}
+		}
+	}
+	
+block removeTempFiles(files)
+	if deleteTemp {
+		for a = 0 to lengthOf(files) {
+			if files[a].exists() { files[a].delete() }
 		}
 	}
 	

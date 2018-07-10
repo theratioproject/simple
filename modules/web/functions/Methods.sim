@@ -3,7 +3,7 @@ call "simple/system/Runtime.sim"
 
 pageAttributes = []
 
-#loadPageAttributes()
+loadPageAttributes()
 
 block getRawUrlData()
 	return getSystemEnvironment("QUERY_STRING")

@@ -151,9 +151,9 @@ int cc_fprintf(cc_color_t color, FILE* stream, const char* format, ...) {
     unsigned int bg;
     int result = -EINVAL;
     va_list ap;
-	CONSOLE_SCREEN_BUFFER_INFO csbi;
 #ifdef _WIN32
     HANDLE console;
+	CONSOLE_SCREEN_BUFFER_INFO csbi;
 #endif  /* _WIN32 */
 
     va_start(ap, format);
