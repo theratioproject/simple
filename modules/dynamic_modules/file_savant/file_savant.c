@@ -44,6 +44,7 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
     register_block("__exists",file_exists);
     register_block("__rename",file_rename);
     register_block("__delete",file_delete);
+    register_block("__delete_directory",file_delete_folder);
     register_block("blow_dir",blow_directory);
     register_block("__mkdir",mk_directory);
     register_block("__dir_exists",dir_exists);
@@ -147,7 +148,32 @@ void file_delete ( void *pointer )
 		return ;
 	}
 	if ( SIMPLE_API_ISSTRING(1) ) {
-		remove(SIMPLE_API_GETSTRING(1));
+		#ifdef unlink
+			SIMPLE_API_RETNUMBER(unlink(SIMPLE_API_GETSTRING(1)));
+		#else
+			SIMPLE_API_RETNUMBER(remove(SIMPLE_API_GETSTRING(1)));
+		#endif
+	} else {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+	}
+}
+
+void file_delete_folder ( void *pointer )
+{
+	if ( SIMPLE_API_PARACOUNT != 1 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
+		return ;
+	}
+	if ( SIMPLE_API_ISSTRING(1) ) {
+		#ifdef _WIN32
+			SIMPLE_API_RETNUMBER(RemoveDirectory(SIMPLE_API_GETSTRING(1)));
+		#else
+			#ifdef rmdir
+				SIMPLE_API_RETNUMBER(rmdir(SIMPLE_API_GETSTRING(1)));
+			#else
+				SIMPLE_API_RETNUMBER(remove(SIMPLE_API_GETSTRING(1)));
+			#endif
+		#endif
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}

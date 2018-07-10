@@ -23,6 +23,7 @@ class Directory : Path
 	__IO_DIRECTORY_EXISTS = "The directory already exists you should remove the directory first"
 	__IO_DIRECTORY_EXISTS_DELETE = "exist and is been deleted"
 	__IO_DIRECTORY_DELETE = "The directory cannot be deleted"
+	__IO_DIRECTORY_PATH = ""
 
 	block Directory(path)
 		if isPath(path)
@@ -78,11 +79,20 @@ class Directory : Path
 	block addChild(dir)
 		add(childrenToCreate, dir) 
 		
-	block getPendinChildern()
+	block getPendingChildern()
 		return childrenToCreate
 		
 	block getName()
 		return directoryName
+		
+	block delete()
+		if exists() {
+			contentStack = explode()
+			contentStackLength = lengthOf(contentStack)
+			for a = 0 to contentStackLength {
+				@contentStack[a]
+			}
+		}
 		
 	/*
 
@@ -116,15 +126,22 @@ class Directory : Path
 		}
 		return _renameTo(__IO_DIRECTORY_PATH,newName)
 		
+	/*
+		Rename the directory to the new name even if it exist, instead of throwing an
+		error if the folder exists the folder will be deleted instead then the current 
+		directory is renamed to the deleted folder, the content of the old folders are 
+		lost in this case
+		@Return the rename operation value @DataType Number
+	*/
 	block forceRenameTo(newName)
-		tempPath = new Path(newName)
-		if tempPath.exists() {
-			warn(__IO_PACKAGE+" : "+tempPath.toString()+" - "+__IO_DIRECTORY_EXISTS_DELETE)
-			if !tempPath.delete() {
-				throwWithTitle(__IO_PACKAGE,tempPath.toString()+" - "+__IO_DIRECTORY_DELETE)
+		tempDir = new Directory(newName)
+		if tempDir.exists() {
+			warn(__IO_PACKAGE+" : "+tempDir.getPath()+" - "+__IO_DIRECTORY_EXISTS_DELETE)
+			if tempDir.delete() != true {
+				throwWithTitle(__IO_PACKAGE,tempDir.getPath()+" - "+__IO_DIRECTORY_DELETE)
 			}
 		}
-		return _renameTo(__IO_DIRECTORY_PATH,newName)
+		return -20 #_renameTo(__IO_DIRECTORY_PATH,newName)
 		
 	/*
 		Move a directory from one folder to another. This operation will require the 
@@ -151,7 +168,6 @@ class Directory : Path
 		
 	
 	private
-		__IO_DIRECTORY_PATH = ""
 		rawDirectoryPath = ""
 		directoryName = ""
 		filesList = []
@@ -161,7 +177,7 @@ class Directory : Path
 		block ensureParent() 
 			dir = removeString(__IO_DIRECTORY_PATH,lastStringAfterChar(__IO_DIRECTORY_PATH, '/'))
 			pd = new Directory(dir) pd.addChild(__IO_DIRECTORY_PATH)
-			if (!pd.exists()) pd.create() else mkdir(pd.getPendinChildern()[0]) end
+			if (!pd.exists()) pd.create() else mkdir(pd.getPendingChildern()[0]) end
 		
 		
 		
