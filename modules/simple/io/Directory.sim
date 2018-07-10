@@ -135,9 +135,7 @@ class Directory : Path
 			try {
 				isADirectory(newFolder)
 				__newFolder = __newFolder.getPath()
-			catch
-				
-			}
+			catch }
 		}
 		@__newFolder+getSystemSlash()+getName()
 		return renameTo(__newFolder+getSystemSlash()+getName())
