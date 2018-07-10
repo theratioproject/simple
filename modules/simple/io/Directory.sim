@@ -125,12 +125,13 @@ class Directory : Path
 		@Return the rename operation @DataType Number
 	*/
 	block renameTo(newName) 
+		newName = curePathSlashes(newName)
 		if !isString(newName) {
 			throwWithTitle(__IO_PACKAGE,__IO_DIRECTORY_ONLY_STRING_ALLOWED)
 		}
 		tempDir = new Directory(newName)
 		if tempDir.exists() {
-			throwWithTitle(__IO_PACKAGE,newName+" "+__IO_DIRECTORY_EXISTS)
+			throwWithTitle(__IO_PACKAGE,newName+" - "+__IO_DIRECTORY_EXISTS)
 		}
 		return __renameTo(__IO_DIRECTORY_PATH,newName)
 		
@@ -138,7 +139,7 @@ class Directory : Path
 		
 	*/
 	block moveTo(newFolder)
-		__newFolder = curePathSlashes(newFolder)
+		__newFolder = newFolder
 		if isPath(newFolder) {
 			__newFolder = newFolder.toString()
 		else 
