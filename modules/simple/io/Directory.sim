@@ -96,7 +96,8 @@ class Directory : Path
 		return __delete_directory(__IO_DIRECTORY_PATH)
 		
 	block deleteFolderRecursively(theFolder) 
-		
+		tempFolder = new Directory(theFolder)
+		filesStack = tempFolder.listFiles()
 		
 	/*
 
