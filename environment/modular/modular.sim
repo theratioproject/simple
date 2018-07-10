@@ -14,7 +14,7 @@
 call "simple/utilities/Console.sim"
 call "simple/core/String.sim"
 call "simple/internet/Download.sim"
-call "simple/io/File.sim"
+call "simple/io/File.sim" ? simple.io
 call "simple/io/Directory.sim"
 call "simple/utilities/parser/json/JsonObject.sim"
 call "simple/security/Hash.sim" ? simple.security
@@ -197,7 +197,7 @@ block downloadPackage(downloadablePackage)
 block moveContent(oldPath,newPath)
 	tempDir = new Directory(oldPath)
 	if tempDir.exists() {
-		@ tempDir.renameTo(newPath)
+		@ tempDir.renameTo(2)
 		@"yea yea"
 	}
 	
