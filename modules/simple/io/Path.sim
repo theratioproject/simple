@@ -41,8 +41,12 @@ class Path
 		as it own and not reject operation due to incorrect path format. 
 		It also remove multiple slashes and convert it to os single slash
 		@BlockQuote
-			Windows 	- /
-			Linux		- 
+			Windows 	- \
+			Linux		- /
+			MacOS		- /
+			Haiku		- /
+			Unix		- /
+			Android		- /
 		@End
 	*/
 	block curePathSlashes(path)
