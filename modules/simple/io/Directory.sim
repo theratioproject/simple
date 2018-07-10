@@ -137,7 +137,8 @@ class Directory : Path
 		
 	/*
 		Move a directory from one folder to another. This operation will require the 
-		folder to be moved to exist else an error is thrown
+		folder to be moved to exist else an error is thrown. It function is similar 
+		to @Block __renameTo(newName)
 		@Return the move operation success value @DataType Number 
 	*/
 	block _moveTo(newFolder)
