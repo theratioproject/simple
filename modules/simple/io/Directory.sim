@@ -90,6 +90,7 @@ class Directory : Path
 			deleteFolderRecursively(this)
 		}
 		clearTemporaryDirectories()
+		return __delete_directory(getPath())
 		
 	block deleteFolderRecursively(tempFolder) 
 		folderStack = tempFolder.listDirectories()
