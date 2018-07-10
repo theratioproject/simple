@@ -552,12 +552,12 @@ if [ $EXEC_TYPE = "install" ]; then
 	#Install Environments
 	echo "environment:install: preparing to install simple environment programs"
 	echo "environment:install: moving back to simple/build diectory"
-	cd ../../simple/build
+	cd ../build
 	if [ -e ../environment/Linux-Install.mk ]; then
 		cd ../environment/
 		echo "environment:install: the Linux.Install.mk is detected "
 		echo "environment:install: checking if the environments are built"
-		sudo make -f ../environment/Linux-Install.mk
+		make -f ../environment/Linux-Install.mk
 		if [ -e ./dist/bake ]; then
 			echo "environment:install: the environment are detected. proceding installation..."
 			sudo make -f ../environment/Linux-Install.mk uninstall
