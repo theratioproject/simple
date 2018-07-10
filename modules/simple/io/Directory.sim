@@ -128,10 +128,11 @@ class Directory : Path
 		__renameTo(__IO_DIRECTORY_PATH,newName)
 		
 	block moveTo(newFolder)
+		__newFolder = newFolder
 		if isPath(newFolder) {
 			__newFolder = newFolder.toString()
 		elif isDirectory(newFolder)
-			__newFolder = __newFolder.
+			__newFolder = __newFolder.getPath()
 		}
 		
 	
