@@ -92,11 +92,11 @@ class Directory : Path
 		return dName 
 		
 	/*
-		Confirm if 
+		Confirm if the directory already exist 
 	*/
 	block exists() 
 		tempPath = new Path(__IO_DIRECTORY_PATH)
-		return tempPath.exists()
+		return tempPath.isADirectory()
 		
 	/*
 		Change the name of a directory to another. Only string is allowed as 
@@ -123,7 +123,7 @@ class Directory : Path
 			__newFolder = newFolder.toString()
 		else 
 			try {
-				isADirectory(newFolder)
+				newFolder.isADirectory()
 				__newFolder = __newFolder.getPath()
 			catch 
 			
