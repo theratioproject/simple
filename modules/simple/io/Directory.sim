@@ -87,14 +87,7 @@ class Directory : Path
 		
 	block delete()
 		if exists() {
-			deleteFolderRecursively(this)
-			/*contentStack = explode()
-			contentStackLength = lengthOf(contentStack)
-			for a = 0 to contentStackLength {
-				@getPath()
-				@contentStack[a][1]
-				@"Parent folder : "+parent().getPath()
-			} */
+			deleteFolderRecursively(self)
 		}
 		return __delete_directory(__IO_DIRECTORY_PATH)
 		
