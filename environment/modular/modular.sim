@@ -130,7 +130,6 @@ block moduleEnviron(depConf,packageList)
 	for a = 0 to lengthOf(packageList) {
 		if packageList[a][:name] == package {
 			localPackage = packageList[a]
-			@"yes we good"
 			@"local package: "+package+" "+type+" "+localPackage[:version]
 			if localPackage[:version] == version {
 				@"installed "+type+" "+package+" is up to date"
