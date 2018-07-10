@@ -101,13 +101,13 @@ class Directory : Path
 		}
 		filesStack = tempFolder.listFiles()
 		filesStackLength = lengthOf(filesStack)
-		for i = 0 to filesStackLength step -1 {
+		for i = 0 to filesStackLength {
 			__delete(filesStack[i].absolutePath())
 		}
 		
 	block clearTemporaryDirectories()
 		tempFoldersListLength = lengthOf(__IO_DIRECTORY_TEMP_DIRECTORIES)
-		for b = tempFoldersListLength to 0 {
+		for b = tempFoldersListLength to 0 step -1 {
 			__delete_directory(__IO_DIRECTORY_TEMP_DIRECTORIES[b])
 		}
 		
