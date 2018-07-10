@@ -130,6 +130,8 @@ class Directory : Path
 	block moveTo(newFolder)
 		if isPath(newFolder) {
 			__newFolder = newFolder.toString()
+		elif isDirectory(newFolder)
+			__newFolder = __newFolder.
 		}
 		
 	
