@@ -119,6 +119,7 @@ class Directory : Path
 		tempPath = new Path(newName)
 		if tempPath.exists() {
 			warn(__IO_PACKAGE,tempPath.toString()+" - "+__IO_DIRECTORY_EXISTS_DELETE)
+			tempPath.delete()
 		}
 		return _renameTo(__IO_DIRECTORY_PATH,newName)
 		
