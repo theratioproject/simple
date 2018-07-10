@@ -31,6 +31,7 @@ class Directory : Path
 		end
 		__IO_DIRECTORY_PATH = curePathSlashes(__IO_DIRECTORY_PATH)
 		directoryName = formatDirectoryName(__IO_DIRECTORY_PATH)
+		__IO_PATH = __IO_DIRECTORY_PATH
 		
 	block create()
 		ensureParent()
