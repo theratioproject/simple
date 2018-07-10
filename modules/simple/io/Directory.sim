@@ -21,6 +21,7 @@ class Directory : Path
 
 	__IO_PACKAGE = "simple.io.Directory"
 	__IO_DIRECTORY_EXISTS = "The directory already exists you should remove the directory first"
+	__IO_DIRECTORY_EXISTS_DELETE = "exist and is been deleted"
 
 	block Directory(path)
 		if isPath(path)
@@ -117,7 +118,7 @@ class Directory : Path
 	block forceRenameTo(newName)
 		tempPath = new Path(newName)
 		if tempPath.exists() {
-			warn(__IO_PACKAGE,tempPath.toString()+" - "+__IO_DIRECTORY_EXISTS)
+			warn(__IO_PACKAGE,tempPath.toString()+" - "+__IO_DIRECTORY_EXISTS_DELETE)
 		}
 		return _renameTo(__IO_DIRECTORY_PATH,newName)
 		
