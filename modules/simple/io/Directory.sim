@@ -116,6 +116,10 @@ class Directory : Path
 		dName = lastStringAfterChar(dir, '/')
 		return dName 
 		
+	/*
+		Rename a @Directory to another a rather fast way of moving directory
+		about in the same disk partition
+	*/
 	block renameTo(newName) 
 		if !isString(newName) {
 			throwWithTitle(__IO_PACKAGE,__IO_DIRECTORY_ONLY_STRING_ALLOWED)
