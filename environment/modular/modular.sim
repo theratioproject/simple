@@ -445,7 +445,7 @@ block displayHelp()
 	-p    --path            Path to SIMPLE's directory if installed in a different place.
 	-t    --temp           	Delete temp files.
 	-s    --show-info 	Display processes currently carried out by modular.
-	-y    --yes						Ask for permission in cases where you are not a top priviledge user.
+	-y    --yes		Ask for permission in cases where you are not a top priviledge user.
 	"
 	 display help __exit__
 	
