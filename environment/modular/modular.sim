@@ -236,6 +236,7 @@ block loadPackageAndDep()
 		@addPackageUrl
 		__exit__
 	}
+	@"resolving dependencies..."
 	latestPackage[:status] = packageObject.getObject("status").getStringContent()
 	latestPackage[:name] = packageObject.getObject("name").getStringContent()
 	latestPackage[:description] = packageObject.getObject("description").getStringContent()
