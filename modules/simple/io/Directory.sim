@@ -91,7 +91,7 @@ class Directory : Path
 			contentStackLength = lengthOf(contentStack)
 			for a = 0 to contentStackLength {
 				@contentStack[a]
-				@parent()
+				@"Parent folder : "+parent().getPath()
 			}
 		}
 		return __delete_directory(__IO_DIRECTORY_PATH)
