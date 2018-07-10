@@ -144,10 +144,12 @@ block moduleEnviron(depConf,packageList)
 	@"resolving dependencies..."
 	#loading bar here
 	latestPackage = loadPackageAndDep()
-	if latestPackage[:version] == localPackage[:version] {
-		@package+" "+type+" is up to date"
-		@"Modular operation completed"
-		__exit__
+	if isList(localPackage) {
+		if latestPackage[:version] == localPackage[:version] {
+			@package+" "+type+" is up to date"
+			@"Modular operation completed"
+			__exit__
+		}
 	}
 	@"packages ("+(latestPackage[:supporting_modules_count]+2)+")	"+package
 	for a = 0 to latestPackage[:supporting_modules_count] {
