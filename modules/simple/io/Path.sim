@@ -37,11 +37,12 @@ class Path
 		
 	block curePathSlashes(path)
 		if isPath(path) { ret = path.toString() }
-		ret = replaceString(path, "//", "/")
-		ret = replaceString(ret, '\\', '/')
-		ret = replaceString(ret, '\', '/')
+		ret = replaceString(path,'//','/')
+		ret = replaceString(ret,'\\','/')
 		if isWindows() {
 			ret = replaceString(ret,'/','\')
+		else 
+			ret = replaceString(ret,'\','/')
 		}
 		return ret 
 		
