@@ -288,11 +288,11 @@ echo "modules:simple-lang:core: treating the __first_calls.sim file"
 	echo "modules:simple-lang:core: this is a linux system modify to correspond"
 if [ $EXEC_TYPE = "install" ]; then
 	if [ -e $DESTDIR/$PREFIX/simple/$VERSION/modules/simple/core/__first_calls.sim ]; then
-		echo "callDynamicModule(\"systemic.so\") callDynamicModule(\"string_savant.so\")" >> $DESTDIR/$PREFIX/simple/$VERSION/modules/simple/core/__first_calls.sim
+		sudo echo "callDynamicModule(\"systemic.so\") callDynamicModule(\"string_savant.so\")" >> $DESTDIR/$PREFIX/simple/$VERSION/modules/simple/core/__first_calls.sim
 	else
 		echo "error:modules:simple-lang:core: the location of the __first_calls.sim could not be verified"
 		echo "modules:simple-lang:core: using the SIMPLE_PATH environment instead"
-		echo "callDynamicModule(\"systemic.so\") callDynamicModule(\"string_savant.so\")" >> $SIMPLE_PATH/$VERSION/modules/simple/core/__first_calls.sim
+		sudo echo "callDynamicModule(\"systemic.so\") callDynamicModule(\"string_savant.so\")" >> $SIMPLE_PATH/$VERSION/modules/simple/core/__first_calls.sim
 	fi
 fi
 

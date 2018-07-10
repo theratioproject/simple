@@ -59,7 +59,7 @@ simpleUpdateUrl = modularUrl+"simple-lang-upgrade.sim"
 packageUrl = modularUrl+"package-installer.sim"
 simpleDistDirectory = "/bin/"
 
-modulesDirectory = getSystemEnvironment("SIMPLE_MODULE_PATH")+"//"
+modulesDirectory = getSystemEnvironment("SIMPLE_MODULE_PATH")
 #blocks to find modules path
 
 deleteTemp = true
@@ -125,6 +125,7 @@ block main()
 	__exit__
 
 block moduleEnviron(depConf,packageList)
+	localPackage = null
 	@"checking locally installed version of "+package+"..."
 	for a = 0 to lengthOf(packageList) {
 		if packageList[a][:name] == package {
@@ -137,13 +138,14 @@ block moduleEnviron(depConf,packageList)
 			}
 		}
 	}
-	@"resolving dependencies..."
 	#loading bar here
 	latestPackage = loadPackageAndDep()
-	if latestPackage[:version] == localPackage[:version] {
-		@package+" "+type+" is up to date"
-		@"Modular operation completed"
-		__exit__
+	if isList(localPackage) && !isString(localPackage[0]) {
+		if latestPackage[:version] == localPackage[:version] {
+			@package+" "+type+" is up to date"
+			@"Modular operation completed"
+			__exit__
+		}
 	}
 	@"packages ("+(latestPackage[:supporting_modules_count]+2)+")	"+package
 	for a = 0 to latestPackage[:supporting_modules_count] {
@@ -188,7 +190,7 @@ block downloadPackage(downloadablePackage)
 		extractedPackage = new Directory(modulesDirectory+hash(package))
 		downloadedPackageZip.extractAll(extractedPackage.getPath())
 		if extractedPackage.exists() {
-			moveContent(extractedPackage.getPath()+"//s0.3.36//bin//gsimple.exe",modulesDirectory+"test")
+			moveContent(extractedPackage.getPath()+"/s0.3.36/bin/simple.exe",modulesDirectory+"")
 		}
 	}
 	
@@ -213,7 +215,10 @@ block loadPackageAndDep()
 	@"looking up "+packageUrl
 	packageJson = download(packageUrl+"?package="+package+"&type="+type+"&version="+version+"&os="+ostype)
 	if packageJson == null {
-		@"Internet connection is required to upgrade simple-lang"
+		@"Internet connection is required to install "+package+" "+type+" package"
+		__exit__
+	elif stringContains(packageJson, "500 Internal Server Error")
+		@"The server is experiencing a down time please report to <whatisthis914@gmail.com>"
 		__exit__
 	elif stringContains(packageJson, "Not Found") 
 		@"The update link is broken please report this to <whatisthis914@gmail.com>"
@@ -228,6 +233,7 @@ block loadPackageAndDep()
 		@addPackageUrl
 		__exit__
 	}
+	@"resolving dependencies..."
 	latestPackage[:status] = packageObject.getObject("status").getStringContent()
 	latestPackage[:name] = packageObject.getObject("name").getStringContent()
 	latestPackage[:description] = packageObject.getObject("description").getStringContent()

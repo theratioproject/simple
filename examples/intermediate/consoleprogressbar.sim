@@ -34,7 +34,7 @@ for a = 0 to limit {
 @"A progress bar using #######"
 for a = 0 to limit {
 	val = ((a/limit)*100)
-	display char(13)+"Downloading at "+val+"%       	["+joinChar("#",val)+"]"
+	display "Downloading at "+val+"%       	["+joinChar("#",val)+"]"+char(13)
 	__flush_console()
 }
 @""+crlf
