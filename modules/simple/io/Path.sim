@@ -23,6 +23,12 @@ block isPath(ipath)
 	catch 
 		return false
 	end
+	
+block isDirectory(directoryPath)
+	if __dir_exists(__IO_DIRECTORY_PATH) == 1 {
+		return true
+	}
+	return false
  
 class Path
 
