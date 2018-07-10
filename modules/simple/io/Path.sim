@@ -53,6 +53,7 @@ class Path
 		ret = replaceString(path,'//','/')
 		ret = replaceString(ret,'\\','/')
 		ret = replaceString(ret,'/',__IO_PATH_SYSTEM_SLASH)
+		@"the ret : "+ret
 		return ret 
 		
 	/*
