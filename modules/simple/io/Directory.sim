@@ -108,9 +108,10 @@ class Directory : Path
 	block clearTemporaryDirectories()
 		tempFoldersListLength = lengthOf(__IO_DIRECTORY_TEMP_DIRECTORIES)
 		for b = tempFoldersListLength to 0 step -1 {
-			while __delete_directory(__IO_DIRECTORY_TEMP_DIRECTORIES[b]) != true {
+			if __delete_directory(__IO_DIRECTORY_TEMP_DIRECTORIES[b]) != true {
 				display(__IO_PACKAGE+" : "+__IO_DIRECTORY_TEMP_DIRECTORIES[b]+" is stubborn")+crlf
-				__delete_directory(__IO_DIRECTORY_TEMP_DIRECTORIES[b])
+				tempDir = new Directory(__IO_DIRECTORY_TEMP_DIRECTORIES[b])
+				tempDir.delete()
 			}
 		}
 		
