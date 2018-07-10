@@ -143,6 +143,9 @@ class Directory : Path
 			catch }
 		}
 		@__newFolder+getSystemSlash()+getName()
+		if stringEndsWith(__newFolder,getSystemSlash()) {
+		
+		}
 		return renameTo(__newFolder+getSystemSlash()+getName())
 		
 	
