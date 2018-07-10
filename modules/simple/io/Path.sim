@@ -36,7 +36,7 @@ class Path
 		"[just for checking]"
 		
 	/*
-
+		
 	*/
 	block curePathSlashes(path)
 		if isPath(path) { ret = path.toString() }
