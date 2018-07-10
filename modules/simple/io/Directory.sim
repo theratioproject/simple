@@ -136,7 +136,7 @@ class Directory : Path
 		return __renameTo(__IO_DIRECTORY_PATH,newName)
 		
 	/*
-		
+		Move a directory from one folder to another  
 	*/
 	block moveTo(newFolder)
 		__newFolder = newFolder
