@@ -217,8 +217,9 @@ block loadPackageAndDep()
 	if packageJson == null {
 		@"Internet connection is required to install "+package+" "+type+" package"
 		__exit__
-	elif stringContains(packageJson, "500 Internal Server Error")
-		@"The srver is experiencing a down time please report the issue to "
+	elif stringContains(packageJson, "Internal")
+		@""
+		@"The server is experiencing a down time please report the issue to "
 		@"whatisthis914@gmail.com"
 		__exit__
 	elif stringContains(packageJson, "Not Found") 
