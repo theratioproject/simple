@@ -140,13 +140,15 @@ class Directory : Path
 			try {
 				isADirectory(newFolder)
 				__newFolder = __newFolder.getPath()
-			catch }
+			catch 
+			
+			}
 		}
 		@"before : "+__newFolder
 		if !stringEndsWith(__newFolder,getSystemSlash()) {
 			__newFolder += getSystemSlash()
 		}
-		@"before : "+__newFolder
+		@"after : "+__newFolder
 		return renameTo(__newFolder+getSystemSlash()+getName())
 		
 	
