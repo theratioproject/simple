@@ -120,6 +120,8 @@ class Directory : Path
 		Rename a @Directory to another a rather fast way of moving directory
 		about in the same disk partition. This take the new absolute directory 
 		to be rename to which must be a string. 
+		@See @Class Path @Block __renameTo(oldname,newname)
+		@Return the rename operation @DataType Number
 	*/
 	block renameTo(newName) 
 		if !isString(newName) {
@@ -127,6 +129,9 @@ class Directory : Path
 		}
 		return __renameTo(__IO_DIRECTORY_PATH,newName)
 		
+	/*
+		
+	*/
 	block moveTo(newFolder)
 		__newFolder = newFolder
 		if isPath(newFolder) {
