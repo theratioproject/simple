@@ -46,6 +46,7 @@ class Path
 		to the operating system standard to allow the system treat the path
 		as it own and not reject operation due to incorrect path format. 
 		It also remove multiple slashes and convert it to os single slash
+		@Return the formated path @DataType String
 	*/
 	block curePathSlashes(path)
 		if isPath(path) { ret = path.toString() }
@@ -59,6 +60,7 @@ class Path
 		use in moving files and folder from one directory to another. Operation of 
 		this block is very fast compare to buffering the content of @Directory or 
 		@Class file from one folder to another	
+		It return a number  base on the operation result
 		@Return the value of the rename operation @DataType Number
 	*/
 	block __renameTo(oldname,newname)
