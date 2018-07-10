@@ -124,7 +124,7 @@ class Directory : Path
 		@See @Class Path @Block __renameTo(oldname,newname)
 		@Return the rename operation @DataType Number
 	*/
-	block renameTo(newName) 
+	block _renameTo(newName) 
 		newName = curePathSlashes(newName)
 		if !isString(newName) {
 			throwWithTitle(__IO_PACKAGE,__IO_DIRECTORY_ONLY_STRING_ALLOWED)
@@ -136,10 +136,11 @@ class Directory : Path
 		return __renameTo(__IO_DIRECTORY_PATH,newName)
 		
 	/*
-		Move a directory from one folder to another 
+		Move a directory from one folder to another. This operation will require the 
+		folder to be moved to exist else an error is thrown
 		@Return the move operation success value @DataType Number 
 	*/
-	block moveTo(newFolder)
+	block _moveTo(newFolder)
 		__newFolder = newFolder
 		if isPath(newFolder) {
 			__newFolder = newFolder.toString()
