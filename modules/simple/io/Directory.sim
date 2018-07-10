@@ -92,14 +92,16 @@ class Directory : Path
 		return dName 
 		
 	/*
-
+		
 	*/
 	block exists() 
 		tempPath = new Path(__IO_DIRECTORY_PATH)
 		return tempPath.exists()
 		
 	/*
-		
+		Change the name of a directory to another. Only string is allowed as 
+		parameter and the new folder name must not exists else an error is thrown,
+		to forcefully rename a folder @Block forceRenameTo(newName) should be called
 	*/
 	block renameTo(newName)
 		tempDir = new Path(newName)
