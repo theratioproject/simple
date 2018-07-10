@@ -59,13 +59,13 @@ class Directory : Path
 		end
 		return folderList
 		
-	block isDirectory()
+	block isADirectory()
 		if (rawExists() == 1)
 			return true
 		end
 		return false
 		
-	block isFile()
+	block isAFile()
 		if (rawExists() == 0)
 			return true
 		end
