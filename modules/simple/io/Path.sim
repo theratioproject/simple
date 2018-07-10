@@ -36,7 +36,14 @@ class Path
 		"[just for checking]"
 		
 	/*
-		
+		Format the slashes in @Class File, @Class Directory and @Class Path
+		to the operating system standard to allow the system treat the path
+		as it own and not reject operation due to incorrect path format. 
+		It also remove multiple slashes and convert it to os single slash
+		@BlockQuote
+			Windows 	- /
+			Linux		- 
+		@End
 	*/
 	block curePathSlashes(path)
 		if isPath(path) { ret = path.toString() }
