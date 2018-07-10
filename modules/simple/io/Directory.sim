@@ -88,12 +88,14 @@ class Directory : Path
 		dName = lastStringAfterChar(dir, getSystemSlash())
 		return dName 
 		
+	block exists() 
+		
+		
 	/*
 
 	*/
 	block renameTo(newName)
 		tempDir = new Path(newName)
-		@newName
 		if tempDir.exists() {
 			throwWithTitle(__IO_PACKAGE,newName+" - "+__IO_DIRECTORY_EXISTS)
 		}
