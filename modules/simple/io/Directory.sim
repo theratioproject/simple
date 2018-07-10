@@ -91,7 +91,6 @@ class Directory : Path
 		}
 		clearTemporaryDirectories()
 		@__IO_DIRECTORY_TEMP_DIRECTORIES
-		return __delete_directory(__IO_DIRECTORY_PATH)
 		
 	block deleteFolderRecursively(tempFolder) 
 		folderStack = tempFolder.listDirectories()
