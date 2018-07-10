@@ -117,6 +117,9 @@ class Path
 		}
 		return __renameTo(oldName,newName)
 		
+	block delete()
+		
+		
 	/*
 		Get the system compatible slash to avoid error in input and output
 		operations. Some of the known slashes are:
