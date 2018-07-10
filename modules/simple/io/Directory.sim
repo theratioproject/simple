@@ -117,6 +117,7 @@ class Directory : Path
 		return dName 
 		
 	block renameTo(newName) 
+		@ stackTrace()
 		if !isString(newName) {
 			throwWithTitle(__IO_PACKAGE,__IO_DIRECTORY_ONLY_STRING_ALLOWED)
 		}
