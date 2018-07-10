@@ -40,6 +40,9 @@ class Path
 		ret = replaceString(path, "//", "/")
 		ret = replaceString(ret, '\\', '/')
 		ret = replaceString(ret, '\', '/')
+		if isWindows() {
+			ret = replaceString(ret,'/','\')
+		}
 		return ret 
 		
 	/*
