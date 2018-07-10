@@ -198,7 +198,7 @@ block moveContent(oldPath,newFolder)
 	tempDir = new Directory(oldPath)
 	@newFolder
 	if tempDir.exists() {
-		@ tempDir.renameTo(newFolder)
+		@ tempDir._moveTo(newFolder)
 		@"yea yea"
 	}
 	
