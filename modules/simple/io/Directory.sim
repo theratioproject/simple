@@ -73,9 +73,9 @@ class Directory : Path
 		return rawDirectoryPath
 		
 	block parent()
-		tRemove = lastStringAfterChar(__IO_DIRECTORY_PATH, "/")
+		tRemove = lastStringAfterChar(__IO_DIRECTORY_PATH, getSystemSlash())
 		@"last char : "+tRemove
-		return new Directory(removeString(__IO_DIRECTORY_PATH, "/"+tRemove))
+		return new Directory(removeString(__IO_DIRECTORY_PATH, getName()))
 		
 	block addChild(dir)
 		add(childrenToCreate, dir) 
