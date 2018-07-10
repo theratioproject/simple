@@ -142,10 +142,11 @@ class Directory : Path
 				__newFolder = __newFolder.getPath()
 			catch }
 		}
-		@__newFolder+getSystemSlash()+getName()
-		if stringEndsWith(__newFolder,getSystemSlash()) {
-			
+		@"before : "+__newFolder
+		if !stringEndsWith(__newFolder,getSystemSlash()) {
+			__newFolder += getSystemSlash()
 		}
+		@"before : "+__newFolder
 		return renameTo(__newFolder+getSystemSlash()+getName())
 		
 	
