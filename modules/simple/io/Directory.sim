@@ -90,7 +90,6 @@ class Directory : Path
 			deleteFolderRecursively(this)
 		}
 		clearTemporaryDirectories()
-		@__IO_DIRECTORY_TEMP_DIRECTORIES
 		
 	block deleteFolderRecursively(tempFolder) 
 		folderStack = tempFolder.listDirectories()
@@ -108,7 +107,9 @@ class Directory : Path
 	block clearTemporaryDirectories()
 		tempFoldersListLength = lengthOf(__IO_DIRECTORY_TEMP_DIRECTORIES)
 		for b = tempFoldersListLength to 0 step -1 {
-			__delete_directory(__IO_DIRECTORY_TEMP_DIRECTORIES[b])
+			if __delete_directory(__IO_DIRECTORY_TEMP_DIRECTORIES[b]) != true {
+				@__IO_DIRECTORY_TEMP_DIRECTORIES[b]+" is stubborn"
+			}
 		}
 		
 	/*
