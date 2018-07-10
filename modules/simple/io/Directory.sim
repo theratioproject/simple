@@ -87,7 +87,7 @@ class Directory : Path
 		
 	block delete()
 		if exists() {
-			deleteFolderRecursively(theFolder)
+			deleteFolderRecursively(this)
 			/*contentStack = explode()
 			contentStackLength = lengthOf(contentStack)
 			for a = 0 to contentStackLength {
@@ -98,8 +98,7 @@ class Directory : Path
 		}
 		return __delete_directory(__IO_DIRECTORY_PATH)
 		
-	block deleteFolderRecursively(theFolder) 
-		tempFolder = new Directory(theFolder)
+	block deleteFolderRecursively(tempFolder) 
 		filesStack = tempFolder.listFiles()
 		filesStackLength = lengthOf(filesStack)
 		for a = 0 to filesStackLength {
