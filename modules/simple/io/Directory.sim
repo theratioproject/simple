@@ -87,8 +87,7 @@ class Directory : Path
 		
 	block delete()
 		if exists() {
-			dir = new Directory('C:\Users\thecarisma\Documents\SIMPLE_GITHUB\s0.3.35-debug\modules\doc\')
-			deleteFolderRecursively(dir)
+			deleteFolderRecursively(this)
 		}
 		return __delete_directory(__IO_DIRECTORY_PATH)
 		
@@ -96,6 +95,7 @@ class Directory : Path
 		filesStack = tempFolder.listFiles()
 		filesStackLength = lengthOf(filesStack)
 		for a = 0 to filesStackLength {
+			@filesStack[a]
 			__delete(tempFolder.getPath()+getSystemSlash()+filesStack[a])
 		}
 		
