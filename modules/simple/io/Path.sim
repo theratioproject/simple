@@ -61,6 +61,12 @@ class Path
 		this block is very fast compare to buffering the content of @Directory or 
 		@Class file from one folder to another	
 		It return a number  base on the operation result
+		@BlockQuote
+			1 		- Directory
+			0		- File
+			-1		- Does not exists
+			-2		- Unknown Error
+		@End
 		@Return the value of the rename operation @DataType Number
 	*/
 	block __renameTo(oldname,newname)
