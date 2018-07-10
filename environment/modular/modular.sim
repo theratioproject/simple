@@ -190,14 +190,14 @@ block downloadPackage(downloadablePackage)
 		extractedPackage = new Directory(modulesDirectory+hash(package))
 		downloadedPackageZip.extractAll(extractedPackage.getPath())
 		if extractedPackage.exists() {
-			moveContent(extractedPackage.getPath()+"/docs/",modulesDirectory+"docs/")
+			moveContent(extractedPackage.getPath()+"/docs/",modulesDirectory)
 		}
 	}
 	
 block moveContent(oldPath,newFolder)
 	tempDir = new Directory(oldPath)
 	if tempDir.exists() {
-		@ tempDir.moveTo(newPath)
+		@ tempDir.moveTo(newFolder)
 		@"yea yea"
 	}
 	
