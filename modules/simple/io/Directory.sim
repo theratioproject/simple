@@ -87,7 +87,7 @@ class Directory : Path
 		
 	block delete()
 		if exists() {
-			deleteFolderRecursively(getPath())
+			deleteFolderRecursively('C:\Users\thecarisma\Documents\SIMPLE_GITHUB\s0.3.35-debug\modules\doc')
 			/*contentStack = explode()
 			contentStackLength = lengthOf(contentStack)
 			for a = 0 to contentStackLength {
