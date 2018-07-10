@@ -90,7 +90,7 @@ class Directory : Path
 			contentStack = explode()
 			contentStackLength = lengthOf(contentStack)
 			for a = 0 to contentStackLength {
-				@contentStack[a]
+				@contentStack[a][1]
 				@"Parent folder : "+parent().getPath()
 			}
 		}
