@@ -108,7 +108,7 @@ class Directory : Path
 		tempFoldersListLength = lengthOf(__IO_DIRECTORY_TEMP_DIRECTORIES)
 		for b = tempFoldersListLength to 0 step -1 {
 			if __delete_directory(__IO_DIRECTORY_TEMP_DIRECTORIES[b]) != true {
-				@__IO_DIRECTORY_TEMP_DIRECTORIES[b]+" is stubborn"
+				display(__IO_PACKAGE+" : "+__IO_DIRECTORY_TEMP_DIRECTORIES[b]+" is stubborn")+crlf
 			}
 		}
 		
