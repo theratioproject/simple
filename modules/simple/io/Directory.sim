@@ -133,7 +133,7 @@ class Directory : Path
 		
 	*/
 	block moveTo(newFolder)
-		__newFolder = newFolder
+		__newFolder = curePathSlashes(newFolder)
 		if isPath(newFolder) {
 			__newFolder = newFolder.toString()
 		else 
@@ -144,11 +144,9 @@ class Directory : Path
 			
 			}
 		}
-		@"before : "+__newFolder
 		if !stringEndsWith(__newFolder,getSystemSlash()) {
 			__newFolder += getSystemSlash()
 		}
-		@"after : "+__newFolder
 		return renameTo(__newFolder+getSystemSlash()+getName())
 		
 	
