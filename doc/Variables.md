@@ -14,3 +14,4 @@ age = 1 # Number variable declaration.
 List = ["s", "I", "M", "P", "L", "E"] # List type declaration.
 fake = False # boolean.
 ```
+The above declaration methods 
