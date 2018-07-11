@@ -37,5 +37,11 @@ You can also test the enviroments built with it, such as the repl ( read-evaluat
 $ simplerepl
 ```
 
+### Hello world - Testing the installation.
+To see simple in action, we'll write a basic *hello world* in simple. Create a new file in your desired workspace, I'll name mine __hello.sim__. Write this in the file:
+```
+display "Hello World"
+```
+Run the fi
 ## Getting help.
 Stuck installing  SIMPLE ? Do create a new issue **[here](https://github.com/simple-lang/simple/issues)**. We'll be glad to help.
