@@ -14,4 +14,4 @@ age = 1 # Number variable declaration.
 List = ["s", "I", "M", "P", "L", "E"] # List type declaration.
 fake = False # boolean.
 ```
-The above declaration methods for variables are referred to as low-level variable declaration as reffered to in this 
+The above declaration methods for variables are referred to as low-level variable declaration. These are limited
