@@ -21,5 +21,5 @@ The string declared in a low level order, has no functionality but the one decla
 ```
 # Declaring string using the higher-level order.
 name = new String("Abdulazeez") # This is more secure and matured.
-
+list = new List(["s","i","m"])
 ```
