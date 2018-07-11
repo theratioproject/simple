@@ -6,4 +6,4 @@ In SIMPLE, variables are defined without any prefix. I mean, we don't have to ad
 + string
 + number
 + List
-+
++ boolean
