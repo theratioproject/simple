@@ -31,7 +31,7 @@ The code block below shows some String methods in action:
 call "simple/core/String.sim" 
 call "simple/utilities/Console.sim" ? simple.utilities
 
-	string = new String("mOduLArity ")
+	string = new String("mOduLArity ") #
 
 block main() {
 	Console.println(string.toString()+" | LOWER : "+string.toLower()) # Turns string casing to lower
