@@ -87,13 +87,23 @@ class Directory : Path
 		
 	block delete()
 		if exists() {
-			__exec('rmdir /S /Q "'+__IO_DIRECTORY_PATH+'" 2> nul')
+			if isWindows() {
+				__exec('rmdir /S /Q "'+__IO_DIRECTORY_PATH+'" 2> nul')
+			else
+				
+			}
 			#failing so we resolve to system for now
 			#deleteFolderRecursively(this,false)
 			#deleteFolderRecursively(this,true)
 		}
+		if exists() {
+			return false
+		else
+			return false
+		}
 		return __delete_directory(getPath())
 		
+	#failing	
 	block deleteFolderRecursively(tempFolder,typeBool) 
 		filesStack = tempFolder.listFiles()
 		filesStackLength = lengthOf(filesStack)
