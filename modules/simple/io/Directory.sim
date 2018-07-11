@@ -24,6 +24,7 @@ class Directory : Path
 	__IO_DIRECTORY_EXISTS_DELETE = "exist and is been deleted"
 	__IO_DIRECTORY_DELETE = "The directory cannot be deleted"
 	__IO_DIRECTORY_PATH = ""
+	__IO_DIRECTORY_INVALID_PARAMETER = "Invalid parameter"
 
 	block Directory(path)
 		if isPath(path)
@@ -228,7 +229,7 @@ class Directory : Path
 		elif isPath(destFolder)
 			tempDestFolder = new Directory(destFolder.toString())
 		elif !isDirectory(tempDestFolder)
-			throw()
+			throw(__IO_DIRECTORY_INVALID_PARAMETER)
 		}
 		for a = 0 to filesListLength {
 			filesList[a].renameTo()
