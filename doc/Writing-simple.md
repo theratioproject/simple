@@ -37,3 +37,32 @@ block main
     display "Properly indented"
 end
 ```
+### Comment Map.
+For every program written, comments are needed to give details of the program. There are different styles of commenting on a program but these are the ones used mostly in SIMPLE.
+```Comment style one.
+/* 
+	Copyright (c) 2018 Abdulazeez Abdulazeez <laisibizness@gmail.com> 
+	MIT License Copyright (c) 2018 simple 
+*/
+That comments indicate the name, email and it is open source (MIT License).
+```
+```Comment style two
+/* 
+ * #filename - ConsoleColor.sim
+ * #author - Azeez Adewale
+ * #date - 11 Febuary 2017
+ */
+ Indicates the file / program name, author's name and date written.
+```
+``` Comment style three
+/*
+    comment map
+    -------
+    #author - [[Abdulazeez Abdulazeez Adeshina][twitter]]@kvng_zeez
+    #date - April 4 2018
+    #name - Length.sim
+    #detail - A module used in getting the length of strings.
+
+*/
+```
+ANy of the aboved comment style can be used when writing programs.
