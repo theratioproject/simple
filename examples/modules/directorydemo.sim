@@ -1,0 +1,39 @@
+/* 
+	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+call "simple/io/Directory.sim"
+
+block main()
+	tDir = new Directory("C:/Users/thecarisma/Documents/SIMPLE GITHUB/examples")
+	
+	#display tDir.explode()
+	tFiles = tDir.listFiles()
+	for a = 0 to lengthOf(tFiles) 
+		display "FILE : "+tFiles[a].name()+crlf
+	end
+	
+	tDirs = tDir.listDirectories()
+	for a = 0 to lengthOf(tDirs) 
+		#loopFolders(tDirs[a])
+	end
+	
+	for a = 0 to lengthOf(tDirs) 
+		display "FOLDER : "+tDirs[a].toString()+crlf
+	end
+	
+	display "TO PATH->TOSTRING : "+tDir.toPath().toString()+crlf
+	display "PARENT DIRECTORY : "+tDir.parent().toString()
+	
+block loopFolders(dir)
+	tDirs = dir.listDirectories()
+	for a = 0 to lengthOf(tDirs) 
+		loopFolders(tDirs[a])
+	end
+	tFiles = dir.listFiles()
+	for a = 0 to lengthOf(tFiles) 
+		display "FILE : "+tFiles[a].name()+crlf
+	end
+	

@@ -1,0 +1,30 @@
+
+#1 #2
+call "module.sim"
+call "block.sim" call examples.syntax.inn 
+
+i = new inner
+i.miner()
+
+display i
+
+#3
+display "hello : "+maintwo(9, mainone()) + crlf
+
+/*	
+	comment map
+	-------
+	#author - [[Azeez Adewale][twitter]]@iamthecarisma
+	#date - Jan 17 2018
+	#syntax - call
+	#name - call.sim
+	#path - examples/syntax/call.sim
+	#detail - this is an example of using the call keyword
+	to import other files and dependencies
+	
+	#1 - call another file using the literal 
+	#2 - calling the package note this cannot be use to call class
+	#3 - display a function from one of the called files
+	
+	#note 
+*/
