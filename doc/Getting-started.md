@@ -15,4 +15,7 @@ $ cd build & chmod +x Linux-build.sh
 $ sudo ./Linux-build.sh -c -i
 # This check and configures your system (-c) and then install (-i)
 ```
-Boom!. SIMPLE has been installed and enviroments and n
+Boom!. SIMPLE has been installed and enviroments and modules have also been added.
+
+#### Windows OS.
+It's pretty simple to install **SIMPLE** on Windows OS. 
