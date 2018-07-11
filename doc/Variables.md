@@ -23,4 +23,4 @@ The string declared in a low level order, has no functionality but the one decla
 name = new String("Abdulazeez") # This is more secure and matured.
 list = new List(["s","i","m","p","l","e"])
 ```
-> Note that, variable declared using the new* classical method are open to certain functions. The list can add a little
+> Note that, variable declared using the new* classical method are open to certain functions. The list can add a  new  value using the .pop() method 
