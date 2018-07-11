@@ -26,3 +26,4 @@ list = new List(["s","i","m","p","l","e"])
 > Note that, variable declared using the new* classical method are open to certain functions. The list can add a  new  value using the .pop() method bit cannot do that when declared in a low-level style.
 ## Some String methods.
 To use strings declared by high-order style, we need to know the various methods attached to them. Let's check them out.
+The code block below shows some 
