@@ -99,7 +99,7 @@ class Directory : Path
 		if exists() {
 			return false
 		else
-			return false
+			return true
 		}
 		return __delete_directory(getPath())
 		
