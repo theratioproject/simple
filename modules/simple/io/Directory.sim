@@ -222,8 +222,9 @@ class Directory : Path
 		return _moveTo(newFolder,true)
 		
 	block moveContentTo(destFolder) 
+		tempDestFolder = destFolder
 		if isString(destFolder) {
-			destFolder = new Directory(destFolder)
+			tempDestFolder = new Directory(destFolder)
 		elif isPath(destFolder)
 			tempDestFolder = new Directory(destFolder.toString())
 		}
