@@ -34,7 +34,7 @@ call "simple/utilities/Console.sim" ? simple.utilities
 	string = new String("mOduLArity ")
 
 block main() {
-	Console.println(string.toString()+" | LOWER : "+string.toLower())
+	Console.println(string.toString()+" | LOWER : "+string.toLower()) # 
 	Console.println("UPPER : "+string.toUpper()+" | SENTENCE : "+string.toSentence())
 	Console.println("LENGTH : "+string.length()+" | Char at 3 : "+string.charAt(3))
 	if string.isEmpty() Console.println("The String is Empty") 
