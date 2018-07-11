@@ -36,3 +36,6 @@ You can also test the enviroments built with it, such as the repl ( read-evaluat
 ```sh
 $ simplerepl
 ```
+
+## Getting help.
+Stuck installing  SIMPLE ? Do create a new issue **[here](https://github.com/simple-lang/simple/issues)**. We'll be glad to help.
