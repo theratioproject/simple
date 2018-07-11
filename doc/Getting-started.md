@@ -42,6 +42,11 @@ To see simple in action, we'll write a basic *hello world* in simple. Create a n
 ```
 display "Hello World"
 ```
-Run the fi
+Run the file using the simple compiler from your command prompt, terminal or konsole.
+```sh
+$ simple hello.sim
+// Displays "Hello world"
+```
+
 ## Getting help.
 Stuck installing  SIMPLE ? Do create a new issue **[here](https://github.com/simple-lang/simple/issues)**. We'll be glad to help.
