@@ -1,6 +1,0 @@
-
-for a = 0 to 10000
-	display a + " "
-end
-
-#display 0 to 10000 in 	2.4 sec 	>	less than 1 min
