@@ -2,7 +2,6 @@
 ## Table of contents.
     * Installing SIMPLE & it's enviroment.
     - Test your installation.
-    + Uninstalling SIMPLE.
     * Getting help.
 ## Installing SIMPLE & it's enviroment.
 SIMPLE can be installed on any operating system. Be it Windows, Linux or Unix OS* and even Mac. In this section, i'll discuss how we can install in all OS'es.
@@ -33,4 +32,7 @@ To test your installation, open your Konsole, Terminal or command prompt and tes
 ```sh
 $ simple
 ```
-You can also test the enviroments built with it, such as the repl ( read-evaluate-print-)
+You can also test the enviroments built with it, such as the repl ( read-evaluate-print-loop) with the command:
+```sh
+$ simplerepl
+```
