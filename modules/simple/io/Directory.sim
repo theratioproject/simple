@@ -178,11 +178,12 @@ class Directory : Path
 		
 	/*
 		Move a directory from one folder to another. This operation will require the 
-		folder to be moved to exist else an error is thrown. It function is similar 
-		to @Block renameTo(newName)
+		folder to be moved to exist else an error is thrown. The moveType parameter
+		determine if to force moving or notify if the directory already exists at the
+		location. It function is similar to @Block renameTo(newName)
 		@Return the move operation success value @DataType Number 
 	*/
-	block _moveTo(newFolder)
+	block _moveTo(newFolder,moveType)
 		__newFolder = newFolder
 		if isPath(newFolder) {
 			__newFolder = newFolder.toString()
@@ -197,7 +198,17 @@ class Directory : Path
 		if !stringEndsWith(__newFolder,getSystemSlash()) {
 			__newFolder += getSystemSlash()
 		}
-		return renameTo(__newFolder+getSystemSlash()+getName())
+		if moveType {
+			return forceRenameTo(__newFolder+getSystemSlash()+getName())
+		else
+			return renameTo(__newFolder+getSystemSlash()+getName())
+		}
+		
+	block moveTo(newFolder)
+		return _moveTo(newFolder,false)
+		
+	block forceMoveTo(newFolder)
+		return _moveTo(newFolder,true)
 		
 	
 	private

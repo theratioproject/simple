@@ -135,10 +135,11 @@ void file_rename ( void *pointer )
 		return ;
 	}
 	if ( SIMPLE_API_ISSTRING(1) && SIMPLE_API_ISSTRING(2) ) {
-		if (rename(SIMPLE_API_GETSTRING(1),SIMPLE_API_GETSTRING(2)) == 0)
+		if (rename(SIMPLE_API_GETSTRING(1),SIMPLE_API_GETSTRING(2)) == 0) {
 			SIMPLE_API_RETNUMBER(1);
-		else
+		} else {
 			SIMPLE_API_RETNUMBER(0);
+		}
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
