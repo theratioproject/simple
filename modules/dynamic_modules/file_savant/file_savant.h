@@ -29,6 +29,8 @@ void file_rename ( void *pointer ) ;
 
 void file_delete ( void *pointer ) ;
 
+void file_delete_folder ( void *pointer );
+
 void blow_directory ( void *pointer ) ;
 
 void mk_directory ( void *pointer ) ;

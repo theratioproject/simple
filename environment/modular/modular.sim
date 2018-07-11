@@ -29,10 +29,10 @@ monkeyFace = '
 		| \   \  \  0 | 0  /  /   / |
 		 \  `- ,\.-"""""""-./, -`  /
 		   ``-`  /_  ^ ^  _\  `-``
-					| \._   _./ |
-				\  \ `~` /  /
-				 `._`-=-`_.`
-					`-----`
+				| \._   _./ |
+			\  \ `~` /  /
+			 `._`-=-`_.`
+				`-----`
 	'
 
 simpleTitle = " 
@@ -198,16 +198,14 @@ block downloadPackage(downloadablePackage)
 		extractedPackage = new Directory(modulesDirectory+hash(package))
 		downloadedPackageZip.extractAll(extractedPackage.getPath())
 		if extractedPackage.exists() {
-			moveContent(extractedPackage.getPath()+"/s0.3.36/bin/simple.exe",modulesDirectory+"")
+			moveContent(extractedPackage.getPath()+"/docs/",modulesDirectory+"\doc/")
 		}
 	}
 	
-block moveContent(oldPath,newPath)
-	@oldPath
-	@newPath
-	tempFile = new File(oldPath)
-	if tempFile.exists() {
-		tempFile.renameTo(newPath)
+block moveContent(oldPath,newFolder)
+	tempDir = new Directory(oldPath)
+	if tempDir.exists() {
+		@tempDir.renameTo(newFolder)
 		@"yea yea"
 	}
 	
@@ -433,17 +431,14 @@ block displayError(msg)
 	__exit__
 
 block displayHelp()
-	# help = "
-	# 		@ monkeyFace
-	# "
 	@ monkeyFace
 	help = "
-		usage:  modular [OPTIONS] 
+usage:  modular [OPTIONS] [PACKAGE]
 
-	[OPTION] : Option passed to the modular program.
+[PACKAGE] : the package to be installed or updated
+[OPTION] : Option passed to the modular program.
 
-	The OPTIONS include: 
-
+The OPTIONS include: 
 	-h    --help		Displays the help message.
 	-su   --shell		Opens the modular shell (or repl).
 	-e    --env              Install an environment.

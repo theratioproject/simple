@@ -308,9 +308,9 @@ if !EXEC_TYPE!=="dymodules-only-install" (
 if !EXEC_TYPE!=="dymodules-only-debug" (
 	SET EXEC_TYPE="debug"
 	call:header install "install simple-lang %VERSION%"
-	REM call:buildsimpledllexe
+	call:buildsimpledllexe
 	call:builddynamicmodules
-	REM call:copydynamicmodules
+	call:copydynamicmodules
 	call:removedistfolders
 )
 	:: configure and install for now

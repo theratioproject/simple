@@ -14,13 +14,7 @@ module simple.io
 
 call "loadfilesavantlib.sim"
 call "simple/core/String.sim"
-
-block curePathSlashes(path)
-	if isPath(path) ret = path.toString() end
-	ret = replaceString(path, "//", "/")
-	ret = replaceString(ret, '\\', '/')
-	ret = replaceString(ret, '\', '/')
-	return ret 
+call "simple/system/System.sim"
 
 block isPath(ipath)
 	try 
@@ -29,18 +23,128 @@ block isPath(ipath)
 	catch 
 		return false
 	end
+	
+block isDirectory(directoryPath)
+	if __dir_exists(directoryPath) == 1 {
+		return true
+	}
+	return false
  
 class Path
+	
+	__IO_PATH_ONLY_STRING_ALLOWED = "Only string should be sent as parameter "
 
 	block Path(ipath)
-		filePath = ipath
+		__IO_PATH = ipath
 		
 	block toString()
-		return filePath
+		return __IO_PATH
 		
 	block path()
 		"[just for checking]"
+		
+	block isADirectory()
+		if (rawExists() == 1)
+			return true
+		end
+		return false
+		
+	block isAFile()
+		if (rawExists() == 0)
+			return true
+		end
+		return false
+		
+	block exists()
+		if ( isAFile() || isADirectory() ) 
+			return true
+		end
+		return false
+		
+	#This block confirms if the path is a directory it return 
+	#@DataType TRUE	(1) if it is a directory and return @DataType FALSE (0)
+	#if it is not a directory on other cases of other return number 
+	#-1 means it does not exist at all
+	#-2 means the error is unknown (uncommon) 	
+	#In this block trailing '/' or '\' are completely striped off (untreated)
+	block rawExists()
+		while (stringEndsWith(__IO_PATH,'/') || stringEndsWith(__IO_PATH,'\')) 
+				__IO_PATH = removeStringAt(__IO_PATH, lengthOf(__IO_PATH)) end
+		return __dir_exists(__IO_PATH)
+		
+	/*
+		Format the slashes in @Class File, @Class Directory and @Class Path
+		to the operating system standard to allow the system treat the path
+		as it own and not reject operation due to incorrect path format. 
+		It also remove multiple slashes and convert it to os single slash
+		@Return the formated path @DataType String
+	*/
+	block curePathSlashes(path)
+		if isPath(path) { ret = path.toString() }
+		ret = replaceString(path,'//','/')
+		ret = replaceString(ret,'\\','/')
+		ret = replaceString(ret,'/',__IO_PATH_SYSTEM_SLASH)
+		return ret 
+		
+	/*
+		Change the name of a @Class Directory or @Class File to new name, It can be 
+		use in moving files and folder from one directory to another. Operation of 
+		this block is very fast compare to buffering the content of @Directory or 
+		@Class file from one folder to another	
+		It return a number  base on the operation result
+		@BlockQuote
+			1 		- Directory
+			0		- File
+			-1		- Does not exists
+			-2		- Unknown Error
+		@End
+		@Return the value of the rename operation @DataType Number
+	*/
+	block __renameTo(oldName,newName)
+		return __rename(oldName, newName)
+		
+	/*
+		Rename a @Directory to another a rather fast way of moving directory
+		about in the same disk partition. This take the new absolute directory 
+		to be rename to which must be a string. 
+		@See @Block __renameTo(oldName,newName)
+		@Return the rename operation @DataType Number
+	*/
+	block _renameTo(oldName,newName) 
+		newName = curePathSlashes(newName)
+		if !isString(newName) {
+			throwWithTitle(__IO_PACKAGE,__IO_PATH_ONLY_STRING_ALLOWED)
+		}
+		return __renameTo(oldName,newName)
+		
+	block delete()
+		return __delete(__IO_PATH)
+		
+	block _delete(filePath)
+		return __delete(__IO_PATH)
+		
+	/*
+		Get the system compatible slash to avoid error in input and output
+		operations. Some of the known slashes are:
+		@BlockQuote
+			Windows 	- \
+			Linux		- /
+			MacOS		- /
+			Haiku		- /
+			Unix		- /
+			Android		- /
+		@End
+		@Return the system slash char @DataType String
+	*/
+	block getSystemSlash()
+		if isWindows() {
+			return '\'
+		elif isLinux()
+			return '/'
+		}		
+		return '/'
 	
 	private 
-		filePath = "(null)"
+		__IO_PATH = "(null)"
+		__IO_PATH_SYSTEM_SLASH = getSystemSlash()
 	
