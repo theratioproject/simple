@@ -29,10 +29,10 @@ monkeyFace = '
 		| \   \  \  0 | 0  /  /   / |
 		 \  `- ,\.-"""""""-./, -`  /
 		   ``-`  /_  ^ ^  _\  `-``
-					| \._   _./ |
-				\  \ `~` /  /
-				 `._`-=-`_.`
-					`-----`
+				| \._   _./ |
+			\  \ `~` /  /
+			 `._`-=-`_.`
+				`-----`
 	'
 
 simpleTitle = " 
@@ -429,12 +429,12 @@ block displayHelp()
 	# "
 	@ monkeyFace
 	help = "
-		usage:  modular [OPTIONS] 
+usage:  modular [OPTIONS] [PACKAGE]
 
-	[OPTION] : Option passed to the modular program.
+[PACKAGE] : the package to be installed or updated
+[OPTION] : Option passed to the modular program.
 
-	The OPTIONS include: 
-
+The OPTIONS include: 
 	-h    --help		Displays the help message.
 	-su   --shell		Opens the modular shell (or repl).
 	-e    --env              Install an environment.
