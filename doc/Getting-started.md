@@ -4,3 +4,4 @@
     - Test your installation.
     + Uninstalling SIMPLE.
     * Getting help.
+## Installing
