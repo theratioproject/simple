@@ -198,7 +198,7 @@ block moveContent(oldPath,newFolder)
 	tempDir = new Directory(oldPath)
 	@newFolder
 	if tempDir.exists() {
-		@tempDir.forceRenameTo("C:\Users\thecarisma\Documents\SIMPLE_GITHUB\s0.3.35-debug\modules\test")
+		@tempDir.forceRenameTo("C:\Users\thecarisma\Documents\SIMPLE_GITHUB\s0.3.35-debug\test")
 		@"yea yea"
 	}
 	
