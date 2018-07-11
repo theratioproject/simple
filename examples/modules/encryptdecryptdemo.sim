@@ -1,0 +1,33 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+call "simple/security/Encrypt.sim"
+call "simple/security/Decrypt.sim"
+
+block main()
+	display "    ENCRYPTING AND DECRYPTING  " + crlf
+	display "Enter String To Decrypt : " read yourstring
+	display "Enter Key : " read key
+	display "Enter IV : " read five
+	display "ENCRYPTING : "+yourstring + crlf
+	encrypted = encrypt(yourstring, key, five)
+	display "CIPHER TEXT : " + encrypted + crlf 
+	
+	display "    NOW TO DECRYPT" + crlf
+	correct = true
+	
+	while correct 
+		display "Enter Key : " read ckey
+		display "Enter IV : " read cfive
+		decrypted = decrypt(encrypted, ckey, cfive)
+		if (lengthOf(yourstring) == lengthOf(decrypted))
+			display "Decryption successful : "+decrypted + crlf
+			correct = false break
+		else
+			display "Decryption Unsuccessful. Try Again "+decrypted + crlf
+		end
+	end
+	

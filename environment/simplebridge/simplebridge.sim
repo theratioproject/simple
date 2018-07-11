@@ -1,0 +1,316 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 SIMPLE
+
+*/
+
+/* 
+ * @Filename - simplebridge.sim
+ * @Author - Azeez Adewale
+ * @Date - 03 May 2018
+ * @Time - 09:09 AM
+ * @License - MIT License
+ */
+
+  /*
+		SIMPLEBRIDGE
+		Get the basic information about any simple-lang source file or
+		program. The simple-lang file or source to get information of it 
+		must be passed as the last command line option or indicated with
+		the -s flag follow by the path to the source file 
+		@Code
+			simplebridge -s source.sim [OPTIONS] 
+			simplebridge [OPTIONS] source.sim 
+		@EndCode
+		This program is useful for fetching information for simple-lang 
+		source file esp by IDEs and Editor or other programs that requires
+		the informations.
+		Combination of flags/options will result in the corresponding 
+		result of each option/flag to be displayed
+		
+		--------------------------------------------------------------------
+		The information provided by this program includes :
+		--------------------------------------------------------------------
+		License
+		Author
+		Creation Date and Time
+		Modules Documentation
+		Class Documentation
+		Blocks Documentation
+		Variables and Fields
+		All Blocks
+		All Classes
+		All Modules
+		Block Parameters
+		Number of Modules
+		Number of Classes
+		Number of Blocks
+		Line Count
+		
+		The output is printed in the terminal / command prompt
+		the output can be directed to a file using the single greater than 
+		arrow follow by the file name or use the double greater than to 
+		append to end of existing file
+		@Code
+			simplebridge [OPTIONS] source.sim > output.txt
+		@EndCode
+		
+		@List
+			'Un-Licensed' will be the output of file with no output
+			the date format depends on the way it written in the source file
+		@EndList
+		
+		COMMAND OPTIONS
+
+			[SIMPLEBRIDGE OPTION]
+			--h	-help							displays the help message
+			--/	-split							use the spliting method to get attributes
+			--p	-perline						display each attribute on different line [one line by default]
+			
+			[SOURCE FILE OPTION]
+			--s -source <path/to/source.sim>	specify the source file to inspect
+			--l -license						get the license used for the source file
+			--a	-about							get the author of the source file
+			--d	-date							output the source file creation date  
+			--t	-time							output the source file creation time  
+			--c	-classes						get all class declaration in the source file
+			--b	-blocks							get all the block declaration in the source file
+			--m	-modules						get all the modules declaration in the source file
+			
+		
+		
+ */
+ 
+call "contents.sim"
+call "simple/core/String.sim"
+call "simple/io/File.sim"
+call "simple/utilities/Length.sim"
+
+
+parserSourceContent = []
+sourceFile = '' 
+position = 0
+
+displayAuthor = false
+displayLicense = false
+displayDate = false
+displayTime = false
+
+showBlock = false
+showClass = false
+showModule = false
+
+splitMethod = false
+isParsed = false
+eachLine = false
+ 
+block main() 
+	cmdlen = getTypeLength(cmdparams) 
+	for a = 0 to cmdlen
+		if stringStartsWith(cmdparams[a], '-')
+			if cmdparams[a] == '--h' or cmdparams[a] == '-help' help()
+			elif cmdparams[a] == '--s' or cmdparams[a] == '-source' sourcePath = cmdparams[a++] continue 
+			elif cmdparams[a] == '--l' or cmdparams[a] == '-license' displayLicense = true
+			elif cmdparams[a] == '--a' or cmdparams[a] == '-author' displayAuthor = true
+			elif cmdparams[a] == '--d' or cmdparams[a] == '-date' displayDate = true
+			elif cmdparams[a] == '--t' or cmdparams[a] == '-time' displayTime = true
+			elif cmdparams[a] == '--/' or cmdparams[a] == '-split' splitMethod = true
+			elif cmdparams[a] == '--p' or cmdparams[a] == '-perline' eachLine = true
+			elif cmdparams[a] == '--b' or cmdparams[a] == '-blocks' showBlock = true
+			elif cmdparams[a] == '--c' or cmdparams[a] == '-classes' showClass = true
+			elif cmdparams[a] == '--m' or cmdparams[a] == '-modules' showModule = true
+			else printError("Unknown option : "+cmdparams[a]) end
+		else 
+			if stringEndsWith(cmdparams[cmdlen],'.sim') sourcePath = cmdparams[a] 
+			end
+		end
+	end 
+	if sourcePath == '' printError("No Source File Specified") end 
+	sourceFile = new File(sourcePath)
+	if !sourceFile.exists() printError("Source File Does not exists") end
+	sourceContent = sourceFile.readFileAsString()
+	fetchInfo(sourceContent) getContents(sourceContent)
+	
+block fetchInfo(sourceContent)
+	if displayAuthor { displayHeaderInfo(sourceContent,'author') }
+	if displayDate { displayHeaderInfo(sourceContent,'date')  }
+	if displayTime { displayHeaderInfo(sourceContent,'time')  }
+	if displayLicense { displayHeaderInfo(sourceContent,'license') }
+	
+block displayHeaderInfo(sourceContent,headerAttribute)
+	if !isParsed parserSourceContent = parserSource(sourceContent) end
+	if parserSourceContent[headerAttribute] != '' 
+		if eachLine ? parserSourceContent[headerAttribute] 	
+		else display parserSourceContent[headerAttribute] end
+	end
+	
+block getContents(sourceContent)
+	if showBlock displayContent(sourceContent,'blocks') end
+	if showClass displayContent(sourceContent,'classes') end
+	if showModule displayContent(sourceContent,'modules') end
+	
+block displayContent(sourceContent,contentAttribute)
+	if !isParsed parserSourceContent = parserSource(sourceContent) end
+	contentAttributeLength = getTypeLength(parserSourceContent[contentAttribute])
+	if contentAttributeLength > -1
+		for a = 0 to contentAttributeLength
+			? parserSourceContent[contentAttribute][a+1]
+		end
+	end
+	
+block parserSource(sourceContent)
+	tempAttribList = [] 
+	tempAttribList['blocks'] = []
+	tempAttribList['classes'] = []
+	tempAttribList['modules'] = []
+	tempAttribList['calls'] = []
+	sourceContent = splitString(sourceContent, ' ') 
+	
+	sourceLength = getTypeLength(sourceContent)
+	while (!endOfStream(sourceContent))
+		if acceptToken('@Author',sourceContent)
+			value = '' 
+			if sourceContent[position] == '-' position++  end
+			while !acceptToken('*',sourceContent) {
+				value += sourceContent[position] + ' ' position++ 
+			} 
+			tempAttribList['author'] = value
+		elif acceptToken('@Time',sourceContent)
+			value = '' 
+			if sourceContent[position] == '-' position++  end
+			while !acceptToken('*',sourceContent) {
+				value += sourceContent[position] + ' ' position++ 
+			} 
+			tempAttribList['time'] = value 
+		elif acceptToken('@Date',sourceContent)
+			value = '' 
+			if sourceContent[position] == '-' position++  end
+			while !acceptToken('*',sourceContent) {
+				value += sourceContent[position] + ' ' position++ 
+			} 
+			tempAttribList['date'] = value 
+		elif acceptToken('@License',sourceContent)
+			value = '' 
+			if sourceContent[position] == '-' position++  end
+			while !acceptToken('*',sourceContent){
+				value += sourceContent[position] + ' ' position++ 
+			} 
+			tempAttribList['license'] = value 
+		elif acceptToken('block',sourceContent)
+			#fullname
+			bfullname = sourceContent[position] 
+			#name
+			bname = stringLeft(bfullname,substr(bfullname,'(')-1)
+			#paramcount
+			tp = splitString(trimString(replaceString(bfullname,bname,'')),',')
+			bparamcount = getTypeLength(tp) + 1 tp = null
+			#comment <we read backward>
+			bcomment = "" tpos = position 
+			while sourceContent[tpos] != '/'  
+				tpos -- if sourceContent[tpos] == '/*' break end
+			end 
+			for a = tpos to position
+				bcomment += sourceContent[a] + ' '
+			end
+			bcomment = formatCommentType(bcomment,bfullname,'block')
+			add(tempAttribList['blocks'],new BridgeBlock(bfullname,bname,bcomment,bparamcount))
+			position++ 
+		elif acceptToken('class',sourceContent)
+			#fullname
+			bfullname = sourceContent[position] 
+			#comment <we read backward>
+			bcomment = "" tpos = position 
+			while sourceContent[tpos] != '/'  
+				tpos -- if sourceContent[tpos] == '/*' break end
+			end 
+			for a = tpos to position
+				bcomment += sourceContent[a] + ' '
+			end
+			bcomment = formatCommentType(bcomment,bfullname,'class')
+			add(tempAttribList['classes'],new BridgeClass(bfullname,bcomment))
+			position++ 
+		elif acceptToken('module',sourceContent)
+			#fullname
+			bfullname = sourceContent[position] 
+			#comment <we read backward>
+			bcomment = "" tpos = position 
+			while sourceContent[tpos] != '/'  
+				tpos -- if sourceContent[tpos] == '/*' break end
+			end 
+			for a = tpos to position
+				bcomment += sourceContent[a] + ' '
+			end
+			bcomment = formatCommentType(bcomment,bfullname,'module')
+			add(tempAttribList['modules'],new BridgeClass(bfullname,bcomment))
+			position++ 
+		else
+			position++
+		end
+	end
+	
+	isParsed = true
+	return tempAttribList
+	
+block formatCommentType(content,fullname,type)
+	ret = replaceString(formatComment(content,fullname),type,'')
+	return trimString(ret)
+	
+block formatComment(content,fullname)
+	ret = replaceString(content,'/*','')
+	ret = replaceString(ret,'*/','')
+	ret = replaceString(ret,'*','')
+	ret = replaceString(ret,fullname,'')
+	return trimString(ret)
+	
+block acceptToken(value,sourceContent)
+	ret = matchToken(value,sourceContent)
+	if ret position++ end 
+	return ret
+	
+block matchToken(value,sourceContent) 
+	return endOfStream(sourceContent) == false and sourceContent[position] == value
+	
+block endOfStream(sourceContent) return position > getTypeLength(sourceContent)
+	
+block help()
+	display "Usage:  ./simplebridge [OPTIONS] [PATH]
+	
+[OPTION]	: Option to pass to the simplebridge program
+[PATH]		: The path to the simple-lang source file
+	
+The OPTIONS include :
+
+  [SIMPLEBRIDGE OPTION]
+  --h -help				displays the help message
+  --/ -split				use the spliting method to get attributes
+  --p -perline				display each attribute on different line [one line by default]
+  
+  [SOURCE FILE OPTION]
+  --s -source <path/to/source.sim>	specify the source file to inspect
+  --l -license				get the license used for the source file
+  --a -about				get the author of the source file
+  --d -date				output the source file creation date
+  --t -time				output the source file creation time
+  --c -classes				get all class declaration in the source file
+  --b -blocks				get all the block declaration in the source file
+  --m -modules				get all the modules declaration in the source file"
+	__exit__
+	
+block printError(msg)
+	header()
+	? "	SIMPLEBRIDGE : "+msg 
+	display "======================================================="
+	__exit__
+ 
+block header()
+	? "=======================================================
+	SIMPLEBRIDGE : simple-lang source file bridge
+	This program is part of simple environments 
+======================================================="
+ 
+ 
+ 
+ 
+ 
+ 
+ 

@@ -1,0 +1,57 @@
+/* 
+	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+/* 
+ * 	@filename - __first_calls.sim
+ * 	@author - Azeez Adewale
+ * 	@date - 21 June 2017
+ *	@time - 03:04 PM
+ */
+ 
+/*
+	This file should be kept empty at all time to avoid module call
+	error after a successful build. It main function is to delegate 
+	the two main dynamic modules required by simple-lang modules
+	
+		systemic
+		string_savant
+	
+	to the DynamicLoader.sim file. The DynamicLoader.sim file uses the
+	two above dynamic modules files first so it can efficiently treat 
+	any other called dynamic modules. If the above two dynamic modules
+	are called from within DynamicLoader.sim itself we might end up in 
+	a loop that can result in stackoverflow or segmentation error. The 
+	modules call above will be written into this file at build time 
+	using one of the build script in the simple/build directory or can
+	be entered manually in one of the format below but advisable do not
+	touch this file at all. simple-lang is platform independent 
+	but the dynamic modules is not that leaves us at building all the 
+	dynamic module for each platform.
+	The dynamic modules call are written into this file in one of the 
+	format below base on the Operating System the format below is for the
+	currently supported operating systems. 
+*/
+
+/*
+	WINDOWS
+	callDynamicModule("systemic.dll") callDynamicModule("string_savant.dll")
+	
+	LINUX 
+	callDynamicModule("systemic.so") callDynamicModule("string_savant.so")
+	
+	MAC
+	callDynamicModule("systemic.dylib") callDynamicModule("string_savant.dylib")
+	
+*/
+
+/*
+	If you successfully build the simple-lang on your Operating System different 
+	from the above or if one of the build scripts file provided in the simple/build
+	failed on your system you can send us a pull request at <https://github.com/simple-lang>
+	and be sure to be as explanatory and descriptive as possible
+*/
+
+

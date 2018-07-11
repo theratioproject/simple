@@ -1,0 +1,59 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 SIMPLE
+
+*/
+
+/* 
+ * @Filename - simplebridge.sim
+ * @Author - Azeez Adewale
+ * @Date - 03 May 2018
+ * @Time - 09:09 AM
+ * @License - MIT License
+ *
+ */
+
+class BridgeBlock
+
+	fullname name comment paramcount
+	
+	block BridgeBlock(ifullname,iname,icomment,iparamcount)
+		fullname = ifullname
+		name = iname
+		comment = icomment
+		paramcount = iparamcount
+		
+	block getName()
+		return name
+	
+	block getComment()
+		return comment
+		
+	block getParamCount()
+		return paramcount
+		
+	block getFullname()
+		return fullname
+		
+class BridgeClass
+	
+	name comment
+	
+	block BridgeClass(ifullname,icomment)
+		name = ifullname
+		comment = icomment
+		
+	block getName()
+		return fullname
+		
+	block getComment()
+		return comment
+	
+	
+	
+	
+	
+	
+	
+
+

@@ -1,0 +1,80 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 SIMPLE
+
+*/
+
+/* 
+ * @Filename - FTextBuffer.sim
+ * @Author - Azeez Adewale
+ * @Date - 1 May 2018
+ * @Time - 06:23 PM
+ *
+ */
+
+module fulltick.raw
+
+#This @Class FTextBuffer is 
+# @Skip
+#  ~~~~~~~image~~~~~~~~
+#@EndSkip @Image FTextBuffer
+#The @Class FTextBuffer is the parenting class for the following widget @Tree
+#		
+#			pending
+#
+#@EndTreee
+class FTextBuffer 
+
+	/* STRING */
+	TEXT_BUFFER_TEXT = "" #default buffer text is empty
+	
+	/* TYPE */
+	WIDGETPOINTER = null #the widget pointer is null by default
+	
+	#Initialize the @Class FTextBuffer widget 
+	block FTextBuffer()
+		init() #initialize the widget at once
+	
+	#Change or replace the entire text in the current @Class FTextBuffer 
+	block setText(text) 
+		TEXT_BUFFER_TEXT = text
+		__text_buffer_text(WIDGETPOINTER,TEXT_BUFFER_TEXT)
+		
+	#Get the text content of this @Class FTextBuffer 
+	#Not reliable fetch from within
+	#@Returns the text content @DataType STRING
+	block getText()
+		return TEXT_BUFFER_TEXT
+		
+	block getTextLength()
+		return lengthOf(getText())
+		
+	#Change the widget pointer of the @Class FTextBuffer 
+	#If the pointer is changed then the current @Class FTextBuffer loose all
+	#it properties and attributes which means that it will emulate all the 
+	#new pointer properties and attributes
+	block setBufferPointer(pointer)
+		WIDGETPOINTER = pointer
+		
+	#Get the current pointer that is been used in this current @Class 
+	#FTextBuffer 
+	#@Returns the current buffer pointer @DataType POINTER
+	block getBufferPointer()
+		return WIDGETPOINTER
+	
+	#Create an instance of the @Class FTextBuffer for the @Class FTextEditor
+	#and @Class FTextDisplay widget
+	#@Note @Important you should carefully call this block from child
+	#class as it resets all the attributes and properties of the widget
+	#do not call
+	block init() initialize()
+	
+	#all the private attributes, fields and block not accessible #outside the class
+	private 
+	
+		#Create an instance of the FTextBuffer 
+		block initialize()
+			WIDGETPOINTER = __init_text_buffer()  
+	
+	
+	

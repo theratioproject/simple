@@ -1,0 +1,25 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 SIMPLE 
+
+*/
+
+/*
+	@Demo 
+	
+	@Module fulltick 
+
+*/
+
+call "fulltick/all.sim" 
+
+block main()  
+	md = new Window md.render()
+	
+	
+class Window : FWindow
+
+	block render() 
+		setIcon("iconwindow.ico")
+		setTitle("FFILEBROWSER DEMO").setSize(300, 200) 
+		run() 

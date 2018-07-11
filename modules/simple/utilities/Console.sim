@@ -1,0 +1,159 @@
+/* 
+	Copyright (c) 2016-2018 Azeez Adewale <azeezadewale98@gmail.com> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+/* 
+ * @filename - Console.sim
+ * @author - Azeez Adewale
+ * @date - 5 Febuary 2017
+ */
+ 
+module simple.utilities
+
+#Call the @Class  ConsoleColor which calls the @DyLib Consoler Module
+call "ConsoleColor.sim" ? simple.utilities
+
+#Console is initialized as a variable in order to allow usage as Console.block()
+Console = new Console
+
+#a character that move caret to start of line or simply clear line
+$__clearLine = char(13)
+
+/*
+	This block is Most useful for exiting the program/application at any level 
+	during the development of the GUI(fulltick) library using @Var __exit__ 
+	failed to execute in callbacks due to the fact that the callback block
+	is executed as a virtual method in the library. This block give no regard
+	to the program execution level at all and close the program at once
+*/
+block exit(value)
+	__exit(value)
+	
+block sleep(value)
+	__sleep(value)
+
+#the console class for various console blocks and functions
+#the @Class Console act mostly as a delegate to the @DyLib Consoler 
+#which hold most of the block in this class
+class Console 
+
+	#prints string content with new line
+	block println(content) 
+		print(content+crlf) 
+		
+	block printLine(content)
+		print(content+crlf)
+	
+	#just making the @Block exit(value) available in the @Class Console 
+	#to support OOP
+	block hard_exit(value)
+		exit(value)
+	
+	#prints string content
+	block print(content)
+		display formatLiteral(content)
+	
+	#prints the string content in one line from start 'use with caution'
+	block printinLine(content)
+		print($__clearLine+content)
+		
+	#read input from the console  with a custom title
+	block readLine(title)
+		print(title) 
+		read readContent 
+		return readContent
+	
+	#read input from the console 
+	block readln()
+		read readContent
+		return readContent
+	
+	#set the foregroundColor to using colorPrint and colorPrintln
+	block setForeground(color)
+		foregroundColor = color
+	
+	#set the backgroungColor to using colorPrint and colorPrintln
+	block setBackground(color)
+		backgroundColor = color
+		
+	#prints the string in respect to the FG and BG colors
+	block colorPrint(content)
+		__printwfb(foregroundColor, backgroundColor, formatLiteral(content))
+	
+	#prints the string in respect to the FG and BG colors with new line
+	block colorPrintln(content)
+		__printwfb(foregroundColor, backgroundColor, formatLiteral(content)+crlf)
+	
+	#print with a custom FG and present backgroundColor
+	block printWithFG(color, content)
+		__printwfb(color, backgroundColor, formatLiteral(content))
+	
+	#print with a custom BG and present foregroundColor
+	block printWithBG(color, content)
+		__printwfb(foregroundColor, color, formatLiteral(content))
+	
+	#print with a custom FG and BG
+	block printWithFGBG(fcolor, bcolor, content)
+		__printwfb(fcolor, bcolor, formatLiteral(content))
+		
+	#reset the console colors which is none by default		
+	block resetColor()
+		foregroundColor = ConsoleColor.NONE()
+		backgroundColor = ConsoleColor.NONE()	
+
+	#prints a plain line on the console/terminal	
+	block printConsoleLine()
+		print(consoleLine)
+	
+	#prints a plain line on the console/terminal with custom foreground and background
+	block printLineWithColor(fg,bg)
+		if fg ==  null fb = ConsoleColor.NONE() end
+		if bg ==  null bb = ConsoleColor.NONE() end
+		__printwfb(fg, bg, consoleLine)
+		
+	#make the computer beep with custom frequency and
+	#length
+	block beep(f, l)
+		__beep(f, l)
+	
+	#beep just once
+	block singleBeep()
+		beep(0.0, 0)
+	
+	private 
+		foregroundColor = ConsoleColor.NONE()
+		backgroundColor = ConsoleColor.NONE()
+		consoleLine = "======================================================================================================================================================="+crlf
+		
+		#by default all escape character is not supported 
+		#this block formatLiteral(content) allows for escape character supports
+		block formatLiteral(content)
+			inContent = ""
+			/*if isnumber(content) 
+				content = ""+content
+			end*/#to uncomment after building core module
+			for a = 0 to lengthOf(content) 
+				switch content[a]
+					case '\'
+						a++
+						switch content[a]
+						case '\'
+							inContent +=  '\'
+						case '"'
+							inContent += '"'
+						case "n"
+							inContent +=  crlf
+						case "t"
+							inContent +=  char(9)
+						case "r" 
+							inContent +=  char(13)
+						end
+					default 
+						inContent +=  content[a]
+				end
+			end
+			return inContent
+	
+	

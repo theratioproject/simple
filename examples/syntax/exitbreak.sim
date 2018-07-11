@@ -1,0 +1,34 @@
+
+#1 #2
+n = 40
+
+#3
+display "n is " + n + " "
+
+#4 #5
+for i = 0 to n
+	display i + " "
+	break
+end
+
+#6
+__exit__
+display "you cant see me"
+
+/*	
+	comment map
+	-------
+	#author - [[Azeez Adewale][twitter]]@iamthecarisma
+	#date - Jan 20 2018
+	#syntax - exit, break
+	#name - exitbreak.sim
+	#path - examples/syntax/exitbreak.sim
+	#detail - the exit keyword that is use to stop the program at any point and the break to exit the loop at any level
+	
+	#1 - entry to the program
+	#2 - declaration of n with the value of 40
+	#3 - displaying the value of n before looping
+	#4 - a for..loop with the lambda expression
+	#5 - using the break keyword to exit the loop
+	#6 - the __exit__ keyword to stop the program at any point
+*/

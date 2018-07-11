@@ -1,0 +1,26 @@
+/* 
+	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+call "simple/io/File.sim"
+
+block main()
+	tPath = new Path("C:\\Users\\thecarisma\\Documents\\SIMPLE GITHUB\\examples\\moduleexamples\\test.txt")
+	
+	tFile = new File(tPath)
+	
+	display "PATH : "+tFile.absolutePath()+crlf
+	display "NAME : "+tFile.name()+crlf
+	display "DIRECTORY : "+tFile.directory() + crlf
+	
+	ntPath = tFile.toPath()
+	display "PATH IN PATH : "+ntPath.toString()+crlf
+	
+	display "every time this file is run 'hello' is written to it" + crlf
+	tFile.write("/* ") tFile.appendBoolean(true)  tFile.append(" H") tFile.append(2) tFile.append("O **/") 
+	display "CONTENT : "+tFile.readFileAsString() + crlf
+	
+	#display "RETURUS 1 IF DELETE SUCCESSFULL : " + tFile.delete()
+	#tFile.renameTo("wasper.sim")
