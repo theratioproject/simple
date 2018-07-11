@@ -21,4 +21,6 @@ Boom!. SIMPLE has been installed and enviroments and modules have also been adde
 It's pretty simple to install **SIMPLE** on Windows OS. Grab the latest release for windows from [here](https://github.com/simple-lang/simple/releases) and run the *.exe* file. In a few moments, you'll have SIMPLE installed.
 
 #### Mac OS.
-The steps are pretty similar to the one of the Unix. Grab a
+The steps are pretty similar to the one of the Unix. Grab the latest release for **Mac** from [here](https://github.com/simple-lang/simple/releases). Unzip and run the sh file. Open your console.
+```sh
+$ unzip simple
