@@ -20,5 +20,5 @@ The above declaration methods for variables are referred to as low-level variabl
 The string declared in a low level order, has no functionality but the one declared using the high-order method.
 ```
 # Declaring string using the higher-level order.
-n
+name = new String("Abdulazeez")
 ```
