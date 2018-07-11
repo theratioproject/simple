@@ -3,4 +3,4 @@ Variables are  placeholders for values which can be strings, array / List, numbe
 
 ## Declaring varibles in simple.
 In SIMPLE, variables are defined without any prefix. I mean, we don't have to add a prefix like JavaScript's`let` or C's `int` etc. We have different variable types or do I say data structures that enable us determine the type ofvariable we're declaring. We have:
-+
++ 
