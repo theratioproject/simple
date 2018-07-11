@@ -7,4 +7,7 @@ In SIMPLE, variables are defined without any prefix. I mean, we don't have to ad
 + number
 + List
 + boolean
-Below, is a code block that shows the variable declaration of 
+Below, is a code block that shows the variable declaration of all listed variable types.
+```
+
+```
