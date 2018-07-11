@@ -23,4 +23,7 @@ It's pretty simple to install **SIMPLE** on Windows OS. Grab the latest release 
 #### Mac OS.
 The steps are pretty similar to the one of the Unix. Grab the latest release for **Mac** from [here](https://github.com/simple-lang/simple/releases). Unzip and run the sh file. Open your console.
 ```sh
-$ unzip simple
+$ unzip simple-release-version.zip & cd simple-release-version
+$ cd build & chmod +x SimpleOnlyBuild-mac.sh
+$ sudo ./SimpleOnlyBuild-Mac.sh
+```
