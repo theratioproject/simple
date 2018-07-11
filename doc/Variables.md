@@ -10,5 +10,5 @@ In SIMPLE, variables are defined without any prefix. I mean, we don't have to ad
 Below, is a code block that shows the variable declaration of all listed variable types.
 ```
 name = "SIMPLE" # String variable declaration.
-
+age = 1 # 
 ```
