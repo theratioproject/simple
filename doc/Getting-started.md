@@ -11,5 +11,8 @@ To install **SIMPLE** on a Unix / Linux OS, grab the latest release of the Linux
 Upon downloading, you'll unzip and install. Open your terminal:
 ```sh
 $ unzip simple-release-version.zip & cd simple-release-version
-$ cd build/
+$ cd build & chmod +x Linux-build.sh 
+$ sudo ./Linux-build.sh -c -i
+# This check and configures your system (-c) and then install (-i)
 ```
+Boom!. SIMPLE has been installed and enviroments and n
