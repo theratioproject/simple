@@ -87,8 +87,9 @@ class Directory : Path
 		
 	block delete()
 		if exists() {
-			deleteFolderRecursively(this,false)
-			deleteFolderRecursively(this,true)
+			#failing so we resolve to system for now
+			#deleteFolderRecursively(this,false)
+			#deleteFolderRecursively(this,true)
 		}
 		return __delete_directory(getPath())
 		
@@ -114,41 +115,6 @@ class Directory : Path
 				}
 			}
 		}
-		
-		/*
-		contentStack = tempFolder.explode()
-		for a = 0 to lengthOf(contentStack) {
-			if !contentStack[a][2] {
-				nFile = new File(__IO_DIRECTORY_PATH+getSystemSlash()+contentStack[a][1])
-				nFile.delete()
-			else
-				deleteFolderRecursively(new Directory(__IO_DIRECTORY_PATH+getSystemSlash()+contentStack[a][1]))
-			} 
-		}
-		/*
-		folderStack = tempFolder.listDirectories()
-		folderStackLength = lengthOf(folderStack)
-		for a = 0 to folderStackLength {
-			deleteFolderRecursively(folderStack[a])
-			#__delete_directory(folderStack[a].getPath())
-		}
-		filesStack = tempFolder.listFiles()
-		filesStackLength = lengthOf(filesStack)
-		for i = 0 to filesStackLength {
-			__delete(filesStack[i].absolutePath())
-		}
-		__delete_directory(tempFolder.getPath())*/
-		
-	block clearTemporaryDirectories()
-		@__IO_DIRECTORY_TEMP_DIRECTORIES_2
-		/*
-		tempFoldersListLength = lengthOf(__IO_DIRECTORY_TEMP_DIRECTORIES)
-		for b = tempFoldersListLength to 0 step -1 {
-			if __delete_directory(__IO_DIRECTORY_TEMP_DIRECTORIES[b]) != true {
-				display(__IO_PACKAGE+" : "+__IO_DIRECTORY_TEMP_DIRECTORIES[b]+" is stubborn")+crlf
-				@__delete_directory(__IO_DIRECTORY_TEMP_DIRECTORIES[b])
-			}
-		}*/
 		
 	/*
 
@@ -225,7 +191,6 @@ class Directory : Path
 	
 	private
 		__IO_DIRECTORY_TEMP_DIRECTORIES = []
-		__IO_DIRECTORY_TEMP_DIRECTORIES_2 = []
 		rawDirectoryPath = ""
 		directoryName = ""
 		filesList = []
