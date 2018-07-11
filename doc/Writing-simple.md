@@ -66,3 +66,46 @@ That comments indicate the name, email and it is open source (MIT License).
 */
 ```
 ANy of the aboved comment style can be used when writing programs.
+
+## Casing.
+SIMPLE supports the basic casing styles we have but we use the pascal and camel casing styles.
+
+## Variable declaration.
+Names of declared variables should be simple and short. Example
+```
+# Good variable declaration
+name = "Abdul"
+# Bad variable declaration
+isLoadingCurrentlyOrNot = true
+```
+
+## Module naming convention.
+Modules are the building blocks of SIMPLE. A module can be written but naming matters. Example:
+```
+
+#1
+module simple.utilities
+
+#2
+
+#3
+    block getTypeLength(object)
+    if (isList(object) || isString(object))
+        return lengthOf(object)
+    elif (isNumber(object))
+        return object
+    end
+
+/*
+    comment map
+    -------
+    #author - [[Abdulazeez Abdulazeez Adeshina][twitter]]@kvng_zeez
+    #date - April 4 2018
+    #name - Length.sim
+    #detail - A module used in getting the length of strings.
+
+*/
+```
+The module above is named according to the folder it is found - **simple.utilities**.
+
+> In the next 
