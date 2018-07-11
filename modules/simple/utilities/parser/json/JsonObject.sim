@@ -1,0 +1,124 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+/* 
+ * @filename - JsonObject.sim
+ * @author - Azeez Adewale
+ * @date - 26 Febuary 2017
+ * @Time - 08:04 pM
+ */
+
+call "simple/utilities/parser/json/JsonParser.sim"
+
+class JsonObject : JsonParser
+
+	#Initialize the constructor with the string to parse.
+	#Alternatively the class can be intantiated without the constructor
+	#but the content has to specified with the 
+	#@Block setContent(content) mean while both blocks calls the 
+	#initJson() which intantiate the @Field JSONPOINTER
+	block JsonObject(content)
+		_JSON_CONTENT = content
+		initObject()
+	
+	#Get the type of the object in the @DataType NUMBER value
+	block getObjectType()
+		return __json_c_object_get_type(JSONPOINTER)
+	
+	#Get the type of object in the @DataType String value by passing
+	#the @Block getObjectType() to the @LowLevelFuction #__json_c_type_to_name(value) which then returns the @DataType 
+	#STRING value of the corresponding @Class JsonObject 
+	block getObjectTypeName()
+		return __json_c_type_to_name(getObjectType())
+		
+	#get the child object with the string value this @Block 
+	#getChildObject(object) returns an instance of the @Class JsonObject
+	block getChildObject(object)
+		JSON_CHILD_POINTER = __json_c_object_object_get(JSONPOINTER, object)
+		newJsonObject = new JsonObject
+		newJsonObject.setPointer(JSON_CHILD_POINTER)
+		return newJsonObject
+		
+	#Does same thing as the @Block getChildObject(object)	
+	block getObject(object)
+		return getChildObject(object)
+		
+	#Get the content of a child object in a parent object without creating a 
+	#a new instance of the Object
+	#@Return content of child object @DataType STRING
+	block getChildObjectContent(id)
+		return getChildObject(id).getContent()
+		
+	#This block get the content of the JSON object and return it as string 
+	#no matter the type of content be it string, int, big int, boolean 
+	#or any other it just return it as string
+	#@Return content of object @DataType STRING
+	block getContent()
+		return __json_c_object_to_json_string(JSONPOINTER)
+	
+	#If you are certain your object content is @DataType STRING you can use
+	#this block to get the content. The edge of using this is that the content
+	#is returned without the "" wrap around the string. If you are not sure 
+	#of the JSON object type you should call the @Block getContent() instead
+	#@Return content of object @DataType STRING
+	block getStringContent()
+		return __json_c_object_get_string(JSONPOINTER)
+		
+	#Get the value/content of your JSON object as @DataType Number if you
+	#are sure it content is number only else an error might occur. This is quite
+	#different from double type of content calling this on a double type of 
+	#object will definitely break the decimals and end up rounding it to whole
+	#number for decimal call the @Block getDecimalContent() instead
+	#@Return number content of object @DataType NUMBER
+	block getNumberContent()
+		return  __json_c_object_get_number(JSONPOINTER)
+		
+	#This block is used for getting the decimal/double/float type of JSON
+	#content if other type of content are used it might break the decimals
+	#Return decimal content of JSON object @DataType NUMBER
+	block getDecimalContent()
+		return  __json_c_object_get_decimal(JSONPOINTER)
+		
+	#Get the boolean type of JSON object. It does not equals calling 
+	#@Block getContent() as it return the boolean value as @DataType STRING
+	#but this block return the boolean value correctly which interpretes to 
+	#1 and 0 on the low level
+	#@Return boolean content of JSON object @DataType BOOLEAN
+	block getBooleanContent()
+		if __json_c_object_get_boolean(JSONPOINTER) == true
+			return true
+		else 
+			return false
+		end
+		
+	#Get the size of objects in the object	
+	#@Return length of object @DataType NUMBER
+	block length()
+		return __json_c_object_length(JSONPOINTER)
+		
+	#currently failing	
+	block getObjectById(id)
+		#display __json_c_object_object_get_id(JSONPOINTER,id)
+		JSON_CHILD_POINTER = __json_c_object_object_get_id(JSONPOINTER, id)
+		newJsonObject = new JsonObject
+		newJsonObject.setPointer(JSON_CHILD_POINTER)
+		return newJsonObject
+	
+	private 
+		
+		#intantiate the @Field JSONPOINTER with the content. if the 
+		#content of this class changes then this block have to be 
+		#called all the attributes and properties of the 
+		#@Class JsonObject are freed and a new pointer is assigned
+		block initObject()
+			JSONPOINTER = __init_json_c(_JSON_CONTENT)
+			/*try  getContent() catch 
+				display "-----> Error occur while parsing JSON "+crlf
+				display "	Your JSON format might be incorrect"
+				__exit__
+			end*/
+			
+		

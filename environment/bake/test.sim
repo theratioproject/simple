@@ -1,0 +1,10 @@
+
+display "Hello World"+crlf
+display "What is your name : " read name
+display "Welcome "+name+crlf
+display "What will you like to know about simple? 
+        1. Author
+        2. Goal
+        3. License
+
+"

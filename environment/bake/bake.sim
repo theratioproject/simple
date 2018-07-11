@@ -1,0 +1,381 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com> 
+	MIT License Copyright (c) 2018 SIMPLE
+
+*/
+
+/* 
+ * @Filename - bake.sim
+ * @Author - Azeez Adewale
+ * @Date - 08 April 2018
+ * @Time - 02:56 AM
+ */
+ 
+ /*
+		BAKE
+		This program is is use for building distributable program
+		written in simple to allow application or program written
+		in simple to run on client or consumer computer without the 
+		need of installing SIMPLE. The program generate executable
+		that is runnable per Operating System build.
+			Basically this program build your simple source to the 
+		platform compatible. The outline below shows the currently 
+		supported OS builds
+		-----------------------------------
+		| WINDOWS         |   .exe        |
+		| MAC             |   .app        |
+		| LINUX           |   ./program   |
+		-----------------------------------
+		
+		COMMAND OPTIONS
+		
+			-F/</path>	specify the folder to place the program file
+			-N/<name>	specify the output name of the program with no extension
+			-I/icon		build your program with indicated icon
+			-/h 		display this help note
+			-temp -t	leave generated and temporary files after build
+			-delete -del	delete the simple source file after successful build
+			-debug		when the simple.h file is at ../../simple/src/includes/simple.h
+			-S/<simple.h> Indicate the path to simple.h
+			
+			(Compiler Option) ~ if none is supplied the available will be used
+			-mingw		use mingw compiler on windows
+			-cygwin		use cygwin compiler on windows
+			-vs 		use available Visual Studio build tools on windows
+		
+		
+ */
+ 
+call "simple/utilities/Conversion.sim" 
+ 
+call "simple/io/File.sim"
+call "simple/core/String.sim"
+call "simple/system/System.sim" 
+ 
+depmodules = []
+outputName = ""
+sourceFile = null
+filePath = ""
+removeTemps = true
+useMINGW = false useCygwin = false useVS = false
+specifysavepath = false specifyname = false
+folder = "" name = "" isgui = false hasicon = false 
+cflags = "" deletesim = false icon = "" isdebug = false
+hassimpleh = false 
+simpleh = ""
+buildsucced = false
+
+#Program dependencies
+simpleLibPath = "" simpleDllPath = "" simpleHPath = ""
+setDepLocation('../bin/')
+
+block main() header() 
+	cmdParameters = cmdparams
+	cmdlen = lengthOf(cmdParameters) 
+	for a = 0 to cmdlen 
+		if a = cmdlen && cmdlen >= 1 
+			if stringEndsWith(cmdParameters[a],'help') or stringEndsWith(cmdParameters[a],'/h') help() end 
+			filePath = cmdParameters[a]
+			sourceFile = new File(cmdParameters[a])
+		else
+			if (stringStartsWith(cmdParameters[a],'-'))
+				if stringEndsWith(cmdParameters[a],'help') or stringEndsWith(cmdParameters[a],'h') help() 
+				elif stringStartsWith(toUpperCase(cmdParameters[a]),'-N/') specifyname = true name = removeString(cmdParameters[a],"-N/")
+				elif stringStartsWith(toUpperCase(cmdParameters[a]),'-F/') specifysavepath  = true folder = removeString(cmdParameters[a],"-F/")
+				elif stringStartsWith(toUpperCase(cmdParameters[a]),'-I/') hasicon  = true icon = removeString(cmdParameters[a],"-I/")
+				elif stringStartsWith(toUpperCase(cmdParameters[a]),'-S/') hassimpleh  = true simpleh = removeString(cmdParameters[a],"-S/")
+				elif stringEndsWith(cmdParameters[a],'mingw') useMINGW = true 
+				elif stringEndsWith(cmdParameters[a],'cygwin') useCygwin = true 
+				elif stringEndsWith(cmdParameters[a],'vs') useVS = true 
+				elif stringEndsWith(cmdParameters[a],'gui') isgui = true 
+				elif stringEndsWith(cmdParameters[a],'debug') or stringEndsWith(cmdParameters[a],'d') isdebug = true setDepLocation('')
+				elif stringEndsWith(cmdParameters[a],'delete') || stringEndsWith(cmdParameters[a],'del') if isWindows() deletesim = true end 
+				elif stringEndsWith(cmdParameters[a],'temp') or stringEndsWith(cmdParameters[a],'t')  removeTemps = false 
+				else printError("Invalid option : "+cmdParameters[a]) end
+				add(depmodules, cmdParameters[a]) 
+			end
+		end
+	end
+	if filePath = "" printError("No Simple/Complex file indicated ") end
+	if outputName == "" 
+		tempName = stringAfterLast(filePath, '\')
+		outputName = stringAfterLast(tempName, '.')
+		outputName = removeString(tempName, '.'+outputName)
+	end
+	#display "params ========"+crlf display depmodules
+	display "Input File : "+filePath+crlf
+	display "Output Name : "+ outputName +crlf
+	if not sourceFile.exists()
+		printError("The File '"+filePath+"' does not exists")
+	end
+	writeCode()
+	
+block setDepLocation(location)
+	simpleLibPath = '"'+exeFolder()+location+'simple.lib"' 
+	simpleDllPath = '"'+exeFolder()+location+'simple.dll"' 
+	if isLinux() || isMacosx() || isUnix()
+		simpleHPath = "<simple.h>"
+	else
+		simpleHPath = '"'+exeFolder()+location+'../includes/simple.h"' 
+	end
+	
+block writeCode()
+	display "Writing ANSI C Wrapper Code... "+crlf
+	tCode = formatCode(sourceFile.readFileAsString())
+	code = '
+		/* 
+		 * File:   bake.c
+		 * Author: bake || Simple executable file builder
+		 *
+		 * Created on April 04, 2018, 12:11 PM
+		 */
+		'
+			if isdebug code += '
+			#include "../../simple/includes/simple.h" '+crlf
+			elif hassimpleh 
+			code += '
+			#include "'+simpleh+'" '+crlf
+			else 
+			code += '
+			#include '+simpleHPath+' '+crlf end	
+		if isWindows() and isgui 
+			code += 'int WINAPI WinMain ( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd ) {
+			int argc ; char **argv ; argc = __argc ; argv = __argv ; ' cflags+="-mwindows "
+		else 
+			code += 'int main( int argc, char *argv[]) {'
+			
+		end
+		code += '	
+		
+			static const unsigned char sim_code[] = { '+stringToCHex(sourceFile.readFileAsString())+'};
+			
+			List* list ; int x ;
+			SimpleState *sState ;
+			sState = create_instance();
+			sState->argc = argc ; 
+			sState->argv = argv ; 
+			//hack around cmdparams 
+			list = simple_state_newvar(sState,"cmdparams");
+			simple_list_setint_gc(sState->vm->sState,list,SIMPLE_VAR_TYPE,SIMPLE_VM_LIST);
+			simple_list_setlist_gc(sState->vm->sState,list,SIMPLE_VAR_VALUE);
+			list = simple_list_getlist(list,SIMPLE_VAR_VALUE);
+			for ( x = 0 ; x < sState->vm->sState->argc ; x++ ) {
+					simple_list_addstring_gc(sState->vm->sState,list,sState->vm->sState->argv[x]);
+			}
+			//hack end
+			execute_code(sState, (char *) sim_code);
+			finalize(sState);
+		}
+
+' 
+	tempFile = new File(filePath+".bake.c") 
+	display "-->Writing obj code to "+tempFile.toString()+crlf
+	tempFile.write(code)
+	createExecutable(filePath+".bake.c")
+	
+block createExecutable(path)
+	createIcon(path)
+	if isWindows()
+		display "--->Starting build : "+outputName+".exe"+crlf
+		windowsBuild(path)
+	elif isMacosx()
+		
+	elif isLinux() || isUnix()
+		display "--->Starting build : "+outputName+""+crlf
+		linuxBuild(path)
+	end
+
+	 
+block windowsBuild(path) 
+	mingwBuildTool = new File("C:\MinGW64\bin\gcc.exe")
+	cygwinBuildTool = new File("C:\cygwin\bin\gcc.exe")		
+	#check if system has mingw
+	if useMINGW
+		windowBuildMingw(mingwBuildTool,path)
+	elif useCygwin
+		
+	elif useVS
+		display simpleLibPath
+		windowBuildVS(path)
+	else
+		display "No Build tool specified using available build tools"+crlf
+		if mingwBuildTool.exists() 
+			display mingwBuildTool.toString()+" --> MINGW Build Tool Detected"+crlf
+			windowBuildMingw(mingwBuildTool,path)
+		elif cygwinBuildTool.exists()
+		#check if system has cygwin
+			display "--> CYGWIN Build Tool Detected"+crlf
+			display "--> Building Executable with CYGWIN"+crlf
+		else
+			display " Resolving to build using Visual Studio"+crlf
+			windowBuildVS(path)
+		end
+	end
+	
+block createIcon(path)
+	if hasicon and isWindows() 
+		display "Creating your ICON dependencies files.."+crlf
+		con = 'MAINICON  ICON  "'+icon+'"'
+		tempFile = new File(path+".rc")  display "		Creating Resources file "+tempFile.toString()+crlf tempFile.write(con)
+		con = 'windres '+tempFile.absolutePath()+' -O coff -o '+path+'.res'
+		display "		Compiling Resources file "+tempFile.toString()+crlf __exec(con)
+		cflags += path+'.res '
+	end
+	
+block windowBuildVS(path)
+	display "--> Building Executable with Visual Studio"+crlf cmd = ''
+	for a = 1 to 16
+		f = new File('C:\Program Files (x86)\Microsoft Visual Studio '+a+'.0\VC\vcvarsall.bat')
+		if f.exists() display "		we found Visual Studio "+a+".0"+crlf 
+		cmd = 'call "C:\Program Files (x86)\Microsoft Visual Studio '+a+'.0\VC\vcvarsall.bat" x86'+crlf
+		end
+	end
+	cmd += "cl /Fo.\.\ /Fe.\.\ /GA /MT "+path+" "+simpleLibPath #simple.lib link to actual location
+	display cmd + crlf 
+	tempFile = new File(path+".bat")  display "		Create batch file "+tempFile.toString()+crlf tempFile.write(cmd)
+	display "		Executing build command " + crlf __exec(tempFile.toString())
+	fi = new File(filePath+".bake.exe") if fi.exists() fi.renameTo(outputName+".exe") end 
+	cleanTempFiles([removeString(path, ".c")+".obj",path+".bat",path]) treatProgramAttr()
+	
+block windowBuildMingw(mingwBuildTool,path)
+	display "--> Building Executable with MINGW"+crlf
+	exeCmd = mingwBuildTool.absolutePath()+' -c -g -MMD -MP -MF "'+path+'.o.d" -o "'+path+'.o" "'+path+'"'
+	display "		Executing compilation command "/*+exeCmd */+ crlf __exec(exeCmd) 
+	exeCmd = mingwBuildTool.absolutePath()+' '+cflags+' -o "'+outputName+'.exe" "'+path+'.o" '+simpleDllPath
+	display "		Executing build command " + crlf __exec(exeCmd) 
+	cleanTempFiles([path,path+".o.d",path+".o",path+'.rc',path+'.res']) treatProgramAttr()
+
+block linuxBuild(path)
+	/* link at runtime */
+	#cmd = 'cc -I/$DESTDIR/$PREFIX/include "-Wl,--no-as-needed" -lm -ldl -o "'+outputName+'" "'+path+'" '+' -Lsimple.so'
+	/* link at build time */
+	cmd = 'cc -I/$DESTDIR/$PREFIX/include "-Wl,--no-as-needed" -lm -ldl -o "'+outputName+'" "'+path+'" '+exeFolder()+'../lib/simple.so'
+	#cmd = 'cc "-Wl,--no-as-needed" -lm -ldl -o "'+outputName+'" "'+path+'" '+' '+exeFolder()+'simple.so'
+	#cmd = 'cc -fpic -g -lm -ldl -o '+outputName+" "+path+' "-Wl,--no-as-needed" "'+exeFolder()+'simple.so"'
+	display cmd + crlf
+	display "		Executing compilation command "/*cmd */+ crlf
+	display "		Executing build command "/*cmd */+ crlf
+	display cmd + crlf
+	__exec(cmd)
+	treatProgramAttr() cleanTempFiles([path,path+".o"]) 
+	
+block treatProgramAttr() 
+	if specifyname
+		display "Renaming "+outputName+".exe to "+name +".exe"+ crlf
+		f = new File(outputName+".exe") display f.absolutePath()+crlf 
+		f.renameTo(removeString(outputName,stringAfterLast(curePathSlashes(outputName),'\'))+name+".exe")
+		outputName = removeString(outputName,stringAfterLast(curePathSlashes(outputName),'\'))+name
+	end
+	if specifysavepath 
+		display "Moving "+outputName+" to "+folder + crlf
+		if isWindows() 
+			__exec("move "+outputName+'.exe '+folder+"/")
+		elif isLinux()
+			__exec("mv "+outputName+' '+folder+"/")
+		else
+		
+		end
+	end
+	
+	
+block cleanTempFiles(tempfiles)
+	if removeTemps 
+		display "		Cleaning up temporary files... "+crlf 
+			tlen = lengthOf(tempfiles)
+		for a = 0 to tlen
+			display "	Deleting : "+tempfiles[a]+crlf
+			file = new File(tempfiles[a]) if file.exists() file.delete() end
+		end
+	end  
+	if deletesim display "	Deleting : "+sourceFile.name()+crlf sourceFile.delete() end
+	
+	
+#This block is temporal until simple compiler @Bold simplify @EndBold
+#It current usefulness is to clean and format the source code of 
+#the simple file to enable it fit into the string quote i.e to make it 
+#conform into the standard string in a C source file
+block formatCode(code)
+	#code = ''+replaceString(code, '"', '\"')
+	#code = replaceString(code, char(10), '					"')
+	finalCode = '"'
+	display "->formating the simple source code (TEMP)"+crlf
+	lineLen =lengthOf(code)
+	for a = 0 to lineLen
+		if code[a] == '"'
+			finalCode+= '\"'
+		elif code[a] == '\'
+			finalCode+= '\\'
+		elif code[a] == char(13) #end of line
+			finalCode+= '"'
+		elif code[a] == char(10) #line break
+			finalCode+= crlf+'" '
+		else 
+			finalCode+= code[a]
+		end
+	end
+	return finalCode+'"'
+	
+block formatString(value)
+	vlen = lengthOf(value)
+	value+= 'xs'
+	display value
+	return value
+				
+block help()
+	display "This program is use to build simple source to platform executable
+Usage:  bake ([OPTIONS]) [PATH]
+	
+The OPTIONS include :
+	-F/</path>	specify the folder to place the program file
+	-N/<name>	specify the output name of the program with no extension
+	-I/icon		build your program with indicated icon
+	-help 		display this help note
+	-temp -t	leave generated and temporary files after build
+	-delete -del	delete the simple source file after successful build
+	-debug		when the simple.h file is at ../../simple/src/includes/simple.h
+	-S/<simple.h>	Indicate the path to simple.h
+	
+	(Compiler Option) ~ if none is supplied the available will be used
+	-mingw		compile with mingw toolchain on windows
+	-cygwin		compile with cygwin compiler on windows
+	-vs 		use available Visual Studio build tools on windows
+	
+	(Architecture Option) ~ x86 is the default
+	-x86 		use 32 bit compiler for the build
+	-x64 		use 64 bit compiler for the build
+======================================================="
+	__exit__
+
+block printError(msg)
+	display "BAKE : "+msg + crlf
+	display "======================================================="+crlf
+	__exit__
+	
+block header()
+	display crlf+"=======================================================
+	BAKE : simple Make Program : 2018
+	This program is part of simple environments 
+======================================================="+crlf
+	
+	
+	
+/*
+	BUG MAP 
+	-------------------
+	001 - the source file should not be gotten first
+
+
+*
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

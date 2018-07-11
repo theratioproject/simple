@@ -1,0 +1,575 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 SIMPLE
+
+*/
+
+/* 
+ * @Filename - FTextDisplay.sim
+ * @Author - Azeez Adewale
+ * @Date - 1 May 2018
+ * @Time - 02:06 PM
+ *
+ */
+
+module fulltick.widget
+
+#call the @Class FGroup File for blocks inheritance
+call "./FGroup.sim" ? fulltick.widget
+call "../raw/FTextBuffer.sim" ? fulltick.raw
+
+#This @Class FTextDisplay is 
+# @Skip
+#  ~~~~~~~image~~~~~~~~
+#@EndSkip @Image FTextDisplay
+#The @Class FTextDisplay is the parenting class for the following widget @Tree
+#		@Class FWidget
+#			|
+#			|
+#		@Class FGroup
+#			|
+#			|
+#		@Bold @Class FTextDisplay
+#			|
+#			|
+#		@Class FTextEditor
+#
+#@EndTreee
+class FTextDisplay : FGroup
+
+	setTypeName("FTextDisplay") #change the name of the widget
+
+	/* NUMBER */
+	WIDGET_HEIGHT = 200 #Since it a group panel like input increase default height
+	WIDGET_WIDTH = 300 #Since it a group panel like input increase default width
+	FTEXTDISPLAY_WIDGET_SCROLLBAR_WIDTH = 17 #the scrollbar width initialized to 17
+	FTEXTDISPLAY_WIDGET_CARET_STYLE = NORMAL_CARET #the default caret style is NORMAL_CARET
+	FTEXTDISPLAY_WIDGET_LINENUMBER_ALIGNMENT = FALIGN_LEFT #the line number align to left
+	FTEXTDISPLAY_WIDGET_LINENUMBER_FONT = FFONT_COURIER #default font is FFONT_COURIER
+	FTEXTDISPLAY_WIDGET_LINENUMBER_SIZE = 15 #to be from @File FulltickConstants
+	
+	/* BOOLEAN */
+	TEXT_DISPLAY_WIDGET_HAS_BUFFER = false #the widget is expected not to have a buffer
+	FTEXTDISPLAY_WIDGET_LINENUMBER_IS_ENABLE = false #line number is disable 	
+	TEXTDISPLAY_WIDGET_CARET_VISIBILITY = false #caret is hidden in this widget
+	
+	/* TYPE */
+	FTEXTDISPLAY_WIDGET_CURSOR_COLOR = new FColor #the default caret/cursor color is black
+	FTEXTDISPLAY_WIDGET_LINENUMBER_BACKGROUND = new FColor #(43) #well it not known
+	FTEXTDISPLAY_WIDGET_LINENUMBER_TEXT_COLOR = new FColor #(23) #well it not known
+	FTEXTDISPLAY_WIDGET_TEXT_COLOR = new FColor #text color is white initially
+	TEXT_DISPLAY_WIDGET_BUFFER = null #the default text buffer is null 
+	
+	/* STRING */
+	FTEXTDISPLAY_WIDGET_LINENUMBER_FORMAT = "" #well you know
+	
+	#Initialize the @Class FTextDisplay widget 
+	block FTextDisplay()
+		init() #initialize the widget at once
+		initTextBuffer()
+		setBuffer(TEXT_DISPLAY_WIDGET_BUFFER)
+		
+	#Change or replace the @Class FTextBuffer used in this current widget
+	#When the buffer is replaced @Class FTextDisplay uses the current 
+	#@Class FTextBuffer and dismisses the old @Class FTextBuffer 
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block setBuffer(buffer)
+		TEXT_DISPLAY_WIDGET_BUFFER = buffer
+		__text_display_buffer(WIDGETPOINTER,TEXT_DISPLAY_WIDGET_BUFFER.getBufferPointer())
+		TEXT_DISPLAY_WIDGET_HAS_BUFFER = true
+		return this
+	
+	#Get the @Class FTextBuffer that is used on the @Class FTextDisplay and
+	#@Class FTextEditor widgets
+	#@Returns the text buffer @DataType TYPE
+	block getBuffer() 
+		return TEXT_DISPLAY_WIDGET_BUFFER
+		
+	#Change or replace the entire text in the current @Class FTextBuffer 
+	#of the @Class FTextDisplay and FTextEditor
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block setText(text) 
+		if not hasBuffer() 
+			initTextBuffer() 
+		end 
+		getBuffer().setText(text)
+		return this
+		
+	#Get the text content of the @Class FTextBuffer used in this widget
+	#@Returns the @Class FTextBuffer text content @DataType STRING
+	block getText()
+		return getBuffer().getText()
+		
+	#A conditional @Bold block @EndBlock to check if this 
+	#@Class FTextDisplay has a @Class FTextBuffer 
+	#@Returns true if this widget has a @Class FTextBuffer @DataType BOOLEAN
+	block hasBuffer()
+		return TEXT_DISPLAY_WIDGET_HAS_BUFFER
+		
+	#Increase or decrease the size of @Class FTextDisplay and 
+	#@Class FTextEditor scrollbar width
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block setScrollBarWidth(width)
+		FTEXTDISPLAY_WIDGET_SCROLLBAR_WIDTH = width
+		__text_display_scroll_bar_width(WIDGETPOINTER,FTEXTDISPLAY_WIDGET_SCROLLBAR_WIDTH)
+		return this
+		
+	#Get the current width of this widget
+	#@Returns scrollbar width @DataType NUMBER
+	block getScrollBarWidth()
+		return FTEXTDISPLAY_WIDGET_SCROLLBAR_WIDTH
+		
+	#Completely make the scrollbar invisible. This is same as calling 
+	#@Block setScrollBarWidth(0) block with zero as parameter
+	block hideScrollBar()
+		return setScrollBarWidth(0)
+	
+	#Reset the scrollbar width to the default which is 17. This is same as
+	#Calling @Block setScrollBarWidth(17) with seventeen as parameter
+	block resetScrollBar()
+		return setScrollBarWidth(17) #to get width from sizes class
+		
+	#Convert a column number into an X pixel position
+	#@Returns converted column to X pixel @DataType NUMBER
+	block columnToX(column)
+		return __text_display_column_to_x(WIDGETPOINTER,true,column)
+	
+	#Convert a X pixel into an X column number
+	#@Returns converted X pixel to column number @DataType NUMBER
+	block xToColumn(x)
+		return __text_display_column_to_x(WIDGETPOINTER,false,x)
+		
+	#Convert the current column position into an X pixel position
+	#@Returns converted position to X pixel @DataType NUMBER	
+	block positionToX()
+		return __text_display_column_to_x(WIDGETPOINTER,false,getPosition())
+		
+	#Get the total 	number of lines between two position (start and endd) 
+	#also you specify if the start number or index is the the start line or
+	#not. If you specify an end number which id greater than the length of the
+	#text in the current @Class FTextBuffer in this widget it is automatically
+	#converted to the length of the @Class FTextBuffer of the widget.
+	#@Returns the number of lines between two index @DataType NUMBER
+	block countLinesWithCon(start,endd,condition)
+		return __text_display_count_lines(WIDGETPOINTER,start,endd,condition)
+		
+	#The function of this block is similar to 
+	#@Block countLinesWithCon(start,endd,condition) but it does not request 
+	#confirmation if the start index is the staring line
+	#@Returns the number of lines between two index @DataType NUMBER
+	block countLines(start,endd)
+		return countLinesWithCon(start,endd,false|true)
+		
+	#Count the total number of the lines in the text currently in the
+	#@Class FTextBuffer of this widget
+	#@Returns the number of lines in the text int this widget 
+	#@Class FTextBuffer  @DataType NUMBER
+	block totalLines()
+		return countLines(0,getBuffer().getTextLength())
+		
+	#Change the color of the @Class FTextDisplay and it inheriting classes
+	#caret/cursor color. This block accept the @Class FColor or the 
+	#absolute @DataType NUMBER value of the color which is then cast to
+	#a new instance to the @Class FColor
+	#@Removable
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block setCursorColor(color)	
+		try {
+			color.getColor() FTEXTDISPLAY_WIDGET_CURSOR_COLOR = color
+		catch
+			FTEXTDISPLAY_WIDGET_CURSOR_COLOR = new FColor
+			FTEXTDISPLAY_WIDGET_CURSOR_COLOR.setColorValue(color)
+		}
+		__text_display_cursor_color(WIDGETPOINTER, FTEXTDISPLAY_WIDGET_CURSOR_COLOR.getColor())
+		return this
+		
+	#@SameAs @Block setCursorColor(color)
+	block setCaretColor(color) return setCursorColor(color)	
+		
+	#Get the caret/cursor color of this widget 
+	#@Return the caret/cursor color in form of the @Class FColor to 
+	#support and allow more color usage
+	block getCursorColor()
+		return FTEXTDISPLAY_WIDGET_CURSOR_COLOR
+		
+	#@SameAs @Block getCursorColor()	
+	block getCaretColor()
+		return getCursorColor()
+		
+	#Change the type of caret that is rendered in the @Class FTextDisplay and
+	#@Class FTextEditor widget. it can be a number between 0 and 6 or one of 
+	#the caret style declared in the @File FCaretStyle
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block setCaretStyle(style)
+		FTEXTDISPLAY_WIDGET_CARET_STYLE = style
+		__text_display_cursor_style(WIDGETPOINTER,FTEXTDISPLAY_WIDGET_CARET_STYLE)
+		return this
+		
+	#Get the type of caret style used in this widget
+	#@Return the caret style @DataType NUMBER
+	block getCaretStyle()
+		return FTEXTDISPLAY_WIDGET_CARET_STYLE
+		
+	#Make the cursor visible/show of invisible/hidden. The caret is hidden 
+	#by default in the @Class FTextDisplay widget and visible in the 
+	#@Class FTextEditor widget
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block setCaretVisibility(condition)
+		if condition 
+			__text_display_cursor_visibility(WIDGETPOINTER,condition)
+		else
+			__text_display_cursor_visibility(WIDGETPOINTER,-1)
+		end
+		TEXTDISPLAY_WIDGET_CARET_VISIBILITY = condition
+		return true
+		
+	#Check whether the caret in the @Class FTextEditor and @Class FTextDisplay
+	#is visible or not. 
+	#@Return true id caret is visible otherwise false @DataType BOOLEAN
+	block getCaretVisibility()
+		return TEXTDISPLAY_WIDGET_CARET_VISIBILITY
+		
+	#Check if a pixel position is within the primary selection. Or if a 
+	#a start index and end index is between the selected text indexes
+	#@Returns true if the start end end index is within the selected indexes
+	#@DataType BOOLEAN
+	block inSelection(start,endd)
+		return __text_display_in_selection(WIDGETPOINTER,start,endd)
+		
+	#Insert text at the current caret location 
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block insert(text)
+		__text_display_insert(WIDGETPOINTER,-1,text)
+		return this
+		
+	#Get the position for the text insertion cursor for the 
+	#@Class FTextDisplay and @Class FTextEditor widget
+	#@Return the insertion position @DataType NUMBER
+	block getInsertPosition()
+		return __text_display_insert(WIDGETPOINTER,-2,null)
+		
+	#@SameAs @Block getInsertPosition()
+	block getPosition() 
+		return getInsertPosition()
+	
+	#@SameAs @Block getInsertPosition()
+	block getCaretPosition() 
+		return getInsertPosition()
+		
+	#Change the position of the text insertion caret/cursor before or after
+	#text insertion
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block setInsertPosition(position)
+		__text_display_insert(WIDGETPOINTER,position,null)
+		return this
+		
+	#Insert text at the specified index 
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget	
+	block insertAt(position,text)
+		formerPosition = getInsertPosition()
+		setInsertPosition(position)
+		insert(text)
+		return setInsertPosition(formerPosition)
+		
+	#Insert text at the beginning of the text in the @Class FTextBuffer used
+	#used in this widget
+	block insertAtBeginning(text)
+		return insertAt(0,text)
+		
+	#Insert text at the end of the text in the @Class FTextBuffer used
+	#used in this widget	
+	block insertAtEnding(text)
+		return insertAt(getBuffer().getTextLength(),text)
+		
+	#Insert text at the beginning of the current line 
+	block insertAtLineStart(text)
+		return insertAt(getLineStart(),text)
+		
+	#Insert text at the end of the current line 	
+	block insertAtLineEnd(text)
+		insertAt(getLineEnd(),text)
+		
+	#Get the beginning of line of the specified index
+	#@Returns the beginning of line at index @DataType NUMBER
+	block getLineStartAt(index)
+		return __text_display_line_start_end(WIDGETPOINTER,index,-1)
+		
+	#Get the index number of the beginning of the current line	
+	#@Returns the beginning of current line @DataType NUMBER
+	block getLineStart()
+		return getLineStartAt(getCaretPosition())
+		
+	#Get the end of line of the specified index
+	#@Returns the end of line at index @DataType NUMBER	
+	block getLineEndAt(index)
+		return __text_display_line_start_end(WIDGETPOINTER,index,true)
+		
+	#Increase or decrease the width of @Class FTExtEditor and 
+	#@Class FTExtEditor widgets. The width of zero means the line number is
+	#disable of value above zero means enabling the line number
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block setLineNumberWidth(width)
+		if width == 0 FTEXTDISPLAY_WIDGET_LINENUMBER_IS_ENABLE = false 
+		else FTEXTDISPLAY_WIDGET_LINENUMBER_IS_ENABLE = true end
+		__text_display_line_number_width(WIDGETPOINTER,width)
+		redraw()
+		return this
+	
+	#Show the line number number. This is equivalent to calling @Block
+	#setLineNumberWidth(width) with the width parameter as 75. Setting the
+	#width to 75 will make the line number wide enough to show up to 
+	#10th Million 10000000 . The width will need to be increased for line
+	#number larger than 10th Million
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block showLineNumber()
+		return setLineNumberWidth(75)
+		
+	#Render the line number invisible. This is equivalent to calling @Block
+	#setLineNumberWidth(width) with the width parameter as 0
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block hideLineNumber()
+		setLineNumberWidth(0)
+		
+	block isLineNumberEnabled()
+		return FTEXTDISPLAY_WIDGET_LINENUMBER_IS_ENABLE
+		
+	#Get the index number of the end of the current line	
+	#@Returns the end of current line @DataType NUMBER	
+	block getLineEnd()
+		return getLineEndAt(getCaretPosition())
+		
+	#@Failing
+	#Align the position to the specified alignment. The alignments are located
+	#inside the @File FAlign file which contains all possible alignment for 
+	#all the widget in the @Module fulltick module
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block alignLineNumber(alignment)
+		FTEXTDISPLAY_WIDGET_LINENUMBER_ALIGNMENT = alignment
+		__text_display_line_number_align(WIDGETPOINTER,FTEXTDISPLAY_WIDGET_LINENUMBER_ALIGNMENT)
+		
+	#Get the type of alignment used on the line number in the @Class
+	#FTextDisplay and @Class FTextEditor widgets
+	#@Return the line number alignment @DataType NUMBER
+	block getLineNumberAlignment()
+		return FTEXTDISPLAY_WIDGET_LINENUMBER_ALIGNMENT
+		
+	#Change the background color of the line number of the widget 	
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block setLineNumberBackground(color)	
+		try {
+			color.getColor() FTEXTDISPLAY_WIDGET_LINENUMBER_BACKGROUND = color
+		catch
+			FTEXTDISPLAY_WIDGET_LINENUMBER_BACKGROUND = new FColor
+			FTEXTDISPLAY_WIDGET_LINENUMBER_BACKGROUND.setColorValue(color)
+		} 
+		__text_display_line_number_bg_color(WIDGETPOINTER, FTEXTDISPLAY_WIDGET_LINENUMBER_BACKGROUND.getColor())
+		#redraw()
+		return this
+		
+	#Get the background color used on the line number of this widget	
+	#@Return the background color of the line number in form of the 
+	#@Class FColor to support and allow more color usage
+	block getLineNumberBackground()
+		return FTEXTDISPLAY_WIDGET_LINENUMBER_BACKGROUND
+		
+	#Change the text color of the line number of the widget 	
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block setLineNumberTextColor(color)	
+		try {
+			color.getColor() FTEXTDISPLAY_WIDGET_LINENUMBER_TEXT_COLOR = color
+		catch
+			FTEXTDISPLAY_WIDGET_LINENUMBER_TEXT_COLOR = new FColor
+			FTEXTDISPLAY_WIDGET_LINENUMBER_TEXT_COLOR.setColorValue(color)
+		} 
+		__text_display_line_number_fg_color(WIDGETPOINTER, FTEXTDISPLAY_WIDGET_LINENUMBER_TEXT_COLOR.getColor())
+		notifyWidget()
+		return this
+		
+	#Get the text color used on the line number of this widget	
+	#@Return the text color of the line number in form of the 
+	#@Class FColor to support and allow more color usage
+	block getLineNumberTextColor()
+		return FTEXTDISPLAY_WIDGET_LINENUMBER_TEXT_COLOR
+		
+	#Change the font of this widget line number. This should 
+	#not be mistaken for the @Block setFont(font) which accept an instance
+	#of the @Class FFont as parameter. This accept one of the Font type 
+	#specified in the @File FFont.sim 
+	#We call @Block redraw() on this widget to effect change
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block setLineNumberFont(font)
+		FTEXTDISPLAY_WIDGET_LINENUMBER_FONT = font
+		__text_display_line_number_font(WIDGETPOINTER, FTEXTDISPLAY_WIDGET_LINENUMBER_FONT)
+		notifyWidget()
+		return this
+		
+	#Get the type of font used by this widget line number. 
+	#@Return the line number font @DataType NUMBER
+	block getLineNumberFont()
+		return FTEXTDISPLAY_WIDGET_LINENUMBER_FONT
+		
+	#Nobody knows what this block does	
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block setLineNumberFormat(format)
+		FTEXTDISPLAY_WIDGET_LINENUMBER_FORMAT = format
+		__text_display_line_number_format(WIDGETPOINTER, FTEXTDISPLAY_WIDGET_LINENUMBER_FORMAT)
+		notifyWidget()
+		return this
+		
+	#Get the format of the widget line number
+	#@Returns the format of line number @DataType STRING
+	block getLineNumberFormat()
+		return FTEXTDISPLAY_WIDGET_LINENUMBER_FORMAT
+		
+	#Increase or decrease the size of @Class FTextEditor and 
+	#@Class FTextDisplay widget line number	
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget	
+	block setLineNumberFontSize(size)
+		if size = 0 return this end
+		FTEXTDISPLAY_WIDGET_LINENUMBER_SIZE = size
+		__text_display_line_number_font_size(WIDGETPOINTER, FTEXTDISPLAY_WIDGET_LINENUMBER_SIZE)
+		notifyWidget()
+		return this
+		
+	#Get the font size of the widget line number
+	#@Returns the font size of line number @DataType STRING	
+	block getLineNumberFontSize()
+		return FTEXTDISPLAY_WIDGET_LINENUMBER_SIZE
+		
+	#Move the caret/cursor cursor position up one line 	
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block moveUp()
+		__text_display_move(WIDGETPOINTER,0)
+		return this
+		
+	#Move the caret/cursor cursor position down one line 	
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget	
+	block moveDown()
+		__text_display_move(WIDGETPOINTER,1)
+		return this
+		
+	#Move the caret/cursor cursor position left one character 	
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget	
+	block moveLeft()
+		__text_display_move(WIDGETPOINTER,2)
+		return this
+	
+	#Move the caret/cursor cursor position right one character 	
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block moveRight()
+		__text_display_move(WIDGETPOINTER,3)
+		return this
+		
+	#Move the caret/cursor to the right of next word 	
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget	
+	block nextWord()
+		__text_display_next_word(WIDGETPOINTER)
+		return this
+		
+	#Replace the current word with a new word sent as parameter to the 
+	#block 
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget	
+	block overstrike(word)
+		__text_display_overstrike(WIDGETPOINTER,word)
+		return this
+		
+	#Well this block is not tested. If you find out please send a @Link PR	
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget		
+	block getPositionStyle(start,endd,lineindex)
+		__text_display_position_style(WIDGETPOINTER,start,endd,lineindex)
+		return this
+		
+	#Convert a character index int o a pixel position
+	#@Returns index to pixel @DataType NUMBER
+	block positionToXY(position,x,y)
+		return __text_display_position_to_xy(WIDGETPOINTER,position,x,y)
+		
+	#Move the caret/cursor to the previous word at a time 	
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget	
+	block previousWord()
+		__text_display_previous_word(WIDGETPOINTER)
+		return this
+	
+	#Marks the text between the start and the endd index as needing to be 
+	#redraw to update text and properties within the start and endd index
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget	
+	block redisplayRange(start,endd)	
+		__text_display_redisplay_range(WIDGETPOINTER,start,endd)
+		return this
+		
+	#Change the text color of the widget. Color is of @DataType Number
+	#The @Class FColor can be passed as parameter to the block which get the 
+	#color value from the @Class FColor or Integer/Number can be passed 
+	#directly. We call @Block redraw() on this widget to effect change
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block setTextColor(color)	
+		try {
+			color.getColor() FTEXTDISPLAY_WIDGET_TEXT_COLOR = color
+		catch
+			FTEXTDISPLAY_WIDGET_TEXT_COLOR = new FColor
+			FTEXTDISPLAY_WIDGET_TEXT_COLOR.setColorValue(color)
+		} 
+		__text_display_text_color(WIDGETPOINTER, FTEXTDISPLAY_WIDGET_TEXT_COLOR.getColor())
+		notifyWidget()
+		return this
+		
+	#Get the text color used on this widget	
+	#@Return the text color of the widget in form of the 
+	#@Class FColor to support and allow more color usage
+	block getTextColor()
+		return FTEXTDISPLAY_WIDGET_TEXT_COLOR
+	
+	#Create an instance of the FTextDisplay Widget with 
+	#custom width and height to avoid invisible widget. Only the object
+	#is initialize all other features need to be initialize manually else 
+	#the constructor @Block FTextDisplay() should be called
+	#@Note @Important you should carefully call this block from child
+	#class as it resets all the attributes and properties of the widget
+	#do not call
+	block init() initialize()
+	
+	#all the private attributes, fields and block not accessible #outside the class
+	private 
+	
+		#Create an instance of the FTextDisplay Widget with 
+		#custom width and height to avoid invisible widget
+		block initialize()
+			WIDGETPOINTER = __init_text_display(WIDGET_X, WIDGET_Y, WIDGET_WIDTH, WIDGET_HEIGHT) 
+			
+		block initTextBuffer()
+			TEXT_DISPLAY_WIDGET_BUFFER = new FTextBuffer()
+			TEXT_DISPLAY_WIDGET_HAS_BUFFER = true
+			
+		block treatLineNumberBg()
+			setLineNumberBackground(FTEXTDISPLAY_WIDGET_LINENUMBER_BACKGROUND.getColor())
+	
+	
+	

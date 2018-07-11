@@ -1,0 +1,29 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 SIMPLE
+
+*/
+
+/* 
+ * #filename - FApp.sim
+ * #author - Azeez Adewale
+ * #date - 20 Febuary 2018
+ */
+
+module fulltick.core
+
+#call the GUI(fulltick) Dynamic Module from the core file @File Core.sim
+call "Core.sim"
+
+FApp = new FApp
+
+class FApp
+
+	block run()
+		if (__run_fulltick() == 0 )
+			#display "GUI Program Run Successfully : FULLTICK"+ crlf
+		else 
+			display "Error occur while running the GUI Program : FULLTICK" + crlf
+		end
+	
+	block setScheme(scheme)

@@ -1,0 +1,430 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 SIMPLE
+
+*/
+
+/* 
+ * @Filename - FInput.sim
+ * @Author - Azeez Adewale
+ * @Date - 27 Febuary 2018
+ * @Time - 02:54 PM
+ */
+
+module fulltick.widget
+
+#call the @Class FWidget File for blocks inheritance
+call "../painting/FColor.sim" ? fulltick.painting
+call "./FBox.sim" ? fulltick.widget
+
+#This @Class FInput is the base class for all type of the input
+#and output widget. It hold most of the blocks. Some of the 
+#inheriting class is a child of this class but with a specific 
+#and protected attributes @Skip
+#  ________________________________________________________
+# |   __________________________________________________   |
+# |  |__________________________________________________|  | 
+# |________________________________________________________|
+#@EndSkip @Image FInput
+class FInput : FBox
+
+	/* TYPES */
+	INPUT_WIDGET_TEXT_COLOR = new FColor #the default font color black
+
+	/* NUMBER */
+	WIDGET_WIDTH = 300 #Change the default width 
+	WIDGET_HEIGHT = 30 #Change the default height 
+	WIDGET_Y = 10 #The default was change from zero to 10 but the position can be changed anytime
+	INPUT_WIDGET_MAXIMUM_SIZE = 100000000 #The default maximum is unlimited
+	INPUT_WIDGET_TEXT_FONT = 0 #default text font Arial
+	INPUT_WIDGET_TEXT_SIZE = 12 #the default text size
+	
+	/* TYPE */
+	WIDGET_CURSOR_COLOR = new FColor #the default caret/cursor color is black
+	
+	/* BOOLEAN */
+	INPUT_WIDGET_IS_READ_ONLY = false #true if the input widget id read only
+	INPUT_WIDGET_TAB_NAV = true #true if pressing the 'TAB' key change focus
+	INPUT_WIDGET_WRAPS = false #the widget is not wrapping word by default
+	
+	/* STRING */
+	INPUT_WIDGET_VALUE = "" #Empty string in widget by default
+
+	#Initialize the @Class FInput widget 
+	block FInput(text)
+		initialize()
+		setText(text)
+		
+	#Call this block if you want to dismiss all it current content i.e you 
+	#wish to delete all the content it same as calling @Block setText("")
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block clear()
+		setText("")
+		
+	#The block act same as the @Block setLabel(label) for setting
+	#or changing the value of the label 
+	block setTitle(text)
+		setLabel(text)
+		return this
+	
+	#Copy the selected text into the clipboard. If you want to specify which
+	#clipboard to copy the text into you should call the 
+	#@Block copyToClipboard(clipboard) instead
+	#@Returns the copy value which is true if copy successfully and false
+	#if copy fails @DataType BOOLEAN
+	block copy()
+		return __input_copy(WIDGETPOINTER, 1, true)
+		
+	#Use this block to copy the @Class FInput and inheriting classes into
+	#a custom clipboard/@Class FClipboard which is just of two type 
+	#>> the text clipboard
+	#>> the cut clipboard
+	#You can read more about the clipboard in @Class FClipboard
+	#@Returns the copy value which is true if copy successfully and false
+	#if copy fails @DataType BOOLEAN
+	block copyToClipboard(clipboard)
+		return __input_copy(WIDGETPOINTER, clipboard, true)
+		
+	#This block copies all the previous contiguous cuts from the undo 
+	#information to the clipboard. This block implements the 
+	#∧K shortcut key. You might want to call @Block copy() instead.
+	#@Returns the copy value which is true if copy successfully and false
+	#if copy fails @DataType BOOLEAN
+	block copyCut()
+		return __input_copy(WIDGETPOINTER, null, false)	
+
+	#Change the color of the @Class FInput and it inheriting classes
+	#caret/cursor color. This block accept the @Class FColor or the 
+	#absolute @DataType NUMBER value of the color which is then cast to
+	#a new instance to the @Class FColor
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block setCursorColor(color)	
+		try {
+			color.getColor() WIDGET_CURSOR_COLOR = color
+		catch
+			WIDGET_CURSOR_COLOR = new FColor
+			WIDGET_CURSOR_COLOR.setColorValue(color)
+		}
+		__set_input_cursor_color(WIDGETPOINTER, WIDGET_CURSOR_COLOR.getColor())
+		return this
+		
+	#Get the caret/cursor color of this widget 
+	#@Return the caret/cursor color in form of the @Class FColor to 
+	#support and allow more color usage
+	block getCursorColor()
+		return WIDGET_CURSOR_COLOR
+		
+	#This block mimics ^X which cut and copy the selected to clipboard 
+	#unlike @Block copy() the selected text does not remain in the widget
+	#but it is deleted instead
+	#@Returns the cut value which is true if cut successfully and false
+	#if cut fails @DataType BOOLEAN
+	block cut()
+		copy()
+		return __input_cut(WIDGETPOINTER, 0, 0, 1)
+
+	#This block is most similar to @Block cut() but it does not copy the 
+	#selected text to the clipboard but delete it instead.
+	#@Returns the delete value which is true if delete successfully and false
+	#if delete fails @DataType BOOLEAN
+	block deleteSelected()
+		return __input_cut(WIDGETPOINTER, 0, 0, 1)
+		
+	#This block function is same as @Block deleteSelected()	
+	block delete() deleteSelected()
+		
+	#Use this block to delete text from the current position of the 
+	#caret/cursor to the specified @Bold index @EndBold in the widget
+	#@Return the delete value which is true if delete successfully and false
+	#if delete fails @DataType BOOLEAN
+	block deleteFromPositionTo(index)
+		return __input_cut(WIDGETPOINTER, index, 0, 2)
+		
+	#This block delete text from the specified @Bold startindex @EndBold
+	#to the specified @Bold endindex @EndBold
+	#@Return the delete value which is true if delete successfully and false
+	#if delete fails @DataType BOOLEAN	
+	block deleteAt(startindex, endindex)
+		return __input_cut(WIDGETPOINTER, startindex, endindex, 3)
+	
+	#get the character at the specified @Bold index @EndBold 
+	#@Return the character at the index @DataType STRING
+	block index(index)
+		return __get_input_index(WIDGETPOINTER,6)
+		
+	#Insert any text at the current position of the caret/cursor in the
+	#widget 
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block insert(value)
+		__input_insert(WIDGETPOINTER,value,-1)
+		return this
+	
+	#Insert any text at the current position of the caret/cursor in the
+	#widget with @Bold index @EndBold indication the offset in the text to 
+	#which the text is inserted in the widget. 
+	#@Note the index has to be the length of the @DataType STRING to be 
+	#inserted you can call the @Block lengthOf(object) on the @DataType
+	#STRING to be inserted to get the length else if the index is greater
+	#than the length of the @DataType string to be inserted the block will
+	#do the rounding to @DataType String length
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block insertTo(value, index)
+		if index > lengthOf(value) index = lengthOf(value)+1 end
+		__input_insert(WIDGETPOINTER,value,index)
+		return this
+		
+	#Get the current mark in the widget not to be mistaken with the 
+	#widget caret/cursor position. The mark is simply the position of then
+	#selection from the position
+	#@Return the current mark of the widget @DataType NUMBER
+	block mark()
+		return __input_mark(WIDGETPOINTER,0,true)
+		
+	#Set the widget mark see also @Block mark()	
+	#@Return the current mark of the widget @DataType NUMBER	
+	block setMark(index)
+		return __input_mark(WIDGETPOINTER,index,false)
+		
+	#If you want to limit the number of character that the widget can hold
+	#you can send the limit to this block
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block setMaximumSize(size)
+		INPUT_WIDGET_MAXIMUM_SIZE = size
+		__input_maximum_size(WIDGETPOINTER,INPUT_WIDGET_MAXIMUM_SIZE)
+		return this
+		
+	#get the number of character this widget can hold 
+	#@Return the number of character this widget can hold @DataType NUMBER	
+	block getMaximumSize()
+		return INPUT_WIDGET_MAXIMUM_SIZE
+	
+	#Get the immediate position of the caret/cursor in the widget 
+	#@Return the widget caret/cursor position @DataType NUMBER	
+	block cursorPosition()
+		return __input_position(WIDGETPOINTER,0,0,1)
+		
+	#currently failing @Removable			
+	block cursorPositionAt(cursorindex,markindex)
+		return __input_position(WIDGETPOINTER,cursorindex,markindex,0)
+	
+	#currently failing @Removable	
+	block setCursorPosition(index)
+		return __input_position(WIDGETPOINTER,index,0,3)
+	
+	#This block can be used to convert an editable @Class FInput Widget
+	#to non editable i.e read only. It is similar to acttivating and
+	#deactivating widget but in this @Block setReadOnly(condition)
+	#scope the widget is accessible but cannot accept changes of any
+	#form from the user 
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block setReadOnly(condition)
+		INPUT_WIDGET_IS_READ_ONLY = condition 
+		__input_read_only(WIDGETPOINTER,INPUT_WIDGET_IS_READ_ONLY)
+		return this
+		
+	#Use this block to check if the @Class FInput widget is read only
+	#or is the content is editable by the user
+	#@Return the widget read only state @DataType BOOLEAN
+	block isReadOnly()
+		return INPUT_WIDGET_IS_READ_ONLY
+		
+	#Replace the value of text between two index in the @Class FInput 
+	#Widget value e.g @Code
+	# value = "my name" replace(0,3,not l) so value becomes 
+	# value = "not lame"
+	#If you intend to replace selected text instead call the @Block 
+	#replaceSelected(value)
+	#@EndCode
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block replace(f,t,value)
+		__input_replace(WIDGETPOINTER,f,t,value)
+		return this
+		
+	#Replace selected text with a custom value/text in the 
+	#@Class FInput Widget 
+	#if you intend to replace the text at a particular index call the 
+	#@Block replace(f,t,value) instead
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block replaceSelected(value)
+		f = mark()
+		t = cursorPosition()
+		__input_replace(WIDGETPOINTER,f,t,value)
+		
+	#Get the the length of the @Class FInput widget value in byte
+	#@Return value size in byte @DataType Number
+	block size()
+		return __input_size(WIDGETPOINTER)
+		
+	#Change the @Class FInput Widget text/string content with the 
+	#text/string value sent as parameter to the block
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block setStaticValue(value)
+		__input_static_value(WIDGETPOINTER,value)
+		return this
+		
+	#Change whether the widget should advance focus or should insert 
+	#TAB in the widget. This block does not apply to all type of the 
+	#@Class FInput widget but to some of the widget like the 
+	#@Class FMultiLineInput and the like. [[color][blue][TRUE]] for 
+	#advancing forward and [[color][blue][FALSE]] for inserting tab \t 
+	#into the widget
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block setTabNav(condition)
+		INPUT_WIDGET_TAB_NAV = condition
+		__input_tab_nav(WIDGETPOINTER,INPUT_WIDGET_TAB_NAV)
+		return this
+		
+	#Check whether pressing the TAB key changes focus or insert tab \t into
+	#the widget
+	#@Return if tab changes focus or insert tab @DataType BOOLEAN
+	block tabChangeFocus()
+		return INPUT_WIDGET_TAB_NAV
+		
+	#Change the label color of the widget. Color is of @DataType Number
+	#The @Class FColor can be passed as parameter to the block which get the 
+	#color value from the @Class FColor or Integer/Number can be passed 
+	#directly. We call @Block redraw() on this widget to effect change
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block setTextColor(color)
+		try {
+			color.getColor() INPUT_WIDGET_TEXT_COLOR = color
+		catch
+			INPUT_WIDGET_TEXT_COLOR = new FColor
+			INPUT_WIDGET_TEXT_COLOR.setColorValue(color)
+		}
+		__input_text_color(WIDGETPOINTER,INPUT_WIDGET_TEXT_COLOR.getColor())
+		redraw()
+		return this
+		
+	#Get the color of the text of the widget
+	#@Return text color @Class FColor
+	block getTextColor()
+		return INPUT_WIDGET_TEXT_COLOR
+		
+	#Change the font of the @Class FInput widget value/text. This should 
+	#not be mistaken for the @Block setFont(font) which accept an instance
+	#of the @Class FFont as parameter. This accept one of the Font type 
+	#specified in the @File FFont.sim 
+	#We call @Block redraw() on this widget to effect change
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block setTextFont(font)
+		INPUT_WIDGET_TEXT_FONT = font
+		__input_text_font(WIDGETPOINTER, INPUT_WIDGET_TEXT_FONT)
+		redraw()
+		return this
+		
+	#Get the type of text font used by this widget. 
+	#@Return the text font @DataType NUMBER
+	#@Note This should not be mistaken for the @Block getFont() which
+	#returns the instance of the @Class FFont used by this widget if any 
+	#at all
+	block getTextFont()
+		return INPUT_WIDGET_TEXT_FONT
+		
+	#Change the size of the text in the widget, The size is in pixel height
+	#of which is @DataType NUMBER 
+	#We call @Block redraw() on this widget to effect change
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block setTextSize(size)
+		INPUT_WIDGET_TEXT_SIZE = size
+		__input_text_size(WIDGETPOINTER, INPUT_WIDGET_TEXT_SIZE)
+		redraw()
+		return this
+		
+	#Get the font size of the text in this widget 
+	#@Return the font size @DataType NUMBER
+	block getTextSize()
+		return INPUT_WIDGET_TEXT_SIZE
+		
+	#@Pending function	
+	block setFont(font)
+	
+	#@Pending function
+	block getFont()
+	
+	#Get the correct text/string content of the @Class FInput widget
+	#@Return widget text @DataType STRING
+	block getValue()
+		return __input_value(WIDGETPOINTER, true, "")
+		
+	#Get the correct text/string content of the @Class FInput widget
+	#@Return widget text @DataType STRING	
+	block getText()
+		return getValue()
+		
+	#This block is useful for changing all the content of the widget
+	#at once i.e replacing the content of the widget. It almost equivalent 
+	#to call @Block clearValue()/clearText() and insert(value) but it more
+	#faster and reliable
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block setValue(value)
+		INPUT_WIDGET_VALUE = value
+		__input_value(WIDGETPOINTER, false, INPUT_WIDGET_VALUE)
+		return this
+		
+	#Same as @Block setValue(value)	
+	block setText(text)
+		return setValue(text)
+	
+	#All this block simply does is delete the content of the @Class FInput 
+	#widget and replace it with an empty string ""
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block clearValue()
+		setValue("")
+		return this
+	
+	#same as @Block clearValue()
+	block clearText() return clearValue()
+	
+	#Undo and redo the last action in the widget
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block undo()
+		__input_undo(WIDGETPOINTER)
+		return this
+		
+	#Returns true if the current Inheriting widget is wrapping whole word
+	#and returns false if it is not wrapping
+	#@Return widget is wrapping word @DataType BOOLEAN
+	block isWrapping()
+		return __input_wrap(WIDGETPOINTER, true, INPUT_WIDGET_WRAPS)
+		
+	#Change the word wrapping property of the widget. Word wrapping 
+	#property does not apply to all the @Class FInput type.
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block wrap(condition)
+		INPUT_WIDGET_WRAPS = condition
+		__input_wrap(WIDGETPOINTER, false, INPUT_WIDGET_WRAPS)
+		return this
+	
+	#all the private attributes, fields and block not accessible #outside the class
+	#private 
+		
+		#Create an instance of the FInput Widget with custom width
+		#and height to avoid invisible @Class FInput
+		block initialize()
+			WIDGETPOINTER = __init_input(WIDGET_X, WIDGET_Y, WIDGET_WIDTH, WIDGET_HEIGHT)
+	
+	
+	
+	
+	
+	
+	
+	

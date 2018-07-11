@@ -1,0 +1,26 @@
+/* 
+	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+/* 
+ * #filename - Runtime.sim
+ * #author - Azeez Adewale
+ * #date - 9 Febuary 2017
+ */
+ 
+module simple.system
+
+call "loadsystemdll.sim"
+
+Runtime = new Runtime
+
+class Runtime
+
+	block executeWithParameter(file, param)
+		exe = '"'+file+'"' + " "+param
+		__exec(exe)
+		
+	block execute(exe)
+		__exec('"'+exe+'"')
