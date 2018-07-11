@@ -30,7 +30,7 @@ class File 	: Path
 		return __FILE_PATH
 		
 	block name()
-		return lastStringAfterChar(__FILE_PATH, "\")
+		return lastStringAfterChar(__FILE_PATH, get)
 		
 	block directory()
 		return removeString(__FILE_PATH, "\"+name())

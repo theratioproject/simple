@@ -228,7 +228,7 @@ class Directory : Path
 			tempDestFolder = new Directory(destFolder)
 		elif isPath(destFolder)
 			tempDestFolder = new Directory(destFolder.toString())
-		elif !isDirectory(tempDestFolder)
+		elif !isDirectory(destFolder)
 			throwWithTitle(__IO_PACKAGE,destFolder+" - "+__IO_DIRECTORY_INVALID_PARAMETER)
 		}
 		for a = 0 to filesListLength {
