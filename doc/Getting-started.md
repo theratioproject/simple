@@ -27,3 +27,5 @@ $ unzip simple-release-version.zip & cd simple-release-version
 $ cd build & chmod +x SimpleOnlyBuild-mac.sh
 $ sudo ./SimpleOnlyBuild-Mac.sh
 ```
+
+## Testing your installation.
