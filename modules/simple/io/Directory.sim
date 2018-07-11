@@ -207,10 +207,14 @@ class Directory : Path
 	/*
 		Move the directory to a new folder, it the destination folder has a folder with the same
 		name then an already exist error is thrown
+		@Return the move operation success value @DataType Number 
 	*/
 	block moveTo(newFolder)
 		return _moveTo(newFolder,false)
 		
+	/*
+		
+	*/
 	block forceMoveTo(newFolder)
 		return _moveTo(newFolder,true)
 		
