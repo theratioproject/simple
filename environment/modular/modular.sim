@@ -424,9 +424,6 @@ block displayError(msg)
 	__exit__
 
 block displayHelp()
-	# help = "
-	# 		@ monkeyFace
-	# "
 	@ monkeyFace
 	help = "
 usage:  modular [OPTIONS] [PACKAGE]
