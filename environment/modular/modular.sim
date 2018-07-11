@@ -196,9 +196,8 @@ block downloadPackage(downloadablePackage)
 	
 block moveContent(oldPath,newFolder)
 	tempDir = new Directory(oldPath)
-	@newFolder
 	if tempDir.exists() {
-		@tempDir.forceRenameTo("C:\Users\thecarisma\Documents\SIMPLE_GITHUB\s0.3.35-debug\test")
+		@tempDir.forceRenameTo(newFolder)
 		@"yea yea"
 	}
 	
