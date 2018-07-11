@@ -4,4 +4,6 @@
     - Test your installation.
     + Uninstalling SIMPLE.
     * Getting help.
-## Installing
+## Installing SIMPLE & it's enviroment.
+SIMPLE can be installed on any operating system. Be it Windows, Linux or Unix OS* and even Mac. In this section, i'll discuss how we can install in all OS'es.
+#### Unix / Linux Os.
