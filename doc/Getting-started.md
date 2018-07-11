@@ -29,3 +29,8 @@ $ sudo ./SimpleOnlyBuild-Mac.sh
 ```
 
 ## Testing your installation.
+To test your installation, open your Konsole, Terminal or command prompt and test run the *SIMPLE* command.
+```sh
+$ simple
+```
+You can also test the enviroments built with it, such as the repl ( read-evaluate-print-)
