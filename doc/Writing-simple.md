@@ -6,3 +6,6 @@ Most SIMPLE codes do have comments at the top of the file indicating the descrip
 This type of comments is written on a single line.
 To write an inline comment in SIMPLE, a *hash* (#) is used to denote inline comments e.g
 ```
+# This is an inline comment.
+block main
+    display "Hello world!" +crlf
