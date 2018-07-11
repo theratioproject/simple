@@ -2,6 +2,4 @@
 Variables are  placeholders for values which can be strings, array / List, number, boolean etc.
 
 ## Declaring varibles in simple.
-In SIMPLE, variables are defined without any prefix. I mean, we don't have to add a prefix like JavaScript's`let` or C's `int` etc. Below, is a varibale declared that holds simple's meaning.
-``` String variable declaration.
-```
+In SIMPLE, variables are defined without any prefix. I mean, we don't have to add a prefix like JavaScript's`let` or C's `int` etc.
