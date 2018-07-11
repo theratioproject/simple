@@ -17,4 +17,4 @@ fake = False # boolean.
 The above declaration methods for variables are referred to as low-level variable declaration. These are limited to certain functionalities and method.
 
 ## Declaring variables in higher-level order.
-The string declared in a low level order, has no functionality but the one
+The string declared in a low level order, has no functionality but the one 
