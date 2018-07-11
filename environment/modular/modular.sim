@@ -69,7 +69,7 @@ askPermission = true
 if isWindows() {
 	simpleDistDirectory = "C:\Simple\"
 elif isLinux()
-
+	simpleDistDirectory = "/usr/bin/simple/"
 }
 
 cmdlen = lengthOf(cmdparams)
@@ -157,11 +157,11 @@ block moduleEnviron(depConf,packageList)
 block downloadPackages(allDownloadablePackages)
 	@crlf+"Total Download Size: "+allDownloadablePackages[:downloadSize]+crlf
 	if askPermission {
-		display " :: Do you want to proceed [y/n] " read respond @""
+		display " :: Do you want to proceed [y/n] " read response @""
 	else 
-		respond = "y"
+		response = "y"
 	}
-	if respond == "y" {
+	if response == "y" {
 		for a = 0 to lengthOf(allDownloadablePackages) - 1 {
 			downloadPackage(allDownloadablePackages[a])
 		}
@@ -256,7 +256,8 @@ block upgradeSimpleDistro()
 	localVersion = getSimpleVersion()
 	@"Installed version: "+localVersion 
 	@"looking up "+simpleUpdateUrl
-	upgradeJson = download(simpleUpdateUrl+"?os=Windows%2032") #encode(getOS())
+	# I think there should be an if-else to detect OS type so as to install specified system.
+		upgradeJson = download(simpleUpdateUrl+"?os="+ostype)
 	if upgradeJson == null {
 		@"Internet connection is required to upgrade simple-lang"
 	elif stringContains(upgradeJson, "Not Found") 
@@ -275,8 +276,8 @@ block upgradeSimpleDistro()
 			__exit__
 		else 
 			@"Total Download Size: "+latestSize+crlf
-			display " :: Do you want to proceed [y/n] " read respond @""
-			if respond == "y" {
+			display " :: Do you want to proceed [y/n] " read response @""
+			if response == "y" {
 				@"Downloading simple-lang: "+latestCodename
 				downloadedFile = download(latestDownloadUrl)
 				latestSimple = new File(simpleDistDirectory+hash(latestCodename)+"."+latestExtensionType) #replace with temp folder
@@ -423,10 +424,30 @@ block displayError(msg)
 	__exit__
 
 block displayHelp()
+	# help = "
+	# 		@ monkeyFace
+	# "
+	@ monkeyFace
 	help = "
-		no help yet
+		usage:  modular [OPTIONS] 
+
+	[OPTION] : Option passed to the modular program.
+
+	The OPTIONS include: 
+
+	-h    --help		Displays the help message.
+	-su   --shell		Opens the modular shell (or repl).
+	-e    --env              Install an environment.
+	-m    --mod              Install a module.
+	-v    --version      	Get the current version of modular.
+	-os   --system       	Get the operating system type of the host system.
+	-u    --upgrade    	Upgrade and/or update the version of Simple on your computer.
+	-p    --path            Path to SIMPLE's directory if installed in a different place.
+	-t    --temp           	Delete temp files.
+	-s    --show-info 	Display processes currently carried out by modular.
+	-y    --yes		Ask for permission in cases where you are not a top priviledge user.
 	"
-	display help __exit__
+	 display help __exit__
 	
 block shell()
 	while true #displayError("No command")

@@ -159,6 +159,7 @@ block notifyMenu(con)
 		menuBar.mode(24,0) #debug
 	end
 
+# Working on it... 
 class Test : FWindow : File : FTextEditor
 		fileName = new FInput("./") fileName.setWidth(200) fileName.setPosition(10,10)
 		openButton = new FButton("Open")
