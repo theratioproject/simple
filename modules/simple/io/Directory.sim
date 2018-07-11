@@ -205,15 +205,18 @@ class Directory : Path
 		}
 		
 	/*
-		Move the directory to a new folder, it the destination folder has a folder with the same
-		name then an already exist error is thrown
+		Move the directory to a new folder, it the destination folder has a folder 
+		with the same name then an already exist error is thrown
 		@Return the move operation success value @DataType Number 
 	*/
 	block moveTo(newFolder)
 		return _moveTo(newFolder,false)
 		
 	/*
-		
+		Forcefully move the directory to the destination folder, if a folder with 
+		the same name is present in the destination folder it will be deleted and the 
+		directory moved to replace it, Use this block with caution
+		@Return the move operation success value @DataType Number 
 	*/
 	block forceMoveTo(newFolder)
 		return _moveTo(newFolder,true)
