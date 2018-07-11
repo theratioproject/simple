@@ -4,4 +4,5 @@ Writing simple codes is simple just as the name implies. SIMPLE doesn't mind whi
 Most SIMPLE codes do have comments at the top of the file indicating the description and purpose of the code written below.
 #### Inline comments.
 This type of comments is written on a single line.
-To write an inline comment in SIMPLE, a 
+To write an inline comment in SIMPLE, a *hash* (#) is used to denote inline comments e.g
+```
