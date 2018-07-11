@@ -1,0 +1,91 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 SIMPLE
+
+*/
+
+/* 
+ * @Filename - FBoxType.sim
+ * @Author - Azeez Adewale
+ * @Date - 21 Febuary 2018
+ * @Time - 12:25 AM
+ */
+ 
+/*
+	This File holds all possible box types for the @Class FBox and @Class 
+	FPanel widgets the values below are not meant to be edited as it is 
+	declared with regard to the [[link][FLTK]["http://www.fltk.org"]] library
+	Fl_Boxtype enum. In case you need to create a new box/panel type you 
+	are required to re draw the box from scratch and not add or modify any
+	of the box type below to avoid breaking the @Module GUI(fulltick) Module
+	
+*/
+
+/* NUMBERS */
+
+#@Skip 	DO NOT MODIFY @EndSkip ################################
+															###
+FBOX_NONE						= 0    #default no box     	###
+FBOX_NO_BOX						= 0    #default no box     	###
+FBOX_FLAT_BOX					= 1 						###
+FBOX_UP_BOX						= 2							###
+FBOX_DOWN_BOX					= 3							###
+FBOX_UP_FRAME					= 4							###
+FBOX_DOWN_FRAME					= 5							###
+FBOX_THIN_UP_BOX				= 6							###
+FBOX_THIN_DOWN_BOX				= 7							###
+FBOX_THIN_UP_FRAME				= 8							###
+FBOX_THIN_DOWN_FRAME			= 9							###
+FBOX_ENGRAVED_BOX				= 10						###
+FBOX_EMBOSSED_BOX				= 11						###
+FBOX_ENGRAVED_FRAME				= 12						###
+FBOX_EMBOSSED_FRAME				= 13						###
+FBOX_BORDER_BOX					= 14						###
+FBOX_SHADOW_BOX					= 15						###
+FBOX_BORDER_FRAME				= 16						###
+FBOX_SHADOW_FRAME				= 17						###
+FBOX_ROUNDED_BOX				= 18						###
+FBOX_RSHADOW_BOX				= 19						###
+FBOX_ROUNDED_FRAME				= 20						###
+FBOX_RFLAT_BOX					= 21						###
+FBOX_ROUND_UP_BOX				= 22						###
+FBOX_ROUND_DOWN_BOX				= 23						###
+FBOX_DIAMOND_UP_BOX				= 24						###
+FBOX_DIAMOND_DOWN_BOX			= 25						###
+FBOX_OVAL_BOX					= 26						###
+FBOX_OSHADOW_BOX				= 27						###
+FBOX_OVAL_FRAME					= 28						###
+FBOX_OFLAT_BOX					= 29						###
+FBOX_PLASTIC_UP_BOX				= 30						###
+FBOX_PLASTIC_DOWN_BOX			= 31						###
+FBOX_PLASTIC_UP_FRAME			= 32						###
+FBOX_PLASTIC_DOWN_FRAME			= 33						###
+FBOX_PLASTIC_THIN_UP_BOX		= 34						###
+FBOX_PLASTIC_THIN_DOWN_BOX		= 35						###
+FBOX_PLASTIC_ROUND_UP_BOX		= 36						###
+FBOX_PLASTIC_ROUND_DOWN_BOX		= 37						###
+FBOX_GTK_UP_BOX					= 38						###
+FBOX_GTK_DOWN_BOX				= 39						###
+FBOX_GTK_UP_FRAME				= 40						###
+FBOX_GTK_DOWN_FRAME				= 41						###
+FBOX_GTK_THIN_UP_BOX			= 42						###
+FBOX_GTK_THIN_DOWN_BOX			= 43						###
+FBOX_GTK_THIN_UP_FRAME			= 44						###
+FBOX_GTK_THIN_DOWN_FRAME		= 45						###
+FBOX_GTK_ROUND_UP_BOX			= 46						###
+FBOX_GTK_ROUND_DOWN_BOX			= 47						###
+FBOX_GLEAM_UP_BOX				= 48						###
+FBOX_GLEAM_DOWN_BOX				= 49						###
+FBOX_GLEAM_UP_FRAME				= 50						###
+FBOX_GLEAM_DOWN_FRAME			= 51						###
+FBOX_GLEAM_THIN_UP_BOX			= 52						###
+FBOX_GLEAM_THIN_DOWN_BOX		= 53						###
+FBOX_GLEAM_ROUND_UP_BOX			= 54						###
+FBOX_GLEAM_ROUND_DOWN_BOX		= 55						###
+FBOX_FREE_BOXTYPE				= 56						###
+															###
+#@Skip DO NOT MODIFY @EndSkip #################################
+
+
+
+
