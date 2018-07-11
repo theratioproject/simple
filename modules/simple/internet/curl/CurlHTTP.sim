@@ -1,0 +1,38 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+/* 
+ * @filename - CurlHTTP.sim
+ * @author - Azeez Adewale
+ * @date - 26 Febuary 2017
+ * @Time - 11:44 AM
+ */
+ 
+module simple.internet.curl
+
+call "CurlCore.sim"
+
+class CurlHTTP : CurlCore
+
+	/* LIST */
+	#CURL_HEADER = [] #create the container list for all header
+	
+	block CurlHTTP(url)
+		initCurl(url) 
+
+	#to support list later	
+	block addHeader(header)
+		__curl_list_append(CURL_HEADER, header) 
+		
+	block prepare()
+		$$$__add__option(10023, CURL_HEADER, "")
+		
+	private 
+		
+		
+		
+		
+		

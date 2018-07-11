@@ -1,0 +1,48 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 SIMPLE
+
+*/
+
+/* 
+ * @Filename - FMenuBar.sim
+ * @Author - Azeez Adewale
+ * @Date - 14 March 2018
+ * @Time - 05:16 AM
+ *
+ */
+
+module fulltick.widget.menu
+
+#call the @Class FMenu File for blocks inheritance
+call "fulltick/widget/menu/FMenu.sim" ? fulltick.widget.menu
+
+#This @Class FMenuBar @Skip
+#  ________________________________________________________
+# |________________________________________________________|
+#@EndSkip @Image FMenuBar
+class FMenuBar : FMenu
+
+	/* NUMBER */
+	WIDGET_WIDTH = 300 #Change the default width 
+	WIDGET_HEIGHT = 30 #Change the default height 
+	
+	#initialize() #init the widget pointer
+
+	#Initialize the @Class FMenuBar
+	block FMenuBar()
+		initialize()
+		
+	block menu(menuitem,window)
+		
+	#all the private attributes, fields and block not accessible #outside the class
+	private 
+		
+		#Create an instance of the @Class FMenuBar Widget with 
+		#custom width and height 
+		block initialize()
+			WIDGETPOINTER = __init_menu_bar(WIDGET_X, WIDGET_Y, WIDGET_WIDTH, WIDGET_HEIGHT)
+		
+		
+		
+		
