@@ -39,4 +39,3 @@ block main() {
 	Console.println("UPPER : "+string.toUpper()+" | SENTENCE : "+string.toSentence()) # Turn string casing to uppercase.
 }
 ```
-Running this, gives us
