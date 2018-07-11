@@ -257,7 +257,8 @@ block upgradeSimpleDistro()
 	localVersion = getSimpleVersion()
 	@"Installed version: "+localVersion 
 	@"looking up "+simpleUpdateUrl
-	upgradeJson = download(simpleUpdateUrl+"?os=Windows%2032") #encode(getOS())
+	# I think there should be an if-else to detect OS type so as to install specified system.
+		upgradeJson = download(simpleUpdateUrl+"?os="+ostype)
 	if upgradeJson == null {
 		@"Internet connection is required to upgrade simple-lang"
 	elif stringContains(upgradeJson, "Not Found") 
@@ -436,11 +437,11 @@ block displayHelp()
 	The OPTIONS include: 
 
 	-h    --help		Displays the help message.
-	-su --shell		Opens the modular shell (or repl).
-	-e   --env              Install an environment.
-	-m   --mod              Install a module.
+	-su   --shell		Opens the modular shell (or repl).
+	-e    --env              Install an environment.
+	-m    --mod              Install a module.
 	-v    --version      	Get the current version of modular.
-	-os --system       	Get the operating system type of the host system.
+	-os   --system       	Get the operating system type of the host system.
 	-u    --upgrade    	Upgrade and/or update the version of Simple on your computer.
 	-p    --path            Path to SIMPLE's directory if installed in a different place.
 	-t    --temp           	Delete temp files.
