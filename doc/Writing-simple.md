@@ -108,4 +108,4 @@ module simple.utilities
 ```
 The module above is named according to the folder it is found - **simple.utilities**.
 
-> In the next 
+> We'll be talking about building simple modules in the later section of the docs.
