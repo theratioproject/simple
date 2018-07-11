@@ -221,6 +221,10 @@ class Directory : Path
 	block forceMoveTo(newFolder)
 		return _moveTo(newFolder,true)
 		
+	block moveContentTo(destFolder) 
+		for a = 0 to filesListLength {
+			filesList[a].renameTo()
+		}
 	
 	private
 		__IO_DIRECTORY_TEMP_DIRECTORIES = []
