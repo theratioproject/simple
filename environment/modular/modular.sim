@@ -1,0 +1,471 @@
+ 
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 SIMPLE 
+
+*/
+
+/*
+	MODULAR 
+	This is a simple environment for installing new modules and environments
+
+*/
+
+call "simple/utilities/Console.sim"
+call "simple/core/String.sim"
+call "simple/internet/Download.sim"
+call "simple/io/File.sim"
+call "simple/io/Directory.sim"
+call "simple/utilities/parser/json/JsonObject.sim"
+call "simple/security/Hash.sim" ? simple.security
+call "archive/zip/Zip.sim" 
+call "simple/system/System.sim"
+
+monkeyFace = '
+			    __,__
+		    .--.  .-"	"-.  .--.
+		 / ..  \/ .-.  .-.  \/ ..  \
+		| |  `|  /    Y    \  |`  | |
+		| \   \  \  0 | 0  /  /   / |
+		 \  `- ,\.-"""""""-./, -`  /
+		   ``-`  /_  ^ ^  _\  `-``
+				| \._   _./ |
+			\  \ `~` /  /
+			 `._`-=-`_.`
+				`-----`
+	'
+
+simpleTitle = " 
+                                                                                                         | 
+     ----------    --     --------         --------    ------------     ---             --------------   | A simple, plain and innovative programming
+    |          |  |   |  |        |       |        |  |            |   |   |           |              |  | with multi-paradigm. It can be embedded in 
+    |    ------   |   |  |    -    |     |    -    |  |    -----    |  |   |           |    ----------   | C/C++ projects. The language is portable 
+    |   |         |   |  |   |  |   |    |   | |   |  |   |     |   |  |   |           |   |             | to various OS including windows, macOS, any
+    |   |         |   |  |   |   |   |  |   |  |   |  |   |     |   |  |   |           |   |             | linux and unix distros and other OS.
+    |          |  |   |  |   |     |      |    |   |  |    ----    |   |   |           |    ---------    | This is the official REPL program for the
+     ------    |  |   |  |   |      ------     |   |  |           |    |   |           |    ---------    | Language. 
+           |   |  |   |  |   |                 |   |  |    -------     |   |           |   |             | 
+           |   |  |   |  |   |                 |   |  |   |            |   |           |   |             | Modular - This is a simple environment for
+     ------    |  |   |  |   |                 |   |  |   |            |    - -------  |    ---------    | installing and updating modules and environments
+    |          |  |   |  |   |                 |   |  |   |            |            |  |             |   | Version 1.0.1
+     ----------    ---    ---                   ---    ---              ------------    -------------    | Author : Azeez Adewale
+                                                                                                         | 
+"
+modularTitle = "
+|\\               //||      		  OOO
+||	\\          // 	||     			O			O
+||	  \\       //  	||				O			O
+||		\\    //   	||				O			O
+||		  \\//    	||					OOO
+
+"
+
+verifierUrl = "https://www.simple-lang.sourceforge.net/verifiers"
+modularUrl = "http://localhost/simple-lang/modular/"
+addPackageUrl = modularUrl+"add-package.sim"
+simpleUpdateUrl = modularUrl+"simple-lang-upgrade.sim"
+packageUrl = modularUrl+"package-installer.sim"
+simpleDistDirectory = "/bin/"
+
+modulesDirectory = getSystemEnvironment("SIMPLE_MODULE_PATH")
+#blocks to find modules path
+
+deleteTemp = true
+showInfo = false
+askPermission = true
+
+if isWindows() {
+	simpleDistDirectory = "C:\Simple\"
+elif isLinux()
+	simpleDistDirectory = "/usr/bin/simple/"
+}
+
+cmdlen = lengthOf(cmdparams)
+type = "whichever"
+package = ""
+version = "latest"
+ostype = "auto-detect"
+
+#error messages
+PLATFORM_UNAVAILABLE = "This package is not available for your operating system" 
+UNKNOWN_ERROR = "The status of this package cannot be defined"+crlf+"Visit their website : "
+STALL_PACKAGE = "This package is pending verification. "+crlf+"If you wish to join package verifiers visit : "+verifierUrl
+INSTALLATION_UNATHORIZED = "Installation not authorized "+crlf+"DONE"
+
+block main()
+	if cmdlen <= 0 { displayHelp() }
+	for a = 0 to cmdlen {
+		if stringEquals(cmdparams[a],"--shell",false) or stringEquals(cmdparams[a],"-su",false) shell() break
+		elif stringEquals(cmdparams[a],"--help",false) or stringEquals(cmdparams[a],"-h",false) or stringEquals(cmdparams[a],"--h",false) displayHelp()
+		#Module or Environment
+		elif stringEquals(cmdparams[a],"--env",false) or stringEquals(cmdparams[a],"-e",false) type = "environment"
+		elif stringEquals(cmdparams[a],"--mod",false) or stringEquals(cmdparams[a],"-m",false) type = "module"
+		#Version and Attribute
+		elif stringEquals(cmdparams[a],"-v",false) or stringEquals(cmdparams[a],"--version",false) version = cmdparams[a++]  
+		elif stringEquals(cmdparams[a],"-os",false) or stringEquals(cmdparams[a],"--system",false) ostype = cmdparams[a++]  
+		elif stringEquals(cmdparams[a],"--upgrade",false) or stringEquals(cmdparams[a],"--update",false) or stringEquals(cmdparams[a],"-u",false) type = "upgrade" break
+		#Others
+		elif stringEquals(cmdparams[a],"-p",false) or stringEquals(cmdparams[a],"--path",false) simpleDistDirectory = cmdparams[a++] @simpleDistDirectory
+		elif stringEquals(cmdparams[a],"-t",false) or stringEquals(cmdparams[a],"--temp",false) deleteTemp = false
+		elif stringEquals(cmdparams[a],"-s",false) or stringEquals(cmdparams[a],"--show-info",false) showInfo = true
+		elif stringEquals(cmdparams[a],"-y",false) or stringEquals(cmdparams[a],"--yes",false) askPermission = false
+		else package = cmdparams[a] end
+	}
+	if ostype == "auto-detect" {
+		ostype = getOS()
+	}
+	if type == "upgrade" {
+		upgradeSimpleDistro()
+	else 
+		#@package+" | type : "+type+" | version : "+version+" | os : "+ostype
+		#@getSystemEnvironment("SIMPLE_MODULE_PATH")+"/modules-dependencies.conf"
+		@"Preparing to install package: "+package+" - "+type+" "+version
+		depConf = new File(getSystemEnvironment("SIMPLE_MODULE_PATH")+"/modules-dependencies.conf")
+		if !depConf.exists() { 
+			@"error occur modules configuration file cannot be found" 
+			@"module install failed. "
+			__exit__ 
+		}
+		executeCode(depConf.readFileAsString())
+		if type == "module" { packageList = modulesList else packageList = environmentList }
+		moduleEnviron(depConf,packageList)
+	}
+	__exit__
+
+block moduleEnviron(depConf,packageList)
+	localPackage = null
+	@"checking locally installed version of "+package+"..."
+	for a = 0 to lengthOf(packageList) {
+		if packageList[a][:name] == package {
+			localPackage = packageList[a]
+			@"local package: "+package+" "+type+" "+localPackage[:version]
+			if localPackage[:version] == version {
+				@"installed "+type+" "+package+" is up to date"
+				@"Modular operation completed"
+				__exit__
+			}
+		}
+	}
+	#loading bar here
+	latestPackage = loadPackageAndDep()
+	if isList(localPackage) && !isString(localPackage[0]) {
+		if latestPackage[:version] == localPackage[:version] {
+			@package+" "+type+" is up to date"
+			@"Modular operation completed"
+			__exit__
+		}
+	}
+	@"packages ("+(latestPackage[:supporting_modules_count]+2)+")	"+package
+	for a = 0 to latestPackage[:supporting_modules_count] {
+		@"		"+latestPackage[:supporting_modules][a+1]
+	}
+	allDownloadablePackages = getSupportingModulesInfo(latestPackage)
+	downloadPackages(allDownloadablePackages)
+	
+block downloadPackages(allDownloadablePackages)
+	@crlf+"Total Download Size: "+allDownloadablePackages[:downloadSize]+crlf
+	if askPermission {
+		display " :: Do you want to proceed [y/n] " read response @""
+	else 
+		response = "y"
+	}
+	if response == "y" {
+		for a = 0 to lengthOf(allDownloadablePackages) - 1 {
+			downloadPackage(allDownloadablePackages[a])
+		}
+	else
+		@"Stopping upgrade..."
+		__exit__
+	}
+	
+	
+block downloadPackage(downloadablePackage)
+	if showInfo {
+		@" :: "+downloadablePackage[:status] 
+		@" :: "+downloadablePackage[:name]
+		@" :: "+downloadablePackage[:description]
+		@" :: "+downloadablePackage[:author]
+		@" :: "+downloadablePackage[:version]
+		@" :: "+downloadablePackage[:license]
+		@" :: "+downloadablePackage[:website]
+		@" :: "+downloadablePackage[:date]
+	}
+	downloadedPackage = new Download(downloadablePackage[:download_url])
+	downloadedPackage.saveLocation(modulesDirectory+hash(package)+".zip")
+	downloadedPackage.execute()
+	if downloadedPackage.exists() {
+		downloadedPackageZip = new Zip(downloadedPackage.absolutePath(),"r")
+		extractedPackage = new Directory(modulesDirectory+hash(package))
+		downloadedPackageZip.extractAll(extractedPackage.getPath())
+		if extractedPackage.exists() {
+			moveContent(extractedPackage.getPath()+"/docs/",modulesDirectory+"\doc/")
+		}
+	}
+	
+block moveContent(oldPath,newFolder)
+	tempDir = new Directory(oldPath)
+	if tempDir.exists() {
+		@tempDir.renameTo(newFolder)
+		@"yea yea"
+	}
+	
+	
+block getSupportingModulesInfo(initialPackage)
+	allDownloadablePackages = [initialPackage]
+	
+	allDownloadablePackages[:downloadSize] = "6.04 MB"
+	return allDownloadablePackages
+	
+block loadPackageAndDep()
+	latestPackage = []
+	@"looking up "+packageUrl
+	packageJson = download(packageUrl+"?package="+package+"&type="+type+"&version="+version+"&os="+ostype)
+	if packageJson == null {
+		@"Internet connection is required to install "+package+" "+type+" package"
+		__exit__
+	elif stringContains(packageJson, "500 Internal Server Error")
+		@"The server is experiencing a down time please report to <whatisthis914@gmail.com>"
+		__exit__
+	elif stringContains(packageJson, "Not Found") 
+		@"The update link is broken please report this to <whatisthis914@gmail.com>"
+		__exit__
+	}
+	packageObject = new JsonObject(packageJson)
+	latestPackage[:value] = packageObject.getObject("value").getStringContent()
+	latestPackage[:message] = packageObject.getObject("message").getStringContent()
+	if latestPackage[:value] == "failed" {
+		@latestPackage[:message]
+		@"if you owned the module simply add it to the simple-lang package index at "
+		@addPackageUrl
+		__exit__
+	}
+	@"resolving dependencies..."
+	latestPackage[:status] = packageObject.getObject("status").getStringContent()
+	latestPackage[:name] = packageObject.getObject("name").getStringContent()
+	latestPackage[:description] = packageObject.getObject("description").getStringContent()
+	latestPackage[:author] = packageObject.getObject("author").getStringContent()
+	latestPackage[:version] = packageObject.getObject("version").getStringContent()
+	latestPackage[:license] = packageObject.getObject("license").getStringContent()
+	latestPackage[:website] = packageObject.getObject("website").getStringContent()
+	latestPackage[:date] = packageObject.getObject("date").getStringContent()
+	latestPackage[:download_url] = packageObject.getObject("download_url").getStringContent()
+		latestPackageSM = packageObject.getObject("supporting_modules").getStringContent()
+		latestPackageSM = stringSplit(latestPackageSM," ")
+	latestPackage[:supporting_modules] = latestPackageSM
+	latestPackage[:supporting_modules_count] = lengthOf(latestPackageSM)
+	
+	return latestPackage
+	
+	
+block upgradeSimpleDistro()
+	@"Preparing to upgrade simple-lang, environments and modules"
+	@"Checking installed simple-lang version..."
+	localVersion = getSimpleVersion()
+	@"Installed version: "+localVersion 
+	@"looking up "+simpleUpdateUrl
+	# I think there should be an if-else to detect OS type so as to install specified system.
+		upgradeJson = download(simpleUpdateUrl+"?os="+ostype)
+	if upgradeJson == null {
+		@"Internet connection is required to upgrade simple-lang"
+	elif stringContains(upgradeJson, "Not Found") 
+		@"The upgrade link is broken please report this to <whatisthis914@gmail.com>"
+		__exit__
+	else 
+		upgradeObject = (new JsonObject(upgradeJson))
+		latestVersion = upgradeObject.getObject("latest_version").getStringContent()
+		latestSize = upgradeObject.getObject("download_size").getStringContent()
+		latestDownloadUrl = upgradeObject.getObject("download_url").getStringContent()
+		latestCodename = upgradeObject.getObject("code_name").getStringContent()
+		latestExtensionType = upgradeObject.getObject("file_extension").getStringContent()
+		@"Latest version: "+latestVersion
+		if localVersion == latestVersion {
+			@"Your simple-lang installation is up to date"
+			__exit__
+		else 
+			@"Total Download Size: "+latestSize+crlf
+			display " :: Do you want to proceed [y/n] " read response @""
+			if response == "y" {
+				@"Downloading simple-lang: "+latestCodename
+				downloadedFile = download(latestDownloadUrl)
+				latestSimple = new File(simpleDistDirectory+hash(latestCodename)+"."+latestExtensionType) #replace with temp folder
+				latestSimple.write(downloadedFile)
+				if latestSimple.exists() {
+					latestSimpleZip = new Zip(latestSimple.absolutePath(), "r")
+					@"Extracting simple-lang "+latestVersion+" into "+simpleDistDirectory
+					latestSimpleZip.extractAll(simpleDistDirectory)
+					#latestSimpleZip.closeZip()
+					latestInstalledDir = new Directory(simpleDistDirectory+latestVersion)
+					if latestInstalledDir.exists() {
+						@"simple-lang upgraded from "+localVersion+" to "+latestVersion
+					}
+					removeTempFiles([latestSimple])
+				else
+					@"Upgrade failed. Stopping upgrade"
+				} 
+			else
+				@"Stopping upgrade..."
+				__exit__
+			}
+		}
+	}
+	
+block removeTempFiles(files)
+	if deleteTemp {
+		for a = 0 to lengthOf(files) {
+			if files[a].exists() { files[a].delete() }
+		}
+	}
+	
+
+
+	
+#total re write	
+block goGetIt()
+	fetchInfo(package)
+	
+block fetchInfo(name)
+	jsonContent = download(MODULE_JSON_URL) 
+	object = new JsonObject(jsonContent) 
+	jsonContent = download(object.getObject(name).getStringContent())
+	object =  new JsonObject(jsonContent) 
+	checkLocal(object)
+	
+block checkLocal(object)
+	otype = object.getObject("type").getStringContent()
+	if (type == 'environment' and otype != 'environment') or (type == 'module' and otype != 'module')
+		displayError("The Package '"+package+"' is not an "+type + crlf + "DONE")
+	end
+	type = otype
+	#check version 
+	if version == "latest" 
+		version = object.getObject("latest_version").getStringContent()
+	end
+	display "Checking your simple distribution for "+package+" "+version+ crlf
+	#displayError(package + ' ' + version )
+	showInfo(object)
+	
+block showInfo(object)
+	status = object.getObject("status").getStringContent()
+	website = object.getObject("website").getStringContent()
+	display "	Name : "+object.getObject("name").getStringContent()+crlf
+	display "	Description : "+object.getObject("description").getStringContent()+crlf
+	display "	Author : "+object.getObject("author").getStringContent()+crlf
+	display "	Latest Version : "+object.getObject("latest_version").getStringContent()+crlf
+	display "	Website : "+website+crlf
+	display "	Date : "+object.getObject("date").getStringContent()+crlf
+	#check verification status 
+	if status == "stall"
+		displayError(STALL_PACKAGE)
+	elif status == "verified" 
+	else displayError(UNKNOWN_ERROR+website)
+	end
+	#check os
+	if ostype == "auto-detect"
+		if isWindows()
+			ostype = "windows"
+		elif isLinux()
+			ostype = "linux"
+		elif isMacosx()
+			ostype = "mac"
+		else 
+			ostype = "unknown"
+			display "Your OS cannot be detected"
+		end
+	end
+	downloadjson = object.getObject("version").getObject(version)
+	downloadurl = downloadjson.getObject("all").getStringContent()
+	if downloadurl == "no" 
+		if ostype = "unknown" { displayError(PLATFORM_UNAVAILABLE) } 
+		display "This package is not available on all platform "+crlf+"Checking if it available for your os "+crlf
+		try { downloadurl = downloadjson.getObject(ostype).getStringContent()
+		catch displayError(PLATFORM_UNAVAILABLE) }
+	end
+	#request permission
+	display "Do you want to continue with installation (y/n) : " read ans
+	if ans == 'y'
+		name = object.getObject("name").getStringContent() 
+		__download(downloadurl,name,(md5(downloadurl+version)))
+	else
+		displayError(INSTALLATION_UNATHORIZED)
+	end
+	
+block __download(url,name,sname)
+	display "	Installing... " + crlf
+	saveLocation  = "./"+sname+".zip"
+	d = new Download(url) d.saveLocation(saveLocation)
+	d.execute()
+	installLocation = getSystemEnvironment("SIMPLE_MODULE_PATH")+"/"
+	if installLocation == '(null)/' 
+		if not __exists('../modules/local-modules-dependencies.conf') 
+			if type == 'environment'
+				installLocation = '../environment/'
+			else
+				installLocation = '../modules/'
+			end
+		else
+			display "	The default module directory cannot be found"+crlf
+			display "Type your installation folder : " read installLocation
+		end
+	else
+		if type == 'environment'
+			installLocation = '../environment/'
+		end
+	end
+	display "	Installing "+package+" to "+installLocation+crlf
+	z = new Zip(saveLocation,"r")
+	z.extractAll(installLocation)  z.closeZip()
+	display tab+'"'+name+'" Module successfully installed At '+installLocation+ crlf
+	delTemp([new File(saveLocation)])
+	display "	DONE"
+	
+block delTemp(temp)
+	tlen = lengthOf(temp)
+	for a = 0 to tlen
+		if deleteTemp
+			temp[a].delete()
+		end
+	end
+	
+block displayError(msg)
+	display msg
+	__exit__
+
+block displayHelp()
+	@ monkeyFace
+	help = "
+usage:  modular [OPTIONS] [PACKAGE]
+
+[PACKAGE] : the package to be installed or updated
+[OPTION] : Option passed to the modular program.
+
+The OPTIONS include: 
+	-h    --help		Displays the help message.
+	-su   --shell		Opens the modular shell (or repl).
+	-e    --env              Install an environment.
+	-m    --mod              Install a module.
+	-v    --version      	Get the current version of modular.
+	-os   --system       	Get the operating system type of the host system.
+	-u    --upgrade    	Upgrade and/or update the version of Simple on your computer.
+	-p    --path            Path to SIMPLE's directory if installed in a different place.
+	-t    --temp           	Delete temp files.
+	-s    --show-info 	Display processes currently carried out by modular.
+	-y    --yes		Ask for permission in cases where you are not a top priviledge user.
+	"
+	 display help __exit__
+	
+block shell()
+	while true #displayError("No command")
+		Console.printLineWithColor(ConsoleColor.RED(), null)
+		Console.printWithFG(ConsoleColor.RED(), simpleTitle)
+		Console.printLineWithColor(ConsoleColor.RED(), null)
+		Console.printWithFG(ConsoleColor.RED(), "modular $ ")
+		read command
+		executeCommand(stringSplit(command," "))
+	end
+	
+/*
+
+
+*/
+	
+	

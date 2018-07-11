@@ -1,0 +1,124 @@
+/* 
+	Copyright (c) 2016-2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+/* 
+ * #filename - ConsoleColor.sim
+ * #author - Azeez Adewale
+ * #date - 11 Febuary 2017
+ */
+ 
+module simple.utilities
+
+call "simple/core/DynamicLoader.sim" ? simple.core
+callModule("consoler")
+
+#initialized to allow ussage as ConsoleColor.block()
+ConsoleColor = new ConsoleColor
+
+/*
+	do not change the color values as it is in respect to 
+	the console-color.h values in the consoler.dll module
+	you can add more experimental colors
+	
+*/
+
+/* NUMBERS */
+
+#@Skip DO NOT MODIFY @EndSkip #########################
+													###
+CONSOLE_COLOR_NONE = 0			#no color (default)	###
+CONSOLE_COLOR_BLACK = 1			#color black		###
+CONSOLE_COLOR_DARK_RED = 2		#color red			###
+CONSOLE_COLOR_DARK_GREEN = 3	#color dark green	###
+CONSOLE_COLOR_DARK_YELLOW = 4	#color dark yellow 	###
+CONSOLE_COLOR_DARK_BLUE = 5		#color dark blue	###
+CONSOLE_COLOR_DARK_MAGENTA = 6	#dark magenta		###
+CONSOLE_COLOR_DARK_CYAN = 7		#color dark cyan	###
+CONSOLE_COLOR_GRAY = 8			#color gray			###
+CONSOLE_COLOR_DARK_GRAY = 9		#color dark gray	###
+CONSOLE_COLOR_RED = 10			#color red			###
+CONSOLE_COLOR_GREEN = 11		#color green		###
+CONSOLE_COLOR_YELLOW = 12		#color yellow		###
+CONSOLE_COLOR_BLUE = 13			#color blue			###				
+CONSOLE_COLOR_MAGENTA = 14		#color magenta		###
+CONSOLE_COLOR_CYAN = 15			#color cyan			###
+CONSOLE_COLOR_WHITE = 16		#color white		###
+													###
+#@Skip YOU CAN ADD MORE COLOR BELOW @EndSkip ##########
+
+#ConsoleColor class that holds the colors in respect to console-color.h
+class ConsoleColor 
+		
+	#none i.e default
+	block NONE()
+		return CONSOLE_COLOR_NONE
+		
+	#color black
+	block BLACK()
+		return CONSOLE_COLOR_BLACK
+	
+	#color dark red
+	block DARKRED()
+		return CONSOLE_COLOR_DARK_RED
+		
+	#color dark green	
+	block DARKGREEN()
+		return CONSOLE_COLOR_DARK_GREEN
+		
+	#color dark yellow	
+	block DARKYELLOW()
+		return CONSOLE_COLOR_DARK_YELLOW
+		
+	#color dark blue			
+	block DARKBLUE()
+		return CONSOLE_COLOR_DARK_BLUE
+		
+	#color dark magenta	
+	block DARKMAGENTA()
+		return CONSOLE_COLOR_DARK_MAGENTA
+		
+	#color dark cyan		
+	block DARKCYAN()
+		return CONSOLE_COLOR_DARK_CYAN
+		
+	#color gray
+	block GRAY()
+		return CONSOLE_COLOR_GRAY
+		
+	#color dark gray	
+	block DARKGRAY()
+		return CONSOLE_COLOR_DARK_GRAY
+		
+	#color red	
+	block RED()
+		return CONSOLE_COLOR_RED
+		
+	#color green	
+	block GREEN()
+		return CONSOLE_COLOR_GREEN
+		
+	#color yellow		
+	block YELLOW()
+		return CONSOLE_COLOR_YELLOW
+		
+	#color blue	
+	block BLUE()
+		return CONSOLE_COLOR_BLUE
+		
+	#color magenta	
+	block MAGENTA()
+		return CONSOLE_COLOR_MAGENTA
+		
+	#color cyan		
+	block CYAN()
+		return CONSOLE_COLOR_CYAN
+		
+	#color white	
+	block WHITE()
+		return CONSOLE_COLOR_WHITE
+	
+	
+		

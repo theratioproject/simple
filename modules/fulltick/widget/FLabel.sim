@@ -1,0 +1,65 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 SIMPLE
+
+*/
+
+/* 
+ * @Filename - FLabel.sim
+ * @Author - Azeez Adewale
+ * @Date - 21 Febuary 2018
+ * @Time - 12:00 PM
+ */
+
+module fulltick.widget
+
+#call the @Class FBox File for blocks inheritance
+call "fulltick/widget/FBox.sim" ? fulltick.core
+
+#The @Class FLabel is a child class inheriting
+#Most of it blocks from the @Class FBox widget the different between this 
+#widget and the parent widget @Class FBox is that the size of the 
+#@Class FLabel is in regard to the label it contains and the size is updated
+#by implementing the @Block notifyWidget() to set the size of the widget 
+#in accordance to the label content
+#some block are available only for this widget. The Widget is use to draw
+#Box/Panel widget on a parent widget @Skip
+#  _________________
+# |					|  #################
+# |		LABEL		|  ######LABEL######
+# |_________________|  #################
+# @EndSkip
+#The FBox instance can be call as much time as possible a
+class FLabel : FBox
+
+	BOX_TYPE = 1  #The type of box for this widget is NONE
+	LABEL_EXTRA_LEAD_TRAIL = 10 #This variable is use to set additional spacing with the new height and width of this widget
+
+	#Initialize the @Class FLabel widget with a label value/content
+	block FLabel(label)
+		initialize()
+		setLabel(label)
+		
+	#This block is <b>important</b> to 	this widget in order to set the 
+	#size in accordance to the label value/content 
+	#Currently un complete as it should return a list with new height
+	#and width of the widget
+	block notifyWidget()
+		__set_size_with_label(WIDGETPOINTER, LABEL_EXTRA_LEAD_TRAIL)
+		if hasParent() redrawParent() end
+		#to set width and height from above block
+		
+		
+		
+		
+
+	
+
+
+
+
+
+
+
+
+
