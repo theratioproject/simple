@@ -227,6 +227,8 @@ class Directory : Path
 			tempDestFolder = new Directory(destFolder)
 		elif isPath(destFolder)
 			tempDestFolder = new Directory(destFolder.toString())
+		elif !isDirectory(tempDestFolder)
+			throw()
 		}
 		for a = 0 to filesListLength {
 			filesList[a].renameTo()
