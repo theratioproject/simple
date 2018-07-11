@@ -18,4 +18,7 @@ $ sudo ./Linux-build.sh -c -i
 Boom!. SIMPLE has been installed and enviroments and modules have also been added.
 
 #### Windows OS.
-It's pretty simple to install **SIMPLE** on Windows OS. 
+It's pretty simple to install **SIMPLE** on Windows OS. Grab the latest release for windows from [here](https://github.com/simple-lang/simple/releases) and run the *.exe* file. In a few moments, you'll have SIMPLE installed.
+
+#### Mac OS.
+The steps are pretty similar to the one of the Unix. Grab a
