@@ -12,5 +12,5 @@ Below, is a code block that shows the variable declaration of all listed variabl
 name = "SIMPLE" # String variable declaration.
 age = 1 # Number variable declaration.
 List = ["s", "I", "M", "P", "L", "E"] # List type declaration.
-
+fake = False # boolean.
 ```
