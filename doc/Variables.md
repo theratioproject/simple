@@ -35,9 +35,9 @@ call "simple/utilities/Console.sim" ? simple.utilities
 	string = new String("mOduLArity ") # Declared a new string.
 
 block main() {
-	Console.println(string.toString()+" | LOWER : "+string.toLower()) # Turns string casing to lower
+	Console.println(string.toString()+" | LOWER : "+string.toLower()) # Turns string casing to lower.
 	Console.println("UPPER : "+string.toUpper()+" | SENTENCE : "+string.toSentence()) # Turn string casing to uppercase.
-	Console.println("LENGTH : "+string.length()+" | Char at 3 : "+string.charAt(3))
+	Console.println("LENGTH : "+string.length()+" | Char at 3 : "+string.charAt(3)) 
 	if string.isEmpty() Console.println("The String is Empty") 
 	else Console.println("We cool, "+string.toString()+" is not empty") end
 	if string.equals("modular") Console.println("yea they are equal") 
