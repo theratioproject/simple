@@ -222,6 +222,11 @@ class Directory : Path
 		return _moveTo(newFolder,true)
 		
 	block moveContentTo(destFolder) 
+		if isString(destFolder) {
+			destFolder = new Directory(destFolder)
+		elif isPath(destFolder)
+			tempDestFolder = new Directory(destFolder.toString())
+		}
 		for a = 0 to filesListLength {
 			filesList[a].renameTo()
 		}
