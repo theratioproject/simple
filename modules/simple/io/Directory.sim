@@ -204,6 +204,10 @@ class Directory : Path
 			return renameTo(__newFolder+getSystemSlash()+getName())
 		}
 		
+	/*
+		Move the directory to a new folder, it the destination folder has a folder with the same
+		name then an already exist error is thrown
+	*/
 	block moveTo(newFolder)
 		return _moveTo(newFolder,false)
 		
