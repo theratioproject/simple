@@ -427,3 +427,8 @@ void split_string ( void *pointer ) {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
 }
+
+/*
+	to-do
+	Conform with new inner string index from 0
+*/
