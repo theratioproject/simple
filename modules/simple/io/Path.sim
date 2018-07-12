@@ -144,9 +144,9 @@ class Path
 		}
 		tempPath = __IO_PATH
 		if stringStartsWith(__IO_PATH,".") || stringStartsWith(__IO_PATH,"..") || stringStartsWith(__IO_PATH,__IO_PATH_SYSTEM_SLASH) {
-		
+			tempPath = getCorrectPath(__IO_PATH)
 		}
-		@__IO_PATH_SYSTEM_SLASH
+		return tempPath
 		
 	/*
 		Get the system compatible slash to avoid error in input and output
