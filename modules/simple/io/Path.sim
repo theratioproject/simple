@@ -118,6 +118,11 @@ class Path
 		}
 		return __renameTo(oldName,newName)
 		
+	/*
+		Delete the path related to this class, the __IO_PATH must have been declared 
+		else an error is thrown
+		@Return the delete operation value @DataType Boolean
+	*/
 	block delete()
 		return __delete(__IO_PATH)
 		
