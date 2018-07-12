@@ -1,5 +1,5 @@
 /* 
-	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com> 
 	MIT License Copyright (c) 2018 simple 
 
 */
@@ -7,6 +7,7 @@
 call "simple/io/File.sim"
 
 block main()
+	@currentDirectory()
 	tPath = new Path("..\modules\test.txt")
 	
 	tFile = new File(tPath)
