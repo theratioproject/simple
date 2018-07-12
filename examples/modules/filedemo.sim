@@ -7,7 +7,7 @@
 call "simple/io/File.sim"
 
 block main()
-	tPath = new Path("C:\\Users\\thecarisma\\Documents\\SIMPLE GITHUB\\examples\\moduleexamples\\test.txt")
+	tPath = new Path("..\modules\test.txt")
 	
 	tFile = new File(tPath)
 	
