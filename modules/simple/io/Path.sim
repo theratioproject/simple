@@ -177,7 +177,6 @@ class Path
 			while stringStartsWith(oddPath,"..") {
 				@"before: "+oddPath
 				oddPath = removeStringAt(oddPath,0)
-				oddPath = removeStringAt(oddPath,1)
 				@"now : "+oddPath
 				__exit__
 			}
