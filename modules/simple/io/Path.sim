@@ -142,7 +142,8 @@ class Path
 		if __IO_PATH == null {
 			throwWithTitle(__IO_PACKAGE,__IO_PATH_EMPTY)
 		}
-		
+		tempPath = __IO_PATH
+		if stringStartsWith(__IO_PATH,".")
 		@__IO_PATH_SYSTEM_SLASH
 		
 	/*
