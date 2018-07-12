@@ -122,7 +122,7 @@ class Path
 		return __delete(__IO_PATH)
 		
 	block _delete(filePath)
-		return __delete(__IO_PATH)
+		return __delete(filePath)
 		
 	/*
 		Get the system compatible slash to avoid error in input and output
