@@ -121,11 +121,18 @@ class Path
 	/*
 		Delete the path related to this class, the __IO_PATH must have been declared 
 		else an error is thrown
-		@Return the delete operation value @DataType Boolean
+		@Return the delete operation value true if successful and false if the delete
+		operation fails @DataType Boolean
 	*/
 	block delete()
 		return __delete(__IO_PATH)
 		
+	/*
+		Delete the path related to this class, the filePath must be a valid path else 
+		an error is thrown
+		@Return the delete operation value true if successful and false if the delete
+		operation fails @DataType Boolean
+	*/	
 	block _delete(filePath)
 		return __delete(filePath)
 		
