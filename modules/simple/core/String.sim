@@ -17,7 +17,7 @@ call "simple/core/DynamicLoader.sim" ? simple.core
 call "simple/debugging/Throw.sim" ? simple.debugging
 callModule("string_savant")
 
-		$__Empty = char(0) 
+		__Empty = char(0) 
 		STRING_EMPTY = "The string provided is empty"
 		STRING_COMPARE_ERROR = "Array index out of bound : The length of the comparing string is greater than the main string "
 		STRING_LESS = "Array index out of bound : The string is empty" 
@@ -93,16 +93,16 @@ block stringEndsWith(m, s)
 	return true
 
 block stringCopy(str, count)
-	return $__copy(str, count)
+	return __copy(str, count)
 
 block trimString(str)
-	return $__trim(str)
+	return __trim(str)
 
 block stringRight(str, index)
-	return $__right(str, index)
+	return __right(str, index)
 
 block stringLeft(str, index)
-	return $__left(str, index)
+	return __left(str, index)
 
 block isStringNull(s)
 	if s == null return true else return false end
@@ -125,13 +125,13 @@ block toLowerCase(content)
 	if isStringEmpty(content)
 		throw(STRING_EMPTY)
 	end
-	return $__lower(content)
+	return __lower(content)
 
 block toUpperCase(content)	
 	if isStringEmpty(content)
 		throw(STRING_EMPTY)
 	end
-	return $__upper(content)
+	return __upper(content)
 
 block toSentenceCase(content)	
 	if isStringEmpty(content)
@@ -147,7 +147,7 @@ block stringLenght(content)
 	return lengthOf(content)
 	
 block isStringEmpty(content)
-	if stringLenght(content) == stringLenght($__Empty)
+	if stringLenght(content) == stringLenght(__Empty)
 		return true
 	end
 	return false

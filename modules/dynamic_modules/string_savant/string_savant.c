@@ -33,17 +33,17 @@
 
 SIMPLE_API void init_simple_module(SimpleState *sState)
 {
-    register_block("$__left",simple_vmlib_left);
-    register_block("$__right",simple_vmlib_right);
-    register_block("$__trim",simple_vmlib_trim);
-    register_block("$__copy",simple_vmlib_copy);
+    register_block("__left",simple_vmlib_left);
+    register_block("__right",simple_vmlib_right);
+    register_block("__trim",simple_vmlib_trim);
+    register_block("__copy",simple_vmlib_copy);
     register_block("substr",simple_vmlib_substr);
     register_block("lines",simple_vmlib_lines);
     register_block("strcmp",simple_vmlib_strcmp);
-    register_block("$__lower",simple_vmlib_lower);
-    register_block("$__upper",simple_vmlib_upper);
+    register_block("__lower",simple_vmlib_lower);
+    register_block("__upper",simple_vmlib_upper);
     register_block("stringReplace",string_replace);
-    register_block("$__$__lastAfterChar",string_last_char);
+    register_block("__$__lastAfterChar",string_last_char);
     register_block("__split_string",split_string);
 }
 
