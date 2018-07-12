@@ -178,7 +178,7 @@ class Path
 				@"before: "+oddPath
 				oddPath1 = removeStringAt(oddPath,0)
 				oddPath2 = removeStringAt(oddPath1,0)
-				@"now : "+oddPath2
+				@"now : "+removeStringAt(oddPath1,0)
 				__exit__
 			}
 		
