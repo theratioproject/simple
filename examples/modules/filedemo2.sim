@@ -14,6 +14,8 @@
 	A plain example on simple.io.File move, rename and like operation
 */
 
+call "simple/io/File.sim" 
+
 block main()
 	file = new File("../test.txt")
 	@file.absolutePath()
