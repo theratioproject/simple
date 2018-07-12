@@ -7,7 +7,6 @@
 call "simple/io/File.sim"
 
 block main()
-	@currentDirectory()
 	tPath = new Path("..\modules\test.txt")
 	
 	tFile = new File(tPath)
