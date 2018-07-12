@@ -174,9 +174,10 @@ class Path
 	
 		block getCorrectPath(oddPath)
 			correctPath = currentDirectory()
-			while stringStartsWith(oddPath,"..") {
+			oddPathLength = lengthOf(oddPath)
+			while stringStartsWith(oddPath,"..") || stringStartsWith(oddPath,".") {
 				@"before: "+oddPath
-				oddPath = stringRight(oddPath,1)
+				oddPath = stringRight(oddPath,(oddPathLength-2))
 				@"now : "+oddPath
 				__exit__
 			}
