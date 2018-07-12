@@ -34,6 +34,7 @@ class Path
 	
 	__IO_PACKAGE = "simple.io.Path"
 	__IO_PATH_ONLY_STRING_ALLOWED = "Only string should be sent as parameter "
+	__IO_PATH_EMPTY = "The __IO_PATH variable is empty"
 
 	block Path(ipath)
 		__IO_PATH = ipath
@@ -137,7 +138,9 @@ class Path
 		return __delete(filePath)
 		
 	block absolutePath()
-		
+		if __IO_PATH == null {
+			throwWithTitle(__IO_PACKAGE,__IO_PATH_EMPTY)
+		}
 		
 	/*
 		Get the system compatible slash to avoid error in input and output
