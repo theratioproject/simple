@@ -15,4 +15,4 @@
 */
 
 block main()
-	
+	file = new File("")
