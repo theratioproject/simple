@@ -19,7 +19,6 @@ block mkdir(path)
 
 class Directory : Path
 
-	__IO_PACKAGE = "simple.io.Directory"
 	__IO_DIRECTORY_EXISTS = "The directory already exists you should remove the directory first"
 	__IO_DIRECTORY_EXISTS_DELETE = "exist and is been deleted"
 	__IO_DIRECTORY_DELETE = "The directory cannot be deleted"
