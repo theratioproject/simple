@@ -17,5 +17,5 @@
 call "simple/io/Path.sim" 
 
 block main()
-	file = new File("../test.txt")
-	@file.absolutePath()
+	path = new Path("../test.txt")
+	@path.absolutePath()
