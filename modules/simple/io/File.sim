@@ -16,7 +16,9 @@ call "Path.sim"
 
 class File 	: Path
 
+	__IO_PACKAGE = "simple.io.File"
 	FILE_DOES_NOT_EXIST = "The file does not exist"
+	__IO_FILE_NOT_STRING = "Only string is allowed as parameter"
 
 	block File(path)
 		if isPath(path)
@@ -83,10 +85,13 @@ class File 	: Path
 		end
 		return true
 		
-	block renameTo(nname)
-		return __rename(__IO_FILE_PATH, nname)
+	block renameTo(newAbsoluteName)
+		if !isString(destFolder) {
+			throwWithTitle(__IO_PACKAGE,newAbsoluteName+" - "+__IO_FILE_NOT_STRING)
+		}
+		return _renameTo(__IO_FILE_PATH, nname)
 		
-	block absoluteRenameTo(nname)
+	block changeNameTo(nname)
 		__rename(__IO_FILE_PATH, nname)
 	
 	private

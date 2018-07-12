@@ -32,7 +32,7 @@ block isDirectory(directoryPath)
  
 class Path
 	
-	__IO_PACKAGE = "simple.io.Directory"
+	__IO_PACKAGE = "simple.io.Path"
 	__IO_PATH_ONLY_STRING_ALLOWED = "Only string should be sent as parameter "
 
 	block Path(ipath)

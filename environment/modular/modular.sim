@@ -197,7 +197,7 @@ block downloadPackage(downloadablePackage)
 block moveContent(oldPath,newFolder)
 	tempDir = new Directory(oldPath)
 	if tempDir.exists() {
-		@tempDir.moveContentTo(newFolder)
+		tempDir.forceMoveContentTo(newFolder)
 		@"yea yea"
 	}
 	

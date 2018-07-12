@@ -20,6 +20,8 @@ block mkdir(path)
 class Directory : Path
 
 	__IO_DIRECTORY_EXISTS = "The directory already exists you should remove the directory first"
+	__IO_PACKAGE = "simple.io.Directory"
+	__IO_DIRECTORY__NOT_EXISTS = "The directory does not exists"
 	__IO_DIRECTORY_EXISTS_DELETE = "exist and is been deleted"
 	__IO_DIRECTORY_DELETE = "The directory cannot be deleted"
 	__IO_DIRECTORY_PATH = ""
@@ -221,6 +223,24 @@ class Directory : Path
 	block forceMoveTo(newFolder)
 		return _moveTo(newFolder,true)
 		
+	/*
+		Move all the content of a directory to a new destination folder, the content which 
+		can include files and directories. The destination directory must exists else an 
+		error is thrown. The moveType parameter determines if the content of the destination 
+		folder should be overridden if it already exists and is same name as incoming contents
+		@BlockQuote
+			moveType - true - forces the previous conflicting content to be deleted
+			moveType - false - throw an error is a conflicting content is found (safe)
+		@End
+		The destFolder parameter must be an instance of one of these classes:
+		@BlockQuote
+			@Class Path
+			@Class String
+			@Class Directory
+		@End
+		If the destFolder parameter is not an instance of the classes above then it is considered
+		as an erroneous parameter
+	*/
 	block _moveContentTo(destFolder,moveType) 
 		tempDestFolder = destFolder
 		if isString(destFolder) {
@@ -230,6 +250,9 @@ class Directory : Path
 		elif !isDirectory(destFolder)
 			throwWithTitle(__IO_PACKAGE,destFolder+" - "+__IO_DIRECTORY_INVALID_PARAMETER)
 		}
+		if !tempDestFolder.exists() {
+			throwWithTitle(__IO_PACKAGE,destFolder+" - "+__IO_DIRECTORY__NOT_EXISTS)
+		}
 		filesListLength = lengthOf(listFiles())
 		for a = 0 to filesListLength {
 			@"to move : "+filesList[a].absolutePath()
@@ -238,11 +261,30 @@ class Directory : Path
 		folderListLength = lengthOf(listDirectories())
 		for a = 0 to folderListLength {
 			if moveType {
-				folderListLength[a].forceMoveTo(tempDestFolder.getPath())
+				folderList[a].forceMoveTo(tempDestFolder.getPath())
 			else
-				folderListLength[a].moveTo(tempDestFolder.getPath())
+				folderList[a].moveTo(tempDestFolder.getPath())
 			}			
 		}
+		
+	/*
+		Move the content of a directory to another directory if the destination folder 
+		does not contain the content of the directory
+		@See @Block _moveContentTo(destFolder,moveType)
+	*/
+	block moveContentTo(destFolder)
+		_moveContentTo(destFolder,false)
+		
+	/*
+		Move the content of a directory to another directory forcefully, if the destination 
+		folder contain similar content of the directory the conflicting destination folder 
+		content will be deleted and replace with the new content
+		@See @Block _moveContentTo(destFolder,moveType)
+		@Note 
+		Not completely safe because it delete the previous content 
+	*/
+	block forceMoveContentTo(destFolder)
+		_moveContentTo(destFolder,true)
 	
 	private
 		__IO_DIRECTORY_TEMP_DIRECTORIES = []
