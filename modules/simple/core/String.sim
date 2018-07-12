@@ -39,12 +39,13 @@ block removeString(str, o)
 	return substr(str,o,"")
 	
 block removeStringAt(str, index)
-	if (index > lengthOf(str))
+	strLength = lengthOf(str)
+	if (index > strLength)
 		return str
 	else
 		first = substr(str,0,index-1) 
 		@"first : "+first
-		last = substr(str,index+1,2) 
+		last = substr(str,index+1,strLength) 
 		@"last : "+last
 		return (first + last)
 	end
