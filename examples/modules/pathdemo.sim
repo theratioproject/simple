@@ -1,0 +1,21 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com> 
+	MIT License Copyright (c) 2018 simple-lang
+*/
+
+/* 
+ * @Filename - pathdemo.sim
+ * @Author - Azeez Adewale
+ * @Date - 12 July 2018
+ * @Time - 11:07 AM
+ */
+
+/*
+	A plain example on simple.io.Path 
+*/
+
+call "simple/io/Path.sim" 
+
+block main()
+	file = new File("../test.txt")
+	@file.absolutePath()
