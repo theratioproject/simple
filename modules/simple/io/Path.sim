@@ -173,6 +173,8 @@ class Path
 		__IO_PATH = null
 	
 		block getCorrectPath(oddPath)
-			
+			while stringStartsWith(__IO_PATH,"..") {
+				@"here"
+			}
 		
 		
