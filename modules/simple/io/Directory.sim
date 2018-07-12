@@ -222,7 +222,7 @@ class Directory : Path
 	block forceMoveTo(newFolder)
 		return _moveTo(newFolder,true)
 		
-	block moveContentTo(destFolder) 
+	block _moveContentTo(destFolder,moveType) 
 		tempDestFolder = destFolder
 		if isString(destFolder) {
 			tempDestFolder = new Directory(destFolder)
@@ -231,8 +231,18 @@ class Directory : Path
 		elif !isDirectory(destFolder)
 			throwWithTitle(__IO_PACKAGE,destFolder+" - "+__IO_DIRECTORY_INVALID_PARAMETER)
 		}
+		filesListLength = lengthOf(listFiles())
 		for a = 0 to filesListLength {
-			filesList[a].renameTo()
+			@"to move : "+filesList[a].absolutePath()
+			#filesList[a].renameTo(tempDestFolder.getPath()+getSystemSlash()+filesList[a].)
+		}
+		folderListLength = lengthOf(listDirectories())
+		for a = 0 to folderListLength {
+			if moveType {
+				folderListLength[a].forceMoveTo(tempDestFolder.getPath())
+			else
+				folderListLength[a].moveTo(tempDestFolder.getPath())
+			}			
 		}
 	
 	private
