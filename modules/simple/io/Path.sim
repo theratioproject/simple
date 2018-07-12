@@ -176,8 +176,8 @@ class Path
 			correctPath = currentDirectory()
 			while stringStartsWith(oddPath,"..") {
 				@"before: "+oddPath
-				oddPath = removeStringAt(oddPath,0)
-				@"now : "+removeFirstChar(oddPath)
+				oddPath = stringRight(oddPath,1)
+				@"now : "+oddPath
 				__exit__
 			}
 		

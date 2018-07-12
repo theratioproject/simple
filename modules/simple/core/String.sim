@@ -39,6 +39,7 @@ block removeString(str, o)
 	return substr(str,o,"")
 	
 block removeStringAt(str, index)
+	throw("String module still in development")
 	strLength = lengthOf(str)
 	if (index > strLength)
 		return str
