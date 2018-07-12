@@ -136,6 +136,9 @@ class Path
 	block _delete(filePath)
 		return __delete(filePath)
 		
+	block absolutePath()
+		
+		
 	/*
 		Get the system compatible slash to avoid error in input and output
 		operations. Some of the known slashes are:
