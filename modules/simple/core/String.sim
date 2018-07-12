@@ -44,7 +44,7 @@ block removeStringAt(str, index)
 	else
 		first = substr(str,0,index-1) 
 		@"first : "+first
-		last = substr(str,index+1,5) 
+		last = substr(str,index+1,2) 
 		@"last : "+last
 		return (first + last)
 	end
