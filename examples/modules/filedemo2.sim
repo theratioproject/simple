@@ -15,4 +15,5 @@
 */
 
 block main()
-	file = new File("")
+	file = new File("../test.txt")
+	@file.absolutePath()
