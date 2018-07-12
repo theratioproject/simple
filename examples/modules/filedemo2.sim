@@ -1,0 +1,18 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com> 
+	MIT License Copyright (c) 2018 simple-lang
+*/
+
+/* 
+ * @Filename - filedemo2.sim
+ * @Author - Azeez Adewale
+ * @Date - 12 July 2018
+ * @Time - 11:02 AM
+ */
+
+/*
+	A plain example on simple.io.File move, rename and like operation
+*/
+
+block main()
+	
