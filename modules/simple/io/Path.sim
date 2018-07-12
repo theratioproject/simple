@@ -174,8 +174,9 @@ class Path
 	
 		block getCorrectPath(oddPath)
 			correctPath = currentDirectory()
-			while stringStartsWith(__IO_PATH,"..") {
-				@oddPath
+			while stringStartsWith(oddPath,"..") {
+				@"before: "+oddPath
+				@"now : "+
 				@"here and : "+correctPath
 				__exit__
 			}
