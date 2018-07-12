@@ -173,10 +173,9 @@ class Path
 		__IO_PATH = null
 	
 		block getCorrectPath(oddPath)
-			call "simple/system/System.sim"
-			currentModule = currentModule()
+			currentDirectory = currentDirectory()
 			while stringStartsWith(__IO_PATH,"..") {
-				@"here and : "+currentModule
+				@"here and : "+currentDirectory
 			}
 		
 		
