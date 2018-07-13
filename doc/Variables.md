@@ -35,3 +35,5 @@ display "SIMPLE" + "-" + "LANG".
 ```
 But, the subtraction does no function in simple strings and can only be used mathematically for now:
 > We intend to add functionalities for the *minus* operator so we can use it in sorting e.g lower - higher.
+The examples folder, contains basic example. But lets see the operators in action:
+```
