@@ -38,4 +38,4 @@ Variables declared using the high order technique on the other hand, are open to
 Low level techniques, should be used only for basic programs e.g simple programs, guess games etc. While High level order technique on the other hand, should be used for writing better, complex simple-lang programs such as modules, packages, enviroments etc. High level ordered variables, are safely typed and have little / no risks as they cannot be manipulated easily.
 
 ## Reference.
-In order to have a nicer view of this chapter, 
+In order to have a nicer view of this chapter, it'll be nice to check out the GitHub issue where changes were made and decided [here](https://github.com/simple-lang/simple/issues/15).
