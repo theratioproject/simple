@@ -1,0 +1,100 @@
+/*
+	MIT License Copyright (c) 2018 simple
+*/
+
+/*
+ * @Filename - List.sim
+ * @Author - Steve Akinyemi
+ * @Date - 13 July 2018
+ * @Time - 19:58 PM
+ */
+module simple.core
+
+call "Object.sim"
+
+class Map
+    __OBJECT_NAME 	= "Map"
+	__OBJECT		= null
+
+    # This constructor expects a nested list in the following format:
+    # [ [ key1, value1 ], [ key2, value2 ], ... ]
+    block Map(list)
+        self.list = list
+    end
+
+    # Returns the value associated to a key
+    block valueOf(key)
+        value = null
+        # Iterate through the list
+        for i = 0 to lengthOf(list)
+            # Check if the list has the specified key
+            if list[i][1] == key
+                # Get the value associated with the key
+                value = list[i][2]
+            end
+        end
+        # Return the value
+        return value
+    end
+
+    # Adds a new key-value pair to the data structure
+    block add(key, value)
+        found = false
+        # Iterate through the list
+        for i = 0 to lengthOf(list)
+            # Check if the key already exists.
+            if list[i][1] == key
+                found = true
+                # Update the key's associated value
+                list[i][2] = value
+            end
+        end
+        # If key not found
+        if !found
+            # Create a new pair using the specified key and value
+            pair = [key, value]
+            # Add it to the list
+            list = list + pair
+        end
+    end
+
+    # Returns all the keys in the data structure
+    block keys()
+        tempList = []
+        # Iterate through the list
+        for i = 0 to lengthOf(list)
+            # Add every key to the temporary list
+            tempList = tempList + list[i][1]
+        end
+        # Return the temporary list
+        return tempList
+    end
+
+    # Returns all the keys in the data structure
+    block values()
+        tempList = []
+        # Iterate through the list
+        for i = 0 to lengthOf(list)
+            # Add every key to the temporary list
+            tempList = tempList + list[i][2]
+        end
+        # Return the temporary list
+        return tempList
+    end
+
+    # Gets the size of the map
+    block size()
+        return lengthOf(list) + 1
+    end
+
+    block toString()
+		return "[simple.core." + __OBJECT_NAME + ":" + getHashCode() + "]"
+    end
+
+    block getHashCode()
+		return hash(__OBJECT_NAME)
+    end
+
+    private
+        list = []
+end
