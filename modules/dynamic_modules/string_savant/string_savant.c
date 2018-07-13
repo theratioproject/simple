@@ -96,7 +96,7 @@ void simple_vmlib_right ( void *pointer )
 	if ( SIMPLE_API_ISSTRING(1) ) {
 		if ( SIMPLE_API_ISNUMBER(2) ) {
 			cStr = SIMPLE_API_GETSTRING(1) ;
-			nNum1 = SIMPLE_API_GETNUMBER(2) + 1;
+			nNum1 = SIMPLE_API_GETNUMBER(2);
 			nSize = SIMPLE_API_GETSTRINGSIZE(1) ;
 			if ( (nNum1 > 0 ) && (nNum1 <= nSize ) ) {
 				pString = (char *) simple_state_malloc(((VM *) pointer)->sState,nNum1+1);

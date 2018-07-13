@@ -177,7 +177,7 @@ class Path
 			oddPathLength = lengthOf(oddPath)
 			while stringStartsWith(oddPath,"..") || stringStartsWith(oddPath,".") {
 				@"before: "+oddPath
-				oddPath = stringRight(oddPath,(oddPathLength-1))
+				oddPath = stringRight(oddPath,1)
 				@"now : "+oddPath
 				__exit__
 			}
