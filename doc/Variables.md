@@ -29,4 +29,6 @@ To use strings declared by high-order style, we need to know the various methods
 
 # Arithmetic Operations.
 In simple-lang, basic / normal arithmetical operations can be carried out. That is, addition (+), subtraction(-), division(/) and multiplication(*).
-The addition symbol is also used for concatenating strings.
+The addition symbol is also used for concatenating strings. I mean, adding two different strings together in a simple file e,g
+```
+display "
