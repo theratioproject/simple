@@ -31,4 +31,11 @@ The above example, loops even number from 2 to 10. This is possible using the `s
 Th e while loop, performs an action when a requirement is fulfilled. Let's view the syntax:
 ``` While loop
 
+n = 1
+
+while n < 10  
+	display " "+n + " "
+	n++
+end
+
 ```
