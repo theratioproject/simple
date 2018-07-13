@@ -39,4 +39,4 @@ while n < 10
 end
 
 ```
-The above example, loops `n` while it's value is less than 10.
+The above example, loops `n` while it's value is less than 10. The while loop can also have it's actions embedded in curly braces __({})__.
