@@ -67,3 +67,7 @@ Take for example, we have a variable, *a* which hold the value of 9. Traditional
 
 ### Replacing a variable's value.
 In this case, we're referrinh to the **list** variable type. Using the *+=* operator, replaces the current value of the list with the new one passed. Let's look at an example.
+```
+myList = ["yam", "beans", "Mac"]
+# display myList returns - yam, beans and Mac
+```
