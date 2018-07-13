@@ -48,4 +48,4 @@ while ( n <= 100 ) {
 }
 
 ```
-> Note that For and while loops should 
+> Note that For and while loops should have their sub statements enclosed in curly brackets if
