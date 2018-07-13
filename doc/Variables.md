@@ -1,4 +1,4 @@
-# Variables.
+# Variables And Their Operations.
 Variables are  placeholders for values which can be strings, array / List, number, boolean etc.
 
 ## Declaring varibles in simple-lang.
@@ -50,4 +50,7 @@ display 10 / 2 # displays 5
 ```
 
 ## Increment and Decrement operators.
-In SIMPLE-LANG, we also have the increment **(++)** and the decrement __(--)__.
+In SIMPLE-LANG, we also have the increment **(++)** and the decrement __(--)__. These operators, are very useful in *loops*. Let's see them in action:
+```
+
+```

@@ -17,10 +17,10 @@ $ sudo ./Linux-build.sh -c -i
 Boom!. simple-lang has been installed and enviroments and modules have also been added.
 
 #### Windows OS.
-It's pretty simple-lang to install **simple-lang** on Windows OS. Grab the latest release for windows from [here](https://github.com/simple-lang-lang/simple-lang/releases) and run the *.exe* file. In a few moments, you'll have simple-lang installed.
+It's pretty simple-lang to install **simple-lang** on Windows OS. Grab the latest release for windows from [here](https://github.com/simple-lang/simple-lang/releases) and run the *.exe* file. In a few moments, you'll have simple-lang installed.
 
 #### Mac OS.
-The steps are pretty similar to the one of the Unix. Grab the latest release for **Mac** from [here](https://github.com/simple-lang-lang/simple-lang/releases). Unzip and run the sh file. Open your console.
+The steps are pretty similar to the one of the Unix. Grab the latest release for **Mac** from [here](https://github.com/simple-lang/simple-lang/releases). Unzip and run the sh file. Open your console.
 ```sh
 $ unzip simple-lang-release-version.zip & cd simple-lang-release-version
 $ cd build & chmod +x simple-langOnlyBuild-mac.sh
@@ -30,11 +30,11 @@ $ sudo ./simple-langOnlyBuild-Mac.sh
 ## Testing your installation.
 To test your installation, open your Konsole, Terminal or command prompt and test run the *simple-lang* command.
 ```sh
-$ simple-lang
+$ simple
 ```
 You can also test the enviroments built with it, such as the repl ( read-evaluate-print-loop) with the command:
 ```sh
-$ simple-langrepl
+$ simplerepl
 ```
 
 ### Hello world - Testing the installation.
@@ -44,9 +44,9 @@ display "Hello World"
 ```
 Run the file using the simple-lang compiler from your command prompt, terminal or konsole.
 ```sh
-$ simple-lang hello.sim
+$ simple hello.sim
 // Displays "Hello world"
 ```
 
 ## Getting help.
-Stuck installing  simple-lang ? Do create a new issue **[here](https://github.com/simple-lang-lang/simple-lang/issues)**. We'll be glad to help.
+Stuck installing  simple-lang ? Do create a new issue **[here](https://github.com/simple-lang/simple/issues)**. We'll be glad to help.
