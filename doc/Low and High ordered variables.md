@@ -8,6 +8,25 @@ In simple-lang, we can declare strings and lists in two ways: either by using th
 name = "Simple-lang"
 
 # Let's declare a list traditionally.
+
 myList = ["code", "eat", "read", "hack"]
 
 ```
+
+``` Declaring a string and List by inheriting parent classes.
+call "simple/core/String.sim"
+call "simple/core/List.sim"
+
+# declare string.
+
+name = new String("simple-lang")
+
+# declare a List.
+
+myList = new List(["s","i","m","p","l","e"])
+
+```
+
+> Note that String and List module have been placed in the core module folder as they are simple-lang's core modules.
+
+## Low Level vs High Level Order.
