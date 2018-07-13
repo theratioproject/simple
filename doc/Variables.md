@@ -63,4 +63,4 @@ do {
 The above example, increases the  value of __n__ if it is less than (<) 10.
 
 ## variable  value replacements and addition .
-Take for example, we have a variable, *a* which hold the value of 9. Traditionally, we can do this as `n = n + 1`.That is, n is equal to the current value of n + 1 ()
+Take for example, we have a variable, *a* which hold the value of 9. Traditionally, we can do this as `n = n + 1`.That is, n is equal to the current value of n + 1 ( n = 9 + 1). But, we can do this in a more simpler form: `n += 1`.
