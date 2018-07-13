@@ -52,5 +52,15 @@ display 10 / 2 # displays 5
 ## Increment and Decrement operators.
 In SIMPLE-LANG, we also have the increment **(++)** and the decrement __(--)__. These operators, are very useful in *loops*. Let's see them in action:
 ```
+n = 1
+
+do {
+	display " "+n + " "
+	n++
+} while  n < 10 
 
 ```
+The above example, increases the  value of __n__ if it is less than (<) 10.
+
+## String / number additions .
+Take for example,
