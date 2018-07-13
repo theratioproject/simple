@@ -6,5 +6,12 @@ This is the basic type of loop and most commonly used one. It is used widely in 
 ```
 for # A condition passed,
     # Do something. 
+end # Close loop.
+
+<!-- The loop below displays  -->
+
+for n = 8 to 12 
+	display "number "+n+" "
 end
+
 ```
