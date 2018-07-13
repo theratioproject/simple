@@ -28,4 +28,7 @@ end
 The above example, loops even number from 2 to 10. This is possible using the `step` word in the loop argument. A little complex code will be required in other languages.
 
 ## The While loop.
-Th e while loop, 
+Th e while loop, performs an action when a requirement is fulfilled. Let's view the syntax:
+``` While loop
+
+```
