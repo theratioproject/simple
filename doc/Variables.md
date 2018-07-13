@@ -38,3 +38,6 @@ But, the subtraction does no function in simple strings and can only be used mat
 The examples folder, contains basic example. But lets see the operators in action:
 ```
 <!-- Remember, we added string concatenation example above.-->
+
+#Adding two numbers:
+display 
