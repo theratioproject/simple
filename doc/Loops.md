@@ -62,4 +62,4 @@ do {
 } while  n < 10 
 
 ```
-The above example,
+The above example, loops througn `n` while n is less than 
