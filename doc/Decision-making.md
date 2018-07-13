@@ -1,2 +1,2 @@
 # Decision making in simple-lang.
-Decision making basically has to do with the `if-else` statement. The  `if-else` statement executes an action  based on the decision made e.g if I have more than 10 bucks, I'll get a software CD else I'll buy a sandwich.
+Decision making basically has to do with the `if-else` statement. The  `if-else` statement executes an action  based on the decision made e.g if I have more than 10 bucks, I'll get a software CD else I'll buy a sandwich. That's a simple demonstration.
