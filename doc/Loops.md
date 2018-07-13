@@ -4,7 +4,7 @@ I don't think it'll be possible for a programming language to survive without a 
 This is the basic type of loop and most commonly used one. It is used widely in Arrays and other scenarios where the need arise. Let's see how the syntax look like:
 
 ```
-for 
-
+for # A condition passed,
+    # Do something. 
 end
 ```
