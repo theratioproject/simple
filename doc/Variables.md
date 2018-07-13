@@ -37,4 +37,4 @@ But, the subtraction does no function in simple strings and can only be used mat
 > We intend to add functionalities for the *minus* operator so we can use it in sorting e.g lower - higher.
 The examples folder, contains basic example. But lets see the operators in action:
 ```
-<!-- Remember, we added -->
+<!-- Remember, we added string concatenation example ab -->
