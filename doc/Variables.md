@@ -28,4 +28,4 @@ list = new List(["s","i","m","p","l","e"])
 To use strings declared by high-order style, we need to know the various methods attached to them. Let's check them out.
 
 # Arithmetic Operations.
-In simple-lang, basic / normal arithmetical operations can be carried out. That is, addition (+), subtraction(-),
+In simple-lang, basic / normal arithmetical operations can be carried out. That is, addition (+), subtraction(-), division()
