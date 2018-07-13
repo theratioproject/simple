@@ -33,3 +33,5 @@ The addition symbol is also used for concatenating strings. I mean, adding two d
 ```
 display "SIMPLE" + "-" + "LANG".
 ```
+But, the subtraction does no function in simple strings and can only be used mathematically for now:
+> We intend to add functionalities for the *minus* operator so we can use it in 
