@@ -39,4 +39,4 @@ while n < 10
 end
 
 ```
-The above example, displays `n` 
+The above example, loops 
