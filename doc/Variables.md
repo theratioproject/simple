@@ -62,5 +62,5 @@ do {
 ```
 The above example, increases the  value of __n__ if it is less than (<) 10.
 
-## String / number additions .
-Take for example,
+## variable  value replacements and addition .
+Take for example, we have a variable, *a* which hold the value of 9.
