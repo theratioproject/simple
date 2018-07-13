@@ -8,7 +8,7 @@ for # A condition passed,
     # Do something. 
 end # Close loop.
 
-<!-- The loop below displays  -->
+<!-- The loop below displays  from 8 to 12.-->
 
 for n = 8 to 12 
 	display "number "+n+" "
