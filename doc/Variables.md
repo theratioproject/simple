@@ -40,4 +40,4 @@ The examples folder, contains basic example. But lets see the operators in actio
 <!-- Remember, we added string concatenation example above.-->
 
 #Adding two numbers:
-display 
+display 1 + 2 # displays 3
