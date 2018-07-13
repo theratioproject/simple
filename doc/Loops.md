@@ -1,4 +1,10 @@
 # Loops.
 I don't think it'll be possible for a programming language to survive without a loop feature. In simple-lang, all loop types are practiced: do..while, for loops and while loop.
 ## For loops.
-This is the basic type of loop and most commonly used one. It is used widely in Arrays
+This is the basic type of loop and most commonly used one. It is used widely in Arrays and other scenarios where the need arise. Let's see how the syntax look like:
+
+```
+for 
+
+end
+```
