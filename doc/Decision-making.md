@@ -14,4 +14,5 @@ elif ( n > 10 )
 end
 
 ```
-In the above example, the first display statement is executed `if` n is less than 1 `elif` n == 1, the second display statement is executed else
+In the above example, the first display statement is executed `if` n is less than 1 `elif` n == 1, the second display statement is executed else, the last display statement is executed.
+> The  `elif ` word, means `else if`, It is grabb
