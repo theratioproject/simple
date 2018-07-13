@@ -29,4 +29,4 @@ To use strings declared by high-order style, we need to know the various methods
 
 # Arithmetic Operations.
 In simple-lang, basic / normal arithmetical operations can be carried out. That is, addition (+), subtraction(-), division(/) and multiplication(*).
-The addition symbol 
+The addition symbol is also used for 
