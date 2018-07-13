@@ -1,2 +1,2 @@
 # The Switch statement.
-The switch statement, is a replacement for `if-else` statements. The switch statement redyces
+The switch statement, is a replacement for `if-else` statements. The switch statement reduces the numerous `if-else` statement that might occur in large apps.
