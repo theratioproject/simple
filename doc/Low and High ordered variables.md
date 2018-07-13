@@ -30,3 +30,6 @@ myList = new List(["s","i","m","p","l","e"])
 > Note that String and List module have been placed in the core module folder as they are simple-lang's core modules.
 
 ## Low Level vs High Level Order.
+Low level declaration looks more easy but is limited. Variables declared using the low level method, are limited to functionalities as they can't exhibit normal operations like `toUppercase` etc. 
+
+Variables declared using the high order technique on the other hand, are open to various methods embedded to parent class.
