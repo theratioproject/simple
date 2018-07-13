@@ -17,3 +17,4 @@ end
 ```
 The for loop statement looks quite different right ?. Well, the `to` word there is just a faster representation of this : `n < 12; n++` as we''ll have in other languages.
 
+The `for` loop also has a feature that allows it to 
