@@ -5,8 +5,8 @@ SIMPLE_DEBUG_VERSION=s0.3.35-debug
 PWD=$(pwd)
 
 cd build
-if [ -e ../src/makefiles/Makefile-Mac.mk ]; then
-    cd ../src/makefiles
+if [ -e ../simple/makefiles/Makefile-Mac.mk ]; then
+    cd ../simple/makefiles
     echo "SIMPLE $SIMPLE_DEBUG_VERSION build"
     echo "       Building simple and simple.dylib ..."
     echo "       Build completed!"
