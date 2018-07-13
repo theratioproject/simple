@@ -51,14 +51,6 @@ simpleTitle = "
      ----------    ---    ---                   ---    ---              ------------    -------------    | Author : Azeez Adewale
                                                                                                          | 
 "
-modularTitle = "
-|\\               //||      		  OOO
-||	\\          // 	||     			O			O
-||	  \\       //  	||				O			O
-||		\\    //   	||				O			O
-||		  \\//    	||					OOO
-
-"
 
 verifierUrl = "https://www.simple-lang.sourceforge.net/verifiers"
 modularUrl = "http://localhost/simple-lang/modular/"
