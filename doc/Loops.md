@@ -25,4 +25,4 @@ for a = 2 to 10 step 2
 end
 ```
 
-The above example,
+The above example, loops even number from 2 to 10. This is possible using the `step` word in the 
