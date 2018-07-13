@@ -39,4 +39,13 @@ while n < 10
 end
 
 ```
-The above example, loops `n` while it's value is less than 10. The while loop can also have it's actions embedded in curly braces __({})__. This is only when a complex argument is passed or will have mu
+The above example, loops `n` while it's value is less than 10. The while loop can also have it's actions embedded in curly braces __({})__. This is only when a complex argument is passed or will have multiple return statements. Take for example:
+```
+
+while ( n <= 100 ) {
+	display " " +n + " "
+	n = n + 10
+}
+
+```
+> Note that For and while loops should 
