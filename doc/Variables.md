@@ -42,3 +42,4 @@ The examples folder, contains basic example. But lets see the operators in actio
 #Adding two numbers:
 display 1 + 2 # displays 3.
 # Subtracting numbers:
+display 4 - 2
