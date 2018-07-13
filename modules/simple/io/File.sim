@@ -1,0 +1,105 @@
+/* 
+	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+/* 
+ * #filename - File.sim
+ * #author - Azeez Adewale
+ * #date - 5 Febuary 2017
+ */
+ 
+module simple.io
+
+call "Path.sim"
+
+class File 	: Path
+
+	__IO_PACKAGE = "simple.io.File"
+	FILE_DOES_NOT_EXIST = "The file does not exist"
+	__IO_FILE_NOT_STRING = "Only string is allowed as parameter"
+
+	block File(path)
+		if isPath(path)
+			__IO_FILE_PATH = path.toString()
+		else 
+			__IO_FILE_PATH = path
+		end
+		__IO_FILE_PATH = curePathSlashes(__IO_FILE_PATH)
+		
+	block absolutePath()
+		return __IO_FILE_PATH
+		
+	block name()
+		return lastStringAfterChar(__IO_FILE_PATH, getSystemSlash())
+		
+	block directory()
+		return removeString(__IO_FILE_PATH, getSystemSlash()+name())
+		
+	block toPath()
+		return new Path(__IO_FILE_PATH)
+		
+	block readFileAsString()
+		#ensureExistence()
+		return readfile(__IO_FILE_PATH)
+		
+	block write(content)
+		try 
+			writefile(__IO_FILE_PATH, content)
+		catch
+			display crlf+"Error -> " + __err__ + crlf
+			display "	File : "+__IO_FILE_PATH+crlf
+			display "	Error occur while writing to file"+crlf
+			display "	Probably the directory does not exists"+crlf
+		end
+		
+	block append(content)
+		try 
+			writefile(__IO_FILE_PATH, readFileAsString()+""+content)
+		catch
+			display __err__
+		end
+		
+	block appendBoolean(content)
+		#ensureExistence()
+		if content == true 
+			content = "true"
+		else 
+			content = "false"
+		end
+		writefile(__IO_FILE_PATH, readFileAsString()+""+content)
+		
+	#currently failing	
+	block exists() 
+		return __exists(__IO_FILE_PATH)
+		
+	block toString()
+		return absolutePath()
+		
+	block delete()
+		ensureExistence()
+		__delete(__IO_FILE_PATH)
+		if exists()
+			return false
+		end
+		return true
+		
+	block renameTo(newAbsoluteName)
+		if !isString(destFolder) {
+			throwWithTitle(__IO_PACKAGE,newAbsoluteName+" - "+__IO_FILE_NOT_STRING)
+		}
+		return _renameTo(__IO_FILE_PATH, nname)
+		
+	block changeNameTo(nname)
+		__rename(__IO_FILE_PATH, nname)
+	
+	private
+		__IO_FILE_PATH = "(null)"
+		
+		block ensureExistence()
+			if !exists() 
+				throw(FILE_DOES_NOT_EXIST+" : "+name())
+			end
+		
+	

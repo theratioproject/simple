@@ -9,7 +9,7 @@
 # Simple
 
 The Simple Intelligent and Modular Programming Language and Environment</br>
-Current Version : 0.3.213
+Current Version : 0.3.35
 ![simple-repl](https://i.imgur.com/qx5bbc3.png)
 
 ### About Simple
@@ -18,7 +18,7 @@ SIMPLE is a plain and innovative programming with multi-paradigm. It can be embe
 ### Features
 Simple has features every programming language will have such as variable declarations, functional programming, Object oriented programming etc and more to come. It houses all these features as it parent architecture comes from **C**. Simple is weakly typed, no explicit end of line required and can be embedded in C and C++ projects. Portability with javascript is a major goal we're trying and going to achieve.
 
-[![Download SIMPLE](https://a.fsdn.com/con/app/sf-download-button)](https://sourceforge.net/projects/simple-lang/files/s0.3.302/)
+[![Download SIMPLE](https://a.fsdn.com/con/app/sf-download-button)](https://sourceforge.net/projects/simple-lang/files/s0.3.303/)
 ### Downloading & Installing SIMPLE.
 Simple has compilers that can be installed in our Windows/Linux/Mac systems. Simple can either be cloned, downloaded as zip or gotten from [here](https://simple-lang.sourceforge.io/)
 Below are the procedures for installing on each system respectively.
@@ -29,17 +29,37 @@ This is quite the easiest installation. Download the windows type file from [her
 #### Installing on Linux
 After downloading simple from either methods listed above, unzip/move into the SIMPLE folder from your console and follow the instructions below.
 ```sh
-# Copy make file from bootsrc/makefiles/inux to sources
-$ cd build && chmod +x Linux-Build.sh
-# install simple with the "make" command.
-$ ./Linux-build.sh
+$ cd build & chmod +x Linux-Build.sh
 ```
-Wait for a few moments, probably a minute. The make file installs simple in a folder *dist* located in the **src** folder. start the SIMPLE compiler with the command
+##### Installing SIMPLE as a program file alone.
+This method of installation, installs **SIMPLE** as a program file without building its debug folder.
+```sh
+$ sudo sh ./Linux-Build.sh -c -i
+```
+##### Installing SIMPLE for debugging purpose.
+This method of installation does not install **SIMPLE** to the system but only installs the debugging folder *s0.3.35* and houses four folders:
++ bin
+    - simple
+    - simple.so
++ enviroment
+    - bake
+    - modular
+    - simplerepl
+    - simplebridge
+    - simplepad
+    - webworker.
++ modules
+    - ...
+
+To do this, run the command:
+```sh
+sudo ./Linux-Build.sh -d
+```
+
+### Running the SIMPLE compiler.
 ```sh
 $ simple
 ```
-##### Unable to add to global path.
-Sadly, we're working on that issue and a fix will be issued in the next release.
 
 #### Installing on Mac
 To install on Mac, the same procedures are followed but some small differences. Steps to install..
@@ -56,7 +76,7 @@ $ simple
 ### Getting started.
 You can check the unofficial documentation / guide to simple as the official documentation comes up. Get acquainted with SIMPLE's syntax [**HERE**](https://github.com/simple-lang/simple/blob/master/doc/Simple-Mini-Tutorial-v1.0.md)
 ### Contributors.
-We love contributors. This is an open source project and needs the supports of the community extensively. Check out the [contributing guide](/contributors.md)
+We love contributors. This is an open source project and needs the supports of the community extensively. Check out the [contributing guide](./CONTRIBUTORS.MD)
 ### License
 MIT License
 

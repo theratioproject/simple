@@ -1,0 +1,24 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 SIMPLE
+
+*/
+
+/* 
+ * @Filename - BaseFields.sim
+ * @Author - Azeez Adewale
+ * @Date - 7 Febuary 2018
+ * @Time - 02:58 AM
+ */
+ 
+NULL_ERROR_POINTER = "The field, attribute or variable provided is NULL"
+NULL_TO_STRING = "(null)"
+KEY_LENGTH_SHORT = "The length of the KEY provided is too short : 12 Minimum"
+FIVE_LENGTH_SHORT = "The length of the IV provided is too short : 4 Minimum"
+COLOR_GREATER_THAN_255 = "One of the R G B value passed is greater than 255"
+COLOR_LESSER_THAN_ZERO = "One of the R G B value passed is lesser than 0 "
+
+block checkNullity(s)
+	if s == null throw(NULL_ERROR_POINTER) end
+	
+	

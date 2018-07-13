@@ -1,0 +1,54 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 SIMPLE
+
+*/
+
+/* 
+ * @Filename - FMultilineInput.sim
+ * @Author - Azeez Adewale
+ * @Date - 27 Febuary 2018
+ * @Time - 06:24 PM
+ *
+ */
+
+module fulltick.widget
+
+#call the @Class FInput File for blocks inheritance
+call "fulltick/widget/FInput.sim" ? fulltick.widget
+
+#This @Class FMultilineInput is child class inheriting most of it 
+#attributes,blocks and other from it parent @Class FInput. It is 
+#a direct subclass of @Class FInput but all the entered characters 
+#are converted to dots to hide the inputed string @Skip
+#  ________________________________________________________
+# |   __________________________________________________   |
+# |  |ghghghgfhghfghdgfhuyuiuiutiuiuigjiuiikjuiuiuiuiuig|  | 
+# |  |jrfjrhfjhrfjhrjfhjrhfjhrjfhrfrfrfjrlkuelfekjflkuiu|  |
+# |  |gfhhgdfghfdwghfhgfghfhfhghghg hjuyuyuyuyuyu   eury|  |
+# |  |jhj              iuhiyuyuryiueyiutyiueyu khghgjhgg|  |
+# |  |mhghgjh     jgjfgrhjfghjgfehjgjehfghjgehghjghjgjg |  |
+# |  |kjhjhjhjhgfuiyuetytiqeuyqtqeiuqyeeiuuoeeyfuyuiyuyu|  |
+# |  |kjhjhjkhhjghjgjgjhgwhg        jggtyutuytytuytwuyt |  |
+# |  |__________________________________________________|  |
+# |________________________________________________________|
+#@EndSkip @Image FMultilineInput
+class FMultilineInput : FInput
+
+	WIDGET_HEIGHT = 150 #Since it a text view like input increase default height
+
+	#Initialize the @Class FMultilineInput widget 
+	block FMultilineInput()
+		initialize()
+		
+	
+	#all the private attributes, fields and block not accessible #outside the class
+	private 
+		
+		#Create an instance of the FMultilineInput Widget with 
+		#custom width and height to avoid invisible @Class FInput
+		block initialize()
+			WIDGETPOINTER = __init_multiline_input(WIDGET_X, WIDGET_Y, WIDGET_WIDTH, WIDGET_HEIGHT)
+	
+	
+	

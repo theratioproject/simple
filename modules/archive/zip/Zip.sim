@@ -1,0 +1,102 @@
+/* 
+	Copyright (c) 2016-2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+/* 
+ * #filename - Zip.sim
+ * #author - Azeez Adewale
+ * #date - 10 Febuary 2017
+ */
+ 
+module archive.zip
+
+call "archive/loadarchiver.sim"
+call "archive/zip/ZipMode.sim" 
+
+#to check if param is a Zip object
+block isZipStream(zipStream)
+	try 
+		zipStream.isZip()
+		return true
+	catch 
+		return false
+	end
+
+#a block that write content to entry can be use directly without class
+block addFileToZip(zipStream, filePath, fileName)
+	__open_zip_entry(zipStream,fileName) 
+	__fwrite_zip_entry(zipStream,filePath)
+	__close_zip_entry(zipStream)
+
+class Zip
+
+	#initialize the zip class with a constructor that accept zip path
+	block Zip(path, mode)
+		zipPath = path
+		streamType = mode
+		internalOpen()
+	
+	#return the stream of the zip 
+	block getStream()
+		return theZip
+	
+	#get the typr of stream mode currently in use
+	block getMode()
+		if streamType == ZIP_WRITE
+			return "Write Mode"
+		elif streamType == ZIP_APPEND
+			return "Append Mode"
+		elif streamType == ZIP_READ
+			return "Read mode"
+		end
+	
+	#add the file and specify file hierarchy and name. to support File and Path Object
+	block addFile(filePath, fileName)
+		addFileToZip(theZip, filePath, fileName)
+	
+	#currently not supported
+	#block addDirectory() 	
+
+	block extractAll(extractFolder)
+		if isStreamOpen() closeZip() end
+		__extract_zip(getPath(), extractFolder)
+	
+	#convert the zip path to typical Path Object
+	block toPath()
+		return new Path(zipPath)
+	
+	#returns the absolute path of the zip file
+	block getPath()
+		return zipPath
+	
+	#open the zip stream with a custom mode
+	block setMode(mode)
+		closeZip()
+		streamType = mode
+		internalOpen()
+	
+	#check if the stream is open
+	block isStreamOpen()
+		return isStreamOpen
+		
+	#close the zip stream	
+	block closeZip()
+		__close_zip(theZip)
+		isStreamOpen = false
+		
+	#to check if it zip
+	block isZip()
+		return "yea it zip ;)"
+		
+	private
+		zipPath = ""
+		theZip = null
+		streamType = ZIP_WRITE
+		isStreamOpen = false
+		
+		#block accesible in this class only for opening the zipStream
+		block internalOpen()
+			isStreamOpen = true
+			theZip = __open_zip(getPath(), streamType)

@@ -1,0 +1,45 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 SIMPLE
+
+*/
+
+/* 
+ * @Filename - FButton.sim
+ * @Author - Azeez Adewale
+ * @Date - 21 Febuary 2018
+ * @Time - 12:00 PM
+ */
+
+module fulltick.widget
+
+#call the @Class FBox File for blocks inheritance
+call "f./FButton.sim" ? fulltick.core
+
+#The @Class FToggleButton  is a child class inheriting
+#Most of it blocks from the @Class FButton widget. 
+class FToggleButton : FButton
+
+	#Initialize the @Class FCheckButton widget with no attribute
+	block FToggleButton(label)
+		initialize()
+		setLabel(label)
+	
+	#all the private attributes, fields and block not accessible outside
+	#the class
+	private 
+		
+		#Create an instance of the @Class FCheckButton Widget with a 
+		#custom width and height to avoid being rendered like a @Class 
+		#FLabel
+		block initialize()
+			WIDGETPOINTER = __init_toggle_button(WIDGET_X, WIDGET_Y, WIDGET_WIDTH, WIDGET_HEIGHT)
+
+
+
+
+
+
+
+
+

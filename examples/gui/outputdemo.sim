@@ -1,0 +1,35 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 SIMPLE 
+
+*/
+
+/*
+	@Demo 
+	
+	The is a basic demo for the output type of widget in the 
+	@Module fulltick 
+
+*/
+
+call "fulltick/widget/FMultilineOutput.sim"
+call "fulltick/widget/FOutput.sim"
+call "fulltick/widget/FWindow.sim" ? fulltick.widget
+call "fulltick/core/FApp.sim" ? fulltick.core
+
+
+block main()
+
+	moutput = new FMultilineOutput() 
+	moutput.setText("Hello World demo ").setPosition(10, 10) 
+	
+	output = new FOutput()
+	output.setText("Hello World demo ").setPosition(10, 170)
+
+	window = new FWindow() 
+	window.setTitle("FOUTPUT DEMO").setSize(330, 210)
+	window.addWidget([moutput,output]) 
+	window.show()
+	
+	FApp.run()
+	

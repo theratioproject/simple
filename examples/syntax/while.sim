@@ -1,0 +1,43 @@
+
+#1 #2 
+n = 1
+
+#3 #4 #5
+while n < 10  
+	display " "+n + " "
+	n++
+end
+
+#6 
+display crlf + "n = " + n + crlf
+
+#7 #8 
+while ( n <= 100 ) {
+	display " " +n + " "
+	n = n + 10
+}
+
+#9
+display crlf + "n = " + n + crlf
+
+/*	
+	comment map
+	-------
+	#author - [[Azeez Adewale][twitter]]@iamthecarisma
+	#date - Jan 20 2018
+	#syntax - while, loop
+	#name - while.sim
+	#path - examples/syntax/while.sim
+	#detail - pure demo of how the while loop can be use to loop
+	and iterate between expression that satisfy a condition
+	
+	#1 - entry to the program
+	#2 - declaration of variable n with value of 1
+	#3 - a while loop syntax style one with lambda
+	#4 - lambda in simple can mark a beginning of expression
+	#5 - after the condition is satisfied n is raised by one
+	#6 - displaying n new value
+	#7 - the vintage while syntax
+	#8 - after the condition is satisfied 10 is added to n 
+	#9 - displaying n new value
+*/

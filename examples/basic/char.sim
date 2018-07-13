@@ -1,0 +1,2 @@
+display char(109) + crlf +    # print m
+		char(77)            # print M

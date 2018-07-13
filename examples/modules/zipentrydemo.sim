@@ -1,0 +1,26 @@
+/* 
+	Copyright (c) 2016-2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+call "archive/zip/Zip.sim" ? archive.zip
+call "archive/zip/ZipEntry.sim" ? archive.zip
+
+block main()
+	__exit__ #currently failing
+	display "-> Create a Zip Object "+ crlf
+	tZip = new Zip("C:\Users\thecarisma\Documents\SIMPLE GITHUB\examples\moduleexamples\azip.zip", ZIP_READ)
+	
+	display "-> Create a zip entry from zip object"+ crlf
+	tEntry = new ZipEntry(tZip)
+	
+	display "-> write string to the entry"+crlf
+	#tEntry.writeString("Hello World ") errror we have to open first
+	tEntry.open("test.txt")
+	tEntry.writeString("C:\Users\thecarisma\Documents\SIMPLE GITHUB\examples\moduleexamples\zipentrydemo.sim")
+	
+	display "-> Always close the entry for clean usage"
+	closeEntry()
+	
+	

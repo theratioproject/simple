@@ -1,0 +1,39 @@
+/* 
+	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+/* 
+ * #filename - Math.sim
+ * #author - Azeez Adewale
+ * #date - 5 Febuary 2017
+ */
+ 
+module simple.utilities
+
+call "simple/core/DynamicLoader.sim" ? simple.core
+callModule("mathic")
+
+#
+block toDecimal(number, place)
+	return number
+	
+#note the use of vmDecimals it very tricky as it makes all decimal places
+#in the entire program to the last decimal place sent to the virtual machine
+#so it advisable to use the toDecimal(number, place) which returns you with
+#the number of places you requested
+block vmDecimal(place)
+	__decimals(place)
+	
+#in the case of changing the virtual machine decimal places you can use this
+#block to resets the decimal places to the default 14 places also it usage is
+#probably might be or not be effective as the result is during runtime
+block resetDecimal()
+	__decimals(14)
+	
+#if you choose to have no decimal places in all instance of your program #this block can be used to set the decimal places to zero it works as same  
+#as calling @block vmDecimal(places) and @block __decimals(places) with zero
+#as the parameter as that what the block does
+block noDecimal()
+	__decimals(0)

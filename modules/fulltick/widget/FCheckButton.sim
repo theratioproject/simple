@@ -1,0 +1,62 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 SIMPLE
+
+*/
+
+/* 
+ * @Filename - FButton.sim
+ * @Author - Azeez Adewale
+ * @Date - 21 Febuary 2018
+ * @Time - 12:00 PM
+ */
+
+module fulltick.widget
+
+#call the @Class FBox File for blocks inheritance
+call "fulltick/widget/FBox.sim" ? fulltick.core
+
+/* NUMBERS */
+
+BUTTON_PRESSED = 1 #The state of the button when pressed not the box down is rendered
+BUTTON_NOT_PRESSED = 0 #the default state of the @Class FButton widget
+
+#The @Class FButton is a child class inheriting
+#Most of it blocks from the @Class FBox widget. This widget is a typical
+#button that execute it click in the @Block callback(cb) in the @Class 
+#FWidget. This class is the parenting class of other type of button and 
+#can be used to create custom button types along with the classes in the 
+#@Module fulltick.raw . Custom buttons that can be used in game or 
+#implementing material designs can inherit this @Class FButton and add more
+#styling and few other attributes @Skip
+#  ================        ##################
+# ||		       ||	   ##################
+# ||	  LABEL	   ||      #####LABEL########
+# ||               ||      ##################
+#  ================        ##################
+# @EndSkip
+#The FBox instance can be call as much time as possible a
+class FCheckButton : FButton
+
+	#Initialize the @Class FCheckButton widget with a label
+	block FCheckButton(label)
+		initialize()
+		setLabel(FCHECKBUTTON_LEAD_SPACE+label)
+	
+	#all the private attributes, fields and block not accessible outside
+	#the class
+	private 
+		
+		#Create an instance of the FCheckButton Widget with a custom width 
+		#and height to avoid being rendered like a @Class FLabel
+		block initialize()
+			WIDGETPOINTER = __init_check_button(WIDGET_X, WIDGET_Y, WIDGET_WIDTH, WIDGET_HEIGHT)
+
+
+
+
+
+
+
+
+

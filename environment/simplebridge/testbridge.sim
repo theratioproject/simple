@@ -1,0 +1,54 @@
+ /* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 SIMPLE
+
+*/
+
+/* 
+ *
+ * @Filename - simplebridge.sim
+ * @Author - Azeez Adewale Ridwan
+ * @Date - 03 May 2018
+ * @Time - 09:09 AM
+ * @License - MIT License
+ *
+ */
+ 
+/*
+	This is a test modular comment
+*/
+module environment.simplebridge
+
+/*
+	Class hello
+*/ 
+class Hello
+/*
+	This is the comment for hello world 
+*/ 
+block helloWorld(one,two,three)
+	return 'hello'
+	
+/*
+	This is the comment for hello 
+*/ 
+block hello(one)
+	return 'hello'
+	
+/*
+	This is the comment for hello 
+*/ 
+block hello(one)
+	return 'hello'
+
+/*
+	Class holla
+*/ 
+class Holla
+ 
+i = 0 
+
+do {
+	? i
+	i ++
+} while i > 10

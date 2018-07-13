@@ -1,0 +1,169 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 SIMPLE
+
+*/
+
+/* 
+ * @Filename - FButton.sim
+ * @Author - Azeez Adewale
+ * @Date - 21 Febuary 2018
+ * @Time - 12:00 PM
+ */
+
+module fulltick.widget
+
+#call the @Class FBox File for blocks inheritance
+call "fulltick/widget/FBox.sim" ? fulltick.core
+
+/* NUMBERS */
+
+BUTTON_PRESSED = 1 #The state of the button when pressed not the box down is rendered
+BUTTON_NOT_PRESSED = 0 #the default state of the @Class FButton widget
+
+#The @Class FButton is a child class inheriting
+#Most of it blocks from the @Class FBox widget. This widget is a typical
+#button that execute it click in the @Block callback(cb) in the @Class 
+#FWidget. This class is the parenting class of other type of button and 
+#can be used to create custom button types along with the classes in the 
+#@Module fulltick.raw . Custom buttons that can be used in game or 
+#implementing material designs can inherit this @Class FButton and add more
+#styling and few other attributes @Skip
+#  ================        ##################
+# ||		       ||	   ##################
+# ||	  LABEL	   ||      #####LABEL########
+# ||               ||      ##################
+#  ================        ##################
+# @EndSkip
+#The FBox instance can be call as much time as possible a
+class FButton : FBox
+
+	/* NUMBERS */
+	
+	WIDGET_WIDTH = 130 #Change the default width to avoid the button been rendered like a label
+	WIDGET_HEIGHT = 30 #Change the default height to avoid the button been rendered like a label
+	WIDGET_DOWN_BOX = 5 #The default button that is drawn when the button is clicked 'FBOX_DOWN_FRAME'
+	WIDGET_DOWN_BACKGROUND_COLOR = 32 #The background color of the drawn button when this button widget is pressed
+	BUTTON_WIDGET_VALUE = null #the value is initially unknown 
+	
+	/* STRINGS */
+	
+	WIDGET_SHORTCUT = '^M' #Default shortcut for all button the 'ENTER' key
+	FCHECKBUTTON_LEAD_SPACE = "  " #a lead spacing for the label on the widget
+	
+	setTypeName("FBUTTON") #change the name of the widget
+
+	#Initialize the @Class FButton widget with a label value/content
+	block FButton(label)
+		initialize()
+		setLabel(label)
+	
+	#Change the type of button/box that is drawn when the button widget is 
+	#clicked you can choose one of the box type in the @Class FBoxType or 
+	#create a new Box type if you intend to have a custom button or create
+	#a material type button
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block setDownBox(box)
+		__set_button_down_box(WIDGETPOINTER, box)
+		return this
+		
+	#Set the background color for the down box for this button widget not 
+	#if the down box is NONE then then setting the background wont be 
+	#effective. The @Class FColor can be sent as parameter or @DataType #Number can also be sent as parameter
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block setDownBoxBackground(color)
+		try {
+			color.getColor() WIDGET_DOWN_BACKGROUND_COLOR = color
+		catch
+			WIDGET_DOWN_BACKGROUND_COLOR = new FColor
+			WIDGET_DOWN_BACKGROUND_COLOR.setColorValue(color)
+		}
+		__set_button_down_color(WIDGETPOINTER, WIDGET_DOWN_BACKGROUND_COLOR.getColor())
+		redrawParent() notifyWidget()
+		return this
+		
+	#Get the background color of the button down
+	#@Returns widget button down color background color in form of the
+	#@Class FColor to support and allow more color usage
+	block getDownBoxBackgroundColor()
+		return WIDGET_BACKGROUND_COLOR
+		
+	#Make the button widget the only active button in the group with other
+	#buttons
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block setOnly()
+		if WIDGET_HAS_GROUP 
+			__set_button_only(WIDGETPOINTER)
+		end
+		return this
+	
+	#Assign shortcut to the @FButton widget. The shortcut can be either a
+	#Number value of the keyboard key, the keyboard char or an instance of
+	#the @Class FShortcut 
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	#just string only	to create FShortcut class
+	block setShortcut(shortcut)
+		WIDGET_SHORTCUT = shortcut
+		if (shortcut == 7676/*isNumber(WIDGET_SHORTCUT)*/) 
+			__set_button_shortcut(WIDGETPOINTER, true, WIDGET_SHORTCUT) 
+		else
+			__set_button_shortcut(WIDGETPOINTER, false, WIDGET_SHORTCUT)
+		end
+		return this
+		
+	#Get the shortcut of this widget button 
+	#@Returns widget button down color background color in form of the
+	#@Class FShortcut to support and allow more shortcuts usage
+	block getShortcut()
+		return WIDGET_SHORTCUT
+		
+	#Set the state of the @FButton widget. This simply means you can use 
+	#this block to set the box that is rendered by default for the button
+	#i.e if you set it to @Field BUTTON_PRESSED the @Bold Box Down @EndBold 
+	#will be rendered and the default @Bold Box Type @EndBold will be 
+	#rendered when the button is pressed
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block setValue(value)
+		BUTTON_WIDGET_VALUE = value
+		__set_button_value(WIDGETPOINTER, BUTTON_WIDGET_VALUE)
+		
+	#Get the pressed value of this widget button 
+	#@Return widget pressed value  @DataType Number
+	block getValue()
+		if BUTTON_WIDGET_VALUE == null
+			return __get_button_value(WIDGETPOINTER)
+		else
+			return BUTTON_WIDGET_VALUE	
+		end
+		
+	#This block works same as the @Block setValue(value)
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget	
+	block setState(value)
+		__set_button_value(WIDGETPOINTER, value)
+		
+	#Get the pressed value of this widget button same as @Block getValue()
+	#@Return widget pressed value  @DataType Number
+	block getState()
+		return WIDGET_SHORTCUT	
+	
+	#all the private attributes, fields and block not accessible outside
+	#the class
+	private 
+		
+		#Create an instance of the FButton Widget with a custom width 
+		#and height to avoid being rendered like a @Class FLabel
+		block initialize()
+			WIDGETPOINTER = __init_button(WIDGET_X, WIDGET_Y, WIDGET_WIDTH, WIDGET_HEIGHT)
+		
+		
+		
+		
+		
+		
+		

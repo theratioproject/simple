@@ -1,0 +1,106 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+module web.front
+
+call "web/front/elements/Head.sim" ? web.front.elements
+
+class Webpage 
+
+	head = new web.front.elements.Head
+	mainTagStyle = ""
+	bodyClass = ""
+	websiteBody = ''
+	websiteFooter = ""
+	
+	block Webpage()
+		head.setTitle("SIMPLE WEB")
+		
+	block setBodyClass(bclass)
+		bodyClass = bclass
+		
+	block styleMainTag(styling)
+		mainTagStyle = styling
+		
+	block setTitle(ititle) 
+		head.setTitle(ititle)
+		
+	block setIcon(iconLocation)
+		head.setIcon(iconLocation)
+		
+	block setHead(ihead)
+		head = ihead
+		
+	block addToBody(element)
+		try
+			websiteBody += ''+element.toString()+'
+			'
+		catch
+			websiteBody += ''+element+'
+			'
+		end
+		
+	block addFooter(footer)
+		websiteFooter = footer.toString()
+		
+	block treatBody()
+		if bodyClass == "" 
+			websiteBody = '<body>' + websiteBody
+		else 
+			websiteBody = '<body class="'+bodyClass+'">' + websiteBody
+		end
+		
+	block render()
+		treatBody()
+		webPrint('<html lang="en" '+mainTagStyle+'>
+		'+head.toString()+'
+		'+websiteBody+'
+		\t'+websiteFooter+' 
+		</body>
+		
+</html>')
+		
+		
+block webPrint(content)
+	fcontent = formatLiteral(content)
+	display fcontent
+	
+
+block formatLiteral(content)
+	inContent = ""
+	/*if isnumber(content) 
+		content = ""+content
+	end*/#to uncomment after building core module
+	for a = 0 to lengthOf(content) 
+		switch content[a]
+			case '\'
+				a++
+				switch content[a]
+				case '\'
+					inContent +=  '\'
+				case '"'
+					inContent += '"'
+				case "n"
+					inContent +=  crlf
+				case "t"
+					inContent +=  char(9)
+				case "r" 
+					inContent +=  char(13)
+				end
+			default 
+				inContent +=  content[a]
+		end
+	end
+	return inContent
+	
+	
+	
+	
+	
+	
+	
+	
+	

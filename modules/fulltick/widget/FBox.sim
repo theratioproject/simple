@@ -1,0 +1,139 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 SIMPLE
+
+*/
+
+/* 
+ * @Filename - FBox.sim
+ * @Author - Azeez Adewale
+ * @Date - 20 Febuary 2018
+ * @Time - 08:42 PM
+ */
+
+module fulltick.widget
+
+#call the @Class FWidget File for general widget blocks inheritance
+call "fulltick/core/FWidget.sim" ? fulltick.core
+
+#The @Class FBox is a child class inheriting
+#Most of it blocks from the @Class FWidget
+#some block are available only for this widget. The Widget is use to draw
+#Box/Panel widget on a parent widget @Skip
+#  _____________________________________________________________
+# |                                                             |\
+# |                                                             ||
+# |                                                             ||
+# |                                                             ||
+# |                         SOME LABEL                          ||
+# |                                                             ||
+# |                                                             ||
+# |                                                             ||
+# |_____________________________________________________________||
+#  \_____________________________________________________________\
+# @EndSkip
+#The FBox instance can be call as much time as possible a
+class FBox : FWidget
+
+	WIDGET_TYPE = "BOX" #Implement the name of the widget
+	BOX_TYPE = 2 #Declare the default type box type which is FBOX_UP_BOX
+
+	#initialize the FBox Widget with zero width, height, y and x axis
+	block FBox()
+		initialize()
+		
+	#Change the type of box by which the box/panel is rendered the type 
+	#can be sent as Number between 0 and 56 or you can send one of the 
+	#declared box type in the @File FBoxType 
+	#@Note It @Returns this which is the widget to allow the inline usage 
+	#of the widget
+	block boxType(type)
+		BOX_TYPE = type
+		__set_box_type(WIDGETPOINTER, BOX_TYPE)
+		return this
+	
+	#This block can be called instead of the above but they are functionally
+	#the same 
+	#@Note It @Returns this which is the widget to allow the inline usage 
+	#of the widget
+	block setType(type)
+		return boxType(type)
+		
+	#This block can be called instead of the @Block boxType(type)
+	#but they are functionally the same 
+	#@Note It @Returns this which is the widget to allow the inline usage 
+	#of the widget
+	block setBoxType(type)
+		return boxType(type)
+		
+	#Get the current type of box used for this widget @Return box type 
+	#@DataType Number
+	block getBoxType()
+		return BOX_TYPE
+		
+	#This block is implemented base on the abstract block in the parent
+	#@Class FWidget. This block is used to update the widget when a new 
+	#property is called it then notify this block which do all other 
+	#necessary things on the widget
+	block notifyWidget()
+	
+	#Act as a delegate to the @Block setLabel(label) in the @Class FWidget
+	#trying not to break previous practice for developer from other 
+	#programming language
+	block setText(text)
+		setLabel(text)
+		
+		
+	#all the private attributes, fields and block not accessible outside
+	#the class. This can also be used to override block that should not
+	#be called outside this Context
+	private 
+	
+	    #Create an instance of the FBox/FPanel Widget with the default
+		#Widget attributes the size is actually zero
+		block initialize()
+			WIDGETPOINTER = __init_box(WIDGET_WIDTH, WIDGET_HEIGHT, WIDGET_X, WIDGET_Y) setType(BOX_TYPE)
+		
+		#The FBox widget currently does not allow adding another widget
+		#into it
+		block addWidget(widget)
+			
+#@Skip--------------------------------------------------------------@EndSkip
+
+#The @Class FPanel is a child class inheriting
+#Most of it blocks from the @Class FWidget
+#some block are available only for this widget. The Widget is use to draw
+#Box/Panel widget on a parent widget @Skip
+#  _____________________________________________________________
+# |                                                             |\
+# |                                                             ||
+# |                                                             ||
+# |                                                             ||
+# |                         SOME LABEL                          ||
+# |                                                             ||
+# |                                                             ||
+# |                                                             ||
+# |_____________________________________________________________||
+#  \_____________________________________________________________\
+# @EndSkip
+#The FPanel instance can be call as much time as possible a
+class FPanel : FBox
+
+	WIDGET_TYPE = "PANEL" #Implement the name of the widget
+
+	#initialize the FPanel Widget with zero width, height, y and x axis
+	block FPanel()
+		initialize()
+
+	
+
+		
+
+
+
+
+
+
+
+
+

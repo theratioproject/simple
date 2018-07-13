@@ -1,0 +1,53 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 SIMPLE
+
+*/
+
+/* 
+ * @Filename - FFloatInput.sim
+ * @Author - Azeez Adewale
+ * @Date - 27 Febuary 2018
+ * @Time - 03:40 PM
+ */
+
+module fulltick.widget
+
+#call the @Class FInput File for blocks inheritance
+call "fulltick/widget/FInput.sim" ? fulltick.widget
+
+#This @Class FFloatInput is child class inheriting most of it 
+#attributes,blocks and other from it parent @Class FInput. It is 
+#a direct subclass of @Class FInput but only accept float number
+#type as it value @Skip
+#  ________________________________________________________
+# |   __________________________________________________   |
+# |  |0123456789.877667767676___________________________|  | 
+# |________________________________________________________|
+#@EndSkip
+class FFloatInput : FInput
+
+	#Initialize the @Class FInput widget 
+	block FFloatInput()
+		initialize()
+		
+	#Get the real value of this widget 
+	#@Return widget real value @DataType NUMBER
+	block getRealValue()
+		return 0.0+getValue()		
+	
+	#all the private attributes, fields and block not accessible #outside the class
+	private 
+		
+		#Create an instance of the FFloatInput Widget with custom 
+		#width and height to avoid invisible @Class FInput
+		block initialize()
+			WIDGETPOINTER = __init_float_input(WIDGET_X, WIDGET_Y, WIDGET_WIDTH, WIDGET_HEIGHT)
+	
+	
+	
+	
+	
+	
+	
+	

@@ -1,0 +1,77 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+/*
+	The FWindow demo program. It create five window object and call show() 
+	to add the object to FApp queue. If the show() is not called on the 
+	window object the it wont be displayed when the FApp.run() is called.
+	Multiple instance of the window object can be created at once and the
+	default callback option is defined in the FLTK Library. If more windows
+	are opened at once the app wont exit else all the windows are closed.
+	Or else a new callback/onclick/onexit exit block is assigned to one of
+	of the opened window
+
+*/
+
+call "fulltick/widget/FWindow.sim" ? fulltick.widget
+call "fulltick/painting/FColor.sim" ? fulltick.painting
+call "fulltick/core/FApp.sim" ? fulltick.core
+
+block main()
+	#first window 
+	window = new FWindow()
+	window.setBackground(FColor.RED())
+	window.setTitle("Window 1 : WIDE")
+	window.setTooltip("TOOLTIP : This is a test/demo window ")
+	window.setSize(1010, 100)
+	#window.resizable(true)
+	window.show()
+	window.setLocation(20,20)
+	window.notifyWidget()
+	
+	#second window
+	window2 = new FWindow()
+	window2.setTitle("Window 2 : LONG")
+	window2.setSize(300, 583)
+	window2.setBackground(FColor.BLUE())
+	window2.show()
+	window2.setLocation(1040,18)
+	
+	#third window
+	window3 = new FWindow()
+	window3.setTitle("Window 3 : MODERATE")
+	window3.setSize(500, 450)
+	window3.setBackground(FColor.GREEN())
+	window3.show()
+	window3.setLocation(20,150)
+	window3.setIcon("window.ico")
+	
+	#fourth window
+	window4 = new FWindow()
+	window4.setTitle("Window 4 : FIT")
+	window4.setSize(500, 250)
+	window4.setBackground(FColor.YELLOW())
+	window4.show()
+	window4.setLocation(530,150)
+	
+	#fifth window
+	window5 = new FWindow()
+	window5.setTitle("Window 5 : FIT II")
+	window5.setSize(500, 165)
+	window5.setBackground(FColor.CYAN())
+	window5.show()
+	window5.setLocation(530,435)
+	
+	#sixth window
+	window6 = new FWindow()
+	window6.setTitle("Window 6 : STRETCH")
+	window6.setSize(1315, 55)
+	window6.setBackground(FColor.MAGENTA())
+	window6.show()
+	window6.setLocation(20,635)
+	
+	#show all window
+	FApp.run() 

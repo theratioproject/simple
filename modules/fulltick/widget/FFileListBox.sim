@@ -1,0 +1,170 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 SIMPLE
+
+*/
+
+/* 
+ * @Filename - FFileListBox.sim
+ * @Author - Azeez Adewale
+ * @Date - 26 March 2018
+ * @Time - 03:34 AM
+ *
+ */
+
+module fulltick.widget.menu
+
+FILES_TYPE = 0
+DIRECTORIES_TYPE = 1
+
+#call the @Class FWidget File for blocks inheritance
+call "../core/FWidget.sim" ? fulltick.core
+
+#This @Class FFileListBox @Skip
+#  ________________________________________________________
+# |________________________________________________________|
+#@EndSkip @Image FFileListBox
+class FFileListBox : FWidget
+	
+	setTypeName("FFilelistbox") #change the name of the widget
+	
+	/* STRING */
+	FILE_LISTBOX_DIRECTORY = "." #the initial directory is the current working folder
+	
+	/* NUMBER */
+	WIDGET_WIDTH = 300 #the default widget of the @Class FFileListBox widget
+	WIDGET_HEIGHT = 400 #the default height of the @Class FFileListBox widget
+	FILE_LISTBOX_SELECTION_TYPE = 2 #the type of selection mode single by default
+	
+	#the default constructor use for just setting the size
+	block FFileListBox()
+		initialize() #initialize the widget at once
+		setSize(WIDGET_WIDTH,WIDGET_HEIGHT)
+		loadDirectory(FILE_LISTBOX_DIRECTORY)
+		type(FILE_LISTBOX_SELECTION_TYPE)
+		
+	#Load the current directory into the @Class FFileListBox 
+	#the directory that is loaded is the @Attribute FILE_LISTBOX_DIRECTORY
+	#that can be change by calling the @Block setDirectory(dir)
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block load()
+		__file_listbox_load(WIDGETPOINTER,FILE_LISTBOX_DIRECTORY)
+		return this
+		
+	#Change the current directory or folder that is loaded by the 
+	#@Class FFileListBox. The block accept string as parameter if the 
+	#directory supplied does not exits nothing is loaded into the 
+	#@Class FFileListBox
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block loadDirectory(dir)
+		FILE_LISTBOX_DIRECTORY = dir
+		load()
+		return this
+		
+	#Change the current directory or folder that is loaded by the 
+	#@Class FFileListBox. This block is same as @Block loadDirectory(dir)
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block changeDirectory(dir)
+		FILE_LISTBOX_DIRECTORY = dir
+		load()
+		return this
+		
+	#change the attribute value of the @Attribute FILE_LISTBOX_DIRECTORY
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget	
+	block setDirectory(dir)
+		FILE_LISTBOX_DIRECTORY = dir
+		return this
+		
+	#Get the current directory/folder of the @Class FFileListBox widget
+	#@Return the directory @Class STRING
+	block getDirectory()
+		return FILE_LISTBOX_DIRECTORY
+		
+	#Change the type of selection for the @Class FFileListBox the proper
+	#selection types can be found in the @Class FlistboxSelectios
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget	
+	block type(type)
+		FILE_LISTBOX_SELECTION_TYPE = type
+		__listbox_type(WIDGETPOINTER,FILE_LISTBOX_SELECTION_TYPE)
+		return this
+		
+	#Change the Selection Type of the @Class FFileListBox
+	#this block function is same as @Block type(type)
+	block changeSelectionType(type)
+		return type(type)
+		
+	#This block return the position at which the @Class FFileListBox is
+	#selected 
+	#@Return the selected index in the @Class FFileListBox @DataType NUMBER
+	#@Note the index start from zero 
+	block getSelectedIndex()
+		return __listbox_value(WIDGETPOINTER,0,null)
+		
+	#this block function is same as @Block getSelectedIndex()
+	block index() return getSelectedIndex()
+	
+	#Select an index in the list of files and folders in the @Class 
+	#FFileListBox. If you want to select none of the listed items in @Class
+	#FFileListBox send -1 as the index or just call @Block selectNone()
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget	
+	block setSelectedIndex(index)
+		__listbox_value(WIDGETPOINTER,true,index)
+		return this
+		
+	#this block function is same as @Block setSelectedIndex(index)
+	block select(index) return setSelectedIndex(index)
+	
+	#Get the value of the selected index in the @Class FFileListBox list
+	#it accept @DataType NUMBER as parameter which means it get the value
+	#at the parameter provided it return string 
+	#@Return the value at the provided index @DataType STRING
+	block text(index)
+		return __listbox_text(WIDGETPOINTER,index)
+		
+	#this block function is same as @Block text(index)
+	block value(index) return text(index)
+	
+	#Get the value of the selected index without passing any parameter
+	#unlike @Block text(index) which required one parameter this does not 
+	#require any parameter but the value it returns depend on the selected 
+	#index in the @Class FFileListBox widget. If you wish to get the value
+	#at a specific index call the @Block text(index) instead
+	#@Return the value at the selected index @DataType STRING
+	block getSelectedText()
+		return text(index())
+		
+	#this block function is same as @Block getSelectedText()	
+	block getSelectedValue() return getSelectedText()
+	
+	#Select none of the items in the list of items in the @Class 
+	#FFileListBox 
+	#@Note currently failing
+	block selectNone() return select(-1)
+	
+	block setFilter(filter)
+		__file_listbox_filter(WIDGETPOINTER,filter)
+		return this
+		
+	block filter(filter) return setFilter(filter)
+	
+	block setFileType(type)
+		__file_listbox_file_type(WIDGETPOINTER,type)
+		return this
+		
+	block setIconSize(size)
+		__file_listbox_icon_size(WIDGETPOINTER,size)
+		return this
+
+	#Create an instance of the FFileListBox Widget with Widget Width and 
+	#Height, 
+	#@Note @Important you do should never call this block from child
+	#class as it resets all the attributes and properties of the widget
+	#do not call
+	block initialize()
+		WIDGETPOINTER = __init_file_listbox(WIDGET_X, WIDGET_Y, WIDGET_WIDTH, WIDGET_HEIGHT)

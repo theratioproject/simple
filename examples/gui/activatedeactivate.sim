@@ -1,0 +1,73 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 SIMPLE 
+
+*/
+
+/*
+	@Demo 
+	
+	The is a small demo of @Bold Activating and Deactivating @EndBold
+	any type of widget by calling the 
+	@Block widget.activate(condition) in which the 
+	@Bold condition @Bold parameter determines whether the widget
+	should be active of not the parameter is of boolean which
+	@Code 
+		true = activate
+		false = deactivate
+	@EndCode
+
+*/
+
+call "fulltick/widget/FButton.sim"
+call "fulltick/widget/FWindow.sim" ? fulltick.widget
+call "fulltick/core/FApp.sim" ? fulltick.core
+
+button = new FButton("BUTTON ")
+button.setPosition(10, 10) 
+
+wbutton = new FButton("BUTTON W ")
+wbutton.setPosition(150, 10) 
+
+xbutton = new FButton("BUTTON X ")
+xbutton.setPosition(10, 50) 
+
+ybutton = new FButton("BUTTON Y ")
+ybutton.setPosition(150, 50) 
+
+adbutton = new FButton("Deactivate")
+adbutton.setPosition(10, 100) 
+adbutton.callback('Activate()')
+	
+ACTIVE = true
+
+block main()
+	
+	window = new FWindow() 
+	window.setTitle("BUTTONS DEMO").setSize(300, 150)
+	window.addWidget([button,adbutton,wbutton,xbutton,ybutton]) window.show() 
+	
+	FApp.run() 
+	
+block Activate
+	if ACTIVE == false 
+		ACTIVE = true 
+		adbutton.setLabel("Deactivate")
+	else
+		adbutton.setLabel("Activate")
+		ACTIVE = false
+	end
+	button.activate(ACTIVE)
+	wbutton.activate(ACTIVE)
+	xbutton.activate(ACTIVE)
+	ybutton.activate(ACTIVE)
+	
+	
+	
+	
+
+
+
+
+
+

@@ -1,0 +1,18 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+/* 
+ * @filename - loadinternetdll.sim
+ * @author - Azeez Adewale
+ * @date - 26 Febuary 2017
+ * @Time - 11:40 AM
+ */
+ 
+module simple.internet
+
+#Call all the low level function of the @DynamicModule networker
+call "simple/core/DynamicLoader.sim" ? simple.core
+callModule("file_savant")

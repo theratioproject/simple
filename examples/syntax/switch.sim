@@ -1,0 +1,33 @@
+
+#1 #2
+display "input your number : " read n 
+
+#4 #5 #6
+switch (n) 
+	case 2
+		display "it is two"
+	case 3 
+		display "it is three"
+	default
+		display "i dont know but it "+n
+end 
+
+/*	
+	comment map
+	-------
+	#author - Azeez Adewale[[twitter]@iamthecarisma]
+							 [[github]@Thecarisma]
+	#date - Jan 17 2018
+	#syntax - switch, case, default
+	#name - switch.sim
+	#path - examples/syntax/switch.sim
+	#detail - a typical example of how to switch between different case 
+	and default case in a switch statement and have the case executed in
+	in satisfaction to the switch condition
+	
+	#1 - entry to the program
+	#2 - read a value into variable n
+	#3 - switch statement with different case and default case
+	#4 - a case is executed in satisfaction to the condition
+	#5 - the default case is executed by default if no case is true
+*/

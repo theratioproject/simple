@@ -1,0 +1,39 @@
+
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 SIMPLE 
+
+*/
+
+call "simple/utilities/Console.sim"
+
+simpleReplTitle = " 
+                                                                                                         | 
+     ----------    --     --------         --------    ------------     ---             --------------   | A simple, plain and innovative programming
+    |          |  |   |  |        |       |        |  |            |   |   |           |              |  | with multi-paradigm. It can be embedded in 
+    |    ------   |   |  |    -    |     |    -    |  |    -----    |  |   |           |    ----------   | C/C++ projects. The language is portable 
+    |   |         |   |  |   |  |   |    |   | |   |  |   |     |   |  |   |           |   |             | to various OS including windows, macOS, any
+    |   |         |   |  |   |   |   |  |   |  |   |  |   |     |   |  |   |           |   |             | linux and unix distros and other OS.
+    |          |  |   |  |   |     |      |    |   |  |    ----    |   |   |           |    ---------    | This is the official REPL program for the
+     ------    |  |   |  |   |      ------     |   |  |           |    |   |           |    ---------    | Language. 
+           |   |  |   |  |   |                 |   |  |    -------     |   |           |   |             | 
+           |   |  |   |  |   |                 |   |  |   |            |   |           |   |             | REPL (Read-Eval-Print-Loop)
+     ------    |  |   |  |   |                 |   |  |   |            |    - -------  |    ---------    | Version "+getSimpleVersion()+"
+    |          |  |   |  |   |                 |   |  |   |            |            |  |             |   | Author : Azeez Adewale
+     ----------    ---    ---                   ---    ---              ------------    -------------    | MIT License Copyright (c) 2018 SIMPLE
+                                                                                                         |  
+"
+	
+	Console.printLineWithColor(ConsoleColor.GREEN(), null)
+	Console.printWithFG(ConsoleColor.YELLOW(), simpleReplTitle)
+	Console.printLineWithColor(ConsoleColor.GREEN(), null)
+while true
+	display crlf 
+	Console.printWithFG(ConsoleColor.CYAN(), "simple@repl > ")
+	read code
+	try
+		executeCode(code)
+	catch
+		Console.printWithFG(ConsoleColor.RED(), __err__)
+	end
+end 

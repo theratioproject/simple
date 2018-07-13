@@ -1,0 +1,88 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com> 
+	MIT License Copyright (c) 2018 simple-lang
+*/
+
+/* 
+ * @Filename - debugging.sim
+ * @Author - Azeez Adewale
+ * @Date - 06 July 2018
+ * @Time - 02:37 PM
+ */
+
+/*
+	This file is a stress and elaborating example of using the 
+	simple-lang debugging module @Module simple/debugging/
+*/
+
+call "simple/utilities/Length.sim"
+call "simple/debugging/Throw.sim"
+call "simple/debugging/Debug.sim"
+
+block main()
+	errorList = [
+		"ERROR NOT VALID ",
+		"",
+		"This file cannot be found in the directory",
+		"This is the title",
+		"Error occur and it thrown With title in index [2]"
+	]
+
+	for a = 0 to getTypeLength(errorList) {
+		one(errorList[a])
+	}
+
+	four()
+	
+	/*
+		The throwWithTitle() block are used to create an error with a custom 
+		title and message
+	*/
+	#throwWithTitle(errorList[3],errorList[4])
+	throwOnlyWithTitle(errorList[3],errorList[4])
+	
+	/*
+		Now we go ahead to warn
+		Warning is only possible if simple-lang is executed with 
+			-w or --warning flag
+		if it now executed with the flags then the error is never displayed
+		to force error to show use the throwOnly(errrovalue) block instead
+	*/
+	warn("This is a warning you see this if executed with -w")
+	warn("This is a warning you see this if executed with --warining")
+	warn("Final Warning")
+	
+	/*
+		Assertion : only boolean and number is asserted
+	*/
+	#assert("string not assert able") #fails
+	#assert((true == false)) #fails
+	assert((1 > -300)) #pass
+	
+	/*
+		Now we catch an error in one of the error thrown above
+	*/
+	try {
+		one(errorList[2])
+	catch
+		@" "+crlf
+		@"This error was catched |> " + __err__ + " <<<"
+	}
+
+block one(a)
+	two(a)
+
+block two(a)
+	three(a)
+	
+/*
+	Right here the throwOnly() only block is called 
+	so we can keep the error coming without having
+	to exit the program purely error tolerance
+*/
+block three(a)
+	throwOnly(a)
+	
+block four()
+	stactTrace = stackTrace()
+	@crlf @stactTrace

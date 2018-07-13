@@ -1,0 +1,42 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+/* 
+ * @Filename - multipleinheritance.sim
+ * @Author - Azeez Adewale
+ * @Date - 05 July 2018
+ * @Time - 04:28 PM
+ */
+ 
+/*
+	Multiple inheritance is currently not supported 
+	If you inherit more than one class only the first class
+	is actually inherited the other are neglected. The reason an error is 
+	not thrown is because simple-lang is very error tolerance
+	
+	This feature can be added in future (probably)
+*/
+ 
+block main()
+	t = new Test
+	t.test()
+	
+
+class Test : TypeOne : TypeTwo
+
+	block test()
+		msgTypeTwo()
+		msgTypeOne()
+
+class TypeOne
+
+	block msgTypeOne()
+		display "message from type one "+crlf
+		
+class TypeTwo
+
+	block msgTypeTwo()
+		display "message from two "+crlf

@@ -1,0 +1,39 @@
+
+#1
+#2
+block main 
+	display "ans : "+maintwo(mainone(), 21)
+end
+
+#3
+block mainone() {
+	return 1021 ;
+}
+
+#4
+block maintwo(one, two) 
+	return one * two ;
+
+#5
+block mainer 
+	
+end
+
+
+
+/*	
+	comment map
+	-------
+	#author - [[Azeez Adewale][twitter]]@iamthecarisma
+	#date - Jan 17 2018
+	#syntax - block
+	#name - block.sim
+	#path - examples/syntax/block.sim
+	#detail - this is an example of private initializers
+	
+	#1 - the main block is the entry of the program
+	#2 - also program begin run from top if no main entry is supplied
+	#3 - block with a return statement
+	#4 - block with parameters
+	#5 - a block that accept unlimited number of parameter
+*/

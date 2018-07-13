@@ -1,0 +1,54 @@
+
+#1 #2
+display "Enter any number : " read n
+
+#3 #4
+if ( n < 1 )
+	display "  yea n is " + n + " and is less than 10" + crlf
+elif ( n == 1 )
+	display "  n is 1 " + crlf 
+elif ( n > 10 )
+	display "  well you inputed " + n + " which is greater than 10" + crlf
+	n = 34
+end
+
+#5 #6
+if ( n == 20 && n > 12) 
+	display "  holla it twenty and greater than 12" + crlf
+else 
+	display "  i dont know" + crlf
+end
+
+#7 
+if n < 30 {
+	display "  it also less than 30"
+elif n > 30
+	display "  greater than 30"
+else 
+	display "flooped"
+}
+
+#7
+	
+/*	
+	comment map
+	-------
+	#author - [[Azeez Adewale][twitter]]@iamthecarisma
+	#date - Jan 17 2018
+	#syntax - if, elif, else
+	#name - ifelifelse.sim
+	#path - examples/syntax/ifelifelse.sim
+	#detail - summary example of usinf the if..elif..else conditional
+	statement to satisfy conditions and add multiple conditions to be 
+	satisfied
+	
+	#1 - entry to the program
+	#2 - variable n declared with a value of 12
+	#3 - an if..elif condition with two elif conditions
+	#4 - the elif keyword is abbr for else if dubbed from python
+	#5 - an if..else condition 
+	#6 - the else does not accept any statement as it false
+	#7 - also note that the if..elif..else condition can be combined
+*/
+
+	

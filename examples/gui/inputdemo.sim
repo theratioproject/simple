@@ -1,0 +1,50 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 SIMPLE 
+
+*/
+
+/*
+	@Demo 
+	
+	The is a small demo of all the supported type of input in the
+	@Module Fulltick. 
+	@Class FInput - accept normal text input
+	@Class FFloatInput - accept only text instance of float or double 
+	@Class FIntInput - accept only integer as parameter 0-9 only
+	@Class FPasswordInput - hide all entered characters and display as dot
+	@Class FMultilineInput - multi line text can be entered into this type of input compare to other which is just one line
+
+*/
+
+call "fulltick/widget/FInput.sim"
+call "fulltick/widget/FFloatInput.sim"
+call "fulltick/widget/FPasswordInput.sim"
+call "fulltick/widget/FMultilineInput.sim"
+call "fulltick/widget/FIntInput.sim"
+call "fulltick/widget/FWindow.sim" ? fulltick.widget
+call "fulltick/core/FApp.sim" ? fulltick.core
+
+block main()
+
+	input = new FInput("") 
+	input.setTitle("Normal : ").setPosition(90, 10)
+	
+	finput = new FFloatInput()
+	finput.setPosition(90, 45).setTitle("Float : ")
+	
+	iinput = new FIntInput()
+	iinput.setPosition(90, 80).setTitle("Int : ")
+	
+	pinput = new FPasswordInput()
+	pinput.setPosition(90, 115).setTitle("Password : ")
+	
+	minput = new FMultilineInput()
+	minput.setPosition(90, 155).setTitle("Multiline : ")
+
+	window = new FWindow() 
+	window.setTitle("FINPUT(S) DEMO").setSize(500, 350)
+	window.addWidget([input,finput,iinput,pinput,minput]) 
+	window.show()
+	
+	FApp.run()

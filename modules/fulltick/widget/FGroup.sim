@@ -1,0 +1,216 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 SIMPLE
+
+*/
+
+/* 
+ * @Filename - FGroup.sim
+ * @Author - Azeez Adewale
+ * @Date - 30 April 2018
+ * @Time - 10:26 PM
+ *
+ */
+
+module fulltick.widget
+
+#call the @Class FWidget File for blocks inheritance
+call "../core/FWidget.sim" ? fulltick.widget
+
+#This @Class FGroup is 
+# @Skip
+#  ~~~~~~~image~~~~~~~~
+#@EndSkip @Image FGroup
+#The @Class FGroup is the parenting class for the following widget @Tree
+#		@Class FWidget
+#			|
+#			|
+#		@Bold @Class FGroup
+#			|
+#			|
+#			|------ @Class FBrowser
+#			|
+#			|
+#			|------ @Class FColorChooser
+#			|
+#			|
+#			|------ @Class FHelpView
+#			|
+#			|
+#			|------ @Class FInputChoice
+#			|
+#			|
+#			|------ @Class FPack
+#			|
+#			|
+#			|------ @Class FScroll
+#			|
+#			|
+#			|------ @Class FSpinner
+#			|
+#			|
+#			|------ @Class FTable
+#			|
+#			|
+#			|------ @Class FTabs
+#			|
+#			|
+#			|------ @Class FTextDisplay
+#			|
+#			|
+#			|------ @Class FTile
+#			|
+#			|
+#			|------ @Class FTree
+#			|
+#			|
+#			|------ @Class FWindow
+#			|
+#			|
+#			|------ @Class FWizard
+#
+#@EndTreee
+class FGroup : FWidget
+
+	setTypeName("FGroup") #change the name of the widget
+
+	/* NUMBER */
+	WIDGET_HEIGHT = 200 #Since it a group panel like input increase default height
+	WIDGET_WIDTH = 300 #Since it a group panel like input increase default width
+	
+	/* BOOLEAN */
+	GROUP_WIDGET_IS_CLIPPING_CHILDREN = false #not clipping children widget initially
+	
+	#Initialize the @Class FGroup widget 
+	block FGroup()
+		initialize() #initialize the widget at once
+		
+	#Set the current @Class FGroup or it inheriting widget to active
+	#so that child widgets can be added to it without calling the @Block
+	#addWidget(widget). When this block is called any constructed widget will
+	#be added to this widget until @Block end() is called on the widget 
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block begin()
+		__group_begin(WIDGETPOINTER)
+		return this
+		
+	#Notify the widget to stop adding widget to itself if @Block begin() 
+	#has been called or not. The only way widget can be added again is to 
+	#call @Block begin() again or use the @Block addWidget(widget)
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block endConstruct()
+		__group_end(WIDGETPOINTER) 
+		return this
+		
+	#function same as @Block endConstruct()
+	block End() return endConstruct()
+		
+	#Delete all child widget of the @Class FGroup or it inheriting widget
+	#The child widget are completely deleted from memory and will need 
+	#recreated to add it again
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block clear()
+		__group_clear(WIDGETPOINTER)
+		forceRedrawParent()
+		return this
+		
+	#Controls whether the current widget or it inheriting widgets clips
+	#the drawing of the child widgets to it bounding box
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block clipChildren(condition)
+		GROUP_WIDGET_IS_CLIPPING_CHILDREN = condition
+		__group_clip_children(WIDGETPOINTER,GROUP_WIDGET_IS_CLIPPING_CHILDREN)
+		return this
+	
+	#Check whether the current widget is clipping it child widgets to it
+	#bounding box
+	#@Returns true if widget is clipping children @DataType BOOLEAN
+	block isClippingChildren()
+		return GROUP_WIDGET_IS_CLIPPING_CHILDREN
+		
+	#Check whether the current widget is clipping it child widgets to it
+	#bounding box. This block is always correct and accurate in comparison 
+	#to @Block isClippingChildren()
+	#@Returns true if widget is clipping children @DataType BOOLEAN	
+	block isReallyClippingChildren()
+		return __group_clip_children(WIDGETPOINTER,-1)
+		
+	#Get the position or index of a child widget in this current widget
+	#@Returns the widget index @DataType NUMBER
+	block find(widget)
+		return __group_find(WIDGETPOINTER,widget.getWidgetPointer())
+		
+	#Change the widget that is focused on or is active on the @Class FGroup
+	#widget 
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block focus(widget)
+		__group_focus(WIDGETPOINTER,widget.getWidgetPointer())
+		return this
+	
+	#@Ignore to get actual count from internal
+	block childrenCount()
+		display getWidgetChildren()
+		return lengthOf(getWidgetChildren())
+	
+	#Reset the internal array of children count
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget	
+	block resetSizes()
+		__group_init_sizes(WIDGETPOINTER)
+		return this
+		
+	#Insert a new widget to the current @Class FGroup at the end of the widget
+	#index i.e as the last item
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget	
+	block insert(widget)
+		position = 0 #to be the last item
+		__group_insert(WIDGETPOINTER,widget.getWidgetPointer(),position,null)
+		redraw()
+		return this
+		
+	#Insert widget at the specified index 
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget	
+	block insertAt(widget,index)
+		__group_insert(WIDGETPOINTER,widget.getWidgetPointer(),(index-1),null)
+		redraw()
+		return this
+		
+	#Insert a widget after the specified beforewidget parameter widget.
+	#All it simply does is call the @Block insertAt(widget,find(beforewidget))
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block insertBefore(widget,beforewidget)
+		__group_insert(WIDGETPOINTER,widget.getWidgetPointer(),-1,beforewidget.getWidgetPointer())
+		return this
+		
+	#Remove the specified widget from the current @Class FGroup widget 
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget
+	block remove(widget)
+		__group_remove(WIDGETPOINTER,-1,widget.getWidgetPointer())
+		return this
+		
+	#Remove the widget at the specified index from the @Class FGroup widget	
+	#@Note It @Returns this which is the widget to allow the in-line usage 
+	#of the widget	
+	block removeAt(index)
+		__group_remove(WIDGETPOINTER,index,null)
+		return this
+	
+	#all the private attributes, fields and block not accessible #outside the class
+	private 
+	
+		#Create an instance of the FGroup Widget with 
+		#custom width and height to avoid invisible widget
+		block initialize()
+			WIDGETPOINTER = __init_group(WIDGET_X, WIDGET_Y, WIDGET_WIDTH, WIDGET_HEIGHT) 
+	
+	
+	
