@@ -51,6 +51,14 @@ simpleTitle = "
      ----------    ---    ---                   ---    ---              ------------    -------------    | Author : Azeez Adewale
                                                                                                          | 
 "
+modularTitle = "
+|\\               //||      		  OOO
+||	\\          // 	||     			O			O
+||	  \\       //  	||				O			O
+||		\\    //   	||				O			O
+||		  \\//    	||					OOO
+
+"
 
 verifierUrl = "https://www.simple-lang.sourceforge.net/verifiers"
 modularUrl = "http://localhost/simple-lang/modular/"
@@ -85,7 +93,7 @@ STALL_PACKAGE = "This package is pending verification. "+crlf+"If you wish to jo
 INSTALLATION_UNATHORIZED = "Installation not authorized "+crlf+"DONE"
 
 block main()
-	if cmdlen <= 1 { displayHelp() }
+	if cmdlen <= 0 { displayHelp() }
 	for a = 0 to cmdlen {
 		if stringEquals(cmdparams[a],"--shell",false) or stringEquals(cmdparams[a],"-su",false) shell() break
 		elif stringEquals(cmdparams[a],"--help",false) or stringEquals(cmdparams[a],"-h",false) or stringEquals(cmdparams[a],"--h",false) displayHelp()
