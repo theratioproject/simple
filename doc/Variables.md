@@ -66,4 +66,4 @@ The above example, increases the  value of __n__ if it is less than (<) 10.
 Take for example, we have a variable, *a* which hold the value of 9. Traditionally, we can do this as `n = n + 1`.That is, n is equal to the current value of n + 1 ( n = 9 + 1). But, we can do this in a more simpler form: `n += 1`. The **=** represents n. The same applies to other arithmetical methods.
 
 ### Replacing a variable's value.
-In this case, we're referrinh to the LIST
+In this case, we're referrinh to the **list** variable type. Using the *+=* operator, replaces the current value of the list with the new one passed. Let's look at an example.
