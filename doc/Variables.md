@@ -70,4 +70,8 @@ In this case, we're referrinh to the **list** variable type. Using the *+=* oper
 ```
 myList = ["yam", "beans", "Mac"]
 # display myList returns - yam, beans and Mac
+myList += ["bread", "butter", "jam"]
+# display myList returns - bread, butter and jam.
+# Total replacements just took place.
 ```
+Don't worry, we'll discuss List in a later chapter entirely, discussing how to add, remove, get keys and reverse list.
