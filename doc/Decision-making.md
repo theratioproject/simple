@@ -17,4 +17,15 @@ end
 In the above example, the first display statement is executed `if` n is less than 1 `elif` n == 1, the second display statement is executed else, the last display statement is executed.
 > The  `elif ` word, means `else if`, It is grabbed from Ruby.
 
-The `if-else` statement, also has it's sub statements enclosed in brackets only if the argyments are not enclosed in parenthesis **()**.
+The `if-else` statement, also has it's sub statements enclosed in brackets only if the argyments are not enclosed in parenthesis **()**. Example:
+
+```
+if n < 30 {
+	display "  it also less than 30"
+elif n > 30
+	display "  greater than 30"
+else 
+	display "flooped"
+}
+
+```
