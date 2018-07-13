@@ -39,4 +39,4 @@ while n < 10
 end
 
 ```
-The above example, loops 
+The above example, loops `n` while it's value is less than 10.
