@@ -51,4 +51,15 @@ while ( n <= 100 ) {
 > Note that For and while loops should have their sub statements enclosed in curly brackets only when the supplied argument is enclosed in parenthesis __()__.
 
 ## The do..while loop.
-This loops executes an action when there's a fulfillment of requirement. Like the name, `do` a particular action `while` the supplied requirement is satisfied.
+This loops executes an action when there's a fulfillment of requirement. Like the name, `do` a particular action `while` the supplied requirement is satisfied. Example of this:
+
+```
+n = 1
+
+do {
+	display " "+n + " "
+	n++
+} while  n < 10 
+
+```
+The above example,
