@@ -44,3 +44,4 @@ display 1 + 2 # displays 3.
 # Subtracting numbers:
 display 4 - 2 # displays 2.
 #multiplying numbers.
+display 2 
