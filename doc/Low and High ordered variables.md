@@ -35,4 +35,4 @@ Low level declaration looks more easy but is limited. Variables declared using t
 Variables declared using the high order technique on the other hand, are open to various methods embedded to parent class. For example, a list variable declared using the high order technique exhibits function like adding, removing, reversing and slicing etc while low level declared are not open to any function.
 
 ### When to use either technique ?
-Low level techniques, should be used only for basic programs e.g su
+Low level techniques, should be used only for basic programs e.g simple programs, guess games etc. While High level order technique on the other hand, 
