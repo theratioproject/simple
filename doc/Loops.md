@@ -15,4 +15,5 @@ for n = 8 to 12
 end
 
 ```
-The for loop statement looks quite different right ?. Well, the `to` word there is just a faster representation of this : `n <
+The for loop statement looks quite different right ?. Well, the `to` word there is just a faster representation of this : `n < 12; n++` as we''ll have in other languages.
+
