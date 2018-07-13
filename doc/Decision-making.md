@@ -29,3 +29,5 @@ else
 }
 
 ```
+
+> Note that it is compulsory to end the `if-else` statements with the `end` keyword to avoid errors.
