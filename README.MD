@@ -74,7 +74,7 @@ $ simple
 ```
 
 ### Getting started.
-You can check the unofficial documentation / guide to simple as the official documentation comes up. Get acquainted with SIMPLE's syntax [**HERE**](https://github.com/simple-lang/simple/blob/master/doc/Simple-Mini-Tutorial-v1.0.md)
+You can get started with SIMPLE-LANG by visiting the docs [here](https://github.com/simple-lang/simple/docs)
 ### Contributors.
 We love contributors. This is an open source project and needs the supports of the community extensively. Check out the [contributing guide](./CONTRIBUTORS.MD)
 ### License
