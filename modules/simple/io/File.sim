@@ -89,6 +89,10 @@ class File 	: Path
 		if !isString(newAbsoluteName) {
 			throwWithTitle(__IO_PACKAGE,newAbsoluteName+" - "+__IO_FILE_NOT_STRING)
 		}
+		tempPath = new Path(newAbsoluteName)
+		if tempPath.exists() {
+			
+		}
 		return _renameTo(__IO_FILE_PATH, newAbsoluteName)
 		
 	block changeNameTo(nname)
