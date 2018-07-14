@@ -59,7 +59,7 @@ addPackageUrl = modularUrl+"add-package.sim"
 simpleUpdateUrl = modularUrl+"simple-lang-upgrade.sim"
 packageUrl = modularUrl+"package-installer.sim"
 simpleDistDirectory = "/bin/"
-tempDirectory = getSystemEnvironment("TMPDIR")
+tempDirectory = getTemporaryDirectory()
 modulesDirectory = getSystemEnvironment("SIMPLE_MODULE_PATH")
 #blocks to find modules path
 
@@ -78,7 +78,6 @@ deleteTemp = true
 showInfo = false
 askPermission = true
 packageList = null
-
 cmdlen = lengthOf(cmdparams)
 type = "whichever"
 package = ""
