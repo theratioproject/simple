@@ -44,3 +44,4 @@ Variables can inherit classes and their method by using the `new` keyword follow
 
 ```
 
+## Inheriting classes that take-in parameters.
