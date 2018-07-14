@@ -201,7 +201,7 @@ block downloadPackage(downloadablePackage)
 		}
 		installedModule = new Directory(modulesDirectory+downloadablePackage[:name])
 		if installedModule.exists() {
-			recordModuleInstallation(downloadedPackage)
+			recordModuleInstallation(downloadablePackage)
 		else
 			@"failed to install "+downloadablePackage[:name]+" "+type+" "+version
 			__exit__
