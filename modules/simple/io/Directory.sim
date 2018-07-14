@@ -28,15 +28,7 @@ class Directory : Path
 	__IO_DIRECTORY_INVALID_PARAMETER = "Invalid parameter, expected Path, String or Directory"
 
 	block Directory(path)
-		if isPath(path)
-			__IO_DIRECTORY_PATH = path.toString()
-		else 
-			__IO_DIRECTORY_PATH = path
-			rawDirectoryPath = path
-		end
-		__IO_DIRECTORY_PATH = curePathSlashes(__IO_DIRECTORY_PATH)
-		directoryName = formatDirectoryName(__IO_DIRECTORY_PATH)
-		__IO_PATH = __IO_DIRECTORY_PATH
+		updateAttributes(path)
 		
 	/*
 		Create a directory if it does not exist, even if the parent directory is does not exist
