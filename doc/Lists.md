@@ -90,4 +90,5 @@ display myList # butter, eggs, jam, bread.
 ```
 
 ### Getting the value of a Listthrough the use of `indexOf()`.
-To g
+
+To get the specific value of a List item using it's index number, we pass the index number into a method `.indexOf`
