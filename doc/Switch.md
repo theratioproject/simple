@@ -18,4 +18,4 @@ The above code example, displays **it is two** if the inputed value enclosed in 
 If you observe, the above example can be re-written using the `if-else` syntax. 
 
 ## Use cases.
-The switch 
+The switch statement is useful in deciding large datas. It can be used for building programs like grading systems etc. The `switch`
