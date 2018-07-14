@@ -1,2 +1,2 @@
 # List.
-A list is a data type that holds variables of all type be it character, string, function, number etc. O
+A list is a data type that holds variables of all type be it character, string, function, number etc. The members of this data type are enclosed in `[]`. They 
