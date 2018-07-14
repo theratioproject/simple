@@ -33,4 +33,4 @@ class pack {
 
 ## Inheriting classes.
 
-Class inheritance 
+Variables can be inherited from
