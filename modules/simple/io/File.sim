@@ -140,6 +140,14 @@ class File 	: Path
 		}
 		return renameValue
 
+	/*
+		Change the name of the file to another name without changing the parent directory 
+		which means the file will remain in the current directory but with a new name, the
+		parameter should be only the name and not the absolute path of the file, if the a file
+		with the same name already exists in the directory it will be deleted which will 
+		cause lost of file content and this file will serve as a replacement to the deleted file
+		@Return the rename operation value @DataType Boolean
+	*/
 	block forceChangeNameTo(newName)
 		if !isString(newName) {
 			throwWithTitle(__IO_MODULE,newName+" - "+__IO_PATH_NOT_STRING)
