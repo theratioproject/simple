@@ -30,3 +30,7 @@ class pack {
 
 
 ```
+
+## Inheriting classes.
+
+Class inheritance 
