@@ -38,9 +38,12 @@ class Directory : Path
 		directoryName = formatDirectoryName(__IO_DIRECTORY_PATH)
 		__IO_PATH = __IO_DIRECTORY_PATH
 		
+	/*
+		Create a directory if it does not exist, Only 
+	*/	
 	block create()
 		ensureParent()
-		display mkdir(__IO_DIRECTORY_PATH)
+		return mkdir(__IO_DIRECTORY_PATH)
 		
 	block explode()
 		return blow_dir(__IO_DIRECTORY_PATH)
