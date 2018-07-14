@@ -242,6 +242,7 @@ block recordModuleInstallation(downloadedPackage)
 		:website = downloadedPackage[:website],
 		:dynamicmodules = downloadedPackage[:dynamic_modules]
 	] 
+	add(packageList,downloadedPackageList)
 	@packageList
 
 block getSupportingModulesInfo(initialPackage)
