@@ -1,7 +1,7 @@
 # The Switch statement.
 The switch statement, is a replacement for `if-else` statements. The switch statement reduces the numerous `if-else` statement that might occur in large apps. In a `switch` statement, there are two compulsory parameters: `case` and `default`. The case replaces the `if-else` statement and the `default` represents the final `else` statement. Let's glance through an example so as to better explain the syntax:
 ```
-n = 1
+display "input your number : " read n 
 
 switch (n) 
 	case 2
@@ -13,4 +13,4 @@ switch (n)
 end 
 
 ```
-The above code example, displays **it is two** if the 
+The above code example, displays **it is two** if the inputed value enclosed in n is 2 else displays 
