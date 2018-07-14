@@ -509,6 +509,12 @@ block getTemporaryDirectory()
 	tempDirectory = getSystemEnvironment("TMPDIR")
 	if tempDirectory == "(null)" || tempDirectory == "" {
 		tempDirectory = getSystemEnvironment("TEMPDIR")
+		if tempDirectory == "(null)" || tempDirectory == "" {
+			tempDirectory = getSystemEnvironment("TMP")
+			if tempDirectory == "(null)" || tempDirectory == "" {
+				tempDirectory = getSystemEnvironment("TEMP")
+			}
+		}
 	}
 	if tempDirectory == "(null)" || tempDirectory == "" {
 		tDirectory = new Directory(System.UserDirectory+".simple_env/modular/")
