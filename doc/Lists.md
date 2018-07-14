@@ -39,4 +39,9 @@ call "simple/core/List.sim"
 
 myList = ["bread", "jam", "bacon", "eggs"]
 
+# To add butter to the list, we do that using the .push() method.
+
+myList.push("butter")
+
+
 ```
