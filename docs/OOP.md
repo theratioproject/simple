@@ -10,3 +10,12 @@ In simple-lang, object oriented programming is practiced. Certain `OOP` techniqu
 
 `Classes` are th e foundation of Object Oriented Programming, in simple-lang, `classes` are defined like this:
 
+```
+
+
+class Empty {
+
+}
+
+
+```
