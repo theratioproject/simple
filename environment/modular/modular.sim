@@ -208,7 +208,9 @@ block downloadPackage(downloadablePackage)
 		}
 		if deleteTemp {
 			downloadedPackage.delete()
-			#extractedPackage.delete()
+			extractedPackage.delete()
+			extractedPackage.delete()
+			extractedPackage.delete()
 		}
 	}
 	
