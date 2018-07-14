@@ -97,6 +97,8 @@ To get the specific value of a List item using it's index number, we pass the in
 
 call "simple/core/List.sim"
 
-myList = ["bread", "jam", "eggs"]
+myList = ["bread", "jam", "eggs", "butter"]
+
+display myList.indexOf(3)  # displays 
 
 ```
