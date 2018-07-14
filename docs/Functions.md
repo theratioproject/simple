@@ -22,7 +22,7 @@ sayHello() # displays "Hello !"
 
 Parameters in function blocks, are passed through when the function is called. Let's define a function that takes in a name as an argument and displays it:
 
-``` Display name.
+``` Name.sim -  Display name.
 
 block main()
     Greet("Abdul")
@@ -33,3 +33,4 @@ block Greet(name)
 end
 
 ```
+ 
