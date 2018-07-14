@@ -220,7 +220,7 @@ block moveContent(oldPath,newFolder)
 
 block recordModuleInstallation(downloadedPackage)
 	downloadedPackageList = []
-	downloadedPackageList["name"] = downloadablePackage[:name]
+	downloadedPackageList[1] = downloadablePackage[:name]
 	@downloadedPackageList
 
 
