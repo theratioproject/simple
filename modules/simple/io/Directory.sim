@@ -20,7 +20,7 @@ block mkdir(path)
 class Directory : Path
 
 	__IO_DIRECTORY_EXISTS = "The directory already exists you should remove the directory first"
-	__IO_PACKAGE = "simple.io.Directory"
+	__IO_MODULE = "simple.io.Directory"
 	__IO_DIRECTORY__NOT_EXISTS = "The directory does not exists"
 	__IO_DIRECTORY_EXISTS_DELETE = "exist and is been deleted"
 	__IO_DIRECTORY_DELETE = "The directory cannot be deleted"
@@ -166,7 +166,7 @@ class Directory : Path
 	block renameTo(newName)
 		tempPath = new Path(newName)
 		if tempPath.exists() {
-			throwWithTitle(__IO_PACKAGE,tempPath.toString()+" - "+__IO_DIRECTORY_EXISTS)
+			throwWithTitle(__IO_MODULE,tempPath.toString()+" - "+__IO_DIRECTORY_EXISTS)
 		}
 		return _renameTo(__IO_DIRECTORY_PATH,newName)
 		
@@ -180,9 +180,9 @@ class Directory : Path
 	block forceRenameTo(newName)
 		tempDir = new Directory(newName)
 		if tempDir.exists() {
-			warn(__IO_PACKAGE+" : "+tempDir.getPath()+" - "+__IO_DIRECTORY_EXISTS_DELETE)
+			warn(__IO_MODULE+" : "+tempDir.getPath()+" - "+__IO_DIRECTORY_EXISTS_DELETE)
 			if tempDir.delete() != true {
-				throwWithTitle(__IO_PACKAGE,tempDir.getPath()+" - "+__IO_DIRECTORY_DELETE)
+				throwWithTitle(__IO_MODULE,tempDir.getPath()+" - "+__IO_DIRECTORY_DELETE)
 			}
 		}
 		return _renameTo(__IO_DIRECTORY_PATH,newName)
@@ -260,13 +260,13 @@ class Directory : Path
 		elif isPath(destFolder)
 			tempDestFolder = new Directory(destFolder.toString())
 		elif !isDirectory(destFolder)
-			throwWithTitle(__IO_PACKAGE,destFolder+" - "+__IO_DIRECTORY_INVALID_PARAMETER)
+			throwWithTitle(__IO_MODULE,destFolder+" - "+__IO_DIRECTORY_INVALID_PARAMETER)
 		}
 		if !tempDestFolder.exists() {
 			if moveType {
 				tempDestFolder.create()
 			else
-				throwWithTitle(__IO_PACKAGE,destFolder+" - "+__IO_DIRECTORY__NOT_EXISTS)
+				throwWithTitle(__IO_MODULE,destFolder+" - "+__IO_DIRECTORY__NOT_EXISTS)
 			}
 		}
 		filesListLength = lengthOf(listFiles())
