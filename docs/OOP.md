@@ -66,4 +66,9 @@ end
 
 ```
 
-The above class defined, takes in a parameter
+The above class defined, takes in a parameter upon inheriting it. Example:
+
+```
+WITH REFERENCE TO THE ABOVE DEFINED CLASS.
+    
+
