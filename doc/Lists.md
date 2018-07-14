@@ -91,4 +91,12 @@ display myList # butter, eggs, jam, bread.
 
 ### Getting the value of a Listthrough the use of `indexOf()`.
 
-To get the specific value of a List item using it's index number, we pass the index number into a method `.indexOf` and it returns the value holding that `indexNumber`. Let's get the value of
+To get the specific value of a List item using it's index number, we pass the index number into a method `.indexOf` and it returns the value holding that `indexNumber`. Let's get the value whose index number is *3* in our List.
+
+```
+
+call "simple/core/List.sim"
+
+myList = ["bread", "jam", "eggs"]
+
+```
