@@ -198,7 +198,6 @@ block moveContent(oldPath,newFolder)
 	tempDir = new Directory(oldPath)
 	if tempDir.exists() {
 		tempDir.forceMoveContentTo(newFolder)
-		@"yea yea"
 	}
 	
 	
