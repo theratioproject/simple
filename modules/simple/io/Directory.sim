@@ -332,5 +332,14 @@ class Directory : Path
 			pd = new Directory(tempDir) pd.addChild(__IO_DIRECTORY_PATH)
 			if (!pd.exists()) pd.create() else mkdir(pd.getPendingChildern()[0]) end
 		
-		
+		block updateAttributes(path)
+			if isPath(path)
+			__IO_DIRECTORY_PATH = path.toString()
+			else 
+				__IO_DIRECTORY_PATH = path
+				rawDirectoryPath = path
+			end
+			__IO_DIRECTORY_PATH = curePathSlashes(__IO_DIRECTORY_PATH)
+			directoryName = formatDirectoryName(__IO_DIRECTORY_PATH)
+			__IO_PATH = __IO_DIRECTORY_PATH
 		
