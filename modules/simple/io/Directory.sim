@@ -303,6 +303,7 @@ class Directory : Path
 		
 		block ensureParent() 
 			dir = removeString(__IO_DIRECTORY_PATH,lastStringAfterChar(__IO_DIRECTORY_PATH, __IO_PATH_SYSTEM_SLASH))
+			@"it : "+dir
 			pd = new Directory(dir) pd.addChild(__IO_DIRECTORY_PATH)
 			if (!pd.exists()) pd.create() else mkdir(pd.getPendingChildern()[0]) end
 		
