@@ -121,4 +121,10 @@ self.fish # this displayed The self fish is Titus
 
  ## The `pri vate` block.
  
- The 
+ The `private` block in a class is a part of the class that cannot be accessed anywhere outside the class. Example:
+
+ ```
+
+
+
+ ```
