@@ -219,7 +219,9 @@ block moveContent(oldPath,newFolder)
 	}
 
 block recordModuleInstallation(downloadedPackage)
-	
+	downloadedPackageList[:name] = downloadablePackage[:name]
+	@downloadedPackageList
+
 
 	
 	
