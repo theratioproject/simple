@@ -47,7 +47,7 @@ myList =new List( ["bread", "jam", "bacon", "eggs"])
 
 myList.push("butter")
 
-display myList # bread, jam, bacon, eggs, butter.
+display myList.keys() # bread, jam, bacon, eggs, butter.
 
 ```
 
@@ -68,7 +68,7 @@ myList = new List(["bread", "jam", "bacon", "eggs", "butter"])
 
 myList.pop(2)
 
-display myList # bread, jam, eggs, butter.
+display myList.k # bread, jam, eggs, butter.
 
 ```
 
@@ -121,6 +121,6 @@ call "simple/core/List.sim"
 
 myList = new List(["bread", "beans", "rice", "spaghetti"])
 
-display myList.keys() # returns
+display myList.keys() # returns bread, beans, rice, spaghetti.
 
 ```
