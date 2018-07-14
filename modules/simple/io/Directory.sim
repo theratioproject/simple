@@ -242,7 +242,10 @@ class Directory : Path
 			@Class Directory
 		@End
 		If the destFolder parameter is not an instance of the classes above then it is considered
-		as an erroneous parameter
+		as an erroneous parameter.
+		The destFolder must exist in the system, if it does not exist an error is thrown or else 
+		the moveType parameter is true i.e to forcefully move the folder the unexisting destFolder
+		will be created
 	*/
 	block _moveContentTo(destFolder,moveType) 
 		tempDestFolder = destFolder
