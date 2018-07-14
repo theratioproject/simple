@@ -206,8 +206,6 @@ block downloadPackage(downloadablePackage)
 			@"failed to install "+downloadablePackage[:name]+" "+type+" "+version
 			__exit__
 		}
-		downloadedPackageZip.closeZip()
-		@"yea yea"
 		if deleteTemp {
 			downloadedPackage.delete()
 			extractedPackage.delete()
