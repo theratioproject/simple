@@ -222,13 +222,11 @@ block recordModuleInstallation(downloadedPackage)
 	downloadedPackageList = [:name = downloadedPackage[:name],
 		:title = downloadedPackage[:title],
 		:version = downloadedPackage[:version],
-		:date = downloadedPackage[:arch],
+		:date = downloadedPackage[:date],
 		:arch = downloadedPackage[:arch],
 		:dynamicmodules = "none"
 	] 
 	@downloadedPackageList
-	@""
-	@downloadedPackage
 
 
 	
