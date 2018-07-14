@@ -48,4 +48,10 @@ Variables can inherit classes and their method by using the `new` keyword follow
 
 From the previous chapters, we've seen the declaration of   `List` and it follows the inheriting of class but with parameters and the question arise - how is that possible ?
 
-To accomplish that, a similar block is defined 
+To accomplish that, a similar block is defined: Let's define a class example that exhibits the above said:
+
+```
+
+class 
+
+```
