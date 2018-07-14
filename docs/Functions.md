@@ -8,4 +8,4 @@ end
 ```
 ---
 
-Functions are defined with a prefix `block` followed by the function name with a bracie
+Functions are defined with a prefix `block` followed by the function name with a bracket which  can either have parameters or not. The above function can be called to render its 
