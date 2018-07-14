@@ -39,4 +39,5 @@ end
 ```
  Running the above examples gives out "Greetings Abdul". 
 
- ## The
+ ## The `main()` block.
+ In the previous example above, we defined a block `main()`. 
