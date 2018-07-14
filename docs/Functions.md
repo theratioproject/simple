@@ -20,4 +20,4 @@ sayHello() # displays "Hello !"
 
 ## Functions with parameters.
 
-Parameters in function blocks, are 
+Parameters in function blocks, are passed through when the function is called. Let's define a function that takes in 
