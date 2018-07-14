@@ -15,3 +15,4 @@ end
 ```
 The above code example, displays **it is two** if the inputed value enclosed in n is 2 else displays **it is three** if the inputed value is 3 else returns a `default` message: **I don't know but it's " +n**.
 
+If you observe, the above example can be re-written using the `if-else` syntax.
