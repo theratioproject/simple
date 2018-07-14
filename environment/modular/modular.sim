@@ -199,8 +199,6 @@ block downloadPackage(downloadablePackage)
 			@"installing "+downloadablePackage[:name]+" module..."
 			moveContent(extractedPackage.getPath()+"/modules/",modulesDirectory)
 		}
-		downloadedPackageZip.closeZip()
-		@"yea yea"
 		installedModule = new Directory(modulesDirectory+downloadablePackage[:name])
 		if installedModule.exists() {
 			#recordModuleInstallation(downloadedPackage)
@@ -208,6 +206,8 @@ block downloadPackage(downloadablePackage)
 			@"failed to install "+downloadablePackage[:name]+" "+type+" "+version
 			__exit__
 		}
+		downloadedPackageZip.closeZip()
+		@"yea yea"
 		if deleteTemp {
 			downloadedPackage.delete()
 			extractedPackage.delete()
