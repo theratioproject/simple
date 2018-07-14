@@ -200,7 +200,7 @@ block downloadPackage(downloadablePackage)
 			moveContent(extractedPackage.getPath()+"/modules/",modulesDirectory)
 		}
 		if deleteTemp {
-			downloadedPackageZip.delete()
+			downloadedPackage.delete()
 			extractedPackage.delete()
 		}
 		installedModule = new Directory(modulesDirectory+downloadablePackage[:name])
