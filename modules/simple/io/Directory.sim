@@ -302,10 +302,13 @@ class Directory : Path
 		childrenToCreate = []
 		
 		block ensureParent() 
-			tempDir = removeLastChar(dir)
-			dir = removeString(__IO_DIRECTORY_PATH,lastStringAfterChar(__IO_DIRECTORY_PATH, __IO_PATH_SYSTEM_SLASH))
-			@"it : "+dir
-			pd = new Directory(dir) pd.addChild(__IO_DIRECTORY_PATH)
+			tempDir = __IO_DIRECTORY_PATH
+			if stringEndsWith(__IO_DIRECTORY_PATH,__IO_PATH_SYSTEM_SLASH) {
+				tempDir = removeLastChar(tempDir)
+			}
+			tempDir = removeString(tempDir,lastStringAfterChar(tempDir, __IO_PATH_SYSTEM_SLASH))
+			@"it : "+tempDir
+			pd = new Directory(tempDir) pd.addChild(__IO_DIRECTORY_PATH)
 			if (!pd.exists()) pd.create() else mkdir(pd.getPendingChildern()[0]) end
 		
 		
