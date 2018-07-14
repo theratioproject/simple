@@ -88,6 +88,7 @@ class Directory : Path
 		if exists() {
 			if isWindows() {
 				cmds = 'rmdir /S /Q "'+__IO_DIRECTORY_PATH+'" '
+				@cmds
 				__exec(cmds)
 			elif isLinux()
 				__exec('rm -rf ' +__IO_DIRECTORY_PATH)	
