@@ -91,11 +91,11 @@ class File 	: Path
 		if !isString(newAbsoluteName) {
 			throwWithTitle(__IO_MODULE,newAbsoluteName+" - "+__IO_PATH_NOT_STRING)
 		}
-		tempPath = new File(newAbsoluteName)
+		tempPath = new Path(newAbsoluteName)
 		if tempPath.exists() {
-			throwWithTitle(__IO_MODULE,tempPath.absolutePath()+" - "+__IO_FILE_EXISTS)
+			throwWithTitle(__IO_MODULE,tempPath.toString()+" - "+__IO_FILE_EXISTS)
 		}
-		renameValue = _renameTo(__IO_FILE_PATH, tempPath.absolutePath())
+		renameValue = _renameTo(__IO_FILE_PATH, tempPath.toString())
 		if renameValue {
 			updateAttributes(tempPath)
 		}
@@ -127,11 +127,11 @@ class File 	: Path
 		if !isString(newAbsoluteName) {
 			throwWithTitle(__IO_MODULE,newAbsoluteName+" - "+__IO_PATH_NOT_STRING)
 		}
-		tempPath = new Path(newAbsoluteName)
+		tempPath = new File(newAbsoluteName)
 		if tempPath.exists() {
-			warn(__IO_MODULE+" : "+tempPath.toString()+" - "+__IO_PATH_EXISTS_DELETE)
+			warn(__IO_MODULE+" : "+tempPath.absolutePath()+" - "+__IO_PATH_EXISTS_DELETE)
 			if tempPath.delete() != true {
-				throwWithTitle(__IO_MODULE,tempPath.toString()+" - "+__IO_FILE_DELETE )
+				throwWithTitle(__IO_MODULE,tempPath.absolutePath()+" - "+__IO_FILE_DELETE )
 			}
 		}
 		renameValue = _renameTo(__IO_FILE_PATH, tempPath.toString())
