@@ -91,7 +91,7 @@ class File 	: Path
 		}
 		tempPath = new Path(newAbsoluteName)
 		if tempPath.exists() {
-			throwWithTitle(__IO_MODULE)
+			throwWithTitle(__IO_MODULE,tempPath.toString()+" - "+__IO_FILE_EXISTS)
 		}
 		return _renameTo(__IO_FILE_PATH, newAbsoluteName)
 		
