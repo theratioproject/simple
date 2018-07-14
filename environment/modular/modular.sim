@@ -192,7 +192,7 @@ block downloadPackage(downloadablePackage)
 		extractedPackage = new Directory(modulesDirectory+hash(downloadablePackage[:name]))
 		downloadedPackageZip.extractAll(extractedPackage.getPath())
 		tempDyModuleDir = new Directory(extractedPackage.getPath()+"/dynamic_modules/")
-		@tempDyModuleDir.listfiles()
+		@lengthOf(tempDyModuleDir.listFiles())
 		__exit__
 		if extractedPackage.exists() {
 			@"installing "+downloadablePackage[:name]+" documentation..."
