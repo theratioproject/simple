@@ -62,3 +62,7 @@ Assuming, we want to remove *bacon* from our list, we execute that by passing th
 call "simple/core/List.sim"
 
 myList = ["bread", "jam", "bacon", "eggs", "butter"]
+
+# Removing bacon where the index number is 2.
+
+myList.pop(2)
