@@ -55,4 +55,10 @@ To remove the value from an array, we must know the `indexNumber` of the value t
 
 > Note that index numbers of lists start from 0.
 
-Assuming, we want to remove *bacon* from our list, we execute that by passing the `indexNumber` as an argument 
+Assuming, we want to remove *bacon* from our list, we execute that by passing the `indexNumber` as an argument in the `.pop()` method.
+
+``` Removing bacon.
+
+call "simple/core/List.sim"
+
+myList = ["bread", "jam", "bacon", "eggs", "butter"]
