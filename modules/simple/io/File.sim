@@ -85,6 +85,9 @@ class File 	: Path
 		end
 		return true
 		
+	/*
+
+	*/	
 	block renameTo(newAbsoluteName)
 		if !isString(newAbsoluteName) {
 			throwWithTitle(__IO_MODULE,newAbsoluteName+" - "+__IO_PATH_NOT_STRING)
