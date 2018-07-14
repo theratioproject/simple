@@ -164,6 +164,9 @@ class Directory : Path
 		@Return the rename operation value @DataType Number
 	*/
 	block renameTo(newName)
+		if !isString(newAbsoluteName) {
+			throwWithTitle(__IO_MODULE,newAbsoluteName+" - "+__IO_PATH_NOT_STRING)
+		}
 		tempPath = new Path(newName)
 		if tempPath.exists() {
 			throwWithTitle(__IO_MODULE,tempPath.toString()+" - "+__IO_DIRECTORY_EXISTS)
@@ -178,6 +181,9 @@ class Directory : Path
 		@Return the rename operation value @DataType Number
 	*/
 	block forceRenameTo(newName)
+		if !isString(newAbsoluteName) {
+			throwWithTitle(__IO_MODULE,newAbsoluteName+" - "+__IO_PATH_NOT_STRING)
+		}
 		tempDir = new Directory(newName)
 		if tempDir.exists() {
 			warn(__IO_MODULE+" : "+tempDir.getPath()+" - "+__IO_DIRECTORY_EXISTS_DELETE)
