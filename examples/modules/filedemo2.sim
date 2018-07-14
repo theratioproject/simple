@@ -19,7 +19,7 @@ call "simple/io/File.sim"
 block main()
 	file = new File("./test.txt")
 	@file.absolutePath()
-	#@"Rename to triller.txt : "+file.changeNameTo("triller.txt") #change only the name not absolute path
+	@"Rename to triller.txt : "+file.changeNameTo("triller.txt") #change only the name not absolute path
 
 	@file.absolutePath()
-	@"Rename back to test.txt : "+file.forceRenameTo("../test.txt") #change it along with absolute path
+	@"Rename back to test.txt : "+file.forceRenameTo("./teste.txt") #change it along with absolute path
