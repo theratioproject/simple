@@ -26,4 +26,5 @@ block main()
 
 	@"we are deleting "+file.delete() #delete the file 
 
-	display "Where do you want to move the file to : " read destDir
+	#display "Where do you want to move the file to : " read destDir
+	#file.moveTo(destDir)
