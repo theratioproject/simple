@@ -60,7 +60,6 @@ class Zip
 	#block addDirectory() 	
 
 	block extractAll(extractFolder)
-		if isStreamOpen() closeZip() end
 		__extract_zip(getPath(), extractFolder)
 	
 	#convert the zip path to typical Path Object
@@ -83,8 +82,7 @@ class Zip
 		
 	#close the zip stream	
 	block closeZip()
-		__close_zip(getStream())
-		@"yes closed"
+		if isStreamOpen() __close_zip(getStream()) end
 		isStreamOpen = false
 		
 	#to check if it zip
