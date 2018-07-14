@@ -7,3 +7,4 @@ In simple-lang, object oriented programming is practiced. Certain `OOP` techniqu
 - The use of `self ` and `this`.
 
 ## Classes.
+`Classes` are th e foundation of Object Oriented Programming,
