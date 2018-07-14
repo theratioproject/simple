@@ -165,6 +165,7 @@ class File 	: Path
 	*/
 	block moveTo(newFolder)
 		if isDirectory(newFolder) {
+			@"yea it directory : "+newFolder.getPath()
 			newFolder = newFolder.getPath()
 		}
 		return _moveTo(newFolder,false)
