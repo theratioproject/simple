@@ -18,4 +18,5 @@ sayHello() # displays "Hello !"
 
 ```
 
-## Functions 
+## Functions with parameters.
+Parameters 
