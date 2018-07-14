@@ -24,7 +24,7 @@ block main()
 	@file.absolutePath()
 	@"Rename back to test.txt : "+file.forceRenameTo("./teste.txt") #change it along with absolute path
 
-	@"we are deleting "+file.delete() #delete the file 
+	#@"we are deleting "+file.delete() #delete the file 
 
-	#display "Where do you want to move the file to : " read destDir
-	#file.moveTo(destDir)
+	display "Where do you want to move the file to : " read destDir
+	file._moveTo(destDir,false)
