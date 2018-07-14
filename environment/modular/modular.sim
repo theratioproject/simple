@@ -223,6 +223,7 @@ block recordModuleInstallation(downloadedPackage)
 		:title = downloadedPackage[:title],
 		:version = downloadedPackage[:version],
 		:date = downloadedPackage[:date],
+		:license = downloadedPackage[:license],
 		:arch = downloadedPackage[:arch],
 		:dynamicmodules = "none"
 	] 
