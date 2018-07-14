@@ -65,6 +65,7 @@ modulesDirectory = getSystemEnvironment("SIMPLE_MODULE_PATH")
 deleteTemp = true
 showInfo = false
 askPermission = true
+documentationDirectory = modulesDirectory+"../docs/"
 
 if isWindows() {
 	simpleDistDirectory = "C:\Simple\"
