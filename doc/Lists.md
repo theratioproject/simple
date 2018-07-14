@@ -55,4 +55,4 @@ To remove the value from an array, we must know the `indexNumber` of the value t
 
 > Note that index numbers of lists start from 0.
 
-Assuming, we want to remove *bacon* from our list, we do that by 
+Assuming, we want to remove *bacon* from our list, we execute that by passing the `indexNumber` as an argument 
