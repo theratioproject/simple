@@ -148,4 +148,4 @@ class inprivate {
 
 ## Extending classes.
 
-In simple-lang, class also extend each other. This is done by placing a colon __:__ 
+In simple-lang, class also extend each other. This is done by placing a colon __:__  between extending classe
