@@ -84,4 +84,5 @@ block main()
 
 ```
 
-The 
+The `main()` block above is responsible for rendering the above codes as all functions used there are inherited from the modules as situated above.
+
