@@ -50,4 +50,5 @@ display myList # bread, jam, bacon, eggs, butter.
 
 ```
 
-### Removing a value from the list 
+### Removing a value from the list using the .pop() method.
+To remove the value from an array, we must know the indexNumber
