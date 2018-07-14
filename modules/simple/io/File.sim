@@ -86,7 +86,10 @@ class File 	: Path
 		return true
 		
 	/*
-
+		Change the name of a file to another. Only string is allowed as 
+		parameter and the new file name must not exists else an error is thrown,
+		to forcefully rename a file @Block forceRenameTo(newName) should be called
+		@Return the rename operation value @DataType Boolean
 	*/	
 	block renameTo(newAbsoluteName)
 		if !isString(newAbsoluteName) {
