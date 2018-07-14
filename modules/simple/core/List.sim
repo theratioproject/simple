@@ -132,8 +132,8 @@ class List : Object
 
 # Still needs some little adjustments and changes.
     block pop(x)
-        list[x] = ""
-        return list
+        __OBJECT[x] = ""
+        return __OBJECT
 
     block keys()
         return __OBJECT
@@ -142,10 +142,10 @@ class List : Object
         x = 0
         reverserArray = []
         do {
-            reverserArray + list[lengthOf(list) - x] x++
-        } while x < lengthOf(list) + 1
-        list = reverserArray
-        return list
+            reverserArray + __OBJECT[lengthOf(__OBJECT) - x] x++
+        } while x < lengthOf(__OBJECT) + 1
+        __OBJECT = reverserArray
+        return __OBJECT
     end
 
 /* Array slice function. Supports 2 parameter alone, if you intend to pass an argument alone, use the .indexOf() method */
@@ -154,12 +154,12 @@ block slice(x, y)
         if (x = 0 && y = 0)
              return "[]"
             end
-        if (list[x + 1] == list[y])
-            return list[x]
-        elif (list[x + 1]  != list[y])
+        if (__OBJECT[x + 1] == __OBJECT[y])
+            return __OBJECT[x]
+        elif (__OBJECT[x + 1]  != __OBJECT[y])
             do {
-                return list[x++ - 1]
-            } while x < list[y]
+                return __OBJECT[x++ - 1]
+            } while x < __OBJECT[y]
         else
             return "[]"
             end        

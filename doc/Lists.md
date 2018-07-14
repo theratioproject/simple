@@ -28,7 +28,7 @@ Before we dive deep, let's list the basics methods attached to the `List` data t
 # Remember to call the List module.
 call "simple/core/List.sim"
 
-myList = ["bread", "jam", "bacon", "eggs"]
+myList = new List(["bread", "jam", "bacon", "eggs"])
 
 ```
 The above is our declared List which we'll be using to showcase the methods attached to the `List` data type.
@@ -41,7 +41,7 @@ To add a new value to the `list`, we use the method `.push(x)`, where `x` is eit
 
 call "simple/core/List.sim"
 
-myList = ["bread", "jam", "bacon", "eggs"]
+myList =new List( ["bread", "jam", "bacon", "eggs"])
 
 # To add butter to the list, we do that using the .push() method.
 
@@ -62,7 +62,7 @@ Assuming, we want to remove *bacon* from our list, we execute that by passing th
 
 call "simple/core/List.sim"
 
-myList = ["bread", "jam", "bacon", "eggs", "butter"]
+myList = new List(["bread", "jam", "bacon", "eggs", "butter"])
 
 # Removing bacon where the index number is 2.
 
@@ -79,7 +79,7 @@ When we say  reversing a list, we actually move the elements from ascending to d
 
 call "simple/core/List.sim"
 
-myList = ["bread", "jam", "eggs", "butter"]
+myList =new List( ["bread", "jam", "eggs", "butter"])
 
 # reversing the list.
 
@@ -97,7 +97,7 @@ To get the specific value of a List item using it's index number, we pass the in
 
 call "simple/core/List.sim"
 
-myList = ["bread", "jam", "eggs", "butter"]
+myList = new List(["bread", "jam", "eggs", "butter"])
 
 display myList.indexOf(3)  # displays "butter".
 
@@ -105,4 +105,13 @@ display myList.indexOf(3)  # displays "butter".
 
 ### Slicing through a List by using the `.slice()` method.
 
-This method takes two arguments whereas the `list` is sliced through the arguments passed in it. Let's take for example, we want to slice through
+This method takes two arguments whereas the `list` is sliced through the arguments passed in it.
+
+```
+
+<!-- Example loading ! -->
+
+```
+
+### Getting the members of the List using `.keys()` method.
+To return or get a list of all members of the list, we use the `.keys()` method.
