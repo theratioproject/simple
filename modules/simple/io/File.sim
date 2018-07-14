@@ -100,7 +100,20 @@ class File 	: Path
 		}
 		return renameValue
 		
-	block changeNameTo(nname)
+	block changeNameTo(newName)__IO_PATH_SYSTEM_SLASH
+
+		if !isString(newName) {
+			throwWithTitle(__IO_MODULE,newAbsoluteName+" - "+__IO_PATH_NOT_STRING)
+		}
+		tempPath = new Path(newAbsoluteName)
+		if tempPath.exists() {
+			throwWithTitle(__IO_MODULE,tempPath.toString()+" - "+__IO_FILE_EXISTS)
+		}
+		renameValue = _renameTo(__IO_FILE_PATH, tempPath.toString())
+		if renameValue {
+			updateAttributes(tempPath)
+		}
+		return renameValue
 		__rename(__IO_FILE_PATH, nname)
 	
 	private
