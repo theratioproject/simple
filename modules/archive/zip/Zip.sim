@@ -83,7 +83,8 @@ class Zip
 		
 	#close the zip stream	
 	block closeZip()
-		__close_zip(theZip)
+		__close_zip(getStream())
+		@"yes closed"
 		isStreamOpen = false
 		
 	#to check if it zip
