@@ -125,6 +125,10 @@ self.fish # this displayed The self fish is Titus
 
  ```
 
+ i = new inPrivate
+ i.noteller # 
+ i.teller() # Error occurs.
+
 class inprivate {
 
 	block noteller(){
