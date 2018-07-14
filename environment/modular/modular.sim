@@ -201,7 +201,7 @@ block downloadPackage(downloadablePackage)
 		}
 		installedModule = new Directory(modulesDirectory+package)
 		if installedModule.exists() {
-			
+			recordModuleInstallation(downloadedPackage)
 		}
 	}
 	
