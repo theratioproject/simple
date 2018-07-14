@@ -68,11 +68,12 @@ elif isLinux()
 	simpleDistDirectory = "/usr/bin/simple/"
 }
 
+documentationDirectory = modulesDirectory+"../docs/"
+dynamicModulesDirectory = modulesDirectory+"/dynamic_modules/"
 deleteTemp = true
 showInfo = false
 askPermission = true
-documentationDirectory = modulesDirectory+"../docs/"
-dynamicModulesDirectory = modulesDirectory+"/dynamic_modules/"
+packageList = null
 
 cmdlen = lengthOf(cmdparams)
 type = "whichever"
@@ -241,7 +242,7 @@ block recordModuleInstallation(downloadedPackage)
 		:website = downloadedPackage[:website],
 		:dynamicmodules = downloadedPackage[:dynamic_modules]
 	] 
-	@modulesList
+	@packageList
 
 block getSupportingModulesInfo(initialPackage)
 	allDownloadablePackages = [initialPackage]
