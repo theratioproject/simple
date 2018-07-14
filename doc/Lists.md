@@ -69,3 +69,5 @@ myList = ["bread", "jam", "bacon", "eggs", "butter"]
 myList.pop(2)
 
 display myList # bread, jam, eggs, butter.
+
+```
