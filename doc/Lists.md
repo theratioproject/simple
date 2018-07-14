@@ -72,4 +72,5 @@ display myList # bread, jam, eggs, butter.
 
 ```
 
-### Reversing the List using the `.reverse
+### Reversing the List using the `.reverse()` method.
+When we say  reversing a list, we actually 
