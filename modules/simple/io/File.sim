@@ -86,10 +86,10 @@ class File 	: Path
 		return true
 		
 	block renameTo(newAbsoluteName)
-		if !isString(destFolder) {
+		if !isString(newAbsoluteName) {
 			throwWithTitle(__IO_PACKAGE,newAbsoluteName+" - "+__IO_FILE_NOT_STRING)
 		}
-		return _renameTo(__IO_FILE_PATH, nname)
+		return _renameTo(__IO_FILE_PATH, newAbsoluteName)
 		
 	block changeNameTo(nname)
 		__rename(__IO_FILE_PATH, nname)
