@@ -41,4 +41,6 @@ Variables can inherit classes and their method by using the `new` keyword follow
 
     test = new Pack
 
+    
+
 ```
