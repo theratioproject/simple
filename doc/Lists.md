@@ -135,6 +135,8 @@ To get the length of the list, we use the `.length()` method. Example:
 
 call "simple/core/List.sim"
 
-myList = ["a]
+myList = ["a", "b","c","d","e"]
+
+display test.length() # 4
 
 ```
