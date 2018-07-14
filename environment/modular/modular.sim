@@ -62,16 +62,17 @@ simpleDistDirectory = "/bin/"
 modulesDirectory = getSystemEnvironment("SIMPLE_MODULE_PATH")
 #blocks to find modules path
 
-deleteTemp = true
-showInfo = false
-askPermission = true
-documentationDirectory = modulesDirectory+"../docs/"
-
 if isWindows() {
 	simpleDistDirectory = "C:\Simple\"
 elif isLinux()
 	simpleDistDirectory = "/usr/bin/simple/"
 }
+
+deleteTemp = true
+showInfo = false
+askPermission = true
+documentationDirectory = modulesDirectory+"../docs/"
+dynamicModulesDirectory = modulesDirectory+"/dynamic_modules/"
 
 cmdlen = lengthOf(cmdparams)
 type = "whichever"
