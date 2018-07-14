@@ -68,7 +68,7 @@ myList = new List(["bread", "jam", "bacon", "eggs", "butter"])
 
 myList.pop(2)
 
-display myList.k # bread, jam, eggs, butter.
+display myList.keys() # bread, jam, eggs, butter.
 
 ```
 
@@ -85,7 +85,7 @@ myList =new List( ["bread", "jam", "eggs", "butter"])
 
 myList.reverse()
 
-display myList # butter, eggs, jam, bread.
+display myList.keys() # butter, eggs, jam, bread.
 
 ```
 
@@ -114,6 +114,7 @@ This method takes two arguments whereas the `list` is sliced through the argumen
 ```
 
 ### Getting the members of the List using `.keys()` method.
+
 To return or get a list of all members of the list, we use the `.keys()` method. To get all members of our list, `myList`, we do this:
 ```
 
@@ -124,3 +125,5 @@ myList = new List(["bread", "beans", "rice", "spaghetti"])
 display myList.keys() # returns bread, beans, rice, spaghetti.
 
 ```
+
+###
