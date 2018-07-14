@@ -143,3 +143,5 @@ class inprivate {
 
 
  ```
+ 
+ This blocks are useful when building certain modules that requires certain variables or constants 
