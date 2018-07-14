@@ -22,3 +22,5 @@ Before we dive deep, let's list the basics methods attached to the `List` data t
 - .slice()
 - .keys()
 
+``` Declaring a new List.
+# Remember to call the List module.
