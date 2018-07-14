@@ -21,6 +21,7 @@ Before we dive deep, let's list the basics methods attached to the `List` data t
 - .indexOf()
 - .slice()
 - .keys()
+- .length()
 
 ``` Declaring a new List.
 
