@@ -33,4 +33,4 @@ class pack {
 
 ## Inheriting classes.
 
-Variables can be inherited from
+Variables can inherit classes and their method by using the `new` keyword follow by the class name.
