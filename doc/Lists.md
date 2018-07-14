@@ -114,4 +114,7 @@ This method takes two arguments whereas the `list` is sliced through the argumen
 ```
 
 ### Getting the members of the List using `.keys()` method.
-To return or get a list of all members of the list, we use the `.keys()` method.
+To return or get a list of all members of the list, we use the `.keys()` method. To get all members of our list, `myList`, we do this:
+```
+
+```
