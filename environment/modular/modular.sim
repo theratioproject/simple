@@ -187,10 +187,15 @@ block downloadPackage(downloadablePackage)
 	downloadedPackage.execute()
 	if downloadedPackage.exists() {
 		downloadedPackageZip = new Zip(downloadedPackage.absolutePath(),"r")
-		extractedPackage = new Directory(modulesDirectory+hash(package))
+		extractedPackage = new Directory(modulesDirectory+hash(downloadablePackage[:name]))
 		downloadedPackageZip.extractAll(extractedPackage.getPath())
 		if extractedPackage.exists() {
-			moveContent(extractedPackage.getPath()+"/docs/",modulesDirectory+"/docs/")
+			@"installing "+downloadablePackage[:name]+" documentation..."
+			moveContent(extractedPackage.getPath()+"/docs/",modulesDirectory)
+			@"installing "+downloadablePackage[:name]+" the dynamic modules..."
+			moveContent(extractedPackage.getPath()+"/docs/",modulesDirectory)
+			@"installing "+downloadablePackage[:name]+" module..."
+			moveContent(extractedPackage.getPath()+"/modules/",modulesDirectory)
 		}
 	}
 	
