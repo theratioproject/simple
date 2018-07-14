@@ -244,8 +244,9 @@ block recordModuleInstallation(downloadedPackage)
 	add(packageList,downloadedPackageList)
 	list = new List(packageList)
 	depConf = new File(modulesDirectory+"/modules-dependencies.conf")
+	@depConf.readFileAsString()
 	if depConf.exists() {
-		depConf.write(list.toString())
+		#depConf.write(list.toString())
 	}
 
 block getSupportingModulesInfo(initialPackage)
