@@ -100,4 +100,4 @@ class Ocean
 		display "we called an internal block with this"
 
 ```
-The above example, is a  `class` named **Ocean** which has two methods: `displayFish(fish)` and `thisBlock()`. In the `displayFish(fish)` block, it takes a function parameter (fish) that is passed to it when a new variable inherits it. 
+The above example, is a  `class` named **Ocean** which has two methods: `displayFish(fish)` and `thisBlock()`. In the `displayFish(fish)` block, it takes a function parameter (fish) that is passed to it when a new variable inherits it.
