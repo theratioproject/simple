@@ -110,6 +110,6 @@ This method, is used to refer to a block within a class instead of calling the b
 This is used to refer to a variable declared outside the function. In the `displayFish(fish)` function, `self` is used as:
 ```
 
-
+self.fish # this displayed The self fish is Titus whereas titus is defined outside the
 
 ```
