@@ -10,4 +10,5 @@ display myList # bread, jam and egg.
 
 ```
 
-## Declaring Lis
+## Declaring List.
+As earlier discussed in [Low and High ordered variables.md]()
