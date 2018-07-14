@@ -29,6 +29,9 @@ class File 	: Path
 		
 	block name()
 		return lastStringAfterChar(__IO_FILE_PATH, getSystemSlash())
+
+	block getName() 
+		return name()
 		
 	block directory()
 		return removeString(__IO_FILE_PATH, getSystemSlash()+name())
@@ -156,7 +159,25 @@ class File 	: Path
 		return forceRenameTo(newName)
 
 	block _moveTo(newFolder,moveType) 
-		
+		__newFolder = newFolder
+		if isPath(newFolder) {
+			__newFolder = newFolder.toString()
+		else 
+			try {
+				newFolder.isADirectory()
+				__newFolder = __newFolder.getPath()
+			catch 
+			
+			}
+		}
+		if !stringEndsWith(__newFolder,getSystemSlash()) {
+			__newFolder += getSystemSlash()
+		}
+		if moveType {
+			return forceRenameTo(__newFolder+getSystemSlash()+getName())
+		else
+			return renameTo(__newFolder+getSystemSlash()+getName())
+		}
 	
 	private
 		__IO_FILE_PATH = "(null)"
