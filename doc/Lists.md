@@ -103,5 +103,6 @@ display myList.indexOf(3)  # displays "butter".
 
 ```
 
-### Slicing through a List.
-This
+### Slicing through a List by using the `.slice()` method.
+
+This method takes two arguments whereas the l
