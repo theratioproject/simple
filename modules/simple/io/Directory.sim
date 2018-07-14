@@ -39,7 +39,10 @@ class Directory : Path
 		__IO_PATH = __IO_DIRECTORY_PATH
 		
 	/*
-		Create a directory if it does not exist, Only 
+		Create a directory if it does not exist, even if the parent directory is does not exist
+		also it will be created too along with the directory
+		@Return the directory creation value which is true if successfull and false if it is not 
+		successfull @DataType boolean
 	*/	
 	block create()
 		ensureParent()
