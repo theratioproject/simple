@@ -113,6 +113,6 @@ This is used to refer to a variable declared outside the function. In the `displ
 self.fish # this displayed The self fish is Titus
                         # whereas titus is defined
                         # outside the function and not
-                        # the parameter passed througthe function.
+                        # the parameter passed through the function.
 
 ```
