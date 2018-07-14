@@ -102,7 +102,6 @@ class File 	: Path
 		
 	block changeNameTo(newName)__IO_PATH_SYSTEM_SLASH
 		newName = directory()+__IO_PATH_SYSTEM_SLASH+newName
-		@newName
 		return renameTo(newName)
 	
 	private
