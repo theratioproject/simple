@@ -45,3 +45,7 @@ Variables can inherit classes and their method by using the `new` keyword follow
 ```
 
 ## Inheriting classes that take-in parameters.
+
+From the previous chapters, we've seen the declaration of   `List` and it follows the inheriting of class but with parameters and the question arise - how is that possible ?
+
+
