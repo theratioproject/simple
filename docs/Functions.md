@@ -86,3 +86,6 @@ block main()
 
 The `main()` block above is responsible for rendering the above codes as all functions used there are inherited from the modules as situated above.
 
+---
+
+Functions are useful and can be implemented as methods in `class`. 
