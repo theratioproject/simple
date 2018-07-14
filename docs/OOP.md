@@ -106,4 +106,5 @@ The above example, is a  `class` named **Ocean** which has two methods: `display
 
 This method, is used to refer to a block within a class instead of calling the block.  The use of `this` will be useful in building complex simple programs.
 
-###
+### The `self` method.
+This is used to refer to a variable declared outside the function. 
