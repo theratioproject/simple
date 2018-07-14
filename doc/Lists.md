@@ -66,3 +66,5 @@ myList = ["bread", "jam", "bacon", "eggs", "butter"]
 # Removing bacon where the index number is 2.
 
 myList.pop(2)
+
+display myList # bread, jam, eggs, butter.
