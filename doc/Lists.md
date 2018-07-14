@@ -73,4 +73,5 @@ display myList # bread, jam, eggs, butter.
 ```
 
 ### Reversing the List using the `.reverse()` method.
-When we say  reversing a list, we actually 
+
+When we say  reversing a list, we actually move the elements from ascending to descending order and vice versa.
