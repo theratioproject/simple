@@ -40,4 +40,6 @@ end
  Running the above examples gives out "Greetings Abdul". 
 
  ## The `main()` block.
- In the previous example above, we defined a block `main()`. The block `main()`, is a block that should be defined when building certain programs. The `main()` block is responsible for rendering programs that consists mainly of functions with parameters / arguments.
+ In the previous example above, we defined a block `main()`. The block `main()`, is a block that should be defined when building certain programs. The `main()` block is responsible for rendering programs that consists mainly of functions with parameters / arguments. Let's look at an example where   `main()` is used:
+
+``` We'll be building a simple GUI app to show the function of `
