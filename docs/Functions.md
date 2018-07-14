@@ -14,5 +14,8 @@ Functions are defined with a prefix `block` followed by the function name with a
 
 ```
 
+sayHello() # displays "Hello !"
 
 ```
+
+## Functions 
