@@ -93,7 +93,6 @@ class Directory : Path
 			else
 			}
 		}
-		if exists() { @delete() }
 		
 			#failing so we resolve to system for now
 			#deleteFolderRecursively(this,false)
