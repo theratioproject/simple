@@ -76,3 +76,4 @@ myList = new List(["a", "b", "c'])
 myList.keys() # displays a b and c.
 
 ```
+The above is possible because a function with the same class name is defined and is responsible for th
