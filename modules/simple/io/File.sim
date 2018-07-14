@@ -131,7 +131,7 @@ class File 	: Path
 		if tempPath.exists() {
 			warn(__IO_MODULE,tempPath.toString()+" - "+__IO_PATH_EXISTS_DELETE)
 			if tempPath.delete() != true {
-				throwWithTitle(__IO_MODULE,tempPath.toString()+" - "+__IO_DIRECTORY_DELETE)
+				throwWithTitle(__IO_MODULE,tempPath.toString()+" - "+__IO_FILE_DELETE )
 			}
 		}
 		renameValue = _renameTo(__IO_FILE_PATH, tempPath.toString())
