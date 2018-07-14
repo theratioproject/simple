@@ -28,3 +28,5 @@ Before we dive deep, let's list the basics methods attached to the `List` data t
 
 myList = ["bread", "jam", "bacon", "eggs"]
 
+```
+The above is 
