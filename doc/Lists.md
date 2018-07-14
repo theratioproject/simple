@@ -29,4 +29,5 @@ Before we dive deep, let's list the basics methods attached to the `List` data t
 myList = ["bread", "jam", "bacon", "eggs"]
 
 ```
-The above is 
+The above is our declared List which we'll be using to showcase the methods attached to the `List` data type.
+### 
