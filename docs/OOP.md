@@ -104,4 +104,4 @@ The above example, is a  `class` named **Ocean** which has two methods: `display
 
 #### The `this` method.
 
-This method, is used to refer to the blok within the class instead of calling the block.
+This method, is used to refer to a block within a class instead of calling the block. 
