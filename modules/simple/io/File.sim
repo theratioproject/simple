@@ -154,6 +154,8 @@ class File 	: Path
 		}
 		newName = directory()+__IO_PATH_SYSTEM_SLASH+newName
 		return forceRenameTo(newName)
+
+	block _moveTo(newFolder,moveType)
 	
 	private
 		__IO_FILE_PATH = "(null)"
