@@ -171,7 +171,7 @@ class Directory : Path
 		if tempPath.exists() {
 			throwWithTitle(__IO_MODULE,tempPath.toString()+" - "+__IO_DIRECTORY_EXISTS)
 		}
-		renameValue = _renameTo(__IO_FILE_PATH, newName.toString())
+		renameValue = _renameTo(__IO_DIRECTORY_PATH, tempPath.toString())
 		if renameValue {
 			updateAttributes()
 		}
@@ -195,7 +195,11 @@ class Directory : Path
 				throwWithTitle(__IO_MODULE,tempDir.getPath()+" - "+__IO_DIRECTORY_DELETE)
 			}
 		}
-		return _renameTo(__IO_DIRECTORY_PATH,newName)
+		renameValue = _renameTo(__IO_DIRECTORY_PATH, tempDir.getPath())
+		if renameValue {
+			updateAttributes()
+		}
+		return renameValue
 		
 	/*
 		Move a directory from one folder to another. This operation will require the 
