@@ -19,4 +19,5 @@ sayHello() # displays "Hello !"
 ```
 
 ## Functions with parameters.
-Parameters 
+
+Parameters in function blocks, are 
