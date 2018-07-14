@@ -22,4 +22,6 @@ block main()
 	@"Rename to triller.txt : "+file.changeNameTo("triller.txt") #change only the name not absolute path
 
 	@file.absolutePath()
-	#@"Rename back to test.txt : "+file.forceRenameTo("./teste.txt") #change it along with absolute path
+	@"Rename back to test.txt : "+file.forceRenameTo("./teste.txt") #change it along with absolute path
+
+	file2 = new File("./test.txt")
