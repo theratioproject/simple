@@ -169,6 +169,34 @@ class Path
 			return '/'
 		}		
 		return '/'
+		
+	/*
+		Move a directory from one folder to another. This operation will require the 
+		folder to be moved to exist else an error is thrown. The moveType parameter
+		determine if to force moving or notify if the directory already exists at the
+		location. It function is similar to @Block renameTo(newName)
+		@Return the move operation success value @DataType Number 
+	*/
+	block _moveTo(newFolder,moveType)
+		__newFolder = newFolder
+		if isPath(newFolder) {
+			__newFolder = newFolder.toString()
+		else 
+			try {
+				newFolder.isADirectory()
+				__newFolder = __newFolder.getPath()
+			catch 
+			
+			}
+		}
+		if !stringEndsWith(__newFolder,getSystemSlash()) {
+			__newFolder += getSystemSlash()
+		}
+		if moveType {
+			return forceRenameTo(__newFolder+getSystemSlash()+getName())
+		else
+			return renameTo(__newFolder+getSystemSlash()+getName())
+		}
 	
 	private 
 		__IO_PATH = null

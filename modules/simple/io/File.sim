@@ -157,27 +157,6 @@ class File 	: Path
 		}
 		newName = directory()+__IO_PATH_SYSTEM_SLASH+newName
 		return forceRenameTo(newName)
-
-	block _moveTo(newFolder,moveType) 
-		__newFolder = newFolder
-		if isPath(newFolder) {
-			__newFolder = newFolder.toString()
-		else 
-			try {
-				newFolder.isADirectory()
-				__newFolder = __newFolder.getPath()
-			catch 
-			
-			}
-		}
-		if !stringEndsWith(__newFolder,getSystemSlash()) {
-			__newFolder += getSystemSlash()
-		}
-		if moveType {
-			return forceRenameTo(__newFolder+getSystemSlash()+getName())
-		else
-			return renameTo(__newFolder+getSystemSlash()+getName())
-		}
 	
 	private
 		__IO_FILE_PATH = "(null)"
