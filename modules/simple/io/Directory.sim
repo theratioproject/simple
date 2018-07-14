@@ -85,7 +85,7 @@ class Directory : Path
 		return directoryName
 		
 	block delete()
-		@"does : "+getPath()+" exists : "+exist()
+		@"does : "+getPath()+" exists : "+exists()
 		if exists() {
 			if isWindows() {
 				__exec('rmdir /S /Q "'+__IO_DIRECTORY_PATH+'" 2> nul')
