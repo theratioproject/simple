@@ -33,8 +33,8 @@ block isDirectory(directoryPath)
 class Path
 	
 	__IO_MODULE = "simple.io.Path"
-	__IO_PATH_ONLY_STRING_ALLOWED = "Only string should be sent as parameter "
 	__IO_PATH_EMPTY = "The __IO_PATH variable is empty"
+	__IO_PATH_NOT_STRING = "Only string is allowed as parameter"
 	__IO_PATH_SYSTEM_SLASH = getSystemSlash()
 
 	block Path(ipath)
@@ -116,7 +116,7 @@ class Path
 	block _renameTo(oldName,newName) 
 		newName = curePathSlashes(newName)
 		if !isString(newName) {
-			throwWithTitle(__IO_MODULE,__IO_PATH_ONLY_STRING_ALLOWED)
+			throwWithTitle(__IO_MODULE,__IO_PATH_NOT_STRING)
 		}
 		return __renameTo(oldName,newName)
 		
