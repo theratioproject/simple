@@ -191,6 +191,9 @@ block downloadPackage(downloadablePackage)
 		downloadedPackageZip = new Zip(downloadedPackage.absolutePath(),"r")
 		extractedPackage = new Directory(modulesDirectory+hash(downloadablePackage[:name]))
 		downloadedPackageZip.extractAll(extractedPackage.getPath())
+		tempDyModuleDir = new Directory(extractedPackage.getPath()+"/dynamic_modules/")
+		@tempDyModuleDir.listfiles()
+		__exit__
 		if extractedPackage.exists() {
 			@"installing "+downloadablePackage[:name]+" documentation..."
 			moveContent(extractedPackage.getPath()+"/docs/",documentationDirectory)
