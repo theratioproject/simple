@@ -126,4 +126,5 @@ display myList.keys() # returns bread, beans, rice, spaghetti.
 
 ```
 
-###
+### Retrieving the length of the List using `.length()`.
+To g
