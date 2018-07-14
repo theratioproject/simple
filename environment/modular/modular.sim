@@ -199,6 +199,10 @@ block downloadPackage(downloadablePackage)
 			@"installing "+downloadablePackage[:name]+" module..."
 			moveContent(extractedPackage.getPath()+"/modules/",modulesDirectory)
 		}
+		if !keepTemp {
+			downloadedPackageZip.delete()
+			extractedPackage.delete()
+		}
 		installedModule = new Directory(modulesDirectory+downloadablePackage[:name])
 		if installedModule.exists() {
 			recordModuleInstallation(downloadedPackage)
