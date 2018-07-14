@@ -40,7 +40,7 @@ Variables can inherit classes and their method by using the `new` keyword follow
 # WITH REFERENCE TO THE DEFINED CLASS PACK ABOVE.
 
     test = new Pack
+    display test.packer() # 
 
-    
 
 ```
