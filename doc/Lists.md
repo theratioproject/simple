@@ -81,4 +81,12 @@ call "simple/core/List.sim"
 
 myList = ["bread", "jam", "eggs", "butter"]
 
+# reversing the list.
+
+myList.reverse()
+
+display myList # butter, eggs, jam, bread.
+
 ```
+
+### 
