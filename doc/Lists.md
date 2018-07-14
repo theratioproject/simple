@@ -89,4 +89,5 @@ display myList # butter, eggs, jam, bread.
 
 ```
 
-### 
+### Getting the value of a Listthrough the use of `indexOf()`.
+To g
