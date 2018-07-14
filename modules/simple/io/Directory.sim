@@ -247,8 +247,10 @@ class Directory : Path
 		}
 		filesListLength = lengthOf(listFiles())
 		for a = 0 to filesListLength {
-			@"to move : "+filesList[a].absolutePath()
-			#filesList[a].renameTo(tempDestFolder.getPath()+getSystemSlash()+filesList[a].)
+			if moveType {
+				filesList[a].moveTo(tempDestFolder.getPath()+getSystemSlash()+filesList[a].)
+			}
+			#@"to move : "+filesList[a].absolutePath()			
 		}
 		folderListLength = lengthOf(listDirectories())
 		for a = 0 to folderListLength {
