@@ -175,8 +175,8 @@ block downloadPackages(allDownloadablePackages)
 	
 block downloadPackage(downloadablePackage)
 	if showInfo {
+		@crlf+" :: "+downloadablePackage[:name]
 		@" :: "+downloadablePackage[:status] 
-		@" :: "+downloadablePackage[:name]
 		@" :: "+downloadablePackage[:description]
 		@" :: "+downloadablePackage[:author]
 		@" :: "+downloadablePackage[:version]
