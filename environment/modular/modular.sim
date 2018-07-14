@@ -220,7 +220,11 @@ block getPackageDynamicModules(tempDyModuleDir)
 	if dynamicModuleSize == 0 {
 		return "none"
 	else
-		
+		dyMoudlesList = []
+		for a = 0 to dynamicModuleSize {
+
+		}
+		return dyMoudlesList
 	}
 	
 block moveContent(oldPath,newFolder)
