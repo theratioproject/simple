@@ -199,6 +199,8 @@ block downloadPackage(downloadablePackage)
 			@"installing "+downloadablePackage[:name]+" module..."
 			moveContent(extractedPackage.getPath()+"/modules/",modulesDirectory)
 		}
+		installedModule = new Directory()
+		if 
 	}
 	
 block moveContent(oldPath,newFolder)
