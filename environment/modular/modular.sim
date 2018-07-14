@@ -219,7 +219,12 @@ block moveContent(oldPath,newFolder)
 	}
 
 block recordModuleInstallation(downloadedPackage)
-	downloadedPackageList = downloadablePackage
+	downloadedPackageList = [:name = downloadedPackage[:name],
+		:title = downloadedPackage[:title],
+		:arch = downloadedPackage[:arch],
+		:version = downloadedPackage[:version],
+		:dynamicmodules = "none"
+	] 
 	@downloadedPackageList
 
 
