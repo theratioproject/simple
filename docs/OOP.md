@@ -3,7 +3,6 @@
 In simple-lang, object oriented programming is practiced. Certain `OOP` techniques are practiced in this such as:
 
 - Inheritance
-- Polymorphism
 - The use of `self ` and `this`.
 
 ## Classes.
@@ -78,3 +77,5 @@ myList.keys() # displays a b and c.
 ```
 
 The above is possible because a function with the same class name is defined and is responsible for the actions of the arguments / parameter passed through it.
+
+## The use of `this` and `self`.
