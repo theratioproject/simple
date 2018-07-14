@@ -207,6 +207,7 @@ block downloadPackage(downloadablePackage)
 			__exit__
 		}
 		if deleteTemp {
+			@extractedPackage.explode()
 			downloadedPackage.delete()
 			extractedPackage.delete()
 		}
