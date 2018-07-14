@@ -1,6 +1,7 @@
 block test(arg1, dis)
 	# return dis  arg1
-	dis
+	dis arg1
+	return 0;
 end
 
 test("test", display)
