@@ -113,8 +113,6 @@ block main()
 	if type == "upgrade" {
 		upgradeSimpleDistro()
 	else 
-		#@package+" | type : "+type+" | version : "+version+" | os : "+ostype
-		#@getSystemEnvironment("SIMPLE_MODULE_PATH")+"/modules-dependencies.conf"
 		@"Preparing to install package: "+package+" - "+type+" "+version
 		depConf = new File(modulesDirectory+"/modules-dependencies.conf")
 		if !depConf.exists() { 
