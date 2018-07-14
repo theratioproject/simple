@@ -3,5 +3,9 @@ Functions are parts of the  building blocks for simple-lang. They are set on ins
 
 ```
 block sayHello()
-    
+    display "Hello !"
+end
 ```
+---
+
+Functions are defined with a prefix `block` followed by the function name
