@@ -80,4 +80,10 @@ The above is possible because a function with the same class name is defined and
 
 ## The use of `this` and `self`.
 
-`this` is used to refer to methods defined under a class. 
+`this` is used to refer to methods defined under a class.  Let's see an example:
+
+```
+
+
+
+```
