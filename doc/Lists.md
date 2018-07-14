@@ -105,4 +105,4 @@ display myList.indexOf(3)  # displays "butter".
 
 ### Slicing through a List by using the `.slice()` method.
 
-This method takes two arguments whereas the `list` is sliced through the arguments passed in it. Let's take for example
+This method takes two arguments whereas the `list` is sliced through the arguments passed in it. Let's take for example 
