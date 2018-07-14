@@ -152,7 +152,7 @@ class List : Object
 block slice(x, y)
     if (isNumber(x) && isNumber(y))
         if (x = 0 && y = 0)
-             return "[]"
+             return __OBJECT
             end
         if (__OBJECT[x + 1] == __OBJECT[y])
             return __OBJECT[x]
@@ -169,7 +169,7 @@ block slice(x, y)
 /* Sorts arrays just like the javascript's .sort() function. It's not working yet */
 block sort(a, b)
     # return b - a
-    return list[b] - list[a]
+    return __OBJECT[b] -__OBJECT[a]
 	
 	
 	private 
