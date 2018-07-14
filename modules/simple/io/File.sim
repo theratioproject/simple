@@ -129,7 +129,7 @@ class File 	: Path
 		}
 		tempPath = new Path(newAbsoluteName)
 		if tempPath.exists() {
-			warn(__IO_MODULE,tempPath.toString()+" - "+__IO_PATH_EXISTS_DELETE)
+			warn(__IO_MODULE+" : "+tempPath.toString()+" - "+__IO_PATH_EXISTS_DELETE)
 			if tempPath.delete() != true {
 				throwWithTitle(__IO_MODULE,tempPath.toString()+" - "+__IO_FILE_DELETE )
 			}
