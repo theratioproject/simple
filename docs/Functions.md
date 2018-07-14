@@ -23,3 +23,10 @@ sayHello() # displays "Hello !"
 Parameters in function blocks, are passed through when the function is called. Let's define a function that takes in a name as an argument and displays it:
 
 ``` Display name.
+
+block main()
+    Greet("Abdul")
+end
+
+block Greet(name)
+    
