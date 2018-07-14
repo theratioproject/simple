@@ -30,4 +30,5 @@ myList = ["bread", "jam", "bacon", "eggs"]
 
 ```
 The above is our declared List which we'll be using to showcase the methods attached to the `List` data type.
-### 
+### Adding a new value to the List using `.push()`.
+To add a new value to the `list`, we use the method `.push(x)`
