@@ -66,4 +66,4 @@ end
 
 ```
 
-The above
+The above class defined, takes in a parameter
