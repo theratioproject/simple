@@ -108,7 +108,10 @@ class File 	: Path
 		block to use
 		@Return the rename operation value @DataType Boolean
 	*/
-	block changeNameTo(newName)__IO_PATH_SYSTEM_SLASH
+	block changeNameTo(newName)
+		if !isString(newName) {
+			throwWithTitle(__IO_MODULE,newName+" - "+__IO_PATH_NOT_STRING)
+		}
 		newName = directory()+__IO_PATH_SYSTEM_SLASH+newName
 		return renameTo(newName)
 
