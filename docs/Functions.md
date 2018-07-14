@@ -28,9 +28,10 @@ block main()
     Greet("Abdul")
 end
 
+# Define block Greet
 block Greet(name)
     display "Greetings " +name+crlf
 end
 
 ```
- 
+ Running the above examples gives out "Greetings Abdul". 
