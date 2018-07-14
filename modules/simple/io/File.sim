@@ -139,6 +139,9 @@ class File 	: Path
 			updateAttributes(tempPath)
 		}
 		return renameValue
+
+	block forceChangeNameTo(newName)
+		
 	
 	private
 		__IO_FILE_PATH = "(null)"
