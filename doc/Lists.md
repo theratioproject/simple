@@ -119,6 +119,8 @@ To return or get a list of all members of the list, we use the `.keys()` method.
 
 call "simple/core/List.sim"
 
-myList = new List(["bread])
+myList = new List(["bread", "beans", "rice", "spaghetti"])
+
+display myList.keys() # returns
 
 ```
