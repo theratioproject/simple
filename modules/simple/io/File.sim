@@ -164,6 +164,9 @@ class File 	: Path
 		@Return the move operation success value @DataType Boolean
 	*/
 	block moveTo(newFolder)
+		if isDirectory(newFolder) {
+			newFolder = newFolder.getPath()
+		}
 		return _moveTo(newFolder,false)
 		
 	/*
@@ -173,6 +176,9 @@ class File 	: Path
 		@Return the move operation success value @DataType Boolean
 	*/
 	block forceMoveTo(newFolder)
+		if isDirectory(newFolder) {
+			newFolder = newFolder.getPath()
+		}
 		return _moveTo(newFolder,true)
 	
 	private
