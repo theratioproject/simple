@@ -90,8 +90,8 @@ class Directory : Path
 				__exec('rmdir /S /Q "'+__IO_DIRECTORY_PATH+'" 2> nul')
 			elif isLinux()
 				__exec('rm -rf ' +__IO_DIRECTORY_PATH)	
-			}
 			else
+			}
 		}
 		
 			#failing so we resolve to system for now

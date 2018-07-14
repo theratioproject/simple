@@ -91,7 +91,7 @@ class File 	: Path
 		if !isString(newAbsoluteName) {
 			throwWithTitle(__IO_MODULE,newAbsoluteName+" - "+__IO_PATH_NOT_STRING)
 		}
-		tempPath = new Path(newAbsoluteName)
+		tempPath = new File(newAbsoluteName)
 		if tempPath.exists() {
 			throwWithTitle(__IO_MODULE,tempPath.toString()+" - "+__IO_FILE_EXISTS)
 		}
