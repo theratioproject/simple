@@ -74,4 +74,11 @@ display myList # bread, jam, eggs, butter.
 
 ### Reversing the List using the `.reverse()` method.
 
-When we say  reversing a list, we actually move the elements from ascending to descending order and vice versa.
+When we say  reversing a list, we actually move the elements from ascending to descending order and vice versa. Let's reverse our List:
+``` Reversing our List.
+
+call "simple/core/List.sim"
+
+myList = ["bread", "jam", "eggs", "butter"]
+
+```
