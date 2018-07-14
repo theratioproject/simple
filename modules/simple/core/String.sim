@@ -39,17 +39,17 @@ block removeString(str, o)
 	return substr(str,o,"")
 	
 block removeStringAt(str, index)
-	throw("String module still in development")
+	warn("String module still in development")
 	strLength = lengthOf(str)
 	if (index > strLength)
 		return str
 	else
 		first = substr(str,0,index-1) 
-		@"first : "+first
-		@strLength
-		@strLength - 5
+		#@"first : "+first
+		#@strLength
+		#@strLength - 5
 		last = substr(str,index+1,5) 
-		@"last : "+last
+		#@"last : "+last
 		return (first + last)
 	end
 	

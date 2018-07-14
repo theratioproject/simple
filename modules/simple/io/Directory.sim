@@ -38,9 +38,15 @@ class Directory : Path
 		directoryName = formatDirectoryName(__IO_DIRECTORY_PATH)
 		__IO_PATH = __IO_DIRECTORY_PATH
 		
+	/*
+		Create a directory if it does not exist, even if the parent directory is does not exist
+		also it will be created too along with the directory
+		@Return the directory creation value which is true if successfull and false if it is not 
+		successfull @DataType boolean
+	*/	
 	block create()
 		ensureParent()
-		display mkdir(__IO_DIRECTORY_PATH)
+		return mkdir(__IO_DIRECTORY_PATH)
 		
 	block explode()
 		return blow_dir(__IO_DIRECTORY_PATH)
@@ -242,7 +248,10 @@ class Directory : Path
 			@Class Directory
 		@End
 		If the destFolder parameter is not an instance of the classes above then it is considered
-		as an erroneous parameter
+		as an erroneous parameter.
+		The destFolder must exist in the system, if it does not exist an error is thrown or else 
+		the moveType parameter is true i.e to forcefully move the folder the unexisting destFolder
+		will be created
 	*/
 	block _moveContentTo(destFolder,moveType) 
 		tempDestFolder = destFolder
@@ -254,7 +263,11 @@ class Directory : Path
 			throwWithTitle(__IO_PACKAGE,destFolder+" - "+__IO_DIRECTORY_INVALID_PARAMETER)
 		}
 		if !tempDestFolder.exists() {
-			throwWithTitle(__IO_PACKAGE,destFolder+" - "+__IO_DIRECTORY__NOT_EXISTS)
+			if moveType {
+				tempDestFolder.create()
+			else
+				throwWithTitle(__IO_PACKAGE,destFolder+" - "+__IO_DIRECTORY__NOT_EXISTS)
+			}
 		}
 		filesListLength = lengthOf(listFiles())
 		for a = 0 to filesListLength {
@@ -297,9 +310,20 @@ class Directory : Path
 		folderList = []
 		childrenToCreate = []
 		
+		/*
+			The existence of the parent folder of the directory is verified, if it does not exist
+			it will be created. This block should not be called outside this class the @Block create()
+			should be use in creating directory as it is a safe implementation and it also uses this 
+			block to verify the parent Directory existence
+		*/
 		block ensureParent() 
-			dir = removeString(__IO_DIRECTORY_PATH,lastStringAfterChar(__IO_DIRECTORY_PATH, '/'))
-			pd = new Directory(dir) pd.addChild(__IO_DIRECTORY_PATH)
+			tempDir = __IO_DIRECTORY_PATH
+			if stringEndsWith(__IO_DIRECTORY_PATH,__IO_PATH_SYSTEM_SLASH) {
+				tempDir = removeLastChar(tempDir)
+			}
+			tempDir = removeString(tempDir,lastStringAfterChar(tempDir, __IO_PATH_SYSTEM_SLASH))
+			@"it : "+tempDir
+			pd = new Directory(tempDir) pd.addChild(__IO_DIRECTORY_PATH)
 			if (!pd.exists()) pd.create() else mkdir(pd.getPendingChildern()[0]) end
 		
 		
