@@ -52,6 +52,6 @@ To accomplish that, a similar block is defined: Let's define a class example tha
 
 ```
 
-class 
+class List
 
 ```
