@@ -136,7 +136,7 @@ class List : Object
         return list
 
     block keys()
-        return list
+        return __OBJECT
 
     block reverse()
         x = 0
