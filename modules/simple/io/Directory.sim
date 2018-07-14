@@ -304,6 +304,9 @@ class Directory : Path
 		folderList = []
 		childrenToCreate = []
 		
+		/*
+			
+		*/
 		block ensureParent() 
 			tempDir = __IO_DIRECTORY_PATH
 			if stringEndsWith(__IO_DIRECTORY_PATH,__IO_PATH_SYSTEM_SLASH) {
