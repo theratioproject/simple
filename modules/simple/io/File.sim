@@ -141,7 +141,11 @@ class File 	: Path
 		return renameValue
 
 	block forceChangeNameTo(newName)
-		
+		if !isString(newName) {
+			throwWithTitle(__IO_MODULE,newName+" - "+__IO_PATH_NOT_STRING)
+		}
+		newName = directory()+__IO_PATH_SYSTEM_SLASH+newName
+		return forceRenameTo(newName)
 	
 	private
 		__IO_FILE_PATH = "(null)"
