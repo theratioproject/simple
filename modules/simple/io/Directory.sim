@@ -87,7 +87,7 @@ class Directory : Path
 	block delete()
 		if exists() {
 			if isWindows() {
-				__exec('rmdir /S /Q "'+__IO_DIRECTORY_PATH+'" ')
+				__exec('rmdir /S /Q "'+__IO_DIRECTORY_PATH+'" 2> nul')
 			elif isLinux()
 				__exec('rm -rf ' +__IO_DIRECTORY_PATH)	
 			else

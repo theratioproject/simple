@@ -201,13 +201,12 @@ block downloadPackage(downloadablePackage)
 		}
 		installedModule = new Directory(modulesDirectory+downloadablePackage[:name])
 		if installedModule.exists() {
-			#recordModuleInstallation(downloadedPackage)
+			recordModuleInstallation(downloadedPackage)
 		else
 			@"failed to install "+downloadablePackage[:name]+" "+type+" "+version
 			__exit__
 		}
 		if deleteTemp {
-			@extractedPackage.explode()
 			downloadedPackage.delete()
 			extractedPackage.delete()
 		}
