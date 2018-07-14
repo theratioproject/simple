@@ -71,3 +71,5 @@ myList.pop(2)
 display myList # bread, jam, eggs, butter.
 
 ```
+
+### Reversing the List using the `.reverse
