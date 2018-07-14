@@ -171,7 +171,11 @@ class Directory : Path
 		if tempPath.exists() {
 			throwWithTitle(__IO_MODULE,tempPath.toString()+" - "+__IO_DIRECTORY_EXISTS)
 		}
-		return _renameTo(__IO_DIRECTORY_PATH,newName.toString())
+		renameValue = _renameTo(__IO_FILE_PATH, newName.toString())
+		if renameValue {
+			updateAttributes()
+		}
+		return renameValue
 		
 	/*
 		Rename the directory to the new name even if it exist, instead of throwing an

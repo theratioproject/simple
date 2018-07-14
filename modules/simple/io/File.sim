@@ -99,7 +99,11 @@ class File 	: Path
 		if tempPath.exists() {
 			throwWithTitle(__IO_MODULE,tempPath.toString()+" - "+__IO_FILE_EXISTS)
 		}
-		return _renameTo(__IO_FILE_PATH, tempPath.toString())
+		renameValue = _renameTo(__IO_FILE_PATH, tempPath.toString())
+		if renameValue {
+			updateAttributes()
+		}
+		return renameValue
 		
 	block changeNameTo(nname)
 		__rename(__IO_FILE_PATH, nname)
