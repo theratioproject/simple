@@ -100,6 +100,14 @@ class File 	: Path
 		}
 		return renameValue
 		
+	/*
+		Change the name of the file to another name without changing the parent directory 
+		which means the file will remain in the current directory but with a new name, the
+		parameter should be only the name and not the absolute path of the file, to change 
+		the name along with the absolute path the @Block renameTo(newAbsolutename) is the 
+		block to use
+		@Return the rename operation value @DataType Boolean
+	*/
 	block changeNameTo(newName)__IO_PATH_SYSTEM_SLASH
 		newName = directory()+__IO_PATH_SYSTEM_SLASH+newName
 		return renameTo(newName)
