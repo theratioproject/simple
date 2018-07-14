@@ -35,6 +35,7 @@ class Path
 	__IO_MODULE = "simple.io.Path"
 	__IO_PATH_EMPTY = "The __IO_PATH variable is empty"
 	__IO_PATH_NOT_STRING = "Only string is allowed as parameter"
+	__IO_PATH_EXISTS_DELETE = "exist and is been deleted"
 	__IO_PATH_SYSTEM_SLASH = getSystemSlash()
 
 	block Path(ipath)

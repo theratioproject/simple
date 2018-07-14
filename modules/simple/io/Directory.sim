@@ -22,7 +22,6 @@ class Directory : Path
 	__IO_DIRECTORY_EXISTS = "The directory already exists you should remove the directory first"
 	__IO_MODULE = "simple.io.Directory"
 	__IO_DIRECTORY__NOT_EXISTS = "The directory does not exists"
-	__IO_DIRECTORY_EXISTS_DELETE = "exist and is been deleted"
 	__IO_DIRECTORY_DELETE = "The directory cannot be deleted"
 	__IO_DIRECTORY_PATH = ""
 	__IO_DIRECTORY_INVALID_PARAMETER = "Invalid parameter, expected Path, String or Directory"
@@ -182,7 +181,7 @@ class Directory : Path
 		}
 		tempDir = new Directory(newName)
 		if tempDir.exists() {
-			warn(__IO_MODULE+" : "+tempDir.getPath()+" - "+__IO_DIRECTORY_EXISTS_DELETE)
+			warn(__IO_MODULE+" : "+tempDir.getPath()+" - "+__IO_PATH_EXISTS_DELETE)
 			if tempDir.delete() != true {
 				throwWithTitle(__IO_MODULE,tempDir.getPath()+" - "+__IO_DIRECTORY_DELETE)
 			}
