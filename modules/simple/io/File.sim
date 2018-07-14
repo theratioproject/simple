@@ -113,7 +113,10 @@ class File 	: Path
 		
 		block ensureExistence()
 			if !exists() 
-				throw(FILE_DOES_NOT_EXIST+" : "+name())
+				#throw(FILE_DOES_NOT_EXIST+" : "+name())
 			end
+
+		block updateAttributes()
+			
 		
 	
