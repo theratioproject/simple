@@ -63,9 +63,6 @@ tempDirectory = getTemporaryDirectory()
 modulesDirectory = getSystemEnvironment("SIMPLE_MODULE_PATH")
 #blocks to find modules path
 
-@tempDirectory
-__exit__
-
 if isWindows() {
 	simpleDistDirectory = "C:\Simple\"
 elif isLinux()
@@ -187,11 +184,11 @@ block downloadPackage(downloadablePackage)
 		@" :: "+downloadablePackage[:date]
 	}
 	downloadedPackage = new Download(downloadablePackage[:download_url])
-	downloadedPackage.saveLocation(modulesDirectory+hash(package)+".zip")
+	downloadedPackage.saveLocation(tempDirectory+hash(package)+".zip")
 	downloadedPackage.execute()
 	if downloadedPackage.exists() {
 		downloadedPackageZip = new Zip(downloadedPackage.absolutePath(),"r")
-		extractedPackage = new Directory(modulesDirectory+hash(downloadablePackage[:name]))
+		extractedPackage = new Directory(tempDirectory+hash(downloadablePackage[:name]))
 		downloadedPackageZip.extractAll(extractedPackage.getPath())
 		tempDyModuleDir = new Directory(extractedPackage.getPath()+"/dynamic_modules/")
 		downloadablePackage[:dynamic_modules] = getPackageDynamicModules(tempDyModuleDir)
