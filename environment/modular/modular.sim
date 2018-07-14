@@ -504,6 +504,13 @@ block shell()
 		read command
 		executeCommand(stringSplit(command," "))
 	end
+
+block getTemporaryDirectory()
+	tempDirectory = getSystemEnvironment("TMPDIR")
+	if tempDirectory == "(null)" || tempDirectory == "" {
+		tempDirectory = getSystemEnvironment("TEMPDIR")
+	}
+	return tempDirectory
 	
 /*
 
