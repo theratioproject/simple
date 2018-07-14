@@ -157,5 +157,6 @@ class Test : String {
 }
 
 # Test extends String.
+# Thus, test inherits all methods of the string class.
 
 ```
