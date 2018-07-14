@@ -118,3 +118,7 @@ self.fish # this displayed The self fish is Titus
 ```
  
  The `self` keyword is useful to differentiate variables which have the same names. It's sole purpose is to avoid confusions when building certain programs such as modules.
+
+ ## The `pri vate` block.
+ 
+ The 
