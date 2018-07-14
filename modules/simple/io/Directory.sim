@@ -175,8 +175,8 @@ class Directory : Path
 		@Return the rename operation value @DataType Number
 	*/
 	block forceRenameTo(newName)
-		if !isString(newAbsoluteName) {
-			throwWithTitle(__IO_MODULE,newAbsoluteName+" - "+__IO_PATH_NOT_STRING)
+		if !isString(newName) {
+			throwWithTitle(__IO_MODULE,newName+" - "+__IO_PATH_NOT_STRING)
 		}
 		tempDir = new Directory(newName)
 		if tempDir.exists() {
