@@ -17,4 +17,4 @@ class Ocean
 	block thisBlock()
 		display "we called an internal block with this"
 		
-		
+this.thisBlock()
