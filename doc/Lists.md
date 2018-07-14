@@ -116,6 +116,7 @@ This method takes two arguments whereas the `list` is sliced through the argumen
 ### Getting the members of the List using `.keys()` method.
 
 To return or get a list of all members of the list, we use the `.keys()` method. To get all members of our list, `myList`, we do this:
+
 ```
 
 call "simple/core/List.sim"
@@ -131,5 +132,9 @@ display myList.keys() # returns bread, beans, rice, spaghetti.
 To get the length of the list, we use the `.length()` method. Example:
 
 ```
+
+call "simple/core/List.sim"
+
+myList = ["a]
 
 ```
