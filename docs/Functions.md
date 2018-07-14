@@ -24,14 +24,19 @@ Parameters in function blocks, are passed through when the function is called. L
 
 ``` Name.sim -  Display name.
 
+# Main block 
+
 block main()
     Greet("Abdul")
 end
 
-# Define block Greet
+# Define block Greet which takes name as an argument when the function is defined.
+
 block Greet(name)
     display "Greetings " +name+crlf
 end
 
 ```
  Running the above examples gives out "Greetings Abdul". 
+
+ ## The
