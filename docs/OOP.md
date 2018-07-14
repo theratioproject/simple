@@ -102,6 +102,8 @@ class Ocean
 ```
 The above example, is a  `class` named **Ocean** which has two methods: `displayFish(fish)` and `thisBlock()`. In the `displayFish(fish)` block, it takes a function parameter (fish) that is passed to it when a new variable inherits it.
 
-#### The `this` method.
+### The `this` method.
 
-This method, is used to refer to a block within a class instead of calling the block. 
+This method, is used to refer to a block within a class instead of calling the block.  The use of `this` will be useful in building complex simple programs.
+
+###
