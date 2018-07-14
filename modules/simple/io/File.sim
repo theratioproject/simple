@@ -111,6 +111,27 @@ class File 	: Path
 	block changeNameTo(newName)__IO_PATH_SYSTEM_SLASH
 		newName = directory()+__IO_PATH_SYSTEM_SLASH+newName
 		return renameTo(newName)
+
+	/*
+		Rename the directory to the new name even if it exist, instead of throwing an
+		error if the folder exists the folder will be deleted instead then the current 
+		directory is renamed to the deleted folder, the content of the old folders are 
+		lost in this case
+		@Return the rename operation value @DataType Number
+	*/	
+	block forceRenameTo(newAbsoluteName)
+		if !isString(newAbsoluteName) {
+			throwWithTitle(__IO_MODULE,newAbsoluteName+" - "+__IO_PATH_NOT_STRING)
+		}
+		tempPath = new Path(newAbsoluteName)
+		if tempPath.exists() {
+			throwWithTitle(__IO_MODULE,tempPath.toString()+" - "+__IO_FILE_EXISTS)
+		}
+		renameValue = _renameTo(__IO_FILE_PATH, tempPath.toString())
+		if renameValue {
+			updateAttributes(tempPath)
+		}
+		return renameValue
 	
 	private
 		__IO_FILE_PATH = "(null)"
