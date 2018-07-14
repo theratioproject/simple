@@ -301,7 +301,6 @@ class Directory : Path
 				tempDir = removeLastChar(tempDir)
 			}
 			tempDir = removeString(tempDir,lastStringAfterChar(tempDir, __IO_PATH_SYSTEM_SLASH))
-			@"it : "+tempDir
 			pd = new Directory(tempDir) pd.addChild(__IO_DIRECTORY_PATH)
 			if (!pd.exists()) pd.create() else mkdir(pd.getPendingChildern()[0]) end
 		
