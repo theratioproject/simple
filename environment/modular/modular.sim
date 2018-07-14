@@ -511,11 +511,9 @@ block getTemporaryDirectory()
 		tempDirectory = getSystemEnvironment("TEMPDIR")
 	}
 	if tempDirectory == "(null)" || tempDirectory == "" {
-		if isWindows() {
-			tempDirectory = System.UserDirectory+".simple_env/modular/"
-		else
-			tempDirectory = "~/tmp/.simple_env/modular/"
-		}
+		tDirectory = new Directory(System.UserDirectory+".simple_env/modular/")
+		tDirectory.create()
+		tempDirectory = tDirectory.getPath()
 	}
 	return tempDirectory
 	
