@@ -254,7 +254,11 @@ class Directory : Path
 			throwWithTitle(__IO_PACKAGE,destFolder+" - "+__IO_DIRECTORY_INVALID_PARAMETER)
 		}
 		if !tempDestFolder.exists() {
-			throwWithTitle(__IO_PACKAGE,destFolder+" - "+__IO_DIRECTORY__NOT_EXISTS)
+			if moveType {
+				tempDestFolder.create()
+			else
+				throwWithTitle(__IO_PACKAGE,destFolder+" - "+__IO_DIRECTORY__NOT_EXISTS)
+			}
 		}
 		filesListLength = lengthOf(listFiles())
 		for a = 0 to filesListLength {
