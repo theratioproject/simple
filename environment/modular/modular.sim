@@ -199,9 +199,12 @@ block downloadPackage(downloadablePackage)
 			@"installing "+downloadablePackage[:name]+" module..."
 			moveContent(extractedPackage.getPath()+"/modules/",modulesDirectory)
 		}
-		installedModule = new Directory(modulesDirectory+package)
+		installedModule = new Directory(modulesDirectory+downloadablePackage[:name])
 		if installedModule.exists() {
 			recordModuleInstallation(downloadedPackage)
+		else
+			@"failed to install "+downloadablePackage[:name]+" "+type+" "+version
+			__exit__
 		}
 	}
 	
