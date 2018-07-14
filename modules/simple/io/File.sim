@@ -162,6 +162,7 @@ class File 	: Path
 		Move the file to a new folder, ft the destination folder has a file 
 		with the same name then an already exist error is thrown
 		@Return the move operation success value @DataType Boolean
+		@ToDo support path and string as parameter
 	*/
 	block moveTo(newFolder)
 		return _moveTo(newFolder,false)
@@ -171,6 +172,7 @@ class File 	: Path
 		the same name is present in the destination folder it will be deleted and the 
 		file will be moved to replace it, Use this block with caution
 		@Return the move operation success value @DataType Boolean
+		@ToDo support path and string as parameter
 	*/
 	block forceMoveTo(newFolder)
 		return _moveTo(newFolder,true)
