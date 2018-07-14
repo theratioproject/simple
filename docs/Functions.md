@@ -29,4 +29,7 @@ block main()
 end
 
 block Greet(name)
-    
+    display "Greetings " +name+crlf
+end
+
+```
