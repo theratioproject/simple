@@ -51,4 +51,6 @@ display myList # bread, jam, bacon, eggs, butter.
 ```
 
 ### Removing a value from the list using the .pop() method.
-To remove the value from an array, we must know the indexNumber
+To remove the value from an array, we must know the `indexNumber` of the value to be removed.
+
+> Note that index numbers of arrays start from 0. That is, a list
