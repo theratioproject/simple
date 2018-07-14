@@ -1,34 +1,34 @@
 # Getting started.
 ## Table of contents.
-    * Installing SIMPLE & it's enviroment.
+    * Installing simple-lang & it's enviroment.
     - Test your installation.
     * Getting help.
-## Installing SIMPLE & it's enviroment.
-SIMPLE can be installed on any operating system. Be it Windows, Linux or Unix OS* and even Mac. In this section, i'll discuss how we can install in all OS'es.
+## Installing simple-lang & it's enviroment.
+simple-lang can be installed on any operating system. Be it Windows, Linux or Unix OS* and even Mac. In this section, i'll discuss how we can install in all OS'es.
 #### Unix / Linux Os.
-To install **SIMPLE** on a Unix / Linux OS, grab the latest release of the Linux package from [here](https://github.com/simple-lang/simple/releases). Choose the suitable OS type and download.
+To install **simple-lang** on a Unix / Linux OS, grab the latest release of the Linux package from [here](https://github.com/simple-lang/simple/releases). Choose the suitable OS type and download.
 Upon downloading, you'll unzip and install. Open your terminal:
 ```sh
-$ unzip simple-release-version.zip & cd simple-release-version
+$ unzip simple-lang-release-version.zip & cd simple-lang-release-version
 $ cd build & chmod +x Linux-build.sh 
 $ sudo ./Linux-build.sh -c -i
 # This check and configures your system (-c) and then install (-i)
 ```
-Boom!. SIMPLE has been installed and enviroments and modules have also been added.
+Boom!. simple-lang has been installed and enviroments and modules have also been added.
 
 #### Windows OS.
-It's pretty simple to install **SIMPLE** on Windows OS. Grab the latest release for windows from [here](https://github.com/simple-lang/simple/releases) and run the *.exe* file. In a few moments, you'll have SIMPLE installed.
+It's pretty simple-lang to install **simple-lang** on Windows OS. Grab the latest release for windows from [here](https://github.com/simple-lang/simple-lang/releases) and run the *.exe* file. In a few moments, you'll have simple-lang installed.
 
 #### Mac OS.
-The steps are pretty similar to the one of the Unix. Grab the latest release for **Mac** from [here](https://github.com/simple-lang/simple/releases). Unzip and run the sh file. Open your console.
+The steps are pretty similar to the one of the Unix. Grab the latest release for **Mac** from [here](https://github.com/simple-lang/simple-lang/releases). Unzip and run the sh file. Open your console.
 ```sh
-$ unzip simple-release-version.zip & cd simple-release-version
-$ cd build & chmod +x SimpleOnlyBuild-mac.sh
-$ sudo ./SimpleOnlyBuild-Mac.sh
+$ unzip simple-lang-release-version.zip & cd simple-lang-release-version
+$ cd build & chmod +x simple-langOnlyBuild-mac.sh
+$ sudo ./simple-langOnlyBuild-Mac.sh
 ```
 
 ## Testing your installation.
-To test your installation, open your Konsole, Terminal or command prompt and test run the *SIMPLE* command.
+To test your installation, open your Konsole, Terminal or command prompt and test run the *simple-lang* command.
 ```sh
 $ simple
 ```
@@ -38,15 +38,15 @@ $ simplerepl
 ```
 
 ### Hello world - Testing the installation.
-To see simple in action, we'll write a basic *hello world* in simple. Create a new file in your desired workspace, I'll name mine __hello.sim__. Write this in the file:
+To see simple-lang in action, we'll write a basic *hello world* in simple-lang. Create a new file in your desired workspace, I'll name mine __hello.sim__. Write this in the file:
 ```
 display "Hello World"
 ```
-Run the file using the simple compiler from your command prompt, terminal or konsole.
+Run the file using the simple-lang compiler from your command prompt, terminal or konsole.
 ```sh
 $ simple hello.sim
 // Displays "Hello world"
 ```
 
 ## Getting help.
-Stuck installing  SIMPLE ? Do create a new issue **[here](https://github.com/simple-lang/simple/issues)**. We'll be glad to help.
+Stuck installing  simple-lang ? Do create a new issue **[here](https://github.com/simple-lang/simple/issues)**. We'll be glad to help.
