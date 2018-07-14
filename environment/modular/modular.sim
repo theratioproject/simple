@@ -224,6 +224,7 @@ block recordModuleInstallation(downloadedPackage)
 		:version = downloadedPackage[:version],
 		:date = downloadedPackage[:date],
 		:license = downloadedPackage[:license],
+		:website = downloadedPackage[:website],
 		:arch = downloadedPackage[:arch],
 		:dynamicmodules = "none"
 	] 
@@ -264,6 +265,7 @@ block loadPackageAndDep()
 	@"resolving dependencies..."
 	latestPackage[:status] = packageObject.getObject("status").getStringContent()
 	latestPackage[:name] = packageObject.getObject("name").getStringContent()
+	latestPackage[:title] = packageObject.getObject("title").getStringContent()
 	latestPackage[:description] = packageObject.getObject("description").getStringContent()
 	latestPackage[:author] = packageObject.getObject("author").getStringContent()
 	latestPackage[:version] = packageObject.getObject("version").getStringContent()
