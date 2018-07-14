@@ -163,7 +163,7 @@ class Directory : Path
 		}
 		renameValue = _renameTo(__IO_DIRECTORY_PATH, tempPath.toString())
 		if renameValue {
-			updateAttributes()
+			updateAttributes(tempPath.toString())
 		}
 		return renameValue
 		
@@ -187,7 +187,7 @@ class Directory : Path
 		}
 		renameValue = _renameTo(__IO_DIRECTORY_PATH, tempDir.getPath())
 		if renameValue {
-			updateAttributes()
+			updateAttributes(tempDir.getPath())
 		}
 		return renameValue
 		
