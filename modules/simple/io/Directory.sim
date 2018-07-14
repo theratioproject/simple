@@ -248,9 +248,9 @@ class Directory : Path
 		filesListLength = lengthOf(listFiles())
 		for a = 0 to filesListLength {
 			if moveType {
-				filesList[a].moveTo(tempDestFolder)
-			else
 				filesList[a].forceMoveTo(tempDestFolder)
+			else
+				filesList[a].moveTo(tempDestFolder)
 			}		
 		}
 		folderListLength = lengthOf(listDirectories())
