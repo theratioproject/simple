@@ -169,6 +169,7 @@ block downloadPackages(allDownloadablePackages)
 		@"Stopping upgrade..."
 		__exit__
 	}
+	@"last"
 	
 	
 block downloadPackage(downloadablePackage)
