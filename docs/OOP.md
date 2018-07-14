@@ -18,5 +18,15 @@ class Empty {
 
 }
 
+# Defining a class that has a method.
+
+class pack {
+
+	block packer() {
+	    display "initial module "+crlf
+	}	
+
+}
+
 
 ```
