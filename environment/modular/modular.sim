@@ -244,7 +244,7 @@ block recordModuleInstallation(downloadedPackage)
 	add(packageList,downloadedPackageList)
 	list = new List(packageList)
 	depConf = new File(modulesDirectory+"/modules-dependencies.conf")
-	@replaceString(depConf.readFileAsString(),"/**NEWMODULE**/",downloadedPackage[:title]+crlf+"/**NEWMODULE**/")
+	@replaceString(depConf.readFileAsString(),"/**NEWMODULE**/",","+crlf+tab+downloadedPackage[:title]+crlf+"/**NEWMODULE**/")
 	if depConf.exists() {
 		#depConf.write(list.toString())
 	}
