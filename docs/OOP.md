@@ -84,6 +84,20 @@ The above is possible because a function with the same class name is defined and
 
 ```
 
+	ocean = new Ocean
+	ocean.displayFish("tuna")
 
+class Ocean
+
+	fish = "titus"
+
+	block displayFish(fish)
+		? "The paramic fish is : "+fish
+		? "The self fish is : "+self.fish
+		this.thisBlock()
+
+	block thisBlock()
+		display "we called an internal block with this"
 
 ```
+The above example, is a  `class` named **Ocean** which has two methods: 
