@@ -59,4 +59,9 @@ class List
         List = list
         return List
 
+    block keys()
+        display list
+
+end
+
 ```
