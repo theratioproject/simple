@@ -8,7 +8,7 @@ In simple-lang, object oriented programming is practiced. Certain `OOP` techniqu
 
 ## Classes.
 
-`Classes` are th e foundation of Object Oriented Programming, in simple-lang, `classes` are defined like this: the `class` keyword followed by the class name:
+`Classes` are th e foundation of Object Oriented Programming, in simple-lang, `classes` are defined like this: the `class` keyword followed by the class name with the methods and statements, enclosed in curly braces as show below:
 
 ```
 
