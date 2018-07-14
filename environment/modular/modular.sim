@@ -217,6 +217,10 @@ block moveContent(oldPath,newFolder)
 	if tempDir.exists() {
 		tempDir.forceMoveContentTo(newFolder)
 	}
+
+block recordModuleInstallation(downloadedPackage)
+	
+
 	
 	
 block getSupportingModulesInfo(initialPackage)
