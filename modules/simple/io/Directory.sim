@@ -192,7 +192,7 @@ class Directory : Path
 		return renameValue
 		
 	/*
-		Move the directory to a new folder, it the destination folder has a folder 
+		Move the directory to a new folder, if the destination folder has a folder 
 		with the same name then an already exist error is thrown
 		@Return the move operation success value @DataType Number 
 	*/
