@@ -125,6 +125,17 @@ self.fish # this displayed The self fish is Titus
 
  ```
 
+class inprivate {
+
+	block noteller(){
+		display " this is no private "
+	}
+
+	private block teller(){
+		display " error will surely occur "
+	}
+	
+}
 
 
  ```
