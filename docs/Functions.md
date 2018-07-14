@@ -88,4 +88,4 @@ The `main()` block above is responsible for rendering the above codes as all fun
 
 ---
 
-Functions are useful and can be implemented as methods in `class`. 
+Functions are useful and can be implemented as methods in `class`. They can also be used for callback purposes. As we proceed deeper into the
