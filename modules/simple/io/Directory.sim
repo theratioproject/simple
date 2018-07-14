@@ -305,7 +305,10 @@ class Directory : Path
 		childrenToCreate = []
 		
 		/*
-			
+			The existence of the parent folder of the directory is verified, if it does not exist
+			it will be created. This block should not be called outside this class the @Block create()
+			should be use in creating directory as it is a safe implementation and it also uses this 
+			block to verify the parent Directory existence
 		*/
 		block ensureParent() 
 			tempDir = __IO_DIRECTORY_PATH
