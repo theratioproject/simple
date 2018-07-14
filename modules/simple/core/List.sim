@@ -14,43 +14,6 @@ module simple.core
 
 call "Object.sim"
 
-/* Adds a new value to list/array */
-block addToList(list, value)
-    # Check if value to be added to the array is a List, String or number.
-    if (isList(value) || isString(value) || isNumber(value))
-        list + value
-        return list +crlf
-        # Else throw an error.
-        else
-            return  __err__
-end
-
-/* Remove a value from the list using the index number as an ID. */
-block removeFromList(list, indexNumber)
-    # Verify that value passed is a number e.g 0, 1, 2 etc.
-    if(isNumber(indexNumber))
-        list[indexNumber] = ""
-        return list +crlf
-        else
-            return __err__
-end
-
-/*
-*@  Reversing an array 
- *@  Changes the array from ascending to descending and vice versa.
- *@  It changes the indexNumber also.
-*/
-block reverseList(List)
-            x = 0
-            list = []
-            # This is subject to Fix in the next version of simple.
-            do { list + List[lengthOf(List) - x] x++ } while x < lengthOf(List) + 1
-            List = list
-            return List
-end
-
-# block indexOf(List, value) 
-    
 class List : Object
     __OBJECT_NAME 		= "List"
     __OBJECT			= []
@@ -132,34 +95,34 @@ class List : Object
 
 # Still needs some little adjustments and changes.
     block pop(x)
-        list[x] = ""
-        return list
+        __OBJECT[x] = ""
+        return __OBJECT
 
     block keys()
-        return list
+        return __OBJECT
 
     block reverse()
         x = 0
         reverserArray = []
         do {
-            reverserArray + list[lengthOf(list) - x] x++
-        } while x < lengthOf(list) + 1
-        list = reverserArray
-        return list
+            reverserArray + __OBJECT[lengthOf(__OBJECT) - x] x++
+        } while x < lengthOf(__OBJECT) + 1
+        __OBJECT = reverserArray
+        return __OBJECT
     end
 
 /* Array slice function. Supports 2 parameter alone, if you intend to pass an argument alone, use the .indexOf() method */
 block slice(x, y)
     if (isNumber(x) && isNumber(y))
         if (x = 0 && y = 0)
-             return "[]"
+             return __OBJECT
             end
-        if (list[x + 1] == list[y])
-            return list[x]
-        elif (list[x + 1]  != list[y])
+        if (__OBJECT[x + 1] == __OBJECT[y])
+            return __OBJECT[x]
+        elif (__OBJECT[x + 1]  != __OBJECT[y])
             do {
-                return list[x++ - 1]
-            } while x < list[y]
+                return __OBJECT[x++ - 1]
+            } while x < __OBJECT[y]
         else
             return "[]"
             end        
@@ -169,7 +132,7 @@ block slice(x, y)
 /* Sorts arrays just like the javascript's .sort() function. It's not working yet */
 block sort(a, b)
     # return b - a
-    return list[b] - list[a]
+    return __OBJECT[b] -__OBJECT[a]
 	
 	
 	private 
