@@ -85,7 +85,14 @@ class Directory : Path
 		return directoryName
 		
 	block delete()
-		__exec('rm -rf ' +__IO_DIRECTORY_PATH)	
+		if exists() {
+			if isWindows() {
+				__exec('rmdir /S /Q "'+__IO_DIRECTORY_PATH+'" 2> nul')
+			elif isLinux()
+				__exec('rm -rf ' +__IO_DIRECTORY_PATH)	
+			else
+			}
+		}
 		
 			#failing so we resolve to system for now
 			#deleteFolderRecursively(this,false)
