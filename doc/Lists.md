@@ -13,3 +13,9 @@ display myList # bread, jam and egg.
 ## Declaring List.
 As earlier discussed in [Low and High ordered variables](Low and High ordered variables.md), we can declare List in two ways but in this chapter, we'll be discussing `Lists` declared from parent class. We'll also discuss the methods attached to them.
 
+Before we dive deep, let's list the basics methods attached to the `List` data type:
+- .push()
+- .pop()
+- .reverse()
+- .indexOf()
+- .slice()
