@@ -144,4 +144,6 @@ class inprivate {
 
  ```
  
- This blocks are useful when building certain modules that requires certain variables or constants 
+ This blocks are useful when building certain modules that requires certain variables or constants that shouldn't be accessed from the inheriting varibale.
+
+## Extending classes.
