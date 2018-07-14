@@ -18,6 +18,7 @@ class File 	: Path
 
 	__IO_MODULE = "simple.io.File"
 	__IO_FILE_EXISTS = "The file already exists you should delete the file first"
+	__IO_FILE_DELETE = "The file cannot be deleted"
 	FILE_DOES_NOT_EXIST = "The file does not exist"
 
 	block File(path)
@@ -130,7 +131,7 @@ class File 	: Path
 		if tempPath.exists() {
 			warn(__IO_MODULE,tempPath.toString()+" - "+__IO_PATH_EXISTS_DELETE)
 			if tempPath.delete() != true {
-				throwWithTitle(__IO_MODULE,tempDir.getPath()+" - "+__IO_DIRECTORY_DELETE)
+				throwWithTitle(__IO_MODULE,tempPath.toString()+" - "+__IO_DIRECTORY_DELETE)
 			}
 		}
 		renameValue = _renameTo(__IO_FILE_PATH, tempPath.toString())
