@@ -99,6 +99,9 @@ call "simple/core/List.sim"
 
 myList = ["bread", "jam", "eggs", "butter"]
 
-display myList.indexOf(3)  # displays 
+display myList.indexOf(3)  # displays "butter".
 
 ```
+
+### Slicing through a List.
+This
