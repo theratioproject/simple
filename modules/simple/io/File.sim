@@ -17,7 +17,6 @@ call "Path.sim"
 class File 	: Path
 
 	__IO_MODULE = "simple.io.File"
-	__IO_FILE_NOT_STRING = "Only string is allowed as parameter"
 	__IO_FILE_EXISTS = "The file already exists you should delete the file first"
 	FILE_DOES_NOT_EXIST = "The file does not exist"
 
@@ -88,7 +87,7 @@ class File 	: Path
 		
 	block renameTo(newAbsoluteName)
 		if !isString(newAbsoluteName) {
-			throwWithTitle(__IO_MODULE,newAbsoluteName+" - "+__IO_FILE_NOT_STRING)
+			throwWithTitle(__IO_MODULE,newAbsoluteName+" - "+__IO_PATH_NOT_STRING)
 		}
 		tempPath = new Path(newAbsoluteName)
 		if tempPath.exists() {
