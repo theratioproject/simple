@@ -1,6 +1,7 @@
 
 call "simple/system/Runtime.sim"
 call "simple/core/String.sim"
+call "simple/utilities/Conversion.sim"
 
 loadGet()
 
@@ -30,13 +31,25 @@ block decodeMethodString(methodAttr)
 	strLength = lengthOf(str)
 	for a = 0 to strLength {
 		tempChar = str[a]
-		if t == "=" {
+		if tempChar == "=" {
 			returnResult + methodValue
 			returnResult = ""
-		elif t = "&"
-			
+		elif tempChar = "&"
+			returnResult + methodValue
+			methodValue = "" 
+			returnObject + returnResult
+			returnResult = []
+		elif tempChar = "+"
+			methodValue = methodValue + " "
+		elif tempChar = "%"
+			methodValue = methodValue + hexToString(str[a+1]+str[a+2])
+			a = a+2
+		elif tempChar = '"'
+		else 
+			methodValue = methodValue + tempChar 
 		}
 	}
+	return returnObject
 
 /*
 pageAttributes = []
