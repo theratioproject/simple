@@ -56,6 +56,9 @@ block decodeMethodString(methodAttr)
 block fetchCookies()
 	str = getSystemEnvironment("HTTP_COOKIE")
 	if str == "(null)" { return }
+	str += ";"
+	
+	
 	
 	
 	
