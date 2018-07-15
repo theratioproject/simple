@@ -101,7 +101,8 @@ block isWindowNT()
 	
 class System
 
-	UserDirectory = "This is it"
+	UserDirectory()
+		return "This is it"
 	
 	block exit(value)
 		__exit(value)
