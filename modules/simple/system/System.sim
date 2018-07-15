@@ -101,7 +101,9 @@ block isWindowNT()
 	
 class System
 
-	UserDirectory()
+	UserDirectory
+
+	block GetUserDirectory()
 		return "This is it"
 	
 	block exit(value)
