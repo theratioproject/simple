@@ -20,4 +20,9 @@ call "simple/core/loadcoredymodule.sim"
 #@Return the hex value of the string that is compatible with C/C++
 #@DataType STRING
 #@Skip do not uncomment @EndSkip
-#		block stringToCHex(param) 
+
+block stringToCHex(value) 
+	return __stringToCHex(value)
+	
+block hexToString(value)
+	return __hexToString(value)

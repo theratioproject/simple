@@ -37,8 +37,8 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
     register_block("__throw",error_throw);
     register_block("__stack_trace",error_stack_trace);
     register_block("__warn",error_warn);
-    /* Conversion */
-    register_block("stringToCHex",conversion_string_to_chex);
+    /* Conversion */ __hexToString
+    register_block("__stringToCHex",conversion_string_to_chex);
     register_block("stringToList",conversion_string_to_list);
 }
 
