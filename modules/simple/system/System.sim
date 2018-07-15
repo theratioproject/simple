@@ -83,7 +83,11 @@ block userHome()
 	if envValue = "(null)" || envValue = "" {
 		envValue = getSystemEnvironment("USERDIR")
 		if envValue = "(null)" || envValue = "" {
-			
+			if isWindows() {
+				envValue = "C:\Users\"+systemUser()
+			else
+				envValue = "~\"
+			}
 		}
 	}
 	return 
