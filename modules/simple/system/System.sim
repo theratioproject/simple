@@ -76,10 +76,10 @@ block systemVersion()
 	return getSystemEnvironment("OSVERSION")
 	
 block systemUser()	
-	return getSystemEnvironment("USERNdAME")
+	return getSystemEnvironment("USERNAME")
 	
 block userHome()	
-	envValue = getSystemEnvironment("USERPRsOFILE")
+	envValue = getSystemEnvironment("USERPROFILE")
 	if envValue = "(null)" || envValue = "" {
 		envValue = getSystemEnvironment("USERDIR")
 		if envValue = "(null)" || envValue = "" {
