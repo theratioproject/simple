@@ -23,7 +23,10 @@ block decodeMethodAttr(methodAttr)
 	}
 	
 block decodeMethodString(methodAttr)
-	
+	str = methodAttr + "&"
+	returnObject = []
+	returnResult = []
+	methodValue = ""
 
 /*
 pageAttributes = []
