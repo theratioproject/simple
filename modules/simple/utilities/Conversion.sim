@@ -26,3 +26,6 @@ block stringToCHex(value)
 	
 block hexToString(value)
 	return __hexToString(value)
+	
+block stringToList(value)
+	return __stringToList(value)

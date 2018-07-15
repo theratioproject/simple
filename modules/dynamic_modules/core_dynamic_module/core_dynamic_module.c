@@ -39,7 +39,7 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
     register_block("__warn",error_warn);
     /* Conversion */ 
     register_block("__stringToCHex",conversion_string_to_chex);
-    register_block("__hexToString",conversion_string_to_chex);
+    register_block("__hexToString",conversion_hex_to_string);
     register_block("__stringToList",conversion_string_to_list);
 }
 
@@ -162,7 +162,7 @@ SIMPLE_API void error_throw(void *pointer)
 	}
 }
 
-SIMPLE_API void conversion_string_to_chex ( void *pointer )
+SIMPLE_API void conversion_string_to_chex (void *pointer)
 {
 	char str[3]  ;
 	unsigned char *cString  ;
