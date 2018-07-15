@@ -81,7 +81,10 @@ block systemUser()
 block userHome()	
 	envValue = getSystemEnvironment("USERPROFILE")
 	if envValue = "(null)" || envValue = "" {
-		
+		envValue = getSystemEnvironment("USERDIR")
+		if envValue = "(null)" || envValue = "" {
+			
+		}
 	}
 	return 
 	
