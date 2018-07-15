@@ -101,10 +101,8 @@ block isWindowNT()
 	
 class System
 
-	UserDirectory
-
-	block GetUserDirectory()
-		return "This is it"
+	block UserDirectory()
+		return userHome()
 	
 	block exit(value)
 		__exit(value)
