@@ -81,7 +81,7 @@ block main()
 block executeModular(cmdlen,cmdparams)
 	if cmdlen <= 0 { displayHelp() }
 	for a = 0 to cmdlen {
-		if stringEquals(cmdparams[a],"--shell",false) or stringEquals(cmdparams[a],"-su",false) isShell = true if !isShell { shell() } break
+		if stringEquals(cmdparams[a],"--shell",false) or stringEquals(cmdparams[a],"-su",false) if !isShell { shell() } isShell = true break
 		elif stringEquals(cmdparams[a],"--help",false) or stringEquals(cmdparams[a],"-h",false) or stringEquals(cmdparams[a],"--h",false) displayHelp()
 		#Module or Environment
 		elif stringEquals(cmdparams[a],"--env",false) or stringEquals(cmdparams[a],"-e",false) type = "environment"
@@ -108,13 +108,13 @@ block executeModular(cmdlen,cmdparams)
 		if !depConf.exists() { 
 			@"error occur modules configuration file cannot be found" 
 			@"module install failed. "
-			__exit__ 
+			if isShell { shell() else __exit__ } 
 		}
 		executeCode(depConf.readFileAsString())
 		if type == "environment" { packageList = environmentList else packageList = modulesList }
 		moduleEnviron(depConf,packageList)
 	}
-	__exit__
+	if isShell { shell() else __exit__ }
 
 block moduleEnviron(depConf,packageList)
 	localPackage = null
@@ -126,7 +126,7 @@ block moduleEnviron(depConf,packageList)
 			if localPackage[:version] == version {
 				@"installed "+type+" "+package+" is up to date"
 				@"Modular operation completed"
-				__exit__
+				if isShell { shell() else __exit__ }
 			}
 		}
 	}
@@ -136,7 +136,7 @@ block moduleEnviron(depConf,packageList)
 		if latestPackage[:version] == localPackage[:version] {
 			@package+" "+type+" is up to date"
 			@"Modular operation completed"
-			__exit__
+			if isShell { shell() else __exit__ }
 		}
 	}
 	@"packages ("+(latestPackage[:supporting_modules_count]+2)+")	"+package
@@ -159,7 +159,7 @@ block downloadPackages(allDownloadablePackages)
 		}
 	else
 		@"Stopping upgrade..."
-		__exit__
+		if isShell { shell() else __exit__ }
 	}
 	
 	
@@ -196,7 +196,7 @@ block downloadPackage(downloadablePackage)
 			recordModuleInstallation(downloadablePackage)
 		else
 			@"failed to install "+downloadablePackage[:name]+" "+type+" "+version
-			__exit__
+			if isShell { shell() else __exit__ }
 		}
 		if deleteTemp {
 			downloadedPackage.delete()
@@ -251,13 +251,13 @@ block loadPackageAndDep()
 	packageJson = download(packageUrl+"?package="+package+"&type="+type+"&version="+version+"&os="+ostype)
 	if packageJson == null {
 		@"Internet connection is required to install "+package+" "+type+" package"
-		__exit__
+		if isShell { shell() else __exit__ }
 	elif stringContains(packageJson, "500 Internal Server Error")
 		@"The server is experiencing a down time please report to <whatisthis914@gmail.com>"
-		__exit__
+		if isShell { shell() else __exit__ }
 	elif stringContains(packageJson, "Not Found") 
 		@"The update link is broken please report this to <whatisthis914@gmail.com>"
-		__exit__
+		if isShell { shell() else __exit__ }
 	}
 	packageObject = new JsonObject(packageJson)
 	latestPackage[:value] = packageObject.getObject("value").getStringContent()
@@ -266,7 +266,7 @@ block loadPackageAndDep()
 		@latestPackage[:message]
 		@"if you owned the module simply add it to the simple-lang package index at "
 		@addPackageUrl
-		__exit__
+		if isShell { shell() else __exit__ }
 	}
 	@"resolving dependencies..."
 	latestPackage[:status] = packageObject.getObject("status").getStringContent()
@@ -299,7 +299,7 @@ block upgradeSimpleDistro()
 		@"Internet connection is required to upgrade simple-lang"
 	elif stringContains(upgradeJson, "Not Found") 
 		@"The upgrade link is broken please report this to <whatisthis914@gmail.com>"
-		__exit__
+		if isShell { shell() else __exit__ }
 	else 
 		upgradeObject = (new JsonObject(upgradeJson))
 		latestVersion = upgradeObject.getObject("latest_version").getStringContent()
@@ -310,7 +310,7 @@ block upgradeSimpleDistro()
 		@"Latest version: "+latestVersion
 		if localVersion == latestVersion {
 			@"Your simple-lang installation is up to date"
-			__exit__
+			if isShell { shell() else __exit__ }
 		else 
 			@"Total Download Size: "+latestSize+crlf
 			display " :: Do you want to proceed [y/n] " read response @""
@@ -334,7 +334,7 @@ block upgradeSimpleDistro()
 				} 
 			else
 				@"Stopping upgrade..."
-				__exit__
+				if isShell { shell() else __exit__ }
 			}
 		}
 	}
@@ -370,7 +370,7 @@ The OPTIONS include:
 	-s    --show-info 	Display processes currently carried out by modular.
 	-y    --yes		Don't request permissions while installing packages
 	"
-	 display help __exit__
+	 display help if isShell { shell() else __exit__ }
 	
 block shell()
 	while true 
