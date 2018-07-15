@@ -11,6 +11,8 @@ block loadGet()
 	}
 	if (getSystemEnvironment("REQUEST_METHOD") == "GET" ) {
 		methodAttributes = getSystemEnvironment("QUERY_STRING")
+	else
+		methodAttributes = getSystemEnvironment("CONTENT_LENGTH")
 	}
 
 /*
