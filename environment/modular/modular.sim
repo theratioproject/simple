@@ -488,7 +488,7 @@ The OPTIONS include:
 	-p    --path            Path to simple-lang's directory if installed in a different place.
 	-t    --temp           	Delete temp files.
 	-s    --show-info 	Display processes currently carried out by modular.
-	-y    --yes		Ask for permission in cases where you are not a top priviledge user.
+	-y    --yes		.
 	"
 	 display help __exit__
 	
@@ -524,7 +524,7 @@ block getModulesDirectory()
 	return getSystemEnvironment("SIMPLE_MODULE_PATH")
 	
 /*
-
+Ask for permission in cases where you are not a top priviledge user
 
 */
 	
