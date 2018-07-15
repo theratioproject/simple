@@ -484,7 +484,8 @@ block shell()
 		Console.printWithFG(ConsoleColor.GREEN(), modularTitle)
 		Console.printWithFG(ConsoleColor.RED(), "modular $ ")
 		read command
-		executeCode(stringSplit(command," "))
+		@stringSplit(command," ")
+		executeCode(command)
 	end
 
 block getTemporaryDirectory()
