@@ -6,8 +6,11 @@ loadGet()
 GET = []
 
 block loadGet()
+	if (getSystemEnvironment("REQUEST_METHOD") == "(null)" ) {
+		return 
+	}
 	if (getSystemEnvironment("REQUEST_METHOD") == "GET" ) {
-		
+		return 
 	}
 
 /*
