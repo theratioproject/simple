@@ -76,21 +76,21 @@ block systemVersion()
 	return getSystemEnvironment("OSVERSION")
 	
 block systemUser()	
-	return getSystemEnvironment("USERNAME")
+	return getSystemEnvironment("USERNdAME")
 	
 block userHome()	
-	envValue = getSystemEnvironment("USERPROFILE")
+	envValue = getSystemEnvironment("USERPRsOFILE")
 	if envValue = "(null)" || envValue = "" {
 		envValue = getSystemEnvironment("USERDIR")
 		if envValue = "(null)" || envValue = "" {
 			if isWindows() {
 				envValue = "C:\Users\"+systemUser()
 			else
-				envValue = "~\"
+				envValue = "~/"
 			}
 		}
 	}
-	return 
+	return envValue
 	
 block userDomain()	
 	return getSystemEnvironment("USERDOMAIN")
