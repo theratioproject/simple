@@ -10,10 +10,11 @@ block loadGet()
 		return 
 	}
 	if (getSystemEnvironment("REQUEST_METHOD") == "GET" ) {
-		methodAttributes = getSystemEnvironment("QUERY_STRING")
+		methodAttr = getSystemEnvironment("QUERY_STRING")
 	else
-		methodAttributes = getSystemEnvironment("CONTENT_LENGTH")
+		methodAttr = getSystemEnvironment("CONTENT_LENGTH")
 	}
+	GET = decodeMethodAttr(methodAttr)
 
 /*
 pageAttributes = []
