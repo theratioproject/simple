@@ -74,7 +74,7 @@ UNKNOWN_ERROR = "The status of this package cannot be defined"+crlf+"Visit their
 STALL_PACKAGE = "This package is pending verification. "+crlf+"If you wish to join package verifiers visit : "+verifierUrl
 INSTALLATION_UNATHORIZED = "Installation not authorized "+crlf+"DONE"
 
-block main()
+block executeModular(cmdlen,cmdparams)
 	if cmdlen <= 0 { displayHelp() }
 	for a = 0 to cmdlen {
 		if stringEquals(cmdparams[a],"--shell",false) or stringEquals(cmdparams[a],"-su",false) shell() break
