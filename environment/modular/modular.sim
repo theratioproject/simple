@@ -60,7 +60,7 @@ simpleUpdateUrl = modularUrl+"simple-lang-upgrade.sim"
 packageUrl = modularUrl+"package-installer.sim"
 simpleDistDirectory = "/bin/"
 tempDirectory = getTemporaryDirectory()
-modulesDirectory = getSystemEnvironment("SIMPLE_MODULE_PATH")
+modulesDirectory = getModulesDirectory()
 #blocks to find modules path
 
 if isWindows() {
