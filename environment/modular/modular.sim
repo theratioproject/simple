@@ -36,21 +36,8 @@ monkeyFace = '
 				`-----`
 	'
 
-simpleTitle = " 
-                                                                                                         | 
-     ----------    --     --------         --------    ------------     ---             --------------   | A simple, plain and innovative programming
-    |          |  |   |  |        |       |        |  |            |   |   |           |              |  | with multi-paradigm. It can be embedded in 
-    |    ------   |   |  |    -    |     |    -    |  |    -----    |  |   |           |    ----------   | C/C++ projects. The language is portable 
-    |   |         |   |  |   |  |   |    |   | |   |  |   |     |   |  |   |           |   |             | to various OS including windows, macOS, any
-    |   |         |   |  |   |   |   |  |   |  |   |  |   |     |   |  |   |           |   |             | linux and unix distros and other OS.
-    |          |  |   |  |   |     |      |    |   |  |    ----    |   |   |           |    ---------    | This is the official REPL program for the
-     ------    |  |   |  |   |      ------     |   |  |           |    |   |           |    ---------    | Language. 
-           |   |  |   |  |   |                 |   |  |    -------     |   |           |   |             | 
-           |   |  |   |  |   |                 |   |  |   |            |   |           |   |             | Modular - This is a simple environment for
-     ------    |  |   |  |   |                 |   |  |   |            |    - -------  |    ---------    | installing and updating modules and environments
-    |          |  |   |  |   |                 |   |  |   |            |            |  |             |   | Version 1.0.1
-     ----------    ---    ---                   ---    ---              ------------    -------------    | Author : Azeez Adewale
-                                                                                                         | 
+modularTitle = " 
+      
 "
 
 verifierUrl = "https://www.simple-lang.sourceforge.net/verifiers"
@@ -499,7 +486,7 @@ block shell()
 		Console.printLineWithColor(ConsoleColor.RED(), null)
 		Console.printWithFG(ConsoleColor.RED(), "modular $ ")
 		read command
-		executeCommand(stringSplit(command," "))
+		executeCode(stringSplit(command," "))
 	end
 
 block getTemporaryDirectory()
