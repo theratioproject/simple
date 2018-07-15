@@ -487,7 +487,9 @@ block shell()
 		Console.printWithFG(ConsoleColor.GREEN(), modularTitle)
 		Console.printWithFG(ConsoleColor.GREEN(), "simple-lang.modular $ ")
 		read command
-		executeCode(command)
+		cmdparamsl = stringSplit(command," ")
+		cmdlenl = lengthOf(cmdparamsl)
+		executeModular(cmdlenl,cmdparamsl)
 	end
 
 block getTemporaryDirectory()
