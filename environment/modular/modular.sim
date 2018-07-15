@@ -76,6 +76,7 @@ INSTALLATION_UNATHORIZED = "Installation not authorized "+crlf+"DONE"
 
 block main()
 	executeModular(cmdlen,cmdparams)
+	__exit__
 
 block executeModular(cmdlen,cmdparams)
 	if cmdlen <= 0 { displayHelp() }
@@ -107,13 +108,13 @@ block executeModular(cmdlen,cmdparams)
 		if !depConf.exists() { 
 			@"error occur modules configuration file cannot be found" 
 			@"module install failed. "
-			__exit__ 
+			return
 		}
 		executeCode(depConf.readFileAsString())
 		if type == "environment" { packageList = environmentList else packageList = modulesList }
 		moduleEnviron(depConf,packageList)
 	}
-	__exit__
+	return
 
 block moduleEnviron(depConf,packageList)
 	localPackage = null
@@ -125,7 +126,7 @@ block moduleEnviron(depConf,packageList)
 			if localPackage[:version] == version {
 				@"installed "+type+" "+package+" is up to date"
 				@"Modular operation completed"
-				__exit__
+				return
 			}
 		}
 	}
@@ -135,7 +136,7 @@ block moduleEnviron(depConf,packageList)
 		if latestPackage[:version] == localPackage[:version] {
 			@package+" "+type+" is up to date"
 			@"Modular operation completed"
-			__exit__
+			return
 		}
 	}
 	@"packages ("+(latestPackage[:supporting_modules_count]+2)+")	"+package
@@ -347,7 +348,7 @@ block removeTempFiles(files)
 	
 block displayMessage(msg)
 	@msg
-	__exit__
+	
 
 block displayHelp()
 	@ monkeyFace
