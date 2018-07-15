@@ -488,7 +488,7 @@ The OPTIONS include:
 	-p    --path            Path to simple-lang's directory if installed in a different place.
 	-t    --temp           	Delete temp files.
 	-s    --show-info 	Display processes currently carried out by modular.
-	-y    --yes		.
+	-y    --yes		Don't request permissions while installing packages
 	"
 	 display help __exit__
 	
