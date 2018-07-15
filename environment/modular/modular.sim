@@ -76,7 +76,6 @@ INSTALLATION_UNATHORIZED = "Installation not authorized "+crlf+"DONE"
 
 block main()
 	executeModular(cmdlen,cmdparams)
-	__exit__
 
 block executeModular(cmdlen,cmdparams)
 	if cmdlen <= 0 { displayHelp() }
@@ -108,13 +107,13 @@ block executeModular(cmdlen,cmdparams)
 		if !depConf.exists() { 
 			@"error occur modules configuration file cannot be found" 
 			@"module install failed. "
-			return
+			__exit__ 
 		}
 		executeCode(depConf.readFileAsString())
 		if type == "environment" { packageList = environmentList else packageList = modulesList }
 		moduleEnviron(depConf,packageList)
 	}
-	return
+	__exit__
 
 block moduleEnviron(depConf,packageList)
 	localPackage = null
@@ -126,7 +125,7 @@ block moduleEnviron(depConf,packageList)
 			if localPackage[:version] == version {
 				@"installed "+type+" "+package+" is up to date"
 				@"Modular operation completed"
-				return
+				__exit__
 			}
 		}
 	}
@@ -136,7 +135,7 @@ block moduleEnviron(depConf,packageList)
 		if latestPackage[:version] == localPackage[:version] {
 			@package+" "+type+" is up to date"
 			@"Modular operation completed"
-			return
+			__exit__
 		}
 	}
 	@"packages ("+(latestPackage[:supporting_modules_count]+2)+")	"+package
@@ -159,7 +158,7 @@ block downloadPackages(allDownloadablePackages)
 		}
 	else
 		@"Stopping upgrade..."
-		return
+		__exit__
 	}
 	
 	
@@ -196,7 +195,7 @@ block downloadPackage(downloadablePackage)
 			recordModuleInstallation(downloadablePackage)
 		else
 			@"failed to install "+downloadablePackage[:name]+" "+type+" "+version
-			return
+			__exit__
 		}
 		if deleteTemp {
 			downloadedPackage.delete()
@@ -251,13 +250,13 @@ block loadPackageAndDep()
 	packageJson = download(packageUrl+"?package="+package+"&type="+type+"&version="+version+"&os="+ostype)
 	if packageJson == null {
 		@"Internet connection is required to install "+package+" "+type+" package"
-		shell()
+		__exit__
 	elif stringContains(packageJson, "500 Internal Server Error")
 		@"The server is experiencing a down time please report to <whatisthis914@gmail.com>"
-		shell()
+		__exit__
 	elif stringContains(packageJson, "Not Found") 
 		@"The update link is broken please report this to <whatisthis914@gmail.com>"
-		shell()
+		__exit__
 	}
 	packageObject = new JsonObject(packageJson)
 	latestPackage[:value] = packageObject.getObject("value").getStringContent()
@@ -266,7 +265,7 @@ block loadPackageAndDep()
 		@latestPackage[:message]
 		@"if you owned the module simply add it to the simple-lang package index at "
 		@addPackageUrl
-		return
+		__exit__
 	}
 	@"resolving dependencies..."
 	latestPackage[:status] = packageObject.getObject("status").getStringContent()
@@ -299,7 +298,7 @@ block upgradeSimpleDistro()
 		@"Internet connection is required to upgrade simple-lang"
 	elif stringContains(upgradeJson, "Not Found") 
 		@"The upgrade link is broken please report this to <whatisthis914@gmail.com>"
-		return
+		__exit__
 	else 
 		upgradeObject = (new JsonObject(upgradeJson))
 		latestVersion = upgradeObject.getObject("latest_version").getStringContent()
@@ -310,7 +309,7 @@ block upgradeSimpleDistro()
 		@"Latest version: "+latestVersion
 		if localVersion == latestVersion {
 			@"Your simple-lang installation is up to date"
-			return
+			__exit__
 		else 
 			@"Total Download Size: "+latestSize+crlf
 			display " :: Do you want to proceed [y/n] " read response @""
@@ -334,7 +333,7 @@ block upgradeSimpleDistro()
 				} 
 			else
 				@"Stopping upgrade..."
-				return
+				__exit__
 			}
 		}
 	}
@@ -348,7 +347,6 @@ block removeTempFiles(files)
 	
 block displayMessage(msg)
 	@msg
-	
 
 block displayHelp()
 	@ monkeyFace
