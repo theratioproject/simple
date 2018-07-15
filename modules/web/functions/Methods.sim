@@ -3,6 +3,9 @@ call "simple/system/Runtime.sim"
 
 GET = []
 
+block loadGet()
+	
+
 /*
 pageAttributes = []
 
