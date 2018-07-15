@@ -519,6 +519,9 @@ block getTemporaryDirectory()
 	tDirectory = new Directory(tempDirectory+"/.simple_env/modular/")
 	tDirectory.create()
 	return tDirectory.getPath()
+
+block getModulesDirectory()
+	return getSystemEnvironment("SIMPLE_MODULE_PATH")
 	
 /*
 
