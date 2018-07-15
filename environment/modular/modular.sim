@@ -480,10 +480,8 @@ The OPTIONS include:
 	 display help __exit__
 	
 block shell()
-	while true #displayError("No command")
-		Console.printLineWithColor(ConsoleColor.RED(), null)
-		Console.printWithFG(ConsoleColor.RED(), simpleTitle)
-		Console.printLineWithColor(ConsoleColor.RED(), null)
+	while true 
+		Console.printWithFG(ConsoleColor.GREEN(), modularTitle)
 		Console.printWithFG(ConsoleColor.RED(), "modular $ ")
 		read command
 		executeCode(stringSplit(command," "))
