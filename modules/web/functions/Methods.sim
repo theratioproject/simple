@@ -1,6 +1,9 @@
 
 call "simple/system/Runtime.sim"
 
+GET = []
+
+/*
 pageAttributes = []
 
 loadPageAttributes()
@@ -43,7 +46,7 @@ block decodeString(urldata)
 		end
 	end
 	return value
-	
+*/	
 	
 	
 	
