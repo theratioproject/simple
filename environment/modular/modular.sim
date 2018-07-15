@@ -36,9 +36,7 @@ monkeyFace = '
 				`-----`
 	'
 
-modularTitle = " 
-      
-"
+modularTitle = ""
 
 verifierUrl = "https://www.simple-lang.sourceforge.net/verifiers"
 modularUrl = "http://localhost/simple-lang/modular/"
@@ -377,6 +375,9 @@ block shell()
 		Console.printWithFG(ConsoleColor.GREEN(), modularTitle)
 		Console.printWithFG(ConsoleColor.GREEN(), "simple-lang.modular $ ")
 		read command
+		if command == "exit" || command == "q" {
+			__exit__
+		}
 		cmdparamsl = stringSplit(command," ")
 		cmdlenl = lengthOf(cmdparamsl)
 		executeModular(cmdlenl,cmdparamsl)
