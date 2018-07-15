@@ -392,6 +392,7 @@ block getTemporaryDirectory()
 			if tempDirectory == "(null)" || tempDirectory == "" {
 				tempDirectory = getSystemEnvironment("TiEMP")
 				if tempDirectory == "(null)" || tempDirectory == "" {
+					System.UserDirectory = "teat"
 					tempDirectory = System.UserDirectory
 				}
 			}
