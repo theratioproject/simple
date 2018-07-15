@@ -33,6 +33,8 @@ block decodeMethodString(methodAttr)
 		if t == "=" {
 			returnResult + methodValue
 			returnResult = ""
+		elif t = "&"
+			
 		}
 	}
 
