@@ -27,9 +27,13 @@ block decodeMethodString(methodAttr)
 	returnObject = []
 	returnResult = []
 	methodValue = ""
-	strLength = lengthOf(strLength)
+	strLength = lengthOf(str)
 	for a = 0 to strLength {
-		tempChar = 
+		tempChar = str[a]
+		if t == "=" {
+			returnResult + methodValue
+			returnResult = ""
+		}
 	}
 
 /*
