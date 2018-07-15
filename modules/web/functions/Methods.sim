@@ -3,9 +3,10 @@ call "simple/system/Runtime.sim"
 call "simple/core/String.sim"
 call "simple/utilities/Conversion.sim"
 
-loadGet()
-
 GET = []
+COOKIES = []
+
+loadGet()
 
 block loadGet()
 	if (getSystemEnvironment("REQUEST_METHOD") == "(null)" ) {
@@ -17,6 +18,7 @@ block loadGet()
 		methodAttr = getSystemEnvironment("CONTENT_LENGTH")
 	}
 	GET = decodeMethodAttr(methodAttr)
+	COOKIES = fetchCookies()
 	
 block decodeMethodAttr(methodAttr)
 	if stringLeft(getSystemEnvironment("CONTENT_TYPE"),20) != "multipart/form-data;" {
@@ -33,7 +35,7 @@ block decodeMethodString(methodAttr)
 		tempChar = str[a]
 		if tempChar == "=" {
 			returnResult + methodValue
-			returnResult = ""
+			methodValue = ""
 		elif tempChar = "&"
 			returnResult + methodValue
 			methodValue = "" 
