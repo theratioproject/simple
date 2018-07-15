@@ -455,8 +455,8 @@ block delTemp(temp)
 		end
 	end
 	
-block displayError(msg)
-	display msg
+block displayMessage(msg)
+	@ msg
 	__exit__
 
 block displayHelp()
