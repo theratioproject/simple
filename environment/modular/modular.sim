@@ -62,6 +62,7 @@ deleteTemp = true
 showInfo = false
 askPermission = true
 packageList = null
+isShell = false
 cmdlen = lengthOf(cmdparams)
 type = "whichever"
 package = ""
@@ -80,7 +81,7 @@ block main()
 block executeModular(cmdlen,cmdparams)
 	if cmdlen <= 0 { displayHelp() }
 	for a = 0 to cmdlen {
-		if stringEquals(cmdparams[a],"--shell",false) or stringEquals(cmdparams[a],"-su",false) shell() break
+		if stringEquals(cmdparams[a],"--shell",false) or stringEquals(cmdparams[a],"-su",false) isShell = true if !isShell { shell() } break
 		elif stringEquals(cmdparams[a],"--help",false) or stringEquals(cmdparams[a],"-h",false) or stringEquals(cmdparams[a],"--h",false) displayHelp()
 		#Module or Environment
 		elif stringEquals(cmdparams[a],"--env",false) or stringEquals(cmdparams[a],"-e",false) type = "environment"
