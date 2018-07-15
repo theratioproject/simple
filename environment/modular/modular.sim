@@ -38,8 +38,9 @@ monkeyFace = '
 
 modularTitle = ""
 
-verifierUrl = "https://www.simple-lang.sourceforge.net/verifiers"
-modularUrl = "http://localhost/simple-lang/modular/"
+simpleLangHost = "https://www.simple-lang.sourceforge.net/"
+verifierUrl = simpleLangHost+"verifiers.sim"
+modularUrl = simpleLangHost+"modular/"
 addPackageUrl = modularUrl+"add-package.sim"
 simpleUpdateUrl = modularUrl+"simple-lang-upgrade.sim"
 packageUrl = modularUrl+"package-installer.sim"
