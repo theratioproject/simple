@@ -345,8 +345,8 @@ block removeTempFiles(files)
 		}
 	}
 	
-block displayError(msg)
-	@ msg
+block displayMessage(msg)
+	@msg
 	__exit__
 
 block displayHelp()
