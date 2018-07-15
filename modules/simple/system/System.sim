@@ -79,7 +79,11 @@ block systemUser()
 	return getSystemEnvironment("USERNAME")
 	
 block userHome()	
-	return getSystemEnvironment("USERHOME")
+	envValue = getSystemEnvironment("USERPROFILE")
+	if envValue = "(null)" || envValue = "" {
+		
+	}
+	return 
 	
 block userDomain()	
 	return getSystemEnvironment("USERDOMAIN")
