@@ -120,7 +120,7 @@ block main()
 			__exit__ 
 		}
 		executeCode(depConf.readFileAsString())
-		if type == "module" { packageList = modulesList else packageList = environmentList }
+		if type == "environment" { packageList = environmentList else packageList = modulesList }
 		moduleEnviron(depConf,packageList)
 	}
 	__exit__
