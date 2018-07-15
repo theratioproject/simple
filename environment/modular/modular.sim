@@ -482,9 +482,8 @@ The OPTIONS include:
 block shell()
 	while true 
 		Console.printWithFG(ConsoleColor.GREEN(), modularTitle)
-		Console.printWithFG(ConsoleColor.RED(), "modular $ ")
+		Console.printWithFG(ConsoleColor.GREEN(), "simple-lang.modular $ ")
 		read command
-		@stringSplit(command," ")
 		executeCode(command)
 	end
 
