@@ -10,7 +10,7 @@ block loadGet()
 		return 
 	}
 	if (getSystemEnvironment("REQUEST_METHOD") == "GET" ) {
-		return 
+		methodAttributes = getSystemEnvironment("QUERY_STRING")
 	}
 
 /*
