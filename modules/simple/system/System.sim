@@ -91,6 +91,22 @@ block userHome()
 		}
 	}
 	return envValue
+
+block tempDirectory()
+	tempDirectory = getSystemEnvironment("TMPDIR")
+	if tempDirectory == "(null)" || tempDirectory == "" {
+		tempDirectory = getSystemEnvironment("TEMPDIR")
+		if tempDirectory == "(null)" || tempDirectory == "" {
+			tempDirectory = getSystemEnvironment("TMP")
+			if tempDirectory == "(null)" || tempDirectory == "" {
+				tempDirectory = getSystemEnvironment("TEMP")
+				if tempDirectory == "(null)" || tempDirectory == "" {
+					tempDirectory = System.UserDirectory()
+				}
+			}
+		}
+	}
+	return tempDirectory
 	
 block userDomain()	
 	return getSystemEnvironment("USERDOMAIN")

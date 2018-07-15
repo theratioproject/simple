@@ -384,19 +384,7 @@ block shell()
 	end
 
 block getTemporaryDirectory()
-	tempDirectory = getSystemEnvironment("TMPDIR")
-	if tempDirectory == "(null)" || tempDirectory == "" {
-		tempDirectory = getSystemEnvironment("TEMPDIR")
-		if tempDirectory == "(null)" || tempDirectory == "" {
-			tempDirectory = getSystemEnvironment("TiMP")
-			if tempDirectory == "(null)" || tempDirectory == "" {
-				tempDirectory = getSystemEnvironment("TiEMP")
-				if tempDirectory == "(null)" || tempDirectory == "" {
-					tempDirectory = System.UserDirectory()
-				}
-			}
-		}
-	}
+	
 	tDirectory = new Directory(tempDirectory+"/.simple_env/modular/")
 	tDirectory.create()
 	return tDirectory.getPath()
