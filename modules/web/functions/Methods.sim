@@ -1,10 +1,14 @@
 
 call "simple/system/Runtime.sim"
 
+loadGet()
+
 GET = []
 
 block loadGet()
-	
+	if (getSystemEnvironment("REQUEST_METHOD") == "GET" ) {
+		
+	}
 
 /*
 pageAttributes = []
