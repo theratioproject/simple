@@ -78,6 +78,24 @@ block systemVersion()
 block systemUser()	
 	return getSystemEnvironment("USERNAME")
 	
+block userDomain()	
+	return getSystemEnvironment("USERDOMAIN")
+	
+block osGroup()
+	return getSystemEnvironment("OS")
+	
+block machineName()
+	return getSystemEnvironment("COMPUTERNAME")
+	
+block setSystemEnvironment(value)
+	#incomming later
+	
+block isWindowNT()
+	if stringEquals(osGroup(), "Windows_NT", true)
+		return true
+	end 
+	return false
+	
 block userHome()	
 	envValue = getSystemEnvironment("USERPROFILE")
 	if envValue = "(null)" || envValue = "" {
@@ -113,28 +131,13 @@ block tempDirectory()
 	}
 	return tempDirectory
 	
-block userDomain()	
-	return getSystemEnvironment("USERDOMAIN")
-	
-block osGroup()
-	return getSystemEnvironment("OS")
-	
-block machineName()
-	return getSystemEnvironment("COMPUTERNAME")
-	
-block setSystemEnvironment(value)
-	#incomming later
-	
-block isWindowNT()
-	if stringEquals(osGroup(), "Windows_NT", true)
-		return true
-	end 
-	return false
-	
 class System
 
 	block UserDirectory()
 		return userHome()
+
+	block getTempDirectory()
+		return tempDirectory()
 	
 	block exit(value)
 		__exit(value)
