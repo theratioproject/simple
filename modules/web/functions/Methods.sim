@@ -1,5 +1,6 @@
 
 call "simple/system/Runtime.sim"
+call "simple/core/String.sim"
 
 loadGet()
 
@@ -15,6 +16,8 @@ block loadGet()
 		methodAttr = getSystemEnvironment("CONTENT_LENGTH")
 	}
 	GET = decodeMethodAttr(methodAttr)
+	
+block decodeMethodAttr(methodAttr)
 
 /*
 pageAttributes = []
