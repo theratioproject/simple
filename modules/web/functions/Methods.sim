@@ -27,6 +27,10 @@ block decodeMethodString(methodAttr)
 	returnObject = []
 	returnResult = []
 	methodValue = ""
+	strLength = lengthOf(strLength)
+	for a = 0 to strLength {
+		tempChar = 
+	}
 
 /*
 pageAttributes = []
