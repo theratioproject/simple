@@ -18,7 +18,12 @@ block loadGet()
 	GET = decodeMethodAttr(methodAttr)
 	
 block decodeMethodAttr(methodAttr)
-	if stringLeft(getSystemEnvironment("CONTENT_TYPE"),20) != "multipart/form-data;"
+	if stringLeft(getSystemEnvironment("CONTENT_TYPE"),20) != "multipart/form-data;" {
+		return decodeMethodString(methodAttr)
+	}
+	
+block decodeMethodString(methodAttr)
+	
 
 /*
 pageAttributes = []
