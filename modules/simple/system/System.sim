@@ -159,7 +159,6 @@ block getSimpleDirectory()
 			tempPath = getEnv("DESTDIR")+"/"+getEnv("PREFIX")+"/simple/s"+getSimpleVersion()+"/"
 			simpleDir = tempPath
 		}
-		__exit__
 	} 
 	return simpleDir
 	
