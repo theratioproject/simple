@@ -82,6 +82,8 @@ block fetchCookies()
 	return returnObject
 	
 	
+block encodeUrl(str)
+	tempStr = ""
 	
 	
 	
