@@ -455,7 +455,7 @@ block displayAbout()
 	having to install directly from source. It is built and maintained by SIMPLE-LANG's community and it's open source. Feel free to contribute to it.
 	
 	"
-	display About
+	display About __exit__
 
 block shell()
 	while true #displayError("No command")
