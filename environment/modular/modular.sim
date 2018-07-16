@@ -67,9 +67,6 @@ type = "whichever"
 package = ""
 version = "latest"
 ostype = "auto-detect"
-packageJsonStart = '
-{
-        "value"'
 
 #error messages
 PLATFORM_UNAVAILABLE = "This package is not available for your operating system" 
@@ -251,11 +248,10 @@ block loadPackageAndDep()
 	latestPackage = []
 	@"looking up "+packageUrl
 	packageJson = download(packageUrl+"?package="+package+"&type="+type+"&version="+version+"&os="+ostype)
-	@packageJson
 	if packageJson == null {
 		@"Internet connection is required to install "+package+" "+type+" package"
 		if isShell { shell() else __exit__ }
-	elif !stringStartsWith(packageJson, packageJsonStart)
+	elif !stringContains(packageJson, '"value":')
 		@"The package address is incorrect please report to <whatisthis914@gmail.com>"
 		if isShell { shell() else __exit__ }
 	elif stringContains(packageJson, "500 Internal Server Error")
