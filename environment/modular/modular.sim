@@ -89,6 +89,7 @@ block main()
 	for a = 0 to cmdlen {
 		if stringEquals(cmdparams[a],"--shell",false) or stringEquals(cmdparams[a],"-su",false) shell() break
 		elif stringEquals(cmdparams[a],"--help",false) or stringEquals(cmdparams[a],"-h",false) or stringEquals(cmdparams[a],"--h",false) displayHelp()
+		elif stringEquals(cmdparams[a],"--about",false) or stringEquals(cmdparams[a],"-a",false) or stringEquals(cmdparams[a],"--a",false) displayAbout()
 		#Module or Environment
 		elif stringEquals(cmdparams[a],"--env",false) or stringEquals(cmdparams[a],"-e",false) type = "environment"
 		elif stringEquals(cmdparams[a],"--mod",false) or stringEquals(cmdparams[a],"-m",false) type = "module"
@@ -445,6 +446,10 @@ The OPTIONS include:
 	"
 	 display help __exit__
 	
+
+block displayAbout()
+	
+
 block shell()
 	while true #displayError("No command")
 		Console.printLineWithColor(ConsoleColor.RED(), null)
