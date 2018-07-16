@@ -195,6 +195,21 @@ block getSimpleModulesDirectory()
 
 block getSimpleExecDirectory()
 	simpleExecDir = exeFolder()
+	call "simple/io/File.sim"
+	file = new File(simpleExecDir+"/simple")
+	if 
+	return simpleExecDir
+
+
+block getDynamicModuleExt()
+	if isWindows() {
+		return "dll"
+	elif isMacosx()
+		return "dylib"
+	else
+		return "so"
+	}
+	return ""
 	
 class System
 
