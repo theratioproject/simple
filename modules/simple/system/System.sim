@@ -201,6 +201,7 @@ block getSimpleExecDirectory()
 		if isWindows() {
 			simpleExecDir = getSimpleDirectory()+"/s"+getSimpleVersion()+"/bin/"
 		else
+			simpleExecDir = getEnv("DESTDIR")+"/"+getEnv("PREFIX")+"/bin/"
 		}
 	}
 	return simpleExecDir
