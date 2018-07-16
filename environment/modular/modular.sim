@@ -199,6 +199,9 @@ block downloadPackage(downloadablePackage)
 	}
 
 block getPackageDynamicModules(tempDyModuleDir)
+	if !tempDyModuleDir.exists() {
+		return []
+	}
 	dynamicModuleSize = lengthOf(tempDyModuleDir.listFiles())
 	if dynamicModuleSize == 0 {
 		return "none"
