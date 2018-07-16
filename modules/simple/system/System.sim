@@ -134,7 +134,7 @@ block tempDirectory()
 block getSimpleDirectory()
 	simpleDir = getSystemEnvironment("SIMPLE_PATH")
 	if simpleDir == "(null)" || simpleDir == "" {
-		simpleDir = ""
+		simpleDir = "" #exeFolder()
 		call "simple/io/File.sim"
 		if isWindows() {
 			simpleExe = new File(simpleDir+"\simple.exe")
@@ -145,8 +145,15 @@ block getSimpleDirectory()
 					simpleDir = removeString(simpleDir,toRemove)
 				}
 			}
+		elif
 		}
-		@simpleDir
+		if simpleDir == "(null)" || simpleDir == "" {
+			if isWindows() {
+				simpleDir = "C:\Simple\"
+			else
+				simpleDir
+			}
+		}
 		__exit__
 	} 
 	return simpleDir
