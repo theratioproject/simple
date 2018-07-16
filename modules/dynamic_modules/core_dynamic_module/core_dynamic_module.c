@@ -47,7 +47,7 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
 
 SIMPLE_API void check_characters_is_alpha_num(void *pointer)
 {
-
+	
 }
 
 SIMPLE_API void conversion_hex_to_string(void *pointer)
