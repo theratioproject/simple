@@ -139,9 +139,10 @@ block tempDirectory()
 	return tempDirectory
 
 /*
-	Get the Directory that the simple distribution are installed into, this is different from the 
-	directory where the simple executables e.g simple.exe are. The directory is where different 
-	version of simple-lang are installed. A typical Heirachy example:
+	Get the Directory that the simple distribution are installed into, this is 
+	different from the directory where the simple executables e.g simple.exe are. 
+	The directory is where different version of simple-lang are installed. 
+	A typical Heirachy example:
 	@Code
 		#Windows 
 		C:\Simple\ #-> the simple directory
