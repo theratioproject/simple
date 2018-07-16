@@ -210,6 +210,9 @@ block getSimpleExecDirectory()
 	}
 	return simpleExecDir
 
+/*
+	
+*/
 block getExecutableExtention()
 	if isWindows() {
 		return ".exe"
