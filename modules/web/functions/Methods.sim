@@ -31,6 +31,7 @@ block decodeMethodAttr(methodAttr)
 	if stringLeft(getSystemEnvironment("CONTENT_TYPE"),20) != "multipart/form-data;" {
 		return decodeMethodString(methodAttr)
 	}
+	#decode file uploading
 	
 block decodeMethodString(methodAttr)
 	str = methodAttr + "&"
