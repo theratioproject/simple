@@ -77,6 +77,7 @@ block executeModular(cmdlen,cmdparams)
 	for a = 0 to cmdlen {
 		if stringEquals(cmdparams[a],"--shell",false) or stringEquals(cmdparams[a],"-su",false) if !isShell { isShell = true shell() } break
 		elif stringEquals(cmdparams[a],"--help",false) or stringEquals(cmdparams[a],"-h",false) or stringEquals(cmdparams[a],"--h",false) displayHelp()
+		elif stringEquals(cmdparams[a],"--about",false) or stringEquals(cmdparams[a],"-a",false) or stringEquals(cmdparams[a],"--a",false) displayAbout()
 		#Module or Environment
 		elif stringEquals(cmdparams[a],"--env",false) or stringEquals(cmdparams[a],"-e",false) type = "environment"
 		elif stringEquals(cmdparams[a],"--mod",false) or stringEquals(cmdparams[a],"-m",false) type = "module"
@@ -400,6 +401,17 @@ The OPTIONS include:
 	"
 	 display help if isShell { shell() else __exit__ }
 	
+
+block displayAbout()
+	About = "
+
+	Modular, is SIMPLE-LANG's package manager and Distro updater. It will serve as a system program that helps to install packages
+	from the modules repo / SIMPLE-LANG's archive. It'll also update the version of simple-lang installed on your system without you
+	having to install directly from source. It is built and maintained by SIMPLE-LANG's community and it's open source. Feel free to contribute to it.
+	
+	"
+	display About __exit__
+
 block shell()
 	while true 
 		Console.printWithFG(ConsoleColor.GREEN(), modularTitle)

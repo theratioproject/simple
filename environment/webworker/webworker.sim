@@ -117,7 +117,7 @@ block main()
 block help() header() 
 	display "This program is use to prepare your server for web development with
 simple cgi and web module. Visit simple environments page for more included features
-Usage:  ./webworker ([OPTIONS]) ([FLAGS]) [PATH]
+Usage:  webworker ([OPTIONS]) ([FLAGS]) [PATH]
 
 Flags :
 	-H/<url>		url, link or address of the website | must start with http or https
@@ -145,13 +145,13 @@ The OPTIONS include :
 	__exit__
 
 block printError(msg) header() 
-	display "SPIDER : "+msg + crlf
+	display "WEBWORKER : "+msg + crlf
 	display "======================================================="
 	__exit__
 	
 block header()
 	display crlf+"=======================================================
-	SPIDER : web webworker Program : 2018
+	WEBWORKER : web webworker Program : 2018
 	This program is part of simple environments 
 ======================================================="+crlf
 	

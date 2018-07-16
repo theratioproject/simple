@@ -125,9 +125,8 @@ block writeCode()
 	code = '
 		/* 
 		 * File:   bake.c
-		 * Author: bake || Simple executable file builder
-		 *
-		 * Created on April 04, 2018, 12:11 PM
+		 * Author: bake || Simple-lang executable file builder
+		 * Description: COmpile SIMPLE-LANG programs into standalone system executable files.
 		 */
 		'
 			if isdebug code += '
