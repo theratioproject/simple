@@ -41,6 +41,13 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
     register_block("__stringToCHex",conversion_string_to_chex);
     register_block("__hexToString",conversion_hex_to_string);
     register_block("__stringToList",conversion_string_to_list);
+    /* Conversion */ 
+    register_block("__isAlphaNum",check_characters_is_alpha_num);
+}
+
+SIMPLE_API void check_characters_is_alpha_num(void *pointer)
+{
+
 }
 
 SIMPLE_API void conversion_hex_to_string(void *pointer)
