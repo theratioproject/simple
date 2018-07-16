@@ -22,6 +22,7 @@ call "simple/security/Hash.sim" ? simple.security
 call "archive/zip/Zip.sim" 
 call "simple/system/System.sim"
 call "simple/utilities/Conversion.sim"
+call "web/functions/Methods.sim"
 
 monkeyFace = '
 			    __,__
@@ -307,7 +308,6 @@ block upgradeSimpleDistro()
 	@"Installed version: "+localVersion 
 	ostype = encodeUrl(getOS())
 	upgradeJson = download(simpleUpdateUrl+"?os="+ostype)
-	@upgradeJson
 	if upgradeJson == null {
 		@"Internet connection is required to upgrade simple-lang"
 	elif stringContains(upgradeJson, "500 Internal Server Error")
@@ -316,11 +316,16 @@ block upgradeSimpleDistro()
 	elif stringContains(upgradeJson, "Not Found") 
 		@"The upgrade link is broken please report this to <whatisthis914@gmail.com>"
 		if isShell { shell() else __exit__ }
-	elif !stringContains(upgradeJson, '"value":')
+	elif !stringContains(upgradeJson, '"value"')
 		@"The upgrade address is incorrect please report to <whatisthis914@gmail.com>"
 		if isShell { shell() else __exit__ }
 	else 
 		upgradeObject = (new JsonObject(upgradeJson))
+		upgradeValue = upgradeObject.getObject("value").getStringContent()
+		if upgradeValue == "failed" {
+			@upgradeObject.getObject("message").getStringContent()
+			if isShell { shell() else __exit__ }
+		}
 		latestVersion = upgradeObject.getObject("latest_version").getStringContent()
 		latestSize = upgradeObject.getObject("download_size").getStringContent()
 		latestDownloadUrl = upgradeObject.getObject("download_url").getStringContent()
@@ -332,7 +337,11 @@ block upgradeSimpleDistro()
 			if isShell { shell() else __exit__ }
 		else 
 			@"Total Download Size: "+latestSize+crlf
-			display " :: Do you want to proceed [y/n] " read response @""
+			if askPermission {
+				display " :: Do you want to proceed [y/n] " read response @""
+			else 
+				response = "y"
+			}
 			if response == "y" {
 				@"Downloading simple-lang: "+latestCodename
 				downloadedFile = download(latestDownloadUrl)
