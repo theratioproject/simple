@@ -141,8 +141,8 @@ block getSimpleDirectory()
 			if simpleExe.exists() {
 				for a = 0 to 1 {
 					toRemove = lastStringAfterChar(simpleDir,simpleExe.getSystemSlash())
-					simpleDir = removeString(simpleDir,toRemove)
 					@"in here"
+					simpleDir = removeString(simpleDir,toRemove)
 				}
 				@simpleDir
 				__exit__
