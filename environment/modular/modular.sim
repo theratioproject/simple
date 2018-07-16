@@ -448,7 +448,11 @@ The OPTIONS include:
 	
 
 block displayAbout()
+	About = "
+
+	Modular, is SIMPLE-LANG's package manager and Distro updater. It
 	
+	"
 
 block shell()
 	while true #displayError("No command")
