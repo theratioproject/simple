@@ -175,11 +175,14 @@ block getSimpleDirectory()
 				simpleDir = "C:\Simple\"
 			}
 		else
-			tempPath = getEnv("DESTDIR")+"/"+getEnv("PREFIX")+"/simple/s"+getSimpleVersion()+"/"
+			tempPath = getEnv("DESTDIR")+"/"+getEnv("PREFIX")+"/simple/"
 			simpleDir = tempPath
 		}
 	} 
 	return simpleDir
+
+block getModulesDirectory()
+	return getEnv("SIMPLE_MODULE_PATH")
 	
 class System
 
