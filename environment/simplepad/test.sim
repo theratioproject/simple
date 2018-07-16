@@ -16,14 +16,16 @@ class Test : Fwindow : FLabel
                 display __err__
             end
     end
-    )
-    	label.setPosition(10,20)
-		label.setBackground(FColor.WHITE())
+    label.setPosition(10,20)
+	label.setBackground(FColor.WHITE())
 
 	window = new FWindow()
-	window.setTitle("simplepad - About")
+	window.setTitle("simplepad - Test")
 	window.setSize(600,210)
 	window.setBackground(FColor.WHITE())
 	window.addWidget(label)
 	window.show()
 	window.setLocation(530,150)
+
+    block render()
+        show()
