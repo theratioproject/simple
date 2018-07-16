@@ -181,9 +181,9 @@ block getSimpleDirectory()
 	} 
 	return simpleDir
 
-block getModulesDirectory()
+block getSimpleModulesDirectory()
 	modulesDir = getEnv("SIMPLE_MODULE_PATH")
-	if simpleDir == "" {
+	if modulesDir == "" {
 		modulesDir = getSimpleDirectory()+"/s"+getSimpleVersion()+"/modules/"
 	}
 	return modulesDir
