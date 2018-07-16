@@ -138,6 +138,9 @@ block tempDirectory()
 	}
 	return tempDirectory
 
+/*
+
+*/
 block getSimpleDirectory()
 	simpleDir = getSystemEnvironment("SIMPLE_PATH")
 	if simpleDir == "(null)" || simpleDir == "" {
