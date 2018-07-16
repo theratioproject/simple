@@ -259,14 +259,14 @@ block loadPackageAndDep()
 	if packageJson == null {
 		@"Internet connection is required to install "+package+" "+type+" package"
 		if isShell { shell() else __exit__ }
-	elif !stringContains(packageJson, '"value":')
-		@"The package address is incorrect please report to <whatisthis914@gmail.com>"
-		if isShell { shell() else __exit__ }
 	elif stringContains(packageJson, "500 Internal Server Error")
 		@"The server is experiencing a down time please report to <whatisthis914@gmail.com>"
 		if isShell { shell() else __exit__ }
 	elif stringContains(packageJson, "Not Found") 
 		@"The update link is broken please report this to <whatisthis914@gmail.com>"
+		if isShell { shell() else __exit__ }
+	elif !stringContains(packageJson, '"value":')
+		@"The package address is incorrect please report to <whatisthis914@gmail.com>"
 		if isShell { shell() else __exit__ }
 	}
 	packageObject = new JsonObject(packageJson)
@@ -306,18 +306,17 @@ block upgradeSimpleDistro()
 	localVersion = getSimpleVersion()
 	@"Installed version: "+localVersion 
 	@"looking up "+simpleUpdateUrl
-	# I think there should be an if-else to detect OS type so as to install specified system.
 	upgradeJson = download(simpleUpdateUrl+"?os="+ostype)
 	if upgradeJson == null {
 		@"Internet connection is required to upgrade simple-lang"
-	elif !stringContains(upgradeJson, '"value":')
-		@"The upgrade address is incorrect please report to <whatisthis914@gmail.com>"
-		if isShell { shell() else __exit__ }
 	elif stringContains(upgradeJson, "500 Internal Server Error")
 		@"The server is experiencing a down time please report to <whatisthis914@gmail.com>"
 		if isShell { shell() else __exit__ }
 	elif stringContains(upgradeJson, "Not Found") 
 		@"The upgrade link is broken please report this to <whatisthis914@gmail.com>"
+		if isShell { shell() else __exit__ }
+	elif !stringContains(upgradeJson, '"value":')
+		@"The upgrade address is incorrect please report to <whatisthis914@gmail.com>"
 		if isShell { shell() else __exit__ }
 	else 
 		upgradeObject = (new JsonObject(upgradeJson))
