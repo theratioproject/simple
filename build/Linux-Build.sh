@@ -141,6 +141,9 @@ if [ $EXEC_TYPE = "configure" ] || [ $EXEC_TYPE = "install-configure" ]; then
 			fi
 			sudo apt -y install build-essential
 			sudo apt -y install make
+			sudo apt -y install libcurl4-gnutls-dev
+			sudo apt -y install libcurl4-nss-dev
+			sudo apt -y install libcurl4-openssl-dev
 		}
 	done
 	if [ $EXEC_TYPE = "install-configure" ]; then
