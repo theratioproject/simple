@@ -63,7 +63,7 @@ block fetchCookies()
 		subPosition2 = stringSubString(str,"=") 
 		if subPosition2 == 0  { break }
 		tempResult = []
-		tempResult + trim(stringLeft(str,subPosition2-1))
+		tempResult + trimString(stringLeft(str,subPosition2-1))
 		tempResult + stringSubString(str,subPosition2+1,subPosition-subPosition2-1)
 		returnObject + tempResult 
 		str = stringSubString(str,subPosition+1)
