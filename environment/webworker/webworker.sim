@@ -145,13 +145,13 @@ The OPTIONS include :
 	__exit__
 
 block printError(msg) header() 
-	display "SPIDER : "+msg + crlf
+	display "WEBWORKER : "+msg + crlf
 	display "======================================================="
 	__exit__
 	
 block header()
 	display crlf+"=======================================================
-	SPIDER : web webworker Program : 2018
+	WEBWORKER : web webworker Program : 2018
 	This program is part of simple environments 
 ======================================================="+crlf
 	
