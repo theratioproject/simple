@@ -234,11 +234,7 @@ block recordModuleInstallation(downloadedPackage)
 block getSupportingModulesInfo(initialPackage)
 	allDownloadablePackages = [initialPackage]
 	initPackage = package
-	for a = 0 to initialPackage[:supporting_modules_count] {
-		tempSupportPackage0 = initialPackage[:supporting_modules]
-		tempSupportPackage = tempSupportPackage0[a]
-		@"	packaging	"+tempSupportPackage
-	}
+	package = ""
 	@loadPackageAndDep()
 	allDownloadablePackages[:downloadSize] = "6.04 MB"
 	return allDownloadablePackages
