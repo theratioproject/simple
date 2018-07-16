@@ -238,7 +238,8 @@ block getSupportingModulesInfo(initialPackage)
 	for a = 0 to initialPackage[:supporting_modules_count] {
 		package = initialPackage[:supporting_modules][a+1]
 		if loadPackageAndDep()[:value] == "failed" {
-
+			@"if you owned "+initialPackage[:supporting_modules][a+1]+" module simply add it to the simple-lang package index at "
+			@addPackageUrl
 		else
 		}
 		#change from a+1 to a
