@@ -237,7 +237,10 @@ block getSupportingModulesInfo(initialPackage)
 	allDownloadablePackages = [initialPackage]
 	for a = 0 to initialPackage[:supporting_modules_count] {
 		package = initialPackage[:supporting_modules][a+1]
-		@loadPackageAndDep()[:value]
+		if loadPackageAndDep()[:value] == "failed" {
+
+		else
+		}
 		#change from a+1 to a
 	}
 	allDownloadablePackages[:downloadSize] = "6.04 MB"
@@ -245,7 +248,7 @@ block getSupportingModulesInfo(initialPackage)
 	
 block loadPackageAndDep()
 	latestPackage = []
-	@"looking up "+packageUrl
+	#@"looking up "+packageUrl
 	packageJson = download(packageUrl+"?package="+package+"&type="+type+"&version="+version+"&os="+ostype)
 	if packageJson == null {
 		@"Internet connection is required to install "+package+" "+type+" package"
