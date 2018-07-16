@@ -160,7 +160,7 @@ block tempDirectory()
 block getSimpleDirectory()
 	simpleDir = getSystemEnvironment("SIMPLE_PATH")
 	if simpleDir == "(null)" || simpleDir == "" {
-		simpleDir = "" #exeFolder()
+		simpleDir = exeFolder()
 		call "simple/io/File.sim"
 		if isWindows() {
 			simpleExe = new File(simpleDir+"\simple.exe")
