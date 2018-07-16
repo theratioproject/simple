@@ -89,12 +89,8 @@ $ simple
 ```
 
 ### Getting started.
-<<<<<<< HEAD
 You can get started with SIMPLE-LANG by visiting the docs [here](https://github.com/simple-lang/simple/tree/master/docs)
-=======
-You can get started with SIMPLE-LANG by visiting the docs [here](https://github.com/simple-lang/simple/docs)
 
->>>>>>> 79cafdef286f91d595df55179c39533867a4f53e
 ### Contributors.
 
 We love contributors. This is an open source project and needs the supports of the community extensively. Check out the [contributing guide](./CONTRIBUTORS.MD)
