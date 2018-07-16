@@ -62,22 +62,30 @@ $ simple
 ```
 
 #### Installing on Mac
+
 To install on Mac, the same procedures are followed but some small differences. Steps to install..
 After downloading the Mac package, navigate to the home folder of SIMPLE and run commands.
 The makefile for Mac is under testing and further instructions will be disbursed later.
+
 ```bash
 $ bash build/SimpleOnlyBuild-Mac.sh
 ```
+
 Boom, we have simple installed. Start the SIMPLE compiler with the command
+
 ```bash
 $ simple
 ```
 
 ### Getting started.
 You can get started with SIMPLE-LANG by visiting the docs [here](https://github.com/simple-lang/simple/docs)
+
 ### Contributors.
+
 We love contributors. This is an open source project and needs the supports of the community extensively. Check out the [contributing guide](./CONTRIBUTORS.MD)
+
 ### License
+
 MIT License
 
 Copyright (c) 2018 simple
