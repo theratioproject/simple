@@ -238,9 +238,10 @@ block getSupportingModulesInfo(initialPackage)
 	@"packages ("+(initialPackage[:supporting_modules_count]+2)+")	"+package
 	for a = 0 to initialPackage[:supporting_modules_count] {
 		@"		"+initialPackage[:supporting_modules][a+1]
+		package = initialPackage[:supporting_modules][a+1]
+		@loadPackageAndDep()[:status]
 		#change from a+1 to a
 	}
-	#@loadPackageAndDep()
 	allDownloadablePackages[:downloadSize] = "6.04 MB"
 	return allDownloadablePackages
 	
