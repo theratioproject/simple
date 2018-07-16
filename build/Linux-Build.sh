@@ -139,6 +139,8 @@ if [ $EXEC_TYPE = "configure" ] || [ $EXEC_TYPE = "install-configure" ]; then
 					exit
 				fi
 			fi
+			sudo apt -y install build-essential
+			sudo apt -y install make
 		}
 	done
 	if [ $EXEC_TYPE = "install-configure" ]; then

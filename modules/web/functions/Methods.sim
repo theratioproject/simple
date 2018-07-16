@@ -1,48 +1,98 @@
 
 call "simple/system/Runtime.sim"
+call "simple/core/String.sim"
+call "simple/utilities/Conversion.sim"
 
-pageAttributes = []
+GET = []
+POST = []
+COOKIES = []
 
-loadPageAttributes()
+loadGet()
+POST = GET #inefficient
 
-block getRawUrlData()
-	return getSystemEnvironment("QUERY_STRING")
-
-block getUrlDataAsString()
-	return decodeString(getSystemEnvironment("QUERY_STRING"))
-
-block loadPageAttributes()
-	if (getSystemEnvironment("REQUEST_METHOD") == "GET" ) 
-		methodAttributes = getSystemEnvironment("QUERY_STRING")
-	else 
-		methodAttributes = getSystemEnvironment("CONTENT_LENGTH")
-	end
-	pageAttributes = decodeUrlData(methodAttributes)
+block loadGet()
+	if (getSystemEnvironment("REQUEST_METHOD") == "(null)" ) {
+		return 
+	}
+	if (getSystemEnvironment("REQUEST_METHOD") == "GET" ) {
+		methodAttr = getSystemEnvironment("QUERY_STRING")
+	else
+		methodAttr = getSystemEnvironment("CONTENT_LENGTH")
+	}
+	GET = decodeMethodAttr(methodAttr)
+	COOKIES = fetchCookies()
 	
+	cookiesLength = lengthOf(COOKIES)
+	for a = 0 to cookiesLength {
+		GET+COOKIES[a]
+	}
 	
-block decodeUrlData(urldata)
-	if getSystemEnvironment("CONTENT_TYPE") == "multipart/form-data;"
-		return decodeString(urldata)
-	end
-
-block decodeString(urldata)
-	urldata + urldata + '&'
-	value = ""
-	for x = 0 to lengthOf(urldata)
-		val = urldata[x]
-		if val == "%"
-			if urldata[x+1] == "2" && urldata[x+2] == "2"
-				value += '"'
-			elif urldata[x+1] == "2" && urldata[x+2] == "0"
-				value += ' '
-			end
-			#value = value + '"'#hex2str(urldata[x+1]+urldata[x+2])
-			x = x+2
+	return methodAttr
+	
+block decodeMethodAttr(methodAttr)
+	if stringLeft(getSystemEnvironment("CONTENT_TYPE"),20) != "multipart/form-data;" {
+		return decodeMethodString(methodAttr)
+	}
+	#decode file uploading
+	
+block decodeMethodString(methodAttr)
+	str = methodAttr + "&"
+	returnObject = []
+	returnResult = []
+	methodValue = ""
+	strLength = lengthOf(str)
+	for a = 0 to strLength {
+		tempChar = str[a]
+		if tempChar == "=" {
+			returnResult + methodValue
+			methodValue = ""
+		elif tempChar = "&"
+			returnResult + methodValue
+			methodValue = "" 
+			returnObject + returnResult
+			returnResult = []
+		elif tempChar = "+"
+			methodValue = methodValue + " "
+		elif tempChar = "%"
+			methodValue = methodValue + hexToString(str[a+1]+str[a+2])
+			a = a+2
+		elif tempChar = '"'
 		else 
-			value = value + val
-		end
-	end
-	return value
+			methodValue = methodValue + tempChar 
+		}
+	}
+	return returnObject
+
+block fetchCookies()
+	str = getSystemEnvironment("HTTP_COOKIE")
+	if str == "(null)" { return }
+	str += ";"
+	returnObject = []
+	subPosition = substr(str,";")
+	while subPosition > 0 {
+		subPosition2 = substr(str,"=") 
+		if subPosition2 == 0  { break }
+		tempResult = []
+		tempResult + trimString(stringLeft(str,subPosition2-1))
+		tempResult + stringSubString(str,subPosition2+1,subPosition-subPosition2-1)
+		returnObject + tempResult 
+		str = substr(str,subPosition+1)
+		subPosition = substr(str,";")
+	}
+	return returnObject
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

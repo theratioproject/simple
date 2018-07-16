@@ -32,6 +32,8 @@ SIMPLE_API void error_throw(void *pointer);
 /* Conversion */
 SIMPLE_API void conversion_string_to_chex (void *pointer) ;
 
+SIMPLE_API void conversion_hex_to_string(void *pointer);
+
 SIMPLE_API void conversion_string_to_list (void *pointer) ;
 
 #ifdef __cplusplus

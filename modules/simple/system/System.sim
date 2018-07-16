@@ -78,9 +78,6 @@ block systemVersion()
 block systemUser()	
 	return getSystemEnvironment("USERNAME")
 	
-block userHome()	
-	return getSystemEnvironment("USERHOME")
-	
 block userDomain()	
 	return getSystemEnvironment("USERDOMAIN")
 	
@@ -99,7 +96,48 @@ block isWindowNT()
 	end 
 	return false
 	
+block userHome()	
+	envValue = getSystemEnvironment("USERPROFILE")
+	if envValue = "(null)" || envValue = "" {
+		envValue = getSystemEnvironment("USERDIR")
+		if envValue = "(null)" || envValue = "" {
+			if isWindows() {
+				envValue = "C:\Users\"+systemUser()
+			else
+				envValue = "~/"
+			}
+		}
+	}
+	return envValue
+
+block tempDirectory()
+	tempDirectory = getSystemEnvironment("TMPDIR")
+	if tempDirectory == "(null)" || tempDirectory == "" {
+		tempDirectory = getSystemEnvironment("TEMPDIR")
+		if tempDirectory == "(null)" || tempDirectory == "" {
+			tempDirectory = getSystemEnvironment("TMP")
+			if tempDirectory == "(null)" || tempDirectory == "" {
+				tempDirectory = getSystemEnvironment("TEMP")
+				if tempDirectory == "(null)" || tempDirectory == "" {
+					if isWindows() {
+						tempDirectory = System.UserDirectory()+"\AppData\Local\Temp\"
+					else
+						tempDirectory = System.UserDirectory()+"\tmp\"
+					}
+					
+				}
+			}
+		}
+	}
+	return tempDirectory
+	
 class System
+
+	block UserDirectory()
+		return userHome()
+
+	block getTempDirectory()
+		return tempDirectory()
 	
 	block exit(value)
 		__exit(value)

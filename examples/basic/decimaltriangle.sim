@@ -14,7 +14,7 @@ call "simple/utilities/Math.sim"
 block main()
 	x = 0.1234567890123
 	for a = 0 to 14
-			decimals(a)
+			__decimals(a)
 			display  x + crlf
 	end
 	

@@ -17,5 +17,14 @@
 call "simple/io/File.sim" 
 
 block main()
-	file = new File("../test.txt")
+	file = new File("./test.txt")
 	@file.absolutePath()
+	@"Rename to triller.txt : "+file.changeNameTo("triller.txt") #change only the name not absolute path
+
+	@file.absolutePath()
+	@"Rename back to test.txt : "+file.forceRenameTo("./teste.txt") #change it along with absolute path
+
+	#@"we are deleting "+file.delete() #delete the file 
+
+	display "Where do you want to move the file to : " read destDir
+	file._moveTo(destDir,false)

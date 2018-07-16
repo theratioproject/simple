@@ -32,9 +32,10 @@ block isDirectory(directoryPath)
  
 class Path
 	
-	__IO_PACKAGE = "simple.io.Path"
-	__IO_PATH_ONLY_STRING_ALLOWED = "Only string should be sent as parameter "
+	__IO_MODULE = "simple.io.Path"
 	__IO_PATH_EMPTY = "The __IO_PATH variable is empty"
+	__IO_PATH_NOT_STRING = "Only string is allowed as parameter"
+	__IO_PATH_EXISTS_DELETE = "exist and is been deleted"
 	__IO_PATH_SYSTEM_SLASH = getSystemSlash()
 
 	block Path(ipath)
@@ -116,7 +117,7 @@ class Path
 	block _renameTo(oldName,newName) 
 		newName = curePathSlashes(newName)
 		if !isString(newName) {
-			throwWithTitle(__IO_PACKAGE,__IO_PATH_ONLY_STRING_ALLOWED)
+			throwWithTitle(__IO_MODULE,__IO_PATH_NOT_STRING)
 		}
 		return __renameTo(oldName,newName)
 		
@@ -140,7 +141,7 @@ class Path
 		
 	block absolutePath()
 		if __IO_PATH == null {
-			throwWithTitle(__IO_PACKAGE,__IO_PATH_EMPTY)
+			throwWithTitle(__IO_MODULE,__IO_PATH_EMPTY)
 		}
 		tempPath = __IO_PATH
 		if stringStartsWith(__IO_PATH,".") || stringStartsWith(__IO_PATH,"..") || stringStartsWith(__IO_PATH,__IO_PATH_SYSTEM_SLASH) {
@@ -168,6 +169,34 @@ class Path
 			return '/'
 		}		
 		return '/'
+		
+	/*
+		Move a directory from one folder to another. This operation will require the 
+		folder to be moved to exist else an error is thrown. The moveType parameter
+		determine if to force moving or notify if the directory already exists at the
+		location. It function is similar to @Block renameTo(newName)
+		@Return the move operation success value @DataType Number 
+	*/
+	block _moveTo(newFolder,moveType)
+		__newFolder = newFolder
+		if isPath(newFolder) {
+			__newFolder = newFolder.toString()
+		else 
+			try {
+				newFolder.isADirectory()
+				__newFolder = __newFolder.getPath()
+			catch 
+			
+			}
+		}
+		if !stringEndsWith(__newFolder,getSystemSlash()) {
+			__newFolder += getSystemSlash()
+		}
+		if moveType {
+			return forceRenameTo(__newFolder+getSystemSlash()+getName())
+		else
+			return renameTo(__newFolder+getSystemSlash()+getName())
+		}
 	
 	private 
 		__IO_PATH = null

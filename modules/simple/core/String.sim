@@ -67,8 +67,8 @@ block removeLastChar(str)
 block replaceString(s, o, n)
 	return substr(s,o,n)
 
-block stringSubString(str, index)
-	return substr(str, index)
+block stringSubString(str, index,offset)
+	return substr(str, index, offset)
 
 block stringGetLineCount(str)
 	return lines(str)

@@ -24,3 +24,7 @@ block main()
 	
 	#display "RETURUS 1 IF DELETE SUCCESSFULL : " + tFile.delete()
 	#tFile.renameTo("wasper.sim")
+
+	#declare a new file and create it
+	#file2 = new File("./test2.txt")
+	#file2.create()

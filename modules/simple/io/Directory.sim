@@ -20,23 +20,14 @@ block mkdir(path)
 class Directory : Path
 
 	__IO_DIRECTORY_EXISTS = "The directory already exists you should remove the directory first"
-	__IO_PACKAGE = "simple.io.Directory"
+	__IO_MODULE = "simple.io.Directory"
 	__IO_DIRECTORY__NOT_EXISTS = "The directory does not exists"
-	__IO_DIRECTORY_EXISTS_DELETE = "exist and is been deleted"
 	__IO_DIRECTORY_DELETE = "The directory cannot be deleted"
 	__IO_DIRECTORY_PATH = ""
 	__IO_DIRECTORY_INVALID_PARAMETER = "Invalid parameter, expected Path, String or Directory"
 
 	block Directory(path)
-		if isPath(path)
-			__IO_DIRECTORY_PATH = path.toString()
-		else 
-			__IO_DIRECTORY_PATH = path
-			rawDirectoryPath = path
-		end
-		__IO_DIRECTORY_PATH = curePathSlashes(__IO_DIRECTORY_PATH)
-		directoryName = formatDirectoryName(__IO_DIRECTORY_PATH)
-		__IO_PATH = __IO_DIRECTORY_PATH
+		updateAttributes(path)
 		
 	/*
 		Create a directory if it does not exist, even if the parent directory is does not exist
@@ -97,16 +88,15 @@ class Directory : Path
 		if exists() {
 			if isWindows() {
 				__exec('rmdir /S /Q "'+__IO_DIRECTORY_PATH+'" 2> nul')
-			elif isLinux() {
+			elif isLinux()
 				__exec('rm -rf ' +__IO_DIRECTORY_PATH)	
-			}
 			else
+			}
 		}
 		
 			#failing so we resolve to system for now
 			#deleteFolderRecursively(this,false)
 			#deleteFolderRecursively(this,true)
-		}
 		if exists() {
 			return false
 		else
@@ -161,14 +151,21 @@ class Directory : Path
 		Change the name of a directory to another. Only string is allowed as 
 		parameter and the new folder name must not exists else an error is thrown,
 		to forcefully rename a folder @Block forceRenameTo(newName) should be called
-		@Return the rename operation value @DataType Number
+		@Return the rename operation value @DataType Boolean
 	*/
 	block renameTo(newName)
+		if !isString(newAbsoluteName) {
+			throwWithTitle(__IO_MODULE,newAbsoluteName+" - "+__IO_PATH_NOT_STRING)
+		}
 		tempPath = new Path(newName)
 		if tempPath.exists() {
-			throwWithTitle(__IO_PACKAGE,tempPath.toString()+" - "+__IO_DIRECTORY_EXISTS)
+			throwWithTitle(__IO_MODULE,tempPath.toString()+" - "+__IO_DIRECTORY_EXISTS)
 		}
-		return _renameTo(__IO_DIRECTORY_PATH,newName)
+		renameValue = _renameTo(__IO_DIRECTORY_PATH, tempPath.toString())
+		if renameValue {
+			updateAttributes(tempPath.toString())
+		}
+		return renameValue
 		
 	/*
 		Rename the directory to the new name even if it exist, instead of throwing an
@@ -178,45 +175,24 @@ class Directory : Path
 		@Return the rename operation value @DataType Number
 	*/
 	block forceRenameTo(newName)
+		if !isString(newName) {
+			throwWithTitle(__IO_MODULE,newName+" - "+__IO_PATH_NOT_STRING)
+		}
 		tempDir = new Directory(newName)
 		if tempDir.exists() {
-			warn(__IO_PACKAGE+" : "+tempDir.getPath()+" - "+__IO_DIRECTORY_EXISTS_DELETE)
+			warn(__IO_MODULE+" : "+tempDir.getPath()+" - "+__IO_PATH_EXISTS_DELETE)
 			if tempDir.delete() != true {
-				throwWithTitle(__IO_PACKAGE,tempDir.getPath()+" - "+__IO_DIRECTORY_DELETE)
+				throwWithTitle(__IO_MODULE,tempDir.getPath()+" - "+__IO_DIRECTORY_DELETE)
 			}
 		}
-		return _renameTo(__IO_DIRECTORY_PATH,newName)
+		renameValue = _renameTo(__IO_DIRECTORY_PATH, tempDir.getPath())
+		if renameValue {
+			updateAttributes(tempDir.getPath())
+		}
+		return renameValue
 		
 	/*
-		Move a directory from one folder to another. This operation will require the 
-		folder to be moved to exist else an error is thrown. The moveType parameter
-		determine if to force moving or notify if the directory already exists at the
-		location. It function is similar to @Block renameTo(newName)
-		@Return the move operation success value @DataType Number 
-	*/
-	block _moveTo(newFolder,moveType)
-		__newFolder = newFolder
-		if isPath(newFolder) {
-			__newFolder = newFolder.toString()
-		else 
-			try {
-				newFolder.isADirectory()
-				__newFolder = __newFolder.getPath()
-			catch 
-			
-			}
-		}
-		if !stringEndsWith(__newFolder,getSystemSlash()) {
-			__newFolder += getSystemSlash()
-		}
-		if moveType {
-			return forceRenameTo(__newFolder+getSystemSlash()+getName())
-		else
-			return renameTo(__newFolder+getSystemSlash()+getName())
-		}
-		
-	/*
-		Move the directory to a new folder, it the destination folder has a folder 
+		Move the directory to a new folder, if the destination folder has a folder 
 		with the same name then an already exist error is thrown
 		@Return the move operation success value @DataType Number 
 	*/
@@ -260,19 +236,22 @@ class Directory : Path
 		elif isPath(destFolder)
 			tempDestFolder = new Directory(destFolder.toString())
 		elif !isDirectory(destFolder)
-			throwWithTitle(__IO_PACKAGE,destFolder+" - "+__IO_DIRECTORY_INVALID_PARAMETER)
+			throwWithTitle(__IO_MODULE,destFolder+" - "+__IO_DIRECTORY_INVALID_PARAMETER)
 		}
 		if !tempDestFolder.exists() {
 			if moveType {
 				tempDestFolder.create()
 			else
-				throwWithTitle(__IO_PACKAGE,destFolder+" - "+__IO_DIRECTORY__NOT_EXISTS)
+				throwWithTitle(__IO_MODULE,destFolder+" - "+__IO_DIRECTORY__NOT_EXISTS)
 			}
 		}
 		filesListLength = lengthOf(listFiles())
 		for a = 0 to filesListLength {
-			@"to move : "+filesList[a].absolutePath()
-			#filesList[a].renameTo(tempDestFolder.getPath()+getSystemSlash()+filesList[a].)
+			if moveType {
+				filesList[a].forceMoveTo(tempDestFolder)
+			else
+				filesList[a].moveTo(tempDestFolder)
+			}		
 		}
 		folderListLength = lengthOf(listDirectories())
 		for a = 0 to folderListLength {
@@ -322,9 +301,17 @@ class Directory : Path
 				tempDir = removeLastChar(tempDir)
 			}
 			tempDir = removeString(tempDir,lastStringAfterChar(tempDir, __IO_PATH_SYSTEM_SLASH))
-			@"it : "+tempDir
 			pd = new Directory(tempDir) pd.addChild(__IO_DIRECTORY_PATH)
 			if (!pd.exists()) pd.create() else mkdir(pd.getPendingChildern()[0]) end
 		
-		
+		block updateAttributes(path)
+			if isPath(path)
+			__IO_DIRECTORY_PATH = path.toString()
+			else 
+				__IO_DIRECTORY_PATH = path
+				rawDirectoryPath = path
+			end
+			__IO_DIRECTORY_PATH = curePathSlashes(__IO_DIRECTORY_PATH)
+			directoryName = formatDirectoryName(__IO_DIRECTORY_PATH)
+			__IO_PATH = __IO_DIRECTORY_PATH
 		

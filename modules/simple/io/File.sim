@@ -16,23 +16,22 @@ call "Path.sim"
 
 class File 	: Path
 
-	__IO_PACKAGE = "simple.io.File"
+	__IO_MODULE = "simple.io.File"
+	__IO_FILE_EXISTS = "The file already exists you should delete the file first"
+	__IO_FILE_DELETE = "The file cannot be deleted"
 	FILE_DOES_NOT_EXIST = "The file does not exist"
-	__IO_FILE_NOT_STRING = "Only string is allowed as parameter"
 
 	block File(path)
-		if isPath(path)
-			__IO_FILE_PATH = path.toString()
-		else 
-			__IO_FILE_PATH = path
-		end
-		__IO_FILE_PATH = curePathSlashes(__IO_FILE_PATH)
+		updateAttributes(path)
 		
 	block absolutePath()
 		return __IO_FILE_PATH
 		
 	block name()
 		return lastStringAfterChar(__IO_FILE_PATH, getSystemSlash())
+
+	block getName() 
+		return name()
 		
 	block directory()
 		return removeString(__IO_FILE_PATH, getSystemSlash()+name())
@@ -85,21 +84,113 @@ class File 	: Path
 		end
 		return true
 		
+	/*
+		Change the name of a file to another. Only string is allowed as 
+		parameter and the new file name must not exists else an error is thrown,
+		to forcefully rename a file @Block forceRenameTo(newName) should be called
+		@Return the rename operation value @DataType Boolean
+	*/	
 	block renameTo(newAbsoluteName)
-		if !isString(destFolder) {
-			throwWithTitle(__IO_PACKAGE,newAbsoluteName+" - "+__IO_FILE_NOT_STRING)
+		if !isString(newAbsoluteName) {
+			throwWithTitle(__IO_MODULE,newAbsoluteName+" - "+__IO_PATH_NOT_STRING)
 		}
-		return _renameTo(__IO_FILE_PATH, nname)
+		tempPath = new Path(newAbsoluteName)
+		if tempPath.exists() {
+			throwWithTitle(__IO_MODULE,tempPath.toString()+" - "+__IO_FILE_EXISTS)
+		}
+		renameValue = _renameTo(__IO_FILE_PATH, tempPath.toString())
+		if renameValue {
+			updateAttributes(tempPath)
+		}
+		return renameValue
 		
-	block changeNameTo(nname)
-		__rename(__IO_FILE_PATH, nname)
+	/*
+		Change the name of the file to another name without changing the parent directory 
+		which means the file will remain in the current directory but with a new name, the
+		parameter should be only the name and not the absolute path of the file, to change 
+		the name along with the absolute path the @Block renameTo(newAbsolutename) is the 
+		block to use
+		@Return the rename operation value @DataType Boolean
+	*/
+	block changeNameTo(newName)
+		if !isString(newName) {
+			throwWithTitle(__IO_MODULE,newName+" - "+__IO_PATH_NOT_STRING)
+		}
+		newName = directory()+__IO_PATH_SYSTEM_SLASH+newName
+		return renameTo(newName)
+
+	/*
+		Rename the directory to the new name even if it exist, instead of throwing an
+		error if the folder exists the folder will be deleted instead then the current 
+		directory is renamed to the deleted folder, the content of the old folders are 
+		lost in this case
+		@Return the rename operation value @DataType Number
+	*/	
+	block forceRenameTo(newAbsoluteName)
+		if !isString(newAbsoluteName) {
+			throwWithTitle(__IO_MODULE,newAbsoluteName+" - "+__IO_PATH_NOT_STRING)
+		}
+		tempPath = new File(newAbsoluteName)
+		if tempPath.exists() {
+			warn(__IO_MODULE+" : "+tempPath.absolutePath()+" - "+__IO_PATH_EXISTS_DELETE)
+			if tempPath.delete() != true {
+				throwWithTitle(__IO_MODULE,tempPath.absolutePath()+" - "+__IO_FILE_DELETE )
+			}
+		}
+		renameValue = _renameTo(__IO_FILE_PATH, tempPath.toString())
+		if renameValue {
+			updateAttributes(tempPath)
+		}
+		return renameValue
+
+	/*
+		Change the name of the file to another name without changing the parent directory 
+		which means the file will remain in the current directory but with a new name, the
+		parameter should be only the name and not the absolute path of the file, if the a file
+		with the same name already exists in the directory it will be deleted which will 
+		cause lost of file content and this file will serve as a replacement to the deleted file
+		@Return the rename operation value @DataType Boolean
+	*/
+	block forceChangeNameTo(newName)
+		if !isString(newName) {
+			throwWithTitle(__IO_MODULE,newName+" - "+__IO_PATH_NOT_STRING)
+		}
+		newName = directory()+__IO_PATH_SYSTEM_SLASH+newName
+		return forceRenameTo(newName)
+
+	/*
+		Move the file to a new folder, ft the destination folder has a file 
+		with the same name then an already exist error is thrown
+		@Return the move operation success value @DataType Boolean
+		@ToDo support path and string as parameter
+	*/
+	block moveTo(newFolder)
+		return _moveTo(newFolder,false)
+		
+	/*
+		Forcefully move the file to the destination folder, if a file with 
+		the same name is present in the destination folder it will be deleted and the 
+		file will be moved to replace it, Use this block with caution
+		@Return the move operation success value @DataType Boolean
+		@ToDo support path and string as parameter
+	*/
+	block forceMoveTo(newFolder)
+		return _moveTo(newFolder,true)
 	
 	private
 		__IO_FILE_PATH = "(null)"
 		
 		block ensureExistence()
 			if !exists() 
-				throw(FILE_DOES_NOT_EXIST+" : "+name())
+				#throw(FILE_DOES_NOT_EXIST+" : "+name())
 			end
+
+		block updateAttributes(path)
+			if isPath(path)
+			__IO_FILE_PATH = path.toString()
+			else 
+				__IO_FILE_PATH = path
+			end
+			__IO_FILE_PATH = curePathSlashes(__IO_FILE_PATH)
 		
 	
