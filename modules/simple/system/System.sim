@@ -144,11 +144,17 @@ block tempDirectory()
 	version of simple-lang are installed. A typical Heirachy example:
 	@Code
 		#Windows 
-		C:\Simple\
+		C:\Simple\ #-> the simple directory
+			.\s0.3.35\
+			.\s0.3.36\
+			.\s0.4.00\
+		#linux
+		/simple/ #-> the simple directory
 			.\s0.3.35\
 			.\s0.3.36\
 			.\s0.4.00\
 	@EndCode
+	@Return the simple-lang installation directory @DataType String
 */
 block getSimpleDirectory()
 	simpleDir = getSystemEnvironment("SIMPLE_PATH")
