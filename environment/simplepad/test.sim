@@ -1,0 +1,6 @@
+call "fulltick/all.sim"
+
+block main()
+    md = new Test md.render()
+
+class Test : Fwindow
