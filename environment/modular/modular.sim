@@ -450,7 +450,9 @@ The OPTIONS include:
 block displayAbout()
 	About = "
 
-	Modular, is SIMPLE-LANG's package manager and Distro updater. It
+	Modular, is SIMPLE-LANG's package manager and Distro updater. It will serve as a system program that helps to install packages
+	from the modules repo / SIMPLE-LANG's archive. It'll also update the version of simple-lang installed on your system without you
+	having to install directly from source. That can be done with 
 	
 	"
 
