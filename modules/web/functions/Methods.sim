@@ -4,9 +4,11 @@ call "simple/core/String.sim"
 call "simple/utilities/Conversion.sim"
 
 GET = []
+POST = []
 COOKIES = []
 
 loadGet()
+POST = GET
 
 block loadGet()
 	if (getSystemEnvironment("REQUEST_METHOD") == "(null)" ) {
