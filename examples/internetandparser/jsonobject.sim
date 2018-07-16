@@ -20,7 +20,7 @@ input = '{
 	"boolean_true": true,
 	"boolean_false": false,
 	"big_number": 2147483649,
-}
+}'
 
 block main()
 	display input + crlf 
