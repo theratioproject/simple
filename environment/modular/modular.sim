@@ -139,7 +139,7 @@ block moduleEnviron(depConf,packageList)
 	downloadPackages(allDownloadablePackages)
 	
 block downloadPackages(allDownloadablePackages)
-	@crlf+"Total Download Size: "+allDownloadablePackages[:downloadSize]
+	#@crlf+"Total Download Size: "+allDownloadablePackages[:downloadSize]
 	if askPermission {
 		display " :: Do you want to proceed [y/n] " read response @""
 	else 
