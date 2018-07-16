@@ -130,6 +130,10 @@ block tempDirectory()
 		}
 	}
 	return tempDirectory
+
+block getSimpleDirectory()
+	simpleDir = getSystemEnvironment("SIMPLE_PATH")
+	return simpleDir
 	
 class System
 
