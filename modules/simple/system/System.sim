@@ -26,6 +26,13 @@ UNKNOWN_SYETEM = "Unknown System"
 
 System = new System
 
+block getEnv(variable)
+	environmentVar = getSystemEnvironment(variable)
+	if environmentVar == "(null)" {
+		environmentVar = ""
+	}
+	return environmentVar
+
 block getOS()
 	if isMsDos()
 		return MS_DOS_SYSTEM
