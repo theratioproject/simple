@@ -44,8 +44,7 @@ verifierUrl = simpleLangHost+"?page=Packages%20Index&sub_page=Verifier"
 addPackageUrl = simpleLangHost+"?page=Packages%20Index&sub_page=Add%20New%20Package"
 simpleUpdateUrl = simpleLangHost+"api/Upgrade.sim"
 packageUrl = simpleLangHost+"api/PackageInstaller.sim"
-simpleDistDirectory = ""
-@exeFolder()
+simpleDistDirectory = getSimpleDirectory()
 tempDirectory = getTemporaryDirectory()
 modulesDirectory = getModulesDirectory()
 #blocks to find modules path
