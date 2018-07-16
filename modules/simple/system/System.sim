@@ -193,6 +193,10 @@ block getSimpleModulesDirectory()
 	}
 	return modulesDir
 
+/*
+	Get the directory where the simple executable directory 
+	@Return where simple-lang executable directory @DataType String
+*/
 block getSimpleExecDirectory()
 	simpleExecDir = exeFolder()
 	call "simple/io/File.sim"
