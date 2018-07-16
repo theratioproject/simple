@@ -211,7 +211,8 @@ block getSimpleExecDirectory()
 	return simpleExecDir
 
 /*
-	
+	Get the extension type for the specific operating system
+	@Return the system executable directory
 */
 block getExecutableExtention()
 	if isWindows() {
