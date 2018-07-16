@@ -169,7 +169,7 @@ block downloadPackage(downloadablePackage)
 		@" :: "+downloadablePackage[:date]
 	}
 	downloadedPackage = new Download(downloadablePackage[:download_url])
-	downloadedPackage.saveLocation(tempDirectory+hash(package)+".zip")
+	downloadedPackage.saveLocation(tempDirectory+hash(downloadablePackage[:name])+".zip")
 	downloadedPackage.execute()
 	if downloadedPackage.exists() {
 		downloadedPackageZip = new Zip(downloadedPackage.absolutePath(),"r")
