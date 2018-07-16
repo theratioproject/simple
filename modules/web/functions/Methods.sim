@@ -88,9 +88,13 @@ block encodeUrl(str)
 	for a = 0 to strLength {
 		if __isAlphaNum(str[a]) {
 			tempStr += str[a]
-		elif
+		elif str[a] == " "
+			tempStr += "+"
+		else
+			tempStr += "%"+stringToHex(str[a])
 		}
 	}
+	return tempStr
 	
 	
 	
