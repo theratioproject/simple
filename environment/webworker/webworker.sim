@@ -117,7 +117,7 @@ block main()
 block help() header() 
 	display "This program is use to prepare your server for web development with
 simple cgi and web module. Visit simple environments page for more included features
-Usage:  ./webworker ([OPTIONS]) ([FLAGS]) [PATH]
+Usage:  webworker ([OPTIONS]) ([FLAGS]) [PATH]
 
 Flags :
 	-H/<url>		url, link or address of the website | must start with http or https
