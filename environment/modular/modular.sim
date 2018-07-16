@@ -40,10 +40,9 @@ modularTitle = ""
 
 simpleLangHost = "http://localhost/simple-lang.io/"
 verifierUrl = simpleLangHost+"verifiers.sim"
-modularUrl = simpleLangHost+"api/"
-addPackageUrl = modularUrl+"add-package.sim"
-simpleUpdateUrl = modularUrl+"simple-lang-upgrade.sim"
-packageUrl = modularUrl+"package-installer.sim"
+addPackageUrl = simpleLangHost+"add-package.sim"
+simpleUpdateUrl = simpleLangHost+"simple-lang-upgrade.sim"
+packageUrl = simpleLangHost+"api/PackageInstaller.sim"
 simpleDistDirectory = "/bin/"
 tempDirectory = getTemporaryDirectory()
 modulesDirectory = getModulesDirectory()
