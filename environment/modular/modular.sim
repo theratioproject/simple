@@ -41,7 +41,7 @@ modularTitle = ""
 
 simpleLangHost = "http://localhost/simple-lang.io/"
 verifierUrl = simpleLangHost+"verifiers.sim"
-addPackageUrl = simpleLangHost+"add-package.sim"
+addPackageUrl = simpleLangHost+"?page=Packages Index&sub_page=Add New Package"
 simpleUpdateUrl = simpleLangHost+"simple-lang-upgrade.sim"
 packageUrl = simpleLangHost+"api/PackageInstaller.sim"
 simpleDistDirectory = "/bin/"
