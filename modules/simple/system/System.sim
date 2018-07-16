@@ -135,7 +135,10 @@ block getSimpleDirectory()
 	simpleDir = getSystemEnvironment("SIMPLE_PATH")
 	if simpleDir == "(null)" || simpleDir == "" {
 		simpleDir = exeFolder()
-		
+		if isWindows() {
+			call "simple/io/File.sim"
+			if simpleDir+"\simple.exe"
+		}
 	} 
 	return simpleDir
 	
