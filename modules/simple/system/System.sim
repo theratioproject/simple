@@ -182,7 +182,11 @@ block getSimpleDirectory()
 	return simpleDir
 
 block getModulesDirectory()
-	return getEnv("SIMPLE_MODULE_PATH")
+	modulesDir = getEnv("SIMPLE_MODULE_PATH")
+	if simpleDir == "" {
+		
+	}
+	return modulesDir
 	
 class System
 
