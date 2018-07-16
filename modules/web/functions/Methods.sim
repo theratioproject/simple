@@ -57,6 +57,31 @@ block fetchCookies()
 	str = getSystemEnvironment("HTTP_COOKIE")
 	if str == "(null)" { return }
 	str += ";"
+	returnObject = []
+	subPosition = stringSubString(str,";")
+	while subPosition > 0 {
+		subPosition2 = stringSubString(str,"=") 
+		if subPosition2 == 0  { break }
+		tempResult = []
+		tempResult + trim(stringLeft(str,subPosition2-1))
+		tempResult + stringSubString(str,subPosition2+1,subPosition-subPosition2-1)
+		returnObject + tempResult 
+		str = stringSubString(str,subPosition+1)
+		subPosition = stringSubString(str,";")
+	}
+	return returnObject
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
