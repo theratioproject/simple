@@ -237,9 +237,8 @@ block getSupportingModulesInfo(initialPackage)
 	allDownloadablePackages = [initialPackage]
 	@"packages ("+(initialPackage[:supporting_modules_count]+2)+")	"+package
 	for a = 0 to initialPackage[:supporting_modules_count] {
-		@"		"+initialPackage[:supporting_modules][a+1]
 		package = initialPackage[:supporting_modules][a+1]
-		@loadPackageAndDep()[:status]
+		@loadPackageAndDep()[:value]
 		#change from a+1 to a
 	}
 	allDownloadablePackages[:downloadSize] = "6.04 MB"
@@ -267,7 +266,7 @@ block loadPackageAndDep()
 	latestPackage[:message] = packageObject.getObject("message").getStringContent()
 	if latestPackage[:value] == "failed" {
 		if package != initPackage {
-			return
+			return latestPackage
 		}
 		@latestPackage[:message]
 		@"if you owned the module simply add it to the simple-lang package index at "
