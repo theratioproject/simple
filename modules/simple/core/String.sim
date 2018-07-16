@@ -192,7 +192,6 @@ block lastStringAfterChar(str, lst)
 	for a  = lastc to lengthOf(str)
 		ret += str[a]
 	end
-	@ret
 	return ret
 	
 block stringAfterLast(str, lst)
