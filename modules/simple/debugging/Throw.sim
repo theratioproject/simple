@@ -41,7 +41,7 @@ call "Debug.sim"
 	thrown in the format below
 	@Code
 	
-		Line 24 -> Unknown Error occureded
+		Line 24 -> Unknown Error occured
 			at throw() in file Throw.sim
 			at line 40 at three() in file debugging.sim
 			at line 37 at two() in file debugging.sim
@@ -56,7 +56,7 @@ call "Debug.sim"
 */
 block throw(errorvalue)
 	if errorvalue = "" {
-		errorvalue = "Unknown Error occureded"
+		errorvalue = "Unknown Error occured"
 	}
 	__throw(errorvalue)
 	if isLinux() {
@@ -75,7 +75,7 @@ block throw(errorvalue)
 */
 block throwOnly(errorvalue)
 	if errorvalue = "" {
-		errorvalue = "Unknown Error occureded"
+		errorvalue = "Unknown Error occured"
 	}
 	__throw(errorvalue)
 	if isLinux() {
@@ -111,7 +111,7 @@ block __throwWithTitle(title,errorvalue,type)
 	}
 	finalErrorValue += " : "
 	if errorvalue == "" {
-		finalErrorValue += "Unknown Error occureded"
+		finalErrorValue += "Unknown Error Occur"
 	else
 		finalErrorValue += errorvalue
 	}
