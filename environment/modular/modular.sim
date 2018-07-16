@@ -242,8 +242,6 @@ block getSupportingModulesInfo(initialPackage)
 			@package+" not found in the index"
 			@"if you owned "+package+" module simply add it to the simple-lang package index at "
 			@addPackageUrl
-		else
-			
 		}
 	}
 	allDownloadablePackages[:downloadSize] = "6.04 MB"
