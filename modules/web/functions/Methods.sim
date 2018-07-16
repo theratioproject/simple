@@ -20,6 +20,13 @@ block loadGet()
 	GET = decodeMethodAttr(methodAttr)
 	COOKIES = fetchCookies()
 	
+	cookiesLength = lengthOf(COOKIES)
+	for a = 0 to cookiesLength {
+		GET+COOKIES[a]
+	}
+	
+	return methodAttr
+	
 block decodeMethodAttr(methodAttr)
 	if stringLeft(getSystemEnvironment("CONTENT_TYPE"),20) != "multipart/form-data;" {
 		return decodeMethodString(methodAttr)
