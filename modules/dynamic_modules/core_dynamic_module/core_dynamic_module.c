@@ -47,7 +47,7 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
 
 /* Check Characters */
 
-void check_characters_is_block(void *pointer,int (*block)(int))
+SIMPLE_API void check_characters_is_block(void *pointer,int (*block)(int))
 {
 	char *str  ;
 	int size,x  ;
@@ -72,7 +72,7 @@ void check_characters_is_block(void *pointer,int (*block)(int))
 
 SIMPLE_API void check_characters_is_alpha_num(void *pointer)
 {
-	check_characters_is_block(pointer,__isAlphaNum);
+	check_characters_is_block(pointer,check_characters_is_alpha_num);
 }
 
 SIMPLE_API void conversion_hex_to_string(void *pointer)
