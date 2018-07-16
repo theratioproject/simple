@@ -180,7 +180,7 @@ block downloadPackage(downloadablePackage)
 		if extractedPackage.exists() {
 			@"installing "+downloadablePackage[:name]+" documentation..."
 			moveContent(extractedPackage.getPath()+"/docs/",documentationDirectory)
-			@"installing "+downloadablePackage[:name]+" the dynamic modules..."
+			@"installing "+downloadablePackage[:name]+" dynamic modules..."
 			moveContent(extractedPackage.getPath()+"/dynamic_modules/",dynamicModulesDirectory)
 			@"installing "+downloadablePackage[:name]+" module..."
 			moveContent(extractedPackage.getPath()+"/modules/",modulesDirectory)
