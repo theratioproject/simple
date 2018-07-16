@@ -151,9 +151,11 @@ block getSimpleDirectory()
 			if isWindows() {
 				simpleDir = "C:\Simple\"
 			else
-				simpleDir
+				tempPath = getSystemEnvironment("DESTDIR")+"/"+getSystemEnvironment("PREFIX")+"/bin/"
+				simpleDir = tempPath
 			}
 		}
+		@simpleDir
 		__exit__
 	} 
 	return simpleDir
