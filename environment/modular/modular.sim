@@ -452,9 +452,10 @@ block displayAbout()
 
 	Modular, is SIMPLE-LANG's package manager and Distro updater. It will serve as a system program that helps to install packages
 	from the modules repo / SIMPLE-LANG's archive. It'll also update the version of simple-lang installed on your system without you
-	having to install directly from source. That can be done with 
+	having to install directly from source. It is built and maintained by SIMPLE-LANG's community and it's open source. Feel free to contribute to it.
 	
 	"
+	display About
 
 block shell()
 	while true #displayError("No command")
