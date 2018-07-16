@@ -182,7 +182,9 @@ block getSimpleDirectory()
 	return simpleDir
 
 /*
-	
+	Get the directory where simple-lang modules are installed. The location depends on 
+	the operating system path
+	@Return the simple-lang modules directory @DatatType String
 */
 block getSimpleModulesDirectory()
 	modulesDir = getEnv("SIMPLE_MODULE_PATH")
