@@ -196,9 +196,17 @@ block getSimpleModulesDirectory()
 block getSimpleExecDirectory()
 	simpleExecDir = exeFolder()
 	call "simple/io/File.sim"
-	file = new File(simpleExecDir+"/simple")
-	if 
+	file = new File(simpleExecDir+"/simple"+getExecutableExtention())
+	if !file.exists() {
+		
+	}
 	return simpleExecDir
+
+block getExecutableExtention()
+	if isWindows() {
+		return ".exe"
+	}
+	return ""
 
 
 block getDynamicModuleExt()
