@@ -8,7 +8,7 @@ POST = []
 COOKIES = []
 
 loadGet()
-POST = GET
+POST = GET #inefficient
 
 block loadGet()
 	if (getSystemEnvironment("REQUEST_METHOD") == "(null)" ) {
