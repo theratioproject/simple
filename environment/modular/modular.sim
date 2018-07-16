@@ -40,9 +40,9 @@ monkeyFace = '
 modularTitle = ""
 
 simpleLangHost = "http://localhost/simple-lang.io/"
-verifierUrl = simpleLangHost+"verifiers.sim"
-addPackageUrl = simpleLangHost+"?page=Packages Index&sub_page=Add New Package"
-simpleUpdateUrl = simpleLangHost+"simple-lang-upgrade.sim"
+verifierUrl = simpleLangHost+"?page=Packages%20Index&sub_page=Verifier"
+addPackageUrl = simpleLangHost+"?page=Packages%20Index&sub_page=Add%20New%20Package"
+simpleUpdateUrl = simpleLangHost+"api/Upgrade.sim"
 packageUrl = simpleLangHost+"api/PackageInstaller.sim"
 simpleDistDirectory = "/bin/"
 tempDirectory = getTemporaryDirectory()
