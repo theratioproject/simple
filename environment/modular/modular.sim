@@ -236,13 +236,14 @@ block recordModuleInstallation(downloadedPackage)
 block getSupportingModulesInfo(initialPackage)
 	allDownloadablePackages = [initialPackage]
 	for a = 0 to initialPackage[:supporting_modules_count] {
-		package = initialPackage[:supporting_modules][a+1]
+		tempSupportModules = initialPackage[:supporting_modules]
+		package = tempSupportModules[0]
 		if loadPackageAndDep()[:value] == "failed" {
-			@"if you owned "+initialPackage[:supporting_modules][a+1]+" module simply add it to the simple-lang package index at "
+			@package+" not found in the index"
+			@"if you owned "+package+" module simply add it to the simple-lang package index at "
 			@addPackageUrl
 		else
 		}
-		#change from a+1 to a
 	}
 	allDownloadablePackages[:downloadSize] = "6.04 MB"
 	return allDownloadablePackages
