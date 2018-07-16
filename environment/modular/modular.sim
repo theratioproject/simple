@@ -58,6 +58,7 @@ isShell = false
 cmdlen = lengthOf(cmdparams)
 type = "whichever"
 package = ""
+initPackage = ""
 version = "latest"
 ostype = "auto-detect"
 
@@ -96,6 +97,7 @@ block executeModular(cmdlen,cmdparams)
 		upgradeSimpleDistro()
 	else 
 		@"Preparing to install package: "+package+" - "+type+" "+version
+		initPackage = package
 		depConf = new File(modulesDirectory+"/modules-dependencies.conf")
 		if !depConf.exists() { 
 			@"error occur modules configuration file cannot be found" 
@@ -233,7 +235,6 @@ block recordModuleInstallation(downloadedPackage)
 
 block getSupportingModulesInfo(initialPackage)
 	allDownloadablePackages = [initialPackage]
-	initPackage = package
 	@"packages ("+(initialPackage[:supporting_modules_count]+2)+")	"+package
 	for a = 0 to initialPackage[:supporting_modules_count] {
 		@"		"+initialPackage[:supporting_modules][a+1]
@@ -264,7 +265,7 @@ block loadPackageAndDep()
 	packageObject = new JsonObject(packageJson)
 	latestPackage[:value] = packageObject.getObject("value").getStringContent()
 	latestPackage[:message] = packageObject.getObject("message").getStringContent()
-	if latestPackage[:value] == "failed" {
+	if latestPackage[:value] == "failed" && package == initPackage {
 		@latestPackage[:message]
 		@"if you owned the module simply add it to the simple-lang package index at "
 		@addPackageUrl
