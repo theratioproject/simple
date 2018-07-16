@@ -212,7 +212,7 @@ block getSimpleExecDirectory()
 
 /*
 	Get the extension type for the specific operating system
-	@Return the system executable directory
+	@Return the system executable directory @DataType String
 */
 block getExecutableExtention()
 	if isWindows() {
@@ -220,7 +220,10 @@ block getExecutableExtention()
 	}
 	return ""
 
-
+/*
+	Get the dynamic modules extension for the specific operating system
+	@Return the system dynamic module extension @DataType String
+*/
 block getDynamicModuleExt()
 	if isWindows() {
 		return "dll"
