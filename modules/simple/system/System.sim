@@ -134,7 +134,8 @@ block tempDirectory()
 block getSimpleDirectory()
 	simpleDir = getSystemEnvironment("SIMPLE_PATH")
 	if simpleDir == "(null)" || simpleDir == "" {
-
+		simpleDir = exeFolder()
+		
 	} 
 	return simpleDir
 	
