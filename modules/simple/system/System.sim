@@ -145,7 +145,7 @@ block getSimpleDirectory()
 					simpleDir = removeString(simpleDir,toRemove)
 				}
 			}
-		elif
+		else
 		}
 		if simpleDir == "(null)" || simpleDir == "" {
 			#if isWindows() {
