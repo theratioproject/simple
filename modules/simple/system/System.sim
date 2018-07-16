@@ -198,7 +198,10 @@ block getSimpleExecDirectory()
 	call "simple/io/File.sim"
 	file = new File(simpleExecDir+"/simple"+getExecutableExtention())
 	if !file.exists() {
-		
+		if isWindows() {
+			simpleExecDir = getSimpleDirectory()+"/s"+getSimpleVersion()+"/bin/"
+		else
+		}
 	}
 	return simpleExecDir
 
