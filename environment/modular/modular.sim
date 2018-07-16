@@ -305,12 +305,12 @@ block upgradeSimpleDistro()
 	@"Checking installed simple-lang version..."
 	localVersion = getSimpleVersion()
 	@"Installed version: "+localVersion 
-	ostype = getOS()
+	ostype = "Windows%2032"
 	if isWindows64() {
 		@"yes "
 	}
 	@ostype
-	upgradeJson = download(simpleUpdateUrl+"?os="+ostype)
+	upgradeJson = download(simpleUpdateUrl+"?os="+encodeUrl(ostype)
 	@upgradeJson
 	if upgradeJson == null {
 		@"Internet connection is required to upgrade simple-lang"
