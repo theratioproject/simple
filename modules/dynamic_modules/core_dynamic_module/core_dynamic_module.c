@@ -45,9 +45,34 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
     register_block("__isAlphaNum",check_characters_is_alpha_num);
 }
 
+/* Check Characters */
+
+void check_characters_is_block(void *pointer,int (*block)(int))
+{
+	char *str  ;
+	int size,x  ;
+	if ( SIMPLE_API_PARACOUNT != 1 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARACOUNT);
+		return ;
+	}
+	if ( SIMPLE_API_ISSTRING(1) ) {
+		str = SIMPLE_API_GETSTRING(1) ;
+		size = SIMPLE_API_GETSTRINGSIZE(1) ;
+		for ( x = 0 ; x < size ; x++ ) {
+			if ( ! (*block)(str[x]) ) {
+				SIMPLE_API_RETNUMBER(0);
+				return ;
+			}
+		}
+		SIMPLE_API_RETNUMBER(1);
+	} else {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+	}
+}
+
 SIMPLE_API void check_characters_is_alpha_num(void *pointer)
 {
-	
+	check_characters_is_block(pointer,__isAlphaNum);
 }
 
 SIMPLE_API void conversion_hex_to_string(void *pointer)
