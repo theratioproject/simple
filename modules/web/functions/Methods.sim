@@ -58,16 +58,16 @@ block fetchCookies()
 	if str == "(null)" { return }
 	str += ";"
 	returnObject = []
-	subPosition = stringSubString(str,";")
+	subPosition = substr(str,";")
 	while subPosition > 0 {
-		subPosition2 = stringSubString(str,"=") 
+		subPosition2 = substr(str,"=") 
 		if subPosition2 == 0  { break }
 		tempResult = []
 		tempResult + trimString(stringLeft(str,subPosition2-1))
 		tempResult + stringSubString(str,subPosition2+1,subPosition-subPosition2-1)
 		returnObject + tempResult 
-		str = stringSubString(str,subPosition+1)
-		subPosition = stringSubString(str,";")
+		str = substr(str,subPosition+1)
+		subPosition = substr(str,";")
 	}
 	return returnObject
 	
