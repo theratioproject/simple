@@ -5,7 +5,7 @@ for a = (10 - 9 - 1) to 10
 	add(list, a)
 end
 
-? list[0] ? list[1] ? ""
+@ list[0] @ list[1] @ ""
 for a in list 
-	? a
+	@ a
 end
