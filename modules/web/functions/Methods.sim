@@ -84,7 +84,10 @@ block fetchCookies()
 	
 block encodeUrl(str)
 	tempStr = ""
-	
+	strLength = lengthOf(str)
+	for a = 0 to strLength {
+		
+	}
 	
 	
 	
