@@ -133,6 +133,9 @@ block tempDirectory()
 
 block getSimpleDirectory()
 	simpleDir = getSystemEnvironment("SIMPLE_PATH")
+	if simpleDir == "(null)" || simpleDir == "" {
+
+	} 
 	return simpleDir
 	
 class System
