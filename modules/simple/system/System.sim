@@ -192,6 +192,9 @@ block getSimpleModulesDirectory()
 		modulesDir = getSimpleDirectory()+"/s"+getSimpleVersion()+"/modules/"
 	}
 	return modulesDir
+
+block getSimpleExecDirectory()
+	simpleExecDir = exeFolder()
 	
 class System
 
