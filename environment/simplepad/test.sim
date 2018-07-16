@@ -5,5 +5,25 @@ block main()
 
 class Test : Fwindow : FLabel
     label = new FLabel(
-        
+        display "Simple " + getSimpleVersion() + crlf
+        display "REPL (Read-Eval-Print-Loop)" + crlf
+        while true
+            display crlf + "simple:> "
+                read code
+            try
+                executeCode(code)
+            catch
+                display __err__
+            end
+    end
     )
+    	label.setPosition(10,20)
+		label.setBackground(FColor.WHITE())
+
+	window = new FWindow()
+	window.setTitle("simplepad - About")
+	window.setSize(600,210)
+	window.setBackground(FColor.WHITE())
+	window.addWidget(label)
+	window.show()
+	window.setLocation(530,150)
