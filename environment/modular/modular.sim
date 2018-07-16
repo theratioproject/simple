@@ -255,7 +255,6 @@ block getSupportingModulesInfo(initialPackage)
 	
 block loadPackageAndDep()
 	latestPackage = []
-	#@"looking up "+packageUrl
 	packageJson = download(packageUrl+"?package="+package+"&type="+type+"&version="+version+"&os="+ostype)
 	if packageJson == null {
 		@"Internet connection is required to install "+package+" "+type+" package"
@@ -282,7 +281,7 @@ block loadPackageAndDep()
 		@addPackageUrl
 		if isShell { shell() else __exit__ }
 	}
-	@"resolving dependencies..."
+	if package == initPackage { @"resolving dependencies..." }
 	latestPackage[:status] = packageObject.getObject("status").getStringContent()
 	latestPackage[:name] = packageObject.getObject("name").getStringContent()
 	latestPackage[:title] = packageObject.getObject("title").getStringContent()
