@@ -299,6 +299,12 @@ block upgradeSimpleDistro()
 		upgradeJson = download(simpleUpdateUrl+"?os="+ostype)
 	if upgradeJson == null {
 		@"Internet connection is required to upgrade simple-lang"
+	elif !stringContains(packageJson, '"value":')
+		@"The upgrade address is incorrect please report to <whatisthis914@gmail.com>"
+		if isShell { shell() else __exit__ }
+	elif stringContains(packageJson, "500 Internal Server Error")
+		@"The server is experiencing a down time please report to <whatisthis914@gmail.com>"
+		if isShell { shell() else __exit__ }
 	elif stringContains(upgradeJson, "Not Found") 
 		@"The upgrade link is broken please report this to <whatisthis914@gmail.com>"
 		if isShell { shell() else __exit__ }
