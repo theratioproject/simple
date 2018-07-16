@@ -265,7 +265,10 @@ block loadPackageAndDep()
 	packageObject = new JsonObject(packageJson)
 	latestPackage[:value] = packageObject.getObject("value").getStringContent()
 	latestPackage[:message] = packageObject.getObject("message").getStringContent()
-	if latestPackage[:value] == "failed" && package == initPackage {
+	if latestPackage[:value] == "failed" {
+		if package != initPackage {
+			return
+		}
 		@latestPackage[:message]
 		@"if you owned the module simply add it to the simple-lang package index at "
 		@addPackageUrl
