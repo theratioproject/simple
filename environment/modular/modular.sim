@@ -306,6 +306,9 @@ block upgradeSimpleDistro()
 	localVersion = getSimpleVersion()
 	@"Installed version: "+localVersion 
 	ostype = getOS()
+	if isWindows64() {
+		@"yes "
+	}
 	upgradeJson = download(simpleUpdateUrl+"?os="+ostype)
 	@upgradeJson
 	if upgradeJson == null {
