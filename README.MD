@@ -13,31 +13,40 @@ Current Version : 0.3.35
 ![simple-repl](https://i.imgur.com/qx5bbc3.png)
 
 ### About Simple
+
 SIMPLE is a plain and innovative programming with multi-paradigm. It can be embedded in C/C++ projects. The language is portable to various OS including windows, macOS, any linux and unix distros and other OS. The language is small and fast.
 
 ### Features
+
 Simple has features every programming language will have such as variable declarations, functional programming, Object oriented programming etc and more to come. It houses all these features as it parent architecture comes from **C**. Simple is weakly typed, no explicit end of line required and can be embedded in C and C++ projects. Portability with javascript is a major goal we're trying and going to achieve.
 
 [![Download SIMPLE](https://a.fsdn.com/con/app/sf-download-button)](https://sourceforge.net/projects/simple-lang/files/s0.3.303/)
 ### Downloading & Installing SIMPLE.
+
 Simple has compilers that can be installed in our Windows/Linux/Mac systems. Simple can either be cloned, downloaded as zip or gotten from [here](https://simple-lang.sourceforge.io/)
 Below are the procedures for installing on each system respectively.
 
 #### Installing on Windows.
+
 This is quite the easiest installation. Download the windows type file from [here](https://simple-lang.sourceforge.io/) and run.
 
 #### Installing on Linux
+
 After downloading simple from either methods listed above, unzip/move into the SIMPLE folder from your console and follow the instructions below.
+
 ```sh
 $ cd build & chmod +x Linux-Build.sh
 ```
 ##### Installing SIMPLE as a program file alone.
+
 This method of installation, installs **SIMPLE** as a program file without building its debug folder.
 ```sh
 $ sudo sh ./Linux-Build.sh -c -i
 ```
 ##### Installing SIMPLE for debugging purpose.
+
 This method of installation does not install **SIMPLE** to the system but only installs the debugging folder *s0.3.35* and houses four folders:
+
 + bin
     - simple
     - simple.so
@@ -52,11 +61,13 @@ This method of installation does not install **SIMPLE** to the system but only i
     - ...
 
 To do this, run the command:
+
 ```sh
 sudo ./Linux-Build.sh -d
 ```
 
 ### Running the SIMPLE compiler.
+
 ```sh
 $ simple
 ```
