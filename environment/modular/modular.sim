@@ -244,7 +244,7 @@ block getSupportingModulesInfo(initialPackage)
 			@"if you owned "+package+" module simply add it to the simple-lang package index at "
 			@addPackageUrl
 		else
-			add(allDownloadablePackages,supportPackage)
+			allDownloadablePackages+supportPackage
 		}
 	}
 	allDownloadablePackages[:downloadSize] = "6.04 MB"
