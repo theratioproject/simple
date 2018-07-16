@@ -309,6 +309,7 @@ block upgradeSimpleDistro()
 	if isWindows64() {
 		@"yes "
 	}
+	@ostype
 	upgradeJson = download(simpleUpdateUrl+"?os="+ostype)
 	@upgradeJson
 	if upgradeJson == null {
