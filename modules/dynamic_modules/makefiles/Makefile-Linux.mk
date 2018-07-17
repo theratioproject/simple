@@ -61,6 +61,10 @@ clean:
 	${RM} ${CND_DISTDIR}/build/*.o
 	${RMDIR} ${CND_DISTDIR}/build
 
+ifeq ($(PREFIX),)
+    PREFIX := /usr/local
+endif
+
 .PHONY: install
 install:
 	mkdir -p $(DESTDIR)$(PREFIX)/simple/$(VERSION)/modules/
@@ -71,10 +75,6 @@ install:
 	cp -R $(MODULE_BASE)/simple $(DESTDIR)$(PREFIX)/simple/$(VERSION)/modules/
 	cp -R $(MODULE_BASE)/web $(DESTDIR)$(PREFIX)/simple/$(VERSION)/modules/
 	rm -r -f $(CND_DISTDIR)/
-
-#ifeq ($(PREFIX),)
-#    PREFIX := /usr/local
-#endif
 	
 #We should not remove the main simple directory because it might contain 
 #other simple-lang dependencies and modules for another version
