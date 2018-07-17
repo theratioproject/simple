@@ -175,6 +175,10 @@ block getSimpleDirectory()
 				simpleDir = "C:\Simple\"
 			}
 		else
+			#$(DESTDIR)$(PREFIX)/simple/$(VERSION)/
+			if getEnv("PREFIX") == "" {
+			
+			}
 			tempPath = getEnv("DESTDIR")+"/"+getEnv("PREFIX")+"/simple/"
 			simpleDir = tempPath
 		}
