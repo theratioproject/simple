@@ -129,7 +129,7 @@ block tempDirectory()
 					if isWindows() {
 						tempDirectory = System.UserDirectory()+"\AppData\Local\Temp\"
 					else
-						tempDirectory = System.UserDirectory()+"\tmp\"
+						tempDirectory = System.UserDirectory()+"/tmp/"
 					}
 					
 				}
