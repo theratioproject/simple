@@ -98,7 +98,7 @@ if [ $EXEC_TYPE = "configure" ] || [ $EXEC_TYPE = "install-configure" ]; then
 	echo "simple-lang:configure: configure build $VERSION"
 	echo "============================================================="
 	ALLOW_DEP_INSTALL="0"
-	DEPENDENCIES='gcc fltk.so openssl libcurl'
+	DEPENDENCIES='gcc fltk.so lib*ssl libcurl'
 	for i in $DEPENDENCIES; do
 		echo "simple-lang:configure: checking if $i is installed"
 		ldconfig -p | grep $i >/dev/null 2>&1 && {
@@ -141,6 +141,9 @@ if [ $EXEC_TYPE = "configure" ] || [ $EXEC_TYPE = "install-configure" ]; then
 			fi
 			sudo apt -y install build-essential
 			sudo apt -y install make
+			sudo apt -y install libcurl4-gnutls-dev
+			sudo apt -y install libcurl4-nss-dev
+			sudo apt -y install libcurl4-openssl-dev
 		}
 	done
 	if [ $EXEC_TYPE = "install-configure" ]; then

@@ -21,6 +21,8 @@ call "simple/utilities/parser/json/JsonObject.sim"
 call "simple/security/Hash.sim" ? simple.security
 call "archive/zip/Zip.sim" 
 call "simple/system/System.sim"
+call "simple/utilities/Conversion.sim"
+call "web/functions/Methods.sim"
 
 monkeyFace = '
 			    __,__
@@ -38,22 +40,14 @@ monkeyFace = '
 
 modularTitle = ""
 
-simpleLangHost = "https://www.simple-lang.sourceforge.net/"
-verifierUrl = simpleLangHost+"verifiers.sim"
-modularUrl = simpleLangHost+"modular/"
-addPackageUrl = modularUrl+"add-package.sim"
-simpleUpdateUrl = modularUrl+"simple-lang-upgrade.sim"
-packageUrl = modularUrl+"package-installer.sim"
-simpleDistDirectory = "/bin/"
+simpleLangHost = "http://localhost/simple-lang.io/"
+verifierUrl = simpleLangHost+"?page=Packages%20Index&sub_page=Verifier"
+addPackageUrl = simpleLangHost+"?page=Packages%20Index&sub_page=Add%20New%20Package"
+simpleUpdateUrl = simpleLangHost+"api/Upgrade.sim"
+packageUrl = simpleLangHost+"api/PackageInstaller.sim"
+simpleDistDirectory = getSimpleDirectory()
 tempDirectory = getTemporaryDirectory()
-modulesDirectory = getModulesDirectory()
-#blocks to find modules path
-
-if isWindows() {
-	simpleDistDirectory = "C:\Simple\"
-elif isLinux()
-	simpleDistDirectory = "/usr/bin/simple/"
-}
+modulesDirectory = getSimpleModulesDirectory()
 
 documentationDirectory = modulesDirectory+"../docs/"
 dynamicModulesDirectory = modulesDirectory+"/dynamic_modules/"
@@ -65,6 +59,7 @@ isShell = false
 cmdlen = lengthOf(cmdparams)
 type = "whichever"
 package = ""
+initPackage = ""
 version = "latest"
 ostype = "auto-detect"
 
@@ -89,7 +84,7 @@ block executeModular(cmdlen,cmdparams)
 		#Version and Attribute
 		elif stringEquals(cmdparams[a],"-v",false) or stringEquals(cmdparams[a],"--version",false) version = cmdparams[a++]  
 		elif stringEquals(cmdparams[a],"-os",false) or stringEquals(cmdparams[a],"--system",false) ostype = cmdparams[a++]  
-		elif stringEquals(cmdparams[a],"--upgrade",false) or stringEquals(cmdparams[a],"--update",false) or stringEquals(cmdparams[a],"-u",false) type = "upgrade" break
+		elif stringEquals(cmdparams[a],"--upgrade",false) or stringEquals(cmdparams[a],"--update",false) or stringEquals(cmdparams[a],"-u",false) type = "upgrade" 
 		#Others
 		elif stringEquals(cmdparams[a],"-p",false) or stringEquals(cmdparams[a],"--path",false) simpleDistDirectory = cmdparams[a++] @simpleDistDirectory
 		elif stringEquals(cmdparams[a],"-t",false) or stringEquals(cmdparams[a],"--temp",false) deleteTemp = false
@@ -104,6 +99,7 @@ block executeModular(cmdlen,cmdparams)
 		upgradeSimpleDistro()
 	else 
 		@"Preparing to install package: "+package+" - "+type+" "+version
+		initPackage = package
 		depConf = new File(modulesDirectory+"/modules-dependencies.conf")
 		if !depConf.exists() { 
 			@"error occur modules configuration file cannot be found" 
@@ -147,7 +143,7 @@ block moduleEnviron(depConf,packageList)
 	downloadPackages(allDownloadablePackages)
 	
 block downloadPackages(allDownloadablePackages)
-	@crlf+"Total Download Size: "+allDownloadablePackages[:downloadSize]
+	#@crlf+"Total Download Size: "+allDownloadablePackages[:downloadSize]
 	if askPermission {
 		display " :: Do you want to proceed [y/n] " read response @""
 	else 
@@ -175,7 +171,7 @@ block downloadPackage(downloadablePackage)
 		@" :: "+downloadablePackage[:date]
 	}
 	downloadedPackage = new Download(downloadablePackage[:download_url])
-	downloadedPackage.saveLocation(tempDirectory+hash(package)+".zip")
+	downloadedPackage.saveLocation(tempDirectory+hash(downloadablePackage[:name])+".zip")
 	downloadedPackage.execute()
 	if downloadedPackage.exists() {
 		downloadedPackageZip = new Zip(downloadedPackage.absolutePath(),"r")
@@ -186,7 +182,7 @@ block downloadPackage(downloadablePackage)
 		if extractedPackage.exists() {
 			@"installing "+downloadablePackage[:name]+" documentation..."
 			moveContent(extractedPackage.getPath()+"/docs/",documentationDirectory)
-			@"installing "+downloadablePackage[:name]+" the dynamic modules..."
+			@"installing "+downloadablePackage[:name]+" dynamic modules..."
 			moveContent(extractedPackage.getPath()+"/dynamic_modules/",dynamicModulesDirectory)
 			@"installing "+downloadablePackage[:name]+" module..."
 			moveContent(extractedPackage.getPath()+"/modules/",modulesDirectory)
@@ -205,6 +201,9 @@ block downloadPackage(downloadablePackage)
 	}
 
 block getPackageDynamicModules(tempDyModuleDir)
+	if !tempDyModuleDir.exists() {
+		return []
+	}
 	dynamicModuleSize = lengthOf(tempDyModuleDir.listFiles())
 	if dynamicModuleSize == 0 {
 		return "none"
@@ -241,13 +240,23 @@ block recordModuleInstallation(downloadedPackage)
 
 block getSupportingModulesInfo(initialPackage)
 	allDownloadablePackages = [initialPackage]
-	
+	for a = 0 to initialPackage[:supporting_modules_count] {
+		tempSupportModules = initialPackage[:supporting_modules]
+		package = tempSupportModules[a]
+		supportPackage = loadPackageAndDep()
+		if supportPackage[:value] == "failed" {
+			@package+" not found in the index"
+			@"if you owned "+package+" module simply add it to the simple-lang package index at "
+			@addPackageUrl
+		else
+			allDownloadablePackages+supportPackage
+		}
+	}
 	allDownloadablePackages[:downloadSize] = "6.04 MB"
 	return allDownloadablePackages
 	
 block loadPackageAndDep()
 	latestPackage = []
-	@"looking up "+packageUrl
 	packageJson = download(packageUrl+"?package="+package+"&type="+type+"&version="+version+"&os="+ostype)
 	if packageJson == null {
 		@"Internet connection is required to install "+package+" "+type+" package"
@@ -258,17 +267,23 @@ block loadPackageAndDep()
 	elif stringContains(packageJson, "Not Found") 
 		@"The update link is broken please report this to <whatisthis914@gmail.com>"
 		if isShell { shell() else __exit__ }
+	elif !stringContains(packageJson, '"value":')
+		@"The package address is incorrect please report to <whatisthis914@gmail.com>"
+		if isShell { shell() else __exit__ }
 	}
 	packageObject = new JsonObject(packageJson)
 	latestPackage[:value] = packageObject.getObject("value").getStringContent()
 	latestPackage[:message] = packageObject.getObject("message").getStringContent()
 	if latestPackage[:value] == "failed" {
+		if package != initPackage {
+			return latestPackage
+		}
 		@latestPackage[:message]
 		@"if you owned the module simply add it to the simple-lang package index at "
 		@addPackageUrl
 		if isShell { shell() else __exit__ }
 	}
-	@"resolving dependencies..."
+	if package == initPackage { @"resolving dependencies..." }
 	latestPackage[:status] = packageObject.getObject("status").getStringContent()
 	latestPackage[:name] = packageObject.getObject("name").getStringContent()
 	latestPackage[:title] = packageObject.getObject("title").getStringContent()
@@ -292,16 +307,26 @@ block upgradeSimpleDistro()
 	@"Checking installed simple-lang version..."
 	localVersion = getSimpleVersion()
 	@"Installed version: "+localVersion 
-	@"looking up "+simpleUpdateUrl
-	# I think there should be an if-else to detect OS type so as to install specified system.
-		upgradeJson = download(simpleUpdateUrl+"?os="+ostype)
+	ostype = encodeUrl(getOS())
+	upgradeJson = download(simpleUpdateUrl+"?os="+ostype)
 	if upgradeJson == null {
 		@"Internet connection is required to upgrade simple-lang"
+	elif stringContains(upgradeJson, "500 Internal Server Error")
+		@"The server is experiencing a down time please report to <whatisthis914@gmail.com>"
+		if isShell { shell() else __exit__ }
 	elif stringContains(upgradeJson, "Not Found") 
 		@"The upgrade link is broken please report this to <whatisthis914@gmail.com>"
 		if isShell { shell() else __exit__ }
+	elif !stringContains(upgradeJson, '"value"')
+		@"The upgrade address is incorrect please report to <whatisthis914@gmail.com>"
+		if isShell { shell() else __exit__ }
 	else 
 		upgradeObject = (new JsonObject(upgradeJson))
+		upgradeValue = upgradeObject.getObject("value").getStringContent()
+		if upgradeValue == "failed" {
+			@upgradeObject.getObject("message").getStringContent()
+			if isShell { shell() else __exit__ }
+		}
 		latestVersion = upgradeObject.getObject("latest_version").getStringContent()
 		latestSize = upgradeObject.getObject("download_size").getStringContent()
 		latestDownloadUrl = upgradeObject.getObject("download_url").getStringContent()
@@ -313,7 +338,11 @@ block upgradeSimpleDistro()
 			if isShell { shell() else __exit__ }
 		else 
 			@"Total Download Size: "+latestSize+crlf
-			display " :: Do you want to proceed [y/n] " read response @""
+			if askPermission {
+				display " :: Do you want to proceed [y/n] " read response @""
+			else 
+				response = "y"
+			}
 			if response == "y" {
 				@"Downloading simple-lang: "+latestCodename
 				downloadedFile = download(latestDownloadUrl)
@@ -401,9 +430,6 @@ block getTemporaryDirectory()
 	tDirectory = new Directory(tempDirectory+"/.simple_env/modular/")
 	tDirectory.create()
 	return tDirectory.getPath()
-
-block getModulesDirectory()
-	return getSystemEnvironment("SIMPLE_MODULE_PATH")
 	
 /*
 Ask for permission in cases where you are not a top priviledge user

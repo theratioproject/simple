@@ -89,7 +89,7 @@ $ simple
 ```
 
 ### Getting started.
-You can get started with SIMPLE-LANG by visiting the docs [here](https://github.com/simple-lang/simple/docs)
+You can get started with SIMPLE-LANG by visiting the docs [here](https://github.com/simple-lang/simple/tree/master/docs)
 
 ### Contributors.
 

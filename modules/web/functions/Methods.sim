@@ -82,7 +82,19 @@ block fetchCookies()
 	return returnObject
 	
 	
-	
+block encodeUrl(str)
+	tempStr = ""
+	strLength = lengthOf(str)
+	for a = 0 to strLength {
+		if __isAlphaNum(str[a]) {
+			tempStr += str[a]
+		elif str[a] == " "
+			tempStr += "+"
+		else
+			tempStr += "%"+stringToHex(str[a])
+		}
+	}
+	return tempStr
 	
 	
 	

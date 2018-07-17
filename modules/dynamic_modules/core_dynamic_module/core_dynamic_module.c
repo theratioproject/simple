@@ -41,45 +41,40 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
     register_block("__stringToCHex",conversion_string_to_chex);
     register_block("__hexToString",conversion_hex_to_string);
     register_block("__stringToList",conversion_string_to_list);
+    register_block("__stringToHex",conversion_string_to_hex);
+
+    /* Characters Checking */ 
+    register_block("__isAlphaNum",check_characters_is_alpha_num);
 }
 
-SIMPLE_API void conversion_hex_to_string(void *pointer)
+/* Characters Checking */ 
+
+SIMPLE_API void check_characters_is_block(void *pointer,int (*block)(int))
 {
-	char str[3]  ;
-	const char *string  ;
-	char *string2  ;
-	int x,i,nMax  ;
-	unsigned int y  ;
+	char *str  ;
+	int size,x  ;
 	if ( SIMPLE_API_PARACOUNT != 1 ) {
-		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARACOUNT);
 		return ;
 	}
 	if ( SIMPLE_API_ISSTRING(1) ) {
-		string = SIMPLE_API_GETSTRING(1) ;
-		nMax = SIMPLE_API_GETSTRINGSIZE(1) ;
-		string2 = (char *) simple_state_malloc(((VM *) pointer)->sState,(nMax/2)+1);
-		if ( string2 == NULL ) {
-			SIMPLE_API_ERROR(SIMPLE_OOM);
-			return ;
-		}
-		i = 0 ;
-		for ( x = 0 ; x < nMax ; x+=2 ) {
-			str[0] = string[x] ;
-			if ( string[x+1]   != ' ' ) {
-				str[1] = string[x+1] ;
-				str[2] = '\0' ;
-			} else {
-				str[1] = '\0' ;
+		str = SIMPLE_API_GETSTRING(1) ;
+		size = SIMPLE_API_GETSTRINGSIZE(1) ;
+		for ( x = 0 ; x < size ; x++ ) {
+			if ( (*block) != (str[x]) ) {
+				SIMPLE_API_RETNUMBER(0);
+				return ; //errornous
 			}
-			sscanf(str,"%x",&y);
-			string2[i] = y ;
-			i++ ;
 		}
-		SIMPLE_API_RETSTRING2(string2,nMax/2);
-		simple_state_free(((VM *) pointer)->sState,string2);
+		SIMPLE_API_RETNUMBER(1);
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
+}
+
+SIMPLE_API void check_characters_is_alpha_num(void *pointer)
+{
+	check_characters_is_block(pointer,check_characters_is_alpha_num);
 }
 
 SIMPLE_API void error_warn(void *pointer)
@@ -201,11 +196,13 @@ SIMPLE_API void error_throw(void *pointer)
 	}
 }
 
-SIMPLE_API void conversion_string_to_chex (void *pointer)
+/* Conversion */ 
+
+SIMPLE_API void conversion_string_to_hex(void *pointer)
 {
 	char str[3]  ;
 	unsigned char *string  ;
-	int x,nMax  ;
+	int x,max  ;
 	char *string2  ;
 	if ( SIMPLE_API_PARACOUNT != 1 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
@@ -213,13 +210,86 @@ SIMPLE_API void conversion_string_to_chex (void *pointer)
 	}
 	if ( SIMPLE_API_ISSTRING(1) ) {
 		string = (unsigned char *) SIMPLE_API_GETSTRING(1) ;
-		nMax = SIMPLE_API_GETSTRINGSIZE(1) ;
-		string2 = (char *) simple_state_malloc(((VM *) pointer)->sState,nMax*5);
+		max = SIMPLE_API_GETSTRINGSIZE(1) ;
+		string2 = (char *) simple_state_malloc(((VM *) pointer)->sState,max*2);
 		if ( string2 == NULL ) {
 			SIMPLE_API_ERROR(SIMPLE_OOM);
 			return ;
 		}
-		for ( x = 1 ; x <= nMax ; x++ ) {
+		for ( x = 1 ; x <= max ; x++ ) {
+			sprintf( str , "%x" , (unsigned int) string[x-1] ) ;
+			string2[(x-1)*2] = str[0] ;
+			if ( str[1] != '\0' ) {
+				string2[((x-1)*2)+1] = str[1] ;
+			} else {
+				string2[((x-1)*2)+1] = ' ' ;
+			}
+		}
+		SIMPLE_API_RETSTRING2(string2,max*2);
+		simple_state_free(((VM *) pointer)->sState,string2);
+	} else {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+	}
+}
+
+SIMPLE_API void conversion_hex_to_string(void *pointer)
+{
+	char str[3]  ;
+	const char *string  ;
+	char *string2  ;
+	int x,i,max  ;
+	unsigned int y  ;
+	if ( SIMPLE_API_PARACOUNT != 1 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
+		return ;
+	}
+	if ( SIMPLE_API_ISSTRING(1) ) {
+		string = SIMPLE_API_GETSTRING(1) ;
+		max = SIMPLE_API_GETSTRINGSIZE(1) ;
+		string2 = (char *) simple_state_malloc(((VM *) pointer)->sState,(max/2)+1);
+		if ( string2 == NULL ) {
+			SIMPLE_API_ERROR(SIMPLE_OOM);
+			return ;
+		}
+		i = 0 ;
+		for ( x = 0 ; x < max ; x+=2 ) {
+			str[0] = string[x] ;
+			if ( string[x+1]   != ' ' ) {
+				str[1] = string[x+1] ;
+				str[2] = '\0' ;
+			} else {
+				str[1] = '\0' ;
+			}
+			sscanf(str,"%x",&y);
+			string2[i] = y ;
+			i++ ;
+		}
+		SIMPLE_API_RETSTRING2(string2,max/2);
+		simple_state_free(((VM *) pointer)->sState,string2);
+	} else {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+	}
+}
+
+SIMPLE_API void conversion_string_to_chex (void *pointer)
+{
+	char str[3]  ;
+	unsigned char *string  ;
+	int x,max  ;
+	char *string2  ;
+	if ( SIMPLE_API_PARACOUNT != 1 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
+		return ;
+	}
+	if ( SIMPLE_API_ISSTRING(1) ) {
+		string = (unsigned char *) SIMPLE_API_GETSTRING(1) ;
+		max = SIMPLE_API_GETSTRINGSIZE(1) ;
+		string2 = (char *) simple_state_malloc(((VM *) pointer)->sState,max*5);
+		if ( string2 == NULL ) {
+			SIMPLE_API_ERROR(SIMPLE_OOM);
+			return ;
+		}
+		for ( x = 1 ; x <= max ; x++ ) {
 			sprintf( str , "%x" , (unsigned int) string[x-1] ) ;
 			/* Separator */
 			string2[(x-1)*5] = ',' ;
@@ -234,7 +304,7 @@ SIMPLE_API void conversion_string_to_chex (void *pointer)
 		}
 		/* Pass the first letter to avoid the first comma */
 		string2++ ;
-		SIMPLE_API_RETSTRING2(string2,nMax*5-1);
+		SIMPLE_API_RETSTRING2(string2,max*5-1);
 		/* When we call free() we use the original pointer */
 		string2-- ;
 		simple_state_free(((VM *) pointer)->sState,string2);

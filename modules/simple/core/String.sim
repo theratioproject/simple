@@ -189,8 +189,8 @@ block lastStringAfterChar(str, lst)
 		count++
 	end
 	lastc = (lengthOf(str) - count) + 1
-	for a  = lastc to lengthOf(str)
-		ret += str[a]
+	for stra  = lastc to lengthOf(str)
+		ret += str[stra]
 	end
 	return ret
 	

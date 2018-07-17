@@ -20,7 +20,7 @@
 **  Support for C Functions 
 */
 
-SIMPLE_API void register_block_t ( SimpleState *sState,const char *cStr, void (*pBlock)(void *) ) ;
+SIMPLE_API void register_block_t ( SimpleState *sState,const char *cStr, void (*block)(void *) ) ;
 
 SIMPLE_API void loadcblocks ( SimpleState *sState ) ;
 
