@@ -140,7 +140,7 @@ block fetchInfo(sourceContent)
 block displayHeaderInfo(sourceContent,headerAttribute)
 	if !isParsed parserSourceContent = parserSource(sourceContent) end
 	if parserSourceContent[headerAttribute] != '' 
-		if eachLine ? parserSourceContent[headerAttribute] 	
+		if eachLine @ parserSourceContent[headerAttribute] 	
 		else display parserSourceContent[headerAttribute] end
 	end
 	
@@ -154,7 +154,7 @@ block displayContent(sourceContent,contentAttribute)
 	contentAttributeLength = getTypeLength(parserSourceContent[contentAttribute])
 	if contentAttributeLength > -1
 		for a = 0 to contentAttributeLength
-			? parserSourceContent[contentAttribute][a+1]
+			@ parserSourceContent[contentAttribute][a+1]
 		end
 	end
 	
@@ -298,12 +298,12 @@ The OPTIONS include :
 	
 block printError(msg)
 	header()
-	? "	SIMPLEBRIDGE : "+msg 
+	@ "	SIMPLEBRIDGE : "+msg 
 	display "======================================================="
 	__exit__
  
 block header()
-	? "=======================================================
+	@ "=======================================================
 	SIMPLEBRIDGE : simple-lang source file bridge
 	This program is part of simple environments 
 ======================================================="
