@@ -82,9 +82,9 @@ install:
 #rm -r -f $(DESTDIR)$(PREFIX)/simple/
 .PHONY: uninstall
 uninstall:
-	rm -r -f $(DESTDIR)$(PREFIX)/simple/$(VERSION)/modules/dynamic_modules/
-	rm -r -f $(DESTDIR)$(PREFIX)/simple/$(VERSION)/modules/
-	rm -r -f $(DESTDIR)$(PREFIX)/simple/$(VERSION)/
+	rm -r -f $(DESTDIR)$(PREFIX)/lib/simple/$(VERSION)/modules/dynamic_modules/
+	rm -r -f $(DESTDIR)$(PREFIX)/lib/simple/$(VERSION)/modules/
+	rm -r -f $(DESTDIR)$(PREFIX)/lib/simple/$(VERSION)/
 
 #If this make file does not work on your Windows PC or you use 
 #alternative compiler e.g Visual Studio, Cygwin e.t.c feel free to 

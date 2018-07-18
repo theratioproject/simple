@@ -11,11 +11,13 @@ simple_debug_version=$version-debug
 fulltick_build_issue="<https://github.com/simple-lang/simple/issues/16>"
 arc_var=-m32
 arc=32
-operating_system="linux_amd64"
+operating_system="linux_x86"
+cpu_arc="x86"
 
 execute_build() {
 	check_if_is_sudo $@
 	operating_system=$(get_os_platform)
+	cpu_arc=$(get_os_arch_platform)
 	local standalone_flag="none"
 
 	for param in "$@"
@@ -38,8 +40,11 @@ execute_build() {
 			keep_dist="true"
 		elif [ "$param" = "-i" ] || [ "$param" = "--install" ]; then 
 			exec_type="install-$exec_type"
-		elif [ "$param" = "-d" ] || [ "$param" = "--debug" ]; then 
-			exec_type="debug-$exec_type"
+		elif [ "$param" = "-d" ] || [ "$param" = "--debug" ]; then
+			exec_type="install-$exec_type"
+		elif [ "$param" = "-x" ] || [ "$param" = "--deb" ]; then 
+			exec_type="deb-package-$exec_type" 
+			standalone_flag="thanks_you"
 		elif [ "$param" = "-so" ] || [ "$param" = "--simple-only" ]; then 
 			standalone_flag="simple-only"
 		elif [ "$param" = "-io" ] || [ "$param" = "--includes-only" ]; then 
@@ -76,6 +81,8 @@ execute_build_proceed() {
 					copymodules $1
 				;;
 			esac
+			build_environments $1
+			finalize_installation $1
 		;;
 		*simple-only* )
 			installsimpleexec $1
@@ -90,14 +97,46 @@ execute_build_proceed() {
 			installsimpleexec notanyofit
 			build_dynamic_modules $1
 		;;
-		*enviroment-only* )
+		*environment-only* )
 			build_environments $1
 		;;
 	esac
-	remove_dist_folders ../simple/dist/ ../modules/dynamic_modules/dist
+	case $1 in
+		*deb-package* )
+			build_deb_package $@
+		;;
+	esac
+	remove_dist_folders ../simple/dist/ ../modules/dynamic_modules/dist/ ../environment/dist/ ../../simple$ver-$operating_system
 }
 
-
+build_environments() {
+	header $1 "preparing to install simple-lang environments"
+	cd ../build
+	if [ -e ../environment/Linux-Install.mk ]; then
+		local simple_command="simple"
+		case $1 in
+			*debug* )
+				cd "../../$simple_debug_version/bin/"
+				local simple_command="./$simple_command"
+				sudo rm -f ./bake && sudo rm -f ./modular && sudo rm -f ./webworker && sudo rm -f ./simplerepl && sudo rm -f ./simplepad && sudo rm -f ./simplebridge
+				sudo make -f ../../simple/environment/Linux-Install.mk ARC_FLAG=$arc_var ARC=$arc ENV_DISTDIR=./  SIMPLE_H=../../../$simple_debug_version/includes/simple.h SIMPLE=$simple_command SUDO=sudo ENV_PATH=../../simple/environment/ LIB_PATH=./simple.so
+				cd "../../simple/build/"
+			;;
+			*install* )
+				cd ../environment/
+				sudo make -f ./Linux-Install.mk SIMPLE=$simple_command ARC_FLAG=$arc_var ARC=$arc 
+				if [ -e ./dist/bake ]; then
+					sudo make -f ./Linux-Install.mk uninstall
+					sudo make -f ./Linux-Install.mk install
+				else
+					display_error $1 "installation of simple-lang environment fail"
+				fi
+			;;
+		esac
+	else 
+		not_found_error $1 "./environment/Linux-Install.mk"
+	fi
+}
 
 copymodules() {
 	header $1 "copying the standard modules"
@@ -227,15 +266,13 @@ build_dynamic_modules(){
 }
 
 installsimpleexec() {
-	header install "building simple-lang executables"
+	header install-debug "building simple-lang executables"
 	if [ -e ../simple/makefiles/Makefile-Linux.mk ]; then 
 		cd ../simple/makefiles
 		display $1 "building simple-lang $version build..."
-		if [ -e "../dist/" ]
+		if [ -e "../dist/" ]; then
 			display $1 "uninstalling previous simple object build"
 			sudo rm -r ../dist/
-		then
-			display $1 "uninstalling previous simple object build"
 		fi
 		sudo make -f Makefile-Linux.mk uninstall ARC_FLAG=$arc_var ARC=$arc
 		sudo make -f Makefile-Linux.mk ARC_FLAG=$arc_var ARC=$arc
@@ -305,15 +342,16 @@ not_found_error() {
 }
 
 uninstall() {
+	local prefix=${DESTDIR}${PREFIX:-/usr/}
 	header uninstall "removing simple $version from the system"
 	echo "simple-lang:menu: removing simplepad menu entry"
 	sudo rm -f ~/.local/share/applications/simplepad.desktop
 	header uninstall "unlinking environment and library"
 	unlink ~/Desktop/simplepad
-	sudo unlink $DESTDIR/$PREFIX/lib/libsimple.$ver.so
-	sudo unlink $DESTDIR/$PREFIX/lib/libsimple.so
-	sudo unlink /usr/lib/libsimple.$ver.so
-	sudo unlink /usr/lib/libsimple.so
+	sudo unlink $prefix/lib/libsimple.$ver.so
+	sudo unlink $prefix/lib/libsimple.so
+	sudo unlink /lib/libsimple.$ver.so
+	sudo unlink /lib/libsimple.so
 	sudo unlink /usr/local/lib/libsimple.$ver.so
 	sudo unlink /usr/local/lib/libsimple.so 
 	header uninstall "uninstalling simple-lang core executables"
@@ -468,8 +506,45 @@ get_os_platform() {
 		  display_error "unknown processor: $ucpu"
 		  ;;
 	  esac
+	
+	cpu_arc=$mycpu
+	echo "$myos"_"$mycpu"
+}
 
-	  echo "$myos"_"$mycpu"
+get_os_arch_platform() {
+	  # Get OS/CPU info and store in a `myos` and `mycpu` variable.
+	  local ucpu=`uname -m`
+	  local uos=`uname`
+	  local ucpu=`echo $ucpu | tr "[:upper:]" "[:lower:]"`
+	  local uos=`echo $uos | tr "[:upper:]" "[:lower:]"`
+
+	  case $ucpu in
+		*i386* | *i486* | *i586* | *i686* | *bepc* | *i86pc* )
+		  local mycpu="i386" ;;
+		*amd*64* | *x86-64* | *x86_64* )
+		  local mycpu="amd64" ;;
+		*sparc*|*sun* )
+		  local mycpu="sparc"
+		  if [ "$(isainfo -b)" = "64" ]; then
+			local mycpu="sparc64"
+		  fi
+		  ;;
+		*ppc64* )
+		  local mycpu="powerpc64" ;;
+		*power*|*ppc* )
+		  local mycpu="powerpc" ;;
+		*mips* )
+		  local mycpu="mips" ;;
+		*arm*|*armv6l* )
+		  local mycpu="arm" ;;
+		*aarch64* )
+		  local mycpu="arm64" ;;
+		*)
+		  display_error "unknown processor: $ucpu"
+		  ;;
+	  esac
+	
+	echo "$mycpu"
 }
 
 remove_dist_folders() {
@@ -483,325 +558,32 @@ remove_dist_folders() {
 	fi
 }
 
-execute_build $@
+finalize_installation() {
+	local prefix=${DESTDIR}${PREFIX:-/usr/}
+	header link "linking environment and library"
+	echo "simple-lang:link: linking simple.so to libsimple.so and libsimple.$ver.so"
+	sudo link $prefix/lib/simple.so /lib/libsimple.so
+	sudo link $prefix/lib/simple.so /lib/libsimple.$ver.so
+	sudo link $prefix/lib/simple.so $prefix/lib/libsimple.so
+	sudo link $prefix/lib/simple.so $prefix/lib/libsimple.$ver.so
+	sudo link $prefix/lib/simple.so $prefix/local/lib/libsimple.so
+	sudo link $prefix/lib/simple.so $prefix/local/lib/libsimple.$ver.so
+	display link "linking simplepad to user ~/Desktop"
+	sudo link $prefix/bin/simplepad ~/Desktop/simplepad
 
-exit 0
-
-#Buld dynamic modules
-	echo "	Building Dynamic Modules "
-
-
-
-
-
-if [ $EXEC_TYPE = "debug" ]; then
-		
-		#moving the modules to the debug folder if current build is for debugging
-			echo "dynamic_modules: moving the Dynamic Modules to $SIMPLE_DEBUG_VERSION folder"
-		
-		if [ -e ../../$SIMPLE_DEBUG_VERSION/modules/dynamic_modules/ ]; then
-			echo "dynamic_modules: the ../../$SIMPLE_DEBUG_VERSION/modules/dynamic_modules already exist"
-		else
-			echo "dynamic_modules: creating the ../../$SIMPLE_DEBUG_VERSION/modules/dynamic_modules folder"
-			mkdir -p "../../$SIMPLE_DEBUG_VERSION/modules/dynamic_modules"
-		fi
-		
-		if [ -e ../modules/dynamic_modules/dist/systemic.so ]; then
-			echo "dynamic_modules: copying dynamic_modules to ../../$SIMPLE_DEBUG_VERSION/modules/dynamic_modules"
-			cp ../modules/dynamic_modules/dist/*.so ../../$SIMPLE_DEBUG_VERSION/modules/dynamic_modules
-		else
-			echo "error:dynamic_modules: build fails the dynamic modules cannot be found"
-			echo "error:dynamic_modules: try building each module individually "
-		fi
-		
-		# fulltick(GUI) dynamic_module
-			echo "dynamic_modules:fulltick: checking if fulltick build successfully"
-		if [ -e ../../$SIMPLE_DEBUG_VERSION/modules/dynamic_modules/fulltick.so ]; then
-			echo "dynamic_modules:fulltick: fulltick dynamic module built successfully"
-		else
-			echo "error:dynamic_modules:fulltick: fulltick dynamic module build failed"
-			echo "error:dynamic_modules:fulltick: fulltick build is sure to fail if you don't have fltk library installed or it is not configured as shared library"
-			echo "error:dynamic_modules:fulltick: visit $FULLTICK_BUILD_ISSUE for build instruction"
-			echo "dynamic_modules:fulltick: falling back on available backup build."
-			if [ -e ../modules/dynamic_modules/fulltick/dist/fulltick.so ]; then
-				echo "dynamic_modules:fulltick: backup build found but might be outdated"
-				echo "dynamic_modules:fulltick: copying fulltick.so to ../../$SIMPLE_DEBUG_VERSION/bin directory"
-				cp ../modules/dynamic_modules/fulltick/dist/fulltick.so ../../$SIMPLE_DEBUG_VERSION/modules/dynamic_modules
-			else
-				echo "error:dynamic_modules:fulltick: the backup fulltick dynamic module cannot be found"
-				echo "error:dynamic_modules:fulltick: the repository appears to be currupted. "
-				echo "error:dynamic_modules:fulltick: try clonning the simple repository again to resolve the issue"
-				echo "error:dynamic_modules:fulltick: or visit $FULLTICK_BUILD_ISSUE to build instruction"
-			fi
-		fi
-		
-		#Copy the simple modules
-			echo "	Copying Simple Modules to $SIMPLE_DEBUG_VERSION folder"
-		
-		#Simple core modules
-			echo "modules: simple core modules"
-		if [ -e ../modules/simple ]; then
-			echo "modules: copying simple module to ../../$SIMPLE_DEBUG_VERSION/modules/simple folder"
-			cp -R "../modules/simple" "../../$SIMPLE_DEBUG_VERSION/modules/simple"
-		else
-			echo "error:modules: the simple core module cannot be found"
-			echo "error:modules: the repository appears to be currupted."
-			echo "error:modules: try clonning the simple repository again to resolve the issue"
-		fi
-		
-		#archive modules
-			echo "modules: archive module"
-		if [ -e ../modules/archive ]; then
-			echo "modules: copying archive module to ../../$SIMPLE_DEBUG_VERSION/modules/archive folder"
-			cp -R "../modules/archive" "../../$SIMPLE_DEBUG_VERSION/modules/archive"
-		else
-			echo "error:modules: the archive module cannot be found"
-			echo "error:modules: the repository appears to be currupted."
-			echo "error:modules: try clonning the simple repository again to resolve the issue"
-		fi
-		
-		#web modules
-			echo "modules: web module"
-		if [ -e ../modules/web ]; then
-			echo "modules: copying web module to ../../$SIMPLE_DEBUG_VERSION/modules/web folder"
-			cp -R "../modules/web" "../../$SIMPLE_DEBUG_VERSION/modules/web"
-		else
-			echo "error:modules: the web module cannot be found"
-			echo "error:modules: the repository appears to be currupted."
-			echo "error:modules: try clonning the simple repository again to resolve the issue"
-		fi
-		
-		#fulltick(GUI) modules
-			echo "modules: fulltick module"
-		if [ -e ../modules/fulltick ]; then
-			echo "modules: copying fulltick module to ../../$SIMPLE_DEBUG_VERSION/modules/fulltick folder"
-			cp -R "../modules/fulltick" "../../$SIMPLE_DEBUG_VERSION/modules/fulltick"
-		else
-			echo "error:modules: the fulltick GUI module cannot be found"
-			echo "error:modules: the repository appears to be currupted."
-			echo "error:modules: try clonning the simple repository again to resolve the issue"
-		fi
-		
-		#modules-dependencies.conf
-			echo "modules: modules-dependencies.conf"
-		if [ -e ../modules/modules-dependencies.conf ]; then
-			echo "modules: copying modules-dependencies.conf to ../../$SIMPLE_DEBUG_VERSION/modules folder"
-			cp "../modules/modules-dependencies.conf" "../../$SIMPLE_DEBUG_VERSION/modules"
-		else
-			echo "error:modules: modules-dependencies.conf cannot be found"
-			echo "error:modules: the repository appears to be currupted."
-			echo "error:modules: try clonning the simple repository again to resolve the issue"
-		fi
-	
-		if [ $EXEC_TYPE = "debug" ]; then 
-			if [ -e ../../$SIMPLE_DEBUG_VERSION/modules/simple/core/__first_calls.sim ]; then
-				echo "callDynamicModule(\"systemic.so\") callDynamicModule(\"string_savant.so\")" >> ../../$SIMPLE_DEBUG_VERSION/modules/simple/core/__first_calls.sim
-			fi
-		fi
-	
-	fi
-	
-	if [ $EXEC_TYPE = "debug" ]; then
-	#ENVIRONMENT PROGRAMS
-		echo "	Copying Environment Programs to $SIMPLE_DEBUG_VERSION folder"
-	if [ -e ../../$SIMPLE_DEBUG_VERSION/environment ]; then
-		echo "environment: the ../../$SIMPLE_DEBUG_VERSION/environment already exist"
-	else 
-		echo "environment: creating the ../../$SIMPLE_DEBUG_VERSION/environment directory"
-		mkdir "../../$SIMPLE_DEBUG_VERSION/environment"
-	fi
-	
-	#modular
-		echo "environment:modular: modular"
-	if [ -e ../environment/modular/modular.sim ]; then
-		echo "environment:modular: copying modular to ../../$SIMPLE_DEBUG_VERSION/environment folder"
-		cp "../environment/modular/modular.sim" "../../$SIMPLE_DEBUG_VERSION/environment"
-	else
-		echo "error:environment:modular: ../environment/modular/modular.sim cannot be found"
-		echo "error:environment:modular: skipping modular"
-	fi
-	
-	#repl
-		echo "environment:simplerepl: simplerepl"
-	if [ -e ../environment/repl/simplerepl.sim ]; then
-		echo "environment:simplerepl: copying simplerepl.sim to ../../$SIMPLE_DEBUG_VERSION/environment folder"
-		cp "../environment/repl/simplerepl.sim" "../../$SIMPLE_DEBUG_VERSION/environment"
-	else
-		echo "error:environment:simplerepl: ../environment/repl/simplerepl.sim cannot be found"
-		echo "error:environment:simplerepl: skipping simplerepl"
-	fi
-	
-	#SimplePad
-		echo "environment:simplepad: simplepad"
-	if [ -e ../environment/simplepad/simplepad.sim ]; then
-		echo "environment:simplepad: copying simplepad.sim to ../../$SIMPLE_DEBUG_VERSION/environment folder"
-		cp "../environment/simplepad/simplepad.sim" "../../$SIMPLE_DEBUG_VERSION/environment"
-	else
-		echo "error:environment:simplepad: ../environment/simplepad/simplepad.sim cannot be found"
-		echo "error:environment:simplepad: skipping simplepad"
-	fi
-	
-	#bake
-		echo "environment:bake: bake"
-	if [ -e ../environment/bake/bake.sim ]; then
-		echo "environment:bake: copying bake.sim to ../../$SIMPLE_DEBUG_VERSION/environment folder"
-		cp "../environment/bake/bake.sim" "../../$SIMPLE_DEBUG_VERSION/environment"
-	else
-		echo "error:environment:bake: ../environment/bake/bake.sim cannot be found"
-		echo "error:environment:bake: skipping bake"
-	fi
-	
-	#webworker
-		echo "environment:webworker: webworker"
-	if [ -e ../environment/webworker/webworker.sim ]; then
-		echo "environment:webworker: copying webworker.sim to ../../$SIMPLE_DEBUG_VERSION/environment folder"
-		cp "../environment/webworker/webworker.sim" "../../$SIMPLE_DEBUG_VERSION/environment"
-	else
-		echo "error:environment:webworker: ../environment/webworker/webworker.sim cannot be found"
-		echo "error:environment:webworker: skipping webworker"
-	fi
-	
-	#Build the environment app note due to it been debug
-	#the executable enviroment might not run on a linux machine
-	#except the SIMPLE_PATH and SIMPLE_MODULE_PATH has been set
-		echo "	Building the executable environments"
-		echo "build:environment: we first check if the simple and bake.sim has been copied"
-	
-	echo "build:environment: checking simple"
-	if [ -e ../../$SIMPLE_DEBUG_VERSION/bin/simple ]; then
-		echo "build:environment: simple is present now checking bake"
-		cd "../../$SIMPLE_DEBUG_VERSION/bin"
-	else
-		echo error:build:environment: simple cannot be found
-		echo error:build:environment: the build process failed bye
-		exit 
-	fi
-	
-	echo "build:environment: checking bake"
-	if [ -e ../environment/bake.sim ]; then
-		echo "build:environment: bake is present procedding build.."
-		cd "../../$SIMPLE_DEBUG_VERSION/bin"
-	else
-		echo error:build:environment: no bake.sim no build
-		echo error:build:environment: the build process failed bye
-		exit 
-	fi
-	
-	#Now since the prequsite are present start build Always make bake the last
-	#build in this script because it the one building the former(s)
-	#Build SimpleRepl
-	
-	echo "	build;environment: simplerepl"
-	if [ -e ../environment/simplerepl.sim ]; then
-		echo "		building bake..."
-		./simple ../environment/bake.sim -delete ../environment/simplerepl.sim
-		rm ../environment/simplerepl.sim
-	else
-		echo "		simplerepl.sim not present skipping "
-	fi
-	
-	#Build modular
-	
-	echo "	build:environment modular"
-	if [ -e ../environment/modular.sim ]; then
-		echo "		building modular..."
-		./simple ../environment/bake.sim -delete ../environment/modular.sim
-		rm ../environment/modular.sim
-	else
-		echo "		modular.sim not present skipping "
-	fi
-	
-	#Build SimplePad
-	
-	echo "	build:environment simplepad"
-	if [ -e ../environment/simplepad.sim ]; then
-		echo "		building simplepad..."
-		./simple ../environment/bake.sim -delete ../environment/simplepad.sim
-		rm ../environment/simplepad.sim
-	else
-		echo "		simplepad.sim not present skipping "
-	fi
-	
-	#Build webworker
-	
-	echo "	build:environment webworker"
-	if [ -e ../environment/webworker.sim ]; then
-		echo "		building webworker..."
-		./simple ../environment/bake.sim -delete ../environment/webworker.sim
-		rm ../environment/webworker.sim
-	else
-		echo "		webworker.sim not present skipping "
-	fi
-	
-	#Build bake
-	
-	echo "	build:environment: bake"
-	if [ -e ../environment/bake.sim ]; then
-		echo "		building bake..."
-		./simple ../environment/bake.sim -delete ../environment/bake.sim
-		rm ../environment/bake.sim
-	else
-		echo "		seriously it an hack if bake not present "
-	fi
-
-fi
-
-if [ $EXEC_TYPE = "install" ]; then
-	#Install Environments
-	echo "environment:install: preparing to install simple environment programs"
-	echo "environment:install: moving back to simple/build diectory"
-	cd ../build
-	if [ -e ../environment/Linux-Install.mk ]; then
-		cd ../environment/
-		echo "environment:install: the Linux.Install.mk is detected "
-		echo "environment:install: checking if the environments are built"
-		make -f ../environment/Linux-Install.mk
-		if [ -e ./dist/bake ]; then
-			echo "environment:install: the environment are detected. proceding installation..."
-			sudo make -f ../environment/Linux-Install.mk uninstall
-			sudo make -f ../environment/Linux-Install.mk install
-		else
-			echo "error:environment:install:  the environment program are yet to be built"
-			echo "error:environment:install: aborting installation"
-		fi
-		cd ../build/
-	else 
-		echo "error:environment:install: the Linux-install.mk file is absent"
-		echo "error:environment:install: skipping the environment programs installation"
-	fi
-	
-	#Add Simple to path
-	#to delegate this task to modular program in future
-echo "SIMPLE_PATH=\"/simple/\"" >> /etc/environment
-
-	echo "============================================================="
-	echo "simple-lang:link: linking environment and library"
-	echo "============================================================="
-	echo "simple-lang:link: linking simple.so to libsimple.so and libsimple.$VER.so"
-	sudo link $DESTDIR/$PREFIX/lib/simple.so $DESTDIR/$PREFIX/lib/libsimple.so
-	sudo link $DESTDIR/$PREFIX/lib/simple.so $DESTDIR/$PREFIX/lib/libsimple.$VER.so
-	sudo link $DESTDIR/$PREFIX/lib/simple.so /usr/lib/libsimple.so
-	sudo link $DESTDIR/$PREFIX/lib/simple.so /usr/lib/libsimple.$VER.so
-	sudo link $DESTDIR/$PREFIX/lib/simple.so /usr/local/lib/libsimple.so
-	sudo link $DESTDIR/$PREFIX/lib/simple.so /usr/local/lib/libsimple.$VER.so
-	echo "simple-lang:link: linking simplepad to user ~/Desktop"
-	sudo link $DESTDIR/$PREFIX/bin/simplepad ~/Desktop/simplepad
-
-	echo "============================================================="
-	echo "simple-lang:link: add simplepad to the system menu"
-	echo "============================================================="
+	header link "add simplepad to the system menu"
 	sudo echo "[Desktop Entry]" >> ~/.local/share/applications/simplepad.desktop
 	sudo echo "Version=1.0" >> ~/.local/share/applications/simplepad.desktop
 	sudo echo "Type=Application" >> ~/.local/share/applications/simplepad.desktop
 	sudo echo "Name=Simple Pad" >> ~/.local/share/applications/simplepad.desktop
 	sudo echo "GenericName=Awesome App" >> ~/.local/share/applications/simplepad.desktop
-	sudo echo "Icon=/simple/$SIMPLE_VER/resources/simplepad.png" >> ~/.local/share/applications/simplepad.desktop
-	if [ -e $DESTDIR/$PREFIX/bin/simplepad ]; then
-		sudo echo "Exec=$DESTDIR/$PREFIX/bin/simplepad" >> ~/.local/share/applications/simplepad.desktop
+	sudo echo "Icon=$prefix/simple/$version/resources/simplepad.png" >> ~/.local/share/applications/simplepad.desktop
+	if [ -e $prefix/bin/simplepad ]; then
+		sudo echo "Exec=$prefix/bin/simplepad" >> ~/.local/share/applications/simplepad.desktop
 	elif [ -e /usr/local/bin/simplepad ]; then
 		sudo echo "Exec=/usr/local/bin/simplepad" >> ~/.local/share/applications/simplepad.desktop
-	elif [ -e /usr/bin/simplepad ]; then
-		sudo echo "Exec=/usr/bin/simplepad" >> ~/.local/share/applications/simplepad.desktop
+	elif [ -e /bin/simplepad ]; then
+		sudo echo "Exec=/bin/simplepad" >> ~/.local/share/applications/simplepad.desktop
 	else
 		sudo echo "Exec=simplepad" >> ~/.local/share/applications/simplepad.desktop
 	fi
@@ -809,19 +591,69 @@ echo "SIMPLE_PATH=\"/simple/\"" >> /etc/environment
 	sudo echo "Categories=Development;IDE;" >> ~/.local/share/applications/simplepad.desktop
 	sudo echo "Terminal=false" >> ~/.local/share/applications/simplepad.desktop
 
-	echo "============================================================="
-	echo "simple-lang:build: testing installtion > simple"
-	echo "============================================================="
+	header build "testing installtion > simple"
 	
 	simple
+}
 
-fi
+build_deb_package() {
+	local prefix=${DESTDIR}${PREFIX:-/usr/}
+	debpackagedir=../../simple$ver-$operating_system
+	header debpackage "creating a distributable .deb package"
+	if [ -e "$debpackagedir" ]; then
+		sudo rm -R -f "$debpackagedir"
+	fi
+	display debpackage "making directories at $debpackagedir"
+	sudo mkdir "$debpackagedir"
+	sudo mkdir "$debpackagedir/usr/"
+	sudo mkdir "$debpackagedir/usr/bin/"
+	sudo mkdir "$debpackagedir/usr/lib/"
+	sudo mkdir "$debpackagedir/usr/lib/simple/"
+	sudo mkdir "$debpackagedir/usr/include/"
+	sudo mkdir "$debpackagedir/usr/include/simple/"
+	sudo mkdir "$debpackagedir/~/"
+	sudo mkdir "$debpackagedir/~/.local/"
+	sudo mkdir "$debpackagedir/~/.local/share/"
+	sudo mkdir "$debpackagedir/~/.local/share/applications/"
+	sudo mkdir "$debpackagedir/DEBIAN"
 
+	#to check in future if simple-lang is installed already
 
+	display debpackage "copying executable, shared libraries and modules"
+	sudo cp $prefix/bin/simple $debpackagedir/usr/bin/
+	sudo cp $prefix/bin/simplerepl $debpackagedir/usr/bin/
+	sudo cp $prefix/bin/simplepad $debpackagedir/usr/bin/
+	sudo cp $prefix/bin/simplebridge $debpackagedir/usr/bin/
+	sudo cp $prefix/bin/modular $debpackagedir/usr/bin/
+	sudo cp $prefix/bin/webworker $debpackagedir/usr/bin/
+	sudo cp $prefix/bin/bake $debpackagedir/usr/bin/
+	sudo cp $prefix/lib/simple.so $debpackagedir/usr/lib/
+	sudo cp $prefix/lib/libsimple.so $debpackagedir/usr/lib/
+	sudo cp -R $prefix/lib/simple/$version $debpackagedir/usr/lib/simple/
+	sudo install $prefix/include/simple/simple* $debpackagedir/usr/include/simple/
+	sudo cp ~/.local/share/applications/simplepad.desktop $debpackagedir/~/.local/share/applications/
 
+	display debpackage "creating 'control' file"
+	sudo echo "Package: simple-s$ver" >> $debpackagedir/DEBIAN/control
+	sudo echo "Version: $ver" >> $debpackagedir/DEBIAN/control
+	sudo echo "Section: development" >> $debpackagedir/DEBIAN/control
+	sudo echo "Priority: optional" >> $debpackagedir/DEBIAN/control
+	sudo echo "Architecture: $cpu_arc" >> $debpackagedir/DEBIAN/control
+	sudo echo "Depends: libfltk1.3-dev, xorg-dev, libcurl4" >> $debpackagedir/DEBIAN/control
+	sudo echo "Maintainer: Azeez Adewale <azeezadewale98@gmail.com>" >> $debpackagedir/DEBIAN/control
+	sudo echo "Description: The Simple Intelligent and Modular Programming Language and Environment" >> $debpackagedir/DEBIAN/control
 
+	display debpackage "packaging $debpackagedir.deb"
+	dpkg-deb --build $debpackagedir
 
+	if [ -e "$debpackagedir.deb" ]; then 
+		display debpackage "$debpackagedir.deb creation successfull"
+	else
+		display debpackage "$debpackagedir.deb creation failed"
+	fi
+}
 
+execute_build $@
 
-
+exit 0
 

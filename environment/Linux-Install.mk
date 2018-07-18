@@ -12,26 +12,29 @@
 #	webworker
 #	simplebridge
 #
+ifeq ($(PREFIX),)
+    PREFIX := /usr/
+endif
 
 # Macros
 SIMPLE=simple
-BAKE=./bake/bake.sim
+SUDO=
+ENV_PATH=./
+SIMPLE_H="$(DESTDIR)$(PREFIX)include/simple/simple.h"
+LIB_PATH=-lsimple
+BAKE=$(ENV_PATH)/bake/bake.sim
 VERSION=s0.3.35-debug
 CND_PLATFORM=Linux
 ENV_DISTDIR=./dist
 
 clean: 
 	mkdir -p $(ENV_DISTDIR)
-	$(SIMPLE) $(BAKE) -F/$(ENV_DISTDIR) ./simplerepl/simplerepl.sim
-	$(SIMPLE) $(BAKE) -F/$(ENV_DISTDIR) ./modular/modular.sim
-	$(SIMPLE) $(BAKE) -F/$(ENV_DISTDIR) ./simplepad/simplepad.sim
-	$(SIMPLE) $(BAKE) -F/$(ENV_DISTDIR) ./simplebridge/simplebridge.sim
-	$(SIMPLE) $(BAKE) -F/$(ENV_DISTDIR) ./webworker/webworker.sim
-	$(SIMPLE) $(BAKE) -F/$(ENV_DISTDIR) $(BAKE)
-
-#ifeq ($(PREFIX),)
-#    PREFIX := /usr/local
-#endif
+	$(SUDO) $(SIMPLE) $(BAKE) -F/$(ENV_DISTDIR) --lib $(LIB_PATH) -sh $(SIMPLE_H) $(ARC_FLAG) $(ENV_PATH)/simplerepl/simplerepl.sim
+	$(SUDO) $(SIMPLE) $(BAKE) -F/$(ENV_DISTDIR) --lib $(LIB_PATH) -sh $(SIMPLE_H) $(ARC_FLAG) $(ENV_PATH)/modular/modular.sim
+	$(SUDO) $(SIMPLE) $(BAKE) -F/$(ENV_DISTDIR) --lib $(LIB_PATH) -sh $(SIMPLE_H) $(ARC_FLAG) $(ENV_PATH)/simplepad/simplepad.sim
+	$(SUDO) $(SIMPLE) $(BAKE) -F/$(ENV_DISTDIR) --lib $(LIB_PATH) -sh $(SIMPLE_H) $(ARC_FLAG) $(ENV_PATH)/simplebridge/simplebridge.sim
+	$(SUDO) $(SIMPLE) $(BAKE) -F/$(ENV_DISTDIR) --lib $(LIB_PATH) -sh $(SIMPLE_H) $(ARC_FLAG) $(ENV_PATH)/webworker/webworker.sim
+	$(SUDO) $(SIMPLE) $(BAKE) -F/$(ENV_DISTDIR) --lib $(LIB_PATH) -sh $(SIMPLE_H) $(ARC_FLAG) $(BAKE)
 
 .PHONY: install
 install:
