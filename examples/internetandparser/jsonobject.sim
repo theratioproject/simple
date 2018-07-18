@@ -15,7 +15,7 @@ call "simple/utilities/parser/json/JsonObject.sim"
 
 input = '{		
 	"string_of_digits": "123",
-	"string_of_digits": an open value,
+	"string_of_digits": "sent",
 	"regular_number": 222,
 	"decimal_number": 99.55,
 	"boolean_true": true,
