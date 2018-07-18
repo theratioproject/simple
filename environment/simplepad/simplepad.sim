@@ -95,6 +95,7 @@ block openFile1()
 block newFile() editor file = null
 block open() 
 	# openFile1()
+	# This is to be worked upon.
 	file = new File("test.sim") 
 	editor.setText(file.readFileAsString()) notifyMenu(1)
 block save() file
@@ -184,3 +185,8 @@ class Test : FWindow : File : FTextEditor
 
 block changeDir() fb.loadDirectory(fileName.getText()) fb.select(0)
 block selected() display "Select : "+fb.index()+". Value : "+fb.getSelectedText() + crlf
+
+/** TODO MAP
+** 	Work on the open() function such that it allows a user open his own file.
+** Work on the save() function also.
+**/
