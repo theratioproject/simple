@@ -20,7 +20,7 @@ endif
 # Flags
 CFLAGS= -c -fpic -g
 LFlAGS= -lm -ldl
-LDFLAGS= "-Wl,-rpath,./ $(DESTDIR)$(PREFIX)/lib/ ~/lib/,--no-as-needed"
+LDFLAGS= "-Wl,-rpath,./ ../lib/ $(DESTDIR)$(PREFIX)/lib/ ~/lib/" "-Wl,--no-as-needed"
 
 # Macros
 VERSION=s0.3.35
@@ -188,12 +188,14 @@ install: $(CND_DISTDIR)/simple
 	install $(CND_DISTDIR)/simple $(DESTDIR)$(PREFIX)/bin/
 	install $(CND_DISTDIR)/simple.$(CND_DLIB_EXT) $(DESTDIR)$(PREFIX)/lib/
 	install $(INCLUDES_DIR)/simple* $(DESTDIR)$(PREFIX)/include/simple/
+	link $(DESTDIR)$(PREFIX)/lib/simple.$(CND_DLIB_EXT) $(DESTDIR)$(PREFIX)/lib/libsimple.$(CND_DLIB_EXT) 
 
 .PHONY: uninstall
 uninstall:
 	rm -f $(DESTDIR)$(PREFIX)/bin/simple
 	rm -f $(DESTDIR)$(PREFIX)/lib/simple.$(CND_DLIB_EXT)
 	rm -R -f $(DESTDIR)$(PREFIX)/include/simple/
+	unlink $(DESTDIR)$(PREFIX)/lib/libsimple.$(CND_DLIB_EXT) 
 
 #This Makefile-Windows.mk was written in adaptation to the standard
 #method of writing makefiles

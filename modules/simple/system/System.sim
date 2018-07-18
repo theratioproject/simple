@@ -176,7 +176,7 @@ block getSimpleDirectory()
 			}
 		else
 			xPrefix = getEnv("DESTDIR")+"/"+getEnv("PREFIX")
-			if getEnv("PREFIX") == "/" && {
+			if getEnv("PREFIX") == "/" {
 				xPrefix = "/usr/local"
 			}
 			tempPath = xPrefix+"/simple/"
