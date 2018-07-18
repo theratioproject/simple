@@ -1,0 +1,1 @@
+# This file would hold the commands needed to implement the build functions in the SimplePad desktop application.

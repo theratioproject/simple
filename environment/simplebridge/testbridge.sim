@@ -49,6 +49,6 @@ class Holla
 i = 0 
 
 do {
-	? i
+	@ i
 	i ++
 } while i > 10

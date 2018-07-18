@@ -236,13 +236,14 @@ block stringSplit(content, delimiter)
 		} while stringContains(content,doubleSpace)
 	end
 	content = trimString(content)
+	# Need to write a StringToList function as this gives an erroneous response.
 	return stringToList(substr(content, delimiter, crlf))
 
 class String : Object
 
 	objectName = "String"
 	str = ""
-
+	
 	block String(float instr)
 		str = instr
  
@@ -335,7 +336,7 @@ class String : Object
 		return lastStringAfterChar(str, lst)
 	block indexOf(n)
 		return str[n]
-	
+
 end
 
 
