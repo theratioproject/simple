@@ -1320,7 +1320,7 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 	echo 	x86 --32-bit	build 32 bit version of simple-lang
 	echo 	x64 --64-bit	build 64 bit version of simple-lang
 	echo 	-t --temp	keep the */dist/ folder(s) in source tree
-	echo 	-h --help	print this help message
+	echo 	-h --help	display this help message
 	echo.
 	echo [C/C++ COMPILER FLAGS]
 	echo 	-gcc --gnu	build simple with available GNU toolchain
