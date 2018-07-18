@@ -15,7 +15,7 @@
 # Flags
 CFLAGS= -c -fpic -g -w
 LFlAGS= -lm -ldl
-LDFLAGS= "-Wl,--no-as-needed"
+LDFLAGS= "-Wl,-rpath,./ ../../bin/ $(DESTDIR)$(PREFIX)/lib/ ~/lib/,--no-as-needed"
 
 # Macros
 CND_PLATFORM=
@@ -43,19 +43,19 @@ SIMPLE_OBJECTFILES = \
 LDLIBSOPTIONS=-Lsimple.so
 
 ${CND_DISTDIR}/${CND_PLATFORM}/consoler.${CND_DLIB_EXT}: $(OBJECTFILES) $(SIMPLE_OBJECTFILES)
-	$(CC) -shared -o $(CND_DISTDIR)/$(CND_PLATFORM)/consoler.$(CND_DLIB_EXT) $(SIMPLE_OBJECTFILES) $(OBJECTFILES) 
+	$(CC) -shared $(ARC_FLAG) -o $(CND_DISTDIR)/$(CND_PLATFORM)/consoler.$(CND_DLIB_EXT) $(SIMPLE_OBJECTFILES) $(OBJECTFILES) 
 
 $(OBJECTDIR)/consoler.o: consoler.c
 	mkdir -p $(OBJECTDIR)
-	$(CC) $(CFLAGS) consoler.c
+	$(CC) $(ARC_FLAG) $(CFLAGS) consoler.c
 	mv consoler.o $(OBJECTDIR)
 	
 $(OBJECTDIR)/console-colors.o: console-colors.c
-	$(CC) $(CFLAGS) console-colors.c
+	$(CC) $(ARC_FLAG) $(CFLAGS) console-colors.c
 	mv console-colors.o $(OBJECTDIR)
 	
 $(OBJECTDIR)/toot.o: toot.c
-	$(CC) $(CFLAGS) toot.c
+	$(CC) $(ARC_FLAG) $(CFLAGS) toot.c
 	mv toot.o $(OBJECTDIR)
 
 clean:

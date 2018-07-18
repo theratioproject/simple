@@ -15,7 +15,7 @@
 # Flags
 CFLAGS= -c -fpic -g -w
 LFlAGS= -lm -ldl
-LDFLAGS= "-Wl,--no-as-needed"
+LDFLAGS= "-Wl,-rpath,./ ../../bin/ $(DESTDIR)$(PREFIX)/lib/ ~/lib/,--no-as-needed"
 
 # Macros
 CND_PLATFORM=
@@ -41,11 +41,11 @@ SIMPLE_OBJECTFILES = \
 LDLIBSOPTIONS=-Lsimple.so
 
 ${CND_DISTDIR}/${CND_PLATFORM}/core_dynamic_module.${CND_DLIB_EXT}: $(OBJECTFILES)
-	$(CC) -shared -o $(CND_DISTDIR)/$(CND_PLATFORM)/core_dynamic_module.$(CND_DLIB_EXT) $(SIMPLE_OBJECTFILES) $(OBJECTFILES) 
+	$(CC) -shared $(ARC_FLAG) -o $(CND_DISTDIR)/$(CND_PLATFORM)/core_dynamic_module.$(CND_DLIB_EXT) $(SIMPLE_OBJECTFILES) $(OBJECTFILES) 
 
 $(OBJECTDIR)/core_dynamic_module.o: core_dynamic_module.c
 	mkdir -p $(OBJECTDIR)
-	$(CC) $(CFLAGS) core_dynamic_module.c
+	$(CC) $(ARC_FLAG) $(CFLAGS) core_dynamic_module.c
 	mv core_dynamic_module.o $(OBJECTDIR)
 
 clean:

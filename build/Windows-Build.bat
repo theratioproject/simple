@@ -70,10 +70,10 @@ for %%x in (%*) do (
 	if "%%x"=="-u" (
 		call:uninstall
 	)
-	if "%%x"=="--temp" (
+	if "%%x"=="--keep" (
 		SET KEEP_DIST="true"
 	) 
-	if "%%x"=="-t" (
+	if "%%x"=="-k" (
 		SET KEEP_DIST="true"
 	)
 	if "%%x"=="--help" (
@@ -1315,12 +1315,12 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 	echo 	-c --configure	configure your system for simple-lang successfull build
 	echo 	-i --install	install simple-lang on your system
 	echo 	-b --build-dir	manually enter folder to install simple-lang 
-	echo 	-u --uninstall	remove simple-lang installtion from your system
+	echo 	-u --uninstall	uninstall simple-lang from your system
 	echo 	-d --debug	create a distributable version in ..\..\ source directory
 	echo 	x86 --32-bit	build 32 bit version of simple-lang
 	echo 	x64 --64-bit	build 64 bit version of simple-lang
-	echo 	-t --temp	keep the */dist/ folder(s) in source tree
-	echo 	-h --help	display this help message
+	echo 	-k --keep	keep the */dist/ folder(s) in source tree
+	echo 	-h --help	print this help message
 	echo.
 	echo [C/C++ COMPILER FLAGS]
 	echo 	-gcc --gnu	build simple with available GNU toolchain

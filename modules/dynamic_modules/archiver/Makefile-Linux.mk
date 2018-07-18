@@ -15,7 +15,7 @@
 # Flags
 CFLAGS= -c -fpic -g -w
 LFlAGS= -lm -ldl
-LDFLAGS= "-Wl,--no-as-needed"
+LDFLAGS= "-Wl,-rpath,./ ../../bin/ $(DESTDIR)$(PREFIX)/lib/ ~/lib/,--no-as-needed"
 
 # Macros
 CND_PLATFORM=
@@ -42,15 +42,15 @@ SIMPLE_OBJECTFILES = \
 LDLIBSOPTIONS=-Lsimple.so
 
 ${CND_DISTDIR}/${CND_PLATFORM}/archiver.${CND_DLIB_EXT}: $(OBJECTFILES) $(SIMPLE_OBJECTFILES)
-	$(CC) -shared -o $(CND_DISTDIR)/$(CND_PLATFORM)/archiver.$(CND_DLIB_EXT) $(SIMPLE_OBJECTFILES) $(OBJECTFILES) 
+	$(CC) -shared $(ARC_FLAG) -o $(CND_DISTDIR)/$(CND_PLATFORM)/archiver.$(CND_DLIB_EXT) $(SIMPLE_OBJECTFILES) $(OBJECTFILES) 
 
 $(OBJECTDIR)/archiver.o: archiver.c
 	mkdir -p $(OBJECTDIR)
-	$(CC) $(CFLAGS) archiver.c
+	$(CC) $(ARC_FLAG) $(CFLAGS) archiver.c
 	mv archiver.o $(OBJECTDIR)
 	
 $(OBJECTDIR)/zip.o: zip.c
-	$(CC) $(CFLAGS) zip.c
+	$(CC) $(ARC_FLAG) $(CFLAGS) zip.c
 	mv zip.o $(OBJECTDIR)
 
 clean:

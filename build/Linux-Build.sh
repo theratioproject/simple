@@ -1,305 +1,498 @@
 #!/bin/sh
 
-#check if the current user and session is a sudoer or root
-#echo $UID $EUID
-if [ "$(id -u)" -ne 0 ]; then 
-	echo "simple-lang:root: it appear you are not running the script as root"
-	echo "simple-lang:root: the script is reinitiated as root"
-	echo "simple-lang;root: if it fails to re execute the Linux-Build.sh script with sudo"
-	echo "simple-lang:root: manualy run the script with 'sudo sh Linux-Build.sh -c -i'"
-	sudo sh Linux-Build.sh $1 $2
-  	exit
-fi
+clear
 
-EXEC_TYPE=""
-VER=0.3.35
+exec_type=""
+build_arc="x86"
+ver=0.3.35
+keep_dist="false"
+version=s"$ver"
+simple_debug_version=$version-debug
+fulltick_build_issue="<https://github.com/simple-lang/simple/issues/16>"
+arc_var=-m32
+arc=32
+operating_system="linux_amd64"
 
-if [ ! $1 ]; then
-	EXEC_TYPE="install"
-elif [ $1 = "-i" ] || [ $1 = "--install" ]; then
-	EXEC_TYPE="install"
-elif [ $1 = "-c" ] || [ $1 = "--configure" ]; then
-	EXEC_TYPE="configure"
-	if [ ! $2 ]; then 
-		echo "simple-lang:configure: simple-lang configuration only"
-	elif [ $2 = "-i" ] || [ $2 = "--install" ]; then
-		EXEC_TYPE="install-configure"
+execute_build() {
+	check_if_is_sudo $@
+	operating_system=$(get_os_platform)
+	local standalone_flag="none"
+
+	for param in "$@"
+	do
+		if [ "$param" = "-h" ] || [ "$param" = "--help" ]; then 
+			help
+			exit 0
+		elif [ "$param" = "-u" ] || [ "$param" = "--uninstall" ]; then 
+			uninstall
+			exit 0
+		elif [ "$param" = "x64" ] || [ "$param" = "--64-bit" ]; then 
+			arc_var=-m64
+			arc=64
+		elif [ "$param" = "x86" ] || [ "$param" = "--32-bit" ]; then 
+			arc_var=-m32
+			arc=32
+		elif [ "$param" = "-c" ] || [ "$param" = "--configure" ]; then 
+			exec_type="configure$exec_type"
+		elif [ "$param" = "-t" ] || [ "$param" = "--temp" ]; then 
+			keep_dist="true"
+		elif [ "$param" = "-i" ] || [ "$param" = "--install" ]; then 
+			exec_type="install-$exec_type"
+		elif [ "$param" = "-d" ] || [ "$param" = "--debug" ]; then 
+			exec_type="debug-$exec_type"
+		elif [ "$param" = "-so" ] || [ "$param" = "--simple-only" ]; then 
+			standalone_flag="simple-only"
+		elif [ "$param" = "-io" ] || [ "$param" = "--includes-only" ]; then 
+			standalone_flag="includes-only"
+		elif [ "$param" = "-yo" ] || [ "$param" = "--dymodules-only" ]; then 
+			standalone_flag="dy-modules-only"
+		elif [ "$param" = "-mo" ] || [ "$param" = "--modules-only" ]; then 
+			standalone_flag="modules-only"
+		elif [ "$param" = "-eo" ] || [ "$param" = "--environment-only" ]; then 
+			standalone_flag="environment-only"
+		fi
+	done
+
+	execute_build_proceed $exec_type $standalone_flag
+}
+
+execute_build_proceed() {
+	case $1 in
+		*configure* )
+			configure $@
+			if [ "$1" = "configure" ]; then
+				echo "configure : $1"
+				exit 0
+			fi
+			;;
+	esac
+	case $2 in
+		*none* )
+			installsimpleexec $1
+			build_dynamic_modules $1
+			case $1 in
+				*debug* )
+					copyinclude $1
+					copymodules $1
+				;;
+			esac
+		;;
+		*simple-only* )
+			installsimpleexec $1
+		;;
+		*includes-only* )
+			copyinclude $1
+		;;
+		*modules-only* )
+			copymodules $1
+		;;
+		*dy-modules-only* )
+			installsimpleexec notanyofit
+			build_dynamic_modules $1
+		;;
+		*enviroment-only* )
+			build_environments $1
+		;;
+	esac
+	remove_dist_folders ../simple/dist/ ../modules/dynamic_modules/dist
+}
+
+
+
+copymodules() {
+	header $1 "copying the standard modules"
+	case $1 in
+		*debug* )
+			if [ -e "../../$simple_debug_version/modules/simple" ]; then 
+				sudo rm -R -f "../../$simple_debug_version/modules/archive"
+				sudo rm -R -f "../../$simple_debug_version/modules/fulltick"
+				sudo rm -R -f "../../$simple_debug_version/modules/simple"
+				sudo rm -R -f "../../$simple_debug_version/modules/web"
+			fi
+			sudo mkdir -p "../../$simple_debug_version/modules/archive"
+			sudo mkdir -p "../../$simple_debug_version/modules/fulltick"
+			sudo mkdir -p "../../$simple_debug_version/modules/simple"
+			sudo mkdir -p "../../$simple_debug_version/modules/web"
+			if [ -e "../modules/modules-dependencies.conf" ]; then
+				sudo cp "../modules/modules-dependencies.conf" "../../$simple_debug_version/modules/"
+				sudo cp -R "../modules/archive" "../../$simple_debug_version/modules/"
+				sudo cp -R "../modules/fulltick" "../../$simple_debug_version/modules/"
+				sudo cp -R "../modules/simple" "../../$simple_debug_version/modules"
+				sudo cp -R "../modules/web" "../../$simple_debug_version/modules/"
+				treat_first_calls_file $1 "../../$simple_debug_version/modules/simple/core/__first_calls.sim"
+			else
+				not_found_error $1 "includes directory"
+			fi
+		;;
+		*install* )
+			local prefix=${DESTDIR}${PREFIX:-/usr/}
+			if [ -e "$prefix/lib/simple/$version/modules/simple" ]; then 
+				sudo rm -R -f "$prefix/lib/simple/$version/modules/archive"
+				sudo rm -R -f "$prefix/lib/simple/$version/modules/fulltick"
+				sudo rm -R -f "$prefix/lib/simple/$version/modules/simple"
+				sudo rm -R -f "$prefix/lib/simple/$version/modules/web"
+			fi
+			sudo mkdir -p "$prefix/lib/simple/$version/modules/archive"
+			sudo mkdir -p "$prefix/lib/simple/$version/modules/fulltick"
+			sudo mkdir -p "$prefix/lib/simple/$version/modules/simple"
+			sudo mkdir -p "$prefix/lib/simple/$version/modules/web"
+			if [ -e "../modules/modules-dependencies.conf" ]; then
+				sudo cp "../modules/modules-dependencies.conf" "$prefix/lib/simple/$version/modules/"
+				sudo cp -R "../modules/archive" "$prefix/lib/simple/$version/modules/"
+				sudo cp -R "../modules/fulltick" "$prefix/lib/simple/$version/modules/"
+				sudo cp -R "../modules/simple" "$prefix/lib/simple/$version/modules"
+				sudo cp -R "../modules/web" "$prefix/lib/simple/$version/modules/"
+				treat_first_calls_file $1 "$prefix/lib/simple/$version/modules/simple/core/__first_calls.sim"
+			else
+				not_found_error $1 "includes directory"
+			fi
+		;;
+	esac
+}
+
+treat_first_calls_file() {
+	# The __first_calls.sim is important for the simple-lang modules to function
+	if [ -e $2 ]; then
+		sudo echo "callDynamicModule(\"systemic.so\") callDynamicModule(\"string_savant.so\")" >> $2
+	else
+		display_error $1 "cannot find the __first_calls.sim file "
 	fi
-elif [ $1 = "-u" ] || [ $1 = "--uninstall" ]; then
+}
 
-	#Remove all instance of the simple-lang from the system
-	echo "============================================================="
-	echo "simple-lang:uninstall: removing system menu shortcuts"
-	echo "============================================================="
+build_dynamic_modules(){
+	header dynamic_modules "building simple-lang dynamic_modules"
+	if [ -e ../modules ]; then
+		cd ../modules
+		if [ -e ./dynamic_modules/makefiles/Makefile-Linux.mk ]; then
+			cd ./dynamic_modules/makefiles/
+			if [ -e ../dist/ ]; then
+				rm -R ../dist/
+			fi
+			sudo make -f Makefile-Linux.mk uninstall  ARC_FLAG=$arc_var ARC=$arc
+			sudo make -f Makefile-Linux.mk  ARC_FLAG=$arc_var ARC=$arc
+
+			# fulltick(GUI) dynamic_module
+				display "dynamic_modules:fulltick:" "checking if fulltick build successfully"
+			if [ -e ../dist/fulltick.so ]; then
+				display "dynamic_modules:fulltick:" "fulltick dynamic module built successfully"
+			else
+				echo "error:dynamic_modules:fulltick: fulltick dynamic module build failed"
+				echo "error:dynamic_modules:fulltick: fulltick build is sure to fail if you don't have fltk library installed or it is not configured as shared library"
+				echo "error:dynamic_modules:fulltick: visit $fulltick_build_issue for build instruction"
+				echo "dynamic_modules:fulltick: falling back on available backup build."
+				if [ -e ../fulltick/dist/fulltick$arc.so ]; then
+					echo "dynamic_modules:fulltick: backup build found but might be outdated"
+					echo "dynamic_modules:fulltick: copying fulltick.so to ../dist/ directory"
+					cp ../fulltick/dist/fulltick$arc.so ../dist/
+					link ../dist/fulltick$arc.so ../dist/fulltick.so
+				else
+					echo "error:dynamic_modules:fulltick: the backup fulltick dynamic module cannot be found"
+					echo "error:dynamic_modules:fulltick: the repository appears to be currupted. "
+					echo "error:dynamic_modules:fulltick: try clonning the simple repository again to resolve the issue"
+					echo "error:dynamic_modules:fulltick: or visit $fulltick_build_issue to build instruction"
+				fi
+			fi
+			cd ../
+		else
+			not_found_error "modules" dynamic_modules
+		fi
+		cd ../../build
+	else
+		not_found_error "modules" modules
+
+	fi
+	case $1 in
+		*debug* )
+			display $1 "copying dynamic_modules to $simple_debug_version directory"
+			if [ -e "../../$simple_debug_version/modules/dynamic_modules" ]; then 
+				sudo rm -R -f "../../$simple_debug_version/modules/dynamic_modules"
+			fi
+			sudo mkdir -p "../../$simple_debug_version"
+			sudo mkdir -p "../../$simple_debug_version/modules"
+			sudo mkdir -p "../../$simple_debug_version/modules/dynamic_modules"
+			if [ -e "../modules/dynamic_modules/dist/" ]; then
+				sudo cp ../modules/dynamic_modules/dist/*.so "../../$simple_debug_version/modules/dynamic_modules"
+			else
+				build_failed_error $1 "simple and simple.so"
+			fi
+		;;
+		*install* )
+			cd ../modules//dynamic_modules/makefiles/
+			sudo make -f ./Makefile-Linux.mk install ARC_FLAG=$arc_var ARC=$arc
+			cd ../../../build 
+			local prefix=${DESTDIR}${PREFIX:-/usr/}
+			treat_first_calls_file $1 "$prefix/lib/simple/$version/modules/simple/core/__first_calls.sim"
+		;;
+	esac
+}
+
+installsimpleexec() {
+	header install "building simple-lang executables"
+	if [ -e ../simple/makefiles/Makefile-Linux.mk ]; then 
+		cd ../simple/makefiles
+		display $1 "building simple-lang $version build..."
+		if [ -e "../dist/" ]
+			display $1 "uninstalling previous simple object build"
+			sudo rm -r ../dist/
+		then
+			display $1 "uninstalling previous simple object build"
+		fi
+		sudo make -f Makefile-Linux.mk uninstall ARC_FLAG=$arc_var ARC=$arc
+		sudo make -f Makefile-Linux.mk ARC_FLAG=$arc_var ARC=$arc
+	else 
+		not_found_error $1 Makefile-Linux.mk
+	fi
+	case $1 in
+		*debug* )
+			display $1 "copying executable to $simple_debug_version directory"
+			if [ -e "../../../$simple_debug_version/bin" ]; then 
+				sudo rm -R -f "../../../$simple_debug_version/bin"
+			fi
+			sudo mkdir "../../../$simple_debug_version"
+			sudo mkdir "../../../$simple_debug_version/bin"
+			if [ -e "../dist/simple" ]; then
+				sudo cp "../dist/simple" "../../../$simple_debug_version/bin"
+				sudo cp "../dist/simple.so" "../../../$simple_debug_version/bin"
+			else
+				build_failed_error $1 "simple and simple.so"
+			fi
+		;;
+		*install* )
+			sudo make -f Makefile-Linux.mk install ARC_FLAG=$arc_var ARC=$arc
+		;;
+	esac
+	cd ../../build
+}
+
+copyinclude() {
+	header $1 "copying the simple includes(h) file "
+	case $1 in
+		*debug* )
+			if [ -e "../../$simple_debug_version/includes" ]; then 
+				sudo rm -R -f "../../$simple_debug_version/includes"
+			fi
+			sudo mkdir "../../$simple_debug_version/includes"
+			if [ -e "../simple/includes" ]; then
+				sudo cp -R "../simple/includes" "../../$simple_debug_version/"
+			else
+				not_found_error $1 "includes directory"
+			fi
+		;;
+		*install* )
+			local prefix=${DESTDIR}${PREFIX:-/usr/}
+			if [ -e "$prefix/include/simple" ]; then 
+				sudo rm -R -f "$prefix/include/simple"
+			fi
+			sudo mkdir "$prefix/include/simple"
+			if [ -e "../simple/includes" ]; then
+				sudo install ../simple/includes/simple* "$prefix/include/simple"
+			else
+				not_found_error $1 "includes directory"
+			fi
+		;;
+	esac
+}
+
+build_failed_error() {
+	display_error $1 "$2 build failed"
+	display_error $1 "try building individually"
+}
+
+not_found_error() {
+	display_error $1 "simple-lang $version build"
+	display_error $1 "the file '$2' does not exist in simple directory"
+	display_error $1 "skipping the build... on to next command..."
+}
+
+uninstall() {
+	header uninstall "removing simple $version from the system"
 	echo "simple-lang:menu: removing simplepad menu entry"
 	sudo rm -f ~/.local/share/applications/simplepad.desktop
-	echo "============================================================="
-	echo "simple-lang:uninstall: unlinking environment and library"
-	echo "============================================================="
-	echo "simple-lang:unlink: unlinking simplepad from ~/Desktop"
+	header uninstall "unlinking environment and library"
 	unlink ~/Desktop/simplepad
-	echo "simple-lang:unlink: unlinking libsimple.so and libsimple.$VER.so "
-	sudo unlink $DESTDIR/$PREFIX/lib/libsimple.$VER.so
+	sudo unlink $DESTDIR/$PREFIX/lib/libsimple.$ver.so
 	sudo unlink $DESTDIR/$PREFIX/lib/libsimple.so
-	sudo unlink /usr/lib/libsimple.$VER.so
+	sudo unlink /usr/lib/libsimple.$ver.so
 	sudo unlink /usr/lib/libsimple.so
-	sudo unlink /usr/local/lib/libsimple.$VER.so
-	sudo unlink /usr/local/lib/libsimple.so
-	echo "============================================================="
-	echo "simple-lang:uninstall: uninstalling simple-lang core executables"
-	echo "============================================================="
+	sudo unlink /usr/local/lib/libsimple.$ver.so
+	sudo unlink /usr/local/lib/libsimple.so 
+	header uninstall "uninstalling simple-lang core executables"
 	cd ../simple/makefiles
 	sudo make -f Makefile-Linux.mk uninstall 
 	cd ../../build 
-	echo "============================================================="
-	echo "simple-lang:uninstall: uninstalling simple-lang environments "
-	echo "============================================================="
+	header uninstall "uninstalling simple-lang environments"
 	cd ../environment
 	sudo make -f Linux-Install.mk uninstall
 	cd ../build
-	echo "============================================================="
-	echo "simple-lang:uninstall: uninstalling simple-lang modules "
-	echo "============================================================="
+	header uninstall "uninstalling simple-lang modules"
 	cd ../modules/dynamic_modules/makefiles 
 	sudo make -f Makefile-Linux.mk uninstall
 	cd ../../../build
-	echo "============================================================="
-	echo "simple-lang:uninstall: reinstall with 'sudo sh Linux-Build.sh -i'"
-	echo "simple-lang:uninstall: uninstallation complete "
-	echo "============================================================="
-	exit 0
+	header uninstall "reinstall with 'sudo sh Linux-Build.sh -i'"
+	header uninstall "uninstallation complete"
+}
 
-elif [ $1 = "-d" ] || [ $1 = "--debug" ]; then
-	EXEC_TYPE="debug"
-elif [ $1 != "--install" -a $1 != "-i" ] && [ $1 != "--uninstall" -a $1 != "-u" ] && [ $1 != "--debug" -a $1 != "-d" ] ; then
-	if [ $1 != "-h" ] && [ $1 != "--help" ]; then
-		echo "======================================"
-		echo "simple-lang:build: invalid flag : $1"
-		echo "======================================"
+configure() {
+	header configure "configure build $version"
+	sudo apt-get update
+	sudo apt-get -y install build-essential
+	sudo apt-get -y install gcc-multilib
+	sudo apt-get -y install libfltk1.3-dev
+	sudo apt-get -y install xorg-dev
+	sudo apt-get -y install libx11-dev
+	sudo apt-get -y install libxft-dev
+	sudo apt-get -y install libssl-dev
+	sudo apt-get -y install make
+	#sudo apt-get -y install libcurl4-gnutls-dev
+	#sudo apt-get -y install libcurl-nss-dev
+	sudo apt-get -y install libcurl4-openssl-dev
+	sudo apt-get -y install curl
+	sudo apt-get -y autoremove
+}
+
+check_if_is_sudo() {
+	if [ "$(id -u)" -ne 0 ]; then 
+		display sudo "it appear you are not running the script as root"
+		display sudo "the script is reinitiated as root"
+		display sudo "if it fails to re execute the Linux-Build.sh script with sudo"
+		display sudo "manualy run the script with 'sudo sh Linux-Build.sh -c -i'"
+		sudo sh Linux-Build.sh $@
+		exit 0
 	fi
-	echo "Usage: ./sudo sh Linux-Build.sh [FLAG]"
+}
+
+help() {
+	header "build" "help $version"
+	echo "Usage: sudo sh Linux-Build.sh [FLAG]"
 	echo "[FLAGS] :"
-	echo "	-c --configure	configure your system for simple-lang successfull build"
+	echo "	-c --configure	configure your system for simple-lang successful build"
 	echo "	-i --install	install simple-lang on your system"
-	echo "	-u --uninstall	uninstall simple-lang from your system"
-	echo "	-d --debug	create a distributable version in ../../ source directory"
-	echo "	-h --help	print this help message"
-	exit 1
-else 
-	EXEC_TYPE=$1
-fi
+	echo "	-u --uninstall	remove simple-lang installation from your system"
+	echo "	-d --debug	create a distributable(archivable) version in ../../ source directory"
+	echo "	-x --deb	create a .deb package that can be install with 'dpkg -i simple*.deb'"
+	echo "	x86 --32-bit	build 32 bit version of simple-lang"
+	echo "	x64 --64-bit	build 64 bit version of simple-lang"
+	echo "	-t --temp	keep the */dist/ folder(s) in source tree"
+	echo "	-h --help	display this help message"
+	echo ""
+	echo "[STANDALONE BUILD FLAGS] :"
+	echo "	-so --simple-only	build only simple and libsimple.so"
+	echo "	-io --includes-only	copy only the simple includes files"
+	echo "	-mo --modules-only	copy only the standard modules"
+	echo "	-yo --dymodules-only	build only the dynamic modules"
+	echo "	-eo --environment-only	build only the environment programs"
+}
 
-VERSION=s0.3.35
-SIMPLE_DEBUG_VERSION=s0.3.35-debug
-FULLTICK_BUILD_ISSUE="<https://github.com/simple-lang/simple/issues/16>"
+header() {
+	echo "=================================================================="
+	echo "simple-lang:$1: $2"
+	echo "=================================================================="
+}
 
-if [ $EXEC_TYPE = "configure" ] || [ $EXEC_TYPE = "install-configure" ]; then
-	echo "============================================================="
-	echo "simple-lang:configure: configure build $VERSION"
-	echo "============================================================="
-	ALLOW_DEP_INSTALL="0"
-	DEPENDENCIES='gcc fltk.so lib*ssl libcurl'
-	for i in $DEPENDENCIES; do
-		echo "simple-lang:configure: checking if $i is installed"
-		ldconfig -p | grep $i >/dev/null 2>&1 && {
-        	echo "simple-lang:configure: $i is installed on this machine."
-		} || {
-			echo "simple-lang:configure: $i is not installed on this machine ."
-			if [ $ALLOW_DEP_INSTALL = "0" ]; then
-				echo "simple-lang:configure: try installing mising dependencies"
-				echo "simple-lang:configure: internet connection is required"
-				echo "Do you want to continue?(y/n) " 
-				read allow
-				if [ $asllow ] && [ $allow = "yes"] || [ $allow = "y" ]; then
-					echo "simple-lang:configure: installation permitted on your machine"
-					ALLOW_DEP_INSTALL="1"
-				else
-					echo "simple-lang:configure: installation not allowed"
-					echo "simple-lang:configure: configuration failed"
-					exit
-				fi
-			else
-				echo "simple-lang:configure: installation already permitted"
+display() {
+	echo "simple-lang:$1: $2"
+}
+
+display_error() {
+	display "$1:error" $2
+}
+
+get_os_platform() {
+	  # Get OS/CPU info and store in a `myos` and `mycpu` variable.
+	  local ucpu=`uname -m`
+	  local uos=`uname`
+	  local ucpu=`echo $ucpu | tr "[:upper:]" "[:lower:]"`
+	  local uos=`echo $uos | tr "[:upper:]" "[:lower:]"`
+
+	  case $uos in
+		*linux* )
+		  local myos="linux"
+		  ;;
+		*dragonfly* )
+		  local myos="freebsd"
+		  ;;
+		*freebsd* )
+		  local myos="freebsd"
+		  ;;
+		*openbsd* )
+		  local myos="openbsd"
+		  ;;
+		*netbsd* )
+		  local myos="netbsd"
+		  ;;
+		*darwin* )
+		  local myos="macosx"
+		  if [ "$HOSTTYPE" = "x86_64" ] ; then
+			local ucpu="amd64"
+		  fi
+		  ;;
+		*aix* )
+		  local myos="aix"
+		  ;;
+		*solaris* | *sun* )
+		  local myos="solaris"
+		  ;;
+		*haiku* )
+		  local myos="haiku"
+		  ;;
+		*mingw* )
+		  local myos="windows"
+		  ;;
+		*)
+		  display_error "unknown operating system: $uos"
+		  ;;
+	  esac
+
+	  case $ucpu in
+		*i386* | *i486* | *i586* | *i686* | *bepc* | *i86pc* )
+		  local mycpu="i386" ;;
+		*amd*64* | *x86-64* | *x86_64* )
+		  local mycpu="amd64" ;;
+		*sparc*|*sun* )
+		  local mycpu="sparc"
+		  if [ "$(isainfo -b)" = "64" ]; then
+			local mycpu="sparc64"
+		  fi
+		  ;;
+		*ppc64* )
+		  local mycpu="powerpc64" ;;
+		*power*|*ppc* )
+		  local mycpu="powerpc" ;;
+		*mips* )
+		  local mycpu="mips" ;;
+		*arm*|*armv6l* )
+		  local mycpu="arm" ;;
+		*aarch64* )
+		  local mycpu="arm64" ;;
+		*)
+		  display_error "unknown processor: $ucpu"
+		  ;;
+	  esac
+
+	  echo "$myos"_"$mycpu"
+}
+
+remove_dist_folders() {
+	if [ "$keep_dist" = "false" ]; then
+		for fol in $@
+		do
+			if [ -e $fol ]; then
+				sudo rm -R -f $fol
 			fi
-			if [ $ALLOW_DEP_INSTALL="1" ]; then
-				echo "simple-lang:configure: installing $i"
-				if [ $i = "gcc" ]; then
-					sudo apt -y install build-essential
-				elif [ $i = "fltk.so" ]; then
-					sudo apt -y install libfltk1.3-dev
-				elif [ $i = "openssl" ]; then
-					sudo apt -y install libssl-dev
-				elif [ $i = "libcurl" ]; then
-					sudo apt -y install libcurl4-gnutls-dev
-					sudo apt -y install libcurl4-nss-dev
-					sudo apt -y install libcurl4-openssl-dev
-				else
-					echo "simple-lang:configure: $i package cannot be determined"
-					sudo apt -y install $i
-					exit
-				fi
-			fi
-			sudo apt -y install build-essential
-			sudo apt -y install make
-			sudo apt -y install libcurl4-gnutls-dev
-			sudo apt -y install libcurl4-nss-dev
-			sudo apt -y install libcurl4-openssl-dev
-		}
-	done
-	if [ $EXEC_TYPE = "install-configure" ]; then
-		EXEC_TYPE="install"
-	else
-		echo "simple-lang:configure: you can now install using 'sudo sh Linux-Build.sh -i'" 
-		echo "simple-lang:configure: configuration completed exiting"
-		exit 
+		done
 	fi
-fi
+}
 
-if [ $EXEC_TYPE = "debug" ]; then
-	echo "============================================================="
-	echo "simple-lang:debug: debug build $SIMPLE_DEBUG_VERSION"
-	echo "============================================================="
-elif [ $EXEC_TYPE = "install" ]; then
-	echo "============================================================="
-	echo "simple-lang:install: install simple-lang $VERSION"
-	echo "============================================================="
-fi
+execute_build $@
 
-if [ $EXEC_TYPE="debug" ]; then
-#Remove previous debug build of current version
-	if [ -e ../../$SIMPLE_DEBUG_VERSION/ ]; then
-		echo "a previous simple build $SIMPLE_DEBUG_VERSION is detected"
-		echo "removing previous build and performing a clean build"
-		sudo rm -R ../../$SIMPLE_DEBUG_VERSION/ 
-	fi
-fi
-
-if [ -e ../simple/makefiles/Makefile-Linux.mk ]; then 
-	cd ../simple/makefiles
-	echo "simple-lang: simple-lang $SIMPLE_DEBUG_VERSION build" 
-	echo "simple-lang: building simple.so and simple"
-	if [ -e "../dist/" ]
-		echo "simple-lang: removing previous simple build"
-		sudo rm -r ../dist/
-	then
-		echo "simple-lang: removing previous simple build"
-	fi
-	sudo make -f Makefile-Linux.mk uninstall 
-	sudo make -f Makefile-Linux.mk
-	if [ $EXEC_TYPE = "install" ]; then
-		sudo make -f Makefile-Linux.mk install
-	fi 
-	cd ../../build
-else 
-	echo "error:simple-lang: simple-lang $SIMPLE_DEBUG_VERSION build "
-	echo "error:simple-lang: the file 'Makefile-Linux.mk' does not exist in simple directory"
-	echo "error:simple-lang: skipping simple Build"
-fi
-
-#copy simple and simple.so to s0.3.35-debug folder if built for debugging
-if [ $EXEC_TYPE = "debug" ]; then
-		echo "	Copying simple executable and building $SIMPLE_DEBUG_VERSION "
-	
-	if [ -e ../../$SIMPLE_DEBUG_VERSION/bin/ ]; then
-		echo "simple-lang:bin: the ../../$SIMPLE_DEBUG_VERSION/bin already exist"
-	else
-		echo "simple-lang:bin: creating the ../../$SIMPLE_DEBUG_VERSION/bin folder"
-		mkdir -p "../../$SIMPLE_DEBUG_VERSION/bin"
-	fi
-	
-	if [ -e ../simple/dist/simple ]; then
-		echo "simple-lang: copying simple and simple.so to ../../$SIMPLE_DEBUG_VERSION/bin folder"
-		cp "../simple/dist/simple" "../../$SIMPLE_DEBUG_VERSION/bin"
-		cp "../simple/dist/simple.so" "../../$SIMPLE_DEBUG_VERSION/bin"
-	else
-		echo "error:simple-lang: build fails simple.exe and simple.dll cannot be found"
-		echo "error:simple-lang: try rebuilding individually"
-	fi
-
-	#copying the includes folder for developers
-		echo "	copying includes directory for developer"
-	if [ -e ../simple/includes ]; then
-		echo "includes: copying includes to ../../$SIMPLE_DEBUG_VERSION/includes folder"
-		cp -R "../simple/includes" "../../$SIMPLE_DEBUG_VERSION/includes"
-	else
-		echo "error:includes: the includes directory cannot be found"
-		echo "error:includes: the repository appears to be currupted. "
-		echo "error:includes: try clonning the simple repository again to resolve the issue"
-	fi
-fi
-
-#Resolve dependency
-#Most the current dependencies are moved with linux
-#if some of the dependencies are missing you can use apt-get to install them
-#	sudo apt-get install libcurl
-#
+exit 0
 
 #Buld dynamic modules
 	echo "	Building Dynamic Modules "
 
-if [ -e ../modules ]; then
-	cd ../modules
-	echo "modules: modules repository detected"
-	if [ -e ./dynamic_modules/makefiles/Makefile-Linux.mk ]; then
-		cd ./dynamic_modules/makefiles/
-		if [ -e ../dist/ ]; then
-			echo "dynamic_modules: removing previous dynamic modules build"
-			rm -R ../dist/
-		fi
-		echo "dynamic_modules: build and installation starting..."
-		sudo make -f Makefile-Linux.mk uninstall
-		sudo make -f Makefile-Linux.mk
 
-		# fulltick(GUI) dynamic_module
-			echo "dynamic_modules:fulltick: checking if fulltick build successfully"
-		if [ -e ../dist/fulltick.so ]; then
-			echo "dynamic_modules:fulltick: fulltick dynamic module built successfully"
-		else
-			echo "error:dynamic_modules:fulltick: fulltick dynamic module build failed"
-			echo "error:dynamic_modules:fulltick: fulltick build is sure to fail if you don't have fltk library installed or it is not configured as shared library"
-			echo "error:dynamic_modules:fulltick: visit $FULLTICK_BUILD_ISSUE for build instruction"
-			echo "dynamic_modules:fulltick: falling back on available backup build."
-			if [ -e ../fulltick/dist/fulltick.so ]; then
-				echo "dynamic_modules:fulltick: backup build found but might be outdated"
-				echo "dynamic_modules:fulltick: copying fulltick.so to ../dist/ directory"
-				cp ../fulltick/dist/fulltick.so ../dist/
-			else
-				echo "error:dynamic_modules:fulltick: the backup fulltick dynamic module cannot be found"
-				echo "error:dynamic_modules:fulltick: the repository appears to be currupted. "
-				echo "error:dynamic_modules:fulltick: try clonning the simple repository again to resolve the issue"
-				echo "error:dynamic_modules:fulltick: or visit $FULLTICK_BUILD_ISSUE to build instruction"
-			fi
-		fi
 
-		if [ $EXEC_TYPE = "install" ]; then
-			sudo make -f Makefile-Linux.mk install
-		fi
-		cd ../
-	else
-		echo "error:dynamic_modules: directory does not exist"
-		echo "error:dynamic_modules: the repository appears to be currupted. "
-		echo "error:dynamic_modules: try clonning the simple repository again to resolve the issue"
-	fi
-	cd ../../build
-else
-	echo "error:modules: modules directory does not exist"
-	echo "error:modules: the repository appears to be currupted." 
-	echo "error:modules: try clonning the simple repository again to resolve the issue"
 
-fi
-
-# The __first_calls.sim is important for the simple-lang modules to function
-echo "modules:simple-lang:core: treating the __first_calls.sim file"
-	echo "modules:simple-lang:core: this is a linux system modify to correspond"
-if [ $EXEC_TYPE = "install" ]; then
-	if [ -e $DESTDIR/$PREFIX/simple/$VERSION/modules/simple/core/__first_calls.sim ]; then
-		sudo echo "callDynamicModule(\"systemic.so\") callDynamicModule(\"string_savant.so\")" >> $DESTDIR/$PREFIX/simple/$VERSION/modules/simple/core/__first_calls.sim
-	else
-		echo "error:modules:simple-lang:core: the location of the __first_calls.sim could not be verified"
-		echo "modules:simple-lang:core: using the SIMPLE_PATH environment instead"
-		sudo echo "callDynamicModule(\"systemic.so\") callDynamicModule(\"string_savant.so\")" >> $SIMPLE_PATH/$VERSION/modules/simple/core/__first_calls.sim
-	fi
-fi
 
 if [ $EXEC_TYPE = "debug" ]; then
 		

@@ -15,7 +15,7 @@
 # Flags
 CFLAGS= -c -fpic -g -w
 LFlAGS= -lm -ldl
-LDFLAGS= "-Wl,--no-as-needed"
+LDFLAGS= "-Wl,-rpath,./ ../../bin/ $(DESTDIR)$(PREFIX)/lib/ ~/lib/,--no-as-needed"
 
 # Macros
 CND_PLATFORM=
@@ -48,45 +48,45 @@ SIMPLE_OBJECTFILES = \
 LDLIBSOPTIONS= -Lsimple.so
 
 ${CND_DISTDIR}/${CND_PLATFORM}/parser.${CND_DLIB_EXT}: $(OBJECTFILES)
-	$(CC) -shared -o $(CND_DISTDIR)/$(CND_PLATFORM)/parser.$(CND_DLIB_EXT) $(SIMPLE_OBJECTFILES) $(OBJECTFILES)
+	$(CC) -shared $(ARC_FLAG) -o $(CND_DISTDIR)/$(CND_PLATFORM)/parser.$(CND_DLIB_EXT) $(SIMPLE_OBJECTFILES) $(OBJECTFILES)
 	
 $(OBJECTDIR)/arraylist.o: includes/arraylist.c
 	mkdir -p $(OBJECTDIR)
-	$(CC) $(CFLAGS) includes/arraylist.c
+	$(CC) $(ARC_FLAG) $(CFLAGS) includes/arraylist.c
 	mv arraylist.o $(OBJECTDIR)
 	
 $(OBJECTDIR)/debug.o: includes/debug.c
 	mkdir -p $(OBJECTDIR)
-	$(CC) $(CFLAGS) includes/debug.c
+	$(CC) $(ARC_FLAG) $(CFLAGS) includes/debug.c
 	mv debug.o $(OBJECTDIR)
 	
 $(OBJECTDIR)/json_object.o: includes/json_object.c
 	mkdir -p $(OBJECTDIR)
-	$(CC) $(CFLAGS) includes/json_object.c
+	$(CC) $(ARC_FLAG) $(CFLAGS) includes/json_object.c
 	mv json_object.o $(OBJECTDIR)
 	
 $(OBJECTDIR)/json_tokener.o: includes/json_tokener.c
 	mkdir -p $(OBJECTDIR)
-	$(CC) $(CFLAGS) includes/json_tokener.c
+	$(CC) $(ARC_FLAG) $(CFLAGS) includes/json_tokener.c
 	mv json_tokener.o $(OBJECTDIR)
 	
 $(OBJECTDIR)/json_util.o: includes/json_util.c
 	mkdir -p $(OBJECTDIR)
-	$(CC) $(CFLAGS) includes/json_util.c
+	$(CC) $(ARC_FLAG) $(CFLAGS) includes/json_util.c
 	mv json_util.o $(OBJECTDIR)
 	
 $(OBJECTDIR)/linkhash.o: includes/linkhash.c
 	mkdir -p $(OBJECTDIR)
-	$(CC) $(CFLAGS) includes/linkhash.c
+	$(CC) $(ARC_FLAG) $(CFLAGS) includes/linkhash.c
 	mv linkhash.o $(OBJECTDIR)
 	
 $(OBJECTDIR)/printbuf.o: includes/printbuf.c
 	mkdir -p $(OBJECTDIR)
-	$(CC) $(CFLAGS) includes/printbuf.c
+	$(CC) $(ARC_FLAG) $(CFLAGS) includes/printbuf.c
 	mv printbuf.o $(OBJECTDIR)
 
 $(OBJECTDIR)/parser.o: parser.c
-	$(CC) $(CFLAGS) parser.c
+	$(CC) $(ARC_FLAG) $(CFLAGS) parser.c
 	mv parser.o $(OBJECTDIR)
 
 clean:

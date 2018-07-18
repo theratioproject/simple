@@ -52,10 +52,26 @@ void simple_vm_dll_loadlib ( void *pointer )
 				if (simple_fexists(__library_path)) { strcpy(library_path,__library_path); }
 				else {
 					char* simple_env_path = getenv("SIMPLE_MODULE_PATH"); snprintf(__library_path, sizeof(__library_path), "%s/dynamic_modules/%s", simple_env_path, SIMPLE_API_GETSTRING(1));
-					//printf("Modeule : %s\n",__library_path);
 					if (simple_fexists(__library_path)) { strcpy(library_path,__library_path);}
 					else {
-						//find the dynamic module in relative to run folder (UNDONE)
+						//find the module in relative to run folder (UNDONE) //this is last
+						#ifdef _WIN32
+							snprintf(__library_path, sizeof(__library_path), "C:/Simple/s%s/modules/dynamic_modules/%s",SIMPLE_VERSION,SIMPLE_API_GETSTRING(1));
+						#else
+							snprintf(__library_path, sizeof(__library_path), "/lib/simple/s%s/modules/dynamic_modules/%s", SIMPLE_VERSION,SIMPLE_API_GETSTRING(1));
+							if (simple_fexists(__library_path)) { strcpy(library_path,__library_path);}
+							else {
+								snprintf(__library_path, sizeof(__library_path), "/usr/lib/simple/s%s/modules/dynamic_modules/%s", SIMPLE_VERSION,SIMPLE_API_GETSTRING(1));
+								if (simple_fexists(__library_path)) { strcpy(library_path,__library_path);}
+								else {
+									snprintf(__library_path, sizeof(__library_path), "/usr/local/lib/simple/s%s/modules/dynamic_modules/%s", SIMPLE_VERSION,SIMPLE_API_GETSTRING(1));
+									if (simple_fexists(__library_path)) { strcpy(library_path,__library_path);}
+									else {
+										
+									}
+								}
+							}
+						#endif
 					}
 				} 
             }

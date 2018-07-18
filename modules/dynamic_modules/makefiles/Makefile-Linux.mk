@@ -42,38 +42,39 @@ CND_PLATFORM=Linux
 CND_DLIB_EXT=so
 CND_DISTDIR=../dist
 MODULE_BASE=../../
-CLEAN_DEBUGDIR=../../../s0.3.35-debug
+CLEAN_DEBUGDIR=../../../$(VERSION)-debug
 DYNAMIC_MODULEDIR=modules/dynamic_modules
 
+ifeq ($(PREFIX),)
+    PREFIX := /usr/
+endif
+
 clean: 
-	cd ../archiver/ && $(MAKE) -f Makefile-Linux.mk
-	cd ../consoler/ && $(MAKE) -f Makefile-Linux.mk
-	cd ../file_savant/ && $(MAKE) -f Makefile-Linux.mk
-	cd ../mathic/ && $(MAKE) -f Makefile-Linux.mk
-	cd ../string_savant/ && $(MAKE) -f Makefile-Linux.mk
-	cd ../networker/ && $(MAKE) -f Makefile-Linux.mk
-	cd ../parser/ && $(MAKE) -f Makefile-Linux.mk
-	cd ../security/ && $(MAKE) -f Makefile-Linux.mk
-	cd ../systemic/ && $(MAKE) -f Makefile-Linux.mk
-	cd ../core_dynamic_module/ && $(MAKE) -f Makefile-Linux.mk
-	cd ../fulltick/ && $(MAKE) -f Makefile-Linux.mk
+	cd ../archiver/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
+	cd ../consoler/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
+	cd ../file_savant/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
+	cd ../mathic/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
+	cd ../string_savant/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
+	cd ../networker/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
+	cd ../parser/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
+	cd ../security/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
+	cd ../systemic/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
+	cd ../core_dynamic_module/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
+	cd ../fulltick/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
 	
 	${RM} ${CND_DISTDIR}/build/*.o
 	${RMDIR} ${CND_DISTDIR}/build
 
-ifeq ($(PREFIX),)
-    PREFIX := /usr/local
-endif
-
 .PHONY: install
 install:
-	mkdir -p $(DESTDIR)$(PREFIX)/simple/$(VERSION)/modules/
-	mkdir -p $(DESTDIR)$(PREFIX)/simple/$(VERSION)/modules/dynamic_modules/
-	install $(CND_DISTDIR)/*.so $(DESTDIR)$(PREFIX)/simple/$(VERSION)/modules/dynamic_modules/
-	cp -R $(MODULE_BASE)/archive $(DESTDIR)$(PREFIX)/simple/$(VERSION)/modules/
-	cp -R $(MODULE_BASE)/fulltick $(DESTDIR)$(PREFIX)/simple/$(VERSION)/modules/
-	cp -R $(MODULE_BASE)/simple $(DESTDIR)$(PREFIX)/simple/$(VERSION)/modules/
-	cp -R $(MODULE_BASE)/web $(DESTDIR)$(PREFIX)/simple/$(VERSION)/modules/
+	mkdir -p $(DESTDIR)$(PREFIX)/lib/simple/$(VERSION)/modules/
+	mkdir -p $(DESTDIR)$(PREFIX)/lib/simple/$(VERSION)/modules/dynamic_modules/
+	install $(CND_DISTDIR)/*.so $(DESTDIR)$(PREFIX)/lib/simple/$(VERSION)/modules/dynamic_modules/
+	install $(MODULE_BASE)/modules-dependencies.conf $(DESTDIR)$(PREFIX)/lib/simple/$(VERSION)/modules/
+	cp -R $(MODULE_BASE)/archive $(DESTDIR)$(PREFIX)/lib/simple/$(VERSION)/modules/
+	cp -R $(MODULE_BASE)/fulltick $(DESTDIR)$(PREFIX)/lib/simple/$(VERSION)/modules/
+	cp -R $(MODULE_BASE)/simple $(DESTDIR)$(PREFIX)/lib/simple/$(VERSION)/modules/
+	cp -R $(MODULE_BASE)/web $(DESTDIR)$(PREFIX)/lib/simple/$(VERSION)/modules/
 	rm -r -f $(CND_DISTDIR)/
 	
 #We should not remove the main simple directory because it might contain 
