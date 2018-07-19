@@ -18,8 +18,12 @@ call "ConsoleColor.sim" ? simple.utilities
 #Console is initialized as a variable in order to allow usage as Console.block()
 Console = new Console
 
-#a character that move caret to start of line or simply clear line
-$__clearLine = char(13)
+	#a character that move caret to start of line or simply clear line
+	$__clearLine = char(13)
+	foregroundColor = ConsoleColor.NONE()
+	backgroundColor = ConsoleColor.NONE()
+	consoleLine = "======================================================================================================================================================="+crlf
+
 
 /*
 	This block is Most useful for exiting the program/application at any level 
@@ -117,10 +121,6 @@ block beep(f, l)
 block singleBeep()
 	beep(0.0, 0)
 
-
-foregroundColor = ConsoleColor.NONE()
-backgroundColor = ConsoleColor.NONE()
-consoleLine = "======================================================================================================================================================="+crlf
 
 #by default all escape character is not supported 
 #this block formatLiteral(content) allows for escape character supports
