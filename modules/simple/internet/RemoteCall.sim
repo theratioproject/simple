@@ -11,7 +11,10 @@ call "simple/core/String.sim"
 	__REMOTE_CALL_NOT_STRING = "Only string allowed as parameter"
 	__REMOTE_CALL_NOT_URL = "The parameter is not a valid url"
 	__REMOTE_CALL_NOT_SECURE = "The url requested is not secure"
-
+	__REMOTE_CALL_NO_NETWORK = "Unable to request the remote file. check your internet connection"
+	__REMOTE_CALL_500 = "Server Error - "
+	__REMOTE_CALL_NOT_FOUND = "The file does not exist at the url"
+	__REMOTE_CALL_NOT_FOUND = "The file does not exist at the url"
 
 block callRemote(remoteFile)
 	if !isString(remoteFile) {
@@ -23,4 +26,19 @@ block callRemote(remoteFile)
 	if !stringStartsWith(remoteFile, "https") {
 		warn(__MODULE_ADDRESS+" : "+remoteFile+" - "+__REMOTE_CALL_NOT_SECURE)
 	}
+	tempContent = __curl_download(remoteFile)
+	if tempContent == null {
+		warn(__MODULE_ADDRESS+" : "+remoteFile+" - "+__REMOTE_CALL_NO_NETWORK)
+		return false
+	elif stringContains(tempContent, "Server Error")
+		warn(__MODULE_ADDRESS+" : "+remoteFile+" - "+__REMOTE_CALL_500+tempContent)
+		return false
+	elif stringContains(tempContent, "Not Found") 
+		warn(__MODULE_ADDRESS+" : "+remoteFile+" - "+__REMOTE_CALL_NOT_FOUND)
+		return false
+	else 
+		return true
+	}
+	return false
+	
 	
