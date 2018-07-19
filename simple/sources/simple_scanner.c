@@ -1,13 +1,8 @@
 
-<<<<<<< HEAD
+
 /* 
 	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com> 
 	MIT License Copyright (c) 2017 simple 
-=======
-/*
-	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com">
-	MIT License Copyright (c) 2017 simple
->>>>>>> ef12eeee6d2466f5eec80eb0a4f0ba6880825e93
 
 */
 
