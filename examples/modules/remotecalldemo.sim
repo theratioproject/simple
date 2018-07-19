@@ -18,7 +18,7 @@
 
 call "simple/internet/RemoteCall.sim"
 
-	isSuccessful = callRemote("http://127.0.0.1")
+	isSuccessful = callRemote("https://raw.githubusercontent.com/simple-lang/simple-lang.io/master/side/urladdresses.sims")
 	if isSuccessful {
 		@"Twitter url : "+twitterUrl
 		@"Github Example url : "+githubExampleFolderUrl
