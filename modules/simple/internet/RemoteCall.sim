@@ -13,5 +13,5 @@ call "simple/core/String.sim"
 
 block callRemote(remoteFile)
 	if !isString(remoteFile) {
-		throw()
+		throwWithTitle(__MODULE_ADDRESS, remoteFile+" - "+__REMOTE_CALL_NOT_STRING)
 	}
