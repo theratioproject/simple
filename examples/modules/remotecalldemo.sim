@@ -11,6 +11,10 @@
  */
 
 /*
-	This file is a stress and elaborating example of using the 
-	simple-lang debugging module @Module simple/debugging/
+	This file is for demoing calling a file from url i.e execute the 
+	content of a remote file in the current file. internet connection 
+	is required
 */
+
+call "simple/internet/RemoteCall.sim"
+callRemote("")
