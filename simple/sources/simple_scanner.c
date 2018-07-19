@@ -94,82 +94,57 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
         if (simple_fexists(file_name)) {
 
         } else {
-            simple_distro_folder(simple_folder);
-            snprintf(__library_path, sizeof(__library_path), "%s/modules/%s", simple_folder,file_name);
-            if (simple_fexists(__library_path)) {
+            snprintf(__library_path, sizeof(__library_path), "./modules/%s", file_name);
+			if (simple_fexists(__library_path)) {
                 strcpy(file_name,__library_path);
             } else {
-                //checking using environment variable if SIMPLE_PATH and SIMPLE_MODULE_PATH are set
-				char* simple_env_path = getenv("SIMPLE_PATH");  snprintf(__library_path, sizeof(__library_path), "%s/s%s/modules/%s", simple_env_path, SIMPLE_VERSION, file_name);
-				if (simple_fexists(__library_path)) { strcpy(file_name,__library_path); }
-				else {
-					char* simple_env_path = getenv("SIMPLE_MODULE_PATH");
-					snprintf(__library_path, sizeof(__library_path), "%s/%s", simple_env_path, file_name);
-					if (simple_fexists(__library_path)) { strcpy(file_name,__library_path);}
-					else {
-						//find the module in relative to run folder (UNDONE) //this is last
-						#ifdef _WIN32
-							snprintf(__library_path, sizeof(__library_path), "C:/Simple/s%s/modules/%s",SIMPLE_VERSION,file_name);
-						#else
-							snprintf(__library_path, sizeof(__library_path), "/lib/simple/s%s/modules/%s", SIMPLE_VERSION,file_name);
+				snprintf(__library_path, sizeof(__library_path), "%s/modules/%s", simple_initial_dir,file_name);
+				if (simple_fexists(__library_path)) {
+					strcpy(file_name,__library_path);
+				} else {
+					simple_distro_folder(simple_folder);
+					snprintf(__library_path, sizeof(__library_path), "%s/modules/%s", simple_folder,file_name);
+					if (simple_fexists(__library_path)) {
+						strcpy(file_name,__library_path);
+					} else {
+						//checking using environment variable if SIMPLE_PATH and SIMPLE_MODULE_PATH are set
+						char* simple_env_path = getenv("SIMPLE_PATH");  
+						snprintf(__library_path, sizeof(__library_path), "%s/s%s/modules/%s", simple_env_path, SIMPLE_VERSION, file_name);
+						if (simple_fexists(__library_path)) { strcpy(file_name,__library_path); }
+						else {
+							snprintf(__library_path, sizeof(__library_path), "%s/modules/%s", simple_folder,file_name);
+							
+							char* simple_env_path = getenv("SIMPLE_MODULE_PATH");
+							snprintf(__library_path, sizeof(__library_path), "%s/%s", simple_env_path, file_name);
 							if (simple_fexists(__library_path)) { strcpy(file_name,__library_path);}
 							else {
-								snprintf(__library_path, sizeof(__library_path), "/usr/lib/simple/s%s/modules/%s", SIMPLE_VERSION,file_name);
-								if (simple_fexists(__library_path)) { strcpy(file_name,__library_path);}
-								else {
-									snprintf(__library_path, sizeof(__library_path), "/usr/local/lib/simple/s%s/modules/%s", SIMPLE_VERSION,file_name);
+								//find the module in relative to run folder (UNDONE) //this is last
+								#ifdef _WIN32
+									snprintf(__library_path, sizeof(__library_path), "C:/Simple/s%s/modules/%s",SIMPLE_VERSION,file_name);
+								#else
+									snprintf(__library_path, sizeof(__library_path), "/lib/simple/s%s/modules/%s", SIMPLE_VERSION,file_name);
 									if (simple_fexists(__library_path)) { strcpy(file_name,__library_path);}
 									else {
+										snprintf(__library_path, sizeof(__library_path), "/usr/lib/simple/s%s/modules/%s", SIMPLE_VERSION,file_name);
+										if (simple_fexists(__library_path)) { strcpy(file_name,__library_path);}
+										else {
+											snprintf(__library_path, sizeof(__library_path), "/usr/local/lib/simple/s%s/modules/%s", SIMPLE_VERSION,file_name);
+											if (simple_fexists(__library_path)) { strcpy(file_name,__library_path);}
+											else {
 
+											}
+										}
 									}
-								}
+								#endif
 							}
-						#endif
+						}
 					}
 				}
-            }
-            /** char* SIMPLEPATH = getenv("SIMPLE_PATH"); is_start_file = 0 ;
-             if (SIMPLEPATH != NULL) {
-                snprintf(file_name_two, sizeof(file_name_two), "%s/s%s/modules/%s", SIMPLEPATH, SIMPLE_VERSION, file_name);
-            }
-            if (!simple_fexists(file_name_two)) {
-                char* SIMPLEMODULEPATH = getenv("SIMPLE_MODULE_PATH"); is_start_file = 0 ;
-                if (SIMPLEMODULEPATH != NULL) {
-                    snprintf(file_name_two, sizeof(file_name_two), "%s/%s", SIMPLEMODULEPATH, file_name);
-                }
-                if (!simple_fexists(file_name_two)) {
-                    snprintf(file_name_two, sizeof(file_name_two), "%s%s", DEFAULT_FILE_PATH, file_name);
-                    if (!simple_fexists(file_name_two)) {
-                        snprintf(file_name_two, sizeof(file_name_two), "%s/modules/%s", DEFAULT_FILE_PATH, file_name);
-                        if (!simple_fexists(file_name_two)) {
-                            snprintf(file_name_two, sizeof(file_name_two), "%s/library/%s", DEFAULT_FILE_PATH, file_name);
-                            if (!simple_fexists(file_name_two)) {
-                                /** we go further because web cgi is a bit crazy in finding modules **
-                                char simple_folder[200]; simple_exefilename(simple_folder);
-                                get_file_folder(simple_folder);
-                                snprintf(file_name_two, sizeof(file_name_two), "%s/s%s/modules/%s", simple_folder, SIMPLE_VERSION, file_name);
-                                if (!simple_fexists(file_name_two)) {
-                                    #if SIMPLE_DEVELOPMENT
-                                        #ifdef _WIN32
-                                            snprintf(file_name_two, sizeof(file_name_two), "%s/%s", "C:/Users/thecarisma/Documents/SIMPLE GITHUB/modules", file_name);
-                                        #else
-                                            //deduct_char_from_behind(simple_folder, 4); //to remove bin
-                                            snprintf(file_name_two, sizeof(file_name_two), "%s/s%s/modules/%s", simple_folder, SIMPLE_VERSION, file_name);
-                                            printf("NOW CHECKING AGAIN %s \n",file_name_two);
-                                        #endif
-                                    #endif
-                                }
-                            }
-                        }
-
-                    }
-                }
-            } **/
-        }
+			}
+		}
         /* Switch To File Folder */
         if (is_start_file) {
             strcpy(file_name_two,file_name);
-            DEFAULT_FILE_NAME = file_name_two ; DEFAULT_FILE_PATH = file_name_two ;
         }
 	fp = SIMPLE_OPENFILE(file_name_two , "r");
 	/* Avoid switching if it's the first file */
@@ -184,8 +159,6 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
 	}
 	SIMPLE_READCHAR(fp,c,nSize);
 	scanner = new_simple_scanner(sState);
-        /*Assign default file dir */
-        if (is_start_file) {get_file_folder ( DEFAULT_FILE_PATH );}
 	/* Check Startup file */
 	if ( simple_fexists("startup.sim") && scanner->sState->lStartup == 0 ) {
 		scanner->sState->lStartup = 1 ;

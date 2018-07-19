@@ -50,7 +50,7 @@ extern int NOT_CASE_SENSITIVE ;
 
 extern char *DEFAULT_FILE_NAME ;
 
-extern char *DEFAULT_FILE_PATH ;
+char simple_initial_dir[SIMPLE_PATHSIZE];
 
 extern int list_index ;
 extern char* time_frame ;
