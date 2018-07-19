@@ -4,7 +4,7 @@
 
 */
 
-call "loadinternetdll.sim"
+call "curl/CurlCore.sim"
 call "simple/core/String.sim"
 
 	__MODULE_ADDRESS = "simple.internet.RemoteCall"
@@ -26,8 +26,9 @@ block callRemote(remoteFile)
 	if !stringStartsWith(remoteFile, "https") {
 		warn(__MODULE_ADDRESS+" : "+remoteFile+" - "+__REMOTE_CALL_NOT_SECURE)
 	}
-	
-	tempContent = __curl_download(remoteFile)
+	contentValue = new CurlCore(remoteFile)
+	tempContent = contentValue.getStringOutput()
+	contentValue.flush()
 	@tempContent
 	if tempContent == null {
 		warn(__MODULE_ADDRESS+" : "+remoteFile+" - "+__REMOTE_CALL_NO_NETWORK)
