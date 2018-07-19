@@ -12,7 +12,6 @@ call "simple/core/String.sim"
 
 
 block callRemote(remoteFile)
-	@remoteFile
 	if !isString(remoteFile) {
-		throwWithTitle(__MODULE_ADDRESS, remoteFile+" - "+__REMOTE_CALL_NOT_STRING)
+		throwWithTitle(__MODULE_ADDRESS, ""+remoteFile+" - "+__REMOTE_CALL_NOT_STRING)
 	}
