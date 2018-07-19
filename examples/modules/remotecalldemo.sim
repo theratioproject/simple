@@ -18,6 +18,11 @@
 
 call "simple/internet/RemoteCall.sim"
 
+	testcurl = new CurlCore("https://simple-lang.sourceforge.io/")
+	
+	display testcurl.getStringOutput() 
+	testcurl.flush()
+
 	isSuccessful = callRemote("https://raw.githubusercontent.com/simple-lang/simple-lang.io/master/side/urladdresses.sims")
 	if isSuccessful {
 		@"Twitter url : "+twitterUrl
