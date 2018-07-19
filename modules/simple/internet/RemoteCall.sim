@@ -23,3 +23,4 @@ block callRemote(remoteFile)
 	if !stringStartsWith(remoteFile, "https") {
 		warn(__MODULE_ADDRESS+" : "+remoteFile+" - "+__REMOTE_CALL_NOT_SECURE)
 	}
+	
