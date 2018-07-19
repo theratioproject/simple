@@ -17,10 +17,12 @@
 */
 
 call "simple/internet/RemoteCall.sim"
-@callRemote("https://raw.githubusercontent.com/simple-lang/simple-lang.io/master/side/urladdresses.sims")
 
-	#@"Twitter url : "+twitterUrl
-	#@"Github Example url : "+githubExampleFolderUrl
+	isSuccessful = callRemote("https://raw.githubusercontent.com/simple-lang/simple-lang.io/master/side/urladdresses.sims")
+	if isSuccessful {
+		@"Twitter url : "+twitterUrl
+		@"Github Example url : "+githubExampleFolderUrl
+	}
 	
-callRemote("http://raw.githubusercontent.com/simple-lang/simple-lang.io/master/side/urladdresses.sim") #execute with -w to see warning
+@callRemote("http://raw.githubusercontent.com/simple-lang/simple-lang.io/master/side/urladdresses.sim") #execute with -w to see warning
 #callRemote(2090) #not string error
