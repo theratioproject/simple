@@ -17,9 +17,10 @@
 */
 
 call "simple/internet/RemoteCall.sim"
-callRemote("")
+#callRemote("")
 
 	#@"Twitter url : "+twitterUrl
 	#@"Github Example url : "+githubExampleFolderUrl
 	
-callRemote(243) #not string error
+num = 100
+callRemote(num) #not string error
