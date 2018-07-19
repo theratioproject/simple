@@ -20,7 +20,7 @@ block callRemote(remoteFile)
 	if !isString(remoteFile) {
 		throwWithTitle(__MODULE_ADDRESS, ""+remoteFile+" - "+__REMOTE_CALL_NOT_STRING)
 	}
-	if !stringStartsWith(remoteFile, "http://") {
+	if !stringStartsWith(remoteFile, "http") {
 		throwWithTitle(__MODULE_ADDRESS, ""+remoteFile+" - "+__REMOTE_CALL_NOT_URL)
 	}
 	if !stringStartsWith(remoteFile, "https") {
