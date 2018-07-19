@@ -18,3 +18,6 @@
 
 call "simple/internet/RemoteCall.sim"
 callRemote("")
+
+	@"Twitter url : "+twitterUrl
+	@"Twitter url : "+twitterUrl
