@@ -1,0 +1,17 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+call "loadinternetdll.sim"
+call "simple/core/String.sim"
+
+	__MODULE_ADDRESS = "simple.internet.RemoteCall"
+	__REMOTE_CALL_NOT_STRING = "Only string allowed as parameter"
+
+
+block callRemote(remoteFile)
+	if !isString(remoteFile) {
+		throw()
+	}
