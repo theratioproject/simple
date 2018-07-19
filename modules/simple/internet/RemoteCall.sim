@@ -10,6 +10,7 @@ call "simple/core/String.sim"
 	__MODULE_ADDRESS = "simple.internet.RemoteCall"
 	__REMOTE_CALL_NOT_STRING = "Only string allowed as parameter"
 	__REMOTE_CALL_NOT_URL = "The parameter is not a valid url"
+	__REMOTE_CALL_NOT_SECURE = "The url requested is not secure"
 
 
 block callRemote(remoteFile)
@@ -20,5 +21,5 @@ block callRemote(remoteFile)
 		throwWithTitle(__MODULE_ADDRESS, ""+remoteFile+" - "+__REMOTE_CALL_NOT_URL)
 	}
 	if !stringStartsWith(remoteFile, "https") {
-		warnWithTitle(__MODULE_ADDRESS, ""+remoteFile+" - "+__REMOTE_CALL_NOT_SECURE)
+		warn(__MODULE_ADDRESS+" : "+remoteFile+" - "+__REMOTE_CALL_NOT_SECURE)
 	}
