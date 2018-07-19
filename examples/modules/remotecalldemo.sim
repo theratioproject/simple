@@ -19,5 +19,7 @@
 call "simple/internet/RemoteCall.sim"
 callRemote("")
 
-	@"Twitter url : "+twitterUrl
-	@"Twitter url : "+twitterUrl
+	#@"Twitter url : "+twitterUrl
+	#@"Github Example url : "+githubExampleFolderUrl
+	
+callRemote(243) #not string error
