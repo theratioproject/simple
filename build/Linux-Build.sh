@@ -387,16 +387,14 @@ configure() {
 	sudo apt-get -y install libxft-dev
 	sudo apt-get -y install libssl-dev
 	sudo apt-get -y install make
-	#sudo apt-get -y install libcurl4-gnutls-dev
-	#sudo apt-get -y install libcurl-nss-dev
 	sudo apt-get -y install libcurl4-openssl-dev
 	sudo apt-get -y install curl
 	case $cpu_arc in
 			*64* )
-				sudo apt-get -y install libfltk1.3-dev:i386
-				sudo apt-get -y install xorg-dev:i386
-				sudo apt-get -y install libx11-dev:i386
-				sudo apt-get -y install libxft-dev:i386
+				#sudo apt-get -y install libfltk1.3-dev:i386
+				#sudo apt-get -y install xorg-dev:i386
+				#sudo apt-get -y install libx11-dev:i386
+				#sudo apt-get -y install libxft-dev:i386
 				sudo apt-get -y install libssl-dev:i386
 				#sudo apt-get -y install libcurl4-gnutls-dev:i386
 				#sudo apt-get -y install libcurl-nss-dev:i386
