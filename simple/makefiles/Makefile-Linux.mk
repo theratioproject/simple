@@ -192,7 +192,7 @@ install: $(CND_DISTDIR)/simple
 
 .PHONY: uninstall
 uninstall:
-	rm -f $(DESTDIR)$(PREFIX)/bin/simple
+	rm -rf $(DESTDIR)$(PREFIX)/bin/simple
 	rm -f $(DESTDIR)$(PREFIX)/lib/simple.$(CND_DLIB_EXT)
 	rm -R -f $(DESTDIR)$(PREFIX)/include/simple/
 	unlink $(DESTDIR)$(PREFIX)/lib/libsimple.$(CND_DLIB_EXT) 
