@@ -249,7 +249,8 @@ block linuxBuild(path)
 	/* link at runtime */
 	#cmd = 'cc -I/$DESTDIR/$PREFIX/include "-Wl,--no-as-needed" -lm -ldl -o "'+outputName+'" "'+path+'" '+' -Lsimple.so'
 	/* link at build time */
-	cmd = 'cc '+buildArch+' -I/$DESTDIR/$PREFIX/include/ -I/usr/include/ "-Wl,--no-as-needed" -lm -ldl -o "'+outputName+'" "'+path+'" '+sSharedLib
+	LDFLAG = '-L ./ -Wl,-R../lib/ "-Wl,-rpath,./ ../lib/ /usr/lib/ /lib/ /usr/local/lib/ ~/lib/" "-Wl,--no-as-needed"'
+	cmd = 'cc '+buildArch+' -I/$DESTDIR/$PREFIX/include/ -I/usr/include/ '+LDFLAG+' -lm -ldl -o "'+outputName+'" "'+path+'" '+sSharedLib
 	#cmd = 'cc "-Wl,--no-as-needed" -lm -ldl -o "'+outputName+'" "'+path+'" '+' '+exeFolder()+'simple.so'
 	#cmd = 'cc -fpic -g -lm -ldl -o '+outputName+" "+path+' "-Wl,--no-as-needed" "'+exeFolder()+'simple.so"'
 	display cmd + crlf
