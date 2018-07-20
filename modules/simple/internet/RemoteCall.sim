@@ -4,7 +4,7 @@
 
 */
 
-call "curl/CurlCore.sim"
+call "loadinternetdll.sim"
 call "simple/core/String.sim"
 
 	__MODULE_ADDRESS = "simple.internet.RemoteCall"
@@ -15,6 +15,7 @@ call "simple/core/String.sim"
 	__REMOTE_CALL_500 = "Server Error - "
 	__REMOTE_CALL_NOT_FOUND = "The file does not exist at the url"
 	__REMOTE_CALL_NOT_FOUND = "The file does not exist at the url"
+	
 
 block callRemote(remoteFile)
 	if !isString(remoteFile) {
@@ -26,10 +27,7 @@ block callRemote(remoteFile)
 	if !stringStartsWith(remoteFile, "https") {
 		warn(__MODULE_ADDRESS+" : "+remoteFile+" - "+__REMOTE_CALL_NOT_SECURE)
 	}
-	contentValue = new CurlCore(remoteFile)
-	tempContent = contentValue.getStringOutput()
-	contentValue.flush()
-	@tempContent
+	tempContent = __curl_download(remoteFile)
 	if tempContent == null {
 		warn(__MODULE_ADDRESS+" : "+remoteFile+" - "+__REMOTE_CALL_NO_NETWORK)
 		return false
@@ -40,8 +38,40 @@ block callRemote(remoteFile)
 		warn(__MODULE_ADDRESS+" : "+remoteFile+" - "+__REMOTE_CALL_NOT_FOUND)
 		return false
 	else 
+		try {
+			executeCode(tempContent)
+			return true
+		catch
+			return false
+		}
+		
 		return true
 	}
 	return false
+	
+block fetchRemotefile(remoteFile)
+	if !isString(remoteFile) {
+		throwWithTitle(__MODULE_ADDRESS, ""+remoteFile+" - "+__REMOTE_CALL_NOT_STRING)
+	}
+	if !stringStartsWith(remoteFile, "http") {
+		throwWithTitle(__MODULE_ADDRESS, ""+remoteFile+" - "+__REMOTE_CALL_NOT_URL)
+	}
+	if !stringStartsWith(remoteFile, "https") {
+		warn(__MODULE_ADDRESS+" : "+remoteFile+" - "+__REMOTE_CALL_NOT_SECURE)
+	}
+	tempContent = __curl_download(remoteFile)
+	if tempContent == null {
+		warn(__MODULE_ADDRESS+" : "+remoteFile+" - "+__REMOTE_CALL_NO_NETWORK)
+		return ""
+	elif stringContains(tempContent, "Server Error")
+		warn(__MODULE_ADDRESS+" : "+remoteFile+" - "+__REMOTE_CALL_500+tempContent)
+		return ""
+	elif stringContains(tempContent, "Not Found") 
+		warn(__MODULE_ADDRESS+" : "+remoteFile+" - "+__REMOTE_CALL_NOT_FOUND)
+		return ""
+	else 
+		return tempContent
+	}
+	return ""
 	
 	

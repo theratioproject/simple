@@ -18,11 +18,12 @@
 
 call "simple/internet/RemoteCall.sim"
 
-	isSuccessful = callRemote("https://raw.githubusercontent.com/simple-lang/simple-lang.io/master/side/urladdresses.sims")
-	if isSuccessful {
+	remoteCode = fetchRemotefile("http://127.0.0.1/simple-lang.io/side/urladdresses.txt")
+	if remoteCode != null {
+		executeCode(remoteCode)
 		@"Twitter url : "+twitterUrl
 		@"Github Example url : "+githubExampleFolderUrl
 	}
 	
-callRemote("http://raw.githubusercontent.com/simple-lang/simple-lang.io/master/side/urladdresses.sim") #execute with -w to see warning
+callRemote("http://127.0.0.1/simple-lang.io/side/urladdresses.txt") #execute with -w to see warning
 #callRemote(2090) #not string error
