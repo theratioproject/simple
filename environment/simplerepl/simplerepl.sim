@@ -24,16 +24,16 @@ simpleReplTitle = "
                                                                                                          |  
 "
 	
-	Console.printLineWithColor(ConsoleColor.GREEN(), null)
-	Console.printWithFG(ConsoleColor.YELLOW(), simpleReplTitle)
-	Console.printLineWithColor(ConsoleColor.GREEN(), null)
+	printLineWithColor(ConsoleColor.GREEN(), null)
+	printWithFG(ConsoleColor.YELLOW(), simpleReplTitle)
+	printLineWithColor(ConsoleColor.GREEN(), null)
 while true
 	display crlf 
-	Console.printWithFG(ConsoleColor.CYAN(), "simple@repl > ")
+	printWithFG(ConsoleColor.CYAN(), "simple@repl > ")
 	read code
 	try
 		executeCode(code)
 	catch
-		Console.printWithFG(ConsoleColor.RED(), __err__)
+		printWithFG(ConsoleColor.RED(), __err__)
 	end
 end 
