@@ -20,7 +20,7 @@ endif
 # Flags
 CFLAGS= -c -fpic -g
 LFlAGS= -lm -ldl
-LDFLAGS= "-Wl,-rpath,./ ../lib/ $(DESTDIR)$(PREFIX)/lib/ ~/lib/" "-Wl,--no-as-needed"
+LDFLAGS= -L ./ -Wl,-R./ "-Wl,-rpath,./ ../lib/ $(DESTDIR)$(PREFIX)/lib/ ~/lib/" "-Wl,--no-as-needed"
 
 # Macros
 VERSION=s0.3.35

@@ -17,7 +17,6 @@
 int NOT_CASE_SENSITIVE = 0 ;
 int SKIP_ERROR = 0 ;
 char *DEFAULT_FILE_NAME = "" ;
-char *DEFAULT_FILE_PATH = "" ;
 
 int list_index = 0 ;
 char* time_frame = "seconds" ;

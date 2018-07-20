@@ -37,6 +37,7 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
     register_block("__throw",error_throw);
     register_block("__stack_trace",error_stack_trace);
     register_block("__warn",error_warn);
+	
     /* Conversion */ 
     register_block("__stringToCHex",conversion_string_to_chex);
     register_block("__hexToString",conversion_hex_to_string);
@@ -45,10 +46,53 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
 
     /* Characters Checking */ 
     register_block("__isAlphaNum",check_characters_is_alpha_num);
+	
+	/* Meta Blocks */ 
+	register_block("__AddAttribute",meta_blocks_add_addribute);
+}
+
+/* Meta Blocks */ 
+SIMPLE_API void meta_blocks_add_addribute(void *pointer)
+{
+	List *list, *list2  ;
+	char *str  ;
+	int x  ;
+	if ( SIMPLE_API_PARACOUNT != 2 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARACOUNT);
+		return ;
+	}
+	/*if ( SIMPLE_API_ISLIST(1) ) {
+		list = SIMPLE_API_GETLIST(1) ;
+		if ( simple_vm_oop_isobject(list) ) {
+			list = simple_list_getlist(list,SIMPLE_OBJECT_OBJECTDATA);
+			if ( SIMPLE_API_ISSTRING(2) ) {
+				str = SIMPLE_API_GETSTRING(2) ;
+				simple_string_lower(str);
+				/* Create Variable List *
+				simple_vm_newvar2((VM *) pointer,str,list);
+			}
+			else if ( SIMPLE_API_ISLIST(2) ) {
+				list2 = SIMPLE_API_GETLIST(2) ;
+				for ( x = 1 ; x <= simple_list_getsize(list2) ; x++ ) {
+					if ( simple_list_isstring(list2,x) ) {
+						str = simple_list_getstring(list2,x);
+						simple_string_lower(str);
+						/* Create Variable List *
+						simple_vm_newvar2((VM *) pointer,str,list);
+					}
+				}
+			} else {
+				SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+			}
+		} else {
+			SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+		}
+	} else {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+	} */
 }
 
 /* Characters Checking */ 
-
 SIMPLE_API void check_characters_is_block(void *pointer,int (*block)(int))
 {
 	char *str  ;

@@ -42,6 +42,9 @@ SIMPLE_API void check_characters_is_block(void *pointer,int (*block)(int));
 
 SIMPLE_API void check_characters_is_alpha_num(void *pointer);
 
+/* Meta Blocks */ 
+SIMPLE_API void meta_blocks_add_addribute(void *pointer);
+
 #ifdef __cplusplus
 }
 #endif

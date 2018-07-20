@@ -70,10 +70,10 @@ for %%x in (%*) do (
 	if "%%x"=="-u" (
 		call:uninstall
 	)
-	if "%%x"=="--keep" (
+	if "%%x"=="--temp" (
 		SET KEEP_DIST="true"
 	) 
-	if "%%x"=="-k" (
+	if "%%x"=="-t" (
 		SET KEEP_DIST="true"
 	)
 	if "%%x"=="--help" (
@@ -1319,7 +1319,7 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 	echo 	-d --debug	create a distributable version in ..\..\ source directory
 	echo 	x86 --32-bit	build 32 bit version of simple-lang
 	echo 	x64 --64-bit	build 64 bit version of simple-lang
-	echo 	-k --keep	keep the */dist/ folder(s) in source tree
+	echo 	-t --temp	keep the */dist/ folder(s) in source tree
 	echo 	-h --help	print this help message
 	echo.
 	echo [C/C++ COMPILER FLAGS]

@@ -41,7 +41,7 @@ execute_build() {
 		elif [ "$param" = "-i" ] || [ "$param" = "--install" ]; then 
 			exec_type="install-$exec_type"
 		elif [ "$param" = "-d" ] || [ "$param" = "--debug" ]; then
-			exec_type="install-$exec_type"
+			exec_type="debug-$exec_type"
 		elif [ "$param" = "-x" ] || [ "$param" = "--deb" ]; then 
 			exec_type="deb-package-$exec_type" 
 			standalone_flag="thanks_you"
