@@ -623,7 +623,7 @@ build_deb_package() {
 	sudo echo "Section: development" >> $debpackagedir/DEBIAN/control
 	sudo echo "Priority: optional" >> $debpackagedir/DEBIAN/control
 	sudo echo "Architecture: $cpu_arc" >> $debpackagedir/DEBIAN/control
-	sudo echo "Depends: libfltk1.3-dev, xorg-dev, libcurl4" >> $debpackagedir/DEBIAN/control
+	sudo echo "Depends: " >> $debpackagedir/DEBIAN/control
 	sudo echo "Maintainer: Azeez Adewale <azeezadewale98@gmail.com>" >> $debpackagedir/DEBIAN/control
 	sudo echo "Description: The Simple Intelligent and Modular Programming Language and Environment" >> $debpackagedir/DEBIAN/control
 
