@@ -16,8 +16,6 @@ cpu_arc="x86"
 
 execute_build() {
 	check_if_is_sudo $@
-	operating_system=$(get_os_platform)
-	cpu_arc=$(get_os_arch_platform)
 	local standalone_flag="none"
 
 	for param in "$@"
@@ -44,7 +42,6 @@ execute_build() {
 			exec_type="debug-$exec_type"
 		elif [ "$param" = "-x" ] || [ "$param" = "--deb" ]; then 
 			exec_type="deb-package-$exec_type" 
-			standalone_flag="thanks_you"
 		elif [ "$param" = "-so" ] || [ "$param" = "--simple-only" ]; then 
 			standalone_flag="simple-only"
 		elif [ "$param" = "-io" ] || [ "$param" = "--includes-only" ]; then 
@@ -57,6 +54,10 @@ execute_build() {
 			standalone_flag="environment-only"
 		fi
 	done
+
+	cpu_arc=$(get_os_arch_platform)
+	operating_system=$(get_os_platform)_$cpu_arc
+	simple_debug_version=simple$ver-$operating_system-debug
 
 	execute_build_proceed $exec_type $standalone_flag
 }
@@ -82,7 +83,11 @@ execute_build_proceed() {
 				;;
 			esac
 			build_environments $1
-			finalize_installation $1
+			case $1 in
+				*install* )
+					finalize_installation $1
+				;;
+			esac
 		;;
 		*simple-only* )
 			installsimpleexec $1
@@ -106,7 +111,7 @@ execute_build_proceed() {
 			build_deb_package $@
 		;;
 	esac
-	remove_dist_folders ../simple/dist/ ../modules/dynamic_modules/dist/ ../environment/dist/ ../../simple$ver-$operating_system
+	remove_dist_folders ../simple/dist/ ../modules/dynamic_modules/dist/ ../environment/dist/ ../../simple$ver-$operating_system ./dist/ ../$simple_debug_version
 }
 
 build_environments() {
@@ -375,6 +380,7 @@ configure() {
 	sudo apt-get update
 	sudo apt-get -y install build-essential
 	sudo apt-get -y install gcc-multilib
+	sudo apt-get -y install g++-multilib
 	sudo apt-get -y install libfltk1.3-dev
 	sudo apt-get -y install xorg-dev
 	sudo apt-get -y install libx11-dev
@@ -385,7 +391,19 @@ configure() {
 	#sudo apt-get -y install libcurl-nss-dev
 	sudo apt-get -y install libcurl4-openssl-dev
 	sudo apt-get -y install curl
-	sudo apt-get -y autoremove
+	case $cpu_arc in
+			*64* )
+				sudo apt-get -y install libfltk1.3-dev:i386
+				sudo apt-get -y install xorg-dev:i386
+				sudo apt-get -y install libx11-dev:i386
+				sudo apt-get -y install libxft-dev:i386
+				sudo apt-get -y install libssl-dev:i386
+				#sudo apt-get -y install libcurl4-gnutls-dev:i386
+				#sudo apt-get -y install libcurl-nss-dev:i386
+				sudo apt-get -y install libcurl4-openssl-dev:i386
+			;;
+	esac
+	#sudo apt-get -y autoremove
 }
 
 check_if_is_sudo() {
@@ -481,68 +499,18 @@ get_os_platform() {
 		  ;;
 	  esac
 
-	  case $ucpu in
-		*i386* | *i486* | *i586* | *i686* | *bepc* | *i86pc* )
-		  local mycpu="i386" ;;
-		*amd*64* | *x86-64* | *x86_64* )
-		  local mycpu="amd64" ;;
-		*sparc*|*sun* )
-		  local mycpu="sparc"
-		  if [ "$(isainfo -b)" = "64" ]; then
-			local mycpu="sparc64"
-		  fi
-		  ;;
-		*ppc64* )
-		  local mycpu="powerpc64" ;;
-		*power*|*ppc* )
-		  local mycpu="powerpc" ;;
-		*mips* )
-		  local mycpu="mips" ;;
-		*arm*|*armv6l* )
-		  local mycpu="arm" ;;
-		*aarch64* )
-		  local mycpu="arm64" ;;
-		*)
-		  display_error "unknown processor: $ucpu"
-		  ;;
-	  esac
-	
-	cpu_arc=$mycpu
-	echo "$myos"_"$mycpu"
+	echo "$myos"
 }
 
 get_os_arch_platform() {
-	  # Get OS/CPU info and store in a `myos` and `mycpu` variable.
-	  local ucpu=`uname -m`
-	  local uos=`uname`
-	  local ucpu=`echo $ucpu | tr "[:upper:]" "[:lower:]"`
-	  local uos=`echo $uos | tr "[:upper:]" "[:lower:]"`
-
-	  case $ucpu in
-		*i386* | *i486* | *i586* | *i686* | *bepc* | *i86pc* )
-		  local mycpu="i386" ;;
-		*amd*64* | *x86-64* | *x86_64* )
-		  local mycpu="amd64" ;;
-		*sparc*|*sun* )
-		  local mycpu="sparc"
-		  if [ "$(isainfo -b)" = "64" ]; then
-			local mycpu="sparc64"
-		  fi
-		  ;;
-		*ppc64* )
-		  local mycpu="powerpc64" ;;
-		*power*|*ppc* )
-		  local mycpu="powerpc" ;;
-		*mips* )
-		  local mycpu="mips" ;;
-		*arm*|*armv6l* )
-		  local mycpu="arm" ;;
-		*aarch64* )
-		  local mycpu="arm64" ;;
-		*)
-		  display_error "unknown processor: $ucpu"
-		  ;;
-	  esac
+	# Get OS/CPU info and store in a `myos` and `mycpu` variable.
+	if [ $arc_var = "-m32" ]; then
+		local mycpu="i386" 
+	elif [ $arc_var = "-m64" ]; then
+		local mycpu="amd64"
+	else 
+		local mycpu="i386"
+	fi  
 	
 	echo "$mycpu"
 }
@@ -597,7 +565,6 @@ finalize_installation() {
 }
 
 build_deb_package() {
-	local prefix=${DESTDIR}${PREFIX:-/usr/}
 	debpackagedir=../../simple$ver-$operating_system
 	header debpackage "creating a distributable .deb package"
 	if [ -e "$debpackagedir" ]; then
@@ -617,21 +584,38 @@ build_deb_package() {
 	sudo mkdir "$debpackagedir/~/.local/share/applications/"
 	sudo mkdir "$debpackagedir/DEBIAN"
 
-	#to check in future if simple-lang is installed already
-
 	display debpackage "copying executable, shared libraries and modules"
-	sudo cp $prefix/bin/simple $debpackagedir/usr/bin/
-	sudo cp $prefix/bin/simplerepl $debpackagedir/usr/bin/
-	sudo cp $prefix/bin/simplepad $debpackagedir/usr/bin/
-	sudo cp $prefix/bin/simplebridge $debpackagedir/usr/bin/
-	sudo cp $prefix/bin/modular $debpackagedir/usr/bin/
-	sudo cp $prefix/bin/webworker $debpackagedir/usr/bin/
-	sudo cp $prefix/bin/bake $debpackagedir/usr/bin/
-	sudo cp $prefix/lib/simple.so $debpackagedir/usr/lib/
-	sudo cp $prefix/lib/libsimple.so $debpackagedir/usr/lib/
-	sudo cp -R $prefix/lib/simple/$version $debpackagedir/usr/lib/simple/
-	sudo install $prefix/include/simple/simple* $debpackagedir/usr/include/simple/
-	sudo cp ~/.local/share/applications/simplepad.desktop $debpackagedir/~/.local/share/applications/
+	case $1 in
+		*debug* )
+			sudo cp ../../$simple_debug_version/bin/simple $debpackagedir/usr/bin/
+			sudo cp ../../$simple_debug_version/bin/simplerepl $debpackagedir/usr/bin/
+			sudo cp ../../$simple_debug_version/bin/simplepad $debpackagedir/usr/bin/
+			sudo cp ../../$simple_debug_version/bin/simplebridge $debpackagedir/usr/bin/
+			sudo cp ../../$simple_debug_version/bin/modular $debpackagedir/usr/bin/
+			sudo cp ../../$simple_debug_version/bin/webworker $debpackagedir/usr/bin/
+			sudo cp ../../$simple_debug_version/bin/bake $debpackagedir/usr/bin/
+			sudo cp ../../$simple_debug_version/bin/simple.so $debpackagedir/usr/lib/
+			sudo cp ../../$simple_debug_version/bin/simple.so $debpackagedir/usr/lib/libsimple.so
+			sudo mkdir "$debpackagedir/usr/include/simple/$version"
+			sudo cp -R ../../$simple_debug_version/modules/ $debpackagedir/usr/lib/simple/$version
+			sudo cp ../../$simple_debug_version/includes/*.h $debpackagedir/usr/include/simple/
+		;;
+		*install* )
+			local prefix=${DESTDIR}${PREFIX:-/usr/}
+			sudo cp $prefix/bin/simple $debpackagedir/usr/bin/
+			sudo cp $prefix/bin/simplerepl $debpackagedir/usr/bin/
+			sudo cp $prefix/bin/simplepad $debpackagedir/usr/bin/
+			sudo cp $prefix/bin/simplebridge $debpackagedir/usr/bin/
+			sudo cp $prefix/bin/modular $debpackagedir/usr/bin/
+			sudo cp $prefix/bin/webworker $debpackagedir/usr/bin/
+			sudo cp $prefix/bin/bake $debpackagedir/usr/bin/
+			sudo cp $prefix/lib/simple.so $debpackagedir/usr/lib/
+			sudo cp $prefix/lib/libsimple.so $debpackagedir/usr/lib/
+			sudo cp -R $prefix/lib/simple/$version $debpackagedir/usr/lib/simple/
+			sudo install $prefix/include/simple/simple* $debpackagedir/usr/include/simple/
+			sudo cp ~/.local/share/applications/simplepad.desktop $debpackagedir/~/.local/share/applications/
+		;;
+	esac
 
 	display debpackage "creating 'control' file"
 	sudo echo "Package: simple-s$ver" >> $debpackagedir/DEBIAN/control
