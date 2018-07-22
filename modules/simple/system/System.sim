@@ -40,16 +40,16 @@ block getOS()
 		return WINDOWS_64_SYSTEM
 	elif isWindows()
 		return WINDOWS_SYSTEM
-	elif isUnix()
-		return UNIX_SYSTEM
-	elif isMacosx()
-		return MACOSX_SYSTEM
-	elif isLinux()
-		return LINUX_SYSTEM
 	elif isFreebsd()
 		return FREEBSD_SYSTEM
 	elif isAndroid()
 		return ANDROID_SYSTEM
+	elif isLinux()
+		return LINUX_SYSTEM
+	elif isMacosx()
+		return MACOSX_SYSTEM
+	elif isUnix()
+		return UNIX_SYSTEM
 	else
 		return UNKNOWN_SYETEM
 	end

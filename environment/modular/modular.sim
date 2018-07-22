@@ -40,7 +40,7 @@ monkeyFace = '
 
 modularTitle = ""
 
-simpleLangCgiUrl = "https://simple-lang.sourceforge.io/simple-web/cgi-bin/"
+simpleLangCgiUrl = "http://localhost/simple-lang.io/" #"https://simple-lang.sourceforge.io/simple-web/cgi-bin/"
 simpleLangHost = "https://simple-lang.sourceforge.io/simple-web/cgi-bin/simple-web/index.sim"
 verifierUrl = simpleLangHost+"?page=Packages%20Index&sub_page=Verifier"
 addPackageUrl = simpleLangHost+"?page=Packages%20Index&sub_page=Add%20New%20Package"
