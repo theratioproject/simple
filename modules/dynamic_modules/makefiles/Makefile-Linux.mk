@@ -67,24 +67,26 @@ clean:
 
 .PHONY: install
 install:
-	mkdir -p $(DESTDIR)$(PREFIX)/lib/simple/$(VERSION)/modules/
-	mkdir -p $(DESTDIR)$(PREFIX)/lib/simple/$(VERSION)/modules/dynamic_modules/
-	install $(CND_DISTDIR)/*.so $(DESTDIR)$(PREFIX)/lib/simple/$(VERSION)/modules/dynamic_modules/
-	install $(MODULE_BASE)/modules-dependencies.conf $(DESTDIR)$(PREFIX)/lib/simple/$(VERSION)/modules/
-	cp -R $(MODULE_BASE)/archive $(DESTDIR)$(PREFIX)/lib/simple/$(VERSION)/modules/
-	cp -R $(MODULE_BASE)/fulltick $(DESTDIR)$(PREFIX)/lib/simple/$(VERSION)/modules/
-	cp -R $(MODULE_BASE)/simple $(DESTDIR)$(PREFIX)/lib/simple/$(VERSION)/modules/
-	cp -R $(MODULE_BASE)/web $(DESTDIR)$(PREFIX)/lib/simple/$(VERSION)/modules/
+	mkdir -p /var/lib/simple/$(VERSION)/modules/
+	mkdir -p /var/lib/simple/$(VERSION)/modules/dynamic_modules/
+	install $(CND_DISTDIR)/*.so /var/lib/simple/$(VERSION)/modules/dynamic_modules/
+	install $(MODULE_BASE)/modules-dependencies.conf /var/lib/simple/$(VERSION)/modules/
+	cp -R $(MODULE_BASE)/archive /var/lib/simple/$(VERSION)/modules/
+	cp -R $(MODULE_BASE)/fulltick /var/lib/simple/$(VERSION)/modules/
+	cp -R $(MODULE_BASE)/simple /var/lib/simple/$(VERSION)/modules/
+	cp -R $(MODULE_BASE)/web /var/lib/simple/$(VERSION)/modules/
+	sudo chmod -R 777 /var/lib/simple/
 	rm -r -f $(CND_DISTDIR)/
 	
 #We should not remove the main simple directory because it might contain 
 #other simple-lang dependencies and modules for another version
-#rm -r -f $(DESTDIR)$(PREFIX)/simple/
+#rm -r -f /var/lib/simple/
+
 .PHONY: uninstall
 uninstall:
-	rm -r -f $(DESTDIR)$(PREFIX)/lib/simple/$(VERSION)/modules/dynamic_modules/
-	rm -r -f $(DESTDIR)$(PREFIX)/lib/simple/$(VERSION)/modules/
-	rm -r -f $(DESTDIR)$(PREFIX)/lib/simple/$(VERSION)/
+	rm -r -f /var/lib/simple/$(VERSION)/modules/dynamic_modules/
+	rm -r -f /var/lib/simple/$(VERSION)/modules/
+	rm -r -f /var/lib/simple/$(VERSION)/
 
 #If this make file does not work on your Windows PC or you use 
 #alternative compiler e.g Visual Studio, Cygwin e.t.c feel free to 

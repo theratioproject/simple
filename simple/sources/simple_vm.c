@@ -1294,6 +1294,7 @@ void simple_vm_addglobalvariables ( VM *vm )
 	simple_vm_addnewnumbervar(vm,"true",1);
 	simple_vm_addnewnumbervar(vm,"false",0);
 	simple_vm_addnewstringvar(vm,"crlf","\r\n");
+	simple_vm_addnewstringvar(vm,"nl","\n");
 	simple_vm_addnewstringvar(vm,"null","");
 	simple_vm_addnewpointervar(vm,"simple_gettemp_var",NULL,0);
 	simple_vm_addnewstringvar(vm,"__err__","NULL");

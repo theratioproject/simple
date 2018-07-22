@@ -150,7 +150,7 @@ block tempDirectory()
 			.\s0.3.36\
 			.\s0.4.00\
 		#linux
-		/simple/ #-> the simple directory
+		/var/lib/simple/ #-> the simple directory
 			.\s0.3.35\
 			.\s0.3.36\
 			.\s0.4.00\
@@ -179,7 +179,7 @@ block getSimpleDirectory()
 			if getEnv("PREFIX") == "/" {
 				xPrefix = "/usr/local"
 			}
-			tempPath = xPrefix+"/simple/"
+			tempPath = "/var/lib/simple/"
 			simpleDir = tempPath
 		}
 	} 
@@ -193,7 +193,7 @@ block getSimpleDirectory()
 block getSimpleModulesDirectory()
 	modulesDir = getEnv("SIMPLE_MODULE_PATH")
 	if modulesDir == "" {
-		modulesDir = getSimpleDirectory()+"/s"+getSimpleVersion()+"/modules/"
+		modulesDir = getSimpleDirectory()+"s"+getSimpleVersion()+"/modules/"
 	}
 	return modulesDir
 

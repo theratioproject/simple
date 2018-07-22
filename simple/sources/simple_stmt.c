@@ -343,7 +343,7 @@ int simple_parser_stmt ( Parser *parser )
 		#if SIMPLE_PARSERTRACE
 		SIMPLE_STATE_CHECKPRINTRULES 
 		
-		puts("Rule : Statement  --> 'See' Expr");
+		puts("Rule : Statement  --> 'display' Expr");
 		#endif
 		return x ;
 	}

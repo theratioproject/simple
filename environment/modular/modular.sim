@@ -40,11 +40,12 @@ monkeyFace = '
 
 modularTitle = ""
 
-simpleLangHost = "https://simple-lang.sourceforge.io/cgi-bin/simple-web/index.sim"
+simpleLangCgiUrl = "https://simple-lang.sourceforge.io/simple-web/cgi-bin/"
+simpleLangHost = "https://simple-lang.sourceforge.io/simple-web/cgi-bin/simple-web/index.sim"
 verifierUrl = simpleLangHost+"?page=Packages%20Index&sub_page=Verifier"
 addPackageUrl = simpleLangHost+"?page=Packages%20Index&sub_page=Add%20New%20Package"
-simpleUpdateUrl = simpleLangHost+"api/Upgrade.sim"
-packageUrl = simpleLangHost+"api/PackageInstaller.sim"
+simpleUpdateUrl = simpleLangCgiUrl+"api/Upgrade.sim"
+packageUrl = simpleLangCgiUrl+"api/PackageInstaller.sim"
 simpleDistDirectory = getSimpleDirectory()
 tempDirectory = getTemporaryDirectory()
 modulesDirectory = getSimpleModulesDirectory()
@@ -257,7 +258,6 @@ block getSupportingModulesInfo(initialPackage)
 	
 block loadPackageAndDep()
 	latestPackage = []
-	@"looking up :"+packageUrl
 	packageJson = download(packageUrl+"?package="+package+"&type="+type+"&version="+version+"&os="+ostype)
 	if packageJson == null {
 		@"Internet connection is required to install "+package+" "+type+" package"

@@ -1,12 +1,16 @@
 
 #1 #2 
+
+
 for n = 8 to 12 
 	display "number "+n+" "
 end
 
+@""
+
 #3
 for n in [ 1, "four", 6, 5 ] {
-	display "number "+n+" "
+	display ">>"+n+" "
 } 
 
 #4
