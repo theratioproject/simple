@@ -20,10 +20,10 @@ block main()
 	display "NEW CURRENT DIRECTORY : "+currentDirectory() + crlf
 	display "SYSTEM DIR : "+systemDirectory()+" | VERSION : "+systemVersion() + crlf
 	display "USER : "+systemUser()+" | USER HOME : "+userHome() + crlf
-	display "MACHINE NAME : "+machineName() + crlf  #System.exit(0)
+	display "MACHINE NAME : "+machineName() + crlf  #exit(0)
 	if isWindowNT() display "yea it window nt "+crlf end
 	display "USER DOMAIN : "+userDomain()+crlf
-	System.sleep(2000) System.beep(1000, 400)
+	sleep(2000) beep(1000, 400)
 	display "========================================================================
 			RUNTIME	
 ========================================================================"+crlf
