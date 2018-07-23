@@ -41,11 +41,11 @@ SIMPLE_OBJECTFILES = \
 LDLIBSOPTIONS=-Lsimple.so
 
 ${CND_DISTDIR}/${CND_PLATFORM}/security.${CND_DLIB_EXT}: $(OBJECTFILES)
-	$(CC) -shared $(ARC_FLAG) $(SIMPLE_OBJECTFILES) $(OBJECTFILES) -lssl -o $(CND_DISTDIR)/$(CND_PLATFORM)/security.$(CND_DLIB_EXT)
+	$(CC) -shared $(ARC_FLAG) $(SIMPLE_OBJECTFILES) $(OBJECTFILES) -lssl -lcrypto -o $(CND_DISTDIR)/$(CND_PLATFORM)/security.$(CND_DLIB_EXT)
 
 $(OBJECTDIR)/security.o: security.c
 	mkdir -p $(OBJECTDIR)
-	$(CC) $(ARC_FLAG) $(CFLAGS) security.c -lssl 
+	$(CC) $(ARC_FLAG) $(CFLAGS) security.c -lssl -lcrypto 
 	mv security.o $(OBJECTDIR) 
 
 clean:
