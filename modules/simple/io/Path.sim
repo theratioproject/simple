@@ -46,10 +46,9 @@ block __curePathSlashes(path)
 	if isPath(path) { 
 		ret = path.toString() 
 	elif isString(path)
-		path = new Path(path)
-		ret = path.toString()
+		tempPath = new Path(path)
+		ret = tempPath.toString()
 	}
-	@ret
 	return ret
  
 class Path
