@@ -229,7 +229,10 @@ class Path
 		@return the path type @DataType String
 	*/
 	block type()
-		return toPathType().getValue()
+		@"in here 1"
+		@toPathType()
+		@"in here 2"
+		return toPathType().getTypeValue()
 		
 	block toPathType()
 		return new PathType(__IO_PATH)
