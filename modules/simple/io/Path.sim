@@ -198,8 +198,14 @@ class Path
 			return renameTo(__newFolder+getSystemSlash()+getName())
 		}
 		
+	/*
+		
+	*/
 	block size()
 		return __file_size(__IO_PATH)
+		
+	block type()
+		return 
 	
 	private 
 		__IO_PATH = null
