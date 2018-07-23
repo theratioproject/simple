@@ -13,6 +13,9 @@
  
 call "Path.sim"
 
+UNKNOWN_PATH_TYPE = "unknown"
+
+
 
 class PathType
 
@@ -41,8 +44,12 @@ class PathType
 			return "named pipe (fifo)"
 		elif __IO_FILE_TYPE_IVALUE == 120000 {
 			return "symbolic link"
-		elif __IO_FILE_TYPE_IVALUE == 10000 {
-			return "named pipe (fifo)"
+		elif __IO_FILE_TYPE_IVALUE == 100000 {
+			return "regular"
+		elif __IO_FILE_TYPE_IVALUE == 140000 {
+			return "socket"
+		else
+			return UNKNOWN_PATH_TYPE
 		}
 		
 		
