@@ -41,19 +41,19 @@ class PathType
 	block getTypeValue()
 		if __IO_FILE_TYPE_IVALUE == 160000 {
 			return WHITEOUT_PATH_TYPE
-		elif __IO_FILE_TYPE_IVALUE == 60000 {
+		elif __IO_FILE_TYPE_IVALUE == 60000 
 			return BLOCK_SPECIAL_PATH_TYPE
-		elif __IO_FILE_TYPE_IVALUE == 20000 {
+		elif __IO_FILE_TYPE_IVALUE == 20000 
 			return CHAR_SPECIAL_PATH_TYPE
-		elif __IO_FILE_TYPE_IVALUE == 40000 {
+		elif __IO_FILE_TYPE_IVALUE == 40000 
 			return DIRECTORY_PATH_TYPE
-		elif __IO_FILE_TYPE_IVALUE == 10000 {
+		elif __IO_FILE_TYPE_IVALUE == 10000 
 			return NAMED_PIPE_PATH_TYPE
-		elif __IO_FILE_TYPE_IVALUE == 120000 {
+		elif __IO_FILE_TYPE_IVALUE == 120000
 			return SYMBOLIC_LINK_PATH_TYPE 
-		elif __IO_FILE_TYPE_IVALUE == 100000 {
+		elif __IO_FILE_TYPE_IVALUE == 100000
 			return REGULAR_PATH_TYPE
-		elif __IO_FILE_TYPE_IVALUE == 140000 {
+		elif __IO_FILE_TYPE_IVALUE == 140000
 			return SOCKET_PATH_TYPE
 		else
 			return UNKNOWN_PATH_TYPE
@@ -62,19 +62,19 @@ class PathType
 	block toType()
 		if __IO_FILE_TYPE_IVALUE == 160000 {
 			return null
-		elif __IO_FILE_TYPE_IVALUE == 60000 {
+		elif __IO_FILE_TYPE_IVALUE == 60000 
 			return null
-		elif __IO_FILE_TYPE_IVALUE == 20000 {
+		elif __IO_FILE_TYPE_IVALUE == 20000 
 			return null
-		elif __IO_FILE_TYPE_IVALUE == 40000 {
+		elif __IO_FILE_TYPE_IVALUE == 40000 
 			return new Directory(__IO_FILE_TYPE_PATH)
-		elif __IO_FILE_TYPE_IVALUE == 10000 {
+		elif __IO_FILE_TYPE_IVALUE == 10000 
 			return null
-		elif __IO_FILE_TYPE_IVALUE == 120000 {
+		elif __IO_FILE_TYPE_IVALUE == 120000
 			return new PathLink(__IO_FILE_TYPE_PATH)
-		elif __IO_FILE_TYPE_IVALUE == 100000 {
+		elif __IO_FILE_TYPE_IVALUE == 100000
 			return new File(__IO_FILE_TYPE_PATH)
-		elif __IO_FILE_TYPE_IVALUE == 140000 {
+		elif __IO_FILE_TYPE_IVALUE == 140000
 			return null
 		else
 			return new Path(__IO_FILE_TYPE_PATH)

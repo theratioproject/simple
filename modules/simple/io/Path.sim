@@ -19,6 +19,7 @@ module simple.io
 call "loadfilesavantlib.sim"
 call "simple/core/String.sim"
 call "simple/system/System.sim"
+call "PathType.sim"
 
 block isPath(ipath)
 	try 
