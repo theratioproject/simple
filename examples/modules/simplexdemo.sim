@@ -16,4 +16,6 @@
 	attributes on the specific system
 */
 
-call simple.
+call "simple/system/SimpleX.sim"
+
+display "Where simple-lang is installed : "+getSimpleDirectory()+ nl
