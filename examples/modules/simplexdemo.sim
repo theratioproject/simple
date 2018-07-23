@@ -6,11 +6,14 @@
 /* 
  * @Filename - simplexdemo.sim
  * @Author - Azeez Adewale
- * @Date - 06 July 2018
- * @Time - 02:37 PM
+ * @Date - 01 July 2018
+ * @Time - 01:25 PM
  */
 
 /*
-	This file is a stress and elaborating example of using the 
-	simple-lang debugging module @Module simple/debugging/
+	This demo for the module simple.system.SimpleX which
+	provide blocks to simple-lang directories, files and 
+	attributes on the specific system
 */
+
+call simple.
