@@ -59,6 +59,27 @@ class PathType
 			return UNKNOWN_PATH_TYPE
 		}
 		
+	block toType()
+		if __IO_FILE_TYPE_IVALUE == 160000 {
+			return null
+		elif __IO_FILE_TYPE_IVALUE == 60000 {
+			return null
+		elif __IO_FILE_TYPE_IVALUE == 20000 {
+			return null
+		elif __IO_FILE_TYPE_IVALUE == 40000 {
+			return new Directory(__IO_FILE_TYPE_PATH)
+		elif __IO_FILE_TYPE_IVALUE == 10000 {
+			return null
+		elif __IO_FILE_TYPE_IVALUE == 120000 {
+			return new PathLink
+		elif __IO_FILE_TYPE_IVALUE == 100000 {
+			return REGULAR_PATH_TYPE
+		elif __IO_FILE_TYPE_IVALUE == 140000 {
+			return SOCKET_PATH_TYPE
+		else
+			return UNKNOWN_PATH_TYPE
+		}
+		
 		
 	private 
 	
