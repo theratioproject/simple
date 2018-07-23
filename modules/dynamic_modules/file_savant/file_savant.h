@@ -21,6 +21,7 @@ extern "C" {
 
 void file_type(void *pointer);
 void file_size(void *pointer);
+void check_path(void *pointer);
 void read_file(void *pointer);
 void write_file(void *pointer);
 void file_exists(void *pointer);
