@@ -59,8 +59,9 @@ void file_type(void *pointer)
 	}
 	if ( SIMPLE_API_ISSTRING(1) ) {
             struct stat info;
-			String * string = simple_string_new_gc(((VM *) pointer)->sState,SIMPLE_API_GETSTRING(1)); 
-            int err = stat("./fileattrdemo.sim", &info);
+			String * string = simple_string_new_gc(((VM *) pointer)->sState,SIMPLE_API_GETSTRING(1));
+			printf("the string %s\n",string->str);
+            int err = stat(string->str, &info);
 			if (err == -1) {
 				SIMPLE_API_ERROR(FILE_SAVANT_FILE_ERROR);
 			} else {
