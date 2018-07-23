@@ -49,6 +49,7 @@ block __curePathSlashes(path)
 		path = new Path(path)
 		ret = path.toString()
 	}
+	@ret
 	return ret
  
 class Path
