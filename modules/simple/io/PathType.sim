@@ -39,6 +39,10 @@ class PathType
 			return "directory"
 		elif __IO_FILE_TYPE_IVALUE == 10000 {
 			return "named pipe (fifo)"
+		elif __IO_FILE_TYPE_IVALUE == 120000 {
+			return "symbolic link"
+		elif __IO_FILE_TYPE_IVALUE == 10000 {
+			return "named pipe (fifo)"
 		}
 		
 		
