@@ -20,10 +20,15 @@ class FileType
 		updateAttributes(filePath)
 
 	block setFilePath(filePath)
-		__IO_FILE_TYPE_PATH = __curePathSlashes(filePath)
+		updateAttributes(filePath)
 		
 	private 
 	
+		__IO_FILE_TYPE_IVALUE = 0000000
+	
 		block updateAttributes(filePath)
+			__IO_FILE_TYPE_PATH = __curePathSlashes(filePath)
+			__IO_FILE_TYPE_IVALUE = 
+			
 			
  
