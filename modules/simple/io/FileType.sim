@@ -12,5 +12,7 @@
  */
 
 
+class FileType
 
+	block setFilePath(filePath)
  
