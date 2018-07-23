@@ -23,10 +23,15 @@ class PathType
 		updateAttributes(filePath)
 		
 	block getPath()
+		return __IO_FILE_TYPE_PATH
+		
+	block getRawValue()
+		return __IO_FILE_TYPE_IVALUE
 		
 	private 
 	
 		__IO_FILE_TYPE_IVALUE = 0000000
+		__IO_FILE_TYPE_PATH = ""
 	
 		block updateAttributes(filePath)
 			__IO_FILE_TYPE_PATH = __curePathSlashes(filePath)

@@ -224,11 +224,13 @@ class Path
 		return __file_size(__IO_PATH)
 		
 	/*
-		Get the type associated with the path from @File FileType in 
+		Get the type associated with the path from @File PathType in 
 		@return the path type @DataType String
 	*/
 	block type()
 		return __file_type(__IO_PATH)
+		
+	
 	
 	private 
 		__IO_PATH = null
