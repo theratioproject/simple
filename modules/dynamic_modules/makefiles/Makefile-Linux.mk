@@ -67,6 +67,7 @@ clean:
 
 .PHONY: install
 install:
+	mkdir -p /var/lib/simple/$(VERSION)/docs/
 	mkdir -p /var/lib/simple/$(VERSION)/modules/
 	mkdir -p /var/lib/simple/$(VERSION)/modules/dynamic_modules/
 	install $(CND_DISTDIR)/*.so /var/lib/simple/$(VERSION)/modules/dynamic_modules/
