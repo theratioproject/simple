@@ -33,10 +33,10 @@ class PathType
 			return "whiteout"
 		elif __IO_FILE_TYPE_IVALUE == 60000 {
 			return "block special"
-		elif __IO_FILE_TYPE_IVALUE == 60000 {
-			return "block special"
-		elif __IO_FILE_TYPE_IVALUE == 60000 {
-			return "block special"
+		elif __IO_FILE_TYPE_IVALUE == 20000 {
+			return "character special"
+		elif __IO_FILE_TYPE_IVALUE == 40000 {
+			return "directory"
 		elif __IO_FILE_TYPE_IVALUE == 60000 {
 			return "block special"
 		}
