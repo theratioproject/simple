@@ -5,7 +5,7 @@
 */
 
 /* 
- * @Filename- FileType.sim
+ * @Filename- PathType.sim
  * @Author 	- Azeez Adewale
  * @Date 	- 23 July 2017
  * @Time	- 09:47 PM
@@ -14,13 +14,15 @@
 call "Path.sim"
 
 
-class FileType
+class PathType
 
-	block FileType(filePath)
+	block PathType(filePath)
 		updateAttributes(filePath)
 
-	block setFilePath(filePath)
+	block setPath(filePath)
 		updateAttributes(filePath)
+		
+	block getPath()
 		
 	private 
 	
@@ -28,7 +30,7 @@ class FileType
 	
 		block updateAttributes(filePath)
 			__IO_FILE_TYPE_PATH = __curePathSlashes(filePath)
-			__IO_FILE_TYPE_IVALUE = 
+			__IO_FILE_TYPE_IVALUE = __file_type(__IO_FILE_TYPE_PATH)
 			
 			
  
