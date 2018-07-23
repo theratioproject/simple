@@ -1,6 +1,6 @@
 /* 
 	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com"> 
-	MIT License Copyright (c) 2018 simple 
+	MIT License Copyright (c) 2018 simple-lang
 
 */
 
@@ -22,7 +22,7 @@ MACOSX_SYSTEM = "Mac OS X"
 LINUX_SYSTEM = "Linux"
 FREEBSD_SYSTEM = "Free BSD"
 ANDROID_SYSTEM = "Android"
-UNKNOWN_SYETEM = "Unknown System"
+UNKNOWN_SYSTEM = "Unknown System"
 
 System = new System
 
@@ -51,7 +51,7 @@ block getOS()
 	elif isUnix()
 		return UNIX_SYSTEM
 	else
-		return UNKNOWN_SYETEM
+		return UNKNOWN_SYSTEM
 	end
 	
 block getNewLine()
@@ -138,22 +138,17 @@ block tempDirectory()
 	}
 	return tempDirectory
 	
-class System
-
-	block UserDirectory()
-		return userHome()
-
-	block getTempDirectory()
+block getTempDirectory()
 		return tempDirectory()
 	
-	block exit(value)
-		__exit(value)
-		
-	block beep(time, rate)
-		__beep(time, rate)
-		
-	block sleep(length)
-		__sleep(length)
+block exit(value)
+	__exit(value)
+	
+block beep(time, rate)
+	__beep(time, rate)
+	
+block sleep(length)
+	__sleep(length)
 	
 
 	
