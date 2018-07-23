@@ -206,7 +206,7 @@ class Path
 		return __file_size(__IO_PATH)
 		
 	block type()
-		return 
+		return __file_type(__IO_PATH)
 	
 	private 
 		__IO_PATH = null
