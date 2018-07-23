@@ -29,8 +29,16 @@ class PathType
 		return __IO_FILE_TYPE_IVALUE
 		
 	block getTypeValue()
-		if __IO_FILE_TYPE_IVALUE {
-			return 
+		if __IO_FILE_TYPE_IVALUE == 160000 {
+			return "whiteout"
+		elif __IO_FILE_TYPE_IVALUE == 60000 {
+			return "block special"
+		elif __IO_FILE_TYPE_IVALUE == 60000 {
+			return "block special"
+		elif __IO_FILE_TYPE_IVALUE == 60000 {
+			return "block special"
+		elif __IO_FILE_TYPE_IVALUE == 60000 {
+			return "block special"
 		}
 		
 		
