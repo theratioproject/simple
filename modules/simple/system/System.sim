@@ -24,8 +24,6 @@ FREEBSD_SYSTEM = "Free BSD"
 ANDROID_SYSTEM = "Android"
 UNKNOWN_SYSTEM = "Unknown System"
 
-System = new System
-
 block getEnv(variable)
 	environmentVar = getSystemEnvironment(variable)
 	if environmentVar == "(null)" {
