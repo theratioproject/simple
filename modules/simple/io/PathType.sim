@@ -13,8 +13,13 @@
  
 call "Path.sim"
 
-UNKNOWN_PATH_TYPE = "unknown"
-
+UNKNOWN_PATH_TYPE 			= "unknown"
+REGULAR_PATH_TYPE 			= "regular"
+WHITEOUT_PATH_TYPE 			= "whiteout"
+BLOCK_SPECIAL_PATH_TYPE 	= "block special"
+CHAR_SPECIAL_PATH_TYPE 		= "character special"
+CHAR_SPECIAL_PATH_TYPE 		= "character special"
+CHAR_SPECIAL_PATH_TYPE 		= "character special"
 
 
 class PathType
@@ -33,11 +38,11 @@ class PathType
 		
 	block getTypeValue()
 		if __IO_FILE_TYPE_IVALUE == 160000 {
-			return "whiteout"
+			return WHITEOUT_PATH_TYPE
 		elif __IO_FILE_TYPE_IVALUE == 60000 {
-			return "block special"
+			return BLOCK_SPECIAL_PATH_TYPE
 		elif __IO_FILE_TYPE_IVALUE == 20000 {
-			return "character special"
+			return CHAR_SPECIAL_PATH_TYPE
 		elif __IO_FILE_TYPE_IVALUE == 40000 {
 			return "directory"
 		elif __IO_FILE_TYPE_IVALUE == 10000 {
