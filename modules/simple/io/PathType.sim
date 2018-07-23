@@ -18,8 +18,8 @@ REGULAR_PATH_TYPE 			= "regular"
 WHITEOUT_PATH_TYPE 			= "whiteout"
 BLOCK_SPECIAL_PATH_TYPE 	= "block special"
 CHAR_SPECIAL_PATH_TYPE 		= "character special"
-CHAR_SPECIAL_PATH_TYPE 		= "character special"
-CHAR_SPECIAL_PATH_TYPE 		= "character special"
+DIRECTORY_PATH_TYPE 		= "directory"
+NAMED_PIPE_PATH_TYPE 		= "named pipe (fifo)"
 
 
 class PathType
@@ -44,9 +44,9 @@ class PathType
 		elif __IO_FILE_TYPE_IVALUE == 20000 {
 			return CHAR_SPECIAL_PATH_TYPE
 		elif __IO_FILE_TYPE_IVALUE == 40000 {
-			return "directory"
+			return DIRECTORY_PATH_TYPE
 		elif __IO_FILE_TYPE_IVALUE == 10000 {
-			return "named pipe (fifo)"
+			return ""
 		elif __IO_FILE_TYPE_IVALUE == 120000 {
 			return "symbolic link"
 		elif __IO_FILE_TYPE_IVALUE == 100000 {
