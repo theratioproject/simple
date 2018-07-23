@@ -35,7 +35,7 @@ call "loadsystemdll.sim"
 	@EndCode
 	@Return the simple-lang installation directory @DataType String
 */
-block getSimpleDirectory()
+block simpleDirectory()
 	simpleDir = getSystemEnvironment("SIMPLE_PATH")
 	if simpleDir == "(null)" || simpleDir == "" {
 		simpleDir = exeFolder()
@@ -68,24 +68,52 @@ block getSimpleDirectory()
 	the operating system path
 	@Return the simple-lang modules directory @DatatType String
 */
-block getSimpleModulesDirectory()
+block simpleModulesDirectory()
 	modulesDir = getEnv("SIMPLE_MODULE_PATH")
 	if modulesDir == "" {
-		modulesDir = getSimpleDirectory()+"s"+getSimpleVersion()+"/modules/"
+		modulesDir = simpleDirectory()+"s"+getSimpleVersion()+"/modules/"
 	}
 	return modulesDir
+
+/*
+	Get the directory where simple-lang dynamic modules are installed. The location depends on 
+	the operating system path
+	@Return the simple-lang dynamic modules directory @DatatType String
+*/
+block simpleDyModulesDirectory()
+	modulesDir = getEnv("SIMPLE_MODULE_PATH")
+	if modulesDir == "" {
+		dyModulesDir = simpleDirectory()+"s"+getSimpleVersion()+"/modules/dynamic_modules/"
+	else
+		dyModulesDir = modulesDir+"/dynamic_modules/"
+	}
+	return dyModulesDir
+
+/*
+	Get the directory where simple-lang dynamic modules are installed. The location depends on 
+	the operating system path
+	@Return the simple-lang dynamic modules directory @DatatType String
+*/
+block simpleDocDirectory()
+	modulesDir = getEnv("SIMPLE_MODULE_PATH")
+	if modulesDir == "" {
+		docDir = simpleDirectory()+"s"+getSimpleVersion()+"/docs/"
+	else
+		docDir = modulesDir+"/../docs/"
+	}
+	return docDir
 
 /*
 	Get the directory where the simple executable directory 
 	@Return where simple-lang executable directory @DataType String
 */
-block getSimpleExecDirectory()
+block simpleExecDirectory()
 	simpleExecDir = exeFolder()
 	call "simple/io/File.sim"
-	file = new File(simpleExecDir+"/simple"+getExecutableExtention())
+	file = new File(simpleExecDir+"/simple"+simpleXExeExt())
 	if !file.exists() {
 		if isWindows() {
-			simpleExecDir = getSimpleDirectory()+"/s"+getSimpleVersion()+"/bin/"
+			simpleExecDir = simpleDirectory()+"/s"+getSimpleVersion()+"/bin/"
 		else
 			simpleExecDir = getEnv("DESTDIR")+"/"+getEnv("PREFIX")+"/bin/"
 		}
@@ -96,7 +124,7 @@ block getSimpleExecDirectory()
 	Get the extension type for the specific operating system
 	@Return the system executable directory @DataType String
 */
-block getExecutableExtention()
+block simpleXExeExt()
 	if isWindows() {
 		return ".exe"
 	}
@@ -106,7 +134,7 @@ block getExecutableExtention()
 	Get the dynamic modules extension for the specific operating system
 	@Return the system dynamic module extension @DataType String
 */
-block getDynamicModuleExt()
+block dynamicModuleExt()
 	if isWindows() {
 		return "dll"
 	elif isMacosx()
@@ -115,3 +143,8 @@ block getDynamicModuleExt()
 		return "so"
 	}
 	return ""
+	
+	
+	
+	
+	

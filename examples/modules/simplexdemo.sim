@@ -18,6 +18,10 @@
 
 call "simple/system/SimpleX.sim"
 
-display "Where simple-lang is installed : "+getSimpleDirectory()+ nl
-display "Where simple-lang is installed : "+getSimpleDirectory()+ nl
-display "Where simple-lang is installed : "+getSimpleDirectory()+ nl
+display "Where simple-lang is installed : "+simpleDirectory()+ nl
+display "simple-lang executables dir : "+simpleExecDirectory()+ nl
+display "simple-lang modules dir : "+simpleModulesDirectory()+ nl
+display "simple-lang dynamic modules dir : "+simpleDyModulesDirectory()+ nl
+display "simple-lang documentation dir : "+simpleDocDirectory()+ nl
+display "simple-lang executables extension : "+simpleXExeExt()+ nl
+display "Dynamic Module Extension : "+dynamicModuleExt()+ nl

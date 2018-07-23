@@ -32,10 +32,10 @@ Console = new Console
 	is executed as a virtual method in the library. This block give no regard
 	to the program execution level at all and close the program at once
 */
-block exit(value)
+block console_exit(value)
 	__exit(value)
 	
-block sleep(value)
+block console_sleep(value)
 	__sleep(value)
 	
 #prints string content with new line
@@ -114,12 +114,12 @@ block printLineWithColor(fg,bg)
 	
 #make the computer beep with custom frequency and
 #length
-block beep(f, l)
+block console_beep(f, l)
 	__beep(f, l)
 
 #beep just once
 block singleBeep()
-	beep(0.0, 0)
+	beep(1000, 200)
 
 
 #by default all escape character is not supported 
