@@ -42,8 +42,7 @@ OBJECTDIR=${CND_DISTDIR}/${CND_BUILDDIR}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/console-colors.o \
-	${OBJECTDIR}/consoler.o \
-	${OBJECTDIR}/toot.o
+	${OBJECTDIR}/consoler.o 
 	
 # Link Libraries and Options
 LDLIBSOPTIONS=../../../simple/dist/simple.dll
@@ -61,11 +60,6 @@ ${OBJECTDIR}/console-colors.o: console-colors.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) $(CFLAGS) $(ARC_FLAG) -o ${OBJECTDIR}/console-colors.o console-colors.c
-	
-${OBJECTDIR}/toot.o: toot.c
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.c) $(CFLAGS) $(ARC_FLAG) -o ${OBJECTDIR}/toot.o toot.c
 
 
 #This Makefile-Windows.mk was written in adaptation to the MINGW

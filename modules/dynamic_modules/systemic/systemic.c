@@ -89,6 +89,8 @@ void os_iswindows64 ( void *pointer )
 	isWindows64 = (LPFN_ISWOW64PROCESS) GetProcAddress(GetModuleHandle(TEXT("kernel32")),"IsWow64Process") ;
 	if ( isWindows64 != NULL ) {
 		isWindows64(GetCurrentProcess(),&lSystem64);
+		SIMPLE_API_RETNUMBER(1);
+		return; 
 	}
 	#endif
 	SIMPLE_API_RETNUMBER(lSystem64);

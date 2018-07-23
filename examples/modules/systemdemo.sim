@@ -13,7 +13,7 @@ block main()
 			SYSTEM	
 ========================================================================"+crlf
 	display getOS() + getNewLine() /*+ "ACTIVE SOURCE FILE : "+currentFileName()+crlf*/
-	display getSystemEnvironment("SIMPLE_PATH")
+	display getEnv("SIMPLE_PATH")
 	display commandLineParameters()
 	display "CLPS : "+commandLineParametersSize() + crlf + "CURRENT DIRECTORY : "+currentDirectory() + crlf
 	changeDirectory("C:/Users/thecarisma/Documents")
@@ -23,7 +23,7 @@ block main()
 	display "MACHINE NAME : "+machineName() + crlf  #System.exit(0)
 	if isWindowNT() display "yea it window nt "+crlf end
 	display "USER DOMAIN : "+userDomain()+crlf
-	System.sleep(2000) System.beep(1000, 1000)
+	System.sleep(2000) System.beep(1000, 400)
 	display "========================================================================
 			RUNTIME	
 ========================================================================"+crlf

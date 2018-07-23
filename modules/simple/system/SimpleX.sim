@@ -1,0 +1,113 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com> 
+	MIT License Copyright (c) 2018 simple-lang
+*/
+
+/* 
+ * @Filename - SimpleX.sim
+ * @Author - Azeez Adewale
+ * @Date - 23 July 2018
+ * @Time - 01:11 PM
+ */
+
+
+
+/*
+	Get the Directory that the simple distribution are installed into, this is 
+	different from the directory where the simple executables e.g simple.exe are. 
+	The directory is where different version of simple-lang are installed. 
+	A typical Heirachy example:
+	@Code
+		#Windows 
+		C:\Simple\ #-> the simple directory
+			.\s0.3.35\
+			.\s0.3.36\
+			.\s0.4.00\
+		#linux
+		/var/lib/simple/ #-> the simple directory
+			.\s0.3.35\
+			.\s0.3.36\
+			.\s0.4.00\
+	@EndCode
+	@Return the simple-lang installation directory @DataType String
+*/
+block getSimpleDirectory()
+	simpleDir = getSystemEnvironment("SIMPLE_PATH")
+	if simpleDir == "(null)" || simpleDir == "" {
+		simpleDir = exeFolder()
+		call "simple/io/File.sim"
+		if isWindows() {
+			simpleExe = new File(simpleDir+"\simple.exe")
+			if simpleExe.exists() {
+				for a = 0 to 1 {
+					simpleDir = removeLastChar(simpleDir)
+					toRemove = lastStringAfterChar(simpleDir,simpleExe.getSystemSlash())
+					simpleDir = removeString(simpleDir,toRemove)
+				}
+			}
+			if simpleDir == "(null)" || simpleDir == "" {
+				simpleDir = "C:\Simple\"
+			}
+		else
+			xPrefix = getEnv("DESTDIR")+"/"+getEnv("PREFIX")
+			if getEnv("PREFIX") == "/" {
+				xPrefix = "/usr/local"
+			}
+			tempPath = "/var/lib/simple/"
+			simpleDir = tempPath
+		}
+	} 
+	return simpleDir
+
+/*
+	Get the directory where simple-lang modules are installed. The location depends on 
+	the operating system path
+	@Return the simple-lang modules directory @DatatType String
+*/
+block getSimpleModulesDirectory()
+	modulesDir = getEnv("SIMPLE_MODULE_PATH")
+	if modulesDir == "" {
+		modulesDir = getSimpleDirectory()+"s"+getSimpleVersion()+"/modules/"
+	}
+	return modulesDir
+
+/*
+	Get the directory where the simple executable directory 
+	@Return where simple-lang executable directory @DataType String
+*/
+block getSimpleExecDirectory()
+	simpleExecDir = exeFolder()
+	call "simple/io/File.sim"
+	file = new File(simpleExecDir+"/simple"+getExecutableExtention())
+	if !file.exists() {
+		if isWindows() {
+			simpleExecDir = getSimpleDirectory()+"/s"+getSimpleVersion()+"/bin/"
+		else
+			simpleExecDir = getEnv("DESTDIR")+"/"+getEnv("PREFIX")+"/bin/"
+		}
+	}
+	return simpleExecDir
+
+/*
+	Get the extension type for the specific operating system
+	@Return the system executable directory @DataType String
+*/
+block getExecutableExtention()
+	if isWindows() {
+		return ".exe"
+	}
+	return ""
+
+/*
+	Get the dynamic modules extension for the specific operating system
+	@Return the system dynamic module extension @DataType String
+*/
+block getDynamicModuleExt()
+	if isWindows() {
+		return "dll"
+	elif isMacosx()
+		return "dylib"
+	else
+		return "so"
+	}
+	return ""
