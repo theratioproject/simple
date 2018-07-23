@@ -43,6 +43,7 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
     register_block("__exists",file_exists);
     register_block("__file_type",file_type);
     register_block("__file_size",file_size);
+    register_block("__check_path",check_path);
     register_block("__rename",file_rename);
     register_block("__delete",file_delete);
     register_block("__delete_directory",file_delete_folder);
@@ -102,7 +103,18 @@ void file_size(void *pointer)
 
 void check_path(void *pointer)
 {
-	
+	if ( SIMPLE_API_PARACOUNT != 1 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
+		return ;
+	}
+	if ( SIMPLE_API_ISSTRING(1) ) {
+            struct stat info;
+			String * string = simple_string_new_gc(((VM *) pointer)->sState,SIMPLE_API_GETSTRING(1)); 
+            int err = stat(string->str, &info);
+			SIMPLE_API_RETNUMBER(err);
+	} else {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+	}
 }
 
 void read_file(void *pointer)
