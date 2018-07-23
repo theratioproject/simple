@@ -44,10 +44,8 @@ block isDirectory(directoryPath)
 */
 block __curePathSlashes(path)
 	if isPath(path) { ret = path.toString() }
-	ret = replaceString(path,'//','/')
-	ret = replaceString(ret,'\\','/')
-	ret = replaceString(ret,'/',__IO_PATH_SYSTEM_SLASH)
-	return ret 
+	path = new Path(path)
+	return path.toString()
  
 class Path
 	
