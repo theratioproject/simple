@@ -92,6 +92,7 @@ class PathType
 			}
 			__IO_FILE_TYPE_PATH = __curePathSlashes(filePath)
 			__IO_FILE_TYPE_IVALUE = __file_type(__IO_FILE_TYPE_PATH)
+			@"in here : "+__IO_FILE_TYPE_IVALUE+" "+__file_type(filePath)
 			
 			
  
