@@ -16,10 +16,7 @@
 
 call "simple/io/File.sim"
 
-block main()
-	pType = new PathType("./fileattrdemo.sim")
-	@pType
-	
+block main()	
 	file = new File("./fileattrdemo.sim")
 	@file.absolutePath()
 	@""+file.size()+" byte"
