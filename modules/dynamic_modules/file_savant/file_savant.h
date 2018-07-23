@@ -18,30 +18,25 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-    
-void read_file ( void *pointer ) ;
 
-void write_file ( void *pointer ) ;
-
-void file_exists ( void *pointer ) ;
-
-void file_rename ( void *pointer ) ;
-
-void file_delete ( void *pointer ) ;
-
-void file_delete_folder ( void *pointer );
-
-void blow_directory ( void *pointer ) ;
-
-void mk_directory ( void *pointer ) ;
-
-void dir_exists ( void *pointer ) ;
+void file_type(void *pointer);
+void file_size(void *pointer);
+void read_file(void *pointer);
+void write_file(void *pointer);
+void file_exists(void *pointer);
+void file_rename(void *pointer);
+void file_delete(void *pointer);
+void file_delete_folder(void *pointer);
+void blow_directory(void *pointer);
+void mk_directory(void *pointer);
+void dir_exists(void *pointer) ;
 
 /* Constants */
 #define SIMPLE_VM_FILE_BUFFERSIZE "Buffer size must be >= 1"
 #define SIMPLE_VM_POINTER_FILE "file"
 #define SIMPLE_VM_POINTER_FILEPOS "filepos"
 #define SIMPLE_API_BADDIRECTORY "Error, Couldn't open the directory"
+#define FILE_SAVANT_FILE_ERROR "Error occur while stating the file, check the file existence and permissions"
     
 /* Data */
 typedef union Simple_uData {
@@ -64,6 +59,18 @@ typedef union Simple_uData {
 #if defined(_MSC_VER) && _MSC_VER < 1900
 #define S_ISDIR(m) (((m) & 0170000) == (0040000))
 #endif
+#endif
+
+#if !defined(S_IFLNK)
+#define        S_IFLNK  0120000  /* symbolic link */
+#endif
+
+#if !defined(S_IFSOCK)
+#define        S_IFSOCK  0140000  /* socket */
+#endif
+
+#if !defined(S_IFWHT)
+#define        S_IFWHT  0160000  /* whiteout */
 #endif
 
 #ifdef __cplusplus

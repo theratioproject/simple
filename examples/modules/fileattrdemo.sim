@@ -19,3 +19,5 @@ call "simple/io/File.sim"
 block main()
 	file = new File("./fileattrdemo.sim")
 	@file.absolutePath()
+	@""+file.size()+" byte"
+	@""+file.type()

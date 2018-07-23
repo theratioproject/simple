@@ -17,7 +17,6 @@
 #include "file_savant.h"
 #ifdef _WIN32
 #else
-#include <sys/stat.h>
 #include <dirent.h>
 #endif
 
@@ -42,6 +41,8 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
     register_block("readfile",read_file);
     register_block("writefile",write_file);
     register_block("__exists",file_exists);
+    register_block("__file_type",file_size);
+    register_block("__file_size",file_size);
     register_block("__rename",file_rename);
     register_block("__delete",file_delete);
     register_block("__delete_directory",file_delete_folder);
@@ -50,7 +51,56 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
     register_block("__dir_exists",dir_exists);
 }
 
-void read_file ( void *pointer )
+void file_type(void *pointer)
+{
+	if ( SIMPLE_API_PARACOUNT != 1 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
+		return ;
+	}
+	if ( SIMPLE_API_ISSTRING(1) ) {
+            struct stat info;
+			String * string = simple_string_new_gc(((VM *) pointer)->sState,SIMPLE_API_GETSTRING(1)); 
+            int err = stat(string->str, &info);
+			if (err == -1) 
+				SIMPLE_API_ERROR(FILE_SAVANT_FILE_ERROR);
+			else
+				SIMPLE_API_RETNUMBER(info.st_size);
+	} else {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+	}
+}
+
+void file_size(void *pointer)
+{
+	if ( SIMPLE_API_PARACOUNT != 1 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
+		return ;
+	}
+	if ( SIMPLE_API_ISSTRING(1) ) {
+            struct stat info;
+			String * string = simple_string_new_gc(((VM *) pointer)->sState,SIMPLE_API_GETSTRING(1)); 
+            int err = stat(string->str, &info);
+			if (err == -1) {
+				SIMPLE_API_ERROR(FILE_SAVANT_FILE_ERROR);
+			} else {
+				switch (info.st_mode & S_IFMT) {
+					case S_IFWHT:  SIMPLE_API_RETNUMBER(0160000);	break;
+					case S_IFBLK:  SIMPLE_API_RETNUMBER(0060000);	break;
+					case S_IFCHR:  SIMPLE_API_RETNUMBER(0020000);	break;
+					case S_IFDIR:  SIMPLE_API_RETNUMBER(0040000);	break;
+					case S_IFIFO:  SIMPLE_API_RETNUMBER(0010000);	break;
+					case S_IFLNK:  SIMPLE_API_RETNUMBER(0120000);	break;
+					case S_IFREG:  SIMPLE_API_RETNUMBER(0100000);	break;
+					case S_IFSOCK: SIMPLE_API_RETNUMBER(0140000);	break;
+					default:       SIMPLE_API_RETNUMBER(0000000);   break;
+				}
+			}
+	} else {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+	}
+}
+
+void read_file(void *pointer)
 {
 	FILE *fp  ;
 	long int nSize  ;
