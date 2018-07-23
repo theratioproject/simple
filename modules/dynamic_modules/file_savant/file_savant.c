@@ -61,25 +61,6 @@ void file_type(void *pointer)
             struct stat info;
 			String * string = simple_string_new_gc(((VM *) pointer)->sState,SIMPLE_API_GETSTRING(1)); 
             int err = stat(string->str, &info);
-			if (err == -1) 
-				SIMPLE_API_ERROR(FILE_SAVANT_FILE_ERROR);
-			else
-				SIMPLE_API_RETNUMBER(info.st_size);
-	} else {
-		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
-	}
-}
-
-void file_size(void *pointer)
-{
-	if ( SIMPLE_API_PARACOUNT != 1 ) {
-		SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
-		return ;
-	}
-	if ( SIMPLE_API_ISSTRING(1) ) {
-            struct stat info;
-			String * string = simple_string_new_gc(((VM *) pointer)->sState,SIMPLE_API_GETSTRING(1)); 
-            int err = stat(string->str, &info);
 			if (err == -1) {
 				SIMPLE_API_ERROR(FILE_SAVANT_FILE_ERROR);
 			} else {
@@ -95,6 +76,25 @@ void file_size(void *pointer)
 					default:       SIMPLE_API_RETNUMBER(0000000);   break;
 				}
 			}
+	} else {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+	}
+}
+
+void file_size(void *pointer)
+{
+	if ( SIMPLE_API_PARACOUNT != 1 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
+		return ;
+	}
+	if ( SIMPLE_API_ISSTRING(1) ) {
+            struct stat info;
+			String * string = simple_string_new_gc(((VM *) pointer)->sState,SIMPLE_API_GETSTRING(1)); 
+            int err = stat(string->str, &info);
+			if (err == -1) 
+				SIMPLE_API_ERROR(FILE_SAVANT_FILE_ERROR);
+			else
+				SIMPLE_API_RETNUMBER((long long) info.st_size);
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}

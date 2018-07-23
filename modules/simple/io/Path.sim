@@ -199,8 +199,8 @@ class Path
 		}
 		
 	/*
-		This return the total size of the path in pure byte.
-		@Return the size of 
+		This return the total size of the provide path in pure byte.
+		@Return the size of path in byte @DataType Number
 	*/
 	block size()
 		return __file_size(__IO_PATH)
