@@ -71,13 +71,13 @@ class PathType
 		elif __IO_FILE_TYPE_IVALUE == 10000 {
 			return null
 		elif __IO_FILE_TYPE_IVALUE == 120000 {
-			return new PathLink
+			return new PathLink(__IO_FILE_TYPE_PATH)
 		elif __IO_FILE_TYPE_IVALUE == 100000 {
-			return REGULAR_PATH_TYPE
+			return new File(__IO_FILE_TYPE_PATH)
 		elif __IO_FILE_TYPE_IVALUE == 140000 {
-			return SOCKET_PATH_TYPE
+			return null
 		else
-			return UNKNOWN_PATH_TYPE
+			return new Path(__IO_FILE_TYPE_PATH)
 		}
 		
 		
