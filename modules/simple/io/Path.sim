@@ -33,6 +33,20 @@ block isDirectory(directoryPath)
 		return true
 	}
 	return false
+	
+/*
+	Format the slashes in @Class File, @Class Directory and @Class Path
+	to the operating system standard to allow the system treat the path
+	as it own and not reject operation due to incorrect path format. 
+	It also remove multiple slashes and convert it to os single slash
+	@Return the formated path @DataType String
+*/
+block __curePathSlashes(path)
+	if isPath(path) { ret = path.toString() }
+	ret = replaceString(path,'//','/')
+	ret = replaceString(ret,'\\','/')
+	ret = replaceString(ret,'/',__IO_PATH_SYSTEM_SLASH)
+	return ret 
  
 class Path
 	

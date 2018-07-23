@@ -16,6 +16,14 @@ call "Path.sim"
 
 class FileType
 
+	block FileType(filePath)
+		updateAttributes(filePath)
+
 	block setFilePath(filePath)
-		__IO_FILE_TYPE_PATH = filePath
+		__IO_FILE_TYPE_PATH = __curePathSlashes(filePath)
+		
+	private 
+	
+		block updateAttributes(filePath)
+			
  
