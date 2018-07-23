@@ -20,6 +20,8 @@ BLOCK_SPECIAL_PATH_TYPE 	= "block special"
 CHAR_SPECIAL_PATH_TYPE 		= "character special"
 DIRECTORY_PATH_TYPE 		= "directory"
 NAMED_PIPE_PATH_TYPE 		= "named pipe (fifo)"
+SYMBOLIC_LINK_PATH_TYPE 	= "symbolic link"
+SOCKET_PATH_TYPE 			= "socket"
 
 
 class PathType
@@ -46,13 +48,13 @@ class PathType
 		elif __IO_FILE_TYPE_IVALUE == 40000 {
 			return DIRECTORY_PATH_TYPE
 		elif __IO_FILE_TYPE_IVALUE == 10000 {
-			return ""
+			return NAMED_PIPE_PATH_TYPE
 		elif __IO_FILE_TYPE_IVALUE == 120000 {
-			return "symbolic link"
+			return SYMBOLIC_LINK_PATH_TYPE 
 		elif __IO_FILE_TYPE_IVALUE == 100000 {
-			return "regular"
+			return REGULAR_PATH_TYPE
 		elif __IO_FILE_TYPE_IVALUE == 140000 {
-			return "socket"
+			return SOCKET_PATH_TYPE
 		else
 			return UNKNOWN_PATH_TYPE
 		}
