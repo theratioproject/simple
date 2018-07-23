@@ -100,6 +100,11 @@ void file_size(void *pointer)
 	}
 }
 
+void check_path(void *pointer)
+{
+	
+}
+
 void read_file(void *pointer)
 {
 	FILE *fp  ;
