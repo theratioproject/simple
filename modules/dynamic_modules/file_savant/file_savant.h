@@ -19,6 +19,7 @@
 extern "C" {
 #endif
 
+void path_link_count(void *pointer);
 void path_node_number(void *pointer);
 void path_type(void *pointer);
 void path_size(void *pointer);

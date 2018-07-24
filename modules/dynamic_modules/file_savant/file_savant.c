@@ -54,7 +54,7 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
     register_block("__dir_exists",dir_exists);
 }
 
-void path_node_number(void *pointer)
+void path_link_count(void *pointer)
 {
 	if ( SIMPLE_API_PARACOUNT != 1 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
@@ -67,13 +67,12 @@ void path_node_number(void *pointer)
 			if (err == -1) {
 				SIMPLE_API_ERROR(FILE_SAVANT_FILE_ERROR);
 			} else {
-				SIMPLE_API_RETNUMBER((long) info.st_ino);
+				SIMPLE_API_RETNUMBER((long) info.st_nlink);
 			}
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
 }
-
 
 void path_node_number(void *pointer)
 {
