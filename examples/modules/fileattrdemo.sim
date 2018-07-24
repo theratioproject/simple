@@ -26,6 +26,8 @@ block main()
 	@"Type : "+file.type()
 	@"Node Number : "+file.nodeNumber()
 	@"Link Count : "+file.hardLinkCount()
+	@"GID : "+file.GID()
+	@"UID : "+file.UID()
 	__exit__
 	
 	

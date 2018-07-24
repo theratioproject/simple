@@ -243,6 +243,12 @@ class Path
 	block hardLinkCount()
 		return toPathAttributes().hardLinkCount()
 		
+	block GID()
+		return toPathAttributes().GID()
+		
+	block UID()
+		return toPathAttributes().UID()
+		
 	/*
 		Get the type associated with the path from @File PathType in 
 		@return the path type @DataType String
