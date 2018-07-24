@@ -63,6 +63,7 @@ class PathAttributes
 		}
 		return 0
 		
+	#created #changed	
 	block _lastDateChanged()
 		if __IO_FILE_ATTR_SUCCESS {
 			return __path_status_date(__IO_FILE_ATTR_PATH)

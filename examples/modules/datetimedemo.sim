@@ -18,6 +18,9 @@ call "simple/utilities/DateTime.sim"
 call "simple/io/PathAttributes.sim"
 
 block main()
+	@"==========================================================="
+	@"	Using the DateTime blocks"
+	@"==========================================================="
 	@"clock tick : "+clockTick()
 	@"tick per second : "+tickPerSecond()
 	#wait one second
@@ -27,6 +30,13 @@ block main()
 	@"Date : "+date()
 	@dateTimeList()[4]
 
-	pathAttr = new PathAttributes("./fileattrdemo.sim")
-	@pathAttr._lastAccessDate()
-	@dateFromPointer(pathAttr._lastAccessDate())
+	pathAttr = new PathAttributes("./debugging.sim")
+	@dateFromPointer(pathAttr._lastDateChanged())
+	
+	@"==========================================================="
+	@"	Using the DateTime Class"
+	@"==========================================================="
+	date = new DateTime(null)
+	@date.shortWeekDay() + " - " + date.weekDay() 
+	
+	
