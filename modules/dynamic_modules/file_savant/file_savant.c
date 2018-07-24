@@ -41,6 +41,7 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
     register_block("readfile",read_file);
     register_block("writefile",write_file);
     register_block("__exists",file_exists);
+    register_block("__path_access_date",path_block_size);
     register_block("__path_access_date",path_access_date);
     register_block("__path_modify_date",path_modify_date);
     register_block("__path_status_date",path_status_date);
