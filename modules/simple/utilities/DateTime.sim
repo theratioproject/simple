@@ -11,6 +11,14 @@
  * @Time	- 10:45 AM
  */
  
+call "../core/loadcoredymodule.sim"
+ 
+block clockTick()
+	return __clock()
+	
+block tickPerSecond()
+	return __clock_per_second()
+ 
 #accept time_t 
 block dateFromPointer(timeTPointer)
 

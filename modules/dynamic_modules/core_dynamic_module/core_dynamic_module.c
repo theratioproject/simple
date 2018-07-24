@@ -35,6 +35,7 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
 {   
 	/* Date and Time */
 	register_block("__clock",date_time_clock);
+	register_block("__clock_per_second",date_time_clock_per_second);
 	
 	/* Error and Warn */
     register_block("__throw",error_throw);
@@ -55,6 +56,11 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
 }
 
 /* Date and Time */
+SIMPLE_API void date_time_clock_per_second(void *pointer)
+{
+	SIMPLE_API_RETNUMBER(CLOCKS_PER_SEC);
+}
+
 SIMPLE_API void date_time_clock(void *pointer)
 {
 	clock_t tick  ;

@@ -23,6 +23,7 @@ SIMPLE_API void init_simple_module(SimpleState *sState) ;
 
 /* Date and Time */
 SIMPLE_API void date_time_clock(void *pointer);
+SIMPLE_API void date_time_clock_per_second(void *pointer);
 
 /* Error and Warn */
 SIMPLE_API void error_warn(void *pointer);
