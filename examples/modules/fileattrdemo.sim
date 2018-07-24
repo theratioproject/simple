@@ -16,10 +16,7 @@
 
 call "simple/io/File.sim"
 
-block main()
-	pathAttr = new PathAttributes("./fileattrdemo.sim")
-	@"ret value : "+pathAttr.returnSuccess()
-	
+block main()	
 	file = new File("./fileattrdemo.sim")
 	@"Full Path : "+file.absolutePath()
 	@"Size : "+file.size()+" byte"
@@ -36,4 +33,5 @@ block main()
 	@pathType
 	
 	pathAttr = new PathAttributes("./fileattrdemo.sim")
+	@"ret value : "+pathAttr.returnSuccess()
 	*/
