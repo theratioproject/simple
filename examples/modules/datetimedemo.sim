@@ -52,6 +52,10 @@ block main()
 	@"Day of the Week : "+date.dayOfTheWeek()
 	@"Date : "+date.date()
 	@"Time : "+date.time()
+	@"Year in Century : "+date.yearInCentury()
+	@"Century : "+date.century()+"st Century"
+	@"Year : "+date.year()
+	@"Year in Century : "+date.yearInCentury()
 	
 	
 	

@@ -118,8 +118,14 @@ class DateTime
 	block century()
 		return __DATE_TIME_CENTURY
 		
+	block year()
+		return __DATE_TIME_YEAR
+		
 	block timeZone()
 		return __DATE_TIME_TIME_ZONE
+		
+	block percentSign()
+		return __DATE_TIME_PERCENT_SIGN
 	
 	private 
 		
