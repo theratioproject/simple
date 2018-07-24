@@ -1,0 +1,18 @@
+/* 
+	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+/* 
+ * @Filename- PathAttributes.sim
+ * @Author 	- Azeez Adewale
+ * @Date 	- 24 July 2017
+ * @Time	- 01:01 PM
+ */
+ 
+call "Path.sim"
+
+class FileAttributes
+
+	block FileAttributes(filePath)
