@@ -5,9 +5,9 @@
 */
 
 /* 
- * @filename - Console.sim
- * @author - Azeez Adewale
- * @date - 5 Febuary 2017
+ * @Filename - Console.sim
+ * @Author - Azeez Adewale
+ * @Date - 5 Febuary 2017
  */
  
 module simple.utilities
