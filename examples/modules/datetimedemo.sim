@@ -47,6 +47,8 @@ block main()
 	@"Month in Year : "+date.monthInYear()
 	@"Minute in Hour : "+date.minuteInHour()
 	@"Meridian (AM/PM) : "+date.meridian()
+	@"Seconds in A Minute : "+date.secondsinMinute()
+	@"Meridian (AM/PM) : "+date.meridian()
 	
 	
 	
