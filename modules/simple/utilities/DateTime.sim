@@ -10,6 +10,9 @@
  * @Date 	- 24 July 2017
  * @Time	- 10:45 AM
  */
+ 
+#accept time_t 
+block dateFromPointer(timeTPointer)
 
 class DateTime
 
