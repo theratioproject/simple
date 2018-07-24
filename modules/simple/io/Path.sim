@@ -222,6 +222,11 @@ class Path
 			return renameTo(__newFolder+getSystemSlash()+getName())
 		}
 		
+	/*
+		Convert the @Class Path to @Class FileAttributes to get the stats, attributes 
+		and properties of a path
+		@Return the path attributes value of the current class @DataType @Class PathAttributes
+	*/
 	block toPathAttributes()
 		return new PathAttributes(__IO_PATH)
 		
