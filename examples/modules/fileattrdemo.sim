@@ -21,10 +21,10 @@ block main()
 	@"ret value : "+pathAttr.returnSuccess()
 	
 	file = new File("./fileattrdemo.sims")
-	@file.absolutePath()
-	@""+file.size()+" byte"
-	@""+file.type()+" type"
-	@"we are good to go "
+	@"Full Path : "+file.absolutePath()
+	@"Size : "+file.size()+" byte"
+	@"Type : "+file.type()
+	@"The Node Number : "+file.nodeNumber()
 	__exit__
 	
 	
