@@ -26,6 +26,12 @@ class PathAttributes
 			return __file_size(__IO_FILE_ATTR_PATH)
 		}
 		return 0
+		
+	block nodeNumber()
+		if __IO_FILE_ATTR_SUCCESS {
+			return __file_node_number(__IO_FILE_ATTR_PATH)
+		}
+		return 0
 	
 	private 
 	
