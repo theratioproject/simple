@@ -28,6 +28,8 @@ SIMPLE_API void date_time_date(void *pointer);
 SIMPLE_API void date_time_time(void *pointer);
 SIMPLE_API void date_time_list(void *pointer);
 SIMPLE_API void date_time_t_to_list(void *pointer);
+SIMPLE_API void date_time_add_days(void *pointer);
+int simple_add_leap_year(int nYear);
 
 /* Error and Warn */
 SIMPLE_API void error_warn(void *pointer);

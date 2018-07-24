@@ -63,7 +63,82 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
 /* Date and Time */
 SIMPLE_API void date_time_add_days(void *pointer)
 {
-	
+	const char *cStr  ;
+	char buffer[25]  ;
+	int x,nDay,nMonth,nYear,nDaysInMonth  ;
+	int aDaysInMonth[12] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 } ;
+	if ( SIMPLE_API_PARACOUNT != 2 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARACOUNT);
+		return ;
+	}
+	if ( ! (SIMPLE_API_ISSTRING(1) && SIMPLE_API_ISNUMBER(2)) ) {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+		return ;
+	}
+	cStr = SIMPLE_API_GETSTRING(1);
+	if ( (SIMPLE_API_GETSTRINGSIZE(1) == 10) ) {
+		if ( isalnum(cStr[0]) && isalnum(cStr[1]) && isalnum(cStr[3]) && isalnum(cStr[4]) && isalnum(cStr[6]) && isalnum(cStr[7]) && isalnum(cStr[8]) && isalnum(cStr[9]) ) {
+			sprintf( buffer , "%c%c" , cStr[0],cStr[1] ) ;
+			nDay = atoi(buffer) + ((int) SIMPLE_API_GETNUMBER(2)) ;
+			sprintf( buffer , "%c%c" , cStr[3],cStr[4] ) ;
+			nMonth = atoi(buffer) ;
+			sprintf( buffer , "%c%c%c%c" , cStr[6],cStr[7],cStr[8],cStr[9] ) ;
+			nYear = atoi(buffer) ;
+			/* Fix Day Number */
+			nDaysInMonth = aDaysInMonth[nMonth-1] ;
+			/* Fix Leap Year */
+			if ( (nMonth == 2) && (simple_add_leap_year(nYear)) ) {
+				nDaysInMonth = 29 ;
+			}
+			while ( nDay > nDaysInMonth ) {
+				nDay = nDay - nDaysInMonth ;
+				nMonth++ ;
+				if ( nMonth == 13 ) {
+					nMonth = 1 ;
+					nYear++ ;
+				}
+				nDaysInMonth = aDaysInMonth[nMonth-1] ;
+				/* Fix Leap Year */
+				if ( (nMonth == 2) && (simple_add_leap_year(nYear)) ) {
+					nDaysInMonth = 29 ;
+				}
+			}
+			while ( nDay < 1 ) {
+				nMonth-- ;
+				if ( nMonth == 0 ) {
+					nMonth = 12 ;
+					nYear-- ;
+				}
+				nDaysInMonth = aDaysInMonth[nMonth-1] ;
+				/* Fix Leap Year */
+				if ( (nMonth == 2) && (simple_add_leap_year(nYear)) ) {
+					nDaysInMonth = 29 ;
+				}
+				nDay = nDaysInMonth - abs(nDay) ;
+			}
+			sprintf(buffer,"%2d/%2d/%4d", nDay,nMonth,nYear);
+			for ( x = 0 ; x <= 9 ; x++ ) {
+				if ( buffer[x] == ' ' ) {
+					buffer[x] = '0' ;
+				}
+			}
+			SIMPLE_API_RETSTRING(buffer);
+			return ;
+		}
+	}
+	SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+	return ;
+}
+
+int simple_add_leap_year(int year)
+{
+	if ( year%400 == 0 ) {
+		return 1 ;
+	}
+	if ( year%100 == 0 ) {
+		return 0 ;
+	}
+	return year % 4 == 0 ;
 }
 
 SIMPLE_API void date_time_t_to_list(void *pointer)
