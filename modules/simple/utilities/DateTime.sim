@@ -111,6 +111,15 @@ class DateTime
 		
 	block time()
 		return __DATE_TIME_TIME
+		
+	block yearInCentury()
+		return __DATE_TIME_YEAR_IN_CENTURY
+		
+	block century()
+		return __DATE_TIME_CENTURY
+		
+	block timeZone()
+		return __DATE_TIME_TIME_ZONE
 	
 	private 
 		
