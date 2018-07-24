@@ -128,7 +128,7 @@ class DateTime
 		return __DATE_TIME_PERCENT_SIGN
 		
 	block toString()
-		
+		formatDate = __DATE_TIME_WEEKDAY + " "+__DATE_TIME_MONTH+" "+__DATE_TIME_DAY_OF_MONTH
 	
 	private 
 		
