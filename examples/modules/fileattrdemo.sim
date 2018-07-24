@@ -25,6 +25,7 @@ block main()
 	@"Link Count : "+file.hardLinkCount()
 	@"GID : "+file.GID()
 	@"UID : "+file.UID()
+	@"Last Access : "+file._lastAccessDate()
 	__exit__
 	
 	
