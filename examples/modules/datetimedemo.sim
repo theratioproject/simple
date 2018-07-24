@@ -40,6 +40,9 @@ block main()
 	@date.shortWeekDay() + " - " + date.weekDay() 
 	@date.shortMonth() + " - " + date.month() 
 	@date.dateTime()
+	@"Day of Month : "+date.dayOfMonth()
+	@"Hour in 24 Hour : "+date.in24Hour()
+	@"Hour in 12 Hour : "+date.in12Hour()
 	
 	
 	
