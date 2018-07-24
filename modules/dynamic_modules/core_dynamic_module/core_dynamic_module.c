@@ -40,6 +40,7 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
 	register_block("__date",date_time_date);
 	register_block("__date_time_list",date_time_list);
 	register_block("__date_time_t_to_list",date_time_t_to_list);
+	register_block("__date_time_add_days",date_time_add_days);
 	
 	/* Error and Warn */
     register_block("__throw",error_throw);
@@ -60,6 +61,11 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
 }
 
 /* Date and Time */
+SIMPLE_API void date_time_add_days(void *pointer)
+{
+	
+}
+
 SIMPLE_API void date_time_t_to_list(void *pointer)
 {
 	time_t timer  ;
