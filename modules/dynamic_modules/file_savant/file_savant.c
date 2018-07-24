@@ -72,7 +72,7 @@ void path_status_date(void *pointer)
 			if (err == -1) {
 				SIMPLE_API_ERROR(FILE_SAVANT_FILE_ERROR);
 			} else {
-				SIMPLE_API_RETCPOINTER(info.st_ctime,"SIMPLE_LANG_TIME_T_");
+				SIMPLE_API_RETCPOINTER(info.st_ctime,"SIMPLE_LANG_TIME_");
 			}
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
@@ -92,7 +92,7 @@ void path_modify_date(void *pointer)
 			if (err == -1) {
 				SIMPLE_API_ERROR(FILE_SAVANT_FILE_ERROR);
 			} else {
-				SIMPLE_API_RETCPOINTER(info.st_mtime,"SIMPLE_LANG_TIME_T_");
+				SIMPLE_API_RETCPOINTER(info.st_mtime,"SIMPLE_LANG_TIME_");
 			}
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
@@ -112,7 +112,7 @@ void path_access_date(void *pointer)
 			if (err == -1) {
 				SIMPLE_API_ERROR(FILE_SAVANT_FILE_ERROR);
 			} else {
-				SIMPLE_API_RETCPOINTER(info.st_atime,"SIMPLE_LANG_TIME_T_");
+				SIMPLE_API_RETCPOINTER(info.st_atime,"SIMPLE_LANG_TIME_");
 			}
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);

@@ -27,6 +27,7 @@ SIMPLE_API void date_time_clock_per_second(void *pointer);
 SIMPLE_API void date_time_date(void *pointer);
 SIMPLE_API void date_time_time(void *pointer);
 SIMPLE_API void date_time_list(void *pointer);
+SIMPLE_API void date_time_t_to_list(void *pointer);
 
 /* Error and Warn */
 SIMPLE_API void error_warn(void *pointer);
