@@ -43,6 +43,10 @@ block main()
 	@"Day of Month : "+date.dayOfMonth()
 	@"Hour in 24 Hour : "+date.in24Hour()
 	@"Hour in 12 Hour : "+date.in12Hour()
+	@"Day in year : "+date.dayInYear()
+	@"Hour in 12 Hour : "+date.in12Hour()
+	@"Hour in 12 Hour : "+date.in12Hour()
+	@"Hour in 12 Hour : "+date.in12Hour()
 	
 	
 	

@@ -84,6 +84,18 @@ class DateTime
 		
 	block in12Hour()
 		return __DATE_TIME_12_HOUR
+		
+	block dayInYear()
+		return __DATE_TIME_DAY_OF_YEAR
+		
+	block monthInYear()
+		return __DATE_TIME_MONTH_OF_YEAR
+		
+	block minuteInHour()
+		return __DATE_TIME_MINUTES_IN_HOUR
+		
+	block meridian()
+		return __DATE_TIME_AM_PM
 	
 	private 
 		
