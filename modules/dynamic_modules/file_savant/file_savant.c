@@ -76,7 +76,7 @@ void path_block_size(void *pointer)
 				#if _WIN32
 					SIMPLE_API_RETNUMBER(512);
 				#else
-					SIMPLE_API_RETNUMBER((long) info.st_gid);
+					SIMPLE_API_RETNUMBER((long) info.st_blksize);
 				#endif
 			}
 	} else {
