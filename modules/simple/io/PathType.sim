@@ -91,7 +91,9 @@ class PathType
 				filePath = filePath.toString()
 			}
 			__IO_FILE_TYPE_PATH = __curePathSlashes(filePath)
-			__IO_FILE_TYPE_IVALUE = __file_type(__IO_FILE_TYPE_PATH)
+			if __check_path(__IO_FILE_TYPE_PATH) != -1 {
+				__IO_FILE_TYPE_IVALUE = __file_type(__IO_FILE_TYPE_PATH)
+			}
 			
 			
  
