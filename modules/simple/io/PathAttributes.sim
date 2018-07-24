@@ -16,6 +16,7 @@ call "Path.sim"
 class FileAttributes
 
 	block FileAttributes(filePath)
+		updateAttributes(filePath)
 	
 	private 
 		

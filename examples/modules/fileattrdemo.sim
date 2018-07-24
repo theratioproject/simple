@@ -16,7 +16,7 @@
 
 call "simple/io/File.sim"
 
-block main()	
+block main()
 	file = new File("./fileattrdemo.sim")
 	@file.absolutePath()
 	@""+file.size()+" byte"
@@ -24,3 +24,10 @@ block main()
 	@"we are good to go "
 	__exit__
 	
+	
+	/*
+	pathType = new PathType("./fileattrdemo.sim")
+	@pathType
+	
+	pathAttr = new PathAttributes("./fileattrdemo.sim")
+	*/
