@@ -42,6 +42,7 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
     register_block("writefile",write_file);
     register_block("__exists",file_exists);
     register_block("__path_block_size",path_block_size);
+    register_block("__path_blocks",path_blocks);
     register_block("__path_access_date",path_access_date);
     register_block("__path_modify_date",path_modify_date);
     register_block("__path_status_date",path_status_date);
@@ -58,6 +59,30 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
     register_block("blow_dir",blow_directory);
     register_block("__mkdir",mk_directory);
     register_block("__dir_exists",dir_exists);
+}
+
+void path_blocks(void *pointer)
+{
+	if ( SIMPLE_API_PARACOUNT != 1 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
+		return ;
+	}
+	if ( SIMPLE_API_ISSTRING(1) ) {
+            struct stat info;
+			String * string = simple_string_new_gc(((VM *) pointer)->sState,SIMPLE_API_GETSTRING(1));
+            int err = stat(string->str, &info);
+			if (err == -1) {
+				SIMPLE_API_ERROR(FILE_SAVANT_FILE_ERROR);
+			} else {
+				#ifdef info.st_blocks
+					SIMPLE_API_RETNUMBER((long) info.st_blksize);
+				#else
+					SIMPLE_API_RETNUMBER(-1);
+				#endif
+			}
+	} else {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+	}
 }
 
 void path_block_size(void *pointer)
