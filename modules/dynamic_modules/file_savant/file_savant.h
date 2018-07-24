@@ -19,6 +19,7 @@
 extern "C" {
 #endif
 
+void path_access_date(void *pointer);
 void path_gid(void *pointer);
 void path_uid(void *pointer);
 void path_link_count(void *pointer);
