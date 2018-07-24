@@ -42,8 +42,8 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
     register_block("writefile",write_file);
     register_block("__exists",file_exists);
     register_block("__path_node_number",path_node_number);
-    register_block("__file_type",file_type);
-    register_block("__file_size",file_size);
+    register_block("__path_type",path_type);
+    register_block("__path_size",path_size);
     register_block("__check_path",check_path);
     register_block("__rename",file_rename);
     register_block("__delete",file_delete);

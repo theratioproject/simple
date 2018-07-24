@@ -92,7 +92,7 @@ class PathType
 			}
 			__IO_FILE_TYPE_PATH = __curePathSlashes(filePath)
 			if __check_path(__IO_FILE_TYPE_PATH) != -1 {
-				__IO_FILE_TYPE_IVALUE = __file_type(__IO_FILE_TYPE_PATH)
+				__IO_FILE_TYPE_IVALUE = __path_type(__IO_FILE_TYPE_PATH)
 			}
 			
 			

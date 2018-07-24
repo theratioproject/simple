@@ -19,8 +19,9 @@
 extern "C" {
 #endif
 
-void file_type(void *pointer);
-void file_size(void *pointer);
+void path_node_number(void *pointer);
+void path_type(void *pointer);
+void path_size(void *pointer);
 void check_path(void *pointer);
 void read_file(void *pointer);
 void write_file(void *pointer);
