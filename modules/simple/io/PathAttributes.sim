@@ -38,6 +38,18 @@ class PathAttributes
 			return __path_link_count(__IO_FILE_ATTR_PATH)
 		}
 		return 0
+		
+	block UID()
+		if __IO_FILE_ATTR_SUCCESS {
+			return __path_uid(__IO_FILE_ATTR_PATH)
+		}
+		return 0
+		
+	block GID()
+		if __IO_FILE_ATTR_SUCCESS {
+			return __path_gid(__IO_FILE_ATTR_PATH)
+		}
+		return 0
 	
 	private 
 	
