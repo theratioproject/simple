@@ -54,6 +54,14 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
 	register_block("__AddAttribute",meta_blocks_add_addribute);
 }
 
+/* Date and Time */
+SIMPLE_API void date_time_clock(void *pointer)
+{
+	clock_t tick  ;
+	tick = clock();
+	SIMPLE_API_RETNUMBER((double) tick);
+}
+
 /* Meta Blocks */ 
 SIMPLE_API void meta_blocks_add_addribute(void *pointer)
 {
