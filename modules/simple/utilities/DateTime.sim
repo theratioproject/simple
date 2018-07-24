@@ -78,6 +78,12 @@ class DateTime
 		
 	block dayOfMonth()
 		return __DATE_TIME_DAY_OF_MONTH
+		
+	block in24Hour()
+		return __DATE_TIME_24_HOUR
+		
+	block in12Hour()
+		return __DATE_TIME_12_HOUR
 	
 	private 
 		

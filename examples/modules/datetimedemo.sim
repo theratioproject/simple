@@ -38,5 +38,8 @@ block main()
 	@"==========================================================="
 	date = new DateTime(null)
 	@date.shortWeekDay() + " - " + date.weekDay() 
+	@date.shortMonth() + " - " + date.month() 
+	@date.dateTime()
+	
 	
 	
