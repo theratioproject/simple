@@ -70,7 +70,7 @@ void path_access_date(void *pointer)
 			if (err == -1) {
 				SIMPLE_API_ERROR(FILE_SAVANT_FILE_ERROR);
 			} else {
-				SIMPLE_API_RETNUMBER((long) info.st_gid);
+				SIMPLE_API_RETCPOINTER(info.st_atime,"SIMPLE_LANG_STAT_");
 			}
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
