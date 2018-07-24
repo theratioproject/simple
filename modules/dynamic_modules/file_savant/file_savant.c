@@ -73,7 +73,7 @@ void path_node_number(void *pointer)
 	}
 }
 
-void file_type(void *pointer)
+void path_type(void *pointer)
 {
 	if ( SIMPLE_API_PARACOUNT != 1 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
@@ -103,7 +103,7 @@ void file_type(void *pointer)
 	}
 }
 
-void file_size(void *pointer)
+void path_size(void *pointer)
 {
 	if ( SIMPLE_API_PARACOUNT != 1 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
