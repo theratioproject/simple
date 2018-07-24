@@ -222,12 +222,15 @@ class Path
 			return renameTo(__newFolder+getSystemSlash()+getName())
 		}
 		
+	block toPathAttributes()
+		return new PathAttributes(__IO_PATH)
+		
 	/*
 		This return the total size of the provide path in pure byte.
 		@Return the size of path in byte @DataType Number
 	*/
 	block size()
-		return 
+		return toPathAttributes().size()
 		
 	/*
 		Get the type associated with the path from @File PathType in 
