@@ -20,6 +20,8 @@ block main()
 	pathAttr = new PathAttributes("./fileattrdemo.sim")
 	@"ret value : "+pathAttr.returnSuccess()
 	@pathAttr._lastAccessDate()
+	@pathAttr._lastDateModified()
+	@pathAttr._lastDateChanged()
 	
 	file = new File("./fileattrdemo.sim")
 	@"Full Path : "+file.absolutePath()
