@@ -96,6 +96,21 @@ class DateTime
 		
 	block meridian()
 		return __DATE_TIME_AM_PM
+		
+	block secondsInMinute()
+		return __DATE_TIME_SECONDS_IN_MINUTES
+		
+	block weekInYear()
+		return __DATE_TIME_WEEK_OF_YEAR
+		
+	block dayOfTheWeek()
+		return __DATE_TIME_DAY_OF_WEEK
+		
+	block date()
+		return __DATE_TIME_DATE
+		
+	block time()
+		return __DATE_TIME_TIME
 	
 	private 
 		
