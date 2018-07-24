@@ -16,3 +16,12 @@ call "Path.sim"
 class FileAttributes
 
 	block FileAttributes(filePath)
+	
+	private 
+		
+		block updateAttributes(filePath)
+			if isPath(filePath) {
+				filePath = filePath.toString()
+			}
+			__IO_FILE_ATTR_PATH = __curePathSlashes(filePath)
+			__IO_FILE_ATTR_SUCCESS = __check_path(__IO_FILE_TYPE_PATH)
