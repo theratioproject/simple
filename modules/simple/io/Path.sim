@@ -249,6 +249,15 @@ class Path
 	block UID()
 		return toPathAttributes().UID()
 		
+	block lastAccessDate()
+		return toPathAttributes().lastAccessDate()
+		
+	block lastDateModified()
+		return toPathAttributes().lastDateModified()
+		
+	block lastDateChanged()
+		return toPathAttributes().lastDateChanged()
+		
 	/*
 		Get the type associated with the path from @File PathType in 
 		@return the path type @DataType String
