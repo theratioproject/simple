@@ -13,3 +13,8 @@
 /*
 	Demo to show some of the function of the Date and Time module
 */
+
+call "simple/utilities/DateTime.sim"
+
+block main()
+	@"clock tick : "+clockTick()
