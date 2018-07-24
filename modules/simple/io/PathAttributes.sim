@@ -17,6 +17,9 @@ class PathAttributes
 
 	block PathAttributes(filePath)
 		updateAttributes(filePath)
+		
+	block returnValue()
+		return pathAttr = __IO_FILE_ATTR_SUCCESS
 	
 	private 
 	
@@ -29,3 +32,4 @@ class PathAttributes
 			}
 			__IO_FILE_ATTR_PATH = __curePathSlashes(filePath)
 			__IO_FILE_ATTR_SUCCESS = __check_path(__IO_FILE_ATTR_PATH)
+			@__IO_FILE_ATTR_SUCCESS
