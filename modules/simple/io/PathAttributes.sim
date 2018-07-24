@@ -19,7 +19,7 @@ class PathAttributes
 		updateAttributes(filePath)
 		
 	block returnValue()
-		return pathAttr = __IO_FILE_ATTR_SUCCESS
+		return __IO_FILE_ATTR_SUCCESS
 	
 	private 
 	
@@ -31,5 +31,8 @@ class PathAttributes
 				filePath = filePath.toString()
 			}
 			__IO_FILE_ATTR_PATH = __curePathSlashes(filePath)
-			__IO_FILE_ATTR_SUCCESS = __check_path(__IO_FILE_ATTR_PATH)
-			@__IO_FILE_ATTR_SUCCESS
+			if __check_path(__IO_FILE_ATTR_PATH) == -1 {
+				__IO_FILE_ATTR_SUCCESS = false
+			else
+				__IO_FILE_ATTR_SUCCESS = true
+			}
