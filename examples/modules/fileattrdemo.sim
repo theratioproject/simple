@@ -18,7 +18,7 @@ call "simple/io/File.sim"
 
 block main()
 	pathAttr = new PathAttributes("./fileattrdemo.sim")
-	@"ret value : "+pathAttr.returnValue()
+	@"ret value : "+pathAttr.returnSuccess()
 	
 	file = new File("./fileattrdemo.sim")
 	@file.absolutePath()

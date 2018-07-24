@@ -18,7 +18,7 @@ class PathAttributes
 	block PathAttributes(filePath)
 		updateAttributes(filePath)
 		
-	block returnValue()
+	block returnSuccess()
 		return __IO_FILE_ATTR_SUCCESS
 	
 	private 
