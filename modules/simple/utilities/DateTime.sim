@@ -66,6 +66,18 @@ class DateTime
 		
 	block weekDay()
 		return __DATE_TIME_WEEKDAY
+		
+	block shortMonth()
+		return __DATE_TIME_MONTH_ABBR
+		
+	block month()
+		return __DATE_TIME_MONTH
+		
+	block dateTime()
+		return __DATE_TIME_DATE_TIME
+		
+	block dayOfMonth()
+		return __DATE_TIME_DAY_OF_MONTH
 	
 	private 
 		
