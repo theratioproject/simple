@@ -126,6 +126,9 @@ class DateTime
 		
 	block percentSign()
 		return __DATE_TIME_PERCENT_SIGN
+		
+	block toString()
+		
 	
 	private 
 		
