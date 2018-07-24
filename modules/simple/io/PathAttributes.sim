@@ -56,6 +56,18 @@ class PathAttributes
 			return __path_access_date(__IO_FILE_ATTR_PATH)
 		}
 		return 0
+		
+	block lastDateModified()
+		if __IO_FILE_ATTR_SUCCESS {
+			return __path_modify_date(__IO_FILE_ATTR_PATH)
+		}
+		return 0
+		
+	block lastDateChanged()
+		if __IO_FILE_ATTR_SUCCESS {
+			return __path_status_date(__IO_FILE_ATTR_PATH)
+		}
+		return 0
 	
 	private 
 	
