@@ -82,6 +82,12 @@ class PathAttributes
 		
 	block dateCreated()
 		return lastDateChanged()
+		
+	block blockSize()
+		if __IO_FILE_ATTR_SUCCESS {
+			return __path_block_size(__IO_FILE_ATTR_PATH)
+		}
+		return null
 	
 	private 
 	
