@@ -227,7 +227,7 @@ class Path
 		@Return the size of path in byte @DataType Number
 	*/
 	block size()
-		return __file_size(__IO_PATH)
+		return 
 		
 	/*
 		Get the type associated with the path from @File PathType in 

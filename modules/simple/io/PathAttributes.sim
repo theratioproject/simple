@@ -20,6 +20,12 @@ class PathAttributes
 		
 	block returnSuccess()
 		return __IO_FILE_ATTR_SUCCESS
+		
+	block size()
+		if __IO_FILE_ATTR_SUCCESS {
+			return __file_size(__IO_PATH)
+		}
+		return 0
 	
 	private 
 	
