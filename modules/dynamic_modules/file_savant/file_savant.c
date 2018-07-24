@@ -66,17 +66,7 @@ void path_node_number(void *pointer)
 			if (err == -1) {
 				SIMPLE_API_ERROR(FILE_SAVANT_FILE_ERROR);
 			} else {
-				switch (info.st_mode & S_IFMT) {
-					case S_IFWHT:  SIMPLE_API_RETNUMBER(160000);	break; 
-					case S_IFBLK:  SIMPLE_API_RETNUMBER(60000);	break;
-					case S_IFCHR:  SIMPLE_API_RETNUMBER(20000);	break;
-					case S_IFDIR:  SIMPLE_API_RETNUMBER(40000);	break;
-					case S_IFIFO:  SIMPLE_API_RETNUMBER(10000);	break;
-					case S_IFLNK:  SIMPLE_API_RETNUMBER(120000);	break;
-					case S_IFREG:  SIMPLE_API_RETNUMBER(100000);	break;
-					case S_IFSOCK: SIMPLE_API_RETNUMBER(140000);	break;
-					default:       SIMPLE_API_RETNUMBER(0000000);   break;
-				}
+				SIMPLE_API_RETNUMBER((long) info.st_ino);
 			}
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
