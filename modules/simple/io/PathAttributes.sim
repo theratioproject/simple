@@ -12,6 +12,7 @@
  */
  
 call "Path.sim"
+call "../utilities/DateTime.sim"
 
 class PathAttributes
 
@@ -55,20 +56,32 @@ class PathAttributes
 		if __IO_FILE_ATTR_SUCCESS {
 			return __path_access_date(__IO_FILE_ATTR_PATH)
 		}
-		return 0
+		return null
+		
+	block lastAccessDate()
+		return dateFromPointer(_lastAccessDate())
 		
 	block _lastDateModified()
 		if __IO_FILE_ATTR_SUCCESS {
 			return __path_modify_date(__IO_FILE_ATTR_PATH)
 		}
-		return 0
+		return null
+		
+	block lastDateModified()
+		return dateFromPointer(_lastDateModified())
 		
 	#created #changed	
 	block _lastDateChanged()
 		if __IO_FILE_ATTR_SUCCESS {
 			return __path_status_date(__IO_FILE_ATTR_PATH)
 		}
-		return 0
+		return null
+	
+	block lastDateChanged()
+		return dateFromPointer(_lastDateChanged())
+		
+	block dateCreated()
+		return lastDateChanged()
 	
 	private 
 	

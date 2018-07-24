@@ -16,13 +16,7 @@
 
 call "simple/io/File.sim"
 
-block main()	
-	pathAttr = new PathAttributes("./fileattrdemo.sim")
-	@"ret value : "+pathAttr.returnSuccess()
-	@pathAttr._lastAccessDate()
-	@pathAttr._lastDateModified()
-	@pathAttr._lastDateChanged()
-	
+block main()		
 	file = new File("./fileattrdemo.sim")
 	@"Full Path : "+file.absolutePath()
 	@"Size : "+file.size()+" byte"
@@ -31,13 +25,18 @@ block main()
 	@"Link Count : "+file.hardLinkCount()
 	@"GID : "+file.GID()
 	@"UID : "+file.UID()
-	#@"Last Access : "+file._lastAccessDate()
+	@"Last Access Date : "+file.lastAccessDate().toString()
+	@"Last Date Modified : "+file.lastDateModified().toString()
+	@"Date Created : "+file.dateCreated().toString()
 	__exit__
 	
 	
 	/*
-	pathType = new PathType("./fileattrdemo.sim")
-	@pathType
+	pathAttr = new PathAttributes("./fileattrdemo.sim")
+	@"ret value : "+pathAttr.returnSuccess()
+	@pathAttr.lastAccessDate().toString()
+	@pathAttr.lastDateModified().toString()
+	@pathAttr.lastDateChanged().toString()
 	
 	pathAttr = new PathAttributes("./fileattrdemo.sim")
 	@"ret value : "+pathAttr.returnSuccess()

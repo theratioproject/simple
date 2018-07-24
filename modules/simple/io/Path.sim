@@ -258,6 +258,9 @@ class Path
 	block lastDateChanged()
 		return toPathAttributes().lastDateChanged()
 		
+	block dateCreated()
+		return toPathAttributes().dateCreated()
+		
 	/*
 		Get the type associated with the path from @File PathType in 
 		@return the path type @DataType String
