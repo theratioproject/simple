@@ -22,3 +22,6 @@ block main()
 	#wait one second
 	t = clockTick()
 	while clockTick() - t <= tickPerSecond() end
+	@"Time : "+time()
+	@"Date : "+date()
+	@dateTimeList()[4]

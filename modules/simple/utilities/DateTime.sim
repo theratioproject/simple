@@ -18,9 +18,19 @@ block clockTick()
 	
 block tickPerSecond()
 	return __clock_per_second()
+	
+block date()
+	return __date()
+	
+block time()
+	return __time()
+	
+block dateTimeList()
+	return __date_time_list()
  
 #accept time_t 
 block dateFromPointer(timeTPointer)
+	return __date_time_t_to_list(timeTPointer)
 
 class DateTime
 
