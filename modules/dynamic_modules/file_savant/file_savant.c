@@ -41,6 +41,7 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
     register_block("readfile",read_file);
     register_block("writefile",write_file);
     register_block("__exists",file_exists);
+    register_block("__path_node_number",path_node_number);
     register_block("__file_type",file_type);
     register_block("__file_size",file_size);
     register_block("__check_path",check_path);
@@ -50,6 +51,36 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
     register_block("blow_dir",blow_directory);
     register_block("__mkdir",mk_directory);
     register_block("__dir_exists",dir_exists);
+}
+
+void path_node_number(void *pointer)
+{
+	if ( SIMPLE_API_PARACOUNT != 1 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
+		return ;
+	}
+	if ( SIMPLE_API_ISSTRING(1) ) {
+            struct stat info;
+			String * string = simple_string_new_gc(((VM *) pointer)->sState,SIMPLE_API_GETSTRING(1));
+            int err = stat(string->str, &info);
+			if (err == -1) {
+				SIMPLE_API_ERROR(FILE_SAVANT_FILE_ERROR);
+			} else {
+				switch (info.st_mode & S_IFMT) {
+					case S_IFWHT:  SIMPLE_API_RETNUMBER(160000);	break; 
+					case S_IFBLK:  SIMPLE_API_RETNUMBER(60000);	break;
+					case S_IFCHR:  SIMPLE_API_RETNUMBER(20000);	break;
+					case S_IFDIR:  SIMPLE_API_RETNUMBER(40000);	break;
+					case S_IFIFO:  SIMPLE_API_RETNUMBER(10000);	break;
+					case S_IFLNK:  SIMPLE_API_RETNUMBER(120000);	break;
+					case S_IFREG:  SIMPLE_API_RETNUMBER(100000);	break;
+					case S_IFSOCK: SIMPLE_API_RETNUMBER(140000);	break;
+					default:       SIMPLE_API_RETNUMBER(0000000);   break;
+				}
+			}
+	} else {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+	}
 }
 
 void file_type(void *pointer)

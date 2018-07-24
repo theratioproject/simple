@@ -237,6 +237,9 @@ class Path
 	block size()
 		return toPathAttributes().size()
 		
+	block nodeNumber()
+		return toPathAttributes().nodeNumber()
+		
 	/*
 		Get the type associated with the path from @File PathType in 
 		@return the path type @DataType String
