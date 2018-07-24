@@ -56,6 +56,7 @@ block main()
 	@"Century : "+date.century()+"st Century"
 	@"Year : "+date.year()
 	@"Time Zone : "+date.timeZone()
+	@date.toString()
 	
 	
 	
