@@ -32,6 +32,12 @@ class PathAttributes
 			return __path_node_number(__IO_FILE_ATTR_PATH)
 		}
 		return 0
+		
+	block hardLinkCount()
+		if __IO_FILE_ATTR_SUCCESS {
+			return __path_link_count(__IO_FILE_ATTR_PATH)
+		}
+		return 0
 	
 	private 
 	
