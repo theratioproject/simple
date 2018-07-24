@@ -50,6 +50,12 @@ class PathAttributes
 			return __path_gid(__IO_FILE_ATTR_PATH)
 		}
 		return 0
+		
+	block lastAccessDate()
+		if __IO_FILE_ATTR_SUCCESS {
+			return __path_access_date(__IO_FILE_ATTR_PATH)
+		}
+		return 0
 	
 	private 
 	
