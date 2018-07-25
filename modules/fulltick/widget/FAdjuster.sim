@@ -18,11 +18,22 @@ class FAdjuster : FWidget
 	/* NUMBERS */
 	WIDGET_HEIGHT = 25 #The widget Height
 	WIDGET_WIDTH = 100 #The widget Width
+	
+	/* BOOLEAN */
+	_FADJUSTER_WIDGET_IS_SOFT = false
 
 	setTypeName("FAdjuster") #change the name of the widget
 	if getTypeName() == "FAdjuster" initialize() end
 	
 	block FAdjuster()
+	
+	block soft(condition)
+		_FADJUSTER_WIDGET_IS_SOFT = condition
+		__adjuster_soft(_FADJUSTER_WIDGET_IS_SOFT)
+		
+	block isSoft()
+		return _FADJUSTER_WIDGET_IS_SOFT
+		
 	
 	block initialize()
 		WIDGETPOINTER = __init_adjuster(WIDGET_X, WIDGET_Y, WIDGET_WIDTH, WIDGET_HEIGHT)
