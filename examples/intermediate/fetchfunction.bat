@@ -75,7 +75,7 @@ exit /b 0
 	
 :callmsvisualstudio 
 	echo simple-lang:configure:visual-studio calling Microsoft Visual Studio CMD File
-	call %1 !BUILD_ARC!
+	echo "%1 !BUILD_ARC!"
 	SET NO_BUILDTOOL="false"
 
 	exit /b 0
