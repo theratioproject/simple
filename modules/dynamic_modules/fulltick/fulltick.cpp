@@ -187,7 +187,7 @@ SIMPLE_BLOCK(get_label)
 	}
 	if ( SIMPLE_API_ISPOINTER(1) ) {
 		Fl_Widget *widget = (Fl_Widget* ) SIMPLE_API_GETCPOINTER(1,"SIMPLE_FLTK_");
-		SIMPLE_API_RETSTRING(widget->label());
+		SIMPLE_API_RETSTRING((const char*)widget->label());
 	} else {
 		SIMPLE_API_ERROR(FULLTICK_WRONGPARAM);
 	}
