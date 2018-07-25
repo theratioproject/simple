@@ -27,8 +27,10 @@ class FValuator : FWidget
 		Set the minimum and maximum values for the @Class FValuator widget
 		after setting the bound the @Class FValuator widget will not expands
 		pass the bound set for it
-		@Param minimum @Date Number
-		@Param maximum @Date Number
+		@Param minimum - minimum bound for the @Class FValuator widget @Date Number
+		@Param maximum - maximum bound for the @Class FValuator widget @Date Number
+		@Note It @Returns this which is the widget to allow the in-line usage 
+		of the widget
 	*/
 	block setBound(minimum,maximum)
 		__FVALUATOR_MINIMUM_BOUND = minimum
@@ -36,11 +38,19 @@ class FValuator : FWidget
 		__set_valuator_bound(WIDGETPOINTER,__FVALUATOR_MINIMUM_BOUND,__FVALUATOR_MAXIMUM_BOUND)
 		return this
 		
+	/*
+		@Note It @Returns this which is the widget to allow the in-line usage 
+		of the widget
+	*/
 	block setMinimumBound(bound)
 		__FVALUATOR_MINIMUM_BOUND = bound
 		__set_valuator_bound(WIDGETPOINTER,__FVALUATOR_MINIMUM_BOUND,__FVALUATOR_MAXIMUM_BOUND)
 		return this
-		
+	
+	/*
+		@Note It @Returns this which is the widget to allow the in-line usage 
+		of the widget
+	*/
 	block setMaximumBound(bound)
 		__FVALUATOR_MAXIMUM_BOUND = bound
 		__set_valuator_bound(WIDGETPOINTER,__FVALUATOR_MINIMUM_BOUND,__FVALUATOR_MAXIMUM_BOUND)
