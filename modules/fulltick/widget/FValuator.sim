@@ -90,7 +90,12 @@ class FValuator : FWidget
 		__FVALUATOR_CLAMP_VALUE = value
 		__valuator_clamp(WIDGETPOINTER,__FVALUATOR_CLAMP_VALUE)
 		
-	block getClampPosition()
+		
+	/*
+		Get the value of the @Class FValuator clamp range
+		@Return the clamp range @DataType Number
+	*/
+	block getClampValue()
 		return __FVALUATOR_CLAMP_VALUE
 		
 
