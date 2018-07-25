@@ -13,3 +13,10 @@
 */
 
 call "fulltick/widget/FAdjuster.sim"
+call "fulltick/widget/FWindow.sim"
+
+block main()
+
+	window = new FWindow() 
+	window.setTitle("BUTTONS DEMO").setSize(300, 150)
+	FApp.run()
