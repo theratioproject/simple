@@ -29,7 +29,7 @@ class FValuator : FWidget
 		pass the bound set for it
 		@Param minimum - minimum bound for the @Class FValuator widget @Date Number
 		@Param maximum - maximum bound for the @Class FValuator widget @Date Number
-		@Note It @Returns this which is the widget to allow the in-line usage 
+		@Note It @Return this which is the widget to allow the in-line usage 
 		of the widget
 	*/
 	block setBound(minimum,maximum)
@@ -60,14 +60,22 @@ class FValuator : FWidget
 		
 	/*
 		Get the minimum and maximum values for one of the @Class FValuator widget
-		@Return 
+		@Return the minimum value in index 0 and maximum in index 1 @DataType List
 	*/
 	block getBound()
 		return [__FVALUATOR_MINIMUM_BOUND,__FVALUATOR_MAXIMUM_BOUND]
 		
+	/*
+		Get the minimum value for one of the @Class FValuator widget
+		@Return the minimum value @DataType Number
+	*/
 	block getMinimumBound()
 		return __FVALUATOR_MINIMUM_BOUND 
 		
+	/*
+		Get the maximum value for one of the @Class FValuator widget
+		@Return the maximum value @DataType Number
+	*/
 	block getMaximumBound()
 		return __FVALUATOR_MAXIMUM_BOUND
 		
