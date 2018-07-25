@@ -2544,7 +2544,6 @@ SIMPLE_BLOCK(init_text_editor)
 }
 
 /* FTEXTBUFFER */
-
 SIMPLE_BLOCK(init_text_buffer)
 {
 	if ( SIMPLE_API_PARACOUNT != 0 ) {
@@ -2567,6 +2566,17 @@ SIMPLE_BLOCK(text_buffer_text)
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
+}
+
+/* FADJUSTER */
+SIMPLE_BLOCK(init_adjuster)
+{
+	if ( SIMPLE_API_PARACOUNT != 0 ) {
+		SIMPLE_API_ERROR(FULLTICK_MISING4PARAM);
+		return ;
+	}
+	Fl_Text_Buffer *buff = new Fl_Text_Buffer();
+	SIMPLE_API_RETCPOINTER(buff,"SIMPLE_FLTK_");
 }
 
 SIMPLE_API void init_full_tick(SimpleState *sState) 
