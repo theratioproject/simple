@@ -1291,7 +1291,7 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 				exit /b 0
 			)
 			if exist !SIMPLE_EXE! (
-				!SIMPLE_EXE! "..\examples\intermediate\libfromdll.sim" -bat !LIBDLLBATCHPATH! !SIMPLE_DLL!
+				!SIMPLE_EXE! "..\examples\intermediate\libfromdll.sim" -bat !LIBDLLBATCHPATH! !SIMPLE_DLL! !BUILD_ARC!
 				exit /b 0
 			) 
 		) else (
