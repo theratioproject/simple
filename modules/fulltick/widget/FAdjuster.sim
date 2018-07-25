@@ -14,13 +14,13 @@
 call "../core/FWidget.sim"
 
 class FAdjuster : FWidget
-
-	setTypeName("FAdjuster") #change the name of the widget
-	if getTypeName() == "FAdjuster" initialize() end
 	
 	/* NUMBERS */
 	WIDGET_HEIGHT = 25 #The widget Height
-	WIDGET_WIDTH = 75 #The widget Width
+	WIDGET_WIDTH = 100 #The widget Width
+
+	setTypeName("FAdjuster") #change the name of the widget
+	if getTypeName() == "FAdjuster" initialize() end
 	
 	block FAdjuster()
 	
