@@ -2795,5 +2795,6 @@ SIMPLE_API void init_full_tick(SimpleState *sState)
 
 	/** FADJUSTER **/
 	register_block("__init_adjuster",init_adjuster);
+	register_block("__adjuster_soft",adjuster_soft);
 
 }

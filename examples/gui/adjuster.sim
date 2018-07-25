@@ -21,6 +21,7 @@ input1.setWidth(80).setPosition(10,7)
 
 adjuster1 = new FAdjuster()
 adjuster1.setPosition(100,10).setBackground(90).callback("updateInput(adjuster1,input1)")
+adjuster1.soft(true)
 
 block main()	
 	window = new FWindow() 
