@@ -1,0 +1,253 @@
+Microsoft (R) COFF/PE Dumper Version 11.00.50727.1
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file simple.dll
+
+File Type: DLL
+
+  Section contains the following exports for simple.dll
+
+    00000000 characteristics
+    5B55F0C4 time date stamp Mon Jul 23 16:14:12 2018
+        0.00 version
+           1 ordinal base
+         212 number of functions
+         212 number of names
+
+    ordinal hint RVA      name
+
+          1    0 00002047 api_cpointer_cmp
+          2    1 00001940 api_get_cpointer
+          3    2 0000223A api_get_cpointer2pointer
+          4    3 00001666 api_get_list
+          5    4 00001E25 api_int_value
+          6    5 00001FBF api_is_cpointer
+          7    6 00002003 api_is_object
+          8    7 0000209C api_is_pointer
+          9    8 00001F58 api_iscpointer_list
+         10    9 00001877 api_new_list
+         11    A 000018AF api_ret_cpointer
+         12    B 0000173E api_ret_list
+         13    C 00001B6E api_set_cpointer_null
+         14    D 00001C7D api_var_ptr
+         15    E 0000B77E change_file_ext
+         16    F 0000FCC8 create_instance
+         17   10 0000FCEF execute_code
+         18   11 000106A7 execute_simple_file
+         19   12 0000B6F9 file_real_name
+         20   13 0000FB32 finalize
+         21   14 0000B8BC get_file_folder
+         22   15 0000B5CD is_complex_file
+         23   16 0000B501 is_simple_file
+         24   17 00001EFF list_add_cpointer
+         25   18 00002478 list_add_cpointer_gc
+         26   19 000014B7 loadcblocks
+         27   1A 0000B340 print_line
+         28   1B 00001430 register_block_t
+         29   1C 000233F9 simple_calloc
+         30   1D 000107F1 simple_chdir
+         31   1E 00010766 simple_currentdir
+         32   1F 000108FD simple_distro_folder
+         33   20 0000F0ED simple_execute
+         34   21 000107BB simple_exefilename
+         35   22 0001080C simple_exefolder
+         36   23 00010721 simple_fexists
+         37   24 000233DD simple_free
+         38   25 00007AFC simple_item_content_delete
+         39   26 00007459 simple_item_content_delete_gc
+         40   27 00007AB2 simple_item_delete
+         41   28 00007351 simple_item_delete_gc
+         42   29 00007A94 simple_item_new
+         43   2A 000072A0 simple_item_new_gc
+         44   2B 0000737C simple_item_print
+         45   2C 00007C63 simple_item_setdouble
+         46   2D 000079B7 simple_item_setdouble_gc
+         47   2E 00007CC2 simple_item_setint
+         48   2F 00007A4B simple_item_setint_gc
+         49   30 00007C96 simple_item_setpointer
+         50   31 00007A03 simple_item_setpointer_gc
+         51   32 00007C37 simple_item_setstring
+         52   33 00007CEC simple_item_setstring2
+         53   34 00007961 simple_item_setstring2_gc
+         54   35 00007915 simple_item_setstsimple_gc
+         55   36 00007AD2 simple_item_settype
+         56   37 00007511 simple_item_settype_gc
+         57   38 00007B86 simple_itemarray_setdouble
+         58   39 00007770 simple_itemarray_setdouble_gc
+         59   3A 00007B1D simple_itemarray_setint
+         60   3B 00007641 simple_itemarray_setint_gc
+         61   3C 00007B51 simple_itemarray_setpointer
+         62   3D 000076D9 simple_itemarray_setpointer_gc
+         63   3E 00007BC2 simple_itemarray_setstring
+         64   3F 00007BF7 simple_itemarray_setstring2
+         65   40 0000788D simple_itemarray_setstring2_gc
+         66   41 0000780B simple_itemarray_setstsimple_gc
+         67   42 00010AD0 simple_justfilename
+         68   43 00010A56 simple_justfilepath
+         69   44 0000A67B simple_list_addblockpointer
+         70   45 00008FC1 simple_list_addblockpointer_gc
+         71   46 0000A6E3 simple_list_adddouble
+         72   47 00008CBE simple_list_adddouble_gc
+         73   48 0000A5BB simple_list_addint
+         74   49 00008B71 simple_list_addint_gc
+         75   4A 0000A61A simple_list_addpointer
+         76   4B 00008C0F simple_list_addpointer_gc
+         77   4C 0000A78B simple_list_addstring
+         78   4D 0000A7B7 simple_list_addstring2
+         79   4E 00008E39 simple_list_addstring2_gc
+         80   4F 00008DED simple_list_addstring_gc
+         81   50 00009D64 simple_list_binarysearchnum
+         82   51 00009E2A simple_list_binarysearchstr
+         83   52 0000A461 simple_list_clear
+         84   53 0000A837 simple_list_copy
+         85   54 0000804D simple_list_copy_gc
+         86   55 0000A4FB simple_list_delete
+         87   56 00007F9F simple_list_delete_gc
+         88   57 0000A863 simple_list_deleteallitems
+         89   58 00008458 simple_list_deleteallitems_gc
+         90   59 0000A51B simple_list_deletearray
+         91   5A 0000A24C simple_list_deletearray_gc
+         92   5B 0000A55D simple_list_deleteitem
+         93   5C 000088C1 simple_list_deleteitem_gc
+         94   5D 00009493 simple_list_deliteminsidelist
+         95   5E 00009974 simple_list_findcpointer
+         96   5F 00009653 simple_list_finddouble
+         97   60 000097DD simple_list_findinlistofobjs
+         98   61 0000977A simple_list_findpointer
+         99   62 00009531 simple_list_findstring
+        100   63 0000A4DA simple_list_genarray
+        101   64 0000A178 simple_list_genarray_gc
+        102   65 0000AA6E simple_list_genhashtable
+        103   66 0000AA8F simple_list_genhashtable2
+        104   67 0000A331 simple_list_genhashtable2_gc
+        105   68 0000A28F simple_list_genhashtable_gc
+        106   69 00009F34 simple_list_getdoublecolumn
+        107   6A 000085CA simple_list_getitem
+        108   6B 00008F37 simple_list_getlist
+        109   6C 0000A058 simple_list_getstringcolumn
+        110   6D 000089FF simple_list_gettype
+        111   6E 0000A9C8 simple_list_insertblockpointer
+        112   6F 00009342 simple_list_insertblockpointer_gc
+        113   70 0000A8E2 simple_list_insertdouble
+        114   71 000091E2 simple_list_insertdouble_gc
+        115   72 0000A8AE simple_list_insertint
+        116   73 0000918E simple_list_insertint_gc
+        117   74 0000A884 simple_list_insertitem
+        118   75 0000907D simple_list_insertitem_gc
+        119   76 0000A9FD simple_list_insertlist
+        120   77 00009397 simple_list_insertlist_gc
+        121   78 0000A91E simple_list_insertpointer
+        122   79 0000923E simple_list_insertpointer_gc
+        123   7A 0000A953 simple_list_insertstring
+        124   7B 0000A988 simple_list_insertstring2
+        125   7C 000092E8 simple_list_insertstring2_gc
+        126   7D 00009293 simple_list_insertstsimple_gc
+        127   7E 0000900D simple_list_isblockpointer
+        128   7F 00009403 simple_list_isiteminsidelist
+        129   80 00008AA9 simple_list_islist
+        130   81 00008A75 simple_list_isnumber
+        131   82 00008ADD simple_list_ispointer
+        132   83 00008A41 simple_list_isstring
+        133   84 0000A4BC simple_list_new
+        134   85 00007E9A simple_list_new2_gc
+        135   86 00007E40 simple_list_new_gc
+        136   87 0000A53C simple_list_newitem
+        137   88 0000852F simple_list_newitem_gc
+        138   89 0000A7ED simple_list_newlist
+        139   8A 00008E90 simple_list_newlist_gc
+        140   8B 00008213 simple_list_print
+        141   8C 0000A3E9 simple_list_refcopy
+        142   8D 00008896 simple_list_setactiveitem
+        143   8E 0000A646 simple_list_setblockpointer
+        144   8F 00008F6E simple_list_setblockpointer_gc
+        145   90 0000A6A7 simple_list_setdouble
+        146   91 00008C5B simple_list_setdouble_gc
+        147   92 0000A587 simple_list_setint
+        148   93 00008B11 simple_list_setint_gc
+        149   94 0000A80D simple_list_setlist
+        150   95 00008EF3 simple_list_setlist_gc
+        151   96 0000A5E5 simple_list_setpointer
+        152   97 00008BBC simple_list_setpointer_gc
+        153   98 0000A716 simple_list_setstring
+        154   99 0000A74B simple_list_setstring2
+        155   9A 00008D7C simple_list_setstring2_gc
+        156   9B 00008D11 simple_list_setstsimple_gc
+        157   9C 00009A8E simple_list_sortnum
+        158   9D 0000AA26 simple_list_sortstr
+        159   9E 00009BD2 simple_list_sortstr_gc
+        160   9F 00009ECE simple_list_swap
+        161   A0 000233C2 simple_malloc
+        162   A1 0002341F simple_realloc
+        163   A2 0002348A simple_state_calloc
+        164   A3 0000FD1A simple_state_findvar
+        165   A4 00023467 simple_state_free
+        166   A5 0000FE38 simple_state_main
+        167   A6 00023445 simple_state_malloc
+        168   A7 0000F990 simple_state_new
+        169   A8 0000FDA5 simple_state_newvar
+        170   A9 000234B4 simple_state_realloc
+        171   AA 0001518C simple_string_add
+        172   AB 000151B8 simple_string_add2
+        173   AC 000149A5 simple_string_add2_gc
+        174   AD 0001495E simple_string_add_gc
+        175   AE 000152F9 simple_string_delete
+        176   AF 000147FA simple_string_delete_gc
+        177   B0 00015250 simple_string_find
+        178   B1 0001527B simple_string_find2
+        179   B2 00014DC8 simple_string_find2_gc
+        180   B3 000152BA simple_string_find3
+        181   B4 00014E69 simple_string_find3_gc
+        182   B5 00014D6D simple_string_find_gc
+        183   B6 00014B52 simple_string_lower
+        184   B7 00014BE1 simple_string_lower2
+        185   B8 0001516C simple_string_new
+        186   B9 00015143 simple_string_new2
+        187   BA 0001471B simple_string_new2_gc
+        188   BB 000146E0 simple_string_new_gc
+        189   BC 00014ADE simple_string_print
+        190   BD 000151EE simple_string_set
+        191   BE 0001521A simple_string_set2
+        192   BF 0001489B simple_string_set2_gc
+        193   C0 00014854 simple_string_set_gc
+        194   C1 00015319 simple_string_setfromint
+        195   C2 00014B07 simple_string_setfromint_gc
+        196   C3 00014843 simple_string_size
+        197   C4 00014C66 simple_string_upper
+        198   C5 00014CE8 simple_string_upper2
+        199   C6 000109FA simple_switchtofilefolder
+        200   C7 00018B3A simple_vm_callblock
+        201   C8 00017F2C simple_vm_cgi_showerrormessage
+        202   C9 00016BFF simple_vm_error
+        203   CA 00016E68 simple_vm_exec
+        204   CB 000160FC simple_vm_loadcode
+        205   CC 00018612 simple_vm_mutexblocks
+        206   CD 000186FD simple_vm_mutexdestroy
+        207   CE 00018681 simple_vm_mutexlock
+        208   CF 000186BF simple_vm_mutexunlock
+        209   D0 0001760D simple_vm_runcode
+        210   D1 00018749 simple_vm_runcodefromthread
+        211   D2 00017D03 simple_vm_showerrormessage
+        212   D3 0000331B simple_vmlib_exec
+
+  Summary
+
+        1000 .CRT
+        1000 .bss
+        1000 .data
+        5000 .debug_abbrev
+        1000 .debug_aranges
+        7000 .debug_frame
+       33000 .debug_info
+        8000 .debug_line
+        3000 .debug_loc
+        1000 .debug_ranges
+        1000 .debug_str
+        2000 .edata
+        1000 .idata
+        2000 .pdata
+        5000 .rdata
+        1000 .reloc
+       33000 .text
+        1000 .tls
+        2000 .xdata
