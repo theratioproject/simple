@@ -24,7 +24,11 @@ class FValuator : FWidget
 	setTypeName("FValuator") #change the name of the widget
 	
 	/*
-		Set the minimum and maximum
+		Set the minimum and maximum values for the @Class FValuator widget
+		after setting the bound the @Class FValuator widget will not expands
+		pass the bound set for it
+		@Param minimum @Date Number
+		@Param maximum @Date Number
 	*/
 	block setBound(minimum,maximum)
 		__FVALUATOR_MINIMUM_BOUND = minimum
