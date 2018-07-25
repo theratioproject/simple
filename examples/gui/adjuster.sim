@@ -11,3 +11,5 @@
 	@EndCode
 
 */
+
+call "fulltick/widget/FAdjuster.sim"
