@@ -79,8 +79,8 @@ class FValuator : FWidget
 	block getMaximumBound()
 		return __FVALUATOR_MAXIMUM_BOUND
 		
-	
-	
+	block clampTo(position)
+		
 		
 
 
