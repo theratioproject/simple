@@ -21,7 +21,7 @@ block main()
 	input1.setWidth(80).setPosition(10,7)
 	
 	adjuster = new FAdjuster()
-	adjuster.setPosition(100,10).setBackground(54).setText(9)
+	adjuster.setPosition(100,10).setBackground(90)
 	
 	window = new FWindow() 
 	window.setTitle("FADJUSTER DEMO").setSize(300, 150)
