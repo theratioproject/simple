@@ -28,6 +28,17 @@ class FValuator : FWidget
 		__FVALUATOR_MAXIMUM_BOUND = maximum
 		__set_valuator_bound(__FVALUATOR_MINIMUM_BOUND,__FVALUATOR_MAXIMUM_BOUND)
 		
+	block setMinimumBound(bound)
+		__FVALUATOR_MINIMUM_BOUND = bound
+		__set_valuator_bound(__FVALUATOR_MINIMUM_BOUND,__FVALUATOR_MAXIMUM_BOUND)
+		
+	block setMaximumBound(bound)
+		__FVALUATOR_MAXIMUM_BOUND = bound
+		__set_valuator_bound(__FVALUATOR_MINIMUM_BOUND,__FVALUATOR_MAXIMUM_BOUND)
+		
+	block getBound()
+		return [__FVALUATOR_MINIMUM_BOUND,__FVALUATOR_MAXIMUM_BOUND]
+		
 	
 	
 		
