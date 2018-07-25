@@ -179,6 +179,20 @@ SIMPLE_BLOCK(set_label)
 	}
 }
 
+SIMPLE_BLOCK(get_label)
+{
+	if ( SIMPLE_API_PARACOUNT ) {
+		SIMPLE_API_ERROR(FULLTICK_MISING2PARAM);
+		return ;
+	}
+	if ( SIMPLE_API_ISPOINTER(1) ) {
+		Fl_Widget *widget = (Fl_Widget* ) SIMPLE_API_GETCPOINTER(1,"SIMPLE_FLTK_");
+		widget->label();
+	} else {
+		SIMPLE_API_ERROR(FULLTICK_WRONGPARAM);
+	}
+}
+
 SIMPLE_BLOCK(set_size)
 {
 	if ( SIMPLE_API_PARACOUNT != 3 ) {
@@ -2595,6 +2609,7 @@ SIMPLE_API void init_full_tick(SimpleState *sState)
 	register_block("__resizable",resizable_object);
 	register_block("__set_bg",set_widget_background);
 	register_block("__set_label",set_label);
+	register_block("__get_label",get_label);
 	register_block("__set_label_color",set_label_color);
 	register_block("__set_label_size",set_label_size);
 	register_block("__set_label_type",set_label_type);
