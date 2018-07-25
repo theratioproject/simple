@@ -126,7 +126,9 @@ class FWidget
 	#Get the current label value of the Widget @Return widget label 
 	#@DataType String
 	block getLabel()
+		@"it is -1 "+WIDGET_LABEL
 		WIDGET_LABEL = __get_label(WIDGETPOINTER)
+		@"it is "+WIDGET_LABEL
 		return WIDGET_LABEL
 		
 	#Change the size of the label for the current widget. This block does 
