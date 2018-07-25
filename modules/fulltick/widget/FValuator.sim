@@ -39,6 +39,12 @@ class FValuator : FWidget
 	block getBound()
 		return [__FVALUATOR_MINIMUM_BOUND,__FVALUATOR_MAXIMUM_BOUND]
 		
+	block getMinimumBound()
+		return __FVALUATOR_MINIMUM_BOUND 
+		
+	block getMaximumBound()
+		return __FVALUATOR_MAXIMUM_BOUND
+		
 	
 	
 		
