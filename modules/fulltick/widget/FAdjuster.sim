@@ -12,4 +12,3 @@
  */
 
 call "../core/FWidget.sim"
-call "../core/FApp.sim"
