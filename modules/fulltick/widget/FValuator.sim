@@ -21,7 +21,8 @@ class FValuator : FWidget
 
 	setTypeName("FValuator") #change the name of the widget
 	
-	block FValuator()
+	block bound(minimum,maximum)
+		
 	
 	
 		
