@@ -24,6 +24,8 @@ class FValuator : FWidget
 	setTypeName("FValuator") #change the name of the widget
 	
 	block bound(minimum,maximum)
+		__FVALUATOR_MINIMUM_BOUND = minimum
+		__FVALUATOR_MAXIMUM_BOUND = maximum
 		
 	
 	
