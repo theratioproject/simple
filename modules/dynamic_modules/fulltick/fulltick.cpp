@@ -187,8 +187,10 @@ SIMPLE_BLOCK(get_label)
 	}
 	if ( SIMPLE_API_ISPOINTER(1) ) {
 		Fl_Widget *widget = (Fl_Widget* ) SIMPLE_API_GETCPOINTER(1,"SIMPLE_FLTK_");
-		printf("yea %s \n",(char*)widget->label());
-		SIMPLE_API_RETSTRING((char*)widget->label());
+		if ((char*)widget->label() != NULL )
+			SIMPLE_API_RETSTRING((char*)widget->label());
+		else
+			SIMPLE_API_RETSTRING("");
 	} else {
 		SIMPLE_API_ERROR(FULLTICK_WRONGPARAM);
 	}
