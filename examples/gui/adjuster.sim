@@ -20,12 +20,13 @@ block main()
 	input1 = new FInput("00001")
 	input1.setWidth(80).setPosition(10,7)
 	
-	adjuster = new FAdjuster()
-	adjuster.setPosition(100,10).setBackground(90).callback("updateInput(input1)")
+	adjuster1 = new FAdjuster()
+	adjuster1.setPosition(100,10).setBackground(90).callback("updateInput(adjuster1,input1)")
 	
 	window = new FWindow() 
 	window.setTitle("FADJUSTER DEMO").setSize(300, 150)
-	window.addWidget([input1,adjuster])
+	window.addWidget([input1,adjuster1])
 	window.run()
 
-block 
+block updateInput(adjuster,input)
+	@"LABEL : "+adjuster.getLabel()
