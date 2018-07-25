@@ -39,6 +39,7 @@ class FValuator : FWidget
 		return this
 		
 	/*
+		change or set the minimum value for the @Class FValuator widgets
 		@Note It @Returns this which is the widget to allow the in-line usage 
 		of the widget
 	*/
@@ -48,6 +49,7 @@ class FValuator : FWidget
 		return this
 	
 	/*
+		change or set the maximum value for the @Class FValuator widgets
 		@Note It @Returns this which is the widget to allow the in-line usage 
 		of the widget
 	*/
@@ -56,6 +58,9 @@ class FValuator : FWidget
 		__set_valuator_bound(WIDGETPOINTER,__FVALUATOR_MINIMUM_BOUND,__FVALUATOR_MAXIMUM_BOUND)
 		return this
 		
+	/*
+		
+	*/
 	block getBound()
 		return [__FVALUATOR_MINIMUM_BOUND,__FVALUATOR_MAXIMUM_BOUND]
 		
