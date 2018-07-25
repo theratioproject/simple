@@ -20,7 +20,7 @@ class FAdjuster : FValuator
 	WIDGET_WIDTH = 100 #The widget Width
 	
 	/* BOOLEAN */
-	_FADJUSTER_WIDGET_IS_SOFT = false
+	__FADJUSTER_WIDGET_IS_SOFT = false
 
 	setTypeName("FAdjuster") #change the name of the widget
 	if getTypeName() == "FAdjuster" initialize() end
@@ -28,11 +28,11 @@ class FAdjuster : FValuator
 	block FAdjuster()
 	
 	block soft(condition)
-		_FADJUSTER_WIDGET_IS_SOFT = condition
-		__adjuster_soft(WIDGETPOINTER,_FADJUSTER_WIDGET_IS_SOFT)
+		__FADJUSTER_WIDGET_IS_SOFT = condition
+		__adjuster_soft(WIDGETPOINTER,__FADJUSTER_WIDGET_IS_SOFT)
 		
 	block isSoft()
-		return _FADJUSTER_WIDGET_IS_SOFT
+		return __FADJUSTER_WIDGET_IS_SOFT
 		
 	
 	block initialize()

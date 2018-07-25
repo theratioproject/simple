@@ -18,6 +18,8 @@ class FValuator : FWidget
 	/* NUMBERS */
 	WIDGET_HEIGHT = 25 #The widget Height
 	WIDGET_WIDTH = 100 #The widget Width
+	__FVALUATOR_MINIMUM_BOUND = 0 #Valuators minimum bound
+	__FVALUATOR_MAXIMUM_BOUND = 0 #Valuators maximum bound
 
 	setTypeName("FValuator") #change the name of the widget
 	
