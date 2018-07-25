@@ -20,12 +20,10 @@ class FValuator : FWidget
 	WIDGET_WIDTH = 100 #The widget Width
 
 	setTypeName("FValuator") #change the name of the widget
-	if getTypeName() == "FValuator" initialize() end
 	
 	block FValuator()
 	
-	block initialize()
-		WIDGETPOINTER = __init_valuator(WIDGET_X, WIDGET_Y, WIDGET_WIDTH, WIDGET_HEIGHT)
+	
 		
 
 
