@@ -11,9 +11,9 @@
  * @Time - 08:05 AM
  */
 
-call "../core/FWidget.sim"
+call "FValuator.sim"
 
-class FAdjuster : FWidget
+class FAdjuster : FValuator
 	
 	/* NUMBERS */
 	WIDGET_HEIGHT = 25 #The widget Height

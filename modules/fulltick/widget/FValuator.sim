@@ -13,19 +13,19 @@
 
 call "../core/FWidget.sim"
 
-class FAdjuster : FWidget
+class FValuator : FWidget
 	
 	/* NUMBERS */
 	WIDGET_HEIGHT = 25 #The widget Height
 	WIDGET_WIDTH = 100 #The widget Width
 
-	setTypeName("FAdjuster") #change the name of the widget
-	if getTypeName() == "FAdjuster" initialize() end
+	setTypeName("FValuator") #change the name of the widget
+	if getTypeName() == "FValuator" initialize() end
 	
-	block FAdjuster()
+	block FValuator()
 	
 	block initialize()
-		WIDGETPOINTER = __init_adjuster(WIDGET_X, WIDGET_Y, WIDGET_WIDTH, WIDGET_HEIGHT)
+		WIDGETPOINTER = __init_valuator(WIDGET_X, WIDGET_Y, WIDGET_WIDTH, WIDGET_HEIGHT)
 		
 
 
