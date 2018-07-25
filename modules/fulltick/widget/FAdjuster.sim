@@ -12,3 +12,14 @@
  */
 
 call "../core/FWidget.sim"
+
+class FAdjuster : FWidget
+
+	setTypeName("FWindow") #change the name of the widget
+	if getTypeName() == "FWindow" initialize()
+	
+	block FAdjuster()
+		
+
+
+

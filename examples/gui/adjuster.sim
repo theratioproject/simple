@@ -16,7 +16,6 @@ call "fulltick/widget/FAdjuster.sim"
 call "fulltick/widget/FWindow.sim"
 
 block main()
-
 	window = new FWindow() 
 	window.setTitle("FADJUSTER DEMO").setSize(300, 150)
 	window.run()
