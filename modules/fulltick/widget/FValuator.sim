@@ -82,7 +82,7 @@ class FValuator : FWidget
 		
 	block clampTo(position)
 		__FVALUATOR_CLAMP_POSITION = position
-		__valuator_clamp(__FVALUATOR_CLAMP_POSITION)
+		__valuator_clamp(WIDGETPOINTER,__FVALUATOR_CLAMP_POSITION)
 		
 	block getClampPosition()
 		return __FVALUATOR_CLAMP_POSITION

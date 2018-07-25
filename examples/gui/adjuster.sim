@@ -23,6 +23,7 @@ adjuster1 = new FAdjuster()
 adjuster1.setPosition(100,10).setBackground(90).callback("updateInput(adjuster1,input1)")
 adjuster1.soft(true)
 adjuster1.setBound(10,20)
+adjuster1.clampTo(10)
 
 block main()	
 	window = new FWindow() 
