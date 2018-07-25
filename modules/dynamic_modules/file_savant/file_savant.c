@@ -98,10 +98,10 @@ void path_block_size(void *pointer)
 			if (err == -1) {
 				SIMPLE_API_ERROR(FILE_SAVANT_FILE_ERROR);
 			} else {
-				#if _WIN32
-					SIMPLE_API_RETNUMBER(512);
-				#else
+				#ifdef info.st_blksize
 					SIMPLE_API_RETNUMBER((long) info.st_blksize);
+				#else
+					SIMPLE_API_RETNUMBER(512);
 				#endif
 			}
 	} else {

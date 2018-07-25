@@ -87,7 +87,17 @@ class PathAttributes
 		if __IO_FILE_ATTR_SUCCESS {
 			return __path_block_size(__IO_FILE_ATTR_PATH)
 		}
-		return null
+		return 0
+		
+	block blockAllocated()
+		tempBlock = 0
+		if __IO_FILE_ATTR_SUCCESS {
+			tempBlock = __path_blocks(__IO_FILE_ATTR_PATH)
+		}
+		if tempBlock == -1 {
+			tempBlock = (size() / blockSize())
+		}
+		return tempBlock
 	
 	private 
 	

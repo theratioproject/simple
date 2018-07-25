@@ -264,6 +264,9 @@ class Path
 	block blockSize()
 		return toPathAttributes().blockSize()
 		
+	block blockAllocated()
+		return toPathAttributes().blockAllocated()
+		
 	/*
 		Get the type associated with the path from @File PathType in 
 		@return the path type @DataType String
