@@ -21,7 +21,7 @@ class FAdjuster : FWidget
 	block FAdjuster()
 	
 	block initialize()
-		WIDGETPOINTER = __init_adjuster(FILE_CHOOSER_DIRECTORY, FILE_CHOOSER_FILTER, FILE_CHOOSER_SELECTION_TYPE, WIDGET_TITLE)
+		WIDGETPOINTER = __init_adjuster(WIDGET_X, WIDGET_Y, WIDGET_WIDTH, WIDGET_HEIGHT)
 		
 
 
