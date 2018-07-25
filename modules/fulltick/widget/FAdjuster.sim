@@ -18,6 +18,10 @@ class FAdjuster : FWidget
 	setTypeName("FAdjuster") #change the name of the widget
 	if getTypeName() == "FAdjuster" initialize() end
 	
+	/* NUMBERS */
+	WIDGET_HEIGHT = 25 #The widget Height
+	WIDGET_WIDTH = 75 #The widget Width
+	
 	block FAdjuster()
 	
 	block initialize()
