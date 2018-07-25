@@ -16,13 +16,13 @@ call "fulltick/widget/FAdjuster.sim"
 call "fulltick/widget/FWindow.sim"
 call "fulltick/widget/FInput.sim"
 
-block main()
-	input1 = new FInput("00001")
-	input1.setWidth(80).setPosition(10,7)
-	
-	adjuster1 = new FAdjuster()
-	adjuster1.setPosition(100,10).setBackground(90).callback("updateInput(adjuster1,input1)")
-	
+input1 = new FInput("00001")
+input1.setWidth(80).setPosition(10,7)
+
+adjuster1 = new FAdjuster()
+adjuster1.setPosition(100,10).setBackground(90).callback("updateInput(adjuster1,input1)")
+
+block main()	
 	window = new FWindow() 
 	window.setTitle("FADJUSTER DEMO").setSize(300, 150)
 	window.addWidget([input1,adjuster1])
