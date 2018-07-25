@@ -16,12 +16,12 @@ call "../core/FWidget.sim"
 class FAdjuster : FWidget
 
 	setTypeName("FAdjuster") #change the name of the widget
-	if getTypeName() == "FAdjuster" initialize()
+	if getTypeName() == "FAdjuster" initialize() end
 	
 	block FAdjuster()
 	
 	block initialize()
-		WIDGETPOINTER = __init_file_chooser(FILE_CHOOSER_DIRECTORY, FILE_CHOOSER_FILTER, FILE_CHOOSER_SELECTION_TYPE, WIDGET_TITLE)
+		WIDGETPOINTER = __init_adjuster(FILE_CHOOSER_DIRECTORY, FILE_CHOOSER_FILTER, FILE_CHOOSER_SELECTION_TYPE, WIDGET_TITLE)
 		
 
 
