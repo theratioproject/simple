@@ -24,20 +24,23 @@ class FValuator : FWidget
 	setTypeName("FValuator") #change the name of the widget
 	
 	/*
-	
+		Set the minimum and maximum
 	*/
 	block setBound(minimum,maximum)
 		__FVALUATOR_MINIMUM_BOUND = minimum
 		__FVALUATOR_MAXIMUM_BOUND = maximum
 		__set_valuator_bound(WIDGETPOINTER,__FVALUATOR_MINIMUM_BOUND,__FVALUATOR_MAXIMUM_BOUND)
+		return this
 		
 	block setMinimumBound(bound)
 		__FVALUATOR_MINIMUM_BOUND = bound
 		__set_valuator_bound(WIDGETPOINTER,__FVALUATOR_MINIMUM_BOUND,__FVALUATOR_MAXIMUM_BOUND)
+		return this
 		
 	block setMaximumBound(bound)
 		__FVALUATOR_MAXIMUM_BOUND = bound
 		__set_valuator_bound(WIDGETPOINTER,__FVALUATOR_MINIMUM_BOUND,__FVALUATOR_MAXIMUM_BOUND)
+		return this
 		
 	block getBound()
 		return [__FVALUATOR_MINIMUM_BOUND,__FVALUATOR_MAXIMUM_BOUND]
