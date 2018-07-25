@@ -2546,7 +2546,6 @@ SIMPLE_BLOCK(text_display_wrapped_row)
 }
 
 /* FTEXTEDITOR */
-
 SIMPLE_BLOCK(init_text_editor)
 {
 	if ( SIMPLE_API_PARACOUNT != 4 ) {
@@ -2581,6 +2580,21 @@ SIMPLE_BLOCK(text_buffer_text)
 	if ( SIMPLE_API_ISPOINTER(1) && SIMPLE_API_ISSTRING(2) ) {
 		Fl_Text_Buffer *buffer = (Fl_Text_Buffer* ) SIMPLE_API_GETCPOINTER(1,"SIMPLE_FLTK_"); 
 		buffer->text(SIMPLE_API_GETSTRING(2));
+	} else {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+	}
+}
+
+/* FVALUATOR */
+SIMPLE_BLOCK(init_adjuster)
+{
+	if ( SIMPLE_API_PARACOUNT != 4 ) {
+		SIMPLE_API_ERROR(FULLTICK_MISING4PARAM);
+		return ;
+	}
+	if ( SIMPLE_API_ISNUMBER(1) && SIMPLE_API_ISNUMBER(2) && SIMPLE_API_ISNUMBER(3) && SIMPLE_API_ISNUMBER(4)) {
+		Fl_Adjuster *adjuster = new Fl_Adjuster((int)SIMPLE_API_GETNUMBER(1),(int)SIMPLE_API_GETNUMBER(2),(int)SIMPLE_API_GETNUMBER(3),(int)SIMPLE_API_GETNUMBER(4));
+		SIMPLE_API_RETCPOINTER(adjuster,"SIMPLE_FLTK_");
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
@@ -2808,7 +2822,7 @@ SIMPLE_API void init_full_tick(SimpleState *sState)
 	register_block("__text_buffer_text",text_buffer_text);
 
 	/** FVALUATOR **/
-	register_block("__init_adjuster",init_adjuster);
+	register_block("__init_valuator",init_valuator);
 
 	/** FADJUSTER **/
 	register_block("__init_adjuster",init_adjuster);
