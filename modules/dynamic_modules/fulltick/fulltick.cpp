@@ -2586,7 +2586,7 @@ SIMPLE_BLOCK(text_buffer_text)
 }
 
 /* FVALUATOR */
-SIMPLE_BLOCK(set_valuator_bound)
+SIMPLE_BLOCK(valuator_bound)
 {
 	if ( SIMPLE_API_PARACOUNT != 3 ) {
 		SIMPLE_API_ERROR(FULLTICK_MISING3PARAM);
@@ -2594,7 +2594,21 @@ SIMPLE_BLOCK(set_valuator_bound)
 	}
 	if ( SIMPLE_API_ISPOINTER(1) && SIMPLE_API_ISNUMBER(2) && SIMPLE_API_ISNUMBER(3)) {
 		Fl_Valuator *valuator = (Fl_Valuator* ) SIMPLE_API_GETCPOINTER(1,"SIMPLE_FLTK_"); 
-		valuator->bounds((int)SIMPLE_API_GETNUMBER(2),(int)SIMPLE_API_GETNUMBER(3));
+		valuator->bounds((double)SIMPLE_API_GETNUMBER(2),(double)SIMPLE_API_GETNUMBER(3));
+	} else {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+	}
+}
+
+SIMPLE_BLOCK(valuator_clamp)
+{
+	if ( SIMPLE_API_PARACOUNT != 2 ) {
+		SIMPLE_API_ERROR(FULLTICK_MISING2PARAM);
+		return ;
+	}
+	if ( SIMPLE_API_ISPOINTER(1) && SIMPLE_API_ISNUMBER(2) ) {
+		Fl_Valuator *valuator = (Fl_Valuator* ) SIMPLE_API_GETCPOINTER(1,"SIMPLE_FLTK_"); 
+		valuator->clamp((double)SIMPLE_API_GETNUMBER(2));
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
@@ -2822,7 +2836,8 @@ SIMPLE_API void init_full_tick(SimpleState *sState)
 	register_block("__text_buffer_text",text_buffer_text);
 
 	/** FVALUATOR **/
-	register_block("__valuator_bound",set_valuator_bound);
+	register_block("__valuator_bound",valuator_bound);
+	register_block("__valuator_clamp",valuator_clamp);
 
 	/** FADJUSTER **/
 	register_block("__init_adjuster",init_adjuster);
