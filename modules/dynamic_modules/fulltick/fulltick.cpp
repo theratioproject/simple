@@ -2571,12 +2571,16 @@ SIMPLE_BLOCK(text_buffer_text)
 /* FADJUSTER */
 SIMPLE_BLOCK(init_adjuster)
 {
-	if ( SIMPLE_API_PARACOUNT != 0 ) {
+	if ( SIMPLE_API_PARACOUNT != 4 ) {
 		SIMPLE_API_ERROR(FULLTICK_MISING4PARAM);
 		return ;
 	}
-	Fl_Text_Buffer *buff = new Fl_Text_Buffer();
-	SIMPLE_API_RETCPOINTER(buff,"SIMPLE_FLTK_");
+	if ( SIMPLE_API_ISNUMBER(1) && SIMPLE_API_ISNUMBER(2) && SIMPLE_API_ISNUMBER(3) && SIMPLE_API_ISNUMBER(4)) {
+		Fl_Adjuster *adjuster = new Fl_Adjuster((int)SIMPLE_API_GETNUMBER(1),(int)SIMPLE_API_GETNUMBER(2),(int)SIMPLE_API_GETNUMBER(3),(int)SIMPLE_API_GETNUMBER(4));
+		SIMPLE_API_RETCPOINTER(adjuster,"SIMPLE_FLTK_");
+	} else {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+	}
 }
 
 SIMPLE_API void init_full_tick(SimpleState *sState) 
