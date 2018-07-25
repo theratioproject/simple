@@ -2760,4 +2760,7 @@ SIMPLE_API void init_full_tick(SimpleState *sState)
 	register_block("__init_text_buffer",init_text_buffer);
 	register_block("__text_buffer_text",text_buffer_text);
 
+	/** FADJUSTER **/
+	register_block("__init_adjuster",init_adjuster);
+
 }
