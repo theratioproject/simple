@@ -18,7 +18,7 @@ call "fulltick/widget/FInput.sim"
 
 block main()
 	input1 = new FInput("00001")
-	input1.setWidth(80).setPosition(10,10)
+	input1.setWidth(80).setPosition(10,7)
 	
 	adjuster = new FAdjuster()
 	adjuster.setPosition(100,10)
