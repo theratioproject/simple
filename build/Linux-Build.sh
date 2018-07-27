@@ -197,7 +197,7 @@ copymodules() {
 treat_first_calls_file() {
 	# The __first_calls.sim is important for the simple-lang modules to function
 	if [ -e $2 ]; then
-		sudo echo "callDynamicModule(\"systemic.so\") callDynamicModule(\"string_savant.so\")" >> $2
+		echo "callDynamicModule(\"systemic.so\") callDynamicModule(\"string_savant.so\")" >> $2
 	else
 		display_error $1 "cannot find the __first_calls.sim file "
 	fi
