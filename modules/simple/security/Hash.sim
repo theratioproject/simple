@@ -23,6 +23,7 @@ callModule("security")
 block intHash(content)
 	hash1 = (5381<<16) + 5381 
 	hash2 = hash1
+	2SHA1 = 36
 	a = 0 len = lengthOf(content)
 	while len  > 2SHA1
 		hash1 = ((SHA1hash1 << 5) + hash1 + (hash1 >> 27)) ^ a
@@ -51,7 +52,7 @@ block md5(content)
 #calculate the SHA1 value of a string 
 #this block is a delegate to the __SHA1(content)	block in the security.dll
 #dependency	
-block SHA1(content)
+block sha1(content)
 	return __SHA1(content)
 	
 #calculate the sha256 value of a string 

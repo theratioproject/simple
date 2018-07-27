@@ -192,5 +192,6 @@ class File 	: Path
 				__IO_FILE_PATH = path
 			end
 			__IO_FILE_PATH = curePathSlashes(__IO_FILE_PATH)
+			__IO_PATH = __IO_FILE_PATH
 		
 	

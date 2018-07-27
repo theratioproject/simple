@@ -1305,6 +1305,7 @@ void simple_vm_addglobalvariables ( VM *vm )
 	simple_vm_addnewpointervar(vm,"this",NULL,0);
 	simple_vm_addnewstringvar(vm,"tab","\t");
 	simple_vm_addnewstringvar(vm,"cr","\r");
+	simple_vm_addnewstringvar(vm,"nl","\n");
 	/* Add Command Line Parameters */
 	list = simple_vm_newvar2(vm,"cmdparams",vm->pActiveMem);
 	simple_list_setint_gc(vm->sState,list,SIMPLE_VAR_TYPE,SIMPLE_VM_LIST);

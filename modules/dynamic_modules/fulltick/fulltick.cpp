@@ -179,6 +179,24 @@ SIMPLE_BLOCK(set_label)
 	}
 }
 
+SIMPLE_BLOCK(get_label)
+{
+	if ( SIMPLE_API_PARACOUNT != 1) {
+		SIMPLE_API_ERROR(FULLTICK_MISING1PARAM);
+		return ;
+	}
+	if ( SIMPLE_API_ISPOINTER(1) ) {
+		Fl_Widget *widget = (Fl_Widget* ) SIMPLE_API_GETCPOINTER(1,"SIMPLE_FLTK_");
+		if ((char*)widget->label() != NULL ) {
+			SIMPLE_API_RETSTRING((char*)widget->label());
+		} else {
+			SIMPLE_API_RETSTRING("");
+		}
+	} else {
+		SIMPLE_API_ERROR(FULLTICK_WRONGPARAM);
+	}
+}
+
 SIMPLE_BLOCK(set_size)
 {
 	if ( SIMPLE_API_PARACOUNT != 3 ) {
@@ -2528,7 +2546,6 @@ SIMPLE_BLOCK(text_display_wrapped_row)
 }
 
 /* FTEXTEDITOR */
-
 SIMPLE_BLOCK(init_text_editor)
 {
 	if ( SIMPLE_API_PARACOUNT != 4 ) {
@@ -2544,7 +2561,6 @@ SIMPLE_BLOCK(init_text_editor)
 }
 
 /* FTEXTBUFFER */
-
 SIMPLE_BLOCK(init_text_buffer)
 {
 	if ( SIMPLE_API_PARACOUNT != 0 ) {
@@ -2569,6 +2585,64 @@ SIMPLE_BLOCK(text_buffer_text)
 	}
 }
 
+/* FVALUATOR */
+SIMPLE_BLOCK(valuator_bound)
+{
+	if ( SIMPLE_API_PARACOUNT != 3 ) {
+		SIMPLE_API_ERROR(FULLTICK_MISING3PARAM);
+		return ;
+	}
+	if ( SIMPLE_API_ISPOINTER(1) && SIMPLE_API_ISNUMBER(2) && SIMPLE_API_ISNUMBER(3)) {
+		Fl_Valuator *valuator = (Fl_Valuator* ) SIMPLE_API_GETCPOINTER(1,"SIMPLE_FLTK_"); 
+		valuator->bounds((double)SIMPLE_API_GETNUMBER(2),(double)SIMPLE_API_GETNUMBER(3));
+	} else {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+	}
+}
+
+SIMPLE_BLOCK(valuator_clamp)
+{
+	if ( SIMPLE_API_PARACOUNT != 2 ) {
+		SIMPLE_API_ERROR(FULLTICK_MISING2PARAM);
+		return ;
+	}
+	if ( SIMPLE_API_ISPOINTER(1) && SIMPLE_API_ISNUMBER(2) ) {
+		Fl_Valuator *valuator = (Fl_Valuator* ) SIMPLE_API_GETCPOINTER(1,"SIMPLE_FLTK_"); 
+		valuator->clamp((double)SIMPLE_API_GETNUMBER(2));
+	} else {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+	}
+}
+
+/* FADJUSTER */
+SIMPLE_BLOCK(init_adjuster)
+{
+	if ( SIMPLE_API_PARACOUNT != 4 ) {
+		SIMPLE_API_ERROR(FULLTICK_MISING4PARAM);
+		return ;
+	}
+	if ( SIMPLE_API_ISNUMBER(1) && SIMPLE_API_ISNUMBER(2) && SIMPLE_API_ISNUMBER(3) && SIMPLE_API_ISNUMBER(4)) {
+		Fl_Adjuster *adjuster = new Fl_Adjuster((int)SIMPLE_API_GETNUMBER(1),(int)SIMPLE_API_GETNUMBER(2),(int)SIMPLE_API_GETNUMBER(3),(int)SIMPLE_API_GETNUMBER(4));
+		SIMPLE_API_RETCPOINTER(adjuster,"SIMPLE_FLTK_");
+	} else {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+	}
+}
+
+SIMPLE_BLOCK(adjuster_soft)
+{
+	if ( SIMPLE_API_PARACOUNT != 2 ) {
+		SIMPLE_API_ERROR(FULLTICK_MISING2PARAM);
+		return ;
+	}
+	if ( SIMPLE_API_ISPOINTER(1) && SIMPLE_API_ISNUMBER(2) ) {
+		Fl_Adjuster *adjuster = (Fl_Adjuster* ) SIMPLE_API_GETCPOINTER(1,"SIMPLE_FLTK_");
+		adjuster->soft((int) SIMPLE_API_GETNUMBER(2));
+	} else {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+	}
+}
+
 SIMPLE_API void init_full_tick(SimpleState *sState) 
 {
 	register_block("__test_gui",test_gui);
@@ -2581,6 +2655,7 @@ SIMPLE_API void init_full_tick(SimpleState *sState)
 	register_block("__resizable",resizable_object);
 	register_block("__set_bg",set_widget_background);
 	register_block("__set_label",set_label);
+	register_block("__get_label",get_label);
 	register_block("__set_label_color",set_label_color);
 	register_block("__set_label_size",set_label_size);
 	register_block("__set_label_type",set_label_type);
@@ -2759,5 +2834,13 @@ SIMPLE_API void init_full_tick(SimpleState *sState)
 	/** FTEXTBUFFER **/
 	register_block("__init_text_buffer",init_text_buffer);
 	register_block("__text_buffer_text",text_buffer_text);
+
+	/** FVALUATOR **/
+	register_block("__valuator_bound",valuator_bound);
+	register_block("__valuator_clamp",valuator_clamp);
+
+	/** FADJUSTER **/
+	register_block("__init_adjuster",init_adjuster);
+	register_block("__adjuster_soft",adjuster_soft);
 
 }

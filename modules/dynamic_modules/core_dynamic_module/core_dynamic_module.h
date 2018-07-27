@@ -21,25 +21,29 @@ extern "C" {
     
 SIMPLE_API void init_simple_module(SimpleState *sState) ;
 
+/* Date and Time */
+SIMPLE_API void date_time_clock(void *pointer);
+SIMPLE_API void date_time_clock_per_second(void *pointer);
+SIMPLE_API void date_time_date(void *pointer);
+SIMPLE_API void date_time_time(void *pointer);
+SIMPLE_API void date_time_list(void *pointer);
+SIMPLE_API void date_time_t_to_list(void *pointer);
+SIMPLE_API void date_time_add_days(void *pointer);
+int simple_add_leap_year(int nYear);
+
 /* Error and Warn */
 SIMPLE_API void error_warn(void *pointer);
-
 SIMPLE_API void error_stack_trace(void *pointer);
-
 SIMPLE_API void error_throw(void *pointer);
 
 /* Conversion */
 SIMPLE_API void conversion_string_to_hex(void *pointer);
-
 SIMPLE_API void conversion_string_to_chex (void *pointer);
-
 SIMPLE_API void conversion_hex_to_string(void *pointer);
-
 SIMPLE_API void conversion_string_to_list (void *pointer);
 
 /* Characters Checking */ 
 SIMPLE_API void check_characters_is_block(void *pointer,int (*block)(int));
-
 SIMPLE_API void check_characters_is_alpha_num(void *pointer);
 
 /* Meta Blocks */ 

@@ -1,20 +1,26 @@
 /* 
-	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com> 
 	MIT License Copyright (c) 2018 simple 
 
 */
 
 /* 
- * #filename - Path.sim
- * #author - Azeez Adewale
- * #date - 10 Febuary 2017
+ * @Filename - Path.sim
+ * @Author - Azeez Adewale
+ * @Date - 10 Febuary 2017
  */
+
+/*
+	
+*/
  
 module simple.io
 
 call "loadfilesavantlib.sim"
 call "simple/core/String.sim"
 call "simple/system/System.sim"
+call "PathAttributes.sim"
+call "PathType.sim"
 
 block isPath(ipath)
 	try 
@@ -29,9 +35,27 @@ block isDirectory(directoryPath)
 		return true
 	}
 	return false
+	
+/*
+	Format the slashes in @Class File, @Class Directory and @Class Path
+	to the operating system standard to allow the system treat the path
+	as it own and not reject operation due to incorrect path format. 
+	It also remove multiple slashes and convert it to os single slash
+	@Return the formated path @DataType String
+*/
+block __curePathSlashes(path)
+	if isPath(path) { 
+		ret = path.toString() 
+	elif isString(path)
+		tempPath = new Path(path)
+		ret = tempPath.toString()
+	}
+	return ret
  
 class Path
 	
+	
+	__IO_PATH = null
 	__IO_MODULE = "simple.io.Path"
 	__IO_PATH_EMPTY = "The __IO_PATH variable is empty"
 	__IO_PATH_NOT_STRING = "Only string is allowed as parameter"
@@ -197,9 +221,63 @@ class Path
 		else
 			return renameTo(__newFolder+getSystemSlash()+getName())
 		}
+		
+	/*
+		Convert the @Class Path to @Class FileAttributes to get the stats, attributes 
+		and properties of a path
+		@Return the path attributes value of the current class @DataType @Class PathAttributes
+	*/
+	block toPathAttributes()
+		return new PathAttributes(__IO_PATH)
+		
+	/*
+		This return the total size of the provide path in pure byte.
+		@Return the size of path in byte @DataType Number
+	*/
+	block size()
+		return toPathAttributes().size()
+		
+	block nodeNumber()
+		return toPathAttributes().nodeNumber()
+		
+	block hardLinkCount()
+		return toPathAttributes().hardLinkCount()
+		
+	block GID()
+		return toPathAttributes().GID()
+		
+	block UID()
+		return toPathAttributes().UID()
+		
+	block lastAccessDate()
+		return toPathAttributes().lastAccessDate()
+		
+	block lastDateModified()
+		return toPathAttributes().lastDateModified()
+		
+	block lastDateChanged()
+		return toPathAttributes().lastDateChanged()
+		
+	block dateCreated()
+		return toPathAttributes().dateCreated()
+		
+	block blockSize()
+		return toPathAttributes().blockSize()
+		
+	block blockAllocated()
+		return toPathAttributes().blockAllocated()
+		
+	/*
+		Get the type associated with the path from @File PathType in 
+		@return the path type @DataType String
+	*/
+	block type()
+		return toPathType().getTypeValue()
+		
+	block toPathType()
+		return new PathType(__IO_PATH)
 	
 	private 
-		__IO_PATH = null
 	
 		block getCorrectPath(oddPath)
 			correctPath = currentDirectory()

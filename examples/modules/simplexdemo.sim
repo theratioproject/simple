@@ -1,0 +1,27 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com> 
+	MIT License Copyright (c) 2018 simple-lang
+*/
+
+/* 
+ * @Filename - simplexdemo.sim
+ * @Author - Azeez Adewale
+ * @Date - 01 July 2018
+ * @Time - 01:25 PM
+ */
+
+/*
+	This demo for the module simple.system.SimpleX which
+	provide blocks to simple-lang directories, files and 
+	attributes on the specific system
+*/
+
+call "simple/system/SimpleX.sim"
+
+display "Where simple-lang is installed : "+simpleDirectory()+ nl
+display "simple-lang executables dir : "+simpleExecDirectory()+ nl
+display "simple-lang modules dir : "+simpleModulesDirectory()+ nl
+display "simple-lang dynamic modules dir : "+simpleDyModulesDirectory()+ nl
+display "simple-lang documentation dir : "+simpleDocDirectory()+ nl
+display "simple-lang executables extension : "+simpleXExeExt()+ nl
+display "Dynamic Module Extension : "+dynamicModuleExt()+ nl

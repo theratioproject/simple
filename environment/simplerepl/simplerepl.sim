@@ -6,6 +6,7 @@
 */
 
 call "simple/utilities/Console.sim"
+call "simple/system/System.sim"
 
 simpleReplTitle = " 
                                                                                                          | 
@@ -24,16 +25,16 @@ simpleReplTitle = "
                                                                                                          |  
 "
 	
-	Console.printLineWithColor(ConsoleColor.GREEN(), null)
-	Console.printWithFG(ConsoleColor.YELLOW(), simpleReplTitle)
-	Console.printLineWithColor(ConsoleColor.GREEN(), null)
-while true
-	display crlf 
-	Console.printWithFG(ConsoleColor.CYAN(), "simple@repl > ")
+	printLineWithColor(ConsoleColor.GREEN(), null)
+	printWithFG(ConsoleColor.YELLOW(), simpleReplTitle)
+	printLineWithColor(ConsoleColor.GREEN(), null)
+while true {
+	printWithFG(ConsoleColor.CYAN(), "simple@"+getOS()+" >>> ")
 	read code
 	try
 		executeCode(code)
+		display nl
 	catch
-		Console.printWithFG(ConsoleColor.RED(), __err__)
+		printWithFG(ConsoleColor.RED(), __err__)
 	end
-end 
+} 

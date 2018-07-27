@@ -21,6 +21,7 @@ call "simple/utilities/parser/json/JsonObject.sim"
 call "simple/security/Hash.sim" ? simple.security
 call "archive/zip/Zip.sim" 
 call "simple/system/System.sim"
+call "simple/system/SimpleX.sim"
 call "simple/utilities/Conversion.sim"
 call "web/functions/Methods.sim"
 
@@ -40,17 +41,18 @@ monkeyFace = '
 
 modularTitle = ""
 
-simpleLangHost = "https://simple-lang.sourceforge.io/cgi-bin/simple-web/index.sim"
+simpleLangCgiUrl = "http://localhost/simple-lang.io/" #"https://simple-lang.sourceforge.io/simple-web/cgi-bin/"
+simpleLangHost = "https://simple-lang.sourceforge.io/simple-web/cgi-bin/simple-web/index.sim"
 verifierUrl = simpleLangHost+"?page=Packages%20Index&sub_page=Verifier"
 addPackageUrl = simpleLangHost+"?page=Packages%20Index&sub_page=Add%20New%20Package"
-simpleUpdateUrl = simpleLangHost+"api/Upgrade.sim"
-packageUrl = simpleLangHost+"api/PackageInstaller.sim"
-simpleDistDirectory = getSimpleDirectory()
+simpleUpdateUrl = simpleLangCgiUrl+"api/Upgrade.sim"
+packageUrl = simpleLangCgiUrl+"api/PackageInstaller.sim"
+simpleDistDirectory = simpleDirectory()
 tempDirectory = getTemporaryDirectory()
-modulesDirectory = getSimpleModulesDirectory()
+modulesDirectory = simpleModulesDirectory()
+documentationDirectory = simpleDocDirectory()
+dynamicModulesDirectory = simpleDyModulesDirectory()
 
-documentationDirectory = modulesDirectory+"../docs/"
-dynamicModulesDirectory = modulesDirectory+"/dynamic_modules/"
 deleteTemp = true
 showInfo = false
 askPermission = true
@@ -257,7 +259,6 @@ block getSupportingModulesInfo(initialPackage)
 	
 block loadPackageAndDep()
 	latestPackage = []
-	@"looking up :"+packageUrl
 	packageJson = download(packageUrl+"?package="+package+"&type="+type+"&version="+version+"&os="+ostype)
 	if packageJson == null {
 		@"Internet connection is required to install "+package+" "+type+" package"
@@ -351,10 +352,10 @@ block upgradeSimpleDistro()
 				latestSimple.write(downloadedFile)
 				if latestSimple.exists() {
 					latestSimpleZip = new Zip(latestSimple.absolutePath(), "r")
-					@"Extracting simple-lang "+latestVersion+" into "+simpleDistDirectory
-					latestSimpleZip.extractAll(simpleDistDirectory)
+					@"Extracting simple-lang s"+latestVersion+" into "+simpleDistDirectory
+					latestSimpleZip.extractAll(simpleDistDirectory+"s"+latestVersion)
 					#latestSimpleZip.closeZip()
-					latestInstalledDir = new Directory(simpleDistDirectory+latestVersion)
+					latestInstalledDir = new Directory(simpleDistDirectory+"s"+latestVersion)
 					if latestInstalledDir.exists() {
 						@"simple-lang upgraded from "+localVersion+" to "+latestVersion
 					}
@@ -415,8 +416,8 @@ block displayAbout()
 
 block shell()
 	while true 
-		Console.printWithFG(ConsoleColor.GREEN(), modularTitle)
-		Console.printWithFG(ConsoleColor.GREEN(), "simple-lang.modular $ ")
+		printWithFG(ConsoleColor.GREEN(), modularTitle)
+		printWithFG(ConsoleColor.GREEN(), "simple-lang.modular $ ")
 		read command
 		if command == "exit" || command == "q" {
 			__exit__
@@ -427,13 +428,13 @@ block shell()
 	end
 
 block getTemporaryDirectory()
-	tempDirectory = System.getTempDirectory()
+	tempDirectory = getTempDirectory()
 	tDirectory = new Directory(tempDirectory+"/.simple_env/modular/")
 	tDirectory.create()
 	return tDirectory.getPath()
 	
 /*
-Ask for permission in cases where you are not a top priviledge user
+Ask for permission in cases where you are not a top privilege user
 
 */
 	

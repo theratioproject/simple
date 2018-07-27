@@ -33,6 +33,15 @@
 
 SIMPLE_API void init_simple_module(SimpleState *sState)
 {   
+	/* Date and Time */
+	register_block("__clock",date_time_clock);
+	register_block("__clock_per_second",date_time_clock_per_second);
+	register_block("__time",date_time_time);
+	register_block("__date",date_time_date);
+	register_block("__date_time_list",date_time_list);
+	register_block("__date_time_t_to_list",date_time_t_to_list);
+	register_block("__date_time_add_days",date_time_add_days);
+	
 	/* Error and Warn */
     register_block("__throw",error_throw);
     register_block("__stack_trace",error_stack_trace);
@@ -49,6 +58,285 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
 	
 	/* Meta Blocks */ 
 	register_block("__AddAttribute",meta_blocks_add_addribute);
+}
+
+/* Date and Time */
+SIMPLE_API void date_time_add_days(void *pointer)
+{
+	const char *cStr  ;
+	char buffer[25]  ;
+	int x,nDay,nMonth,nYear,nDaysInMonth  ;
+	int aDaysInMonth[12] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 } ;
+	if ( SIMPLE_API_PARACOUNT != 2 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARACOUNT);
+		return ;
+	}
+	if ( ! (SIMPLE_API_ISSTRING(1) && SIMPLE_API_ISNUMBER(2)) ) {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+		return ;
+	}
+	cStr = SIMPLE_API_GETSTRING(1);
+	if ( (SIMPLE_API_GETSTRINGSIZE(1) == 10) ) {
+		if ( isalnum(cStr[0]) && isalnum(cStr[1]) && isalnum(cStr[3]) && isalnum(cStr[4]) && isalnum(cStr[6]) && isalnum(cStr[7]) && isalnum(cStr[8]) && isalnum(cStr[9]) ) {
+			sprintf( buffer , "%c%c" , cStr[0],cStr[1] ) ;
+			nDay = atoi(buffer) + ((int) SIMPLE_API_GETNUMBER(2)) ;
+			sprintf( buffer , "%c%c" , cStr[3],cStr[4] ) ;
+			nMonth = atoi(buffer) ;
+			sprintf( buffer , "%c%c%c%c" , cStr[6],cStr[7],cStr[8],cStr[9] ) ;
+			nYear = atoi(buffer) ;
+			/* Fix Day Number */
+			nDaysInMonth = aDaysInMonth[nMonth-1] ;
+			/* Fix Leap Year */
+			if ( (nMonth == 2) && (simple_add_leap_year(nYear)) ) {
+				nDaysInMonth = 29 ;
+			}
+			while ( nDay > nDaysInMonth ) {
+				nDay = nDay - nDaysInMonth ;
+				nMonth++ ;
+				if ( nMonth == 13 ) {
+					nMonth = 1 ;
+					nYear++ ;
+				}
+				nDaysInMonth = aDaysInMonth[nMonth-1] ;
+				/* Fix Leap Year */
+				if ( (nMonth == 2) && (simple_add_leap_year(nYear)) ) {
+					nDaysInMonth = 29 ;
+				}
+			}
+			while ( nDay < 1 ) {
+				nMonth-- ;
+				if ( nMonth == 0 ) {
+					nMonth = 12 ;
+					nYear-- ;
+				}
+				nDaysInMonth = aDaysInMonth[nMonth-1] ;
+				/* Fix Leap Year */
+				if ( (nMonth == 2) && (simple_add_leap_year(nYear)) ) {
+					nDaysInMonth = 29 ;
+				}
+				nDay = nDaysInMonth - abs(nDay) ;
+			}
+			sprintf(buffer,"%2d/%2d/%4d", nDay,nMonth,nYear);
+			for ( x = 0 ; x <= 9 ; x++ ) {
+				if ( buffer[x] == ' ' ) {
+					buffer[x] = '0' ;
+				}
+			}
+			SIMPLE_API_RETSTRING(buffer);
+			return ;
+		}
+	}
+	SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+	return ;
+}
+
+int simple_add_leap_year(int year)
+{
+	if ( year%400 == 0 ) {
+		return 1 ;
+	}
+	if ( year%100 == 0 ) {
+		return 0 ;
+	}
+	return year % 4 == 0 ;
+}
+
+SIMPLE_API void date_time_t_to_list(void *pointer)
+{
+	time_t timer  ;
+	char buffer[25]  ;
+	struct tm*tm_info  ;
+	List *list  ;
+	if ( SIMPLE_API_PARACOUNT != 1 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARACOUNT);
+		return ;
+	}
+	if ( SIMPLE_API_ISCPOINTER(1) ) {
+		list = SIMPLE_API_NEWLIST ;
+		timer = SIMPLE_API_GETCPOINTER(1,"SIMPLE_LANG_TIME_");
+		tm_info = localtime(&timer);
+		/*
+		**  Add List Items 
+		**  abbreviated weekday name 
+		*/
+		strftime(buffer,25,"%a", tm_info);
+		simple_list_addstring_gc(((VM *) pointer)->sState,list,buffer);
+		/* full weekday name */
+		strftime(buffer,25,"%A", tm_info);
+		simple_list_addstring_gc(((VM *) pointer)->sState,list,buffer);
+		/* abbreviated month name */
+		strftime(buffer,25,"%b", tm_info);
+		simple_list_addstring_gc(((VM *) pointer)->sState,list,buffer);
+		/* full month name */
+		strftime(buffer,25,"%B", tm_info);
+		simple_list_addstring_gc(((VM *) pointer)->sState,list,buffer);
+		/* Date & Time */
+		strftime(buffer,25,"%c", tm_info);
+		simple_list_addstring_gc(((VM *) pointer)->sState,list,buffer);
+		/* Day of the month */
+		strftime(buffer,25,"%d", tm_info);
+		simple_list_addstring_gc(((VM *) pointer)->sState,list,buffer);
+		/* Hour (24) */
+		strftime(buffer,25,"%H", tm_info);
+		simple_list_addstring_gc(((VM *) pointer)->sState,list,buffer);
+		/* Hour (12) */
+		strftime(buffer,25,"%I", tm_info);
+		simple_list_addstring_gc(((VM *) pointer)->sState,list,buffer);
+		/* Day of the year */
+		strftime(buffer,25,"%j", tm_info);
+		simple_list_addstring_gc(((VM *) pointer)->sState,list,buffer);
+		/* Month of the year */
+		strftime(buffer,25,"%m", tm_info);
+		simple_list_addstring_gc(((VM *) pointer)->sState,list,buffer);
+		/* Minutes after hour */
+		strftime(buffer,25,"%M", tm_info);
+		simple_list_addstring_gc(((VM *) pointer)->sState,list,buffer);
+		/* AM or PM */
+		strftime(buffer,25,"%p", tm_info);
+		simple_list_addstring_gc(((VM *) pointer)->sState,list,buffer);
+		/* Seconds after the hour */
+		strftime(buffer,25,"%S", tm_info);
+		simple_list_addstring_gc(((VM *) pointer)->sState,list,buffer);
+		/* Week of the year (sun-sat) */
+		strftime(buffer,25,"%U", tm_info);
+		simple_list_addstring_gc(((VM *) pointer)->sState,list,buffer);
+		/* day of the week */
+		strftime(buffer,25,"%w", tm_info);
+		simple_list_addstring_gc(((VM *) pointer)->sState,list,buffer);
+		/* date */
+		strftime(buffer,25,"%x", tm_info);
+		simple_list_addstring_gc(((VM *) pointer)->sState,list,buffer);
+		/* time */
+		strftime(buffer,25,"%X", tm_info);
+		simple_list_addstring_gc(((VM *) pointer)->sState,list,buffer);
+		/* year of the century */
+		strftime(buffer,25,"%y", tm_info);
+		simple_list_addstring_gc(((VM *) pointer)->sState,list,buffer);
+		/* year */
+		strftime(buffer,25,"%Y", tm_info);
+		simple_list_addstring_gc(((VM *) pointer)->sState,list,buffer);
+		/* time zone */
+		strftime(buffer,25,"%Z", tm_info);
+		simple_list_addstring_gc(((VM *) pointer)->sState,list,buffer);
+		/* percent sign */
+		strftime(buffer,25,"%%", tm_info);
+		simple_list_addstring_gc(((VM *) pointer)->sState,list,buffer);
+		SIMPLE_API_RETLIST(list);
+	} else {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+	}
+}
+
+SIMPLE_API void date_time_list(void *pointer)
+{
+	time_t timer  ;
+	char buffer[25]  ;
+	struct tm*tm_info  ;
+	List *list  ;
+	list = SIMPLE_API_NEWLIST ;
+	time(&timer);
+	tm_info = localtime(&timer);
+	/*
+	**  Add List Items 
+	**  abbreviated weekday name 
+	*/
+	strftime(buffer,25,"%a", tm_info);
+	simple_list_addstring_gc(((VM *) pointer)->sState,list,buffer);
+	/* full weekday name */
+	strftime(buffer,25,"%A", tm_info);
+	simple_list_addstring_gc(((VM *) pointer)->sState,list,buffer);
+	/* abbreviated month name */
+	strftime(buffer,25,"%b", tm_info);
+	simple_list_addstring_gc(((VM *) pointer)->sState,list,buffer);
+	/* full month name */
+	strftime(buffer,25,"%B", tm_info);
+	simple_list_addstring_gc(((VM *) pointer)->sState,list,buffer);
+	/* Date & Time */
+	strftime(buffer,25,"%c", tm_info);
+	simple_list_addstring_gc(((VM *) pointer)->sState,list,buffer);
+	/* Day of the month */
+	strftime(buffer,25,"%d", tm_info);
+	simple_list_addstring_gc(((VM *) pointer)->sState,list,buffer);
+	/* Hour (24) */
+	strftime(buffer,25,"%H", tm_info);
+	simple_list_addstring_gc(((VM *) pointer)->sState,list,buffer);
+	/* Hour (12) */
+	strftime(buffer,25,"%I", tm_info);
+	simple_list_addstring_gc(((VM *) pointer)->sState,list,buffer);
+	/* Day of the year */
+	strftime(buffer,25,"%j", tm_info);
+	simple_list_addstring_gc(((VM *) pointer)->sState,list,buffer);
+	/* Month of the year */
+	strftime(buffer,25,"%m", tm_info);
+	simple_list_addstring_gc(((VM *) pointer)->sState,list,buffer);
+	/* Minutes after hour */
+	strftime(buffer,25,"%M", tm_info);
+	simple_list_addstring_gc(((VM *) pointer)->sState,list,buffer);
+	/* AM or PM */
+	strftime(buffer,25,"%p", tm_info);
+	simple_list_addstring_gc(((VM *) pointer)->sState,list,buffer);
+	/* Seconds after the hour */
+	strftime(buffer,25,"%S", tm_info);
+	simple_list_addstring_gc(((VM *) pointer)->sState,list,buffer);
+	/* Week of the year (sun-sat) */
+	strftime(buffer,25,"%U", tm_info);
+	simple_list_addstring_gc(((VM *) pointer)->sState,list,buffer);
+	/* day of the week */
+	strftime(buffer,25,"%w", tm_info);
+	simple_list_addstring_gc(((VM *) pointer)->sState,list,buffer);
+	/* date */
+	strftime(buffer,25,"%x", tm_info);
+	simple_list_addstring_gc(((VM *) pointer)->sState,list,buffer);
+	/* time */
+	strftime(buffer,25,"%X", tm_info);
+	simple_list_addstring_gc(((VM *) pointer)->sState,list,buffer);
+	/* year of the century */
+	strftime(buffer,25,"%y", tm_info);
+	simple_list_addstring_gc(((VM *) pointer)->sState,list,buffer);
+	/* year */
+	strftime(buffer,25,"%Y", tm_info);
+	simple_list_addstring_gc(((VM *) pointer)->sState,list,buffer);
+	/* time zone */
+	strftime(buffer,25,"%Z", tm_info);
+	simple_list_addstring_gc(((VM *) pointer)->sState,list,buffer);
+	/* percent sign */
+	strftime(buffer,25,"%%", tm_info);
+	simple_list_addstring_gc(((VM *) pointer)->sState,list,buffer);
+	SIMPLE_API_RETLIST(list);
+}
+
+SIMPLE_API void date_time_date(void *pointer)
+{
+	time_t timer  ;
+	char buffer[25]  ;
+	struct tm*tm_info  ;
+	time(&timer);
+	tm_info = localtime(&timer);
+	strftime(buffer,25,"%d/%m/%Y", tm_info);
+	SIMPLE_API_RETSTRING(buffer);
+}
+
+SIMPLE_API void date_time_time(void *pointer)
+{
+	time_t timer  ;
+	char buffer[25]  ;
+	struct tm*tm_info  ;
+	time(&timer);
+	tm_info = localtime(&timer);
+	strftime(buffer,25,"%H:%M:%S", tm_info);
+	SIMPLE_API_RETSTRING(buffer);
+}
+
+SIMPLE_API void date_time_clock_per_second(void *pointer)
+{
+	SIMPLE_API_RETNUMBER(CLOCKS_PER_SEC);
+}
+
+SIMPLE_API void date_time_clock(void *pointer)
+{
+	clock_t tick  ;
+	tick = clock();
+	SIMPLE_API_RETNUMBER((double) tick);
 }
 
 /* Meta Blocks */ 

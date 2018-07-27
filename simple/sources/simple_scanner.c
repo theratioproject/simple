@@ -98,7 +98,7 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
 			if (simple_fexists(__library_path)) {
                 strcpy(file_name,__library_path);
             } else {
-				snprintf(__library_path, sizeof(__library_path), "%s/modules/%s", simple_initial_dir,file_name);
+				snprintf(__library_path, sizeof(__library_path), "%s/modules/%s", simple_file_initial_dir,file_name);
 				if (simple_fexists(__library_path)) {
 					strcpy(file_name,__library_path);
 				} else {
@@ -122,13 +122,13 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
 								#ifdef _WIN32
 									snprintf(__library_path, sizeof(__library_path), "C:/Simple/s%s/modules/%s",SIMPLE_VERSION,file_name);
 								#else
-									snprintf(__library_path, sizeof(__library_path), "/lib/simple/s%s/modules/%s", SIMPLE_VERSION,file_name);
+									snprintf(__library_path, sizeof(__library_path), "/var/lib/simple/s%s/modules/%s", SIMPLE_VERSION,file_name);
 									if (simple_fexists(__library_path)) { strcpy(file_name,__library_path);}
 									else {
 										snprintf(__library_path, sizeof(__library_path), "/usr/lib/simple/s%s/modules/%s", SIMPLE_VERSION,file_name);
 										if (simple_fexists(__library_path)) { strcpy(file_name,__library_path);}
 										else {
-											snprintf(__library_path, sizeof(__library_path), "/usr/local/lib/simple/s%s/modules/%s", SIMPLE_VERSION,file_name);
+											snprintf(__library_path, sizeof(__library_path), "/usr/lib/simple/s%s/modules/%s", SIMPLE_VERSION,file_name);
 											if (simple_fexists(__library_path)) { strcpy(file_name,__library_path);}
 											else {
 

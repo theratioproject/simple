@@ -230,8 +230,8 @@ SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 		display_help();
 	}
 	/*Assign default file dir */
-	getcwd(simple_initial_dir, sizeof(simple_initial_dir));
-    //get_file_folder ( simple_initial_dir );
+	getcwd(simple_file_initial_dir, sizeof(simple_file_initial_dir));
+    //get_file_folder ( simple_file_initial_dir );
 	simple_execute(cStr,nCGI,nRun,nPrintIC,nPrintICFinal,nTokens,nRules,nIns,nGenObj,nWarn,argc,argv,skip_error);
 	#if SIMPLE_TESTPERFORMANCE
 	if ( show_time ) {

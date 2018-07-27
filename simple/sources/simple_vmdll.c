@@ -45,7 +45,7 @@ void simple_vm_dll_loadlib ( void *pointer )
         if (simple_fexists(library_path)) {
             strcpy(library_path,library_path);
         } else { 
-			snprintf(__library_path, sizeof(__library_path), "%s/modules/dynamic_modules/%s", simple_initial_dir,library_path);
+			snprintf(__library_path, sizeof(__library_path), "%s/modules/dynamic_modules/%s", simple_file_initial_dir,library_path);
 			if (simple_fexists(__library_path)) {
 				strcpy(library_path,__library_path);
 			} else {
@@ -69,7 +69,7 @@ void simple_vm_dll_loadlib ( void *pointer )
 								#ifdef _WIN32
 									snprintf(__library_path, sizeof(__library_path), "C:/Simple/s%s/modules/dynamic_modules/%s",SIMPLE_VERSION,library_path);
 								#else
-									snprintf(__library_path, sizeof(__library_path), "/lib/simple/s%s/modules/dynamic_modules/%s", SIMPLE_VERSION,library_path);
+									snprintf(__library_path, sizeof(__library_path), "/var/lib/simple/s%s/modules/dynamic_modules/%s", SIMPLE_VERSION,library_path);
 									if (simple_fexists(__library_path)) { strcpy(library_path,__library_path);}
 									else {
 										snprintf(__library_path, sizeof(__library_path), "/usr/lib/simple/s%s/modules/dynamic_modules/%s", SIMPLE_VERSION,library_path);

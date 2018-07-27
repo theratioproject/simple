@@ -34,6 +34,7 @@ block main()
 	for a = 2 to cmdlen {
 		if stringEndsWith(cmdparams[a],"dll") dllFilePath = cmdparams[a] 
 		elif stringEndsWith(cmdparams[a],"-t") || stringEndsWith(cmdparams[a],"temp") keepTemp = true
+		elif cmdparams[a] == "x64" || cmdparams[a] == "--64-bit" arch = "x64"
 		elif stringEndsWith(cmdparams[a],"-b") || stringEndsWith(cmdparams[a],"bat") batchPath = cmdparams[a++]
 		else throw("Unknown Flag sent as parameter") 
 		end
