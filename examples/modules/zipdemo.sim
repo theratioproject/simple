@@ -22,7 +22,7 @@ block main()
 	display "-> also adding support folder/directory in future release "+ crlf
 	
 	display "-> Now extracting all content "
-	tZip.extractAll("C:\Users\thecarisma\Documents\SIMPLE GITHUB\examples\moduleexamples\azipextract")
+	tZip.extractAll("./azipextract")
 	
 	display "-> closing the zip stream for clean usage"
 	tZip.closeZip()
