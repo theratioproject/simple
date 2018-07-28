@@ -13,6 +13,7 @@
 module simple.io
 
 call "Path.sim"
+call "File.sim"
 
 block mkdir(path)
 	__mkdir(path)
