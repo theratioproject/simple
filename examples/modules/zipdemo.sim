@@ -4,12 +4,12 @@
 
 */
 
+call "archive/zip/ZipMode.sim" 
 call "archive/zip/Zip.sim"
-call "archive/zip/ZipMode.sim"  ? archive.zip
 
 block main()
 	#the default open mode is write i.e create zip
-	tZip = new Zip("C:\Users\thecarisma\Documents\SIMPLE GITHUB\examples\moduleexamples\azip.zip", ZIP_CREATE)
+	tZip = new Zip("C:\Users\thecarisma\Documents\SIMPLE GITHUB\examples\moduleexamples\azip.zip", "r")
 	
 	display "-> We are creating a file 'test.txt' with content of first param" + crlf
 	tZip.addFile("C:\Users\thecarisma\Documents\SIMPLE GITHUB\examples\moduleexamples\test.txt", "test.txt")
