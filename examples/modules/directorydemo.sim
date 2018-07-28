@@ -5,9 +5,10 @@
 */
 
 call "simple/io/Directory.sim"
+call "simple/io/File.sim"
 
 block main()
-	tDir = new Directory("C:/Users/thecarisma/Documents/SIMPLE GITHUB/examples")
+	tDir = new Directory("../modules")
 	
 	#display tDir.explode()
 	tFiles = tDir.listFiles()
