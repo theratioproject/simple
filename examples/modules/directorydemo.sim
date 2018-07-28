@@ -8,7 +8,7 @@ call "simple/io/Directory.sim"
 call "simple/io/File.sim"
 
 block main()
-	tDir = new Directory("../modules")
+	tDir = new Directory("../../")
 	
 	#display tDir.explode()
 	tFiles = tDir.listFiles()
