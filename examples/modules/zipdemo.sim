@@ -12,12 +12,12 @@ block main()
 	tZip = new Zip("C:\Users\thecarisma\Documents\SIMPLE GITHUB\examples\moduleexamples\azip.zip", "r")
 	
 	display "-> We are creating a file 'test.txt' with content of first param" + crlf
-	tZip.addFile("C:\Users\thecarisma\Documents\SIMPLE GITHUB\examples\moduleexamples\test.txt", "test.txt")
-	tZip.addFile("C:\Users\thecarisma\Documents\SIMPLE GITHUB\examples\moduleexamples\mathdemo.sim", "mathdemo.sim")
-	tZip.addFile("C:\Users\thecarisma\Documents\SIMPLE GITHUB\examples\moduleexamples\zipdemo.sim", "zipdemo.sim")
+	tZip.addFile("./consoledemo.sim", "console.sim")
+	tZip.addFile("./mathdemo.sim", "mathdemo.sim")
+	tZip.addFile("./zipdemo.sim", "zipdemo.sim")
 	
-	display "-> We are creating a file 'test.txt' in folder 'tester' with content of first param" + crlf
-	tZip.addFile("C:\Users\thecarisma\Documents\SIMPLE GITHUB\examples\moduleexamples\test.txt", "tester\test.txt")
+	display "-> We are creating a file 'filedemo.sim' in folder 'tester' with content of first param" + crlf
+	tZip.addFile("./filedemo.sim", "tester/filedemo.sim")
 	
 	display "-> also adding support folder/directory in future release "+ crlf
 	
