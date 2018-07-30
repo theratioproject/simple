@@ -128,7 +128,7 @@ block loadServerList()
 		indexValue = SERVER[a]
 		serverEnv = getEnv(indexValue)
 		SERVER[:indexValue] = serverEnv
-		@">>> "+indexValue+"  "+SERVER[:indexValue]+"<br />"
+		@">>> "+indexValue+"  "+SERVER["indexValue"]+"<br />"
 	}
 	
 	
