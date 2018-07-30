@@ -125,7 +125,8 @@ block encodeUrl(str)
 block loadServerList()
 	serverLength = lengthOf(SERVER)
 	for a = 0 to serverLength {
-		@"yes >> "+SERVER[a]+"<br />"
+		SERVER[a] = getEnv(SERVER[a])
+		@">>> "+SERVER[a]+"  "+getEnv(SERVER[a])+"<br />"
 	}
 	
 	
