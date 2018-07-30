@@ -1,5 +1,5 @@
 
-call "simple/system/Runtime.sim"
+call "simple/system/System.sim"
 call "simple/core/String.sim"
 call "simple/utilities/Conversion.sim"
 
