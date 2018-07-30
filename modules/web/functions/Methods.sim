@@ -125,9 +125,10 @@ block encodeUrl(str)
 block loadServerList()
 	serverLength = lengthOf(SERVER)
 	for a = 0 to serverLength {
-		serverEnv = getEnv(SERVER[a])
-		SERVER[:HTTP_USER_AGENT] = serverEnv
-		@">>> "+SERVER[a]+"  "+getEnv(serverEnv)+"<br />"
+		indexValue = SERVER[a]
+		serverEnv = getEnv(indexValue)
+		#SERVER[:] = serverEnv
+		@">>> "+indexValue+"  "+getEnv(indexValue)+"<br />"
 	}
 	
 	
