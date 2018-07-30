@@ -8,4 +8,7 @@ __loadClientSpec()
 
 block __loadClientSpec()
 	clientDump = SERVER["HTTP_USER_AGENT"]
+	for a in clientDump {
+		if a = "("
+	}
 	CLIENTSPEC["OS"] = clientDump
