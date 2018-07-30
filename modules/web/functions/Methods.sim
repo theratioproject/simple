@@ -30,11 +30,12 @@ SERVER = [
 	"CONTENT_LENGTH"
 ]
 
-loadServerList()
+#loadServerList()
 loadGetList()
 POST = GET #inefficiently undone
 
 block loadGetList()
+	@SERVER
 	if (SERVER["REQUEST_METHOD"] == null ) {
 		return 
 	}
