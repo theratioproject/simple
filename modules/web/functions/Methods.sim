@@ -21,27 +21,20 @@ SERVER = [
 	"REMOTE_USER",
 	"REQUEST_METHOD",
 	"REQUEST_URI",
-	"",
-	"",
-	"",
-	"",
-	"",
-	"",
-	"",
-	"",
-	"",
-	"",
-	"",
-	"",
-	""
+	"SCRIPT_FILENAME",
+	"SCRIPT_NAME",
+	"SERVER_ADMIN",
+	"SERVER_NAME",
+	"SERVER_PORT",
+	"SERVER_SOFTWARE"
 ]
 
-loadGet()
-loadServer()
+loadServerList()
+loadGetList()
 POST = GET #inefficiently undone
 
-block loadGet()
-	if (getSystemEnvironment("REQUEST_METHOD") == "(null)" ) {
+block loadGetList()
+	if (SERVER("REQUEST_METHOD") == "(null)" ) {
 		return 
 	}
 	if (getSystemEnvironment("REQUEST_METHOD") == "GET" ) {
@@ -128,7 +121,7 @@ block encodeUrl(str)
 	
 	
 	
-block loadServer()
+block loadServerList()
 	
 	
 	
