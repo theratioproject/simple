@@ -31,7 +31,8 @@ SERVER_VALUES = [
 ]
 
 
-SERVER = loadGetList()
+SERVER = loadServerList(SERVER_VALUES)
+loadGetList()
 POST = GET #inefficiently undone
 
 block loadGetList()
@@ -123,10 +124,11 @@ block encodeUrl(str)
 	
 	
 	
-block loadServerList(server)
-	serverLength = lengthOf(server)
+block loadServerList(serverI)
+	SERVER = []
+	serverLength = lengthOf(serverI)
 	for a = 0 to serverLength {
-		indexValue = SERVER[a]
+		indexValue = serverI[a]
 		serverEnv = getEnv(indexValue)
 		SERVER[:indexValue] = serverEnv
 		@">>> "+indexValue+"  "+SERVER["indexValue"]+"<br />"
