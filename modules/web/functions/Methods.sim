@@ -31,13 +31,11 @@ SERVER = [
 ]
 
 
-SERVER = loadServerList(SERVER_VALUES)
+loadServerList()
 loadGetList()
 POST = GET #inefficiently undone
 
 block loadGetList()
-	@SERVER
-	__exit__
 	if (SERVER["REQUEST_METHOD"] == null ) {
 		return 
 	}
@@ -128,10 +126,9 @@ block encodeUrl(str)
 block loadServerList()
 	serverLength = lengthOf(SERVER)
 	for a = 0 to serverLength {
-		serverEnv = getEnv(indexValue)
+		serverEnv = getEnv(SERVER[a])
 		SERVER[SERVER[a]] = serverEnv
 	}
-	return SERVER
 	
 	
 	
