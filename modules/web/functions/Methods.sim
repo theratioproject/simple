@@ -7,11 +7,11 @@ GET = []
 POST = []
 COOKIES = []
 
-SERVER = loadServerList()
-loadGetList()
+SERVER = __loadServerList()
+__loadGetList()
 POST = GET #inefficiently undone
 
-block loadGetList()
+block __loadGetList()
 	if (SERVER["REQUEST_METHOD"] == null ) {
 		return 
 	}
@@ -99,7 +99,7 @@ block encodeUrl(str)
 	
 	
 	
-block loadServerList()
+block __loadServerList()
 	__SERVER_VALUES = [
 		"DOCUMENT_ROOT",
 		"HTTP_COOKIE",
