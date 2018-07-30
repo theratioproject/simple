@@ -125,7 +125,7 @@ block encodeUrl(str)
 block loadServerList()
 	serverLength = lengthOf(SERVER)
 	for a = 0 to serverLength {
-		@"<br />"
+		@"yes >> "+SERVER[a]+"<br />"
 	}
 	
 	
