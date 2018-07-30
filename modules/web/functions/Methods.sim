@@ -6,32 +6,8 @@ call "simple/utilities/Conversion.sim"
 GET = []
 POST = []
 COOKIES = []
-__SERVER_VALUES = [
-	"DOCUMENT_ROOT",
-	"HTTP_COOKIE",
-	"HTTP_HOST",
-	"HTTP_REFERER",
-	"HTTP_USER_AGENT",
-	"HTTPS",
-	"PATH",
-	"QUERY_STRING",
-	"REMOTE_ADDR",
-	"REMOTE_HOST",
-	"REMOTE_PORT",
-	"REMOTE_USER",
-	"REQUEST_METHOD",
-	"REQUEST_URI",
-	"SCRIPT_FILENAME",
-	"SCRIPT_NAME",
-	"SERVER_ADMIN",
-	"SERVER_NAME",
-	"SERVER_PORT",
-	"SERVER_SOFTWARE",
-	"CONTENT_LENGTH"
-]
 
-
-loadServerList()
+SERVER = loadServerList()
 loadGetList()
 POST = GET #inefficiently undone
 
@@ -124,11 +100,13 @@ block encodeUrl(str)
 	
 	
 block loadServerList()
+	SERVER = []
 	serverLength = lengthOf(__SERVER_VALUES)
 	for a = 0 to serverLength {
 		serverEnv = getEnv(__SERVER_VALUES[a])
 		SERVER[__SERVER_VALUES[a]] = serverEnv
 	}
+	return SERVER
 	
 	
 	
