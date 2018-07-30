@@ -1,3 +1,5 @@
 
-call "simple/system/Runtime.sim"
+call "Methods.sim"
+
+CLIENT = []
 
