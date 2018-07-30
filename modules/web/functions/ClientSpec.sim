@@ -8,9 +8,13 @@ __loadClientSpec()
 
 block __loadClientSpec()
 	clientDump = SERVER["HTTP_USER_AGENT"]
+	clientDumpLen = lengthOf(clientDump)
 	startIndex = 0 endIndex = 0
-	for a = 0 in clientDumpLen {
+	for a = 0 to clientDumpLen {
 		if clientDump[a] = "(" { startIndex = a }
 		if clientDump[a] = ")" { endIndex = a }
 	}
-	CLIENTSPEC["OS"] = clientDump
+	for a = startIndex to endIndex {
+		
+	}
+	CLIENTSPEC["OS"] = " "+startIndex+"- "+endIndex
