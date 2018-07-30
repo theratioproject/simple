@@ -35,8 +35,6 @@ SERVER = loadGetList()
 POST = GET #inefficiently undone
 
 block loadGetList()
-	@"the server"
-	@SERVER
 	__exit__
 	if (SERVER["REQUEST_METHOD"] == null ) {
 		return 
