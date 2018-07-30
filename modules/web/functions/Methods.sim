@@ -35,6 +35,7 @@ loadGetList()
 POST = GET #inefficiently undone
 
 block loadGetList()
+	@"the server"
 	@SERVER
 	if (SERVER["REQUEST_METHOD"] == null ) {
 		return 
