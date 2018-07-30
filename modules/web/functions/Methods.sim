@@ -26,7 +26,8 @@ SERVER = [
 	"SERVER_ADMIN",
 	"SERVER_NAME",
 	"SERVER_PORT",
-	"SERVER_SOFTWARE"
+	"SERVER_SOFTWARE",
+	"CONTENT_LENGTH"
 ]
 
 loadServerList()
@@ -34,13 +35,13 @@ loadGetList()
 POST = GET #inefficiently undone
 
 block loadGetList()
-	if (SERVER("REQUEST_METHOD") == "(null)" ) {
+	if (SERVER["REQUEST_METHOD"] == null ) {
 		return 
 	}
-	if (getSystemEnvironment("REQUEST_METHOD") == "GET" ) {
-		methodAttr = getSystemEnvironment("QUERY_STRING")
+	if (SERVER["REQUEST_METHOD"] == "GET" ) {
+		methodAttr = SERVER["QUERY_STRING"]
 	else
-		methodAttr = getSystemEnvironment("CONTENT_LENGTH")
+		methodAttr = SERVER["CONTENT_LENGTH"]
 	}
 	GET = decodeMethodAttr(methodAttr)
 	COOKIES = fetchCookies()
