@@ -100,6 +100,29 @@ block encodeUrl(str)
 	
 	
 block loadServerList()
+	__SERVER_VALUES = [
+		"DOCUMENT_ROOT",
+		"HTTP_COOKIE",
+		"HTTP_HOST",
+		"HTTP_REFERER",
+		"HTTP_USER_AGENT",
+		"HTTPS",
+		"PATH",
+		"QUERY_STRING",
+		"REMOTE_ADDR",
+		"REMOTE_HOST",
+		"REMOTE_PORT",
+		"REMOTE_USER",
+		"REQUEST_METHOD",
+		"REQUEST_URI",
+		"SCRIPT_FILENAME",
+		"SCRIPT_NAME",
+		"SERVER_ADMIN",
+		"SERVER_NAME",
+		"SERVER_PORT",
+		"SERVER_SOFTWARE",
+		"CONTENT_LENGTH"
+	]
 	SERVER = []
 	serverLength = lengthOf(__SERVER_VALUES)
 	for a = 0 to serverLength {
