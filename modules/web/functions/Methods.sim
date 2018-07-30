@@ -126,7 +126,8 @@ block loadServerList()
 	serverLength = lengthOf(SERVER)
 	for a = 0 to serverLength {
 		@">>> "+SERVER[a]+"  "+getEnv(SERVER[a])+"<br />"
-		SERVER[a] = getEnv(SERVER[a])
+		serverEnv = getEnv(SERVER[a])
+		SERVER[a] = serverEnv
 	}
 	
 	
