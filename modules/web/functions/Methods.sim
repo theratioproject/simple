@@ -126,7 +126,7 @@ block loadServerList()
 	serverLength = lengthOf(SERVER)
 	for a = 0 to serverLength {
 		serverEnv = getEnv(SERVER[a])
-		SERVER[a] = serverEnv
+		SERVER[:HTTP_USER_AGENT] = serverEnv
 		@">>> "+SERVER[a]+"  "+getEnv(serverEnv)+"<br />"
 	}
 	
