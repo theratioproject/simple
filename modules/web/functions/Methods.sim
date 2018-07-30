@@ -5,11 +5,22 @@ call "simple/utilities/Conversion.sim"
 
 GET = []
 POST = []
-SERVER = []
 COOKIES = []
+SERVER = [
+	"DOCUMENT_ROOT",
+	"HTTP_COOKIE",
+	"HTTP_HOST",
+	"HTTP_REFERER",
+	"HTTP_USER_AGENT",
+	"",
+	"",
+	"",
+	""
+]
 
 loadGet()
-POST = GET #inefficient
+loadServer()
+POST = GET #inefficiently undone
 
 block loadGet()
 	if (getSystemEnvironment("REQUEST_METHOD") == "(null)" ) {
