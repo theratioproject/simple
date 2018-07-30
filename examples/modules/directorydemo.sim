@@ -8,33 +8,20 @@ call "simple/io/Directory.sim"
 call "simple/io/File.sim"
 
 block main()
-	tDir = new Directory("../../")
+	tDir = new Directory("../")
+	loopFolders(tDir)
 	
-	#display tDir.explode()
-	tFiles = tDir.listFiles()
-	for a = 0 to lengthOf(tFiles) 
-		display "FILE : "+tFiles[a].name()+crlf
-	end
-	
-	tDirs = tDir.listDirectories()
-	for a = 0 to lengthOf(tDirs) 
-		#loopFolders(tDirs[a])
-	end
-	
-	for a = 0 to lengthOf(tDirs) 
-		display "FOLDER : "+tDirs[a].toString()+crlf
-	end
-	
-	display "TO PATH->TOSTRING : "+tDir.toPath().toString()+crlf
-	display "PARENT DIRECTORY : "+tDir.parent().toString()
+	display "TO PATH->TOSTRING : "+tDir.toPath().absolutePath()+crlf
+	display "PARENT DIRECTORY : "+tDir.parent().absolutePath()
 	
 block loopFolders(dir)
 	tDirs = dir.listDirectories()
 	for a = 0 to lengthOf(tDirs) 
+		display "FOLDER : "+tDirs[a].absolutePath()+crlf
 		loopFolders(tDirs[a])
 	end
 	tFiles = dir.listFiles()
 	for a = 0 to lengthOf(tFiles) 
-		display "FILE : "+tFiles[a].name()+crlf
+		display "FILE : "+tFiles[a].absolutePath()+crlf
 	end
 	
