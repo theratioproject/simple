@@ -8,4 +8,4 @@ __loadClientSpec()
 
 block __loadClientSpec()
 	clientDump = SERVER["HTTP_USER_AGENT"]
-	CLIENTSPEC["OS"] = "S"
+	CLIENTSPEC["OS"] = clientDump
