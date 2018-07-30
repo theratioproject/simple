@@ -54,7 +54,7 @@ block loadGetList()
 	return methodAttr
 	
 block decodeMethodAttr(methodAttr)
-	if stringLeft(getSystemEnvironment("CONTENT_TYPE"),20) != "multipart/form-data;" {
+	if stringLeft(SERVER["CONTENT_TYPE"],20) != "multipart/form-data;" {
 		return decodeMethodString(methodAttr)
 	}
 	#decode file uploading
@@ -88,8 +88,8 @@ block decodeMethodString(methodAttr)
 	return returnObject
 
 block fetchCookies()
-	str = getSystemEnvironment("HTTP_COOKIE")
-	if str == "(null)" { return }
+	str = SERVER["HTTP_COOKIE"]
+	if str == null { return }
 	str += ";"
 	returnObject = []
 	subPosition = substr(str,";")
@@ -123,7 +123,10 @@ block encodeUrl(str)
 	
 	
 block loadServerList()
-	
+	serverLength = lengthOf(SERVER)
+	for a = 0 to serverLength {
+		@"<br />"
+	}
 	
 	
 	
