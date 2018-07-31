@@ -194,6 +194,7 @@ install: $(CND_DISTDIR)/simple
 uninstall:
 	rm -rf $(DESTDIR)$(PREFIX)/bin/simple
 	rm -f $(DESTDIR)$(PREFIX)/lib/simple.$(CND_DLIB_EXT)
+	rm -f $(DESTDIR)$(PREFIX)/lib/x86_64-linux-gnu/libsimple.$(CND_DLIB_EXT)
 	rm -R -f $(DESTDIR)$(PREFIX)/include/simple/
 	unlink $(DESTDIR)$(PREFIX)/lib/libsimple.$(CND_DLIB_EXT) 
 
