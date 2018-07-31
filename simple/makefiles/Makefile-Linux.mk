@@ -190,6 +190,8 @@ install: $(CND_DISTDIR)/simple
 	install $(CND_DISTDIR)/simple.$(CND_DLIB_EXT) $(DESTDIR)$(PREFIX)/lib/
 	install $(INCLUDES_DIR)/simple* $(DESTDIR)$(PREFIX)/include/simple/
 	link $(DESTDIR)$(PREFIX)/lib/simple.$(CND_DLIB_EXT) $(DESTDIR)$(PREFIX)/lib/libsimple.$(CND_DLIB_EXT) 
+	link $(DESTDIR)$(PREFIX)/lib/simple.$(CND_DLIB_EXT) $(DESTDIR)$(PREFIX)/lib/x86_64-linux-gnu/libsimple.$(CND_DLIB_EXT)
+	link $(DESTDIR)$(PREFIX)/lib/simple.$(CND_DLIB_EXT) $(DESTDIR)$(PREFIX)/lib/x86_64-linux-gnu/libsimple.$(VER).$(CND_DLIB_EXT)
 
 .PHONY: uninstall
 uninstall:
@@ -199,6 +201,8 @@ uninstall:
 	rm -f $(DESTDIR)$(PREFIX)/lib/x86_64-linux-gnu/libsimple.$(VER).$(CND_DLIB_EXT)
 	rm -R -f $(DESTDIR)$(PREFIX)/include/simple/
 	unlink $(DESTDIR)$(PREFIX)/lib/libsimple.$(CND_DLIB_EXT) 
+	unlink $(DESTDIR)$(PREFIX)/lib/x86_64-linux-gnu/libsimple.$(CND_DLIB_EXT)
+	unlink $(DESTDIR)$(PREFIX)/lib/x86_64-linux-gnu/libsimple.$(VER).$(CND_DLIB_EXT)
 
 #This Makefile-Windows.mk was written in adaptation to the standard
 #method of writing makefiles
