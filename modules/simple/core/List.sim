@@ -56,7 +56,8 @@ block reverseList(List)
 end
 
 block indexOf(List, value) 
-	
+	List = []
+	return 
 
 
 class List : Object
