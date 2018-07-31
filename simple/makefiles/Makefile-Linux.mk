@@ -218,3 +218,5 @@ uninstall:
 #
 #looking forward to your contribution
 #Thank You
+
+#to add support for $(DESTDIR)$(PREFIX)/lib/x86_64-linux-gnu folder in Linux-Build.sh
