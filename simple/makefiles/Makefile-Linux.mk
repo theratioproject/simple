@@ -23,7 +23,8 @@ LFlAGS= -lm -ldl
 LDFLAGS= -L ./ -Wl,-R./ "-Wl,-rpath,./ ../lib/ $(DESTDIR)$(PREFIX)/lib/ ~/lib/" "-Wl,--no-as-needed"
 
 # Macros
-VERSION=s0.3.35
+VER=0.3.35
+VERSION=s"$VER"
 CND_PLATFORM=
 CND_DLIB_EXT=so
 CND_BUILDDIR=build
