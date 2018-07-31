@@ -56,8 +56,11 @@ block reverseList(List)
 end
 
 block indexOf(List, value) 
-	List = []
-	return 
+	# List = []
+	
+	if (isList(List))
+		return List[value]
+	end
 
 
 class List : Object
