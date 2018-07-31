@@ -111,6 +111,11 @@ execute_build_proceed() {
 			build_deb_package $@
 		;;
 	esac
+	case $1 in
+		*debug* )
+			sudo chmod 776 
+		;;
+	esac
 	remove_dist_folders ../simple/dist/ ../modules/dynamic_modules/dist/ ../environment/dist/ ../../simple$ver-$operating_system ./dist/ ../$simple_debug_version
 }
 
