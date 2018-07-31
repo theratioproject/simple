@@ -12,6 +12,13 @@
 
 module simple.core
 
+/*
+ * Functional methods for the List module.
+ * Added to reduce the depende
+ *
+ *
+ */
+
 call "Object.sim"
 
 class List : Object
