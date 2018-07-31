@@ -13,6 +13,7 @@
 module simple.io
 
 call "Path.sim"
+call "File.sim"
 
 block mkdir(path)
 	__mkdir(path)
@@ -66,13 +67,13 @@ class Directory : Path
 		return new Path(__IO_DIRECTORY_PATH)
 		
 	block getPath()
-		return __IO_DIRECTORY_PATH
+		return absolutePath()
 		
 	block toString()
 		return rawDirectoryPath
 		
 	block parent()
-		parentDir = removeString(__IO_DIRECTORY_PATH, getSystemSlash()+getName())
+		parentDir = parentPath().toDirectory()
 		return new Directory(parentDir)
 		
 	block addChild(dir)
@@ -89,7 +90,7 @@ class Directory : Path
 			if isWindows() {
 				__exec('rmdir /S /Q "'+__IO_DIRECTORY_PATH+'" 2> nul')
 			elif isLinux()
-				__exec('rm -rf ' +__IO_DIRECTORY_PATH)	
+				__exec('rm -rf "' +__IO_DIRECTORY_PATH+'"')	
 			else
 			}
 		}
@@ -313,5 +314,8 @@ class Directory : Path
 			end
 			__IO_DIRECTORY_PATH = curePathSlashes(__IO_DIRECTORY_PATH)
 			directoryName = formatDirectoryName(__IO_DIRECTORY_PATH)
+			if !stringEndsWith(__IO_DIRECTORY_PATH,__IO_PATH_SYSTEM_SLASH) {
+				__IO_DIRECTORY_PATH+=__IO_PATH_SYSTEM_SLASH
+			}
 			__IO_PATH = __IO_DIRECTORY_PATH
 		

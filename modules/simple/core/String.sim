@@ -244,7 +244,7 @@ class String : Object
 	objectName = "String"
 	str = ""
 	
-	block String(float instr)
+	block String(instr)
 		str = instr
  
 	block toString()

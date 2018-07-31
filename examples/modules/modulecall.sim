@@ -16,7 +16,7 @@
 
 */
 
-call "fulltick/*" ? fulltick.core
+call "fulltick/all.sim" ? fulltick.core
 
 block main()
 

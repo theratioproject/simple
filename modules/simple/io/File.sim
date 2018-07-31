@@ -24,8 +24,10 @@ class File 	: Path
 	block File(path)
 		updateAttributes(path)
 		
+	/*
 	block absolutePath()
 		return __IO_FILE_PATH
+	*/
 		
 	block name()
 		return lastStringAfterChar(__IO_FILE_PATH, getSystemSlash())
@@ -69,9 +71,11 @@ class File 	: Path
 		end
 		writefile(__IO_FILE_PATH, readFileAsString()+""+content)
 		
-	#currently failing	
+	
 	block exists() 
-		return __exists(__IO_FILE_PATH)
+		#return __exists(__IO_FILE_PATH) #currently failing	
+		__IO_PATH = __IO_FILE_PATH
+		return isAFile()
 		
 	block toString()
 		return absolutePath()

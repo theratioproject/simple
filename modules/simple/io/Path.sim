@@ -213,14 +213,33 @@ class Path
 			
 			}
 		}
-		if !stringEndsWith(__newFolder,getSystemSlash()) {
-			__newFolder += getSystemSlash()
+		if !stringEndsWith(__newFolder,__IO_PATH_SYSTEM_SLASH) {
+			__newFolder += __IO_PATH_SYSTEM_SLASH
 		}
 		if moveType {
-			return forceRenameTo(__newFolder+getSystemSlash()+getName())
+			return forceRenameTo(__newFolder+__IO_PATH_SYSTEM_SLASH+getName())
 		else
-			return renameTo(__newFolder+getSystemSlash()+getName())
+			return renameTo(__newFolder+__IO_PATH_SYSTEM_SLASH+getName())
 		}
+		
+	block name()
+		abPath = absolutePath()
+		while (stringEndsWith(abPath,__IO_PATH_SYSTEM_SLASH) ) {
+			abPath = removeStringAt(abPath, lengthOf(abPath)) 
+		}
+		dName = lastStringAfterChar(abPath, __IO_PATH_SYSTEM_SLASH)
+		return dName
+		
+	block parentPath()
+		abPath = absolutePath()
+		tempPath = removeString(abPath, __IO_PATH_SYSTEM_SLASH+name())
+		return new Path(tempPath)
+		
+	block toDirectory()
+		return new Directory(__IO_PATH)
+		
+	block toFile()
+		return new File(__IO_PATH)
 		
 	/*
 		Convert the @Class Path to @Class FileAttributes to get the stats, attributes 
@@ -280,13 +299,18 @@ class Path
 	private 
 	
 		block getCorrectPath(oddPath)
-			correctPath = currentDirectory()
-			oddPathLength = lengthOf(oddPath)
-			while stringStartsWith(oddPath,"..") || stringStartsWith(oddPath,".") {
-				@"before: "+oddPath
-				oddPath = stringRight(oddPath,1)
-				@"now : "+oddPath
-				__exit__
+			correctPath = __path_absolute_path(oddPath)
+			if !stringEndsWith(correctPath, oddPath) {
+				correctPathTemp = removeString(oddPath,correctPath)
+				correctPath += correctPathTemp
 			}
+			return correctPath
+			
+			
+			
+			
+			
+			
+		
 		
 		

@@ -17,7 +17,7 @@
 call "simple/io/File.sim"
 
 block main()		
-	file = new File("../../../githubpush.sh")
+	file = new File("./consoledemo.sim")
 	@"Full Path : "+file.absolutePath()
 	@"Size : "+file.size()+" byte"
 	@"Type : "+file.type()

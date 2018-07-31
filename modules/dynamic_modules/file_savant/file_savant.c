@@ -41,6 +41,7 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
     register_block("readfile",read_file);
     register_block("writefile",write_file);
     register_block("__exists",file_exists);
+    register_block("__path_absolute_path",path_absolute_path);
     register_block("__path_block_size",path_block_size);
     register_block("__path_blocks",path_blocks);
     register_block("__path_access_date",path_access_date);
@@ -61,15 +62,33 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
     register_block("__dir_exists",dir_exists);
 }
 
-void path_blocks(void *pointer)
+void path_absolute_path(void *pointer)
 {
+	char resolved_path[SIMPLE_PATHSIZE];
 	if ( SIMPLE_API_PARACOUNT != 1 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
 		return ;
 	}
 	if ( SIMPLE_API_ISSTRING(1) ) {
-            struct stat info;
-			String * string = simple_string_new_gc(((VM *) pointer)->sState,SIMPLE_API_GETSTRING(1));
+		#ifdef _WIN32
+			_fullpath(resolved_path, SIMPLE_API_GETSTRING(1), SIMPLE_PATHSIZE);
+		#else
+			realpath(SIMPLE_API_GETSTRING(1), resolved_path);
+		#endif
+		SIMPLE_API_RETSTRING(resolved_path);
+	}
+}
+
+void path_blocks(void *pointer)
+{
+	struct stat info;
+	String * string;
+	if ( SIMPLE_API_PARACOUNT != 1 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
+		return ;
+	}
+	if ( SIMPLE_API_ISSTRING(1) ) {
+            string = simple_string_new_gc(((VM *) pointer)->sState,SIMPLE_API_GETSTRING(1));
             int err = stat(string->str, &info);
 			if (err == -1) {
 				SIMPLE_API_ERROR(FILE_SAVANT_FILE_ERROR);
@@ -80,6 +99,7 @@ void path_blocks(void *pointer)
 					SIMPLE_API_RETNUMBER(-1);
 				#endif
 			}
+			simple_string_delete_gc(((VM *) pointer)->sState,string);
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
@@ -87,13 +107,14 @@ void path_blocks(void *pointer)
 
 void path_block_size(void *pointer)
 {
+	struct stat info;
+	String * string;
 	if ( SIMPLE_API_PARACOUNT != 1 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
 		return ;
 	}
 	if ( SIMPLE_API_ISSTRING(1) ) {
-            struct stat info;
-			String * string = simple_string_new_gc(((VM *) pointer)->sState,SIMPLE_API_GETSTRING(1));
+            string = simple_string_new_gc(((VM *) pointer)->sState,SIMPLE_API_GETSTRING(1));
             int err = stat(string->str, &info);
 			if (err == -1) {
 				SIMPLE_API_ERROR(FILE_SAVANT_FILE_ERROR);
@@ -104,6 +125,7 @@ void path_block_size(void *pointer)
 					SIMPLE_API_RETNUMBER(512);
 				#endif
 			}
+			simple_string_delete_gc(((VM *) pointer)->sState,string);
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
@@ -111,19 +133,21 @@ void path_block_size(void *pointer)
 
 void path_status_date(void *pointer)
 {
+	struct stat info;
+	String * string;
 	if ( SIMPLE_API_PARACOUNT != 1 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
 		return ;
 	}
 	if ( SIMPLE_API_ISSTRING(1) ) {
-            struct stat info;
-			String * string = simple_string_new_gc(((VM *) pointer)->sState,SIMPLE_API_GETSTRING(1));
+            string = simple_string_new_gc(((VM *) pointer)->sState,SIMPLE_API_GETSTRING(1));
             int err = stat(string->str, &info);
 			if (err == -1) {
 				SIMPLE_API_ERROR(FILE_SAVANT_FILE_ERROR);
 			} else {
 				SIMPLE_API_RETCPOINTER(info.st_ctime,"SIMPLE_LANG_TIME_");
 			}
+			simple_string_delete_gc(((VM *) pointer)->sState,string);
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
@@ -131,19 +155,21 @@ void path_status_date(void *pointer)
 
 void path_modify_date(void *pointer)
 {
+	struct stat info;
+	String * string;
 	if ( SIMPLE_API_PARACOUNT != 1 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
 		return ;
 	}
 	if ( SIMPLE_API_ISSTRING(1) ) {
-            struct stat info;
-			String * string = simple_string_new_gc(((VM *) pointer)->sState,SIMPLE_API_GETSTRING(1));
+            string = simple_string_new_gc(((VM *) pointer)->sState,SIMPLE_API_GETSTRING(1));
             int err = stat(string->str, &info);
 			if (err == -1) {
 				SIMPLE_API_ERROR(FILE_SAVANT_FILE_ERROR);
 			} else {
 				SIMPLE_API_RETCPOINTER(info.st_mtime,"SIMPLE_LANG_TIME_");
 			}
+			simple_string_delete_gc(((VM *) pointer)->sState,string);
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
@@ -151,19 +177,21 @@ void path_modify_date(void *pointer)
 
 void path_access_date(void *pointer)
 {
+	struct stat info;
+	String * string;
 	if ( SIMPLE_API_PARACOUNT != 1 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
 		return ;
 	}
 	if ( SIMPLE_API_ISSTRING(1) ) {
-            struct stat info;
-			String * string = simple_string_new_gc(((VM *) pointer)->sState,SIMPLE_API_GETSTRING(1));
+            string = simple_string_new_gc(((VM *) pointer)->sState,SIMPLE_API_GETSTRING(1));
             int err = stat(string->str, &info);
 			if (err == -1) {
 				SIMPLE_API_ERROR(FILE_SAVANT_FILE_ERROR);
 			} else {
 				SIMPLE_API_RETCPOINTER(info.st_atime,"SIMPLE_LANG_TIME_");
 			}
+			simple_string_delete_gc(((VM *) pointer)->sState,string);
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
@@ -171,19 +199,21 @@ void path_access_date(void *pointer)
 
 void path_gid(void *pointer)
 {
+	struct stat info;
+	String * string;
 	if ( SIMPLE_API_PARACOUNT != 1 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
 		return ;
 	}
 	if ( SIMPLE_API_ISSTRING(1) ) {
-            struct stat info;
-			String * string = simple_string_new_gc(((VM *) pointer)->sState,SIMPLE_API_GETSTRING(1));
+            string = simple_string_new_gc(((VM *) pointer)->sState,SIMPLE_API_GETSTRING(1));
             int err = stat(string->str, &info);
 			if (err == -1) {
 				SIMPLE_API_ERROR(FILE_SAVANT_FILE_ERROR);
 			} else {
 				SIMPLE_API_RETNUMBER((long) info.st_gid);
 			}
+			simple_string_delete_gc(((VM *) pointer)->sState,string);
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
@@ -191,19 +221,21 @@ void path_gid(void *pointer)
 
 void path_uid(void *pointer)
 {
+	struct stat info;
+	String * string;
 	if ( SIMPLE_API_PARACOUNT != 1 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
 		return ;
 	}
 	if ( SIMPLE_API_ISSTRING(1) ) {
-            struct stat info;
-			String * string = simple_string_new_gc(((VM *) pointer)->sState,SIMPLE_API_GETSTRING(1));
+            string = simple_string_new_gc(((VM *) pointer)->sState,SIMPLE_API_GETSTRING(1));
             int err = stat(string->str, &info);
 			if (err == -1) {
 				SIMPLE_API_ERROR(FILE_SAVANT_FILE_ERROR);
 			} else {
 				SIMPLE_API_RETNUMBER((long) info.st_uid);
 			}
+			simple_string_delete_gc(((VM *) pointer)->sState,string);
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
@@ -211,19 +243,21 @@ void path_uid(void *pointer)
 
 void path_link_count(void *pointer)
 {
+	struct stat info;
+	String * string;
 	if ( SIMPLE_API_PARACOUNT != 1 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
 		return ;
 	}
 	if ( SIMPLE_API_ISSTRING(1) ) {
-            struct stat info;
-			String * string = simple_string_new_gc(((VM *) pointer)->sState,SIMPLE_API_GETSTRING(1));
+            string = simple_string_new_gc(((VM *) pointer)->sState,SIMPLE_API_GETSTRING(1));
             int err = stat(string->str, &info);
 			if (err == -1) {
 				SIMPLE_API_ERROR(FILE_SAVANT_FILE_ERROR);
 			} else {
 				SIMPLE_API_RETNUMBER((long) info.st_nlink);
 			}
+			simple_string_delete_gc(((VM *) pointer)->sState,string);
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
@@ -231,19 +265,21 @@ void path_link_count(void *pointer)
 
 void path_node_number(void *pointer)
 {
+	struct stat info;
+	String * string;
 	if ( SIMPLE_API_PARACOUNT != 1 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
 		return ;
 	}
 	if ( SIMPLE_API_ISSTRING(1) ) {
-            struct stat info;
-			String * string = simple_string_new_gc(((VM *) pointer)->sState,SIMPLE_API_GETSTRING(1));
+            string = simple_string_new_gc(((VM *) pointer)->sState,SIMPLE_API_GETSTRING(1));
             int err = stat(string->str, &info);
 			if (err == -1) {
 				SIMPLE_API_ERROR(FILE_SAVANT_FILE_ERROR);
 			} else {
 				SIMPLE_API_RETNUMBER((long) info.st_ino);
 			}
+			simple_string_delete_gc(((VM *) pointer)->sState,string);
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
@@ -251,13 +287,14 @@ void path_node_number(void *pointer)
 
 void path_type(void *pointer)
 {
+	struct stat info;
+	String * string;
 	if ( SIMPLE_API_PARACOUNT != 1 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
 		return ;
 	}
 	if ( SIMPLE_API_ISSTRING(1) ) {
-            struct stat info;
-			String * string = simple_string_new_gc(((VM *) pointer)->sState,SIMPLE_API_GETSTRING(1));
+            string = simple_string_new_gc(((VM *) pointer)->sState,SIMPLE_API_GETSTRING(1));
             int err = stat(string->str, &info);
 			if (err == -1) {
 				SIMPLE_API_ERROR(FILE_SAVANT_FILE_ERROR);
@@ -274,6 +311,7 @@ void path_type(void *pointer)
 					default:       SIMPLE_API_RETNUMBER(0000000);   break;
 				}
 			}
+			simple_string_delete_gc(((VM *) pointer)->sState,string);
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
@@ -281,18 +319,21 @@ void path_type(void *pointer)
 
 void path_size(void *pointer)
 {
+	struct stat info;
+	String * string;
 	if ( SIMPLE_API_PARACOUNT != 1 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
 		return ;
 	}
 	if ( SIMPLE_API_ISSTRING(1) ) {
-            struct stat info;
-			String * string = simple_string_new_gc(((VM *) pointer)->sState,SIMPLE_API_GETSTRING(1)); 
+            string = simple_string_new_gc(((VM *) pointer)->sState,SIMPLE_API_GETSTRING(1)); 
             int err = stat(string->str, &info);
 			if (err == -1) 
 				SIMPLE_API_ERROR(FILE_SAVANT_FILE_ERROR);
 			else
 				SIMPLE_API_RETNUMBER((long long) info.st_size);
+			
+			simple_string_delete_gc(((VM *) pointer)->sState,string);
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
@@ -300,15 +341,17 @@ void path_size(void *pointer)
 
 void check_path(void *pointer)
 {
+	struct stat info;
+	String * string;
 	if ( SIMPLE_API_PARACOUNT != 1 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
 		return ;
 	}
 	if ( SIMPLE_API_ISSTRING(1) ) {
-            struct stat info;
-			String * string = simple_string_new_gc(((VM *) pointer)->sState,SIMPLE_API_GETSTRING(1)); 
+            string = simple_string_new_gc(((VM *) pointer)->sState,SIMPLE_API_GETSTRING(1)); 
             int err = stat(string->str, &info);
 			SIMPLE_API_RETNUMBER(err);
+			simple_string_delete_gc(((VM *) pointer)->sState,string);
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
@@ -460,6 +503,7 @@ void blow_directory ( void *pointer )
 	DIR *pDir  ;
 	struct dirent *pDirent  ;
 	struct stat st  ;
+	String *child_string;
 	#endif
 	if ( SIMPLE_API_PARACOUNT != 1 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
@@ -494,13 +538,23 @@ void blow_directory ( void *pointer )
 		pDir = opendir(cStr);
 		if ( pDir != NULL ) {
 			while ( (pDirent = readdir(pDir)) ) {
-				pList2 = simple_list_newlist_gc(((VM *) pointer)->sState,pList);
-				simple_list_addstring_gc(((VM *) pointer)->sState,pList2,pDirent->d_name);
-				stat(pDirent->d_name,&st);
-				if ( S_ISDIR(st.st_mode) ) {
-					simple_list_adddouble_gc(((VM *) pointer)->sState,pList2,1);
-				} else {
-					simple_list_adddouble_gc(((VM *) pointer)->sState,pList2,0);
+				child_string = simple_string_new_gc(((VM *) pointer)->sState,cStr);
+				simple_string_add_gc(((VM *) pointer)->sState,child_string,pDirent->d_name);
+				if ( strcmp(pDirent->d_name, ".") != 0 && strcmp(pDirent->d_name, "..") != 0 ) {
+					pList2 = simple_list_newlist_gc(((VM *) pointer)->sState,pList);
+					simple_list_addstring_gc(((VM *) pointer)->sState,pList2,pDirent->d_name);
+					int err = stat(child_string->str,&st);
+					switch (st.st_mode & S_IFMT) {
+						case S_IFWHT:  SIMPLE_API_RETNUMBER(160000);	break; 
+						case S_IFBLK:  SIMPLE_API_RETNUMBER(60000);	break;
+						case S_IFCHR:  SIMPLE_API_RETNUMBER(20000);	break;
+						case S_IFDIR:  simple_list_adddouble_gc(((VM *) pointer)->sState,pList2,1);	break;
+						case S_IFIFO:  SIMPLE_API_RETNUMBER(10000);	break;
+						case S_IFLNK:  SIMPLE_API_RETNUMBER(120000);	break;
+						case S_IFREG:  simple_list_adddouble_gc(((VM *) pointer)->sState,pList2,0);	break;
+						case S_IFSOCK: SIMPLE_API_RETNUMBER(140000);	break;
+						default:       SIMPLE_API_RETNUMBER(0000000);   break;
+					}
 				}
 			}
 			closedir(pDir);
@@ -508,6 +562,7 @@ void blow_directory ( void *pointer )
 		} else {
 			SIMPLE_API_ERROR(SIMPLE_API_BADDIRECTORY);
 		}
+		simple_string_delete_gc(((VM *) pointer)->sState,child_string);
 		#endif
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);

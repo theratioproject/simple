@@ -72,3 +72,4 @@ ${OBJECTDIR}/networker.o: networker.c
 #looking forward to your contribution
 #Thank You
 
+#-lcurl.dll -lcrypto.dll -lssl.dll

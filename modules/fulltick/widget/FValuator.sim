@@ -20,7 +20,7 @@ class FValuator : FWidget
 	WIDGET_WIDTH = 100 #The widget Width
 	__FVALUATOR_MINIMUM_BOUND = 0 #Valuators minimum bound
 	__FVALUATOR_MAXIMUM_BOUND = 0 #Valuators maximum bound
-	__FVALUATOR_CLAMP_POSITION = 0 #Position where the widget is clamped
+	__FVALUATOR_CLAMP_VALUE = 0 #Position where the widget is clamped
 
 	setTypeName("FValuator") #change the name of the widget
 	
@@ -80,12 +80,23 @@ class FValuator : FWidget
 	block getMaximumBound()
 		return __FVALUATOR_MAXIMUM_BOUND
 		
-	block clampTo(position)
-		__FVALUATOR_CLAMP_POSITION = position
-		__valuator_clamp(WIDGETPOINTER,__FVALUATOR_CLAMP_POSITION)
 		
-	block getClampPosition()
-		return __FVALUATOR_CLAMP_POSITION
+	/*
+		Clamp the passed value to the @Class FValuator range
+		@Note It @Return this which is the widget to allow the in-line usage 
+		of the widget
+	*/
+	block clampTo(value)
+		__FVALUATOR_CLAMP_VALUE = value
+		__valuator_clamp(WIDGETPOINTER,__FVALUATOR_CLAMP_VALUE)
+		
+		
+	/*
+		Get the value of the @Class FValuator clamp range
+		@Return the clamp range @DataType Number
+	*/
+	block getClampValue()
+		return __FVALUATOR_CLAMP_VALUE
 		
 
 

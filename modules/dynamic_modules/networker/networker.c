@@ -246,6 +246,10 @@ void curl_download ( void *pointer )
 		curl_easy_setopt(curl, CURLOPT_ACCEPT_ENCODING,"");
 		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION,simple_get_curl_data);
 		curl_easy_setopt(curl, CURLOPT_WRITEDATA,string);
+		
+		//curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
+		//curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, 0L);
+		
 		res = curl_easy_perform(curl);
 		curl_easy_cleanup(curl);
 		SIMPLE_API_RETSTRING2(simple_string_get(string),simple_string_size(string));
