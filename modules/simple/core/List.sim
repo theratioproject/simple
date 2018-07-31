@@ -57,7 +57,7 @@ end
 
 block indexOf(List, value) 
 	# List = []
-	
+	# First test *wink*
 	if (isList(List))
 		return List[value]
 	end
