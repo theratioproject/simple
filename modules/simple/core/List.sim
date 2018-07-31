@@ -12,14 +12,15 @@
 
 module simple.core
 
+call "Object.sim"
+
 /*
  * Functional methods for the List module.
- * Added to reduce the depende
- *
+ * Added so it can be used for non OOP codes.
+ * 
  *
  */
 
-call "Object.sim"
 
 class List : Object
     __OBJECT_NAME 		= "List"
