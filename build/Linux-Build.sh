@@ -113,7 +113,7 @@ execute_build_proceed() {
 	esac
 	case $1 in
 		*debug* )
-			sudo chmod -R 776 $simple_debug_version
+			sudo chmod -R 776 ../../$simple_debug_version
 		;;
 	esac
 	remove_dist_folders ../simple/dist/ ../modules/dynamic_modules/dist/ ../environment/dist/ ../../simple$ver-$operating_system ./dist/ ../$simple_debug_version
