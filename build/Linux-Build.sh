@@ -113,7 +113,7 @@ execute_build_proceed() {
 	esac
 	case $1 in
 		*debug* )
-			sudo chmod 776 
+			sudo chmod 776 $simple_debug_version
 		;;
 	esac
 	remove_dist_folders ../simple/dist/ ../modules/dynamic_modules/dist/ ../environment/dist/ ../../simple$ver-$operating_system ./dist/ ../$simple_debug_version
@@ -655,6 +655,7 @@ build_deb_package() {
 	dpkg-deb --build $debpackagedir
 
 	if [ -e "$debpackagedir.deb" ]; then 
+		sudo chmod 777 "$debpackagedir.deb"
 		display debpackage "$debpackagedir.deb creation successfull"
 	else
 		display debpackage "$debpackagedir.deb creation failed"
