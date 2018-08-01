@@ -200,13 +200,9 @@ uninstall:
 	rm -f $(DESTDIR)$(PREFIX)/lib/x86_64-linux-gnu/libsimple.$(CND_DLIB_EXT)
 	rm -f $(DESTDIR)$(PREFIX)/lib/x86_64-linux-gnu/libsimple.$(VER).$(CND_DLIB_EXT)
 	rm -R -f $(DESTDIR)$(PREFIX)/include/simple/
-<<<<<<< HEAD
 	unlink $(DESTDIR)$(PREFIX)/lib/libsimple.$(CND_DLIB_EXT) 
 	unlink $(DESTDIR)$(PREFIX)/lib/x86_64-linux-gnu/libsimple.$(CND_DLIB_EXT)
 	unlink $(DESTDIR)$(PREFIX)/lib/x86_64-linux-gnu/libsimple.$(VER).$(CND_DLIB_EXT)
-=======
-	# unlink $(DESTDIR)$(PREFIX)/lib/libsimple.$(CND_DLIB_EXT) 
->>>>>>> 8227f502a4bdac5a23c7cb9c97706df4e1353c6d
 
 #This Makefile-Windows.mk was written in adaptation to the standard
 #method of writing makefiles
