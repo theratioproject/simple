@@ -83,6 +83,8 @@ block getOS()
 	elif isWindows()
 		if isWindows64() {
 			return WINDOWS_AMD64_SYSTEM
+		elif isAmd64System()
+			return WINDOWS_AMD64_SYSTEM
 		elif isI386System()
 			return WINDOWS_I386_SYSTEM
 		elif isArm64System()
@@ -119,6 +121,9 @@ block getOS()
 	else
 		return UNKNOWN_SYSTEM
 	}
+	
+#bbbbboobobobom true for now
+block isAmd64System() return true
 	
 block getNewLine()
 	if isWindows() || isWindows64()
