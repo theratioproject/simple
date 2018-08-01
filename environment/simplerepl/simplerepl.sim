@@ -35,6 +35,6 @@ while true {
 		executeCode(code)
 		display nl
 	catch
-		printWithFG(ConsoleColor.RED(), __err__)
+		printWithFG(ConsoleColor.RED(), __err__+"\n")
 	end
 } 
