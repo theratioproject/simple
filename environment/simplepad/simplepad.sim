@@ -96,7 +96,7 @@ block newFile() editor file = null
 block open() 
 	# openFile1()
 	# This is to be worked upon.
-	file = new File("test.sim") 
+	file = new File("./test.sim") 
 	editor.setText(file.readFileAsString()) notifyMenu(1)
 block save() file
 	if ( file == null )
