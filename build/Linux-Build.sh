@@ -573,6 +573,7 @@ build_deb_package() {
 	sudo mkdir "$debpackagedir/usr/"
 	sudo mkdir "$debpackagedir/usr/bin/"
 	sudo mkdir "$debpackagedir/usr/lib/"
+	sudo mkdir "$debpackagedir/usr/lib/i386-linux-gnu/"
 	sudo mkdir "$debpackagedir/usr/include/"
 	sudo mkdir "$debpackagedir/usr/include/simple/"
 	sudo mkdir "$debpackagedir/var/"
@@ -630,6 +631,10 @@ build_deb_package() {
 	echo "" >> $debpackagedir/DEBIAN/postinst
 	echo "sudo chmod -R 777 /var/lib/simple/" >> $debpackagedir/DEBIAN/postinst
 	echo "" >> $debpackagedir/DEBIAN/postinst
+	echo "mkdir -p ~/" >> $debpackagedir/DEBIAN/postinst
+	echo "mkdir -p ~/.local/" >> $debpackagedir/DEBIAN/postinst
+	echo "mkdir -p ~/.local/share/" >> $debpackagedir/DEBIAN/postinst
+	echo "mkdir -p ~/.local/share/applications/" >> $debpackagedir/DEBIAN/postinst
 	echo "sudo echo \"[Desktop Entry]\" >> ~/.local/share/applications/simplepad.desktop" >> $debpackagedir/DEBIAN/postinst
 	echo "sudo echo \"Version=1.0\" >> ~/.local/share/applications/simplepad.desktop" >> $debpackagedir/DEBIAN/postinst
 	echo "sudo echo \"Type=Application\" >> ~/.local/share/applications/simplepad.desktop" >> $debpackagedir/DEBIAN/postinst

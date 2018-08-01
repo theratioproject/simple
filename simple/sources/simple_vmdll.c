@@ -70,19 +70,21 @@ void simple_vm_dll_loadlib ( void *pointer )
 									snprintf(__library_path, sizeof(__library_path), "C:/Simple/s%s/modules/dynamic_modules/%s",SIMPLE_VERSION,library_path);
 								#else
 									snprintf(__library_path, sizeof(__library_path), "/var/lib/simple/s%s/modules/dynamic_modules/%s", SIMPLE_VERSION,library_path);
+								#endif
+								if (simple_fexists(__library_path)) { strcpy(library_path,__library_path);}
+								else {
+									/* Now we assume it is executed in a folder bin and the modules is in parent folder 
+										like
+										simple/bin/
+										simple/modules/
+										simple/includes/
+									so we go parent directory *simple* and check for modules. Think execute simple from zip extract
+									*/
+									snprintf(__library_path, sizeof(__library_path), "../modules/dynamic_modules/%s", library_path);
 									if (simple_fexists(__library_path)) { strcpy(library_path,__library_path);}
 									else {
-										snprintf(__library_path, sizeof(__library_path), "/usr/lib/simple/s%s/modules/dynamic_modules/%s", SIMPLE_VERSION,library_path);
-										if (simple_fexists(__library_path)) { strcpy(library_path,__library_path);}
-										else {
-											snprintf(__library_path, sizeof(__library_path), "/usr/local/lib/simple/s%s/modules/dynamic_modules/%s", SIMPLE_VERSION,library_path);
-											if (simple_fexists(__library_path)) { strcpy(library_path,__library_path);}
-											else {
-												
-											}
-										}
 									}
-								#endif
+								}
 							}
 						} 
 					}

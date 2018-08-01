@@ -123,19 +123,21 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
 									snprintf(__library_path, sizeof(__library_path), "C:/Simple/s%s/modules/%s",SIMPLE_VERSION,file_name);
 								#else
 									snprintf(__library_path, sizeof(__library_path), "/var/lib/simple/s%s/modules/%s", SIMPLE_VERSION,file_name);
+								#endif
+								if (simple_fexists(__library_path)) { strcpy(file_name,__library_path);}
+								else {
+									/* Now we assume it is executed in a folder bin and the modules is in parent folder 
+										like
+										simple/bin/
+										simple/modules/
+										simple/includes/
+									so we go parent directory *simple* and check for modules. Think execute simple from zip extract
+									*/
+									snprintf(__library_path, sizeof(__library_path), "../modules/%s", file_name);
 									if (simple_fexists(__library_path)) { strcpy(file_name,__library_path);}
 									else {
-										snprintf(__library_path, sizeof(__library_path), "/usr/lib/simple/s%s/modules/%s", SIMPLE_VERSION,file_name);
-										if (simple_fexists(__library_path)) { strcpy(file_name,__library_path);}
-										else {
-											snprintf(__library_path, sizeof(__library_path), "/usr/lib/simple/s%s/modules/%s", SIMPLE_VERSION,file_name);
-											if (simple_fexists(__library_path)) { strcpy(file_name,__library_path);}
-											else {
-
-											}
-										}
 									}
-								#endif
+								}
 							}
 						}
 					}
