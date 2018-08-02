@@ -384,8 +384,12 @@ configure() {
 	header configure "configure build $version"
 	sudo apt-get update
 	sudo apt-get -y install build-essential
-	sudo apt-get -y install gcc-multilib
-	sudo apt-get -y install g++-multilib
+	case $cpu_arc in
+			*64* )
+				sudo apt-get -y install gcc-multilib
+				sudo apt-get -y install g++-multilib
+			;;
+	esac
 	sudo apt-get -y install libfltk1.3-dev
 	sudo apt-get -y install xorg-dev
 	sudo apt-get -y install libx11-dev
@@ -393,7 +397,7 @@ configure() {
 	sudo apt-get -y install libssl-dev
 	sudo apt-get -y install make
 	sudo apt-get -y install libcurl4-openssl-dev
-	sudo apt-get -y install curl
+	#sudo apt-get -y install curl
 	case $cpu_arc in
 			*64* )
 				sudo apt-get -y install xorg-dev:i386
