@@ -402,7 +402,7 @@ configure() {
 	#sudo apt-get -y install curl
 	case $cpu_arc in
 			*64* )
-				#sudo apt-get -y install libfltk1.3-dev:i386
+				sudo apt-get -y install libfltk1.3-dev:i386
 				sudo apt-get -y install xorg-dev:i386
 				sudo apt-get -y install libxft-dev:i386
 				sudo apt-get -y install libxcursor-dev:i386
