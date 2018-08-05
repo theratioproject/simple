@@ -124,7 +124,8 @@ build_environments() {
 	cd ../build
 	if [ -e ../environment/Linux-Install.mk ]; then
 		local simple_command="simple"
-		sudo mkdir -p $simple_debug_version/lib/simple.so
+		sudo mkdir -p $simple_debug_version/lib/
+		sudo cp $simple_debug_version/bin/simple.so $simple_debug_version/lib/simple.so
 		case $1 in
 			*debug* )
 				cd "../../$simple_debug_version/bin/"
