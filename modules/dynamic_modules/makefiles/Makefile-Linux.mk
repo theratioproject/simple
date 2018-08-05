@@ -37,7 +37,7 @@ RM=rm
 MAKE=make
 
 # Macros
-VERSION=s0.3.35
+VERSION=s0.3.36
 CND_PLATFORM=Linux
 CND_DLIB_EXT=so
 CND_DISTDIR=../dist

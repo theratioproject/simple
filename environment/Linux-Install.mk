@@ -23,7 +23,7 @@ ENV_PATH=./
 SIMPLE_H="$(DESTDIR)$(PREFIX)include/simple/simple.h"
 LIB_PATH=-lsimple
 BAKE=$(ENV_PATH)/bake/bake.sim
-VERSION=s0.3.35-debug
+VERSION=s0.3.36-debug
 CND_PLATFORM=Linux
 ENV_DISTDIR=./dist
 
