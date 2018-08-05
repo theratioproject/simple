@@ -599,6 +599,9 @@ build_deb_package() {
 			sudo mkdir "$debpackagedir/usr/include/simple/$version"
 			sudo cp -R ../../$simple_debug_version/modules/ $debpackagedir/var/lib/simple/$version/modules
 			sudo cp ../../$simple_debug_version/includes/*.h $debpackagedir/usr/include/simple/
+			
+			local libcrypto=$(find_dependent_lib ../../$simple_debug_version/modules/dynamic_modules/security.so libcrypto)
+			sudo rsync -a libcrypto /foo/bar/ 
 		;;
 		*install* )
 			local prefix=${DESTDIR}${PREFIX:-/usr/}
@@ -615,8 +618,6 @@ build_deb_package() {
 			sudo install $prefix/include/simple/simple* $debpackagedir/usr/include/simple/
 		;;
 	esac
-	
-	$(find_dependent_lib ../../$simple_debug_version/modules/dynamic_modules/security.so libcrypto)
 
 	display debpackage "creating 'control' file"
 	sudo echo "Package: simple-lang-s$ver" >> $debpackagedir/DEBIAN/control
