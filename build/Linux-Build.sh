@@ -603,7 +603,10 @@ build_deb_package() {
 			sudo cp ../../$simple_debug_version/includes/*.h $debpackagedir/usr/include/simple/
 			
 			local libcrypto=$(find_dependent_lib ../../$simple_debug_version/modules/dynamic_modules/security.so libcrypto)
-			sudo cp $libcrypto $libcryptodir
+			if [[ "$libcrypto" = *"i386-linux-gnu"* ]]; then
+				sudo cp $libcrypto $libcryptodir
+			fi
+			
 		;;
 		*install* )
 			local prefix=${DESTDIR}${PREFIX:-/usr/}
@@ -618,6 +621,8 @@ build_deb_package() {
 			sudo cp $prefix/lib/libsimple.so $debpackagedir/usr/lib/
 			sudo cp -R /var/lib/simple/$version $debpackagedir/var/lib/simple/
 			sudo install $prefix/include/simple/simple* $debpackagedir/usr/include/simple/
+			local libcrypto=$(find_dependent_lib ../../$simple_debug_version/modules/dynamic_modules/security.so libcrypto)
+			sudo cp $libcrypto $libcryptodir
 		;;
 	esac
 
