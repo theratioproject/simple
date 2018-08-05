@@ -364,6 +364,7 @@ find_libcrypto() {
 			libcryptopath=${__libcryptopath[2]}
 		fi
 	done
+	display libcrypto "libcrypto found at "$libcryptopath
 	
 	
 }
