@@ -124,11 +124,11 @@ build_environments() {
 	cd ../build
 	if [ -e ../environment/Linux-Install.mk ]; then
 		local simple_command="simple"
-		sudo mkdir -p ../../$simple_debug_version/lib/
-		sudo cp ../../$simple_debug_version/bin/simple.so $simple_debug_version/lib/
 		case $1 in
 			*debug* )
 				cd "../../$simple_debug_version/bin/"
+				sudo mkdir -p ../lib/
+				sudo cp ./simple.so ../lib/
 				local simple_command="./$simple_command"
 				sudo rm -f ./bake && sudo rm -f ./modular && sudo rm -f ./webworker && sudo rm -f ./simplerepl && sudo rm -f ./simplepad && sudo rm -f ./simplebridge
 				sudo make -f ../../simple/environment/Linux-Install.mk ARC_FLAG=$arc_var ARC=$arc ENV_DISTDIR=./  SIMPLE_H=../../../$simple_debug_version/includes/simple.h SIMPLE=$simple_command SUDO=sudo ENV_PATH=../../simple/environment/ LIB_PATH=../lib/simple.so
