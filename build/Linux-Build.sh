@@ -573,17 +573,19 @@ build_deb_package() {
 		sudo rm -R -f "$debpackagedir"
 	fi
 	display debpackage "making directories at $debpackagedir"
-	sudo mkdir "$debpackagedir"
-	sudo mkdir "$debpackagedir/usr/"
-	sudo mkdir "$debpackagedir/usr/bin/"
-	sudo mkdir "$debpackagedir/usr/lib/"
-	sudo mkdir "$debpackagedir/usr/lib/"
-	sudo mkdir "$debpackagedir/usr/include/"
-	sudo mkdir "$debpackagedir/usr/include/simple/"
-	sudo mkdir "$debpackagedir/var/"
-	sudo mkdir "$debpackagedir/var/lib/"
-	sudo mkdir "$debpackagedir/var/lib/simple/"
-	sudo mkdir "$debpackagedir/DEBIAN"
+	sudo mkdir -p "$debpackagedir"
+	sudo mkdir -p "$debpackagedir/usr/"
+	sudo mkdir -p "$debpackagedir/usr/bin/"
+	sudo mkdir -p "$debpackagedir/usr/lib/"
+	sudo mkdir -p "$debpackagedir/usr/lib/"
+	sudo mkdir -p "$debpackagedir/usr/include/"
+	sudo mkdir -p "$debpackagedir/usr/include/simple/"
+	sudo mkdir -p "$debpackagedir/usr/include/simple/$version/"
+	sudo mkdir -p "$debpackagedir/var/"
+	sudo mkdir -p "$debpackagedir/var/lib/"
+	sudo mkdir -p "$debpackagedir/var/lib/simple/"
+	sudo mkdir -p "$debpackagedir/var/lib/simple/$version/"
+	sudo mkdir -p "$debpackagedir/DEBIAN"
 
 	display debpackage "copying executable, shared libraries and modules"
 	case $1 in
@@ -597,7 +599,6 @@ build_deb_package() {
 			sudo cp ../../$simple_debug_version/bin/bake $debpackagedir/usr/bin/
 			sudo cp ../../$simple_debug_version/bin/simple.so $debpackagedir/usr/lib/
 			sudo cp ../../$simple_debug_version/bin/simple.so $debpackagedir/usr/lib/libsimple.so
-			sudo mkdir -p "$debpackagedir/usr/include/simple/$version"
 			sudo cp -R ../../$simple_debug_version/modules/ $debpackagedir/var/lib/simple/$version/modules
 			sudo cp ../../$simple_debug_version/includes/*.h $debpackagedir/usr/include/simple/
 			
