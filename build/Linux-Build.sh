@@ -13,7 +13,6 @@ arc_var=-m32
 arc=32
 operating_system="linux_x86"
 cpu_arc="x86"
-libcryptopath=
 
 execute_build() {
 	check_if_is_sudo $@
@@ -60,9 +59,6 @@ execute_build() {
 	operating_system=$(get_os_platform)_$cpu_arc
 	simple_debug_version=simple$ver-$operating_system-debug
 
-	libcrypto=$(find_dependent_lib ../../$simple_debug_version/modules/dynamic_modules/security.so libcrypto)
-	display "libcrypto library" "$libcrypto"
-	exit
 	execute_build_proceed $exec_type $standalone_flag
 }
 
@@ -355,21 +351,6 @@ not_found_error() {
 	display_error $1 "skipping the build... on to next command..."
 }
 
-find_dependent_lib() {
-	dependinglib="$(ldd $1)"
-	IFS=$'\n' array=($dependinglib) 
-	for element in "${array[@]}"
-	do
-		if [[ "$element" = *"$2"* ]]; then
-			IFS=$' ' read -r -a __deplib <<< "$element"
-			deplib=${__deplib[2]}
-			break
-		fi
-	done
-	echo "$deplib"	
-}
-
-
 uninstall() {
 	local prefix=${DESTDIR}${PREFIX:-/usr/}
 	header uninstall "removing simple $version from the system"
@@ -634,6 +615,8 @@ build_deb_package() {
 			sudo install $prefix/include/simple/simple* $debpackagedir/usr/include/simple/
 		;;
 	esac
+	
+	$(find_dependent_lib ../../$simple_debug_version/modules/dynamic_modules/security.so libcrypto)
 
 	display debpackage "creating 'control' file"
 	sudo echo "Package: simple-lang-s$ver" >> $debpackagedir/DEBIAN/control
@@ -687,6 +670,20 @@ build_deb_package() {
 	else
 		display debpackage "$debpackagedir.deb creation failed"
 	fi
+}
+
+find_dependent_lib() {
+	dependinglib="$(ldd $1)"
+	IFS=$'\n' array=($dependinglib) 
+	for element in "${array[@]}"
+	do
+		if [[ "$element" = *"$2"* ]]; then
+			IFS=$' ' read -r -a __deplib <<< "$element"
+			deplib=${__deplib[2]}
+			break
+		fi
+	done
+	echo "$deplib"	
 }
 
 execute_build $@
