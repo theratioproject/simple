@@ -578,7 +578,6 @@ build_deb_package() {
 	sudo mkdir "$debpackagedir/usr/bin/"
 	sudo mkdir "$debpackagedir/usr/lib/"
 	sudo mkdir "$debpackagedir/usr/lib/"
-	sudo mkdir "$debpackagedir/usr/lib/i386-linux-gnu/"
 	sudo mkdir "$debpackagedir/usr/include/"
 	sudo mkdir "$debpackagedir/usr/include/simple/"
 	sudo mkdir "$debpackagedir/var/"
@@ -604,7 +603,10 @@ build_deb_package() {
 			
 			local libcrypto=$(find_dependent_lib ../../$simple_debug_version/modules/dynamic_modules/security.so libcrypto)
 			if [[ "$libcrypto" = *"i386-linux-gnu"* ]]; then
-				sudo cp $libcrypto $libcryptodir
+				sudo mkdir "$debpackagedir/usr/lib/i386-linux-gnu/"
+				sudo cp $libcrypto $debpackagedir/usr/lib/i386-linux-gnu/
+			elif [[ "$libcrypto" = *"i386-linux-gnu"* ]]; then
+				
 			fi
 			
 		;;
