@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 clear
 
@@ -13,6 +13,7 @@ arc_var=-m32
 arc=32
 operating_system="linux_x86"
 cpu_arc="x86"
+libcryptopath=
 
 execute_build() {
 	check_if_is_sudo $@
@@ -54,11 +55,13 @@ execute_build() {
 			standalone_flag="environment-only"
 		fi
 	done
-
+	
 	cpu_arc=$(get_os_arch_platform)
 	operating_system=$(get_os_platform)_$cpu_arc
 	simple_debug_version=simple$ver-$operating_system-debug
 
+	find_libcrypto
+	exit
 	execute_build_proceed $exec_type $standalone_flag
 }
 
@@ -116,7 +119,7 @@ execute_build_proceed() {
 			sudo chmod -R 777 ../../$simple_debug_version
 		;;
 	esac
-	remove_dist_folders ../simple/dist/ ../modules/dynamic_modules/dist/ ../environment/dist/ ../../simple$ver-$operating_system ./dist/ ../$simple_debug_version
+	remove_dist_folders ../simple/dist/ ../modules/dynamic_modules/dist/ ../environment/dist/ ./dist/ ../$simple_debug_version #../../simple$ver-$operating_system 
 }
 
 build_environments() {
@@ -260,7 +263,7 @@ build_dynamic_modules(){
 			sudo mkdir -p "../../$simple_debug_version/modules"
 			sudo mkdir -p "../../$simple_debug_version/modules/dynamic_modules"
 			if [ -e "../modules/dynamic_modules/dist/" ]; then
-				sudo cp ../modules/dynamic_modules/dist/*.so "../../$simple_debug_version/modules/dynamic_modules"
+				sudo cp ../modules/dynamic_modules/dist/*.so* "../../$simple_debug_version/modules/dynamic_modules"
 			else
 				build_failed_error $1 "simple and simple.so"
 			fi
@@ -350,6 +353,46 @@ not_found_error() {
 	display_error $1 "the file '$2' does not exist in simple directory"
 	display_error $1 "skipping the build... on to next command..."
 }
+
+find_libcrypto() {
+	local libcrypto32='/usr/lib/i386-linux-gnu/libcrypto.so /lib/i386-linux-gnu/libcrypto.so /usr/local/lib/i386-linux-gnu/libcrypto.so'
+	
+	local libcrypto64='/usr/lib/x86_64-linux-gnu/libcrypto.so /lib/x86_64-linux-gnu/libcrypto.so /usr/local/lib/x86_64-linux-gnu/libcrypto.so'
+	if [ $arc_var = "-m32" ]; then
+		for i in $libcrypto32
+		do
+			libcryptopath=$i
+			if [ -e $libcryptopath ]; then
+				display libcrypto "libcrypto found at $libcryptopath"
+				break
+			fi
+		done
+	elif [ $arc_var = "-m64" ]; then
+		for i in $libcrypto64
+		do
+			libcryptopath=$i
+			if [ -e $libcryptopath ]; then
+				display libcrypto "libcrypto found at $libcryptopath"
+				break
+			fi
+		done
+	fi
+	if [ "$libcryptopath" != "" ]; then
+		sudo cp $libcryptopath ../modules/dynamic_modules/security/libcrypto.so
+	fi
+	dependinglibcrypto="$(ldd ../../$simple_debug_version/modules/dynamic_modules/security.so)"
+	IFS=$'\n' array=($dependinglibcrypto) 
+	for element in "${array[@]}"
+	do
+		if [[ "$element" = *"libcrypto"* ]]; then
+			IFS=$' ' read -r -a __libcryptopath <<< "$element"
+			display libcrypto "${__libcryptopath[2]}"
+		fi
+	done
+	
+	
+}
+
 
 uninstall() {
 	local prefix=${DESTDIR}${PREFIX:-/usr/}
@@ -577,7 +620,6 @@ build_deb_package() {
 	sudo mkdir "$debpackagedir/usr/"
 	sudo mkdir "$debpackagedir/usr/bin/"
 	sudo mkdir "$debpackagedir/usr/lib/"
-	sudo mkdir "$debpackagedir/usr/lib/i386-linux-gnu/"
 	sudo mkdir "$debpackagedir/usr/include/"
 	sudo mkdir "$debpackagedir/usr/include/simple/"
 	sudo mkdir "$debpackagedir/var/"
@@ -598,7 +640,7 @@ build_deb_package() {
 			sudo cp ../../$simple_debug_version/bin/simple.so $debpackagedir/usr/lib/
 			sudo cp ../../$simple_debug_version/bin/simple.so $debpackagedir/usr/lib/libsimple.so
 			sudo mkdir "$debpackagedir/usr/include/simple/$version"
-			sudo cp -R ../../$simple_debug_version/modules/ $debpackagedir/var/lib/simple/$version
+			sudo cp -R ../../$simple_debug_version/modules/ $debpackagedir/var/lib/simple/$version/modules
 			sudo cp ../../$simple_debug_version/includes/*.h $debpackagedir/usr/include/simple/
 		;;
 		*install* )
@@ -674,4 +716,8 @@ build_deb_package() {
 execute_build $@
 
 exit 0
+
+#ma5lata3na1ta34na1la pa4sata1la sa2rava3ca2
+#naga wa4rakasa garata
+#
 
