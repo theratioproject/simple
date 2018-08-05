@@ -239,6 +239,14 @@ block stringSplit(content, delimiter)
 	# Need to write a StringToList function as this gives an erroneous response.
 	return stringToList(substr(content, delimiter, crlf))
 
+block stringToList(str)
+		lister = []
+		for a in str + 1
+			add(lister, a)
+		end
+		return lister
+	
+
 class String : Object
 
 	objectName = "String"
