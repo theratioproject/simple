@@ -60,7 +60,8 @@ execute_build() {
 	operating_system=$(get_os_platform)_$cpu_arc
 	simple_debug_version=simple$ver-$operating_system-debug
 
-	find_dependent_lib ../../$simple_debug_version/modules/dynamic_modules/security.so libcrypto
+	libcrypto=$(find_dependent_lib ../../$simple_debug_version/modules/dynamic_modules/security.so libcrypto)
+	display "libcrypto library" "$libcrypto"
 	exit
 	execute_build_proceed $exec_type $standalone_flag
 }
