@@ -355,38 +355,13 @@ not_found_error() {
 }
 
 find_libcrypto() {
-	local libcrypto32='/usr/lib/i386-linux-gnu/libcrypto.so /lib/i386-linux-gnu/libcrypto.so /usr/local/lib/i386-linux-gnu/libcrypto.so'
-	
-	local libcrypto64='/usr/lib/x86_64-linux-gnu/libcrypto.so /lib/x86_64-linux-gnu/libcrypto.so /usr/local/lib/x86_64-linux-gnu/libcrypto.so'
-	if [ $arc_var = "-m32" ]; then
-		for i in $libcrypto32
-		do
-			libcryptopath=$i
-			if [ -e $libcryptopath ]; then
-				display libcrypto "libcrypto found at $libcryptopath"
-				break
-			fi
-		done
-	elif [ $arc_var = "-m64" ]; then
-		for i in $libcrypto64
-		do
-			libcryptopath=$i
-			if [ -e $libcryptopath ]; then
-				display libcrypto "libcrypto found at $libcryptopath"
-				break
-			fi
-		done
-	fi
-	if [ "$libcryptopath" != "" ]; then
-		sudo cp $libcryptopath ../modules/dynamic_modules/security/libcrypto.so
-	fi
 	dependinglibcrypto="$(ldd ../../$simple_debug_version/modules/dynamic_modules/security.so)"
 	IFS=$'\n' array=($dependinglibcrypto) 
 	for element in "${array[@]}"
 	do
 		if [[ "$element" = *"libcrypto"* ]]; then
 			IFS=$' ' read -r -a __libcryptopath <<< "$element"
-			display libcrypto "${__libcryptopath[2]}"
+			libcryptopath=${__libcryptopath[2]}
 		fi
 	done
 	
