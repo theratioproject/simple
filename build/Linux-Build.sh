@@ -577,6 +577,8 @@ build_deb_package() {
 	sudo mkdir "$debpackagedir/usr/"
 	sudo mkdir "$debpackagedir/usr/bin/"
 	sudo mkdir "$debpackagedir/usr/lib/"
+	sudo mkdir "$debpackagedir/usr/lib/"
+	sudo mkdir "$debpackagedir/usr/lib/i386-linux-gnu/"
 	sudo mkdir "$debpackagedir/usr/include/"
 	sudo mkdir "$debpackagedir/usr/include/simple/"
 	sudo mkdir "$debpackagedir/var/"
@@ -601,8 +603,6 @@ build_deb_package() {
 			sudo cp ../../$simple_debug_version/includes/*.h $debpackagedir/usr/include/simple/
 			
 			local libcrypto=$(find_dependent_lib ../../$simple_debug_version/modules/dynamic_modules/security.so libcrypto)
-			local libcryptodir=$(dependent_lib_folder)
-			sudo mkdir -p "$debpackagedir"$libcryptodir
 			sudo cp $libcrypto $libcryptodir
 		;;
 		*install* )
@@ -687,10 +687,6 @@ find_dependent_lib() {
 		fi
 	done
 	echo "$deplib"	
-}
-
-dependent_lib_folder() {
-	#currently static to be dynamic later
 }
 
 execute_build $@
