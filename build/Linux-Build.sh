@@ -404,8 +404,8 @@ configure() {
 			*64* )
 				#sudo apt-get -y install libfltk1.3-dev:i386
 				sudo apt-get -y install xorg-dev:i386
-				#sudo apt-get -y install libxft-dev:i386
-				#sudo apt-get -y install libxcursor1:i386
+				sudo apt-get -y install libxft-dev:i386
+				sudo apt-get -y install libxcursor-dev:i386
 				sudo apt-get -y install libxinerama-dev:i386
 				sudo apt-get -y install libssl-dev:i386
 				sudo apt-get -y install libcurl4-openssl-dev:i386
