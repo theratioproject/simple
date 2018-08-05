@@ -9,7 +9,7 @@
 # Simple
 
 The Simple Intelligent and Modular Programming Language and Environment</br>
-Current Version : 0.3.35
+Current Version : 0.3.36
 ![simple-repl](https://i.imgur.com/qx5bbc3.png)
 
 ### About Simple
@@ -45,7 +45,7 @@ $ sudo sh ./Linux-Build.sh -c -i
 ```
 ##### Installing SIMPLE for debugging purpose.
 
-This method of installation does not install **SIMPLE** to the system but only installs the debugging folder *s0.3.35* and houses four folders:
+This method of installation does not install **SIMPLE** to the system but only installs the debugging folder *s0.3.36* and houses four folders:
 
 + bin
     - simple
