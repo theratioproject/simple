@@ -219,7 +219,7 @@ block createIcon(path)
 		tempFile = new File(path+".rc")  display "		Creating Resources file "+tempFile.toString()+crlf tempFile.write(con)
 		con = 'windres '+tempFile.absolutePath()+' -O coff -o '+path+'.res'
 		display "		Compiling Resources file "+tempFile.toString()+crlf __exec(con)
-		cflags += path+'.res '
+		cflags += path+'.res '+buildArch+' '
 	end
 	
 block windowBuildVS(path)
@@ -239,7 +239,7 @@ block windowBuildVS(path)
 	
 block windowBuildMingw(mingwBuildTool,path)
 	display "--> Building Executable with MINGW"+crlf
-	exeCmd = mingwBuildTool.absolutePath()+' -c -g -MMD -MP -MF "'+path+'.o.d" -o "'+path+'.o" "'+path+'"'
+	exeCmd = mingwBuildTool.absolutePath()+' '+buildArch+' -c -g -MMD -MP -MF "'+path+'.o.d" -o "'+path+'.o" "'+path+'"'
 	display "		Executing compilation command "/*+exeCmd */+ crlf __exec(exeCmd) 
 	exeCmd = mingwBuildTool.absolutePath()+' '+cflags+' -o "'+outputName+'.exe" "'+path+'.o" '+simpleDllPath
 	display "		Executing build command " + crlf __exec(exeCmd) 
