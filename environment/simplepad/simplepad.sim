@@ -82,9 +82,9 @@ class SimplePad : FWindow
 		#menu
 		menuBar.setSize(getWidth(),30).setBackground(backGround).addMenu(menu).setBoxType(FBOX_FLAT_BOX).setTextColor(textColor).setDownColor(FBOX_FLAT_BOX)
 		#editor
-		editor.setPosition(10,30).setSize(380,430).setBackground(backGround).setTextColor(textColor).setCursorColor(textColor).hideScrollBar()
+		editor.setPosition(10,30).setSize(380,430).setBackground(backGround).setTextColor(textColor).setCursorColor(textColor).showLineNumber()
 		editor.setBoxType(FBOX_FLAT_BOX)
-		editor./*setLineNumberWidth(lineNumberWidth).*/setLineNumberBackground(backGround).setLineNumberTextColor(textColor)
+		# editor./*setLineNumberWidth(lineNumberWidth).*/setLineNumberBackground(backGround).setLineNumberTextColor(textColor)
 		addResizableWidget([menuBar,editor]) #notifyMenu(0) 
 		
 block exeFolder()
@@ -96,27 +96,9 @@ block openFile1()
 	open = new Test #open.openFile() 
 	open.render()
 
-block newFile() editor.clear file = null
-block open() 
-	try {
-		file
-		# if file.exists()
-		# 	editor.setText(file.readFileAsString()) notifyMenu(1)
-		# else
-			file = new File("../test.sim") #
-			editor.setText(file.readFileAsString()) #notifyMenu(1)
-		# end		
-	catch
-		display __err__
-}
-
-block save() file = new File(currentDirectory().absolutePath()) file.write(" ") file.append(editor.getText())
-	# file 
-	# if ( file == null )
-	# 	# openFile1()
-	# 	else
-
-	# end
+block newFile() editor.clear() file = null
+block open() file = new File("../bake/test.sim") editor.setText(file.readFileAsString()) notifyMenu(1)
+block save() file.append(editor.getText())
 block saveAs() display "Nothing yet.... "
 block close() editor.clear() file = null notifyMenu(0) block exit() __exit__
 #EDIT
