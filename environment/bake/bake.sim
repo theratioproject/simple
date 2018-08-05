@@ -242,6 +242,7 @@ block windowBuildMingw(mingwBuildTool,path)
 	exeCmd = mingwBuildTool.absolutePath()+' -c -g -MMD -MP -MF "'+path+'.o.d" -o "'+path+'.o" "'+path+'"'
 	display "		Executing compilation command "/*+exeCmd */+ crlf __exec(exeCmd) 
 	exeCmd = mingwBuildTool.absolutePath()+' '+cflags+' -o "'+outputName+'.exe" "'+path+'.o" '+simpleDllPath
+	@exeCmd
 	display "		Executing build command " + crlf __exec(exeCmd) 
 	cleanTempFiles([path,path+".o.d",path+".o",path+'.rc',path+'.res']) treatProgramAttr()
 
