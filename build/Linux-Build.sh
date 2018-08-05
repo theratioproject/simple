@@ -403,6 +403,7 @@ configure() {
 	case $cpu_arc in
 			*64* )
 				sudo apt-get -y install xorg-dev:i386
+				#sudo apt-get -y install libxft-dev:i386
 				sudo apt-get -y install libssl-dev:i386
 				sudo apt-get -y install libcurl4-openssl-dev:i386
 			;;
