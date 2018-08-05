@@ -116,7 +116,7 @@ execute_build_proceed() {
 			sudo chmod -R 777 ../../$simple_debug_version
 		;;
 	esac
-	remove_dist_folders ../simple/dist/ ../modules/dynamic_modules/dist/ ../environment/dist/ ./dist/ ../$simple_debug_version #../../simple$ver-$operating_system 
+	remove_dist_folders ../simple/dist/ ../modules/dynamic_modules/dist/ ../environment/dist/ ./dist/ ../$simple_debug_version ../../simple$ver-$operating_system 
 }
 
 build_environments() {
