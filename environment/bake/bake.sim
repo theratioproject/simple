@@ -187,7 +187,7 @@ block createExecutable(path)
 
 	 
 block windowsBuild(path) 
-	mingwBuildTool = new File("C:\MinGW64\bin\gcc.exe")
+	mingwBuildTool = new File("C:\MinGW\bin\gcc.exe")
 	cygwinBuildTool = new File("C:\cygwin\bin\gcc.exe")		
 	#check if system has mingw
 	if useMINGW
@@ -219,7 +219,7 @@ block createIcon(path)
 		tempFile = new File(path+".rc")  display "		Creating Resources file "+tempFile.toString()+crlf tempFile.write(con)
 		con = 'windres '+tempFile.absolutePath()+' -O coff -o '+path+'.res'
 		display "		Compiling Resources file "+tempFile.toString()+crlf __exec(con)
-		cflags += path+'.res '+buildArch+' '
+		cflags += path+'.res '
 	end
 	
 block windowBuildVS(path)
@@ -242,7 +242,6 @@ block windowBuildMingw(mingwBuildTool,path)
 	exeCmd = mingwBuildTool.absolutePath()+' -c -g -MMD -MP -MF "'+path+'.o.d" -o "'+path+'.o" "'+path+'"'
 	display "		Executing compilation command "/*+exeCmd */+ crlf __exec(exeCmd) 
 	exeCmd = mingwBuildTool.absolutePath()+' '+cflags+' -o "'+outputName+'.exe" "'+path+'.o" '+simpleDllPath
-	@exeCmd
 	display "		Executing build command " + crlf __exec(exeCmd) 
 	cleanTempFiles([path,path+".o.d",path+".o",path+'.rc',path+'.res']) treatProgramAttr()
 
