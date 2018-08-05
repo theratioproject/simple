@@ -605,8 +605,9 @@ build_deb_package() {
 			if [[ "$libcrypto" = *"i386-linux-gnu"* ]]; then
 				sudo mkdir "$debpackagedir/usr/lib/i386-linux-gnu/"
 				sudo cp $libcrypto $debpackagedir/usr/lib/i386-linux-gnu/
-			elif [[ "$libcrypto" = *"i386-linux-gnu"* ]]; then
-				
+			elif [[ "$libcrypto" = *"x86_64-linux-gnu"* ]]; then
+				sudo mkdir "$debpackagedir/usr/lib/x86_64-linux-gnu/"
+				sudo cp $libcrypto $debpackagedir/usr/lib/x86_64-linux-gnu/
 			fi
 			
 		;;
@@ -623,8 +624,15 @@ build_deb_package() {
 			sudo cp $prefix/lib/libsimple.so $debpackagedir/usr/lib/
 			sudo cp -R /var/lib/simple/$version $debpackagedir/var/lib/simple/
 			sudo install $prefix/include/simple/simple* $debpackagedir/usr/include/simple/
-			local libcrypto=$(find_dependent_lib ../../$simple_debug_version/modules/dynamic_modules/security.so libcrypto)
-			sudo cp $libcrypto $libcryptodir
+			
+			local libcrypto=$(find_dependent_lib /var/lib/simple/$version/modules/dynamic_modules/security.so libcrypto)
+			if [[ "$libcrypto" = *"i386-linux-gnu"* ]]; then
+				sudo mkdir "$debpackagedir/usr/lib/i386-linux-gnu/"
+				sudo cp $libcrypto $debpackagedir/usr/lib/i386-linux-gnu/
+			elif [[ "$libcrypto" = *"x86_64-linux-gnu"* ]]; then
+				sudo mkdir "$debpackagedir/usr/lib/x86_64-linux-gnu/"
+				sudo cp $libcrypto $debpackagedir/usr/lib/x86_64-linux-gnu/
+			fi
 		;;
 	esac
 
