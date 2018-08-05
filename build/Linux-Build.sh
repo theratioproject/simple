@@ -601,7 +601,8 @@ build_deb_package() {
 			sudo cp ../../$simple_debug_version/includes/*.h $debpackagedir/usr/include/simple/
 			
 			local libcrypto=$(find_dependent_lib ../../$simple_debug_version/modules/dynamic_modules/security.so libcrypto)
-			sudo rsync -a libcrypto /foo/bar/ 
+			local 
+			sudo cp $libcrypto $debpackagedir/usr/lib/
 		;;
 		*install* )
 			local prefix=${DESTDIR}${PREFIX:-/usr/}
