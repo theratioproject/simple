@@ -60,7 +60,7 @@ execute_build() {
 	operating_system=$(get_os_platform)_$cpu_arc
 	simple_debug_version=simple$ver-$operating_system-debug
 
-	find_libcrypto ../../$simple_debug_version/modules/dynamic_modules/security.so
+	find_dependent_lib ../../$simple_debug_version/modules/dynamic_modules/security.so libcrypto
 	exit
 	execute_build_proceed $exec_type $standalone_flag
 }
@@ -354,18 +354,18 @@ not_found_error() {
 	display_error $1 "skipping the build... on to next command..."
 }
 
-find_libcrypto() {
-	dependinglibcrypto="$(ldd $1)"
-	IFS=$'\n' array=($dependinglibcrypto) 
+find_dependent_lib() {
+	dependinglib="$(ldd $1)"
+	IFS=$'\n' array=($dependinglib) 
 	for element in "${array[@]}"
 	do
-		if [[ "$element" = *"libcrypto"* ]]; then
-			IFS=$' ' read -r -a __libcryptopath <<< "$element"
-			libcryptopath=${__libcryptopath[2]}
+		if [[ "$element" = *"$2"* ]]; then
+			IFS=$' ' read -r -a __deplib <<< "$element"
+			deplib=${__deplib[2]}
 			break
 		fi
 	done
-	echo "$libcryptopath"	
+	echo "$deplib"	
 }
 
 
