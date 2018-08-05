@@ -598,16 +598,23 @@ build_deb_package() {
 			sudo cp ../../$simple_debug_version/bin/webworker $debpackagedir/usr/bin/
 			sudo cp ../../$simple_debug_version/bin/bake $debpackagedir/usr/bin/
 			sudo cp ../../$simple_debug_version/bin/simple.so $debpackagedir/usr/lib/
-			sudo cp ../../$simple_debug_version/bin/simple.so $debpackagedir/usr/lib/libsimple.so
 			sudo cp -R ../../$simple_debug_version/modules/ $debpackagedir/var/lib/simple/$version/modules
 			sudo cp ../../$simple_debug_version/includes/*.h $debpackagedir/usr/include/simple/
 			
+			if [ $arc_var = "-m32" ]; then
+				sudo mkdir -p "$debpackagedir/usr/lib/i386-linux-gnu/"
+				sudo cp ../../$simple_debug_version/bin/simple.so $debpackagedir/usr/lib/i386-linux-gnu/libsimple.so
+			elif [ $arc_var = "-m64" ]; then
+				sudo mkdir -p "$debpackagedir/usr/lib/x86_64-linux-gnu/"
+				sudo cp ../../$simple_debug_version/bin/simple.so$debpackagedir/usr/lib/x86_64-linux-gnu/libsimple.so
+			fi  
+			
 			local libcrypto=$(find_dependent_lib ../../$simple_debug_version/modules/dynamic_modules/security.so libcrypto)
 			if [[ "$libcrypto" = *"i386-linux-gnu"* ]]; then
-				sudo mkdir "$debpackagedir/usr/lib/i386-linux-gnu/"
+				sudo mkdir -p "$debpackagedir/usr/lib/i386-linux-gnu/"
 				sudo cp $libcrypto $debpackagedir/usr/lib/i386-linux-gnu/
 			elif [[ "$libcrypto" = *"x86_64-linux-gnu"* ]]; then
-				sudo mkdir "$debpackagedir/usr/lib/x86_64-linux-gnu/"
+				sudo mkdir -p "$debpackagedir/usr/lib/x86_64-linux-gnu/"
 				sudo cp $libcrypto $debpackagedir/usr/lib/x86_64-linux-gnu/
 			fi
 			
