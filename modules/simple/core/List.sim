@@ -171,12 +171,12 @@ block slice(x, y)
         if (x = 0 && y = 0)
              return __OBJECT
             end
-        if (__OBJECT[x + 1] == __OBJECT[y])
+        if (__OBJECT[x + 1] == __OBJECT.indexOf(y))
             return __OBJECT[x]
-        elif (__OBJECT[x + 1]  != __OBJECT[y])
+        elif (__OBJECT[x + 1]  != __OBJECT.indexOf(y))
             do {
                 return __OBJECT[x++ - 1]
-            } while x < __OBJECT[y]
+            } while x < __OBJECT.indexOf(y)
         else
             return "[]"
             end        
