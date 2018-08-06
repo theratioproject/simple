@@ -82,7 +82,7 @@ class SimplePad : FWindow
 		#menu
 		menuBar.setSize(getWidth(),30).setBackground(backGround).addMenu(menu).setBoxType(FBOX_FLAT_BOX).setTextColor(textColor).setDownColor(FBOX_FLAT_BOX)
 		#editor
-		editor.setPosition(10,30).setSize(380,430).setBackground(backGround).setTextColor(textColor).setCursorColor(textColor).showLineNumber()
+		editor.setPosition(10,30).setSize(380,430).setBackground(backGround).setTextColor(textColor).setCursorColor(textColor).showLineNumber().setLineNumberBackground(FColor.BLACK())
 		editor.setBoxType(FBOX_FLAT_BOX)
 		# editor./*setLineNumberWidth(lineNumberWidth).*/setLineNumberBackground(backGround).setLineNumberTextColor(textColor)
 		addResizableWidget([menuBar,editor]) #notifyMenu(0) 
