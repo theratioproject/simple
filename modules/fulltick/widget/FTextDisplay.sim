@@ -333,7 +333,7 @@ class FTextDisplay : FGroup
 	#@Note It @Returns this which is the widget to allow the in-line usage 
 	#of the widget
 	block showLineNumber()
-		return setLineNumberWidth(75)
+		return setLineNumberWidth(20)
 		
 	#Render the line number invisible. This is equivalent to calling @Block
 	#setLineNumberWidth(width) with the width parameter as 0
