@@ -151,6 +151,11 @@ class List : Object
         return __OBJECT
 
     block reverse()
+	/*
+	* This method returns the array in an inverse manner
+	* e.g from @Bold [a,b,c,d,e] to [e,d,c,b,a] and it also
+	* changes the index number as it inverses the list.
+	*/
         x = 0
         reverserArray = []
         do {
