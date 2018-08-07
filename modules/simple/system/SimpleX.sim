@@ -24,12 +24,12 @@ call "loadsystemdll.sim"
 	@Code
 		#Windows 
 		C:\Simple\ #-> the simple directory
-			.\s0.3.35\
+			.\s0.3.36\
 			.\s0.3.36\
 			.\s0.4.00\
 		#linux
 		/var/lib/simple/ #-> the simple directory
-			.\s0.3.35\
+			.\s0.3.36\
 			.\s0.3.36\
 			.\s0.4.00\
 	@EndCode

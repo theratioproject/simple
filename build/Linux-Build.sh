@@ -1,10 +1,10 @@
-#!/bin/sh
+#!/bin/bash
 
 clear
 
 exec_type=""
 build_arc="x86"
-ver=0.3.35
+ver=0.3.36
 keep_dist="false"
 version=s"$ver"
 simple_debug_version=$version-debug
@@ -54,7 +54,7 @@ execute_build() {
 			standalone_flag="environment-only"
 		fi
 	done
-
+	
 	cpu_arc=$(get_os_arch_platform)
 	operating_system=$(get_os_platform)_$cpu_arc
 	simple_debug_version=simple$ver-$operating_system-debug
@@ -116,7 +116,7 @@ execute_build_proceed() {
 			sudo chmod -R 777 ../../$simple_debug_version
 		;;
 	esac
-	remove_dist_folders ../simple/dist/ ../modules/dynamic_modules/dist/ ../environment/dist/ ../../simple$ver-$operating_system ./dist/ ../$simple_debug_version
+	remove_dist_folders ../simple/dist/ ../modules/dynamic_modules/dist/ ../environment/dist/ ./dist/ ../$simple_debug_version ../../simple$ver-$operating_system 
 }
 
 build_environments() {
@@ -127,9 +127,11 @@ build_environments() {
 		case $1 in
 			*debug* )
 				cd "../../$simple_debug_version/bin/"
+				sudo mkdir -p ../lib/
+				sudo cp ./simple.so ../lib/
 				local simple_command="./$simple_command"
 				sudo rm -f ./bake && sudo rm -f ./modular && sudo rm -f ./webworker && sudo rm -f ./simplerepl && sudo rm -f ./simplepad && sudo rm -f ./simplebridge
-				sudo make -f ../../simple/environment/Linux-Install.mk ARC_FLAG=$arc_var ARC=$arc ENV_DISTDIR=./  SIMPLE_H=../../../$simple_debug_version/includes/simple.h SIMPLE=$simple_command SUDO=sudo ENV_PATH=../../simple/environment/ LIB_PATH=./simple.so
+				sudo make -f ../../simple/environment/Linux-Install.mk ARC_FLAG=$arc_var ARC=$arc ENV_DISTDIR=./  SIMPLE_H=../../../$simple_debug_version/includes/simple.h SIMPLE=$simple_command SUDO=sudo ENV_PATH=../../simple/environment/ LIB_PATH=../lib/simple.so
 				cd "../../simple/build/"
 			;;
 			*install* )
@@ -260,7 +262,7 @@ build_dynamic_modules(){
 			sudo mkdir -p "../../$simple_debug_version/modules"
 			sudo mkdir -p "../../$simple_debug_version/modules/dynamic_modules"
 			if [ -e "../modules/dynamic_modules/dist/" ]; then
-				sudo cp ../modules/dynamic_modules/dist/*.so "../../$simple_debug_version/modules/dynamic_modules"
+				sudo cp ../modules/dynamic_modules/dist/*.so* "../../$simple_debug_version/modules/dynamic_modules"
 			else
 				build_failed_error $1 "simple and simple.so"
 			fi
@@ -384,8 +386,12 @@ configure() {
 	header configure "configure build $version"
 	sudo apt-get update
 	sudo apt-get -y install build-essential
-	sudo apt-get -y install gcc-multilib
-	sudo apt-get -y install g++-multilib
+	case $cpu_arc in
+			*64* )
+				sudo apt-get -y install gcc-multilib
+				sudo apt-get -y install g++-multilib
+			;;
+	esac
 	sudo apt-get -y install libfltk1.3-dev
 	sudo apt-get -y install xorg-dev
 	sudo apt-get -y install libx11-dev
@@ -393,10 +399,14 @@ configure() {
 	sudo apt-get -y install libssl-dev
 	sudo apt-get -y install make
 	sudo apt-get -y install libcurl4-openssl-dev
-	sudo apt-get -y install curl
+	#sudo apt-get -y install curl
 	case $cpu_arc in
 			*64* )
+				#sudo apt-get -y install libfltk1.3-dev:i386
 				sudo apt-get -y install xorg-dev:i386
+				#sudo apt-get -y install libxft-dev:i386
+				sudo apt-get -y install libxcursor-dev:i386
+				sudo apt-get -y install libxinerama-dev:i386
 				sudo apt-get -y install libssl-dev:i386
 				sudo apt-get -y install libcurl4-openssl-dev:i386
 			;;
@@ -569,17 +579,19 @@ build_deb_package() {
 		sudo rm -R -f "$debpackagedir"
 	fi
 	display debpackage "making directories at $debpackagedir"
-	sudo mkdir "$debpackagedir"
-	sudo mkdir "$debpackagedir/usr/"
-	sudo mkdir "$debpackagedir/usr/bin/"
-	sudo mkdir "$debpackagedir/usr/lib/"
-	sudo mkdir "$debpackagedir/usr/lib/i386-linux-gnu/"
-	sudo mkdir "$debpackagedir/usr/include/"
-	sudo mkdir "$debpackagedir/usr/include/simple/"
-	sudo mkdir "$debpackagedir/var/"
-	sudo mkdir "$debpackagedir/var/lib/"
-	sudo mkdir "$debpackagedir/var/lib/simple/"
-	sudo mkdir "$debpackagedir/DEBIAN"
+	sudo mkdir -p "$debpackagedir"
+	sudo mkdir -p "$debpackagedir/usr/"
+	sudo mkdir -p "$debpackagedir/usr/bin/"
+	sudo mkdir -p "$debpackagedir/usr/lib/"
+	sudo mkdir -p "$debpackagedir/usr/lib/"
+	sudo mkdir -p "$debpackagedir/usr/include/"
+	sudo mkdir -p "$debpackagedir/usr/include/simple/"
+	sudo mkdir -p "$debpackagedir/usr/include/simple/$version/"
+	sudo mkdir -p "$debpackagedir/var/"
+	sudo mkdir -p "$debpackagedir/var/lib/"
+	sudo mkdir -p "$debpackagedir/var/lib/simple/"
+	sudo mkdir -p "$debpackagedir/var/lib/simple/$version/"
+	sudo mkdir -p "$debpackagedir/DEBIAN"
 
 	display debpackage "copying executable, shared libraries and modules"
 	case $1 in
@@ -592,10 +604,26 @@ build_deb_package() {
 			sudo cp ../../$simple_debug_version/bin/webworker $debpackagedir/usr/bin/
 			sudo cp ../../$simple_debug_version/bin/bake $debpackagedir/usr/bin/
 			sudo cp ../../$simple_debug_version/bin/simple.so $debpackagedir/usr/lib/
-			sudo cp ../../$simple_debug_version/bin/simple.so $debpackagedir/usr/lib/libsimple.so
-			sudo mkdir "$debpackagedir/usr/include/simple/$version"
-			sudo cp -R ../../$simple_debug_version/modules/ $debpackagedir/var/lib/simple/$version
+			sudo cp -R ../../$simple_debug_version/modules/ $debpackagedir/var/lib/simple/$version/modules
 			sudo cp ../../$simple_debug_version/includes/*.h $debpackagedir/usr/include/simple/
+			
+			if [ $arc_var = "-m32" ]; then
+				sudo mkdir -p "$debpackagedir/usr/lib/i386-linux-gnu/"
+				sudo cp ../../$simple_debug_version/bin/simple.so $debpackagedir/usr/lib/i386-linux-gnu/libsimple.so.$ver
+			elif [ $arc_var = "-m64" ]; then
+				sudo mkdir -p "$debpackagedir/usr/lib/x86_64-linux-gnu/"
+				sudo cp ../../$simple_debug_version/bin/simple.so $debpackagedir/usr/lib/x86_64-linux-gnu/libsimple.so.$ver
+			fi  
+			
+			local libcrypto=$(find_dependent_lib ../../$simple_debug_version/modules/dynamic_modules/security.so libcrypto)
+			if [[ "$libcrypto" = *"i386-linux-gnu"* ]]; then
+				sudo mkdir -p "$debpackagedir/usr/lib/i386-linux-gnu/"
+				sudo cp $libcrypto $debpackagedir/usr/lib/i386-linux-gnu/
+			elif [[ "$libcrypto" = *"x86_64-linux-gnu"* ]]; then
+				sudo mkdir -p "$debpackagedir/usr/lib/x86_64-linux-gnu/"
+				sudo cp $libcrypto $debpackagedir/usr/lib/x86_64-linux-gnu/
+			fi
+			
 		;;
 		*install* )
 			local prefix=${DESTDIR}${PREFIX:-/usr/}
@@ -610,6 +638,23 @@ build_deb_package() {
 			sudo cp $prefix/lib/libsimple.so $debpackagedir/usr/lib/
 			sudo cp -R /var/lib/simple/$version $debpackagedir/var/lib/simple/
 			sudo install $prefix/include/simple/simple* $debpackagedir/usr/include/simple/
+			
+			if [ $arc_var = "-m32" ]; then
+				sudo mkdir -p "$debpackagedir/usr/lib/i386-linux-gnu/"
+				sudo cp $prefix/lib/simple.so $debpackagedir/usr/lib/i386-linux-gnu/libsimple.so.$ver
+			elif [ $arc_var = "-m64" ]; then
+				sudo mkdir -p "$debpackagedir/usr/lib/x86_64-linux-gnu/"
+				sudo cp $prefix/lib/simple.so $debpackagedir/usr/lib/x86_64-linux-gnu/libsimple.so.$ver
+			fi  
+			
+			local libcrypto=$(find_dependent_lib /var/lib/simple/$version/modules/dynamic_modules/security.so libcrypto)
+			if [[ "$libcrypto" = *"i386-linux-gnu"* ]]; then
+				sudo mkdir "$debpackagedir/usr/lib/i386-linux-gnu/"
+				sudo cp $libcrypto $debpackagedir/usr/lib/i386-linux-gnu/
+			elif [[ "$libcrypto" = *"x86_64-linux-gnu"* ]]; then
+				sudo mkdir "$debpackagedir/usr/lib/x86_64-linux-gnu/"
+				sudo cp $libcrypto $debpackagedir/usr/lib/x86_64-linux-gnu/
+			fi
 		;;
 	esac
 
@@ -667,7 +712,25 @@ build_deb_package() {
 	fi
 }
 
+find_dependent_lib() {
+	dependinglib="$(ldd $1)"
+	IFS=$'\n' array=($dependinglib) 
+	for element in "${array[@]}"
+	do
+		if [[ "$element" = *"$2"* ]]; then
+			IFS=$' ' read -r -a __deplib <<< "$element"
+			deplib=${__deplib[2]}
+			break
+		fi
+	done
+	echo "$deplib"	
+}
+
 execute_build $@
 
 exit 0
+
+#ma5lata3na1ta34na1la pa4sata1la sa2rava3ca2
+#naga wa4rakasa garata
+#
 

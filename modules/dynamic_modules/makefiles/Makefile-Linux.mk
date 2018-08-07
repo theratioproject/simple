@@ -37,7 +37,7 @@ RM=rm
 MAKE=make
 
 # Macros
-VERSION=s0.3.35
+VERSION=s0.3.36
 CND_PLATFORM=Linux
 CND_DLIB_EXT=so
 CND_DISTDIR=../dist
@@ -70,7 +70,7 @@ install:
 	mkdir -p /var/lib/simple/$(VERSION)/docs/
 	mkdir -p /var/lib/simple/$(VERSION)/modules/
 	mkdir -p /var/lib/simple/$(VERSION)/modules/dynamic_modules/
-	install $(CND_DISTDIR)/*.so /var/lib/simple/$(VERSION)/modules/dynamic_modules/
+	install $(CND_DISTDIR)/*.so* /var/lib/simple/$(VERSION)/modules/dynamic_modules/
 	install $(MODULE_BASE)/modules-dependencies.conf /var/lib/simple/$(VERSION)/modules/
 	cp -R $(MODULE_BASE)/archive /var/lib/simple/$(VERSION)/modules/
 	cp -R $(MODULE_BASE)/fulltick /var/lib/simple/$(VERSION)/modules/

@@ -38,14 +38,18 @@ SIMPLE_OBJECTFILES = \
 	$(SIMPLE_OBJECTDIR)/simple_api.o 
 	
 # Link Libraries and Options
-LDLIBSOPTIONS=-Lsimple.so
+LDLIBSOPTIONS=-lssl -lcrypto
 
 ${CND_DISTDIR}/${CND_PLATFORM}/security.${CND_DLIB_EXT}: $(OBJECTFILES)
+<<<<<<< HEAD
 	$(CC) -shared $(ARC_FLAG) $(SIMPLE_OBJECTFILES) $(OBJECTFILES) -o $(CND_DISTDIR)/$(CND_PLATFORM)/security.$(CND_DLIB_EXT) #-lssl -lcrypto
+=======
+	$(CC) -shared $(ARC_FLAG) $(SIMPLE_OBJECTFILES) $(OBJECTFILES) -o $(CND_DISTDIR)/$(CND_PLATFORM)/security.$(CND_DLIB_EXT) $(LDLIBSOPTIONS)
+>>>>>>> 25a5eb85e6db493476fe6910127e100e547dcbda
 
 $(OBJECTDIR)/security.o: security.c
 	mkdir -p $(OBJECTDIR)
-	$(CC) $(ARC_FLAG) $(CFLAGS) security.c -lssl -lcrypto
+	$(CC) $(ARC_FLAG) $(CFLAGS) security.c $(LDLIBSOPTIONS)
 	mv security.o $(OBJECTDIR) 
 
 clean:
