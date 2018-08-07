@@ -293,7 +293,7 @@ The OPTIONS include :
   --t -time				output the source file creation time
   --c -classes				get all class declaration in the source file
   --b -blocks				get all the block declaration in the source file
-  --m -modules				get all the modules declaration in the source file"
+  --m -modules				get all the modules declaration in the source file"+crlf
 	__exit__
 	
 block printError(msg)
