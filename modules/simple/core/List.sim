@@ -4,10 +4,13 @@
 */
 
 /* 
+ *
  * @Filename - List.sim
  * @Author - Abdulazeez Abdulazeez Adeshina
  * @Date - 15 June 2018
  * @Time - 19:49 PM
+ * @License - MIT License
+ *
  */
 
 module simple.core
