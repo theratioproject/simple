@@ -38,7 +38,7 @@ class Number : Object
 			age2 = new Number(age)
 			age3 = age1
 
-			#aqge
+			#age2 and age3 
 	*/
 
 	block Number(number)
