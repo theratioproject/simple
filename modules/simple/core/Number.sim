@@ -55,7 +55,8 @@ class Number : Object
 		@ "The supplied value isn't a Number !"
 	
 	/*
-		.toList() block is a safe block for changing the variable type from Number
+		.toList() block is a safe block 
+		for changing the variable type from Number.
 	*/
 	block toList()
 		list = [__OBJECT]
