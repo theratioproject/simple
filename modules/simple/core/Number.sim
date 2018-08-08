@@ -52,7 +52,7 @@ class Number : Object
 		__OBJECT = number
 		return __OBJECT
 	
-	block error()
+	block __error()
 		@ "The supplied value isn't a Number !"
 	
 	/*
