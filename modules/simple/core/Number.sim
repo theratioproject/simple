@@ -34,7 +34,7 @@ class Number : Object
 		attribute of the parameter class is transfered into this class. 
 		e.g
 			@Code
-			age = new A
+			age = new Age(17)
 	*/
 
 	block Number(number)
