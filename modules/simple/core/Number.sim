@@ -6,8 +6,8 @@
 /* 
  * @Filename - Number.sim
  * @Author - Abdulazeez Abdulazeez Adeshina
- * @Date - 23 June 2018
- * @Time - 11:01 PM
+ * @Date - 08 August 2018 (Date Modified)
+ * @Time - 09:18 PM
  */
 
  module simple.core
@@ -15,8 +15,24 @@
 call "Object.sim"
 
 class Number : Object
-	objectName = "number"
-	number
 
-	block toString()
-		return number
+	__OBJECT_NAME = "Number"
+	__OBJECT = null
+
+	block Number(number)
+		try 
+			if (number.getType() == getType()) {
+				this.__OBJECT = number.object()
+			}
+			return
+		catch end
+		if !isNumber(number) { throw (this.error()) }
+		__OBJECT = number
+		return __OBJECT
+	
+	block error()
+		@ "The supplied value isn't a Number !"
+	
+	block toList()
+		list = [__OBJECT]
+		return list
