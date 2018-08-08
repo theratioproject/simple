@@ -52,7 +52,11 @@ class Number : Object
 		__OBJECT = number
 		return __OBJECT
 	
-	/**/
+	/*
+		This block returns an error
+		if the passed parameter to the Number class
+		isn't a Nu
+	*/
 	block __error()
 		@ "The supplied value isn't a Number !"
 	
