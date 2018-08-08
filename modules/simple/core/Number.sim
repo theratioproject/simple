@@ -55,7 +55,7 @@ class Number : Object
 		@ "The supplied value isn't a Number !"
 	
 	/*
-		
+		.toList()
 	*/
 	block toList()
 		list = [__OBJECT]
