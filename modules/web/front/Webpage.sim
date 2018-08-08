@@ -6,7 +6,7 @@
 
 module web.front
 
-call "web/front/elements/Head.sim" ? web.front.elements
+call "web/front/elements/Elements.sim" ? web.front.elements
 
 class Webpage 
 

@@ -712,19 +712,19 @@ build_deb_package() {
 	fi
 }
 
-find_dependent_lib() {
-	dependinglib="$(ldd $1)"
-	IFS=$'\n' array=($dependinglib) 
-	for element in "${array[@]}"
-	do
-		if [[ "$element" = *"$2"* ]]; then
-			IFS=$' ' read -r -a __deplib <<< "$element"
-			deplib=${__deplib[2]}
-			break
-		fi
-	done
-	echo "$deplib"	
-}
+#find_dependent_lib() {
+#	dependinglib="$(ldd $1)"
+#	IFS=$'\n' array=($dependinglib) 
+#	for element in "${array[@]}"
+#	do
+#		if [[ "$element" = *"$2"* ]]; then
+#			IFS=$' ' read -r -a __deplib <<< "$element"
+#			deplib=${__deplib[2]}
+#			break
+#		fi
+#	done
+#	echo "$deplib"	
+#}
 
 execute_build $@
 

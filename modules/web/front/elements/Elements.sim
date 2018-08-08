@@ -232,6 +232,16 @@ class Table : Element
 		elementStyle += 'height:'+elementHeight+';width:'+elementWidth+';'
 	
 
+class ScriptLink
+
+	sriptLink = "<script "
+	
+	block setSrc(src)
+		sriptLink += 'src="'+src+'" '
+		
+	block toString()
+		sriptLink += '></script>'
+		return sriptLink
 
 class Link : Element 
 
