@@ -37,7 +37,7 @@ class Number : Object
 			age = new Number(16)
 			age2 = new Number(age)
 			age3 = age1
-			
+
 	*/
 
 	block Number(number)
@@ -54,6 +54,7 @@ class Number : Object
 	block error()
 		@ "The supplied value isn't a Number !"
 	
+	/
 	block toList()
 		list = [__OBJECT]
 		return list
