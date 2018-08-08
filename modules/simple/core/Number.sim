@@ -33,7 +33,8 @@ class Number : Object
 		all the previous attribute of the current class is disposed and the 
 		attribute of the parameter class is transfered into this class. 
 		e.g
-		@Code
+			@Code
+			age = new A
 	*/
 
 	block Number(number)
