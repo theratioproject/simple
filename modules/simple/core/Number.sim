@@ -55,9 +55,9 @@ class Number : Object
 	/*
 		This block returns an error
 		if the passed parameter to the Number class
-		isn't a Number. It should've been a private 
+		isn't a Number.
 	*/
-	block __error()
+	private block __error()
 		@ "The supplied value isn't a Number !"
 	
 	/*
