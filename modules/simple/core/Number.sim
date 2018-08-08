@@ -32,6 +32,7 @@ class Number : Object
 		In a situation whereby the parameter is an instance of @Class Number
 		all the previous attribute of the current class is disposed and the 
 		attribute of the parameter class is transfered into this class. 
+		e.g
 		
 	*/
 
