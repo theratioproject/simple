@@ -48,7 +48,7 @@ class Number : Object
 			}
 			return
 		catch end
-		if !isNumber(number) { throw (this.error()) }
+		if !isNumber(number) { throw (this.__error()) }
 		__OBJECT = number
 		return __OBJECT
 	
