@@ -11,7 +11,7 @@
  *
  */
 
- module simple.core
+module simple.core
 
 call "Object.sim"
 
@@ -58,7 +58,7 @@ class Number : Object
 		isn't a Number.
 	*/
 	private block __error()
-		@ "The supplied value isn't a Number !"
+		printWithFG(ConsoleColor.RED(), "The supplied value isn't a Number !" +"\n")
 	
 	/*
 		.toList() block is a safe block 
