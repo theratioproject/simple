@@ -57,7 +57,7 @@ class Number : Object
 	/*
 		.toList() block is a safe block 
 		for changing the variable type from Number.
-		This change can be verified using the 
+		This change can be verified using the .typeOf()
 	*/
 	block toList()
 		list = [__OBJECT]
