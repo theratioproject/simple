@@ -54,7 +54,9 @@ class Number : Object
 	block error()
 		@ "The supplied value isn't a Number !"
 	
-	/
+	/*
+		
+	*/
 	block toList()
 		list = [__OBJECT]
 		return list
