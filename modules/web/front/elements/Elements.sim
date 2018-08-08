@@ -4,9 +4,234 @@
 
 */
 
+/*
+ * @Filename - Elements.sim
+ * @Author - Azeez Adewale & Abdulazeez Abdulazeez Adeshina
+ * @Date - 08 August 2018 (Date modified)
+ * @Time - 20:50 PM
+ * @License - MIT License
+ *
+ */
+
 module web.front.elements
 
 call "web/front/elements/Element.sim" ? web.front.elements
+
+class Div : Element
+
+	elementName = "div"
+	init(elementName)
+	
+	block Div(id)
+		setId(id)
+	
+	block setSize(height, width)
+		elementHeight = height
+		elementWidth = width
+		elementStyle += 'height:'+elementHeight+';width:'+elementWidth+';'
+		
+	block addDiv(indiv)
+		elementContent + indiv.toString() + crlf
+
+
+STICKY_FOOTER  = 0
+RESPONSIVE_FOOTER = 1
+
+class Footer : Div
+
+	footerHead = "<footer "
+	footerType = "fixed"
+	alignment = ALIGN_LEFT
+	
+	block Footer(id)
+		setId(id)
+	
+	block setType(type)
+		if type == STICKY_FOOTER 
+			footerType = FOOTER_FIXED_POSITTION
+		elif type == RESPONSIVE_FOOTER 
+			footerType = FOOTER_ABSOLUTE_POSITTION
+		end
+		
+	block setAlignment(position)
+		alignment = position
+	
+	block toString()
+		finalDiv = footerHead + elementStyle+'position:'+footerType+';bottom:0;'+alignment+'overflow:hidden;" '+styleClass+'" > 
+		'+elementContent+'\t</footer>'
+		return finalDiv
+		
+	private 
+		FOOTER_FIXED_POSITTION = "fixed"
+		FOOTER_ABSOLUTE_POSITTION = "absolute"
+
+
+class Head
+
+	headContent = "" ;
+	title = "<title>SIMPLE WEB</title>"
+	icon = ""
+	toppings = "
+	
+			"
+	
+	block setTitle(ititle)
+		title = '<title>'+ititle+'</title>' + crlf
+		
+	block setIcon(iconLocation)
+		icon = '<link rel="icon" href="'+iconLocation+'" >' + crlf
+		
+	block setFavicon(iconLocation)
+		setIcon(iconLocation)
+	
+	block addElement(element)
+		headContent += '\t'+element.toString() + '
+		'
+		
+	block addMeta(headMeta)
+		headContent += '\t'+headMeta.toString() + '
+		'
+		
+	block addLink(headLink)
+		headContent += '\t'+headLink.toString() + '
+		'
+		
+	block addScript(script)
+		headContent += '\t'+script.toString() + '
+		'
+		
+	block addContent(itoppings)
+		toppings += '\t'+istoppings + '
+		'
+	
+	block toString()
+		return '<head>
+			'+title+
+					'\t'+icon+'\t
+		'+ headContent+'\t
+		'+toppings+'
+		</head>'
+		
+		
+class HeadMeta
+	
+	headMetaData = "<meta "
+
+	block setName(name)
+		headMetaData += 'name="'+name+'" '
+
+	block setProperty(prop)
+		headMetaData += 'property="'+prop+'" '
+		
+	block setItemProp(item)
+		headMetaData += 'itemprop="'+item+'" '
+		
+	block setContent(content)
+		headMetaData += 'content="'+content+'" '
+		
+	block toString()
+		headMetaData += '/>'
+		return headMetaData
+		
+class HeadLink
+
+	headLink = "<link "
+
+	block setRel(rel)
+		headLink += 'rel="'+rel+'" '
+		
+	block setType(type)
+		headLink += 'type="'+type+'" '
+		
+	block setTitle(title)
+		headLink += 'title="'+title+'" '
+		
+	block setLink(link)
+		headLink += 'href="'+link+'" '
+		
+	block setHref(link)
+		headLink += 'href="'+link+'" '
+	
+	block toString()
+		headLink += '/>'
+		return headLink
+	
+	
+class Table : Element
+
+	elementName = "table"
+	init(elementName)
+	tableHeadContent = ' <thead><tr>'+crlf
+	tableBodyContent = ' <tbody>'+crlf
+	tableHasBody = false
+	
+	block Table(id)
+		setId(id)
+		
+	block addToHead(headlist)
+		if (isList(headlist))
+			tableHeadContent+= '<tr>' hlen = lengthOf(headlist)
+			for a = 0 to hlen
+				if (isString(headlist[a]))
+					tableHeadContent+= '<th>'+headlist[a]+'</th>' + crlf
+				else
+					tableHeadContent+= '<th>'+headlist[a].toString()+'</th>' + crlf
+				end
+			end
+			tableHeadContent+= '</tr>'
+		end
+		
+	block addToBody(bodylist)
+		if (isList(bodylist))
+			if (tableHasBody) tableBodyContent+= crlf +'<tr>' end
+			tableHasBody = true
+			hlen = lengthOf(bodylist)
+			for a = 0 to hlen
+				if (isString(bodylist[a]))
+					tableBodyContent+= '	<td>'+bodylist[a]+'</td>' + crlf
+				elif (isList(bodylist[a]))
+					outer = bodylist[a]
+					addToBody(outer)
+				else
+					try 
+						outer = bodylist[a].toList() 
+						addToBody(outer)
+					catch
+						tableBodyContent+= '	<td>'+bodylist[a].toString()+'</td>' + crlf
+					end
+					
+				end
+			end
+			if (tableHasBody) tableBodyContent+= crlf +'</tr>' end
+		end
+		
+	block toString()
+		finalDiv = '\t\t'+elementHead + elementId+' '
+		if elementSetStyle
+			finalDiv += elementStyle+'" '
+		end
+		if elementSetClass 
+			finalDiv += styleClass+'" ' 
+		end
+		finalDiv += '> '+elementContent+'
+			'+tableHeadContent+'</thead>
+			'+tableBodyContent+'<tbody>'
+		if inline 
+			finalDiv += '</'+elementName+'>' 
+		else 
+			finalDiv += '
+		\t</'+elementName+'>'
+		end
+		
+		return finalDiv
+		
+	
+	block setSize(height, width)
+		elementHeight = height
+		elementWidth = width
+		elementStyle += 'height:'+elementHeight+';width:'+elementWidth+';'
+	
+
 
 class Link : Element 
 
