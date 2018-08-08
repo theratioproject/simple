@@ -36,7 +36,9 @@ class Number : Object
 			@Code
 			age = new Number(16)
 			age2 = new Number(age)
-			age3 = 
+			age3 = age1
+
+			#aqge
 	*/
 
 	block Number(number)
