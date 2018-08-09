@@ -21,6 +21,7 @@ call "Object.sim"
  * Functional methods for the List module
  * Added so it can be used for non OOP codes
  * We have the same methods in the OOP style
+ *
  */
 
 /* Adds a new value to list/array */
@@ -45,10 +46,10 @@ block removeFromList(list, indexNumber)
 end
 
 /*
-*@  Reversing an array 
- *@  Changes the array from ascending to descending and vice versa.
- *@  It changes the indexNumber also.
-*/
+ *@ Reversing an array 
+ *@ Changes the array from ascending to descending and vice versa.
+ *@ It changes the indexNumber also.
+ */
 block reverseList(List)
             x = 0
             list = []
@@ -155,10 +156,10 @@ class List : Object
 
     block reverse()
 	/*
-	* This method returns the array in an inverse manner
-	* e.g from @Bold [a,b,c,d,e] to [e,d,c,b,a] and it also
-	* changes the index number as it inverses the list.
-	*/
+ 	 * This method returns the array in an inverse manner
+	 * e.g from @Bold [a,b,c,d,e] to [e,d,c,b,a] and it also
+	 * changes the index number as it inverses the list.
+	 */
         x = 0
         reverserArray = []
         do {
@@ -191,7 +192,10 @@ class List : Object
 		end
 
 
-/* Sorts arrays just like the javascript's .sort() function. It's not working yet */
+    /* Sorts arrays just like the javascript's
+	 * .sort() function. 
+	 * It's not working yet. 
+	 */
 	block sort(a, b)
     # return b - a
     	return __OBJECT[b] -__OBJECT[a]
@@ -206,11 +210,18 @@ class List : Object
 	# Nothing for now.
 
 	
+	/*
+	 * Error block, needs to be private
+	 * So it won't be be accessed outside
+	 * the class.
+	 *
+	 */
+
 	private block errorType(type)
 		__NOT_LIST_ERROR = "the parameter is not a list"
 		__NUMBER_REQUIRED_ERROR = "only number is required as parameter "
 		__INDEX_GREATER_THAN_SIZE = "the provided n index is greater than list size"
-		
+
 		switch (type)
 			case 1
 				@ __NOT_LIST_ERROR
@@ -221,4 +232,6 @@ class List : Object
 			default
 				throw("Exit !") __exit(0)__
 			end
+
+
 		
