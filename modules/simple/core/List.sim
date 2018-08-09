@@ -115,7 +115,7 @@ class List : Object
 			}
 			return
 		catch end
-		if !isList(list) && !isString(list) { throw(__NOT_LIST_ERROR) }
+		if !isList(list) && !isString(list) { throw(this.errorType(1)) }
         __OBJECT = list
         return __OBJECT
 
@@ -128,11 +128,11 @@ class List : Object
 	#check to ensure the n index specified is not more than size of list
 	#confirm it number only then get index
     block indexOf(n)
-		if n > length() { throw(__INDEX_GREATER_THAN_SIZE) }
+		if n > length() { throw(this.errorType(3)) }
 		if isNumber(n)
 			return __OBJECT[n]
 		else 
-			throw(__NUMBER_REQUIRED_ERROR)
+			throw(this.errorType(2))
 		end
 		
 	/*
@@ -206,7 +206,19 @@ class List : Object
 	# Nothing for now.
 
 	
-	private 
+	private block errorType(type)
 		__NOT_LIST_ERROR = "the parameter is not a list"
 		__NUMBER_REQUIRED_ERROR = "only number is required as parameter "
 		__INDEX_GREATER_THAN_SIZE = "the provided n index is greater than list size"
+		
+		switch (type)
+			case 1
+				@ __NOT_LIST_ERROR
+			case 2
+				@ __NUMBER_REQUIRED_ERROR
+			case 3
+				@ __INDEX_GREATER_THAN_SIZE
+			default
+				throw("Exit !") __exit(0)__
+			end
+		
