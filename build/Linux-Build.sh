@@ -204,7 +204,7 @@ copymodules() {
 treat_first_calls_file() {
 	# The __first_calls.sim is important for the simple-lang modules to function
 	if [ -e $2 ]; then
-		sudo echo "callDynamicModule(\"systemic.so\") callDynamicModule(\"string_savant.so\")" >> $2
+		echo "callDynamicModule(\"systemic.so\") callDynamicModule(\"string_savant.so\")" >> $2
 	else
 		display_error $1 "cannot find the __first_calls.sim file "
 	fi
@@ -712,19 +712,19 @@ build_deb_package() {
 	fi
 }
 
-find_dependent_lib() {
-	dependinglib="$(ldd $1)"
-	IFS=$'\n' array=($dependinglib) 
-	for element in "${array[@]}"
-	do
-		if [[ "$element" = *"$2"* ]]; then
-			IFS=$' ' read -r -a __deplib <<< "$element"
-			deplib=${__deplib[2]}
-			break
-		fi
-	done
-	echo "$deplib"	
-}
+#find_dependent_lib() {
+#	dependinglib="$(ldd $1)"
+#	IFS=$'\n' array=($dependinglib) 
+#	for element in "${array[@]}"
+#	do
+#		if [[ "$element" = *"$2"* ]]; then
+#			IFS=$' ' read -r -a __deplib <<< "$element"
+#			deplib=${__deplib[2]}
+#			break
+#		fi
+#	done
+#	echo "$deplib"	
+#}
 
 execute_build $@
 

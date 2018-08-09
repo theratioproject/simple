@@ -4,10 +4,13 @@
 */
 
 /* 
+ *
  * @Filename - List.sim
  * @Author - Abdulazeez Abdulazeez Adeshina
  * @Date - 15 June 2018
  * @Time - 19:49 PM
+ * @License - MIT License
+ *
  */
 
 module simple.core
@@ -110,7 +113,7 @@ class List : Object
 			}
 			return
 		catch end
-		if !isList(list) && !isString(list) { throw(__NOT_LIST_ERROR) }
+		if !isList(list) && !isString(list) { throw(this.errorType(1)) }
         __OBJECT = list
         return __OBJECT
 
@@ -123,11 +126,11 @@ class List : Object
 	#check to ensure the n index specified is not more than size of list
 	#confirm it number only then get index
     block indexOf(n)
-		if n > length() { throw(__INDEX_GREATER_THAN_SIZE) }
+		if n > length() { throw(this.errorType(3)) }
 		if isNumber(n)
 			return __OBJECT[n]
 		else 
-			throw(__NUMBER_REQUIRED_ERROR)
+			throw(this.errorType(2))
 		end
 		
 	/*
@@ -149,6 +152,11 @@ class List : Object
         return __OBJECT
 
     block reverse()
+	/*
+	* This method returns the array in an inverse manner
+	* e.g from @Bold [a,b,c,d,e] to [e,d,c,b,a] and it also
+	* changes the index number as it inverses the list.
+	*/
         x = 0
         reverserArray = []
         do {
@@ -158,31 +166,57 @@ class List : Object
         return __OBJECT
     end
 
-/* Array slice function. Supports 2 parameter alone, if you intend to pass an argument alone, use the .indexOf() method */
-block slice(x, y)
-    if (isNumber(x) && isNumber(y))
-        if (x = 0 && y = 0)
-             return __OBJECT
-            end
-        if (__OBJECT[x + 1] == __OBJECT[y])
-            return __OBJECT[x]
-        elif (__OBJECT[x + 1]  != __OBJECT[y])
-            do {
-                return __OBJECT[x++ - 1]
-            } while x < __OBJECT[y]
-        else
-            return "[]"
-            end        
-    end
+	/* Array slice function. 
+	 * Supports 2 parameter alone, 
+	 * if you intend to pass an argument alone, 
+	 * use the .indexOf() method.
+	 * Still working on it.
+	 */
+	block slice(x, y)
+		if (isNumber(x) && isNumber(y))
+			if (x = 0 && y = 0)
+				return __OBJECT
+				end
+			if (__OBJECT.indexOf(x + 1) == __OBJECT.indexOf(y))
+				return __OBJECT[x]
+			elif (__OBJECT.indexOf(x + 1)  != __OBJECT.indexOf(y))
+				do {
+					return __OBJECT.indexOf(x++ - 1)
+				} while x < __OBJECT.indexOf(y)
+			else
+				return "[]"
+				end        
+		end
 
 
 /* Sorts arrays just like the javascript's .sort() function. It's not working yet */
-block sort(a, b)
+	block sort(a, b)
     # return b - a
-    return __OBJECT[b] -__OBJECT[a]
+    	return __OBJECT[b] -__OBJECT[a]
+
+	/*
+	 * This block is intended to be used
+	 * just like Javascript's @Code Array.map() function.
+	 * This would be useful in web apps and other apps
+	 * reducing the need for @Code for loops in certain cases.
+	 */
+	block map(n, index)
+	# Nothing for now.
+
 	
-	
-	private 
+	private block errorType(type)
 		__NOT_LIST_ERROR = "the parameter is not a list"
 		__NUMBER_REQUIRED_ERROR = "only number is required as parameter "
 		__INDEX_GREATER_THAN_SIZE = "the provided n index is greater than list size"
+		
+		switch (type)
+			case 1
+				@ __NOT_LIST_ERROR
+			case 2
+				@ __NUMBER_REQUIRED_ERROR
+			case 3
+				@ __INDEX_GREATER_THAN_SIZE
+			default
+				throw("Exit !") __exit(0)__
+			end
+		

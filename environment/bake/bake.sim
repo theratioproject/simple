@@ -130,7 +130,7 @@ block writeCode()
 		/* 
 		 * File:   bake.c
 		 * Author: bake || Simple-lang executable file builder
-		 * Description: COmpile SIMPLE-LANG programs into standalone system executable files.
+		 * Description: Compile SIMPLE-LANG programs into standalone system executable files.
 		 */
 		'
 			if isdebug code += '

@@ -13,6 +13,7 @@
 module simple.core
 
 call "Object.sim"
+call "simple/utilities/Conversion.sim"
 call "simple/core/DynamicLoader.sim" ? simple.core
 call "simple/debugging/Throw.sim" ? simple.debugging
 callModule("string_savant")
@@ -238,6 +239,8 @@ block stringSplit(content, delimiter)
 	content = trimString(content)
 	# Need to write a StringToList function as this gives an erroneous response.
 	return stringToList(substr(content, delimiter, crlf))
+
+	
 
 class String : Object
 
