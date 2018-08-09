@@ -29,7 +29,7 @@ simpleReplTitle = "
 	printWithFG(ConsoleColor.YELLOW(), simpleReplTitle)
 	printLineWithColor(ConsoleColor.GREEN(), null)
 while true {
-	printWithFG(ConsoleColor.CYAN(), "simple@"+currentDirectory()+" >>> ")
+	printWithFG(ConsoleColor.CYAN(), "simple@") display currentDirectory()+" >>> "
 	read code
 	try
 		executeCode(code)
