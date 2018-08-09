@@ -174,28 +174,37 @@ class List : Object
 	 * use the .indexOf() method.
 	 * Still working on it.
 	 */
-block slice(x, y)
-    if (isNumber(x) && isNumber(y))
-        if (x = 0 && y = 0)
-             return __OBJECT
-            end
-        if (__OBJECT.indexOf(x + 1) == __OBJECT.indexOf(y))
-            return __OBJECT[x]
-        elif (__OBJECT.indexOf(x + 1)  != __OBJECT.indexOf(y))
-            do {
-                return __OBJECT.indexOf(x++ - 1)
-            } while x < __OBJECT.indexOf(y)
-        else
-            return "[]"
-            end        
-    end
+	block slice(x, y)
+		if (isNumber(x) && isNumber(y))
+			if (x = 0 && y = 0)
+				return __OBJECT
+				end
+			if (__OBJECT.indexOf(x + 1) == __OBJECT.indexOf(y))
+				return __OBJECT[x]
+			elif (__OBJECT.indexOf(x + 1)  != __OBJECT.indexOf(y))
+				do {
+					return __OBJECT.indexOf(x++ - 1)
+				} while x < __OBJECT.indexOf(y)
+			else
+				return "[]"
+				end        
+		end
 
 
 /* Sorts arrays just like the javascript's .sort() function. It's not working yet */
-block sort(a, b)
+	block sort(a, b)
     # return b - a
-    return __OBJECT[b] -__OBJECT[a]
-	
+    	return __OBJECT[b] -__OBJECT[a]
+
+	/*
+	 * This block is intended to be used
+	 * just like Javascript's @Code Array.map() function.
+	 * This would be useful in web apps and other apps
+	 * reducing the need for @Code for loops in certain cases.
+	 */
+	block map(n, index)
+	# Nothing for now.
+
 	
 	private 
 		__NOT_LIST_ERROR = "the parameter is not a list"
