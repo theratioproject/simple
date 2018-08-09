@@ -5,6 +5,7 @@
 # Reserve extensions for linux and unix files 
 *.sh text eol=lf
 *.bash text eol=lf
+*.sim text eol=lf
 
 *.gch
 *.dylib

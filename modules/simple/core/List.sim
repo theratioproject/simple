@@ -25,8 +25,6 @@ block addToList(list, value)
     # Check if value to be added to the array is a List, String or number.
     if (isList(value) || isString(value) || isNumber(value))
         list + value
-        display list +crlf
-        # Else throw an error.
         else
             display  __err__
 end
