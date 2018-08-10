@@ -300,7 +300,7 @@ class Path
 	
 		block getCorrectPath(oddPath)
 			correctPath = __path_absolute_path(oddPath)
-			if !stringEndsWith(correctPath, oddPath) {
+			if !stringEndsWith(correctPath, oddPath) && !stringContains(oddPath, "."+__IO_PATH_SYSTEM_SLASH) {
 				correctPathTemp = removeString(oddPath,correctPath)
 				correctPath += correctPathTemp
 			}
