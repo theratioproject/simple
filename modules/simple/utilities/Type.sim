@@ -26,6 +26,8 @@ block typeOf(var)
         @ "String"
     elif isNumber(var)
         @ "Number"
+    elif isObject(var)
+        @ "Object"
     else
         @ "Unknown Variable passed !"
     }
