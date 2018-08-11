@@ -12,10 +12,6 @@
  *	@Contributors - Azeez Adewale <azeezadewale98@gmail.com> 
 					
  */
- 
-/*
-	
-*/
 
 module simple.utilities
 
@@ -118,7 +114,7 @@ block isControlChar(var)
 	can be printed to the standard display output. 
 	@Return true if parameter has graphical representation @DataType Boolean
 */
-block isGraph(var)
+block isGraphical(var)
 	tempVar = __get_var_as_string(var)
 	return __isGraph(tempVar)
 
@@ -146,9 +142,30 @@ block isUpperCase(var)
 
 /*
 	Check if the Variable is printable on the standard display output.
+	similar to @Block isGraphical()
 	@Return true if variable is printable @DataType Boolean
 */
 block isPrintable(var)
 	tempVar = __get_var_as_string(var)
 	return __isPrint(tempVar)
+	
+/*
+	This blocks check if the variable is a white space. It returns true if the character or 
+	all the characters in the @DataType String is white-space. For a more satisfying check the
+	@Block __isWhiteSpace(var) should be called instead to check single character.
+	@Return true if the variable or it characters are a white-space @DataType Boolean
+*/
+block isWhiteSpace(var)
+	tempVar = ' '+__get_var_as_string(var)
+	for a in tempVar {
+		if tempVar != ' ' {
+			return false
+		}
+	}
+	return true
+	
+block __isWhiteSpace(var)
+	tempVar = __get_var_as_string(var)
+	return __isSpace(tempVar)
+	
 

@@ -43,7 +43,7 @@ block main()
 	
 	@nl+"Graph"
 	for a = 0 to listLen {
-		display "	" + isGraph(list[a])
+		display "	" + isGraphical(list[a])
 	}
 	
 	@nl+"Lower"
