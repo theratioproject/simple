@@ -28,7 +28,7 @@ block main() {
 	println("LEFT : "+string.left(6)+" | RIGHT : "+string.right(3))
 	println("TRIM : >"+string.trim()+"< | COPY : "+string.copy(2))
 	if string.endsWith("rity ") println("yea it ends with 'rity '") end
-	println("LINE COUNT : "+string.lineCount()+" | SUBSTRING : "+string.subString("d"))
+	println("LINE COUNT : "+string.lineCount()+" | SUBSTRING : "+string.subStringAt("d","a"))
 	println("REPLACE : "+string.replace("OduLA", "odula")+" | REMOVE : "+string.remove("ity "))
 	println("TYPE : "+string.getType()+" | TYPECODE : "+string.getTypeCode())
 	println("CONCAT : "+string.concat("and complexity"))

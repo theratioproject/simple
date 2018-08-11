@@ -316,7 +316,10 @@ class String : Object
 		return stringGetLineCount(str)
 		
 	block subString(index)
-		return stringSubString(str, index)
+		return stringSubString(str, index,0)
+		
+	block subStringAt(index,offset)
+		return stringSubString(str, index,offset)
 		
 	block replace(o, n)
 		return replaceString(str, o, n)
