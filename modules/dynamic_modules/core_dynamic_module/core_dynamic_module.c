@@ -392,7 +392,7 @@ SIMPLE_API void meta_blocks_add_addribute(void *pointer)
 }
 
 /* Characters Checking */ 
-SIMPLE_API void check_characters_is_alpha_num(void *pointer)
+SIMPLE_API void check_characters__(void *pointer,int type)
 {
 	char *str  ;
 	int size,x  ;
@@ -402,14 +402,17 @@ SIMPLE_API void check_characters_is_alpha_num(void *pointer)
 	}
 	if ( SIMPLE_API_ISSTRING(1) ) {
 		str = SIMPLE_API_GETSTRING(1) ;
-		if (isalnum(str)) {
-			SIMPLE_API_RETNUMBER(1);
-		} else {
-			SIMPLE_API_RETNUMBER(0);
+		if (type == 1) {
+			
 		}
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
+}
+
+SIMPLE_API void check_characters_is_alpha_num(void *pointer)
+{
+	check_characters__(pointer,0);
 }
 
 SIMPLE_API void check_characters_is_alpha(void *pointer)

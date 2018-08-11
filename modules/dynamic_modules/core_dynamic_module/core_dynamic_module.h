@@ -43,6 +43,7 @@ SIMPLE_API void conversion_hex_to_string(void *pointer);
 SIMPLE_API void conversion_string_to_list (void *pointer);
 
 /* Characters Checking */ 
+SIMPLE_API void check_characters__(void *pointer,int type);
 SIMPLE_API void check_characters_is_alpha_num(void *pointer);
 SIMPLE_API void check_characters_is_alpha(void *pointer);
 SIMPLE_API void check_characters_is_num(void *pointer);
