@@ -55,22 +55,55 @@ block __get_var_as_string(var)
 	
 	
 /*
-	Check if a Variable is and Alphabet or Digit. @DataType True if the variable is of
-	valid characters and or digits 
-	@Return true if parameter is a valid alphabet or digit @DataType Boolean
+	Check if a Variable is an Alphabet or Numeric. @DataType True if the variable is of
+	valid characters and or digits. The characters can be any of the ANSI recognized 
+	alphabetic characters and the numeric digit are the combination of numbers through
+	@Code
+		0 - 9 
+		0 1 2 3 4 5 6 7 8 9
+	@EndCode
+	@Return true if parameter is a valid alphabet or numeric @DataType Boolean
 */
 block isAlphaNum(var)
 	tempVar = __get_var_as_string(var)
 	return __isAlphaNum(tempVar)
 	
+/*
+	Check if a Variable is an Alphabet . @DataType True if the variable is of
+	valid alphabet. The characters can be any of the ANSI recognized 
+	alphabetic characters 
+	@Return true if parameter is a valid alphabet @DataType Boolean
+*/
 block isAlpha(var)
 	tempVar = __get_var_as_string(var)
 	return __isAlpha(tempVar)
 	
+/*
+	Check if a Variable is a Numeric character. @DataType True if the variable is of
+	valid digit. The character can be any of the numeric digit and or the combination
+	of numbers through 0 - 9
+	@Code
+		0 - 9 
+		0 1 2 3 4 5 6 7 8 9
+	@EndCode
+	@Return true if parameter is a valid alphabet or numeric @DataType Boolean
+*/
 block isDigit(var)
 	tempVar = __get_var_as_string(var)
 	return __isNum(tempVar)
 	
+/*
+	Check if a Variable is an Control Characters. @DataType True if the variable is a
+	control character. The characters can be any of of the control characters such as 
+	@Code
+		\b	-	Backspace
+		\t	-	Tab
+		\a	-	Alert
+		\f	-	Form Feed
+		\n	-	New Line
+	@EndCode
+	@Return true if parameter is a control character @DataType Boolean
+*/
 block isControlChar(var)
 	tempVar = __get_var_as_string(var)
 	return __isControlChar(tempVar)
