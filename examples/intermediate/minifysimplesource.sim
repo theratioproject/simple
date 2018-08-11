@@ -87,12 +87,9 @@ block minifySourceFile(sourceFile)
 					else
 						minifiedSource += " " 
 					}
-				elif source[i] == '/' and source[i+1] == '*'
-					i++ type = TOKEN_MULTILINE_COMMENT
-				elif source[i] == '"' 
-					minifiedSource+= '"' type = TOKEN_LITERAL_1
-				elif source[i] == "'" 
-					minifiedSource+= '"' type = TOKEN_LITERAL_2
+				elif source[i] == '/' and source[i+1] == '*' i++ type = TOKEN_MULTILINE_COMMENT
+				elif source[i] == '"'  minifiedSource+= '"' type = TOKEN_LITERAL_1
+				elif source[i] == "'"  minifiedSource+= "'" type = TOKEN_LITERAL_2
 				elif source[i] == "#" and source[i+1] != '"' 
 					while source[i+1] != cr and source[i+1] != nl and source[i+1] != crlf {
 						if i < sourceLen {
@@ -108,8 +105,7 @@ block minifySourceFile(sourceFile)
 					else
 						minifiedSource += source[i]
 					}
-				else 
-					minifiedSource+= source[i]
+				else  minifiedSource+= source[i]
 				}
 			case TOKEN_MULTILINE_COMMENT
 				if source[i] == '*' and source[i+1] == '/' and (source[i+2] != '"' or source[i+2] != "'") {
@@ -131,7 +127,6 @@ block minifySourceFile(sourceFile)
 				minifiedSource+= source[i]		
 		}
 	}
-	sourceFile = new File("./test.sim")
 	sourceFile.write(trimString(minifiedSource))
 	@" (done)"
 
