@@ -573,8 +573,14 @@ finalize_installation() {
 	
 	echo "======================================="
 	minifier -s /var/lib/simple/s0.3.36/modules -y
+	# treat_first_calls_file "$prefix/lib/simple/$version/modules/simple/core/__first_calls.sim"
+	sleep 5
+	
+	echo "callDynamicModule(\"systemic.so\") callDynamicModule(\"string_savant.so\")" >> /var/lib/simple/$version/modules/simple/core/__first_calls.sim
 
 	header build "testing installtion > simple" 
+	# echo treat_first_calls_file()
+
 	simple
 }
 
