@@ -34,7 +34,7 @@ clean:
 	$(SUDO) $(SIMPLE) $(BAKE) -F/$(ENV_DISTDIR) --lib $(LIB_PATH) -sh $(SIMPLE_H) $(ARC_FLAG) $(ENV_PATH)/simplepad/simplepad.sim
 	$(SUDO) $(SIMPLE) $(BAKE) -F/$(ENV_DISTDIR) --lib $(LIB_PATH) -sh $(SIMPLE_H) $(ARC_FLAG) $(ENV_PATH)/simplebridge/simplebridge.sim
 	$(SUDO) $(SIMPLE) $(BAKE) -F/$(ENV_DISTDIR) --lib $(LIB_PATH) -sh $(SIMPLE_H) $(ARC_FLAG) $(ENV_PATH)/webworker/webworker.sim
-	$(SUDO) $(SIMPLE) $(BAKE) 
+	$(SUDO) $(SIMPLE) $(BAKE) -F/$(ENV)
 	$(SUDO) $(SIMPLE) $(BAKE) -F/$(ENV_DISTDIR) --lib $(LIB_PATH) -sh $(SIMPLE_H) $(ARC_FLAG) $(BAKE)
 	cp $(ENV_PATH)/simplebridge/contents.sim $(ENV_DISTDIR)
 
