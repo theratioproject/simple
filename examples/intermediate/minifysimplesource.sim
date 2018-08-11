@@ -14,6 +14,7 @@
 call "simple/io/File.sim"
 call "simple/debugging/Throw.sim"
 call "simple/core/String.sim"
+call "simple/utilities/Type.sim"
  
 block main()
 	sourceFile = null
@@ -44,13 +45,14 @@ block minifySource(source)
 	sourceLen = lengthOf(source)
 	for i = 0 to sourceLen {
 		if type == 0 and source[i] == tab or source[i] == nl or source[i] == crlf or source[i] == cr {
-			if __isAlphaNum(source[i+1]) == 1 {
-				@source[i+1]
-			}
-			if source[i+1] != " " {
-				minifiedSource += " " 
-			else
+			if isWhiteSpace(source[i+1]) or isPunctuation(source[i+1]) {
 				minifiedSource += "" 
+			else
+				minifiedSource += " " 
+			}
+		elif type == 0 and isWhiteSpace(source[i])# and 
+			if isPunctuation(source[i+1]) {
+				minifiedSource += ""
 			}
 		elif type == 1 
 			if source[i] == '*' and source[i+1] == '/' and (source[i+2] != '"' or source[i+2] != "'") {
