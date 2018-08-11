@@ -402,19 +402,96 @@ SIMPLE_API void check_characters__(void *pointer,int type)
 	}
 	if ( SIMPLE_API_ISSTRING(1) ) {
 		str = SIMPLE_API_GETSTRING(1) ;
+		size = SIMPLE_API_GETSTRINGSIZE(1) ;
 		switch (type) {
 			case 0:
-				if (isalnum(str)) {
-					SIMPLE_API_RETNUMBER(1);
-				} else {
-					SIMPLE_API_RETNUMBER(0);
+				for ( x = 0 ; x < size ; x++ ) {
+					if (!isalnum(str[x])) {
+						SIMPLE_API_RETNUMBER(0);
+						return ; 
+					}
 				}
+				SIMPLE_API_RETNUMBER(1); return;
 			case 1:
-				if (isalpha(str)) {
-					SIMPLE_API_RETNUMBER(1);
-				} else {
-					SIMPLE_API_RETNUMBER(0);
+				for ( x = 0 ; x < size ; x++ ) {
+					if (!isalpha(str[x])) {
+						SIMPLE_API_RETNUMBER(0);
+						return ; 
+					}
 				}
+				SIMPLE_API_RETNUMBER(1); return;
+			case 2:
+				for ( x = 0 ; x < size ; x++ ) {
+					if (!isdigit(str[x])) {
+						SIMPLE_API_RETNUMBER(0);
+						return ; 
+					}
+				}
+				SIMPLE_API_RETNUMBER(1); return;
+			case 3:
+				for ( x = 0 ; x < size ; x++ ) {
+					if (!iscntrl(str[x])) {
+						SIMPLE_API_RETNUMBER(0);
+						return ; 
+					}
+				}
+				SIMPLE_API_RETNUMBER(1); return;
+			case 4:
+				for ( x = 0 ; x < size ; x++ ) {
+					if (!isgraph(str[x])) {
+						SIMPLE_API_RETNUMBER(0);
+						return ; 
+					}
+				}
+				SIMPLE_API_RETNUMBER(1); return;
+			case 5:
+				for ( x = 0 ; x < size ; x++ ) {
+					if (!islower(str[x])) {
+						SIMPLE_API_RETNUMBER(0);
+						return ; 
+					}
+				}
+				SIMPLE_API_RETNUMBER(1); return;
+			case 6:
+				for ( x = 0 ; x < size ; x++ ) {
+					if (!isprint(str[x])) {
+						SIMPLE_API_RETNUMBER(0);
+						return ; 
+					}
+				}
+				SIMPLE_API_RETNUMBER(1); return;
+			case 7:
+				for ( x = 0 ; x < size ; x++ ) {
+					if (!ispunct(str[x])) {
+						SIMPLE_API_RETNUMBER(0);
+						return ; 
+					}
+				}
+				SIMPLE_API_RETNUMBER(1); return;
+			case 8:
+				for ( x = 0 ; x < size ; x++ ) {
+					if (!isspace(str[x])) {
+						SIMPLE_API_RETNUMBER(0);
+						return ; 
+					}
+				}
+				SIMPLE_API_RETNUMBER(1); return;
+			case 9:
+				for ( x = 0 ; x < size ; x++ ) {
+					if (!isupper(str[x])) {
+						SIMPLE_API_RETNUMBER(0);
+						return ; 
+					}
+				}
+				SIMPLE_API_RETNUMBER(1); return;
+			case 10:
+				for ( x = 0 ; x < size ; x++ ) {
+					if (!isxdigit(str[x])) {
+						SIMPLE_API_RETNUMBER(0);
+						return ; 
+					}
+				}
+				SIMPLE_API_RETNUMBER(1); return;
 		}
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
