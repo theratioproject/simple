@@ -79,8 +79,9 @@ block minifySourceFile(sourceFile)
 	sourceLen = lengthOf(source)
 	for i = 0 to sourceLen {
 		if type == 0 and source[i] == tab or source[i] == nl or source[i] == crlf or source[i] == cr {
-			if isWhiteSpace(source[i+1]) or (isPunctuation(source[i+1]) and isPunctuation(source[i+1])) {
+			if isWhiteSpace(source[i+1]) or (isPunctuation(source[i+1])) {
 				minifiedSource += "" 
+				@minifiedSource[lengthOf(minifiedSource)-1]
 			else
 				minifiedSource += " " 
 			}
