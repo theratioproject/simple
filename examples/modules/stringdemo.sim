@@ -8,6 +8,7 @@
 #1
 call "simple/core/String.sim" 
 call "simple/utilities/Console.sim" ? simple.utilities
+call "simple/security/Hash.sim"
 
 	string = new String("mOduLArity ")
 
@@ -24,11 +25,10 @@ block main() {
 	if string.startsWith("mod") println(string.toString()+", start with mod ")
 	else println(string.toString()+" does not start with mod but with 'mOd'") end
 	println("FIRST CHAR : "+string.firstChar()+" | LAST CHAR : "+string.lastChar())
-	println("HASHCODE : "+string.getHashCode())
 	println("LEFT : "+string.left(6)+" | RIGHT : "+string.right(3))
 	println("TRIM : >"+string.trim()+"< | COPY : "+string.copy(2))
 	if string.endsWith("rity ") println("yea it ends with 'rity '") end
-	println("LINE COUNT : "+string.lineCount()+" | SUBSTRING : "+string.subString("d"))
+	println("LINE COUNT : "+string.lineCount()+" | SUBSTRING : "+string.subStringAt("d","a"))
 	println("REPLACE : "+string.replace("OduLA", "odula")+" | REMOVE : "+string.remove("ity "))
 	println("TYPE : "+string.getType()+" | TYPECODE : "+string.getTypeCode())
 	println("CONCAT : "+string.concat("and complexity"))

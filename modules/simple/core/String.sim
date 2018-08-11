@@ -138,17 +138,15 @@ block toSentenceCase(content)
 	if isStringEmpty(content)
 		throw(STRING_EMPTY)
 	end
+	content = toLowerCase(content)
 	content[0] = toUpperCase(content[0])
-	for a = 1 to lengthOf(content)
-		content[a] = toLowerCase(content[a])
-	end
 	return content
 
 block stringLenght(content)
 	return lengthOf(content)
 	
 block isStringEmpty(content)
-	if stringLenght(content) == stringLenght(__Empty)
+	if content == ""
 		return true
 	end
 	return false
@@ -306,7 +304,7 @@ class String : Object
 		return stringRight(str, index)
 		
 	block trim()
-		return stringTrim(str)
+		return trimString(str)
 		
 	block copy(count)
 		return stringCopy(str, count)
@@ -318,7 +316,10 @@ class String : Object
 		return stringGetLineCount(str)
 		
 	block subString(index)
-		return stringSubString(str, index)
+		return stringSubString(str, index,0)
+		
+	block subStringAt(index,offset)
+		return stringSubString(str, index,offset)
 		
 	block replace(o, n)
 		return replaceString(str, o, n)

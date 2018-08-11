@@ -10,10 +10,13 @@
  * @Date - 09 August 2018
  * @Time - 10:55 PM
  */
- 
+
 call "simple/io/File.sim"
 call "simple/debugging/Throw.sim"
 call "simple/core/String.sim"
+call "simple/utilities/Type.sim"
+
+skipRequest = false
  
 block main()
 	sourceFile = null
@@ -22,59 +25,110 @@ block main()
 	cmdparamsLen = lengthOf(cmdparams)
 	for a = 0 to cmdparamsLen {
 		if cmdparams[a] == "-s" || cmdparams[a] == "--source" { sourceFilePath = cmdparams[a++]
+		elif cmdparams[a] == "-y" || cmdparams[a] == "--yes" skipRequest = true
 		else }
 	}
 	if sourceFilePath != null {
-		sourceFile = new File(sourceFilePath)
+		sourceFile = new Path(sourceFilePath)
+		if sourceFile.isADirectory() {
+			minifySourceDir(sourceFile.toDirectory())
+		elif sourceFile.isAFile()
+			minifySourceFile(sourceFile.toFile())
+		}
+		__exit__
 		if sourceFile.exists() {
-			sourceFileContent = sourceFile.readFileAsString()
-			@sourceFile.absolutePath()
-			value = minifySource(sourceFileContent)
-			file = new File("./test.sim") 
-			file.write(value)
+			
 		else
 			throw(sourceFile.absolutePath()+" : does not exists")
 		}
 		
 	}
 	
-block minifySource(source)
+block minifySourceDir(sourceDir)
+	files = sourceDir.listFiles()
+	filesLen = lengthOf(files)
+	for b = 0 to filesLen {
+		minifySourceFile(files[b])
+	}
+	dirs = sourceDir.listDirectories()
+	dirsLen = lengthOf(dirs)
+	for b = 0 to dirsLen {
+		@"moving into directory : "+dirs[b].absolutePath()
+		minifySourceDir(dirs[b])
+	}
+	
+block minifySourceFile(sourceFile)
+	if !stringEndsWith(sourceFile.name(),".sim") {
+		@sourceFile.name()+" : not a simple source file (*.sim) skipping..."
+		return
+	}
+	if !skipRequest {
+		display sourceFile.name()+" : do you want to minify this file? " read res
+		if res != "y" and res != "yes" {
+			return
+		}
+	}
+	source = " "+sourceFile.readFileAsString()
+	if stringGetLineCount(source) < 1 {
+		@sourceFile.name()+" : already minified"
+		return
+	}
+	display sourceFile.name()+" : minification starting..."
 	minifiedSource = ""
-	type = 1
+	TOKEN_IDENTIFIER =  0 TOKEN_MULTILINE_COMMENT = 1 TOKEN_LITERAL_1 = 2 TOKEN_LITERAL_2 = 3
+	type = TOKEN_IDENTIFIER
 	sourceLen = lengthOf(source)
 	for i = 0 to sourceLen {
-		if type == 0 and source[i] == tab or source[i] == nl or source[i] == crlf or source[i] == cr {
-			if __isAlphaNum(source[i+1]) == 1 {
-				@source[i+1]
-			}
-			if source[i+1] != " " {
-				minifiedSource += " " 
-			else
-				minifiedSource += "" 
-			}
-		elif type == 1 
-			if source[i] == '*' and source[i+1] == '/' and (source[i+2] != '"' or source[i+2] != "'") {
-				i++ type = 0
-			else 
-				
-			}
-		elif source[i] == '/' and source[i+1] == '*' and type == 0 
-			i++
-			type = 1
-		elif type == 0 and source[i] == "#" and source[i+1] != '"' 
-			while source[i+1] != cr {
-				if i < sourceLen {
-					i++
+		switch type {
+			case TOKEN_IDENTIFIER
+				if source[i] == tab or source[i] == nl or source[i] == crlf or source[i] == cr {
+					if isWhiteSpace(source[i+1]) or (isPunctuation(source[i+1]) and source[i+1] != '_' and source[i+1] != '$' ) {
+						minifiedSource += "" 
+					else
+						minifiedSource += " " 
+					}
+				elif source[i] == '/' and source[i+1] == '*' i++ type = TOKEN_MULTILINE_COMMENT
+				elif source[i] == '"'  minifiedSource+= '"' type = TOKEN_LITERAL_1
+				elif source[i] == "'"  minifiedSource+= "'" type = TOKEN_LITERAL_2
+				elif source[i] == "#" and source[i+1] != '"' 
+					while source[i+1] != cr and source[i+1] != nl and source[i+1] != crlf {
+						if i < sourceLen {
+							i++
+						else 
+							
+						}
+					}
+				elif isPunctuation(source[i]) and (source[i] != "/" and source[i+1] != "*")
+					if isWhiteSpace(source[i+1]) {
+						minifiedSource += source[i]
+						i++
+					else
+						minifiedSource += source[i]
+					}
+				else  minifiedSource+= source[i]
+				}
+			case TOKEN_MULTILINE_COMMENT
+				if source[i] == '*' and source[i+1] == '/' and (source[i+2] != '"' or source[i+2] != "'") {
+					i++ type = TOKEN_IDENTIFIER
 				else 
 					
 				}
-			}
-		else
-			minifiedSource+= source[i]
+			case TOKEN_LITERAL_1
+				minifiedSource+= source[i]
+				if source[i] == '"' {
+					type = TOKEN_IDENTIFIER
+				}
+			case TOKEN_LITERAL_2
+				minifiedSource+= source[i]
+				if source[i] == "'" {
+					type = TOKEN_IDENTIFIER
+				}
+			default
+				minifiedSource+= source[i]		
 		}
-		
 	}
-	return trimString(minifiedSource)
+	sourceFile.write(trimString(minifiedSource))
+	@" (done)"
 
 block nextCharacter_(source)
 	name = "this is testing   sas    "
