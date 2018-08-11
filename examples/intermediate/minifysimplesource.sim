@@ -50,9 +50,11 @@ block minifySource(source)
 			else
 				minifiedSource += " " 
 			}
-		elif type == 0 and isWhiteSpace(source[i])# and 
-			if isPunctuation(source[i+1]) {
-				minifiedSource += ""
+		elif type == 0 and isPunctuation(source[i]) and (source[i] != "/" and source[i+1] != "*")
+			if isWhiteSpace(source[i+1]) {
+				@source[i]
+				__exit__
+				minifiedSource += source[i]
 			}
 		elif type == 1 
 			if source[i] == '*' and source[i+1] == '/' and (source[i+2] != '"' or source[i+2] != "'") {
