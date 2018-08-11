@@ -229,7 +229,7 @@ class List : Object
 			case 3
 				@ __INDEX_GREATER_THAN_SIZE
 			default
-				throw("Exit !") __exit(0)__
+				throw("Exit !") __exit__
 			end
 
 
