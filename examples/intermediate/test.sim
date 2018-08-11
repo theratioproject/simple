@@ -1,7 +1,1 @@
-call "simple/utilities/Conversion.sim"
-
-str = "6565"
-
-@__isAlphaNum(str)
-@__isAlpha(str)
-@__isNum(str)
+call "simple/io/File.sim"  call "simple/debugging/Throw.sim"  call "simple/core/String.sim"    block main()   sourceFile = null   sourceFilePath = null   sourceFileContent = null   cmdparamsLen = lengthOf(cmdparams)   for a = 0 to cmdparamsLen {    if cmdparams[a] == "-s" || cmdparams[a] == "--source" { sourceFilePath = cmdparams[a++]    else }   }   if sourceFilePath != null {    sourceFile = new File(sourceFilePath)    if sourceFile.exists() {     sourceFileContent = sourceFile.readFileAsString()     @sourceFile.absolutePath()     value = minifySource(sourceFileContent)     file = new File("./test.sim")      file.write(value)    else     throw(sourceFile.absolutePath()+" : does not exists")    }       }     block minifySource(source)   minifiedSource = ""   type = 1   sourceLen = lengthOf(source)   for i = 0 to sourceLen {    if type == 0 and source[i] == tab or source[i] == nl or source[i] == crlf or source[i] == cr {     if __isAlphaNum(source[i+1]) == 1 {      @source[i+1]     }     if source[i+1] != " " {      minifiedSource += " "      else      minifiedSource += ""      }    elif type == 1      if source[i] == '*' and source[i+1] == '/' and (source[i+2] != '"' or source[i+2] != "'") {      i++ type = 0     else            }    elif source[i] == '/' and source[i+1] == '*' and type == 0      i++     type = 1    elif type == 0 and source[i] == "#" and source[i+1] != '"'      while source[i+1] != cr {      if i < sourceLen {       i++      else              }     }    else     minifiedSource+= source[i]    }       }   return trimString(minifiedSource)    block nextCharacter_(source)   name = "this is testing   sas    "
