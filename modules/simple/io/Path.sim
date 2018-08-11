@@ -21,6 +21,8 @@ call "simple/core/String.sim"
 call "simple/system/System.sim"
 call "PathAttributes.sim"
 call "PathType.sim"
+call "File.sim"
+call "Directory.sim"
 
 block isPath(ipath)
 	try 

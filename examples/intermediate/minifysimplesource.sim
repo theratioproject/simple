@@ -10,7 +10,7 @@
  * @Date - 09 August 2018
  * @Time - 10:55 PM
  */
- 
+
 call "simple/io/File.sim"
 call "simple/debugging/Throw.sim"
 call "simple/core/String.sim"
@@ -28,28 +28,36 @@ block main()
 	if sourceFilePath != null {
 		sourceFile = new Path(sourceFilePath)
 		if sourceFile.isADirectory() {
-		
+			minifySourceDir(sourceFile.toDirectory())
+		elif sourceFile.isAFile()
+			minifySourceFile(sourceFile.toFile())
 		}
 		__exit__
 		if sourceFile.exists() {
-			value = minifySource(sourceFile)
-			file = new File("./test.sim") 
-			file.write(value)
+			
 		else
 			throw(sourceFile.absolutePath()+" : does not exists")
 		}
 		
 	}
 	
-block minifySource(sourceFile)
+block minifySourceDir(sourceDir)
+	files = sourceDir.listFiles()
+	@files
+	
+block minifySourceFile(sourceFile)
 	source = sourceFile.readFileAsString()
 	minifiedSource = ""
 	type = 1
+	if !stringEndsWith(sourceFile.name(),".sim") {
+		@"The file "+sourceFile.name()+" is not a simple source file (*.sim)"
+		__exit__
+	}
 	if stringGetLineCount(source) < 1 {
 		@"The file "+sourceFile.name()+" has already been minified"
 		__exit__
 	}
-	@"starting to minify : "+sourceFile.name()
+	@sourceFile.name()+" : minification starting..."
 	sourceLen = lengthOf(source)
 	for i = 0 to sourceLen {
 		if type == 0 and source[i] == tab or source[i] == nl or source[i] == crlf or source[i] == cr {
@@ -87,7 +95,8 @@ block minifySource(sourceFile)
 		}
 		
 	}
-	return trimString(minifiedSource)
+	sourceFile.write(trimString(minifiedSource))
+	@sourceFile.name()+" : operation completed"
 
 block nextCharacter_(source)
 	name = "this is testing   sas    "
