@@ -1,0 +1,321 @@
+/* 
+	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+/* 
+ * #filename - Directory.sim
+ * #author - Azeez Adewale
+ * #date - 5 Febuary 2017
+ */
+ 
+module simple.io
+
+call "Path.sim"
+call "File.sim"
+
+block mkdir(path)
+	__mkdir(path)
+
+class Directory : Path
+
+	__IO_DIRECTORY_EXISTS = "The directory already exists you should remove the directory first"
+	__IO_MODULE = "simple.io.Directory"
+	__IO_DIRECTORY__NOT_EXISTS = "The directory does not exists"
+	__IO_DIRECTORY_DELETE = "The directory cannot be deleted"
+	__IO_DIRECTORY_PATH = ""
+	__IO_DIRECTORY_INVALID_PARAMETER = "Invalid parameter, expected Path, String or Directory"
+
+	block Directory(path)
+		updateAttributes(path)
+		
+	/*
+		Create a directory if it does not exist, even if the parent directory is does not exist
+		also it will be created too along with the directory
+		@Return the directory creation value which is true if successfull and false if it is not 
+		successfull @DataType boolean
+	*/	
+	block create()
+		ensureParent()
+		return mkdir(__IO_DIRECTORY_PATH)
+		
+	block explode()
+		return blow_dir(__IO_DIRECTORY_PATH)
+		
+	block listFiles()
+		eDir = explode()
+		for a = 0 to lengthOf(eDir)
+			if !eDir[a][2]
+				nFile = new File(__IO_DIRECTORY_PATH+getSystemSlash()+eDir[a][1])
+				add(filesList, nFile)
+			end
+		end
+		return filesList
+		
+	block listDirectories()
+		eDir = explode()
+		for a = 0 to lengthOf(eDir)
+			if eDir[a][2]
+				nDir = new Directory(__IO_DIRECTORY_PATH+getSystemSlash()+eDir[a][1])
+				add(folderList, nDir)
+			end
+		end
+		return folderList
+		
+	block toPath()
+		return new Path(__IO_DIRECTORY_PATH)
+		
+	block getPath()
+		return absolutePath()
+		
+	block toString()
+		return rawDirectoryPath
+		
+	block parent()
+		parentDir = parentPath().toDirectory()
+		return new Directory(parentDir)
+		
+	block addChild(dir)
+		add(childrenToCreate, dir) 
+		
+	block getPendingChildern()
+		return childrenToCreate
+		
+	block getName()
+		return directoryName
+		
+	block delete()
+		if exists() {
+			if isWindows() {
+				__exec('rmdir /S /Q "'+__IO_DIRECTORY_PATH+'" 2> nul')
+			elif isLinux()
+				__exec('rm -rf "' +__IO_DIRECTORY_PATH+'"')	
+			else
+			}
+		}
+		
+			#failing so we resolve to system for now
+			#deleteFolderRecursively(this,false)
+			#deleteFolderRecursively(this,true)
+		if exists() {
+			return false
+		else
+			return true
+		}
+		return __delete_directory(getPath())
+		
+	#failing	
+	block deleteFolderRecursively(tempFolder,typeBool) 
+		filesStack = tempFolder.listFiles()
+		filesStackLength = lengthOf(filesStack)
+		if !typeBool {
+			for i = 0 to filesStackLength {
+				__delete(filesStack[i].absolutePath())
+			}
+			folderStack = tempFolder.listDirectories()
+			folderStackLength = lengthOf(folderStack)
+			for a = 0 to folderStackLength {
+				add(__IO_DIRECTORY_TEMP_DIRECTORIES,folderStack[a].getPath())
+				deleteFolderRecursively(folderStack[a],typeBool)
+			}
+		else
+			#@__IO_DIRECTORY_TEMP_DIRECTORIES
+			tempFoldersListLength = lengthOf(__IO_DIRECTORY_TEMP_DIRECTORIES)
+			for b = tempFoldersListLength to 0 step -1 {
+				if !__delete_directory(__IO_DIRECTORY_TEMP_DIRECTORIES[b]) {
+					add(__IO_DIRECTORY_TEMP_DIRECTORIES_2,__IO_DIRECTORY_TEMP_DIRECTORIES[b])
+				}
+			}
+		}
+		
+	/*
+
+	*/
+	block formatDirectoryName(dir)
+		while (stringEndsWith(dir,getSystemSlash()) ) {
+			dir = removeStringAt(dir, lengthOf(dir)) 
+		}
+		dName = lastStringAfterChar(dir, getSystemSlash())
+		return dName 
+		
+	/*
+		Confirm if the directory already exist return true if it exists and 
+		false if it does not exists
+		@Return if the directory exists @DataType Boolean
+	*/
+	block exists() 
+		tempPath = new Path(__IO_DIRECTORY_PATH)
+		return tempPath.isADirectory()
+		
+	/*
+		Change the name of a directory to another. Only string is allowed as 
+		parameter and the new folder name must not exists else an error is thrown,
+		to forcefully rename a folder @Block forceRenameTo(newName) should be called
+		@Return the rename operation value @DataType Boolean
+	*/
+	block renameTo(newName)
+		if !isString(newAbsoluteName) {
+			throwWithTitle(__IO_MODULE,newAbsoluteName+" - "+__IO_PATH_NOT_STRING)
+		}
+		tempPath = new Path(newName)
+		if tempPath.exists() {
+			throwWithTitle(__IO_MODULE,tempPath.toString()+" - "+__IO_DIRECTORY_EXISTS)
+		}
+		renameValue = _renameTo(__IO_DIRECTORY_PATH, tempPath.toString())
+		if renameValue {
+			updateAttributes(tempPath.toString())
+		}
+		return renameValue
+		
+	/*
+		Rename the directory to the new name even if it exist, instead of throwing an
+		error if the folder exists the folder will be deleted instead then the current 
+		directory is renamed to the deleted folder, the content of the old folders are 
+		lost in this case
+		@Return the rename operation value @DataType Number
+	*/
+	block forceRenameTo(newName)
+		if !isString(newName) {
+			throwWithTitle(__IO_MODULE,newName+" - "+__IO_PATH_NOT_STRING)
+		}
+		tempDir = new Directory(newName)
+		if tempDir.exists() {
+			warn(__IO_MODULE+" : "+tempDir.getPath()+" - "+__IO_PATH_EXISTS_DELETE)
+			if tempDir.delete() != true {
+				throwWithTitle(__IO_MODULE,tempDir.getPath()+" - "+__IO_DIRECTORY_DELETE)
+			}
+		}
+		renameValue = _renameTo(__IO_DIRECTORY_PATH, tempDir.getPath())
+		if renameValue {
+			updateAttributes(tempDir.getPath())
+		}
+		return renameValue
+		
+	/*
+		Move the directory to a new folder, if the destination folder has a folder 
+		with the same name then an already exist error is thrown
+		@Return the move operation success value @DataType Number 
+	*/
+	block moveTo(newFolder)
+		return _moveTo(newFolder,false)
+		
+	/*
+		Forcefully move the directory to the destination folder, if a folder with 
+		the same name is present in the destination folder it will be deleted and the 
+		directory moved to replace it, Use this block with caution
+		@Return the move operation success value @DataType Number 
+	*/
+	block forceMoveTo(newFolder)
+		return _moveTo(newFolder,true)
+		
+	/*
+		Move all the content of a directory to a new destination folder, the content which 
+		can include files and directories. The destination directory must exists else an 
+		error is thrown. The moveType parameter determines if the content of the destination 
+		folder should be overridden if it already exists and is same name as incoming contents
+		@BlockQuote
+			moveType - true - forces the previous conflicting content to be deleted
+			moveType - false - throw an error is a conflicting content is found (safe)
+		@End
+		The destFolder parameter must be an instance of one of these classes:
+		@BlockQuote
+			@Class Path
+			@Class String
+			@Class Directory
+		@End
+		If the destFolder parameter is not an instance of the classes above then it is considered
+		as an erroneous parameter.
+		The destFolder must exist in the system, if it does not exist an error is thrown or else 
+		the moveType parameter is true i.e to forcefully move the folder the unexisting destFolder
+		will be created
+	*/
+	block _moveContentTo(destFolder,moveType) 
+		tempDestFolder = destFolder
+		if isString(destFolder) {
+			tempDestFolder = new Directory(destFolder)
+		elif isPath(destFolder)
+			tempDestFolder = new Directory(destFolder.toString())
+		elif !isDirectory(destFolder)
+			throwWithTitle(__IO_MODULE,destFolder+" - "+__IO_DIRECTORY_INVALID_PARAMETER)
+		}
+		if !tempDestFolder.exists() {
+			if moveType {
+				tempDestFolder.create()
+			else
+				throwWithTitle(__IO_MODULE,destFolder+" - "+__IO_DIRECTORY__NOT_EXISTS)
+			}
+		}
+		filesListLength = lengthOf(listFiles())
+		for a = 0 to filesListLength {
+			if moveType {
+				filesList[a].forceMoveTo(tempDestFolder)
+			else
+				filesList[a].moveTo(tempDestFolder)
+			}		
+		}
+		folderListLength = lengthOf(listDirectories())
+		for a = 0 to folderListLength {
+			if moveType {
+				folderList[a].forceMoveTo(tempDestFolder.getPath())
+			else
+				folderList[a].moveTo(tempDestFolder.getPath())
+			}			
+		}
+		
+	/*
+		Move the content of a directory to another directory if the destination folder 
+		does not contain the content of the directory
+		@See @Block _moveContentTo(destFolder,moveType)
+	*/
+	block moveContentTo(destFolder)
+		_moveContentTo(destFolder,false)
+		
+	/*
+		Move the content of a directory to another directory forcefully, if the destination 
+		folder contain similar content of the directory the conflicting destination folder 
+		content will be deleted and replace with the new content
+		@See @Block _moveContentTo(destFolder,moveType)
+		@Note 
+		Not completely safe because it delete the previous content 
+	*/
+	block forceMoveContentTo(destFolder)
+		_moveContentTo(destFolder,true)
+	
+	private
+		__IO_DIRECTORY_TEMP_DIRECTORIES = []
+		rawDirectoryPath = ""
+		directoryName = ""
+		filesList = []
+		folderList = []
+		childrenToCreate = []
+		
+		/*
+			The existence of the parent folder of the directory is verified, if it does not exist
+			it will be created. This block should not be called outside this class the @Block create()
+			should be use in creating directory as it is a safe implementation and it also uses this 
+			block to verify the parent Directory existence
+		*/
+		block ensureParent() 
+			tempDir = __IO_DIRECTORY_PATH
+			if stringEndsWith(__IO_DIRECTORY_PATH,__IO_PATH_SYSTEM_SLASH) {
+				tempDir = removeLastChar(tempDir)
+			}
+			tempDir = removeString(tempDir,lastStringAfterChar(tempDir, __IO_PATH_SYSTEM_SLASH))
+			pd = new Directory(tempDir) pd.addChild(__IO_DIRECTORY_PATH)
+			if (!pd.exists()) pd.create() else mkdir(pd.getPendingChildern()[0]) end
+		
+		block updateAttributes(path)
+			if isPath(path)
+			__IO_DIRECTORY_PATH = path.toString()
+			else 
+				__IO_DIRECTORY_PATH = path
+				rawDirectoryPath = path
+			end
+			__IO_DIRECTORY_PATH = curePathSlashes(__IO_DIRECTORY_PATH)
+			directoryName = formatDirectoryName(__IO_DIRECTORY_PATH)
+			if !stringEndsWith(__IO_DIRECTORY_PATH,__IO_PATH_SYSTEM_SLASH) {
+				__IO_DIRECTORY_PATH+=__IO_PATH_SYSTEM_SLASH
+			}
+			__IO_PATH = __IO_DIRECTORY_PATH
+		

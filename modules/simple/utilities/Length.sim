@@ -1,0 +1,22 @@
+/* 
+	Copyright (c) 2018 Abdulazeez Adeshina Abdulazeez <laisibizness@gmail.com> 
+	MIT License Copyright (c) 2018 simple 
+*/
+
+/* 
+ * @Filename - Length.sim
+ * @Author - Abdulazeez Abdulazeez Adeshina
+ * @Date - 04 April 2018.
+ * @Time - 22:03 PM
+ * @License - MIT License
+ *
+ */
+
+module simple.utilities
+
+block getTypeLength(object)
+    if (isList(object) || isString(object))
+        return lengthOf(object)
+    elif (isNumber(object))
+        return object
+    end

@@ -1,0 +1,103 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+/* 
+ * @Filename - FAdjuster.sim
+ * @Author - Azeez Adewale
+ * @Date - 25 July 2017
+ * @Time - 08:05 AM
+ */
+
+call "../core/FWidget.sim"
+
+class FValuator : FWidget
+	
+	/* NUMBERS */
+	WIDGET_HEIGHT = 25 #The widget Height
+	WIDGET_WIDTH = 100 #The widget Width
+	__FVALUATOR_MINIMUM_BOUND = 0 #Valuators minimum bound
+	__FVALUATOR_MAXIMUM_BOUND = 0 #Valuators maximum bound
+	__FVALUATOR_CLAMP_VALUE = 0 #Position where the widget is clamped
+
+	setTypeName("FValuator") #change the name of the widget
+	
+	/*
+		Set the minimum and maximum values for the @Class FValuator widget
+		after setting the bound the @Class FValuator widget will not expands
+		pass the bound set for it
+		@Param minimum - minimum bound for the @Class FValuator widget @Date Number
+		@Param maximum - maximum bound for the @Class FValuator widget @Date Number
+		@Note It @Return this which is the widget to allow the in-line usage 
+		of the widget
+	*/
+	block setBound(minimum,maximum)
+		__FVALUATOR_MINIMUM_BOUND = minimum
+		__FVALUATOR_MAXIMUM_BOUND = maximum
+		__valuator_bound(WIDGETPOINTER,__FVALUATOR_MINIMUM_BOUND,__FVALUATOR_MAXIMUM_BOUND)
+		return this
+		
+	/*
+		change or set the minimum value for the @Class FValuator widgets
+		@Note It @Return this which is the widget to allow the in-line usage 
+		of the widget
+	*/
+	block setMinimumBound(bound)
+		__FVALUATOR_MINIMUM_BOUND = bound
+		__valuator_bound(WIDGETPOINTER,__FVALUATOR_MINIMUM_BOUND,__FVALUATOR_MAXIMUM_BOUND)
+		return this
+	
+	/*
+		change or set the maximum value for the @Class FValuator widgets
+		@Note It @Return this which is the widget to allow the in-line usage 
+		of the widget
+	*/
+	block setMaximumBound(bound)
+		__FVALUATOR_MAXIMUM_BOUND = bound
+		__valuator_bound(WIDGETPOINTER,__FVALUATOR_MINIMUM_BOUND,__FVALUATOR_MAXIMUM_BOUND)
+		return this
+		
+	/*
+		Get the minimum and maximum values for one of the @Class FValuator widget
+		@Return the minimum value in index 0 and maximum in index 1 @DataType List
+	*/
+	block getBound()
+		return [__FVALUATOR_MINIMUM_BOUND,__FVALUATOR_MAXIMUM_BOUND]
+		
+	/*
+		Get the minimum value for one of the @Class FValuator widget
+		@Return the minimum value @DataType Number
+	*/
+	block getMinimumBound()
+		return __FVALUATOR_MINIMUM_BOUND 
+		
+	/*
+		Get the maximum value for one of the @Class FValuator widget
+		@Return the maximum value @DataType Number
+	*/
+	block getMaximumBound()
+		return __FVALUATOR_MAXIMUM_BOUND
+		
+		
+	/*
+		Clamp the passed value to the @Class FValuator range
+		@Note It @Return this which is the widget to allow the in-line usage 
+		of the widget
+	*/
+	block clampTo(value)
+		__FVALUATOR_CLAMP_VALUE = value
+		__valuator_clamp(WIDGETPOINTER,__FVALUATOR_CLAMP_VALUE)
+		
+		
+	/*
+		Get the value of the @Class FValuator clamp range
+		@Return the clamp range @DataType Number
+	*/
+	block getClampValue()
+		return __FVALUATOR_CLAMP_VALUE
+		
+
+
+

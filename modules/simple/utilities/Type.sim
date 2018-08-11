@@ -1,0 +1,189 @@
+/* 
+	Copyright (c) 2018 Abdulazeez Adeshina Abdulazeez <laisibizness@gmail.com> 
+	MIT License Copyright (c) 2018 simple 
+*/
+
+/* 
+ * 	@Filename - Type.sim
+ * 	@Author - Abdulazeez Abdulazeez Adeshina
+ * 	@Date - 07 August 2018.
+ * 	@Time - 09:01 AM
+ *	@License - MIT License
+ *	@Contributors - Azeez Adewale <azeezadewale98@gmail.com> 
+					
+ */
+
+module simple.utilities
+
+call "simple/core/loadcoredymodule.sim" 
+
+	__TYPE_PACKAGE			= "simple.utilities.Type"
+	__TYPE_UNKNOWN_PARAM 	= "Unknown Variable passed !"
+	__TYPE_INVALID_PARAM 	= "Invalid Parameter passed, Expecting String, List or Number"
+	__TYPE_ONLY_STRING		= "Invalid Parameter passed, only String is accepted"
+
+/*
+	Displays the type of variable passed to this function, this will
+	be useful in so many case and many functionalities will be added to it.
+ */
+block typeOf(var)
+    if isList(var) {
+        return "List"
+    elif isString(var)
+        return "String"
+    elif isNumber(var)
+        return "Number"
+    else
+        return __TYPE_UNKNOWN_PARAM
+    }
+	
+/*
+	Get the value of the parameter converted to @DataType String, only the @DataType
+	Number and @DataType String accepted as parameter. Other types are not accepted
+	@Return parameter as String @DataType String
+*/
+block __get_var_as_string(var)
+	if isString(var) {
+		return var
+	elif isNumber(var)
+		return ""+var+""
+	else
+		throwWithTitle(__TYPE_PACKAGE, __TYPE_INVALID_PARAM)
+	}
+	
+	
+/*
+	Check if a Variable is an Alphabet or Numeric. @DataType True if the variable is of
+	valid characters and or digits. The characters can be any of the ANSI recognized 
+	alphabetic characters and the numeric digit are the combination of numbers through
+	@Code
+		0 - 9 
+		0 1 2 3 4 5 6 7 8 9
+	@EndCode
+	@Return true if parameter is a valid alphabet or numeric @DataType Boolean
+*/
+block isAlphaNum(var)
+	tempVar = __get_var_as_string(var)
+	return __isAlphaNum(tempVar)
+	
+/*
+	Check if a Variable is an Alphabet . @DataType True if the variable is of
+	valid alphabet. The characters can be any of the ANSI recognized 
+	alphabetic characters 
+	@Return true if parameter is a valid alphabet @DataType Boolean
+*/
+block isAlpha(var)
+	tempVar = __get_var_as_string(var)
+	return __isAlpha(tempVar)
+	
+/*
+	Check if a Variable is a Numeric character. @DataType True if the variable is of
+	valid digit. The character can be any of the numeric digit and or the combination
+	of numbers through 0 - 9
+	@Code
+		0 - 9 
+		0 1 2 3 4 5 6 7 8 9
+	@EndCode
+	@Return true if parameter is a valid alphabet or numeric @DataType Boolean
+*/
+block isDigit(var)
+	tempVar = __get_var_as_string(var)
+	return __isNum(tempVar)
+	
+/*
+	Check if a Variable is an Control Characters. @DataType True if the variable is a
+	control character. The characters can be any of of the control characters such as 
+	@Code
+		\b	-	Backspace
+		\a	-	Alert
+		\f	-	Form Feed
+		\n	-	New Line
+		\r	-	Carriage Return
+		\t	-	Horizontal Tab
+		\v	-	Vertical Tab
+		\0	-	Null Character
+	@EndCode
+	@Return true if parameter is a control character @DataType Boolean
+*/
+block isControlChar(var)
+	tempVar = __get_var_as_string(var)
+	return __isControlChar(tempVar)
+	
+/*
+	Check if a Variable is has a graphical representation using locale or
+	can be printed to the standard display output. 
+	@Return true if parameter has graphical representation @DataType Boolean
+*/
+block isGraphical(var)
+	tempVar = __get_var_as_string(var)
+	return __isGraph(tempVar)
+
+/*
+	Check if the Variable is in lower case. This is always false for a non @DataType String
+	variable but a valid check is perform on a @DataType String variable
+	@Return return true if variable is in lower case @DataType Boolean
+*/
+block isLowerCase(var)
+	if !isString(var) {
+		throwWithTitle(__TYPE_PACKAGE, __TYPE_ONLY_STRING)
+	}
+	return __isLower(var)
+
+/*
+	Check if the Variable is in upper case. This is always false for a non @DataType String
+	variable but a valid check is perform on a @DataType String variable
+	@Return return true if variable is in lower case @DataType Boolean
+*/
+block isUpperCase(var)
+	if !isString(var) {
+		throwWithTitle(__TYPE_PACKAGE, __TYPE_ONLY_STRING)
+	}
+	return __isUpper(var)
+
+/*
+	Check if the Variable is printable on the standard display output.
+	similar to @Block isGraphical()
+	@Return true if variable is printable @DataType Boolean
+*/
+block isPrintable(var)
+	tempVar = __get_var_as_string(var)
+	return __isPrint(tempVar)
+	
+/*
+	This blocks check if the variable is a white space. It returns true if the character or 
+	all the characters in the @DataType String is white-space. 
+	@Return true if the variable or it characters are a white-space @DataType Boolean
+*/
+block isWhiteSpace(var)
+	tempVar = __get_var_as_string(var)
+	return __isSpace(tempVar)
+	
+/*
+	Similar to isWhiteSpace(var) but efficiently check of a character is a white space
+	@See isWhiteSpace(var)
+	@Return if character is a white space @DataType true	
+*/
+block __isWhiteSpace(var)
+	tempVar = ' '+__get_var_as_string(var)
+	for a in tempVar {
+		if a != ' ' {
+			return false
+		}
+	}
+	return true
+	
+/*
+	Check if a variable is a punctuation character. 
+	@Return true if variable consists or is a punctuation @DataType Boolean
+*/	
+block isPunctuation(var)
+	tempVar = __get_var_as_string(var)
+	return __isPunct(tempVar)
+	
+/*
+	Check if a Variable is an Hexadecimal Digit.
+	@Return true if variable is a set of hexadecimal digit @DataType Boolean
+*/
+block isHexDigit(var)
+	tempVar = __get_var_as_string(var)
+	return __isXDigit(tempVar)
