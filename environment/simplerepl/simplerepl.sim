@@ -13,4 +13,4 @@ call "simple/utilities/Console.sim" call "simple/system/System.sim" simpleReplTi
     |          |  |   |  |   |                 |   |  |   |            |            |  |             |   | Author : Azeez Adewale
      ----------    ---    ---                   ---    ---              ------------    -------------    | MIT License Copyright (c) 2018 SIMPLE
                                                                                                          |  
-" printLineWithColor(ConsoleColor.GREEN(),null) printWithFG(ConsoleColor.YELLOW(),simpleReplTitle) printLineWithColor(ConsoleColor.GREEN(),null)while true { printWithFG(ConsoleColor.CYAN(),"simple@")display currentDirectory()+" >>> " read code try executeCode(code) display nl catch printWithFG(ConsoleColor.RED(),__err__+"\n") end}
+" printLineWithColor(ConsoleColor.GREEN(),null)printWithFG(ConsoleColor.YELLOW(),simpleReplTitle)printLineWithColor(ConsoleColor.GREEN(),null)while true {printWithFG(ConsoleColor.CYAN(),"simple@")display currentDirectory()+" >>> " read code try executeCode(code)display nl catch printWithFG(ConsoleColor.RED(),__err__+"\n")end}
