@@ -11,7 +11,7 @@ block main()
 	display "SIN 1 = "+sin(1) + crlf 
 	display "SIN 0 = "+sin(0) + crlf 
 	display "SIN 90 = "+sin(90) + crlf 
-	display "RANDOM 100 = "+random(10098989)+crlf
+	display "RANDOM 100 = "+random()+nl
 	
 	
 	

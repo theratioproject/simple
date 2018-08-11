@@ -37,3 +37,6 @@ block resetDecimal()
 #as the parameter as that what the block does
 block noDecimal()
 	__decimals(0)
+	
+block random()
+	return __rand()

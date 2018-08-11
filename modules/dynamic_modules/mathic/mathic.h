@@ -23,6 +23,8 @@ SIMPLE_API void init_simple_module(SimpleState *sState) ;
 
 void math_sin ( void *pointer ) ;
 
+void math_rand(void *pointer);
+
 void math_cos ( void *pointer ) ;
 
 void math_tan ( void *pointer ) ;
