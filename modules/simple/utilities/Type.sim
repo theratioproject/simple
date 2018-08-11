@@ -151,21 +151,33 @@ block isPrintable(var)
 	
 /*
 	This blocks check if the variable is a white space. It returns true if the character or 
-	all the characters in the @DataType String is white-space. For a more satisfying check the
-	@Block __isWhiteSpace(var) should be called instead to check single character.
+	all the characters in the @DataType String is white-space. 
 	@Return true if the variable or it characters are a white-space @DataType Boolean
 */
 block isWhiteSpace(var)
+	tempVar = __get_var_as_string(var)
+	return __isSpace(tempVar)
+	
+/*
+	Similar to isWhiteSpace(var) but efficiently check of a character is a white space
+	@See isWhiteSpace(var)
+	@Return if character is a white space @DataType true	
+*/
+block __isWhiteSpace(var)
 	tempVar = ' '+__get_var_as_string(var)
 	for a in tempVar {
-		if tempVar != ' ' {
+		if a != ' ' {
 			return false
 		}
 	}
 	return true
 	
-block __isWhiteSpace(var)
+/*
+	Check if a variable is a punctuation character. 
+	@Return true if variable consists or is a punctuation @DataType Boolean
+*/	
+block isPunctuation(var)
 	tempVar = __get_var_as_string(var)
-	return __isSpace(tempVar)
+	return __isPunct(tempVar)
 	
-
+	

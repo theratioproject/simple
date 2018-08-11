@@ -12,8 +12,10 @@ block main()
 	alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 	alphal = "abcdefghijklmnopqrstuvwxyz"
 	digit = 0123456789
+	space = "        "
+	punct = ","
 	control = nl+crlf+tab
-	list = [str,alpha,alphal,digit,control]
+	list = [str,alpha,space,alphal,digit,punct,control]
 	listLen = lengthOf(list)
 	
 	@"checking the following values"
@@ -47,18 +49,28 @@ block main()
 	}
 	
 	@nl+"Lower"
-	for a = 0 to 2 {
+	for a = 0 to 3 {
 		display "	" + isLowerCase(list[a])
 	}
 	
 	@nl+"Upper"
-	for a = 0 to 2 {
+	for a = 0 to 3 {
 		display "	" + isUpperCase(list[a])
 	}
 	
 	@nl+"Print"
 	for a = 0 to listLen {
 		display "	" + isPrintable(list[a])
+	}
+	
+	@nl+"Space"
+	for a = 0 to listLen {
+		display "	" + __isWhiteSpace(space)+' '+isWhiteSpace(space)
+	}
+	
+	@nl+"Punctuation"
+	for a = 0 to listLen {
+		display "	" + isPunctuation(space)
 	}
 	
 	
