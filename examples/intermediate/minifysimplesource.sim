@@ -15,6 +15,8 @@ call "simple/io/File.sim"
 call "simple/debugging/Throw.sim"
 call "simple/core/String.sim"
 call "simple/utilities/Type.sim"
+
+skipRequest = false
  
 block main()
 	sourceFile = null
@@ -23,6 +25,7 @@ block main()
 	cmdparamsLen = lengthOf(cmdparams)
 	for a = 0 to cmdparamsLen {
 		if cmdparams[a] == "-s" || cmdparams[a] == "--source" { sourceFilePath = cmdparams[a++]
+		elif cmdparams[a] == "-y" || cmdparams[a] == "--yes" skipRequest = true
 		else }
 	}
 	if sourceFilePath != null {
@@ -43,7 +46,15 @@ block main()
 	
 block minifySourceDir(sourceDir)
 	files = sourceDir.listFiles()
-	@files
+	filesLen = lengthOf(files)
+	for b = 0 to filesLen {
+		minifySourceFile(files[b])
+	}
+	dirs = sourceDir.listDirectories()
+	dirsLen = lengthOf(dirs)
+	for b = 0 to dirsLen {
+		@dirs[b].absolutePath()
+	}
 	
 block minifySourceFile(sourceFile)
 	source = sourceFile.readFileAsString()
@@ -72,13 +83,6 @@ block minifySourceFile(sourceFile)
 			else
 				minifiedSource += " " 
 			}
-		elif type == 0 and isPunctuation(source[i]) and (source[i] != "/" and source[i+1] != "*")
-			if isWhiteSpace(source[i+1]) {
-				minifiedSource += source[i]
-				i++
-			else
-				minifiedSource += source[i]
-			}
 		elif type == 1 
 			if source[i] == '*' and source[i+1] == '/' and (source[i+2] != '"' or source[i+2] != "'") {
 				i++ type = 0
@@ -95,6 +99,13 @@ block minifySourceFile(sourceFile)
 				else 
 					
 				}
+			}
+		elif type == 0 and isPunctuation(source[i]) and (source[i] != "/" and source[i+1] != "*")
+			if isWhiteSpace(source[i+1]) {
+				minifiedSource += source[i]
+				i++
+			else
+				minifiedSource += source[i]
 			}
 		else
 			minifiedSource+= source[i]
