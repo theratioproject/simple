@@ -50,12 +50,18 @@ block minifySourceFile(sourceFile)
 	minifiedSource = ""
 	type = 1
 	if !stringEndsWith(sourceFile.name(),".sim") {
-		@"The file "+sourceFile.name()+" is not a simple source file (*.sim)"
-		__exit__
+		@sourceFile.name()+" : not a simple source file (*.sim) skipping..."
+		return
 	}
 	if stringGetLineCount(source) < 1 {
-		@"The file "+sourceFile.name()+" has already been minified"
-		__exit__
+		@sourceFile.name()+" : already minified"
+		return
+	}
+	if !skipRequest {
+		display sourceFile.name()+" : do you want to minify this file? " read res
+		if res != "y" and res != "yes" {
+			return
+		}
 	}
 	@sourceFile.name()+" : minification starting..."
 	sourceLen = lengthOf(source)
