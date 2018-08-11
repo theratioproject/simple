@@ -46,6 +46,8 @@ SIMPLE_API void conversion_string_to_list (void *pointer);
 SIMPLE_API void check_characters_is_alpha_num(void *pointer);
 SIMPLE_API void check_characters_is_alpha(void *pointer);
 SIMPLE_API void check_characters_is_num(void *pointer);
+SIMPLE_API void check_characters_is_cntrl(void *pointer);
+SIMPLE_API void check_characters_is_graph(void *pointer);
 
 /* Meta Blocks */ 
 SIMPLE_API void meta_blocks_add_addribute(void *pointer);

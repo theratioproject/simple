@@ -55,6 +55,14 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
 
     /* Characters Checking */ 
     register_block("__isAlphaNum",check_characters_is_alpha_num);
+    register_block("__isAlpha",check_characters_is_alpha);
+    register_block("__isNum",check_characters_is_num);
+    register_block("__isControlChar",check_characters_is_cntrl);
+    register_block("__isDigit",check_characters_is_num);
+    register_block("__isGraph",check_characters_is_graph);
+    register_block("__isLower",check_characters_is_lower);
+    register_block("__isPrint",check_characters_is_print);
+    register_block("__isGraph",check_characters_is_graph);
 	
 	/* Meta Blocks */ 
 	register_block("__AddAttribute",meta_blocks_add_addribute);
