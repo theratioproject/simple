@@ -58,15 +58,10 @@ block minifySourceDir(sourceDir)
 	}
 	
 block minifySourceFile(sourceFile)
-	source = sourceFile.readFileAsString()
 	minifiedSource = ""
 	type = 1
 	if !stringEndsWith(sourceFile.name(),".sim") {
 		@sourceFile.name()+" : not a simple source file (*.sim) skipping..."
-		return
-	}
-	if stringGetLineCount(source) < 1 {
-		@sourceFile.name()+" : already minified"
 		return
 	}
 	if !skipRequest {
@@ -74,6 +69,11 @@ block minifySourceFile(sourceFile)
 		if res != "y" and res != "yes" {
 			return
 		}
+	}
+	source = " "+sourceFile.readFileAsString()
+	if stringGetLineCount(source) < 1 {
+		@sourceFile.name()+" : already minified"
+		return
 	}
 	@sourceFile.name()+" : minification starting..."
 	sourceLen = lengthOf(source)
@@ -91,10 +91,10 @@ block minifySourceFile(sourceFile)
 			if source[i] == '*' and source[i+1] == '/' and (source[i+2] != '"' or source[i+2] != "'") {
 				i++ type = 0
 			else 
-				type = 0
+				
 			}
 		elif type == 0 and source[i] == '"' 
-			minifiedSource+= source[i]
+			minifiedSource+= source[i]+source[i+1]
 			i++
 			type = 2
 		elif type == 2 
