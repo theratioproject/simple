@@ -1,14 +1,4 @@
-
-/* 
-	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com> 
-	MIT License Copyright (c) 2018 SIMPLE 
-
-*/
-
-call "simple/utilities/Console.sim"
-call "simple/system/System.sim"
-
-simpleReplTitle = " 
+call "simple/utilities/Console.sim" call "simple/system/System.sim" simpleReplTitle =" 
                                                                                                          | 
      ----------    --     --------         --------    ------------     ---             --------------   | A simple, plain and innovative programming
     |          |  |   |  |        |       |        |  |            |   |   |           |              |  | with multi-paradigm. It can be embedded in 
@@ -23,18 +13,4 @@ simpleReplTitle = "
     |          |  |   |  |   |                 |   |  |   |            |            |  |             |   | Author : Azeez Adewale
      ----------    ---    ---                   ---    ---              ------------    -------------    | MIT License Copyright (c) 2018 SIMPLE
                                                                                                          |  
-"
-	
-	printLineWithColor(ConsoleColor.GREEN(), null)
-	printWithFG(ConsoleColor.YELLOW(), simpleReplTitle)
-	printLineWithColor(ConsoleColor.GREEN(), null)
-while true {
-	printWithFG(ConsoleColor.CYAN(), "simple@") display currentDirectory()+" >>> "
-	read code
-	try
-		executeCode(code)
-		display nl
-	catch
-		printWithFG(ConsoleColor.RED(), __err__+"\n")
-	end
-} 
+" printLineWithColor(ConsoleColor.GREEN(),null) printWithFG(ConsoleColor.YELLOW(),simpleReplTitle) printLineWithColor(ConsoleColor.GREEN(),null)while true { printWithFG(ConsoleColor.CYAN(),"simple@")display currentDirectory()+" >>> " read code try executeCode(code) display nl catch printWithFG(ConsoleColor.RED(),__err__+"\n") end}
