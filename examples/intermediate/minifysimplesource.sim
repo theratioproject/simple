@@ -91,7 +91,16 @@ block minifySourceFile(sourceFile)
 			if source[i] == '*' and source[i+1] == '/' and (source[i+2] != '"' or source[i+2] != "'") {
 				i++ type = 0
 			else 
-				
+				type = 0
+			}
+		elif type == 0 and source[i] == '"' 
+			minifiedSource+= source[i]
+			i++
+			type = 2
+		elif type == 2 
+			minifiedSource+= source[i]
+			if source[i] == '"' {
+				i++ type = 0
 			}
 		elif type == 0 and source[i] == "#" and source[i+1] != '"' 
 			while source[i+1] != cr and source[i+1] != nl and source[i+1] != crlf {
