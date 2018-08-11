@@ -381,7 +381,6 @@ SIMPLE_API void meta_blocks_add_addribute(void *pointer)
 }
 
 /* Characters Checking */ 
-
 SIMPLE_API void check_characters_is_alpha_num(void *pointer)
 {
 	char *str  ;
@@ -392,14 +391,51 @@ SIMPLE_API void check_characters_is_alpha_num(void *pointer)
 	}
 	if ( SIMPLE_API_ISSTRING(1) ) {
 		str = SIMPLE_API_GETSTRING(1) ;
-		size = SIMPLE_API_GETSTRINGSIZE(1) ;
-		for ( x = 0 ; x < size ; x++ ) {
-			if ( (*block) != (str[x]) ) {
-				SIMPLE_API_RETNUMBER(0);
-				return ; //errornous
-			}
+		if (isalnum(str)) {
+			SIMPLE_API_RETNUMBER(1);
+		} else {
+			SIMPLE_API_RETNUMBER(0);
 		}
-		SIMPLE_API_RETNUMBER(1);
+	} else {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+	}
+}
+
+SIMPLE_API void check_characters_is_alpha(void *pointer)
+{
+	char *str  ;
+	int size,x  ;
+	if ( SIMPLE_API_PARACOUNT != 1 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARACOUNT);
+		return ;
+	}
+	if ( SIMPLE_API_ISSTRING(1) ) {
+		str = SIMPLE_API_GETSTRING(1) ;
+		if (isalpha(str)) {
+			SIMPLE_API_RETNUMBER(1);
+		} else {
+			SIMPLE_API_RETNUMBER(0);
+		}
+	} else {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+	}
+}
+
+SIMPLE_API void check_characters_is_num(void *pointer)
+{
+	char *str  ;
+	int size,x  ;
+	if ( SIMPLE_API_PARACOUNT != 1 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARACOUNT);
+		return ;
+	}
+	if ( SIMPLE_API_ISSTRING(1) ) {
+		str = SIMPLE_API_GETSTRING(1) ;
+		if (isnum(str)) {
+			SIMPLE_API_RETNUMBER(1);
+		} else {
+			SIMPLE_API_RETNUMBER(0);
+		}
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
