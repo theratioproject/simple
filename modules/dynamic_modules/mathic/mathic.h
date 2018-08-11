@@ -1,6 +1,6 @@
 
 /* 
-    Copyright (c) 2016-2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+    Copyright (c) 2016-2018 Azeez Adewale <azeezadewale98@gmail.com> 
     MIT License Copyright (c) 2018 simple 
 
 */
@@ -22,6 +22,8 @@ extern "C" {
 SIMPLE_API void init_simple_module(SimpleState *sState) ;
 
 void math_sin ( void *pointer ) ;
+
+void math_rand(void *pointer);
 
 void math_cos ( void *pointer ) ;
 

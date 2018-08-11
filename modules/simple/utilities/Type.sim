@@ -1,33 +1,43 @@
 /* 
-	Copyright (c) 2018 Abdulazeez Adeshina Abdulazeez <laisibizness@gmail.com"> 
+	Copyright (c) 2018 Abdulazeez Adeshina Abdulazeez <laisibizness@gmail.com> 
 	MIT License Copyright (c) 2018 simple 
 */
 
 /* 
- * @Filename - Type.sim
- * @Author - Abdulazeez Abdulazeez Adeshina
- * @Date - 07 August 2018.
- * @Time - 09:01 AM
- * @License - MIT License
+ * 	@Filename - Type.sim
+ * 	@Author - Abdulazeez Abdulazeez Adeshina
+ * 	@Date - 07 August 2018.
+ * 	@Time - 09:01 AM
+ *	@License - MIT License
+ *	@Contributors - Azeez Adewale <azeezadewale98@gmail.com> 
+					
  */
+ 
+/*
+	
+*/
 
 module simple.utilities
 
 /*
- * Displays the type of variable
- * passed to this function, this will
- * be useful in so many case and many
- * functionalities will be added to it.
+	Displays the type of variable passed to this function, this will
+	be useful in so many case and many functionalities will be added to it.
  */
 block typeOf(var)
     if isList(var) {
-        @ "List"
+        return "List"
     elif isString(var)
-        @ "String"
+        return "String"
     elif isNumber(var)
-        @ "Number"
-    elif isObject(var)
-        @ "Object"
+        return "Number"
     else
-        @ "Unknown Variable passed !"
+        return "Unknown Variable passed !"
     }
+	
+block isAlphaNum(var)
+	if isList(var) {
+	
+	}
+	return __isAlphaNum(var)
+	
+block 

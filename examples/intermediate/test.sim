@@ -1,0 +1,7 @@
+call "simple/utilities/Conversion.sim"
+
+str = "6565"
+
+@__isAlphaNum(str)
+@__isAlpha(str)
+@__isNum(str)

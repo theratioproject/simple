@@ -1,6 +1,6 @@
 
 /* 
-    Copyright (c) 2016-2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+    Copyright (c) 2016-2018 Azeez Adewale <azeezadewale98@gmail.com> 
     MIT License Copyright (c) 2018 simple 
 
 */
@@ -51,6 +51,7 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
     register_block("fabs",math_fabs);
     register_block("pow",math_pow);
     register_block("sqrt",math_sqrt);
+    register_block("__rand",math_rand);
     register_block("unsigned",math_unsigned);
     register_block("__decimals",math_decimals);
 }
@@ -66,6 +67,16 @@ void math_sin ( void *pointer )
     } else {
             SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
     }
+}
+
+
+void math_rand(void *pointer)
+{
+    if ( SIMPLE_API_PARACOUNT != 0 ) {
+            SIMPLE_API_ERROR("no parameter Expected ");
+            return ;
+    }
+    SIMPLE_API_RETNUMBER(rand());
 }
 
 void math_cos ( void *pointer )

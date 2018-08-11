@@ -6,6 +6,7 @@
 *.sh text eol=lf
 *.bash text eol=lf
 *.sim text eol=lf
+*.bat text eol=crlf
 
 *.gch
 *.dylib

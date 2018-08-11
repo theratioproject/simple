@@ -1,6 +1,6 @@
 
 /* 
-    Copyright (c) 2016-2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+    Copyright (c) 2016-2018 Azeez Adewale <azeezadewale98@gmail.com> 
     MIT License Copyright (c) 2018 simple 
 
 */
@@ -55,6 +55,17 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
 
     /* Characters Checking */ 
     register_block("__isAlphaNum",check_characters_is_alpha_num);
+    register_block("__isAlpha",check_characters_is_alpha);
+    register_block("__isNum",check_characters_is_num);
+    register_block("__isControlChar",check_characters_is_cntrl);
+    register_block("__isDigit",check_characters_is_num);
+    register_block("__isGraph",check_characters_is_graph);
+    register_block("__isLower",check_characters_is_lower);
+    register_block("__isPrint",check_characters_is_print);
+    register_block("__isPunct",check_characters_is_punct);
+    register_block("__isSpace",check_characters_is_space);
+    register_block("__isUpper",check_characters_is_upper);
+    register_block("__isXDigit",check_characters_is_xdigit);
 	
 	/* Meta Blocks */ 
 	register_block("__AddAttribute",meta_blocks_add_addribute);
@@ -381,7 +392,7 @@ SIMPLE_API void meta_blocks_add_addribute(void *pointer)
 }
 
 /* Characters Checking */ 
-SIMPLE_API void check_characters_is_block(void *pointer,int (*block)(int))
+SIMPLE_API void check_characters__(void *pointer,int type)
 {
 	char *str  ;
 	int size,x  ;
@@ -392,13 +403,96 @@ SIMPLE_API void check_characters_is_block(void *pointer,int (*block)(int))
 	if ( SIMPLE_API_ISSTRING(1) ) {
 		str = SIMPLE_API_GETSTRING(1) ;
 		size = SIMPLE_API_GETSTRINGSIZE(1) ;
-		for ( x = 0 ; x < size ; x++ ) {
-			if ( (*block) != (str[x]) ) {
-				SIMPLE_API_RETNUMBER(0);
-				return ; //errornous
-			}
+		switch (type) {
+			case 0:
+				for ( x = 0 ; x < size ; x++ ) {
+					if (!isalnum(str[x])) {
+						SIMPLE_API_RETNUMBER(0);
+						return ; 
+					}
+				}
+				SIMPLE_API_RETNUMBER(1); return;
+			case 1:
+				for ( x = 0 ; x < size ; x++ ) {
+					if (!isalpha(str[x])) {
+						SIMPLE_API_RETNUMBER(0);
+						return ; 
+					}
+				}
+				SIMPLE_API_RETNUMBER(1); return;
+			case 2:
+				for ( x = 0 ; x < size ; x++ ) {
+					if (!isdigit(str[x])) {
+						SIMPLE_API_RETNUMBER(0);
+						return ; 
+					}
+				}
+				SIMPLE_API_RETNUMBER(1); return;
+			case 3:
+				for ( x = 0 ; x < size ; x++ ) {
+					if (!iscntrl(str[x])) {
+						SIMPLE_API_RETNUMBER(0);
+						return ; 
+					}
+				}
+				SIMPLE_API_RETNUMBER(1); return;
+			case 4:
+				for ( x = 0 ; x < size ; x++ ) {
+					if (!isgraph(str[x])) {
+						SIMPLE_API_RETNUMBER(0);
+						return ; 
+					}
+				}
+				SIMPLE_API_RETNUMBER(1); return;
+			case 5:
+				for ( x = 0 ; x < size ; x++ ) {
+					if (!islower(str[x])) {
+						SIMPLE_API_RETNUMBER(0);
+						return ; 
+					}
+				}
+				SIMPLE_API_RETNUMBER(1); return;
+			case 6:
+				for ( x = 0 ; x < size ; x++ ) {
+					if (!isprint(str[x])) {
+						SIMPLE_API_RETNUMBER(0);
+						return ; 
+					}
+				}
+				SIMPLE_API_RETNUMBER(1); return;
+			case 7:
+				for ( x = 0 ; x < size ; x++ ) {
+					if (!ispunct(str[x])) {
+						SIMPLE_API_RETNUMBER(0);
+						return ; 
+					}
+				}
+				SIMPLE_API_RETNUMBER(1); return;
+			case 8:
+				for ( x = 0 ; x < size ; x++ ) {
+					if (!isspace(str[x])) {
+						SIMPLE_API_RETNUMBER(0);
+						return ; 
+					}
+				}
+				SIMPLE_API_RETNUMBER(1); return;
+			case 9:
+				for ( x = 0 ; x < size ; x++ ) {
+					if (!isupper(str[x])) {
+						SIMPLE_API_RETNUMBER(0);
+						return ; 
+					}
+				}
+				SIMPLE_API_RETNUMBER(1); return;
+			case 10:
+				for ( x = 0 ; x < size ; x++ ) {
+					if (!isxdigit(str[x])) {
+						SIMPLE_API_RETNUMBER(0);
+						return ; 
+					}
+				}
+				SIMPLE_API_RETNUMBER(1); return;
 		}
-		SIMPLE_API_RETNUMBER(1);
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
@@ -406,7 +500,57 @@ SIMPLE_API void check_characters_is_block(void *pointer,int (*block)(int))
 
 SIMPLE_API void check_characters_is_alpha_num(void *pointer)
 {
-	check_characters_is_block(pointer,check_characters_is_alpha_num);
+	check_characters__(pointer,0);
+}
+
+SIMPLE_API void check_characters_is_alpha(void *pointer)
+{
+	check_characters__(pointer,1);
+}
+
+SIMPLE_API void check_characters_is_num(void *pointer)
+{
+	check_characters__(pointer,2);
+}
+
+SIMPLE_API void check_characters_is_cntrl(void *pointer)
+{
+	check_characters__(pointer,3);
+}
+
+SIMPLE_API void check_characters_is_graph(void *pointer)
+{
+	check_characters__(pointer,4);
+}
+
+SIMPLE_API void check_characters_is_lower(void *pointer)
+{
+	check_characters__(pointer,5);
+}
+
+SIMPLE_API void check_characters_is_print(void *pointer)
+{
+	check_characters__(pointer,6);
+}
+
+SIMPLE_API void check_characters_is_punct(void *pointer)
+{
+	check_characters__(pointer,7);
+}
+
+SIMPLE_API void check_characters_is_space(void *pointer)
+{
+	check_characters__(pointer,8);
+}
+
+SIMPLE_API void check_characters_is_upper(void *pointer)
+{
+	check_characters__(pointer,9);
+}
+
+SIMPLE_API void check_characters_is_xdigit(void *pointer)
+{
+	check_characters__(pointer,10);
 }
 
 SIMPLE_API void error_warn(void *pointer)

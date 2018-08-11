@@ -1,6 +1,6 @@
 
 /* 
-    Copyright (c) 2016-2018 Azeez Adewale <azeezadewale98@gmail.com"> 
+    Copyright (c) 2016-2018 Azeez Adewale <azeezadewale98@gmail.com> 
     MIT License Copyright (c) 2018 simple 
 
 */
@@ -43,8 +43,18 @@ SIMPLE_API void conversion_hex_to_string(void *pointer);
 SIMPLE_API void conversion_string_to_list (void *pointer);
 
 /* Characters Checking */ 
-SIMPLE_API void check_characters_is_block(void *pointer,int (*block)(int));
+SIMPLE_API void check_characters__(void *pointer,int type);
 SIMPLE_API void check_characters_is_alpha_num(void *pointer);
+SIMPLE_API void check_characters_is_alpha(void *pointer);
+SIMPLE_API void check_characters_is_num(void *pointer);
+SIMPLE_API void check_characters_is_cntrl(void *pointer);
+SIMPLE_API void check_characters_is_graph(void *pointer);
+SIMPLE_API void check_characters_is_lower(void *pointer);
+SIMPLE_API void check_characters_is_print(void *pointer);
+SIMPLE_API void check_characters_is_punct(void *pointer);
+SIMPLE_API void check_characters_is_space(void *pointer);
+SIMPLE_API void check_characters_is_upper(void *pointer);
+SIMPLE_API void check_characters_is_xdigit(void *pointer);
 
 /* Meta Blocks */ 
 SIMPLE_API void meta_blocks_add_addribute(void *pointer);
