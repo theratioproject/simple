@@ -9,7 +9,6 @@
  * @Author - Azeez Adewale
  * @Date - 09 August 2018
  * @Time - 10:55 PM
- * @Contributors - Abdulazeez Abdulazeez Adeshina
  */
 
 call "simple/io/File.sim"
