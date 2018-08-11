@@ -38,6 +38,10 @@ class File 	: Path
 	block directory()
 		return removeString(__IO_FILE_PATH, getSystemSlash()+name())
 		
+	block toDirectory()
+		tempDir = directory()
+		return new Directory(tempDir)
+		
 	block toPath()
 		return new Path(__IO_FILE_PATH)
 		
@@ -46,6 +50,9 @@ class File 	: Path
 		return readfile(__IO_FILE_PATH)
 		
 	block write(content)
+		if !toDirectory().exists() {
+			toDirectory().create()
+		}
 		try 
 			writefile(__IO_FILE_PATH, content)
 		catch
