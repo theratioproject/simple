@@ -11,7 +11,8 @@ block main()
 	str = "asas6565sas32a"
 	alpha = "aBcDeFgHiJkLmNoPqRsTuVwXyZ"
 	digit = 0123456789
-	list = [str,alpha,digit]
+	control = nl+crlf+tab
+	list = [str,alpha,digit,control]
 	listLen = lengthOf(list)
 	
 	@"checking the following values "
@@ -32,4 +33,14 @@ block main()
 	@nl+"Digit"
 	for a = 0 to listLen {
 		display "	" + isDigit(list[a])
+	}
+	
+	@nl+"Control Char"
+	for a = 0 to listLen {
+		display "	" + isControlChar(list[a])
+	}
+	
+	@nl+"Graph"
+	for a = 0 to listLen {
+		display "	" + isGraph(list[a])
 	}
