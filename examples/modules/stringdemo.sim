@@ -25,7 +25,7 @@ block main() {
 	if string.startsWith("mod") println(string.toString()+", start with mod ")
 	else println(string.toString()+" does not start with mod but with 'mOd'") end
 	println("FIRST CHAR : "+string.firstChar()+" | LAST CHAR : "+string.lastChar())
-	println("LEFT : "+string.left(6)+" | RIGHT : "+string.right())
+	println("LEFT : "+string.left(6)+" | RIGHT : "+string.right(3))
 	println("TRIM : >"+string.trim()+"< | COPY : "+string.copy(2))
 	if string.endsWith("rity ") println("yea it ends with 'rity '") end
 	println("LINE COUNT : "+string.lineCount()+" | SUBSTRING : "+string.subStringAt("d","a"))

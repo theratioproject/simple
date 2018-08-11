@@ -173,6 +173,20 @@ for %%x in (%*) do (
 		) else (
 			SET EXEC_TYPE="environment-only-debug"
 		)
+	)
+	if "%%x"=="-min" (
+		if !EXEC_TYPE!=="install" (
+			SET EXEC_TYPE="minify-install"
+		) else (
+			SET EXEC_TYPE="minify-debug"
+		)
+	) 
+	if "%%x"=="--minify" (
+		if !EXEC_TYPE!=="install" (
+			SET EXEC_TYPE="minify-install"
+		) else (
+			SET EXEC_TYPE="minify-debug"
+		)
 	) 
 	if "%%x"=="-vs" (
 		SET THERE_IS_VS="true"
@@ -296,6 +310,14 @@ if !EXEC_TYPE!=="environment-only-install" (
 if !EXEC_TYPE!=="environment-only-debug" (
 	SET EXEC_TYPE="debug"
 	call:buildsimplelangenvironments
+)
+if !EXEC_TYPE!=="minify-install" (
+	SET EXEC_TYPE="install"
+	call:minifysimplemodule
+)
+if !EXEC_TYPE!=="minify-debug" (
+	SET EXEC_TYPE="debug"
+	call:minifysimplemodule
 )
 if !EXEC_TYPE!=="dymodules-only-install" (
 	SET EXEC_TYPE="install"
@@ -433,6 +455,7 @@ exit /b %ERRORLEVEL%
 	call:copydynamicmodules
 	call:copysimplemodule
 	call:buildsimplelangenvironments
+	call:minifysimplemodule
 	
 	call:removedistfolders
 	call:removestubornfiles
@@ -785,7 +808,7 @@ REM COPY THE SIMPLE MODULES
 	
 :copysimplemodule
 	call:header modules "copying simple modules to %SIMPLE_DEBUG_VERSION%"
-	call:copymodulesinloop archive fulltick simple web
+	call:copymodulesinloop archive fulltick parser simple web
 	call:resolvefirstcalls
 	copy "..\modules\modules-dependencies.conf" "%~dp0\..\..\%SIMPLE_DEBUG_VERSION%\modules\"
 
@@ -833,6 +856,33 @@ REM THE __FIRST_CALLS.SIM FILE IS IMPORTANT FOR SIMPLE-LANG MODULES TO FUNCTION
 		)
 	)
 	
+	exit /b 0
+	
+REM MINIFY ALL THE MODULE SOURCE (.sim) only
+	
+:minifysimplemodule
+	call:header minify "starting to minify the modules source"
+	SET MINIFICATION_PROGRAM="..\examples\intermediate\minifysimplesource.sim"
+	if exist !MINIFICATION_PROGRAM! (
+		echo modules:minify: the minifying intermediate program found. procedding...
+	) else (
+		echo modules:minify: the minifying intermediate program not found. skipping minification
+		exit /b 0
+	)
+	if !EXEC_TYPE!=="install" (
+		if exist "!INSTALLATION_FOLDER!\%VERSION%\modules" (
+			echo modules:minifying: starting simple sources minification in !INSTALLATION_FOLDER!\%VERSION%\modules directory
+			!INSTALLATION_FOLDER!\%VERSION%\bin\simple.exe !MINIFICATION_PROGRAM! --source !INSTALLATION_FOLDER!\%VERSION%\modules -y
+		)
+	)
+	if !EXEC_TYPE!=="debug" (
+		if exist "..\..\%SIMPLE_DEBUG_VERSION%\modules" (
+			echo modules:minifying: starting simple sources minification in ..\..\%SIMPLE_DEBUG_VERSION%\modules directory
+			..\..\%SIMPLE_DEBUG_VERSION%\bin\simple.exe !MINIFICATION_PROGRAM! --source ..\..\%SIMPLE_DEBUG_VERSION%\modules -y
+		)
+	)
+	echo modules:minifying: minification complete
+
 	exit /b 0
 	
 :echodycalls
