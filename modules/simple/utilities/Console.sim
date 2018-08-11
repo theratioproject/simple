@@ -126,9 +126,9 @@ block singleBeep()
 #this block formatLiteral(content) allows for escape character supports
 block formatLiteral(content)
 	inContent = ""
-	/*if isnumber(content) 
+	if isNumber(content) 
 		content = ""+content
-	end*/#to uncomment after building core module
+	end
 	for a = 0 to lengthOf(content) 
 		switch content[a]
 			case '\'
