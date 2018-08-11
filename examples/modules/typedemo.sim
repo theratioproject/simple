@@ -9,10 +9,11 @@ call "simple/utilities/Type.sim"
 
 block main()
 	str = "asas6565sas32a"
-	alpha = "aBcDeFgHiJkLmNoPqRsTuVwXyZ"
+	alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	alphal = "abcdefghijklmnopqrstuvwxyz"
 	digit = 0123456789
 	control = nl+crlf+tab
-	list = [str,alpha,digit,control]
+	list = [str,alpha,alphal,digit,control]
 	listLen = lengthOf(list)
 	
 	@"checking the following values"
@@ -35,7 +36,7 @@ block main()
 		display "	" + isDigit(list[a])
 	}
 	
-	@nl+"Control Char"
+	@nl+"Control"
 	for a = 0 to listLen {
 		display "	" + isControlChar(list[a])
 	}
@@ -44,3 +45,22 @@ block main()
 	for a = 0 to listLen {
 		display "	" + isGraph(list[a])
 	}
+	
+	@nl+"Lower"
+	for a = 0 to 2 {
+		display "	" + isLowerCase(list[a])
+	}
+	
+	@nl+"Upper"
+	for a = 0 to 2 {
+		display "	" + isUpperCase(list[a])
+	}
+	
+	@nl+"Print"
+	for a = 0 to listLen {
+		display "	" + isPrintable(list[a])
+	}
+	
+	
+	
+	
