@@ -53,7 +53,8 @@ block minifySourceDir(sourceDir)
 	dirs = sourceDir.listDirectories()
 	dirsLen = lengthOf(dirs)
 	for b = 0 to dirsLen {
-		@dirs[b].absolutePath()
+		@"moving into directory : "+dirs[b].absolutePath()
+		minifySourceDir(dirs[b])
 	}
 	
 block minifySourceFile(sourceFile)
@@ -93,7 +94,7 @@ block minifySourceFile(sourceFile)
 			i++
 			type = 1
 		elif type == 0 and source[i] == "#" and source[i+1] != '"' 
-			while source[i+1] != cr {
+			while source[i+1] != cr and source[i+1] != nl and source[i+1] != crlf {
 				if i < sourceLen {
 					i++
 				else 
