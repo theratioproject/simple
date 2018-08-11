@@ -402,8 +402,19 @@ SIMPLE_API void check_characters__(void *pointer,int type)
 	}
 	if ( SIMPLE_API_ISSTRING(1) ) {
 		str = SIMPLE_API_GETSTRING(1) ;
-		if (type == 1) {
-			
+		switch (type) {
+			case 0:
+				if (isalnum(str)) {
+					SIMPLE_API_RETNUMBER(1);
+				} else {
+					SIMPLE_API_RETNUMBER(0);
+				}
+			case 1:
+				if (isalpha(str)) {
+					SIMPLE_API_RETNUMBER(1);
+				} else {
+					SIMPLE_API_RETNUMBER(0);
+				}
 		}
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
@@ -413,6 +424,56 @@ SIMPLE_API void check_characters__(void *pointer,int type)
 SIMPLE_API void check_characters_is_alpha_num(void *pointer)
 {
 	check_characters__(pointer,0);
+}
+
+SIMPLE_API void check_characters_is_alpha(void *pointer)
+{
+	check_characters__(pointer,1);
+}
+
+SIMPLE_API void check_characters_is_num(void *pointer)
+{
+	check_characters__(pointer,2);
+}
+
+SIMPLE_API void check_characters_is_cntrl(void *pointer)
+{
+	check_characters__(pointer,3);
+}
+
+SIMPLE_API void check_characters_is_graph(void *pointer)
+{
+	check_characters__(pointer,4);
+}
+
+SIMPLE_API void check_characters_is_lower(void *pointer)
+{
+	check_characters__(pointer,5);
+}
+
+SIMPLE_API void check_characters_is_print(void *pointer)
+{
+	check_characters__(pointer,6);
+}
+
+SIMPLE_API void check_characters_is_punct(void *pointer)
+{
+	check_characters__(pointer,7);
+}
+
+SIMPLE_API void check_characters_is_space(void *pointer)
+{
+	check_characters__(pointer,8);
+}
+
+SIMPLE_API void check_characters_is_upper(void *pointer)
+{
+	check_characters__(pointer,9);
+}
+
+SIMPLE_API void check_characters_is_xdigit(void *pointer)
+{
+	check_characters__(pointer,10);
 }
 
 SIMPLE_API void check_characters_is_alpha(void *pointer)
