@@ -187,4 +187,3 @@ block isPunctuation(var)
 block isHexDigit(var)
 	tempVar = __get_var_as_string(var)
 	return __isXDigit(tempVar)
-	

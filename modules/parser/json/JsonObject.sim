@@ -11,7 +11,7 @@
  * @Time - 08:04 pM
  */
 
-call "simple/utilities/parser/json/JsonParser.sim"
+call "parser/json/JsonParser.sim"
 
 class JsonObject : JsonParser
 

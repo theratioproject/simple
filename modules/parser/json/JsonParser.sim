@@ -11,7 +11,7 @@
  * @Time - 08:04 pM
  */
 
-call "simple/utilities/parser/loadparserdll.sim"
+call "parser/loadparserdll.sim"
 
 class JsonParser
 
