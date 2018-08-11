@@ -140,7 +140,7 @@ block toSentenceCase(content)
 	end
 	content[0] = toUpperCase(content[0])
 	for a = 1 to lengthOf(content)
-		content[a] = toLowerCase(content[a])
+		content[a] = __lower(content[a])
 	end
 	return content
 
