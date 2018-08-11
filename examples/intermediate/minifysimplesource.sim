@@ -75,56 +75,61 @@ block minifySourceFile(sourceFile)
 	}
 	display sourceFile.name()+" : minification starting..."
 	minifiedSource = ""
-	TOKEN_IDENTIFIER =  0 TOKEN_MULTILINE_COMMENT = 1 TOKEN_LITERAL = 2
+	TOKEN_IDENTIFIER =  0 TOKEN_MULTILINE_COMMENT = 1 TOKEN_LITERAL_1 = 2 TOKEN_LITERAL_2 = 3
 	type = TOKEN_IDENTIFIER
 	sourceLen = lengthOf(source)
 	for i = 0 to sourceLen {
 		switch type {
 			case TOKEN_IDENTIFIER
-		
-		}
-		if type == 0 and source[i] == tab or source[i] == nl or source[i] == crlf or source[i] == cr {
-			if isWhiteSpace(source[i+1]) or (isPunctuation(source[i+1]) and source[i+1] != '_' and source[i+1] != '$' ) {
-				minifiedSource += "" 
-			else
-				minifiedSource += " " 
-			}
-		elif source[i] == '/' and source[i+1] == '*' and type == 0 
-			i++
-			type = 1
-		elif type == 1 
-			if source[i] == '*' and source[i+1] == '/' and (source[i+2] != '"' or source[i+2] != "'") {
-				i++ type = 0
-			else 
-				
-			}
-		elif type == 0 and source[i] == '"' 
-			minifiedSource+= '"'
-			type = 2
-		elif type == 2 
-			minifiedSource+= source[i]
-			if source[i] == '"' {
-				type = 0
-			}
-		elif type == 0 and source[i] == "#" and source[i+1] != '"' 
-			while source[i+1] != cr and source[i+1] != nl and source[i+1] != crlf {
-				if i < sourceLen {
-					i++
+				if source[i] == tab or source[i] == nl or source[i] == crlf or source[i] == cr {
+					if isWhiteSpace(source[i+1]) or (isPunctuation(source[i+1]) and source[i+1] != '_' and source[i+1] != '$' ) {
+						minifiedSource += "" 
+					else
+						minifiedSource += " " 
+					}
+				elif source[i] == '/' and source[i+1] == '*'
+					i++ type = TOKEN_MULTILINE_COMMENT
+				elif source[i] == '"' 
+					minifiedSource+= '"' type = TOKEN_LITERAL_1
+				elif source[i] == "'" 
+					minifiedSource+= '"' type = TOKEN_LITERAL_2
+				elif source[i] == "#" and source[i+1] != '"' 
+					while source[i+1] != cr and source[i+1] != nl and source[i+1] != crlf {
+						if i < sourceLen {
+							i++
+						else 
+							
+						}
+					}
+				elif isPunctuation(source[i]) and (source[i] != "/" and source[i+1] != "*")
+					if isWhiteSpace(source[i+1]) {
+						minifiedSource += source[i]
+						i++
+					else
+						minifiedSource += source[i]
+					}
+				else 
+					minifiedSource+= source[i]
+				}
+			case TOKEN_MULTILINE_COMMENT
+				if source[i] == '*' and source[i+1] == '/' and (source[i+2] != '"' or source[i+2] != "'") {
+					i++ type = TOKEN_IDENTIFIER
 				else 
 					
 				}
-			}
-		elif type == 0 and isPunctuation(source[i]) and (source[i] != "/" and source[i+1] != "*")
-			if isWhiteSpace(source[i+1]) {
-				minifiedSource += source[i]
-				i++
-			else
-				minifiedSource += source[i]
-			}
-		else
-			minifiedSource+= source[i]
+			case TOKEN_LITERAL_1
+				minifiedSource+= source[i]
+				if source[i] == '"' {
+					type = TOKEN_IDENTIFIER
+				}
+			case TOKEN_LITERAL_2
+				minifiedSource+= source[i]
+				if source[i] == "'" {
+					type = TOKEN_IDENTIFIER
+				}
+			default
+				minifiedSource+= source[i]		
 		}
-		
 	}
 	sourceFile = new File("./test.sim")
 	sourceFile.write(trimString(minifiedSource))
