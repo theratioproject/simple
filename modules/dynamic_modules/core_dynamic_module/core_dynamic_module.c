@@ -476,46 +476,6 @@ SIMPLE_API void check_characters_is_xdigit(void *pointer)
 	check_characters__(pointer,10);
 }
 
-SIMPLE_API void check_characters_is_alpha(void *pointer)
-{
-	char *str  ;
-	int size,x  ;
-	if ( SIMPLE_API_PARACOUNT != 1 ) {
-		SIMPLE_API_ERROR(SIMPLE_API_BADPARACOUNT);
-		return ;
-	}
-	if ( SIMPLE_API_ISSTRING(1) ) {
-		str = SIMPLE_API_GETSTRING(1) ;
-		if (isalpha(str)) {
-			SIMPLE_API_RETNUMBER(1);
-		} else {
-			SIMPLE_API_RETNUMBER(0);
-		}
-	} else {
-		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
-	}
-}
-
-SIMPLE_API void check_characters_is_num(void *pointer)
-{
-	char *str  ;
-	int size,x  ;
-	if ( SIMPLE_API_PARACOUNT != 1 ) {
-		SIMPLE_API_ERROR(SIMPLE_API_BADPARACOUNT);
-		return ;
-	}
-	if ( SIMPLE_API_ISSTRING(1) ) {
-		str = SIMPLE_API_GETSTRING(1) ;
-		if (isnum(str)) {
-			SIMPLE_API_RETNUMBER(1);
-		} else {
-			SIMPLE_API_RETNUMBER(0);
-		}
-	} else {
-		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
-	}
-}
-
 SIMPLE_API void error_warn(void *pointer)
 {
 	if ( SIMPLE_API_PARACOUNT != 1 ) {
