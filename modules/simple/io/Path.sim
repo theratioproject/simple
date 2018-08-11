@@ -238,8 +238,9 @@ class Path
 		return new Path(tempPath)
 		
 	block toDirectory()
-		return new Directory(__IO_PATH)
-		
+		test = new Directory(__IO_PATH)
+		return test
+
 	block toFile()
 		return new File(__IO_PATH)
 		
