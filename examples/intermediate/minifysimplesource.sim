@@ -75,7 +75,7 @@ block minifySourceFile(sourceFile)
 		@sourceFile.name()+" : already minified"
 		return
 	}
-	@sourceFile.name()+" : minification starting..."
+	display sourceFile.name()+" : minification starting..."
 	sourceLen = lengthOf(source)
 	for i = 0 to sourceLen {
 		if type == 0 and source[i] == tab or source[i] == nl or source[i] == crlf or source[i] == cr {
@@ -94,13 +94,12 @@ block minifySourceFile(sourceFile)
 				
 			}
 		elif type == 0 and source[i] == '"' 
-			minifiedSource+= source[i]+source[i+1]
-			i++
+			minifiedSource+= '"'
 			type = 2
 		elif type == 2 
 			minifiedSource+= source[i]
 			if source[i] == '"' {
-				i++ type = 0
+				type = 0
 			}
 		elif type == 0 and source[i] == "#" and source[i+1] != '"' 
 			while source[i+1] != cr and source[i+1] != nl and source[i+1] != crlf {
@@ -122,9 +121,8 @@ block minifySourceFile(sourceFile)
 		}
 		
 	}
-	sourceFile = new File("./test.sim")
 	sourceFile.write(trimString(minifiedSource))
-	@sourceFile.name()+" : operation completed"
+	@" (done)"
 
 block nextCharacter_(source)
 	name = "this is testing   sas    "
