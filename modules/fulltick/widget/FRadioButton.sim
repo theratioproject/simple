@@ -1,1 +1,0 @@
-module fulltick.widget call "fulltick/widget/FButton.sim" ?fulltick.widget class FRadioButton :FButton setTypeName("FRadioButton") initialize() block FRadioButton(label) setLabel(FCHECKBUTTON_LEAD_SPACE+label) block initialize() WIDGETPOINTER =__init_round_button(WIDGET_X,WIDGET_Y,WIDGET_WIDTH,WIDGET_HEIGHT)

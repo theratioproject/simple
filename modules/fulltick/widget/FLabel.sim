@@ -1,1 +1,0 @@
-module fulltick.widget call "fulltick/widget/FBox.sim" ?fulltick.core class FLabel :FBox BOX_TYPE =1   LABEL_EXTRA_LEAD_TRAIL =10  block FLabel(label) initialize() setLabel(label) block notifyWidget() __set_size_with_label(WIDGETPOINTER,LABEL_EXTRA_LEAD_TRAIL) if hasParent()redrawParent()end

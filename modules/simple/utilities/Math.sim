@@ -1,1 +1,0 @@
-module simple.utilities call "simple/core/DynamicLoader.sim" ?simple.core callModule("mathic") block toDecimal(number,place) return number block vmDecimal(place) __decimals(place) block resetDecimal() __decimals(14) block noDecimal() __decimals(0) block random() return __rand()

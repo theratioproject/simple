@@ -1,1 +1,0 @@
-module simple.security call "simple/core/BaseFields.sim" call "Hash.sim" block encrypt(content,key,five) if (lengthOf(five)<3) throw(FIVE_LENGTH_SHORT) elif (lengthOf(key)<12) throw(KEY_LENGTH_SHORT) end return __encrypt(content,key,five)

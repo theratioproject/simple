@@ -1,1 +1,0 @@
-module web.style RIGHT ="right" ALIGN_RIGHT ="align:right;" ZERO_RIGHT ="right:0;" LEFT ="left" ALIGN_LEFT ="align:left;" ZERO_LEFT ="left:0;" CENTER ="centre" ALIGN_CENTER ="margin-left:auto; margin-right:auto;"  ALIGN_CENTER_HACK ="margin-left:25%;"  WIDTH ="width" FULL_WIDTH ="left:0;right:0;width:100%;"

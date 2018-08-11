@@ -1,1 +1,0 @@
-module simple.system call "simple/core/DynamicLoader.sim" ?simple.core callModule("systemic")

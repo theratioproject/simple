@@ -1,1 +1,0 @@
-module fulltick.widget call "fulltick/widget/FBox.sim" ?fulltick.core BUTTON_PRESSED =1  BUTTON_NOT_PRESSED =0  class FCheckButton :FButton block FCheckButton(label) initialize() setLabel(FCHECKBUTTON_LEAD_SPACE+label) private  block initialize() WIDGETPOINTER =__init_check_button(WIDGET_X,WIDGET_Y,WIDGET_WIDTH,WIDGET_HEIGHT)

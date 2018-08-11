@@ -1,1 +1,0 @@
-module simple.security call "Hash.sim" block decrypt(content,key,five) if (lengthOf(five)<3)(FIVE_LENGTH_SHORT) elif (lengthOf(key)<12)(KEY_LENGTH_SHORT) end return __decrypt(content,key,five)

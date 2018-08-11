@@ -1,1 +1,0 @@
-call "parser/loadparserdll.sim" class JsonParser JSONPOINTER =null  _JSON_CONTENT =""  block JsonParser(content) _JSON_CONTENT =content block setPointer(pointer) JSONPOINTER =pointer

@@ -1,1 +1,0 @@
-module simple.internet call "simple/core/DynamicLoader.sim" ?simple.core callModule("file_savant")

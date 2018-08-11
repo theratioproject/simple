@@ -1,1 +1,0 @@
-module fulltick.widget call "fulltick/widget/FButton.sim" ?fulltick.widget class FLightButton :FButton block FLightButton(label) initialize() setLabel(FCHECKBUTTON_LEAD_SPACE+label) block setLightColor(color) setSelectionColor(color) private  block initialize() WIDGETPOINTER =__init_light_button(WIDGET_X,WIDGET_Y,WIDGET_WIDTH,WIDGET_HEIGHT)

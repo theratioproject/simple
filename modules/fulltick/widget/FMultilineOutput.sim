@@ -1,1 +1,0 @@
-module fulltick.widget call "fulltick/widget/FMultilineInput.sim" ?fulltick.widget class FMultilineOutput :FMultilineInput block FMultilineOutput() initialize() setReadOnly(true)

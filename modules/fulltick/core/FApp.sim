@@ -1,1 +1,0 @@
-module fulltick.core call "Core.sim" FApp =new FApp class FApp block run() if (__run_fulltick()==0 ) else  display "Error occur while running the GUI Program : FULLTICK" +crlf end block setScheme(scheme)

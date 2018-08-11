@@ -1,1 +1,0 @@
-module archive.zip call "archiver/loadarchiver.sim" ZIP_WRITE ="w" ZIP_CREATE ="w" ZIP_APPEND ="a" ZIP_READ ="r" class ZipMode block WRITE() return ZIP_WRITE block CREATE() return ZIP_CREATE block APPEND() return ZIP_APPEND block READ() return ZIP_READ

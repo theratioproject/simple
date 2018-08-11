@@ -1,1 +1,0 @@
-module fulltick.widget call "fulltick/widget/FInput.sim" ?fulltick.widget class FIntInput :FInput setTypeName("FIntInput") block FIntInput() initialize() block getRealValue() return 0+getValue() block initialize() WIDGETPOINTER =__init_int_input(WIDGET_X,WIDGET_Y,WIDGET_WIDTH,WIDGET_HEIGHT)

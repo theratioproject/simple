@@ -1,1 +1,0 @@
-module fulltick.widget call "fulltick/widget/FInput.sim" ?fulltick.widget class FFloatInput :FInput block FFloatInput() initialize() block getRealValue() return 0.0+getValue() private  block initialize() WIDGETPOINTER =__init_float_input(WIDGET_X,WIDGET_Y,WIDGET_WIDTH,WIDGET_HEIGHT)

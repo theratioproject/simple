@@ -1,1 +1,0 @@
-module fulltick.widget call "fulltick/widget/FInput.sim" ?fulltick.widget class FOutput :FInput block FOutput() initialize() setReadOnly(true)

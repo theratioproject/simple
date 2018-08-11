@@ -1,1 +1,0 @@
-char =:char  unsigned =:unsigned signed =:signed  int =:int  short =:short  long =:long  float =:float  double =:double  void =:void  string =:string  list =:list  number =:number  object=:object OBJECT_TYPE =0 STRING_TYPE =1 NUMBER_TYPE =2 LIST_TYPE =3

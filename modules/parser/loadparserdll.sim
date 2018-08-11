@@ -1,1 +1,0 @@
-module simple.utilities.parser call "simple/core/DynamicLoader.sim" ?simple.core callModule("parser")

@@ -1,1 +1,0 @@
-module fulltick.widget call "f./FButton.sim" ?fulltick.core class FToggleButton :FButton block FToggleButton(label) initialize() setLabel(label) private  block initialize() WIDGETPOINTER =__init_toggle_button(WIDGET_X,WIDGET_Y,WIDGET_WIDTH,WIDGET_HEIGHT)

@@ -1,1 +1,0 @@
-module fulltick.widget.menu call "fulltick/widget/menu/FMenu.sim" ?fulltick.widget.menu class FMenuBar :FMenu WIDGET_WIDTH =300  WIDGET_HEIGHT =30  block FMenuBar() initialize() block menu(menuitem,window) private  block initialize() WIDGETPOINTER =__init_menu_bar(WIDGET_X,WIDGET_Y,WIDGET_WIDTH,WIDGET_HEIGHT)

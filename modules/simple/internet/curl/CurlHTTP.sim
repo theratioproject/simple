@@ -1,1 +1,0 @@
-module simple.internet.curl call "CurlCore.sim" class CurlHTTP :CurlCore block CurlHTTP(url) initCurl(url) block addHeader(header) __curl_list_append(CURL_HEADER,header) block prepare() $$$__add__option(10023,CURL_HEADER,"") private

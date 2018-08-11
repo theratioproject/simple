@@ -1,1 +1,0 @@
-module fulltick.widget call "fulltick/widget/FInput.sim" ?fulltick.widget class FMultilineInput :FInput WIDGET_HEIGHT =150  block FMultilineInput() initialize() private  block initialize() WIDGETPOINTER =__init_multiline_input(WIDGET_X,WIDGET_Y,WIDGET_WIDTH,WIDGET_HEIGHT)
