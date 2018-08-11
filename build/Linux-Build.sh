@@ -567,8 +567,14 @@ finalize_installation() {
 	sudo echo "Categories=Development;IDE;" >> ~/.local/share/applications/simplepad.desktop
 	sudo echo "Terminal=false" >> ~/.local/share/applications/simplepad.desktop
 
-	header build "testing installtion > simple"
+	echo "======================================="
+
+	echo "Minifying Source code for modules"
 	
+	echo "======================================="
+	minifier -s /var/lib/simple/s0.3.36/modules -y
+
+	header build "testing installtion > simple" 
 	simple
 }
 
