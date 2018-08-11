@@ -31,6 +31,7 @@ SIMPLE_API void loadcblocks ( SimpleState *sState )
 	/** General **/
 	register_block("lengthOf",simple_vmlib_len);
 	register_block("add",simple_vmlib_add);
+	register_block("delFromLList",simple_vmlib_del);
 	register_block("char",simple_vmlib_char);
 	register_block("getSimpleVersion",simple_vmlib_version);
         /* Check Data Type */
