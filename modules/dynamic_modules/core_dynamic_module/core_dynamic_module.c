@@ -62,7 +62,10 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
     register_block("__isGraph",check_characters_is_graph);
     register_block("__isLower",check_characters_is_lower);
     register_block("__isPrint",check_characters_is_print);
-    register_block("__isGraph",check_characters_is_graph);
+    register_block("__isPunct",check_characters_is_punct);
+    register_block("__isSpace",check_characters_is_space);
+    register_block("__isUpper",check_characters_is_upper);
+    register_block("__isXDigit",check_characters_is_xdigit);
 	
 	/* Meta Blocks */ 
 	register_block("__AddAttribute",meta_blocks_add_addribute);
