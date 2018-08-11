@@ -32,6 +32,7 @@ block addToList(list, value)
 		return list
         else
             display  __err__
+
 end
 
 /* Remove a value from the list using the index number as an ID. */
@@ -42,6 +43,7 @@ block removeFromList(list, indexNumber)
         return list +crlf
         else
             display __err__
+
 end
 
 /*
@@ -56,6 +58,7 @@ block reverseList(List)
             do { list + List[lengthOf(List) - x] x++ } while x < lengthOf(List) + 1
             List = list
             return List
+
 end
 
 block indexOf(List, value) 
@@ -63,6 +66,7 @@ block indexOf(List, value)
 	# First test *wink*
 	if (isList(List))
 		return List[value]
+
 	end
 
 
