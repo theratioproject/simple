@@ -58,8 +58,6 @@ block minifySourceDir(sourceDir)
 	}
 	
 block minifySourceFile(sourceFile)
-	minifiedSource = ""
-	type = 1
 	if !stringEndsWith(sourceFile.name(),".sim") {
 		@sourceFile.name()+" : not a simple source file (*.sim) skipping..."
 		return
@@ -76,12 +74,18 @@ block minifySourceFile(sourceFile)
 		return
 	}
 	display sourceFile.name()+" : minification starting..."
+	minifiedSource = ""
+	TOKEN_IDENTIFIER =  0 TOKEN_MULTILINE_COMMENT = 1 TOKEN_LITERAL = 2
+	type = TOKEN_IDENTIFIER
 	sourceLen = lengthOf(source)
 	for i = 0 to sourceLen {
+		switch type {
+			case TOKEN_IDENTIFIER
+		
+		}
 		if type == 0 and source[i] == tab or source[i] == nl or source[i] == crlf or source[i] == cr {
-			if isWhiteSpace(source[i+1]) or (isPunctuation(source[i+1])) {
+			if isWhiteSpace(source[i+1]) or (isPunctuation(source[i+1]) and source[i+1] != '_' and source[i+1] != '$' ) {
 				minifiedSource += "" 
-				@minifiedSource[lengthOf(minifiedSource)-1]
 			else
 				minifiedSource += " " 
 			}
