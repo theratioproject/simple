@@ -13,9 +13,10 @@ block main()
 	alphal = "abcdefghijklmnopqrstuvwxyz"
 	digit = 0123456789
 	space = "        "
-	punct = ","
+	hex = "0123456789abcdef"
+	punct = "#$%&'()*+,-./:;<=>?@[\]^_`{|}~"
 	control = nl+crlf+tab
-	list = [str,alpha,space,alphal,digit,punct,control]
+	list = [str,alpha,space,hex,alphal,digit,punct,control]
 	listLen = lengthOf(list)
 	
 	@"checking the following values"
@@ -49,12 +50,12 @@ block main()
 	}
 	
 	@nl+"Lower"
-	for a = 0 to 3 {
+	for a = 0 to 4 {
 		display "	" + isLowerCase(list[a])
 	}
 	
 	@nl+"Upper"
-	for a = 0 to 3 {
+	for a = 0 to 4 {
 		display "	" + isUpperCase(list[a])
 	}
 	
@@ -65,12 +66,17 @@ block main()
 	
 	@nl+"Space"
 	for a = 0 to listLen {
-		display "	" + __isWhiteSpace(space)+' '+isWhiteSpace(space)
+		display "	" + __isWhiteSpace(list[a])+' '+isWhiteSpace(list[a])
 	}
 	
-	@nl+"Punctuation"
+	@nl+"Punct"
 	for a = 0 to listLen {
-		display "	" + isPunctuation(space)
+		display "	" + isPunctuation(list[a])
+	}
+	
+	@nl+"HexDigit"
+	for a = 0 to listLen {
+		display "	" + isHexDigit(list[a])
 	}
 	
 	

@@ -180,4 +180,11 @@ block isPunctuation(var)
 	tempVar = __get_var_as_string(var)
 	return __isPunct(tempVar)
 	
+/*
+	Check if a Variable is an Hexadecimal Digit.
+	@Return true if variable is a set of hexadecimal digit @DataType Boolean
+*/
+block isHexDigit(var)
+	tempVar = __get_var_as_string(var)
+	return __isXDigit(tempVar)
 	
