@@ -19,6 +19,11 @@
 
 module simple.utilities
 
+call "simple/core/loadcoredymodule.sim" 
+
+	__TYPE_UNKNOWN_PARAM = "Unknown Variable passed !"
+	__TYPE_INVALID_PARAM = "Invalid Parameter passed, Expecting String, List or Number"
+
 /*
 	Displays the type of variable passed to this function, this will
 	be useful in so many case and many functionalities will be added to it.
@@ -31,13 +36,29 @@ block typeOf(var)
     elif isNumber(var)
         return "Number"
     else
-        return "Unknown Variable passed !"
+        return __TYPE_UNKNOWN_PARAM
     }
 	
-block isAlphaNum(var)
-	if isList(var) {
-	
+block __get_var_as_string(var)
+	if isString(var) {
+		return var
+	elif isNumber(var)
+		return ""+var+""
+	else
+		throwWithTitle(__TYPE_PACKAGE, __TYPE_INVALID_PARAM)
 	}
-	return __isAlphaNum(var)
 	
-block 
+block isAlphaNum(var)
+	tempVar = __get_var_as_string(var)
+	return __isAlphaNum(tempVar)
+	
+block isAlpha(var)
+	tempVar = __get_var_as_string(var)
+	return __isAlpha(tempVar)
+	
+block isDigit(var)
+	tempVar = __get_var_as_string(var)
+	return __isNum(tempVar)
+
+
+

@@ -1,0 +1,35 @@
+/* 
+	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com> 
+	MIT License Copyright (c) 2018 simple 
+	Type.sim
+
+*/
+
+call "simple/utilities/Type.sim"
+
+block main()
+	str = "asas6565sas32a"
+	alpha = "aBcDeFgHiJkLmNoPqRsTuVwXyZ"
+	digit = 0123456789
+	list = [str,alpha,digit]
+	listLen = lengthOf(list)
+	
+	@"checking the following values "
+	for a = 0 to listLen {
+		display " " + list[a]
+	}
+	
+	@nl+"AlphaNum"
+	for a = 0 to listLen {
+		display "	" + isAlphaNum(list[a])
+	}
+	
+	@nl+"Alpha"
+	for a = 0 to listLen {
+		display "	" + isAlpha(list[a])
+	}
+	
+	@nl+"Digit"
+	for a = 0 to listLen {
+		display "	" + isDigit(list[a])
+	}
