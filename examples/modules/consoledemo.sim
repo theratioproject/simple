@@ -1,1 +1,27 @@
-call "simple/utilities/Console.sim" ?simple.utilities block main(){ print("\tHello World\n") println("it simple") println("Simple Inteligent and Modular Programming Language") lister =["simple","intelligent","modular"] println(""+lengthOf(lister)+" "+lister[1]) print("Enter the minimum start : ") minCount =readln() maxCount =readLine("Enter your max count : ") for i =minCount to maxCount printinLine("downloading : "+i +"%") end print("\nHolla we done counting "+minCount+" to "+maxCount) printWithBG(ConsoleColor.DARKBLUE()," Hello Adewale in green\n") printWithFGBG(ConsoleColor.RED(),ConsoleColor.WHITE()," Hello Adewale in green\n") setForeground(ConsoleColor.GREEN()) colorPrintln("Hello") colorPrint(" Hello Adewale in green\n") resetColor() colorPrint(" Hello Adewale in default\n")}
+
+#1
+call "simple/utilities/Console.sim" ? simple.utilities
+
+block main() {
+	print("\tHello World\n")
+	println("it simple")
+	println("Simple Inteligent and Modular Programming Language")
+	lister = ["simple", "intelligent", "modular"]
+	println(""+lengthOf(lister) + " "+ lister[1])
+	print("Enter the minimum start : ") 
+	minCount = readln()
+	maxCount = readLine("Enter your max count : ")
+	for i = minCount to maxCount
+		printinLine("downloading : "+ i +"%") 
+	end
+	print("\nHolla we done counting "+minCount+" to "+maxCount)
+	
+	#the console color demo
+	printWithBG(ConsoleColor.DARKBLUE(), " Hello Adewale in green\n")
+	printWithFGBG(ConsoleColor.RED(), ConsoleColor.WHITE(), " Hello Adewale in green\n")
+	setForeground(ConsoleColor.GREEN())
+	colorPrintln("Hello")
+	colorPrint(" Hello Adewale in green\n")
+	resetColor()
+	colorPrint(" Hello Adewale in default\n")
+}

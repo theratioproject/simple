@@ -1,1 +1,35 @@
-call "fulltick/widget/FAdjuster.sim" call "fulltick/widget/FWindow.sim" call "fulltick/widget/FInput.sim" input1 =new FInput("00001") input1.setWidth(80).setPosition(10,7) adjuster1 =new FAdjuster() adjuster1.setPosition(100,10).setBackground(90).callback("updateInput(adjuster1,input1)") adjuster1.soft(true) adjuster1.setBound(10,20) adjuster1.clampTo(10) block main() window =new FWindow() window.setTitle("FADJUSTER DEMO").setSize(300,150) window.addWidget([input1,adjuster1]) window.run() block updateInput(adjuster,input)@"LABEL : "+adjuster.getLabel()
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com>
+	MIT License Copyright (c) 2018 SIMPLE 
+
+*/
+
+/*
+	@Demo 
+	
+	
+	@EndCode
+
+*/
+
+call "fulltick/widget/FAdjuster.sim"
+call "fulltick/widget/FWindow.sim"
+call "fulltick/widget/FInput.sim"
+
+input1 = new FInput("00001")
+input1.setWidth(80).setPosition(10,7)
+
+adjuster1 = new FAdjuster()
+adjuster1.setPosition(100,10).setBackground(90).callback("updateInput(adjuster1,input1)")
+adjuster1.soft(true)
+adjuster1.setBound(10,20)
+adjuster1.clampTo(10)
+
+block main()	
+	window = new FWindow() 
+	window.setTitle("FADJUSTER DEMO").setSize(300, 150)
+	window.addWidget([input1,adjuster1])
+	window.run()
+
+block updateInput(adjuster,input)
+	@"LABEL : "+adjuster.getLabel()

@@ -1,1 +1,28 @@
-call "archive/zip/ZipMode.sim"  call "archive/zip/Zip.sim" block main() tZip =new Zip("C:\Users\thecarisma\Documents\SIMPLE GITHUB\examples\moduleexamples\azip.zip","r") display "-> We are creating a file 'test.txt' with content of first param" +crlf tZip.addFile("consoledemo.sim","console.sim") tZip.addFile("./mathdemo.sim","mathdemo.sim") tZip.addFile("./zipdemo.sim","zipdemo.sim") display "-> We are creating a file 'filedemo.sim' in folder 'tester' with content of first param" +crlf tZip.addFile("./filedemo.sim","tester/filedemo.sim") display "-> also adding support folder/directory in future release "+crlf display "-> Now extracting all content " tZip.extractAll("./azipextract") display "-> closing the zip stream for clean usage" tZip.closeZip()
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+call "archive/zip/ZipMode.sim" 
+call "archive/zip/Zip.sim"
+
+block main()
+	#the default open mode is write i.e create zip
+	tZip = new Zip("C:\Users\thecarisma\Documents\SIMPLE GITHUB\examples\moduleexamples\azip.zip", "r")
+	
+	display "-> We are creating a file 'test.txt' with content of first param" + crlf
+	tZip.addFile("consoledemo.sim", "console.sim")
+	tZip.addFile("./mathdemo.sim", "mathdemo.sim")
+	tZip.addFile("./zipdemo.sim", "zipdemo.sim")
+	
+	display "-> We are creating a file 'filedemo.sim' in folder 'tester' with content of first param" + crlf
+	tZip.addFile("./filedemo.sim", "tester/filedemo.sim")
+	
+	display "-> also adding support folder/directory in future release "+ crlf
+	
+	display "-> Now extracting all content "
+	tZip.extractAll("./azipextract")
+	
+	display "-> closing the zip stream for clean usage"
+	tZip.closeZip()
