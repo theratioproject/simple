@@ -76,6 +76,7 @@ install:
 	cp -R $(MODULE_BASE)/fulltick /var/lib/simple/$(VERSION)/modules/
 	cp -R $(MODULE_BASE)/simple /var/lib/simple/$(VERSION)/modules/
 	cp -R $(MODULE_BASE)/web /var/lib/simple/$(VERSION)/modules/
+	cp -R $(MODULE_BASE)/parser /var/lib/simple/$(VERSION)/modules/
 	sudo chmod -R 777 /var/lib/simple/
 	rm -r -f $(CND_DISTDIR)/
 	
