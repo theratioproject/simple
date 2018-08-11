@@ -15,7 +15,7 @@ block main()
 	list = [str,alpha,digit,control]
 	listLen = lengthOf(list)
 	
-	@"checking the following values "
+	@"checking the following values"
 	for a = 0 to listLen {
 		display " " + list[a]
 	}

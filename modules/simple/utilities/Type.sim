@@ -21,8 +21,9 @@ module simple.utilities
 
 call "simple/core/loadcoredymodule.sim" 
 
-	__TYPE_UNKNOWN_PARAM = "Unknown Variable passed !"
-	__TYPE_INVALID_PARAM = "Invalid Parameter passed, Expecting String, List or Number"
+	__TYPE_UNKNOWN_PARAM 	= "Unknown Variable passed !"
+	__TYPE_INVALID_PARAM 	= "Invalid Parameter passed, Expecting String, List or Number"
+	__TYPE_ONLY_STRING		= "Invalid Parameter passed, only String is accepted"
 
 /*
 	Displays the type of variable passed to this function, this will
@@ -97,10 +98,13 @@ block isDigit(var)
 	control character. The characters can be any of of the control characters such as 
 	@Code
 		\b	-	Backspace
-		\t	-	Tab
 		\a	-	Alert
 		\f	-	Form Feed
 		\n	-	New Line
+		\r	-	Carriage Return
+		\t	-	Horizontal Tab
+		\v	-	Vertical Tab
+		\0	-	Null Character
 	@EndCode
 	@Return true if parameter is a control character @DataType Boolean
 */
@@ -108,9 +112,23 @@ block isControlChar(var)
 	tempVar = __get_var_as_string(var)
 	return __isControlChar(tempVar)
 	
+/*
+	Check if a Variable is has a graphical representation using locale or
+	can be printed to the standard display output. 
+	@Return true if parameter has graphical representation @DataType Boolean
+*/
 block isGraph(var)
 	tempVar = __get_var_as_string(var)
 	return __isGraph(tempVar)
 
-
+/*
+	Check if the Variable is in lowercase. This is always false for a non @DataType String
+	variable but a valid check is perform on a @DataType String variable
+	@Return return true if variable is in lower case @DataType Boolean
+*/
+block isLower(var)
+	if !isString(var) {
+		throwWithTitle(__TYPE_PACKAGE, __TYPE_ONLY_STRING
+	}
+	return __isLower(tempVar)
 
