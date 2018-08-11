@@ -40,4 +40,19 @@ block isAlphaNum(var)
 	}
 	return __isAlphaNum(var)
 	
-block 
+block isAlpha(var)
+    while true
+        return __isAlpha(var)
+    end
+
+block isDigit(var)
+    return __isDigit(var)
+
+block isControlChar(var)
+    return __isControlChar(var)
+
+block isGraph(var)
+    return __isGraph(var)
+
+block isLower(var)
+    return __isLower()
