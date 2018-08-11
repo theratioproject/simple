@@ -84,15 +84,15 @@ block minifySourceFile(sourceFile)
 			else
 				minifiedSource += " " 
 			}
+		elif source[i] == '/' and source[i+1] == '*' and type == 0 
+			i++
+			type = 1
 		elif type == 1 
 			if source[i] == '*' and source[i+1] == '/' and (source[i+2] != '"' or source[i+2] != "'") {
 				i++ type = 0
 			else 
 				
 			}
-		elif source[i] == '/' and source[i+1] == '*' and type == 0 
-			i++
-			type = 1
 		elif type == 0 and source[i] == "#" and source[i+1] != '"' 
 			while source[i+1] != cr and source[i+1] != nl and source[i+1] != crlf {
 				if i < sourceLen {
@@ -113,6 +113,7 @@ block minifySourceFile(sourceFile)
 		}
 		
 	}
+	sourceFile = new File("./test.sim")
 	sourceFile.write(trimString(minifiedSource))
 	@sourceFile.name()+" : operation completed"
 
