@@ -26,11 +26,13 @@ block main()
 		else }
 	}
 	if sourceFilePath != null {
-		sourceFile = new File(sourceFilePath)
+		sourceFile = new Path(sourceFilePath)
+		if sourceFile.isADirectory() {
+		
+		}
+		__exit__
 		if sourceFile.exists() {
-			sourceFileContent = sourceFile.readFileAsString()
-			@sourceFile.absolutePath()
-			value = minifySource(sourceFile,sourceFileContent)
+			value = minifySource(sourceFile)
 			file = new File("./test.sim") 
 			file.write(value)
 		else
@@ -39,13 +41,15 @@ block main()
 		
 	}
 	
-block minifySource(sourceFile,source)
+block minifySource(sourceFile)
+	source = sourceFile.readFileAsString()
 	minifiedSource = ""
 	type = 1
 	if stringGetLineCount(source) < 1 {
 		@"The file "+sourceFile.name()+" has already been minified"
 		__exit__
 	}
+	@"starting to minify : "+sourceFile.name()
 	sourceLen = lengthOf(source)
 	for i = 0 to sourceLen {
 		if type == 0 and source[i] == tab or source[i] == nl or source[i] == crlf or source[i] == cr {
