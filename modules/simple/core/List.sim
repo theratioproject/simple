@@ -211,7 +211,7 @@ class List : Object
 	
 	/*
 	 * This block is going to be used
-	 * to 
+	 * to concatenate arrays 
 	 */
 
 	block concat(arr)
