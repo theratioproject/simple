@@ -53,3 +53,5 @@ modules/dynamic_modules/fulltick/x64/*
 modules/dynamic_modules/fulltick/fulltick.vcxproj
 modules/dynamic_modules/fulltick/fulltick.vcxproj.filters
 modules/dynamic_modules/fulltick/fulltick.vcxproj.user
+
+''$'\001\213\212''@@'

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* 
 	Copyright (c) 2018 Abdulazeez Adeshina Abdulazeez <laisibizness@gmail.com> 
 	MIT License Copyright (c) 2018 simple 
@@ -233,4 +234,245 @@ class List : Object
 			end
 
 
+=======
+/* 
+	Copyright (c) 2018 Abdulazeez Adeshina Abdulazeez <laisibizness@gmail.com> 
+	MIT License Copyright (c) 2018 simple 
+*/
+
+/* 
+ *
+ * @Filename - List.sim
+ * @Author - Abdulazeez Abdulazeez Adeshina
+ * @Date - 15 June 2018
+ * @Time - 19:49 PM
+ * @License - MIT License
+ *
+ */
+
+module simple.core
+
+call "Object.sim"
+
+/*
+ * Functional methods for the List module
+ * Added so it can be used for non OOP codes
+ * We have the same methods in the OOP style
+ *
+ */
+
+/* Adds a new value to list/array */
+block addToList(list, value)
+    # Check if value to be added to the array is a List, String or number.
+    if (isList(value) || isString(value) || isNumber(value))
+        list + value
+		return list
+        else
+            display  __err__
+
+end
+
+/* Remove a value from the list using the index number as an ID. */
+block removeFromList(list, indexNumber)
+    # Verify that value passed is a number e.g 0, 1, 2 etc.
+    if(isNumber(indexNumber))
+        list[indexNumber] = ""
+        return list +crlf
+        else
+            display __err__
+
+end
+
+/*
+ *@ Reversing an array 
+ *@ Changes the array from ascending to descending and vice versa.
+ *@ It changes the indexNumber also.
+ */
+block reverseList(List)
+            x = 0
+            list = []
+            # This is subject to Fix in the next version of simple.
+            do { list + List[lengthOf(List) - x] x++ } while x < lengthOf(List) + 1
+            List = list
+            return List
+
+end
+
+block indexOf(List, value) 
+	# List = []
+	# First test *wink*
+	if (isList(List))
+		return List[value]
+
+	end
+
+
+class List : Object
+    __OBJECT_NAME 		= "List"
+    __OBJECT			= []
+
+	/*
+		The @Class list constructor accepting 
+			@DataType List
+			@DataType String
+			@Class List
+			
+		@DataType LIST
+		If list is sent as parameter then the class treat
+		the parameter.
+
+		@DataType STRING
+		If string is the parameter it is also
+		treated as @DataType List. 
+		In simple-lang @DataType string is simply a list of char arrays
+		e.g 
+			@Code
+			str = "string"
+			#is simply same as
+			str = ["s","t","r","i","n","g"]
+			@EndCode
+		
+		@Class List
+		In a situation whereby the parameter is an instance of @Class List
+		all the previous attribute of the current class is disposed and the 
+		attribute of the parameter class is transfered into this class. 
+		e.g 
+			@Code
+			li1 = new List(["a","a"])
+			li2 = new List(li1)
+			li3 = li1
+			
+			#li2 and li3 is simply the same thing but li2 
+			#with more function. You can review the source code of @Class List 
+			[HERE](https://github.com/simple-lang/simple/blob/master/modules/simple/core/List.sim)
+			
+		Any other type of parameter is an Error
+		
+	*/
+    block List(list)
+		try 
+			if (list.getType() == getType()) {
+				this.__OBJECT = list.object()
+			}
+			return
+		catch end
+		if !isList(list) && !isString(list) { throw(this.errorType(1)) }
+        __OBJECT = list
+        return __OBJECT
+
+	/*
+		.indexOf(n) block is a safe block for getting the item in the list
+		at n index very similar to using the block quote [n] to get the index
+		but with more type check and safe call. 
+		@Ignore Awesome for production @End
+	*/
+	#check to ensure the n index specified is not more than size of list
+	#confirm it number only then get index
+    block indexOf(n)
+		if n > length() { throw(this.errorType(3)) }
+		if isNumber(n)
+			return __OBJECT[n]
+		else 
+			throw(this.errorType(2))
+		end
+		
+	/*
+		Get the length or size of the current list object of the class
+	*/
+	block length()
+		return lengthOf(__OBJECT)
+
+    block push(x)
+        __OBJECT + x
+        return __OBJECT
+
+# Still needs some little adjustments and changes.
+    block pop(x)
+        __OBJECT[x] = ""
+        return __OBJECT
+
+    block keys()
+        return __OBJECT
+
+    block reverse()
+	/*
+ 	 * This method returns the array in an inverse manner
+	 * e.g from @Bold [a,b,c,d,e] to [e,d,c,b,a] and it also
+	 * changes the index number as it inverses the list.
+	 */
+        x = 0
+        reverserArray = []
+        do {
+            reverserArray + __OBJECT[lengthOf(__OBJECT) - x] x++
+        } while x < lengthOf(__OBJECT) + 1
+        __OBJECT = reverserArray
+        return __OBJECT
+    end
+
+	/* Array slice function. 
+	 * Supports 2 parameter alone, 
+	 * if you intend to pass an argument alone, 
+	 * use the .indexOf() method.
+	 * Still working on it.
+	 */
+	block slice(x, y)
+		if (isNumber(x) && isNumber(y))
+			if (x = 0 && y = 0)
+				return __OBJECT
+				end
+			if (__OBJECT.indexOf(x + 1) == __OBJECT.indexOf(y))
+				return __OBJECT[x]
+			elif (__OBJECT.indexOf(x + 1)  != __OBJECT.indexOf(y))
+				do {
+					return __OBJECT.indexOf(x++ - 1)
+				} while x < __OBJECT.indexOf(y)
+			else
+				return "[]"
+				end        
+		end
+
+
+    /* Sorts arrays just like the javascript's
+	 * .sort() function. 
+	 * It's not working yet. 
+	 */
+	block sort(a, b)
+    # return b - a
+    	return __OBJECT[b] -__OBJECT[a]
+
+	/*
+	 * This block is intended to be used
+	 * just like Javascript's @Code Array.map() function.
+	 * This would be useful in web apps and other apps
+	 * reducing the need for @Code for loops in certain cases.
+	 */
+	block map(n, index)
+	# Nothing for now.
+
+	
+	/*
+	 * Error block, needs to be private
+	 * So it won't be be accessed outside
+	 * the class.
+	 *
+	 */
+
+	private block errorType(type)
+		__NOT_LIST_ERROR = "the parameter is not a list"
+		__NUMBER_REQUIRED_ERROR = "only number is required as parameter "
+		__INDEX_GREATER_THAN_SIZE = "the provided n index is greater than list size"
+
+		switch (type)
+			case 1
+				@ __NOT_LIST_ERROR
+			case 2
+				@ __NUMBER_REQUIRED_ERROR
+			case 3
+				@ __INDEX_GREATER_THAN_SIZE
+			default
+				throw("Exit !") __exit(0)__
+			end
+
+
+>>>>>>> 49eec3ab29547160533bc53adaf6ba77fedaf3e0
 		
