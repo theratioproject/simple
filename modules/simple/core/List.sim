@@ -209,6 +209,17 @@ class List : Object
 	# Nothing for now.
 
 	
+	block concat(arr)
+		x = 0
+		third_array = []
+		do {
+			third_array + arr[lengthOf(__OBJECT) + x] x--
+		} while x < lengthOf(__OBJECT) - 1
+		__OBJECT = third_array
+
+		return __OBJECT
+		end
+
 	/*
 	 * Error block, needs to be private
 	 * So it won't be be accessed outside
