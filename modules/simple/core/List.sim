@@ -211,8 +211,8 @@ class List : Object
 	
 	/*
 	 * This block is going to be used
-	 * to concatenate arrays 
-	 *
+	 * to concatenate arrays i.e merge
+	 * arrays together without 
 	 */
 
 	block concat(arr)
