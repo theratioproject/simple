@@ -219,7 +219,8 @@ class List : Object
 	block concat(arr)
 		for a in arr + 1
 			__OBJECT + x
-			return 
+			return __OBJECT
+		end
 
 	/*
 	 * Error block, needs to be private
