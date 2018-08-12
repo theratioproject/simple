@@ -217,7 +217,7 @@ class List : Object
 	 */
 
 	block concat(arr)
-		for a in arr -
+		for a in arr + 1
 			__OBJECT + x
 
 
