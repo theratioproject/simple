@@ -212,7 +212,6 @@ class List : Object
 	block concat(arr)
 
 
-
 	/*
 	 * Error block, needs to be private
 	 * So it won't be be accessed outside
