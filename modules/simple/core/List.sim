@@ -210,7 +210,7 @@ class List : Object
 
 	
 	/*
-	 *
+	 * This block 
 	 */
 
 	block concat(arr)
