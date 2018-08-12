@@ -862,7 +862,7 @@ REM MINIFY ALL THE MODULE SOURCE (.sim) only
 	
 :minifysimplemodule
 	call:header minify "starting to minify the modules source"
-	SET MINIFICATION_PROGRAM="..\examples\intermediate\minifysimplesource.sim"
+	SET MINIFICATION_PROGRAM="..\environment\minifier\minifier.sim"
 	if exist !MINIFICATION_PROGRAM! (
 		echo modules:minify: the minifying intermediate program found. procedding...
 	) else (
@@ -912,7 +912,7 @@ REM THE ENVIRONMENT PROGRAMS WILL ALSO BE INSTALLED IN SAME BIN DIRECTORY AS SIM
 		if exist !BAKE_EXECUTABLE! (
 			echo environment:bake.sim: ..\environment\bake\bake.sim found 
 			echo environment:bake.sim: starting environment programs build...
-			call:buildenvironmentinloop bake modular simplerepl simplebridge simplepad webworker
+			call:buildenvironmentinloop bake modular simplerepl simplebridge simplepad webworker minifier
 		) else (
 			call:environmentnotfound ..\environment\bake\bake.sim
 		)
