@@ -212,7 +212,7 @@ class List : Object
 	/*
 	 * This block is going to be used
 	 * to concatenate arrays i.e merge
-	 * arrays together without 
+	 * array values together into one
 	 */
 
 	block concat(arr)
