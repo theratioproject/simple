@@ -208,7 +208,7 @@ class List : Object
 	block map(n, index)
 	# Nothing for now.
 
-	
+		
 	/*
 	 * This block is going to be used
 	 * to concatenate arrays i.e merge
@@ -217,11 +217,10 @@ class List : Object
 	 */
 
 	block concat(arr)
-		for a in arr + 1
-			__OBJECT + x
-			return __OBJECT
+		for a in arr
+			__OBJECT + a
 		end
-
+		return __OBJECT
 	/*
 	 * Error block, needs to be private
 	 * So it won't be be accessed outside
