@@ -65,6 +65,12 @@ block indexOf(List, value)
 		return List[value]
 	end
 
+block concat(List, arr)
+	for a in arr
+		List + a
+	end
+	return List
+
 
 class List : Object
     __OBJECT_NAME 		= "List"
@@ -217,6 +223,7 @@ class List : Object
 	 */
 
 	block concat(arr)
+		# Current work around. It isn't working yet.
 		for a in arr
 			__OBJECT + a
 		end
