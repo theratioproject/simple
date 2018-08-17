@@ -6,9 +6,9 @@ out how to make  a **rfc** in the [rfc](https://github.com/simple-lang/rfcs) rep
 [readme file](https://github.com/simple-lang/rfcs/blob/master/README.md)
 
 The roadmap is divided into sections
-[General](#general)
-[Modules](#modules)
-[Environments](#environments)
+- [General](#general)
+- [Modules](#modules)
+- [Environments](#environments)
 
 ### General
 
