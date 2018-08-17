@@ -28,7 +28,7 @@ build, installation, features e.t.c
 - [ ] write build script for building simple-lang core, environment and modules for mac os
 - [ ] write build script for building simple-lang core, environment and modules for haiku os
 - [x] make linux build script generate .deb and .zip package
-- [ ] present of simple-lang codes and snippets on rosetta codes [working issue](https://github.com/simple-lang/simple/issues/20)
+- [ ] presence of simple-lang codes and snippets on rosetta codes [working issue](https://github.com/simple-lang/simple/issues/20)
 - [x] IRC or gitter channel for simple-lang [working issue](https://github.com/simple-lang/simple/issues/25)
 - [ ] write documentation to get started with developing with simple lang
 - [ ] build the language website
@@ -74,3 +74,4 @@ issue related to the module
 	- [x] upgrade simple-lang distro on the system from either dev or stable version
 	- [ ] working on all simple-lang supported operation systems
 - [x] create the language repl - simplerepl 
+- [x] Build the minifier enviroment that reduces module size by compressing code upon installation.
