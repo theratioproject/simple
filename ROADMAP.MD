@@ -5,6 +5,11 @@ For any type of addition or subtraction to the simple-lang the **request for com
 out how to make  a **rfc** in the [rfc](https://github.com/simple-lang/rfcs) repository by reading the 
 [readme file](https://github.com/simple-lang/rfcs/blob/master/README.md)
 
+The roadmap is divided into sections
+### [General](#general)
+### [Modules](#modules)
+### [Environments](environments)
+
 ### General
 
 These are features which apply to the general construction of the core of the language which includes the compiler, interpreter
@@ -34,6 +39,9 @@ build, installation, features e.t.c
 - [x] load shared library on windows
 - [ ] load shared library on haiku os
 - [x] writing a vscode extension [working issue](https://github.com/simple-lang/simple/issues/13)
+- [ ] add the simple-lang to the github language repository - linguistic 
+- [ ] create simple-lang tag in stack overflow and simlar forums
+- [ ] a suitable, befitting and upto date README on github repository
 
 ### Modules
 
@@ -60,5 +68,9 @@ issue related to the module
 ### Environments
 
 - [ ] build a semi-intelligent small simple-lang editor - simplepad [working issue](https://github.com/simple-lang/simple/issues/18)
-- [x] build package installer - modular [working issue](https://github.com/simple-lang/simple/issues/18)
+- [ ] build package installer - modular [working issue](https://github.com/simple-lang/simple/issues/18)
+	- [x] modular install and upgrade new module, doc and dynamic module added to the package index
+	- [ ] modular clone and install module from github repository
+	- [x] upgrade simple-lang distro on the system from either dev or stable version
+	- [ ] working on all simple-lang supported operation systems
 - [x] create the language repl - simplerepl 
