@@ -61,4 +61,4 @@ issue related to the module
 
 - [ ] build a semi-intelligent small simple-lang editor - simplepad [working issue](https://github.com/simple-lang/simple/issues/18)
 - [x] build package installer - modular [working issue](https://github.com/simple-lang/simple/issues/18)
-- [ ] create the language repl - simplerepl 
+- [x] create the language repl - simplerepl 
