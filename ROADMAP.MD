@@ -43,7 +43,7 @@ build, installation, features e.t.c
 - [ ] create simple-lang tag in stack overflow and simlar forums
 - [ ] a suitable, befitting and upto date README on github repository
 - [x] build script should build .lib for windows os
-- [ ] build script should create a .a archive for statically linking simple-lang runtime on windows os
+- [x] build script should create a .a archive for statically linking simple-lang runtime on windows os
 - [ ] build script should create a .a archive for statically linking simple-lang runtime on linux os
 - [ ] build script should create a .a archive for statically linking simple-lang runtime on mac os
 - [ ] build script should create a .a archive for statically linking simple-lang runtime on haiku os
@@ -60,7 +60,13 @@ issue related to the module
 - [ ] develop the complete functional GUI module (fulltick) using the fltk c++ library
 - [ ] port qt library to simple-lang for a higher GUI module 
 - [ ] create database module for simple-lang which includes mysql, sqlite, odbc and access
+	- [ ] build the mysql database module
+	- [ ] build the sqlite database module
+	- [ ] build the odbc database module
+	- [ ] build the access database module
+	- [ ] build the postgresql database module
 - [ ] build the internet module using curl as the back bone
+	- [ ] make curl request and accept both http and https protocols
 - [ ] build a web module for cgi and template base development
 - [x] Math module to treat any form of basic math operation
 - [x] date and time module 

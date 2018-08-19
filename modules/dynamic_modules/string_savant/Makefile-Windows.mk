@@ -44,7 +44,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/string_savant.o
 	
 # Link Libraries and Options
-LDLIBSOPTIONS=../../../simple/dist/simple.dll
+LDLIBSOPTIONS=../../../simple/dist/libsimple.dll
 
 ${CND_DISTDIR}/${CND_PLATFORM}/string_savant.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_PLATFORM}

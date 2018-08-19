@@ -45,7 +45,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/zip.o
 	
 # Link Libraries and Options
-LDLIBSOPTIONS=../../../simple/dist/simple.dll
+LDLIBSOPTIONS=../../../simple/dist/libsimple.dll
 
 ${CND_DISTDIR}/${CND_PLATFORM}/archiver.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_PLATFORM}

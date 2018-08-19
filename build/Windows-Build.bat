@@ -481,18 +481,18 @@ REM BULDING SIMPLE.EXE and SIMPLE.DLL
 		call:getsimplecfiles
 		echo simple-lang:install:visual-studio flies are !SIMPLE_C_FILES!
 		mkdir %~dp0\..\simple\dist
-		cl.exe /D_USRDLL /D_WINDLL /TC !SIMPLE_C_FILES! /MT /I %~dp0\..\simple\includes\ /link /DLL /OUT:%~dp0\..\simple\dist\simple.dll
+		cl.exe /D_USRDLL /D_WINDLL /TC !SIMPLE_C_FILES! /MT /I %~dp0\..\simple\includes\ /link /DLL /OUT:%~dp0\..\simple\dist\libsimple.dll
 		call:deletetempfiles *.obj *.exp *.cod
-		if exist "..\simple\dist\simple.lib" (
-			cl.exe /GA /MT /TC %~dp0\..\simple\simple.c /link /LIBPATH:%~dp0\..\simple\dist\ simple.lib /OUT:%~dp0\..\simple\dist\simple.exe
-			cl.exe /GA /MT /TC %~dp0\..\simple\simplew.c /link /SUBSYSTEM:windows /LIBPATH:%~dp0\..\simple\dist\ simple.lib /OUT:%~dp0\..\simple\dist\simplew.exe
+		if exist "..\simple\dist\libsimple.lib" (
+			cl.exe /GA /MT /TC %~dp0\..\simple\simple.c /link /LIBPATH:%~dp0\..\simple\dist\ libsimple.lib /OUT:%~dp0\..\simple\dist\simple.exe
+			cl.exe /GA /MT /TC %~dp0\..\simple\simplew.c /link /SUBSYSTEM:windows /LIBPATH:%~dp0\..\simple\dist\ libsimple.lib /OUT:%~dp0\..\simple\dist\simplew.exe
 			call:deletetempfiles *.obj *.exp *.cod
 		)
 		exit /b 0
 	) else (
 		if exist "..\simple\makefiles\Makefile-Windows.mk" (
 			cd "..\simple\makefiles"
-			echo simple: building simple.dll and simple.exe
+			echo simple: building libsimple.dll and simple.exe
 			make -f Makefile-Windows.mk ARC_FLAG=!GCC_ARC_VAR! ARC=!ARC!
 			cd ..\..\build
 		) else (
@@ -512,21 +512,21 @@ REM SIMPLE.EXE AND SIMPLE.DLL HAS BEEN SUCCESSFUL CREATE AND COPY EXECUTABLE TO 
 	if !EXEC_TYPE!=="install" (
 		echo installation folder "!INSTALLATION_FOLDER!\%VERSION%\"
 		call:confirmfolderelsecreate "!INSTALLATION_FOLDER!\%VERSION%\bin\"
-		if exist "..\simple\dist\simple.dll" (
-			echo simple: copying simple.exe and simple.dll to !INSTALLATION_FOLDER!\%VERSION%\bin\ directory
-			copy ..\simple\dist\simple* !INSTALLATION_FOLDER!\%VERSION%\bin\
+		if exist "..\simple\dist\libsimple.dll" (
+			echo simple: copying simple.exe, libsimple.dll and libsimple.a to !INSTALLATION_FOLDER!\%VERSION%\bin\ directory
+			copy ..\simple\dist\*simple* !INSTALLATION_FOLDER!\%VERSION%\bin\
 		) else (
-			echo error:simple: build fails simple.exe and simple.dll cannot be found
+			echo error:simple: build fails simple.exe, libsimple.dll and libsimple.a cannot be found
 			echo error:simple: try rebuilding individually
 		)
 	)
 	if !EXEC_TYPE!=="debug" (
 		call:confirmfolderelsecreate "..\..\%SIMPLE_DEBUG_VERSION%\bin\"
-		if exist "..\simple\dist\simple.dll" (
-			echo simple: copying simple.exe and simple.dll to ..\..\%SIMPLE_DEBUG_VERSION%\bin directory
-			copy ..\simple\dist\simple* ..\..\%SIMPLE_DEBUG_VERSION%\bin
+		if exist "..\simple\dist\libsimple.dll" (
+			echo simple: copying simple.exe, libsimple.dll and libsimple.a to ..\..\%SIMPLE_DEBUG_VERSION%\bin directory
+			copy ..\simple\dist\*simple* ..\..\%SIMPLE_DEBUG_VERSION%\bin
 		) else (
-			echo error:simple: build fails simple.exe and simple.dll cannot be found
+			echo error:simple: build fails simple.exe, libsimple.dll and libsimple.a cannot be found
 			echo error:simple: try rebuilding individually
 		)
 	)
@@ -759,7 +759,7 @@ REM FULLTICK(GUI) DYNAMIC MODULE
 :builddymodule
 	echo building %2 dynamic module
 	call:getdynamicmodulefiles %1 %2
-	cl.exe /D_USRDLL /D_WINDLL /LD /MT !DY_MODULE_FILES! /link /DLL /LIBPATH:%~dp0\..\simple\dist\ simple.lib %3 %4
+	cl.exe /D_USRDLL /D_WINDLL /LD /MT !DY_MODULE_FILES! /link /DLL /LIBPATH:%~dp0\..\simple\dist\ libsimple.lib %3 %4
 	call:deletetempfiles *.obj *.exp *.cod
 		
 	exit /b 0
@@ -1315,21 +1315,21 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 	exit /b 0
 	
 :createsimplelib
-	call:header final "checking if simple.lib is present"
+	call:header final "checking if libsimple.lib is present"
 	if !EXEC_TYPE!=="install" (
 		SET SIMPLE_EXE="!INSTALLATION_FOLDER!\%VERSION%\bin\simple.exe"
-		SET SIMPLE_DLL="!INSTALLATION_FOLDER!\%VERSION%\bin\simple.dll"
-		SET SIMPLE_LIB="!INSTALLATION_FOLDER!\%VERSION%\bin\simple.lib"
+		SET SIMPLE_DLL="!INSTALLATION_FOLDER!\%VERSION%\bin\libsimple.dll"
+		SET SIMPLE_LIB="!INSTALLATION_FOLDER!\%VERSION%\bin\libsimple.lib"
 		SET SIMPLE_MODULE_PATH="!INSTALLATION_FOLDER!\%VERSION%\modules\"
 	)
 	if !EXEC_TYPE!=="debug" (
 		SET SIMPLE_EXE="%~dp0\..\..\%SIMPLE_DEBUG_VERSION%\bin\simple.exe"
-		SET SIMPLE_DLL="%~dp0\..\..\%SIMPLE_DEBUG_VERSION%\bin\simple.dll"
-		SET SIMPLE_LIB="%~dp0\..\..\%SIMPLE_DEBUG_VERSION%\bin\simple.lib"
+		SET SIMPLE_DLL="%~dp0\..\..\%SIMPLE_DEBUG_VERSION%\bin\libsimple.dll"
+		SET SIMPLE_LIB="%~dp0\..\..\%SIMPLE_DEBUG_VERSION%\bin\libsimple.lib"
 		SET SIMPLE_MODULE_PATH="%~dp0\..\..\%SIMPLE_DEBUG_VERSION%\modules\"
 	)
 	if exist !SIMPLE_LIB! (
-		echo simple-lang:lib: simple.lib is already generated
+		echo simple-lang:lib: libsimple.lib is already generated
 		exit /b 0
 	)
 	call:locatevisualstudio
@@ -1345,7 +1345,7 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 				exit /b 0
 			) 
 		) else (
-			call:dependencieserror simple.lib
+			call:dependencieserror libsimple.lib
 		)
 	) 
 
@@ -1380,7 +1380,7 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 	echo 	-vs --visual-studio	build simple with Microsoft Visual Studio
 	echo.
 	echo [STANDALONE BUILD FLAGS]
-	echo 	-so --simple-only	build only simple.exe, simplew.exe and simple.dll
+	echo 	-so --simple-only	build only simple.exe, simplew.exe and libsimple.dll
 	echo 	-do --dep-only		build only the dependencies
 	echo 	-io --includes-only	copy only the simple includes files
 	echo 	-mo --modules-only	copy only the standard modules

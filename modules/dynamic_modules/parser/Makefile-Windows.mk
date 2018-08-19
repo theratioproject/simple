@@ -51,7 +51,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/parser.o
 	
 # Link Libraries and Options
-LDLIBSOPTIONS=../../../simple/dist/simple.dll
+LDLIBSOPTIONS=../../../simple/dist/libsimple.dll
 
 ${CND_DISTDIR}/${CND_PLATFORM}/parser.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_PLATFORM}

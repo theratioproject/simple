@@ -44,7 +44,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/networker.o 
 	
 # Link Libraries and Options
-LDLIBSOPTIONS=lib/libcurl$(ARC).dll ../../../simple/dist/simple.dll
+LDLIBSOPTIONS=lib/libcurl$(ARC).dll ../../../simple/dist/libsimple.dll
 
 ${CND_DISTDIR}/${CND_PLATFORM}/networker.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_PLATFORM}

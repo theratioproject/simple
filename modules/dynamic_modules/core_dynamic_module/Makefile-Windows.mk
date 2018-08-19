@@ -44,7 +44,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/core_dynamic_module.o
 	
 # Link Libraries and Options
-LDLIBSOPTIONS=../../../simple/dist/simple.dll
+LDLIBSOPTIONS=../../../simple/dist/libsimple.dll
 
 #${CND_DISTDIR}/${CND_PLATFORM}/core_dynamic_module.${CND_DLIB_EXT}: ../../../simple/src/dist/Debug/MinGW-Windows/simple.dll
 

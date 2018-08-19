@@ -118,8 +118,8 @@ block main() header()
 	writeCode()
 	
 block setDepLocation(location)
-	simpleLibPath = '"'+exeFolder()+location+'simple.lib"' 
-	simpleDllPath = '"'+exeFolder()+location+'simple.dll"' 
+	simpleLibPath = '"'+exeFolder()+location+'libsimple.lib"' 
+	simpleDllPath = '"'+exeFolder()+location+'libsimple.dll"' 
 	simpleHPath = '"'+exeFolder()+location+'../includes/simple.h"'
 	
 block writeCode()
