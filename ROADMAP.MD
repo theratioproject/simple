@@ -16,7 +16,7 @@ These are features which apply to the general construction of the core of the la
 build, installation, features e.t.c 
 
 - [x] create the simple-lang interpreter 
-- [ ] create a working installer script to enable installation with curl and bash or shell script [working issue](https://github.com/simple-lang/simple/issues/24)
+- [x] create a working installer script to enable installation with curl and bash or shell script [working issue](https://github.com/simple-lang/simple/issues/24)
 - [ ] build a compiler to allow faster program execution - simplify
 - [x] make vm search for **call** files in 5 folder. 
 	- [x] 1 absolute to path
@@ -77,6 +77,23 @@ issue related to the module
 	- [x] modular install and upgrade new module, doc and dynamic module added to the package index
 	- [ ] modular clone and install module from github repository
 	- [x] upgrade simple-lang distro on the system from either dev or stable version
-	- [ ] working on all simple-lang supported operation systems
+	- [ ] test full operation on windows os
+	- [ ] test full operation on linux os
+	- [ ] test full operation on mac os
+	- [ ] test full operation on haiku os
 - [x] create the language repl - simplerepl 
-- [x] Build the minifier enviroment that reduces module size by compressing code upon installation.
+- [x] Build the minifier environment that reduces module size by compressing code upon installation.
+- [ ] create the distribution program - bake
+	- [ ] package simple source file (.sim) or compiled file (.complex) to system executable
+	- [ ] package simple source file (.sim) or compiled file (.complex) to system library or simple-lang specific library
+	- [ ] create directory for generated output
+	- [ ] allow static or dynamic linking of simple-lang runtime
+	- [ ] minify and build a distributable modules and dynamic modules for distribution
+	- [ ] test full operation on windows os
+	- [ ] test full operation on linux os
+	- [ ] test full operation on mac os
+	- [ ] test full operation on haiku os
+
+
+
+
