@@ -42,6 +42,11 @@ build, installation, features e.t.c
 - [ ] add the simple-lang to the github language repository - linguistic 
 - [ ] create simple-lang tag in stack overflow and simlar forums
 - [ ] a suitable, befitting and upto date README on github repository
+- [x] build script should build .lib for windows os
+- [ ] build script should create a .a archive for statically linking simple-lang runtime on windows os
+- [ ] build script should create a .a archive for statically linking simple-lang runtime on linux os
+- [ ] build script should create a .a archive for statically linking simple-lang runtime on mac os
+- [ ] build script should create a .a archive for statically linking simple-lang runtime on haiku os
 
 ### Modules
 
