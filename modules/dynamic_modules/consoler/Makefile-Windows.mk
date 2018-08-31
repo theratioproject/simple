@@ -41,7 +41,6 @@ OBJECTDIR=${CND_DISTDIR}/${CND_BUILDDIR}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/console-colors.o \
 	${OBJECTDIR}/consoler.o 
 	
 # Link Libraries and Options
@@ -55,11 +54,6 @@ ${OBJECTDIR}/consoler.o: consoler.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} ${OBJECTDIR}/*d
 	$(COMPILE.c) $(CFLAGS) $(ARC_FLAG) -o ${OBJECTDIR}/consoler.o consoler.c
-	
-${OBJECTDIR}/console-colors.o: console-colors.c
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.c) $(CFLAGS) $(ARC_FLAG) -o ${OBJECTDIR}/console-colors.o console-colors.c
 
 
 #This Makefile-Windows.mk was written in adaptation to the MINGW
