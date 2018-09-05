@@ -1,19 +1,44 @@
 /* 
 	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com> 
-	MIT License Copyright (c) 2018 simple 
+	MIT License Copyright (c) 2018 simple-lang
 
 */
 
 /* 
- * #filename - Math.sim
- * #author - Azeez Adewale
- * #date - 5 Febuary 2017
+	#filename - Math.sim
+	#date - 5 Febuary 2017
+	#time - 12 : 09 AM
+	#license - MIT License Copyright (c) 2018 simple-lang
+	#author - Azeez Adewale	<azeezadewale98@gmail.com> 
  */
  
 module simple.utilities
 
 call "simple/core/DynamicLoader.sim" ? simple.core
 callModule("mathic")
+
+/*@Prefix
+	This is a wrapper file for the @DynamicModule Mathic dynamic module. The module is loaded
+	once when this file is first call. Using the mathic block directly is not consider safe as
+	it does not check the parameter for incompatibe types or object and can result to runtime 
+	error. most of the blocks implemented in this file has a dynamic call but is not consider
+	safe to call the dynamic blocks directly. <br /> <br />
+	All the blocks are public and does not require any type of initialization  because it has no 
+	class. Below is an example of Math.sim 
+	```simple
+	call "simpl/utilities/Math.sim"
+	
+	block main()
+		@"SIN 90 : "+sin(90)
+		@"COS 90 : "+cos(90)
+		
+	```
+	<br />
+	A more elaborate example is present at @Examples Mathic
+*/
+
+block sin(number)
+	return __sin(number)
 
 #
 block toDecimal(number, place)

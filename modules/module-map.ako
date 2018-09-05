@@ -1,0 +1,10 @@
+
+
+[DynamicModule]{
+	[Mathic](https://github.com/simple-lang/simple/tree/master/modules/dynamic_modules/mathic)
+}
+
+[Examples]{
+	[Mathic](https://github.com/simple-lang/simple/blob/master/examples/modules/mathdemo.sim)
+}
+

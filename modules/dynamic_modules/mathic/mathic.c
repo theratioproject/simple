@@ -33,26 +33,26 @@
 
 SIMPLE_API void init_simple_module(SimpleState *sState)
 {   
-    register_block("sin",math_sin);
-    register_block("cos",math_cos);
-    register_block("tan",math_tan);
-    register_block("asin",math_asin);
-    register_block("acos",math_acos);
-    register_block("atan",math_atan);
-    register_block("atan2",math_atan2);
-    register_block("sinh",math_sinh);
-    register_block("cosh",math_cosh);
-    register_block("tanh",math_tanh);
-    register_block("exp",math_exp);
-    register_block("log",math_log);
-    register_block("log10",math_log10);
-    register_block("ceil",math_ceil);
-    register_block("floor",math_floor);
-    register_block("fabs",math_fabs);
-    register_block("pow",math_pow);
-    register_block("sqrt",math_sqrt);
+    register_block("__sin",math_sin);
+    register_block("__cos",math_cos);
+    register_block("__tan",math_tan);
+    register_block("__asin",math_asin);
+    register_block("__acos",math_acos);
+    register_block("__atan",math_atan);
+    register_block("__atan2",math_atan2);
+    register_block("__sinh",math_sinh);
+    register_block("__cosh",math_cosh);
+    register_block("__tanh",math_tanh);
+    register_block("__exp",math_exp);
+    register_block("__log",math_log);
+    register_block("__log10",math_log10);
+    register_block("__ceil",math_ceil);
+    register_block("__floor",math_floor);
+    register_block("__fabs",math_fabs);
+    register_block("__pow",math_pow);
+    register_block("__sqrt",math_sqrt);
     register_block("__rand",math_rand);
-    register_block("unsigned",math_unsigned);
+    register_block("__unsigned",math_unsigned);
     register_block("__decimals",math_decimals);
 }
 
