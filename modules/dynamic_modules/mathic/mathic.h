@@ -59,6 +59,12 @@ void math_pow ( void *pointer ) ;
 
 void math_sqrt ( void *pointer ) ;
 
+void math_cbrt ( void *pointer ) ;
+
+void math_rint ( void *pointer ) ;
+
+void math_round ( void *pointer ) ;
+
 void math_unsigned ( void *pointer ) ;
 
 void math_decimals ( void *pointer ) ;

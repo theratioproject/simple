@@ -51,6 +51,9 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
     register_block("__fabs",math_fabs);
     register_block("__pow",math_pow);
     register_block("__sqrt",math_sqrt);
+    register_block("__cbrt",math_cbrt);
+    register_block("__rint",math_rint);
+    register_block("__round",math_round);
     register_block("__rand",math_rand);
     register_block("__unsigned",math_unsigned);
     register_block("__decimals",math_decimals);
@@ -295,6 +298,45 @@ void math_sqrt ( void *pointer )
     }
     if ( SIMPLE_API_ISNUMBER(1) ) {
             SIMPLE_API_RETNUMBER(sqrt(SIMPLE_API_GETNUMBER(1)));
+    } else {
+            SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+    }
+}
+
+void math_cbrt ( void *pointer )
+{
+    if ( SIMPLE_API_PARACOUNT != 1 ) {
+            SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
+            return ;
+    }
+    if ( SIMPLE_API_ISNUMBER(1) ) {
+            SIMPLE_API_RETNUMBER(cbrt(SIMPLE_API_GETNUMBER(1)));
+    } else {
+            SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+    }
+}
+
+void math_rint ( void *pointer )
+{
+    if ( SIMPLE_API_PARACOUNT != 1 ) {
+            SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
+            return ;
+    }
+    if ( SIMPLE_API_ISNUMBER(1) ) {
+            SIMPLE_API_RETNUMBER(rint(SIMPLE_API_GETNUMBER(1)));
+    } else {
+            SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+    }
+}
+
+void math_round ( void *pointer )
+{
+    if ( SIMPLE_API_PARACOUNT != 1 ) {
+            SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
+            return ;
+    }
+    if ( SIMPLE_API_ISNUMBER(1) ) {
+            SIMPLE_API_RETNUMBER(round(SIMPLE_API_GETNUMBER(1)));
     } else {
             SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
     }

@@ -8,10 +8,98 @@
 call "simple/utilities/Math.sim"
 
 block main()
-	display "SIN 1 = "+sin(1) + nl
-	display "SIN 0 = "+sin(0) + nl
-	display "SIN 90 = "+sin(90) + nl
-	display "RANDOM 100 = "+random()+nl
+	@"PI : "+MATH_PI()
+	@"E : "+MATH_E()
+	@""
+	
+	NEG_NUMBER = -1234567890.012
+	NUMBER = abs(NEG_NUMBER)
+	NUMBER2 = 12345
+	
+	@"NEG_NUMBER : "+NEG_NUMBER
+	@"abs("+NEG_NUMBER+") : "+abs(NEG_NUMBER)
+	@"MINIMUM min("+NUMBER+","+NUMBER2+") : "+min(NUMBER,NUMBER2)
+	@"MAXIMUM max("+NUMBER+","+NUMBER2+") : "+max(NUMBER,NUMBER2)
+	@"SINE sin("+NUMBER+") : "+sin(NUMBER)
+	@"COSINE cos("+NUMBER+") : "+cos(NUMBER)
+	@"TANGENT tan("+NUMBER+") : "+tan(NUMBER)
+	@"ARC SINE asin("+NUMBER+") : "+asin(NUMBER)
+	@"ARC COSINE acos("+NUMBER+") : "+acos(NUMBER)
+	@"ARC TANGENT atan("+NUMBER+") : "+atan(NUMBER)
+	
+	@"======================================================="
+	@"ARC TANGENT2 atan2(x,y)"
+	@"======================================================="
+	x = -7.0
+	y = 7.0
+	
+	val = 180.0 / MATH_PI
+	
+	ret = atan2(y,x) * val
+	@"Arc tangent of a x = " + x + " and y = " + y + " is " + ret + " degree"
+	
+	@"======================================================="
+	@"EXPONENTIAL exp(number)"
+	@"======================================================="
+	x = 0
+  
+	@"The exponential value of " + x + " is " + exp(x)
+	@"The exponential value of " + (x+1) + " is " + exp(x+1)
+	@"The exponential value of " + (x+2) + " is " + exp(x+2)
+	
+	@"======================================================="
+	@"LOGARITHM log(number)"
+	@"======================================================="
+	x = 2.7
+	ret = log(x)
+	
+	@"log(" + x + ") = " + ret
+	
+	@"======================================================="
+	@"SQUARE ROOT sqrt(number)"
+	@"======================================================="
+	@"Square root of " + 9.0 + " is " + sqrt(9.0)
+    @"Square root of " + 21.0 + " is " + sqrt(21)
+	
+	@"======================================================="
+	@"CUBE ROOT cbrt(number)"
+	@"======================================================="
+	@"Cube root of " + 9.0 + " is " + cbrt(9.0)
+    @"Cube root of " + 6.0 + " is " + cbrt(6.0)
+	
+	@"======================================================="
+	@"POWER pow(fNumber,sNumber)"
+	@"======================================================="
+	@"Value 8.0 ^ 3 = " + pow(8.0, 3)
+	@"Value 3.05 ^ 1.98 = " + pow(3.05, 1.98)
+	
+	@"======================================================="
+	@"CEIL ceil(number)"
+	@"======================================================="
+	x1 = 1.6
+	x2 = 1.2
+    x3 = 2.8
+    x4 = 2.3
+
+	@"ceil " + x1 + " = " + ceil(x1)
+	@"ceil " + x2 + " = " + ceil(x2)
+	@"ceil " + x3 + " = " + ceil(x3)
+	@"ceil " + x4 + " = " + ceil(x4)
+	
+	@"======================================================="
+	@"FLOOR floor(number)"
+	@"======================================================="
+
+	@"floor " + x1 + " = " + floor(x1)
+	@"floor " + x2 + " = " + floor(x2)
+	@"floor " + x3 + " = " + floor(x3)
+	@"floor " + x4 + " = " + floor(x4)
+	
+	
+	
+	
+	
+	
 	
 	
 	

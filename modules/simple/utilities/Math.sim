@@ -21,24 +21,346 @@ callModule("mathic")
 	This is a wrapper file for the @DynamicModule Mathic dynamic module. The module is loaded
 	once when this file is first call. Using the mathic block directly is not consider safe as
 	it does not check the parameter for incompatibe types or object and can result to runtime 
-	error. most of the blocks implemented in this file has a dynamic call but is not consider
+	error. Most of the blocks implemented in this file has a dynamic call but is not consider
 	safe to call the dynamic blocks directly. <br /> <br />
-	All the blocks are public and does not require any type of initialization  because it has no 
-	class. Below is an example of Math.sim 
-	```simple
-	call "simpl/utilities/Math.sim"
 	
-	block main()
-		@"SIN 90 : "+sin(90)
-		@"COS 90 : "+cos(90)
-		
+	### Usage
+	All the blocks are public and does not require any type of initialization  because it has no 
+	class. All thie function in this file is accessible by calling it.
+	```simple
+	call "simple/utilities/Math.sim"
 	```
-	<br />
 	A more elaborate example is present at @Examples Mathic
 */
 
+/*
+	Exponential number used in natural log and exp
+	Approximation of the mathematical constant <em>e</em> to 11 digit after decimal point.
+	**2.71828182846**. 
+	
+	The <em>e</em> to the first 15 digits after the decimal point is **2.718281828459045**
+	
+*/
+MATH_E = 2.71828182846
+
+/*
+	The ratio of a circle's circumference to its diameter.
+	Approximation of the mathematical constant <em>pi</em> / <em>π</em> to 11 digit 
+	after the decimal point **3.14159265359**. 
+	The <em>pi</em> / <em>π</em> constant to the first 50 digits after the decimal point.
+	
+	**3.14159 26535 89793 23846 26433 83279 50288 41971 69399 37510**
+
+*/
+MATH_PI = 3.14159265359
+
+/*
+	The math module in a printable string **simple.utilites.Math**
+*/
+MATH_MODULE = "simple.utilites.Math"
+
+/*
+	Exception message to indicate the parameter is not a valid number
+*/
+__MATH_NOT_NUMBER = "The parameter is not a Number"
+
+/*
+	Exponential number used in natural log and exp
+	Approximation of the mathematical constant <em>e</em> to 11 digit after decimal point.
+	**2.71828182846**. 
+	
+	The <em>e</em> to the first 15 digits after the decimal point is **2.718281828459045**
+	
+	@Return the <em>e</em> constant with the first 11 digits after the decimal point @DataType Number
+*/
+block MATH_E()
+	return MATH_E
+
+/*
+	The ratio of a circle's circumference to its diameter.
+	Approximation of the mathematical constant <em>pi</em> / <em>π</em> to 11 digit 
+	after the decimal point **3.14159265359** 
+	The <em>pi</em> / <em>π</em> constant to the first 50 digits after the decimal point.
+	
+	**3.14159 26535 89793 23846 26433 83279 50288 41971 69399 37510**
+	
+	@Return the <em>pi</em> / <em>π</em> constant with the first 11 digits after the decimal 
+	point @DataType Number
+
+*/
+block MATH_PI() 
+	return MATH_PI
+	
+/*
+	Determine the absolute value of a number. Determining the absolute number makes it positive.
+	
+	@Param number - the number to determine it absolute value
+	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE
+	@Return the absolute value of number @DataType Number
+*/
+block abs(number)
+	if !isNumber(number) {
+		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+	}
+	if (number < 0) {
+		return -number
+	}
+	return number
+	
+/*
+	Determine the number that is smaller between the two parameters. If both parameter are zero
+	the first number is negated then the second number is minus from it and the negated result 
+	is returned, this deals with -0 and 0 that might behave strangely and can return 0 
+	to be smaller than -0
+	
+	@Param fNumber - the first number
+	@Param sNumber - the second number
+	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if one or all the parameters 
+	are not number	
+	@Return minumum number of the two numbers
+*/
+block min(fNumber, sNumber)
+	if !isNumber(fNumber) or !isNumber(sNumber) {
+		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+	}
+	if (fNumber == 0 and sNumber == 0) {
+		return -((-fNumber) - sNumber)
+	}
+	if (fNumber < sNumber) {
+		return fNumber
+	}
+	return sNumber
+	
+/*
+	Determine the number that is larger between the two parameters. If both parameter are zero
+	the second number is negated and then minus from the first number to give the correct larger 
+	number.
+	
+	@Param fNumber - the first number
+	@Param sNumber - the second number
+	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if one or all the parameters 
+	are not number
+	@Return larger number of the two numbers
+*/
+block max(fNumber, sNumber)
+	if !isNumber(fNumber) or !isNumber(sNumber) {
+		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+	}
+	if (fNumber == 0 and sNumber == 0) {
+		return (fNumber - (-sNumber))
+	}
+	if (fNumber > sNumber) {
+		return fNumber
+	}
+	return sNumber	
+	
+/*
+	Determine the sine trigonometric function <em> sin </em> of a number. The sine value of 0 remains
+	remain 0. 
+	
+	@Param number - the number to determine it sin value
+	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
+	@Return the sine value of a radian angle number
+*/
 block sin(number)
+	if !isNumber(number) {
+		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+	}
 	return __sin(number)
+	
+	
+/*
+	Determine the cosine trigonometric function <em> cos </em> of a number. The cosine value of 0 remains
+	remain 0. 
+	
+	@Param number - the number to determine it cos value
+	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
+	@Return the cosine value of a radian angle number
+*/
+block cos(number)
+	if !isNumber(number) {
+		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+	}
+	return __cos(number)	
+	
+/*
+	Determine the tangent trigonometric function <em> tan </em> of a number. The tangent value of 0 remains
+	remain 0. 
+	
+	@Param number - the number to determine it tan value
+	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
+	@Return the tangent value of a radian angle number
+*/
+block tan(number)
+	if !isNumber(number) {
+		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+	}
+	return __tan(number)
+
+/*
+	Determine the arc sine trigonometric function <em> arcsin </em> of a number. The arc sine value of 0 remains
+	remain 0. The range of angles returned is -pi/2 to pi/2 radians (-90 to 90 degrees).
+	
+	@Param number - the number to determine it arc sine value
+	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
+	@Return the arc sine value of the number in radian @DataType Number
+*/	
+block asin(number)
+	if !isNumber(number) {
+		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+	}
+	return __asin(number)
+	
+/*
+	Determine the arc cosine trigonometric function <em> arccos </em> of a number. The arc cosine value of 0 remains
+	remain 0. The range of angles returned is -pi/2 to pi/2 radians (-90 to 90 degrees).
+	
+	@Param number - the number to determine it arc csine value
+	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
+	@Return the arc cosine value of the number in radian @DataType Number
+*/	
+block acos(number)
+	if !isNumber(number) {
+		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+	}
+	return __acos(number)
+
+/*
+	Determine the arc tangent trigonometric function <em> arctan </em> of a number. The arc tangent value of 0 remains
+	remain 0. The range of angles returned is -pi/2 to pi/2 radians (-90 to 90 degrees).
+	
+	@Param number - the number to determine it arc tangent value
+	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
+	@Return the arc tangent value of the number in radian @DataType Number
+*/	
+block atan(number)
+	if !isNumber(number) {
+		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+	}
+	return __atan(number)
+	
+	
+/*
+	Convert rectangular coordinate **(x, y)** correct quadrant. It calculate the arc tangent of x and y 
+	in the range of -180 and 180 degrees. 
+	
+	@Param y - the floating point value representing a y-coordinate
+	@Param x - the floating point value representing an x-coordinate
+	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if one or all the parameters 
+	are not number
+	@Return the arc tangent in radian of x/y based on the signs of both values to determine the correct quadrant
+*/
+block atan2(y, x)
+	if !isNumber(y) or !isNumber(x) {
+		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+	}
+	return __atan2(y,x)
+	
+	
+/*
+	Determine the exponential value of a number. The opposite of @Block log(number)
+	
+	@Param number - the number to raise to the power of
+	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
+	@Return the exponential value of the number
+*/
+block exp(number)
+	if !isNumber(number) {
+		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+	}
+	return __exp(number)
+	
+	
+/*
+	Determine the natural logarithm (base-e logarithm) of a number. The opposite of @Block exp(number)
+	
+	@Param number - the number to get the natural log of
+	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
+	@Return the natural logarithm (base-e logarithm) of number
+*/
+block log(number)
+	if !isNumber(number) {
+		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+	}
+	return __log(number)
+
+/*
+	Determine the square root of a number. To find cube root of a number call the @Block cbrt(number) instead,
+	to determine the other root use `pow(number, 1/rootNum)`
+	
+	@Param number - the number to get the square root of
+	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
+	@Return the square root of the number
+*/	
+block sqrt(number) 
+	if !isNumber(number) {
+		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+	}
+	return __sqrt(number)
+
+/*
+	Determine the cube root of a number. To find square root of a number call the @Block sqrt(number) instead,
+	to determine the other root use `pow(number, 1/rootNum)`
+	
+	@Param number - the number to get the cube root of
+	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
+	@Return the cube root of the number
+*/	
+block cbrt(number) 
+	if !isNumber(number) {
+		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+	}
+	return __cbrt(number)
+	
+	
+/*
+	Raise a number to a power of another number.
+	
+	@Param fNumber - the first number to be raised 
+	@Param sNumber - the number to be raised to it power
+	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if one or all the parameters 
+	are not number
+	@Return fNumber raised to the power of sNumber
+*/
+block pow(fNumber,sNumber)
+	if !isNumber(fNumber) or !isNumber(sNumber) {
+		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+	}
+	return __pow(fNumber,sNumber)
+	
+
+/*
+	Determine the nearest integer that is greater than or equal to the number parameter. If the param number 
+	is between -1 and 0 the result is -0.
+	
+	@Note `ceil(number) == floor(-number)`
+	@Param number - the number to be worked on
+	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
+	@Return the nearest integer value greater than or equal to the number
+*/	
+block ceil(number)
+	if !isNumber(number) {
+		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+	}
+	return __ceil(number)
+	
+
+/*
+	Determine the nearest integer that is less than or equal to the number parameter. 
+	
+	@Note `ceil(number) == floor(-number)`
+	@Param number - the number to be worked on
+	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
+	@Return the largest integer value less than or equal to the number
+*/	
+block floor(number)
+	if !isNumber(number) {
+		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+	}
+	return __floor(number)
+	
+	
+#UNDONESSSSSSSSSS
 
 #
 block toDecimal(number, place)
