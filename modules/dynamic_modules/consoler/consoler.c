@@ -1,11 +1,11 @@
 
-/* 
-    Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com> 
-    MIT License Copyright (c) 2018 simple 
+/*
+    Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com>
+    MIT License Copyright (c) 2018 simple
 
 */
 
-/* 
+/*
  * File:   consoler.h
  * Author: thecarisma
  *
@@ -15,11 +15,15 @@
 #include "../../../simple/includes/simple.h"
 #include "consoler.h"
 
+#if defined(__GNUC__)
+#include <stdarg.h>
+#endif
+
 #ifdef _WIN32
 	#define SIMPLE_API __declspec(dllexport)
 #else
 #if defined(_MSC_VER)
-    //  Microsoft 
+    //  Microsoft
     #define SIMPLE_API __declspec(dllexport)
     #define SIMPLE_API __declspec(dllimport)
 #elif defined(__GNUC__)
@@ -35,12 +39,10 @@
 #endif
 
 SIMPLE_API void init_simple_module(SimpleState *sState)
-{   
+{
     register_block("__flush_console",program_flush_console);
     register_block("__printwfb",print_with_foreground_background);
     register_block("__exit",program_exit);
-    register_block("__sleep",program_sleep);
-    
 }
 
 void program_flush_console(void *pointer)
@@ -81,17 +83,6 @@ void program_exit ( void *pointer )
 		}
 	}
 	exit(0);
-}
-
-void program_sleep ( void *pointer )
-{
-    if ( SIMPLE_API_PARACOUNT == 1 ) {
-        if ( SIMPLE_API_ISNUMBER(1) ) {
-            _sleep(SIMPLE_API_GETNUMBER(1));
-            return ;
-        }
-    }
-    _sleep(0);
 }
 
 static int Write(FILE *stream, const char *format, va_list ap) {

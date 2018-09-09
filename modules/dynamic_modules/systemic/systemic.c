@@ -1,11 +1,11 @@
 
-/* 
-    Copyright (c) 2016-2018 Azeez Adewale <azeezadewale98@gmail.com> 
-    MIT License Copyright (c) 2018 simple 
+/*
+    Copyright (c) 2016-2018 Azeez Adewale <azeezadewale98@gmail.com>
+    MIT License Copyright (c) 2018 simple
 
 */
 
-/* 
+/*
  * File:   systemic.c
  * Author: thecarisma
  *
@@ -17,6 +17,9 @@
 typedef int (WINAPI *LPFN_ISWOW64PROCESS) (HANDLE, PBOOL); ;
 LPFN_ISWOW64PROCESS isWindows64  ;
 #endif
+#if defined(__APPLE__) && defined(__MACH__)
+#define _beep(x,y) printf("\a")
+#endif
 
 #include "../../../simple/includes/simple.h"
 #include "systemic.h"
@@ -25,7 +28,7 @@ LPFN_ISWOW64PROCESS isWindows64  ;
 	#define SIMPLE_API __declspec(dllexport)
 #else
 #if defined(_MSC_VER)
-    //  Microsoft 
+    //  Microsoft
     #define SIMPLE_API __declspec(dllexport)
 #elif defined(__GNUC__)
     //  GCC
@@ -36,9 +39,9 @@ LPFN_ISWOW64PROCESS isWindows64  ;
     #pragma warning Unknown dynamic link import/export semantics.
 #endif
 #endif
-        
+
 SIMPLE_API void init_simple_module(SimpleState *sState)
-{   
+{
     register_block("isMsDos",os_ismsdos);
     register_block("isWindows",os_iswindows);
     register_block("isWindows64",os_iswindows64);
@@ -90,7 +93,7 @@ void os_iswindows64 ( void *pointer )
 	if ( isWindows64 != NULL ) {
 		isWindows64(GetCurrentProcess(),&lSystem64);
 		SIMPLE_API_RETNUMBER(1);
-		return; 
+		return;
 	}
 	#endif
 	SIMPLE_API_RETNUMBER(lSystem64);
@@ -215,8 +218,8 @@ void current_filepath ( void *pointer )
 	}
 	if ( (vm->nBlockExecute2 > 0) && (simple_list_getsize(vm->pBlockCallList)>0) ) {
 		/*
-		**  Here we have Load Function Instruction - But Still the function is not called 
-		**  FunctionName (  ***Parameters**** We are here! ) 
+		**  Here we have Load Function Instruction - But Still the function is not called
+		**  FunctionName (  ***Parameters**** We are here! )
 		*/
 		nPos = simple_list_getsize(vm->pBlockCallList)  -  (vm->nBlockExecute2 - 1) ;
 		if ( (nPos > 0) && (nPos <= simple_list_getsize(vm->pBlockCallList)) ) {
@@ -227,7 +230,7 @@ void current_filepath ( void *pointer )
 		}
 		return ;
 	}
-        
+
 	SIMPLE_API_RETSTRING(vm->file_name);
 }
 
@@ -243,8 +246,8 @@ void current_filename ( void *pointer )
     }
     if ( (vm->nBlockExecute2 > 0) && (simple_list_getsize(vm->pBlockCallList)>0) ) {
         /*
-        **  Here we have Load Function Instruction - But Still the function is not called 
-        **  FunctionName (  ***Parameters**** We are here! ) 
+        **  Here we have Load Function Instruction - But Still the function is not called
+        **  FunctionName (  ***Parameters**** We are here! )
         */
         nPos = simple_list_getsize(vm->pBlockCallList)  -  (vm->nBlockExecute2 - 1) ;
         if ( (nPos > 0) && (nPos <= simple_list_getsize(vm->pBlockCallList)) ) {
