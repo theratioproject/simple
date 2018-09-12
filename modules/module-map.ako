@@ -1,4 +1,5 @@
 
+[SimpleVersion](0.3.36)
 
 [DynamicModule]{
 	[Mathic](https://github.com/simple-lang/simple/tree/master/modules/dynamic_modules/mathic)
@@ -8,3 +9,9 @@
 	[Mathic](https://github.com/simple-lang/simple/blob/master/examples/modules/mathdemo.sim)
 }
 
+[SecondaryMenu] {
+	/* [Home](https://simple-lang.sourceforge.io) */
+	[TryOnline](https://simple-lang.sourceforge.io)
+	[Download](https://simple-lang.sourceforge.io/cgi-bin/simple-web/index.sim?page=Download)
+	[Contribute](https://simple-lang.sourceforge.io/cgi-bin/simple-web/index.sim?page=Contribute)
+}
