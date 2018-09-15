@@ -535,37 +535,6 @@ remove_dist_folders() {
 }
 
 finalize_installation() {
-	local prefix=${DESTDIR}${PREFIX:-/usr/}
-	header link "linking environment and library"
-	echo "simple-lang:link: linking simple.so to libsimple.so and libsimple.$ver.so"
-	sudo link $prefix/lib/simple.so /lib/libsimple.so
-	sudo link $prefix/lib/simple.so /lib/libsimple.$ver.so
-	sudo link $prefix/lib/simple.so $prefix/lib/libsimple.so
-	sudo link $prefix/lib/simple.so $prefix/lib/libsimple.$ver.so
-	sudo link $prefix/lib/simple.so $prefix/local/lib/libsimple.so
-	sudo link $prefix/lib/simple.so $prefix/local/lib/libsimple.$ver.so
-	display link "linking simplepad to user ~/Desktop"
-	sudo link $prefix/bin/simplepad ~/Desktop/simplepad
-
-	header link "add simplepad to the system menu"
-	sudo echo "[Desktop Entry]" >> ~/.local/share/applications/simplepad.desktop
-	sudo echo "Version=1.0" >> ~/.local/share/applications/simplepad.desktop
-	sudo echo "Type=Application" >> ~/.local/share/applications/simplepad.desktop
-	sudo echo "Name=Simple Pad" >> ~/.local/share/applications/simplepad.desktop
-	sudo echo "GenericName=Awesome App" >> ~/.local/share/applications/simplepad.desktop
-	sudo echo "Icon=/var/lib/simple/$version/resources/simplepad.png" >> ~/.local/share/applications/simplepad.desktop
-	if [ -e $prefix/bin/simplepad ]; then
-		sudo echo "Exec=$prefix/bin/simplepad" >> ~/.local/share/applications/simplepad.desktop
-	elif [ -e /usr/local/bin/simplepad ]; then
-		sudo echo "Exec=/usr/local/bin/simplepad" >> ~/.local/share/applications/simplepad.desktop
-	elif [ -e /bin/simplepad ]; then
-		sudo echo "Exec=/bin/simplepad" >> ~/.local/share/applications/simplepad.desktop
-	else
-		sudo echo "Exec=simplepad" >> ~/.local/share/applications/simplepad.desktop
-	fi
-	sudo echo "Comment=Simple Pad code simple-lang with ease" >> ~/.local/share/applications/simplepad.desktop
-	sudo echo "Categories=Development;IDE;" >> ~/.local/share/applications/simplepad.desktop
-	sudo echo "Terminal=false" >> ~/.local/share/applications/simplepad.desktop
 
 	echo "======================================="
 
