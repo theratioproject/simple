@@ -52,6 +52,10 @@ class Number : Object
 		__OBJECT = number
 		return __OBJECT
 	
+	block toString()
+		return "[simple.core." + __OBJECT_NAME + ":" + getHashCode() + "]"
+	end
+
 	/*
 		This block returns an error
 		if the passed parameter to the Number class

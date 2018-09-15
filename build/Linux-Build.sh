@@ -535,7 +535,7 @@ remove_dist_folders() {
 }
 
 finalize_installation() {
-	
+
 	echo "======================================="
 
 	echo "  Minifying Source code for modules   "
