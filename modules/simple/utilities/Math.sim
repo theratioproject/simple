@@ -838,7 +838,7 @@ block vmDecimalPoints(place)
 block random()
 	return __rand()
 	
-/*
+/*@Suffix
 
 	Below are blocks exposed from the @DynamicModule Mathic dynamic module
 	
@@ -1015,7 +1015,7 @@ block random()
 
 */
 
-/*
+/*@Suffix
 	<h1>Example Usage</h1>
 	```simple
 	call "simple/utilities/Math.sim"
