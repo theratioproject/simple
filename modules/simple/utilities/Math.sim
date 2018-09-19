@@ -26,7 +26,7 @@ callModule("mathic")
 	
 	### Usage
 	All the blocks are public and does not require any type of initialization  because it has no 
-	class. All thie function in this file is accessible by calling it.
+	class. All the function in this file is accessible by calling it.
 	```simple
 	call "simple/utilities/Math.sim"
 	```
@@ -110,7 +110,7 @@ block MATH_E()
 	
 	**3.14159 26535 89793 23846 26433 83279 50288 41971 69399 37510**
 	
-	@Return the <em>pi</em> / <em>π</em> constant with the first 11 digits after the decimal 
+	@Return the <em>pi</em> / <em>π</em> constant with the first 11 digits after the decimal  
 	point @DataType Number
 
 */
@@ -838,7 +838,7 @@ block vmDecimalPoints(place)
 block random()
 	return __rand()
 	
-/*@Suffix
+/*
 
 	Below are blocks exposed from the @DynamicModule Mathic dynamic module
 	
@@ -1015,7 +1015,7 @@ block random()
 
 */
 
-/*@Suffix
+/*
 	<h1>Example Usage</h1>
 	```simple
 	call "simple/utilities/Math.sim"
