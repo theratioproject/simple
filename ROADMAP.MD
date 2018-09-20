@@ -47,12 +47,15 @@ build, installation, features e.t.c
 - [ ] build script should create a .a archive for statically linking simple-lang runtime on linux os
 - [ ] build script should create a .a archive for statically linking simple-lang runtime on mac os
 - [ ] build script should create a .a archive for statically linking simple-lang runtime on haiku os
+- [ ] Add strict equality `===` and `!==`
+- [ ] Add the `**` operator
 
 ### Modules
 
 To dos and features relative to the simple-lang standard modules which includes new modules addition, module modification or any other
 issue related to the module
 
+- [ ] Build a web server module
 - [ ] create the input output (io) module which include File, Path, Directory, PathAttribute, PathType, FileStream
 - [ ] create all high level data types [working issue](https://github.com/simple-lang/simple/issues/15)
 - [ ] init functional console module to simplify working with command line and terminal 
