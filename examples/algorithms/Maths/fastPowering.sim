@@ -1,0 +1,26 @@
+/* 
+	Copyright (c) 2018 Abdulazeez Adeshina Abdulazeez <laisibizness@gmail.com> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+call "simple/utilities/Math.sim"
+
+block fastPowering(base, power)
+  if power == 0 {
+    return 1
+  }
+
+  if power % 2 == 0 {
+    multiplier = fastPowering(base, power / 2)
+    return multiplier * multiplier
+  }
+
+  multiplier = fastPowering(base, floor(power / 2))
+
+  return multiplier * multiplier * base
+
+end
+
+block main()
+  display fastPowering(10, 20) +nl

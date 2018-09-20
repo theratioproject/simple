@@ -1,0 +1,43 @@
+/* 
+	Copyright (c) 2018 Abdulazeez Adeshina Abdulazeez <laisibizness@gmail.com> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+block method_2(boundary, steps)
+  h = (boundary[1] - boundary[0] / steps)
+  a = boundary[0]
+  b = boundary[1]
+  x_i = makePoints(a, b, h)
+  y = 0.0
+  y += (h/3.0)*f(a)
+  cnt = 2
+  for i in x_i
+    y += (h/3)*(4-2*(cnt%2))*f(i)
+    cnt += 1
+  end
+  y += (h/3.0)*f(b)
+  return y
+
+end
+
+block makePoints(a,b,h)
+  x = a + h
+  while x < (b-h)
+    x = x*x*x
+    x = x + h
+  end
+end
+
+block f(x)
+  y = (x-0)*(x-0)
+  return y
+end
+
+block main()
+  a = 0.0
+  b = 1.0
+  steps = 10.0
+  boundary = [a, b]
+  y = method_2(boundary, steps)
+  display y +nl
