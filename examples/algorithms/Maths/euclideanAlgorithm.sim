@@ -1,0 +1,18 @@
+/* 
+	Copyright (c) 2018 Abdulazeez Adeshina Abdulazeez <laisibizness@gmail.com> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+call 'simple/utilities/Math.sim'
+
+block euclideanAlgorithm(originalA, originalB)
+  a = abs(originalA) b = abs(originalB)
+
+ if b == 0 {
+    return a
+ }  
+ return euclideanAlgorithm(b, a % b) end
+
+# block main()
+#   @ euclideanAlgorithm(10, 15)

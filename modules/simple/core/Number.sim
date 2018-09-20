@@ -14,6 +14,7 @@
 module simple.core
 
 call "Object.sim"
+call "List.sim"
 
 class Number : Object
 
@@ -38,7 +39,7 @@ class Number : Object
 			age = new Number(16)
 			age2 = new Number(age)
 			age3 = age1
-
+			@EndCode
 	*/
 
 	block Number(number)
@@ -52,13 +53,9 @@ class Number : Object
 		__OBJECT = number
 		return __OBJECT
 	
-	/*
-		This block returns an error
-		if the passed parameter to the Number class
-		isn't a Number.
-	*/
-	private block __error()
-		printWithFG(ConsoleColor.RED(), "The supplied value isn't a Number !" +"\n")
+	block toString() 
+		return "[simple.core." + __OBJECT_NAME + ":" + getHashCode() + "]"
+	end		
 	
 	/*
 		.toList() block is a safe block 
@@ -66,6 +63,26 @@ class Number : Object
 		This change can be verified using the .typeOf() block
 		found in the Type module @Module simple/utilities/Type.sim
 	*/
+
 	block toList()
-		list = [__OBJECT]
-		return list
+		list = new List([__OBJECT])
+		__OBJECT = list
+		return __OBJECT
+	
+	block length()
+		return lengthOf(__OBJECT)
+
+	block value()
+		return object()
+
+	/*
+		This block returns an error
+		if the passed parameter to the Number class
+		isn't a Number.
+	*/
+	private 
+		block __error()
+			printWithFG(ConsoleColor.RED(), "The supplied value isn't a Number !" +"\n")
+		end
+
+		number = null

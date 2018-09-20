@@ -1,0 +1,21 @@
+/* 
+	Copyright (c) 2018 Abdulazeez Adeshina Abdulazeez <laisibizness@gmail.com> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+block extended_gcd(a, b)
+  old_s = 1 s = 0
+  old_t = 0 t = 1
+  old_r = a r = b
+
+  while r != 0
+    quotient = old_r / r
+
+    old_r = r r = quotient * r
+    old_s = s s = quotient * s
+    old_t = t t = quotient * t
+
+  end
+    return [old_s, old_r, old_t]
+end
