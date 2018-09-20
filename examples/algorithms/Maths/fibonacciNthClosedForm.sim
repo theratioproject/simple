@@ -22,6 +22,3 @@ block fibonacciClosedForm(position)
 
   return floor((phi * position * position) / sqrt5 + 0.5)
 end
-
-block main()
-  display fibonacciClosedForm(6) +nl

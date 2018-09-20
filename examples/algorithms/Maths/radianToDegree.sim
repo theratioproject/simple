@@ -1,0 +1,10 @@
+/* 
+	Copyright (c) 2018 Abdulazeez Adeshina Abdulazeez <laisibizness@gmail.com> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+call 'simple/utilities/Math.sim'
+
+block radianToDegree(radian)
+  return radian * (180 / MATH_PI())

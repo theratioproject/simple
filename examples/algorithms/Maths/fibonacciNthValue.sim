@@ -24,6 +24,3 @@ block fibonacciNth(n)
   return currentValue
 
 end
-
-block main()
-  @ fibonacciNth(10) +nl

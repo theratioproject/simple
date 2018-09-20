@@ -1,0 +1,21 @@
+/* 
+	Copyright (c) 2018 Abdulazeez Adeshina Abdulazeez <laisibizness@gmail.com> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+block isPowerOfTwo(number)
+  if number < 1 {
+      return false # displays 0
+  }
+
+  dividedNumber = number
+  while dividedNumber != 1
+    if dividedNumber % 2 != 0 {
+        return false
+    }
+    dividedNumber /= 2
+  end
+  return true # displays 1
+end
+

@@ -32,6 +32,3 @@ block fibonacci(n)
   return fibSequence
 
 end
-
-block main()
-  display fibonacci(20) +nl

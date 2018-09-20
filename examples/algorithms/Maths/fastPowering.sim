@@ -21,6 +21,3 @@ block fastPowering(base, power)
   return multiplier * multiplier * base
 
 end
-
-block main()
-  display fastPowering(10, 20) +nl

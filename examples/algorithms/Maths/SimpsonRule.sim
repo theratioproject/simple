@@ -34,10 +34,11 @@ block f(x)
   return y
 end
 
-block main()
-  a = 0.0
-  b = 1.0
-  steps = 10.0
-  boundary = [a, b]
-  y = method_2(boundary, steps)
-  display y +nl
+# Example main block
+# block main()
+#   a = 0.0
+#   b = 1.0
+#   steps = 10.0
+#   boundary = [a, b]
+#   y = method_2(boundary, steps)
+#   display y +nl

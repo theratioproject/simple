@@ -19,6 +19,3 @@ block extended_gcd(a, b)
   end
     return [old_s, old_r, old_t]
 end
-
-block main()
-  display extended_gcd(1, 2) +nl
