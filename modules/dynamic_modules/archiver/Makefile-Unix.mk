@@ -6,11 +6,17 @@ BUILD_DIR := $(DIST)/build
 SOURCE_DIR := .
 SOURCE_FILES := $(wildcard $(SOURCE_DIR)/*.c)
 OBJECT_FILES := $(addprefix $(BUILD_DIR)/,$(notdir $(SOURCE_FILES:%.c=%.o)))
-LIB_FILE := $(DIST)/$(FILE).so
 DISABLE_WARNING_FLAG := -w # -Wno-implicit-function-declaration -Wno-int-conversion
 LINK_FLAGS := -shared
 LIB_FLAGS := -L../../../simple/dist/ -l$(PROGRAM_NAME)
 RELOCATION_FLAG := -fPIC
+
+OSNAME := $(shell uname)
+ifeq ($(OSNAME), Darwin)
+LIB_FILE := $(DIST)/$(FILE).dylib
+else
+LIB_FILE := $(DIST)/$(FILE).so
+endif
 
 # Dependency information
 SIMPLE_MAIN_SOURCE_DIR := ../../../simple/sources
