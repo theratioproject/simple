@@ -13,6 +13,7 @@ script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd)"
 # Getting the absolute paths of the relative paths to the script directory
 simple_executable_makefile_path=$(cd "$script_dir/../simple/makefiles" 2> /dev/null && pwd -P)
 dynamic_modules_makefile_path=$(cd "$script_dir/../modules/dynamic_modules/makefiles" 2> /dev/null && pwd -P)
+dynamic_library_ext="so"
 
 
 # ENTRY FUNCTIONS
@@ -20,6 +21,8 @@ main() {
     clear
 
 	check_if_is_sudo $@
+
+	get_os_platform
 
 	for param in "$@"
 	do
@@ -88,7 +91,7 @@ build_executable() {
 dynamic_modules_init() {
 	# The __first_calls.sim is important for the simple-lang modules to function
 	if [ -f $2 ]; then
-		echo "callDynamicModule(\"systemic.so\") callDynamicModule(\"string_savant.so\")" >> $2
+		echo "callDynamicModule(\"systemic.$dynamic_library_ext\") callDynamicModule(\"string_savant.$dynamic_library_ext\")" >> $2
         header "setup" "Dynamic modules setup completed"
 	else
 		display_error $1 "cannot find the __first_calls.sim file "
@@ -154,6 +157,7 @@ get_os_platform() {
 		  ;;
 		*darwin* )
 		  local myos="macosx"
+		  dynamic_library_ext="dylib"
 		  ;;
 		*aix* )
 		  local myos="aix"
@@ -191,7 +195,7 @@ help() {
 	echo "	-h --help	display this help message"
 	echo ""
 	echo "[STANDALONE BUILD FLAGS] :"
-	echo "	-so --simple-only	build only simple and libsimple.so"
+	echo "	-so --simple-only	build only simple and libsimple.$dynamic_library_ext"
 	echo "	-io --includes-only	copy only the simple includes files"
 	echo "	-mo --modules-only	copy only the standard modules"
 	echo "	-yo --dymodules-only	build only the dynamic modules"
