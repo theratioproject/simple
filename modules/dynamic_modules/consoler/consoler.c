@@ -106,20 +106,17 @@ void program_flush_console(void *pointer)
 
 void print_with_foreground_background ( void *pointer )
 {
-	if ( SIMPLE_API_PARACOUNT != 3 ) {
-		SIMPLE_API_ERROR(SIMPLE_API_MISS3PARA);
+	if ( SIMPLE_API_PARACOUNT != 4 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_MISS4PARA);
 		return ;
 	}
 	SIMPLE_API_IGNORECPOINTERTYPE ;
-	if ( ! SIMPLE_API_ISNUMBER(1) && ! SIMPLE_API_ISNUMBER(2) ) {
+	if ( ! SIMPLE_API_ISPOINTER(1) && ! SIMPLE_API_ISNUMBER(2) && ! SIMPLE_API_ISNUMBER(3) && SIMPLE_API_ISSTRING(4)) {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 		return ;
 	}
-	if ( ! SIMPLE_API_ISSTRING(3) ) {
-		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
-		return ;
-	}
-	cc_fprintf(((int ) SIMPLE_API_GETNUMBER(1) << 0 ) | ((int ) SIMPLE_API_GETNUMBER(2) << CC_COLOR_BITS ), stdout, SIMPLE_API_GETSTRING(3));
+	FILE* std_output = (FILE*) SIMPLE_API_GETCPOINTER(1,"SIMPLE_CONSOLE_");
+	cc_fprintf(((int ) SIMPLE_API_GETNUMBER(2) << 0 ) | ((int ) SIMPLE_API_GETNUMBER(3) << CC_COLOR_BITS ), std_output, SIMPLE_API_GETSTRING(4));
 }
 
 void program_exit ( void *pointer )

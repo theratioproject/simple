@@ -16,6 +16,7 @@ block main()
 	#global block
 	println(stdout, "print with newline Hello World globally")
 	print(stdout, "print Hello World globally")
+	printfc(stdout,ConsoleColor.RED()," The string in red")
 
 /*[obsolute]
 block main_old() 

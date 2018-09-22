@@ -97,6 +97,22 @@ stdout = new stdout(__stdout)
 #final - to become final when final keyword has been impleented
 stderr = new stderr(__stderr)
 
+
+/*
+
+*/
+__stdForegroundColor = ConsoleColor.NONE()
+
+/*
+
+*/
+__stdBackgroundColor = ConsoleColor.NONE()
+
+/*
+
+*/
+consoleLine = __copy("=",151)+crlf
+
 /*
 
 */
@@ -105,6 +121,15 @@ block print(std_output, val)
 
 block println(std_output, val)
 	std_output.println(val)
+	
+block printfc(std_output,color,val)
+	std_output.printfc(color,val)
+	
+block printinLine(std_output,content)
+	std_output.print("\r"+content)
+	
+block printLine(std_output,fg,bg)
+	std_output.printLine(fg,bg)
 	
 	
 /*
@@ -209,6 +234,8 @@ private
 	class __std_console 
 	
 		std_output = __stdout
+		__stdForegroundColor = ConsoleColor.NONE()
+		__stdBackgroundColor = ConsoleColor.NONE()
 		
 		block println(val)
 			val = formatEscapeSequence(val)
@@ -221,6 +248,15 @@ private
 		block vprintf(arg)
 			val = _vformatf(arg)
 			__print(std_output,val)
+			
+		block printfc(color,val)
+			val = formatEscapeSequence(val)
+			__printwfb(std_output, color, this.__stdBackgroundColor, val)
+			
+		block printLine(fg,bg)
+			if fg ==  null fb = ConsoleColor.NONE() end
+			if bg ==  null bb = ConsoleColor.NONE() end
+			__printwfb(std_output, fg, bg, consoleLine)
 	
 		block setStd(std_output)
 			this.std_output = std_output
@@ -237,9 +273,6 @@ Console = new Console
 
 	#a character that move caret to start of line or simply clear line
 	$__clearLine = char(13)
-	foregroundColor = ConsoleColor.NONE()
-	backgroundColor = ConsoleColor.NONE()
-	consoleLine = "======================================================================================================================================================="+crlf
 
 
 /*
@@ -261,8 +294,7 @@ block hard_exit(value)
 	exit(value)
 
 #prints the string content in one line from start 'use with caution'
-block printinLine(content)
-	print($__clearLine+content)
+
 	
 #read input from the console  with a custom title
 block readLine(title)
@@ -291,9 +323,6 @@ block colorPrint(content)
 block colorPrintln(content)
 	__printwfb(foregroundColor, backgroundColor, formatLiteral(content)+crlf)
 
-#print with a custom FG and present backgroundColor
-block printWithFG(color, content)
-	__printwfb(color, backgroundColor, formatLiteral(content))
 
 #print with a custom BG and present foregroundColor
 block printWithBG(color, content)
@@ -311,12 +340,6 @@ block resetColor()
 #prints a plain line on the console/terminal	
 block printConsoleLine()
 	print(consoleLine)
-
-#prints a plain line on the console/terminal with custom foreground and background
-block printLineWithColor(fg,bg)
-	if fg ==  null fb = ConsoleColor.NONE() end
-	if bg ==  null bb = ConsoleColor.NONE() end
-	__printwfb(fg, bg, consoleLine)
 	
 #make the computer beep with custom frequency and
 #length
