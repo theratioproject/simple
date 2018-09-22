@@ -1,19 +1,238 @@
+
 /* 
-	Copyright (c) 2016-2018 Azeez Adewale <azeezadewale98@gmail.com> 
-	MIT License Copyright (c) 2018 simple 
+	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com> 
+	MIT License Copyright (c) 2018 simple-lang
 
 */
 
 /* 
- * @Filename - Console.sim
- * @Author - Azeez Adewale
- * @Date - 5 Febuary 2017
+	#filename - Console.sim
+	#date - 5 Febuary 2017
+	#time - 09 : 29 PM
+	#license - MIT License Copyright (c) 2018 simple-lang
+	#author - Azeez Adewale	<azeezadewale98@gmail.com> 
  */
  
 module simple.utilities
 
-#Call the @Class  ConsoleColor which calls the @DyLib Consoler Module
+/*
+	call the @File ConsoleColor.sim which hold all the type of color for the foreground and background
+	of the console. The dynamic module @DynamicModule Consoler is also called in the file.
+*/
 call "ConsoleColor.sim" ? simple.utilities
+
+/*@Prefix
+
+*/
+
+/*
+	The standard output stream is the default destination of output for console programs. It is usually directed 
+	by default to the text console (generally, on the screen) which can be the terminal. 
+	<br />
+	Although it is commonly  assumed that the default destination for stdout is going to be the screen, this may 
+	not be the case even in regular console systems, since stdout can generally be redirected on most operating 
+	systems at the time of invoking the application. For example, many systems, among them DOS/Windows and most 
+	UNIX shells, support the following command syntax :
+	
+	```simple
+	theprogram > output.txt
+	```
+	
+	to redirect the output of **theprogram** to the file **output.txt** instead of the console.
+	<br />
+	It basically the normal C stdout which give output to the screen, but can be used to pipe output to another process 
+	or file.
+*/
+#final - to become final when final keyword has been impleented
+__stdout = __init_stdout()
+
+/*
+	The standard error stream is the default destination for error messages and other diagnostic warnings. Like 
+	@Variable __stdout, it is usually also directed by default to the text console (generally, on the screen).
+	
+	<br />
+	Although in many cases both @Variable __stdout and stderr are associated with the same output device (like the console), 
+	applications may differentiate between what is sent to @Variable __stdout and what to stderr for the case that one of them 
+	is redirected. For example, it is frequent to redirect the regular output of a console program (@Variable __stdout) to a 
+	file while expecting the error messages to keep appearing in the console.
+	<br />
+	It is also possible to redirect stderr to some other destination from within a program using the freopen function.
+	<br />
+	It basically the normal C stderr which give error and diagnostic output to the screen, but can be used to pipe 
+	output to another process or file.
+*/
+#final - to become final when final keyword has been impleented
+__stderr = __init_stderr()
+
+/*
+	The standard input stream is the default source of data for applications. It is usually directed by default to the 
+	keyboard.
+	<br />
+	it is commonly assumed that the source of data for stdin is going to be a keyboard, this may not be the case even 
+	in regular console systems, since stdin can generally be redirected on most operating systems at the time of 
+	invoking the application. For example, many systems, among them DOS/Windows and most UNIX shells, support the 
+	following command syntax :
+	
+	```simple
+	theprogram < output.txt
+	```
+	
+	to use the content of the file **output.txt** as the primary source of data for **theprogram** instead of the console 
+	keyboard.
+	<br />
+	It basically the normal C stdin, which accept input from keyboard but maybe used to pipe input from another process of 
+	file.
+*/
+#final - to become final when final keyword has been impleented
+__stdin = __init_stdin()
+
+
+/*
+	Create an instance of the @Class stdout for printing and outputing to the standard output
+*/
+#final - to become final when final keyword has been impleented
+stdout = new stdout(__stdout)
+
+/*
+	Create an instance of the @Class stderr for printing and outputing to the standard error and diagnostic output
+*/
+#final - to become final when final keyword has been impleented
+stderr = new stderr(__stderr)
+
+/*
+
+*/
+block print(std_output, val)
+	std_output.print(val)
+
+block println(std_output, val)
+	std_output.println(val)
+	
+	
+/*
+	Format the literal value to be printed in the output into the standard C Format with escape sequences. simple-lang
+	does not support escape sequences by default but rather depends on declared variables such as 
+	
+	```simple
+	nl - Newline
+	cr - Carriage Return
+	lf - Line Feed
+	tab - Tab
+	```
+	
+	<br />
+	This predefined variables in the VM are not final and can be changed in the program to another value thus it not very 
+	safe for standard use. using this block to format the literal will make it safe and will support the standard ANSI C 
+	literal format. The supported literal sequences are listed below.
+	
+	```simple
+	\a or \007	-	07	-	Alert
+	\b	-	08	-	Backspace
+	\f	-	12	-	Formfeed
+	\n	-	10	-	Newline
+	\r	-	13	-	Carriage Return
+	\t	-	09	-	Horizontal Tab
+	\v	-	11	-	Vertical Tab
+	\\	-	92	-	Carriage Backslash
+	\'	-	27	-	Single Quotation Mark
+	\"	-	22	-	Double Quotation Mark
+	\?	-	63	-	Question Mark (used to avoid @Link trigraph)
+	\e	-	27	-	Escape Character
+	```
+	
+	@Return the formated literal @DataType String
+	
+*/
+block formatEscapeSequence(val)
+	val = replaceString(val, "\a", char(07))
+	val = replaceString(val, "\007", char(07))
+	val = replaceString(val, "\b", char(08))
+	val = replaceString(val, "\f", char(12))
+	val = replaceString(val, "\n", char(10))
+	val = replaceString(val, "\r", char(13))
+	val = replaceString(val, "\t", char(09))
+	val = replaceString(val, "\v", char(11))
+	val = replaceString(val, "\\", char(92))
+	val = replaceString(val, "\'", char(27))
+	val = replaceString(val, '\"', char(22))
+	val = replaceString(val, '\?', char(63))
+	val = replaceString(val, '\e', char(27))
+	return val
+	
+block _vformatf(arg)
+	value = arg[0]
+	finalValue = ""
+	valueLen = lengthOf(value)
+	for a = 0 to valueLen  {
+		switch value[a] {
+			case "#"
+				a++
+				if value[a] == '{' {
+					t_v = value[a++]
+					if t_v != 0 {
+						v = arg[t_v * 1] 
+					else
+						v = "null"
+					}
+					finalValue += v 
+					if value[a+1] == '}' { a++ }
+				}
+			default 
+				finalValue += value[a]
+		}
+		
+	}
+	return formatEscapeSequence(finalValue)
+
+class stdout : __std_console
+
+	block stdout(std_output)
+		this.std_output = std_output
+		
+	block setStdOut(std_output)
+		this.std_output = std_output
+		
+	block getStdOut()
+		return std_output
+
+class stderr : __std_console
+
+	block stderr(std_output)
+		this.std_output = std_output
+		
+	block setStdErr(std_output)
+		this.std_output = std_output
+		
+	block getStdErr()
+		return std_output
+
+private 
+
+	class __std_console 
+	
+		std_output = __stdout
+		
+		block println(val)
+			val = formatEscapeSequence(val)
+			__print(std_output,val+nl)
+			
+		block print(val)
+			val = formatEscapeSequence(val)
+			__print(std_output,val)
+			
+		block vprintf(arg)
+			val = _vformatf(arg)
+			__print(std_output,val)
+	
+		block setStd(std_output)
+			this.std_output = std_output
+		
+		block getStd()
+			return std_output
+
+
+#undone
+
 
 #Console is initialized as a variable in order to allow usage as Console.block()
 Console = new Console
@@ -37,22 +256,11 @@ block console_exit(value)
 	
 block console_sleep(value)
 	__sleep(value)
-	
-#prints string content with new line
-block println(content) 
-	print(content+crlf) 
-	
-block printLine(content)
-	print(content+crlf)
 
 #just making the @Block exit(value) available in the @Class Console 
 #to support OOP
 block hard_exit(value)
 	exit(value)
-
-#prints string content
-block print(content)
-	display formatLiteral(content)
 
 #prints the string content in one line from start 'use with caution'
 block printinLine(content)
@@ -124,7 +332,7 @@ block singleBeep()
 
 #by default all escape character is not supported 
 #this block formatLiteral(content) allows for escape character supports
-block formatLiteral(content)
+/*block formatLiteral(content)
 	inContent = ""
 	if isNumber(content) 
 		content = ""+content
@@ -149,7 +357,7 @@ block formatLiteral(content)
 				inContent +=  content[a]
 		end
 	end
-	return inContent
+	return inContent */
 
 
 
@@ -157,5 +365,3 @@ block formatLiteral(content)
 #the @Class Console act mostly as a delegate to the @DyLib Consoler 
 #which hold most of the block in this class
 class Console 
-
-	

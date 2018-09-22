@@ -255,16 +255,36 @@ int simple_parser_stmt ( Parser *parser )
 	/* Statement --> Load Literal */
 	if ( simple_parser_iskeyword(parser,KEYWORD_CALL) ) {
             simple_parser_nexttoken(parser); 
-		if ( simple_parser_isliteral(parser) ) {
+		if ( simple_parser_isliteral(parser) || simple_parser_isidentifier(parser)) {
+			if (simple_parser_isliteral(parser)) {
+				strcpy(file_name,parser->TokenText);
+			} else {
+				String *module_name ;
+				module_name = simple_string_new_gc(parser->sState,parser->TokenText);
+				simple_parser_nexttoken(parser);
+				while ( simple_parser_isoperator2(parser,OP_DOT) || simple_parser_isoperator(parser, "/") ) {
+					simple_parser_nexttoken(parser);
+					simple_string_add_gc(parser->sState,module_name,"/");
+					if ( simple_parser_isidentifier(parser) ) {
+						simple_string_add_gc(parser->sState,module_name,parser->TokenText);
+						simple_parser_nexttoken(parser);
+					} else {
+						parser_error(parser,PARSER_ERROR_MODULENAME);
+						simple_string_delete(module_name);
+						return 0;
+					}
+				}
+				simple_string_add_gc(parser->sState,module_name,".sim");
+				strcpy(file_name,module_name->str);
+			}
 			/* Check File in the simple/bin folder */
-			strcpy(file_name,parser->TokenText);
-			if ( simple_fexists(parser->TokenText) == 0 ) {
+			/*if ( simple_fexists(parser->TokenText) == 0 ) {
 				simple_exefolder(file_name);
 				strcat(file_name,parser->TokenText);
 				if ( simple_fexists(file_name) == 0 ) {
 					strcpy(file_name,parser->TokenText);
 				}
-			}
+			} *///this comment block is EVILLLL
 			/* Generate Code */
 			simple_parser_icg_newoperation(parser,ICO_FILENAME);
 			simple_parser_icg_newoperand(parser,file_name);
@@ -295,10 +315,10 @@ int simple_parser_stmt ( Parser *parser )
 			simple_parser_icg_newoperand(parser,simple_list_getstring(parser->sState->files_stack,simple_list_getsize(parser->sState->files_stack)));
 			simple_parser_icg_newoperation(parser,ICO_FREESTACK);
 			simple_parser_nexttoken(parser); 
-                        if (simple_parser_isoperator2(parser,OP_MUL) || simple_parser_isoperator(parser, "?") || simple_parser_isoperator(parser, "@")) {
-                            simple_parser_nexttoken(parser);
-                            return load_module(parser);
-                        }
+				if (simple_parser_isoperator2(parser,OP_MUL) || simple_parser_isoperator(parser, "?") || simple_parser_isoperator(parser, "@")) {
+					simple_parser_nexttoken(parser);
+					return load_module(parser);
+				}
 			return x ;
 		} else {
                     /* Generate Code */
@@ -1302,7 +1322,7 @@ int simple_parser_passepslion ( Parser *parser )
 
 int simple_parser_namedotname ( Parser *parser )
 {
-	String *string  ;
+	String *string ;
 	if ( simple_parser_isidentifier(parser) ) {
 		/* Get Token Text */
 		string = simple_string_new_gc(parser->sState,parser->TokenText);

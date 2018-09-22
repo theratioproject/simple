@@ -3,6 +3,7 @@
 
 [DynamicModule]{
 	[Mathic](https://github.com/simple-lang/simple/tree/master/modules/dynamic_modules/mathic)
+	[Consoler](https://github.com/simple-lang/simple/tree/master/modules/dynamic_modules/mathic)
 }
 
 [Examples]{
@@ -15,4 +16,8 @@
 	[TryOnline](https://simple-lang.sourceforge.io)
 	[Download](https://simple-lang.sourceforge.io/cgi-bin/simple-web/index.sim?page=Download)
 	[Contribute](https://simple-lang.sourceforge.io/cgi-bin/simple-web/index.sim?page=Contribute)
+}
+
+[Link] {
+	[trigraph](https://en.wikipedia.org/wiki/Digraphs_and_trigraphs#C)
 }

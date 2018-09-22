@@ -1,8 +1,24 @@
 
 #1
-call "simple/utilities/Console.sim" ? simple.utilities
+call simple.utilities.Console 
 
-block main() {
+
+block main()
+	#the stdout
+	stdout.println("\tHello World")
+	stdout.print("Yes you the boss\n")
+	stdout.vprintf(["#{1} #{2} #{3} bit #{4} of version #{5}\n", "this", "is", 8 * 8, "simple-lang", getSimpleVersion()])
+	
+	#the std err
+	stderr.println("This is an error")
+	stderr.print("This is an error in print\n")
+	
+	#global block
+	println(stdout, "print with newline Hello World globally")
+	print(stdout, "print Hello World globally")
+
+/*[obsolute]
+block main_old() 
 	print("\tHello World\n")
 	println("it simple")
 	println("Simple Inteligent and Modular Programming Language")
@@ -24,4 +40,4 @@ block main() {
 	colorPrint(" Hello Adewale in green\n")
 	resetColor()
 	colorPrint(" Hello Adewale in default\n")
-}
+*/

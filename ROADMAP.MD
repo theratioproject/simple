@@ -47,6 +47,11 @@ build, installation, features e.t.c
 - [ ] build script should create a .a archive for statically linking simple-lang runtime on linux os
 - [ ] build script should create a .a archive for statically linking simple-lang runtime on mac os
 - [ ] build script should create a .a archive for statically linking simple-lang runtime on haiku os
+- [ ] add a new flexible keyword to lock a variable to a particular declaration similar to **final** to prevent re initializing
+- [ ] allow strong and weak typing to prevent inconsistent and conflicting initialization
+- [ ] add directive for compiler notation in [] format
+- [ ] VM should treat really really large number ad big as 10e+50
+- [ ] allow calling file with explicit module name translating to literal e.g `call simple.core.String` = `call "simple\core\String.sim"`
 - [ ] Add strict equality `===` and `!==`
 - [ ] Add the `**` operator
 
@@ -55,7 +60,6 @@ build, installation, features e.t.c
 To dos and features relative to the simple-lang standard modules which includes new modules addition, module modification or any other
 issue related to the module
 
-- [ ] Build a web server module
 - [ ] create the input output (io) module which include File, Path, Directory, PathAttribute, PathType, FileStream
 - [ ] create all high level data types [working issue](https://github.com/simple-lang/simple/issues/15)
 - [ ] init functional console module to simplify working with command line and terminal 

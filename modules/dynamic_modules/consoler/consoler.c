@@ -36,12 +36,62 @@
 
 SIMPLE_API void init_simple_module(SimpleState *sState)
 {   
+	//standard streams
+    register_block("__init_stdout",init_stdout);
+    register_block("__init_stderr",init_stderr);
+    register_block("__init_stdin",init_stdin);
+	
+	//print and read line
+    register_block("__print",std_print);
+    
     register_block("__flush_console",program_flush_console);
     register_block("__printwfb",print_with_foreground_background);
     register_block("__exit",program_exit);
     register_block("__sleep",program_sleep);
-    
+	
 }
+
+//standard streams
+void init_stdout(void *pointer)
+{
+	if ( SIMPLE_API_PARACOUNT != 0 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+		return ;
+	} else {
+		SIMPLE_API_RETCPOINTER(stdout,"SIMPLE_CONSOLE_");
+	}
+} 
+
+void init_stderr(void *pointer)
+{
+	if ( SIMPLE_API_PARACOUNT != 0 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+		return ;
+	} else {
+		SIMPLE_API_RETCPOINTER(stderr,"SIMPLE_CONSOLE_");
+	}
+} 
+
+void init_stdin(void *pointer)
+{
+	if ( SIMPLE_API_PARACOUNT != 0 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+		return ;
+	} else {
+		SIMPLE_API_RETCPOINTER(stdin,"SIMPLE_CONSOLE_");
+	}
+} 
+
+//print and read line
+void std_print(void *pointer)
+{
+	if ( SIMPLE_API_PARACOUNT != 2 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
+	} else {
+		FILE* std_output = (FILE*) SIMPLE_API_GETCPOINTER(1,"SIMPLE_CONSOLE_");
+		fprintf( std_output, SIMPLE_API_GETSTRING(2) );
+	}
+} 
 
 void program_flush_console(void *pointer)
 {

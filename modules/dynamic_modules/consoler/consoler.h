@@ -87,14 +87,17 @@ typedef enum {
 #define COMMON_LVB_UNDERSCORE      0x8000
 #endif
 
+//standard streams
+void init_stdout(void *pointer);
+void init_stderr(void *pointer);
+void init_stdin(void *pointer);
+
+void std_print(void *pointer);
+
 int cc_fprintf(cc_color_t color, FILE* stream, const char* format, ...);
-
 void program_flush_console(void *pointer);
-
 void print_with_foreground_background ( void *pointer ) ;
-
 void program_exit ( void *pointer ) ;
-
 void program_sleep ( void *pointer ) ;
 
 #ifdef __cplusplus
