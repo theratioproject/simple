@@ -51,7 +51,7 @@ build, installation, features e.t.c
 - [ ] allow strong and weak typing to prevent inconsistent and conflicting initialization
 - [ ] add directive for compiler notation in [] format
 - [ ] VM should treat really really large number ad big as 10e+50
-- [ ] allow calling file with explicit module name translating to literal e.g `call simple.core.String` = `call "simple\core\String.sim"`
+- [x] allow calling file with explicit module name translating to literal e.g `call simple.core.String` = `call "simple\core\String.sim"`
 - [ ] Add strict equality `===` and `!==`
 - [ ] Add the `**` operator
 

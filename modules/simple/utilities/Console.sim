@@ -12,14 +12,12 @@
 	#license - MIT License Copyright (c) 2018 simple-lang
 	#author - Azeez Adewale	<azeezadewale98@gmail.com> 
  */
- 
-module simple.utilities
 
 /*
 	call the @File ConsoleColor.sim which hold all the type of color for the foreground and background
 	of the console. The dynamic module @DynamicModule Consoler is also called in the file.
 */
-call "ConsoleColor.sim" ? simple.utilities
+call simple.utilities.ConsoleColor
 
 /*@Prefix
 

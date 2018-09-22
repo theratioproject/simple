@@ -132,6 +132,17 @@ int simple_parser_nexttoken ( Parser *parser )
 	return 0 ;
 }
 
+int simple_parser_previoustoken ( Parser *parser )
+{
+	assert(parser != NULL);
+	if ( parser->ActiveToken < parser->TokensCount ) {
+		parser->ActiveToken-- ;
+		simple_parser_loadtoken(parser);
+		return 1 ;
+	}
+	return 0 ;
+}
+
 int simple_parser_iskeyword ( Parser *parser,SCANNER_KEYWORD x )
 {
 	assert(parser != NULL);
