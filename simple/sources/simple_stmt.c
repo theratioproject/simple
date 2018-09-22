@@ -242,7 +242,7 @@ int simple_parser_class ( Parser *parser )
 
 int simple_parser_stmt ( Parser *parser )
 {
-	int x,nMark1,nMark2,nMark3,nStart,nEnd,nPerformanceLocations,nFlag,nLoadModules,call_type  ;
+	int x,nMark1,nMark2,nMark3,nStart,nEnd,nPerformanceLocations,nFlag,nLoadModules,call_type,is_last_module  ;
 	String *string, *module_name, *main_module_name ;  ;
 	List *pMark,*pMark2,*pMark3,*list2  ;
 	double nNum1  ;
@@ -252,6 +252,7 @@ int simple_parser_stmt ( Parser *parser )
 	nPerformanceLocations = 0 ;
 	nLoadModules = 0 ;
 	call_type = 0;
+	is_last_module = 0;
 	assert(parser != NULL);
 	/* Statement --> Load Literal */
 	if ( simple_parser_iskeyword(parser,KEYWORD_CALL) ) {

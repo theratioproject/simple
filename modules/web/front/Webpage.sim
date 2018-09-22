@@ -10,7 +10,7 @@ call "web/front/elements/Elements.sim" ? web.front.elements
 
 class Webpage 
 
-	head = new Head
+	head = new web.front.elements.Head
 	mainTagStyle = ""
 	bodyClass = ""
 	websiteBody = ''
