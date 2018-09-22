@@ -150,6 +150,8 @@ void simple_parser_loadtoken ( Parser *parser ) ;
 
 int simple_parser_nexttoken ( Parser *parser ) ;
 
+int simple_parser_previoustoken ( Parser *parser ) ;
+
 int simple_parser_iskeyword ( Parser *parser,SCANNER_KEYWORD x ) ;
 
 int simple_parser_isoperator ( Parser *parser,const char *cStr ) ;

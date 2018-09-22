@@ -5,8 +5,9 @@
 
 */
 
-call "simple/utilities/Console.sim"
-call "simple/system/System.sim"
+call simple.utilities.Console
+call simple.system.System
+call simple.core.String
 
 simpleReplTitle = " 
                                                                                                          | 
@@ -25,16 +26,17 @@ simpleReplTitle = "
                                                                                                          |  
 "
 	
-	printLineWithColor(ConsoleColor.GREEN(), null)
-	printWithFG(ConsoleColor.YELLOW(), simpleReplTitle)
-	printLineWithColor(ConsoleColor.GREEN(), null)
+	printLine(stdout,ConsoleColor.GREEN(), null)
+	printfc(stdout,ConsoleColor.YELLOW(), simpleReplTitle)
+	printLine(stdout,ConsoleColor.GREEN(), null)
+	curDir = lastStringAfterChar(currentDirectory(),System.getSystemSlash())
 while true {
-	printWithFG(ConsoleColor.CYAN(), "simple@") display currentDirectory()+" >>> "
+	printfc(stdout,ConsoleColor.CYAN(), "simple@") display curDir+" >>> "
 	read code
 	try
 		executeCode(code)
 		display nl
 	catch
-		printWithFG(ConsoleColor.RED(), __err__+"\n")
+		printfc(stderr,ConsoleColor.RED(), __err__+"\n")
 	end
 } 

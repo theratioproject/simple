@@ -242,8 +242,8 @@ int simple_parser_class ( Parser *parser )
 
 int simple_parser_stmt ( Parser *parser )
 {
-	int x,nMark1,nMark2,nMark3,nStart,nEnd,nPerformanceLocations,nFlag,nLoadModules  ;
-	String *string  ;
+	int x,nMark1,nMark2,nMark3,nStart,nEnd,nPerformanceLocations,nFlag,nLoadModules,call_type,is_last_module  ;
+	String *string, *module_name, *main_module_name ;  ;
 	List *pMark,*pMark2,*pMark3,*list2  ;
 	double nNum1  ;
 	char cStr[50]  ;
@@ -251,20 +251,50 @@ int simple_parser_stmt ( Parser *parser )
 	char cCurrentDir[SIMPLE_PATHSIZE]  ;
 	nPerformanceLocations = 0 ;
 	nLoadModules = 0 ;
+	call_type = 0;
+	is_last_module = 0;
 	assert(parser != NULL);
 	/* Statement --> Load Literal */
 	if ( simple_parser_iskeyword(parser,KEYWORD_CALL) ) {
             simple_parser_nexttoken(parser); 
-		if ( simple_parser_isliteral(parser) ) {
+		if ( simple_parser_isliteral(parser) || simple_parser_isidentifier(parser)) {
+			if (simple_parser_isliteral(parser)) {
+				strcpy(file_name,parser->TokenText);
+			} else {
+				module_name = simple_string_new_gc(parser->sState,parser->TokenText);
+				main_module_name = simple_string_new_gc(parser->sState,parser->TokenText);
+				simple_parser_nexttoken(parser);
+				while ( simple_parser_isoperator2(parser,OP_DOT) || simple_parser_isoperator(parser, "/") ) {
+					simple_parser_nexttoken(parser);
+					simple_string_add_gc(parser->sState,module_name,"/");
+					if ( simple_parser_isidentifier(parser) ) {
+						simple_string_add_gc(parser->sState,module_name,parser->TokenText);
+						simple_parser_nexttoken(parser);
+						if (simple_parser_isoperator2(parser,OP_DOT) || simple_parser_isoperator(parser, "/")) {
+							simple_parser_previoustoken (parser);
+							simple_string_add_gc(parser->sState,main_module_name,".");
+							simple_string_add_gc(parser->sState,main_module_name,parser->TokenText);
+						} 
+						simple_parser_nexttoken(parser);
+					} else {
+						parser_error(parser,PARSER_ERROR_MODULENAME);
+						simple_string_delete(module_name);
+						simple_string_delete(main_module_name);
+						return 0;
+					}
+				}
+				simple_string_add_gc(parser->sState,module_name,".sim");
+				strcpy(file_name,module_name->str);
+				call_type = 1 ;
+			}
 			/* Check File in the simple/bin folder */
-			strcpy(file_name,parser->TokenText);
-			if ( simple_fexists(parser->TokenText) == 0 ) {
+			/*if ( simple_fexists(parser->TokenText) == 0 ) {
 				simple_exefolder(file_name);
 				strcat(file_name,parser->TokenText);
 				if ( simple_fexists(file_name) == 0 ) {
 					strcpy(file_name,parser->TokenText);
 				}
-			}
+			} *///this comment block is EVILLLL
 			/* Generate Code */
 			simple_parser_icg_newoperation(parser,ICO_FILENAME);
 			simple_parser_icg_newoperand(parser,file_name);
@@ -273,7 +303,7 @@ int simple_parser_stmt ( Parser *parser )
 			#if SIMPLE_PARSERTRACE
 			SIMPLE_STATE_CHECKPRINTRULES
 
-			puts("Rule : Statement  --> 'call' Literal");
+			puts("Rule : Statement  --> 'call' Literal|module");
 			#endif
 			/* No package at the start of the file */
 			parser->ClassesMap = parser->sState->classes_map ;
@@ -294,22 +324,34 @@ int simple_parser_stmt ( Parser *parser )
 			simple_parser_icg_newoperation(parser,ICO_FILENAME);
 			simple_parser_icg_newoperand(parser,simple_list_getstring(parser->sState->files_stack,simple_list_getsize(parser->sState->files_stack)));
 			simple_parser_icg_newoperation(parser,ICO_FREESTACK);
-			simple_parser_nexttoken(parser); 
-                        if (simple_parser_isoperator2(parser,OP_MUL) || simple_parser_isoperator(parser, "?") || simple_parser_isoperator(parser, "@")) {
-                            simple_parser_nexttoken(parser);
-                            return load_module(parser);
-                        }
+			if (call_type == 0) {
+				simple_parser_nexttoken(parser); 
+				if (simple_parser_isoperator2(parser,OP_MUL) || simple_parser_isoperator(parser, "?") || simple_parser_isoperator(parser, "@")) {
+					simple_parser_nexttoken(parser);
+					return load_module(parser);
+				}
+			} else {
+				simple_parser_icg_newoperation(parser,ICO_IMPORT);
+				#if SIMPLE_PARSERTRACE
+				SIMPLE_STATE_CHECKPRINTRULES
+
+				puts("Rule : Statement  --> '?'['@'] Identifier{'.'identifier}");
+				#endif
+				simple_parser_icg_newoperand(parser,simple_string_get(main_module_name));
+				simple_string_delete_gc(parser->sState,main_module_name);
+				return 1;
+			}
 			return x ;
 		} else {
-                    /* Generate Code */
-                    simple_parser_icg_newoperation(parser,ICO_IMPORT);
-                    #if SIMPLE_PARSERTRACE
-                    SIMPLE_STATE_CHECKPRINTRULES
+			/* Generate Code */
+			simple_parser_icg_newoperation(parser,ICO_IMPORT);
+			#if SIMPLE_PARSERTRACE
+			SIMPLE_STATE_CHECKPRINTRULES
 
-                    puts("Rule : Statement  --> 'Import' Identifier{'.'identifier}");
-                    #endif
-                    return simple_parser_namedotname(parser) ;
-                } 
+			puts("Rule : Statement  --> 'Import' Identifier{'.'identifier}");
+			#endif
+			return simple_parser_namedotname(parser) ;
+		} 
 		return 0 ;
 	}
 	/* Statement --> display Expr */
@@ -1302,7 +1344,7 @@ int simple_parser_passepslion ( Parser *parser )
 
 int simple_parser_namedotname ( Parser *parser )
 {
-	String *string  ;
+	String *string ;
 	if ( simple_parser_isidentifier(parser) ) {
 		/* Get Token Text */
 		string = simple_string_new_gc(parser->sState,parser->TokenText);

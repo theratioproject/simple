@@ -36,12 +36,62 @@
 
 SIMPLE_API void init_simple_module(SimpleState *sState)
 {   
+	//standard streams
+    register_block("__init_stdout",init_stdout);
+    register_block("__init_stderr",init_stderr);
+    register_block("__init_stdin",init_stdin);
+	
+	//print and read line
+    register_block("__print",std_print);
+    
     register_block("__flush_console",program_flush_console);
     register_block("__printwfb",print_with_foreground_background);
     register_block("__exit",program_exit);
     register_block("__sleep",program_sleep);
-    
+	
 }
+
+//standard streams
+void init_stdout(void *pointer)
+{
+	if ( SIMPLE_API_PARACOUNT != 0 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+		return ;
+	} else {
+		SIMPLE_API_RETCPOINTER(stdout,"SIMPLE_CONSOLE_");
+	}
+} 
+
+void init_stderr(void *pointer)
+{
+	if ( SIMPLE_API_PARACOUNT != 0 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+		return ;
+	} else {
+		SIMPLE_API_RETCPOINTER(stderr,"SIMPLE_CONSOLE_");
+	}
+} 
+
+void init_stdin(void *pointer)
+{
+	if ( SIMPLE_API_PARACOUNT != 0 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+		return ;
+	} else {
+		SIMPLE_API_RETCPOINTER(stdin,"SIMPLE_CONSOLE_");
+	}
+} 
+
+//print and read line
+void std_print(void *pointer)
+{
+	if ( SIMPLE_API_PARACOUNT != 2 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
+	} else {
+		FILE* std_output = (FILE*) SIMPLE_API_GETCPOINTER(1,"SIMPLE_CONSOLE_");
+		fprintf( std_output, SIMPLE_API_GETSTRING(2) );
+	}
+} 
 
 void program_flush_console(void *pointer)
 {
@@ -56,20 +106,17 @@ void program_flush_console(void *pointer)
 
 void print_with_foreground_background ( void *pointer )
 {
-	if ( SIMPLE_API_PARACOUNT != 3 ) {
-		SIMPLE_API_ERROR(SIMPLE_API_MISS3PARA);
+	if ( SIMPLE_API_PARACOUNT != 4 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_MISS4PARA);
 		return ;
 	}
 	SIMPLE_API_IGNORECPOINTERTYPE ;
-	if ( ! SIMPLE_API_ISNUMBER(1) && ! SIMPLE_API_ISNUMBER(2) ) {
+	if ( ! SIMPLE_API_ISPOINTER(1) && ! SIMPLE_API_ISNUMBER(2) && ! SIMPLE_API_ISNUMBER(3) && SIMPLE_API_ISSTRING(4)) {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 		return ;
 	}
-	if ( ! SIMPLE_API_ISSTRING(3) ) {
-		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
-		return ;
-	}
-	cc_fprintf(((int ) SIMPLE_API_GETNUMBER(1) << 0 ) | ((int ) SIMPLE_API_GETNUMBER(2) << CC_COLOR_BITS ), stdout, SIMPLE_API_GETSTRING(3));
+	FILE* std_output = (FILE*) SIMPLE_API_GETCPOINTER(1,"SIMPLE_CONSOLE_");
+	cc_fprintf(((int ) SIMPLE_API_GETNUMBER(2) << 0 ) | ((int ) SIMPLE_API_GETNUMBER(3) << CC_COLOR_BITS ), std_output, SIMPLE_API_GETSTRING(4));
 }
 
 void program_exit ( void *pointer )

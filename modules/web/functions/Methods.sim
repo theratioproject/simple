@@ -1,4 +1,7 @@
 
+module web.functions
+
+
 call "simple/system/System.sim"
 call "simple/core/String.sim"
 call "simple/utilities/Conversion.sim"

@@ -244,8 +244,9 @@ class List : Object
 
 	block concat(arr)
 		# Current work around. It isn't working yet.
-		for a-1 in arr
-			__OBJECT + a
+		arrLen = lengthOf(arr)
+		for a = 0 to arrLen
+			__OBJECT + arr[a]
 		end
 		return __OBJECT
 	/*
