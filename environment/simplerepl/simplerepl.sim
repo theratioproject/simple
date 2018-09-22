@@ -37,6 +37,6 @@ while true {
 		executeCode(code)
 		display nl
 	catch
-		printfc(ConsoleColor.RED(), __err__+"\n")
+		printfc(stderr,ConsoleColor.RED(), __err__+"\n")
 	end
 } 
