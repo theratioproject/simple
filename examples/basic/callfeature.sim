@@ -1,0 +1,42 @@
+
+call simple.core.String 
+call simple.io.File
+call web.functions.Methods
+call web.front.Webpage
+call web.front.Elements
+call web.style.StyleAttributes
+call simple.system.SimpleX
+
+@encodeUrl("http://www.simple-lang.sourceforge.io/?page=Try Online")
+@encodeUrl("https://github.com/simple-lang/simple/pull/34")
+@encodeUrl("https://gitter.im/simple-language/development")
+@encodeUrl("http://www.cplusplus.com/reference/cstdio/")
+@encodeUrl("http://developer.classpath.org/doc/java/io/PrintStream.html")
+
+footer = new Footer
+footer.addHTML('<script src="./assets/js/bootstrap.js"></script>')
+
+webpage = new Webpage()
+webpage.setTitle("Call New Feature test")
+webpage.addFooter(footer)
+webpage.render()
+
+@""
+@RIGHT
+@ALIGN_RIGHT
+@ZERO_RIGHT
+@LEFT
+@ALIGN_LEFT
+@ZERO_LEFT
+@CENTER
+@ALIGN_CENTER
+@ALIGN_CENTER_HACK
+@WIDTH
+@FULL_WIDTH
+
+@""
+@simpleModulesDirectory()
+@simpleDirectory()
+@dynamicModuleExt()
+@simpleXExeExt()
+@simpleExecDirectory()
