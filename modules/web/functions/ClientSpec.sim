@@ -1,4 +1,6 @@
 
+module web.functions
+
 call "Methods.sim"
 
 CLIENTSPEC = []
