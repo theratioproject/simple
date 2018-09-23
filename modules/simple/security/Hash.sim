@@ -12,9 +12,9 @@
  
 module simple.security
 
-call "simple/debugging/Throw.sim"
-call "simple/utilities/Math.sim"
-call "simple/core/DynamicLoader.sim" ? simple.core
+call simple.debugging.Throw
+call simple.utilities.Math
+call simple.core.DynamicLoader
 callModule("security")
 
 #intHashashing string is calculating an integer hash of a string which 

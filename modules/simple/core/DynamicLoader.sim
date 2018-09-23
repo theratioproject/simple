@@ -13,7 +13,7 @@
 module simple.core
 
 call "__first_calls.sim"
-call "simple/core/String.sim"
+call simple.core.String
  
 	dynamicModules = []
  

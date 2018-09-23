@@ -6,7 +6,7 @@
 
 module web.front.elements
 
-call "web/style/StyleAttributes.sim" call "web/style/StyleColor.sim" ? web.style
+call web.style.StyleAttributes call web.style.StyleColor
 
 class Element
 

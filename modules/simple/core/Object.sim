@@ -12,7 +12,7 @@
  
 module simple.core
 
-call "simple/security/Hash.sim"
+call simple.security.Hash
 call "Types.sim"
 call "BaseFields.sim"
 

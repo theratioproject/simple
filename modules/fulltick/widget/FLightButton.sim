@@ -14,7 +14,7 @@
 module fulltick.widget
 
 #call the @Class FBox File for blocks inheritance
-call "fulltick/widget/FButton.sim" ? fulltick.widget
+call fulltick.widget.FButton
 
 #The @Class FLightButton  is a child class inheriting
 #Most of it blocks from the @Class FButton widget. This widget is a #typical button that execute it click in the @Block callback(cb) in

@@ -1,10 +1,9 @@
-
 module web.functions
 
 
-call "simple/system/System.sim"
-call "simple/core/String.sim"
-call "simple/utilities/Conversion.sim"
+call simple.system.System
+call simple.core.String
+call simple.utilities.Conversion
 
 GET = []
 POST = []
@@ -133,13 +132,3 @@ block __loadServerList()
 		SERVER[__SERVER_VALUES[a]] = serverEnv
 	}
 	return SERVER
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	

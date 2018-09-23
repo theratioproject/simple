@@ -14,7 +14,7 @@
 module fulltick.widget
 
 #call the @Class FBox File for blocks inheritance
-call "fulltick/widget/FBox.sim" ? fulltick.core
+call fulltick.widget.FBox
 
 /* NUMBERS */
 

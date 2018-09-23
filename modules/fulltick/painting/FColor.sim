@@ -15,7 +15,7 @@ module fulltick.painting
 
 #@Call the @Class Throw for the debugging 
 #@Call the @Class BaseFields to access the predeclared variable and blocks
-call "simple/debugging/Throw.sim"
+call simple.debugging.Throw
 #call "simple/core/BaseFields.sim"
 
 #Declare a variable of same @Class FColor name to allow blocks access 

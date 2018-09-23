@@ -14,7 +14,7 @@
 module fulltick.widget
 
 #call the @Class FWidget File for general widget blocks inheritance
-call "fulltick/core/FWidget.sim" ? fulltick.core
+call fulltick.core.FWidget
 
 #The @Class FBox is a child class inheriting
 #Most of it blocks from the @Class FWidget

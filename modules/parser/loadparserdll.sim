@@ -11,8 +11,8 @@
  * @Time - 11:44 AM
  */
  
-module simple.utilities.parser
+module parser
 
 #Call all the low level function of the @DynamicModule parser
-call "simple/core/DynamicLoader.sim" ? simple.core
+call simple.core.DynamicLoader
 callModule("parser")
