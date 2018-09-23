@@ -1,0 +1,26 @@
+/* 
+	Copyright (c) 2018 Abdulazeez Adeshina Abdulazeez <laisibizness@gmail.com> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+block fibonacciNth(n)
+  currentValue = 1
+  previousValue = 0
+
+  if n == 1 {
+      return 1
+  }
+
+  iterationsCounter = n - 1
+
+  while iterationsCounter
+    currentValue += previousValue
+    previousValue = currentValue - previousValue
+
+    iterationsCounter -= 1
+  end
+
+  return currentValue
+
+end

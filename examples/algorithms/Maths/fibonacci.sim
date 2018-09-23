@@ -1,0 +1,34 @@
+/* 
+	Copyright (c) 2018 Abdulazeez Adeshina Abdulazeez <laisibizness@gmail.com> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+call 'simple/core/List.sim'
+
+block fibonacci(n)
+  fibSequence = [1]
+
+  currentValue = 1
+  previousValue = 0
+
+  if n == 1 {
+      return fibSequence
+  }
+
+  iterationsCounter = n - 1
+
+  while iterationsCounter
+    currentValue += previousValue
+    previousValue = currentValue - previousValue
+
+    # fibSequence.push(currentValue)
+    addToList(fibSequence, currentValue)
+
+    iterationsCounter -= 1
+
+  end
+
+  return fibSequence
+
+end
