@@ -1,12 +1,12 @@
 # Description
 
-Please include the summary of the changes and which issue is fixed. Also, list relevant contexts, dependencies that are requested for this change.
+> Please include the summary of the changes and which issue is fixed. Also, list relevant contexts, dependencies that are requested for this change.
 
 #### Fixes issue #(issue-link )
 
 ## Type Of Change
 
-Please delete options that are not relevant and mark the ones that are relevant.
+> Please delete options that are not relevant and mark the ones that are relevant.
 
 - [ ] Bug Fix: Non breaking change which fixes an issue.
 - [ ] New feature: Non breaking change which adds a new functionality ( module, enviroment etc).
@@ -19,7 +19,7 @@ Please delete options that are not relevant and mark the ones that are relevant.
 
 ## How Has This Been Tested ?
 
-Please describe how you ran the test after effecting your changes. Also, add snapshots or screenshots of the working change as proof-of-work.
+> Please describe how you ran the test after effecting your changes. Also, add snapshots or screenshots of the working change as proof-of-work.
 
 ## Checklist:
 
