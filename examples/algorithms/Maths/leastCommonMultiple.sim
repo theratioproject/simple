@@ -1,0 +1,15 @@
+/* 
+	Copyright (c) 2018 Abdulazeez Adeshina Abdulazeez <laisibizness@gmail.com> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+call 'simple/utilities/Math.sim'
+call 'euclideanAlgorithm.sim'
+
+block leastCommonMultiple(a, b)
+  if a == 0 || b == 0 {
+	return 0
+  }
+  return abs(a * b) / euclideanAlgorithm(a, b)
+end
