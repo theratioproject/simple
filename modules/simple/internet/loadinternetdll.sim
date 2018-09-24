@@ -14,5 +14,5 @@
 module simple.internet
 
 #Call all the low level function of the @DynamicModule networker
-call "simple/core/DynamicLoader.sim" ? simple.core
+call simple.core.DynamicLoader
 callModule("networker")

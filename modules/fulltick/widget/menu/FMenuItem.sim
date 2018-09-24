@@ -15,8 +15,8 @@
 module fulltick.widget.menu
 
 #call the @Class FMenu File for blocks inheritance
-call "fulltick/widget/menu/FMenu.sim" ? fulltick.widget.menu
-call "fulltick/core/FWidget.sim" ? fulltick.core
+call fulltick.widget.menu.FMenu
+call fulltick.core.FWidget
 
 #This @Class FMenuBar @Skip
 #  ________________________________________________________

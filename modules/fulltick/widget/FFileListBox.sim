@@ -12,7 +12,7 @@
  *
  */
 
-module fulltick.widget.menu
+module fulltick.widget
 
 FILES_TYPE = 0
 DIRECTORIES_TYPE = 1

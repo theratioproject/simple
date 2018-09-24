@@ -11,7 +11,9 @@
  * @Time - 08:04 pM
  */
 
-call "parser/json/JsonParser.sim"
+module parser.json
+
+call parser.json.JsonParser
 
 class JsonObject : JsonParser
 

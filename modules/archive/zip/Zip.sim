@@ -12,8 +12,8 @@
  
 module archive.zip
 
-call "archive/loadarchiver.sim"
-call "archive/zip/ZipMode.sim" 
+call archive.loadarchiver
+call archive.zip.ZipMode
 
 #to check if param is a Zip object
 block isZipStream(zipStream)

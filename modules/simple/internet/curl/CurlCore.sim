@@ -14,7 +14,7 @@
 module simple.internet.curl
 
 #Call all the low level function of the @DynamicModule networker
-call "simple/internet/loadinternetdll.sim" ? simple.internet
+call simple.internet.loadinternetdll
 
 #The @Class CurlCore is the base class for all the curl module and
 #classes holding mainly the parenting Blocks and the curl pointer

@@ -12,7 +12,7 @@
  
 module simple.security
 
-call "simple/core/BaseFields.sim"
+call simple.core.BaseFields
 call "Hash.sim"
 
 #encrypt any string value base on the openssl method. The block accept three 

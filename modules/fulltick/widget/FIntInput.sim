@@ -15,7 +15,7 @@
 module fulltick.widget
 
 #call the @Class FInput File for blocks inheritance
-call "fulltick/widget/FInput.sim" ? fulltick.widget
+call fulltick.widget.FInput
 
 #This @Class FIntInput is child class inheriting most of it 
 #attributes,blocks and other from it parent @Class FInput. It is 

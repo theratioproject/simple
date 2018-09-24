@@ -12,7 +12,7 @@
  
 module fulltick.core
 
-call "simple/core/DynamicLoader.sim" ? simple.core
+call simple.core.DynamicLoader
 callModule("fulltick")
 
 PLASTIC_SCHEME = "plastic" 

@@ -11,6 +11,8 @@
  * @Time - 08:05 AM
  */
 
+module fulltick.widget
+
 call "../core/FWidget.sim"
 
 class FValuator : FWidget

@@ -4,8 +4,10 @@
 
 */
 
+module simple.internet
+
 call "loadinternetdll.sim"
-call "simple/core/String.sim"
+call simple.core.String
 
 	__MODULE_ADDRESS = "simple.internet.RemoteCall"
 	__REMOTE_CALL_NOT_STRING = "Only string allowed as parameter"

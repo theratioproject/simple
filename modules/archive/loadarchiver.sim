@@ -1,3 +1,4 @@
+module archive
 
-call "simple/core/DynamicLoader.sim" ? simple.core
+call simple.core.DynamicLoader
 callModule("archiver")
