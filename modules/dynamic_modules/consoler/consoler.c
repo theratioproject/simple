@@ -95,11 +95,12 @@ void std_print(void *pointer)
 
 void program_flush_console(void *pointer)
 {
-	if ( SIMPLE_API_PARACOUNT != 0 ) {
-		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+	if ( SIMPLE_API_PARACOUNT != 1 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
 		return ;
 	} else {
-		fflush(stdout);
+		FILE* std_output = (FILE*) SIMPLE_API_GETCPOINTER(1,"SIMPLE_CONSOLE_");
+		fflush(std_output);
 		return;
 	}
 }

@@ -8,6 +8,7 @@ out how to make  a **rfc** in the [rfc](https://github.com/simple-lang/rfcs) rep
 The roadmap is divided into sections
 - [General](#general)
 - [Modules](#modules)
+- [Extended Modules](#extended-modules)
 - [Environments](#environments)
 
 ### General
@@ -51,9 +52,11 @@ build, installation, features e.t.c
 - [ ] allow strong and weak typing to prevent inconsistent and conflicting initialization
 - [ ] add directive for compiler notation in [] format
 - [ ] VM should treat really really large number ad big as 10e+50
-- [x] allow calling file with explicit module name translating to literal e.g `call simple.core.String` = `call "simple\core\String.sim"`
+- [x] allow calling file with explicit module name translating to literal e.g `call simple.core.String` = `call "simple\core\String.sim" ? simple.core` [PR](https://github.com/simple-lang/simple/pull/34)
 - [ ] Add strict equality `===` and `!==`
 - [ ] Add the `**` operator
+- [ ] allow creating multi block i.e blocks with the same name but different parameter length
+- [ ] use the Karatsuba Algorithm for pure multiplication of large numbers
 
 ### Modules
 
@@ -76,12 +79,22 @@ issue related to the module
 	- [ ] make curl request and accept both http and https protocols
 - [ ] build a web module for cgi and template base development
 - [x] Math module to treat any form of basic math operation
+	- [ ] add various multiplication method in the math module including Karatsuba algorithm
+	- [ ] include a block that fetch the number of factors a number have and another that return a list of a number factors
 - [x] date and time module 
 - [ ] conversion module to convert between objects and types 
 - [ ] system, simplex and runtime module
 - [x] create the hash module 
 - [x] a basic encrypt and decrypt module that uses keys and IV
 - [ ] port murmur hash C library to simple-lang
+- [ ] implement ncurses for use in simple-lang
+
+### Extended Modules
+
+Modules which are not part of the standard module that comes distributed with simple-lang. These modules are only avilable for use by downloading the release versions or using the simple-lang module manager **modular** to install them. These sources are hosted in a seperate repository but in the same organization. [source here.](https://github.com/simple-lang/extended-modules/)
+
+- [ ] create material and native os extended module for fulltick GUI module
+- [ ] a module that convert fultick Widget to HTML element
 
 ### Environments
 
