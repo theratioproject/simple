@@ -1,3 +1,4 @@
+module fulltick
 
 #groups/windows
 call "./widget/FGroup.sim"

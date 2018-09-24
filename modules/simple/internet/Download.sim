@@ -11,10 +11,10 @@
  * @Time - 02:58 PM
  */
  
-module simple.internet.curl
+module simple.internet
 
 call "loadinternetdll.sim"
-call "simple/io/File.sim"
+call simple.io.File
 
 block download(url)
 	return __curl_download(url)

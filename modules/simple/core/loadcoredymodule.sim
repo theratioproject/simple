@@ -1,3 +1,4 @@
+module simple.core
 
-call "simple/core/DynamicLoader.sim" ? simple.core
+call simple.core.DynamicLoader
 callModule("core_dynamic_module")

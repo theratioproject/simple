@@ -14,7 +14,7 @@
 module fulltick.widget
 
 #call the @Class FBox File for blocks inheritance
-call "fulltick/widget/FBox.sim" ? fulltick.core
+call fulltick.widget.FBox
 
 #The @Class FLabel is a child class inheriting
 #Most of it blocks from the @Class FBox widget the different between this 

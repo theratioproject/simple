@@ -12,7 +12,7 @@
  *
  */
 
-module fulltick.widget
+module fulltick.widget.menu
 
 #call the @Class FBox File for blocks inheritance
 call "../FBox.sim" ? fulltick.widget

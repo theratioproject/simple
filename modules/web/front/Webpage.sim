@@ -6,7 +6,7 @@
 
 module web.front
 
-call "web/front/elements/Elements.sim" ? web.front.elements
+call web.front.elements.Elements
 
 class Webpage 
 
@@ -95,12 +95,3 @@ block formatLiteral(content)
 		end
 	end
 	return inContent
-	
-	
-	
-	
-	
-	
-	
-	
-	

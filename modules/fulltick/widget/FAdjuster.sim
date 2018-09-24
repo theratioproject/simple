@@ -11,6 +11,8 @@
  * @Time - 08:05 AM
  */
 
+module fulltick.widget
+
 call "FValuator.sim"
 
 class FAdjuster : FValuator

@@ -271,6 +271,3 @@ class List : Object
 			default
 				throw("Exit !") __exit__
 			end
-			
-			
-			

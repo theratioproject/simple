@@ -11,7 +11,9 @@
  * @Time - 08:04 pM
  */
 
-call "parser/loadparserdll.sim"
+module parser.json
+
+call parser.loadparserdll
 
 class JsonParser
 

@@ -13,9 +13,9 @@
 module simple.core
 
 call "Object.sim"
-call "simple/utilities/Conversion.sim"
-call "simple/core/DynamicLoader.sim" ? simple.core
-call "simple/debugging/Throw.sim" ? simple.debugging
+call simple.utilities.Conversion
+call simple.core.DynamicLoader
+call simple.debugging.Throw
 callModule("string_savant")
 
 		__Empty = char(0) 

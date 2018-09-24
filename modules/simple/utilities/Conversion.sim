@@ -12,7 +12,7 @@
  
 module simple.utilities
 
-call "simple/core/loadcoredymodule.sim" 
+call simple.core.loadcoredymodule
 
 
 #This block is an internal function that convert given string and returns the
