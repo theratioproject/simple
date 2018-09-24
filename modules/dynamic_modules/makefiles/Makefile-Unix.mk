@@ -21,18 +21,27 @@ MODULE_DIR := ../..
 DYNAMIC_MODULES_DIR := ..
 DYNAMIC_MODULES_EXCLUDE := $(addprefix $(DYNAMIC_MODULES_DIR)/,dist makefiles)
 DYNAMIC_MODULES_FOLDERS := $(filter-out $(DYNAMIC_MODULES_EXCLUDE), $(wildcard $(DYNAMIC_MODULES_DIR)/*))
+OSNAME := $(shell uname)
+
+ifeq ($(OSNAME), Darwin)
+LIB_FILES := $(addprefix $(DIST)/,$(notdir $(DYNAMIC_MODULES_FOLDERS:%=%.dylib)))
+else
 LIB_FILES := $(addprefix $(DIST)/,$(notdir $(DYNAMIC_MODULES_FOLDERS:%=%.so)))
+endif
 
 # Folder creation commands
 CREATE_BUILD_DIR := mkdir -p $(DIST)/build
 CREATE_VAR_MODULE_DIR := mkdir -p $(VAR_DYNAMIC_MODULES_DIR) $(VAR_MODULE_DIR)/docs
 
 # Compile commands
-RECURSIVE_MAKE = $(MAKE) -f Makefile-Unix.mk -C $(DYNAMIC_MODULES_DIR)/$*
+RECURSIVE_MAKE =  $(MAKE) -f Makefile-Unix.mk -C $(DYNAMIC_MODULES_DIR)/$*
 
 # .SILENT:
 
 $(DIST)/%.so: $(DYNAMIC_MODULES_DIR)/%
+	$(RECURSIVE_MAKE)
+
+$(DIST)/%.dylib: $(DYNAMIC_MODULES_DIR)/%
 	$(RECURSIVE_MAKE)
 
 build: $(LIB_FILES)

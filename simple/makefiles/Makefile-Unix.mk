@@ -6,7 +6,7 @@ SOURCE_DIR := ../sources
 SOURCE_FILES := $(wildcard $(SOURCE_DIR)/*.c)
 OBJECT_FILES := $(addprefix $(BUILD_DIR)/,$(notdir $(SOURCE_FILES:%.c=%.o)))
 HEADER_FILES := ../includes/.
-SIMPLE_LIB := lib$(PROGRAM_NAME).so
+SIMPLE_LIB := lib$(PROGRAM_NAME).dylib
 ENTRY_FILE := ../simple.c
 LIB_FLAGS := -lm -ldl
 USR_LOCAL := /usr/local
@@ -39,6 +39,7 @@ $(DIST)/$(PROGRAM_NAME): $(OBJECT_FILES)
 build: $(OBJECT_FILES) $(DIST)/$(PROGRAM_NAME)
 
 install: $(OBJECT_FILES) $(DIST)/$(PROGRAM_NAME)
+	echo $(USR_LOCAL)
 	# Add executable to /usr/local/bin
 	cp $(DIST)/$(PROGRAM_NAME) $(USR_LOCAL)/bin/$(PROGRAM_NAME)
 	# Add library to /usr/local/lib

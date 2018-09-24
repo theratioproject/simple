@@ -7,13 +7,19 @@ USR_LOCAL_INCLUDE := /usr/local/include
 SOURCE_DIR := .
 SOURCE_FILES := $(wildcard $(SOURCE_DIR)/*.c $(SOURCE_DIR)/includes/*.cpp)
 OBJECT_FILES := $(addprefix $(BUILD_DIR)/,$(notdir $(SOURCE_FILES:%.cpp=%.o)))
-LIB_FILE := $(DIST)/$(FILE).so
 DISABLE_WARNING_FLAG := -w # -Wno-implicit-function-declaration -Wno-int-conversion
 LINK_FLAGS := -shared
 LIB_FLAGS := -lpthread -ldl -lm -lfltk # -lfontconfig -lX11 -lXfixes -lXinerama -lXft
 OTHER_FLAGS := -fpermissive -fvisibility-inlines-hidden -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -D_THREAD_SAFE -D_REENTRANT
 INCLUDE_FLAGS := -I$(USR_LOCAL_INCLUDE) -I$(USR_LOCAL_INCLUDE)/FL/images
 RELOCATION_FLAG := -fPIC
+
+OSNAME := $(shell uname)
+ifeq ($(OSNAME), Darwin)
+LIB_FILE := $(DIST)/$(FILE).dylib
+else
+LIB_FILE := $(DIST)/$(FILE).so
+endif
 
 # Dependency information
 SIMPLE_MAIN_SOURCE_DIR := ../../../simple/sources

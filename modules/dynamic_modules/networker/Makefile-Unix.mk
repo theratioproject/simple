@@ -6,11 +6,17 @@ BUILD_DIR := $(DIST)/build
 SOURCE_DIR := .
 SOURCE_FILE := $(SOURCE_DIR)/$(FILE).c
 OBJECT_FILE := $(BUILD_DIR)/$(FILE).o
-LIB_FILE := $(DIST)/$(FILE).so
 DISABLE_WARNING_FLAG := -w # -Wno-implicit-function-declaration -Wno-int-conversion
 LINK_FLAGS := -shared
 LIB_FLAGS := -L../../../simple/dist/ -l$(PROGRAM_NAME)
 RELOCATION_FLAG := -fPIC
+
+OSNAME := $(shell uname)
+ifeq ($(OSNAME), Darwin)
+LIB_FILE := $(DIST)/$(FILE).dylib
+else
+LIB_FILE := $(DIST)/$(FILE).so
+endif
 
 # Add -lCurl flag if on macos
 ifneq ($(OS),Windows_NT)
