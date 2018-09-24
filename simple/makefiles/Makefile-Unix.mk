@@ -1,12 +1,17 @@
 PROGRAM_NAME := simple
 VER := 0.3.36
 DIST := ../dist
+OSNAME = $(shell uname)
 BUILD_DIR := $(DIST)/build
 SOURCE_DIR := ../sources
 SOURCE_FILES := $(wildcard $(SOURCE_DIR)/*.c)
 OBJECT_FILES := $(addprefix $(BUILD_DIR)/,$(notdir $(SOURCE_FILES:%.c=%.o)))
 HEADER_FILES := ../includes/.
+ifeq ($(OSNAME), Darwin)
 SIMPLE_LIB := lib$(PROGRAM_NAME).dylib
+else
+SIMPLE_LIB := lib$(PROGRAM_NAME).so
+endif
 ENTRY_FILE := ../simple.c
 LIB_FLAGS := -lm -ldl
 USR_LOCAL := /usr/local
