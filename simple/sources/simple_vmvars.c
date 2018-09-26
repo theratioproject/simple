@@ -219,6 +219,7 @@ void simple_vm_newvar ( VM *vm,const char *cStr )
 	assert(vm->pActiveMem);
 	list = simple_vm_newvar2(vm,cStr,vm->pActiveMem);
 	vm->nsp++ ;
+	
 	SIMPLE_VM_STACK_SETPVALUE(list);
 	SIMPLE_VM_STACK_OBJTYPE = SIMPLE_OBJTYPE_VARIABLE ;
 	/* Set the scope of the new variable */
@@ -229,6 +230,13 @@ void simple_vm_newvar ( VM *vm,const char *cStr )
 		vm->nVarScope = SIMPLE_VARSCOPE_LOCAL ;
 	} else {
 		vm->nVarScope = SIMPLE_VARSCOPE_NOTHING ;
+	}
+	/* Initial Declaration */
+	simple_item_setinitdec(simple_list_getitem(list,SIMPLE_VAR_NAME),1); 
+	/* Final Flag */
+	if (vm->finalFlag == 1) {
+		simple_item_setfinal(simple_list_getitem(list,SIMPLE_VAR_NAME),1); 
+		vm->finalFlag = 0;
 	}
 	/* Add Scope to aLoadAddressScope */
 	simple_list_addint_gc(vm->sState,vm->aLoadAddressScope,vm->nVarScope);
@@ -250,6 +258,7 @@ List * simple_vm_newvar2 ( VM *vm,const char *cStr,List *pParent )
 	if ( pParent->pHashTable == NULL ) {
 		pParent->pHashTable = simple_hashtable_new();
 	}
+	
 	simple_hashtable_newpointer(pParent->pHashTable,cStr,list);
 	return list ;
 }

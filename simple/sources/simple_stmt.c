@@ -241,25 +241,15 @@ int simple_parser_class ( Parser *parser )
 	/* Statement --> final */
 	if ( simple_parser_iskeyword(parser,KEYWORD_FINAL) ) {
 		simple_parser_nexttoken(parser);
-		if ( parser->nClassStart == 1 ) {
-			/* Generate Code */
-			simple_parser_icg_newoperation(parser,ICO_RETNULL);
-			/* Change Label After Class to BlockFlag to Jump to Private */
-			list = simple_parser_icg_getoperationlist(parser,parser->nClassMark);
-			simple_list_setint_gc(parser->sState,list,1,ICO_BLOCKFLAG);
-			simple_list_addint_gc(parser->sState,list,simple_parser_icg_newlabel(parser));
-			simple_parser_icg_newoperation(parser,ICO_PRIVATE);
-			#if SIMPLE_PARSERTRACE
-			SIMPLE_STATE_CHECKPRINTRULES 
-			
-			puts("Rule : Statement  --> 'Private'");
-			#endif
-			parser->nPrivateFlag = 1 ;
-			return 1 ;
-		} else {
-			parser_error(parser,PARSER_ERROR_NOCLASSDEFINED);
-			return 0 ;
-		}
+		/* Generate Code */
+		/* Change Label After Class to BlockFlag to Jump to Final */
+		simple_parser_icg_newoperation(parser,ICO_FINAL);
+		#if SIMPLE_PARSERTRACE
+		SIMPLE_STATE_CHECKPRINTRULES 
+		
+		puts("Rule : Statement  --> 'Final'");
+		#endif
+		return 1 ;
 	}
 	return simple_parser_stmt(parser) ;
 }

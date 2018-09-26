@@ -88,14 +88,12 @@ __stdin = __init_stdin()
 /*
 	Create an instance of the @Class stdout for printing and outputing to the standard output
 */
-#final - to become final when final keyword has been impleented
-stdout = new stdout(__stdout)
+final stdout = new stdout(__stdout)
 
 /*
 	Create an instance of the @Class stderr for printing and outputing to the standard error and diagnostic output
 */
-#final - to become final when final keyword has been impleented
-stderr = new stderr(__stderr)
+final stderr = new stderr(__stderr)
 
 
 /*

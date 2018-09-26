@@ -48,15 +48,18 @@ build, installation, features e.t.c
 - [ ] build script should create a .a archive for statically linking simple-lang runtime on linux os
 - [ ] build script should create a .a archive for statically linking simple-lang runtime on mac os
 - [ ] build script should create a .a archive for statically linking simple-lang runtime on haiku os
-- [ ] add a new flexible keyword to lock a variable to a particular declaration similar to **final** to prevent re initializing
+- [x] add a new flexible keyword **final** to lock a variable to a particular to prevent re initializing
 - [ ] allow strong and weak typing to prevent inconsistent and conflicting initialization
 - [ ] add directive for compiler notation in [] format
 - [ ] VM should treat really really large number ad big as 10e+50
 - [x] allow calling file with explicit module name translating to literal e.g `call simple.core.String` = `call "simple\core\String.sim" ? simple.core` [PR](https://github.com/simple-lang/simple/pull/34)
-- [ ] Add strict equality `===` and `!==`
+- [ ] Add strict equality `==` and `!=` and weak equality `===` and `!==` 
 - [ ] Add the `**` operator
 - [ ] allow creating multi block i.e blocks with the same name but different parameter length
 - [ ] use the Karatsuba Algorithm for pure multiplication of large numbers
+- [ ] reformat the way the error are thrown in the console and web 
+- [ ] allow '*' to call all the file in a folder e.g simple.core.*
+- [ ] update windows build file Windows-Build.bat to use main build C/C++ toolchain to build environment apps
 
 ### Modules
 

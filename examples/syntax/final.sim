@@ -1,4 +1,54 @@
 
-final hello = "adewale"
+/*
+	KEYWORD : final
+	FUNCTIION : To lock a variable to only one initialization, to prevent assigning new value to a 
+				variable that not meant to change value.
+	USE CASE : In the @File Console module the **stdout** is a final variable to prevent initializing it to something
+				else to prevent runtime error while using the @File Console blocks and classes
+*/
 
-hello = 8
+flexibleDuck = "This is a changable variable anytime any where"
+final finalVar = "This remain throughout execution"
+final aClass = new AClass
+try {
+	aClass.setPath("a new path")
+catch 
+	@__err__
+}
+
+@flexibleDuck
+@finalVar
+
+flexibleDuck = "Well the duck is an animal"
+try {
+	finalVar = "Try changing to another value"
+catch 
+	@__err__
+}
+
+@aClass.getPath()
+@flexibleDuck
+@finalVar
+@InerFinal()
+
+
+block InerFinal()
+	final innerFinal = "inner final variable"
+	notFinal = "desi"
+	
+	notFinal = "indoian"
+	innerFinal = "Try changing it throw an error"
+	
+	@innerFinal
+		
+class Parent
+
+	final path = "foo ? bar ? whatever "
+
+	block getPath()
+		return path
+
+class AClass : Parent
+	
+	block setPath(p)
+		this.path = p
