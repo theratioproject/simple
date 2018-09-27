@@ -70,6 +70,7 @@ typedef struct VM {
 	char nInClassRegion  ;
 	List *aActiveModules  ;
 	char nPrivateFlag  ;
+	char finalFlag ;
 	char nGetSetProperty  ;
 	void *pGetSetObject  ;
 	char nGetSetObjType  ;
@@ -639,7 +640,7 @@ List * simple_vm_getglobalscope ( VM *vm ) ;
 #define SIMPLE_BLOCKMAP_NAME 1
 #define SIMPLE_BLOCKMAP_PC 2
 #define SIMPLE_BLOCKMAP_FILENAME 3
-#define SIMPLE_BLOCKMAP_PRIVATEFLAG 4
+#define SIMPLE_BLOCKMAP_PRIVATEFLAG 4 //multiblocklead
 /* BlockMap List Size */
 #define SIMPLE_BLOCKMAP_NORMALSIZE 4
 /* Variable Scope */
@@ -648,6 +649,7 @@ List * simple_vm_getglobalscope ( VM *vm ) ;
 #define SIMPLE_VARSCOPE_OBJSTATE 2
 #define SIMPLE_VARSCOPE_GLOBAL 3
 #define SIMPLE_VARSCOPE_NEWOBJSTATE 4
+#define SIMPLE_VARSCOPE_FINAL 5
 /*
 **  OOP 
 **  pClassesMap 
@@ -752,6 +754,7 @@ List * simple_vm_getglobalscope ( VM *vm ) ;
 #define SIMPLE_VM_ERROR_BADCOMMAND "RUNTIME ERROR 24 : Sorry, The command is not supported in this context"
 #define SIMPLE_VM_ERROR_LIBLOADERROR "RUNTIME ERROR 24 : Runtime Error Occur while loading the dynamic library!"
 #define SIMPLE_VM_ERROR_TEMPFILENAME "RUNTIME ERROR 24 : Error occurred while creating unique filename."
+#define SIMPLE_VM_ERROR_CANNOT_ASSIGN_FINAL "RUNTIME ERROR 24 : Cannot assign a value to the final variable "
 /* Extra Size (for codeExecution) */
 #define SIMPLE_VM_EXTRASIZE 2
 /* Variables Location */

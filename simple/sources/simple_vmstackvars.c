@@ -519,8 +519,9 @@ void simple_vm_minusminus ( VM *vm )
 void simple_vm_assignmentpointer ( VM *vm )
 {
 	List *list, *list2  ;
-	Item *pItem  ;
-	int x  ;
+	Item *pItem ;
+	const char* var ;
+	int x , isFinal, initDec ;
 	if ( vm->nNOAssignment == 0 ) {
 		vm->pAssignment = SIMPLE_VM_STACK_READP ;
 		/* Check trying to change the self pointer */
@@ -528,6 +529,15 @@ void simple_vm_assignmentpointer ( VM *vm )
 		if ( SIMPLE_VM_STACK_OBJTYPE == SIMPLE_OBJTYPE_VARIABLE ) {
 			if ( simple_list_islist((List *) vm->pAssignment,SIMPLE_VAR_VALUE) ) {
 				list = simple_list_getlist((List *) vm->pAssignment,SIMPLE_VAR_VALUE) ;
+			}
+			var = simple_list_getstring(((List *)vm->pAssignment),SIMPLE_VAR_NAME);
+			isFinal = simple_list_getfinal(((List *)vm->pAssignment),SIMPLE_VAR_NAME);
+			initDec = simple_list_getinitdec(((List *)vm->pAssignment),SIMPLE_VAR_NAME);
+			
+			if (isFinal == 1 && initDec == 0) {
+				simple_vm_error2(vm,SIMPLE_VM_ERROR_CANNOT_ASSIGN_FINAL,var);
+			} else if (isFinal == 1) {
+				simple_item_setinitdec(simple_list_getitem(((List *)vm->pAssignment),SIMPLE_VAR_NAME),0); 
 			}
 		}
 		else if ( SIMPLE_VM_STACK_OBJTYPE == SIMPLE_OBJTYPE_LISTITEM ) {

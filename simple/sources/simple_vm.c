@@ -396,6 +396,9 @@ void simple_vm_execute ( VM *vm )
 		case ICO_ASSIGNMENT :
 			simple_vm_assignment(vm);
 			break ;
+		case ICO_FINAL :
+			vm->finalFlag = 1 ;
+			break ;
 		case ICO_INC :
 			simple_vm_inc(vm);
 			break ;
@@ -1299,13 +1302,10 @@ void simple_vm_addglobalvariables ( VM *vm )
 	simple_vm_addnewstringvar(vm,"__err__","NULL");
 	simple_vm_addnewpointervar(vm,"simple_settemp_var",NULL,0);
 	simple_vm_addnewnumbervar(vm,"simple_tempflag_var",0);
-	simple_vm_addnewcpointervar(vm,"stdin",stdin,"file");
-	simple_vm_addnewcpointervar(vm,"stdout",stdout,"file");
-	simple_vm_addnewcpointervar(vm,"stderr",stderr,"file");
-	simple_vm_addnewpointervar(vm,"this",NULL,0);
 	simple_vm_addnewstringvar(vm,"tab","\t");
 	simple_vm_addnewstringvar(vm,"cr","\r");
 	simple_vm_addnewstringvar(vm,"nl","\n");
+	simple_vm_addnewpointervar(vm,"this",NULL,0);
 	/* Add Command Line Parameters */
 	list = simple_vm_newvar2(vm,"cmdparams",vm->pActiveMem);
 	simple_list_setint_gc(vm->sState,list,SIMPLE_VAR_TYPE,SIMPLE_VM_LIST);

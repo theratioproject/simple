@@ -430,6 +430,7 @@ SIMPLE_API void simple_list_adddouble_gc ( void *pState,List *list,double x )
 	simple_list_newitem_gc(pState,list);
 	simple_list_setdouble_gc(pState,list,simple_list_getsize(list),x);
 }
+
 /* String */
 
 SIMPLE_API void simple_list_setstsimple_gc ( void *pState,List *list, int index ,const char *str )

@@ -13,16 +13,14 @@
 	#author - Azeez Adewale	<azeezadewale98@gmail.com> 
  */
 
-module simple.utilities
-
-/*
-	call the @File ConsoleColor.sim which hold all the type of color for the foreground and background
-	of the console. The dynamic module @DynamicModule Consoler is also called in the file.
-*/
 call simple.utilities.ConsoleColor
+call simple.core.List
+
 
 /*@Prefix
-
+	call the @File ConsoleColor.sim which hold all the type of color for the foreground and background
+	of the console. The dynamic module @DynamicModule Consoler is also called in the file.
+	call the @Class List for the list class
 */
 
 /*
@@ -90,30 +88,38 @@ __stdin = __init_stdin()
 /*
 	Create an instance of the @Class stdout for printing and outputing to the standard output
 */
-#final - to become final when final keyword has been impleented
-stdout = new stdout(__stdout)
+final stdout = new stdout(__stdout)
 
 /*
 	Create an instance of the @Class stderr for printing and outputing to the standard error and diagnostic output
 */
-#final - to become final when final keyword has been impleented
-stderr = new stderr(__stderr)
+final stderr = new stderr(__stderr)
 
 
 /*
-
+	The forgreound/text color of text of the standard output
 */
 __stdForegroundColor = ConsoleColor.NONE()
 
 /*
-
+	The background color of text of the standard output
 */
 __stdBackgroundColor = ConsoleColor.NONE()
 
 /*
-
+	A line that fill the width of an average console windows, simply an '=' character 151 long
 */
 consoleLine = __copy("=",151)+crlf
+
+/*
+	The console module in a printable string **simple.utilities.Console**
+*/
+__CONSOLE_MODULE = "simple.utilities.Console"
+
+/*
+	Exception message to indicate that the parameter can only be a list of an instance of the @Class List class
+*/
+__CONSOLE_LIST_ONLY = "Parameter can only be a list or an instance of the class List"
 
 /*
 
@@ -132,6 +138,9 @@ block printinLine(std_output,content)
 	
 block printLine(std_output,fg,bg)
 	std_output.printLine(fg,bg)
+	
+block flush_console(std_output)
+	std_output.flush()
 	
 	
 /*
@@ -240,19 +249,33 @@ private
 		__stdBackgroundColor = ConsoleColor.NONE()
 		
 		block println(val)
-			val = formatEscapeSequence(val)
+			val = getObjectString(val) 
 			__print(std_output,val+nl)
 			
 		block print(val)
-			val = formatEscapeSequence(val)
+			val = getObjectString(val) 
 			__print(std_output,val)
 			
 		block vprintf(arg)
-			val = _vformatf(arg)
+			val = ""
+			if isList(arg) {
+				val = _vformatf(arg)
+			else
+				try {
+					obj = arg.object()
+					if !isString(obj) and isList(obj) {
+						val = _vformatf(obj)
+					else
+						throwWithTitle(__CONSOLE_MODULE,__CONSOLE_LIST_ONLY)
+					}
+				catch
+					throwWithTitle(__CONSOLE_MODULE,__CONSOLE_LIST_ONLY)
+				}
+			}
 			__print(std_output,val)
 			
 		block printfc(color,val)
-			val = formatEscapeSequence(val)
+			val = getObjectString(val) 
 			__printwfb(std_output, color, this.__stdBackgroundColor, val)
 			
 		block printLine(fg,bg)
@@ -265,6 +288,34 @@ private
 		
 		block getStd()
 			return std_output
+			
+		block flush()
+			__flush_console(std_output)
+			
+		private 
+		
+			block getObjectString(val) 
+				if isNull(val) {
+					val = "(null)"
+				elif isString(val) 
+					val = formatEscapeSequence(val)
+				elif isNumber(val)
+					val = formatEscapeSequence(""+val)
+				elif isList(val)
+					_val = new List(val)
+					val = _val.toString()
+				elif isObject(val)
+					try {
+						val = val.toString()
+					catch 
+						val = parseObjString(val)
+					}					
+				}
+				return val
+			
+			block parseObjString(obj)
+				#to use ref meta to get obj and attr 
+				return "(cannot print object)"#obj
 
 	
 #undone

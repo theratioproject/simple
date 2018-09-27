@@ -26,6 +26,10 @@ typedef struct Item {
 	**  Used when putting the item in the stack to refer to list or listitem 
 	*/
 	unsigned int nObjectType:2  ;
+	
+	int isFinal ;
+	int initDec ;
+	
 	/* Data */
 	union {
 		struct String *string  ;
@@ -45,9 +49,10 @@ typedef struct Item {
 #define ITEMTYPE_POINTER 3
 #define ITEMTYPE_LIST 4
 #define ITEMTYPE_BLOCKPOINTER 5
+#define ITEMTYPE_FINAL 6
 #define ITEM_NUMBERFLAG_NOTHING 0
 #define ITEM_NUMBERFLAG_INT 1
-#define ITEM_NUMBERFLAG_DOUBLE 2
+#define ITEM_NUMBERFLAG_DOUBLE 2 
 /* Blocks */
 
 SIMPLE_API Item * simple_item_new_gc ( void *pState,int ItemType ) ;
@@ -138,6 +143,10 @@ SIMPLE_API void simple_itemarray_setstring2 ( Item list[], int index ,const char
 SIMPLE_API void simple_item_setstring ( Item *pItem,const char *cStr ) ;
 
 SIMPLE_API void simple_item_setdouble ( Item *pItem,double x ) ;
+
+SIMPLE_API void simple_item_setfinal(Item *pItem,double x );
+
+SIMPLE_API void simple_item_setinitdec (Item *pItem,double x );
 
 SIMPLE_API void simple_item_setpointer ( Item *pItem,void *pValue ) ;
 

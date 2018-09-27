@@ -47,6 +47,7 @@ SIMPLE_API void simple_list_deleteitem_gc ( void *pState,List *list,int index ) 
 SIMPLE_API void simple_list_print ( List *list ) ;
 
 SIMPLE_API int simple_list_gettype ( List *list, int index ) ;
+
 /* int */
 
 SIMPLE_API void simple_list_setint_gc ( void *pState,List *list, int index ,int number ) ;
@@ -174,6 +175,8 @@ SIMPLE_API int simple_list_deliteminsidelist ( List *list,Item *pItem ) ;
 #define simple_list_getblockpointer(list,index) ( simple_list_getitem(list,index)->data.pBlock )
 #define simple_list_callblockpointer(list,index,x) ( simple_list_getitem(list,index)->data.pBlock(x) )
 #define simple_list_getdouble(list,index) simple_list_getitem(list,index)->data.dNumber
+#define simple_list_getfinal(list,index) simple_list_getitem(list,index)->isFinal
+#define simple_list_getinitdec(list,index) simple_list_getitem(list,index)->initDec
 #define simple_list_getstring(list,index) ( simple_string_get(simple_item_getstring(simple_list_getitem(list,index))) )
 #define simple_list_getstringobject(list,index) ( simple_item_getstring(simple_list_getitem(list,index)) )
 #define simple_list_getstringsize(list,index) ( simple_string_size(simple_item_getstring(simple_list_getitem(list,index))) )
