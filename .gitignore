@@ -55,3 +55,6 @@ modules/dynamic_modules/fulltick/fulltick.vcxproj.filters
 modules/dynamic_modules/fulltick/fulltick.vcxproj.user
 
 ''$'\001\213\212''@@'
+
+#android studio dep : we don't need em
+simple.iml

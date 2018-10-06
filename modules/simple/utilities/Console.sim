@@ -224,6 +224,9 @@ class stdout : __std_console
 		this.std_output = std_output
 		
 	block setStdOut(std_output)
+		if (this.std_output == __stdout) {
+			__throwWithTitle("","")
+		}
 		this.std_output = std_output
 		
 	block getStdOut()
@@ -236,6 +239,9 @@ class stderr : __std_console
 		
 	block setStdErr(std_output)
 		this.std_output = std_output
+		if (this.std_output == __stderr) {
+			__throwWithTitle("","")
+		}
 		
 	block getStdErr()
 		return std_output
@@ -284,6 +290,9 @@ private
 			__printwfb(std_output, fg, bg, consoleLine)
 	
 		block setStd(std_output)
+			if (this.std_output == __stdout or this.std_output == __stderr) {
+				__throwWithTitle("","")
+			}
 			this.std_output = std_output
 		
 		block getStd()

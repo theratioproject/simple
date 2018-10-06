@@ -1285,7 +1285,7 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 	
 :confirmgccis64bits
 	echo int main() { return 0;} > ../../test_64_bit_gcc.c
-	gcc.exe -m64 -o ../../test_64_bit_gcc.o ../../test_64_bit_gcc.c 2> nul
+	gcc.exe -m64 -o ../../test_64_bit_gcc.o ../../test_64_bit_gcc.c 
 	if exist "../../test_64_bit_gcc.o" (
 		call:deletetempfiles "..\..\test_64_bit_gcc.o" "..\..\test_64_bit_gcc.c"
 	) else (

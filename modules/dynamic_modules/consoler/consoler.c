@@ -25,13 +25,16 @@
 #elif defined(__GNUC__)
     //  GCC
     #define SIMPLE_API __attribute__((visibility("default")))
-    #define SIMPLE_API
 #else
     //  do nothing and hope for the best?
     #define SIMPLE_API
     #define SIMPLE_API
     #pragma warning Unknown dynamic link import/export semantics.
 #endif
+#endif
+
+#ifdef __cplusplus
+extern "C" {
 #endif
 
 SIMPLE_API void init_simple_module(SimpleState *sState)
@@ -47,7 +50,6 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
     register_block("__flush_console",program_flush_console);
     register_block("__printwfb",print_with_foreground_background);
     register_block("__exit",program_exit);
-    register_block("__sleep",program_sleep);
 	
 }
 
@@ -85,11 +87,11 @@ void init_stdin(void *pointer)
 //print and read line
 void std_print(void *pointer)
 {
-	if ( SIMPLE_API_PARACOUNT != 2 ) {
+    if ( SIMPLE_API_PARACOUNT != 2 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
 	} else {
 		FILE* std_output = (FILE*) SIMPLE_API_GETCPOINTER(1,"SIMPLE_CONSOLE_");
-		fprintf( std_output, SIMPLE_API_GETSTRING(2) );
+		fprintf( std_output, "%s", SIMPLE_API_GETSTRING(2) );
 	}
 } 
 
@@ -129,17 +131,6 @@ void program_exit ( void *pointer )
 		}
 	}
 	exit(0);
-}
-
-void program_sleep ( void *pointer )
-{
-    if ( SIMPLE_API_PARACOUNT == 1 ) {
-        if ( SIMPLE_API_ISNUMBER(1) ) {
-            _sleep(SIMPLE_API_GETNUMBER(1));
-            return ;
-        }
-    }
-    _sleep(0);
 }
 
 static int Write(FILE *stream, const char *format, va_list ap) {
@@ -245,7 +236,7 @@ static inline unsigned int Shift(
 
 static void UnixTerminalColorize(
         FILE* stream, unsigned int fg, unsigned int bg) {
-    fprintf(stream, "\x1B[39;49;%u;%um", Shift(fg, 30, 90), Shift(bg, 40, 100));
+        fprintf(stream, "\x1B[39;49;%u;%um", Shift(fg, 30, 90), Shift(bg, 40, 100));
 }
 
 static void UnixTerminalRestore(FILE* stream) {
@@ -297,3 +288,7 @@ finish:
     va_end(ap);
     return result;
 }
+
+#ifdef __cplusplus
+}
+#endif

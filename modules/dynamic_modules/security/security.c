@@ -12,10 +12,6 @@
  * Created on February 18, 2018, 11:48 AM
  */
 
-#include "./openssl/md5.h"
-#include "openssl/sha.h"
-#include "openssl/evp.h"
-#include "openssl/rand.h"
 #include "../../../simple/includes/simple.h"
 #include "security.h"
 
@@ -82,13 +78,16 @@ void security_lib_md5 ( void *pointer )
 		return ;
 	}
 	if ( SIMPLE_API_ISSTRING(1) ) {
-		cInput = SIMPLE_API_GETSTRING(1) ;
-		size = SIMPLE_API_GETSTRINGSIZE(1) ;
-		MD5((unsigned char *) cInput, size, (unsigned char *) &digest);
-		for ( x = 0 ; x < 16 ; x++ ) {
-			sprintf( &string[x*2] , "%02x" , (unsigned int) digest[x] ) ;
-		}
-		SIMPLE_API_RETSTRING(string);
+        #ifdef __ANDROID__
+        #else
+            cInput = SIMPLE_API_GETSTRING(1) ;
+            size = SIMPLE_API_GETSTRINGSIZE(1) ;
+            MD5((unsigned char *) cInput, size, (unsigned char *) &digest);
+            for ( x = 0 ; x < 16 ; x++ ) {
+                sprintf( &string[x*2] , "%02x" , (unsigned int) digest[x] ) ;
+            }
+            SIMPLE_API_RETSTRING(string);
+        #endif
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
@@ -96,8 +95,11 @@ void security_lib_md5 ( void *pointer )
 
 void security_lib_SHA1 ( void *pointer )
 {
-	unsigned char digest[SHA_DIGEST_LENGTH]  ;
+#ifdef __ANDROID__
+#else
+    unsigned char digest[SHA_DIGEST_LENGTH]  ;
 	char string[SHA_DIGEST_LENGTH*2+1]  ;
+#endif
 	int x,size  ;
 	char *cInput  ;
 	if ( SIMPLE_API_PARACOUNT != 1 ) {
@@ -105,13 +107,17 @@ void security_lib_SHA1 ( void *pointer )
 		return ;
 	}
 	if ( SIMPLE_API_ISSTRING(1) ) {
-		cInput = SIMPLE_API_GETSTRING(1) ;
+#ifdef __ANDROID__
+        SIMPLE_API_RETSTRING(SIMPLE_API_GETSTRING(1));
+#else
+        cInput = SIMPLE_API_GETSTRING(1) ;
 		size = SIMPLE_API_GETSTRINGSIZE(1) ;
 		SHA1((unsigned char *) cInput, size, (unsigned char *) &digest);
 		for ( x = 0 ; x < SHA_DIGEST_LENGTH ; x++ ) {
 			sprintf( &string[x*2] , "%02x" , (unsigned int) digest[x] ) ;
 		}
 		SIMPLE_API_RETSTRING(string);
+#endif
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
@@ -119,8 +125,11 @@ void security_lib_SHA1 ( void *pointer )
 
 void security_lib_sha256 ( void *pointer )
 {
+#ifdef __ANDROID__
+#else
 	unsigned char digest[SHA256_DIGEST_LENGTH]  ;
 	char string[SHA256_DIGEST_LENGTH*2+1]  ;
+#endif
 	int x,size  ;
 	char *cInput  ;
 	if ( SIMPLE_API_PARACOUNT != 1 ) {
@@ -128,6 +137,9 @@ void security_lib_sha256 ( void *pointer )
 		return ;
 	}
 	if ( SIMPLE_API_ISSTRING(1) ) {
+#ifdef __ANDROID__
+        SIMPLE_API_RETSTRING(SIMPLE_API_GETSTRING(1));
+#else
 		cInput = SIMPLE_API_GETSTRING(1) ;
 		size = SIMPLE_API_GETSTRINGSIZE(1) ;
 		SHA256((unsigned char *) cInput, size, (unsigned char *) &digest);
@@ -135,6 +147,7 @@ void security_lib_sha256 ( void *pointer )
 			sprintf( &string[x*2] , "%02x" , (unsigned int) digest[x] ) ;
 		}
 		SIMPLE_API_RETSTRING(string);
+#endif
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
@@ -142,8 +155,11 @@ void security_lib_sha256 ( void *pointer )
 
 void security_lib_sha512 ( void *pointer )
 {
+#ifdef __ANDROID__
+#else
 	unsigned char digest[SHA512_DIGEST_LENGTH]  ;
 	char string[SHA512_DIGEST_LENGTH*2+1]  ;
+#endif
 	int x,size  ;
 	char *cInput  ;
 	if ( SIMPLE_API_PARACOUNT != 1 ) {
@@ -151,6 +167,9 @@ void security_lib_sha512 ( void *pointer )
 		return ;
 	}
 	if ( SIMPLE_API_ISSTRING(1) ) {
+#ifdef __ANDROID__
+        SIMPLE_API_RETSTRING(SIMPLE_API_GETSTRING(1));
+#else
 		cInput = SIMPLE_API_GETSTRING(1) ;
 		size = SIMPLE_API_GETSTRINGSIZE(1) ;
 		SHA512((unsigned char *) cInput, size, (unsigned char *) &digest);
@@ -158,6 +177,7 @@ void security_lib_sha512 ( void *pointer )
 			sprintf( &string[x*2] , "%02x" , (unsigned int) digest[x] ) ;
 		}
 		SIMPLE_API_RETSTRING(string);
+#endif
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
@@ -165,8 +185,11 @@ void security_lib_sha512 ( void *pointer )
 
 void security_lib_sha384 ( void *pointer )
 {
+#ifdef __ANDROID__
+#else
 	unsigned char digest[SHA384_DIGEST_LENGTH]  ;
 	char string[SHA384_DIGEST_LENGTH*2+1]  ;
+#endif
 	int x,size  ;
 	char *cInput  ;
 	if ( SIMPLE_API_PARACOUNT != 1 ) {
@@ -174,6 +197,9 @@ void security_lib_sha384 ( void *pointer )
 		return ;
 	}
 	if ( SIMPLE_API_ISSTRING(1) ) {
+#ifdef __ANDROID__
+        SIMPLE_API_RETSTRING(SIMPLE_API_GETSTRING(1));
+#else
 		cInput = SIMPLE_API_GETSTRING(1) ;
 		size = SIMPLE_API_GETSTRINGSIZE(1) ;
 		SHA384((unsigned char *) cInput, size, (unsigned char *) &digest);
@@ -181,6 +207,7 @@ void security_lib_sha384 ( void *pointer )
 			sprintf( &string[x*2] , "%02x" , (unsigned int) digest[x] ) ;
 		}
 		SIMPLE_API_RETSTRING(string);
+#endif
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
@@ -188,8 +215,11 @@ void security_lib_sha384 ( void *pointer )
 
 void security_lib_sha224 ( void *pointer )
 {
+#ifdef __ANDROID__
+#else
 	unsigned char digest[SHA224_DIGEST_LENGTH]  ;
 	char string[SHA224_DIGEST_LENGTH*2+1]  ;
+#endif
 	int x,size  ;
 	char *cInput  ;
 	if ( SIMPLE_API_PARACOUNT != 1 ) {
@@ -197,6 +227,9 @@ void security_lib_sha224 ( void *pointer )
 		return ;
 	}
 	if ( SIMPLE_API_ISSTRING(1) ) {
+#ifdef __ANDROID__
+        SIMPLE_API_RETSTRING(SIMPLE_API_GETSTRING(1));
+#else
 		cInput = SIMPLE_API_GETSTRING(1) ;
 		size = SIMPLE_API_GETSTRINGSIZE(1) ;
 		SHA224((unsigned char *) cInput, size, (unsigned char *) &digest);
@@ -204,6 +237,7 @@ void security_lib_sha224 ( void *pointer )
 			sprintf( &string[x*2] , "%02x" , (unsigned int) digest[x] ) ;
 		}
 		SIMPLE_API_RETSTRING(string);
+#endif
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
@@ -218,6 +252,9 @@ void security_lib_randbytes ( void *pointer )
 		return ;
 	}
 	if ( SIMPLE_API_ISNUMBER(1) ) {
+#ifdef __ANDROID__
+        SIMPLE_API_RETSTRING("(invalid-in-android)");
+#else
 		nNum1 = (int) SIMPLE_API_GETNUMBER(1) ;
 		if ( nNum1 > 0 ) {
 			str =  malloc(nNum1+1) ;
@@ -230,6 +267,7 @@ void security_lib_randbytes ( void *pointer )
 		} else {
 			SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 		}
+#endif
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
@@ -237,14 +275,20 @@ void security_lib_randbytes ( void *pointer )
 
 void security_lib_encrypt ( void *pointer )
 {
+#ifdef __ANDROID__
+#else
 	unsigned char *in, *out, *key, *iv  ;
 	int nSize,buflen, tmplen, nSize2  ;
 	EVP_CIPHER_CTX *ctx  ;
+#endif
 	if ( SIMPLE_API_PARACOUNT != 3 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARACOUNT);
 		return ;
 	}
 	if ( SIMPLE_API_ISSTRING(1) && SIMPLE_API_ISSTRING(2) && SIMPLE_API_ISSTRING(3) ) {
+#ifdef __ANDROID__
+        SIMPLE_API_RETSTRING(SIMPLE_API_GETSTRING(1));
+#else
 		in = (unsigned char *) SIMPLE_API_GETSTRING(1) ;
 		key = (unsigned char *) SIMPLE_API_GETSTRING(2) ;
 		iv = (unsigned char *) SIMPLE_API_GETSTRING(3) ;
@@ -270,6 +314,7 @@ void security_lib_encrypt ( void *pointer )
 		SIMPLE_API_RETSTRING2((const char *) out,nSize2);
 		EVP_CIPHER_CTX_free(ctx);
 		free( out ) ;
+#endif
 	}
 	else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
@@ -278,14 +323,20 @@ void security_lib_encrypt ( void *pointer )
 
 void security_lib_decrypt ( void *pointer )
 {
+#ifdef __ANDROID__
+#else
 	unsigned char *in, *out, *key, *iv  ;
 	int nSize,buflen, tmplen, nSize2  ;
 	EVP_CIPHER_CTX *ctx  ;
+#endif
 	if ( SIMPLE_API_PARACOUNT != 3 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARACOUNT);
 		return ;
 	}
 	if ( SIMPLE_API_ISSTRING(1) && SIMPLE_API_ISSTRING(2) && SIMPLE_API_ISSTRING(3) ) {
+#ifdef __ANDROID__
+        SIMPLE_API_RETSTRING(SIMPLE_API_GETSTRING(1));
+#else
 		in = (unsigned char *) SIMPLE_API_GETSTRING(1) ;
 		key = (unsigned char *) SIMPLE_API_GETSTRING(2) ;
 		iv = (unsigned char *) SIMPLE_API_GETSTRING(3) ;
@@ -311,6 +362,7 @@ void security_lib_decrypt ( void *pointer )
 		SIMPLE_API_RETSTRING2((const char *) out,nSize2);
 		EVP_CIPHER_CTX_free(ctx);
 		free( out ) ;
+#endif
 	}
 	else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);

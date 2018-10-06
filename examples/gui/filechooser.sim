@@ -19,7 +19,7 @@ block main()
 	
 class FileChooserDemo : FWindow
 
-	setLookAndFeel(GLEAM_SCHEME) md = new FFileChooser("","")
+	setLookAndFeel(PLASTIC_SCHEME) md = new FFileChooser("","")
 	button = new FButton("Browse")
 	input = new FInput("Simple Webpage (*.swp)~Simple Files (*.sim)~Resources Files (*.rc)~JSON File (*.json) ")
 	dirinput = new FInput(".") titleinput = new FInput("It simple-lang")

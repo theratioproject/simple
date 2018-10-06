@@ -1,0 +1,13 @@
+
+@one()
+@two(32,8)
+@three(2,99,"t-rex")
+
+block one()
+	return "testing block one"
+
+block two(te,ti)
+	return "testing block two "+(te+ti)
+	
+block three(te,ti,rex)
+	return "testing block two "+(te+ti)+" "+rex
