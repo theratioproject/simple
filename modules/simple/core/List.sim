@@ -249,6 +249,19 @@ class List : Object
 			__OBJECT + arr[a]
 		end
 		return __OBJECT
+
+  /* Returns the first element of the List */
+	
+	block first()
+	  return __OBJECT[0]
+	end
+
+	/* Returns the last element in the List */
+
+	block last()
+	  return __OBJECT[lengthOf(__OBJECT)]
+	end
+
 	/*
 	 * Error block, needs to be private
 	 * So it won't be be accessed outside
