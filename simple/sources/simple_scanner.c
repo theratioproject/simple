@@ -22,7 +22,7 @@ const char * SIMPLE_KEYWORDS[] = {"if","to","or","and","not","for","new","block"
 
 "read","__exit__","break","try","catch","finally","switch","default",
 
-"in","continue","module","private","step","do","exec","elif",
+"in","continue","module","private","final","step","do","exec","elif",
 
 "get","case"/**, "changesimplekeyword","changesimpleoperator","loadsyntax"**/} ;
 /* Blocks */
@@ -574,6 +574,7 @@ void simple_scanner_keywords ( Scanner *scanner )
 	/* Modules */
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"module");
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"private");
+	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"final");
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"step");
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"do");
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"exec");

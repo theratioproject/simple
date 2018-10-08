@@ -25,6 +25,10 @@ SIMPLE_API Item * simple_item_new_gc ( void *pState,int ItemType )
 		printf( SIMPLE_OOM ) ;
 		exit(0);
 	}
+	/* Set the final flag to false */
+	pItem->isFinal = 0 ;
+	/* Set the initial declaration to true */
+	pItem->initDec = 1 ;
 	/* Set Type */
 	pItem->nType = ITEMTYPE_NOTHING ;
 	/* Delete pointer information */
@@ -53,6 +57,10 @@ SIMPLE_API void simple_item_print ( Item *pItem )
 	assert(pItem != NULL);
 	ItemType = pItem->nType ;
 	switch ( ItemType ) {
+		case ITEMTYPE_FINAL :
+			/* Work */
+			printf( "%i \n",pItem->isFinal ) ;
+			break;
 		case ITEMTYPE_NOTHING :
 			/* Work */
 			break ;
@@ -66,7 +74,7 @@ SIMPLE_API void simple_item_print ( Item *pItem )
 				printf( "%d\n ",pItem->data.iNumber ) ;
 			} else {
 				printf( "%f \n",pItem->data.dNumber ) ;
-			}
+			} //int
 			break ;
 		case ITEMTYPE_POINTER :
 			/* Work */
@@ -100,6 +108,8 @@ SIMPLE_API void simple_item_content_delete_gc ( void *pState,Item *pItem )
 	/* Delete number information */
 	pItem->data.dNumber = 0 ;
 	pItem->data.iNumber = 0 ;
+	pItem->isFinal = 0 ;
+	pItem->initDec = 1 ;
 	pItem->NumberFlag = ITEM_NUMBERFLAG_NOTHING ;
 }
 
@@ -108,6 +118,8 @@ SIMPLE_API void simple_item_settype_gc ( void *pState,Item *pItem,int ItemType )
 	assert(pItem != NULL);
 	/* When we set the type we remove the current content at first */
 	simple_item_content_delete_gc(pState,pItem);
+	pItem->isFinal = 0 ;
+	pItem->initDec = 0 ;
 	switch ( ItemType ) {
 		case ITEMTYPE_NOTHING :
 			pItem->nType = ITEMTYPE_NOTHING ;
@@ -171,6 +183,8 @@ SIMPLE_API void simple_itemarray_setdouble_gc ( void *pState,Item list[], int in
 #define simple_list_getstring(list,index) ( simple_string_get(simple_item_getstring(simple_list_getitem(list,index))) )
 #define simple_list_getstringobject(list,index) ( simple_item_getstring(simple_list_getitem(list,index)) )
 #define simple_list_getstringsize(list,index) ( simple_string_size(simple_item_getstring(simple_list_getitem(list,index))) )
+#define simple_list_getfinal(list,index) simple_list_getitem(list,index)->isFinal 
+#define simple_list_getinitdec(list,index) simple_list_getitem(list,index)->initDec
 /* String */
 
 SIMPLE_API void simple_itemarray_setstsimple_gc ( void *pState,Item list[], int index ,const char *str )
@@ -203,6 +217,16 @@ SIMPLE_API void simple_item_setdouble_gc ( void *pState,Item *pItem,double x )
 	simple_item_settype_gc(pState,pItem,ITEMTYPE_NUMBER);
 	pItem->data.dNumber = x ;
 	pItem->NumberFlag = ITEM_NUMBERFLAG_DOUBLE ;
+}
+
+SIMPLE_API void simple_item_setfinal_gc ( void *pState,Item *pItem,double x )
+{
+	pItem->isFinal = x ;
+}
+
+SIMPLE_API void simple_item_setinitdec_gc ( void *pState,Item *pItem,double x )
+{
+	pItem->initDec = x ;
 }
 
 SIMPLE_API void simple_item_setpointer_gc ( void *pState,Item *pItem,void *pValue )
@@ -281,6 +305,16 @@ SIMPLE_API void simple_item_setstring ( Item *pItem,const char *cStr )
 SIMPLE_API void simple_item_setdouble ( Item *pItem,double x )
 {
 	simple_item_setdouble_gc(NULL,pItem,x);
+}
+
+SIMPLE_API void simple_item_setfinal( Item *pItem,double x )
+{
+	simple_item_setfinal_gc(NULL,pItem,x);
+}
+
+SIMPLE_API void simple_item_setinitdec( Item *pItem,double x )
+{
+	simple_item_setinitdec_gc(NULL,pItem,x);
 }
 
 SIMPLE_API void simple_item_setpointer ( Item *pItem,void *pValue )

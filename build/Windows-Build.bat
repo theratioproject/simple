@@ -872,13 +872,13 @@ REM MINIFY ALL THE MODULE SOURCE (.sim) only
 	if !EXEC_TYPE!=="install" (
 		if exist "!INSTALLATION_FOLDER!\%VERSION%\modules" (
 			echo modules:minifying: starting simple sources minification in !INSTALLATION_FOLDER!\%VERSION%\modules directory
-			!INSTALLATION_FOLDER!\%VERSION%\bin\simple.exe !MINIFICATION_PROGRAM! --source !INSTALLATION_FOLDER!\%VERSION%\modules -y
+			REM !INSTALLATION_FOLDER!\%VERSION%\bin\simple.exe !MINIFICATION_PROGRAM! --source !INSTALLATION_FOLDER!\%VERSION%\modules -y
 		)
 	)
 	if !EXEC_TYPE!=="debug" (
 		if exist "..\..\%SIMPLE_DEBUG_VERSION%\modules" (
 			echo modules:minifying: starting simple sources minification in ..\..\%SIMPLE_DEBUG_VERSION%\modules directory
-			..\..\%SIMPLE_DEBUG_VERSION%\bin\simple.exe !MINIFICATION_PROGRAM! --source ..\..\%SIMPLE_DEBUG_VERSION%\modules -y
+			REM ..\..\%SIMPLE_DEBUG_VERSION%\bin\simple.exe !MINIFICATION_PROGRAM! --source ..\..\%SIMPLE_DEBUG_VERSION%\modules -y
 		)
 	)
 	echo modules:minifying: minification complete

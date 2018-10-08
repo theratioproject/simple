@@ -30,6 +30,7 @@ typedef enum IC_OPERATIONS {
 	ICO_NEWOBJ ,
 	ICO_GIVE ,
 	ICO_PRIVATE ,
+	ICO_FINAL ,
 	ICO_NEWLABEL ,
 	/* Control Structure */
 	ICO_JUMP ,

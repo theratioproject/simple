@@ -237,6 +237,20 @@ int simple_parser_class ( Parser *parser )
 			return 0 ;
 		}
 	}
+	
+	/* Statement --> final */
+	if ( simple_parser_iskeyword(parser,KEYWORD_FINAL) ) {
+		simple_parser_nexttoken(parser);
+		/* Generate Code */
+		/* Change Label After Class to BlockFlag to Jump to Final */
+		simple_parser_icg_newoperation(parser,ICO_FINAL);
+		#if SIMPLE_PARSERTRACE
+		SIMPLE_STATE_CHECKPRINTRULES 
+		
+		puts("Rule : Statement  --> 'Final'");
+		#endif
+		return 1 ;
+	}
 	return simple_parser_stmt(parser) ;
 }
 
