@@ -728,7 +728,7 @@ List * simple_vm_getglobalscope ( VM *vm ) ;
 #define SIMPLE_VM_ERROR_CLASSNOTFOUND "RUNTIME ERROR 24 : Invalid class name, Class not found "
 #define SIMPLE_VM_ERROR_PROPERTYNOTFOUND "RUNTIME ERROR 24 : Invalid property name, property not found"
 #define SIMPLE_VM_ERROR_NOTOBJECT "RUNTIME ERROR 24 : Object is required"
-#define SIMPLE_VM_ERROR_METHODNOTFOUND "RUNTIME ERROR 24 : Calling Block without definition "
+#define SIMPLE_VM_ERROR_METHODNOTFOUND "RUNTIME ERROR 24 : Calling Method without definition "
 #define SIMPLE_VM_ERROR_PARENTCLASSNOTFOUND "RUNTIME ERROR 24 : Invalid parent class name, class not found"
 #define SIMPLE_VM_ERROR_BRACEWITHOUTOBJECT "RUNTIME ERROR 24 : Using braces to access unknown object "
 #define SIMPLE_VM_ERROR_SUPERCLASSNOTFOUND "RUNTIME ERROR 24 : error, using 'Super' without parent class "

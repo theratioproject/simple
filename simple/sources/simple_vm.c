@@ -1413,6 +1413,7 @@ SIMPLE_API void simple_vm_runcodefromthread ( VM *vm,const char *cStr )
 	/* Delete the SimpleState */
 	finalize(pState);
 }
+
 /* Fast Block Call for Extensions (Without Eval) */
 
 SIMPLE_API void simple_vm_callblock ( VM *vm,char *cBlockName )

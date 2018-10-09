@@ -10,8 +10,10 @@ SET NO_BUILDTOOL="true"
 SET MVS=""
 
 call:locatevisualstudio !BUILD_ARC!
+REM call "C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\vcvarsall.bat" x86
 if !NO_BUILDTOOL!=="false" (
 	if "!TYPE!"=="txt" (
+		echo !NO_BUILDTOOL!
 		call:generatelibfromdll !DLLNAME! curl_* 000*
 	) else (
 		call:generatelibfromdef !DLLNAME! !LIBNAME!
@@ -42,7 +44,7 @@ exit /b 0
 	if "%1"=="x86" (
 		SET "PROGRAMFILESPATH=%ProgramFiles(x86)%"
 	)
-	for /d %%a in ("%PROGRAMFILESPATH%\Microsoft Visual Studio*") do (
+	for /d %%a in ("%PROGRAMFILESPATH%\Microsoft Visual Studio 11.0") do (
 		for /f "tokens=3 delims=\" %%x in ("%%a") do SET MVS=%%a\
 		break
 	)

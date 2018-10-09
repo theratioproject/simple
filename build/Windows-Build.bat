@@ -808,7 +808,7 @@ REM COPY THE SIMPLE MODULES
 	
 :copysimplemodule
 	call:header modules "copying simple modules to %SIMPLE_DEBUG_VERSION%"
-	call:copymodulesinloop archive fulltick parser simple web
+	call:copymodulesinloop archive fulltick parser simple web image
 	call:resolvefirstcalls
 	copy "..\modules\modules-dependencies.conf" "%~dp0\..\..\%SIMPLE_DEBUG_VERSION%\modules\"
 

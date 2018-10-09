@@ -140,26 +140,27 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
 									else {
 										/* We dig deep for android and ios we first check the assets folder then the storage*/
 										#ifdef __ANDROID__
-                                            //check android asset first
-                                            snprintf(__library_path, sizeof(__library_path), "%s/%s", EXTERNAL_DATA_PATH, file_name);
-                                            if (simple_fexists(__library_path)) { strcpy(file_name,__library_path);}
-                                            else {
-                                                snprintf(__library_path, sizeof(__library_path), "%s/modules/%s", EXTERNAL_DATA_PATH, file_name);
-                                                if (simple_fexists(__library_path)) { strcpy(file_name,__library_path);}
-                                                else {
-                                                    //now check the sdcard (External Storage)
-                                                    simple_env_path = getenv("EXTERNAL_STORAGE");
-                                                    snprintf(__library_path, sizeof(__library_path), "%s/simple/s%s/modules/%s", simple_env_path, SIMPLE_VERSION,file_name);
+                                            /*check sdcard (External Storage) first. user might want to update module
+                                             without having to re install the app or wait for an update from developer*/
+											simple_env_path = getenv("EXTERNAL_STORAGE");
+											snprintf(__library_path, sizeof(__library_path), "%s/simple/s%s/modules/%s", simple_env_path, SIMPLE_VERSION,file_name);
+											if (simple_fexists(__library_path)) { strcpy(file_name,__library_path);}
+											else {
+                                                //now check the android asset
+												snprintf(__library_path, sizeof(__library_path), "%s/simple/modules/%s", simple_env_path, file_name);
+												if (simple_fexists(__library_path)) { strcpy(file_name,__library_path);}
+												else {
+                                                    snprintf(__library_path, sizeof(__library_path), "%s/%s", EXTERNAL_DATA_PATH, file_name);
                                                     if (simple_fexists(__library_path)) { strcpy(file_name,__library_path);}
                                                     else {
-                                                        snprintf(__library_path, sizeof(__library_path), "%s/simple/modules/%s", simple_env_path, file_name);
+                                                        snprintf(__library_path, sizeof(__library_path), "%s/modules/%s", EXTERNAL_DATA_PATH, file_name);
                                                         if (simple_fexists(__library_path)) { strcpy(file_name,__library_path);}
                                                         else {
 
                                                         }
                                                     }
-                                                }
-                                            }
+												}
+											}
 										#endif
 									}
 								}

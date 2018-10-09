@@ -14,12 +14,15 @@
 #ifndef FULLTICK_H
 #define FULLTICK_H
 
+#include <png.h> 
+
 #include <FL/Fl.H>
 #include <FL/Fl_Window.H>
 #include <FL/Fl_Adjuster.H>
 
 #include <FL/Fl_Box.H>
 #include <FL/fl_draw.H>
+#include <FL/x.H> 
 #include <FL/Fl_Window.H>
 #include <FL/Fl_Double_Window.H>
 #include <FL/Fl_Button.H>

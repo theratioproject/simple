@@ -41,7 +41,10 @@ SIMPLE_BLOCK(test_gui)
         Fl_Button *b3 = new Fl_Button(220,20, 80, 25, "E&xit");
         window->end();
         window->show();
-        printf("Hello World :: s");
+		uchar *data_p = NULL; 
+		data_p = fl_read_image(data_p,0,0,600,776);
+		png_write("Test2.png", data_p, 600,776, 3, "meta-data", "comment"); 
+		printf("%s",data_p);
 		int ret = Fl::run();
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);

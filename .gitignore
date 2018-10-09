@@ -18,6 +18,7 @@
 *.obj
 *.cod
 *@@
+*ilk
 simple.so
 tasks.json
 .DS_STORE
@@ -53,6 +54,7 @@ modules/dynamic_modules/fulltick/x64/*
 modules/dynamic_modules/fulltick/fulltick.vcxproj
 modules/dynamic_modules/fulltick/fulltick.vcxproj.filters
 modules/dynamic_modules/fulltick/fulltick.vcxproj.user
+modules/dynamic_modules/fulltick/fulltick/
 
 ''$'\001\213\212''@@'
 
