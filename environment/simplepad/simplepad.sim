@@ -22,13 +22,13 @@
 		it also support syntax highlighting and other basic and simple functions
  */
 
-call "fulltick/all.sim"
+call fulltick.all
 call "simple/system/Runtime.sim"
 # call "simple/system/Runtime.sim"
-call "simple/system/System.sim"
-call "simple/core/String.sim"
+call simple.system.System
+call simple.core.String
 
-call "simple/io/File.sim"
+call simple.io.File
 
 block main()  
 	sp = new SimplePad sp.render()

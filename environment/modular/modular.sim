@@ -11,19 +11,19 @@
 
 */
 
-call "simple/utilities/Console.sim"
-call "simple/core/String.sim"
-call "simple/core/List.sim"
-call "simple/internet/Download.sim"
-call "simple/io/File.sim"
-call "simple/io/Directory.sim"
-call "parser/json/JsonObject.sim"
-call "simple/security/Hash.sim" ? simple.security
-call "archive/zip/Zip.sim" 
-call "simple/system/System.sim"
-call "simple/system/SimpleX.sim"
-call "simple/utilities/Conversion.sim"
-call "web/functions/Methods.sim"
+call simple.utilities.Console
+call simple.core.String
+call simple.core.List
+call simple.internet.Download
+call simple.io.File
+call simple.io.Directory
+call parser.json.JsonObject
+call simple.security.Hash
+call archive.zip.Zip 
+call simple.system.System
+call simple.system.SimpleX
+call simple.utilities.Conversion
+call web.functions.Methods
 
 monkeyFace = '
 			    __,__
@@ -416,10 +416,10 @@ block displayAbout()
 
 block shell()
 	while true 
-		printWithFG(ConsoleColor.GREEN(), modularTitle)
-		printWithFG(ConsoleColor.GREEN(), "simple-lang.modular $ ")
+		printfc(stdout, ConsoleColor.GREEN(), modularTitle)
+		printfc(stdout, ConsoleColor.GREEN(), "simple-lang.modular $")
 		read command
-		if command == "exit" || command == "q" {
+			if command == "exit" || command == "q" {
 			__exit__
 		}
 		cmdparamsl = stringSplit(command," ")

@@ -46,10 +46,10 @@
 		
  */
  
-call "simple/utilities/Conversion.sim" 
-call "simple/io/File.sim"
-call "simple/core/String.sim"
-call "simple/system/System.sim" 
+call simple.utilities.Conversion
+call simple.io.File
+call simple.core.String
+call simple.system.System
  
 depmodules = []
 outputName = ""
