@@ -11,10 +11,10 @@
  * @Time - 10:55 PM
  */
 
-call "simple/io/File.sim"
-call "simple/debugging/Throw.sim"
-call "simple/core/String.sim"
-call "simple/utilities/Type.sim"
+call simple.io.File
+call simple.debugging.Throw
+call simple.core.String
+call simple.utilities.Type
 
 skipRequest = false
  

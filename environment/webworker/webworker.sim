@@ -26,10 +26,10 @@
 		
  */
  
-call "simple/internet/curl/CurlCore.sim"
-call "simple/io/Directory.sim"
-call "simple/internet/Download.sim"
-call "simple/core/String.sim"
+call simple.internet.curl.CurlCore
+call simple.io.Directory
+call simple.internet.Download
+call simple.core.String
 
 cmdlen = lengthOf(cmdparams)
 execType = -1 #do nothing
