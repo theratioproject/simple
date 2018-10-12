@@ -528,6 +528,18 @@ class FWidget
 	block getGroup()
 		return WIDGET_GROUP
 		
+	block getX()
+		return WIDGET_X
+		
+	block setX(x)
+		WIDGET_X = x
+		
+	block getY()
+		return WIDGET_Y 
+		
+	block setY(y)
+		WIDGET_Y = y
+		
 	#toggle between activating or deactivating this widget
 	#@Bold condition @Bold parameter determines whether the widget
 	#should be active of not the parameter is of boolean which

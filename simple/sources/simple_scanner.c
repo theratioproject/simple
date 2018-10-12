@@ -15,7 +15,7 @@
 
 #include "../includes/simple.h"
 
-const char *EXTERNAL_DATA_PATH = "" ;
+const char *external_data_path = "" ;
 
 /* Keywords */
 const char * SIMPLE_KEYWORDS[] = {"if","to","or","and","not","for","new","block",
@@ -150,10 +150,10 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
 												snprintf(__library_path, sizeof(__library_path), "%s/simple/modules/%s", simple_env_path, file_name);
 												if (simple_fexists(__library_path)) { strcpy(file_name,__library_path);}
 												else {
-                                                    snprintf(__library_path, sizeof(__library_path), "%s/%s", EXTERNAL_DATA_PATH, file_name);
+                                                    snprintf(__library_path, sizeof(__library_path), "%s/%s", external_data_path, file_name);
                                                     if (simple_fexists(__library_path)) { strcpy(file_name,__library_path);}
                                                     else {
-                                                        snprintf(__library_path, sizeof(__library_path), "%s/modules/%s", EXTERNAL_DATA_PATH, file_name);
+                                                        snprintf(__library_path, sizeof(__library_path), "%s/modules/%s", external_data_path, file_name);
                                                         if (simple_fexists(__library_path)) { strcpy(file_name,__library_path);}
                                                         else {
 

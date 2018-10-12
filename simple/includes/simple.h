@@ -111,7 +111,7 @@
 #define printf(...) fprintf(ANDROID_LOG_DEBUG,__VA_ARGS__)
 #define printe(...) fprintf(ANDROID_LOG_ERROR,__VA_ARGS__)
 
-extern const char *EXTERNAL_DATA_PATH ;
+extern const char *external_data_path ;
 
 #endif
 
