@@ -34,14 +34,17 @@ SIMPLE_BLOCK(test_gui)
 		return ;
 	}
 	if ( SIMPLE_API_ISSTRING(1) ) {
-		Fl_Window *window = new Fl_Window(340,180);
-		Fl_Box *box = new Fl_Box(20,40,300,100,SIMPLE_API_GETSTRING(1));
-		box->box(FL_UP_BOX);
-		box->labelfont(FL_BOLD+FL_ITALIC);
-		box->labelsize(36);
-		box->labeltype(FL_SHADOW_LABEL);
-		window->end();
-		window->show();
+        Fl_Window *window = new Fl_Window(600,776,SIMPLE_API_GETSTRING(1));
+        window->position(0,24);
+        Fl_Button *b1 = new Fl_Button(20, 20, 80, 25, "&Beep");
+        /*Fl_Button *b2 =*/ new Fl_Button(120,20, 80, 25, "&no op");
+        Fl_Button *b3 = new Fl_Button(220,20, 80, 25, "E&xit");
+        window->end();
+        window->show();
+		uchar *data_p = NULL; 
+		data_p = fl_read_image(data_p,0,0,600,776);
+		png_write("Test2.png", data_p, 600,776, 3, "meta-data", "comment"); 
+		printf("%s",data_p);
 		int ret = Fl::run();
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
@@ -1971,6 +1974,8 @@ SIMPLE_BLOCK(file_chooser_get_directory)
 	}
 }
 
+/* Not yet Supported on android */
+#ifndef __ANDROID__
 /* FTEXTDISPLAY */
 
 SIMPLE_BLOCK(init_text_display)
@@ -2585,6 +2590,8 @@ SIMPLE_BLOCK(text_buffer_text)
 	}
 }
 
+#endif
+
 /* FVALUATOR */
 SIMPLE_BLOCK(valuator_bound)
 {
@@ -2645,7 +2652,7 @@ SIMPLE_BLOCK(adjuster_soft)
 
 SIMPLE_API void init_full_tick(SimpleState *sState) 
 {
-	register_block("__test_gui",test_gui);
+    register_block("__test_gui",test_gui);
 
 	/** FAPP **/
 	register_block("__run_fulltick",run_fulltick);
@@ -2799,6 +2806,9 @@ SIMPLE_API void init_full_tick(SimpleState *sState)
 	register_block("__file_chooser_value",file_chooser_value);
 	register_block("__file_chooser_get_directory",file_chooser_get_directory);
 
+/* Not yet Supported on android */
+#ifndef __ANDROID__
+
 	/** FTEXTDISPLAY **/
 	register_block("__init_text_display",init_text_display);
 	register_block("__text_display_buffer",text_display_buffer);
@@ -2826,7 +2836,7 @@ SIMPLE_API void init_full_tick(SimpleState *sState)
 	register_block("__text_display_previous_word",text_display_previous_word);
 	register_block("__text_display_redisplay_range",text_display_redisplay_range); 
 	//before this
-	register_block("__text_display_text_color",text_display_text_color); 
+	register_block("__text_display_text_color",text_display_text_color);
 
 	/** FTEXTEDITOR **/
 	register_block("__init_text_editor",init_text_editor);
@@ -2834,7 +2844,7 @@ SIMPLE_API void init_full_tick(SimpleState *sState)
 	/** FTEXTBUFFER **/
 	register_block("__init_text_buffer",init_text_buffer);
 	register_block("__text_buffer_text",text_buffer_text);
-
+#endif
 	/** FVALUATOR **/
 	register_block("__valuator_bound",valuator_bound);
 	register_block("__valuator_clamp",valuator_clamp);

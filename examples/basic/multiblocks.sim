@@ -1,0 +1,28 @@
+
+to1 = new TestOperators(75)
+@to1.getValue() and 25
+
+block one()
+	return "testing block one"
+
+block two(te,ti)
+	return "testing block two "+(te+ti)
+	
+block three(te,ti,rex)
+	return "testing block two "+(te+ti)+" "+rex
+	
+	
+class TestOperators
+
+	value = 0
+	
+	block TestOperators(v)
+		this.value = v
+	
+	block setValue(value)
+		this.value = value
+		
+	block getValue()
+		return value
+		
+		

@@ -14,12 +14,15 @@
 #ifndef FULLTICK_H
 #define FULLTICK_H
 
+#include <png.h> 
+
 #include <FL/Fl.H>
 #include <FL/Fl_Window.H>
 #include <FL/Fl_Adjuster.H>
 
 #include <FL/Fl_Box.H>
 #include <FL/fl_draw.H>
+#include <FL/x.H> 
 #include <FL/Fl_Window.H>
 #include <FL/Fl_Double_Window.H>
 #include <FL/Fl_Button.H>
@@ -42,14 +45,17 @@
 /** FBROWSER(s) **/
 #include <FL/Fl_File_Browser.H>
 #include <FL/Fl_File_Chooser.H>
-/** FGROUP(s) **/
+
+/* Include android Headers*/
+#ifndef __ANDROID__
 #include <FL/Fl_Text_Display.H>
 #include <FL/Fl_Text_Editor.H>
+#endif
 
 #ifdef WIN32
-#include <FL/x.H>           
-#include <windows.h>		
-#endif 
+#include <FL/x.H>
+#include <windows.h>
+#endif
 
 #ifdef __cplusplus
 extern "C" {
@@ -57,24 +63,7 @@ extern "C" {
 
 #include "../../../simple/includes/simple.h"
 
-class CallbackStruct
-{
-public:
-  void *pointer;
-  String *block;
-  Fl_Widget *widget;
-  CallbackStruct( void *the_pointer, String *the_block, Fl_Widget *the_widget);
-  
-};
-
-class MyWindow : public Fl_Window {
-  int handle(int);
-public:
-  MyWindow(int w, int h, const char *t=0L) 
-    : Fl_Window( w, h, t ) { }
-};
-
-static void SimpleCallBack(Fl_Widget*, void* callback_struct) ;
+void test_gui(void *pointer);
 
 SIMPLE_API void init_full_tick(SimpleState *sState) ;
 

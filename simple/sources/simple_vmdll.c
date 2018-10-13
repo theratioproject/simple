@@ -83,6 +83,29 @@ void simple_vm_dll_loadlib ( void *pointer )
 									snprintf(__library_path, sizeof(__library_path), "../modules/dynamic_modules/%s", library_path);
 									if (simple_fexists(__library_path)) { strcpy(library_path,__library_path);}
 									else {
+                                        /* We dig deep for android and ios we first check the assets folder then the storage*/
+										#ifdef __ANDROID__
+											//check android asset first
+											snprintf(__library_path, sizeof(__library_path), "%s/%s", external_data_path, library_path);
+											if (simple_fexists(__library_path)) { strcpy(library_path,__library_path);}
+											else {
+												snprintf(__library_path, sizeof(__library_path), "%s/dynamic_modules/%s", external_data_path, library_path);
+												if (simple_fexists(__library_path)) { strcpy(library_path,__library_path);}
+												else {
+													//now check the sdcard (External Storage)
+													simple_env_path = getenv("EXTERNAL_STORAGE");
+													snprintf(__library_path, sizeof(__library_path), "%s/simple/s%s/modules/dynamic_modules/%s", simple_env_path, SIMPLE_VERSION,library_path);
+													if (simple_fexists(__library_path)) { strcpy(library_path,__library_path);}
+													else {
+														snprintf(__library_path, sizeof(__library_path), "%s/simple/modules/dynamic_modules/%s", simple_env_path, library_path);
+														if (simple_fexists(__library_path)) { strcpy(library_path,__library_path);}
+														else {
+
+														}
+													}
+												}
+											}
+                                        #endif
 									}
 								}
 							}

@@ -96,6 +96,25 @@
 #endif
 #include <errno.h>
 
+/* Include android Headers*/
+#ifdef __ANDROID__
+#include <android/log.h>
+#include <unistd.h>
+#define SIMPLE_ANDROID_LOG "simple-lang:0.3.36"
+
+/* Make fprintf function custom to allow output in android designated std(s)*/
+//ANDROID_LOG_DEBUG - stdout
+//ANDROID_LOG_ERROR - stderr
+#define fprintf(std,...) __android_log_print(std, SIMPLE_ANDROID_LOG, __VA_ARGS__)
+
+/* Replace Printf to print to the actual android log */
+#define printf(...) fprintf(ANDROID_LOG_DEBUG,__VA_ARGS__)
+#define printe(...) fprintf(ANDROID_LOG_ERROR,__VA_ARGS__)
+
+extern const char *external_data_path ;
+
+#endif
+
 /* Include Project Headers */
 #include "simple_misc.h"
 #include "simple_string.h"
@@ -106,6 +125,13 @@
 #include "simple_scanner.h"
 #include "simple_parser.h"
 #include "simple_codegen.h"
+
+#ifdef __ANDROID__
+/* load the fulltick module here */
+typedef void (*__android_init_full_tick)(SimpleState *sState);
+extern __android_init_full_tick __init_full_tick ;
+#endif
+
 #include "simple_vm.h"
 #include "simple_vmgc.h"
 #include "simple_api.h"

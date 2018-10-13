@@ -31,6 +31,16 @@
 #endif
 #endif
 
+#ifdef log2
+#else
+#define log2(x) (log(x)*1.4426950408889634)
+#endif
+
+#ifdef scalbln
+#else
+#define scalbln(x,y) (log(x)*log(y))
+#endif
+
 SIMPLE_API void init_simple_module(SimpleState *sState)
 {   
 	//Trigonometric blocks

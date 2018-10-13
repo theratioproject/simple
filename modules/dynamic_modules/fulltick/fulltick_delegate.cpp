@@ -6,6 +6,25 @@ extern "C" {
 
 #include "fulltick.h"
 
+class CallbackStruct
+{
+public:
+  void *pointer;
+  String *block;
+  Fl_Widget *widget;
+  CallbackStruct( void *the_pointer, String *the_block, Fl_Widget *the_widget);
+
+};
+
+class MyWindow : public Fl_Window {
+  int handle(int);
+public:
+  MyWindow(int w, int h, const char *t=0L)
+    : Fl_Window( w, h, t ) { }
+};
+
+static void SimpleCallBack(Fl_Widget*, void* callback_struct) ;
+
 /*
 	JUNK YARD
 	----------------------------------------------------------------------

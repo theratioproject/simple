@@ -25,9 +25,14 @@
 #define APPLINK_MAX     22      /* always same as last macro */
 
 #ifndef APPMACROS_ONLY
-# include <stdio.h"
-# include <io.h"
-# include <fcntl.h"
+#include <stdio.h>
+#ifdef __ANDROID__
+
+#else
+#include <io.h>
+#endif
+
+#include <fcntl.h>
 
 static void *app_stdin(void)
 {
@@ -58,6 +63,10 @@ static void app_clearerr(FILE *fp)
 {
     clearerr(fp);
 }
+
+#ifdef __ANDROID__
+
+#else
 
 static int app_fileno(FILE *fp)
 {
@@ -122,6 +131,8 @@ OPENSSL_Applink(void)
 
     return OPENSSL_ApplinkTable;
 }
+
+#endif
 
 #ifdef __cplusplus
 }

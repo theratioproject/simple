@@ -56,6 +56,19 @@ call "./FGroup.sim" ? fulltick.core
 #
 class FWindow : FGroup
 
+	/*
+		On @OS Android the Status bar height is usually 24dp so the initial location for the window on 
+		android will 24 for the y axis to make it look the positioning look more native
+	*/
+	if isAndroid() {
+		#android status bar height
+		WIDGET_Y = 24 
+		
+		# TODO : Auto Calculate screen size in android using class System.Display
+		WIDGET_WIDTH = 600 
+		WIDGET_HEIGHT = 778
+	}
+
 	setTypeName("FWindow") #change the name of the widget
 	if getTypeName() == "FWindow" initialize() end #initialize the FWindow Widget with zero width and height.
 

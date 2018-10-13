@@ -8,15 +8,15 @@ tab = char(9)
 isfirst = true
 issecond = false
 
-call "simple/utilities/Console.sim"
+call simple.utilities.Console
 
-	printLineWithColor(ConsoleColor.BLUE(), null)
-	printWithFG(ConsoleColor.YELLOW(), "\t\t\tAmerican Standard Code for Information Interchange (ASCII) Charaters\n")
-	printWithFG(ConsoleColor.MAGENTA(), "\t\t\t\t\t  Author : Azeez Adewale\n")
-	printWithFG(ConsoleColor.RED(), "\t\t\t\t   MIT License Copyright (c) 2018 SIMPLE \n")
-	printLineWithColor(ConsoleColor.BLUE(), null)
-	printWithFG(ConsoleColor.GREEN(), "\tSN\t|\tDEC\t|\tSYMBLOL\t\t~\tSN\t|\tDEC\t|\tSYMBLOL\n")
-	printLineWithColor(ConsoleColor.BLUE(), null)
+	stdout.printfc(ConsoleColor.BLUE(), " ")
+	stdout.printfc(ConsoleColor.YELLOW(), "\t\t\tAmerican Standard Code for Information Interchange (ASCII) Charaters\n")
+	stdout.printfc(ConsoleColor.MAGENTA(), "\t\t\t\t\t  Author : Azeez Adewale\n")
+	stdout.printfc(ConsoleColor.RED(), "\t\t\t\t   MIT License Copyright (c) 2018 SIMPLE \n")
+	#printLineWithColor(ConsoleColor.BLUE(), null)
+	stdout.printfc(ConsoleColor.GREEN(), "\tSN\t|\tDEC\t|\tSYMBLOL\t\t~\tSN\t|\tDEC\t|\tSYMBLOL\n")
+	stdout.printfc(ConsoleColor.BLUE(), null)
 
 for a = 0 to 400 #value can be changed
 	if isfirst 

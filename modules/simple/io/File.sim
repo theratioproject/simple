@@ -47,14 +47,14 @@ class File 	: Path
 		
 	block readFileAsString()
 		#ensureExistence()
-		return readfile(__IO_FILE_PATH)
+		return __readfile(__IO_FILE_PATH)
 		
 	block write(content)
 		if !toDirectory().exists() {
 			toDirectory().create()
 		}
 		try 
-			writefile(__IO_FILE_PATH, content)
+			__writefile(__IO_FILE_PATH, content)
 		catch
 			display crlf+"Error -> " + __err__ + crlf
 			display "	File : "+__IO_FILE_PATH+crlf
@@ -64,7 +64,7 @@ class File 	: Path
 		
 	block append(content)
 		try 
-			writefile(__IO_FILE_PATH, readFileAsString()+""+content)
+			__writefile(__IO_FILE_PATH, readFileAsString()+""+content)
 		catch
 			display __err__
 		end
@@ -76,7 +76,7 @@ class File 	: Path
 		else 
 			content = "false"
 		end
-		writefile(__IO_FILE_PATH, readFileAsString()+""+content)
+		__writefile(__IO_FILE_PATH, readFileAsString()+""+content)
 		
 	
 	block exists() 

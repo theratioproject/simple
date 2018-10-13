@@ -45,6 +45,9 @@ SIMPLE_API void loadcblocks ( SimpleState *sState )
 	register_block("executeCode",simple_vmlib_exec);
         /** Load DLL Extension  **/
     simple_vm_dll_loadblocks(sState);
+	#ifdef __ANDROID__
+    __init_full_tick(sState);
+	#endif
 	/*
 	**  Simple Display and Read 
 	**  Also we add the display() and read() block to the api
@@ -52,6 +55,11 @@ SIMPLE_API void loadcblocks ( SimpleState *sState )
 	register_block("display",display_string);
 	register_block("read",read_string);
 }
+
+#ifdef __ANDROID__
+SIMPLE_API void __a_init_full_tick(SimpleState *sState) { printf("hella \n"); }
+__android_init_full_tick __init_full_tick = __a_init_full_tick ;
+#endif
 
 int api_is_list ( void *pointer,int x )
 {
