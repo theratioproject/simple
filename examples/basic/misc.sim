@@ -1,29 +1,4 @@
 
-
-tc = new TestClass {  
-		
-	}
-td = new TestClass { Background = "Black" }
-tc = tc >> td
-@tc.Background
-@getType(tc)
-
-class TestClass {
-
-	Background = "blue"
-	
-	block operator(operator, parameter)
-		switch operator {
-			case ">>"
-				@"entered "
-				Background = Background+parameter.Background
-		}
-		return this
-
-}
-
-/*
 block main() 
 	display("Hello World"+crlf)
 	display "Holla World"
-	*/
