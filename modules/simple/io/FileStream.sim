@@ -1,0 +1,20 @@
+/* 
+	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com> 
+	MIT License Copyright (c) 2018 simple-lang
+
+*/
+
+/* 
+	#filename - FileStream.sim
+	#date - 16 October 2017
+	#time - 05 : 50 PM
+	#license - MIT License Copyright (c) 2018 simple-lang
+	#author - Azeez Adewale	<azeezadewale98@gmail.com> 
+ */
+ 
+ 
+module simple.io
+
+class FileStream 
+
+	block FileStream()

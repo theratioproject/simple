@@ -6,7 +6,7 @@ block main()
 	obj = new TestObject
 	obj1 = new CustomStringObject
 	obj2 = new NoToString
-	list = new List(["This only for #{2} mudule test ignore #{1}\n", "Typos", "Console"])
+	list = new List(["This only for {1} mudule test ignore {0}\n", "Typos", "Console"])
 	
 	#the stdout
 	stdout.println("\tHello World") #string
@@ -18,7 +18,7 @@ block main()
 	stdout.println(obj2) #object 2 has no toString() block
 	stdout.print("Yes you the boss\n")
 	stdout.printfc(ConsoleColor.BLUE()," The string in blue - STD OUT \n")
-	stdout.vprintf(["#{1} #{2} #{3} bit #{4} of version #{5}\n", "this", "is", 8 * 8, "simple-lang", getSimpleVersion()])
+	stdout.vprintf(["{0} {1} {2} {3} bit {4} of version {5}\n", "Hello", "this", "is", 8 * 8, "simple-lang", getSimpleVersion()])
 	
 	#the std err
 	stderr.println("This is an error")
@@ -35,7 +35,7 @@ block main()
 	#global block
 	println(stdout, "print with newline Hello World globally")
 	print(stdout, "print Hello World globally")
-	@_vformatf(["\nJust for #{1} console ", "Testing"])
+	@_vformatf(["\nJust for {0} console this bracket {a} {} is ignore because it not preceeded by a number ", "Testing"])
 	printfc(stdout,ConsoleColor.YELLOW()," The string in yellow")
 	
 	
