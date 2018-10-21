@@ -872,11 +872,11 @@ void simple_vm_oop_setget ( VM *vm,List *var )
 	Item *pItem, *pItem2  ;
 	String *string, *pString2  ;
 	/* Create String */
-	string = simple_string_new_gc(vm->sState,"if isblock(simple_gettemp_var,'get");
+	string = simple_string_new_gc(vm->sState,"if isBlock(simple_gettemp_var,'get");
 	simple_string_add_gc(vm->sState,string,simple_list_getstring(var,1));
 	simple_string_add_gc(vm->sState,string,"')\nreturn simple_gettemp_var.'get");
 	simple_string_add_gc(vm->sState,string,simple_list_getstring(var,1));
-	simple_string_add_gc(vm->sState,string,"'() ok");
+	simple_string_add_gc(vm->sState,string,"'() end");
 	/* Set Variable simple_gettemp_var  , Number 5 in Public Memory */
 	list = simple_list_getlist(simple_vm_getglobalscope(vm),5) ;
 	simple_list_setpointer_gc(vm->sState,list,SIMPLE_VAR_VALUE,vm->pGetSetObject);
@@ -986,11 +986,11 @@ void simple_vm_oop_setproperty ( VM *vm )
 		vm->nPC-- ;
 		if ( SIMPLE_VM_IR_READIVALUE(2)  == 0 ) {
 			/* Create String */
-			string = simple_string_new_gc(vm->sState,"if isblock(simple_gettemp_var,'set");
+			string = simple_string_new_gc(vm->sState,"if isBlock(simple_gettemp_var,'set");
 			simple_string_add_gc(vm->sState,string,simple_list_getstring(list,3));
 			simple_string_add_gc(vm->sState,string,"')\nsimple_gettemp_var.'set");
 			simple_string_add_gc(vm->sState,string,simple_list_getstring(list,3));
-			simple_string_add_gc(vm->sState,string,"'(simple_settemp_var)\nsimple_tempflag_var = 0\nelse\nsimple_tempflag_var = 1\nok");
+			simple_string_add_gc(vm->sState,string,"'(simple_settemp_var)\nsimple_tempflag_var = 0\nelse\nsimple_tempflag_var = 1\nend");
 			/* Eval the string */
 			pItem = SIMPLE_VM_IR_ITEM(2) ;
 			vm->nEvalCalledFromSimpleCode = 0 ;
@@ -1119,9 +1119,9 @@ void simple_vm_oop_operatoroverloading ( VM *vm,List *pObj,const char *string_on
 	}
 	if ( SIMPLE_VM_IR_READIVALUE(1) == 0 ) {
 		/* Create String */
-		string = simple_string_new_gc(vm->sState,"if isblock(simple_gettemp_var,'operator')\nreturn simple_gettemp_var.operator('");
+		string = simple_string_new_gc(vm->sState,"if isBlock(simple_gettemp_var,'operator')\nreturn simple_gettemp_var.operator('");
 		simple_string_add_gc(vm->sState,string,string_one);
-		simple_string_add_gc(vm->sState,string,"',simple_settemp_var)\nelse\nraise('Object does not support operator overloading')\nok\n");
+		simple_string_add_gc(vm->sState,string,"',simple_settemp_var)\nelse\nraise('Object does not support operator overloading')\nend\n");
 		/* Eval the string */
 		pItem = SIMPLE_VM_IR_ITEM(1) ;
 		vm->nEvalCalledFromSimpleCode = 0 ;

@@ -15,6 +15,8 @@
 #include "../includes/simple.h"
 /* Support for C Blocks */
 
+SIMPLE_API void simple_vmlib_isblock ( void *pointer );
+
 SIMPLE_API void register_block_t ( SimpleState *sState,const char *cStr, void (*pBlock)(void *) )
 {
 	List *list  ;
@@ -35,7 +37,7 @@ SIMPLE_API void loadcblocks ( SimpleState *sState )
 	register_block("char",simple_vmlib_char);
 	register_block("getSimpleVersion",simple_vmlib_version);
         /* Check Data Type */
-    register_block("isString",simple_vmlib_isstring);
+        register_block("isString",simple_vmlib_isstring);
 	register_block("isNumber",simple_vmlib_isnumber);
 	register_block("isList",simple_vmlib_islist);
 	register_block("getType",simple_vmlib_type);
@@ -43,8 +45,10 @@ SIMPLE_API void loadcblocks ( SimpleState *sState )
 	register_block("isObject",simple_vmlib_isobject);
         /** Functional Execution **/
 	register_block("executeCode",simple_vmlib_exec);
+        /* Meta */
+	register_block("isBlock",simple_vmlib_isblock);
         /** Load DLL Extension  **/
-    simple_vm_dll_loadblocks(sState);
+        simple_vm_dll_loadblocks(sState);
 	#ifdef __ANDROID__
     __init_full_tick(sState);
 	#endif
@@ -604,6 +608,30 @@ SIMPLE_API void simple_vmlib_exec ( void *pointer )
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
 }
+
+SIMPLE_API void simple_vmlib_isblock ( void *pointer )
+{
+	List *pList  ;
+	char *cStr  ;
+	if ( SIMPLE_API_PARACOUNT != 2 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
+		return ;
+	}
+	if ( SIMPLE_API_ISLIST(1) ) {
+		pList = SIMPLE_API_GETLIST(1) ;
+		if ( simple_vm_oop_isobject(pList) == 0 ) {
+			SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+			return ;
+		}
+		if ( SIMPLE_API_ISSTRING(2) ) {
+			cStr = SIMPLE_API_GETSTRING(2) ;
+			SIMPLE_API_RETNUMBER(simple_vm_oop_isblock((VM *) pointer,pList,cStr));
+		}
+	} else {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+	}
+}
+
 
 void simple_vmlib_char ( void *pointer )
 {

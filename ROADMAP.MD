@@ -69,9 +69,9 @@ build, installation, features e.t.c
 - [ ] make the simple.core module holds true data type e.g num = new UInteger, num = unsigned int
 - [ ] add tenary operator addition to the main syntax 
 - [ ] prevent Global Interpreter Lock (GIL) (VM lock) for Better threads and concurrency for a faster execution
-- [ ] add support for `getter` and `setter` methods in the classes
-- [ ] allow changing the behaviour of operators in classes 
-- [ ] use of braces `{}` to access and modify fields and other in class delcaration e.g `class = new Class { }`
+- [x] add support for `getter` and `setter` methods in the classes
+- [x] allow changing the behaviour of operators in classes 
+- [x] use of braces `{}` to access and modify fields and other in class delcaration e.g `class = new Class { }`
 - [ ] change the **catch** behaviour by allowing to call an error method in a class instead of just the error
 - [ ] a more elegant stack trace and error logging in console  
 
