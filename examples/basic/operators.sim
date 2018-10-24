@@ -1,0 +1,20 @@
+
+tc = new TestClass {  
+		
+	}
+td = new TestClass { Background = "Black" }
+tc = tc + td
+@tc.Background
+
+class TestClass {
+
+	Background = "blue"
+	
+	block operator(operator, parameter)
+		switch operator {
+			case "+"
+				Background = Background+parameter.Background
+		}
+		return this
+
+}
