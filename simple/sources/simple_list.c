@@ -34,7 +34,7 @@ SIMPLE_API List * simple_list_new2_gc ( void *pState,List *list,int nSize )
 {
 	int x  ;
 	Items *pItems,*pItemsLast  ;
-	list->size = nSize ;
+	list->size = nSize ; 
 	if ( nSize > 0 ) {
 		pItems = simple_items_new_gc(pState);
 		list->pFirst = pItems ;
@@ -282,7 +282,7 @@ SIMPLE_API Item * simple_list_getitem ( List *list,int index )
 			pItem = pItems->pValue ;
 			pItems = pItems->pNext ;
 		}
-	}
+	} //else { printf("well %i\n",index); }
 	return pItem ;
 }
 

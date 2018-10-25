@@ -20,11 +20,69 @@
 
 void simple_vm_dll_loadblocks ( SimpleState *sState )
 {
-	register_block("callDynamicModule",simple_vm_dll_loadlib);
+	register_block("loadDynamicLibrary",simple_vm_dll_loadlib);
+	register_block("callDynamicFunction",simple_vm_dll_calllib_function);
+	
+	register_block("callDynamicModule",simple_vm_dll_calllib);
 	register_block("closeDynamicModule",simple_vm_dll_closelib);
 }
 
 void simple_vm_dll_loadlib ( void *pointer )
+{
+	LpHandleType handle  ;
+	char library_path[200]  ; 
+	if ( SIMPLE_API_PARACOUNT != 1 ) {
+            SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
+            return ;
+    }
+    if ( SIMPLE_API_ISSTRING(1) ) {
+		strcpy(library_path,SIMPLE_API_GETSTRING(1));
+		handle = LoadDLL(library_path);
+		if ( handle == NULL ) {
+                printf( "\nCannot load dynamic library : %s",library_path) ;
+                SIMPLE_API_ERROR(SIMPLE_VM_ERROR_LIBLOADERROR);
+                return ;
+        } else {
+			SIMPLE_API_RETCPOINTER(handle,"SIMPLE_DYNAMIC_LIBRARY_");
+		}		
+	} else {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+	}
+}
+
+void* call_func(void* address, List* parameters) {
+	int size ;
+	size = simple_list_getsize(parameters);
+	printf("The list size is %i \n",size);
+}
+
+void simple_vm_dll_calllib_function ( void *pointer )
+{
+	LpHandleType handle  ;
+	lp address ;
+	char library_path[200]  ; 
+	if ( SIMPLE_API_PARACOUNT != 3 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_MISS3PARA);
+		return ;
+	}
+	if ( SIMPLE_API_ISPOINTER(1) && SIMPLE_API_ISSTRING(2) && SIMPLE_API_ISLIST(3) ) {
+		strcpy(library_path,SIMPLE_API_GETSTRING(2));
+		handle = SIMPLE_API_GETCPOINTER(1,"SIMPLE_DYNAMIC_LIBRARY_") ;
+		address = (lp) GetDLLBlock(handle, library_path) ;
+        if ( address == NULL ) {
+			printf( "\nCannot call the function : %s", library_path ) ;
+			SIMPLE_API_ERROR("Error occur while calling the a function");
+			return ;
+		} else {
+			void* returnValue = call_func(address,SIMPLE_API_GETLIST(3));
+			//SIMPLE_API_RETNUMBER(returnValue);
+		}
+	} else {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+	}
+}
+
+void simple_vm_dll_calllib ( void *pointer )
 {
     LpHandleType handle  ;
     const char *cDLL  ;
@@ -131,9 +189,9 @@ void simple_vm_dll_loadlib ( void *pointer )
         (*pBlock)(sState) ;
         simple_list_genarray_gc(sState,sState->c_blocks);
         simple_list_genhashtable2_gc(sState,sState->c_blocks);
-        SIMPLE_API_RETCPOINTER(handle,"DLL");
+        SIMPLE_API_RETCPOINTER(handle,"SIMPLE_DYNAMIC_LIBRARY_");
     } else {
-            SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+        SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
     }
 }
 
@@ -145,7 +203,7 @@ void simple_vm_dll_closelib ( void *pointer )
 		return ;
 	}
 	if ( SIMPLE_API_ISPOINTER(1) ) {
-		handle = SIMPLE_API_GETCPOINTER(1,"DLL") ;
+		handle = SIMPLE_API_GETCPOINTER(1,"SIMPLE_DYNAMIC_LIBRARY_") ;
 		CloseDLL(handle);
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
