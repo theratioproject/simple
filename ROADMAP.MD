@@ -74,6 +74,7 @@ build, installation, features e.t.c
 - [x] use of braces `{}` to access and modify fields and other in class delcaration e.g `class = new Class { }`
 - [ ] change the **catch** behaviour by allowing to call an error method in a class instead of just the error
 - [ ] a more elegant stack trace and error logging in console  
+- [x] resolve clashing error in using 0 base index on list items [0][0][0]
 
 ### simplify
 - [ ] hint user as a type of level error when a similar variable that has not been declared is used 
