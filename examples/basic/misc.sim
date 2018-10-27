@@ -1,12 +1,22 @@
 
-list = ["one",2,3,[4,5,[6,7,8]]]
-@lengthOf(list)
-@list[3][0]
+list = ["0","1","2","3","4","5","6"]
+li = [[[[[[[[[[[[1]]]]]]]]]]]]
 
-/*lib = loadDynamicLibrary("User32.Dll")
-@lib
-val = callDynamicFunction(lib,"SetCursorPos",[600,100])
-@val
-closeDynamicModule(lib)
+#@lengthOf(list)
+#@list[0]
+#@list[lengthOf(list)-1]
 
-*/
+for x = 0 to lengthOf(list) - 1 {
+	display ""+x +" "
+}
+@""
+for x in "hello World" {
+	display ""+x +" "
+}
+@""
+for x in list {
+	display ""+x +" "
+}
+
+@""
+@li[0][0]

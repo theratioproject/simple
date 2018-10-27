@@ -29,7 +29,7 @@ typedef HINSTANCE LpHandleType ;
 typedef void * LpHandleType ;
 #endif
 #define expandparameters(int,...) __VA_ARGS__
-typedef void (*lp)(void*,...);
+typedef void* (*lp)(int,...);
 typedef void (*loadlibblockptr)(SimpleState *) ;
 
 void simple_vm_dll_loadblocks ( SimpleState *sState ) ;

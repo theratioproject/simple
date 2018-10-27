@@ -118,7 +118,7 @@ SIMPLE_API void simple_list_copy_gc ( void *pState,List *pNewList, List *list )
 
 SIMPLE_API void simple_list_print ( List *list )
 {
-	int x,t,nSize  ;
+	int x,t,nSize,size  ;
 	double y  ;
 	const char *cStr  ;
 	List *list2  ;
@@ -127,26 +127,29 @@ SIMPLE_API void simple_list_print ( List *list )
 	if ( simple_list_getsize(list) < 0 ) {
 		return ;
 	}
-	for ( x = 1 ; x <= simple_list_getsize(list) ; x++ ) { 
+	printf("[");
+	size = simple_list_getsize(list) ;
+	for ( x = 1 ; x <= size ; x++ ) { 
 		if ( simple_list_isstring(list,x) ) {
+			printf( "\"" ) ;
 			cStr = simple_list_getstring(list,x) ;
 			nSize = simple_list_getstringsize(list,x);
 			for ( t = 0 ; t < nSize ; t++ ) {
 				printf( "%c",cStr[t] ) ;
 			}
-			printf( "\n" ) ;
+			printf( "\"" ) ;
 		}
 		else if ( simple_list_isnumber(list,x) ) {
 			if ( simple_list_isdouble(list,x) ) {
 				y = simple_list_getdouble(list,x) ;
 				if ( y == (int) y ) {
-					printf( "%.0f\n",y ) ;
+					printf( "%.0f",y ) ;
 				} else {
-					printf( "%.2f\n",y ) ;
+					printf( "%.2f",y ) ;
 				}
 			}
 			else if ( simple_list_isint(list,x) ) {
-				printf( "%d\n",simple_list_getint(list,x) ) ;
+				printf( "%d",simple_list_getint(list,x) ) ;
 			}
 		}
 		else if ( simple_list_islist(list,x) ) {
@@ -159,9 +162,11 @@ SIMPLE_API void simple_list_print ( List *list )
 			}
 		}
 		else if ( simple_list_ispointer(list,x) ) {
-			printf( "%p\n",simple_list_getpointer(list,x) ) ;
+			printf( "%p",simple_list_getpointer(list,x) ) ;
 		}
+		if (x < size) printf( ", " );
 	}
+	printf("]");
 }
 
 SIMPLE_API void simple_list_deleteallitems_gc ( void *pState,List *list )

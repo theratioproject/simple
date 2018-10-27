@@ -589,7 +589,7 @@ int simple_parser_stmt ( Parser *parser )
 				simple_parser_icg_newoperation(parser,ICO_LOADADDRESS);
 				simple_parser_icg_newoperand(parser,cStr);
 				simple_parser_icg_newoperation(parser,ICO_PUSHN);
-				simple_parser_icg_newoperanddouble(parser,1.0);
+				simple_parser_icg_newoperanddouble(parser,0);
 				/* Before Equal ( = ) not += , -= ,... etc */
 				simple_parser_icg_newoperation(parser,ICO_BEFOREEQUAL);
 				simple_parser_icg_newoperandint(parser,0);
@@ -599,7 +599,7 @@ int simple_parser_stmt ( Parser *parser )
 				simple_parser_icg_newoperation(parser,ICO_LOADAPUSHV);
 				simple_parser_icg_newoperand(parser,cStr);
 				simple_parser_icg_newoperation(parser,ICO_LOADBLOCK);
-				simple_parser_icg_newoperand(parser,"lengthOf");
+				simple_parser_icg_newoperand(parser,"length_of_minus_one");
 				nStart = simple_parser_icg_instructionscount(parser) + 1 ;
 				simple_parser_nexttoken(parser);
 				parser->nAssignmentFlag = 0 ;
