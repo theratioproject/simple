@@ -1,13 +1,79 @@
 
-display "hello world" + crlf
-a = 'he yo '
-display "hello world " + a + crlf
-
 #LIST
 
 #create list 
 list = [['a','b','c'], "ade", 2, 3, 4, 5, 6, 7, 8, 9 ]
 
-@ list[0][1] @ list[1] @ ''
+@list
+@list[0][0] 
+@list[1] 
+@''
 
-display list
+
+list = ["0","1","2","3","4","5","6"]
+@list
+
+@lengthOf(list)
+@list[0]
+@list[lengthOf(list)-1] + nl
+
+for x = 0 to lengthOf(list) - 1 {
+	display ""+x +" "
+}
+@""
+for x in "hello World" {
+	display ""+x +" "
+}
+@""
+for x in list {
+	display ""+x +" "
+}
+
+@""+nl
+
+li = [[[[[[[[[[[["zero","one","two","three","four"]]]]]]]]]]]]
+display "li = " @li
+@"index at li[0][0][0][0][0][0][0][0][0][0][0][2] = "+li[0][0][0][0][0][0][0][0][0][0][0][2] + nl
+
+for i = 100 to 0 step -1 {
+	display ""+i+" "
+}
+
+@""+nl
+lib = loadDynamicLibrary("user32")
+list = [0,"one",2,3,4,5,6,7,[9,8,"ade"],lib]
+@list @""
+
+for i in 70:100 {
+	display ""+i+" "
+}
+@""+nl
+
+modulesList = [
+	[:name = "web",
+		:title = "Web Module",
+		:arch = "x86_x64",
+		:version = "1.0.0",
+		:dynamicmodules = "none"
+	],
+	[:name = "simple",
+		:title = "Simple Module",
+		:arch = "x86_x64",
+		:version = "1.0.0",
+		:dynamicmodules = [
+			:allos = [
+				"consoler",
+				"core_dynamic_module",
+				"file_savant",
+				"mathic",
+				"networker",
+				"parser",
+				"security",
+				"string_savant",
+				"systemic"
+			]
+		]
+	]/* NEWMODULE */
+
+]
+@modulesList

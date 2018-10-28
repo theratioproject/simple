@@ -64,6 +64,8 @@ SIMPLE_API void list_add_cpointer_gc ( void *pState,List *list,void *pGeneral,co
 
 void simple_vmlib_len ( void *pointer ) ;
 
+void block_len_minus_one ( void *pointer ) ;
+
 void simple_vmlib_add ( void *pointer ) ;
 
 void simple_vmlib_version ( void *pointer ) ;

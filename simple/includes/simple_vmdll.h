@@ -28,11 +28,17 @@ typedef HINSTANCE LpHandleType ;
 #define CloseDLL dlclose
 typedef void * LpHandleType ;
 #endif
+#define expandparameters(int,...) __VA_ARGS__
+typedef void* (*lp)(int,...);
 typedef void (*loadlibblockptr)(SimpleState *) ;
 
 void simple_vm_dll_loadblocks ( SimpleState *sState ) ;
 
 void simple_vm_dll_loadlib ( void *pointer ) ;
+
+void simple_vm_dll_calllib_function ( void *pointer ) ;
+
+void simple_vm_dll_calllib ( void *pointer ) ;
 
 void simple_vm_dll_closelib ( void *pointer ) ;
 #endif
