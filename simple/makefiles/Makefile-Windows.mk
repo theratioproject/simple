@@ -64,7 +64,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/sources/simple_string.o \
 	${OBJECTDIR}/sources/simple_vm.o \
 	${OBJECTDIR}/sources/simple_vmblock.o \
-	${OBJECTDIR}/sources/simple_vmdll.o \
 	${OBJECTDIR}/sources/simple_vmexpr.o \
 	${OBJECTDIR}/sources/simple_vmgc.o \
 	${OBJECTDIR}/sources/simple_vmlists.o \
@@ -148,9 +147,6 @@ ${OBJECTDIR}/sources/simple_vm.o: ../sources/simple_vm.c
 
 ${OBJECTDIR}/sources/simple_vmblock.o: ../sources/simple_vmblock.c
 	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" $(ARC_FLAG) -o ${OBJECTDIR}/sources/simple_vmblock.o ../sources/simple_vmblock.c
-
-${OBJECTDIR}/sources/simple_vmdll.o: ../sources/simple_vmdll.c
-	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" $(ARC_FLAG) -o ${OBJECTDIR}/sources/simple_vmdll.o ../sources/simple_vmdll.c
 
 ${OBJECTDIR}/sources/simple_vmexpr.o: ../sources/simple_vmexpr.c
 	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" $(ARC_FLAG) -o ${OBJECTDIR}/sources/simple_vmexpr.o ../sources/simple_vmexpr.c

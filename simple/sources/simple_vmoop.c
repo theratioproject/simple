@@ -1121,7 +1121,7 @@ void simple_vm_oop_operatoroverloading ( VM *vm,List *pObj,const char *string_on
 		/* Create String */
 		string = simple_string_new_gc(vm->sState,"if isBlock(simple_gettemp_var,'operator')\nreturn simple_gettemp_var.operator('");
 		simple_string_add_gc(vm->sState,string,string_one);
-		simple_string_add_gc(vm->sState,string,"',simple_settemp_var)\nelse\nraise('Object does not support operator overloading')\nend\n");
+		simple_string_add_gc(vm->sState,string,"',simple_settemp_var)\nelse\nthrow('Object does not support operator overloading')\nend\n");
 		/* Eval the string */
 		pItem = SIMPLE_VM_IR_ITEM(1) ;
 		vm->nEvalCalledFromSimpleCode = 0 ;

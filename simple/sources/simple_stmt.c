@@ -607,10 +607,6 @@ int simple_parser_stmt ( Parser *parser )
 					parser->nAssignmentFlag = 1 ;
 					/* Generate Code */
 					nEnd = simple_parser_icg_instructionscount(parser) ;
-					/* Note (nEnd-1) , -1 to remove instruction PushV (avoid error with for x in string) */
-					if ( simple_parser_icg_getlastoperation(parser) == ICO_PUSHV ) {
-						nEnd-- ;
-					}
 					simple_parser_icg_newoperation(parser,ICO_CALL);
 					/* Generate 0 For Operator OverLoading */
 					simple_parser_icg_newoperandint(parser,0);
@@ -676,7 +672,7 @@ int simple_parser_stmt ( Parser *parser )
 						#if SIMPLE_PARSERTRACE
 						SIMPLE_STATE_CHECKPRINTRULES
 
-						puts("Rule : Next --> 'Next'");
+						puts("Rule :End --> 'End'");
 						#endif
 						simple_string_delete_gc(parser->sState,string);
 						return 1 ;

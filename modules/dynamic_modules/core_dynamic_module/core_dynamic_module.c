@@ -33,6 +33,9 @@
 
 SIMPLE_API void init_simple_module(SimpleState *sState)
 {   
+	/* */
+	register_block("loadDynamicLibrary",simple_vm_dll_loadlib);
+	register_block("callDynamicFunction",simple_vm_dll_calllib_function);
 	/* Date and Time */
 	register_block("__clock",date_time_clock);
 	register_block("__clock_per_second",date_time_clock_per_second);
@@ -829,3 +832,147 @@ SIMPLE_API void conversion_string_to_list ( void *pointer )
 	}
 }
 
+void simple_vm_dll_loadlib ( void *pointer )
+{
+	LpHandleType handle  ;
+	char library_path[200]  ; 
+	if ( SIMPLE_API_PARACOUNT != 1 ) {
+            SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
+            return ;
+    }
+    if ( SIMPLE_API_ISSTRING(1) ) {
+		strcpy(library_path,SIMPLE_API_GETSTRING(1));
+		handle = LoadDLL(library_path);
+		if ( handle == NULL ) {
+                printf( "\nCannot load dynamic library : %s",library_path) ;
+                SIMPLE_API_ERROR(SIMPLE_VM_ERROR_LIBLOADERROR);
+                return ;
+        } else {
+			SIMPLE_API_RETCPOINTER(handle,"SIMPLE_DYNAMIC_LIBRARY_");
+		}		
+	} else {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+	}
+}
+
+void simple_vm_dll_calllib_function ( void *pointer )
+{
+	LpHandleType handle  ;
+	lp address ;
+	char library_path[200]  ; 
+	if ( SIMPLE_API_PARACOUNT != 4 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_MISS4PARA);
+		return ;
+	}
+	if ( SIMPLE_API_ISPOINTER(1) && SIMPLE_API_ISSTRING(2) && SIMPLE_API_ISNUMBER(3)&& SIMPLE_API_ISLIST(4) ) {
+		strcpy(library_path,SIMPLE_API_GETSTRING(2));
+		handle = SIMPLE_API_GETCPOINTER(1,"SIMPLE_DYNAMIC_LIBRARY_") ;
+		address = (lp) GetDLLBlock(handle, library_path) ;
+        if ( address == NULL ) {
+			printf( "\nCannot call the function : %s", library_path ) ;
+			SIMPLE_API_ERROR("Error occur while calling the function");
+			return ;
+		} else {
+			int returnValue = call_func(address,SIMPLE_API_GETLIST(4));
+			int returnType = (int) SIMPLE_API_GETNUMBER(3) ;
+			switch (returnType) {
+				case 1 : //pointer
+					SIMPLE_API_RETCPOINTER(returnValue,"SIMPLE_DYNAMIC_LIBRARY_");
+					break ;
+				case 2 : //number
+					SIMPLE_API_RETNUMBER(returnValue);
+					break ;
+				case 3 : //string
+					SIMPLE_API_RETSTRING(returnValue);
+					break ;
+			}
+		}
+	} else {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+	}
+}
+
+int get_parameter_value(Item * item) {
+	List *list;
+	switch (item->nType) {
+		case ITEMTYPE_NUMBER:
+			return simple_item_getnumber(item);
+			break;
+		case ITEMTYPE_STRING : 
+			return simple_item_getstring(item)->str;
+			break;
+		case ITEMTYPE_LIST :
+			//SIMPLE_API_RETCPOINTER return a list with the pointer at index 1
+			//now we assume all list that finds it way here is actually a pointer 
+			//returned from dynamically calling a foreign function
+			//:( i hope this does not explode to my face
+			list = simple_item_getlist(item);
+			return simple_list_getpointer(list,1);
+			break;
+		case ITEMTYPE_POINTER : 
+			return simple_item_getpointer(item);
+			break;
+	}
+}
+
+void* call_func(lp address, List* parameters) 
+{
+	int size, i ;
+	int arg[100] ;
+	void* returnValue ;
+	size = simple_list_getsize(parameters);
+	for (i = 0; i < size; i++) {
+		arg[i] = get_parameter_value(simple_list_getitem(parameters,(i+1))); 
+	}
+	switch (size) {
+		case 1 :
+			returnValue = (*address)(BUILD(arg, 0));
+			break ;
+		case 2 : 
+			returnValue = (*address)(BUILD(arg, 1));
+			break ;
+		case 3 : 
+			returnValue = (*address)(BUILD(arg, 2));
+			break ;
+		case 4 :
+			returnValue = (*address)(BUILD(arg, 3));
+			break ;
+		case 5 :
+			returnValue = (*address)(BUILD(arg, 4));
+			break ;
+		case 6 :
+			returnValue = (*address)(BUILD(arg, 5));
+			break ;
+		case 7 :
+			returnValue = (*address)(BUILD(arg, 6));
+			break ;
+		case 8 :
+			returnValue = (*address)(BUILD(arg, 7));
+			break ;
+		case 9 :
+			returnValue = (*address)(BUILD(arg, 8));
+			break ;
+		case 10 :
+			returnValue = (*address)(BUILD(arg, 9));
+			break ;
+		case 11 :
+			returnValue = (*address)(BUILD(arg, 10));
+			break ;
+		case 12 :
+			returnValue = (*address)(BUILD(arg, 11));
+			break ;
+		case 13 :
+			returnValue = (*address)(BUILD(arg, 12));
+			break ;
+		case 14 :
+			returnValue = (*address)(BUILD(arg, 13));
+			break ;
+		case 15 :
+			returnValue = (*address)(BUILD(arg, 14));
+			break ;
+		default :
+			returnValue = (*address)(NULL);
+	}
+	return returnValue ;
+	
+}

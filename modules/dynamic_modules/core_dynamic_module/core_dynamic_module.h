@@ -19,6 +19,8 @@
 extern "C" {
 #endif
 
+SIMPLE_API void init_simple_module(SimpleState *sState) ;
+
 /* Runtime Dynamic Library Loading */
 #define BUILD0(x) x[0]
 #define BUILD1(x) BUILD0(x), x[1]
@@ -45,9 +47,11 @@ extern "C" {
 #define BUILD22(x) BUILD21(x), x[22]
 #define BUILD(x, i) BUILD##i(x)
 
-
-
-SIMPLE_API void init_simple_module(SimpleState *sState) ;
+typedef void* (*lp)(int,...);
+void* call_func(lp address, List* parameters);
+int get_parameter_value(Item * item);
+void simple_vm_dll_loadlib (void *pointer) ;
+void simple_vm_dll_calllib_function (void *pointer) ;
 
 /* Date and Time */
 SIMPLE_API void date_time_clock(void *pointer);
