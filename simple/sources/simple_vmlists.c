@@ -91,7 +91,7 @@ void simple_vm_listitem ( VM *vm )
 	String *string_one  ;
 	double nNum1  ;
 	List *list,*list2,*list3  ;
-	Item *pItem  ;
+	Item *pItem  ; 
 	list = (List *) simple_list_getpointer(vm->pNestedLists,simple_list_getsize(vm->pNestedLists));
 	if ( SIMPLE_VM_STACK_ISSTRING ) {
 		string_one = simple_string_new_gc(vm->sState,SIMPLE_VM_STACK_READC);
@@ -136,7 +136,7 @@ void simple_vm_loadindexaddress ( VM *vm )
 	char cStr2[2]  ;
 	String *string  ;
 	if ( SIMPLE_VM_STACK_ISNUMBER ) {
-		nNum1 = SIMPLE_VM_STACK_READN ;
+		nNum1 = SIMPLE_VM_STACK_READN + 1;
 		SIMPLE_VM_STACK_POP ;
 		if ( SIMPLE_VM_STACK_ISPOINTER ) {
 			if ( SIMPLE_VM_STACK_OBJTYPE == SIMPLE_OBJTYPE_VARIABLE ) {
@@ -147,7 +147,7 @@ void simple_vm_loadindexaddress ( VM *vm )
 					if ( simple_vm_oop_isobject(var) == 1 ) {
 						simple_vm_expr_npoo(vm,"[]",nNum1);
 						return ;
-					} nNum1 = nNum1 + 1 + list_index ; /*currently making index 0*/
+					} //nNum1 = nNum1 + 1 + list_index ; /*currently making index 0*/
 					SIMPLE_VM_STACK_POP ;
 					if ( nNum1 < 1 || nNum1 > simple_list_getsize(var) ) {
 						simple_vm_error(vm,SIMPLE_VM_ERROR_INDEXOUTOFRANGE);

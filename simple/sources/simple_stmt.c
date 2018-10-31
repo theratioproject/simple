@@ -20,7 +20,7 @@ int simple_parser_class ( Parser *parser )
 {
 	List *list,*list2,*list3  ;
 	int x  ;
-	String *string  ;
+	String *string, *blockid  ;
 	/* Statement --> Class Identifier  [ From Identifier ] */
 	if ( simple_parser_iskeyword(parser,KEYWORD_CLASS) ) {
 		simple_parser_nexttoken(parser);
@@ -142,13 +142,24 @@ int simple_parser_class ( Parser *parser )
 			if ( simple_list_getsize(list2) > 0 ) {
 				for ( x = 1 ; x <= simple_list_getsize(list2) ; x++ ) {
 					if ( strcmp(simple_list_getstring(simple_list_getlist(list2,x),1),parser->TokenText) == 0 ) {
+						printf("it here");
 						parser_error(parser,PARSER_ERROR_BLOCKREDEFINE);
 						return 0 ; 
 					}
 				}
 			}
+			blockid = simple_string_new_gc(parser->sState,parser->TokenText);
+			simple_parser_nexttoken(parser);
+			if ( simple_parser_isidentifier(parser) || simple_parser_isoperator2(parser,OP_FOPEN) ) {
+				x = simple_parser_paralist(parser);
+			} else {
+				x = 1 ;
+			}
+			//printf("param count : %i\n",x);
+			x = 1 ;
+			//add block to stack
 			list2 = simple_list_newlist_gc(parser->sState,list2);
-			simple_list_addstring_gc(parser->sState,list2,parser->TokenText);
+			simple_list_addstring_gc(parser->sState,list2,blockid->str);
 			simple_list_addint_gc(parser->sState,list2,simple_list_getsize(parser->GenCode));
 			simple_list_addstring_gc(parser->sState,list2,simple_list_getstring(parser->sState->files_stack,simple_list_getsize(parser->sState->files_stack)));
 			if ( parser->nClassStart == 1 ) {
@@ -156,12 +167,8 @@ int simple_parser_class ( Parser *parser )
 			} else {
 				simple_list_addint_gc(parser->sState,list2,0);
 			}
-			simple_parser_nexttoken(parser);
-			if ( simple_parser_isidentifier(parser) || simple_parser_isoperator2(parser,OP_FOPEN) ) {
-				x = simple_parser_paralist(parser);
-			} else {
-				x = 1 ;
-			}
+			//end add block to stack
+			
 			/* Set Global Scope */
 			simple_parser_icg_newoperation(parser,ICO_SETGLOBALSCOPE);
 			simple_parser_icg_newoperandint(parser,simple_list_getint(parser->sState->aCustomGlobalScopeStack,simple_list_getsize(parser->sState->aCustomGlobalScopeStack)));
@@ -582,7 +589,7 @@ int simple_parser_stmt ( Parser *parser )
 				simple_parser_icg_newoperation(parser,ICO_LOADADDRESS);
 				simple_parser_icg_newoperand(parser,cStr);
 				simple_parser_icg_newoperation(parser,ICO_PUSHN);
-				simple_parser_icg_newoperanddouble(parser,1.0);
+				simple_parser_icg_newoperanddouble(parser,0);
 				/* Before Equal ( = ) not += , -= ,... etc */
 				simple_parser_icg_newoperation(parser,ICO_BEFOREEQUAL);
 				simple_parser_icg_newoperandint(parser,0);
@@ -592,7 +599,7 @@ int simple_parser_stmt ( Parser *parser )
 				simple_parser_icg_newoperation(parser,ICO_LOADAPUSHV);
 				simple_parser_icg_newoperand(parser,cStr);
 				simple_parser_icg_newoperation(parser,ICO_LOADBLOCK);
-				simple_parser_icg_newoperand(parser,"lengthOf");
+				simple_parser_icg_newoperand(parser,"length_of_minus_one");
 				nStart = simple_parser_icg_instructionscount(parser) + 1 ;
 				simple_parser_nexttoken(parser);
 				parser->nAssignmentFlag = 0 ;
@@ -1160,7 +1167,7 @@ int simple_parser_stmt ( Parser *parser )
 		if ( parser->nBraceFlag ) {
 			/* if isblock(self,"braceexpreval") braceexpreval() ok */
 			simple_parser_icg_newoperation(parser,ICO_LOADBLOCK);
-			simple_parser_icg_newoperand(parser,"isblock");
+			simple_parser_icg_newoperand(parser,"isBlock");
 			simple_parser_icg_newoperation(parser,ICO_LOADADDRESS);
 			simple_parser_icg_newoperand(parser,"self");
 			simple_parser_icg_newoperandint(parser,0);
@@ -1203,10 +1210,11 @@ int load_module( Parser *parser ) {
 
 int simple_parser_paralist ( Parser *parser )
 {
-	int nStart  ;
+	int nStart, param_count  ;
 	const char *cToken  ;
 	/* Check ( */
 	nStart = 0 ;
+	param_count = 0 ;
 	if ( simple_parser_isoperator2(parser,OP_FOPEN) ) {
 		simple_parser_nexttoken(parser);
 		nStart = 1 ;
@@ -1219,7 +1227,7 @@ int simple_parser_paralist ( Parser *parser )
 		
 		puts("Rule : ParaList --> Epslion ");
 		#endif
-		return 1 ;
+		return param_count ;
 	}
 	/* ParaList --> [ Identifier { , Identifier }  ] */
 	if ( simple_parser_isidentifier(parser) ) {
@@ -1248,20 +1256,21 @@ int simple_parser_paralist ( Parser *parser )
 					cToken = parser->TokenText ;
 					simple_parser_nexttoken(parser);
 				}
+				param_count++ ;
 				/* Generate Code */
 				simple_parser_icg_newoperand(parser,cToken);
 			} else {
 				parser_error(parser,PARSER_ERROR_PARALIST);
-				return 0 ;
+				return -1 ;
 			}
 		}
 		if ( nStart && simple_parser_isoperator2(parser,OP_FCLOSE) ) {
 			simple_parser_nexttoken(parser);
 		}
-		return 1 ;
+		return param_count ;
 	} else {
 		parser_error(parser,PARSER_ERROR_PARALIST);
-		return 0 ;
+		return -1 ;
 	}
 }
 

@@ -291,7 +291,11 @@ void system_beep ( void *pointer )
         #ifdef _WIN32
         Beep(SIMPLE_API_GETNUMBER(1), SIMPLE_API_GETNUMBER(2));
         #else
-        _beep(SIMPLE_API_GETNUMBER(1), SIMPLE_API_GETNUMBER(2));
+			#ifdef __ANDROID__
+				printf("\a");
+			#else
+				_beep(SIMPLE_API_GETNUMBER(1), SIMPLE_API_GETNUMBER(2));
+			#endif
         #endif
     } else {
         SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);

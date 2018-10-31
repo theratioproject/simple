@@ -19,11 +19,15 @@ build, installation, features e.t.c
 - [x] create the simple-lang interpreter 
 - [x] create a working installer script to enable installation with curl and bash or shell script [working issue](https://github.com/simple-lang/simple/issues/24)
 - [ ] build a compiler to allow faster program execution - simplify
-- [x] make vm search for **call** files in 5 folder. 
+- [x] make vm search for **call** files and **dynamic modules** in these folders and order. 
 	- [x] 1 absolute to path
 	- [x] 1 relative to modules folder in working directory
 	- [x] 2 in relative to environment SIMPLE_PATH
 	- [x] 1 in relative to installation folder per os 
+	- [x] search in assets folder in android. ~BINGED all sources in assets are copied to external app dir on android~  
+	- [x] search in **/storage/emulated/0/Android/data/<package>/files** as it where the assets are stored
+	- [x] search in **sdcard/simple/sSIMPLE_VERSION/modules/** on android 
+	- [x] search in **sdcard/simple/modules/** on android in assumption developer copy the module manually
 - [x] write build script for building simple-lang core, environment and modules for windows os
 - [x] write build script for building simple-lang core, environment and modules for linux os
 - [ ] write build script for building simple-lang core, environment and modules for mac os
@@ -48,7 +52,7 @@ build, installation, features e.t.c
 - [ ] build script should create a .a archive for statically linking simple-lang runtime on linux os
 - [ ] build script should create a .a archive for statically linking simple-lang runtime on mac os
 - [ ] build script should create a .a archive for statically linking simple-lang runtime on haiku os
-- [x] add a new flexible keyword **final** to lock a variable to a particular to prevent re initializing
+- [x] add a new flexible keyword **final** to lock a variable to a particular to prevent re initializing [PR](https://github.com/simple-lang/simple/pull/38)
 - [ ] allow strong and weak typing to prevent inconsistent and conflicting initialization
 - [ ] add directive for compiler notation in [] format
 - [ ] VM should treat really really large number ad big as 10e+50
@@ -60,12 +64,31 @@ build, installation, features e.t.c
 - [ ] reformat the way the error are thrown in the console and web 
 - [ ] allow '*' to call all the file in a folder e.g simple.core.*
 - [ ] update windows build file Windows-Build.bat to use main build C/C++ toolchain to build environment apps
+- [ ] make simple-lang multi-threaded
+- [ ] add lambda support to fetch consistent block in a class per parent classes
+- [ ] make the simple.core module holds true data type e.g num = new UInteger, num = unsigned int
+- [ ] add tenary operator addition to the main syntax 
+- [ ] prevent Global Interpreter Lock (GIL) (VM lock) for Better threads and concurrency for a faster execution
+- [x] add support for `getter` and `setter` methods in the classes
+- [x] allow changing the behaviour of operators in classes 
+- [x] use of braces `{}` to access and modify fields and other in class delcaration e.g `class = new Class { }`
+- [ ] change the **catch** behaviour by allowing to call an error method in a class instead of just the error
+- [ ] a more elegant stack trace and error logging in console  
+- [x] resolve clashing error in using 0 base index on list items [0][0][0]
+
+### simplify
+- [ ] hint user as a type of level error when a similar variable that has not been declared is used 
+- [ ] add support for directive '##' for compile time cutomization
+- [ ] display verbose warning and errors when using the compiler 
+- [ ] add and use the keyword `var` to allow variable declaration
+- [ ] directive : allow the use of strict declaration to render undefine variable error `see perl 'use strict;'`
 
 ### Modules
 
 To dos and features relative to the simple-lang standard modules which includes new modules addition, module modification or any other
 issue related to the module
 
+- [ ] add makefile for building fulltick on windows
 - [ ] create the input output (io) module which include File, Path, Directory, PathAttribute, PathType, FileStream
 - [ ] create all high level data types [working issue](https://github.com/simple-lang/simple/issues/15)
 - [ ] init functional console module to simplify working with command line and terminal 
@@ -91,6 +114,7 @@ issue related to the module
 - [x] a basic encrypt and decrypt module that uses keys and IV
 - [ ] port murmur hash C library to simple-lang
 - [ ] implement ncurses for use in simple-lang
+- [ ] use a light and simple alternate ANSI C internet library for networking
 
 ### Extended Modules
 

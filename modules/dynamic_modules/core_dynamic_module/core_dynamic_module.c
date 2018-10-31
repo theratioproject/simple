@@ -747,6 +747,8 @@ SIMPLE_API void conversion_hex_to_string(void *pointer)
 	}
 }
 
+
+
 SIMPLE_API void conversion_string_to_chex (void *pointer)
 {
 	char str[3]  ;

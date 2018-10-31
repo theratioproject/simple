@@ -1,0 +1,11 @@
+
+testClass = new TestClass { name = "A. Azeez" gender = "Male" age = 25 }
+@testClass.name
+@testClass.gender
+@testClass.age
+
+class TestClass
+
+	name = "Unknown"
+	age = 101
+	gender = "Amphrodite"

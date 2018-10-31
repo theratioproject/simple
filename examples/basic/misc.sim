@@ -1,6 +1,22 @@
 
+list = ["0","1","2","3","4","5","6"]
+li = [[[[[[[[[[[[1]]]]]]]]]]]]
 
-block main() 
-	display("Hello World"+crlf)
-	display "Holla World"
-	
+#@lengthOf(list)
+#@list[0]
+#@list[lengthOf(list)-1]
+
+for x = 0 to lengthOf(list) - 1 {
+	display ""+x +" "
+}
+@""
+for x in "hello World" {
+	display ""+x +" "
+}
+@""
+for x in list {
+	display ""+x +" "
+}
+
+@""
+@li[0][0]

@@ -15,6 +15,8 @@
 #include "../includes/simple.h"
 /* Support for C Blocks */
 
+SIMPLE_API void simple_vmlib_isblock ( void *pointer );
+
 SIMPLE_API void register_block_t ( SimpleState *sState,const char *cStr, void (*pBlock)(void *) )
 {
 	List *list  ;
@@ -30,12 +32,13 @@ SIMPLE_API void loadcblocks ( SimpleState *sState )
 {
 	/** General **/
 	register_block("lengthOf",simple_vmlib_len);
+	register_block("length_of_minus_one",block_len_minus_one);
 	register_block("add",simple_vmlib_add);
 	//register_block("delFromLList",simple_vmlib_del);
 	register_block("char",simple_vmlib_char);
 	register_block("getSimpleVersion",simple_vmlib_version);
         /* Check Data Type */
-    register_block("isString",simple_vmlib_isstring);
+        register_block("isString",simple_vmlib_isstring);
 	register_block("isNumber",simple_vmlib_isnumber);
 	register_block("isList",simple_vmlib_islist);
 	register_block("getType",simple_vmlib_type);
@@ -43,8 +46,13 @@ SIMPLE_API void loadcblocks ( SimpleState *sState )
 	register_block("isObject",simple_vmlib_isobject);
         /** Functional Execution **/
 	register_block("executeCode",simple_vmlib_exec);
+        /* Meta */
+	register_block("isBlock",simple_vmlib_isblock);
         /** Load DLL Extension  **/
-    simple_vm_dll_loadblocks(sState);
+        simple_vm_dll_loadblocks(sState);
+	#ifdef __ANDROID__
+    __init_full_tick(sState);
+	#endif
 	/*
 	**  Simple Display and Read 
 	**  Also we add the display() and read() block to the api
@@ -52,6 +60,11 @@ SIMPLE_API void loadcblocks ( SimpleState *sState )
 	register_block("display",display_string);
 	register_block("read",read_string);
 }
+
+#ifdef __ANDROID__
+SIMPLE_API void __a_init_full_tick(SimpleState *sState) { printf("hella \n"); }
+__android_init_full_tick __init_full_tick = __a_init_full_tick ;
+#endif
 
 int api_is_list ( void *pointer,int x )
 {
@@ -406,7 +419,33 @@ void simple_vmlib_len ( void *pointer )
 		return ;
 	}
 	if ( SIMPLE_API_ISSTRING(1) ) {
-		SIMPLE_API_RETNUMBER(SIMPLE_API_GETSTRINGSIZE(1) - 1);
+		SIMPLE_API_RETNUMBER(SIMPLE_API_GETSTRINGSIZE(1));
+	}
+	else if ( SIMPLE_API_ISLIST(1) ) {
+		if ( simple_vm_oop_isobject(SIMPLE_API_GETLIST(1)) == 0 ) {
+			SIMPLE_API_RETNUMBER(simple_list_getsize(SIMPLE_API_GETLIST(1)));
+		}
+		else {
+			SIMPLE_VM_STACK_PUSHPVALUE(SIMPLE_API_GETPOINTER(1));
+			SIMPLE_VM_STACK_OBJTYPE = SIMPLE_API_GETPOINTERTYPE(1) ;
+			simple_vm_expr_npoo(vm,"lengthOf",0);
+			vm->nIgnoreNULL = 1 ;
+		}
+	} else {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+	}
+}
+
+void block_len_minus_one ( void *pointer )
+{
+	VM *vm  ;
+	vm = (VM *) pointer ;
+	if ( SIMPLE_API_PARACOUNT != 1 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
+		return ;
+	}
+	if ( SIMPLE_API_ISSTRING(1) ) {
+		SIMPLE_API_RETNUMBER(SIMPLE_API_GETSTRINGSIZE(1));
 	}
 	else if ( SIMPLE_API_ISLIST(1) ) {
 		if ( simple_vm_oop_isobject(SIMPLE_API_GETLIST(1)) == 0 ) {
@@ -415,7 +454,7 @@ void simple_vmlib_len ( void *pointer )
 		else {
 			SIMPLE_VM_STACK_PUSHPVALUE(SIMPLE_API_GETPOINTER(1));
 			SIMPLE_VM_STACK_OBJTYPE = SIMPLE_API_GETPOINTERTYPE(1) ;
-			simple_vm_expr_npoo(vm,"lengthOf",0);
+			simple_vm_expr_npoo(vm,"length_of_minus_one",-1);
 			vm->nIgnoreNULL = 1 ;
 		}
 	} else {
@@ -596,6 +635,30 @@ SIMPLE_API void simple_vmlib_exec ( void *pointer )
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
 }
+
+SIMPLE_API void simple_vmlib_isblock ( void *pointer )
+{
+	List *pList  ;
+	char *cStr  ;
+	if ( SIMPLE_API_PARACOUNT != 2 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
+		return ;
+	}
+	if ( SIMPLE_API_ISLIST(1) ) {
+		pList = SIMPLE_API_GETLIST(1) ;
+		if ( simple_vm_oop_isobject(pList) == 0 ) {
+			SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+			return ;
+		}
+		if ( SIMPLE_API_ISSTRING(2) ) {
+			cStr = SIMPLE_API_GETSTRING(2) ;
+			SIMPLE_API_RETNUMBER(simple_vm_oop_isblock((VM *) pointer,pList,cStr));
+		}
+	} else {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+	}
+}
+
 
 void simple_vmlib_char ( void *pointer )
 {

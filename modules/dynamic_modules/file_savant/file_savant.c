@@ -38,8 +38,8 @@
 
 SIMPLE_API void init_simple_module(SimpleState *sState)
 {   
-    register_block("readfile",read_file);
-    register_block("writefile",write_file);
+    register_block("__readfile",read_file);
+    register_block("__writefile",write_file);
     register_block("__exists",file_exists);
     register_block("__path_absolute_path",path_absolute_path);
     register_block("__path_block_size",path_block_size);

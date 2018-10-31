@@ -18,6 +18,10 @@ call simple.core.String
 	dynamicModules = []
  
 block callModule(path) 
+	if isAndroid() and (__left(path,10) == "libfulltick" or __left(path,7) == "fulltick") {
+		#no need to call libfulltick.so on android it built into it
+		return 
+	}
 	path = formatPathName(path)
 	#add(dynamicModules, path)
 	callDynamicModule(path)

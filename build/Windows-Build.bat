@@ -731,10 +731,11 @@ REM FULLTICK(GUI) DYNAMIC MODULE
 :confirmfulltickdymodule
 	echo dynamic_modules:fulltick: checking if fulltick build successfully
 	if !BUILD_ARC!=="x64" (
-		SET FULLTICK_DY_MODULE="fulltick64.dll"
+		REM SET FULLTICK_DY_MODULE="fulltick!ARC!.dll"
 	) else (
-		SET FULLTICK_DY_MODULE="fulltick.dll"
+		REM SET FULLTICK_DY_MODULE="fulltick.dll"
 	)
+	SET FULLTICK_DY_MODULE="fulltick!ARC!.dll"
 	if exist "..\modules\dynamic_modules\dist\%FULLTICK_DY_MODULE%" (
 		echo dynamic_modules:fulltick: fulltick dynamic module built successfully
 	) else (
@@ -808,7 +809,7 @@ REM COPY THE SIMPLE MODULES
 	
 :copysimplemodule
 	call:header modules "copying simple modules to %SIMPLE_DEBUG_VERSION%"
-	call:copymodulesinloop archive fulltick parser simple web
+	call:copymodulesinloop archive fulltick parser simple web image
 	call:resolvefirstcalls
 	copy "..\modules\modules-dependencies.conf" "%~dp0\..\..\%SIMPLE_DEBUG_VERSION%\modules\"
 
@@ -1285,7 +1286,7 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 	
 :confirmgccis64bits
 	echo int main() { return 0;} > ../../test_64_bit_gcc.c
-	gcc.exe -m64 -o ../../test_64_bit_gcc.o ../../test_64_bit_gcc.c 2> nul
+	gcc.exe -m64 -o ../../test_64_bit_gcc.o ../../test_64_bit_gcc.c 
 	if exist "../../test_64_bit_gcc.o" (
 		call:deletetempfiles "..\..\test_64_bit_gcc.o" "..\..\test_64_bit_gcc.c"
 	) else (
