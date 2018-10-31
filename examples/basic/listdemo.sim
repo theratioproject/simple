@@ -40,7 +40,11 @@ for i = 100 to 0 step -1 {
 }
 
 @""+nl
+<<<<<<< HEAD
 lib = ["76D40000", "SIMPLE_DYNAMIC_LIBRARY_", 0]
+=======
+lib = loadDynamicLibrary("user32")
+>>>>>>> 2ba3e3f8cedae1d6663b0da01dbedc57e818cf4f
 list = [0,"one",2,3,4,5,6,7,[9,8,"ade"],lib]
 @list @""
 
