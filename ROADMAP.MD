@@ -115,6 +115,7 @@ issue related to the module
 - [ ] port murmur hash C library to simple-lang
 - [ ] implement ncurses for use in simple-lang
 - [ ] use a light and simple alternate ANSI C internet library for networking
+- [ ] a json module that load the json file and store as class attributes and fields and allow writing back to file
 
 ### Extended Modules
 
