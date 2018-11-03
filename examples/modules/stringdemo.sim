@@ -13,25 +13,25 @@ call "simple/security/Hash.sim"
 	string = new String("mOduLArity ")
 
 block main() {
-	println(string.toString()+" | LOWER : "+string.toLower())
-	println("UPPER : "+string.toUpper()+" | SENTENCE : "+string.toSentence())
-	println("LENGTH : "+string.length()+" | Char at 3 : "+string.charAt(3))
-	if string.isEmpty() println("The String is Empty") 
-	else println("We cool, "+string.toString()+" is not empty") end
-	if string.equals("modular") println("yea they are equal") 
-	else println("Nope They are not equal") end
-	if string.compareTo("modular") println("yea they are equal")
-	else println("Nope They are not equal") end
-	if string.startsWith("mod") println(string.toString()+", start with mod ")
-	else println(string.toString()+" does not start with mod but with 'mOd'") end
-	println("FIRST CHAR : "+string.firstChar()+" | LAST CHAR : "+string.lastChar())
-	println("LEFT : "+string.left(6)+" | RIGHT : "+string.right(3))
-	println("TRIM : >"+string.trim()+"< | COPY : "+string.copy(2))
-	if string.endsWith("rity ") println("yea it ends with 'rity '") end
-	println("LINE COUNT : "+string.lineCount()+" | SUBSTRING : "+string.subStringAt("d","a"))
-	println("REPLACE : "+string.replace("OduLA", "odula")+" | REMOVE : "+string.remove("ity "))
-	println("TYPE : "+string.getType()+" | TYPECODE : "+string.getTypeCode())
-	println("CONCAT : "+string.concat("and complexity"))
+	stdout.println(string.toString()+" | LOWER : "+string.toLower())
+	stdout.println("UPPER : "+string.toUpper()+" | SENTENCE : "+string.toSentence())
+	stdout.println("LENGTH : "+string.length()+" | Char at 3 : "+string.charAt(3))
+	if string.isEmpty() stdout.println("The String is Empty") 
+	else stdout.println("We cool, "+string.toString()+" is not empty") end
+	if string.equals("modular") stdout.println("yea they are equal") 
+	else stdout.println("Nope They are not equal") end
+	if string.compareTo("modular") stdout.println("yea they are equal")
+	else stdout.println("Nope They are not equal") end
+	if string.startsWith("mod") stdout.println(string.toString()+", start with mod ")
+	else stdout.println(string.toString()+" does not start with mod but with 'mOd'") end
+	stdout.println("FIRST CHAR : "+string.firstChar()+" | LAST CHAR : "+string.lastChar())
+	stdout.println("LEFT : "+string.left(6)+" | RIGHT : "+string.right(3))
+	stdout.println("TRIM : >"+string.trim()+"< | COPY : "+string.copy(2))
+	if string.endsWith("rity ") stdout.println("yea it ends with 'rity '") end
+	stdout.println("LINE COUNT : "+string.lineCount()+" | SUBSTRING : "+string.subStrAt("d","a"))
+	stdout.println("REPLACE : "+string.replace("OduLA", "odula")+" | REMOVE : "+string.remove("ity "))
+	stdout.println("TYPE : "+string.getType()+" | TYPECODE : "+string.getTypeCode())
+	stdout.println("CONCAT : "+string.concat("and complexity"))
 }
 
 #all blocks in class are available as functions too

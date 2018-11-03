@@ -170,7 +170,8 @@ class Table : Element
 		
 	block addToHead(headlist)
 		if (isList(headlist))
-			tableHeadContent+= '<tr>' hlen = lengthOf(headlist)
+			tableHeadContent+= '<tr>' 
+			hlen = lengthOf(headlist) - 1
 			for a = 0 to hlen
 				if (isString(headlist[a]))
 					tableHeadContent+= '<th>'+headlist[a]+'</th>' + crlf
@@ -185,7 +186,7 @@ class Table : Element
 		if (isList(bodylist))
 			if (tableHasBody) tableBodyContent+= crlf +'<tr>' end
 			tableHasBody = true
-			hlen = lengthOf(bodylist)
+			hlen = lengthOf(bodylist) - 1
 			for a = 0 to hlen
 				if (isString(bodylist[a]))
 					tableBodyContent+= '	<td>'+bodylist[a]+'</td>' + crlf

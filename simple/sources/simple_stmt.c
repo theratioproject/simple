@@ -295,8 +295,8 @@ int simple_parser_stmt ( Parser *parser )
 							simple_parser_previoustoken (parser);
 							simple_string_add_gc(parser->sState,main_module_name,".");
 							simple_string_add_gc(parser->sState,main_module_name,parser->TokenText);
+							simple_parser_nexttoken(parser);
 						} 
-						simple_parser_nexttoken(parser);
 					} else {
 						parser_error(parser,PARSER_ERROR_MODULENAME);
 						simple_string_delete(module_name);
@@ -315,7 +315,7 @@ int simple_parser_stmt ( Parser *parser )
 				if ( simple_fexists(file_name) == 0 ) {
 					strcpy(file_name,parser->TokenText);
 				}
-			} *///this comment block is EVILLLL
+			} *///this commented block is EVILLLL
 			/* Generate Code */
 			simple_parser_icg_newoperation(parser,ICO_FILENAME);
 			simple_parser_icg_newoperand(parser,file_name);
@@ -975,7 +975,7 @@ int simple_parser_stmt ( Parser *parser )
 				#if SIMPLE_PARSERTRACE
 				SIMPLE_STATE_CHECKPRINTRULES 
 				
-				puts("Rule : Done --> 'Done'");
+				puts("Rule : finally --> 'finally'");
 				#endif
 				simple_parser_nexttoken(parser);
 				/* Generate Code */

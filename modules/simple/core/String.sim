@@ -26,35 +26,37 @@ callModule("string_savant")
 		END_OF_LINE = char(13)
 		LINE_BREAK = char(10)
 		
-block stringContains(value,check)
-	if substr(value,check) < 0
+block strContains(value,check) #check empty for all __substr call
+	if check == "" { return true /* error */ }
+	if __substr(value,check) < 0
 		return false
 	end 
 	return true
 
-block stringConcat(str, v)
+block strConcat(str, v)
 	checkNullity(v) checkNullity(str)
 	return str + v
 
-block removeString(str, o)
-	return substr(str,o,"")
+block removeStr(str, o)
+	if o == "" { return str }
+	return __substr(str,o,"")
 	
-block removeStringAt(str, index)
+block removeStrAt(str, index)
 	warn("String module still in development")
 	strLength = lengthOf(str)
 	if (index > strLength)
 		return str
 	else
-		first = substr(str,0,index-1) 
+		first = __substr(str,0,index-1) 
 		#@"first : "+first
 		#@strLength
 		#@strLength - 5
-		last = substr(str,index+1,5) 
+		last = __substr(str,index+1,5) 
 		#@"last : "+last
 		return (first + last)
 	end
 	
-block removeStringAfterIndex(str,index)
+block removeStrAfterIndex(str,index)
 	#extlen = lengthOf(lastStringAfterChar(link, '.'))
 	#			for a = 0 to 
 	#			link = replaceString(link,lastStringAfterChar(link, '.'), 'html')
@@ -63,25 +65,27 @@ block removeFirstChar(str)
 	return removeStringAt(str, 0)
 	
 block removeLastChar(str)
-	return substr(str,0,lengthOf(str)-1)
+	return __substr(str,0,lengthOf(str)-1)
 
-block replaceString(s, o, n)
-	return substr(s,o,n)
+block replaceStr(s, o, n)
+	return __substr(s,o,n)
 
-block stringSubString(str, index,offset)
-	return substr(str, index, offset)
+block strSubStr(str, index,offset)
+	return __substr(str, index, offset)
 
-block stringGetLineCount(str)
-	return lines(str)
+block strGetLineCount(str)
+	return __lines(str)
 
-block stringEndsWith(m, s)
+block strEndsWith(m, s)
 	checkNullity(m) checkNullity(s)
-	if lengthOf(s) > lengthOf(m)
+	strLength = lengthOf(s) - 1
+	mLength = lengthOf(m) - 1
+	if strLength > mLength
 		return false #throw(STRING_COMPARE_ERROR)
 	end 
-	beginSearch = lengthOf(m) - lengthOf(s)
+	beginSearch = mLength - strLength
 	beginCount = 0 
-	for a = beginSearch to lengthOf(m)
+	for a = beginSearch to mLength
 		try 
 			if m[a] != s[beginCount]
 				return false
@@ -93,59 +97,59 @@ block stringEndsWith(m, s)
 	end
 	return true
 
-block stringCopy(str, count)
+block strCopy(str, count)
 	return __copy(str, count)
 
-block trimString(str)
+block trimStr(str)
 	return __trim(str)
 
-block stringRight(str, index)
+block strRight(str, index)
 	return __right(str, index)
 
-block stringLeft(str, index)
+block strLeft(str, index)
 	return __left(str, index)
 
-block isStringNull(s)
-	if s == null return true else return false end
+block isStrNull(s)
+	return s == null
 
-block stringFirstChar(c)
+block strFirstChar(c)
 	checkNullity(c) 
 	if lengthOf(c) < 0
 		throw(STRING_LESS)
 	end
 	return c[0]
 	
-block stringLastChar(c)
+block strLastChar(c)
 	checkNullity(c) 
 	if lengthOf(c) < 0
 		throw(STRING_LESS)
 	end
-	return c[lengthOf(c)]
+	return c[lengthOf(c) - 1]
 
 block toLowerCase(content)	
-	if isStringEmpty(content)
+	if isStrEmpty(content)
 		throw(STRING_EMPTY)
 	end
 	return __lower(content)
 
 block toUpperCase(content)	
-	if isStringEmpty(content)
+	if isStrEmpty(content)
 		throw(STRING_EMPTY)
 	end
 	return __upper(content)
 
 block toSentenceCase(content)	
-	if isStringEmpty(content)
+	if isStrEmpty(content)
 		throw(STRING_EMPTY)
 	end
 	content = toLowerCase(content)
 	content[0] = toUpperCase(content[0])
 	return content
 
-block stringLenght(content)
+block strLenght(content)
 	return lengthOf(content)
 	
-block isStringEmpty(content)
+block isStrEmpty(content)
 	if content == ""
 		return true
 	end
@@ -154,22 +158,23 @@ block isStringEmpty(content)
 block getCharAt(content, index)
 	return content[index]
 	
-block stringEquals(acom, bcom, con)
+block strEquals(acom, bcom, con)
 	if !con  acom = toLowerCase(acom) bcom = toLowerCase(bcom) end
-	if strcmp(acom, bcom) == 0
+	if __strcmp(acom, bcom) == 0
 		return true
 	else
 		return false
 	end
 	
-block stringStartsWith(m, s)
+block strStartsWith(m, s)
 	checkNullity(m) checkNullity(s)
 	if lengthOf(s) > lengthOf(m)
 		return false #throw(STRING_COMPARE_ERROR)
 	end
-	for a = 0 to lengthOf(s)
+	sLen = lengthOf(s) - 1
+	for a = 0 to sLen
 		try 
-			if stringEquals(m[a], s[a], true) == false
+			if strEquals(m[a], s[a], true) == false
 				return false
 			end
 		catch 
@@ -179,45 +184,46 @@ block stringStartsWith(m, s)
 	end
 	return true
 	
-block lastStringAfterChar(str, lst)
+block lastStrAfterChar(str, lst)
 	count = 0 ret = ""
-	for x = lengthOf(str) to 0 step -1
+	strLength = lengthOf(str) - 1
+	for x = strLength to 0 step -1
 		if str[x] == lst
 			break
 		end 
 		count++
 	end
-	lastc = (lengthOf(str) - count) + 1
-	for stra  = lastc to lengthOf(str)
+	lastc = (strLength - count) + 1
+	for stra  = lastc to strLength
 		ret += str[stra]
 	end
 	return ret
 	
-block stringAfterLast(str, lst)
+block strAfterLast(str, lst)
 	count = 0 ret = ""
-	for x = lengthOf(str) to 0 step -1
+	for x = lengthOf(str) - 1 to 0 step -1
 		if str[x] == lst
 			break
 		end 
 		count++
 	end
 	lastc = (lengthOf(str) - count) + 1
-	for a  = lastc to lengthOf(str)
+	for a  = lastc to lengthOf(str) - 1
 		ret += str[a]
 	end
 	return ret
 	
-block stringAfter(str, lst)
-	lstl = (substr(str, lst)) + lengthOf(lst) + 1
+block strAfter(str, lst)
+	lstl = (__substr(str, lst)) + lengthOf(lst) + 1
 	ret = ""
-	for a = lstl to lengthOf(str)
+	for a = lstl to lengthOf(str) - 1
 		ret += str[a]
 	end
 	return ret
 	
-block splitString(content, delimiter) return stringSplit(content, delimiter)
+block splitStr(content, delimiter) return strSplit(content, delimiter)
 	
-block stringSplit(content, delimiter)
+block strSplit(content, delimiter)
 	doubleSpace = "  "
 	singleSpace = " "
 	
@@ -227,16 +233,16 @@ block stringSplit(content, delimiter)
 	if delimiter = singleSpace
 		#replace tab with space 
 		do {
-			content = replaceString(content,tab,singleSpace)
-		} while stringContains(content,tab)
+			content = replaceStr(content,tab,singleSpace)
+		} while strContains(content,tab)
 		#replace double space with space 
 		do {
-			content = replaceString(content,doubleSpace,singleSpace)
-		} while stringContains(content,doubleSpace)
+			content = replaceStr(content,doubleSpace,singleSpace)
+		} while strContains(content,doubleSpace)
 	end
-	content = trimString(content)
+	content = trimStr(content)
 	# Need to write a StringToList function as this gives an erroneous response.
-	return stringToList(substr(content, delimiter, crlf))
+	return __string_to_list(__substr(content, delimiter, crlf))
 
 	
 
@@ -268,28 +274,28 @@ class String : Object
 		return toSentenceCase(str)
 		
 	block length()
-		return stringLenght(str)
+		return strLenght(str)
 		
 	block isEmpty()
-		return isStringEmpty(str)
+		return isStrEmpty(str)
 		
 	block charAt(index)
 		return getCharAt(str, index)
 	
 	block equals(compare)
-		return stringEquals(str, compare, true)
+		return strEquals(str, compare, true)
 		
 	block compareTo(compare)
-		return stringEquals(str, compare, false)
+		return strEquals(str, compare, false)
 		
 	block startsWith(s)
-		return stringStartsWith(str, s)
+		return strStartsWith(str, s)
 		
 	block firstChar()
-		return stringFirstChar(str)
+		return strFirstChar(str)
 		
 	block lastChar()
-		return stringLastChar(str)
+		return strLastChar(str)
 		
 	block isNull()
 		return isStringNull(str)
@@ -298,58 +304,56 @@ class String : Object
 		return hash32(str)
 		
 	block left(index)
-		return stringLeft(str, index)
+		return strLeft(str, index)
 		
 	block right(index)
-		return stringRight(str, index)
+		return strRight(str, index)
 		
 	block trim()
-		return trimString(str)
+		return trimStr(str)
 		
 	block copy(count)
-		return stringCopy(str, count)
+		return strCopy(str, count)
 		
 	block endsWith(s)
-		return stringEndsWith(str, s)
+		return strEndsWith(str, s)
 		
 	block lineCount()
-		return stringGetLineCount(str)
+		return strGetLineCount(str)
 		
-	block subString(index)
-		return stringSubString(str, index,0)
+	block subStr(index)
+		return strSub(str, index,0)
 		
-	block subStringAt(index,offset)
-		return stringSubString(str, index,offset)
+	block subStrAt(index,offset)
+		return strSubStr(str, index,offset)
 		
 	block replace(o, n)
-		return replaceString(str, o, n)
+		return replaceStr(str, o, n)
 		
 	block remove(o)
-		return removeString(str, o)
+		return removeStr(str, o)
 		
 	block removeAt(o)
-		removeStringAt(str, o)
+		removeStrAt(str, o)
 		
 	block getTypeCode()
 		return STRING_TYPE
 		
 	block concat(v)
-		return stringConcat(str, v)
+		return strConcat(str, v)
 		
 	block lastAfterChar(lst)
-		return lastStringAfterChar(str, lst)
+		return lastStrAfterChar(str, lst)
+	
 	block indexOf(n)
 		return str[n]
 
-end
-
-
-private 
+end 
 	
 
 
 /*
 	concat - need expansitivity
-	lastStringAfter(s,l) return the last string after specified string
+	lastStringAfter(s,l) return the last str after specified str
 
 */

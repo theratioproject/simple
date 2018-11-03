@@ -16,7 +16,7 @@
 
 */
 
-call "fulltick/all.sim" ? fulltick.core
+call fulltick.all
 
 block main()
 
@@ -36,7 +36,7 @@ block main()
 	window = new FWindow() 
 	window.setTitle("FFONT DEMO").setSize(300, 130)
 	window.addWidget([button,cbutton,rbutton,lbutton]) window.show() 
+	window.show() #just flash
 	
-	FApp.run() 
 	
 	

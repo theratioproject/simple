@@ -25,13 +25,13 @@ block main()
 	t.test()
 	
 
-class Test : TypeOne : TypeTwo
+class Test : TypeOne 
 
 	block test()
 		msgTypeTwo()
 		msgTypeOne()
 
-class TypeOne
+class TypeOne : TypeTwo
 
 	block msgTypeOne()
 		display "message from type one "+crlf

@@ -26,11 +26,11 @@ class Map
     block valueOf(key)
         value = null
         # Iterate through the list
-        for i = 0 to lengthOf(list)
+        for i = 0 to lengthOf(list) - 1
             # Check if the list has the specified key
-            if list[i][1] == key
+            if list[i][0] == key
                 # Get the value associated with the key
-                value = list[i][2]
+                value = list[i][1]
             end
         end
         # Return the value
@@ -43,10 +43,10 @@ class Map
         # Iterate through the list
         for i = 0 to lengthOf(list)
             # Check if the key already exists.
-            if list[i][1] == key
+            if list[i][0] == key
                 found = true
                 # Update the key's associated value
-                list[i][2] = value
+                list[i][1] = value
             end
         end
         # If key not found
@@ -64,7 +64,7 @@ class Map
         # Iterate through the list
         for i = 0 to lengthOf(list)
             # Add every key to the temporary list
-            tempList = tempList + list[i][1]
+            tempList = tempList + list[i][0]
         end
         # Return the temporary list
         return tempList
@@ -76,7 +76,7 @@ class Map
         # Iterate through the list
         for i = 0 to lengthOf(list)
             # Add every key to the temporary list
-            tempList = tempList + list[i][2]
+            tempList = tempList + list[i][1]
         end
         # Return the temporary list
         return tempList

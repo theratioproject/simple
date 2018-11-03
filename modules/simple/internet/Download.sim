@@ -33,7 +33,7 @@ class Download : File
 		
 	block execute()
 		DOWNLOAD_CONTENT = __curl_download(DOWNLOAD_URL)
-		if isStringEmpty(__IO_FILE_PATH) 
+		if isStrEmpty(__IO_FILE_PATH) 
 			__IO_FILE_PATH = url
 		end
 		write(DOWNLOAD_CONTENT)

@@ -22,13 +22,13 @@ call simple.core.loadcoredymodule
 #@Skip do not uncomment @EndSkip
 
 block stringToCHex(value) 
-	return __stringToCHex(value)
+	return __string_to_chex(value)
 	
 block hexToString(value)
-	return __hexToString(value)
+	return __hex_to_string(value)
 
 block stringToHex(value)
-	return __stringToHex(value)
+	return __string_to_hex(value)
 	
 block stringToList(value)
-	return __stringToList(value)
+	return __string_to_list(value)

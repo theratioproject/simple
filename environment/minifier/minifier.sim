@@ -22,9 +22,9 @@ block main()
 	sourceFile = null
 	sourceFilePath = null
 	sourceFileContent = null
-	cmdparamsLen = lengthOf(cmdparams)
+	cmdparamsLen = lengthOf(cmdparams) - 1
 	for a = 0 to cmdparamsLen {
-		if cmdparams[a] == "-s" || cmdparams[a] == "--source" { sourceFilePath = cmdparams[a++]
+		if cmdparams[a] == "-s" || cmdparams[a] == "--s" || cmdparams[a] == "--source" { sourceFilePath = cmdparams[a++]
 		elif cmdparams[a] == "-y" || cmdparams[a] == "--yes" skipRequest = true
 		else }
 	}
@@ -46,12 +46,12 @@ block main()
 	
 block minifySourceDir(sourceDir)
 	files = sourceDir.listFiles()
-	filesLen = lengthOf(files)
+	filesLen = lengthOf(files) - 1
 	for b = 0 to filesLen {
 		minifySourceFile(files[b])
 	}
 	dirs = sourceDir.listDirectories()
-	dirsLen = lengthOf(dirs)
+	dirsLen = lengthOf(dirs) - 1
 	for b = 0 to dirsLen {
 		@"moving into directory : "+dirs[b].absolutePath()
 		minifySourceDir(dirs[b])
@@ -68,7 +68,7 @@ block minifySourceFile(sourceFile)
 			return
 		}
 	}
-	source = " "+sourceFile.readFileAsString()
+	source = " "+sourceFile.readFileAsString() + " "
 	if stringGetLineCount(source) < 1 {
 		@sourceFile.name()+" : already minified"
 		return
@@ -77,7 +77,7 @@ block minifySourceFile(sourceFile)
 	minifiedSource = ""
 	TOKEN_IDENTIFIER =  0 TOKEN_MULTILINE_COMMENT = 1 TOKEN_LITERAL_1 = 2 TOKEN_LITERAL_2 = 3
 	type = TOKEN_IDENTIFIER
-	sourceLen = lengthOf(source)
+	sourceLen = lengthOf(source) - 2
 	for i = 0 to sourceLen {
 		switch type {
 			case TOKEN_IDENTIFIER
@@ -127,10 +127,6 @@ block minifySourceFile(sourceFile)
 				minifiedSource+= source[i]		
 		}
 	}
-	sourceFile.write(trimString(minifiedSource))
+	__writefile(sourceFile.absolutePath(), minifiedSource)
 	@" (done)"
-
-block nextCharacter_(source)
-	name = "this is testing   sas    "
-
 

@@ -10,12 +10,33 @@
  * #date - 7 Febuary 2017
  */
  
+/*
+	
+*/
 module simple.core
 
+/*
+
+*/
 call "__first_calls.sim"
+
+final __mainDynaicModulesCount = 0
+
+final __mainDynaicModules = [	
+		["systemic.dll", "string_savant.dll"],		#Windows
+		["systemic.so", "string_savant.so"],		#Linux
+		["systemic.dylib", "string_savant.dylib"] 	#MAC
+	]
+
+try {
+	if isAndroid() end
+catch
+	loadMainDynamicModules()
+}
+
 call simple.core.String
  
-	dynamicModules = []
+	final dynamicModules = []
  
 block callModule(path) 
 	if isAndroid() and (__left(path,10) == "libfulltick" or __left(path,7) == "fulltick") {
@@ -28,33 +49,33 @@ block callModule(path)
 	
 block formatPathName(path)
 	if isWindows() 
-		if stringEndsWith(path, ".so") 
-			path = replaceString(path, ".so", ".dll")
-		elif stringEndsWith(path, ".dylib")
-			path = replaceString(path, ".dylib", ".dll")
+		if strEndsWith(path, ".so") 
+			path = replaceStr(path, ".so", ".dll")
+		elif strEndsWith(path, ".dylib")
+			path = replaceStr(path, ".dylib", ".dll")
 		end
 	elif isLinux()
-		if stringEndsWith(path, ".dll") 
+		if strEndsWith(path, ".dll") 
 			path = replaceString(path, ".dll", ".so")
-		elif stringEndsWith(path, ".dylib")
-			path = replaceString(path, ".dylib", ".so")
+		elif strEndsWith(path, ".dylib")
+			path = replaceStr(path, ".dylib", ".so")
 		end
 	elif isMacosx()
-		if stringEndsWith(path, ".dll") 
-			path = replaceString(path, ".dll", ".dylib")
-		elif stringEndsWith(path, ".so")
-			path = replaceString(path, ".so", ".dylib")
+		if strEndsWith(path, ".dll") 
+			path = replaceStr(path, ".dll", ".dylib")
+		elif strEndsWith(path, ".so")
+			path = replaceStr(path, ".so", ".dylib")
 		end
 	else
-		if stringEndsWith(path, ".dll") 
-			path = replaceString(path, ".dll", ".so")
-		elif stringEndsWith(path, ".dylib")
-			path = replaceString(path, ".dylib", ".so")
+		if strEndsWith(path, ".dll") 
+			path = replaceStr(path, ".dll", ".so")
+		elif strEndsWith(path, ".dylib")
+			path = replaceStr(path, ".dylib", ".so")
 		end
 	end
-	if not stringEndsWith(path, ".dll") && isWindows() path+=".dll" 
-	elif not stringEndsWith(path, ".so") && isLinux() path+=".so" 
-	elif not stringEndsWith(path, ".dylib") && isMacosx() path+=".dylib" 
+	if not strEndsWith(path, ".dll") && isWindows() path+=".dll" 
+	elif not strEndsWith(path, ".so") && isLinux() path+=".so" 
+	elif not strEndsWith(path, ".dylib") && isMacosx() path+=".dylib" 
 	end
 	return path
  
@@ -62,3 +83,18 @@ block getDynamicModules()
 	return dynamicModules
 	
 	
+block loadMainDynamicModules()
+	try {
+		for dyModule in __mainDynaicModules[__mainDynaicModulesCount] {
+			callDynamicModule(dyModule)
+		}
+	catch
+		if __mainDynaicModulesCount == (lengthOf(__mainDynaicModules) - 1) {
+			@"Ensure your build the systemic and string_savant dynamic modules"
+			@"Cannot determine your OS systemic and string_savant dynamic modules"
+			@"Please raise an issue at <https://github.com/simple-lang/simple/issues/new> With detail of your OS "
+			__exit__
+		}
+		__mainDynaicModulesCount++
+		loadMainDynamicModules()
+	}

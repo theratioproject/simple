@@ -35,6 +35,9 @@ simple/.dep.inc
 simple/simple.rar
 simple/simple.zip
 
+#test files
+examples/*.txt
+
 #modules
 #dynamic modules
 modules/dynamic_modules/dist/*

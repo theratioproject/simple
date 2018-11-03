@@ -10,7 +10,7 @@ callDynamicModule("security.dll")
 callDynamicModule("string_savant.dll")
 callDynamicModule("systemic.dll")
 callDynamicModule("consoler.dll")
-*/
+
 
 callDynamicModule("archiver.so")
 callDynamicModule("file_savant.so")
@@ -25,3 +25,5 @@ callDynamicModule("consoler.so")
 __printwfb(14,32,"Yea we are in color"+crlf)
 
 display "Hello world"+crlf
+
+*/

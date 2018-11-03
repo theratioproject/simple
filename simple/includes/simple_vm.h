@@ -131,176 +131,176 @@ VM * simple_vm_delete ( VM *vm ) ;
 
 SIMPLE_API void simple_vm_loadcode ( VM *vm ) ;
 
-void simple_vm_start ( SimpleState *sState,VM *vm ) ;
+SIMPLE_API void simple_vm_start ( SimpleState *sState,VM *vm ) ;
 
-void simple_vm_fetch ( VM *vm ) ;
+SIMPLE_API void simple_vm_fetch ( VM *vm ) ;
 
-void simple_vm_fetch2 ( VM *vm ) ;
+SIMPLE_API void simple_vm_fetch2 ( VM *vm ) ;
 
-void simple_vm_execute ( VM *vm ) ;
+SIMPLE_API void simple_vm_execute ( VM *vm ) ;
 
 SIMPLE_API void simple_vm_error ( VM *vm,const char *cStr ) ;
 
 SIMPLE_API int simple_vm_exec ( VM *vm,const char *cStr ) ;
 
-void simple_vm_tobytecode ( VM *vm,int x ) ;
+SIMPLE_API void simple_vm_tobytecode ( VM *vm,int x ) ;
 
-void simple_vm_error2 ( VM *vm,const char *cStr,const char *cStr2 ) ;
+SIMPLE_API void simple_vm_error2 ( VM *vm,const char *cStr,const char *cStr2 ) ;
 
-void simple_vm_newbytecodeitem ( VM *vm,int x ) ;
+SIMPLE_API void simple_vm_newbytecodeitem ( VM *vm,int x ) ;
 
-void simple_vm_mainloop ( VM *vm ) ;
+SIMPLE_API void simple_vm_mainloop ( VM *vm ) ;
 
 SIMPLE_API void simple_vm_runcode ( VM *vm,const char *cStr ) ;
 
-void simple_vm_init ( SimpleState *sState ) ;
+SIMPLE_API void simple_vm_init ( SimpleState *sState ) ;
 
-void simple_vm_printstack ( VM *vm ) ;
+SIMPLE_API void simple_vm_printstack ( VM *vm ) ;
 
 SIMPLE_API void simple_vm_showerrormessage ( VM *vm,const char *cStr ) ;
 
 SIMPLE_API void simple_vm_cgi_showerrormessage ( VM *vm,const char *cStr ) ;
 
-void simple_vm_addglobalvariables ( VM *vm ) ;
+SIMPLE_API void simple_vm_addglobalvariables ( VM *vm ) ;
 /* Stack and Variables */
 
-void simple_vm_pushv ( VM *vm ) ;
+SIMPLE_API void simple_vm_pushv ( VM *vm ) ;
 
-void simple_vm_loadaddress ( VM *vm ) ;
+SIMPLE_API void simple_vm_loadaddress ( VM *vm ) ;
 
-void simple_vm_assignment ( VM *vm ) ;
+SIMPLE_API void simple_vm_assignment ( VM *vm ) ;
 
-void simple_vm_inc ( VM *vm ) ;
+SIMPLE_API void simple_vm_inc ( VM *vm ) ;
 
-void simple_vm_loadapushv ( VM *vm ) ;
+SIMPLE_API void simple_vm_loadapushv ( VM *vm ) ;
 
-void simple_vm_newline ( VM *vm ) ;
+SIMPLE_API void simple_vm_newline ( VM *vm ) ;
 
-void simple_vm_freestack ( VM *vm ) ;
+SIMPLE_API void simple_vm_freestack ( VM *vm ) ;
 
-void simple_vm_setreference ( VM *vm ) ;
+SIMPLE_API void simple_vm_setreference ( VM *vm ) ;
 
-void simple_vm_list_copy ( VM *vm,List *pNewList, List *list ) ;
+SIMPLE_API void simple_vm_list_copy ( VM *vm,List *pNewList, List *list ) ;
 
-void simple_vm_list_simpointercopy ( VM *vm,List *list ) ;
+SIMPLE_API void simple_vm_list_simpointercopy ( VM *vm,List *list ) ;
 
-void simple_vm_beforeequallist ( VM *vm,List *var,double nNum1 ) ;
+SIMPLE_API void simple_vm_beforeequallist ( VM *vm,List *var,double nNum1 ) ;
 
-void simple_vm_beforeequalitem ( VM *vm,Item *pItem,double nNum1 ) ;
+SIMPLE_API void simple_vm_beforeequalitem ( VM *vm,Item *pItem,double nNum1 ) ;
 
-void simple_vm_assignmentpointer ( VM *vm ) ;
+SIMPLE_API void simple_vm_assignmentpointer ( VM *vm ) ;
 
-void simple_vm_freeloadaddressscope ( VM *vm ) ;
+SIMPLE_API void simple_vm_freeloadaddressscope ( VM *vm ) ;
 
-void simple_vm_setfilename ( VM *vm ) ;
+SIMPLE_API void simple_vm_setfilename ( VM *vm ) ;
 
-void simple_vm_loadaddressfirst ( VM *vm ) ;
+SIMPLE_API void simple_vm_loadaddressfirst ( VM *vm ) ;
 
-void simple_vm_endblockexec ( VM *vm ) ;
+SIMPLE_API void simple_vm_endblockexec ( VM *vm ) ;
 /* Compare */
 
-void simple_vm_equal ( VM *vm ) ;
+SIMPLE_API void simple_vm_equal ( VM *vm ) ;
 
-void simple_vm_lessequal ( VM *vm ) ;
+SIMPLE_API void simple_vm_lessequal ( VM *vm ) ;
 
-void simple_vm_less ( VM *vm ) ;
+SIMPLE_API void simple_vm_less ( VM *vm ) ;
 
-void simple_vm_greater ( VM *vm ) ;
+SIMPLE_API void simple_vm_greater ( VM *vm ) ;
 
-void simple_vm_greaterequal ( VM *vm ) ;
+SIMPLE_API void simple_vm_greaterequal ( VM *vm ) ;
 
-void simple_vm_notequal ( VM *vm ) ;
+SIMPLE_API void simple_vm_notequal ( VM *vm ) ;
 /* Math */
 
-void simple_vm_sum ( VM *vm ) ;
+SIMPLE_API void simple_vm_sum ( VM *vm ) ;
 
-void simple_vm_sub ( VM *vm ) ;
+SIMPLE_API void simple_vm_sub ( VM *vm ) ;
 
-void simple_vm_mul ( VM *vm ) ;
+SIMPLE_API void simple_vm_mul ( VM *vm ) ;
 
-void simple_vm_div ( VM *vm ) ;
+SIMPLE_API void simple_vm_div ( VM *vm ) ;
 
-void simple_vm_mod ( VM *vm ) ;
+SIMPLE_API void simple_vm_mod ( VM *vm ) ;
 
-void simple_vm_neg ( VM *vm ) ;
+SIMPLE_API void simple_vm_neg ( VM *vm ) ;
 
 char * simple_vm_numtostring ( VM *vm,double nNum1,char *cStr ) ;
 
 double simple_vm_stringtonum ( VM *vm,const char *cStr ) ;
 
-void simple_vm_expr_ppoo ( VM *vm,const char *cStr ) ;
+SIMPLE_API void simple_vm_expr_ppoo ( VM *vm,const char *cStr ) ;
 
-void simple_vm_expr_npoo ( VM *vm,const char *cStr,double nNum1 ) ;
+SIMPLE_API void simple_vm_expr_npoo ( VM *vm,const char *cStr,double nNum1 ) ;
 
-void simple_vm_expr_spoo ( VM *vm,const char *cStr,const char *cStr2,int nSize ) ;
+SIMPLE_API void simple_vm_expr_spoo ( VM *vm,const char *cStr,const char *cStr2,int nSize ) ;
 
-void simple_vm_plusplus ( VM *vm ) ;
+SIMPLE_API void simple_vm_plusplus ( VM *vm ) ;
 
-void simple_vm_minusminus ( VM *vm ) ;
+SIMPLE_API void simple_vm_minusminus ( VM *vm ) ;
 
-void simple_vm_addlisttolist ( VM *vm,List *list,List *list2 ) ;
+SIMPLE_API void simple_vm_addlisttolist ( VM *vm,List *list,List *list2 ) ;
 /* Logic */
 
-void simple_vm_and ( VM *vm ) ;
+SIMPLE_API void simple_vm_and ( VM *vm ) ;
 
-void simple_vm_or ( VM *vm ) ;
+SIMPLE_API void simple_vm_or ( VM *vm ) ;
 
-void simple_vm_not ( VM *vm ) ;
+SIMPLE_API void simple_vm_not ( VM *vm ) ;
 /* Variables */
 
-void simple_vm_newscope ( VM *vm ) ;
+SIMPLE_API void simple_vm_newscope ( VM *vm ) ;
 
 int simple_vm_findvar ( VM *vm,const char *cStr ) ;
 
 int simple_vm_findvar2 ( VM *vm,int x,List *list2,const char *cStr ) ;
 
-void simple_vm_newvar ( VM *vm,const char *cStr ) ;
+SIMPLE_API void simple_vm_newvar ( VM *vm,const char *cStr ) ;
 
 List * simple_vm_newvar2 ( VM *vm,const char *cStr,List *pParent ) ;
 
-void simple_vm_addnewnumbervar ( VM *vm,const char *cStr,double x ) ;
+SIMPLE_API void simple_vm_addnewnumbervar ( VM *vm,const char *cStr,double x ) ;
 
-void simple_vm_addnewstringvar ( VM *vm,const char *cStr,const char *cStr2 ) ;
+SIMPLE_API void simple_vm_addnewstringvar ( VM *vm,const char *cStr,const char *cStr2 ) ;
 
-void simple_vm_deletescope ( VM *vm ) ;
+SIMPLE_API void simple_vm_deletescope ( VM *vm ) ;
 
-void simple_vm_addnewpointervar ( VM *vm,const char *cStr,void *x,int y ) ;
+SIMPLE_API void simple_vm_addnewpointervar ( VM *vm,const char *cStr,void *x,int y ) ;
 
-void simple_vm_newtempvar ( VM *vm,const char *cStr, List *Temlist ) ;
+SIMPLE_API void simple_vm_newtempvar ( VM *vm,const char *cStr, List *Temlist ) ;
 
-void simple_vm_addnewstringvar2 ( VM *vm,const char *cStr,const char *cStr2,int str_size ) ;
+SIMPLE_API void simple_vm_addnewstringvar2 ( VM *vm,const char *cStr,const char *cStr2,int str_size ) ;
 
 List * simple_vm_newtempvar2 ( VM *vm,const char *cStr,List *list3 ) ;
 
-void simple_vm_addnewcpointervar ( VM *vm,const char *cStr,void *pointer,const char *cStr2 ) ;
+SIMPLE_API void simple_vm_addnewcpointervar ( VM *vm,const char *cStr,void *pointer,const char *cStr2 ) ;
 /* Jump */
 
-void simple_vm_jump ( VM *vm ) ;
+SIMPLE_API void simple_vm_jump ( VM *vm ) ;
 
-void simple_vm_jumpzero ( VM *vm ) ;
+SIMPLE_API void simple_vm_jumpzero ( VM *vm ) ;
 
-void simple_vm_jumpfor ( VM *vm ) ;
+SIMPLE_API void simple_vm_jumpfor ( VM *vm ) ;
 
-void simple_vm_jumpone ( VM *vm ) ;
+SIMPLE_API void simple_vm_jumpone ( VM *vm ) ;
 
-void simple_vm_jumpzero2 ( VM *vm ) ;
+SIMPLE_API void simple_vm_jumpzero2 ( VM *vm ) ;
 
-void simple_vm_jumpone2 ( VM *vm ) ;
+SIMPLE_API void simple_vm_jumpone2 ( VM *vm ) ;
 /* Lists */
 
-void simple_vm_liststart ( VM *vm ) ;
+SIMPLE_API void simple_vm_liststart ( VM *vm ) ;
 
-void simple_vm_listitem ( VM *vm ) ;
+SIMPLE_API void simple_vm_listitem ( VM *vm ) ;
 
-void simple_vm_listend ( VM *vm ) ;
+SIMPLE_API void simple_vm_listend ( VM *vm ) ;
 
-void simple_vm_loadindexaddress ( VM *vm ) ;
+SIMPLE_API void simple_vm_loadindexaddress ( VM *vm ) ;
 
-void simple_vm_listpushv ( VM *vm ) ;
+SIMPLE_API void simple_vm_listpushv ( VM *vm ) ;
 
-void simple_vm_listassignment ( VM *vm ) ;
+SIMPLE_API void simple_vm_listassignment ( VM *vm ) ;
 
-void simple_vm_listgetvalue ( VM *vm,List *var,const char *cStr ) ;
+SIMPLE_API void simple_vm_listgetvalue ( VM *vm,List *var,const char *cStr ) ;
 
 int simple_vm_strcmpnotcasesensitive ( const char *string_one,const char *cStr2 ) ;
 /* Blocks */
@@ -309,128 +309,128 @@ int simple_vm_loadblock ( VM *vm ) ;
 
 int simple_vm_loadblock2 ( VM *vm,const char *cStr,int nPerformance ) ;
 
-void simple_vm_call ( VM *vm ) ;
+SIMPLE_API void simple_vm_call ( VM *vm ) ;
 
-void simple_vm_call2 ( VM *vm ) ;
+SIMPLE_API void simple_vm_call2 ( VM *vm ) ;
 
-void simple_vm_return ( VM *vm ) ;
+SIMPLE_API void simple_vm_return ( VM *vm ) ;
 
-void simple_vm_returnnull ( VM *vm ) ;
+SIMPLE_API void simple_vm_returnnull ( VM *vm ) ;
 
-void simple_vm_returneval ( VM *vm ) ;
+SIMPLE_API void simple_vm_returneval ( VM *vm ) ;
 
-void simple_vm_newblock ( VM *vm ) ;
+SIMPLE_API void simple_vm_newblock ( VM *vm ) ;
 
-void simple_vm_blockflag ( VM *vm ) ;
+SIMPLE_API void simple_vm_blockflag ( VM *vm ) ;
 
-void simple_vm_blockflag2 ( VM *vm,int x ) ;
+SIMPLE_API void simple_vm_blockflag2 ( VM *vm,int x ) ;
 
-void simple_vm_removeblockflag ( VM *vm ) ;
+SIMPLE_API void simple_vm_removeblockflag ( VM *vm ) ;
 
-void simple_vm_movetoprevscope ( VM *vm ) ;
+SIMPLE_API void simple_vm_movetoprevscope ( VM *vm ) ;
 
-void simple_vm_createtemlist ( VM *vm ) ;
+SIMPLE_API void simple_vm_createtemlist ( VM *vm ) ;
 
-void simple_vm_saveloadaddressscope ( VM *vm ) ;
+SIMPLE_API void simple_vm_saveloadaddressscope ( VM *vm ) ;
 
-void simple_vm_restoreloadaddressscope ( VM *vm ) ;
+SIMPLE_API void simple_vm_restoreloadaddressscope ( VM *vm ) ;
 
-void simple_vm_anonymous ( VM *vm ) ;
+SIMPLE_API void simple_vm_anonymous ( VM *vm ) ;
 
 int simple_vm_isstackpointertoobjstate ( VM *vm ) ;
 
-void simple_vm_retitemref ( VM *vm ) ;
+SIMPLE_API void simple_vm_retitemref ( VM *vm ) ;
 
-void simple_vm_callclassinit ( VM *vm ) ;
+SIMPLE_API void simple_vm_callclassinit ( VM *vm ) ;
 /* User Interface */
 
-void simple_vm_display ( VM *vm ) ;
+SIMPLE_API void simple_vm_display ( VM *vm ) ;
 
-void simple_vm_read ( VM *vm ) ;
+SIMPLE_API void simple_vm_read ( VM *vm ) ;
 /* String As Array */
 
-void simple_vm_stsimple_pushv ( VM *vm ) ;
+SIMPLE_API void simple_vm_stsimple_pushv ( VM *vm ) ;
 
-void simple_vm_stsimple_assignment ( VM *vm ) ;
+SIMPLE_API void simple_vm_stsimple_assignment ( VM *vm ) ;
 
-void simple_vm_stsimple_index ( VM *vm , String *string , double x ) ;
+SIMPLE_API void simple_vm_stsimple_index ( VM *vm , String *string , double x ) ;
 /* Try Catch Done */
 
-void simple_vm_try ( VM *vm ) ;
+SIMPLE_API void simple_vm_try ( VM *vm ) ;
 
-void simple_vm_catch ( VM *vm,const char *cError ) ;
+SIMPLE_API void simple_vm_catch ( VM *vm,const char *cError ) ;
 
-void simple_vm_finally ( VM *vm ) ;
+SIMPLE_API void simple_vm_finally ( VM *vm ) ;
 /* Duplicate and Range */
 
-void simple_vm_dup ( VM *vm ) ;
+SIMPLE_API void simple_vm_dup ( VM *vm ) ;
 
-void simple_vm_range ( VM *vm ) ;
+SIMPLE_API void simple_vm_range ( VM *vm ) ;
 
 List * simple_vm_range_newlist ( VM *vm ) ;
 /* OOP */
 
-void simple_vm_oop_newobj ( VM *vm ) ;
+SIMPLE_API void simple_vm_oop_newobj ( VM *vm ) ;
 
-void simple_vm_oop_property ( VM *vm ) ;
+SIMPLE_API void simple_vm_oop_property ( VM *vm ) ;
 
-int simple_vm_oop_isobject ( List *list ) ;
+SIMPLE_API int simple_vm_oop_isobject ( List *list ) ;
 
 List * simple_vm_oop_getobj ( VM *vm ) ;
 
-void simple_vm_oop_loadmethod ( VM *vm ) ;
+SIMPLE_API void simple_vm_oop_loadmethod ( VM *vm ) ;
 
-void simple_vm_oop_aftercallmethod ( VM *vm ) ;
+SIMPLE_API void simple_vm_oop_aftercallmethod ( VM *vm ) ;
 
-void simple_vm_oop_setscope ( VM *vm ) ;
+SIMPLE_API void simple_vm_oop_setscope ( VM *vm ) ;
 
-void simple_vm_oop_printobj ( VM *vm,List *list ) ;
+SIMPLE_API void simple_vm_oop_printobj ( VM *vm,List *list ) ;
 
-void simple_vm_oop_parentinit ( VM *vm,List *list ) ;
+SIMPLE_API void simple_vm_oop_parentinit ( VM *vm,List *list ) ;
 
-void simple_vm_oop_parentmethods ( VM *vm,List *list ) ;
+SIMPLE_API void simple_vm_oop_parentmethods ( VM *vm,List *list ) ;
 
-void simple_vm_oop_newclass ( VM *vm ) ;
+SIMPLE_API void simple_vm_oop_newclass ( VM *vm ) ;
 
-void simple_vm_oop_setbraceobj ( VM *vm,List *list ) ;
+SIMPLE_API void simple_vm_oop_setbraceobj ( VM *vm,List *list ) ;
 
-void simple_vm_oop_bracestart ( VM *vm ) ;
+SIMPLE_API void simple_vm_oop_bracestart ( VM *vm ) ;
 
-void simple_vm_oop_braceend ( VM *vm ) ;
+SIMPLE_API void simple_vm_oop_braceend ( VM *vm ) ;
 
-void simple_vm_oop_bracestack ( VM *vm ) ;
+SIMPLE_API void simple_vm_oop_bracestack ( VM *vm ) ;
 
-void simple_vm_oop_newsuperobj ( VM *vm,List *pState,List *pClass ) ;
+SIMPLE_API void simple_vm_oop_newsuperobj ( VM *vm,List *pState,List *pClass ) ;
 
 List * simple_vm_oop_getsuperobj ( VM *vm ) ;
 
-void simple_vm_oop_loadsuperobjmethod ( VM *vm,List *pSuper ) ;
+SIMPLE_API void simple_vm_oop_loadsuperobjmethod ( VM *vm,List *pSuper ) ;
 
-void simple_vm_oop_import ( VM *vm ) ;
+SIMPLE_API void simple_vm_oop_import ( VM *vm ) ;
 
 List * simple_vm_oop_checkpointertoclassinmodules ( VM *vm,List *list ) ;
 
-void simple_vm_oop_import2 ( VM *vm,const char *cModules ) ;
+SIMPLE_API void simple_vm_oop_import2 ( VM *vm,const char *cModules ) ;
 
-void simple_vm_oop_import3 ( VM *vm,List *list ) ;
+SIMPLE_API void simple_vm_oop_import3 ( VM *vm,List *list ) ;
 
 int simple_vm_oop_visibleclassescount ( VM *vm ) ;
 
 List * simple_vm_oop_visibleclassitem ( VM *vm,int x ) ;
 
-void simple_vm_oop_pushclassmodules ( VM *vm,List *list ) ;
+SIMPLE_API void simple_vm_oop_pushclassmodules ( VM *vm,List *list ) ;
 
-void simple_vm_oop_popclassmodules ( VM *vm ) ;
+SIMPLE_API void simple_vm_oop_popclassmodules ( VM *vm ) ;
 
-void simple_vm_oop_deletemodulessafter ( VM *vm,int x ) ;
+SIMPLE_API void simple_vm_oop_deletemodulessafter ( VM *vm,int x ) ;
 
 int simple_vm_oop_callmethodinsideclass ( VM *vm ) ;
 
-void simple_vm_oop_setget ( VM *vm,List *var ) ;
+SIMPLE_API void simple_vm_oop_setget ( VM *vm,List *var ) ;
 
-void simple_vm_oop_setproperty ( VM *vm ) ;
+SIMPLE_API void simple_vm_oop_setproperty ( VM *vm ) ;
 
-void simple_vm_oop_operatoroverloading ( VM *vm,List *pObj,const char *string_one,int nType,const char *cStr2,double nNum1,void *pointer,int nPointerType ) ;
+SIMPLE_API void simple_vm_oop_operatoroverloading ( VM *vm,List *pObj,const char *string_one,int nType,const char *cStr2,double nNum1,void *pointer,int nPointerType ) ;
 
 List * simple_vm_oop_objvarfromobjlist ( List *list ) ;
 
@@ -438,86 +438,86 @@ int simple_vm_oop_objtypefromobjlist ( List *list ) ;
 
 Item * simple_vm_oop_objitemfromobjlist ( List *list ) ;
 
-void simple_vm_oop_callmethodfrombrace ( VM *vm ) ;
+SIMPLE_API void simple_vm_oop_callmethodfrombrace ( VM *vm ) ;
 
 int simple_vm_oop_isblock ( VM *vm,List *list,const char *cStr ) ;
 
-void simple_vm_oop_updateselfpointer ( VM *vm,List *pObj,int nType,void *pContainer ) ;
+SIMPLE_API void simple_vm_oop_updateselfpointer ( VM *vm,List *pObj,int nType,void *pContainer ) ;
 
-void simple_vm_oop_movetobeforeobjstate ( VM *vm ) ;
+SIMPLE_API void simple_vm_oop_movetobeforeobjstate ( VM *vm ) ;
 
-void simple_vm_oop_setthethisvariable ( VM *vm ) ;
+SIMPLE_API void simple_vm_oop_setthethisvariable ( VM *vm ) ;
 
-void simple_vm_oop_updateselfpointer2 ( VM *vm,List *pObj ) ;
+SIMPLE_API void simple_vm_oop_updateselfpointer2 ( VM *vm,List *pObj ) ;
 /* For Better Performance */
 
-void simple_vm_pushp ( VM *vm ) ;
+SIMPLE_API void simple_vm_pushp ( VM *vm ) ;
 
-void simple_vm_incp ( VM *vm ) ;
+SIMPLE_API void simple_vm_incp ( VM *vm ) ;
 
-void simple_vm_pushpv ( VM *vm ) ;
+SIMPLE_API void simple_vm_pushpv ( VM *vm ) ;
 
-void simple_vm_incjump ( VM *vm ) ;
+SIMPLE_API void simple_vm_incjump ( VM *vm ) ;
 
-void simple_vm_incpjump ( VM *vm ) ;
+SIMPLE_API void simple_vm_incpjump ( VM *vm ) ;
 
-void simple_vm_jumpvarlenum ( VM *vm ) ;
+SIMPLE_API void simple_vm_jumpvarlenum ( VM *vm ) ;
 
-void simple_vm_jumpvarplenum ( VM *vm ) ;
+SIMPLE_API void simple_vm_jumpvarplenum ( VM *vm ) ;
 
-void simple_vm_loadblockp ( VM *vm ) ;
+SIMPLE_API void simple_vm_loadblockp ( VM *vm ) ;
 
-void simple_vm_pushplocal ( VM *vm ) ;
+SIMPLE_API void simple_vm_pushplocal ( VM *vm ) ;
 
-void simple_vm_inclpjump ( VM *vm ) ;
+SIMPLE_API void simple_vm_inclpjump ( VM *vm ) ;
 
-void simple_vm_jumpvarlplenum ( VM *vm ) ;
+SIMPLE_API void simple_vm_jumpvarlplenum ( VM *vm ) ;
 
-void simple_vm_incpjumpstep1 ( VM *vm ) ;
+SIMPLE_API void simple_vm_incpjumpstep1 ( VM *vm ) ;
 
-void simple_vm_jumpvarplenumstep1 ( VM *vm ) ;
+SIMPLE_API void simple_vm_jumpvarplenumstep1 ( VM *vm ) ;
 /* End Program / Exit from Loop / Loop (Continue) */
 
 void exit_simple_vm ( VM *vm ) ;
 
-void simple_vm_exitmark ( VM *vm ) ;
+SIMPLE_API void simple_vm_exitmark ( VM *vm ) ;
 
-void simple_vm_popexitmark ( VM *vm ) ;
+SIMPLE_API void simple_vm_popexitmark ( VM *vm ) ;
 
-void simple_vm_exit ( VM *vm,int nType ) ;
+SIMPLE_API void simple_vm_exit ( VM *vm,int nType ) ;
 /* State */
 
-void simple_vm_savestate ( VM *vm,List *list ) ;
+SIMPLE_API void simple_vm_savestate ( VM *vm,List *list ) ;
 
-void simple_vm_restorestate ( VM *vm,List *list,int nPos,int nFlag ) ;
+SIMPLE_API void simple_vm_restorestate ( VM *vm,List *list,int nPos,int nFlag ) ;
 
-void simple_vm_backstate ( VM *vm,int x,List *list ) ;
+SIMPLE_API void simple_vm_backstate ( VM *vm,int x,List *list ) ;
 
-void simple_vm_savestate2 ( VM *vm,List *list ) ;
+SIMPLE_API void simple_vm_savestate2 ( VM *vm,List *list ) ;
 
-void simple_vm_restorestate2 ( VM *vm,List *list,int x ) ;
+SIMPLE_API void simple_vm_restorestate2 ( VM *vm,List *list,int x ) ;
 
 List * simple_vm_savestack ( VM *vm ) ;
 
-void simple_vm_restorestack ( VM *vm,List *list ) ;
+SIMPLE_API void simple_vm_restorestack ( VM *vm,List *list ) ;
 /* Bitwise */
 
-void simple_vm_bitand ( VM *vm ) ;
+SIMPLE_API void simple_vm_bitand ( VM *vm ) ;
 
-void simple_vm_bitor ( VM *vm ) ;
+SIMPLE_API void simple_vm_bitor ( VM *vm ) ;
 
-void simple_vm_bitxor ( VM *vm ) ;
+SIMPLE_API void simple_vm_bitxor ( VM *vm ) ;
 
-void simple_vm_bitnot ( VM *vm ) ;
+SIMPLE_API void simple_vm_bitnot ( VM *vm ) ;
 
-void simple_vm_bitshl ( VM *vm ) ;
+SIMPLE_API void simple_vm_bitshl ( VM *vm ) ;
 
-void simple_vm_bitshr ( VM *vm ) ;
+SIMPLE_API void simple_vm_bitshr ( VM *vm ) ;
 /* Step Number */
 
-void simple_vm_stepnumber ( VM *vm ) ;
+SIMPLE_API void simple_vm_stepnumber ( VM *vm ) ;
 
-void simple_vm_popstep ( VM *vm ) ;
+SIMPLE_API void simple_vm_popstep ( VM *vm ) ;
 /* Threads */
 
 SIMPLE_API void simple_vm_mutexblocks ( VM *vm,void *(*pBlock)(void),void (*pBlockLock)(void *),void (*pBlockUnlock)(void *),void (*pBlockDestroy)(void *) ) ;
@@ -531,17 +531,17 @@ SIMPLE_API void simple_vm_mutexdestroy ( VM *vm ) ;
 SIMPLE_API void simple_vm_runcodefromthread ( VM *vm,const char *cStr ) ;
 /* Trace */
 
-void simple_vm_traceevent ( VM *vm,char nEvent ) ;
+SIMPLE_API void simple_vm_traceevent ( VM *vm,char nEvent ) ;
 /* Fast Block Call for Extensions (Without Eval) */
 
 SIMPLE_API void simple_vm_callblock ( VM *vm,char *cBlockName ) ;
 /* Custom Global Scope */
 
-void simple_vm_newglobalscope ( VM *vm ) ;
+SIMPLE_API void simple_vm_newglobalscope ( VM *vm ) ;
 
-void simple_vm_endglobalscope ( VM *vm ) ;
+SIMPLE_API void simple_vm_endglobalscope ( VM *vm ) ;
 
-void simple_vm_setglobalscope ( VM *vm ) ;
+SIMPLE_API void simple_vm_setglobalscope ( VM *vm ) ;
 
 List * simple_vm_getglobalscope ( VM *vm ) ;
 /*

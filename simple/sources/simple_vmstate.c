@@ -16,7 +16,7 @@
 #include "../includes/simple.h"
 /* Save/Restore State - Used by Try/Catch/Done & Loop/Exit */
 
-void simple_vm_savestate ( VM *vm,List *list )
+SIMPLE_API void simple_vm_savestate ( VM *vm,List *list )
 {
 	List *pThis  ;
 	list = simple_list_newlist_gc(vm->sState,list);
@@ -65,7 +65,7 @@ void simple_vm_savestate ( VM *vm,List *list )
 	simple_list_addint_gc(vm->sState,list,vm->nCurrentGlobalScope);
 }
 
-void simple_vm_restorestate ( VM *vm,List *list,int nPos,int nFlag )
+SIMPLE_API void simple_vm_restorestate ( VM *vm,List *list,int nPos,int nFlag )
 {
 	List *pThis  ;
 	list = simple_list_getlist(list,nPos);
@@ -150,7 +150,7 @@ void simple_vm_restorestate ( VM *vm,List *list,int nPos,int nFlag )
 }
 /* Save/Restore State 2 - Used by Block Call & Return */
 
-void simple_vm_savestate2 ( VM *vm,List *list )
+SIMPLE_API void simple_vm_savestate2 ( VM *vm,List *list )
 {
 	List *pThis  ;
 	/* Save State */
@@ -200,7 +200,7 @@ void simple_vm_savestate2 ( VM *vm,List *list )
 	vm->nNOAssignment = 0 ;
 }
 
-void simple_vm_restorestate2 ( VM *vm,List *list,int x )
+SIMPLE_API void simple_vm_restorestate2 ( VM *vm,List *list,int x )
 {
 	List *pThis  ;
 	/* Restore State */
@@ -249,7 +249,7 @@ void simple_vm_restorestate2 ( VM *vm,List *list,int x )
 }
 /* Return to a Specific position in the array, delete all items after that position */
 
-void simple_vm_backstate ( VM *vm,int x,List *list )
+SIMPLE_API void simple_vm_backstate ( VM *vm,int x,List *list )
 {
 	int nLimit,y  ;
 	if ( x < simple_list_getsize(list) ) {
@@ -286,7 +286,7 @@ List * simple_vm_savestack ( VM *vm )
 	return list ;
 }
 
-void simple_vm_restorestack ( VM *vm,List *list )
+SIMPLE_API void simple_vm_restorestack ( VM *vm,List *list )
 {
 	int x  ;
 	List *list2  ;
@@ -321,7 +321,7 @@ void exit_simple_vm ( VM *vm )
 	vm->nPC = simple_list_getsize(vm->pCode) + 1 ;
 }
 
-void simple_vm_exitmark ( VM *vm )
+SIMPLE_API void simple_vm_exitmark ( VM *vm )
 {
 	List *list  ;
 	/* Exit Mark */
@@ -334,7 +334,7 @@ void simple_vm_exitmark ( VM *vm )
 	simple_vm_savestate(vm,list);
 }
 
-void simple_vm_popexitmark ( VM *vm )
+SIMPLE_API void simple_vm_popexitmark ( VM *vm )
 {
 	/* POP Exit Mark */
 	simple_list_deleteitem_gc(vm->sState,vm->pExitMark,simple_list_getsize(vm->pExitMark));
@@ -342,7 +342,7 @@ void simple_vm_popexitmark ( VM *vm )
 	simple_list_deleteitem_gc(vm->sState,vm->pLoopMark,simple_list_getsize(vm->pLoopMark));
 }
 
-void simple_vm_exit ( VM *vm,int nType )
+SIMPLE_API void simple_vm_exit ( VM *vm,int nType )
 {
 	List *list,*pActiveList  ;
 	int x,y,nStep  ;
@@ -396,7 +396,7 @@ void simple_vm_exit ( VM *vm,int nType )
 }
 /* For Loop - Step */
 
-void simple_vm_stepnumber ( VM *vm )
+SIMPLE_API void simple_vm_stepnumber ( VM *vm )
 {
 	double nNum1  ;
 	if ( SIMPLE_VM_STACK_ISNUMBER ) {
@@ -412,12 +412,12 @@ void simple_vm_stepnumber ( VM *vm )
 	}
 }
 
-void simple_vm_popstep ( VM *vm )
+SIMPLE_API void simple_vm_popstep ( VM *vm )
 {
 	simple_list_deleteitem_gc(vm->sState,vm->aForStep,simple_list_getsize(vm->aForStep));
 }
 
-void simple_vm_dup ( VM *vm )
+SIMPLE_API void simple_vm_dup ( VM *vm )
 {
 	String *string  ;
 	double nNum1  ;
@@ -440,7 +440,7 @@ void simple_vm_dup ( VM *vm )
 	}
 }
 
-void simple_vm_range ( VM *vm )
+SIMPLE_API void simple_vm_range ( VM *vm )
 {
 	double nNum1,nNum2  ;
 	int x  ;

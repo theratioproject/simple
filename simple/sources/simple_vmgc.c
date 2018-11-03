@@ -13,7 +13,7 @@
 
 #include "../includes/simple.h"
 
-void simple_vm_gc_checkreferences ( VM *vm )
+SIMPLE_API void simple_vm_gc_checkreferences ( VM *vm )
 {
 	int x  ;
 	List *list, *list2  ;
@@ -36,7 +36,7 @@ void simple_vm_gc_checkreferences ( VM *vm )
 	}
 }
 
-void simple_vm_gc_checknewreference ( void *pointer,int nType )
+SIMPLE_API void simple_vm_gc_checknewreference ( void *pointer,int nType )
 {
 	Item *pItem  ;
 	/*
@@ -53,7 +53,7 @@ void simple_vm_gc_checknewreference ( void *pointer,int nType )
 	}
 }
 
-void simple_vm_gc_checkupdatereference ( List *list )
+SIMPLE_API void simple_vm_gc_checkupdatereference ( List *list )
 {
 	Item *pItem  ;
 	/* Reference Counting to Destination before copy from Source */
@@ -65,7 +65,7 @@ void simple_vm_gc_checkupdatereference ( List *list )
 	}
 }
 
-void simple_vm_gc_deleteitem_gc ( void *pState,Item *pItem )
+SIMPLE_API void simple_vm_gc_deleteitem_gc ( void *pState,Item *pItem )
 {
 	if ( pItem->gc.nReferenceCount == 0 ) {
 		#if GCLog
@@ -79,7 +79,7 @@ void simple_vm_gc_deleteitem_gc ( void *pState,Item *pItem )
 	}
 }
 
-void simple_vm_gc_killreference ( VM *vm )
+SIMPLE_API void simple_vm_gc_killreference ( VM *vm )
 {
 	List *list  ;
 	if ( SIMPLE_VM_STACK_OBJTYPE == SIMPLE_OBJTYPE_VARIABLE ) {
@@ -88,7 +88,7 @@ void simple_vm_gc_killreference ( VM *vm )
 	}
 }
 
-void simple_vm_gc_deletetemlists ( VM *vm )
+SIMPLE_API void simple_vm_gc_deletetemlists ( VM *vm )
 {
 	int x  ;
 	List *pScope,*list  ;
@@ -132,7 +132,7 @@ void simple_vm_gc_deletetemlists ( VM *vm )
 	simple_list_genhashtable2(pScope);
 }
 
-void simple_vm_gc_newitemreference ( Item *pItem )
+SIMPLE_API void simple_vm_gc_newitemreference ( Item *pItem )
 {
 	pItem->gc.nReferenceCount++ ;
 }
@@ -193,13 +193,13 @@ SIMPLE_API void * simple_state_realloc ( void *pState,void *ptr, size_t size )
 	return simple_realloc(ptr,size) ;
 }
 
-void simple_vm_gc_deleteitem ( Item *pItem )
+SIMPLE_API void simple_vm_gc_deleteitem ( Item *pItem )
 {
 	simple_vm_gc_deleteitem_gc(NULL,pItem);
 }
 /* Pool Manager Blocks */
 
-void simple_poolmanager_newblock ( SimpleState *sState )
+SIMPLE_API void simple_poolmanager_newblock ( SimpleState *sState )
 {
 	PoolData *pMemory  ;
 	int x  ;
@@ -225,7 +225,7 @@ void simple_poolmanager_newblock ( SimpleState *sState )
 	sState->vPoolManager.pBlockEnd = (void *) (pMemory + SIMPLE_POOLMANAGER_ITEMSINBLOCK - 1) ;
 }
 
-void * simple_poolmanager_allocate ( SimpleState *sState,size_t size )
+SIMPLE_API void * simple_poolmanager_allocate ( SimpleState *sState,size_t size )
 {
 	void *pMemory  ;
 	pMemory = NULL ;
@@ -250,7 +250,7 @@ void * simple_poolmanager_allocate ( SimpleState *sState,size_t size )
 	return pMemory ;
 }
 
-void simple_poolmanager_free ( SimpleState *sState,void *pMemory )
+SIMPLE_API void simple_poolmanager_free ( SimpleState *sState,void *pMemory )
 {
 	PoolData *pPoolData  ;
 	if ( sState != NULL ) {
@@ -266,7 +266,7 @@ void simple_poolmanager_free ( SimpleState *sState,void *pMemory )
 	simple_free(pMemory);
 }
 
-void simple_poolmanager_delete ( SimpleState *sState )
+SIMPLE_API void simple_poolmanager_delete ( SimpleState *sState )
 {
 	if ( sState != NULL ) {
 		if ( sState->vPoolManager.pBlockStart != NULL ) {

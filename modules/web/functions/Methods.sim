@@ -25,7 +25,7 @@ block __loadGetList()
 	GET = decodeMethodAttr(methodAttr)
 	COOKIES = fetchCookies()
 	
-	cookiesLength = lengthOf(COOKIES)
+	cookiesLength = lengthOf(COOKIES) - 1
 	for a = 0 to cookiesLength {
 		GET+COOKIES[a]
 	}
@@ -33,7 +33,7 @@ block __loadGetList()
 	return methodAttr
 	
 block decodeMethodAttr(methodAttr)
-	if stringLeft(SERVER["CONTENT_TYPE"],20) != "multipart/form-data;" {
+	if strLeft(SERVER["CONTENT_TYPE"],20) != "multipart/form-data;" {
 		return decodeMethodString(methodAttr)
 	}
 	#decode file uploading
@@ -43,7 +43,7 @@ block decodeMethodString(methodAttr)
 	returnObject = []
 	returnResult = []
 	methodValue = ""
-	strLength = lengthOf(str)
+	strLength = lengthOf(str) - 1
 	for a = 0 to strLength {
 		tempChar = str[a]
 		if tempChar == "=" {
@@ -71,25 +71,25 @@ block fetchCookies()
 	if str == null { return }
 	str += ";"
 	returnObject = []
-	subPosition = substr(str,";")
+	subPosition = __substr(str,";")
 	while subPosition > 0 {
-		subPosition2 = substr(str,"=") 
+		subPosition2 = __substr(str,"=") 
 		if subPosition2 == 0  { break }
 		tempResult = []
-		tempResult + trimString(stringLeft(str,subPosition2-1))
-		tempResult + stringSubString(str,subPosition2+1,subPosition-subPosition2-1)
+		tempResult + trimStr(strLeft(str,subPosition2-1))
+		tempResult + strSubStr(str,subPosition2+1,subPosition-subPosition2-1)
 		returnObject + tempResult 
-		str = substr(str,subPosition+1)
-		subPosition = substr(str,";")
+		str = __substr(str,subPosition+1)
+		subPosition = __substr(str,";")
 	}
 	return returnObject
 	
 	
 block encodeUrl(str)
 	tempStr = ""
-	strLength = lengthOf(str)
+	strLength = lengthOf(str) - 1
 	for a = 0 to strLength {
-		if __isAlphaNum(str[a]) {
+		if __is_alpha_num(str[a]) {
 			tempStr += str[a]
 		elif str[a] == " "
 			tempStr += "+"
@@ -126,7 +126,7 @@ block __loadServerList()
 		"CONTENT_LENGTH"
 	]
 	SERVER = []
-	serverLength = lengthOf(__SERVER_VALUES)
+	serverLength = lengthOf(__SERVER_VALUES) - 1
 	for a = 0 to serverLength {
 		serverEnv = getEnv(__SERVER_VALUES[a])
 		SERVER[__SERVER_VALUES[a]] = serverEnv

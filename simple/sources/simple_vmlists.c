@@ -14,7 +14,7 @@
 #include "../includes/simple.h"
 /* Lists */
 
-void simple_vm_liststart ( VM *vm )
+SIMPLE_API void simple_vm_liststart ( VM *vm )
 {
 	List *var,*list  ;
 	int nType  ;
@@ -86,7 +86,7 @@ void simple_vm_liststart ( VM *vm )
 	}
 }
 
-void simple_vm_listitem ( VM *vm )
+SIMPLE_API void simple_vm_listitem ( VM *vm )
 {
 	String *string_one  ;
 	double nNum1  ;
@@ -122,13 +122,13 @@ void simple_vm_listitem ( VM *vm )
 	}
 }
 
-void simple_vm_listend ( VM *vm )
+SIMPLE_API void simple_vm_listend ( VM *vm )
 {
 	vm->nListStart-- ;
 	simple_list_deleteitem_gc(vm->sState,vm->pNestedLists,simple_list_getsize(vm->pNestedLists));
 }
 
-void simple_vm_loadindexaddress ( VM *vm )
+SIMPLE_API void simple_vm_loadindexaddress ( VM *vm )
 {
 	double nNum1  ;
 	List *var  ;
@@ -263,7 +263,7 @@ void simple_vm_loadindexaddress ( VM *vm )
 	}
 }
 
-void simple_vm_listpushv ( VM *vm )
+SIMPLE_API void simple_vm_listpushv ( VM *vm )
 {
 	Item *pItem  ;
 	pItem = (Item *) SIMPLE_VM_STACK_READP ;
@@ -298,7 +298,7 @@ void simple_vm_listpushv ( VM *vm )
 	}
 }
 
-void simple_vm_listassignment ( VM *vm )
+SIMPLE_API void simple_vm_listassignment ( VM *vm )
 {
 	Item *pItem  ;
 	String *string_one, *string  ;
@@ -363,7 +363,7 @@ void simple_vm_listassignment ( VM *vm )
 	}
 }
 
-void simple_vm_listgetvalue ( VM *vm,List *var,const char *cStr )
+SIMPLE_API void simple_vm_listgetvalue ( VM *vm,List *var,const char *cStr )
 {
 	int x  ;
 	List *list  ;

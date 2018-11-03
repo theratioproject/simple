@@ -43,7 +43,7 @@ class DateTime
 
 	block DateTime(dateTimeParameter)
 		__DATE_TIME_PARAMETER = dateTimeParameter
-		if isList(__DATE_TIME_PARAMETER) && lengthOf(__DATE_TIME_PARAMETER) == 20  {
+		if isList(__DATE_TIME_PARAMETER) && lengthOf(__DATE_TIME_PARAMETER) == 21  {
 			__update(__DATE_TIME_PARAMETER)
 			
 		elif __DATE_TIME_PARAMETER = null 

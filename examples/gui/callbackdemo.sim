@@ -33,12 +33,12 @@ block main()
 
 	
 	window.setTitle("FFONT DEMO").setSize(370, 80)
-	window.addWidget(label) window.onClick("Hello")
+	window.addWidget(label) window.callback("Hello")
 	window.show() 
 	
 	/* window2 = new FWindow()
 	window2.setTitle("FFONT DEMO 2").setSize(370, 80)
-	window2.addWidget(label) window2.onClick("DoClick()")
+	window2.addWidget(label) window2.callback("DoClick()")
 	window2.show() */ 
 	
 	FApp.run() 

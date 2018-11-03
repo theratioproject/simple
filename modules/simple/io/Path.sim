@@ -98,8 +98,9 @@ class Path
 	#-2 means the error is unknown (uncommon) 	
 	#In this block trailing '/' or '\' are completely striped off (untreated)
 	block rawExists()
-		while (stringEndsWith(__IO_PATH,'/') || stringEndsWith(__IO_PATH,'\')) 
-				__IO_PATH = removeStringAt(__IO_PATH, lengthOf(__IO_PATH)) end
+		while (strEndsWith(__IO_PATH,'/') || strEndsWith(__IO_PATH,'\')) {
+				__IO_PATH = removeStrAt(__IO_PATH, lengthOf(__IO_PATH) - 1) 
+		}
 		return __dir_exists(__IO_PATH)
 		
 	/*
@@ -111,9 +112,9 @@ class Path
 	*/
 	block curePathSlashes(path)
 		if isPath(path) { ret = path.toString() }
-		ret = replaceString(path,'//','/')
-		ret = replaceString(ret,'\\','/')
-		ret = replaceString(ret,'/',__IO_PATH_SYSTEM_SLASH)
+		ret = replaceStr(path,'//','/')
+		ret = replaceStr(ret,'\\','/')
+		ret = replaceStr(ret,'/',__IO_PATH_SYSTEM_SLASH)
 		return ret 
 		
 	/*
@@ -170,7 +171,7 @@ class Path
 			throwWithTitle(__IO_MODULE,__IO_PATH_EMPTY)
 		}
 		tempPath = __IO_PATH
-		if stringStartsWith(__IO_PATH,".") || stringStartsWith(__IO_PATH,"..") || stringStartsWith(__IO_PATH,__IO_PATH_SYSTEM_SLASH) {
+		if strStartsWith(__IO_PATH,".") || strStartsWith(__IO_PATH,"..") || strStartsWith(__IO_PATH,__IO_PATH_SYSTEM_SLASH) {
 			tempPath = getCorrectPath(__IO_PATH)
 		}
 		return tempPath
@@ -215,7 +216,7 @@ class Path
 			
 			}
 		}
-		if !stringEndsWith(__newFolder,__IO_PATH_SYSTEM_SLASH) {
+		if !strEndsWith(__newFolder,__IO_PATH_SYSTEM_SLASH) {
 			__newFolder += __IO_PATH_SYSTEM_SLASH
 		}
 		if moveType {
@@ -225,16 +226,17 @@ class Path
 		}
 		
 	block name()
-		abPath = absolutePath()
-		while (stringEndsWith(abPath,__IO_PATH_SYSTEM_SLASH) ) {
-			abPath = removeStringAt(abPath, lengthOf(abPath)) 
+		abPath = absolutePath() 
+		while (strEndsWith(abPath,__IO_PATH_SYSTEM_SLASH) ) {
+			abPath = removeStrAt(abPath, lengthOf(abPath) - 1) 
 		}
-		dName = lastStringAfterChar(abPath, __IO_PATH_SYSTEM_SLASH)
+		dName = lastStrAfterChar(abPath, __IO_PATH_SYSTEM_SLASH)
 		return dName
 		
 	block parentPath()
-		abPath = absolutePath()
-		tempPath = removeString(abPath, __IO_PATH_SYSTEM_SLASH+name())
+		abPath = absolutePath() 
+		tempName = __IO_PATH_SYSTEM_SLASH+name()
+		tempPath = removeStr(abPath, tempName) 
 		return new Path(tempPath)
 		
 	block toDirectory()
@@ -303,8 +305,8 @@ class Path
 	
 		block getCorrectPath(oddPath)
 			correctPath = __path_absolute_path(oddPath)
-			if !stringEndsWith(correctPath, oddPath) && !stringContains(oddPath, "."+__IO_PATH_SYSTEM_SLASH) {
-				correctPathTemp = removeString(oddPath,correctPath)
+			if !strEndsWith(correctPath, oddPath) && !strContains(oddPath, "."+__IO_PATH_SYSTEM_SLASH) {
+				correctPathTemp = removeStr(oddPath,correctPath)
 				correctPath += correctPathTemp
 			}
 			return correctPath

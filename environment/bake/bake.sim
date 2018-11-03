@@ -73,7 +73,7 @@ setDepLocation('../bin/')
 
 block main() header() 
 	cmdParameters = cmdparams
-	cmdlen = lengthOf(cmdParameters) 
+	cmdlen = lengthOf(cmdParameters) - 1
 	for a = 0 to cmdlen 
 		if a = cmdlen && cmdlen >= 1 
 			if stringEndsWith(cmdParameters[a],'help') or stringEndsWith(cmdParameters[a],'/h') help() end 
@@ -146,7 +146,7 @@ block writeCode()
 		end
 		code += '	
 		
-			static const unsigned char sim_code[] = { '+stringToCHex(sourceFile.readFileAsString())+'};
+			static const unsigned char sim_code[] = { '+__string_to_chex(sourceFile.readFileAsString())+'};
 			
 			List* list ; int x ;
 			SimpleState *sState ;
@@ -283,7 +283,7 @@ block treatProgramAttr()
 block cleanTempFiles(tempfiles)
 	if removeTemps 
 		display "		Cleaning up temporary files... "+crlf 
-			tlen = lengthOf(tempfiles)
+			tlen = lengthOf(tempfiles) - 1
 		for a = 0 to tlen
 			display "	Deleting : "+tempfiles[a]+crlf
 			file = new File(tempfiles[a]) if file.exists() file.delete() end
@@ -301,7 +301,7 @@ block formatCode(code)
 	#code = replaceString(code, char(10), '					"')
 	finalCode = '"'
 	display "->formating the simple source code (TEMP)"+crlf
-	lineLen =lengthOf(code)
+	lineLen =lengthOf(code) - 1
 	for a = 0 to lineLen
 		if code[a] == '"'
 			finalCode+= '\"'
@@ -318,7 +318,7 @@ block formatCode(code)
 	return finalCode+'"'
 	
 block formatString(value)
-	vlen = lengthOf(value)
+	vlen = lengthOf(value) - 1
 	value+= 'xs'
 	display value
 	return value

@@ -16,7 +16,7 @@
 #include "../includes/simple.h"
 /* String As Array */
 
-void simple_vm_stsimple_pushv ( VM *vm )
+SIMPLE_API void simple_vm_stsimple_pushv ( VM *vm )
 {
 	char *newstr  ;
 	char cStr[2]  ;
@@ -27,7 +27,7 @@ void simple_vm_stsimple_pushv ( VM *vm )
 	SIMPLE_VM_STACK_PUSHCVALUE(cStr);
 }
 
-void simple_vm_stsimple_assignment ( VM *vm )
+SIMPLE_API void simple_vm_stsimple_assignment ( VM *vm )
 {
 	String *string_one  ;
 	char *newstr  ;
@@ -51,7 +51,7 @@ void simple_vm_stsimple_assignment ( VM *vm )
 	}
 }
 
-void simple_vm_stsimple_index ( VM *vm, String *string, double nNum1 )
+SIMPLE_API void simple_vm_stsimple_index ( VM *vm, String *string, double nNum1 )
 {
 	char *newstr  ; 
 	/* We will push a pointer of the sub char to the stack */
@@ -67,7 +67,7 @@ void simple_vm_stsimple_index ( VM *vm, String *string, double nNum1 )
 
 /* Try Catch Done */
 
-void simple_vm_try ( VM *vm )
+SIMPLE_API void simple_vm_try ( VM *vm )
 {
 	List *list  ;
 	list = simple_list_newlist_gc(vm->sState,vm->pTry);
@@ -76,7 +76,7 @@ void simple_vm_try ( VM *vm )
 	vm->nActiveCatch = 0 ;
 }
 
-void simple_vm_catch ( VM *vm,const char *cError )
+SIMPLE_API void simple_vm_catch ( VM *vm,const char *cError )
 {
 	List *list  ;
 	list = simple_list_getlist(vm->pTry,simple_list_getsize(vm->pTry));
@@ -90,7 +90,7 @@ void simple_vm_catch ( VM *vm,const char *cError )
 	simple_vm_finally(vm);
 }
 
-void simple_vm_finally ( VM *vm )
+SIMPLE_API void simple_vm_finally ( VM *vm )
 {
 	simple_list_deleteitem_gc(vm->sState,vm->pTry,simple_list_getsize(vm->pTry));
 }

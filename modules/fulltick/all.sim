@@ -1,42 +1,43 @@
 module fulltick
 
 #groups/windows
-call "./widget/FGroup.sim"
-call "./widget/FWindow.sim" 
-call "./widget/FFileChooser.sim"
+call fulltick.widget.FGroup
+call fulltick.widget.FWindow 
+call fulltick.widget.FFileChooser
 #list boxes
-call "./widget/FFileListBox.sim"
+call fulltick.widget.FFileListBox
 #menu
-call "./widget/menu/FMenuBar.sim"
-call "./widget/menu/FMenuItem.sim"
+call fulltick.widget.menu.FMenuBar
+call fulltick.widget.menu.FMenuItem
 #buttons
-call "./widget/FButton.sim"
-call "./widget/FLightButton.sim"
-call "./widget/FRadioButton.sim"
-call "./widget/FRepeatButton.sim"
-call "./widget/FReturnButton.sim"
-call "./widget/FToggleButton.sim"
+call fulltick.widget.FButton
+call fulltick.widget.FLightButton
+call fulltick.widget.FRadioButton
+call fulltick.widget.FRepeatButton
+call fulltick.widget.FReturnButton
+call fulltick.widget.FToggleButton
+call fulltick.widget.FCheckButton
 #inputs
-call "./widget/FInput.sim"
-call "./widget/FFloatInput.sim"
-call "./widget/FPasswordInput.sim"
-call "./widget/FMultilineInput.sim"
-call "./widget/FIntInput.sim"
-call "./widget/FTextEditor.sim"
+call fulltick.widget.FInput
+call fulltick.widget.FFloatInput
+call fulltick.widget.FPasswordInput
+call fulltick.widget.FMultilineInput
+call fulltick.widget.FIntInput
+call fulltick.widget.FTextEditor
 #output
-call "./widget/FTextDisplay.sim"
-call "./widget/FMultilineOutput.sim"
+call fulltick.widget.FTextDisplay
+call fulltick.widget.FMultilineOutput
 #labels
-call "./widget/FLabel.sim"
+call fulltick.widget.FLabel
 #raw 
-call "./raw/FBoxType.sim"
-call "./raw/FBrowserSelection.sim"
-call "./raw/FMenuType.sim"
-call "./raw/FTextBuffer.sim"
+call fulltick.raw.FBoxType
+call fulltick.raw.FBrowserSelection
+call fulltick.raw.FMenuType
+call fulltick.raw.FTextBuffer
 #painting
-call "./painting/FColor.sim"
+call fulltick.painting.FColor
 #drawing
-call "./drawing/FFont.sim"
-call "./drawing/FCaretStyle.sim"
+call fulltick.drawing.FFont
+call fulltick.drawing.FCaretStyle
 #core
-call "./core/FApp.sim"
+call fulltick.core.FApp

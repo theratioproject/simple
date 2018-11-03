@@ -41,7 +41,7 @@ class BigNum
 				for i = l1 to 0 step -1 {
 					tempSum = (0 + n[i] + value[j] + carryOver) % 10
 					carryOver = (0 + n[i] + value[j] + carryOver) / 10 
-					carryOver = 0+__left(""+carryOver,substr(""+carryOver, ".") - 1)
+					carryOver = 0+__left(""+carryOver,__substr(""+carryOver, ".") - 1)
 					sum += tempSum
 					if j == 0 break end
 					j-- 
@@ -50,7 +50,7 @@ class BigNum
 					while (i >= 0 ) {
 						tempSum = (0 + n[i] + carryOver) % 10 
 						carryOver = (0 + n[i] + carryOver) / 10 
-						carryOver = 0+__left(""+carryOver,substr(""+carryOver, ".") - 1)
+						carryOver = 0+__left(""+carryOver,__substr(""+carryOver, ".") - 1)
 						sum += tempSum
 						i--
 					}
@@ -58,7 +58,7 @@ class BigNum
 					while (j >= 0) {
 						tempSum = (0 + value[j] + carryOver) % 10
 						carryOver = (0 + value[j--] + carryOver) / 10 
-						carryOver = 0+__left(""+carryOver,substr(""+carryOver, ".") - 1)
+						carryOver = 0+__left(""+carryOver,__substr(""+carryOver, ".") - 1)
 						sum += tempSum
 						j--
 					}

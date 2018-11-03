@@ -17,19 +17,19 @@
 #define simple_gc_h
 /* Blocks */
 
-void simple_vm_gc_checkreferences ( VM *vm ) ;
+SIMPLE_API void simple_vm_gc_checkreferences ( VM *vm ) ;
 
-void simple_vm_gc_checknewreference ( void *pointer,int nType ) ;
+SIMPLE_API void simple_vm_gc_checknewreference ( void *pointer,int nType ) ;
 
-void simple_vm_gc_checkupdatereference ( List *list ) ;
+SIMPLE_API void simple_vm_gc_checkupdatereference ( List *list ) ;
 
-void simple_vm_gc_deleteitem ( Item *pItem ) ;
+SIMPLE_API void simple_vm_gc_deleteitem ( Item *pItem ) ;
 
-void simple_vm_gc_killreference ( VM *vm ) ;
+SIMPLE_API void simple_vm_gc_killreference ( VM *vm ) ;
 
-void simple_vm_gc_deletetemlists ( VM *vm ) ;
+SIMPLE_API void simple_vm_gc_deletetemlists ( VM *vm ) ;
 
-void simple_vm_gc_newitemreference ( Item *pItem ) ;
+SIMPLE_API void simple_vm_gc_newitemreference ( Item *pItem ) ;
 /* Memory Blocks (General) */
 
 SIMPLE_API void * simple_malloc ( size_t size ) ;
@@ -49,17 +49,17 @@ SIMPLE_API void * simple_state_calloc ( void *pState,size_t nitems, size_t size 
 
 SIMPLE_API void * simple_state_realloc ( void *pState,void *ptr, size_t size ) ;
 
-void simple_vm_gc_deleteitem_gc ( void *pState,Item *pItem ) ;
+SIMPLE_API void simple_vm_gc_deleteitem_gc ( void *pState,Item *pItem ) ;
 /* Macro */
 #define simple_vm_gc_cleardata(pItem) (pItem->gc.nReferenceCount = 0)
 #define GCLog 0
 /* Pool Manager Blocks */
 
-void simple_poolmanager_newblock ( SimpleState *sState ) ;
+SIMPLE_API void simple_poolmanager_newblock ( SimpleState *sState ) ;
 
-void * simple_poolmanager_allocate ( SimpleState *sState,size_t size ) ;
+SIMPLE_API void * simple_poolmanager_allocate ( SimpleState *sState,size_t size ) ;
 
-void simple_poolmanager_free ( SimpleState *sState,void *pMemory ) ;
+SIMPLE_API void simple_poolmanager_free ( SimpleState *sState,void *pMemory ) ;
 
-void simple_poolmanager_delete ( SimpleState *sState ) ;
+SIMPLE_API void simple_poolmanager_delete ( SimpleState *sState ) ;
 #endif

@@ -374,7 +374,7 @@ class FWidget
 	#of the widget
 	block addWidget(widget)
 		if isList(widget)
-			wlen = lengthOf(widget) 
+			wlen = lengthOf(widget) - 1 
 			for a = 0 to wlen
 				addWidget(widget[a]) 
 			end
@@ -392,7 +392,7 @@ class FWidget
 	#of the widget
 	block addResizableWidget(widget)
 		if isList(widget)
-			for a = 0 to lengthOf(widget) 
+			for a = 0 to lengthOf(widget) - 1 
 				addChildWidget(widget[a], true)
 			end
 		else

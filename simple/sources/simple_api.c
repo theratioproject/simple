@@ -33,7 +33,6 @@ SIMPLE_API void loadcblocks ( SimpleState *sState )
 	register_block("lengthOf",simple_vmlib_len);
 	register_block("length_of_minus_one",block_len_minus_one);
 	register_block("add",simple_vmlib_add);
-	//register_block("delFromLList",simple_vmlib_del);
 	register_block("char",simple_vmlib_char);
 	register_block("getSimpleVersion",simple_vmlib_version);
         /* Check Data Type */
@@ -775,7 +774,7 @@ void simple_vm_dll_calllib ( void *pointer )
         cDLL = library_path;
         handle = LoadDLL(cDLL);
         if ( handle == NULL ) {
-                printf( "\nLibrary File : %s",library_path ) ;
+                //printf( "\nLibrary File : %s",library_path ) ; //move to SIMPLE_API_ERROR
                 SIMPLE_API_ERROR(SIMPLE_VM_ERROR_LIBLOADERROR);
                 return ;
         } 

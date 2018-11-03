@@ -37,13 +37,13 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
     register_block("__right",simple_vmlib_right);
     register_block("__trim",simple_vmlib_trim);
     register_block("__copy",simple_vmlib_copy);
-    register_block("substr",simple_vmlib_substr);
-    register_block("lines",simple_vmlib_lines);
-    register_block("strcmp",simple_vmlib_strcmp);
+    register_block("__substr",simple_vmlib_substr);
+    register_block("__lines",simple_vmlib_lines);
+    register_block("__strcmp",simple_vmlib_strcmp);
     register_block("__lower",simple_vmlib_lower);
     register_block("__upper",simple_vmlib_upper);
-    register_block("stringReplace",string_replace);
-    register_block("__$__lastAfterChar",string_last_char);
+    register_block("__str_replace",string_replace);
+    register_block("__last_after_char",string_last_char);
     register_block("__split_string",split_string);
 }
 
@@ -382,19 +382,19 @@ void simple_vmlib_strcmp ( void *pointer )
 
 void string_replace ( void *pointer )
 {
-	char *filename;
+	char *str;
 	if ( SIMPLE_API_PARACOUNT != 3 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS3PARA);
 		return ;
 	} 
-	filename = (char*)calloc(1, sizeof(SIMPLE_API_ISSTRING(1)));
+	str = (char*)calloc(1, sizeof(SIMPLE_API_ISSTRING(1)));
 	if ( SIMPLE_API_ISSTRING(1) && SIMPLE_API_ISSTRING(2) && SIMPLE_API_ISSTRING(3) ) {
             if (strstr(SIMPLE_API_GETSTRING(1), SIMPLE_API_GETSTRING(2)) != NULL ) { 
-                filename = strrchr(SIMPLE_API_GETSTRING(1), SIMPLE_API_GETSTRING(2));
+                str = strrchr(SIMPLE_API_GETSTRING(1), SIMPLE_API_GETSTRING(2));
             } else {
-                filename = strrchr(SIMPLE_API_GETSTRING(1), SIMPLE_API_GETSTRING(3));
+                str = strrchr(SIMPLE_API_GETSTRING(1), SIMPLE_API_GETSTRING(3));
             }
-            SIMPLE_API_RETSTRING(filename);
+            SIMPLE_API_RETSTRING(str);
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
@@ -402,15 +402,15 @@ void string_replace ( void *pointer )
 
 void string_last_char ( void *pointer )
 {
-	char *filename;
+	char *str;
 	if ( SIMPLE_API_PARACOUNT != 2 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
 		return ;
 	} 
-	filename = (char*)calloc(1, sizeof(SIMPLE_API_ISSTRING(1)));
+	str = (char*)calloc(1, sizeof(SIMPLE_API_ISSTRING(1)));
 	if ( SIMPLE_API_ISSTRING(1) && SIMPLE_API_ISSTRING(2) ) {
-            filename = strrchr(SIMPLE_API_GETSTRING(1), atoi(SIMPLE_API_GETSTRING(2))) + 1;
-            SIMPLE_API_RETSTRING(filename);
+            str = strrchr(SIMPLE_API_GETSTRING(1), atoi(SIMPLE_API_GETSTRING(2))) + 1;
+            SIMPLE_API_RETSTRING(str);
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}

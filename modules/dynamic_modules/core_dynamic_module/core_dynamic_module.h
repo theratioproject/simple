@@ -21,6 +21,16 @@ extern "C" {
 
 SIMPLE_API void init_simple_module(SimpleState *sState) ;
 
+/* List */
+void list_delete_from_list( void *pointer );
+void list_find_in_list( void *pointer );
+void list_min_value( void *pointer );
+void list_max_value( void *pointer );
+void list_insert_into_list( void *pointer );
+void list_sort_list( void *pointer );
+void list_reverse_list( void *pointer );
+void list_binarysearch_in_list( void *pointer );
+
 /* Runtime Dynamic Library Loading */
 #define BUILD0(x) x[0]
 #define BUILD1(x) BUILD0(x), x[1]

@@ -28,7 +28,7 @@ block main()
 		"Error occur and it thrown With title in index [2]"
 	]
 
-	for a = 0 to getTypeLength(errorList) {
+	for a = 0 to getTypeLength(errorList) - 1 {
 		one(errorList[a])
 	}
 

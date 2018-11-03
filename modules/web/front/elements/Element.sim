@@ -35,7 +35,8 @@ class Element
 		try 
 			elementContent += "\n\t\t"+element.toString() + crlf
 		catch
-			for a = 0 to lengthOf(element)
+			eleLen = lengthOf(element) - 1
+			for a = 0 to eleLen
 				elementContent += "\n\t\t"+element[a].toString() + crlf
 			end
 		end

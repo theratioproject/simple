@@ -96,7 +96,7 @@ class CurlCore
 	#needed they will have to be recreated
 	block safeFlush()
 		try 
-			for a = 0 to lengthOf(CURL_CHILDREN)
+			for a = 0 to lengthOf(CURL_CHILDREN) - 1
 				CURL_CHILDREN[a].flush()
 			end
 			__free_curl_list(CURL_HEADER)
