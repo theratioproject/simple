@@ -177,7 +177,7 @@ int simple_vm_loadblock2 ( VM *vm,const char *block_name,int nPerformance )
 	return 0 ;
 }
 
-void simple_vm_call ( VM *vm )
+SIMPLE_API void simple_vm_call ( VM *vm )
 {
 	List *list  ;
 	/* Check if we call method using ObjName.MethodName() */
@@ -198,7 +198,7 @@ void simple_vm_call ( VM *vm )
 	simple_vm_call2(vm);
 }
 
-void simple_vm_call2 ( VM *vm )
+SIMPLE_API void simple_vm_call2 ( VM *vm )
 {
 	List *list, *pActiveMem  ;
 	int x,nsp,nMax1,nBlockEx  ;
@@ -336,7 +336,7 @@ void simple_vm_call2 ( VM *vm )
 	}
 }
 
-void simple_vm_return ( VM *vm )
+SIMPLE_API void simple_vm_return ( VM *vm )
 {
 	List *list  ;
 	/* Check if the ringvm_evalinscope() block is active */
@@ -408,13 +408,13 @@ void simple_vm_return ( VM *vm )
 	}
 }
 
-void simple_vm_returnnull ( VM *vm )
+SIMPLE_API void simple_vm_returnnull ( VM *vm )
 {
 	SIMPLE_VM_STACK_PUSHCVALUE("");
 	simple_vm_return(vm);
 }
 
-void simple_vm_newblock ( VM *vm )
+SIMPLE_API void simple_vm_newblock ( VM *vm )
 {
 	int x,nsp  ;
 	List *list  ;
@@ -455,12 +455,12 @@ void simple_vm_newblock ( VM *vm )
 	simple_vm_traceevent(vm,SIMPLE_VM_TRACEEVENT_NEWBLOCK);
 }
 
-void simple_vm_blockflag ( VM *vm )
+SIMPLE_API void simple_vm_blockflag ( VM *vm )
 {
 	simple_vm_blockflag2(vm,SIMPLE_VM_IR_READI);
 }
 
-void simple_vm_blockflag2 ( VM *vm,int x )
+SIMPLE_API void simple_vm_blockflag2 ( VM *vm,int x )
 {
 	List *list  ;
 	vm->nBlockFlag++ ;
@@ -472,7 +472,7 @@ void simple_vm_blockflag2 ( VM *vm,int x )
 	simple_list_addint_gc(vm->sState,list,simple_list_getsize(vm->pTry));
 }
 
-void simple_vm_removeblockflag ( VM *vm )
+SIMPLE_API void simple_vm_removeblockflag ( VM *vm )
 {
 	List *list  ;
 	list = simple_list_getlist(vm->aPCBlockFlag,simple_list_getsize(vm->aPCBlockFlag));
@@ -485,7 +485,7 @@ void simple_vm_removeblockflag ( VM *vm )
 	simple_list_deleteitem_gc(vm->sState,vm->aPCBlockFlag,simple_list_getsize(vm->aPCBlockFlag));
 }
 
-void simple_vm_movetoprevscope ( VM *vm )
+SIMPLE_API void simple_vm_movetoprevscope ( VM *vm )
 {
 	Item *pItem  ;
 	List *list,*list2,*list3  ;
@@ -526,7 +526,7 @@ void simple_vm_movetoprevscope ( VM *vm )
 	SIMPLE_VM_STACK_OBJTYPE = SIMPLE_OBJTYPE_VARIABLE ;
 }
 
-void simple_vm_createtemlist ( VM *vm )
+SIMPLE_API void simple_vm_createtemlist ( VM *vm )
 {
 	List *list  ;
 	/*
@@ -539,20 +539,20 @@ void simple_vm_createtemlist ( VM *vm )
 	simple_vm_newtempvar(vm,SIMPLE_TEMP_VARIABLE,list);
 }
 
-void simple_vm_saveloadaddressscope ( VM *vm )
+SIMPLE_API void simple_vm_saveloadaddressscope ( VM *vm )
 {
 	simple_list_addpointer_gc(vm->sState,vm->pLoadAddressScope,vm->aLoadAddressScope);
 	vm->aLoadAddressScope = simple_list_new_gc(vm->sState,0);
 }
 
-void simple_vm_restoreloadaddressscope ( VM *vm )
+SIMPLE_API void simple_vm_restoreloadaddressscope ( VM *vm )
 {
 	simple_list_delete_gc(vm->sState,vm->aLoadAddressScope);
 	vm->aLoadAddressScope = (List *) simple_list_getpointer(vm->pLoadAddressScope,simple_list_getsize(vm->pLoadAddressScope));
 	simple_list_deleteitem_gc(vm->sState,vm->pLoadAddressScope,simple_list_getsize(vm->pLoadAddressScope));
 }
 
-void simple_vm_anonymous ( VM *vm )
+SIMPLE_API void simple_vm_anonymous ( VM *vm )
 {
 	const char *cStr  ;
 	if ( SIMPLE_VM_STACK_ISSTRING ) {

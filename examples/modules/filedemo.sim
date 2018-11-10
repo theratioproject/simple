@@ -4,7 +4,7 @@
 
 */
 
-call "simple/io/File.sim"
+call simple.io.File
 
 block main()
 	tPath = new Path("../modules/test.txt")

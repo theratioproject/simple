@@ -183,25 +183,25 @@ block flush(std_output)
 	
 */
 block formatEscapeSequence(val)
-	val = replaceString(val, "\a", char(07))
-	val = replaceString(val, "\007", char(07))
-	val = replaceString(val, "\b", char(08))
-	val = replaceString(val, "\f", char(12))
-	val = replaceString(val, "\n", char(10))
-	val = replaceString(val, "\r", char(13))
-	val = replaceString(val, "\t", char(09))
-	val = replaceString(val, "\v", char(11))
-	val = replaceString(val, "\\", char(92))
-	val = replaceString(val, "\'", char(27))
-	val = replaceString(val, '\"', char(22))
-	val = replaceString(val, '\?', char(63))
-	val = replaceString(val, '\e', char(27))
+	val = replaceStr(val, "\a", char(07))
+	val = replaceStr(val, "\007", char(07))
+	val = replaceStr(val, "\b", char(08))
+	val = replaceStr(val, "\f", char(12))
+	val = replaceStr(val, "\n", char(10))
+	val = replaceStr(val, "\r", char(13))
+	val = replaceStr(val, "\t", char(09))
+	val = replaceStr(val, "\v", char(11))
+	val = replaceStr(val, "\\", char(92))
+	val = replaceStr(val, "\'", char(27))
+	val = replaceStr(val, '\"', char(22))
+	val = replaceStr(val, '\?', char(63))
+	val = replaceStr(val, '\e', char(27))
 	return val
 	
 block _vformatf(arg)
 	value = arg[0]
 	finalValue = ""
-	valueLen = lengthOf(value)
+	valueLen = lengthOf(value) - 1
 	for a = 0 to valueLen  {
 		switch value[a] {
 			case "{"
@@ -430,7 +430,7 @@ block singleBeep()
 	if isNumber(content) 
 		content = ""+content
 	end
-	for a = 0 to lengthOf(content) 
+	for a = 0 to lengthOf(content) - 1
 		switch content[a]
 			case '\'
 				a++

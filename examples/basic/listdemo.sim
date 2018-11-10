@@ -1,4 +1,3 @@
-
 #LIST
 
 #create list 
@@ -40,7 +39,7 @@ for i = 100 to 0 step -1 {
 }
 
 @""+nl
-lib = loadDynamicLibrary("user32")
+lib = ["76D40000", "SIMPLE_DYNAMIC_LIBRARY_", 0]
 list = [0,"one",2,3,4,5,6,7,[9,8,"ade"],lib]
 @list @""
 
@@ -77,3 +76,13 @@ modulesList = [
 
 ]
 @modulesList
+
+@""
+list = ["Hello", "World"]
+@list
+for i in list {
+	for j in i {
+		display j+"-"
+	}
+	@""
+}

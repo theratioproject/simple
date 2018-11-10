@@ -1,0 +1,54 @@
+
+call simple.core.loadcoredymodule
+
+#RETURN TYPES
+__VOID = 0
+__POINTER = 1
+__NUMBER = 2
+__STRING = 3
+
+display "do you want manual : " read val
+
+if val == "y" || val == "yes" {
+	display "Enter the lib name : " read libName
+	display "Enter the Function name : " read funcName
+	display "Enter the Return type : " read retType
+	display "Enter the parameters seperated by , : " read parames
+	paramList = [] 
+	tempVal = ""
+	for i in parames+"," {
+		if i == ',' 
+			num = (0+tempVal)
+			if num != 0 {
+				paramList + num
+			else 
+				paramList + tempVal 
+			}			
+			tempVal = "" 
+		else tempVal+= i end
+	}
+	display ""+libName+" " + funcName +" " @paramList
+	
+	lib = __loadDynamicLibrary(libName)
+	if lib {
+		val = __callDynamicFunction(lib,funcName,(0+retType),paramList)
+		if (0+retType) != __VOID {
+			@val
+		}
+	} 
+	closeDynamicModule(lib)
+else 
+	callAutoTest()
+} 
+
+block callAutoTest() 
+	if isWindows() {
+		lib = __loadDynamicLibrary("User32.Dll")
+		val = __callDynamicFunction(lib,"SetCursorPos",__VOID,[600,500])
+		closeDynamicModule(lib)
+	else
+		@"Try loading a standard lib on your OS using the below format"
+		@"lib = loadDynamicLibrary('libName')"
+		@"returnedValue = loadDynamicLibrary(lib,'functionName', returnType, [list,of,parameters])"
+		@"closeDynamicModule(lib)"
+	} 

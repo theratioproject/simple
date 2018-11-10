@@ -23,20 +23,20 @@ block callRemote(remoteFile)
 	if !isString(remoteFile) {
 		throwWithTitle(__MODULE_ADDRESS, ""+remoteFile+" - "+__REMOTE_CALL_NOT_STRING)
 	}
-	if !stringStartsWith(remoteFile, "http") {
+	if !strStartsWith(remoteFile, "http") {
 		throwWithTitle(__MODULE_ADDRESS, ""+remoteFile+" - "+__REMOTE_CALL_NOT_URL)
 	}
-	if !stringStartsWith(remoteFile, "https") {
+	if !strStartsWith(remoteFile, "https") {
 		warn(__MODULE_ADDRESS+" : "+remoteFile+" - "+__REMOTE_CALL_NOT_SECURE)
 	}
 	tempContent = __curl_download(remoteFile)
 	if tempContent == null {
 		warn(__MODULE_ADDRESS+" : "+remoteFile+" - "+__REMOTE_CALL_NO_NETWORK)
 		return false
-	elif stringContains(tempContent, "Server Error")
+	elif strContains(tempContent, "Server Error")
 		warn(__MODULE_ADDRESS+" : "+remoteFile+" - "+__REMOTE_CALL_500+tempContent)
 		return false
-	elif stringContains(tempContent, "Not Found") 
+	elif strContains(tempContent, "Not Found") 
 		warn(__MODULE_ADDRESS+" : "+remoteFile+" - "+__REMOTE_CALL_NOT_FOUND)
 		return false
 	else 
@@ -55,20 +55,20 @@ block fetchRemotefile(remoteFile)
 	if !isString(remoteFile) {
 		throwWithTitle(__MODULE_ADDRESS, ""+remoteFile+" - "+__REMOTE_CALL_NOT_STRING)
 	}
-	if !stringStartsWith(remoteFile, "http") {
+	if !strStartsWith(remoteFile, "http") {
 		throwWithTitle(__MODULE_ADDRESS, ""+remoteFile+" - "+__REMOTE_CALL_NOT_URL)
 	}
-	if !stringStartsWith(remoteFile, "https") {
+	if !strStartsWith(remoteFile, "https") {
 		warn(__MODULE_ADDRESS+" : "+remoteFile+" - "+__REMOTE_CALL_NOT_SECURE)
 	}
 	tempContent = __curl_download(remoteFile)
 	if tempContent == null {
 		warn(__MODULE_ADDRESS+" : "+remoteFile+" - "+__REMOTE_CALL_NO_NETWORK)
 		return ""
-	elif stringContains(tempContent, "Server Error")
+	elif strContains(tempContent, "Server Error")
 		warn(__MODULE_ADDRESS+" : "+remoteFile+" - "+__REMOTE_CALL_500+tempContent)
 		return ""
-	elif stringContains(tempContent, "Not Found") 
+	elif strContains(tempContent, "Not Found") 
 		warn(__MODULE_ADDRESS+" : "+remoteFile+" - "+__REMOTE_CALL_NOT_FOUND)
 		return ""
 	else 

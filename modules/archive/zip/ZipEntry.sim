@@ -30,7 +30,7 @@ class ZipEntry
 		
 	block writeString(content)
 		if !isEntryOpen() throw(ZIP_STREAM_CLOSE) end
-		__write_zip_entry(getStream(), content, lengthOf(content))
+		__write_zip_entry(getStream(), content, lengthOf(content) - 1)
 		
 	block getStream()
 		return zipStream.getStream()

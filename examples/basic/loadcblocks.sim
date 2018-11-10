@@ -12,6 +12,6 @@
  
 call "simple/core/DynamicLoader.sim"
  
-callModule("simple_core.dll")
+callModule("core_dynamic_module")
 
-test_block()
+@__string_to_chex("Hello World")

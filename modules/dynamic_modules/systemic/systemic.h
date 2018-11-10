@@ -23,31 +23,31 @@ extern "C" {
 
 SIMPLE_API void init_simple_module(SimpleState *sState) ;
 
-void os_ismsdos ( void *pointer ) ;
+void systemic_ismsdos ( void *pointer ) ;
 
-void os_iswindows ( void *pointer ) ;
+void systemic_iswindows ( void *pointer ) ;
 
-void os_iswindows64 ( void *pointer ) ;
+void systemic_iswindows64 ( void *pointer ) ;
 
-void os_isunix ( void *pointer ) ;
+void systemic_isunix ( void *pointer ) ;
 
-void os_ismacosx ( void *pointer ) ;
+void systemic_ismacosx ( void *pointer ) ;
 
-void os_islinux ( void *pointer ) ;
+void systemic_islinux ( void *pointer ) ;
 
-void os_isfreebsd ( void *pointer ) ;
+void systemic_isfreebsd ( void *pointer ) ;
 
-void os_isandroid ( void *pointer ) ;
+void systemic_isandroid ( void *pointer ) ;
 
-void os_windowsnl ( void *pointer ) ;
+void systemic_windowsnl ( void *pointer ) ;
 
-void os_currentdir ( void *pointer ) ;
+void systemic_currentdir ( void *pointer ) ;
 
-void os_exefilename ( void *pointer ) ;
+void systemic_exefilename ( void *pointer ) ;
 
-void os_chdir ( void *pointer ) ;
+void systemic_chdir ( void *pointer ) ;
 
-void os_exefolder ( void *pointer ) ;
+void systemic_exefolder ( void *pointer ) ;
 
 void get_env ( void *pointer ) ;
 

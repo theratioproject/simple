@@ -26,7 +26,7 @@ SIMPLE_API void loadcblocks ( SimpleState *sState ) ;
 
 SIMPLE_API List * api_get_list ( void *pointer,int x ) ;
 
-int api_is_list ( void *pointer,int x ) ;
+SIMPLE_API int api_is_list ( void *pointer,int x ) ;
 
 SIMPLE_API void api_ret_list ( void *pointer,List *list ) ;
 
@@ -87,6 +87,31 @@ void simple_vmlib_isobject ( void *pointer ) ;
 SIMPLE_API void simple_vmlib_exec ( void *pointer ) ;
 
 void simple_vmlib_char ( void *pointer ) ;
+
+#ifndef simple_vmdll_h
+#define simple_vmdll_h
+#ifdef _WIN32
+#include <windows.h>
+#define LoadDLL(x) LoadLibrary(x)
+#define GetDLLBlock GetProcAddress
+#define CloseDLL FreeLibrary
+typedef HINSTANCE LpHandleType ;
+#else
+#include <dlfcn.h>
+#define LoadDLL(x) dlopen(x, RTLD_LAZY)
+#define GetDLLBlock dlsym
+#define CloseDLL dlclose
+typedef void * LpHandleType ;
+#endif
+typedef void (*loadlibblockptr)(SimpleState *) ;
+
+void simple_vm_dll_loadblocks ( SimpleState *sState ) ;
+
+void simple_vm_dll_calllib ( void *pointer ) ;
+
+void simple_vm_dll_closelib ( void *pointer ) ;
+#endif
+
 
 /* Simple Display and Read */
 

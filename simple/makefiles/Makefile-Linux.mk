@@ -53,7 +53,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/simple_string.o \
 	${OBJECTDIR}/simple_vm.o \
 	${OBJECTDIR}/simple_vmblock.o \
-	${OBJECTDIR}/simple_vmdll.o \
 	${OBJECTDIR}/simple_vmexpr.o \
 	${OBJECTDIR}/simple_vmgc.o \
 	${OBJECTDIR}/simple_vmlists.o \
@@ -130,10 +129,6 @@ $(OBJECTDIR)/simple_vm.o: $(SOURCE_DIR)/simple_vm.c
 $(OBJECTDIR)/simple_vmblock.o: $(SOURCE_DIR)/simple_vmblock.c
 	$(CC) $(ARC_FLAG) $(CFLAGS) $(SOURCE_DIR)/simple_vmblock.c
 	mv simple_vmblock.o $(OBJECTDIR)
-
-$(OBJECTDIR)/simple_vmdll.o: $(SOURCE_DIR)/simple_vmdll.c
-	$(CC) $(ARC_FLAG) $(CFLAGS) $(SOURCE_DIR)/simple_vmdll.c
-	mv simple_vmdll.o $(OBJECTDIR)
 
 $(OBJECTDIR)/simple_vmexpr.o: $(SOURCE_DIR)/simple_vmexpr.c
 	$(CC) $(ARC_FLAG) $(CFLAGS) $(SOURCE_DIR)/simple_vmexpr.c

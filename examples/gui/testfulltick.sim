@@ -6,6 +6,6 @@
 
 call "fulltick/widget/FWindow.sim"
 
-__test_gui("Hello FULLTICK")
+#__test_gui("Hello FULLTICK")
 
 	

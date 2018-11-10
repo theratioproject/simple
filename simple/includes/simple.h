@@ -135,7 +135,6 @@ extern __android_init_full_tick __init_full_tick ;
 #include "simple_vm.h"
 #include "simple_vmgc.h"
 #include "simple_api.h"
-#include "simple_vmdll.h"
 
 /*
 **	Do nothing if snprintf is defined

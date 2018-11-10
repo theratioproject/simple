@@ -45,9 +45,9 @@ class Directory : Path
 		
 	block listFiles()
 		eDir = explode()
-		for a = 0 to lengthOf(eDir)
-			if !eDir[a][2]
-				nFile = new File(__IO_DIRECTORY_PATH+getSystemSlash()+eDir[a][1])
+		for a = 0 to lengthOf(eDir) - 1
+			if !eDir[a][1]
+				nFile = new File(__IO_DIRECTORY_PATH+getSystemSlash()+eDir[a][0])
 				add(filesList, nFile)
 			end
 		end
@@ -55,9 +55,9 @@ class Directory : Path
 		
 	block listDirectories()
 		eDir = explode()
-		for a = 0 to lengthOf(eDir)
-			if eDir[a][2]
-				nDir = new Directory(__IO_DIRECTORY_PATH+getSystemSlash()+eDir[a][1])
+		for a = 0 to lengthOf(eDir) - 1
+			if eDir[a][1]
+				nDir = new Directory(__IO_DIRECTORY_PATH+getSystemSlash()+eDir[a][0])
 				add(folderList, nDir)
 			end
 		end
@@ -108,20 +108,20 @@ class Directory : Path
 	#failing	
 	block deleteFolderRecursively(tempFolder,typeBool) 
 		filesStack = tempFolder.listFiles()
-		filesStackLength = lengthOf(filesStack)
+		filesStackLength = lengthOf(filesStack) - 1
 		if !typeBool {
 			for i = 0 to filesStackLength {
 				__delete(filesStack[i].absolutePath())
 			}
 			folderStack = tempFolder.listDirectories()
-			folderStackLength = lengthOf(folderStack)
+			folderStackLength = lengthOf(folderStack) - 1
 			for a = 0 to folderStackLength {
 				add(__IO_DIRECTORY_TEMP_DIRECTORIES,folderStack[a].getPath())
 				deleteFolderRecursively(folderStack[a],typeBool)
 			}
 		else
 			#@__IO_DIRECTORY_TEMP_DIRECTORIES
-			tempFoldersListLength = lengthOf(__IO_DIRECTORY_TEMP_DIRECTORIES)
+			tempFoldersListLength = lengthOf(__IO_DIRECTORY_TEMP_DIRECTORIES) - 1
 			for b = tempFoldersListLength to 0 step -1 {
 				if !__delete_directory(__IO_DIRECTORY_TEMP_DIRECTORIES[b]) {
 					add(__IO_DIRECTORY_TEMP_DIRECTORIES_2,__IO_DIRECTORY_TEMP_DIRECTORIES[b])
@@ -133,10 +133,10 @@ class Directory : Path
 
 	*/
 	block formatDirectoryName(dir)
-		while (stringEndsWith(dir,getSystemSlash()) ) {
-			dir = removeStringAt(dir, lengthOf(dir)) 
+		while (strEndsWith(dir,getSystemSlash()) ) {
+			dir = removeStrAt(dir, lengthOf(dir) - 1) 
 		}
-		dName = lastStringAfterChar(dir, getSystemSlash())
+		dName = lastStrAfterChar(dir, getSystemSlash())
 		return dName 
 		
 	/*
@@ -246,7 +246,7 @@ class Directory : Path
 				throwWithTitle(__IO_MODULE,destFolder+" - "+__IO_DIRECTORY__NOT_EXISTS)
 			}
 		}
-		filesListLength = lengthOf(listFiles())
+		filesListLength = lengthOf(listFiles()) - 1
 		for a = 0 to filesListLength {
 			if moveType {
 				filesList[a].forceMoveTo(tempDestFolder)
@@ -254,7 +254,7 @@ class Directory : Path
 				filesList[a].moveTo(tempDestFolder)
 			}		
 		}
-		folderListLength = lengthOf(listDirectories())
+		folderListLength = lengthOf(listDirectories()) - 1
 		for a = 0 to folderListLength {
 			if moveType {
 				folderList[a].forceMoveTo(tempDestFolder.getPath())
@@ -314,7 +314,7 @@ class Directory : Path
 			end
 			__IO_DIRECTORY_PATH = curePathSlashes(__IO_DIRECTORY_PATH)
 			directoryName = formatDirectoryName(__IO_DIRECTORY_PATH)
-			if !stringEndsWith(__IO_DIRECTORY_PATH,__IO_PATH_SYSTEM_SLASH) {
+			if !strEndsWith(__IO_DIRECTORY_PATH,__IO_PATH_SYSTEM_SLASH) {
 				__IO_DIRECTORY_PATH+=__IO_PATH_SYSTEM_SLASH
 			}
 			__IO_PATH = __IO_DIRECTORY_PATH

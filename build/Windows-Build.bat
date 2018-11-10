@@ -16,6 +16,7 @@ SET BUILD_TOOL="any"
 SET NO_BUILDTOOL="true"
 SET GCC_ARC_VAR=-m32
 SET ARC=32
+SET USE_LATEST_VS="true"
 
 for %%x in (%*) do (
 	if "%%x"=="--configure" (
@@ -188,6 +189,12 @@ for %%x in (%*) do (
 			SET EXEC_TYPE="minify-debug"
 		)
 	) 
+	if "%%x"=="-nl" (
+		SET USE_LATEST_VS="false"
+	)
+	if "%%x"=="--no-latest-vs" (
+		SET USE_LATEST_VS="false"
+	)
 	if "%%x"=="-vs" (
 		SET THERE_IS_VS="true"
 	)
@@ -215,19 +222,19 @@ for %%x in (%*) do (
 )
 
 if !THERE_IS_VS!=="true" (
-	call:header configure "configure build %VERSION%"
+	call:display configure "configure build %VERSION%"
 	call:locatevisualstudio !BUILD_ARC!
 )
 if !BUILD_TOOL!=="mingw" (
-	call:header configure "configure build %VERSION%"
+	call:display configure "configure build %VERSION%"
 	call:locatemingw !BUILD_ARC!
 )
 if !BUILD_TOOL!=="cygwin" (
-	call:header configure "configure build %VERSION%"
+	call:display configure "configure build %VERSION%"
 	call:locatecygwin !BUILD_ARC!
 )
 if !BUILD_TOOL!=="gcc" (
-	call:header configure "configure build %VERSION%"
+	call:display configure "configure build %VERSION%"
 	call:locategcc !BUILD_ARC!
 )
 if !BUILD_TOOL!=="any" (
@@ -267,14 +274,14 @@ REM STANDALONE BUILDS
 
 if !EXEC_TYPE!=="simple-only-install" (
 	SET EXEC_TYPE="install"
-	call:header install "install simple-lang %VERSION%"
+	call:display install "install simple-lang %VERSION%"
 	call:buildsimpledllexe
 	call:copysimpledllexe
 	call:removedistfolders
 )
 if !EXEC_TYPE!=="simple-only-debug" (
 	SET EXEC_TYPE="debug"
-	call:header debug "debug simple-lang %VERSION%"
+	call:display debug "debug simple-lang %VERSION%"
 	call:buildsimpledllexe
 	call:copysimpledllexe
 	call:removedistfolders
@@ -321,7 +328,7 @@ if !EXEC_TYPE!=="minify-debug" (
 )
 if !EXEC_TYPE!=="dymodules-only-install" (
 	SET EXEC_TYPE="install"
-	call:header install "install simple-lang %VERSION%"
+	call:display install "install simple-lang %VERSION%"
 	call:buildsimpledllexe
 	call:builddynamicmodules
 	call:copydynamicmodules
@@ -329,7 +336,7 @@ if !EXEC_TYPE!=="dymodules-only-install" (
 )
 if !EXEC_TYPE!=="dymodules-only-debug" (
 	SET EXEC_TYPE="debug"
-	call:header install "install simple-lang %VERSION%"
+	call:display install "install simple-lang %VERSION%"
 	call:buildsimpledllexe
 	call:builddynamicmodules
 	call:copydynamicmodules
@@ -339,7 +346,7 @@ if !EXEC_TYPE!=="dymodules-only-debug" (
 
 exit /b %ERRORLEVEL%
 
-:header
+:display
 	echo ============================================================================
 	echo simple-lang:%1: %2
 	echo ============================================================================
@@ -347,7 +354,7 @@ exit /b %ERRORLEVEL%
 	exit /b 0
 
 :configure
-	call:header configure "configure build %VERSION%"
+	call:display configure "configure build %VERSION%"
 	echo simple-lang:configure:buildtool determining if a specific tool is specified
 	if !BUILD_TOOL!=="any" (
 		if !NO_BUILDTOOL!=="true" (
@@ -428,7 +435,7 @@ exit /b %ERRORLEVEL%
 
 :installdebug
 	if !EXEC_TYPE!=="install" (
-		call:header install "install simple-lang %VERSION%"
+		call:display install "install simple-lang %VERSION%"
 		
 		REM Remove previous build of the current versions
 		if exist "!INSTALLATION_FOLDER!\%VERSION%\" (
@@ -438,7 +445,7 @@ exit /b %ERRORLEVEL%
 		)
 	)
 	if !EXEC_TYPE!=="debug" (
-		call:header install "debug build %SIMPLE_DEBUG_VERSION%"
+		call:display install "debug build %SIMPLE_DEBUG_VERSION%"
 		
 		REM Remove previous build of the current versions
 		if exist "..\..\%SIMPLE_DEBUG_VERSION%\" (
@@ -536,7 +543,7 @@ REM SIMPLE.EXE AND SIMPLE.DLL HAS BEEN SUCCESSFUL CREATE AND COPY EXECUTABLE TO 
 REM COPY THE INCLUDE DIRECTORY	
 	
 :copysimpleincludes
-	call:header includes "copying includes directory for developer"
+	call:display includes "copying includes directory for developer"
 	if !EXEC_TYPE!=="install" (
 		if exist "..\simple\includes" (
 			echo includes: copying includes to !INSTALLATION_FOLDER!\%VERSION%\ directory
@@ -565,7 +572,7 @@ REM COPY THE INCLUDE DIRECTORY
 REM RESOLVE DEPENDENCIES
 
 :resolvedependencies
-	call:header install "resolving simple-lang dependencies"
+	call:display install "resolving simple-lang dependencies"
 	if !THERE_IS_VS!=="true" (
 		SET THERE_IS_VS_TEMP="true"
 	)
@@ -670,7 +677,7 @@ REM RESOLVE DEPENDENCIES
 REM BULDING DYNAMIC LIBRARIES
 	
 :builddynamicmodules
-	call:header dynamic_modules "dynamic modules for buiild %VERSION%"
+	call:display dynamic_modules "dynamic modules for buiild %VERSION%"
 	if exist "%~dp0\..\modules\dynamic_modules\dist\"  (
 		echo simple: removing previous simple build
 		call:deletedirectories %~dp0\..\modules\dynamic_modules\dist\
@@ -766,7 +773,7 @@ REM FULLTICK(GUI) DYNAMIC MODULE
 	exit /b 0
 	
 :copydynamicmodules
-	call:header dynamic_modules "copying dynamic_modules to %VERSION%"
+	call:display dynamic_modules "copying dynamic_modules to %VERSION%"
 	if !EXEC_TYPE!=="install" (
 		if exist "..\modules\dynamic_modules\dist\systemic.dll" (
 			echo dynamic_modules: copying dynamic modules to !INSTALLATION_FOLDER!\%VERSION%\modules\dynamic_modules directory
@@ -808,7 +815,7 @@ REM CURRUPT REPOSITORY ERROR
 REM COPY THE SIMPLE MODULES
 	
 :copysimplemodule
-	call:header modules "copying simple modules to %SIMPLE_DEBUG_VERSION%"
+	call:display modules "copying simple modules to %SIMPLE_DEBUG_VERSION%"
 	call:copymodulesinloop archive fulltick parser simple web image
 	call:resolvefirstcalls
 	copy "..\modules\modules-dependencies.conf" "%~dp0\..\..\%SIMPLE_DEBUG_VERSION%\modules\"
@@ -862,7 +869,7 @@ REM THE __FIRST_CALLS.SIM FILE IS IMPORTANT FOR SIMPLE-LANG MODULES TO FUNCTION
 REM MINIFY ALL THE MODULE SOURCE (.sim) only
 	
 :minifysimplemodule
-	call:header minify "starting to minify the modules source"
+	call:display minify "starting to minify the modules source"
 	SET MINIFICATION_PROGRAM="..\environment\minifier\minifier.sim"
 	if exist !MINIFICATION_PROGRAM! (
 		echo modules:minify: the minifying intermediate program found. procedding...
@@ -873,13 +880,13 @@ REM MINIFY ALL THE MODULE SOURCE (.sim) only
 	if !EXEC_TYPE!=="install" (
 		if exist "!INSTALLATION_FOLDER!\%VERSION%\modules" (
 			echo modules:minifying: starting simple sources minification in !INSTALLATION_FOLDER!\%VERSION%\modules directory
-			REM !INSTALLATION_FOLDER!\%VERSION%\bin\simple.exe !MINIFICATION_PROGRAM! --source !INSTALLATION_FOLDER!\%VERSION%\modules -y
+			!INSTALLATION_FOLDER!\%VERSION%\bin\simple.exe !MINIFICATION_PROGRAM! --source !INSTALLATION_FOLDER!\%VERSION%\modules -y
 		)
 	)
 	if !EXEC_TYPE!=="debug" (
 		if exist "..\..\%SIMPLE_DEBUG_VERSION%\modules" (
 			echo modules:minifying: starting simple sources minification in ..\..\%SIMPLE_DEBUG_VERSION%\modules directory
-			REM ..\..\%SIMPLE_DEBUG_VERSION%\bin\simple.exe !MINIFICATION_PROGRAM! --source ..\..\%SIMPLE_DEBUG_VERSION%\modules -y
+			..\..\%SIMPLE_DEBUG_VERSION%\bin\simple.exe !MINIFICATION_PROGRAM! --source ..\..\%SIMPLE_DEBUG_VERSION%\modules -y
 		)
 	)
 	echo modules:minifying: minification complete
@@ -904,7 +911,7 @@ REM SIMPLE_LANG ENVIRONMENT PROGRAMS
 REM THE ENVIRONMENT PROGRAMS WILL ALSO BE INSTALLED IN SAME BIN DIRECTORY AS SIMPLE
 
 :buildsimplelangenvironments
-	call:header environment "environment program build %VERSION%"
+	call:display environment "environment program build %VERSION%"
 	call:confirmsimplebuild
 	if !SIMPLE_EXECUTABLE!=="notfound" (
 		echo.
@@ -1030,9 +1037,29 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 		SET "PROGRAMFILESPATH=%ProgramFiles(x86)%"
 	)
 	for /d %%a in ("%PROGRAMFILESPATH%\Microsoft Visual Studio*") do (
-		for /f "tokens=3 delims=\" %%x in ("%%a") do SET MVS=%%a\
+		for /f "tokens=3 delims=\" %%x in ("%%a") do  (
+			SET MVS=%%a\
+			if !USE_LATEST_VS!=="false" (
+				call:checkifstdheadersavailableinvisusalstudio "%%a\"
+				if !STDPRESENT!=="true" (
+					call:callvisualstudiovcvarsall "%%a\"
+					exit /b 0
+				) 
+			)
+		)
 		break
 	)
+	call:checkifstdheadersavailableinvisusalstudio "!MVS!"
+	if !STDPRESENT!=="true" (
+		call:callvisualstudiovcvarsall "!MVS!"
+	) else (
+		SET THERE_IS_VS="false"
+	)
+	
+	exit /b 0
+	
+	
+:callvisualstudiovcvarsall
 	if !BUILD_ARC!=="x86" (
 		if exist "!MVS!\VC\vcvarsall.bat" (
 			echo simple-lang:configure:buildtool found !MVS!
@@ -1041,10 +1068,12 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 		) else (
 			echo simple-lang:configure:buildtool Microsoft Visual Studio not found
 			SET NO_BUILDTOOL="true"
+			SET THERE_IS_VS="false"
 			exit /b 0
 		)
 	) else (
 		if exist "!MVS!\VC\vcvarsall.bat" (
+			SET THERE_IS_VS="false"
 			echo simple-lang:configure:buildtool found !MVS!
 			call:callmsvisualstudio "!MVS!\VC\vcvarsall.bat"
 			exit /b 0
@@ -1056,6 +1085,23 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 			call:locatevisualstudio x86
 			exit /b 0
 		)
+	)
+
+	exit /b 0
+	
+	
+:checkifstdheadersavailableinvisusalstudio
+	SET STDPRESENT="false"
+	echo simple-lang:configure:visual-studio checking %1
+	echo simple-lang:configure:visual-studio checking if the Visual Studio has the C/C++ SDK
+	echo simple-lang:configure:visual-studio checking C/C++ standard headers 
+	if exist %1\VC\crt\src\stdlib.h (
+		echo simple-lang:configure:visual-studio C/C++ standard libraries and header found 
+		echo simple-lang:configure:visual-studio Using this version of visual studio
+		SET STDPRESENT="true"
+	) else (
+		echo simple-lang:configure:visual-studio C/C++ standard libraries and header found 
+		echo simple-lang:configure:visual-studio proceeding to check the next version
 	)
 
 	exit /b 0
@@ -1316,7 +1362,7 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 	exit /b 0
 	
 :createsimplelib
-	call:header final "checking if libsimple.lib is present"
+	call:display final "checking if libsimple.lib is present"
 	if !EXEC_TYPE!=="install" (
 		SET SIMPLE_EXE="!INSTALLATION_FOLDER!\%VERSION%\bin\simple.exe"
 		SET SIMPLE_DLL="!INSTALLATION_FOLDER!\%VERSION%\bin\libsimple.dll"
@@ -1372,7 +1418,7 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 	echo 	x64 --64-bit	build 64 bit version of simple-lang
 	echo 	-t --temp	keep the */dist/ folder(s) in source tree
 	echo 	-h --help	print this help message
-	echo 	-min --minify	minify all modules sources
+	echo 	-min --minify	minify all modules sources (Not Recommended for Debug Purpose)
 	echo.
 	echo [C/C++ COMPILER FLAGS]
 	echo 	-gcc --gnu	build simple with available GNU toolchain
@@ -1387,5 +1433,8 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 	echo 	-mo --modules-only	copy only the standard modules
 	echo 	-yo --dymodules-only	build only the dynamic modules
 	echo 	-eo --environment-only	build only the environment programs
+	echo.
+	echo [EXTRA FLAGS]
+	echo 	-nl --no-latest-vs	use first discovered Visual Studio with C/C++ SDK 
 	
 	exit /b 0

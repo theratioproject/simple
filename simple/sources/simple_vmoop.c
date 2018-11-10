@@ -17,7 +17,7 @@
 #include "../includes/simple.h"
 /* Blocks */
 
-void simple_vm_oop_newobj ( VM *vm )
+SIMPLE_API void simple_vm_oop_newobj ( VM *vm )
 {
 	const char *cClassName,*cClassName2  ;
 	int x,nLimit,nClassPC,nType,nCont  ;
@@ -153,7 +153,7 @@ void simple_vm_oop_newobj ( VM *vm )
 	simple_vm_error2(vm,SIMPLE_VM_ERROR_CLASSNOTFOUND,cClassName);
 }
 
-void simple_vm_oop_parentinit ( VM *vm,List *list )
+SIMPLE_API void simple_vm_oop_parentinit ( VM *vm,List *list )
 {
 	const char *cClassName,*cClassName2  ;
 	int x,x2,nFound,nMark  ;
@@ -218,7 +218,7 @@ void simple_vm_oop_parentinit ( VM *vm,List *list )
 	simple_list_delete_gc(vm->sState,pClassesList);
 }
 
-void simple_vm_oop_newclass ( VM *vm )
+SIMPLE_API void simple_vm_oop_newclass ( VM *vm )
 {
 	List *pClass,*list  ;
 	int x  ;
@@ -250,7 +250,7 @@ void simple_vm_oop_newclass ( VM *vm )
 	vm->nPrivateFlag = 0 ;
 }
 
-void simple_vm_oop_setscope ( VM *vm )
+SIMPLE_API void simple_vm_oop_setscope ( VM *vm )
 {
 	List *list  ;
 	/* This block called after creating new object and executing class init */
@@ -297,7 +297,7 @@ void simple_vm_oop_setscope ( VM *vm )
 	simple_vm_oop_popclassmodules(vm);
 }
 
-int simple_vm_oop_isobject ( List *list )
+SIMPLE_API int simple_vm_oop_isobject ( List *list )
 {
 	if ( list == NULL ) {
 		return 0 ;
@@ -348,7 +348,7 @@ List * simple_vm_oop_getobj ( VM *vm )
 	return var ;
 }
 
-void simple_vm_oop_property ( VM *vm )
+SIMPLE_API void simple_vm_oop_property ( VM *vm )
 {
 	List *var,*pScope  ;
 	/* Get Object Pointer Before being a list by getobj */
@@ -399,7 +399,7 @@ void simple_vm_oop_property ( VM *vm )
 	vm->pGetSetObject = NULL ;
 }
 
-void simple_vm_oop_loadmethod ( VM *vm )
+SIMPLE_API void simple_vm_oop_loadmethod ( VM *vm )
 {
 	List *var,*list,*list2,*list3,*pSuper  ;
 	int lResult  ;
@@ -447,7 +447,7 @@ void simple_vm_oop_loadmethod ( VM *vm )
 	}
 }
 
-void simple_vm_oop_movetobeforeobjstate ( VM *vm )
+SIMPLE_API void simple_vm_oop_movetobeforeobjstate ( VM *vm )
 {
 	List *list, *list2  ;
 	if ( vm->nActiveCatch == 1 ) {
@@ -461,7 +461,7 @@ void simple_vm_oop_movetobeforeobjstate ( VM *vm )
 	simple_list_deleteitem_gc(vm->sState,vm->pObjState,simple_list_getsize(vm->pObjState));
 }
 
-void simple_vm_oop_parentmethods ( VM *vm,List *list )
+SIMPLE_API void simple_vm_oop_parentmethods ( VM *vm,List *list )
 {
 	const char *cClassName,*cClassName2  ;
 	int x,nFound,nMark  ;
@@ -507,7 +507,7 @@ void simple_vm_oop_parentmethods ( VM *vm,List *list )
 	}
 }
 
-void simple_vm_oop_aftercallmethod ( VM *vm )
+SIMPLE_API void simple_vm_oop_aftercallmethod ( VM *vm )
 {
 	if ( simple_list_getsize(vm->pObjState) != 0 ) {
 		simple_list_deleteitem_gc(vm->sState,vm->pObjState,simple_list_getsize(vm->pObjState));
@@ -516,7 +516,7 @@ void simple_vm_oop_aftercallmethod ( VM *vm )
 	simple_vm_oop_popclassmodules(vm);
 }
 
-void simple_vm_oop_printobj ( VM *vm,List *list )
+SIMPLE_API void simple_vm_oop_printobj ( VM *vm,List *list )
 {
 	List *list2,*list3  ;
 	int x  ;
@@ -549,7 +549,7 @@ void simple_vm_oop_printobj ( VM *vm,List *list )
 	}
 }
 
-void simple_vm_oop_setbraceobj ( VM *vm,List *list )
+SIMPLE_API void simple_vm_oop_setbraceobj ( VM *vm,List *list )
 {
 	/* Support using { } to access object after object name */
 	if ( simple_vm_oop_isobject(list) ) {
@@ -557,7 +557,7 @@ void simple_vm_oop_setbraceobj ( VM *vm,List *list )
 	}
 }
 
-void simple_vm_oop_bracestart ( VM *vm )
+SIMPLE_API void simple_vm_oop_bracestart ( VM *vm )
 {
 	List *list,*pClass  ;
 	/* Check Error */
@@ -589,7 +589,7 @@ void simple_vm_oop_bracestart ( VM *vm )
 	vm->nInsideBraceFlag = 1 ;
 }
 
-void simple_vm_oop_braceend ( VM *vm )
+SIMPLE_API void simple_vm_oop_braceend ( VM *vm )
 {
 	List *list  ;
 	/* Restore List Status */
@@ -613,7 +613,7 @@ void simple_vm_oop_braceend ( VM *vm )
 	}
 }
 
-void simple_vm_oop_bracestack ( VM *vm )
+SIMPLE_API void simple_vm_oop_bracestack ( VM *vm )
 {
 	vm->nsp = simple_list_getint(simple_list_getlist(vm->aBraceObjects,simple_list_getsize(vm->aBraceObjects)),2) ;
 	if ( vm->nBlockSP > vm->nsp ) {
@@ -627,7 +627,7 @@ void simple_vm_oop_bracestack ( VM *vm )
 	}
 }
 
-void simple_vm_oop_newsuperobj ( VM *vm,List *pState,List *pClass )
+SIMPLE_API void simple_vm_oop_newsuperobj ( VM *vm,List *pState,List *pClass )
 {
 	List *pSuper,*pSuper2,*pMethods,*list  ;
 	const char *cParentClassName,*cClassName  ;
@@ -673,7 +673,7 @@ List * simple_vm_oop_getsuperobj ( VM *vm )
 	return NULL ;
 }
 
-void simple_vm_oop_loadsuperobjmethod ( VM *vm,List *pSuper )
+SIMPLE_API void simple_vm_oop_loadsuperobjmethod ( VM *vm,List *pSuper )
 {
 	int x  ;
 	List *pState,*pMethods,*pClass,*var,*list  ;
@@ -706,12 +706,12 @@ void simple_vm_oop_loadsuperobjmethod ( VM *vm,List *pSuper )
 	vm->pBlocksMap = var ;
 }
 
-void simple_vm_oop_import ( VM *vm )
+SIMPLE_API void simple_vm_oop_import ( VM *vm )
 {
 	simple_vm_oop_import2(vm,SIMPLE_VM_IR_READC);
 }
 
-void simple_vm_oop_import2 ( VM *vm,const char *cModules )
+SIMPLE_API void simple_vm_oop_import2 ( VM *vm,const char *cModules )
 {
 	int x  ;
 	List *list,*list2  ;
@@ -732,7 +732,7 @@ void simple_vm_oop_import2 ( VM *vm,const char *cModules )
 	simple_vm_error2(vm,SIMPLE_VM_ERROR_MODULENOTFOUND,cModules);
 }
 
-void simple_vm_oop_import3 ( VM *vm,List *list )
+SIMPLE_API void simple_vm_oop_import3 ( VM *vm,List *list )
 {
 	int x  ;
 	List *list2, *list3  ;
@@ -782,7 +782,7 @@ List * simple_vm_oop_visibleclassitem ( VM *vm,int x )
 	return list ;
 }
 
-void simple_vm_oop_pushclassmodules ( VM *vm,List *list )
+SIMPLE_API void simple_vm_oop_pushclassmodules ( VM *vm,List *list )
 {
 	List *list2  ;
 	list2 = simple_list_getlist(list,SIMPLE_CLASSMAP_POINTERTOMODULE) ;
@@ -791,14 +791,14 @@ void simple_vm_oop_pushclassmodules ( VM *vm,List *list )
 	}
 }
 
-void simple_vm_oop_popclassmodules ( VM *vm )
+SIMPLE_API void simple_vm_oop_popclassmodules ( VM *vm )
 {
 	if ( simple_list_getsize(vm->aActiveModules) > 0 ) {
 		simple_list_deleteitem_gc(vm->sState,vm->aActiveModules,simple_list_getsize(vm->aActiveModules));
 	}
 }
 
-void simple_vm_oop_deletemodulessafter ( VM *vm,int x )
+SIMPLE_API void simple_vm_oop_deletemodulessafter ( VM *vm,int x )
 {
 	int t  ;
 	if ( x <= simple_list_getsize(vm->aActiveModules) ) {
@@ -866,7 +866,7 @@ int simple_vm_oop_callmethodinsideclass ( VM *vm )
 	return 0 ;
 }
 
-void simple_vm_oop_setget ( VM *vm,List *var )
+SIMPLE_API void simple_vm_oop_setget ( VM *vm,List *var )
 {
 	List *list, *list2  ;
 	Item *pItem, *pItem2  ;
@@ -937,7 +937,7 @@ void simple_vm_oop_setget ( VM *vm,List *var )
 	simple_string_delete_gc(vm->sState,string);
 }
 
-void simple_vm_oop_setproperty ( VM *vm )
+SIMPLE_API void simple_vm_oop_setproperty ( VM *vm )
 {
 	List *list, *list2  ;
 	Item *pItem,*pItem2  ;
@@ -1084,7 +1084,7 @@ Item * simple_vm_oop_objitemfromobjlist ( List *list )
 	return pItem ;
 }
 
-void simple_vm_oop_operatoroverloading ( VM *vm,List *pObj,const char *string_one,int nType,const char *cStr2,double nNum1,void *pointer,int nPointerType )
+SIMPLE_API void simple_vm_oop_operatoroverloading ( VM *vm,List *pObj,const char *string_one,int nType,const char *cStr2,double nNum1,void *pointer,int nPointerType )
 {
 	List *list2  ;
 	Item *pItem  ;
@@ -1121,7 +1121,7 @@ void simple_vm_oop_operatoroverloading ( VM *vm,List *pObj,const char *string_on
 		/* Create String */
 		string = simple_string_new_gc(vm->sState,"if isBlock(simple_gettemp_var,'operator')\nreturn simple_gettemp_var.operator('");
 		simple_string_add_gc(vm->sState,string,string_one);
-		simple_string_add_gc(vm->sState,string,"',simple_settemp_var)\nelse\nraise('Object does not support operator overloading')\nend\n");
+		simple_string_add_gc(vm->sState,string,"',simple_settemp_var)\nelse\nthrow('Object does not support operator overloading')\nend\n");
 		/* Eval the string */
 		pItem = SIMPLE_VM_IR_ITEM(1) ;
 		vm->nEvalCalledFromSimpleCode = 0 ;
@@ -1138,7 +1138,7 @@ void simple_vm_oop_operatoroverloading ( VM *vm,List *pObj,const char *string_on
 	}
 }
 
-void simple_vm_oop_callmethodfrombrace ( VM *vm )
+SIMPLE_API void simple_vm_oop_callmethodfrombrace ( VM *vm )
 {
 	List *list,*list2  ;
 	const char *cStr  ;
@@ -1200,7 +1200,7 @@ int simple_vm_oop_isblock ( VM *vm,List *list,const char *cStr )
 	return 0 ;
 }
 
-void simple_vm_oop_updateselfpointer ( VM *vm,List *pObj,int nType,void *pContainer )
+SIMPLE_API void simple_vm_oop_updateselfpointer ( VM *vm,List *pObj,int nType,void *pContainer )
 {
 	List *list  ;
 	/* Get Object State */
@@ -1213,7 +1213,7 @@ void simple_vm_oop_updateselfpointer ( VM *vm,List *pObj,int nType,void *pContai
 	simple_list_setint_gc(vm->sState,list,4,nType);
 }
 
-void simple_vm_oop_setthethisvariable ( VM *vm )
+SIMPLE_API void simple_vm_oop_setthethisvariable ( VM *vm )
 {
 	List *list, *pThis  ;
 	pThis = simple_list_getlist(simple_vm_getglobalscope(vm),SIMPLE_VM_STATICVAR_THIS) ;
@@ -1237,7 +1237,7 @@ void simple_vm_oop_setthethisvariable ( VM *vm )
 	simple_list_setint_gc(vm->sState,pThis,SIMPLE_VAR_PVALUETYPE,simple_list_getint(list,SIMPLE_VAR_PVALUETYPE));
 }
 
-void simple_vm_oop_updateselfpointer2 ( VM *vm, List *list )
+SIMPLE_API void simple_vm_oop_updateselfpointer2 ( VM *vm, List *list )
 {
 	Item *pItem  ;
 	int x,lFound  ;

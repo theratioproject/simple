@@ -17,7 +17,7 @@ block main()
 	punct = "#$%&'()*+,-./:;<=>?@[\]^_`{|}~"
 	control = nl+crlf+tab
 	list = [str,alpha,space,hex,alphal,digit,punct,control]
-	listLen = lengthOf(list)
+	listLen = lengthOf(list) - 1
 	
 	@"checking the following values"
 	for a = 0 to listLen {

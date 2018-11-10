@@ -52,7 +52,6 @@ SIMPLE_API char *DEFAULT_FILE_NAME ;
 
 extern char simple_file_initial_dir[SIMPLE_PATHSIZE];
 
-extern int list_index ;
 extern char* time_frame ;
 
 /*Blocks*/

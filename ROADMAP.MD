@@ -115,6 +115,7 @@ issue related to the module
 - [ ] port murmur hash C library to simple-lang
 - [ ] implement ncurses for use in simple-lang
 - [ ] use a light and simple alternate ANSI C internet library for networking
+- [ ] a json module that load the json file and store as class attributes and fields and allow writing back to file
 
 ### Extended Modules
 
@@ -135,6 +136,7 @@ Modules which are not part of the standard module that comes distributed with si
 	- [ ] test full operation on mac os
 	- [ ] test full operation on haiku os
 - [x] create the language repl - simplerepl 
+- [ ] extend simple-repl functionalities (Case Study : elixr iex)
 - [x] Build the minifier environment that reduces module size by compressing code upon installation.
 - [ ] create the distribution program - bake
 	- [ ] package simple source file (.sim) or compiled file (.complex) to system executable

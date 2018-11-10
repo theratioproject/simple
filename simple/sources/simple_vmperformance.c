@@ -14,7 +14,7 @@
 #include "../includes/simple.h"
 /* For Better Performance */
 
-void simple_vm_pushp ( VM *vm )
+SIMPLE_API void simple_vm_pushp ( VM *vm )
 {
 	SIMPLE_VM_STACK_PUSHP ;
 	SIMPLE_VM_STACK_OBJTYPE = SIMPLE_OBJTYPE_VARIABLE ;
@@ -22,7 +22,7 @@ void simple_vm_pushp ( VM *vm )
 	simple_list_addint_gc(vm->sState,vm->aLoadAddressScope,SIMPLE_VARSCOPE_GLOBAL);
 }
 
-void simple_vm_pushplocal ( VM *vm )
+SIMPLE_API void simple_vm_pushplocal ( VM *vm )
 {
 	/* Check Scope Life Time */
 	if ( SIMPLE_VM_IR_READIVALUE(4) != vm->nActiveScopeID ) {
@@ -43,14 +43,14 @@ void simple_vm_pushplocal ( VM *vm )
 	simple_list_addint_gc(vm->sState,vm->aLoadAddressScope,SIMPLE_VARSCOPE_LOCAL);
 }
 
-void simple_vm_incp ( VM *vm )
+SIMPLE_API void simple_vm_incp ( VM *vm )
 {
 	List *var  ;
 	var = (List *) SIMPLE_VM_IR_READP ;
 	simple_list_setdouble_gc(vm->sState,var,SIMPLE_VAR_VALUE,simple_list_getdouble(var,SIMPLE_VAR_VALUE) + 1);
 }
 
-void simple_vm_pushpv ( VM *vm )
+SIMPLE_API void simple_vm_pushpv ( VM *vm )
 {
 	List *var  ;
 	var = (List *) SIMPLE_VM_IR_READP ;
@@ -63,7 +63,7 @@ void simple_vm_pushpv ( VM *vm )
 	}
 }
 
-void simple_vm_incjump ( VM *vm )
+SIMPLE_API void simple_vm_incjump ( VM *vm )
 {
 	List *var  ;
 	double nNum1,nNum2  ;
@@ -105,7 +105,7 @@ void simple_vm_incjump ( VM *vm )
 	vm->nPC = SIMPLE_VM_IR_READIVALUE(2) ;
 }
 
-void simple_vm_incpjump ( VM *vm )
+SIMPLE_API void simple_vm_incpjump ( VM *vm )
 {
 	List *var  ;
 	double nNum1,nNum2  ;
@@ -126,7 +126,7 @@ void simple_vm_incpjump ( VM *vm )
 	vm->nPC = SIMPLE_VM_IR_READIVALUE(2) ;
 }
 
-void simple_vm_inclpjump ( VM *vm )
+SIMPLE_API void simple_vm_inclpjump ( VM *vm )
 {
 	List *var  ;
 	double nNum1,nNum2  ;
@@ -160,7 +160,7 @@ void simple_vm_inclpjump ( VM *vm )
 	vm->nPC = SIMPLE_VM_IR_READIVALUE(2) ;
 }
 
-void simple_vm_jumpvarlenum ( VM *vm )
+SIMPLE_API void simple_vm_jumpvarlenum ( VM *vm )
 {
 	List *var  ;
 	double nNum1,nNum2  ;
@@ -215,7 +215,7 @@ void simple_vm_jumpvarlenum ( VM *vm )
 	}
 }
 
-void simple_vm_jumpvarplenum ( VM *vm )
+SIMPLE_API void simple_vm_jumpvarplenum ( VM *vm )
 {
 	List *var  ;
 	double nNum1,nNum2  ;
@@ -244,7 +244,7 @@ void simple_vm_jumpvarplenum ( VM *vm )
 	}
 }
 
-void simple_vm_jumpvarlplenum ( VM *vm )
+SIMPLE_API void simple_vm_jumpvarlplenum ( VM *vm )
 {
 	List *var  ;
 	double nNum1,nNum2  ;
@@ -284,7 +284,7 @@ void simple_vm_jumpvarlplenum ( VM *vm )
 	}
 }
 
-void simple_vm_loadblockp ( VM *vm )
+SIMPLE_API void simple_vm_loadblockp ( VM *vm )
 {
 	List *list  ;
 	vm->nBlockExecute++ ;
@@ -305,7 +305,7 @@ void simple_vm_loadblockp ( VM *vm )
 }
 /* For Loop Optimization When Step = 1 */
 
-void simple_vm_incpjumpstep1 ( VM *vm )
+SIMPLE_API void simple_vm_incpjumpstep1 ( VM *vm )
 {
 	List *var  ;
 	double nNum1  ;
@@ -317,7 +317,7 @@ void simple_vm_incpjumpstep1 ( VM *vm )
 	vm->nPC = SIMPLE_VM_IR_READIVALUE(2) ;
 }
 
-void simple_vm_jumpvarplenumstep1 ( VM *vm )
+SIMPLE_API void simple_vm_jumpvarplenumstep1 ( VM *vm )
 {
 	List *var  ;
 	double nNum1  ;
@@ -330,12 +330,12 @@ void simple_vm_jumpvarplenumstep1 ( VM *vm )
 	}
 }
 
-void simple_vm_jump ( VM *vm )
+SIMPLE_API void simple_vm_jump ( VM *vm )
 {
 	SIMPLE_VM_JUMP ;
 }
 
-void simple_vm_jumpzero ( VM *vm )
+SIMPLE_API void simple_vm_jumpzero ( VM *vm )
 {
 	if ( SIMPLE_VM_STACK_ISNUMBER ) {
 		if ( SIMPLE_VM_STACK_READN  == 0 ) {
@@ -345,7 +345,7 @@ void simple_vm_jumpzero ( VM *vm )
 	SIMPLE_VM_STACK_POP ;
 }
 
-void simple_vm_jumpfor ( VM *vm )
+SIMPLE_API void simple_vm_jumpfor ( VM *vm )
 {
 	double nNum1,nNum2,nNum3  ;
 	/* Check Data */
@@ -389,7 +389,7 @@ void simple_vm_jumpfor ( VM *vm )
 	}
 }
 
-void simple_vm_jumpone ( VM *vm )
+SIMPLE_API void simple_vm_jumpone ( VM *vm )
 {
 	if ( SIMPLE_VM_STACK_ISNUMBER ) {
 		if ( SIMPLE_VM_STACK_READN  != 0 ) {
@@ -399,7 +399,7 @@ void simple_vm_jumpone ( VM *vm )
 	SIMPLE_VM_STACK_POP ;
 }
 
-void simple_vm_jumpone2 ( VM *vm )
+SIMPLE_API void simple_vm_jumpone2 ( VM *vm )
 {
 	/* Add 1, required for jump in many 'OR' in conditions */
 	if ( SIMPLE_VM_STACK_ISNUMBER ) {
@@ -412,7 +412,7 @@ void simple_vm_jumpone2 ( VM *vm )
 	SIMPLE_VM_STACK_PUSHNVALUE(0);
 }
 
-void simple_vm_jumpzero2 ( VM *vm )
+SIMPLE_API void simple_vm_jumpzero2 ( VM *vm )
 {
 	/* Add 1, required for jump in many 'AND' in conditions */
 	if ( SIMPLE_VM_STACK_ISNUMBER ) {

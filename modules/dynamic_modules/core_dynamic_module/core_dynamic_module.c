@@ -33,6 +33,19 @@
 
 SIMPLE_API void init_simple_module(SimpleState *sState)
 {   
+	/* List */
+	register_block("__del_from_List",list_delete_from_list);
+	register_block("__find_in_list",list_find_in_list);
+	register_block("__min_value",list_min_value);
+	register_block("__max_value",list_max_value);
+	register_block("__insert_into_list",list_insert_into_list);
+	register_block("__sort_list",list_sort_list);
+	register_block("__reverse_list",list_reverse_list);
+	register_block("__reverse_list",list_reverse_list);
+	
+	/* Runtime Dynamic Library Loading */
+	register_block("__loadDynamicLibrary",simple_vm_dll_loadlib);
+	register_block("__callDynamicFunction",simple_vm_dll_calllib_function);
 	/* Date and Time */
 	register_block("__clock",date_time_clock);
 	register_block("__clock_per_second",date_time_clock_per_second);
@@ -48,28 +61,485 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
     register_block("__warn",error_warn);
 	
     /* Conversion */ 
-    register_block("__stringToCHex",conversion_string_to_chex);
-    register_block("__hexToString",conversion_hex_to_string);
-    register_block("__stringToList",conversion_string_to_list);
-    register_block("__stringToHex",conversion_string_to_hex);
+    register_block("__string_to_chex",conversion_string_to_chex);
+    register_block("__hex_to_string",conversion_hex_to_string);
+    register_block("__string_to_list",conversion_string_to_list);
+    register_block("__string_to_hex",conversion_string_to_hex);
 
     /* Characters Checking */ 
-    register_block("__isAlphaNum",check_characters_is_alpha_num);
-    register_block("__isAlpha",check_characters_is_alpha);
-    register_block("__isNum",check_characters_is_num);
-    register_block("__isControlChar",check_characters_is_cntrl);
-    register_block("__isDigit",check_characters_is_num);
-    register_block("__isGraph",check_characters_is_graph);
-    register_block("__isLower",check_characters_is_lower);
-    register_block("__isPrint",check_characters_is_print);
-    register_block("__isPunct",check_characters_is_punct);
-    register_block("__isSpace",check_characters_is_space);
-    register_block("__isUpper",check_characters_is_upper);
-    register_block("__isXDigit",check_characters_is_xdigit);
+    register_block("__is_alpha_num",check_characters_is_alpha_num);
+    register_block("__is_alpha",check_characters_is_alpha);
+    register_block("__is_num",check_characters_is_num);
+    register_block("__is_control_char",check_characters_is_cntrl);
+    register_block("__is_digit",check_characters_is_num);
+    register_block("__is_graph",check_characters_is_graph);
+    register_block("__is_lower",check_characters_is_lower);
+    register_block("__is_print",check_characters_is_print);
+    register_block("__is_punct",check_characters_is_punct);
+    register_block("__is_space",check_characters_is_space);
+    register_block("__is_upper",check_characters_is_upper);
+    register_block("__is_x_digit",check_characters_is_xdigit);
 	
 	/* Meta Blocks */ 
-	register_block("__AddAttribute",meta_blocks_add_addribute);
+	register_block("__add_attribute",meta_blocks_add_addribute);
 }
+
+/* List */
+void list_delete_from_list( void *pointer )
+{
+	List *list  ;
+	double num  ;
+	if ( SIMPLE_API_PARACOUNT != 2 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
+		return ;
+	}
+	if ( SIMPLE_API_ISLIST(1) ) {
+		list = SIMPLE_API_GETLIST(1) ;
+		if ( SIMPLE_API_ISNUMBER(2) ) {
+			num = SIMPLE_API_GETNUMBER(2) ;
+			if ( ( num < 1 ) || ( num > simple_list_getsize(list) ) ) {
+				SIMPLE_API_ERROR("Error in second parameter, item number outside the list size range!");
+				return ;
+			}
+			simple_list_deleteitem_gc(((VM *) pointer)->sState,list,num);
+		} else {
+			SIMPLE_API_ERROR("Error in second parameter, Function requires number!");
+			return ;
+		}
+	} else {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+	}
+}
+
+void list_find_in_list( void *pointer )
+{
+	int num,column  ;
+	List *list  ;
+	if ( ! ( (SIMPLE_API_PARACOUNT >= 2) && (SIMPLE_API_PARACOUNT <= 4) ) ) {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARACOUNT);
+		return ;
+	}
+	if ( SIMPLE_API_ISLIST(1) ) {
+		num = 0 ;
+		list = SIMPLE_API_GETLIST(1) ;
+		if ( simple_list_getsize(list) > 0 ) {
+			column = 0 ;
+			if ( SIMPLE_API_PARACOUNT >= 3 ) {
+				if ( SIMPLE_API_ISNUMBER(3) ) {
+					column = SIMPLE_API_GETNUMBER(3) ;
+				}
+				else {
+					SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+				}
+			}
+			if ( SIMPLE_API_PARACOUNT == 4 ) {
+				if ( SIMPLE_API_ISSTRING(4) ) {
+					if ( SIMPLE_API_ISSTRING(2) ) {
+						num = simple_list_findinlistofobjs(list,SIMPLE_VM_LISTOFOBJS_FINDSTRING,0.0,SIMPLE_API_GETSTRING(2),column,SIMPLE_API_GETSTRING(4));
+					}
+					else if ( SIMPLE_API_ISNUMBER(2) ) {
+						num = simple_list_findinlistofobjs(list,SIMPLE_VM_LISTOFOBJS_FINDNUMBER,SIMPLE_API_GETNUMBER(2),"",column,SIMPLE_API_GETSTRING(4));
+					}
+					else {
+						SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+					}
+					if ( num == -1 ) {
+						SIMPLE_API_ERROR(SIMPLE_VM_ERROR_PROPERTYNOTFOUND);
+					}
+				}
+				else {
+					SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+				}
+			}
+			else {
+				if ( SIMPLE_API_ISSTRING(2) ) {
+					num = simple_list_findstring(list,SIMPLE_API_GETSTRING(2),column);
+				}
+				else if ( SIMPLE_API_ISNUMBER(2) ) {
+					num = simple_list_finddouble(list,SIMPLE_API_GETNUMBER(2),column);
+				}
+				else if ( SIMPLE_API_ISCPOINTER(2) ) {
+					num = simple_list_findcpointer(list,SIMPLE_API_GETLIST(2),column);
+				}
+				else {
+					SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+				}
+				if ( num == -1 ) {
+					SIMPLE_API_ERROR(SIMPLE_VM_ERROR_BADCOLUMNNUMBER);
+				}
+			}
+		}
+		SIMPLE_API_RETNUMBER(num);
+	}
+	else {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+	}
+}
+
+void list_min_value( void *pointer )
+{
+	double num  ;
+	List *list  ;
+	int x  ;
+	if ( SIMPLE_API_PARACOUNT == 1 ) {
+		if ( SIMPLE_API_ISLIST(1) ) {
+			list = SIMPLE_API_GETLIST(1) ;
+			if ( simple_list_getsize(list) > 0 ) {
+				if ( simple_list_isnumber(list,1) ) {
+					num = simple_list_getdouble(list,1) ;
+				}
+				else {
+					SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+					return ;
+				}
+				if ( simple_list_getsize(list) > 1 ) {
+					for ( x = 1 ; x <= simple_list_getsize(list) ; x++ ) {
+						if ( simple_list_isnumber(list,x) ) {
+							if ( simple_list_getdouble(list,x) < num ) {
+								num = simple_list_getdouble(list,x) ;
+							}
+						}
+						else {
+							SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+							return ;
+						}
+					}
+				}
+				SIMPLE_API_RETNUMBER(num);
+			}
+			else {
+				SIMPLE_API_ERROR(SIMPLE_API_EMPTYLIST);
+				return ;
+			}
+		}
+		else {
+			SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+		}
+	}
+	else if ( SIMPLE_API_PARACOUNT == 2 ) {
+		if ( SIMPLE_API_ISNUMBER(1) && SIMPLE_API_ISNUMBER(2) ) {
+			if ( SIMPLE_API_GETNUMBER(1) < SIMPLE_API_GETNUMBER(2) ) {
+				SIMPLE_API_RETNUMBER(SIMPLE_API_GETNUMBER(1));
+			}
+			else {
+				SIMPLE_API_RETNUMBER(SIMPLE_API_GETNUMBER(2));
+			}
+		}
+		else {
+			SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+		}
+	}
+	else {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARACOUNT);
+	}
+}
+
+void list_max_value( void *pointer )
+{
+	double num  ;
+	List *list  ;
+	int x  ;
+	if ( SIMPLE_API_PARACOUNT == 1 ) {
+		if ( SIMPLE_API_ISLIST(1) ) {
+			list = SIMPLE_API_GETLIST(1) ;
+			if ( simple_list_getsize(list) > 0 ) {
+				if ( simple_list_isnumber(list,1) ) {
+					num = simple_list_getdouble(list,1) ;
+				}
+				else {
+					SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+					return ;
+				}
+				if ( simple_list_getsize(list) > 1 ) {
+					for ( x = 1 ; x <= simple_list_getsize(list) ; x++ ) {
+						if ( simple_list_isnumber(list,x) ) {
+							if ( simple_list_getdouble(list,x) > num ) {
+								num = simple_list_getdouble(list,x) ;
+							}
+						}
+						else {
+							SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+							return ;
+						}
+					}
+				}
+				SIMPLE_API_RETNUMBER(num);
+			}
+			else {
+				SIMPLE_API_ERROR(SIMPLE_API_EMPTYLIST);
+				return ;
+			}
+		}
+		else {
+			SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+		}
+	}
+	else if ( SIMPLE_API_PARACOUNT == 2 ) {
+		if ( SIMPLE_API_ISNUMBER(1) && SIMPLE_API_ISNUMBER(2) ) {
+			if ( SIMPLE_API_GETNUMBER(1) > SIMPLE_API_GETNUMBER(2) ) {
+				SIMPLE_API_RETNUMBER(SIMPLE_API_GETNUMBER(1));
+			}
+			else {
+				SIMPLE_API_RETNUMBER(SIMPLE_API_GETNUMBER(2));
+			}
+		}
+		else {
+			SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+		}
+	}
+	else {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARACOUNT);
+	}
+}
+
+void list_insert_into_list( void *pointer )
+{
+	List *list, *list2  ;
+	int nPos  ;
+	if ( SIMPLE_API_PARACOUNT != 3 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARACOUNT);
+		return ;
+	}
+	if ( SIMPLE_API_ISLIST(1) && SIMPLE_API_ISNUMBER(2) ) {
+		list = SIMPLE_API_GETLIST(1) ;
+		nPos = (int) SIMPLE_API_GETNUMBER(2) ;
+		if ( (nPos < 0) || (nPos > simple_list_getsize(list) ) ) {
+			SIMPLE_API_ERROR(SIMPLE_VM_ERROR_INDEXOUTOFRANGE);
+			return ;
+		}
+		if ( SIMPLE_API_ISSTRING(3) ) {
+			simple_list_insertstring2(list,nPos,SIMPLE_API_GETSTRING(3),SIMPLE_API_GETSTRINGSIZE(3));
+		}
+		else if ( SIMPLE_API_ISNUMBER(3) ) {
+			simple_list_insertdouble(list,nPos,SIMPLE_API_GETNUMBER(3));
+		}
+		else if ( SIMPLE_API_ISLIST(3) ) {
+			list2 = simple_list_insertlist(list,nPos);
+			simple_vm_list_copy((VM *) pointer,list2,SIMPLE_API_GETLIST(3));
+		}
+		else {
+			SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+		}
+	}
+	else {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+	}
+}
+
+void list_sort_list( void *pointer )
+{
+	List *list, *list2, *list3  ;
+	int x,nParaCount,column,nPos  ;
+	char *cAttribute  ;
+	nParaCount = SIMPLE_API_PARACOUNT ;
+	if ( ! ( (nParaCount >= 1) && (nParaCount <= 3) ) ) {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARACOUNT);
+		return ;
+	}
+	if ( SIMPLE_API_ISLIST(1) ) {
+		list = SIMPLE_API_NEWLIST ;
+		list2 = SIMPLE_API_GETLIST(1);
+		simple_vm_list_copy((VM *) pointer,list,list2);
+		if ( simple_list_getsize(list) < 2 ) {
+			SIMPLE_API_RETLIST(list2);
+			return ;
+		}
+		if ( nParaCount == 1 ) {
+			if ( simple_list_isnumber(list,1) ) {
+				/* Check that all items are numbers */
+				for ( x = 1 ; x <= simple_list_getsize(list) ; x++ ) {
+					if ( ! simple_list_isnumber(list,x) ) {
+						SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+						return ;
+					}
+				}
+				simple_list_sortnum(list,1,simple_list_getsize(list),0,"");
+			}
+			else if ( simple_list_isstring(list,1) ) {
+				/* Check that all items are strings */
+				for ( x = 1 ; x <= simple_list_getsize(list) ; x++ ) {
+					if ( ! simple_list_isstring(list,x) ) {
+						SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+						return ;
+					}
+				}
+				simple_list_sortstr(list,1,simple_list_getsize(list),0,"");
+			}
+			else {
+				SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+			}
+		}
+		else if ( (nParaCount == 2) && SIMPLE_API_ISNUMBER(2) && simple_list_islist(list,1) ) {
+			column = SIMPLE_API_GETNUMBER(2) ;
+			list3 = simple_list_getlist(list,1);
+			if ( simple_list_isnumber(list3,column) ) {
+				/* Check that all items are numbers */
+				for ( x = 1 ; x <= simple_list_getsize(list) ; x++ ) {
+					list3 = simple_list_getlist(list,x);
+					if ( ! simple_list_isnumber(list3,column) ) {
+						SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+						return ;
+					}
+				}
+				simple_list_sortnum(list,1,simple_list_getsize(list),column,"");
+			}
+			else if ( simple_list_isstring(list3,column) ) {
+				/* Check that all items are strings */
+				for ( x = 1 ; x <= simple_list_getsize(list) ; x++ ) {
+					list3 = simple_list_getlist(list,x);
+					if ( ! simple_list_isstring(list3,column) ) {
+						SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+						return ;
+					}
+				}
+				simple_list_sortstr(list,1,simple_list_getsize(list),column,"");
+			}
+			else {
+				SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+			}
+		}
+		else if ( (nParaCount == 3) && SIMPLE_API_ISNUMBER(2) && simple_list_islist(list,1) && SIMPLE_API_ISSTRING(3) ) {
+			column = SIMPLE_API_GETNUMBER(2) ;
+			cAttribute = SIMPLE_API_GETSTRING(3) ;
+			simple_string_lower(cAttribute);
+			list3 = simple_list_getlist(list,1);
+			if ( column > 1 ) {
+				list3 = simple_list_getlist(list3,column);
+			}
+			if ( simple_vm_oop_isobject(list3) ) {
+				nPos = simple_list_findstring(simple_list_getlist(list3,SIMPLE_OBJECT_OBJECTDATA),cAttribute,SIMPLE_VAR_NAME);
+				if ( nPos == 0 ) {
+					SIMPLE_API_ERROR(SIMPLE_VM_ERROR_PROPERTYNOTFOUND);
+					return ;
+				}
+				list3 = simple_list_getlist(list3,SIMPLE_OBJECT_OBJECTDATA) ;
+				list3 = simple_list_getlist(list3,nPos) ;
+				if ( simple_list_isstring(list3,SIMPLE_VAR_VALUE) ) {
+					simple_list_sortstr(list,1,simple_list_getsize(list),column,cAttribute);
+				}
+				else if ( simple_list_isnumber(list3,SIMPLE_VAR_VALUE) ) {
+					simple_list_sortnum(list,1,simple_list_getsize(list),column,cAttribute);
+				}
+				else {
+					SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+				}
+			}
+			else {
+				SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+			}
+		}
+		else {
+			SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+		}
+		SIMPLE_API_RETLIST(list);
+	}
+	else {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+	}
+}
+
+void list_reverse_list (void *pointer )
+{
+	List *list,*list2,*list3  ;
+	int x  ;
+	if ( SIMPLE_API_PARACOUNT != 1 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
+		return ;
+	}
+	if ( SIMPLE_API_ISLIST(1) ) {
+		list = SIMPLE_API_NEWLIST ;
+		list2 = SIMPLE_API_GETLIST(1) ;
+		for ( x = simple_list_getsize(list2) ; x >= 1 ; x-- ) {
+			if ( simple_list_isstring(list2,x) ) {
+				simple_list_addstring(list,simple_list_getstring(list2,x));
+			}
+			else if ( simple_list_isnumber(list2,x) ) {
+				simple_list_adddouble(list,simple_list_getdouble(list2,x));
+			}
+			else if ( simple_list_islist(list2,x) ) {
+				list3 = simple_list_newlist_gc(((VM *) pointer)->sState,list);
+				simple_vm_list_copy((VM *) pointer,list3,simple_list_getlist(list2,x));
+			}
+		}
+		SIMPLE_API_RETLIST(list);
+	} else {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+	}
+}
+
+void list_binarysearch_in_list( void *pointer )
+{
+	List *list, *list2  ;
+	int x,nParaCount,column  ;
+	nParaCount = SIMPLE_API_PARACOUNT ;
+	if ( (nParaCount != 2) && (nParaCount != 3) ) {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARACOUNT);
+		return ;
+	}
+	if ( SIMPLE_API_ISLIST(1) ) {
+		list = SIMPLE_API_GETLIST(1);
+		if ( list->pItemsArray == NULL ) {
+			simple_list_genarray_gc(((VM *) pointer)->sState,list);
+		}
+		if ( nParaCount == 2 ) {
+			if ( SIMPLE_API_ISSTRING(2) ) {
+				/* Check that all items are strings */
+				for ( x = 1 ; x <= simple_list_getsize(list) ; x++ ) {
+					if ( ! simple_list_isstring(list,x) ) {
+						SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+						return ;
+					}
+				}
+				SIMPLE_API_RETNUMBER(simple_list_binarysearchstr(list,SIMPLE_API_GETSTRING(2),0,""));
+			}
+			else if ( SIMPLE_API_ISNUMBER(2) ) {
+				/* Check that all items are numbers */
+				for ( x = 1 ; x <= simple_list_getsize(list) ; x++ ) {
+					if ( ! simple_list_isnumber(list,x) ) {
+						SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+						return ;
+					}
+				}
+				SIMPLE_API_RETNUMBER(simple_list_binarysearchnum(list,SIMPLE_API_GETNUMBER(2),0,""));
+			}
+			else {
+				SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+			}
+		}
+		else {
+			column = SIMPLE_API_GETNUMBER(3) ;
+			if ( SIMPLE_API_ISSTRING(2) ) {
+				/* Check that all items are strings */
+				for ( x = 1 ; x <= simple_list_getsize(list) ; x++ ) {
+					list2 = simple_list_getlist(list,x);
+					if ( ! simple_list_isstring(list2,column) ) {
+						SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+						return ;
+					}
+				}
+				SIMPLE_API_RETNUMBER(simple_list_binarysearchstr(list,SIMPLE_API_GETSTRING(2),column,""));
+			}
+			else if ( SIMPLE_API_ISNUMBER(2) ) {
+				/* Check that all items are numbers */
+				for ( x = 1 ; x <= simple_list_getsize(list) ; x++ ) {
+					list2 = simple_list_getlist(list,x);
+					if ( ! simple_list_isnumber(list2,column) ) {
+						SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+						return ;
+					}
+				}
+				SIMPLE_API_RETNUMBER(simple_list_binarysearchnum(list,SIMPLE_API_GETNUMBER(2),column,""));
+			}
+			else {
+				SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+			}
+		}
+	}
+	else {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+	}
+}
+
 
 /* Date and Time */
 SIMPLE_API void date_time_add_days(void *pointer)
@@ -829,3 +1299,147 @@ SIMPLE_API void conversion_string_to_list ( void *pointer )
 	}
 }
 
+void simple_vm_dll_loadlib ( void *pointer )
+{
+	LpHandleType handle  ;
+	char library_path[200]  ; 
+	if ( SIMPLE_API_PARACOUNT != 1 ) {
+            SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
+            return ;
+    }
+    if ( SIMPLE_API_ISSTRING(1) ) {
+		strcpy(library_path,SIMPLE_API_GETSTRING(1));
+		handle = LoadDLL(library_path);
+		if ( handle == NULL ) {
+                printf( "\nCannot load dynamic library : %s",library_path) ;
+                SIMPLE_API_ERROR(SIMPLE_VM_ERROR_LIBLOADERROR);
+                return ;
+        } else {
+			SIMPLE_API_RETCPOINTER(handle,"SIMPLE_DYNAMIC_LIBRARY_");
+		}		
+	} else {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+	}
+}
+
+void simple_vm_dll_calllib_function ( void *pointer )
+{
+	LpHandleType handle  ;
+	lp address ;
+	char library_path[200]  ; 
+	if ( SIMPLE_API_PARACOUNT != 4 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_MISS4PARA);
+		return ;
+	}
+	if ( SIMPLE_API_ISPOINTER(1) && SIMPLE_API_ISSTRING(2) && SIMPLE_API_ISNUMBER(3)&& SIMPLE_API_ISLIST(4) ) {
+		strcpy(library_path,SIMPLE_API_GETSTRING(2));
+		handle = SIMPLE_API_GETCPOINTER(1,"SIMPLE_DYNAMIC_LIBRARY_") ;
+		address = (lp) GetDLLBlock(handle, library_path) ;
+        if ( address == NULL ) {
+			printf( "\nCannot call the function : %s", library_path ) ;
+			SIMPLE_API_ERROR("Error occur while calling the function");
+			return ;
+		} else {
+			int returnValue = call_func(address,SIMPLE_API_GETLIST(4));
+			int returnType = (int) SIMPLE_API_GETNUMBER(3) ;
+			switch (returnType) {
+				case 1 : //pointer
+					SIMPLE_API_RETCPOINTER(returnValue,"SIMPLE_DYNAMIC_LIBRARY_");
+					break ;
+				case 2 : //number
+					SIMPLE_API_RETNUMBER(returnValue);
+					break ;
+				case 3 : //string
+					SIMPLE_API_RETSTRING(returnValue);
+					break ;
+			}
+		}
+	} else {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+	}
+}
+
+int get_parameter_value(Item * item) {
+	List *list;
+	switch (item->nType) {
+		case ITEMTYPE_NUMBER:
+			return simple_item_getnumber(item);
+			break;
+		case ITEMTYPE_STRING : 
+			return simple_item_getstring(item)->str;
+			break;
+		case ITEMTYPE_LIST :
+			//SIMPLE_API_RETCPOINTER return a list with the pointer at index 1
+			//now we assume all list that finds it way here is actually a pointer 
+			//returned from dynamically calling a foreign function
+			//:( i hope this does not explode to my face
+			list = simple_item_getlist(item);
+			return simple_list_getpointer(list,1);
+			break;
+		case ITEMTYPE_POINTER : 
+			return simple_item_getpointer(item);
+			break;
+	}
+}
+
+void* call_func(lp address, List* parameters) 
+{
+	int size, i ;
+	int arg[100] ;
+	void* returnValue ;
+	size = simple_list_getsize(parameters);
+	for (i = 0; i < size; i++) {
+		arg[i] = get_parameter_value(simple_list_getitem(parameters,(i+1))); 
+	}
+	switch (size) {
+		case 1 :
+			returnValue = (*address)(BUILD(arg, 0));
+			break ;
+		case 2 : 
+			returnValue = (*address)(BUILD(arg, 1));
+			break ;
+		case 3 : 
+			returnValue = (*address)(BUILD(arg, 2));
+			break ;
+		case 4 :
+			returnValue = (*address)(BUILD(arg, 3));
+			break ;
+		case 5 :
+			returnValue = (*address)(BUILD(arg, 4));
+			break ;
+		case 6 :
+			returnValue = (*address)(BUILD(arg, 5));
+			break ;
+		case 7 :
+			returnValue = (*address)(BUILD(arg, 6));
+			break ;
+		case 8 :
+			returnValue = (*address)(BUILD(arg, 7));
+			break ;
+		case 9 :
+			returnValue = (*address)(BUILD(arg, 8));
+			break ;
+		case 10 :
+			returnValue = (*address)(BUILD(arg, 9));
+			break ;
+		case 11 :
+			returnValue = (*address)(BUILD(arg, 10));
+			break ;
+		case 12 :
+			returnValue = (*address)(BUILD(arg, 11));
+			break ;
+		case 13 :
+			returnValue = (*address)(BUILD(arg, 12));
+			break ;
+		case 14 :
+			returnValue = (*address)(BUILD(arg, 13));
+			break ;
+		case 15 :
+			returnValue = (*address)(BUILD(arg, 14));
+			break ;
+		default :
+			returnValue = (*address)(NULL);
+	}
+	return returnValue ;
+	
+}

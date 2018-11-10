@@ -16,7 +16,7 @@
 #include "../includes/simple.h"
 /* Stack and Variables */
 
-void simple_vm_pushv ( VM *vm )
+SIMPLE_API void simple_vm_pushv ( VM *vm )
 {
 	List *var  ;
 	List *list  ;
@@ -65,7 +65,7 @@ void simple_vm_pushv ( VM *vm )
 	}
 }
 
-void simple_vm_loadaddress ( VM *vm )
+SIMPLE_API void simple_vm_loadaddress ( VM *vm )
 {
 	if ( simple_vm_findvar(vm, SIMPLE_VM_IR_READC  ) == 0 ) {
 		simple_vm_newvar(vm, SIMPLE_VM_IR_READC);
@@ -98,7 +98,7 @@ void simple_vm_loadaddress ( VM *vm )
 	simple_list_addint_gc(vm->sState,vm->aLoadAddressScope,vm->nVarScope);
 }
 
-void simple_vm_assignment ( VM *vm )
+SIMPLE_API void simple_vm_assignment ( VM *vm )
 {
 	List *var,*list  ;
 	String *string_one, *string  ;
@@ -196,7 +196,7 @@ void simple_vm_assignment ( VM *vm )
 	vm->pAssignment = NULL ;
 }
 
-void simple_vm_inc ( VM *vm )
+SIMPLE_API void simple_vm_inc ( VM *vm )
 {
 	List *var  ;
 	if ( simple_vm_findvar(vm, SIMPLE_VM_IR_READC ) == 0 ) {
@@ -212,7 +212,7 @@ void simple_vm_inc ( VM *vm )
 	simple_list_setdouble_gc(vm->sState,var,SIMPLE_VAR_VALUE,simple_list_getdouble(var,SIMPLE_VAR_VALUE) + 1);
 }
 
-void simple_vm_loadapushv ( VM *vm )
+SIMPLE_API void simple_vm_loadapushv ( VM *vm )
 {
 	List *var  ;
 	if ( simple_vm_findvar(vm, SIMPLE_VM_IR_READC  ) == 0 ) {
@@ -232,13 +232,13 @@ void simple_vm_loadapushv ( VM *vm )
 	}
 }
 
-void simple_vm_newline ( VM *vm )
+SIMPLE_API void simple_vm_newline ( VM *vm )
 {
 	vm->nLineNumber = SIMPLE_VM_IR_READI ;
 	simple_vm_traceevent(vm,SIMPLE_VM_TRACEEVENT_NEWLINE);
 }
 
-void simple_vm_freestack ( VM *vm )
+SIMPLE_API void simple_vm_freestack ( VM *vm )
 {
 	int nsp  ;
 	List *list  ;
@@ -281,7 +281,7 @@ void simple_vm_freestack ( VM *vm )
 	}
 }
 
-void simple_vm_setreference ( VM *vm )
+SIMPLE_API void simple_vm_setreference ( VM *vm )
 {
 	List *list  ;
 	int nType  ;
@@ -311,7 +311,7 @@ void simple_vm_setreference ( VM *vm )
 	simple_vm_gc_checknewreference(pointer,nType);
 }
 
-void simple_vm_list_copy ( VM *vm,List *pNewList, List *list )
+SIMPLE_API void simple_vm_list_copy ( VM *vm,List *pNewList, List *list )
 {
 	int x  ;
 	List *pNewList2  ;
@@ -360,7 +360,7 @@ void simple_vm_list_copy ( VM *vm,List *pNewList, List *list )
 	}
 }
 
-void simple_vm_list_simpointercopy ( VM *vm,List *list )
+SIMPLE_API void simple_vm_list_simpointercopy ( VM *vm,List *list )
 {
 	int x  ;
 	assert(list != NULL);
@@ -389,7 +389,7 @@ void simple_vm_list_simpointercopy ( VM *vm,List *list )
 	}
 }
 
-void simple_vm_beforeequallist ( VM *vm,List *var,double nNum1 )
+SIMPLE_API void simple_vm_beforeequallist ( VM *vm,List *var,double nNum1 )
 {
 	String *string  ;
 	char cStr[100]  ;
@@ -426,7 +426,7 @@ void simple_vm_beforeequallist ( VM *vm,List *var,double nNum1 )
 	}
 }
 
-void simple_vm_beforeequalitem ( VM *vm,Item *pItem,double nNum1 )
+SIMPLE_API void simple_vm_beforeequalitem ( VM *vm,Item *pItem,double nNum1 )
 {
 	String *string  ;
 	char cStr[100]  ;
@@ -462,7 +462,7 @@ void simple_vm_beforeequalitem ( VM *vm,Item *pItem,double nNum1 )
 	}
 }
 
-void simple_vm_plusplus ( VM *vm )
+SIMPLE_API void simple_vm_plusplus ( VM *vm )
 {
 	List *list  ;
 	Item *pItem  ;
@@ -489,7 +489,7 @@ void simple_vm_plusplus ( VM *vm )
 	simple_vm_error(vm,SIMPLE_VM_ERROR_BADVALUES);
 }
 
-void simple_vm_minusminus ( VM *vm )
+SIMPLE_API void simple_vm_minusminus ( VM *vm )
 {
 	List *list  ;
 	Item *pItem  ;
@@ -516,7 +516,7 @@ void simple_vm_minusminus ( VM *vm )
 	simple_vm_error(vm,SIMPLE_VM_ERROR_BADVALUES);
 }
 
-void simple_vm_assignmentpointer ( VM *vm )
+SIMPLE_API void simple_vm_assignmentpointer ( VM *vm )
 {
 	List *list, *list2  ;
 	Item *pItem ;
@@ -568,7 +568,7 @@ void simple_vm_assignmentpointer ( VM *vm )
 	}
 }
 
-void simple_vm_freeloadaddressscope ( VM *vm )
+SIMPLE_API void simple_vm_freeloadaddressscope ( VM *vm )
 {
 	/* Clear Load Address Result Scope Array */
 	simple_list_deleteallitems_gc(vm->sState,vm->aLoadAddressScope);

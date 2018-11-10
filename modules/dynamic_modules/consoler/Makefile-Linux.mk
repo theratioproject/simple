@@ -31,7 +31,6 @@ SIMPLE_OBJECTDIR=../../../simple/dist/$(CND_BUILDDIR)/$(CND_PLATFORM)
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/console-colors.o \
 	${OBJECTDIR}/consoler.o 
 
 SIMPLE_OBJECTFILES = \
@@ -49,9 +48,6 @@ $(OBJECTDIR)/consoler.o: consoler.c
 	$(CC) $(ARC_FLAG) $(CFLAGS) consoler.c
 	mv consoler.o $(OBJECTDIR)
 	
-$(OBJECTDIR)/console-colors.o: console-colors.c
-	$(CC) $(ARC_FLAG) $(CFLAGS) console-colors.c
-	mv console-colors.o $(OBJECTDIR)
 
 clean:
 	@- $(RM) $(OBJECTDIR)/*.o

@@ -21,7 +21,7 @@
 **  When we find varaible or create new varaible we push variable pointer to the stack 
 */
 
-void simple_vm_newscope ( VM *vm )
+SIMPLE_API void simple_vm_newscope ( VM *vm )
 {
 	vm->pActiveMem = simple_list_newlist_gc(vm->sState,vm->pMem);
 	/* Save Local Scope Information */
@@ -213,7 +213,7 @@ int simple_vm_findvar2 ( VM *vm,int x,List *list2,const char *cStr )
 	return 1 ;
 }
 
-void simple_vm_newvar ( VM *vm,const char *cStr )
+SIMPLE_API void simple_vm_newvar ( VM *vm,const char *cStr )
 {
 	List *list  ;
 	assert(vm->pActiveMem);
@@ -263,7 +263,7 @@ List * simple_vm_newvar2 ( VM *vm,const char *cStr,List *pParent )
 	return list ;
 }
 
-void simple_vm_addnewnumbervar ( VM *vm,const char *cStr,double x )
+SIMPLE_API void simple_vm_addnewnumbervar ( VM *vm,const char *cStr,double x )
 {
 	List *list  ;
 	list = simple_vm_newvar2(vm,cStr,vm->pActiveMem);
@@ -271,7 +271,7 @@ void simple_vm_addnewnumbervar ( VM *vm,const char *cStr,double x )
 	simple_list_setdouble_gc(vm->sState,list,SIMPLE_VAR_VALUE,x);
 }
 
-void simple_vm_addnewstringvar ( VM *vm,const char *cStr,const char *cStr2 )
+SIMPLE_API void simple_vm_addnewstringvar ( VM *vm,const char *cStr,const char *cStr2 )
 {
 	List *list  ;
 	list = simple_vm_newvar2(vm,cStr,vm->pActiveMem);
@@ -279,7 +279,7 @@ void simple_vm_addnewstringvar ( VM *vm,const char *cStr,const char *cStr2 )
 	simple_list_setstsimple_gc(vm->sState,list,SIMPLE_VAR_VALUE,cStr2);
 }
 
-void simple_vm_addnewstringvar2 ( VM *vm,const char *cStr,const char *cStr2,int str_size )
+SIMPLE_API void simple_vm_addnewstringvar2 ( VM *vm,const char *cStr,const char *cStr2,int str_size )
 {
 	List *list  ;
 	list = simple_vm_newvar2(vm,cStr,vm->pActiveMem);
@@ -287,7 +287,7 @@ void simple_vm_addnewstringvar2 ( VM *vm,const char *cStr,const char *cStr2,int 
 	simple_list_setstring2_gc(vm->sState,list,SIMPLE_VAR_VALUE,cStr2,str_size);
 }
 
-void simple_vm_addnewpointervar ( VM *vm,const char *cStr,void *x,int y )
+SIMPLE_API void simple_vm_addnewpointervar ( VM *vm,const char *cStr,void *x,int y )
 {
 	List *list  ;
 	list = simple_vm_newvar2(vm,cStr,vm->pActiveMem);
@@ -298,7 +298,7 @@ void simple_vm_addnewpointervar ( VM *vm,const char *cStr,void *x,int y )
 	simple_vm_gc_checknewreference(x,y);
 }
 
-void simple_vm_newtempvar ( VM *vm,const char *cStr, List *Temlist )
+SIMPLE_API void simple_vm_newtempvar ( VM *vm,const char *cStr, List *Temlist )
 {
 	List *list  ;
 	list = simple_vm_newvar2(vm,cStr,Temlist);
@@ -319,7 +319,7 @@ List * simple_vm_newtempvar2 ( VM *vm,const char *cStr,List *list3 )
 	return list ;
 }
 
-void simple_vm_addnewcpointervar ( VM *vm,const char *cStr,void *pointer,const char *cStr2 )
+SIMPLE_API void simple_vm_addnewcpointervar ( VM *vm,const char *cStr,void *pointer,const char *cStr2 )
 {
 	List *list, *list2  ;
 	list = simple_vm_newvar2(vm,cStr,vm->pActiveMem);
@@ -334,7 +334,7 @@ void simple_vm_addnewcpointervar ( VM *vm,const char *cStr,void *pointer,const c
 	simple_list_addint_gc(vm->sState,list2,SIMPLE_CPOINTERSTATUS_NOTCOPIED);
 }
 
-void simple_vm_deletescope ( VM *vm )
+SIMPLE_API void simple_vm_deletescope ( VM *vm )
 {
 	if ( simple_list_getsize(vm->pMem) < 2 ) {
 		printf( SIMPLE_NOSCOPE ) ;
@@ -350,14 +350,14 @@ void simple_vm_deletescope ( VM *vm )
 }
 /* Custom Global Scope */
 
-void simple_vm_newglobalscope ( VM *vm )
+SIMPLE_API void simple_vm_newglobalscope ( VM *vm )
 {
 	vm->pActiveMem = simple_list_newlist_gc(vm->sState,vm->aGlobalScopes);
 	simple_list_addpointer_gc(vm->sState,vm->aActiveGlobalScopes,vm->pActiveMem);
 	simple_vm_addglobalvariables(vm);
 }
 
-void simple_vm_endglobalscope ( VM *vm )
+SIMPLE_API void simple_vm_endglobalscope ( VM *vm )
 {
 	simple_list_deletelastitem_gc(vm->sState,vm->aActiveGlobalScopes);
 	if ( simple_list_getsize(vm->aActiveGlobalScopes) == 0 ) {
@@ -368,7 +368,7 @@ void simple_vm_endglobalscope ( VM *vm )
 	}
 }
 
-void simple_vm_setglobalscope ( VM *vm )
+SIMPLE_API void simple_vm_setglobalscope ( VM *vm )
 {
 	vm->nCurrentGlobalScope = SIMPLE_VM_IR_READI ;
 }

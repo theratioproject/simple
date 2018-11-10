@@ -45,8 +45,8 @@ block simpleDirectory()
 			if simpleExe.exists() {
 				for a = 0 to 1 {
 					simpleDir = removeLastChar(simpleDir)
-					toRemove = lastStringAfterChar(simpleDir,simpleExe.getSystemSlash())
-					simpleDir = removeString(simpleDir,toRemove)
+					toRemove = lastStrAfterChar(simpleDir,simpleExe.getSystemSlash()) 
+					simpleDir = removeStr(simpleDir,toRemove) 
 				}
 			}
 			if simpleDir == "(null)" || simpleDir == "" {

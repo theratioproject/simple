@@ -39,22 +39,22 @@ LPFN_ISWOW64PROCESS isWindows64  ;
         
 SIMPLE_API void init_simple_module(SimpleState *sState)
 {   
-    register_block("isMsDos",os_ismsdos);
-    register_block("isWindows",os_iswindows);
-    register_block("isWindows64",os_iswindows64);
-    register_block("isUnix",os_isunix);
-    register_block("isMacosx",os_ismacosx);
-    register_block("isLinux",os_islinux);
-    register_block("isFreebsd",os_isfreebsd);
-    register_block("isAndroid",os_isandroid);
-    register_block("windowsnl",os_windowsnl);
-    register_block("currentDirectory",os_currentdir);
-    register_block("simplePath",os_exefilename);
+    register_block("isMsDos",systemic_ismsdos);
+    register_block("isWindows",systemic_iswindows);
+    register_block("isWindows64",systemic_iswindows64);
+    register_block("isUnix",systemic_isunix);
+    register_block("isMacosx",systemic_ismacosx);
+    register_block("isLinux",systemic_islinux);
+    register_block("isFreebsd",systemic_isfreebsd);
+    register_block("isAndroid",systemic_isandroid);
+    register_block("windowsnl",systemic_windowsnl);
+    register_block("currentDirectory",systemic_currentdir);
+    register_block("exeFilePath",systemic_exefilename);
     register_block("__exec",exe_system);
     register_block("__beep",system_beep);
     register_block("__sleep",system_sleep);
-    register_block("changeDirectory",os_chdir);
-    register_block("exeFolder",os_exefolder);
+    register_block("changeDirectory",systemic_chdir);
+    register_block("exeFolder",systemic_exefolder);
     register_block("getSystemEnvironment",get_env);
     register_block("__exit",system_exit);
     register_block("currentFilePath",current_filepath);
@@ -63,7 +63,7 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
     register_block("previousFilePath",previous_filepath);
 }
 
-void os_ismsdos ( void *pointer )
+void systemic_ismsdos ( void *pointer )
 {
 	#if defined(MSDOS) || defined(__MSDOS__) || defined(_MSDOS) || defined(__DOS__)
 	SIMPLE_API_RETNUMBER(1);
@@ -72,7 +72,7 @@ void os_ismsdos ( void *pointer )
 	#endif
 }
 
-void os_iswindows ( void *pointer )
+void systemic_iswindows ( void *pointer )
 {
 	#ifdef _WIN32
 	SIMPLE_API_RETNUMBER(1);
@@ -81,7 +81,7 @@ void os_iswindows ( void *pointer )
 	#endif
 }
 
-void os_iswindows64 ( void *pointer )
+void systemic_iswindows64 ( void *pointer )
 {
 	int lSystem64  ;
 	lSystem64 = 0 ;
@@ -96,7 +96,7 @@ void os_iswindows64 ( void *pointer )
 	SIMPLE_API_RETNUMBER(lSystem64);
 }
 
-void os_isunix ( void *pointer )
+void systemic_isunix ( void *pointer )
 {
 	#if defined(unix) || defined(__unix__) || defined(__unix)
 	SIMPLE_API_RETNUMBER(1);
@@ -105,7 +105,7 @@ void os_isunix ( void *pointer )
 	#endif
 }
 
-void os_ismacosx ( void *pointer )
+void systemic_ismacosx ( void *pointer )
 {
 	#if defined(__APPLE__)  || defined(__MACH__)
 	SIMPLE_API_RETNUMBER(1);
@@ -114,7 +114,7 @@ void os_ismacosx ( void *pointer )
 	#endif
 }
 
-void os_islinux ( void *pointer )
+void systemic_islinux ( void *pointer )
 {
 	#ifdef __linux__
 	SIMPLE_API_RETNUMBER(1);
@@ -123,7 +123,7 @@ void os_islinux ( void *pointer )
 	#endif
 }
 
-void os_isfreebsd ( void *pointer )
+void systemic_isfreebsd ( void *pointer )
 {
 	#ifdef __FreeBSD__
 	SIMPLE_API_RETNUMBER(1);
@@ -132,7 +132,7 @@ void os_isfreebsd ( void *pointer )
 	#endif
 }
 
-void os_isandroid ( void *pointer )
+void systemic_isandroid ( void *pointer )
 {
 	#ifdef __ANDROID__
 	SIMPLE_API_RETNUMBER(1);
@@ -141,19 +141,19 @@ void os_isandroid ( void *pointer )
 	#endif
 }
 
-void os_windowsnl ( void *pointer )
+void systemic_windowsnl ( void *pointer )
 {
 	SIMPLE_API_RETSTRING("\r\n");
 }
 
-void os_currentdir ( void *pointer )
+void systemic_currentdir ( void *pointer )
 {
 	char cDirPath[SIMPLE_PATHSIZE]  ;
 	simple_currentdir(cDirPath);
 	SIMPLE_API_RETSTRING(cDirPath);
 }
 
-void os_exefilename ( void *pointer )
+void systemic_exefilename ( void *pointer )
 {
 	char cDirPath[SIMPLE_PATHSIZE]  ;
 	if ( simple_exefilename(cDirPath) ) {
@@ -161,12 +161,12 @@ void os_exefilename ( void *pointer )
 	}
 }
 
-void os_chdir ( void *pointer )
+void systemic_chdir ( void *pointer )
 {
 	SIMPLE_API_RETNUMBER(simple_chdir(SIMPLE_API_GETSTRING(1)));
 }
 
-void os_exefolder ( void *pointer )
+void systemic_exefolder ( void *pointer )
 {
 	char cDirPath[SIMPLE_PATHSIZE]  ;
 	simple_exefolder(cDirPath);

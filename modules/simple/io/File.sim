@@ -12,7 +12,7 @@
  
 module simple.io
 
-call "Path.sim"
+call simple.io.Path
 
 class File 	: Path
 
@@ -30,13 +30,13 @@ class File 	: Path
 	*/
 		
 	block name()
-		return lastStringAfterChar(__IO_FILE_PATH, getSystemSlash())
+		return lastStrAfterChar(__IO_FILE_PATH, getSystemSlash())
 
 	block getName() 
 		return name()
 		
 	block directory()
-		return removeString(__IO_FILE_PATH, getSystemSlash()+name())
+		return removeStr(__IO_FILE_PATH, getSystemSlash()+name())
 		
 	block toDirectory()
 		tempDir = directory()
@@ -50,9 +50,6 @@ class File 	: Path
 		return __readfile(__IO_FILE_PATH)
 		
 	block write(content)
-		if !toDirectory().exists() {
-			toDirectory().create()
-		}
 		try 
 			__writefile(__IO_FILE_PATH, content)
 		catch

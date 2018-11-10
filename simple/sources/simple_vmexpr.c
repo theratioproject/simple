@@ -14,7 +14,7 @@
 
 #include "../includes/simple.h"
 
-void simple_vm_sum ( VM *vm )
+SIMPLE_API void simple_vm_sum ( VM *vm )
 {
 	String *string_one,*cStr2  ;
 	double nNum1,nNum2  ;
@@ -82,7 +82,7 @@ void simple_vm_sum ( VM *vm )
 	}
 }
 
-void simple_vm_sub ( VM *vm )
+SIMPLE_API void simple_vm_sub ( VM *vm )
 {
 	double nNum1=0,nNum2=0  ;
 	String *string_one  ;
@@ -124,7 +124,7 @@ void simple_vm_sub ( VM *vm )
 	SIMPLE_VM_STACK_SETNVALUE(nNum2-nNum1);
 }
 
-void simple_vm_mul ( VM *vm )
+SIMPLE_API void simple_vm_mul ( VM *vm )
 {
 	double nNum1=0,nNum2=0  ;
 	String *string_one  ;
@@ -173,7 +173,7 @@ void simple_vm_mul ( VM *vm )
 	SIMPLE_VM_STACK_SETNVALUE(nNum1*nNum2);
 }
 
-void simple_vm_div ( VM *vm )
+SIMPLE_API void simple_vm_div ( VM *vm )
 {
 	double nNum1=0,nNum2=0  ;
 	String *string_one  ;
@@ -226,7 +226,7 @@ void simple_vm_div ( VM *vm )
 	SIMPLE_VM_STACK_SETNVALUE(nNum2/nNum1);
 }
 
-void simple_vm_mod ( VM *vm )
+SIMPLE_API void simple_vm_mod ( VM *vm )
 {
 	double nNum1=0,nNum2=0  ;
 	String *string_one  ;
@@ -279,7 +279,7 @@ void simple_vm_mod ( VM *vm )
 	SIMPLE_VM_STACK_SETNVALUE(fmod(nNum2 , nNum1));
 }
 
-void simple_vm_neg ( VM *vm )
+SIMPLE_API void simple_vm_neg ( VM *vm )
 {
 	double nNum1  ;
 	if ( SIMPLE_VM_STACK_ISNUMBER ) {
@@ -299,7 +299,7 @@ void simple_vm_neg ( VM *vm )
 **  Because the result is always logical (True/False) i.e. 1 or 0 
 */
 
-void simple_vm_equal ( VM *vm )
+SIMPLE_API void simple_vm_equal ( VM *vm )
 {
 	String *string_one,*cStr2  ;
 	double nNum1,nNum2  ;
@@ -360,7 +360,7 @@ void simple_vm_equal ( VM *vm )
 	}
 }
 
-void simple_vm_lessequal ( VM *vm )
+SIMPLE_API void simple_vm_lessequal ( VM *vm )
 {
 	double nNum1=0,nNum2=0  ;
 	String *string_one  ;
@@ -407,7 +407,7 @@ void simple_vm_lessequal ( VM *vm )
 	}
 }
 
-void simple_vm_less ( VM *vm )
+SIMPLE_API void simple_vm_less ( VM *vm )
 {
 	double nNum1=0,nNum2=0  ;
 	String *string_one  ;
@@ -454,7 +454,7 @@ void simple_vm_less ( VM *vm )
 	}
 }
 
-void simple_vm_greater ( VM *vm )
+SIMPLE_API void simple_vm_greater ( VM *vm )
 {
 	double nNum1=0,nNum2=0  ;
 	String *string_one  ;
@@ -501,7 +501,7 @@ void simple_vm_greater ( VM *vm )
 	}
 }
 
-void simple_vm_greaterequal ( VM *vm )
+SIMPLE_API void simple_vm_greaterequal ( VM *vm )
 {
 	double nNum1=0,nNum2=0  ;
 	String *string_one  ;
@@ -548,7 +548,7 @@ void simple_vm_greaterequal ( VM *vm )
 	}
 }
 
-void simple_vm_notequal ( VM *vm )
+SIMPLE_API void simple_vm_notequal ( VM *vm )
 {
 	String *string_one,*cStr2  ;
 	double nNum1,nNum2  ;
@@ -618,7 +618,7 @@ void simple_vm_notequal ( VM *vm )
 }
 /* Logic */
 
-void simple_vm_and ( VM *vm )
+SIMPLE_API void simple_vm_and ( VM *vm )
 {
 	double nNum1,nNum2  ;
 	String *string_one  ;
@@ -660,7 +660,7 @@ void simple_vm_and ( VM *vm )
 	}
 }
 
-void simple_vm_or ( VM *vm )
+SIMPLE_API void simple_vm_or ( VM *vm )
 {
 	double nNum1,nNum2  ;
 	String *string_one  ;
@@ -702,7 +702,7 @@ void simple_vm_or ( VM *vm )
 	}
 }
 
-void simple_vm_not ( VM *vm )
+SIMPLE_API void simple_vm_not ( VM *vm )
 {
 	double nNum1  ;
 	if ( SIMPLE_VM_STACK_ISNUMBER ) {
@@ -727,7 +727,7 @@ void simple_vm_not ( VM *vm )
 }
 /* Bitwise */
 
-void simple_vm_bitand ( VM *vm )
+SIMPLE_API void simple_vm_bitand ( VM *vm )
 {
 	double nNum1,nNum2  ;
 	String *string_one  ;
@@ -769,7 +769,7 @@ void simple_vm_bitand ( VM *vm )
 	}
 }
 
-void simple_vm_bitor ( VM *vm )
+SIMPLE_API void simple_vm_bitor ( VM *vm )
 {
 	double nNum1,nNum2  ;
 	String *string_one  ;
@@ -811,7 +811,7 @@ void simple_vm_bitor ( VM *vm )
 	}
 }
 
-void simple_vm_bitshl ( VM *vm )
+SIMPLE_API void simple_vm_bitshl ( VM *vm )
 {
 	double nNum1,nNum2  ;
 	String *string_one  ;
@@ -853,7 +853,7 @@ void simple_vm_bitshl ( VM *vm )
 	}
 }
 
-void simple_vm_bitshr ( VM *vm )
+SIMPLE_API void simple_vm_bitshr ( VM *vm )
 {
 	double nNum1,nNum2  ;
 	String *string_one  ;
@@ -895,7 +895,7 @@ void simple_vm_bitshr ( VM *vm )
 	}
 }
 
-void simple_vm_bitxor ( VM *vm )
+SIMPLE_API void simple_vm_bitxor ( VM *vm )
 {
 	double nNum1,nNum2  ;
 	String *string_one  ;
@@ -937,7 +937,7 @@ void simple_vm_bitxor ( VM *vm )
 	}
 }
 
-void simple_vm_bitnot ( VM *vm )
+SIMPLE_API void simple_vm_bitnot ( VM *vm )
 {
 	double nNum1  ;
 	if ( SIMPLE_VM_STACK_ISNUMBER ) {
@@ -983,7 +983,7 @@ double simple_vm_stringtonum ( VM *vm,const char *cStr )
 **  Stack Pointer then Stack Pointer - Operator Overloading 
 */
 
-void simple_vm_expr_ppoo ( VM *vm,const char *cStr )
+SIMPLE_API void simple_vm_expr_ppoo ( VM *vm,const char *cStr )
 {
 	List *list,*list2  ;
 	Item *pItem  ;
@@ -1047,7 +1047,7 @@ void simple_vm_expr_ppoo ( VM *vm,const char *cStr )
 }
 /* Stack Number then Stack Pointer - Operator Overloading */
 
-void simple_vm_expr_npoo ( VM *vm,const char *cStr,double nNum1 )
+SIMPLE_API void simple_vm_expr_npoo ( VM *vm,const char *cStr,double nNum1 )
 {
 	List *list  ;
 	Item *pItem  ;
@@ -1078,7 +1078,7 @@ void simple_vm_expr_npoo ( VM *vm,const char *cStr,double nNum1 )
 }
 /* Stack String then Stack Pointer - Operator Overloading */
 
-void simple_vm_expr_spoo ( VM *vm,const char *cStr,const char *cStr2,int nSize )
+SIMPLE_API void simple_vm_expr_spoo ( VM *vm,const char *cStr,const char *cStr2,int nSize )
 {
 	List *list  ;
 	Item *pItem  ;
@@ -1109,7 +1109,7 @@ void simple_vm_expr_spoo ( VM *vm,const char *cStr,const char *cStr2,int nSize )
 }
 /* Add List to List */
 
-void simple_vm_addlisttolist ( VM *vm,List *list,List *list2 )
+SIMPLE_API void simple_vm_addlisttolist ( VM *vm,List *list,List *list2 )
 {
 	List *list3, *list4  ;
 	/*

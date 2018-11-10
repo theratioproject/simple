@@ -71,10 +71,11 @@ block webPrint(content)
 
 block formatLiteral(content)
 	inContent = ""
-	/*if isnumber(content) 
+	if isNumber(content) 
 		content = ""+content
-	end*/#to uncomment after building core module
-	for a = 0 to lengthOf(content) 
+	end
+	conLen = lengthOf(content) - 1
+	for a = 0 to conLen
 		switch content[a]
 			case '\'
 				a++

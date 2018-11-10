@@ -287,7 +287,7 @@ SIMPLE_API void simple_vm_loadcode ( VM *vm )
 	vm->nEvalReallocationSize = nSize ;
 }
 
-void simple_vm_start ( SimpleState *sState,VM *vm )
+SIMPLE_API void simple_vm_start ( SimpleState *sState,VM *vm )
 {
 	vm->pCode = sState->pSimpleGenCode ;
 	vm->pBlocksMap = sState->blocks_map ;
@@ -304,7 +304,7 @@ void simple_vm_start ( SimpleState *sState,VM *vm )
 	}
 }
 
-void simple_vm_mainloop ( VM *vm )
+SIMPLE_API void simple_vm_mainloop ( VM *vm )
 {
 	#if SIMPLE_VMSHOWOPCODE
 	/* Preprocessor Allows showing the OPCODE */
@@ -337,7 +337,7 @@ void simple_vm_mainloop ( VM *vm )
 	#endif
 }
 
-void simple_vm_fetch ( VM *vm )
+SIMPLE_API void simple_vm_fetch ( VM *vm )
 {
 	vm->pByteCodeIR = vm->pByteCode + vm->nPC - 1 ;
 	vm->nOPCode = SIMPLE_VM_IR_OPCODE ;
@@ -348,7 +348,7 @@ void simple_vm_fetch ( VM *vm )
 	}
 }
 
-void simple_vm_fetch2 ( VM *vm )
+SIMPLE_API void simple_vm_fetch2 ( VM *vm )
 {
 	vm->pByteCodeIR = vm->pByteCode + vm->nPC - 1 ;
 	vm->nOPCode = SIMPLE_VM_IR_OPCODE ;
@@ -377,7 +377,7 @@ void simple_vm_fetch2 ( VM *vm )
 	}
 }
 
-void simple_vm_execute ( VM *vm )
+SIMPLE_API void simple_vm_execute ( VM *vm )
 {
 	switch ( vm->nOPCode ) {
 		/* Stack and Variables */
@@ -860,7 +860,7 @@ SIMPLE_API int simple_vm_exec ( VM *vm,const char *cStr )
 	return nRunVM ;
 }
 
-void simple_vm_tobytecode ( VM *vm,int x )
+SIMPLE_API void simple_vm_tobytecode ( VM *vm,int x )
 {
 	List *pIR  ;
 	int x2  ;
@@ -902,7 +902,7 @@ void simple_vm_tobytecode ( VM *vm,int x )
 	}
 }
 
-void simple_vm_returneval ( VM *vm )
+SIMPLE_API void simple_vm_returneval ( VM *vm )
 {
 	int aPara[3]  ;
 	ByteCode *pByteCode  ;
@@ -945,7 +945,7 @@ void simple_vm_returneval ( VM *vm )
 	vm->nEvalReturnPC = aPara[0] ;
 }
 
-void simple_vm_error2 ( VM *vm,const char *cStr,const char *cStr2 )
+SIMPLE_API void simple_vm_error2 ( VM *vm,const char *cStr,const char *cStr2 )
 {
 	String *pError  ;
 	pError = simple_string_new_gc(vm->sState,cStr);
@@ -955,7 +955,7 @@ void simple_vm_error2 ( VM *vm,const char *cStr,const char *cStr2 )
 	simple_string_delete_gc(vm->sState,pError);
 }
 
-void simple_vm_newbytecodeitem ( VM *vm,int x )
+SIMPLE_API void simple_vm_newbytecodeitem ( VM *vm,int x )
 {
 	Item *pItem  ;
 	simple_list_addint_gc(vm->sState,vm->aNewByteCodeItems,0);
@@ -1010,7 +1010,7 @@ SIMPLE_API void simple_vm_runcode ( VM *vm,const char *cStr )
 	vm->nRetEvalDontDelete = nRetEvalDontDelete ;
 }
 
-void simple_vm_init ( SimpleState *sState )
+SIMPLE_API void simple_vm_init ( SimpleState *sState )
 {
 	Scanner *scanner  ;
 	VM *vm  ;
@@ -1045,7 +1045,7 @@ void simple_vm_init ( SimpleState *sState )
 	return ;
 }
 
-void simple_vm_retitemref ( VM *vm )
+SIMPLE_API void simple_vm_retitemref ( VM *vm )
 {
 	List *list  ;
 	vm->nRetItemRef++ ;
@@ -1066,7 +1066,7 @@ void simple_vm_retitemref ( VM *vm )
 	}
 }
 
-void simple_vm_printstack ( VM *vm )
+SIMPLE_API void simple_vm_printstack ( VM *vm )
 {
 	int x,nsp  ;
 	printf( "\n*****************************************\n" ) ;
@@ -1098,7 +1098,7 @@ void simple_vm_printstack ( VM *vm )
 	}
 }
 
-void simple_vm_callclassinit ( VM *vm )
+SIMPLE_API void simple_vm_callclassinit ( VM *vm )
 {
 	if ( SIMPLE_VM_IR_READIVALUE(1) ) {
 		vm->nCallClassInit++ ;
@@ -1258,7 +1258,7 @@ SIMPLE_API void simple_vm_cgi_showerrormessage ( VM *vm,const char *cStr )
 	printf("\n</table>");
 }
 
-void simple_vm_setfilename ( VM *vm )
+SIMPLE_API void simple_vm_setfilename ( VM *vm )
 {
 	if ( vm->nInClassRegion ) {
 		/*
@@ -1272,21 +1272,21 @@ void simple_vm_setfilename ( VM *vm )
 	vm->file_name = SIMPLE_VM_IR_READC ;
 }
 
-void simple_vm_loadaddressfirst ( VM *vm )
+SIMPLE_API void simple_vm_loadaddressfirst ( VM *vm )
 {
 	vm->nFirstAddress = 1 ;
 	simple_vm_loadaddress(vm);
 	vm->nFirstAddress = 0 ;
 }
 
-void simple_vm_endblockexec ( VM *vm )
+SIMPLE_API void simple_vm_endblockexec ( VM *vm )
 {
 	if ( vm->nBlockExecute > 0 ) {
 		vm->nBlockExecute-- ;
 	}
 }
 
-void simple_vm_addglobalvariables ( VM *vm )
+SIMPLE_API void simple_vm_addglobalvariables ( VM *vm )
 {
 	List *list  ;
 	int x  ;
@@ -1434,7 +1434,7 @@ SIMPLE_API void simple_vm_callblock ( VM *vm,char *cBlockName )
 }
 /* Trace */
 
-void simple_vm_traceevent ( VM *vm,char nEvent )
+SIMPLE_API void simple_vm_traceevent ( VM *vm,char nEvent )
 {
 	List *list  ;
 	if ( (vm->lTrace == 1) && (vm->lTraceActive == 0) ) {
