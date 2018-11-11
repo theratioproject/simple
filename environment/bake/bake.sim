@@ -76,23 +76,23 @@ block main() header()
 	cmdlen = lengthOf(cmdParameters) - 1
 	for a = 0 to cmdlen 
 		if a = cmdlen && cmdlen >= 1 
-			if stringEndsWith(cmdParameters[a],'help') or stringEndsWith(cmdParameters[a],'/h') help() end 
+			if strEndsWith(cmdParameters[a],'help') or strEndsWith(cmdParameters[a],'/h') help() end 
 			filePath = cmdParameters[a]
 			sourceFile = new File(cmdParameters[a])
 		else
-			if (stringStartsWith(cmdParameters[a],'-'))
+			if (strStartsWith(cmdParameters[a],'-'))
 				if cmdParameters[a] == "--help" or cmdParameters[a] == "-h" help() 
-				elif stringStartsWith(toUpperCase(cmdParameters[a]),'-N/') specifyname = true name = removeString(cmdParameters[a],"-N/")
-				elif stringStartsWith(toUpperCase(cmdParameters[a]),'-F/') specifysavepath  = true folder = removeString(cmdParameters[a],"-F/")
-				elif stringStartsWith(toUpperCase(cmdParameters[a]),'-I/') hasicon  = true icon = removeString(cmdParameters[a],"-I/")
-				elif stringStartsWith(toUpperCase(cmdParameters[a]),'-S/') hassimpleh  = true simpleh = removeString(cmdParameters[a],"-S/")
-				elif stringEndsWith(cmdParameters[a],'mingw') useMINGW = true 
-				elif stringEndsWith(cmdParameters[a],'cygwin') useCygwin = true 
-				elif stringEndsWith(cmdParameters[a],'vs') useVS = true 
-				elif stringEndsWith(cmdParameters[a],'gui') isgui = true 
-				elif stringEndsWith(cmdParameters[a],'debug') or stringEndsWith(cmdParameters[a],'d') isdebug = true setDepLocation('')
-				elif stringEndsWith(cmdParameters[a],'delete') || stringEndsWith(cmdParameters[a],'del') if isWindows() deletesim = true end 
-				elif stringEndsWith(cmdParameters[a],'temp') or stringEndsWith(cmdParameters[a],'t')  removeTemps = false 
+				elif strStartsWith(toUpperCase(cmdParameters[a]),'-N/') specifyname = true name = removeStr(cmdParameters[a],"-N/")
+				elif strStartsWith(toUpperCase(cmdParameters[a]),'-F/') specifysavepath  = true folder = removeStr(cmdParameters[a],"-F/")
+				elif strStartsWith(toUpperCase(cmdParameters[a]),'-I/') hasicon  = true icon = removeStr(cmdParameters[a],"-I/")
+				elif strStartsWith(toUpperCase(cmdParameters[a]),'-S/') hassimpleh  = true simpleh = removeStr(cmdParameters[a],"-S/")
+				elif strEndsWith(cmdParameters[a],'mingw') useMINGW = true 
+				elif strEndsWith(cmdParameters[a],'cygwin') useCygwin = true 
+				elif strEndsWith(cmdParameters[a],'vs') useVS = true 
+				elif strEndsWith(cmdParameters[a],'gui') isgui = true 
+				elif strEndsWith(cmdParameters[a],'debug') or strEndsWith(cmdParameters[a],'d') isdebug = true setDepLocation('')
+				elif strEndsWith(cmdParameters[a],'delete') || strEndsWith(cmdParameters[a],'del') if isWindows() deletesim = true end 
+				elif strEndsWith(cmdParameters[a],'temp') or strEndsWith(cmdParameters[a],'t')  removeTemps = false 
 				//tested
 				elif cmdParameters[a] == "--lib" or cmdParameters[a] == "-l"  sSharedLib = cmdParameters[a++]
 				elif cmdParameters[a] == "--32-bit" or cmdParameters[a] == "x86" or cmdParameters[a] == "-m32"  buildArch = "-m32"
@@ -105,9 +105,9 @@ block main() header()
 	end
 	if filePath = "" printError("No Simple/Complex file indicated ") end
 	if outputName == "" 
-		tempName = stringAfterLast(filePath, '\')
-		outputName = stringAfterLast(tempName, '.')
-		outputName = removeString(tempName, '.'+outputName)
+		tempName = strAfterLast(filePath, '\')
+		outputName = strAfterLast(tempName, '.')
+		outputName = removeStr(tempName, '.'+outputName)
 	end
 	#display "params ========"+crlf display depmodules
 	display "Input File : "+filePath+crlf
@@ -234,7 +234,7 @@ block windowBuildVS(path)
 	tempFile = new File(path+".bat")  display "		Create batch file "+tempFile.toString()+crlf tempFile.write(cmd)
 	display "		Executing build command " + crlf __exec(tempFile.toString())
 	fi = new File(filePath+".bake.exe") if fi.exists() fi.renameTo(outputName+".exe") end 
-	cleanTempFiles([removeString(path, ".c")+".obj",path+".bat",path]) treatProgramAttr()
+	cleanTempFiles([removeStr(path, ".c")+".obj",path+".bat",path]) treatProgramAttr()
 	
 block windowBuildMingw(mingwBuildTool,path)
 	display "--> Building Executable with MINGW"+crlf
@@ -263,8 +263,8 @@ block treatProgramAttr()
 	if specifyname
 		display "Renaming "+outputName+".exe to "+name +".exe"+ crlf
 		f = new File(outputName+".exe") display f.absolutePath()+crlf 
-		f.renameTo(removeString(outputName,stringAfterLast(curePathSlashes(outputName),'\'))+name+".exe")
-		outputName = removeString(outputName,stringAfterLast(curePathSlashes(outputName),'\'))+name
+		f.renameTo(removeStr(outputName,strAfterLast(curePathSlashes(outputName),'\'))+name+".exe")
+		outputName = removeStr(outputName,strAfterLast(curePathSlashes(outputName),'\'))+name
 	end
 	if specifysavepath 
 		display "Moving "+outputName+" to "+folder + crlf
