@@ -16,12 +16,13 @@
 	attributes on the specific system
 */
 
-call "simple/system/SimpleX.sim"
+call simple.system.SimpleX
 
-display "Where simple-lang is installed : "+simpleDirectory()+ nl
-display "simple-lang executables dir : "+simpleExecDirectory()+ nl
-display "simple-lang modules dir : "+simpleModulesDirectory()+ nl
-display "simple-lang dynamic modules dir : "+simpleDyModulesDirectory()+ nl
-display "simple-lang documentation dir : "+simpleDocDirectory()+ nl
+display "Where simple-lang is installed : "+simpleDir()+ nl
+display "simple-lang executables dir : "+simpleExecDir()+ nl
+display "simple-lang includes dir : "+simpleIncludesDir() + nl
+display "simple-lang modules dir : "+simpleModulesDir()+ nl
+display "simple-lang dynamic modules dir : "+simpleDyModulesDir()+ nl
+display "simple-lang documentation dir : "+simpleDocDir()+ nl
 display "simple-lang executables extension : "+simpleXExeExt()+ nl
 display "Dynamic Module Extension : "+dynamicModuleExt()+ nl

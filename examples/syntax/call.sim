@@ -1,7 +1,7 @@
 
 #1 #2
-call "module.sim" ? examples.syntax.inn 
-call "block.sim" 
+call "./module.sim"
+call "./block.sim" 
 
 i = new inner
 i.miner()

@@ -1303,7 +1303,7 @@ void simple_parser_gencallbracemethod ( Parser *parser,const char *cMethod )
 {
 	int nMark1  ;
 	List *pMark  ;
-	/* if isblock(self,cMethod) cMethod() ok */
+	/* if isblock(self,cMethod) cMethod() end */
 	simple_parser_icg_newoperation(parser,ICO_LOADBLOCK);
 	simple_parser_icg_newoperand(parser,"isBlock");
 	simple_parser_icg_newoperation(parser,ICO_LOADADDRESS);

@@ -20,7 +20,7 @@ module simple.core
 */
 call "__first_calls.sim"
 
-final __mainDynaicModulesCount = 0
+__mainDynaicModulesCount = 0
 
 final __mainDynaicModules = [	
 		["systemic.dll", "string_savant.dll"],		#Windows
@@ -36,7 +36,7 @@ catch
 
 call simple.core.String
  
-	final dynamicModules = []
+dynamicModules = []
  
 block callModule(path) 
 	if isAndroid() and (__left(path,10) == "libfulltick" or __left(path,7) == "fulltick") {

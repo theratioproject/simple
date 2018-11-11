@@ -417,6 +417,7 @@ SIMPLE_API void simple_list_addpointer_gc ( void *pState,List *list,void *pValue
 	simple_list_newitem_gc(pState,list);
 	simple_list_setpointer_gc(pState,list,simple_list_getsize(list),pValue);
 }
+
 /* double */
 
 SIMPLE_API void simple_list_setdouble_gc ( void *pState,List *list, int index ,double number )
@@ -493,6 +494,22 @@ SIMPLE_API void simple_list_setlist_gc ( void *pState,List *list, int index )
 	assert(list != NULL);
 	pItem = simple_list_getitem(list,index);
 	simple_item_settype_gc(pState,pItem,ITEMTYPE_LIST);
+}
+
+SIMPLE_API void simple_list_setlist_gc_( void *pState,List *list, int index, List* list2 )
+{
+	Item *pItem  ;
+	assert(list != NULL);
+	pItem = simple_list_getitem(list,index);
+	simple_item_settype_gc(pState,pItem,ITEMTYPE_LIST);
+	pItem->data.list = list2 ;
+}
+
+SIMPLE_API void simple_list_addlist_gc( void *pState,List *list,List* l_value )
+{
+	assert(list != NULL);
+	simple_list_newitem_gc(pState,list);
+	simple_list_setlist_gc_(pState,list,simple_list_getsize(list),l_value);
 }
 
 SIMPLE_API List * simple_list_getlist ( List *list, int index )
@@ -1269,6 +1286,7 @@ SIMPLE_API void simple_list_genhashtable2 ( List *list )
 {
 	simple_list_genhashtable2_gc(NULL,list);
 }
+
 /* Test */
 
 void simple_list_test ( void )

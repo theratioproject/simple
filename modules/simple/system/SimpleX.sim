@@ -14,7 +14,9 @@
 	
 */
 
-call "loadsystemdll.sim"
+call simple.system.loadsystemdll
+call simple.system.System
+call simple.io.Path
 
 /*
 	Get the Directory that the simple distribution are installed into, this is 
@@ -35,19 +37,15 @@ call "loadsystemdll.sim"
 	@EndCode
 	@Return the simple-lang installation directory @DataType String
 */
-block simpleDirectory()
+block simpleDir()
 	simpleDir = getSystemEnvironment("SIMPLE_PATH")
 	if simpleDir == "(null)" || simpleDir == "" {
 		simpleDir = exeFolder()
-		call "simple/io/File.sim"
-		if isWindows() {
-			simpleExe = new File(simpleDir+"\simple.exe")
-			if simpleExe.exists() {
-				for a = 0 to 1 {
-					simpleDir = removeLastChar(simpleDir)
-					toRemove = lastStrAfterChar(simpleDir,simpleExe.getSystemSlash()) 
-					simpleDir = removeStr(simpleDir,toRemove) 
-				}
+		if isWindows() { 
+			if __dir_exists(simpleDir) { 
+				simpleDir = removeLastChar(simpleDir)
+				toRemove = lastStrAfterChar(simpleDir,"\") 
+				simpleDir = removeStr(simpleDir,toRemove)  
 			}
 			if simpleDir == "(null)" || simpleDir == "" {
 				simpleDir = "C:\Simple\"
@@ -68,10 +66,11 @@ block simpleDirectory()
 	the operating system path
 	@Return the simple-lang modules directory @DatatType String
 */
-block simpleModulesDirectory()
+block simpleModulesDir()
 	modulesDir = getEnv("SIMPLE_MODULE_PATH")
 	if modulesDir == "" {
-		modulesDir = simpleDirectory()+"s"+getSimpleVersion()+"/modules/"
+		modulesDir = simpleDir()+"s"+getSimpleVersion()+"/modules/"
+		modulesDir = getCorrectPath(modulesDir)
 	}
 	return modulesDir
 
@@ -80,12 +79,13 @@ block simpleModulesDirectory()
 	the operating system path
 	@Return the simple-lang dynamic modules directory @DatatType String
 */
-block simpleDyModulesDirectory()
+block simpleDyModulesDir()
 	modulesDir = getEnv("SIMPLE_MODULE_PATH")
 	if modulesDir == "" {
-		dyModulesDir = simpleDirectory()+"s"+getSimpleVersion()+"/modules/dynamic_modules/"
+		dyModulesDir = simpleDir()+"s"+getSimpleVersion()+"/modules/dynamic_modules/"
 	else
 		dyModulesDir = modulesDir+"/dynamic_modules/"
+		dyModulesDir = getCorrectPath(dyModulesDir)
 	}
 	return dyModulesDir
 
@@ -94,26 +94,24 @@ block simpleDyModulesDirectory()
 	the operating system path
 	@Return the simple-lang dynamic modules directory @DatatType String
 */
-block simpleDocDirectory()
+block simpleDocDir()
 	modulesDir = getEnv("SIMPLE_MODULE_PATH")
 	if modulesDir == "" {
-		docDir = simpleDirectory()+"s"+getSimpleVersion()+"/docs/"
+		docDir = simpleDir()+"s"+getSimpleVersion()+"/docs/"
 	else
 		docDir = modulesDir+"/../docs/"
 	}
-	return docDir
+	return getCorrectPath(docDir)
 
 /*
 	Get the directory where the simple executable directory 
 	@Return where simple-lang executable directory @DataType String
 */
-block simpleExecDirectory()
+block simpleExecDir()
 	simpleExecDir = exeFolder()
-	call "simple/io/File.sim"
-	file = new File(simpleExecDir+"/simple"+simpleXExeExt())
-	if !file.exists() {
+	if !__exists(simpleExecDir+"/simple"+simpleXExeExt()) {
 		if isWindows() {
-			simpleExecDir = simpleDirectory()+"/s"+getSimpleVersion()+"/bin/"
+			simpleExecDir = simpleDir()+"/s"+getSimpleVersion()+"/bin/"
 		else
 			simpleExecDir = getEnv("DESTDIR")+"/"+getEnv("PREFIX")+"/bin/"
 		}
@@ -145,6 +143,11 @@ block dynamicModuleExt()
 	return ""
 	
 	
-	
+/*
+
+*/
+block simpleIncludesDir()
+	includesDir = simpleDir()+"/includes/"
+	return getCorrectPath(includesDir)
 	
 	

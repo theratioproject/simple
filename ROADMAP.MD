@@ -66,15 +66,20 @@ build, installation, features e.t.c
 - [ ] update windows build file Windows-Build.bat to use main build C/C++ toolchain to build environment apps
 - [ ] make simple-lang multi-threaded
 - [ ] add lambda support to fetch consistent block in a class per parent classes
-- [ ] make the simple.core module holds true data type e.g num = new UInteger, num = unsigned int
+- [ ] make the simple.core module holds true data type e.g num = new UInteger, num = uint
 - [ ] add tenary operator addition to the main syntax 
 - [ ] prevent Global Interpreter Lock (GIL) (VM lock) for Better threads and concurrency for a faster execution
 - [x] add support for `getter` and `setter` methods in the classes
 - [x] allow changing the behaviour of operators in classes 
 - [x] use of braces `{}` to access and modify fields and other in class delcaration e.g `class = new Class { }`
-- [ ] change the **catch** behaviour by allowing to call an error method in a class instead of just the error
+- [x] change the **catch** behaviour by allowing to call an error method in a class instead of just the error
 - [ ] a more elegant stack trace and error logging in console  
 - [x] resolve clashing error in using 0 base index on list items [0][0][0]
+- [x] enable variadic parameter in block to allow block overloading and dynamic block. Using ellipsis = **...** after parameter
+- [ ] fix `final` keyword not effective on incremental and decremental command ++ -- (move to issue)
+- [ ] enable `final keyword before `class` keyword to prevent inheriting it
+- [ ] enable `final` keyword before `block` keyword to prevent overriding the block in sub classes
+- [ ] allow the use of ellipsis `..` between numbers in a for..loop to specify range. `for (1..100) {}`
 
 ### simplify
 - [ ] hint user as a type of level error when a similar variable that has not been declared is used 
@@ -123,6 +128,7 @@ Modules which are not part of the standard module that comes distributed with si
 
 - [ ] create material and native os extended module for fulltick GUI module
 - [ ] a module that convert fultick Widget to HTML element
+- [ ] write a C/C++ parser module to scan C/C++ sources into resuable token groups 
 
 ### Environments
 

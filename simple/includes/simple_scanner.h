@@ -88,6 +88,12 @@ typedef enum SCANNER_KEYWORD {
 	KEYWORD_CHANGESIMPLEIOPERATOR ,
 	KEYWORD_LOADSYNTAX 
 } SCANNER_KEYWORD ;
+
+/* Secondary (Not Enforced) Keywords */
+typedef enum SCANNER_SECONDARY_KEYWORD {
+	KEYWORD_VARIADIC = 1
+} SCANNER_SECONDARY_KEYWORD ;
+
 /* Operators */
 typedef enum SCANNER_OPERATOR {
 	OP_PLUS = 1 ,
@@ -156,6 +162,8 @@ void display_tokens ( Scanner *scanner ) ;
 SIMPLE_API void simple_execute ( char *file_name, int nISCGI,int nRun,int nPrintIC,int nPrintICFinal,int nTokens,int nRules,int nIns,int nGenObj,int nWarn,int argc,char *argv[],int skip_error) ;
 
 const char * simple_scanner_getkeywordtext ( const char *cStr ) ;
+
+const char * simple_secondary_keyword_value(SCANNER_SECONDARY_KEYWORD position);
 
 void simple_scanner_runprogram ( SimpleState *sState ) ;
 

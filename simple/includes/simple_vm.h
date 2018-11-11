@@ -182,6 +182,10 @@ SIMPLE_API void simple_vm_setreference ( VM *vm ) ;
 
 SIMPLE_API void simple_vm_list_copy ( VM *vm,List *pNewList, List *list ) ;
 
+SIMPLE_API List * simple_reverse_list(VM *vm, List *list) ;
+
+SIMPLE_API void simple_reverse_list_ref(VM *vm, List *list) ;
+
 SIMPLE_API void simple_vm_list_simpointercopy ( VM *vm,List *list ) ;
 
 SIMPLE_API void simple_vm_beforeequallist ( VM *vm,List *var,double nNum1 ) ;
@@ -569,6 +573,10 @@ List * simple_vm_getglobalscope ( VM *vm ) ;
 #define SIMPLE_VM_STACK_ISNUMBER simple_itemarray_isnumber(vm->aStack,vm->nsp)
 #define SIMPLE_VM_STACK_ISPOINTER simple_itemarray_ispointer(vm->aStack,vm->nsp)
 #define SIMPLE_VM_STACK_ISPOINTERVALUE(x) simple_itemarray_ispointer(vm->aStack,x)
+/* Check At Index*/
+#define SIMPLE_VM_STACK_ISSTRING_AT(x) simple_itemarray_isstring(vm->aStack,x)
+#define SIMPLE_VM_STACK_ISNUMBER_AT(x) simple_itemarray_isnumber(vm->aStack,x)
+#define SIMPLE_VM_STACK_ISPOINTER_AT(x) simple_itemarray_ispointer(vm->aStack,x)
 /* Read */
 #define SIMPLE_VM_STACK_READC simple_itemarray_getstring(vm->aStack,vm->nsp)
 #define SIMPLE_VM_STACK_STRINGSIZE simple_itemarray_getstringsize(vm->aStack,vm->nsp)
@@ -576,8 +584,17 @@ List * simple_vm_getglobalscope ( VM *vm ) ;
 #define SIMPLE_VM_STACK_READP simple_itemarray_getpointer(vm->aStack,vm->nsp)
 #define SIMPLE_VM_STACK_OBJTYPE vm->aStack[vm->nsp].nObjectType
 #define SIMPLE_VM_STACK_PREVOBJTYPE vm->aStack[vm->nsp-1].nObjectType
+/*Read At Index */
+#define SIMPLE_VM_STACK_READC_AT(x) simple_itemarray_getstring(vm->aStack,x)
+#define SIMPLE_VM_STACK_STRINGSIZE_AT(x) simple_itemarray_getstringsize(vm->aStack,x)
+#define SIMPLE_VM_STACK_READN_AT(x) simple_itemarray_getdouble(vm->aStack,x)
+#define SIMPLE_VM_STACK_READP_AT(x) simple_itemarray_getpointer(vm->aStack,x)
+#define SIMPLE_VM_STACK_OBJTYPE_AT(x) vm->aStack[x].nObjectType
+#define SIMPLE_VM_STACK_PREVOBJTYPE_AT(x) vm->aStack[x-1].nObjectType
 /* Delete */
 #define SIMPLE_VM_STACK_POP vm->nsp--
+#define SIMPLE_VM_STACK_POP_(x) if (nsp) { for (z = vm->nsp-nsp; z > x ; z--) vm->nsp--;} else { for (z = vm->nsp; z > x ; z--) vm->nsp--;} 
+#define SIMPLE_VM_STACK_PUSH vm->nsp++
 /* Objects/Pointer  - Type */
 #define SIMPLE_OBJTYPE_VARIABLE 1
 #define SIMPLE_OBJTYPE_LISTITEM 2

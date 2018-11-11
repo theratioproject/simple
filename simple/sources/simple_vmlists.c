@@ -410,3 +410,47 @@ int simple_vm_strcmpnotcasesensitive ( const char *string_one,const char *cStr2 
         string_one++ ; cStr2++ ;
     }
 }
+
+SIMPLE_API List * simple_reverse_list(VM *vm, List *list) 
+{
+	List *list1,*list3  ;
+	int x  ;
+	list1 = simple_list_new_gc(vm->sState,0) ;
+	for ( x = simple_list_getsize(list) ; x >= 1 ; x-- ) {
+		if ( simple_list_isstring(list,x) ) {
+			simple_list_addstring(list1,simple_list_getstring(list,x));
+		}
+		else if ( simple_list_isnumber(list,x) ) {
+			simple_list_adddouble(list1,simple_list_getdouble(list,x));
+		}
+		else if ( simple_list_islist(list,x) ) {
+			list3 = simple_list_newlist_gc((vm)->sState,list1);
+			simple_vm_list_copy(vm,list3,simple_list_getlist(list,x));
+		}
+	}
+	return list1 ;
+}
+
+SIMPLE_API void simple_reverse_list_ref(VM *vm, List *list) 
+{
+	String *string ;
+	List *list2 ;
+	int x, y  ;
+	x = simple_list_getsize(list);
+	y = 1 ;
+	for (; x >= 1 && y <= simple_list_getsize(list); x--, y++ ) {
+		if ( simple_list_isstring(list,x) ) {
+			string = simple_string_new(simple_list_getstring(list,x));
+			simple_list_setstring2_gc(vm->sState,list,y,string->str,simple_string_size(string));
+		}
+		else if ( simple_list_isnumber(list,x) ) {
+			simple_list_setdouble_gc(vm->sState,list,y,simple_list_getdouble(list,x));
+		}
+		else if ( simple_list_islist(list,x) ) {
+			list2 = simple_list_getlist(list,x);
+			simple_list_setlist_gc(vm->sState,list,y);
+			simple_vm_list_copy(vm,simple_list_getlist(list,y),list2);
+		}
+	}
+	simple_string_delete(string);
+}

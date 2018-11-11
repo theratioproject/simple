@@ -14,7 +14,30 @@ module simple.system
 
 call simple.system.loadsystemdll
 
-System  = new System 
+#System  = new System 
+
+final SystemDirSeperator = getSystemSlash()
+
+	/*
+		Get the system compatible slash to avoid error in input and output
+		operations. Some of the known slashes are:
+		@BlockQuote
+			Windows 	- \
+			Linux		- /
+			MacOS		- /
+			Haiku		- /
+			Unix		- /
+			Android		- /
+		@End
+		@Return the system slash char @DataType String
+	*/
+	block getSystemSlash()
+		if isWindows() {
+			return '\'
+		elif isLinux()
+			return '/'
+		}		
+		return '/'
 		
 #windows
 WINDOWS_SYSTEM = "windows"
@@ -234,28 +257,6 @@ block sleep(length)
 	currentFilePath() return the active simple source file path
 */
 
-class System 
+#class System 
 
-	#final
-	__DIR_SEPERATOR = getSystemSlash()
-
-	/*
-		Get the system compatible slash to avoid error in input and output
-		operations. Some of the known slashes are:
-		@BlockQuote
-			Windows 	- \
-			Linux		- /
-			MacOS		- /
-			Haiku		- /
-			Unix		- /
-			Android		- /
-		@End
-		@Return the system slash char @DataType String
-	*/
-	block getSystemSlash()
-		if isWindows() {
-			return '\'
-		elif isLinux()
-			return '/'
-		}		
-		return '/'
+	

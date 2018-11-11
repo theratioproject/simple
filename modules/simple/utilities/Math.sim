@@ -41,7 +41,7 @@ callModule("mathic")
 	The <em>e</em> to the first 15 digits after the decimal point is **2.718281828459045**
 	
 */
-MATH_E = 2.71828182846
+final MATH_E = 2.71828182846
 
 /*
 	The ratio of a circle's circumference to its diameter.
@@ -52,43 +52,43 @@ MATH_E = 2.71828182846
 	**3.14159 26535 89793 23846 26433 83279 50288 41971 69399 37510**
 
 */
-MATH_PI = 3.14159265359
+final MATH_PI = 3.14159265359
 
 /*
 	The math module in a printable string **simple.utilites.Math**
 */
-MATH_MODULE = "simple.utilites.Math"
+final MATH_MODULE = "simple.utilites.Math"
 
 /*
 	Exception message to indicate the parameter is not a valid number
 */
-__MATH_NOT_NUMBER = "The parameter is not a Number"
+final __MATH_NOT_NUMBER = "The parameter is not a Number"
 
 /*
 	Exception message thrown if the parameter is less than a number
 */
-__MATH_LESS_THAN = "The parameter is less than "
+final __MATH_LESS_THAN = "The parameter is less than "
 
 /*
 	Exception message thrown if the parameter is less than 1
 */
-__MATH_LESS_THAN_ONE = "The parameter is less than one"
+final __MATH_LESS_THAN_ONE = "The parameter is less than one"
 
 /*
 	Exception message thrown if the parameter is less than -1
 */
-__MATH_LESS_THAN_MINUS_ONE = "The parameter is less than -1"
+final __MATH_LESS_THAN_MINUS_ONE = "The parameter is less than -1"
 
 
 /*
 	Exception message thrown if the parameter is not between -1 and 1
 */
-__MATH_NOT_BETWEEEN_ONE = "The parameter has to be between -1 and 1"
+final __MATH_NOT_BETWEEEN_ONE = "The parameter has to be between -1 and 1"
 
 /*
 	Exception message to indicate parameter cannot be equal to a number
 */
-__MATH_NOT_EQUAL = "The parameter cannot be equal to "
+final __MATH_NOT_EQUAL = "The parameter cannot be equal to "
 
 /*
 	Exponential number used in natural log and exp

@@ -41,7 +41,7 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
 	register_block("__insert_into_list",list_insert_into_list);
 	register_block("__sort_list",list_sort_list);
 	register_block("__reverse_list",list_reverse_list);
-	register_block("__reverse_list",list_reverse_list);
+	register_block("__binarysearch_in_list",list_binarysearch_in_list);
 	
 	/* Runtime Dynamic Library Loading */
 	register_block("__loadDynamicLibrary",simple_vm_dll_loadlib);
@@ -440,27 +440,13 @@ void list_sort_list( void *pointer )
 
 void list_reverse_list (void *pointer )
 {
-	List *list,*list2,*list3  ;
-	int x  ;
+	List *list  ;
 	if ( SIMPLE_API_PARACOUNT != 1 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
 		return ;
 	}
 	if ( SIMPLE_API_ISLIST(1) ) {
-		list = SIMPLE_API_NEWLIST ;
-		list2 = SIMPLE_API_GETLIST(1) ;
-		for ( x = simple_list_getsize(list2) ; x >= 1 ; x-- ) {
-			if ( simple_list_isstring(list2,x) ) {
-				simple_list_addstring(list,simple_list_getstring(list2,x));
-			}
-			else if ( simple_list_isnumber(list2,x) ) {
-				simple_list_adddouble(list,simple_list_getdouble(list2,x));
-			}
-			else if ( simple_list_islist(list2,x) ) {
-				list3 = simple_list_newlist_gc(((VM *) pointer)->sState,list);
-				simple_vm_list_copy((VM *) pointer,list3,simple_list_getlist(list2,x));
-			}
-		}
+		list = simple_reverse_list(((VM *) pointer),SIMPLE_API_GETLIST(1));
 		SIMPLE_API_RETLIST(list);
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);

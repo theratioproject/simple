@@ -43,7 +43,7 @@ SIMPLE_BLOCK(test_gui)
         window->show();
 		uchar *data_p = NULL; 
 		data_p = fl_read_image(data_p,0,0,600,776);
-		png_write("Test2.png", data_p, 600,776, 3, "meta-data", "comment"); 
+		//png_write("Test2.png", data_p, 600,776, 3, "meta-data", "comment"); 
 		printf("%s",data_p);
 		int ret = Fl::run();
 	} else {
