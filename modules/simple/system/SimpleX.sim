@@ -41,23 +41,11 @@ block simpleDir()
 	simpleDir = getSystemEnvironment("SIMPLE_PATH")
 	if simpleDir == "(null)" || simpleDir == "" {
 		simpleDir = exeFolder()
-<<<<<<< HEAD
 		if isWindows() { 
 			if __dir_exists(simpleDir) { 
 				simpleDir = removeLastChar(simpleDir)
 				toRemove = lastStrAfterChar(simpleDir,"\") 
 				simpleDir = removeStr(simpleDir,toRemove)  
-=======
-		call "simple/io/File.sim"
-		if isWindows() {
-			simpleExe = new File(simpleDir+"\simple.exe")
-			if simpleExe.exists() {
-				for a = 0 to 1 {
-					simpleDir = removeLastChar(simpleDir)
-					toRemove = lastStrAfterChar(simpleDir,simpleExe.getSystemSlash()) 
-					simpleDir = removeStr(simpleDir,toRemove) 
-				}
->>>>>>> 6076414576bd95ae9778d1496b59fcfeb35b8e50
 			}
 			if simpleDir == "(null)" || simpleDir == "" {
 				simpleDir = "C:\Simple\"

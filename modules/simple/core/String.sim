@@ -65,11 +65,7 @@ block removeFirstChar(str)
 	return removeStringAt(str, 0)
 	
 block removeLastChar(str)
-<<<<<<< HEAD
 	return __substr(str,0,lengthOf(str)-2)
-=======
-	return __substr(str,0,lengthOf(str)-1)
->>>>>>> 6076414576bd95ae9778d1496b59fcfeb35b8e50
 
 block replaceStr(s, o, n)
 	return __substr(s,o,n)

@@ -20,6 +20,7 @@
 *@@
 *ilk
 *.stackdump
+*.orig
 simple.so
 tasks.json
 .DS_STORE
