@@ -1,7 +1,12 @@
 
 #1 #2
+<<<<<<< HEAD
 call "./module.sim"
 call "./block.sim" 
+=======
+call "module.sim" ? examples.syntax.inn 
+call "block.sim" 
+>>>>>>> 6076414576bd95ae9778d1496b59fcfeb35b8e50
 
 i = new inner
 i.miner()

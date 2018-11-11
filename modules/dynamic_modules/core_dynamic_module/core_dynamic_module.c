@@ -41,7 +41,11 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
 	register_block("__insert_into_list",list_insert_into_list);
 	register_block("__sort_list",list_sort_list);
 	register_block("__reverse_list",list_reverse_list);
+<<<<<<< HEAD
 	register_block("__binarysearch_in_list",list_binarysearch_in_list);
+=======
+	register_block("__reverse_list",list_reverse_list);
+>>>>>>> 6076414576bd95ae9778d1496b59fcfeb35b8e50
 	
 	/* Runtime Dynamic Library Loading */
 	register_block("__loadDynamicLibrary",simple_vm_dll_loadlib);

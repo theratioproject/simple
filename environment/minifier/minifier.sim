@@ -130,5 +130,8 @@ block minifySourceFile(sourceFile)
 	__writefile(sourceFile.absolutePath(), minifiedSource)
 	@" (done)"
 
+<<<<<<< HEAD
 block isNewLine(val)
 	return val == cr || val == nl || val == crlf 
+=======
+>>>>>>> 6076414576bd95ae9778d1496b59fcfeb35b8e50

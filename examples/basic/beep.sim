@@ -7,6 +7,11 @@
 
 call simple.utilities.Console
 
+<<<<<<< HEAD
+=======
+stdout.print("\a")
+__beep(1000,100)
+>>>>>>> 6076414576bd95ae9778d1496b59fcfeb35b8e50
 
 stdout.print("\a")
 __beep(1000,1000) 
