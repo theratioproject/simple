@@ -80,6 +80,8 @@ typedef struct Parser {
 #define PARSER_ERROR_PARENTLIKESUBCLASS "COMPILER ERROR 18 : The parent class name is identical to class name"
 #define PARSER_ERROR_ACCESSSELFREF "COMPILER ERROR 19 : Object reference is out of context"
 #define PARSER_ERROR_CLASSREDEFINE "COMPILER ERROR 20 : Class is already defined"
+#define PARSER_ERROR_ALREADY_VARIADIC "COMPILER ERROR 21 : The block cannot have another parameter after variadic parameter "
+#define PARSER_ERROR_INVALID_VARIADIC "COMPILER ERROR 22 : Invalid variadic parameter. Expecting ellipsis '...' after parameter"
 /* Blocks */
 
 int accept_token_token( Parser *parser, SCANNER_OPERATOR nType );

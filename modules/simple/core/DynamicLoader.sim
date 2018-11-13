@@ -20,9 +20,9 @@ module simple.core
 */
 call "__first_calls.sim"
 
- __mainDynamicModulesCount = 0
+__mainDynaicModulesCount = 0
 
- __mainDynamicModules = [	
+__mainDynamicModules = [	
 		["systemic.dll", "string_savant.dll"],		#Windows
 		["systemic.so", "string_savant.so"],		#Linux
 		["systemic.dylib", "string_savant.dylib"] 	#MAC
@@ -37,7 +37,7 @@ catch
 call simple.core.String
  
 	dynamicModules = []
- 
+	
 block callModule(path) 
 	if isAndroid() and (__left(path,10) == "libfulltick" or __left(path,7) == "fulltick") {
 		#no need to call libfulltick.so on android it built into it

@@ -206,12 +206,12 @@ class List : Object
 			if (x = 0 && y = 0)
 				return __OBJECT
 				end
-			if (__OBJECT.indexOf(x + 1) == __OBJECT.indexOf(y))
+			if (indexOf(x + 1) == indexOf(y))
 				return __OBJECT[x]
-			elif (__OBJECT.indexOf(x + 1)  != __OBJECT.indexOf(y))
+			elif (indexOf(x + 1)  != indexOf(y))
 				do {
-					return __OBJECT.indexOf(x++ - 1)
-				} while x < __OBJECT.indexOf(y)
+					return indexOf(x++ - 1)
+				} while x < indexOf(y)
 			else
 				return "[]"
 				end        

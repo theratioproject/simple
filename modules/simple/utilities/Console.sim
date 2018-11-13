@@ -42,8 +42,7 @@ call simple.utilities.Type
 	It basically the normal C stdout which give output to the screen, but can be used to pipe output to another process 
 	or file.
 */
-#final - to become final when final keyword has been impleented
-__stdout = __init_stdout()
+final __stdout = __init_stdout()
 
 /*
 	The standard error stream is the default destination for error messages and other diagnostic warnings. Like 
@@ -60,8 +59,7 @@ __stdout = __init_stdout()
 	It basically the normal C stderr which give error and diagnostic output to the screen, but can be used to pipe 
 	output to another process or file.
 */
-#final - to become final when final keyword has been impleented
-__stderr = __init_stderr()
+final __stderr = __init_stderr()
 
 /*
 	The standard input stream is the default source of data for applications. It is usually directed by default to the 
@@ -82,8 +80,7 @@ __stderr = __init_stderr()
 	It basically the normal C stdin, which accept input from keyboard but maybe used to pipe input from another process of 
 	file.
 */
-#final - to become final when final keyword has been impleented
-__stdin = __init_stdin()
+final __stdin = __init_stdin()
 
 
 /*
@@ -100,12 +97,12 @@ final stderr = new StdErr(__stderr)
 /*
 	The forgreound/text color of text of the standard output
 */
-__stdForegroundColor = ConsoleColor.NONE()
+__stdForegroundColor = ConsoleColor.NONE
 
 /*
 	The background color of text of the standard output
 */
-__stdBackgroundColor = ConsoleColor.NONE()
+__stdBackgroundColor = ConsoleColor.NONE
 
 /*
 	A line that fill the width of an average console windows, simply an '=' character 151 long
@@ -258,8 +255,9 @@ private
 	class __Std_Console
 	
 		std_output = __stdout
-		__stdForegroundColor = ConsoleColor.NONE()
-		__stdBackgroundColor = ConsoleColor.NONE()
+		ConsoleColor = new ConsoleColor
+		__stdForegroundColor = ConsoleColor.NONE
+		__stdBackgroundColor = ConsoleColor.NONE
 		
 		block println(val)
 			val = getObjectString(val) 
@@ -292,8 +290,8 @@ private
 			__printwfb(std_output, color, this.__stdBackgroundColor, val)
 			
 		block printLine(fg,bg)
-			if fg ==  null fb = ConsoleColor.NONE() end
-			if bg ==  null bb = ConsoleColor.NONE() end
+			if fg ==  null fb = ConsoleColor.NONE end
+			if bg ==  null bb = ConsoleColor.NONE end
 			__printwfb(std_output, fg, bg, consoleLine)
 	
 		block setStd(std_output)
@@ -406,8 +404,8 @@ block printWithFGBG(fcolor, bcolor, content)
 	
 #reset the console colors which is none by default		
 block resetColor()
-	foregroundColor = ConsoleColor.NONE()
-	backgroundColor = ConsoleColor.NONE()	
+	foregroundColor = ConsoleColor.NONE
+	backgroundColor = ConsoleColor.NONE	
 
 #prints a plain line on the console/terminal	
 block printConsoleLine()

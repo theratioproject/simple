@@ -23,7 +23,7 @@ int simple_vm_loadblock ( VM *vm )
 int simple_vm_loadblock2 ( VM *vm,const char *block_name,int nPerformance )
 {
 	List *list,*list2,*list3  ;
-	int y  ;
+	int y  ; 
 	/* nBlockExecute is used also by See command while nBlockExecute2 is not */
 	vm->nBlockExecute++ ;
 	vm->nBlockExecute2++ ;
@@ -89,7 +89,7 @@ int simple_vm_loadblock2 ( VM *vm,const char *block_name,int nPerformance )
 				**  We check that we will convert Blocks only, not methods 
 				**  Replace Instruction with ICO_LOADBLOCKP for better performance 
 				*/
-				SIMPLE_VM_IR_OPCODE = ICO_LOADBLOCKP ;
+				SIMPLE_VM_IR_OPCODE = ICO_LOADBLOCKP ; 
 				/*
 				**  Leave the first parameter (contains the block name as wanted) 
 				**  Create the items 
@@ -119,6 +119,7 @@ int simple_vm_loadblock2 ( VM *vm,const char *block_name,int nPerformance )
 			return 1 ;
 		}
 	}
+	
 	/* For OOP Support - Check Method not found! */
 	if ( vm->nCallMethod == 1 ) {
 		/* Pass The Call Instruction and the AfterCallMethod Instruction */
@@ -223,9 +224,9 @@ SIMPLE_API void simple_vm_call2 ( VM *vm )
 	simple_list_addint_gc(vm->sState,list,vm->nBlockExecute);
 	nBlockEx = vm->nBlockExecute ;
 	vm->nBlockExecute = 0 ;
-	/* Call Block */
+	/* Call Block */ 
 	if ( simple_list_getint(list,SIMPLE_BLOCKCL_TYPE) == SIMPLE_BLOCKTYPE_SCRIPT ) {
-		/* Store List information to allow calling block from list item and creating lists from that blockt */
+		/* Store List information to allow calling block from list item and creating lists from that block */
 		simple_list_addint_gc(vm->sState,list,vm->nListStart);
 		simple_list_addpointer_gc(vm->sState,list,vm->pNestedLists);
 		vm->nListStart = 0 ;
@@ -242,9 +243,9 @@ SIMPLE_API void simple_vm_call2 ( VM *vm )
 		}
 		/* Clear aLoadAddressScope */
 		simple_list_deleteallitems_gc(vm->sState,vm->aLoadAddressScope);
-	}
-	else if ( simple_list_getint(list,SIMPLE_BLOCKCL_TYPE) == SIMPLE_BLOCKTYPE_C ) {
-		/* Trace */
+		
+	} else if ( simple_list_getint(list,SIMPLE_BLOCKCL_TYPE) == SIMPLE_BLOCKTYPE_C ) {
+		/* Trace */ 
 		simple_vm_traceevent(vm,SIMPLE_VM_TRACEEVENT_BEFORECBLOCK);
 		/*
 		**  Save Active Memory 
@@ -298,7 +299,7 @@ SIMPLE_API void simple_vm_call2 ( VM *vm )
 		}
 		/* Block Output */
 		if ( nsp == vm->nsp ) {
-			/* IgnoreNULL is Used by len(object) to get output from operator overloading method */
+			/* IgnoreNULL is Used by lengthOf(object) to get output from operator overloading method */
 			if ( vm->nIgnoreNULL  == 0 ) {
 				SIMPLE_VM_STACK_PUSHCVALUE("");
 			}
@@ -416,29 +417,82 @@ SIMPLE_API void simple_vm_returnnull ( VM *vm )
 
 SIMPLE_API void simple_vm_newblock ( VM *vm )
 {
-	int x,nsp  ;
-	List *list  ;
+	int w,x,y,z,nsp,insp,type, is_variadic  ; 
+	List *list, *variadic_list  ;
+	String *param, *v_param ;
+	Item *item, *variadic_item ;
+	const char *variadic_value ;
+	
+	/* Variables for Variadic parameter */
+	List *void_value ;
+	
+	
 	assert(vm != NULL);
 	simple_vm_newscope(vm);
 	/* Set the SP then Check Parameters */
 	list = simple_list_getlist(vm->pBlockCallList,simple_list_getsize(vm->pBlockCallList));
 	assert(list != NULL);
 	nsp = simple_list_getint(list,SIMPLE_BLOCKCL_SP) ;
-	vm->nBlockSP = nsp ;
-	if ( SIMPLE_VM_IR_PARACOUNT > 2 ) {
-		for ( x = SIMPLE_VM_IR_PARACOUNT ; x >= 3 ; x-- ) {
-			if ( nsp < vm->nsp ) {
+	vm->nBlockSP = nsp ; 
+	insp = vm->nsp ;
+	variadic_value = "" ;
+	is_variadic = 0 ;
+	variadic_list = simple_list_new_gc(vm->sState,0) ;
+	if ( SIMPLE_VM_IR_PARACOUNT > 2 ) { 
+		x = SIMPLE_VM_IR_PARACOUNT; y = 0 ;
+		for (; x >= 3 && y <= SIMPLE_VM_IR_PARACOUNT ; x--, y++ ) { 
+			//printf("X%i Y%i P%i VN%i N%i\n",x,y,SIMPLE_VM_IR_PARACOUNT,vm->nsp,nsp);
+			param = simple_string_new(SIMPLE_VM_IR_READCVALUE(x-1));
+			if (strcmp(param->str,simple_secondary_keyword_value(KEYWORD_VARIADIC)) == 0 ) {
+				is_variadic = 1 ; continue ;
+			}
+			if (x == SIMPLE_VM_IR_PARACOUNT || is_variadic) {
+				v_param = simple_string_new(SIMPLE_VM_IR_READCVALUE(x-1));
+			} 
+			if (is_variadic) { variadic_value = param->str; is_variadic = 0; }
+			if ( nsp < vm->nsp || strcmp(v_param->str,variadic_value) == 0) { 
+				if ( strcmp(param->str,variadic_value) == 0 ) { 
+					variadic_item = simple_item_new_gc (vm->sState,ITEMTYPE_LIST);
+					variadic_item->data.list = variadic_list ;
+					SIMPLE_VM_STACK_PUSHPVALUE(variadic_item) ; 
+					SIMPLE_VM_STACK_OBJTYPE = SIMPLE_OBJTYPE_LISTITEM ;					
+					simple_vm_addnewpointervar(vm,param->str,SIMPLE_VM_STACK_READP,SIMPLE_VM_STACK_OBJTYPE);
+					w = SIMPLE_VM_IR_PARACOUNT - 3  ; 
+					SIMPLE_VM_STACK_POP_(w) ; 
+				} 
 				if ( SIMPLE_VM_STACK_ISSTRING ) {
-					simple_vm_addnewstringvar2(vm,SIMPLE_VM_IR_READCVALUE(x-1),SIMPLE_VM_STACK_READC,SIMPLE_VM_STACK_STRINGSIZE);
-					SIMPLE_VM_STACK_POP ;
+					simple_vm_addnewstringvar(vm,param->str,SIMPLE_VM_STACK_READC);
+					SIMPLE_VM_STACK_POP ; 
 				}
 				else if ( SIMPLE_VM_STACK_ISNUMBER ) {
-					simple_vm_addnewnumbervar(vm,SIMPLE_VM_IR_READCVALUE(x-1),SIMPLE_VM_STACK_READN);
+					simple_vm_addnewnumbervar(vm,param->str,SIMPLE_VM_STACK_READN);
 					SIMPLE_VM_STACK_POP ;
 				}
 				else if ( SIMPLE_VM_STACK_ISPOINTER ) {
-					simple_vm_addnewpointervar(vm,SIMPLE_VM_IR_READCVALUE(x-1),SIMPLE_VM_STACK_READP,SIMPLE_VM_STACK_OBJTYPE);
+					simple_vm_addnewpointervar(vm,param->str,SIMPLE_VM_STACK_READP,SIMPLE_VM_STACK_OBJTYPE);
 					SIMPLE_VM_STACK_POP ;
+				} 
+				if (y == (SIMPLE_VM_IR_PARACOUNT - 3) && strcmp(v_param->str,variadic_value) == 0) {
+					vm->nsp = insp - y + 1; 
+					if (nsp) { y++; }
+					while (nsp < vm->nsp){ 
+						if ( SIMPLE_VM_STACK_ISSTRING_AT(y) ) {
+							simple_list_addstring(variadic_list,SIMPLE_VM_STACK_READC_AT(y));
+							SIMPLE_VM_STACK_POP ; 
+						}
+						else if ( SIMPLE_VM_STACK_ISNUMBER_AT(y) ) {
+							simple_list_adddouble(variadic_list,SIMPLE_VM_STACK_READN_AT(y));
+							SIMPLE_VM_STACK_POP ;
+						}
+						else if ( SIMPLE_VM_STACK_ISPOINTER_AT(y) ) {
+							void_value = (List *) SIMPLE_VM_STACK_READP_AT(y);
+							simple_list_setint_gc(vm->sState,void_value,SIMPLE_VAR_PVALUETYPE,SIMPLE_VM_STACK_OBJTYPE_AT(y));
+							simple_list_addlist_gc(vm->sState,variadic_list,simple_list_getlist(void_value,SIMPLE_VAR_VALUE));
+							SIMPLE_VM_STACK_POP ;
+						}
+						y++;
+					}
+					break ;
 				}
 			} else {
 				simple_vm_error(vm,SIMPLE_VM_ERROR_LESSPARAMETERSCOUNT);

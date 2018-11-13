@@ -142,7 +142,6 @@ int simple_parser_class ( Parser *parser )
 			if ( simple_list_getsize(list2) > 0 ) {
 				for ( x = 1 ; x <= simple_list_getsize(list2) ; x++ ) {
 					if ( strcmp(simple_list_getstring(simple_list_getlist(list2,x),1),parser->TokenText) == 0 ) {
-						printf("it here");
 						parser_error(parser,PARSER_ERROR_BLOCKREDEFINE);
 						return 0 ; 
 					}
@@ -369,7 +368,7 @@ int simple_parser_stmt ( Parser *parser )
 			#if SIMPLE_PARSERTRACE
 			SIMPLE_STATE_CHECKPRINTRULES
 
-			puts("Rule : Statement  --> 'Import' Identifier{'.'identifier}");
+			puts("Rule : Statement  --> 'call' Identifier{'.'identifier}");
 			#endif
 			return simple_parser_namedotname(parser) ;
 		} 
@@ -406,7 +405,7 @@ int simple_parser_stmt ( Parser *parser )
 		#if SIMPLE_PARSERTRACE
 		SIMPLE_STATE_CHECKPRINTRULES 
 		
-		puts("Rule : Statement  --> 'See' Expr");
+		puts("Rule : Statement  --> 'display' Expr");
 		#endif
 		return x ;
 	}
@@ -702,7 +701,7 @@ int simple_parser_stmt ( Parser *parser )
 			#if SIMPLE_PARSERTRACE
 			SIMPLE_STATE_CHECKPRINTRULES
 
-			puts("Rule : Statement  --> 'if' Expr {Statement} { else if } [Else] Ok");
+			puts("Rule : Statement  --> 'if' expr {statement} { elif } [else] }");
 			#endif
 			while ( simple_parser_stmt(parser) ) {
 				if ( parser->ActiveToken == parser->TokensCount ) {
@@ -730,7 +729,7 @@ int simple_parser_stmt ( Parser *parser )
 					#if SIMPLE_PARSERTRACE
 					SIMPLE_STATE_CHECKPRINTRULES
 
-					puts("Rule : Else If  --> 'else if' Expr {Statement}");
+					puts("Rule : elif  --> 'elif' expr {statement}");
 					#endif
 					while ( simple_parser_stmt(parser) ) {
 						if ( parser->ActiveToken == parser->TokensCount ) {
@@ -751,7 +750,7 @@ int simple_parser_stmt ( Parser *parser )
 				#if SIMPLE_PARSERTRACE
 				SIMPLE_STATE_CHECKPRINTRULES
 
-				puts("Rule : Else  --> 'Else' {Statement} ");
+				puts("Rule : Else  --> 'else' {statement} ");
 				#endif
 				while ( simple_parser_stmt(parser) ) {
 					if ( parser->ActiveToken == parser->TokensCount ) {
@@ -944,7 +943,7 @@ int simple_parser_stmt ( Parser *parser )
 		#if SIMPLE_PARSERTRACE
 		SIMPLE_STATE_CHECKPRINTRULES 
 		
-		puts("Rule : Statement  --> 'Try' {Statement} Catch Done");
+		puts("Rule : Statement  --> 'Try' {Statement} Catch finally");
 		#endif
 		while ( simple_parser_stmt(parser) ) {
 			if ( parser->ActiveToken == parser->TokensCount ) {
@@ -955,7 +954,7 @@ int simple_parser_stmt ( Parser *parser )
 			simple_parser_nexttoken(parser);
 			/*
 			**  Generate Code 
-			**  Jump from end of try block to label after done 
+			**  Jump from end of try block to label after finally 
 			*/
 			simple_parser_icg_newoperation(parser,ICO_JUMP);
 			pMark2 = simple_parser_icg_getactiveoperation(parser);
@@ -964,7 +963,7 @@ int simple_parser_stmt ( Parser *parser )
 			#if SIMPLE_PARSERTRACE
 			SIMPLE_STATE_CHECKPRINTRULES 
 			
-			puts("Rule : Catch --> 'Catch' {Statement}");
+			puts("Rule : Catch --> 'catch' {Statement}");
 			#endif
 			while ( simple_parser_stmt(parser) ) {
 				if ( parser->ActiveToken == parser->TokensCount ) {
@@ -994,13 +993,13 @@ int simple_parser_stmt ( Parser *parser )
 			parser_error(parser,PARSER_ERROR_NOCATCH);
 		}
 	}
-	/* Statement --> __exit (Close the Program) */
+	/* Statement --> __exit__ (Close the Program) */
 	if ( simple_parser_iskeyword(parser,KEYWORD_EXIT) ) {
 		simple_parser_nexttoken(parser);
 		#if SIMPLE_PARSERTRACE
 		SIMPLE_STATE_CHECKPRINTRULES
 
-		puts("Rule : Statement  --> '__exit' ");
+		puts("Rule : Statement  --> '__exit__' ");
 		#endif
 		/* Generate Code */
 		simple_parser_icg_newoperation(parser,ICO_EXITPROGRAM);
@@ -1059,7 +1058,7 @@ int simple_parser_stmt ( Parser *parser )
 			#if SIMPLE_PARSERTRACE
 			SIMPLE_STATE_CHECKPRINTRULES
 
-			puts("Rule : Statement  --> 'switch' Expr {case} [Other] default");
+			puts("Rule : Statement  --> 'switch' Expr {case} [other] default");
 			#endif
 			SIMPLE_PARSER_IGNORENEWLINE ;
 			/* ON|CASE Statements */
@@ -1161,7 +1160,7 @@ int simple_parser_stmt ( Parser *parser )
 		**  Call expreval() if we are inside { } 
 		*/
 		if ( parser->nBraceFlag ) {
-			/* if isblock(self,"braceexpreval") braceexpreval() ok */
+			/* if isblock(self,"braceexpreval") braceexpreval() end */
 			simple_parser_icg_newoperation(parser,ICO_LOADBLOCK);
 			simple_parser_icg_newoperand(parser,"isBlock");
 			simple_parser_icg_newoperation(parser,ICO_LOADADDRESS);
@@ -1206,11 +1205,12 @@ int load_module( Parser *parser ) {
 
 int simple_parser_paralist ( Parser *parser )
 {
-	int nStart, param_count  ;
+	int nStart, param_count, is_variadic, x  ;
 	const char *cToken  ;
 	/* Check ( */
 	nStart = 0 ;
 	param_count = 0 ;
+	is_variadic = 0 ;
 	if ( simple_parser_isoperator2(parser,OP_FOPEN) ) {
 		simple_parser_nexttoken(parser);
 		nStart = 1 ;
@@ -1225,14 +1225,24 @@ int simple_parser_paralist ( Parser *parser )
 		#endif
 		return param_count ;
 	}
-	/* ParaList --> [ Identifier { , Identifier }  ] */
-	if ( simple_parser_isidentifier(parser) ) {
+	/* ParaList --> [ Identifier { , Identifier }  ] */ 
+	if ( simple_parser_isidentifier(parser)) { 
 		cToken = parser->TokenText ;
-		simple_parser_nexttoken(parser);
+		simple_parser_nexttoken(parser); 
 		/* Support Type Identifiter */
 		if ( nStart && simple_parser_isidentifier(parser) ) {
 			cToken = parser->TokenText ;
 			simple_parser_nexttoken(parser);
+		} 
+		if (simple_parser_isoperator2(parser,OP_DOT)) {
+			for (x = 0; x < 3; x++) {
+				if (!simple_parser_isoperator2(parser,OP_DOT)) {
+					parser_error(parser,PARSER_ERROR_INVALID_VARIADIC);
+					return -1 ;
+				}
+				simple_parser_nexttoken(parser); 
+			}
+			is_variadic = 1 ;
 		}
 		/* Generate Code */
 		simple_parser_icg_newoperand(parser,cToken);
@@ -1241,20 +1251,40 @@ int simple_parser_paralist ( Parser *parser )
 		
 		puts("Rule : ParaList --> Identifier {',' Identifier}");
 		#endif
+		if (is_variadic) {
+			simple_parser_icg_newoperand(parser,simple_secondary_keyword_value(KEYWORD_VARIADIC));
+		}
 		while ( simple_parser_isoperator2(parser,OP_COMMA) ) {
 			simple_parser_nexttoken(parser);
 			SIMPLE_PARSER_IGNORENEWLINE ;
-			if ( simple_parser_isidentifier(parser) ) {
-				cToken = parser->TokenText ;
+			if ( simple_parser_isidentifier(parser)) {
+				if (is_variadic) {
+					parser_error(parser,PARSER_ERROR_ALREADY_VARIADIC);
+					return -1 ;
+				}		
+				cToken = parser->TokenText ;				
 				simple_parser_nexttoken(parser);
 				/* Support Type Identifiter */
-				if ( nStart && simple_parser_isidentifier(parser) ) {
+				if ( nStart && (simple_parser_isidentifier(parser))) {
 					cToken = parser->TokenText ;
 					simple_parser_nexttoken(parser);
 				}
-				param_count++ ;
+				if (simple_parser_isoperator2(parser,OP_DOT)) {
+					for (x = 0; x < 3; x++) {
+						if (!simple_parser_isoperator2(parser,OP_DOT)) {
+							parser_error(parser,PARSER_ERROR_INVALID_VARIADIC);
+							return -1 ;
+						}
+						simple_parser_nexttoken(parser); 
+					}
+					is_variadic = 1 ;
+				}
 				/* Generate Code */
+				param_count++ ;
 				simple_parser_icg_newoperand(parser,cToken);
+				if (is_variadic) {
+					simple_parser_icg_newoperand(parser,simple_secondary_keyword_value(KEYWORD_VARIADIC));
+				}
 			} else {
 				parser_error(parser,PARSER_ERROR_PARALIST);
 				return -1 ;

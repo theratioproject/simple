@@ -60,10 +60,10 @@
 #define NDEBUG
 #endif
 /* Environment Errors */
-#define SIMPLE_SEGFAULT "\nError (E1) : Caught SegFault!\n"
-#define SIMPLE_OOM "\nError (E2) : Out of Memory!\n"
-#define SIMPLE_NOSCOPE "\nError (E3) : Deleting scope while no scope! \n"
-#define SIMPLE_LONGINSTRUCTION "\nError (E4) : Long VM Instruction! \n"
+#define SIMPLE_SEGFAULT "\nENVIRONMENT ERROR 1 : Caught SegFault!\n"
+#define SIMPLE_OOM "\nENVIRONMENT ERROR 2 : Out of Memory!\n"
+#define SIMPLE_NOSCOPE "\nENVIRONMENT ERROR 3 : Deleting scope while no scope! \n"
+#define SIMPLE_LONGINSTRUCTION "\nENVIRONMENT ERROR 4 : Long VM Instruction! \n"
 /* General */
 #define SIMPLE_PATHSIZE 256
 /* See and Give - use simplevm_display() and read_string() */

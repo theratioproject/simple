@@ -53,6 +53,14 @@ block __curePathSlashes(path)
 		ret = tempPath.toString()
 	}
 	return ret
+	
+block getCorrectPath(oddPath)
+	correctPath = __path_absolute_path(oddPath)
+	if !strEndsWith(correctPath, oddPath) && !strContains(oddPath, "."+SystemDirSeperator) && !isWindows() {
+		correctPathTemp = removeStr(oddPath,correctPath)
+		correctPath += correctPathTemp
+	}
+	return correctPath
  
 class Path
 	

@@ -51,74 +51,89 @@ CONSOLE_COLOR_WHITE = 16		#color white		###
 
 #ConsoleColor class that holds the colors in respect to console-color.h
 class ConsoleColor 
+
+	/*
 		
-	#none i.e default
-	block NONE()
-		return CONSOLE_COLOR_NONE
+	*/
+	final NONE = CONSOLE_COLOR_NONE
 		
-	#color black
-	block BLACK()
-		return CONSOLE_COLOR_BLACK
+	/*
 	
-	#color dark red
-	block DARKRED()
-		return CONSOLE_COLOR_DARK_RED
-		
-	#color dark green	
-	block DARKGREEN()
-		return CONSOLE_COLOR_DARK_GREEN
-		
-	#color dark yellow	
-	block DARKYELLOW()
-		return CONSOLE_COLOR_DARK_YELLOW
-		
-	#color dark blue			
-	block DARKBLUE()
-		return CONSOLE_COLOR_DARK_BLUE
-		
-	#color dark magenta	
-	block DARKMAGENTA()
-		return CONSOLE_COLOR_DARK_MAGENTA
-		
-	#color dark cyan		
-	block DARKCYAN()
-		return CONSOLE_COLOR_DARK_CYAN
-		
-	#color gray
-	block GRAY()
-		return CONSOLE_COLOR_GRAY
-		
-	#color dark gray	
-	block DARKGRAY()
-		return CONSOLE_COLOR_DARK_GRAY
-		
-	#color red	
-	block RED()
-		return CONSOLE_COLOR_RED
-		
-	#color green	
-	block GREEN()
-		return CONSOLE_COLOR_GREEN
-		
-	#color yellow		
-	block YELLOW()
-		return CONSOLE_COLOR_YELLOW
-		
-	#color blue	
-	block BLUE()
-		return CONSOLE_COLOR_BLUE
-		
-	#color magenta	
-	block MAGENTA()
-		return CONSOLE_COLOR_MAGENTA
-		
-	#color cyan		
-	block CYAN()
-		return CONSOLE_COLOR_CYAN
-		
-	#color white	
-	block WHITE()
-		return CONSOLE_COLOR_WHITE
+	*/
+	final BLACK = CONSOLE_COLOR_BLACK
 	
+	/*
 	
+	*/
+	final DARKRED = CONSOLE_COLOR_DARK_RED
+		
+	/*
+	
+	*/
+	final DARKGREEN = CONSOLE_COLOR_DARK_GREEN
+		
+	/*
+	
+	*/
+	final DARKYELLOW = CONSOLE_COLOR_DARK_YELLOW
+		
+	/*
+	
+	*/
+	final DARKBLUE = CONSOLE_COLOR_DARK_BLUE
+		
+	/*
+	
+	*/
+	final DARKMAGENTA = CONSOLE_COLOR_DARK_MAGENTA
+		
+	/*
+	
+	*/
+	final DARKCYAN = CONSOLE_COLOR_DARK_CYAN
+		
+	/*
+	
+	*/
+	final GRAY = CONSOLE_COLOR_GRAY
+		
+	/*
+	
+	*/
+	final DARKGRAY = CONSOLE_COLOR_DARK_GRAY
+		
+	/*
+	
+	*/
+	final RED = CONSOLE_COLOR_RED
+		
+	/*
+	
+	*/
+	final GREEN = CONSOLE_COLOR_GREEN
+		
+	/*
+	
+	*/
+	final YELLOW = CONSOLE_COLOR_YELLOW
+		
+	/*
+	
+	*/
+	final BLUE = CONSOLE_COLOR_BLUE
+		
+	/*
+	
+	*/
+	final MAGENTA = CONSOLE_COLOR_MAGENTA
+		
+	/*
+	
+	*/
+	final CYAN = CONSOLE_COLOR_CYAN
+		
+	/*
+	
+	*/
+	final WHITE = CONSOLE_COLOR_WHITE
 		

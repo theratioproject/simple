@@ -16,7 +16,7 @@ block main()
 	stdout.println(obj1) #object 1 has a custom toString()
 	stdout.println(obj2) #object 2 has no toString() block
 	stdout.print("Yes you the boss\n")
-	stdout.printfc(ConsoleColor.BLUE()," The string in blue - STD OUT \n")
+	stdout.printfc(ConsoleColor.BLUE," The string in blue - STD OUT \n")
 	stdout.vprintf(["{0} {1} {2} {3} bit {4} of version {5}\n", "Hello", "this", "is", 8 * 8, "simple-lang", getSimpleVersion()])
 	
 	#the std err
@@ -29,13 +29,13 @@ block main()
 	stderr.println(obj2) #object 2 has no toString() block
 	stderr.print("This is an error in print\n")
 	stderr.vprintf(list)
-	stderr.printfc(ConsoleColor.RED()," The string in red - STD ERR \n")
+	stderr.printfc(ConsoleColor.RED," The string in red - STD ERR \n")
 	
 	#global block
 	println(stdout, "print with newline Hello World globally")
 	print(stdout, "print Hello World globally")
 	@_vformatf(["\nJust for {0} console this bracket {a} {} is ignore because it not preceeded by a number ", "Testing"])
-	printfc(stdout,ConsoleColor.YELLOW()," The string in yellow")
+	printfc(stdout,ConsoleColor.YELLOW," The string in yellow")
 	
 	
 class TestObject : Object

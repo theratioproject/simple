@@ -27,6 +27,10 @@ const char * SIMPLE_KEYWORDS[] = {"if","to","or","and","not","for","new","block"
 "in","continue","module","private","final","step","do","exec","elif",
 
 "get","case"/**, "changesimplekeyword","changesimpleoperator","loadsyntax"**/} ;
+
+/* Secondary (Not Enforced) */
+const char * SIMPLE_SECONDARY_KEYWORDS[] = {"..."} ;
+
 /* Blocks */
 
 Scanner * new_simple_scanner ( SimpleState *sState )
@@ -292,7 +296,7 @@ void simple_scanner_readchar ( Scanner *scanner,char c )
 				if ( strcmp(simple_string_get(scanner->ActiveToken),"\xEF\xBB\xBF") == 0 ) {
 					simple_string_set_gc(scanner->sState,scanner->ActiveToken,"");
 					/* Don't use reading so the new character can be scanned */
-				}
+				} 
 			}
 			/* Check Space/Tab/New Line */
 			if ( c != ' ' && c != '\n' && c != '\t' && c != '\"' && c != '\'' && c != '\r' && c != '`' ) {
@@ -573,7 +577,7 @@ void simple_scanner_keywords ( Scanner *scanner )
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"or");
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"and");
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"not");
-        simple_list_addstring_gc(scanner->sState,scanner->Keywords,"for");
+    simple_list_addstring_gc(scanner->sState,scanner->Keywords,"for");
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"new");
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"block");
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"inherit");
@@ -935,6 +939,11 @@ SIMPLE_API void simple_execute ( char *file_name, int nISCGI,int nRun,int nPrint
 const char * simple_scanner_getkeywordtext ( const char *cStr )
 {
 	return SIMPLE_KEYWORDS[atoi(cStr)-1] ;
+}
+
+const char * simple_secondary_keyword_value(SCANNER_SECONDARY_KEYWORD position) 
+{
+	return SIMPLE_SECONDARY_KEYWORDS[position-1] ;
 }
 
 void simple_scanner_runprogram ( SimpleState *sState )

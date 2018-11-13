@@ -79,7 +79,7 @@ block throwOnly(errorvalue)
 	}
 	__throw(errorvalue)
 	if isLinux() {
-		@ crlf
+		@ nl
 	}
 	
 /*

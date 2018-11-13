@@ -81,7 +81,7 @@ block minifySourceFile(sourceFile)
 	for i = 0 to sourceLen {
 		switch type {
 			case TOKEN_IDENTIFIER
-				if source[i] == tab or source[i] == nl or source[i] == crlf or source[i] == cr {
+				if source[i] == tab or isNewLine(source[i]) {
 					if isWhiteSpace(source[i+1]) or (isPunctuation(source[i+1]) and source[i+1] != '_' and source[i+1] != '$' ) {
 						minifiedSource += "" 
 					else
@@ -129,4 +129,4 @@ block minifySourceFile(sourceFile)
 	}
 	__writefile(sourceFile.absolutePath(), minifiedSource)
 	@" (done)"
-
+	
