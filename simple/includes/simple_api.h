@@ -130,6 +130,7 @@ void read_string ( void *pointer ) ;
 #define SIMPLE_API_ISPOINTER(x) (api_is_pointer((VM *) pointer,x))
 #define SIMPLE_API_GETPOINTERTYPE(x) (simple_list_getint(simple_list_getlist(SIMPLE_API_PARALIST,x),4))
 #define SIMPLE_API_ERROR(x) (simple_vm_error((VM *) pointer,x))
+#define SIMPLE_API_ERROR2(x,y) (simple_vm_error2((VM *) pointer,x,y))
 #define SIMPLE_API_ISLIST(x) (api_is_list((VM *) pointer,x))
 #define SIMPLE_API_GETLIST(x) (api_get_list((VM *) pointer,x))
 #define SIMPLE_API_RETNUMBER(x) ((VM *) pointer)->nsp++ ; simple_itemarray_setdouble(((VM *) pointer)->aStack, ((VM *) pointer)->nsp , x)
@@ -157,10 +158,17 @@ void read_string ( void *pointer ) ;
 #define SIMPLE_API_GETCPOINTER2POINTER(x,y) (api_get_cpointer2pointer((VM *) pointer,x,y))
 
 /* Constants/MACRO */
+#define SIMPLE_API_MISS0PARA "Bad parameters count, the block expect no parameter"
 #define SIMPLE_API_MISS1PARA "Bad parameters count, the block expect one parameter"
 #define SIMPLE_API_MISS2PARA "Bad parameters count, the block expect two parameters"
 #define SIMPLE_API_MISS3PARA "Bad parameters count, the block expect three parameters"
 #define SIMPLE_API_MISS4PARA "Bad parameters count, the block expect four parameters"
+#define SIMPLE_API_MISS5PARA "Bad parameters count, the block expect five parameters"
+#define SIMPLE_API_MISS6PARA "Bad parameters count, the block expect six parameters"
+#define SIMPLE_API_MISS7PARA "Bad parameters count, the block expect seven parameters"
+#define SIMPLE_API_MISS8PARA "Bad parameters count, the block expect eight parameters"
+#define SIMPLE_API_MISS9PARA "Bad parameters count, the block expect nine parameters"
+#define SIMPLE_API_MISS10PARA "Bad parameters count, the block expect ten parameters"
 #define SIMPLE_API_BADPARATYPE "Bad parameter type!"
 #define SIMPLE_API_BADPARACOUNT "Bad parameters count!"
 #define SIMPLE_API_BADPARARANGE "Bad parameters value, error in range!"

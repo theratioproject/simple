@@ -36,7 +36,7 @@ class Download : File
 		if isStrEmpty(__IO_FILE_PATH) 
 			__IO_FILE_PATH = url
 		end
-		write(DOWNLOAD_CONTENT)
+		__writefile(__IO_FILE_PATH, DOWNLOAD_CONTENT)
 		
 	block saveLocation(location)
 		__IO_FILE_PATH = location

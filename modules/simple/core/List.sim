@@ -200,7 +200,7 @@ class List : Object
 	 * if you intend to pass an argument alone, 
 	 * use the .indexOf() method.
 	 * Still working on it.
-	 */
+	 */ #resolve slicing object
 	block slice(x, y)
 		if (isNumber(x) && isNumber(y))
 			if (x = 0 && y = 0)
@@ -262,6 +262,31 @@ class List : Object
 	block last()
 	  return __OBJECT[lengthOf(__OBJECT) - 1]
 	end
+	
+	block toString()
+		strValue = "[" 
+		lstLen = length() - 1
+		for i = 0 to lstLen { 
+			item = __OBJECT[i] 
+			if isString(item) {
+				strValue += '"' + item + '"'
+			elif isNumber(item)
+				strValue += item
+			elif isList(item)
+				tmpLst = new List(item)
+				strValue += tmpLst.toString()
+			elif isObject(item)
+				if isBlock(item,"toString") {
+					#strValue += item.toString() 
+				else 
+					strValue += "Object" #get object package and name from reflection
+				}
+			}
+			if i < lstLen { strValue += ", " }
+		}
+		strValue += "]"
+		return strValue
+	end
 
 	/*
 	 * Error block, needs to be private
@@ -285,3 +310,4 @@ class List : Object
 			default
 				throw("Exit !") __exit__
 			end
+			

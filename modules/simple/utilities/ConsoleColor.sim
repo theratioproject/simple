@@ -15,41 +15,44 @@ module simple.utilities
 call simple.core.DynamicLoader
 callModule("consoler")
 
-#initialized to allow ussage as ConsoleColor.block()
+/*
+	initialized to allow ussage as ConsoleColor.block()
+*/
 ConsoleColor = new ConsoleColor
 
 /*
 	do not change the color values as it is in respect to 
-	the console-color.h values in the consoler.dll module
+	the consoler.h values in @Module consoler
 	you can add more experimental colors
 	
 */
 
 /* NUMBERS */
+#@Skip DO NOT MODIFY @EndSkip #################################
+															###
+final CONSOLE_COLOR_NONE = 0			#no color (default)	###
+final CONSOLE_COLOR_BLACK = 1			#color black		###
+final CONSOLE_COLOR_DARK_RED = 2		#color red			###
+final CONSOLE_COLOR_DARK_GREEN = 3		#color dark green	###
+final CONSOLE_COLOR_DARK_YELLOW = 4		#color dark yellow 	###
+final CONSOLE_COLOR_DARK_BLUE = 5		#color dark blue	###
+final CONSOLE_COLOR_DARK_MAGENTA = 6	#dark magenta		###
+final CONSOLE_COLOR_DARK_CYAN = 7		#color dark cyan	###
+final CONSOLE_COLOR_GRAY = 8			#color gray			###
+final CONSOLE_COLOR_DARK_GRAY = 9		#color dark gray	###
+final CONSOLE_COLOR_RED = 10			#color red			###
+final CONSOLE_COLOR_GREEN = 11			#color green		###
+final CONSOLE_COLOR_YELLOW = 12			#color yellow		###
+final CONSOLE_COLOR_BLUE = 13			#color blue			###				
+final CONSOLE_COLOR_MAGENTA = 14		#color magenta		###
+final CONSOLE_COLOR_CYAN = 15			#color cyan			###
+final CONSOLE_COLOR_WHITE = 16			#color white		###
+															###
+#@Skip YOU CAN ADD MORE COLOR BELOW @EndSkip ##################
 
-#@Skip DO NOT MODIFY @EndSkip #########################
-													###
-CONSOLE_COLOR_NONE = 0			#no color (default)	###
-CONSOLE_COLOR_BLACK = 1			#color black		###
-CONSOLE_COLOR_DARK_RED = 2		#color red			###
-CONSOLE_COLOR_DARK_GREEN = 3	#color dark green	###
-CONSOLE_COLOR_DARK_YELLOW = 4	#color dark yellow 	###
-CONSOLE_COLOR_DARK_BLUE = 5		#color dark blue	###
-CONSOLE_COLOR_DARK_MAGENTA = 6	#dark magenta		###
-CONSOLE_COLOR_DARK_CYAN = 7		#color dark cyan	###
-CONSOLE_COLOR_GRAY = 8			#color gray			###
-CONSOLE_COLOR_DARK_GRAY = 9		#color dark gray	###
-CONSOLE_COLOR_RED = 10			#color red			###
-CONSOLE_COLOR_GREEN = 11		#color green		###
-CONSOLE_COLOR_YELLOW = 12		#color yellow		###
-CONSOLE_COLOR_BLUE = 13			#color blue			###				
-CONSOLE_COLOR_MAGENTA = 14		#color magenta		###
-CONSOLE_COLOR_CYAN = 15			#color cyan			###
-CONSOLE_COLOR_WHITE = 16		#color white		###
-													###
-#@Skip YOU CAN ADD MORE COLOR BELOW @EndSkip ##########
+/*
 
-#ConsoleColor class that holds the colors in respect to console-color.h
+*/
 class ConsoleColor 
 
 	/*
@@ -136,4 +139,94 @@ class ConsoleColor
 	
 	*/
 	final WHITE = CONSOLE_COLOR_WHITE
+		
+	/*
+		
+	*/
+	final none = CONSOLE_COLOR_NONE
+		
+	/*
+	
+	*/
+	final black = CONSOLE_COLOR_BLACK
+	
+	/*
+	
+	*/
+	final darkred = CONSOLE_COLOR_DARK_RED
+		
+	/*
+	
+	*/
+	final darkgreen = CONSOLE_COLOR_DARK_GREEN
+		
+	/*
+	
+	*/
+	final darkyellow = CONSOLE_COLOR_DARK_YELLOW
+		
+	/*
+	
+	*/
+	final darkblue = CONSOLE_COLOR_DARK_BLUE
+		
+	/*
+	
+	*/
+	final darkmagenta = CONSOLE_COLOR_DARK_MAGENTA
+		
+	/*
+	
+	*/
+	final darkcyan = CONSOLE_COLOR_DARK_CYAN
+		
+	/*
+	
+	*/
+	final gray = CONSOLE_COLOR_GRAY
+		
+	/*
+	
+	*/
+	final darkgray = CONSOLE_COLOR_DARK_GRAY
+		
+	/*
+	
+	*/
+	final red = CONSOLE_COLOR_RED
+		
+	/*
+	
+	*/
+	final green = CONSOLE_COLOR_GREEN
+		
+	/*
+	
+	*/
+	final yellow = CONSOLE_COLOR_YELLOW
+		
+	/*
+	
+	*/
+	final blue = CONSOLE_COLOR_BLUE
+		
+	/*
+	
+	*/
+	final magenta = CONSOLE_COLOR_MAGENTA
+		
+	/*
+	
+	*/
+	final cyan = CONSOLE_COLOR_CYAN
+		
+	/*
+	
+	*/
+	final white = CONSOLE_COLOR_WHITE
+		
+		
+	block toString()
+		return "simple.utilities.ConsoleColor"
+		
 		

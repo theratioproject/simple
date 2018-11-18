@@ -87,11 +87,13 @@ void init_stdin(void *pointer)
 //print and read line
 void std_print(void *pointer)
 {
+	char *str  ;
     if ( SIMPLE_API_PARACOUNT != 2 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
 	} else {
 		FILE* std_output = (FILE*) SIMPLE_API_GETCPOINTER(1,"SIMPLE_CONSOLE_");
-		fprintf( std_output, "%s", SIMPLE_API_GETSTRING(2) );
+		str = SIMPLE_API_GETSTRING(2);
+		fprintf( std_output, "%s", str );
 	}
 } 
 

@@ -1,0 +1,9 @@
+/* 
+
+*/
+
+module simple.reflection
+
+call simple.core.Object
+
+class Method : Object

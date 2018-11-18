@@ -25,7 +25,7 @@ SIMPLE_API void simple_vm_pushv ( VM *vm )
 		return ;
 	}
 	if ( SIMPLE_VM_STACK_OBJTYPE == SIMPLE_OBJTYPE_SUBSTRING ) {
-		simple_vm_stsimple_pushv(vm);
+		simple_vm_string_pushv(vm);
 	}
 	else if ( SIMPLE_VM_STACK_OBJTYPE == SIMPLE_OBJTYPE_LISTITEM ) {
 		simple_vm_listpushv(vm);
@@ -106,7 +106,7 @@ SIMPLE_API void simple_vm_assignment ( VM *vm )
 	Item *pItem  ;
 	if ( SIMPLE_VM_STACK_PREVOBJTYPE == SIMPLE_OBJTYPE_SUBSTRING ) {
 		if ( vm->nBeforeEqual == 0 ) {
-			simple_vm_stsimple_assignment(vm);
+			simple_vm_string_assignment(vm);
 		} else {
 			simple_vm_error(vm,SIMPLE_VM_ERROR_BADVALUES);
 		}

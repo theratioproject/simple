@@ -1,0 +1,53 @@
+/*
+	instance of 
+*/
+
+call simple.core.loadcoredymodule
+call simple.utilities.Console
+call simple.reflection.Class
+
+#instanceOf block from inheriting Object class 
+stdout.println("instanceOf block from inheriting Object class ")
+string = new String("Hello World")
+stdout.println(string,true) 
+stdout.println("String instance of 'Number' : "+string.instanceOf("Number"))
+stdout.println("String instance of 'Object' : "+string.instanceOf("Object"))
+stdout.println("String instance of 'File' : "+string.instanceOf("File")+"\n")
+
+#instanceOf block exported from ANSI C
+stdout.println("instanceOf block exported from ANSI C")
+obj3 = new Three
+stdout.println("One instance Five : "+__instance_of(obj3, "Five"))
+stdout.println("One instance One : "+__instance_of(obj3, "One"))
+stdout.println("One instance Seven : "+__instance_of(obj3, "Seven")+"\n")
+
+#instanceOf block from File Class.sim and functional
+stdout.println("instanceOf block from File Class.sim and functional")
+obj = new One
+stdout.println("One parent class name : "+__parent_class_name(obj))
+stdout.println("One instance Two : "+instanceOf(obj, "Two"))
+stdout.println("One instance Three : "+instanceOf(obj, "Three"))
+stdout.println("One instance Four : "+instanceOf(obj, "Four"))
+stdout.println("One instance Object : "+instanceOf(obj, "Object"))
+stdout.println("One instance Five : "+instanceOf(obj, "Five"))
+stdout.println("One instance Six : "+instanceOf(obj, "Six"))
+stdout.println("One instance Seven : "+instanceOf(obj, "Seven"))
+obj.print() 
+
+
+class One : Two
+
+class Two : Three
+
+class Three : Four
+
+class Four : Five
+
+class Five : Six
+
+class Six : Seven
+
+class Seven 
+
+	block print()
+		display "Hello World"

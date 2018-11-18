@@ -102,7 +102,7 @@ int simple_parser_class ( Parser *parser )
 				/* Add Class Name to Modules Name */
 				simple_string_add_gc(parser->sState,string,".");
 				simple_string_add_gc(parser->sState,string,simple_list_getstring(list,1));
-				simple_list_setstsimple_gc(parser->sState,list2,1,simple_string_get(string));
+				simple_list_setstring_gc(parser->sState,list2,1,simple_string_get(string));
 				simple_string_delete_gc(parser->sState,string);
 			} else {
 				/* Add pointer to the Modules in the Class List */

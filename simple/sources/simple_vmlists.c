@@ -163,7 +163,7 @@ SIMPLE_API void simple_vm_loadindexaddress ( VM *vm )
 						return ;
 					}
 					string = simple_list_getstringobject(var,SIMPLE_VAR_VALUE) ;
-					simple_vm_stsimple_index(vm,string,nNum1);
+					simple_vm_string_index(vm,string,nNum1);
 					return ;
 				} else {
 					SIMPLE_VM_STACK_POP ;
@@ -191,7 +191,7 @@ SIMPLE_API void simple_vm_loadindexaddress ( VM *vm )
 				else if ( simple_item_isstring(pItem) ) {
 					SIMPLE_VM_STACK_POP ;
 					string = simple_item_getstring(pItem);
-					simple_vm_stsimple_index(vm,string,nNum1);
+					simple_vm_string_index(vm,string,nNum1);
 					return ;
 				} else {
 					SIMPLE_VM_STACK_POP ;
@@ -313,7 +313,7 @@ SIMPLE_API void simple_vm_listassignment ( VM *vm )
 		assert(pItem != NULL);
 		SIMPLE_VM_STACK_POP ;
 		if ( vm->nBeforeEqual == 0 ) {
-			simple_item_setstsimple_gc(vm->sState,pItem, simple_string_get(string_one));
+			simple_item_setstring_gc(vm->sState,pItem, simple_string_get(string_one));
 		} else {
 			if ( simple_item_isstring(pItem) ) {
 				string = simple_item_getstring(pItem);

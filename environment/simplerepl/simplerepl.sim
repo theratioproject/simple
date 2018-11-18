@@ -9,7 +9,7 @@ call simple.utilities.Console
 call simple.system.System
 call simple.core.String
 
-simpleReplTitle = " 
+OldSimpleReplTitle = " 
                                                                                                          | 
      ----------    --     --------         --------    ------------     ---             --------------   | A simple, plain and innovative programming
     |          |  |   |  |        |       |        |  |            |   |   |           |              |  | with multi-paradigm. It can be embedded in 
@@ -26,17 +26,23 @@ simpleReplTitle = "
                                                                                                          |  
 "
 	
-	printLine(stdout,ConsoleColor.GREEN(), null)
-	printfc(stdout,ConsoleColor.YELLOW(), simpleReplTitle)
-	printLine(stdout,ConsoleColor.GREEN(), null)
-	curDir = lastStringAfterChar(currentDirectory(),System.getSystemSlash())
+simpleReplTitle = " REPL (Read-Eval-Print-Loop) \n" 
+simpleReplTitle += " simple"+getSimpleVersion() + " \n\n"
+
+	printfc(stdout,ConsoleColor.DARKGREEN, simpleReplTitle)
 while true {
-	printfc(stdout,ConsoleColor.CYAN(), "simple@") display curDir+" >>> "
+	printfc(stdout,ConsoleColor.DARKGREEN, "simple $ ") 
 	read code
+	if strContains(code,"display") {
+		code = replaceStr(code,"display","@")
+	}
+	if code == "__exit__" or code == "bye" or code == ":q" {
+		printfc(stdout,ConsoleColor.DARKGREEN, "bye")
+		break
+	}
 	try
 		executeCode(code)
-		display nl
 	catch
-		printfc(stderr,ConsoleColor.RED(), __err__+"\n")
+		printfc(stderr,ConsoleColor.DARKRED, __err__+"\n")
 	end
 } 

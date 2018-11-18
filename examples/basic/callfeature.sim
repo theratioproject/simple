@@ -35,8 +35,8 @@ webpage.render()
 @FULL_WIDTH
 
 @""
-@simpleModulesDirectory()
-@simpleDirectory()
+@simpleModulesDir()
+@simpleDir()
 @dynamicModuleExt()
 @simpleXExeExt()
-@simpleExecDirectory()
+@simpleExecDir()

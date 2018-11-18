@@ -1,0 +1,12 @@
+/* Reflection and Meta-Programming */
+/* ERROR MESSAGES */
+
+call simple.debugging.ErrorMessages
+call simple.utilities.Console
+
+errMsg = new ErrorMessages
+errMsgAttrs = __object_attributes(errMsg)
+for error in errMsgAttrs {
+	errorValue = __get_attribute_value(errMsg,error)
+	stderr.printfc(ConsoleColor.DARKRED,error + " = " + errorValue + "\n")
+}

@@ -1,0 +1,42 @@
+ 
+call simple.utilities.ConsoleColor
+call simple.utilities.Console 
+ 
+#functional
+stdout.printfc(CONSOLE_COLOR_NONE,"CONSOLE_COLOR_NONE \n")
+stdout.printfc(CONSOLE_COLOR_BLACK,"CONSOLE_COLOR_BLACK \n")
+stdout.printfc(CONSOLE_COLOR_DARK_RED,"CONSOLE_COLOR_DARK_RED \n")
+stdout.printfc(CONSOLE_COLOR_DARK_GREEN,"CONSOLE_COLOR_DARK_GREEN \n")
+stdout.printfc(CONSOLE_COLOR_DARK_YELLOW,"CONSOLE_COLOR_DARK_YELLOW \n")
+stdout.printfc(CONSOLE_COLOR_DARK_BLUE,"CONSOLE_COLOR_DARK_BLUE \n")
+stdout.printfc(CONSOLE_COLOR_DARK_MAGENTA,"CONSOLE_COLOR_DARK_MAGENTA \n")
+stdout.printfc(CONSOLE_COLOR_DARK_CYAN,"CONSOLE_COLOR_DARK_CYAN \n")
+stdout.printfc(CONSOLE_COLOR_GRAY,"CONSOLE_COLOR_GRAY \n")
+stdout.printfc(CONSOLE_COLOR_DARK_GRAY,"CONSOLE_COLOR_DARK_GRAY \n")
+stdout.printfc(CONSOLE_COLOR_RED,"CONSOLE_COLOR_RED \n")
+stdout.printfc(CONSOLE_COLOR_GREEN,"CONSOLE_COLOR_GREEN \n")
+stdout.printfc(CONSOLE_COLOR_YELLOW,"CONSOLE_COLOR_YELLOW \n")
+stdout.printfc(CONSOLE_COLOR_BLUE,"CONSOLE_COLOR_BLUE \n")
+stdout.printfc(CONSOLE_COLOR_MAGENTA,"CONSOLE_COLOR_MAGENTA \n")
+stdout.printfc(CONSOLE_COLOR_WHITE,"CONSOLE_COLOR_WHITE \n")
+
+#OOP
+#UpperCase 													#lowercase
+
+stdout.printfc(ConsoleColor.NONE,"NONE ")					stdout.printfc(ConsoleColor.none,"none \n")
+stdout.printfc(ConsoleColor.BLACK,"BLACK ")					stdout.printfc(ConsoleColor.black,"black \n")
+stdout.printfc(ConsoleColor.DARKRED,"DARKRED ")				stdout.printfc(ConsoleColor.darkred,"darkred \n")
+stdout.printfc(ConsoleColor.DARKGREEN,"DARKGREEN ")			stdout.printfc(ConsoleColor.darkgreen,"darkgreen \n")
+stdout.printfc(ConsoleColor.DARKYELLOW,"DARKYELLOW ")		stdout.printfc(ConsoleColor.darkyellow,"darkyellow \n")
+stdout.printfc(ConsoleColor.DARKBLUE,"DARKBLUE ")			stdout.printfc(ConsoleColor.darkblue,"darkblue \n")
+stdout.printfc(ConsoleColor.DARKMAGENTA,"DARKMAGENTA ")		stdout.printfc(ConsoleColor.darkmagenta,"DARKMAGENTA \n")
+stdout.printfc(ConsoleColor.DARKCYAN,"DARKCYAN ")			stdout.printfc(ConsoleColor.darkcyan,"darkcyan \n")
+stdout.printfc(ConsoleColor.GRAY,"GRAY ")					stdout.printfc(ConsoleColor.gray,"gray \n")
+stdout.printfc(ConsoleColor.DARKGRAY,"DARKGRAY ")			stdout.printfc(ConsoleColor.darkgray,"darkgray \n")
+stdout.printfc(ConsoleColor.RED,"RED ")						stdout.printfc(ConsoleColor.red,"red \n")
+stdout.printfc(ConsoleColor.GREEN,"GREEN ")					stdout.printfc(ConsoleColor.green,"green \n")
+stdout.printfc(ConsoleColor.YELLOW,"YELLOW ")				stdout.printfc(ConsoleColor.yellow,"yellow \n")
+stdout.printfc(ConsoleColor.BLUE,"BLUE ")					stdout.printfc(ConsoleColor.blue,"blue \n")
+stdout.printfc(ConsoleColor.MAGENTA,"MAGENTA ")				stdout.printfc(ConsoleColor.magenta,"magenta \n")
+stdout.printfc(ConsoleColor.WHITE,"WHITE ")					stdout.printfc(ConsoleColor.white,"white \n")
+

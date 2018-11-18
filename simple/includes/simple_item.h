@@ -78,12 +78,12 @@ SIMPLE_API void simple_itemarray_setpointer_gc ( void *pState,Item list[], int i
 SIMPLE_API void simple_itemarray_setdouble_gc ( void *pState,Item list[], int index ,double number ) ;
 /* String */
 
-SIMPLE_API void simple_itemarray_setstsimple_gc ( void *pState,Item list[], int index ,const char *str ) ;
+SIMPLE_API void simple_itemarray_setstring_gc ( void *pState,Item list[], int index ,const char *str ) ;
 
 SIMPLE_API void simple_itemarray_setstring2_gc ( void *pState,Item list[], int index ,const char *str,int str_size ) ;
 /* Blocks to deal with one item */
 
-SIMPLE_API void simple_item_setstsimple_gc ( void *pState,Item *pItem,const char *cStr ) ;
+SIMPLE_API void simple_item_setstring_gc ( void *pState,Item *pItem,const char *cStr ) ;
 
 SIMPLE_API void simple_item_setdouble_gc ( void *pState,Item *pItem,double x ) ;
 

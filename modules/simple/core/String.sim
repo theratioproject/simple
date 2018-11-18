@@ -34,7 +34,6 @@ block strContains(value,check) #check empty for all __substr call
 	return true
 
 block strConcat(str, v)
-	checkNullity(v) checkNullity(str)
 	return str + v
 
 block removeStr(str, o)
@@ -77,7 +76,7 @@ block strGetLineCount(str)
 	return __lines(str)
 
 block strEndsWith(m, s)
-	checkNullity(m) checkNullity(s)
+	if m == null or s == null return false end 
 	strLength = lengthOf(s) - 1
 	mLength = lengthOf(m) - 1
 	if strLength > mLength
@@ -112,16 +111,14 @@ block strLeft(str, index)
 block isStrNull(s)
 	return s == null
 
-block strFirstChar(c)
-	checkNullity(c) 
-	if lengthOf(c) < 0
+block strFirstChar(c) 
+	if lengthOf(c) < 1
 		throw(STRING_LESS)
 	end
 	return c[0]
 	
 block strLastChar(c)
-	checkNullity(c) 
-	if lengthOf(c) < 0
+	if lengthOf(c) < 1
 		throw(STRING_LESS)
 	end
 	return c[lengthOf(c) - 1]
@@ -167,7 +164,7 @@ block strEquals(acom, bcom, con)
 	end
 	
 block strStartsWith(m, s)
-	checkNullity(m) checkNullity(s)
+	if m == null or s == null return false end 
 	if lengthOf(s) > lengthOf(m)
 		return false #throw(STRING_COMPARE_ERROR)
 	end

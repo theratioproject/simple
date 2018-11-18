@@ -18,11 +18,13 @@
 
 */
 
+#TODO : Write smoothc wrapper for curl to export constants and function
 call "simple/internet/curl/CurlCore.sim"
 
 block main() 
-	testcurl = new CurlCore("http://www.google.com/")
+	testcurl = new CurlCore("https://stackoverflow.com/questions/9774349/php-curl-not-working-with-https")
 	
+	#testcurl.addOption(10002, CURL_URL) #add option to disable ssl
 	display testcurl.getStringOutput() 
 	testcurl.flush()
 	
