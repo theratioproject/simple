@@ -229,4 +229,3 @@ class ConsoleColor
 	block toString()
 		return "simple.utilities.ConsoleColor"
 		
-		

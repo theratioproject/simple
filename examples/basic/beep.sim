@@ -7,6 +7,5 @@
 
 call simple.utilities.Console
 
-stdout.println("\a")
+stdout.print("\a")
 __beep(1000,1000) 
-

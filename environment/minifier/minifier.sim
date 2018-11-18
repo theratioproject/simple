@@ -130,6 +130,5 @@ block minifySourceFile(sourceFile)
 	__writefile(sourceFile.absolutePath(), minifiedSource)
 	@" (done)"
 	
-	
 block isNewLine(val)
 	return val == crlf or val = nl or val == cr
