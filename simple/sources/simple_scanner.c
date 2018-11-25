@@ -99,7 +99,7 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
 	}
         if (simple_fexists(file_name)) {
 
-        } else {
+        } else { //TODO : Refractor this code block it so redundant 
             snprintf(__library_path, sizeof(__library_path), "./modules/%s", file_name);
 			if (simple_fexists(__library_path)) {
                 strcpy(file_name,__library_path);
@@ -118,54 +118,57 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
 						snprintf(__library_path, sizeof(__library_path), "%s/s%s/modules/%s", simple_env_path, SIMPLE_VERSION, file_name);
 						if (simple_fexists(__library_path)) { strcpy(file_name,__library_path); }
 						else {
-							snprintf(__library_path, sizeof(__library_path), "%s/modules/%s", simple_folder,file_name);
-							
 							simple_env_path = getenv("SIMPLE_MODULE_PATH");
 							snprintf(__library_path, sizeof(__library_path), "%s/%s", simple_env_path, file_name);
 							if (simple_fexists(__library_path)) { strcpy(file_name,__library_path);}
 							else {
-								//find the module in relative to run folder (UNDONE) //this is last
-								#ifdef _WIN32
-									snprintf(__library_path, sizeof(__library_path), "C:/Simple/s%s/modules/%s",SIMPLE_VERSION,file_name);
-								#else
-									snprintf(__library_path, sizeof(__library_path), "/var/lib/simple/s%s/modules/%s", SIMPLE_VERSION,file_name);
-								#endif
+								//check the github folder in modules :(
+								snprintf(__library_path, sizeof(__library_path), "%s/github.com/%s", simple_env_path, file_name);
 								if (simple_fexists(__library_path)) { strcpy(file_name,__library_path);}
 								else {
-									/* Now we assume it is executed in a folder bin and the modules is in parent folder 
-										like
-										simple/bin/
-										simple/modules/
-										simple/includes/
-									so we go parent directory *simple* and check for modules. Think execute simple from zip extract
-									*/
-									snprintf(__library_path, sizeof(__library_path), "../modules/%s", file_name);
+									//find the module in relative to run folder (UNDONE) //this is last
+									#ifdef _WIN32
+										snprintf(__library_path, sizeof(__library_path), "C:/Simple/s%s/modules/%s",SIMPLE_VERSION,file_name);
+									#else
+										snprintf(__library_path, sizeof(__library_path), "/var/lib/simple/s%s/modules/%s", SIMPLE_VERSION,file_name);
+									#endif
 									if (simple_fexists(__library_path)) { strcpy(file_name,__library_path);}
 									else {
-										/* We dig deep for android and ios we first check the assets folder then the storage*/
-										#ifdef __ANDROID__
-                                            /*check sdcard (External Storage) first. user might want to update module
-                                             without having to re install the app or wait for an update from developer*/
-											simple_env_path = getenv("EXTERNAL_STORAGE");
-											snprintf(__library_path, sizeof(__library_path), "%s/simple/s%s/modules/%s", simple_env_path, SIMPLE_VERSION,file_name);
-											if (simple_fexists(__library_path)) { strcpy(file_name,__library_path);}
-											else {
-                                                //now check the android asset
-												snprintf(__library_path, sizeof(__library_path), "%s/simple/modules/%s", simple_env_path, file_name);
+										/* Now we assume it is executed in a folder bin and the modules is in parent folder 
+											like
+											simple/bin/
+											simple/modules/
+											simple/includes/
+										so we go parent directory *simple* and check for modules. Think execute simple from zip extract
+										*/
+										snprintf(__library_path, sizeof(__library_path), "../modules/%s", file_name);
+										if (simple_fexists(__library_path)) { strcpy(file_name,__library_path);}
+										else {
+											/* We dig deep for android and ios we first check the assets folder then the storage*/
+											#ifdef __ANDROID__
+												/*check sdcard (External Storage) first. user might want to update module
+												 without having to re install the app or wait for an update from developer*/
+												simple_env_path = getenv("EXTERNAL_STORAGE");
+												snprintf(__library_path, sizeof(__library_path), "%s/simple/s%s/modules/%s", simple_env_path, SIMPLE_VERSION,file_name);
 												if (simple_fexists(__library_path)) { strcpy(file_name,__library_path);}
 												else {
-                                                    snprintf(__library_path, sizeof(__library_path), "%s/%s", external_data_path, file_name);
-                                                    if (simple_fexists(__library_path)) { strcpy(file_name,__library_path);}
-                                                    else {
-                                                        snprintf(__library_path, sizeof(__library_path), "%s/modules/%s", external_data_path, file_name);
-                                                        if (simple_fexists(__library_path)) { strcpy(file_name,__library_path);}
-                                                        else {
+													//now check the android asset
+													snprintf(__library_path, sizeof(__library_path), "%s/simple/modules/%s", simple_env_path, file_name);
+													if (simple_fexists(__library_path)) { strcpy(file_name,__library_path);}
+													else {
+														snprintf(__library_path, sizeof(__library_path), "%s/%s", external_data_path, file_name);
+														if (simple_fexists(__library_path)) { strcpy(file_name,__library_path);}
+														else {
+															snprintf(__library_path, sizeof(__library_path), "%s/modules/%s", external_data_path, file_name);
+															if (simple_fexists(__library_path)) { strcpy(file_name,__library_path);}
+															else {
 
-                                                        }
-                                                    }
+															}
+														}
+													}
 												}
-											}
-										#endif
+											#endif
+										}
 									}
 								}
 							}
@@ -561,7 +564,7 @@ void simple_scanner_readchar ( Scanner *scanner,char c )
 			list = simple_list_getlist(scanner->Tokens,simple_list_getsize(scanner->Tokens));
 			string = simple_string_new_gc(scanner->sState,"");
 			simple_string_setfromint_gc(scanner->sState,string,scanner->LinesCount);
-			simple_list_setstsimple_gc(scanner->sState,list,2,simple_string_get(string));
+			simple_list_setstring_gc(scanner->sState,list,2,simple_string_get(string));
 			simple_string_delete_gc(scanner->sState,string);
 		}
 	}
@@ -999,7 +1002,7 @@ void simple_scanner_changekeyword ( Scanner *scanner )
 	else {
 		nResult = simple_hashtable_findnumber(simple_list_gethashtable(scanner->Keywords),simple_string_get(word1));
 		if ( nResult > 0 ) {
-			simple_list_setstsimple_gc(scanner->sState,scanner->Keywords,nResult,simple_string_get(word2));
+			simple_list_setstring_gc(scanner->sState,scanner->Keywords,nResult,simple_string_get(word2));
 			simple_list_genhashtable_gc(scanner->sState,scanner->Keywords);
 		}
 		else {
@@ -1045,7 +1048,7 @@ void simple_scanner_changeoperator ( Scanner *scanner )
 	else {
 		nResult = simple_hashtable_findnumber(simple_list_gethashtable(scanner->Operators),simple_string_get(word1));
 		if ( nResult > 0 ) {
-			simple_list_setstsimple_gc(scanner->sState,scanner->Operators,nResult,simple_string_get(word2));
+			simple_list_setstring_gc(scanner->sState,scanner->Operators,nResult,simple_string_get(word2));
 			simple_list_genhashtable_gc(scanner->sState,scanner->Operators);
 		}
 		else {

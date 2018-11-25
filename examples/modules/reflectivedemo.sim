@@ -1,0 +1,51 @@
+/* Reflection and Meta-Programming */
+
+call simple.core.loadcoredymodule
+
+@"==================="
+@"LOCAL VARIABLES"
+@"==================="
+@__local_variables()
+
+@"==================="
+@"GLOBAL VARIABLES"
+@"==================="
+@__global_variables()
+
+@"==================="
+@"SIMPLE BLOCKS"
+@"==================="
+@__simple_blocks()
+
+@"==================="
+@"C BLOCKS"
+@"==================="
+@__c_blocks()
+
+@"==================="
+@"IS LOCAL VARIABLE"
+@"==================="
+@"is 'null' local variable : "+__is_local_variable("null")
+@"is 'crlf' local variable : "+__is_global_variable("crlf")
+
+@"==================="
+@"IS GLOBAL VARIABLE"
+@"==================="
+@"is 'NULL_ERROR_POINTER' global variable : "+__is_global_variable("NULL_ERROR_POINTER")
+@"is 'STRING_EMPTY' global variable : "+__is_global_variable("STRING_EMPTY")
+
+@"==================="
+@"IS BLOCK DEFINED"
+@"==================="
+@"is block returnValue(...) defined : "+__is_block_defined("returnValue")
+@"is block removeStr(...) defined : "+__is_block_defined("removeStr")
+@"is block toUpperCase(...) defined : "+__is_block_defined("toUpperCase")
+
+@"==================="
+@"IS C BLOCK DEFINED"
+@"==================="
+@"is c block __expm1(...) defined : "+__is_c_block_defined("__expm1")
+@"is c block __c__value(...) defined : "+__is_c_block_defined("__c__value")
+@"is c block __date_time_t_to_list(...) defined : "+__is_c_block_defined("__date_time_t_to_list")
+
+

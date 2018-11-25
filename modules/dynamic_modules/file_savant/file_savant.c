@@ -577,9 +577,9 @@ void mk_directory ( void *pointer )
 	}
 	if ( SIMPLE_API_ISSTRING(1) ) {
             #ifdef _WIN32
-                SIMPLE_API_RETNUMBER(_mkdir(SIMPLE_API_GETSTRING(1)));
+                SIMPLE_API_RETNUMBER(_mkdir(SIMPLE_API_GETSTRING(1))+1);
             #else
-                SIMPLE_API_RETNUMBER(mkdir(SIMPLE_API_GETSTRING(1), 0755)); 
+                SIMPLE_API_RETNUMBER(mkdir(SIMPLE_API_GETSTRING(1), 0755)+1); 
             #endif
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);

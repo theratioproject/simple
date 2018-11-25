@@ -1,0 +1,76 @@
+/* Reflection and Meta-Programming */
+/* OOP */
+
+call simple.core.loadcoredymodule
+
+@"==================="
+@"ALL DEFINED MODULES"
+@"==================="
+@__all_defined_modules()
+
+@"==================="
+@"IS MODULE DEFINED"
+@"==================="
+@"is simple.core module defined : "+__is_module_defined("simple.core")
+@"is simple.image.jpeg module defined : "+__is_module_defined("simple.image.jpeg")
+@"is simple.utilities module defined : "+__is_module_defined("simple.utilities")
+
+@"==================="
+@"ALL DEFINED CLASSES"
+@"==================="
+@__all_defined_classes()
+
+@"==================="
+@"IS CLASS DEFINED"
+@"==================="
+@"is String class defined : "+__is_class_defined("String")
+@"is Object class defined : "+__is_class_defined("Object")
+@"is Pacific class defined : "+__is_class_defined("Pacific")
+
+@"==================="
+@"CLASSES IN MODULE"
+@"==================="
+@__classes_in_module("test.modulee")
+@"is testClass12 defined in test.modulee : "+__is_class_in_module("test.modulee","testClass12")
+	obj1 = new test.modulee.testClass1
+	obj2 = new test.modulee.testClass12
+@"obj1 class name is : "+__class_name(obj1)
+@"obj1 class name is : "+__parent_class_name(obj1)
+@"obj1 address is : "+__object_address(obj1)
+display "obj attributes are : " @__object_attributes(obj1)
+display "obj2 methods are : " @__object_methods(obj2)
+@"obj2 has attribute x : " + __object_has_attribute(obj2,"x")
+@"obj2 has method two() : " + __object_has_method(obj2,"two")
+@"obj2 has private attribute y : " + __object_has_private_attribute(obj2,"y")
+@"obj2 has private method privateBlock() : " + __object_has_private_method(obj2,"privateBlock")
+__add_attribute_to_object(obj2,"z") __set_attribute_value(obj2,"z",500) 
+@"obj2.z = "+obj2.z
+__set_attribute_value(obj1,"C","Desperado")  @"obj1.C = "+obj1.C  
+@"using ref to get attribute value : " + __get_attribute_value(obj2,"z")
+__inherit_class_methods("test.modulee.testClass1","test.modulee.testClass12") 
+@obj1.one()
+@__last_imported_module_name()
+ 
+
+
+module test.modulee
+
+class testClass1 : testClass3
+	a = 0 
+	b = 1
+	
+class testClass12
+	block one() @"calling one block"
+	block two()
+	block three()
+	
+	private 
+		y = 99
+		
+		block privateBlock()
+		
+final class testClass3
+	
+	/*final*/ C = 2
+
+

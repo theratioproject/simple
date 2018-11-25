@@ -13,7 +13,7 @@
  */
 
 #include "../../../simple/includes/simple.h"
-#include "curl/curl.h"
+#include <curl/curl.h>
 #include "networker.h"
 
 #ifdef _WIN32
@@ -246,9 +246,8 @@ void curl_download ( void *pointer )
 		curl_easy_setopt(curl, CURLOPT_ACCEPT_ENCODING,"");
 		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION,simple_get_curl_data);
 		curl_easy_setopt(curl, CURLOPT_WRITEDATA,string);
-		
-		//curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
-		//curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, 0L);
+		curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
+		curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, 0L);
 		
 		res = curl_easy_perform(curl);
 		curl_easy_cleanup(curl);

@@ -276,7 +276,7 @@ SIMPLE_API void simple_vm_addnewstringvar ( VM *vm,const char *cStr,const char *
 	List *list  ;
 	list = simple_vm_newvar2(vm,cStr,vm->pActiveMem);
 	simple_list_setint_gc(vm->sState,list,SIMPLE_VAR_TYPE,SIMPLE_VM_STRING);
-	simple_list_setstsimple_gc(vm->sState,list,SIMPLE_VAR_VALUE,cStr2);
+	simple_list_setstring_gc(vm->sState,list,SIMPLE_VAR_VALUE,cStr2);
 }
 
 SIMPLE_API void simple_vm_addnewstringvar2 ( VM *vm,const char *cStr,const char *cStr2,int str_size )

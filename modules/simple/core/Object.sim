@@ -33,6 +33,19 @@ class Object
 	block getType()
 		return __OBJECT_NAME
 		
+	block instanceOf(clazz)
+		retValue = false
+		obj = this
+		parentClass = __parent_class_name(obj)
+		do {
+			if parentClass == clazz {
+				return true
+			}
+			obj = executeCode("return new "+parentClass)
+			parentClass = __parent_class_name(obj)
+		} while parentClass != null 
+		return retValue
+		
 	block getTypeCode
 		return OBJECT_TYPE
 		

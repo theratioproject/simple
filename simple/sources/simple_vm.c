@@ -724,7 +724,7 @@ SIMPLE_API void simple_vm_error ( VM *vm,const char *cStr )
 			SIMPLE_VM_STACK_POP ;
 			if ( simple_vm_oop_isobject(list) ) {
 				if ( simple_vm_oop_isblock(vm, list,"braceerror") ) {
-					simple_list_setstsimple_gc(vm->sState,simple_list_getlist(simple_vm_getglobalscope(vm),6),3,cStr);
+					simple_list_setstring_gc(vm->sState,simple_list_getlist(simple_vm_getglobalscope(vm),6),3,cStr);
 					simple_vm_runcode(vm,"braceerror()");
 					vm->nActiveError = 0 ;
 					return ;

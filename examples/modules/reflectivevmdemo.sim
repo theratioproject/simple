@@ -1,0 +1,27 @@
+/* Reflection and Meta-Programming */
+/* VM */
+
+call simple.core.loadcoredymodule
+
+@"==================="
+@"ALL FILES LIST"
+@"==================="
+@__vm_files_list()
+
+@"==================="
+@"ALL CALL LIST"
+@"==================="
+@__vm_call_list()
+
+@"==================="
+@"ALL MEMORY LIST"
+@"==================="
+@__vm_memory_list()
+
+@"==================="
+@"ALL CLASSES LIST"
+@"==================="
+@__vm_classes_list()
+
+
+

@@ -19,7 +19,7 @@ build, installation, features e.t.c
 - [x] create the simple-lang interpreter 
 - [x] create a working installer script to enable installation with curl and bash or shell script [working issue](https://github.com/simple-lang/simple/issues/24)
 - [ ] build a compiler to allow faster program execution - simplify
-- [x] make vm search for **call** files and **dynamic modules** in these folders and order. 
+- [x] make scanner search for **call** files and **dynamic modules** in these folders and order. 
 	- [x] 1 absolute to path
 	- [x] 1 relative to modules folder in working directory
 	- [x] 2 in relative to environment SIMPLE_PATH
@@ -80,6 +80,8 @@ build, installation, features e.t.c
 - [ ] enable `final keyword before `class` keyword to prevent inheriting it
 - [ ] enable `final` keyword before `block` keyword to prevent overriding the block in sub classes
 - [ ] allow the use of ellipsis `..` between numbers in a for..loop to specify range. `for (1..100) {}`
+- [ ] support using braces to call/import multiple files at once call { module1 module2 } 
+- [ ] make break from multiple loop start from index 0 instead of one `break 0` instead of `break 1`
 
 ### simplify
 - [ ] hint user as a type of level error when a similar variable that has not been declared is used 
@@ -128,6 +130,7 @@ Modules which are not part of the standard module that comes distributed with si
 
 - [ ] create material and native os extended module for fulltick GUI module
 - [ ] a module that convert fultick Widget to HTML element
+- [ ] ~write a C/C++ parser module to scan C/C++ sources into resuable token groups~
 - [ ] write a C/C++ parser module to scan C/C++ sources into resuable token groups 
 
 ### Environments

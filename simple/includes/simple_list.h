@@ -74,7 +74,7 @@ SIMPLE_API void simple_list_setdouble_gc ( void *pState,List *list, int index ,d
 SIMPLE_API void simple_list_adddouble_gc ( void *pState,List *list,double x ) ;
 /* String */
 
-SIMPLE_API void simple_list_setstsimple_gc ( void *pState,List *list, int index ,const char *str ) ;
+SIMPLE_API void simple_list_setstring_gc ( void *pState,List *list, int index ,const char *str ) ;
 
 SIMPLE_API void simple_list_setstring2_gc ( void *pState,List *list, int index ,const char *str,int str_size ) ;
 
@@ -116,7 +116,7 @@ SIMPLE_API void simple_list_insertdouble_gc ( void *pState,List *list,int nPos,d
 
 SIMPLE_API void simple_list_insertpointer_gc ( void *pState,List *list,int nPos,void *pValue ) ;
 
-SIMPLE_API void simple_list_insertstsimple_gc ( void *pState,List *list,int nPos,const char *str ) ;
+SIMPLE_API void simple_list_insertstring_gc ( void *pState,List *list,int nPos,const char *str ) ;
 
 SIMPLE_API void simple_list_insertstring2_gc ( void *pState,List *list,int nPos,const char *str,int str_size ) ;
 
@@ -170,6 +170,7 @@ SIMPLE_API void simple_list_clear ( List *list ) ;
 
 SIMPLE_API int simple_list_deliteminsidelist ( List *list,Item *pItem ) ;
 /* Macro */
+#define simple_list_isfinal(list,index) ( simple_list_getitem(list,index)->isFinal == 1)
 #define simple_list_isdouble(list,index) ( simple_list_getitem(list,index)->NumberFlag == ITEM_NUMBERFLAG_DOUBLE)
 #define simple_list_isint(list,index) ( simple_list_getitem(list,index)->NumberFlag == ITEM_NUMBERFLAG_INT )
 #define simple_list_deletelastitem(x) simple_list_deleteitem(x,simple_list_getsize(x))

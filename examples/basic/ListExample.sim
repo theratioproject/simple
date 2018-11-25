@@ -11,10 +11,11 @@
  */
 
 
-call "simple/core/List.sim"
+call simple.core.List
+call simple.utilities.ConsoleColor
 
 /* Define / create a new array. */
-myOldList = new List(["s", "i", "m", "p", "l", "e"])
+myOldList = new List(["s", "i", "m", "p", "l", "e", 30, 50, 90, ["we", 5, "africa", ["alot", 40]]])
 
 /* Testing the methods embedded to List
 *@ push() - Add another element or value to the area.
@@ -39,7 +40,7 @@ myList = new List(myOldList)
 /*
  * Display the toString() block of @Class List as inherited from @Class Object
  */
-display myList.toString() + crlf
+display myList.toString() + nl 
 
 /*
  * Display the created myList Variable.
@@ -48,28 +49,28 @@ display myList.toString() + crlf
  *		myList.object() and myList.toList() 
  */
 display myList
-display myList.object()
+display myList.object() 
 
 /* .indexOf() */
-display "Index of 5 : "+myList.indexOf(4) +crlf
+display " Index of 5 : "+myList.indexOf(4) +crlf 
 #display "Index of '5' : "+myList.indexOf('5') +crlf
  
 /* .push() method */
-myList.push([" l", "a", "n", "g"])
+myList.push([" l", "a", "n", "g"]) 
 
 #display myList /* simple lang */ 
 
 /* .pop() method */
-myList.pop(4)
+myList.pop(4) 
 
 # display myList /* simpe lang */
 
 /* .keys */
-myList.keys()
+myList.keys() 
 
 /* .reverse() */
-myList.reverse()
+myList.reverse() 
 
 /* .slice() */
 @ "" +crlf
-myList.slice(0,5)
+myList.slice(0,5) 

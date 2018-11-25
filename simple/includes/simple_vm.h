@@ -254,13 +254,13 @@ SIMPLE_API void simple_vm_not ( VM *vm ) ;
 
 SIMPLE_API void simple_vm_newscope ( VM *vm ) ;
 
-int simple_vm_findvar ( VM *vm,const char *cStr ) ;
+SIMPLE_API int simple_vm_findvar ( VM *vm,const char *cStr ) ;
 
-int simple_vm_findvar2 ( VM *vm,int x,List *list2,const char *cStr ) ;
+SIMPLE_API int simple_vm_findvar2 ( VM *vm,int x,List *list2,const char *cStr ) ;
 
 SIMPLE_API void simple_vm_newvar ( VM *vm,const char *cStr ) ;
 
-List * simple_vm_newvar2 ( VM *vm,const char *cStr,List *pParent ) ;
+SIMPLE_API List * simple_vm_newvar2 ( VM *vm,const char *cStr,List *pParent ) ;
 
 SIMPLE_API void simple_vm_addnewnumbervar ( VM *vm,const char *cStr,double x ) ;
 
@@ -353,11 +353,11 @@ SIMPLE_API void simple_vm_display ( VM *vm ) ;
 SIMPLE_API void simple_vm_read ( VM *vm ) ;
 /* String As Array */
 
-SIMPLE_API void simple_vm_stsimple_pushv ( VM *vm ) ;
+SIMPLE_API void simple_vm_string_pushv ( VM *vm ) ;
 
-SIMPLE_API void simple_vm_stsimple_assignment ( VM *vm ) ;
+SIMPLE_API void simple_vm_string_assignment ( VM *vm ) ;
 
-SIMPLE_API void simple_vm_stsimple_index ( VM *vm , String *string , double x ) ;
+SIMPLE_API void simple_vm_string_index ( VM *vm , String *string , double x ) ;
 /* Try Catch Done */
 
 SIMPLE_API void simple_vm_try ( VM *vm ) ;
@@ -412,13 +412,13 @@ SIMPLE_API void simple_vm_oop_loadsuperobjmethod ( VM *vm,List *pSuper ) ;
 
 SIMPLE_API void simple_vm_oop_import ( VM *vm ) ;
 
-List * simple_vm_oop_checkpointertoclassinmodules ( VM *vm,List *list ) ;
+SIMPLE_API List * simple_vm_oop_checkpointertoclassinmodules ( VM *vm,List *list ) ;
 
 SIMPLE_API void simple_vm_oop_import2 ( VM *vm,const char *cModules ) ;
 
 SIMPLE_API void simple_vm_oop_import3 ( VM *vm,List *list ) ;
 
-int simple_vm_oop_visibleclassescount ( VM *vm ) ;
+SIMPLE_API int simple_vm_oop_visibleclassescount ( VM *vm ) ;
 
 List * simple_vm_oop_visibleclassitem ( VM *vm,int x ) ;
 
@@ -428,7 +428,7 @@ SIMPLE_API void simple_vm_oop_popclassmodules ( VM *vm ) ;
 
 SIMPLE_API void simple_vm_oop_deletemodulessafter ( VM *vm,int x ) ;
 
-int simple_vm_oop_callmethodinsideclass ( VM *vm ) ;
+SIMPLE_API int simple_vm_oop_callmethodinsideclass ( VM *vm ) ;
 
 SIMPLE_API void simple_vm_oop_setget ( VM *vm,List *var ) ;
 
@@ -436,15 +436,15 @@ SIMPLE_API void simple_vm_oop_setproperty ( VM *vm ) ;
 
 SIMPLE_API void simple_vm_oop_operatoroverloading ( VM *vm,List *pObj,const char *string_one,int nType,const char *cStr2,double nNum1,void *pointer,int nPointerType ) ;
 
-List * simple_vm_oop_objvarfromobjlist ( List *list ) ;
+SIMPLE_API List * simple_vm_oop_objvarfromobjlist ( List *list ) ;
 
-int simple_vm_oop_objtypefromobjlist ( List *list ) ;
+SIMPLE_API int simple_vm_oop_objtypefromobjlist ( List *list ) ;
 
-Item * simple_vm_oop_objitemfromobjlist ( List *list ) ;
+SIMPLE_API Item * simple_vm_oop_objitemfromobjlist ( List *list ) ;
 
 SIMPLE_API void simple_vm_oop_callmethodfrombrace ( VM *vm ) ;
 
-int simple_vm_oop_isblock ( VM *vm,List *list,const char *cStr ) ;
+SIMPLE_API int simple_vm_oop_isblock ( VM *vm,List *list,const char *cStr ) ;
 
 SIMPLE_API void simple_vm_oop_updateselfpointer ( VM *vm,List *pObj,int nType,void *pContainer ) ;
 
@@ -547,7 +547,7 @@ SIMPLE_API void simple_vm_endglobalscope ( VM *vm ) ;
 
 SIMPLE_API void simple_vm_setglobalscope ( VM *vm ) ;
 
-List * simple_vm_getglobalscope ( VM *vm ) ;
+SIMPLE_API List * simple_vm_getglobalscope ( VM *vm ) ;
 /*
 **  Macro 
 **  Stack 

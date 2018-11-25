@@ -26,7 +26,7 @@ CCC=g++
 CXX=g++
 
 # Flags
-CFLAGS=-g -MMD -MP -w -MF "$@.d"
+CFLAGS=-fpic -g -MMD -MP -w -MF "$@.d"
 CCFLAGS=
 CXXFLAGS=
 
@@ -44,7 +44,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/security.o
 	
 # Link Libraries and Options
-LDLIBSOPTIONS=../../../simple/dist/libsimple.dll ./bin/libeay$(ARC).dll 
+LDLIBSOPTIONS=../../../simple/dist/libsimple.dll -lssl -lcrypto
 
 ${CND_DISTDIR}/${CND_PLATFORM}/security.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_PLATFORM}
@@ -53,7 +53,7 @@ ${CND_DISTDIR}/${CND_PLATFORM}/security.${CND_DLIB_EXT}: ${OBJECTFILES}
 ${OBJECTDIR}/security.o: security.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} ${OBJECTDIR}/*d
-	$(COMPILE.c) $(CFLAGS) $(ARC_FLAG) -o ${OBJECTDIR}/security.o security.c
+	$(COMPILE.c) $(ARC_FLAG) -o ${OBJECTDIR}/security.o security.c
 
 
 #This Makefile-Windows.mk was written in adaptation to the MINGW

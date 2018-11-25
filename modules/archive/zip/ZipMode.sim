@@ -38,7 +38,7 @@
  
 module archive.zip
 
-call archiver.loadarchiver
+call archive.loadarchiver
 
 #zip mode for writing into the zip archive
 ZIP_WRITE = "w"

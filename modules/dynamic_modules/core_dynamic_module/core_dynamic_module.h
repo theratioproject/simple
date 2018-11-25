@@ -22,14 +22,14 @@ extern "C" {
 SIMPLE_API void init_simple_module(SimpleState *sState) ;
 
 /* List */
-void list_delete_from_list( void *pointer );
-void list_find_in_list( void *pointer );
-void list_min_value( void *pointer );
-void list_max_value( void *pointer );
-void list_insert_into_list( void *pointer );
-void list_sort_list( void *pointer );
-void list_reverse_list( void *pointer );
-void list_binarysearch_in_list( void *pointer );
+SIMPLE_API void list_delete_from_list( void *pointer );
+SIMPLE_API void list_find_in_list( void *pointer );
+SIMPLE_API void list_min_value( void *pointer );
+SIMPLE_API void list_max_value( void *pointer );
+SIMPLE_API void list_insert_into_list( void *pointer );
+SIMPLE_API void list_sort_list( void *pointer );
+SIMPLE_API void list_reverse_list( void *pointer );
+SIMPLE_API void list_binarysearch_in_list( void *pointer );
 
 /* Runtime Dynamic Library Loading */
 #define BUILD0(x) x[0]
@@ -57,11 +57,12 @@ void list_binarysearch_in_list( void *pointer );
 #define BUILD22(x) BUILD21(x), x[22]
 #define BUILD(x, i) BUILD##i(x)
 
+/* Runtime Dynamic Library Loading */
 typedef void* (*lp)(int,...);
-void* call_func(lp address, List* parameters);
-int get_parameter_value(Item * item);
-void simple_vm_dll_loadlib (void *pointer) ;
-void simple_vm_dll_calllib_function (void *pointer) ;
+SIMPLE_API void* call_func(lp address, List* parameters);
+SIMPLE_API int get_parameter_value(Item * item);
+SIMPLE_API void simple_vm_dll_loadlib (void *pointer) ;
+SIMPLE_API void simple_vm_dll_calllib_function (void *pointer) ;
 
 /* Date and Time */
 SIMPLE_API void date_time_clock(void *pointer);
@@ -71,7 +72,7 @@ SIMPLE_API void date_time_time(void *pointer);
 SIMPLE_API void date_time_list(void *pointer);
 SIMPLE_API void date_time_t_to_list(void *pointer);
 SIMPLE_API void date_time_add_days(void *pointer);
-int simple_add_leap_year(int nYear);
+SIMPLE_API int simple_add_leap_year(int nYear);
 
 /* Error and Warn */
 SIMPLE_API void error_warn(void *pointer);
@@ -98,8 +99,55 @@ SIMPLE_API void check_characters_is_space(void *pointer);
 SIMPLE_API void check_characters_is_upper(void *pointer);
 SIMPLE_API void check_characters_is_xdigit(void *pointer);
 
-/* Meta Blocks */ 
-SIMPLE_API void meta_blocks_add_addribute(void *pointer);
+/* Reflection and Meta-Programming */
+SIMPLE_API void meta_blocks_local_variables(void *pointer);
+SIMPLE_API void meta_blocks_global_variables(void *pointer);
+SIMPLE_API void meta_blocks_simple_blocks(void *pointer);
+SIMPLE_API void meta_blocks_c_blocks(void *pointer);
+SIMPLE_API void meta_blocks_is_local_variable(void *pointer);
+SIMPLE_API void meta_blocks_is_global_variable(void *pointer);
+SIMPLE_API void meta_blocks_is_block_defined(void *pointer);
+SIMPLE_API void meta_blocks_is_c_block_defined(void *pointer);
+/* OOP */
+SIMPLE_API void meta_blocks_all_defined_modules(void *pointer);
+SIMPLE_API void meta_blocks_is_module_defined(void *pointer);
+SIMPLE_API void meta_blocks_all_defined_classes(void *pointer);
+SIMPLE_API void meta_blocks_is_class_defined(void *pointer);
+SIMPLE_API void meta_blocks_classes_in_module(void *pointer);
+SIMPLE_API void meta_blocks_is_class_in_module(void *pointer);
+SIMPLE_API void meta_blocks_class_name(void *pointer);
+SIMPLE_API void meta_blocks_parent_class_name(void *pointer);
+SIMPLE_API void meta_blocks_instance_of(void *pointer);
+SIMPLE_API void meta_blocks_object_address(void *pointer);
+SIMPLE_API void meta_blocks_object_attributes(void *pointer);
+SIMPLE_API void meta_blocks_object_methods(void *pointer);
+SIMPLE_API void meta_blocks_object_has_attribute(void *pointer);
+SIMPLE_API void meta_blocks_object_has_method(void *pointer);
+SIMPLE_API void meta_blocks_object_has_private_attribute(void *pointer);
+SIMPLE_API void meta_blocks_object_has_private_method(void *pointer);
+SIMPLE_API void meta_blocks_add_attribute_to_object(void *pointer);
+SIMPLE_API void meta_blocks_add_method_to_object(void *pointer);
+SIMPLE_API void meta_blocks_get_attribute_value(void *pointer);
+SIMPLE_API void meta_blocks_set_attribute_value(void *pointer);
+SIMPLE_API void meta_blocks_inherit_class_methods(void *pointer);
+SIMPLE_API void meta_blocks_last_imported_module_name(void *pointer);
+/* VM */
+SIMPLE_API void meta_blocks_vm_files_list(void *pointer);
+SIMPLE_API void meta_blocks_vm_call_list(void *pointer);
+SIMPLE_API void meta_blocks_vm_memory_list(void *pointer);
+SIMPLE_API void meta_blocks_vm_blocks_list(void *pointer);
+SIMPLE_API void meta_blocks_vm_classes_list(void *pointer);
+SIMPLE_API void meta_blocks_vm_modules_list(void *pointer);
+SIMPLE_API void meta_blocks_vm_c_blocks_list(void *pointer);
+SIMPLE_API void meta_blocks_vm_set_trace(void *pointer);
+SIMPLE_API void meta_blocks_vm_trace_data(void *pointer);
+SIMPLE_API void meta_blocks_vm_trace_event(void *pointer);
+SIMPLE_API void meta_blocks_vm_trace_block(void *pointer);
+SIMPLE_API void meta_blocks_vm_scopes_count(void *pointer);
+SIMPLE_API void meta_blocks_vm_exec_in_scope(void *pointer);
+SIMPLE_API void meta_blocks_vm_passed_error(void *pointer);
+SIMPLE_API void meta_blocks_vm_hide_error_msg(void *pointer);
+SIMPLE_API void meta_blocks_vm_call_block(void *pointer);
 
 #ifdef __cplusplus
 }

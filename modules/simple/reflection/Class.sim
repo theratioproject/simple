@@ -1,0 +1,25 @@
+/* 
+
+*/
+
+module simple.reflection
+
+call simple.core.Object
+
+block instanceOf(obj, clazz)
+	__object = obj
+	parentClass = __parent_class_name(__object)
+	do {
+		if parentClass == clazz {
+			return true
+		elif parentClass == null
+			return false
+		}
+		__object = executeCode("return new "+parentClass)
+		parentClass = __parent_class_name(__object)
+	} while parentClass != null 
+	return false
+
+class Class : Object
+
+	

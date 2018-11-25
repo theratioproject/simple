@@ -16,7 +16,7 @@
 #include "../includes/simple.h"
 /* String As Array */
 
-SIMPLE_API void simple_vm_stsimple_pushv ( VM *vm )
+SIMPLE_API void simple_vm_string_pushv ( VM *vm )
 {
 	char *newstr  ;
 	char cStr[2]  ;
@@ -27,7 +27,7 @@ SIMPLE_API void simple_vm_stsimple_pushv ( VM *vm )
 	SIMPLE_VM_STACK_PUSHCVALUE(cStr);
 }
 
-SIMPLE_API void simple_vm_stsimple_assignment ( VM *vm )
+SIMPLE_API void simple_vm_string_assignment ( VM *vm )
 {
 	String *string_one  ;
 	char *newstr  ;
@@ -51,7 +51,7 @@ SIMPLE_API void simple_vm_stsimple_assignment ( VM *vm )
 	}
 }
 
-SIMPLE_API void simple_vm_stsimple_index ( VM *vm, String *string, double nNum1 )
+SIMPLE_API void simple_vm_string_index ( VM *vm, String *string, double nNum1 )
 {
 	char *newstr  ; 
 	/* We will push a pointer of the sub char to the stack */
@@ -83,7 +83,7 @@ SIMPLE_API void simple_vm_catch ( VM *vm,const char *cError )
 	vm->nPC = simple_list_getint(list,1) ;
 	simple_vm_restorestate(vm,list,2,SIMPLE_STATE_TRYCATCH);
 	/* Define variable __err__ to contain the error message */
-	simple_list_setstsimple_gc(vm->sState,simple_list_getlist(simple_vm_getglobalscope(vm),6),3,cError);
+	simple_list_setstring_gc(vm->sState,simple_list_getlist(simple_vm_getglobalscope(vm),6),3,cError);
 	/* Tell C-API caller (CALL command) that catch happens! */
 	vm->nActiveCatch = 1 ;
 	/* Catch Statements must be executed without try effects */

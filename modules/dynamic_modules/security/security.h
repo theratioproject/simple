@@ -18,10 +18,10 @@
 /* Android Build currently Not Supported */
 #ifdef __ANDROID__
 #else
-#include "openssl/md5.h"
-#include "openssl/sha.h"
-#include "openssl/evp.h"
-#include "openssl/rand.h"
+#include <openssl/md5.h>
+#include <openssl/sha.h>
+#include <openssl/evp.h>
+#include <openssl/rand.h>
 #endif
 
 #ifdef __cplusplus

@@ -969,7 +969,7 @@ SIMPLE_API void simple_vm_oop_setproperty ( VM *vm )
 		}
 		else if ( SIMPLE_VM_STACK_ISSTRING ) {
 			simple_list_setint_gc(vm->sState,list2,SIMPLE_VAR_TYPE,SIMPLE_VM_STRING);
-			simple_list_setstsimple_gc(vm->sState,list2,SIMPLE_VAR_VALUE,SIMPLE_VM_STACK_READC);
+			simple_list_setstring_gc(vm->sState,list2,SIMPLE_VAR_VALUE,SIMPLE_VM_STACK_READC);
 			simple_list_addstring_gc(vm->sState,list,SIMPLE_VM_STACK_READC);
 		}
 		else if ( SIMPLE_VM_STACK_ISPOINTER ) {
@@ -1106,7 +1106,7 @@ SIMPLE_API void simple_vm_oop_operatoroverloading ( VM *vm,List *pObj,const char
 	list2 = simple_list_getlist(simple_vm_getglobalscope(vm),7) ;
 	if ( nType == SIMPLE_OOPARA_STRING ) {
 		simple_list_setint_gc(vm->sState,list2,SIMPLE_VAR_TYPE,SIMPLE_VM_STRING);
-		simple_list_setstsimple_gc(vm->sState,list2,SIMPLE_VAR_VALUE,cStr2);
+		simple_list_setstring_gc(vm->sState,list2,SIMPLE_VAR_VALUE,cStr2);
 	}
 	else if ( nType == SIMPLE_OOPARA_NUMBER ) {
 		simple_list_setint_gc(vm->sState,list2,SIMPLE_VAR_TYPE,SIMPLE_VM_NUMBER);

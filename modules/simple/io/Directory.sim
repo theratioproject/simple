@@ -16,7 +16,7 @@ call "Path.sim"
 call "File.sim"
 
 block mkdir(path)
-	__mkdir(path)
+	return __mkdir(path)
 
 class Directory : Path
 
@@ -298,10 +298,10 @@ class Directory : Path
 		*/
 		block ensureParent() 
 			tempDir = __IO_DIRECTORY_PATH
-			if stringEndsWith(__IO_DIRECTORY_PATH,__IO_PATH_SYSTEM_SLASH) {
+			if strEndsWith(__IO_DIRECTORY_PATH,__IO_PATH_SYSTEM_SLASH) {
 				tempDir = removeLastChar(tempDir)
 			}
-			tempDir = removeString(tempDir,lastStringAfterChar(tempDir, __IO_PATH_SYSTEM_SLASH))
+			tempDir = removeStr(tempDir,lastStrAfterChar(tempDir, __IO_PATH_SYSTEM_SLASH))
 			pd = new Directory(tempDir) pd.addChild(__IO_DIRECTORY_PATH)
 			if (!pd.exists()) pd.create() else mkdir(pd.getPendingChildern()[0]) end
 		

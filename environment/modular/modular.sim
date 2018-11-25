@@ -47,19 +47,20 @@ verifierUrl = simpleLangHost+"?page=Packages%20Index&sub_page=Verifier"
 addPackageUrl = simpleLangHost+"?page=Packages%20Index&sub_page=Add%20New%20Package"
 simpleUpdateUrl = simpleLangCgiUrl+"api/Upgrade.sim"
 packageUrl = simpleLangCgiUrl+"api/PackageInstaller.sim"
-simpleDistDirectory = simpleDirectory()
+simpleDistDirectory = simpleDir()
 tempDirectory = getTemporaryDirectory()
-modulesDirectory = simpleModulesDirectory()
-documentationDirectory = simpleDocDirectory()
-dynamicModulesDirectory = simpleDyModulesDirectory()
+modulesDirectory = simpleModulesDir()
+githubDirectory = modulesDirectory + "/github.com/"
+documentationDirectory = simpleDocDir()
+dynamicModulesDirectory = simpleDyModulesDir()
 
 deleteTemp = true
 showInfo = false
 askPermission = true
 packageList = null
 isShell = false
-cmdlen = lengthOf(cmdparams)
-type = "whichever"
+cmdlen = lengthOf(cmdparams) - 1
+type = ""
 package = ""
 initPackage = ""
 version = "latest"
@@ -71,28 +72,33 @@ UNKNOWN_ERROR = "The status of this package cannot be defined"+crlf+"Visit their
 STALL_PACKAGE = "This package is pending verification. "+crlf+"If you wish to join package verifiers visit : "+verifierUrl
 INSTALLATION_UNATHORIZED = "Installation not authorized "+crlf+"DONE"
 
-block main()
+block main() 
 	executeModular(cmdlen,cmdparams)
 
 block executeModular(cmdlen,cmdparams)
 	if cmdlen <= 0 { displayHelp() }
 	for a = 0 to cmdlen {
-		if stringEquals(cmdparams[a],"--shell",false) or stringEquals(cmdparams[a],"-su",false) if !isShell { isShell = true shell() } break
-		elif stringEquals(cmdparams[a],"--help",false) or stringEquals(cmdparams[a],"-h",false) or stringEquals(cmdparams[a],"--h",false) displayHelp()
-		elif stringEquals(cmdparams[a],"--about",false) or stringEquals(cmdparams[a],"-a",false) or stringEquals(cmdparams[a],"--a",false) displayAbout()
+		if strEquals(cmdparams[a],"--shell",false) or strEquals(cmdparams[a],"-su",false) if !isShell { isShell = true shell() } break
+		elif strEquals(cmdparams[a],"--help",false) or strEquals(cmdparams[a],"-h",false) or strEquals(cmdparams[a],"--h",false) displayHelp()
+		elif strEquals(cmdparams[a],"--about",false) or strEquals(cmdparams[a],"-a",false) or strEquals(cmdparams[a],"--a",false) displayAbout()
 		#Module or Environment
-		elif stringEquals(cmdparams[a],"--env",false) or stringEquals(cmdparams[a],"-e",false) type = "environment"
-		elif stringEquals(cmdparams[a],"--mod",false) or stringEquals(cmdparams[a],"-m",false) type = "module"
+		elif strEquals(cmdparams[a],"--env",false) or strEquals(cmdparams[a],"-e",false) type = "environment"
+		elif strEquals(cmdparams[a],"--mod",false) or strEquals(cmdparams[a],"-m",false) type = "module"
 		#Version and Attribute
-		elif stringEquals(cmdparams[a],"-v",false) or stringEquals(cmdparams[a],"--version",false) version = cmdparams[a++]  
-		elif stringEquals(cmdparams[a],"-os",false) or stringEquals(cmdparams[a],"--system",false) ostype = cmdparams[a++]  
-		elif stringEquals(cmdparams[a],"--upgrade",false) or stringEquals(cmdparams[a],"--update",false) or stringEquals(cmdparams[a],"-u",false) type = "upgrade" 
+		elif strEquals(cmdparams[a],"-v",false) or strEquals(cmdparams[a],"--version",false) version = cmdparams[a++]  
+		elif strEquals(cmdparams[a],"-os",false) or strEquals(cmdparams[a],"--system",false) ostype = cmdparams[a++]  
+		elif strEquals(cmdparams[a],"--upgrade",false) or strEquals(cmdparams[a],"--update",false) or strEquals(cmdparams[a],"-u",false) type = "upgrade" 
 		#Others
-		elif stringEquals(cmdparams[a],"-p",false) or stringEquals(cmdparams[a],"--path",false) simpleDistDirectory = cmdparams[a++] @simpleDistDirectory
-		elif stringEquals(cmdparams[a],"-t",false) or stringEquals(cmdparams[a],"--temp",false) deleteTemp = false
-		elif stringEquals(cmdparams[a],"-s",false) or stringEquals(cmdparams[a],"--show-info",false) showInfo = true
-		elif stringEquals(cmdparams[a],"-y",false) or stringEquals(cmdparams[a],"--yes",false) askPermission = false
+		elif strEquals(cmdparams[a],"-p",false) or strEquals(cmdparams[a],"--path",false) simpleDistDirectory = cmdparams[a++] @simpleDistDirectory
+		elif strEquals(cmdparams[a],"-t",false) or strEquals(cmdparams[a],"--temp",false) deleteTemp = false
+		elif strEquals(cmdparams[a],"-s",false) or strEquals(cmdparams[a],"--show-info",false) showInfo = true
+		elif strEquals(cmdparams[a],"-y",false) or strEquals(cmdparams[a],"--yes",false) askPermission = false
 		else package = cmdparams[a] end
+	}
+	package = replaceStr(package,"\","/")
+	if strContains(package,"github.com") or strContains(package,"/") {
+		grabFromGithub(package)
+		return 
 	}
 	if ostype == "auto-detect" {
 		ostype = getOS()
@@ -113,11 +119,142 @@ block executeModular(cmdlen,cmdparams)
 		moduleEnviron(depConf,packageList)
 	}
 	if isShell { shell() else __exit__ }
+	
+block grabFromGithub(package)
+	if askPermission == true { askPermission = false }
+	
+	packageName = lastStrAfterChar(package,"/")
+	branch_tag = "master"
+	packageType = "master"
+	downloadUrl = null
+	if strContains(packageName,":") {
+		pSplit = strSplit(packageName, ":")
+		if lengthOf(pSplit) > 2 {
+			throw("Invalid github repository. Check the ':' count. : "+package)
+		}
+		packageName = pSplit[0] 
+		package = replaceStr(package,packageName+":"+pSplit[1],pSplit[0])
+		package = removeStr(package,":")
+		lastPart = pSplit[1]
+		
+		pSplit1 = strSplit(lastPart, "-")
+		start = 1
+		preB = toLowerCase(pSplit1[0])
+		if preB == "version" or preB == "tag" {
+			packageType = "tag"
+		elif preB == "branch" 
+			packageType = "branch"
+		else
+			value = replaceStr(lastPart,".","")
+			start = 0
+			if isDigit(value) {
+				packageType = "tag"
+			else
+				packageType = "branch"
+			}
+		}
+		branch_tag = ""
+		for a = start to lengthOf(pSplit1) - 1 {
+			branch_tag += pSplit1[a]
+			if a < lengthOf(pSplit1) - 1 {
+				branch_tag += "-"
+			}
+		}
+	}
+	if branch_tag == "master" {
+		packageType = "master"
+	}	
+	stdout.println("Preparing to grab module from github...")
+	stdout.println("installing module from github might result to dependencies issues")
+	if !strContains(package,"github.com") {
+		package = "https://github.com/" + package
+	}	
+	downloadUrl = package+"/archive/" + branch_tag + ".zip"
+	downloadablePackage = [
+		:name = packageName,
+		:download_url = downloadUrl,
+		:branch = branch_tag 
+	] 
+	downloadedPackage = new Download(downloadablePackage[:download_url])
+	downloadedPackage.saveLocation(tempDirectory+hash(downloadablePackage[:name])+branch_tag+".zip")
+	downloadedPackage.execute() 
+	if downloadedPackage.exists() {
+		downloadedPackageZip = new Zip(downloadedPackage.absolutePath(),"r")
+		extractedPackage = new Directory(tempDirectory+hash(downloadablePackage[:name]+branch_tag))
+		#TODO : Create method to check if zip is a valid archive  #throw if try to extract invalid archive
+		downloadedPackageZip.extractAll(extractedPackage.getPath())  
+		extractedPath = null 
+		try {
+			extractedPath = extractedPackage.listDirectories()[0].absolutePath()
+		catch 
+			stderr.println("the module installation failed. Check package name")
+			if isShell { shell() else __exit__ }
+		}
+		if __exists(extractedPath+"/install.sim") {
+			modularCode = __readfile(extractedPath+"/install.sim")
+			executeCode(modularCode)
+			if !__is_local_variable("modular") {
+				modular = []
+			}
+			downloadablePackage[:title] = modular[:title]
+			downloadablePackage[:version] = modular[:version]
+			downloadablePackage[:date] = modular[:date]
+			downloadablePackage[:license] = modular[:license]
+			downloadablePackage[:website] = modular[:website]
+			downloadablePackage[:dynamicmodules] = modular[:dynamic_modules]
+			downloadablePackage[:module] = modular[:module]
+			downloadablePackage[:doc] = modular[:doc]
+			if modular[:pre_install_system] != null {
+				__exec(modular[:pre_install_system])
+			}
+			if modular[:module] != null and __dir_exists(extractedPath+downloadablePackage[:module]) {
+				moveContent(extractedPath+downloadablePackage[:module],modulesDirectory+"/"+modular[:module])
+				stdout.println("the module "+downloadablePackage[:name]+" has been installed")
+			else 
+				if askPermission {
+					stdout.print("do you wish to install the module in the github.com folder : ") read response
+				else
+					response = "y"
+				}
+				if response == "yes" or response == "y" {
+					moveContent(extractedPath+downloadablePackage[:module],githubDirectory)
+					clearGithubResidual(githubDirectory)
+					#recordModuleInstallation(downloadablePackage) #do not record since it from github
+					stdout.println("the module "+downloadablePackage[:name]+" has been installed")
+				else 
+					stderr.println("the module "+downloadablePackage[:name]+" installation cancelled")
+				}
+			}
+			if modular[:doc] != null and __dir_exists(extractedPath+downloadablePackage[:doc]) {
+				moveContent(extractedPath+downloadablePackage[:doc],documentationDirectory)
+			}
+			if modular[:post_install_system] != null {
+				__exec(modular[:post_install_system])
+			}
+		else 
+			stdout.print("the module does not have an install.sim script \n")
+			if askPermission {
+				stdout.print("do you wish to install the module in the github.com folder : ") read response
+			else
+				response = "y"
+			}
+			if response == "yes" or response == "y" {
+				moveContent(extractedPath+downloadablePackage[:module],githubDirectory)
+				clearGithubResidual(githubDirectory)
+				#recordModuleInstallation(downloadablePackage) #do not record since it from github
+				stdout.println("the module "+downloadablePackage[:name]+" has been installed")
+			else 
+				stderr.println("the module "+downloadablePackage[:name]+" installation cancelled")
+			}
+		}
+		if isShell { shell() else __exit__ }
+	}
 
 block moduleEnviron(depConf,packageList)
 	localPackage = null
 	@"checking locally installed version of "+package+"..."
-	for a = 0 to lengthOf(packageList) {
+	pkgLen = lengthOf(packageList) - 1
+	for a = 0 to pkgLen {
 		if packageList[a][:name] == package {
 			localPackage = packageList[a]
 			@"local package: "+package+" "+type+" "+localPackage[:version]
@@ -233,11 +370,11 @@ block recordModuleInstallation(downloadedPackage)
 		:dynamicmodules = downloadedPackage[:dynamic_modules]
 	] 
 	add(packageList,downloadedPackageList)
-	list = new List(packageList)
+	list = new List(downloadedPackageList)
 	depConf = new File(modulesDirectory+"/modules-dependencies.conf")
-	#@replaceString(depConf.readFileAsString(),"/* NEWMODULE */",","+crlf+tab+list.toString()+crlf+tab+"/**NEWMODULE**/")
+	newDep = replaceStr(depConf.readFileAsString(),"/* NEWMODULE */",","+nl+tab+list.toString()+"/* NEWMODULE */")
 	if depConf.exists() {
-		#depConf.write(list.toString())
+		depConf.write(newDep)
 	}
 
 block getSupportingModulesInfo(initialPackage)
@@ -263,13 +400,13 @@ block loadPackageAndDep()
 	if packageJson == null {
 		@"Internet connection is required to install "+package+" "+type+" package"
 		if isShell { shell() else __exit__ }
-	elif stringContains(packageJson, "500 Internal Server Error")
+	elif strContains(packageJson, "500 Internal Server Error")
 		@"The server is experiencing a down time please report to <whatisthis914@gmail.com>"
 		if isShell { shell() else __exit__ }
-	elif stringContains(packageJson, "Not Found") 
+	elif strContains(packageJson, "Not Found") 
 		@"The update link is broken please report this to <whatisthis914@gmail.com>"
 		if isShell { shell() else __exit__ }
-	elif !stringContains(packageJson, '"value":')
+	elif !strContains(packageJson, '"value":')
 		@"The package address is incorrect please report to <whatisthis914@gmail.com>"
 		if isShell { shell() else __exit__ }
 	}
@@ -313,13 +450,13 @@ block upgradeSimpleDistro()
 	upgradeJson = download(simpleUpdateUrl+"?os="+ostype)
 	if upgradeJson == null {
 		@"Internet connection is required to upgrade simple-lang"
-	elif stringContains(upgradeJson, "500 Internal Server Error")
+	elif strContains(upgradeJson, "500 Internal Server Error")
 		@"The server is experiencing a down time please report to <whatisthis914@gmail.com>"
 		if isShell { shell() else __exit__ }
-	elif stringContains(upgradeJson, "Not Found") 
+	elif strContains(upgradeJson, "Not Found") 
 		@"The upgrade link is broken please report this to <whatisthis914@gmail.com>"
 		if isShell { shell() else __exit__ }
-	elif !stringContains(upgradeJson, '"value"')
+	elif !strContains(upgradeJson, '"value"')
 		@"The upgrade address is incorrect please report to <whatisthis914@gmail.com>"
 		if isShell { shell() else __exit__ }
 	else 
@@ -370,9 +507,13 @@ block upgradeSimpleDistro()
 		}
 	}
 	
-block removeTempFiles(files)
+block clearGithubResidual(githubDirectory)
+	dir = new Directory(githubDirectory) 
+	removeTempFiles(dir.listFiles())
+	
+block removeTempFiles(files) 
 	if deleteTemp {
-		for a = 0 to lengthOf(files) {
+		for a = 0 to lengthOf(files) - 1 { 
 			if files[a].exists() { files[a].delete() }
 		}
 	}

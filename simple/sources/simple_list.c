@@ -93,23 +93,24 @@ SIMPLE_API void simple_list_copy_gc ( void *pState,List *pNewList, List *list )
 	**  if you want to add a list to another one, create new list in the target then copy to it 
 	**  Copy Items 
 	*/
+	// TODO : Check if item is final. if final don't copy skip it
 	if ( simple_list_getsize(list) == 0 ) {
 		return ;
 	}
 	for ( x = 1 ; x <= simple_list_getsize(list) ; x++ ) {
-		if ( simple_list_isint(list,x) ) {
+		if ( simple_list_isint(list,x) && !simple_list_isfinal(list,x)) {
 			simple_list_addint_gc(pState,pNewList,simple_list_getint(list,x));
 		}
-		else if ( simple_list_isdouble(list,x) ) {
+		else if ( simple_list_isdouble(list,x) && !simple_list_isfinal(list,x)) {
 			simple_list_adddouble_gc(pState,pNewList,simple_list_getdouble(list,x));
 		}
-		else if ( simple_list_isstring(list,x) ) {
+		else if ( simple_list_isstring(list,x) && !simple_list_isfinal(list,x)) {
 			simple_list_addstring2_gc(pState,pNewList,simple_list_getstring(list,x),simple_list_getstringsize(list,x));
 		}
-		else if ( simple_list_ispointer(list,x) ) {
+		else if ( simple_list_ispointer(list,x) && !simple_list_isfinal(list,x)) {
 			simple_list_addpointer_gc(pState,pNewList,simple_list_getpointer(list,x));
 		}
-		else if ( simple_list_islist(list,x) ) {
+		else if ( simple_list_islist(list,x) && !simple_list_isfinal(list,x)) {
 			pNewList2 = simple_list_newlist_gc(pState,pNewList);
 			simple_list_copy_gc(pState,pNewList2,simple_list_getlist(list,x));
 		}
@@ -439,7 +440,7 @@ SIMPLE_API void simple_list_adddouble_gc ( void *pState,List *list,double x )
 
 /* String */
 
-SIMPLE_API void simple_list_setstsimple_gc ( void *pState,List *list, int index ,const char *str )
+SIMPLE_API void simple_list_setstring_gc ( void *pState,List *list, int index ,const char *str )
 {
 	Item *pItem  ;
 	String *string  ;
@@ -465,7 +466,7 @@ SIMPLE_API void simple_list_addstring_gc ( void *pState,List *list,const char *s
 {
 	assert(list != NULL);
 	simple_list_newitem_gc(pState,list);
-	simple_list_setstsimple_gc(pState,list,simple_list_getsize(list),str);
+	simple_list_setstring_gc(pState,list,simple_list_getsize(list),str);
 }
 
 SIMPLE_API void simple_list_addstring2_gc ( void *pState,List *list,const char *str,int str_size )
@@ -610,11 +611,11 @@ SIMPLE_API void simple_list_insertpointer_gc ( void *pState,List *list,int nPos,
 	simple_list_setpointer_gc(pState,list,nPos+1,pValue);
 }
 
-SIMPLE_API void simple_list_insertstsimple_gc ( void *pState,List *list,int nPos,const char *str )
+SIMPLE_API void simple_list_insertstring_gc ( void *pState,List *list,int nPos,const char *str )
 {
 	assert(list != NULL);
 	simple_list_insertitem_gc(pState,list,nPos);
-	simple_list_setstsimple_gc(pState,list,nPos+1,str);
+	simple_list_setstring_gc(pState,list,nPos+1,str);
 }
 
 SIMPLE_API void simple_list_insertstring2_gc ( void *pState,List *list,int nPos,const char *str,int str_size )
@@ -1191,7 +1192,7 @@ SIMPLE_API void simple_list_adddouble ( List *list,double x )
 
 SIMPLE_API void simple_list_setstring ( List *list, int index ,const char *str )
 {
-	simple_list_setstsimple_gc(NULL,list,index,str);
+	simple_list_setstring_gc(NULL,list,index,str);
 }
 
 SIMPLE_API void simple_list_setstring2 ( List *list, int index ,const char *str,int str_size )
@@ -1253,7 +1254,7 @@ SIMPLE_API void simple_list_insertpointer ( List *list,int nPos,void *pValue )
 
 SIMPLE_API void simple_list_insertstring ( List *list,int nPos,const char *str )
 {
-	simple_list_insertstsimple_gc(NULL,list,nPos,str);
+	simple_list_insertstring_gc(NULL,list,nPos,str);
 }
 
 SIMPLE_API void simple_list_insertstring2 ( List *list,int nPos,const char *str,int str_size )

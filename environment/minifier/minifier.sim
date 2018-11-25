@@ -58,7 +58,7 @@ block minifySourceDir(sourceDir)
 	}
 	
 block minifySourceFile(sourceFile)
-	if !stringEndsWith(sourceFile.name(),".sim") {
+	if !strEndsWith(sourceFile.name(),".sim") {
 		@sourceFile.name()+" : not a simple source file (*.sim) skipping..."
 		return
 	}
@@ -69,7 +69,7 @@ block minifySourceFile(sourceFile)
 		}
 	}
 	source = " "+sourceFile.readFileAsString() + " "
-	if stringGetLineCount(source) < 1 {
+	if strGetLineCount(source) < 1 {
 		@sourceFile.name()+" : already minified"
 		return
 	}
@@ -130,3 +130,5 @@ block minifySourceFile(sourceFile)
 	__writefile(sourceFile.absolutePath(), minifiedSource)
 	@" (done)"
 	
+block isNewLine(val)
+	return val == crlf or val = nl or val == cr
