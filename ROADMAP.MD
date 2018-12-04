@@ -135,7 +135,7 @@ Modules which are not part of the standard module that comes distributed with si
 
 - [ ] create material and native os extended module for fulltick GUI module
 - [ ] a module that convert fultick Widget to HTML element
-- [ ] ~write a C/C++ parser module to scan C/C++ sources into resuable token groups~
+- [ ] write a C/C++ parser module to scan C/C++ sources into resuable token groups 
 
 ### Environments
 
