@@ -18,6 +18,8 @@ call simple.system.loadsystemdll
 call simple.system.System
 call simple.io.Path
 
+module simple.system
+
 /*
 	Get the Directory that the simple distribution are installed into, this is 
 	different from the directory where the simple executables e.g simple.exe are. 

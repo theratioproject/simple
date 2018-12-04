@@ -10,15 +10,11 @@
  * #date - 11 Febuary 2017
  */
  
-module simple.utilities
-
+call simple.core.Object
 call simple.core.DynamicLoader
-callModule("consoler")
+callModule("libconsoler")
 
-/*
-	initialized to allow ussage as ConsoleColor.block()
-*/
-ConsoleColor = new ConsoleColor
+module simple.utilities
 
 /*
 	do not change the color values as it is in respect to 
@@ -53,7 +49,7 @@ final CONSOLE_COLOR_WHITE = 16			#color white		###
 /*
 
 */
-class ConsoleColor 
+class ConsoleColor : Object
 
 	/*
 		

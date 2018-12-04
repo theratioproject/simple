@@ -14,7 +14,8 @@
 	A plain example on simple.io.File move, rename and like operation
 */
 
-call "simple/io/File.sim" 
+call simple.core.Object
+call simple.io.File
 
 block main()
 	file = new File("./test.txt")

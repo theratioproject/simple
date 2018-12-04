@@ -9,11 +9,12 @@
  * #author - Azeez Adewale
  * #date - 5 Febuary 2017
  */
+
+call simple.core.Object
+call simple.io.Path
+call simple.io.File
  
 module simple.io
-
-call "Path.sim"
-call "File.sim"
 
 block mkdir(path)
 	return __mkdir(path)

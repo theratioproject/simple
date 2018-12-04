@@ -10,10 +10,11 @@
  * #date - 18 Febuary 2018
  */
  
-module simple.security
-
+call simple.core.Object
 call simple.core.BaseFields
-call "Hash.sim"
+call simple.security.Hash
+
+module simple.security
 
 #encrypt any string value base on the openssl method. The block accept three 
 #parameter the first is the string you want to encrypt, the second parameter

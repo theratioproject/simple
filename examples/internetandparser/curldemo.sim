@@ -12,8 +12,8 @@
 	the constructor they all set the url
 	
 	------------------------------------------------------------------
-	#testcurl.addOption(10002, "http://localhost/universalprices/test/ebay.php") 
-	#testcurl.addUrl("http://localhost/universalprices/test/ebay.php")
+	#testcurl.addOption(10002, "http://localhost/") 
+	#testcurl.addUrl("http://localhost/")
 	------------------------------------------------------------------
 
 */
@@ -22,7 +22,7 @@
 call "simple/internet/curl/CurlCore.sim"
 
 block main() 
-	testcurl = new CurlCore("https://stackoverflow.com/questions/9774349/php-curl-not-working-with-https")
+	testcurl = new CurlCore("http://google.com")
 	
 	#testcurl.addOption(10002, CURL_URL) #add option to disable ssl
 	display testcurl.getStringOutput() 

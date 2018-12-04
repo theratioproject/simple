@@ -4,8 +4,9 @@
 
 */
 
-call "simple/io/Directory.sim"
-call "simple/io/File.sim"
+call simple.io.Directory
+call simple.io.File
+call simple.core.Object
 
 block main()
 	tDir = new Directory("../")

@@ -2,8 +2,8 @@
 
 */
 
-module simple.reflection
-
 call simple.core.Object
+
+module simple.reflection
 
 class Method : Object

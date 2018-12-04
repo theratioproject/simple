@@ -82,6 +82,8 @@ build, installation, features e.t.c
 - [ ] allow the use of ellipsis `..` between numbers in a for..loop to specify range. `for (1..100) {}`
 - [ ] support using braces to call/import multiple files at once call { module1 module2 } 
 - [ ] make break from multiple loop start from index 0 instead of one `break 0` instead of `break 1`
+- [ ] allow inline return of new object instance even if constructor return self
+- [ ] import a module as soon as it is declared
 
 ### simplify
 - [ ] hint user as a type of level error when a similar variable that has not been declared is used 
@@ -89,6 +91,7 @@ build, installation, features e.t.c
 - [ ] display verbose warning and errors when using the compiler 
 - [ ] add and use the keyword `var` to allow variable declaration
 - [ ] directive : allow the use of strict declaration to render undefine variable error `see perl 'use strict;'`
+- [ ] allow the `&` operator to pass a parameter by reference
 
 ### Modules
 
@@ -123,6 +126,8 @@ issue related to the module
 - [ ] implement ncurses for use in simple-lang
 - [ ] use a light and simple alternate ANSI C internet library for networking
 - [ ] a json module that load the json file and store as class attributes and fields and allow writing back to file
+- [ ] create a built in module to get hex as number using `H("0x00")
+- [ ] build a comprehensive color module in simple.system
 
 ### Extended Modules
 
@@ -130,11 +135,7 @@ Modules which are not part of the standard module that comes distributed with si
 
 - [ ] create material and native os extended module for fulltick GUI module
 - [ ] a module that convert fultick Widget to HTML element
-<<<<<<< HEAD
 - [ ] ~write a C/C++ parser module to scan C/C++ sources into resuable token groups~
-=======
-- [ ] write a C/C++ parser module to scan C/C++ sources into resuable token groups 
->>>>>>> a5c554bfc55b57e9f2e320babf98483721b1f842
 
 ### Environments
 

@@ -43,12 +43,13 @@ OBJECTDIR=${CND_DISTDIR}/${CND_BUILDDIR}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/networker.o 
 	
+#STATIC_LINKING : failing
 # Link Libraries and Options
-LDLIBSOPTIONS=../../../simple/dist/libsimple.dll -lcurl -lssl -lcrypto
+LDLIBSOPTIONS=../../../simple/dist/libsimple.dll -lcurl
 
-${CND_DISTDIR}/${CND_PLATFORM}/networker.${CND_DLIB_EXT}: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_PLATFORM}/libnetworker.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_PLATFORM}
-	${LINK.c} $(ARC_FLAG) -shared -o ${CND_DISTDIR}/${CND_PLATFORM}/networker.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS}
+	${LINK.c} $(ARC_FLAG) -o ${CND_DISTDIR}/${CND_PLATFORM}/libnetworker.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared 
 
 ${OBJECTDIR}/networker.o: networker.c
 	${MKDIR} -p ${OBJECTDIR}

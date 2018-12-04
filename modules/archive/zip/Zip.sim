@@ -9,11 +9,12 @@
  * #author - Azeez Adewale
  * #date - 10 Febuary 2017
  */
- 
-module archive.zip
 
+call simple.core.Object
 call archive.loadarchiver
 call archive.zip.ZipMode
+ 
+module archive.zip
 
 #to check if param is a Zip object
 block isZipStream(zipStream)
@@ -30,7 +31,7 @@ block addFileToZip(zipStream, filePath, fileName)
 	__fwrite_zip_entry(zipStream,filePath)
 	__close_zip_entry(zipStream)
 
-class Zip
+class Zip : Object
 
 	#initialize the zip class with a constructor that accept zip path
 	block Zip(path, mode)

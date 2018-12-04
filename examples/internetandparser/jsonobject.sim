@@ -10,8 +10,8 @@
 	This is just a demo 
 
 */
-
-call "parser/json/JsonObject.sim"
+call simple.core.Object
+call parser.json.JsonObject
 
 input = '{		
 	"string_of_digits": "123",

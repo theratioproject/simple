@@ -36,9 +36,10 @@
  *
  **************************************************************************/
  
-module archive.zip
 
 call archive.loadarchiver
+
+module archive.zip
 
 #zip mode for writing into the zip archive
 ZIP_WRITE = "w"
@@ -52,7 +53,7 @@ ZIP_APPEND = "a"
 #zip mode for reading zip content into memory
 ZIP_READ = "r"
 
-class ZipMode
+class ZipMode : Object
 
 	#zip mode for writing into the zip archive
 	block WRITE()

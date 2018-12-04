@@ -1,4 +1,6 @@
-module archive
+
 
 call simple.core.DynamicLoader
-callModule("archiver")
+callModule("libarchiver")
+
+module archive

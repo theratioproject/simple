@@ -743,10 +743,10 @@ void simple_vm_dll_calllib ( void *pointer )
                                         /* We dig deep for android and ios we first check the assets folder then the storage*/
 										#ifdef __ANDROID__
 											//check android asset first
-											snprintf(__library_path, sizeof(__library_path), "%s/%s", external_data_path, library_path);
+											snprintf(__library_path, sizeof(__library_path), "%s/%s", vm->simple_app->externalDataPath, library_path);
 											if (simple_fexists(__library_path)) { strcpy(library_path,__library_path);}
 											else {
-												snprintf(__library_path, sizeof(__library_path), "%s/dynamic_modules/%s", external_data_path, library_path);
+												snprintf(__library_path, sizeof(__library_path), "%s/dynamic_modules/%s", vm->simple_app->externalDataPath, library_path);
 												if (simple_fexists(__library_path)) { strcpy(library_path,__library_path);}
 												else {
 													//now check the sdcard (External Storage)
@@ -773,7 +773,7 @@ void simple_vm_dll_calllib ( void *pointer )
         }
         cDLL = library_path;
         handle = LoadDLL(cDLL);
-        if ( handle == NULL ) {
+		if ( handle == NULL ) {
                 SIMPLE_API_ERROR2(SIMPLE_VM_ERROR_LIBLOADERROR,library_path);
                 return ;
         } 

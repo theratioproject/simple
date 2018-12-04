@@ -10,9 +10,9 @@
  * @date - 26 Febuary 2017
  * @Time - 11:44 AM
  */
- 
-module simple.system
 
 #Call all the low level function of the @DynamicModule systemic		
 call simple.core.DynamicLoader
-callModule("systemic")
+callModule("libsystemic")
+ 
+module simple.system

@@ -43,12 +43,13 @@ OBJECTDIR=${CND_DISTDIR}/${CND_BUILDDIR}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/security.o
 	
+#STATIC LINKING : -lssl -lcrypto -gdi32 -user32 -lws2_32
 # Link Libraries and Options
 LDLIBSOPTIONS=../../../simple/dist/libsimple.dll -lssl -lcrypto
 
-${CND_DISTDIR}/${CND_PLATFORM}/security.${CND_DLIB_EXT}: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_PLATFORM}/libsecurity.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_PLATFORM}
-	${LINK.c} $(ARC_FLAG) -o ${CND_DISTDIR}/${CND_PLATFORM}/security.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared
+	${LINK.c} $(ARC_FLAG) -o ${CND_DISTDIR}/${CND_PLATFORM}/libsecurity.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared
 
 ${OBJECTDIR}/security.o: security.c
 	${MKDIR} -p ${OBJECTDIR}

@@ -11,7 +11,10 @@
  * @Time	- 10:45 AM
  */
  
-call "../core/loadcoredymodule.sim"
+call simple.core.Object
+call simple.core.loadcoredymodule
+
+#module simple.utilities #fix
  
 block clockTick()
 	return __clock()
@@ -36,7 +39,7 @@ block dateFromPointer(timeTPointer)
 	tempDateList = dateListFromPointer(timeTPointer)
 	return new DateTime(tempDateList)
 
-class DateTime
+class DateTime : Object
 
 	__DATE_TIME_INVALID_PARAMETER = "Invalid parameter. Only null, DateTimeList or Number allowed"
 	__DATE_TIME_MODULE = "simple.utilities.DateTime"

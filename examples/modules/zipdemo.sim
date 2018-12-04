@@ -4,12 +4,13 @@
 
 */
 
-call "archive/zip/ZipMode.sim" 
-call "archive/zip/Zip.sim"
+call simple.core.Object
+call archive.zip.ZipMode
+call archive.zip.Zip
 
 block main()
 	#the default open mode is write i.e create zip
-	tZip = new Zip("C:\Users\thecarisma\Documents\SIMPLE GITHUB\examples\moduleexamples\azip.zip", "r")
+	tZip = new Zip("../../../azip.zip", "w")
 	
 	display "-> We are creating a file 'test.txt' with content of first param" + crlf
 	tZip.addFile("consoledemo.sim", "console.sim")

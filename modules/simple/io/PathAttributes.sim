@@ -10,11 +10,12 @@
  * @Date 	- 24 July 2017
  * @Time	- 01:01 AM
  */
- 
-call "Path.sim"
-call "../utilities/DateTime.sim"
 
-class PathAttributes
+call simple.core.Object
+call simple.io.Path
+call simple.utilities.DateTime
+
+class PathAttributes : Object
 
 	block PathAttributes(filePath)
 		updateAttributes(filePath)

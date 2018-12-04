@@ -15,7 +15,7 @@
 module simple.utilities
 
 call simple.core.DynamicLoader
-callModule("mathic")
+callModule("libmathic")
 
 /*@Prefix
 	This is a wrapper file for the @DynamicModule Mathic dynamic module. The module is loaded

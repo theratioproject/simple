@@ -19,6 +19,6 @@ block testDirectory(directory)
 	}
 	
 	folders = dir.listDirectories()
-	for folder in folders {
+	for folder in folders { 
 		testDirectory(folder)
 	}

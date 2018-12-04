@@ -12,9 +12,9 @@
 	#License - MIT License
  */
 
-module simple.core
+call simple.core.Object
 
-call "Object.sim"
+module simple.core
 
 
 /*@Prefix
@@ -75,8 +75,11 @@ block concat(List, arr)
 
 
 class List : Object
-    __OBJECT_NAME 		= "List"
-    __OBJECT			= []
+
+	/*
+
+	*/
+	ListObject			= []
 
 /*
 		The list constructor accepting two parameters, @param List, String.
@@ -113,16 +116,15 @@ class List : Object
 		    Any other type of parameter is an Error
 */
 
-    block List(list)
-		try 
-			if (list.getType() == getType()) {
-				this.__OBJECT = list.object()
-			}
-			return
-		catch end
-		if !isList(list) && !isString(list) { throw(this.errorType(1)) }
-        __OBJECT = list
-        return __OBJECT
+    block List(list) 
+		if instanceof(list,"List") {
+			ListObject = list.ListObject
+		elif isList(list) or isString(list) 
+			ListObject = list
+		else
+			throw(self,this.errorType(1))
+		}
+        return self
 
 	/*
 		.indexOf(n) block is a safe block for getting the item in the list
@@ -135,7 +137,7 @@ class List : Object
     block indexOf(n)
 		if n > length() { throw(this.errorType(3)) }
 		if isNumber(n)
-			return __OBJECT[n]
+			return ListObject[n]
 		else 
 			throw(this.errorType(2))
 		end
@@ -144,28 +146,28 @@ class List : Object
 		Get the length or size of the current list object of the class
 	*/
 	block length()
-		return lengthOf(__OBJECT)
+		return lengthOf(ListObject)
 
 
 	/*
 		Pushes an element into the exisiting list.
 	*/
     block push(x)
-        __OBJECT + x
-        return __OBJECT
+        ListObject + x
+        return ListObject
 
 # Still needs some little adjustments and changes.
 	/*
 		Removes an element from the List using the index number (x)
 	*/
     block pop(x)
-        __OBJECT[x] = ""
-        return __OBJECT
+        ListObject[x] = ""
+        return ListObject
 	/*
 		Returns the elements in the List
 	*/
     block keys()
-        return __OBJECT
+        return ListObject
 
 	/*
 		Reverses the elements in the List and changes the index Number . E.g
@@ -189,10 +191,10 @@ class List : Object
         x = 0
         reverserArray = []
         do {
-            reverserArray + __OBJECT[(lengthOf(__OBJECT) - 1) - x] x++
-        } while x < lengthOf(__OBJECT)
-        __OBJECT = reverserArray
-        return __OBJECT
+            reverserArray + ListObject[(lengthOf(ListObject) - 1) - x] x++
+        } while x < lengthOf(ListObject)
+        ListObject = reverserArray
+        return ListObject
     end
 
 	/* Array slice function. 
@@ -204,17 +206,23 @@ class List : Object
 	block slice(x, y)
 		if (isNumber(x) && isNumber(y))
 			if (x = 0 && y = 0)
-				return __OBJECT
+				return ListObject
+			end
+			offset = indexOf(x + 1) 
+			delim = indexOf(y)
+			if getType(offset) == getType(delim) 
+				if (indexOf(x + 1) == indexOf(y))
+					return ListObject[x]
+				elif (indexOf(x + 1)  != indexOf(y))
+					do {
+						return indexOf(x++ - 1)
+					} while x < indexOf(y)
+				else
+					return "[]"
 				end
-			if (indexOf(x + 1) == indexOf(y))
-				return __OBJECT[x]
-			elif (indexOf(x + 1)  != indexOf(y))
-				do {
-					return indexOf(x++ - 1)
-				} while x < indexOf(y)
 			else
 				return "[]"
-				end        
+			end      
 		end
 
 
@@ -224,7 +232,7 @@ class List : Object
 	 */
 	block sort(a, b)
     # return b - a
-    	return __OBJECT[b] -__OBJECT[a]
+    	return ListObject[b] -ListObject[a]
 
 	/*
 	 * This block is intended to be used
@@ -247,27 +255,27 @@ class List : Object
 		# Current work around. It isn't working yet.
 		arrLen = lengthOf(arr) - 1
 		for a = 0 to arrLen
-			__OBJECT + arr[a]
+			ListObject + arr[a]
 		end
-		return __OBJECT
+		return ListObject
 
   /* Returns the first element of the List */
 	
 	block first()
-	  return __OBJECT[0]
+	  return ListObject[0]
 	end
 
 	/* Returns the last element in the List */
 
 	block last()
-	  return __OBJECT[lengthOf(__OBJECT) - 1]
+	  return ListObject[lengthOf(ListObject) - 1]
 	end
 	
 	block toString()
 		strValue = "[" 
 		lstLen = length() - 1
 		for i = 0 to lstLen { 
-			item = __OBJECT[i] 
+			item = ListObject[i] 
 			if isString(item) {
 				strValue += '"' + item + '"'
 			elif isNumber(item)
@@ -277,9 +285,9 @@ class List : Object
 				strValue += tmpLst.toString()
 			elif isObject(item)
 				if isBlock(item,"toString") {
-					#strValue += item.toString() 
+					strValue += item.toString() 
 				else 
-					strValue += "Object" #get object package and name from reflection
+					strValue += __class_module_name(item) + "." __class_name(item)
 				}
 			}
 			if i < lstLen { strValue += ", " }
@@ -295,19 +303,24 @@ class List : Object
 	 *
 	 */
 	 
-	private block errorType(type)
-		__NOT_LIST_ERROR = "the parameter is not a list"
-		__NUMBER_REQUIRED_ERROR = "only number is required as parameter "
-		__INDEX_GREATER_THAN_SIZE = "the provided n index is greater than list size"
+	private 
+	
+		/*
 
-		switch (type)
-			case 1
-				@ __NOT_LIST_ERROR
-			case 2
-				@ __NUMBER_REQUIRED_ERROR
-			case 3
-				@ __INDEX_GREATER_THAN_SIZE
-			default
-				throw("Exit !") __exit__
+		*/
+		block errorType(type)
+			__NOT_LIST_ERROR = "the parameter is not a list"
+			__NUMBER_REQUIRED_ERROR = "only number is required as parameter "
+			__INDEX_GREATER_THAN_SIZE = "the provided n index is greater than list size"
+
+			switch (type)
+				case 1
+					return __NOT_LIST_ERROR
+				case 2
+					return __NUMBER_REQUIRED_ERROR
+				case 3
+					return __INDEX_GREATER_THAN_SIZE
+				default
+					return ""
 			end
 			

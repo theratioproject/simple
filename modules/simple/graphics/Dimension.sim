@@ -1,0 +1,190 @@
+
+/*
+
+*/
+call simple.core.Object
+call simple.graphics.Rectangle
+
+/*
+
+*/
+module simple.graphics
+
+/*
+
+*/
+class Dimension : Object
+
+    /*
+
+    */
+    Width = 0
+
+
+    /*
+
+    */
+    Height = 0
+
+    /*
+
+    */
+    block Dimension(params...)
+        paramsLen = lengthOf(params)
+
+        if paramsLen == 1 {
+            if !isNull(params[0]) and isList(params[0]) {
+                _param = params[0] 
+                params = _param
+                paramsLen = lengthOf(params)
+            }
+        }
+        if paramsLen == 0 {
+        elif paramsLen == 1
+            object = params[0]
+            if isinstance(object) {
+                Width = object.Width
+                Height = object.Height
+            else
+                throw(this,"The parameter is not valid. Expecting instance of Dimension for Dimension Width and Height. Found "+objecttype(object))
+            }
+        elif paramsLen == 2
+            width = params[0]
+            height = params[1]
+            if isNumber(width) and isNumber(height) {
+                Width = floor(width)
+                Height = floor(height)
+            else
+                throw(this,"The parameter is not valid. Expecting Number as Dimension Width and Height. Found " + objecttype(width) + " and " + objecttype(height))
+            }
+        else
+            throw(this,"Initializing Dimension with invalid length of parameters")
+        }
+
+        return this
+
+
+    /*
+
+    */
+    block getWidth()
+        return Width
+
+    /*
+
+    */
+    block getHeight()
+        return Height
+
+    /*
+
+    */
+    block setHeight(height)
+        if isNumber(height) {
+            Height = floor(height)
+        else
+            throw(this,"Invalid parameter, Expecting (Number). Found (" + objecttype(height) + ")")
+        }
+
+    /*
+
+    */
+    block setWidth(width)
+        if isNumber(width) {
+            Width = floor(width)
+        else
+            throw(this,"Invalid parameter, Expecting (Number). Found (" + objecttype(width) + ")")
+        }
+        
+
+    /*
+
+    */
+    block getDimension()
+        return new Dimension(Width,Height)
+
+    /*
+
+    */
+    block setDimension(params...)
+        Dimension(params)
+
+    /*
+
+    */
+    block changeDimension(width, height)
+        Width = floor(width)
+        Height = floor(height)
+
+    /*
+
+    */
+    block toRectangle()
+        return new Rectangle(this)
+
+	/*
+
+	*/
+	block operator(op,value)
+		switch op {
+			case "="
+				return equals(value)
+            case "+"
+                if isinstance(value) {
+                    width = Width + value.Width
+                    height = Height + value.Height
+                    Width = floor(width)
+                    Height = floor(height)
+                else
+                    throw(this,"Using operator with values of incorrect type : "+op)
+                }
+            case "-"
+                if isinstance(value) {
+                    width = Width - value.Width
+                    height = Height - value.Height
+                    Width = floor(width)
+                    Height = floor(height)
+                else
+                    throw(this,"Using operator with values of incorrect type : "+op)
+                }
+            case "/"
+                if isinstance(value) {
+                    width = Width / value.Width
+                    height = Height / value.Height
+                    Width = floor(width)
+                    Height = floor(height)
+                else
+                    throw(this,"Using operator with values of incorrect type : "+op)
+                }
+            case "*"
+                if isinstance(value) {
+                    width = Width * value.Width
+                    height = Height * value.Height
+                    Width = floor(width)
+                    Height = floor(height)
+                else
+                    throw(this,"Using operator with values of incorrect type : "+op)
+                }
+			default 
+				throw(this,"This operator behaviour is not defined : "+op)
+		}
+		return this
+
+    /*
+
+    */
+    block equals(object)
+		if !isinstance(object) {
+			return false
+		}
+		return (Width == object.Width and Height == object.Height)
+
+    /*
+
+    */
+    block toString()
+        return "[" + absolutename() + ":Width=" + Width + ",Height=" + Height + "]"
+
+
+
+

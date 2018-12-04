@@ -9,13 +9,13 @@
  * #author - Azeez Adewale
  * #date - 5 Febuary 2018
  */
- 
-module simple.security
 
 call simple.debugging.Throw
 call simple.utilities.Math
 call simple.core.DynamicLoader
-callModule("security")
+callModule("libsecurity")
+ 
+module simple.security
 
 #intHashashing string is calculating an integer hash of a string which 
 #various result even if the same string is sent to it every time and it

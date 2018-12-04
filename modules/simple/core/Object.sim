@@ -9,64 +9,214 @@
  * #author - Azeez Adewale
  * #date - 5 Febuary 2017
  */
+
  
+/*
+
+*/
+call simple.security.Hash
+call simple.core.BaseFields
+ 
+/*
+
+*/
 module simple.core
 
-call simple.security.Hash
-call "Types.sim"
-call "BaseFields.sim"
+/*
 
+*/
 class Object 
 
-	__OBJECT_NAME 	= "Object"
-	__OBJECT		= null
+	/*
 
+	*/
+	instance = null
+
+	/*
+
+	*/
+	block getinstance()
+		return this
+
+	/*
+
+	*/
+	block setinstance(value)
+		throw(this,"You cannot change the instnce of an Object")
+		return
+	
+	/*
+
+	*/
+	block classname()
+		return __class_name(this)
+
+	/*
+
+	*/
+	block modulename()
+		return __class_module_name(this)
+
+	/*
+
+	*/
+	block absolutename()
+		return modulename() + "." + classname()
+
+	/*
+
+	*/
 	block toString()
-		return "[simple.core."+__OBJECT_NAME+":"+getHashCode()+"]"
-		
-	block getHashCode()
-		return hash(__OBJECT_NAME)
-
-	block equals(compare)
-		#empty for now
-		
-	block getType()
-		return __OBJECT_NAME
-		
-	block instanceOf(clazz)
-		retValue = false
-		obj = this
-		parentClass = __parent_class_name(obj)
-		do {
-			if parentClass == clazz {
-				return true
-			}
-			obj = executeCode("return new "+parentClass)
-			parentClass = __parent_class_name(obj)
-		} while parentClass != null 
-		return retValue
-		
-	block getTypeCode
-		return OBJECT_TYPE
+		return "[" + absolutename() + ":" + hashcode() + "]"
 		
 	/*
-		Every class inheriting @Class Object should definitely define the value
-		of @Var __OBJECT . The actual value of the @Var __OBJECT will be verily 
-		available through this block and the @Block realObject() block. If the 
-		value of @Var __OBJECT is not set null will be returned instead.
-		@Bold Example 
-			@Code
-				str = new String("this is a string")
-				display str.object()
-			@EndCode
-			The block call str.object() will display the value "this is a string"
-		because it the actual object in the class 
+
+	*/
+	block hashcode()
+		if isNull(hashcode) {
+			hashcode = hash(absolutename())
+		}
+		return hashcode
+
+	/*
+
+	*/
+	block uniquecode()
+		if isNull(uniquecode) {
+			uniquecode = hash(absolutename()+__rand())
+		}
+		return uniquecode
+
+	/*
+
+	*/
+	block isinstance(object)
+		return isObject(object) and __instance_of(object,classname())
+
+	/*
+
+	*/
+	block equals(object)
+		if !isObject(object) or !__instance_of(object,"Object") {
+			return false
+		}
+		return (uniquecode() == object.uniquecode())
+
+	/*
+
+	*/
+	block operator(op,value)
+		switch op {
+			case "="
+				return equals(value)
+			case "!="
+				return !equals(value)
+			default 
+				throw(this,"This Object does not define a behaviour for the operator : "+op)
+		}
+		return this
+		
+	/*
+
+	*/
+	block type()
+		return getType(this)
+
+	/*
+
+	*/
+	block clone()
+		return self
+		
+	/*
+
+	*/
+	block instanceof(params...)
+		paramsLen = lengthOf(params)
+		clazz = null
+		obj = null
+
+		if paramsLen == 1 {
+            if !isNull(params[0]) and isList(params[0]) {
+                _param = params[0] 
+                params = _param
+                paramsLen = lengthOf(params)
+            }
+        }
+		if paramsLen == 1 {
+			obj = this
+			clazz = params[0]
+		elif paramsLen == 2
+			obj = params[0]
+			clazz = params[1]
+		else
+			throw(this,"Calling block with extra parameters!. Expecting an Object and String")
+		}
+		if isNull(obj) or !isObject(obj) {
+			return false
+		}
+		if !isNull(clazz) {
+			if isObject(clazz) and __instance_of(clazz,"String") {
+				_clazz = clazz.toString()
+				clazz = _clazz
+			elif !isString(clazz)
+				return false
+			}
+		else
+			return false
+		}
+		return __instance_of(obj,clazz)
+
+	/*
+
+	*/
+	block instanceOf(params...)
+		return instanceof(params)
+		
+	/*
+		 
 	*/
 	block object()
-		return __OBJECT
+		return this
+
+	/*
+
+	*/
+	block objecttype(object)
+		if isNull(object) {
+			return "null"
+		elif isString(object)
+			return "String"
+		elif isNumber(object)
+			return "Number"
+		elif isList(object)
+			return "List"
+		elif isObject(object)
+			return __class_module_name(object) + "." + __class_name(object)
+		else
+			#reaching here means a very big security issue
+			#report the occurrence to https://github.com/simple-lang/simple
+			#create an issue with detail and simulated code
+			return "Unknown Type"
+		}
 		
 	/*
-		function same as @Block object()
+	
 	*/
-	block realObject()
-		return __OBJECT
+	block isboolean(value)
+		return (isNumber(value) and (value == true or value == false))
+
+	/*
+
+	*/
+	private 
+
+		/*
+
+		*/
+		hashcode = null
+
+		/*
+
+		*/
+		uniquecode = null

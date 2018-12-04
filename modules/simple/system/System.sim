@@ -9,10 +9,10 @@
  * #author - Azeez Adewale
  * #date - 9 Febuary 2017
  */
- 
-module simple.system
 
 call simple.system.loadsystemdll
+ 
+module simple.system
 
 #System  = new System 
 
@@ -74,6 +74,58 @@ final UNKNOWN_SYSTEM = "unknown_system"
 
 final SystemDirSeperator = getSystemSlash()
 
+#DONE
+/*
+
+*/
+final SystemScreenSizes = __screen_sizes()
+
+
+/*
+
+*/
+block monitorCount()
+	return __monitor_count()
+
+/*
+
+*/
+block absoluteScreenSize()
+	scdLen = lengthOf(SystemScreenSizes) - 1
+	return SystemScreenSizes[scdLen]
+
+/*
+
+*/
+block absoluteScreenWidth()
+	scdLen = lengthOf(SystemScreenSizes) - 1
+	return SystemScreenSizes[scdLen][0]
+
+/*
+
+*/
+block absoluteScreenHeight()
+	scdLen = lengthOf(SystemScreenSizes) - 1
+	return SystemScreenSizes[scdLen][1]
+
+/*
+
+*/
+block primaryScreenSize()
+	return SystemScreenSizes[0]
+
+/*
+
+*/
+block primaryScreenWidth()
+	return SystemScreenSizes[0][0]
+
+/*
+
+*/
+block primaryScreenHeight()
+	return SystemScreenSizes[0][1]
+
 /*
 	Get the system compatible slash to avoid error in input and output
 	operations. Some of the known slashes are:
@@ -101,6 +153,8 @@ block getEnv(variable)
 		environmentVar = ""
 	}
 	return environmentVar
+
+#ENDDONE
 
 block getOS()
 	if isMsDos() {
@@ -194,7 +248,7 @@ block setSystemEnvironment(value)
 	#incomming later
 	
 block isWindowNT()
-	if stringEquals(osGroup(), "Windows_NT", true)
+	if strEquals(osGroup(), "Windows_NT", true)
 		return true
 	end 
 	return false

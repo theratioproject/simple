@@ -6,6 +6,13 @@ module simple.debugging
 
 call simple.core.loadcoredymodule
 
+ErrorMessages = new ErrorMessages
+
+/*
+
+*/
+ERROR_INVALID_PARAMETER = "Invalid parameter sent, check the parameters for error"
+
 /*
 
 */

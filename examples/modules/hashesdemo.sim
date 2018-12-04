@@ -4,7 +4,7 @@
 
 */
 
-call "simple/security/Hash.sim" ? simple.security
+call simple.security.Hash 
 
 block main()
 	display "    ALL VARIOUS HASHES of 'thisforhashes'" + crlf

@@ -61,6 +61,9 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
     register_block("currentFileName",current_filename);
     register_block("previousFileName",previous_filename);
     register_block("previousFilePath",previous_filepath);
+
+    register_block("__monitor_count",systemic_monitor_count);
+    register_block("__screen_sizes",systemic_screen_sizes);
 }
 
 void systemic_ismsdos ( void *pointer )
@@ -325,4 +328,53 @@ void system_sleep ( void *pointer )
     } else {
             SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
     }
+}
+
+void systemic_monitor_count(void *pointer) {
+	#ifdef _WIN32
+		SIMPLE_API_RETNUMBER(GetSystemMetrics(SM_CMONITORS));
+	#elif __ANDROID__
+		SIMPLE_API_RETNUMBER(1);
+	#else
+		SIMPLE_API_RETNUMBER(1);
+	#endif
+}
+
+//TODO : Loop over all available screen and add in list
+void systemic_screen_sizes(void *pointer)
+{
+    VM *vm  ;
+	int x  ;
+	List *list, *list2  ;
+	vm = (VM *) pointer ; 
+	list = SIMPLE_API_NEWLIST ;
+	#ifdef _WIN32
+		list2 = simple_list_newlist_gc(vm->sState,list);
+		simple_list_adddouble_gc(vm->sState,list2,GetSystemMetrics(SM_CXSCREEN));
+		simple_list_adddouble_gc(vm->sState,list2,GetSystemMetrics(SM_CYSCREEN));
+
+		//total screen size
+		list2 = simple_list_newlist_gc(vm->sState,list);
+		simple_list_adddouble_gc(vm->sState,list2,GetSystemMetrics(SM_CXVIRTUALSCREEN));
+		simple_list_adddouble_gc(vm->sState,list2,GetSystemMetrics(SM_CYVIRTUALSCREEN));
+    #elif defined(__ANDROID__)
+		list2 = simple_list_newlist_gc(vm->sState,list);
+		simple_list_adddouble_gc(vm->sState,list2,vm->simple_graphics_buffer.width);
+		simple_list_adddouble_gc(vm->sState,list2,vm->simple_graphics_buffer.height);
+
+		//total screen size
+		list2 = simple_list_newlist_gc(vm->sState,list);
+		simple_list_adddouble_gc(vm->sState,list2,vm->simple_graphics_buffer.width);
+		simple_list_adddouble_gc(vm->sState,list2,vm->simple_graphics_buffer.height);
+	#else
+		list2 = simple_list_newlist_gc(vm->sState,list);
+		simple_list_adddouble_gc(vm->sState,list2,0);
+		simple_list_adddouble_gc(vm->sState,list2,0);
+
+		//total screen size
+		list2 = simple_list_newlist_gc(vm->sState,list);
+		simple_list_adddouble_gc(vm->sState,list2,0);
+		simple_list_adddouble_gc(vm->sState,list2,0);
+	#endif
+	SIMPLE_API_RETLIST(list);
 }

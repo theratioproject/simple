@@ -1,0 +1,38 @@
+
+/*
+
+*/
+call simple.core.Object
+call simple.graphics.Point
+call simple.utilities.Console
+
+point1 = new Point(20,20.87878)
+stdout.println(point1)
+point2 = new Point(50.43434,300)
+stdout.println(point2)
+point3 = new Point(1020.98989,768)
+stdout.println(point3)
+point4 = new Point(point3) 
+stdout.println(point4)
+point5 = new Point(point2.getPoint())  
+stdout.println(point5)
+point6 = new Point() point6.setPoint(80,80)
+stdout.println(point6) 
+point7 = new Point()
+point7 + point2 
+stdout.println(point7) 
+rectangle = point7.toRectangle()
+stdout.println(rectangle) 
+assert(point2 == point7) 
+assert(point4.instance == point3.instance) 
+assert(point4 == point4) 
+assert(point2.instance == point2)
+assert(point1 == point2)  
+assert(point1.instance == point3) 
+assert(point1.instance == point2) 
+assert(point5 == point1) 
+assert(point2.instance == point6) 
+assert(point7.instance == point3.instance) 
+assert(point6.instance == point3) 
+
+

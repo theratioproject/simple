@@ -53,9 +53,9 @@ OBJECTFILES= \
 # Link Libraries and Options
 LDLIBSOPTIONS=../../../simple/dist/libsimple.dll
 
-${CND_DISTDIR}/${CND_PLATFORM}/parser.${CND_DLIB_EXT}: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_PLATFORM}/libparser.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_PLATFORM}
-	${LINK.c} $(ARC_FLAG) -o ${CND_DISTDIR}/${CND_PLATFORM}/parser.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared
+	${LINK.c} $(ARC_FLAG) -o ${CND_DISTDIR}/${CND_PLATFORM}/libparser.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared
 
 ${OBJECTDIR}/parser.o: parser.c
 	${MKDIR} -p ${OBJECTDIR}

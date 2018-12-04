@@ -1,0 +1,28 @@
+
+/*
+
+*/
+call simple.core.Object
+call simple.graphics.Dimension
+call simple.system.ScreenDimension
+call simple.utilities.Console
+call simple.system.System
+
+screenDimension1 = new ScreenDimension()
+stdout.println(screenDimension1)
+stdout.println("Primary Monitor: Width=" + screenDimension1.getScreenWidth(1) + " Height=" + screenDimension1.getScreenHeight(1))
+stdout.println("Absolute Monitor Size: Width=" + screenDimension1.AbWidth + " Height=" + screenDimension1.AbHeight)
+stdout.println(screenDimension1.toDimension())
+stdout.println(screenDimension1.toAbDimension())
+count = 0
+sdLen = lengthOf(screenDimension1.ScreenDimensions) - 1
+for screenDimension in screenDimension1.ScreenDimensions {
+    stdout.print("Monitor " + (count++) + " ") stdout.println(screenDimension)
+}
+assert(screenDimension1.toAbDimension() == screenDimension1.toDimension())  
+assert(screenDimension1.toAbDimension() == screenDimension1.toAbDimension())  
+assert(screenDimension1.toDimension() == screenDimension1.toDimension())  
+assert(screenDimension1.toDimension(1) == screenDimension1.toDimension(1)) 
+for a = 1 to sdLen {
+    assert(screenDimension1.ScreenDimensions[a] == screenDimension1.ScreenDimensions[a-1]) 
+}

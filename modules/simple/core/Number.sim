@@ -11,14 +11,22 @@
  *
  */
 
+/*
+
+*/
+call simple.core.Object
+call simple.core.List
+
+/*
+
+*/
 module simple.core
 
-call "Object.sim"
-call "List.sim"
+/*
 
+*/
 class Number : Object
 
-	__OBJECT_NAME = "Number"
 	__OBJECT = null
 
 	/*
@@ -54,7 +62,7 @@ class Number : Object
 		return __OBJECT
 	
 	block toString() 
-		return "[simple.core." + __OBJECT_NAME + ":" + getHashCode() + "]"
+		return "[simple.core." +  + ":" + getHashCode() + "]"
 	end		
 	
 	/*

@@ -14,8 +14,10 @@
 	Demo to show some of the function of the Date and Time module
 */
 
-call "simple/utilities/DateTime.sim"
-call "simple/io/PathAttributes.sim"
+call simple.core.Object
+call simple.io.PathAttributes
+call simple.utilities.Console
+call simple.utilities.DateTime
 
 block main()
 	@"==========================================================="

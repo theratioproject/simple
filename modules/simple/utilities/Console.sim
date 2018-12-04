@@ -17,6 +17,11 @@ call simple.utilities.ConsoleColor
 call simple.core.List
 call simple.utilities.Type
 
+/*
+	initialized to allow ussage as ConsoleColor.block()
+*/
+ConsoleColor = new ConsoleColor
+
 
 /*@Prefix
 	call the @File ConsoleColor.sim which hold all the type of color for the foreground and background
@@ -265,7 +270,7 @@ private
 		__stdBackgroundColor = ConsoleColor.NONE
 		
 		block println(param...)
-			value = ""
+			value = "" 
 			parseObject = false
 			paramLen = lengthOf(param)
 			if paramLen > 2 {
@@ -275,15 +280,15 @@ private
 				value = param[0]
 			else 
 				value = " "
-			}
+			} 
 			if paramLen > 1 {
 				parseObject = param[1]
 				if parseObject != true and parseObject != false {
 					throwWithTitle(__CONSOLE_MODULE,__SECOND_ARGUMENT_BOOLEAN_ONLY)
 				}
 			}
-			value = getObjectString(value,parseObject) 
-			__print(std_output,value+nl)
+			_value = getObjectString(value,parseObject) 
+			__print(std_output,_value+nl)
 			
 		block print(param...)
 			value = ""
@@ -377,15 +382,15 @@ private
 				elif isNumber(obj)
 					val = formatEscapeSequence(""+obj)
 				elif isList(obj)
-					_val = new List(val)
-					val = _val.toString()
+					_val = new List(obj) 
+					val = _val.toString() 
 				elif isObject(obj) 
 					if __object_has_method(obj,"toString") {
 						val = obj.toString()
 					elif parseObject
 						val = parseObjString(obj)
 					else
-						val = "(cannot print object:" + __class_name(obj) + ")"
+						val = "[cannot print object:" + __class_module_name(obj) + "." + __class_name(obj) + "]"
 					}		
 				}
 				return val

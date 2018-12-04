@@ -10,11 +10,11 @@
  * @Date - 1 March 2017
  * @Time - 02:58 PM
  */
+
+call simple.internet.loadinternetdll
+call simple.io.File
  
 module simple.internet
-
-call "loadinternetdll.sim"
-call simple.io.File
 
 block download(url)
 	return __curl_download(url)

@@ -47,9 +47,9 @@ OBJECTFILES= \
 # Link Libraries and Options
 LDLIBSOPTIONS=../../../simple/dist/libsimple.dll
 
-${CND_DISTDIR}/${CND_PLATFORM}/archiver.${CND_DLIB_EXT}: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_PLATFORM}/libarchiver.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_PLATFORM}
-	${LINK.c} $(ARC_FLAG) -o ${CND_DISTDIR}/${CND_PLATFORM}/archiver.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared
+	${LINK.c} $(ARC_FLAG) -o ${CND_DISTDIR}/${CND_PLATFORM}/libarchiver.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared
 
 ${OBJECTDIR}/archiver.o: archiver.c
 	${MKDIR} -p ${OBJECTDIR}

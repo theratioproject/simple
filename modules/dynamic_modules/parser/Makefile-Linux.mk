@@ -47,8 +47,8 @@ SIMPLE_OBJECTFILES = \
 # Link Libraries and Options
 LDLIBSOPTIONS= -Lsimple.so
 
-${CND_DISTDIR}/${CND_PLATFORM}/parser.${CND_DLIB_EXT}: $(OBJECTFILES)
-	$(CC) -shared $(ARC_FLAG) -o $(CND_DISTDIR)/$(CND_PLATFORM)/parser.$(CND_DLIB_EXT) $(SIMPLE_OBJECTFILES) $(OBJECTFILES)
+${CND_DISTDIR}/${CND_PLATFORM}/libparser.${CND_DLIB_EXT}: $(OBJECTFILES)
+	$(CC) -shared $(ARC_FLAG) -o $(CND_DISTDIR)/$(CND_PLATFORM)/libparser.$(CND_DLIB_EXT) $(SIMPLE_OBJECTFILES) $(OBJECTFILES)
 	
 $(OBJECTDIR)/arraylist.o: includes/arraylist.c
 	mkdir -p $(OBJECTDIR)

@@ -1,0 +1,27 @@
+/*
+
+*/
+
+call simple.core.Object
+call simple.utilities.Console
+
+object1 = new Object
+object2 = new Object 
+object3 = object1.clone() 
+stdout.println(object1.uniquecode())  
+stdout.println(object2.uniquecode()) 
+stdout.println(object3.uniquecode()) 
+assert(object1.equals(object1)) 
+assert(object3.equals(object1)) 
+assert(object1.equals(object2.instance))
+assert(object1.instance.equals(object1))
+assert(object2.instance.equals(object1.instance))
+assert(object3.equals(object1.instance))
+assert(object1.hashcode() == object3.hashcode()) 
+assert(object2.instance.hashcode() == object1.hashcode()) 
+assert(object3.hashcode() != object1.instance.hashcode()) 
+assert(object2.hashcode() == object3.instance.hashcode())
+assert(object1.instance == object2)
+assert(object3.instance == object1.instance)
+assert(object1 == object1.instance)
+assert(object2 == object3.instance)

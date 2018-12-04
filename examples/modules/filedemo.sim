@@ -3,7 +3,7 @@
 	MIT License Copyright (c) 2018 simple 
 
 */
-
+call simple.core.Object
 call simple.io.File
 
 block main()

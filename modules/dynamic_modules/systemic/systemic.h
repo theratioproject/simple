@@ -23,33 +23,23 @@ extern "C" {
 
 SIMPLE_API void init_simple_module(SimpleState *sState) ;
 
-void systemic_ismsdos ( void *pointer ) ;
+void systemic_ismsdos(void *pointer) ;
+void systemic_iswindows(void *pointer) ;
+void systemic_iswindows64(void *pointer) ;
+void systemic_isunix(void *pointer);
+void systemic_ismacosx(void *pointer);
+void systemic_islinux(void *pointer);
+void systemic_isfreebsd(void *pointer);
+void systemic_isandroid(void *pointer);
+void systemic_windowsnl(void *pointer);
+void systemic_currentdir(void *pointer);
+void systemic_exefilename(void *pointer);
+void systemic_chdir(void *pointer);
+void systemic_exefolder(void *pointer);
+void get_env (void *pointer);
 
-void systemic_iswindows ( void *pointer ) ;
-
-void systemic_iswindows64 ( void *pointer ) ;
-
-void systemic_isunix ( void *pointer ) ;
-
-void systemic_ismacosx ( void *pointer ) ;
-
-void systemic_islinux ( void *pointer ) ;
-
-void systemic_isfreebsd ( void *pointer ) ;
-
-void systemic_isandroid ( void *pointer ) ;
-
-void systemic_windowsnl ( void *pointer ) ;
-
-void systemic_currentdir ( void *pointer ) ;
-
-void systemic_exefilename ( void *pointer ) ;
-
-void systemic_chdir ( void *pointer ) ;
-
-void systemic_exefolder ( void *pointer ) ;
-
-void get_env ( void *pointer ) ;
+void systemic_monitor_count(void *pointer);
+void systemic_screen_sizes(void *pointer);
 
 void system_exit ( void *pointer ) ;
 

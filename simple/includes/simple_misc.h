@@ -48,7 +48,7 @@ typedef struct GCData {
     
 extern int NOT_CASE_SENSITIVE ;
 
-SIMPLE_API char *DEFAULT_FILE_NAME ;
+//SIMPLE_API char *DEFAULT_FILE_NAME ;
 
 extern char simple_file_initial_dir[SIMPLE_PATHSIZE];
 

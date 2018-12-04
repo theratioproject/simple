@@ -132,3 +132,6 @@ block minifySourceFile(sourceFile)
 	
 block isNewLine(val)
 	return val == crlf or val = nl or val == cr
+	
+	
+#TODO : move code to next line if the last block has return only and the next keyword is block SEE minified Object.sim

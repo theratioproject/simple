@@ -98,21 +98,29 @@
 
 /* Include android Headers*/
 #ifdef __ANDROID__
+#include <android/native_activity.h>
 #include <android/log.h>
 #include <unistd.h>
 #define SIMPLE_ANDROID_LOG "simple-lang:0.3.36"
 
 /* Make fprintf function custom to allow output in android designated std(s)*/
-//ANDROID_LOG_DEBUG - stdout
-//ANDROID_LOG_ERROR - stderr
+/* ANDROID_LOG_DEBUG - stdout, ANDROID_LOG_ERROR - stderr */
 #define fprintf(std,...) __android_log_print(std, SIMPLE_ANDROID_LOG, __VA_ARGS__)
 
 /* Replace Printf to print to the actual android log */
+#define printv(...) fprintf(ANDROID_LOG_VERBOSE,__VA_ARGS__)
 #define printf(...) fprintf(ANDROID_LOG_DEBUG,__VA_ARGS__)
+#define printi(...) fprintf(ANDROID_LOG_INFO,__VA_ARGS__)
+#define printw(...) fprintf(ANDROID_LOG_WARN,__VA_ARGS__)
 #define printe(...) fprintf(ANDROID_LOG_ERROR,__VA_ARGS__)
+#define printa(...) fprintf(ANDROID_LOG_ASSERT,__VA_ARGS__)
 
-extern const char *external_data_path ;
-
+#else
+#define printv(...) fprintf(stdout,__VA_ARGS__)
+#define printi(...) fprintf(stdout,__VA_ARGS__)
+#define printw(...) fprintf(stdout,__VA_ARGS__)
+#define printe(...) fprintf(stderr,__VA_ARGS__)
+#define printa(...) fprintf(stderr,__VA_ARGS__)
 #endif
 
 /* Include Project Headers */

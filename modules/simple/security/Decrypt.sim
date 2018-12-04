@@ -10,9 +10,10 @@
  * #date - 18 Febuary 2018
  */
  
-module simple.security
+call simple.core.Object
+call simple.security.Hash
 
-call "Hash.sim"
+module simple.security
 
 #decrypt any encrypted string base on the openssl method. The block accept 
 #three #parameter the first is the encrypted byte you want to decrypt,
@@ -28,3 +29,4 @@ block decrypt(content, key, five)
 		(KEY_LENGTH_SHORT)
 	end
 	return __decrypt(content, key, five)
+	

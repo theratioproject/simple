@@ -156,10 +156,10 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
 													snprintf(__library_path, sizeof(__library_path), "%s/simple/modules/%s", simple_env_path, file_name);
 													if (simple_fexists(__library_path)) { strcpy(file_name,__library_path);}
 													else {
-														snprintf(__library_path, sizeof(__library_path), "%s/%s", external_data_path, file_name);
+														snprintf(__library_path, sizeof(__library_path), "%s/%s", sState->vm->simple_app->externalDataPath, file_name);
 														if (simple_fexists(__library_path)) { strcpy(file_name,__library_path);}
 														else {
-															snprintf(__library_path, sizeof(__library_path), "%s/modules/%s", external_data_path, file_name);
+															snprintf(__library_path, sizeof(__library_path), "%s/modules/%s", sState->vm->simple_app->externalDataPath, file_name);
 															if (simple_fexists(__library_path)) { strcpy(file_name,__library_path);}
 															else {
 

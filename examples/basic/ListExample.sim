@@ -13,6 +13,7 @@
 
 call simple.core.List
 call simple.utilities.ConsoleColor
+call simple.utilities.Console
 
 /* Define / create a new array. */
 myOldList = new List(["s", "i", "m", "p", "l", "e", 30, 50, 90, ["we", 5, "africa", ["alot", 40]]])
@@ -40,7 +41,7 @@ myList = new List(myOldList)
 /*
  * Display the toString() block of @Class List as inherited from @Class Object
  */
-display myList.toString() + nl 
+stdout.println(myList.toString())
 
 /*
  * Display the created myList Variable.
@@ -48,22 +49,21 @@ display myList.toString() + nl
  *		myList
  *		myList.object() and myList.toList() 
  */
-display myList
-display myList.object() 
+stdout.println(myList)
+stdout.println(myList.object())
 
 /* .indexOf() */
-display " Index of 5 : "+myList.indexOf(4) +crlf 
-#display "Index of '5' : "+myList.indexOf('5') +crlf
+stdout.println(" Index of 5 : " + myList.indexOf(4) )
+#stdout.println("Index of '5' : "+myList.indexOf('5') +crlf
  
 /* .push() method */
 myList.push([" l", "a", "n", "g"]) 
-
-#display myList /* simple lang */ 
+stdout.println(myList)
 
 /* .pop() method */
 myList.pop(4) 
 
-# display myList /* simpe lang */
+stdout.println(myList)
 
 /* .keys */
 myList.keys() 
@@ -72,5 +72,5 @@ myList.keys()
 myList.reverse() 
 
 /* .slice() */
-@ "" +crlf
+stdout.println()
 myList.slice(0,5) 

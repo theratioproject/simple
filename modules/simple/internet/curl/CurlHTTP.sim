@@ -10,10 +10,10 @@
  * @date - 26 Febuary 2017
  * @Time - 11:44 AM
  */
+
+call simple.internet.curl.CurlCore
  
 module simple.internet.curl
-
-call "CurlCore.sim"
 
 class CurlHTTP : CurlCore
 

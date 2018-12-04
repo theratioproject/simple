@@ -1,0 +1,181 @@
+
+/*
+
+*/
+call simple.core.Object
+call simple.graphics.Rectangle
+
+/*
+
+*/
+module simple.graphics
+
+/*
+
+*/
+class Point : Object
+
+    /*
+
+    */
+    X = 0
+
+
+    /*
+
+    */
+    Y = 0
+
+    /*
+
+    */
+    block Point(params...)
+        paramsLen = lengthOf(params)
+
+        if paramsLen == 1 {
+            if !isNull(params[0]) and isList(params[0]) {
+                _param = params[0] 
+                params = _param
+                paramsLen = lengthOf(params)
+            }
+        }
+        if paramsLen == 0 {
+        elif paramsLen == 1
+            object = params[0]
+            if isinstance(object) {
+                X = object.X
+                Y = object.Y
+            else
+                throw(this,"The parameter is not valid. Expecting instance of Point for Point X and Y. Found "+objecttype(object))
+            }
+        elif paramsLen == 2
+            x = params[0]
+            y = params[1]
+            if isNumber(x) and isNumber(y) {
+                X = floor(x)
+                Y = floor(y)
+            else
+                throw(this,"The parameter is not valid. Expecting Number as Point X and Y. Found " + objecttype(x) + " and " + objecttype(y))
+            }
+        else
+            throw(this,"Initializing Point with invalid length of parameters")
+        }
+
+        return this
+
+
+    /*
+
+    */
+    block getX()
+        return X
+
+    /*
+
+    */
+    block getY()
+        return Y
+
+    /*
+
+    */
+    block setY(y)
+        Y = floor(y)
+
+    /*
+
+    */
+    block setX(x)
+        X = floor(x)
+
+    /*
+
+    */
+    block getPoint()
+        return new Point(X,Y)
+
+    /*
+
+    */
+    block setPoint(params...)
+        Point(params)
+
+    /*
+
+    */
+    block changePoint(x, y)
+        X = floor(x)
+        Y = floor(y)
+
+    /*
+
+    */
+    block toRectangle()
+        return new Rectangle(this)
+
+	/*
+
+	*/
+	block operator(op,value)
+		switch op {
+			case "="
+				return equals(value)
+            case "+"
+                if isinstance(value) {
+                    x = X + value.X
+                    y = Y + value.Y
+                    X = floor(x)
+                    Y = floor(y)
+                else
+                    throw(this,"Using operator with values of incorrect type : "+op)
+                }
+            case "-"
+                if isinstance(value) {
+                    x = X - value.X
+                    y = Y - value.Y
+                    X = floor(x)
+                    Y = floor(y)
+                else
+                    throw(this,"Using operator with values of incorrect type : "+op)
+                }
+            case "/"
+                if isinstance(value) {
+                    x = X / value.X
+                    y = Y / value.Y
+                    X = floor(x)
+                    Y = floor(y)
+                else
+                    throw(this,"Using operator with values of incorrect type : "+op)
+                }
+            case "*"
+                if isinstance(value) {
+                    x = X * value.X
+                    y = Y * value.Y
+                    X = floor(x)
+                    Y = floor(y)
+                else
+                    throw(this,"Using operator with values of incorrect type : "+op)
+                }
+			default 
+				throw(this,"This operator behaviour is not defined : "+op)
+		}
+		return this
+
+    /*
+
+    */
+    block equals(object)
+		if !isinstance(object) {
+			return false
+		}
+		return (X == object.X and Y == object.Y)
+
+    /*
+
+    */
+    block toString()
+        return "[" + absolutename() + ":X=" + X + ",Y=" + Y + "]"
+
+
+
+
