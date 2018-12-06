@@ -102,7 +102,10 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
 	register_block("__is_class_in_module",meta_blocks_is_class_in_module);
 	register_block("__class_name",meta_blocks_class_name);
 	register_block("__parent_class_name",meta_blocks_parent_class_name);
+<<<<<<< HEAD
 	register_block("__class_module_name",meta_blocks_class_module_name);
+=======
+>>>>>>> b6f6932c7fa42ae6e8601a8afb93a4b40212d3b7
 	register_block("__instance_of",meta_blocks_instance_of);
 	register_block("__object_address",meta_blocks_object_address);
 	register_block("__object_attributes",meta_blocks_object_attributes);
@@ -134,7 +137,10 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
 	register_block("__vm_passed_error",meta_blocks_vm_passed_error);
 	register_block("__vm_hide_error_msg",meta_blocks_vm_hide_error_msg);
 	register_block("__vm_call_block",meta_blocks_vm_call_block);
+<<<<<<< HEAD
 	register_block("__vm_line_number",meta_blocks_vm_line_number);
+=======
+>>>>>>> b6f6932c7fa42ae6e8601a8afb93a4b40212d3b7
 }
 
 /* List */
@@ -1020,6 +1026,7 @@ SIMPLE_API void check_characters_is_xdigit(void *pointer)
 	check_characters__(pointer,10);
 }
 
+<<<<<<< HEAD
 SIMPLE_API void check_characters_is_null_pointer(void *pointer)
 {
 	List *list ;
@@ -1040,6 +1047,8 @@ SIMPLE_API void check_characters_is_null_pointer(void *pointer)
 	}
 }
 
+=======
+>>>>>>> b6f6932c7fa42ae6e8601a8afb93a4b40212d3b7
 /* Error and Warn */
 SIMPLE_API void error_warn(void *pointer)
 {
@@ -1195,6 +1204,7 @@ SIMPLE_API void error_throw(void *pointer)
 }
 
 /* Conversion */ 
+<<<<<<< HEAD
 SIMPLE_API void conversion_pointer_address_to_string(void* pointer) 
 {
 	void* point ;
@@ -1213,6 +1223,8 @@ SIMPLE_API void conversion_pointer_address_to_string(void* pointer)
 	}
 }
 
+=======
+>>>>>>> b6f6932c7fa42ae6e8601a8afb93a4b40212d3b7
 SIMPLE_API void conversion_string_to_hex(void *pointer)
 {
 	char str[3]  ;
@@ -1881,6 +1893,7 @@ SIMPLE_API void meta_blocks_parent_class_name(void *pointer)
 	}
 }
 
+<<<<<<< HEAD
 SIMPLE_API void meta_blocks_class_module_name(void *pointer)
 {
 	int x, y, size ;
@@ -1920,6 +1933,12 @@ SIMPLE_API void meta_blocks_instance_of(void *pointer)
 {
 	int x ;
 	List *list, *list2  ;
+=======
+SIMPLE_API void meta_blocks_instance_of(void *pointer)
+{
+	int x ;
+	List *list  ;
+>>>>>>> b6f6932c7fa42ae6e8601a8afb93a4b40212d3b7
 	char *clazz, *parent_name  ;
 	VM *vm ;
 	if ( SIMPLE_API_PARACOUNT != 2 ) {
@@ -1928,6 +1947,7 @@ SIMPLE_API void meta_blocks_instance_of(void *pointer)
 	}
 	if ( SIMPLE_API_ISLIST(1) && SIMPLE_API_ISSTRING(2)) {
 		list = SIMPLE_API_GETLIST(1);
+<<<<<<< HEAD
 		clazz = SIMPLE_API_GETSTRING(2); 
 		vm = (VM *) pointer ; 
 		if ( simple_vm_oop_isobject(list) ) {
@@ -1944,11 +1964,30 @@ SIMPLE_API void meta_blocks_instance_of(void *pointer)
 						if ( simple_list_getsize(list) == SIMPLE_CLASSMAP_IMPORTEDCLASSSIZE ) {
 							list = simple_list_getlist(list,SIMPLE_CLASSMAP_POINTERTOLISTOFCLASSINSIDEMODULE);
 						}
+=======
+		clazz = SIMPLE_API_GETSTRING(2);
+		vm = (VM *) pointer ;
+		if ( simple_vm_oop_isobject(list) ) {
+			parent_name = simple_list_getstring((List *) simple_list_getpointer(list,SIMPLE_OBJECT_CLASSPOINTER),SIMPLE_CLASSMAP_PARENTCLASS);
+			do {
+				if (strcmp(parent_name,clazz) == 0) {
+					SIMPLE_API_RETNUMBER(1);
+					return ;
+				}
+				for ( x = 1 ; x <= simple_list_getsize(vm->pClassesMap) ; x++ ) {
+					list = simple_list_getlist(vm->pClassesMap,x) ;
+					if ( strcmp(simple_list_getstring(list,SIMPLE_CLASSMAP_CLASSNAME),parent_name) == 0 ) {
+>>>>>>> b6f6932c7fa42ae6e8601a8afb93a4b40212d3b7
 						parent_name = simple_list_getstring(list,SIMPLE_CLASSMAP_PARENTCLASS);
 						break ;
 					}
 				}
+<<<<<<< HEAD
 			} while (parent_name != NULL && strcmp(parent_name,"") != 0);
+=======
+			} while (strcmp(parent_name,"") != 0);
+			
+>>>>>>> b6f6932c7fa42ae6e8601a8afb93a4b40212d3b7
 			SIMPLE_API_RETNUMBER(0);
 		} else {
 			SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
@@ -2583,6 +2622,7 @@ SIMPLE_API void meta_blocks_vm_call_block(void *pointer)
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
 }
+<<<<<<< HEAD
 
 SIMPLE_API void meta_blocks_vm_line_number(void *pointer)
 {
@@ -2594,3 +2634,5 @@ SIMPLE_API void meta_blocks_vm_line_number(void *pointer)
 	}
 	SIMPLE_API_RETNUMBER(vm->nLineNumber);
 }
+=======
+>>>>>>> b6f6932c7fa42ae6e8601a8afb93a4b40212d3b7

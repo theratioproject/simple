@@ -22,7 +22,11 @@
 call "simple/internet/curl/CurlCore.sim"
 
 block main() 
+<<<<<<< HEAD
 	testcurl = new CurlCore("http://google.com")
+=======
+	testcurl = new CurlCore("https://stackoverflow.com/questions/9774349/php-curl-not-working-with-https")
+>>>>>>> b6f6932c7fa42ae6e8601a8afb93a4b40212d3b7
 	
 	#testcurl.addOption(10002, CURL_URL) #add option to disable ssl
 	display testcurl.getStringOutput() 

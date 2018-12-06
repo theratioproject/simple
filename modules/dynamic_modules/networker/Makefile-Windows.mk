@@ -45,11 +45,19 @@ OBJECTFILES= \
 	
 #STATIC_LINKING : failing
 # Link Libraries and Options
+<<<<<<< HEAD
 LDLIBSOPTIONS=../../../simple/dist/libsimple.dll -lcurl
+=======
+LDLIBSOPTIONS=../../../simple/dist/libsimple.dll -lcurl -lssl -lcrypto
+>>>>>>> b6f6932c7fa42ae6e8601a8afb93a4b40212d3b7
 
 ${CND_DISTDIR}/${CND_PLATFORM}/libnetworker.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_PLATFORM}
+<<<<<<< HEAD
 	${LINK.c} $(ARC_FLAG) -o ${CND_DISTDIR}/${CND_PLATFORM}/libnetworker.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared 
+=======
+	${LINK.c} $(ARC_FLAG) -shared -o ${CND_DISTDIR}/${CND_PLATFORM}/networker.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS}
+>>>>>>> b6f6932c7fa42ae6e8601a8afb93a4b40212d3b7
 
 ${OBJECTDIR}/networker.o: networker.c
 	${MKDIR} -p ${OBJECTDIR}

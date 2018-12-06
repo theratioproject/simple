@@ -74,6 +74,7 @@ final UNKNOWN_SYSTEM = "unknown_system"
 
 final SystemDirSeperator = getSystemSlash()
 
+<<<<<<< HEAD
 #DONE
 /*
 
@@ -126,6 +127,8 @@ block primaryScreenWidth()
 block primaryScreenHeight()
 	return SystemScreenSizes[0][1]
 
+=======
+>>>>>>> b6f6932c7fa42ae6e8601a8afb93a4b40212d3b7
 /*
 	Get the system compatible slash to avoid error in input and output
 	operations. Some of the known slashes are:

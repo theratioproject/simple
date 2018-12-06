@@ -38,8 +38,11 @@
  
 
 call archive.loadarchiver
+<<<<<<< HEAD
 
 module archive.zip
+=======
+>>>>>>> b6f6932c7fa42ae6e8601a8afb93a4b40212d3b7
 
 #zip mode for writing into the zip archive
 ZIP_WRITE = "w"

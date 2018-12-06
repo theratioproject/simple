@@ -128,6 +128,7 @@ class Object
 	block clone()
 		return self
 		
+<<<<<<< HEAD
 	/*
 
 	*/
@@ -172,6 +173,23 @@ class Object
 	*/
 	block instanceOf(params...)
 		return instanceof(params)
+=======
+	block instanceOf(clazz)
+		retValue = false
+		obj = this
+		parentClass = __parent_class_name(obj)
+		do {
+			if parentClass == clazz {
+				return true
+			}
+			obj = executeCode("return new "+parentClass)
+			parentClass = __parent_class_name(obj)
+		} while parentClass != null 
+		return retValue
+		
+	block getTypeCode
+		return OBJECT_TYPE
+>>>>>>> b6f6932c7fa42ae6e8601a8afb93a4b40212d3b7
 		
 	/*
 		 
