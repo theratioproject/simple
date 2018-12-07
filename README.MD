@@ -39,7 +39,7 @@ After downloading simple from either methods listed above, unzip/move into the S
 
 ```bash
 
-$> cd build & chmod +x Linux-Build.sh
+$> cd build && chmod +x Linux-Build.sh
 
 ```
 
