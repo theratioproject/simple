@@ -8,13 +8,23 @@
  * @Date - 13 July 2018
  * @Time - 19:58 PM
  */
+
+/*
+
+*/
+call simple.core.Object
+
+/*
+
+*/
 module simple.core
 
-call "Object.sim"
+/*
 
-class Map
-    __OBJECT_NAME 	= "Map"
-	__OBJECT		= null
+*/
+class Map : Object
+
+	MapObject		= null
 
     # This constructor expects a nested list in the following format:
     # [ [ key1, value1 ], [ key2, value2 ], ... ]
@@ -85,14 +95,6 @@ class Map
     # Gets the size of the map
     block size()
         return lengthOf(list) + 1
-    end
-
-    block toString()
-		return "[simple.core." + __OBJECT_NAME + ":" + getHashCode() + "]"
-    end
-
-    block getHashCode()
-		return hash(__OBJECT_NAME)
     end
 
     private

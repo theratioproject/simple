@@ -29,6 +29,7 @@ block main()
 class MenuDemo : FWindow
 
 	mBar = new FMenuBar() mButton = new FMenuButton()
+	mBar.setBackground(255)
 	menu = [
 		["File", 
 			[["New",[

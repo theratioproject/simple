@@ -750,7 +750,7 @@ SIMPLE_API void simple_vm_error ( VM *vm,const char *cStr )
 	}
 	/*
 	**  Check Eval In Scope 
-	**  When we have ringvm_evalinscope() We don't support try/catch 
+	**  When we have simplevm_evalinscope() We don't support try/catch 
 	**  We just display the error message and continue 
 	*/
 	if ( vm->nEvalInScope ) {
@@ -778,8 +778,8 @@ SIMPLE_API int simple_vm_exec ( VM *vm,const char *cStr )
 	}
 	nPC = vm->nPC ;
 	/* Add virtual file name */
-	simple_list_addstring_gc(vm->sState,vm->sState->files_list,"executeCode");
-	simple_list_addstring_gc(vm->sState,vm->sState->files_stack,"executeCode");
+	simple_list_addstring_gc(vm->sState,vm->sState->files_list,"simple_embedded_code");
+	simple_list_addstring_gc(vm->sState,vm->sState->files_stack,"simple_embedded_code");
 	scanner = new_simple_scanner(vm->sState);
 	for ( x = 0 ; x < nSize ; x++ ) {
 		simple_scanner_readchar(scanner,cStr[x]);
@@ -1110,15 +1110,20 @@ SIMPLE_API void simple_vm_callclassinit ( VM *vm )
 
 SIMPLE_API void simple_vm_showerrormessage ( VM *vm,const char *cStr )
 {
+	String *string, *string2;
 	int x,lBlockCall,is_last_block  ;
 	List *list  ;
 	const char *cFile  ;
-	/* Print the Error Message */
-	printf( "\nLine %d -> %s \n",vm->nLineNumber,cStr ) ;
-	/* Print Calling Information */
+	/* Print the Error Message */ 
+	printe( "\n%s",cStr ) ;
+	string = simple_string_new_gc(vm->sState,"at line ");
+	string2 = simple_string_new_gc(vm->sState,"");
+	simple_string_setfromint_gc(vm->sState,string2,vm->nLineNumber);
+	simple_string_add_gc(vm->sState,string,string2->str);
+	/* Print Calling Information */ 
 	lBlockCall = 0 ; is_last_block = 1 ;
 	for ( x = simple_list_getsize(vm->pBlockCallList) ; x >= 1 ; x-- ) {
-		list = simple_list_getlist(vm->pBlockCallList,x);
+		list = simple_list_getlist(vm->pBlockCallList,x); 
 		/*
 		**  If we have ICO_LoadBlock but not ICO_CALL then we need to pass 
 		**  ICO_LOADBLOCK is executed, but still ICO_CALL is not executed! 
@@ -1131,51 +1136,53 @@ SIMPLE_API void simple_vm_showerrormessage ( VM *vm,const char *cStr )
 			**  Prepare Message 
 			**  In 
 			*/
-			if (is_last_block == 1) { printf("\tat "); is_last_block = 0; } else { printf("at "); }
-			/* Method or Block */
-			/*if ( simple_list_getint(list,SIMPLE_BLOCKCL_METHODORBLOCK) ) {
-				printf( "method " ) ;
-			}
-			else {
-				printf( "block " ) ;
-			}*/
-			/* Block Name */
-			printf( "%s",simple_list_getstring(list,SIMPLE_BLOCKCL_NAME) ) ;
+			simple_string_add_gc(vm->sState,string," at ");
+			simple_string_add_gc(vm->sState,string,simple_list_getstring(list,SIMPLE_BLOCKCL_NAME));
 			/* Adding () */
-			printf( "() in file " ) ;
+			simple_string_add_gc(vm->sState,string,"() in file ");
 			/* File Name */
 			if ( lBlockCall == 1 ) {
 				cFile = (const char *) simple_list_getpointer(list,SIMPLE_BLOCKCL_NEWFILENAME) ;
 			}
 			else {
 				if ( vm->nInClassRegion ) {
-					cFile = vm->cFileNameInClassRegion ;
+					cFile = vm->cFileNameInClassRegion ; 
 				}
 				else {
 					cFile = vm->file_name ;
 				}
 			}
-			printf( "%s",file_real_name(cFile) ) ;
+			simple_string_add_gc(vm->sState,string,file_real_name(cFile));
+			printe("\n\t%s", string->str);
 			/* Called From */
-			printf( "\n\tat line %d ",simple_list_getint(list,SIMPLE_BLOCKCL_LINENUMBER) ) ;
+			string = simple_string_new_gc(vm->sState,"at line ");
+			string2 = simple_string_new_gc(vm->sState,"");
+			simple_string_setfromint_gc(vm->sState,string2,simple_list_getint(list,SIMPLE_BLOCKCL_LINENUMBER));
+			simple_string_add_gc(vm->sState,string,string2->str);
+			is_last_block = 0; 
 			lBlockCall = 1 ;
 		}
 		else {
-			//printf( "\tin %s ",file_real_name(simple_list_getstring(list,SIMPLE_BLOCKCL_NAME)) ) ;
+			simple_string_add_gc(vm->sState,string," in ");
+			simple_string_add_gc(vm->sState,string,file_real_name(simple_list_getstring(list,SIMPLE_BLOCKCL_NAME)));
 		}
 	}
 	if ( lBlockCall ) {
-		printf( "in file %s ",file_real_name(simple_list_getstring(vm->sState->files_list,1) )) ;
-	}
-	else {
+		simple_string_add_gc(vm->sState,string," in file ");
+		simple_string_add_gc(vm->sState,string,file_real_name(simple_list_getstring(vm->sState->files_list,1)));
+	} else {
 		if ( vm->nInClassRegion ) {
 			cFile = vm->cFileNameInClassRegion ;
 		}
 		else {
 			cFile = file_real_name(vm->file_name) ;
 		}
-		printf( "\tin file %s ",cFile ) ;
+		simple_string_add_gc(vm->sState,string," in file ");
+		simple_string_add_gc(vm->sState,string,cFile);
 	}
+	printe("\n\t%s\n", string->str);
+	simple_string_delete_gc(vm->sState,string);
+	simple_string_delete_gc(vm->sState,string2);
 }
 
 SIMPLE_API void simple_vm_cgi_showerrormessage ( VM *vm,const char *cStr )
@@ -1311,7 +1318,7 @@ SIMPLE_API void simple_vm_addglobalvariables ( VM *vm )
 	simple_list_setint_gc(vm->sState,list,SIMPLE_VAR_TYPE,SIMPLE_VM_LIST);
 	simple_list_setlist_gc(vm->sState,list,SIMPLE_VAR_VALUE);
 	list = simple_list_getlist(list,SIMPLE_VAR_VALUE);
-	for ( x = 0 ; x < vm->sState->argc ; x++ ) {
+	for ( x = 1 ; x < vm->sState->argc ; x++ ) {
 		simple_list_addstring_gc(vm->sState,list,vm->sState->argv[x]);
 	}
 }

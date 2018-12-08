@@ -181,8 +181,8 @@ class FMenuItem : FWidget
 		#an instance of the @Class String to get last index in future
 		block setName(name)
 			index = 0
-			for a = 0 to lengthOf(name) if (name[a] == '/') index = a + 1 end end 
+			for a = 0 to lengthOf(name) - 1 if (name[a] == '/') index = a end end 
 			MENU_WIDGET_NAME = ""
 			if (index == 0) MENU_WIDGET_NAME = name 
-			else for a = index to lengthOf(name) MENU_WIDGET_NAME+= name[a]  end end 
+			else for a = index to lengthOf(name) - 1 MENU_WIDGET_NAME+= name[a]  end end 
 		

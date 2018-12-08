@@ -15,4 +15,4 @@ module parser
 
 #Call all the low level function of the @DynamicModule parser
 call simple.core.DynamicLoader
-callModule("parser")
+callModule("libparser")

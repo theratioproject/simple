@@ -13,7 +13,7 @@
 
 */
 
-call "parser/loadparserdll.sim"
+call parser.loadparserdll
 
 block main()
 	__test_json_c()

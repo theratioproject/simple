@@ -1,0 +1,31 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com> 
+	MIT License Copyright (c) 2018 simple-lang
+*/
+call simple.core.Object
+call simple.debugging.Error
+
+/* Throw Only */
+
+block main()
+	throwOnly(new TestError)
+	throwOnly(new IError("Title", "Error Message 001"))
+	throwOnly("Error Message 3")
+
+	#throw(new IError("Title", "Error Message 001"))
+	#throw(new TestError)
+	#throw("Error Message 3")
+	error = new TestError
+	throw(error,"The title come automatically")
+
+class TestError
+
+	block throwError()
+		display "Error Occur Bye"
+
+class IError : Error
+
+	block IError(tit,msg)
+		Message = msg
+		Title = tit
+

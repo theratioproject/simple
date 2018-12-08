@@ -40,8 +40,8 @@ SIMPLE_OBJECTFILES = \
 # Link Libraries and Options
 LDLIBSOPTIONS=-Lsimple.so
 
-${CND_DISTDIR}/${CND_PLATFORM}/systemic.${CND_DLIB_EXT}: $(OBJECTFILES)
-	$(CC) -shared $(ARC_FLAG) -o $(CND_DISTDIR)/$(CND_PLATFORM)/systemic.$(CND_DLIB_EXT) $(SIMPLE_OBJECTFILES) $(OBJECTFILES)
+${CND_DISTDIR}/${CND_PLATFORM}/libsystemic.${CND_DLIB_EXT}: $(OBJECTFILES)
+	$(CC) -shared $(ARC_FLAG) -o $(CND_DISTDIR)/$(CND_PLATFORM)/libsystemic.$(CND_DLIB_EXT) $(SIMPLE_OBJECTFILES) $(OBJECTFILES)
 
 $(OBJECTDIR)/systemic.o: systemic.c
 	mkdir -p $(OBJECTDIR)

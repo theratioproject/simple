@@ -1,0 +1,251 @@
+
+/*
+
+*/
+call simple.core.Object
+call simple.graphics.Dimension
+call simple.system.System
+
+/*
+
+*/
+module simple.system
+
+/*
+
+*/
+class ScreenDimension : Dimension
+
+    /*
+
+    */
+    Width = null
+
+    /*
+
+    */
+    Height = null
+
+    /*
+
+    */
+    AbWidth = null
+
+    /*
+
+    */
+    AbHeight = null
+
+    /*
+
+    */
+    ScreenDimensions = null
+
+    /*
+
+    */
+    block ScreenDimension()
+        return this
+
+    /*
+
+    */
+    block getWidth()
+        if isNull(Width) {
+            Width = primaryScreenWidth()
+        }
+        return Width
+
+    /*
+
+    */
+    block getHeight()
+        if isNull(Height) {
+            Height = primaryScreenHeight()
+        }
+        return Height
+
+    /*
+
+    */
+    block getAbWidth()
+        if isNull(AbWidth) {
+            AbWidth = absoluteScreenWidth()
+        }
+        return AbWidth
+
+    /*
+
+    */
+    block getAbHeight()
+        if isNull(AbHeight) {
+            AbHeight = absoluteScreenHeight()
+        }
+        return AbHeight
+
+    /*
+
+    */
+    block getScreenHeight(params...)
+        paramsLen = lengthOf(params)
+
+        if paramsLen == 0 {
+            return Height
+
+        elif paramsLen == 1
+            index = params[0]
+            if isNull(index) {
+                throw(this,"The monitor index is invalid . Index cannot be null, first monitor at 1 ")
+            } 
+            if index == 0 {
+                throw(this,"The monitor index is invalid . Index cannot be zero, first monitor at 1 ")
+            elif !isNull(index) and isNumber(index) 
+                if index <= monitorCount() and index > 0 {
+                    return SystemScreenSizes[index-1][1]
+                else
+                    throw(this,"The monitor index is invalid . Monitor Count is " + monitorCount() + "")
+                }
+            else
+                throw(this,"Invalid parameter passed expecting (Number). Found (" + objecttype(index) + ")")
+            }
+
+        else 
+            throw(this,"Only one parameter allowed as index to get Screen Height")
+        }
+
+    /*
+
+    */
+    block getScreenWidth(params...)
+        paramsLen = lengthOf(params)
+
+        if paramsLen == 0 {
+            return Width
+
+        elif paramsLen == 1
+            index = params[0]
+            if isNull(index) {
+                throw(this,"The monitor index is invalid . Index cannot be null, first monitor at 1 ")
+            } 
+            if index == 0 {
+                throw(this,"The monitor index is invalid . Index cannot be zero, first monitor at 1 ")
+            elif !isNull(index) and isNumber(index) 
+                if index <= monitorCount() and index > 0 {
+                    return SystemScreenSizes[index-1][0]
+                else
+                    throw(this,"The monitor index is invalid . Monitor Count is " + monitorCount() + "")
+                }
+            else
+                throw(this,"Invalid parameter passed expecting (Number). Found (" + objecttype(index) + ")")
+            }
+
+        else 
+            throw(this,"Only one parameter allowed as index to get Screen Width")
+        }
+
+    /*
+
+    */
+    block toDimension(params...)
+        paramsLen = lengthOf(params)
+
+        if paramsLen == 0 {
+            width = SystemScreenSizes[0][0]
+            height = SystemScreenSizes[0][1]
+            return new Dimension(width,height)
+
+        elif paramsLen == 1
+            index = params[0]
+            if isNull(index) {
+                throw(this,"The monitor index is invalid . Index cannot be null, first monitor at 1 ")
+            } 
+            if index == 0 {
+                throw(this,"The monitor index is invalid . Index cannot be zero, first monitor at 1 ")
+            elif !isNull(index) and isNumber(index) 
+                if index <= monitorCount() and index > 0 {
+                    width = SystemScreenSizes[index-1][0]
+                    height = SystemScreenSizes[index-1][1]
+                    return new Dimension(width,height)
+                else
+                    throw(this,"The monitor index is invalid . Monitor Count is " + monitorCount() + "")
+                }
+            else
+                throw(this,"Invalid parameter passed expecting (Number). Found (" + objecttype(index) + ")")
+            }
+
+        else 
+            throw(this,"Only one parameter allowed as index to get Screen Dimension")
+        }
+        return null
+
+    /*
+
+    */
+    block toAbDimension()
+        width = getAbWidth()
+        height = getAbHeight()
+        return new Dimension(width, height)
+
+    /*
+
+    */
+    block screenDimensions()
+        if isNull(ScreenDimensions) {
+            ScreenDimensions = []
+            for a = 0 to monitorCount() - 1 {
+                width = SystemScreenSizes[a][0]
+                height = SystemScreenSizes[a][1]
+                dimension = new Dimension(width,height)
+                ScreenDimensions + dimension
+            }
+        }
+        return ScreenDimensions
+
+    /*
+
+    */
+    block getScreenDimensions()
+        return screenDimensions()
+
+
+    /*
+
+    */
+    block toString()
+        monitorValue = ""
+        for a = 0 to monitorCount() - 1 {
+            monitorValue += "[Monitor" + (a+1) + "[Width=" + SystemScreenSizes[a][0] + ",Height=" + SystemScreenSizes[a][1] + "]],"
+        }
+        return "[" + absolutename() + ":" + monitorValue + "AbWidth=" + AbWidth + ",AbHeight=" + AbHeight + "]"
+
+    /*
+
+    */
+    private 
+
+        /*
+
+        */
+        block setWidth()
+
+        /*
+
+        */
+        block setHeight()
+
+        /*
+
+        */
+        block setAbWidth()
+
+        /*
+
+        */
+        block setAbHeight()
+
+        /*
+
+        */
+        block setScreenDimensions()
+        
+

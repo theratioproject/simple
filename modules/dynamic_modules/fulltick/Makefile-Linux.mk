@@ -33,8 +33,8 @@ ifeq ($(PREFIX),)
 endif
 
 clean: 
-	g++ -shared -fpermissive -fPIC $(ARC_FLAG) -I$(DESTDIR)$(PREFIX)/include -I$(DESTDIR)$(PREFIX)/include/FL/images ${FLTKFLAGS}  -fvisibility-inlines-hidden -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -D_THREAD_SAFE -D_REENTRANT -o '$(CND_DISTDIR)/$(CND_PLATFORM)/fulltick.$(CND_DLIB_EXT)' $(FULLTICK_FILES)  -lfltk $(LDFLAGS) $(LDLIBSOPTIONS)
-	cp -R ${CND_DISTDIR}/${CND_PLATFORM}/fulltick.${CND_DLIB_EXT} ./dist
+	g++ -shared -fpermissive -fPIC $(ARC_FLAG) -I$(DESTDIR)$(PREFIX)/include -I$(DESTDIR)$(PREFIX)/include/FL/images ${FLTKFLAGS}  -fvisibility-inlines-hidden -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -D_THREAD_SAFE -D_REENTRANT -o '$(CND_DISTDIR)/$(CND_PLATFORM)/libfulltick.$(CND_DLIB_EXT)' $(FULLTICK_FILES)  -lfltk $(LDFLAGS) $(LDLIBSOPTIONS)
+	cp -R ${CND_DISTDIR}/${CND_PLATFORM}/libfulltick.${CND_DLIB_EXT} ./dist
 
 distclean: clean
 

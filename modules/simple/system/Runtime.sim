@@ -9,10 +9,10 @@
  * #author - Azeez Adewale
  * #date - 9 Febuary 2017
  */
+
+call simple.system.loadsystemdll
  
 module simple.system
-
-call "loadsystemdll.sim"
 
 Runtime = new Runtime
 

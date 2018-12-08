@@ -13,8 +13,8 @@
 	example as it download in the work folder of your cmd/terminal 
 */
 
-call "simple/internet/Download.sim"
-call "simple/io/File.sim"
+call simple.internet.Download
+call simple.io.File
 
 block main() 
 

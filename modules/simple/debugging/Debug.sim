@@ -12,18 +12,21 @@
  */
 
 /*
-	To 
-	
-*/
- 
-module simple.debugging
 
-call "../core/loadcoredymodule.sim"
-call "../utilities/Length.sim"
+*/
+call simple.core.loadcoredymodule
+call simple.utilities.Length
+
+/*
+	
+	
+*/ 
+module simple.debugging
 
 	__STACK_TRACE_ERROR = "Stack Trace cannot be empty error with the simple-lang Virtual Machine"
 	__DEBUG_ASSERT_BOOLEAN_ONLY = "Only Boolean and Number can be asserted"
 	__DEBUG_ASSERTION_FAILED = "Assertion Failed"
+	__DEBUG_ASSERTION_PASSED = "Assertion Passed"
 
 /*
 	A list that returns all the lines, blocks called in all the imported file from 
@@ -70,10 +73,29 @@ block warn(warnmessage)
 	If the value is not a number then an error is throw also if the value 
 	is not evaluated to true a evaluation fail error is also thrown
 */	
-block assert(value)
-	if !isNumber(value) { throw(__DEBUG_ASSERT_BOOLEAN_ONLY) }
-	if value != true { 
-		throw(__DEBUG_ASSERTION_FAILED)
+block assert(values...)
+	valueLen = lengthOf(values)
+	
+	if valueLen > 0 {
+		value = values[0] 
+		lineNumberStack = __stack_trace_line_number()
+		if !isNumber(value) { 
+			@("simple.debugging:assert : " + __DEBUG_ASSERT_BOOLEAN_ONLY + ". Line : " + lineNumberStack[1])
+			return
+		}
+		if value == true { 
+			@("simple.debugging:assert : " + __DEBUG_ASSERTION_PASSED + ". Line : " + lineNumberStack[1])
+		else
+			@("simple.debugging:assert : " + __DEBUG_ASSERTION_FAILED + ". Line : " + lineNumberStack[1])
+		}
 	}
-
+	if valueLen > 1 {
+		shouldExit = values[1]
+		if !isNull(shouldExit) and isNumber(shouldExit) {
+			if shouldExit == true {
+				__exit__
+			}
+		}
+	}
+	
 	

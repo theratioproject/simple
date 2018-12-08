@@ -16,8 +16,8 @@
 	error after a successful build. It main function is to delegate 
 	the two main dynamic modules required by simple-lang modules
 	
-		systemic
-		string_savant
+		libsystemic
+		libstring_savant
 	
 	to the DynamicLoader.sim file. The DynamicLoader.sim file uses the
 	two above dynamic modules files first so it can efficiently treat 
@@ -37,13 +37,13 @@
 
 /*
 	WINDOWS
-	callDynamicModule("systemic.dll") callDynamicModule("string_savant.dll")
+	callDynamicModule("libsystemic.dll") callDynamicModule("libstring_savant.dll")
 	
 	LINUX 
-	callDynamicModule("systemic.so") callDynamicModule("string_savant.so")
+	callDynamicModule("libsystemic.so") callDynamicModule("libstring_savant.so")
 	
 	MAC
-	callDynamicModule("systemic.dylib") callDynamicModule("string_savant.dylib")
+	callDynamicModule("libsystemic.dylib") callDynamicModule("libstring_savant.dylib")
 	
 */
 

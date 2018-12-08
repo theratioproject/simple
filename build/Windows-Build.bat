@@ -775,7 +775,7 @@ REM FULLTICK(GUI) DYNAMIC MODULE
 :copydynamicmodules
 	call:display dynamic_modules "copying dynamic_modules to %VERSION%"
 	if !EXEC_TYPE!=="install" (
-		if exist "..\modules\dynamic_modules\dist\systemic.dll" (
+		if exist "..\modules\dynamic_modules\dist\*systemic.dll" (
 			echo dynamic_modules: copying dynamic modules to !INSTALLATION_FOLDER!\%VERSION%\modules\dynamic_modules directory
 			call:confirmfolderelsecreate "!INSTALLATION_FOLDER!\%VERSION%\modules\dynamic_modules"
 			copy ..\modules\dynamic_modules\dist\*.dll !INSTALLATION_FOLDER!\%VERSION%\modules\dynamic_modules
@@ -784,7 +784,7 @@ REM FULLTICK(GUI) DYNAMIC MODULE
 		)
 	)
 	if !EXEC_TYPE!=="debug" (
-		if exist "..\modules\dynamic_modules\dist\systemic.dll" (
+		if exist "..\modules\dynamic_modules\dist\*systemic.dll" (
 			echo dynamic_modules: copying dynamic modules to ..\..\%SIMPLE_DEBUG_VERSION%\modules\dynamic_modules directory
 			call:confirmfolderelsecreate "%~dp0\..\..\%SIMPLE_DEBUG_VERSION%\modules\dynamic_modules"
 			copy ..\modules\dynamic_modules\dist\*.dll ..\..\%SIMPLE_DEBUG_VERSION%\modules\dynamic_modules
@@ -894,7 +894,7 @@ REM MINIFY ALL THE MODULE SOURCE (.sim) only
 	exit /b 0
 	
 :echodycalls
-	echo callDynamicModule("systemic.%2") callDynamicModule("string_savant.%2") >> %1
+	echo callDynamicModule("libsystemic.%2") callDynamicModule("libstring_savant.%2") >> %1
 	
 	exit /b 0
 	

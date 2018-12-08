@@ -40,8 +40,8 @@ SIMPLE_OBJECTFILES = \
 # Link Libraries and Options
 LDLIBSOPTIONS= -Lsimple.so
 
-${CND_DISTDIR}/${CND_PLATFORM}/networker.${CND_DLIB_EXT}: $(OBJECTFILES)
-	$(CC) -shared $(ARC_FLAG) $(SIMPLE_OBJECTFILES) $(OBJECTFILES) -lcurl -lssl -lcrypto -o $(CND_DISTDIR)/$(CND_PLATFORM)/networker.$(CND_DLIB_EXT) 
+${CND_DISTDIR}/${CND_PLATFORM}/libnetworker.${CND_DLIB_EXT}: $(OBJECTFILES)
+	$(CC) -shared $(ARC_FLAG) $(SIMPLE_OBJECTFILES) $(OBJECTFILES) -lcurl -lssl -lcrypto -o $(CND_DISTDIR)/$(CND_PLATFORM)/libnetworker.$(CND_DLIB_EXT) 
 
 $(OBJECTDIR)/networker.o: networker.c
 	mkdir -p $(OBJECTDIR)

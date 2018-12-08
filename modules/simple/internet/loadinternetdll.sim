@@ -15,4 +15,4 @@ module simple.internet
 
 #Call all the low level function of the @DynamicModule networker
 call simple.core.DynamicLoader
-callModule("networker")
+callModule("libnetworker")

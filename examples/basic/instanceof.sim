@@ -7,7 +7,11 @@ call simple.utilities.Console
 call simple.reflection.Class
 
 #instanceOf block from inheriting Object class 
+<<<<<<< HEAD
+stdout.println("instanceOf block from inheriting Object class ") 
+=======
 stdout.println("instanceOf block from inheriting Object class ")
+>>>>>>> b6f6932c7fa42ae6e8601a8afb93a4b40212d3b7
 string = new String("Hello World")
 stdout.println(string,true) 
 stdout.println("String instance of 'Number' : "+string.instanceOf("Number"))
@@ -15,10 +19,19 @@ stdout.println("String instance of 'Object' : "+string.instanceOf("Object"))
 stdout.println("String instance of 'File' : "+string.instanceOf("File")+"\n")
 
 #instanceOf block exported from ANSI C
+<<<<<<< HEAD
+#TODO : Fix to check if instance of first class then parent classes
+#TODO : Allow both parameter to be object, string or mixed
+stdout.println("instanceOf block exported from ANSI C")
+obj3 = new Three
+stdout.println("One instance Five : "+__instance_of(obj3, "Five"))
+stdout.println("One instance One : "+__instance_of(obj3, "One")) 
+=======
 stdout.println("instanceOf block exported from ANSI C")
 obj3 = new Three
 stdout.println("One instance Five : "+__instance_of(obj3, "Five"))
 stdout.println("One instance One : "+__instance_of(obj3, "One"))
+>>>>>>> b6f6932c7fa42ae6e8601a8afb93a4b40212d3b7
 stdout.println("One instance Seven : "+__instance_of(obj3, "Seven")+"\n")
 
 #instanceOf block from File Class.sim and functional

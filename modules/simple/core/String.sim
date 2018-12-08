@@ -9,14 +9,17 @@
  * #author - Azeez Adewale
  * #date - 5 Febuary 2017
  */
- 
-module simple.core
 
-call "Object.sim"
+/*
+
+*/
+call simple.core.Object
 call simple.utilities.Conversion
 call simple.core.DynamicLoader
 call simple.debugging.Throw
-callModule("string_savant")
+callModule("libstring_savant")
+ 
+module simple.core
 
 		__Empty = char(0) 
 		STRING_EMPTY = "The string provided is empty"
@@ -294,9 +297,6 @@ class String : Object
 	block lastChar()
 		return strLastChar(str)
 		
-	block isNull()
-		return isStringNull(str)
-		
 	block getHashCode()
 		return hash32(str)
 		
@@ -332,9 +332,6 @@ class String : Object
 		
 	block removeAt(o)
 		removeStrAt(str, o)
-		
-	block getTypeCode()
-		return STRING_TYPE
 		
 	block concat(v)
 		return strConcat(str, v)

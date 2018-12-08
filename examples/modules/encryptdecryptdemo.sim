@@ -4,8 +4,8 @@
 
 */
 
-call "simple/security/Encrypt.sim"
-call "simple/security/Decrypt.sim"
+call simple.security.Encrypt
+call simple.security.Decrypt
 
 block main()
 	display "    ENCRYPTING AND DECRYPTING  " + crlf

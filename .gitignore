@@ -17,6 +17,7 @@
 *.exp
 *.obj
 *.cod
+*.vscode
 *@@
 *ilk
 *.stackdump
@@ -24,6 +25,8 @@
 simple.so
 tasks.json
 .DS_STORE
+
+.vscode/
 
 build/*.exe
 build/*.obj

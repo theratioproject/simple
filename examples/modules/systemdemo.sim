@@ -28,6 +28,6 @@ block main()
 			RUNTIME	
 ========================================================================"+crlf
 	
-	Runtime.executeWithParameter(simplePath(), "-l")
-	Runtime.execute(simplePath())
+	Runtime.executeWithParameter(exeFilePath(), "-l")
+	Runtime.execute(exeFilePath())
 	

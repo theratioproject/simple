@@ -24,10 +24,10 @@
 	exit after the error detail has been displayed
 	
 */
+
+call simple.debugging.Debug
  
 module simple.debugging
-
-call "Debug.sim"
 
 	__DEBUG_FINAL_ERROR_EMPTY = "The error can never be empty: forcing exit of the program"
 	__DEBUG_TYPE_THROW_ONLY = 0
@@ -35,7 +35,7 @@ call "Debug.sim"
  
 /*
 	Throw an error at any point in the program with this block
-	the parameter @Bold errorvalue @End is the main error message
+	the parameter @Bold errorValue @End is the main error message
 	display when the error is thrown. Calling this block ends the 
 	program after the error has been displayed. The error is 
 	thrown in the format below
@@ -51,18 +51,67 @@ call "Debug.sim"
 			
 	@EndCode
 	
-	If intention is to show an error the @Block throwOnly(errorvalue)
+	If intention is to show an error the @Block throwOnly(errorValue)
 	should be called instead because it does not exit the program
 */
-block throw(errorvalue)
-	if errorvalue = "" {
-		errorvalue = "Unknown Error occured"
+block throw(errorValues...)
+	errorValuesLen = lengthOf(errorValues) 
+	if errorValuesLen == 1 {
+		object = errorValues[0]
+		errorTitle = null 
+		errorValue = null 
+		if !isNull(object) and isObject(object) { 
+			if __object_has_method(object,"throwError") {
+				object.throwError()
+			elif __instance_of(object, "Error")
+				errorTitle = object.Title
+				errorValue = object.Message
+				__throw(errorTitle+" : "+errorValue)
+			else 
+				__throw("Invalid Error Message. Unknown Error occured")
+			}
+		elif isString(object) 
+			if errorValue == "" {
+				if !isNull(object) {
+					errorValue = object
+				else
+					errorValue = "Unknown Error occured"
+				}
+			}
+			__throw(errorValue)
+		else
+			__throw("Invalid Error Message. Unknown Error occured")
+		}		
+	else
+		object = errorValues[0] 
+		errorTitle = ""
+		if !isNull(object) and isObject(object) { 
+			errorTitle = __class_module_name(object)+"."+__class_name(object)
+			errorValue = errorValues[1] 
+			if errorValue == "" {
+				errorValue = "Unknown Error occured"
+			}
+			__throw(errorTitle + " : " + errorValue)
+		elif isString(object) 
+			errorTitle = object 
+			errorValue = errorValues[1]
+			if errorValue == "" {
+				if !isNull(object) {
+					errorValue = object
+				else
+					errorValue = "Unknown Error occured"
+				}
+			}
+			__throw(errorTitle + " : " + errorValue)
+		else
+			__throw("Invalid Error Message. Unknown Error occured")
+		}
 	}
-	__throw(errorvalue)
 	if isLinux() {
-		@ crlf
+		@nl
 	}
-	__exit__
+	#__exit__ 
+	__exit(0)
 	
 /*
 	Want to make the program error tolerant then this block is 
@@ -73,19 +122,74 @@ block throw(errorvalue)
 	error will still be active. so to prevent a very erroneous program 
 	the @Block throw(errorvalue) should be called instead
 */
-block throwOnly(errorvalue)
-	if errorvalue = "" {
-		errorvalue = "Unknown Error occured"
+block throwOnly(errorValues...)
+	errorValuesLen = lengthOf(errorValues)
+	if errorValuesLen == 1 {
+		object = errorValues[0] 
+		errorTitle = null 
+		errorValue = null
+		if !isNull(object) and isObject(object) {
+			if __object_has_method(object,"throwError") {
+				object.throwError()
+			elif __instance_of(object, "Error")
+				errorTitle = object.Title
+				errorValue = object.Message
+				__throw(errorTitle+" : "+errorValue)
+			else 
+				__throw("Invalid Error Message. Unknown Error occured")
+			}
+		elif isString(object)
+			if errorValue == "" {
+				if !isNull(object) {
+					errorValue = object
+				else
+					errorValue = "Unknown Error occured"
+				}
+			}
+			__throw(errorValue)
+		else
+			__throw("Invalid Error Message. Unknown Error occured")
+		}		
+	else
+		object = errorValues[0]
+		errorTitle = ""
+		if !isNull(object) and isObject(object) {
+			errorTitle = __class_module_name(object)+"."+__class_name(object)
+			errorValue = errorValues[1] 
+			if errorValue == "" {
+				errorValue = "Unknown Error occured"
+			}
+			__throw(errorTitle + " : " + errorValue)
+		elif isString(object) 
+			errorTitle = object
+			errorValue = errorValues[1]
+			if errorValue == "" {
+				if !isNull(object) {
+					errorValue = object
+				else
+					errorValue = "Unknown Error occured"
+				}
+			}
+			__throw(errorTitle + " : " + errorValue)
+		else
+			__throw("Invalid Error Message. Unknown Error occured")
+		}
 	}
-	__throw(errorvalue)
 	if isLinux() {
-		@ nl
+		@nl
 	}
 	
 /*
 	Throw an error with a custom title and error message then exit the program
 */
-block throwWithTitle(title,errorvalue)
+block throwWithTitle(object,errorvalue)
+	title = ""
+	if isObject(object) {
+		#get title as module from reflection
+		title = ""
+	elif isString(object)
+		title = object
+	}
 	__throwWithTitle(title,errorvalue,__DEBUG_TYPE_THROW)
 	
 /*
@@ -117,7 +221,8 @@ block __throwWithTitle(title,errorvalue,type)
 	}
 	if finalErrorValue == "" {
 		throw(__FINAL_ERROR_EMPTY)
-		__exit__
+		#__exit__ 
+		__exit(0)
 	}
 	if type == __DEBUG_TYPE_THROW_ONLY {
 		throwOnly(finalErrorValue)
@@ -127,5 +232,6 @@ block __throwWithTitle(title,errorvalue,type)
 
 
 
-	
-	
+/*
+	TODO : make dedundant block into overloads using variadic parameter
+*/

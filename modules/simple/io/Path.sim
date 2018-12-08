@@ -13,16 +13,17 @@
 /*
 	
 */
- 
-module simple.io
 
-call "loadfilesavantlib.sim"
+call simple.core.Object
+call simple.io.loadfilesavantlib
 call simple.core.String
 call simple.system.System
-call "PathAttributes.sim"
-call "PathType.sim"
-call "File.sim"
-call "Directory.sim"
+call simple.io.PathAttributes
+call simple.io.PathType
+call simple.io.File
+call simple.io.Directory
+ 
+module simple.io
 
 block isPath(ipath)
 	try 
@@ -62,7 +63,7 @@ block getCorrectPath(oddPath)
 	}
 	return correctPath
  
-class Path
+class Path : Object
 	
 	
 	__IO_PATH = null

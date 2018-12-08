@@ -46,9 +46,9 @@ OBJECTFILES= \
 # Link Libraries and Options
 LDLIBSOPTIONS=../../../simple/dist/libsimple.dll
 
-${CND_DISTDIR}/${CND_PLATFORM}/file_savant.${CND_DLIB_EXT}: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_PLATFORM}/libfile_savant.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_PLATFORM}
-	${LINK.c} $(ARC_FLAG) -o ${CND_DISTDIR}/${CND_PLATFORM}/file_savant.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared
+	${LINK.c} $(ARC_FLAG) -o ${CND_DISTDIR}/${CND_PLATFORM}/libfile_savant.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared
 
 ${OBJECTDIR}/file_savant.o: file_savant.c
 	${MKDIR} -p ${OBJECTDIR}

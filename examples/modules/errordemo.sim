@@ -1,0 +1,25 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com> 
+	MIT License Copyright (c) 2018 simple-lang
+*/
+
+call simple.debugging.Error
+
+block main()
+	one()
+	
+block one()
+	two()
+	
+block two()
+	three()
+	
+block three()
+	four()
+	
+block four()
+	five()
+	
+block five()
+	error = new Error
+	error.printStackTrace()

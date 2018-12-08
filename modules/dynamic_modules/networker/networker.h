@@ -15,6 +15,31 @@
 #ifndef NETWORKER_H
 #define NETWORKER_H
 
+//we don't want openssl to stop build
+#ifndef __imp___acrt_iob_func && _WIN32
+FILE * __cdecl __imp___acrt_iob_func(int index)
+{
+	#ifdef __iob_func
+		return &__iob_func()[index] ;
+	#else
+		switch (index) {
+			case 0:
+				return stdin;
+				break;
+			case 1:
+				return stdout;
+				break;
+			case 2:
+				return stderr;
+				break;
+			default:
+				return stdout;
+				break;
+		}
+	#endif
+}
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif

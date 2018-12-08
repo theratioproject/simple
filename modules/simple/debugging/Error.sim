@@ -1,0 +1,54 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+/*
+
+*/
+call simple.core.Object
+call simple.debugging.Debug
+call simple.utilities.Console
+
+/*
+
+*/
+module simple.debugging
+
+/*
+
+*/
+class Error : Object
+
+	/*
+	
+	*/
+	Message = "An Error Occur"
+	
+	/*
+	
+	*/
+	Title = "simple.debugging.Error"
+	
+	/*
+	
+	*/
+	block Error(Title,Message)
+		this.Message = Message
+		this.Title = Title
+		
+	/*
+	
+	*/
+	block printStackTrace()
+		stackTraces = stackTrace()
+		for stackTrace in stackTraces {
+			stderr.println(stackTrace)
+		}
+		
+		
+		
+		
+		
+		

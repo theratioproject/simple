@@ -9,23 +9,23 @@
  * #author - Azeez Adewale
  * #date - 7 Febuary 2017
  */
+
+/*
+
+*/
+call "__first_calls.sim"
  
 /*
 	
 */
 module simple.core
 
-/*
-
-*/
-call "__first_calls.sim"
-
 __mainDynaicModulesCount = 0
 
 __mainDynamicModules = [	
-		["systemic.dll", "string_savant.dll"],		#Windows
-		["systemic.so", "string_savant.so"],		#Linux
-		["systemic.dylib", "string_savant.dylib"] 	#MAC
+		["libsystemic.dll", "libstring_savant.dll"],		#Windows
+		["libsystemic.so", "libstring_savant.so"],		#Linux
+		["libsystemic.dylib", "libstring_savant.dylib"] 	#MAC
 	]
 
 try {

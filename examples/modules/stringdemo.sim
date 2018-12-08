@@ -6,11 +6,11 @@
 
 
 #1
-call "simple/core/String.sim" 
-call "simple/utilities/Console.sim" ? simple.utilities
-call "simple/security/Hash.sim"
+call simple.core.String 
+call simple.utilities.Console
+call simple.security.Hash
 
-	string = new String("mOduLArity ")
+	string = new String("mOduLArity ") 
 
 block main() {
 	stdout.println(string.toString()+" | LOWER : "+string.toLower())
@@ -30,7 +30,7 @@ block main() {
 	if string.endsWith("rity ") stdout.println("yea it ends with 'rity '") end
 	stdout.println("LINE COUNT : "+string.lineCount()+" | SUBSTRING : "+string.subStrAt("d","a"))
 	stdout.println("REPLACE : "+string.replace("OduLA", "odula")+" | REMOVE : "+string.remove("ity "))
-	stdout.println("TYPE : "+string.getType()+" | TYPECODE : "+string.getTypeCode())
+	stdout.println("NAME : "+string.classname()+" | ABSOLUTENAME : "+string.absolutename())
 	stdout.println("CONCAT : "+string.concat("and complexity"))
 }
 

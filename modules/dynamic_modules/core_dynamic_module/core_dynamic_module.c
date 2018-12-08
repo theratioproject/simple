@@ -34,7 +34,7 @@
 SIMPLE_API void init_simple_module(SimpleState *sState)
 {   
 	/* List */
-	register_block("__del_from_List",list_delete_from_list);
+	register_block("__del_from_list",list_delete_from_list);
 	register_block("__find_in_list",list_find_in_list);
 	register_block("__min_value",list_min_value);
 	register_block("__max_value",list_max_value);
@@ -59,6 +59,7 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
 	/* Error and Warn */
     register_block("__throw",error_throw);
     register_block("__stack_trace",error_stack_trace);
+	register_block("__stack_trace_line_number",error_stack_trace_line_number);
     register_block("__warn",error_warn);
 	
     /* Conversion */ 
@@ -66,6 +67,7 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
     register_block("__hex_to_string",conversion_hex_to_string);
     register_block("__string_to_list",conversion_string_to_list);
     register_block("__string_to_hex",conversion_string_to_hex);
+    register_block("__pointer_address_to_string",conversion_pointer_address_to_string);
 
     /* Characters Checking */ 
     register_block("__is_alpha_num",check_characters_is_alpha_num);
@@ -80,6 +82,7 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
     register_block("__is_space",check_characters_is_space);
     register_block("__is_upper",check_characters_is_upper);
     register_block("__is_x_digit",check_characters_is_xdigit);
+	register_block("__is_null_pointer",check_characters_is_null_pointer);
 	
 	/* Reflection and Meta-Programming */
 	register_block("__local_variables",meta_blocks_local_variables);
@@ -99,6 +102,10 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
 	register_block("__is_class_in_module",meta_blocks_is_class_in_module);
 	register_block("__class_name",meta_blocks_class_name);
 	register_block("__parent_class_name",meta_blocks_parent_class_name);
+<<<<<<< HEAD
+	register_block("__class_module_name",meta_blocks_class_module_name);
+=======
+>>>>>>> b6f6932c7fa42ae6e8601a8afb93a4b40212d3b7
 	register_block("__instance_of",meta_blocks_instance_of);
 	register_block("__object_address",meta_blocks_object_address);
 	register_block("__object_attributes",meta_blocks_object_attributes);
@@ -130,6 +137,10 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
 	register_block("__vm_passed_error",meta_blocks_vm_passed_error);
 	register_block("__vm_hide_error_msg",meta_blocks_vm_hide_error_msg);
 	register_block("__vm_call_block",meta_blocks_vm_call_block);
+<<<<<<< HEAD
+	register_block("__vm_line_number",meta_blocks_vm_line_number);
+=======
+>>>>>>> b6f6932c7fa42ae6e8601a8afb93a4b40212d3b7
 }
 
 /* List */
@@ -144,7 +155,7 @@ SIMPLE_API void list_delete_from_list( void *pointer )
 	if ( SIMPLE_API_ISLIST(1) ) {
 		list = SIMPLE_API_GETLIST(1) ;
 		if ( SIMPLE_API_ISNUMBER(2) ) {
-			num = SIMPLE_API_GETNUMBER(2) ;
+			num = SIMPLE_API_GETNUMBER(2) + 1 ;
 			if ( ( num < 1 ) || ( num > simple_list_getsize(list) ) ) {
 				SIMPLE_API_ERROR("Error in second parameter, item number outside the list size range!");
 				return ;
@@ -174,7 +185,7 @@ SIMPLE_API void list_find_in_list( void *pointer )
 			column = 0 ;
 			if ( SIMPLE_API_PARACOUNT >= 3 ) {
 				if ( SIMPLE_API_ISNUMBER(3) ) {
-					column = SIMPLE_API_GETNUMBER(3) ;
+					column = SIMPLE_API_GETNUMBER(3) + 1;
 				}
 				else {
 					SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
@@ -217,7 +228,7 @@ SIMPLE_API void list_find_in_list( void *pointer )
 				}
 			}
 		}
-		SIMPLE_API_RETNUMBER(num);
+		SIMPLE_API_RETNUMBER(num - 1);
 	}
 	else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
@@ -253,7 +264,7 @@ SIMPLE_API void list_min_value( void *pointer )
 						}
 					}
 				}
-				SIMPLE_API_RETNUMBER(num);
+				SIMPLE_API_RETNUMBER(num - 1);
 			}
 			else {
 				SIMPLE_API_ERROR(SIMPLE_API_EMPTYLIST);
@@ -267,10 +278,10 @@ SIMPLE_API void list_min_value( void *pointer )
 	else if ( SIMPLE_API_PARACOUNT == 2 ) {
 		if ( SIMPLE_API_ISNUMBER(1) && SIMPLE_API_ISNUMBER(2) ) {
 			if ( SIMPLE_API_GETNUMBER(1) < SIMPLE_API_GETNUMBER(2) ) {
-				SIMPLE_API_RETNUMBER(SIMPLE_API_GETNUMBER(1));
+				SIMPLE_API_RETNUMBER(SIMPLE_API_GETNUMBER(1) - 1);
 			}
 			else {
-				SIMPLE_API_RETNUMBER(SIMPLE_API_GETNUMBER(2));
+				SIMPLE_API_RETNUMBER(SIMPLE_API_GETNUMBER(2) - 1);
 			}
 		}
 		else {
@@ -311,7 +322,7 @@ SIMPLE_API void list_max_value( void *pointer )
 						}
 					}
 				}
-				SIMPLE_API_RETNUMBER(num);
+				SIMPLE_API_RETNUMBER(num - 1);
 			}
 			else {
 				SIMPLE_API_ERROR(SIMPLE_API_EMPTYLIST);
@@ -325,10 +336,10 @@ SIMPLE_API void list_max_value( void *pointer )
 	else if ( SIMPLE_API_PARACOUNT == 2 ) {
 		if ( SIMPLE_API_ISNUMBER(1) && SIMPLE_API_ISNUMBER(2) ) {
 			if ( SIMPLE_API_GETNUMBER(1) > SIMPLE_API_GETNUMBER(2) ) {
-				SIMPLE_API_RETNUMBER(SIMPLE_API_GETNUMBER(1));
+				SIMPLE_API_RETNUMBER(SIMPLE_API_GETNUMBER(1) - 1);
 			}
 			else {
-				SIMPLE_API_RETNUMBER(SIMPLE_API_GETNUMBER(2));
+				SIMPLE_API_RETNUMBER(SIMPLE_API_GETNUMBER(2) - 1);
 			}
 		}
 		else {
@@ -524,7 +535,7 @@ SIMPLE_API void list_binarysearch_in_list( void *pointer )
 						return ;
 					}
 				}
-				SIMPLE_API_RETNUMBER(simple_list_binarysearchstr(list,SIMPLE_API_GETSTRING(2),0,""));
+				SIMPLE_API_RETNUMBER(simple_list_binarysearchstr(list,SIMPLE_API_GETSTRING(2),0,"") - 1);
 			}
 			else if ( SIMPLE_API_ISNUMBER(2) ) {
 				/* Check that all items are numbers */
@@ -534,7 +545,7 @@ SIMPLE_API void list_binarysearch_in_list( void *pointer )
 						return ;
 					}
 				}
-				SIMPLE_API_RETNUMBER(simple_list_binarysearchnum(list,SIMPLE_API_GETNUMBER(2),0,""));
+				SIMPLE_API_RETNUMBER(simple_list_binarysearchnum(list,SIMPLE_API_GETNUMBER(2),0,"") - 1);
 			}
 			else {
 				SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
@@ -551,7 +562,7 @@ SIMPLE_API void list_binarysearch_in_list( void *pointer )
 						return ;
 					}
 				}
-				SIMPLE_API_RETNUMBER(simple_list_binarysearchstr(list,SIMPLE_API_GETSTRING(2),column,""));
+				SIMPLE_API_RETNUMBER(simple_list_binarysearchstr(list,SIMPLE_API_GETSTRING(2),column,"") - 1);
 			}
 			else if ( SIMPLE_API_ISNUMBER(2) ) {
 				/* Check that all items are numbers */
@@ -562,7 +573,7 @@ SIMPLE_API void list_binarysearch_in_list( void *pointer )
 						return ;
 					}
 				}
-				SIMPLE_API_RETNUMBER(simple_list_binarysearchnum(list,SIMPLE_API_GETNUMBER(2),column,""));
+				SIMPLE_API_RETNUMBER(simple_list_binarysearchnum(list,SIMPLE_API_GETNUMBER(2),column,"") - 1);
 			}
 			else {
 				SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
@@ -1015,6 +1026,29 @@ SIMPLE_API void check_characters_is_xdigit(void *pointer)
 	check_characters__(pointer,10);
 }
 
+<<<<<<< HEAD
+SIMPLE_API void check_characters_is_null_pointer(void *pointer)
+{
+	List *list ;
+	if ( SIMPLE_API_PARACOUNT != 2 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
+		return ;
+	}
+	if ( SIMPLE_API_ISCPOINTER(1) && SIMPLE_API_ISSTRING(2) ) {
+		list = SIMPLE_API_GETLIST(1) ;
+		if ( simple_list_getpointer(list,1) == NULL ) {
+			SIMPLE_API_RETNUMBER(1);
+		} else {
+			SIMPLE_API_RETNUMBER(0);
+		}
+	} 
+	else {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+	}
+}
+
+=======
+>>>>>>> b6f6932c7fa42ae6e8601a8afb93a4b40212d3b7
 /* Error and Warn */
 SIMPLE_API void error_warn(void *pointer)
 {
@@ -1075,7 +1109,7 @@ SIMPLE_API void error_stack_trace(void *pointer)
 				}
 				else {
 					if ( vm->nInClassRegion ) {
-						cFile = vm->cFileNameInClassRegion ;
+						cFile = vm->cFileNameInClassRegion ; 
 					}
 					else {
 						cFile = vm->file_name ;
@@ -1117,6 +1151,40 @@ SIMPLE_API void error_stack_trace(void *pointer)
 	}
 }
 
+SIMPLE_API void error_stack_trace_line_number(void *pointer)
+{
+	String *string;
+	List *list, *list2;
+	int x,lBlockCall,is_last_block  ;
+	const char *cFile  ;
+	VM *vm;	
+	list2 = SIMPLE_API_NEWLIST ;
+	if ( SIMPLE_API_PARACOUNT != 0 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARACOUNT);
+		return ;
+	} else {
+		vm = ((VM *) pointer);
+		string = simple_string_new_gc(((VM *) pointer)->sState,"");
+		simple_string_setfromint_gc(((VM *) pointer)->sState,string,vm->nLineNumber);
+		simple_list_addstring_gc(vm,list2,string->str);
+		for ( x = simple_list_getsize(vm->pBlockCallList) ; x >= 1 ; x-- ) {
+			list = simple_list_getlist(vm->pBlockCallList,x);
+			if ( simple_list_getsize(list) < SIMPLE_BLOCKCL_CALLERPC ) {
+				continue ;
+			}
+			if ( simple_list_getint(list,SIMPLE_BLOCKCL_TYPE) == SIMPLE_BLOCKTYPE_SCRIPT ) {
+				
+				string = simple_string_new_gc(((VM *) pointer)->sState,""); 
+				simple_string_setfromint_gc(((VM *) pointer)->sState,string,simple_list_getint(list,SIMPLE_BLOCKCL_LINENUMBER));
+				simple_list_addstring_gc(vm,list2,string->str);
+			}
+		}
+		simple_string_delete_gc(((VM *) pointer)->sState,string);
+		SIMPLE_API_RETLIST(list2);
+		return;
+	}
+}
+
 SIMPLE_API void error_throw(void *pointer)
 {
 	if ( SIMPLE_API_PARACOUNT != 1 ) {
@@ -1136,6 +1204,27 @@ SIMPLE_API void error_throw(void *pointer)
 }
 
 /* Conversion */ 
+<<<<<<< HEAD
+SIMPLE_API void conversion_pointer_address_to_string(void* pointer) 
+{
+	void* point ;
+	char pointaddress[20] ;
+	if ( SIMPLE_API_PARACOUNT != 2 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
+		return ;
+	}
+	if ( SIMPLE_API_ISCPOINTER(1) && SIMPLE_API_ISSTRING(2) ) {
+		point = (void*) SIMPLE_API_GETCPOINTER(1, SIMPLE_API_GETSTRING(2));
+		snprintf(pointaddress, sizeof(pointaddress), "%p", point);
+		SIMPLE_API_RETSTRING(pointaddress);
+	} 
+	else {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+	}
+}
+
+=======
+>>>>>>> b6f6932c7fa42ae6e8601a8afb93a4b40212d3b7
 SIMPLE_API void conversion_string_to_hex(void *pointer)
 {
 	char str[3]  ;
@@ -1804,10 +1893,52 @@ SIMPLE_API void meta_blocks_parent_class_name(void *pointer)
 	}
 }
 
+<<<<<<< HEAD
+SIMPLE_API void meta_blocks_class_module_name(void *pointer)
+{
+	int x, y, size ;
+	List *list, *list2  ;
+	char *clazz_name, *parent_name  ;
+	VM *vm ;
+	if ( SIMPLE_API_PARACOUNT != 1 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARACOUNT);
+		return ;
+	}
+	if ( SIMPLE_API_ISLIST(1) ) {
+		list = SIMPLE_API_GETLIST(1);
+		vm = (VM *) pointer ;
+		if ( simple_vm_oop_isobject(list) ) {
+			clazz_name = simple_list_getstring((List *) simple_list_getpointer(list,SIMPLE_OBJECT_CLASSPOINTER),SIMPLE_CLASSMAP_CLASSNAME);
+			size = simple_list_getsize(vm->pModulessMap);
+			for ( x = 1 ; x <= size ; x++ ) {
+				list2 = simple_list_getlist(simple_list_getlist(vm->pModulessMap,x),SIMPLE_CLASSESLIST);
+				for ( y = 1 ; y <= simple_list_getsize(list2) ; y++ ) { 
+					if (strcmp(simple_list_getstring(simple_list_getlist(list2,y),SIMPLE_CLASSMAP_CLASSNAME),clazz_name) == 0) {
+						SIMPLE_API_RETSTRING(simple_list_getstring(simple_list_getlist(vm->pModulessMap,x),SIMPLE_MODULENAME));
+						return ;
+					}
+				}
+			}
+			SIMPLE_API_RETSTRING("");
+			return ;
+		} else {
+			SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+		}
+	} else {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+	}
+}
+
+SIMPLE_API void meta_blocks_instance_of(void *pointer)
+{
+	int x ;
+	List *list, *list2  ;
+=======
 SIMPLE_API void meta_blocks_instance_of(void *pointer)
 {
 	int x ;
 	List *list  ;
+>>>>>>> b6f6932c7fa42ae6e8601a8afb93a4b40212d3b7
 	char *clazz, *parent_name  ;
 	VM *vm ;
 	if ( SIMPLE_API_PARACOUNT != 2 ) {
@@ -1816,6 +1947,24 @@ SIMPLE_API void meta_blocks_instance_of(void *pointer)
 	}
 	if ( SIMPLE_API_ISLIST(1) && SIMPLE_API_ISSTRING(2)) {
 		list = SIMPLE_API_GETLIST(1);
+<<<<<<< HEAD
+		clazz = SIMPLE_API_GETSTRING(2); 
+		vm = (VM *) pointer ; 
+		if ( simple_vm_oop_isobject(list) ) {
+			parent_name = simple_list_getstring((List *) simple_list_getpointer(list,SIMPLE_OBJECT_CLASSPOINTER),SIMPLE_CLASSMAP_CLASSNAME);  
+			do { 
+				if (strcmp(parent_name,clazz) == 0) {
+					SIMPLE_API_RETNUMBER(1);
+					return ;
+				} 
+				for ( x = simple_list_getsize(vm->pClassesMap) ; x >= 1 ; x-- ) {
+					list = simple_list_getlist(vm->pClassesMap,x) ; 
+					if ( strcmp(simple_list_getstring(list,SIMPLE_CLASSMAP_CLASSNAME),parent_name) == 0 ) {
+						/* Check if the class is imported from a Module */
+						if ( simple_list_getsize(list) == SIMPLE_CLASSMAP_IMPORTEDCLASSSIZE ) {
+							list = simple_list_getlist(list,SIMPLE_CLASSMAP_POINTERTOLISTOFCLASSINSIDEMODULE);
+						}
+=======
 		clazz = SIMPLE_API_GETSTRING(2);
 		vm = (VM *) pointer ;
 		if ( simple_vm_oop_isobject(list) ) {
@@ -1828,12 +1977,17 @@ SIMPLE_API void meta_blocks_instance_of(void *pointer)
 				for ( x = 1 ; x <= simple_list_getsize(vm->pClassesMap) ; x++ ) {
 					list = simple_list_getlist(vm->pClassesMap,x) ;
 					if ( strcmp(simple_list_getstring(list,SIMPLE_CLASSMAP_CLASSNAME),parent_name) == 0 ) {
+>>>>>>> b6f6932c7fa42ae6e8601a8afb93a4b40212d3b7
 						parent_name = simple_list_getstring(list,SIMPLE_CLASSMAP_PARENTCLASS);
 						break ;
 					}
 				}
+<<<<<<< HEAD
+			} while (parent_name != NULL && strcmp(parent_name,"") != 0);
+=======
 			} while (strcmp(parent_name,"") != 0);
 			
+>>>>>>> b6f6932c7fa42ae6e8601a8afb93a4b40212d3b7
 			SIMPLE_API_RETNUMBER(0);
 		} else {
 			SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
@@ -2468,3 +2622,17 @@ SIMPLE_API void meta_blocks_vm_call_block(void *pointer)
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
 }
+<<<<<<< HEAD
+
+SIMPLE_API void meta_blocks_vm_line_number(void *pointer)
+{
+	VM *vm  ;
+	vm = (VM *) pointer ;
+	if ( SIMPLE_API_PARACOUNT != 0 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARACOUNT);
+		return ;
+	}
+	SIMPLE_API_RETNUMBER(vm->nLineNumber);
+}
+=======
+>>>>>>> b6f6932c7fa42ae6e8601a8afb93a4b40212d3b7

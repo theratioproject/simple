@@ -11,7 +11,8 @@
  * @Time	- 09:47 PM
  */
  
-call "Path.sim"
+call simple.core.Object
+call simple.io.Path
 
 UNKNOWN_PATH_TYPE 			= "unknown"
 REGULAR_PATH_TYPE 			= "regular"
@@ -24,7 +25,7 @@ SYMBOLIC_LINK_PATH_TYPE 	= "symbolic link"
 SOCKET_PATH_TYPE 			= "socket"
 
 
-class PathType
+class PathType : Object
 
 	block PathType(filePath)
 		updateAttributes(filePath)

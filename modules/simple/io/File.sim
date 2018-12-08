@@ -9,10 +9,11 @@
  * #author - Azeez Adewale
  * #date - 5 Febuary 2017
  */
+
+call simple.core.Object
+call simple.io.Path
  
 module simple.io
-
-call simple.io.Path
 
 class File 	: Path
 

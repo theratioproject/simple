@@ -119,6 +119,11 @@ typedef struct VM {
 	List *aActiveGlobalScopes  ;
 	int nCurrentGlobalScope  ;
 	char *cFileNameInClassRegion  ;
+#ifdef __ANDROID__
+	ANativeActivity* simple_app;
+	ANativeWindow* simple_window;
+	ANativeWindow_Buffer simple_graphics_buffer;
+#endif
 } VM ;
 /*
 **  Blocks 

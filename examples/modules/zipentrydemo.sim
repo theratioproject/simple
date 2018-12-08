@@ -4,13 +4,13 @@
 
 */
 
-call "archive/zip/Zip.sim" ? archive.zip
-call "archive/zip/ZipEntry.sim" ? archive.zip
+call archive.zip.Zip
+call archive.zip.ZipEntry
 
 block main()
 	__exit__ #currently failing
 	display "-> Create a Zip Object "+ crlf
-	tZip = new Zip("C:\Users\thecarisma\Documents\SIMPLE GITHUB\examples\moduleexamples\azip.zip", ZIP_READ)
+	tZip = new Zip("../../../azip.zip", ZIP_READ)
 	
 	display "-> Create a zip entry from zip object"+ crlf
 	tEntry = new ZipEntry(tZip)

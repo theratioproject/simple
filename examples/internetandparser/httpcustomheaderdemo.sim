@@ -11,7 +11,7 @@
 
 */
 
-call "simple/internet/curl/CurlHTTP.sim"
+call simple.internet.curl.CurlHTTP
 
 block main() 
 	testcurlhttp = new CurlHTTP("https://api.sandbox.ebay.com/buy/browse/v1/item_summary/search?q=drone&limit=3")

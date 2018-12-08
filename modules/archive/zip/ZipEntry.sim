@@ -9,12 +9,13 @@
  * #author - Azeez Adewale
  * #date - 11 Febuary 2017
  */
+
+call simple.core.Object
+call archive.zip.Zip
  
 module archive.zip
 
-call archive.zip.Zip
-
-class ZipEntry
+class ZipEntry : Object
 
 	block ZipEntry(izipStream)
 		if !isZipStream(izipStream) throw(NOT_ZIP_STREAM) end

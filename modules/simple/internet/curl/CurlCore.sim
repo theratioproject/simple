@@ -10,11 +10,12 @@
  * @date - 26 Febuary 2017
  * @Time - 11:44 AM
  */
- 
-module simple.internet.curl
 
 #Call all the low level function of the @DynamicModule networker
+call simple.core.Object
 call simple.internet.loadinternetdll
+ 
+module simple.internet.curl
 
 #The @Class CurlCore is the base class for all the curl module and
 #classes holding mainly the parenting Blocks and the curl pointer
@@ -23,7 +24,7 @@ call simple.internet.loadinternetdll
 #@DynamicModule networker and use all the low-level functions 
 #directly from C which i believe is faster but hard but also simple 
 #as it usage is similar to the [[PHP][https://php.com]] curl module 
-class CurlCore
+class CurlCore : Object
 
 	/* TYPE */
 	CURLPOINTER = null #initialize the curl pointer with null

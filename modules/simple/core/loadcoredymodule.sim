@@ -1,4 +1,15 @@
+
+/*
+
+*/
+call simple.core.DynamicLoader
+
+/*
+
+*/
 module simple.core
 
-call simple.core.DynamicLoader
-callModule("core_dynamic_module")
+/*
+
+*/
+callModule("libcore_dynamic_module")
