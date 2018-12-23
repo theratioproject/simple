@@ -98,6 +98,41 @@ SIMPLE_API void simple_list_copy_gc ( void *pState,List *pNewList, List *list )
 		return ;
 	}
 	for ( x = 1 ; x <= simple_list_getsize(list) ; x++ ) {
+		if ( simple_list_isint(list,x) /*&& !simple_list_isfinal(list,x)*/) {
+			simple_list_addint_gc(pState,pNewList,simple_list_getint(list,x));
+		}
+		else if ( simple_list_isdouble(list,x) /*&& !simple_list_isfinal(list,x)*/) {
+			simple_list_adddouble_gc(pState,pNewList,simple_list_getdouble(list,x));
+		}
+		else if ( simple_list_isstring(list,x) /*&& !simple_list_isfinal(list,x)*/) {
+			simple_list_addstring2_gc(pState,pNewList,simple_list_getstring(list,x),simple_list_getstringsize(list,x));
+		}
+		else if ( simple_list_ispointer(list,x) /*&& !simple_list_isfinal(list,x)*/) {
+			simple_list_addpointer_gc(pState,pNewList,simple_list_getpointer(list,x));
+		}
+		else if ( simple_list_islist(list,x) /*&& !simple_list_isfinal(list,x)*/) {
+			pNewList2 = simple_list_newlist_gc(pState,pNewList);
+			simple_list_copy_gc(pState,pNewList2,simple_list_getlist(list,x));
+		}
+	}
+}
+
+/* Prevent copying final attributes and methods */
+SIMPLE_API void simple_list_copy_no_final_gc( void *pState,List *pNewList, List *list )
+{
+	int x  ;
+	List *pNewList2  ;
+	assert(list != NULL);
+	/*
+	**  This block don't add a new list before copying items 
+	**  if you want to add a list to another one, create new list in the target then copy to it 
+	**  Copy Items 
+	*/
+	// TODO : Check if item is final. if final don't copy skip it
+	if ( simple_list_getsize(list) == 0 ) {
+		return ;
+	}
+	for ( x = 1 ; x <= simple_list_getsize(list) ; x++ ) {
 		if ( simple_list_isint(list,x) && !simple_list_isfinal(list,x)) {
 			simple_list_addint_gc(pState,pNewList,simple_list_getint(list,x));
 		}
@@ -112,7 +147,7 @@ SIMPLE_API void simple_list_copy_gc ( void *pState,List *pNewList, List *list )
 		}
 		else if ( simple_list_islist(list,x) && !simple_list_isfinal(list,x)) {
 			pNewList2 = simple_list_newlist_gc(pState,pNewList);
-			simple_list_copy_gc(pState,pNewList2,simple_list_getlist(list,x));
+			simple_list_copy_no_final_gc(pState,pNewList2,simple_list_getlist(list,x));
 		}
 	}
 }
@@ -1222,6 +1257,11 @@ SIMPLE_API void simple_list_setlist ( List *list, int index )
 }
 
 SIMPLE_API void simple_list_copy ( List *pNewList, List *list )
+{
+	simple_list_copy_gc(NULL,pNewList,list);
+}
+
+SIMPLE_API void simple_list_copy_no_final ( List *pNewList, List *list )
 {
 	simple_list_copy_gc(NULL,pNewList,list);
 }

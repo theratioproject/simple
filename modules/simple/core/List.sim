@@ -295,31 +295,6 @@ class List : Object
 		strValue += "]"
 		return strValue
 	end
-	
-	block toString()
-		strValue = "[" 
-		lstLen = length() - 1
-		for i = 0 to lstLen { 
-			item = __OBJECT[i] 
-			if isString(item) {
-				strValue += '"' + item + '"'
-			elif isNumber(item)
-				strValue += item
-			elif isList(item)
-				tmpLst = new List(item)
-				strValue += tmpLst.toString()
-			elif isObject(item)
-				if isBlock(item,"toString") {
-					#strValue += item.toString() 
-				else 
-					strValue += "Object" #get object package and name from reflection
-				}
-			}
-			if i < lstLen { strValue += ", " }
-		}
-		strValue += "]"
-		return strValue
-	end
 
 	/*
 	 * Error block, needs to be private
@@ -328,7 +303,6 @@ class List : Object
 	 *
 	 */
 	 
-<<<<<<< HEAD
 	private 
 	
 		/*
@@ -348,21 +322,5 @@ class List : Object
 					return __INDEX_GREATER_THAN_SIZE
 				default
 					return ""
-=======
-	private block errorType(type)
-		__NOT_LIST_ERROR = "the parameter is not a list"
-		__NUMBER_REQUIRED_ERROR = "only number is required as parameter "
-		__INDEX_GREATER_THAN_SIZE = "the provided n index is greater than list size"
-
-		switch (type)
-			case 1
-				@ __NOT_LIST_ERROR
-			case 2
-				@ __NUMBER_REQUIRED_ERROR
-			case 3
-				@ __INDEX_GREATER_THAN_SIZE
-			default
-				throw("Exit !") __exit__
->>>>>>> b6f6932c7fa42ae6e8601a8afb93a4b40212d3b7
 			end
 			

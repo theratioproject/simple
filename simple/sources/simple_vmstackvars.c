@@ -269,6 +269,7 @@ SIMPLE_API void simple_vm_freestack ( VM *vm )
 	if ( ( simple_list_getsize(vm->pBlockCallList) == 0 ) && (vm->nInsideBraceFlag == 0) ) {
 		vm->nsp = 0 ;
 		vm->nBlockSP = 0 ;
+		vm->finalFlag = 0 ;
 		/* Clear General Temp Memory */
 		simple_list_deleteallitems_gc(vm->sState,vm->pTempMem);
 	} else {
@@ -521,7 +522,8 @@ SIMPLE_API void simple_vm_assignmentpointer ( VM *vm )
 	List *list, *list2  ;
 	Item *pItem ;
 	const char* var ;
-	int x , isFinal, initDec ;
+	int x ;
+	unsigned int isFinal, initDec ;
 	if ( vm->nNOAssignment == 0 ) {
 		vm->pAssignment = SIMPLE_VM_STACK_READP ;
 		/* Check trying to change the self pointer */
@@ -533,7 +535,7 @@ SIMPLE_API void simple_vm_assignmentpointer ( VM *vm )
 			var = simple_list_getstring(((List *)vm->pAssignment),SIMPLE_VAR_NAME);
 			isFinal = simple_list_getfinal(((List *)vm->pAssignment),SIMPLE_VAR_NAME);
 			initDec = simple_list_getinitdec(((List *)vm->pAssignment),SIMPLE_VAR_NAME);
-			
+			//printf("%s %i %i \n",var,isFinal,initDec);
 			if (isFinal == 1 && initDec == 0) {
 				simple_vm_error2(vm,SIMPLE_VM_ERROR_CANNOT_ASSIGN_FINAL,var);
 			} else if (isFinal == 1) {

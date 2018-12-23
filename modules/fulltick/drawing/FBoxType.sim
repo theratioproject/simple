@@ -1,0 +1,145 @@
+
+/*
+
+*/
+call simple.core.Object
+call "../base/FWidget.sim" ? fulltick.base
+call "../painting/FColor.sim" ? fulltick.painting
+
+/*
+
+*/
+module fulltick.drawing
+
+/*
+
+*/
+final FBoxType = new fulltick.drawing.FBoxType
+
+/*
+    
+*/
+class FBoxType : Object
+
+    /*
+
+    */
+    NO_BOX = null
+
+    /*
+
+    */
+    FLAT_BOX = null
+
+    /*
+
+    */
+    BoxType = 0
+
+    /*
+
+    */
+    BoxColor = null
+
+    /*
+
+    */
+    block FBoxType(params...)
+        paramsLen = lengthOf(params)
+
+        if paramsLen == 0 {
+            BoxType = __FL_FLAT_BOX()
+        elif paramsLen == 1 
+            type = params[0]
+            if isNumber(type) {
+                BoxType = type
+            else
+                throw(self,"Invalid parameter in FBoxType Constructor. Expecting (Number). Found (" + objecttype(type) + ")")
+            }
+        elif paramsLen == 2
+            type = params[0]
+            color = params[1]
+            if isNumber(type) and (isNumber(color) or (isObject(color) and instanceof(color,"FColor"))) {
+                BoxType = type
+                if isNumber(color) {
+                    BoxColor = new FColor(color)
+                else
+                    BoxColor = color
+                } 
+            else
+                throw(self,"Invalid parameter in FBoxType Constructor. Expecting (Number,Number|fulltick.painting.FColor). Found (" + objecttype(type) + "," + objecttype(color) + ")")
+            }
+        else
+            throw(self,SIMPLE_VM_ERROR_EXTRAPARAMETERSCOUNT)
+        }
+
+    /*
+
+    */
+	block getNO_BOX()
+        if isNull(NO_BOX) { 
+            NO_BOX = new FBoxType(__FL_NO_BOX())
+        }
+        return NO_BOX
+
+    /*
+
+    */
+	block getFLAT_BOX()
+        if isNull(FLAT_BOX) { 
+            FLAT_BOX = new FBoxType(__FL_FLAT_BOX())
+        }
+        return FLAT_BOX
+
+    /*
+
+    */
+    block name()
+        name = boxTypeNameMap[""+BoxType+""]
+        if isNull(name) {
+            name = "Invalid BoxType"
+        }
+        return name
+
+    /*
+
+	*/
+	block equals(object)
+		if !isObject(object) or !__instance_of(object,"FBoxType") {
+			return false
+		}
+		return (BoxType == object.BoxType)
+     
+    /*
+
+    */
+    block toString() 
+        return "[" + absolutename() + ":BoxType=" + BoxType + ",BoxTypeName=" + name() + ",BoxColor=" + boxcolorname() + "]"
+
+    /*
+
+    */
+    private 
+
+        /*
+
+        */
+        boxTypeNameMap = [
+            ["0","NO_BOX"],
+            ["1","FLAT_BOX"]
+        ]
+
+        /*
+
+        */
+        block setBoxType()
+
+        /*
+
+        */
+        block boxcolorname()
+            if isNull(BoxColor) {
+                return "(null)"
+            }
+            return BoxColor.toString()
+

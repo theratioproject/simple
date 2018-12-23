@@ -14,14 +14,7 @@ call simple.core.Object
 call simple.core.DynamicLoader
 callModule("libconsoler")
 
-<<<<<<< HEAD
 module simple.utilities
-=======
-/*
-	initialized to allow ussage as ConsoleColor.block()
-*/
-ConsoleColor = new ConsoleColor
->>>>>>> b6f6932c7fa42ae6e8601a8afb93a4b40212d3b7
 
 /*
 	do not change the color values as it is in respect to 
@@ -56,11 +49,7 @@ final CONSOLE_COLOR_WHITE = 16			#color white		###
 /*
 
 */
-<<<<<<< HEAD
 class ConsoleColor : Object
-=======
-class ConsoleColor 
->>>>>>> b6f6932c7fa42ae6e8601a8afb93a4b40212d3b7
 
 	/*
 		

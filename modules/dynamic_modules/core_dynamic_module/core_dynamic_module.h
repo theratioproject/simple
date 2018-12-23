@@ -85,7 +85,10 @@ SIMPLE_API void conversion_pointer_address_to_string(void* pointer);
 SIMPLE_API void conversion_string_to_hex(void *pointer);
 SIMPLE_API void conversion_string_to_chex (void *pointer);
 SIMPLE_API void conversion_hex_to_string(void *pointer);
+SIMPLE_API void conversion_hex_to_number(void *pointer);
 SIMPLE_API void conversion_string_to_list (void *pointer);
+SIMPLE_API void conversion_char_to_number(void *pointer);
+SIMPLE_API void conversion_number_to_char(void *pointer);
 
 /* Characters Checking */ 
 SIMPLE_API void check_characters__(void *pointer,int type);
@@ -100,10 +103,7 @@ SIMPLE_API void check_characters_is_punct(void *pointer);
 SIMPLE_API void check_characters_is_space(void *pointer);
 SIMPLE_API void check_characters_is_upper(void *pointer);
 SIMPLE_API void check_characters_is_xdigit(void *pointer);
-<<<<<<< HEAD
 SIMPLE_API void check_characters_is_null_pointer(void *pointer);
-=======
->>>>>>> b6f6932c7fa42ae6e8601a8afb93a4b40212d3b7
 
 /* Reflection and Meta-Programming */
 SIMPLE_API void meta_blocks_local_variables(void *pointer);
@@ -123,10 +123,7 @@ SIMPLE_API void meta_blocks_classes_in_module(void *pointer);
 SIMPLE_API void meta_blocks_is_class_in_module(void *pointer);
 SIMPLE_API void meta_blocks_class_name(void *pointer);
 SIMPLE_API void meta_blocks_parent_class_name(void *pointer);
-<<<<<<< HEAD
 SIMPLE_API void meta_blocks_class_module_name(void *pointer);
-=======
->>>>>>> b6f6932c7fa42ae6e8601a8afb93a4b40212d3b7
 SIMPLE_API void meta_blocks_instance_of(void *pointer);
 SIMPLE_API void meta_blocks_object_address(void *pointer);
 SIMPLE_API void meta_blocks_object_attributes(void *pointer);
@@ -158,10 +155,7 @@ SIMPLE_API void meta_blocks_vm_exec_in_scope(void *pointer);
 SIMPLE_API void meta_blocks_vm_passed_error(void *pointer);
 SIMPLE_API void meta_blocks_vm_hide_error_msg(void *pointer);
 SIMPLE_API void meta_blocks_vm_call_block(void *pointer);
-<<<<<<< HEAD
 SIMPLE_API void meta_blocks_vm_line_number(void *pointer);
-=======
->>>>>>> b6f6932c7fa42ae6e8601a8afb93a4b40212d3b7
 
 #ifdef __cplusplus
 }

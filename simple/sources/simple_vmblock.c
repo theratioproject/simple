@@ -444,7 +444,6 @@ SIMPLE_API void simple_vm_newblock ( VM *vm )
 		y = 0 ;
 		z = 0 ;
 		for (; x >= 3 && y <= SIMPLE_VM_IR_PARACOUNT ; x--, y++ ) { 
-			//printf("X%i Y%i P%i VN%i N%i INSP%i\n",x,y,SIMPLE_VM_IR_PARACOUNT,vm->nsp,nsp,insp);
 			param = simple_string_new(SIMPLE_VM_IR_READCVALUE(x-1));
 			if (strcmp(param->str,simple_secondary_keyword_value(KEYWORD_VARIADIC)) == 0 ) {
 				is_variadic = 1 ; continue ;
@@ -476,10 +475,16 @@ SIMPLE_API void simple_vm_newblock ( VM *vm )
 					SIMPLE_VM_STACK_POP ;
 				} 
 				if (y == (SIMPLE_VM_IR_PARACOUNT - 3) && strcmp(v_param->str,variadic_value) == 0) {
-					vm->nsp = insp - y + 1; 
+					//printf("X%i Y%i P%i VN%i N%i INSP%i\n",x,y,SIMPLE_VM_IR_PARACOUNT,vm->nsp,nsp,insp);
+					if (vm->nsp == 1 && y > 1) { 
+						y++; 
+						vm->nsp = insp - y + 2;
+					} else {
+						vm->nsp = insp - y + 1;
+					}
 					for (; z <= nsp; z++) {
 						y++; 
-					}
+					} 
 					while (nsp < vm->nsp){ 
 						if ( SIMPLE_VM_STACK_ISSTRING_AT(y) ) {
 							simple_list_addstring(variadic_list,SIMPLE_VM_STACK_READC_AT(y));

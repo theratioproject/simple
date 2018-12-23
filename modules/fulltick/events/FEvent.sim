@@ -1,0 +1,158 @@
+
+/*
+
+*/
+call simple.core.Object
+
+/*
+
+*/
+module fulltick.events
+
+/*
+
+*/
+class FEvent : Object
+
+    /*
+
+    */
+    final NO_EVENT = 0
+
+    /*
+
+    */
+    final PUSH = 1
+
+    /*
+
+    */
+    final RELEASE = 2
+
+    /*
+
+    */
+    final ENTER = 3
+
+    /*
+
+    */
+    final LEAVE = 4
+
+    /*
+
+    */
+    final DRAG = 5
+
+    /*
+
+    */
+    final FOCUS = 6
+
+    /*
+
+    */
+    final UNFOCUS = 7
+
+    /*
+
+    */
+    final KEYDOWN = 8
+
+    /*
+
+    */
+    final KEYUP = 9
+
+    /*
+
+    */
+    final CLOSE = 10
+
+    /*
+
+    */
+    final MOVE = 11
+
+    /*
+
+    */
+    final SHORTCUT = 12
+
+    /*
+
+    */
+    final DEACTIVATE = 13
+
+    /*
+
+    */
+    final ACTIVATE = 14
+
+    /*
+
+    */
+    final HIDE = 15
+
+    /*
+
+    */
+    final SHOW = 16
+
+    /*
+
+    */
+    final PASTE = 17
+
+    /*
+
+    */
+    final SELECTIONCLEAR = 18
+
+    /*
+
+    */
+    final MOUSEWHEEL = 19
+
+    /*
+
+    */
+    final DND_ENTER = 20
+
+    /*
+
+    */
+    final DND_DRAG = 21
+
+    /*
+
+    */
+    final DND_LEAVE = 22
+
+    /*
+
+    */
+    final DND_RELEASE = 23
+
+    /*
+
+    */
+    final SCREEN_CONFIGURATION_CHANGED = 24
+
+    /*
+
+    */
+    final FULLSCREEN = 25
+
+    /*
+
+    */
+    final ZOOM_GESTURE = 26
+
+    /*
+
+    */
+    block callback(widget, event)
+
+
+    

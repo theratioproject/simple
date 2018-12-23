@@ -1,0 +1,71 @@
+
+/*
+
+*/
+call simple.core.Object
+call "./FEvent.sim" ? fulltick.events
+
+/*
+
+*/
+module fulltick.events
+
+/*
+
+*/
+class FWindowEvent : FEvent
+
+    /*
+
+    */
+    final NONE = 0
+
+    /*
+
+    */
+    final ICONIZE = 15
+
+    /*
+
+    */
+    final DEICONIZE = 16
+
+    /*
+
+    */
+    final EXIT = 10
+
+    /*
+
+    */
+    EventType = NONE
+
+
+    /*
+
+    */
+    block callback(widget, event) 
+        if event == CLOSE { 
+            windowClosing(widget, event)
+        elif event == SHOW 
+            windowShowing(widget, event)
+        elif event == HIDE 
+            windowHiding(widget, event)
+        }
+
+    /*
+
+    */
+    block windowClosing(widget, event)
+
+
+    /*
+
+    */
+    block windowShowing(widget, event)
+
+
+    /*
+
+    */
+    block windowHiding(widget, event)

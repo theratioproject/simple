@@ -1,0 +1,34 @@
+
+/*
+
+*/
+call simple.core.Object
+call simple.utilities.Console
+call simple.graphics.Dimension
+call simple.graphics.Rectangle
+call simple.graphics.Point
+call "../../../drawing/FBoxType.sim" ? fulltick.drawing
+call "../../../painting/FColor.sim" ? fulltick.painting
+call "../../../widgets/FWindow.sim" ? fulltick.widgets
+call "../../../widgets/FLabel.sim" ? fulltick.widgets
+call "../../../base/FWidget.sim" ? fulltick.base
+call "../../../FApp.sim" ? fulltick
+
+flabelDemo = new FLabelDemo
+FApp.run()
+
+class FLabelDemo
+
+    fwindow = new FWindow(400,180,"FLabel Demo") { 
+        begin(true)
+        new FLabel(0,20) { Label = "This FLabel set it own label independently" }
+        new FLabel(0,40,"This FLabel Has a custom background") { Background = FColor.FCOLOR_CYAN }
+        new FLabel(0,70,"This FLabel has custom size") { LabelSize = 30 }
+        new FLabel(0,100,"This FLabel has custom font") {  LabelFont = FFont.FFONT_TIMES_BOLD_ITALIC }
+        new FLabel(0,120,"This FLabel has custom foreground") {  LabelColor = FColor.FCOLOR_RED } 
+        new FLabel(0,140,"This FLabel has custom label type") {  LabelType = FLabelType.NO_LABEL }
+        endBegin()
+        centerOnScreen() 
+        show()        
+    } 
+        

@@ -27,8 +27,8 @@ typedef struct Item {
 	*/
 	unsigned int nObjectType:2  ;
 	
-	int isFinal ;
-	int initDec ;
+	unsigned int isFinal ;
+	unsigned int initDec:1 ;
 	
 	/* Data */
 	union {
@@ -144,9 +144,9 @@ SIMPLE_API void simple_item_setstring ( Item *pItem,const char *cStr ) ;
 
 SIMPLE_API void simple_item_setdouble ( Item *pItem,double x ) ;
 
-SIMPLE_API void simple_item_setfinal(Item *pItem,double x );
+SIMPLE_API void simple_item_setfinal(Item *pItem,unsigned int x );
 
-SIMPLE_API void simple_item_setinitdec (Item *pItem,double x );
+SIMPLE_API void simple_item_setinitdec (Item *pItem,unsigned int x );
 
 SIMPLE_API void simple_item_setpointer ( Item *pItem,void *pValue ) ;
 

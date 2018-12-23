@@ -76,3 +76,100 @@ block main()
 	
 	#show all window
 	FApp.run() 
+	
+/*
+
+*/
+
+
+
+/*
+
+*/
+call simple.core.Object
+call simple.utilities.Console
+call simple.graphics.Dimension
+call simple.graphics.Rectangle
+call simple.graphics.Point
+call "../../../widgets/FWindow.sim" ? fulltick.widgets
+call "../../../widgets/FGroup.sim" ? fulltick.widgets
+call "../../../widgets/FButton.sim" ? fulltick.widgets
+call "../../../base/FWidget.sim" ? fulltick.base
+call "../../../FApp.sim" ? fulltick
+
+fwindow = null
+fullscreenButton = null
+borderButton = null
+rectangle = new Rectangle(500,200,200,200)
+i = 0
+f = false
+
+block main() 
+    fwindow = new FWindow() { 
+        fullscreenButton = new FButton("Fullscreen") 
+        fullscreenButton.callbackOnClick("operate('fullscreen')")
+        addWidget(fullscreenButton)
+
+        borderButton = new FButton("Disable Border") 
+        borderButton.callbackOnClick("operate('border')")
+        #addWidget(borderButton) 
+
+        resize(rectangle)
+        #HasWindowBorder = false 
+        #Fullscreen = true
+        Title = "Hello World"
+        #Cursor = FCursor.FL_CURSOR_WAIT
+    }
+    stdout.println("Index of fullscreenButton : "+fwindow.findWidgetIndex(fullscreenButton))
+    stdout.println("Window has Border : "+fwindow.HasWindowBorder)
+    stdout.println("Window is Fullscreen : "+fwindow.Fullscreen)
+    stdout.println("Window title : "+fwindow.Title)
+    stdout.println(fwindow.Cursor)
+    stdout.print("Window : X="+fwindow.X+", Y="+fwindow.X+", Width="+fwindow.Width+", Height="+fwindow.Height+", ")
+    stdout.println("Decorated Height="+fwindow.decoratedHeight()+", Decorated Width="+fwindow.decoratedWidth())
+    fwindow.icon(null) 
+    fwindow.show() 
+    #FApp.scheme("gleam")
+    FApp.run()
+    
+block operate(op)
+    if op == "fullscreen" {
+        /*if fwindow.Fullscreen {
+            fwindow.Fullscreen = false
+            __Fl_Widget_label_1(fullscreenButton.Ptr,"Enable Fullscreen")
+        else
+            fwindow.Fullscreen = true
+            __Fl_Widget_label_1(fullscreenButton.Ptr,"Disable Fullscreen")
+        } */
+        #FApp.scheme("gtk+")
+        /*win = __Fl_Window(400,350, "Yes")
+        #__Fl_Window_set_modal(win)
+        __Fl_Window_show(win)  
+        #__Fl_Fl_modal()
+        if fwindow.IsModal {
+            fwindow.clearModalStates() 
+        else
+            fwindow.IsModal = true 
+        }
+        stdout.println(fwindow.Modality == FWindowModality.MODAL) */
+        #stdout.println(fwindow.isShown())
+        #fwindow.sizeRange(100,500,50,500)
+        stdout.println(""+fwindow.X + " " + fwindow.Y)
+        if f == true 
+            point1 = new Point(fwindow.XRoot,fwindow.YRoot)
+            rectangle.setPoint(point1) 
+            f = false
+        end
+        rectangle.grow(2,2)
+        fwindow.resize(rectangle)
+        #fwindow.MaxHeight =  (fwindow.MaxHeight+100)
+        #stdout.println(fwindow.MaxHeight)
+    elif op == "border"
+        if fwindow.HasWindowBorder {
+            fwindow.HasWindowBorder = false
+            __Fl_Widget_label_1(fullscreenButton.Ptr,"Enable Border")
+        else
+            fwindow.HasWindowBorder = true
+            __Fl_Widget_label_1(fullscreenButton.Ptr,"Disable Border")
+        }
+    }

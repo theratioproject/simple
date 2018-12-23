@@ -270,11 +270,7 @@ private
 		__stdBackgroundColor = ConsoleColor.NONE
 		
 		block println(param...)
-<<<<<<< HEAD
 			value = "" 
-=======
-			value = ""
->>>>>>> b6f6932c7fa42ae6e8601a8afb93a4b40212d3b7
 			parseObject = false
 			paramLen = lengthOf(param)
 			if paramLen > 2 {
@@ -284,24 +280,15 @@ private
 				value = param[0]
 			else 
 				value = " "
-<<<<<<< HEAD
 			} 
-=======
-			}
->>>>>>> b6f6932c7fa42ae6e8601a8afb93a4b40212d3b7
 			if paramLen > 1 {
 				parseObject = param[1]
 				if parseObject != true and parseObject != false {
 					throwWithTitle(__CONSOLE_MODULE,__SECOND_ARGUMENT_BOOLEAN_ONLY)
 				}
 			}
-<<<<<<< HEAD
 			_value = getObjectString(value,parseObject) 
 			__print(std_output,_value+nl)
-=======
-			value = getObjectString(value,parseObject) 
-			__print(std_output,value+nl)
->>>>>>> b6f6932c7fa42ae6e8601a8afb93a4b40212d3b7
 			
 		block print(param...)
 			value = ""
@@ -395,24 +382,15 @@ private
 				elif isNumber(obj)
 					val = formatEscapeSequence(""+obj)
 				elif isList(obj)
-<<<<<<< HEAD
 					_val = new List(obj) 
 					val = _val.toString() 
-=======
-					_val = new List(val)
-					val = _val.toString()
->>>>>>> b6f6932c7fa42ae6e8601a8afb93a4b40212d3b7
 				elif isObject(obj) 
 					if __object_has_method(obj,"toString") {
 						val = obj.toString()
 					elif parseObject
 						val = parseObjString(obj)
 					else
-<<<<<<< HEAD
 						val = "[cannot print object:" + __class_module_name(obj) + "." + __class_name(obj) + "]"
-=======
-						val = "(cannot print object:" + __class_name(obj) + ")"
->>>>>>> b6f6932c7fa42ae6e8601a8afb93a4b40212d3b7
 					}		
 				}
 				return val

@@ -1,0 +1,272 @@
+
+/*
+
+*/
+call simple.core.Object
+call simple.debugging.Throw
+call simple.debugging.ErrorMessages
+call simple.reflection.Class
+call "./events/FWindowEvent.sim" ? fulltick.events
+call "./base/loaddyfulltick.sim" ? fulltick.base
+call "./FScheme.sim" ? fulltick
+
+/*
+
+*/
+module fulltick
+
+/*
+
+*/
+FApp = new fulltick.FApp
+
+/*
+
+*/
+class FApp : Object
+
+	/*
+
+	*/
+	Scheme = FScheme
+
+	/*
+
+
+	*/
+	CurrentWidget = null
+
+	/*
+
+	*/
+	CreatedWidgets = []
+
+	/*
+
+	*/
+	BelowMouse = null
+
+	/*
+
+	*/
+	block setScheme(value)
+		if isObject(value) and __instance_of(value,"FScheme") {
+			Scheme = value
+		else
+			throw(self,FULLTICK_INVALID_PARAMETER)
+		}
+
+	/*
+	
+	*/
+	block run()
+		isRunning = true 
+		__Fl_Fl_event_dispatch(true)
+		__Fl_Fl_run()
+		
+	/*
+	
+	*/	
+	block isRunning()
+		return isRunning		
+	
+	/*
+	
+	*/
+	block scheme(param...)
+		paramLen = lengthOf(param)
+		if paramLen == 0 {
+			return scheme
+		elif paramLen == 1
+			object = param[0]
+			if isString(object) {
+				self.scheme = object
+			elif instanceOf(object,"FScheme")
+				self.scheme = object.SchemeName
+			} 
+			__Fl_Fl_scheme(self.scheme)
+		else 
+			throwWithTitle(self,SIMPLE_VM_ERROR_EXTRAPARAMETERSCOUNT)
+		}
+
+	/*
+		internal use only 
+	*/
+	block handle(event,windowPointer) 
+		widget = CreatedWidgets[windowPointer] 
+		if !isNull(widget) { 
+			windowPtr = widget.Ptr 
+			Ptr = widget.Ptr 
+			switch (event) {
+				case __FL_CLOSE()
+					if __instance_of(widget,"FWindow") {
+						if !isNull(widget.WindowEvent) {
+							widget.WindowEvent.callback(widget,10)
+						else
+							grab = __Fl_Fl_grab() 
+							modal = __Fl_Fl_modal() 
+							if (!__is_null_pointer(grab,grab[1]) or (!__is_null_pointer(modal,modal[1]) and Ptr != modal) ) {
+								return 0
+							} 
+							__Fl_Widget_do_callback(Ptr)
+						}
+					}					
+					return 1
+
+				case __FL_SHOW() 
+					if instanceof(widget,"FWindow") {
+						if !isNull(widget.WindowEvent) {
+							widget.WindowEvent.callback(widget,16)
+						else
+							__Fl_Fl_handle_(event,Ptr) 
+						}
+					}	
+					return 1
+
+				case __FL_HIDE() 
+					if instanceof(widget,"FWindow") { 
+						if !isNull(widget.WindowEvent) { 
+							widget.WindowEvent.callback(widget,15)
+							return 0
+						else
+							__Fl_Fl_handle_(event,Ptr) #no static Fl_Widget::show
+						}
+					}	
+					return 1
+
+				case __FL_PUSH()
+					grab = __Fl_Fl_grab()
+					modal = __Fl_Fl_modal() 
+					if (!__is_null_pointer(grab,grab[1])) { 
+						Ptr = grab 
+					elif ( !__is_null_pointer(modal,modal[1]) and Ptr != modal)
+						return 0
+					}
+					__Fl_Fl_set_pushed_(Ptr) 
+					__Fl_Tooltip_Fl_Tooltip_current_1(Ptr)
+					if sendEvent(event,widget,windowPtr) == 1 { return 1 }
+					__Fl_Widget_show(Ptr)
+					return 1 
+
+				case __FL_DND_ENTER()
+					dndFlag = true 
+
+				case __FL_DND_DRAG()
+					dndFlag = true 
+
+				case __FL_DND_LEAVE()
+					dndFlag = true 
+					setBelowMouse(null)
+					dndFlag = false 
+					return 1
+
+				case __FL_DND_RELEASE()
+					widget = BelowMouse
+
+				default
+					#__Fl_Fl_handle_(event,Ptr)
+			}
+		} 
+		#widget.handle(event)
+
+	/*
+
+	*/
+	block setBelowMouse(value)
+		#__Fl_Fl_belowmouse_1(0) #allow zero
+
+	/*
+
+	*/
+	block getBelowMouse()
+		return BelowMouse
+
+
+	/*
+		internal use only
+	*/
+	block __widgetcallback(index) 
+		if isNumber(index) { 
+			widget = CreatedWidgets[index] 
+			if !isNull(widget)  and !isNull(widget.CallbackEvent) { 
+				widget.CallbackEvent.callback(CreatedWidgets[index])
+			}
+		else
+			throw(self,"Invalid parameter in fulltick.FApp::__widgetcallback. Calling this block with invalid parameter means a kind or workaround. Be careful")
+		}
+		#createdWidgets[index].handle(__Fl_Fl_event())
+
+	/*
+		internal use only
+	*/
+	block registerWidget(widget) 
+		add(CreatedWidgets,widget)
+		return lengthOf(CreatedWidgets) - 1
+
+	/*
+
+	*/
+	block giveFocus(widget)
+		if instanceof(widget,"FWidget") {
+			widget.takeFocus()
+		else
+			throw(self,"Invalid parameter passed, expecting (fulltick.base.FWidget), found (" + objecttype(widget) + ")")
+		}
+	
+	/*
+	
+	*/
+	private 
+		
+		/*
+		
+		*/
+		isRunning = false
+		
+		/*
+		
+		*/
+		scheme = false
+
+		/*
+
+		*/
+		dndFlag = false
+		
+		/*
+		
+		*/
+		block __scheme()
+			return __Fl_Fl_scheme_1()
+
+		/*
+
+		*/
+		block sendEvent(event,widget,windowPtr)
+			dx = 0
+			dy = 0
+			oldEvent = __Fl_Fl_e_number()
+
+			if !__is_null_pointer(windowPtr,windowPtr[1]) {
+				dx = __Fl_Widget_x(windowPtr)
+				dy = __Fl_Widget_y(windowPtr)
+			}
+			w = widget
+			while (w.hasParent()) { 
+				w = w.Parent 
+				if (__Fl_Widget_type(w.Ptr) == __FL_WINDOW() or __Fl_Widget_type(w.Ptr) == __FL_DOUBLE_WINDOW()) {
+					@"yes"
+					dx -= __Fl_Widget_x(w.Ptr)
+					dy -= __Fl_Widget_y(w.Ptr)
+				}
+			}
+			save_x = __Fl_Fl_e_x() __Fl_Fl_e_x_1( (save_x + dx) ) 
+			save_y = __Fl_Fl_e_y() __Fl_Fl_e_y_1( (save_y + dy) ) 
+			__Fl_Fl_e_number(event)
+			ret = widget.handle(event)
+			__Fl_Fl_e_number(oldEvent)
+			__Fl_Fl_e_x_1( save_x ) 
+			__Fl_Fl_e_y_1( save_y ) 
+			return ret
+
+

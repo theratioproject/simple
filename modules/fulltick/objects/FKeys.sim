@@ -1,0 +1,432 @@
+
+/*
+
+*/
+call simple.core.Object
+call simple.reflection.Field
+call "../base/FWidget.sim" ? fulltick.base
+
+/*
+
+*/
+module fulltick.objects
+
+/*
+
+*/
+final FL_BUTTON = __hex_to_number("0xfee8") 
+
+/*
+
+*/
+final FL_BACKSPACE = __hex_to_number("0xff08") 
+
+/*
+
+*/
+final FL_TAB = __hex_to_number("0xff09") 
+
+/*
+
+*/
+final FL_ISO_KEY = __hex_to_number("0xff0c") 
+
+/*
+
+*/
+final FL_ENTER = __hex_to_number("0xff0d") 
+
+/*
+
+*/
+final FL_PAUSE = __hex_to_number("0xff13") 
+
+/*
+
+*/
+final FL_SCROLL_LOCK = __hex_to_number("0xff14") 
+
+/*
+
+*/
+final FL_ESCAPE = __hex_to_number("0xff1b") 
+
+/*
+
+*/
+final FL_KANA = __hex_to_number("0xff2e") 
+
+/*
+
+*/
+final FL_EISU = __hex_to_number("0xff2f") 
+
+/*
+
+*/
+final FL_YEN = __hex_to_number("0xff30")
+
+/*
+
+*/
+final FL_JIS_UNDERSCORE = __hex_to_number("0xff31")
+
+/*
+
+*/
+final FL_HOME = __hex_to_number("0xff50")
+
+/*
+
+*/
+final FL_LEFT = __hex_to_number("0xff51")
+
+/*
+
+*/
+final FL_UP = __hex_to_number("0xff52")
+
+/*
+
+*/
+final FL_RIGHT = __hex_to_number("0xff53")
+
+/*
+
+*/
+final FL_DOWN = __hex_to_number("0xff54")
+
+/*
+
+*/
+final FL_PAGE_UP = __hex_to_number("0xff55")
+
+/*
+
+*/
+final FL_PAGE_DOWN = __hex_to_number("0xff56")
+
+/*
+
+*/
+final FL_PRINT = __hex_to_number("0xff57")
+
+/*
+
+*/
+final FL_INSERT = __hex_to_number("0xff63")
+
+/*
+
+*/
+final FL_MENU = __hex_to_number("0xff67")
+
+/*
+
+*/
+final FL_HELP = __hex_to_number("0xff68")
+
+/*
+
+*/
+final FL_NUM_LOCK = __hex_to_number("0xff7f")
+
+/*
+
+*/
+final FL_KP = __hex_to_number("0xff80")
+
+/*
+
+*/
+final FL_KP_ENTER = __hex_to_number("0xff8d")
+
+/*
+
+*/
+final FL_KP_LAST = __hex_to_number("0xffbd")
+
+/*
+
+*/
+final FL_F = __hex_to_number("0xffbd")
+
+/*
+
+*/
+final FL_F_LAST = __hex_to_number("0xffe0")
+
+/*
+
+*/
+final FL_SHIFT_L = __hex_to_number("0xffe1")
+
+/*
+
+*/
+final FL_SHIFT_R = __hex_to_number("0xffe2")
+
+/*
+
+*/
+final FL_CONTROL_L = __hex_to_number("0xffe3")
+
+/*
+
+*/
+final FL_CONTROL_R = __hex_to_number("0xffe4")
+
+/*
+
+*/
+final FL_CAPS_LOCK = __hex_to_number("0xffe5")
+
+/*
+
+*/
+final FL_META_L = __hex_to_number("0xffe7")
+
+/*
+
+*/
+final FL_META_R = __hex_to_number("0xffe8")
+
+/*
+
+*/
+final FL_ALT_L = __hex_to_number("0xffe9")
+
+/*
+
+*/
+final FL_ALT_R = __hex_to_number("0xffea")
+
+/*
+
+*/
+final FL_DELETE = __hex_to_number("0xffff")
+
+/*
+    These primarily map to the XFree86 keysym range
+*/
+
+/*
+
+*/
+final FL_VOLUME_DOWN = __hex_to_number("0xEF11")
+
+/*
+
+*/
+final FL_VOLUME_MUTE = __hex_to_number("0xEF12")
+
+/*
+
+*/
+final FL_VOLUME_UP = __hex_to_number("0xEF13")
+
+/*
+
+*/
+final FL_MEDIA_PLAY = __hex_to_number("0xEF14")
+
+/*
+
+*/
+final FL_MEDIA_STOP = __hex_to_number("0xEF15")
+
+/*
+
+*/
+final FL_MEDIA_PREV = __hex_to_number("0xEF16")
+
+/*
+
+*/
+final FL_MEDIA_NEXT = __hex_to_number("0xEF17")
+
+/*
+
+*/
+final FL_HOME_PAGE = __hex_to_number("0xEF18")
+
+/*
+
+*/
+final FL_MAIL = __hex_to_number("0xEF19")
+
+/*
+
+*/
+final FL_SEARCH = __hex_to_number("0xEF1B")
+
+/*
+
+*/
+final FL_BACK = __hex_to_number("0xEF26")
+
+/*
+
+*/
+final FL_FORWARD = __hex_to_number("0xEF27")
+
+/*
+
+*/
+final FL_STOP = __hex_to_number("0xEF28")
+
+/*
+
+*/
+final FL_REFRESH = __hex_to_number("0xEF29")
+
+/*
+
+*/
+final FL_SLEEP = __hex_to_number("0xEF2F")
+
+/*
+
+*/
+final FL_FAVORITES = __hex_to_number("0xEF30")
+
+/*
+    Mouse and Keyboard Events
+*/
+
+/*
+
+*/
+final FL_LEFT_MOUSE = 1
+
+/*
+
+*/
+final FL_MIDDLE_MOUSE = 2
+
+/*
+
+*/
+final FL_RIGHT_MOUSE = 3
+
+/*
+
+*/
+final FL_BUTTON1 = __hex_to_number("0x01000000")
+
+/*
+
+*/
+final FL_BUTTON2 = __hex_to_number("0x02000000")
+
+/*
+
+*/
+final FL_BUTTON3 = __hex_to_number("0x04000000")
+
+/*
+
+*/
+final FL_BUTTONS = __hex_to_number("0x7f000000")
+
+
+/*
+
+*/
+final FL_SHIFT = __hex_to_number("0x00010000")
+
+/*
+
+*/
+final FL_CAPS_LOCK_ON = __hex_to_number("0x00020000")
+
+/*
+
+*/
+final FL_CTRL = __hex_to_number("0x00040000")
+
+/*
+
+*/
+final FL_ALT = __hex_to_number("0x00080000")
+
+/*
+
+*/
+final FL_NUM_LOCK_ON = __hex_to_number("0x00100000")
+
+/*
+
+*/
+final FL_META = __hex_to_number("0x00400000")
+
+/*
+
+*/
+final FL_SCROLL_LOCK_ON = __hex_to_number("0x00800000")
+
+/*
+
+*/
+final FL_KEY_MASK = __hex_to_number("0x0000ffff")
+
+/*
+
+*/
+if isMacosx() {
+    
+    /*
+
+    */
+    FL_COMMAND = FL_META
+    
+    /*
+
+    */
+    FL_CONTROL = FL_CTRL
+
+else
+    
+    /*
+
+    */
+    FL_COMMAND = FL_CTRL
+    
+    /*
+
+    */
+    FL_CONTROL = FL_META
+
+}
+
+/*
+
+*/
+block FL_BUTTON(index)
+    if isNumber(index) or (isObject(index) and __instance_of(index,"Number")) {
+        if !isNumber(index) {
+            index = index.Number
+        }
+        return (__hex_to_number("0x00800000") << index )
+    else
+        throw("fulltick.objects:FL_BUTTON", "Invalid parameter, expecting (Number), found (" + objectType(index) + ")")
+    }
+    return 0
+   
+
+/*
+
+*/
+block FL_KEY(key)
+    if isString(key) or (isObject(key) and __instance_of(key,"String")) {
+        if !isString(key) {
+            key = key.Value
+        }
+        if lengthOf(key) > 1 {
+            throw("fulltick.objects:FL_KEYS", "The String is of invalid argument expecting a String with only one character")
+        }
+        return __char_to_number(key)
+    else
+        throw("fulltick.objects:FL_KEYS", "Invalid parameter, expecting (String), found (" + objectType(key) + ")")
+    }
+

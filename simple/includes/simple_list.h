@@ -97,6 +97,8 @@ SIMPLE_API void simple_list_setactiveitem ( List *list, Items *pItems, int index
 
 SIMPLE_API void simple_list_copy_gc ( void *pState,List *pNewList, List *list ) ;
 
+SIMPLE_API void simple_list_copy_no_final_gc (void *pState, List *pNewList, List *list );
+
 SIMPLE_API int simple_list_isnumber ( List *list, int index ) ;
 
 SIMPLE_API int simple_list_isstring ( List *list, int index ) ;
@@ -238,6 +240,8 @@ SIMPLE_API List * simple_list_newlist ( List *list ) ;
 SIMPLE_API void simple_list_setlist ( List *list, int index ) ;
 
 SIMPLE_API void simple_list_copy ( List *pNewList, List *list ) ;
+
+SIMPLE_API void simple_list_copy_no_final ( List *pNewList, List *list );
 
 SIMPLE_API void simple_list_deleteallitems ( List *list ) ;
 /* Insert Items */

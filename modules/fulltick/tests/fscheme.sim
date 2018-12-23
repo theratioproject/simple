@@ -1,0 +1,16 @@
+
+call "../FScheme.sim" ? fulltick
+call "../painting/FColor.sim" ? fulltick.painting
+call simple.utilities.Console
+
+scheme = new FScheme()
+scheme.SchemeName = "Customia"
+scheme.set("FWindow.Background",new FColor(242,242,242))
+scheme.set("FWindow.Foreground",new FColor(242,242,242))
+scheme.set("FWindow.Width",800)
+scheme.set("FWindow.Height",700)
+stdout.println(scheme)
+stdout.println(scheme.getScheme()) 
+stdout.println("SchemeName : " + scheme.SchemeName)
+stdout.println(scheme.getShemeValue("FWindow.Background"))
+stdout.println(scheme.getShemeValue("FWindow.Height"))

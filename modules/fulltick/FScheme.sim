@@ -1,0 +1,528 @@
+
+
+/*
+
+*/
+call simple.core.Object
+call simple.debugging.Throw
+call simple.debugging.ErrorMessages
+call simple.reflection.Class
+call simple.system.System
+call "./base/FulltickErrorMessages.sim" ? fulltick.base
+call "./painting/FColor.sim" ? fulltick.painting
+call "./objects/FBorder.sim" ? fulltick.objects
+call "./objects/FCursor.sim" ? fulltick.objects
+call "./drawing/FBoxType.sim" ? fulltick.drawing
+call "./drawing/FAlignment.sim" ? fulltick.drawing
+call "./drawing/FFont.sim" ? fulltick.drawing
+call "./drawing/FLabelType.sim" ? fulltick.drawing
+
+/*
+
+*/
+module fulltick
+
+/*
+
+*/
+FScheme = new fulltick.FScheme
+
+/*
+
+*/
+if isWindows() and FScheme.UsePlatformUI {
+	FScheme.set("FWindow.Y_Diff",30)
+	FScheme.set("FWindow.Background",new FColor(242,242,242))
+
+	#button
+	FScheme.set("FButton.Background",new FColor(225,225,225))
+	FScheme.set("FButton.SelectionColor",new FColor(204,228,247)) 
+	FScheme.set("FButton.Border",new FBorder(1,1,1,1,__FL_FLAT_BOX(),new FColor(173,173,173))) #on hover or click 74,174,255
+
+	#FInput
+	FScheme.set("FInput.Border",new FBorder(1,1,1,1,__FL_DOWN_BOX(),new FColor(172,172,172))) 
+
+elif isAndroid() and FScheme.UsePlatformUI 
+	FScheme.set("FWindow.Y_Diff",24)
+	FScheme.set("FWindow.Width",primaryScreenWidth())
+	FScheme.set("FWindow.Height",primaryScreenHeight())
+	FScheme.set("FWindow.X",0)
+	FScheme.set("FWindow.Y",0)
+	FScheme.set("FWindow.HasWindowBorder",false)
+	FScheme.set("FWindow.Background",new FColor(250,250,250))
+
+	#Fbutton
+	FScheme.set("FButton.Background",new FColor(214,215,215))
+	FScheme.set("FButton.BaseColor",new FColor(175,175,175))
+	FScheme.set("FButton.CapitalizeLabel",true)
+	FScheme.set("FButton.HasBorder",false)
+
+	#FInput
+	FScheme.set("FInput.Background",new FColor(250,250,250)) 
+	FScheme.set("FInput.Border",new FBorder(0,2,0,0,__FL_FLAT_BOX(),new FColor(255,106,154))) 
+
+elif isLinux() and FScheme.UsePlatformUI 
+	FScheme.set("FWindow.Background",new FColor(229,220,212))
+
+	#FInput
+	FScheme.set("FInput.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41))) 
+
+elif isMacosx() and FScheme.UsePlatformUI
+	FScheme.set("FWindow.Background",new FColor(237,237,237))
+
+	#FButton
+	FScheme.set("FButton.Box",new FBoxType(__fl_define_FL_ROUNDED_BOX(),new FColor(239,239,239)))
+	FScheme.set("FButton.BaseBox",new FBoxType(__fl_define_FL_ROUNDED_BOX(),new FColor(177,204,247)))
+	FScheme.set("FButton.Border",new FBorder(2,2,2,2,__fl_define_FL_ROUNDED_BOX(),new FColor(157,157,157)))
+
+	#FInput
+	FScheme.set("FInput.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(197,197,197))) 
+}
+
+/*
+
+*/
+class FScheme : Object
+
+	/*
+	
+	*/
+	GTK = "gtk+"
+	
+	/*
+	
+	*/
+	PLASTIC = "plastic" 
+	
+	/*
+	
+	*/
+	GLEAM = "gleam"
+
+	/*
+	
+	*/
+	GTKPLUS = "gtk+"
+
+	/*
+	
+	*/
+	NONE = "none"
+
+	/*
+	
+	*/
+	DEFAULT  = "none"
+
+	/*
+	
+	*/
+	SchemeBaseName = DEFAULT
+
+	/*
+	
+	*/
+	SchemeName = "clear"
+
+	/*
+
+	*/
+	UsePlatformUI = true
+
+	/*
+
+	*/
+	ANDROID = "android"
+
+	/*
+
+	*/
+	WINDOWS = "windows"
+
+	/*
+
+	*/
+	MACOSX = "macosx"
+
+	/*
+
+	*/
+	LINUX = "linux"
+
+
+	/*
+
+	*/
+	block FScheme()
+
+	/*
+
+	*/
+	block setUsePlatformUI(value)
+		#TODO 
+
+	/*
+
+	*/
+	block getUsePlatformUI()
+		return UsePlatformUI		
+	
+	/*
+	
+	*/
+	block getScheme()
+		return self
+
+	/*
+
+	*/
+	block getSchemeName()
+		return SchemeName
+		
+	/*
+	
+	*/
+	block set(key,value) 
+		key = replaceStr(key,".","_")
+		index = __find_in_list(uiConstants,key,0) 
+		if index < 0 {
+			throw(__MODULE_NAME,FULLTICK_INVALID_SCHEME_KEY+key)
+		}
+		object = uiConstants[index][1]
+		keyType = getType(object) 
+		newValue = null
+
+		if keyType == "OBJECT" {
+			if instanceOf(object,"FColor") {
+				if isObject(value) and instanceOf(value,"FColor")  {
+					newValue = value 
+				elif isObject(value) and instanceOf(value,"Color")
+					newValue = new FColor(value)
+				elif isObject(value) and instanceOf(value,"String")
+					newValue = new FColor(value.toString())
+				elif isNumber(value) 
+					newValue = new FColor(value)
+				elif isString(value)
+					newValue = new FColor(value)
+				else
+					throw(__MODULE_NAME,FULLTICK_INVALID_PARAMETER + " for the key : " + key)
+				}
+			elif instanceOf(object,"FBoxType")
+				if instanceOf(value,"FBoxType")  {
+					newValue = value 
+				elif isNumber()
+					newValue = new FBoxType(value)
+				else
+					throw(__MODULE_NAME,FULLTICK_INVALID_PARAMETER + " for the key : " + key)
+				}
+			elif instanceOf(object,"FFont")
+				if instanceOf(value,"FFont")  {
+					newValue = value 
+				elif isNumber()
+					newValue = new FFont(value)
+				else
+					throw(__MODULE_NAME,FULLTICK_INVALID_PARAMETER + " for the key : " + key)
+				}
+			elif instanceOf(object,"FBorder")
+				if instanceOf(value,"FBorder")  {
+					newValue = value 
+				else
+					throw(__MODULE_NAME,FULLTICK_INVALID_PARAMETER + " for the key : " + key)
+				}
+			#elif other types instance
+			else 
+				throw(self,"Invalid value for the key '" + key + "', expecting '" + objecttype(object) + "' found '" + objecttype(value) + "'")
+			}
+		elif keyType == "NUMBER" 
+			if isObject(value) {
+				if instanceOf(value,"Number") {
+					newValue = value.getNumber()
+				else
+					throw(__MODULE_NAME,FULLTICK_INVALID_PARAMETER + " for the key : " + key)
+				}
+			elif isNumber(value)
+				newValue = value
+			else
+				throw(__MODULE_NAME,FULLTICK_INVALID_PARAMETER + " for the key : " + key)
+			}
+		elif keyType == "STRING"
+			if isObject(value) {
+				if instanceOf(value,"String") {
+					newValue = value.getString()
+				else
+					throw(__MODULE_NAME,FULLTICK_INVALID_PARAMETER + " for the key : " + key)
+				}
+			elif isString(value)
+				newValue = value
+			else
+				throw(__MODULE_NAME,FULLTICK_INVALID_PARAMETER + " for the key : " + key)
+			}
+		#elif keyType == "LIST"
+		}
+
+		if isString(newValue) and newValue == null {
+			return
+		} 
+		uiConstants["" + key + "" ] = newValue
+
+	/*
+
+	*/
+	block getShemeValue(key) 
+		key = replaceStr(key,".","_")
+		value = uiConstants["" + key + "" ]
+		if isNull(value) and !strContains(key,"FGroup") {
+			throw(self,"Invalid key, The key does not exist in the Scheme : " + key )
+		}
+		return value
+
+
+	/*
+	
+	*/
+	block toString()
+		return "[fulltick.FScheme:SchemeName=" + SchemeName + "]"
+
+	/*
+	
+	*/
+	private 
+	
+		/*
+		
+		*/
+		schemeName = ""
+		
+		/*
+		
+		*/
+		schemeId = 0
+
+		/*
+
+		*/
+		randomNumber = __rand() 
+		
+		/*
+		
+		*/
+		uiConstants = [
+			#FWidget general datas
+			:Label = "FLTK(fulltick)",
+			:CapitalizeLabel = false,
+			:Label_Color = new FColor(0, 0, 0),
+			:Label_Text = "FLTK(fulltick)",
+			:Background = new FColor(218, 223, 232),
+			:Foreground = new FColor(134, 135, 142),
+			:Width = 200,
+			:Height = 200,
+			:X = 10,
+			:Y = 10,
+			:Cursor = FCursor.FL_CURSOR_DEFAULT,
+			:Active = true,
+			:LabelAlignment = FAlignment.ALIGN_CENTER,
+			:Box = FBoxType.NO_BOX,
+			:Border = new FBorder(),
+			:HasBorder = false,
+			:AcceptInput = true,
+			:Visible = true,
+			:KeyboardFocusable = true,
+			:Tooltip = new String(),
+			:LabelColor = FColor.FCOLOR_BLACK,
+			:LabelFont = FFont.DEFAULT,
+			:LabelSize = 15,
+			:LabelType = FLabelType.DEFAULT,
+			:SelectionColor = FColor.FCOLOR_GRAY,
+
+			#FGroup datas
+			:FGroup_Label = "",
+			:FGroup_CapitalizeLabel = false,
+			:FGroup_Width = 400,
+			:FGroup_Height = 250,
+			:FGroup_X = 0,
+			:FGroup_Y = 0,
+			:FGroup_ClipChildren = false,
+			:FGroup_Y_Diff = 0,
+			:FGroup_Cursor = FCursor.FL_CURSOR_DEFAULT,
+			:FGroup_AdaptiveSize = true,
+			:FGroup_LabelAlignment = FAlignment.ALIGN_CENTER,
+			:FGroup_Box = FBoxType.NO_BOX,
+			:FGroup_Border = new FBorder(),
+			:FGroup_HasBorder = false,
+			:FGroup_AcceptInput = true,
+			:FGroup_Visible = true,
+			:FGroup_KeyboardFocusable = false,
+			:FGroup_Tooltip = new String(),
+			:FGroup_LabelColor = FColor.FCOLOR_BLACK,
+			:FGroup_LabelFont = FFont.DEFAULT,
+			:FGroup_LabelSize = 15,
+			:FGroup_LabelType = FLabelType.DEFAULT,
+			:FGroup_SelectionColor = FColor.FCOLOR_GRAY,
+
+			#FWindows datas
+			:FWindow_Title = "FLTK(fulltick)",
+			:FWindow_Background = new FColor(218, 223, 232),
+			:FWindow_Foreground = new FColor(0, 0, 0),
+			:FWindow_Width = 400,
+			:FWindow_MinWidth = 0,
+			:FWindow_MaxWidth = 0,
+			:FWindow_Height = 250,
+			:FWindow_MinHeight = 0,
+			:FWindow_MaxHeight = 0,
+			:FWindow_X = randomNumber % 300,
+			:FWindow_Y = randomNumber % 150,
+			:FWindow_Y_Diff = 0,
+			:FWindow_XRoot = uiConstants[:FWindow_X],
+			:FWindow_YRoot = uiConstants[:FWindow_Y],
+			:FWindow_HasWindowBorder = true,
+			:FWindow_Cursor = FCursor.FL_CURSOR_DEFAULT,
+			:FWindow_Fullscreen = false,
+			:FWindow_IconLabel = "FLTK(fulltick)",
+			:FWindow_Label = "FLTK(fulltick)",
+			:FWindow_TooltipWindow = false,
+			:FWindow_IsMenuWindow = false,
+			:FWindow_IsModal = false,
+			:FWindow_Modality = false,
+			:FWindow_AdaptiveSize = false,
+			:FWindow_Border = new FBorder(),
+			:FWindow_HasBorder = false,
+			:FWindow_AcceptInput = true,
+			:FWindow_Visible = true,
+			:FWindow_KeyboardFocusable = true,
+			:FWindow_Tooltip = new String(),
+			:FWindow_LabelColor = FColor.FCOLOR_BLACK,
+			:FWindow_LabelFont = FFont.DEFAULT,
+			:FWindow_LabelSize = 15,
+			:FWindow_LabelType = FLabelType.DEFAULT,
+			:FWindow_SelectionColor = FColor.FCOLOR_GRAY,
+			:FWindow_ActionBarSize = 40,
+
+			#FButton datas
+			:FButton_Label = "FBUTTON",
+			:FButton_CapitalizeLabel = false,
+			:FButton_X = 10,
+			:FButton_Y = 10,
+			:FButton_Width = 100,
+			:FButton_Height = 30,
+			:FButton_Background = new FColor(225,225,225),
+			:FButton_Foreground = new FColor(0, 0, 0),
+			:FButton_LabelAlignment = FAlignment.ALIGN_CENTER,
+			:FButton_BaseColor = new FColor(127,127,127),
+			:FButton_Box = FBoxType.FLAT_BOX,
+			:FButton_BaseBox = FBoxType.FLAT_BOX,
+			:FButton_Border = new FBorder(),
+			:FButton_HasBorder = true,
+			:FButton_AcceptInput = true,
+			:FButton_Visible = true,
+			:FButton_KeyboardFocusable = true,
+			:FButton_Text = "inherits from Label",
+			:FButton_Tooltip = new String(),
+			:FButton_LabelColor = FColor.FCOLOR_BLACK,
+			:FButton_LabelFont = FFont.DEFAULT,
+			:FButton_LabelSize = 15,
+			:FButton_LabelType = FLabelType.DEFAULT,
+			:FButton_SelectionColor = FColor.FCOLOR_GRAY,
+			:FButton_Value = false,
+
+			#FBox datas
+			:FBox_Label = " ",
+			:FBox_CapitalizeLabel = false,
+			:FBox_X = 10,
+			:FBox_Y = 10,
+			:FBox_Width = 250,
+			:FBox_Height = 100,
+			:FBox_Background = new FColor(225,225,225),
+			:FBox_Foreground = new FColor(0, 0, 0),
+			:FBox_LabelAlignment = new FAlignment(__FL_ALIGN_INSIDE()|__FL_ALIGN_LEFT()),
+			:FBox_Box = FBoxType.FLAT_BOX,
+			:FBox_Border = new FBorder(),
+			:FBox_HasBorder = false,
+			:FBox_AcceptInput = true,
+			:FBox_Visible = true,
+			:FBox_KeyboardFocusable = true,
+			:FBox_Tooltip = new String(),
+			:FBox_LabelColor = FColor.FCOLOR_BLACK,
+			:FBox_LabelFont = FFont.DEFAULT,
+			:FBox_LabelSize = 15,
+			:FBox_LabelType = FLabelType.DEFAULT,
+			:FBox_SelectionColor = FColor.FCOLOR_GRAY,
+
+			#FLabel datas
+			:FLabel_Label = "FLABEL",
+			:FLabel_CapitalizeLabel = false,
+			:FLabel_X = 10,
+			:FLabel_Y = 10,
+			:FLabel_Width = 100,
+			:FLabel_Height = 10,
+			:FLabel_Background = new FColor(225,225,225),
+			:FLabel_Foreground = new FColor(0, 0, 0),
+			:FLabel_LabelAlignment = new FAlignment(__FL_ALIGN_INSIDE()|__FL_ALIGN_LEFT()),
+			:FLabel_Box = FBoxType.NO_BOX,
+			:FLabel_Border = new FBorder(),
+			:FLabel_HasBorder = false,
+			:FLabel_AcceptInput = true,
+			:FLabel_Visible = true,
+			:FLabel_KeyboardFocusable = true,
+			:FLabel_Tooltip = new String(),
+			:FLabel_LabelColor = FColor.FCOLOR_BLACK,
+			:FLabel_LabelFont = FFont.DEFAULT,
+			:FLabel_LabelSize = 15,
+			:FLabel_LabelType = FLabelType.DEFAULT,
+			:FLabel_SelectionColor = FColor.FCOLOR_GRAY,
+
+			#FInput_ datas
+			:FInput__Label = "FInput_",
+			:FInput__CapitalizeLabel = false,
+			:FInput__X = 10,
+			:FInput__Y = 10,
+			:FInput__Width = 100,
+			:FInput__Height = 10,
+			:FInput__Background = new FColor(225,225,225),
+			:FInput__Foreground = new FColor(0, 0, 0),
+			:FInput__LabelAlignment = new FAlignment(__FL_ALIGN_LEFT()),
+			:FInput__Box = FBoxType.NO_BOX,
+			:FInput__Border = new FBorder(),
+			:FInput__HasBorder = false,
+			:FInput__AcceptInput = true,
+			:FInput__Visible = true,
+			:FInput__KeyboardFocusable = true,
+			:FInput__Tooltip = new String(),
+			:FInput__LabelColor = FColor.FCOLOR_BLACK,
+			:FInput__LabelFont = FFont.DEFAULT,
+			:FInput__LabelSize = 15,
+			:FInput__LabelType = FLabelType.DEFAULT,
+			:FInput__SelectionColor = FColor.FCOLOR_GRAY,
+			:FInput__Value = " ",
+
+			#FInput datas
+			:FInput_Label = " ",
+			:FInput_CapitalizeLabel = false,
+			:FInput_X = 10,
+			:FInput_Y = 10,
+			:FInput_Width = 300,
+			:FInput_Height = 30,
+			:FInput_Background = FColor.FCOLOR_WHITE,
+			:FInput_Foreground = new FColor(0, 0, 0),
+			:FInput_LabelAlignment = new FAlignment(__FL_ALIGN_LEFT()),
+			:FInput_Box = FBoxType.FLAT_BOX,
+			:FInput_Border = new FBorder(),
+			:FInput_HasBorder = true,
+			:FInput_AcceptInput = true,
+			:FInput_Visible = true,
+			:FInput_KeyboardFocusable = true,
+			:FInput_Tooltip = new String(),
+			:FInput_LabelColor = FColor.FCOLOR_BLACK,
+			:FInput_LabelFont = FFont.DEFAULT,
+			:FInput_LabelSize = 15,
+			:FInput_LabelType = FLabelType.DEFAULT,
+			:FInput_SelectionColor = FColor.FCOLOR_GRAY,
+			:FInput_Value = " "
+		]
+		
+		/*
+		
+		*/
+		__MODULE_NAME = "fulltick"
+		
+		
+		

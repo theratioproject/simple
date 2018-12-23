@@ -17,8 +17,13 @@ call simple.core.Object
 call simple.utilities.Conversion
 call simple.core.DynamicLoader
 call simple.debugging.Throw
+call simple.reflection.Class
+call simple.reflection.Field
 callModule("libstring_savant")
  
+/*
+
+*/
 module simple.core
 
 		__Empty = char(0) 
@@ -29,134 +34,488 @@ module simple.core
 		END_OF_LINE = char(13)
 		LINE_BREAK = char(10)
 		
-block strContains(value,check) #check empty for all __substr call
-	if check == "" { return true /* error */ }
-	if __substr(value,check) < 0
-		return false
-	end 
-	return true
+/*
 
-block strConcat(str, v)
-	return str + v
-
-block removeStr(str, o)
-	if o == "" { return str }
-	return __substr(str,o,"")
-	
-block removeStrAt(str, index)
-	warn("String module still in development")
-	strLength = lengthOf(str)
-	if (index > strLength)
-		return str
+*/
+block strContains(object,check) 
+	if (isString(object) or instanceOf(object,"String")) and (isString(check) or instanceOf(check,"String")) {
+		if !isString(object) {
+			object = object.Value
+		}
+		if !isString(check) {
+			check = check.Value
+		}
+		if check == "" {
+			return true
+		}
+		return (__substr(object,check) >= 0)
+		
 	else
-		first = __substr(str,0,index-1) 
-		#@"first : "+first
-		#@strLength
-		#@strLength - 5
-		last = __substr(str,index+1,5) 
-		#@"last : "+last
-		return (first + last)
-	end
-	
-block removeStrAfterIndex(str,index)
-	#extlen = lengthOf(lastStringAfterChar(link, '.'))
-	#			for a = 0 to 
-	#			link = replaceString(link,lastStringAfterChar(link, '.'), 'html')
-	
-block removeFirstChar(str)
-	return removeStringAt(str, 0)
-	
-block removeLastChar(str)
-	return __substr(str,0,lengthOf(str)-2)
-
-block replaceStr(s, o, n)
-	return __substr(s,o,n)
-
-block strSubStr(str, index,offset)
-	return __substr(str, index, offset)
-
-block strGetLineCount(str)
-	return __lines(str)
-
-block strEndsWith(m, s)
-	if m == null or s == null return false end 
-	strLength = lengthOf(s) - 1
-	mLength = lengthOf(m) - 1
-	if strLength > mLength
-		return false #throw(STRING_COMPARE_ERROR)
-	end 
-	beginSearch = mLength - strLength
-	beginCount = 0 
-	for a = beginSearch to mLength
-		try 
-			if m[a] != s[beginCount]
-				return false
-			end
-		catch 
-			return false
-		end
-		beginCount++
-	end
-	return true
-
-block strCopy(str, count)
-	return __copy(str, count)
-
-block trimStr(str)
-	return __trim(str)
-
-block strRight(str, index)
-	return __right(str, index)
-
-block strLeft(str, index)
-	return __left(str, index)
-
-block isStrNull(s)
-	return s == null
-
-block strFirstChar(c) 
-	if lengthOf(c) < 1
-		throw(STRING_LESS)
-	end
-	return c[0]
-	
-block strLastChar(c)
-	if lengthOf(c) < 1
-		throw(STRING_LESS)
-	end
-	return c[lengthOf(c) - 1]
-
-block toLowerCase(content)	
-	if isStrEmpty(content)
-		throw(STRING_EMPTY)
-	end
-	return __lower(content)
-
-block toUpperCase(content)	
-	if isStrEmpty(content)
-		throw(STRING_EMPTY)
-	end
-	return __upper(content)
-
-block toSentenceCase(content)	
-	if isStrEmpty(content)
-		throw(STRING_EMPTY)
-	end
-	content = toLowerCase(content)
-	content[0] = toUpperCase(content[0])
-	return content
-
-block strLenght(content)
-	return lengthOf(content)
-	
-block isStrEmpty(content)
-	if content == ""
-		return true
-	end
+		throw("simple.core:strContains","Invalid parameter, expecting (String,String), found (" + objectType(object) + "," + objectType(check) + ")")	
+	}
 	return false
+
+/*
+
+*/
+block strConcat(object, check)
+	if (isString(object) or instanceOf(object,"String")) and (isString(check) or instanceOf(check,"String")) {
+		if !isString(object) {
+			object = object.Value
+		}
+		if !isString(check) {
+			check = check.Value
+		}
+		if check == "" {
+			return object
+		}
+		return (object + check)
+		
+	else
+		throw("simple.core:strConcat","Invalid parameter, expecting (String,String), found (" + objectType(object) + "," + objectType(check) + ")")	
+	}
+	return ""
+
+/*
+
+*/
+block removeStr(object, check)
+	if (isString(object) or instanceOf(object,"String")) and (isString(check) or instanceOf(check,"String")) {
+		if !isString(object) {
+			object = object.Value
+		}
+		if !isString(check) {
+			check = check.Value
+		}
+		if check == "" {
+			return object
+		}
+		return __substr(object,check,"")
+		
+	else
+		throw("simple.core:removeStr","Invalid parameter, expecting (String,String), found (" + objectType(object) + "," + objectType(check) + ")")	
+	}
+	return ""
+
+/*
+
+*/
+block strRemove(object, check)
+	return removeStr(object, check)
 	
-block getCharAt(content, index)
-	return content[index]
+/*
+
+*/
+block strRemoveCharAt(object,index)
+	if (isString(object) or instanceOf(object,"String")) and (isNumber(index) or instanceOf(index,"Number")) {
+		if !isString(object) {
+			object = object.Value
+		}
+		if !isNumber(index) {
+			index = index.Number
+		}
+		objectLen = lengthOf(object)
+		if index > objectLen or index < 0 {
+			return object
+		}
+		first = __left(object,index-1)
+		last = __right(object,(objectLen-index-1))
+		return (first + last)
+		
+	else
+		throw("simple.core:removeStringAt","Invalid parameter, expecting (String,Number), found (" + objectType(object) + "," + objectType(index) + ")")	
+	}
+	return ""
+	
+/*
+
+*/
+block strRemoveFirstChar(str)
+	return strRemoveCharAt(str, 0)
+	
+/*
+
+*/
+block strRemoveLastChar(str)
+	return strRemoveCharAt(str, lengthOf(str)-1)
+
+/*
+
+*/
+block replaceStr(object, oldValue, newValue, params...)
+	caseInSensitive = true 
+	paramsLen = lengthOf(params)
+	if paramsLen == 1 { 
+		if !isNull(params[0]) and isList(params[0]) {
+			_param = params[0] 
+			params = _param 
+			paramsLen = lengthOf(params) 
+		}
+	}
+	
+	if paramsLen == 0 {
+	elif paramsLen == 1 and fieldIsBoolean(params[0])
+		caseInSensitive = params[0] 
+	else
+		throw("simple.core:replaceStr","Invalid Case sentisitivity parameter expecting 'true' or 'false' ")	
+		return ""
+	}
+	if (isString(object) or instanceOf(object,"String")) and (isString(oldValue) or instanceOf(oldValue,"String")) and (isString(newValue) or instanceOf(newValue,"String")) {
+		if !isString(object) {
+			object = object.Value
+		}
+		if !isString(oldValue) {
+			oldValue = oldValue.Value
+		}
+		if !isString(newValue) {
+			newValue = newValue.Value
+		}
+		if oldValue == "" {
+			throw("simple.core:replaceStr","Invalid parameter, Old value cannot be empty : " + oldValue)	
+			return ""
+		}
+		if !caseInSensitive {
+			return __substr(object,oldValue,newValue,1)
+		}
+		return __substr(object,oldValue,newValue)
+		
+	else
+		throw("simple.core:replaceStr","Invalid parameter, expecting (String,String,String,|Number), found (" + objectType(object) + "," + objectType(oldValue) +"," + objectType(newValue) + "," + objectType(caseInSensitive) + ")")	
+	}
+	return ""
+
+/*
+
+*/
+block strReplace(object, oldValue, newValue, params...)
+	return replaceStr(object, oldValue, newValue, params)
+
+/*
+
+*/
+block strSubStr(object, params...) 
+	paramsLen = lengthOf(params) 
+	if paramsLen == 1 { 
+		if !isNull(params[0]) and isList(params[0]) {
+			_param = params[0] 
+			params = _param
+			paramsLen = lengthOf(params)
+		}
+	} 
+	if (isString(object) or instanceOf(object,"String")) {
+		if !isString(object) {
+			object = object.Value
+		}
+	else
+		throw("simple.core:strSubStr","Invalid parameter, expecting (String,List), found(" + objectType(object) + "," + objectType(params) + ")")
+	} 
+	if paramsLen == 1 { 
+		arg1 = params[0] 
+		if (isString(arg1) or instanceOf(arg1,"String")) or (isNumber(arg1) or instanceOf(arg1,"Number")) {
+			if (isString(arg1) or instanceOf(arg1,"String")) {
+				if !isString(arg1) {
+					arg1 = arg1.Value
+				}
+			elif (isNumber(arg1) or instanceOf(arg1,"Number"))
+				if !isNumber(arg1) {
+					arg1 = arg1.Number
+				}
+			}
+			return __substr(object,arg1)
+		else
+			throw("simple.core:strSubStr","Invalid parameter, expecting (String,String|Number), found(" + objectType(object) + "," + objectType(arg1) + ")")
+		}
+	elif paramsLen == 2
+		arg1 = params[0]
+		arg2 = params[1]
+		if (isString(arg1) or instanceOf(arg1,"String")) or (isNumber(arg1) or instanceOf(arg1,"Number")) and (isNumber(arg2) or instanceOf(arg2,"Number")) {
+			if (isString(arg1) or instanceOf(arg1,"String")) {
+				if !isString(arg1) {
+					arg1 = arg1.Value
+				}
+				if !strContains(object,arg1) {
+					throw("simple.core:strSubStr","The object does not contain the string : " + arg1)
+					return ""
+				}
+				arg1 = __substr(object,arg1)
+			elif (isNumber(arg1) or instanceOf(arg1,"Number"))
+				if !isNumber(arg1) {
+					arg1 = arg1.Number
+				}
+			}
+			if (isNumber(arg2) or instanceOf(arg2,"Number")) {
+				if !isNumber(arg2) {
+					arg2 = arg2.Number
+				}
+			}
+			if arg1 < 0 { 
+				throw("simple.core:strSubStr","Invalid offset in substring : " + arg1)	
+			}
+			return __substr(object,arg1,arg2)
+		else
+			throw("simple.core:strSubStr","Invalid parameter, expecting (String,String|Number,Number), found(" + objectType(object) + "," + objectType(arg1) + "," + objectType(arg2) + ")")
+		}
+	else 
+		throw("simple.core:strSubStr","Invalid parameter count!")
+	}
+
+/*
+
+*/
+block strSubString(object, params...)
+	return strSubStr(object, params)
+
+/*
+
+*/
+block strLineCount(object)
+	if (isString(object) or instanceOf(object,"String")) {
+		if !isString(object) {
+			object = object.Value
+		}
+		return __lines(object)
+		
+	else
+		throw("simple.core:strGetLineCount","Invalid parameter, expecting (String), found (" + objectType(object) + ")")	
+	}
+	return 0
+
+/*
+
+*/
+block strEndsWith(object, check)
+	if (isString(object) or instanceOf(object,"String")) and (isString(check) or instanceOf(check,"String")) {
+		if !isString(object) {
+			object = object.Value
+		}
+		if !isString(check) {
+			check = check.Value
+		}
+		if check == "" {
+			return false
+		}
+		length = lengthOf(check) - 1
+		right = __right(object,length) 
+		return check == right
+		
+	else
+		throw("simple.core:strEndsWith","Invalid parameter, expecting (String,String), found (" + objectType(object) + "," + objectType(check) + ")")	
+	}
+	return false
+
+/*
+
+*/
+block strCopy(object, count)
+	if (isString(object) or instanceOf(object,"String")) and (isNumber(count) or instanceOf(count,"Number")) {
+		if !isString(object) {
+			object = object.Value
+		}
+		if !isNumber(count) {
+			count = count.Number
+		}
+		if count < 1 {
+			return object
+		}
+		return __copy(object, count)
+		
+	else
+		throw("simple.core:strCopy","Invalid parameter, expecting (String,Number), found (" + objectType(object) + "," + objectType(count) + ")")	
+	}
+	return ""
+
+/*
+
+*/
+block trimStr(object)
+	if (isString(object) or instanceOf(object,"String")) {
+		if !isString(object) {
+			object = object.Value
+		}
+		finalStr = ""
+		offset = 0
+		limit = 0
+		objectLen = lengthOf(object) - 1
+		for i = 0 to objectLen {
+			char = object[i]
+			if char == " " or char == char(09) {
+				offset++
+			else
+				break
+			}
+		}
+		
+		for i = objectLen to 0 step - 1 {
+			char = object[i]
+			if char == " "  or char == char(09) {
+				limit++
+			else
+				break
+			}
+		}
+
+		newLimit = objectLen - limit
+		for i = offset to newLimit {
+			finalStr += object[i]
+		} 		
+		return finalStr
+		
+	else
+		throw("simple.core:trimStr","Invalid parameter, expecting (String), found (" + objectType(object) + ")")	
+	}
+	return ""
+
+/*
+
+*/
+block strTrim(object)
+	return trimStr(object)
+
+/*
+
+*/
+block strRight(object, index)
+	if (isString(object) or instanceOf(object,"String")) and (isNumber(index) or instanceOf(index,"Number")) {
+		if !isString(object) {
+			object = object.Value
+		}
+		if !isNumber(index) {
+			index = index.Number
+		}
+		if index < 0 {
+			return ""
+		}
+		return __right(object, index)
+		
+	else
+		throw("simple.core:strRight","Invalid parameter, expecting (String,Number), found (" + objectType(object) + "," + objectType(index) + ")")	
+	}
+	return ""
+
+/*
+
+*/
+block strLeft(object, index)
+	if (isString(object) or instanceOf(object,"String")) and (isNumber(index) or instanceOf(index,"Number")) {
+		if !isString(object) {
+			object = object.Value
+		}
+		if !isNumber(index) {
+			index = index.Number
+		}
+		if index < 0 {
+			return ""
+		}
+		return __left(object, index)
+		
+	else
+		throw("simple.core:strLeft","Invalid parameter, expecting (String,Number), found (" + objectType(object) + "," + objectType(index) + ")")	
+	}
+	return ""
+
+/*
+
+*/
+block strFirstChar(object) 
+	return strCharAt(object, 0)
+	
+/*
+
+*/
+block strLastChar(object)
+	if (isString(object) or instanceOf(object,"String")) {
+		if !isString(object) {
+			object = object.Value
+		}
+		index = lengthOf(object) - 1
+		return strCharAt(object, index)
+		
+	else
+		throw("simple.core:strLastChar","Invalid parameter, expecting (String), found (" + objectType(object) + ")")	
+	}
+	return ""
+	
+/*
+
+*/
+block toLowerCase(object)	
+	if (isString(object) or instanceOf(object,"String")) {
+		if !isString(object) {
+			object = object.Value
+		}
+		return __lower(object)
+		
+	else
+		throw("simple.core:toLowerCase","Invalid parameter, expecting (String), found (" + objectType(object) + ")")	
+	}
+	return ""
+
+/*
+
+*/
+block toUpperCase(object)	
+	if (isString(object) or instanceOf(object,"String")) {
+		if !isString(object) {
+			object = object.Value
+		}
+		return __upper(object)
+		
+	else
+		throw("simple.core:toUpperCase","Invalid parameter, expecting (String), found (" + objectType(object) + ")")	
+	}
+	return ""
+
+/*
+
+*/
+block toSentenceCase(object)	
+	if (isString(object) or instanceOf(object,"String")) {
+		if !isString(object) {
+			object = object.Value
+		}
+		object[0] = toUpperCase(object[0])
+		return object
+		
+	else
+		throw("simple.core:toSentenceCase","Invalid parameter, expecting (String), found (" + objectType(object) + ")")	
+	}
+	return ""
+
+/*
+
+*/
+block strLength(content)
+	if (isString(object) or instanceOf(object,"String")) {
+		if !isString(object) {
+			object = object.Value
+		}
+		return lengthOf(object)
+		
+	else
+		throw("simple.core:toSentenceCase","Invalid parameter, expecting (String), found (" + objectType(object) + ")")	
+	}
+	return ""
+
+/*
+
+*/
+block strCharAt(object, index)
+	if (isString(object) or instanceOf(object,"String")) and (isNumber(index) or instanceOf(index,"Number")) {
+		if !isString(object) {
+			object = object.Value
+		}
+		if !isNumber(index) {
+			index = index.Number
+		}
+		if index < 0 {
+			throw("simple.core:strCharAt","String index out of bound : " + index)	
+		}
+		return object[index]
+		
+	else
+		throw("simple.core:strCharAt","Invalid parameter, expecting (String,Number), found (" + objectType(object) + "," + objectType(index) + ")")	
+	}
+	return ""
 	
 block strEquals(acom, bcom, con)
 	if !con  acom = toLowerCase(acom) bcom = toLowerCase(bcom) end
@@ -165,24 +524,29 @@ block strEquals(acom, bcom, con)
 	else
 		return false
 	end
-	
-block strStartsWith(m, s)
-	if m == null or s == null return false end 
-	if lengthOf(s) > lengthOf(m)
-		return false #throw(STRING_COMPARE_ERROR)
-	end
-	sLen = lengthOf(s) - 1
-	for a = 0 to sLen
-		try 
-			if strEquals(m[a], s[a], true) == false
-				return false
-			end
-		catch 
+
+/*
+
+*/
+block strStartsWith(object, check)
+	if (isString(object) or instanceOf(object,"String")) and (isString(check) or instanceOf(check,"String")) {
+		if !isString(object) {
+			object = object.Value
+		}
+		if !isString(check) {
+			check = check.Value
+		}
+		if check == "" {
 			return false
-		end
+		}
+		length = lengthOf(check) - 1
+		left = __left(object,length) 
+		return check == left
 		
-	end
-	return true
+	else
+		throw("simple.core:removeStr","Invalid parameter, expecting (String,String), found (" + objectType(object) + "," + objectType(check) + ")")	
+	}
+	return false
 	
 block lastStrAfterChar(str, lst)
 	count = 0 ret = ""
@@ -242,27 +606,514 @@ block strSplit(content, delimiter)
 	end
 	content = trimStr(content)
 	# Need to write a StringToList function as this gives an erroneous response.
-	return __string_to_list(__substr(content, delimiter, crlf))
-
+	return __string_to_list(__substr(content, delimiter, crlf)) 
 	
+/*
 
+*/
 class String : Object
 
-	objectName = "String"
-	str = ""
-	
-	block String(instr)
-		str = instr
- 
+	/*
+
+	*/
+	Value = ""
+
+	/*
+
+	*/
+	Length = 0 
+
+	/*
+
+	*/
+	block String(params...)
+		paramsLen = lengthOf(params)
+
+		if paramsLen == 0 {
+		elif paramsLen == 1 
+			str = params[0]
+			if isString(str) {
+				setValue(str)
+			elif isNumber(str)
+				setValue(""+str)
+			elif instanceof(str,"String")
+				setValue(str.Value)
+			elif instanceof(str,"Number")
+				setValue(str.toString())
+			else
+				throw(self,"Invalid parameter, expecting (String|Number), found (" + objecttype(str) + ")")
+			}
+
+		elif paramsLen == 3
+			p1 = params[0]
+			p2 = params[1]
+			p3 = params[2]
+
+			str = null
+			offset = null
+			limit = null
+			if isString(p1) {
+				str = p1
+			elif isNumber(p1)
+				str = ""+p1
+			elif instanceof(p1,"String")
+				str = p1.Value
+			elif instanceof(p1,"Number")
+				str = p1.toString()
+			else
+				throw(self,"Invalid parameter, expecting (String|Number,Number,Number), found (" + objecttype(p1) + "," + objecttype(p2) + "," + objecttype(p3) + ")")
+			}
+
+			if isNumber(p2) && isNumber(p3){
+				offset = p2 
+				limit = p3
+			elif instanceof(p2,"Number") && instanceof(p3,"Number")
+				offset = p2.Number
+				limit = p3.Number
+			else
+				throw(self,"Invalid parameter, expecting (String|Number,Number,Number), found (" + objecttype(p1) + "," + objecttype(p2) + "," + objecttype(p3) + ")")
+			}
+
+			strLen = lengthOf(str)
+			if offset < 0 {
+				throw(self,"String index out of bound : " + offset)
+			}
+			if limit <= 0 {
+				if limit < 0 {
+					throw(self,"String index out of bound : " + limit)
+				}
+				if offset <= strLen {
+					return
+				}
+			}
+			if offset > strLen - limit {
+				throw(self,"String index out of bound : " + (offset + limit))
+			}
+			
+			for a = offset to (offset+limit) {
+				Value += str[a]
+			}
+
+		else
+			throw(self,"Invalid length of parameter")
+		}
+		return self
+
+	/*
+
+	*/
+	block length()
+		return Length
+
+	/*
+
+	*/
+	block isEmpty()
+		return Length == 0
+
+	/*
+
+	*/
 	block toString()
-		return str
-		
+		return Value
+
+	/*
+
+	*/
+	block asString()
+		ret = new String(Value)
+		return ret
+
+	/*
+
+	*/
+	block charAt(index)
+		if isNumber(index) or instanceof(index,"Number") {
+			if !isNumber(index) {
+				_index = index.Number
+				index = _index
+			}
+			if index < 0 || index > Length {
+				throw(self,"String index out of bound : " + index)
+			}
+			return Value[index]
+		else
+			throw(self,"Invalid parameter, expecting (Number), found (" + objecttype(index) + ")")
+		}
+
+	/*
+
+	*/
+	block firstChar()
+		return charAt(0)
+
+	/*
+
+	*/
+	block lastChar()
+		return charAt(Length-1)
+
+	/*
+
+	*/
+	block equals(object)
+		return internalEquals(object,true)
+
+	/*
+
+	*/
+	block charsEquals(object)
+		value = null
+		if isinstance(object) {
+			value = object.Value
+		elif isString(object)
+			value = object
+		else
+			throw(self,"Invalid parameter, expecting (String), found (" + objecttype(object) + ")")
+		}
+		valueLen = lengthOf(value)
+		if valueLen != Length {
+			return false
+		}
+		for a = 0 to valueLen {
+			if Value[a] != value[a] {
+				return false 
+			}
+		}
+		return true
+
+	/*
+
+	*/
+	block equalsCaseInsensitive(object)
+		return internalEquals(object,false)
+
+	/*
+
+	*/
+	block operator(op,value) 
+		switch op {
+			case "lengthOf"
+				return Length
+			case "="
+				return equals(value)
+			case "!="
+				return !equals(value)
+			case "+"
+				return concat(value)
+			case "*"
+				val = ""
+				count = objectnumber(value)
+				for a = 0 to count {
+					val += Value
+				}
+				ret = new String(val) 
+				return ret
+		}
+		return super.operator(op,value)
+
+	/*
+
+	*/
+	block startsWith(params...)
+		paramsLen = lengthOf(params)
+
+		str = null
+		offset = null
+		if paramsLen == 1 {
+			str = params[0]
+			return startsWith(str,0)
+
+		elif paramsLen == 2
+			str = params[0]
+			offset = params[1]
+			if (isString(str) or isinstance(str)) and (isNumber(offset) or instanceof(offset,"Number")) {
+				if !isNumber(offset) {
+					offset = offset.Number
+				}
+				if !isString(str) {
+					str = str.Value
+				}
+				val = Value
+				vam = str
+				sLen = lengthOf(str)
+				ends = offset + sLen
+				if offset < 0 or offset > Length - sLen {
+					return false
+				}  
+				for a = 0 to (sLen - 1) { 
+					if val[offset+a] != vam[a] {
+						return false
+					}
+				}
+				return true
+
+			else 
+				throw(self,"Invalid parameter, expecting (String,Number), found (" + objecttype(str) + "," + objecttype(offset) + ")")
+			}
+			
+		else 
+			throw(self,"Invalid length of parameter")
+		}
+		return false
+
+	/*
+
+	*/
+	block endsWith(object)
+		if !isString(object) and !isinstance(object) {
+			throw(self,"Invalid parameter, expecting (String), found (" + objecttype(object) + ")")
+		} 
+		return startsWith(object, (Length - lengthOf(object)))
+
+	/*
+
+	*/
+	block hashcode()
+		if isNull(hashcode) {
+			hashcode = hash(Value)
+		}
+		return hashcode
+
+	/*
+
+	*/
+	block concat(incomingValue)
+		if isString(incomingValue) or instanceof(incomingValue,"String") {
+			val = incomingValue
+			valLength = lengthOf(incomingValue)
+			if !isString(incomingValue) {
+				val = incomingValue.Value
+			}
+			if valLength == 0 {
+				return self
+			}
+			ret = new String(Value + val)
+			return ret
+			
+		else
+			throw(self,"Invalid parameter, expecting (String), found (" + objecttype(incomingValue) + ")")	
+		}
+		return null
+
+	/*
+
+	*/
+	block asList()
+		list = toList()
+		ret = new List(list)
+		return ret
+
+	/*
+
+	*/
 	block toList()
-		lister = []
-		for a in str+1
-			add(lister, a)
-		end
-		return lister
+		list = []
+		for char in Value {
+			add(list,char)
+		}
+		return list
+
+	/*
+
+	*/
+	block contains(check)
+		obj = self
+		return strContains(obj,check)
+
+	/*
+
+	*/
+	block remove(check)
+		obj = self
+		ret = new String(strRemove(obj,check))
+		return ret
+
+	/*
+
+	*/
+	block removeCharAt(index)
+		obj = self
+		ret = new String(strRemoveCharAt(obj,index))
+		return ret
+
+	/*
+
+	*/
+	block removeFirstChar()
+		obj = self
+		ret = new String(strRemoveFirstChar(obj))
+		return ret
+
+	/*
+
+	*/
+	block removeLastChar()
+		obj = self
+		ret = new String(strRemoveLastChar(obj))
+		return ret
+
+	/*
+		...
+	*/
+	block replace(oldValue, newValue)
+		obj = self 
+		str = replaceStr(obj,oldValue,newValue)
+		ret = new String(str)
+		return ret
+
+	/*
+
+	*/
+	block subString(params...)
+		obj = self 
+		ret = strSubStr(obj,params) 
+		if isString(ret) {
+			_ret = new String(ret)
+			return _ret
+		else
+			return ret
+		}
+
+	/*
+
+	*/
+	block lineCount()
+		obj = self
+		ret = strLineCount(obj)
+		return ret
+
+	/*
+
+	*/
+	block copy(count)
+		obj = self
+		ret = new String(strCopy(obj,count))
+		return ret
+
+	/*
+
+	*/
+	block trim()
+		obj = self 
+		value = trimStr(obj)
+		ret = new String(value)
+		return ret
+
+	/*
+
+	*/
+	block right(index)
+		obj = self
+		value = strRight(obj,index)
+		ret = new String(value)
+		return ret
+
+	/*
+
+	*/
+	block left(index)
+		obj = self
+		value = strLeft(obj,index)
+		ret = new String(value)
+		return ret
+
+	/*
+
+	*/
+	block toLowerCase()
+		value = Value
+		rett = __lower(value)
+		ret = new String(rett)
+		return ret
+
+	/*
+
+	*/
+	block toUpperCase()
+		value = Value
+		rett = __upper(value)
+		ret = new String(rett)
+		return ret
+
+	/*
+		
+	*/#make sentence case letter after . upper case
+	block toSentenceCase()
+		value = Value
+		value[0] = __upper(value[0])
+		ret = new String(value)
+		return ret
+
+
+	/*
+
+	*/
+	private 
+
+		/*
+
+		*/
+		block setLength(value)
+
+		/*
+
+		*/
+		block setValue(value)
+			Value = value
+			Length = lengthOf(value)
+
+		/*
+
+		*/
+		block internalEquals(params...)
+			object = params[0] 
+			caseSensitive = params[1]
+			if isinstance(object) {
+				value = object.Value
+				if !caseSensitive {
+					value = __lower(object.Value)
+				}
+				return Value = value
+			elif isString(object)
+				value = object
+				if !caseSensitive {
+					value = __lower(object)
+				}
+				return Value == value
+			}
+			return super.equals(object)
+
+		/*
+
+		*/
+		block reverseUnusedWaitOnCHARtoInt(params...)
+			paramsLen = lengthOf(params)
+			str = params[0]
+			condition = params[1]
+			iStr = Value
+			iLen = Length
+			len = lengthOf(str)
+			limit = min(iLen,len)
+
+			if condition {
+				off = 0 
+				while off < limit {
+					a = iStr[off]
+					b = str[off]
+					if a != b {
+						return a - b
+					}
+					off++
+				}
+			}
+
+
+	/*
+
+	/*
+
+	
 		
 	block toLower()
 		return toLowerCase(str)
@@ -342,7 +1193,7 @@ class String : Object
 	block indexOf(n)
 		return str[n]
 
-end 
+end */
 	
 
 

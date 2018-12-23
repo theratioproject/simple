@@ -1,0 +1,621 @@
+
+/*
+
+*/
+call simple.core.Object
+call simple.system.System
+call simple.graphics.Dimension
+call simple.system.ScreenDimension
+call "../base/FWidget.sim" ? fulltick.base
+
+/*
+
+*/
+module fulltick.widgets
+
+/*
+
+*/
+class FGroup : FWidget 
+
+    /*
+
+    */
+    Label = FApp.Scheme.getShemeValue("FGroup.Label")
+
+    /*
+
+    */
+    Width = FApp.Scheme.getShemeValue("FGroup.Width")
+
+    /*
+
+    */
+    Height = FApp.Scheme.getShemeValue("FGroup.Height") 
+
+    /*
+
+    */
+    X = FApp.Scheme.getShemeValue("FGroup.X")
+
+    /*
+
+    */
+    Y = FApp.Scheme.getShemeValue("FGroup.Y") 
+
+    /*
+
+    */
+    Y_Diff = FApp.Scheme.getShemeValue("FGroup.Y_Diff") 
+
+    /*
+
+    */
+    ClipChildren = FApp.Scheme.getShemeValue("FGroup.ClipChildren") 
+
+    /*
+
+    */
+    AdaptiveSize = FApp.Scheme.getShemeValue("FGroup.AdaptiveSize") 
+
+    /*
+
+    */
+    CapitalizeLabel = FApp.Scheme.getShemeValue("FGroup.CapitalizeLabel") 
+
+    /*
+
+    */
+    Box = FApp.Scheme.getShemeValue("FGroup.Box") 
+
+    /*
+
+    */
+    Border = FApp.Scheme.getShemeValue("FGroup.Border") 
+
+    /*
+
+    */
+    HasBorder = FApp.Scheme.getShemeValue("FGroup.HasBorder") 
+
+    /*
+
+    */
+    AcceptInput = FApp.Scheme.getShemeValue("FGroup.AcceptInput")
+
+    /*
+
+    */
+    Visible = FApp.Scheme.getShemeValue("FGroup.Visible") 
+
+    /*
+
+    */
+    KeyboardFocusable = FApp.Scheme.getShemeValue("FGroup.KeyboardFocusable") 
+
+    /*
+
+    */
+    Tooltip = FApp.Scheme.getShemeValue("FGroup.Tooltip") 
+
+    /*
+
+    */
+    LabelColor = FApp.Scheme.getShemeValue("FGroup.LabelColor") 
+
+    /*
+
+    */
+    LabelFont = FApp.Scheme.getShemeValue("FGroup.LabelFont") 
+
+    /*
+
+    */
+    LabelSize = FApp.Scheme.getShemeValue("FGroup.LabelSize") 
+
+    /*
+
+    */
+    LabelType = FApp.Scheme.getShemeValue("FGroup.LabelType")
+
+    /*
+
+    */
+    SelectionColor = FApp.Scheme.getShemeValue("FGroup.SelectionColor")
+
+    /*
+
+    */
+    AddedWidgets = [
+        
+    ]
+
+    /*
+
+    */
+    ResizableWidget = null
+
+    /*
+
+    */
+    block FGroup(params...) 
+        paramsLen = lengthOf(params)
+        asBorder = false
+        if paramsLen == 1 {
+            Label = params[0]
+            if !isString(Label) {
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'string' as FGroup Label")
+            }
+        elif paramsLen == 2
+            Width = params[0]
+            Height = params[1]
+            if !isNumber(Width) or !isNumber(Height) {
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FGroup Width and Height")
+            }
+        elif paramsLen == 3 
+            Width = params[0]
+            Height = params[1]
+            Label = params[2]
+            if !isNumber(Width) or !isNumber(Height) {
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FGroup Width and Height")
+            }
+            if !isString(Label) {
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'string' as FGroup Label")
+            }
+        elif paramsLen == 4
+            X = params[0]
+            Y = params[1]
+            Width = params[2]
+            Height = params[3]
+            if !isNumber(X) or !isNumber(Y) {
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FGroup X and Y")
+            }
+            if !isNumber(Width) or !isNumber(Height) {
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FGroup Width and Height")
+            }
+        elif paramsLen == 5
+            X = params[0]
+            Y = params[1]
+            Width = params[2]
+            Height = params[3]
+            Label = params[4]
+            if !isNumber(X) or !isNumber(Y) {
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FGroup X and Y")
+            }
+            if !isNumber(Width) or !isNumber(Height) {
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FGroup Width and Height")
+            }
+            if !isString(Label) {
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'string' as FGroup Label")
+            }
+        else    
+            if paramsLen != 0 {
+                throw(self,SIMPLE_VM_ERROR_EXTRAPARAMETERSCOUNT)
+            }
+        } 
+        Ptr = __Fl_Group_1(X,Y,Width,Height,Label) 
+        setBorder(Border)
+        construct()
+        setResizable(false)
+        endBegin()
+        if !asBorder { registerWidget() }
+        return self
+
+    /*
+
+    */#move adaptive to layout completely
+    block addWidget(widgets...)
+        validatePointer()  
+        x = 0
+        y = 0
+        for widget in widgets { 
+            if isObject(widget) and __instance_of(widget,"FWidget") {
+                widget.validatePointer() 
+                FApp.CreatedWidgets[widget.PtrIndex].Parent = self 
+                if widget.hasBorder() {
+                    __Fl_Group_add(Ptr,widget.BorderBox.Ptr)
+                else
+                    __Fl_Group_add(Ptr,widget.Ptr)
+                }
+                addChildWidget(widget) 
+                FApp.CreatedWidgets[widget.PtrIndex].resolvePendingOps()
+                if AdaptiveSize {
+                    
+                    if x < widget.X {
+                        x += widget.X
+                        Width += widget.Width
+                        #widget.X -= widget.X #when ref passed
+                    else 
+                    }
+                    if y < widget.Y {
+                        y += widget.Height  
+                        Height += widget.Height 
+                        #widget.Y -= widget.Y #when ref passed
+                    else y = 0 #remove when ref passed
+                    }
+                } 
+                if widget.__Name != "WindowActionBar" and Name == "FWindow" and isAndroid() and FScheme.UsePlatformUI  {
+                    widget.setY(widget.Y + ActionBarSize + 10)
+                } 
+            else
+                throw(self,FULLTICK_INVALID_PARAMETER+" You can only add an instance of 'FWidget' ")
+            }            
+        }
+        if AdaptiveSize { 
+            resize(0,0,Width+100,Height)
+        }
+
+    /*
+
+    */
+    block addResizableWidget(widgets...)
+        validatePointer()
+        for widget in widgets {
+            if isObject(widget) and __instance_of(widget,"FWidget") {
+                widget.validatePointer()
+                widget.Parent = self
+                __Fl_Group_add(Ptr,widget.Ptr) 
+                widget.Resizable = true
+                addChildWidget(widget) 
+                widget.resolvePendingOps()
+            else
+                throw(self,FULLTICK_INVALID_PARAMETER+" You can only add an instance of 'FWidget' ")
+            }            
+        }
+
+    /*
+
+    */
+    block setAddedWidgets(value)
+        throw(self,FULLTICK_SET_OPS+" 'AddedWidgets'")
+
+    /*
+
+    */
+    block addedWidgetsSize()
+        return lengthOf(AddedWidgets)
+
+    /*
+
+    */
+    block clear()
+        validatePointer()
+        __Fl_Group_clear(Ptr)
+
+    /*
+
+    */
+    block getClipChildren()
+        return ClipChildren
+
+    /*
+
+    */
+    block setClipChildren(condition)
+        validatePointer()
+        if isNumber(condition) {
+            if condition == true or condition == false {
+                ClipChildren = condition
+                __Fl_Group_clip_children(Ptr,condition)
+            }
+        else
+            throw(self,FULLTICK_INVALID_PARAMETER+" Expecting a boolean value for FGroup 'ClipChildren'")
+        } 
+
+    /*
+
+    */
+    block findWidgetIndex(widget)
+        validatePointer() 
+        if isObject(widget) and __instance_of(widget,"FWidget") {
+            widget.validatePointer()
+            return  __Fl_Group_find(Ptr,widget.Ptr) - 1
+        else
+            throw(self,FULLTICK_INVALID_PARAMETER+" You can only find the index of FWidget instance in the FGroup widget")
+        }
+        return -1
+
+    /*
+
+    */
+    block focus(widget)
+        validatePointer() 
+        if isObject(widget) and __instance_of(widget,"FWidget") {
+            widget.validatePointer()
+           __Fl_Group_focus(Ptr,widget.Ptr) 
+        else
+            throw(self,FULLTICK_INVALID_PARAMETER+" Expecting an instance of FWidget to be focused in FGroup widget")
+        }
+
+    /*
+
+    */
+    block insert(widget,index)
+        validatePointer() 
+        if isObject(widget) and __instance_of(widget,"FWidget") {
+            widget.validatePointer()
+            if isNumber(index) {
+                widget.Parent = self
+                __Fl_Group_insert(Ptr,widget.Ptr,index + 1) 
+                addChildWidget(widget) 
+                #widget.Resizable = false
+                widget.resolvePendingOps()
+            else
+                throw(self,FULLTICK_INVALID_PARAMETER+" Expecting a Number")
+            }
+        else
+            throw(self,FULLTICK_INVALID_PARAMETER+" Expecting an instance of FWidget only")
+        }
+
+    /*
+
+    */
+    block insertResizable(widget,index)
+        validatePointer() 
+        if isObject(widget) and __instance_of(widget,"FWidget") {
+            widget.validatePointer()
+            if isNumber(index) {
+                widget.Parent = self
+                __Fl_Group_insert(Ptr,widget.Ptr,index + 1) 
+                widget.Resizable = true
+                addChildWidget(widget) 
+                widget.resolvePendingOps()
+            else
+                throw(self,FULLTICK_INVALID_PARAMETER+" Expecting a Number")
+            }
+        else
+            throw(self,FULLTICK_INVALID_PARAMETER+" Expecting an instance of FWidget only")
+        }
+
+    /*
+
+    */
+    block remove(object)
+        validatePointer() 
+        if isObject(object) and __instance_of(object,"FWidget") {
+            object.validatePointer()
+            object.removeParent(self)
+            __Fl_Group_remove_2(Ptr,object.Ptr)
+            removeChildWidget(object) 
+        elif isNumber(object) remove("")
+            AddedWidgets[object].removeParent(self)
+            __Fl_Group_remove(Ptr,object.Ptr)
+            removeChildWidget(AddedWidgets[object]) 
+        else
+            throw(self,FULLTICK_INVALID_PARAMETER+" Expecting an instance of FWidget or Number")
+        }
+
+    /*
+
+    */
+    block setResizable(condition) 
+        validatePointer()
+        if isObject(condition) and __instance_of(condition,"FWidget") {
+            condition.validatePointer()
+            __Fl_Group_resizable(Ptr,condition.Ptr)
+            if condition.__Name != "RootBox" {
+                ResizableWidget = condition
+            } 
+            Resizable = true 
+            return
+        elif isNumber(condition) and (condition == true or condition == false)
+            
+        else
+            throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'boolean' 'true' or 'false' as FGroup Resizable value")
+        }        
+
+        Resizable = condition 
+        if Resizable { 
+            __Fl_Group_resizable_1(Ptr,Ptr) 
+        else 
+            ResizableWidget = null
+            __Fl_Group_not_resizable(Ptr) 
+        }
+
+    /*
+
+    */
+    block begin(params...)
+        validatePointer()
+        paramsLen = lengthOf(params)
+        if paramsLen == 0 {
+            throw(self,FULLTICK_FGROUP_UNSAFE_METHOD+". Add child widget to self widget using the 'addWidget(...)' method instead")
+        elif paramsLen == 1
+            condition = params[0]
+            if condition {
+                __Fl_Group_begin(Ptr)
+            }
+        else
+            throw(self,SIMPLE_VM_ERROR_EXTRAPARAMETERSCOUNT)
+        }
+
+    /*
+
+    */
+    block endBegin()
+        validatePointer()
+        __Fl_Group_end(Ptr)
+
+
+    /*
+
+    */
+    block getResazable()
+        return Resizable
+        
+    /*
+
+    */
+    block resize(params...) 
+        validatePointer()
+        paramsLen = lengthOf(params)
+
+        if paramsLen == 1 {
+            object = params[0]
+            if instanceof(object,"Rectangle") {
+                x = object.X
+                y = object.Y
+                width = object.Width
+                height = object.Height
+            else
+                throw(self, FULLTICK_INVALID_PARAMETER+" Expecting (simple.graphics.Rectangle) for resizing FGroup. Found (" + objecttype(object) + ")")
+            }
+        elif paramsLen == 2
+            point = params[0]
+            dimension = params[1]
+            if instanceof(point,"Point") and instanceof(dimension,"Dimension") {
+                x = point.X
+                y = point.Y
+                width = dimension.Width
+                height = dimension.Height
+            else
+                throw(self, FULLTICK_INVALID_PARAMETER+" Expecting (simple.graphics.Point,simple.graphics.Dimension) for resizing FGroup. Found (" + objecttype(point) + ", " + objecttype(dimension) + ")")
+            }
+        elif paramsLen == 4
+            x = params[0]
+            y = params[1]
+            width = params[2]
+            height = params[3]
+            if !isNumber(x) or !isNumber(y) or !isNumber(width) or !isNumber(height) {
+                throw(self, FULLTICK_INVALID_PARAMETER+" Expecting (Number, Number, Number, Number). Found (" + objecttype(x) + ", " + objecttype(y) + ", " + objecttype(width) + ", " + objecttype(height) + ")")
+            }
+        else
+            throw(self,"Changine FGroup size with invalid length of parameters")
+            return
+        }
+        if isAndroid() {
+            sw = primaryScreenWidth()
+            sh = primaryScreenHeight()
+            
+            if width > sw {
+                width = Width
+            }
+            if height > sh {
+                height = Height
+            }
+            if x < 0 {
+                x = 0
+            }
+            if y < 0 {
+                y = 0
+            }
+        }
+        
+        X = x
+        Y = y
+        Width = width
+        Height = height
+        if __instance_of(self,"FWindow") { 
+            if self.HasWindowBorder or isAndroid() {
+                y += Y_Diff 
+            }
+        }
+        __Fl_Group_resize(Ptr,x,y,width,height)
+
+    /*
+
+    */
+    block centerOnParent(params...)
+        validatePointer()
+        paramsLen = lengthOf(params)
+
+        if paramsLen == 0 {
+            if hasParent() { 
+                screenDimension = new ScreenDimension()
+                screenWidth = Parent.Width
+                screenHeight = Parent.Height
+                xpos = (screenWidth/2) - (Width/2)
+                ypos = (screenHeight/2) - (Height/2)
+                resize(xpos,ypos,Width,Height)  
+            else
+                PendingOps["centeronparent"] = "true"
+            }
+
+        elif paramsLen == 1
+            parent = params[0]
+            if isinstance(parent) {
+                if isNull(Parent) {
+                    Parent = parent
+                } 
+                if Width <= 0 or Height <= 0 {
+                    return 
+                }
+                screenDimension = new ScreenDimension()
+                screenWidth = parent.Width 
+                screenHeight = parent.Height 
+                xpos = (screenWidth/2) - (Width/2)
+                ypos = (screenHeight/2) - (Height/2)
+                resize(xpos,ypos,Width,Height) 
+            else
+                throw(self,"The parent type is invalid, expecting instance of (simple.widgets.FGroup). Found (" + objecttype(parent) + ")")
+            }
+
+        else
+            throw(self,"Invalid length of parameters, a widget can have only one parent")
+        }
+
+    /*
+
+    */
+    block adaptToChildrenSize()
+        AdaptiveSize = true 
+
+    /*
+        #internal use only
+    */
+    block setOnlyChild(widget)
+        validatePointer()
+        if hasOnlyChild() {
+            throw(self,"This widget can have only one child widget")
+        }
+        if instanceof(widget,"FWidget") {
+            OnlyChild = widget
+        else
+            throw(self,FULLTICK_INVALID_PARAMETER + ". Expecting (fulltick.base.Widget), found (" + objecttype(widget) + ")")
+        }
+
+    /*
+
+    */
+    block getOnlyChild()
+        return OnlyChild
+
+    /*
+
+    */
+    block hasOnlyChild()
+        return !isNull(OnlyChild)
+        
+    /*
+
+    */
+    block handle(event)
+        #@"groupy : " + event
+        return 0
+        
+
+    /*
+
+    */
+    private 
+
+        /*
+
+        */
+        OnlyChild = null
+
+        /*
+
+        */
+        block addChildWidget(widget)
+            #add(AddedWidgets,widget) #makes rendering very slow
+
+        /*
+
+        */
+        block removeChildWidget(widget)
+            index = __find_in_list(AddedWidgets,widget)
+            if index >= 0 {
+                __del_from_list(AddedWidgets,index)
+            }
+            

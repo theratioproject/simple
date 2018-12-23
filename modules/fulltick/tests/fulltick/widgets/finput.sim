@@ -1,0 +1,33 @@
+
+/*
+
+*/
+call simple.core.Object
+call simple.utilities.Console
+call simple.graphics.Dimension
+call simple.graphics.Rectangle
+call simple.graphics.Point
+call "../../../drawing/FBoxType.sim" ? fulltick.drawing
+call "../../../painting/FColor.sim" ? fulltick.painting
+call "../../../widgets/FWindow.sim" ? fulltick.widgets
+call "../../../widgets/FInput.sim" ? fulltick.widgets
+call "../../../base/FWidget.sim" ? fulltick.base
+call "../../../FApp.sim" ? fulltick
+
+flabelDemo = new FInputDemo
+FApp.run()
+
+class FInputDemo
+
+    fwindow = new FWindow(320,180,"FInput Demo") { 
+        begin(true) 
+        new FInput(10,10,"Android") { setPlatformScheme(FScheme.ANDROID) }
+        new FInput(10,50,"Windows") { setPlatformScheme(FScheme.WINDOWS) }
+        new FInput(10,90,"Macosx") { setPlatformScheme(FScheme.MACOSX) }
+        new FInput(10,130,"Linux") { setPlatformScheme(FScheme.LINUX) }
+        endBegin()
+        centerOnScreen() 
+        Resizable = false
+        show()        
+    } 
+        
