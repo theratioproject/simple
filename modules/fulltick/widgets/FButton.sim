@@ -1,0 +1,347 @@
+
+/*
+
+*/
+call simple.core.Object
+call "../base/FWidget.sim" ? fulltick.base
+call "../painting/FColor.sim" ? fulltick.painting
+call "../drawing/FAlignment.sim" ? fulltick.drawing
+call "../drawing/FBoxType.sim" ? fulltick.drawing
+
+/*
+
+*/
+module fulltick.widgets
+
+/*
+
+*/
+class FButton : FWidget
+
+    /*
+
+    */
+    Width = FApp.Scheme.getShemeValue("FButton.Width") 
+
+    /*
+
+    */
+    Height = FApp.Scheme.getShemeValue("FButton.Height") 
+
+    /*
+
+    */
+    X = FApp.Scheme.getShemeValue("FButton.X") 
+
+    /*
+
+    */
+    Y = FApp.Scheme.getShemeValue("FButton.Y") 
+
+    /*
+
+    */
+    Label = FApp.Scheme.getShemeValue("FButton.Label") 
+
+    /*
+
+    */
+    CapitalizeLabel = FApp.Scheme.getShemeValue("FButton.CapitalizeLabel") 
+
+    /*
+
+    */
+    Background = FApp.Scheme.getShemeValue("FButton.Background") 
+
+    /*
+
+    */
+    LabelAlignment = FApp.Scheme.getShemeValue("FButton.LabelAlignment") 
+
+    /*
+
+    */
+    BaseColor = FApp.Scheme.getShemeValue("FButton.BaseColor") 
+
+    /*
+
+    */
+    Box = FApp.Scheme.getShemeValue("FButton.Box") 
+
+    /*
+
+    */
+    BaseBox = FApp.Scheme.getShemeValue("FButton.BaseBox") 
+
+    /*
+
+    */
+    Border = FApp.Scheme.getShemeValue("FButton.Border") 
+
+    /*
+
+    */
+    HasBorder = FApp.Scheme.getShemeValue("FButton.HasBorder") 
+
+    /*
+
+    */
+    AcceptInput = FApp.Scheme.getShemeValue("FButton.AcceptInput")
+
+    /*
+
+    */
+    Visible = FApp.Scheme.getShemeValue("FButton.Visible") 
+
+    /*
+
+    */
+    KeyboardFocusable = FApp.Scheme.getShemeValue("FButton.KeyboardFocusable") 
+
+    /*
+
+    */
+    Text = FApp.Scheme.getShemeValue("FButton.Text") 
+
+    /*
+
+    */
+    Tooltip = FApp.Scheme.getShemeValue("FButton.Tooltip") 
+
+    /*
+
+    */
+    LabelColor = FApp.Scheme.getShemeValue("FButton.LabelColor") 
+
+    /*
+
+    */
+    LabelFont = FApp.Scheme.getShemeValue("FButton.LabelFont") 
+
+    /*
+
+    */
+    LabelSize = FApp.Scheme.getShemeValue("FButton.LabelSize")
+
+    /*
+
+    */
+    LabelType = FApp.Scheme.getShemeValue("FButton.LabelType")
+
+    /*
+
+    */
+    SelectionColor = FApp.Scheme.getShemeValue("FButton.SelectionColor")
+
+    /*
+
+    */
+    Shortcut = null
+
+    /*
+
+    */
+    Value = FApp.Scheme.getShemeValue("FButton.Value")
+
+    /*
+
+    */
+    Text = null
+
+    /*
+
+    */
+    block FButton(params...)
+        paramsLen = lengthOf(params)
+        if paramsLen == 1 {
+            Label = params[0]
+            if !isString(Label) {
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'string' as FButton Label")
+            }
+        elif paramsLen == 2
+            Width = params[0]
+            Height = params[1]
+            if !isNumber(Width) or !isNumber(Height) {
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FButton Width and Height")
+            }
+        elif paramsLen == 3 
+            Width = params[0]
+            Height = params[1]
+            Label = params[2]
+            if !isNumber(Width) or !isNumber(Height) {
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FButton Width and Height")
+            }
+            if !isString(Label) {
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'string' as FButton Label")
+            }
+        elif paramsLen == 4
+            X = params[0]
+            Y = params[1]
+            Width = params[2]
+            Height = params[3]
+            if !isNumber(X) or !isNumber(Y) {
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FButton X and Y")
+            }
+            if !isNumber(Width) or !isNumber(Height) {
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FButton Width and Height")
+            }
+        elif paramsLen == 5
+            X = params[0]
+            Y = params[1]
+            Width = params[2]
+            Height = params[3]
+            Label = params[4]
+            if !isNumber(X) or !isNumber(Y) {
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FButton X and Y")
+            }
+            if !isNumber(Width) or !isNumber(Height) {
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FButton Width and Height")
+            }
+            if !isString(Label) {
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'string' as FButton Label")
+            }
+        else    
+            if paramsLen != 0 {
+                throw(self,SIMPLE_VM_ERROR_EXTRAPARAMETERSCOUNT)
+            }
+        } 
+
+        if CapitalizeLabel {
+            Label = toUpperCase(Label)
+        }
+        Ptr = __Fl_Button(X, Y, Width, Height, Label) 
+        registerWidget()
+        #resize(X, Y, Width, Height)
+        setLabelAlignment(LabelAlignment)
+        setBox(Box)
+        setBaseColor(BaseColor)
+        setBaseBox(BaseBox)
+        setBorder(Border)
+        construct()
+        setValue(Value)
+        
+        return self
+
+    /*
+
+    */
+    block setBaseColor(value)
+        validatePointer() 
+        if isNumber(value) or instanceof(value,"FColor") {
+            if isNumber(value) {
+                __Fl_Button_down_color_1(Ptr,value)
+                BaseColor = new FColor(value)
+            else
+                __Fl_Button_down_color_1(Ptr,value.colorAsNumber())
+                BaseColor = value
+            }
+        else
+            throw(self,FULLTICK_INVALID_PARAMETER + ". Expecting (Number|fulltick.painting.FColor), Found (" + objecttype(value) + ")")
+        }
+
+    /*
+
+    */
+    block getBaseColor()
+        return BaseColor
+
+    /*
+
+    */
+    block setBaseBox(value) 
+        validatePointer()
+        if isNumber(value) or instanceof(value,"FBoxType") {
+            if isNumber(value) {
+                __Fl_Button_down_box_1(Ptr,value)
+                BaseBox = new FBoxType(value)
+            else
+                __Fl_Button_down_box_1(Ptr,value.BoxType) 
+                if !isNull(value.BoxColor) { 
+                    setBaseColor(value.BoxColor)
+                }
+                BaseBox = value
+            }
+        else
+            throw(self,FULLTICK_INVALID_PARAMETER + ". Expecting (Number|fulltick.drawing.FBoxType), Found (" + objecttype(value) + ")")
+        }
+
+    /*
+
+    */
+    block getBaseBox()
+        return BaseBox
+
+    /*
+
+    */
+    block handle(event)
+        @"button handling it event : " + event
+        return 0
+
+    /*
+
+    */
+    block setText(value)
+        validatePointer()
+        setLabel(value)
+        Text = value
+
+    /*
+
+    */
+    block getText()
+        return Label
+
+    /*
+
+    */
+    block set()
+        validatePointer()
+        __Fl_Button_set(Ptr)
+
+    /*
+
+    */
+    block setOnly()
+        validatePointer()
+        __Fl_Button_setonly(Ptr)
+
+    /*
+
+    */
+    block setValue(value)
+        validatePointer()
+        value = objectboolean(value)
+        if value {
+            __Fl_Button_value(Ptr,true)
+        else
+            __Fl_Button_value(Ptr,false)
+        }
+        Value = value
+
+    /*
+
+    */
+    block getValue()
+        return Value
+
+    /*
+
+    */
+    block setShortcut(value)
+        validatePointer() 
+        value = objectnumber(value)
+        __Fl_Button_shortcut_1(Ptr,value)
+        Shortcut = value
+
+    /*
+
+    */
+    block getShortcut()
+        return Shortcut
+
+    /*
+
+    */
+    private 
+

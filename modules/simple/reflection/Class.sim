@@ -2,23 +2,14 @@
 
 */
 
-<<<<<<< HEAD
 call simple.core.Object
 
 module simple.reflection
 
 block instanceOf(obj, clazz)
+	if !isObject(obj) { return false }
 	__object = obj
 	parentClass = __class_name(__object)
-=======
-module simple.reflection
-
-call simple.core.Object
-
-block instanceOf(obj, clazz)
-	__object = obj
-	parentClass = __parent_class_name(__object)
->>>>>>> b6f6932c7fa42ae6e8601a8afb93a4b40212d3b7
 	do {
 		if parentClass == clazz {
 			return true

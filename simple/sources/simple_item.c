@@ -32,6 +32,7 @@ SIMPLE_API Item * simple_item_new_gc ( void *pState,int ItemType )
 	/* Set Type */
 	pItem->nType = ITEMTYPE_NOTHING ;
 	/* Delete pointer information */
+	//pItem->data.string = simple_string_new_gc(pState,""); ;
 	pItem->data.pointer = NULL ;
 	pItem->nObjectType = 0 ;
 	/* Delete number information */
@@ -219,12 +220,12 @@ SIMPLE_API void simple_item_setdouble_gc ( void *pState,Item *pItem,double x )
 	pItem->NumberFlag = ITEM_NUMBERFLAG_DOUBLE ;
 }
 
-SIMPLE_API void simple_item_setfinal_gc ( void *pState,Item *pItem,double x )
+SIMPLE_API void simple_item_setfinal_gc ( void *pState,Item *pItem,unsigned int x )
 {
 	pItem->isFinal = x ;
 }
 
-SIMPLE_API void simple_item_setinitdec_gc ( void *pState,Item *pItem,double x )
+SIMPLE_API void simple_item_setinitdec_gc ( void *pState,Item *pItem,unsigned int x )
 {
 	pItem->initDec = x ;
 }
@@ -307,12 +308,12 @@ SIMPLE_API void simple_item_setdouble ( Item *pItem,double x )
 	simple_item_setdouble_gc(NULL,pItem,x);
 }
 
-SIMPLE_API void simple_item_setfinal( Item *pItem,double x )
+SIMPLE_API void simple_item_setfinal( Item *pItem,unsigned int x )
 {
 	simple_item_setfinal_gc(NULL,pItem,x);
 }
 
-SIMPLE_API void simple_item_setinitdec( Item *pItem,double x )
+SIMPLE_API void simple_item_setinitdec( Item *pItem,unsigned int x )
 {
 	simple_item_setinitdec_gc(NULL,pItem,x);
 }

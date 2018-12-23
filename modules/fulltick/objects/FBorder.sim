@@ -1,0 +1,244 @@
+
+/*
+
+*/
+call simple.core.Object
+call "../base/FWidget.sim" ? fulltick.base
+call "../painting/FColor.sim" ? fulltick.painting
+call "../drawing/FBoxType.sim" ? fulltick.drawing
+
+/*
+
+*/
+module fulltick.objects
+
+/*
+    
+*/
+class FBorder : Object
+
+    /*
+
+    */
+    Color =  null
+
+    /*
+
+    */
+    BoxType = null
+
+    /*
+
+    */
+    Top = 1
+
+    /*
+
+    */
+    Bottom = 1
+
+    /*
+
+    */
+    Left = 1
+
+    /*
+
+    */
+    Right = 1
+
+    /*
+
+    */
+    Component = null
+
+    /*
+
+    */
+    block FBorder(params...)
+        paramsLen = lengthOf(params)
+
+        if paramsLen == 0 {
+        elif paramsLen == 6
+            top = params[0]
+            bottom = params[1] 
+            left = params[2] 
+            right = params[3] 
+            boxtype = params[4] 
+            color = params[5]
+            if isNumber(top) and isNumber(bottom) and isNumber(left) and isNumber(right) and (isNumber(boxtype) or instanceof(boxtype,"FBoxType")) and (isNumber(color) or isString(color) or instanceof(color,"FColor")) {
+                Top = top
+                Bottom = bottom
+                Left = left
+                Right = right
+
+                if isNumber(boxtype) {
+                    BoxType = new FBoxType(boxtype)
+                else
+                    BoxType = boxtype
+                }
+
+                if isNumber(color) or isString(color) {
+                    Color = new FColor(color)
+                else
+                    Color = color
+                }
+            else
+                throw(self,"Invalid parameters. Expecting (Number,Number,Number,Number,Number|fulltick.drwaing.FBoxType,Number|String|fulltick.painting.FColor), Found (" + objecttype(top) + "," + objecttype(bottom) + "," + objecttype(left) + "," + objecttype(right) + "," + objecttype(boxtype) + "," + objecttype(color) + ")")
+            }
+        else
+            throw(self,"Calling block with invalid lenght of parameter")
+        }
+
+    /*
+
+    */
+    block setColor(value)
+        if isObject(value) {
+            if __instance_of(value,"FColor") {
+                Color = value
+            }
+        elif isNumber(value) or isString(value) 
+            __value = value
+            Color = new FColor(__value) 
+        else
+            throw(self,FULLTICK_INVALID_PARAMETER + ". Expecting innstance of 'Fcolor', 'Color', 'number' or 'string' as FBorder Color value. Found (" + objecttype(value) + ")")
+        }
+        if !isNull(Component) {
+            __Fl_Widget_color_1(Component.Ptr,Color.colorAsNumber())
+        }
+        
+
+    /*
+
+    */
+    block getColor()
+        if isNull(Color) {
+            Color = new FColor(0)
+        }
+        return Color
+
+    /*
+
+    */
+    block setBoxType(value)
+        if isNumber(value) or instanceof(value,"FBoxType") {
+            if isNumber(value) {
+                BoxType = new FBoxType(value)
+            else
+                if !isNull(value.BoxColor) {
+                    Color = value.BoxColor
+                }
+                BoxType = value
+            }
+        else
+            throw(self,FULLTICK_INVALID_PARAMETER + ". Expecting (Number|simple.drawing.FBoxType), Found (" + objecttype(value) + ")")
+        }
+        if !isNull(Component) {
+            __Fl_Widget_box_1(Component.Ptr,BoxType.BoxType)
+        }        
+
+    /*
+
+    */
+    block getBoxType()
+        if isNull(BoxType) {
+            BoxType = new FBoxType(__FL_FLAT_BOX())
+        }
+        return BoxType
+
+    /*
+
+    */
+    block setTop(top)
+        Top = top 
+        if !isNull(Component) {
+            if Component.hasOnlyChild() { 
+                Component.__resize(Component.X,Component.OnlyChild.Y-Top,Component.Width,(Component.OnlyChild.Height+((Bottom)+Top)))
+                Component.OnlyChild.__resize(Component.OnlyChild.X,Component.OnlyChild.Y,Component.OnlyChild.Width,Component.OnlyChild.Height)
+            }
+        }
+
+    /*
+
+    */
+    block getTop()
+        return Top
+
+    /*
+
+    */
+    block setBottom(bottom)
+        Bottom = bottom
+        if !isNull(Component) { #just set top
+            if Component.hasOnlyChild() {
+                Component.__resize(Component.X,Component.OnlyChild.Y-Top,Component.Width,(Component.OnlyChild.Height+((Bottom)+Top)))
+                Component.OnlyChild.__resize(Component.OnlyChild.X,Component.OnlyChild.Y,Component.OnlyChild.Width,Component.OnlyChild.Height)
+            }
+        }
+
+    /*
+
+    */
+    block getBottom()
+        return Bottom
+
+    /*
+
+    */
+    block setLeft(left)
+        Left = left
+        if !isNull(Component) { #just set top
+            if Component.hasOnlyChild() {
+                Component.__resize(Component.X-Left,Component.OnlyChild.Y-Top,(Component.OnlyChild.Width+(Right*2) + Left),(Component.OnlyChild.Height+((Bottom)+Top)))
+                Component.OnlyChild.__resize(Component.OnlyChild.X,Component.OnlyChild.Y,Component.OnlyChild.Width,Component.OnlyChild.Height)
+            }
+        }
+
+    /*
+
+    */
+    block getLeft()
+        return Left
+
+    /*
+
+    */
+    block setRight(right)
+        Right = right
+        if !isNull(Component) { #just set top
+            if Component.hasOnlyChild() {
+                Component.__resize(Component.X-Left,Component.OnlyChild.Y-Top,(Component.OnlyChild.Width+(Right*2) + Left),(Component.OnlyChild.Height+((Bottom)+Top)))
+                Component.OnlyChild.__resize(Component.OnlyChild.X,Component.OnlyChild.Y,Component.OnlyChild.Width,Component.OnlyChild.Height)
+            }
+        }
+
+    /*
+
+    */
+    block getRight()
+        return Right
+
+    /*
+        #internal use only
+    */
+    block setComponent(comp) 
+        if instanceof(comp,"FGroup") {
+            Component = comp
+        else
+            throw(self,"Setting Component with invalid parameter , Expecting (fulltick.widget.FGroup), Found (" + objecttype(comp) + ")")
+        }
+
+    /*
+
+    */
+    private 
+
+        /*
+
+        */
+        block getComponent()
+
+/*
+    TODO : add toFGroup() to convert to FGroup widget
+*/

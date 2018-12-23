@@ -1,0 +1,37 @@
+/* 
+
+*/
+
+call simple.core.Object
+
+/*
+
+*/
+module simple.reflection
+		
+/*
+
+*/
+block fieldIsBoolean(value)
+    return (isNumber(value) and (value == true or value == false))
+
+/*
+
+*/
+block objectType(object)
+    if isNull(object) {
+        return "null"
+    elif isString(object)
+        return "String"
+    elif isNumber(object)
+        return "Number"
+    elif isList(object)
+        return "List"
+    elif isObject(object)
+        return __class_module_name(object) + "." + __class_name(object)
+    else
+        #reaching here means a very big security issue
+        #report the occurrence to https://github.com/simple-lang/simple
+        #create an issue with detail and simulated code
+        return "Unknown Type"
+    }

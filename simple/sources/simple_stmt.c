@@ -307,14 +307,6 @@ int simple_parser_stmt ( Parser *parser )
 				strcpy(file_name,module_name->str);
 				call_type = 1 ;
 			}
-			/* Check File in the simple/bin folder */
-			/*if ( simple_fexists(parser->TokenText) == 0 ) {
-				simple_exefolder(file_name);
-				strcat(file_name,parser->TokenText);
-				if ( simple_fexists(file_name) == 0 ) {
-					strcpy(file_name,parser->TokenText);
-				}
-			} *///this commented block is EVILLLL
 			/* Generate Code */
 			simple_parser_icg_newoperation(parser,ICO_FILENAME);
 			simple_parser_icg_newoperand(parser,file_name);
@@ -376,7 +368,7 @@ int simple_parser_stmt ( Parser *parser )
 	}
 	/* Statement --> display Expr */
 	if ( simple_parser_iskeyword(parser,KEYWORD_DISPLAY)) {
-		simple_parser_nexttoken(parser);
+		simple_parser_nexttoken(parser); 
 		#if SIMPLE_USEDISPLAYBLOCKTION
 		/* Generate code to use the display block */
 		simple_parser_icg_newoperation(parser,ICO_LOADBLOCK);
@@ -396,11 +388,11 @@ int simple_parser_stmt ( Parser *parser )
 		**  Generate Code 
 		*/
 		simple_parser_icg_newoperation(parser,ICO_BLOCKEXE);
-		parser->nAssignmentFlag = 0 ;
-		x = simple_parser_expr(parser);
+		parser->nAssignmentFlag = 0 ; 
+		x = simple_parser_expr(parser); 
 		parser->nAssignmentFlag = 1 ;
 		/* Generate Code */
-		simple_parser_icg_newoperation(parser,ICO_DISPLAY);
+		simple_parser_icg_newoperation(parser,ICO_DISPLAY); 
 		#endif
 		#if SIMPLE_PARSERTRACE
 		SIMPLE_STATE_CHECKPRINTRULES 

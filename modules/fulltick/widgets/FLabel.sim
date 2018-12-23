@@ -1,0 +1,255 @@
+
+/*
+
+*/
+call simple.core.Object
+call "../base/FWidget.sim" ? fulltick.base
+call "../painting/FColor.sim" ? fulltick.painting
+call "../drawing/FAlignment.sim" ? fulltick.drawing
+call "../drawing/FFont.sim" ? fulltick.drawing
+call "../drawing/FBoxType.sim" ? fulltick.drawing
+call "./FBox.sim" ? fulltick.widgets
+
+/*
+
+*/
+module fulltick.widgets
+
+/*
+
+*/
+class FLabel : FBox
+
+    /*
+
+    */
+    Width = FApp.Scheme.getShemeValue("FLabel.Width") 
+
+    /*
+
+    */
+    Height = FApp.Scheme.getShemeValue("FLabel.Height") 
+
+    /*
+
+    */
+    X = FApp.Scheme.getShemeValue("FLabel.X") 
+
+    /*
+
+    */
+    Y = FApp.Scheme.getShemeValue("FLabel.Y") 
+
+    /*
+
+    */
+    Label = FApp.Scheme.getShemeValue("FLabel.Label") 
+
+    /*
+
+    */
+    CapitalizeLabel = FApp.Scheme.getShemeValue("FLabel.CapitalizeLabel") 
+
+    /*
+
+    */
+    Background = FApp.Scheme.getShemeValue("FLabel.Background") 
+
+    /*
+
+    */
+    LabelAlignment = FApp.Scheme.getShemeValue("FLabel.LabelAlignment") 
+
+    /*
+
+    */
+    Box = FApp.Scheme.getShemeValue("FLabel.Box") 
+
+    /*
+
+    */
+    Border = FApp.Scheme.getShemeValue("FLabel.Border") 
+
+    /*
+
+    */
+    HasBorder = FApp.Scheme.getShemeValue("FLabel.HasBorder") 
+
+    /*
+
+    */
+    AcceptInput = FApp.Scheme.getShemeValue("FLabel.AcceptInput")
+
+    /*
+
+    */
+    Visible = FApp.Scheme.getShemeValue("FLabel.Visible") 
+
+    /*
+
+    */
+    KeyboardFocusable = FApp.Scheme.getShemeValue("FLabel.KeyboardFocusable") 
+
+    /*
+
+    */
+    Tooltip = FApp.Scheme.getShemeValue("FLabel.Tooltip") 
+
+    /*
+
+    */
+    LabelColor = FApp.Scheme.getShemeValue("FLabel.LabelColor") 
+
+    /*
+
+    */
+    LabelFont = FApp.Scheme.getShemeValue("FLabel.LabelFont") 
+
+    /*
+
+    */
+    LabelSize = FApp.Scheme.getShemeValue("FLabel.LabelSize")
+
+    /*
+
+    */
+    LabelType = FApp.Scheme.getShemeValue("FLabel.LabelType")
+
+    /*
+
+    */
+    SelectionColor = FApp.Scheme.getShemeValue("FLabel.SelectionColor")
+
+    /*
+
+    */
+    Text = null
+
+    /*
+
+    */
+    block FLabel(params...)
+        paramsLen = lengthOf(params)
+        if paramsLen == 1 {
+            Label = params[0]
+            if !isString(Label) {
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'string' as FLabel Label")
+            }
+        elif paramsLen == 2
+            X = params[0]
+            Y = params[1]
+            if !isNumber(X) or !isNumber(Y) {
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FLabel X and Y")
+            }
+        elif paramsLen == 3 
+            X = params[0]
+            Y = params[1]
+            Label = params[2]
+            if !isNumber(X) or !isNumber(Y) {
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FLabel X and Y")
+            }
+            if !isString(Label) {
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'string' as FLabel Label")
+            }
+        elif paramsLen == 4
+            X = params[0]
+            Y = params[1]
+            Width = params[2]
+            Height = params[3]
+            if !isNumber(X) or !isNumber(Y) {
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FLabel X and Y")
+            }
+            if !isNumber(Width) or !isNumber(Height) {
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FLabel Width and Height")
+            }
+        elif paramsLen == 5
+            X = params[0]
+            Y = params[1]
+            Width = params[2]
+            Height = params[3]
+            Label = params[4]
+            if !isNumber(X) or !isNumber(Y) {
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FLabel X and Y")
+            }
+            if !isNumber(Width) or !isNumber(Height) {
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FLabel Width and Height")
+            }
+            if !isString(Label) {
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'string' as FLabel Label")
+            }
+        else    
+            if paramsLen != 0 {
+                throw(self,SIMPLE_VM_ERROR_EXTRAPARAMETERSCOUNT)
+            }
+        } 
+
+        if CapitalizeLabel {
+            Label = toUpperCase(Label)
+        } 
+        Ptr = __Fl_Box(X, Y, Width, Height, Label) 
+        registerWidget()
+        setLabelAlignment(LabelAlignment)
+        setBox(Box)
+        setBorder(Border)
+        construct()
+        
+        return self
+
+    /*
+
+    */
+    block setText(value)
+        validatePointer()
+        setLabel(value)
+        Text = value
+
+    /*
+
+    */
+    block getText()
+        return Label
+
+    /*
+
+    */
+    block setBackground(value)
+        validatePointer()
+        if isObject(value) { 
+            if Box == FBoxType.NO_BOX { 
+                adaptSizeToText()
+                __Fl_Widget_box_1(Ptr,1)
+            }
+            if __instance_of(value,"FColor") {
+                __Fl_Widget_color_1(Ptr,value.colorAsNumber())
+            }
+        elif isNumber(value) or isString(value) 
+            if Box == FBoxType.NO_BOX { 
+                adaptSizeToText()
+                __Fl_Widget_box_1(Ptr,1)
+            }
+            __value = value
+            value = new FColor(__value) 
+            __Fl_Widget_color_1(Ptr,value.colorAsNumber())
+        elif isNull(value)
+            __Fl_Widget_box_1(Ptr,0)
+        else
+            throw(self,FULLTICK_INVALID_PARAMETER + ". Expecting innstance of 'Fcolor', 'Color', 'number' or 'string' as FWidget Background value")
+        }
+        Background = value
+
+    /*
+
+    */
+    private 
+
+        /*
+
+        */
+        block adaptSizeToText()
+            width = 1
+            height = 1
+            textLength = lengthOf(Label)
+            width *= textLength * LabelSize/2
+            height *= LabelSize + 2
+            setSize(width,height)
+

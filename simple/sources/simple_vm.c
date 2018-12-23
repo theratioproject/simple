@@ -98,6 +98,8 @@ VM * simple_vm_new ( SimpleState *sState )
 	vm->aActiveModules = simple_list_new_gc(vm->sState,0);
 	/* Scope of class attribute ( 0 = public 1 = private ) */
 	vm->nPrivateFlag = 0 ;
+	/* Final Scope of class attribute ( 0 = not final 1 = final ) */
+	vm->finalFlag = 0 ;
 	/* Set/Get Property */
 	vm->nGetSetProperty = 0 ;
 	vm->pGetSetObject = NULL ;
@@ -382,7 +384,7 @@ SIMPLE_API void simple_vm_execute ( VM *vm )
 	switch ( vm->nOPCode ) {
 		/* Stack and Variables */
 		case ICO_PUSHC :
-			SIMPLE_VM_STACK_PUSHC ;
+			SIMPLE_VM_STACK_PUSHC ; 
 			break ;
 		case ICO_PUSHN :
 			SIMPLE_VM_STACK_PUSHN ;
@@ -397,7 +399,7 @@ SIMPLE_API void simple_vm_execute ( VM *vm )
 			simple_vm_assignment(vm);
 			break ;
 		case ICO_FINAL :
-			vm->finalFlag = 1 ;
+			vm->finalFlag = 1 ; 
 			break ;
 		case ICO_INC :
 			simple_vm_inc(vm);
@@ -965,7 +967,7 @@ SIMPLE_API void simple_vm_newbytecodeitem ( VM *vm,int x )
 
 SIMPLE_API void simple_vm_runcode ( VM *vm,const char *cStr )
 {
-	int nEvalReturnPC,nEvalReallocationFlag,nPC,nRunVM,nsp,nBlockSP,nLineNumber,nRetEvalDontDelete  ;
+	int nEvalReturnPC,nEvalReallocationFlag,nPC,nRunVM,nsp,nBlockSP,nLineNumber,nRetEvalDontDelete,finalFlag  ;
 	List *pStackList  ;
 	/* Save state to take in mind nested events execution */
 	vm->nRunCode++ ;
@@ -973,6 +975,7 @@ SIMPLE_API void simple_vm_runcode ( VM *vm,const char *cStr )
 	nEvalReallocationFlag = vm->nEvalReallocationFlag ;
 	nPC = vm->nPC ;
 	nsp = vm->nsp ;
+	finalFlag = vm->finalFlag ;
 	nBlockSP = vm->nBlockSP ;
 	pStackList = simple_vm_savestack(vm);
 	nLineNumber = vm->nLineNumber ;
@@ -1007,6 +1010,7 @@ SIMPLE_API void simple_vm_runcode ( VM *vm,const char *cStr )
 	vm->nsp = nsp ;
 	vm->nBlockSP = nBlockSP ;
 	vm->nLineNumber = nLineNumber ;
+	vm->finalFlag = finalFlag ;
 	vm->nRetEvalDontDelete = nRetEvalDontDelete ;
 }
 

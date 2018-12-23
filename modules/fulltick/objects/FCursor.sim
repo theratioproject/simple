@@ -1,0 +1,342 @@
+
+
+/*
+
+*/
+call simple.debugging.Throw
+call simple.core.Object
+call "../base/FulltickErrorMessages.sim" ? fulltick.base
+
+/*
+
+*/
+module fulltick.objects
+
+/*
+
+*/
+FCursor = new fulltick.objects.FCursor
+
+/*
+
+*/
+class FCursor : Object
+
+    /*
+
+    */
+    IsCursorNumber = false
+
+    /*
+
+    */
+    CursorValue = 0
+
+    /*
+
+    */
+    FL_CURSOR_DEFAULT = null
+
+    /*
+
+    */
+    FL_CURSOR_ARROW = null
+
+    /*
+
+    */
+    FL_CURSOR_CROSS = null
+
+    /*
+
+    */
+    FL_CURSOR_WAIT = null
+
+    /*
+
+    */
+    FL_CURSOR_INSERT = null
+
+    /*
+
+    */
+    FL_CURSOR_HAND = null
+
+    /*
+
+    */
+    FL_CURSOR_HELP = null
+
+    /*
+
+    */
+    FL_CURSOR_MOVE = null
+
+    #Resize indicators
+
+    /*
+
+    */
+    FL_CURSOR_NS = null
+
+    /*
+
+    */
+    FL_CURSOR_WE = null
+
+    /*
+
+    */
+    FL_CURSOR_NWSE = null
+
+    /*
+
+    */
+    FL_CURSOR_NESW = null
+
+    /*
+
+    */
+    FL_CURSOR_N = null
+
+    /*
+
+    */
+    FL_CURSOR_NE = null
+
+    /*
+
+    */
+    FL_CURSOR_E = null
+
+    /*
+
+    */
+    FL_CURSOR_SE = null
+
+    /*
+
+    */
+    FL_CURSOR_S = null
+
+    /*
+
+    */
+    FL_CURSOR_SW = null
+
+    /*
+
+    */
+    FL_CURSOR_W = null
+
+    /*
+
+    */
+    FL_CURSOR_NW = null
+
+    /*
+
+    */
+    FL_CURSOR_NONE = null
+
+    /*
+
+    */
+    CursorName = null
+
+    /*
+
+    */#to accept image
+    block FCursor(params...)
+        paramsLen = lengthOf(params) 
+        cursor = null
+        cursorName = "UnknownCuursor"
+        if paramsLen == 1 {
+            cursor = params[0] 
+            if isObject(cursor) and __instance_of(cursor,"FCursor") {
+                copyCursorObject(cursor)
+            elif isNumber(cursor) 
+                IsCursorNumber = true
+            else
+                throw(self,FULLTICK_INVALID_PARAMETER+" Invalid cursor value, expecting Number, String, File or FImage")
+            }
+        elif paramsLen == 2
+            cursor = params[0]
+            cursorName = params[1]
+            if isNumber(cursor) and isString(cursorName) {
+                IsCursorNumber = true
+            else
+                throw(self,FULLTICK_INVALID_PARAMETER+" Invalid cursor or cursorName value, expecting Number, String, File or FImage")
+            }
+        }
+        if IsCursorNumber {
+            CursorValue = cursor
+            CursorName = cursorName
+        }
+          
+
+	/*
+
+	*/
+	block copyCursorObject(object)
+		fcursorAttrs = __object_attributes(object)
+		for fcursorAttr in fcursorAttrs {
+			fcursorValue = __get_attribute_value(object,fcursorAttr)
+			__add_attribute_to_object(self,fcursorAttr) 
+			__set_attribute_value(self,fcursorAttr,fcursorValue) 
+		}
+
+    /*
+
+    */
+    block getFL_CURSOR_DEFAULT()
+        return new FCursor(0,"FL_CURSOR_DEFAULT")
+
+    /*
+
+    */
+    block getFL_CURSOR_ARROW()
+        return new FCursor(35,"FL_CURSOR_ARROW")
+
+    /*
+
+    */
+    block getFL_CURSOR_CROSS()
+        return new FCursor(66,"FL_CURSOR_CROSS")
+
+    /*
+
+    */
+    block getFL_CURSOR_WAIT()
+        return new FCursor(76,"FL_CURSOR_WAIT")
+
+    /*
+
+    */
+    block getFL_CURSOR_INSERT()
+        return new FCursor(77,"FL_CURSOR_INSERT")
+
+    /*
+
+    */
+    block getFL_CURSOR_HAND()
+        return new FCursor(31,"FL_CURSOR_HAND")
+
+    /*
+
+    */
+    block getFL_CURSOR_HELP()
+        return new FCursor(47,"FL_CURSOR_HELP")
+
+    /*
+
+    */
+    block getFL_CURSOR_MOVE()
+        return new FCursor(27,"FL_CURSOR_MOVE")
+
+    /*
+
+    */
+    block getFL_CURSOR_NS()
+        return new FCursor(78,"FL_CURSOR_NS")
+
+    /*
+
+    */
+    block getFL_CURSOR_WE()
+        return new FCursor(79,"FL_CURSOR_WE")
+        
+    /*
+    
+    */
+    block getFL_CURSOR_NWSE()
+        return new FCursor(80,"FL_CURSOR_NWSE")
+    
+    /*
+
+    */
+    block getFL_CURSOR_NESW()
+        return new FCursor(81,"FL_CURSOR_NESW")
+
+    /*
+
+    */
+    block getFL_CURSOR_N()
+        return new FCursor(70,"FL_CURSOR_NESW")
+
+    /*
+
+    */
+    block getFL_CURSOR_NE()
+        return new FCursor(69,"FL_CURSOR_NE")
+        
+    /*
+
+    */
+    block getFL_CURSOR_E()
+        return new FCursor(49,"FL_CURSOR_E")
+
+    /*
+
+    */
+    block getFL_CURSOR_SE()
+        return new FCursor(8,"FL_CURSOR_SE")
+
+    /*
+
+    */
+    block getFL_CURSOR_S()
+        return new FCursor(9,"FL_CURSOR_S")
+
+    /*
+
+    */
+    block getFL_CURSOR_SW()
+        return new FCursor(7,"FL_CURSOR_SW")
+
+    /*
+
+    */
+    block getFL_CURSOR_W()
+        return new FCursor(38,"FL_CURSOR_W")
+
+    /*
+
+    */
+    block getFL_CURSOR_NW()
+        return new FCursor(68,"FL_CURSOR_NW")
+
+    /*
+
+    */
+    block getFL_CURSOR_NONE()
+        return new FCursor(255,"FL_CURSOR_NONE")
+
+    /*
+
+	*/
+	block equals(object)
+		if !isObject(object) or !__instance_of(object,"FCursor") {
+			return false
+		}
+		return (IsCursorNumber == object.IsCursorNumber and CursorValue == object.CursorValue and CursorName == object.CursorName)
+
+    /*
+
+    */
+    block toString()
+        return "[fulltick.objects.FCursor:IsCursorNumber=" + IsCursorNumber + ",CursorValue=" + CursorValue + ",CursorName=" + CursorName + "]"
+
+
+    /*
+
+    */
+    private 
+
+        /*
+
+        */
+        cursorNameMap = [
+
+        ]
+        

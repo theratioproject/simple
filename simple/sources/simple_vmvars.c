@@ -159,14 +159,14 @@ int simple_vm_findvar2 ( VM *vm,int x,List *list2,const char *cStr )
 		SIMPLE_VM_STACK_OBJTYPE = SIMPLE_OBJTYPE_VARIABLE ;
 		/* Check Setter/Getter for Public Attributes */
 		if ( vm->nGetSetProperty == 1 ) {
-			/* Avoid executing Setter/Getter when we use self.attribute and this.attribute */
+			/* Avoid executing Setter/Getter when we use self.attribute and this.attribute */ 
 			pThis = simple_list_getlist(simple_vm_getglobalscope(vm),SIMPLE_VM_STATICVAR_THIS) ;
 			if ( pThis != NULL ) {
-				if ( simple_list_getpointer(pThis,SIMPLE_VAR_VALUE ) == vm->pGetSetObject ) {
+				if ( simple_list_getpointer(pThis,SIMPLE_VAR_VALUE) == vm->pGetSetObject ) {
 					return 1 ;
 				}
 			}
-			simple_vm_oop_setget(vm,list2);
+			simple_vm_oop_setget(vm,list2); 
 		}
 		else if ( ( x == SIMPLE_VARSCOPE_OBJSTATE ) && ( simple_vm_oop_callmethodinsideclass(vm) == 0 ) ) {
 			/* Accessing Object Attribute Using { } */
@@ -219,7 +219,8 @@ SIMPLE_API void simple_vm_newvar ( VM *vm,const char *cStr )
 	assert(vm->pActiveMem);
 	list = simple_vm_newvar2(vm,cStr,vm->pActiveMem);
 	vm->nsp++ ;
-	
+	const char* var ;
+	int x , isFinal, initDec ;
 	SIMPLE_VM_STACK_SETPVALUE(list);
 	SIMPLE_VM_STACK_OBJTYPE = SIMPLE_OBJTYPE_VARIABLE ;
 	/* Set the scope of the new variable */

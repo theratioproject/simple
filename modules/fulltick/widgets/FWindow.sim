@@ -1,0 +1,857 @@
+
+/*
+
+*/
+call simple.core.Object
+call simple.graphics.Dimension
+call simple.graphics.Rectangle
+call simple.graphics.Point
+call simple.system.ScreenDimension
+call "../base/FWidget.sim" ? fulltick.base
+call "../FApp.sim" ? fulltick
+call "../FScheme.sim" ? fulltick
+call "./FGroup.sim" ? fulltick.widgets
+call "./FLabel.sim" ? fulltick.widgets
+call "../objects/FCursor.sim" ? fulltick.objects
+
+/*
+
+*/
+module fulltick.widgets
+
+/*
+
+*/
+FWindowModality = new FWindowModality
+
+/*
+
+*/
+class FWindow : FGroup
+
+    /*
+
+    */
+    Title = FApp.Scheme.getShemeValue("FWindow.Title")
+
+    /*
+
+    */
+    Background = FApp.Scheme.getShemeValue("FWindow.Background")
+
+    /*
+
+    */
+    Width = FApp.Scheme.getShemeValue("FWindow.Width")
+
+    /*
+
+    */
+    MinWidth = FApp.Scheme.getShemeValue("FWindow.MinWidth") 
+
+    /*
+
+    */
+    MaxWidth = FApp.Scheme.getShemeValue("FWindow.MaxWidth") 
+
+    /*
+
+    */
+    Height = FApp.Scheme.getShemeValue("FWindow.Height") 
+
+    /*
+
+    */
+    MinHeight = FApp.Scheme.getShemeValue("FWindow.MinHeight") 
+
+    /*
+
+    */
+    MaxHeight = FApp.Scheme.getShemeValue("FWindow.MaxHeight") 
+
+    /*
+
+    */
+    X = FApp.Scheme.getShemeValue("FWindow.X")
+
+    /*
+
+    */
+    XRoot = FApp.Scheme.getShemeValue("FWindow.XRoot")
+
+    /*
+
+    */
+    Y = FApp.Scheme.getShemeValue("FWindow.Y")
+
+    /*
+
+    */
+    YRoot = FApp.Scheme.getShemeValue("FWindow.YRoot") 
+
+    /*
+
+    */
+    Y_Diff = FApp.Scheme.getShemeValue("FWindow.Y_Diff") 
+
+    /*
+
+    */
+    HasWindowBorder = FApp.Scheme.getShemeValue("FWindow.HasWindowBorder")
+
+    /*
+
+    */
+    Cursor = FApp.Scheme.getShemeValue("FWindow.Cursor")
+
+    /*
+
+    */
+    Fullscreen = FApp.Scheme.getShemeValue("FWindow.Fullscreen")
+
+    /*
+
+    */
+    IconLabel = FApp.Scheme.getShemeValue("FWindow.IconLabel")
+
+    /*
+
+    */
+    Label = FApp.Scheme.getShemeValue("FWindow.Label")
+
+    /*
+
+    */
+    TooltipWindow = FApp.Scheme.getShemeValue("FWindow.TooltipWindow")
+
+    /*
+
+    */
+    IsMenuWindow = FApp.Scheme.getShemeValue("FWindow.IsMenuWindow")
+
+    /*
+
+    */
+    IsModal = FApp.Scheme.getShemeValue("FWindow.IsModal")
+
+    /*
+
+    */
+    Modality = FApp.Scheme.getShemeValue("FWindow.Modality")
+
+    /*
+
+    */
+    AdaptiveSize = FApp.Scheme.getShemeValue("FWindow.AdaptiveSize") 
+
+    /*
+
+    */
+    AcceptInput = FApp.Scheme.getShemeValue("FWindow.AcceptInput")
+
+    /*
+
+    */
+    Visible = FApp.Scheme.getShemeValue("FWindow.Visible") 
+
+    /*
+
+    */
+    KeyboardFocusable = FApp.Scheme.getShemeValue("FWindow.KeyboardFocusable") 
+
+    /*
+
+    */
+    Tooltip = FApp.Scheme.getShemeValue("FWindow.Tooltip") 
+
+    /*
+
+    */
+    LabelColor = FApp.Scheme.getShemeValue("FWindow.LabelColor") 
+
+    /*
+
+    */
+    LabelFont = FApp.Scheme.getShemeValue("FWindow.LabelFont")
+
+    /*
+
+    */
+    LabelSize = FApp.Scheme.getShemeValue("FWindow.LabelSize") 
+
+    /*
+
+    */
+    LabelType = FApp.Scheme.getShemeValue("FWindow.LabelType")
+
+    /*
+
+    */
+    SelectionColor = FApp.Scheme.getShemeValue("FWindow.SelectionColor")
+
+    /*
+
+    */
+    WindowEvent = null
+
+    /*
+
+    */
+    HasActionBar = false
+
+    /*
+
+    */
+    ActionBar = null
+
+    /*
+
+    */
+    ActionBarLabel = null
+
+    /*
+
+    */
+    block FWindow(params...) 
+        paramsLen = lengthOf(params)
+        if paramsLen == 1 {
+            Title = params[0]
+            if !isString(Title) {
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'string' as FWindow Title")
+            }
+        elif paramsLen == 2
+            Width = params[0]
+            Height = params[1]
+            if !isNumber(Width) or !isNumber(Height) {
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FWindow Width and Height")
+            }
+        elif paramsLen == 3 
+            Width = params[0]
+            Height = params[1]
+            Title = params[2]
+            if !isNumber(Width) or !isNumber(Height) {
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FWindow Width and Height")
+            }
+            if !isString(Title) {
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'string' as FWindow Title")
+            }
+        elif paramsLen == 4
+            X = params[0]
+            Y = params[1]
+            Width = params[2]
+            Height = params[3]
+            if !isNumber(X) or !isNumber(Y) {
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FWindow X and Y")
+            }
+            if !isNumber(Width) or !isNumber(Height) {
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FWindow Width and Height")
+            }
+        elif paramsLen == 5
+            X = params[0]
+            Y = params[1]
+            Width = params[2]
+            Height = params[3]
+            Title = params[4]
+            if !isNumber(X) or !isNumber(Y) {
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FWindow X and Y")
+            }
+            if !isNumber(Width) or !isNumber(Height) {
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FWindow Width and Height")
+            }
+            if !isString(Title) {
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'string' as FWindow Title")
+            }
+        else    
+            if paramsLen != 0 {
+                throw(self,SIMPLE_VM_ERROR_EXTRAPARAMETERSCOUNT)
+            }
+        } 
+
+        Ptr = __Fl_Window_1(0, 0, 0, 0, Title) 
+        resize(X, Y, Width, Height)
+        RootBox = new FGroup(1000, 10000, 0, 0)
+        construct()
+        RootBox.hide()
+        RootBox.__Name = "RootBox" 
+        super.setResizable(RootBox)  
+        makeCurrent()
+        endBegin()
+        setHasWindowBorder(HasWindowBorder)
+        if isAndroid() and FScheme.UsePlatformUI { 
+            HasActionBar = true
+            buildActionBar() 
+        }
+        registerWidget()
+        return self
+
+    /*
+        #faulty
+    */
+    block setResizable(condition) 
+        if isObject(condition) { 
+            if Resizable {
+                super.setResizable(condition) 
+            else
+                super.setResizable(false) 
+            }
+        elif isNumber(condition)
+            if isNull(ResizableWidget) or ResizableWidget.equals(RootBox) {
+                if condition {
+                    super.setResizable(RootBox)
+                else 
+                    super.setResizable(false)
+                }
+            else 
+                super.setResizable(ResizableWidget)
+            }
+           
+        }
+
+    /*
+
+    */
+    block show(params...)
+        validatePointer()
+        paramsLen = lengthOf(params)
+        
+        if paramsLen == 0 {
+            __Fl_Window_show(Ptr) 
+        else
+            __Fl_Window_show(Ptr) 
+            return 
+            #todo
+            argv = ""
+            for arg in params {
+                argv + arg + " "
+            }
+            __Fl_Window_show_1(Ptr,paramsLen-1,argv) 
+        }
+        waitForExpose()
+        Visible = true
+
+    /*
+
+    */
+    block hide()
+        validatePointer()
+        __Fl_Window_hide(Ptr)
+        Visible = false
+
+    /*
+
+    */
+    block setHasWindowBorder(value)  
+        validatePointer() 
+        if (!isNull(value) and isNumber(value)) and value == true or value = false {
+            __Fl_Window_border(Ptr,value) 
+            HasWindowBorder = value
+            if value == false {
+                resize(X,Y,Width,Height)
+                #setY(Y)
+            }
+            return
+        else
+            throw(self,FULLTICK_INVALID_PARAMETER+" You can only use a Boolean value to change FWindow border")
+        }
+
+    /*
+
+    */
+    block getHasWindowBorder()
+        return HasWindowBorder
+
+    /*
+
+    */
+    block clearModalStates()
+        validatePointer()
+        hide()
+        __Fl_Window_clear_modal_states(Ptr)
+        show()
+        Modality = FWindowModality.NORMAL
+
+    /*
+
+    */
+    block copyTitle(title)
+        Title = title
+
+    /*
+
+    */
+    block setTitle(title) 
+        validatePointer()
+        if isString(title) or isObject(title) {
+            if isObject(title) and __instance_of(title,"String") { 
+                Title = title.toString()
+            elif isString(title)
+                Title = title
+            }            
+            if HasActionBar {
+                ActionBarLabel.Label = Title
+            }
+            __Fl_Window_copy_label(Ptr,Title)
+        else
+            throw(self,FULLTICK_INVALID_PARAMETER+" Only String is accepted as a parameter for FWindow Title")
+        }
+
+    /*
+
+    */
+    block getTitle()
+        return Title
+
+    /*
+
+    */#accept rgb image later
+    block setCursor(value) 
+        validatePointer() 
+        if isNumber(value) or isObject(value) {
+            if isNumber(value) { 
+                tvalue = new FCursor(value)
+            else
+                tvalue = value
+            }
+            __Fl_Window_cursor(Ptr,tvalue.CursorValue)
+            Cursor = tvalue  
+        else
+            throw(self,FULLTICK_INVALID_PARAMETER+" Only String is accepted as a parameter for FWindow Title")
+        }
+
+    /*
+
+    */
+    block getCursor()
+        return Cursor
+
+    /*
+
+    */
+    block decoratedHeight()
+        validatePointer()
+        return __Fl_Window_decorated_h(Ptr)
+
+    /*
+
+    */
+    block decoratedWidth()
+        validatePointer()
+        return __Fl_Window_decorated_w(Ptr)
+
+    /*
+
+    */
+    block freePosition()
+        validatePointer()
+        __Fl_Window_free_position(Ptr)
+
+    /*
+
+    */
+    block setFullscreen(value)
+        validatePointer()
+        if (!isNull(value) and isNumber(value)) and value == true or value = false {
+            if value {
+                __Fl_Window_fullscreen(Ptr) 
+            else
+                __Fl_Window_fullscreen_off(Ptr)
+            }
+            Fullscreen = value
+            return
+        else
+            throw(self,FULLTICK_INVALID_PARAMETER+" You can only use a Boolean value to set FWindow fullscreen")
+        }
+
+    /*
+
+    */
+    block getFullscreen()
+        return Fullscreen
+
+    /*
+
+    */
+    block hotspot(x, y, offscreenv...)
+        validatePointer() 
+        offscreenvLen = lengthOf(offscreenv)
+        offscreen = 0 
+        if offscreenvLen == 1 {
+            offscreen = offscreenv[0]
+        elif offscreenvLen < 1
+        else
+            throw(self,SIMPLE_VM_ERROR_EXTRAPARAMETERSCOUNT)
+        }
+        if isNumber(x) and isNumber(y) and isNumber(offscreen) {
+            X = x
+            Y = y
+            
+            __Fl_Window_hotspot(Ptr,X,Y,offscreen)
+        else
+            throw(self,FULLTICK_INVALID_PARAMETER+" Only Number, ScreenPosition allowed as FWindow X and Y")
+        }
+
+    /*
+
+    */#use instance of FRGBImage
+    block icon(iconImage)
+        validatePointer()
+        __Fl_Window_icon(Ptr,null)
+
+    /*
+
+    */
+    block iconize()
+        validatePointer()
+        __Fl_Window_iconize(Ptr)
+
+    /*
+
+    */
+    block setIconLabel(value)
+        validatePointer()
+        if isString(value) {
+            __Fl_Window_iconlabel_1(Ptr,value)
+            IconLabel = value       
+        else
+            throw(self,FULLTICK_INVALID_PARAMETER+" Only String allowed as FWindow icon label ")
+        }
+
+    /*
+
+    */
+    block getIconLabel()
+        return IconLabel
+
+    /*
+
+    */
+    block setLabel(value) 
+        validatePointer()
+        if isString(value) { 
+            __Fl_Window_label_1(Ptr,value)
+            Label = value      
+        else
+            throw(self,"Invalid parameter. Only String allowed as FWindow label ")
+        }
+
+    /*
+
+    */
+    block getLabel()
+        return Label
+
+    /*
+
+    */
+    block makeCurrent()
+        validatePointer()
+        FApp.CurrentWidget = self
+        __Fl_Window_make_current(Ptr)
+
+    /*
+
+    */
+    block getIsMenuWindow()
+        return IsMenuWindow
+
+    /*
+
+    */
+    block setIsModal(value)
+        validatePointer()
+        if (!isNull(value) and isNumber(value)) and value == true or value = false {
+            hide()
+            if value {
+                __Fl_Window_set_modal(Ptr) 
+                Modality = FWindowModality.MODAL
+            else
+                __Fl_Window_set_non_modal(Ptr)
+                Modality = FWindowModality.NON_MODAL
+            }
+            show()
+            IsModal = value
+            return
+        else
+            throw(self,FULLTICK_INVALID_PARAMETER+" You can only use a Boolean value to change FWindow modality")
+        }
+
+    /*
+
+    */
+    block getIsModal()
+        return __Fl_Window_modal(Ptr)
+
+    /*
+
+    */
+    block getWindowState()
+        return WindowState
+
+    /*
+
+    */
+    block setTooltipWindow()
+        validatePointer()
+        __Fl_Window_set_tooltip_window(Ptr)
+
+    /*
+
+    */
+    block getTooltipWindow()
+        validatePointer()
+        return __Fl_Window_tooltip_window(Ptr)
+
+    /*
+
+    */
+    block isShown()
+        validatePointer()
+        return __Fl_Window_shown(Ptr)
+
+    /*
+
+    */
+    block sizeRange(params...)
+        validatePointer()
+        paramsLen = lengthOf(params)
+        minh = 1
+        minw = 1
+        maxh = 1
+        maxw = 1
+
+        if paramsLen == 0 {
+            minDimension = new Dimension(MinWidth,MinHeight)
+            maxDimension = new Dimension(MaxWidth,MaxHeight)
+            return [minDimension, maxDimension]
+
+        elif paramsLen == 1
+            dimensionList = params[0]
+            if !isNull(dimensionList) and isList(dimensionList) and lengthOf(dimensionList) > 0 and lengthOf(dimensionList) < 3 {
+                minDimension = dimensionList[0]
+                maxDimension = dimensionList[1]
+                if instanceof(minDimension,"Dimension") and instanceof(maxDimension,"Dimension") {
+                    MinWidth = minDimension.Width
+                    MinHeight = minDimension.Height
+                    MaxWidth = maxDimension.Width
+                    MaxHeight = maxDimension.Height
+                    __Fl_Window_size_range(Ptr,MinWidth,MinHeight,MaxWidth,MaxHeight,1,1,1)
+                else
+                    throw(self,"The parameter is not valid. Expecting ([Dimension, Dimension]) as FWindow sizeRange . Found (" + objecttype(dimensionList) + ")") 
+                }
+            else
+                throw(self,"The parameter is not valid. Expecting ([Dimension, Dimension]) as FWindow sizeRange . Found (" + objecttype(dimensionList) + ")") 
+            }
+
+        elif paramsLen == 2
+            minDimension = params[0]
+            maxDimension = params[1]
+            if instanceof(minDimension,"Dimension") and instanceof(maxDimension,"Dimension") {
+                MinWidth = minDimension.Width
+                MinHeight = minDimension.Height
+                MaxWidth = maxDimension.Width
+                MaxHeight = maxDimension.Height
+                __Fl_Window_size_range(Ptr,MinWidth,MinHeight,MaxWidth,MaxHeight,1,1,1)
+            else
+                throw(self,"The parameter is not valid. Expecting (Dimension, Dimension) as FWindow sizeRange . Found (" + objecttype(minDimension) + ", " + objecttype(maxDimension) + ")") 
+            }
+        elif paramsLen == 4
+            minw = params[0]
+            minh = params[1]
+            maxw = params[2]
+            maxh = params[3]
+            if isNumber(minh) and isNumber(minw) and isNumber(maxh) and isNumber(maxw) {
+                MinWidth = floor(minw)
+                MinHeight = floor(minh)
+                MaxWidth = floor(maxw)
+                MaxHeight = floor(maxh)
+                __Fl_Window_size_range(Ptr,MinWidth,MinHeight,MaxWidth,MaxHeight,1,1,1)
+            else
+                throw(self,"The parameter is not valid. Expecting (Number, Number, Number, Number) as FWindow sizeRange . Found (" + objecttype(minw) + ", " + objecttype(minh) + ", " + objecttype(maxw) + ", " + objecttype(maxh) + ")")
+            }
+
+        else
+            throw(self,"Setting FWindows sizeRange with invalid length of parameters")
+        }
+
+    /*
+
+    */
+    block setMinWidth(value)
+        validatePointer()
+        if isNumber(value) {
+            sizeRange(value,MinHeight,MaxWidth,MaxHeight)
+        else
+            throw(self,"Invalid parameter expecting Number as MinWidth")
+        }
+
+    /*
+
+    */
+    block setMinHeight(value)
+        validatePointer()
+        if isNumber(value) {
+            sizeRange(MinWidth,value,MaxWidth,MaxHeight)
+        else
+            throw(self,"Invalid parameter expecting Number as MinHeight")
+        }
+
+    /*
+
+    */
+    block setMaxWidth(value)
+        validatePointer()
+        if isNumber(value) {
+            sizeRange(MinWidth,MinHeight,value,MaxHeight)
+        else
+            throw(self,"Invalid parameter expecting Number as MaxWidth")
+        }
+
+    /*
+
+    */
+    block setMaxHeight(value)
+        validatePointer()
+        if isNumber(value) {
+            sizeRange(MinWidth,MinHeight,MaxWidth,value)
+        else
+            throw(self,"Invalid parameter expecting Number as MaxHeight")
+        }
+
+    /*
+
+    */
+    block getXRoot()
+        validatePointer()
+        return __Fl_Window_x_root(Ptr)
+
+    /*
+
+    */
+    block getYRoot()
+        validatePointer()
+        return __Fl_Window_y_root(Ptr)
+
+    /*
+
+    */
+    block waitForExpose()
+        validatePointer()
+        __Fl_Window_wait_for_expose(Ptr)
+
+    /*
+
+    */
+    block centerOnScreen()
+        screenDimension = new ScreenDimension()
+        screenWidth = screenDimension.Width
+        screenHeight = screenDimension.Height
+        xpos = (screenWidth/2) - (Width/2)
+        ypos = (screenHeight/2) - (Height/2)
+        resize(xpos,ypos,Width,Height)
+
+    /*
+
+    */
+    block setWindowListener(listener)
+        if instanceof(listener,"FWindowEvent") {
+            WindowEvent = listener
+            FApp.CreatedWidgets[PtrAddress] = self #do something about this
+        else
+            throw(self,"Invalid window listener, only an instance of fulltick.events.WindowEvent allow, found (" + objecttype(listener) + ")")
+        }
+
+    /*
+
+    */
+    block setWindowEvent(listener)
+        setWindowListener(listener)
+
+    /*
+
+    */
+    block getWindowListener() 
+        return WindowEvent
+
+    /*
+
+    */
+    block getWindowEvent() 
+        return WindowEvent
+
+    /*
+
+    */
+    private 
+
+        /*
+
+        */
+        RootBox = null
+
+        /*
+
+        */
+        __Cursor = Cursor
+
+        /*
+
+        */
+        block setIsMenuWindow()
+
+        /*
+
+        */
+        block setXRoot()
+
+        /*
+
+        */
+        block setYRoot()
+
+        /*
+
+        */
+        block reshow()
+            validatePointer()
+            hide()
+            show()
+
+        /*
+
+        */
+        block buildActionBar() 
+            ActionBar = new FGroup(0,0,Width,ActionBarSize) {
+                setBox(FBoxType.FLAT_BOX) 
+                setBackground(new FColor(62,78,184)) 
+                __Name = "WindowActionBar"
+                this.ActionBarLabel = new FLabel(10,20,this.Title) {
+                    setLabelSize(18)
+                    setLabelColor(FColor.FCOLOR_WHITE)
+                    setLabelFont(1)
+                } 
+                addWidget(this.ActionBarLabel)
+            } 
+            addWidget(ActionBar)
+        
+
+
+/*
+
+*/
+class FWindowModality
+
+    /*
+
+    */
+    NORMAL = 0
+
+    /*
+
+    */
+    MODAL = 1
+
+    /*
+
+    */
+    NON_MODAL = 2
+

@@ -63,6 +63,7 @@ SIMPLE_API void simple_vm_savestate ( VM *vm,List *list )
 	simple_list_addpointer_gc(vm->sState,list,simple_list_getpointer(pThis,SIMPLE_VAR_VALUE));
 	simple_list_addint_gc(vm->sState,list,simple_list_getint(pThis,SIMPLE_VAR_PVALUETYPE));
 	simple_list_addint_gc(vm->sState,list,vm->nCurrentGlobalScope);
+	simple_list_addint_gc(vm->sState,list,vm->finalFlag);
 }
 
 SIMPLE_API void simple_vm_restorestate ( VM *vm,List *list,int nPos,int nFlag )
@@ -142,7 +143,8 @@ SIMPLE_API void simple_vm_restorestate ( VM *vm,List *list,int nPos,int nFlag )
 	vm->aLoadAddressScope = (List *) simple_list_getpointer(list,37) ;
 	simple_vm_backstate(vm,simple_list_getint(list,38),vm->pLoadAddressScope);
 	/* We restore the global scope befor the This variable, because This use global scope */
-	vm->nCurrentGlobalScope = simple_list_getint(list,41) ;
+	vm->nCurrentGlobalScope = simple_list_getint(list,41) ; 
+	vm->finalFlag = simple_list_getint(list,42) ; 
 	/* Restore This variable */
 	pThis = simple_list_getlist(simple_vm_getglobalscope(vm),SIMPLE_VM_STATICVAR_THIS) ;
 	simple_list_setpointer_gc(vm->sState,pThis,SIMPLE_VAR_VALUE,simple_list_getpointer(list,39));
@@ -195,6 +197,9 @@ SIMPLE_API void simple_vm_savestate2 ( VM *vm,List *list )
 	simple_list_addpointer_gc(vm->sState,list,simple_list_getpointer(pThis,SIMPLE_VAR_VALUE));
 	simple_list_addint_gc(vm->sState,list,simple_list_getint(pThis,SIMPLE_VAR_PVALUETYPE));
 	simple_list_addint_gc(vm->sState,list,vm->nCurrentGlobalScope);
+	/* Save finalFlag, set it to 0 (not final) */
+	simple_list_addint_gc(vm->sState,list,vm->finalFlag);
+	vm->finalFlag = 0 ;
 	vm->nInClassRegion = 0 ;
 	vm->pAssignment = NULL ;
 	vm->nNOAssignment = 0 ;

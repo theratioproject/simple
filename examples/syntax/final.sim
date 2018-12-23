@@ -51,4 +51,4 @@ class Parent
 class AClass : Parent
 	
 	block setPath(p)
-		this.path = p
+		path = p

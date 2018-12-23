@@ -1,0 +1,440 @@
+
+/*
+
+*/
+call "../base/FWidget.sim" ? fulltick.base
+call simple.core.Object
+
+/*
+
+*/
+module fulltick.drawing
+
+/*
+
+*/
+final FAlignment = new fulltick.drawing.FAlignment
+
+/*
+    
+*/
+class FAlignment : Object
+
+    /*
+
+    */
+    ALIGN_CENTER = null
+
+    /*
+
+    */
+	ALIGN_TOP = null
+
+    /*
+
+    */
+	ALIGN_BOTTOM = null
+
+    /*
+
+    */
+	ALIGN_LEFT = null
+
+    /*
+
+    */
+	ALIGN_RIGHT = null
+
+    /*
+
+    */
+	ALIGN_INSIDE = null
+
+    /*
+
+    */
+	ALIGN_TEXT_OVER_IMAGE = null
+
+    /*
+
+    */
+	ALIGN_IMAGE_OVER_TEXT = null
+
+    /*
+
+    */
+	ALIGN_CLIP = null
+
+    /*
+
+    */
+	ALIGN_WRAP = null
+
+    /*
+
+    */
+	ALIGN_IMAGE_NEXT_TO_TEXT = null
+
+    /*
+
+    */
+	ALIGN_TEXT_NEXT_TO_IMAGE = null
+
+    /*
+
+    */
+	ALIGN_IMAGE_BACKDROP = null
+
+    /*
+
+    */
+	ALIGN_TOP_LEFT = null
+
+    /*
+
+    */
+	ALIGN_TOP_RIGHT = null
+
+    /*
+
+    */
+	ALIGN_BOTTOM_LEFT = null
+
+    /*
+
+    */
+	ALIGN_BOTTOM_RIGHT = null
+
+    /*
+
+    */
+	ALIGN_LEFT_TOP = null
+
+    /*
+
+    */
+	ALIGN_RIGHT_TOP = null
+
+    /*
+
+    */
+	ALIGN_LEFT_BOTTOM = null
+
+    /*
+
+    */
+	ALIGN_RIGHT_BOTTOM = null
+
+    /*
+
+    */
+	ALIGN_NOWRAP = null
+
+    /*
+
+    */
+	ALIGN_POSITION_MASK = null
+
+    /*
+
+    */
+	ALIGN_IMAGE_MASK = null
+
+    /*
+
+    */
+    Alignment = 0
+
+    /*
+
+    */
+    block FAlignment(align)
+        if isNumber(align) {
+            Alignment = align
+        else
+            throw(self,"Invalid parameter in Alignment Constructor. Expecting (Number). Found (" + objecttype(align) + ")")
+        }
+
+    /*
+
+    */
+    block getALIGN_CENTER() 
+        if isNull(ALIGN_CENTER) {
+            ALIGN_CENTER = new FAlignment(__FL_ALIGN_CENTER())
+        } 
+        return ALIGN_CENTER
+
+    /*
+
+    */
+	block getALIGN_TOP()
+        if isNull(ALIGN_TOP) {
+            ALIGN_TOP = new FAlignment(__FL_ALIGN_TOP())
+        } 
+        return ALIGN_TOP
+
+    /*
+
+    */
+	block getALIGN_BOTTOM()
+        if isNull(ALIGN_BOTTOM) {
+            ALIGN_BOTTOM = new FAlignment(__FL_ALIGN_BOTTOM())
+        }
+        return ALIGN_BOTTOM
+
+    /*
+
+    */
+	block getALIGN_LEFT()
+        if isNull(ALIGN_LEFT) {
+            ALIGN_LEFT = new FAlignment(__FL_ALIGN_LEFT())
+        }
+        return ALIGN_LEFT
+
+    /*
+
+    */
+	block getALIGN_RIGHT()
+        if isNull(ALIGN_RIGHT) {
+            ALIGN_RIGHT = new FAlignment(__FL_ALIGN_RIGHT())
+        }
+        return ALIGN_RIGHT
+
+    /*
+
+    */
+	block getALIGN_INSIDE()
+        if isNull(ALIGN_INSIDE) {
+            ALIGN_INSIDE = new FAlignment(__FL_ALIGN_INSIDE())
+        }
+        return ALIGN_INSIDE
+
+    /*
+
+    */
+	block getALIGN_TEXT_OVER_IMAGE()
+        if isNull(ALIGN_TEXT_OVER_IMAGE) {
+            ALIGN_TEXT_OVER_IMAGE = new FAlignment(__FL_ALIGN_TEXT_OVER_IMAGE())
+        }
+        return ALIGN_TEXT_OVER_IMAGE
+
+    /*
+
+    */
+	block getALIGN_IMAGE_OVER_TEXT()
+        if isNull(ALIGN_IMAGE_OVER_TEXT) {
+            ALIGN_IMAGE_OVER_TEXT = new FAlignment(__FL_ALIGN_IMAGE_OVER_TEXT())
+        }
+        return ALIGN_IMAGE_OVER_TEXT
+
+    /*
+
+    */
+	block getALIGN_CLIP()
+        if isNull(ALIGN_CLIP) { 
+            ALIGN_CLIP = new FAlignment(__FL_ALIGN_CLIP())
+        }
+        return ALIGN_CLIP
+
+    /*
+
+    */
+	block getALIGN_WRAP()
+        if isNull(ALIGN_WRAP) { 
+            ALIGN_WRAP = new FAlignment(__FL_ALIGN_WRAP())
+        }
+        return ALIGN_WRAP
+
+    /*
+
+    */
+	block getALIGN_IMAGE_NEXT_TO_TEXT()
+        if isNull(ALIGN_IMAGE_NEXT_TO_TEXT) { 
+            ALIGN_IMAGE_NEXT_TO_TEXT = new FAlignment(__FL_ALIGN_IMAGE_NEXT_TO_TEXT())
+        }
+        return ALIGN_IMAGE_NEXT_TO_TEXT
+
+    /*
+
+    */
+	block getALIGN_TEXT_NEXT_TO_IMAGE()
+        if isNull(ALIGN_TEXT_NEXT_TO_IMAGE) { 
+            ALIGN_TEXT_NEXT_TO_IMAGE = new FAlignment(__FL_ALIGN_TEXT_NEXT_TO_IMAGE())
+        }
+        return ALIGN_TEXT_NEXT_TO_IMAGE
+
+    /*
+
+    */
+	block getALIGN_IMAGE_BACKDROP()
+        if isNull(ALIGN_IMAGE_BACKDROP) { 
+            ALIGN_IMAGE_BACKDROP = new FAlignment(__FL_ALIGN_IMAGE_BACKDROP())
+        }
+        return ALIGN_IMAGE_BACKDROP
+
+    /*
+
+    */
+	block getALIGN_TOP_LEFT()
+        if isNull(ALIGN_TOP_LEFT) { 
+            ALIGN_TOP_LEFT = new FAlignment(__FL_ALIGN_TOP_LEFT())
+        }
+        return ALIGN_TOP_LEFT
+
+    /*
+
+    */
+	block getALIGN_TOP_RIGHT()
+        if isNull(ALIGN_TOP_RIGHT) { 
+            ALIGN_TOP_RIGHT = new FAlignment(__FL_ALIGN_TOP_RIGHT())
+        }
+        return ALIGN_TOP_RIGHT
+
+    /*
+
+    */
+	block getALIGN_BOTTOM_LEFT()
+        if isNull(ALIGN_BOTTOM_LEFT) { 
+            ALIGN_BOTTOM_LEFT = new FAlignment(__FL_ALIGN_BOTTOM_LEFT())
+        }
+        return ALIGN_BOTTOM_LEFT
+
+    /*
+
+    */
+	block getALIGN_BOTTOM_RIGHT()
+        if isNull(ALIGN_BOTTOM_RIGHT) { 
+            ALIGN_BOTTOM_RIGHT = new FAlignment(__FL_ALIGN_BOTTOM_RIGHT())
+        }
+        return ALIGN_BOTTOM_RIGHT
+
+    /*
+
+    */
+	block getALIGN_LEFT_TOP()
+        if isNull(ALIGN_LEFT_TOP) { 
+            ALIGN_LEFT_TOP = new FAlignment(__FL_ALIGN_LEFT_TOP())
+        }
+        return ALIGN_LEFT_TOP
+
+    /*
+
+    */
+	block getALIGN_RIGHT_TOP()
+        if isNull(ALIGN_RIGHT_TOP) { 
+            ALIGN_RIGHT_TOP = new FAlignment(__FL_ALIGN_RIGHT_TOP())
+        }
+        return ALIGN_RIGHT_TOP
+
+    /*
+
+    */
+	block getALIGN_LEFT_BOTTOM()
+        if isNull(ALIGN_LEFT_BOTTOM) { 
+            ALIGN_LEFT_BOTTOM = new FAlignment(__FL_ALIGN_LEFT_BOTTOM())
+        }
+        return ALIGN_LEFT_BOTTOM
+
+    /*
+
+    */
+	block getALIGN_RIGHT_BOTTOM()
+        if isNull(ALIGN_RIGHT_BOTTOM) { 
+            ALIGN_RIGHT_BOTTOM = new FAlignment(__FL_ALIGN_RIGHT_BOTTOM())
+        }
+        return ALIGN_RIGHT_BOTTOM
+
+    /*
+
+    */
+	block getALIGN_NOWRAP()
+        if isNull(ALIGN_NOWRAP) { 
+            ALIGN_NOWRAP = new FAlignment(__FL_ALIGN_NOWRAP())
+        }
+        return ALIGN_NOWRAP
+
+    /*
+
+    */
+	block getALIGN_POSITION_MASK()
+        if isNull(ALIGN_POSITION_MASK) { 
+            ALIGN_POSITION_MASK = new FAlignment(__FL_ALIGN_POSITION_MASK())
+        }
+        return ALIGN_POSITION_MASK
+
+    /*
+
+    */
+	block getALIGN_IMAGE_MASK()
+        if isNull(ALIGN_IMAGE_MASK) { 
+            ALIGN_IMAGE_MASK = new FAlignment(__FL_ALIGN_IMAGE_MASK())
+        }
+        return ALIGN_IMAGE_MASK
+
+    /*
+
+    */
+    block name()
+        name = alinmentNameMap[""+Alignment+""]
+        if isNull(name) {
+            name = "Invalid Alignment"
+        }
+        return name
+
+    /*
+
+	*/
+	block equals(object)
+		if !isObject(object) or !__instance_of(object,"FAlignment") {
+			return false
+		}
+		return (Alignment == object.Alignment)
+     
+    /*
+
+    */
+    block toString() 
+        return "[" + absolutename() + ":Alignment=" + Alignment + ",AlignmentName=" + name() + "]"
+
+    /*
+
+    */
+    private 
+
+        /*
+
+        */
+        alinmentNameMap = [
+            ["0","ALIGN_CENTER"],
+            ["1","ALIGN_TOP"],
+            ["2","ALIGN_BOTTOM"],
+            ["4","ALIGN_LEFT"],
+            ["8","ALIGN_RIGHT"],
+            ["16","ALIGN_INSIDE"],
+            ["32","ALIGN_TEXT_OVER_IMAGE"],
+            ["0","ALIGN_IMAGE_OVER_TEXT"],
+            ["64","ALIGN_CLIP"],
+            ["128","ALIGN_WRAP"],
+            ["256","ALIGN_IMAGE_NEXT_TO_TEXT"],
+            ["288","ALIGN_TEXT_NEXT_TO_IMAGE"],
+            ["512","ALIGN_IMAGE_BACKDROP"],
+            ["5","ALIGN_TOP_LEFT"],
+            ["9","ALIGN_TOP_RIGHT"],
+            ["6","ALIGN_BOTTOM_LEFT"],
+            ["10","ALIGN_BOTTOM_RIGHT"],
+            ["7","ALIGN_LEFT_TOP"],
+            ["11","ALIGN_RIGHT_TOP"],
+            ["13","ALIGN_LEFT_BOTTOM"],
+            ["14","ALIGN_RIGHT_BOTTOM"],
+            ["0","ALIGN_NOWRAP"],
+            ["15","ALIGN_POSITION_MASK"],
+            ["800","ALIGN_IMAGE_MASK"]
+        ]
+
+        /*
+
+        */
+        block setAlignment(value)
+
+        
+

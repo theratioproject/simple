@@ -2,15 +2,8 @@
 
 */
 
-<<<<<<< HEAD
 call simple.core.Object
 
 module simple.reflection
 
-=======
-module simple.reflection
-
-call simple.core.Object
-
->>>>>>> b6f6932c7fa42ae6e8601a8afb93a4b40212d3b7
 class Method : Object

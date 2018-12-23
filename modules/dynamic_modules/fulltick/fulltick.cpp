@@ -63,7 +63,39 @@ int simple_Fl_Event_Dispatch(int event, Fl_Window *window) {
 #endif
 #endif
 
+/* CUSTOM */
+SIMPLE_BLOCK(fltk_FL_WINDOW) 
+{
+	if ( SIMPLE_API_PARACOUNT != 0 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_MISS0PARA);
+		return ;
+	}
+	SIMPLE_API_RETCPOINTER(FL_WINDOW,"SMOOTHC_FLTK");
+}
 
+SIMPLE_BLOCK(fltk_FL_DOUBLE_WINDOW) 
+{
+	if ( SIMPLE_API_PARACOUNT != 0 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_MISS0PARA);
+		return ;
+	}
+	SIMPLE_API_RETCPOINTER(FL_DOUBLE_WINDOW,"SMOOTHC_FLTK");
+}
+
+SIMPLE_BLOCK(fltk_window_to_widget) 
+{
+	Fl_Window* point1 ;
+	Fl_Widget* wi;
+	if ( SIMPLE_API_PARACOUNT != 1 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
+		return ;
+	}
+	point1 = (Fl_Window*) SIMPLE_API_GETCPOINTER(1, "SMOOTHC_FLTK");
+	wi = point1;
+	SIMPLE_API_RETCPOINTER(wi,"SMOOTHC_FLTK");
+}
+
+/* SMOOTHC EXPORTED */
 SIMPLE_BLOCK(fltk_fl_filename_name) 
 {
 	const char* str1;
@@ -1422,9 +1454,31 @@ SIMPLE_BLOCK(fltk_fl_Fl_e_x)
 	SIMPLE_API_RETNUMBER(Fl::e_x);
 }
 
+SIMPLE_BLOCK(fltk_fl_Fl_e_x_1) 
+{
+	int num1;
+	if ( SIMPLE_API_PARACOUNT != 1 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
+		return ;
+	}
+	num1 = (int) (int) SIMPLE_API_GETNUMBER(1);
+	Fl::e_x = num1;
+}
+
 SIMPLE_BLOCK(fltk_fl_Fl_e_y) 
 {
 	SIMPLE_API_RETNUMBER(Fl::e_y);
+}
+
+SIMPLE_BLOCK(fltk_fl_Fl_e_y_1) 
+{
+	int num1;
+	if ( SIMPLE_API_PARACOUNT != 1 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
+		return ;
+	}
+	num1 = (int) (int) SIMPLE_API_GETNUMBER(1);
+	Fl::e_y = num1;
 }
 
 SIMPLE_BLOCK(fltk_fl_Fl_e_x_root) 
@@ -5308,7 +5362,7 @@ SIMPLE_BLOCK(fltk_fl_button_shortcut)
 		return ;
 	}
 	point1 = (Fl_Button*) SIMPLE_API_GETCPOINTER(1,"SMOOTHC_FLTK");
-	SIMPLE_API_RETCPOINTER(point1->shortcut(),"SMOOTHC_FLTK");
+	SIMPLE_API_RETNUMBER(point1->shortcut());
 }
 
 SIMPLE_BLOCK(fltk_fl_button_shortcut_1) 
@@ -12346,8 +12400,8 @@ SIMPLE_BLOCK(fltk_fl_input_Fl_Input)
 	int num4;
 	int num5;
 	const char* str6;
-	if ( SIMPLE_API_PARACOUNT != 6 ) {
-		SIMPLE_API_ERROR(SIMPLE_API_MISS6PARA);
+	if ( SIMPLE_API_PARACOUNT != 5 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_MISS5PARA);
 		return ;
 	}
 	num2 = (int) (int) SIMPLE_API_GETNUMBER(1);
@@ -23567,7 +23621,7 @@ SIMPLE_BLOCK(fltk_fl_tree_item_visible_r)
 		return ;
 	}
 	point1 = (Fl_Tree_Item*) SIMPLE_API_GETCPOINTER(1,"SMOOTHC_FLTK");
-	SIMPLE_API_RETCPOINTER(point1->visible_r(),"SMOOTHC_FLTK");
+	SIMPLE_API_RETNUMBER(point1->visible_r());
 }
 
 SIMPLE_BLOCK(fltk_fl_tree_item_usericon) 
@@ -25379,7 +25433,7 @@ SIMPLE_BLOCK(fltk_fl_widget_parent)
 		return ;
 	}
 	point1 = (Fl_Widget*) SIMPLE_API_GETCPOINTER(1,"SMOOTHC_FLTK");
-	SIMPLE_API_RETNUMBER(point1->parent());
+	SIMPLE_API_RETCPOINTER(point1->parent(), "SMOOTHC_FLTK");
 }
 
 SIMPLE_BLOCK(fltk_fl_widget_parent_1) 
@@ -25650,7 +25704,7 @@ SIMPLE_BLOCK(fltk_fl_widget_label)
 		return ;
 	}
 	point1 = (Fl_Widget*) SIMPLE_API_GETCPOINTER(1,"SMOOTHC_FLTK");
-	SIMPLE_API_RETCPOINTER(point1->label(),"SMOOTHC_FLTK");
+	SIMPLE_API_RETSTRING(point1->label());
 }
 
 SIMPLE_BLOCK(fltk_fl_widget_label_1) 
@@ -26099,7 +26153,7 @@ SIMPLE_BLOCK(fltk_fl_widget_visible_r)
 		return ;
 	}
 	point1 = (Fl_Widget*) SIMPLE_API_GETCPOINTER(1,"SMOOTHC_FLTK");
-	SIMPLE_API_RETCPOINTER(point1->visible_r(),"SMOOTHC_FLTK");
+	SIMPLE_API_RETNUMBER(point1->visible_r());
 }
 
 SIMPLE_BLOCK(fltk_fl_widget_show) 
@@ -26231,7 +26285,7 @@ SIMPLE_BLOCK(fltk_fl_widget_takesevents)
 		return ;
 	}
 	point1 = (Fl_Widget*) SIMPLE_API_GETCPOINTER(1,"SMOOTHC_FLTK");
-	SIMPLE_API_RETCPOINTER(point1->takesevents(),"SMOOTHC_FLTK");
+	SIMPLE_API_RETNUMBER(point1->takesevents());
 }
 
 SIMPLE_BLOCK(fltk_fl_widget_changed) 
@@ -26452,7 +26506,7 @@ SIMPLE_BLOCK(fltk_fl_widget_contains)
 	}
 	point1 = (Fl_Widget*) SIMPLE_API_GETCPOINTER(1,"SMOOTHC_FLTK");
 	point2 = (Fl_Widget *) SIMPLE_API_GETCPOINTER(2,"SMOOTHC_FLTK");
-	SIMPLE_API_RETCPOINTER(point1->contains(point2),"SMOOTHC_FLTK");
+	SIMPLE_API_RETNUMBER(point1->contains(point2));
 }
 
 SIMPLE_BLOCK(fltk_fl_widget_inside) 
@@ -27784,6 +27838,11 @@ SIMPLE_BLOCK(fltk_fl_delete_bitmask)
 }
 SIMPLE_API void init_full_tick(SimpleState *sState)
 {
+	/* CUSTOM */
+	register_block("__FL_WINDOW",fltk_FL_WINDOW);
+	register_block("__FL_DOUBLE_WINDOW",fltk_FL_DOUBLE_WINDOW);
+	register_block("__fl_window_to_widget",fltk_window_to_widget);
+	/* SMOOTHC EXPORTED */
 	register_block("__fl_filename_name",fltk_fl_filename_name);
 	register_block("__fl_filename_ext",fltk_fl_filename_ext);
 	register_block("__fl_filename_setext",fltk_fl_filename_setext);
@@ -28001,7 +28060,9 @@ SIMPLE_API void init_full_tick(SimpleState *sState)
 #ifndef FL_DOXYGEN
 	register_block("__Fl_Fl_e_number",fltk_fl_Fl_e_number);
 	register_block("__Fl_Fl_e_x",fltk_fl_Fl_e_x);
+	register_block("__Fl_Fl_e_x_1",fltk_fl_Fl_e_x_1);
 	register_block("__Fl_Fl_e_y",fltk_fl_Fl_e_y);
+	register_block("__Fl_Fl_e_y_1",fltk_fl_Fl_e_y_1);
 	register_block("__Fl_Fl_e_x_root",fltk_fl_Fl_e_x_root);
 	register_block("__Fl_Fl_e_y_root",fltk_fl_Fl_e_y_root);
 	register_block("__Fl_Fl_e_dx",fltk_fl_Fl_e_dx);

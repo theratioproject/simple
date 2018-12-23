@@ -1,9 +1,25 @@
 
 
 
+
 block main()
 	evt = new Finale
-	evt.setV("Hello World")
+	even = new Even
+	even.Evt = evt
+	executeCode('even.Evt.setV("Hello World")')
+	
+class Even 
+
+	Evt  = null
+	
+	block si(va)
+		Evt.
+
+	block setEvt(evt)
+		Evt = evt
+		
+	block getEvt()
+		return Evt
 	
 class Finale : EventListener
 
@@ -12,12 +28,16 @@ class Finale : EventListener
 	
 	block onMyEvent(type)
 		@"yes "+type
+		CLOSE = 500
+		@"passed"
 		
 	block setV(val)
 		evt.setValue(val)
 		
 
 class EventListener 
+
+	final CLOSE = 30
 
 	block onMyEvent(type) 
 	

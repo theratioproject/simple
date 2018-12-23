@@ -133,6 +133,8 @@ SIMPLE_API void simple_vm_oop_newobj ( VM *vm )
 				simple_list_addint_gc(vm->sState,list4,SIMPLE_VM_STACK_OBJTYPE);
 				/* Save Current Global Scope */
 				simple_list_addint_gc(vm->sState,list4,vm->nCurrentGlobalScope);
+				/* Save Final Flag Status */
+				simple_list_addint_gc(vm->sState,list4,vm->finalFlag);
 				/* Set Object State as the Current Scope */
 				vm->pActiveMem = list3 ;
 				/* Prepare to Make Object State & Methods visible while executing the INIT method */
@@ -248,6 +250,8 @@ SIMPLE_API void simple_vm_oop_newclass ( VM *vm )
 	simple_vm_oop_parentmethods(vm,pClass);
 	/* Attributes Scope is Public */
 	vm->nPrivateFlag = 0 ;
+	/* Not Final */
+	vm->finalFlag = 0 ;
 }
 
 SIMPLE_API void simple_vm_oop_setscope ( VM *vm )
@@ -288,6 +292,8 @@ SIMPLE_API void simple_vm_oop_setscope ( VM *vm )
 	SIMPLE_VM_STACK_OBJTYPE = simple_list_getint(list,14) ;
 	/* Restore current Global Scope */
 	vm->nCurrentGlobalScope = simple_list_getint(list,15);
+	/* Restore current Final flag */
+	vm->finalFlag = simple_list_getint(list,16);
 	/* After init methods */
 	simple_vm_oop_aftercallmethod(vm);
 	simple_list_deleteitem_gc(vm->sState,vm->aScopeNewObj,simple_list_getsize(vm->aScopeNewObj));

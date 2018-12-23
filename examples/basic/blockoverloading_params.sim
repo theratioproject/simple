@@ -1,6 +1,9 @@
+call simple.utilities.Console
 
-testBlock2() 
+stdout.println("number of variadic parameters : "+testBlock2("simple-lang", 1, 2, 3, 4)) 
 
 
-block testBlock2(params...)
-	@"no parameter : "+lengthOf(params)
+block testBlock2(name, params...)
+	@name
+	@params
+	return lengthOf(params)

@@ -1,0 +1,11 @@
+
+/*
+
+*/
+call simple.core.DynamicLoader
+callModule("libfulltick")
+
+/*
+
+*/
+module fulltick.base

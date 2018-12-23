@@ -128,7 +128,6 @@ class Object
 	block clone()
 		return self
 		
-<<<<<<< HEAD
 	/*
 
 	*/
@@ -173,23 +172,6 @@ class Object
 	*/
 	block instanceOf(params...)
 		return instanceof(params)
-=======
-	block instanceOf(clazz)
-		retValue = false
-		obj = this
-		parentClass = __parent_class_name(obj)
-		do {
-			if parentClass == clazz {
-				return true
-			}
-			obj = executeCode("return new "+parentClass)
-			parentClass = __parent_class_name(obj)
-		} while parentClass != null 
-		return retValue
-		
-	block getTypeCode
-		return OBJECT_TYPE
->>>>>>> b6f6932c7fa42ae6e8601a8afb93a4b40212d3b7
 		
 	/*
 		 
@@ -223,6 +205,73 @@ class Object
 	*/
 	block isboolean(value)
 		return (isNumber(value) and (value == true or value == false))
+
+	/*
+
+	*/
+	block objectstring(object)
+		if isString(object) or instanceof(object,"String") {
+			ret = object
+			if !isString(object) {
+				ret = object.Value
+			}
+			return ret
+			
+		else
+			throw(self,"Invalid parameter, expecting (String), found (" + objecttype(object) + ")")	
+		}
+		return ""
+
+	/*
+
+	*/
+	block objectnumber(object)
+		if isNumber(object) or instanceof(object,"Number") {
+			ret = object
+			if !isNumber(object) {
+				ret = object.Number
+			}
+			return ret
+			
+		else
+			throw(self,"Invalid parameter, expecting (Number), found (" + objecttype(object) + ")")	
+		}
+		return 0
+
+	/*
+
+	*/
+	block objectboolean(object)
+		if isNumber(object) or instanceof(object,"Number") {
+			ret = object
+			if !isNumber(object) {
+				ret = object.Number
+			}
+			if !isboolean(object) {
+				throw(self,"Invalid parameter passed, expecting Boolean, found " + objecttype(object) + "")
+			}
+			return ret
+			
+		else
+			throw(self,"Invalid parameter, expecting (Number), found (" + objecttype(object) + ")")	
+		}
+		return 0
+
+	/*
+
+	*/
+	block objectlist(object)
+		if isList(object) or instanceof(object,"List") {
+			ret = object
+			if !isList(object) {
+				ret = object.Value
+			}
+			return ret
+			
+		else
+			throw(self,"Invalid parameter, expecting (List), found (" + objecttype(object) + ")")	
+		}
+		return 0
 
 	/*
 

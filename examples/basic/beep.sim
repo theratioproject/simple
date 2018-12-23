@@ -5,21 +5,18 @@
 
 */
 
-/*call simple.utilities.Console
+call simple.utilities.Console
+
+module fulltick.drawing
+
+
+
+class FFont : Object
+
+/*
 
 stdout.print("\a")
-__beep(1000,1000) */
-call simple.core.Object
-
-module trial.by.fire
-
-cl = new trial.by.fire.Test
-cl.print()
-
-class Test : Object
-
-	block print()
-		@"Hello World"
+__beep(1000,1000)
 
 
 /*call simple.io.Directory

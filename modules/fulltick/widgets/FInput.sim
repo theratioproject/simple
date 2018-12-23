@@ -1,0 +1,199 @@
+
+/*
+
+*/
+call simple.core.Object
+call "../base/FWidget.sim" ? fulltick.base
+call "../painting/FColor.sim" ? fulltick.painting
+call "../drawing/FAlignment.sim" ? fulltick.drawing
+call "../drawing/FFont.sim" ? fulltick.drawing
+call "../drawing/FBoxType.sim" ? fulltick.drawing
+call "./FInput_.sim" ? fulltick.drawing
+
+/*
+
+*/
+module fulltick.widgets
+
+/*
+
+*/
+class FInput : FInput_
+
+    /*
+
+    */
+    Width = FApp.Scheme.getShemeValue("FInput.Width") 
+
+    /*
+
+    */
+    Height = FApp.Scheme.getShemeValue("FInput.Height") 
+
+    /*
+
+    */
+    X = FApp.Scheme.getShemeValue("FInput.X") 
+
+    /*
+
+    */
+    Y = FApp.Scheme.getShemeValue("FInput.Y") 
+
+    /*
+
+    */
+    Label = FApp.Scheme.getShemeValue("FInput.Label") 
+
+    /*
+
+    */
+    CapitalizeLabel = FApp.Scheme.getShemeValue("FInput.CapitalizeLabel") 
+
+    /*
+
+    */
+    Background = FApp.Scheme.getShemeValue("FInput.Background") 
+
+    /*
+
+    */
+    LabelAlignment = FApp.Scheme.getShemeValue("FInput.LabelAlignment") 
+
+    /*
+
+    */
+    Box = FApp.Scheme.getShemeValue("FInput.Box") 
+
+    /*
+
+    */
+    Border = FApp.Scheme.getShemeValue("FInput.Border") 
+
+    /*
+
+    */
+    HasBorder = FApp.Scheme.getShemeValue("FInput.HasBorder") 
+
+    /*
+
+    */
+    AcceptInput = FApp.Scheme.getShemeValue("FInput.AcceptInput")
+
+    /*
+
+    */
+    Visible = FApp.Scheme.getShemeValue("FInput.Visible") 
+
+    /*
+
+    */
+    KeyboardFocusable = FApp.Scheme.getShemeValue("FInput.KeyboardFocusable") 
+
+    /*
+
+    */
+    Tooltip = FApp.Scheme.getShemeValue("FInput.Tooltip") 
+
+    /*
+
+    */
+    LabelColor = FApp.Scheme.getShemeValue("FInput.LabelColor") 
+
+    /*
+
+    */
+    LabelFont = FApp.Scheme.getShemeValue("FInput.LabelFont") 
+
+    /*
+
+    */
+    LabelSize = FApp.Scheme.getShemeValue("FInput.LabelSize")
+
+    /*
+
+    */
+    LabelType = FApp.Scheme.getShemeValue("FInput.LabelType")
+
+    /*
+
+    */
+    SelectionColor = FApp.Scheme.getShemeValue("FInput.SelectionColor")
+
+    /*
+
+    */
+    Text = null
+
+    /*
+
+    */
+    block FInput(params...)
+        paramsLen = lengthOf(params)
+        if paramsLen == 1 {
+            Value = params[0]
+            if !isString(Value) {
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'string' as FInput_ Value")
+            }
+        elif paramsLen == 2
+            X = params[0]
+            Y = params[1]
+            if !isNumber(X) or !isNumber(Y) {
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FInput_ X and Y")
+            }
+        elif paramsLen == 3 
+            X = params[0]
+            Y = params[1]
+            Value = params[2]
+            if !isNumber(X) or !isNumber(Y) {
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FInput_ X and Y")
+            }
+            if !isString(Value) {
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'string' as FInput_ Value")
+            }
+        elif paramsLen == 4
+            X = params[0]
+            Y = params[1]
+            Width = params[2]
+            Height = params[3]
+            if !isNumber(X) or !isNumber(Y) {
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FInput_ X and Y")
+            }
+            if !isNumber(Width) or !isNumber(Height) {
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FInput_ Width and Height")
+            }
+        elif paramsLen == 5
+            X = params[0]
+            Y = params[1]
+            Width = params[2]
+            Height = params[3]
+            Value = params[4]
+            if !isNumber(X) or !isNumber(Y) {
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FInput_ X and Y")
+            }
+            if !isNumber(Width) or !isNumber(Height) {
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FInput_ Width and Height")
+            }
+            if !isString(Value) {
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'string' as FInput_ Value")
+            }
+        else    
+            if paramsLen != 0 {
+                throw(self,SIMPLE_VM_ERROR_EXTRAPARAMETERSCOUNT)
+            }
+        } 
+        Ptr = __Fl_Input(X, Y, Width, Height, null) 
+        registerWidget()
+        setBox(Box)
+        setBorder(Border)
+        construct()
+        
+        return self
+
+    /*
+
+    */
+    private 
+    
+        
+

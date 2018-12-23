@@ -1,0 +1,195 @@
+
+/*
+
+*/
+call "../base/FWidget.sim" ? fulltick.base
+call "../base/FAlignment.sim" ? fulltick.drawing
+call simple.core.Object
+
+/*
+
+*/
+module fulltick.drawing
+
+/*
+
+*/
+final FLabelType = new /*fulltick.drawing.*/FLabelType
+
+/*
+    
+*/
+class FLabelType : Object
+
+    /*
+
+    */
+    FL_NORMAL_LABEL = null
+
+    /*
+
+    */
+    NORMAL_LABEL = null
+
+    /*
+
+    */
+    DEFAULT = null
+
+    /*
+
+    */
+    NO_LABEL = null
+
+    /*
+
+    */
+    SHADOW_LABEL = null
+
+    /*
+
+    */
+    ENGRAVED_LABEL = null
+
+    /*
+
+    */
+    EMBOSSED_LABEL = null
+
+    /*
+
+    */
+    MULTI_LABEL = null
+
+    /*
+
+    */
+    ICON_LABEL = null
+
+    /*
+
+    */
+    IMAGE_LABEL = null
+
+    /*
+
+    */
+    FREE_LABELTYPE = null
+
+    /*
+
+    */
+    LabelType = null
+
+    /*
+
+    */
+    block FLabelType(type)
+        if isNumber(type) {
+            LabelType = type
+        else
+            throw(self,"Invalid parameter in FLabelType Constructor. Expecting (Number). Found (" + objecttype(type) + ")")
+        }
+
+    /*
+
+    */
+    block getFL_NORMAL_LABEL()
+        if isNull(FL_NORMAL_LABEL) {
+            FL_NORMAL_LABEL = new FLabelType(__FL_NORMAL_LABEL())
+        } 
+        return FL_NORMAL_LABEL
+
+    /*
+
+    */
+    block getNORMAL_LABEL()
+        return getFL_NORMAL_LABEL()
+
+    /*
+
+    */
+    block getDEFAULT()
+        return getFL_NORMAL_LABEL()
+
+    /*
+
+    */
+    block getNO_LABEL()
+        if isNull(NO_LABEL) {
+            NO_LABEL = new FLabelType(__FL_NO_LABEL())
+        } 
+        return NO_LABEL
+
+    /*
+
+    */
+    block getSHADOW_LABEL()
+        if isNull(SHADOW_LABEL) {
+            SHADOW_LABEL = new FLabelType(___FL_SHADOW_LABEL())
+        } 
+        return SHADOW_LABEL
+
+    /*
+
+    */
+    block getENGRAVED_LABEL()
+        if isNull(ENGRAVED_LABEL) {
+            ENGRAVED_LABEL = new FLabelType(___FL_ENGRAVED_LABEL())
+        } 
+        return ENGRAVED_LABEL
+
+    /*
+
+    */
+    block getEMBOSSED_LABEL()
+        if isNull(EMBOSSED_LABEL) {
+            EMBOSSED_LABEL = new FLabelType(___FL_EMBOSSED_LABEL())
+        } 
+        return EMBOSSED_LABEL
+
+    /*
+
+    */
+    block getMULTI_LABEL()
+        if isNull(MULTI_LABEL) {
+            MULTI_LABEL = new FLabelType(___FL_MULTI_LABEL())
+        } 
+        return MULTI_LABEL
+
+    /*
+
+    */
+    block getICON_LABEL()
+        if isNull(ICON_LABEL) {
+            ICON_LABEL = new FLabelType(___FL_ICON_LABEL())
+        } 
+        return ICON_LABEL
+
+    /*
+
+    */
+    block getIMAGE_LABEL()
+        if isNull(IMAGE_LABEL) {
+            IMAGE_LABEL = new FLabelType(___FL_IMAGE_LABEL())
+        } 
+        return IMAGE_LABEL
+
+    /*
+
+    */
+    block getFREE_LABELTYPE()
+        if isNull(FREE_LABELTYPE) {
+            FREE_LABELTYPE = new FLabelType(8)
+        } 
+        return FREE_LABELTYPE
+
+    /*
+
+    */
+    private 
+
+        /*
+
+        */
+        block setFontValue(value)

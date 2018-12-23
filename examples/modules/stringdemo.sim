@@ -4,13 +4,112 @@
 
 */
 
+/*@Prefix
+    primitive string in simple-lang is not an object of anytype, it is 
+    simply a list of char array such that "str" = ["s","t","r"].
+    An OOP styled string can be created using the @String class which 
+    act identical to the primitive string with even more methods and 
+    security. blocks and OOP methods are both available for both type
+    of String so a functional styled dev can stay true to the blocks and 
+    an OOP dev can choose to create a string from @String class which I 
+    find ver robust and secure
+*/
 
-#1
+
+/*
+
+*/
 call simple.core.String 
 call simple.utilities.Console
 call simple.security.Hash
 
-	string = new String("mOduLArity ") 
+/*
+
+*/
+stdout.println("\n/* FUNCTIONAL */")
+string = "+-a new and valid string right, and work well"
+stdout.println(string)
+stdout.println("string contains 'valid' : " + strContains(string,"valid"))
+stdout.println("string contains 'invalid' : " + strContains(string,"invalid"))
+stdout.println("string concat ' very well' : " + strConcat(string,new String(" very well"))) 
+stdout.println("string remove 'a new and ' : " + strRemove(string,"a new and "))
+stdout.println("string remove char at 1 : " + strRemoveCharAt(string,1))
+stdout.println("string remove first char : " + strRemoveFirstChar(string))
+stdout.println("string remove last char : " + strRemoveLastChar(string))
+stdout.println("string replace 'a' with 'b' : " + strReplace(string,"a","b"))
+stdout.println("string replace 'A' with 'b' case insensitive : " + strReplace(string,"A","b",false)) 
+stdout.println("string substring : " + strSubString(string,"v"))
+stdout.println("string substring : " + strSubString(string,12))
+stdout.println("string substring : " + strSubString(string,"v", 4))
+stdout.println("string substring : " + strSubString(string,12, 4))
+stdout.println("string lines count : " + strLineCount(string+nl+" This is new line "))
+stdout.println("string endswith : " + strEndsWith(string,"work well"))
+stdout.println("string startswith : " + strStartsWith(string,"+-a"))
+stdout.println("string copy : " + strCopy(string,1))
+stdout.println("string trim : '" + strTrim("        a string and chs  		  	     ")+"'")
+stdout.println("string left : " + strLeft(string,1))
+stdout.println("string right : " + strRight(string,3))
+stdout.println("string charAt 10 : " + strCharAt(string,10))
+stdout.println("string first char : " + strFirstChar(string))
+stdout.println("string last char : " + strLastChar(string))
+stdout.println("string lowercase : " + toLowerCase(string))
+stdout.println("string upper case : " + toUpperCase(string))
+stdout.println("string Sentence case : " + toSentenceCase(string))
+
+stdout.println("\n/* OOP */")
+oopstring = new String("a new and valid string right")
+/*stdout.println(oopstring)
+stdout.println("oopstring Length : "+oopstring.Length + " " + oopstring.length())
+stdout.println("oopstring isEmpty() : " + oopstring.isEmpty())
+stdout.println("oopstring  charAt(2) : " + oopstring.charAt(2))
+stdout.println("oopstring  == oopstring : " + (oopstring == oopstring))
+stdout.println("oopstring  == like : " + (oopstring.equals(new String("a nEW AND VALID STRINg right"))))
+stdout.println("oopstring  == new String() : " + (oopstring == (new String())))
+stdout.println("oopstring startsWith 'a new' : " + oopstring.startsWith(new String("a new")))
+stdout.println("oopstring startsWith 'a new' : " + oopstring.startsWith("a new"))
+stdout.println("oopstring startsWith 'valid' : " + oopstring.startsWith("valid"))
+stdout.println("oopstring endsWith 'right' : " + oopstring.endsWith(new String("right")))
+stdout.println("oopstring endsWith 'right' : " + oopstring.endsWith("right"))
+stdout.println("oopstring endsWith 'left' : " + oopstring.endsWith("left"))
+stdout.println("oopstring Hash Code : " + oopstring.hashcode())
+stdout.println("oopstring Unique Code : " + oopstring.uniquecode())
+stdout.println("oopstring concat ' very well' : " + oopstring.concat(new String(" very well")).Value)
+stdout.println("oopstring concat ' work great' : " + oopstring.concat(" work great").Value)
+oopstring = oopstring + " added to the string object yes" 
+stdout.println(oopstring)
+string1 = new String(" one ")
+stdout.println("multiply the oopstring ' one ' by 10")
+string1 = oopstring 1* 10 
+stdout.println(string1)
+stdout.println(oopstring.toList())
+stdout.println(oopstring.asList())
+stdout.println("oopstring contains 'valid' : " + oopstring.contains("valid"))
+stdout.println("oopstring contains 'invalid' : " + oopstring.contains("invalid"))
+stdout.println("oopstring remove 'new and valid ' : " + oopstring.remove("new and valid ").Value)
+stdout.println("string remove char at 1 : " + oopstring.removeCharAt(1).Value)
+stdout.println("string remove first char : " + oopstring.removeFirstChar().Value)
+stdout.println("string remove last char : " + oopstring.removeLastChar().Value)
+stdout.println("string replace 'a' with 'b' : " + oopstring.replace("a","b").Value)
+stdout.println("string replace 'A' with 'b' case insensitive : " + oopstring.replace("A","b").Value) 
+objy = oopstring+nl+" This is new line "
+stdout.println("string lines count : " + objy.lineCount())
+stdout.println("string copy : " + oopstring.copy(2).Value)
+stdout.println("oopsring trim : " + oopstring.trim().Value) 
+stdout.println("string left : " + oopstring.left(1).Value)
+stdout.println("string right : " + oopstring.right(4).Value)
+stdout.println("oopstring charAt 10 : " + oopstring.charAt(10))
+stdout.println("oopstring first char : " + oopstring.firstChar())
+stdout.println("oopstring last char : " + oopstring.lastChar())*/
+stdout.println("oopstring lowercase : " + oopstring.toLowerCase().Value)
+stdout.println("oopstring upper case : " + oopstring.toUpperCase().Value)
+stdout.println("oopstring Sentence case : " + oopstring.toSentenceCase().Value)
+
+
+
+
+
+
+/*	string = new String("mOduLArity ") 
 
 block main() {
 	stdout.println(string.toString()+" | LOWER : "+string.toLower())
@@ -32,6 +131,6 @@ block main() {
 	stdout.println("REPLACE : "+string.replace("OduLA", "odula")+" | REMOVE : "+string.remove("ity "))
 	stdout.println("NAME : "+string.classname()+" | ABSOLUTENAME : "+string.absolutename())
 	stdout.println("CONCAT : "+string.concat("and complexity"))
-}
+}  */
 
 #all blocks in class are available as functions too
