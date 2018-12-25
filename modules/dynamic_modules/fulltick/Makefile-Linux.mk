@@ -23,7 +23,7 @@ CND_PLATFORM=
 CND_DLIB_EXT=so
 CND_BUILDDIR=build
 CND_DISTDIR =../dist
-FULLTICK_FILES='./fulltick.cpp' './fulltick_delegate.cpp'
+FULLTICK_FILES='./fulltick.cpp' 
 	
 # Link Libraries and Options
 LDLIBSOPTIONS=-Lsimple.so

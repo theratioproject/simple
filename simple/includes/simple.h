@@ -60,10 +60,10 @@
 #define NDEBUG
 #endif
 /* Environment Errors */
-#define SIMPLE_SEGFAULT "\nENVIRONMENT ERROR 1 : Caught SegFault!"
-#define SIMPLE_OOM "\nENVIRONMENT ERROR 2 : Out of Memory!"
-#define SIMPLE_NOSCOPE "\nENVIRONMENT ERROR 3 : Deleting scope while no scope! "
-#define SIMPLE_LONGINSTRUCTION "\nENVIRONMENT ERROR 4 : Long VM Instruction! "
+#define SIMPLE_SEGFAULT "\nENVIRONMENT ERROR 1 : Caught SegFault!\n"
+#define SIMPLE_OOM "\nENVIRONMENT ERROR 2 : Out of Memory!\n"
+#define SIMPLE_NOSCOPE "\nENVIRONMENT ERROR 3 : Deleting scope while no scope! \n"
+#define SIMPLE_LONGINSTRUCTION "\nENVIRONMENT ERROR 4 : Long VM Instruction! \n"
 /* General */
 #define SIMPLE_PATHSIZE 256
 /* See and Give - use simplevm_display() and read_string() */
@@ -97,7 +97,11 @@
 #include <errno.h>
 
 /* Include android Headers*/
-#ifdef __TERMUX__
+/* Yea android but then termux bring the total Linux feel to the android os
+then we don't want to the clang compiler to see the code as android specific so 
+we under the __ANDROID__ flag. For the under below to work the flag __TERMUX__ 
+must be set through the compiler flag either through makefile or command line */
+#if defined(__TERMUX__) && defined(__ANDROID__)
 #undef __ANDROID__
 #endif
 #ifdef __ANDROID__
@@ -109,6 +113,7 @@
 /* Make fprintf function custom to allow output in android designated std(s)*/
 /* ANDROID_LOG_DEBUG - stdout, ANDROID_LOG_ERROR - stderr */
 #define fprintf(std,...) __android_log_print(std, SIMPLE_ANDROID_LOG, __VA_ARGS__)
+
 /* Replace Printf to print to the actual android log */
 #define printv(...) fprintf(ANDROID_LOG_VERBOSE,__VA_ARGS__)
 #define printf(...) fprintf(ANDROID_LOG_DEBUG,__VA_ARGS__)
@@ -116,8 +121,6 @@
 #define printw(...) fprintf(ANDROID_LOG_WARN,__VA_ARGS__)
 #define printe(...) fprintf(ANDROID_LOG_ERROR,__VA_ARGS__)
 #define printa(...) fprintf(ANDROID_LOG_ASSERT,__VA_ARGS__)
-#define stdout ANDROID_LOG_INFO
-#define stderr ANDROID_LOG_ERROR
 
 #else
 #define printv(...) fprintf(stdout,__VA_ARGS__)

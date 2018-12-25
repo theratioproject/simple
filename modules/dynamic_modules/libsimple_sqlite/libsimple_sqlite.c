@@ -1,5 +1,5 @@
 
-#include "C:\Users\thecarisma\Documents\SIMPLE_GITHUB\s0.3.36-debug\includes\simple.h"
+#include "../../../simple/includes/simple.h"
 #include <sqlite3.h>
 
 

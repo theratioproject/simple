@@ -15,7 +15,6 @@ operating_system="linux_x86"
 cpu_arc="x86"
 
 execute_build() {
-	check_if_is_sudo $@
 	local standalone_flag="none"
 
 	for param in "$@"
@@ -96,7 +95,7 @@ execute_build_proceed() {
 			copyinclude $1
 		;;
 		*dy-modules-only* )
-			installsimpleexec notanyofit
+			#installsimpleexec notanyofit
 			build_dynamic_modules $1
 		;;
 		*modules-only* )
@@ -113,7 +112,7 @@ execute_build_proceed() {
 	esac
 	case $1 in
 		*debug* )
-			sudo chmod -R 777 ../../$simple_debug_version
+			chmod -R 777 ~/$simple_debug_version
 		;;
 	esac
 	remove_dist_folders ../simple/dist/ ../modules/dynamic_modules/dist/ ../environment/dist/ ./dist/ ../$simple_debug_version ../../simple$ver-$operating_system 
@@ -126,13 +125,13 @@ build_environments() {
 		local simple_command="simple"
 		case $1 in
 			*debug* )
-				cd "../../$simple_debug_version/bin/"
+				cd ~/$simple_debug_version/bin/"
 				sudo mkdir -p ../lib/
-				sudo cp ./simple.so ../lib/
+				sudo cp ./libsimple.so ../lib/
 				local simple_command="./$simple_command"
 				sudo rm -f ./bake && sudo rm -f ./modular && sudo rm -f ./webworker && sudo rm -f ./simplerepl && sudo rm -f ./simplepad && sudo rm -f ./simplebridge
-				sudo make -f ../../simple/environment/Linux-Install.mk ARC_FLAG=$arc_var ARC=$arc ENV_DISTDIR=./  SIMPLE_H=../../../$simple_debug_version/includes/simple.h SIMPLE=$simple_command SUDO=sudo ENV_PATH=../../simple/environment/ LIB_PATH=../lib/simple.so
-				cd "../../simple/build/"
+				sudo make -f ../../simple/environment/Linux-Install.mk ARC_FLAG=$arc_var ARC=$arc ENV_DISTDIR=./  SIMPLE_H=../../../$simple_debug_version/includes/simple.h SIMPLE=$simple_command SUDO=sudo ENV_PATH=../../simple/environment/ LIB_PATH=../lib/libsimple.so
+				cd ~/simple/build/"
 			;;
 			*install* )
 				cd ../environment/
@@ -154,45 +153,45 @@ copymodules() {
 	header $1 "copying the standard modules"
 	case $1 in
 		*debug* )
-			if [ -e "../../$simple_debug_version/modules/simple" ]; then 
-				sudo rm -R -f "../../$simple_debug_version/modules/archive"
-				sudo rm -R -f "../../$simple_debug_version/modules/fulltick"
-				sudo rm -R -f "../../$simple_debug_version/modules/simple"
-				sudo rm -R -f "../../$simple_debug_version/modules/web"
+			if [ -e ~/$simple_debug_version/modules/simple ]; then 
+				rm -R -f ~/$simple_debug_version/modules/archive
+				rm -R -f ~/$simple_debug_version/modules/fulltick
+				rm -R -f ~/$simple_debug_version/modules/simple
+				rm -R -f ~/$simple_debug_version/modules/web
 			fi
-			sudo mkdir -p "../../$simple_debug_version/modules/archive"
-			sudo mkdir -p "../../$simple_debug_version/modules/fulltick"
-			sudo mkdir -p "../../$simple_debug_version/modules/simple"
-			sudo mkdir -p "../../$simple_debug_version/modules/web"
+			mkdir -p ~/$simple_debug_version/modules/archive
+			mkdir -p ~/$simple_debug_version/modules/fulltick
+			mkdir -p ~/$simple_debug_version/modules/simple
+			mkdir -p ~/$simple_debug_version/modules/web
 			if [ -e "../modules/modules-dependencies.conf" ]; then
-				sudo cp "../modules/modules-dependencies.conf" "../../$simple_debug_version/modules/"
-				sudo cp -R "../modules/archive" "../../$simple_debug_version/modules/"
-				sudo cp -R "../modules/fulltick" "../../$simple_debug_version/modules/"
-				sudo cp -R "../modules/simple" "../../$simple_debug_version/modules"
-				sudo cp -R "../modules/web" "../../$simple_debug_version/modules/"
-				treat_first_calls_file $1 "../../$simple_debug_version/modules/simple/core/__first_calls.sim"
+				cp "../modules/modules-dependencies.conf" ~/$simple_debug_version/modules/
+				cp -R "../modules/archive" ~/$simple_debug_version/modules/
+				cp -R "../modules/fulltick" ~/$simple_debug_version/modules/
+				cp -R "../modules/simple" ~/$simple_debug_version/modules
+				cp -R "../modules/web" ~/$simple_debug_version/modules/
+				treat_first_calls_file $1 ~/$simple_debug_version/modules/simple/core/__first_calls.sim
 			else
 				not_found_error $1 "includes directory"
 			fi
 		;;
 		*install* )
-			local prefix="/var"
+			local prefix=~/
 			if [ -e "$prefix/lib/simple/$version/modules/simple" ]; then 
-				sudo rm -R -f "$prefix/lib/simple/$version/modules/archive"
-				sudo rm -R -f "$prefix/lib/simple/$version/modules/fulltick"
-				sudo rm -R -f "$prefix/lib/simple/$version/modules/simple"
-				sudo rm -R -f "$prefix/lib/simple/$version/modules/web"
+				rm -R -f "$prefix/lib/simple/$version/modules/archive"
+				rm -R -f "$prefix/lib/simple/$version/modules/fulltick"
+				rm -R -f "$prefix/lib/simple/$version/modules/simple"
+				rm -R -f "$prefix/lib/simple/$version/modules/web"
 			fi
-			sudo mkdir -p "$prefix/lib/simple/$version/modules/archive"
-			sudo mkdir -p "$prefix/lib/simple/$version/modules/fulltick"
-			sudo mkdir -p "$prefix/lib/simple/$version/modules/simple"
-			sudo mkdir -p "$prefix/lib/simple/$version/modules/web"
+			mkdir -p "$prefix/lib/simple/$version/modules/archive"
+			mkdir -p "$prefix/lib/simple/$version/modules/fulltick"
+			mkdir -p "$prefix/lib/simple/$version/modules/simple"
+			mkdir -p "$prefix/lib/simple/$version/modules/web"
 			if [ -e "../modules/modules-dependencies.conf" ]; then
-				sudo cp "../modules/modules-dependencies.conf" "$prefix/lib/simple/$version/modules/"
-				sudo cp -R "../modules/archive" "$prefix/lib/simple/$version/modules/"
-				sudo cp -R "../modules/fulltick" "$prefix/lib/simple/$version/modules/"
-				sudo cp -R "../modules/simple" "$prefix/lib/simple/$version/modules"
-				sudo cp -R "../modules/web" "$prefix/lib/simple/$version/modules/"
+				cp "../modules/modules-dependencies.conf" "$prefix/lib/simple/$version/modules/"
+				cp -R "../modules/archive" "$prefix/lib/simple/$version/modules/"
+				cp -R "../modules/fulltick" "$prefix/lib/simple/$version/modules/"
+				cp -R "../modules/simple" "$prefix/lib/simple/$version/modules"
+				cp -R "../modules/web" "$prefix/lib/simple/$version/modules/"
 				treat_first_calls_file $1 "$prefix/lib/simple/$version/modules/simple/core/__first_calls.sim"
 			else
 				not_found_error $1 "includes directory"
@@ -219,8 +218,8 @@ build_dynamic_modules(){
 			if [ -e ../dist/ ]; then
 				rm -R ../dist/
 			fi
-			sudo make -f Makefile-Linux.mk uninstall  ARC_FLAG=$arc_var ARC=$arc
-			sudo make -f Makefile-Linux.mk  ARC_FLAG=$arc_var ARC=$arc
+			make -f Makefile-Linux.mk uninstall  ARC_FLAG=$arc_var ARC=$arc
+			make -f Makefile-Linux.mk  ARC_FLAG=$arc_var ARC=$arc
 
 			# fulltick(GUI) dynamic_module
 				display "dynamic_modules:fulltick:" "checking if fulltick build successfully"
@@ -235,7 +234,7 @@ build_dynamic_modules(){
 					echo "dynamic_modules:fulltick: backup build found but might be outdated"
 					echo "dynamic_modules:fulltick: copying fulltick.so to ../dist/ directory"
 					cp ../fulltick/dist/fulltick$arc.so ../dist/
-					link ../dist/fulltick$arc.so ../dist/fulltick.so
+					ln ../dist/fulltick$arc.so ../dist/fulltick.so
 				else
 					echo "error:dynamic_modules:fulltick: the backup fulltick dynamic module cannot be found"
 					echo "error:dynamic_modules:fulltick: the repository appears to be currupted. "
@@ -255,59 +254,59 @@ build_dynamic_modules(){
 	case $1 in
 		*debug* )
 			display $1 "copying dynamic_modules to $simple_debug_version directory"
-			if [ -e "../../$simple_debug_version/modules/dynamic_modules" ]; then 
-				sudo rm -R -f "../../$simple_debug_version/modules/dynamic_modules"
+			if [ -e ~/$simple_debug_version/modules/dynamic_modules ]; then 
+				rm -R -f ~/$simple_debug_version/modules/dynamic_modules
 			fi
-			sudo mkdir -p "../../$simple_debug_version"
-			sudo mkdir -p "../../$simple_debug_version/modules"
-			sudo mkdir -p "../../$simple_debug_version/modules/dynamic_modules"
+			mkdir -p ~/$simple_debug_version
+			mkdir -p ~/$simple_debug_version/modules
+			mkdir -p ~/$simple_debug_version/modules/dynamic_modules
 			if [ -e "../modules/dynamic_modules/dist/" ]; then
-				sudo cp ../modules/dynamic_modules/dist/*.so* "../../$simple_debug_version/modules/dynamic_modules"
+				cp ../modules/dynamic_modules/dist/*.so* ~/$simple_debug_version/modules/dynamic_modules
 			else
-				build_failed_error $1 "simple and simple.so"
+				build_failed_error $1 "simple and libsimple.so"
 			fi
 		;;
 		*install* )
 			cd ../modules//dynamic_modules/makefiles/
-			sudo make -f ./Makefile-Linux.mk install ARC_FLAG=$arc_var ARC=$arc
+			make -f ./Makefile-Linux.mk install ARC_FLAG=$arc_var ARC=$arc
 			cd ../../../build 
-			local prefix="/var"
+			local prefix=~/
 			treat_first_calls_file $1 "$prefix/lib/simple/$version/modules/simple/core/__first_calls.sim"
 		;;
 	esac
 }
 
 installsimpleexec() {
-	header install-debug "building simple-lang executables"
+	header install-debug "building simple-lang core"
 	if [ -e ../simple/makefiles/Makefile-Linux.mk ]; then 
 		cd ../simple/makefiles
-		display $1 "building simple-lang $version build..."
+		display $1 "building simple-lang $version build.."
 		if [ -e "../dist/" ]; then
 			display $1 "uninstalling previous simple object build"
-			sudo rm -r ../dist/
+			rm -r ../dist/
 		fi
-		sudo make -f Makefile-Linux.mk uninstall ARC_FLAG=$arc_var ARC=$arc
-		sudo make -f Makefile-Linux.mk ARC_FLAG=$arc_var ARC=$arc
+		make -f Makefile-Android-Termux.mk uninstall ARC_FLAG=$arc_var ARC=$arc
+		make -f Makefile-Android-Termux.mk ARC_FLAG=$arc_var ARC=$arc
 	else 
 		not_found_error $1 Makefile-Linux.mk
 	fi
 	case $1 in
 		*debug* )
 			display $1 "copying executable to $simple_debug_version directory"
-			if [ -e "../../../$simple_debug_version/bin" ]; then 
-				sudo rm -R -f "../../../$simple_debug_version/bin"
+			if [ -e ~/$simple_debug_version/bin ]; then 
+				rm -R -f ~/$simple_debug_version/bin
 			fi
-			sudo mkdir "../../../$simple_debug_version"
-			sudo mkdir "../../../$simple_debug_version/bin"
+			mkdir -p ~/$simple_debug_version
+			mkdir -p ~/$simple_debug_version/bin
 			if [ -e "../dist/simple" ]; then
-				sudo cp "../dist/simple" "../../../$simple_debug_version/bin"
-				sudo cp "../dist/simple.so" "../../../$simple_debug_version/bin"
+				cp "../dist/simple" ~/$simple_debug_version/bin
+				cp "../dist/libsimple.so" ~/$simple_debug_version/bin
 			else
-				build_failed_error $1 "simple and simple.so"
+				build_failed_error $1 "simple and libsimple.so"
 			fi
 		;;
 		*install* )
-			sudo make -f Makefile-Linux.mk install ARC_FLAG=$arc_var ARC=$arc
+			make -f Makefile-Android-Termux.mk install ARC_FLAG=$arc_var ARC=$arc
 		;;
 	esac
 	cd ../../build
@@ -317,12 +316,12 @@ copyinclude() {
 	header $1 "copying the simple includes(h) file "
 	case $1 in
 		*debug* )
-			if [ -e "../../$simple_debug_version/includes" ]; then 
-				sudo rm -R -f "../../$simple_debug_version/includes"
+			if [ -e ~/$simple_debug_version/includes ]; then 
+				rm -R -f ~/$simple_debug_version/includes
 			fi
-			sudo mkdir "../../$simple_debug_version/includes"
+			mkdir ~/$simple_debug_version/includes
 			if [ -e "../simple/includes" ]; then
-				sudo cp -R "../simple/includes" "../../$simple_debug_version/"
+				cp -R "../simple/includes" ~/$simple_debug_version/
 			else
 				not_found_error $1 "includes directory"
 			fi
@@ -330,11 +329,11 @@ copyinclude() {
 		*install* )
 			local prefix=${DESTDIR}${PREFIX:-/usr/}
 			if [ -e "$prefix/include/simple" ]; then 
-				sudo rm -R -f "$prefix/include/simple"
+				rm -R -f "$prefix/include/simple"
 			fi
-			sudo mkdir "$prefix/include/simple"
+			mkdir "$prefix/include/simple"
 			if [ -e "../simple/includes" ]; then
-				sudo install ../simple/includes/simple* "$prefix/include/simple"
+				install ../simple/includes/simple* "$prefix/include/simple"
 			else
 				not_found_error $1 "includes directory"
 			fi
@@ -384,73 +383,39 @@ uninstall() {
 
 configure() {
 	header configure "configure build $version"
-	sudo apt-get update
-	sudo apt-get -y install build-essential
-	case $cpu_arc in
-			*64* )
-				sudo apt-get -y install gcc-multilib
-				sudo apt-get -y install g++-multilib
-			;;
-	esac
-	sudo apt-get -y install libfltk1.3-dev
-	sudo apt-get -y install xorg-dev
-	sudo apt-get -y install libx11-dev
-	sudo apt-get -y install libxft-dev
-	sudo apt-get -y install libssl-dev
-	sudo apt-get -y install make
-	sudo apt-get -y install libcurl4-openssl-dev
-	#sudo apt-get -y install curl
-	case $cpu_arc in
-			*64* )
-				#sudo apt-get -y install libfltk1.3-dev:i386
-				sudo apt-get -y install xorg-dev:i386
-				#sudo apt-get -y install libxft-dev:i386
-				sudo apt-get -y install libxcursor-dev:i386
-				sudo apt-get -y install libxinerama-dev:i386
-				sudo apt-get -y install libssl-dev:i386
-				sudo apt-get -y install libcurl4-openssl-dev:i386
-			;;
-	esac
-	#sudo apt-get -y autoremove
-}
-
-check_if_is_sudo() {
-	if [ "$(id -u)" -ne 0 ]; then 
-		display sudo "it appear you are not running the script as root"
-		display sudo "the script is reinitiated as root"
-		display sudo "if it fails to re execute the Linux-Build.sh script with sudo"
-		display sudo "manualy run the script with 'sudo sh Linux-Build.sh -c -i'"
-		sudo sh Linux-Build.sh $@
-		exit 0
-	fi
+	pkg update && pkg upgrade
+	pkg install make
+	pkg install clang
+	pkg install libcurl-dev
+	pkg install libsqlite-dev
 }
 
 help() {
 	header "build" "help $version"
-	echo "Usage: sudo sh Linux-Build.sh [FLAG]"
+	echo "Usage: bash Android-Termux-Build.sh [FLAG]"
 	echo "[FLAGS] :"
-	echo "	-c --configure	configure your system for simple-lang successful build"
-	echo "	-i --install	install simple-lang on your system"
-	echo "	-u --uninstall	remove simple-lang installation from your system"
-	echo "	-d --debug	create a distributable(archivable) version in ../../ source directory"
-	echo "	-x --deb	create a .deb package that can be install with 'dpkg -i simple*.deb'"
-	echo "	x86 --32-bit	build 32 bit version of simple-lang"
-	echo "	x64 --64-bit	build 64 bit version of simple-lang"
-	echo "	-t --temp	keep the */dist/ folder(s) in source tree"
+	echo "	-c --configure	configure your system"
+	echo "	-i --install	install simple-lang"
+	echo "	-u --uninstall	remove simple-lang installation"
+	echo "	-d --debug	create a distributable version"
+	echo "	-x --deb	create a .deb package "
+	echo "	x86 --32-bit	build 32 bit version "
+	echo "	x64 --64-bit	build 64 bit version "
+	echo "	-t --temp	keep the */dist/ folder(s) "
 	echo "	-h --help	display this help message"
 	echo ""
 	echo "[STANDALONE BUILD FLAGS] :"
-	echo "	-so --simple-only	build only simple and libsimple.so"
-	echo "	-io --includes-only	copy only the simple includes files"
-	echo "	-mo --modules-only	copy only the standard modules"
-	echo "	-yo --dymodules-only	build only the dynamic modules"
-	echo "	-eo --environment-only	build only the environment programs"
+	echo "	-so --simple-only	build only simple vm"
+	echo "	-io --includes-only	copy only includes files"
+	echo "	-mo --modules-only	copy only std modules"
+	echo "	-yo --dymodules-only	build jst the dy modules"
+	echo "	-eo --environment-only	build the environments"
 }
 
 header() {
-	echo "=================================================================="
+	echo "======================================================"
 	echo "simple-lang:$1: $2"
-	echo "=================================================================="
+	echo "======================================================"
 }
 
 display() {
@@ -528,7 +493,7 @@ remove_dist_folders() {
 		for fol in $@
 		do
 			if [ -e $fol ]; then
-				sudo rm -R -f $fol
+				rm -R -f $fol
 			fi
 		done
 	fi
@@ -537,13 +502,13 @@ remove_dist_folders() {
 finalize_installation() {
 	local prefix=${DESTDIR}${PREFIX:-/usr/}
 	header link "linking environment and library"
-	echo "simple-lang:link: linking simple.so to libsimple.so and libsimple.$ver.so"
-	sudo link $prefix/lib/simple.so /lib/libsimple.so
-	sudo link $prefix/lib/simple.so /lib/libsimple.$ver.so
-	sudo link $prefix/lib/simple.so $prefix/lib/libsimple.so
-	sudo link $prefix/lib/simple.so $prefix/lib/libsimple.$ver.so
-	sudo link $prefix/lib/simple.so $prefix/local/lib/libsimple.so
-	sudo link $prefix/lib/simple.so $prefix/local/lib/libsimple.$ver.so
+	echo "simple-lang:link: linking libsimple.so to libsimple.so and libsimple.$ver.so"
+	sudo link $prefix/lib/libsimple.so /lib/libsimple.so
+	sudo link $prefix/lib/libsimple.so /lib/libsimple.$ver.so
+	sudo link $prefix/lib/libsimple.so $prefix/lib/libsimple.so
+	sudo link $prefix/lib/libsimple.so $prefix/lib/libsimple.$ver.so
+	sudo link $prefix/lib/libsimple.so $prefix/local/lib/libsimple.so
+	sudo link $prefix/lib/libsimple.so $prefix/local/lib/libsimple.$ver.so
 	display link "linking simplepad to user ~/Desktop"
 	sudo link $prefix/bin/simplepad ~/Desktop/simplepad
 
@@ -604,26 +569,26 @@ build_deb_package() {
 	display debpackage "copying executable, shared libraries and modules"
 	case $1 in
 		*debug* )
-			sudo cp ../../$simple_debug_version/bin/simple $debpackagedir/usr/bin/
-			sudo cp ../../$simple_debug_version/bin/simplerepl $debpackagedir/usr/bin/
-			sudo cp ../../$simple_debug_version/bin/simplepad $debpackagedir/usr/bin/
-			sudo cp ../../$simple_debug_version/bin/simplebridge $debpackagedir/usr/bin/
-			sudo cp ../../$simple_debug_version/bin/modular $debpackagedir/usr/bin/
-			sudo cp ../../$simple_debug_version/bin/webworker $debpackagedir/usr/bin/
-			sudo cp ../../$simple_debug_version/bin/bake $debpackagedir/usr/bin/
-			sudo cp ../../$simple_debug_version/bin/simple.so $debpackagedir/usr/lib/
-			sudo cp -R ../../$simple_debug_version/modules/ $debpackagedir/var/lib/simple/$version/modules
-			sudo cp ../../$simple_debug_version/includes/*.h $debpackagedir/usr/include/simple/
+			sudo cp ~/$simple_debug_version/bin/simple $debpackagedir/usr/bin/
+			sudo cp ~/$simple_debug_version/bin/simplerepl $debpackagedir/usr/bin/
+			sudo cp ~/$simple_debug_version/bin/simplepad $debpackagedir/usr/bin/
+			sudo cp ~/$simple_debug_version/bin/simplebridge $debpackagedir/usr/bin/
+			sudo cp ~/$simple_debug_version/bin/modular $debpackagedir/usr/bin/
+			sudo cp ~/$simple_debug_version/bin/webworker $debpackagedir/usr/bin/
+			sudo cp ~/$simple_debug_version/bin/bake $debpackagedir/usr/bin/
+			sudo cp ~/$simple_debug_version/bin/libsimple.so $debpackagedir/usr/lib/
+			sudo cp -R ~/$simple_debug_version/modules/ $debpackagedir/var/lib/simple/$version/modules
+			sudo cp ~/$simple_debug_version/includes/*.h $debpackagedir/usr/include/simple/
 			
 			if [ $arc_var = "-m32" ]; then
 				sudo mkdir -p "$debpackagedir/usr/lib/i386-linux-gnu/"
-				sudo cp ../../$simple_debug_version/bin/simple.so $debpackagedir/usr/lib/i386-linux-gnu/libsimple.so.$ver
+				sudo cp ~/$simple_debug_version/bin/libsimple.so $debpackagedir/usr/lib/i386-linux-gnu/libsimple.so.$ver
 			elif [ $arc_var = "-m64" ]; then
 				sudo mkdir -p "$debpackagedir/usr/lib/x86_64-linux-gnu/"
-				sudo cp ../../$simple_debug_version/bin/simple.so $debpackagedir/usr/lib/x86_64-linux-gnu/libsimple.so.$ver
+				sudo cp ~/$simple_debug_version/bin/libsimple.so $debpackagedir/usr/lib/x86_64-linux-gnu/libsimple.so.$ver
 			fi  
 			
-			local libcrypto=$(find_dependent_lib ../../$simple_debug_version/modules/dynamic_modules/security.so libcrypto)
+			local libcrypto=$(find_dependent_lib ~/$simple_debug_version/modules/dynamic_modules/security.so libcrypto)
 			if [[ "$libcrypto" = *"i386-linux-gnu"* ]]; then
 				sudo mkdir -p "$debpackagedir/usr/lib/i386-linux-gnu/"
 				sudo cp $libcrypto $debpackagedir/usr/lib/i386-linux-gnu/
@@ -642,17 +607,17 @@ build_deb_package() {
 			sudo cp $prefix/bin/modular $debpackagedir/usr/bin/
 			sudo cp $prefix/bin/webworker $debpackagedir/usr/bin/
 			sudo cp $prefix/bin/bake $debpackagedir/usr/bin/
-			sudo cp $prefix/lib/simple.so $debpackagedir/usr/lib/
+			sudo cp $prefix/lib/libsimple.so $debpackagedir/usr/lib/
 			sudo cp $prefix/lib/libsimple.so $debpackagedir/usr/lib/
 			sudo cp -R /var/lib/simple/$version $debpackagedir/var/lib/simple/
 			sudo install $prefix/include/simple/simple* $debpackagedir/usr/include/simple/
 			
 			if [ $arc_var = "-m32" ]; then
 				sudo mkdir -p "$debpackagedir/usr/lib/i386-linux-gnu/"
-				sudo cp $prefix/lib/simple.so $debpackagedir/usr/lib/i386-linux-gnu/libsimple.so.$ver
+				sudo cp $prefix/lib/libsimple.so $debpackagedir/usr/lib/i386-linux-gnu/libsimple.so.$ver
 			elif [ $arc_var = "-m64" ]; then
 				sudo mkdir -p "$debpackagedir/usr/lib/x86_64-linux-gnu/"
-				sudo cp $prefix/lib/simple.so $debpackagedir/usr/lib/x86_64-linux-gnu/libsimple.so.$ver
+				sudo cp $prefix/lib/libsimple.so $debpackagedir/usr/lib/x86_64-linux-gnu/libsimple.so.$ver
 			fi  
 			
 			local libcrypto=$(find_dependent_lib /var/lib/simple/$version/modules/dynamic_modules/security.so libcrypto)

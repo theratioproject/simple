@@ -38,7 +38,7 @@ SIMPLE_OBJECTFILES = \
 	$(SIMPLE_OBJECTDIR)/simple_api.o 
 	
 # Link Libraries and Options
-LDLIBSOPTIONS=-Lsimple.so
+LDLIBSOPTIONS=-Lsimple
 
 ${CND_DISTDIR}/${CND_PLATFORM}/libsystemic.${CND_DLIB_EXT}: $(OBJECTFILES)
 	$(CC) -shared $(ARC_FLAG) -o $(CND_DISTDIR)/$(CND_PLATFORM)/libsystemic.$(CND_DLIB_EXT) $(SIMPLE_OBJECTFILES) $(OBJECTFILES)
