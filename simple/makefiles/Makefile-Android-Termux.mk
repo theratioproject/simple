@@ -20,7 +20,7 @@ endif
 # Flags
 CFLAGS= -c -fpic -g -D__TERMUX__
 LFlAGS= -lm -ldl
-LDFLAGS= -L ./ -Wl,-R./ "-Wl,--no-as-needed" 
+LDFLAGS= -L ./ -Wl, "-Wl,--no-as-needed" 
 
 # Macros
 VER=0.3.36
@@ -184,19 +184,13 @@ install: $(CND_DISTDIR)/simple
 	install $(CND_DISTDIR)/simple $(DESTDIR)$(PREFIX)/bin/
 	install $(CND_DISTDIR)/libsimple.$(CND_DLIB_EXT) $(DESTDIR)$(PREFIX)/lib/
 	install $(INCLUDES_DIR)/simple* $(DESTDIR)$(PREFIX)/include/simple/
-	#ln $(DESTDIR)$(PREFIX)/lib/libsimple.$(CND_DLIB_EXT) $(DESTDIR)$(PREFIX)/lib/x86_64-linux-gnu/libsimple.$(CND_DLIB_EXT)
-	#ln $(DESTDIR)$(PREFIX)/lib/simple.$(CND_DLIB_EXT) $(DESTDIR)$(PREFIX)/lib/x86_64-linux-gnu/libsimple.$(VER).$(CND_DLIB_EXT)
+	ln -s $(DESTDIR)$(PREFIX)/lib/libsimple.$(CND_DLIB_EXT) $(DESTDIR)$(PREFIX)/lib/libsimple.$(VER).$(CND_DLIB_EXT)
 
 .PHONY: uninstall
 uninstall:
 	rm -rf $(DESTDIR)$(PREFIX)/bin/simple
-	rm -f $(DESTDIR)$(PREFIX)/lib/simple.$(CND_DLIB_EXT)
-	rm -f $(DESTDIR)$(PREFIX)/lib/x86_64-linux-gnu/libsimple.$(CND_DLIB_EXT)
-	rm -f $(DESTDIR)$(PREFIX)/lib/x86_64-linux-gnu/libsimple.$(VER).$(CND_DLIB_EXT)
-	rm -R -f $(DESTDIR)$(PREFIX)/include/simple/
-	unlink $(DESTDIR)$(PREFIX)/lib/libsimple.$(CND_DLIB_EXT) 
-	unlink $(DESTDIR)$(PREFIX)/lib/x86_64-linux-gnu/libsimple.$(CND_DLIB_EXT)
-	unlink $(DESTDIR)$(PREFIX)/lib/x86_64-linux-gnu/libsimple.$(VER).$(CND_DLIB_EXT)
+	rm -f $(DESTDIR)$(PREFIX)/lib/libsimple.$(CND_DLIB_EXT)
+	unlink $(DESTDIR)$(PREFIX)/lib/libsimple.$(VER).$(CND_DLIB_EXT)
 
 #This Makefile-Windows.mk was written in adaptation to the standard
 #method of writing makefiles

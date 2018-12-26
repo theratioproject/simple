@@ -41,7 +41,7 @@ SIMPLE_OBJECTFILES = \
 LDLIBSOPTIONS=-Lsimple.so
 
 ${CND_DISTDIR}/${CND_PLATFORM}/libcore_dynamic_module.${CND_DLIB_EXT}: $(OBJECTFILES)
-	$(CC) -shared $(ARC_FLAG) -o $(CND_DISTDIR)/$(CND_PLATFORM)/libcore_dynamic_module.$(CND_DLIB_EXT) $(SIMPLE_OBJECTFILES) $(OBJECTFILES) 
+	$(CC) -shared $(ARC_FLAG) -o $(CND_DISTDIR)/$(CND_PLATFORM)/libcore_dynamic_module.$(CND_DLIB_EXT) $(OBJECTFILES)
 
 $(OBJECTDIR)/core_dynamic_module.o: core_dynamic_module.c
 	mkdir -p $(OBJECTDIR)

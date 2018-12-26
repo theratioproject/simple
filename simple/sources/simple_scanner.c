@@ -75,6 +75,7 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
 	int nCont,nRunVM,nFreeFilesList = 0 ;
 	char start_up[30]  ;
 	int x,nSize,is_start_file  ;
+	char* simple_env_path;
 	char file_name_two[200]  ; char logable_name[SIMPLE_PATHSIZE] ;
 	char simple_folder[100] ; char __library_path[SIMPLE_PATHSIZE] ;
 	strcpy(logable_name,file_name); simple_justfilename(logable_name) ;
@@ -114,7 +115,7 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
 						strcpy(file_name,__library_path);
 					} else {
 						//checking using environment variable if SIMPLE_PATH and SIMPLE_MODULE_PATH are set
-						char* simple_env_path = getenv("SIMPLE_PATH");  
+						simple_env_path = getenv("SIMPLE_PATH");  
 						snprintf(__library_path, sizeof(__library_path), "%s/s%s/modules/%s", simple_env_path, SIMPLE_VERSION, file_name);
 						if (simple_fexists(__library_path)) { strcpy(file_name,__library_path); }
 						else {
@@ -130,7 +131,9 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
 									#ifdef _WIN32
 										snprintf(__library_path, sizeof(__library_path), "C:/Simple/s%s/modules/%s",SIMPLE_VERSION,file_name);
 									#else
-										snprintf(__library_path, sizeof(__library_path), "/var/lib/simple/s%s/modules/%s", SIMPLE_VERSION,file_name);
+									
+									simple_env_path = getenv("PREFIX");
+								snprintf(__library_path, sizeof(__library_path), "%s/var/lib/simple/s%s/modules/%s", simple_env_path, SIMPLE_VERSION,file_name);
 									#endif
 									if (simple_fexists(__library_path)) { strcpy(file_name,__library_path);}
 									else {

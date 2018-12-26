@@ -75,13 +75,9 @@ execute_build_proceed() {
 		*none* )
 			installsimpleexec $1
 			build_dynamic_modules $1
-			case $1 in
-				*debug* )
-					copyinclude $1
-					copymodules $1
-				;;
-			esac
-			build_environments $1
+			copyinclude $1
+			copymodules $1
+			#build_environments $1
 			case $1 in
 				*install* )
 					finalize_installation $1
@@ -95,7 +91,7 @@ execute_build_proceed() {
 			copyinclude $1
 		;;
 		*dy-modules-only* )
-			#installsimpleexec notanyofit
+			installsimpleexec notanyofit
 			build_dynamic_modules $1
 		;;
 		*modules-only* )
@@ -135,7 +131,7 @@ build_environments() {
 			;;
 			*install* )
 				cd ../environment/
-				sudo make -f ./Linux-Install.mk SIMPLE=$simple_command ARC_FLAG=$arc_var ARC=$arc 
+				sudo make -f ./Linux-Install.mk SIMPLE;=$simple_command ARC_FLAG=$arc_var ARC=$arc 
 				if [ -e ./dist/bake ]; then
 					sudo make -f ./Linux-Install.mk uninstall
 					sudo make -f ./Linux-Install.mk install
@@ -175,24 +171,24 @@ copymodules() {
 			fi
 		;;
 		*install* )
-			local prefix=~/
-			if [ -e "$prefix/lib/simple/$version/modules/simple" ]; then 
-				rm -R -f "$prefix/lib/simple/$version/modules/archive"
-				rm -R -f "$prefix/lib/simple/$version/modules/fulltick"
-				rm -R -f "$prefix/lib/simple/$version/modules/simple"
-				rm -R -f "$prefix/lib/simple/$version/modules/web"
+			local prefix=$PREFIX/var/
+			if [ -e "$PREFIX/var/lib/simple/$version/modules/simple" ]; then 
+				rm -R -f "$PREFIX/var/lib/simple/$version/modules/archive"
+				rm -R -f "$PREFIX/var/lib/simple/$version/modules/fulltick"
+				rm -R -f "$PREFIX/var/lib/simple/$version/modules/simple"
+				rm -R -f "$PREFIX/var/lib/simple/$version/modules/web"
 			fi
-			mkdir -p "$prefix/lib/simple/$version/modules/archive"
-			mkdir -p "$prefix/lib/simple/$version/modules/fulltick"
-			mkdir -p "$prefix/lib/simple/$version/modules/simple"
-			mkdir -p "$prefix/lib/simple/$version/modules/web"
+			mkdir -p "$PREFIX/var/lib/simple/$version/modules/archive"
+			mkdir -p "$PREFIX/var/lib/simple/$version/modules/fulltick"
+			mkdir -p "$PREFIX/var/lib/simple/$version/modules/simple"
+			mkdir -p "$PREFIX/var/lib/simple/$version/modules/web"
 			if [ -e "../modules/modules-dependencies.conf" ]; then
-				cp "../modules/modules-dependencies.conf" "$prefix/lib/simple/$version/modules/"
-				cp -R "../modules/archive" "$prefix/lib/simple/$version/modules/"
-				cp -R "../modules/fulltick" "$prefix/lib/simple/$version/modules/"
-				cp -R "../modules/simple" "$prefix/lib/simple/$version/modules"
-				cp -R "../modules/web" "$prefix/lib/simple/$version/modules/"
-				treat_first_calls_file $1 "$prefix/lib/simple/$version/modules/simple/core/__first_calls.sim"
+				cp "../modules/modules-dependencies.conf" "$PREFIX/var/lib/simple/$version/modules/"
+				cp -R "../modules/archive" "$PREFIX/var/lib/simple/$version/modules/"
+				cp -R "../modules/fulltick" "$PREFIX/var/lib/simple/$version/modules/"
+				cp -R "../modules/simple" "$PREFIX/var/lib/simple/$version/modules"
+				cp -R "../modules/web" "$PREFIX/var/lib/simple/$version/modules/"
+				treat_first_calls_file $1 "$PREFIX/var/lib/simple/$version/modules/simple/core/__first_calls.sim"
 			else
 				not_found_error $1 "includes directory"
 			fi
@@ -219,8 +215,15 @@ build_dynamic_modules(){
 				rm -R ../dist/
 			fi
 			make -f Makefile-Linux.mk uninstall  ARC_FLAG=$arc_var ARC=$arc
-			make -f Makefile-Linux.mk  ARC_FLAG=$arc_var ARC=$arc
-
+			#resolve for debug later
+			case $1 in
+				*debug* )				
+					make -f Makefile-Linux.mk  "ARC_FLAG=$arc_var' ./libsimple.so -D__TERMUX__'" ARC=$arc
+				;;
+				*install* )
+					make -f Makefile-Linux.mk  "ARC_FLAG=$arc_var' -lsimple -D__TERMUX__'" ARC=$arc
+				;;
+			esac
 			# fulltick(GUI) dynamic_module
 				display "dynamic_modules:fulltick:" "checking if fulltick build successfully"
 			if [ -e ../dist/fulltick.so ]; then
@@ -267,11 +270,16 @@ build_dynamic_modules(){
 			fi
 		;;
 		*install* )
-			cd ../modules//dynamic_modules/makefiles/
-			make -f ./Makefile-Linux.mk install ARC_FLAG=$arc_var ARC=$arc
-			cd ../../../build 
-			local prefix=~/
-			treat_first_calls_file $1 "$prefix/lib/simple/$version/modules/simple/core/__first_calls.sim"
+			mkdir -p $PREFIX/var/lib/simple/$version/
+			mkdir -p $PREFIX/var/lib/simple/$version/modules
+			mkdir -p $PREFIX/var/lib/simple/$version/modules/dynamic_modules
+			if [ -e "../modules/dynamic_modules/dist/" ]; then
+				cp ../modules/dynamic_modules/dist/*.so* $PREFIX/var/lib/simple/$version/modules/dynamic_modules
+			else
+				build_failed_error $1 "simple and libsimple.so"
+			fi
+			local prefix=$PREFIX/var/
+			treat_first_calls_file $1 "$PREFIX/var/lib/simple/$version/modules/simple/core/__first_calls.sim"
 		;;
 	esac
 }
@@ -285,11 +293,14 @@ installsimpleexec() {
 			display $1 "uninstalling previous simple object build"
 			rm -r ../dist/
 		fi
-		make -f Makefile-Android-Termux.mk uninstall ARC_FLAG=$arc_var ARC=$arc
+		if [[ "$1" != "notanyofit" ]]; then
+			make -f Makefile-Android-Termux.mk uninstall ARC_FLAG=$arc_var ARC=$arc
+		fi
 		make -f Makefile-Android-Termux.mk ARC_FLAG=$arc_var ARC=$arc
 	else 
 		not_found_error $1 Makefile-Linux.mk
 	fi
+	
 	case $1 in
 		*debug* )
 			display $1 "copying executable to $simple_debug_version directory"
@@ -355,29 +366,19 @@ not_found_error() {
 uninstall() {
 	local prefix=${DESTDIR}${PREFIX:-/usr/}
 	header uninstall "removing simple $version from the system"
-	echo "simple-lang:menu: removing simplepad menu entry"
-	sudo rm -f ~/.local/share/applications/simplepad.desktop
-	header uninstall "unlinking environment and library"
-	unlink ~/Desktop/simplepad
-	sudo unlink $prefix/lib/libsimple.$ver.so
-	sudo unlink $prefix/lib/libsimple.so
-	sudo unlink /lib/libsimple.$ver.so
-	sudo unlink /lib/libsimple.so
-	sudo unlink /usr/local/lib/libsimple.$ver.so
-	sudo unlink /usr/local/lib/libsimple.so 
-	header uninstall "uninstalling simple-lang core executables"
+	header uninstall "uninstalling core executables"
 	cd ../simple/makefiles
-	sudo make -f Makefile-Linux.mk uninstall 
+	make -f Makefile-Android-Termux.mk uninstall 
 	cd ../../build 
-	header uninstall "uninstalling simple-lang environments"
+	header uninstall "uninstalling environments"
 	cd ../environment
-	sudo make -f Linux-Install.mk uninstall
+	make -f Linux-Install.mk uninstall
 	cd ../build
-	header uninstall "uninstalling simple-lang modules"
+	header uninstall "uninstalling modules"
 	cd ../modules/dynamic_modules/makefiles 
-	sudo make -f Makefile-Linux.mk uninstall
+	make -f Makefile-Linux.mk uninstall-termux
 	cd ../../../build
-	header uninstall "reinstall with 'sudo sh Linux-Build.sh -i'"
+	header uninstall "reinstall with 'bash Android-Termux-Build.sh -i'"
 	header uninstall "uninstallation complete"
 }
 
@@ -387,6 +388,7 @@ configure() {
 	pkg install make
 	pkg install clang
 	pkg install libcurl-dev
+	pkg install openssl-dev
 	pkg install libsqlite-dev
 }
 
@@ -500,48 +502,7 @@ remove_dist_folders() {
 }
 
 finalize_installation() {
-	local prefix=${DESTDIR}${PREFIX:-/usr/}
-	header link "linking environment and library"
-	echo "simple-lang:link: linking libsimple.so to libsimple.so and libsimple.$ver.so"
-	sudo link $prefix/lib/libsimple.so /lib/libsimple.so
-	sudo link $prefix/lib/libsimple.so /lib/libsimple.$ver.so
-	sudo link $prefix/lib/libsimple.so $prefix/lib/libsimple.so
-	sudo link $prefix/lib/libsimple.so $prefix/lib/libsimple.$ver.so
-	sudo link $prefix/lib/libsimple.so $prefix/local/lib/libsimple.so
-	sudo link $prefix/lib/libsimple.so $prefix/local/lib/libsimple.$ver.so
-	display link "linking simplepad to user ~/Desktop"
-	sudo link $prefix/bin/simplepad ~/Desktop/simplepad
-
-	header link "add simplepad to the system menu"
-	sudo echo "[Desktop Entry]" >> ~/.local/share/applications/simplepad.desktop
-	sudo echo "Version=1.0" >> ~/.local/share/applications/simplepad.desktop
-	sudo echo "Type=Application" >> ~/.local/share/applications/simplepad.desktop
-	sudo echo "Name=Simple Pad" >> ~/.local/share/applications/simplepad.desktop
-	sudo echo "GenericName=Awesome App" >> ~/.local/share/applications/simplepad.desktop
-	sudo echo "Icon=/var/lib/simple/$version/resources/simplepad.png" >> ~/.local/share/applications/simplepad.desktop
-	if [ -e $prefix/bin/simplepad ]; then
-		sudo echo "Exec=$prefix/bin/simplepad" >> ~/.local/share/applications/simplepad.desktop
-	elif [ -e /usr/local/bin/simplepad ]; then
-		sudo echo "Exec=/usr/local/bin/simplepad" >> ~/.local/share/applications/simplepad.desktop
-	elif [ -e /bin/simplepad ]; then
-		sudo echo "Exec=/bin/simplepad" >> ~/.local/share/applications/simplepad.desktop
-	else
-		sudo echo "Exec=simplepad" >> ~/.local/share/applications/simplepad.desktop
-	fi
-	sudo echo "Comment=Simple Pad code simple-lang with ease" >> ~/.local/share/applications/simplepad.desktop
-	sudo echo "Categories=Development;IDE;" >> ~/.local/share/applications/simplepad.desktop
-	sudo echo "Terminal=false" >> ~/.local/share/applications/simplepad.desktop
-
-	echo "======================================="
-
-	echo "  Minifying Source code for modules   "
-	
-	echo "======================================="
-	minifier -s /var/lib/simple/s0.3.36/modules -y
-
 	header build "testing installtion > simple" 
-	# echo treat_first_calls_file()
-
 	simple
 }
 
@@ -607,20 +568,20 @@ build_deb_package() {
 			sudo cp $prefix/bin/modular $debpackagedir/usr/bin/
 			sudo cp $prefix/bin/webworker $debpackagedir/usr/bin/
 			sudo cp $prefix/bin/bake $debpackagedir/usr/bin/
-			sudo cp $prefix/lib/libsimple.so $debpackagedir/usr/lib/
-			sudo cp $prefix/lib/libsimple.so $debpackagedir/usr/lib/
-			sudo cp -R /var/lib/simple/$version $debpackagedir/var/lib/simple/
+			sudo cp $PREFIX/var/lib/libsimple.so $debpackagedir/usr/lib/
+			sudo cp $PREFIX/var/lib/libsimple.so $debpackagedir/usr/lib/
+			sudo cp -R $PREFIX/var/lib/simple/$version $debpackagedir/var/lib/simple/
 			sudo install $prefix/include/simple/simple* $debpackagedir/usr/include/simple/
 			
 			if [ $arc_var = "-m32" ]; then
 				sudo mkdir -p "$debpackagedir/usr/lib/i386-linux-gnu/"
-				sudo cp $prefix/lib/libsimple.so $debpackagedir/usr/lib/i386-linux-gnu/libsimple.so.$ver
+				sudo cp $PREFIX/var/lib/libsimple.so $debpackagedir/usr/lib/i386-linux-gnu/libsimple.so.$ver
 			elif [ $arc_var = "-m64" ]; then
 				sudo mkdir -p "$debpackagedir/usr/lib/x86_64-linux-gnu/"
-				sudo cp $prefix/lib/libsimple.so $debpackagedir/usr/lib/x86_64-linux-gnu/libsimple.so.$ver
+				sudo cp $PREFIX/var/lib/libsimple.so $debpackagedir/usr/lib/x86_64-linux-gnu/libsimple.so.$ver
 			fi  
 			
-			local libcrypto=$(find_dependent_lib /var/lib/simple/$version/modules/dynamic_modules/security.so libcrypto)
+			local libcrypto=$(find_dependent_lib $PREFIX/var/lib/simple/$version/modules/dynamic_modules/security.so libcrypto)
 			if [[ "$libcrypto" = *"i386-linux-gnu"* ]]; then
 				sudo mkdir "$debpackagedir/usr/lib/i386-linux-gnu/"
 				sudo cp $libcrypto $debpackagedir/usr/lib/i386-linux-gnu/
@@ -647,7 +608,7 @@ build_deb_package() {
 	display debpackage "creating 'postinst' file"
 	echo "#!/bin/sh" >> $debpackagedir/DEBIAN/postinst
 	echo "" >> $debpackagedir/DEBIAN/postinst
-	echo "sudo chmod -R 777 /var/lib/simple/" >> $debpackagedir/DEBIAN/postinst
+	echo "sudo chmod -R 777 $PREFIX/var/lib/simple/" >> $debpackagedir/DEBIAN/postinst
 	echo "" >> $debpackagedir/DEBIAN/postinst
 	echo "mkdir -p ~/" >> $debpackagedir/DEBIAN/postinst
 	echo "mkdir -p ~/.local/" >> $debpackagedir/DEBIAN/postinst

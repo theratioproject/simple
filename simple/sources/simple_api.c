@@ -688,6 +688,7 @@ void simple_vm_dll_calllib ( void *pointer )
     char library_path[200]  ; 
 	char __library_path[SIMPLE_PATHSIZE]  ;
 	char simple_folder[100] ;
+	char* simple_env_path;
     loadlibblockptr pBlock  ;
     VM *vm  ;
     SimpleState *sState  ;
@@ -716,17 +717,19 @@ void simple_vm_dll_calllib ( void *pointer )
 							strcpy(library_path,__library_path);
 					} else {
 						//checking using environment variable if SIMPLE_PATH and SIMPLE_MODULE_PATH are set
-						char* simple_env_path = getenv("SIMPLE_PATH");  snprintf(__library_path, sizeof(__library_path), "%s/s%s/modules/dynamic_modules/%s", simple_env_path, SIMPLE_VERSION, library_path); 
+						simple_env_path = getenv("SIMPLE_PATH");  snprintf(__library_path, sizeof(__library_path), "%s/s%s/modules/dynamic_modules/%s", simple_env_path, SIMPLE_VERSION, library_path); 
 						if (simple_fexists(__library_path)) { strcpy(library_path,__library_path); }
 						else {
-							char* simple_env_path = getenv("SIMPLE_MODULE_PATH"); snprintf(__library_path, sizeof(__library_path), "%s/dynamic_modules/%s", simple_env_path, library_path);
+							simple_env_path = getenv("SIMPLE_MODULE_PATH"); snprintf(__library_path, sizeof(__library_path), "%s/dynamic_modules/%s", simple_env_path, library_path);
 							if (simple_fexists(__library_path)) { strcpy(library_path,__library_path);}
 							else {
 								//find the module in relative to run folder (UNDONE) //this is last
 								#ifdef _WIN32
 									snprintf(__library_path, sizeof(__library_path), "C:/Simple/s%s/modules/dynamic_modules/%s",SIMPLE_VERSION,library_path);
 								#else
-									snprintf(__library_path, sizeof(__library_path), "/var/lib/simple/s%s/modules/dynamic_modules/%s", SIMPLE_VERSION,library_path);
+								
+								simple_env_path = getenv("PREFIX");
+								snprintf(__library_path, sizeof(__library_path), "%s/var/lib/simple/s%s/modules/dynamic_modules/%s", simple_env_path,SIMPLE_VERSION,library_path);
 								#endif
 								if (simple_fexists(__library_path)) { strcpy(library_path,__library_path);}
 								else {

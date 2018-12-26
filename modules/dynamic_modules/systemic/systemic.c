@@ -294,7 +294,7 @@ void system_beep ( void *pointer )
         #ifdef _WIN32
         Beep(SIMPLE_API_GETNUMBER(1), SIMPLE_API_GETNUMBER(2));
         #else
-			#ifdef __ANDROID__
+			#if defined(__ANDROID__) || defined(__TERMUX__)
 				printf("\a");
 			#else
 				_beep(SIMPLE_API_GETNUMBER(1), SIMPLE_API_GETNUMBER(2));

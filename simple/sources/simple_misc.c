@@ -138,7 +138,7 @@ void simple_showtime ( clock_t before_execution)
 {
     clock_t after_execution = clock();
     float seconds = get_time_different((float)(after_execution - before_execution) / CLOCKS_PER_SEC);
-    printf("\nExecution Time : %.5f %s", seconds, time_frame);
+    printf("\nExecution Time : %.5f %s\n", seconds, time_frame);
 }
 
 float get_time_different(float current_seconds) { 

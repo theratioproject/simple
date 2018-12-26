@@ -77,7 +77,7 @@ install:
 	cp -R $(MODULE_BASE)/simple /var/lib/simple/$(VERSION)/modules/
 	cp -R $(MODULE_BASE)/web /var/lib/simple/$(VERSION)/modules/
 	cp -R $(MODULE_BASE)/parser /var/lib/simple/$(VERSION)/modules/
-	sudo chmod -R 777 /var/lib/simple/
+	chmod -R 777 /var/lib/simple/
 	rm -r -f $(CND_DISTDIR)/
 	
 #We should not remove the main simple directory because it might contain 
@@ -90,7 +90,13 @@ uninstall:
 	rm -r -f /var/lib/simple/$(VERSION)/modules/
 	rm -r -f /var/lib/simple/$(VERSION)/
 
-#If this make file does not work on your Windows PC or you use 
+.PHONY: uninstall-termux
+uninstall-termux:
+	rm -r -f $(PREFIX)/var/lib/simple/$(VERSION)/modules/dynamic_modules/
+	rm -r -f $(PREFIX)/var/lib/simple/$(VERSION)/modules/
+	rm -r -f $(PREFIX)/var/lib/simple/$(VERSION)/
+
+#If this makefile does not work on your Windows PC or you use 
 #alternative compiler e.g Visual Studio, Cygwin e.t.c feel free to 
 #write your own Makefile and send us a pull request at 
 #https://github.com/simple-lang/modules . Your make file must follow 
