@@ -1,0 +1,6 @@
+
+WrapperCodeTemplate = [
+	:simple = "
+#include {INCLUDE_FILE}
+	"
+]

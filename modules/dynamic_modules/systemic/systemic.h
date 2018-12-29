@@ -31,6 +31,7 @@ void systemic_ismacosx(void *pointer);
 void systemic_islinux(void *pointer);
 void systemic_isfreebsd(void *pointer);
 void systemic_isandroid(void *pointer);
+void systemic_istermux(void *pointer);
 void systemic_windowsnl(void *pointer);
 void systemic_currentdir(void *pointer);
 void systemic_exefilename(void *pointer);

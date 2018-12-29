@@ -180,12 +180,10 @@ SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 				NOT_CASE_SENSITIVE = 1;
 			} else if ( strcmp(argv[x],"--error") == 0 || strcmp(argv[x],"-e") == 0 ) {
 				skip_error = 1;
-			} else if ( strcmp(argv[x],"--license") == 0 || strcmp(argv[x],"-l") == 0 ) {
-				display_licence();
+			} else if ( strcmp(argv[x],"--version") == 0 || strcmp(argv[x],"-v") == 0 ) {
+				display_version();
 			} else if ( strcmp(argv[x],"--help") == 0 || strcmp(argv[x],"-h") == 0 ) {
 				display_help();
-			} else if ( strcmp(argv[x],"--about") == 0 || strcmp(argv[x],"-a") == 0 ) {
-				display_about();
 			} else if ( strcmp(argv[x],"-s") == 0 || strcmp(argv[x],"--simplify") == 0 ) {
 				nGenObj = 1 ; nRun = 0 ;
 			} else if ( strcmp(argv[x],"-n") == 0 || strcmp(argv[x],"--no-run") == 0 ) {

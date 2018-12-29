@@ -522,7 +522,7 @@ block displayMessage(msg)
 	@msg
 
 block displayHelp()
-	@ monkeyFace
+	#@ monkeyFace
 	help = "
 usage:  modular [OPTIONS] [PACKAGE]
 

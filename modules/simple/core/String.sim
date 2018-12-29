@@ -114,7 +114,7 @@ block strRemoveCharAt(object,index)
 		if !isNumber(index) {
 			index = index.Number
 		}
-		objectLen = lengthOf(object)
+		objectLen = lengthOf(object) - 1
 		if index > objectLen or index < 0 {
 			return object
 		}
@@ -571,14 +571,14 @@ block strAfterLast(str, lst)
 		end 
 		count++
 	end
-	lastc = (lengthOf(str) - count) + 1
+	lastc = (lengthOf(str) - count)
 	for a  = lastc to lengthOf(str) - 1
 		ret += str[a]
 	end
 	return ret
 	
 block strAfter(str, lst)
-	lstl = (__substr(str, lst)) + lengthOf(lst) + 1
+	lstl = (__substr(str, lst)) + lengthOf(lst) 
 	ret = ""
 	for a = lstl to lengthOf(str) - 1
 		ret += str[a]

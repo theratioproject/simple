@@ -84,6 +84,7 @@ build, installation, features e.t.c
 - [ ] make break from multiple loop start from index 0 instead of one `break 0` instead of `break 1`
 - [ ] allow inline return of new object instance even if constructor return self
 - [ ] import a module as soon as it is declared
+- [ ] `private` variable outside a class should limit the variable to the file scope
 
 ### simplify
 - [ ] hint user as a type of level error when a similar variable that has not been declared is used 
@@ -152,6 +153,7 @@ Modules which are not part of the standard module that comes distributed with si
 - [ ] extend simple-repl functionalities (Case Study : elixr iex)
 - [x] Build the minifier environment that reduces module size by compressing code upon installation.
 - [ ] create the distribution program - bake
+	- [ ] load lang as plugin from simple source
 	- [ ] package simple source file (.sim) or compiled file (.complex) to system executable
 	- [ ] package simple source file (.sim) or compiled file (.complex) to system library or simple-lang specific library
 	- [ ] create directory for generated output

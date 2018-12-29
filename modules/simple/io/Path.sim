@@ -63,21 +63,84 @@ block getCorrectPath(oddPath)
 	}
 	return correctPath
  
+/*
+
+*/
 class Path : Object
+
+	/*
 	
+	*/
+	string SystemSlash = null
+	setSystemSlash()
 	
-	__IO_PATH = null
+	/*
+	
+	*/
+	string AbsolutePath = null
+	
+	/*
+	
+	*/
+	string Name = null
+	
+	/*
+	
+	*/
+	Directory Directory = null
+		
+	/*
+	
+	*/
+	block setAbsolutePath(string value)
+		if isNull(value) {
+			AbsolutePath = getCorrectPath(AbsolutePath)
+		else
+			#rename as absolute path 
+			#update the paths
+		}
+		
+	/*
+	
+	*/
+	block getName()
+		return Name
+		
+	/*
+	
+	*/
+	block setName(str value)
+		if isNull(value) {
+			Name = lastStrAfterChar(AbsolutePath, SystemSlash)
+		else
+			renameTo(value)
+		}
+		
+	/*
+	
+	*/
+	block setDirectory(value)
+		if isNull(value) {
+			directory = removeStr(AbsolutePath, SystemSlash+Name)
+			Directory = new Directory(directory)
+		else
+			#change the parent directory accept string 
+			#and Directory class update the paths
+		}
+		
+	#undone parts below
+	
 	__IO_MODULE = "simple.io.Path"
-	__IO_PATH_EMPTY = "The __IO_PATH variable is empty"
+	__IO_PATH_EMPTY = "The AbsolutePath variable is empty"
 	__IO_PATH_NOT_STRING = "Only string is allowed as parameter"
 	__IO_PATH_EXISTS_DELETE = "exist and is been deleted"
 	__IO_PATH_SYSTEM_SLASH = getSystemSlash()
 
 	block Path(ipath)
-		__IO_PATH = ipath
+		AbsolutePath = ipath
 		
 	block toString()
-		return __IO_PATH
+		return AbsolutePath
 		
 	block path()
 		"[just for checking]"
@@ -107,10 +170,10 @@ class Path : Object
 	#-2 means the error is unknown (uncommon) 	
 	#In this block trailing '/' or '\' are completely striped off (untreated)
 	block rawExists()
-		while (strEndsWith(__IO_PATH,'/') || strEndsWith(__IO_PATH,'\')) {
-				__IO_PATH = removeStrAt(__IO_PATH, lengthOf(__IO_PATH) - 1) 
+		while (strEndsWith(AbsolutePath,'/') || strEndsWith(AbsolutePath,'\')) {
+				AbsolutePath = strRemoveCharAt(AbsolutePath, lengthOf(AbsolutePath) - 1) 
 		}
-		return __dir_exists(__IO_PATH)
+		return __dir_exists(AbsolutePath)
 		
 	/*
 		Format the slashes in @Class File, @Class Directory and @Class Path
@@ -123,7 +186,7 @@ class Path : Object
 		if isPath(path) { ret = path.toString() }
 		ret = replaceStr(path,'//','/')
 		ret = replaceStr(ret,'\\','/')
-		ret = replaceStr(ret,'/',__IO_PATH_SYSTEM_SLASH)
+		ret = replaceStr(ret,'/',getSystemSlash())
 		return ret 
 		
 	/*
@@ -158,13 +221,13 @@ class Path : Object
 		return __renameTo(oldName,newName)
 		
 	/*
-		Delete the path related to this class, the __IO_PATH must have been declared 
+		Delete the path related to this class, the AbsolutePath must have been declared 
 		else an error is thrown
 		@Return the delete operation value true if successful and false if the delete
 		operation fails @DataType Boolean
 	*/
 	block delete()
-		return __delete(__IO_PATH)
+		return __delete(AbsolutePath)
 		
 	/*
 		Delete the path related to this class, the filePath must be a valid path else 
@@ -174,37 +237,16 @@ class Path : Object
 	*/	
 	block _delete(filePath)
 		return __delete(filePath)
-		
+	
 	block absolutePath()
-		if __IO_PATH == null {
+		if AbsolutePath == null {
 			throwWithTitle(__IO_MODULE,__IO_PATH_EMPTY)
 		}
-		tempPath = __IO_PATH
-		if strStartsWith(__IO_PATH,".") || strStartsWith(__IO_PATH,"..") || strStartsWith(__IO_PATH,__IO_PATH_SYSTEM_SLASH) {
-			tempPath = getCorrectPath(__IO_PATH)
+		tempPath = AbsolutePath
+		if strStartsWith(AbsolutePath,".") || strStartsWith(AbsolutePath,"..") || strStartsWith(AbsolutePath,SystemSlash) {
+			tempPath = getCorrectPath(AbsolutePath)
 		}
 		return tempPath
-		
-	/*
-		Get the system compatible slash to avoid error in input and output
-		operations. Some of the known slashes are:
-		@BlockQuote
-			Windows 	- \
-			Linux		- /
-			MacOS		- /
-			Haiku		- /
-			Unix		- /
-			Android		- /
-		@End
-		@Return the system slash char @DataType String
-	*/
-	block getSystemSlash()
-		if isWindows() {
-			return '\'
-		elif isLinux()
-			return '/'
-		}		
-		return '/'
 		
 	/*
 		Move a directory from one folder to another. This operation will require the 
@@ -225,35 +267,35 @@ class Path : Object
 			
 			}
 		}
-		if !strEndsWith(__newFolder,__IO_PATH_SYSTEM_SLASH) {
-			__newFolder += __IO_PATH_SYSTEM_SLASH
+		if !strEndsWith(__newFolder,SystemSlash) {
+			__newFolder += SystemSlash
 		}
 		if moveType {
-			return forceRenameTo(__newFolder+__IO_PATH_SYSTEM_SLASH+getName())
+			return forceRenameTo(__newFolder+SystemSlash+getName())
 		else
-			return renameTo(__newFolder+__IO_PATH_SYSTEM_SLASH+getName())
+			return renameTo(__newFolder+SystemSlash+getName())
 		}
 		
 	block name()
 		abPath = absolutePath() 
-		while (strEndsWith(abPath,__IO_PATH_SYSTEM_SLASH) ) {
+		while (strEndsWith(abPath,SystemSlash) ) {
 			abPath = removeStrAt(abPath, lengthOf(abPath) - 1) 
 		}
-		dName = lastStrAfterChar(abPath, __IO_PATH_SYSTEM_SLASH)
+		dName = lastStrAfterChar(abPath, SystemSlash)
 		return dName
 		
 	block parentPath()
 		abPath = absolutePath() 
-		tempName = __IO_PATH_SYSTEM_SLASH+name()
+		tempName = SystemSlash+name()
 		tempPath = removeStr(abPath, tempName) 
 		return new Path(tempPath)
 		
 	block toDirectory()
-		test = new Directory(__IO_PATH)
+		test = new Directory(AbsolutePath)
 		return test
 
 	block toFile()
-		return new File(__IO_PATH)
+		return new File(AbsolutePath)
 		
 	/*
 		Convert the @Class Path to @Class FileAttributes to get the stats, attributes 
@@ -261,7 +303,7 @@ class Path : Object
 		@Return the path attributes value of the current class @DataType @Class PathAttributes
 	*/
 	block toPathAttributes()
-		return new PathAttributes(__IO_PATH)
+		return new PathAttributes(AbsolutePath)
 		
 	/*
 		This return the total size of the provide path in pure byte.
@@ -308,18 +350,53 @@ class Path : Object
 		return toPathType().getTypeValue()
 		
 	block toPathType()
-		return new PathType(__IO_PATH)
+		return new PathType(AbsolutePath)
+		
+	/*
+		Get the system compatible slash to avoid error in input and output
+		operations. Some of the known slashes are:
+		@BlockQuote
+			Windows 	- \
+			Linux		- /
+			MacOS		- /
+			Haiku		- /
+			Unix		- /
+			Android		- /
+		@End
+		@Return the system slash char @DataType String
+	*/
+	block setSystemSlash()
+		if isWindows() {
+			SystemSlash =  '\'
+		elif isLinux()
+			SystemSlash =  '/'
+		else
+			SystemSlash = '/'
+		}
 	
-	private 
+	/*
 	
+	*/
+	private
+	
+		/*
+		
+		*/
+		block updateAttributes(path)
+			setName(null)
+			setAbsolutePath(null)
+			setDirectory(null)
+		
+		/*
+		
+		*/
 		block getCorrectPath(oddPath)
 			correctPath = __path_absolute_path(oddPath)
-			if !strEndsWith(correctPath, oddPath) && !strContains(oddPath, "."+__IO_PATH_SYSTEM_SLASH) {
+			if !strEndsWith(correctPath, oddPath) && !strContains(oddPath, "."+SystemSlash) {
 				correctPathTemp = removeStr(oddPath,correctPath)
 				correctPath += correctPathTemp
 			}
 			return correctPath
-			
 			
 			
 			

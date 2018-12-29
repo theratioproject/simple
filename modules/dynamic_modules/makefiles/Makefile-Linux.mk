@@ -50,13 +50,13 @@ ifeq ($(PREFIX),)
 endif
 
 clean: 
-	#cd ../archiver/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
+	cd ../archiver/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
 	cd ../consoler/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
 	cd ../file_savant/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
 	cd ../mathic/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
 	cd ../string_savant/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
 	cd ../networker/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
-	#cd ../parser/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
+	cd ../parser/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
 	cd ../security/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
 	cd ../systemic/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
 	cd ../core_dynamic_module/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)

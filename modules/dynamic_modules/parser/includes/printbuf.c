@@ -72,7 +72,7 @@ int printbuf_memappend(struct printbuf *p, const char *buf, int size)
 #endif /* !HAVE_VSNPRINTF && defined(WIN32) */
 /* error removed manually on linux */
 
-#if !HAVE_VASPRINTF
+#if !HAVE_VASPRINTF && !defined(__TERMUX__)
 /* CAW: compliant version of vasprintf */
 static int vasprintf(char **buf, const char *fmt, va_list ap)
 {

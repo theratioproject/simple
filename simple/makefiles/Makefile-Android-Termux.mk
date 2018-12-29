@@ -21,6 +21,7 @@ endif
 CFLAGS= -c -fpic -g -D__TERMUX__
 LFlAGS= -lm -ldl
 LDFLAGS= -L ./ -Wl, "-Wl,--no-as-needed" 
+AR_FLAGS=rcs
 
 # Macros
 VER=0.3.36
@@ -70,7 +71,8 @@ SIMPLE_OBJECTFILES= \
 $(CND_DISTDIR)/$(CND_PLATFORM)/simple: $(OBJECTFILES)
 	$(CC) -shared $(ARC_FLAG) -o ./libsimple.$(CND_DLIB_EXT) $(OBJECTFILES)
 	$(CC) $(LDFLAGS) $(LFlAGS) $(ARC_FLAG) -o $(CND_DISTDIR)/simple ../simple.c libsimple.$(CND_DLIB_EXT)
-	mv ./libsimple.$(CND_DLIB_EXT) $(CND_DISTDIR)
+	${AR} ${AR_FLAGS} ./libsimple.a ${OBJECTFILES}
+	mv ./libsimple.* $(CND_DISTDIR)
 	#rm -R ${OBJECTDIR}
 	
 $(OBJECTDIR)/simple_api.o: $(SOURCE_DIR)/simple_api.c
@@ -178,19 +180,21 @@ distclean: clean
 
 .PHONY: install
 install: $(CND_DISTDIR)/simple
-	mkdir -p $(DESTDIR)$(PREFIX)/bin
-	mkdir -p $(DESTDIR)$(PREFIX)/lib
-	mkdir -p $(DESTDIR)$(PREFIX)/include/simple
-	install $(CND_DISTDIR)/simple $(DESTDIR)$(PREFIX)/bin/
-	install $(CND_DISTDIR)/libsimple.$(CND_DLIB_EXT) $(DESTDIR)$(PREFIX)/lib/
-	install $(INCLUDES_DIR)/simple* $(DESTDIR)$(PREFIX)/include/simple/
-	ln -s $(DESTDIR)$(PREFIX)/lib/libsimple.$(CND_DLIB_EXT) $(DESTDIR)$(PREFIX)/lib/libsimple.$(VER).$(CND_DLIB_EXT)
+	mkdir -p $(PREFIX)/bin
+	mkdir -p $(PREFIX)/lib
+	mkdir -p $(PREFIX)/include/simple
+	install $(CND_DISTDIR)/simple $(PREFIX)/bin/
+	install $(CND_DISTDIR)/libsimple.$(CND_DLIB_EXT) $(PREFIX)/lib/
+	install $(CND_DISTDIR)/libsimple.a $(PREFIX)/lib/
+	install $(INCLUDES_DIR)/simple* $(PREFIX)/include/simple/
+	ln -s $(PREFIX)/lib/libsimple.$(CND_DLIB_EXT) $(PREFIX)/lib/libsimple.$(VER).$(CND_DLIB_EXT)
 
 .PHONY: uninstall
 uninstall:
-	rm -rf $(DESTDIR)$(PREFIX)/bin/simple
-	rm -f $(DESTDIR)$(PREFIX)/lib/libsimple.$(CND_DLIB_EXT)
-	unlink $(DESTDIR)$(PREFIX)/lib/libsimple.$(VER).$(CND_DLIB_EXT)
+	rm -rf $(PREFIX)/bin/simple
+	rm -f $(PREFIX)/lib/libsimple.$(CND_DLIB_EXT)
+	rm -f $(PREFIX)/lib/libsimple.a
+	unlink $(PREFIX)/lib/libsimple.$(VER).$(CND_DLIB_EXT)
 
 #This Makefile-Windows.mk was written in adaptation to the standard
 #method of writing makefiles
@@ -207,4 +211,4 @@ uninstall:
 #looking forward to your contribution
 #Thank You
 
-#to add support for $(DESTDIR)$(PREFIX)/lib/x86_64-linux-gnu folder in Linux-Build.sh
+#to add support for $(PREFIX)/lib/x86_64-linux-gnu folder in Linux-Build.sh

@@ -25,24 +25,40 @@ OldSimpleReplTitle = "
      ----------    ---    ---                   ---    ---              ------------    -------------    | MIT License Copyright (c) 2018 SIMPLE
                                                                                                          |  
 "
-	
-simpleReplTitle = " REPL (Read-Eval-Print-Loop) \n" 
-simpleReplTitle += " simple"+getSimpleVersion() + " \n\n"
 
-	printfc(stdout,ConsoleColor.DARKGREEN, simpleReplTitle)
+multiLine = false
+simpleReplTitle = "simple "+getSimpleVersion() + "\n"
+
+	printfc(stdout,ConsoleColor.NONE, simpleReplTitle)
 while true {
-	printfc(stdout,ConsoleColor.DARKGREEN, "simple $ ") 
+	printfc(stdout,ConsoleColor.NONE, "simple$ ") 
 	read code
+	if code == "-\" {
+		multiLine = true
+		code = ""
+	}
+	while strEndsWith(code, "\") or multiLine {
+		read newCode
+		if newCode == "-/" {
+			multiLine = false
+			break
+		}
+		if multiLine {
+			code += nl
+		else
+			code[lengthOf(code)-1] = " "
+		}
+		code += newCode
+	}
 	if strContains(code,"display") {
 		code = replaceStr(code,"display","@")
 	}
 	if code == "__exit__" or code == "bye" or code == ":q" {
-		printfc(stdout,ConsoleColor.DARKGREEN, "bye")
 		break
 	}
-	try
+	try {
 		executeCode(code)
 	catch
-		printfc(stderr,ConsoleColor.DARKRED, __err__+"\n")
-	end
+		printfc(stderr,ConsoleColor.NONE, __err__+"\n")
+	}
 } 

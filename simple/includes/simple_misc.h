@@ -58,9 +58,7 @@ extern char* time_frame ;
 
 void display_help();
 
-void display_licence();
-
-void display_about();
+void display_version();
 
 SIMPLE_API int is_simple_file( const char *file_name );
 

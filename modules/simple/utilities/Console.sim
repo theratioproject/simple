@@ -112,7 +112,7 @@ __stdBackgroundColor = ConsoleColor.NONE
 /*
 	A line that fill the width of an average console windows, simply an '=' character 151 long
 */
-consoleLine = __copy("=",151)+crlf
+consoleLine = __copy("=",151)+nl
 
 /*
 	The console module in a printable string **simple.utilities.Console**

@@ -191,16 +191,16 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
 	}
 	/* Read File */
 	if ( fp==NULL ) {
-		printf( "COMPILER ERROR -1 : Can't open file/module : %s\n", file_name) ;
+		printf( "COMPILER ERROR -1 : Can't open file/module : %s\n", file_name) ;	
 		exit(-1);
-                return 0 ;
+         return 0 ;
 	}
 	SIMPLE_READCHAR(fp,c,nSize);
 	scanner = new_simple_scanner(sState);
 	/* Check Startup file */
 	if ( simple_fexists("startup.sim") && scanner->sState->lStartup == 0 ) {
 		scanner->sState->lStartup = 1 ;
-		strcpy(start_up,"Load 'startup.sim'");
+		strcpy(start_up,"call 'startup.sim'");
 		/* Load "startup.sim" */
 		for ( x = 0 ; x < 19 ; x++ ) {
 			simple_scanner_readchar(scanner,start_up[x]);

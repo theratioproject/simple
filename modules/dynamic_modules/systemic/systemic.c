@@ -47,6 +47,7 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
     register_block("isLinux",systemic_islinux);
     register_block("isFreebsd",systemic_isfreebsd);
     register_block("isAndroid",systemic_isandroid);
+    register_block("isTermux",systemic_istermux);
     register_block("windowsnl",systemic_windowsnl);
     register_block("currentDirectory",systemic_currentdir);
     register_block("exeFilePath",systemic_exefilename);
@@ -137,7 +138,16 @@ void systemic_isfreebsd ( void *pointer )
 
 void systemic_isandroid ( void *pointer )
 {
-	#ifdef __ANDROID__
+	#if defined(__ANDROID__) || defined(__TERMUX__)
+	SIMPLE_API_RETNUMBER(1);
+	#else
+	SIMPLE_API_RETNUMBER(0);
+	#endif
+}
+
+void systemic_istermux ( void *pointer )
+{
+	#if defined(__TERMUX__)
 	SIMPLE_API_RETNUMBER(1);
 	#else
 	SIMPLE_API_RETNUMBER(0);

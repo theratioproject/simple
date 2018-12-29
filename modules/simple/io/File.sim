@@ -15,54 +15,85 @@ call simple.io.Path
  
 module simple.io
 
-class File 	: Path
+class File : Path
 
 	__IO_MODULE = "simple.io.File"
 	__IO_FILE_EXISTS = "The file already exists you should delete the file first"
 	__IO_FILE_DELETE = "The file cannot be deleted"
 	FILE_DOES_NOT_EXIST = "The file does not exist"
+	
+	/*
+	
+	*/
+	string NameOnly = null
+	
+	/*
+	
+	*/
+	string Ext = null
+	
+	/*
+	
+	*/
+	boolean Exists = false
+		
+	/*
+	
+	*/
+	block getNameOnly()
+		name = getName()
+		_ext = strAfterLast(name, '.')
+		return removeStr(name, '.'+_ext)
+		
+	/*
+	
+	*/
+	block setNameOnly(str value)
+		renameTo(value)
 
+	/*
+		
+	*/
+	block setExt(str value) 
+		if isNull(value) {
+			name = getName()
+			Ext = strAfterLast(name, '.')
+		else
+			#change ext
+		}
+		
+	#end new done
+		
 	block File(path)
 		updateAttributes(path)
 		
-	/*
 	block absolutePath()
-		return __IO_FILE_PATH
-	*/
-		
-	block name()
-		return lastStrAfterChar(__IO_FILE_PATH, getSystemSlash())
-
-	block getName() 
-		return name()
+		return getCorrectPath(AbsolutePath)
 		
 	block directory()
-		return removeStr(__IO_FILE_PATH, getSystemSlash()+name())
+		return removeStr(AbsolutePath, getSystemSlash()+getName())
 		
 	block toDirectory()
 		tempDir = directory()
 		return new Directory(tempDir)
 		
 	block toPath()
-		return new Path(__IO_FILE_PATH)
+		return new Path(AbsolutePath)
 		
 	block readFileAsString()
 		#ensureExistence()
-		return __readfile(__IO_FILE_PATH)
+		return __readfile(AbsolutePath)
 		
 	block write(content)
-		try 
-			__writefile(__IO_FILE_PATH, content)
+		try {
+			__writefile(AbsolutePath, content)
 		catch
-			display crlf+"Error -> " + __err__ + crlf
-			display "	File : "+__IO_FILE_PATH+crlf
-			display "	Error occur while writing to file"+crlf
-			display "	Probably the directory does not exists"+crlf
-		end
+			throw(self, __err__ + " : " + AbsolutePath + ". Error occur while writing to file, ensure the directory exists")
+		}
 		
 	block append(content)
 		try 
-			__writefile(__IO_FILE_PATH, readFileAsString()+""+content)
+			__writefile(AbsolutePath, readFileAsString()+""+content)
 		catch
 			display __err__
 		end
@@ -74,12 +105,12 @@ class File 	: Path
 		else 
 			content = "false"
 		end
-		__writefile(__IO_FILE_PATH, readFileAsString()+""+content)
+		__writefile(AbsolutePath, readFileAsString()+""+content)
 		
 	
 	block exists() 
-		#return __exists(__IO_FILE_PATH) #currently failing	
-		__IO_PATH = __IO_FILE_PATH
+		#return __exists(AbsolutePath) #currently failing	
+		__IO_PATH = AbsolutePath
 		return isAFile()
 		
 	block toString()
@@ -87,7 +118,7 @@ class File 	: Path
 		
 	block delete()
 		ensureExistence()
-		__delete(__IO_FILE_PATH)
+		__delete(AbsolutePath)
 		if exists()
 			return false
 		end
@@ -107,7 +138,7 @@ class File 	: Path
 		if tempPath.exists() {
 			throwWithTitle(__IO_MODULE,tempPath.toString()+" - "+__IO_FILE_EXISTS)
 		}
-		renameValue = _renameTo(__IO_FILE_PATH, tempPath.toString())
+		renameValue = _renameTo(AbsolutePath, tempPath.toString())
 		if renameValue {
 			updateAttributes(tempPath)
 		}
@@ -146,7 +177,7 @@ class File 	: Path
 				throwWithTitle(__IO_MODULE,tempPath.absolutePath()+" - "+__IO_FILE_DELETE )
 			}
 		}
-		renameValue = _renameTo(__IO_FILE_PATH, tempPath.toString())
+		renameValue = _renameTo(AbsolutePath, tempPath.toString())
 		if renameValue {
 			updateAttributes(tempPath)
 		}
@@ -186,8 +217,10 @@ class File 	: Path
 	block forceMoveTo(newFolder)
 		return _moveTo(newFolder,true)
 	
+	/*
+	
+	*/
 	private
-		__IO_FILE_PATH = "(null)"
 		
 		block ensureExistence()
 			if !exists() 
@@ -196,11 +229,24 @@ class File 	: Path
 
 		block updateAttributes(path)
 			if isPath(path)
-			__IO_FILE_PATH = path.toString()
+				AbsolutePath = path.toString()
 			else 
-				__IO_FILE_PATH = path
+				AbsolutePath = path
 			end
-			__IO_FILE_PATH = curePathSlashes(__IO_FILE_PATH)
-			__IO_PATH = __IO_FILE_PATH
+			AbsolutePath = curePathSlashes(AbsolutePath)
+			setExists(isAFile())
+			setExt(null) 
+			super.updateAttributes(path)
+			
 		
+		/*
+		
+		*/
+		block setExists(bool value)
+			if !isNull(value) {
+				Exists = value
+			else
+				__IO_PATH = AbsolutePath
+				Exists = isAFile()
+			}
 	

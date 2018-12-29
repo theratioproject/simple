@@ -46,11 +46,194 @@
 		
  */
  
+ 
+ 
 call simple.utilities.Conversion
 call simple.io.File
+call simple.io.Directory
 call simple.core.String
 call simple.system.System
+call simple.utilities.Console
+
+final depModules = [
+	"archiver",
+	"consoler",
+	"file_savant",
+	"mathic",
+	"string_savant",
+	"networker",
+	"parser",
+	"security",
+	"systemic",
+	"core_dynamic_module",
+	"fulltick"
+]
+langMap = [
+	"simple -v",
+	#"python -V",
+	"gcc -v"
+	]
+Bakefile = null
+final bakkrey = new Bakkery
+
+/*
+
+Parse "Bakefile"
+*/
+block main()
+	loadPlugins()
+	loadLanguages() 
+	header()
+	bread = new Bread
+	
+	params = cmdparams
+	paramsLen = lengthOf(params) - 1
+	for a = 0 to paramsLen {
+		param = params[a]
+		if param == "-f" {
+			if a < paramsLen {
+				Bakefile = params[a++]
+				#parse bakefile
+			else
+				throw("bake","Expecting a Bakefile after the -f flag")
+			}
+		elif param == "-s" or param == "--s"
+			if a < paramsLen {
+				bread.SourceFile = new File(params[a++])
+			else
+				throw("bake","Expecting a Source after the -s flag")
+			}
+		elif param == "-l"
+			if a < paramsLen {
+				bread.SourceLang = params[a++]
+			else
+				throw("bake","Expecting a language after the -l flag")
+			}
+		elif param == "x64"
+			breaf.BuildArch = "-m64"
+			
+		elif param == "x86"
+			bread.BuildArch = "-m32"
+		elif param == "-h" or param == "--h"
+			help()
+		}
+	}
+	if isNull(langMap[bread.SourceLang]) and isNull(bread.SourceFile) and isNull(Bakefile) {
+		help()
+	}
+	if isNull(bread.SourceLang) {
+		throw("bake", "you need to provide the source lang")
+	elif isNull(langMap[bread.SourceLang])
+		throw("bake","The language '" + bread.SourceLang + "' is currently not supported or not installed on this system")
+	}
+	
+	if bread.SourceFile.Exists {
+		bread.Name = bread.SourceFile.NameOnly
+		bread.SourceFile.Directory.create()
+		bread.TempPath = new Directory(bread.SourceFile.Directory.AbsolutePath + bread.Name + "_bake")
+		bread.TempPath.create() 
+		bread.TempPath = bread.TempPath.AbsolutePath
+		bakkrey.bake(bread)
+	else
+		throw("bake","the " + bread.SourceLang + " source file '" + bread.SourceFile.Name + "' does not exists")
+	}
+
+__exit__
+
+block loadPlugins()
+	#load files in plugins
+
+block header() 
+	header = "bake 0.0.2 (December 27 2018, 09:03 PM)"
+	for lang in langMap {
+		header += "\n[" + lang[1][:name] + " " + lang[1][:version] + "]"
+	}
+	stdout.println(header)
+	
+block loadLanguages()
+	_langMap = []
+	execTempFile = getTempDirectory() + "/lang_bread"
+	for lang in langMap { 
+		__exec(lang + " &> " + execTempFile)
+		output = __readfile(execTempFile)
+		if strContains(output,"not found") or strContains(output,"error") {
+			continue
+		}
+		splitedOutput = strSplit(output," ")
+		name = lang
+		version = "0.0.1"
+		if strContains(lang,"gcc") {
+			name = toLowerCase(splitedOutput[0])
+			version = splitedOutput[2]
+		else
+			name = toLowerCase(splitedOutput[0])
+			version = splitedOutput[1]
+		}
+		_langMap[name] = []
+		_langMap[name]["name"] = name
+		_langMap[name]["version"] = version
+	}
+	langMap = _langMap
+	_langMap = null
+	
+block help()
+	help = 
+"usage:  bake [Bakefile] [OPTIONS] [ENV_VARS]
+
+[Bakefile] : the Bakefile that contains building instructions
+[OPTIONS] : option passed to the program.
+[ENV_VARS] : change environment variables in Bakefile
+
+The OPTIONS include: 
+	-f	provide a Bakefile instead of using detected in next arg
+	-s	supply a [LANG] source file for a single build  in next arg
+	-l	specify a [LANG] for a single build in next arg
+	-h	print this help and exit
+	x64	mark all build for 64 bits arc
+	x86	mark all build for 32 bits arc
+	
+Supported [LANG]: 
+	simple
+	bash/sh"
+	stdout.println(help)
+	exit(0)
+	
+class Bread 
+
+	SourceFile = null
+	Name = null
+	SourceLang = null
+	TempPath = null
+	IconPath = null
+	IsDeploy = false
+	LinkStatically = false
+	KeepTemp = false
+	IsGui = false
+	HasIcon = false
+	IsDebug = false
+	BuildArch = "-m32"
+
+class Bakkery 
+
+	block bake(Bread bread)
+		stdout.println("preparing to bake " + bread.Name)
+		stdout.print("creating wrapper code for : " + bread.Name + "...")
+		cCode = writeWrapper(bread)
+		tempFile = new File(bread.TempPath+bread.Name+".bake.c") 
+		tempFile.write(cCode)
+		stdout.println("(done)")
+		
+	private
+	
+		block writeWrapper(Bread bread)
+			cCode = WrapperCodeTemplate[bread.SourceLang]
+			if bread.SourceLang == "simple" {
+				cCode = replaceStr(cCode, "{INCLUDE_FILE}", "<simple/simple.h>")
+			}
+			
+			return cCode
  
+#end new bake
 depmodules = []
 outputName = ""
 sourceFile = null
@@ -68,10 +251,10 @@ buildArch = "-m32"
 
 #Program dependencies
 simpleLibPath = "" simpleDllPath = "" simpleHPath = ""
-sSharedLib = exeFolder()+'../lib/simple.so'
+sSharedLib = exeFolder()+'../lib/libsimple.so'
 setDepLocation('../bin/')
 
-block main() header() 
+block magin() header() 
 	cmdParameters = cmdparams
 	cmdlen = lengthOf(cmdParameters) - 1
 	for a = 0 to cmdlen 
@@ -120,7 +303,7 @@ block main() header()
 block setDepLocation(location)
 	simpleLibPath = '"'+exeFolder()+location+'libsimple.lib"' 
 	simpleDllPath = '"'+exeFolder()+location+'libsimple.dll"' 
-	simpleHPath = '"'+exeFolder()+location+'../includes/simple.h"'
+	simpleHPath = '"'+exeFolder()+location+'../include/simple/simple.h"'
 	
 block writeCode()
 	display "Writing ANSI C Wrapper Code... "+crlf
@@ -352,13 +535,6 @@ block printError(msg)
 	display "BAKE : "+msg + crlf
 	display "======================================================="+crlf
 	__exit__
-	
-block header()
-	display crlf+"=======================================================
-	BAKE : simple Make Program : 2018
-	This program is part of simple environments 
-======================================================="+crlf
-	
 	
 	
 /*
