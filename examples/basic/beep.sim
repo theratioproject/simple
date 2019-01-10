@@ -7,14 +7,6 @@
 
 call simple.utilities.Console
 
-module fulltick.drawing
-
-
-
-class FFont : Object
-
-/*
-
 stdout.print("\a")
 __beep(1000,1000)
 
