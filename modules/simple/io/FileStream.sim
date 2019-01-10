@@ -12,11 +12,19 @@
 	#author - Azeez Adewale	<azeezadewale98@gmail.com> 
  */
  
+/*
 
+*/
 call simple.core.Object
  
+/*
+
+*/
 module simple.io
 
-class FileStream  : Object
+/*
+
+*/
+class FileStream : Object
 
 	block FileStream()

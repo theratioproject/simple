@@ -1,0 +1,25 @@
+/* 
+	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+call simple.core.Object
+call simple.io.File
+call simple.utilities.Console
+
+block main()
+	file = new File("../../../../../tests.txt")
+	stdout.println(file) 
+	file.NameOnly = "yello"
+	stdout.println(file)
+	file.NameOnly = "tests"
+	file.NameExtension = "pdf"
+	stdout.println(file)
+	file.NameExtension = "txt"
+	stdout.println(file)
+	content = file.readAllString()
+	file.write("Ye we good")
+	stdout.println("===========\n" + file.readAllString() + "\n===========")
+	file.write(content)
+	stdout.println(file)
+	

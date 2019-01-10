@@ -154,7 +154,7 @@ block loadLanguages()
 	_langMap = []
 	execTempFile = getTempDirectory() + "/lang_bread"
 	for lang in langMap { 
-		__exec(lang + " &> " + execTempFile)
+		system(lang + " &> " + execTempFile)
 		output = __readfile(execTempFile)
 		if strContains(output,"not found") or strContains(output,"error") {
 			continue
@@ -400,7 +400,7 @@ block createIcon(path)
 		con = 'MAINICON  ICON  "'+icon+'"'
 		tempFile = new File(path+".rc")  display "		Creating Resources file "+tempFile.toString()+crlf tempFile.write(con)
 		con = 'windres '+tempFile.absolutePath()+' -O coff -o '+path+'.res'
-		display "		Compiling Resources file "+tempFile.toString()+crlf __exec(con)
+		display "		Compiling Resources file "+tempFile.toString()+crlf system(con)
 		cflags += path+'.res '
 	end
 	
@@ -415,16 +415,16 @@ block windowBuildVS(path)
 	cmd += "cl /Fo.\.\ /Fe.\.\ /GA /MT "+path+" "+simpleLibPath #simple.lib link to actual location
 	display cmd + crlf 
 	tempFile = new File(path+".bat")  display "		Create batch file "+tempFile.toString()+crlf tempFile.write(cmd)
-	display "		Executing build command " + crlf __exec(tempFile.toString())
+	display "		Executing build command " + crlf system(tempFile.toString())
 	fi = new File(filePath+".bake.exe") if fi.exists() fi.renameTo(outputName+".exe") end 
 	cleanTempFiles([removeStr(path, ".c")+".obj",path+".bat",path]) treatProgramAttr()
 	
 block windowBuildMingw(mingwBuildTool,path)
 	display "--> Building Executable with MINGW"+crlf
 	exeCmd = mingwBuildTool.absolutePath()+' -c -g -MMD -MP -MF "'+path+'.o.d" -o "'+path+'.o" "'+path+'"'
-	display "		Executing compilation command "/*+exeCmd */+ crlf __exec(exeCmd) 
+	display "		Executing compilation command "/*+exeCmd */+ crlf system(exeCmd) 
 	exeCmd = mingwBuildTool.absolutePath()+' '+cflags+' -o "'+outputName+'.exe" "'+path+'.o" '+simpleDllPath
-	display "		Executing build command " + crlf __exec(exeCmd) 
+	display "		Executing build command " + crlf system(exeCmd) 
 	cleanTempFiles([path,path+".o.d",path+".o",path+'.rc',path+'.res']) treatProgramAttr()
 
 block linuxBuild(path)
@@ -439,7 +439,7 @@ block linuxBuild(path)
 	display "		Executing compilation command "/*cmd */+ crlf
 	display "		Executing build command "/*cmd */+ crlf
 	display cmd + crlf
-	__exec(cmd)
+	system(cmd)
 	treatProgramAttr()  cleanTempFiles([path,path+".o"]) 
 	
 block treatProgramAttr() 
@@ -452,7 +452,7 @@ block treatProgramAttr()
 	if specifysavepath 
 		display "Moving "+outputName+" to "+folder + crlf
 		if isWindows() 
-			__exec("move "+outputName+'.exe '+folder+"/")
+			system("move "+outputName+'.exe '+folder+"/")
 		elif isLinux()
 			f = new File(outputName)
 			#if f.exists() { f.delete() }

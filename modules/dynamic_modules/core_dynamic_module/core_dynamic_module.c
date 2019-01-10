@@ -2024,9 +2024,14 @@ SIMPLE_API void meta_blocks_instance_of(void *pointer)
 	}
 }
 
+/*
+	
+*/
 SIMPLE_API void meta_blocks_object_address(void *pointer)
 {
 	List *list  ;
+	char* str ;
+	float num ;
 	char cStr[100]  ;
 	if ( SIMPLE_API_PARACOUNT != 1 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARACOUNT);
@@ -2034,12 +2039,16 @@ SIMPLE_API void meta_blocks_object_address(void *pointer)
 	}
 	if ( SIMPLE_API_ISLIST(1) ) {
 		list = SIMPLE_API_GETLIST(1) ;
-		if ( simple_vm_oop_isobject(list) ) {
-			sprintf( cStr , "%p" , (void *) list ) ;
-			SIMPLE_API_RETSTRING(cStr);
-		} else {
-			SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
-		}
+		sprintf( cStr , "%p" , (void *) list ) ;
+		SIMPLE_API_RETSTRING(cStr);
+	} else if ( SIMPLE_API_ISSTRING(1) ) {
+		str = SIMPLE_API_GETSTRING(1) ;
+		sprintf(cStr, "%p" , (void *)str) ;
+		SIMPLE_API_RETSTRING(cStr);
+	} else if ( SIMPLE_API_ISNUMBER(1) ) {
+		num = SIMPLE_API_GETNUMBER(1) ;
+		sprintf(cStr, "%p" , num) ;
+		SIMPLE_API_RETSTRING(cStr);
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}

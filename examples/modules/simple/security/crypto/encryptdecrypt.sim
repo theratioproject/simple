@@ -4,8 +4,8 @@
 
 */
 
-call simple.security.Encrypt
-call simple.security.Decrypt
+call simple.security.crypto.Encrypt
+call simple.security.crypto.Decrypt
 
 block main()
 	display "    ENCRYPTING AND DECRYPTING  " + crlf

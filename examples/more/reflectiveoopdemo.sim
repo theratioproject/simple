@@ -27,10 +27,7 @@ call simple.core.loadcoredymodule
 @"is Object class defined : "+__is_class_defined("Object")
 @"is Pacific class defined : "+__is_class_defined("Pacific")
 
-<<<<<<< HEAD
 #get module name from object
-=======
->>>>>>> b6f6932c7fa42ae6e8601a8afb93a4b40212d3b7
 @"==================="
 @"CLASSES IN MODULE"
 @"==================="

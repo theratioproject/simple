@@ -16,7 +16,6 @@
 #dynamic libraries
 #
 #	archiver
-#	consoler
 #	file_savant
 #	mathic
 #	string_savant
@@ -51,7 +50,6 @@ endif
 
 clean: 
 	cd ../archiver/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
-	cd ../consoler/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
 	cd ../file_savant/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
 	cd ../mathic/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
 	cd ../string_savant/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)

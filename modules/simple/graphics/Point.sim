@@ -46,7 +46,7 @@ class Point : Object
                 X = object.X
                 Y = object.Y
             else
-                throw(this,"The parameter is not valid. Expecting instance of Point for Point X and Y. Found "+objecttype(object))
+                throw(self,"The parameter is not valid. Expecting instance of Point for Point X and Y. Found "+objecttype(object))
             }
         elif paramsLen == 2
             x = params[0]
@@ -55,13 +55,13 @@ class Point : Object
                 X = floor(x)
                 Y = floor(y)
             else
-                throw(this,"The parameter is not valid. Expecting Number as Point X and Y. Found " + objecttype(x) + " and " + objecttype(y))
+                throw(self,"The parameter is not valid. Expecting Number as Point X and Y. Found " + objecttype(x) + " and " + objecttype(y))
             }
         else
-            throw(this,"Initializing Point with invalid length of parameters")
+            throw(self,"Initializing Point with invalid length of parameters")
         }
 
-        return this
+        return self
 
 
     /*
@@ -92,7 +92,8 @@ class Point : Object
 
     */
     block getPoint()
-        return new Point(X,Y)
+		point = new Point(X,Y)
+        return point
 
     /*
 
@@ -111,7 +112,8 @@ class Point : Object
 
     */
     block toRectangle()
-        return new Rectangle(this)
+		rectangle = new Rectangle(self)
+        return rectangle
 
 	/*
 
@@ -127,7 +129,7 @@ class Point : Object
                     X = floor(x)
                     Y = floor(y)
                 else
-                    throw(this,"Using operator with values of incorrect type : "+op)
+                    throw(self,"Using operator with values of incorrect type : "+op)
                 }
             case "-"
                 if isinstance(value) {
@@ -136,7 +138,7 @@ class Point : Object
                     X = floor(x)
                     Y = floor(y)
                 else
-                    throw(this,"Using operator with values of incorrect type : "+op)
+                    throw(self,"Using operator with values of incorrect type : "+op)
                 }
             case "/"
                 if isinstance(value) {
@@ -145,7 +147,7 @@ class Point : Object
                     X = floor(x)
                     Y = floor(y)
                 else
-                    throw(this,"Using operator with values of incorrect type : "+op)
+                    throw(self,"Using operator with values of incorrect type : "+op)
                 }
             case "*"
                 if isinstance(value) {
@@ -154,12 +156,12 @@ class Point : Object
                     X = floor(x)
                     Y = floor(y)
                 else
-                    throw(this,"Using operator with values of incorrect type : "+op)
+                    throw(self,"Using operator with values of incorrect type : "+op)
                 }
 			default 
-				throw(this,"This operator behaviour is not defined : "+op)
+				throw(self,"self operator behaviour is not defined : "+op)
 		}
-		return this
+		return self
 
     /*
 

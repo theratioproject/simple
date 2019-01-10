@@ -25,6 +25,32 @@ module simple.core
 /*
 
 */
+block numValueOf(object)
+	val = 0
+				
+	if isNull(object) {
+		val = 0
+		
+	elif isPointer(object)
+		val = object[2]
+		
+	elif isString(object) or isList(object)
+		val = lengthOf(object)
+		
+	elif isNumber(object)
+		val = object 
+		
+	elif isObject(object) 
+		if __object_has_method(object,"toNumber") {
+			val = object.toNumber()
+		}	
+		
+	}
+	return val
+
+/*
+
+*/
 class Number : Object
 
 	__OBJECT = null
@@ -60,10 +86,6 @@ class Number : Object
 		if !isNumber(number) { throw (this.__error()) }
 		__OBJECT = number
 		return __OBJECT
-	
-	block toString() 
-		return "[simple.core." +  + ":" + getHashCode() + "]"
-	end		
 	
 	/*
 		.toList() block is a safe block 

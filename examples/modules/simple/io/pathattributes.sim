@@ -1,0 +1,47 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com> 
+	MIT License Copyright (c) 2018 simple-lang
+*/
+
+/* 
+ * @Filename - fileattrdemo.sim
+ * @Author - Azeez Adewale
+ * @Date - 23 July 2018
+ * @Time - 02:07 PM
+ */
+
+/*
+	A plain example on simple.io.File to get attributes of a file
+*/
+
+call simple.core.Object
+call simple.io.PathAttributes
+call simple.io.File
+
+block main()		
+	file = new File("./consoledemo.sim")
+	@"Full Path : "+file.absolutePath()
+	@"Size : "+file.size()+" byte"
+	@"Type : "+file.type()
+	@"Node Number : "+file.nodeNumber()
+	@"Link Count : "+file.hardLinkCount()
+	@"GID : "+file.GID()
+	@"UID : "+file.UID()
+	@"Preferred I/O Block Size : "+file.blockSize()
+	@"Blocks Allocated : "+file.blockAllocated()
+	@"Last Access Date : "+file.lastAccessDate().toString()
+	@"Last Date Modified : "+file.lastDateModified().toString()
+	@"Date Created : "+file.dateCreated().toString()
+	__exit__
+	
+	
+	/*
+	pathAttr = new PathAttributes("./fileattrdemo.sim")
+	@"ret value : "+pathAttr.returnSuccess()
+	@pathAttr.lastAccessDate().toString()
+	@pathAttr.lastDateModified().toString()
+	@pathAttr.lastDateChanged().toString()
+	
+	pathAttr = new PathAttributes("./fileattrdemo.sim")
+	@"ret value : "+pathAttr.returnSuccess()
+	*/

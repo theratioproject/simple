@@ -14,6 +14,7 @@
 /*
 
 */
+call simple.core.Types
 call simple.security.Hash
 call simple.core.BaseFields
  
@@ -105,16 +106,16 @@ class Object
 	/*
 
 	*/
-	block operator(op,value)
+	block operator(string op,object value)
 		switch op {
 			case "="
 				return equals(value)
 			case "!="
 				return !equals(value)
 			default 
-				throw(this,"This Object does not define a behaviour for the operator : "+op)
+				throw(this,"This Object does not define a behaviour for the operator : " + op)
 		}
-		return this
+		return self
 		
 	/*
 
@@ -272,6 +273,7 @@ class Object
 			throw(self,"Invalid parameter, expecting (List), found (" + objecttype(object) + ")")	
 		}
 		return 0
+		
 
 	/*
 

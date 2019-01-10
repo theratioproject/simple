@@ -10,17 +10,21 @@
  * #date - 5 Febuary 2017
  */
 
+/*
+
+*/
 call simple.core.Object
 call simple.io.Path
  
+/*
+
+*/
 module simple.io
 
-class File : Path
+/*
 
-	__IO_MODULE = "simple.io.File"
-	__IO_FILE_EXISTS = "The file already exists you should delete the file first"
-	__IO_FILE_DELETE = "The file cannot be deleted"
-	FILE_DOES_NOT_EXIST = "The file does not exist"
+*/
+class File : Path
 	
 	/*
 	
@@ -30,12 +34,15 @@ class File : Path
 	/*
 	
 	*/
-	string Ext = null
+	string NameExtension = null
 	
 	/*
 	
 	*/
-	boolean Exists = false
+	block File(string path)
+		AbsolutePath = path
+		setAbsolutePath(null)
+		updateAttributes()
 		
 	/*
 	
@@ -48,205 +55,93 @@ class File : Path
 	/*
 	
 	*/
-	block setNameOnly(str value)
-		renameTo(value)
-
-	/*
-		
-	*/
-	block setExt(str value) 
+	block setNameOnly(string value)
 		if isNull(value) {
-			name = getName()
-			Ext = strAfterLast(name, '.')
+			throw(self, "The parameter cannot be null")
 		else
-			#change ext
+			newName = Directory.AbsolutePath + value + "." + getNameExtension()
+			return renameTo(newName, false)
 		}
+		return false
 		
-	#end new done
-		
-	block File(path)
-		updateAttributes(path)
-		
-	block absolutePath()
-		return getCorrectPath(AbsolutePath)
-		
-	block directory()
-		return removeStr(AbsolutePath, getSystemSlash()+getName())
-		
-	block toDirectory()
-		tempDir = directory()
-		return new Directory(tempDir)
-		
-	block toPath()
-		return new Path(AbsolutePath)
-		
-	block readFileAsString()
-		#ensureExistence()
-		return __readfile(AbsolutePath)
-		
-	block write(content)
-		try {
-			__writefile(AbsolutePath, content)
-		catch
-			throw(self, __err__ + " : " + AbsolutePath + ". Error occur while writing to file, ensure the directory exists")
-		}
-		
-	block append(content)
-		try 
-			__writefile(AbsolutePath, readFileAsString()+""+content)
-		catch
-			display __err__
-		end
-		
-	block appendBoolean(content)
-		#ensureExistence()
-		if content == true 
-			content = "true"
-		else 
-			content = "false"
-		end
-		__writefile(AbsolutePath, readFileAsString()+""+content)
-		
+	/*
 	
+	*/
+	block getNameExtension()
+		return strAfterLast(getName(), '.')
+
+	/*
+		
+	*/
+	block setNameExtension(string value) 
+		if isNull(value) {
+			throw(self, "The parameter cannot be null")
+		else
+			newName = Directory.AbsolutePath + getNameOnly() + "." + value
+			return renameTo(newName, false)
+		}
+		return false
+		
+	/*
+	
+	*/
+	block getExists()
+		return isFile()
+		
+	/*
+	
+	*/
 	block exists() 
-		#return __exists(AbsolutePath) #currently failing	
-		__IO_PATH = AbsolutePath
-		return isAFile()
+		return isFile()
 		
+	/*
+	
+	*/
 	block toString()
-		return absolutePath()
+		return "[" + absolutename() + ":Name=" + getName() + ",NameOnly=" + getNameOnly() + ",NameExtension=" + getNameExtension() + ",AbsolutePath=" + AbsolutePath + "]"
 		
-	block delete()
+	/*
+		Quick read all content of a file as string
+	*/
+	block readAllString()
 		ensureExistence()
-		__delete(AbsolutePath)
-		if exists()
+		return __read_file(AbsolutePath)
+		
+	/*
+		Quick write string to a file
+	*/
+	block write(string content)
+		if !isReadable() {
+			throw(self, "Access is denied. You cannot write to the file because it Read Only : " + AbsolutePath)
+		else
+			try {
+				__write_file(AbsolutePath, content)
+			catch
+				throw(self, __err__ + ". Error occur while writing to file, ensure the directory exists : " + AbsolutePath )
+			}	
+		}
+
+	/*
+
+	*/
+	block equals(Object value)
+		if !instanceof(value,"File") {
 			return false
-		end
-		return true
-		
-	/*
-		Change the name of a file to another. Only string is allowed as 
-		parameter and the new file name must not exists else an error is thrown,
-		to forcefully rename a file @Block forceRenameTo(newName) should be called
-		@Return the rename operation value @DataType Boolean
-	*/	
-	block renameTo(newAbsoluteName)
-		if !isString(newAbsoluteName) {
-			throwWithTitle(__IO_MODULE,newAbsoluteName+" - "+__IO_PATH_NOT_STRING)
 		}
-		tempPath = new Path(newAbsoluteName)
-		if tempPath.exists() {
-			throwWithTitle(__IO_MODULE,tempPath.toString()+" - "+__IO_FILE_EXISTS)
-		}
-		renameValue = _renameTo(AbsolutePath, tempPath.toString())
-		if renameValue {
-			updateAttributes(tempPath)
-		}
-		return renameValue
-		
-	/*
-		Change the name of the file to another name without changing the parent directory 
-		which means the file will remain in the current directory but with a new name, the
-		parameter should be only the name and not the absolute path of the file, to change 
-		the name along with the absolute path the @Block renameTo(newAbsolutename) is the 
-		block to use
-		@Return the rename operation value @DataType Boolean
-	*/
-	block changeNameTo(newName)
-		if !isString(newName) {
-			throwWithTitle(__IO_MODULE,newName+" - "+__IO_PATH_NOT_STRING)
-		}
-		newName = directory()+__IO_PATH_SYSTEM_SLASH+newName
-		return renameTo(newName)
-
-	/*
-		Rename the directory to the new name even if it exist, instead of throwing an
-		error if the folder exists the folder will be deleted instead then the current 
-		directory is renamed to the deleted folder, the content of the old folders are 
-		lost in this case
-		@Return the rename operation value @DataType Number
-	*/	
-	block forceRenameTo(newAbsoluteName)
-		if !isString(newAbsoluteName) {
-			throwWithTitle(__IO_MODULE,newAbsoluteName+" - "+__IO_PATH_NOT_STRING)
-		}
-		tempPath = new File(newAbsoluteName)
-		if tempPath.exists() {
-			warn(__IO_MODULE+" : "+tempPath.absolutePath()+" - "+__IO_PATH_EXISTS_DELETE)
-			if tempPath.delete() != true {
-				throwWithTitle(__IO_MODULE,tempPath.absolutePath()+" - "+__IO_FILE_DELETE )
-			}
-		}
-		renameValue = _renameTo(AbsolutePath, tempPath.toString())
-		if renameValue {
-			updateAttributes(tempPath)
-		}
-		return renameValue
-
-	/*
-		Change the name of the file to another name without changing the parent directory 
-		which means the file will remain in the current directory but with a new name, the
-		parameter should be only the name and not the absolute path of the file, if the a file
-		with the same name already exists in the directory it will be deleted which will 
-		cause lost of file content and this file will serve as a replacement to the deleted file
-		@Return the rename operation value @DataType Boolean
-	*/
-	block forceChangeNameTo(newName)
-		if !isString(newName) {
-			throwWithTitle(__IO_MODULE,newName+" - "+__IO_PATH_NOT_STRING)
-		}
-		newName = directory()+__IO_PATH_SYSTEM_SLASH+newName
-		return forceRenameTo(newName)
-
-	/*
-		Move the file to a new folder, ft the destination folder has a file 
-		with the same name then an already exist error is thrown
-		@Return the move operation success value @DataType Boolean
-		@ToDo support path and string as parameter
-	*/
-	block moveTo(newFolder)
-		return _moveTo(newFolder,false)
-		
-	/*
-		Forcefully move the file to the destination folder, if a file with 
-		the same name is present in the destination folder it will be deleted and the 
-		file will be moved to replace it, Use this block with caution
-		@Return the move operation success value @DataType Boolean
-		@ToDo support path and string as parameter
-	*/
-	block forceMoveTo(newFolder)
-		return _moveTo(newFolder,true)
+		return AbsolutePath == value.AbsolutePath		
 	
 	/*
 	
 	*/
 	private
-		
-		block ensureExistence()
-			if !exists() 
-				#throw(FILE_DOES_NOT_EXIST+" : "+name())
-			end
 
-		block updateAttributes(path)
-			if isPath(path)
-				AbsolutePath = path.toString()
-			else 
-				AbsolutePath = path
-			end
-			AbsolutePath = curePathSlashes(AbsolutePath)
-			setExists(isAFile())
-			setExt(null) 
-			super.updateAttributes(path)
-			
-		
 		/*
 		
 		*/
-		block setExists(bool value)
-			if !isNull(value) {
-				Exists = value
-			else
-				__IO_PATH = AbsolutePath
-				Exists = isAFile()
-			}
+		block updateAttributes()
+			super.updateAttributes()
+			NameExtension = strAfterLast(getName(), '.')
+			
+		
+		
 	

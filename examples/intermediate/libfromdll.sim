@@ -47,7 +47,7 @@ block main()
 	generateFunctionFromBatch()
 	
 block generateFunctionFromBatch()
-	__exec(batchPath+" "+dllFile.absolutePath()+" "+arch+" txt")
+	system(batchPath+" "+dllFile.absolutePath()+" "+arch+" txt")
 	funcFile = new File(dllFile.absolutePath()+".txt")
 	if not funcFile.exists()
 		throw("The batch file failed to exports the dll functions")
@@ -95,7 +95,7 @@ block generateLib(defFile)
 	libPath = removeString(defFile,".def")+".lib"
 	@"generating "+libPath+" from "+defFile+crlf
 	
-	__exec(batchPath+" "+defFile+" "+arch+" lib "+libPath)
+	system(batchPath+" "+defFile+" "+arch+" lib "+libPath)
 	libFile = new File(libPath)
 	if libFile.exists()
 		@"Generation of .lib successful"

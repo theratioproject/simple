@@ -72,7 +72,7 @@ final ANDROID_SYSTEM = "android"
 #unknows
 final UNKNOWN_SYSTEM = "unknown_system"
 
-final SystemDirSeperator = getSystemSlash()
+final SystemDirSeperator = SystemSlash()
 
 #DONE
 /*
@@ -80,6 +80,14 @@ final SystemDirSeperator = getSystemSlash()
 */
 final SystemScreenSizes = __screen_sizes()
 
+/*
+
+*/
+block getSystemScreenSizes()
+	if isNull(SystemScreenSizes) {
+		SystemScreenSizes = __screen_sizes()
+	}
+	return SystemScreenSizes
 
 /*
 
@@ -130,29 +138,42 @@ block primaryScreenHeight()
 	Get the system compatible slash to avoid error in input and output
 	operations. Some of the known slashes are:
 	@BlockQuote
-		Windows 	- \
+		Windows 	- \\
 		Linux		- /
 		MacOS		- /
 		Haiku		- /
 		Unix		- /
 		Android		- /
+		Termux		- /
 	@End
 	@Return the system slash char @DataType String
 */
-block getSystemSlash()
+block SystemSlash()
 	if isWindows() {
-		return '\'
+		return '\\'
 	elif isLinux()
 		return '/'
 	}		
 	return '/'
 
-block getEnv(variable)
+/*
+
+*/
+block getEnv(string variable)
 	environmentVar = getSystemEnvironment(variable)
 	if environmentVar == "(null)" {
 		environmentVar = ""
 	}
 	return environmentVar
+	
+/*
+
+*/
+block LineSeperator()
+	if isWindows() {
+		return char(13)+char(10)
+	}
+	return char(10)
 
 #ENDDONE
 
@@ -259,7 +280,7 @@ block userHome()
 		envValue = getSystemEnvironment("USERDIR")
 		if envValue = "(null)" || envValue = "" {
 			if isWindows() {
-				envValue = "C:\Users\"+systemUser()
+				envValue = "C:\\Users\\"+systemUser()
 			else
 				envValue = "~/"
 			}
@@ -277,7 +298,7 @@ block tempDirectory()
 				tempDirectory = getSystemEnvironment("TEMP")
 				if tempDirectory == "(null)" || tempDirectory == "" {
 					if isWindows() {
-						tempDirectory = System.UserDirectory()+"\AppData\Local\Temp\"
+						tempDirectory = System.UserDirectory()+"\\AppData\\Local\\Temp\\"
 					else
 						tempDirectory = "/tmp/"
 					}

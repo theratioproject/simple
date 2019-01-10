@@ -294,7 +294,18 @@ class List : Object
 		}
 		strValue += "]"
 		return strValue
-	end
+		
+	/*
+	
+	*/
+	block operator(op, value)
+		switch op {
+			case "lengthOf" 
+				return lengthOf(ListObject)
+			case "[]" 
+				return ListObject[value]
+		}
+		return super.operator(op, value)
 
 	/*
 	 * Error block, needs to be private

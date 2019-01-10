@@ -1,0 +1,21 @@
+/* 
+	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+call simple.core.Object
+call simple.io.FileWriter
+call simple.io.File
+
+block main()
+	fileWriter = new FileWriter("../../../../../simple_test.txt", true, true)
+	fileWriter.write(nl + "Hello World " + nl)
+	fileWriter.write("From simple-lang ")
+	fileWriter.write(simpleVersion())
+	fileWriter.close()
+	
+	file = new File("../../../../../simple_test.txt")
+	fileWriter = new FileWriter(file, true)
+	fileWriter.write(nl + "Thank You")
+	fileWriter.close()

@@ -316,6 +316,6 @@ class WebSpider
 			return name
 			
 		block tryPage()
-			#__exec('simple "'+link+'"')
+			#system('simple "'+link+'"')
 			
 			

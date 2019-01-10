@@ -1,0 +1,36 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com> 
+	MIT License Copyright (c) 2018 simple-lang
+*/
+
+/* 
+ * @Filename - pathdemo.sim
+ * @Author - Azeez Adewale
+ * @Date - 12 July 2018
+ * @Time - 11:07 AM
+ */
+
+/*
+	A plain example on simple.io.Path 
+*/
+
+call simple.core.Object
+call simple.io.Path
+call simple.utilities.Console
+
+block main()
+	path = new Path("../../../../../pathtest.txt")
+	stdout.println(path)
+	stdout.println("Create file : "+path.create())
+	path.ReadOnly = true
+	stdout.println("Is Readable : "+path.isReadable())
+	stdout.println("Is Writable : "+path.isWritable())
+	stdout.println("Is ReadOnly : "+path.isReadOnly())
+	path.WriteOnly = true
+	stdout.println("Is WriteOnly : "+path.isReadOnly())
+	path.ReadOnly = false
+	stdout.println("Hash Code : "+path.hashcode())
+	stdout.println(path.toFile())
+	path.toFile().write("Hello World")
+	stdout.println("Is Hidden : "+path.isHidden())
+	stdout.println("Delete Path : "+path.delete())

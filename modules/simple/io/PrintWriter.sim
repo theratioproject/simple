@@ -1,0 +1,216 @@
+/* 
+	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com> 
+	MIT License Copyright (c) 2018 simple-lang
+
+*/
+
+/* 
+	#filename - PrintWriter.sim
+	#date - 07 January 2019
+	#time - 08 : 23 AM
+	#license - MIT License Copyright (c) 2018 simple-lang
+	#author - Azeez Adewale	<azeezadewale98@gmail.com> 
+ */
+ 
+/*
+
+*/
+call simple.core.Object
+call simple.io.loadfilesavantlib
+ 
+/*
+
+*/
+module simple.io
+
+/*
+
+*/
+class PrintWriter : Object
+		
+	/*
+	
+	*/
+	boolean Closable = true
+
+	/*
+	
+	*/
+	block PrintWriter(FileWriter fileWriter, boolean autoFlush)
+		if isNull(fileWriter) {
+			throw(self, "The parameter cannot be null ")
+			return null
+		}
+		self.AutoFlush = autoFlush
+		self.fileWriter = fileWriter
+		IsOpen = true
+		
+		return self
+	
+	/*
+	
+	*/
+	block write(string data)
+		if IsOpen {
+			fileWriter.write(data) 
+			if strContains(data,char(10)) and AutoFlush {
+				fileWriter.flush()
+			}
+		else
+			throw(self, "The PrintWriter has been closed")
+		}
+		
+	/*
+	
+	*/
+	block print(data)
+		write(strValueOf(data))
+		
+	/*
+	
+	*/
+	block println(data...)
+		dataLen = lengthOf(data)
+		if dataLen == 0 {	
+			printNewLine()
+			
+		elif dataLen == 1
+			write(strValueOf(data[0]))
+			printNewLine()
+		else
+			throw(self,"Calling block with extra parameters !")
+			return
+		}
+		
+	/*
+	
+	*/
+	block printNewLine()
+		try {
+			if IsOpen {
+				fileWriter.write(LineSeperator()) 
+				fileWriter.flush()
+			else
+				throw(self, "The PrintWriter has been closed")
+			}
+		catch
+			
+		}
+		
+	/*
+	
+	*/
+	block printf(params...)
+		value = strFormat(params)
+		write(value)
+		
+	/*
+	
+	*/#maybe splice to parameter :?
+	block printfi(params...)
+		value = strFormatIndex(params)
+		write(value)	
+
+	/*
+		print with fore ground color if supported
+	*/
+	block printfc(number color, params...)
+		value = strFormatIndex(params)
+		__printwfb(fileWriter.FilePointer, color, BackgroundColor, value)
+		fileWriter.flush()
+
+	/*
+		print with back ground color if supported
+	*/
+	block printbc(number color, params...)
+		value = strFormatIndex(params)
+		__printwfb(fileWriter.FilePointer, ForegroundColor, color, value)
+		fileWriter.flush()
+	
+	/*
+	
+	*/
+	block flush()
+		try {
+			if fileWriter.IsOpen {
+				fileWriter.flush()
+			}
+		catch
+			
+		}
+	
+	/*
+	
+	*/
+	block close()
+		if IsOpen {
+			IsOpen = false
+			if !Closable {
+				fileWriter.flush()
+			else
+				try {
+					fileWriter.close()
+				catch
+					
+				}
+			}
+			fileWriter = null
+		}
+		
+	
+	/*
+		This block clean up the object to avoid dangling pointers and object. 
+		Invoking this block assume there is no more reference to this object 
+		
+		@See @Block close
+		@See @Block flush
+	*/
+	block done() 
+		close()
+
+	/*
+
+	*/
+	block operator(string op,object value)
+		switch op {
+			case "<<"
+				print(value)
+			default 
+				return super.operator(op,value)
+		}
+		return self
+	
+	/*
+	
+	*/
+	private
+	
+		/*
+		
+		*/
+		boolean IsOpen = true
+	
+		/*
+		
+		*/
+		boolean AutoFlush = false
+
+		/*
+		
+		*/
+		FileWriter fileWriter = null
+		
+		/*
+		
+		*/
+		number BackgroundColor = 0
+		
+		/*
+		
+		*/
+		number ForegroundColor = 0
+		
+		
+		
+		
+		

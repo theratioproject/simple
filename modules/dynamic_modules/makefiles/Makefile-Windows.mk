@@ -19,7 +19,6 @@
 #dynamic libraries
 #
 #	archiver
-#	consoler
 #	file_savant
 #	mathic
 #	string_savant
@@ -44,7 +43,6 @@ DYNAMIC_MODULEDIR=.modules/dynamic_modules
 
 clean: 
 	cd ../archiver/ && $(MAKE) -f Makefile-Windows.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
-	cd ../consoler/ && $(MAKE) -f Makefile-Windows.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
 	cd ../file_savant/ && $(MAKE) -f Makefile-Windows.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
 	cd ../mathic/ && $(MAKE) -f Makefile-Windows.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
 	cd ../string_savant/ && $(MAKE) -f Makefile-Windows.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)

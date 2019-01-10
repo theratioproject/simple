@@ -9,9 +9,6 @@ call simple.debugging.Debug
 object1 = new Object
 object2 = new Object 
 object3 = object1.clone() 
-stdout.println(object1.uniquecode())  
-stdout.println(object2.uniquecode()) 
-stdout.println(object3.uniquecode()) 
 assert(object1.equals(object1)) 
 assert(object3.equals(object1)) 
 assert(object1.equals(object2.instance))

@@ -9,6 +9,8 @@
  * @Author - Azeez Adewale
  * @Date - 7 Febuary 2017
  */
+ 
+module simple.core
 
 # Low Level Types
 char 		= :char 
@@ -26,6 +28,7 @@ string 		= :string
 list 		= :list 
 number 		= :number 
 object		= :object
+boolean		= false
 
 OBJECT_TYPE = 0
 STRING_TYPE = 1

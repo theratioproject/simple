@@ -114,7 +114,7 @@ block replace()
 #PROGRAM
 block runSource() program(1)
 block debugSource() program(2)
-block build() cmd = 'bake '+file.absolutePath() @ cmd __exec(cmd) end
+block build() cmd = 'bake '+file.absolutePath() @ cmd system(cmd) end
 #ABOUT
 block about()
 	label = new FLabel("SIMPLEPAD

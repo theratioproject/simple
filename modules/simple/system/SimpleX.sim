@@ -61,15 +61,15 @@ __simpleIncludesDir = null
 	A typical Heirachy example:
 	@Code
 		#Windows 
-		C:\Simple\ #-> the simple directory
-			.\s0.3.36\
-			.\s0.3.36\
-			.\s0.4.00\
+		C:\\Simple\\ #-> the simple directory
+			.\\s0.3.36\\
+			.\\s0.3.36\\
+			.\\s0.4.00\\
 		#linux
 		/var/lib/simple/ #-> the simple directory
-			.\s0.3.36\
-			.\s0.3.36\
-			.\s0.4.00\
+			.\\s0.3.36\\
+			.\\s0.3.36\\
+			.\\s0.4.00\\
 	@EndCode
 	@Return the simple-lang installation directory @DataType String
 */
@@ -80,12 +80,12 @@ block simpleDir()
 			simpleDir = exeFolder()
 			if isWindows() { 
 				if __dir_exists(simpleDir) { 
-					simpleDir = removeLastChar(simpleDir)
-					toRemove = lastStrAfterChar(simpleDir,"\") 
+					simpleDir = strRemoveLastChar(simpleDir)
+					toRemove = lastStrAfterChar(simpleDir,"\\") 
 					simpleDir = removeStr(simpleDir,toRemove)  
 				}
 				if simpleDir == "(null)" || simpleDir == "" {
-					simpleDir = "C:\Simple\"
+					simpleDir = "C:\\Simple\\"
 				}
 			else
 				xPrefix = getEnv("PREFIX")
@@ -109,8 +109,8 @@ block simpleModulesDir()
 	if isNull(__simpleModulesDir) {
 		modulesDir = getEnv("SIMPLE_MODULE_PATH")
 		if modulesDir == "" {
-			modulesDir = simpleDir()+"s"+getSimpleVersion()+"/modules/"
-			modulesDir = getCorrectPath(modulesDir)
+			modulesDir = simpleDir()+"s"+simpleVersion()+"/modules/"
+			modulesDir = correctPath(modulesDir)
 		}
 		__simpleModulesDir = modulesDir
 	}
@@ -125,10 +125,10 @@ block simpleDyModulesDir()
 	if isNull(__simpleDyModulesDir) {
 		modulesDir = getEnv("SIMPLE_MODULE_PATH")
 		if modulesDir == "" {
-			dyModulesDir = simpleDir()+"s"+getSimpleVersion()+"/modules/dynamic_modules/"
+			dyModulesDir = simpleDir()+"s"+simpleVersion()+"/modules/dynamic_modules/"
 		else
 			dyModulesDir = modulesDir+"/dynamic_modules/"
-			dyModulesDir = getCorrectPath(dyModulesDir)
+			dyModulesDir = correctPath(dyModulesDir)
 		}
 		__simpleDyModulesDir = dyModulesDir
 	}
@@ -143,11 +143,11 @@ block simpleDocDir()
 	if isNull(__simpleDocDir) {
 		modulesDir = getEnv("SIMPLE_MODULE_PATH")
 		if modulesDir == "" {
-			docDir = simpleDir()+"s"+getSimpleVersion()+"/docs/"
+			docDir = simpleDir()+"s"+simpleVersion()+"/docs/"
 		else
 			docDir = modulesDir+"/../docs/"
 		}
-		__simpleDocDir = getCorrectPath(docDir)
+		__simpleDocDir = correctPath(docDir)
 	}
 	return __simpleDocDir
 
@@ -160,7 +160,7 @@ block simpleExecDir()
 		simpleExecDir = exeFolder()
 		if !__exists(simpleExecDir+"/simple"+simpleXExeExt()) {
 			if isWindows() {
-				simpleExecDir = simpleDir()+"/s"+getSimpleVersion()+"/bin/"
+				simpleExecDir = simpleDir()+"/s"+simpleVersion()+"/bin/"
 			else
 				simpleExecDir = getEnv("PREFIX")+"/bin/"
 			}
@@ -204,7 +204,7 @@ block simpleIncludesDir()
 		else
 			includesDir = getEnv("PREFIX")+"/include/simple/"
 		}
-		__simpleIncludesDir = getCorrectPath(includesDir)
+		__simpleIncludesDir = correctPath(includesDir)
 	}
 	return __simpleIncludesDir
 	
