@@ -115,8 +115,8 @@ must be set through the compiler flag either through makefile or command line */
 #define fprintf(std,...) __android_log_print(std, SIMPLE_ANDROID_LOG, __VA_ARGS__)
 
 /* Replace Printf to print to the actual android log */
-#define printv(...) fprintf(ANDROID_LOG_VERBOSE,__VA_ARGS__)
 #define printf(...) fprintf(ANDROID_LOG_DEBUG,__VA_ARGS__)
+#define printv(...) fprintf(ANDROID_LOG_VERBOSE,__VA_ARGS__)
 #define printi(...) fprintf(ANDROID_LOG_INFO,__VA_ARGS__)
 #define printw(...) fprintf(ANDROID_LOG_WARN,__VA_ARGS__)
 #define printe(...) fprintf(ANDROID_LOG_ERROR,__VA_ARGS__)

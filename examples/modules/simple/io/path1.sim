@@ -1,0 +1,24 @@
+/* 
+	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+call simple.core.Object
+call simple.utilities.Console
+call simple.io.FileWriter
+call simple.io.Path
+
+block main()
+	fileWriter = new Path("./")
+	stdout.println(fileWriter.Name)
+	stdout.println(fileWriter.Directory.Name)
+	stdout.println(fileWriter.Directory.AbsolutePath)
+	stdout.println(fileWriter.Directory.Directory.Name)
+	stdout.println(fileWriter.Directory.Directory.AbsolutePath)
+	stdout.println(fileWriter.Directory.Directory.Directory.Name)
+	stdout.println(fileWriter.Directory.Directory.Directory.AbsolutePath)
+	stdout.println(fileWriter.Directory.Directory.Directory.Directory.Name)
+	stdout.println(fileWriter.Directory.Directory.Directory.Directory.AbsolutePath)
+	stdout.println(fileWriter.Directory.Directory.Directory.Directory.Directory.Name)
+	stdout.println(fileWriter.Directory.Directory.Directory.Directory.Directory.AbsolutePath)

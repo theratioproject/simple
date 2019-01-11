@@ -1,0 +1,40 @@
+#!/bin/simple
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com> 
+	MIT License Copyright (c) 2018 simple-lang
+*/
+
+/* 
+ * @Filename - simplexdemo.sim
+ * @Author - Azeez Adewale
+ * @Date - 01 July 2018
+ * @Time - 01:25 PM
+ */
+
+/*
+	This demo for the module simple.system.SimpleX which
+	provide blocks to simple-lang directories, files and 
+	attributes on the specific system
+*/
+
+call simple.core.Object
+call simple.system.ScreenDimension
+call simple.graphics.Dimension
+call simple.utilities.Console
+
+screenDimension = new ScreenDimension()
+stdout.println(screenDimension)
+stdout.println("Primary Screen Height=" + screenDimension.Height + ", AbHeight=" + screenDimension.AbHeight)
+stdout.println("Primary Screen Width=" + screenDimension.Width + ", AbWidth=" + screenDimension.AbWidth)
+stdout.println(screenDimension.toDimension())
+stdout.println(screenDimension.toAbDimension())
+stdout.println(screenDimension.screenDimensions())
+stdout.println(screenDimension)
+stdout.println("Primary Monitor: Width=" + screenDimension.getScreenWidth(1) + " Height=" + screenDimension.getScreenHeight(1))
+stdout.println("Absolute Monitor Size: Width=" + screenDimension.AbWidth + " Height=" + screenDimension.AbHeight)
+stdout.println(screenDimension.toDimension())
+stdout.println(screenDimension.toAbDimension())
+count = 0
+for screenDimen in screenDimension.ScreenDimensions {
+    stdout.print("Monitor " + (count++) + " ") stdout.println(screenDimen)
+}

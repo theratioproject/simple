@@ -205,7 +205,7 @@ block grabFromGithub(package)
 			downloadablePackage[:module] = modular[:module]
 			downloadablePackage[:doc] = modular[:doc]
 			if modular[:pre_install_system] != null {
-				__exec(modular[:pre_install_system])
+				system(modular[:pre_install_system])
 			}
 			if modular[:module] != null and __dir_exists(extractedPath+downloadablePackage[:module]) {
 				moveContent(extractedPath+downloadablePackage[:module],modulesDirectory+"/"+modular[:module])
@@ -229,7 +229,7 @@ block grabFromGithub(package)
 				moveContent(extractedPath+downloadablePackage[:doc],documentationDirectory)
 			}
 			if modular[:post_install_system] != null {
-				__exec(modular[:post_install_system])
+				system(modular[:post_install_system])
 			}
 		else 
 			stdout.print("the module does not have an install.sim script \n")

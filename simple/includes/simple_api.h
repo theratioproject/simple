@@ -84,6 +84,8 @@ void simple_vmlib_isnull ( void *pointer ) ;
 
 void simple_vmlib_isobject ( void *pointer ) ;
 
+void simple_vmlib_ispointer ( void *pointer );
+
 SIMPLE_API void simple_vmlib_exec ( void *pointer ) ;
 
 void simple_vmlib_char ( void *pointer ) ;

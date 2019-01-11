@@ -13,7 +13,6 @@
 /*
 	
 */
-
 call simple.core.Object
 call simple.io.loadfilesavantlib
 call simple.core.String
@@ -22,18 +21,41 @@ call simple.io.PathAttributes
 call simple.io.PathType
 call simple.io.File
 call simple.io.Directory
+call simple.utilities.DateTime
  
-module simple.io
+/*
 
-block isPath(ipath)
-	try 
-		p = ipath.path() #free(p)
-		return true
-	catch 
-		return false
-	end
+*/
+module simple.io
+		
+/*
+	These attributes are base on the Windows @Link FileAttributesConstant
+*/
+final FILE_ATTRIBUTES = [ 
+	:ARCHIVE 			= __hex_to_number("0x20"),
+	:COMPRESSED 		= __hex_to_number("0x800"),
+	:DEVICE 			= __hex_to_number("0x40"),
+	:DIRECTORY 			= __hex_to_number("0x10"),
+	:ENCRYPTED 			= __hex_to_number("0x4000"),
+	:HIDDEN 			= __hex_to_number("0x2"),
+	:INTEGRITY_STREAM 	= __hex_to_number("0x8000"),
+	:NORMAL 			= __hex_to_number("0x80"),
+	:NOT_CONTENT_INDEXED= __hex_to_number("0x2000"),
+	:NO_SCRUB_DATA 		= __hex_to_number("0x20000"),
+	:READONLY 			= __hex_to_number("0x1"),
+	:RECALL_ON_DATA_ACCESS= __hex_to_number("0x400000"),
+	:RECALL_ON_OPEN 	= __hex_to_number("0x40000"),
+	:REPARSE_POINT 		= __hex_to_number("0x400"),
+	:SPARSE_FILE 		= __hex_to_number("0x200"),
+	:SYSTEM 			= __hex_to_number("0x4"),
+	:TEMPORARY 			= __hex_to_number("0x100"),
+	:VIRTUAL 			= __hex_to_number("0x10000")
+]
 	
-block isDirectory(directoryPath)
+/*
+
+*/
+block dir_exixts(directoryPath)
 	if __dir_exists(directoryPath) == 1 {
 		return true
 	}
@@ -46,22 +68,56 @@ block isDirectory(directoryPath)
 	It also remove multiple slashes and convert it to os single slash
 	@Return the formated path @DataType String
 */
-block __curePathSlashes(path)
-	if isPath(path) { 
-		ret = path.toString() 
-	elif isString(path)
-		tempPath = new Path(path)
-		ret = tempPath.toString()
-	}
-	return ret
+block curePathSlashes(string path)
+	ret = replaceStr(path,'//','/')
+	ret = replaceStr(ret,'\\','/')
+	ret = replaceStr(ret,'\','/')
+	ret = replaceStr(ret,'/', SystemSlash())
+	return ret 
 	
-block getCorrectPath(oddPath)
+/*
+
+*/
+block correctPath(oddPath)
+	oddPath = curePathSlashes(oddPath)
 	correctPath = __path_absolute_path(oddPath)
-	if !strEndsWith(correctPath, oddPath) && !strContains(oddPath, "."+SystemDirSeperator) && !isWindows() {
+	correctPath = curePathSlashes(correctPath) 
+	if !strEndsWith(correctPath, oddPath) && !strContains(oddPath, "." + SystemSlash()) && !isWindows() {
+	#if !strEndsWith(correctPath, oddPath) && !strContains(oddPath, "." + SystemSlash()) {
 		correctPathTemp = removeStr(oddPath,correctPath)
 		correctPath += correctPathTemp
 	}
-	return correctPath
+	return curePathSlashes(correctPath)
+	
+/*
+
+*/
+block relativePath(string absolutePath, string pathInRelative)
+	oddPath = null
+	slash = SystemSlash()
+	pathInRelative = correctPath(pathInRelative)
+	if !strStartsWith(absolutePath, "/") and absolutePath[1] != ":" {
+		absolutePath = correctPath(absolutePath)
+	}
+	if strStartsWith(absolutePath, pathInRelative) {
+		oddPath = "." + slash + strRemove(absolutePath, pathInRelative)
+	else
+		if strEndsWith(absolutePath,slash) { 
+			len = lengthOf(absolutePath) - 1 
+			oddPath = __left(absolutePath, len - lengthOf(slash))
+		}
+		Name = lastStrAfterChar(absolutePath, slash)
+		oddPath = removeStr(absolutePath, slash+Name)
+		oddPath = strRemove(pathInRelative, oddPath)
+		splited = strSplit(absolutePath, slash)
+		splitedLen = lengthOf(splited) - 2 
+		oddPath = ""
+		for a = 0 to splitedLen {
+			oddPath += ".." + slash
+		}
+		oddPath += Name
+	}
+	return oddPath
  
 /*
 
@@ -71,8 +127,12 @@ class Path : Object
 	/*
 	
 	*/
-	string SystemSlash = null
-	setSystemSlash()
+	string SystemSlash = SystemSlash()
+	
+	/*
+	
+	*/
+	string RelativePath = null
 	
 	/*
 	
@@ -88,17 +148,120 @@ class Path : Object
 	
 	*/
 	Directory Directory = null
+	
+	/*
+	
+	*/
+	boolean Exists = false
+	
+	/*
+	
+	*/
+	long Size = 0
+	
+	/*
+	
+	*/
+	int NodeNumber = 0
+	
+	/*
+	
+	*/
+	int HardLinkCount = 0
+	
+	/*
+	
+	*/
+	int GID = 0
+	
+	/*
+	
+	*/
+	int UID = 0
+	
+	/*
+	
+	*/
+	int BlockSize = 0
+	
+	/*
+	
+	*/
+	int BlockAllocated = 0
+	
+	/*
+	
+	*/
+	DateTime LastAccessDate = null
+	
+	/*
+	
+	*/
+	DateTime LastDateModified = null
+	
+	/*
+	
+	*/
+	DateTime LastDateChanged = null
+	
+	/*
+	
+	*/
+	DateTime DateCreated = null
+	
+	/*
+	
+	*/
+	string Type = null
+	
+	/*
+	
+	*/
+	boolean ReadOnly = false
+	
+	/*
+	
+	*/
+	boolean WriteOnly = false
+	
+	/*
+	
+	*/
+	block Path(string path)
+		if isNull(path) {
+			throw(self, "The parameter cannot be null")
+			return
+		}
+		AbsolutePath = path 
+		setAbsolutePath(null)
+		updateAttributes()
+		
+	/*
+	
+	*/
+	block getRelativePath()
+		return relativePath(AbsolutePath, currentDir())
+	
+	/*
+	
+	*/
+	block getAbsolutePath()
+		return AbsolutePath
 		
 	/*
 	
 	*/
 	block setAbsolutePath(string value)
 		if isNull(value) {
-			AbsolutePath = getCorrectPath(AbsolutePath)
+			AbsolutePath = correctPath(AbsolutePath)
 		else
-			#rename as absolute path 
-			#update the paths
+			retValue = renameTo(value, false)
+			if retValue {
+				AbsolutePath = correctPath(value)
+			}
+			return retValue
 		}
+		return true
 		
 	/*
 	
@@ -109,85 +272,73 @@ class Path : Object
 	/*
 	
 	*/
-	block setName(str value)
+	block setName(string value)
 		if isNull(value) {
-			Name = lastStrAfterChar(AbsolutePath, SystemSlash)
+			if isNull(Name) {
+				__AbsolutePath = AbsolutePath 
+				if strEndsWith(AbsolutePath,SystemSlash) { 
+					len = lengthOf(AbsolutePath) - 1 
+					__AbsolutePath = __left(AbsolutePath, len - lengthOf(SystemSlash))
+				}
+				Name = lastStrAfterChar(__AbsolutePath, SystemSlash)
+			else
+				throw(self, "The parameter cannot be null")
+				return false
+			}
 		else
-			renameTo(value)
+			if isNull(Directory) { setDirectory(null) }
+			directory = Directory.AbsolutePath
+			retValue = renameTo(directory+value, false)
+			if retValue {
+				Name = value
+			}
+			return retValue			
 		}
+		return true
+		
+	/*
+	
+	*/
+	block getExists()
+		return exists()
+		
+	/*
+	
+	*/
+	block getDirectory()
+		return Directory
 		
 	/*
 	
 	*/
 	block setDirectory(value)
 		if isNull(value) {
-			directory = removeStr(AbsolutePath, SystemSlash+Name)
-			Directory = new Directory(directory)
+			if isNull(Directory) {
+				directory = removeStr(AbsolutePath, SystemSlash+Name)
+				Directory = new Directory(directory)
+			else
+				throw(self, "The parameter cannot be null")
+				return false
+			}
+			
 		else
-			#change the parent directory accept string 
-			#and Directory class update the paths
+			if isNull(Directory) { setDirectory(null) }
+			newDirectory = null
+			if isString(value) {
+				newDirectory = value
+			elif isObject(value) and instanceof(value,"String")
+				newDirectory = value.toString()
+			elif isObject(value) and instanceof(value,"Directory")
+				newDirectory = value.AbsolutePath
+			else
+				throw(self, "Invalid parameter, expecting (string|simple.io.Directory), found (" + objectype(value) + ")")
+				return false
+			}
+			retValue = moveTo(newDirectory, false)
+			return retValue
+			
 		}
-		
-	#undone parts below
-	
-	__IO_MODULE = "simple.io.Path"
-	__IO_PATH_EMPTY = "The AbsolutePath variable is empty"
-	__IO_PATH_NOT_STRING = "Only string is allowed as parameter"
-	__IO_PATH_EXISTS_DELETE = "exist and is been deleted"
-	__IO_PATH_SYSTEM_SLASH = getSystemSlash()
-
-	block Path(ipath)
-		AbsolutePath = ipath
-		
-	block toString()
-		return AbsolutePath
-		
-	block path()
-		"[just for checking]"
-		
-	block isADirectory()
-		if (rawExists() == 1)
-			return true
-		end
-		return false
-		
-	block isAFile()
-		if (rawExists() == 0)
-			return true
-		end
-		return false
-		
-	block exists()
-		if ( isAFile() || isADirectory() ) 
-			return true
-		end
-		return false
-		
-	#This block confirms if the path is a directory it return 
-	#@DataType TRUE	(1) if it is a directory and return @DataType FALSE (0)
-	#if it is not a directory on other cases of other return number 
-	#-1 means it does not exist at all
-	#-2 means the error is unknown (uncommon) 	
-	#In this block trailing '/' or '\' are completely striped off (untreated)
-	block rawExists()
-		while (strEndsWith(AbsolutePath,'/') || strEndsWith(AbsolutePath,'\')) {
-				AbsolutePath = strRemoveCharAt(AbsolutePath, lengthOf(AbsolutePath) - 1) 
-		}
-		return __dir_exists(AbsolutePath)
-		
-	/*
-		Format the slashes in @Class File, @Class Directory and @Class Path
-		to the operating system standard to allow the system treat the path
-		as it own and not reject operation due to incorrect path format. 
-		It also remove multiple slashes and convert it to os single slash
-		@Return the formated path @DataType String
-	*/
-	block curePathSlashes(path)
-		if isPath(path) { ret = path.toString() }
-		ret = replaceStr(path,'//','/')
-		ret = replaceStr(ret,'\\','/')
-		ret = replaceStr(ret,'/',getSystemSlash())
-		return ret 
+		return true
 		
 	/*
 		Change the name of a @Class Directory or @Class File to new name, It can be 
@@ -201,24 +352,97 @@ class Path : Object
 			-1		- Does not exists
 			-2		- Unknown Error
 		@End
-		@Return the value of the rename operation @DataType Number
-	*/
-	block __renameTo(oldName,newName)
-		return __rename(oldName, newName)
-		
-	/*
 		Rename a @Directory to another a rather fast way of moving directory
 		about in the same disk partition. This take the new absolute directory 
 		to be rename to which must be a string. 
-		@See @Block __renameTo(oldName,newName)
-		@Return the rename operation @DataType Number
+		@See @Block __renameTo
+		@Return the rename operation result @DataType Number 
 	*/
-	block _renameTo(oldName,newName) 
-		newName = curePathSlashes(newName)
-		if !isString(newName) {
-			throwWithTitle(__IO_MODULE,__IO_PATH_NOT_STRING)
+	block renameTo(string newName, boolean override) 
+		if isNull(newName) {
+			throw(self,"The parameter cannot be null")
+			return false
 		}
-		return __renameTo(oldName,newName)
+		ensureExistence()
+		newPath = new Path(newName)
+		if newPath.exists() {
+			if override {
+				newPath.delete()
+			else
+				throw(self,"Cannot rename " + classname() + " because the path already exists : " + newPath.AbsolutePath)
+				return false
+			}
+		}
+		operation = __rename(AbsolutePath, newPath.AbsolutePath)
+		if operation < 0 {
+			throw(self, "The rename operation failed : " + newPath.AbsolutePath)
+			return false
+		}
+		AbsolutePath = newPath.AbsolutePath
+		Name = newPath.Name
+		Directory = newPath.Directory
+		return true
+		
+	/*
+		Move a directory from one folder to another. This operation will require the 
+		folder to be moved to exists else an error is thrown. The override parameter
+		determine if to override moving or notify if the directory already exists at the
+		location. It function is similar to @Block renameTo(newName)
+		@Return the move operation success value @DataType Number 
+	*/
+	block moveTo(string newFolder, boolean override)
+		directory = new Directory(newFolder)
+		newDir = null
+		if !directory.exists() {
+			throw(self, "The directory does not exists : " + directory.AbsolutePath)
+		}
+		oldPath = new Path(directory.AbsolutePath+SystemSlash+Name)
+		if oldPath.exists() {
+			if override {
+				oldPath.delete()
+			else
+				throw(self, "A " + classname() + " with the same name already exists in the folder : " + directory.AbsolutePath)
+				return false
+			}
+		}
+		if isDirectory() {
+			newDir = directory.AbsolutePath + SystemSlash + Name
+		else
+			newDir = directory.AbsolutePath + Name
+		}
+		return renameTo(newDir, override)
+		
+	/*
+	
+	*/
+	block ensureExistence()
+		if !exists() {
+			throw(self, "The " + classname() + " does not exists : " + AbsolutePath)
+		}
+		
+	/*
+	
+	*/
+	block toString()
+		return "[" + absolutename() + ":Name=" + Name + ",AbsolutePath=" + AbsolutePath + "]"
+		
+	/*
+	
+	*/
+	block isDirectory()
+		return (rawExists() == 1)
+		
+	/*
+	
+	*/
+	block isFile()
+		return (rawExists() == 0)
+		
+	/*
+	
+	*/
+	block exists()
+		return (rawExists() == 1) or (rawExists() == 0)
 		
 	/*
 		Delete the path related to this class, the AbsolutePath must have been declared 
@@ -227,152 +451,300 @@ class Path : Object
 		operation fails @DataType Boolean
 	*/
 	block delete()
-		return __delete(AbsolutePath)
-		
-	/*
-		Delete the path related to this class, the filePath must be a valid path else 
-		an error is thrown
-		@Return the delete operation value true if successful and false if the delete
-		operation fails @DataType Boolean
-	*/	
-	block _delete(filePath)
-		return __delete(filePath)
-	
-	block absolutePath()
-		if AbsolutePath == null {
-			throwWithTitle(__IO_MODULE,__IO_PATH_EMPTY)
-		}
-		tempPath = AbsolutePath
-		if strStartsWith(AbsolutePath,".") || strStartsWith(AbsolutePath,"..") || strStartsWith(AbsolutePath,SystemSlash) {
-			tempPath = getCorrectPath(AbsolutePath)
-		}
-		return tempPath
-		
-	/*
-		Move a directory from one folder to another. This operation will require the 
-		folder to be moved to exist else an error is thrown. The moveType parameter
-		determine if to force moving or notify if the directory already exists at the
-		location. It function is similar to @Block renameTo(newName)
-		@Return the move operation success value @DataType Number 
-	*/
-	block _moveTo(newFolder,moveType)
-		__newFolder = newFolder
-		if isPath(newFolder) {
-			__newFolder = newFolder.toString()
-		else 
-			try {
-				newFolder.isADirectory()
-				__newFolder = __newFolder.getPath()
-			catch 
-			
-			}
-		}
-		if !strEndsWith(__newFolder,SystemSlash) {
-			__newFolder += SystemSlash
-		}
-		if moveType {
-			return forceRenameTo(__newFolder+SystemSlash+getName())
+		ensureExistence()
+		if isDirectory() {
+			return __file_delete_folder(AbsolutePath)
 		else
-			return renameTo(__newFolder+SystemSlash+getName())
-		}
-		
-	block name()
-		abPath = absolutePath() 
-		while (strEndsWith(abPath,SystemSlash) ) {
-			abPath = removeStrAt(abPath, lengthOf(abPath) - 1) 
-		}
-		dName = lastStrAfterChar(abPath, SystemSlash)
-		return dName
-		
-	block parentPath()
-		abPath = absolutePath() 
-		tempName = SystemSlash+name()
-		tempPath = removeStr(abPath, tempName) 
-		return new Path(tempPath)
-		
-	block toDirectory()
-		test = new Directory(AbsolutePath)
-		return test
-
-	block toFile()
-		return new File(AbsolutePath)
+			return __file_delete(AbsolutePath) == 0
+		}		
 		
 	/*
-		Convert the @Class Path to @Class FileAttributes to get the stats, attributes 
-		and properties of a path
-		@Return the path attributes value of the current class @DataType @Class PathAttributes
+	
 	*/
-	block toPathAttributes()
-		return new PathAttributes(AbsolutePath)
+	block toDirectory()
+		if !isDirectory() {
+			throw(self, "This " + classname() + " cannot be converted to simple.io.Directory : " + AbsolutePath)
+			return self
+		}
+		directory = new Directory(AbsolutePath)
+		return directory
+
+	/*
+	
+	*/
+	block toFile()
+		if !isFile() {
+			throw(self, "This " + classname() + " cannot be converted to a simple.io.File : " + AbsolutePath)
+			return self
+		}
+		file = new File(AbsolutePath)
+		return file
 		
 	/*
 		This return the total size of the provide path in pure byte.
 		@Return the size of path in byte @DataType Number
 	*/
-	block size()
-		return toPathAttributes().size()
+	block getSize()
+		if exists() {
+			return __path_size(AbsolutePath)
+		}
+		return 0
 		
-	block nodeNumber()
-		return toPathAttributes().nodeNumber()
+	/*
+	
+	*/
+	block getNodeNumber()
+		if exists() {
+			return __path_node_number(AbsolutePath)
+		}
+		return 0
 		
-	block hardLinkCount()
-		return toPathAttributes().hardLinkCount()
+	/*
+	
+	*/
+	block getHardLinkCount()
+		if exists() {
+			return __path_link_count(AbsolutePath)
+		}
+		return 0
 		
-	block GID()
-		return toPathAttributes().GID()
+	/*
+	
+	*/
+	block getGID()
+		if exists() {
+			return __path_gid(AbsolutePath)
+		}
+		return 0
 		
-	block UID()
-		return toPathAttributes().UID()
+	/*
+	
+	*/
+	block getUID()
+		if exists() {
+			return __path_uid(AbsolutePath)
+		}
+		return 0
 		
-	block lastAccessDate()
-		return toPathAttributes().lastAccessDate()
+	/*
+	
+	*/
+	block getBlockSize()
+		if exists() {
+			return __path_block_size(AbsolutePath)
+		}
+		return 0
 		
-	block lastDateModified()
-		return toPathAttributes().lastDateModified()
+	/*
+	
+	*/
+	block getBlockAllocated()
+		if exists() {
+			size = __path_blocks(AbsolutePath)
+			if size == -1 {
+				size = (getSize() / getBlockSize())
+			}
+			return floor(size)
+		}
+		return 0
 		
-	block lastDateChanged()
-		return toPathAttributes().lastDateChanged()
+	/*
+	
+	*/
+	block getLastAccessDate()
+		if exists() {
+			datePointer = __path_access_date(AbsolutePath)
+			date = dateFromPointer(datePointer)
+		else
+			date = new DateTime(null)
+		}
+		return date
 		
-	block dateCreated()
-		return toPathAttributes().dateCreated()
+	/*
+	
+	*/
+	block getLastDateModified()
+		if exists() {
+			datePointer = __path_modify_date(AbsolutePath)
+			date = dateFromPointer(datePointer)
+		else
+			date = new DateTime(null)
+		}
+		return date
 		
-	block blockSize()
-		return toPathAttributes().blockSize()
+	/*
+	
+	*/
+	block getLastDateChanged()
+		if exists() {
+			datePointer = __path_status_date(AbsolutePath)
+			date = dateFromPointer(datePointer)
+		else
+			date = new DateTime(null)
+		}
+		return date
 		
-	block blockAllocated()
-		return toPathAttributes().blockAllocated()
+	/*
+	
+	*/
+	block getDateCreated()
+		return getLastDateChanged()
 		
 	/*
 		Get the type associated with the path from @File PathType in 
 		@return the path type @DataType String
 	*/
-	block type()
-		return toPathType().getTypeValue()
-		
-	block toPathType()
-		return new PathType(AbsolutePath)
+	block getType()
+		return PathType.getTypeValue()	
 		
 	/*
-		Get the system compatible slash to avoid error in input and output
-		operations. Some of the known slashes are:
-		@BlockQuote
-			Windows 	- \
-			Linux		- /
-			MacOS		- /
-			Haiku		- /
-			Unix		- /
-			Android		- /
-		@End
-		@Return the system slash char @DataType String
+	
 	*/
-	block setSystemSlash()
-		if isWindows() {
-			SystemSlash =  '\'
-		elif isLinux()
-			SystemSlash =  '/'
+	block create()
+		if !exists() {
+			pointer = __fopen(AbsolutePath, "w")
+			__fclose(pointer)
+			if rawExists() >= 0 {
+				return true
+			}
 		else
-			SystemSlash = '/'
+			throw(self,"Cannot create " + classname() + " because it already exists : " + AbsolutePath)
 		}
+		return false
+		
+	/*
+		
+	*/
+	block isReadable()
+		if !exists() {
+			return false
+		}
+		retValue = false
+		fp = __fopen(AbsolutePath,"r")
+		if !__is_null_pointer(fp, fp[1]) {
+			retValue = true
+			__fclose(fp)
+		}
+		return retValue
+		
+	/*
+		
+	*/
+	block isWritable()
+		if !exists() {
+			return false
+		}
+		retValue = false
+		fp = __fopen(AbsolutePath,"a")
+		if !__is_null_pointer(fp, fp[1]) {
+			retValue = true
+			__fclose(fp)
+		}
+		return retValue
+		
+	/*
+	
+	*/
+	block isHidden()
+		if !exists() {
+			return false
+		}
+		if isWindows() {
+			attributes = __GetFileAttributes(AbsolutePath)
+			return (attributes & FILE_ATTRIBUTES[:HIDDEN]) == FILE_ATTRIBUTES[:HIDDEN]
+		}
+		return Name[0] == "."
+		
+	/*
+		
+	*/
+	block isReadOnly()
+		if !exists() {
+			return false
+		}
+		if isWindows() {
+			attributes = __GetFileAttributes(AbsolutePath)
+			return !(attributes & FILE_ATTRIBUTES[:READONLY]) == FILE_ATTRIBUTES[:READONLY]
+		}
+		return (isReadable() and !isWritable())
+		
+	/*
+	
+	*/
+	block getReadOnly()
+		return isReadOnly()
+		
+	/*
+	
+	*/
+	block setReadOnly(boolean value)
+		ensureExistence()
+		retValue = false
+		if value {
+			retValue = __chmod(AbsolutePath, __S_IRUSR())
+		else
+			retValue = __chmod(AbsolutePath, __S_IRUSR()|__S_IWUSR())
+		}
+		return (retValue == 0)
+		
+	/*
+		
+	*/
+	block isWriteOnly()
+		if !exists() {
+			return false
+		}
+		if !isWindows() {
+			attributes = __GetFileAttributes(AbsolutePath)
+			return !(attributes & FILE_ATTRIBUTES[:READONLY]) == FILE_ATTRIBUTES[:READONLY]
+		}
+		return (!isReadable() and isWritable())
+		
+	/*
+	
+	*/
+	block getWriteOnly()
+		return isWriteOnly()
+		
+	/*
+	
+	*/
+	block setWriteOnly(boolean value)
+		ensureExistence()
+		retValue = false
+		if value {
+			retValue = __chmod(AbsolutePath, __S_IWUSR())
+		else
+			retValue = __chmod(AbsolutePath, __S_IRUSR()|__S_IWUSR())
+		}
+		return (retValue == 0)
+		
+	/*
+	
+	*/
+	block isExecutable()
+		if !exists() {
+			return false
+		}
+		return __is_path_executable(AbsolutePath)
+
+	/*
+
+	*/
+	block equals(Object value)
+		if !instanceof(value,"Path") {
+			return false
+		}
+		return AbsolutePath == value.AbsolutePath 
+		
+	/*
+
+	*/
+	block hashcode()
+		if isNull(hashcode) {
+			hashcode = hash(AbsolutePath)
+		}
+		return hashcode
 	
 	/*
 	
@@ -382,26 +754,105 @@ class Path : Object
 		/*
 		
 		*/
-		block updateAttributes(path)
+		PathType = null
+	
+		/*
+		
+		*/
+		block updateAttributes() 
 			setName(null)
-			setAbsolutePath(null)
 			setDirectory(null)
+			PathType = new PathType(AbsolutePath)
+			
+		/*
+		
+		*/
+		block setRelativePath()
+			
+		/*
+			
+		*/
+		block setExists(bool value)
+			
+		/*
+			
+		*/
+		block setSize()
+			
+		/*
+			
+		*/
+		block setNodeNumber()
+			
+		/*
+			
+		*/
+		block setHardLinkCount()
+			
+		/*
+			
+		*/
+		block setGID()
+			
+		/*
+			
+		*/
+		block setUID()
+			
+		/*
+			
+		*/
+		block setBlockSize()
+			
+		/*
+			
+		*/
+		block setBlockAllocated()
+			
+		/*
+			
+		*/
+		block setLastAccessDate()
+			
+		/*
+			
+		*/
+		block setLastDateModified()
 		
 		/*
 		
 		*/
-		block getCorrectPath(oddPath)
-			correctPath = __path_absolute_path(oddPath)
-			if !strEndsWith(correctPath, oddPath) && !strContains(oddPath, "."+SystemSlash) {
-				correctPathTemp = removeStr(oddPath,correctPath)
-				correctPath += correctPathTemp
+		block setLastDateChanged()
+		
+		/*
+		
+		*/
+		block setDateCreated()
+		
+		/*
+		
+		*/
+		block setType()
+		
+		/*
+			This block confirms if the path is a directory it return 
+			@DataType TRUE	(1) if it is a directory and return @DataType FALSE (0)
+			if it is not a directory on other cases of other return number 
+			-1 means it does not exists at all
+			-2 means the error is unknown (uncommon) 	
+			In this block trailing '/' or '\' are completely striped off (untreated)
+		*/
+		block rawExists()
+			while (strEndsWith(AbsolutePath,'/') || strEndsWith(AbsolutePath,'\')) {
+					AbsolutePath = strRemoveCharAt(AbsolutePath, lengthOf(AbsolutePath) - 1) 
 			}
-			return correctPath
-			
-			
-			
-			
+			return __dir_exists(AbsolutePath)
 			
 		
+			
+			
+/*
+	Probably add more read, write permission for user or group
+*/
 		
 		

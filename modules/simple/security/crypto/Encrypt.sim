@@ -14,7 +14,7 @@ call simple.core.Object
 call simple.core.BaseFields
 call simple.security.Hash
 
-module simple.security
+module simple.security.crypto.security
 
 #encrypt any string value base on the openssl method. The block accept three 
 #parameter the first is the string you want to encrypt, the second parameter

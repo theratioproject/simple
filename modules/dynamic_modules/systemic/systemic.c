@@ -49,9 +49,9 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
     register_block("isAndroid",systemic_isandroid);
     register_block("isTermux",systemic_istermux);
     register_block("windowsnl",systemic_windowsnl);
-    register_block("currentDirectory",systemic_currentdir);
+    register_block("currentDir",systemic_currentdir);
     register_block("exeFilePath",systemic_exefilename);
-    register_block("__exec",exe_system);
+    register_block("system",exe_system);
     register_block("__beep",system_beep);
     register_block("__sleep",system_sleep);
     register_block("changeDirectory",systemic_chdir);
@@ -60,8 +60,8 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
     register_block("__exit",system_exit);
     register_block("currentFilePath",current_filepath);
     register_block("currentFileName",current_filename);
-    register_block("previousFileName",previous_filename);
-    register_block("previousFilePath",previous_filepath);
+    register_block("prevFileName",previous_filename);
+    register_block("prevFilePath",previous_filepath);
 
     register_block("__monitor_count",systemic_monitor_count);
     register_block("__screen_sizes",systemic_screen_sizes);

@@ -14,11 +14,14 @@
 
 */
 call simple.core.Object
+call simple.core.List
+call simple.core.Number
 call simple.utilities.Conversion
 call simple.core.DynamicLoader
 call simple.debugging.Throw
 call simple.reflection.Class
 call simple.reflection.Field
+call simple.utilities.Type
 callModule("libstring_savant")
  
 /*
@@ -33,6 +36,182 @@ module simple.core
 		BACKSPACE = char(8) 
 		END_OF_LINE = char(13)
 		LINE_BREAK = char(10)
+		
+/*
+
+*/
+block strValueOf(object)
+	val = ""
+				
+	if isNull(object) {
+		val = "(null)"
+		
+	elif isString(object) 
+		val = escapeString(object)
+		
+	elif isNumber(object)
+		val = ""+object
+		
+	elif isPointer(object)
+		val = __pointer_address_to_string(object,object[1])
+		
+	elif isList(object)
+		_val = new List(object) 
+		val = _val.toString() 
+		
+	elif isObject(object) 
+		if __object_has_method(object,"toString") {
+			val = object.toString()
+		else
+			objectValue = [__class_name(object)]
+			objectValue + __object_attributes(object)
+			objectValue + __object_methods(object)
+			objectList = new List(objectValue)
+			value = objectList.toString()
+		}	
+		
+	}
+	return val
+	
+/*
+	Format the literal value to be printed in the output into the standard C Format with escape sequences. simple-lang
+	does not support escape sequences by default but rather depends on declared variables such as 
+	
+	```simple
+	nl - Newline
+	cr - Carriage Return
+	lf - Line Feed
+	tab - Tab
+	```
+	
+	<br />
+	This predefined variables in the VM are not final and can 
+	be changed in the program to another value thus it not very 
+	safe for standard use. using this block to format the literal 
+	will make it safe and will support the standard ANSI C literal 
+	format. The supported literal sequences are listed below.
+	
+	```simple
+	\a or \007	-	07	-	Alert
+	\b	-	08	-	Backspace
+	\f	-	12	-	Formfeed
+	\n	-	10	-	Newline
+	\r	-	13	-	Carriage Return
+	\t	-	09	-	Horizontal Tab
+	\v	-	11	-	Vertical Tab
+	\\	-	92	-	Carriage Backslash
+	\'	-	27	-	Single Quotation Mark
+	\"	-	22	-	Double Quotation Mark
+	\?	-	63	-	Question Mark (used to avoid @Link trigraph)
+	\e	-	27	-	Escape Character
+	```
+	
+	@Return the formated literal @DataType String
+	
+*/#temporary
+block escapeString(val)
+	val = replaceStr(val, "\a", char(07))
+	val = replaceStr(val, "\007", char(07))
+	val = replaceStr(val, "\b", char(08))
+	val = replaceStr(val, "\f", char(12))
+	val = replaceStr(val, "\n", char(10))
+	val = replaceStr(val, "\r", char(13))
+	#val = replaceStr(val, "\t", char(09))
+	val = replaceStr(val, "\v", char(11))
+	val = replaceStr(val, "\\", char(92))
+	val = replaceStr(val, "\'", char(27))
+	val = replaceStr(val, '\"', char(22))
+	val = replaceStr(val, '\?', char(63))
+	#val = replaceStr(val, '\e', char(27))
+	return val
+	
+/*
+
+*/
+block strFormat(params...)
+	int paramsLen = lengthOf(params)
+	if paramsLen == 1 and isList(params[0]) {
+		_var = params[0]
+		params = _var
+		paramsLen = lengthOf(_var)
+	}
+	string finalValue = ""
+	string value = params[0]
+	int valueLen = lengthOf(value) - 1
+	int index = 1 
+	for a = 0 to valueLen {
+		val = value[a]
+		switch val {
+			case "%"
+				if value[a+1] == "s" or value[a+1] == "o" {
+					a++
+					object = strValueOf(params[index])
+					finalValue += object
+					
+				elif value[a+1] == "n"
+					a++
+					object = numValueOf(params[index])
+					finalValue += object
+					
+				elif value[a+1] == "p"
+					a++
+					val = params[index]
+					object = "0"
+					if isPointer(val) {
+						object = __pointer_address_to_string(val,val[1])
+					else
+						object = __object_address(val) 
+					}
+					
+					finalValue += object
+				}
+				index++
+			default 
+				finalValue += val
+		}
+	}
+	finalValue = escapeString(finalValue)
+	return finalValue
+	
+/*
+
+*/
+
+	
+block strFormatIndex(params...)
+	int paramsLen = lengthOf(params)
+	if paramsLen == 1 and isList(params[0]) {
+		_var = params[0]
+		params = _var
+		paramsLen = lengthOf(_var)
+	}
+	string finalValue = ""
+	string value = params[0]
+	int valueLen = lengthOf(value) - 1
+	int index = 1 
+	for a = 0 to valueLen  {
+		switch value[a] {
+			case "{"
+				if value[a] == '{' and isDigit(value[a+1]){
+					t_v = 0 + value[a++] + 1 #TODO : use real conversion and not operator
+					if t_v != 0 {
+						v = params[t_v * 1] 
+					else
+						v = "null"
+					}
+					v = strValueOf(v)
+					finalValue += v 
+					if value[a+1] == '}' { a++ }
+				else 
+					finalValue += value[a] 
+					continue
+				}
+			default 
+				finalValue += value[a]
+		}
+		
+	}
+	return escapeString(finalValue)
 		
 /*
 
@@ -548,20 +727,29 @@ block strStartsWith(object, check)
 	}
 	return false
 	
-block lastStrAfterChar(str, lst)
-	count = 0 ret = ""
-	strLength = lengthOf(str) - 1
-	for x = strLength to 0 step -1
-		if str[x] == lst
-			break
-		end 
-		count++
-	end
-	lastc = (strLength - count) + 1
-	for stra  = lastc to strLength
-		ret += str[stra]
-	end
-	return ret
+block lastStrAfterChar(str value, char suffix)
+	return lastStrAfter(value, ""+suffix)
+	
+block lastStrAfter(str value, str suffix)
+	if !isNull(value) and !isNull(suffix) {
+		count = 0
+		valueLen = lengthOf(value) - 1
+		suffixLen = lengthOf(suffix) - 1
+		for x = valueLen to suffixLen step -1
+			val = ""
+			for y = suffixLen to 0 step -1 {
+				val += value[x-y]
+			}
+			if val == suffix
+				count--
+				break
+			end 
+			count++
+		end
+		return __right(value,count)
+	else
+		throw("simple.core:lastStrAfterChar","None of the parameter can be (null)")
+	}
 	
 block strAfterLast(str, lst)
 	count = 0 ret = ""

@@ -46,7 +46,7 @@ class Dimension : Object
                 Width = object.Width
                 Height = object.Height
             else
-                throw(this,"The parameter is not valid. Expecting instance of Dimension for Dimension Width and Height. Found "+objecttype(object))
+                throw(self,"The parameter is not valid. Expecting instance of Dimension for Dimension Width and Height. Found "+objecttype(object))
             }
         elif paramsLen == 2
             width = params[0]
@@ -55,13 +55,13 @@ class Dimension : Object
                 Width = floor(width)
                 Height = floor(height)
             else
-                throw(this,"The parameter is not valid. Expecting Number as Dimension Width and Height. Found " + objecttype(width) + " and " + objecttype(height))
+                throw(self,"The parameter is not valid. Expecting Number as Dimension Width and Height. Found " + objecttype(width) + " and " + objecttype(height))
             }
         else
-            throw(this,"Initializing Dimension with invalid length of parameters")
+            throw(self,"Initializing Dimension with invalid length of parameters")
         }
 
-        return this
+        return self
 
 
     /*
@@ -83,7 +83,7 @@ class Dimension : Object
         if isNumber(height) {
             Height = floor(height)
         else
-            throw(this,"Invalid parameter, Expecting (Number). Found (" + objecttype(height) + ")")
+            throw(self,"Invalid parameter, Expecting (Number). Found (" + objecttype(height) + ")")
         }
 
     /*
@@ -93,7 +93,7 @@ class Dimension : Object
         if isNumber(width) {
             Width = floor(width)
         else
-            throw(this,"Invalid parameter, Expecting (Number). Found (" + objecttype(width) + ")")
+            throw(self,"Invalid parameter, Expecting (Number). Found (" + objecttype(width) + ")")
         }
         
 
@@ -101,7 +101,8 @@ class Dimension : Object
 
     */
     block getDimension()
-        return new Dimension(Width,Height)
+		dimension = new Dimension(Width,Height)
+        return dimension
 
     /*
 
@@ -120,7 +121,8 @@ class Dimension : Object
 
     */
     block toRectangle()
-        return new Rectangle(this)
+		rectangle = new Rectangle(self)
+        return rectangle
 
 	/*
 
@@ -136,7 +138,7 @@ class Dimension : Object
                     Width = floor(width)
                     Height = floor(height)
                 else
-                    throw(this,"Using operator with values of incorrect type : "+op)
+                    throw(self,"Using operator with values of incorrect type : "+op)
                 }
             case "-"
                 if isinstance(value) {
@@ -145,7 +147,7 @@ class Dimension : Object
                     Width = floor(width)
                     Height = floor(height)
                 else
-                    throw(this,"Using operator with values of incorrect type : "+op)
+                    throw(self,"Using operator with values of incorrect type : "+op)
                 }
             case "/"
                 if isinstance(value) {
@@ -154,7 +156,7 @@ class Dimension : Object
                     Width = floor(width)
                     Height = floor(height)
                 else
-                    throw(this,"Using operator with values of incorrect type : "+op)
+                    throw(self,"Using operator with values of incorrect type : "+op)
                 }
             case "*"
                 if isinstance(value) {
@@ -163,12 +165,12 @@ class Dimension : Object
                     Width = floor(width)
                     Height = floor(height)
                 else
-                    throw(this,"Using operator with values of incorrect type : "+op)
+                    throw(self,"Using operator with values of incorrect type : "+op)
                 }
 			default 
-				throw(this,"This operator behaviour is not defined : "+op)
+				throw(self,"self operator behaviour is not defined : "+op)
 		}
-		return this
+		return self
 
     /*
 

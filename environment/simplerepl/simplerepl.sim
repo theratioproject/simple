@@ -20,18 +20,18 @@ OldSimpleReplTitle = "
      ------    |  |   |  |   |      ------     |   |  |           |    |   |           |    ---------    | Language. 
            |   |  |   |  |   |                 |   |  |    -------     |   |           |   |             | 
            |   |  |   |  |   |                 |   |  |   |            |   |           |   |             | REPL (Read-Eval-Print-Loop)
-     ------    |  |   |  |   |                 |   |  |   |            |    - -------  |    ---------    | Version "+getSimpleVersion()+"
+     ------    |  |   |  |   |                 |   |  |   |            |    - -------  |    ---------    | Version "+simpleVersion()+"
     |          |  |   |  |   |                 |   |  |   |            |            |  |             |   | Author : Azeez Adewale
      ----------    ---    ---                   ---    ---              ------------    -------------    | MIT License Copyright (c) 2018 SIMPLE
                                                                                                          |  
 "
 
 multiLine = false
-simpleReplTitle = "simple "+getSimpleVersion() + "\n"
+simpleReplTitle = "simple "+simpleVersion() + "\n"
 
-	printfc(stdout,ConsoleColor.NONE, simpleReplTitle)
+	stdout.printfc(ConsoleColor.NONE, simpleReplTitle)
 while true {
-	printfc(stdout,ConsoleColor.NONE, "simple$ ") 
+	stdout.printfc(ConsoleColor.NONE, "simple$ ") 
 	read code
 	if code == "-\" {
 		multiLine = true
@@ -50,15 +50,12 @@ while true {
 		}
 		code += newCode
 	}
-	if strContains(code,"display") {
-		code = replaceStr(code,"display","@")
-	}
 	if code == "__exit__" or code == "bye" or code == ":q" {
 		break
 	}
 	try {
 		executeCode(code)
 	catch
-		printfc(stderr,ConsoleColor.NONE, __err__+"\n")
+		stderr.printfc(ConsoleColor.NONE, __err__+"\n")
 	}
 } 

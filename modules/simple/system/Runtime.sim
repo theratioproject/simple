@@ -20,7 +20,7 @@ class Runtime
 
 	block executeWithParameter(file, param)
 		exe = '"'+file+'"' + " "+param
-		__exec(exe)
+		system(exe)
 		
 	block execute(exe)
-		__exec('"'+exe+'"')
+		system('"'+exe+'"')

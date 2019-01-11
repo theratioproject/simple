@@ -1,0 +1,25 @@
+/*
+
+*/
+
+call simple.core.List
+call simple.utilities.Console
+
+block main()
+	list = new List([1, 3, 5, 6, "C++ output stream style"])
+	string = new String("Hello Universe")
+	object = new Object
+	stdout << 120 << nl
+	stdout << "Hello World " << 44353 << nl << "end"
+	stdout << nl << list
+	stdout << nl << string
+	stdout << nl << object
+	stdout << nl << [[[1, "two"], list, 123, null], "last", 98, "item"]
+	stderr << nl << [list, string, object]
+	
+	stdout {
+	
+		print("\nHello World From Brace\n")
+		println("Hello World From Brace")	
+		
+	}
