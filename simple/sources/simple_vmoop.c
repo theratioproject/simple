@@ -624,7 +624,7 @@ SIMPLE_API void simple_vm_oop_bracestack ( VM *vm )
 	vm->nsp = simple_list_getint(simple_list_getlist(vm->aBraceObjects,simple_list_getsize(vm->aBraceObjects)),2) ;
 	if ( vm->nBlockSP > vm->nsp ) {
 		/*
-		**  This fixes a problem when we use oObject {  executeCode(code) } return cString 
+		**  This fixes a problem when we use oObject {  executeCode(code) } return string 
 		**  Where vm->nsp maybe less than vm->nBlockSP while we are inside block 
 		*/
 		if ( simple_list_getsize(vm->pBlockCallList) > 0 ) {

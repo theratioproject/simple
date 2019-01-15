@@ -7,7 +7,7 @@
 
 /* 
  * File:   simple.h
- * Author: thecarisma
+ * Author: Azeez Adewale
  *
  * Created on July 10, 2017, 1:10 PM
  */
@@ -137,7 +137,7 @@ void simple_parser_icg_addoperandpointer ( Parser *parser ,List *list , void *pV
 
 void simple_parser_icg_showoutput ( List *listGenCode,int nStatus )
 {
-	int x,y,nCount,nCount2  ;
+	int x,y,count,count2  ;
 	List *list  ;
 	assert(listGenCode != NULL);
 	/* Header */
@@ -150,15 +150,15 @@ void simple_parser_icg_showoutput ( List *listGenCode,int nStatus )
 		puts("Byte Code - After Execution by the VM");
 	}
 	print_line();
-	nCount = simple_list_getsize(listGenCode);
-	if ( nCount > 0 ) {
+	count = simple_list_getsize(listGenCode);
+	if ( count > 0 ) {
 		printf( "\n %6s  %10s  %10s\n", "PC","OPCode","Data" ) ;
-		for ( x = 1 ; x <= nCount ; x++ ) {
+		for ( x = 1 ; x <= count ; x++ ) {
 			list = simple_list_getlist(listGenCode,x);
-			nCount2 = simple_list_getsize(list);
+			count2 = simple_list_getsize(list);
 			printf( "\n %6d  %10s  ", x , SIMPLE_IC_OP[simple_list_getint(list,1)] ) ;
-			if ( nCount2 > 1 ) {
-				for ( y = 2 ; y <= nCount2 ; y++ ) {
+			if ( count2 > 1 ) {
+				for ( y = 2 ; y <= count2 ; y++ ) {
 					if ( simple_list_isstring(list,y) ) {
 						printf( " %5s ",simple_list_getstring(list,y) ) ;
 					}
@@ -195,7 +195,7 @@ void simple_parser_icg_duplicate ( Parser *parser,int nStart,int nEnd )
 	List *list,*list2  ;
 	int x  ;
 	#if SIMPLE_SHOWIC
-	int y,nCount2  ;
+	int y,count2  ;
 	#endif
 	assert(parser != NULL);
 	if ( (nStart <= nEnd) && ( nEnd <= simple_parser_icg_instructionscount(parser) ) ) {
@@ -204,10 +204,10 @@ void simple_parser_icg_duplicate ( Parser *parser,int nStart,int nEnd )
 			list2 = simple_list_getlist(parser->GenCode,x);
 			simple_list_copy(list,list2);
 			#if SIMPLE_SHOWIC
-			nCount2 = simple_list_getsize(list);
+			count2 = simple_list_getsize(list);
 			printf( "\n %6d [ %s ] ", simple_list_getsize(parser->GenCode) , SIMPLE_IC_OP[simple_list_getint(list,1)] ) ;
-			if ( nCount2 > 1 ) {
-				for ( y = 2 ; y <= nCount2 ; y++ ) {
+			if ( count2 > 1 ) {
+				for ( y = 2 ; y <= count2 ; y++ ) {
 					if ( simple_list_isstring(list,y) ) {
 						printf( " Operand : %s ",simple_list_getstring(list,y) ) ;
 					}

@@ -345,8 +345,8 @@ block writeCode()
 					simple_list_addstring_gc(sState->vm->sState,list,sState->vm->sState->argv[x]);
 			}
 			//hack end
-			execute_code(sState, (char *) sim_code);
-			finalize(sState);
+			execute_simple_object(sState, (char *) sim_code);
+			finalize_simple_state(sState);
 		}
 
 ' 

@@ -7,7 +7,7 @@
 
 /* 
  * File:   simple.h
- * Author: thecarisma
+ * Author: Azeez Adewale
  *
  * Created on July 10, 2017, 1:10 PM
  */
@@ -209,7 +209,7 @@ VM * simple_vm_new ( SimpleState *sState )
 	vm->aActiveGlobalScopes = simple_list_new_gc(vm->sState,0);
 	vm->nCurrentGlobalScope = 0 ;
 	/* File name in the class region */
-	vm->cFileNameInClassRegion = NULL ;
+	vm->file_nameInClassRegion = NULL ;
 	return vm ;
 }
 
@@ -289,17 +289,20 @@ SIMPLE_API void simple_vm_loadcode ( VM *vm )
 	vm->nEvalReallocationSize = nSize ;
 }
 
+//re visit
 SIMPLE_API void simple_vm_start ( SimpleState *sState,VM *vm )
 {
-	vm->pCode = sState->pSimpleGenCode ;
+	vm->pCode = sState->generated_code ;
 	vm->pBlocksMap = sState->blocks_map ;
 	vm->pClassesMap = sState->classes_map ;
 	vm->pModulessMap = sState->modules_map ;
-	simple_vm_loadcode(vm);
-	loadcblocks(sState);
-	/* Generate Items Array &  Hash Table */
-	simple_list_genarray(sState->c_blocks);
-	simple_list_genhashtable2(sState->c_blocks);
+	simple_vm_loadcode(vm); 
+	if (sState->loaded_cblocks == 0) {
+		loadcblocks(sState); 
+		/* Generate Items Array &  Hash Table */
+		simple_list_genarray(sState->c_blocks);
+		simple_list_genhashtable2(sState->c_blocks);
+	}
 	if ( simple_list_getsize(vm->pCode) > 0 ) {
 		vm->nPC = 1 ;
 		simple_vm_mainloop(vm);
@@ -1150,7 +1153,7 @@ SIMPLE_API void simple_vm_showerrormessage ( VM *vm,const char *cStr )
 			}
 			else {
 				if ( vm->nInClassRegion ) {
-					cFile = vm->cFileNameInClassRegion ; 
+					cFile = vm->file_nameInClassRegion ; 
 				}
 				else {
 					cFile = vm->file_name ;
@@ -1176,7 +1179,7 @@ SIMPLE_API void simple_vm_showerrormessage ( VM *vm,const char *cStr )
 		simple_string_add_gc(vm->sState,string,file_real_name(simple_list_getstring(vm->sState->files_list,1)));
 	} else {
 		if ( vm->nInClassRegion ) {
-			cFile = vm->cFileNameInClassRegion ;
+			cFile = vm->file_nameInClassRegion ;
 		}
 		else {
 			cFile = file_real_name(vm->file_name) ;
@@ -1237,7 +1240,7 @@ SIMPLE_API void simple_vm_cgi_showerrormessage ( VM *vm,const char *cStr )
 			}
 			else {
 				if ( vm->nInClassRegion ) {
-					cFile = vm->cFileNameInClassRegion ;
+					cFile = vm->file_nameInClassRegion ;
 				}
 				else {
 					cFile = vm->file_name ;
@@ -1259,7 +1262,7 @@ SIMPLE_API void simple_vm_cgi_showerrormessage ( VM *vm,const char *cStr )
 	}
 	else {
 		if ( vm->nInClassRegion ) {
-			cFile = vm->cFileNameInClassRegion ;
+			cFile = vm->file_nameInClassRegion ;
 		}
 		else {
 			cFile = file_real_name(vm->file_name) ;
@@ -1276,7 +1279,7 @@ SIMPLE_API void simple_vm_setfilename ( VM *vm )
 		**  We are using special attribute for this region to avoid save/restore file name 
 		**  If we used vm->file_name we could get problem in finding classes and moduless 
 		*/
-		vm->cFileNameInClassRegion = SIMPLE_VM_IR_READC ;
+		vm->file_nameInClassRegion = SIMPLE_VM_IR_READC ;
 		return ;
 	}
 	vm->cPrevFileName = vm->file_name ;
@@ -1366,7 +1369,7 @@ SIMPLE_API void simple_vm_runcodefromthread ( VM *vm,const char *cStr )
 	List *list,*list2,*list3,*list4,*list5  ;
 	Item *pItem  ;
 	/* Create the SimpleState */
-	pState = create_instance();
+	pState = init_simple_state();
 	pState->nPrintInstruction = vm->sState->nPrintInstruction ;
 	/* Share the same Mutex between VMs */
 	simple_vm_mutexlock(vm);
@@ -1395,14 +1398,14 @@ SIMPLE_API void simple_vm_runcodefromthread ( VM *vm,const char *cStr )
 	/* Get a copy from the byte code List */
 	pState->vm->nScopeID = vm->nScopeID + 10000 ;
 	pState->vm->pCode = simple_list_new_gc(vm->sState,0) ;
-	simple_list_copy(pState->vm->pCode,vm->sState->pSimpleGenCode);
-	pState->pSimpleGenCode = pState->vm->pCode ;
+	simple_list_copy(pState->vm->pCode,vm->sState->generated_code);
+	pState->generated_code = pState->vm->pCode ;
 	simple_vm_loadcode(pState->vm);
 	/* Avoid the call to the main block */
 	pState->vm->nCallMainBlock = 1 ;
 	simple_vm_mutexunlock(vm);
 	/* Run the code */
-	execute_code(pState,cStr);
+	execute_simple_code(pState,cStr);
 	simple_list_delete_gc(vm->sState,pState->vm->pCode);
 	/* Restore the first scope - global scope */
 	pState->vm->pMem->pFirst->pValue = pItem ;
@@ -1412,7 +1415,7 @@ SIMPLE_API void simple_vm_runcodefromthread ( VM *vm,const char *cStr )
 	pState->vm->pClassesMap = list3 ;
 	pState->vm->pModulessMap = list4 ;
 	pState->vm->pCBlocksList = list5 ;
-	pState->pSimpleGenCode = list ;
+	pState->generated_code = list ;
 	pState->blocks_map = list2 ;
 	pState->classes_map = list3 ;
 	pState->modules_map = list4 ;
@@ -1422,7 +1425,7 @@ SIMPLE_API void simple_vm_runcodefromthread ( VM *vm,const char *cStr )
 	pState->vm->pBlockMutexLock = NULL ;
 	pState->vm->pBlockMutexUnlock = NULL ;
 	/* Delete the SimpleState */
-	finalize(pState);
+	finalize_simple_state(pState);
 }
 
 /* Fast Block Call for Extensions (Without Eval) */

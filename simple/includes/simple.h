@@ -7,7 +7,7 @@
 
 /* 
  * File:   simple.h
- * Author: thecarisma
+ * Author: Azeez Adewale
  *
  * Created on July 10, 2017, 1:10 PM
  */
@@ -22,28 +22,23 @@
 /*
 **  Windows 
 **  Support Windows XP 
-**  To avoid error message : procedure entry point InitializeConditionVariable could not be located in Kernel32.dll 
+**  To avoid error message : procedure entry point **  InitializeConditionVariable could not be located **  in Kernel32.dll 
 */
 #ifdef _WIN32_WINNT
 #undef _WIN32_WINNT
 #endif
 #define _WIN32_WINNT 0x502
-#define SIMPLE_USEDLL 1
-#define SIMPLE_BUILDLIB 1
+#define SIMPLE_WINDLLEXPORT 1
 /* Linux */
 #else
-#define SIMPLE_USEDLL 0
-#define SIMPLE_BUILDLIB 0
+#define SIMPLE_WINDLLEXPORT 0
 #endif
-#if SIMPLE_USEDLL
-#if SIMPLE_BUILDLIB
+#if SIMPLE_WINDLLEXPORT
 #define SIMPLE_API __declspec(dllexport)
-#else
-#define SIMPLE_API __declspec(dllimport)
-#endif
 #else
 #define SIMPLE_API extern
 #endif
+
 /* Constants */
 #define SIMPLE_DEBUG 0
 #define SIMPLE_TESTUNITS 0
@@ -66,9 +61,9 @@
 #define SIMPLE_LONGINSTRUCTION "\nENVIRONMENT ERROR 4 : Long VM Instruction! \n"
 /* General */
 #define SIMPLE_PATHSIZE 256
-/* See and Give - use simplevm_display() and read_string() */
-#define SIMPLE_USEDISPLAYBLOCKTION 1
-#define SIMPLE_USEGIVEBLOCKTION 1
+/* display and read - use simplevm_display() and read_string() */
+#define SIMPLE_USEDISPLAYBLOCK 1
+#define SIMPLE_USEGIVEBLOCK 1
 #define TRUE 1
 /*
 **  Include Files 
@@ -140,6 +135,7 @@ must be set through the compiler flag either through makefile or command line */
 #include "simple_scanner.h"
 #include "simple_parser.h"
 #include "simple_codegen.h"
+#include "simple_object.h"
 
 #ifdef __ANDROID__
 /* load the fulltick module here */
@@ -153,11 +149,10 @@ extern __android_init_full_tick __init_full_tick ;
 
 /*
 **	Do nothing if snprintf is defined
-**	Else define it as _snprintf_s since we dont need return values
+**	Else define it as _snprintf_s since we dont need **  return values
 **	Issue with Microsoft Visual Studio
 */
-#ifdef snprintf
-#else
+#ifndef snprintf
 #if defined(_MSC_VER) && _MSC_VER < 1900
 #define snprintf(buf,len, format,...) _snprintf_s(buf, len,len, format, __VA_ARGS__)
 #endif

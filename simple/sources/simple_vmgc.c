@@ -6,7 +6,7 @@
 
 /* 
  * File:   simple.c
- * Author: thecarisma
+ * Author: Azeez Adewale
  *
  * Created on July 22, 2017, 06:16 PM
  */

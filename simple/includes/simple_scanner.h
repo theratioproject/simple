@@ -7,7 +7,7 @@
 
 /* 
  * File:   simple.h
- * Author: thecarisma
+ * Author: Azeez Adewale
  *
  * Created on July 10, 2017, 1:10 PM
  */
@@ -159,7 +159,11 @@ void simple_scanner_addreturn3 ( SimpleState *sState,int aPara[3] ) ;
 
 void display_tokens ( Scanner *scanner ) ;
 
-SIMPLE_API void simple_execute ( char *file_name, int nISCGI,int nRun,int nPrintIC,int nPrintICFinal,int nTokens,int nRules,int nIns,int nGenObj,int nWarn,int argc,char *argv[],int skip_error) ;
+SIMPLE_API void simple_execute ( char *file_name, int nISCGI,int nRun,int nPrintIC,int nPrintICFinal,int nTokens,int nRules,int nIns,int generate_object,int nWarn,int argc,char *argv[],int skip_error) ;
+
+void simple_scanner_runobject( SimpleState *sState,char *file_name );
+
+void simple_scanner_runobjstring ( SimpleState *sState,char *string,const char *file_name );
 
 const char * simple_scanner_getkeywordtext ( const char *cStr ) ;
 

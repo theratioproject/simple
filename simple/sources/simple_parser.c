@@ -7,7 +7,7 @@
 
 /* 
  * File:   simple.h
- * Author: thecarisma
+ * Author: Azeez Adewale
  *
  * Created on July 10, 2017, 1:10 PM
  */
@@ -78,13 +78,13 @@ Parser * simple_parser_new ( List *pTokens,SimpleState *sState )
 	parser->nLineNumber = 1 ;
 	parser->nErrorLine = 0 ;
 	parser->nErrorsCount = 0 ;
-	if ( sState->pSimpleGenCode == NULL ) {
-		sState->pSimpleGenCode = simple_list_new(0);
+	if ( sState->generated_code == NULL ) {
+		sState->generated_code = simple_list_new(0);
 		sState->blocks_map = simple_list_new(0);
 		sState->classes_map = simple_list_new(0);
 		sState->modules_map = simple_list_new(0);
 	}
-	parser->GenCode = sState->pSimpleGenCode ;
+	parser->GenCode = sState->generated_code ;
 	parser->BlocksMap = sState->blocks_map ;
 	parser->ActiveGenCodeList = NULL ;
 	parser->nAssignmentFlag = 1 ;

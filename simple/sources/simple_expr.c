@@ -7,7 +7,7 @@
 
 /* 
  * File:   simple.h
- * Author: thecarisma
+ * Author: Azeez Adewale
  *
  * Created on July 10, 2017, 1:10 PM
  */
@@ -625,11 +625,11 @@ int simple_parser_range ( Parser *parser )
 
 int simple_parser_factor ( Parser *parser,int *nFlag )
 {
-	int x,x2,x3,nLastOperation,nCount,nNOOP,nToken,nMark  ;
+	int x,x2,x3,nLastOperation,count,nNOOP,nToken,nMark  ;
 	List *pLoadAPos, *list, *pMark  ;
 	char lSetProperty,lequal,nBeforeEqual  ;
 	char cBlockName[100]  ;
-	char cKeyword[100]  ;
+	char keyword[100]  ;
 	const char *class_name;
 	/* Set Identifier Flag - is 1 when we have Factor -->Identifier */
 	*nFlag = 0 ;
@@ -837,13 +837,13 @@ int simple_parser_factor ( Parser *parser,int *nFlag )
 	if ( simple_parser_isoperator2(parser,OP_RANGE) ) {
 		simple_parser_nexttoken(parser);
 		if ( simple_parser_isidentifier(parser) || simple_parser_isanykeyword(parser) ) {
-			nCount = simple_parser_icg_instructionscount(parser);
+			count = simple_parser_icg_instructionscount(parser);
 			/* Generate Code */
 			simple_parser_icg_newoperation(parser,ICO_PUSHC);
 			if ( simple_parser_isanykeyword(parser) ) {
-				strcpy(cKeyword,simple_scanner_getkeywordtext(parser->TokenText));
-				simple_string_lower(cKeyword);
-				simple_parser_icg_newoperand(parser,cKeyword);
+				strcpy(keyword,simple_scanner_getkeywordtext(parser->TokenText));
+				simple_string_lower(keyword);
+				simple_parser_icg_newoperand(parser,keyword);
 			}
 			else {
 				simple_parser_icg_newoperand(parser,parser->TokenText);
@@ -861,8 +861,8 @@ int simple_parser_factor ( Parser *parser,int *nFlag )
 			if ( simple_parser_isoperator2(parser,OP_EQUAL) ) {
 				simple_parser_nexttoken(parser);
 				/* Generate Code */
-				simple_parser_icg_insertoperation(parser,nCount,ICO_LISTSTART);
-				simple_parser_icg_insertoperation(parser,nCount+2,ICO_LISTITEM);
+				simple_parser_icg_insertoperation(parser,count,ICO_LISTSTART);
+				simple_parser_icg_insertoperation(parser,count+2,ICO_LISTITEM);
 				/* Go to last operation, because insert change the active operation */
 				SIMPLE_PARSER_ICG_GOTOLASTOP ;
 				if ( simple_parser_expr(parser) ) {

@@ -7,7 +7,7 @@
 
 /* 
  * File:   simple.h
- * Author: thecarisma
+ * Author: Azeez Adewale
  *
  * Created on July 10, 2017, 1:10 PM
  */
@@ -17,7 +17,7 @@
 #define simple_hashtable_h
 /* Data */
 typedef struct HashItem {
-	char  *cKey  ;
+	char  *key  ;
 	char nItemType  ;
 	union HashValue {
 		int nIndex  ;
@@ -35,21 +35,21 @@ typedef struct HashTable {
 
 HashTable * simple_hashtable_new_gc ( void *pState ) ;
 
-unsigned int simple_hashtable_hashkey ( HashTable *pHashTable,const char *cKey ) ;
+unsigned int simple_hashtable_hashkey ( HashTable *pHashTable,const char *key ) ;
 
-HashItem * simple_hashtable_newitem_gc ( void *pState,HashTable *pHashTable,const char *cKey ) ;
+HashItem * simple_hashtable_newitem_gc ( void *pState,HashTable *pHashTable,const char *key ) ;
 
-void simple_hashtable_newnumber_gc ( void *pState,HashTable *pHashTable,const char *cKey,int x ) ;
+void simple_hashtable_newnumber_gc ( void *pState,HashTable *pHashTable,const char *key,int x ) ;
 
-void simple_hashtable_newpointer_gc ( void *pState,HashTable *pHashTable,const char *cKey,void *x ) ;
+void simple_hashtable_newpointer_gc ( void *pState,HashTable *pHashTable,const char *key,void *x ) ;
 
-HashItem * simple_hashtable_finditem ( HashTable *pHashTable,const char *cKey ) ;
+HashItem * simple_hashtable_finditem ( HashTable *pHashTable,const char *key ) ;
 
-int simple_hashtable_findnumber ( HashTable *pHashTable,const char *cKey ) ;
+int simple_hashtable_findnumber ( HashTable *pHashTable,const char *key ) ;
 
-void * simple_hashtable_findpointer ( HashTable *pHashTable,const char *cKey ) ;
+void * simple_hashtable_findpointer ( HashTable *pHashTable,const char *key ) ;
 
-void simple_hashtable_deleteitem_gc ( void *pState,HashTable *pHashTable,const char *cKey ) ;
+void simple_hashtable_deleteitem_gc ( void *pState,HashTable *pHashTable,const char *key ) ;
 
 HashTable * simple_hashtable_delete_gc ( void *pState,HashTable *pHashTable ) ;
 
@@ -66,17 +66,17 @@ void simple_hashtable_rebuild_gc ( void *pState,HashTable *pHashTable ) ;
 
 HashTable * simple_hashtable_new ( void ) ;
 
-HashItem * simple_hashtable_newitem ( HashTable *pHashTable,const char *cKey ) ;
+HashItem * simple_hashtable_newitem ( HashTable *pHashTable,const char *key ) ;
 
-void simple_hashtable_deleteitem ( HashTable *pHashTable,const char *cKey ) ;
+void simple_hashtable_deleteitem ( HashTable *pHashTable,const char *key ) ;
 
 HashTable * simple_hashtable_delete ( HashTable *pHashTable ) ;
 
 void simple_hashtable_rebuild ( HashTable *pHashTable ) ;
 
-void simple_hashtable_newnumber ( HashTable *pHashTable,const char *cKey,int x ) ;
+void simple_hashtable_newnumber ( HashTable *pHashTable,const char *key,int x ) ;
 
-void simple_hashtable_newpointer ( HashTable *pHashTable,const char *cKey,void *x ) ;
+void simple_hashtable_newpointer ( HashTable *pHashTable,const char *key,void *x ) ;
 
 /* Data */
 typedef struct PoolData {

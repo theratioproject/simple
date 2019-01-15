@@ -47,6 +47,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/simple_item.o \
 	${OBJECTDIR}/simple_list.o \
 	${OBJECTDIR}/simple_misc.o \
+	${OBJECTDIR}/simple_object.o \
 	${OBJECTDIR}/simple_parser.o \
 	${OBJECTDIR}/simple_scanner.o \
 	${OBJECTDIR}/simple_state.o \
@@ -103,6 +104,10 @@ $(OBJECTDIR)/simple_list.o: $(SOURCE_DIR)/simple_list.c
 $(OBJECTDIR)/simple_misc.o: $(SOURCE_DIR)/simple_misc.c
 	$(CC) $(ARC_FLAG) $(CFLAGS) $(SOURCE_DIR)/simple_misc.c
 	mv simple_misc.o $(OBJECTDIR)
+
+$(OBJECTDIR)/simple_object.o: $(SOURCE_DIR)/simple_object.c
+	$(CC) $(ARC_FLAG) $(CFLAGS) $(SOURCE_DIR)/simple_object.c
+	mv simple_object.o $(OBJECTDIR)
 
 $(OBJECTDIR)/simple_parser.o: $(SOURCE_DIR)/simple_parser.c
 	$(CC) $(ARC_FLAG) $(CFLAGS) $(SOURCE_DIR)/simple_parser.c

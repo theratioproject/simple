@@ -7,7 +7,7 @@
 
 /* 
  * File:   simple.h
- * Author: thecarisma
+ * Author: Azeez Adewale
  *
  * Created on July 10, 2017, 1:10 PM
  */
@@ -369,7 +369,7 @@ int simple_parser_stmt ( Parser *parser )
 	/* Statement --> display Expr */
 	if ( simple_parser_iskeyword(parser,KEYWORD_DISPLAY)) {
 		simple_parser_nexttoken(parser); 
-		#if SIMPLE_USEDISPLAYBLOCKTION
+		#if SIMPLE_USEDISPLAYBLOCK
 		/* Generate code to use the display block */
 		simple_parser_icg_newoperation(parser,ICO_LOADBLOCK);
 		simple_parser_icg_newoperand(parser,"display");
@@ -441,7 +441,7 @@ int simple_parser_stmt ( Parser *parser )
 			
 			puts("Rule : Statement  --> 'read' Identifier|ListItem|Object.Attribute");
 			#endif
-			#if SIMPLE_USEGIVEBLOCKTION
+			#if SIMPLE_USEREADBLOCK
 			/* Generate code to use the read block */
 			simple_parser_icg_newoperation(parser,ICO_ASSIGNMENTPOINTER);
 			simple_parser_icg_newoperation(parser,ICO_LOADBLOCK);

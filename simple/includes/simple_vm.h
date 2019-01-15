@@ -7,7 +7,7 @@
 
 /* 
  * File:   simple.h
- * Author: thecarisma
+ * Author: Azeez Adewale
  *
  * Created on July 10, 2017, 1:10 PM
  */
@@ -118,7 +118,7 @@ typedef struct VM {
 	List *aGlobalScopes  ;
 	List *aActiveGlobalScopes  ;
 	int nCurrentGlobalScope  ;
-	char *cFileNameInClassRegion  ;
+	char *file_nameInClassRegion  ;
 #ifdef __ANDROID__
 	ANativeActivity* simple_app;
 	ANativeWindow* simple_window;

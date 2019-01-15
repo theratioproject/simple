@@ -6,7 +6,7 @@
 
 /* 
  * File:   simple.h
- * Author: thecarisma
+ * Author: Azeez Adewale
  *
  * Created on July 10, 2017, 1:10 PM
  */
@@ -62,6 +62,7 @@ SIMPLE_API void loadcblocks ( SimpleState *sState )
 	*/
 	register_block("callDynamicModule",simple_vm_dll_calllib);
 	register_block("closeDynamicModule",simple_vm_dll_closelib);
+	sState->loaded_cblocks = 1 ;
 }
 
 #ifdef __ANDROID__
@@ -69,7 +70,7 @@ SIMPLE_API void __a_init_full_tick(SimpleState *sState) { printf("hella \n"); }
 __android_init_full_tick __init_full_tick = __a_init_full_tick ;
 #endif
 
-int api_is_list ( void *pointer,int x )
+SIMPLE_API int api_is_list ( void *pointer,int x )
 {
 	int nType  ;
 	if ( SIMPLE_API_ISPOINTER(x) ) {
@@ -826,24 +827,24 @@ void simple_vm_dll_closelib ( void *pointer )
 
 /* User Interface - Commands Implementation (Faster) - Because we don't have blocks call */
 
-void simple_vm_display ( VM *vm )
+SIMPLE_API void simple_vm_display ( VM *vm )
 {
 	Item *pItem  ;
 	char cStr[100]  ;
 	List *list  ;
-	char *cString  ;
+	char *string  ;
 	int x  ;
 	if ( vm->nBlockExecute > 0 ) {
 		vm->nBlockExecute-- ;
 	}
 	if ( SIMPLE_VM_STACK_ISSTRING ) {
-		cString = SIMPLE_VM_STACK_READC ;
-		if ( strlen(cString) != (unsigned int) SIMPLE_VM_STACK_STRINGSIZE ) {
+		string = SIMPLE_VM_STACK_READC ;
+		if ( strlen(string) != (unsigned int) SIMPLE_VM_STACK_STRINGSIZE ) {
 			for ( x = 0 ; x < SIMPLE_VM_STACK_STRINGSIZE ; x++ ) {
-				printf( "%c",cString[x] ) ;
+				printf( "%c",string[x] ) ;
 			}
 		} else {
-			printf( "%s",cString ) ;
+			printf( "%s",string ) ;
 		}
 	}
 	else if ( SIMPLE_VM_STACK_ISPOINTER ) {
@@ -874,7 +875,7 @@ void simple_vm_display ( VM *vm )
 	fflush(stdout);
 }
 
-void simple_vm_read ( VM *vm )
+SIMPLE_API void simple_vm_read ( VM *vm )
 {
 	int x  ;
 	char cLine[256]  ;
@@ -909,20 +910,20 @@ void simple_vm_read ( VM *vm )
 
 void display_string ( void *pointer )
 {
-	char *cString  ;
+	char *string  ;
 	int x  ;
 	char cStr[100]  ;
 	List *list  ;
 	VM *vm  ;
 	vm = (VM *) pointer ;
 	if ( SIMPLE_API_ISSTRING(1) ) {
-		cString = SIMPLE_API_GETSTRING(1) ;
-		if ( strlen(cString) != (unsigned int) SIMPLE_API_GETSTRINGSIZE(1) ) {
+		string = SIMPLE_API_GETSTRING(1) ;
+		if ( strlen(string) != (unsigned int) SIMPLE_API_GETSTRINGSIZE(1) ) {
 			for ( x = 0 ; x < SIMPLE_API_GETSTRINGSIZE(1) ; x++ ) {
-				printf( "%c",cString[x] ) ;
+				printf( "%c",string[x] ) ;
 			}
 		} else {
-			printf( "%s",cString ) ;
+			printf( "%s",string ) ;
 		}
 	}
 	else if ( SIMPLE_API_ISNUMBER(1) ) {

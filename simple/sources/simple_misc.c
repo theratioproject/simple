@@ -7,7 +7,7 @@
 
 /* 
  * File:   simple_misc.c
- * Author: thecarisma
+ * Author: Azeez Adewale
  *
  * Created on July 12, 2017, 3:34 PM
  */
@@ -53,7 +53,7 @@ int is_simple_file( const char *file_name )
 {
     int x  ; 
     x = strlen(file_name) - 1 ;
-    if ( x >= 5 ) {
+    if ( x > 5 ) {
         if ( tolower(file_name[x]) == 'm' && tolower(file_name[x-1]) == 'i' && tolower(file_name[x-2]) == 's' && tolower(file_name[x-3]) == '.'  ) {
             return 1 ;
         }
@@ -66,7 +66,7 @@ int is_complex_file( const char *file_name )
     int x ;
     x = strlen(file_name) - 1 ;
     if ( x > 6 ) {
-        if ( tolower(file_name[x]) == 'x' && tolower(file_name[x-1]) == 'e' && tolower(file_name[x-2]) == 'l' && tolower(file_name[x-3]) == 'm' && tolower(file_name[x-4]) == 'o' && file_name[x-5] == 'c' && file_name[x-5] == '.' ) {
+		if ( tolower(file_name[x]) == 'x' && tolower(file_name[x-1]) == 'e' && tolower(file_name[x-2]) == 'l' && tolower(file_name[x-3]) == 'p' && tolower(file_name[x-4]) == 'm' && tolower(file_name[x-5]) == 'o' && tolower(file_name[x-6]) == 'c' && tolower(file_name[x-7]) == '.' ) {
             return 1 ;
         }
     } 
@@ -86,16 +86,16 @@ const char *file_real_name(const char *absolute_name){
     return filename;
 }
 
-const char *change_file_ext(const char *absolute_name, const char *extension){
-    const char* file_name = file_real_name(absolute_name); int name_lenght = strlen(file_name);
-    const char *name = "" ; int a ;
+void remove_file_ext(char file_name[], const char *absolute_name){
+    int name_lenght = strlen(absolute_name);
+    int a ;
     for(a = 0; a<name_lenght;a++) {
-        if (file_name[a] == '.'){
+        if (absolute_name[a] == '.'){
+			file_name[a] = '\0' ;
             break;
         }
-        //name[a] = file_name[a];
+        file_name[a] = absolute_name[a];
     }
-    return name;
 }
 
 void simple_showtime ( clock_t before_execution)
