@@ -18,41 +18,61 @@ execute_build() {
 	check_if_is_sudo $@
 	local standalone_flag="none"
 
+	# If no arguments passed we display help and exit
+	if [ $# -eq 0 ]; then
+		help && exit 0
+	fi
+
 	for param in "$@"
 	do
-		if [ "$param" = "-h" ] || [ "$param" = "--help" ]; then 
-			help
-			exit 0
-		elif [ "$param" = "-u" ] || [ "$param" = "--uninstall" ]; then 
-			uninstall
-			exit 0
-		elif [ "$param" = "x64" ] || [ "$param" = "--64-bit" ]; then 
-			arc_var=-m64
-			arc=64
-		elif [ "$param" = "x86" ] || [ "$param" = "--32-bit" ]; then 
-			arc_var=-m32
-			arc=32
-		elif [ "$param" = "-c" ] || [ "$param" = "--configure" ]; then 
-			exec_type="configure$exec_type"
-		elif [ "$param" = "-t" ] || [ "$param" = "--temp" ]; then 
-			keep_dist="true"
-		elif [ "$param" = "-i" ] || [ "$param" = "--install" ]; then 
-			exec_type="install-$exec_type"
-		elif [ "$param" = "-d" ] || [ "$param" = "--debug" ]; then
-			exec_type="debug-$exec_type"
-		elif [ "$param" = "-x" ] || [ "$param" = "--deb" ]; then 
-			exec_type="deb-package-$exec_type" 
-		elif [ "$param" = "-so" ] || [ "$param" = "--simple-only" ]; then 
-			standalone_flag="simple-only"
-		elif [ "$param" = "-io" ] || [ "$param" = "--includes-only" ]; then 
-			standalone_flag="includes-only"
-		elif [ "$param" = "-yo" ] || [ "$param" = "--dymodules-only" ]; then 
-			standalone_flag="dy-modules-only"
-		elif [ "$param" = "-mo" ] || [ "$param" = "--modules-only" ]; then 
-			standalone_flag="modules-only"
-		elif [ "$param" = "-eo" ] || [ "$param" = "--environment-only" ]; then 
-			standalone_flag="environment-only"
-		fi
+		case "$param"  in 
+			"-h"|"--help")
+				help && exit 0
+				;;
+			"-u"|"--uninstall")
+				uninstall && exit 0
+				;;
+			"x64"|"--64-bit")
+				arc_var=-m64
+				arc=64
+				;;
+			"x86"|"--32-bit")
+				arc_var=-m32
+				arc=32
+				;;
+			"-c"|"--configure")
+				exec_type="configure$exec_type"
+				;;
+			"-t"|"--temp")
+				keep_dist="true"
+				;;
+			"-i"|"--install")
+				exec_type="install-$exec_type"
+				;;
+			"-d"|"--debug")
+				exec_type="debug-$exec_type"
+				;;
+			"-x"|"--deb")
+				exec_type="deb-package-$exec_type" 
+				;;
+			"-so"|"--simple-only")
+				standalone_flag="simple-only"
+				;;
+			"-io"|"--includes-only")
+				standalone_flag="includes-only"
+				;;
+			"-yo"|"--dymodules-only")
+				standalone_flag="dy-modules-only"
+				;;
+			"-mo"|"--modules-only")
+				standalone_flag="modules-only"
+				;;
+			"-o"|"--environment-only")
+				standalone_flag="environment-only"
+				;;
+			*)
+			  help && exit 0;;
+		esac
 	done
 	
 	cpu_arc=$(get_os_arch_platform)
