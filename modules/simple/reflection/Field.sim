@@ -8,12 +8,6 @@ call simple.core.Object
 
 */
 module simple.reflection
-		
-/*
-
-*/
-block fieldIsBoolean(value)
-    return (isNumber(value) and (value == true or value == false))
 
 /*
 
@@ -35,3 +29,76 @@ block objectType(object)
         #create an issue with detail and simulated code
         return "Unknown Type"
     }
+		
+/*
+
+*/
+block isBoolean(value)
+	return (isNumber(value) and (value == true or value == false))
+
+/*
+
+*/
+block booleanValue(object obj)
+	if isNumber(obj) and (obj == true or obj == false) {
+		ret = obj
+		if !isNumber(obj) {
+			ret = obj.Number
+		}
+		return ret
+		
+	elif isObject(obj) and instanceOf(obj, "Boolean")
+		return obj.Value
+		
+	else
+		throw("simple.reflection:booleanValue","Invalid parameter, expected boolean value, found (" + objectType(obj) + ")")	
+	}
+	return 0
+
+/*
+
+*/
+block stringValue(object obj)
+	if isString(obj) or instanceOf(obj,"String") {
+		ret = obj
+		if !isString(obj) {
+			ret = obj.Value
+		}
+		return ret
+		
+	else
+		throw(self,"Invalid parameter, expecting (String), found (" + objectType(obj) + ")")	
+	}
+	return ""	
+
+/*
+
+*/
+block numberValue(object obj)
+	if isNumber(obj) or instanceOf(obj,"Number") {
+		ret = obj
+		if !isNumber(obj) {
+			ret = obj.Number
+		}
+		return ret
+		
+	else
+		throw(self,"Invalid parameter, expecting (Number), found (" + objectType(obj) + ")")	
+	}
+	return 0
+
+/*
+
+*/
+block listValue(object obj)
+	if isList(obj) or instanceOf(obj,"List") {
+		ret = obj
+		if !isList(obj) {
+			ret = obj.Value
+		}
+		return ret
+		
+	else
+		throw(self,"Invalid parameter, expecting (List), found (" + objectType(obj) + ")")	
+	}
+	return 0

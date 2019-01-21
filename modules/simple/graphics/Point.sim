@@ -46,7 +46,7 @@ class Point : Object
                 X = object.X
                 Y = object.Y
             else
-                throw(self,"The parameter is not valid. Expecting instance of Point for Point X and Y. Found "+objecttype(object))
+                throw(self,"The parameter is not valid. Expecting instance of Point for Point X and Y. Found "+objectType(object))
             }
         elif paramsLen == 2
             x = params[0]
@@ -55,7 +55,7 @@ class Point : Object
                 X = floor(x)
                 Y = floor(y)
             else
-                throw(self,"The parameter is not valid. Expecting Number as Point X and Y. Found " + objecttype(x) + " and " + objecttype(y))
+                throw(self,"The parameter is not valid. Expecting Number as Point X and Y. Found " + objectType(x) + " and " + objectType(y))
             }
         else
             throw(self,"Initializing Point with invalid length of parameters")

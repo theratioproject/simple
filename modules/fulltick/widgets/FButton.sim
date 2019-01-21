@@ -227,7 +227,7 @@ class FButton : FWidget
     */
     block setBaseColor(value)
         validatePointer() 
-        if isNumber(value) or instanceof(value,"FColor") {
+        if isNumber(value) or instanceOf(value,"FColor") {
             if isNumber(value) {
                 __Fl_Button_down_color_1(Ptr,value)
                 BaseColor = new FColor(value)
@@ -236,7 +236,7 @@ class FButton : FWidget
                 BaseColor = value
             }
         else
-            throw(self,FULLTICK_INVALID_PARAMETER + ". Expecting (Number|fulltick.painting.FColor), Found (" + objecttype(value) + ")")
+            throw(self,FULLTICK_INVALID_PARAMETER + ". Expecting (Number|fulltick.painting.FColor), Found (" + objectType(value) + ")")
         }
 
     /*
@@ -250,7 +250,7 @@ class FButton : FWidget
     */
     block setBaseBox(value) 
         validatePointer()
-        if isNumber(value) or instanceof(value,"FBoxType") {
+        if isNumber(value) or instanceOf(value,"FBoxType") {
             if isNumber(value) {
                 __Fl_Button_down_box_1(Ptr,value)
                 BaseBox = new FBoxType(value)
@@ -262,7 +262,7 @@ class FButton : FWidget
                 BaseBox = value
             }
         else
-            throw(self,FULLTICK_INVALID_PARAMETER + ". Expecting (Number|fulltick.drawing.FBoxType), Found (" + objecttype(value) + ")")
+            throw(self,FULLTICK_INVALID_PARAMETER + ". Expecting (Number|fulltick.drawing.FBoxType), Found (" + objectType(value) + ")")
         }
 
     /*
@@ -311,7 +311,7 @@ class FButton : FWidget
     */
     block setValue(value)
         validatePointer()
-        value = objectboolean(value)
+        value = booleanValue(value)
         if value {
             __Fl_Button_value(Ptr,true)
         else
@@ -330,7 +330,7 @@ class FButton : FWidget
     */
     block setShortcut(value)
         validatePointer() 
-        value = objectnumber(value)
+        value = numberValue(value)
         __Fl_Button_shortcut_1(Ptr,value)
         Shortcut = value
 

@@ -48,7 +48,7 @@ class Map : Object
     end
 
     # Adds a new key-value pair to the data structure
-    block add(key, value)
+    block __add_to_list(key, value)
         found = false
         # Iterate through the list
         for i = 0 to lengthOf(list)

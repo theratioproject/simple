@@ -5,7 +5,7 @@
 
 */
 
-display "Simple " + getSimpleVersion() + crlf
+display "Simple " + simpleVersion() + crlf
 display "REPL (Read-Eval-Print-Loop)" + crlf
 while true
         display crlf + "simple:> "

@@ -213,9 +213,9 @@ class FGroup : FWidget
                 widget.validatePointer() 
                 FApp.CreatedWidgets[widget.PtrIndex].Parent = self 
                 if widget.hasBorder() {
-                    __Fl_Group_add(Ptr,widget.BorderBox.Ptr)
+                    __Fl_Group___add_to_list(Ptr,widget.BorderBox.Ptr)
                 else
-                    __Fl_Group_add(Ptr,widget.Ptr)
+                    __Fl_Group___add_to_list(Ptr,widget.Ptr)
                 }
                 addChildWidget(widget) 
                 FApp.CreatedWidgets[widget.PtrIndex].resolvePendingOps()
@@ -254,7 +254,7 @@ class FGroup : FWidget
             if isObject(widget) and __instance_of(widget,"FWidget") {
                 widget.validatePointer()
                 widget.Parent = self
-                __Fl_Group_add(Ptr,widget.Ptr) 
+                __Fl_Group___add_to_list(Ptr,widget.Ptr) 
                 widget.Resizable = true
                 addChildWidget(widget) 
                 widget.resolvePendingOps()
@@ -452,24 +452,24 @@ class FGroup : FWidget
 
         if paramsLen == 1 {
             object = params[0]
-            if instanceof(object,"Rectangle") {
+            if instanceOf(object,"Rectangle") {
                 x = object.X
                 y = object.Y
                 width = object.Width
                 height = object.Height
             else
-                throw(self, FULLTICK_INVALID_PARAMETER+" Expecting (simple.graphics.Rectangle) for resizing FGroup. Found (" + objecttype(object) + ")")
+                throw(self, FULLTICK_INVALID_PARAMETER+" Expecting (simple.graphics.Rectangle) for resizing FGroup. Found (" + objectType(object) + ")")
             }
         elif paramsLen == 2
             point = params[0]
             dimension = params[1]
-            if instanceof(point,"Point") and instanceof(dimension,"Dimension") {
+            if instanceOf(point,"Point") and instanceOf(dimension,"Dimension") {
                 x = point.X
                 y = point.Y
                 width = dimension.Width
                 height = dimension.Height
             else
-                throw(self, FULLTICK_INVALID_PARAMETER+" Expecting (simple.graphics.Point,simple.graphics.Dimension) for resizing FGroup. Found (" + objecttype(point) + ", " + objecttype(dimension) + ")")
+                throw(self, FULLTICK_INVALID_PARAMETER+" Expecting (simple.graphics.Point,simple.graphics.Dimension) for resizing FGroup. Found (" + objectType(point) + ", " + objectType(dimension) + ")")
             }
         elif paramsLen == 4
             x = params[0]
@@ -477,7 +477,7 @@ class FGroup : FWidget
             width = params[2]
             height = params[3]
             if !isNumber(x) or !isNumber(y) or !isNumber(width) or !isNumber(height) {
-                throw(self, FULLTICK_INVALID_PARAMETER+" Expecting (Number, Number, Number, Number). Found (" + objecttype(x) + ", " + objecttype(y) + ", " + objecttype(width) + ", " + objecttype(height) + ")")
+                throw(self, FULLTICK_INVALID_PARAMETER+" Expecting (Number, Number, Number, Number). Found (" + objectType(x) + ", " + objectType(y) + ", " + objectType(width) + ", " + objectType(height) + ")")
             }
         else
             throw(self,"Changine FGroup size with invalid length of parameters")
@@ -547,7 +547,7 @@ class FGroup : FWidget
                 ypos = (screenHeight/2) - (Height/2)
                 resize(xpos,ypos,Width,Height) 
             else
-                throw(self,"The parent type is invalid, expecting instance of (simple.widgets.FGroup). Found (" + objecttype(parent) + ")")
+                throw(self,"The parent type is invalid, expecting instance of (simple.widgets.FGroup). Found (" + objectType(parent) + ")")
             }
 
         else
@@ -568,10 +568,10 @@ class FGroup : FWidget
         if hasOnlyChild() {
             throw(self,"This widget can have only one child widget")
         }
-        if instanceof(widget,"FWidget") {
+        if instanceOf(widget,"FWidget") {
             OnlyChild = widget
         else
-            throw(self,FULLTICK_INVALID_PARAMETER + ". Expecting (fulltick.base.Widget), found (" + objecttype(widget) + ")")
+            throw(self,FULLTICK_INVALID_PARAMETER + ". Expecting (fulltick.base.Widget), found (" + objectType(widget) + ")")
         }
 
     /*
@@ -608,7 +608,7 @@ class FGroup : FWidget
 
         */
         block addChildWidget(widget)
-            #add(AddedWidgets,widget) #makes rendering very slow
+            #__add_to_list(AddedWidgets,widget) #makes rendering very slow
 
         /*
 

@@ -87,9 +87,9 @@ block formatLiteral(content)
 				case "n"
 					inContent +=  crlf
 				case "t"
-					inContent +=  char(9)
+					inContent +=  ascii(9)
 				case "r" 
-					inContent +=  char(13)
+					inContent +=  ascii(13)
 				end
 			default 
 				inContent +=  content[a]

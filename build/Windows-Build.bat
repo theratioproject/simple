@@ -688,8 +688,8 @@ REM BULDING DYNAMIC LIBRARIES
 		call:builddymodule c file_savant
 		call:builddymodule c mathic
 		call:builddymodule cpp fulltick
-		call:builddymodule c parser
 		call:builddymodule c string_savant
+		call:builddymodule c simple_sqlite
 		call:builddymodule c systemic
 		if exist "%~dp0\..\modules\dynamic_modules\networker\lib\libcurl!ARC!.lib" (
 			copy "%~dp0\..\modules\dynamic_modules\networker\lib\libcurl!ARC!.lib" "%~dp0\..\simple\dist\"

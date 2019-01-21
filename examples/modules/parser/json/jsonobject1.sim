@@ -1,0 +1,20 @@
+/*
+
+*/
+call simple.core.Object
+call simple.utilities.Console
+call parser.json.JsonParser
+
+block main()
+	json = '{
+		  "Type": "Transport",
+		  "Vehicles": [
+			"Cars",
+			"Motor Cycle",
+			"Aeroplane"
+		  ]
+		}'
+	jsonParser = new JsonParser(json)
+	jsonObject = jsonParser.parse()
+	stdout.printf("Is JsonArray=%b - Is JsonObject=%b \n", jsonObject.isJsonArray(), jsonObject.isJsonObject())
+	stdout.println(jsonObject)

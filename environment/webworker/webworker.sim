@@ -186,7 +186,7 @@ class WebSpider
 			isclonning = true 
 			#if lastStringAfterChar(baseLink, '/') = "" 
 			#savePage(baseLink,downloadPath+"/index.sim") 
-			#add(crawedList,downloadPath+"/index.sim") end 
+			#__add_to_list(crawedList,downloadPath+"/index.sim") end 
 			clone('',downloadPath)
 		else 
 			printAttrib($attrib)
@@ -206,9 +206,9 @@ class WebSpider
 		downloadPath = cloneto
 		
 	block getLinksInContent(content)
-		return getAttributeInContent(content,'href="')
+		return gettributeInContent(content,'href="')
 		
-	block getAttributeInContent(content,attrib)
+	block gettributeInContent(content,attrib)
 			links = [] content = replaceString(content, attrib, '`')
 			retval = stringSplit(content, "`")
 			relen = lengthOf(retval)
@@ -220,7 +220,7 @@ class WebSpider
 						#we definitely don't want to re-download parent folder of url 
 					end
 				end
-				add(links,rere[0]) 
+				__add_to_list(links,rere[0]) 
 				if isattrib display rere[0] + crlf end
 			end
 			if isattrib __exit__ end
@@ -250,7 +250,7 @@ class WebSpider
 			end
 			
 		block treatEasy(link,dpath)
-			isaveFolder = "" o = link add(crawedList,link)
+			isaveFolder = "" o = link __add_to_list(crawedList,link)
 			if (stringEndsWith(link,'/')) 
 			else o = removeString(link,lastStringAfterChar(link, '/')) end
 			isaveFolder = replaceString(o,sbl,downloadPath)
@@ -272,8 +272,8 @@ class WebSpider
 				savePage(link,path) 
 				if stringEndsWith(path, "html")
 					link = removeString(link,baseLink)
-					link = replaceString(link,'\',char(7635)) 
-					link = removeString(link,char(7635))
+					link = replaceString(link,'\',ascii(7635)) 
+					link = removeString(link,ascii(7635))
 					clone(link,dir.getPath())
 					display "we going for "+replaceString(link,'\','/')+ crlf
 				end
@@ -303,7 +303,7 @@ class WebSpider
 		block printAttrib(type)
 			curl = new CurlCore(baseLink)
 			content = curl.getStringOutput() curl.flush()
-			display getAttributeInContent(content,type)
+			display gettributeInContent(content,type)
 			
 		block print()
 			curl = new CurlCore(baseLink)

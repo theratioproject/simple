@@ -53,7 +53,7 @@ class PrintWriter : Object
 	block write(string data)
 		if IsOpen {
 			fileWriter.write(data) 
-			if strContains(data,char(10)) and AutoFlush {
+			if strContains(data,ascii(10)) and AutoFlush {
 				fileWriter.flush()
 			}
 		else

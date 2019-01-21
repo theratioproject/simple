@@ -117,7 +117,7 @@ class List : Object
 */
 
     block List(list) 
-		if instanceof(list,"List") {
+		if instanceOf(list,"List") {
 			ListObject = list.ListObject
 		elif isList(list) or isString(list) 
 			ListObject = list

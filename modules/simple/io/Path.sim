@@ -326,9 +326,9 @@ class Path : Object
 			newDirectory = null
 			if isString(value) {
 				newDirectory = value
-			elif isObject(value) and instanceof(value,"String")
+			elif isObject(value) and instanceOf(value,"String")
 				newDirectory = value.toString()
-			elif isObject(value) and instanceof(value,"Directory")
+			elif isObject(value) and instanceOf(value,"Directory")
 				newDirectory = value.AbsolutePath
 			else
 				throw(self, "Invalid parameter, expecting (string|simple.io.Directory), found (" + objectype(value) + ")")
@@ -732,7 +732,7 @@ class Path : Object
 
 	*/
 	block equals(Object value)
-		if !instanceof(value,"Path") {
+		if !instanceOf(value,"Path") {
 			return false
 		}
 		return AbsolutePath == value.AbsolutePath 

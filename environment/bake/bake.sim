@@ -282,7 +282,7 @@ block magin() header()
 				elif cmdParameters[a] == "--64-bit" or cmdParameters[a] == "x64" or cmdParameters[a] == "-m64" buildArch = "-m64"
 				elif cmdParameters[a] == "--simpleh" or cmdParameters[a] =="-sh"  simpleHPath = '"'+cmdParameters[a++]+'"'
 				else printError("Invalid option : "+cmdParameters[a]) end 
-				add(depmodules, cmdParameters[a]) 
+				__add_to_list(depmodules, cmdParameters[a]) 
 			end
 		end
 	end
@@ -481,7 +481,7 @@ block cleanTempFiles(tempfiles)
 #conform into the standard string in a C source file
 block formatCode(code)
 	#code = ''+replaceString(code, '"', '\"')
-	#code = replaceString(code, char(10), '					"')
+	#code = replaceString(code, ascii(10), '					"')
 	finalCode = '"'
 	display "->formating the simple source code (TEMP)"+crlf
 	lineLen =lengthOf(code) - 1
@@ -490,9 +490,9 @@ block formatCode(code)
 			finalCode+= '\"'
 		elif code[a] == '\'
 			finalCode+= '\\'
-		elif code[a] == char(13) #end of line
+		elif code[a] == ascii(13) #end of line
 			finalCode+= '"'
-		elif code[a] == char(10) #line break
+		elif code[a] == ascii(10) #line break
 			finalCode+= crlf+'" '
 		else 
 			finalCode+= code[a]

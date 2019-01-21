@@ -4,7 +4,7 @@
 	MIT License Copyright (c) 2018 simple-lang 
 
 */
-tab = char(9)
+tab = ascii(9)
 isfirst = true
 issecond = false
 
@@ -20,15 +20,15 @@ call simple.utilities.Console
 
 for a = 0 to 400 #value can be changed
 	if isfirst 
-		display tab+a+tab+"|"+tab+"char("+a+")"+tab+"|"+tab+char(a)
+		display tab+a+tab+"|"+tab+"ascii("+a+")"+tab+"|"+tab+ascii(a)
 		isfirst = false issecond = true
 	elif issecond 
-		display tab+tab+"~"+tab+a+tab+"|"+tab+"char("+a+")"+tab+"|"+tab+char(a)+crlf
+		display tab+tab+"~"+tab+a+tab+"|"+tab+"ascii("+a+")"+tab+"|"+tab+ascii(a)+crlf
 		issecond = false isfirst = true
 	end
 end
 
 /*
-	char(8) - backspace
+	ascii(8) - backspace
 
 */

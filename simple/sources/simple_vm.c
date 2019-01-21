@@ -89,7 +89,7 @@ VM * simple_vm_new ( SimpleState *sState )
 	**  Flag ( 0 = check NULL variable in PUSHV  , greater than 0 = Ignore null variable ) 
 	**  Class Region (After the Class Name) 
 	*/
-	vm->nInClassRegion = 0 ;
+	vm->within_class = 0 ;
 	vm->pModulessMap = NULL ;
 	/* Set the main File Name */
 	vm->file_name = simple_list_getstring(vm->sState->files_list,1) ;
@@ -209,7 +209,7 @@ VM * simple_vm_new ( SimpleState *sState )
 	vm->aActiveGlobalScopes = simple_list_new_gc(vm->sState,0);
 	vm->nCurrentGlobalScope = 0 ;
 	/* File name in the class region */
-	vm->file_nameInClassRegion = NULL ;
+	vm->file_name_within_class = NULL ;
 	return vm ;
 }
 
@@ -1152,8 +1152,8 @@ SIMPLE_API void simple_vm_showerrormessage ( VM *vm,const char *cStr )
 				cFile = (const char *) simple_list_getpointer(list,SIMPLE_BLOCKCL_NEWFILENAME) ;
 			}
 			else {
-				if ( vm->nInClassRegion ) {
-					cFile = vm->file_nameInClassRegion ; 
+				if ( vm->within_class ) {
+					cFile = vm->file_name_within_class ; 
 				}
 				else {
 					cFile = vm->file_name ;
@@ -1178,8 +1178,8 @@ SIMPLE_API void simple_vm_showerrormessage ( VM *vm,const char *cStr )
 		simple_string_add_gc(vm->sState,string," in file ");
 		simple_string_add_gc(vm->sState,string,file_real_name(simple_list_getstring(vm->sState->files_list,1)));
 	} else {
-		if ( vm->nInClassRegion ) {
-			cFile = vm->file_nameInClassRegion ;
+		if ( vm->within_class ) {
+			cFile = vm->file_name_within_class ;
 		}
 		else {
 			cFile = file_real_name(vm->file_name) ;
@@ -1239,8 +1239,8 @@ SIMPLE_API void simple_vm_cgi_showerrormessage ( VM *vm,const char *cStr )
 				cFile = (const char *) simple_list_getpointer(list,SIMPLE_BLOCKCL_NEWFILENAME) ;
 			}
 			else {
-				if ( vm->nInClassRegion ) {
-					cFile = vm->file_nameInClassRegion ;
+				if ( vm->within_class ) {
+					cFile = vm->file_name_within_class ;
 				}
 				else {
 					cFile = vm->file_name ;
@@ -1261,8 +1261,8 @@ SIMPLE_API void simple_vm_cgi_showerrormessage ( VM *vm,const char *cStr )
 		printf("<tr><th bgcolor='#eeeeec' align='right' colspan='5'> from file %s</th></tr>",simple_list_getstring(vm->sState->files_list,1)) ;
 	}
 	else {
-		if ( vm->nInClassRegion ) {
-			cFile = vm->file_nameInClassRegion ;
+		if ( vm->within_class ) {
+			cFile = vm->file_name_within_class ;
 		}
 		else {
 			cFile = file_real_name(vm->file_name) ;
@@ -1274,12 +1274,12 @@ SIMPLE_API void simple_vm_cgi_showerrormessage ( VM *vm,const char *cStr )
 
 SIMPLE_API void simple_vm_setfilename ( VM *vm )
 {
-	if ( vm->nInClassRegion ) {
+	if ( vm->within_class ) {
 		/*
 		**  We are using special attribute for this region to avoid save/restore file name 
 		**  If we used vm->file_name we could get problem in finding classes and moduless 
 		*/
-		vm->file_nameInClassRegion = SIMPLE_VM_IR_READC ;
+		vm->file_name_within_class = SIMPLE_VM_IR_READC ;
 		return ;
 	}
 	vm->cPrevFileName = vm->file_name ;

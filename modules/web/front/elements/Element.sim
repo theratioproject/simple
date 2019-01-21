@@ -31,7 +31,7 @@ class Element
 	block addHTML(inelement)
 		elementContent += "\n\t\t"+inelement + crlf
 		
-	block add(element)
+	block __add_to_list(element)
 		try 
 			elementContent += "\n\t\t"+element.toString() + crlf
 		catch

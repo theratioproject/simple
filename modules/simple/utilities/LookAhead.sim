@@ -1,0 +1,98 @@
+/*
+
+*/
+
+/*
+
+*/
+call simple.core.Object
+call simple.utilities.Math
+
+/*
+
+*/
+module simple.utilities
+
+/*
+
+*/
+class LookAhead : Object
+
+	/*
+	
+	*/
+	int Position = 0
+	
+	/*
+	
+	*/
+	string Value = null
+	
+	/*
+	
+	*/
+	long Length = 0
+
+	/*
+	
+	*/
+	block LookAhead(string value)
+		Value = value
+		Length = lengthOf(Value)
+		
+	/*
+	
+	*/
+	block peek(number params...)
+		paramsLen = lengthOf(params)
+		index = 0
+		
+		if paramsLen == 0 {
+		elif paramsLen == 1
+			index = params[0]
+		else
+			throw(self, "Calling block with extra parameters!")
+		}
+		if ((Position + index) < Length) {
+			return Value[Position + index]
+		else
+			return ""
+		}
+		
+	/*
+	
+	*/
+	block pop()
+		if (Position < Length) {
+			ret = Value[Position]
+			Position++
+			return ret
+		else
+			return "" 
+		}
+		
+	/*
+	
+	*/
+	block skip(number num)
+		toSkip = min(num, Length - Position)
+		Position += toSkip
+		return toSkip
+		
+	/*
+	
+	*/
+	block equals(object obj)
+		if !instanceOf(obj, "LookAhead") {
+			return false
+		}
+		return obj.Value = Value && obj.Position == Position
+		
+	/*
+	
+	*/
+	block toString()
+		return "[" + absolutename() + ":Position=" + Position + ",Length=" + Length + "]"
+		
+		
+		

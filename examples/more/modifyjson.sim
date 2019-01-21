@@ -1,0 +1,43 @@
+/*
+
+*/
+call simple.core.Object
+call simple.utilities.Console
+call parser.json.JsonParser
+
+block main()
+	json = '
+		{
+			"Title" : "countries, continents and planets",
+			"Countries" : {
+				"USA" : "Washington DC",
+				"Canada" : "Ottawa",
+				"Nigeria" : "Abuja"
+			},
+			"Continents": [
+				"Asia",
+				"North America",
+				"Africa"
+			], 
+			"Planets":[]
+		}
+	'
+	jsonParser = new JsonParser(json)
+	jsonObject = jsonParser.parse()
+	stdout.println("Before Modification")
+	stdout.println(jsonObject)
+	
+	jsonObject.set("Title", toUpperCase(jsonObject["Title"].Value))
+	jsonObject["Countries"].Value.remove("Nigeria")
+	jsonObject["Continents"].Value.remove(1)
+	jsonObject["Continents"].Value.set(1, "Europe")
+	jsonObject["Planets"].Value.add("Mercury")
+	jsonObject["Planets"].Value.add("Venus")
+	
+	stdout.println("After Modification")
+	stdout.println(jsonObject)
+	
+	
+	
+	
+	

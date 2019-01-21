@@ -16,6 +16,7 @@
 
 */
 call simple.core.Object
+call simple.reflection.Class
 call simple.io.loadfilesavantlib
 call simple.io.File
  
@@ -55,9 +56,9 @@ class FileWriter : Object
 		if paramsLen = 1 {
 			file = params[0]	
 			Append = false			
-			if isString(file) or instanceof(file, "String") {
-				file = objectstring(file)
-			elif instanceof(file, "File")
+			if isString(file) or instanceOf(file, "String") {
+				file = stringValue(file)
+			elif instanceOf(file, "File")
 				file = file.AbsolutePath
 			elif isPointer(file)
 				if file[1] != "SMOOTHC_FILE_SAVANT" {
@@ -73,22 +74,22 @@ class FileWriter : Object
 		elif paramsLen == 2
 			file = params[0]	
 			Append = params[1]			
-			if isString(file) or instanceof(file, "String") and isboolean(Append) {
-				file = objectstring(file)
-			elif instanceof(file, "File")
+			if isString(file) or instanceOf(file, "String") and isBoolean(Append) {
+				file = stringValue(file)
+			elif instanceOf(file, "File")
 				file = file.AbsolutePath
 			else
-				throw(self,"Invalid argument, expecting (string|File|FileStream|FileWriter,boolean), found (" + objecttype(file) + "," + objecttype(Append) + ")")
+				throw(self,"Invalid argument, expecting (string|File|FileStream|FileWriter,boolean), found (" + objectType(file) + "," + objectType(Append) + ")")
 				return null
 			}
 		elif paramsLen == 3
 			file = params[0]	
 			Append = params[1]
 			CreateIfNotFound = params[2]			
-			if isString(file) or instanceof(file, "String") and isboolean(Append) and isboolean(CreateIfNotFound) {
-				file = objectstring(file)
+			if isString(file) or instanceOf(file, "String") and isBoolean(Append) and isBoolean(CreateIfNotFound) {
+				file = stringValue(file)
 			else
-				throw(self,"Invalid argument, expecting (string|File|FileStream|FileWriter,boolean), found (" + objecttype(file) + "," + objecttype(Append) + ")")
+				throw(self,"Invalid argument, expecting (string|File|FileStream|FileWriter,boolean), found (" + objectType(file) + "," + objectType(Append) + ")")
 				return null
 			}
 			

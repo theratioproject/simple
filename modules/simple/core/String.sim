@@ -29,13 +29,13 @@ callModule("libstring_savant")
 */
 module simple.core
 
-		__Empty = char(0) 
+		__Empty = ascii(0) 
 		STRING_EMPTY = "The string provided is empty"
 		STRING_COMPARE_ERROR = "Array index out of bound : The length of the comparing string is greater than the main string "
 		STRING_LESS = "Array index out of bound : The string is empty" 
-		BACKSPACE = char(8) 
-		END_OF_LINE = char(13)
-		LINE_BREAK = char(10)
+		BACKSPACE = ascii(8) 
+		END_OF_LINE = ascii(13)
+		LINE_BREAK = ascii(10)
 		
 /*
 
@@ -47,7 +47,7 @@ block strValueOf(object)
 		val = "(null)"
 		
 	elif isString(object) 
-		val = escapeString(object)
+		val = unEscapeString(object)
 		
 	elif isNumber(object)
 		val = ""+object
@@ -109,21 +109,51 @@ block strValueOf(object)
 	@Return the formated literal @DataType String
 	
 */#temporary
-block escapeString(val)
-	val = replaceStr(val, "\a", char(07))
-	val = replaceStr(val, "\007", char(07))
-	val = replaceStr(val, "\b", char(08))
-	val = replaceStr(val, "\f", char(12))
-	val = replaceStr(val, "\n", char(10))
-	val = replaceStr(val, "\r", char(13))
-	#val = replaceStr(val, "\t", char(09))
-	val = replaceStr(val, "\v", char(11))
-	val = replaceStr(val, "\\", char(92))
-	val = replaceStr(val, "\'", char(27))
-	val = replaceStr(val, '\"', char(22))
-	val = replaceStr(val, '\?', char(63))
-	#val = replaceStr(val, '\e', char(27))
+#look into JsonParser for escaping string
+block unEscapeString(val)
+	val = replaceStr(val, "\a", ascii(07))
+	val = replaceStr(val, "\007", ascii(07))
+	val = replaceStr(val, "\b", ascii(08))
+	val = replaceStr(val, "\f", ascii(12))
+	val = replaceStr(val, "\n", ascii(10))
+	val = replaceStr(val, "\r", ascii(13))
+	#val = replaceStr(val, "\t", ascii(09))
+	val = replaceStr(val, "\v", ascii(11))
+	val = replaceStr(val, "\\", ascii(92))
+	val = replaceStr(val, "\'", ascii(27))
+	val = replaceStr(val, '\"', ascii(22))
+	val = replaceStr(val, '\?', ascii(63))
+	#val = replaceStr(val, '\e', ascii(27))
 	return val
+	
+/*
+
+*/
+block escapeString(string str)
+	nStr = ""
+	strLen = lengthOf(str) - 1
+	for a = 0 to strLen {
+		cp = __char_to_number(str[a]) 
+		switch cp {
+			case 34
+				nStr += '\"'
+			case 92
+				nStr += "\\"
+			case 10
+				nStr += "\n"
+			case 13 
+				nStr += "\r"
+			case 09
+				nStr += "\t"
+			case 08
+				nStr += "\b"
+			case 12
+				nStr += "\f"
+			default
+				nStr += ascii(cp)
+		}
+	} 
+	return nStr
 	
 /*
 
@@ -153,6 +183,19 @@ block strFormat(params...)
 					object = numValueOf(params[index])
 					finalValue += object
 					
+				elif value[a+1] == "b"
+					a++
+					object = params[index]
+					if isNumber(object) and object == true or object == false {
+						if object {
+							finalValue += "true"
+						else
+							finalValue += "false"
+						}
+					else
+						finalValue += "(invalid-boolean)"
+					}
+					
 				elif value[a+1] == "p"
 					a++
 					val = params[index]
@@ -164,13 +207,16 @@ block strFormat(params...)
 					}
 					
 					finalValue += object
+				else
+					a++
+					finalValue += "%"
 				}
 				index++
 			default 
 				finalValue += val
 		}
 	}
-	finalValue = escapeString(finalValue)
+	finalValue = unEscapeString(finalValue)
 	return finalValue
 	
 /*
@@ -211,7 +257,7 @@ block strFormatIndex(params...)
 		}
 		
 	}
-	return escapeString(finalValue)
+	return unEscapeString(finalValue)
 		
 /*
 
@@ -333,7 +379,7 @@ block replaceStr(object, oldValue, newValue, params...)
 	}
 	
 	if paramsLen == 0 {
-	elif paramsLen == 1 and fieldIsBoolean(params[0])
+	elif paramsLen == 1 and isBoolean(params[0])
 		caseInSensitive = params[0] 
 	else
 		throw("simple.core:replaceStr","Invalid Case sentisitivity parameter expecting 'true' or 'false' ")	
@@ -517,7 +563,7 @@ block trimStr(object)
 		objectLen = lengthOf(object) - 1
 		for i = 0 to objectLen {
 			char = object[i]
-			if char == " " or char == char(09) {
+			if char == " " or char == ascii(09) {
 				offset++
 			else
 				break
@@ -526,7 +572,7 @@ block trimStr(object)
 		
 		for i = objectLen to 0 step - 1 {
 			char = object[i]
-			if char == " "  or char == char(09) {
+			if char == " "  or char == ascii(09) {
 				limit++
 			else
 				break
@@ -696,6 +742,12 @@ block strCharAt(object, index)
 	}
 	return ""
 	
+/*
+
+*/
+block strIsEmpty(string value)
+	return value == null or value == ""
+	
 block strEquals(acom, bcom, con)
 	if !con  acom = toLowerCase(acom) bcom = toLowerCase(bcom) end
 	if __strcmp(acom, bcom) == 0
@@ -824,12 +876,12 @@ class String : Object
 				setValue(str)
 			elif isNumber(str)
 				setValue(""+str)
-			elif instanceof(str,"String")
+			elif instanceOf(str,"String")
 				setValue(str.Value)
-			elif instanceof(str,"Number")
+			elif instanceOf(str,"Number")
 				setValue(str.toString())
 			else
-				throw(self,"Invalid parameter, expecting (String|Number), found (" + objecttype(str) + ")")
+				throw(self,"Invalid parameter, expecting (String|Number), found (" + objectType(str) + ")")
 			}
 
 		elif paramsLen == 3
@@ -844,22 +896,22 @@ class String : Object
 				str = p1
 			elif isNumber(p1)
 				str = ""+p1
-			elif instanceof(p1,"String")
+			elif instanceOf(p1,"String")
 				str = p1.Value
-			elif instanceof(p1,"Number")
+			elif instanceOf(p1,"Number")
 				str = p1.toString()
 			else
-				throw(self,"Invalid parameter, expecting (String|Number,Number,Number), found (" + objecttype(p1) + "," + objecttype(p2) + "," + objecttype(p3) + ")")
+				throw(self,"Invalid parameter, expecting (String|Number,Number,Number), found (" + objectType(p1) + "," + objectType(p2) + "," + objectType(p3) + ")")
 			}
 
 			if isNumber(p2) && isNumber(p3){
 				offset = p2 
 				limit = p3
-			elif instanceof(p2,"Number") && instanceof(p3,"Number")
+			elif instanceOf(p2,"Number") && instanceOf(p3,"Number")
 				offset = p2.Number
 				limit = p3.Number
 			else
-				throw(self,"Invalid parameter, expecting (String|Number,Number,Number), found (" + objecttype(p1) + "," + objecttype(p2) + "," + objecttype(p3) + ")")
+				throw(self,"Invalid parameter, expecting (String|Number,Number,Number), found (" + objectType(p1) + "," + objectType(p2) + "," + objectType(p3) + ")")
 			}
 
 			strLen = lengthOf(str)
@@ -916,7 +968,7 @@ class String : Object
 
 	*/
 	block charAt(index)
-		if isNumber(index) or instanceof(index,"Number") {
+		if isNumber(index) or instanceOf(index,"Number") {
 			if !isNumber(index) {
 				_index = index.Number
 				index = _index
@@ -926,7 +978,7 @@ class String : Object
 			}
 			return Value[index]
 		else
-			throw(self,"Invalid parameter, expecting (Number), found (" + objecttype(index) + ")")
+			throw(self,"Invalid parameter, expecting (Number), found (" + objectType(index) + ")")
 		}
 
 	/*
@@ -957,7 +1009,7 @@ class String : Object
 		elif isString(object)
 			value = object
 		else
-			throw(self,"Invalid parameter, expecting (String), found (" + objecttype(object) + ")")
+			throw(self,"Invalid parameter, expecting (String), found (" + objectType(object) + ")")
 		}
 		valueLen = lengthOf(value)
 		if valueLen != Length {
@@ -979,7 +1031,7 @@ class String : Object
 	/*
 
 	*/
-	block operator(op,value) 
+	block operator(string op, object value) 
 		switch op {
 			case "lengthOf"
 				return Length
@@ -991,7 +1043,7 @@ class String : Object
 				return concat(value)
 			case "*"
 				val = ""
-				count = objectnumber(value)
+				count = numberValue(value)
 				for a = 0 to count {
 					val += Value
 				}
@@ -1015,7 +1067,7 @@ class String : Object
 		elif paramsLen == 2
 			str = params[0]
 			offset = params[1]
-			if (isString(str) or isinstance(str)) and (isNumber(offset) or instanceof(offset,"Number")) {
+			if (isString(str) or isinstance(str)) and (isNumber(offset) or instanceOf(offset,"Number")) {
 				if !isNumber(offset) {
 					offset = offset.Number
 				}
@@ -1037,7 +1089,7 @@ class String : Object
 				return true
 
 			else 
-				throw(self,"Invalid parameter, expecting (String,Number), found (" + objecttype(str) + "," + objecttype(offset) + ")")
+				throw(self,"Invalid parameter, expecting (String,Number), found (" + objectType(str) + "," + objectType(offset) + ")")
 			}
 			
 		else 
@@ -1050,7 +1102,7 @@ class String : Object
 	*/
 	block endsWith(object)
 		if !isString(object) and !isinstance(object) {
-			throw(self,"Invalid parameter, expecting (String), found (" + objecttype(object) + ")")
+			throw(self,"Invalid parameter, expecting (String), found (" + objectType(object) + ")")
 		} 
 		return startsWith(object, (Length - lengthOf(object)))
 
@@ -1067,7 +1119,7 @@ class String : Object
 
 	*/
 	block concat(incomingValue)
-		if isString(incomingValue) or instanceof(incomingValue,"String") {
+		if isString(incomingValue) or instanceOf(incomingValue,"String") {
 			val = incomingValue
 			valLength = lengthOf(incomingValue)
 			if !isString(incomingValue) {
@@ -1080,7 +1132,7 @@ class String : Object
 			return ret
 			
 		else
-			throw(self,"Invalid parameter, expecting (String), found (" + objecttype(incomingValue) + ")")	
+			throw(self,"Invalid parameter, expecting (String), found (" + objectType(incomingValue) + ")")	
 		}
 		return null
 
@@ -1098,7 +1150,7 @@ class String : Object
 	block toList()
 		list = []
 		for char in Value {
-			add(list,char)
+			__add_to_list(list,char)
 		}
 		return list
 

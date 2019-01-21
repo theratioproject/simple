@@ -17,11 +17,36 @@
 call simple.core.Types
 call simple.security.Hash
 call simple.core.BaseFields
+call simple.reflection.Field
  
 /*
 
 */
 module simple.core
+
+
+/*
+
+*/
+block checkNullity(Object object, object s)
+	if isNull(s) { throw(object,NULL_ERROR_POINTER) }
+	
+/*
+
+*/
+block objEquals(object obj1, object obj2)
+	if isList(obj1) {
+		if !isList(obj2) { return false }
+		return listEquals(obj1, obj2)
+	elif isObject(obj1)
+		if !isObject(obj2) { return false }
+		if __instance_of(obj1,"Object") {
+			return obj1.equals(obj2)
+		else
+			return false
+		}
+	}
+	return obj1 == obj2
 
 /*
 
@@ -37,26 +62,26 @@ class Object
 
 	*/
 	block getinstance()
-		return this
+		return self
 
 	/*
 
 	*/
 	block setinstance(value)
-		throw(this,"You cannot change the instnce of an Object")
+		throw(self,"You cannot change the instnce of an Object")
 		return
 	
 	/*
 
 	*/
 	block classname()
-		return __class_name(this)
+		return __class_name(self)
 
 	/*
 
 	*/
 	block modulename()
-		return __class_module_name(this)
+		return __class_module_name(self)
 
 	/*
 
@@ -91,17 +116,17 @@ class Object
 	/*
 
 	*/
-	block isinstance(object)
-		return isObject(object) and __instance_of(object,classname())
+	block isinstance(object obj)
+		return isObject(obj) and __instance_of(obj,classname())
 
 	/*
 
 	*/
-	block equals(object)
-		if !isObject(object) or !__instance_of(object,"Object") {
+	block equals(object obj)
+		if !isObject(obj) or !__instance_of(obj,"Object") {
 			return false
 		}
-		return (uniquecode() == object.uniquecode())
+		return (uniquecode() == obj.uniquecode())
 
 	/*
 
@@ -112,8 +137,10 @@ class Object
 				return equals(value)
 			case "!="
 				return !equals(value)
+			case "getType"
+				return absolutename()
 			default 
-				throw(this,"This Object does not define a behaviour for the operator : " + op)
+				throw(self,"This Object does not define a behaviour for the operator : " + op)
 		}
 		return self
 		
@@ -121,7 +148,7 @@ class Object
 
 	*/
 	block type()
-		return getType(this)
+		return getType(self)
 
 	/*
 
@@ -130,149 +157,10 @@ class Object
 		return self
 		
 	/*
-
-	*/
-	block instanceof(params...)
-		paramsLen = lengthOf(params)
-		clazz = null
-		obj = null
-
-		if paramsLen == 1 {
-            if !isNull(params[0]) and isList(params[0]) {
-                _param = params[0] 
-                params = _param
-                paramsLen = lengthOf(params)
-            }
-        }
-		if paramsLen == 1 {
-			obj = this
-			clazz = params[0]
-		elif paramsLen == 2
-			obj = params[0]
-			clazz = params[1]
-		else
-			throw(this,"Calling block with extra parameters!. Expecting an Object and String")
-		}
-		if isNull(obj) or !isObject(obj) {
-			return false
-		}
-		if !isNull(clazz) {
-			if isObject(clazz) and __instance_of(clazz,"String") {
-				_clazz = clazz.toString()
-				clazz = _clazz
-			elif !isString(clazz)
-				return false
-			}
-		else
-			return false
-		}
-		return __instance_of(obj,clazz)
-
-	/*
-
-	*/
-	block instanceOf(params...)
-		return instanceof(params)
-		
-	/*
 		 
 	*/
 	block object()
-		return this
-
-	/*
-
-	*/
-	block objecttype(object)
-		if isNull(object) {
-			return "null"
-		elif isString(object)
-			return "String"
-		elif isNumber(object)
-			return "Number"
-		elif isList(object)
-			return "List"
-		elif isObject(object)
-			return __class_module_name(object) + "." + __class_name(object)
-		else
-			#reaching here means a very big security issue
-			#report the occurrence to https://github.com/simple-lang/simple
-			#create an issue with detail and simulated code
-			return "Unknown Type"
-		}
-		
-	/*
-	
-	*/
-	block isboolean(value)
-		return (isNumber(value) and (value == true or value == false))
-
-	/*
-
-	*/
-	block objectstring(object)
-		if isString(object) or instanceof(object,"String") {
-			ret = object
-			if !isString(object) {
-				ret = object.Value
-			}
-			return ret
-			
-		else
-			throw(self,"Invalid parameter, expecting (String), found (" + objecttype(object) + ")")	
-		}
-		return ""
-
-	/*
-
-	*/
-	block objectnumber(object)
-		if isNumber(object) or instanceof(object,"Number") {
-			ret = object
-			if !isNumber(object) {
-				ret = object.Number
-			}
-			return ret
-			
-		else
-			throw(self,"Invalid parameter, expecting (Number), found (" + objecttype(object) + ")")	
-		}
-		return 0
-
-	/*
-
-	*/
-	block objectboolean(object)
-		if isNumber(object) or instanceof(object,"Number") {
-			ret = object
-			if !isNumber(object) {
-				ret = object.Number
-			}
-			if !isboolean(object) {
-				throw(self,"Invalid parameter passed, expecting Boolean, found " + objecttype(object) + "")
-			}
-			return ret
-			
-		else
-			throw(self,"Invalid parameter, expecting (Number), found (" + objecttype(object) + ")")	
-		}
-		return 0
-
-	/*
-
-	*/
-	block objectlist(object)
-		if isList(object) or instanceof(object,"List") {
-			ret = object
-			if !isList(object) {
-				ret = object.Value
-			}
-			return ret
-			
-		else
-			throw(self,"Invalid parameter, expecting (List), found (" + objecttype(object) + ")")	
-		}
-		return 0
+		return self
 		
 
 	/*

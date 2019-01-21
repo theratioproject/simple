@@ -1,37 +1,552 @@
-/* 
-	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com> 
-	MIT License Copyright (c) 2018 simple 
+/*
+
 
 */
 
-/* 
- * @filename - JsonParser.sim
- * @author - Azeez Adewale
- * @date - 26 Febuary 2017
- * @Time - 08:04 pM
- */
-call simple.core.Object
-call parser.loadparserdll
+/*@Prefix
+	http://json.org/
+	https://github.com/llbit/jo-json
+*/
 
+/*
+
+*/
+call simple.core.Object
+call parser.json.JsonObject
+call parser.json.JsonArray
+call parser.json.JsonMember
+call simple.utilities.Type
+call simple.utilities.LookAhead
+
+/*
+
+*/
 module parser.json
 
-class JsonParser : Object
+/*
 
-	/* TYPE */
-	JSONPOINTER = null #init the json pointer to null
-	
-	/* STRING */
-	_JSON_CONTENT = "" #initialize the content of the parser to empty string
-
-	#Initialize the constructor with the string to parse.
-	#Alternatively the class can be intantiated without the constructor
-	#but the content has to specified with the 
-	#@Block setContent(content) mean while both blocks calls the 
-	#initJson() which intantiate the @Field JSONPOINTER which are in
-	#the inheriting classes @Class JsonObject and @Class JsonArray
-	block JsonParser(content)
-		_JSON_CONTENT = content
+*/
+block objectToJson(object params...)
+	paramsLen = lengthOf(params)
+	key = null
+	obj = null
+	json = null
+	isJsonObject = false
+	if paramsLen == 1 {
+		obj = params[0]
+		json = new JsonArray(Dynamic)
+	elif paramsLen == 2
+		key = params[0]
+		obj = params[1]
+		json = new JsonObject(Dynamic)
+		isJsonObject = true
+		if !isString(key) {
+			throw("parser.json:objectToJson", "Invalid parameters, expected (string, object), found (" + objectType(key) + "," + objectType(obj) + ")")
+		}
+	else
+		throw("parser.json:objectToJson", "Calling block with invalid length of parameter")
+		return null
+	}
+	if isObject(obj) {
+		jsonObj = new JsonObject(Dynamic)
+		attributes = __object_attributes(obj)
+		for attribute in attributes {
+			__value = __get_attribute_value(obj, attribute)
+			value = null
+			if isObject(__value) {
+				value = objectToJson(value)
+			elif isList(__value)
+				value = listToJson(__value)
+			else
+				value = __value
+			}
+			jsonObj.add(attribute, value)
+		}
+		if isJsonObject {
+			json.add(key, jsonObj)
+		else
+			return jsonObj
+		}
 		
-	block setPointer(pointer)
-		JSONPOINTER = pointer
+	elif isList(obj)
+		if isJsonObject {
+			return listToJson(key, obj)
+		else
+			return listToJson(obj)
+		}
+		
+	else
+		if isJsonObject {
+			json.add(key, jsonObj)
+		else
+			json.add(jsonObj)
+		}
+		
+	}
+	return json
+	
+/*
 
+*/
+block listToJson(object params...)
+	paramsLen = lengthOf(params)
+	key = null
+	obj = null
+	json = null
+	json2 = new JsonArray(Dynamic)
+	isJsonObject = false
+	if paramsLen == 1 {
+		obj = params[0]
+		json = new JsonArray(Dynamic)
+		if isObject(obj) and instanceOf(obj, "List") {
+			obj = obj.toList()
+		}
+		if !isList(obj) {
+			throw("parser.json:objectToJson", "Invalid parameters, expected (list|List), found (" + objectType(obj) + ")")
+		}
+	elif paramsLen == 2
+		key = params[0]
+		obj = params[1]
+		json = new JsonObject(Dynamic)
+		isJsonObject = true
+		if isObject(obj) and instanceOf(obj, "List") {
+			obj = obj.toList()
+		}
+		if !isString(key) or !isList(obj) {
+			throw("parser.json:objectToJson", "Invalid parameters, expected (string, list|List), found (" + objectType(key) + "," + objectType(obj) + ")")
+		}
+	else
+		throw("parser.json:objectToJson", "Calling block with invalid length of parameter")
+		return null
+	}
+	for item in obj {
+		nkey = null 
+		element = null
+		if isObject(item) {
+			element = objectToJson(item)
+		elif isList(item)
+			if lengthOf(item) == 2 {
+				if isString(item[0]) {
+					element = objectToJson(item[0], item[1])
+				else
+					element = listToJson(item)
+				}
+			else
+				element = listToJson(item)
+			}
+		else
+			element = item
+		}
+		if !isNull(nkey) {
+			element = new JsonMember(nkey, value)
+		}
+		json2.add(element)
+		
+	}
+	if isJsonObject {
+		json.add(key, json2)
+		return json
+	}
+		
+	return json2
+
+/*
+
+*/
+class JsonParser : Object
+		
+	/*
+	
+	*/
+	boolean Dynamic = false
+
+	/*
+	
+	*/
+	block JsonParser(object param)
+		if isString(param) {
+			IsString = true
+			lookAhead = new LookAhead(param)
+			EOF = ""
+			
+		elif instanceOf(param, "FileStream")
+			
+		else
+			throw(self, "Invalid parameter, expecting (String|FileStream), found (" + objectType(param) + ")")
+		}
+		
+		return self
+		
+	/*
+	
+	*/
+	block parse()
+		jsonValue = null
+		skipWhiteSpace()
+		switch lookAhead.peek() {
+			case StartObject
+				jsonValue = parseObject()
+			case StartArray 
+				jsonValue = parseArray()
+			default
+				throw(self, "Syntax Error : Expected JSON Array or Object")
+				return null
+		}
+		skipWhiteSpace() 
+		if lookAhead.peek() != EOF or lookAhead.peek() != "" {
+			throw(self, "Syntax Error : Unexpected character at end of JSON input : " + lookAhead.peek())
+		}
+		return jsonValue
+		
+	block parseDynamic()
+		Dynamic = true
+		return parse()
+
+	/*
+	
+	*/
+	private
+
+		/*
+		
+		*/
+		LookAhead lookAhead = null
+	
+		/*
+		
+		*/
+		boolean IsString = false
+	
+		/*
+		
+		*/
+		char StartArray = '['
+		
+		/*
+		
+		*/
+		char EndArray = ']'
+	
+		/*
+		
+		*/
+		char StartObject = '{'
+		
+		/*
+		
+		*/
+		char EndObject = '}'
+		
+		/*
+		
+		*/
+		char NameSeparator = ':'
+		
+		/*
+		
+		*/
+		char ValueSeparator = ','
+		
+		/*
+		
+		*/
+		char QuoteCharacter = '"'
+		
+		/*
+		
+		*/
+		char EscapeCharacter = '\'
+		
+		/*
+		
+		*/
+		int EOF = -1
+		
+		/*
+		
+		*/
+		block skipWhiteSpace()
+			while (isWhiteSpace(lookAhead.peek())) {
+				lookAhead.pop()
+			}
+			
+		/*
+		
+		*/
+		block parseArray()
+			acceptChar(StartArray)
+			jsonArray = new JsonArray(Dynamic)
+			do {
+				skipWhiteSpace()
+				if lookAhead.peek() == EndArray {
+					break
+				}
+				value = parseValue()
+				if isNull(value) {
+					if jsonArray.isEmpty() or lookAhead.peek() == ValueSeparator {
+						throw(self, "Syntax Error : missing element in JSON array")
+						return null
+					}
+					break
+				}
+				jsonArray.add(value)
+				skipWhiteSpace()
+			
+			} while (skipChar(ValueSeparator))
+			acceptChar(EndArray)
+			return jsonArray
+			
+		/*
+		
+		*/
+		block parseObject()
+			acceptChar(StartObject)	
+			jsonObject = new JsonObject(Dynamic)
+			do {
+				skipWhiteSpace()
+				if lookAhead.peek() == EndObject {
+					break
+				}
+				member = parseMember()
+				if member == null {
+					next = lookAhead.pop()
+					if next != EOF or next != "" and (next == ValueSeparator or next != EndObject) {
+						throw(self, "Syntax Error : missing member in JSON object")
+						return null
+					}
+					break
+				}
+				jsonObject.add(member)
+				skipWhiteSpace()
+			
+			} while (skipChar(ValueSeparator))
+			acceptChar(EndObject)	
+			return jsonObject
+			
+		/*
+		
+		*/
+		block parseMember()
+			if lookAhead.peek() == QuoteCharacter {
+				name = parseString()
+				skipWhiteSpace()
+				acceptChar(NameSeparator)
+				skipWhiteSpace() 
+				jsonValue = parseValue()
+				if isNull(jsonValue) {
+					throw(self, "Syntax Error : missing the object member value")
+					return null
+				}
+				value = jsonValue
+				isBool = false
+				if isList(jsonValue) {
+					value = jsonValue[1]
+					isBool = jsonValue[0]
+				}
+				member = new JsonMember(name, value)
+				member.IsBoolean = isBool
+				return member
+			}
+			return null
+			
+		/*
+		
+		*/
+		block parseString()
+			acceptChar(QuoteCharacter)
+			str = ""
+			while true {
+				next = lookAhead.pop()
+				if next == EOF {
+					throw(self, "Syntax Error : end of JSON input while parsing the JSON string. Expected " + '"')
+				elif next == EscapeCharacter
+					str += ununEscapeStringChar()
+				elif next = QuoteCharacter
+					break
+				else
+					str += next
+				}
+			}
+			return str
+			
+		/*
+		
+		*/
+		block ununEscapeStringChar()
+			next = lookAhead.pop()
+			switch next {
+				case QuoteCharacter
+					return QuoteCharacter
+				case EscapeCharacter
+					return EscapeCharacter
+				case '/'
+					return ascii(47)
+				case 'b'
+					return ascii(08)
+				case 'f'
+					return ascii(12)
+				case 'n'
+					return ascii(10)
+				case 'r'
+					return ascii(13)
+				case 't'
+					return ascii(09)
+				case 'u'
+					uchar = [hexDigit(), hexDigit(), hexDigit(), hexDigit()]
+					return ascii((uchar[0] << 12) | (uchar[1] << 8) | (uchar[2] << 4) | (uchar[3]))
+				case EOF
+					throw(self, "Syntax Error : Unexpected end of input in JSON string escape sequence")
+					return null
+				default
+					throw(self, "Syntax Error : Illegal escape sequence in JSON string escape sequence : " + next)
+					return null
+			}
+			
+		/*
+		
+		*/
+		block hexDigit()
+			next = lookAhead.pop()
+			v1 = __char_to_number(next) - __char_to_number('0')
+			v2 = __char_to_number(next) - __char_to_number('A') + H('0xA')
+			v3 = __char_to_number(next) - __char_to_number('a') + H('0xA')
+			if v1 >= 0 and v1 <= 9 {
+				return v1
+			}
+			if v2 >= H('0xA') and v2 <= H('0xF') {
+				return v2
+			}
+			if v3 >= H('0xA') and v3 <= H('0xF') {
+				return v3
+			}
+			throw(self, "Syntax Error : non-hexadecimal digit '" + next + "' in Unicode escape sequence")
+			
+		/*
+		
+		*/
+		block parseValue()
+			switch lookAhead.peek() {
+				case StartObject
+					return parseObject()
+				case StartArray
+					return parseArray()
+				case '0'
+					return parseNumber()
+				case '1'
+					return parseNumber()
+				case '2'
+					return parseNumber()
+				case '3'
+					return parseNumber()
+				case '4'
+					return parseNumber()
+				case '5'
+					return parseNumber()
+				case '6'
+					return parseNumber()
+				case '7'
+					return parseNumber()
+				case '8'
+					return parseNumber()
+				case '9'
+					return parseNumber()
+				case '-'
+					return parseNumber()
+				case '.'
+					return parseNumber()
+				case '+'
+					return parseNumber()
+				case 't'
+					acceptString("true")
+					return [true,true]
+				case 'f'
+					acceptString("false")
+					return [true,false]
+				case 'n'
+					acceptString("null")
+					return null
+				case QuoteCharacter
+					return parseString()
+				default 
+					return new JsonObject(Dynamic)
+			}
+			
+		/*
+		
+		*/
+		block parseNumber()
+			str = ""
+			while true {
+				switch lookAhead.peek() {
+					case EOF 
+						throw(self, "Syntax Error : unexpected end of input while parsing JSON number")
+					case '0'
+						str += lookAhead.pop()
+					case '1'
+						str += lookAhead.pop()
+					case '2'
+						str += lookAhead.pop()
+					case '3'
+						str += lookAhead.pop()
+					case '4'
+						str += lookAhead.pop()
+					case '5'
+						str += lookAhead.pop()
+					case '6'
+						str += lookAhead.pop()
+					case '7'
+						str += lookAhead.pop()
+					case '8'
+						str += lookAhead.pop()
+					case '9'
+						str += lookAhead.pop()
+					case '.'
+						str += lookAhead.pop()
+					case '-'
+						str += lookAhead.pop()
+					case '+'
+						str += lookAhead.pop()
+					case 'e'
+						str += lookAhead.pop()
+					case 'E'
+						str += lookAhead.pop()
+					default 
+						return numValueOf(str)
+				}
+			}
+			
+		/*
+		
+		*/
+		block acceptString(string strs)
+			for str in strs {
+				if lookAhead.pop() != str {
+					throw(self, "Syntax Error : the JSON Literal is not valid")
+				}
+			}
+
+		/*
+		
+		*/
+		block skipChar(char c)
+			ret = (lookAhead.peek() == c)
+			if ret {
+				lookAhead.pop()
+			}
+			return ret
+			
+		/*
+		
+		*/
+		block acceptChar(char c)
+			pop = lookAhead.pop()
+			
+			if pop == EOF or pop == "" {
+				throw(self, "Syntax Error : Unexpected end of JSON input. Expected " + c)
+			}
+			if pop != c {
+				throw(self, "Syntax Error : Unexpected character Expected '" + c + "', found '" + pop + "'" )
+			}
+			
+			
+		

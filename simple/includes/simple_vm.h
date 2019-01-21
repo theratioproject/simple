@@ -67,7 +67,7 @@ typedef struct VM {
 	int nActiveScopeID  ;
 	int nActiveCatch  ;
 	char nInsideBraceFlag  ;
-	char nInClassRegion  ;
+	char within_class  ;
 	List *aActiveModules  ;
 	char nPrivateFlag  ;
 	char finalFlag ;
@@ -118,7 +118,7 @@ typedef struct VM {
 	List *aGlobalScopes  ;
 	List *aActiveGlobalScopes  ;
 	int nCurrentGlobalScope  ;
-	char *file_nameInClassRegion  ;
+	char *file_name_within_class  ;
 #ifdef __ANDROID__
 	ANativeActivity* simple_app;
 	ANativeWindow* simple_window;

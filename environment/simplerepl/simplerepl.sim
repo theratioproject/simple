@@ -9,27 +9,11 @@ call simple.utilities.Console
 call simple.system.System
 call simple.core.String
 
-OldSimpleReplTitle = " 
-                                                                                                         | 
-     ----------    --     --------         --------    ------------     ---             --------------   | A simple, plain and innovative programming
-    |          |  |   |  |        |       |        |  |            |   |   |           |              |  | with multi-paradigm. It can be embedded in 
-    |    ------   |   |  |    -    |     |    -    |  |    -----    |  |   |           |    ----------   | C/C++ projects. The language is portable 
-    |   |         |   |  |   |  |   |    |   | |   |  |   |     |   |  |   |           |   |             | to various OS including windows, macOS, any
-    |   |         |   |  |   |   |   |  |   |  |   |  |   |     |   |  |   |           |   |             | linux and unix distros and other OS.
-    |          |  |   |  |   |     |      |    |   |  |    ----    |   |   |           |    ---------    | This is the official REPL program for the
-     ------    |  |   |  |   |      ------     |   |  |           |    |   |           |    ---------    | Language. 
-           |   |  |   |  |   |                 |   |  |    -------     |   |           |   |             | 
-           |   |  |   |  |   |                 |   |  |   |            |   |           |   |             | REPL (Read-Eval-Print-Loop)
-     ------    |  |   |  |   |                 |   |  |   |            |    - -------  |    ---------    | Version "+simpleVersion()+"
-    |          |  |   |  |   |                 |   |  |   |            |            |  |             |   | Author : Azeez Adewale
-     ----------    ---    ---                   ---    ---              ------------    -------------    | MIT License Copyright (c) 2018 SIMPLE
-                                                                                                         |  
-"
-
 multiLine = false
 simpleReplTitle = "simple "+simpleVersion() + "\n"
 
-	stdout.printfc(ConsoleColor.NONE, simpleReplTitle)
+clearConsole()
+stdout.printfc(ConsoleColor.NONE, simpleReplTitle)
 while true {
 	stdout.printfc(ConsoleColor.NONE, "simple$ ") 
 	read code

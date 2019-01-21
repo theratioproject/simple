@@ -26,7 +26,7 @@ const char * SIMPLE_KEYWORDS[] = {"if","to","or","and","not","for","new","block"
 
 "in","continue","module","private","final","step","do","exec","elif",
 
-"get","case"/**, "changesimplekeyword","changesimpleoperator","loadsyntax"**/} ;
+"case"/**, "changesimplekeyword","changesimpleoperator","loadsyntax"**/} ;
 
 /* Secondary (Not Enforced) */
 const char * SIMPLE_SECONDARY_KEYWORDS[] = {"..."} ;
@@ -619,7 +619,6 @@ void simple_scanner_keywords ( Scanner *scanner )
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"do");
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"exec");
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"elif");
-	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"get");
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"case");
 	/*
 	**  The next keywords are sensitive to the order and keywords count

@@ -349,7 +349,7 @@ block getPackageDynamicModules(tempDyModuleDir)
 	else
 		dyMoudlesList = []
 		for a = 0 to dynamicModuleSize {
-			add(dyMoudlesList,tempDyModuleDir.listFiles()[a].getName())
+			__add_to_list(dyMoudlesList,tempDyModuleDir.listFiles()[a].getName())
 		}
 		return dyMoudlesList
 	}
@@ -369,7 +369,7 @@ block recordModuleInstallation(downloadedPackage)
 		:website = downloadedPackage[:website],
 		:dynamicmodules = downloadedPackage[:dynamic_modules]
 	] 
-	add(packageList,downloadedPackageList)
+	__add_to_list(packageList,downloadedPackageList)
 	list = new List(downloadedPackageList)
 	depConf = new File(modulesDirectory+"/modules-dependencies.conf")
 	newDep = replaceStr(depConf.readFileAsString(),"/* NEWMODULE */",","+nl+tab+list.toString()+"/* NEWMODULE */")

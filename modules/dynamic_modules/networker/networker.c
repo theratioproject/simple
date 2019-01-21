@@ -172,7 +172,7 @@ void new_curl_list ( void *pointer )
 void free_curl_list ( void *pointer )
 {
     
-    if ( SIMPLE_API_PARACOUNT != 0 ) {
+    if ( SIMPLE_API_PARACOUNT != 1 ) {
         SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
         return ;
     }

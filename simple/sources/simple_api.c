@@ -31,12 +31,12 @@ SIMPLE_API void loadcblocks ( SimpleState *sState )
 {
 	/** General **/
 	register_block("lengthOf",simple_vmlib_len);
-	register_block("length_of_minus_one",block_len_minus_one);
-	register_block("add",simple_vmlib_add);
-	register_block("char",simple_vmlib_char);
+	register_block("iterator",block_len_minus_one);
+	register_block("__add_to_list",simple_vmlib_add);
+	register_block("ascii",simple_vmlib_char);
 	register_block("simpleVersion",simple_vmlib_version);
         /* Check Data Type */
-        register_block("isString",simple_vmlib_isstring);
+    register_block("isString",simple_vmlib_isstring);
 	register_block("isNumber",simple_vmlib_isnumber);
 	register_block("isList",simple_vmlib_islist);
 	register_block("getType",simple_vmlib_type);
@@ -458,7 +458,7 @@ void block_len_minus_one ( void *pointer )
 		else {
 			SIMPLE_VM_STACK_PUSHPVALUE(SIMPLE_API_GETPOINTER(1));
 			SIMPLE_VM_STACK_OBJTYPE = SIMPLE_API_GETPOINTERTYPE(1) ;
-			simple_vm_expr_npoo(vm,"length_of_minus_one",0);
+			simple_vm_expr_npoo(vm,"iterator",0);
 			vm->nIgnoreNULL = 1 ;
 		}
 	} else {
@@ -545,28 +545,33 @@ void simple_vmlib_islist ( void *pointer )
 void simple_vmlib_type ( void *pointer )
 {
 	List *list  ;
+	VM *vm  ;
+	vm = (VM *) pointer ;
 	if ( SIMPLE_API_PARACOUNT != 1 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
 		return ;
 	}
 	/* The order of checking C Pointer and OBJECT before List is important because the list can be both of them */
 	if ( SIMPLE_API_ISSTRING(1) ) {
-		SIMPLE_API_RETSTRING("STRING");
+		SIMPLE_API_RETSTRING("String");
 	}
 	else if ( SIMPLE_API_ISNUMBER(1) ) {
-		SIMPLE_API_RETSTRING("NUMBER");
+		SIMPLE_API_RETSTRING("Number");
 	}
 	else if ( SIMPLE_API_ISCPOINTER(1) ) {
 		list = SIMPLE_API_GETLIST(1) ;
 		SIMPLE_API_RETSTRING(simple_list_getstring(list,SIMPLE_CPOINTER_TYPE));
 	}
 	else if ( SIMPLE_API_ISOBJECT(1) ) {
-		SIMPLE_API_RETSTRING("OBJECT");
+		SIMPLE_VM_STACK_PUSHPVALUE(SIMPLE_API_GETPOINTER(1));
+		SIMPLE_VM_STACK_OBJTYPE = SIMPLE_API_GETPOINTERTYPE(1) ;
+		simple_vm_expr_npoo(vm,"getType",0);
+		vm->nIgnoreNULL = 1 ;
 	}
 	else if ( SIMPLE_API_ISLIST(1) ) {
-		SIMPLE_API_RETSTRING("LIST");
+		SIMPLE_API_RETSTRING("List");
 	} else {
-		SIMPLE_API_RETSTRING("UNKNOWN");
+		SIMPLE_API_RETSTRING("Unknown");//impossible
 	}
 }
 

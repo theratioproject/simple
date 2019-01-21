@@ -44,7 +44,7 @@ block callModule(path)
 		return 
 	}
 	path = formatPathName(path)
-	#add(dynamicModules, path)
+	#__add_to_list(dynamicModules, path)
 	callDynamicModule(path)
 	
 block formatPathName(path)

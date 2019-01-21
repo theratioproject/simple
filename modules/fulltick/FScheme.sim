@@ -231,7 +231,7 @@ class FScheme : Object
 				}
 			#elif other types instance
 			else 
-				throw(self,"Invalid value for the key '" + key + "', expecting '" + objecttype(object) + "' found '" + objecttype(value) + "'")
+				throw(self,"Invalid value for the key '" + key + "', expecting '" + objectType(object) + "' found '" + objectType(value) + "'")
 			}
 		elif keyType == "NUMBER" 
 			if isObject(value) {

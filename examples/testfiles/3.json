@@ -1,0 +1,17 @@
+{		
+	"Title": "simple-lang JSON \u0639\u0631\u0628\u0649",
+	"Category": "parser",
+	"Post_Id": 222,
+	"Description": "Create JSON Object and array from object",
+	"Url": "http://simple-lang.github.io/simple-lang/json",
+	"Tags": [
+		"parser", 
+		{
+			"Name" : "module",
+			"Compilable" : "false",
+			"Tags" : "none"
+		}, 
+		"modules", 
+		"simple-lang"
+	]
+}

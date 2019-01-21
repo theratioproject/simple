@@ -99,7 +99,7 @@ class Directory : Path
 		for content in contents {
 			if content[1] == 0 {
 				file = new File(AbsolutePath + content[0])
-				add(fileList, file)
+				__add_to_list(fileList, file)
 			}
 		}
 		return fileList
@@ -114,7 +114,7 @@ class Directory : Path
 		for content in contents {
 			if content[1] == 1 {
 				file = new Directory(AbsolutePath + content[0])
-				add(folderList, file)
+				__add_to_list(folderList, file)
 			}
 		}
 		return folderList
@@ -139,7 +139,7 @@ class Directory : Path
 			}
 			tempDir = removeStr(tempDir,lastStrAfterChar(tempDir, SystemSlash) + SystemSlash)
 			while __dir_exists(tempDir) != 1 {
-				add(ChildrenToCreate, tempDir)
+				__add_to_list(ChildrenToCreate, tempDir)
 				tempDir = removeStr(tempDir, SystemSlash + lastStrAfterChar(tempDir, SystemSlash))
 			}
 			CTCLen = lengthOf(ChildrenToCreate) - 1

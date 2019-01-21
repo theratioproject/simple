@@ -249,7 +249,7 @@ class FWidget : Object
             }
             
         else
-            throw(self,"Invalid parameter, Expecting (Number). Found (" + objecttype(value) + ")")
+            throw(self,"Invalid parameter, Expecting (Number). Found (" + objectType(value) + ")")
         }
 
     /*
@@ -290,12 +290,12 @@ class FWidget : Object
             __Fl_Widget_align_1(Ptr,value)
             LabelAlignment = new FAlignment(LabelAlignment)
             redraw()
-        elif isObject(value) and instanceof(value,"FAlignment")
+        elif isObject(value) and instanceOf(value,"FAlignment")
             __Fl_Widget_align_1(Ptr,value.Alignment)
             LabelAlignment = value
             redraw()
         else
-            throw(self,"Invalid parameter, Expecting (Number|FAlignment). Found (" + objecttype(value) + ")")
+            throw(self,"Invalid parameter, Expecting (Number|FAlignment). Found (" + objectType(value) + ")")
         }
 
     /*
@@ -308,10 +308,10 @@ class FWidget : Object
 
     */
     block setCapitalizeLabel(value)
-        if isboolean(value) {
+        if isBoolean(value) {
             CapitalizeLabel = value
         else
-            throw(self,"Invalid parameter, Expecting (Number). Found (" + objecttype(value) + ")")
+            throw(self,"Invalid parameter, Expecting (Number). Found (" + objectType(value) + ")")
         }
 
     /*
@@ -336,7 +336,7 @@ class FWidget : Object
             __Fl_Widget_argument_1(Ptr,value)
             Argument = value
         else
-            throw(self,FULLTICK_INVALID_PARAMETER + ". Expecting (Number), Found (" + objecttype(value) + ")")
+            throw(self,FULLTICK_INVALID_PARAMETER + ". Expecting (Number), Found (" + objectType(value) + ")")
         }
 
     /*
@@ -351,7 +351,7 @@ class FWidget : Object
     */
     block setBox(value)
         validatePointer()
-        if isNumber(value) or instanceof(value,"FBoxType") {
+        if isNumber(value) or instanceOf(value,"FBoxType") {
             if isNumber(value) {
                 __Fl_Widget_box_1(Ptr,value)
                 Box = new FBoxType(value)
@@ -363,7 +363,7 @@ class FWidget : Object
                 Box = value
             }
         else
-            throw(self,FULLTICK_INVALID_PARAMETER + ". Expecting (Number|simple.drawing.FBoxType), Found (" + objecttype(value) + ")")
+            throw(self,FULLTICK_INVALID_PARAMETER + ". Expecting (Number|simple.drawing.FBoxType), Found (" + objectType(value) + ")")
         }
 
     /*
@@ -381,24 +381,24 @@ class FWidget : Object
 
         if paramsLen == 1 {
             object = params[0]
-            if instanceof(object,"Rectangle") {
+            if instanceOf(object,"Rectangle") {
                 x = object.X
                 y = object.Y
                 width = object.Width
                 height = object.Height
             else
-                throw(self, FULLTICK_INVALID_PARAMETER+" Expecting (simple.graphics.Rectangle) for resizing FGroup. Found (" + objecttype(object) + ")")
+                throw(self, FULLTICK_INVALID_PARAMETER+" Expecting (simple.graphics.Rectangle) for resizing FGroup. Found (" + objectType(object) + ")")
             }
         elif paramsLen == 2
             point = params[0]
             dimension = params[1]
-            if instanceof(point,"Point") and instanceof(dimension,"Dimension") {
+            if instanceOf(point,"Point") and instanceOf(dimension,"Dimension") {
                 x = point.X
                 y = point.Y
                 width = dimension.Width
                 height = dimension.Height
             else
-                throw(self, FULLTICK_INVALID_PARAMETER+" Expecting (simple.graphics.Point,simple.graphics.Dimension) for resizing FGroup. Found (" + objecttype(point) + ", " + objecttype(dimension) + ")")
+                throw(self, FULLTICK_INVALID_PARAMETER+" Expecting (simple.graphics.Point,simple.graphics.Dimension) for resizing FGroup. Found (" + objectType(point) + ", " + objectType(dimension) + ")")
             }
         elif paramsLen == 4
             x = params[0]
@@ -406,7 +406,7 @@ class FWidget : Object
             width = params[2]
             height = params[3]
             if !isNumber(x) or !isNumber(y) or !isNumber(width) or !isNumber(height) {
-                throw(self, FULLTICK_INVALID_PARAMETER+" Expecting (Number, Number, Number, Number). Found (" + objecttype(x) + ", " + objecttype(y) + ", " + objecttype(width) + ", " + objecttype(height) + ")")
+                throw(self, FULLTICK_INVALID_PARAMETER+" Expecting (Number, Number, Number, Number). Found (" + objectType(x) + ", " + objectType(y) + ", " + objectType(width) + ", " + objectType(height) + ")")
             }
         else
             throw(self,"Changing FGroup size with invalid length of parameters")
@@ -570,7 +570,7 @@ class FWidget : Object
                 Parent.setResizable(self)
             }
             if PendingOps["centeronparent"] == "true" {
-                if instanceof(self,"FGroup") {
+                if instanceOf(self,"FGroup") {
                     centerOnParent()
                 }
             }
@@ -621,12 +621,12 @@ class FWidget : Object
 
     */
     block setCallbackListener(listener)
-        if instanceof(listener,"FCallbackEvent") {
+        if instanceOf(listener,"FCallbackEvent") {
             CallbackEvent = listener
             FApp.CreatedWidgets[self.PtrIndex] = self
             __Fl_Widget_callback_on_onlick(Ptr,'FApp.__widgetcallback(' + self.PtrIndex + ')')
         else
-            throw(self,"Invalid callback listener, only an instance of fulltick.events.FCallbackEvent allow, found (" + objecttype(listener) + ")")
+            throw(self,"Invalid callback listener, only an instance of fulltick.events.FCallbackEvent allow, found (" + objectType(listener) + ")")
         }
 
     /*
@@ -671,7 +671,7 @@ class FWidget : Object
 
     */
     block setHasBorder(value)
-        if isboolean(value) {
+        if isBoolean(value) {
             HasBorder = value
             if value {
                 setBorder(Border)
@@ -679,7 +679,7 @@ class FWidget : Object
                 BorderBox = null
             }
         else
-            throw(self,"Invalid parameter, Expecting (Number|simple.core.Boolean). Found (" + objecttype(value) + ")")
+            throw(self,"Invalid parameter, Expecting (Number|simple.core.Boolean). Found (" + objectType(value) + ")")
         }
 
     /*
@@ -690,7 +690,7 @@ class FWidget : Object
         if isNull(border) {
             BorderBox = null 
             HasBorder = false
-        elif instanceof(border,"FBorder") 
+        elif instanceOf(border,"FBorder") 
             if HasBorder { 
                 if isNull(BorderBox) { 
                     BorderBox = new FGroup(X-border.Left, Y-border.Top, (Width+(border.Right*2)), (Height+((border.Bottom)+border.Top)))
@@ -710,7 +710,7 @@ class FWidget : Object
                 Border.setComponent(BorderBox) 
             }
         else
-            throw(self,"Invalid parameter, Expecting (fulltick.objects.FBorder). Found (" + objecttype(border) + ")")
+            throw(self,"Invalid parameter, Expecting (fulltick.objects.FBorder). Found (" + objectType(border) + ")")
         }
 
     /*
@@ -871,9 +871,9 @@ class FWidget : Object
 
         if paramsLen == 0 {
         elif paramsLen == 1
-            flag = objectnumber(params[0])
-            if !isboolean(flag) {
-                throw(self, "Invalid parameter passed, expecting (Boolean), found (" + objecttype(flag) + ")")
+            flag = numberValue(params[0])
+            if !isBoolean(flag) {
+                throw(self, "Invalid parameter passed, expecting (Boolean), found (" + objectType(flag) + ")")
             }
         else
             throw(self, "Calling block with extra parameters expecting one or no parameter")
@@ -892,7 +892,7 @@ class FWidget : Object
     */
     block setAcceptInput(value)
         validatePointer()
-        value = objectboolean(value)
+        value = booleanValue(value)
         if value == true {
             __Fl_Widget_clear_output(Ptr)
         elif value == false 
@@ -925,7 +925,7 @@ class FWidget : Object
     */
     block setVisible(value)
         validatePointer()
-        value = objectboolean(value)
+        value = booleanValue(value)
         if value && !Visible {
             show()
         elif !value && Visible
@@ -966,7 +966,7 @@ class FWidget : Object
     */
     block setKeyboardFocusable(value) 
         validatePointer()
-        value = objectboolean(value) 
+        value = booleanValue(value) 
         if value && !KeyboardFocusable {
             setVisibleFocus()
         elif !value && KeyboardFocusable
@@ -984,7 +984,7 @@ class FWidget : Object
 
     */
     block contains(widget)
-        if instanceof(widget,"FWidget") {
+        if instanceOf(widget,"FWidget") {
             return __Fl_Widget_contains(Ptr,widget.Ptr)
         else
             throw(self,"Invalid parameter, expecting (fulltick.base.FWidge), found (" + widget + ")")
@@ -995,7 +995,7 @@ class FWidget : Object
     */
     block setLabel(value)
         validatePointer()
-        value = objectstring(value)
+        value = stringValue(value)
         __Fl_Widget_copy_label(Ptr, value)
         Label = value
         redrawParent()
@@ -1011,7 +1011,7 @@ class FWidget : Object
     */
     block setTooltip(value)
         validatePointer()
-        value = objectstring(value)
+        value = stringValue(value)
         __Fl_Widget_copy_tooltip(Ptr, value)
         Tooltip = value
 
@@ -1056,16 +1056,16 @@ class FWidget : Object
     */
     block drawLabel(x, y, width, height, alignment)
         validatePointer()
-        x = objectnumber(x)
-        y = objectnumber(y)
-        width = objectnumber(width)
-        height = objectnumber(height)
+        x = numberValue(x)
+        y = numberValue(y)
+        width = numberValue(width)
+        height = numberValue(height)
         _alignment = LabelAlignment
         if !isNull(alignment) 
-            if instanceof(alignment,"FAlignment") {
+            if instanceOf(alignment,"FAlignment") {
                 _alignment = alignment
             else 
-                throw(self,"Invalid parameter passed, expectiog (Number,Number,Number,Null|FAlignment), found (" + objecttype(x) + "," + objecttype(y) + "," + objecttype(width) + "," + objecttype(height) + "," + objecttype(alignment) + ")")
+                throw(self,"Invalid parameter passed, expectiog (Number,Number,Number,Null|FAlignment), found (" + objectType(x) + "," + objectType(y) + "," + objectType(width) + "," + objectType(height) + "," + objectType(alignment) + ")")
             }
         }
         __Fl_Widget_draw_label(Ptr,x,y,width,height,_alignment.Alignment)
@@ -1076,7 +1076,7 @@ class FWidget : Object
     */
     block setHeight(value)
         validatePointer()
-        value = objectnumber(value)
+        value = numberValue(value)
         resize(X,Y,Width,value)
         redrawParent()
         Height = value
@@ -1092,7 +1092,7 @@ class FWidget : Object
     */
     block setWidth(value)
         validatePointer()
-        value = objectnumber(value)
+        value = numberValue(value)
         resize(X,Y,value,Height)
         redrawParent()
         Width = value
@@ -1108,7 +1108,7 @@ class FWidget : Object
     */
     block setX(value)
         validatePointer()
-        value = objectnumber(value)
+        value = numberValue(value)
         resize(value,Y,Width,Height)
         redrawParent()
         X = value
@@ -1124,7 +1124,7 @@ class FWidget : Object
     */
     block setY(value)
         validatePointer()
-        value = objectnumber(value)
+        value = numberValue(value)
         resize(X,value,Width,Height)
         redrawParent()
         Y = value
@@ -1163,10 +1163,10 @@ class FWidget : Object
     */
     block setLabelFont(value)
         validatePointer()
-        if instanceof(value,"FFont") { 
+        if instanceOf(value,"FFont") { 
             __Fl_Widget_labelfont_1(Ptr,value.FontValue)
-        elif isNumber(value) or instanceof(value,"Number")
-            __value = objectnumber(value)
+        elif isNumber(value) or instanceOf(value,"Number")
+            __value = numberValue(value)
             __Fl_Widget_labelfont_1(Ptr,__value)
             value = new FFont(__value) 
         else
@@ -1185,8 +1185,8 @@ class FWidget : Object
     */
     block setLabelSize(value)
         validatePointer()
-        if isNumber(value) or instanceof(value,"Number")
-            value = objectnumber(value)
+        if isNumber(value) or instanceOf(value,"Number")
+            value = numberValue(value)
             if value <= 0 {
                 throw(self,"FWidget Label Size cannot be less than 0 ")
                 return
@@ -1209,10 +1209,10 @@ class FWidget : Object
     */
     block setLabelType(value)
         validatePointer()
-        if instanceof(value,"FLabelType") { 
+        if instanceOf(value,"FLabelType") { 
             __Fl_Widget_labeltype_1(Ptr,4)
-        elif isNumber(value) or instanceof(value,"Number")
-            value = objectnumber(value)
+        elif isNumber(value) or instanceOf(value,"Number")
+            value = numberValue(value)
             __Fl_Widget_labeltype_1(Ptr,value)
             value = new FLabelType(value) 
         else
@@ -1243,15 +1243,15 @@ class FWidget : Object
         y = null
         if paramsLen == 1 { 
             point = params[0]
-            if instanceof(point,"Point") {
+            if instanceOf(point,"Point") {
                 x = point.X 
                 y = point.Y
             else
-                throw(self, FULLTICK_INVALID_PARAMETER+" Expecting (simple.graphics.Point). Found (" + objecttype(point) + ")")
+                throw(self, FULLTICK_INVALID_PARAMETER+" Expecting (simple.graphics.Point). Found (" + objectType(point) + ")")
             }
         elif paramsLen == 2
-            x = objectnumber(params[0])
-            y = objectnumber(params[1])
+            x = numberValue(params[0])
+            y = numberValue(params[1])
         else
             throw(self,"Invalid parameter count ")
             return 
@@ -1343,15 +1343,15 @@ class FWidget : Object
         height = null
         if paramsLen == 1 { 
             dimension = params[0]
-            if instanceof(dimension,"Dimension") {
+            if instanceOf(dimension,"Dimension") {
                 width = dimension.Width 
                 height = dimension.Height
             else
-                throw(self, FULLTICK_INVALID_PARAMETER+" Expecting (simple.graphics.Dimension). Found (" + objecttype(dimension) + ")")
+                throw(self, FULLTICK_INVALID_PARAMETER+" Expecting (simple.graphics.Dimension). Found (" + objectType(dimension) + ")")
             }
         elif paramsLen == 2
-            width = objectnumber(params[0])
-            height = objectnumber(params[1])
+            width = numberValue(params[0])
+            height = numberValue(params[1])
         else
             throw(self,"Invalid parameter count ")
             return 

@@ -107,7 +107,7 @@ block isDigit(var)
 */
 block isControlChar(var)
 	tempVar = __get_var_as_string(var)
-	return __is_control_char(tempVar)
+	return __is_control_ascii(tempVar)
 	
 /*
 	Check if a Variable is has a graphical representation using locale or
@@ -156,7 +156,7 @@ block isPrintable(var)
 */
 block isWhiteSpace(var)
 	tempVar = __get_var_as_string(var)
-	return __is_space(tempVar)
+	return lengthOf(tempVar) > 0 && __is_space(tempVar)
 	
 /*
 	Similar to isWhiteSpace(var) but efficiently check of a character is a white space
@@ -164,7 +164,9 @@ block isWhiteSpace(var)
 	@Return if character is a white space @DataType true	
 */
 block __isWhiteSpace(var)
-	tempVar = ' '+__get_var_as_string(var)
+	tempVar = __get_var_as_string(var)
+	if lengthOf(tempVar) < 1 { return false }
+	tempVar = ' ' + tempVar
 	for a in tempVar {
 		if a != ' ' {
 			return false

@@ -20,6 +20,11 @@ call simple.io.PrintWriter
 call simple.io.FileWriter
 
 /*
+
+*/
+module simple.utilities
+
+/*
 	initialized to allow ussage as ConsoleColor.Color
 */
 #enum
@@ -91,5 +96,13 @@ final stderr = new PrintWriter(new FileWriter(__stderr()), true)
 final __stdin = __stdin()
 	
 
+/*
 
+*/
+block clearConsole()
+	if isWindows() {
+		system("cls")
+	else
+		system("clear")
+	}
 

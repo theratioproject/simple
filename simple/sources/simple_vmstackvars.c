@@ -34,7 +34,7 @@ SIMPLE_API void simple_vm_pushv ( VM *vm )
 		if ( SIMPLE_VM_STACK_ISPOINTER ) {
 			var = (List *) SIMPLE_VM_STACK_READP ;
 			/* Check NULL Value */
-			if ( vm->nInClassRegion == 0 ) {
+			if ( vm->within_class == 0 ) {
 				if ( simple_list_getint(var,SIMPLE_VAR_TYPE) == SIMPLE_VM_NULL ) {
 					if ( simple_list_isstring(var,SIMPLE_VAR_VALUE) ) {
 						if ( strcmp(simple_list_getstring(var,SIMPLE_VAR_VALUE),"NULL") == 0 ) {
@@ -247,7 +247,7 @@ SIMPLE_API void simple_vm_freestack ( VM *vm )
 	/* Clear Load Address Result Scope Array */
 	simple_list_deleteallitems_gc(vm->sState,vm->aLoadAddressScope);
 	/* In the class region */
-	if ( vm->nInClassRegion ) {
+	if ( vm->within_class ) {
 		/*
 		**  Description 
 		**  In the class Region we don't free stack to support Object + New Object 

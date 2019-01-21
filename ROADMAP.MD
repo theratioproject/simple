@@ -79,12 +79,14 @@ build, installation, features e.t.c
 - [ ] fix `final` keyword not effective on incremental and decremental command ++ -- (move to issue)
 - [ ] enable `final keyword before `class` keyword to prevent inheriting it
 - [ ] enable `final` keyword before `block` keyword to prevent overriding the block in sub classes
-- [ ] allow the use of ellipsis `..` between numbers in a for..loop to specify range. `for (1..100) {}`
-- [ ] support using braces to call/import multiple files at once call { module1 module2 } 
+- [ ] support using braces to call/import multiple files at once e.g `call { module1 module2 }` 
 - [ ] make break from multiple loop start from index 0 instead of one `break 0` instead of `break 1`
 - [ ] allow inline return of new object instance even if constructor return self
 - [ ] import a module as soon as it is declared
 - [ ] `private` variable outside a class should limit the variable to the file scope
+- [ ] allow an overided method to be called using super as the overrided method name e.g `super(param)`
+- [ ] prevent a class initialization without constructor if it has a constructor
+- [ ] by strong typing, notify class of assignment for a more native data type creation
 
 ### simplify
 - [ ] hint user as a type of level error when a similar variable that has not been declared is used 
@@ -112,13 +114,13 @@ issue related to the module
 	- [ ] build the odbc database module
 	- [ ] build the access database module
 	- [ ] build the postgresql database module
-- [ ] build the internet module using curl as the back bone
-	- [ ] make curl request and accept both http and https protocols
+- [ ] build the net module using curl as the back bone
+	- [x] make curl request and accept both http and https protocols
 - [ ] build a web module for cgi and template base development
 - [x] Math module to treat any form of basic math operation
 	- [ ] add various multiplication method in the math module including Karatsuba algorithm
 	- [ ] include a block that fetch the number of factors a number have and another that return a list of a number factors
-- [x] date and time module 
+- [-] date and time module 
 - [ ] conversion module to convert between objects and types 
 - [ ] system, simplex and runtime module
 - [x] create the hash module 
@@ -126,9 +128,14 @@ issue related to the module
 - [ ] port murmur hash C library to simple-lang
 - [ ] implement ncurses for use in simple-lang
 - [ ] use a light and simple alternate ANSI C internet library for networking
-- [ ] a json module that load the json file and store as class attributes and fields and allow writing back to file
-- [ ] create a built in module to get hex as number using `H("0x00")
+- [ ] parser.json module to parse and create json string
+	- [x] load json from string and create json from class, list and manually
+	- [ ] a json module that load the json file and store as class attributes and fields and allow writing back to file
+- [x] create a built in module to get hex as number using `H("0x00")
 - [ ] build a comprehensive color module in simple.system
+- [ ] create a look ahead class for pure string and file stream for parser implementation
+	- [x] LookAhead class for pure string. `simple.utilities.LookAhead`
+	- [ ] for file stream or file reader. `simple.io.LookAheadReader`
 
 ### Extended Modules
 

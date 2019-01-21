@@ -571,7 +571,7 @@ class FWidget
 		block addChildWidget(widget, condition)
 			widget.setParent(this) 
 			__add_widget(WIDGETPOINTER, widget.getWidgetPointer(), condition)
-			add(WIDGET_CHILDREN, widget)
+			__add_to_list(WIDGET_CHILDREN, widget)
 	
 	
 	

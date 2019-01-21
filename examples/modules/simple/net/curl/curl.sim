@@ -1,0 +1,13 @@
+/*
+
+*/
+call simple.core.Object
+call simple.utilities.Console
+call simple.net.curl.Curl
+
+block main()
+	curl = new Curl("https://www.example.com/")
+	stdout.println(curl)
+	stdout.println(curl.strPerform())
+	stdout.println(curl)
+	curl.flush()

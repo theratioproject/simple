@@ -25,6 +25,12 @@ module simple.core
 /*
 
 */
+block H(string value)
+	return __hex_to_number(value)
+
+/*
+
+*/
 block numValueOf(object)
 	val = 0
 				
@@ -34,7 +40,10 @@ block numValueOf(object)
 	elif isPointer(object)
 		val = object[2]
 		
-	elif isString(object) or isList(object)
+	elif isString(object) #Re visit and convert appropriately
+		val = 1*object	
+		
+	elif isList(object)
 		val = lengthOf(object)
 		
 	elif isNumber(object)

@@ -1102,8 +1102,8 @@ SIMPLE_API void error_stack_trace(void *pointer)
 					cFile = (const char *) simple_list_getpointer(list,SIMPLE_BLOCKCL_NEWFILENAME) ;
 				}
 				else {
-					if ( vm->nInClassRegion ) {
-						cFile = vm->cFileNameInClassRegion ; 
+					if ( vm->within_class ) {
+						cFile = vm->file_name_within_class ; 
 					}
 					else {
 						cFile = vm->file_name ;
@@ -1128,8 +1128,8 @@ SIMPLE_API void error_stack_trace(void *pointer)
 			simple_string_add_gc(((VM *) pointer)->sState,string," in file ");
 			simple_string_add_gc(((VM *) pointer)->sState,string,file_real_name(simple_list_getstring(vm->sState->files_list,1)));
 		} else {
-			if ( vm->nInClassRegion ) {
-				cFile = vm->cFileNameInClassRegion ;
+			if ( vm->within_class ) {
+				cFile = vm->file_name_within_class ;
 			}
 			else {
 				cFile = file_real_name(vm->file_name) ;
@@ -2385,7 +2385,15 @@ SIMPLE_API void meta_blocks_set_attribute_value(void *pointer)
 						simple_list_setlist_gc(((VM *) pointer)->sState,list,SIMPLE_VAR_VALUE);
 						list = simple_list_getlist(list,SIMPLE_VAR_VALUE);
 						simple_list_deleteallitems_gc(((VM *) pointer)->sState,list);
-						simple_list_copy_gc(((VM *) pointer)->sState,list,SIMPLE_API_GETLIST(3));
+						if (simple_vm_oop_isobject(SIMPLE_API_GETLIST(3))) {
+							//simple_list_get_pointer(list, SIMPLE_API_GETLIST(3));
+							//revisit
+							simple_list_copy_gc(((VM *) pointer)->sState,list,SIMPLE_API_GETLIST(3));
+						}
+						else {
+							simple_list_deleteallitems_gc(((VM *) pointer)->sState,list);
+							simple_list_copy_gc(((VM *) pointer)->sState,list,SIMPLE_API_GETLIST(3));
+						}
 					}
 					return ;
 				}

@@ -145,7 +145,7 @@ SIMPLE_API void simple_vm_oop_newobj ( VM *vm )
 				/* Create the Super Virtual Object */
 				simple_vm_oop_newsuperobj(vm,list3,list);
 				/* Enable NULL variables (To be class attributes) */
-				vm->nInClassRegion++ ;
+				vm->within_class++ ;
 				/* Support using Braces to access the object state */
 				vm->pBraceObject = list2 ;
 				return ;
@@ -298,7 +298,7 @@ SIMPLE_API void simple_vm_oop_setscope ( VM *vm )
 	simple_vm_oop_aftercallmethod(vm);
 	simple_list_deleteitem_gc(vm->sState,vm->aScopeNewObj,simple_list_getsize(vm->aScopeNewObj));
 	/* Disable NULL variables (To be class attributes) */
-	vm->nInClassRegion-- ;
+	vm->within_class-- ;
 	/* POP Class Modules */
 	simple_vm_oop_popclassmodules(vm);
 }
@@ -373,7 +373,7 @@ SIMPLE_API void simple_vm_oop_property ( VM *vm )
 	vm->nGetSetProperty = 1 ;
 	if ( simple_vm_findvar(vm, SIMPLE_VM_IR_READC ) == 0 ) {
 		/* Create the attribute if we are in the class region after the class name */
-		if ( vm->nInClassRegion ) {
+		if ( vm->within_class ) {
 			simple_vm_newvar(vm, SIMPLE_VM_IR_READC);
 			/* Support for Private Flag */
 			simple_list_setint_gc(vm->sState,(List *) SIMPLE_VM_STACK_READP,SIMPLE_VAR_PRIVATEFLAG,vm->nPrivateFlag);

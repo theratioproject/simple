@@ -1,127 +1,370 @@
-/* 
-	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com> 
-	MIT License Copyright (c) 2018 simple 
+/*
+
 
 */
 
-/* 
- * @filename - JsonObject.sim
- * @author - Azeez Adewale
- * @date - 26 Febuary 2017
- * @Time - 08:04 pM
- */
+/*
 
+*/
 call simple.core.Object
-call parser.json.JsonParser
+call parser.json.JsonMember
 
+/*
+
+*/
 module parser.json
 
-class JsonObject : JsonParser
+/*
 
-	#Initialize the constructor with the string to parse.
-	#Alternatively the class can be intantiated without the constructor
-	#but the content has to specified with the 
-	#@Block setContent(content) mean while both blocks calls the 
-	#initJson() which intantiate the @Field JSONPOINTER
-	block JsonObject(content)
-		_JSON_CONTENT = content
-		initObject()
+*/
+class JsonObject : Object
+
+	/*
 	
-	#Get the type of the object in the @DataType NUMBER value
-	block getObjectType()
-		return __json_c_object_get_type(JSONPOINTER)
+	*/
+	final /*list*/ members = []
+		
+	/*
 	
-	#Get the type of object in the @DataType String value by passing
-	#the @Block getObjectType() to the @LowLevelFuction #__json_c_type_to_name(value) which then returns the @DataType 
-	#STRING value of the corresponding @Class JsonObject 
-	block getObjectTypeName()
-		return __json_c_type_to_name(getObjectType())
-		
-	#get the child object with the string value this @Block 
-	#getChildObject(object) returns an instance of the @Class JsonObject
-	block getChildObject(object)
-		JSON_CHILD_POINTER = __json_c_object_object_get(JSONPOINTER, object)
-		newJsonObject = new JsonObject
-		newJsonObject.setPointer(JSON_CHILD_POINTER)
-		return newJsonObject
-		
-	#Does same thing as the @Block getChildObject(object)	
-	block getObject(object)
-		return getChildObject(object)
-		
-	#Get the content of a child object in a parent object without creating a 
-	#a new instance of the Object
-	#@Return content of child object @DataType STRING
-	block getChildObjectContent(id)
-		return getChildObject(id).getContent()
-		
-	#This block get the content of the JSON object and return it as string 
-	#no matter the type of content be it string, int, big int, boolean 
-	#or any other it just return it as string
-	#@Return content of object @DataType STRING
-	block getContent()
-		return __json_c_object_to_json_string(JSONPOINTER)
+	*/
+	boolean Dynamic = false
+
+	/*
 	
-	#If you are certain your object content is @DataType STRING you can use
-	#this block to get the content. The edge of using this is that the content
-	#is returned without the "" wrap around the string. If you are not sure 
-	#of the JSON object type you should call the @Block getContent() instead
-	#@Return content of object @DataType STRING
-	block getStringContent()
-		return __json_c_object_get_string(JSONPOINTER)
+	*/
+	block JsonObject(boolean params...)
+		paramsLen = lengthOf(params)
+		if paramsLen == 0 {
+		elif paramsLen == 1
+			Dynamic = params[0]
+		else
+			throw(self, "Calling block with extra parameters!")
+		}
+		return self
 		
-	#Get the value/content of your JSON object as @DataType Number if you
-	#are sure it content is number only else an error might occur. This is quite
-	#different from double type of content calling this on a double type of 
-	#object will definitely break the decimals and end up rounding it to whole
-	#number for decimal call the @Block getDecimalContent() instead
-	#@Return number content of object @DataType NUMBER
-	block getNumberContent()
-		return  __json_c_object_get_number(JSONPOINTER)
-		
-	#This block is used for getting the decimal/double/float type of JSON
-	#content if other type of content are used it might break the decimals
-	#Return decimal content of JSON object @DataType NUMBER
-	block getDecimalContent()
-		return  __json_c_object_get_decimal(JSONPOINTER)
-		
-	#Get the boolean type of JSON object. It does not equals calling 
-	#@Block getContent() as it return the boolean value as @DataType STRING
-	#but this block return the boolean value correctly which interpretes to 
-	#1 and 0 on the low level
-	#@Return boolean content of JSON object @DataType BOOLEAN
-	block getBooleanContent()
-		if __json_c_object_get_boolean(JSONPOINTER) == true
-			return true
-		else 
-			return false
-		end
-		
-	#Get the size of objects in the object	
-	#@Return length of object @DataType NUMBER
-	block length()
-		return __json_c_object_length(JSONPOINTER)
-		
-	#currently failing	
-	block getObjectById(id)
-		#display __json_c_object_object_get_id(JSONPOINTER,id)
-		JSON_CHILD_POINTER = __json_c_object_object_get_id(JSONPOINTER, id)
-		newJsonObject = new JsonObject
-		newJsonObject.setPointer(JSON_CHILD_POINTER)
-		return newJsonObject
+	/*
 	
-	private 
+	*/
+	block add(object params...)
+		name = null
+		value = null
+		member = null
+		paramsLen = lengthOf(params)
 		
-		#intantiate the @Field JSONPOINTER with the content. if the 
-		#content of this class changes then this block have to be 
-		#called all the attributes and properties of the 
-		#@Class JsonObject are freed and a new pointer is assigned
-		block initObject()
-			JSONPOINTER = __init_json_c(_JSON_CONTENT)
-			/*try  getContent() catch 
-				display "-----> Error occur while parsing JSON "+crlf
-				display "	Your JSON format might be incorrect"
-				__exit__
-			end*/
+		if paramsLen == 1 {
+			member = params[0]
+			if !instanceOf(member,"JsonMember") {
+				throw(self, "Invalid parameter, expected (parser.json.JsonMember), found (" + objectType(member) + ")")
+				return
+			}
+		elif paramsLen == 2
+			name = params[0]
+			value = params[1] 
+			if isString(name) and !isNull(value) {
+				member = new JsonMember(name, value)
+			else
+				throw(self, "Invalid parameter, expected (string, object), found (" + objectType(name) + "," + objectType(value) + ")")
+				return
+			}
+		else
+			throw(self, "Calling block with extra parameters")
+			return
+		}
+		__add_to_list(members, member)
+		if Dynamic {
+			__add_attribute_to_object(self,member.Name) 
+			__set_attribute_value(self,member.Name,member.Value) 
 			
+			/*getter = block { 
+				return get(0)	
+			}
+			setter = block(value) { 
+				set(0, value)
+			}
+			__add_method_to_object(self, "get" + member.Name, getter)
+			__add_method_to_object(self, "set" + member.Name, setter) */
+		}
+		
+	/*
+	
+	*/
+	block addAll(JsonMember mems...)
+		for member in mems {
+			add(member)
+		}
+		
+	/*
+	
+	*/
+	block set(object index, object value)
+		if isNumber(index) {
+			if instanceOf(value,"JsonMember") {
+				members[index] = value
+			else
+				member = new JsonMember(members[index].Name, value)
+				members[index] = member
+			}
+		elif isString(index)
+			membersLen = lengthOf(members) - 1
+			for a = 0 to membersLen {
+				member = members[a]
+				if objEquals(member.Name, index) {
+					if instanceOf(value,"JsonMember") {
+						members[a] = value
+					else
+						member = new JsonMember(members[a].Name, value)
+						members[a] = member
+					}
+					return
+				}
+			}
+			add(index, value)
+		else
+			throw(self, "Invalid parameter, expected (String|Number, object), found (" + objectType(index) + "," + objectType(value) + ")")
+		}
+	
+	/*
+	
+	*/
+	block get(object index)
+		if isNumber(index) {
+			return members[index]
+		elif isString(index) 
+			membersLen = lengthOf(members) - 1
+			for a = 0 to membersLen {
+				if objEquals(members[a].getName(), index) {
+					return members[a]
+				}
+			}
+			throw(self, strFormat("The requested JSON member '%s' cannot be found", index) )
+		else
+			throw(self, "Invalid parameter, expected (String|Number), found (" + objectType(index) + ")")
+		}
+		
+	/*
+	
+	*/
+	block getValue(object index)
+		return get(index).getValue()
+		
+	/*
+	
+	*/
+	block remove(object index)
+		if isNumber(index) {
+			obj = members[index]
+			__del_from_list(members, index)
+			return obj
+		elif isString(index)
+			membersLen = lengthOf(members) - 1
+			for a = 0 to membersLen {
+				member = members[a]
+				if objEquals(member.getName(), index) {
+					__del_from_list(members, a)
+					return member
+				}
+			}
+			return null
+		else
+			throw(self, "Invalid parameter, expected (String|Number), found (" + objectType(index) + ")")
+			return null
+		}
+		
+	/*
+	
+	*/
+	block contains(object index)
+		if isNumber(index) {
+			return (lengthOf(members) >= index)
+		elif isString(index)
+			membersLen = lengthOf(members) - 1
+			for a = 0 to membersLen {
+				member = members[a]
+				if objEquals(member.getName(), index) {
+					return true
+				}
+			}
+			return false
+		else
+			throw(self, "Invalid parameter, expected (String|Number), found (" + objectType(index) + ")")
+			return null
+		}
+		
+	/*
+	
+	*/
+	block isEmpty()
+		return lengthOf(members) == 0
+		
+	/*
+	
+	*/
+	block toFlatString()
+		str = "{"
+		first = true
+		for member in members {
+			if !first {
+				str += ","
+			else
+				first = false
+			}
+			str += member.toFlatString()
+		}
+		str += "}"
+		return str	
+		
+	/*
+	
+	*/
+	block toString(string params...)
+		paramsLen = lengthOf(params)
+		if paramsLen == 0 {
+		elif paramsLen == 1
+			iindent = params[0]
+			if isWhiteSpace(iindent) {
+				indent += iindent
+			}
+		else
+			throw(self, "Calling block with extra parameters")
+		}
+		if lengthOf(members) == 0 { return "{}" }
+		str = "{" + ascii(10) 
+		indent += "    "
+		first = true
+		for member in members {
+			if !first {
+				str += ","
+				str += ascii(10)
+			else
+				first = false
+			}
+			str += indent + member.toString(indent)
+		}
+		str += ascii(10) + strLeft(indent, lengthOf(indent) - 5)  + "}"
+		return str
+		
+	/*
+	
+	*/
+	block size()
+		return lengthOf(members)
+
+	/*
+
+	*/
+	block operator(string op, object value) 
+		switch op {
+			case "lengthOf"
+				return lengthOf(members)
+			case "iterator"
+				return lengthOf(members) - 1
+			case "="
+				return equals(value)
+			case "!="
+				return !equals(value)
+			case "[]"
+				return get(value)
+		}
+		return super.operator(op, value)
+		
+	/*
+	
+	*/
+	block equals(object obj)
+		if !isObject(obj) or !__instance_of(obj,"JsonObject") {
+			return false
+		}
+		if size() != obj.size() {
+			return false
+		}
+		for a = 0 to size()-1 {
+			if (!get(a).equals(obj.get(a))) {
+				return false
+			}
+		}
+		return true
+		
+	/*
+	
+	*/
+	block toList()
+		lst = members
+		return lst
+		
+	/*
+	
+	*/
+	block asArray()
+		return members
+		
+	/*
+	
+	*/
+	block isJsonObject()
+		return true
+		
+	/*
+	
+	*/
+	block isJsonArray()
+		return false
+		
+	/*
+	
+	*/
+	block join(/*JsonObject|JsonMember*/object params...)
+		paramsLen = lengthOf(params)
+		union = false
+		newMembers = null
+		if paramsLen == 1 {
+			newMembers = params[0]
+			if !instanceOf(newMembers, "JsonObject") and !instanceOf(newMembers, "JsonMember") {
+				throw(self, "Invalid parameters, expected (JsonObject|JsonMember), found (" + objectType(newMembers) + ")")
+			}
+		elif paramsLen == 2
+			newMembers = params[0]
+			union = booleanValue(params[1])
+			if (!instanceOf(newMembers, "JsonObject") and !instanceOf(newMembers, "JsonMember")) {
+				throw(self, "Invalid parameters, expected (JsonObject|JsonMember, boolean), found (" + objectType(newMembers) + ")")
+			}
+		else
+			throw(self, "Calling block with invalid lengthOf parameters")
+		}
+		if instanceOf(newMembers, "JsonObject") {
+			for member in newMembers {
+				if union {
+					if contains(member.Name) {
+						set(member.Name, member)
+					else 
+						add(member)
+					}
+				else
+					add(member)
+				}
+			}
+		else
+			if union {
+				if contains(newMembers.Name) {
+					set(newMembers.Name, newMembers)
+				else 
+					add(newMembers)
+				}
+			else
+				add(newMembers)
+			}
+		}
+		
+	/*
+	
+	*/
+	private
+	
+		/*
+		
+		*/
+		string indent = ""
+	
+	
+	
+	
 		

@@ -1,0 +1,17 @@
+[
+  0,
+  1234,
+  "axbf",
+  true,
+  false,
+  null,
+  {
+    "abc": [
+      true,
+      false
+    ]
+  },
+  {
+    "000": 0
+  }
+]

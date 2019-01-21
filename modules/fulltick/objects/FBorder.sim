@@ -66,7 +66,7 @@ class FBorder : Object
             right = params[3] 
             boxtype = params[4] 
             color = params[5]
-            if isNumber(top) and isNumber(bottom) and isNumber(left) and isNumber(right) and (isNumber(boxtype) or instanceof(boxtype,"FBoxType")) and (isNumber(color) or isString(color) or instanceof(color,"FColor")) {
+            if isNumber(top) and isNumber(bottom) and isNumber(left) and isNumber(right) and (isNumber(boxtype) or instanceOf(boxtype,"FBoxType")) and (isNumber(color) or isString(color) or instanceOf(color,"FColor")) {
                 Top = top
                 Bottom = bottom
                 Left = left
@@ -84,7 +84,7 @@ class FBorder : Object
                     Color = color
                 }
             else
-                throw(self,"Invalid parameters. Expecting (Number,Number,Number,Number,Number|fulltick.drwaing.FBoxType,Number|String|fulltick.painting.FColor), Found (" + objecttype(top) + "," + objecttype(bottom) + "," + objecttype(left) + "," + objecttype(right) + "," + objecttype(boxtype) + "," + objecttype(color) + ")")
+                throw(self,"Invalid parameters. Expecting (Number,Number,Number,Number,Number|fulltick.drwaing.FBoxType,Number|String|fulltick.painting.FColor), Found (" + objectType(top) + "," + objectType(bottom) + "," + objectType(left) + "," + objectType(right) + "," + objectType(boxtype) + "," + objectType(color) + ")")
             }
         else
             throw(self,"Calling block with invalid lenght of parameter")
@@ -102,7 +102,7 @@ class FBorder : Object
             __value = value
             Color = new FColor(__value) 
         else
-            throw(self,FULLTICK_INVALID_PARAMETER + ". Expecting innstance of 'Fcolor', 'Color', 'number' or 'string' as FBorder Color value. Found (" + objecttype(value) + ")")
+            throw(self,FULLTICK_INVALID_PARAMETER + ". Expecting innstance of 'Fcolor', 'Color', 'number' or 'string' as FBorder Color value. Found (" + objectType(value) + ")")
         }
         if !isNull(Component) {
             __Fl_Widget_color_1(Component.Ptr,Color.colorAsNumber())
@@ -122,7 +122,7 @@ class FBorder : Object
 
     */
     block setBoxType(value)
-        if isNumber(value) or instanceof(value,"FBoxType") {
+        if isNumber(value) or instanceOf(value,"FBoxType") {
             if isNumber(value) {
                 BoxType = new FBoxType(value)
             else
@@ -132,7 +132,7 @@ class FBorder : Object
                 BoxType = value
             }
         else
-            throw(self,FULLTICK_INVALID_PARAMETER + ". Expecting (Number|simple.drawing.FBoxType), Found (" + objecttype(value) + ")")
+            throw(self,FULLTICK_INVALID_PARAMETER + ". Expecting (Number|simple.drawing.FBoxType), Found (" + objectType(value) + ")")
         }
         if !isNull(Component) {
             __Fl_Widget_box_1(Component.Ptr,BoxType.BoxType)
@@ -223,10 +223,10 @@ class FBorder : Object
         #internal use only
     */
     block setComponent(comp) 
-        if instanceof(comp,"FGroup") {
+        if instanceOf(comp,"FGroup") {
             Component = comp
         else
-            throw(self,"Setting Component with invalid parameter , Expecting (fulltick.widget.FGroup), Found (" + objecttype(comp) + ")")
+            throw(self,"Setting Component with invalid parameter , Expecting (fulltick.widget.FGroup), Found (" + objectType(comp) + ")")
         }
 
     /*
