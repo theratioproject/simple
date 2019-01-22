@@ -152,17 +152,20 @@ copymodules() {
 			if [ -e ~/$simple_debug_version/modules/simple ]; then 
 				rm -R -f ~/$simple_debug_version/modules/archive
 				rm -R -f ~/$simple_debug_version/modules/fulltick
+				rm -R -f ~/$simple_debug_version/modules/parser
 				rm -R -f ~/$simple_debug_version/modules/simple
 				rm -R -f ~/$simple_debug_version/modules/web
 			fi
 			mkdir -p ~/$simple_debug_version/modules/archive
 			mkdir -p ~/$simple_debug_version/modules/fulltick
+			mkdir -p ~/$simple_debug_version/modules/parser
 			mkdir -p ~/$simple_debug_version/modules/simple
 			mkdir -p ~/$simple_debug_version/modules/web
 			if [ -e "../modules/modules-dependencies.conf" ]; then
 				cp "../modules/modules-dependencies.conf" ~/$simple_debug_version/modules/
 				cp -R "../modules/archive" ~/$simple_debug_version/modules/
 				cp -R "../modules/fulltick" ~/$simple_debug_version/modules/
+				cp -R "../modules/parser" ~/$simple_debug_version/modules
 				cp -R "../modules/simple" ~/$simple_debug_version/modules
 				cp -R "../modules/web" ~/$simple_debug_version/modules/
 				treat_first_calls_file $1 ~/$simple_debug_version/modules/simple/core/__first_calls.sim
@@ -175,17 +178,20 @@ copymodules() {
 			if [ -e "$PREFIX/var/lib/simple/$version/modules/simple" ]; then 
 				rm -R -f "$PREFIX/var/lib/simple/$version/modules/archive"
 				rm -R -f "$PREFIX/var/lib/simple/$version/modules/fulltick"
+				rm -R -f "$PREFIX/var/lib/simple/$version/modules/parser"
 				rm -R -f "$PREFIX/var/lib/simple/$version/modules/simple"
 				rm -R -f "$PREFIX/var/lib/simple/$version/modules/web"
 			fi
 			mkdir -p "$PREFIX/var/lib/simple/$version/modules/archive"
 			mkdir -p "$PREFIX/var/lib/simple/$version/modules/fulltick"
+			mkdir -p "$PREFIX/var/lib/simple/$version/modules/parser"
 			mkdir -p "$PREFIX/var/lib/simple/$version/modules/simple"
 			mkdir -p "$PREFIX/var/lib/simple/$version/modules/web"
 			if [ -e "../modules/modules-dependencies.conf" ]; then
 				cp "../modules/modules-dependencies.conf" "$PREFIX/var/lib/simple/$version/modules/"
 				cp -R "../modules/archive" "$PREFIX/var/lib/simple/$version/modules/"
 				cp -R "../modules/fulltick" "$PREFIX/var/lib/simple/$version/modules/"
+				cp -R "../modules/parser" "$PREFIX/var/lib/simple/$version/modules/"
 				cp -R "../modules/simple" "$PREFIX/var/lib/simple/$version/modules"
 				cp -R "../modules/web" "$PREFIX/var/lib/simple/$version/modules/"
 				treat_first_calls_file $1 "$PREFIX/var/lib/simple/$version/modules/simple/core/__first_calls.sim"

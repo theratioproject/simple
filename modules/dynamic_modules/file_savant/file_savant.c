@@ -43,6 +43,10 @@
  * Created on February 11, 2018, 12:28 AM
  */
  
+#ifndef _WIN32
+#include <dirent.h>
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -177,9 +181,22 @@ typedef union Simple_uData {
 #define        S_IFWHT  0160000  /* whiteout */
 #endif
 
+#ifndef _POSIX_SOURCE 
+#define	S_IREAD		S_IRUSR 
+#define	S_IWRITE	S_IWUSR 
+#define	S_IEXEC		S_IXUSR 
+#endif
+
+#if !defined(S_ISUID)
 static const mode_t S_ISUID      = 0x08000000;           ///< does nothing
+#endif
+#if !defined(S_ISGID)
 static const mode_t S_ISGID      = 0x04000000;           ///< does nothing
+#endif
+#if !defined(S_ISVTX)
 static const mode_t S_ISVTX      = 0x02000000;           ///< does nothing
+#endif
+
 static const mode_t MS_MODE_MASK = 0x0000ffff;           ///< low word
 
 #if !defined(chmod) && defined(_WIN32)
@@ -1162,49 +1179,6 @@ SIMPLE_BLOCK(file_savant_sprintf)
 	SIMPLE_API_RETNUMBER(sprintf(str1,str2,point3));
 }
 
-SIMPLE_BLOCK(file_savant_vfprintf) 
-{
-	FILE * point1;
-	const char * str2;
-	va_list point3;
-	if ( SIMPLE_API_PARACOUNT != 3 ) {
-		SIMPLE_API_ERROR(SIMPLE_API_MISS3PARA);
-		return ;
-	}
-	point1 = (FILE *) SIMPLE_API_GETCPOINTER(1,"SMOOTHC_FILE_SAVANT");
-	str2 = (const char *)  SIMPLE_API_GETSTRING(2);
-	point3 = (va_list) SIMPLE_API_GETCPOINTER(3,"SMOOTHC_FILE_SAVANT");
-	SIMPLE_API_RETNUMBER(vfprintf(point1,str2,point3));
-}
-
-SIMPLE_BLOCK(file_savant_vprintf) 
-{
-	const char * str1;
-	va_list point2;
-	if ( SIMPLE_API_PARACOUNT != 2 ) {
-		SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
-		return ;
-	}
-	str1 = (const char *)  SIMPLE_API_GETSTRING(1);
-	point2 = (va_list) SIMPLE_API_GETCPOINTER(2,"SMOOTHC_FILE_SAVANT");
-	SIMPLE_API_RETNUMBER(vprintf(str1,point2));
-}
-
-SIMPLE_BLOCK(file_savant_vsprintf) 
-{
-	char * str1;
-	const char * str2;
-	va_list point3;
-	if ( SIMPLE_API_PARACOUNT != 3 ) {
-		SIMPLE_API_ERROR(SIMPLE_API_MISS3PARA);
-		return ;
-	}
-	str1 = (char *)  SIMPLE_API_GETSTRING(1);
-	str2 = (const char *)  SIMPLE_API_GETSTRING(2);
-	point3 = (va_list) SIMPLE_API_GETCPOINTER(3,"SMOOTHC_FILE_SAVANT");
-	SIMPLE_API_RETNUMBER(vsprintf(str1,str2,point3));
-}
-
 SIMPLE_BLOCK(file_savant_fscanf) 
 {
 	FILE * point1;
@@ -1797,9 +1771,6 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
 	register_block("__fprintf",file_savant_fprintf);
 	register_block("__printf",file_savant_printf);
 	register_block("__sprintf",file_savant_sprintf);
-	register_block("__vfprintf",file_savant_vfprintf);
-	register_block("__vprintf",file_savant_vprintf);
-	register_block("__vsprintf",file_savant_vsprintf);
 	register_block("__fscanf",file_savant_fscanf);
 	register_block("__scanf",file_savant_scanf);
 	register_block("__sscanf",file_savant_sscanf);

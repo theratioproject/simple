@@ -52,9 +52,9 @@ LDLIBSOPTIONS=
 	int fprintf(FILE *stream, const char *format, ...)
 	int printf(const char *format, ...) 
 	int sprintf(char *str, const char *format, ...)
-	int vfprintf(FILE *stream, const char *format, va_list arg)
-	int vprintf(const char *format, va_list arg)
-	int vsprintf(char *str, const char *format, va_list arg)
+	#int vfprintf(FILE *stream, const char *format, va_list arg)
+	#int vprintf(const char *format, va_list arg)
+	#int vsprintf(char *str, const char *format, va_list arg)
 	int fscanf(FILE *stream, const char *format, ...)
 	int scanf(const char *format, ...)
 	int sscanf(const char *str, const char *format, ...)
@@ -168,6 +168,8 @@ LDLIBSOPTIONS=
 	mode_t S_IXOTH
 	mode_t MS_MODE_MASK
 	mode_t S_IWRITE
+	mode_t S_IREAD
+	mode_t S_IEXEC
 }
 
 [NumberType]{
@@ -214,6 +216,10 @@ LDLIBSOPTIONS=
  *
  * Created on February 11, 2018, 12:28 AM
  */
+ 
+#ifndef _WIN32
+#include <dirent.h>
+#endif
  
 #ifdef __cplusplus
 extern "C" {
@@ -349,9 +355,23 @@ typedef union Simple_uData {
 #define        S_IFWHT  0160000  /* whiteout */
 #endif
 
+#ifndef _POSIX_SOURCE 
+#define	S_IREAD		S_IRUSR 
+#define	S_IWRITE	S_IWUSR 
+#define	S_IEXEC		S_IXUSR 
+#endif
+
+
+#if !defined(S_ISUID)
 static const mode_t S_ISUID      = 0x08000000;           ///< does nothing
+#endif
+#if !defined(S_ISGID)
 static const mode_t S_ISGID      = 0x04000000;           ///< does nothing
+#endif
+#if !defined(S_ISVTX)
 static const mode_t S_ISVTX      = 0x02000000;           ///< does nothing
+#endif
+
 static const mode_t MS_MODE_MASK = 0x0000ffff;           ///< low word
 
 #if !defined(chmod) && defined(_WIN32)
