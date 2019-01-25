@@ -8,11 +8,11 @@ call simple.io.File
 call simple.utilities.Console
 
 block main()
-	file = new File("../../../../../tests.txt")
+	file = new File("../../../testfiles/test.txt")
 	stdout.println(file) 
 	file.NameOnly = "yello"
 	stdout.println(file)
-	file.NameOnly = "tests"
+	file.NameOnly = "test"
 	file.NameExtension = "pdf"
 	stdout.println(file)
 	file.NameExtension = "txt"

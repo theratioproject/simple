@@ -107,7 +107,7 @@ block isDigit(var)
 */
 block isControlChar(var)
 	tempVar = __get_var_as_string(var)
-	return __is_control_ascii(tempVar)
+	return __is_control_char(tempVar)
 	
 /*
 	Check if a Variable is has a graphical representation using locale or

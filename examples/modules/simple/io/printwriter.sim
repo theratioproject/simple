@@ -9,7 +9,7 @@ call simple.io.FileWriter
 call simple.io.PrintWriter
 
 block main()
-	fileWriter = new FileWriter("../../../../../simple_test.txt")
+	fileWriter = new FileWriter("../../../testfiles/test.txt", false, true)
 	printWriter = new PrintWriter(fileWriter, true)
 	printWriter.print(fileWriter)
 	printWriter.println()

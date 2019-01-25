@@ -405,11 +405,7 @@ class Path : Object
 				return false
 			}
 		}
-		if isDirectory() {
-			newDir = directory.AbsolutePath + SystemSlash + Name
-		else
-			newDir = directory.AbsolutePath + Name
-		}
+		newDir = directory.AbsolutePath + SystemSlash + Name
 		return renameTo(newDir, override)
 		
 	/*

@@ -601,7 +601,6 @@ void file_savant_file_exists ( void *pointer )
                 fclose( fp ) ;
                 SIMPLE_API_RETNUMBER(1);
             } else {
-                fclose( fp ) ;
                 SIMPLE_API_RETNUMBER(0);
             }
     } else {
