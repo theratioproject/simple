@@ -4,8 +4,8 @@
 	Type.sim
 
 */
-
-call "simple/utilities/Type.sim"
+call simple.utilities.Console
+call simple.utilities.Type
 
 block main()
 	str = "asas6565sas32a"
@@ -19,65 +19,66 @@ block main()
 	list = [str,alpha,space,hex,alphal,digit,punct,control]
 	listLen = lengthOf(list) - 1
 	
-	@"checking the following values"
+	stdout.println("checking the following values")
 	for a = 0 to listLen {
-		display " " + list[a]
+		stdout.print(" " + list[a])
 	}
 	
-	@nl+"AlphaNum"
+	stdout.print("\nAlphaNum")
 	for a = 0 to listLen {
-		display "	" + isAlphaNum(list[a])
+		stdout.print("	" + isAlphaNum(list[a]))
 	}
 	
-	@nl+"Alpha"
+	stdout.print("\nAlpha")
 	for a = 0 to listLen {
-		display "	" + isAlpha(list[a])
+		stdout.print("	" + isAlpha(list[a]))
 	}
 	
-	@nl+"Digit"
+	stdout.print("\nDigit")
 	for a = 0 to listLen {
-		display "	" + isDigit(list[a])
+		stdout.print("	" + isDigit(list[a]))
 	}
 	
-	@nl+"Control"
+	stdout.print("\nControl")
 	for a = 0 to listLen {
-		display "	" + isControlChar(list[a])
+		stdout.print("	" + isControlChar(list[a]))
 	}
 	
-	@nl+"Graph"
+	stdout.print("\nGraph")
 	for a = 0 to listLen {
-		display "	" + isGraphical(list[a])
+		stdout.print("	" + isGraphical(list[a]))
 	}
 	
-	@nl+"Lower"
+	stdout.print("\nLower")
 	for a = 0 to 4 {
-		display "	" + isLowerCase(list[a])
+		stdout.print("	" + isLowerCase(list[a]))
 	}
 	
-	@nl+"Upper"
+	stdout.print("\nUpper")
 	for a = 0 to 4 {
-		display "	" + isUpperCase(list[a])
+		stdout.print("	" + isUpperCase(list[a]))
 	}
 	
-	@nl+"Print"
+	stdout.print("\nPrintable")
 	for a = 0 to listLen {
-		display "	" + isPrintable(list[a])
+		stdout.print("	" + isPrintable(list[a]))
 	}
 	
-	@nl+"Space"
+	stdout.print("\nSpace")
 	for a = 0 to listLen {
-		display "	" + __isWhiteSpace(list[a])+' '+isWhiteSpace(list[a])
+		stdout.print("	" + __isWhiteSpace(list[a])+' '+isWhiteSpace(list[a]))
 	}
 	
-	@nl+"Punct"
+	stdout.print("\nPunct")
 	for a = 0 to listLen {
-		display "	" + isPunctuation(list[a])
+		stdout.print("	" + isPunctuation(list[a]))
 	}
 	
-	@nl+"HexDigit"
+	stdout.print("\nHexDigit")
 	for a = 0 to listLen {
-		display "	" + isHexDigit(list[a])
+		stdout.print("	" + isHexDigit(list[a]))
 	}
+	stdout.println()
 	
 	
 	

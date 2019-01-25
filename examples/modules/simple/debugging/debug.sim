@@ -15,9 +15,10 @@
 	simple-lang debugging module @Module simple/debugging/
 */
 
-call "simple/utilities/Length.sim"
-call "simple/debugging/Throw.sim"
-call "simple/debugging/Debug.sim"
+call simple.utilities.Length
+call simple.utilities.Console
+call simple.debugging.Throw
+call simple.debugging.Debug
 
 block main()
 	errorList = [
@@ -55,8 +56,8 @@ block main()
 	/*
 		Assertion : only boolean and number is asserted
 	*/
-	#assert("string not assert able") #fails
-	#assert((true == false)) #fails
+	assert("string not assert able") #fails
+	assert((true == false)) #fails
 	assert((1 > -300)) #pass
 	
 	/*
@@ -65,8 +66,7 @@ block main()
 	try {
 		one(errorList[2])
 	catch
-		@" "+crlf
-		@"This error was catched |> " + __err__ + " <<<"
+		stdout.println("\nThis error was catched |> " + __err__ + " <<<")
 	}
 
 block one(a)
@@ -85,4 +85,4 @@ block three(a)
 	
 block four()
 	stactTrace = stackTrace()
-	@crlf @stactTrace
+	stdout.println(stactTrace)

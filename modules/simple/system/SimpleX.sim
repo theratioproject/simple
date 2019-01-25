@@ -158,7 +158,7 @@ block simpleDocDir()
 block simpleExecDir()
 	if isNull(__simpleExecDir) {
 		simpleExecDir = exeFolder()
-		if !__exists(simpleExecDir+"/simple"+simpleXExeExt()) {
+		if !__file_exists(simpleExecDir+"/simple"+simpleXExeExt()) {
 			if isWindows() {
 				simpleExecDir = simpleDir()+"/s"+simpleVersion()+"/bin/"
 			else

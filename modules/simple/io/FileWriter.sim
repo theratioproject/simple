@@ -96,7 +96,7 @@ class FileWriter : Object
 		else
 			throw(self,"Calling block with invalid length of parameters !")
 			return null
-		}	
+		}
 		
 		if !__file_exists(file) {
 			if !CreateIfNotFound {

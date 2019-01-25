@@ -28,6 +28,5 @@ display crlf + "Now you can play Game"
 
 
 /*
-	ascii(13) - clears the line
-	to be used for printInLine() block in Console class
+	ascii(13) \r - clears the line
 */

@@ -10,15 +10,15 @@ call simple.utilities.Console
 block main() 
 	directory = new Directory("../../../../")
 	stdout.println(directory)
-	stdout.println(directory.listContent())
+	stdout.println(directory.Contents)
 	stdout.println("The Files")
-	files = directory.listFiles()
+	files = directory.Files
 	for file in files {
 		stdout.println(file.AbsolutePath)
 	}
 	
 	stdout.println("The Folders")
-	folders = directory.listDirectories()
+	folders = directory.Directories
 	for folder in folders {
 		stdout.println(folder.AbsolutePath)
 	} 
