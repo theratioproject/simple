@@ -131,7 +131,7 @@ issue related to the module
 - [ ] parser.json module to parse and create json string
 	- [x] load json from string and create json from class, list and manually
 	- [ ] a json module that load the json file and store as class attributes and fields and allow writing back to file
-- [x] create a built in module to get hex as number using `H("0x00")
+- [x] create a built in block to get hex as number using `H("0x00")
 - [ ] build a comprehensive color module in simple.system
 - [ ] create a look ahead class for pure string and file stream for parser implementation
 	- [x] LookAhead class for pure string. `simple.utilities.LookAhead`

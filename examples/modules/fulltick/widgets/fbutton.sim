@@ -1,0 +1,43 @@
+
+/*
+
+*/
+call simple.core.Object
+call simple.utilities.Console
+call fulltick.drawing.FBoxType
+call fulltick.drawing.FAlignment
+call fulltick.drawing.FFont
+call fulltick.drawing.FLabelType
+call fulltick.objects.FBorder
+call fulltick.objects.FCursor
+call fulltick.objects.FKeys
+call fulltick.painting.FColor
+call fulltick.widgets.FWindow
+call fulltick.widgets.FGroup
+call fulltick.widgets.FButton
+call fulltick.FApp
+call fulltick.events.FCallbackEvent
+call fulltick.base.FWidget
+
+button = new ButtonDemo __exit__
+FApp.run() 
+
+class ButtonDemo : FCallbackEvent
+
+    fwindow = new FWindow(150,60,"FButton Testing only") {
+
+        fbutton = new FButton(80,30,"Send") {
+            Id = 1
+            setCallbackListener(self)
+        }
+
+        addWidget(fbutton)
+        centerOnScreen() 
+        show()        
+    } 
+
+    block callback(widget) 
+        if widget.Id = 1 { 
+            stdout.println("Callback invoked")
+        }
+        

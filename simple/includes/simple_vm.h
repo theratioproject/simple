@@ -311,12 +311,12 @@ SIMPLE_API void simple_vm_listassignment ( VM *vm ) ;
 
 SIMPLE_API void simple_vm_listgetvalue ( VM *vm,List *var,const char *cStr ) ;
 
-int simple_vm_strcmpnotcasesensitive ( const char *string_one,const char *cStr2 ) ;
+SIMPLE_API int simple_vm_strcmpnotcasesensitive ( const char *string_one,const char *cStr2 ) ;
 /* Blocks */
 
-int simple_vm_loadblock ( VM *vm ) ;
+SIMPLE_API int simple_vm_loadblock ( VM *vm ) ;
 
-int simple_vm_loadblock2 ( VM *vm,const char *cStr,int nPerformance ) ;
+SIMPLE_API int simple_vm_loadblock2 ( VM *vm,const char *cStr,int nPerformance ) ;
 
 SIMPLE_API void simple_vm_call ( VM *vm ) ;
 

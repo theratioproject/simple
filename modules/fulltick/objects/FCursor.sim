@@ -5,7 +5,6 @@
 */
 call simple.debugging.Throw
 call simple.core.Object
-call "../base/FulltickErrorMessages.sim" ? fulltick.base
 
 /*
 
@@ -158,7 +157,7 @@ class FCursor : Object
             elif isNumber(cursor) 
                 IsCursorNumber = true
             else
-                throw(self,FULLTICK_INVALID_PARAMETER+" Invalid cursor value, expecting Number, String, File or FImage")
+                throw(self," Invalid cursor value, expecting Number, String, File or FImage")
             }
         elif paramsLen == 2
             cursor = params[0]
@@ -166,7 +165,7 @@ class FCursor : Object
             if isNumber(cursor) and isString(cursorName) {
                 IsCursorNumber = true
             else
-                throw(self,FULLTICK_INVALID_PARAMETER+" Invalid cursor or cursorName value, expecting Number, String, File or FImage")
+                throw(self," Invalid cursor or cursorName value, expecting Number, String, File or FImage")
             }
         }
         if IsCursorNumber {

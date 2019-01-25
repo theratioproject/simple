@@ -17,17 +17,7 @@ module simple.reflection
 */
 block instanceOf(object obj, string clazz)
 	if !isObject(obj) { return false }
-	__object = obj
-	parentClass = __class_name(__object)
-	do { 
-		if parentClass == clazz {
-			return true
-		elif parentClass == null
-			return false
-		}
-		__object = executeCode("return new "+parentClass)
-		parentClass = __parent_class_name(__object)
-	} while parentClass != null 
+	return __instance_of(obj, clazz)
 	return false
 
 /*

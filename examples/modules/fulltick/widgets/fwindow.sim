@@ -1,0 +1,42 @@
+
+/*
+
+*/
+call simple.core.Object
+call simple.utilities.Console
+call simple.graphics.Dimension
+call simple.graphics.Rectangle
+call simple.graphics.Point
+call fulltick.drawing.FBoxType
+call fulltick.painting.FColor
+call fulltick.widgets.FWindow
+call fulltick.widgets.FGroup
+call fulltick.widgets.FLabel
+call fulltick.widgets.FButton
+call fulltick.widgets.FInput
+call fulltick.base.FWidget
+call fulltick.FApp
+call fulltick.events.FCallbackEvent
+
+new FWindowDemo
+FApp.run()
+
+class FWindowDemo : FCallbackEvent
+
+    fwindow = new FWindow("Window Demo") { 
+        finput = new FInput(10,10,"Android") 
+        fbutton = new FButton("Set Title") {
+            Id = 1
+            setCallbackListener(self)
+            setPosition(finput.Width + finput.X + 10, 10)
+        }
+        addWidget(finput,fbutton) 
+        show()        
+    } 
+
+    block callback(widget) 
+        if widget.Id = 1 { 
+            stdout.println("new Title : " + finput.Value)
+            fwindow.Title = finput.Value
+        }
+        

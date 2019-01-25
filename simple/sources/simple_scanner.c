@@ -93,7 +93,7 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
 			simple_list_addstring_gc(sState,sState->files_stack,logable_name);
 		} else {
 			if ( sState->nWarning ) {
-				//printf( "\nWarning, Duplication in FileName, %s \n",logable_name ) ;
+				printf( "\nWarning : Duplication in FileName, %s\n",logable_name ) ;
 			}
 			return 1 ;
 		}

@@ -7,12 +7,12 @@ call simple.graphics.Dimension
 call simple.graphics.Rectangle
 call simple.graphics.Point
 call simple.system.ScreenDimension
-call "../base/FWidget.sim" ? fulltick.base
-call "../FApp.sim" ? fulltick
-call "../FScheme.sim" ? fulltick
-call "./FGroup.sim" ? fulltick.widgets
-call "./FLabel.sim" ? fulltick.widgets
-call "../objects/FCursor.sim" ? fulltick.objects
+call fulltick.FApp
+call fulltick.FScheme
+call fulltick.base.FWidget
+call fulltick.widgets.FGroup
+call fulltick.widgets.FLabel
+call fulltick.objects.FCursor
 
 /*
 

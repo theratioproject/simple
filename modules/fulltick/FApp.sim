@@ -6,9 +6,10 @@ call simple.core.Object
 call simple.debugging.Throw
 call simple.debugging.ErrorMessages
 call simple.reflection.Class
-call "./events/FWindowEvent.sim" ? fulltick.events
-call "./base/loaddyfulltick.sim" ? fulltick.base
-call "./FScheme.sim" ? fulltick
+call fulltick.events.FWindowEvent
+call fulltick.base.loaddyfulltick
+call simple.system.Color
+call fulltick.FScheme
 
 /*
 
@@ -18,7 +19,7 @@ module fulltick
 /*
 
 */
-FApp = new fulltick.FApp
+final FApp = new fulltick.FApp
 
 /*
 

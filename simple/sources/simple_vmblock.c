@@ -15,12 +15,12 @@
 #include "../includes/simple.h"
 /* Blocks */
 
-int simple_vm_loadblock ( VM *vm )
+SIMPLE_API int simple_vm_loadblock ( VM *vm )
 {
 	return simple_vm_loadblock2(vm,SIMPLE_VM_IR_READC,1) ;
 }
 
-int simple_vm_loadblock2 ( VM *vm,const char *block_name,int nPerformance )
+SIMPLE_API int simple_vm_loadblock2 ( VM *vm,const char *block_name,int nPerformance )
 {
 	List *list,*list2,*list3  ;
 	int y  ; 

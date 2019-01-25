@@ -122,6 +122,8 @@ class Point : Object
 		switch op {
 			case "="
 				return equals(value)
+			case "!="
+				return !equals(value)
             case "+"
                 if isinstance(value) {
                     x = X + value.X
@@ -158,10 +160,8 @@ class Point : Object
                 else
                     throw(self,"Using operator with values of incorrect type : "+op)
                 }
-			default 
-				throw(self,"self operator behaviour is not defined : "+op)
 		}
-		return self
+		return super.operator(op, value)
 
     /*
 

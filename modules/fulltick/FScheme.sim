@@ -8,14 +8,13 @@ call simple.debugging.Throw
 call simple.debugging.ErrorMessages
 call simple.reflection.Class
 call simple.system.System
-call "./base/FulltickErrorMessages.sim" ? fulltick.base
-call "./painting/FColor.sim" ? fulltick.painting
-call "./objects/FBorder.sim" ? fulltick.objects
-call "./objects/FCursor.sim" ? fulltick.objects
-call "./drawing/FBoxType.sim" ? fulltick.drawing
-call "./drawing/FAlignment.sim" ? fulltick.drawing
-call "./drawing/FFont.sim" ? fulltick.drawing
-call "./drawing/FLabelType.sim" ? fulltick.drawing
+call fulltick.objects.FBorder
+call fulltick.objects.FCursor
+call fulltick.drawing.FBoxType
+call fulltick.drawing.FAlignment
+call fulltick.drawing.FFont
+call fulltick.drawing.FLabelType
+call fulltick.painting.FColor
 
 /*
 
@@ -25,12 +24,12 @@ module fulltick
 /*
 
 */
-FScheme = new fulltick.FScheme
+final FScheme = new fulltick.FScheme
 
 /*
 
 */
-if isWindows() and FScheme.UsePlatformUI {
+if isWindows() and FScheme.UsePlatformUI { @"Yes"
 	FScheme.set("FWindow.Y_Diff",30)
 	FScheme.set("FWindow.Background",new FColor(242,242,242))
 

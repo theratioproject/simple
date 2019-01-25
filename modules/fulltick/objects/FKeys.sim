@@ -4,7 +4,7 @@
 */
 call simple.core.Object
 call simple.reflection.Field
-call "../base/FWidget.sim" ? fulltick.base
+call fulltick.base.FWidget
 
 /*
 

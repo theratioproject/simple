@@ -2,9 +2,9 @@
 /*
 
 */
-call "../base/FWidget.sim" ? fulltick.base
-call "../base/FAlignment.sim" ? fulltick.drawing
 call simple.core.Object
+call fulltick.base.FWidget
+call fulltick.drawing.FAlignment
 
 /*
 

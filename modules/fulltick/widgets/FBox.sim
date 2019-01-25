@@ -3,11 +3,11 @@
 
 */
 call simple.core.Object
-call "../base/FWidget.sim" ? fulltick.base
-call "../painting/FColor.sim" ? fulltick.painting
-call "../drawing/FAlignment.sim" ? fulltick.drawing
-call "../drawing/FFont.sim" ? fulltick.drawing
-call "../drawing/FBoxType.sim" ? fulltick.drawing
+call fulltick.base.FWidget
+call fulltick.painting.FColor
+call fulltick.drawing.FAlignment
+call fulltick.drawing.FFont
+call fulltick.drawing.FBoxType
 
 /*
 
