@@ -7,7 +7,7 @@
 
 /* 
  * File:   simple.h
- * Author: thecarisma
+ * Author: Azeez Adewale
  *
  * Created on July 10, 2017, 1:10 PM
  */
@@ -34,19 +34,19 @@ HashTable * simple_hashtable_new_gc ( void *pState )
 	return pHashTable ;
 }
 
-unsigned int simple_hashtable_hashkey ( HashTable *pHashTable,const char *cKey )
+unsigned int simple_hashtable_hashkey ( HashTable *pHashTable,const char *key )
 {
 	unsigned int nIndex  ;
-	nIndex = simple_murmur3_32(cKey,strlen(cKey),0);
+	nIndex = simple_murmur3_32(key,strlen(key),0);
 	nIndex = nIndex % pHashTable->nLinkedLists ;
 	return nIndex ;
 }
 
-HashItem * simple_hashtable_newitem_gc ( void *pState,HashTable *pHashTable,const char *cKey )
+HashItem * simple_hashtable_newitem_gc ( void *pState,HashTable *pHashTable,const char *key )
 {
 	unsigned int nIndex  ;
 	HashItem *pItem  ;
-	nIndex = simple_hashtable_hashkey(pHashTable,cKey);
+	nIndex = simple_hashtable_hashkey(pHashTable,key);
 	if ( pHashTable->pArray[nIndex]   == NULL ) {
 		pHashTable->pArray[nIndex] = (HashItem *) simple_state_malloc(pState,sizeof(HashItem));
 		pItem = pHashTable->pArray[nIndex] ;
@@ -65,7 +65,7 @@ HashItem * simple_hashtable_newitem_gc ( void *pState,HashTable *pHashTable,cons
 		exit(0);
 	}
 	/* Store Copy from The Key */
-	pItem->cKey = strdup(cKey) ;
+	pItem->key = strdup(key) ;
 	/* Item type will be determined from the caller */
 	pItem->nItemType = SIMPLE_HASHITEMTYPE_NOTYPE ;
 	pItem->pNext = NULL ;
@@ -74,35 +74,35 @@ HashItem * simple_hashtable_newitem_gc ( void *pState,HashTable *pHashTable,cons
 	return pItem ;
 }
 
-void simple_hashtable_newnumber_gc ( void *pState,HashTable *pHashTable,const char *cKey,int x )
+void simple_hashtable_newnumber_gc ( void *pState,HashTable *pHashTable,const char *key,int x )
 {
 	HashItem *pItem  ;
-	pItem = simple_hashtable_newitem_gc(pState,pHashTable,cKey);
+	pItem = simple_hashtable_newitem_gc(pState,pHashTable,key);
 	pItem->nItemType = SIMPLE_HASHITEMTYPE_NUMBER ;
 	pItem->HashValue.nIndex = x ;
 	/* Check Rebuilding the HashTable */
 	simple_hashtable_rebuild_gc(pState,pHashTable);
 }
 
-void simple_hashtable_newpointer_gc ( void *pState,HashTable *pHashTable,const char *cKey,void *x )
+void simple_hashtable_newpointer_gc ( void *pState,HashTable *pHashTable,const char *key,void *x )
 {
 	HashItem *pItem  ;
-	pItem = simple_hashtable_newitem_gc(pState,pHashTable,cKey);
+	pItem = simple_hashtable_newitem_gc(pState,pHashTable,key);
 	pItem->nItemType = SIMPLE_HASHITEMTYPE_POINTER ;
 	pItem->HashValue.pValue = x ;
 	/* Check Rebuilding the HashTable */
 	simple_hashtable_rebuild_gc(pState,pHashTable);
 }
 
-HashItem * simple_hashtable_finditem ( HashTable *pHashTable,const char *cKey )
+HashItem * simple_hashtable_finditem ( HashTable *pHashTable,const char *key )
 {
 	int nIndex  ;
 	HashItem *pItem  ;
-	nIndex = simple_hashtable_hashkey(pHashTable,cKey);
+	nIndex = simple_hashtable_hashkey(pHashTable,key);
 	pItem = pHashTable->pArray[nIndex] ;
 	while ( pItem != NULL ) {
 		/* Check Key */
-		if ( strcmp(pItem->cKey,cKey) == 0 ) {
+		if ( strcmp(pItem->key,key) == 0 ) {
 			return pItem ;
 		}
 		pItem = pItem->pNext ;
@@ -110,43 +110,43 @@ HashItem * simple_hashtable_finditem ( HashTable *pHashTable,const char *cKey )
 	return NULL ;
 }
 
-int simple_hashtable_findnumber ( HashTable *pHashTable,const char *cKey )
+int simple_hashtable_findnumber ( HashTable *pHashTable,const char *key )
 {
 	HashItem *pItem  ;
-	pItem = simple_hashtable_finditem(pHashTable,cKey);
+	pItem = simple_hashtable_finditem(pHashTable,key);
 	if ( pItem != NULL ) {
 		return pItem->HashValue.nIndex ;
 	}
 	return 0 ;
 }
 
-void * simple_hashtable_findpointer ( HashTable *pHashTable,const char *cKey )
+void * simple_hashtable_findpointer ( HashTable *pHashTable,const char *key )
 {
 	HashItem *pItem  ;
-	pItem = simple_hashtable_finditem(pHashTable,cKey);
+	pItem = simple_hashtable_finditem(pHashTable,key);
 	if ( pItem != NULL ) {
 		return pItem->HashValue.pValue ;
 	}
 	return NULL ;
 }
 
-void simple_hashtable_deleteitem_gc ( void *pState,HashTable *pHashTable,const char *cKey )
+void simple_hashtable_deleteitem_gc ( void *pState,HashTable *pHashTable,const char *key )
 {
 	int nIndex  ;
 	HashItem *pItem, *pPrevItem  ;
-	nIndex = simple_hashtable_hashkey(pHashTable,cKey);
+	nIndex = simple_hashtable_hashkey(pHashTable,key);
 	pItem = pHashTable->pArray[nIndex] ;
 	pPrevItem = NULL ;
 	while ( pItem != NULL ) {
 		/* Check Key */
-		if ( strcmp(pItem->cKey,cKey) == 0 ) {
+		if ( strcmp(pItem->key,key) == 0 ) {
 			if ( pPrevItem == NULL ) {
 				pHashTable->pArray[nIndex] = pItem->pNext ;
 			}
 			else {
 				pPrevItem->pNext = pItem->pNext ;
 			}
-			simple_state_free(pState,pItem->cKey);
+			simple_state_free(pState,pItem->key);
 			simple_state_free(pState,pItem);
 			return ;
 		}
@@ -166,7 +166,7 @@ HashTable * simple_hashtable_delete_gc ( void *pState,HashTable *pHashTable )
 		pItem = pHashTable->pArray[x] ;
 		while ( pItem != NULL ) {
 			pItem2 = pItem->pNext ;
-			simple_state_free(pState,pItem->cKey);
+			simple_state_free(pState,pItem->key);
 			simple_state_free(pState,pItem);
 			pItem = pItem2 ;
 		}
@@ -198,13 +198,13 @@ void simple_hashtable_rebuild_gc ( void *pState,HashTable *pHashTable )
 		while ( pItem != NULL ) {
 			/* Rehash the item */
 			if ( pItem->nItemType == SIMPLE_HASHITEMTYPE_NUMBER ) {
-				simple_hashtable_newnumber(pHashTable,pItem->cKey,pItem->HashValue.nIndex);
+				simple_hashtable_newnumber(pHashTable,pItem->key,pItem->HashValue.nIndex);
 			}
 			else if ( pItem->nItemType == SIMPLE_HASHITEMTYPE_POINTER ) {
-				simple_hashtable_newpointer(pHashTable,pItem->cKey,pItem->HashValue.pValue);
+				simple_hashtable_newpointer(pHashTable,pItem->key,pItem->HashValue.pValue);
 			}
 			pItem2 = pItem->pNext ;
-			simple_state_free(pState,pItem->cKey);
+			simple_state_free(pState,pItem->key);
 			simple_state_free(pState,pItem);
 			pItem = pItem2 ;
 		}
@@ -220,7 +220,7 @@ void simple_hashtable_print ( HashTable *pHashTable )
 		pItem = pHashTable->pArray[x] ;
 		while ( pItem != NULL ) {
 			/* Print Item Data */
-			printf( "\n LinkedList (%d) : Key (%s) \n",x,pItem->cKey ) ;
+			printf( "\n LinkedList (%d) : Key (%s) \n",x,pItem->key ) ;
 			pItem = pItem->pNext ;
 		}
 	}
@@ -273,14 +273,14 @@ HashTable * simple_hashtable_new ( void )
 	return simple_hashtable_new_gc(NULL) ;
 }
 
-HashItem * simple_hashtable_newitem ( HashTable *pHashTable,const char *cKey )
+HashItem * simple_hashtable_newitem ( HashTable *pHashTable,const char *key )
 {
-	return simple_hashtable_newitem_gc(NULL,pHashTable,cKey) ;
+	return simple_hashtable_newitem_gc(NULL,pHashTable,key) ;
 }
 
-void simple_hashtable_deleteitem ( HashTable *pHashTable,const char *cKey )
+void simple_hashtable_deleteitem ( HashTable *pHashTable,const char *key )
 {
-	simple_hashtable_deleteitem_gc(NULL,pHashTable,cKey);
+	simple_hashtable_deleteitem_gc(NULL,pHashTable,key);
 }
 
 HashTable * simple_hashtable_delete ( HashTable *pHashTable )
@@ -293,12 +293,12 @@ void simple_hashtable_rebuild ( HashTable *pHashTable )
 	simple_hashtable_rebuild_gc(NULL,pHashTable);
 }
 
-void simple_hashtable_newnumber ( HashTable *pHashTable,const char *cKey,int x )
+void simple_hashtable_newnumber ( HashTable *pHashTable,const char *key,int x )
 {
-	simple_hashtable_newnumber_gc(NULL,pHashTable,cKey,x);
+	simple_hashtable_newnumber_gc(NULL,pHashTable,key,x);
 }
 
-void simple_hashtable_newpointer ( HashTable *pHashTable,const char *cKey,void *x )
+void simple_hashtable_newpointer ( HashTable *pHashTable,const char *key,void *x )
 {
-	simple_hashtable_newpointer_gc(NULL,pHashTable,cKey,x);
+	simple_hashtable_newpointer_gc(NULL,pHashTable,key,x);
 }

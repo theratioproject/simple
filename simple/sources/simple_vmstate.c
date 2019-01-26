@@ -7,7 +7,7 @@
 
 /* 
  * File:   simple.h
- * Author: thecarisma
+ * Author: Azeez Adewale
  *
  * Created on July 10, 2017, 1:10 PM
  */
@@ -46,7 +46,7 @@ SIMPLE_API void simple_vm_savestate ( VM *vm,List *list )
 	simple_list_addint_gc(vm->sState,list,simple_list_getsize(vm->aBeforeObjState));
 	simple_list_addpointer_gc(vm->sState,list,vm->aPCBlockFlag);
 	simple_list_addint_gc(vm->sState,list,vm->nLineNumber);
-	simple_list_addint_gc(vm->sState,list,vm->nInClassRegion);
+	simple_list_addint_gc(vm->sState,list,vm->within_class);
 	simple_list_addint_gc(vm->sState,list,vm->nPrivateFlag);
 	simple_list_addint_gc(vm->sState,list,vm->nGetSetProperty);
 	simple_list_addpointer_gc(vm->sState,list,vm->pGetSetObject);
@@ -78,7 +78,7 @@ SIMPLE_API void simple_vm_restorestate ( VM *vm,List *list,int nPos,int nFlag )
 	**  We also avoid doing this in the Class Region (After class name) 
 	**  Because in the class region we don't use vm->pMEM 
 	*/
-	if ( ! vm->nInClassRegion ) {
+	if ( ! vm->within_class ) {
 		while ( simple_list_getlist(vm->pMem,simple_list_getsize(vm->pMem)) != vm->pActiveMem ) {
 			simple_vm_deletescope(vm);
 		}
@@ -130,7 +130,7 @@ SIMPLE_API void simple_vm_restorestate ( VM *vm,List *list,int nPos,int nFlag )
 		simple_vm_oop_updateselfpointer2(vm,(List *) simple_list_getpointer(simple_list_getlist(vm->aBraceObjects,simple_list_getsize(vm->aBraceObjects)),1));
 	}
 	vm->nLineNumber = simple_list_getint(list,26) ;
-	vm->nInClassRegion = simple_list_getint(list,27) ;
+	vm->within_class = simple_list_getint(list,27) ;
 	vm->nPrivateFlag = simple_list_getint(list,28) ;
 	vm->nGetSetProperty = simple_list_getint(list,29) ;
 	vm->pGetSetObject = (void *) simple_list_getpointer(list,30) ;
@@ -180,7 +180,7 @@ SIMPLE_API void simple_vm_savestate2 ( VM *vm,List *list )
 	vm->nCallClassInit = 0 ;
 	simple_list_addint_gc(vm->sState,list,vm->nBlockExecute);
 	simple_list_addpointer_gc(vm->sState,list,vm->pAssignment);
-	simple_list_addint_gc(vm->sState,list,vm->nInClassRegion);
+	simple_list_addint_gc(vm->sState,list,vm->within_class);
 	simple_list_addint_gc(vm->sState,list,vm->nActiveScopeID);
 	simple_list_addint_gc(vm->sState,list,simple_list_getsize(vm->aScopeNewObj));
 	simple_list_addint_gc(vm->sState,list,simple_list_getsize(vm->aScopeID));
@@ -200,7 +200,7 @@ SIMPLE_API void simple_vm_savestate2 ( VM *vm,List *list )
 	/* Save finalFlag, set it to 0 (not final) */
 	simple_list_addint_gc(vm->sState,list,vm->finalFlag);
 	vm->finalFlag = 0 ;
-	vm->nInClassRegion = 0 ;
+	vm->within_class = 0 ;
 	vm->pAssignment = NULL ;
 	vm->nNOAssignment = 0 ;
 }
@@ -229,7 +229,7 @@ SIMPLE_API void simple_vm_restorestate2 ( VM *vm,List *list,int x )
 	vm->nCallClassInit = simple_list_getint(list,x+13) ;
 	vm->nBlockExecute = simple_list_getint(list,x+14) ;
 	vm->pAssignment = (void *) simple_list_getpointer(list,x+15) ;
-	vm->nInClassRegion = simple_list_getint(list,x+16) ;
+	vm->within_class = simple_list_getint(list,x+16) ;
 	vm->nActiveScopeID = simple_list_getint(list,x+17) ;
 	simple_vm_backstate(vm,simple_list_getint(list,x+18),vm->aScopeNewObj);
 	simple_vm_backstate(vm,simple_list_getint(list,x+19),vm->aScopeID);

@@ -213,7 +213,7 @@ class FInput_ : FWidget
         
     */
     block setPlatformScheme(schemeName)
-        schemeName = objectstring(schemeName)
+        schemeName = stringValue(schemeName)
         if schemeName == FScheme.ANDROID {
             setBackground(new FColor(250,250,250))
 	        setBorder(new FBorder(0,4,0,0,__FL_FLAT_BOX(),new FColor(255,106,154)))
@@ -234,7 +234,7 @@ class FInput_ : FWidget
     */
     block setValue(value)
         validatePointer()
-        value = objectstring(value)
+        value = stringValue(value)
         __Fl_Input__value(Ptr,value)
 
     /*

@@ -106,7 +106,7 @@ class ScreenDimension : Dimension
                     throw(self,"The monitor index is invalid . Monitor Count is " + monitorCount() + "")
                 }
             else
-                throw(self,"Invalid parameter passed expecting (Number). Found (" + objecttype(index) + ")")
+                throw(self,"Invalid parameter passed expecting (Number). Found (" + objectType(index) + ")")
             }
 
         else 
@@ -136,7 +136,7 @@ class ScreenDimension : Dimension
                     throw(self,"The monitor index is invalid . Monitor Count is " + monitorCount() + "")
                 }
             else
-                throw(self,"Invalid parameter passed expecting (Number). Found (" + objecttype(index) + ")")
+                throw(self,"Invalid parameter passed expecting (Number). Found (" + objectType(index) + ")")
             }
 
         else 
@@ -172,7 +172,7 @@ class ScreenDimension : Dimension
                     throw(self,"The monitor index is invalid . Monitor Count is " + monitorCount() + "")
                 }
             else
-                throw(self,"Invalid parameter passed expecting (Number). Found (" + objecttype(index) + ")")
+                throw(self,"Invalid parameter passed expecting (Number). Found (" + objectType(index) + ")")
             }
 
         else 

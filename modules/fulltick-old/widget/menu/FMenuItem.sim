@@ -91,7 +91,7 @@ class FMenuItem : FWidget
 				try 
 					menuitem[a].check() menuitem[a].setValue(getValue()+"/"+menuitem[a].getValue()) 
 					menuitem[a].notifyWidget()	
-					add(MENU_WIDGET_ITEMS_LIST,menuitem[a])
+					__add_to_list(MENU_WIDGET_ITEMS_LIST,menuitem[a])
 					/* if menuitem[a].isSubMenu() display lengthOf(menuitem[a].getItems()) +" Here "
 						for a = 0 to 2 
 							menuitem[a].getItems()[a].setValue(getValue()+"/"+getItems()[a].getName()) display getItems()[a].getValue()+" "
@@ -105,7 +105,7 @@ class FMenuItem : FWidget
 			try 
 				menuitem.check() menuitem.setValue(getValue()+"/"+menuitem.getValue()) 
 				menuitem.notifyWidget()	
-				add(MENU_WIDGET_ITEMS_LIST,menuitem)
+				__add_to_list(MENU_WIDGET_ITEMS_LIST,menuitem)
 			catch
 				addItemRaw(getValue()+"/"+menuitem)
 			end
@@ -115,7 +115,7 @@ class FMenuItem : FWidget
 		
 	block addItemRaw(menuitem)
 		temp = new FMenuItem(menuitem) temp.notifyWidget()
-		add(MENU_WIDGET_ITEMS_LIST,temp) 
+		__add_to_list(MENU_WIDGET_ITEMS_LIST,temp) 
 		
 	#Check whether this @Class FMenuItem is a sub menu parenting other
 	#menu items and sub menus 

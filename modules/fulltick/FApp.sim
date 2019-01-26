@@ -114,7 +114,7 @@ class FApp : Object
 					return 1
 
 				case __FL_SHOW() 
-					if instanceof(widget,"FWindow") {
+					if instanceOf(widget,"FWindow") {
 						if !isNull(widget.WindowEvent) {
 							widget.WindowEvent.callback(widget,16)
 						else
@@ -124,7 +124,7 @@ class FApp : Object
 					return 1
 
 				case __FL_HIDE() 
-					if instanceof(widget,"FWindow") { 
+					if instanceOf(widget,"FWindow") { 
 						if !isNull(widget.WindowEvent) { 
 							widget.WindowEvent.callback(widget,15)
 							return 0
@@ -200,17 +200,17 @@ class FApp : Object
 		internal use only
 	*/
 	block registerWidget(widget) 
-		add(CreatedWidgets,widget)
+		__add_to_list(CreatedWidgets,widget)
 		return lengthOf(CreatedWidgets) - 1
 
 	/*
 
 	*/
 	block giveFocus(widget)
-		if instanceof(widget,"FWidget") {
+		if instanceOf(widget,"FWidget") {
 			widget.takeFocus()
 		else
-			throw(self,"Invalid parameter passed, expecting (fulltick.base.FWidget), found (" + objecttype(widget) + ")")
+			throw(self,"Invalid parameter passed, expecting (fulltick.base.FWidget), found (" + objectType(widget) + ")")
 		}
 	
 	/*

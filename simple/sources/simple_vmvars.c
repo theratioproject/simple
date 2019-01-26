@@ -7,7 +7,7 @@
 
 /* 
  * File:   simple.h
- * Author: thecarisma
+ * Author: Azeez Adewale
  *
  * Created on July 10, 2017, 1:10 PM
  */
@@ -137,7 +137,7 @@ int simple_vm_findvar2 ( VM *vm,int x,List *list2,const char *cStr )
 		/* Check Private Attributes */
 		if ( simple_list_getint(list2,SIMPLE_VAR_PRIVATEFLAG) == 1 ) {
 			/* We check that we are not in the class region too (defining the private attribute then reusing it) */
-			if ( ! ( (vm->nVarScope == SIMPLE_VARSCOPE_NEWOBJSTATE) &&  (vm->nInClassRegion == 1) ) ) {
+			if ( ! ( (vm->nVarScope == SIMPLE_VARSCOPE_NEWOBJSTATE) &&  (vm->within_class == 1) ) ) {
 				if ( simple_vm_oop_callmethodinsideclass(vm) == 0 ) {
 					lPrivateError = 1 ;
 					/* Pass Braces for Class Init() to be sure we are inside a method or not */

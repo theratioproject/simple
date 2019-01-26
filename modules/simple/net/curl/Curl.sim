@@ -1,0 +1,148 @@
+
+/*
+
+*/
+call simple.core.Object
+call simple.net.loadnetdymodule
+
+/*
+
+*/
+module simple.net.curl
+
+/*
+
+*/
+class Curl : Object 
+
+	/*
+	
+	*/
+	string Url = null
+	
+	/*
+	
+	*/
+	string Port = 80
+	
+	/*
+	
+	*/
+	list Options = [
+
+	]	
+	
+	/*
+	
+	*/
+	list Headers = [
+	
+	]
+
+	/*
+	
+	*/
+	block Curl(string url)
+		checkNullity(self,url)		
+		CurlPointer = __curl_easy_init()
+		Url = url
+		__add_to_list(Options, [10002, Url])
+		for option in Options {
+			addOption(option[0], option[1])
+		}
+		
+		
+	/*
+	
+	*/
+	block addOption(number curlOption, string value)
+		checkNullity(self,curlOption)
+		checkNullity(self,value) 
+		__curl_easy_setopt(CurlPointer, curlOption, value, "")
+		
+	/*
+	
+	*/
+	block addHeader(string header, string value)
+		checkNullity(self,header)
+		checkNullity(self,value)
+		Headers[header] = value
+		CurlListPointer = __curl_list_append(CurlListPointer, header + ": " + value) 
+		
+	/*
+	
+	*/
+	block prepare()
+		if lengthOf(Headers) > 0 {
+			__curl_easy_setopt(CurlPointer, 10023, CurlListPointer, "")
+		}
+		AlreadyPrepared = true
+		
+	/*
+	
+	*/
+	block perform()
+		if !AlreadyPrepared {
+			prepare()
+		}
+		output = __curl_easy_perform(CurlPointer)
+		AlreadyPrepared = false
+		return output
+		
+	/*
+	
+	*/
+	block strPerform()
+		if !AlreadyPrepared {
+			prepare()
+		}
+		output = __curl_easy_string_perform(CurlPointer)
+		AlreadyPrepared = false
+		return output
+		
+	/*
+	
+	*/
+	block flush()
+		__curl_easy_cleanup(CurlPointer)
+		AlreadyPrepared = false
+		
+	/*
+	
+	*/
+	block done()
+		flush()
+		__free_curl_list(CurlListPointer)
+		
+	/*
+	
+	*/
+	block toString()
+		return "[" + absolutename() + ":Url=" + Url + ",Port=" + Port + ",AlreadyPrepared=" + AlreadyPrepared + "]"
+
+	/*
+	
+	*/
+	private 
+	
+		/*
+		
+		*/
+		pointer CurlPointer = null
+	
+		/*
+		
+		*/
+		pointer CurlListPointer = null
+		
+		/*
+		
+		*/
+		boolean AlreadyPrepared = false
+		
+		/*
+		
+		*/
+		private setOptions()
+		
+		

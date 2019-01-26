@@ -1,0 +1,21 @@
+/*
+
+*/
+call simple.core.Object
+call simple.utilities.Console
+call simple.utilities.LookAhead
+
+block main()
+	lookAhead = new LookAhead("this should be a simple string")
+	stdout.println("Peek : " + lookAhead.peek())
+	stdout.println("Peek 3 : " + lookAhead.peek(3))
+	stdout.println("Peek 30 : " + lookAhead.peek(30))
+	lookAhead.skip(17)
+	stdout.print(lookAhead.peek()) lookAhead.pop()
+	stdout.print(lookAhead.peek()) lookAhead.pop()
+	stdout.print(lookAhead.peek()) lookAhead.pop()
+	stdout.print(lookAhead.peek()) lookAhead.pop()
+	stdout.print(lookAhead.peek()) lookAhead.pop()
+	stdout.println(lookAhead.peek())
+	stdout.println(lookAhead)
+	

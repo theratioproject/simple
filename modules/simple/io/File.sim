@@ -111,6 +111,7 @@ class File : Path
 		Quick write string to a file
 	*/
 	block write(string content)
+		ensureExistence()
 		if !isReadable() {
 			throw(self, "Access is denied. You cannot write to the file because it Read Only : " + AbsolutePath)
 		else
@@ -125,7 +126,7 @@ class File : Path
 
 	*/
 	block equals(Object value)
-		if !instanceof(value,"File") {
+		if !instanceOf(value,"File") {
 			return false
 		}
 		return AbsolutePath == value.AbsolutePath		

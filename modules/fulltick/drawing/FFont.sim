@@ -58,7 +58,7 @@ class FFont : Object
         if isNumber(font) {
             FontValue = font
         else
-            throw(self,"Invalid parameter in FFont Constructor. Expecting (Number). Found (" + objecttype(font) + ")")
+            throw(self,"Invalid parameter in FFont Constructor. Expecting (Number). Found (" + objectType(font) + ")")
         }
 
     /*

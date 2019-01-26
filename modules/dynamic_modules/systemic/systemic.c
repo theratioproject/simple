@@ -222,8 +222,8 @@ void current_filepath ( void *pointer )
 	int nPos  ;
 	List *list  ;
 	vm = (VM *) pointer ;
-	if ( vm->nInClassRegion ) {
-		SIMPLE_API_RETSTRING(vm->cFileNameInClassRegion);
+	if ( vm->within_class ) {
+		SIMPLE_API_RETSTRING(vm->file_name_within_class);
 		return ;
 	}
 	if ( (vm->nBlockExecute2 > 0) && (simple_list_getsize(vm->pBlockCallList)>0) ) {
@@ -250,8 +250,8 @@ void current_filename ( void *pointer )
     int nPos  ;
     List *list  ;
     vm = (VM *) pointer ;
-    if ( vm->nInClassRegion ) {
-        SIMPLE_API_RETSTRING(file_real_name(vm->cFileNameInClassRegion));
+    if ( vm->within_class ) {
+        SIMPLE_API_RETSTRING(file_real_name(vm->file_name_within_class));
         return ;
     }
     if ( (vm->nBlockExecute2 > 0) && (simple_list_getsize(vm->pBlockCallList)>0) ) {

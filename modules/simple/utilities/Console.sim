@@ -20,6 +20,11 @@ call simple.io.PrintWriter
 call simple.io.FileWriter
 
 /*
+
+*/
+module simple.utilities
+
+/*
 	initialized to allow ussage as ConsoleColor.Color
 */
 #enum
@@ -50,7 +55,9 @@ final ConsoleColor = new ConsoleColor
 	It basically the normal C stdout which give output to the screen, but can be used to pipe output to another process 
 	or file.
 */
-final stdout = new PrintWriter(new FileWriter(__stdout()), true)
+final stdout = new PrintWriter(new FileWriter(__stdout()), true){
+	Closable = false
+}
 
 /*
 	The standard error stream is the default destination for error messages and other diagnostic warnings. Like 
@@ -67,7 +74,9 @@ final stdout = new PrintWriter(new FileWriter(__stdout()), true)
 	It basically the normal C stderr which give error and diagnostic output to the screen, but can be used to pipe 
 	output to another process or file.
 */
-final stderr = new PrintWriter(new FileWriter(__stderr()), true)
+final stderr = new PrintWriter(new FileWriter(__stderr()), true) {
+	Closable = false
+}
 
 /*
 	The standard input stream is the default source of data for applications. It is usually directed by default to the 
@@ -91,5 +100,13 @@ final stderr = new PrintWriter(new FileWriter(__stderr()), true)
 final __stdin = __stdin()
 	
 
+/*
 
+*/
+block clearConsole()
+	if isWindows() {
+		system("cls")
+	else
+		system("clear")
+	}
 

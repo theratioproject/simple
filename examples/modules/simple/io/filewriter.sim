@@ -9,13 +9,13 @@ call simple.io.FileWriter
 call simple.io.File
 
 block main()
-	fileWriter = new FileWriter("../../../../../simple_test.txt", true, true)
+	fileWriter = new FileWriter("../../../testfiles/test.txt")
 	fileWriter.write(nl + "Hello World " + nl)
 	fileWriter.write("From simple-lang ")
 	fileWriter.write(simpleVersion())
 	fileWriter.close()
 	
-	file = new File("../../../../../simple_test.txt")
+	file = new File("../../../testfiles/test.txt")
 	fileWriter = new FileWriter(file, true)
 	fileWriter.write(nl + "Thank You")
 	fileWriter.close()

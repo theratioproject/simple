@@ -629,30 +629,30 @@ class FWindow : FGroup
             if !isNull(dimensionList) and isList(dimensionList) and lengthOf(dimensionList) > 0 and lengthOf(dimensionList) < 3 {
                 minDimension = dimensionList[0]
                 maxDimension = dimensionList[1]
-                if instanceof(minDimension,"Dimension") and instanceof(maxDimension,"Dimension") {
+                if instanceOf(minDimension,"Dimension") and instanceOf(maxDimension,"Dimension") {
                     MinWidth = minDimension.Width
                     MinHeight = minDimension.Height
                     MaxWidth = maxDimension.Width
                     MaxHeight = maxDimension.Height
                     __Fl_Window_size_range(Ptr,MinWidth,MinHeight,MaxWidth,MaxHeight,1,1,1)
                 else
-                    throw(self,"The parameter is not valid. Expecting ([Dimension, Dimension]) as FWindow sizeRange . Found (" + objecttype(dimensionList) + ")") 
+                    throw(self,"The parameter is not valid. Expecting ([Dimension, Dimension]) as FWindow sizeRange . Found (" + objectType(dimensionList) + ")") 
                 }
             else
-                throw(self,"The parameter is not valid. Expecting ([Dimension, Dimension]) as FWindow sizeRange . Found (" + objecttype(dimensionList) + ")") 
+                throw(self,"The parameter is not valid. Expecting ([Dimension, Dimension]) as FWindow sizeRange . Found (" + objectType(dimensionList) + ")") 
             }
 
         elif paramsLen == 2
             minDimension = params[0]
             maxDimension = params[1]
-            if instanceof(minDimension,"Dimension") and instanceof(maxDimension,"Dimension") {
+            if instanceOf(minDimension,"Dimension") and instanceOf(maxDimension,"Dimension") {
                 MinWidth = minDimension.Width
                 MinHeight = minDimension.Height
                 MaxWidth = maxDimension.Width
                 MaxHeight = maxDimension.Height
                 __Fl_Window_size_range(Ptr,MinWidth,MinHeight,MaxWidth,MaxHeight,1,1,1)
             else
-                throw(self,"The parameter is not valid. Expecting (Dimension, Dimension) as FWindow sizeRange . Found (" + objecttype(minDimension) + ", " + objecttype(maxDimension) + ")") 
+                throw(self,"The parameter is not valid. Expecting (Dimension, Dimension) as FWindow sizeRange . Found (" + objectType(minDimension) + ", " + objectType(maxDimension) + ")") 
             }
         elif paramsLen == 4
             minw = params[0]
@@ -666,7 +666,7 @@ class FWindow : FGroup
                 MaxHeight = floor(maxh)
                 __Fl_Window_size_range(Ptr,MinWidth,MinHeight,MaxWidth,MaxHeight,1,1,1)
             else
-                throw(self,"The parameter is not valid. Expecting (Number, Number, Number, Number) as FWindow sizeRange . Found (" + objecttype(minw) + ", " + objecttype(minh) + ", " + objecttype(maxw) + ", " + objecttype(maxh) + ")")
+                throw(self,"The parameter is not valid. Expecting (Number, Number, Number, Number) as FWindow sizeRange . Found (" + objectType(minw) + ", " + objectType(minh) + ", " + objectType(maxw) + ", " + objectType(maxh) + ")")
             }
 
         else
@@ -753,11 +753,11 @@ class FWindow : FGroup
 
     */
     block setWindowListener(listener)
-        if instanceof(listener,"FWindowEvent") {
+        if instanceOf(listener,"FWindowEvent") {
             WindowEvent = listener
             FApp.CreatedWidgets[PtrAddress] = self #do something about this
         else
-            throw(self,"Invalid window listener, only an instance of fulltick.events.WindowEvent allow, found (" + objecttype(listener) + ")")
+            throw(self,"Invalid window listener, only an instance of fulltick.events.WindowEvent allow, found (" + objectType(listener) + ")")
         }
 
     /*

@@ -1,4 +1,5 @@
 
+call simple.core.Object
 call simple.io.Directory
 call simple.io.File
 call simple.system.Runtime

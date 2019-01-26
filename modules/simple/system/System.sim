@@ -171,9 +171,9 @@ block getEnv(string variable)
 */
 block LineSeperator()
 	if isWindows() {
-		return char(13)+char(10)
+		return ascii(13)+ascii(10)
 	}
-	return char(10)
+	return ascii(10)
 
 #ENDDONE
 

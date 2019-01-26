@@ -213,7 +213,7 @@ block parserSource(sourceContent)
 				bcomment += sourceContent[a] + ' '
 			end
 			bcomment = formatCommentType(bcomment,bfullname,'block')
-			add(tempAttribList['blocks'],new BridgeBlock(bfullname,bname,bcomment,bparamcount))
+			__add_to_list(tempAttribList['blocks'],new BridgeBlock(bfullname,bname,bcomment,bparamcount))
 			position++ 
 		elif acceptToken('class',sourceContent)
 			#fullname
@@ -227,7 +227,7 @@ block parserSource(sourceContent)
 				bcomment += sourceContent[a] + ' '
 			end
 			bcomment = formatCommentType(bcomment,bfullname,'class')
-			add(tempAttribList['classes'],new BridgeClass(bfullname,bcomment))
+			__add_to_list(tempAttribList['classes'],new BridgeClass(bfullname,bcomment))
 			position++ 
 		elif acceptToken('module',sourceContent)
 			#fullname
@@ -241,7 +241,7 @@ block parserSource(sourceContent)
 				bcomment += sourceContent[a] + ' '
 			end
 			bcomment = formatCommentType(bcomment,bfullname,'module')
-			add(tempAttribList['modules'],new BridgeClass(bfullname,bcomment))
+			__add_to_list(tempAttribList['modules'],new BridgeClass(bfullname,bcomment))
 			position++ 
 		else
 			position++

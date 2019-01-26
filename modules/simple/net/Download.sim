@@ -1,0 +1,101 @@
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+/* 
+ * @Filename - Download.sim
+ * @Author - Azeez Adewale
+ * @Date - 1 March 2017
+ * @Time - 02:58 PM
+ */
+
+/*
+ 
+*/
+call simple.core.Object
+call simple.io.File
+call simple.net.loadnetdymodule
+
+/*
+
+*/ 
+module simple.net
+
+/*
+
+*/
+block download(string url)
+	return __curl_download(url)
+
+/*
+
+*/
+class Download : File
+
+	/*
+	
+	*/
+	string Url = null
+	
+	/*
+	
+	*/
+	object DownloadedObject = null
+
+	/*
+	
+	*/
+	block Download(string url, string filePath)
+		checkNullity(self,url)
+		checkNullity(self,filePath)
+		Url = url
+		File(filePath)
+		AlreadyInit = true
+		
+		return self
+		
+	/*
+	
+	*/
+	block fetch()
+		if !exists() {
+			create()
+		}
+		if (!AlreadyInit) {
+			throw(self, "The class " + absolutename() + " has not been initialized")
+		else
+			DownloadedObject = __curl_download(Url)
+			if !isNull(DownloadedObject) && !strIsEmpty(DownloadedObject) {
+				write(DownloadedObject)
+			}
+		}
+		return getSize() > 0
+		
+		
+	/*
+	
+	*/
+	block getUrl()
+		return Url
+		
+	/*
+	
+	*/
+	block setUrl(string url)
+		checkNullity(self,url)
+		Url = url
+		
+	/*
+	
+	*/
+	private
+	
+		/*
+		
+		*/
+		boolean AlreadyInit = false
+		
+		
+		

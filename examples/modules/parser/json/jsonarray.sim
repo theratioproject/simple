@@ -1,0 +1,17 @@
+/*
+
+*/
+call simple.core.Object
+call simple.utilities.Console
+call parser.json.JsonParser
+
+block main()
+	json = '[
+		"one",
+		"two",
+		"three"
+	]'
+	jsonParser = new JsonParser(json)
+	jsonArray = jsonParser.parse()
+	stdout.printf("Is JsonArray=%b - Is JsonObject=%b \n", jsonArray.isJsonArray(), jsonArray.isJsonObject())
+	stdout.println(jsonArray)

@@ -7,7 +7,7 @@
 
 /* 
  * File:   simple.h
- * Author: thecarisma
+ * Author: Azeez Adewale
  *
  * Created on July 10, 2017, 1:10 PM
  */
@@ -21,7 +21,7 @@ typedef struct SimpleState {
 	List *files_list  ;
 	List *files_stack  ;
 	/* First use by simple_parser_new */
-	List *pSimpleGenCode  ;
+	List *generated_code  ;
 	List *blocks_map  ;
 	List *classes_map  ;
 	List *modules_map  ;
@@ -41,6 +41,8 @@ typedef struct SimpleState {
 	unsigned int nPrintRules : 1  ;
 	/* set to 1 if we need to print the  current instruction executed */
 	unsigned int nPrintInstruction : 1  ;
+	/* set to 1 if we need to generate the object file (ringo) */
+	unsigned int generate_object : 1  ;
 	/* set to 1 if we need to display warnings */
 	unsigned int nWarning : 1  ;
 	/* Set to 1 to tell the scanner to don't delete the VM after execution */
@@ -61,20 +63,22 @@ typedef struct SimpleState {
 	/* Custom Global Scope */
 	int nCustomGlobalScopeCounter  ;
 	List *aCustomGlobalScopeStack  ;
+	/* Condition to prevent loading cblocks more than once */
+	int loaded_cblocks;
 } SimpleState ;
 /* Blocks */
 
 SIMPLE_API SimpleState * simple_state_new ( void ) ;
 
-SIMPLE_API SimpleState * finalize ( SimpleState *sState ) ;
+SIMPLE_API SimpleState * finalize_simple_state ( SimpleState *sState ) ;
 
 void simple_state_cgiheader ( SimpleState *sState ) ;
 
 SIMPLE_API void print_line ( void ) ;
 
-SIMPLE_API SimpleState * create_instance ( void ) ;
+SIMPLE_API SimpleState * init_simple_state ( void ) ;
 
-SIMPLE_API void execute_code ( SimpleState *sState,const char *cStr ) ;
+SIMPLE_API void execute_simple_code ( SimpleState *sState,const char *cStr ) ;
 
 SIMPLE_API List * simple_state_findvar ( SimpleState *sState,const char *cStr ) ;
 
@@ -84,7 +88,11 @@ SIMPLE_API void simple_state_main ( int argc, char *argv[] ) ;
 
 SIMPLE_API void execute_simple_file ( SimpleState *sState,char *file_name ) ;
 
-SIMPLE_API void simple_state_runobjectstring ( SimpleState *sState,char *cString,const char *file_name ) ;
+SIMPLE_API void simple_state_runobjectstring ( SimpleState *sState,char *string,const char *file_name ) ;
+
+SIMPLE_API void simple_state_runobjectfile ( SimpleState *sState,char *file_name ) ;
+
+SIMPLE_API void simple_execute_object ( SimpleState *sState,char *string,const char *file_name ) ;
 
 /* General Blocks */
 

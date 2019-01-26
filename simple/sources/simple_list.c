@@ -7,7 +7,7 @@
 
 /* 
  * File:   simple.h
- * Author: thecarisma
+ * Author: Azeez Adewale
  *
  * Created on July 10, 2017, 1:10 PM
  */
@@ -725,14 +725,14 @@ SIMPLE_API int simple_list_deliteminsidelist ( List *list,Item *pItem )
 
 SIMPLE_API int simple_list_findstring ( List *list,const char *str,int nColumn )
 {
-	int x,nCount  ;
+	int x,count  ;
 	List *list2  ;
 	assert(list != NULL);
-	nCount = simple_list_getsize(list);
+	count = simple_list_getsize(list);
 	/* Find Item */
-	if ( nCount > 0 ) {
+	if ( count > 0 ) {
 		if ( nColumn == 0 ) {
-			for ( x = 1 ; x <= nCount ; x++ ) {
+			for ( x = 1 ; x <= count ; x++ ) {
 				if ( simple_list_isstring(list,x) ) {
 					if ( strcmp(str,simple_list_getstring(list,x)) == 0 ) {
 						return x ;
@@ -741,7 +741,7 @@ SIMPLE_API int simple_list_findstring ( List *list,const char *str,int nColumn )
 			}
 		}
 		else {
-			for ( x = 1 ; x <= nCount ; x++ ) {
+			for ( x = 1 ; x <= count ; x++ ) {
 				if ( simple_list_islist(list,x) == 0 ) {
 					continue ;
 				}
@@ -762,14 +762,14 @@ SIMPLE_API int simple_list_findstring ( List *list,const char *str,int nColumn )
 
 SIMPLE_API int simple_list_finddouble ( List *list,double nNum1,int nColumn )
 {
-	int x,nCount  ;
+	int x,count  ;
 	List *list2  ;
 	assert(list != NULL);
-	nCount = simple_list_getsize(list);
+	count = simple_list_getsize(list);
 	/* Find Item */
-	if ( nCount > 0 ) {
+	if ( count > 0 ) {
 		if ( nColumn == 0 ) {
-			for ( x = 1 ; x <= nCount ; x++ ) {
+			for ( x = 1 ; x <= count ; x++ ) {
 				if ( simple_list_isdouble(list,x) ) {
 					if ( simple_list_getdouble(list,x) == nNum1 ) {
 						return x ;
@@ -778,7 +778,7 @@ SIMPLE_API int simple_list_finddouble ( List *list,double nNum1,int nColumn )
 			}
 		}
 		else {
-			for ( x = 1 ; x <= nCount ; x++ ) {
+			for ( x = 1 ; x <= count ; x++ ) {
 				if ( simple_list_islist(list,x) == 0 ) {
 					continue ;
 				}
@@ -812,14 +812,14 @@ SIMPLE_API int simple_list_findpointer ( List *list,void *pointer )
 
 SIMPLE_API int simple_list_findinlistofobjs ( List *list,int nType,double nNum1,const char *str,int nColumn,char *cAttribute )
 {
-	int x,nCount,nPos  ;
+	int x,count,nPos  ;
 	List *list2  ;
 	assert(list != NULL);
-	nCount = simple_list_getsize(list);
+	count = simple_list_getsize(list);
 	simple_string_lower(cAttribute);
 	/* Find Item */
-	if ( (nCount > 0) && (nColumn > 0) ) {
-		for ( x = 1 ; x <= nCount ; x++ ) {
+	if ( (count > 0) && (nColumn > 0) ) {
+		for ( x = 1 ; x <= count ; x++ ) {
 			if ( simple_list_islist(list,x) == 0 ) {
 				continue ;
 			}
@@ -858,14 +858,14 @@ SIMPLE_API int simple_list_findinlistofobjs ( List *list,int nType,double nNum1,
 
 SIMPLE_API int simple_list_findcpointer ( List *list,List *pValue,int nColumn )
 {
-	int x,nCount  ;
+	int x,count  ;
 	List *list2, *list3  ;
 	assert(list != NULL);
-	nCount = simple_list_getsize(list);
+	count = simple_list_getsize(list);
 	/* Find Item */
-	if ( nCount > 0 ) {
+	if ( count > 0 ) {
 		if ( nColumn == 0 ) {
-			for ( x = 1 ; x <= nCount ; x++ ) {
+			for ( x = 1 ; x <= count ; x++ ) {
 				if ( simple_list_islist(list,x) ) {
 					list2 = simple_list_getlist(list,x);
 					if ( api_iscpointer_list(list2) ) {
@@ -877,7 +877,7 @@ SIMPLE_API int simple_list_findcpointer ( List *list,List *pValue,int nColumn )
 			}
 		}
 		else {
-			for ( x = 1 ; x <= nCount ; x++ ) {
+			for ( x = 1 ; x <= count ; x++ ) {
 				if ( simple_list_islist(list,x) == 0 ) {
 					continue ;
 				}

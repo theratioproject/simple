@@ -1,0 +1,170 @@
+/*
+
+*/
+
+/*
+
+*/
+call simple.core.Object
+
+/*
+
+*/
+module parser.json
+
+/*
+
+*/
+class JsonMember : Object
+
+	/*
+	
+	*/
+	string Name = null
+	
+	/*
+	
+	*/
+	object Value = null
+	
+	/*
+	
+	*/
+	boolean IsBoolean = false
+
+	/*
+	
+	*/
+	block JsonMember(string name, object value)
+		Name = name
+		Value = value
+		
+	/*
+	
+	*/
+	block getName()
+		return Name
+		
+	/*
+	
+	*/
+	block setName(string name)
+		Name = name
+		
+	/*
+	
+	*/
+	block getValue()
+		return Value
+		
+	/*
+	
+	*/
+	block setValue(string value)
+		Value = value
+		
+	/*
+	
+	*/
+	block equals(object obj)
+		if !isObject(obj) or !__instance_of(obj,"JsonMember") {
+			return false
+		}
+		return Name == obj.Name && objEquals(Value, obj.Value)
+		
+		
+	/*
+	
+	*/
+	block copy()
+		value = Value
+		return new JsonMember(Name, value)
+		
+	/*
+
+	*/
+	block hashcode()
+		if isNull(hashcode) {
+			hashcode = hash(name) ^ hash(value)
+		}
+		return hashcode
+		
+	/*
+	
+	*/
+	block toFlatString()
+		value = Value
+		if instanceOf(Value, "Object") {
+			value = Value.toFlatString()
+		elif isString(Value)
+			value = '"' + value + '"'
+		elif isNumber(Value) && IsBoolean
+			if Value == 1 {
+				value = "true"
+			else
+				value = "false"
+			}
+		}
+		return unEscapeString('"' + Name + '": ' + value)
+		
+	/*
+	
+	*/
+	block toString(string params...)
+		value = Value
+		name = Name
+		paramsLen = lengthOf(params)
+		if paramsLen == 0 or paramsLen == 1 {
+		else
+			throw(self, "Calling block with extra parameters")
+		}
+		
+		if instanceOf(Value, "Object") {
+			if paramsLen == 1 {
+				value = Value.toString(params[0])
+			else
+				value = Value.toString()
+			}
+		elif isString(Value)
+			name = escapeString(Name)
+			value = '"' + escapeString(value) + '"'
+		elif isNumber(Value) && IsBoolean
+			if Value == 1 {
+				value = "true"
+			else
+				value = "false"
+			}
+		}
+		return '"' + name + '": ' + value
+
+	/*
+
+	*/
+	block operator(string op, object value) 
+		switch op {
+			case "="
+				return equals(value)
+			case "!="
+				return !equals(value)
+			case "[]"
+				if isObject(Value) and (instanceOf(Value, "JsonObject") or instanceOf(Value, "JsonArray")) {
+					return Value.operator(op, value)
+				}
+				return super.operator(op, value)
+		}
+		return super.operator(op, value)
+		
+	/*
+	
+	*/
+	block isJsonArray()
+		return instanceOf(Value, "JsonArray")
+		
+	/*
+	
+	*/
+	private 
+			
+		
+		
+		

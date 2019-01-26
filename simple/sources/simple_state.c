@@ -6,8 +6,8 @@
 */
 
 /* 
- * File:   simple.h
- * Author: thecarisma
+ * File:   simple_state.c
+ * Author: Azeez Adewale
  *
  * Created on July 10, 2017, 1:10 PM
  */
@@ -48,7 +48,7 @@ SIMPLE_API SimpleState * simple_state_new ( void )
 	}
 	sState->files_list = NULL ;
 	sState->files_stack = NULL ;
-	sState->pSimpleGenCode = NULL ;
+	sState->generated_code = NULL ;
 	sState->blocks_map = NULL ;
 	sState->classes_map = NULL ;
 	sState->modules_map = NULL ;
@@ -72,18 +72,19 @@ SIMPLE_API SimpleState * simple_state_new ( void )
 	sState->lNoLineNumber = 0 ;
 	sState->nCustomGlobalScopeCounter = 0 ;
 	sState->aCustomGlobalScopeStack = simple_list_new(0) ;
+	sState->loaded_cblocks = 0 ;
 	simple_list_addint(sState->aCustomGlobalScopeStack,sState->nCustomGlobalScopeCounter);
 	return sState ;
 }
 
-SIMPLE_API SimpleState * finalize ( SimpleState *sState )
+SIMPLE_API SimpleState * finalize_simple_state ( SimpleState *sState )
 {
 	if ( sState->files_list != NULL ) {
 		sState->files_list = simple_list_delete_gc(sState,sState->files_list);
 		sState->files_stack = simple_list_delete_gc(sState,sState->files_stack);
 	}
-	if ( sState->pSimpleGenCode   != NULL ) {
-		sState->pSimpleGenCode = simple_list_delete_gc(sState,sState->pSimpleGenCode);
+	if ( sState->generated_code   != NULL ) {
+		sState->generated_code = simple_list_delete_gc(sState,sState->generated_code);
 		sState->blocks_map = simple_list_delete_gc(sState,sState->blocks_map);
 		sState->classes_map = simple_list_delete_gc(sState,sState->classes_map);
 		sState->modules_map = simple_list_delete_gc(sState,sState->modules_map);
@@ -108,7 +109,7 @@ void simple_state_cgiheader ( SimpleState *sState )
 	}
 }
 
-SIMPLE_API SimpleState * create_instance ( void )
+SIMPLE_API SimpleState * init_simple_state ( void )
 {
 	SimpleState *sState  ;
 	sState = simple_state_new();
@@ -116,7 +117,7 @@ SIMPLE_API SimpleState * create_instance ( void )
 	return sState ;
 }
 
-SIMPLE_API void execute_code ( SimpleState *sState,const char *cStr )
+SIMPLE_API void execute_simple_code ( SimpleState *sState,const char *cStr )
 {
         simple_vm_runcode(sState->vm,cStr);
 }
@@ -149,7 +150,7 @@ SIMPLE_API List * simple_state_newvar ( SimpleState *sState,const char *cStr )
 
 SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 {
-	int x,nCGI,nRun,nPrintIC,nPrintICFinal,nTokens,nRules,nIns,show_time,nSRC,nGenObj,nWarn,skip_error  ;
+	int x,nCGI,nRun,nPrintIC,nPrintICFinal,nTokens,nRules,nIns,show_time,nSRC,generate_object,nWarn,skip_error  ;
 	char *cStr  ; clock_t before_execution ; 
 	/* Init Values */
 	nCGI = 0 ;
@@ -162,7 +163,7 @@ SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 	show_time = 0 ;
 	cStr = NULL ;
 	nSRC = 0 ;
-	nGenObj = 0 ;
+	generate_object = 0 ;
 	nWarn = 0 ;
 	skip_error=0;
 	nSimpleStateDEBUGSEGFAULT = 0 ;
@@ -185,7 +186,7 @@ SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 			} else if ( strcmp(argv[x],"--help") == 0 || strcmp(argv[x],"-h") == 0 ) {
 				display_help();
 			} else if ( strcmp(argv[x],"-s") == 0 || strcmp(argv[x],"--simplify") == 0 ) {
-				nGenObj = 1 ; nRun = 0 ;
+				generate_object = 1 ; nRun = 0 ;
 			} else if ( strcmp(argv[x],"-n") == 0 || strcmp(argv[x],"--no-run") == 0 ) {
 				nRun = 0 ;
 			} else if ( strcmp(argv[x],"-b") == 0 || strcmp(argv[x],"--byte-code") == 0 ) {
@@ -216,11 +217,11 @@ SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 	srand(time(NULL));
 	/* Check Startup simple.sim */
 	if ( simple_fexists("simple.sim") && argc == 1 ) {
-		simple_execute("simple.sim",nCGI,nRun,nPrintIC,nPrintICFinal,nTokens,nRules,nIns,nGenObj,nWarn,argc,argv,skip_error);
+		simple_execute("simple.sim",nCGI,nRun,nPrintIC,nPrintICFinal,nTokens,nRules,nIns,generate_object,nWarn,argc,argv,skip_error);
 		exit(0);
 	}
 	if ( simple_fexists("simple.complex") && argc == 1 ) {
-		simple_execute("simple.complex",nCGI,nRun,nPrintIC,nPrintICFinal,nTokens,nRules,nIns,nGenObj,nWarn,argc,argv,skip_error);
+		simple_execute("simple.complex",nCGI,nRun,nPrintIC,nPrintICFinal,nTokens,nRules,nIns,generate_object,nWarn,argc,argv,skip_error);
 		exit(0);
 	}
 	/* Print Help */
@@ -230,7 +231,7 @@ SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 	/*Assign default file dir */
 	getcwd(simple_file_initial_dir, sizeof(simple_file_initial_dir));
     //get_file_folder ( simple_file_initial_dir );
-	simple_execute(cStr,nCGI,nRun,nPrintIC,nPrintICFinal,nTokens,nRules,nIns,nGenObj,nWarn,argc,argv,skip_error);
+	simple_execute(cStr,nCGI,nRun,nPrintIC,nPrintICFinal,nTokens,nRules,nIns,generate_object,nWarn,argc,argv,skip_error);
 	#if SIMPLE_TESTPERFORMANCE
 	if ( show_time ) {
 		simple_showtime( before_execution);
@@ -241,6 +242,16 @@ SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 SIMPLE_API void execute_simple_file ( SimpleState *sState,char *file_name )
 {
 	simple_scanner_readfile(sState,file_name);
+}
+
+SIMPLE_API void simple_state_runobjectfile ( SimpleState *sState,char *file_name )
+{
+	simple_scanner_runobject(sState,file_name);
+}
+
+SIMPLE_API void simple_execute_object( SimpleState *sState,char *string,const char *file_name )
+{
+	simple_scanner_runobjstring(sState,string,file_name);
 }
 
 #if SIMPLE_TESTUNITS

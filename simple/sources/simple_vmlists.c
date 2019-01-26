@@ -6,7 +6,7 @@
 
 /* 
  * File:   simple.c
- * Author: thecarisma
+ * Author: Azeez Adewale
  *
  * Created on July 24, 2017, 12:20 PM
  */
@@ -37,7 +37,7 @@ SIMPLE_API void simple_vm_liststart ( VM *vm )
 					**  When we access object attribute from braces then create temp. variable for set property operation 
 					**  We do this if we are not inside the class region (after the class name where we define attributes) 
 					*/
-					if ( (simple_list_getsize(vm->aBraceObjects) > 0) && ( ! simple_vm_oop_callmethodinsideclass(vm)) && (! vm->nInClassRegion) ) {
+					if ( (simple_list_getsize(vm->aBraceObjects) > 0) && ( ! simple_vm_oop_callmethodinsideclass(vm)) && (! vm->within_class) ) {
 						nCont = 1 ;
 					}
 				}

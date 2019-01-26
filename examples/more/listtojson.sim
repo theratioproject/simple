@@ -1,0 +1,26 @@
+/*
+
+*/
+call simple.core.Object
+call simple.utilities.Console
+call parser.json.JsonParser
+
+block main()
+	news = new News
+	news.Title = "simple-lang JSON"
+	news.Category = "parser"
+	news.Description = "Create JSON Object and array from object"
+	news.Url = "http://simple-lang.github.io/simple-lang/json"
+	news.Tags = ["parser", "json", "modules", "simple-lang"]
+	
+	object = listToJson(["parser", "json", "modules", "simple-lang", ["news1", news], news, "programming", "language", 1234])
+	stdout.println(object)
+	
+class News
+
+	Title = null
+	Category = null
+	Description = null
+	Url = null
+	Tags = []
+	

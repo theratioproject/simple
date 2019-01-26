@@ -46,7 +46,7 @@ class Dimension : Object
                 Width = object.Width
                 Height = object.Height
             else
-                throw(self,"The parameter is not valid. Expecting instance of Dimension for Dimension Width and Height. Found "+objecttype(object))
+                throw(self,"The parameter is not valid. Expecting instance of Dimension for Dimension Width and Height. Found "+objectType(object))
             }
         elif paramsLen == 2
             width = params[0]
@@ -55,7 +55,7 @@ class Dimension : Object
                 Width = floor(width)
                 Height = floor(height)
             else
-                throw(self,"The parameter is not valid. Expecting Number as Dimension Width and Height. Found " + objecttype(width) + " and " + objecttype(height))
+                throw(self,"The parameter is not valid. Expecting Number as Dimension Width and Height. Found " + objectType(width) + " and " + objectType(height))
             }
         else
             throw(self,"Initializing Dimension with invalid length of parameters")
@@ -83,7 +83,7 @@ class Dimension : Object
         if isNumber(height) {
             Height = floor(height)
         else
-            throw(self,"Invalid parameter, Expecting (Number). Found (" + objecttype(height) + ")")
+            throw(self,"Invalid parameter, Expecting (Number). Found (" + objectType(height) + ")")
         }
 
     /*
@@ -93,7 +93,7 @@ class Dimension : Object
         if isNumber(width) {
             Width = floor(width)
         else
-            throw(self,"Invalid parameter, Expecting (Number). Found (" + objecttype(width) + ")")
+            throw(self,"Invalid parameter, Expecting (Number). Found (" + objectType(width) + ")")
         }
         
 

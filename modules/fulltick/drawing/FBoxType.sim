@@ -54,12 +54,12 @@ class FBoxType : Object
             if isNumber(type) {
                 BoxType = type
             else
-                throw(self,"Invalid parameter in FBoxType Constructor. Expecting (Number). Found (" + objecttype(type) + ")")
+                throw(self,"Invalid parameter in FBoxType Constructor. Expecting (Number). Found (" + objectType(type) + ")")
             }
         elif paramsLen == 2
             type = params[0]
             color = params[1]
-            if isNumber(type) and (isNumber(color) or (isObject(color) and instanceof(color,"FColor"))) {
+            if isNumber(type) and (isNumber(color) or (isObject(color) and instanceOf(color,"FColor"))) {
                 BoxType = type
                 if isNumber(color) {
                     BoxColor = new FColor(color)
@@ -67,7 +67,7 @@ class FBoxType : Object
                     BoxColor = color
                 } 
             else
-                throw(self,"Invalid parameter in FBoxType Constructor. Expecting (Number,Number|fulltick.painting.FColor). Found (" + objecttype(type) + "," + objecttype(color) + ")")
+                throw(self,"Invalid parameter in FBoxType Constructor. Expecting (Number,Number|fulltick.painting.FColor). Found (" + objectType(type) + "," + objectType(color) + ")")
             }
         else
             throw(self,SIMPLE_VM_ERROR_EXTRAPARAMETERSCOUNT)

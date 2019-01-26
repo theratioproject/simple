@@ -1,0 +1,36 @@
+/*
+
+*/
+call simple.core.Object
+call simple.utilities.Console
+call parser.json.JsonParser
+
+block main()
+	jsonParser = new JsonParser(
+		'{		
+			"Title": "simple-lang JSON \u0639\u0631\u0628\u0649",
+			"Category": "parser",
+			"Post_Id": 222,
+			"Description": "Create JSON Object and array from object",
+			"Url": "http://simple-lang.github.io/simple-lang/json",
+			"Tags": [
+				"parser", 
+				{
+					"Name" : "module",
+					"Compilable" : "false",
+					"Tags" : "none"
+				}, 
+				"modules", 
+				"simple-lang"
+			]
+		}'
+	)
+	json = jsonParser.parseDynamic()
+	stdout.println(json.Title)
+	stdout.println(json.Category)
+	stdout.println(json.Post_Id)
+	stdout.println(json.Description)
+	stdout.println(json.Url)
+	stdout.println(json.get("Tags"))
+	stdout.println(json.get("Tags")[1].Compilable)
+	stdout.println(json.get("Tags")[2])

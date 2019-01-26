@@ -23,8 +23,8 @@
 #	mathic
 #	string_savant
 #	networker
-#	parser
 #	security
+#	simple_sqlite
 #	systemic
 #	core_dynamic_module
 
@@ -47,8 +47,8 @@ clean:
 	cd ../mathic/ && $(MAKE) -f Makefile-Windows.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
 	cd ../string_savant/ && $(MAKE) -f Makefile-Windows.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
 	cd ../networker/ && $(MAKE) -f Makefile-Windows.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
-	cd ../parser/ && $(MAKE) -f Makefile-Windows.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
 	cd ../security/ && $(MAKE) -f Makefile-Windows.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
+	cd ../simple_sqlite/ && $(MAKE) -f Makefile-Windows.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
 	cd ../systemic/ && $(MAKE) -f Makefile-Windows.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
 	cd ../core_dynamic_module/ && $(MAKE) -f Makefile-Windows.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
 	

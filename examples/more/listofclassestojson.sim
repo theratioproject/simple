@@ -1,0 +1,43 @@
+/*
+
+*/
+call simple.core.Object
+call simple.utilities.Console
+call parser.json.JsonParser
+
+block main()
+	news = loadNews()
+	object = objectToJson("news", news)
+	stdout.println(object)
+	
+block loadNews()
+	news1 = new News {
+		Title = "simple-lang JSON"
+		Category = "parser"
+		Description = "Create JSON Object and array from object"
+		Url = "http://simple-lang.github.io/simple-lang/json"
+		Tags = ["parser", "json", "modules", "simple-lang"]
+	}
+	
+	news2 = new News {
+		Title = "simple-lang Console"
+		Category = "console"
+		Description = "Print to standard output and error stream, and read from standard stream"
+		Url = "http://simple-lang.github.io/simple-lang/console"
+		Tags = ["utilities", "console", "modules", "simple-lang"]
+	}
+	
+	
+	news = []
+	__add_to_list(news, news1)
+	__add_to_list(news, news2)
+	return news
+	
+class News
+
+	Title = null
+	Category = null
+	Description = null
+	Url = null
+	Tags = []
+	

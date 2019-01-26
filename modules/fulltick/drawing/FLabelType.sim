@@ -88,7 +88,7 @@ class FLabelType : Object
         if isNumber(type) {
             LabelType = type
         else
-            throw(self,"Invalid parameter in FLabelType Constructor. Expecting (Number). Found (" + objecttype(type) + ")")
+            throw(self,"Invalid parameter in FLabelType Constructor. Expecting (Number). Found (" + objectType(type) + ")")
         }
 
     /*

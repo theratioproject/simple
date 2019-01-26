@@ -7,7 +7,7 @@
 
 /* 
  * File:   simple_misc.h
- * Author: thecarisma
+ * Author: Azeez Adewale
  *
  * Created on July 12, 2017, 3:31 PM
  */
@@ -36,10 +36,11 @@ typedef struct GCData {
 	int nReferenceCount  ;
 } GCData ;
 
+#define SIMPLE_NAME "simple"
 #define SIMPLE_VERSION "0.3.36"
 #define PRIMARY_AUTHOR "Azeez Adewale"
 #define START_YEAR 2018
-#define CURRENT_YEAR 2018
+#define CURRENT_YEAR 2019
 #define AUTHOR "The Simple Team"
 #define SIMPLE_LICENCE "MIT Licence"
 #define KB_BYTE_SIZE 1024
@@ -66,7 +67,7 @@ SIMPLE_API int is_complex_file( const char *file_name );
 
 SIMPLE_API const char *file_real_name(const char *absolute_name);
 
-SIMPLE_API const char *change_file_ext(const char *absolute_name, const char *extension);
+SIMPLE_API void remove_file_ext(char file_name[], const char *absolute_name);
 
 SIMPLE_API void get_file_folder ( char *absolute_path ) ;
 

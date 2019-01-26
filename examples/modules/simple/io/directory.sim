@@ -8,10 +8,10 @@ call simple.io.File
 call simple.utilities.Console
 
 block main() 
-	directory = new Directory("../../../../../testDirectory")
+	directory = new Directory("../../../testfiles/testDirectory")
 	stdout.println(directory)
 	stdout.println("Create Folder : " + directory.create())
 	stdout.println("Folder Exists : " + directory.exists())
-	stdout.println("Move Folder : " + directory.moveTo("../../../../../../", true))
+	stdout.println("Move Folder : " + directory.moveTo("../../../", true))
 	stdout.println(directory)
 	stdout.println("Delete Folder : " + directory.deleteRecursive())

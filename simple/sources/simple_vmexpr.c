@@ -7,7 +7,7 @@
 
 /* 
  * File:   simple_vmexpr.c
- * Author: thecarisma
+ * Author: Azeez Adewale
  *
  * Created on July 10, 2017, 2:10 PM
  */
@@ -1070,7 +1070,7 @@ SIMPLE_API void simple_vm_expr_npoo ( VM *vm,const char *cStr,double nNum1 )
 	}
 	if ( simple_vm_oop_isobject(list) == 1 ) {
 		/* Operator Overloading */
-		simple_vm_oop_operatoroverloading(vm,list,cStr,SIMPLE_OOPARA_NUMBER,"",nNum1,NULL,0);
+		simple_vm_oop_operatoroverloading(vm,list,cStr,SIMPLE_OOPARA_NUMBER,"",nNum1-1,NULL,0);
 		SIMPLE_VM_STACK_POP ;
 	} else {
 		simple_vm_error(vm,SIMPLE_VM_ERROR_BADVALUES);

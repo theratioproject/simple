@@ -53,26 +53,20 @@ call simple.io.File
 call simple.io.Directory
 call simple.core.String
 call simple.system.System
+call simple.system.SimpleX
 call simple.utilities.Console
 
 final depModules = [
 	"archiver",
-	"consoler",
 	"file_savant",
 	"mathic",
 	"string_savant",
 	"networker",
-	"parser",
 	"security",
 	"systemic",
 	"core_dynamic_module",
 	"fulltick"
 ]
-langMap = [
-	"simple -v",
-	#"python -V",
-	"gcc -v"
-	]
 Bakefile = null
 final bakkrey = new Bakkery
 
@@ -81,10 +75,9 @@ final bakkrey = new Bakkery
 Parse "Bakefile"
 */
 block main()
-	loadPlugins()
-	loadLanguages() 
 	header()
 	bread = new Bread
+	bread.SourceLang = "simple"
 	
 	params = cmdparams
 	paramsLen = lengthOf(params) - 1
@@ -97,20 +90,10 @@ block main()
 			else
 				throw("bake","Expecting a Bakefile after the -f flag")
 			}
-		elif param == "-s" or param == "--s"
-			if a < paramsLen {
-				bread.SourceFile = new File(params[a++])
-			else
-				throw("bake","Expecting a Source after the -s flag")
-			}
-		elif param == "-l"
-			if a < paramsLen {
-				bread.SourceLang = params[a++]
-			else
-				throw("bake","Expecting a language after the -l flag")
-			}
+		elif strEndsWith(param, ".sim")
+			bread.SourceFile = new File(param)
 		elif param == "x64"
-			breaf.BuildArch = "-m64"
+			bread.BuildArch = "-m64"
 			
 		elif param == "x86"
 			bread.BuildArch = "-m32"
@@ -118,63 +101,27 @@ block main()
 			help()
 		}
 	}
-	if isNull(langMap[bread.SourceLang]) and isNull(bread.SourceFile) and isNull(Bakefile) {
-		help()
-	}
-	if isNull(bread.SourceLang) {
-		throw("bake", "you need to provide the source lang")
-	elif isNull(langMap[bread.SourceLang])
-		throw("bake","The language '" + bread.SourceLang + "' is currently not supported or not installed on this system")
-	}
 	
 	if bread.SourceFile.Exists {
 		bread.Name = bread.SourceFile.NameOnly
-		bread.SourceFile.Directory.create()
-		bread.TempPath = new Directory(bread.SourceFile.Directory.AbsolutePath + bread.Name + "_bake")
-		bread.TempPath.create() 
+		bread.TempPath = new Directory(bread.SourceFile.Directory.AbsolutePath + bread.Name + "/tmp/")
+		if !bread.TempPath.Exists {
+			stdout.print("\rcreating temp working directory...")
+			bread.TempPath.create()
+		}
+		system("simple -s "+bread.SourceFile.AbsolutePath+"")
+		complexPath = bread.SourceFile.Directory.AbsolutePath+"/"+bread.SourceFile.NameOnly+".complex"
+		bread.SourceFile = new File(complexPath)
+		bread.SourceFile.moveTo(bread.TempPath.AbsolutePath,true)
 		bread.TempPath = bread.TempPath.AbsolutePath
 		bakkrey.bake(bread)
 	else
 		throw("bake","the " + bread.SourceLang + " source file '" + bread.SourceFile.Name + "' does not exists")
 	}
 
-__exit__
-
-block loadPlugins()
-	#load files in plugins
-
 block header() 
-	header = "bake 0.0.2 (December 27 2018, 09:03 PM)"
-	for lang in langMap {
-		header += "\n[" + lang[1][:name] + " " + lang[1][:version] + "]"
-	}
+	header = "bake 0.0.2 (December 27 2018, 09:03 PM)\nsimple " + simpleVersion()
 	stdout.println(header)
-	
-block loadLanguages()
-	_langMap = []
-	execTempFile = getTempDirectory() + "/lang_bread"
-	for lang in langMap { 
-		system(lang + " &> " + execTempFile)
-		output = __readfile(execTempFile)
-		if strContains(output,"not found") or strContains(output,"error") {
-			continue
-		}
-		splitedOutput = strSplit(output," ")
-		name = lang
-		version = "0.0.1"
-		if strContains(lang,"gcc") {
-			name = toLowerCase(splitedOutput[0])
-			version = splitedOutput[2]
-		else
-			name = toLowerCase(splitedOutput[0])
-			version = splitedOutput[1]
-		}
-		_langMap[name] = []
-		_langMap[name]["name"] = name
-		_langMap[name]["version"] = version
-	}
-	langMap = _langMap
-	_langMap = null
 	
 block help()
 	help = 
@@ -185,18 +132,13 @@ block help()
 [ENV_VARS] : change environment variables in Bakefile
 
 The OPTIONS include: 
-	-f	provide a Bakefile instead of using detected in next arg
-	-s	supply a [LANG] source file for a single build  in next arg
-	-l	specify a [LANG] for a single build in next arg
+	-f	provide a Bakefile
 	-h	print this help and exit
 	x64	mark all build for 64 bits arc
 	x86	mark all build for 32 bits arc
-	
-Supported [LANG]: 
-	simple
-	bash/sh"
+"
 	stdout.println(help)
-	exit(0)
+	__exit__
 	
 class Bread 
 
@@ -216,22 +158,51 @@ class Bread
 class Bakkery 
 
 	block bake(Bread bread)
-		stdout.println("preparing to bake " + bread.Name)
-		stdout.print("creating wrapper code for : " + bread.Name + "...")
+		stdout.print("\rpreparing to bake " + bread.Name)
+		stdout.print("\rcreating wrapper code for : " + bread.Name + "...")
+		
 		cCode = writeWrapper(bread)
-		tempFile = new File(bread.TempPath+bread.Name+".bake.c") 
+		tempFile = new FileWriter(bread.TempPath+"/"+bread.Name+".bake.c", false, true)
 		tempFile.write(cCode)
+		tempFile.close()
 		stdout.println("(done)")
+		stdout.print("\rbuilding executable ...")
+		buildExecutables(bread)
+		if !bread.KeepTemp and bread.IsDeploy {
+			dir = new Directory(bread.TempPath)
+			#dir.deleteRecursive()
+		elif !bread.KeepTemp
+			bread.SourceFile.delete()
+			bread.SourceFile = new File(bread.TempPath+"/"+bread.Name+".bake.c")
+			bread.SourceFile.delete()
+		}
 		
 	private
 	
 		block writeWrapper(Bread bread)
-			cCode = WrapperCodeTemplate[bread.SourceLang]
-			if bread.SourceLang == "simple" {
-				cCode = replaceStr(cCode, "{INCLUDE_FILE}", "<simple/simple.h>")
-			}
+			cCode = '#include {INCLUDE_FILE}
+
+int main( int argc, char *argv[]) {
+	static const unsigned char sim_code[] = { {COMPLEX_HEX} };
+	SimpleState *sState ;
+	sState = init_simple_state();
+	sState->argc = argc ;
+	sState->argv = argv ;
+	simple_execute_object(sState, (char *) sim_code, "{FILE_NAME}");
+	finalize_simple_state(sState);
+}'
+			cCode = replaceStr(cCode, "{INCLUDE_FILE}", "<simple/simple.h>")
+			cCode = replaceStr(cCode, "{FILE_NAME}", bread.Name + ".sim")
+			cCode = replaceStr(cCode, "{COMPLEX_HEX}",__string_to_chex(bread.SourceFile.readAllString()))
 			
 			return cCode
+			
+		block buildExecutables(bread)
+			if isLinux() {
+				__mkdir(bread.TempPath+"/../linux/",0755)
+				cmd = 'cc '+bread.BuildArch+' -I/$DESTDIR/$PREFIX/include/ -I/usr/include/ -lm -ldl -o "'+bread.TempPath+"/../linux/"+bread.Name+'" "'+bread.TempPath+"/"+bread.Name+".bake.c"+'" '+simpleExecDir()+'../lib/libsimple.a'
+				system(cmd)
+			}
  
 #end new bake
 depmodules = []
@@ -282,7 +253,7 @@ block magin() header()
 				elif cmdParameters[a] == "--64-bit" or cmdParameters[a] == "x64" or cmdParameters[a] == "-m64" buildArch = "-m64"
 				elif cmdParameters[a] == "--simpleh" or cmdParameters[a] =="-sh"  simpleHPath = '"'+cmdParameters[a++]+'"'
 				else printError("Invalid option : "+cmdParameters[a]) end 
-				add(depmodules, cmdParameters[a]) 
+				__add_to_list(depmodules, cmdParameters[a]) 
 			end
 		end
 	end
@@ -345,8 +316,8 @@ block writeCode()
 					simple_list_addstring_gc(sState->vm->sState,list,sState->vm->sState->argv[x]);
 			}
 			//hack end
-			execute_code(sState, (char *) sim_code);
-			finalize(sState);
+			execute_simple_object(sState, (char *) sim_code);
+			finalize_simple_state(sState);
 		}
 
 ' 
@@ -481,7 +452,7 @@ block cleanTempFiles(tempfiles)
 #conform into the standard string in a C source file
 block formatCode(code)
 	#code = ''+replaceString(code, '"', '\"')
-	#code = replaceString(code, char(10), '					"')
+	#code = replaceString(code, ascii(10), '					"')
 	finalCode = '"'
 	display "->formating the simple source code (TEMP)"+crlf
 	lineLen =lengthOf(code) - 1
@@ -490,9 +461,9 @@ block formatCode(code)
 			finalCode+= '\"'
 		elif code[a] == '\'
 			finalCode+= '\\'
-		elif code[a] == char(13) #end of line
+		elif code[a] == ascii(13) #end of line
 			finalCode+= '"'
-		elif code[a] == char(10) #line break
+		elif code[a] == ascii(10) #line break
 			finalCode+= crlf+'" '
 		else 
 			finalCode+= code[a]

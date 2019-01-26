@@ -53,7 +53,7 @@ class PrintWriter : Object
 	block write(string data)
 		if IsOpen {
 			fileWriter.write(data) 
-			if strContains(data,char(10)) and AutoFlush {
+			if strContains(data,ascii(10)) and AutoFlush {
 				fileWriter.flush()
 			}
 		else
@@ -115,6 +115,10 @@ class PrintWriter : Object
 		print with fore ground color if supported
 	*/
 	block printfc(number color, params...)
+		if !IsOpen {
+			throw(self, "The file has been closed ")
+			return false
+		}
 		value = strFormatIndex(params)
 		__printwfb(fileWriter.FilePointer, color, BackgroundColor, value)
 		fileWriter.flush()
@@ -123,6 +127,10 @@ class PrintWriter : Object
 		print with back ground color if supported
 	*/
 	block printbc(number color, params...)
+		if !IsOpen {
+			throw(self, "The file has been closed ")
+			return false
+		}
 		value = strFormatIndex(params)
 		__printwfb(fileWriter.FilePointer, ForegroundColor, color, value)
 		fileWriter.flush()
@@ -144,7 +152,6 @@ class PrintWriter : Object
 	*/
 	block close()
 		if IsOpen {
-			IsOpen = false
 			if !Closable {
 				fileWriter.flush()
 			else
@@ -153,8 +160,9 @@ class PrintWriter : Object
 				catch
 					
 				}
+				IsOpen = false
+				fileWriter = null
 			}
-			fileWriter = null
 		}
 		
 	

@@ -152,7 +152,7 @@ class FAlignment : Object
         if isNumber(align) {
             Alignment = align
         else
-            throw(self,"Invalid parameter in Alignment Constructor. Expecting (Number). Found (" + objecttype(align) + ")")
+            throw(self,"Invalid parameter in Alignment Constructor. Expecting (Number). Found (" + objectType(align) + ")")
         }
 
     /*

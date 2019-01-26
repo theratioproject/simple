@@ -20,8 +20,8 @@
 #	mathic
 #	string_savant
 #	networker
-#	parser
 #	security
+#	simple_sqlite
 #	systemic
 #	core_dynamic_module
 #	fulltick
@@ -54,8 +54,8 @@ clean:
 	cd ../mathic/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
 	cd ../string_savant/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
 	cd ../networker/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
-	cd ../parser/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
 	cd ../security/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
+	cd ../simple_sqlite/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
 	cd ../systemic/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
 	cd ../core_dynamic_module/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
 	#cd ../fulltick/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
@@ -72,6 +72,7 @@ install:
 	install $(MODULE_BASE)/modules-dependencies.conf /var/lib/simple/$(VERSION)/modules/
 	cp -R $(MODULE_BASE)/archive /var/lib/simple/$(VERSION)/modules/
 	cp -R $(MODULE_BASE)/fulltick /var/lib/simple/$(VERSION)/modules/
+	cp -R $(MODULE_BASE)/parser /var/lib/simple/$(VERSION)/modules/
 	cp -R $(MODULE_BASE)/simple /var/lib/simple/$(VERSION)/modules/
 	cp -R $(MODULE_BASE)/web /var/lib/simple/$(VERSION)/modules/
 	cp -R $(MODULE_BASE)/parser /var/lib/simple/$(VERSION)/modules/

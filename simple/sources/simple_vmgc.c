@@ -6,7 +6,7 @@
 
 /* 
  * File:   simple.c
- * Author: thecarisma
+ * Author: Azeez Adewale
  *
  * Created on July 22, 2017, 06:16 PM
  */
@@ -93,7 +93,7 @@ SIMPLE_API void simple_vm_gc_deletetemlists ( VM *vm )
 	int x  ;
 	List *pScope,*list  ;
 	/* If we are in the class region (After class name) then return */
-	if ( vm->nInClassRegion ) {
+	if ( vm->within_class ) {
 		return ;
 	}
 	/*

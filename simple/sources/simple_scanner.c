@@ -8,7 +8,7 @@
 
 /*
  * File:   simple_scanner.h
- * Author: thecarisma
+ * Author: Azeez Adewale
  *
  * Created on July 10, 2017, 1:10 PM
  */
@@ -26,7 +26,7 @@ const char * SIMPLE_KEYWORDS[] = {"if","to","or","and","not","for","new","block"
 
 "in","continue","module","private","final","step","do","exec","elif",
 
-"get","case"/**, "changesimplekeyword","changesimpleoperator","loadsyntax"**/} ;
+"case"/**, "changesimplekeyword","changesimpleoperator","loadsyntax"**/} ;
 
 /* Secondary (Not Enforced) */
 const char * SIMPLE_SECONDARY_KEYWORDS[] = {"..."} ;
@@ -191,7 +191,7 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
 	}
 	/* Read File */
 	if ( fp==NULL ) {
-		printf( "COMPILER ERROR -1 : Can't open file/module : %s\n", file_name) ;	
+		printf( "COMPILER ERROR 0 : Can't open file/module : %s\n", file_name) ;	
 		exit(-1);
          return 0 ;
 	}
@@ -255,13 +255,17 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
 	/* Files List */
 	simple_list_deleteitem_gc(sState,sState->files_stack,simple_list_getsize(sState->files_stack));
 	if ( nFreeFilesList ) {
+		/* Generate the Object File */
+		if ( sState->generate_object ) {
+			simple_object_writefile(sState);
+		}
 		/* Run the Program */
 		#if SIMPLE_RUNVM
 		if ( nRunVM == 1 ) {
 			/* Add return to the end of the program */
 			simple_scanner_addreturn(sState);
 			if ( sState->nPrintIC ) {
-				simple_parser_icg_showoutput(sState->pSimpleGenCode,1);
+				simple_parser_icg_showoutput(sState->generated_code,1);
 			}
 			if ( ! sState->nRun ) {
 				return 1 ;
@@ -275,7 +279,7 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
 		#endif
 		/* Display Generated Code */
 		if ( sState->nPrintICFinal ) {
-			simple_parser_icg_showoutput(sState->pSimpleGenCode,2);
+			simple_parser_icg_showoutput(sState->generated_code,2);
 		}
 	}
 	return nRunVM ;
@@ -615,7 +619,6 @@ void simple_scanner_keywords ( Scanner *scanner )
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"do");
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"exec");
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"elif");
-	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"get");
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"case");
 	/*
 	**  The next keywords are sensitive to the order and keywords count
@@ -857,7 +860,7 @@ void simple_scanner_addreturn ( SimpleState *sState )
 {
 	List *list  ;
 	/* Add return to the end of the program */
-	list = simple_list_newlist_gc(sState,sState->pSimpleGenCode);
+	list = simple_list_newlist_gc(sState,sState->generated_code);
 	simple_list_addint_gc(sState,list,ICO_RETNULL);
 }
 
@@ -865,7 +868,7 @@ void simple_scanner_addreturn2 ( SimpleState *sState )
 {
 	List *list  ;
 	/* Add return to the end of the program */
-	list = simple_list_newlist_gc(sState,sState->pSimpleGenCode);
+	list = simple_list_newlist_gc(sState,sState->generated_code);
 	simple_list_addint_gc(sState,list,ICO_RETURN);
 }
 
@@ -873,7 +876,7 @@ void simple_scanner_addreturn3 ( SimpleState *sState, int aPara[3] )
 {
 	List *list  ;
 	/* Add return from executeCode to the end of the executeCode() code */
-	list = simple_list_newlist_gc(sState,sState->pSimpleGenCode);
+	list = simple_list_newlist_gc(sState,sState->generated_code);
 	simple_list_addint_gc(sState,list,ICO_RETFROMEVAL);
 	simple_list_addint_gc(sState,list,aPara[0]);
 	simple_list_addint_gc(sState,list,aPara[1]);
@@ -919,7 +922,7 @@ void display_tokens ( Scanner *scanner )
     exit(0);
 }
 
-SIMPLE_API void simple_execute ( char *file_name, int nISCGI,int nRun,int nPrintIC,int nPrintICFinal,int nTokens,int nRules,int nIns,int nGenObj,int nWarn,int argc,char *argv[], int skip_error)
+SIMPLE_API void simple_execute ( char *file_name, int nISCGI,int nRun,int nPrintIC,int nPrintICFinal,int nTokens,int nRules,int nIns,int generate_object,int nWarn,int argc,char *argv[], int skip_error)
 {
 	SimpleState *sState  ;
 	sState = simple_state_new();
@@ -930,6 +933,7 @@ SIMPLE_API void simple_execute ( char *file_name, int nISCGI,int nRun,int nPrint
 	sState->nPrintTokens = nTokens ;
 	sState->nPrintRules = nRules ;
 	sState->nPrintInstruction = nIns ;
+	sState->generate_object = generate_object ; 
 	sState->nWarning = nWarn ;
 	sState->skip_error= skip_error ;
 	sState->argc = argc ;
@@ -939,7 +943,34 @@ SIMPLE_API void simple_execute ( char *file_name, int nISCGI,int nRun,int nPrint
 	if ( is_simple_file(file_name) ) {
 		simple_scanner_readfile(sState,file_name);
 	}
-	finalize(sState);
+	else {
+		simple_scanner_runobject(sState,file_name);
+	}
+	finalize_simple_state(sState);
+}
+
+void simple_scanner_runobject( SimpleState *sState,char *file_name )
+{
+	/* Files List */
+	sState->files_list = simple_list_new_gc(sState,0);
+	sState->files_stack = simple_list_new_gc(sState,0);
+	simple_list_addstring_gc(sState,sState->files_list,file_name);
+	simple_list_addstring_gc(sState,sState->files_stack,file_name);
+	if ( simple_object_readfile(sState,file_name) ) {
+		simple_scanner_runprogram(sState);
+	}
+}
+
+void simple_scanner_runobjstring ( SimpleState *sState,char *string,const char *file_name )
+{
+	/* Files List */
+	sState->files_list = simple_list_new_gc(sState,0);
+	sState->files_stack = simple_list_new_gc(sState,0);
+	simple_list_addstring_gc(sState,sState->files_list,file_name);
+	simple_list_addstring_gc(sState,sState->files_stack,file_name);
+	if ( simple_object_readstring(sState,string) ) {
+		simple_scanner_runprogram(sState);
+	}
 }
 
 const char * simple_scanner_getkeywordtext ( const char *cStr )
@@ -958,17 +989,17 @@ void simple_scanner_runprogram ( SimpleState *sState )
 	/* Add return to the end of the program */
 	simple_scanner_addreturn(sState);
 	if ( sState->nPrintIC ) {
-		simple_parser_icg_showoutput(sState->pSimpleGenCode,1);
+		simple_parser_icg_showoutput(sState->generated_code,1);
 	}
 	if ( ! sState->nRun ) {
 		return ;
 	}
-	vm = simple_vm_new(sState);
+	vm = simple_vm_new(sState); 
 	simple_vm_start(sState,vm);
-	simple_vm_delete(vm);
+	simple_vm_delete(vm); 
 	/* Display Generated Code */
 	if ( sState->nPrintICFinal ) {
-		simple_parser_icg_showoutput(sState->pSimpleGenCode,2);
+		simple_parser_icg_showoutput(sState->generated_code,2);
 	}
 }
 

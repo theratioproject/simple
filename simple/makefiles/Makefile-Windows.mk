@@ -57,6 +57,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/sources/simple_item.o \
 	${OBJECTDIR}/sources/simple_list.o \
 	${OBJECTDIR}/sources/simple_misc.o \
+	${OBJECTDIR}/sources/simple_object.o \
 	${OBJECTDIR}/sources/simple_parser.o \
 	${OBJECTDIR}/sources/simple_scanner.o \
 	${OBJECTDIR}/sources/simple_state.o \
@@ -126,6 +127,9 @@ ${OBJECTDIR}/sources/simple_list.o: ../sources/simple_list.c
 
 ${OBJECTDIR}/sources/simple_misc.o: ../sources/simple_misc.c
 	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" $(ARC_FLAG) -o ${OBJECTDIR}/sources/simple_misc.o ../sources/simple_misc.c
+
+${OBJECTDIR}/sources/simple_object.o: ../sources/simple_object.c
+	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" $(ARC_FLAG) -o ${OBJECTDIR}/sources/simple_object.o ../sources/simple_object.c
 
 ${OBJECTDIR}/sources/simple_parser.o: ../sources/simple_parser.c
 	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" $(ARC_FLAG) -o ${OBJECTDIR}/sources/simple_parser.o ../sources/simple_parser.c

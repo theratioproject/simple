@@ -177,17 +177,20 @@ copymodules() {
 			if [ -e "../../$simple_debug_version/modules/simple" ]; then 
 				sudo rm -R -f "../../$simple_debug_version/modules/archive"
 				sudo rm -R -f "../../$simple_debug_version/modules/fulltick"
+				sudo rm -R -f "../../$simple_debug_version/modules/parser"
 				sudo rm -R -f "../../$simple_debug_version/modules/simple"
 				sudo rm -R -f "../../$simple_debug_version/modules/web"
 			fi
 			sudo mkdir -p "../../$simple_debug_version/modules/archive"
 			sudo mkdir -p "../../$simple_debug_version/modules/fulltick"
+			sudo mkdir -p "../../$simple_debug_version/modules/parser"
 			sudo mkdir -p "../../$simple_debug_version/modules/simple"
 			sudo mkdir -p "../../$simple_debug_version/modules/web"
 			if [ -e "../modules/modules-dependencies.conf" ]; then
 				sudo cp "../modules/modules-dependencies.conf" "../../$simple_debug_version/modules/"
 				sudo cp -R "../modules/archive" "../../$simple_debug_version/modules/"
 				sudo cp -R "../modules/fulltick" "../../$simple_debug_version/modules/"
+				sudo cp -R "../modules/parser" "../../$simple_debug_version/modules/"
 				sudo cp -R "../modules/simple" "../../$simple_debug_version/modules"
 				sudo cp -R "../modules/web" "../../$simple_debug_version/modules/"
 				treat_first_calls_file $1 "../../$simple_debug_version/modules/simple/core/__first_calls.sim"
@@ -200,17 +203,20 @@ copymodules() {
 			if [ -e "$prefix/lib/simple/$version/modules/simple" ]; then 
 				sudo rm -R -f "$prefix/lib/simple/$version/modules/archive"
 				sudo rm -R -f "$prefix/lib/simple/$version/modules/fulltick"
+				sudo rm -R -f "$prefix/lib/simple/$version/modules/parser"
 				sudo rm -R -f "$prefix/lib/simple/$version/modules/simple"
 				sudo rm -R -f "$prefix/lib/simple/$version/modules/web"
 			fi
 			sudo mkdir -p "$prefix/lib/simple/$version/modules/archive"
 			sudo mkdir -p "$prefix/lib/simple/$version/modules/fulltick"
+			sudo mkdir -p "$prefix/lib/simple/$version/modules/parser"
 			sudo mkdir -p "$prefix/lib/simple/$version/modules/simple"
 			sudo mkdir -p "$prefix/lib/simple/$version/modules/web"
 			if [ -e "../modules/modules-dependencies.conf" ]; then
 				sudo cp "../modules/modules-dependencies.conf" "$prefix/lib/simple/$version/modules/"
 				sudo cp -R "../modules/archive" "$prefix/lib/simple/$version/modules/"
 				sudo cp -R "../modules/fulltick" "$prefix/lib/simple/$version/modules/"
+				sudo cp -R "../modules/parser" "$prefix/lib/simple/$version/modules/"
 				sudo cp -R "../modules/simple" "$prefix/lib/simple/$version/modules"
 				sudo cp -R "../modules/web" "$prefix/lib/simple/$version/modules/"
 				treat_first_calls_file $1 "$prefix/lib/simple/$version/modules/simple/core/__first_calls.sim"

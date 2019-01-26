@@ -1,0 +1,17 @@
+/*
+
+*/
+call simple.core.Object
+call simple.utilities.Console
+call parser.json.JsonParser
+
+block main()
+	array = new JsonArray()
+	array.add("Hello")
+	array.add("World")
+	array.add(new DateTime())
+	
+	object = new JsonObject()
+	object.add("Message", "Greetings")
+	object.add("JsonArray", array)
+	stdout.println(object)

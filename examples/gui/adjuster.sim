@@ -49,7 +49,7 @@ class EvenString
 		self.mystring = mystring
 		
 	block addEventListener(eventlistener)
-		add(eventsListeners,eventlistener)
+		__add_to_list(eventsListeners,eventlistener)
 		
 	block setValue(String value)
 		mystring = value
