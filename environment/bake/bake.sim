@@ -56,17 +56,6 @@ call simple.system.System
 call simple.system.SimpleX
 call simple.utilities.Console
 
-final depModules = [
-	"archiver",
-	"file_savant",
-	"mathic",
-	"string_savant",
-	"networker",
-	"security",
-	"systemic",
-	"core_dynamic_module",
-	"fulltick"
-]
 Bakefile = null
 final bakkrey = new Bakkery
 
@@ -81,6 +70,7 @@ block main()
 	
 	params = cmdparams
 	paramsLen = lengthOf(params) - 1
+	if paramsLen < 0 { help() }
 	for a = 0 to paramsLen {
 		param = params[a]
 		if param == "-f" {
@@ -90,18 +80,37 @@ block main()
 			else
 				throw("bake","Expecting a Bakefile after the -f flag")
 			}
+		elif param == "-s" or param == "--static"
+			bread.LinkStatically = true
+			bread.LibraryExt = ".a"
+			
+		elif param == "-k" or param == "--keep"
+			bread.KeepTemp = true
+			
+		elif param == "-g" or param == "--gui"
+			bread.GUI = true
+			
+		elif param == "-m" or param == "--mobile"
+			bread.MobileOnly = true
+			bread.BuildAll = false
+			
 		elif strEndsWith(param, ".sim")
 			bread.SourceFile = new File(param)
+			
 		elif param == "x64"
 			bread.BuildArch = "-m64"
 			
 		elif param == "x86"
 			bread.BuildArch = "-m32"
+			
 		elif param == "-h" or param == "--h"
 			help()
 		}
 	}
 	
+	if isNull(bread.SourceFile) {
+		throw("bake", "A simple source file (.sim) is not provided")
+	}
 	if bread.SourceFile.Exists {
 		bread.Name = bread.SourceFile.NameOnly
 		bread.TempPath = new Directory(bread.SourceFile.Directory.AbsolutePath + bread.Name + "/tmp/")
@@ -147,13 +156,17 @@ class Bread
 	SourceLang = null
 	TempPath = null
 	IconPath = null
-	IsDeploy = false
+	BuildAll = true
 	LinkStatically = false
+	LibraryExt = "." + dynamicModuleExt()
 	KeepTemp = false
 	IsGui = false
 	HasIcon = false
 	IsDebug = false
 	BuildArch = "-m32"
+	MobileOnly = false
+	CFLAG = ""
+	GUI = false
 
 class Bakkery 
 
@@ -166,9 +179,9 @@ class Bakkery
 		tempFile.write(cCode)
 		tempFile.close()
 		stdout.println("(done)")
-		stdout.print("\rbuilding executable ...")
+		stdout.print("\rpreparing to build executables...")
 		buildExecutables(bread)
-		if !bread.KeepTemp and bread.IsDeploy {
+		if !bread.KeepTemp and bread.BuildAll {
 			dir = new Directory(bread.TempPath)
 			#dir.deleteRecursive()
 		elif !bread.KeepTemp
@@ -191,18 +204,51 @@ int main( int argc, char *argv[]) {
 	simple_execute_object(sState, (char *) sim_code, "{FILE_NAME}");
 	finalize_simple_state(sState);
 }'
-			cCode = replaceStr(cCode, "{INCLUDE_FILE}", "<simple/simple.h>")
 			cCode = replaceStr(cCode, "{FILE_NAME}", bread.Name + ".sim")
 			cCode = replaceStr(cCode, "{COMPLEX_HEX}",__string_to_chex(bread.SourceFile.readAllString()))
+			if isWindows() {
+				cCode = replaceStr(cCode, "{INCLUDE_FILE}", '"'+simpleIncludesDir()+'/simple.h"')
+				if bread.GUI {
+					cCode = replaceStr(cCode, "int main( int argc, char *argv[]) {", 'int WINAPI WinMain ( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd ) { int argc ; char **argv ; argc = __argc ; argv = __argv ; ')
+				}
+			else
+				cCode = replaceStr(cCode, "{INCLUDE_FILE}", "<simple/simple.h>")
+			}
 			
 			return cCode
 			
-		block buildExecutables(bread)
-			if isLinux() {
+		block buildExecutables(bread) 
+			if isLinux() and bread.BuildAll {
+				stdout.printf("\r%s\rbuilding for linux...", strCopy(" ", 40))
 				__mkdir(bread.TempPath+"/../linux/",0755)
-				cmd = 'cc '+bread.BuildArch+' -I/$DESTDIR/$PREFIX/include/ -I/usr/include/ -lm -ldl -o "'+bread.TempPath+"/../linux/"+bread.Name+'" "'+bread.TempPath+"/"+bread.Name+".bake.c"+'" '+simpleExecDir()+'../lib/libsimple.a'
+				cmd = 'cc '+bread.CFLAG+' '+bread.BuildArch+' -I/$DESTDIR/$PREFIX/include/ -I/usr/include/ -lm -ldl -o "'+bread.TempPath+"/../linux/"+bread.Name+'" "'+bread.TempPath+"/"+bread.Name+".bake.c"+'" '+simpleExecDir()+'../lib/libsimple' + bread.LibraryExt
 				system(cmd)
+				stdout.print("(done)")
+				
+			elif isWindows() and bread.BuildAll
+				stdout.printf("\r%s\rbuilding for windows : compiling object code...", strCopy(" ", 40))
+				cmd = 'gcc '+bread.BuildArch+' -c -g -MMD -MP -MF "' + bread.TempPath+"/"+bread.Name+".bake.c" + '.o.d" -o "' + bread.TempPath+"/"+bread.Name+".bake.c" + '.o" "'+bread.TempPath+"/"+bread.Name+".bake.c"+'"'
+				system(cmd)
+				__mkdir(bread.TempPath+"/../windows/",0755)
+				__mkdir(bread.TempPath+"/../windows/",0755)
+				if bread.GUI {
+					bread.CFLAG += " -mwindows "
+				}
+				stdout.printf("\r%s\rbuilding for windows : generating executable...", strCopy(" ", 40))
+				cmd = 'gcc '+bread.CFLAG+' '+bread.BuildArch+' -o "'+bread.TempPath+"/../windows/"+bread.Name+'.exe" "'+bread.TempPath+"/"+bread.Name+".bake.c"+'.o" '+simpleExecDir()+"/libsimple" + bread.LibraryExt
+				system(cmd)
+				stdout.print("(done)")
+				
+			elif isMacosx() and bread.BuildAll
+				stdout.printf("\r%s\rbuilding for macosx...", strCopy(" ", 40))
+				
+				stdout.print("(done)")
 			}
+			
+			if bread.BuildAll or bread.MobileOnly {
+				
+			}
+			#stdout.print("\rbuilding for desktop..." + simpleExecDir)
  
 #end new bake
 depmodules = []

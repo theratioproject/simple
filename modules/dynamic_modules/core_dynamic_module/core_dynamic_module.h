@@ -145,6 +145,8 @@ SIMPLE_API void meta_blocks_vm_memory_list(void *pointer);
 SIMPLE_API void meta_blocks_vm_blocks_list(void *pointer);
 SIMPLE_API void meta_blocks_vm_classes_list(void *pointer);
 SIMPLE_API void meta_blocks_vm_modules_list(void *pointer);
+SIMPLE_API void meta_blocks_vm_module_paths(void *pointer);
+SIMPLE_API void meta_blocks_vm_add_module_path(void *pointer);
 SIMPLE_API void meta_blocks_vm_c_blocks_list(void *pointer);
 SIMPLE_API void meta_blocks_vm_set_trace(void *pointer);
 SIMPLE_API void meta_blocks_vm_trace_data(void *pointer);

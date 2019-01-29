@@ -10,25 +10,84 @@ call simple.graphics.Point
 call fulltick.drawing.FBoxType
 call fulltick.painting.FColor
 call fulltick.widgets.FWindow
-call fulltick.widgets.FLabel
+call fulltick.widgets.FButton
+call fulltick.widgets.FInput
 call fulltick.base.FWidget
 call fulltick.FApp
+call fulltick.events.FCallbackEvent
 
-flabelDemo = new FLabelDemo
+finput_Demo = new FInput_Demo
 FApp.run()
 
-class FLabelDemo
+class FInput_Demo : FCallbackEvent
 
-    fwindow = new FWindow(400,180,"FLabel Demo") { 
-        begin(true)
-        new FLabel(0,20) { Label = "This FLabel set it own label independently" }
-        new FLabel(0,40,"This FLabel Has a custom background") { Background = FColor.FCOLOR_CYAN }
-        new FLabel(0,70,"This FLabel has custom size") { LabelSize = 30 }
-        new FLabel(0,100,"This FLabel has custom font") {  LabelFont = FFont.FFONT_TIMES_BOLD_ITALIC }
-        new FLabel(0,120,"This FLabel has custom foreground") {  LabelColor = FColor.FCOLOR_RED } 
-        new FLabel(0,140,"This FLabel has custom label type") {  LabelType = FLabelType.NO_LABEL }
+    fwindow = new FWindow(320,180,"FInput_ Demo") { 
+        begin(true) 
+        input_ = new FInput(10,10,"Demo FInput_ Class")
+		statusLabel = new FLabel(0,fwindow.Height - 20,320,10,"...") {
+			LabelFont = FFont.FFONT_TIMES_BOLD_ITALIC
+			LabelColor = FColor.FCOLOR_GREEN
+		}
+        new FButton(10,50,50,25,"Copy") {
+			Id = 1
+			setCallbackListener(self)
+		}
+        new FButton(70,50,50,25,"Cut") {
+			Id = 2
+			setCallbackListener(self)
+		}
+        new FButton(130,50,70,25,"Delete") {
+			Id = 3
+			setCallbackListener(self)
+		}
+        new FButton(210,50,100,25,"Cursor Color") {
+			Id = 4
+			setCallbackListener(self)
+		}
+        new FButton(10,85,50,25,"Index 5") {
+			Id = 5
+			setCallbackListener(self)
+		}
+        new FButton(70,85,50,25,"insert") {
+			Id = 6
+			setCallbackListener(self)
+		}
+        new FButton(130,85,50,25,"Mark") {
+			Id = 7
+			setCallbackListener(self)
+		}
         endBegin()
         centerOnScreen() 
+        Resizable = false
         show()        
     } 
+	
+	block callback(widget)
+		if widget.Id == 1 {
+			updateStatusBar("The selected text has been copied : " + input_.copy())
+			
+		elif widget.Id == 2
+			updateStatusBar("The selected text has been cut : " + input_.cut())
+			
+		elif widget.Id == 3
+			updateStatusBar("The selected text has been deleted : " + input_.deleteSelected())
+			
+		elif widget.Id == 4
+			input_.setCursorColor(FColor.FCOLOR_BLUE)
+			updateStatusBar("Change cursor color to blue")
+			
+		elif widget.Id == 5
+			updateStatusBar("Index at 5 : " + input_.index(5))
+			
+		elif widget.Id == 6
+			input_.insert("Hello")
+			updateStatusBar("Insert 'Hello' at position ")
+			
+		elif widget.Id == 7
+			updateStatusBar("The current mark " + input_.mark())
+		}
+		input_.takeFocus()
+		
+	block updateStatusBar(status)
+		statusLabel.Label = status
         

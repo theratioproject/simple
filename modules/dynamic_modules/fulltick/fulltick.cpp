@@ -19,13 +19,14 @@ CallbackStruct::CallbackStruct(void *the_pointer, String *the_block, Fl_Widget *
 	widget = the_widget ;
 }
 
-void *CallbackStruct::_pointer = NULL;
+void *CallbackStruct::_sState = NULL;
 bool CallbackStruct::ret_evt_to_fl = true;
 
 /** the callback delegate for the fulltick library **/
 void SimpleCallBack(Fl_Widget*, void* callback_struct) {
 	CallbackStruct *cbs = (CallbackStruct *) callback_struct ; 
 	simple_vm_runcode((VM *) cbs->pointer,simple_string_get(cbs->block));
+	//simple_vm_callblock((VM *)cbs->pointer,"__fulltick_widget_callback");
 }
 
 /*
@@ -37,7 +38,7 @@ void SimpleCallBack(Fl_Widget*, void* callback_struct) {
 int simple_Fl_Event_Dispatch(int event, Fl_Window *window) {
 	char code_block[30]; 
 	snprintf(code_block, sizeof(code_block), "FApp.handle(%i,\"%p\")", event, (void*)window); //printf("%p\n",(void*)window);
-	simple_vm_runcode((VM *)CallbackStruct::_pointer, code_block); //this line is crucial to our events
+	simple_vm_runcode(((SimpleState *)CallbackStruct::_sState)->vm, code_block); //this line is crucial to our events
 	if (CallbackStruct::ret_evt_to_fl == true)
 		return Fl::handle_(event, window);
 	return 0;
@@ -2770,7 +2771,7 @@ SIMPLE_BLOCK(fltk_fl_Fl_remove_system_handler)
 
 SIMPLE_BLOCK(fltk_fl_Fl_event_dispatch) 
 {
-	CallbackStruct::_pointer = pointer;
+	CallbackStruct::_sState = ((VM*)pointer)->sState;
 	int num1;
 	if (SIMPLE_API_PARACOUNT != 1) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
@@ -12495,7 +12496,7 @@ SIMPLE_BLOCK(fltk_fl_input__value_2)
 		return ;
 	}
 	point1 = (Fl_Input_*) SIMPLE_API_GETCPOINTER(1,"SMOOTHC_FLTK");
-	SIMPLE_API_RETCPOINTER(point1->value(),"SMOOTHC_FLTK");
+	SIMPLE_API_RETSTRING(point1->value());
 }
 
 SIMPLE_BLOCK(fltk_fl_input__index) 
@@ -12508,7 +12509,7 @@ SIMPLE_BLOCK(fltk_fl_input__index)
 	}
 	point1 = (Fl_Input_*) SIMPLE_API_GETCPOINTER(1,"SMOOTHC_FLTK");
 	num2 = (int) (int) SIMPLE_API_GETNUMBER(2);
-	SIMPLE_API_RETCPOINTER(point1->index(num2),"SMOOTHC_FLTK");
+	SIMPLE_API_RETNUMBER(point1->index(num2));
 }
 
 SIMPLE_BLOCK(fltk_fl_input__size) 
@@ -12569,7 +12570,7 @@ SIMPLE_BLOCK(fltk_fl_input__position)
 		return ;
 	}
 	point1 = (Fl_Input_*) SIMPLE_API_GETCPOINTER(1,"SMOOTHC_FLTK");
-	SIMPLE_API_RETCPOINTER(point1->position(),"SMOOTHC_FLTK");
+	SIMPLE_API_RETNUMBER(point1->position());
 }
 
 SIMPLE_BLOCK(fltk_fl_input__mark) 
@@ -12580,7 +12581,7 @@ SIMPLE_BLOCK(fltk_fl_input__mark)
 		return ;
 	}
 	point1 = (Fl_Input_*) SIMPLE_API_GETCPOINTER(1,"SMOOTHC_FLTK");
-	SIMPLE_API_RETCPOINTER(point1->mark(),"SMOOTHC_FLTK");
+	SIMPLE_API_RETNUMBER(point1->mark(),"SMOOTHC_FLTK");
 }
 
 SIMPLE_BLOCK(fltk_fl_input__position_1) 
@@ -12836,7 +12837,7 @@ SIMPLE_BLOCK(fltk_fl_input__cursor_color)
 		return ;
 	}
 	point1 = (Fl_Input_*) SIMPLE_API_GETCPOINTER(1,"SMOOTHC_FLTK");
-	SIMPLE_API_RETCPOINTER(point1->cursor_color(),"SMOOTHC_FLTK");
+	SIMPLE_API_RETNUMBER(point1->cursor_color(),"SMOOTHC_FLTK");
 }
 
 SIMPLE_BLOCK(fltk_fl_input__cursor_color_1) 
@@ -18949,7 +18950,7 @@ SIMPLE_BLOCK(fltk_fl_text_display_cursor_color)
 		return ;
 	}
 	point1 = (Fl_Text_Display*) SIMPLE_API_GETCPOINTER(1,"SMOOTHC_FLTK");
-	SIMPLE_API_RETCPOINTER(point1->cursor_color(),"SMOOTHC_FLTK");
+	SIMPLE_API_RETNUMBER(point1->cursor_color(),"SMOOTHC_FLTK");
 }
 
 SIMPLE_BLOCK(fltk_fl_text_display_cursor_color_1) 
@@ -25150,7 +25151,7 @@ SIMPLE_BLOCK(fltk_fl_value_input_cursor_color)
 		return ;
 	}
 	point1 = (Fl_Value_Input*) SIMPLE_API_GETCPOINTER(1,"SMOOTHC_FLTK");
-	SIMPLE_API_RETCPOINTER(point1->cursor_color(),"SMOOTHC_FLTK");
+	SIMPLE_API_RETNUMBER(point1->cursor_color(),"SMOOTHC_FLTK");
 }
 
 SIMPLE_BLOCK(fltk_fl_value_input_cursor_color_1) 

@@ -132,7 +132,9 @@ class Point : Object
                     Y = floor(y)
                 else
                     throw(self,"Using operator with values of incorrect type : "+op)
+					return null
                 }
+				return self
             case "-"
                 if isinstance(value) {
                     x = X - value.X
@@ -141,7 +143,9 @@ class Point : Object
                     Y = floor(y)
                 else
                     throw(self,"Using operator with values of incorrect type : "+op)
+					return null
                 }
+				return self
             case "/"
                 if isinstance(value) {
                     x = X / value.X
@@ -150,7 +154,9 @@ class Point : Object
                     Y = floor(y)
                 else
                     throw(self,"Using operator with values of incorrect type : "+op)
+					return null
                 }
+				return self
             case "*"
                 if isinstance(value) {
                     x = X * value.X
@@ -159,7 +165,9 @@ class Point : Object
                     Y = floor(y)
                 else
                     throw(self,"Using operator with values of incorrect type : "+op)
+					return null
                 }
+				return self
 		}
 		return super.operator(op, value)
 

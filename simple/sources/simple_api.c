@@ -11,7 +11,7 @@
  * Created on July 10, 2017, 1:10 PM
  */
 
-#include "../includes/simple.h"
+#include "../include/simple.h"
 /* Support for C Blocks */
 
 SIMPLE_API void simple_vmlib_isblock ( void *pointer );
@@ -704,9 +704,10 @@ void simple_vmlib_char ( void *pointer )
 void simple_vm_dll_calllib ( void *pointer )
 {
     LpHandleType handle  ;
+	int x ;
     const char *cDLL  ;
     char library_path[200]  ; 
-	char __library_path[SIMPLE_PATHSIZE]  ;
+	char module_path[SIMPLE_PATHSIZE]  ;
 	char simple_folder[100] ;
 	char* simple_env_path;
     loadlibblockptr pBlock  ;
@@ -720,80 +721,15 @@ void simple_vm_dll_calllib ( void *pointer )
             return ;
     }
     if ( SIMPLE_API_ISSTRING(1) ) {
-        if (simple_fexists(library_path)) {
-            strcpy(library_path,library_path);
-        } else { 
-			snprintf(__library_path, sizeof(__library_path), "%s/modules/dynamic_modules/%s", simple_file_initial_dir,library_path);
-			if (simple_fexists(__library_path)) {
-				strcpy(library_path,__library_path);
-			} else {
-				snprintf(__library_path, sizeof(__library_path), "./modules/dynamic_modules/%s", library_path);
-				if (simple_fexists(__library_path)) {
-					strcpy(library_path,__library_path);
-				} else {
-					simple_distro_folder(simple_folder); 
-					snprintf(__library_path, sizeof(__library_path), "%s/modules/dynamic_modules/%s", simple_folder,library_path);
-					if (simple_fexists(__library_path)) {
-							strcpy(library_path,__library_path);
-					} else {
-						//checking using environment variable if SIMPLE_PATH and SIMPLE_MODULE_PATH are set
-						simple_env_path = getenv("SIMPLE_PATH");  snprintf(__library_path, sizeof(__library_path), "%s/s%s/modules/dynamic_modules/%s", simple_env_path, SIMPLE_VERSION, library_path); 
-						if (simple_fexists(__library_path)) { strcpy(library_path,__library_path); }
-						else {
-							simple_env_path = getenv("SIMPLE_MODULE_PATH"); snprintf(__library_path, sizeof(__library_path), "%s/dynamic_modules/%s", simple_env_path, library_path);
-							if (simple_fexists(__library_path)) { strcpy(library_path,__library_path);}
-							else {
-								//find the module in relative to run folder (UNDONE) //this is last
-								#ifdef _WIN32
-									snprintf(__library_path, sizeof(__library_path), "C:/Simple/s%s/modules/dynamic_modules/%s",SIMPLE_VERSION,library_path);
-								#else
-								
-								simple_env_path = getenv("PREFIX");
-								snprintf(__library_path, sizeof(__library_path), "%s/var/lib/simple/s%s/modules/dynamic_modules/%s", simple_env_path,SIMPLE_VERSION,library_path);
-								#endif
-								if (simple_fexists(__library_path)) { strcpy(library_path,__library_path);}
-								else {
-									/* Now we assume it is executed in a folder bin and the modules is in parent folder 
-										like
-										simple/bin/
-										simple/modules/
-										simple/includes/
-									so we go parent directory *simple* and check for modules. Think execute simple from zip extract
-									*/
-									snprintf(__library_path, sizeof(__library_path), "../modules/dynamic_modules/%s", library_path);
-									if (simple_fexists(__library_path)) { strcpy(library_path,__library_path);}
-									else {
-                                        /* We dig deep for android and ios we first check the assets folder then the storage*/
-										#ifdef __ANDROID__
-											//check android asset first
-											snprintf(__library_path, sizeof(__library_path), "%s/%s", vm->simple_app->externalDataPath, library_path);
-											if (simple_fexists(__library_path)) { strcpy(library_path,__library_path);}
-											else {
-												snprintf(__library_path, sizeof(__library_path), "%s/dynamic_modules/%s", vm->simple_app->externalDataPath, library_path);
-												if (simple_fexists(__library_path)) { strcpy(library_path,__library_path);}
-												else {
-													//now check the sdcard (External Storage)
-													simple_env_path = getenv("EXTERNAL_STORAGE");
-													snprintf(__library_path, sizeof(__library_path), "%s/simple/s%s/modules/dynamic_modules/%s", simple_env_path, SIMPLE_VERSION,library_path);
-													if (simple_fexists(__library_path)) { strcpy(library_path,__library_path);}
-													else {
-														snprintf(__library_path, sizeof(__library_path), "%s/simple/modules/dynamic_modules/%s", simple_env_path, library_path);
-														if (simple_fexists(__library_path)) { strcpy(library_path,__library_path);}
-														else {
-
-														}
-													}
-												}
-											}
-                                        #endif
-									}
-								}
-							}
-						} 
-					}
+		if (!simple_fexists(library_path)) {
+			for ( x = 1 ; x <= simple_list_getsize(sState->module_paths) ; x++ ) {
+				snprintf(module_path, sizeof(module_path), "%s/dynamic_modules/%s", simple_list_getstring(sState->module_paths,x), library_path);
+				if (simple_fexists(module_path)) {
+					strcpy(library_path,module_path);
+					break;
 				}
 			}
-        }
+		}
         cDLL = library_path;
         handle = LoadDLL(cDLL);
 		if ( handle == NULL ) {

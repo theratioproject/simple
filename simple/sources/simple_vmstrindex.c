@@ -13,7 +13,7 @@
  */
 
 
-#include "../includes/simple.h"
+#include "../include/simple.h"
 /* String As Array */
 
 SIMPLE_API void simple_vm_string_pushv ( VM *vm )

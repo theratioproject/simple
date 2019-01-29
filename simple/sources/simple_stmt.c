@@ -13,7 +13,7 @@
  */
 
 
-#include "../includes/simple.h"
+#include "../include/simple.h"
 /* Grammar */
 
 int simple_parser_class ( Parser *parser )

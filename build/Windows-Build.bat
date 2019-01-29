@@ -121,16 +121,16 @@ for %%x in (%*) do (
 	)  
 	if "%%x"=="-io" (
 		if !EXEC_TYPE!=="install" (
-			SET EXEC_TYPE="includes-only-install"
+			SET EXEC_TYPE="include-only-install"
 		) else (
-			SET EXEC_TYPE="includes-only-debug"
+			SET EXEC_TYPE="include-only-debug"
 		)
 	)  
-	if "%%x"=="--includes-only" (
+	if "%%x"=="--include-only" (
 		if !EXEC_TYPE!=="install" (
-			SET EXEC_TYPE="includes-only-install"
+			SET EXEC_TYPE="include-only-install"
 		) else (
-			SET EXEC_TYPE="includes-only-debug"
+			SET EXEC_TYPE="include-only-debug"
 		)
 	) 
 	if "%%x"=="-yo" (
@@ -294,11 +294,11 @@ if !EXEC_TYPE!=="dependencies-only-debug" (
 	SET EXEC_TYPE="debug"
 	call:resolvedependencies
 )
-if !EXEC_TYPE!=="includes-only-install" (
+if !EXEC_TYPE!=="include-only-install" (
 	SET EXEC_TYPE="install"
 	call:copysimpleincludes
 )
-if !EXEC_TYPE!=="includes-only-debug" (
+if !EXEC_TYPE!=="include-only-debug" (
 	SET EXEC_TYPE="debug"
 	call:copysimpleincludes
 )
@@ -488,7 +488,7 @@ REM BULDING SIMPLE.EXE and SIMPLE.DLL
 		call:getsimplecfiles
 		echo simple-lang:install:visual-studio flies are !SIMPLE_C_FILES!
 		mkdir %~dp0\..\simple\dist
-		cl.exe /D_USRDLL /D_WINDLL /TC !SIMPLE_C_FILES! /MT /I %~dp0\..\simple\includes\ /link /DLL /OUT:%~dp0\..\simple\dist\libsimple.dll
+		cl.exe /D_USRDLL /D_WINDLL /TC !SIMPLE_C_FILES! /MT /I %~dp0\..\simple\include\ /link /DLL /OUT:%~dp0\..\simple\dist\libsimple.dll
 		call:deletetempfiles *.obj *.exp *.cod
 		if exist "..\simple\dist\libsimple.lib" (
 			cl.exe /GA /MT /TC %~dp0\..\simple\simple.c /link /LIBPATH:%~dp0\..\simple\dist\ libsimple.lib /OUT:%~dp0\..\simple\dist\simple.exe
@@ -543,27 +543,27 @@ REM SIMPLE.EXE AND SIMPLE.DLL HAS BEEN SUCCESSFUL CREATE AND COPY EXECUTABLE TO 
 REM COPY THE INCLUDE DIRECTORY	
 	
 :copysimpleincludes
-	call:display includes "copying includes directory for developer"
+	call:display include "copying include directory for developer"
 	if !EXEC_TYPE!=="install" (
-		if exist "..\simple\includes" (
-			echo includes: copying includes to !INSTALLATION_FOLDER!\%VERSION%\ directory
-			call:deletedirectories "!INSTALLATION_FOLDER!\%VERSION%\includes"
-			xcopy "..\simple\includes" "!INSTALLATION_FOLDER!\%VERSION%\includes" /s /h /e /i /k /f /c
+		if exist "..\simple\include" (
+			echo include: copying include to !INSTALLATION_FOLDER!\%VERSION%\ directory
+			call:deletedirectories "!INSTALLATION_FOLDER!\%VERSION%\include"
+			xcopy "..\simple\include" "!INSTALLATION_FOLDER!\%VERSION%\include" /s /h /e /i /k /f /c
 		) else (
-			echo error:includes: the includes directory cannot be found
-			echo error:includes: the repository appears to be currupted. 
-			echo error:includes: try clonning the simple repository again to resolve the issue
+			echo error:include: the include directory cannot be found
+			echo error:include: the repository appears to be currupted. 
+			echo error:include: try clonning the simple repository again to resolve the issue
 		)
 	)
 	if !EXEC_TYPE!=="debug" (
-		if exist "..\simple\includes" (
-			echo includes: copying includes to ..\..\%SIMPLE_DEBUG_VERSION%\ directory
-			call:deletedirectories "..\..\%SIMPLE_DEBUG_VERSION%\includes"
-			xcopy "..\simple\includes" "..\..\%SIMPLE_DEBUG_VERSION%\includes" /s /h /e /i /k /f /c
+		if exist "..\simple\include" (
+			echo include: copying include to ..\..\%SIMPLE_DEBUG_VERSION%\ directory
+			call:deletedirectories "..\..\%SIMPLE_DEBUG_VERSION%\include"
+			xcopy "..\simple\include" "..\..\%SIMPLE_DEBUG_VERSION%\include" /s /h /e /i /k /f /c
 		) else (
-			echo error:includes: the includes directory cannot be found
-			echo error:includes: the repository appears to be currupted. 
-			echo error:includes: try clonning the simple repository again to resolve the issue
+			echo error:include: the include directory cannot be found
+			echo error:include: the repository appears to be currupted. 
+			echo error:include: try clonning the simple repository again to resolve the issue
 		)
 	)
 	
@@ -1012,7 +1012,7 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 	if exist "..\modules\dynamic_modules\" (
 		SET DY_MODULE_INCLUDE_DIR="%~dp0\..\modules\dynamic_modules\%2\"
 		if "%2"=="parser" (
-			SET "DY_MODULE_FILES=%~dp0\..\modules\dynamic_modules\%2\*.%1 %~dp0\..\modules\dynamic_modules\%2\includes\*.%1"
+			SET "DY_MODULE_FILES=%~dp0\..\modules\dynamic_modules\%2\*.%1 %~dp0\..\modules\dynamic_modules\%2\include\*.%1"
 		) else (
 			SET DY_MODULE_FILES="%~dp0\..\modules\dynamic_modules\%2\*.%1"
 		)
@@ -1428,7 +1428,7 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 	echo [STANDALONE BUILD FLAGS]
 	echo 	-so --simple-only	build only simple.exe, simplew.exe and libsimple.dll
 	echo 	-do --dep-only		build only the dependencies
-	echo 	-io --includes-only	copy only the simple includes files
+	echo 	-io --include-only	copy only the simple include files
 	echo 	-mo --modules-only	copy only the standard modules
 	echo 	-yo --dymodules-only	build only the dynamic modules
 	echo 	-eo --environment-only	build only the environment programs

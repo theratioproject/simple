@@ -20,6 +20,7 @@ build, installation, features e.t.c
 - [x] create a working installer script to enable installation with curl and bash or shell script [working issue](https://github.com/simple-lang/simple/issues/24)
 - [ ] build a compiler to allow faster program execution - simplify
 - [x] make scanner search for **call** files and **dynamic modules** in these folders and order. 
+	- [x] use the list to itterate the search path
 	- [x] 1 absolute to path
 	- [x] 1 relative to modules folder in working directory
 	- [x] 2 in relative to environment SIMPLE_PATH
@@ -28,6 +29,7 @@ build, installation, features e.t.c
 	- [x] search in **/storage/emulated/0/Android/data/<package>/files** as it where the assets are stored
 	- [x] search in **sdcard/simple/sSIMPLE_VERSION/modules/** on android 
 	- [x] search in **sdcard/simple/modules/** on android in assumption developer copy the module manually
+	- [x] create built-in block in core_dynamic_module to add path to the modules path 
 - [x] write build script for building simple-lang core, environment and modules for windows os
 - [x] write build script for building simple-lang core, environment and modules for linux os
 - [ ] write build script for building simple-lang core, environment and modules for mac os
@@ -101,6 +103,7 @@ build, installation, features e.t.c
 To dos and features relative to the simple-lang standard modules which includes new modules addition, module modification or any other
 issue related to the module
 
+- [ ] generate static dynamic modules for static building for bake, making DynamicLoader.sim aware of statically link dynamic module
 - [ ] add makefile for building fulltick on windows
 - [ ] create the input output (io) module which include File, Path, Directory, PathAttribute, PathType, FileStream
 - [ ] create all high level data types [working issue](https://github.com/simple-lang/simple/issues/15)
@@ -160,11 +163,12 @@ Modules which are not part of the standard module that comes distributed with si
 - [ ] extend simple-repl functionalities (Case Study : elixr iex)
 - [x] Build the minifier environment that reduces module size by compressing code upon installation.
 - [ ] create the distribution program - bake
-	- [ ] load lang as plugin from simple source
-	- [ ] package simple source file (.sim) or compiled file (.complex) to system executable
-	- [ ] package simple source file (.sim) or compiled file (.complex) to system library or simple-lang specific library
+	- [ ] use a small compiler to generate executable
+	- [ ] package simple compiled file (.complex) to system executable
+	- [ ] package simple compiled file (.complex) to system library or simple-lang specific library
 	- [ ] create directory for generated output
-	- [ ] allow static or dynamic linking of simple-lang runtime
+	- [ ] allow static linking of simple-lang runtime
+	- [ ] allow dynamic linking of simple-lang runtime
 	- [ ] minify and build a distributable modules and dynamic modules for distribution
 	- [ ] test full operation on windows os
 	- [ ] test full operation on linux os

@@ -12,7 +12,7 @@
  * Created on Febuary 7, 2018, 3:23 AM
  */
 
-#include "../../../simple/includes/simple.h"
+#include "../../../simple/include/simple.h"
 #include "mathic.h"
 
 #ifdef _WIN32

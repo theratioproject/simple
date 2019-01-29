@@ -120,9 +120,9 @@ typedef struct VM {
 	int nCurrentGlobalScope  ;
 	char *file_name_within_class  ;
 #ifdef __ANDROID__
-	ANativeActivity* simple_app;
-	ANativeWindow* simple_window;
-	ANativeWindow_Buffer simple_graphics_buffer;
+	ANativeActivity* simple_ANativeActivity;
+	ANativeWindow* simple_ANativeWindow;
+	ANativeWindow_Buffer simple_ANativeWindow_Buffer;
 #endif
 } VM ;
 /*

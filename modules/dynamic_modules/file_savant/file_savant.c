@@ -1,6 +1,6 @@
 
-#include "../../../simple/includes/simple.h"
-#include "../../../simple/includes/simple_state.h"
+#include "../../../simple/include/simple.h"
+#include "../../../simple/include/simple_state.h"
 #include <sys/types.h>
 #include <sys/stat.h>
 

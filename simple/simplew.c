@@ -11,7 +11,7 @@
  * Created on April 12, 2018, 04:22 AM
  */
 
-#include "./includes/simple.h"
+#include "./include/simple.h"
 
 int WINAPI WinMain ( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd )
 {

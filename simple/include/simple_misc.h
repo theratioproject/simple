@@ -69,6 +69,8 @@ SIMPLE_API const char *file_real_name(const char *absolute_name);
 
 SIMPLE_API void remove_file_ext(char file_name[], const char *absolute_name);
 
+SIMPLE_API void last_text_after_char(char new_text[], char *old_text, char c);
+
 SIMPLE_API void get_file_folder ( char *absolute_path ) ;
 
 #if SIMPLE_TESTPERFORMANCE

@@ -34,7 +34,7 @@ class FWindowDemo : FCallbackEvent
         show()        
     } 
 
-    block callback(widget) 
+    block callback(widget)
         if widget.Id = 1 { 
             stdout.println("new Title : " + finput.Value)
             fwindow.Title = finput.Value

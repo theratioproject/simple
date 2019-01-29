@@ -14,7 +14,7 @@
 **  aBraceObjects ( pBraceObject, nsp, nListStart, pNestedLists) 
 **  aSetProperty ( Object Pointer , Type (Variable/ListItem)  , Property Name, Property Variable , nBeforeEqual) 
 */
-#include "../includes/simple.h"
+#include "../include/simple.h"
 /* Blocks */
 
 SIMPLE_API void simple_vm_oop_newobj ( VM *vm )
@@ -38,7 +38,7 @@ SIMPLE_API void simple_vm_oop_newobj ( VM *vm )
 				continue ;
 			}
 			nClassPC = simple_list_getint(list,2);
-			if ( strcmp(cClassName,cClassName2) == 0 ) {
+			if ( strcmp(cClassName,cClassName2) == 0/* || 1 */) {
 				/* Check Assignment */
 				nCont = 1 ;
 				if ( SIMPLE_VM_STACK_ISPOINTER ) {
@@ -223,13 +223,33 @@ SIMPLE_API void simple_vm_oop_parentinit ( VM *vm,List *list )
 SIMPLE_API void simple_vm_oop_newclass ( VM *vm )
 {
 	List *pClass,*list  ;
+	char class_name[400]  ;
 	int x  ;
 	pClass = (List *) SIMPLE_VM_IR_READPVALUE(2) ;
 	/* Find the Class Pointer using the Class Name */
 	if ( pClass == NULL ) {
 		for ( x = 1 ; x <= simple_list_getsize(vm->sState->classes_map) ; x++ ) {
 			list = simple_list_getlist(vm->sState->classes_map,x);
-			if ( strcmp(simple_list_getstring(list,1),SIMPLE_VM_IR_READCVALUE(1)) == 0 ) {
+			if ( strcmp(simple_list_getstring(list,1),SIMPLE_VM_IR_READCVALUE(1)) == 0) {
+				if ( simple_list_getsize(list) == 3 ) {
+					/* Here the class is stored inside a modules - we have the class pointer (item 2) */
+					pClass = (List *) simple_list_getpointer(list,2) ;
+				}
+				else {
+					pClass = list ;
+				}
+				SIMPLE_VM_IR_READPVALUE(2) = (void *) pClass ;
+				break ;
+			}
+		}
+	}
+	
+	/* Find the Class Pointer using the Class Name for complex file*/
+	if ( pClass == NULL ) {
+		for ( x = 1 ; x <= simple_list_getsize(vm->sState->classes_map) ; x++ ) {
+			list = simple_list_getlist(vm->sState->classes_map,x);
+			last_text_after_char(class_name,simple_list_getstring(list,1),'.');
+			if (strcmp(class_name,SIMPLE_VM_IR_READCVALUE(1)) == 0) {
 				if ( simple_list_getsize(list) == 3 ) {
 					/* Here the class is stored inside a modules - we have the class pointer (item 2) */
 					pClass = (List *) simple_list_getpointer(list,2) ;

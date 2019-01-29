@@ -149,14 +149,14 @@
 #include <FL/x.H>
 
 extern "C" {
-	#include "../../../simple/includes/simple.h"
+	#include "../../../simple/include/simple.h"
 	SIMPLE_API void init_full_tick(SimpleState *sState);
 }
 
 class CallbackStruct
 {
 public:
-	static void *_pointer;
+	static void *_sState;
 	static bool ret_evt_to_fl;
 	void *pointer;
   String *block;

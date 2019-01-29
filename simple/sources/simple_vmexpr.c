@@ -12,7 +12,7 @@
  * Created on July 10, 2017, 2:10 PM
  */
 
-#include "../includes/simple.h"
+#include "../include/simple.h"
 
 SIMPLE_API void simple_vm_sum ( VM *vm )
 {

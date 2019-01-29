@@ -128,28 +128,33 @@ class FInput : FInput_
     /*
 
     */
+    Value = FApp.Scheme.getShemeValue("FInput.Value")
+
+    /*
+
+    */
     block FInput(params...)
         paramsLen = lengthOf(params)
         if paramsLen == 1 {
             Value = params[0]
             if !isString(Value) {
-                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'string' as FInput_ Value")
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'string' as FInput Value")
             }
         elif paramsLen == 2
             X = params[0]
             Y = params[1]
             if !isNumber(X) or !isNumber(Y) {
-                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FInput_ X and Y")
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FInput X and Y")
             }
         elif paramsLen == 3 
             X = params[0]
             Y = params[1]
             Value = params[2]
             if !isNumber(X) or !isNumber(Y) {
-                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FInput_ X and Y")
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FInput X and Y")
             }
             if !isString(Value) {
-                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'string' as FInput_ Value")
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'string' as FInput Value")
             }
         elif paramsLen == 4
             X = params[0]
@@ -157,10 +162,10 @@ class FInput : FInput_
             Width = params[2]
             Height = params[3]
             if !isNumber(X) or !isNumber(Y) {
-                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FInput_ X and Y")
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FInput X and Y")
             }
             if !isNumber(Width) or !isNumber(Height) {
-                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FInput_ Width and Height")
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FInput Width and Height")
             }
         elif paramsLen == 5
             X = params[0]
@@ -169,13 +174,13 @@ class FInput : FInput_
             Height = params[3]
             Value = params[4]
             if !isNumber(X) or !isNumber(Y) {
-                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FInput_ X and Y")
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FInput X and Y")
             }
             if !isNumber(Width) or !isNumber(Height) {
-                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FInput_ Width and Height")
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FInput Width and Height")
             }
             if !isString(Value) {
-                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'string' as FInput_ Value")
+                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'string' as FInput Value")
             }
         else    
             if paramsLen != 0 {

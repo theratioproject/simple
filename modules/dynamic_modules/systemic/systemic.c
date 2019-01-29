@@ -18,7 +18,7 @@ typedef int (WINAPI *LPFN_ISWOW64PROCESS) (HANDLE, PBOOL); ;
 LPFN_ISWOW64PROCESS isWindows64  ;
 #endif
 
-#include "../../../simple/includes/simple.h"
+#include "../../../simple/include/simple.h"
 #include "systemic.h"
 
 #ifdef _WIN32
@@ -369,13 +369,13 @@ void systemic_screen_sizes(void *pointer)
 		simple_list_adddouble_gc(vm->sState,list2,GetSystemMetrics(SM_CYVIRTUALSCREEN));
     #elif defined(__ANDROID__)
 		list2 = simple_list_newlist_gc(vm->sState,list);
-		simple_list_adddouble_gc(vm->sState,list2,vm->simple_graphics_buffer.width);
-		simple_list_adddouble_gc(vm->sState,list2,vm->simple_graphics_buffer.height);
+		simple_list_adddouble_gc(vm->sState,list2,vm->simple_ANativeWindow_Buffer.width);
+		simple_list_adddouble_gc(vm->sState,list2,vm->simple_ANativeWindow_Buffer.height);
 
 		//total screen size
 		list2 = simple_list_newlist_gc(vm->sState,list);
-		simple_list_adddouble_gc(vm->sState,list2,vm->simple_graphics_buffer.width);
-		simple_list_adddouble_gc(vm->sState,list2,vm->simple_graphics_buffer.height);
+		simple_list_adddouble_gc(vm->sState,list2,vm->simple_ANativeWindow_Buffer.width);
+		simple_list_adddouble_gc(vm->sState,list2,vm->simple_ANativeWindow_Buffer.height);
 	#else
 		list2 = simple_list_newlist_gc(vm->sState,list);
 		simple_list_adddouble_gc(vm->sState,list2,0);

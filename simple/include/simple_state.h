@@ -25,6 +25,7 @@ typedef struct SimpleState {
 	List *blocks_map  ;
 	List *classes_map  ;
 	List *modules_map  ;
+	List *module_paths  ;
 	/* First use by simple_vm_new */
 	List *c_blocks  ;
 	/* ISCGI is 1 if we are using the language as for CGI development */

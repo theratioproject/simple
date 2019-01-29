@@ -3,15 +3,15 @@ call simple.utilities.Console
 call simple.graphics.Dimension
 call simple.graphics.Rectangle
 call simple.graphics.Point
-call "../../../../drawing/FBoxType.sim" ? fulltick.drawing
-call "../../../../painting/FColor.sim" ? fulltick.painting
-call "../../../../widgets/FWindow.sim" ? fulltick.widgets
-call "../../../../drawing/FAlignment.sim" ? fulltick.drawing
-call "../../../../widgets/FLabel.sim" ? fulltick.widgets
-call "../../../../base/FWidget.sim" ? fulltick.base
-call "../../../../FApp.sim" ? fulltick
-call "../../../../events/FCallbackEvent.sim" ? fulltick.events
-call "../../../../events/FWindowEvent.sim" ? fulltick.events
+call fulltick.drawing.FBoxType
+call fulltick.painting.FColor
+call fulltick.widgets.FWindow
+call fulltick.drawing.FAlignment
+call fulltick.widgets.FLabel
+call fulltick.base.FWidget
+call fulltick.FApp
+call fulltick.events.FCallbackEvent
+call fulltick.events.FWindowEvent
 
 customWindowEvent = new CustomWindowEvent
 fWindow = new FWindow(470,60,"FWindowEvent Demo") {

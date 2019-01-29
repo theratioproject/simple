@@ -79,13 +79,13 @@ block simpleDir()
 		if simpleDir == "(null)" || simpleDir == "" {
 			simpleDir = exeFolder()
 			if isWindows() { 
-				if __dir_exists(simpleDir) { 
+				if __dir_exists(simpleDir) {
 					simpleDir = strRemoveLastChar(simpleDir)
-					toRemove = lastStrAfterChar(simpleDir,"\\") 
+					toRemove = lastStrAfterChar(simpleDir,"\")
 					simpleDir = removeStr(simpleDir,toRemove)  
 				}
 				if simpleDir == "(null)" || simpleDir == "" {
-					simpleDir = "C:\\Simple\\"
+					simpleDir = "C:\Simple\"
 				}
 			else
 				xPrefix = getEnv("PREFIX")
@@ -167,7 +167,7 @@ block simpleExecDir()
 		}
 		__simpleExecDir = simpleExecDir
 	}
-	return __simpleExecDir
+	return replaceStr(__simpleExecDir, "/", SystemSlash())
 
 /*
 	Get the extension type for the specific operating system

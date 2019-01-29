@@ -11,7 +11,7 @@
  * Created on July 22, 2017, 06:16 PM
  */
 
-#include "../includes/simple.h"
+#include "../include/simple.h"
 
 SIMPLE_API void simple_vm_gc_checkreferences ( VM *vm )
 {

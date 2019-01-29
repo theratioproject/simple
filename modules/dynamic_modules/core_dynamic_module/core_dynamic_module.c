@@ -12,7 +12,7 @@
  * Created on Febuary 7, 2018, 3:23 AM
  */
 
-#include "../../../simple/includes/simple.h"
+#include "../../../simple/include/simple.h"
 #include "core_dynamic_module.h"
 
 #ifdef _WIN32
@@ -127,6 +127,8 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
 	register_block("__vm_blocks_list",meta_blocks_vm_blocks_list);
 	register_block("__vm_classes_list",meta_blocks_vm_classes_list);
 	register_block("__vm_modules_list",meta_blocks_vm_modules_list);
+	register_block("__vm_module_paths",meta_blocks_vm_module_paths);
+	register_block("__vm_add_module_path",meta_blocks_vm_add_module_path);
 	register_block("__vm_c_blocks_list",meta_blocks_vm_c_blocks_list);
 	register_block("__vm_set_trace",meta_blocks_vm_set_trace);
 	register_block("__vm_trace_data",meta_blocks_vm_trace_data);
@@ -2531,6 +2533,13 @@ SIMPLE_API void meta_blocks_vm_modules_list(void *pointer)
 	SIMPLE_API_RETLIST(vm->pModulessMap);
 }
 
+SIMPLE_API void meta_blocks_vm_module_paths(void *pointer)
+{
+	VM *vm  ;
+	vm = (VM *) pointer ;
+	SIMPLE_API_RETLIST(vm->sState->module_paths);
+}
+
 SIMPLE_API void meta_blocks_vm_c_blocks_list(void *pointer)
 {
 	VM *vm  ;
@@ -2557,6 +2566,23 @@ SIMPLE_API void meta_blocks_vm_set_trace(void *pointer)
 			vm->lTrace = 1 ;
 			simple_string_set_gc(((VM *) pointer)->sState,vm->pTrace,cStr);
 		}
+	} else {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+	}
+}
+
+SIMPLE_API void meta_blocks_vm_add_module_path(void *pointer)
+{
+	VM *vm  ;
+	char *cStr  ;
+	vm = (VM *) pointer ;
+	if ( SIMPLE_API_PARACOUNT != 1 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARACOUNT);
+		return ;
+	}
+	if ( SIMPLE_API_ISSTRING(1) ) {
+		cStr = SIMPLE_API_GETSTRING(1) ;
+		simple_list_addstring_gc(vm->sState,vm->sState->module_paths,cStr);
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}

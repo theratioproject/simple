@@ -18,7 +18,7 @@ call fulltick.FApp
 call fulltick.events.FCallbackEvent
 
 wcount = 0
-acount = 0 @FScheme.UsePlatformUI
+acount = 0
 rectangle = new Rectangle(500,200,500,350)
 fwindow = new FWindow() {
     resize(rectangle)

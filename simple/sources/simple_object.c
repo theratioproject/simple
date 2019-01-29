@@ -13,7 +13,7 @@
  */
 
 
-#include "../includes/simple.h"
+#include "../include/simple.h"
 
 void simple_object_writefile ( SimpleState *sState )
 {
@@ -414,8 +414,8 @@ void simple_object_updatepointers ( SimpleState *sState )
 	int x,x2,x3,x4,lFound  ;
 	List *pList, *pList2, *pList3  ;
 	const char *string  ;
-	char cPackageName[400]  ;
-	char cClassName[400]  ;
+	char module_name[400]  ;
+	char class_name[400]  ;
 	/* Update Class Pointer in Code */
 	lFound = 0 ;
 	for ( x = 1 ; x <= simple_list_getsize(sState->generated_code) ; x++ ) {
@@ -433,53 +433,56 @@ void simple_object_updatepointers ( SimpleState *sState )
 					break ;
 				}
 			}
-			/* If we can't find the list (the class is inside a package) */
+			/* If we can't find the list (the class is inside a module) */
 			if ( lFound == 0 ) {
 				simple_list_setpointer_gc(sState,pList,3,NULL);
 			}
 		}
 	}
 	/*
-	**  Update Class Pointers in Classes Map when the class belong to a Package 
-	**  This updates works when the class name is : packagename.classname 
+	**  Update Class Pointers in Classes Map when the class belong to a Module 
+	**  This updates works when the class name is : modulename.classname 
 	*/
 	for ( x = 1 ; x <= simple_list_getsize(sState->classes_map) ; x++ ) {
 		pList = simple_list_getlist(sState->classes_map,x);
 		string = simple_list_getstring(pList,1);
 		if ( simple_list_getstringsize(pList,1)  > 400 ) {
-			/* Avoid large names - we have limits (400 letters per package name - 400 letters for class name) */
+			/* Avoid large names - we have limits (400 letters per module name - 400 letters for class name) */
 			continue ;
 		}
 		for ( x2 = simple_list_getstringsize(pList,1) - 1 ; x2 >= 0 ; x2-- ) {
 			if ( string[x2] == '.' ) {
 				/*
-				**  Now we have a class name stored as packagename.classname 
-				**  Get Package Name 
+				**  Now we have a class name stored as modulename.classname 
+				**  Get Module Name 
 				*/
 				for ( x3 = 0 ; x3 < x2 ; x3++ ) {
-					cPackageName[x3] = string[x3] ;
+					module_name[x3] = string[x3] ;
 				}
-				cPackageName[x2] = '\0' ;
+				module_name[x2] = '\0' ;
 				#ifdef DEBUG_OBJFILE
-				printf( "Package Name %s \n  ",cPackageName ) ;
+				printf( "Module Name %s \n",module_name ) ;
 				#endif
 				/* Get Class Name */
 				for ( x3 = x2+1 ; x3 <= simple_list_getstringsize(pList,1) - 1 ; x3++ ) {
-					cClassName[x3-x2-1] = string[x3] ;
+					class_name[x3-x2-1] = string[x3] ;
 				}
-				cClassName[simple_list_getstringsize(pList,1) - 1 - x2] = '\0' ;
+				class_name[simple_list_getstringsize(pList,1) - 1 - x2] = '\0' ;
 				#ifdef DEBUG_OBJFILE
-				printf( "Class Name %s \n  ",cClassName ) ;
+				printf( "Class Name %s \n",class_name ) ;
 				#endif
-				/* Get The Package List */
+				/* Get The Module List */
 				for ( x3 = 1 ; x3 <= simple_list_getsize(sState->modules_map) ; x3++ ) {
 					pList2 = simple_list_getlist(sState->modules_map,x3);
-					if ( strcmp(simple_list_getstring(pList2,1),cPackageName) == 0 ) {
+					if ( strcmp(simple_list_getstring(pList2,1),module_name) == 0 ) {
 						/* Get The Class List */
 						pList2 = simple_list_getlist(pList2,2);
 						for ( x4 = 1 ; x4 <= simple_list_getsize(pList2) ; x4++ ) {
 							pList3 = simple_list_getlist(pList2,x4);
-							if ( strcmp(simple_list_getstring(pList3,1),cClassName) == 0 ) {
+							#ifdef DEBUG_OBJFILE
+							printf("ModuleName=%s,ClassName=%s\n",module_name,simple_list_getstring(pList3,1)) ;
+							#endif
+							if ( strcmp(simple_list_getstring(pList3,1),class_name) == 0 ) {
 								/* Now We have the Class - Update Pointer */
 								simple_list_setpointer_gc(sState,pList,2,(void *) pList3);
 								break ;
@@ -491,7 +494,7 @@ void simple_object_updatepointers ( SimpleState *sState )
 			}
 		}
 	}
-	/* Update Package Pointers in Modules Classes */
+	/* Update Module Pointers in Modules Classes */
 	for ( x = 1 ; x <= simple_list_getsize(sState->modules_map) ; x++ ) {
 		pList = simple_list_getlist(sState->modules_map,x);
 		/* Get The Class List */

@@ -133,6 +133,11 @@ class FInput_ : FWidget
     /*
 
     */
+    CursorColor = FApp.Scheme.getShemeValue("FInput_.CursorColor")
+
+    /*
+
+    */
     block FInput_(params...)
         paramsLen = lengthOf(params)
         if paramsLen == 1 {
@@ -192,9 +197,103 @@ class FInput_ : FWidget
         }
         Ptr = __Fl_Box(X, Y, Width, Height, Label) 
         registerWidget()
-        construct()        
+        construct()     
+		setCursorColor(CursorColor)
         
         return self
+		
+	/*
+	
+	*/
+	block copy(number clipboard...)
+		validatePointer()
+		clipboardLen = lengthOf(clipboard)
+		clip = 1
+		
+		if clipboardLen == 0 {
+		elif clipboardLen == 1
+			clip = clipboard[0]
+		else
+			throw(self, "Calling block with invalid length of parameters")
+		}
+		return __Fl_Input__copy_4(Ptr, clip) 
+		
+	/*
+	
+	*/
+	block copyCuts()
+		validatePointer()
+		return __Fl_Input__copy_cuts(Ptr) 
+		
+	/*
+	
+	*/
+	block cut(number plusChars...)
+		validatePointer()
+		plusCharsLen = lengthOf(plusChars)
+		
+		copy()
+		if plusCharsLen == 0 {
+			return __Fl_Input__cut(Ptr)  
+		elif plusCharsLen == 1
+			return __Fl_Input__cut_1(Ptr, plusChars[0])
+		elif plusCharsLen == 2
+			warn("The cut text is not copied ")
+			return __Fl_Input__cut_2(Ptr, plusChars[0], plusChars[1])
+		else
+			throw(self, "Calling block with invalid length of parameters")
+		}
+		
+	/*
+		
+	*/
+	block deleteSelected()
+		validatePointer()
+		return __Fl_Input__cut(Ptr) 
+
+    /*
+
+    */
+    block setCursorColor(value)
+        validatePointer()
+        if isObject(value) {
+            if __instance_of(value,"FColor") {
+                __Fl_Input__cursor_color_1(Ptr,value.colorAsNumber())
+            }
+        elif isNumber(value) or isString(value) 
+            __Fl_Input__cursor_color_1(Ptr,value)
+            value = new FColor(value) 
+        else
+            throw(self,"invalid parameter. Expecting innstance of 'Fcolor', 'Color', 'Number' or 'String' ")
+        }
+        CursorColor = value 
+		
+	/*
+	
+	*/
+	block index(number n)
+		validatePointer()
+		return ascii(__Fl_Input__index(Ptr, n))
+		
+	/*
+	
+	*/
+	block insert(string value)
+		validatePointer()
+		return __Fl_Input__insert(Ptr, value, 0)
+		
+	/*
+	
+	*/
+	block mark()
+		validatePointer()
+		return __Fl_Input__mark(Ptr)
+		
+	/*
+	
+	*/
+	block getCursorColor()
+		return CursorColor
 
     /*
 
@@ -202,13 +301,12 @@ class FInput_ : FWidget
     block setText(value)
         validatePointer()
         setValue(value)
-        Text = value
 
     /*
 
     */
     block getText()
-        return Text
+        return getValue()
 
     /*
         
@@ -233,16 +331,16 @@ class FInput_ : FWidget
     /*
 
     */
-    block setValue(value)
+    block setValue(string value)
         validatePointer()
-        value = stringValue(value)
         __Fl_Input__value(Ptr,value)
 
     /*
 
     */
     block getValue()
-        return Value
+		validatePointer()
+        return __Fl_Input__value_2(Ptr)
 
     /*
 

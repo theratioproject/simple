@@ -12,7 +12,7 @@
  * Created on July 12, 2017, 3:34 PM
  */
 
-#include "../includes/simple.h"
+#include "../include/simple.h"
 
 int NOT_CASE_SENSITIVE = 0 ;
 int SKIP_ERROR = 0 ;
@@ -87,7 +87,7 @@ const char *file_real_name(const char *absolute_name){
 }
 
 void remove_file_ext(char file_name[], const char *absolute_name){
-    int name_lenght = strlen(absolute_name);
+    int name_lenght = strlen(absolute_name) - 1;
     int a ;
     for(a = 0; a<name_lenght;a++) {
         if (absolute_name[a] == '.'){
@@ -95,6 +95,22 @@ void remove_file_ext(char file_name[], const char *absolute_name){
             break;
         }
         file_name[a] = absolute_name[a];
+    }
+}
+
+SIMPLE_API void last_text_after_char(char new_text[], char *old_text, char c){
+    int name_lenght = strlen(old_text) - 1;
+    int a, b, d = 0 ;
+    for(a = name_lenght; a > 0;a--) {
+        if (old_text[a] == c){
+			for (b = a; b < name_lenght; b++) {
+				new_text[b-a] = old_text[b+1];
+				d++;
+			}
+			new_text[d] = '\0' ;
+            break;
+        }
+		b++ ;
     }
 }
 

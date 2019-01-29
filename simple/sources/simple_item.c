@@ -15,7 +15,7 @@
 /*
 **  Header Files 
 */
-#include "../includes/simple.h"
+#include "../include/simple.h"
 
 SIMPLE_API Item * simple_item_new_gc ( void *pState,int ItemType )
 {

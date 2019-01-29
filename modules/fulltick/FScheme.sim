@@ -29,7 +29,7 @@ final FScheme = new fulltick.FScheme
 /*
 
 */
-if isWindows() and FScheme.UsePlatformUI { @"Yes"
+if isWindows() and FScheme.UsePlatformUI {
 	FScheme.set("FWindow.Y_Diff",30)
 	FScheme.set("FWindow.Background",new FColor(242,242,242))
 
@@ -191,48 +191,43 @@ class FScheme : Object
 		keyType = getType(object) 
 		newValue = null
 
-		if keyType == "OBJECT" {
-			if instanceOf(object,"FColor") {
-				if isObject(value) and instanceOf(value,"FColor")  {
-					newValue = value 
-				elif isObject(value) and instanceOf(value,"Color")
-					newValue = new FColor(value)
-				elif isObject(value) and instanceOf(value,"String")
-					newValue = new FColor(value.toString())
-				elif isNumber(value) 
-					newValue = new FColor(value)
-				elif isString(value)
-					newValue = new FColor(value)
-				else
-					throw(__MODULE_NAME,FULLTICK_INVALID_PARAMETER + " for the key : " + key)
-				}
-			elif instanceOf(object,"FBoxType")
-				if instanceOf(value,"FBoxType")  {
-					newValue = value 
-				elif isNumber()
-					newValue = new FBoxType(value)
-				else
-					throw(__MODULE_NAME,FULLTICK_INVALID_PARAMETER + " for the key : " + key)
-				}
-			elif instanceOf(object,"FFont")
-				if instanceOf(value,"FFont")  {
-					newValue = value 
-				elif isNumber()
-					newValue = new FFont(value)
-				else
-					throw(__MODULE_NAME,FULLTICK_INVALID_PARAMETER + " for the key : " + key)
-				}
-			elif instanceOf(object,"FBorder")
-				if instanceOf(value,"FBorder")  {
-					newValue = value 
-				else
-					throw(__MODULE_NAME,FULLTICK_INVALID_PARAMETER + " for the key : " + key)
-				}
-			#elif other types instance
-			else 
-				throw(self,"Invalid value for the key '" + key + "', expecting '" + objectType(object) + "' found '" + objectType(value) + "'")
+		if keyType == "fulltick.painting.FColor" {
+			if isObject(value) and instanceOf(value,"FColor")  {
+				newValue = value 
+			elif isObject(value) and instanceOf(value,"Color")
+				newValue = new FColor(value)
+			elif isObject(value) and instanceOf(value,"String")
+				newValue = new FColor(value.toString())
+			elif isNumber(value) 
+				newValue = new FColor(value)
+			elif isString(value)
+				newValue = new FColor(value)
+			else
+				throw(__MODULE_NAME,FULLTICK_INVALID_PARAMETER + " for the key : " + key)
 			}
-		elif keyType == "NUMBER" 
+		elif keyType == "fulltick.drawing.FBoxType"
+			if instanceOf(value,"FBoxType")  {
+				newValue = value 
+			elif isNumber()
+				newValue = new FBoxType(value)
+			else
+				throw(__MODULE_NAME,FULLTICK_INVALID_PARAMETER + " for the key : " + key)
+			}
+		elif keyType == "fulltick.drawing.FFont"
+			if instanceOf(value,"FFont")  {
+				newValue = value 
+			elif isNumber()
+				newValue = new FFont(value)
+			else
+				throw(__MODULE_NAME,FULLTICK_INVALID_PARAMETER + " for the key : " + key)
+			}
+		elif keyType == "fulltick.objects.FBorder"
+			if instanceOf(value,"FBorder")  {
+				newValue = value 
+			else
+				throw(__MODULE_NAME,FULLTICK_INVALID_PARAMETER + " for the key : " + key)
+			}
+		elif keyType == "Number"
 			if isObject(value) {
 				if instanceOf(value,"Number") {
 					newValue = value.getNumber()
@@ -244,7 +239,7 @@ class FScheme : Object
 			else
 				throw(__MODULE_NAME,FULLTICK_INVALID_PARAMETER + " for the key : " + key)
 			}
-		elif keyType == "STRING"
+		elif keyType == "String"
 			if isObject(value) {
 				if instanceOf(value,"String") {
 					newValue = value.getString()
@@ -256,13 +251,16 @@ class FScheme : Object
 			else
 				throw(__MODULE_NAME,FULLTICK_INVALID_PARAMETER + " for the key : " + key)
 			}
-		#elif keyType == "LIST"
+		#elif keyType == "List"
+		else
+			throw(self,"Invalid value for the key '" + key + "', expecting '" + objectType(object) + "' found '" + objectType(value) + "'")
 		}
-
 		if isString(newValue) and newValue == null {
 			return
 		} 
 		uiConstants["" + key + "" ] = newValue
+
+		
 
 	/*
 
@@ -492,6 +490,7 @@ class FScheme : Object
 			:FInput__LabelType = FLabelType.DEFAULT,
 			:FInput__SelectionColor = FColor.FCOLOR_GRAY,
 			:FInput__Value = " ",
+			:FInput__CursorColor = FColor.FCOLOR_BLACK,
 
 			#FInput datas
 			:FInput_Label = " ",
@@ -515,7 +514,10 @@ class FScheme : Object
 			:FInput_LabelSize = 15,
 			:FInput_LabelType = FLabelType.DEFAULT,
 			:FInput_SelectionColor = FColor.FCOLOR_GRAY,
-			:FInput_Value = " "
+			:FInput_Value = " ",
+			:FInput_CursorColor = FColor.FCOLOR_BLACK,
+			
+			:wooooooooooow = "wooooooooooow"
 		]
 		
 		/*

@@ -11,7 +11,7 @@
  * Created on July 24, 2017, 12:20 PM
  */
 
-#include "../includes/simple.h"
+#include "../include/simple.h"
 /* Lists */
 
 SIMPLE_API void simple_vm_liststart ( VM *vm )

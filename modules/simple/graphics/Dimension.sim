@@ -141,7 +141,9 @@ class Dimension : Object
                     Height = floor(height)
                 else
                     throw(self,"Using operator with values of incorrect type : "+op)
+					return null
                 }
+				return self
             case "-"
                 if isinstance(value) {
                     width = Width - value.Width
@@ -150,7 +152,9 @@ class Dimension : Object
                     Height = floor(height)
                 else
                     throw(self,"Using operator with values of incorrect type : "+op)
+					return null
                 }
+				return self
             case "/"
                 if isinstance(value) {
                     width = Width / value.Width
@@ -159,7 +163,9 @@ class Dimension : Object
                     Height = floor(height)
                 else
                     throw(self,"Using operator with values of incorrect type : "+op)
+					return null
                 }
+				return self
             case "*"
                 if isinstance(value) {
                     width = Width * value.Width
@@ -168,7 +174,9 @@ class Dimension : Object
                     Height = floor(height)
                 else
                     throw(self,"Using operator with values of incorrect type : "+op)
+					return null
                 }
+				return self
 		}
 		return super.operator(op, value)
 

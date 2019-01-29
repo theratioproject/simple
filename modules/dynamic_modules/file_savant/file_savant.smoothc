@@ -12,8 +12,8 @@ SourceDir=
 LDLIBSOPTIONS=
 
 [IncludesFile] {
-	"../../../simple/includes/simple.h"
-	"../../../simple/includes/simple_state.h"
+	"../../../simple/include/simple.h"
+	"../../../simple/include/simple_state.h"
 	<sys/types.h>
 	<sys/stat.h>
 }

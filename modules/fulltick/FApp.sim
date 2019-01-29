@@ -93,7 +93,7 @@ class FApp : Object
 	/*
 		internal use only 
 	*/
-	block handle(event,windowPointer) 
+	block handle(event,windowPointer)  __Fl_Fl_event_dispatch(true)
 		widget = CreatedWidgets[windowPointer] 
 		if !isNull(widget) { 
 			windowPtr = widget.Ptr 
@@ -193,7 +193,7 @@ class FApp : Object
 				widget.CallbackEvent.callback(CreatedWidgets[index])
 			}
 		else
-			throw(self,"Invalid parameter in fulltick.FApp::__widgetcallback. Calling this block with invalid parameter means a kind or workaround. Be careful")
+			throw(self,"Invalid parameter in fulltick.FApp::__widgetcallback. Calling this block with invalid parameter means a kind of workaround. Be careful")
 		}
 		#createdWidgets[index].handle(__Fl_Fl_event())
 

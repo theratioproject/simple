@@ -1,7 +1,7 @@
 
-display "Hello World"+crlf
+display "Hello World"+nl
 display "What is your name : " read name
-display "Welcome "+name+crlf
+display "Welcome "+name+nl
 display "What will you like to know about simple? 
         1. Author
         2. Goal

@@ -234,7 +234,7 @@ class FWidget : Object
 
     */
     block FWidget()
-        throw(self,"This a a Base class, you cannot instantiate self class.")
+        throw(self,"This a a Base class, you cannot instantiate this class.")
 
     /*
 
@@ -337,7 +337,7 @@ class FWidget : Object
             __Fl_Widget_argument_1(Ptr,value)
             Argument = value
         else
-            throw(self,FULLTICK_INVALID_PARAMETER + ". Expecting (Number), Found (" + objectType(value) + ")")
+            throw(self,"invalid parameter. Expecting (Number), Found (" + objectType(value) + ")")
         }
 
     /*
@@ -364,7 +364,7 @@ class FWidget : Object
                 Box = value
             }
         else
-            throw(self,FULLTICK_INVALID_PARAMETER + ". Expecting (Number|simple.drawing.FBoxType), Found (" + objectType(value) + ")")
+            throw(self,"invalid parameter. Expecting (Number|simple.drawing.FBoxType), Found (" + objectType(value) + ")")
         }
 
     /*
@@ -388,7 +388,7 @@ class FWidget : Object
                 width = object.Width
                 height = object.Height
             else
-                throw(self, FULLTICK_INVALID_PARAMETER+" Expecting (simple.graphics.Rectangle) for resizing FGroup. Found (" + objectType(object) + ")")
+                throw(self, "invalid parameter Expecting (simple.graphics.Rectangle) for resizing FGroup. Found (" + objectType(object) + ")")
             }
         elif paramsLen == 2
             point = params[0]
@@ -399,7 +399,7 @@ class FWidget : Object
                 width = dimension.Width
                 height = dimension.Height
             else
-                throw(self, FULLTICK_INVALID_PARAMETER+" Expecting (simple.graphics.Point,simple.graphics.Dimension) for resizing FGroup. Found (" + objectType(point) + ", " + objectType(dimension) + ")")
+                throw(self, "invalid parameter Expecting (simple.graphics.Point,simple.graphics.Dimension) for resizing FGroup. Found (" + objectType(point) + ", " + objectType(dimension) + ")")
             }
         elif paramsLen == 4
             x = params[0]
@@ -407,7 +407,7 @@ class FWidget : Object
             width = params[2]
             height = params[3]
             if !isNumber(x) or !isNumber(y) or !isNumber(width) or !isNumber(height) {
-                throw(self, FULLTICK_INVALID_PARAMETER+" Expecting (Number, Number, Number, Number). Found (" + objectType(x) + ", " + objectType(y) + ", " + objectType(width) + ", " + objectType(height) + ")")
+                throw(self, "invalid parameter Expecting (Number, Number, Number, Number). Found (" + objectType(x) + ", " + objectType(y) + ", " + objectType(width) + ", " + objectType(height) + ")")
             }
         else
             throw(self,"Changing FGroup size with invalid length of parameters")
@@ -456,7 +456,7 @@ class FWidget : Object
             value = new FColor(__value) 
             __Fl_Widget_color_1(Ptr,value.colorAsNumber())
         else
-            throw(self,FULLTICK_INVALID_PARAMETER + ". Expecting innstance of 'Fcolor', 'Color', 'number' or 'string' as FWidget Background value")
+            throw(self,"invalid parameter. Expecting innstance of 'Fcolor', 'Color', 'number' or 'string' as FWidget Background value")
         }
         Background = value
 
@@ -531,7 +531,7 @@ class FWidget : Object
             parentWidget.validatePointer()
             Parent = parentWidget 
         else
-            throw(self,FULLTICK_INVALID_PARAMETER+" Expecting an instance of FGroup")
+            throw(self,"invalid parameter Expecting an instance of FGroup")
         }
 
     /*
@@ -552,7 +552,7 @@ class FWidget : Object
                 throw(self,"Only the widget parent can remove the widget from the group")
             } 
         else
-            throw(self,FULLTICK_INVALID_PARAMETER+" Expecting an instance of FGroup")
+            throw(self,"invalid parameter Expecting an instance of FGroup")
         }
 
     /*
@@ -615,7 +615,7 @@ class FWidget : Object
         if isString(blockstr) {
             __Fl_Widget_callback_on_onlick(Ptr,blockstr)
         else
-            throw(self,FULLTICK_INVALID_PARAMETER+" Invalid parameter only executable simple string allowed")
+            throw(self,"invalid parameter Invalid parameter only executable simple string allowed")
         }
 
     /*
@@ -1149,7 +1149,7 @@ class FWidget : Object
             __Fl_Widget_labelcolor_1(Ptr,value)
             value = new FColor(value) 
         else
-            throw(self,FULLTICK_INVALID_PARAMETER + ". Expecting innstance of 'Fcolor', 'Color', 'Number' or 'String' as FWidget Label Color")
+            throw(self,"invalid parameter. Expecting innstance of 'Fcolor', 'Color', 'Number' or 'String' as FWidget Label Color")
         }
         LabelColor = value
 
@@ -1171,7 +1171,7 @@ class FWidget : Object
             __Fl_Widget_labelfont_1(Ptr,__value)
             value = new FFont(__value) 
         else
-            throw(self,FULLTICK_INVALID_PARAMETER + ". Expecting (fulltick.drawing.FFont|simple.system.Font|Number) as FWidget Label Color")
+            throw(self,"invalid parameter. Expecting (fulltick.drawing.FFont|simple.system.Font|Number) as FWidget Label Color")
         }
         LabelFont = value
 
@@ -1194,7 +1194,7 @@ class FWidget : Object
             }
             __Fl_Widget_labelsize_1(Ptr,value)
         else
-            throw(self,FULLTICK_INVALID_PARAMETER + ". Expecting (Number) as FWidget Label Size")
+            throw(self,"invalid parameter. Expecting (Number) as FWidget Label Size")
         }
         LabelSize = value
         redrawParent()
@@ -1217,7 +1217,7 @@ class FWidget : Object
             __Fl_Widget_labeltype_1(Ptr,value)
             value = new FLabelType(value) 
         else
-            throw(self,FULLTICK_INVALID_PARAMETER + ". Expecting (fulltick.drawing.FLabelType|Number) as FWidget Label Type")
+            throw(self,"invalid parameter. Expecting (fulltick.drawing.FLabelType|Number) as FWidget Label Type")
         }
         LabelType = value
 
@@ -1248,7 +1248,7 @@ class FWidget : Object
                 x = point.X 
                 y = point.Y
             else
-                throw(self, FULLTICK_INVALID_PARAMETER+" Expecting (simple.graphics.Point). Found (" + objectType(point) + ")")
+                throw(self, "invalid parameter Expecting (simple.graphics.Point). Found (" + objectType(point) + ")")
             }
         elif paramsLen == 2
             x = numberValue(params[0])
@@ -1302,7 +1302,7 @@ class FWidget : Object
             __Fl_Widget_selection_color_1(Ptr,value)
             value = new FColor(value) 
         else
-            throw(self,FULLTICK_INVALID_PARAMETER + ". Expecting innstance of 'Fcolor', 'Color', 'Number' or 'String' as FWidget Selection Color")
+            throw(self,"invalid parameter. Expecting innstance of 'Fcolor', 'Color', 'Number' or 'String' as FWidget Selection Color")
         }
         SelectionColor = value
 
@@ -1348,7 +1348,7 @@ class FWidget : Object
                 width = dimension.Width 
                 height = dimension.Height
             else
-                throw(self, FULLTICK_INVALID_PARAMETER+" Expecting (simple.graphics.Dimension). Found (" + objectType(dimension) + ")")
+                throw(self, "invalid parameter Expecting (simple.graphics.Dimension). Found (" + objectType(dimension) + ")")
             }
         elif paramsLen == 2
             width = numberValue(params[0])

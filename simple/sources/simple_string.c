@@ -13,7 +13,7 @@
  */
 
 
-#include "../includes/simple.h"
+#include "../include/simple.h"
 /* Blocks */
 
 SIMPLE_API String * simple_string_new_gc ( void *pState,const char *str )
