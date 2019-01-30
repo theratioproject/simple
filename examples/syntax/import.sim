@@ -1,0 +1,10 @@
+/*
+
+*/
+call "./module.sim" import examples.syntax, examples.syntax.inn 
+
+p = new pack
+p.packer()
+
+i = new inner 
+i.miner()

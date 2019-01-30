@@ -15,7 +15,7 @@
 module fulltick.widget
 
 #call the @Class FGroup File for blocks inheritance
-call "./FTextDisplay.sim" ? fulltick.widget
+call "./FTextDisplay.sim" import fulltick.widget
 
 #This @Class FTextEditor is 
 # @Skip

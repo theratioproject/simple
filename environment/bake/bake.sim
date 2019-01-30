@@ -90,6 +90,16 @@ block main()
 		elif param == "-g" or param == "--gui"
 			bread.GUI = true
 			
+		elif param == "-z" or param == "--no-gui"
+			bread.GUI = false
+			
+		elif param == "-x" or param == "--install"
+			bread.Install = true
+			
+		elif strStartsWith(param,"-i=") or strStartsWith(param,"--icon=")
+			bread.IconPath = removeStr(param, "-i=")
+			bread.IconPath = removeStr(param, "--icon=")
+			
 		elif param == "-m" or param == "--mobile"
 			bread.MobileOnly = true
 			bread.BuildAll = false
@@ -118,6 +128,9 @@ block main()
 			stdout.print("\rcreating temp working directory...")
 			bread.TempPath.create()
 		}
+		if bakkrey.Verbose {
+			stdout.print("\nsimple -s "+bread.SourceFile.AbsolutePath+"")
+		}
 		system("simple -s "+bread.SourceFile.AbsolutePath+"")
 		complexPath = bread.SourceFile.Directory.AbsolutePath+"/"+bread.SourceFile.NameOnly+".complex"
 		bread.SourceFile = new File(complexPath)
@@ -141,10 +154,13 @@ block help()
 [ENV_VARS] : change environment variables in Bakefile
 
 The OPTIONS include: 
-	-f	provide a Bakefile
-	-h	print this help and exit
-	x64	mark all build for 64 bits arc
-	x86	mark all build for 32 bits arc
+ -f --file		provide a Bakefile
+ -h --help		print this help and exit
+ -g --gui		mark build as GUI to remove terminal on startup
+ -z --no-gui		mark build as Console base to show terminal on startup
+ x64 --64-bits		mark all build for 64 bits arc
+ x86 --32-bits		mark all build for 32 bits arc
+ -i --icon=<iconpath>	build executable with icon
 "
 	stdout.println(help)
 	__exit__
@@ -161,14 +177,16 @@ class Bread
 	LibraryExt = "." + dynamicModuleExt()
 	KeepTemp = false
 	IsGui = false
-	HasIcon = false
 	IsDebug = false
 	BuildArch = "-m32"
 	MobileOnly = false
 	CFLAG = ""
 	GUI = false
+	Install = false
 
-class Bakkery 
+class Bakkery
+
+	Verbose = false
 
 	block bake(Bread bread)
 		stdout.print("\rpreparing to bake " + bread.Name)
@@ -178,16 +196,16 @@ class Bakkery
 		tempFile = new FileWriter(bread.TempPath+"/"+bread.Name+".bake.c", false, true)
 		tempFile.write(cCode)
 		tempFile.close()
-		stdout.println("(done)")
-		stdout.print("\rpreparing to build executables...")
+		stdout.print("(done)")
+		if !isNull(bread.IconPath) {
+			createIcon(bread)
+		}
 		buildExecutables(bread)
-		if !bread.KeepTemp and bread.BuildAll {
-			dir = new Directory(bread.TempPath)
-			#dir.deleteRecursive()
-		elif !bread.KeepTemp
-			bread.SourceFile.delete()
-			bread.SourceFile = new File(bread.TempPath+"/"+bread.Name+".bake.c")
-			bread.SourceFile.delete()
+		if bread.Install {
+			installExecutable(bread)
+		}
+		if !bread.KeepTemp {
+			removeTemps(bread)
 		}
 		
 	private
@@ -217,7 +235,26 @@ int main( int argc, char *argv[]) {
 			
 			return cCode
 			
+		block createIcon(bread)
+			stdout.printf("\n\rpreparing icon file...")
+			if isWindows() {
+				stdout.printf("\r%s\rpreparing icon file : creating resources file...", strCopy(" ", 20))
+				tempFile = new FileWriter(bread.TempPath+"/"+bread.Name+".bake.rc", false, true)
+				tempFile.write('MAINICON ICON "' + bread.IconPath + '"')
+				tempFile.close()
+				stdout.printf("\r%s\rpreparing icon file : compiling resources file...", strCopy(" ", 20))
+				arch = "pe-x86-64"
+				if bread.BuildArch == "-m32" {
+					arch = "pe-i386"
+				}
+				cmd = 'windres ' + bread.TempPath+"/"+bread.Name+".bake.rc" + ' -F '+arch+' -O coff -o ' + bread.TempPath+"/"+bread.Name+".bake.res"
+				system(cmd)
+				bread.CFLAG += " "+bread.TempPath+"/"+bread.Name+".bake.res "
+			} 
+			stdout.print("(done)")
+			
 		block buildExecutables(bread) 
+			stdout.print("\n\rpreparing to build executables...")
 			if isLinux() and bread.BuildAll {
 				stdout.printf("\r%s\rbuilding for linux...", strCopy(" ", 40))
 				__mkdir(bread.TempPath+"/../linux/",0755)
@@ -249,6 +286,50 @@ int main( int argc, char *argv[]) {
 				
 			}
 			#stdout.print("\rbuilding for desktop..." + simpleExecDir)
+			
+		block installExecutable(bread)
+			stdout.printf("\n\rinstalling "+bread.Name+'...')
+			if isLinux() and bread.BuildAll {
+				stdout.printf("\r%s\rinstalling "+bread.Name+' : detecting build directory...', strCopy(" ", 30))
+				if __dir_exists(bread.TempPath+"/../linux/") {
+					stdout.printf("\r%s\rinstalling "+bread.Name+' : detecting built executable...', strCopy(" ", 30))
+					if __file_exists(bread.TempPath+"/../linux/"+bread.Name+'') {
+						stdout.printf("\r%s\rinstalling "+bread.Name+' : copying built executable...', strCopy(" ", 33))
+						__rename(bread.TempPath+"/../linux/"+bread.Name+'', exeFolder()+bread.Name+'')
+						stdout.print("(done)")
+					else
+						stdout.printf("\r%s\rinstalling "+bread.Name+' : cannot detect built executable...(failed)', strCopy(" ", 33))
+					}	
+				else 
+					stdout.printf("\r%s\rinstalling "+bread.Name+' : cannot detect build directory...(failed)', strCopy(" ", 33))
+				}
+			elif isWindows() and bread.BuildAll
+				stdout.printf("\r%s\rinstalling "+bread.Name+'.exe : detecting build directory...', strCopy(" ", 33))
+				if __dir_exists(bread.TempPath+"/../windows/") {
+					stdout.printf("\r%s\rinstalling "+bread.Name+'.exe : detecting built executable...', strCopy(" ", 33))
+					if __file_exists(bread.TempPath+"/../windows/"+bread.Name+'.exe') {
+						stdout.printf("\r%s\rinstalling "+bread.Name+'.exe : copying built executable...', strCopy(" ", 37))
+						__rename(bread.TempPath+"/../windows/"+bread.Name+'.exe', exeFolder()+bread.Name+'.exe')
+						stdout.print("(done)")
+					else
+						stdout.printf("\r%s\rinstalling "+bread.Name+'.exe : cannot detect built executable...(failed)', strCopy(" ", 33))
+					}	
+				else 
+					stdout.printf("\r%s\rinstalling "+bread.Name+'.exe : cannot detect build directory...(failed)', strCopy(" ", 33))
+				}
+			elif isMacosx() and bread.BuildAll
+			}
+		
+		block removeTemps(bread)
+			stdout.printf("\n\rremoving temporary files and folders...")
+			if bread.Install {
+				dir = new Directory(bread.TempPath+"/../")
+				dir.deleteRecursive()
+			else
+				dir = new Directory(bread.TempPath+"/")
+				dir.deleteRecursive()
+			}
+			stdout.print("(done)")
  
 #end new bake
 depmodules = []
@@ -411,7 +492,7 @@ block windowsBuild(path)
 		end
 	end
 	
-block createIcon(path)
+block creatseIcon(path)
 	if hasicon and isWindows() 
 		display "Creating your ICON dependencies files.."+crlf
 		con = 'MAINICON  ICON  "'+icon+'"'

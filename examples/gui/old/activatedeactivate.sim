@@ -20,8 +20,8 @@
 */
 
 call "fulltick/widget/FButton.sim"
-call "fulltick/widget/FWindow.sim" ? fulltick.widget
-call "fulltick/core/FApp.sim" ? fulltick.core
+call "fulltick/widget/FWindow.sim" import fulltick.widget
+call "fulltick/core/FApp.sim" import fulltick.core
 
 button = new FButton("BUTTON ")
 button.setPosition(10, 10) 

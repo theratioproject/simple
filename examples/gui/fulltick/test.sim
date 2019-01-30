@@ -1,8 +1,8 @@
 
-call "../FApp.sim" ? fulltick
-call "../FScheme.sim" ? fulltick
-call "../painting/FColor.sim" ? fulltick.painting
 call simple.utilities.Console
+call fulltick.FApp
+call fulltick.FScheme
+import simple.core, simple.system, fulltick.painting, fulltick.objects, fulltick.drawing
 
 FApp.run()
 stdout.println(FApp.isRunning())

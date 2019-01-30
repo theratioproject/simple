@@ -829,9 +829,9 @@ class FWindow : FGroup
                     setLabelColor(FColor.FCOLOR_WHITE)
                     setLabelFont(1)
                 } 
-                addWidget(this.ActionBarLabel)
+                add(this.ActionBarLabel)
             } 
-            addWidget(ActionBar)
+            add(ActionBar)
         
 
 

@@ -14,8 +14,8 @@
 module fulltick.widget
 
 #call the @Class FWidget File for blocks inheritance
-call "../painting/FColor.sim" ? fulltick.painting
-call "./FBox.sim" ? fulltick.widget
+call "../painting/FColor.sim" import fulltick.painting
+call "./FBox.sim" import fulltick.widget
 
 #This @Class FInput is the base class for all type of the input
 #and output widget. It hold most of the blocks. Some of the 

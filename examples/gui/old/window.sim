@@ -16,9 +16,9 @@
 
 */
 
-call "fulltick/widget/FWindow.sim" ? fulltick.widget
-call "fulltick/painting/FColor.sim" ? fulltick.painting
-call "fulltick/core/FApp.sim" ? fulltick.core
+call "fulltick/widget/FWindow.sim" import fulltick.widget
+call "fulltick/painting/FColor.sim" import fulltick.painting
+call "fulltick/core/FApp.sim" import fulltick.core
 
 block main()
 	#first window 
@@ -91,11 +91,11 @@ call simple.utilities.Console
 call simple.graphics.Dimension
 call simple.graphics.Rectangle
 call simple.graphics.Point
-call "../../../widgets/FWindow.sim" ? fulltick.widgets
-call "../../../widgets/FGroup.sim" ? fulltick.widgets
-call "../../../widgets/FButton.sim" ? fulltick.widgets
-call "../../../base/FWidget.sim" ? fulltick.base
-call "../../../FApp.sim" ? fulltick
+call "../../../widgets/FWindow.sim" import fulltick.widgets
+call "../../../widgets/FGroup.sim" import fulltick.widgets
+call "../../../widgets/FButton.sim" import fulltick.widgets
+call "../../../base/FWidget.sim" import fulltick.base
+call "../../../FApp.sim" import fulltick
 
 fwindow = null
 fullscreenButton = null
@@ -108,11 +108,11 @@ block main()
     fwindow = new FWindow() { 
         fullscreenButton = new FButton("Fullscreen") 
         fullscreenButton.callbackOnClick("operate('fullscreen')")
-        addWidget(fullscreenButton)
+        add(fullscreenButton)
 
         borderButton = new FButton("Disable Border") 
         borderButton.callbackOnClick("operate('border')")
-        #addWidget(borderButton) 
+        #add(borderButton) 
 
         resize(rectangle)
         #HasWindowBorder = false 

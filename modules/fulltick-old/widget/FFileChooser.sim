@@ -15,7 +15,7 @@
 module fulltick.widget
 
 #call the @Class FWidget File for blocks inheritance
-call "./FFileListBox.sim" ? fulltick.core
+call "./FFileListBox.sim" import fulltick.core
 
 #This @Class FFileChooser @Skip
 #  ________________________________________________________

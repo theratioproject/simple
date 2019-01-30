@@ -89,6 +89,7 @@ build, installation, features e.t.c
 - [ ] allow an overided method to be called using super as the overrided method name e.g `super(param)`
 - [ ] prevent a class initialization without constructor if it has a constructor
 - [ ] by strong typing, notify class of assignment for a more native data type creation
+- [x] add `import` keyword to import module in a source file, with comma seperated for importing multiple modules
 
 ### simplify
 - [ ] hint user as a type of level error when a similar variable that has not been declared is used 

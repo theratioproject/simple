@@ -92,8 +92,8 @@ fwindow = new FWindow() {
                 fwindow.redraw()
             ") 
         }
-        addWidget(a,b,c,d,e,f,g,h) 
-        fwindow.addWidget(group)
+        add(a,b,c,d,e,f,g,h) 
+        fwindow.add(group)
         centerOnParent(fwindow)
         #stdout.println(LabelAlignment)  __exit__
     } 

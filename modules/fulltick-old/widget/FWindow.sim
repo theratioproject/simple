@@ -14,7 +14,7 @@
 module fulltick.widget
 
 #call the @Class FGroup File for general widget blocks inheritance
-call "./FGroup.sim" ? fulltick.core
+call "./FGroup.sim" import fulltick.core
 
 #The @Class FWindow is a child class inheriting
 #Most of it blocks from the @Class FGroup

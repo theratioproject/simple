@@ -3,8 +3,6 @@
 /*
 
 */
-call simple.core.Object
-call simple.debugging.Throw
 call simple.debugging.ErrorMessages
 call simple.reflection.Class
 call simple.system.System
@@ -15,6 +13,8 @@ call fulltick.drawing.FAlignment
 call fulltick.drawing.FFont
 call fulltick.drawing.FLabelType
 call fulltick.painting.FColor
+import simple.core, simple.system, simple.debugging, simple.reflection, fulltick.painting
+import fulltick.objects, fulltick.drawing, fulltick.painting
 
 /*
 

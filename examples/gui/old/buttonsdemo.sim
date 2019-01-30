@@ -24,8 +24,8 @@ call "fulltick/widget/FReturnButton.sim"
 call "fulltick/widget/FLightButton.sim"
 call "fulltick/widget/FCheckButton.sim"
 call "fulltick/widget/FRadioButton.sim"
-call "fulltick/widget/FWindow.sim" ? fulltick.widget
-call "fulltick/core/FApp.sim" ? fulltick.core
+call "fulltick/widget/FWindow.sim" import fulltick.widget
+call "fulltick/core/FApp.sim" import fulltick.core
 
 block Done()
 	display "Hello world"

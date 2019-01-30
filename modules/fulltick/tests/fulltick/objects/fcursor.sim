@@ -1,5 +1,5 @@
 
-call "../../../objects/FCursor.sim" ? fulltick.objects
+call "../../../objects/FCursor.sim" import fulltick.objects
 call simple.utilities.Console
 
 stdout.println(FCursor.FL_CURSOR_DEFAULT)

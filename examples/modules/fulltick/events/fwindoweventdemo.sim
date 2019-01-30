@@ -23,7 +23,7 @@ fWindow = new FWindow(470,60,"FWindowEvent Demo") {
         Background = 7676767
     }
 
-    addWidget(hideLabel,showLabel,closeLabel,box)
+    add(hideLabel,showLabel,closeLabel,box)
     customWindowEvent.box = box
     setWindowListener(customWindowEvent)
     Resizable = false

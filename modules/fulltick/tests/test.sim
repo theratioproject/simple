@@ -1,7 +1,7 @@
 
-call "../FApp.sim" ? fulltick
-call "../FScheme.sim" ? fulltick
-call "../painting/FColor.sim" ? fulltick.painting
+call "../FApp.sim" import fulltick
+call "../FScheme.sim" import fulltick
+call "../painting/FColor.sim" import fulltick.painting
 call simple.utilities.Console
 
 FApp.run()

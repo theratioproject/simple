@@ -7,6 +7,7 @@ call simple.system.System
 call simple.graphics.Dimension
 call simple.system.ScreenDimension
 call fulltick.base.FWidget
+import fulltick.widgets
 
 /*
 
@@ -204,7 +205,7 @@ class FGroup : FWidget
     /*
 
     */#move adaptive to layout completely
-    block addWidget(widgets...)
+    block add(widgets...)
         validatePointer()  
         x = 0
         y = 0
@@ -248,7 +249,7 @@ class FGroup : FWidget
     /*
 
     */
-    block addResizableWidget(widgets...)
+    block addResizable(widgets...)
         validatePointer()
         for widget in widgets {
             if isObject(widget) and __instance_of(widget,"FWidget") {

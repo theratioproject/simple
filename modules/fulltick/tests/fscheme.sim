@@ -1,6 +1,6 @@
 
-call "../FScheme.sim" ? fulltick
-call "../painting/FColor.sim" ? fulltick.painting
+call "../FScheme.sim" import fulltick
+call "../painting/FColor.sim" import fulltick.painting
 call simple.utilities.Console
 
 scheme = new FScheme()

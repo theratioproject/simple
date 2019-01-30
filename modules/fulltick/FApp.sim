@@ -10,6 +10,7 @@ call fulltick.events.FWindowEvent
 call fulltick.base.loaddyfulltick
 call simple.system.Color
 call fulltick.FScheme
+import simple.core, simple.system, simple.debugging, simple.reflection
 
 /*
 

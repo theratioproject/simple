@@ -24,7 +24,7 @@ const char * SIMPLE_KEYWORDS[] = {"if","to","or","and","not","for","new","block"
 
 "read","__exit__","break","try","catch","finally","switch","default",
 
-"in","continue","module","private","final","step","do","exec","elif",
+"in","continue","module","import","private","final","step","do","exec","elif",
 
 "case"/**, "changesimplekeyword","changesimpleoperator","loadsyntax"**/} ;
 
@@ -86,11 +86,12 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
 	if ( sState->files_list == NULL ) {
 		sState->files_list = simple_list_new_gc(sState,0);
 		sState->files_stack = simple_list_new_gc(sState,0);
+		sState->main_file_path = file_name ;
 		simple_list_addstring_gc(sState,sState->files_list,logable_name);
 		simple_list_addstring_gc(sState,sState->files_stack,logable_name);
 		nFreeFilesList = 1 ;
 	} else {
-		if ( simple_list_findstring(sState->files_list,logable_name,0) == 0 ) {
+		if ( simple_list_findstring(sState->files_list,logable_name,0) == 0) {
 			simple_list_addstring_gc(sState,sState->files_list,logable_name);
 			simple_list_addstring_gc(sState,sState->files_stack,logable_name);
 		} else {
@@ -542,6 +543,7 @@ void simple_scanner_keywords ( Scanner *scanner )
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"continue");
 	/* Modules */
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"module");
+	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"import");
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"private");
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"final");
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"step");

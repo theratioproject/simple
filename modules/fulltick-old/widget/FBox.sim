@@ -96,7 +96,7 @@ class FBox : FWidget
 		
 		#The FBox widget currently does not allow adding another widget
 		#into it
-		block addWidget(widget)
+		block add(widget)
 			
 #@Skip--------------------------------------------------------------@EndSkip
 

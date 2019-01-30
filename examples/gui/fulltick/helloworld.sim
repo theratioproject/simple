@@ -1,0 +1,11 @@
+call fulltick.FApp
+call fulltick.widgets.FWindow
+call fulltick.widgets.FButton
+import simple.core, simple.system, fulltick.base
+import fulltick.widgets, fulltick.painting, fulltick.objects, fulltick.drawing
+
+new FWindow() {
+	add(new FButton("Hello World"))
+	show()
+}
+FApp.run()

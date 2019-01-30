@@ -19,9 +19,9 @@
 
 call "fulltick/widget/FInput.sim"
 call "fulltick/widget/FButton.sim"
-call "fulltick/painting/FColor.sim" ? fulltick.painting
-call "fulltick/widget/FWindow.sim" ? fulltick.widget
-call "fulltick/core/FApp.sim" ? fulltick.core
+call "fulltick/painting/FColor.sim" import fulltick.painting
+call "fulltick/widget/FWindow.sim" import fulltick.widget
+call "fulltick/core/FApp.sim" import fulltick.core
 
 input = new FInput("") 
 input.setTitle("Normal : ").setPosition(90, 10) 

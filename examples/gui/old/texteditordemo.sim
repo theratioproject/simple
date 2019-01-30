@@ -35,7 +35,7 @@ class TextEditorDemo : FWindow
 			e = new FInput("") e.setPosition(10,320).setWidth(240)
 			b = new FButton("Insert Text") b.setPosition(260,320).callback("insert()")
 			b = new FButton("Count Lines") b.setPosition(10,360).callback("println('Total Lines : '+editor.totalLines())")
-			b = new FButton("Selected 0 to 10") b.setPosition(150,360).callback("println('0 to 5 in Selection ? : '+editor.inSelection(0,10))")
+			b = new FButton("Selected 0 to 10") b.setPosition(150,360).callback("println('0 to 5 in Selection import : '+editor.inSelection(0,10))")
 			l = new FLabel("Size") l.setPosition(280,360) b = new FButton("I") b.setWidth(20).setPosition(320,360).callback("increasefont()")
 			b = new FButton("D") b.setWidth(20).setPosition(350,360).callback("decreasefont()")
 			c = new FToggleButton("Line Number") c.setPosition(10,400).callback("linenumber(c)").setValue(1)
@@ -50,7 +50,7 @@ class TextEditorDemo : FWindow
 			b = new FButton("Next Word") b.setWidth(100).setPosition(170,450).callback("editor.overstrike('Hello')")
 			b = new FButton("Previous Word") b.setWidth(110).setPosition(280,450).callback("editor.previousWord()")
 		End() setTitle("FTEXTDISPLAY DEMO") setSize(400, 600)		
-		testAttribs() addWidget(editor) run() 
+		testAttribs() add(editor) run() 
 
 block testAttribs() 
 	println("Column to X : "+editor.columnToX(30)+" | X to Column : "+editor.xToColumn(editor.columnToX(30)))

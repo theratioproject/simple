@@ -12,10 +12,10 @@
 */
 
 call "fulltick/widget/FLabel.sim"
-call "fulltick/painting/FColor.sim" ? fulltick.painting
-call "fulltick/drawing/FFont.sim" ? fulltick.drawing
-call "fulltick/widget/FWindow.sim" ? fulltick.widget
-call "fulltick/core/FApp.sim" ? fulltick.core
+call "fulltick/painting/FColor.sim" import fulltick.painting
+call "fulltick/drawing/FFont.sim" import fulltick.drawing
+call "fulltick/widget/FWindow.sim" import fulltick.widget
+call "fulltick/core/FApp.sim" import fulltick.core
 
 block main()
 
@@ -28,7 +28,7 @@ block main()
 
 	window = new FWindow() 
 	window.setTitle("FFONT DEMO").setSize(370, 80)
-	window.addWidget(label) 
+	window.add(label) 
 	window.show() 
 	
 	FApp.run() 

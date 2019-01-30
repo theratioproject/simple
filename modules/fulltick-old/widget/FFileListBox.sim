@@ -18,7 +18,7 @@ FILES_TYPE = 0
 DIRECTORIES_TYPE = 1
 
 #call the @Class FWidget File for blocks inheritance
-call "../core/FWidget.sim" ? fulltick.core
+call "../core/FWidget.sim" import fulltick.core
 
 #This @Class FFileListBox @Skip
 #  ________________________________________________________

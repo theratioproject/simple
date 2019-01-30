@@ -47,6 +47,7 @@ SIMPLE_API SimpleState * simple_state_new ( void )
 		printf( SIMPLE_OOM ) ;
 		exit(0);
 	}
+	sState->main_file_path = "" ;
 	sState->files_list = NULL ;
 	sState->files_stack = NULL ;
 	sState->generated_code = NULL ;
@@ -84,6 +85,9 @@ SIMPLE_API SimpleState * simple_state_new ( void )
 		/* */
 		simple_distro_folder(module_path);
 		snprintf(module_path, sizeof(module_path), "%s/modules/", module_path);
+		simple_list_addstring_gc(sState,sState->module_paths,module_path);
+		/* */
+		snprintf(module_path, sizeof(module_path), "%s/modules/", getenv("SIMPLE_PATH"));
 		simple_list_addstring_gc(sState,sState->module_paths,module_path);
 		/* */
 		snprintf(module_path, sizeof(module_path), "%s/s%s/modules/", getenv("SIMPLE_PATH"), SIMPLE_VERSION);

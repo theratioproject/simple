@@ -2,8 +2,8 @@
 /*
 
 */
-call simple.core.Object
 call fulltick.events.FEvent
+import simple.core
 
 /*
 

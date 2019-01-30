@@ -31,7 +31,7 @@ class ButtonDemo : FCallbackEvent
             setCallbackListener(self)
         }
 
-        addWidget(fbutton)
+        add(fbutton)
         centerOnScreen() 
         show()        
     } 

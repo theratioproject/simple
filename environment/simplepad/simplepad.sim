@@ -134,7 +134,7 @@ block about()
 	window.setTitle("simplepad - About")
 	window.setSize(600,210)
 	window.setBackground(FColor.WHITE())
-	window.addWidget(label)
+	window.add(label)
 	window.show()
 	window.setLocation(530,150)
 

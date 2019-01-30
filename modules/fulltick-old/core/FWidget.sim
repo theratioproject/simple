@@ -21,9 +21,9 @@ module fulltick.core
 #@Call the Hash class to use the @Block hash(content) to calculate the hash
 #of the widget
 call "Core.sim"
-call "../painting/FColor.sim" ? fulltick.painting
-call "../drawing/FFont.sim" ? fulltick.painting
-call "../../simple/security/Hash.sim" ? simple.security
+call "../painting/FColor.sim" import fulltick.painting
+call "../drawing/FFont.sim" import fulltick.painting
+call "../../simple/security/Hash.sim" import simple.security
 
 #All the GUI widget base class. Some of the block in this class are abstract 
 #i.e they are not declared here so it has to be declared in the child widget 
@@ -372,11 +372,11 @@ class FWidget
 	#during runtime
 	#@Note It @Returns this which is the widget to allow the in-line usage 
 	#of the widget
-	block addWidget(widget)
+	block add(widget)
 		if isList(widget)
 			wlen = lengthOf(widget) - 1 
 			for a = 0 to wlen
-				addWidget(widget[a]) 
+				add(widget[a]) 
 			end
 		else
 			addChildWidget(widget, false)
@@ -386,11 +386,11 @@ class FWidget
 	#Add a child or some child widget to the current widget along with 
 	#inheriting the parent resize attribute i.e It also resize if the
 	#current widget is resized of change size if you want it static you
-	#can choose to call @Block addWidget(widget) instead or set the parent
+	#can choose to call @Block add(widget) instead or set the parent
 	#size to not re-sizable
 	#@Note It @Returns this which is the widget to allow the in-line usage 
 	#of the widget
-	block addResizableWidget(widget)
+	block addResizable(widget)
 		if isList(widget)
 			for a = 0 to lengthOf(widget) - 1 
 				addChildWidget(widget[a], true)

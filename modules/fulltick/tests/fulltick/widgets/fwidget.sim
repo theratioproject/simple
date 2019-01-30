@@ -7,15 +7,15 @@ call simple.utilities.Console
 call simple.graphics.Dimension
 call simple.graphics.Rectangle
 call simple.graphics.Point
-call "../../../drawing/FBoxType.sim" ? fulltick.drawing
-call "../../../painting/FColor.sim" ? fulltick.painting
-call "../../../widgets/FWindow.sim" ? fulltick.widgets
-call "../../../drawing/FAlignment.sim" ? fulltick.drawing
-call "../../../widgets/FGroup.sim" ? fulltick.widgets
-call "../../../widgets/FButton.sim" ? fulltick.widgets
-call "../../../base/FWidget.sim" ? fulltick.base
-call "../../../FApp.sim" ? fulltick
-call "../../../events/FCallbackEvent.sim" ? fulltick.events
+call "../../../drawing/FBoxType.sim" import fulltick.drawing
+call "../../../painting/FColor.sim" import fulltick.painting
+call "../../../widgets/FWindow.sim" import fulltick.widgets
+call "../../../drawing/FAlignment.sim" import fulltick.drawing
+call "../../../widgets/FGroup.sim" import fulltick.widgets
+call "../../../widgets/FButton.sim" import fulltick.widgets
+call "../../../base/FWidget.sim" import fulltick.base
+call "../../../FApp.sim" import fulltick
+call "../../../events/FCallbackEvent.sim" import fulltick.events
 
 wcount = 0
 acount = 0
@@ -92,8 +92,8 @@ fwindow = new FWindow() {
                 fwindow.redraw()
             ") 
         }
-        addWidget(a,b,c,d,e,f,g,h) 
-        fwindow.addWidget(group)
+        add(a,b,c,d,e,f,g,h) 
+        fwindow.add(group)
         centerOnParent(fwindow)
         #stdout.println(LabelAlignment)  __exit__
     } 

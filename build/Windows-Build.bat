@@ -932,13 +932,12 @@ REM THE ENVIRONMENT PROGRAMS WILL ALSO BE INSTALLED IN SAME BIN DIRECTORY AS SIM
 		echo environment:build: %%x
 		if exist "..\environment\%%x\%%x.sim" (
 			if "%%x"=="simplepad" (
-				SET BAKE_FLAG_GUI=-gui
+				SET BAKE_FLAG_GUI=--gui
 			) else (
-				SET BAKE_FLAG_GUI=
+				SET BAKE_FLAG_GUI=--no-gui
 			)
-			if exist ../../simple-arts/environment/%%x.ico (
-				
-				call:buildsingleenvironment %%x !BAKE_FLAG_GUI! -I/../../simple-arts/environment/%%x.ico
+			if exist ../../simple-arts/environment/%%x.ico (				
+				call:buildsingleenvironment %%x !BAKE_FLAG_GUI! ../../simple-arts/environment/%%x.ico
 			) else (
 				call:buildsingleenvironment %%x !BAKE_FLAG_GUI! 
 			)
@@ -952,11 +951,11 @@ REM THE ENVIRONMENT PROGRAMS WILL ALSO BE INSTALLED IN SAME BIN DIRECTORY AS SIM
 	
 :buildsingleenvironment 
 	echo environment:build: building %1 
-	if !EXEC_TYPE!=="install" (
-		!SIMPLE_EXECUTABLE! !BAKE_EXECUTABLE! %2 %3 -F/!INSTALLATION_FOLDER!\%VERSION%\bin\ ..\environment\%1\%1.sim
+	if !EXEC_TYPE!=="install" ( 
+		!SIMPLE_EXECUTABLE! !BAKE_EXECUTABLE! %2 --icon=%3 --install ..\environment\%1\%1.sim
 	)
 	if !EXEC_TYPE!=="debug" (
-		!SIMPLE_EXECUTABLE! !BAKE_EXECUTABLE! %2 %3 -F/..\..\%SIMPLE_DEBUG_VERSION%\bin\ ..\environment\%1\%1.sim
+		!SIMPLE_EXECUTABLE! !BAKE_EXECUTABLE! =%2 --icon=%3 --install ..\environment\%1\%1.sim
 	)
 	
 	exit /b 0

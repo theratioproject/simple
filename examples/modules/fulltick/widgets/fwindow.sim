@@ -30,7 +30,7 @@ class FWindowDemo : FCallbackEvent
             setCallbackListener(self)
             setPosition(finput.Width + finput.X + 10, 10)
         }
-        addWidget(finput,fbutton) 
+        add(finput,fbutton) 
         show()        
     } 
 

@@ -18,6 +18,7 @@
 /* Data */
 typedef struct SimpleState {
 	/* First use by simple_scanner_readfile */
+	char* main_file_path;
 	List *files_list  ;
 	List *files_stack  ;
 	/* First use by simple_parser_new */

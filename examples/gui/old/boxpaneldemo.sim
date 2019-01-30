@@ -15,8 +15,8 @@
 */
 
 call "fulltick/widget/FBox.sim"
-call "fulltick/widget/FWindow.sim" ? fulltick.widget
-call "fulltick/core/FApp.sim" ? fulltick.core
+call "fulltick/widget/FWindow.sim" import fulltick.widget
+call "fulltick/core/FApp.sim" import fulltick.core
 call "fulltick/raw/FBoxType.sim"
 
 block main()

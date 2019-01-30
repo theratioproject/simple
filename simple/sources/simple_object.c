@@ -20,7 +20,7 @@ void simple_object_writefile ( SimpleState *sState )
 	FILE *fp;
 	char file_name[400];
 	/* Create File */
-	remove_file_ext(file_name,simple_list_getstring(sState->files_list,1));
+	remove_file_ext(file_name,sState->main_file_path);
 	sprintf(file_name,"%s.complex",file_name) ;
 	fp = fopen(file_name , "w+b");
 	fprintf( fp , "%s\n", SIMPLE_OBJECT_HEAD) ;

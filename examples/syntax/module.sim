@@ -5,27 +5,23 @@ module examples.syntax
 #2 #3
 
 #4
-class pack {
+class pack
 
-	block packer() {
-		display "initial module "+crlf
-	}	
+	block packer()
+		display "initial module "+nl	
 
-}
 
 #5
 module examples.syntax.inn 
 
 #6
-class inner {
+class inner
 	
-	block miner() {
+	block miner()
 		#7
 		p = new examples.syntax.pack 
 		p.packer()
-	}
 	
-}
 
 /*	
 	comment map

@@ -14,7 +14,7 @@
 module fulltick.widget
 
 #call the @Class FBox File for blocks inheritance
-call "./FButton.sim" ? fulltick.core
+call "./FButton.sim" import fulltick.core
 
 #The @Class FRepeatButton  is a child class inheriting
 #Most of it blocks from the @Class FButton widget. This widget is a #typical button that execute it click in the @Block callback(cb) in

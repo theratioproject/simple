@@ -7,16 +7,16 @@ call simple.utilities.Console
 call simple.graphics.Dimension
 call simple.graphics.Rectangle
 call simple.graphics.Point
-call "../../../drawing/FBoxType.sim" ? fulltick.drawing
-call "../../../painting/FColor.sim" ? fulltick.painting
-call "../../../widgets/FWindow.sim" ? fulltick.widgets
-call "../../../drawing/FAlignment.sim" ? fulltick.drawing
-call "../../../widgets/FGroup.sim" ? fulltick.widgets
-call "../../../widgets/FButton.sim" ? fulltick.widgets
-call "../../../base/FWidget.sim" ? fulltick.base
-call "../../../FApp.sim" ? fulltick
-call "../../../events/FCallbackEvent.sim" ? fulltick.events
-call "../../../objects/FKeys.sim" ? fulltick.objects
+call "../../../drawing/FBoxType.sim" import fulltick.drawing
+call "../../../painting/FColor.sim" import fulltick.painting
+call "../../../widgets/FWindow.sim" import fulltick.widgets
+call "../../../drawing/FAlignment.sim" import fulltick.drawing
+call "../../../widgets/FGroup.sim" import fulltick.widgets
+call "../../../widgets/FButton.sim" import fulltick.widgets
+call "../../../base/FWidget.sim" import fulltick.base
+call "../../../FApp.sim" import fulltick
+call "../../../events/FCallbackEvent.sim" import fulltick.events
+call "../../../objects/FKeys.sim" import fulltick.objects
 
 button = new ButtonDemo
 FApp.run()
@@ -30,7 +30,7 @@ class ButtonDemo : FCallbackEvent
             setCallbackListener(self)
         }
 
-        addWidget(fbutton)
+        add(fbutton)
         centerOnScreen() 
         show()        
     } 

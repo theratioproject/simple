@@ -2,9 +2,8 @@
 /*
 
 */
-call simple.core.Object
-call simple.reflection.Field
 call fulltick.base.FWidget
+import simple.core, simple.reflection
 
 /*
 

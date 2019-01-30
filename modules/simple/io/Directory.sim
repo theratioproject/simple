@@ -81,17 +81,17 @@ class Directory : Path
 	
 	*/
 	block deleteRecursive()
-		files = getFiles()
-		for file in files {
-			if !file.delete() {
-				throw(self, "The File cannot be deleted : " + file.AbsolutePath)
-				return false
-			}
-		}
 		folders = getDirectories()
 		for folder in folders {
 			if !folder.deleteRecursive() {
 				throw(self, "The Directory cannot be deleted : " + folder.AbsolutePath)
+				return false
+			}
+		}
+		files = getFiles()
+		for file in files {
+			if !file.delete() {
+				throw(self, "The File cannot be deleted : " + file.AbsolutePath)
 				return false
 			}
 		}
@@ -114,7 +114,7 @@ class Directory : Path
 		contents = getContents()
 		for content in contents {
 			if content[1] == 0 {
-				file = new File(AbsolutePath + content[0])
+				file = new File(AbsolutePath + SystemSlash + content[0])
 				__add_to_list(fileList, file)
 			}
 		}
@@ -129,7 +129,7 @@ class Directory : Path
 		contents = getContents()
 		for content in contents {
 			if content[1] == 1 {
-				file = new Directory(AbsolutePath + content[0])
+				file = new Directory(AbsolutePath + SystemSlash + content[0])
 				__add_to_list(folderList, file)
 			}
 		}
@@ -160,7 +160,7 @@ class Directory : Path
 			}
 			CTCLen = lengthOf(ChildrenToCreate) - 1
 			for a = CTCLen to 0 step -1 {
-				if !__mk_directory(ChildrenToCreate[a], 0777) {
+				if !__mk_directory(ChildrenToCreate[a], 0755) {
 					throw(self, "Cannot create the parent Directory : " + ChildrenToCreate[a])
 				}
 			}

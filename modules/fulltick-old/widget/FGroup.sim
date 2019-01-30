@@ -15,7 +15,7 @@
 module fulltick.widget
 
 #call the @Class FWidget File for blocks inheritance
-call "../core/FWidget.sim" ? fulltick.widget
+call "../core/FWidget.sim" import fulltick.widget
 
 #This @Class FGroup is 
 # @Skip
@@ -87,7 +87,7 @@ class FGroup : FWidget
 		
 	#Set the current @Class FGroup or it inheriting widget to active
 	#so that child widgets can be added to it without calling the @Block
-	#addWidget(widget). When this block is called any constructed widget will
+	#add(widget). When this block is called any constructed widget will
 	#be added to this widget until @Block end() is called on the widget 
 	#@Note It @Returns this which is the widget to allow the in-line usage 
 	#of the widget
@@ -97,7 +97,7 @@ class FGroup : FWidget
 		
 	#Notify the widget to stop adding widget to itself if @Block begin() 
 	#has been called or not. The only way widget can be added again is to 
-	#call @Block begin() again or use the @Block addWidget(widget)
+	#call @Block begin() again or use the @Block add(widget)
 	#@Note It @Returns this which is the widget to allow the in-line usage 
 	#of the widget
 	block endConstruct()
