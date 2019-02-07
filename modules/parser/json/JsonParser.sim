@@ -308,7 +308,7 @@ class JsonParser : Object
 					break
 				}
 				member = parseMember()
-				if member == null {
+				if isNull(member) {
 					next = lookAhead.pop()
 					if next != EOF or next != "" and (next == ValueSeparator or next != EndObject) {
 						throw(self, "Syntax Error : missing member in JSON object")

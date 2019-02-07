@@ -146,6 +146,7 @@ class Directory : Path
 			should be use in creating directory as it is a safe implementation and it also uses this 
 			block to verify the parent Directory existence
 		*/
+		#TODO : Check the archive.zip.ZipEntry for a beter folder creation block
 		block createParent() 
 			tempDir = AbsolutePath
 			ChildrenToCreate = []

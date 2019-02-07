@@ -1,0 +1,50 @@
+
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com> 
+	MIT License Copyright (c) 2018 simple-lang 
+
+*/
+@isList(null)
+@isNull(null)
+@getType(null)
+t = ["20fdf", 60, null, 50]
+t[1] = null
+@getType(t[1]) 
+@isNull(t[1])
+@isNull(t[2])
+test = new Test()
+var = null
+var = 123 @var
+var = null
+@null
+@jay()
+@var
+@test.One
+@t[1] 
+@"============="
+@getType(null)
+@getType(jay())
+@getType(var)
+@getType(test.One)
+@getType(t[1])
+@"============="
+@isString(null)
+@isString(jay())
+@isString(var)
+@isString(test.One)
+@isString(t[1])
+@"============="
+@isNull(null)
+@isNull(jay())
+@isNull(var)
+@isNull(test.One)
+@isNull(t[1])
+
+block jay()
+
+class Test 
+	One = null
+	
+	block Test()
+		
+		

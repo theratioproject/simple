@@ -172,7 +172,7 @@ int simple_vm_findvar2 ( VM *vm,int x,List *list2,const char *cStr )
 			/* Accessing Object Attribute Using { } */
 			if ( simple_list_getsize(vm->aBraceObjects) > 0 ) {
 				list = simple_list_getlist(vm->aBraceObjects,simple_list_getsize(vm->aBraceObjects));
-				/* Pass braces { } for class init() method */
+				/* Pass braces { } for class constructor() method */
 				if ( vm->nCallClassInit ) {
 					/*
 					**  Here simple_vm_oop_callmethodinsideclass(vm) will return 0 because of class init() calling 
@@ -250,7 +250,7 @@ List * simple_vm_newvar2 ( VM *vm,const char *cStr,List *pParent )
 	list = simple_list_newlist_gc(vm->sState,pParent);
 	simple_list_addstring_gc(vm->sState,list,cStr);
 	simple_list_addint_gc(vm->sState,list,SIMPLE_VM_NULL);
-	simple_list_addstring_gc(vm->sState,list,"NULL");
+	simple_list_addpointer_gc(vm->sState,list,NULL);
 	/* Pointer Type */
 	simple_list_addint_gc(vm->sState,list,0);
 	/* Private Flag */
@@ -374,7 +374,7 @@ SIMPLE_API void simple_vm_setglobalscope ( VM *vm )
 	vm->nCurrentGlobalScope = SIMPLE_VM_IR_READI ;
 }
 
-List * simple_vm_getglobalscope ( VM *vm )
+SIMPLE_API List * simple_vm_getglobalscope ( VM *vm )
 {
 	List *list  ;
 	if ( vm->nCurrentGlobalScope == 0 ) {
@@ -384,4 +384,13 @@ List * simple_vm_getglobalscope ( VM *vm )
 		list = simple_list_getlist(vm->aGlobalScopes,vm->nCurrentGlobalScope);
 	}
 	return list ;
+}
+
+SIMPLE_API void simple_vm_setthenullvariable ( VM *vm )
+{
+	List *list, *nullVar  ;
+	nullVar = simple_list_getlist(simple_vm_getglobalscope(vm),SIMPLE_VM_STATICVAR_NULL) ;
+	simple_list_setpointer_gc(vm->sState,nullVar,SIMPLE_VAR_VALUE,NULL);
+	simple_list_setint_gc(vm->sState,nullVar,SIMPLE_VAR_PVALUETYPE,0);
+	return ;
 }

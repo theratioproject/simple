@@ -163,6 +163,12 @@ SIMPLE_API void simple_list_print ( List *list )
 	if ( simple_list_getsize(list) < 0 ) {
 		return ;
 	}
+	if (simple_list_ispointer(list,1)) {
+		if (simple_list_getpointer(list,1) == NULL) {
+			printf("(null)");
+			return ;
+		}
+	}
 	printf("[");
 	size = simple_list_getsize(list) ;
 	for ( x = 1 ; x <= size ; x++ ) { 
@@ -543,9 +549,10 @@ SIMPLE_API void simple_list_setlist_gc_( void *pState,List *list, int index, Lis
 
 SIMPLE_API void simple_list_addlist_gc( void *pState,List *list,List* l_value )
 {
+	List *list2;
 	assert(list != NULL);
-	simple_list_newitem_gc(pState,list);
-	simple_list_setlist_gc_(pState,list,simple_list_getsize(list),l_value);
+	list2 = simple_list_newlist_gc(pState,list);
+	simple_list_copy_gc(pState,list2,l_value);
 }
 
 SIMPLE_API List * simple_list_getlist ( List *list, int index )
@@ -816,7 +823,6 @@ SIMPLE_API int simple_list_findinlistofobjs ( List *list,int nType,double nNum1,
 	List *list2  ;
 	assert(list != NULL);
 	count = simple_list_getsize(list);
-	simple_string_lower(cAttribute);
 	/* Find Item */
 	if ( (count > 0) && (nColumn > 0) ) {
 		for ( x = 1 ; x <= count ; x++ ) {

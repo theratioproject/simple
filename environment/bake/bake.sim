@@ -97,8 +97,11 @@ block main()
 			bread.Install = true
 			
 		elif strStartsWith(param,"-i=") or strStartsWith(param,"--icon=")
-			bread.IconPath = removeStr(param, "-i=")
-			bread.IconPath = removeStr(param, "--icon=")
+			iconPath = removeStr(param, "-i=")
+			iconPath = removeStr(param, "--icon=")
+			if iconPath != "" {
+				bread.IconPath = iconPath
+			}
 			
 		elif param == "-m" or param == "--mobile"
 			bread.MobileOnly = true

@@ -14,9 +14,8 @@
 
 #include "../include/simple.h"
 
-int NOT_CASE_SENSITIVE = 0 ;
+//TODO : revisit and remove all global variables
 int SKIP_ERROR = 0 ;
-//SIMPLE_API char *DEFAULT_FILE_NAME = "" ;
 char simple_file_initial_dir[SIMPLE_PATHSIZE];
 
 char* time_frame = "seconds" ;

@@ -565,7 +565,7 @@ class FWidget : Object
 
     */
     block resolvePendingOps()    
-        if PendingOps["resizable"] != null {
+        if isNull(PendingOps["resizable"]) {
             if PendingOps["resizable"] == "true" {
                 Resizable = true
                 Parent.setResizable(self)
@@ -1213,9 +1213,9 @@ class FWidget : Object
         if instanceOf(value,"FLabelType") { 
             __Fl_Widget_labeltype_1(Ptr,4)
         elif isNumber(value) or instanceOf(value,"Number")
-            value = numberValue(value)
-            __Fl_Widget_labeltype_1(Ptr,value)
-            value = new FLabelType(value) 
+            __value = numberValue(value)
+            __Fl_Widget_labeltype_1(Ptr,__value)
+            value = new FLabelType(__value) 
         else
             throw(self,"invalid parameter. Expecting (fulltick.drawing.FLabelType|Number) as FWidget Label Type")
         }

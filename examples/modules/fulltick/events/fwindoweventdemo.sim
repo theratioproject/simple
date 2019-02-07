@@ -1,17 +1,11 @@
-call simple.core.Object
 call simple.utilities.Console
-call simple.graphics.Dimension
-call simple.graphics.Rectangle
-call simple.graphics.Point
-call fulltick.drawing.FBoxType
-call fulltick.painting.FColor
-call fulltick.widgets.FWindow
-call fulltick.drawing.FAlignment
-call fulltick.widgets.FLabel
-call fulltick.base.FWidget
 call fulltick.FApp
+call fulltick.widgets.FWindow
+call fulltick.widgets.FButton
 call fulltick.events.FCallbackEvent
 call fulltick.events.FWindowEvent
+import simple.core, simple.system, fulltick.base
+import fulltick.widgets, fulltick.painting, fulltick.objects, fulltick.drawing
 
 customWindowEvent = new CustomWindowEvent
 fWindow = new FWindow(470,60,"FWindowEvent Demo") {

@@ -2,22 +2,13 @@
 /*
 
 */
-call simple.core.Object
 call simple.utilities.Console
-call fulltick.drawing.FBoxType
-call fulltick.drawing.FAlignment
-call fulltick.drawing.FFont
-call fulltick.drawing.FLabelType
-call fulltick.objects.FBorder
-call fulltick.objects.FCursor
-call fulltick.objects.FKeys
-call fulltick.painting.FColor
-call fulltick.widgets.FWindow
-call fulltick.widgets.FGroup
-call fulltick.widgets.FButton
 call fulltick.FApp
+call fulltick.widgets.FWindow
+call fulltick.widgets.FButton
 call fulltick.events.FCallbackEvent
-call fulltick.base.FWidget
+import simple.core, simple.system, fulltick.base
+import fulltick.widgets, fulltick.painting, fulltick.objects, fulltick.drawing
 
 button = new ButtonDemo
 FApp.run() 

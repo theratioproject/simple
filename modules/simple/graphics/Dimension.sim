@@ -129,7 +129,7 @@ class Dimension : Object
 	*/
 	block operator(op,value)
 		switch op {
-			case "="
+			case "=="
 				return equals(value)
 			case "!="
 				return !equals(value)

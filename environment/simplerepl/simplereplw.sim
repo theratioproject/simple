@@ -1,3 +1,38 @@
 /*
 	Simple REPL UI
 */
+call fulltick.FApp
+call fulltick.widgets.FWindow
+call fulltick.widgets.FButton
+call fulltick.widgets.FInput
+call fulltick.events.FCallbackEvent
+import simple.core
+import simple.system
+import fulltick.base
+import fulltick.painting
+import fulltick.objects
+import fulltick.drawing
+
+block main()
+	new SimpleRepl
+	FApp.run()
+	
+class SimpleRepl : FCallbackEvent
+
+	fwindow = new FWindow("simplereplw") {
+		begin(true)
+		finput = new FInput(10,10,"Android")
+        new FButton("Execute") {
+            setCallbackListener(self)
+            setPosition(finput.Width + finput.X + 10, 10)
+        }
+		endBegin()
+		show()
+	}
+
+	block callback(widget)
+		if widget.Id = 1 {
+			@"Execute it"
+		}
+	
+	

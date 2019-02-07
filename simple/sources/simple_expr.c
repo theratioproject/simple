@@ -842,7 +842,6 @@ int simple_parser_factor ( Parser *parser,int *nFlag )
 			simple_parser_icg_newoperation(parser,ICO_PUSHC);
 			if ( simple_parser_isanykeyword(parser) ) {
 				strcpy(keyword,simple_scanner_getkeywordtext(parser->TokenText));
-				simple_string_lower(keyword);
 				simple_parser_icg_newoperand(parser,keyword);
 			}
 			else {
@@ -1209,10 +1208,10 @@ int simple_parser_mixer ( Parser *parser )
 		#if SIMPLE_PARSERTRACE
 		SIMPLE_STATE_CHECKPRINTRULES 
 		
-		puts("Rule : Mixer --> '{' {Statement} BraceEnd");
+		puts("Rule : Mixer --> '{' {Statement} [BraceOpen]Open");
 		#endif
-		/* if isblock(self,"bracestart") bracestart() ok */
-		simple_parser_gencallbracemethod(parser,"bracestart");
+		/* if isblock(self,"open") open() ok */
+		simple_parser_gencallbracemethod(parser,"open");
 		simple_parser_nexttoken(parser);
 		nStatus = parser->nAssignmentFlag ;
 		parser->nAssignmentFlag = 1 ;
@@ -1226,14 +1225,14 @@ int simple_parser_mixer ( Parser *parser )
 			parser->nBraceFlag-- ;
 			/*
 			**  Generate Code 
-			**  if isblock(self,"braceend") braceend() ok 
+			**  if isblock(self,"close") close() ok 
 			*/
-			simple_parser_gencallbracemethod(parser,"braceend");
+			simple_parser_gencallbracemethod(parser,"close");
 			simple_parser_icg_newoperation(parser,ICO_BRACEEND);
 			#if SIMPLE_PARSERTRACE
 			SIMPLE_STATE_CHECKPRINTRULES 
 			
-			puts("Rule : BraceEnd --> '}' ");
+			puts("Rule : [BraceClose]Close --> '}' ");
 			#endif
 			simple_parser_nexttoken(parser);
 			x = simple_parser_mixer(parser);

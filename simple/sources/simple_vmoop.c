@@ -411,9 +411,9 @@ SIMPLE_API void simple_vm_oop_property ( VM *vm )
 			/*
 			**  We check nActiveCatch because we may have error "accessing private attribute' 
 			**  while we are using simple_vm_findvar 
-			**  And we are using try catch done in the code 
+			**  And we are using try catch finally in the code 
 			**  In this case we don't add another error message 
-			**  So the try catch done can work as expected and avoid the need to another one 
+			**  So the try catch finally can work as expected and avoid the need to another one 
 			**  Error Message 
 			*/
 			simple_vm_error2(vm,SIMPLE_VM_ERROR_PROPERTYNOTFOUND,SIMPLE_VM_IR_READC);

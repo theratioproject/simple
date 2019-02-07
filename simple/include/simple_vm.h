@@ -119,11 +119,6 @@ typedef struct VM {
 	List *aActiveGlobalScopes  ;
 	int nCurrentGlobalScope  ;
 	char *file_name_within_class  ;
-#ifdef __ANDROID__
-	ANativeActivity* simple_ANativeActivity;
-	ANativeWindow* simple_ANativeWindow;
-	ANativeWindow_Buffer simple_ANativeWindow_Buffer;
-#endif
 } VM ;
 /*
 **  Blocks 
@@ -369,7 +364,7 @@ SIMPLE_API void simple_vm_try ( VM *vm ) ;
 
 SIMPLE_API void simple_vm_catch ( VM *vm,const char *cError ) ;
 
-SIMPLE_API void simple_vm_finally ( VM *vm ) ;
+SIMPLE_API void simple_vm_free_try ( VM *vm ) ;
 /* Duplicate and Range */
 
 SIMPLE_API void simple_vm_dup ( VM *vm ) ;
@@ -553,6 +548,8 @@ SIMPLE_API void simple_vm_endglobalscope ( VM *vm ) ;
 SIMPLE_API void simple_vm_setglobalscope ( VM *vm ) ;
 
 SIMPLE_API List * simple_vm_getglobalscope ( VM *vm ) ;
+
+SIMPLE_API void simple_vm_setthenullvariable ( VM *vm ) ;
 /*
 **  Macro 
 **  Stack 
@@ -577,11 +574,14 @@ SIMPLE_API List * simple_vm_getglobalscope ( VM *vm ) ;
 #define SIMPLE_VM_STACK_ISSTRING simple_itemarray_isstring(vm->aStack,vm->nsp)
 #define SIMPLE_VM_STACK_ISNUMBER simple_itemarray_isnumber(vm->aStack,vm->nsp)
 #define SIMPLE_VM_STACK_ISPOINTER simple_itemarray_ispointer(vm->aStack,vm->nsp)
+#define SIMPLE_VM_STACK_ISLIST simple_itemarray_islist(vm->aStack,vm->nsp)
+#define SIMPLE_VM_STACK_ISNOTHING simple_itemarray_isnothing(vm->aStack,vm->nsp)
 #define SIMPLE_VM_STACK_ISPOINTERVALUE(x) simple_itemarray_ispointer(vm->aStack,x)
 /* Check At Index*/
 #define SIMPLE_VM_STACK_ISSTRING_AT(x) simple_itemarray_isstring(vm->aStack,x)
 #define SIMPLE_VM_STACK_ISNUMBER_AT(x) simple_itemarray_isnumber(vm->aStack,x)
 #define SIMPLE_VM_STACK_ISPOINTER_AT(x) simple_itemarray_ispointer(vm->aStack,x)
+#define SIMPLE_VM_STACK_ISLIST_AT(x) simple_itemarray_islist(vm->aStack,x)
 /* Read */
 #define SIMPLE_VM_STACK_READC simple_itemarray_getstring(vm->aStack,vm->nsp)
 #define SIMPLE_VM_STACK_STRINGSIZE simple_itemarray_getstringsize(vm->aStack,vm->nsp)
@@ -610,7 +610,7 @@ SIMPLE_API List * simple_vm_getglobalscope ( VM *vm ) ;
 #define SIMPLE_VAR_VALUE 3
 #define SIMPLE_VAR_PVALUETYPE 4
 #define SIMPLE_VAR_PRIVATEFLAG 5
-/* Number of global variables defined by the VM like True, False, cErrorMsg */
+/* Number of global variables defined by the VM like True, False, __err__ */
 #define SIMPLE_VM_INTERNALGLOBALSCOUNT 14
 #define SIMPLE_VAR_LISTSIZE 5
 /* Variable Type */
@@ -781,4 +781,5 @@ SIMPLE_API List * simple_vm_getglobalscope ( VM *vm ) ;
 #define SIMPLE_VM_EXTRASIZE 2
 /* Variables Location */
 #define SIMPLE_VM_STATICVAR_THIS 12
+#define SIMPLE_VM_STATICVAR_NULL 4
 #endif

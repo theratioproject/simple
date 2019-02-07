@@ -142,7 +142,7 @@ class JsonMember : Object
 	*/
 	block operator(string op, object value) 
 		switch op {
-			case "="
+			case "=="
 				return equals(value)
 			case "!="
 				return !equals(value)

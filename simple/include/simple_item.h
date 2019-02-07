@@ -106,11 +106,14 @@ SIMPLE_API void simple_item_setstring2_gc ( void *pState,Item *pItem,const char 
 #define simple_itemarray_getstring(list,index) simple_string_get(list[index].data.string )
 #define simple_itemarray_getstringsize(list,index) simple_string_size(list[index].data.string )
 /* Check */
+#define simple_itemarray_isnothing(list,index) (list[index].nType == ITEMTYPE_NOTHING)
 #define simple_itemarray_isstring(list,index) (list[index].nType == ITEMTYPE_STRING)
 #define simple_itemarray_isnumber(list,index) (list[index].nType == ITEMTYPE_NUMBER)
 #define simple_itemarray_ispointer(list,index) (list[index].nType == ITEMTYPE_POINTER)
+#define simple_itemarray_islist(list,index) (list[index].nType == ITEMTYPE_LIST)
 #define simple_item_isstring(x) (x->nType == ITEMTYPE_STRING)
 #define simple_item_islist(x) (x->nType == ITEMTYPE_LIST)
+#define simple_item_ispointer(x) (x->nType == ITEMTYPE_POINTER)
 #define simple_item_isdouble(x) ( (x->nType == ITEMTYPE_NUMBER) && ( x->NumberFlag == ITEM_NUMBERFLAG_DOUBLE ) )
 /* Blocks without state pointer */
 

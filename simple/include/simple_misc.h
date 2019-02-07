@@ -46,11 +46,6 @@ typedef struct GCData {
 #define KB_BYTE_SIZE 1024
     
 /*Fields*/
-    
-extern int NOT_CASE_SENSITIVE ;
-
-//SIMPLE_API char *DEFAULT_FILE_NAME ;
-
 extern char simple_file_initial_dir[SIMPLE_PATHSIZE];
 
 extern char* time_frame ;

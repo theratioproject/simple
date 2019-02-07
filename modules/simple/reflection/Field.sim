@@ -14,7 +14,7 @@ module simple.reflection
 */
 block objectType(object)
     if isNull(object) {
-        return "null"
+        return "(null)"
     elif isString(object)
         return "String"
     elif isNumber(object)
@@ -67,7 +67,7 @@ block stringValue(object obj)
 		return ret
 		
 	else
-		throw(self,"Invalid parameter, expecting (String), found (" + objectType(obj) + ")")	
+		throw("simple.reflection:stringValue","Invalid parameter, expecting (String), found (" + objectType(obj) + ")")	
 	}
 	return ""	
 
@@ -83,7 +83,7 @@ block numberValue(object obj)
 		return ret
 		
 	else
-		throw(self,"Invalid parameter, expecting (Number), found (" + objectType(obj) + ")")	
+		throw("simple.reflection:numberValue","Invalid parameter, expecting (Number), found (" + objectType(obj) + ")")	
 	}
 	return 0
 
@@ -99,6 +99,6 @@ block listValue(object obj)
 		return ret
 		
 	else
-		throw(self,"Invalid parameter, expecting (List), found (" + objectType(obj) + ")")	
+		throw("simple.reflection:listValue","Invalid parameter, expecting (List), found (" + objectType(obj) + ")")	
 	}
 	return 0

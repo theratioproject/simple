@@ -136,14 +136,12 @@ SIMPLE_API void simple_string_setfromint_gc ( void *pState,String *string,int x 
 
 SIMPLE_API char * simple_string_lower ( char *cStr )
 {
-    if( NOT_CASE_SENSITIVE ){
-        unsigned int x  ;
-        for ( x = 0 ; x < strlen(cStr) ; x++ ) {
-            if ( isalpha(cStr[x]) ) {
-                    cStr[x] = tolower( cStr[x] );
-            }
-        }
-    }
+    unsigned int x  ;
+	for ( x = 0 ; x < strlen(cStr) ; x++ ) {
+		if ( isalpha(cStr[x]) ) {
+				cStr[x] = tolower( cStr[x] );
+		}
+	}
     return cStr ;
 }
 
@@ -229,8 +227,6 @@ SIMPLE_API char * simple_string_find3_gc ( void *pState,char *string_one,int str
 	for ( x = 0 ; x <= str_size2 ; x++ ) {
 		cStr4[x] = cStr2[x] ;
 	}
-	simple_string_lower2(cStr3,str_size1);
-	simple_string_lower2(cStr4,str_size2);
 	pOutput = NULL ;
 	while ( nPos <= (str_size1 - str_size2) ) {
 		x = 0 ;

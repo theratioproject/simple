@@ -140,6 +140,8 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
 	register_block("__vm_hide_error_msg",meta_blocks_vm_hide_error_msg);
 	register_block("__vm_call_block",meta_blocks_vm_call_block);
 	register_block("__vm_line_number",meta_blocks_vm_line_number);
+	register_block("__vm_has_error",meta_blocks_vm_has_error);
+	register_block("__vm_should_warn",meta_blocks_vm_should_warn);
 }
 
 /* List */
@@ -459,7 +461,6 @@ SIMPLE_API void list_sort_list( void *pointer )
 		else if ( (nParaCount == 3) && SIMPLE_API_ISNUMBER(2) && simple_list_islist(list,1) && SIMPLE_API_ISSTRING(3) ) {
 			column = SIMPLE_API_GETNUMBER(2) ;
 			cAttribute = SIMPLE_API_GETSTRING(3) ;
-			simple_string_lower(cAttribute);
 			list3 = simple_list_getlist(list,1);
 			if ( column > 1 ) {
 				list3 = simple_list_getlist(list3,column);
@@ -1778,7 +1779,6 @@ SIMPLE_API void meta_blocks_is_module_defined(void *pointer)
 	if ( SIMPLE_API_ISSTRING(1) ) {
 		vm = (VM *) pointer ;
 		cStr = SIMPLE_API_GETSTRING(1) ;
-		simple_string_lower(cStr);
 		list = vm->pModulessMap ;
 		for ( x = 1 ; x <= simple_list_getsize(list) ; x++ ) {
 			list2 = simple_list_getlist(list,x);
@@ -1820,7 +1820,6 @@ SIMPLE_API void meta_blocks_is_class_defined(void *pointer)
 	if ( SIMPLE_API_GETSTRING(1) ) {
 		vm = (VM *) pointer ;
 		cStr = SIMPLE_API_GETSTRING(1) ;
-		simple_string_lower(cStr);
 		list = vm->pClassesMap ;
 		for ( x = 1 ; x <= simple_list_getsize(list) ; x++ ) {
 			list2 = simple_list_getlist(list,x);
@@ -1848,7 +1847,6 @@ SIMPLE_API void meta_blocks_classes_in_module(void *pointer)
 	if ( SIMPLE_API_GETSTRING(1) ) {
 		vm = (VM *) pointer ;
 		cStr = SIMPLE_API_GETSTRING(1) ;
-		simple_string_lower(cStr);
 		list = vm->pModulessMap ;
 		for ( x = 1 ; x <= simple_list_getsize(list) ; x++ ) {
 			list2 = simple_list_getlist(list,x);
@@ -1882,9 +1880,7 @@ SIMPLE_API void meta_blocks_is_class_in_module(void *pointer)
 	if ( SIMPLE_API_GETSTRING(1) &&  SIMPLE_API_GETSTRING(2) ) {
 		vm = (VM *) pointer ;
 		cStr = SIMPLE_API_GETSTRING(1) ;
-		simple_string_lower(cStr);
 		cStr2 = SIMPLE_API_GETSTRING(2) ;
-		simple_string_lower(cStr2);
 		list = vm->pModulessMap ;
 		for ( x = 1 ; x <= simple_list_getsize(list) ; x++ ) {
 			list2 = simple_list_getlist(list,x);
@@ -2120,7 +2116,6 @@ SIMPLE_API void meta_blocks_object_has_attribute(void *pointer)
 		list = SIMPLE_API_GETLIST(1) ;
 		if ( simple_vm_oop_isobject(list) ) {
 			cStr = SIMPLE_API_GETSTRING(2) ;
-			simple_string_lower(cStr);
 			list = simple_list_getlist(list,SIMPLE_OBJECT_OBJECTDATA);
 			for ( x = 3 ; x <= simple_list_getsize(list) ; x++ ) {
 				if ( strcmp(cStr,simple_list_getstring(simple_list_getlist(list,x),SIMPLE_VAR_NAME))==0 ) {
@@ -2153,7 +2148,6 @@ SIMPLE_API void meta_blocks_object_has_method (void *pointer)
 		}
 		if ( SIMPLE_API_ISSTRING(2) ) {
 			cStr = SIMPLE_API_GETSTRING(2) ;
-			simple_string_lower(cStr);
 			SIMPLE_API_RETNUMBER(simple_vm_oop_isblock((VM *) pointer,list,cStr));
 		}
 	} else {
@@ -2174,7 +2168,6 @@ SIMPLE_API void meta_blocks_object_has_private_attribute(void *pointer)
 		list = SIMPLE_API_GETLIST(1) ;
 		if ( simple_vm_oop_isobject(list) ) {
 			cStr = SIMPLE_API_GETSTRING(2) ;
-			simple_string_lower(cStr);
 			list = simple_list_getlist(list,SIMPLE_OBJECT_OBJECTDATA);
 			for ( x = 3 ; x <= simple_list_getsize(list) ; x++ ) {
 				if ( strcmp(cStr,simple_list_getstring(simple_list_getlist(list,x),SIMPLE_VAR_NAME))==0 ) {
@@ -2213,7 +2206,6 @@ SIMPLE_API void meta_blocks_object_has_private_method(void *pointer)
 		}
 		if ( SIMPLE_API_ISSTRING(2) ) {
 			cStr = SIMPLE_API_GETSTRING(2) ;
-			simple_string_lower(cStr);
 			x = simple_vm_oop_isblock((VM *) pointer,list,cStr) ;
 			if ( x==2 ) {
 				SIMPLE_API_RETNUMBER(1);
@@ -2242,7 +2234,6 @@ SIMPLE_API void meta_blocks_add_attribute_to_object(void *pointer)
 			list = simple_list_getlist(list,SIMPLE_OBJECT_OBJECTDATA);
 			if ( SIMPLE_API_ISSTRING(2) ) {
 				cStr = SIMPLE_API_GETSTRING(2) ;
-				simple_string_lower(cStr);
 				/* Create Variable List */
 				simple_vm_newvar2((VM *)pointer,cStr,list);
 			}
@@ -2251,7 +2242,6 @@ SIMPLE_API void meta_blocks_add_attribute_to_object(void *pointer)
 				for ( x = 1 ; x <= simple_list_getsize(list2) ; x++ ) {
 					if ( simple_list_isstring(list2,x) ) {
 						cStr = simple_list_getstring(list2,x);
-						simple_string_lower(cStr);
 						/* Create Variable List */
 						simple_vm_newvar2((VM *)pointer,cStr,list);
 					}
@@ -2285,7 +2275,6 @@ SIMPLE_API void meta_blocks_add_method_to_object(void *pointer)
 			list = (List *) simple_list_getlist(list,SIMPLE_OBJECT_CLASSPOINTER);
 			list = (List *) simple_list_getlist(list,SIMPLE_CLASSMAP_METHODSLIST);
 			cStr = SIMPLE_API_GETSTRING(3);
-			simple_string_lower(cStr);
 			for ( x = 1 ; x <= simple_list_getsize(vm->pBlocksMap) ; x++ ) {
 				list2 = simple_list_getlist(vm->pBlocksMap,x);
 				if ( strcmp(simple_list_getstring(list2,SIMPLE_BLOCKMAP_NAME),cStr) == 0 ) {
@@ -2294,7 +2283,7 @@ SIMPLE_API void meta_blocks_add_method_to_object(void *pointer)
 					/* Copy function to class methods */
 					simple_list_copy_no_final_gc(vm->sState,list3,list2); 
 					/* Set the Function Name */
-					simple_list_setstring_gc(((VM *) pointer)->sState,list3,SIMPLE_BLOCKMAP_NAME,simple_string_lower(SIMPLE_API_GETSTRING(2)));
+					simple_list_setstring_gc(((VM *) pointer)->sState,list3,SIMPLE_BLOCKMAP_NAME,SIMPLE_API_GETSTRING(2));
 					/* Refresh the HashTable */
 					//if ( vm->sState->lRunFromThread ) {
 					//	simple_list_genhashtable2(list);
@@ -2329,7 +2318,6 @@ SIMPLE_API void meta_blocks_get_attribute_value(void *pointer)
 		if ( simple_vm_oop_isobject(list) ) {
 			list = simple_list_getlist(list,SIMPLE_OBJECT_OBJECTDATA);
 			cStr = SIMPLE_API_GETSTRING(2) ;
-			simple_string_lower(cStr);
 			for ( x = 1 ; x <= simple_list_getsize(list) ; x++ ) {
 				if ( strcmp(simple_list_getstring(simple_list_getlist(list,x),SIMPLE_VAR_NAME),cStr) == 0 ) {
 					list = simple_list_getlist(list,x) ;
@@ -2369,7 +2357,6 @@ SIMPLE_API void meta_blocks_set_attribute_value(void *pointer)
 		if ( simple_vm_oop_isobject(list) ) {
 			list = simple_list_getlist(list,SIMPLE_OBJECT_OBJECTDATA);
 			cStr = SIMPLE_API_GETSTRING(2) ;
-			simple_string_lower(cStr);
 			for ( x = 1 ; x <= simple_list_getsize(list) ; x++ ) {
 				if ( strcmp(simple_list_getstring(simple_list_getlist(list,x),SIMPLE_VAR_NAME),cStr) == 0 ) {
 					list = simple_list_getlist(list,x) ;
@@ -2429,8 +2416,6 @@ SIMPLE_API void meta_blocks_inherit_class_methods(void *pointer)
 	if ( SIMPLE_API_ISSTRING(1) && SIMPLE_API_ISSTRING(2) ) {
 		cStr = SIMPLE_API_GETSTRING(1) ;
 		cStr2 = SIMPLE_API_GETSTRING(2) ;
-		simple_string_lower(cStr);
-		simple_string_lower(cStr2);
 		vm = (VM *) pointer ;
 		/* Get the Dest Class Methods List */
 		list2 = NULL ;
@@ -2703,4 +2688,26 @@ SIMPLE_API void meta_blocks_vm_line_number(void *pointer)
 		return ;
 	}
 	SIMPLE_API_RETNUMBER(vm->nLineNumber);
+}
+
+SIMPLE_API void meta_blocks_vm_has_error(void *pointer)
+{
+	VM *vm  ;
+	vm = (VM *) pointer ;
+	if ( SIMPLE_API_PARACOUNT != 0 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARACOUNT);
+		return ;
+	}
+	SIMPLE_API_RETNUMBER(vm->nActiveError);
+}
+
+SIMPLE_API void meta_blocks_vm_should_warn(void *pointer)
+{
+	VM *vm  ;
+	vm = (VM *) pointer ;
+	if ( SIMPLE_API_PARACOUNT != 0 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARACOUNT);
+		return ;
+	}
+	SIMPLE_API_RETNUMBER(vm->sState->nWarning);
 }

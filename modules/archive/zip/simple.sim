@@ -1,0 +1,77 @@
+/* 
+	Copyright (c) 2016-2018 Azeez Adewale <azeezadewale98@gmail.com> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+/* 
+	Copyright (c) 2016-2018 Azeez Adewale <azeezadewale98@gmail.com> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+call archive.zip.ZipEntry
+call archive.zip.Zip
+call simple.utilities.Console
+import simple.core
+
+block main()
+	cmdparamsLen = lengthOf(cmdparams) - 1
+	zipFile = null
+	operation = null
+	outDir = null
+	for a = 0 to cmdparamsLen {
+		param = cmdparams[a]
+		if param == "-l" or param == "--list" {
+			operation = "list"
+		elif param == "-e" or param == "--extract"
+			operation = "extract"
+		elif param == "-c" or param == "--create"
+			operation = "create"
+		elif strEndsWith(param,".zip") 
+			zipFile = param
+			if !isNull(operation) and operation == "extract" {
+				outDir = cmdparams[a+1]
+			}
+		else
+			if !isNull(operation) {
+				if operation == "create" {
+					if isNull(outDir) { outDir = [] }
+					__add_to_list(outDir,param)  
+				}
+			}
+		}
+	}
+	if isNull(operation) {
+		throw("No operation detected, add the flag '-h' to view help message")
+		return
+	}
+	if isNull(zipFile) {
+		throw("No zip file specified")
+		return
+	}
+	if operation == "list" {
+		zip = new Zip(zipFile, "r")
+		for entry in zip {
+			stdout.println(entry.toString())
+		}
+	elif operation == "extract"
+		zip = new Zip(zipFile, "r") {
+			extract(outDir)
+		}
+		
+	elif operation == "create"
+		zip = new Zip(zipFile, "w")
+		for entry in outDir {
+			if strEndsWith(entry, "/") {
+				new ZipEntry(zip, entry) {
+					dwrite(entry)
+				}
+			else
+				new ZipEntry(zip, entry) {
+					fwrite(entry)
+				}
+			}
+		}
+		zip.close()
+	}
+	

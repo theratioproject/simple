@@ -1,0 +1,25 @@
+
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com> 
+	MIT License Copyright (c) 2018 simple-lang 
+
+*/
+
+block main()
+	braceUp = new BraceUp {
+		braceUp.Number = 50
+		display braceUp.Number
+	}
+	
+
+class BraceUp
+
+	block invalid()
+		
+
+	block done()
+		display "An error has been catch in the class" + nl
+		display "no need to execute the catch block " + nl
+		display "and the error is : " + __err__ + nl
+		break
+		

@@ -22,7 +22,7 @@ const char * SIMPLE_KEYWORDS[] = {"if","to","or","and","not","for","new","block"
 
 "inherit","loop","call","else","display","while","class","return", "end",
 
-"read","__exit__","break","try","catch","finally","switch","default",
+"read","__exit__","break","try","catch","switch","default",
 
 "in","continue","module","import","private","final","step","do","exec","elif",
 
@@ -95,8 +95,9 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
 			simple_list_addstring_gc(sState,sState->files_list,logable_name);
 			simple_list_addstring_gc(sState,sState->files_stack,logable_name);
 		} else {
+			//TODO : make warning level 1
 			if ( sState->nWarning ) {
-				printf( "\nWarning : Duplication in FileName, %s\n",logable_name ) ;
+				//printf( "\nWarning : Duplication in FileName, %s\n",logable_name ) ;
 			}
 			return 1 ;
 		}
@@ -532,10 +533,9 @@ void simple_scanner_keywords ( Scanner *scanner )
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"read");
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"__exit__");
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"break");
-	/* try-catch-finally */
+	/* try-catch */
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"try");
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"catch");
-	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"finally");
 	/* Switch */
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"switch");
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"default");
@@ -583,8 +583,6 @@ void simple_scanner_checktoken ( Scanner *scanner )
 	char cStr[5]  ;
 	/* This block determine if the TOKEN is a Keyword or Identifier or Number */
 	assert(scanner != NULL);
-	/* Not Case Sensitive */
-	simple_string_tolower(scanner->ActiveToken);
 	nResult = simple_hashtable_findnumber(simple_list_gethashtable(scanner->Keywords),simple_string_get(scanner->ActiveToken));
 	if ( nResult > 0 ) {
 		#if SIMPLE_SCANNEROUTPUT
@@ -957,9 +955,6 @@ void simple_scanner_changekeyword ( Scanner *scanner )
 			simple_string_add_gc(scanner->sState,activeword,cStr2);
 		}
 	}
-	/* To Lower Case */
-	simple_string_lower(simple_string_get(word1));
-	simple_string_lower(simple_string_get(word2));
 	/* Change Keyword */
 	if ( (strcmp(simple_string_get(word1),"") == 0) || (strcmp(simple_string_get(word2),"") == 0) ) {
 		puts("Warning : The Compiler command  ChangeSimpleKeyword required two words");
@@ -1003,9 +998,6 @@ void simple_scanner_changeoperator ( Scanner *scanner )
 			simple_string_add_gc(scanner->sState,activeword,cStr2);
 		}
 	}
-	/* To Lower Case */
-	simple_string_lower(simple_string_get(word1));
-	simple_string_lower(simple_string_get(word2));
 	/* Change Operator */
 	if ( (strcmp(simple_string_get(word1),"") == 0) || (strcmp(simple_string_get(word2),"") == 0) ) {
 		puts("Warning : The Compiler command  ChangeSimpleOperator requires two words");

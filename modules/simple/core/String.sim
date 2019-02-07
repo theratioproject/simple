@@ -779,6 +779,55 @@ block strStartsWith(object, check)
 	}
 	return false
 	
+/*
+
+*/
+block strRemoveFirst(string str, string toRemove)
+	strLen = lengthOf(str) - 1
+	toRemoveLen = lengthOf(toRemove)
+	newValue = ""
+	for a = 0 to strLen {
+		if a < toRemoveLen {
+			if str[a] == toRemove[a] {
+				continue
+			}
+		}
+		newValue += str[a]
+	}
+	return newValue
+	
+/*
+
+*/
+block strRemoveLast(string str, string toRemove)
+	strLen = lengthOf(str) - 1
+	toRemoveLen = lengthOf(toRemove)
+	newValue = ""
+	b = strLen
+	for a = strLen to 0 step -1 {
+		if a < toRemoveLen {
+			if str[b] == toRemove[a] {
+				b--
+				continue
+			}
+		}
+	}
+	for a = b to 0 step -1 {
+		newValue += str[a]
+	}
+	return strReverse(newValue)
+	
+/*
+
+*/
+block strReverse(string str)
+	strLen = lengthOf(str) - 1
+	newValue = ""
+	for a = strLen to 0 step -1 {
+		newValue += str[a]
+	}
+	return newValue
+	
 block lastStrAfterChar(str value, char suffix)
 	return lastStrAfter(value, ""+suffix)
 	
@@ -1035,7 +1084,7 @@ class String : Object
 		switch op {
 			case "lengthOf"
 				return Length
-			case "="
+			case "=="
 				return equals(value)
 			case "!="
 				return !equals(value)

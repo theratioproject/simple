@@ -258,7 +258,7 @@ class JsonObject : Object
 				return lengthOf(members)
 			case "iterator"
 				return lengthOf(members) - 1
-			case "="
+			case "=="
 				return equals(value)
 			case "!="
 				return !equals(value)

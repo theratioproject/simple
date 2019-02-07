@@ -15,6 +15,10 @@
 #ifndef SIMPLE_H
 #define SIMPLE_H
 /*
+	Debug Flags
+*/
+//#define assert(x) if (x==1){printf("Assertion Passed\n"); }else{printf("Assertion Failed\n");}
+/*
 **  DLL/So 
 **  Check Operating System 
 */
@@ -115,7 +119,7 @@ must be set through the compiler flag either through makefile or command line */
 #define printi(...) fprintf(ANDROID_LOG_INFO,__VA_ARGS__)
 #define printw(...) fprintf(ANDROID_LOG_WARN,__VA_ARGS__)
 #define printe(...) fprintf(ANDROID_LOG_ERROR,__VA_ARGS__)
-#define printa(...) fprintf(ANDROID_LOG_ASSERT,__VA_ARGS__)
+#define printa(...) fprintf(ANDROID_LOG_FATAL,__VA_ARGS__)
 
 #else
 #define printv(...) fprintf(stdout,__VA_ARGS__)

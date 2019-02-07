@@ -41,8 +41,7 @@ OBJECTDIR=${CND_DISTDIR}/${CND_BUILDDIR}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/archiver.o \
-	${OBJECTDIR}/zip.o
+	${OBJECTDIR}/archiver.o
 	
 # Link Libraries and Options
 LDLIBSOPTIONS=../../../simple/dist/libsimple.dll
@@ -55,11 +54,6 @@ ${OBJECTDIR}/archiver.o: archiver.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} ${OBJECTDIR}/*d
 	$(COMPILE.c) $(CFLAGS) $(ARC_FLAG) -o ${OBJECTDIR}/archiver.o archiver.c
-	
-${OBJECTDIR}/zip.o: zip.c
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.c) $(CFLAGS) $(ARC_FLAG) -o ${OBJECTDIR}/zip.o zip.c
 
 
 #This Makefile-Windows.mk was written in adaptation to the MINGW

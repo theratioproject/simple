@@ -529,12 +529,18 @@ void simple_vmlib_isnumber ( void *pointer )
 
 void simple_vmlib_islist ( void *pointer )
 {
+	List *list;
 	if ( SIMPLE_API_PARACOUNT != 1 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
 		return ;
 	}
 	if ( SIMPLE_API_ISLIST(1) ) {
 		if ( simple_vm_oop_isobject(SIMPLE_API_GETLIST(1) ) == 0 ) {
+			list = SIMPLE_API_GETLIST(1) ;
+			if ( simple_list_ispointer(list,1) && simple_list_getpointer(list,1) == NULL ) {
+				SIMPLE_API_RETNUMBER(0);
+				return ;
+			}
 			SIMPLE_API_RETNUMBER(1);
 			return ;
 		}
@@ -571,31 +577,25 @@ void simple_vmlib_type ( void *pointer )
 	else if ( SIMPLE_API_ISLIST(1) ) {
 		SIMPLE_API_RETSTRING("List");
 	} else {
-		SIMPLE_API_RETSTRING("Unknown");//impossible
+		SIMPLE_API_RETSTRING("(null)");
 	}
 }
 
-void simple_vmlib_isnull ( void *pointer )
+SIMPLE_API void simple_vmlib_isnull ( void *pointer )
 {
-	char *cStr  ;
+	List *list;
+	Item *item;
 	if ( SIMPLE_API_PARACOUNT != 1 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
 		return ;
 	}
-	if ( SIMPLE_API_ISSTRING(1) ) {
-		if ( strcmp(SIMPLE_API_GETSTRING(1),"") == 0 ) {
+	 if (SIMPLE_API_ISLIST(1)) {
+		list = SIMPLE_API_GETLIST(1) ;
+		if ( simple_list_ispointer(list,1) && simple_list_getpointer(list,1) == NULL ) {
 			SIMPLE_API_RETNUMBER(1);
 			return ;
 		}
-		else if ( SIMPLE_API_GETSTRINGSIZE(1) == 4 ) {
-			cStr = SIMPLE_API_GETSTRING(1) ;
-			if ( (cStr[0] == 'n' || cStr[0] == 'N') && (cStr[1] == 'u' || cStr[1] == 'U') && (cStr[2] == 'l' || cStr[2] == 'L') && (cStr[3] == 'l' || cStr[3] == 'L') ) {
-				SIMPLE_API_RETNUMBER(1);
-				return ;
-			}
-		}
-	}
-	else if ( SIMPLE_API_ISPOINTER(1) ) {
+	} else if ( SIMPLE_API_ISPOINTER(1) ) {
 		if ( SIMPLE_API_GETPOINTER(1) == NULL ) {
 			SIMPLE_API_RETNUMBER(1);
 			return ;
@@ -805,6 +805,9 @@ SIMPLE_API void simple_vm_display ( VM *vm )
 			} else {
 				simple_list_print(list);
 			}
+		}
+		else {
+			printf("(null)");
 		}
 	}
 	else if ( SIMPLE_VM_STACK_ISNUMBER ) {

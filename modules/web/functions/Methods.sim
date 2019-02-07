@@ -14,7 +14,7 @@ __loadGetList()
 POST = GET #inefficiently undone
 
 block __loadGetList()
-	if (SERVER["REQUEST_METHOD"] == null ) {
+	if SERVER["REQUEST_METHOD"] = "" {
 		return 
 	}
 	if (SERVER["REQUEST_METHOD"] == "GET" ) {
@@ -68,7 +68,7 @@ block decodeMethodString(methodAttr)
 
 block fetchCookies()
 	str = SERVER["HTTP_COOKIE"]
-	if str == null { return }
+	if str == "" { return }
 	str += ";"
 	returnObject = []
 	subPosition = __substr(str,";")

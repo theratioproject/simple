@@ -400,11 +400,8 @@ int simple_vm_strcmpnotcasesensitive ( const char *string_one,const char *cStr2 
 {
     int nNum1  ;
     while ( 1 ) {
-        if( NOT_CASE_SENSITIVE ){
-            nNum1 = tolower(*string_one) - tolower(*cStr2) ;
-        } else {
-            nNum1 = *string_one - *cStr2 ;
-        } if ( nNum1 != 0 || !*string_one || !*cStr2 ) {
+        nNum1 = *string_one - *cStr2 ;
+		if ( nNum1 != 0 || !*string_one || !*cStr2 ) {
                 return nNum1 ;
         }
         string_one++ ; cStr2++ ;

@@ -74,6 +74,8 @@ build, installation, features e.t.c
 - [x] add support for `getter` and `setter` methods in the classes
 - [x] allow changing the behaviour of operators in classes 
 - [x] use of braces `{}` to access and modify fields and other in class delcaration e.g `class = new Class { }`
+- [x] call the block **open** if present in class when a class is declared using brace on opening brace
+- [x] call the block **close** if present in class when a class is declared using brace on closing brace
 - [x] change the **catch** behaviour by allowing to call an error method in a class instead of just the error
 - [ ] a more elegant stack trace and error logging in console  
 - [x] resolve clashing error in using 0 base index on list items [0][0][0]
@@ -87,9 +89,13 @@ build, installation, features e.t.c
 - [ ] import a module as soon as it is declared
 - [ ] `private` variable outside a class should limit the variable to the file scope
 - [ ] allow an overided method to be called using super as the overrided method name e.g `super(param)`
-- [ ] prevent a class initialization without constructor if it has a constructor
+- [ ] prevent a class initialization without constructor if it has a constructor. enforce constructor if present
 - [ ] by strong typing, notify class of assignment for a more native data type creation
 - [x] add `import` keyword to import module in a source file, with comma seperated for importing multiple modules
+- [ ] if supporting strong typing, probably allow a variable with more than one datatype e.g string|number val = 0 and val can also be val = "zero" only 
+- [ ] enable the camparison between any data type and **null**
+- [ ] allow iterating over an object using **lengthOf** operator in place of **iterator** operator
+- [ ] enable executing the **simple.sim** script in module folder if the **-m** flag is specified e.g `simple -m archive.zip -l [zipfile]`
 
 ### simplify
 - [ ] hint user as a type of level error when a similar variable that has not been declared is used 

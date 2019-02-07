@@ -163,7 +163,7 @@ SIMPLE_API int simple_vm_loadblock2 ( VM *vm,const char *block_name,int nPerform
 	}
 	/*
 	**  Pass The Call Instruction 
-	**  We need this when we execute braceerror() 
+	**  We need this when we execute done() 
 	**  In this case, no parameters and the call instruction is directly after the load block instruction 
 	**  So it's correct to use vm->nPC++ 
 	*/
@@ -411,7 +411,7 @@ SIMPLE_API void simple_vm_return ( VM *vm )
 
 SIMPLE_API void simple_vm_returnnull ( VM *vm )
 {
-	SIMPLE_VM_STACK_PUSHCVALUE("");
+	SIMPLE_VM_STACK_PUSHPVALUE(NULL);
 	simple_vm_return(vm);
 }
 

@@ -93,7 +93,7 @@ SIMPLE_API SimpleState * simple_state_new ( void )
 		snprintf(module_path, sizeof(module_path), "%s/s%s/modules/", getenv("SIMPLE_PATH"), SIMPLE_VERSION);
 		simple_list_addstring_gc(sState,sState->module_paths,module_path);
 		/* add the github folder in modules ;) */
-		snprintf(module_path, sizeof(module_path), "%s/s%s/modules/github.com/", getenv("SIMPLE_PATH"));
+		snprintf(module_path, sizeof(module_path), "%s/s%s/modules/github.com/", getenv("SIMPLE_PATH"), SIMPLE_VERSION);
 		simple_list_addstring_gc(sState,sState->module_paths,module_path);
 		/* Now we assume it is executed in a folder bin and the modules is in parent folder 
 			like
@@ -107,10 +107,9 @@ SIMPLE_API SimpleState * simple_state_new ( void )
 			snprintf(module_path, sizeof(module_path), "C:/Simple/s%s/modules/", SIMPLE_VERSION);
 			simple_list_addstring_gc(sState,sState->module_paths,module_path);
 		#elif defined(__ANDROID__)
-			/* add sdcard (External Storage) first. user might want to update module without having to reinstall the app or wait for an update from developer (BAD IDEA) */
-			snprintf(module_path, sizeof(module_path), "%s/simple/s%s/modules/", getenv("EXTERNAL_STORAGE"), SIMPLE_VERSION);
-			/* now add the android app folder (Android/data/pakage.name/)*/
-			snprintf(module_path, sizeof(module_path), "%s/modules/", sState->vm->simple_ANativeActivity->externalDataPath);
+			/* since we wait upon the android specific variable to be set, load android paths after
+				this initalization. call simple_add_android_paths(SimpleState *sState) in android.
+			*/
 		#else
 			snprintf(module_path, sizeof(module_path), "%s/var/lib/simple/s%s/modules/", getenv("PREFIX"), SIMPLE_VERSION);
 			simple_list_addstring_gc(sState,sState->module_paths,module_path);
@@ -118,6 +117,18 @@ SIMPLE_API SimpleState * simple_state_new ( void )
 	}
 	return sState ;
 }
+
+#if defined(__ANDROID__)
+SIMPLE_API SimpleState * simple_add_android_paths(SimpleState *sState) 
+{
+	char module_path[SIMPLE_PATHSIZE] ;
+	/* add sdcard (External Storage) first. user might want to update module without having to reinstall the app or wait for an update from developer (BAD IDEA) */
+	snprintf(module_path, sizeof(module_path), "%s/simple/s%s/modules/", getenv("EXTERNAL_STORAGE"), SIMPLE_VERSION);
+	/* now add the android app folder (Android/data/pakage.name/)*/
+	snprintf(module_path, sizeof(module_path), "%s/modules/", sState->simple_ANativeActivity->externalDataPath);
+	simple_list_addstring_gc(sState,sState->module_paths,module_path);
+}
+#endif
 
 SIMPLE_API SimpleState * finalize_simple_state ( SimpleState *sState )
 {
@@ -220,8 +231,6 @@ SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 		for ( x = 1 ; x < argc ; x++ ) {
 			if ( strcmp(argv[x],"--show-tokens") == 0 || strcmp(argv[x],"-k") == 0 ) {
 				nTokens = 1;
-			} else if ( strcmp(argv[x],"--case-neutral") == 0 || strcmp(argv[x],"-c") == 0 ) {
-				NOT_CASE_SENSITIVE = 1;
 			} else if ( strcmp(argv[x],"--error") == 0 || strcmp(argv[x],"-e") == 0 ) {
 				skip_error = 1;
 			} else if ( strcmp(argv[x],"--version") == 0 || strcmp(argv[x],"-v") == 0 ) {
@@ -273,7 +282,6 @@ SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 	}
 	/*Assign default file dir */
 	getcwd(simple_file_initial_dir, sizeof(simple_file_initial_dir));
-    //get_file_folder ( simple_file_initial_dir );
 	simple_execute(cStr,nCGI,nRun,nPrintIC,nPrintICFinal,nTokens,nRules,nIns,generate_object,nWarn,argc,argv,skip_error);
 	#if SIMPLE_TESTPERFORMANCE
 	if ( show_time ) {

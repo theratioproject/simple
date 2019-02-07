@@ -369,13 +369,13 @@ void systemic_screen_sizes(void *pointer)
 		simple_list_adddouble_gc(vm->sState,list2,GetSystemMetrics(SM_CYVIRTUALSCREEN));
     #elif defined(__ANDROID__)
 		list2 = simple_list_newlist_gc(vm->sState,list);
-		simple_list_adddouble_gc(vm->sState,list2,vm->simple_ANativeWindow_Buffer.width);
-		simple_list_adddouble_gc(vm->sState,list2,vm->simple_ANativeWindow_Buffer.height);
+		simple_list_adddouble_gc(vm->sState,list2,vm->sState->simple_ANativeWindow_Buffer.width);
+		simple_list_adddouble_gc(vm->sState,list2,vm->sState->simple_ANativeWindow_Buffer.height);
 
 		//total screen size
 		list2 = simple_list_newlist_gc(vm->sState,list);
-		simple_list_adddouble_gc(vm->sState,list2,vm->simple_ANativeWindow_Buffer.width);
-		simple_list_adddouble_gc(vm->sState,list2,vm->simple_ANativeWindow_Buffer.height);
+		simple_list_adddouble_gc(vm->sState,list2,vm->sState->simple_ANativeWindow_Buffer.width);
+		simple_list_adddouble_gc(vm->sState,list2,vm->sState->simple_ANativeWindow_Buffer.height);
 	#else
 		list2 = simple_list_newlist_gc(vm->sState,list);
 		simple_list_adddouble_gc(vm->sState,list2,0);

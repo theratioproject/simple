@@ -67,10 +67,19 @@ typedef struct SimpleState {
 	List *aCustomGlobalScopeStack  ;
 	/* Condition to prevent loading cblocks more than once */
 	int loaded_cblocks;
+#ifdef __ANDROID__
+	ANativeActivity* simple_ANativeActivity;
+	ANativeWindow* simple_ANativeWindow;
+	ANativeWindow_Buffer simple_ANativeWindow_Buffer;
+#endif
 } SimpleState ;
 /* Blocks */
 
 SIMPLE_API SimpleState * simple_state_new ( void ) ;
+
+#if defined(__ANDROID__)
+SIMPLE_API SimpleState * simple_add_android_paths(SimpleState *sState); 
+#endif
 
 SIMPLE_API SimpleState * finalize_simple_state ( SimpleState *sState ) ;
 

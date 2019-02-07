@@ -13,30 +13,24 @@
 /*
 
 */
-call "__first_calls.sim"
+#call "__first_calls.sim"
  
 /*
 	
 */
 module simple.core
 
-__mainDynaicModulesCount = 0
+__mainDynamicModulesCount = 0
 
-__mainDynamicModules = [	
-		["libsystemic.dll", "libstring_savant.dll"],		#Windows
-		["libsystemic.so", "libstring_savant.so"],		#Linux
+__mainDynamicModules = [			
+		["libsystemic.so", "libstring_savant.so"],			#Linux
+		["libsystemic.dll", "libstring_savant.dll"],		#Windows	
 		["libsystemic.dylib", "libstring_savant.dylib"] 	#MAC
 	]
-
-try {
-	if isAndroid() end
-catch
-	loadMainDynamicModules()
-}
-
+loadMainDynamicModules()
 call simple.core.String
  
-	dynamicModules = []
+dynamicModules = []
 	
 block callModule(path) 
 	if isAndroid() and (__left(path,10) == "libfulltick" or __left(path,7) == "fulltick") {
@@ -56,7 +50,7 @@ block formatPathName(path)
 		end
 	elif isLinux()
 		if strEndsWith(path, ".dll") 
-			path = replaceString(path, ".dll", ".so")
+			path = replaceStr(path, ".dll", ".so")
 		elif strEndsWith(path, ".dylib")
 			path = replaceStr(path, ".dylib", ".so")
 		end

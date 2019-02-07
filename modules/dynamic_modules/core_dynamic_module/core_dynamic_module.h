@@ -158,6 +158,8 @@ SIMPLE_API void meta_blocks_vm_passed_error(void *pointer);
 SIMPLE_API void meta_blocks_vm_hide_error_msg(void *pointer);
 SIMPLE_API void meta_blocks_vm_call_block(void *pointer);
 SIMPLE_API void meta_blocks_vm_line_number(void *pointer);
+SIMPLE_API void meta_blocks_vm_has_error(void *pointer);
+SIMPLE_API void meta_blocks_vm_should_warn(void *pointer);
 
 #ifdef __cplusplus
 }

@@ -1,0 +1,15 @@
+/*
+
+*/
+
+call fulltick.base.loaddyfulltick
+
+window = __Fl_Window(340,180, "")
+box = __Fl_Box(20,40,300,100,"Hello, World!")
+__Fl_Widget_box_1(box,__FL_UP_BOX())
+__Fl_Widget_labelfont_1(box,__FL_BOLD()+__FL_ITALIC())
+__Fl_Widget_labelsize_1(box,36)
+__Fl_Widget_labeltype_1(box,2)
+__Fl_Group_end(window)
+__Fl_Window_show(window)
+__Fl_Fl_run()

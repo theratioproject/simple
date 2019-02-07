@@ -4,7 +4,7 @@
 */
 call fulltick.base.FWidget
 call fulltick.drawing.FAlignment
-import simple.core
+import simple.core, fulltick.drawing
 
 /*
 
