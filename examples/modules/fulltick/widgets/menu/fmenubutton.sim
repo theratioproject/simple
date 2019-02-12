@@ -1,0 +1,37 @@
+
+/*
+
+*/
+call fulltick.FApp
+call fulltick.widgets.FWindow
+call fulltick.widgets.menu.FMenuButton
+call fulltick.events.FCallbackEvent
+import simple.core
+import simple.system
+import fulltick.base
+import fulltick.widgets
+import fulltick.painting
+import fulltick.objects
+import fulltick.drawing
+
+menu = [
+		["one",0,null,Fl_Menu_Inactive],
+		["two",0],
+		["three",0],
+		["four",[
+			["Five",0],
+			["Six",0]
+		]]
+	]
+    fwindow = new FWindow(400,200,"FMenuButton Testing only") {
+		menu1 = new FMenuButton(10,0,400,200,menu) { setPlatformScheme(FScheme.Windows) setBox(__FL_NO_BOX()) type(__Fl_Menu_Button_POPUP3()) }
+		menu2 = new FMenuButton(10,50,menu) { setPlatformScheme(FScheme.Android) }
+		menu3 = new FMenuButton(10,100,menu) { setPlatformScheme(FScheme.Linux) }
+		menu4 = new FMenuButton(10,150,menu) { setPlatformScheme(FScheme.Macosx) }
+		add(menu1, menu2, menu3, menu4)
+        centerOnScreen() 
+        show()        
+    } 
+FApp.run() 
+	
+        

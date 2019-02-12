@@ -150,7 +150,7 @@ LDLIBSOPTIONS=
 	#$(IncludeDir)FL/Fl_XPM_Image.H
 	#$(IncludeDir)FL/forms.H
 	#$(IncludeDir)FL/gl.h 					#not exported
-	#$(IncludeDir)FL/gl2opengl.h 			#not exported
+	#$(IncludeDir)FL/gl2opengl.h 				#not exported
 	#$(IncludeDir)FL/glu.h 					#not exported
 	#$(IncludeDir)FL/glut.H 				#not exported
 	#$(IncludeDir)FL/gl_draw.H 				#not exported

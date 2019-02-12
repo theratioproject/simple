@@ -50,7 +50,13 @@ block strValueOf(object)
 		val = unEscapeString(object)
 		
 	elif isNumber(object)
-		val = ""+object
+		if object == true {
+			val = "true"
+		elif object == false
+			val = "false"
+		else
+			val = ""+object
+		}
 		
 	elif isPointer(object)
 		val = __pointer_address_to_string(object,object[1])

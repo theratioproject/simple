@@ -271,13 +271,13 @@ class FWindow : FGroup
             }
         else    
             if paramsLen != 0 {
-                throw(self,SIMPLE_VM_ERROR_EXTRAPARAMETERSCOUNT)
+                throw(self,"Calling block with invalid legth of parameter")
             }
         } 
 
         Ptr = __Fl_Window_1(0, 0, 0, 0, Title) 
         resize(X, Y, Width, Height)
-        RootBox = new FGroup(1000, 10000, 0, 0)
+        RootBox = new FGroup(0, 0, 0, 0)
         construct()
         RootBox.hide()
         RootBox.__Name = "RootBox" 
@@ -381,27 +381,12 @@ class FWindow : FGroup
     /*
 
     */
-    block copyTitle(title)
-        Title = title
-
-    /*
-
-    */
-    block setTitle(title) 
+    block setTitle(string title) 
         validatePointer()
-        if isString(title) or isObject(title) {
-            if isObject(title) and __instance_of(title,"String") { 
-                Title = title.toString()
-            elif isString(title)
-                Title = title
-            }            
-            if HasActionBar {
-                ActionBarLabel.Label = Title
-            }
-            __Fl_Window_copy_label(Ptr,Title)
-        else
-            throw(self,FULLTICK_INVALID_PARAMETER+" Only String is accepted as a parameter for FWindow Title")
-        }
+        if HasActionBar {
+			ActionBarLabel.Label = Title
+		}
+		__Fl_Window_copy_label(Ptr,Title)
 
     /*
 
@@ -487,7 +472,7 @@ class FWindow : FGroup
             offscreen = offscreenv[0]
         elif offscreenvLen < 1
         else
-            throw(self,SIMPLE_VM_ERROR_EXTRAPARAMETERSCOUNT)
+            throw(self,"Calling block with invalid legth of parameter")
         }
         if isNumber(x) and isNumber(y) and isNumber(offscreen) {
             X = x
@@ -763,7 +748,7 @@ class FWindow : FGroup
     block setWindowListener(listener)
         if instanceOf(listener,"FWindowEvent") {
             WindowEvent = listener
-            FApp.CreatedWidgets[PtrAddress] = self #do something about this
+            __fltk_created_widgets[PtrAddress] = self #do something about this
         else
             throw(self,"Invalid window listener, only an instance of fulltick.events.WindowEvent allow, found (" + objectType(listener) + ")")
         }

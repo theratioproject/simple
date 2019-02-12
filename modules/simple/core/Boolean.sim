@@ -1,0 +1,29 @@
+/* 
+	Copyright (c) 2018 Abdulazeez Adeshina Abdulazeez <laisibizness@gmail.com> 
+	MIT License Copyright (c) 2018 simple 
+*/
+
+/* 
+ * @Filename - Boolean.sim
+ * @Author - Azeez Adewale
+ * @Date - 08 Febuary 2019
+ * @Time - 07:42 PM
+ *
+ */
+
+/*
+
+*/
+call simple.core.Object
+
+/*
+
+*/
+module simple.core
+
+/*
+
+*/
+class Boolean : Object
+
+	

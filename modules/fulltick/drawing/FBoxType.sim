@@ -71,7 +71,7 @@ class FBoxType : Object
                 throw(self,"Invalid parameter in FBoxType Constructor. Expecting (Number,Number|fulltick.painting.FColor). Found (" + objectType(type) + "," + objectType(color) + ")")
             }
         else
-            throw(self,SIMPLE_VM_ERROR_EXTRAPARAMETERSCOUNT)
+            throw(self,"Calling block with invalid legth of parameter")
         }
 
     /*

@@ -768,7 +768,7 @@ SIMPLE_API void simple_vm_setthenullvariable ( VM *vm ) ;
 #define SIMPLE_VM_ERROR_FORLOOPDATATYPE "RUNTIME ERROR 24 : Using bad data type in for loop"
 #define SIMPLE_VM_ERROR_PARENTCLASSLIKESUBCLASS "RUNTIME ERROR 24 : The parent and child class cannot have the same name "
 #define SIMPLE_VM_ERROR_TRYINGTOMODIFYTHESELFPOINTER "RUNTIME ERROR 24 : Trying to destory the object using the this reference "
-#define SIMPLE_VM_ERROR_BADCALLPARA "RUNTIME ERROR 24 : The CALL command expect a variable contains string"
+#define SIMPLE_VM_ERROR_BADCALLPARA "RUNTIME ERROR 24 : The INVOKE command expect a variable, contains string"
 #define SIMPLE_VM_ERROR_BADDECIMALNUMBER "RUNTIME ERROR 24 : The decimals number is out of range (correct range >= 0 and <=14) !"
 #define SIMPLE_VM_ERROR_ASSIGNNOTVARIABLE "RUNTIME ERROR 24 : Variable is required for the assignment operation"
 #define SIMPLE_VM_ERROR_CANTOPENFILE "RUNTIME ERROR 24 : Can't create/open the file!"

@@ -352,10 +352,16 @@ class FWidget : Object
     */
     block setBox(value)
         validatePointer()
+		if hasBorder() {
+			BorderBox.setBox(value)
+		}
         if isNumber(value) or instanceOf(value,"FBoxType") {
             if isNumber(value) {
                 __Fl_Widget_box_1(Ptr,value)
                 Box = new FBoxType(value)
+				if value == __FL_NO_BOX() {
+					setBorder(null)
+				}
             else
                 __Fl_Widget_box_1(Ptr,value.BoxType)
                 if !isNull(value.BoxColor) {
@@ -495,7 +501,7 @@ class FWidget : Object
     */
     block setResizable(condition) 
         validatePointer() 
-        if hasParent() { 
+        if hasParent() {
             if condition == true {
                 Resizable = true
                 Parent.setResizable(self)
@@ -503,12 +509,13 @@ class FWidget : Object
                 Resizable = false
                 Parent.setResizable(false)
             } 
-        else 
+        else
             if condition == true {
                 PendingOps["resizable"] = "true"
             else
                 PendingOps["resizable"] = "false"
             }
+			__fltk_created_widgets[PtrIndex] = self
         }
 
     /*
@@ -559,23 +566,28 @@ class FWidget : Object
 
     */
     block hasParent()
-        return !isString(Parent)
+        return !isNull(Parent)
 
     /*
 
     */
-    block resolvePendingOps()    
-        if isNull(PendingOps["resizable"]) {
-            if PendingOps["resizable"] == "true" {
-                Resizable = true
-                Parent.setResizable(self)
-            }
-            if PendingOps["centeronparent"] == "true" {
-                if instanceOf(self,"FGroup") {
-                    centerOnParent()
-                }
-            }
-        }
+    block resolvePendingOps()
+        if PendingOps["resizable"] == "true" {
+			Resizable = true
+			if hasBorder() {
+				BorderBox.setResizable(self)
+			}
+			Parent.setResizable(self)
+		}
+		if PendingOps["resizable"] == "false" {
+			Resizable = false
+			Parent.setResizable(true)
+		}
+		if PendingOps["centeronparent"] == "true" {
+			if instanceOf(self,"FGroup") {
+				centerOnParent()
+			}
+		}
         pendingOps = [
 
         ]
@@ -584,13 +596,13 @@ class FWidget : Object
 
     */
     block setPendingOps(value) 
-        throw(self,FULLTICK_FWIDGET_SET_POPS)
+        throw(self,"You cannot modify the PendingOps object")
 
     /*
 
     */
-    block getPendingOps() 
-        throw(self,FULLTICK_FWIDGET_GET_POPS)
+    block getPendingsOps() 
+        throw(self,"You cannot modify the PendingOps object")
 
     /*
 
@@ -621,14 +633,15 @@ class FWidget : Object
     /*
 
     */
-    block setCallbackListener(listener)
-        if instanceOf(listener,"FCallbackEvent") {
-            CallbackEvent = listener
-            FApp.CreatedWidgets[self.PtrIndex] = self
-            __Fl_Widget_callback_on_onlick(Ptr,'FApp.__widgetcallback(' + self.PtrIndex + ')')
-        else
-            throw(self,"Invalid callback listener, only an instance of fulltick.events.FCallbackEvent allow, found (" + objectType(listener) + ")")
-        }
+    block setCallbackListener(/*FCallbackEvent|pointer*/ listener)
+		if isNull(CallbackEvent) {
+			__Fl_Widget_callback_on_onlick(Ptr,PtrIndex)
+		}
+		if !isObject(listener) {
+			IsEvent = false
+		}
+        CallbackEvent = listener
+		__fltk_created_widgets[PtrIndex] = self
 
     /*
 
@@ -651,7 +664,7 @@ class FWidget : Object
     /*
 
     */
-    block handle(event) 
+    block handle(event) @"enter event"
         return 0
 
     /*
@@ -686,18 +699,18 @@ class FWidget : Object
     /*
 
     */
-    block setBorder(border)
+    block setBorder(border) HasBorder = false Border = null return 
         validatePointer() 
         if isNull(border) {
             BorderBox = null 
             HasBorder = false
-        elif instanceOf(border,"FBorder") 
-            if HasBorder { 
-                if isNull(BorderBox) { 
+        elif instanceOf(border,"FBorder")
+            if HasBorder {
+                if isNull(BorderBox) {
                     BorderBox = new FGroup(X-border.Left, Y-border.Top, (Width+(border.Right*2)), (Height+((border.Bottom)+border.Top)))
                     __Fl_Group_add_resizable(BorderBox.Ptr,Ptr)
                     BorderBox.setOnlyChild(self)
-                    BorderBox.Resizable = false #set according to parent
+                    BorderBox.Resizable = false
                     #prevent it from resizing when parent expanded if touch edge
                 else
                     Border.Top = border.Top
@@ -1040,9 +1053,12 @@ class FWidget : Object
 
     */
     block doCallback()
-        validatePointer()
         if !isNull(CallbackEvent) {
-            CallbackEvent.callback(self)
+			if IsEvent {
+				CallbackEvent.callback(self)
+			else
+				invoke CallbackEvent(self)
+			}
         }
 
     /*
@@ -1337,7 +1353,7 @@ class FWidget : Object
     /*
 
     */
-    block setSize(params...)
+    block setSize(int params...)
         paramsLen = lengthOf(params)
 
         width = null
@@ -1404,6 +1420,21 @@ class FWidget : Object
         validatePointer()
         ret = __Fl_Widget_visible_r(Ptr)
         return ret
+		
+	/*
+	
+	*/
+	block type(int typ)
+		validatePointer()
+		__Fl_Widget_type_1(Ptr, typ)
+		
+	/*
+	
+	*/
+	#avoid this block
+	block type1()
+		validatePointer()
+		return __Fl_Widget_type(Ptr)
 
     /*
         Don't shoot yourself in the foot avoid this block and it overrided blocks
@@ -1425,6 +1456,11 @@ class FWidget : Object
 
         */
         StoreBorderBox = null 
+		
+		/*
+		
+		*/
+		IsEvent = true
             
         /*
 
@@ -1449,7 +1485,8 @@ class FWidget : Object
         */
         block registerWidget()
             PtrAddress = __pointer_address_to_string(Ptr,Ptr[1]) 
-            PtrIndex = FApp.registerWidget(self) 
+			__add_to_list(__fltk_created_widgets,self)
+			PtrIndex = lengthOf(__fltk_created_widgets) - 1
             Id = PtrIndex
 
         /*
@@ -1466,4 +1503,6 @@ class FWidget : Object
             setLabelSize(LabelSize)
             setLabelType(LabelType)
             setSelectionColor(SelectionColor)
+			#setWidth(Width)
+			#setHeight(Height)
 

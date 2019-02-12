@@ -898,7 +898,7 @@ SIMPLE_API void simple_vm_oop_setget ( VM *vm,List *var )
 	Item *pItem, *pItem2  ;
 	String *string, *pString2  ;
 	/* Create String */
-	string = simple_string_new_gc(vm->sState,"if isBlock(simple_gettemp_var,'get");
+	string = simple_string_new_gc(vm->sState,"if hasBlock(simple_gettemp_var,'get");
 	simple_string_add_gc(vm->sState,string,simple_list_getstring(var,1));
 	simple_string_add_gc(vm->sState,string,"')\nreturn simple_gettemp_var.'get");
 	simple_string_add_gc(vm->sState,string,simple_list_getstring(var,1));
@@ -1012,7 +1012,7 @@ SIMPLE_API void simple_vm_oop_setproperty ( VM *vm )
 		vm->nPC-- ;
 		if ( SIMPLE_VM_IR_READIVALUE(2)  == 0 ) {
 			/* Create String */
-			string = simple_string_new_gc(vm->sState,"if isBlock(simple_gettemp_var,'set");
+			string = simple_string_new_gc(vm->sState,"if hasBlock(simple_gettemp_var,'set");
 			simple_string_add_gc(vm->sState,string,simple_list_getstring(list,3));
 			simple_string_add_gc(vm->sState,string,"')\nsimple_gettemp_var.'set");
 			simple_string_add_gc(vm->sState,string,simple_list_getstring(list,3));
@@ -1145,7 +1145,7 @@ SIMPLE_API void simple_vm_oop_operatoroverloading ( VM *vm,List *pObj,const char
 	}
 	if ( SIMPLE_VM_IR_READIVALUE(1) == 0 ) {
 		/* Create String */
-		string = simple_string_new_gc(vm->sState,"if isBlock(simple_gettemp_var,'operator')\nreturn simple_gettemp_var.operator('");
+		string = simple_string_new_gc(vm->sState,"if hasBlock(simple_gettemp_var,'operator')\nreturn simple_gettemp_var.operator('");
 		simple_string_add_gc(vm->sState,string,string_one);
 		simple_string_add_gc(vm->sState,string,"',simple_settemp_var)\nelse\nthrow('Object does not support operator overloading')\nend\n");
 		/* Eval the string */

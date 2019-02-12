@@ -1,0 +1,424 @@
+
+/*
+
+*/
+call simple.core.Object
+call fulltick.base.FWidget
+call fulltick.painting.FColor
+call fulltick.drawing.FAlignment
+call fulltick.drawing.FFont
+call fulltick.drawing.FBoxType
+call fulltick.widgets.menu.FMenuItem
+import simple.system
+
+/*
+
+*/
+module fulltick.widgets.menu
+
+/*
+
+*/
+final Fl_Menu_Inactive = __FL_MENU_INACTIVE()
+
+/*
+
+*/
+final Fl_Menu_Toggle = __FL_MENU_TOGGLE()
+
+/*
+
+*/
+final Fl_Menu_Value = __FL_MENU_VALUE()
+
+/*
+
+*/
+final Fl_Menu_Radio = __FL_MENU_RADIO()
+
+/*
+
+*/
+final Fl_Menu_Invisible = __FL_MENU_INVISIBLE()
+
+/*
+
+*/
+final Fl_Submenu_Pointer = __FL_SUBMENU_POINTER()
+
+/*
+
+*/
+final Fl_Submenu = __FL_SUBMENU()
+
+/*
+
+*/
+final Fl_Menu_Divider = __FL_MENU_DIVIDER()
+
+/*
+
+*/
+final Fl_Menu_Horizontal = __FL_MENU_HORIZONTAL()
+
+/*
+
+*/
+class FMenu_ : FWidget
+	
+	/*
+	
+	*/
+	MenuItems = []
+
+    /*
+
+    */
+    block FMenu_()
+        throw(self, "This is a base class it cannot be instiated")
+		
+	/*
+	
+	*/
+	#TODO : prevent multiple addition of a menu entry, do not trade speed at all
+	block addItem(/*MenuItem|int|string*/ params...)
+		paramsLen = lengthOf(params)
+		tag = null
+		shortcut = null
+		item = null
+		
+		if paramsLen == 1 {
+			item = params[0]
+			if !instanceOf(item, "FMenuItem") {
+				throw(self, "Invalid parameter, expecting an instance of FMenuItem")
+				return
+			}
+			
+		elif paramsLen == 2
+			item = new FMenuItem(params[0], params[1])
+			
+		elif paramsLen == 3
+			item = new FMenuItem(params[0], params[1], params[2])
+			
+		elif paramsLen == 4
+			item = new FMenuItem(params[0], params[1], params[2], params[3])
+		else
+			throw(self, "Calling block with invalid length of parameters")
+			return
+		}
+		
+		if item.HasChildMenus {
+			for menu in item.ChildMenus {
+				addItem(menu)
+			}
+		else
+			__fltk_created_menus_count++
+			item.Index = __Fl_Menu__add(Ptr, item.FullText, item.Shortcut, null, __fltk_created_menus_count, item.Flags)
+			item.Parent = self
+			MenuItems[''+__fltk_created_menus_count+''] = item
+			__add_to_list(__fltk_created_menus,item)
+		}
+		MenuItemsLen++
+		
+	/*
+		
+	*/
+	#TODO : make list menuList, string parent... after resolving variadic param issue
+	block menu(list menuList, string parent)
+		menuListLen = lengthOf(menuList) - 1
+		for a = 0 to menuListLen {
+			menuLi = menuList[a]
+			if isList(menuLi) {
+				menuLiLen = lengthOf(menuLi)
+				if menuLiLen == 2 {
+					p1 = menuLi[0]
+					p2 = menuLi[1]
+					if isNumber(p2) {
+						if isNull(parent) {
+							addItem(p1, p2)
+						else
+							addItem(parent+"/"+p1, p2)
+						}
+						
+					elif isList(p2)
+						if lengthOf(p2) == 0 {
+							if isNull(parent) {
+								addItem(p1, 0)
+							else
+								addItem(parent+"/"+p1, 0)
+							}
+						else
+							MenuItemsLen++
+							if isNull(parent) {
+								menu(p2, p1)
+							else
+								menu(p2, parent+"/"+p1)
+							}
+						}
+						
+					else
+						throw(self, "Invalid menu entry, near '" + p1 + "'")						
+					}
+					
+				elif menuLiLen == 3
+					p1 = menuLi[0]
+					p2 = menuLi[1]
+					p3 = menuLi[2]
+					if isNumber(p2) and (isString(p3) or isNull(p3)) {
+						if isNull(parent) {
+							addItem(p1, p2, p3)
+						else
+							addItem(parent+"/"+p1, p2, p3)
+						}
+						
+					else
+						throw(self, "Invalid menu entry, near '" + p1 + "'")						
+					}
+					
+				elif menuLiLen == 4
+					p1 = menuLi[0]
+					p2 = menuLi[1]
+					p3 = menuLi[2]
+					p4 = menuLi[3]
+					if isNumber(p2) and (isString(p3) or isNull(p3)) and isNumber(p4) {
+						if isNull(parent) {
+							addItem(p1, p2, p3, p4)
+						else
+							addItem(parent+"/"+p1, p2, p3, p4)
+						}
+						
+					else
+						throw(self, "Invalid menu entry, near '" + p1 + "'")						
+					}
+					
+					
+				else
+					throw(self, "The menu entry list has invalid length of " + menuLiLen)
+				}
+			elif instanceOf(menuLi, "FMenuItem")
+				addItem(menuLi)
+			else
+				throw(self, "Invalid menu entry in the list item")
+			}
+		}
+		
+	/*
+		Remove all the added menu items in this widget and also destroy the reference to 
+		@Field __fltk_created_menus. It does not remove the item from @Field __fltk_created_menus
+		but make it null, removing item will make the calling the @Class MenuItem added to the list 
+		callback incorect. All required list are destroyed here but the menu items remains for the 
+		GC to decide
+	*/
+	block clear()
+		validatePointer()
+		__Fl_Menu__clear(Ptr)
+		redrawParent() 
+		for item in MenuItems {
+			index = 1*item[0]
+			__del_from_list(__fltk_created_menus,index)
+			__insert_into_list(__fltk_created_menus,index,null)
+		}
+		MenuItems = []
+
+    /*
+		
+    */
+    block setDownBox(/*FBoxType|number*/ value) 
+        validatePointer()
+        if isNumber(value) {
+			__Fl_Menu__down_box_1(Ptr,value)
+			DownBox = new FBoxType(value)
+		else
+			__Fl_Menu__down_box_1(Ptr,value.BoxType) 
+			if !isNull(value.BoxColor) { 
+				setDownColor(value.BoxColor)
+			}
+			DownBox = value
+		}
+
+    /*
+
+    */
+    block getDownBox()
+        return DownBox 
+
+    /*
+
+    */
+    block setDownColor(/*FColor|number*/ value)
+        validatePointer() 
+        if isNumber(value) or instanceOf(value,"FColor") {
+            if isNumber(value) {
+                __Fl_Menu__down_color_1(Ptr,value)
+                DownColor = new FColor(value)
+            else
+                __Fl_Menu__down_color_1(Ptr,value.colorAsNumber())
+                DownColor = value
+            }
+        else
+            throw(self,"Invalid parameter. Expecting (Number|fulltick.painting.FColor), Found (" + objectType(value) + ")")
+        }
+
+    /*
+
+    */
+    block getDownColor()
+        return DownColor
+		
+	/*
+	
+	*/
+	block makeGlobal()
+		validatePointer()
+		__Fl_Menu__global(Ptr)
+
+    /*
+
+    */
+    block setTextColor(/*FColor|number*/ value)
+        validatePointer() 
+        if isNumber(value) or instanceOf(value,"FColor") {
+            if isNumber(value) {
+                __Fl_Menu__textcolor_1(Ptr,value)
+                TextColor = new FColor(value)
+            else
+                __Fl_Menu__textcolor_1(Ptr,value.colorAsNumber())
+                TextColor = value
+            }
+        else
+            throw(self,"Invalid parameter. Expecting (Number|fulltick.painting.FColor), Found (" + objectType(value) + ")")
+        }
+
+    /*
+
+    */
+    block getTextColor()
+        return TextColor
+
+    /*
+
+    */
+    block setTextFont(/*FFont|int*/ value)
+        validatePointer()
+		if isNumber(value) {
+			__value = numberValue(value)
+            __Fl_Menu__textfont_1(Ptr,__value)
+            value = new FFont(__value) 
+		else
+			__Fl_Menu__textfont_1(Ptr,value.FontValue)
+		}
+        TextFont = value
+
+    /*
+
+    */
+    block getTextFont()
+        return TextFont    
+
+    /*
+
+    */
+    block setTextSize(int value)
+        validatePointer()
+		if value <= 0 {
+			throw(self,"FWidget Label Size cannot be less than 0 ")
+			return
+		}
+		__Fl_Menu__textsize_1(Ptr,value)
+        TextSize = value
+
+    /*
+
+    */
+    block getTextSize()
+        return TextSize
+		
+	/*
+	
+	*/
+	#Tooooo slow [disable]
+	/*block insert(int index, /*MenuItem|int|string* params...)
+		paramsLen = lengthOf(params)
+		tag = null
+		shortcut = null
+		item = null
+		
+		if paramsLen == 1 {
+			item = params[0]
+			if !instanceOf(item, "FMenuItem") {
+				throw(self, "Invalid parameter, expecting an instance of FMenuItem")
+				return
+			}
+			
+		elif paramsLen == 2
+			item = new FMenuItem(params[0], params[1])
+			
+		elif paramsLen == 3
+			item = new FMenuItem(params[0], params[1], params[2])
+			
+		elif paramsLen == 4
+			item = new FMenuItem(params[0], params[1], params[2], params[3])
+		else
+			throw(self, "Calling block with invalid length of parameters")
+			return
+		}
+		
+		if item.HasChildMenus {
+			for menu in item.ChildMenus {
+				addItem(menu)
+			}
+		else
+			if index > MenuItemsLen+1 or index < 0 {
+				throw(self, "Index out of bound. You cannot insert a menu item in non existing index ")
+				return 
+			}
+			__fltk_created_menus_count++
+			item.Index = __Fl_Menu__insert(Ptr, index, item.FullText, item.Shortcut, null, __fltk_created_menus_count, item.Flags)
+			item.Parent = self
+			MenuItems[''+__fltk_created_menus_count+''] = item
+			__add_to_list(__fltk_created_menus,item)
+		}
+		MenuItemsLen++
+		redrawParent()*/
+
+    /*
+        
+    */
+    block setPlatformScheme(string schemeName)
+        if schemeName == FScheme.Android {
+            setBackground(new FColor(62,78,184))
+            setTextColor(FColor.FCOLOR_WHITE)
+
+        elif schemeName == FScheme.Windows
+			setBackground(new FColor(242,242,242))
+			setDownColor(new FColor(33,147,239))
+
+        elif schemeName == FScheme.Macosx
+            setBackground(new FColor(238,244,249))
+			setTextColor(new FColor(54,101,148))
+
+        elif schemeName == FScheme.Linux
+			setBackground(new FColor(225,214,204))
+			
+		else
+			throw(self, "Invalid platform scheme name : " + schemeName)
+
+        }
+
+    /*
+
+    */
+    private
+	
+		/*
+		
+		*/
+		MenuItems = [] 
+		
+		/*
+		
+		*/
+		MenuItemsLen = 0
+		
+    
+

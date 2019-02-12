@@ -1,0 +1,248 @@
+
+/*
+
+*/
+call simple.core.Object
+call fulltick.base.FWidget
+call fulltick.painting.FColor
+call fulltick.drawing.FAlignment
+call fulltick.drawing.FFont
+call fulltick.drawing.FBoxType
+call fulltick.widgets.menu.FMenu_
+
+/*
+
+*/
+module fulltick.widgets.menu
+
+/*
+
+*/
+class FMenuButton : FMenu_
+
+    /*
+
+    */
+    Width = FApp.Scheme.getShemeValue("FMenuButton.Width") 
+
+    /*
+
+    */
+    Height = FApp.Scheme.getShemeValue("FMenuButton.Height") 
+
+    /*
+
+    */
+    X = FApp.Scheme.getShemeValue("FMenuButton.X") 
+
+    /*
+
+    */
+    Y = FApp.Scheme.getShemeValue("FMenuButton.Y") 
+
+    /*
+
+    */
+    Label = FApp.Scheme.getShemeValue("FMenuButton.Label") 
+
+    /*
+
+    */
+    Background = FApp.Scheme.getShemeValue("FMenuButton.Background") 
+
+    /*
+
+    */
+    LabelAlignment = FApp.Scheme.getShemeValue("FMenuButton.LabelAlignment") 
+
+    /*
+
+    */
+    Box = FApp.Scheme.getShemeValue("FMenuButton.Box") 
+
+    /*
+
+    */
+    Border = FApp.Scheme.getShemeValue("FMenuButton.Border") 
+
+    /*
+
+    */
+    HasBorder = FApp.Scheme.getShemeValue("FMenuButton.HasBorder") 
+
+    /*
+
+    */
+    AcceptInput = FApp.Scheme.getShemeValue("FMenuButton.AcceptInput")
+
+    /*
+
+    */
+    Visible = FApp.Scheme.getShemeValue("FMenuButton.Visible") 
+
+    /*
+
+    */
+    KeyboardFocusable = FApp.Scheme.getShemeValue("FMenuButton.KeyboardFocusable") 
+
+    /*
+
+    */
+    Tooltip = FApp.Scheme.getShemeValue("FMenuButton.Tooltip") 
+
+    /*
+
+    */
+    LabelColor = FApp.Scheme.getShemeValue("FMenuButton.LabelColor") 
+
+    /*
+
+    */
+    LabelFont = FApp.Scheme.getShemeValue("FMenuButton.LabelFont") 
+
+    /*
+
+    */
+    LabelSize = FApp.Scheme.getShemeValue("FMenuButton.LabelSize")
+
+    /*
+
+    */
+    LabelType = FApp.Scheme.getShemeValue("FMenuButton.LabelType")
+
+    /*
+
+    */
+    SelectionColor = FApp.Scheme.getShemeValue("FMenuButton.SelectionColor")
+	
+	/*
+	
+	*/
+	DownBox = FApp.Scheme.getShemeValue("FMenuButton.DownBox")
+
+    /*
+
+    */
+    DownColor = FApp.Scheme.getShemeValue("FMenuButton.DownColor")
+	
+	/*
+	
+	*/
+	TextColor = FApp.Scheme.getShemeValue("FMenuButton.TextColor")
+	
+	/*
+	
+	*/
+	TextFont = FApp.Scheme.getShemeValue("FMenuButton.TextFont")
+	
+	/*
+	
+	*/
+	TextSize = FApp.Scheme.getShemeValue("FMenuButton.TextSize")
+
+    /*
+
+    */
+    block FMenuButton(params...)
+        paramsLen = lengthOf(params)
+		menuItems = []
+        if paramsLen == 1 {
+            menuItems = params[0]
+            if !isList(menuItems) {
+                throw(self,"Invalid parameter Expecting 'List' as FMenuButton Menu Items")
+            }
+        elif paramsLen == 2
+            X = params[0]
+            Y = params[1]
+            if !isNumber(X) or !isNumber(Y) {
+                throw(self,"Invalid parameter Expecting 'number' as FMenuButton X and Y")
+            }
+        elif paramsLen == 3 
+            X = params[0]
+            Y = params[1]
+            menuItems = params[2]
+            if !isNumber(X) or !isNumber(Y) {
+                throw(self,"Invalid parameter Expecting 'number' as FMenuButton X and Y")
+            }
+            if !isList(menuItems) {
+                throw(self,"Invalid parameter Expecting 'List' as FMenuButton Menu Items")
+            }
+        elif paramsLen == 4
+            X = params[0]
+            Y = params[1]
+            Width = params[2]
+            Height = params[3]
+            if !isNumber(X) or !isNumber(Y) {
+                throw(self,"Invalid parameter Expecting 'number' as FMenuButton X and Y")
+            }
+            if !isNumber(Width) or !isNumber(Height) {
+                throw(self,"Invalid parameter Expecting 'number' as FMenuButton Width and Height")
+            }
+        elif paramsLen == 5
+            X = params[0]
+            Y = params[1]
+            Width = params[2]
+            Height = params[3]
+            menuItems = params[4]
+            if !isNumber(X) or !isNumber(Y) {
+                throw(self,"Invalid parameter Expecting 'number' as FMenuButton X and Y")
+            }
+            if !isNumber(Width) or !isNumber(Height) {
+                throw(self,"Invalid parameter Expecting 'number' as FMenuButton Width and Height")
+            }
+            if !isList(menuItems) {
+                throw(self,"Invalid parameter Expecting 'List' as FMenuButton Menu Items")
+            }
+        else    
+            if paramsLen != 0 {
+                throw(self,"Calling block with invalid legth of parameter")
+            }
+        } 
+
+        Ptr = __Fl_Menu_Button(X, Y, Width, Height, "&popup") 
+        registerWidget()
+        setLabelAlignment(LabelAlignment)
+        setBox(Box)
+        setBorder(Border)
+        construct()
+		setLabel(Label)
+		menu(menuItems, null)
+		setDownBox(DownBox)
+		setDownColor(DownColor)
+		setTextColor(TextColor)
+		setTextFont(TextFont)
+		setTextSize(TextSize)
+        
+        return self
+
+    /*
+        
+    */
+    block setPlatformScheme(string schemeName)
+        if schemeName == FScheme.Android {
+			setLabelColor(FColor.FCOLOR_BLACK)
+            setBackground(FColor.FCOLOR_WHITE)
+            setTextColor(FColor.FCOLOR_BLACK)
+
+        elif schemeName == FScheme.Windows
+			setBackground(new FColor(242,242,242))
+			setDownColor(new FColor(33,147,239))
+
+        elif schemeName == FScheme.Macosx
+            setBackground(new FColor(238,244,249))
+			setTextColor(new FColor(54,101,148))
+
+        elif schemeName == FScheme.Linux
+			setBackground(new FColor(225,214,204))
+			
+		else
+			throw(self, "Invalid platform scheme name : " + schemeName)
+
+        }
+
+    /*
+
+    */
+    private 
+    
+

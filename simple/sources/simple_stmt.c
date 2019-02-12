@@ -1161,7 +1161,7 @@ int simple_parser_stmt ( Parser *parser )
 		if ( parser->nBraceFlag ) {
 			/* if isblock(self,"exprEval") exprEval() end */
 			simple_parser_icg_newoperation(parser,ICO_LOADBLOCK);
-			simple_parser_icg_newoperand(parser,"isBlock");
+			simple_parser_icg_newoperand(parser,"hasBlock");
 			simple_parser_icg_newoperation(parser,ICO_LOADADDRESS);
 			simple_parser_icg_newoperand(parser,"self");
 			simple_parser_icg_newoperandint(parser,0);

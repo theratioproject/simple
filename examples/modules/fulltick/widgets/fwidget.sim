@@ -2,20 +2,22 @@
 /*
 
 */
-call simple.core.Object
-call simple.utilities.Console
 call simple.graphics.Dimension
 call simple.graphics.Rectangle
 call simple.graphics.Point
-call fulltick.drawing.FBoxType
-call fulltick.painting.FColor
-call fulltick.widgets.FWindow
-call fulltick.drawing.FAlignment
-call fulltick.widgets.FGroup
-call fulltick.widgets.FButton
-call fulltick.base.FWidget
 call fulltick.FApp
+call fulltick.widgets.FGroup
+call fulltick.widgets.FWindow
+call fulltick.widgets.FLabel
+call fulltick.widgets.FButton
 call fulltick.events.FCallbackEvent
+import simple.core
+import simple.system
+import fulltick.base
+import fulltick.widgets
+import fulltick.painting
+import fulltick.objects
+import fulltick.drawing
 
 wcount = 0
 acount = 0

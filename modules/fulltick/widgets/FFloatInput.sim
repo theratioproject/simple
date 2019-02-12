@@ -1,0 +1,259 @@
+
+/*
+
+*/
+call simple.core.Object
+call fulltick.base/FWidget
+call fulltick.painting.FColor
+call fulltick.drawing.FAlignment
+call fulltick.drawing.FFont
+call fulltick.drawing.FBoxType
+call fulltick.widgets.FInput_
+
+/*
+
+*/
+module fulltick.widgets
+
+/*
+
+*/
+class FFloatInput : FInput_
+
+    /*
+
+    */
+    Width = FApp.Scheme.getShemeValue("FFloatInput.Width") 
+
+    /*
+
+    */
+    Height = FApp.Scheme.getShemeValue("FFloatInput.Height") 
+
+    /*
+
+    */
+    X = FApp.Scheme.getShemeValue("FFloatInput.X") 
+
+    /*
+
+    */
+    Y = FApp.Scheme.getShemeValue("FFloatInput.Y") 
+
+    /*
+
+    */
+    Label = FApp.Scheme.getShemeValue("FFloatInput.Label") 
+
+    /*
+
+    */
+    CapitalizeLabel = FApp.Scheme.getShemeValue("FFloatInput.CapitalizeLabel") 
+
+    /*
+
+    */
+    Background = FApp.Scheme.getShemeValue("FFloatInput.Background") 
+
+    /*
+
+    */
+    LabelAlignment = FApp.Scheme.getShemeValue("FFloatInput.LabelAlignment") 
+
+    /*
+
+    */
+    Box = FApp.Scheme.getShemeValue("FFloatInput.Box") 
+
+    /*
+
+    */
+    Border = FApp.Scheme.getShemeValue("FFloatInput.Border") 
+
+    /*
+
+    */
+    HasBorder = FApp.Scheme.getShemeValue("FFloatInput.HasBorder") 
+
+    /*
+
+    */
+    AcceptInput = FApp.Scheme.getShemeValue("FFloatInput.AcceptInput")
+
+    /*
+
+    */
+    Visible = FApp.Scheme.getShemeValue("FFloatInput.Visible") 
+
+    /*
+
+    */
+    KeyboardFocusable = FApp.Scheme.getShemeValue("FFloatInput.KeyboardFocusable") 
+
+    /*
+
+    */
+    Tooltip = FApp.Scheme.getShemeValue("FFloatInput.Tooltip") 
+
+    /*
+
+    */
+    LabelColor = FApp.Scheme.getShemeValue("FFloatInput.LabelColor") 
+
+    /*
+
+    */
+    LabelFont = FApp.Scheme.getShemeValue("FFloatInput.LabelFont") 
+
+    /*
+
+    */
+    LabelSize = FApp.Scheme.getShemeValue("FFloatInput.LabelSize")
+
+    /*
+
+    */
+    LabelType = FApp.Scheme.getShemeValue("FFloatInput.LabelType")
+
+    /*
+
+    */
+    SelectionColor = FApp.Scheme.getShemeValue("FFloatInput.SelectionColor")
+
+    /*
+
+    */
+    Text = null
+
+    /*
+
+    */
+    Value = FApp.Scheme.getShemeValue("FFloatInput.Value")
+
+    /*
+
+    */
+    CursorColor = FApp.Scheme.getShemeValue("FFloatInput.CursorColor")
+
+    /*
+
+    */
+    Mark = FApp.Scheme.getShemeValue("FFloatInput.Mark")
+
+    /*
+
+    */
+    MaximumSize = FApp.Scheme.getShemeValue("FFloatInput.MaximumSize")
+	
+	/*
+	
+	*/
+	CaretPosition = FApp.Scheme.getShemeValue("FFloatInput.CaretPosition")
+	
+	/*
+	
+	*/
+	ReadOnly = FApp.Scheme.getShemeValue("FFloatInput.ReadOnly")
+
+    /*
+
+    */
+    Shortcut = FApp.Scheme.getShemeValue("FFloatInput.Shortcut")
+
+    /*
+
+    */
+    TabNav = FApp.Scheme.getShemeValue("FFloatInput.TabNav")
+
+    /*
+
+    */
+    Wrap = FApp.Scheme.getShemeValue("FFloatInput.Wrap")
+
+    /*
+
+    */
+    TextColor = FApp.Scheme.getShemeValue("FFloatInput.TextColor") 
+
+    /*
+
+    */
+    TextFont = FApp.Scheme.getShemeValue("FFloatInput.TextFont") 
+
+    /*
+
+    */
+    TextSize = FApp.Scheme.getShemeValue("FFloatInput.TextSize")
+
+    /*
+
+    */
+    block FFloatInput(params...)
+        paramsLen = lengthOf(params)
+        if paramsLen == 1 {
+            Value = params[0]
+            if !isString(Value) {
+                throw(self,"Invalid parameter Expecting 'string' as FFloatInput Value")
+            }
+        elif paramsLen == 2
+            X = params[0]
+            Y = params[1]
+            if !isNumber(X) or !isNumber(Y) {
+                throw(self,"Invalid parameter Expecting 'number' as FFloatInput X and Y")
+            }
+        elif paramsLen == 3 
+            X = params[0]
+            Y = params[1]
+            Value = params[2]
+            if !isNumber(X) or !isNumber(Y) {
+                throw(self,"Invalid parameter Expecting 'number' as FFloatInput X and Y")
+            }
+            if !isString(Value) {
+                throw(self,"Invalid parameter Expecting 'string' as FFloatInput Value")
+            }
+        elif paramsLen == 4
+            X = params[0]
+            Y = params[1]
+            Width = params[2]
+            Height = params[3]
+            if !isNumber(X) or !isNumber(Y) {
+                throw(self,"Invalid parameter Expecting 'number' as FFloatInput X and Y")
+            }
+            if !isNumber(Width) or !isNumber(Height) {
+                throw(self,"Invalid parameter Expecting 'number' as FFloatInput Width and Height")
+            }
+        elif paramsLen == 5
+            X = params[0]
+            Y = params[1]
+            Width = params[2]
+            Height = params[3]
+            Value = params[4]
+            if !isNumber(X) or !isNumber(Y) {
+                throw(self,"Invalid parameter Expecting 'number' as FFloatInput X and Y")
+            }
+            if !isNumber(Width) or !isNumber(Height) {
+                throw(self,"Invalid parameter Expecting 'number' as FFloatInput Width and Height")
+            }
+            if !isString(Value) {
+                throw(self,"Invalid parameter Expecting 'string' as FFloatInput Value")
+            }
+        else    
+            if paramsLen != 0 {
+                throw(self,"Calling block with invalid legth of parameter")
+            }
+        } 
+        Ptr = __Fl_Float_Input(X, Y, Width, Height, "") 
+        registerWidget()
+        setBox(Box)
+        setBorder(Border)
+        construct()
+        
+        return self
+
+    /*
+
+    */
+    private 
+    
+        
+

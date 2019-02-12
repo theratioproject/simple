@@ -55,6 +55,11 @@ __simpleExecDir = null
 __simpleIncludesDir = null
 
 /*
+
+*/
+__simpleResDir = null
+
+/*
 	Get the Directory that the simple distribution are installed into, this is 
 	different from the directory where the simple executables e.g simple.exe are. 
 	The directory is where different version of simple-lang are installed. 
@@ -107,11 +112,13 @@ block simpleDir()
 */
 block simpleModulesDir()
 	if isNull(__simpleModulesDir) {
-		modulesDir = getEnv("SIMPLE_MODULE_PATH")
-		if modulesDir == "" {
-			modulesDir = simpleDir()+"s"+simpleVersion()+"/modules/"
-			modulesDir = correctPath(modulesDir)
-		}
+		sDir = simpleDir()
+		if strEndsWith(sDir, "debug"+SystemSlash()) or strEndsWith(sDir, "debug/") or strEndsWith(sDir, "debug\") {
+			modulesDir = sDir+"/modules/"
+		else
+			modulesDir = sDir+"s"+simpleVersion()+"/modules/"
+		}		
+		modulesDir = correctPath(modulesDir)
 		__simpleModulesDir = modulesDir
 	}
 	return __simpleModulesDir
@@ -123,13 +130,7 @@ block simpleModulesDir()
 */
 block simpleDyModulesDir()
 	if isNull(__simpleDyModulesDir) {
-		modulesDir = getEnv("SIMPLE_MODULE_PATH")
-		if modulesDir == "" {
-			dyModulesDir = simpleDir()+"s"+simpleVersion()+"/modules/dynamic_modules/"
-		else
-			dyModulesDir = modulesDir+"/dynamic_modules/"
-			dyModulesDir = correctPath(dyModulesDir)
-		}
+		dyModulesDir = simpleModulesDir()+"dynamic_modules/"
 		__simpleDyModulesDir = dyModulesDir
 	}
 	return __simpleDyModulesDir
@@ -141,12 +142,7 @@ block simpleDyModulesDir()
 */
 block simpleDocDir()
 	if isNull(__simpleDocDir) {
-		modulesDir = getEnv("SIMPLE_MODULE_PATH")
-		if modulesDir == "" {
-			docDir = simpleDir()+"s"+simpleVersion()+"/docs/"
-		else
-			docDir = modulesDir+"/../docs/"
-		}
+		docDir = simpleModulesDir()+"../docs/"
 		__simpleDocDir = correctPath(docDir)
 	}
 	return __simpleDocDir
@@ -207,5 +203,16 @@ block simpleIncludesDir()
 		__simpleIncludesDir = correctPath(includesDir)
 	}
 	return __simpleIncludesDir
+	
+	
+/*
+
+*/
+block simpleResDir()
+	if isNull(__simpleDocDir) {
+		docDir = simpleModulesDir()+"../resources/"
+		__simpleDocDir = correctPath(docDir)
+	}
+	return __simpleDocDir
 	
 	

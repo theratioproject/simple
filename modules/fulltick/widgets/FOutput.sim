@@ -1,0 +1,259 @@
+
+/*
+
+*/
+call simple.core.Object
+call fulltick.base/FWidget
+call fulltick.painting.FColor
+call fulltick.drawing.FAlignment
+call fulltick.drawing.FFont
+call fulltick.drawing.FBoxType
+call fulltick.widgets.FInput_
+
+/*
+
+*/
+module fulltick.widgets
+
+/*
+
+*/
+class FOutput : FInput_
+
+    /*
+
+    */
+    Width = FApp.Scheme.getShemeValue("FOutput.Width") 
+
+    /*
+
+    */
+    Height = FApp.Scheme.getShemeValue("FOutput.Height") 
+
+    /*
+
+    */
+    X = FApp.Scheme.getShemeValue("FOutput.X") 
+
+    /*
+
+    */
+    Y = FApp.Scheme.getShemeValue("FOutput.Y") 
+
+    /*
+
+    */
+    Label = FApp.Scheme.getShemeValue("FOutput.Label") 
+
+    /*
+
+    */
+    CapitalizeLabel = FApp.Scheme.getShemeValue("FOutput.CapitalizeLabel") 
+
+    /*
+
+    */
+    Background = FApp.Scheme.getShemeValue("FOutput.Background") 
+
+    /*
+
+    */
+    LabelAlignment = FApp.Scheme.getShemeValue("FOutput.LabelAlignment") 
+
+    /*
+
+    */
+    Box = FApp.Scheme.getShemeValue("FOutput.Box") 
+
+    /*
+
+    */
+    Border = FApp.Scheme.getShemeValue("FOutput.Border") 
+
+    /*
+
+    */
+    HasBorder = FApp.Scheme.getShemeValue("FOutput.HasBorder") 
+
+    /*
+
+    */
+    AcceptInput = FApp.Scheme.getShemeValue("FOutput.AcceptInput")
+
+    /*
+
+    */
+    Visible = FApp.Scheme.getShemeValue("FOutput.Visible") 
+
+    /*
+
+    */
+    KeyboardFocusable = FApp.Scheme.getShemeValue("FOutput.KeyboardFocusable") 
+
+    /*
+
+    */
+    Tooltip = FApp.Scheme.getShemeValue("FOutput.Tooltip") 
+
+    /*
+
+    */
+    LabelColor = FApp.Scheme.getShemeValue("FOutput.LabelColor") 
+
+    /*
+
+    */
+    LabelFont = FApp.Scheme.getShemeValue("FOutput.LabelFont") 
+
+    /*
+
+    */
+    LabelSize = FApp.Scheme.getShemeValue("FOutput.LabelSize")
+
+    /*
+
+    */
+    LabelType = FApp.Scheme.getShemeValue("FOutput.LabelType")
+
+    /*
+
+    */
+    SelectionColor = FApp.Scheme.getShemeValue("FOutput.SelectionColor")
+
+    /*
+
+    */
+    Text = null
+
+    /*
+
+    */
+    Value = FApp.Scheme.getShemeValue("FOutput.Value")
+
+    /*
+
+    */
+    CursorColor = FApp.Scheme.getShemeValue("FOutput.CursorColor")
+
+    /*
+
+    */
+    Mark = FApp.Scheme.getShemeValue("FOutput.Mark")
+
+    /*
+
+    */
+    MaximumSize = FApp.Scheme.getShemeValue("FOutput.MaximumSize")
+	
+	/*
+	
+	*/
+	CaretPosition = FApp.Scheme.getShemeValue("FOutput.CaretPosition")
+	
+	/*
+	
+	*/
+	ReadOnly = FApp.Scheme.getShemeValue("FOutput.ReadOnly")
+
+    /*
+
+    */
+    Shortcut = FApp.Scheme.getShemeValue("FOutput.Shortcut")
+
+    /*
+
+    */
+    TabNav = FApp.Scheme.getShemeValue("FOutput.TabNav")
+
+    /*
+
+    */
+    Wrap = FApp.Scheme.getShemeValue("FOutput.Wrap")
+
+    /*
+
+    */
+    TextColor = FApp.Scheme.getShemeValue("FOutput.TextColor") 
+
+    /*
+
+    */
+    TextFont = FApp.Scheme.getShemeValue("FOutput.TextFont") 
+
+    /*
+
+    */
+    TextSize = FApp.Scheme.getShemeValue("FOutput.TextSize")
+
+    /*
+
+    */
+    block FOutput(params...)
+        paramsLen = lengthOf(params)
+        if paramsLen == 1 {
+            Value = params[0]
+            if !isString(Value) {
+                throw(self,"Invalid parameter Expecting 'string' as FOutput Value")
+            }
+        elif paramsLen == 2
+            X = params[0]
+            Y = params[1]
+            if !isNumber(X) or !isNumber(Y) {
+                throw(self,"Invalid parameter Expecting 'number' as FOutput X and Y")
+            }
+        elif paramsLen == 3 
+            X = params[0]
+            Y = params[1]
+            Value = params[2]
+            if !isNumber(X) or !isNumber(Y) {
+                throw(self,"Invalid parameter Expecting 'number' as FOutput X and Y")
+            }
+            if !isString(Value) {
+                throw(self,"Invalid parameter Expecting 'string' as FOutput Value")
+            }
+        elif paramsLen == 4
+            X = params[0]
+            Y = params[1]
+            Width = params[2]
+            Height = params[3]
+            if !isNumber(X) or !isNumber(Y) {
+                throw(self,"Invalid parameter Expecting 'number' as FOutput X and Y")
+            }
+            if !isNumber(Width) or !isNumber(Height) {
+                throw(self,"Invalid parameter Expecting 'number' as FOutput Width and Height")
+            }
+        elif paramsLen == 5
+            X = params[0]
+            Y = params[1]
+            Width = params[2]
+            Height = params[3]
+            Value = params[4]
+            if !isNumber(X) or !isNumber(Y) {
+                throw(self,"Invalid parameter Expecting 'number' as FOutput X and Y")
+            }
+            if !isNumber(Width) or !isNumber(Height) {
+                throw(self,"Invalid parameter Expecting 'number' as FOutput Width and Height")
+            }
+            if !isString(Value) {
+                throw(self,"Invalid parameter Expecting 'string' as FOutput Value")
+            }
+        else    
+            if paramsLen != 0 {
+                throw(self,"Calling block with invalid legth of parameter")
+            }
+        } 
+        Ptr = __Fl_Output(X, Y, Width, Height, "") 
+        registerWidget()
+        setBox(Box)
+        setBorder(Border)
+        construct()
+        
+        return self
+
+    /*
+
+    */
+    private 
+    
+        
+

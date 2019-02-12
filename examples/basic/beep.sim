@@ -7,20 +7,15 @@
 
 call simple.utilities.Console
 
-stdout.print("\a")
-__beep(1000,1000)
+#stdout.print("\a")
+#__beep(1000,1000)
 
-
-test = new Test
-@test[3] #pam pam pam, it make 3 = 4 from within
-
-class Test : Testy
-
-	li = ["ade", "is", "my", "name"]
-
-	block operator(op, value)
-		@op + " : " + value
-		return self.li[value]
-		
-class Testy
-	
+#(one, numbers...)
+anFunc = block (number numbers...) {
+	res = 0
+	for num in numbers {
+		res += num
+	}
+	return res
+}
+@invoke anFunc(1,2,3,4,5,6,7,8,9)

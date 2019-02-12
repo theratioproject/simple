@@ -1,0 +1,241 @@
+
+/*
+
+*/
+call simple.core.Object
+call simple.system.Color
+call fulltick.base.FWidget
+call fulltick.painting.FColor
+call fulltick.drawing.FAlignment
+call fulltick.drawing.FBoxType
+call fulltick.widgets.FLightButton
+
+/*
+
+*/
+module fulltick.widgets
+
+/*
+
+*/
+class FRoundButton : FLightButton
+
+    /*
+
+    */
+    Width = FApp.Scheme.getShemeValue("FRoundButton.Width") 
+
+    /*
+
+    */
+    Height = FApp.Scheme.getShemeValue("FRoundButton.Height") 
+
+    /*
+
+    */
+    X = FApp.Scheme.getShemeValue("FRoundButton.X") 
+
+    /*
+
+    */
+    Y = FApp.Scheme.getShemeValue("FRoundButton.Y") 
+
+    /*
+
+    */
+    Label = FApp.Scheme.getShemeValue("FRoundButton.Label") 
+
+    /*
+
+    */
+    CapitalizeLabel = FApp.Scheme.getShemeValue("FRoundButton.CapitalizeLabel") 
+
+    /*
+
+    */
+    Background = FApp.Scheme.getShemeValue("FRoundButton.Background") 
+
+    /*
+
+    */
+    LabelAlignment = FApp.Scheme.getShemeValue("FRoundButton.LabelAlignment") 
+
+    /*
+
+    */
+    BaseColor = FApp.Scheme.getShemeValue("FRoundButton.BaseColor") 
+
+    /*
+
+    */
+    Box = FApp.Scheme.getShemeValue("FRoundButton.Box") 
+
+    /*
+
+    */
+    BaseBox = FApp.Scheme.getShemeValue("FRoundButton.BaseBox") 
+
+    /*
+
+    */
+    Border = FApp.Scheme.getShemeValue("FRoundButton.Border") 
+
+    /*
+
+    */
+    HasBorder = FApp.Scheme.getShemeValue("FRoundButton.HasBorder") 
+
+    /*
+
+    */
+    AcceptInput = FApp.Scheme.getShemeValue("FRoundButton.AcceptInput")
+
+    /*
+
+    */
+    Visible = FApp.Scheme.getShemeValue("FRoundButton.Visible") 
+
+    /*
+
+    */
+    KeyboardFocusable = FApp.Scheme.getShemeValue("FRoundButton.KeyboardFocusable") 
+
+    /*
+
+    */
+    Text = FApp.Scheme.getShemeValue("FRoundButton.Text") 
+
+    /*
+
+    */
+    Tooltip = FApp.Scheme.getShemeValue("FRoundButton.Tooltip") 
+
+    /*
+
+    */
+    LabelColor = FApp.Scheme.getShemeValue("FRoundButton.LabelColor") 
+
+    /*
+
+    */
+    LabelFont = FApp.Scheme.getShemeValue("FRoundButton.LabelFont") 
+
+    /*
+
+    */
+    LabelSize = FApp.Scheme.getShemeValue("FRoundButton.LabelSize")
+
+    /*
+
+    */
+    LabelType = FApp.Scheme.getShemeValue("FRoundButton.LabelType")
+
+    /*
+
+    */
+    SelectionColor = FApp.Scheme.getShemeValue("FRoundButton.SelectionColor")
+
+    /*
+
+    */
+    Shortcut = FApp.Scheme.getShemeValue("FRoundButton.Shortcut")
+
+    /*
+
+    */
+    Value = FApp.Scheme.getShemeValue("FRoundButton.Value")
+
+    /*
+
+    */
+    Text = null
+
+    /*
+
+    */
+    block FRoundButton(params...)
+        paramsLen = lengthOf(params)
+        if paramsLen == 1 {
+            Label = params[0]
+            if !isString(Label) {
+                throw(self,"Invalid parameter Expecting 'string' as FRoundButton Label")
+            }
+        elif paramsLen == 2
+            Width = params[0]
+            Height = params[1]
+            if !isNumber(Width) or !isNumber(Height) {
+                throw(self,"Invalid parameter Expecting 'number' as FRoundButton Width and Height")
+            }
+        elif paramsLen == 3 
+            Width = params[0]
+            Height = params[1]
+            Label = params[2]
+            if !isNumber(Width) or !isNumber(Height) {
+                throw(self,"Invalid parameter Expecting 'number' as FRoundButton Width and Height")
+            }
+            if !isString(Label) {
+                throw(self,"Invalid parameter Expecting 'string' as FRoundButton Label")
+            }
+        elif paramsLen == 4
+            X = params[0]
+            Y = params[1]
+            Width = params[2]
+            Height = params[3]
+            if !isNumber(X) or !isNumber(Y) {
+                throw(self,"Invalid parameter Expecting 'number' as FRoundButton X and Y")
+            }
+            if !isNumber(Width) or !isNumber(Height) {
+                throw(self,"Invalid parameter Expecting 'number' as FRoundButton Width and Height")
+            }
+        elif paramsLen == 5
+            X = params[0]
+            Y = params[1]
+            Width = params[2]
+            Height = params[3]
+            Label = params[4]
+            if !isNumber(X) or !isNumber(Y) {
+                throw(self,"Invalid parameter Expecting 'number' as FRoundButton X and Y")
+            }
+            if !isNumber(Width) or !isNumber(Height) {
+                throw(self,"Invalid parameter Expecting 'number' as FRoundButton Width and Height")
+            }
+            if !isString(Label) {
+                throw(self,"Invalid parameter Expecting 'string' as FRoundButton Label")
+            }
+        else    
+            if paramsLen != 0 {
+                throw(self,"Calling block with invalid legth of parameter")
+            }
+        } 
+
+        if CapitalizeLabel {
+            Label = toUpperCase(Label)
+        }
+        Ptr = __Fl_Round_Button(X, Y, Width, Height, "")
+        registerWidget()
+        #resize(X, Y, Width, Height)
+        setLabelAlignment(LabelAlignment)
+        setBox(Box)
+        setBaseColor(BaseColor)
+        setBorder(Border)
+        construct()
+        setValue(Value)
+        
+        return self
+
+    /*
+        
+    */
+    block setPlatformScheme(string schemeName)
+        if schemeName == FScheme.Macosx {
+			
+        else 
+			super.setPlatformScheme(schemeName)
+			
+        }
+
+    /*
+
+    */
+    private 
+

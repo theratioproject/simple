@@ -46,7 +46,7 @@ SIMPLE_API void loadcblocks ( SimpleState *sState )
         /** Functional Execution **/
 	register_block("executeCode",simple_vmlib_exec);
         /* Meta */
-	register_block("isBlock",simple_vmlib_isblock);
+	register_block("hasBlock",simple_vmlib_isblock);
 	#ifdef __ANDROID__
     __init_full_tick(sState);
 	#endif

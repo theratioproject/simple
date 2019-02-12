@@ -1,0 +1,31 @@
+
+/*
+
+*/
+call fulltick.FApp
+call fulltick.widgets.FWindow
+call fulltick.widgets.FMultilineOutput
+call fulltick.events.FCallbackEvent
+import simple.core
+import simple.system
+import fulltick.base
+import fulltick.widgets
+import fulltick.painting
+import fulltick.objects
+import fulltick.drawing
+
+flabelDemo = new FMultilineOutputDemo
+FApp.run()
+
+class FMultilineOutputDemo
+
+    fwindow = new FWindow(320,320,"FMultilineOutput Demo") { 
+		input = new FMultilineOutput(10,10,strCopy("Hello World", 2000)) {
+			Resizable = true
+		}
+        centerOnScreen() 
+        Resizable = true
+        add(input)
+        show()        
+    } 
+        

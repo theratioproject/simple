@@ -181,7 +181,9 @@ class ZipEntry : Object
 			FullName = entry
 			Comment = "directory"
 			entry = "/"+strRemoveLastChar(entry)
-			Name = lastStrAfter(entry, "/")
+			if entry != "" {
+				Name = lastStrAfter(entry, "/")
+			}
 			return self
 		}
 		ZipStat = __zip_entry_stat_info(zip.ZipPointer, entry) 
@@ -191,7 +193,9 @@ class ZipEntry : Object
 				return null
 			else
 				FullName = normalize(stringValue(entry))
-				Name = lastStrAfter(FullName, "/")
+				if FullName != "" {
+					Name = lastStrAfter(FullName, "/")
+				}
 				return self
 			}
 		}
@@ -211,7 +215,9 @@ class ZipEntry : Object
 		CommentSize = ZipStat[13]
 		FullName = ZipStat[14]
 		Comment = ZipStat[15]
-		Name = lastStrAfter(FullName, "/")
+		if FullName != "" {
+			Name = lastStrAfter(FullName, "/")
+		}
 		
 		return self
 		
@@ -315,7 +321,7 @@ class ZipEntry : Object
 	*/
 	block open()
 		if !IsStreamOpen {
-			if __open_zip_entry(ParentZip.ZipPointer, FullName) != 0 {
+			if __open_zip_entry(ParentZip.ZipPointer, FullName) != 0 and FullName != "" {
 				throw(self, "The entry '" + FullName + "' cannot be opened in the archive '" + ParentZip.Path + "'")
 				return 
 			}
@@ -327,7 +333,7 @@ class ZipEntry : Object
 	*/
 	block close()
 		if IsStreamOpen {
-			if __close_zip_entry(ParentZip.ZipPointer) != 0 {
+			if __close_zip_entry(ParentZip.ZipPointer) != 0 and FullName != ""  {
 				throw(self, "Cannot close the zip entry stream")
 				return
 			}
@@ -379,10 +385,17 @@ class ZipEntry : Object
 			}
 			for file in files {
 				if file[1] == 1 {
+					sep = ""
+					if FullName != "" {
+						sep = "/"
+					}
 					dwrite(value + '/' + file[0])
 				else
 					name = replaceStr(value + '/' + file[0], DirPrefix, prefix)
 					path = value + '/' + file[0]
+					if strStartsWith(name,"/") {
+						name = strRemoveFirstChar(name)
+					}
 					if strContains(correctPath(path), ParentZip.Path) {
 						warn("Cannot add the same archive that is been written into : " + ParentZip.Path)
 						continue
@@ -484,7 +497,7 @@ class ZipEntry : Object
 					continue
 				}
 				path+=dir+'/'
-				if __dir_exists(path) != 1 {
+				if __dir_exists(normalize(path)) != 1 {
 					if !__mk_directory(path, 0755) {
 						return false
 					}

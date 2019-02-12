@@ -2,17 +2,17 @@
 /*
 
 */
-call simple.core.Object
-call simple.utilities.Console
-call simple.graphics.Dimension
-call simple.graphics.Rectangle
-call simple.graphics.Point
-call fulltick.drawing.FBoxType
-call fulltick.painting.FColor
+call fulltick.FApp
 call fulltick.widgets.FWindow
 call fulltick.widgets.FLabel
-call fulltick.base.FWidget
-call fulltick.FApp
+call fulltick.events.FCallbackEvent
+import simple.core
+import simple.system
+import fulltick.base
+import fulltick.widgets
+import fulltick.painting
+import fulltick.objects
+import fulltick.drawing
 
 flabelDemo = new FLabelDemo
 FApp.run()
@@ -21,7 +21,7 @@ class FLabelDemo
 
     fwindow = new FWindow(400,180,"FLabel Demo") { 
         begin(true)
-        new FLabel(0,20) { Label = "This FLabel set it own label independently" }
+        label = new FLabel(0,20) { Label = "This FLabel set it own label independently" }
         new FLabel(0,40,"This FLabel Has a custom background") { Background = FColor.FCOLOR_CYAN }
         new FLabel(0,70,"This FLabel has custom size") { LabelSize = 30 }
         new FLabel(0,100,"This FLabel has custom font") {  LabelFont = FFont.FFONT_TIMES_BOLD_ITALIC }

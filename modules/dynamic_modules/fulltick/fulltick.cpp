@@ -12,39 +12,40 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
 
 }
 
-/** the callback class for fulltick library **/
-CallbackStruct::CallbackStruct(void *the_pointer, String *the_block, Fl_Widget *the_widget) {
-    pointer = the_pointer ;
-    block = the_block ;
-    widget = the_widget ;
-}
-
 void *CallbackStruct::_sState = NULL;
 bool CallbackStruct::ret_evt_to_fl = true;
 
 /** the callback delegate for the fulltick library **/
-void SimpleCallBack(Fl_Widget*, void* callback_struct) {
-    CallbackStruct *cbs = (CallbackStruct *) callback_struct ;
-    simple_vm_runcode((VM *) cbs->pointer,simple_string_get(cbs->block));
-    //simple_vm_callblock((VM *)cbs->pointer,"__fulltick_widget_callback");
+void SimpleCallBack(Fl_Widget*, void* ptr_index) {
+    char code_block[30];
+    snprintf(code_block, sizeof(code_block), "__fltk_current_widget_id=%i ", (int)ptr_index);
+    simple_vm_runcode(((SimpleState *)CallbackStruct::_sState)->vm, code_block); 
+    simple_vm_callblock(((SimpleState *)CallbackStruct::_sState)->vm,"__fltk_widget_callback");
+}
+
+/** the menu callback delegate for the fulltick library **/
+void SimpleMenuCallBack(Fl_Widget*, void* ptr_index) {
+    char code_block[30];
+    snprintf(code_block, sizeof(code_block), "__fltk_current_menu_index=%i ", (int)ptr_index);
+    simple_vm_runcode(((SimpleState *)CallbackStruct::_sState)->vm, code_block); 
+    simple_vm_callblock(((SimpleState *)CallbackStruct::_sState)->vm,"__fltk_widget_menu_callback");
 }
 
 /*
 	We change the entire event_dispatch for the library
 	Handle this function with care. PLEASE.
-	Also handle event in the FApp class in the
+	Also handle event in the FApp file in the
 	fulltick module
 */
 int simple_Fl_Event_Dispatch(int event, Fl_Window *window) {
-    char code_block[30];
-    snprintf(code_block, sizeof(code_block), "FApp.handle(%i,\"%p\")", event, (void*)window); //printf("%p\n",(void*)window);
-    //simple_vm_runcode(((SimpleState *)CallbackStruct::_sState)->vm, code_block); //this line is crucial to our events
+    char code_block[60];
+    snprintf(code_block, sizeof(code_block), "__fltk_current_event=%i __fltk_current_pointer='%p'", event, (void*)window); //printf("%p\n",(void*)window);
+    simple_vm_runcode(((SimpleState *)CallbackStruct::_sState)->vm, code_block); 
+    simple_vm_callblock(((SimpleState *)CallbackStruct::_sState)->vm,"__fltk_handle");//this line is crucial to our events
     if (CallbackStruct::ret_evt_to_fl == true)
         return Fl::handle_(event, window);
     return 0;
 }
-
-
 
 #ifdef _WIN32
 #define SIMPLE_API __declspec(dllexport)
@@ -5319,7 +5320,7 @@ SIMPLE_BLOCK(fltk_fl_button_value_1)
         return ;
     }
     point1 = (Fl_Button*) SIMPLE_API_GETCPOINTER(1,"SMOOTHC_FLTK");
-    SIMPLE_API_RETCPOINTER(point1->value(),"SMOOTHC_FLTK");
+    SIMPLE_API_RETNUMBER(point1->value());
 }
 
 SIMPLE_BLOCK(fltk_fl_button_set)
@@ -6055,15 +6056,15 @@ SIMPLE_BLOCK(fltk_fl_check_button_Fl_Check_Button)
     int num4;
     int num5;
     const char* str6;
-    if ( SIMPLE_API_PARACOUNT != 6 ) {
-        SIMPLE_API_ERROR(SIMPLE_API_MISS6PARA);
+    if ( SIMPLE_API_PARACOUNT != 5 ) {
+        SIMPLE_API_ERROR(SIMPLE_API_MISS5PARA);
         return ;
     }
-    num2 = (int) (int) SIMPLE_API_GETNUMBER(2);
-    num3 = (int) (int) SIMPLE_API_GETNUMBER(3);
-    num4 = (int) (int) SIMPLE_API_GETNUMBER(4);
-    num5 = (int) (int) SIMPLE_API_GETNUMBER(5);
-    str6 = (const char*)  SIMPLE_API_GETSTRING(6);
+    num2 = (int) (int) SIMPLE_API_GETNUMBER(1);
+    num3 = (int) (int) SIMPLE_API_GETNUMBER(2);
+    num4 = (int) (int) SIMPLE_API_GETNUMBER(3);
+    num5 = (int) (int) SIMPLE_API_GETNUMBER(4);
+    str6 = (const char*)  SIMPLE_API_GETSTRING(5);
     SIMPLE_API_RETCPOINTER(new Fl_Check_Button(num2,num3,num4,num5,str6),"SMOOTHC_FLTK");
 }
 
@@ -9893,15 +9894,15 @@ SIMPLE_BLOCK(fltk_fl_file_input_Fl_File_Input)
     int num4;
     int num5;
     const char* str6;
-    if ( SIMPLE_API_PARACOUNT != 6 ) {
-        SIMPLE_API_ERROR(SIMPLE_API_MISS6PARA);
+    if ( SIMPLE_API_PARACOUNT != 5 ) {
+        SIMPLE_API_ERROR(SIMPLE_API_MISS5PARA);
         return ;
     }
-    num2 = (int) (int) SIMPLE_API_GETNUMBER(2);
-    num3 = (int) (int) SIMPLE_API_GETNUMBER(3);
-    num4 = (int) (int) SIMPLE_API_GETNUMBER(4);
-    num5 = (int) (int) SIMPLE_API_GETNUMBER(5);
-    str6 = (const char*)  SIMPLE_API_GETSTRING(6);
+    num2 = (int) (int) SIMPLE_API_GETNUMBER(1);
+    num3 = (int) (int) SIMPLE_API_GETNUMBER(2);
+    num4 = (int) (int) SIMPLE_API_GETNUMBER(3);
+    num5 = (int) (int) SIMPLE_API_GETNUMBER(4);
+    str6 = (const char*)  SIMPLE_API_GETSTRING(5);
     SIMPLE_API_RETCPOINTER(new Fl_File_Input(num2,num3,num4,num5,str6),"SMOOTHC_FLTK");
 }
 
@@ -9926,7 +9927,7 @@ SIMPLE_BLOCK(fltk_fl_file_input_down_box)
         return ;
     }
     point1 = (Fl_File_Input*) SIMPLE_API_GETCPOINTER(1,"SMOOTHC_FLTK");
-    SIMPLE_API_RETCPOINTER(point1->down_box(),"SMOOTHC_FLTK");
+    SIMPLE_API_RETNUMBER(point1->down_box());
 }
 
 SIMPLE_BLOCK(fltk_fl_file_input_down_box_1)
@@ -9950,7 +9951,7 @@ SIMPLE_BLOCK(fltk_fl_file_input_errorcolor)
         return ;
     }
     point1 = (Fl_File_Input*) SIMPLE_API_GETCPOINTER(1,"SMOOTHC_FLTK");
-    SIMPLE_API_RETCPOINTER(point1->errorcolor(),"SMOOTHC_FLTK");
+    SIMPLE_API_RETNUMBER(point1->errorcolor());
 }
 
 SIMPLE_BLOCK(fltk_fl_file_input_errorcolor_1)
@@ -10053,15 +10054,15 @@ SIMPLE_BLOCK(fltk_fl_float_input_Fl_Float_Input)
     int num4;
     int num5;
     const char* str6;
-    if ( SIMPLE_API_PARACOUNT != 6 ) {
-        SIMPLE_API_ERROR(SIMPLE_API_MISS6PARA);
+    if ( SIMPLE_API_PARACOUNT != 5 ) {
+        SIMPLE_API_ERROR(SIMPLE_API_MISS5PARA);
         return ;
     }
-    num2 = (int) (int) SIMPLE_API_GETNUMBER(2);
-    num3 = (int) (int) SIMPLE_API_GETNUMBER(3);
-    num4 = (int) (int) SIMPLE_API_GETNUMBER(4);
-    num5 = (int) (int) SIMPLE_API_GETNUMBER(5);
-    str6 = (const char*)  SIMPLE_API_GETSTRING(6);
+    num2 = (int) (int) SIMPLE_API_GETNUMBER(1);
+    num3 = (int) (int) SIMPLE_API_GETNUMBER(2);
+    num4 = (int) (int) SIMPLE_API_GETNUMBER(3);
+    num5 = (int) (int) SIMPLE_API_GETNUMBER(4);
+    str6 = (const char*)  SIMPLE_API_GETSTRING(5);
     SIMPLE_API_RETCPOINTER(new Fl_Float_Input(num2,num3,num4,num5,str6),"SMOOTHC_FLTK");
 }
 
@@ -12885,7 +12886,7 @@ SIMPLE_BLOCK(fltk_fl_input__readonly)
         return ;
     }
     point1 = (Fl_Input_*) SIMPLE_API_GETCPOINTER(1,"SMOOTHC_FLTK");
-    SIMPLE_API_RETCPOINTER(point1->readonly(),"SMOOTHC_FLTK");
+    SIMPLE_API_RETNUMBER(point1->readonly());
 }
 
 SIMPLE_BLOCK(fltk_fl_input__readonly_1)
@@ -13213,8 +13214,8 @@ SIMPLE_BLOCK(fltk_fl_int_input_Fl_Int_Input)
     int num4;
     int num5;
     const char* str6;
-    if ( SIMPLE_API_PARACOUNT != 6 ) {
-        SIMPLE_API_ERROR(SIMPLE_API_MISS6PARA);
+    if ( SIMPLE_API_PARACOUNT != 5 ) {
+        SIMPLE_API_ERROR(SIMPLE_API_MISS5PARA);
         return ;
     }
     num2 = (int) (int) SIMPLE_API_GETNUMBER(1);
@@ -13273,8 +13274,8 @@ SIMPLE_BLOCK(fltk_fl_light_button_Fl_Light_Button)
     int num4;
     int num5;
     const char* str6;
-    if ( SIMPLE_API_PARACOUNT != 6 ) {
-        SIMPLE_API_ERROR(SIMPLE_API_MISS6PARA);
+    if ( SIMPLE_API_PARACOUNT != 5 ) {
+        SIMPLE_API_ERROR(SIMPLE_API_MISS5PARA);
         return ;
     }
     num2 = (int) (int) SIMPLE_API_GETNUMBER(1);
@@ -13451,8 +13452,9 @@ SIMPLE_BLOCK(fltk_fl_menu__insert)
     int num2;
     const char* str3;
     int num4;
-    Fl_Callback* point5;
-    void* point6;
+    //Fl_Callback* point5;
+    //void* point6;
+    int num6;
     int num7;
     if ( SIMPLE_API_PARACOUNT != 7 ) {
         SIMPLE_API_ERROR(SIMPLE_API_MISS7PARA);
@@ -13462,10 +13464,11 @@ SIMPLE_BLOCK(fltk_fl_menu__insert)
     num2 = (int) (int) SIMPLE_API_GETNUMBER(2);
     str3 = (const char*)  SIMPLE_API_GETSTRING(3);
     num4 = (int) (int) SIMPLE_API_GETNUMBER(4);
-    point5 = (Fl_Callback*) SIMPLE_API_GETCPOINTER(5,"SMOOTHC_FLTK");
-    point6 = (void*) SIMPLE_API_GETCPOINTER(6,"SMOOTHC_FLTK");
+    //point5 = (Fl_Callback*) SIMPLE_API_GETCPOINTER(5,"SMOOTHC_FLTK");
+    //point6 = (void*) SIMPLE_API_GETCPOINTER(6,"SMOOTHC_FLTK");
+    num6 = (int) (int) SIMPLE_API_GETNUMBER(6);
     num7 = (int) (int) SIMPLE_API_GETNUMBER(7);
-    SIMPLE_API_RETNUMBER(point1->insert(num2,str3,num4,point5,point6,num7));
+    SIMPLE_API_RETNUMBER(point1->insert(num2,str3,num4,SimpleMenuCallBack,(void*)num6,num7));
 }
 
 SIMPLE_BLOCK(fltk_fl_menu__add)
@@ -13473,8 +13476,9 @@ SIMPLE_BLOCK(fltk_fl_menu__add)
     Fl_Menu_* point1;
     const char* str2;
     int num3;
-    Fl_Callback* point4;
-    void* point5;
+    //Fl_Callback* point4;
+    //void* point5;
+    int num5;
     int num6;
     if ( SIMPLE_API_PARACOUNT != 6 ) {
         SIMPLE_API_ERROR(SIMPLE_API_MISS6PARA);
@@ -13483,10 +13487,11 @@ SIMPLE_BLOCK(fltk_fl_menu__add)
     point1 = (Fl_Menu_*) SIMPLE_API_GETCPOINTER(1,"SMOOTHC_FLTK");
     str2 = (const char*)  SIMPLE_API_GETSTRING(2);
     num3 = (int) (int) SIMPLE_API_GETNUMBER(3);
-    point4 = (Fl_Callback*) SIMPLE_API_GETCPOINTER(4,"SMOOTHC_FLTK");
-    point5 = (void*) SIMPLE_API_GETCPOINTER(5,"SMOOTHC_FLTK");
+    //point4 = (Fl_Callback*) SIMPLE_API_GETCPOINTER(4,"SMOOTHC_FLTK");
+    //point5 = (void*) SIMPLE_API_GETCPOINTER(5,"SMOOTHC_FLTK");
+    num5 = (int) (int) SIMPLE_API_GETNUMBER(5);
     num6 = (int) (int) SIMPLE_API_GETNUMBER(6);
-    SIMPLE_API_RETNUMBER(point1->add(str2,num3,point4,point5,num6));
+    SIMPLE_API_RETNUMBER(point1->add(str2,num3,SimpleMenuCallBack,(void*)num5,num6));
 }
 
 SIMPLE_BLOCK(fltk_fl_menu__add_1)
@@ -13494,8 +13499,9 @@ SIMPLE_BLOCK(fltk_fl_menu__add_1)
     Fl_Menu_* point1;
     const char* str2;
     const char* str3;
-    Fl_Callback* point4;
-    void* point5;
+    //Fl_Callback* point4;
+    //void* point5;
+    int num5;
     int num6;
     if ( SIMPLE_API_PARACOUNT != 6 ) {
         SIMPLE_API_ERROR(SIMPLE_API_MISS6PARA);
@@ -13504,10 +13510,11 @@ SIMPLE_BLOCK(fltk_fl_menu__add_1)
     point1 = (Fl_Menu_*) SIMPLE_API_GETCPOINTER(1,"SMOOTHC_FLTK");
     str2 = (const char*)  SIMPLE_API_GETSTRING(2);
     str3 = (const char*)  SIMPLE_API_GETSTRING(3);
-    point4 = (Fl_Callback*) SIMPLE_API_GETCPOINTER(4,"SMOOTHC_FLTK");
-    point5 = (void*) SIMPLE_API_GETCPOINTER(5,"SMOOTHC_FLTK");
+    //point4 = (Fl_Callback*) SIMPLE_API_GETCPOINTER(4,"SMOOTHC_FLTK");
+    //point5 = (void*) SIMPLE_API_GETCPOINTER(5,"SMOOTHC_FLTK");
+    num5 = (int) (int) SIMPLE_API_GETNUMBER(5);
     num6 = (int) (int) SIMPLE_API_GETNUMBER(6);
-    SIMPLE_API_RETNUMBER(point1->add(str2,str3,point4,point5,num6));
+    SIMPLE_API_RETNUMBER(point1->add(str2,str3,SimpleMenuCallBack,(void*)num5,num6));
 }
 
 SIMPLE_BLOCK(fltk_fl_menu__insert_1)
@@ -13664,7 +13671,7 @@ SIMPLE_BLOCK(fltk_fl_menu__mode_1)
     }
     point1 = (Fl_Menu_*) SIMPLE_API_GETCPOINTER(1,"SMOOTHC_FLTK");
     num2 = (int) (int) SIMPLE_API_GETNUMBER(2);
-    SIMPLE_API_RETCPOINTER(point1->mode(num2),"SMOOTHC_FLTK");
+    SIMPLE_API_RETNUMBER(point1->mode(num2));
 }
 
 SIMPLE_BLOCK(fltk_fl_menu__mvalue)
@@ -13747,7 +13754,7 @@ SIMPLE_BLOCK(fltk_fl_menu__textfont)
         return ;
     }
     point1 = (Fl_Menu_*) SIMPLE_API_GETCPOINTER(1,"SMOOTHC_FLTK");
-    SIMPLE_API_RETCPOINTER(point1->textfont(),"SMOOTHC_FLTK");
+    SIMPLE_API_RETNUMBER(point1->textfont());
 }
 
 SIMPLE_BLOCK(fltk_fl_menu__textfont_1)
@@ -13771,7 +13778,7 @@ SIMPLE_BLOCK(fltk_fl_menu__textsize)
         return ;
     }
     point1 = (Fl_Menu_*) SIMPLE_API_GETCPOINTER(1,"SMOOTHC_FLTK");
-    SIMPLE_API_RETCPOINTER(point1->textsize(),"SMOOTHC_FLTK");
+    SIMPLE_API_RETNUMBER(point1->textsize());
 }
 
 SIMPLE_BLOCK(fltk_fl_menu__textsize_1)
@@ -13795,7 +13802,7 @@ SIMPLE_BLOCK(fltk_fl_menu__textcolor)
         return ;
     }
     point1 = (Fl_Menu_*) SIMPLE_API_GETCPOINTER(1,"SMOOTHC_FLTK");
-    SIMPLE_API_RETCPOINTER(point1->textcolor(),"SMOOTHC_FLTK");
+    SIMPLE_API_RETNUMBER(point1->textcolor());
 }
 
 SIMPLE_BLOCK(fltk_fl_menu__textcolor_1)
@@ -13843,7 +13850,7 @@ SIMPLE_BLOCK(fltk_fl_menu__down_color)
         return ;
     }
     point1 = (Fl_Menu_*) SIMPLE_API_GETCPOINTER(1,"SMOOTHC_FLTK");
-    SIMPLE_API_RETCPOINTER(point1->down_color(),"SMOOTHC_FLTK");
+    SIMPLE_API_RETNUMBER(point1->down_color());
 }
 
 SIMPLE_BLOCK(fltk_fl_menu__down_color_1)
@@ -13893,8 +13900,8 @@ SIMPLE_BLOCK(fltk_fl_menu_bar_Fl_Menu_Bar)
     int num4;
     int num5;
     const char* str6;
-    if ( SIMPLE_API_PARACOUNT != 6 ) {
-        SIMPLE_API_ERROR(SIMPLE_API_MISS6PARA);
+    if ( SIMPLE_API_PARACOUNT != 5 ) {
+        SIMPLE_API_ERROR(SIMPLE_API_MISS5PARA);
         return ;
     }
     num2 = (int) (int) SIMPLE_API_GETNUMBER(1);
@@ -13967,8 +13974,8 @@ SIMPLE_BLOCK(fltk_fl_menu_button_Fl_Menu_Button)
     int num4;
     int num5;
     const char* str6;
-    if ( SIMPLE_API_PARACOUNT != 6 ) {
-        SIMPLE_API_ERROR(SIMPLE_API_MISS6PARA);
+    if ( SIMPLE_API_PARACOUNT != 5 ) {
+        SIMPLE_API_ERROR(SIMPLE_API_MISS5PARA);
         return ;
     }
     num2 = (int) (int) SIMPLE_API_GETNUMBER(1);
@@ -14155,8 +14162,8 @@ SIMPLE_BLOCK(fltk_fl_multiline_input_Fl_Multiline_Input)
     int num4;
     int num5;
     const char* str6;
-    if ( SIMPLE_API_PARACOUNT != 6 ) {
-        SIMPLE_API_ERROR(SIMPLE_API_MISS6PARA);
+    if ( SIMPLE_API_PARACOUNT != 5 ) {
+        SIMPLE_API_ERROR(SIMPLE_API_MISS5PARA);
         return ;
     }
     num2 = (int) (int) SIMPLE_API_GETNUMBER(1);
@@ -14175,8 +14182,8 @@ SIMPLE_BLOCK(fltk_fl_multiline_output_Fl_Multiline_Output)
     int num4;
     int num5;
     const char* str6;
-    if ( SIMPLE_API_PARACOUNT != 6 ) {
-        SIMPLE_API_ERROR(SIMPLE_API_MISS6PARA);
+    if ( SIMPLE_API_PARACOUNT != 5 ) {
+        SIMPLE_API_ERROR(SIMPLE_API_MISS5PARA);
         return ;
     }
     num2 = (int) (int) SIMPLE_API_GETNUMBER(1);
@@ -14540,8 +14547,8 @@ SIMPLE_BLOCK(fltk_fl_output_Fl_Output)
     int num4;
     int num5;
     const char* str6;
-    if ( SIMPLE_API_PARACOUNT != 6 ) {
-        SIMPLE_API_ERROR(SIMPLE_API_MISS6PARA);
+    if ( SIMPLE_API_PARACOUNT != 5 ) {
+        SIMPLE_API_ERROR(SIMPLE_API_MISS5PARA);
         return ;
     }
     num2 = (int) (int) SIMPLE_API_GETNUMBER(1);
@@ -15737,8 +15744,8 @@ SIMPLE_BLOCK(fltk_fl_radio_button_Fl_Radio_Button)
     int num4;
     int num5;
     const char* str6;
-    if ( SIMPLE_API_PARACOUNT != 6 ) {
-        SIMPLE_API_ERROR(SIMPLE_API_MISS6PARA);
+    if ( SIMPLE_API_PARACOUNT != 5 ) {
+        SIMPLE_API_ERROR(SIMPLE_API_MISS5PARA);
         return ;
     }
     num2 = (int) (int) SIMPLE_API_GETNUMBER(1);
@@ -15757,8 +15764,8 @@ SIMPLE_BLOCK(fltk_fl_radio_light_button_Fl_Radio_Light_Button)
     int num4;
     int num5;
     const char* str6;
-    if ( SIMPLE_API_PARACOUNT != 6 ) {
-        SIMPLE_API_ERROR(SIMPLE_API_MISS6PARA);
+    if ( SIMPLE_API_PARACOUNT != 5 ) {
+        SIMPLE_API_ERROR(SIMPLE_API_MISS5PARA);
         return ;
     }
     num2 = (int) (int) SIMPLE_API_GETNUMBER(1);
@@ -15777,8 +15784,8 @@ SIMPLE_BLOCK(fltk_fl_radio_round_button_Fl_Radio_Round_Button)
     int num4;
     int num5;
     const char* str6;
-    if ( SIMPLE_API_PARACOUNT != 6 ) {
-        SIMPLE_API_ERROR(SIMPLE_API_MISS6PARA);
+    if ( SIMPLE_API_PARACOUNT != 5 ) {
+        SIMPLE_API_ERROR(SIMPLE_API_MISS5PARA);
         return ;
     }
     num2 = (int) (int) SIMPLE_API_GETNUMBER(1);
@@ -15810,8 +15817,8 @@ SIMPLE_BLOCK(fltk_fl_repeat_button_Fl_Repeat_Button)
     int num4;
     int num5;
     const char* str6;
-    if ( SIMPLE_API_PARACOUNT != 6 ) {
-        SIMPLE_API_ERROR(SIMPLE_API_MISS6PARA);
+    if ( SIMPLE_API_PARACOUNT != 5 ) {
+        SIMPLE_API_ERROR(SIMPLE_API_MISS5PARA);
         return ;
     }
     num2 = (int) (int) SIMPLE_API_GETNUMBER(1);
@@ -15854,8 +15861,8 @@ SIMPLE_BLOCK(fltk_fl_return_button_Fl_Return_Button)
     int num4;
     int num5;
     const char* str6;
-    if ( SIMPLE_API_PARACOUNT != 6 ) {
-        SIMPLE_API_ERROR(SIMPLE_API_MISS6PARA);
+    if ( SIMPLE_API_PARACOUNT != 5 ) {
+        SIMPLE_API_ERROR(SIMPLE_API_MISS5PARA);
         return ;
     }
     num2 = (int) (int) SIMPLE_API_GETNUMBER(1);
@@ -15907,8 +15914,8 @@ SIMPLE_BLOCK(fltk_fl_round_button_Fl_Round_Button)
     int num4;
     int num5;
     const char* str6;
-    if ( SIMPLE_API_PARACOUNT != 6 ) {
-        SIMPLE_API_ERROR(SIMPLE_API_MISS6PARA);
+    if ( SIMPLE_API_PARACOUNT != 5 ) {
+        SIMPLE_API_ERROR(SIMPLE_API_MISS5PARA);
         return ;
     }
     num2 = (int) (int) SIMPLE_API_GETNUMBER(1);
@@ -16197,8 +16204,8 @@ SIMPLE_BLOCK(fltk_fl_secret_input_Fl_Secret_Input)
     int num4;
     int num5;
     const char* str6;
-    if ( SIMPLE_API_PARACOUNT != 6 ) {
-        SIMPLE_API_ERROR(SIMPLE_API_MISS6PARA);
+    if ( SIMPLE_API_PARACOUNT != 5 ) {
+        SIMPLE_API_ERROR(SIMPLE_API_MISS5PARA);
         return ;
     }
     num2 = (int) (int) SIMPLE_API_GETNUMBER(1);
@@ -20326,8 +20333,8 @@ SIMPLE_BLOCK(fltk_fl_toggle_button_Fl_Toggle_Button)
     int num4;
     int num5;
     const char* str6;
-    if ( SIMPLE_API_PARACOUNT != 6 ) {
-        SIMPLE_API_ERROR(SIMPLE_API_MISS6PARA);
+    if ( SIMPLE_API_PARACOUNT != 5 ) {
+        SIMPLE_API_ERROR(SIMPLE_API_MISS5PARA);
         return ;
     }
     num2 = (int) (int) SIMPLE_API_GETNUMBER(1);
@@ -25458,7 +25465,7 @@ SIMPLE_BLOCK(fltk_fl_widget_type)
         return ;
     }
     point1 = (Fl_Widget*) SIMPLE_API_GETCPOINTER(1,"SMOOTHC_FLTK");
-    SIMPLE_API_RETCPOINTER(point1->type(),"SMOOTHC_FLTK");
+    SIMPLE_API_RETNUMBER(point1->type());
 }
 
 SIMPLE_BLOCK(fltk_fl_widget_type_1)
@@ -25995,16 +26002,14 @@ SIMPLE_BLOCK(fltk_fl_widget_callback)
 SIMPLE_BLOCK(fltk_fl_widget_callback_on_onlick)
 {
     Fl_Widget* point1;
-    CallbackStruct *point2 ;
-    String * str3 ;
+    int int2 ;
     if ( SIMPLE_API_PARACOUNT != 2 ) {
         SIMPLE_API_ERROR(SIMPLE_API_MISS2PARA);
         return ;
     }
     point1 = (Fl_Widget*) SIMPLE_API_GETCPOINTER(1,"SMOOTHC_FLTK");
-    str3 = simple_string_new_gc(((VM *) pointer)->sState,SIMPLE_API_GETSTRING(2));
-    point2 = new CallbackStruct(pointer, str3, point1);
-    point1->callback(SimpleCallBack,point2);
+    int2 = (int) SIMPLE_API_GETNUMBER(2);
+    point1->callback(SimpleCallBack,(void*)int2);
 }
 
 SIMPLE_BLOCK(fltk_fl_widget_callback_1)
@@ -26624,6 +26629,7 @@ SIMPLE_BLOCK(fltk_fl_widget_draw_label)
     point1->draw_label(num2,num3,num4,num5,point6);
 }
 
+//TODO : return calculated width and height in list
 SIMPLE_BLOCK(fltk_fl_widget_measure_label)
 {
     Fl_Widget* point1;
@@ -29438,8 +29444,8 @@ SIMPLE_API void init_full_tick(SimpleState *sState)
     register_block("__Fl_Scrollbar_linesize_1",fltk_fl_scrollbar_linesize_1);
     /* Fl_Secret_Input */
     register_block("__Fl_Secret_Input",fltk_fl_secret_input_Fl_Secret_Input);
-    /* Fl_Secret_Input */
     register_block("__Fl_Secret_Input_handle_2",fltk_fl_secret_input_handle_2);
+    /* Fl_Select_Browser */
     register_block("__Fl_Select_Browser",fltk_fl_select_browser_Fl_Select_Browser);
     /* Fl_Shared_Image */
     register_block("__Fl_Shared_Image_name",fltk_fl_shared_image_name);

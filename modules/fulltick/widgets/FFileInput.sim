@@ -1,0 +1,313 @@
+
+/*
+
+*/
+call simple.core.Object
+call fulltick.base/FWidget
+call fulltick.painting.FColor
+call fulltick.drawing.FAlignment
+call fulltick.drawing.FFont
+call fulltick.drawing.FBoxType
+call fulltick.widgets.FInput_
+
+/*
+
+*/
+module fulltick.widgets
+
+/*
+
+*/
+class FFileInput : FInput_
+
+    /*
+
+    */
+    Width = FApp.Scheme.getShemeValue("FFileInput.Width") 
+
+    /*
+
+    */
+    Height = FApp.Scheme.getShemeValue("FFileInput.Height") 
+
+    /*
+
+    */
+    X = FApp.Scheme.getShemeValue("FFileInput.X") 
+
+    /*
+
+    */
+    Y = FApp.Scheme.getShemeValue("FFileInput.Y") 
+
+    /*
+
+    */
+    Label = FApp.Scheme.getShemeValue("FFileInput.Label") 
+
+    /*
+
+    */
+    CapitalizeLabel = FApp.Scheme.getShemeValue("FFileInput.CapitalizeLabel") 
+
+    /*
+
+    */
+    Background = FApp.Scheme.getShemeValue("FFileInput.Background") 
+
+    /*
+
+    */
+    LabelAlignment = FApp.Scheme.getShemeValue("FFileInput.LabelAlignment") 
+
+    /*
+
+    */
+    Box = FApp.Scheme.getShemeValue("FFileInput.Box") 
+
+    /*
+
+    */
+    Border = FApp.Scheme.getShemeValue("FFileInput.Border") 
+
+    /*
+
+    */
+    HasBorder = FApp.Scheme.getShemeValue("FFileInput.HasBorder") 
+
+    /*
+
+    */
+    AcceptInput = FApp.Scheme.getShemeValue("FFileInput.AcceptInput")
+
+    /*
+
+    */
+    Visible = FApp.Scheme.getShemeValue("FFileInput.Visible") 
+
+    /*
+
+    */
+    KeyboardFocusable = FApp.Scheme.getShemeValue("FFileInput.KeyboardFocusable") 
+
+    /*
+
+    */
+    Tooltip = FApp.Scheme.getShemeValue("FFileInput.Tooltip") 
+
+    /*
+
+    */
+    LabelColor = FApp.Scheme.getShemeValue("FFileInput.LabelColor") 
+
+    /*
+
+    */
+    LabelFont = FApp.Scheme.getShemeValue("FFileInput.LabelFont") 
+
+    /*
+
+    */
+    LabelSize = FApp.Scheme.getShemeValue("FFileInput.LabelSize")
+
+    /*
+
+    */
+    LabelType = FApp.Scheme.getShemeValue("FFileInput.LabelType")
+
+    /*
+
+    */
+    SelectionColor = FApp.Scheme.getShemeValue("FFileInput.SelectionColor")
+
+    /*
+
+    */
+    Text = null
+
+    /*
+
+    */
+    Value = FApp.Scheme.getShemeValue("FFileInput.Value")
+
+    /*
+
+    */
+    CursorColor = FApp.Scheme.getShemeValue("FFileInput.CursorColor")
+
+    /*
+
+    */
+    Mark = FApp.Scheme.getShemeValue("FFileInput.Mark")
+
+    /*
+
+    */
+    MaximumSize = FApp.Scheme.getShemeValue("FFileInput.MaximumSize")
+	
+	/*
+	
+	*/
+	CaretPosition = FApp.Scheme.getShemeValue("FFileInput.CaretPosition")
+	
+	/*
+	
+	*/
+	ReadOnly = FApp.Scheme.getShemeValue("FFileInput.ReadOnly")
+
+    /*
+
+    */
+    Shortcut = FApp.Scheme.getShemeValue("FFileInput.Shortcut")
+
+    /*
+
+    */
+    TabNav = FApp.Scheme.getShemeValue("FFileInput.TabNav")
+
+    /*
+
+    */
+    Wrap = FApp.Scheme.getShemeValue("FFileInput.Wrap")
+
+    /*
+
+    */
+    TextColor = FApp.Scheme.getShemeValue("FFileInput.TextColor") 
+
+    /*
+
+    */
+    TextFont = FApp.Scheme.getShemeValue("FFileInput.TextFont") 
+
+    /*
+
+    */
+    TextSize = FApp.Scheme.getShemeValue("FFileInput.TextSize")
+	
+	/*
+	
+	*/
+	DownBox = FApp.Scheme.getShemeValue("FFileInput.DownBox")
+	
+	/*
+	
+	*/
+	ErrorColor = FApp.Scheme.getShemeValue("FFileInput.ErrorColor")
+
+    /*
+
+    */
+    block FFileInput(params...)
+        paramsLen = lengthOf(params)
+        if paramsLen == 1 {
+            Value = params[0]
+            if !isString(Value) {
+                throw(self,"Invalid parameter Expecting 'string' as FFileInput Value")
+            }
+        elif paramsLen == 2
+            X = params[0]
+            Y = params[1]
+            if !isNumber(X) or !isNumber(Y) {
+                throw(self,"Invalid parameter Expecting 'number' as FFileInput X and Y")
+            }
+        elif paramsLen == 3 
+            X = params[0]
+            Y = params[1]
+            Value = params[2]
+            if !isNumber(X) or !isNumber(Y) {
+                throw(self,"Invalid parameter Expecting 'number' as FFileInput X and Y")
+            }
+            if !isString(Value) {
+                throw(self,"Invalid parameter Expecting 'string' as FFileInput Value")
+            }
+        elif paramsLen == 4
+            X = params[0]
+            Y = params[1]
+            Width = params[2]
+            Height = params[3]
+            if !isNumber(X) or !isNumber(Y) {
+                throw(self,"Invalid parameter Expecting 'number' as FFileInput X and Y")
+            }
+            if !isNumber(Width) or !isNumber(Height) {
+                throw(self,"Invalid parameter Expecting 'number' as FFileInput Width and Height")
+            }
+        elif paramsLen == 5
+            X = params[0]
+            Y = params[1]
+            Width = params[2]
+            Height = params[3]
+            Value = params[4]
+            if !isNumber(X) or !isNumber(Y) {
+                throw(self,"Invalid parameter Expecting 'number' as FFileInput X and Y")
+            }
+            if !isNumber(Width) or !isNumber(Height) {
+                throw(self,"Invalid parameter Expecting 'number' as FFileInput Width and Height")
+            }
+            if !isString(Value) {
+                throw(self,"Invalid parameter Expecting 'string' as FFileInput Value")
+            }
+        else    
+            if paramsLen != 0 {
+                throw(self,"Calling block with invalid legth of parameter")
+            }
+        } 
+        Ptr = __Fl_File_Input(X, Y, Width, Height, "") 
+        registerWidget()
+        setBox(Box)
+        setBorder(Border)
+        construct()
+		setDownBox(DownBox)
+		setErrorColor(ErrorColor)
+        
+        return self
+
+    /*
+
+    */
+    block setDownBox(/*FBoxType|number*/ value) 
+        validatePointer()
+        if isNumber(value) {
+			__Fl_File_Input_down_box_1(Ptr,value)
+			DownBox = new FBoxType(value)
+		else
+			__Fl_File_Input_down_box_1(Ptr,value.BoxType) 
+			if !isNull(value.BoxColor) { 
+				setBaseColor(value.BoxColor)
+			}
+			DownBox = value
+		}
+
+    /*
+
+    */
+    block getDownBox()
+        return DownBox
+		
+	/*
+
+    */
+    block setErrorColor(/*FColor|number|string*/ value)
+        validatePointer()
+		if isNumber(value) or isString(value) {
+			__Fl_File_Input_errorcolor_1(Ptr,value)
+			value = new FColor(value) 
+		else
+			__Fl_File_Input_errorcolor_1(Ptr,value.colorAsNumber())
+		}
+		ErrorColor = value
+        
+
+    /*
+
+    */
+    block getErrorColor()
+        return ErrorColor
+
+    /*
+
+    */
+    private 
+    
+        
+

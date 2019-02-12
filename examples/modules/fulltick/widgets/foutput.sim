@@ -1,0 +1,29 @@
+
+/*
+
+*/
+call fulltick.FApp
+call fulltick.widgets.FWindow
+call fulltick.widgets.FOutput
+call fulltick.events.FCallbackEvent
+import simple.core
+import simple.system
+import fulltick.base
+import fulltick.widgets
+import fulltick.painting
+import fulltick.objects
+import fulltick.drawing
+
+flabelDemo = new FOutputDemo
+FApp.run()
+
+class FOutputDemo
+
+    fwindow = new FWindow(320,50,"FOutput Demo") { 
+		input = new FOutput(10,10,strCopy("Hello World", 20))
+        centerOnScreen() 
+        Resizable = false
+        add(input)
+        show()        
+    } 
+        

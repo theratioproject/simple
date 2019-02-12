@@ -398,7 +398,8 @@ void simple_exefolder ( char *cDirPath )
 	strcpy(cDirPath,cDir2);
 }
 
-void simple_distro_folder(char *dirPath) {
+void simple_distro_folder(char *dirPath) 
+{
         char cDir[SIMPLE_PATHSIZE]  ;
 	char cDir2[SIMPLE_PATHSIZE]  ;
 	int x,x2,nSize  ;

@@ -145,23 +145,23 @@ class FGroup : FWidget
         if paramsLen == 1 {
             Label = params[0]
             if !isString(Label) {
-                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'string' as FGroup Label")
+                throw(self,"Invalid parameter Expecting 'string' as FGroup Label")
             }
         elif paramsLen == 2
             Width = params[0]
             Height = params[1]
             if !isNumber(Width) or !isNumber(Height) {
-                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FGroup Width and Height")
+                throw(self,"Invalid parameter Expecting 'number' as FGroup Width and Height")
             }
         elif paramsLen == 3 
             Width = params[0]
             Height = params[1]
             Label = params[2]
             if !isNumber(Width) or !isNumber(Height) {
-                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FGroup Width and Height")
+                throw(self,"Invalid parameter Expecting 'number' as FGroup Width and Height")
             }
             if !isString(Label) {
-                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'string' as FGroup Label")
+                throw(self,"Invalid parameter Expecting 'string' as FGroup Label")
             }
         elif paramsLen == 4
             X = params[0]
@@ -169,10 +169,10 @@ class FGroup : FWidget
             Width = params[2]
             Height = params[3]
             if !isNumber(X) or !isNumber(Y) {
-                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FGroup X and Y")
+                throw(self,"Invalid parameter Expecting 'number' as FGroup X and Y")
             }
             if !isNumber(Width) or !isNumber(Height) {
-                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FGroup Width and Height")
+                throw(self,"Invalid parameter Expecting 'number' as FGroup Width and Height")
             }
         elif paramsLen == 5
             X = params[0]
@@ -181,17 +181,17 @@ class FGroup : FWidget
             Height = params[3]
             Label = params[4]
             if !isNumber(X) or !isNumber(Y) {
-                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FGroup X and Y")
+                throw(self,"Invalid parameter Expecting 'number' as FGroup X and Y")
             }
             if !isNumber(Width) or !isNumber(Height) {
-                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FGroup Width and Height")
+                throw(self,"Invalid parameter Expecting 'number' as FGroup Width and Height")
             }
             if !isString(Label) {
-                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'string' as FGroup Label")
+                throw(self,"Invalid parameter Expecting 'string' as FGroup Label")
             }
         else    
             if paramsLen != 0 {
-                throw(self,SIMPLE_VM_ERROR_EXTRAPARAMETERSCOUNT)
+                throw(self,"Calling block with invalid legth of parameter")
             }
         } 
         Ptr = __Fl_Group_1(X,Y,Width,Height,Label) 
@@ -205,63 +205,42 @@ class FGroup : FWidget
     /*
 
     */#move adaptive to layout completely
-    block add(widgets...)
+    block add(FWidget widgets...)
         validatePointer()  
         x = 0
         y = 0
         for widget in widgets { 
-            if isObject(widget) and __instance_of(widget,"FWidget") {
-                widget.validatePointer() 
-                FApp.CreatedWidgets[widget.PtrIndex].Parent = self 
-                if widget.hasBorder() {
-                    __Fl_Group_add(Ptr,widget.BorderBox.Ptr)
-                else
-                    __Fl_Group_add(Ptr,widget.Ptr)
-                }
-                addChildWidget(widget) 
-                FApp.CreatedWidgets[widget.PtrIndex].resolvePendingOps()
-                if AdaptiveSize {
-                    
-                    if x < widget.X {
-                        x += widget.X
-                        Width += widget.Width
-                        #widget.X -= widget.X #when ref passed
-                    else 
-                    }
-                    if y < widget.Y {
-                        y += widget.Height  
-                        Height += widget.Height 
-                        #widget.Y -= widget.Y #when ref passed
-                    else y = 0 #remove when ref passed
-                    }
-                } 
-                if widget.__Name != "WindowActionBar" and Name == "FWindow" and isAndroid() and FScheme.UsePlatformUI  {
-                    widget.setY(widget.Y + ActionBarSize + 10)
-                } 
-            else
-                throw(self,FULLTICK_INVALID_PARAMETER+" You can only add an instance of 'FWidget' ")
-            }            
+            widget.validatePointer() 
+			#__fltk_created_widgets[widget.PtrIndex].Parent = self #currently slowing callback #TODO : revisit
+			if widget.hasBorder() {
+				__Fl_Group_add(Ptr,widget.BorderBox.Ptr)
+			else
+				__Fl_Group_add(Ptr,widget.Ptr)
+			}
+			addChildWidget(__fltk_created_widgets[widget.PtrIndex]) 
+			__fltk_created_widgets[widget.PtrIndex].Parent = self
+			__fltk_created_widgets[widget.PtrIndex].resolvePendingOps()
+			if AdaptiveSize {
+				
+				if x < widget.X {
+					x += widget.X
+					Width += widget.Width
+					#widget.X -= widget.X #when ref passed
+				else 
+				}
+				if y < widget.Y {
+					y += widget.Height  
+					Height += widget.Height 
+					#widget.Y -= widget.Y #when ref passed
+				else y = 0 #remove when ref passed
+				}
+			} 
+			if widget.__Name != "WindowActionBar" and Name == "FWindow" and isAndroid() and FScheme.UsePlatformUI  {
+				widget.setY(widget.Y + ActionBarSize + 10)
+			}            
         }
         if AdaptiveSize { 
             resize(0,0,Width+100,Height)
-        }
-
-    /*
-
-    */
-    block addResizable(widgets...)
-        validatePointer()
-        for widget in widgets {
-            if isObject(widget) and __instance_of(widget,"FWidget") {
-                widget.validatePointer()
-                widget.Parent = self
-                __Fl_Group_add(Ptr,widget.Ptr) 
-                widget.Resizable = true
-                addChildWidget(widget) 
-                widget.resolvePendingOps()
-            else
-                throw(self,FULLTICK_INVALID_PARAMETER+" You can only add an instance of 'FWidget' ")
-            }            
         }
 
     /*
@@ -383,7 +362,7 @@ class FGroup : FWidget
             __Fl_Group_remove(Ptr,object.Ptr)
             removeChildWidget(AddedWidgets[object]) 
         else
-            throw(self,FULLTICK_INVALID_PARAMETER+" Expecting an instance of FWidget or Number")
+            throw(self,"Invalid parameter. Expecting an instance of FWidget or Number")
         }
 
     /*
@@ -402,7 +381,7 @@ class FGroup : FWidget
         elif isNumber(condition) and (condition == true or condition == false)
             
         else
-            throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'boolean' 'true' or 'false' as FGroup Resizable value")
+            throw(self,"Invalid parameter. Expecting 'boolean' 'true' or 'false' as FGroup Resizable value")
         }        
 
         Resizable = condition 
@@ -420,14 +399,14 @@ class FGroup : FWidget
         validatePointer()
         paramsLen = lengthOf(params)
         if paramsLen == 0 {
-            throw(self,FULLTICK_FGROUP_UNSAFE_METHOD+". Add child widget to self widget using the 'addWidget(...)' method instead")
+            throw(self,"Unsafe method. Add child widget to self widget using the 'add(...)' method instead")
         elif paramsLen == 1
             condition = params[0]
             if condition {
                 __Fl_Group_begin(Ptr)
             }
         else
-            throw(self,SIMPLE_VM_ERROR_EXTRAPARAMETERSCOUNT)
+            throw(self,"Calling block with invalid legth of parameter")
         }
 
     /*
@@ -572,7 +551,7 @@ class FGroup : FWidget
         if instanceOf(widget,"FWidget") {
             OnlyChild = widget
         else
-            throw(self,FULLTICK_INVALID_PARAMETER + ". Expecting (fulltick.base.Widget), found (" + objectType(widget) + ")")
+            throw(self,"Invalid parameter. Expecting (fulltick.base.Widget), found (" + objectType(widget) + ")")
         }
 
     /*

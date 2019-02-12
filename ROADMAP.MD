@@ -114,9 +114,15 @@ issue related to the module
 - [ ] add makefile for building fulltick on windows
 - [ ] create the input output (io) module which include File, Path, Directory, PathAttribute, PathType, FileStream
 - [ ] create all high level data types [working issue](https://github.com/simple-lang/simple/issues/15)
-- [ ] init functional console module to simplify working with command line and terminal 
+- [x] init functional console module to simplify working with command line and terminal 
+- [ ] resolve the string lib to accurately unescape characters
 - [x] building a better debugging module [working issue](https://github.com/simple-lang/simple/issues/17)
 - [ ] develop the complete functional GUI module (fulltick) using the fltk c++ library
+	- [ ] call and execute events natively
+	- [x] cutomize widget to look native 
+	- [ ] remove validatePointer() block after contructor has been enforced in VM
+	- [ ] add custom event listener to FMenuItem such as Inactive, Removal, Add e.t.c 
+	- [ ] export Fl_Menu_Item.H struct 
 - [ ] port qt library to simple-lang for a higher GUI module 
 - [ ] create database module for simple-lang which includes mysql, sqlite, odbc and access
 	- [ ] build the mysql database module

@@ -4,7 +4,8 @@
 call fulltick.FApp
 call fulltick.widgets.FWindow
 call fulltick.widgets.FButton
-call fulltick.widgets.FInput
+call fulltick.widgets.FMultilineInput
+call fulltick.widgets.FMultilineOutput
 call fulltick.events.FCallbackEvent
 import simple.core
 import simple.system
@@ -13,20 +14,26 @@ import fulltick.painting
 import fulltick.objects
 import fulltick.drawing
 
+b4 = __clock()
 block main()
 	new SimpleRepl
+	ba = __clock()
+	@(ba - b4)/__clock_per_second()
 	FApp.run()
 	
 class SimpleRepl : FCallbackEvent
 
-	fwindow = new FWindow("simplereplw") {
-		begin(true)
-		finput = new FInput(10,10,"Android")
-        new FButton("Execute") {
-            setCallbackListener(self)
-            setPosition(finput.Width + finput.X + 10, 10)
-        }
-		endBegin()
+	fwindow = new FWindow(600,500,"simplereplw") {
+		input = new FMultilineInput(10,10,Width-20,100,"") {
+			Resizable = true
+		}
+		execButton = new FButton(10,120,"Execute") {
+			
+		}
+		output = new FMultilineOutput(10,160,Width-20,100,"") {
+			Resizable = true
+		}
+		add(input, execButton, output)
 		show()
 	}
 

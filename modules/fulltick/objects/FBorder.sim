@@ -5,7 +5,9 @@
 call fulltick.base.FWidget
 call fulltick.painting.FColor
 call fulltick.drawing.FBoxType
-import simple.core, simple.system, fulltick.painting
+import simple.core
+import simple.system
+import fulltick.painting
 
 /*
 
@@ -102,7 +104,7 @@ class FBorder : Object
             __value = value
             Color = new FColor(__value) 
         else
-            throw(self,FULLTICK_INVALID_PARAMETER + ". Expecting innstance of 'Fcolor', 'Color', 'number' or 'string' as FBorder Color value. Found (" + objectType(value) + ")")
+            throw(self,"Invalid parameter. Expecting innstance of 'Fcolor', 'Color', 'number' or 'string' as FBorder Color value. Found (" + objectType(value) + ")")
         }
         if !isNull(Component) {
             __Fl_Widget_color_1(Component.Ptr,Color.colorAsNumber())
@@ -132,7 +134,7 @@ class FBorder : Object
                 BoxType = value
             }
         else
-            throw(self,FULLTICK_INVALID_PARAMETER + ". Expecting (Number|simple.drawing.FBoxType), Found (" + objectType(value) + ")")
+            throw(self,"Invalid parameter. Expecting (Number|simple.drawing.FBoxType), Found (" + objectType(value) + ")")
         }
         if !isNull(Component) {
             __Fl_Widget_box_1(Component.Ptr,BoxType.BoxType)

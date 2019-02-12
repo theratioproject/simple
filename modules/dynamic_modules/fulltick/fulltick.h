@@ -158,14 +158,10 @@ class CallbackStruct
 public:
 	static void *_sState;
 	static bool ret_evt_to_fl;
-	void *pointer;
-  String *block;
-  Fl_Widget *widget;
-  CallbackStruct( void *the_pointer, String *the_block, Fl_Widget *the_widget);
-  //virtual int simple_Fl_Event_Dispatch(int event, Fl_Window *window);
 
 };
 
-static void SimpleCallBack(Fl_Widget*, void* callback_struct) ;
+static void SimpleCallBack(Fl_Widget*, int ptr_index) ;
+static void SimpleMenuCallBack(Fl_Widget*, int ptr_index) ;
 
 #endif //FULLTICK_H
