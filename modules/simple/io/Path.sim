@@ -607,6 +607,9 @@ class Path : Object
 	block create()
 		if !exists() {
 			pointer = __fopen(AbsolutePath, "w")
+			if isNull(pointer) {
+				return false
+			}
 			__fclose(pointer)
 			if rawExists() >= 0 {
 				return true

@@ -37,11 +37,11 @@ block main()
 		else }
 	}
 	
-	if sourceFilePath != null {
+	if !isNull(sourceFilePath) {
 		sourceFile = new Path(sourceFilePath)
-		if sourceFile.isADirectory() {
+		if sourceFile.isDirectory() {
 			minifySourceDir(sourceFile.toDirectory())
-		elif sourceFile.isAFile()
+		elif sourceFile.isFile()
 			minifySourceFile(sourceFile.toFile())
 		else 
 			throw("Invalid simple source : " + sourceFilePath)
@@ -69,22 +69,22 @@ block minifySourceDir(sourceDir)
 	}
 	
 block minifySourceFile(sourceFile)
-	if !strEndsWith(sourceFile.name(),".sim") {
-		@sourceFile.name()+" : not a simple source file (*.sim) skipping..."
+	if !strEndsWith(sourceFile.Name,".sim") {
+		@sourceFile.Name+" : not a simple source file (*.sim) skipping..."
 		return
 	}
 	if !skipRequest {
-		display sourceFile.name()+" : do you want to minify this file? " read res
+		display sourceFile.Name+" : do you want to minify this file? " read res
 		if res != "y" and res != "yes" {
 			return
 		}
 	}
-	source = " "+sourceFile.readFileAsString() + " "
+	source = " "+sourceFile.readAllString() + " "
 	if strLineCount(source) < 1 {
-		@sourceFile.name()+" : already minified"
+		@sourceFile.Name+" : already minified"
 		return
 	}
-	display sourceFile.name()+" : minification starting..."
+	display sourceFile.Name+" : minification starting..."
 	minifiedSource = ""
 	TOKEN_IDENTIFIER =  0 TOKEN_MULTILINE_COMMENT = 1 TOKEN_LITERAL_1 = 2 TOKEN_LITERAL_2 = 3
 	type = TOKEN_IDENTIFIER
@@ -138,7 +138,7 @@ block minifySourceFile(sourceFile)
 				minifiedSource+= source[i]		
 		}
 	}
-	__writefile(sourceFile.absolutePath(), minifiedSource)
+	__write_file(sourceFile.AbsolutePath, minifiedSource)
 	@" (done)"
 	
 block isNewLine(val)
@@ -150,7 +150,9 @@ block help()
 [SOURCE] : the folder or source file to be minified
 [OPTIONS] : option passed to the modular program.
 
-The OPTIONS include: 
+The [OPTIONS] include: 
 	-y  --yes	do not ask permission")
+	exit(0)
 	
 #TODO : move code to next line if the last block has return only and the next keyword is block SEE minified Object.sim
+#TODO : implement a cache in the default os temp folder to revert back source in case of error

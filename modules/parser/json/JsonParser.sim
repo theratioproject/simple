@@ -333,10 +333,11 @@ class JsonParser : Object
 				acceptChar(NameSeparator)
 				skipWhiteSpace() 
 				jsonValue = parseValue()
-				if isNull(jsonValue) {
+				/*if isNull(jsonValue) {
+					#null is a valid value
 					throw(self, "Syntax Error : missing the object member value")
 					return null
-				}
+				}*/
 				value = jsonValue
 				isBool = false
 				if isList(jsonValue) {

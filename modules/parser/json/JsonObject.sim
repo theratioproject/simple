@@ -60,7 +60,7 @@ class JsonObject : Object
 		elif paramsLen == 2
 			name = params[0]
 			value = params[1] 
-			if isString(name) and !isNull(value) {
+			if isString(name) {
 				member = new JsonMember(name, value)
 			else
 				throw(self, "Invalid parameter, expected (string, object), found (" + objectType(name) + "," + objectType(value) + ")")

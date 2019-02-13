@@ -1,0 +1,13 @@
+{
+    "Version": "0.3.36",
+    "Date Updated": null,
+    "Update Message": "Hello World this is simple the main thingy",
+    "Updates": [
+        {
+            "Name": "simple-lang",
+            "Type": "link",
+            "Update Url": "http://localhost/simple-lang/updater/",
+            "Installation Path": null
+        }
+    ]
+}
