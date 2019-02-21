@@ -104,6 +104,8 @@ class JsonMember : Object
 			else
 				value = "false"
 			}
+		elif isNull(value)
+			name = "null"
 		}
 		return unEscapeString('"' + Name + '": ' + value)
 		
@@ -134,6 +136,8 @@ class JsonMember : Object
 			else
 				value = "false"
 			}
+		elif isNull(value)
+			value = "null"
 		}
 		return '"' + name + '": ' + value
 

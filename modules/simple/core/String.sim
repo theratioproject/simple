@@ -752,7 +752,7 @@ block strCharAt(object, index)
 
 */
 block strIsEmpty(string value)
-	return value == null or value == ""
+	return value == ""
 	
 block strEquals(acom, bcom, con)
 	if !con  acom = toLowerCase(acom) bcom = toLowerCase(bcom) end

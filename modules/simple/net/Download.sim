@@ -61,14 +61,16 @@ class Download : File
 	*/
 	block fetch()
 		if !exists() {
-			create()
+			if !create() {
+				return false
+			}
 		}
 		if (!AlreadyInit) {
 			throw(self, "The class " + absolutename() + " has not been initialized")
 		else
 			DownloadedObject = __curl_download(Url)
 			if !isNull(DownloadedObject) && !strIsEmpty(DownloadedObject) {
-				write(DownloadedObject)
+				__write_file(AbsolutePath, DownloadedObject)
 			}
 		}
 		return getSize() > 0
