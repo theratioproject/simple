@@ -304,7 +304,6 @@ class FInput_ : FWidget
 
     */
     block setCursorColor(value)
-        validatePointer()
         if isObject(value) {
             if __instance_of(value,"FColor") {
                 __Fl_Input__cursor_color_1(Ptr,value.colorAsNumber())
@@ -398,7 +397,6 @@ class FInput_ : FWidget
 
     */
     block setReadOnly(boolean value)
-        validatePointer()
 		ReadOnly = value
         __Fl_Input__readonly_1(Ptr, value)
 		
@@ -418,8 +416,7 @@ class FInput_ : FWidget
     /*
 
     */
-    block setShortcut(number value)
-        validatePointer() 
+    block setShortcut(number value) 
         __Fl_Input__shortcut_1(Ptr,value)
         Shortcut = value
 
@@ -432,8 +429,7 @@ class FInput_ : FWidget
     /*
 
     */
-    block setTabNav(number value)
-        validatePointer() 
+    block setTabNav(number value) 
         __Fl_Input__tab_nav(Ptr,value)
         TabNav = value
 		
@@ -453,8 +449,7 @@ class FInput_ : FWidget
     /*
 
     */
-    block setWrap(number value)
-        validatePointer() 
+    block setWrap(number value) 
         __Fl_Input__wrap_1(Ptr,value)
         Wrap = value
 		
@@ -462,7 +457,6 @@ class FInput_ : FWidget
 
     */
     block setTextColor(/*FColor|number|string*/ value)
-        validatePointer()
 		if isNumber(value) or isString(value) {
 			__Fl_Input__textcolor_1(Ptr,value)
 			value = new FColor(value) 
@@ -482,7 +476,6 @@ class FInput_ : FWidget
 
     */
     block setTextFont(/*FFont|number*/ value)
-        validatePointer()
 		if isNumber(value) {
             __Fl_Input__textfont_1(Ptr,value)
             value = new FFont(value) 
@@ -502,7 +495,6 @@ class FInput_ : FWidget
 
     */
     block setTextSize(number value)
-        validatePointer()
 		if value <= 0 {
 			throw(self,"FWidget Label Size cannot be less than 0 ")
 			return
@@ -526,7 +518,6 @@ class FInput_ : FWidget
 
     */
     block setText(value)
-        validatePointer()
         setValue(value)
 
     /*
@@ -554,7 +545,6 @@ class FInput_ : FWidget
 
     */
     block setValue(string value)
-        validatePointer()
         __Fl_Input__value(Ptr,value)
 
     /*

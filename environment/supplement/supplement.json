@@ -1,0 +1,5 @@
+{
+    "Version": "0.3.35",
+	"UpdateJsonAddress": "http://localhost/simple-lang/updater/update.json",
+	"InstallationDir": "C:\\Users\\thecarisma\\Documents\\SIMPLE_GITHUB\\s0.3.36-debug\\",
+}

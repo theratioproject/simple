@@ -20,7 +20,7 @@ FApp.run()
 
 class ButtonDemo : FCallbackEvent 
     fwindow = new FWindow(150,60,"FButton Testing only") {
-		fbutton = new FButton(80,30,"Send") {
+		fbutton = new FButton(10,10,"Send") {
             Id = 1
             setCallbackListener(self)
         }

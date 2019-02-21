@@ -226,8 +226,7 @@ class FButton : FWidget
     /*
 
     */
-    block setBaseColor(value)
-        validatePointer() 
+    block setBaseColor(value) 
         if isNumber(value) or instanceOf(value,"FColor") {
             if isNumber(value) {
                 __Fl_Button_down_color_1(Ptr,value)
@@ -250,7 +249,6 @@ class FButton : FWidget
 
     */
     block setBaseBox(value) 
-        validatePointer()
         if isNumber(value) or instanceOf(value,"FBoxType") {
             if isNumber(value) {
                 __Fl_Button_down_box_1(Ptr,value)
@@ -283,7 +281,6 @@ class FButton : FWidget
 
     */
     block setText(value)
-        validatePointer()
         setLabel(value)
         Text = value
 
@@ -297,21 +294,18 @@ class FButton : FWidget
 
     */
     block set()
-        validatePointer()
         __Fl_Button_set(Ptr)
 
     /*
 
     */
     block setOnly()
-        validatePointer()
         __Fl_Button_setonly(Ptr)
 
     /*
 
     */
     block setValue(value)
-        validatePointer()
         value = booleanValue(value)
         if value {
             __Fl_Button_value(Ptr,true)
@@ -330,8 +324,7 @@ class FButton : FWidget
     /*
 
     */
-    block setShortcut(number value)
-        validatePointer() 
+    block setShortcut(number value) 
         __Fl_Button_shortcut_1(Ptr,value)
         Shortcut = value
 

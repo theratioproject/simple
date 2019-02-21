@@ -95,7 +95,10 @@ build, installation, features e.t.c
 - [ ] if supporting strong typing, probably allow a variable with more than one datatype e.g string|number val = 0 and val can also be val = "zero" only 
 - [ ] enable the camparison between any data type and **null**
 - [ ] allow iterating over an object using **lengthOf** operator in place of **iterator** operator
-- [ ] enable executing the **simple.sim** script in module folder if the **-m** flag is specified e.g `simple -m archive.zip -l [zipfile]`
+- [ ] enable executing the **simple.sim** script in module folder if the **-m** flag is specified e.g `simple -m archive.zip -l [zipfile], python style
+- [ ] both false/0 and null variable should be false in a conditional statement e.g v = null if v display "never it false it null" end
+- [ ] revisit the data types operator rules e.g list + object = list[object] should be list += object = list[object]
+- [ ] completely remove the '@' operator to print expression and replace with display + newLine
 
 ### simplify
 - [ ] hint user as a type of level error when a similar variable that has not been declared is used 

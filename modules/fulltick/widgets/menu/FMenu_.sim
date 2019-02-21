@@ -224,7 +224,6 @@ class FMenu_ : FWidget
 		
     */
     block setDownBox(/*FBoxType|number*/ value) 
-        validatePointer()
         if isNumber(value) {
 			__Fl_Menu__down_box_1(Ptr,value)
 			DownBox = new FBoxType(value)
@@ -245,8 +244,7 @@ class FMenu_ : FWidget
     /*
 
     */
-    block setDownColor(/*FColor|number*/ value)
-        validatePointer() 
+    block setDownColor(/*FColor|number*/ value) 
         if isNumber(value) or instanceOf(value,"FColor") {
             if isNumber(value) {
                 __Fl_Menu__down_color_1(Ptr,value)
@@ -275,8 +273,7 @@ class FMenu_ : FWidget
     /*
 
     */
-    block setTextColor(/*FColor|number*/ value)
-        validatePointer() 
+    block setTextColor(/*FColor|number*/ value) 
         if isNumber(value) or instanceOf(value,"FColor") {
             if isNumber(value) {
                 __Fl_Menu__textcolor_1(Ptr,value)
@@ -299,7 +296,6 @@ class FMenu_ : FWidget
 
     */
     block setTextFont(/*FFont|int*/ value)
-        validatePointer()
 		if isNumber(value) {
 			__value = numberValue(value)
             __Fl_Menu__textfont_1(Ptr,__value)
@@ -319,7 +315,6 @@ class FMenu_ : FWidget
 
     */
     block setTextSize(int value)
-        validatePointer()
 		if value <= 0 {
 			throw(self,"FWidget Label Size cannot be less than 0 ")
 			return

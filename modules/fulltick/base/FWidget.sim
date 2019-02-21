@@ -121,7 +121,7 @@ class FWidget : Object
     /*
 
     */
-    Argument = 0
+    Argument = null
 
     /*
 
@@ -240,7 +240,6 @@ class FWidget : Object
 
     */
     block setActive(value)
-        validatePointer()
         if isNumber(value) and (value == true or value == false) {
             Active = value
             if value == true {
@@ -263,7 +262,6 @@ class FWidget : Object
 
     */
     block activate()
-        validatePointer()
         __Fl_Widget_activate(Ptr)
         Active = true
 
@@ -271,7 +269,6 @@ class FWidget : Object
 
     */
     block deactivate()
-        validatePointer()
         __Fl_Widget_deactivate(Ptr)
         Active = false
 
@@ -279,14 +276,12 @@ class FWidget : Object
 
     */
     block isGroupActive()
-        validatePointer()
         return __Fl_Widget_active_r(Ptr)
 
     /*
 
     */
     block setLabelAlignment(value)
-        validatePointer()
         if isNumber(value) {
             __Fl_Widget_align_1(Ptr,value)
             LabelAlignment = new FAlignment(LabelAlignment)
@@ -324,34 +319,25 @@ class FWidget : Object
     /*
 
     */#draw parent when ref copy enables
-    block redraw()
-        validatePointer() 
+    block redraw() 
         __Fl_Widget_redraw(Ptr)
 
     /*
 
     */
-    block setArgument(value)
-        validatePointer()
-        if isNumber(value) {
-            __Fl_Widget_argument_1(Ptr,value)
-            Argument = value
-        else
-            throw(self,"invalid parameter. Expecting (Number), Found (" + objectType(value) + ")")
-        }
+    block setArgument(object value)
+        Argument = value
 
     /*
 
     */
     block getArgument()
-        validatePointer()
-        return __Fl_Widget_argument(Ptr)
+        return Argument
 
     /*
 
     */
     block setBox(value)
-        validatePointer()
 		if hasBorder() {
 			BorderBox.setBox(value)
 		}
@@ -383,7 +369,6 @@ class FWidget : Object
 
     */
     block resize(params...) 
-        validatePointer()
         paramsLen = lengthOf(params)
 
         if paramsLen == 1 {
@@ -452,7 +437,6 @@ class FWidget : Object
 
     */
     block setBackground(value)
-        validatePointer()
         if isObject(value) {
             if __instance_of(value,"FColor") {
                 __Fl_Widget_color_1(Ptr,value.colorAsNumber())
@@ -476,7 +460,6 @@ class FWidget : Object
 
     */
     block hide()
-        validatePointer()
         if hasBorder() {
             __Fl_Widget_hide(BorderBox.Ptr)
         else
@@ -488,7 +471,6 @@ class FWidget : Object
 
     */
     block show()
-        validatePointer()
         if hasBorder() {
             __Fl_Widget_show(BorderBox.Ptr)
         else
@@ -499,8 +481,7 @@ class FWidget : Object
     /*
 
     */
-    block setResizable(condition) 
-        validatePointer() 
+    block setResizable(condition)  
         if hasParent() {
             if condition == true {
                 Resizable = true
@@ -623,7 +604,6 @@ class FWidget : Object
         To be deprecated soon for better click listeners
     */
     block callbackOnClick(blockstr)
-        validatePointer()
         if isString(blockstr) {
             __Fl_Widget_callback_on_onlick(Ptr,blockstr)
         else
@@ -699,8 +679,7 @@ class FWidget : Object
     /*
 
     */
-    block setBorder(border) HasBorder = false Border = null return 
-        validatePointer() 
+    block setBorder(border) HasBorder = false Border = null return  
         if isNull(border) {
             BorderBox = null 
             HasBorder = false
@@ -857,7 +836,6 @@ class FWidget : Object
 
     */
     block clearActive()
-        validatePointer()
         __Fl_Widget_clear_active(Ptr)
         Active = false
 
@@ -865,21 +843,18 @@ class FWidget : Object
 
     */
     block clearChanged()
-        validatePointer()
         __Fl_Widget_clear_changed(Ptr)
 
     /*
 
     */
     block markAsUnChanged()
-        validatePointer()
         __Fl_Widget_clear_changed(Ptr)
 
     /*
 
     */
     block clearDamage(params...)
-        validatePointer()
         paramsLen = lengthOf(params)
         flag = 1 
 
@@ -898,14 +873,12 @@ class FWidget : Object
 
     */
     block clearOutput()
-        validatePointer()
         __Fl_Widget_clear_output(Ptr)
 
     /*
 
     */
     block setAcceptInput(value)
-        validatePointer()
         value = booleanValue(value)
         if value == true {
             __Fl_Widget_clear_output(Ptr)
@@ -926,7 +899,6 @@ class FWidget : Object
 
     */
     block clearVisible()
-        validatePointer()
         if hasBorder() {
             __Fl_Widget_clear_visible(BorderBox.Ptr)
         else
@@ -938,7 +910,6 @@ class FWidget : Object
 
     */
     block setVisible(value)
-        validatePointer()
         value = booleanValue(value)
         if value && !Visible {
             show()
@@ -963,7 +934,6 @@ class FWidget : Object
 
     */
     block clearVisibleFocus()
-        validatePointer()
         __Fl_Widget_clear_visible_focus(Ptr)
         KeyboardFocusable = false
 
@@ -971,7 +941,6 @@ class FWidget : Object
 
     */
     block setVisibleFocus()
-        validatePointer()
         __Fl_Widget_set_visible_focus(Ptr)
         KeyboardFocusable = true
 
@@ -979,7 +948,6 @@ class FWidget : Object
 
     */
     block setKeyboardFocusable(value) 
-        validatePointer()
         value = booleanValue(value) 
         if value && !KeyboardFocusable {
             setVisibleFocus()
@@ -1008,7 +976,6 @@ class FWidget : Object
 
     */
     block setLabel(value)
-        validatePointer()
         value = stringValue(value)
         __Fl_Widget_copy_label(Ptr, value)
         Label = value
@@ -1024,7 +991,6 @@ class FWidget : Object
 
     */
     block setTooltip(value)
-        validatePointer()
         value = stringValue(value)
         __Fl_Widget_copy_tooltip(Ptr, value)
         Tooltip = value
@@ -1039,7 +1005,6 @@ class FWidget : Object
 
     */
     block redrawParent()
-        validatePointer()
         if hasBorder() {
             BorderBox.redrawParent()
         else
@@ -1057,7 +1022,7 @@ class FWidget : Object
 			if IsEvent {
 				CallbackEvent.callback(self)
 			else
-				invoke CallbackEvent(self)
+				invoke CallbackEvent(self, Argument)
 			}
         }
 
@@ -1065,14 +1030,12 @@ class FWidget : Object
 
     */
     block draw()
-        validatePointer()
         __Fl_Widget_draw(Ptr)   
 
     /*
 
     */
     block drawLabel(x, y, width, height, alignment)
-        validatePointer()
         x = numberValue(x)
         y = numberValue(y)
         width = numberValue(width)
@@ -1092,7 +1055,6 @@ class FWidget : Object
 
     */
     block setHeight(value)
-        validatePointer()
         value = numberValue(value)
         resize(X,Y,Width,value)
         redrawParent()
@@ -1108,7 +1070,6 @@ class FWidget : Object
 
     */
     block setWidth(value)
-        validatePointer()
         value = numberValue(value)
         resize(X,Y,value,Height)
         redrawParent()
@@ -1124,7 +1085,6 @@ class FWidget : Object
 
     */
     block setX(value)
-        validatePointer()
         value = numberValue(value)
         resize(value,Y,Width,Height)
         redrawParent()
@@ -1140,7 +1100,6 @@ class FWidget : Object
 
     */
     block setY(value)
-        validatePointer()
         value = numberValue(value)
         resize(X,value,Width,Height)
         redrawParent()
@@ -1156,7 +1115,6 @@ class FWidget : Object
 
     */
     block setLabelColor(value)
-        validatePointer()
         if isObject(value) {
             if __instance_of(value,"FColor") {
                 __Fl_Widget_labelcolor_1(Ptr,value.colorAsNumber())
@@ -1179,7 +1137,6 @@ class FWidget : Object
 
     */
     block setLabelFont(value)
-        validatePointer()
         if instanceOf(value,"FFont") { 
             __Fl_Widget_labelfont_1(Ptr,value.FontValue)
         elif isNumber(value) or instanceOf(value,"Number")
@@ -1201,7 +1158,6 @@ class FWidget : Object
 
     */
     block setLabelSize(value)
-        validatePointer()
         if isNumber(value) or instanceOf(value,"Number")
             value = numberValue(value)
             if value <= 0 {
@@ -1225,7 +1181,6 @@ class FWidget : Object
 
     */
     block setLabelType(value)
-        validatePointer()
         if instanceOf(value,"FLabelType") { 
             __Fl_Widget_labeltype_1(Ptr,4)
         elif isNumber(value) or instanceOf(value,"Number")
@@ -1247,7 +1202,6 @@ class FWidget : Object
 
     */
     block measureLabel()
-        validatePointer()
         __Fl_Widget_measure_label(Ptr,0,0)
 
     /*
@@ -1302,14 +1256,12 @@ class FWidget : Object
 
     */
     block redrawLabel()
-        validatePointer()
         __Fl_Widget_redraw_label(Ptr)
 
     /*
 
     */
     block setSelectionColor(value)
-        validatePointer()
         if isObject(value) {
             if __instance_of(value,"FColor") {
                 __Fl_Widget_selection_color_1(Ptr,value.colorAsNumber())
@@ -1332,7 +1284,6 @@ class FWidget : Object
 
     */
     block setActiveNoEvent()
-        validatePointer()
         __Fl_Widget_set_active(Ptr)
         Active = true
 
@@ -1340,14 +1291,12 @@ class FWidget : Object
 
     */
     block setChanged()
-        validatePointer()
         __Fl_Widget_set_changed(Ptr)
 
     /*
 
     */
     block setOutput()
-        validatePointer()
         __Fl_Widget_set_output(Ptr)
 
     /*
@@ -1402,14 +1351,12 @@ class FWidget : Object
     
     */
     block takeFocus()
-        validatePointer()
         __Fl_Widget_take_focus(Ptr)
 
     /*
 
     */
     block takesEvents()
-        validatePointer()
         ret = __Fl_Widget_takesevents(Ptr)
         return ret
 
@@ -1417,7 +1364,6 @@ class FWidget : Object
 
     */
     block isGroupVisible()
-        validatePointer()
         ret = __Fl_Widget_visible_r(Ptr)
         return ret
 		

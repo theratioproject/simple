@@ -1,0 +1,96 @@
+/*
+
+*/
+/*
+	Update simple-lang over JSON api (supplementary). Only update
+	minor such as module, environments, dynamic modules and 
+	documentation. It does not update the simple executable and 
+	libraries (dll, so, dylib, a) and the includes files. 
+	Update can happen in background except for the dynamic 
+	modules since update can fail if they are in use
+*/
+
+call parser.json.JsonParser
+call archive.zip.Zip
+call simple.net.Download
+call simple.utilities.Console
+import simple.core
+import simple.io
+
+
+block main()
+	if !__file_exists("./supdater.json") {
+		stdout.println("The updater file 'supdater.json' file does not exist. exiting")
+		exit(1)
+	}
+	localJson = new JsonParser(__read_file("./supdater.json"))
+	localJson = localJson.parse()
+	installDir = localJson["InstallationDir"].Value
+	updateFile = new Download(localJson["UpdateJsonAddress"].Value,getTmpDirectory()+"/update_file.json") {
+		if !fetch() {
+			stdout.println("Update failed")
+			exit(2)
+		}
+	}
+	updateJson = new JsonParser(updateFile.readAllString())
+	updateJson = updateJson.parse()
+	
+	if !compareVersion(localJson["Version"].Value, updateJson["Version"].Value) {
+		stdout.println("Your local version is up to date")
+		return		
+	}
+	stdout.printf("preparing to update program...")
+	updates = updateJson.get("Updates").Value
+	for update in updates {
+		stdout.printf("\r%s\rupdating %s...", strCopy(" ", 40), update.get("Name").Value)
+		if update.get("Type").Value == "zip" {
+			name = update.get("Name").Value
+			path = update.get("Installation Path").Value
+			stdout.printf("\r%s\rupdating %s, downloading...", strCopy(" ", 40), name)
+			remoteZip = new Download(update.get("Update Url").Value, getTmpDirectory()+name+".zip") {
+				if !fetch() {
+					stdout.printf("\r%s\rupdating %s, downloading...(failed)", strCopy(" ", 40), name)
+					break
+					exit(3)
+				}
+				zip = new Zip(getTmpDirectory()+name+".zip", "r") {
+					extract(installDir + "/"+path )
+				}
+			}
+			stdout.print("(done)")
+			
+		elif update.get("Type").Value == "link" 
+			stdout.print("(done)")
+			system('start "" "'+update.get("Update Url").Value+'" ')
+			
+		}
+	}
+	
+block compareVersion(localVersion, updateVersion)
+	if lengthOf(localVersion) < lengthOf(updateVersion) {
+		return true
+	}
+	localV = strSplit(localVersion,'.')
+	localVLen = lengthOf(localV) - 1
+	updateV = strSplit(updateVersion,'.')
+	updateVLen = lengthOf(updateV) - 1
+	#stdout.printf("%o, %o\n", localV, updateV)
+	if localVLen < updateVLen {
+		return true
+	}
+	for a = 0 to localVLen {
+		if localV[a] < updateV[a] {
+			return true
+		}
+	}	
+	return false 
+	
+block getTmpDirectory()
+	tempDirectory = getTempDirectory()
+	tDirectory = new Directory(tempDirectory+"/.simple_env/updater/")
+	if !tDirectory.exists() {
+		tDirectory.create()
+	}
+	return tDirectory.AbsolutePath + SystemSlash()
+	
+	

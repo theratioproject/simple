@@ -266,7 +266,6 @@ class FFileInput : FInput_
 
     */
     block setDownBox(/*FBoxType|number*/ value) 
-        validatePointer()
         if isNumber(value) {
 			__Fl_File_Input_down_box_1(Ptr,value)
 			DownBox = new FBoxType(value)
@@ -288,7 +287,6 @@ class FFileInput : FInput_
 
     */
     block setErrorColor(/*FColor|number|string*/ value)
-        validatePointer()
 		if isNumber(value) or isString(value) {
 			__Fl_File_Input_errorcolor_1(Ptr,value)
 			value = new FColor(value) 
