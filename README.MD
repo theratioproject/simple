@@ -5,8 +5,6 @@
 
 ___
 
-<center align="center">
-
 | Platform / Architecture  | Build Status |
 |--------------------------|--------------|
 | Windows (7, 8, 10, ...)  | [![Simple Windows Build](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/simple-lang/simple/)   |
@@ -15,8 +13,6 @@ ___
 | Android (SDK 16 or later) | [![Simple Android Build](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/simple-lang/simple/)   |
 | Android Termux | [![Simple Android Build](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/simple-lang/simple/)   |
 | IOS | [![Simple IOS Build](https://img.shields.io/badge/build-pending-yellow.svg)](https://github.com/simple-lang/simple/)   |
-
-</center>
 
 ___
 
