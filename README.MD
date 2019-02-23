@@ -1,7 +1,7 @@
 
-# <p style="text-align: center;">Simple</p>
+# <p style="text-align: center;" align="center">Simple</p>
 
-<p style="text-align: center;">The Simple Intelligent and Modular Programming Language and Environment</p>
+<p style="text-align: center;" align="center">The Simple Intelligent and Modular Programming Language and Environment</p>
 
 | Platform / Architecture  | Build Status |
 |--------------------------|--------------|
@@ -85,7 +85,7 @@ Some section such as dynamic modules build is currently failing on OSX, but you 
 If you want to help build on a MAC machine kindly [review and join this PR](https://github.com/simple-lang/simple/pull/29) 
 
 ##### Installing
-For the first time using the script configure your building enviroment
+Proceed to install simple-lang on your system and start using from any directory. After it complete you can execute sim scripts from any folder
 ```bash
  $ cd build
  $ bash ./SimpleOnlyBuild-Mac.sh
