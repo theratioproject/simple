@@ -3,9 +3,9 @@
 
 <p style="text-align: center;" align="center">The Simple Intelligent and Modular Programming Language and Environment</p>
 
----
+___
 
-<center>
+<center align="center">
 
 | Platform / Architecture  | Build Status |
 |--------------------------|--------------|
@@ -18,7 +18,7 @@
 
 </center>
 
----
+___
 
 ## Building from source
 
