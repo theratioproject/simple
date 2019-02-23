@@ -99,7 +99,7 @@ SIMPLE_API SimpleState * simple_state_new ( void )
 			like
 			simple/bin/
 			simple/modules/
-			simple/includes/
+			simple/include/
 		so we go parent directory *simple* and check for modules. Think execute simple from zip extract
 		*/
 		simple_list_addstring_gc(sState,sState->module_paths,"../modules/");

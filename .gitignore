@@ -30,6 +30,8 @@ tasks.json
 .vscode/
 *vscode/
 
+*/dist/
+
 build/*.exe
 build/*.obj
 

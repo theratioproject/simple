@@ -35,7 +35,7 @@
 			-/h 		display this help note
 			-temp -t	leave generated and temporary files after build
 			-delete -del	delete the simple source file after successful build
-			-debug		when the simple.h file is at ../../simple/src/includes/simple.h
+			-debug		when the simple.h file is at ../../simple/src/include/simple.h
 			-S/<simple.h> Indicate the path to simple.h
 			
 			(Compiler Option) ~ if none is supplied the available will be used
@@ -316,7 +316,7 @@ block writeCode()
 		 */
 		'
 			if isdebug code += '
-			#include "../../simple/includes/simple.h" '+crlf
+			#include "../../simple/include/simple.h" '+crlf
 			else 
 			code += '
 			#include '+simpleHPath+' '+crlf end	
@@ -517,7 +517,7 @@ The OPTIONS include :
 	-help 		display this help note
 	-temp -t	leave generated and temporary files after build
 	-delete -del	delete the simple source file after successful build
-	-debug		when the simple.h file is at ../../simple/src/includes/simple.h
+	-debug		when the simple.h file is at ../../simple/src/include/simple.h
 	-S/<simple.h>	Indicate the path to simple.h
 	
 	(Compiler Option) ~ if none is supplied the available will be used

@@ -151,7 +151,7 @@ build_environments() {
 				sudo cp ./simple.so ../lib/
 				local simple_command="./$simple_command"
 				sudo rm -f ./bake && sudo rm -f ./modular && sudo rm -f ./webworker && sudo rm -f ./simplerepl && sudo rm -f ./simplepad && sudo rm -f ./simplebridge
-				sudo make -f ../../simple/environment/Linux-Install.mk ARC_FLAG=$arc_var ARC=$arc ENV_DISTDIR=./  SIMPLE_H=../../../$simple_debug_version/includes/simple.h SIMPLE=$simple_command SUDO=sudo ENV_PATH=../../simple/environment/ LIB_PATH=../lib/simple.so
+				sudo make -f ../../simple/environment/Linux-Install.mk ARC_FLAG=$arc_var ARC=$arc ENV_DISTDIR=./  SIMPLE_H=../../../$simple_debug_version/include/simple.h SIMPLE=$simple_command SUDO=sudo ENV_PATH=../../simple/environment/ LIB_PATH=../lib/simple.so
 				cd "../../simple/build/"
 			;;
 			*install* )
@@ -360,7 +360,7 @@ copyinclude() {
 			fi
 			sudo mkdir "$prefix/include/simple"
 			if [ -e "../simple/includes" ]; then
-				sudo install ../simple/includes/simple* "$prefix/include/simple"
+				sudo install ../simple/include/simple* "$prefix/include/simple"
 			else
 				not_found_error $1 "includes directory"
 			fi
@@ -639,7 +639,7 @@ build_deb_package() {
 			sudo cp ../../$simple_debug_version/bin/bake $debpackagedir/usr/bin/
 			sudo cp ../../$simple_debug_version/bin/simple.so $debpackagedir/usr/lib/
 			sudo cp -R ../../$simple_debug_version/modules/ $debpackagedir/var/lib/simple/$version/modules
-			sudo cp ../../$simple_debug_version/includes/*.h $debpackagedir/usr/include/simple/
+			sudo cp ../../$simple_debug_version/include/*.h $debpackagedir/usr/include/simple/
 			
 			if [ $arc_var = "-m32" ]; then
 				sudo mkdir -p "$debpackagedir/usr/lib/i386-linux-gnu/"
