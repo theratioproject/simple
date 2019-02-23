@@ -13,18 +13,18 @@
  * Created on July 10, 2017, 1:10 PM
  */
 
-#include "../includes/simple.h"
+#include "../include/simple.h"
 
 const char *external_data_path = "" ;
 
 /* Keywords */
 const char * SIMPLE_KEYWORDS[] = {"if","to","or","and","not","for","new","block",
 
-"inherit","loop","call","else","display","while","class","return", "end",
+"inherit","loop","call","invoke","else","display","while","class","return", "end",
 
-"read","__exit__","break","try","catch","finally","switch","default",
+"read","__exit__","break","try","catch","switch","default",
 
-"in","continue","module","private","final","step","do","exec","elif",
+"in","continue","module","import","private","final","step","do","exec","elif",
 
 "case"/**, "changesimplekeyword","changesimpleoperator","loadsyntax"**/} ;
 
@@ -76,114 +76,45 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
 	char start_up[30]  ;
 	int x,nSize,is_start_file  ;
 	char* simple_env_path;
-	char file_name_two[200]  ; char logable_name[SIMPLE_PATHSIZE] ;
-	char simple_folder[100] ; char __library_path[SIMPLE_PATHSIZE] ;
+	char file_name_two[200]  ; 
+	char logable_name[SIMPLE_PATHSIZE] ;
+	char simple_folder[100] ; 
+	char module_path[SIMPLE_PATHSIZE] ;
 	strcpy(logable_name,file_name); simple_justfilename(logable_name) ;
-    is_start_file = 1 ;
+    is_start_file = 1 ; 
 	/* Check file */
 	if ( sState->files_list == NULL ) {
 		sState->files_list = simple_list_new_gc(sState,0);
 		sState->files_stack = simple_list_new_gc(sState,0);
+		sState->main_file_path = file_name ;
 		simple_list_addstring_gc(sState,sState->files_list,logable_name);
 		simple_list_addstring_gc(sState,sState->files_stack,logable_name);
 		nFreeFilesList = 1 ;
 	} else {
-		if ( simple_list_findstring(sState->files_list,logable_name,0) == 0 ) {
+		if ( simple_list_findstring(sState->files_list,logable_name,0) == 0) {
 			simple_list_addstring_gc(sState,sState->files_list,logable_name);
 			simple_list_addstring_gc(sState,sState->files_stack,logable_name);
 		} else {
+			//TODO : make warning level 1
 			if ( sState->nWarning ) {
-				//printf( "\nWarning, Duplication in FileName, %s \n",logable_name ) ;
+				//printf( "\nWarning : Duplication in FileName, %s\n",logable_name ) ;
 			}
 			return 1 ;
 		}
 	}
-        if (simple_fexists(file_name)) {
-
-        } else { //TODO : Refractor this code block it so redundant 
-            snprintf(__library_path, sizeof(__library_path), "./modules/%s", file_name);
-			if (simple_fexists(__library_path)) {
-                strcpy(file_name,__library_path);
-            } else {
-				snprintf(__library_path, sizeof(__library_path), "%s/modules/%s", simple_file_initial_dir,file_name);
-				if (simple_fexists(__library_path)) {
-					strcpy(file_name,__library_path);
-				} else {
-					simple_distro_folder(simple_folder);
-					snprintf(__library_path, sizeof(__library_path), "%s/modules/%s", simple_folder,file_name);
-					if (simple_fexists(__library_path)) {
-						strcpy(file_name,__library_path);
-					} else {
-						//checking using environment variable if SIMPLE_PATH and SIMPLE_MODULE_PATH are set
-						simple_env_path = getenv("SIMPLE_PATH");  
-						snprintf(__library_path, sizeof(__library_path), "%s/s%s/modules/%s", simple_env_path, SIMPLE_VERSION, file_name);
-						if (simple_fexists(__library_path)) { strcpy(file_name,__library_path); }
-						else {
-							simple_env_path = getenv("SIMPLE_MODULE_PATH");
-							snprintf(__library_path, sizeof(__library_path), "%s/%s", simple_env_path, file_name);
-							if (simple_fexists(__library_path)) { strcpy(file_name,__library_path);}
-							else {
-								//check the github folder in modules :(
-								snprintf(__library_path, sizeof(__library_path), "%s/github.com/%s", simple_env_path, file_name);
-								if (simple_fexists(__library_path)) { strcpy(file_name,__library_path);}
-								else {
-									//find the module in relative to run folder (UNDONE) //this is last
-									#ifdef _WIN32
-										snprintf(__library_path, sizeof(__library_path), "C:/Simple/s%s/modules/%s",SIMPLE_VERSION,file_name);
-									#else
-									
-									simple_env_path = getenv("PREFIX");
-								snprintf(__library_path, sizeof(__library_path), "%s/var/lib/simple/s%s/modules/%s", simple_env_path, SIMPLE_VERSION,file_name);
-									#endif
-									if (simple_fexists(__library_path)) { strcpy(file_name,__library_path);}
-									else {
-										/* Now we assume it is executed in a folder bin and the modules is in parent folder 
-											like
-											simple/bin/
-											simple/modules/
-											simple/includes/
-										so we go parent directory *simple* and check for modules. Think execute simple from zip extract
-										*/
-										snprintf(__library_path, sizeof(__library_path), "../modules/%s", file_name);
-										if (simple_fexists(__library_path)) { strcpy(file_name,__library_path);}
-										else {
-											/* We dig deep for android and ios we first check the assets folder then the storage*/
-											#ifdef __ANDROID__
-												/*check sdcard (External Storage) first. user might want to update module
-												 without having to re install the app or wait for an update from developer*/
-												simple_env_path = getenv("EXTERNAL_STORAGE");
-												snprintf(__library_path, sizeof(__library_path), "%s/simple/s%s/modules/%s", simple_env_path, SIMPLE_VERSION,file_name);
-												if (simple_fexists(__library_path)) { strcpy(file_name,__library_path);}
-												else {
-													//now check the android asset
-													snprintf(__library_path, sizeof(__library_path), "%s/simple/modules/%s", simple_env_path, file_name);
-													if (simple_fexists(__library_path)) { strcpy(file_name,__library_path);}
-													else {
-														snprintf(__library_path, sizeof(__library_path), "%s/%s", sState->vm->simple_app->externalDataPath, file_name);
-														if (simple_fexists(__library_path)) { strcpy(file_name,__library_path);}
-														else {
-															snprintf(__library_path, sizeof(__library_path), "%s/modules/%s", sState->vm->simple_app->externalDataPath, file_name);
-															if (simple_fexists(__library_path)) { strcpy(file_name,__library_path);}
-															else {
-
-															}
-														}
-													}
-												}
-											#endif
-										}
-									}
-								}
-							}
-						}
-					}
-				}
+	if (!simple_fexists(file_name)) {
+		for ( x = 1 ; x <= simple_list_getsize(sState->module_paths) ; x++ ) {
+			snprintf(module_path, sizeof(module_path), "%s/%s", simple_list_getstring(sState->module_paths,x), file_name);
+			if (simple_fexists(module_path)) {
+				strcpy(file_name,module_path);
+				break;
 			}
 		}
-        /* Switch To File Folder */
-        if (is_start_file) {
-            strcpy(file_name_two,file_name);
-        }
+	}
+	/* Switch To File Folder */
+	if (is_start_file) {
+		strcpy(file_name_two,file_name);
+	}
 	fp = SIMPLE_OPENFILE(file_name_two , "r");
 	/* Avoid switching if it's the first file */
 	if ( nFreeFilesList == 0 ) {
@@ -593,6 +524,7 @@ void simple_scanner_keywords ( Scanner *scanner )
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"inherit");
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"loop");
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"call");
+	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"invoke");
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"else");
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"display");
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"while");
@@ -602,10 +534,9 @@ void simple_scanner_keywords ( Scanner *scanner )
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"read");
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"__exit__");
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"break");
-	/* try-catch-finally */
+	/* try-catch */
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"try");
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"catch");
-	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"finally");
 	/* Switch */
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"switch");
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"default");
@@ -613,6 +544,7 @@ void simple_scanner_keywords ( Scanner *scanner )
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"continue");
 	/* Modules */
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"module");
+	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"import");
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"private");
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"final");
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"step");
@@ -652,8 +584,6 @@ void simple_scanner_checktoken ( Scanner *scanner )
 	char cStr[5]  ;
 	/* This block determine if the TOKEN is a Keyword or Identifier or Number */
 	assert(scanner != NULL);
-	/* Not Case Sensitive */
-	simple_string_tolower(scanner->ActiveToken);
 	nResult = simple_hashtable_findnumber(simple_list_gethashtable(scanner->Keywords),simple_string_get(scanner->ActiveToken));
 	if ( nResult > 0 ) {
 		#if SIMPLE_SCANNEROUTPUT
@@ -994,7 +924,7 @@ void simple_scanner_runprogram ( SimpleState *sState )
 	if ( ! sState->nRun ) {
 		return ;
 	}
-	vm = simple_vm_new(sState); 
+	vm = simple_vm_new(sState);
 	simple_vm_start(sState,vm);
 	simple_vm_delete(vm); 
 	/* Display Generated Code */
@@ -1026,9 +956,6 @@ void simple_scanner_changekeyword ( Scanner *scanner )
 			simple_string_add_gc(scanner->sState,activeword,cStr2);
 		}
 	}
-	/* To Lower Case */
-	simple_string_lower(simple_string_get(word1));
-	simple_string_lower(simple_string_get(word2));
 	/* Change Keyword */
 	if ( (strcmp(simple_string_get(word1),"") == 0) || (strcmp(simple_string_get(word2),"") == 0) ) {
 		puts("Warning : The Compiler command  ChangeSimpleKeyword required two words");
@@ -1072,9 +999,6 @@ void simple_scanner_changeoperator ( Scanner *scanner )
 			simple_string_add_gc(scanner->sState,activeword,cStr2);
 		}
 	}
-	/* To Lower Case */
-	simple_string_lower(simple_string_get(word1));
-	simple_string_lower(simple_string_get(word2));
 	/* Change Operator */
 	if ( (strcmp(simple_string_get(word1),"") == 0) || (strcmp(simple_string_get(word2),"") == 0) ) {
 		puts("Warning : The Compiler command  ChangeSimpleOperator requires two words");

@@ -20,6 +20,7 @@ build, installation, features e.t.c
 - [x] create a working installer script to enable installation with curl and bash or shell script [working issue](https://github.com/simple-lang/simple/issues/24)
 - [ ] build a compiler to allow faster program execution - simplify
 - [x] make scanner search for **call** files and **dynamic modules** in these folders and order. 
+	- [x] use the list to itterate the search path
 	- [x] 1 absolute to path
 	- [x] 1 relative to modules folder in working directory
 	- [x] 2 in relative to environment SIMPLE_PATH
@@ -28,6 +29,7 @@ build, installation, features e.t.c
 	- [x] search in **/storage/emulated/0/Android/data/<package>/files** as it where the assets are stored
 	- [x] search in **sdcard/simple/sSIMPLE_VERSION/modules/** on android 
 	- [x] search in **sdcard/simple/modules/** on android in assumption developer copy the module manually
+	- [x] create built-in block in core_dynamic_module to add path to the modules path 
 - [x] write build script for building simple-lang core, environment and modules for windows os
 - [x] write build script for building simple-lang core, environment and modules for linux os
 - [ ] write build script for building simple-lang core, environment and modules for mac os
@@ -72,6 +74,8 @@ build, installation, features e.t.c
 - [x] add support for `getter` and `setter` methods in the classes
 - [x] allow changing the behaviour of operators in classes 
 - [x] use of braces `{}` to access and modify fields and other in class delcaration e.g `class = new Class { }`
+- [x] call the block **open** if present in class when a class is declared using brace on opening brace
+- [x] call the block **close** if present in class when a class is declared using brace on closing brace
 - [x] change the **catch** behaviour by allowing to call an error method in a class instead of just the error
 - [ ] a more elegant stack trace and error logging in console  
 - [x] resolve clashing error in using 0 base index on list items [0][0][0]
@@ -85,8 +89,17 @@ build, installation, features e.t.c
 - [ ] import a module as soon as it is declared
 - [ ] `private` variable outside a class should limit the variable to the file scope
 - [ ] allow an overided method to be called using super as the overrided method name e.g `super(param)`
-- [ ] prevent a class initialization without constructor if it has a constructor
+- [ ] prevent a class initialization without constructor if it has a constructor. enforce constructor if present
 - [ ] by strong typing, notify class of assignment for a more native data type creation
+- [x] add `import` keyword to import module in a source file, with comma seperated for importing multiple modules
+- [ ] if supporting strong typing, probably allow a variable with more than one datatype e.g string|number val = 0 and val can also be val = "zero" only 
+- [ ] enable the camparison between any data type and **null**
+- [ ] allow iterating over an object using **lengthOf** operator in place of **iterator** operator
+- [ ] enable executing the **simple.sim** script in module folder if the **-m** flag is specified e.g `simple -m archive.zip -l [zipfile], python style
+- [ ] both false/0 and null variable should be false in a conditional statement e.g `v = null if v display "never it false it null" end`
+- [ ] revisit the data types operator rules e.g list + object = list[object] should be list += object = list[object]
+- [ ] completely remove the '@' operator to print expression and replace with display + newLine
+- [ ] get ride of the global variable `cmdparams` which hold the command line parameters for optional arguments in `main()` block
 
 ### simplify
 - [ ] hint user as a type of level error when a similar variable that has not been declared is used 
@@ -101,12 +114,19 @@ build, installation, features e.t.c
 To dos and features relative to the simple-lang standard modules which includes new modules addition, module modification or any other
 issue related to the module
 
+- [ ] generate static dynamic modules for static building for bake, making DynamicLoader.sim aware of statically link dynamic module
 - [ ] add makefile for building fulltick on windows
 - [ ] create the input output (io) module which include File, Path, Directory, PathAttribute, PathType, FileStream
 - [ ] create all high level data types [working issue](https://github.com/simple-lang/simple/issues/15)
-- [ ] init functional console module to simplify working with command line and terminal 
+- [x] init functional console module to simplify working with command line and terminal 
+- [ ] resolve the string lib to accurately unescape characters
 - [x] building a better debugging module [working issue](https://github.com/simple-lang/simple/issues/17)
 - [ ] develop the complete functional GUI module (fulltick) using the fltk c++ library
+	- [ ] call and execute events natively
+	- [x] cutomize widget to look native 
+	- [ ] remove validatePointer() block after contructor has been enforced in VM
+	- [ ] add custom event listener to FMenuItem such as Inactive, Removal, Add e.t.c 
+	- [ ] export Fl_Menu_Item.H struct 
 - [ ] port qt library to simple-lang for a higher GUI module 
 - [ ] create database module for simple-lang which includes mysql, sqlite, odbc and access
 	- [ ] build the mysql database module
@@ -131,7 +151,7 @@ issue related to the module
 - [ ] parser.json module to parse and create json string
 	- [x] load json from string and create json from class, list and manually
 	- [ ] a json module that load the json file and store as class attributes and fields and allow writing back to file
-- [x] create a built in module to get hex as number using `H("0x00")
+- [x] create a built in block to get hex as number using `H("0x00")
 - [ ] build a comprehensive color module in simple.system
 - [ ] create a look ahead class for pure string and file stream for parser implementation
 	- [x] LookAhead class for pure string. `simple.utilities.LookAhead`
@@ -160,11 +180,12 @@ Modules which are not part of the standard module that comes distributed with si
 - [ ] extend simple-repl functionalities (Case Study : elixr iex)
 - [x] Build the minifier environment that reduces module size by compressing code upon installation.
 - [ ] create the distribution program - bake
-	- [ ] load lang as plugin from simple source
-	- [ ] package simple source file (.sim) or compiled file (.complex) to system executable
-	- [ ] package simple source file (.sim) or compiled file (.complex) to system library or simple-lang specific library
+	- [ ] use a small compiler to generate executable
+	- [ ] package simple compiled file (.complex) to system executable
+	- [ ] package simple compiled file (.complex) to system library or simple-lang specific library
 	- [ ] create directory for generated output
-	- [ ] allow static or dynamic linking of simple-lang runtime
+	- [ ] allow static linking of simple-lang runtime
+	- [ ] allow dynamic linking of simple-lang runtime
 	- [ ] minify and build a distributable modules and dynamic modules for distribution
 	- [ ] test full operation on windows os
 	- [ ] test full operation on linux os

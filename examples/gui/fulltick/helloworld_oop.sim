@@ -1,0 +1,27 @@
+/*
+
+*/
+call fulltick.FApp
+call fulltick.widgets.FWindow
+call fulltick.widgets.FButton
+import simple.core
+import imple.system
+import fulltick.base
+import fulltick.widgets
+import fulltick.painting
+import fulltick.objects
+import fulltick.drawing
+
+new FWindow(340,180){
+	begin(true)
+	new FBox(20,40,300,100,"Hello, World!") {
+		setBox(__FL_UP_BOX())
+		setLabelFont(__FL_BOLD()+__FL_ITALIC())
+		setLabelSize(36)
+		setLabelType(2)
+		setLabelAlignment(FAlignment.ALIGN_CENTER)
+	}
+	endBegin()
+	show()
+}
+FApp.run()

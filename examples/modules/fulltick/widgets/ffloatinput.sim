@@ -1,0 +1,33 @@
+
+/*
+
+*/
+call fulltick.FApp
+call fulltick.widgets.FWindow
+call fulltick.widgets.FFloatInput
+call fulltick.events.FCallbackEvent
+import simple.core
+import simple.system
+import fulltick.base
+import fulltick.widgets
+import fulltick.painting
+import fulltick.objects
+import fulltick.drawing
+
+flabelDemo = new FFloatInputDemo
+FApp.run()
+
+class FFloatInputDemo
+
+    fwindow = new FWindow(320,180,"FFloatInput Demo") { 
+        begin(true) 
+        input = new FFloatInput(10,10,"1111.1111") { setPlatformScheme(FScheme.Android) }
+        new FFloatInput(10,50,"2222.1111") { setPlatformScheme(FScheme.Windows) }
+        new FFloatInput(10,90,"3333.1111") { setPlatformScheme(FScheme.Macosx) }
+        new FFloatInput(10,130,"4444.1111") { setPlatformScheme(FScheme.Linux) }
+        endBegin()
+        centerOnScreen() 
+        Resizable = false
+        show()        
+    } 
+        

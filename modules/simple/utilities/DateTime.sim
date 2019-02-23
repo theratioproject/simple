@@ -59,7 +59,7 @@ class DateTime : Object
 		if isList(__DATE_TIME_PARAMETER) && lengthOf(__DATE_TIME_PARAMETER) == 21  {
 			__update(__DATE_TIME_PARAMETER)
 			
-		elif __DATE_TIME_PARAMETER = null 
+		elif isNull(__DATE_TIME_PARAMETER)
 			__DATE_TIME_PARAMETER = dateTimeList()
 			__update(__DATE_TIME_PARAMETER)
 			

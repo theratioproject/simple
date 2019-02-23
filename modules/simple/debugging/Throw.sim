@@ -55,7 +55,7 @@ module simple.debugging
 	should be called instead because it does not exit the program
 */
 block throw(errorValues...)
-	errorValuesLen = lengthOf(errorValues) 
+	errorValuesLen = lengthOf(errorValues)
 	if errorValuesLen == 1 {
 		object = errorValues[0]
 		errorTitle = null 
@@ -70,32 +70,28 @@ block throw(errorValues...)
 			else 
 				__throw("Invalid Error Message. Unknown Error occured")
 			}
-		elif isString(object) 
-			if errorValue == "" {
-				if !isNull(object) {
-					errorValue = object
-				else
-					errorValue = "Unknown Error occured"
-				}
+		elif !isNull(object) and isString(object) 
+			if isNull(errorValue) {
+				errorValue = object
 			}
 			__throw(errorValue)
 		else
 			__throw("Invalid Error Message. Unknown Error occured")
 		}		
 	else
-		object = errorValues[0] 
+		object = errorValues[0]
 		errorTitle = ""
-		if !isNull(object) and isObject(object) { 
+		if !isNull(object) and isObject(object) {
 			errorTitle = __class_module_name(object)+"."+__class_name(object)
 			errorValue = errorValues[1] 
-			if errorValue == "" {
+			if isNull(errorValue) {
 				errorValue = "Unknown Error occured"
 			}
 			__throw(errorTitle + " : " + errorValue)
 		elif isString(object) 
 			errorTitle = object 
 			errorValue = errorValues[1]
-			if errorValue == "" {
+			if isNull(errorValue) {
 				if !isNull(object) {
 					errorValue = object
 				else

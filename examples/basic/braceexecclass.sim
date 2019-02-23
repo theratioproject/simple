@@ -1,0 +1,30 @@
+
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com> 
+	MIT License Copyright (c) 2018 simple-lang 
+
+*/
+
+block main()
+	new BraceUp {
+		if Opened {
+			display "The classe has been initialized yippie " + nl
+		}
+	}
+
+class BraceUp
+
+	Opened = false
+
+	block open()
+		if !Opened {
+			display "the brace has been opened " + nl
+			Opened = true
+		}
+
+	block close()
+		if Opened {
+			display "the brace has been closed " + nl
+			Opened = false
+		}
+		

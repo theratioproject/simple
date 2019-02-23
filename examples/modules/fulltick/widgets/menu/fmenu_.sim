@@ -1,0 +1,52 @@
+
+/*
+
+*/
+call fulltick.FApp
+call fulltick.widgets.FWindow
+call fulltick.widgets.menu.FMenuBar
+call fulltick.events.FCallbackEvent
+import simple.core
+import simple.system
+import fulltick.base
+import fulltick.widgets
+import fulltick.painting
+import fulltick.objects
+import fulltick.drawing
+
+menu1 = null
+item = null
+button = new ButtonDemo
+FApp.run() 
+
+class ButtonDemo 
+	menuItems = [
+		["foo",0,null,Fl_Menu_Inactive],
+		["File",[
+			["Ops",[
+				["Clear",0,block (obj) {
+					menu1.clear()
+				},Fl_Menu_Horizontal],
+				["Change text",0,block (obj) {
+					item.Text = "New Name"
+				}],
+				["Change item flag",0,block (obj) {
+					item.Flags = Fl_Menu_Inactive
+				}]
+			]],
+			["Open",0]
+		]],
+		["Remove item", 0, block (obj) {
+			item.remove()
+		}]
+	]
+    fwindow = new FWindow(400,150,"FMenuBar Testing only") {
+		menu1 = new FMenuBar(menuItems) {
+			item = new FMenuItem("Single Item", 0)
+			addItem(item)
+		}
+		add(menu1)
+        centerOnScreen() 
+        show()        
+    } 
+        

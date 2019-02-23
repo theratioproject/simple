@@ -1,31 +1,31 @@
 
-#1 #2
-try 
-	display 453 + ["ade", "wale"] 
-catch 
-	display "error occur" + crlf
-end
+/* 
+	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com> 
+	MIT License Copyright (c) 2018 simple-lang 
 
-#3
+*/
+/*
+	this is an example of using the try..catch to debug 
+	error at runtime and prevent program from exiting after an error
+*/
+/*
+	a try...catch block that have a custom error message
+*/
+one = 30
+try 
+	one = 70
+	display 453 + ["ade", "wale"] 
+	one = 90
+catch 
+	display "error occur" + nl
+end
+display one
+
+/*
+	a try...catch block which display the actual error that occur
+*/
 try {
 	display 453 + ["ade", "wale"] 
 catch
-	display __err__
+	display nl + __err__
 }
-
-
-/*	
-	comment map
-	-------
-	#author - [[Azeez Adewale][twitter]]@iamthecarisma
-	#date - Jan 17 2018
-	#syntax - trycatchfinally
-	#name - trycatchfinally.sim
-	#path - examples/syntax/trycatchfinally.sim
-	#detail - this is an example of using the try..catch to debug 
-	error at runtime and prevent program from exiting after an error
-	
-	#1 - entry to the program
-	#2 - a try...catch block that have a custome error message
-	#3 - a try...catch block which display the actual error that occur
-*/

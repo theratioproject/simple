@@ -13,7 +13,7 @@
  */
 
 
-#include "../includes/simple.h"
+#include "../include/simple.h"
 /* String As Array */
 
 SIMPLE_API void simple_vm_string_pushv ( VM *vm )
@@ -87,10 +87,10 @@ SIMPLE_API void simple_vm_catch ( VM *vm,const char *cError )
 	/* Tell C-API caller (CALL command) that catch happens! */
 	vm->nActiveCatch = 1 ;
 	/* Catch Statements must be executed without try effects */
-	simple_vm_finally(vm);
+	simple_vm_free_try(vm);
 }
 
-SIMPLE_API void simple_vm_finally ( VM *vm )
+SIMPLE_API void simple_vm_free_try ( VM *vm )
 {
 	simple_list_deleteitem_gc(vm->sState,vm->pTry,simple_list_getsize(vm->pTry));
 }

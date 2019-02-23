@@ -13,7 +13,7 @@
  */
 
 
-#include "../includes/simple.h"
+#include "../include/simple.h"
 /* Grammar */
 
 int simple_parser_class ( Parser *parser )
@@ -336,13 +336,7 @@ int simple_parser_stmt ( Parser *parser )
 			simple_parser_icg_newoperation(parser,ICO_FILENAME);
 			simple_parser_icg_newoperand(parser,simple_list_getstring(parser->sState->files_stack,simple_list_getsize(parser->sState->files_stack)));
 			simple_parser_icg_newoperation(parser,ICO_FREESTACK);
-			if (call_type == 0) {
-				simple_parser_nexttoken(parser); 
-				if (simple_parser_isoperator2(parser,OP_MUL) || simple_parser_isoperator(parser, "?") || simple_parser_isoperator(parser, "@")) {
-					simple_parser_nexttoken(parser);
-					return load_module(parser);
-				}
-			} else {
+			if (call_type == 1) {
 				simple_parser_icg_newoperation(parser,ICO_IMPORT);
 				#if SIMPLE_PARSERTRACE
 				SIMPLE_STATE_CHECKPRINTRULES
@@ -921,7 +915,7 @@ int simple_parser_stmt ( Parser *parser )
 		#endif
 		return x ;
 	}
-	/* Statement --> try {Statement} catch {Statement} finally */
+	/* Statement --> try {Statement} catch {Statement} */
 	if ( simple_parser_iskeyword(parser,KEYWORD_TRY) ) {
 		simple_parser_nexttoken(parser);
 		SIMPLE_PARSER_IGNORENEWLINE ;
@@ -935,7 +929,7 @@ int simple_parser_stmt ( Parser *parser )
 		#if SIMPLE_PARSERTRACE
 		SIMPLE_STATE_CHECKPRINTRULES 
 		
-		puts("Rule : Statement  --> 'Try' {Statement} Catch finally");
+		puts("Rule : Statement  --> 'Try' {Statement} Catch ");
 		#endif
 		while ( simple_parser_stmt(parser) ) {
 			if ( parser->ActiveToken == parser->TokensCount ) {
@@ -946,7 +940,7 @@ int simple_parser_stmt ( Parser *parser )
 			simple_parser_nexttoken(parser);
 			/*
 			**  Generate Code 
-			**  Jump from end of try block to label after finally 
+			**  Jump from end of try block to label after }
 			*/
 			simple_parser_icg_newoperation(parser,ICO_JUMP);
 			pMark2 = simple_parser_icg_getactiveoperation(parser);
@@ -962,11 +956,11 @@ int simple_parser_stmt ( Parser *parser )
 					break ;
 				}
 			}
-			if ( simple_parser_iskeyword(parser,KEYWORD_FINALLY) || simple_parser_iskeyword(parser,KEYWORD_END) || simple_parser_csbraceend(parser) ) {
+			if ( simple_parser_iskeyword(parser,KEYWORD_END) || simple_parser_csbraceend(parser) ) {
 				#if SIMPLE_PARSERTRACE
 				SIMPLE_STATE_CHECKPRINTRULES 
 				
-				puts("Rule : finally --> 'finally'");
+				puts("Rule : end --> 'end'");
 				#endif
 				simple_parser_nexttoken(parser);
 				/* Generate Code */
@@ -974,7 +968,7 @@ int simple_parser_stmt ( Parser *parser )
 				pMark3 = simple_parser_icg_getactiveoperation(parser);
 				nMark2 = simple_parser_icg_newlabel(parser);
 				simple_parser_icg_addoperandint(parser,pMark2,nMark2);
-				simple_parser_icg_newoperation(parser,ICO_DONE);
+				simple_parser_icg_newoperation(parser,ICO_FREE_TRY);
 				nMark3 = simple_parser_icg_newlabel(parser);
 				simple_parser_icg_addoperandint(parser,pMark3,nMark3);
 				return 1 ;
@@ -1136,6 +1130,19 @@ int simple_parser_stmt ( Parser *parser )
 			parser_error(parser,PARSER_ERROR_SWITCHEXPR);
 		}
 	}
+	/* Statement --> Import Identifier { '.' Identifier } */
+	if ( simple_parser_iskeyword(parser,KEYWORD_IMPORT) ) {
+		simple_parser_nexttoken(parser);
+		SIMPLE_PARSER_IGNORENEWLINE ;
+		/* Generate Code */
+		simple_parser_icg_newoperation(parser,ICO_IMPORT);
+		#if RING_PARSERTRACE
+		SIMPLE_STATE_CHECKPRINTRULES 
+		
+		puts("Rule : Statement  --> 'Import' Identifier{'.'identifier}");
+		#endif
+		return simple_parser_namedotname(parser) ;
+	}
 	/* Statement --> epslion */
 	if ( simple_parser_epslion(parser) ) {
 		return 1 ;
@@ -1149,18 +1156,18 @@ int simple_parser_stmt ( Parser *parser )
 		#endif
 		/*
 		**  Generate Code 
-		**  Call expreval() if we are inside { } 
+		**  Call exprEval() if we are inside { } 
 		*/
 		if ( parser->nBraceFlag ) {
-			/* if isblock(self,"braceexpreval") braceexpreval() end */
+			/* if isblock(self,"exprEval") exprEval() end */
 			simple_parser_icg_newoperation(parser,ICO_LOADBLOCK);
-			simple_parser_icg_newoperand(parser,"isBlock");
+			simple_parser_icg_newoperand(parser,"hasBlock");
 			simple_parser_icg_newoperation(parser,ICO_LOADADDRESS);
 			simple_parser_icg_newoperand(parser,"self");
 			simple_parser_icg_newoperandint(parser,0);
 			simple_parser_icg_newoperation(parser,ICO_PUSHV);
 			simple_parser_icg_newoperation(parser,ICO_PUSHC);
-			simple_parser_icg_newoperand(parser,"braceexpreval");
+			simple_parser_icg_newoperand(parser,"exprEval");
 			simple_parser_icg_newoperation(parser,ICO_CALL);
 			simple_parser_icg_newoperation(parser,ICO_NOOP);
 			simple_parser_icg_newoperation(parser,ICO_PUSHV);
@@ -1168,7 +1175,7 @@ int simple_parser_stmt ( Parser *parser )
 			simple_parser_icg_newoperation(parser,ICO_JUMPZERO);
 			pMark = simple_parser_icg_getactiveoperation(parser);
 			simple_parser_icg_newoperation(parser,ICO_LOADBLOCK);
-			simple_parser_icg_newoperand(parser,"braceexpreval");
+			simple_parser_icg_newoperand(parser,"exprEval");
 			/* Duplicate Stack */
 			simple_parser_icg_newoperation(parser,ICO_DUPLICATE);
 			simple_parser_icg_newoperation(parser,ICO_CALL);
@@ -1182,17 +1189,6 @@ int simple_parser_stmt ( Parser *parser )
 		return 1 ;
 	}
 	return 0 ;
-}
-
-int load_module( Parser *parser ) {
-    /* Generate Code */
-    simple_parser_icg_newoperation(parser,ICO_IMPORT);
-    #if SIMPLE_PARSERTRACE
-    SIMPLE_STATE_CHECKPRINTRULES
-
-    puts("Rule : Statement  --> '?'['@'] Identifier{'.'identifier}");
-    #endif
-    return simple_parser_namedotname(parser) ;
 }
 
 int simple_parser_paralist ( Parser *parser )
@@ -1405,6 +1401,18 @@ int simple_parser_namedotname ( Parser *parser )
 		/* Generate Code */
 		simple_parser_icg_newoperand(parser,simple_string_get(string));
 		simple_string_delete_gc(parser->sState,string);
+		if (simple_parser_isoperator2(parser, OP_COMMA)) {
+			simple_parser_nexttoken(parser);
+			SIMPLE_PARSER_IGNORENEWLINE ;
+			/* Generate Code */
+			simple_parser_icg_newoperation(parser,ICO_IMPORT);
+			#if RING_PARSERTRACE
+			SIMPLE_STATE_CHECKPRINTRULES 
+			
+			puts("Rule : Statement  --> 'Import' Identifier,{'.'identifier}");
+			#endif
+			return simple_parser_namedotname(parser);
+		}
 		return 1 ;
 	} else {
 		parser_error(parser,PARSER_ERROR_MODULENAME);

@@ -50,7 +50,13 @@ block strValueOf(object)
 		val = unEscapeString(object)
 		
 	elif isNumber(object)
-		val = ""+object
+		if object == true {
+			val = "true"
+		elif object == false
+			val = "false"
+		else
+			val = ""+object
+		}
 		
 	elif isPointer(object)
 		val = __pointer_address_to_string(object,object[1])
@@ -746,7 +752,7 @@ block strCharAt(object, index)
 
 */
 block strIsEmpty(string value)
-	return value == null or value == ""
+	return value == ""
 	
 block strEquals(acom, bcom, con)
 	if !con  acom = toLowerCase(acom) bcom = toLowerCase(bcom) end
@@ -778,6 +784,55 @@ block strStartsWith(object, check)
 		throw("simple.core:removeStr","Invalid parameter, expecting (String,String), found (" + objectType(object) + "," + objectType(check) + ")")	
 	}
 	return false
+	
+/*
+
+*/
+block strRemoveFirst(string str, string toRemove)
+	strLen = lengthOf(str) - 1
+	toRemoveLen = lengthOf(toRemove)
+	newValue = ""
+	for a = 0 to strLen {
+		if a < toRemoveLen {
+			if str[a] == toRemove[a] {
+				continue
+			}
+		}
+		newValue += str[a]
+	}
+	return newValue
+	
+/*
+
+*/
+block strRemoveLast(string str, string toRemove)
+	strLen = lengthOf(str) - 1
+	toRemoveLen = lengthOf(toRemove)
+	newValue = ""
+	b = strLen
+	for a = strLen to 0 step -1 {
+		if a < toRemoveLen {
+			if str[b] == toRemove[a] {
+				b--
+				continue
+			}
+		}
+	}
+	for a = b to 0 step -1 {
+		newValue += str[a]
+	}
+	return strReverse(newValue)
+	
+/*
+
+*/
+block strReverse(string str)
+	strLen = lengthOf(str) - 1
+	newValue = ""
+	for a = strLen to 0 step -1 {
+		newValue += str[a]
+	}
+	return newValue
 	
 block lastStrAfterChar(str value, char suffix)
 	return lastStrAfter(value, ""+suffix)
@@ -1035,7 +1090,7 @@ class String : Object
 		switch op {
 			case "lengthOf"
 				return Length
-			case "="
+			case "=="
 				return equals(value)
 			case "!="
 				return !equals(value)

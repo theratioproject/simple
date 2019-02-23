@@ -1,0 +1,241 @@
+
+/*
+
+*/
+call simple.core.Object
+call simple.system.Color
+call fulltick.base.FWidget
+call fulltick.painting.FColor
+call fulltick.drawing.FAlignment
+call fulltick.drawing.FBoxType
+call fulltick.widgets.FRoundButton
+
+/*
+
+*/
+module fulltick.widgets
+
+/*
+
+*/
+class FRadioRoundButton : FRoundButton
+
+    /*
+
+    */
+    Width = FApp.Scheme.getShemeValue("FRadioRoundButton.Width") 
+
+    /*
+
+    */
+    Height = FApp.Scheme.getShemeValue("FRadioRoundButton.Height") 
+
+    /*
+
+    */
+    X = FApp.Scheme.getShemeValue("FRadioRoundButton.X") 
+
+    /*
+
+    */
+    Y = FApp.Scheme.getShemeValue("FRadioRoundButton.Y") 
+
+    /*
+
+    */
+    Label = FApp.Scheme.getShemeValue("FRadioRoundButton.Label") 
+
+    /*
+
+    */
+    CapitalizeLabel = FApp.Scheme.getShemeValue("FRadioRoundButton.CapitalizeLabel") 
+
+    /*
+
+    */
+    Background = FApp.Scheme.getShemeValue("FRadioRoundButton.Background") 
+
+    /*
+
+    */
+    LabelAlignment = FApp.Scheme.getShemeValue("FRadioRoundButton.LabelAlignment") 
+
+    /*
+
+    */
+    BaseColor = FApp.Scheme.getShemeValue("FRadioRoundButton.BaseColor") 
+
+    /*
+
+    */
+    Box = FApp.Scheme.getShemeValue("FRadioRoundButton.Box") 
+
+    /*
+
+    */
+    BaseBox = FApp.Scheme.getShemeValue("FRadioRoundButton.BaseBox") 
+
+    /*
+
+    */
+    Border = FApp.Scheme.getShemeValue("FRadioRoundButton.Border") 
+
+    /*
+
+    */
+    HasBorder = FApp.Scheme.getShemeValue("FRadioRoundButton.HasBorder") 
+
+    /*
+
+    */
+    AcceptInput = FApp.Scheme.getShemeValue("FRadioRoundButton.AcceptInput")
+
+    /*
+
+    */
+    Visible = FApp.Scheme.getShemeValue("FRadioRoundButton.Visible") 
+
+    /*
+
+    */
+    KeyboardFocusable = FApp.Scheme.getShemeValue("FRadioRoundButton.KeyboardFocusable") 
+
+    /*
+
+    */
+    Text = FApp.Scheme.getShemeValue("FRadioRoundButton.Text") 
+
+    /*
+
+    */
+    Tooltip = FApp.Scheme.getShemeValue("FRadioRoundButton.Tooltip") 
+
+    /*
+
+    */
+    LabelColor = FApp.Scheme.getShemeValue("FRadioRoundButton.LabelColor") 
+
+    /*
+
+    */
+    LabelFont = FApp.Scheme.getShemeValue("FRadioRoundButton.LabelFont") 
+
+    /*
+
+    */
+    LabelSize = FApp.Scheme.getShemeValue("FRadioRoundButton.LabelSize")
+
+    /*
+
+    */
+    LabelType = FApp.Scheme.getShemeValue("FRadioRoundButton.LabelType")
+
+    /*
+
+    */
+    SelectionColor = FApp.Scheme.getShemeValue("FRadioRoundButton.SelectionColor")
+
+    /*
+
+    */
+    Shortcut = FApp.Scheme.getShemeValue("FRadioRoundButton.Shortcut")
+
+    /*
+
+    */
+    Value = FApp.Scheme.getShemeValue("FRadioRoundButton.Value")
+
+    /*
+
+    */
+    Text = null
+
+    /*
+
+    */
+    block FRadioRoundButton(params...)
+        paramsLen = lengthOf(params)
+        if paramsLen == 1 {
+            Label = params[0]
+            if !isString(Label) {
+                throw(self,"Invalid parameter Expecting 'string' as FRadioRoundButton Label")
+            }
+        elif paramsLen == 2
+            Width = params[0]
+            Height = params[1]
+            if !isNumber(Width) or !isNumber(Height) {
+                throw(self,"Invalid parameter Expecting 'number' as FRadioRoundButton Width and Height")
+            }
+        elif paramsLen == 3 
+            Width = params[0]
+            Height = params[1]
+            Label = params[2]
+            if !isNumber(Width) or !isNumber(Height) {
+                throw(self,"Invalid parameter Expecting 'number' as FRadioRoundButton Width and Height")
+            }
+            if !isString(Label) {
+                throw(self,"Invalid parameter Expecting 'string' as FRadioRoundButton Label")
+            }
+        elif paramsLen == 4
+            X = params[0]
+            Y = params[1]
+            Width = params[2]
+            Height = params[3]
+            if !isNumber(X) or !isNumber(Y) {
+                throw(self,"Invalid parameter Expecting 'number' as FRadioRoundButton X and Y")
+            }
+            if !isNumber(Width) or !isNumber(Height) {
+                throw(self,"Invalid parameter Expecting 'number' as FRadioRoundButton Width and Height")
+            }
+        elif paramsLen == 5
+            X = params[0]
+            Y = params[1]
+            Width = params[2]
+            Height = params[3]
+            Label = params[4]
+            if !isNumber(X) or !isNumber(Y) {
+                throw(self,"Invalid parameter Expecting 'number' as FRadioRoundButton X and Y")
+            }
+            if !isNumber(Width) or !isNumber(Height) {
+                throw(self,"Invalid parameter Expecting 'number' as FRadioRoundButton Width and Height")
+            }
+            if !isString(Label) {
+                throw(self,"Invalid parameter Expecting 'string' as FRadioRoundButton Label")
+            }
+        else    
+            if paramsLen != 0 {
+                throw(self,"Calling block with invalid legth of parameter")
+            }
+        } 
+
+        if CapitalizeLabel {
+            Label = toUpperCase(Label)
+        }
+        Ptr = __Fl_Radio_Round_Button(X, Y, Width, Height, "")
+        registerWidget()
+        #resize(X, Y, Width, Height)
+        setLabelAlignment(LabelAlignment)
+        setBox(Box)
+        setBaseColor(BaseColor)
+        setBorder(Border)
+        construct()
+        setValue(Value)
+        
+        return self
+
+    /*
+        
+    */
+    block setPlatformScheme(string schemeName)
+        if schemeName == FScheme.Macosx {
+			
+        else 
+			super.setPlatformScheme(schemeName)
+			
+        }
+
+    /*
+
+    */
+    private 
+

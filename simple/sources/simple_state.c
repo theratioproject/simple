@@ -13,7 +13,7 @@
  */
 
 
-#include "../includes/simple.h"
+#include "../include/simple.h"
 #ifdef _WIN32
 /* Windows only */
 #include <direct.h>
@@ -40,18 +40,21 @@ void segfaultaction ( int sig ) ;
 
 SIMPLE_API SimpleState * simple_state_new ( void )
 {
+	char module_path[SIMPLE_PATHSIZE] ;
 	SimpleState *sState  ;
 	sState = (SimpleState *) simple_malloc(sizeof(SimpleState));
 	if ( sState == NULL ) {
 		printf( SIMPLE_OOM ) ;
 		exit(0);
 	}
+	sState->main_file_path = "" ;
 	sState->files_list = NULL ;
 	sState->files_stack = NULL ;
 	sState->generated_code = NULL ;
 	sState->blocks_map = NULL ;
 	sState->classes_map = NULL ;
 	sState->modules_map = NULL ;
+	sState->module_paths = simple_list_new_gc(sState,0);
 	sState->c_blocks = NULL ;
 	sState->nISCGI = 0 ;
 	sState->nRun = 1 ;
@@ -74,8 +77,58 @@ SIMPLE_API SimpleState * simple_state_new ( void )
 	sState->aCustomGlobalScopeStack = simple_list_new(0) ;
 	sState->loaded_cblocks = 0 ;
 	simple_list_addint(sState->aCustomGlobalScopeStack,sState->nCustomGlobalScopeCounter);
+	if (sState->module_paths != NULL) {
+		simple_list_addstring_gc(sState,sState->module_paths,"./modules/");
+		/* */
+		snprintf(module_path, sizeof(module_path), "%s/modules/", simple_file_initial_dir);
+		simple_list_addstring_gc(sState,sState->module_paths,module_path);
+		/* */
+		simple_distro_folder(module_path);
+		snprintf(module_path, sizeof(module_path), "%s/modules/", module_path);
+		simple_list_addstring_gc(sState,sState->module_paths,module_path);
+		/* */
+		snprintf(module_path, sizeof(module_path), "%s/modules/", getenv("SIMPLE_PATH"));
+		simple_list_addstring_gc(sState,sState->module_paths,module_path);
+		/* */
+		snprintf(module_path, sizeof(module_path), "%s/s%s/modules/", getenv("SIMPLE_PATH"), SIMPLE_VERSION);
+		simple_list_addstring_gc(sState,sState->module_paths,module_path);
+		/* add the github folder in modules ;) */
+		snprintf(module_path, sizeof(module_path), "%s/s%s/modules/github.com/", getenv("SIMPLE_PATH"), SIMPLE_VERSION);
+		simple_list_addstring_gc(sState,sState->module_paths,module_path);
+		/* Now we assume it is executed in a folder bin and the modules is in parent folder 
+			like
+			simple/bin/
+			simple/modules/
+			simple/include/
+		so we go parent directory *simple* and check for modules. Think execute simple from zip extract
+		*/
+		simple_list_addstring_gc(sState,sState->module_paths,"../modules/");
+		#if defined(_WIN32)
+			snprintf(module_path, sizeof(module_path), "C:/Simple/s%s/modules/", SIMPLE_VERSION);
+			simple_list_addstring_gc(sState,sState->module_paths,module_path);
+		#elif defined(__ANDROID__)
+			/* since we wait upon the android specific variable to be set, load android paths after
+				this initalization. call simple_add_android_paths(SimpleState *sState) in android.
+			*/
+		#else
+			snprintf(module_path, sizeof(module_path), "%s/var/lib/simple/s%s/modules/", getenv("PREFIX"), SIMPLE_VERSION);
+			simple_list_addstring_gc(sState,sState->module_paths,module_path);
+		#endif
+	}
 	return sState ;
 }
+
+#if defined(__ANDROID__)
+SIMPLE_API SimpleState * simple_add_android_paths(SimpleState *sState) 
+{
+	char module_path[SIMPLE_PATHSIZE] ;
+	/* add sdcard (External Storage) first. user might want to update module without having to reinstall the app or wait for an update from developer (BAD IDEA) */
+	snprintf(module_path, sizeof(module_path), "%s/simple/s%s/modules/", getenv("EXTERNAL_STORAGE"), SIMPLE_VERSION);
+	/* now add the android app folder (Android/data/pakage.name/)*/
+	snprintf(module_path, sizeof(module_path), "%s/modules/", sState->simple_ANativeActivity->externalDataPath);
+	simple_list_addstring_gc(sState,sState->module_paths,module_path);
+}
+#endif
 
 SIMPLE_API SimpleState * finalize_simple_state ( SimpleState *sState )
 {
@@ -88,6 +141,7 @@ SIMPLE_API SimpleState * finalize_simple_state ( SimpleState *sState )
 		sState->blocks_map = simple_list_delete_gc(sState,sState->blocks_map);
 		sState->classes_map = simple_list_delete_gc(sState,sState->classes_map);
 		sState->modules_map = simple_list_delete_gc(sState,sState->modules_map);
+		sState->module_paths = simple_list_delete_gc(sState,sState->module_paths);
 		if ( sState->c_blocks != NULL ) {
 			/* We check because the execution may end by the compiler error */
 			sState->c_blocks = simple_list_delete_gc(sState,sState->c_blocks);
@@ -177,8 +231,6 @@ SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 		for ( x = 1 ; x < argc ; x++ ) {
 			if ( strcmp(argv[x],"--show-tokens") == 0 || strcmp(argv[x],"-k") == 0 ) {
 				nTokens = 1;
-			} else if ( strcmp(argv[x],"--case-neutral") == 0 || strcmp(argv[x],"-c") == 0 ) {
-				NOT_CASE_SENSITIVE = 1;
 			} else if ( strcmp(argv[x],"--error") == 0 || strcmp(argv[x],"-e") == 0 ) {
 				skip_error = 1;
 			} else if ( strcmp(argv[x],"--version") == 0 || strcmp(argv[x],"-v") == 0 ) {
@@ -230,7 +282,6 @@ SIMPLE_API void simple_state_main ( int argc, char *argv[] )
 	}
 	/*Assign default file dir */
 	getcwd(simple_file_initial_dir, sizeof(simple_file_initial_dir));
-    //get_file_folder ( simple_file_initial_dir );
 	simple_execute(cStr,nCGI,nRun,nPrintIC,nPrintICFinal,nTokens,nRules,nIns,generate_object,nWarn,argc,argv,skip_error);
 	#if SIMPLE_TESTPERFORMANCE
 	if ( show_time ) {
@@ -347,7 +398,8 @@ void simple_exefolder ( char *cDirPath )
 	strcpy(cDirPath,cDir2);
 }
 
-void simple_distro_folder(char *dirPath) {
+void simple_distro_folder(char *dirPath) 
+{
         char cDir[SIMPLE_PATHSIZE]  ;
 	char cDir2[SIMPLE_PATHSIZE]  ;
 	int x,x2,nSize  ;

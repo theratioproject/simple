@@ -1,0 +1,231 @@
+
+/*
+
+*/
+call simple.core.Object
+call simple.system.Color
+call fulltick.base.FWidget
+call fulltick.painting.FColor
+call fulltick.drawing.FAlignment
+call fulltick.drawing.FBoxType
+call fulltick.widgets.FButton
+
+/*
+
+*/
+module fulltick.widgets
+
+/*
+
+*/
+class FReturnButton : FButton
+
+    /*
+
+    */
+    Width = FApp.Scheme.getShemeValue("FReturnButton.Width") 
+
+    /*
+
+    */
+    Height = FApp.Scheme.getShemeValue("FReturnButton.Height") 
+
+    /*
+
+    */
+    X = FApp.Scheme.getShemeValue("FReturnButton.X") 
+
+    /*
+
+    */
+    Y = FApp.Scheme.getShemeValue("FReturnButton.Y") 
+
+    /*
+
+    */
+    Label = FApp.Scheme.getShemeValue("FReturnButton.Label") 
+
+    /*
+
+    */
+    CapitalizeLabel = FApp.Scheme.getShemeValue("FReturnButton.CapitalizeLabel") 
+
+    /*
+
+    */
+    Background = FApp.Scheme.getShemeValue("FReturnButton.Background") 
+
+    /*
+
+    */
+    LabelAlignment = FApp.Scheme.getShemeValue("FReturnButton.LabelAlignment") 
+
+    /*
+
+    */
+    BaseColor = FApp.Scheme.getShemeValue("FReturnButton.BaseColor") 
+
+    /*
+
+    */
+    Box = FApp.Scheme.getShemeValue("FReturnButton.Box") 
+
+    /*
+
+    */
+    BaseBox = FApp.Scheme.getShemeValue("FReturnButton.BaseBox") 
+
+    /*
+
+    */
+    Border = FApp.Scheme.getShemeValue("FReturnButton.Border") 
+
+    /*
+
+    */
+    HasBorder = FApp.Scheme.getShemeValue("FReturnButton.HasBorder") 
+
+    /*
+
+    */
+    AcceptInput = FApp.Scheme.getShemeValue("FReturnButton.AcceptInput")
+
+    /*
+
+    */
+    Visible = FApp.Scheme.getShemeValue("FReturnButton.Visible") 
+
+    /*
+
+    */
+    KeyboardFocusable = FApp.Scheme.getShemeValue("FReturnButton.KeyboardFocusable") 
+
+    /*
+
+    */
+    Text = FApp.Scheme.getShemeValue("FReturnButton.Text") 
+
+    /*
+
+    */
+    Tooltip = FApp.Scheme.getShemeValue("FReturnButton.Tooltip") 
+
+    /*
+
+    */
+    LabelColor = FApp.Scheme.getShemeValue("FReturnButton.LabelColor") 
+
+    /*
+
+    */
+    LabelFont = FApp.Scheme.getShemeValue("FReturnButton.LabelFont") 
+
+    /*
+
+    */
+    LabelSize = FApp.Scheme.getShemeValue("FReturnButton.LabelSize")
+
+    /*
+
+    */
+    LabelType = FApp.Scheme.getShemeValue("FReturnButton.LabelType")
+
+    /*
+
+    */
+    SelectionColor = FApp.Scheme.getShemeValue("FReturnButton.SelectionColor")
+
+    /*
+
+    */
+    Shortcut = FApp.Scheme.getShemeValue("FReturnButton.Shortcut")
+
+    /*
+
+    */
+    Value = FApp.Scheme.getShemeValue("FReturnButton.Value")
+
+    /*
+
+    */
+    Text = null
+
+    /*
+
+    */
+    block FReturnButton(params...)
+        paramsLen = lengthOf(params)
+        if paramsLen == 1 {
+            Label = params[0]
+            if !isString(Label) {
+                throw(self,"Invalid parameter Expecting 'string' as FReturnButton Label")
+            }
+        elif paramsLen == 2
+            Width = params[0]
+            Height = params[1]
+            if !isNumber(Width) or !isNumber(Height) {
+                throw(self,"Invalid parameter Expecting 'number' as FReturnButton Width and Height")
+            }
+        elif paramsLen == 3 
+            Width = params[0]
+            Height = params[1]
+            Label = params[2]
+            if !isNumber(Width) or !isNumber(Height) {
+                throw(self,"Invalid parameter Expecting 'number' as FReturnButton Width and Height")
+            }
+            if !isString(Label) {
+                throw(self,"Invalid parameter Expecting 'string' as FReturnButton Label")
+            }
+        elif paramsLen == 4
+            X = params[0]
+            Y = params[1]
+            Width = params[2]
+            Height = params[3]
+            if !isNumber(X) or !isNumber(Y) {
+                throw(self,"Invalid parameter Expecting 'number' as FReturnButton X and Y")
+            }
+            if !isNumber(Width) or !isNumber(Height) {
+                throw(self,"Invalid parameter Expecting 'number' as FReturnButton Width and Height")
+            }
+        elif paramsLen == 5
+            X = params[0]
+            Y = params[1]
+            Width = params[2]
+            Height = params[3]
+            Label = params[4]
+            if !isNumber(X) or !isNumber(Y) {
+                throw(self,"Invalid parameter Expecting 'number' as FReturnButton X and Y")
+            }
+            if !isNumber(Width) or !isNumber(Height) {
+                throw(self,"Invalid parameter Expecting 'number' as FReturnButton Width and Height")
+            }
+            if !isString(Label) {
+                throw(self,"Invalid parameter Expecting 'string' as FReturnButton Label")
+            }
+        else    
+            if paramsLen != 0 {
+                throw(self,"Calling block with invalid legth of parameter")
+            }
+        } 
+
+        if CapitalizeLabel {
+            Label = toUpperCase(Label)
+        }
+        Ptr = __Fl_Return_Button(X, Y, Width, Height, "")
+        registerWidget()
+        #resize(X, Y, Width, Height)
+        setLabelAlignment(LabelAlignment)
+        setBox(Box)
+        setBaseColor(BaseColor)
+        setBaseBox(BaseBox)
+        setBorder(Border)
+        construct()
+        setValue(Value)
+        
+        return self
+
+    /*
+
+    */
+    private 
+

@@ -1,0 +1,7 @@
+
+call simple.core.loadcoredymodule
+
+name = test("me")
+
+block test(one)
+	return "Hello World " + one

@@ -28,7 +28,9 @@ tasks.json
 .DS_STORE
 
 .vscode/
-*.vscode/
+*vscode/
+
+*/dist/
 
 build/*.exe
 build/*.obj

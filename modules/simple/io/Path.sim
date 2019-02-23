@@ -68,11 +68,19 @@ block dir_exixts(directoryPath)
 	It also remove multiple slashes and convert it to os single slash
 	@Return the formated path @DataType String
 */
-block curePathSlashes(string path)
+block curePathSlashes(string path, char params...)
+	paramsLen = lengthOf(params)
+	seperator = SystemSlash()
+	if paramsLen == 0 {
+	elif paramsLen == 1
+		seperator = params[0]
+	else
+		throw("simple.io:curePathSlashes", "Calling block with invalif length of parameter")
+	}
 	ret = replaceStr(path,'//','/')
 	ret = replaceStr(ret,'\\','/')
 	ret = replaceStr(ret,'\','/')
-	ret = replaceStr(ret,'/', SystemSlash())
+	ret = replaceStr(ret,'/', seperator)
 	return ret 
 	
 /*
@@ -599,6 +607,9 @@ class Path : Object
 	block create()
 		if !exists() {
 			pointer = __fopen(AbsolutePath, "w")
+			if isNull(pointer) {
+				return false
+			}
 			__fclose(pointer)
 			if rawExists() >= 0 {
 				return true

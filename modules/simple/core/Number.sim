@@ -8,6 +8,7 @@
  * @Author - Abdulazeez Abdulazeez Adeshina
  * @Date - 08 August 2018 (Date Modified)
  * @Time - 09:18 PM
+ * @Contributor - Azeez Adewale
  *
  */
 
@@ -62,66 +63,4 @@ block numValueOf(object)
 */
 class Number : Object
 
-	__OBJECT = null
-
-	/*
-		The @class Number constructor accepting 
-		@Datatype Number
-		@Class List
-
-		@Datatype Number
-		If a number is sent as parameter then the class treats
-		the parameter.
-
-		@Class Number
-		In a situation whereby the parameter is an instance of @Class Number
-		all the previous attribute of the current class is disposed and the 
-		attribute of the parameter class is transfered into this class. 
-		e.g
-			@Code
-			age = new Number(16)
-			age2 = new Number(age)
-			age3 = age1
-			@EndCode
-	*/
-
-	block Number(number)
-		try 
-			if (number.getType() == getType()) {
-				this.__OBJECT = number.object()
-			}
-			return
-		catch end
-		if !isNumber(number) { throw (this.__error()) }
-		__OBJECT = number
-		return __OBJECT
 	
-	/*
-		.toList() block is a safe block 
-		for changing the variable type from Number.
-		This change can be verified using the .typeOf() block
-		found in the Type module @Module simple/utilities/Type.sim
-	*/
-
-	block toList()
-		list = new List([__OBJECT])
-		__OBJECT = list
-		return __OBJECT
-	
-	block length()
-		return lengthOf(__OBJECT)
-
-	block value()
-		return object()
-
-	/*
-		This block returns an error
-		if the passed parameter to the Number class
-		isn't a Number.
-	*/
-	private 
-		block __error()
-			printWithFG(ConsoleColor.RED(), "The supplied value isn't a Number !" +"\n")
-		end
-
-		number = null

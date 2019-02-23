@@ -3,19 +3,18 @@
 /*
 
 */
-call simple.core.Object
-call simple.debugging.Throw
 call simple.debugging.ErrorMessages
 call simple.reflection.Class
 call simple.system.System
-call "./base/FulltickErrorMessages.sim" ? fulltick.base
-call "./painting/FColor.sim" ? fulltick.painting
-call "./objects/FBorder.sim" ? fulltick.objects
-call "./objects/FCursor.sim" ? fulltick.objects
-call "./drawing/FBoxType.sim" ? fulltick.drawing
-call "./drawing/FAlignment.sim" ? fulltick.drawing
-call "./drawing/FFont.sim" ? fulltick.drawing
-call "./drawing/FLabelType.sim" ? fulltick.drawing
+call fulltick.objects.FBorder
+call fulltick.objects.FCursor
+call fulltick.drawing.FBoxType
+call fulltick.drawing.FAlignment
+call fulltick.drawing.FFont
+call fulltick.drawing.FLabelType
+call fulltick.painting.FColor
+import simple.core, simple.system, simple.debugging, simple.reflection, fulltick.painting
+import fulltick.objects, fulltick.drawing, fulltick.painting
 
 /*
 
@@ -25,25 +24,82 @@ module fulltick
 /*
 
 */
-FScheme = new fulltick.FScheme
+final FScheme = new fulltick.FScheme
 
 /*
 
 */
+#TODO : Make Mutiline input transparent background using __FL_NO_BOX()
 if isWindows() and FScheme.UsePlatformUI {
 	FScheme.set("FWindow.Y_Diff",30)
 	FScheme.set("FWindow.Background",new FColor(242,242,242))
 
-	#button
+	#FButton
 	FScheme.set("FButton.Background",new FColor(225,225,225))
 	FScheme.set("FButton.SelectionColor",new FColor(204,228,247)) 
 	FScheme.set("FButton.Border",new FBorder(1,1,1,1,__FL_FLAT_BOX(),new FColor(173,173,173))) #on hover or click 74,174,255
+	
+	#FReturnButton
+	FScheme.set("FReturnButton.Background",new FColor(225,225,225))
+	FScheme.set("FReturnButton.SelectionColor",new FColor(204,228,247)) 
+	FScheme.set("FReturnButton.Border",new FBorder(1,1,1,1,__FL_FLAT_BOX(),new FColor(173,173,173)))
+	
+	#FRadioButton
+	FScheme.set("FRadioButton.Background",new FColor(225,225,225))
+	FScheme.set("FRadioButton.SelectionColor",new FColor(204,228,247)) 
+	FScheme.set("FRadioButton.Border",new FBorder(1,1,1,1,__FL_FLAT_BOX(),new FColor(173,173,173)))
+	
+	#FRepeatButton
+	FScheme.set("FRepeatButton.Background",new FColor(225,225,225))
+	FScheme.set("FRepeatButton.SelectionColor",new FColor(204,228,247)) 
+	FScheme.set("FRepeatButton.Border",new FBorder(1,1,1,1,__FL_FLAT_BOX(),new FColor(173,173,173)))
+	
+	#FToggleButton
+	FScheme.set("FToggleButton.Background",new FColor(225,225,225))
+	FScheme.set("FToggleButton.SelectionColor",new FColor(204,228,247)) 
+	FScheme.set("FToggleButton.Border",new FBorder(1,1,1,1,__FL_FLAT_BOX(),new FColor(173,173,173)))
+	
+	#FLightButton
+	FScheme.set("FLightButton.Background",new FColor(225,225,225))
+	FScheme.set("FLightButton.SelectionColor",FColor.FCOLOR_YELLOW) 
+	FScheme.set("FLightButton.Border",new FBorder(1,1,1,1,__FL_FLAT_BOX(),new FColor(173,173,173)))
+	
+	#FCheckButton
+	FScheme.set("FCheckButton.Background",new FColor(225,225,225))
+	FScheme.set("FCheckButton.SelectionColor",FColor.FCOLOR_BLACK) 
+	FScheme.set("FCheckButton.Border",new FBorder(1,1,1,1,__FL_FLAT_BOX(),new FColor(173,173,173)))
+	
+	#FRadioLightButton
+	FScheme.set("FRadioLightButton.Background",new FColor(225,225,225))
+	FScheme.set("FRadioLightButton.SelectionColor",FColor.FCOLOR_BLACK) 
+	FScheme.set("FRadioLightButton.Border",new FBorder(1,1,1,1,__FL_FLAT_BOX(),new FColor(173,173,173)))
+	
+	#FRoundButton
+	FScheme.set("FRoundButton.Background",new FColor(225,225,225))
+	FScheme.set("FRoundButton.SelectionColor",FColor.FCOLOR_BLACK) 
+	FScheme.set("FRoundButton.Border",new FBorder(1,1,1,1,__FL_FLAT_BOX(),new FColor(173,173,173)))
+	
+	#FRadioRoundButton
+	FScheme.set("FRadioRoundButton.Background",new FColor(225,225,225))
+	FScheme.set("FRadioRoundButton.SelectionColor",FColor.FCOLOR_BLACK) 
+	FScheme.set("FRadioRoundButton.Border",new FBorder(1,1,1,1,__FL_FLAT_BOX(),new FColor(173,173,173)))
 
 	#FInput
 	FScheme.set("FInput.Border",new FBorder(1,1,1,1,__FL_DOWN_BOX(),new FColor(172,172,172))) 
+	FScheme.set("FIntInput.Border",new FBorder(1,1,1,1,__FL_DOWN_BOX(),new FColor(172,172,172))) 
+	FScheme.set("FFloatInput.Border",new FBorder(1,1,1,1,__FL_DOWN_BOX(),new FColor(172,172,172))) 
+	FScheme.set("FMultilineInput.Border",new FBorder(1,1,1,1,__FL_DOWN_BOX(),new FColor(172,172,172))) 
+	FScheme.set("FOutput.Border",new FBorder(1,1,1,1,__FL_DOWN_BOX(),new FColor(172,172,172))) 
+	FScheme.set("FMultilineOutput.Border",new FBorder(1,1,1,1,__FL_DOWN_BOX(),new FColor(172,172,172))) 
+	FScheme.set("FSecretInput.Border",new FBorder(1,1,1,1,__FL_DOWN_BOX(),new FColor(172,172,172)))
+	FScheme.set("FFileInput.Border",new FBorder(1,1,1,1,__FL_DOWN_BOX(),new FColor(172,172,172)))
+	
+	#FMenuBar
+	FScheme.set("FMenuBar.Background",new FColor(242,242,242))
+	FScheme.set("FMenuBar.DownColor",new FColor(33,147,239))
 
 elif isAndroid() and FScheme.UsePlatformUI 
-	FScheme.set("FWindow.Y_Diff",24)
+	#FScheme.set("FWindow.Y_Diff",24)
 	FScheme.set("FWindow.Width",primaryScreenWidth())
 	FScheme.set("FWindow.Height",primaryScreenHeight())
 	FScheme.set("FWindow.X",0)
@@ -56,27 +112,201 @@ elif isAndroid() and FScheme.UsePlatformUI
 	FScheme.set("FButton.BaseColor",new FColor(175,175,175))
 	FScheme.set("FButton.CapitalizeLabel",true)
 	FScheme.set("FButton.HasBorder",false)
+	
+	#FReturnButton
+	FScheme.set("FReturnButton.Background",new FColor(214,215,215))
+	FScheme.set("FReturnButton.BaseColor",new FColor(175,175,175))
+	FScheme.set("FReturnButton.CapitalizeLabel",true)
+	FScheme.set("FReturnButton.HasBorder",false)
+	
+	#FRadioButton
+	FScheme.set("FRadioButton.Background",new FColor(214,215,215))
+	FScheme.set("FRadioButton.BaseColor",new FColor(175,175,175))
+	FScheme.set("FRadioButton.CapitalizeLabel",true)
+	FScheme.set("FRadioButton.HasBorder",false)
+	
+	#FRepeatButton
+	FScheme.set("FRepeatButton.Background",new FColor(214,215,215))
+	FScheme.set("FRepeatButton.BaseColor",new FColor(175,175,175))
+	FScheme.set("FRepeatButton.CapitalizeLabel",true)
+	FScheme.set("FRepeatButton.HasBorder",false)
+	
+	#FToggleButton
+	FScheme.set("FToggleButton.Background",new FColor(214,215,215))
+	FScheme.set("FToggleButton.BaseColor",new FColor(175,175,175))
+	FScheme.set("FToggleButton.CapitalizeLabel",true)
+	FScheme.set("FToggleButton.HasBorder",false)
+	
+	#FLightButton
+	FScheme.set("FLightButton.Background",new FColor(214,215,215))
+	FScheme.set("FLightButton.BaseColor",new FColor(175,175,175))
+	FScheme.set("FLightButton.CapitalizeLabel",true)
+	FScheme.set("FLightButton.HasBorder",false)
+	
+	#FCheckButton
+	FScheme.set("FCheckButton.Background",new FColor(214,215,215))
+	FScheme.set("FCheckButton.BaseColor",new FColor(175,175,175))
+	FScheme.set("FCheckButton.CapitalizeLabel",true)
+	
+	#FRadioLightButton
+	FScheme.set("FRadioLightButton.Background",new FColor(214,215,215))
+	FScheme.set("FRadioLightButton.BaseColor",new FColor(175,175,175))
+	FScheme.set("FRadioLightButton.CapitalizeLabel",true)
+	
+	#FRoundButton
+	FScheme.set("FRoundButton.Background",new FColor(214,215,215))
+	FScheme.set("FRoundButton.BaseColor",new FColor(175,175,175))
+	FScheme.set("FRoundButton.CapitalizeLabel",true)
+	
+	#FRadioRoundButton
+	FScheme.set("FRadioRoundButton.Background",new FColor(214,215,215))
+	FScheme.set("FRadioRoundButton.BaseColor",new FColor(175,175,175))
+	FScheme.set("FRadioRoundButton.CapitalizeLabel",true)
 
 	#FInput
 	FScheme.set("FInput.Background",new FColor(250,250,250)) 
-	FScheme.set("FInput.Border",new FBorder(0,2,0,0,__FL_FLAT_BOX(),new FColor(255,106,154))) 
+	FScheme.set("FInput.Border",new FBorder(0,2,0,0,__FL_FLAT_BOX(),new FColor(255,106,154)))
+	FScheme.set("FIntInput.Background",new FColor(250,250,250)) 
+	FScheme.set("FIntInput.Border",new FBorder(0,2,0,0,__FL_FLAT_BOX(),new FColor(255,106,154))) 
+	FScheme.set("FFloatInput.Background",new FColor(250,250,250)) 
+	FScheme.set("FFloatInput.Border",new FBorder(0,2,0,0,__FL_FLAT_BOX(),new FColor(255,106,154))) 
+	FScheme.set("FMultilineInput.Background",new FColor(250,250,250)) 
+	FScheme.set("FMultilineInput.Border",new FBorder(0,2,0,0,__FL_FLAT_BOX(),new FColor(255,106,154))) 
+	FScheme.set("FOutput.Background",new FColor(250,250,250)) 
+	FScheme.set("FOutput.Border",new FBorder(0,2,0,0,__FL_FLAT_BOX(),new FColor(255,106,154)))
+	FScheme.set("FMultilineOutput.Background",new FColor(250,250,250)) 
+	FScheme.set("FMultilineOutput.Border",new FBorder(0,2,0,0,__FL_FLAT_BOX(),new FColor(255,106,154))) 
+	FScheme.set("FSecretInput.Background",new FColor(250,250,250)) 
+	FScheme.set("FSecretInput.Border",new FBorder(0,2,0,0,__FL_FLAT_BOX(),new FColor(255,106,154))) 
+	FScheme.set("FFileInput.Background",new FColor(250,250,250)) 
+	FScheme.set("FFileInput.Border",new FBorder(0,2,0,0,__FL_FLAT_BOX(),new FColor(255,106,154)))
+	
+	#FMenuBar
+	FScheme.set("FMenuBar.Background",new FColor(62,78,184))
+	FScheme.set("FMenuBar.TextColor",FColor.FCOLOR_WHITE)
 
 elif isLinux() and FScheme.UsePlatformUI 
 	FScheme.set("FWindow.Background",new FColor(229,220,212))
 
+	#FButton
+	FScheme.set("FButton.Background",new FColor(229,220,212))
+	FScheme.set("FButton.SelectionColor",new FColor(214,85,53))
+	FScheme.set("FButton.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41)))
+	
+	#FReturnButton
+	FScheme.set("FRadioButton.Background",new FColor(229,220,212))
+	FScheme.set("FReturnButton.SelectionColor",new FColor(214,85,53))
+	FScheme.set("FRadioButton.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41)))
+	
+	#FRadioButton
+	FScheme.set("FRadioButton.Background",new FColor(229,220,212))
+	FScheme.set("FRadioButton.SelectionColor",new FColor(214,85,53))
+	FScheme.set("FRadioButton.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41)))
+	
+	#FRepeatButton
+	FScheme.set("FRepeatButton.Background",new FColor(229,220,212))
+	FScheme.set("FRepeatButton.SelectionColor",new FColor(214,85,53))
+	FScheme.set("FRepeatButton.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41)))
+	
+	#FToggleButton
+	FScheme.set("FToggleButton.Background",new FColor(229,220,212))
+	FScheme.set("FToggleButton.SelectionColor",new FColor(214,85,53))
+	FScheme.set("FToggleButton.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41)))
+	
+	#FLightButton
+	FScheme.set("FLightButton.Background",new FColor(229,220,212))
+	FScheme.set("FLightButton.SelectionColor",new FColor(214,85,53))
+	FScheme.set("FLightButton.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41)))
+	
+	#FCheckButton
+	FScheme.set("FCheckButton.Background",new FColor(229,220,212))
+	FScheme.set("FCheckButton.SelectionColor",new FColor(214,85,53))
+	FScheme.set("FCheckButton.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41)))
+	
+	#FRadioLightButton
+	FScheme.set("FRadioLightButton.Background",new FColor(229,220,212))
+	FScheme.set("FRadioLightButton.SelectionColor",new FColor(214,85,53))
+	FScheme.set("FRadioLightButton.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41)))
+	
+	#FRoundButton
+	FScheme.set("FRoundButton.Background",new FColor(229,220,212))
+	FScheme.set("FRoundButton.SelectionColor",new FColor(214,85,53))
+	FScheme.set("FRoundButton.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41)))
+	
+	#FRadioRoundButton
+	FScheme.set("FRadioRoundButton.Background",new FColor(229,220,212))
+	FScheme.set("FRadioRoundButton.SelectionColor",new FColor(214,85,53))
+	FScheme.set("FRadioRoundButton.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41)))
+
 	#FInput
 	FScheme.set("FInput.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41))) 
+	FScheme.set("FIntInput.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41))) 
+	FScheme.set("FFloatInput.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41))) 
+	FScheme.set("FMultilineInput.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41))) 
+	FScheme.set("FOutput.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41))) 
+	FScheme.set("FMultilineOutput.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41))) 
+	FScheme.set("FSecretInput.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41)))
+	FScheme.set("FFileInput.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41)))
+	
+	#FMenuBar
+	FScheme.set("FMenuBar.Background",new FColor(225,214,204))
 
 elif isMacosx() and FScheme.UsePlatformUI
-	FScheme.set("FWindow.Background",new FColor(237,237,237))
+	FScheme.set("FWindow.Background",new FColor(238,244,249))
 
 	#FButton
 	FScheme.set("FButton.Box",new FBoxType(__fl_define_FL_ROUNDED_BOX(),new FColor(239,239,239)))
 	FScheme.set("FButton.BaseBox",new FBoxType(__fl_define_FL_ROUNDED_BOX(),new FColor(177,204,247)))
 	FScheme.set("FButton.Border",new FBorder(2,2,2,2,__fl_define_FL_ROUNDED_BOX(),new FColor(157,157,157)))
+	
+	#FReturnButton
+	FScheme.set("FReturnButton.Box",new FBoxType(__fl_define_FL_ROUNDED_BOX(),new FColor(239,239,239)))
+	FScheme.set("FReturnButton.BaseBox",new FBoxType(__fl_define_FL_ROUNDED_BOX(),new FColor(177,204,247)))
+	FScheme.set("FReturnButton.Border",new FBorder(2,2,2,2,__fl_define_FL_ROUNDED_BOX(),new FColor(157,157,157)))
+	
+	#FRadioButton
+	FScheme.set("FRadioButton.Box",new FBoxType(__fl_define_FL_ROUNDED_BOX(),new FColor(239,239,239)))
+	FScheme.set("FRadioButton.BaseBox",new FBoxType(__fl_define_FL_ROUNDED_BOX(),new FColor(177,204,247)))
+	FScheme.set("FRadioButton.Border",new FBorder(2,2,2,2,__fl_define_FL_ROUNDED_BOX(),new FColor(157,157,157)))
+	
+	#FRepeatButton
+	FScheme.set("FRepeatButton.Box",new FBoxType(__fl_define_FL_ROUNDED_BOX(),new FColor(239,239,239)))
+	FScheme.set("FRepeatButton.BaseBox",new FBoxType(__fl_define_FL_ROUNDED_BOX(),new FColor(177,204,247)))
+	FScheme.set("FRepeatButton.Border",new FBorder(2,2,2,2,__fl_define_FL_ROUNDED_BOX(),new FColor(157,157,157)))
+	
+	#FToggleButton
+	FScheme.set("FToggleButton.Box",new FBoxType(__fl_define_FL_ROUNDED_BOX(),new FColor(239,239,239)))
+	FScheme.set("FToggleButton.BaseBox",new FBoxType(__fl_define_FL_ROUNDED_BOX(),new FColor(177,204,247)))
+	FScheme.set("FToggleButton.Border",new FBorder(2,2,2,2,__fl_define_FL_ROUNDED_BOX(),new FColor(157,157,157)))
+	
+	#FLightButton
+	FScheme.set("FLightButton.Box",new FBoxType(__fl_define_FL_ROUNDED_BOX(),new FColor(239,239,239)))
+	FScheme.set("FLightButton.BaseBox",new FBoxType(__fl_define_FL_ROUNDED_BOX(),new FColor(177,204,247)))
+	FScheme.set("FLightButton.Border",new FBorder(2,2,2,2,__fl_define_FL_ROUNDED_BOX(),new FColor(157,157,157)))
+	
+	#FCheckButton
+	
+	#FRoundButton
+	
+	#FRadioLightButton
+	
+	#FRadioRoundButton
+	
+	#FRadioRoundButton
 
 	#FInput
-	FScheme.set("FInput.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(197,197,197))) 
+	FScheme.set("FInput.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(197,197,197)))
+	FScheme.set("FIntInput.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(197,197,197))) 
+	FScheme.set("FFloatInput.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(197,197,197))) 
+	FScheme.set("FMultilineInput.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(197,197,197))) 
+	FScheme.set("FOutput.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(197,197,197)))
+	FScheme.set("FMultilineOutput.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(197,197,197)))
+	FScheme.set("FSecretInput.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(197,197,197)))
+	FScheme.set("FFileInput.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(197,197,197))) 
+	
+	#FMenuBar
+	FScheme.set("FMenuBar.Background",new FColor(238,244,249))
+	FScheme.set("FMenuBar.TextColor",new FColor(54,101,148))
 }
 
 /*
@@ -132,22 +362,22 @@ class FScheme : Object
 	/*
 
 	*/
-	ANDROID = "android"
+	Android = "android"
 
 	/*
 
 	*/
-	WINDOWS = "windows"
+	Windows = "windows"
 
 	/*
 
 	*/
-	MACOSX = "macosx"
+	Macosx = "macosx"
 
 	/*
 
 	*/
-	LINUX = "linux"
+	Linux = "linux"
 
 
 	/*
@@ -159,7 +389,7 @@ class FScheme : Object
 
 	*/
 	block setUsePlatformUI(value)
-		#TODO 
+		UsePlatformUI = false
 
 	/*
 
@@ -186,84 +416,82 @@ class FScheme : Object
 		key = replaceStr(key,".","_")
 		index = __find_in_list(uiConstants,key,0) 
 		if index < 0 {
-			throw(__MODULE_NAME,FULLTICK_INVALID_SCHEME_KEY+key)
+			throw(self,"Invalid Scheme key : "+key)
 		}
 		object = uiConstants[index][1]
 		keyType = getType(object) 
 		newValue = null
 
-		if keyType == "OBJECT" {
-			if instanceOf(object,"FColor") {
-				if isObject(value) and instanceOf(value,"FColor")  {
-					newValue = value 
-				elif isObject(value) and instanceOf(value,"Color")
-					newValue = new FColor(value)
-				elif isObject(value) and instanceOf(value,"String")
-					newValue = new FColor(value.toString())
-				elif isNumber(value) 
-					newValue = new FColor(value)
-				elif isString(value)
-					newValue = new FColor(value)
-				else
-					throw(__MODULE_NAME,FULLTICK_INVALID_PARAMETER + " for the key : " + key)
-				}
-			elif instanceOf(object,"FBoxType")
-				if instanceOf(value,"FBoxType")  {
-					newValue = value 
-				elif isNumber()
-					newValue = new FBoxType(value)
-				else
-					throw(__MODULE_NAME,FULLTICK_INVALID_PARAMETER + " for the key : " + key)
-				}
-			elif instanceOf(object,"FFont")
-				if instanceOf(value,"FFont")  {
-					newValue = value 
-				elif isNumber()
-					newValue = new FFont(value)
-				else
-					throw(__MODULE_NAME,FULLTICK_INVALID_PARAMETER + " for the key : " + key)
-				}
-			elif instanceOf(object,"FBorder")
-				if instanceOf(value,"FBorder")  {
-					newValue = value 
-				else
-					throw(__MODULE_NAME,FULLTICK_INVALID_PARAMETER + " for the key : " + key)
-				}
-			#elif other types instance
-			else 
-				throw(self,"Invalid value for the key '" + key + "', expecting '" + objectType(object) + "' found '" + objectType(value) + "'")
+		if keyType == "fulltick.painting.FColor" {
+			if isObject(value) and instanceOf(value,"FColor")  {
+				newValue = value 
+			elif isObject(value) and instanceOf(value,"Color")
+				newValue = new FColor(value)
+			elif isObject(value) and instanceOf(value,"String")
+				newValue = new FColor(value.toString())
+			elif isNumber(value) 
+				newValue = new FColor(value)
+			elif isString(value)
+				newValue = new FColor(value)
+			else
+				throw(self,"Invalid parameter for the key : " + key)
 			}
-		elif keyType == "NUMBER" 
+		elif keyType == "fulltick.drawing.FBoxType"
+			if instanceOf(value,"FBoxType")  {
+				newValue = value 
+			elif isNumber()
+				newValue = new FBoxType(value)
+			else
+				throw(self,"Invalid parameter for the key : " + key)
+			}
+		elif keyType == "fulltick.drawing.FFont"
+			if instanceOf(value,"FFont")  {
+				newValue = value 
+			elif isNumber()
+				newValue = new FFont(value)
+			else
+				throw(self,"Invalid parameter for the key : " + key)
+			}
+		elif keyType == "fulltick.objects.FBorder"
+			if instanceOf(value,"FBorder")  {
+				newValue = value 
+			else
+				throw(self,"Invalid parameter for the key : " + key)
+			}
+		elif keyType == "Number"
 			if isObject(value) {
 				if instanceOf(value,"Number") {
 					newValue = value.getNumber()
 				else
-					throw(__MODULE_NAME,FULLTICK_INVALID_PARAMETER + " for the key : " + key)
+					throw(self,"Invalid parameter for the key : " + key)
 				}
 			elif isNumber(value)
 				newValue = value
 			else
-				throw(__MODULE_NAME,FULLTICK_INVALID_PARAMETER + " for the key : " + key)
+				throw(self,"Invalid parameter for the key : " + key)
 			}
-		elif keyType == "STRING"
+		elif keyType == "String"
 			if isObject(value) {
 				if instanceOf(value,"String") {
 					newValue = value.getString()
 				else
-					throw(__MODULE_NAME,FULLTICK_INVALID_PARAMETER + " for the key : " + key)
+					throw(self,"Invalid parameter for the key : " + key)
 				}
 			elif isString(value)
 				newValue = value
 			else
-				throw(__MODULE_NAME,FULLTICK_INVALID_PARAMETER + " for the key : " + key)
+				throw(self,"Invalid parameter for the key : " + key)
 			}
-		#elif keyType == "LIST"
+		#elif keyType == "List"
+		else
+			throw(self,"Invalid value for the key '" + key + "', expecting '" + objectType(object) + "' found '" + objectType(value) + "'")
 		}
-
-		if isString(newValue) and newValue == null {
+		if isString(newValue) and isNull(newValue) {
 			return
 		} 
 		uiConstants["" + key + "" ] = newValue
+
+		
 
 	/*
 
@@ -271,7 +499,7 @@ class FScheme : Object
 	block getShemeValue(key) 
 		key = replaceStr(key,".","_")
 		value = uiConstants["" + key + "" ]
-		if isNull(value) and !strContains(key,"FGroup") {
+		if isNull(value) and !strContains(key,"Shortcut") and !strContains(key,"Tooltip") and !strContains(key,"FGroup_Label") {
 			throw(self,"Invalid key, The key does not exist in the Scheme : " + key )
 		}
 		return value
@@ -327,7 +555,7 @@ class FScheme : Object
 			:AcceptInput = true,
 			:Visible = true,
 			:KeyboardFocusable = true,
-			:Tooltip = new String(),
+			:Tooltip = "",
 			:LabelColor = FColor.FCOLOR_BLACK,
 			:LabelFont = FFont.DEFAULT,
 			:LabelSize = 15,
@@ -352,7 +580,7 @@ class FScheme : Object
 			:FGroup_AcceptInput = true,
 			:FGroup_Visible = true,
 			:FGroup_KeyboardFocusable = false,
-			:FGroup_Tooltip = new String(),
+			:FGroup_Tooltip = "",
 			:FGroup_LabelColor = FColor.FCOLOR_BLACK,
 			:FGroup_LabelFont = FFont.DEFAULT,
 			:FGroup_LabelSize = 15,
@@ -389,7 +617,7 @@ class FScheme : Object
 			:FWindow_AcceptInput = true,
 			:FWindow_Visible = true,
 			:FWindow_KeyboardFocusable = true,
-			:FWindow_Tooltip = new String(),
+			:FWindow_Tooltip = "",
 			:FWindow_LabelColor = FColor.FCOLOR_BLACK,
 			:FWindow_LabelFont = FFont.DEFAULT,
 			:FWindow_LabelSize = 15,
@@ -398,7 +626,7 @@ class FScheme : Object
 			:FWindow_ActionBarSize = 40,
 
 			#FButton datas
-			:FButton_Label = "FBUTTON",
+			:FButton_Label = "FButton",
 			:FButton_CapitalizeLabel = false,
 			:FButton_X = 10,
 			:FButton_Y = 10,
@@ -415,14 +643,267 @@ class FScheme : Object
 			:FButton_AcceptInput = true,
 			:FButton_Visible = true,
 			:FButton_KeyboardFocusable = true,
-			:FButton_Text = "inherits from Label",
-			:FButton_Tooltip = new String(),
+			:FButton_Text = "FButton",
+			:FButton_Tooltip = "",
 			:FButton_LabelColor = FColor.FCOLOR_BLACK,
 			:FButton_LabelFont = FFont.DEFAULT,
 			:FButton_LabelSize = 15,
 			:FButton_LabelType = FLabelType.DEFAULT,
 			:FButton_SelectionColor = FColor.FCOLOR_GRAY,
 			:FButton_Value = false,
+			:FButton_Shortcut = null,
+
+			#FReturnButton datas
+			:FReturnButton_Label = "FReturnButton",
+			:FReturnButton_CapitalizeLabel = false,
+			:FReturnButton_X = 10,
+			:FReturnButton_Y = 10,
+			:FReturnButton_Width = 140,
+			:FReturnButton_Height = 30,
+			:FReturnButton_Background = new FColor(225,225,225),
+			:FReturnButton_Foreground = new FColor(0, 0, 0),
+			:FReturnButton_LabelAlignment = FAlignment.ALIGN_CENTER,
+			:FReturnButton_BaseColor = new FColor(127,127,127),
+			:FReturnButton_Box = FBoxType.FLAT_BOX,
+			:FReturnButton_BaseBox = FBoxType.FLAT_BOX,
+			:FReturnButton_Border = new FBorder(),
+			:FReturnButton_HasBorder = true,
+			:FReturnButton_AcceptInput = true,
+			:FReturnButton_Visible = true,
+			:FReturnButton_KeyboardFocusable = true,
+			:FReturnButton_Text = "FReturnButton",
+			:FReturnButton_Tooltip = "",
+			:FReturnButton_LabelColor = FColor.FCOLOR_BLACK,
+			:FReturnButton_LabelFont = FFont.DEFAULT,
+			:FReturnButton_LabelSize = 15,
+			:FReturnButton_LabelType = FLabelType.DEFAULT,
+			:FReturnButton_SelectionColor = FColor.FCOLOR_GRAY,
+			:FReturnButton_Value = false,
+			:FReturnButton_Shortcut = __hex_to_number("0xff0d") ,
+
+			#FRadioButton datas
+			:FRadioButton_Label = "FRadioButton",
+			:FRadioButton_CapitalizeLabel = false,
+			:FRadioButton_X = 10,
+			:FRadioButton_Y = 10,
+			:FRadioButton_Width = 140,
+			:FRadioButton_Height = 30,
+			:FRadioButton_Background = new FColor(225,225,225),
+			:FRadioButton_Foreground = new FColor(0, 0, 0),
+			:FRadioButton_LabelAlignment = FAlignment.ALIGN_CENTER,
+			:FRadioButton_BaseColor = new FColor(127,127,127),
+			:FRadioButton_Box = FBoxType.FLAT_BOX,
+			:FRadioButton_BaseBox = FBoxType.FLAT_BOX,
+			:FRadioButton_Border = new FBorder(),
+			:FRadioButton_HasBorder = true,
+			:FRadioButton_AcceptInput = true,
+			:FRadioButton_Visible = true,
+			:FRadioButton_KeyboardFocusable = true,
+			:FRadioButton_Text = "FRadioButton",
+			:FRadioButton_Tooltip = "",
+			:FRadioButton_LabelColor = FColor.FCOLOR_BLACK,
+			:FRadioButton_LabelFont = FFont.DEFAULT,
+			:FRadioButton_LabelSize = 15,
+			:FRadioButton_LabelType = FLabelType.DEFAULT,
+			:FRadioButton_SelectionColor = FColor.FCOLOR_GRAY,
+			:FRadioButton_Value = false,
+			:FRadioButton_Shortcut = null,
+
+			#FRepeatButton datas
+			:FRepeatButton_Label = "FRepeatButton",
+			:FRepeatButton_CapitalizeLabel = false,
+			:FRepeatButton_X = 10,
+			:FRepeatButton_Y = 10,
+			:FRepeatButton_Width = 140,
+			:FRepeatButton_Height = 30,
+			:FRepeatButton_Background = new FColor(225,225,225),
+			:FRepeatButton_Foreground = new FColor(0, 0, 0),
+			:FRepeatButton_LabelAlignment = FAlignment.ALIGN_CENTER,
+			:FRepeatButton_BaseColor = new FColor(183,183,183),
+			:FRepeatButton_Box = FBoxType.FLAT_BOX,
+			:FRepeatButton_BaseBox = FBoxType.FLAT_BOX,
+			:FRepeatButton_Border = new FBorder(),
+			:FRepeatButton_HasBorder = true,
+			:FRepeatButton_AcceptInput = true,
+			:FRepeatButton_Visible = true,
+			:FRepeatButton_KeyboardFocusable = true,
+			:FRepeatButton_Text = "FRepeatButton",
+			:FRepeatButton_Tooltip = "",
+			:FRepeatButton_LabelColor = FColor.FCOLOR_BLACK,
+			:FRepeatButton_LabelFont = FFont.DEFAULT,
+			:FRepeatButton_LabelSize = 15,
+			:FRepeatButton_LabelType = FLabelType.DEFAULT,
+			:FRepeatButton_SelectionColor = FColor.FCOLOR_GRAY,
+			:FRepeatButton_Value = false,
+			:FRepeatButton_Shortcut = null,
+
+			#FToggleButton datas
+			:FToggleButton_Label = "FToggleButton",
+			:FToggleButton_CapitalizeLabel = false,
+			:FToggleButton_X = 10,
+			:FToggleButton_Y = 10,
+			:FToggleButton_Width = 140,
+			:FToggleButton_Height = 30,
+			:FToggleButton_Background = new FColor(225,225,225),
+			:FToggleButton_Foreground = new FColor(0, 0, 0),
+			:FToggleButton_LabelAlignment = FAlignment.ALIGN_CENTER,
+			:FToggleButton_BaseColor = new FColor(138,138,138),
+			:FToggleButton_Box = FBoxType.FLAT_BOX,
+			:FToggleButton_BaseBox = FBoxType.FLAT_BOX,
+			:FToggleButton_Border = new FBorder(),
+			:FToggleButton_HasBorder = true,
+			:FToggleButton_AcceptInput = true,
+			:FToggleButton_Visible = true,
+			:FToggleButton_KeyboardFocusable = true,
+			:FToggleButton_Text = "FToggleButton",
+			:FToggleButton_Tooltip = "",
+			:FToggleButton_LabelColor = FColor.FCOLOR_BLACK,
+			:FToggleButton_LabelFont = FFont.DEFAULT,
+			:FToggleButton_LabelSize = 15,
+			:FToggleButton_LabelType = FLabelType.DEFAULT,
+			:FToggleButton_SelectionColor = FColor.FCOLOR_GRAY,
+			:FToggleButton_Value = false,
+			:FToggleButton_Shortcut = null,
+
+			#FLightButton datas
+			:FLightButton_Label = "FLightButton",
+			:FLightButton_CapitalizeLabel = false,
+			:FLightButton_X = 10,
+			:FLightButton_Y = 10,
+			:FLightButton_Width = 140,
+			:FLightButton_Height = 30,
+			:FLightButton_Background = new FColor(225,225,225),
+			:FLightButton_Foreground = new FColor(0, 0, 0),
+			:FLightButton_LabelAlignment = new FAlignment(__FL_ALIGN_INSIDE()|__FL_ALIGN_LEFT()),
+			:FLightButton_BaseColor = new FColor(138,138,138),
+			:FLightButton_Box = FBoxType.FLAT_BOX,
+			:FLightButton_BaseBox = FBoxType.FLAT_BOX,
+			:FLightButton_Border = new FBorder(),
+			:FLightButton_HasBorder = true,
+			:FLightButton_AcceptInput = true,
+			:FLightButton_Visible = true,
+			:FLightButton_KeyboardFocusable = true,
+			:FLightButton_Text = "FLightButton",
+			:FLightButton_Tooltip = "",
+			:FLightButton_LabelColor = FColor.FCOLOR_BLACK,
+			:FLightButton_LabelFont = FFont.DEFAULT,
+			:FLightButton_LabelSize = 15,
+			:FLightButton_LabelType = FLabelType.DEFAULT,
+			:FLightButton_SelectionColor = FColor.FCOLOR_GRAY,
+			:FLightButton_Value = false,
+			:FLightButton_Shortcut = null,
+
+			#FCheckButton datas
+			:FCheckButton_Label = "FCheckButton",
+			:FCheckButton_CapitalizeLabel = false,
+			:FCheckButton_X = 10,
+			:FCheckButton_Y = 10,
+			:FCheckButton_Width = 140,
+			:FCheckButton_Height = 30,
+			:FCheckButton_Background = new FColor(225,225,225),
+			:FCheckButton_Foreground = new FColor(0, 0, 0),
+			:FCheckButton_LabelAlignment = new FAlignment(__FL_ALIGN_INSIDE()|__FL_ALIGN_LEFT()),
+			:FCheckButton_BaseColor = new FColor(138,138,138),
+			:FCheckButton_Box = FBoxType.NO_BOX,
+			:FCheckButton_BaseBox = FBoxType.NO_BOX,
+			:FCheckButton_Border = new FBorder(),
+			:FCheckButton_HasBorder = false,
+			:FCheckButton_AcceptInput = true,
+			:FCheckButton_Visible = true,
+			:FCheckButton_KeyboardFocusable = true,
+			:FCheckButton_Text = "FCheckButton",
+			:FCheckButton_Tooltip = "",
+			:FCheckButton_LabelColor = FColor.FCOLOR_BLACK,
+			:FCheckButton_LabelFont = FFont.DEFAULT,
+			:FCheckButton_LabelSize = 15,
+			:FCheckButton_LabelType = FLabelType.DEFAULT,
+			:FCheckButton_SelectionColor = FColor.FCOLOR_GRAY,
+			:FCheckButton_Value = false,
+			:FCheckButton_Shortcut = null,
+
+			#FRadioLightButton datas
+			:FRadioLightButton_Label = "FRadioLightButton",
+			:FRadioLightButton_CapitalizeLabel = false,
+			:FRadioLightButton_X = 10,
+			:FRadioLightButton_Y = 10,
+			:FRadioLightButton_Width = 160,
+			:FRadioLightButton_Height = 30,
+			:FRadioLightButton_Background = new FColor(225,225,225),
+			:FRadioLightButton_Foreground = new FColor(0, 0, 0),
+			:FRadioLightButton_LabelAlignment = new FAlignment(__FL_ALIGN_INSIDE()|__FL_ALIGN_LEFT()),
+			:FRadioLightButton_BaseColor = new FColor(138,138,138),
+			:FRadioLightButton_Box = FBoxType.NO_BOX,
+			:FRadioLightButton_BaseBox = FBoxType.NO_BOX,
+			:FRadioLightButton_Border = new FBorder(),
+			:FRadioLightButton_HasBorder = false,
+			:FRadioLightButton_AcceptInput = true,
+			:FRadioLightButton_Visible = true,
+			:FRadioLightButton_KeyboardFocusable = true,
+			:FRadioLightButton_Text = "FRadioLightButton",
+			:FRadioLightButton_Tooltip = "",
+			:FRadioLightButton_LabelColor = FColor.FCOLOR_BLACK,
+			:FRadioLightButton_LabelFont = FFont.DEFAULT,
+			:FRadioLightButton_LabelSize = 15,
+			:FRadioLightButton_LabelType = FLabelType.DEFAULT,
+			:FRadioLightButton_SelectionColor = FColor.FCOLOR_GRAY,
+			:FRadioLightButton_Value = false,
+			:FRadioLightButton_Shortcut = null,
+
+			#FRoundButton datas
+			:FRoundButton_Label = "FRoundButton",
+			:FRoundButton_CapitalizeLabel = false,
+			:FRoundButton_X = 10,
+			:FRoundButton_Y = 10,
+			:FRoundButton_Width = 150,
+			:FRoundButton_Height = 30,
+			:FRoundButton_Background = new FColor(225,225,225),
+			:FRoundButton_Foreground = new FColor(0, 0, 0),
+			:FRoundButton_LabelAlignment = new FAlignment(__FL_ALIGN_INSIDE()|__FL_ALIGN_LEFT()),
+			:FRoundButton_BaseColor = new FColor(138,138,138),
+			:FRoundButton_Box = FBoxType.NO_BOX,
+			:FRoundButton_BaseBox = FBoxType.NO_BOX,
+			:FRoundButton_Border = new FBorder(),
+			:FRoundButton_HasBorder = false,
+			:FRoundButton_AcceptInput = true,
+			:FRoundButton_Visible = true,
+			:FRoundButton_KeyboardFocusable = true,
+			:FRoundButton_Text = "FRoundButton",
+			:FRoundButton_Tooltip = "",
+			:FRoundButton_LabelColor = FColor.FCOLOR_BLACK,
+			:FRoundButton_LabelFont = FFont.DEFAULT,
+			:FRoundButton_LabelSize = 15,
+			:FRoundButton_LabelType = FLabelType.DEFAULT,
+			:FRoundButton_SelectionColor = FColor.FCOLOR_GRAY,
+			:FRoundButton_Value = false,
+			:FRoundButton_Shortcut = null,
+
+			#FRadioRoundButton datas
+			:FRadioRoundButton_Label = "FRadioRoundButton",
+			:FRadioRoundButton_CapitalizeLabel = false,
+			:FRadioRoundButton_X = 10,
+			:FRadioRoundButton_Y = 10,
+			:FRadioRoundButton_Width = 160,
+			:FRadioRoundButton_Height = 30,
+			:FRadioRoundButton_Background = new FColor(225,225,225),
+			:FRadioRoundButton_Foreground = new FColor(0, 0, 0),
+			:FRadioRoundButton_LabelAlignment = new FAlignment(__FL_ALIGN_INSIDE()|__FL_ALIGN_LEFT()),
+			:FRadioRoundButton_BaseColor = new FColor(138,138,138),
+			:FRadioRoundButton_Box = FBoxType.NO_BOX,
+			:FRadioRoundButton_BaseBox = FBoxType.NO_BOX,
+			:FRadioRoundButton_Border = new FBorder(),
+			:FRadioRoundButton_HasBorder = false,
+			:FRadioRoundButton_AcceptInput = true,
+			:FRadioRoundButton_Visible = true,
+			:FRadioRoundButton_KeyboardFocusable = true,
+			:FRadioRoundButton_Text = "FRadioRoundButton",
+			:FRadioRoundButton_Tooltip = "",
+			:FRadioRoundButton_LabelColor = FColor.FCOLOR_BLACK,
+			:FRadioRoundButton_LabelFont = FFont.DEFAULT,
+			:FRadioRoundButton_LabelSize = 15,
+			:FRadioRoundButton_LabelType = FLabelType.DEFAULT,
+			:FRadioRoundButton_SelectionColor = FColor.FCOLOR_GRAY,
+			:FRadioRoundButton_Value = false,
+			:FRadioRoundButton_Shortcut = null,
 
 			#FBox datas
 			:FBox_Label = " ",
@@ -440,7 +921,7 @@ class FScheme : Object
 			:FBox_AcceptInput = true,
 			:FBox_Visible = true,
 			:FBox_KeyboardFocusable = true,
-			:FBox_Tooltip = new String(),
+			:FBox_Tooltip = "",
 			:FBox_LabelColor = FColor.FCOLOR_BLACK,
 			:FBox_LabelFont = FFont.DEFAULT,
 			:FBox_LabelSize = 15,
@@ -463,7 +944,7 @@ class FScheme : Object
 			:FLabel_AcceptInput = true,
 			:FLabel_Visible = true,
 			:FLabel_KeyboardFocusable = true,
-			:FLabel_Tooltip = new String(),
+			:FLabel_Tooltip = "",
 			:FLabel_LabelColor = FColor.FCOLOR_BLACK,
 			:FLabel_LabelFont = FFont.DEFAULT,
 			:FLabel_LabelSize = 15,
@@ -486,13 +967,24 @@ class FScheme : Object
 			:FInput__AcceptInput = true,
 			:FInput__Visible = true,
 			:FInput__KeyboardFocusable = true,
-			:FInput__Tooltip = new String(),
+			:FInput__Tooltip = "",
 			:FInput__LabelColor = FColor.FCOLOR_BLACK,
 			:FInput__LabelFont = FFont.DEFAULT,
 			:FInput__LabelSize = 15,
 			:FInput__LabelType = FLabelType.DEFAULT,
 			:FInput__SelectionColor = FColor.FCOLOR_GRAY,
 			:FInput__Value = " ",
+			:FInput__CursorColor = FColor.FCOLOR_BLACK,
+			:FInput__Mark = 0,
+			:FInput__MaximumSize = 123456789,
+			:FInput__CaretPosition = 1,
+			:FInput__ReadOnly = true,
+			:FInput__Shortcut = null,
+			:FInput__TabNav = false,
+			:FInput__Wrap = false,
+			:FInput__TextColor = FColor.FCOLOR_BLACK,
+			:FInput__TextFont = FFont.DEFAULT,
+			:FInput__TextSize = 15,
 
 			#FInput datas
 			:FInput_Label = " ",
@@ -510,19 +1002,328 @@ class FScheme : Object
 			:FInput_AcceptInput = true,
 			:FInput_Visible = true,
 			:FInput_KeyboardFocusable = true,
-			:FInput_Tooltip = new String(),
+			:FInput_Tooltip = "",
 			:FInput_LabelColor = FColor.FCOLOR_BLACK,
 			:FInput_LabelFont = FFont.DEFAULT,
 			:FInput_LabelSize = 15,
 			:FInput_LabelType = FLabelType.DEFAULT,
 			:FInput_SelectionColor = FColor.FCOLOR_GRAY,
-			:FInput_Value = " "
+			:FInput_Value = " ",
+			:FInput_CursorColor = FColor.FCOLOR_BLACK,
+			:FInput_Mark = 0,
+			:FInput_MaximumSize = 123456789,
+			:FInput_CaretPosition = 1,
+			:FInput_ReadOnly = false,
+			:FInput_Shortcut = null,
+			:FInput_TabNav = false,
+			:FInput_Wrap = false,
+			:FInput_TextColor = FColor.FCOLOR_BLACK,
+			:FInput_TextFont = FFont.DEFAULT,
+			:FInput_TextSize = 15,
+
+			#FIntInput datas
+			:FIntInput_Label = " ",
+			:FIntInput_CapitalizeLabel = false,
+			:FIntInput_X = 10,
+			:FIntInput_Y = 10,
+			:FIntInput_Width = 300,
+			:FIntInput_Height = 30,
+			:FIntInput_Background = FColor.FCOLOR_WHITE,
+			:FIntInput_Foreground = new FColor(0, 0, 0),
+			:FIntInput_LabelAlignment = new FAlignment(__FL_ALIGN_LEFT()),
+			:FIntInput_Box = FBoxType.FLAT_BOX,
+			:FIntInput_Border = new FBorder(),
+			:FIntInput_HasBorder = true,
+			:FIntInput_AcceptInput = true,
+			:FIntInput_Visible = true,
+			:FIntInput_KeyboardFocusable = true,
+			:FIntInput_Tooltip = "",
+			:FIntInput_LabelColor = FColor.FCOLOR_BLACK,
+			:FIntInput_LabelFont = FFont.DEFAULT,
+			:FIntInput_LabelSize = 15,
+			:FIntInput_LabelType = FLabelType.DEFAULT,
+			:FIntInput_SelectionColor = FColor.FCOLOR_GRAY,
+			:FIntInput_Value = " ",
+			:FIntInput_CursorColor = FColor.FCOLOR_BLACK,
+			:FIntInput_Mark = 0,
+			:FIntInput_MaximumSize = 123456789,
+			:FIntInput_CaretPosition = 1,
+			:FIntInput_ReadOnly = false,
+			:FIntInput_Shortcut = null,
+			:FIntInput_TabNav = false,
+			:FIntInput_Wrap = false,
+			:FIntInput_TextColor = FColor.FCOLOR_BLACK,
+			:FIntInput_TextFont = FFont.DEFAULT,
+			:FIntInput_TextSize = 15,
+
+			#FFloatInput datas
+			:FFloatInput_Label = " ",
+			:FFloatInput_CapitalizeLabel = false,
+			:FFloatInput_X = 10,
+			:FFloatInput_Y = 10,
+			:FFloatInput_Width = 300,
+			:FFloatInput_Height = 30,
+			:FFloatInput_Background = FColor.FCOLOR_WHITE,
+			:FFloatInput_Foreground = new FColor(0, 0, 0),
+			:FFloatInput_LabelAlignment = new FAlignment(__FL_ALIGN_LEFT()),
+			:FFloatInput_Box = FBoxType.FLAT_BOX,
+			:FFloatInput_Border = new FBorder(),
+			:FFloatInput_HasBorder = true,
+			:FFloatInput_AcceptInput = true,
+			:FFloatInput_Visible = true,
+			:FFloatInput_KeyboardFocusable = true,
+			:FFloatInput_Tooltip = "",
+			:FFloatInput_LabelColor = FColor.FCOLOR_BLACK,
+			:FFloatInput_LabelFont = FFont.DEFAULT,
+			:FFloatInput_LabelSize = 15,
+			:FFloatInput_LabelType = FLabelType.DEFAULT,
+			:FFloatInput_SelectionColor = FColor.FCOLOR_GRAY,
+			:FFloatInput_Value = " ",
+			:FFloatInput_CursorColor = FColor.FCOLOR_BLACK,
+			:FFloatInput_Mark = 0,
+			:FFloatInput_MaximumSize = 123456789,
+			:FFloatInput_CaretPosition = 1,
+			:FFloatInput_ReadOnly = false,
+			:FFloatInput_Shortcut = null,
+			:FFloatInput_TabNav = false,
+			:FFloatInput_Wrap = false,
+			:FFloatInput_TextColor = FColor.FCOLOR_BLACK,
+			:FFloatInput_TextFont = FFont.DEFAULT,
+			:FFloatInput_TextSize = 15,
+
+			#FMultilineInput datas
+			:FMultilineInput_Label = " ",
+			:FMultilineInput_CapitalizeLabel = false,
+			:FMultilineInput_X = 10,
+			:FMultilineInput_Y = 10,
+			:FMultilineInput_Width = 300,
+			:FMultilineInput_Height = 300,
+			:FMultilineInput_Background = FColor.FCOLOR_WHITE,
+			:FMultilineInput_Foreground = new FColor(0, 0, 0),
+			:FMultilineInput_LabelAlignment = new FAlignment(__FL_ALIGN_LEFT()),
+			:FMultilineInput_Box = FBoxType.FLAT_BOX,
+			:FMultilineInput_Border = new FBorder(),
+			:FMultilineInput_HasBorder = true,
+			:FMultilineInput_AcceptInput = true,
+			:FMultilineInput_Visible = true,
+			:FMultilineInput_KeyboardFocusable = true,
+			:FMultilineInput_Tooltip = "",
+			:FMultilineInput_LabelColor = FColor.FCOLOR_BLACK,
+			:FMultilineInput_LabelFont = FFont.DEFAULT,
+			:FMultilineInput_LabelSize = 15,
+			:FMultilineInput_LabelType = FLabelType.DEFAULT,
+			:FMultilineInput_SelectionColor = FColor.FCOLOR_GRAY,
+			:FMultilineInput_Value = " ",
+			:FMultilineInput_CursorColor = FColor.FCOLOR_BLACK,
+			:FMultilineInput_Mark = 0,
+			:FMultilineInput_MaximumSize = 123456789,
+			:FMultilineInput_CaretPosition = 1,
+			:FMultilineInput_ReadOnly = false,
+			:FMultilineInput_Shortcut = null,
+			:FMultilineInput_TabNav = true,
+			:FMultilineInput_Wrap = false,
+			:FMultilineInput_TextColor = FColor.FCOLOR_BLACK,
+			:FMultilineInput_TextFont = FFont.DEFAULT,
+			:FMultilineInput_TextSize = 15,
+
+			#FOutput datas
+			:FOutput_Label = " ",
+			:FOutput_CapitalizeLabel = false,
+			:FOutput_X = 10,
+			:FOutput_Y = 10,
+			:FOutput_Width = 300,
+			:FOutput_Height = 30,
+			:FOutput_Background = FColor.FCOLOR_WHITE,
+			:FOutput_Foreground = new FColor(0, 0, 0),
+			:FOutput_LabelAlignment = new FAlignment(__FL_ALIGN_LEFT()),
+			:FOutput_Box = FBoxType.FLAT_BOX,
+			:FOutput_Border = new FBorder(),
+			:FOutput_HasBorder = true,
+			:FOutput_AcceptInput = true,
+			:FOutput_Visible = true,
+			:FOutput_KeyboardFocusable = true,
+			:FOutput_Tooltip = "",
+			:FOutput_LabelColor = FColor.FCOLOR_BLACK,
+			:FOutput_LabelFont = FFont.DEFAULT,
+			:FOutput_LabelSize = 15,
+			:FOutput_LabelType = FLabelType.DEFAULT,
+			:FOutput_SelectionColor = FColor.FCOLOR_GRAY,
+			:FOutput_Value = " ",
+			:FOutput_CursorColor = FColor.FCOLOR_BLACK,
+			:FOutput_Mark = 0,
+			:FOutput_MaximumSize = 123456789,
+			:FOutput_CaretPosition = 1,
+			:FOutput_ReadOnly = true,
+			:FOutput_Shortcut = null,
+			:FOutput_TabNav = false,
+			:FOutput_Wrap = false,
+			:FOutput_TextColor = FColor.FCOLOR_BLACK,
+			:FOutput_TextFont = FFont.DEFAULT,
+			:FOutput_TextSize = 15,
+
+			#FMultilineOutput datas
+			:FMultilineOutput_Label = " ",
+			:FMultilineOutput_CapitalizeLabel = false,
+			:FMultilineOutput_X = 10,
+			:FMultilineOutput_Y = 10,
+			:FMultilineOutput_Width = 300,
+			:FMultilineOutput_Height = 300,
+			:FMultilineOutput_Background = FColor.FCOLOR_WHITE,
+			:FMultilineOutput_Foreground = new FColor(0, 0, 0),
+			:FMultilineOutput_LabelAlignment = new FAlignment(__FL_ALIGN_LEFT()),
+			:FMultilineOutput_Box = FBoxType.FLAT_BOX,
+			:FMultilineOutput_Border = new FBorder(),
+			:FMultilineOutput_HasBorder = true,
+			:FMultilineOutput_AcceptInput = true,
+			:FMultilineOutput_Visible = true,
+			:FMultilineOutput_KeyboardFocusable = true,
+			:FMultilineOutput_Tooltip = "",
+			:FMultilineOutput_LabelColor = FColor.FCOLOR_BLACK,
+			:FMultilineOutput_LabelFont = FFont.DEFAULT,
+			:FMultilineOutput_LabelSize = 15,
+			:FMultilineOutput_LabelType = FLabelType.DEFAULT,
+			:FMultilineOutput_SelectionColor = FColor.FCOLOR_GRAY,
+			:FMultilineOutput_Value = " ",
+			:FMultilineOutput_CursorColor = FColor.FCOLOR_BLACK,
+			:FMultilineOutput_Mark = 0,
+			:FMultilineOutput_MaximumSize = 123456789,
+			:FMultilineOutput_CaretPosition = 1,
+			:FMultilineOutput_ReadOnly = true,
+			:FMultilineOutput_Shortcut = null,
+			:FMultilineOutput_TabNav = false,
+			:FMultilineOutput_Wrap = false,
+			:FMultilineOutput_TextColor = FColor.FCOLOR_BLACK,
+			:FMultilineOutput_TextFont = FFont.DEFAULT,
+			:FMultilineOutput_TextSize = 15,
+
+			#FSecretInput datas
+			:FSecretInput_Label = " ",
+			:FSecretInput_CapitalizeLabel = false,
+			:FSecretInput_X = 10,
+			:FSecretInput_Y = 10,
+			:FSecretInput_Width = 300,
+			:FSecretInput_Height = 30,
+			:FSecretInput_Background = FColor.FCOLOR_WHITE,
+			:FSecretInput_Foreground = new FColor(0, 0, 0),
+			:FSecretInput_LabelAlignment = new FAlignment(__FL_ALIGN_LEFT()),
+			:FSecretInput_Box = FBoxType.FLAT_BOX,
+			:FSecretInput_Border = new FBorder(),
+			:FSecretInput_HasBorder = true,
+			:FSecretInput_AcceptInput = true,
+			:FSecretInput_Visible = true,
+			:FSecretInput_KeyboardFocusable = true,
+			:FSecretInput_Tooltip = "",
+			:FSecretInput_LabelColor = FColor.FCOLOR_BLACK,
+			:FSecretInput_LabelFont = FFont.DEFAULT,
+			:FSecretInput_LabelSize = 15,
+			:FSecretInput_LabelType = FLabelType.DEFAULT,
+			:FSecretInput_SelectionColor = FColor.FCOLOR_GRAY,
+			:FSecretInput_Value = " ",
+			:FSecretInput_CursorColor = FColor.FCOLOR_BLACK,
+			:FSecretInput_Mark = 0,
+			:FSecretInput_MaximumSize = 123456789,
+			:FSecretInput_CaretPosition = 1,
+			:FSecretInput_ReadOnly = false,
+			:FSecretInput_Shortcut = null,
+			:FSecretInput_TabNav = false,
+			:FSecretInput_Wrap = false,
+			:FSecretInput_TextColor = FColor.FCOLOR_BLACK,
+			:FSecretInput_TextFont = FFont.DEFAULT,
+			:FSecretInput_TextSize = 15,
+
+			#FFileInput datas
+			:FFileInput_Label = " ",
+			:FFileInput_CapitalizeLabel = false,
+			:FFileInput_X = 10,
+			:FFileInput_Y = 10,
+			:FFileInput_Width = 300,
+			:FFileInput_Height = 40,
+			:FFileInput_Background = FColor.FCOLOR_WHITE,
+			:FFileInput_Foreground = new FColor(0, 0, 0),
+			:FFileInput_LabelAlignment = new FAlignment(__FL_ALIGN_LEFT()),
+			:FFileInput_Box = FBoxType.FLAT_BOX,
+			:FFileInput_Border = new FBorder(),
+			:FFileInput_HasBorder = true,
+			:FFileInput_AcceptInput = true,
+			:FFileInput_Visible = true,
+			:FFileInput_KeyboardFocusable = true,
+			:FFileInput_Tooltip = "",
+			:FFileInput_LabelColor = FColor.FCOLOR_BLACK,
+			:FFileInput_LabelFont = FFont.DEFAULT,
+			:FFileInput_LabelSize = 15,
+			:FFileInput_LabelType = FLabelType.DEFAULT,
+			:FFileInput_SelectionColor = FColor.FCOLOR_GRAY,
+			:FFileInput_Value = " ",
+			:FFileInput_CursorColor = FColor.FCOLOR_BLACK,
+			:FFileInput_Mark = 0,
+			:FFileInput_MaximumSize = 123456789,
+			:FFileInput_CaretPosition = 1,
+			:FFileInput_ReadOnly = false,
+			:FFileInput_Shortcut = null,
+			:FFileInput_TabNav = false,
+			:FFileInput_Wrap = false,
+			:FFileInput_TextColor = FColor.FCOLOR_BLACK,
+			:FFileInput_TextFont = FFont.DEFAULT,
+			:FFileInput_TextSize = 15,
+			:FFileInput_DownBox = __FL_UP_BOX(),
+			:FFileInput_ErrorColor = FColor.FCOLOR_RED,
+
+			#FMenuBar datas
+			:FMenuBar_Label = " ",
+			:FMenuBar_X = 0,
+			:FMenuBar_Y = 0,
+			:FMenuBar_Width = 400,
+			:FMenuBar_Height = 30,
+			:FMenuBar_Background = new FColor(218, 223, 232),
+			:FMenuBar_Foreground = new FColor(0, 0, 0),
+			:FMenuBar_LabelAlignment = new FAlignment(__FL_ALIGN_INSIDE()|__FL_ALIGN_LEFT()),
+			:FMenuBar_Box = FBoxType.FLAT_BOX,
+			:FMenuBar_Border = new FBorder(),
+			:FMenuBar_HasBorder = false,
+			:FMenuBar_AcceptInput = true,
+			:FMenuBar_Visible = true,
+			:FMenuBar_KeyboardFocusable = true,
+			:FMenuBar_Tooltip = "",
+			:FMenuBar_LabelColor = FColor.FCOLOR_BLACK,
+			:FMenuBar_LabelFont = FFont.DEFAULT,
+			:FMenuBar_LabelSize = 15,
+			:FMenuBar_LabelType = FLabelType.DEFAULT,
+			:FMenuBar_SelectionColor = FColor.FCOLOR_GRAY,
+			:FMenuBar_DownBox = __FL_NO_BOX(),
+			:FMenuBar_DownColor = FColor.FCOLOR_GRAY,
+			:FMenuBar_TextColor = FColor.FCOLOR_BLACK,
+			:FMenuBar_TextFont = FFont.DEFAULT,
+			:FMenuBar_TextSize = 15,
+
+			#FMenuButton datas
+			:FMenuButton_Label = " ",
+			:FMenuButton_X = 0,
+			:FMenuButton_Y = 0,
+			:FMenuButton_Width = 13,
+			:FMenuButton_Height = 30,
+			:FMenuButton_Background = new FColor(218, 223, 232),
+			:FMenuButton_Foreground = new FColor(0, 0, 0),
+			:FMenuButton_LabelAlignment = new FAlignment(__FL_ALIGN_INSIDE()|__FL_ALIGN_LEFT()),
+			:FMenuButton_Box = FBoxType.FLAT_BOX,
+			:FMenuButton_Border = new FBorder(),
+			:FMenuButton_HasBorder = false,
+			:FMenuButton_AcceptInput = true,
+			:FMenuButton_Visible = true,
+			:FMenuButton_KeyboardFocusable = true,
+			:FMenuButton_Tooltip = "",
+			:FMenuButton_LabelColor = FColor.FCOLOR_BLACK,
+			:FMenuButton_LabelFont = FFont.DEFAULT,
+			:FMenuButton_LabelSize = 15,
+			:FMenuButton_LabelType = FLabelType.DEFAULT,
+			:FMenuButton_SelectionColor = FColor.FCOLOR_GRAY,
+			:FMenuButton_DownBox = __FL_NO_BOX(),
+			:FMenuButton_DownColor = FColor.FCOLOR_GRAY,
+			:FMenuButton_TextColor = FColor.FCOLOR_BLACK,
+			:FMenuButton_TextFont = FFont.DEFAULT,
+			:FMenuButton_TextSize = 15,
+			
+			:wooooooooooow = "wooooooooooow"
 		]
-		
-		/*
-		
-		*/
-		__MODULE_NAME = "fulltick"
 		
 		
 		

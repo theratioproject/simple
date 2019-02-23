@@ -1,0 +1,18 @@
+/*
+
+*/
+
+/*
+
+*/
+call simple.core.Object
+
+/*
+
+*/
+module simple.system
+
+/*
+
+*/
+class Color : Object

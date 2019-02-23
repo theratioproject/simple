@@ -1,3 +1,39 @@
 /*
 	Simple REPL UI
 */
+call fulltick.FApp
+call fulltick.widgets.FWindow
+call fulltick.widgets.FButton
+call fulltick.widgets.FMultilineInput
+call fulltick.widgets.FMultilineOutput
+import simple.core
+import simple.system
+import fulltick.base
+import fulltick.painting
+import fulltick.objects
+import fulltick.drawing
+
+block main()
+	b4 = __clock()
+	fwindow = new FWindow(600,500,"simplereplw") {
+		input = new FMultilineInput(10,10,Width-20,200,"")
+		execButton = new FButton(10,220,"Execute") {
+			setArgument(input)
+			setCallbackListener(block (obj, arg) {
+				executeCode(arg.Text)
+				arg.Text = ""
+			})
+		}
+		output = new FMultilineOutput(10,260,Width-20,230,"") {
+			Resizable = true
+		}
+		add(input, execButton, output)
+		show()
+	}
+	ba = __clock()
+	@(ba - b4)/__clock_per_second()
+	FApp.run()
+
+	
+	
+	

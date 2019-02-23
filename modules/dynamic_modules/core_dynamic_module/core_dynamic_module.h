@@ -145,6 +145,8 @@ SIMPLE_API void meta_blocks_vm_memory_list(void *pointer);
 SIMPLE_API void meta_blocks_vm_blocks_list(void *pointer);
 SIMPLE_API void meta_blocks_vm_classes_list(void *pointer);
 SIMPLE_API void meta_blocks_vm_modules_list(void *pointer);
+SIMPLE_API void meta_blocks_vm_module_paths(void *pointer);
+SIMPLE_API void meta_blocks_vm_add_module_path(void *pointer);
 SIMPLE_API void meta_blocks_vm_c_blocks_list(void *pointer);
 SIMPLE_API void meta_blocks_vm_set_trace(void *pointer);
 SIMPLE_API void meta_blocks_vm_trace_data(void *pointer);
@@ -156,6 +158,8 @@ SIMPLE_API void meta_blocks_vm_passed_error(void *pointer);
 SIMPLE_API void meta_blocks_vm_hide_error_msg(void *pointer);
 SIMPLE_API void meta_blocks_vm_call_block(void *pointer);
 SIMPLE_API void meta_blocks_vm_line_number(void *pointer);
+SIMPLE_API void meta_blocks_vm_has_error(void *pointer);
+SIMPLE_API void meta_blocks_vm_should_warn(void *pointer);
 
 #ifdef __cplusplus
 }

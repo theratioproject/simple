@@ -1,0 +1,53 @@
+
+/*
+
+*/
+call fulltick.FApp
+call fulltick.widgets.FWindow
+call fulltick.widgets.FCheckButton
+call fulltick.events.FCallbackEvent
+import simple.core
+import simple.system
+import fulltick.base
+import fulltick.widgets
+import fulltick.painting
+import fulltick.objects
+import fulltick.drawing
+
+button = new ButtonDemo
+FApp.run() 
+
+class ButtonDemo : FCallbackEvent 
+    fwindow = new FWindow(160,170,"FCheckButton Testing only") {
+		button1 = new FCheckButton() {
+            setCallbackListener(self)
+			setPlatformScheme(FScheme.Android) 
+        }
+		button2 = new FCheckButton() {
+            setCallbackListener(self)
+			setPlatformScheme(FScheme.Windows) 
+			setPosition(10, 50)
+        }
+		button3 = new FCheckButton() {
+            setCallbackListener(self)
+			setPlatformScheme(FScheme.Macosx) 
+			setPosition(10, 90)
+        }
+		button4 = new FCheckButton() {
+            setCallbackListener(self)
+			setPlatformScheme(FScheme.Linux) 
+			setPosition(10, 130)
+        }
+		add(button1, button2, button3, button4)
+        centerOnScreen() 
+		Resizable = false
+        show()        
+    } 
+
+    block callback(widget) 
+		if widget.Value {
+			widget.Text = "Light on "
+		else
+			widget.Text = "Light off "
+		}
+        

@@ -2,8 +2,8 @@
 /*
 
 */
-call simple.core.Object
-call "./FEvent.sim" ? fulltick.events
+call fulltick.events.FEvent
+import simple.core
 
 /*
 
@@ -19,7 +19,7 @@ class FCallbackEvent : FEvent
     /*
 
     */
-    block callback(widget)
+    block callback(widget, event)
 
 
     

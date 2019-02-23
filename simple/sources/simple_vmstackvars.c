@@ -13,7 +13,7 @@
  */
 
 
-#include "../includes/simple.h"
+#include "../include/simple.h"
 /* Stack and Variables */
 
 SIMPLE_API void simple_vm_pushv ( VM *vm )
@@ -36,8 +36,8 @@ SIMPLE_API void simple_vm_pushv ( VM *vm )
 			/* Check NULL Value */
 			if ( vm->within_class == 0 ) {
 				if ( simple_list_getint(var,SIMPLE_VAR_TYPE) == SIMPLE_VM_NULL ) {
-					if ( simple_list_isstring(var,SIMPLE_VAR_VALUE) ) {
-						if ( strcmp(simple_list_getstring(var,SIMPLE_VAR_VALUE),"NULL") == 0 ) {
+					if ( simple_list_ispointer(var,SIMPLE_VAR_VALUE) ) {
+						if (simple_list_getpointer(var,SIMPLE_VAR_VALUE) == NULL ) {
 							simple_vm_error2(vm,SIMPLE_VM_ERROR_USINGNULLVARIABLE,simple_list_getstring(var,SIMPLE_VAR_NAME));
 							if ( simple_list_getlist(vm->pActiveMem,simple_list_getsize(vm->pActiveMem)) == var ) {
 								/* Delete the Item from the HashTable */
@@ -65,6 +65,7 @@ SIMPLE_API void simple_vm_pushv ( VM *vm )
 	}
 }
 
+//TODO : revisit for final flag
 SIMPLE_API void simple_vm_loadaddress ( VM *vm )
 {
 	if ( simple_vm_findvar(vm, SIMPLE_VM_IR_READC  ) == 0 ) {

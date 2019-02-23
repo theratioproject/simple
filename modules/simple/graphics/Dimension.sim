@@ -129,8 +129,10 @@ class Dimension : Object
 	*/
 	block operator(op,value)
 		switch op {
-			case "="
+			case "=="
 				return equals(value)
+			case "!="
+				return !equals(value)
             case "+"
                 if isinstance(value) {
                     width = Width + value.Width
@@ -139,7 +141,9 @@ class Dimension : Object
                     Height = floor(height)
                 else
                     throw(self,"Using operator with values of incorrect type : "+op)
+					return null
                 }
+				return self
             case "-"
                 if isinstance(value) {
                     width = Width - value.Width
@@ -148,7 +152,9 @@ class Dimension : Object
                     Height = floor(height)
                 else
                     throw(self,"Using operator with values of incorrect type : "+op)
+					return null
                 }
+				return self
             case "/"
                 if isinstance(value) {
                     width = Width / value.Width
@@ -157,7 +163,9 @@ class Dimension : Object
                     Height = floor(height)
                 else
                     throw(self,"Using operator with values of incorrect type : "+op)
+					return null
                 }
+				return self
             case "*"
                 if isinstance(value) {
                     width = Width * value.Width
@@ -166,11 +174,11 @@ class Dimension : Object
                     Height = floor(height)
                 else
                     throw(self,"Using operator with values of incorrect type : "+op)
+					return null
                 }
-			default 
-				throw(self,"self operator behaviour is not defined : "+op)
+				return self
 		}
-		return self
+		return super.operator(op, value)
 
     /*
 

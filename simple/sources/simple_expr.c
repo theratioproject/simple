@@ -16,7 +16,7 @@
 **  The First Step  - Start Here 
 */
 
-#include "../includes/simple.h"
+#include "../include/simple.h"
 /*
 **  Blocks 
 **  Grammar 
@@ -179,7 +179,7 @@ int simple_parser_equalornot ( Parser *parser )
 				
 				{
 					puts("Rule : EqualOrNot --> Compare");
-					puts("Rule : EqualOrNot --> EqualOrNot '=' EqualOrNot");
+					puts("Rule : EqualOrNot --> EqualOrNot '==' EqualOrNot");
 				}
 				#endif
 			}
@@ -842,7 +842,6 @@ int simple_parser_factor ( Parser *parser,int *nFlag )
 			simple_parser_icg_newoperation(parser,ICO_PUSHC);
 			if ( simple_parser_isanykeyword(parser) ) {
 				strcpy(keyword,simple_scanner_getkeywordtext(parser->TokenText));
-				simple_string_lower(keyword);
 				simple_parser_icg_newoperand(parser,keyword);
 			}
 			else {
@@ -1030,7 +1029,7 @@ int simple_parser_factor ( Parser *parser,int *nFlag )
 		simple_parser_icg_newoperand(parser,cBlockName);
 		/* Get Block Parameters */
 		if ( simple_parser_isidentifier(parser) || simple_parser_isoperator2(parser,OP_FOPEN) ) {
-			if (! simple_parser_paralist(parser)) return 0 ;
+			if (simple_parser_paralist(parser) == -1) return 0 ;
 		}
 		/* Get Block Code */
 		if ( simple_parser_isoperator2(parser,OP_BRACEOPEN) ) {
@@ -1064,7 +1063,7 @@ int simple_parser_factor ( Parser *parser,int *nFlag )
 		}
 	}
 	/* Factor --> Call Identifier ( parameters ) */
-	if ( simple_parser_iskeyword(parser,KEYWORD_CALL) ) {
+	if ( simple_parser_iskeyword(parser,KEYWORD_INVOKE) ) {
 		simple_parser_nexttoken(parser);
 		if ( simple_parser_isidentifier(parser) ) {
 			/* Generate Code */
@@ -1209,10 +1208,10 @@ int simple_parser_mixer ( Parser *parser )
 		#if SIMPLE_PARSERTRACE
 		SIMPLE_STATE_CHECKPRINTRULES 
 		
-		puts("Rule : Mixer --> '{' {Statement} BraceEnd");
+		puts("Rule : Mixer --> '{' {Statement} [BraceOpen]Open");
 		#endif
-		/* if isblock(self,"bracestart") bracestart() ok */
-		simple_parser_gencallbracemethod(parser,"bracestart");
+		/* if hasBlock(self,"open") open() end */
+		simple_parser_gencallbracemethod(parser,"open");
 		simple_parser_nexttoken(parser);
 		nStatus = parser->nAssignmentFlag ;
 		parser->nAssignmentFlag = 1 ;
@@ -1226,14 +1225,14 @@ int simple_parser_mixer ( Parser *parser )
 			parser->nBraceFlag-- ;
 			/*
 			**  Generate Code 
-			**  if isblock(self,"braceend") braceend() ok 
+			**  if hasBlock(self,"close") close() end 
 			*/
-			simple_parser_gencallbracemethod(parser,"braceend");
+			simple_parser_gencallbracemethod(parser,"close");
 			simple_parser_icg_newoperation(parser,ICO_BRACEEND);
 			#if SIMPLE_PARSERTRACE
 			SIMPLE_STATE_CHECKPRINTRULES 
 			
-			puts("Rule : BraceEnd --> '}' ");
+			puts("Rule : [BraceClose]Close --> '}' ");
 			#endif
 			simple_parser_nexttoken(parser);
 			x = simple_parser_mixer(parser);
@@ -1303,9 +1302,9 @@ void simple_parser_gencallbracemethod ( Parser *parser,const char *cMethod )
 {
 	int nMark1  ;
 	List *pMark  ;
-	/* if isblock(self,cMethod) cMethod() end */
+	/* if hasBlock(self,cMethod) cMethod() end */
 	simple_parser_icg_newoperation(parser,ICO_LOADBLOCK);
-	simple_parser_icg_newoperand(parser,"isBlock");
+	simple_parser_icg_newoperand(parser,"hasBlock");
 	simple_parser_icg_newoperation(parser,ICO_LOADADDRESS);
 	simple_parser_icg_newoperand(parser,"self");
 	simple_parser_icg_newoperandint(parser,0);

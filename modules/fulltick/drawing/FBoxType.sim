@@ -2,9 +2,10 @@
 /*
 
 */
-call simple.core.Object
-call "../base/FWidget.sim" ? fulltick.base
-call "../painting/FColor.sim" ? fulltick.painting
+call fulltick.base.FWidget
+call fulltick.painting.FColor
+call fulltick.objects.FBorder
+import simple.core, simple.system, simple.utilities
 
 /*
 
@@ -70,7 +71,7 @@ class FBoxType : Object
                 throw(self,"Invalid parameter in FBoxType Constructor. Expecting (Number,Number|fulltick.painting.FColor). Found (" + objectType(type) + "," + objectType(color) + ")")
             }
         else
-            throw(self,SIMPLE_VM_ERROR_EXTRAPARAMETERSCOUNT)
+            throw(self,"Calling block with invalid legth of parameter")
         }
 
     /*

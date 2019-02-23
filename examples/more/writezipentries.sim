@@ -1,0 +1,28 @@
+/* 
+	Copyright (c) 2016-2018 Azeez Adewale <azeezadewale98@gmail.com> 
+	MIT License Copyright (c) 2018 simple 
+
+*/
+
+call archive.zip.ZipEntry
+call archive.zip.Zip
+call simple.utilities.Console
+import simple.core
+
+block main()
+	zip = new Zip("../testfiles/test_zip.zip", "w") {
+		new ZipEntry(zip, "foo-1.txt") {
+			write("Some data here...Hello World")
+		}
+		new ZipEntry(zip, "foo-2.txt") {
+			fwrite("./extractzipentry.sim")
+			fwrite("./modifyjson.sim")
+			fwrite("./curlandjson1.sim")
+			fwrite("./unit_test.sim")
+		}
+		new ZipEntry(zip, "examples") {
+			dwrite("../")
+		}
+	}
+	
+	

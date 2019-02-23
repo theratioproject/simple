@@ -11,7 +11,7 @@
  * Created on July 10, 2017, 1:10 PM
  */
 
-#include "../includes/simple.h"
+#include "../include/simple.h"
 /* Support for C Blocks */
 
 SIMPLE_API void simple_vmlib_isblock ( void *pointer );
@@ -46,7 +46,7 @@ SIMPLE_API void loadcblocks ( SimpleState *sState )
         /** Functional Execution **/
 	register_block("executeCode",simple_vmlib_exec);
         /* Meta */
-	register_block("isBlock",simple_vmlib_isblock);
+	register_block("hasBlock",simple_vmlib_isblock);
 	#ifdef __ANDROID__
     __init_full_tick(sState);
 	#endif
@@ -529,12 +529,18 @@ void simple_vmlib_isnumber ( void *pointer )
 
 void simple_vmlib_islist ( void *pointer )
 {
+	List *list;
 	if ( SIMPLE_API_PARACOUNT != 1 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
 		return ;
 	}
 	if ( SIMPLE_API_ISLIST(1) ) {
 		if ( simple_vm_oop_isobject(SIMPLE_API_GETLIST(1) ) == 0 ) {
+			list = SIMPLE_API_GETLIST(1) ;
+			if ( simple_list_ispointer(list,1) && simple_list_getpointer(list,1) == NULL ) {
+				SIMPLE_API_RETNUMBER(0);
+				return ;
+			}
 			SIMPLE_API_RETNUMBER(1);
 			return ;
 		}
@@ -571,31 +577,25 @@ void simple_vmlib_type ( void *pointer )
 	else if ( SIMPLE_API_ISLIST(1) ) {
 		SIMPLE_API_RETSTRING("List");
 	} else {
-		SIMPLE_API_RETSTRING("Unknown");//impossible
+		SIMPLE_API_RETSTRING("(null)");
 	}
 }
 
-void simple_vmlib_isnull ( void *pointer )
+SIMPLE_API void simple_vmlib_isnull ( void *pointer )
 {
-	char *cStr  ;
+	List *list;
+	Item *item;
 	if ( SIMPLE_API_PARACOUNT != 1 ) {
 		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
 		return ;
 	}
-	if ( SIMPLE_API_ISSTRING(1) ) {
-		if ( strcmp(SIMPLE_API_GETSTRING(1),"") == 0 ) {
+	 if (SIMPLE_API_ISLIST(1)) {
+		list = SIMPLE_API_GETLIST(1) ;
+		if ( simple_list_ispointer(list,1) && simple_list_getpointer(list,1) == NULL ) {
 			SIMPLE_API_RETNUMBER(1);
 			return ;
 		}
-		else if ( SIMPLE_API_GETSTRINGSIZE(1) == 4 ) {
-			cStr = SIMPLE_API_GETSTRING(1) ;
-			if ( (cStr[0] == 'n' || cStr[0] == 'N') && (cStr[1] == 'u' || cStr[1] == 'U') && (cStr[2] == 'l' || cStr[2] == 'L') && (cStr[3] == 'l' || cStr[3] == 'L') ) {
-				SIMPLE_API_RETNUMBER(1);
-				return ;
-			}
-		}
-	}
-	else if ( SIMPLE_API_ISPOINTER(1) ) {
+	} else if ( SIMPLE_API_ISPOINTER(1) ) {
 		if ( SIMPLE_API_GETPOINTER(1) == NULL ) {
 			SIMPLE_API_RETNUMBER(1);
 			return ;
@@ -704,9 +704,10 @@ void simple_vmlib_char ( void *pointer )
 void simple_vm_dll_calllib ( void *pointer )
 {
     LpHandleType handle  ;
+	int x ;
     const char *cDLL  ;
     char library_path[200]  ; 
-	char __library_path[SIMPLE_PATHSIZE]  ;
+	char module_path[SIMPLE_PATHSIZE]  ;
 	char simple_folder[100] ;
 	char* simple_env_path;
     loadlibblockptr pBlock  ;
@@ -720,80 +721,15 @@ void simple_vm_dll_calllib ( void *pointer )
             return ;
     }
     if ( SIMPLE_API_ISSTRING(1) ) {
-        if (simple_fexists(library_path)) {
-            strcpy(library_path,library_path);
-        } else { 
-			snprintf(__library_path, sizeof(__library_path), "%s/modules/dynamic_modules/%s", simple_file_initial_dir,library_path);
-			if (simple_fexists(__library_path)) {
-				strcpy(library_path,__library_path);
-			} else {
-				snprintf(__library_path, sizeof(__library_path), "./modules/dynamic_modules/%s", library_path);
-				if (simple_fexists(__library_path)) {
-					strcpy(library_path,__library_path);
-				} else {
-					simple_distro_folder(simple_folder); 
-					snprintf(__library_path, sizeof(__library_path), "%s/modules/dynamic_modules/%s", simple_folder,library_path);
-					if (simple_fexists(__library_path)) {
-							strcpy(library_path,__library_path);
-					} else {
-						//checking using environment variable if SIMPLE_PATH and SIMPLE_MODULE_PATH are set
-						simple_env_path = getenv("SIMPLE_PATH");  snprintf(__library_path, sizeof(__library_path), "%s/s%s/modules/dynamic_modules/%s", simple_env_path, SIMPLE_VERSION, library_path); 
-						if (simple_fexists(__library_path)) { strcpy(library_path,__library_path); }
-						else {
-							simple_env_path = getenv("SIMPLE_MODULE_PATH"); snprintf(__library_path, sizeof(__library_path), "%s/dynamic_modules/%s", simple_env_path, library_path);
-							if (simple_fexists(__library_path)) { strcpy(library_path,__library_path);}
-							else {
-								//find the module in relative to run folder (UNDONE) //this is last
-								#ifdef _WIN32
-									snprintf(__library_path, sizeof(__library_path), "C:/Simple/s%s/modules/dynamic_modules/%s",SIMPLE_VERSION,library_path);
-								#else
-								
-								simple_env_path = getenv("PREFIX");
-								snprintf(__library_path, sizeof(__library_path), "%s/var/lib/simple/s%s/modules/dynamic_modules/%s", simple_env_path,SIMPLE_VERSION,library_path);
-								#endif
-								if (simple_fexists(__library_path)) { strcpy(library_path,__library_path);}
-								else {
-									/* Now we assume it is executed in a folder bin and the modules is in parent folder 
-										like
-										simple/bin/
-										simple/modules/
-										simple/includes/
-									so we go parent directory *simple* and check for modules. Think execute simple from zip extract
-									*/
-									snprintf(__library_path, sizeof(__library_path), "../modules/dynamic_modules/%s", library_path);
-									if (simple_fexists(__library_path)) { strcpy(library_path,__library_path);}
-									else {
-                                        /* We dig deep for android and ios we first check the assets folder then the storage*/
-										#ifdef __ANDROID__
-											//check android asset first
-											snprintf(__library_path, sizeof(__library_path), "%s/%s", vm->simple_app->externalDataPath, library_path);
-											if (simple_fexists(__library_path)) { strcpy(library_path,__library_path);}
-											else {
-												snprintf(__library_path, sizeof(__library_path), "%s/dynamic_modules/%s", vm->simple_app->externalDataPath, library_path);
-												if (simple_fexists(__library_path)) { strcpy(library_path,__library_path);}
-												else {
-													//now check the sdcard (External Storage)
-													simple_env_path = getenv("EXTERNAL_STORAGE");
-													snprintf(__library_path, sizeof(__library_path), "%s/simple/s%s/modules/dynamic_modules/%s", simple_env_path, SIMPLE_VERSION,library_path);
-													if (simple_fexists(__library_path)) { strcpy(library_path,__library_path);}
-													else {
-														snprintf(__library_path, sizeof(__library_path), "%s/simple/modules/dynamic_modules/%s", simple_env_path, library_path);
-														if (simple_fexists(__library_path)) { strcpy(library_path,__library_path);}
-														else {
-
-														}
-													}
-												}
-											}
-                                        #endif
-									}
-								}
-							}
-						} 
-					}
+		if (!simple_fexists(library_path)) {
+			for ( x = 1 ; x <= simple_list_getsize(sState->module_paths) ; x++ ) {
+				snprintf(module_path, sizeof(module_path), "%s/dynamic_modules/%s", simple_list_getstring(sState->module_paths,x), library_path);
+				if (simple_fexists(module_path)) {
+					strcpy(library_path,module_path);
+					break;
 				}
 			}
-        }
+		}
         cDLL = library_path;
         handle = LoadDLL(cDLL);
 		if ( handle == NULL ) {
@@ -869,6 +805,9 @@ SIMPLE_API void simple_vm_display ( VM *vm )
 			} else {
 				simple_list_print(list);
 			}
+		}
+		else {
+			printf("(null)");
 		}
 	}
 	else if ( SIMPLE_VM_STACK_ISNUMBER ) {

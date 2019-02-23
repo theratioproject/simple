@@ -308,7 +308,7 @@ class JsonParser : Object
 					break
 				}
 				member = parseMember()
-				if member == null {
+				if isNull(member) {
 					next = lookAhead.pop()
 					if next != EOF or next != "" and (next == ValueSeparator or next != EndObject) {
 						throw(self, "Syntax Error : missing member in JSON object")
@@ -333,10 +333,11 @@ class JsonParser : Object
 				acceptChar(NameSeparator)
 				skipWhiteSpace() 
 				jsonValue = parseValue()
-				if isNull(jsonValue) {
+				/*if isNull(jsonValue) {
+					#null is a valid value
 					throw(self, "Syntax Error : missing the object member value")
 					return null
-				}
+				}*/
 				value = jsonValue
 				isBool = false
 				if isList(jsonValue) {

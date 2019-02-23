@@ -31,8 +31,7 @@ SIMPLE_OBJECTDIR=../../../simple/dist/$(CND_BUILDDIR)/$(CND_PLATFORM)
 
 # Object Files
 OBJECTFILES= \
-	$(OBJECTDIR)/archiver.o \
-	$(OBJECTDIR)/zip.o
+	$(OBJECTDIR)/archiver.o
 
 # Simple Object Files
 SIMPLE_OBJECTFILES = \
@@ -48,10 +47,6 @@ $(OBJECTDIR)/archiver.o: archiver.c
 	mkdir -p $(OBJECTDIR)
 	$(CC) $(ARC_FLAG) $(CFLAGS) archiver.c
 	mv archiver.o $(OBJECTDIR)
-	
-$(OBJECTDIR)/zip.o: zip.c
-	$(CC) $(ARC_FLAG) $(CFLAGS) zip.c
-	mv zip.o $(OBJECTDIR)
 
 clean:
 	@- $(RM) $(OBJECTDIR)/*.o

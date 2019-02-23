@@ -1,6 +1,6 @@
 
 #1 #2
-call "module.sim" ? examples.syntax.inn 
+call "module.sim" import examples.syntax.inn 
 call "block.sim" 
 
 i = new inner

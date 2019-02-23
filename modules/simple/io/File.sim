@@ -110,6 +110,7 @@ class File : Path
 	/*
 		Quick write string to a file
 	*/
+	#issue with byte e.g download zip then write
 	block write(string content)
 		ensureExistence()
 		if !isReadable() {

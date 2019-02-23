@@ -12,7 +12,7 @@
  * Created on July 10, 2017, 2:10 PM
  */
 
-#include "../includes/simple.h"
+#include "../include/simple.h"
 
 SIMPLE_API void simple_vm_sum ( VM *vm )
 {
@@ -326,7 +326,7 @@ SIMPLE_API void simple_vm_equal ( VM *vm )
 			}
 		}
 		else if ( SIMPLE_VM_STACK_ISPOINTER ) {
-			simple_vm_expr_spoo(vm,"=",simple_string_get(string_one),simple_string_size(string_one));
+			simple_vm_expr_spoo(vm,"==",simple_string_get(string_one),simple_string_size(string_one));
 			simple_string_delete_gc(vm->sState,string_one);
 			return ;
 		}
@@ -351,12 +351,12 @@ SIMPLE_API void simple_vm_equal ( VM *vm )
 			}
 		}
 		else if ( SIMPLE_VM_STACK_ISPOINTER ) {
-			simple_vm_expr_npoo(vm,"=",nNum1);
+			simple_vm_expr_npoo(vm,"==",nNum1);
 			return ;
 		}
 	}
 	else if ( SIMPLE_VM_STACK_ISPOINTER ) {
-		simple_vm_expr_ppoo(vm,"=");
+		simple_vm_expr_ppoo(vm,"==");
 	}
 }
 
@@ -1022,7 +1022,7 @@ SIMPLE_API void simple_vm_expr_ppoo ( VM *vm,const char *cStr )
 				return ;
 			}
 		}
-		else if ( strcmp(cStr,"=") == 0 ) {
+		else if ( strcmp(cStr,"==") == 0 ) {
 			if ( api_iscpointer_list(list) && api_iscpointer_list(list2) ) {
 				SIMPLE_VM_STACK_POP ;
 				if ( api_cpointer_cmp(list,list2) ) {

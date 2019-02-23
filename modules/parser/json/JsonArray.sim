@@ -217,7 +217,7 @@ class JsonArray : Object
 				return lengthOf(elements)
 			case "iterator"
 				return lengthOf(elements) - 1
-			case "="
+			case "=="
 				return equals(value)
 			case "!="
 				return !equals(value)

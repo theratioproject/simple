@@ -1,104 +1,183 @@
 
-[![Simple License](https://img.shields.io/github/license/simple-lang/simple.svg)](https://github.com/simple-lang/simple/blob/master/LICENSE)
-[![Popular Language](https://img.shields.io/github/languages/top/simple-lang/simple.svg)](https://github.com/simple-lang/simple/search?l=c)
-[![Boot App Build](https://img.shields.io/badge/bootapp--build-passed-brightgreen.svg)](https://github.com/simple-lang/simple/tree/master/bootsrc/)
-[![Simple Build](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/simple-lang/simple/)
-[![Simple release](https://img.shields.io/github/release/simple-lang/simple/all.svg)](https://github.com/simple-lang/simple/releases/)
-[![Last Commit](https://img.shields.io/github/last-commit/simple-lang/simple.svg)](https://github.com/simple-lang/simple/commits/master)
-[![Pull Request](https://img.shields.io/github/issues-pr-closed/simple-lang/simple.svg)](https://github.com/simple-lang/simple/issues?q=is%3Apr+is%3Aclosed)
-[![Pull Request](https://www.codetriage.com/simple-lang/simple/badges/users.svg)](https://www.codetriage.com/simple-lang/simple)
+# <p style="text-align: center;" align="center">Simple</p>
 
-# Simple
+<p style="text-align: center;" align="center">The Simple Intelligent and Modular Programming Language and Environment</p>
 
-The Simple Intelligent and Modular Programming Language and Environment</br>
-Current Version : 0.3.36
-![simple-repl](https://i.imgur.com/qx5bbc3.png)
+___
 
-## About Simple
+| Platform / Architecture  | Build Status |
+|--------------------------|--------------|
+| Windows (7, 8, 10, ...)  | [![Simple Windows Build](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/simple-lang/simple/)   |
+| Linux (2.6.18 or later)  | [![Simple Linux Build](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/simple-lang/simple/)   |
+| OSX (10.7 Lion or later) | [![Simple OSX Build](https://img.shields.io/badge/build-failing-red.svg)](https://github.com/simple-lang/simple/)   |
+| Android (SDK 16 or later) | [![Simple Android Build](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/simple-lang/simple/)   |
+| Android Termux | [![Simple Android Build](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/simple-lang/simple/)   |
+| IOS | [![Simple IOS Build](https://img.shields.io/badge/build-pending-yellow.svg)](https://github.com/simple-lang/simple/)   |
 
-SIMPLE is a plain and innovative programming with multi-paradigm. It can be embedded in C/C++ projects. The language is portable to various OS including windows, macOS, any linux and unix distros and other OS. The language is small and fast.
+___
 
-### Features
+## Building from source
 
-Simple has features every programming language will have such as variable declarations, functional programming, Object oriented programming etc and more to come. It houses all these features as it parent architecture comes from **C**. Simple is weakly typed, no explicit end of line required and can be embedded in C and C++ projects. Portability with javascript is a major goal we're trying and going to achieve.
-
-[![Download SIMPLE](https://a.fsdn.com/con/app/sf-download-button)](https://sourceforge.net/projects/simple-lang/files/s0.3.36/)
-
-### Downloading & Installing SIMPLE.
-
-Simple has compilers that can be installed in our Windows/Linux/Mac systems. Simple can either be cloned, downloaded as zip or gotten from [here](https://simple-lang.sourceforge.io/)
-Below are the procedures for installing on each system respectively.
-
-#### Installing on Windows
-
-This is quite the easiest installation. Download the windows type file from [here](https://simple-lang.sourceforge.io/) and run.
-
-#### Installing on Linux
-
-After downloading simple from either methods listed above, unzip/move into the SIMPLE folder from your console and follow the instructions below.
-
+simple provide self sufficent platform scripts for some of the platform below for building simple successfully with less or no effort at all. 
+The scripts are [here](./build/). Each script has the following options to customize your build or avoid building a failing section.
 ```bash
+[FLAGS] :
+        -c --configure  configure your system for simple-lang successfull build
+        -i --install    install simple-lang on your system
+        -b --build-dir  manually enter folder to install simple-lang
+        -u --uninstall  uninstall simple-lang from your system
+        -d --debug      create a distributable version in ..\..\ source directory
+        x86 --32-bit    build 32 bit version of simple-lang
+        x64 --64-bit    build 64 bit version of simple-lang
+        -t --temp       keep the */dist/ folder(s) in source tree
+        -h --help       print this help message
+        -min --minify   minify all modules sources (Not Recommended for Debug Purpose)
 
-$> cd build && chmod +x Linux-Build.sh
-
+[STANDALONE BUILD FLAGS]
+        -so --simple-only       build only simple.exe, simplew.exe and libsimple.dll
+        -do --dep-only          build only the dependencies
+        -io --include-only      copy only the simple include files
+        -mo --modules-only      copy only the standard modules
+        -yo --dymodules-only    build only the dynamic modules
+        -eo --environment-only  build only the environment programs
 ```
+If you just clone this repository you should first configure your system for a successfull building by using the **-c** flag, this 
+process requires internet connection because all dependencies will be downloaded with an execption to Windows which has no particular libraries location.
 
-##### Installing SIMPLE as a program file alone
-
-This method of installation, installs **SIMPLE** as a program file without building its debug folder.
-
-```sh
-$> sudo sh ./Linux-Build.sh -c -i
-```
-
-##### Installing SIMPLE for debugging purpose
-
-This method of installation does not install **SIMPLE** to the system but only installs the debugging folder *s0.3.36* and houses four folders:
-
-+ bin
-  + simple
-  + simple.so
-+ enviroment
-  + bake
-  + modular
-  + simplerepl
-  + simplebridge
-  + simplepad
-  + webworker.
-+ modules
-   +...
-
-To do this, run the command:
-
-```sh
-sudo ./Linux-Build.sh -d
-```
-
-### Running the SIMPLE compiler
-
+Download this repository and extract to a working folder or clone this repository into a working folder using git
 ```bash
-$> simple
+ $ git clone https://github.com/simple-lang/simple.git
 ```
+After downloading simple source from either methods listed above, continue with the instruction for your platform below.
 
-#### Installing on Mac
+- [Building on Linux](#building-on-linux)
+- [Building on OSX](#building-on-osx)
+- [Building on Windows](#building-on-windows)
+- [Building on Android](#building-on-android)
+- [Building on Android Termux](#building-on-android-termux)
 
-To install on Mac, the same procedures are followed but some small differences. Steps to install..
-After downloading the Mac package, navigate to the home folder of SIMPLE and run commands.
-The makefile for Mac is under testing and further instructions will be disbursed later.
+### Building on Linux
 
+##### Configure
+For the first time using the script configure your building enviroment
 ```bash
-$> bash build/SimpleOnlyBuild-Mac.sh
+ $ cd build
+ $ sudo bash ./Linux-Build.sh -c
 ```
 
-Boom, we have simple installed. Start the SIMPLE compiler with the command
-
+##### Installing
+Proceed to install simple-lang on your system and start using from any directory. After it complete you can execute sim scripts from any folder
 ```bash
-$> simple
+ $ sudo bash ./Linux-Build.sh x64 -i
 ```
 
-### Getting started
+##### Debugging
+If you wish to debug simple build or try it before installing in your system executable space use the **-d** flag. 
+Note : this will allow more debugging flag in simple such that you can debug upto the VM Stack level
+```bash
+ $ sudo bash ./Linux-Build.sh x64 -d
+```
+After running the command above simple will be installed in the same directory you clone simple source into in the following format `s$Version-debug`
++ simple
+	+ build
++ s$Version-debug
+	+ bin
 
-You can get started with SIMPLE-LANG by visiting the docs [here](https://github.com/simple-lang/simple/wiki)
+### Building on OSX
+
+Some section such as dynamic modules build is currently failing on OSX, but you can still try basic simple examples and logic without using the modules.
+If you want to help build on a MAC machine kindly [review and join this PR](https://github.com/simple-lang/simple/pull/29) 
+
+##### Installing
+Proceed to install simple-lang on your system and start using from any directory. After it complete you can execute sim scripts from any folder
+```bash
+ $ cd build
+ $ bash ./SimpleOnlyBuild-Mac.sh
+ $ simple
+```
+
+### Building on Windows
+
+It obvious windows does not have a central base for dependencies like the *nix oses, all the dependencies such as [curl](https://curl.haxx.se/libcurl/), 
+[openssl](https://www.openssl.org/), [fltk](https://www.fltk.org/), will have to be manually download and added to a global directory where windows 
+could find them at compile time, this dependencies are only for the dynamic modules and does not affect the main simple executable and shared library also 
+other dynamic modules does not need these dependencies and can be built independently.
+
+##### Build Toolchain
+
+simple currently uses the MinGW toolchain that can be downloaded [here](http://www.mingw.org/), add the directory where gcc and make is to your environment
+ path. 
+ 
+##### Installing
+Proceed to install simple-lang on your system and start using from any directory. After it complete you can execute sim scripts from any folder
+```bash
+ $ ./Windows-Build.bat x64 -i -so
+```
+
+##### Debugging
+If you wish to debug simple build or try it before installing in your system executable space use the **-d** flag. 
+Note : this will allow more debugging flag in simple such that you can debug upto the VM Stack level
+```bash
+ $ ./Windows-Build.bat x64 -d -so
+```
+After running the command above simple will be installed in the same directory you clone simple source into in the following format `s$Version-debug`
++ simple
+	+ build
++ s$Version-debug
+	+ bin
+
+
+##### Installing
+For the first time using the script configure your building enviroment
+```bash
+ $ cd build
+ $ bash ./SimpleOnlyBuild-Mac.sh
+ $ simple
+```
+
+### Building on Android
+
+This require the following dependencies <br />
+ANDROID SDK [https://developer.android.com/studio/](https://developer.android.com/studio/) <br />
+ANDROID NDK [https://developer.android.com/ndk/](https://developer.android.com/ndk/) <br />
+FLTK [https://www.fltk.org/](https://www.fltk.org/) <br />
+Read full instruction on building your first android app with simple-lang [here](https://simple-lang.sourceforge.io/blog/android-build)
+
+### Building on Android Termux
+
+[Termux](https://termux.com/) is a free and open code app that simulates the command shell used in Linux. By doing so, you can introduce all the usual commands and work comfortably from your Android device.
+
+All simple section compiles fine on the termux app and you can test all the source file scripts in the [examples](./examples/) folder with exception for 
+the **[fulltick](https://github.com/simple-lang/simple/tree/master/modules/fulltick)** module with build is still under way.
+
+##### Configure
+For the first time using the script configure your building enviroment
+```bash
+ $ cd build
+ $ bash ./Android-Termux-Build.sh -c
+```
+
+##### Installing
+Proceed to install simple-lang on your system and start using from any directory. After it complete you can execute sim scripts from any folder
+```bash
+ $ bash ./Android-Termux-Build.sh x64 -i
+```
+
+##### Debugging
+If you wish to debug simple build or try it before installing in your system executable space use the **-d** flag. 
+Note : this will allow more debugging flag in simple such that you can debug upto the VM Stack level
+```bash
+ $ sudo bash ./Android-Termux-Build.sh x64 -d
+```
+After running the command above simple will be installed in working home directory in termux `~/`
+```
+ $ cd ~/
+ $ cd s$Version-debug/bin/
+```
+
+### Note
+
+This project is still so much in it infancy, unexpected failure, seg-faults, errors should be expected therefore it not advisable to build seroius project in it. But if you build something cool with it or a usefull module you can share with the community on Twitter [@thesimplelang](https://twitter.com/thesimplelang) or write to **whatisthis914@gmail.com**. And also we love issues if it make the project better [here](https://github.com/simple-lang/simple/issues).
 
 ### Contributors
 
@@ -106,8 +185,4 @@ We love contributors. This is an open source project and needs the supports of t
 
 ### License
 
-MIT License
-
-Copyright (c) 2018 simple
-
- Built with :heart: in Nigeria
+MIT License Copyright (c) 2018 simple Built with :heart: in Nigeria

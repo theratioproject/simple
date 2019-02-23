@@ -3,11 +3,11 @@
 
 */
 call simple.core.Object
-call "../base/FWidget.sim" ? fulltick.base
-call "../painting/FColor.sim" ? fulltick.painting
-call "../drawing/FAlignment.sim" ? fulltick.drawing
-call "../drawing/FFont.sim" ? fulltick.drawing
-call "../drawing/FBoxType.sim" ? fulltick.drawing
+call fulltick.base.FWidget
+call fulltick.painting.FColor
+call fulltick.drawing.FAlignment
+call fulltick.drawing.FFont
+call fulltick.drawing.FBoxType
 
 /*
 
@@ -127,23 +127,23 @@ class FBox : FWidget
         if paramsLen == 1 {
             Label = params[0]
             if !isString(Label) {
-                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'string' as FBox Label")
+                throw(self,"Invalid parameter Expecting 'string' as FBox Label")
             }
         elif paramsLen == 2
             X = params[0]
             Y = params[1]
             if !isNumber(X) or !isNumber(Y) {
-                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FBox X and Y")
+                throw(self,"Invalid parameter Expecting 'number' as FBox X and Y")
             }
         elif paramsLen == 3 
             X = params[0]
             Y = params[1]
             Label = params[2]
             if !isNumber(X) or !isNumber(Y) {
-                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FBox X and Y")
+                throw(self,"Invalid parameter Expecting 'number' as FBox X and Y")
             }
             if !isString(Label) {
-                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'string' as FBox Label")
+                throw(self,"Invalid parameter Expecting 'string' as FBox Label")
             }
         elif paramsLen == 4
             X = params[0]
@@ -151,10 +151,10 @@ class FBox : FWidget
             Width = params[2]
             Height = params[3]
             if !isNumber(X) or !isNumber(Y) {
-                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FBox X and Y")
+                throw(self,"Invalid parameter Expecting 'number' as FBox X and Y")
             }
             if !isNumber(Width) or !isNumber(Height) {
-                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FBox Width and Height")
+                throw(self,"Invalid parameter Expecting 'number' as FBox Width and Height")
             }
         elif paramsLen == 5
             X = params[0]
@@ -163,17 +163,17 @@ class FBox : FWidget
             Height = params[3]
             Label = params[4]
             if !isNumber(X) or !isNumber(Y) {
-                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FBox X and Y")
+                throw(self,"Invalid parameter Expecting 'number' as FBox X and Y")
             }
             if !isNumber(Width) or !isNumber(Height) {
-                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FBox Width and Height")
+                throw(self,"Invalid parameter Expecting 'number' as FBox Width and Height")
             }
             if !isString(Label) {
-                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'string' as FBox Label")
+                throw(self,"Invalid parameter Expecting 'string' as FBox Label")
             }
         else    
             if paramsLen != 0 {
-                throw(self,SIMPLE_VM_ERROR_EXTRAPARAMETERSCOUNT)
+                throw(self,"Calling block with invalid legth of parameter")
             }
         } 
 

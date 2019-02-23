@@ -1,0 +1,33 @@
+
+/*
+
+*/
+call fulltick.FApp
+call fulltick.widgets.FWindow
+call fulltick.widgets.FIntInput
+call fulltick.events.FCallbackEvent
+import simple.core
+import simple.system
+import fulltick.base
+import fulltick.widgets
+import fulltick.painting
+import fulltick.objects
+import fulltick.drawing
+
+flabelDemo = new FIntInputDemo
+FApp.run()
+
+class FIntInputDemo
+
+    fwindow = new FWindow(320,180,"FIntInput Demo") { 
+        begin(true) 
+        input = new FIntInput(10,10,"1111") { setPlatformScheme(FScheme.Android) }
+        new FIntInput(10,50,"2222") { setPlatformScheme(FScheme.Windows) }
+        new FIntInput(10,90,"3333") { setPlatformScheme(FScheme.Macosx) }
+        new FIntInput(10,130,"4444") { setPlatformScheme(FScheme.Linux) }
+        endBegin()
+        centerOnScreen() 
+        Resizable = false
+        show()        
+    } 
+        

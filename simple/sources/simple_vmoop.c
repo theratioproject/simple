@@ -14,7 +14,7 @@
 **  aBraceObjects ( pBraceObject, nsp, nListStart, pNestedLists) 
 **  aSetProperty ( Object Pointer , Type (Variable/ListItem)  , Property Name, Property Variable , nBeforeEqual) 
 */
-#include "../includes/simple.h"
+#include "../include/simple.h"
 /* Blocks */
 
 SIMPLE_API void simple_vm_oop_newobj ( VM *vm )
@@ -38,7 +38,7 @@ SIMPLE_API void simple_vm_oop_newobj ( VM *vm )
 				continue ;
 			}
 			nClassPC = simple_list_getint(list,2);
-			if ( strcmp(cClassName,cClassName2) == 0 ) {
+			if ( strcmp(cClassName,cClassName2) == 0/* || 1 */) {
 				/* Check Assignment */
 				nCont = 1 ;
 				if ( SIMPLE_VM_STACK_ISPOINTER ) {
@@ -223,13 +223,33 @@ SIMPLE_API void simple_vm_oop_parentinit ( VM *vm,List *list )
 SIMPLE_API void simple_vm_oop_newclass ( VM *vm )
 {
 	List *pClass,*list  ;
+	char class_name[400]  ;
 	int x  ;
 	pClass = (List *) SIMPLE_VM_IR_READPVALUE(2) ;
 	/* Find the Class Pointer using the Class Name */
 	if ( pClass == NULL ) {
 		for ( x = 1 ; x <= simple_list_getsize(vm->sState->classes_map) ; x++ ) {
 			list = simple_list_getlist(vm->sState->classes_map,x);
-			if ( strcmp(simple_list_getstring(list,1),SIMPLE_VM_IR_READCVALUE(1)) == 0 ) {
+			if ( strcmp(simple_list_getstring(list,1),SIMPLE_VM_IR_READCVALUE(1)) == 0) {
+				if ( simple_list_getsize(list) == 3 ) {
+					/* Here the class is stored inside a modules - we have the class pointer (item 2) */
+					pClass = (List *) simple_list_getpointer(list,2) ;
+				}
+				else {
+					pClass = list ;
+				}
+				SIMPLE_VM_IR_READPVALUE(2) = (void *) pClass ;
+				break ;
+			}
+		}
+	}
+	
+	/* Find the Class Pointer using the Class Name for complex file*/
+	if ( pClass == NULL ) {
+		for ( x = 1 ; x <= simple_list_getsize(vm->sState->classes_map) ; x++ ) {
+			list = simple_list_getlist(vm->sState->classes_map,x);
+			last_text_after_char(class_name,simple_list_getstring(list,1),'.');
+			if (strcmp(class_name,SIMPLE_VM_IR_READCVALUE(1)) == 0) {
 				if ( simple_list_getsize(list) == 3 ) {
 					/* Here the class is stored inside a modules - we have the class pointer (item 2) */
 					pClass = (List *) simple_list_getpointer(list,2) ;
@@ -391,9 +411,9 @@ SIMPLE_API void simple_vm_oop_property ( VM *vm )
 			/*
 			**  We check nActiveCatch because we may have error "accessing private attribute' 
 			**  while we are using simple_vm_findvar 
-			**  And we are using try catch done in the code 
+			**  And we are using try catch finally in the code 
 			**  In this case we don't add another error message 
-			**  So the try catch done can work as expected and avoid the need to another one 
+			**  So the try catch finally can work as expected and avoid the need to another one 
 			**  Error Message 
 			*/
 			simple_vm_error2(vm,SIMPLE_VM_ERROR_PROPERTYNOTFOUND,SIMPLE_VM_IR_READC);
@@ -878,7 +898,7 @@ SIMPLE_API void simple_vm_oop_setget ( VM *vm,List *var )
 	Item *pItem, *pItem2  ;
 	String *string, *pString2  ;
 	/* Create String */
-	string = simple_string_new_gc(vm->sState,"if isBlock(simple_gettemp_var,'get");
+	string = simple_string_new_gc(vm->sState,"if hasBlock(simple_gettemp_var,'get");
 	simple_string_add_gc(vm->sState,string,simple_list_getstring(var,1));
 	simple_string_add_gc(vm->sState,string,"')\nreturn simple_gettemp_var.'get");
 	simple_string_add_gc(vm->sState,string,simple_list_getstring(var,1));
@@ -992,7 +1012,7 @@ SIMPLE_API void simple_vm_oop_setproperty ( VM *vm )
 		vm->nPC-- ;
 		if ( SIMPLE_VM_IR_READIVALUE(2)  == 0 ) {
 			/* Create String */
-			string = simple_string_new_gc(vm->sState,"if isBlock(simple_gettemp_var,'set");
+			string = simple_string_new_gc(vm->sState,"if hasBlock(simple_gettemp_var,'set");
 			simple_string_add_gc(vm->sState,string,simple_list_getstring(list,3));
 			simple_string_add_gc(vm->sState,string,"')\nsimple_gettemp_var.'set");
 			simple_string_add_gc(vm->sState,string,simple_list_getstring(list,3));
@@ -1125,7 +1145,7 @@ SIMPLE_API void simple_vm_oop_operatoroverloading ( VM *vm,List *pObj,const char
 	}
 	if ( SIMPLE_VM_IR_READIVALUE(1) == 0 ) {
 		/* Create String */
-		string = simple_string_new_gc(vm->sState,"if isBlock(simple_gettemp_var,'operator')\nreturn simple_gettemp_var.operator('");
+		string = simple_string_new_gc(vm->sState,"if hasBlock(simple_gettemp_var,'operator')\nreturn simple_gettemp_var.operator('");
 		simple_string_add_gc(vm->sState,string,string_one);
 		simple_string_add_gc(vm->sState,string,"',simple_settemp_var)\nelse\nthrow('Object does not support operator overloading')\nend\n");
 		/* Eval the string */

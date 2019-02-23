@@ -2,8 +2,8 @@
 /*
 
 */
-call "../base/FWidget.sim" ? fulltick.base
-call simple.core.Object
+call fulltick.base.FWidget
+import simple.core, simple.system, simple.utilities
 
 /*
 

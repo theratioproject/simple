@@ -1,0 +1,196 @@
+
+/*
+
+*/
+call fulltick.base.FWidget
+call fulltick.painting.FColor
+call fulltick.drawing.FBoxType
+import simple.core
+import simple.system
+import fulltick.painting
+
+/*
+
+*/
+module fulltick.widgets.menu
+
+/*
+    
+*/
+class FMenuItem : Object
+	
+	/*
+	
+	*/
+	string Text = ""
+	
+	/*
+	
+	*/
+	string FullText = ""
+	
+	/*
+	
+	*/
+	int Shortcut = 0
+	
+	/*
+	
+	*/
+	pointer Callback = null
+	
+	/*
+	
+	*/
+	int Flags = 0
+	
+	/*
+	
+	*/
+	int Index = -1
+	
+	/*
+	
+	*/
+	list ChildMenus = []
+	
+	/*
+	
+	*/
+	boolean HasChildMenus = false
+	
+	/*
+	
+	*/
+	FMenu_ Parent = null
+
+    /*
+
+    */
+    block FMenuItem(params...)
+        paramsLen = lengthOf(params)
+
+        if paramsLen == 1 {
+			Text = stringValue(params[0])
+			
+        elif paramsLen == 2
+			Text = stringValue(params[0])
+			Shortcut = numberValue(params[1])
+			
+        elif paramsLen == 3
+			Text = stringValue(params[0])
+			Shortcut = numberValue(params[1])
+			Callback = params[2]
+			if !isObject(Callback) {
+				IsEvent = false
+			}
+			
+        elif paramsLen == 4
+			Text = stringValue(params[0])
+			Shortcut = numberValue(params[1])
+			Callback = params[2]
+			if !isObject(Callback) {
+				IsEvent = false
+			}
+			Flags = numberValue(params[3])
+			
+        else
+            throw(self,"Calling block with invalid lenght of parameter")
+        }
+		
+		FullText = Text
+		return self
+
+    /*
+
+    */
+    block doCallback()
+        if !isNull(Callback) {
+			if IsEvent {
+				Callback.callback(self)
+			else
+				invoke Callback(self)
+			}
+        }
+		
+	/*
+	
+	*/
+	block addItem(FMenuItem item)
+		item.FullText = FullText + '/' + item.Text
+		if item.HasChildMenus {
+			item.formatChildren(FullText)
+		}
+		if !HasChildMenus {
+			HasChildMenus = true
+		}
+		__add_to_list(ChildMenus,item)
+
+		
+	/*
+	
+	*/
+	block addItems(FMenuItem items...)
+		for item in items {
+			addItem(item)
+		}
+		
+	/*
+	
+	*/
+	block formatChildren(string parentName)
+		for item in ChildMenus {
+			if item.HasChildMenus {
+				item.formatChildren(parentName)
+			else
+				item.FullText = parentName + '/' + item.FullText
+			}
+		}
+		
+	/*
+	
+	*/
+	block setText(string value)
+		if !isNull(Parent) {
+			__Fl_Menu__replace(Parent.Ptr, Index, value)
+			__Fl_Widget_redraw(Parent.Ptr)
+		}
+		
+	/*
+	
+	*/
+	block setFlags(int value)
+		if !isNull(Parent) {
+			__Fl_Menu__mode(Parent.Ptr, Index, value)
+			__Fl_Widget_redraw(Parent.Ptr)
+		}
+		
+	/*
+	
+	*/
+	block remove()
+		if !isNull(Parent) {
+			__Fl_Menu__remove(Parent.Ptr, Index)
+			__Fl_Widget_redraw(Parent.Ptr)
+			Index = -1
+		}
+
+    /*
+
+    */
+    private 
+		
+		/*
+		
+		*/
+		IsEvent = true
+		
+		/*
+		
+		*/
+		block setHasChildMenus()
+		
+		/*
+		
+		*/
+		block setFullText()

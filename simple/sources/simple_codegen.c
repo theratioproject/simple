@@ -12,7 +12,7 @@
  * Created on July 10, 2017, 1:10 PM
  */
 
-#include "../includes/simple.h"
+#include "../include/simple.h"
 /* Operations Text (Array) */
 const char * SIMPLE_IC_OP[] = {"NewLine","FileName","Print","Class","Block","Dup","New","Give","Private","NewLabel", 
 

@@ -1,0 +1,231 @@
+
+/*
+
+*/
+call simple.core.Object
+call simple.system.Color
+call fulltick.base.FWidget
+call fulltick.painting.FColor
+call fulltick.drawing.FAlignment
+call fulltick.drawing.FBoxType
+call fulltick.widgets.FButton
+
+/*
+
+*/
+module fulltick.widgets
+
+/*
+
+*/
+class FLightButton : FButton
+
+    /*
+
+    */
+    Width = FApp.Scheme.getShemeValue("FLightButton.Width") 
+
+    /*
+
+    */
+    Height = FApp.Scheme.getShemeValue("FLightButton.Height") 
+
+    /*
+
+    */
+    X = FApp.Scheme.getShemeValue("FLightButton.X") 
+
+    /*
+
+    */
+    Y = FApp.Scheme.getShemeValue("FLightButton.Y") 
+
+    /*
+
+    */
+    Label = FApp.Scheme.getShemeValue("FLightButton.Label") 
+
+    /*
+
+    */
+    CapitalizeLabel = FApp.Scheme.getShemeValue("FLightButton.CapitalizeLabel") 
+
+    /*
+
+    */
+    Background = FApp.Scheme.getShemeValue("FLightButton.Background") 
+
+    /*
+
+    */
+    LabelAlignment = FApp.Scheme.getShemeValue("FLightButton.LabelAlignment") 
+
+    /*
+
+    */
+    BaseColor = FApp.Scheme.getShemeValue("FLightButton.BaseColor") 
+
+    /*
+
+    */
+    Box = FApp.Scheme.getShemeValue("FLightButton.Box") 
+
+    /*
+
+    */
+    BaseBox = FApp.Scheme.getShemeValue("FLightButton.BaseBox") 
+
+    /*
+
+    */
+    Border = FApp.Scheme.getShemeValue("FLightButton.Border") 
+
+    /*
+
+    */
+    HasBorder = FApp.Scheme.getShemeValue("FLightButton.HasBorder") 
+
+    /*
+
+    */
+    AcceptInput = FApp.Scheme.getShemeValue("FLightButton.AcceptInput")
+
+    /*
+
+    */
+    Visible = FApp.Scheme.getShemeValue("FLightButton.Visible") 
+
+    /*
+
+    */
+    KeyboardFocusable = FApp.Scheme.getShemeValue("FLightButton.KeyboardFocusable") 
+
+    /*
+
+    */
+    Text = FApp.Scheme.getShemeValue("FLightButton.Text") 
+
+    /*
+
+    */
+    Tooltip = FApp.Scheme.getShemeValue("FLightButton.Tooltip") 
+
+    /*
+
+    */
+    LabelColor = FApp.Scheme.getShemeValue("FLightButton.LabelColor") 
+
+    /*
+
+    */
+    LabelFont = FApp.Scheme.getShemeValue("FLightButton.LabelFont") 
+
+    /*
+
+    */
+    LabelSize = FApp.Scheme.getShemeValue("FLightButton.LabelSize")
+
+    /*
+
+    */
+    LabelType = FApp.Scheme.getShemeValue("FLightButton.LabelType")
+
+    /*
+
+    */
+    SelectionColor = FApp.Scheme.getShemeValue("FLightButton.SelectionColor")
+
+    /*
+
+    */
+    Shortcut = FApp.Scheme.getShemeValue("FLightButton.Shortcut")
+
+    /*
+
+    */
+    Value = FApp.Scheme.getShemeValue("FLightButton.Value")
+
+    /*
+
+    */
+    Text = null
+
+    /*
+
+    */
+    block FLightButton(params...)
+        paramsLen = lengthOf(params)
+        if paramsLen == 1 {
+            Label = params[0]
+            if !isString(Label) {
+                throw(self,"Invalid parameter Expecting 'string' as FLightButton Label")
+            }
+        elif paramsLen == 2
+            Width = params[0]
+            Height = params[1]
+            if !isNumber(Width) or !isNumber(Height) {
+                throw(self,"Invalid parameter Expecting 'number' as FLightButton Width and Height")
+            }
+        elif paramsLen == 3 
+            Width = params[0]
+            Height = params[1]
+            Label = params[2]
+            if !isNumber(Width) or !isNumber(Height) {
+                throw(self,"Invalid parameter Expecting 'number' as FLightButton Width and Height")
+            }
+            if !isString(Label) {
+                throw(self,"Invalid parameter Expecting 'string' as FLightButton Label")
+            }
+        elif paramsLen == 4
+            X = params[0]
+            Y = params[1]
+            Width = params[2]
+            Height = params[3]
+            if !isNumber(X) or !isNumber(Y) {
+                throw(self,"Invalid parameter Expecting 'number' as FLightButton X and Y")
+            }
+            if !isNumber(Width) or !isNumber(Height) {
+                throw(self,"Invalid parameter Expecting 'number' as FLightButton Width and Height")
+            }
+        elif paramsLen == 5
+            X = params[0]
+            Y = params[1]
+            Width = params[2]
+            Height = params[3]
+            Label = params[4]
+            if !isNumber(X) or !isNumber(Y) {
+                throw(self,"Invalid parameter Expecting 'number' as FLightButton X and Y")
+            }
+            if !isNumber(Width) or !isNumber(Height) {
+                throw(self,"Invalid parameter Expecting 'number' as FLightButton Width and Height")
+            }
+            if !isString(Label) {
+                throw(self,"Invalid parameter Expecting 'string' as FLightButton Label")
+            }
+        else    
+            if paramsLen != 0 {
+                throw(self,"Calling block with invalid legth of parameter")
+            }
+        } 
+
+        if CapitalizeLabel {
+            Label = toUpperCase(Label)
+        }
+        Ptr = __Fl_Light_Button(X, Y, Width, Height, "")
+        registerWidget()
+        #resize(X, Y, Width, Height)
+        setLabelAlignment(LabelAlignment)
+        setBox(Box)
+        setBaseColor(BaseColor)
+        setBaseBox(BaseBox)
+        setBorder(Border)
+        construct()
+        setValue(Value)
+        
+        return self
+
+    /*
+
+    */
+    private 
+

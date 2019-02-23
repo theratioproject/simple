@@ -3,10 +3,8 @@
 /*
 
 */
-call simple.utilities.Math
-#call simple.system.Color
-call "../base/loaddyfulltick.sim"
-call "../base/FulltickErrorMessages.sim"
+call fulltick.base.loaddyfulltick
+import simple.core, simple.system, simple.utilities
 
 /*
 
@@ -21,7 +19,7 @@ final FColor = new fulltick.painting.FColor
 /*
 
 */
-class FColor 
+class FColor : Color
 
 	/*
 

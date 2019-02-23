@@ -23,11 +23,6 @@ call simple.utilities.Length
 */ 
 module simple.debugging
 
-	__STACK_TRACE_ERROR = "Stack Trace cannot be empty error with the simple-lang Virtual Machine"
-	__DEBUG_ASSERT_BOOLEAN_ONLY = "Only Boolean and Number can be asserted"
-	__DEBUG_ASSERTION_FAILED = "Assertion Failed"
-	__DEBUG_ASSERTION_PASSED = "Assertion Passed"
-
 /*
 	A list that returns all the lines, blocks called in all the imported file from 
 	the beginning of the program to the point where the stackTrace() block is called. 
@@ -46,7 +41,7 @@ module simple.debugging
 block stackTrace()
 	stackTrace = __stack_trace()
 	if getTypeLength(stackTrace) == 0 {
-			return throw(__STACK_TRACE_ERROR)
+			return throw("Stack Trace cannot be empty error with the simple-lang Virtual Machine")
 	}
 	return stackTrace
 	
@@ -57,11 +52,49 @@ block stackTrace()
 	have made better while a bad thing was to occur. If the warning is an information
 	that could break the program it should be throw instead
 */
-block warn(warnmessage)
-	if warnmessage == "" {
-		return 
+#TODO: Revist for variadic and title implementation and dispose of internal __warn(...) block
+block warn(object params...)
+	paramsLen = lengthOf(params)
+	obj = null
+	message = null
+	line = 1
+	lineNumberStack = __stack_trace()
+	
+	if paramsLen == 1 {
+		message = params[0]
+		if !isString(message) or message == "" {
+			return 
+		}
+		if __vm_should_warn() {
+			__warn("Warning:"+lineNumberStack[line]+","+message+nl)
+		}
+	elif paramsLen == 2
+		obj = params[0]
+		message = params[1]
+		if !isObject(obj) or !isString(message) or message == "" {
+			return
+		}
+		title = __class_module_name(obj)+"."+__class_name(obj)
+		if __vm_should_warn() {
+			__warn("Warning:"+title+","+lineNumberStack[line]+","+message+nl)
+		}
+	elif paramsLen == 3
+		obj = params[0]
+		message = params[1]
+		line = params[2]
+		if !isObject(obj) or !isString(message) or message == "" or !isNumber(line) {
+			return
+		}
+		if line > lengthOf(lineNumberStack) - 1 {
+			line = lengthOf(lineNumberStack)
+		}
+		title = __class_module_name(obj)+"."+__class_name(obj)
+		if __vm_should_warn() {
+			__warn("Warning:"+title+","+lineNumberStack[line]+","+message+nl)
+		}
+	else
+		throw("simple.debugging:warn", "Calling block with invalid length of parameter")
 	}
-	__warn(crlf+"Warning : "+warnmessage+crlf)
 	
 /*
 	Check and confirm whether the value sent as parameter is true 
@@ -80,13 +113,13 @@ block assert(values...)
 		value = values[0] 
 		lineNumberStack = __stack_trace_line_number()
 		if !isNumber(value) { 
-			@("simple.debugging:assert : " + __DEBUG_ASSERT_BOOLEAN_ONLY + ". Line : " + lineNumberStack[1])
+			@("simple.debugging:assert : " + "Only Boolean and Number can be asserted. Line : " + lineNumberStack[1])
 			return
 		}
 		if value == true { 
-			@("simple.debugging:assert : " + __DEBUG_ASSERTION_PASSED + ". Line : " + lineNumberStack[1])
+			@("simple.debugging:assert : " + "Assertion Passed. Line : " + lineNumberStack[1])
 		else
-			@("simple.debugging:assert : " + __DEBUG_ASSERTION_FAILED + ". Line : " + lineNumberStack[1])
+			@("simple.debugging:assert : " + "Assertion Failed. Line : " + lineNumberStack[1])
 		}
 	}
 	if valueLen > 1 {

@@ -1,0 +1,24 @@
+
+call simple.utilities.Console
+call fulltick.FApp
+call fulltick.FScheme
+import simple.core, simple.system, fulltick.painting, fulltick.objects, fulltick.drawing
+
+FApp.run()
+stdout.println(FApp.isRunning())
+
+stdout.println(FApp.scheme())
+FApp.scheme("platic")
+stdout.println(FApp.scheme())
+try {
+	FApp.scheme("platic","bottle")
+catch 
+	#stderr.println(__err__)
+}
+
+scheme = new FScheme
+scheme.set("FWindow.Background",new FColor(242,242,242))
+scheme.SchemeName = "gtk+"
+FApp.scheme(FScheme.GTK)
+stdout.println(FApp.scheme())
+FApp.run()

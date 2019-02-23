@@ -6,9 +6,14 @@ call simple.core.Object
 call simple.debugging.Throw
 call simple.debugging.ErrorMessages
 call simple.reflection.Class
-call "./events/FWindowEvent.sim" ? fulltick.events
-call "./base/loaddyfulltick.sim" ? fulltick.base
-call "./FScheme.sim" ? fulltick
+call fulltick.events.FWindowEvent
+call fulltick.base.loaddyfulltick
+call simple.system.Color
+call fulltick.FScheme
+import simple.core
+import simple.system
+import simple.debugging
+import simple.reflection
 
 /*
 
@@ -18,7 +23,65 @@ module fulltick
 /*
 
 */
-FApp = new fulltick.FApp
+final FApp = new fulltick.FApp
+
+/*
+
+*/
+number __fltk_current_event = 0
+
+/*
+
+*/
+string __fltk_current_pointer = null
+	
+/*
+
+*/
+number __fltk_current_widget_id = 0
+
+/*
+
+*/
+list __fltk_created_widgets = []
+	
+/*
+
+*/
+number __fltk_current_menu_index = 0
+
+/*
+
+*/
+list __fltk_created_menus = []
+
+/*
+
+*/
+__fltk_created_menus_count = -1
+
+/*
+	This block is likely never going to be executed,
+	it act as a template for the handle method in the 
+	FApp class, it is here because the block will be
+	searched for in the global scope and called on 
+	the local scope which is the handle method in the 
+	FApp class
+*/
+block __fltk_handle()
+	FApp.handle()
+
+/*
+	To be deprecated
+*/
+block __fltk_widget_callback()
+	__fltk_created_widgets[__fltk_current_widget_id].doCallback()
+
+/*
+	To be deprecated
+*/
+block __fltk_widget_menu_callback()
+	__fltk_created_menus[__fltk_current_menu_index].doCallback()
 
 /*
 
@@ -35,11 +98,6 @@ class FApp : Object
 
 	*/
 	CurrentWidget = null
-
-	/*
-
-	*/
-	CreatedWidgets = []
 
 	/*
 
@@ -86,18 +144,19 @@ class FApp : Object
 			} 
 			__Fl_Fl_scheme(self.scheme)
 		else 
-			throwWithTitle(self,SIMPLE_VM_ERROR_EXTRAPARAMETERSCOUNT)
+			throwWithTitle(self,"Calling block with invalid legth of parameter")
 		}
 
 	/*
 		internal use only 
 	*/
-	block handle(event,windowPointer) 
-		widget = CreatedWidgets[windowPointer] 
+	block handle() 
+		#@__fltk_current_pointer+":"+__fltk_current_event
+		widget = __fltk_created_widgets[__fltk_current_pointer] 
 		if !isNull(widget) { 
 			windowPtr = widget.Ptr 
 			Ptr = widget.Ptr 
-			switch (event) {
+			switch (__fltk_current_event) {
 				case __FL_CLOSE()
 					if __instance_of(widget,"FWindow") {
 						if !isNull(widget.WindowEvent) {
@@ -118,7 +177,7 @@ class FApp : Object
 						if !isNull(widget.WindowEvent) {
 							widget.WindowEvent.callback(widget,16)
 						else
-							__Fl_Fl_handle_(event,Ptr) 
+							__Fl_Fl_handle_(__fltk_current_event,Ptr) 
 						}
 					}	
 					return 1
@@ -129,7 +188,7 @@ class FApp : Object
 							widget.WindowEvent.callback(widget,15)
 							return 0
 						else
-							__Fl_Fl_handle_(event,Ptr) #no static Fl_Widget::show
+							__Fl_Fl_handle_(__fltk_current_event,Ptr) #no static Fl_Widget::show
 						}
 					}	
 					return 1
@@ -144,7 +203,7 @@ class FApp : Object
 					}
 					__Fl_Fl_set_pushed_(Ptr) 
 					__Fl_Tooltip_Fl_Tooltip_current_1(Ptr)
-					if sendEvent(event,widget,windowPtr) == 1 { return 1 }
+					if sendEvent(__fltk_current_event,widget,windowPtr) == 1 { return 1 }
 					__Fl_Widget_show(Ptr)
 					return 1 
 
@@ -164,10 +223,10 @@ class FApp : Object
 					widget = BelowMouse
 
 				default
-					#__Fl_Fl_handle_(event,Ptr)
+					#__Fl_Fl_handle_(__fltk_current_event,Ptr)
 			}
 		} 
-		#widget.handle(event)
+		#widget.handle(__fltk_current_event)
 
 	/*
 
@@ -180,28 +239,6 @@ class FApp : Object
 	*/
 	block getBelowMouse()
 		return BelowMouse
-
-
-	/*
-		internal use only
-	*/
-	block __widgetcallback(index) 
-		if isNumber(index) { 
-			widget = CreatedWidgets[index] 
-			if !isNull(widget)  and !isNull(widget.CallbackEvent) { 
-				widget.CallbackEvent.callback(CreatedWidgets[index])
-			}
-		else
-			throw(self,"Invalid parameter in fulltick.FApp::__widgetcallback. Calling this block with invalid parameter means a kind or workaround. Be careful")
-		}
-		#createdWidgets[index].handle(__Fl_Fl_event())
-
-	/*
-		internal use only
-	*/
-	block registerWidget(widget) 
-		__add_to_list(CreatedWidgets,widget)
-		return lengthOf(CreatedWidgets) - 1
 
 	/*
 

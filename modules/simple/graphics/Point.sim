@@ -120,8 +120,10 @@ class Point : Object
 	*/
 	block operator(op,value)
 		switch op {
-			case "="
+			case "=="
 				return equals(value)
+			case "!="
+				return !equals(value)
             case "+"
                 if isinstance(value) {
                     x = X + value.X
@@ -130,7 +132,9 @@ class Point : Object
                     Y = floor(y)
                 else
                     throw(self,"Using operator with values of incorrect type : "+op)
+					return null
                 }
+				return self
             case "-"
                 if isinstance(value) {
                     x = X - value.X
@@ -139,7 +143,9 @@ class Point : Object
                     Y = floor(y)
                 else
                     throw(self,"Using operator with values of incorrect type : "+op)
+					return null
                 }
+				return self
             case "/"
                 if isinstance(value) {
                     x = X / value.X
@@ -148,7 +154,9 @@ class Point : Object
                     Y = floor(y)
                 else
                     throw(self,"Using operator with values of incorrect type : "+op)
+					return null
                 }
+				return self
             case "*"
                 if isinstance(value) {
                     x = X * value.X
@@ -157,11 +165,11 @@ class Point : Object
                     Y = floor(y)
                 else
                     throw(self,"Using operator with values of incorrect type : "+op)
+					return null
                 }
-			default 
-				throw(self,"self operator behaviour is not defined : "+op)
+				return self
 		}
-		return self
+		return super.operator(op, value)
 
     /*
 

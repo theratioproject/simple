@@ -12,7 +12,7 @@
  * Created on July 10, 2017, 1:10 PM
  */
 
-#include "../includes/simple.h"
+#include "../include/simple.h"
 /*
 **  Blocks 
 **  Main 
@@ -609,8 +609,8 @@ SIMPLE_API void simple_vm_execute ( VM *vm )
 		case ICO_TRY :
 			simple_vm_try(vm);
 			break ;
-		case ICO_DONE :
-			simple_vm_finally(vm);
+		case ICO_FREE_TRY :
+			simple_vm_free_try(vm);
 			break ;
 		/* Duplicate and Range */
 		case ICO_DUPLICATE :
@@ -714,6 +714,7 @@ SIMPLE_API void simple_vm_execute ( VM *vm )
 	}
 }
 
+//TODO : replace exit() with delete scanner and halt state instead of program
 SIMPLE_API void simple_vm_error ( VM *vm,const char *cStr )
 {
 	List *list  ;
@@ -722,16 +723,17 @@ SIMPLE_API void simple_vm_error ( VM *vm,const char *cStr )
 		return ;
 	}
 	vm->nActiveError = 1 ;
-	/* Check BraceError() */
+	/* Check done() */
 	if ( (simple_list_getsize(vm->pObjState) > 0) && (simple_vm_oop_callmethodinsideclass(vm) == 0 ) && (vm->nCallMethod == 0) ) {
 		if ( simple_vm_findvar(vm,"self") ) {
 			list = simple_vm_oop_getobj(vm);
 			SIMPLE_VM_STACK_POP ;
 			if ( simple_vm_oop_isobject(list) ) {
-				if ( simple_vm_oop_isblock(vm, list,"braceerror") ) {
+				if ( simple_vm_oop_isblock(vm, list,"done") ) {
 					simple_list_setstring_gc(vm->sState,simple_list_getlist(simple_vm_getglobalscope(vm),6),3,cStr);
-					simple_vm_runcode(vm,"braceerror()");
+					simple_vm_runcode(vm,"done()");
 					vm->nActiveError = 0 ;
+					if (vm->sState->skip_error == 0) { vm->nActiveError = 1 ; exit(0); } else { return; }
 					return ;
 				}
 			}
@@ -1302,7 +1304,7 @@ SIMPLE_API void simple_vm_endblockexec ( VM *vm )
 
 SIMPLE_API void simple_vm_addglobalvariables ( VM *vm )
 {
-	List *list  ;
+	List *list, *list2  ;
 	int x  ;
 	/*
 	**  Add Variables 
@@ -1311,9 +1313,18 @@ SIMPLE_API void simple_vm_addglobalvariables ( VM *vm )
 	simple_vm_addnewnumbervar(vm,"true",1);
 	simple_vm_addnewnumbervar(vm,"false",0);
 	simple_vm_addnewstringvar(vm,"crlf","\r\n");
-	simple_vm_addnewstringvar(vm,"null","");
+	/* Add null pointer */
+	list = simple_vm_newvar2(vm,"null",vm->pActiveMem);
+	simple_list_setint_gc(vm->sState,list,SIMPLE_VAR_TYPE,SIMPLE_VM_LIST);
+	simple_list_setlist_gc(vm->sState,list,SIMPLE_VAR_VALUE);
+	list2 = simple_list_new_gc(vm->sState,0);
+	simple_list_addpointer_gc(vm->sState,list2,NULL);
+	simple_list_addstring_gc(vm->sState,list2,"(null)");
+	simple_list_addint_gc(vm->sState,list2,2);
+	simple_list_copy(simple_list_getlist(list,SIMPLE_VAR_VALUE),list2);
+	/* End Add null pointer */
 	simple_vm_addnewpointervar(vm,"simple_gettemp_var",NULL,0);
-	simple_vm_addnewstringvar(vm,"__err__","NULL");
+	simple_vm_addnewstringvar(vm,"__err__","");
 	simple_vm_addnewpointervar(vm,"simple_settemp_var",NULL,0);
 	simple_vm_addnewnumbervar(vm,"simple_tempflag_var",0);
 	simple_vm_addnewstringvar(vm,"tab","\t");
@@ -1432,8 +1443,6 @@ SIMPLE_API void simple_vm_runcodefromthread ( VM *vm,const char *cStr )
 
 SIMPLE_API void simple_vm_callblock ( VM *vm,char *cBlockName )
 {
-	/* Lower Case and pass () in the end */
-	simple_string_lower(cBlockName);
 	/* Prepare (Remove effects of the currect block) */
 	simple_list_deletelastitem_gc(vm->sState,vm->pBlockCallList);
 	/* Load the block and call it */

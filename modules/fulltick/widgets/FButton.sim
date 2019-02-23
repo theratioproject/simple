@@ -3,10 +3,11 @@
 
 */
 call simple.core.Object
-call "../base/FWidget.sim" ? fulltick.base
-call "../painting/FColor.sim" ? fulltick.painting
-call "../drawing/FAlignment.sim" ? fulltick.drawing
-call "../drawing/FBoxType.sim" ? fulltick.drawing
+call simple.system.Color
+call fulltick.base.FWidget
+call fulltick.painting.FColor
+call fulltick.drawing.FAlignment
+call fulltick.drawing.FBoxType
 
 /*
 
@@ -136,7 +137,7 @@ class FButton : FWidget
     /*
 
     */
-    Shortcut = null
+    Shortcut = FApp.Scheme.getShemeValue("FButton.Shortcut")
 
     /*
 
@@ -156,23 +157,23 @@ class FButton : FWidget
         if paramsLen == 1 {
             Label = params[0]
             if !isString(Label) {
-                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'string' as FButton Label")
+                throw(self,"Invalid parameter Expecting 'string' as FButton Label")
             }
         elif paramsLen == 2
-            Width = params[0]
-            Height = params[1]
-            if !isNumber(Width) or !isNumber(Height) {
-                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FButton Width and Height")
+            X = params[0]
+            Y = params[1]
+            if !isNumber(X) or !isNumber(Y) {
+                throw(self,"Invalid parameter Expecting 'number' as FButton X and Y")
             }
         elif paramsLen == 3 
-            Width = params[0]
-            Height = params[1]
+            X = params[0]
+            Y = params[1]
             Label = params[2]
-            if !isNumber(Width) or !isNumber(Height) {
-                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FButton Width and Height")
+            if !isNumber(X) or !isNumber(Y) {
+                throw(self,"Invalid parameter Expecting 'number' as FButton X and Y")
             }
             if !isString(Label) {
-                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'string' as FButton Label")
+                throw(self,"Invalid parameter Expecting 'string' as FButton Label")
             }
         elif paramsLen == 4
             X = params[0]
@@ -180,10 +181,10 @@ class FButton : FWidget
             Width = params[2]
             Height = params[3]
             if !isNumber(X) or !isNumber(Y) {
-                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FButton X and Y")
+                throw(self,"Invalid parameter Expecting 'number' as FButton X and Y")
             }
             if !isNumber(Width) or !isNumber(Height) {
-                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FButton Width and Height")
+                throw(self,"Invalid parameter Expecting 'number' as FButton Width and Height")
             }
         elif paramsLen == 5
             X = params[0]
@@ -192,24 +193,24 @@ class FButton : FWidget
             Height = params[3]
             Label = params[4]
             if !isNumber(X) or !isNumber(Y) {
-                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FButton X and Y")
+                throw(self,"Invalid parameter Expecting 'number' as FButton X and Y")
             }
             if !isNumber(Width) or !isNumber(Height) {
-                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'number' as FButton Width and Height")
+                throw(self,"Invalid parameter Expecting 'number' as FButton Width and Height")
             }
             if !isString(Label) {
-                throw(self,FULLTICK_INVALID_PARAMETER + " Expecting 'string' as FButton Label")
+                throw(self,"Invalid parameter Expecting 'string' as FButton Label")
             }
         else    
             if paramsLen != 0 {
-                throw(self,SIMPLE_VM_ERROR_EXTRAPARAMETERSCOUNT)
+                throw(self,"Calling block with invalid legth of parameter")
             }
         } 
 
         if CapitalizeLabel {
             Label = toUpperCase(Label)
         }
-        Ptr = __Fl_Button(X, Y, Width, Height, Label) 
+        Ptr = __Fl_Button(X, Y, Width, Height, Label)
         registerWidget()
         #resize(X, Y, Width, Height)
         setLabelAlignment(LabelAlignment)
@@ -225,8 +226,7 @@ class FButton : FWidget
     /*
 
     */
-    block setBaseColor(value)
-        validatePointer() 
+    block setBaseColor(value) 
         if isNumber(value) or instanceOf(value,"FColor") {
             if isNumber(value) {
                 __Fl_Button_down_color_1(Ptr,value)
@@ -236,7 +236,7 @@ class FButton : FWidget
                 BaseColor = value
             }
         else
-            throw(self,FULLTICK_INVALID_PARAMETER + ". Expecting (Number|fulltick.painting.FColor), Found (" + objectType(value) + ")")
+            throw(self,"Invalid parameter. Expecting (Number|fulltick.painting.FColor), Found (" + objectType(value) + ")")
         }
 
     /*
@@ -249,7 +249,6 @@ class FButton : FWidget
 
     */
     block setBaseBox(value) 
-        validatePointer()
         if isNumber(value) or instanceOf(value,"FBoxType") {
             if isNumber(value) {
                 __Fl_Button_down_box_1(Ptr,value)
@@ -262,7 +261,7 @@ class FButton : FWidget
                 BaseBox = value
             }
         else
-            throw(self,FULLTICK_INVALID_PARAMETER + ". Expecting (Number|fulltick.drawing.FBoxType), Found (" + objectType(value) + ")")
+            throw(self,"Invalid parameter. Expecting (Number|fulltick.drawing.FBoxType), Found (" + objectType(value) + ")")
         }
 
     /*
@@ -282,7 +281,6 @@ class FButton : FWidget
 
     */
     block setText(value)
-        validatePointer()
         setLabel(value)
         Text = value
 
@@ -296,21 +294,18 @@ class FButton : FWidget
 
     */
     block set()
-        validatePointer()
         __Fl_Button_set(Ptr)
 
     /*
 
     */
     block setOnly()
-        validatePointer()
         __Fl_Button_setonly(Ptr)
 
     /*
 
     */
     block setValue(value)
-        validatePointer()
         value = booleanValue(value)
         if value {
             __Fl_Button_value(Ptr,true)
@@ -318,19 +313,18 @@ class FButton : FWidget
             __Fl_Button_value(Ptr,false)
         }
         Value = value
+		
+	/*
+	
+	*/
+	block getValue()
+		validatePointer()
+		return __Fl_Button_value_1(Ptr)
 
     /*
 
     */
-    block getValue()
-        return Value
-
-    /*
-
-    */
-    block setShortcut(value)
-        validatePointer() 
-        value = numberValue(value)
+    block setShortcut(number value) 
         __Fl_Button_shortcut_1(Ptr,value)
         Shortcut = value
 
@@ -341,7 +335,43 @@ class FButton : FWidget
         return Shortcut
 
     /*
+        
+    */
+    block setPlatformScheme(string schemeName)
+        if schemeName == FScheme.Android {
+            setBackground(new FColor(214,215,215))
+			setBaseColor(new FColor(175,175,175))
+			setCapitalizeLabel(true)
+			setHasBorder(false)
+
+        elif schemeName == FScheme.Windows
+			setBackground(new FColor(225,225,225))
+			setSelectionColor(new FColor(108,176,232))
+	        setBorder(new FBorder(1,1,1,1,__FL_FLAT_BOX(),new FColor(173,173,173)))
+
+        elif schemeName == FScheme.Macosx
+            setBox(new FBoxType(__fl_define_FL_ROUNDED_BOX(),new FColor(239,239,239)))
+			setBaseBox(new FBoxType(__fl_define_FL_ROUNDED_BOX(),new FColor(177,204,247)))
+			setBorder(new FBorder(2,2,2,2,__fl_define_FL_ROUNDED_BOX(),new FColor(157,157,157)))
+
+        elif schemeName == FScheme.Linux
+			setBackground(new FColor(229,220,212))
+			setBaseColor(new FColor(214,85,53))
+			setBorder(new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41)))
+			
+		else
+			throw(self, "Invalid platform scheme name : " + schemeName)
+
+        }
+
+    /*
 
     */
     private 
 
+		/*
+		
+		*/
+		block construct()
+			setLabel(Label)
+			super.construct()
