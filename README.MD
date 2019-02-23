@@ -3,6 +3,10 @@
 
 <p style="text-align: center;" align="center">The Simple Intelligent and Modular Programming Language and Environment</p>
 
+---
+
+<center>
+
 | Platform / Architecture  | Build Status |
 |--------------------------|--------------|
 | Windows (7, 8, 10, ...)  | [![Simple Windows Build](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/simple-lang/simple/)   |
@@ -11,6 +15,10 @@
 | Android (SDK 16 or later) | [![Simple Android Build](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/simple-lang/simple/)   |
 | Android Termux | [![Simple Android Build](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/simple-lang/simple/)   |
 | IOS | [![Simple IOS Build](https://img.shields.io/badge/build-pending-yellow.svg)](https://github.com/simple-lang/simple/)   |
+
+</center>
+
+---
 
 ## Building from source
 
