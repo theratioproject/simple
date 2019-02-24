@@ -12,5 +12,5 @@ for r = 1 to rows
     for c = 1 to r  
         n = n + 1
         display n + " " 
-    end display crlf
+    end display nl
 end

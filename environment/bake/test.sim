@@ -1,19 +1,5 @@
 /*
 
 */
-call fulltick.FApp
-call fulltick.widgets.FWindow
-call fulltick.widgets.FButton
-import simple.core
-import simple.system
-import fulltick.base
-import fulltick.widgets
-import fulltick.painting
-import fulltick.objects
-import fulltick.drawing
-
-new FWindow() {
-	add(new FButton("Hello World"))
-	show()
-}
-FApp.run()
+display "Enter your name : " read name
+read non

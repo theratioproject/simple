@@ -9,7 +9,7 @@
 testClass = new TestClass
 
 testClass.Back = "Blue"
-@testClass.Back 
+display testClass.Back 
 
 
 
