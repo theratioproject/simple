@@ -17,6 +17,7 @@
 *.exp
 *.obj
 *.cod
+*.db
 *.vscode
 *@@
 *ilk

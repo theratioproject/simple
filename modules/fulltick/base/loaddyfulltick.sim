@@ -4,7 +4,7 @@
 */
 call simple.core.DynamicLoader
 #callModule("libfulltick")
-callModule("C:\Users\thecarisma\Documents\SIMPLE_GITHUB\simple\modules\dynamic_modules\fulltick\dist\libfulltick32.dll")
+callModule("libfulltick")
 
 /*
 

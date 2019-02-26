@@ -141,6 +141,8 @@ block escapeString(string str)
 	for a = 0 to strLen {
 		cp = __char_to_number(str[a]) 
 		switch cp {
+			case 39
+				nStr += "\'"
 			case 34
 				nStr += '\"'
 			case 92

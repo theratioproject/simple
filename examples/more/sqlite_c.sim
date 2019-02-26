@@ -1,0 +1,53 @@
+/*
+
+*/
+call simple.core.DynamicLoader
+callModule("libsimple_sqlite")
+
+db = __init_sqlite3()
+__sqlite3_open("C:\wamp64\www\simple-lang.io\assets/simple_lang_io.db", db)
+query = "
+        CREATE TABLE BLOG (
+        Id			INTEGER PRIMARY KEY  AUTOINCREMENT	NOT NULL,
+		External	TEXT	NOT NULL,
+        Title		TEXT	NOT NULL,
+        Slug		TEXT		NOT NULL,
+        Excerpt		TEXT	NOT NULL,
+        Content		TEXT	NOT NULL,
+        AuthorId		INTEGER	NOT NULL,
+		Date        CHAR(100) 	NOT NULL);
+"
+display __sqlite3_exec(db, query)
+display __sqlite3_errmsg(db) + nl
+
+query = "
+        INSERT INTO BLOG (Title,External,Slug,Excerpt,Content,AuthorId,Date)
+        VALUES  	('Blog 1', 'false', 'blog-1', 'Excerpt,', '" + strCopy("blog", 1000) + "', 1, '25/02/2019' );
+"
+#display __sqlite3_exec(db, query)
+#display __sqlite3_errmsg(db) + nl
+
+blogs =  __sqlite3_exec(db,"select * from BLOG")
+for blog in blogs {
+        display blog[:Id] + nl
+}
+
+query = "
+        CREATE TABLE ADMIN (
+        Id			INTEGER PRIMARY KEY  AUTOINCREMENT	NOT NULL,
+		UserName	TEXT	NOT NULL,
+		Email		TEXT	NOT NULL,
+		FullName		TEXT	NOT NULL,
+        Password		TEXT	NOT NULL);
+"
+display __sqlite3_exec(db, query)
+display __sqlite3_errmsg(db) + nl
+
+query = "
+        INSERT INTO ADMIN (Id, UserName, Email, FullName, password)
+        VALUES  	(1, 'thecarisma', 'azeezadewale98@gmail.com', 'Azeez Adewale', 'ade' );
+"
+display __sqlite3_exec(db, query)
+display __sqlite3_errmsg(db) + nl
+
+__sqlite3_close(db)

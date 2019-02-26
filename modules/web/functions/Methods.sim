@@ -4,6 +4,7 @@ module web.functions
 call simple.system.System
 call simple.core.String
 call simple.utilities.Conversion
+call simple.utilities.Console
 
 GET = []
 POST = []
@@ -37,6 +38,12 @@ block decodeMethodAttr(methodAttr)
 		return decodeMethodString(methodAttr)
 	}
 	#decode file uploading
+	return 
+	@SERVER @"" + '<br />'
+	pos = __substr(methodAttr,"Content-Disposition") 
+	lim = __left(methodAttr,pos-3)
+	@stdout @__stdin()
+	@">>>"+methodAttr+"|"+lim __exit__
 	
 block decodeMethodString(methodAttr)
 	str = methodAttr + "&"
@@ -76,8 +83,8 @@ block fetchCookies()
 		subPosition2 = __substr(str,"=") 
 		if subPosition2 == 0  { break }
 		tempResult = []
-		tempResult + trimStr(strLeft(str,subPosition2-1))
-		tempResult + strSubStr(str,subPosition2+1,subPosition-subPosition2-1)
+		tempResult + trimStr(strLeft(str,subPosition2-1)) 
+		tempResult + __substr(str,subPosition2+1,subPosition-subPosition2-2)
 		returnObject + tempResult 
 		str = __substr(str,subPosition+1)
 		subPosition = __substr(str,";")
