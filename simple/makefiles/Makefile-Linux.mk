@@ -74,6 +74,8 @@ $(CND_DISTDIR)/$(CND_PLATFORM)/simple: $(OBJECTFILES)
 	$(CC) $(LDFLAGS) $(LFlAGS) $(ARC_FLAG) -o $(CND_DISTDIR)/simple ../simple.c libsimple.$(CND_DLIB_EXT)
 	${AR} ${AR_FLAGS} ./libsimple.a ${OBJECTFILES}
 	mv ./libsimple.$(CND_DLIB_EXT) $(CND_DISTDIR)
+	mv ./libsimple.a $(CND_DISTDIR)
+	rm -f ./libsimple.$(CND_DLIB_EXT) ./libsimple.a
 	#rm -R ${OBJECTDIR}
 	
 $(OBJECTDIR)/simple_api.o: $(SOURCE_DIR)/simple_api.c
@@ -200,6 +202,7 @@ install: $(CND_DISTDIR)/simple
 uninstall:
 	rm -rf $(DESTDIR)$(PREFIX)/bin/simple
 	rm -f $(DESTDIR)$(PREFIX)/lib/libsimple.$(CND_DLIB_EXT)
+	rm -f $(DESTDIR)$(PREFIX)/lib/libsimple.a
 	rm -f $(DESTDIR)$(PREFIX)/lib/x86_64-linux-gnu/libsimple.$(CND_DLIB_EXT)
 	rm -f $(DESTDIR)$(PREFIX)/lib/x86_64-linux-gnu/libsimple.$(VER).$(CND_DLIB_EXT)
 	rm -R -f $(DESTDIR)$(PREFIX)/include/simple/

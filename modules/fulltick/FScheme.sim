@@ -187,7 +187,7 @@ elif isAndroid() and FScheme.UsePlatformUI
 
 elif isLinux() and FScheme.UsePlatformUI 
 	FScheme.set("FWindow.Background",new FColor(229,220,212))
-@"Yes yes yes yes yea " + nl
+
 	#FButton
 	FScheme.set("FButton.Background",new FColor(229,220,212))
 	FScheme.set("FButton.SelectionColor",new FColor(214,85,53))

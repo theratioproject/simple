@@ -69,6 +69,15 @@ modules/dynamic_modules/fulltick/fulltick.vcxproj.filters
 modules/dynamic_modules/fulltick/fulltick.vcxproj.user
 modules/dynamic_modules/fulltick/fulltick/
 
+#environment app residuals
+environment/bake/bake/
+environment/minifier/minifier/
+environment/modular/modular/
+environment/simplebridge/simplebridge/
+environment/simplepad/simplepad/
+environment/simplerepl/simplerepl/
+environment/supplement/supplement/
+
 ''$'\001\213\212''@@'
 
 #android studio dep : we don't need em
