@@ -153,7 +153,7 @@ build_environment_in_loop() {
 			sudo mkdir -p ../lib/
 			sudo cp ./simple.so ../lib/
 			local simple_command="./$simple_command"
-			sudo rm -f ./bake && sudo rm -f ./modular && sudo rm -f ./webworker && sudo rm -f ./simplerepl && sudo rm -f ./simplepad && sudo rm -f ./simplebridge
+			sudo rm -f ./bake && sudo rm -f ./modular && sudo rm -f ./webworker && sudo rm -f ./simplerepl && sudo rm -f ./simplerepl && sudo rm -f ./simplebridge
 			build_single_environment $simple_command ./bake/bake.sim $cpu_arc $1 Include=./../../$simple_debug_version/include/simple.h SharedLibrary=../lib/simple.so
 			cd "../../simple/build/"
 		;;
@@ -389,10 +389,10 @@ not_found_error() {
 uninstall() {
 	local prefix=${DESTDIR}${PREFIX:-/usr/}
 	header uninstall "removing simple $version from the system"
-	echo "simple-lang:menu: removing simplepad menu entry"
-	sudo rm -f ~/.local/share/applications/simplepad.desktop
+	echo "simple-lang:menu: removing simplerepl menu entry"
+	sudo rm -f ~/.local/share/applications/simplerepl.desktop
 	header uninstall "unlinking environment and library"
-	unlink ~/Desktop/simplepad
+	unlink ~/Desktop/simplerepl
 	sudo unlink $prefix/lib/libsimple.$ver.so
 	sudo unlink $prefix/lib/libsimple.so
 	sudo unlink /lib/libsimple.$ver.so
@@ -579,28 +579,28 @@ finalize_installation() {
 	sudo link $prefix/lib/simple.so $prefix/lib/libsimple.$ver.so
 	sudo link $prefix/lib/simple.so $prefix/local/lib/libsimple.so
 	sudo link $prefix/lib/simple.so $prefix/local/lib/libsimple.$ver.so
-	display link "linking simplepad to user ~/Desktop"
-	sudo link $prefix/bin/simplepad ~/Desktop/simplepad
+	display link "linking simplerepl to user ~/Desktop"
+	sudo link $prefix/bin/simplerepl ~/Desktop/simplerepl
 
-	header link "add simplepad to the system menu"
-	sudo echo "[Desktop Entry]" >> ~/.local/share/applications/simplepad.desktop
-	sudo echo "Version=1.0" >> ~/.local/share/applications/simplepad.desktop
-	sudo echo "Type=Application" >> ~/.local/share/applications/simplepad.desktop
-	sudo echo "Name=Simple Pad" >> ~/.local/share/applications/simplepad.desktop
-	sudo echo "GenericName=Awesome App" >> ~/.local/share/applications/simplepad.desktop
-	sudo echo "Icon=/var/lib/simple/$version/resources/simplepad.png" >> ~/.local/share/applications/simplepad.desktop
-	if [ -e $prefix/bin/simplepad ]; then
-		sudo echo "Exec=$prefix/bin/simplepad" >> ~/.local/share/applications/simplepad.desktop
-	elif [ -e /usr/local/bin/simplepad ]; then
-		sudo echo "Exec=/usr/local/bin/simplepad" >> ~/.local/share/applications/simplepad.desktop
-	elif [ -e /bin/simplepad ]; then
-		sudo echo "Exec=/bin/simplepad" >> ~/.local/share/applications/simplepad.desktop
+	header link "add simplerepl to the system menu"
+	sudo echo "[Desktop Entry]" >> ~/.local/share/applications/simplerepl.desktop
+	sudo echo "Version=1.0" >> ~/.local/share/applications/simplerepl.desktop
+	sudo echo "Type=Application" >> ~/.local/share/applications/simplerepl.desktop
+	sudo echo "Name=Simple Pad" >> ~/.local/share/applications/simplerepl.desktop
+	sudo echo "GenericName=Awesome App" >> ~/.local/share/applications/simplerepl.desktop
+	sudo echo "Icon=/var/lib/simple/$version/resources/simplerepl.png" >> ~/.local/share/applications/simplerepl.desktop
+	if [ -e $prefix/bin/simplerepl ]; then
+		sudo echo "Exec=$prefix/bin/simplerepl" >> ~/.local/share/applications/simplerepl.desktop
+	elif [ -e /usr/local/bin/simplerepl ]; then
+		sudo echo "Exec=/usr/local/bin/simplerepl" >> ~/.local/share/applications/simplerepl.desktop
+	elif [ -e /bin/simplerepl ]; then
+		sudo echo "Exec=/bin/simplerepl" >> ~/.local/share/applications/simplerepl.desktop
 	else
-		sudo echo "Exec=simplepad" >> ~/.local/share/applications/simplepad.desktop
+		sudo echo "Exec=simplerepl" >> ~/.local/share/applications/simplerepl.desktop
 	fi
-	sudo echo "Comment=Simple Pad code simple-lang with ease" >> ~/.local/share/applications/simplepad.desktop
-	sudo echo "Categories=Development;IDE;" >> ~/.local/share/applications/simplepad.desktop
-	sudo echo "Terminal=false" >> ~/.local/share/applications/simplepad.desktop
+	sudo echo "Comment=Simple Pad code simple-lang with ease" >> ~/.local/share/applications/simplerepl.desktop
+	sudo echo "Categories=Development;IDE;" >> ~/.local/share/applications/simplerepl.desktop
+	sudo echo "Terminal=false" >> ~/.local/share/applications/simplerepl.desktop
 
 	echo "======================================="
 
@@ -617,6 +617,7 @@ finalize_installation() {
 
 build_deb_package() {
 	debpackagedir=../../simple$ver-$operating_system
+	arc_var="none" #nope
 	header debpackage "creating a distributable .deb package"
 	if [ -e "$debpackagedir" ]; then
 		sudo rm -R -f "$debpackagedir"
@@ -641,7 +642,7 @@ build_deb_package() {
 		*debug* )
 			sudo cp ../../$simple_debug_version/bin/simple $debpackagedir/usr/bin/
 			sudo cp ../../$simple_debug_version/bin/simplerepl $debpackagedir/usr/bin/
-			sudo cp ../../$simple_debug_version/bin/simplepad $debpackagedir/usr/bin/
+			sudo cp ../../$simple_debug_version/bin/simplerepl $debpackagedir/usr/bin/
 			sudo cp ../../$simple_debug_version/bin/simplebridge $debpackagedir/usr/bin/
 			sudo cp ../../$simple_debug_version/bin/modular $debpackagedir/usr/bin/
 			sudo cp ../../$simple_debug_version/bin/webworker $debpackagedir/usr/bin/
@@ -672,13 +673,10 @@ build_deb_package() {
 			local prefix=${DESTDIR}${PREFIX:-/usr/}
 			sudo cp $prefix/bin/simple $debpackagedir/usr/bin/
 			sudo cp $prefix/bin/simplerepl $debpackagedir/usr/bin/
-			sudo cp $prefix/bin/simplepad $debpackagedir/usr/bin/
-			sudo cp $prefix/bin/simplebridge $debpackagedir/usr/bin/
-			sudo cp $prefix/bin/modular $debpackagedir/usr/bin/
-			sudo cp $prefix/bin/webworker $debpackagedir/usr/bin/
 			sudo cp $prefix/bin/bake $debpackagedir/usr/bin/
 			sudo cp $prefix/lib/simple.so $debpackagedir/usr/lib/
 			sudo cp $prefix/lib/libsimple.so $debpackagedir/usr/lib/
+			sudo cp $prefix/lib/libsimple.a $debpackagedir/usr/lib/
 			sudo cp -R /var/lib/simple/$version $debpackagedir/var/lib/simple/
 			sudo install $prefix/include/simple/simple* $debpackagedir/usr/include/simple/
 			
@@ -690,6 +688,7 @@ build_deb_package() {
 				sudo cp $prefix/lib/simple.so $debpackagedir/usr/lib/x86_64-linux-gnu/libsimple.so.$ver
 			fi  
 			
+			#no moving with libcrypto
 			local libcrypto=$(find_dependent_lib /var/lib/simple/$version/modules/dynamic_modules/security.so libcrypto)
 			if [[ "$libcrypto" = *"i386-linux-gnu"* ]]; then
 				sudo mkdir "$debpackagedir/usr/lib/i386-linux-gnu/"
@@ -723,24 +722,24 @@ build_deb_package() {
 	echo "mkdir -p ~/.local/" >> $debpackagedir/DEBIAN/postinst
 	echo "mkdir -p ~/.local/share/" >> $debpackagedir/DEBIAN/postinst
 	echo "mkdir -p ~/.local/share/applications/" >> $debpackagedir/DEBIAN/postinst
-	echo "sudo echo \"[Desktop Entry]\" >> ~/.local/share/applications/simplepad.desktop" >> $debpackagedir/DEBIAN/postinst
-	echo "sudo echo \"Version=1.0\" >> ~/.local/share/applications/simplepad.desktop" >> $debpackagedir/DEBIAN/postinst
-	echo "sudo echo \"Type=Application\" >> ~/.local/share/applications/simplepad.desktop" >> $debpackagedir/DEBIAN/postinst
-	echo "sudo echo \"Name=Simple Pad\" >> ~/.local/share/applications/simplepad.desktop" >> $debpackagedir/DEBIAN/postinst
-	echo "sudo echo \"GenericName=Awesome App\" >> ~/.local/share/applications/simplepad.desktop" >> $debpackagedir/DEBIAN/postinst
-	echo "sudo echo \"Icon=/var/lib/simple/$version/resources/simplepad.png\" >> ~/.local/share/applications/simplepad.desktop" >> $debpackagedir/DEBIAN/postinst
-	echo "if [ -e $prefix/bin/simplepad ]; then" >> $debpackagedir/DEBIAN/postinst
-	echo "	sudo echo \"Exec=$prefix/bin/simplepad\" >> ~/.local/share/applications/simplepad.desktop" >> $debpackagedir/DEBIAN/postinst
-	echo "elif [ -e /usr/local/bin/simplepad ]; then" >> $debpackagedir/DEBIAN/postinst
-	echo "	sudo echo \"Exec=/usr/local/bin/simplepad\" >> ~/.local/share/applications/simplepad.desktop" >> $debpackagedir/DEBIAN/postinst
-	echo "elif [ -e /bin/simplepad ]; then" >> $debpackagedir/DEBIAN/postinst
-	echo "	sudo echo \"Exec=/bin/simplepad\" >> ~/.local/share/applications/simplepad.desktop" >> $debpackagedir/DEBIAN/postinst
+	echo "sudo echo \"[Desktop Entry]\" >> ~/.local/share/applications/simplerepl.desktop" >> $debpackagedir/DEBIAN/postinst
+	echo "sudo echo \"Version=0.1\" >> ~/.local/share/applications/simplerepl.desktop" >> $debpackagedir/DEBIAN/postinst
+	echo "sudo echo \"Type=Application\" >> ~/.local/share/applications/simplerepl.desktop" >> $debpackagedir/DEBIAN/postinst
+	echo "sudo echo \"Name=Simple Repl\" >> ~/.local/share/applications/simplerepl.desktop" >> $debpackagedir/DEBIAN/postinst
+	echo "sudo echo \"GenericName=Awesome App\" >> ~/.local/share/applications/simplerepl.desktop" >> $debpackagedir/DEBIAN/postinst
+	echo "sudo echo \"Icon=/var/lib/simple/$version/resources/simplerepl.png\" >> ~/.local/share/applications/simplerepl.desktop" >> $debpackagedir/DEBIAN/postinst
+	echo "if [ -e $prefix/bin/simplerepl ]; then" >> $debpackagedir/DEBIAN/postinst
+	echo "	sudo echo \"Exec=$prefix/bin/simplerepl\" >> ~/.local/share/applications/simplerepl.desktop" >> $debpackagedir/DEBIAN/postinst
+	echo "elif [ -e /usr/local/bin/simplerepl ]; then" >> $debpackagedir/DEBIAN/postinst
+	echo "	sudo echo \"Exec=/usr/local/bin/simplerepl\" >> ~/.local/share/applications/simplerepl.desktop" >> $debpackagedir/DEBIAN/postinst
+	echo "elif [ -e /bin/simplerepl ]; then" >> $debpackagedir/DEBIAN/postinst
+	echo "	sudo echo \"Exec=/bin/simplerepl\" >> ~/.local/share/applications/simplerepl.desktop" >> $debpackagedir/DEBIAN/postinst
 	echo "else" >> $debpackagedir/DEBIAN/postinst
-	echo "	sudo echo \"Exec=simplepad\" >> ~/.local/share/applications/simplepad.desktop" >> $debpackagedir/DEBIAN/postinst
+	echo "	sudo echo \"Exec=simplerepl\" >> ~/.local/share/applications/simplerepl.desktop" >> $debpackagedir/DEBIAN/postinst
 	echo "fi" >> $debpackagedir/DEBIAN/postinst
-	echo "sudo echo \"Comment=Simple Pad code simple-lang with ease\" >> ~/.local/share/applications/simplepad.desktop" >> $debpackagedir/DEBIAN/postinst
-	echo "sudo echo \"Categories=Development;IDE;\" >> ~/.local/share/applications/simplepad.desktop" >> $debpackagedir/DEBIAN/postinst
-	echo "sudo echo \"Terminal=false\" >> ~/.local/share/applications/simplepad.desktop" >> $debpackagedir/DEBIAN/postinst
+	echo "sudo echo \"Comment=Simple Pad code simple-lang with ease\" >> ~/.local/share/applications/simplerepl.desktop" >> $debpackagedir/DEBIAN/postinst
+	echo "sudo echo \"Categories=Development;IDE;\" >> ~/.local/share/applications/simplerepl.desktop" >> $debpackagedir/DEBIAN/postinst
+	echo "sudo echo \"Terminal=false\" >> ~/.local/share/applications/simplerepl.desktop" >> $debpackagedir/DEBIAN/postinst
 	
 	sudo chmod 755 $debpackagedir/DEBIAN/postinst
 		
@@ -774,6 +773,6 @@ execute_build $@
 exit 0
 
 #ma5lata3na1ta34na1la pa4sata1la sa2rava3ca2
-#naga wa4rakasa garata
+#naga wa4rakasa garata shhhh
 #
 
