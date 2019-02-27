@@ -679,7 +679,7 @@ class FWidget : Object
     /*
 
     */
-    block setBorder(border) HasBorder = false Border = null return  
+    block setBorder(border) #HasBorder = false Border = null return  
         if isNull(border) {
             BorderBox = null 
             HasBorder = false

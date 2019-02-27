@@ -84,9 +84,9 @@ block loadMainDynamicModules()
 		}
 	catch
 		if __mainDynamicModulesCount == (lengthOf(__mainDynamicModules) - 1) {
-			@"Ensure your build the systemic and string_savant dynamic modules"
-			@"Cannot determine your OS systemic and string_savant dynamic modules"
-			@"Please raise an issue at <https://github.com/simple-lang/simple/issues/new> With detail of your OS "
+			display "Ensure your build the systemic and string_savant dynamic modules" + nl
+			display "Cannot determine your OS systemic and string_savant dynamic modules" + nl
+			display "Please raise an issue at <https://github.com/simple-lang/simple/issues/new> With detail of your OS " + nl
 			__exit__
 		}
 		__mainDynamicModulesCount++

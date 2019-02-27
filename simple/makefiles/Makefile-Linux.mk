@@ -33,7 +33,7 @@ CND_DISTDIR =../dist
 CLEAN_DEBUGDIR=../../../s0.3.36-debug
 BINARYDIR=bin
 SOURCE_DIR=../sources
-INCLUDES_DIR=../includes
+INCLUDES_DIR=../include
 
 # Object Directory
 OBJECTDIR=$(CND_DISTDIR)/$(CND_BUILDDIR)/$(CND_PLATFORM)

@@ -78,6 +78,11 @@ environment/simplepad/simplepad/
 environment/simplerepl/simplerepl/
 environment/supplement/supplement/
 
+#we don't want the bakkery residual in the project
+*_bake*
+*_bake/
+*.bake*
+
 ''$'\001\213\212''@@'
 
 #android studio dep : we don't need em

@@ -67,7 +67,7 @@ execute_build() {
 			"-mo"|"--modules-only")
 				standalone_flag="modules-only"
 				;;
-			"-o"|"--environment-only")
+			"-eo"|"--environment-only")
 				standalone_flag="environment-only"
 				;;
 			*)
@@ -140,34 +140,39 @@ execute_build_proceed() {
 }
 
 build_environments() {
-	header $1 "preparing to install simple-lang environments"
+    header $1 "preparing to install simple-lang environments"
 	cd ../build
-	if [ -e ../environment/Linux-Install.mk ]; then
-		local simple_command="simple"
-		case $1 in
-			*debug* )
-				cd "../../$simple_debug_version/bin/"
-				sudo mkdir -p ../lib/
-				sudo cp ./simple.so ../lib/
-				local simple_command="./$simple_command"
-				sudo rm -f ./bake && sudo rm -f ./modular && sudo rm -f ./webworker && sudo rm -f ./simplerepl && sudo rm -f ./simplepad && sudo rm -f ./simplebridge
-				sudo make -f ../../simple/environment/Linux-Install.mk ARC_FLAG=$arc_var ARC=$arc ENV_DISTDIR=./  SIMPLE_H=../../../$simple_debug_version/include/simple.h SIMPLE=$simple_command SUDO=sudo ENV_PATH=../../simple/environment/ LIB_PATH=../lib/simple.so
-				cd "../../simple/build/"
-			;;
-			*install* )
-				cd ../environment/
-				sudo make -f ./Linux-Install.mk SIMPLE=$simple_command ARC_FLAG=$arc_var ARC=$arc 
-				if [ -e ./dist/bake ]; then
-					sudo make -f ./Linux-Install.mk uninstall
-					sudo make -f ./Linux-Install.mk install
-				else
-					display_error $1 "installation of simple-lang environment fail"
-				fi
-			;;
-		esac
-	else 
-		not_found_error $1 "./environment/Linux-Install.mk"
-	fi
+	build_environment_in_loop $1 bake simplerepl
+}
+
+build_environment_in_loop() {	
+	
+	case $1 in
+		*debug* )
+			cd "../../$simple_debug_version/bin/"
+			sudo mkdir -p ../lib/
+			sudo cp ./simple.so ../lib/
+			local simple_command="./$simple_command"
+			sudo rm -f ./bake && sudo rm -f ./modular && sudo rm -f ./webworker && sudo rm -f ./simplerepl && sudo rm -f ./simplepad && sudo rm -f ./simplebridge
+			build_single_environment $simple_command ./bake/bake.sim $cpu_arc $1 Include=./../../$simple_debug_version/include/simple.h SharedLibrary=../lib/simple.so
+			cd "../../simple/build/"
+		;;
+		*install* )
+		    shift ;
+		    local simple_command="simple"
+			cd ../environment/
+		    for param in "$@"
+	        do
+	            echo $param
+	            build_single_environment simple ./bake/bake.sim $cpu_arc ./$param/$param.sim
+	        done 
+			
+		;;
+	esac
+}
+
+build_single_environment(){
+    sudo $1 $2 $4 $3 --install $5 $6
 }
 
 copymodules() {
@@ -345,12 +350,12 @@ copyinclude() {
 	header $1 "copying the simple includes(h) file "
 	case $1 in
 		*debug* )
-			if [ -e "../../$simple_debug_version/includes" ]; then 
-				sudo rm -R -f "../../$simple_debug_version/includes"
+			if [ -e "../../$simple_debug_version/include" ]; then 
+				sudo rm -R -f "../../$simple_debug_version/include"
 			fi
-			sudo mkdir "../../$simple_debug_version/includes"
-			if [ -e "../simple/includes" ]; then
-				sudo cp -R "../simple/includes" "../../$simple_debug_version/"
+			sudo mkdir "../../$simple_debug_version/include"
+			if [ -e "../simple/include" ]; then
+				sudo cp -R "../simple/include" "../../$simple_debug_version/"
 			else
 				not_found_error $1 "includes directory"
 			fi
@@ -361,7 +366,7 @@ copyinclude() {
 				sudo rm -R -f "$prefix/include/simple"
 			fi
 			sudo mkdir "$prefix/include/simple"
-			if [ -e "../simple/includes" ]; then
+			if [ -e "../simple/include" ]; then
 				sudo install ../simple/include/simple* "$prefix/include/simple"
 			else
 				not_found_error $1 "includes directory"
@@ -392,6 +397,7 @@ uninstall() {
 	sudo unlink $prefix/lib/libsimple.so
 	sudo unlink /lib/libsimple.$ver.so
 	sudo unlink /lib/libsimple.so
+	sudo unlink /lib/libsimple.a
 	sudo unlink /usr/local/lib/libsimple.$ver.so
 	sudo unlink /usr/local/lib/libsimple.so 
 	header uninstall "uninstalling simple-lang core executables"
@@ -400,7 +406,8 @@ uninstall() {
 	cd ../../build 
 	header uninstall "uninstalling simple-lang environments"
 	cd ../environment
-	sudo make -f Linux-Install.mk uninstall
+	sudo unlink $prefix/bin/bake
+	sudo unlink $prefix/bin/simplerepl
 	cd ../build
 	header uninstall "uninstalling simple-lang modules"
 	cd ../modules/dynamic_modules/makefiles 

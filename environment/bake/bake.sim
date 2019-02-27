@@ -112,10 +112,10 @@ block main()
 		elif strEndsWith(param, ".sim")
 			bread.SourceFile = new File(param)
 			
-		elif param == "x64"
+		elif param == "x64" or param == "amd64"
 			bread.BuildArch = "-m64"
 			
-		elif param == "x86"
+		elif param == "x86" or param == "i386"
 			bread.BuildArch = "-m32"
 			
 		elif param == "-h" or param == "--h"
@@ -128,7 +128,7 @@ block main()
 	}
 	if bread.SourceFile.Exists {
 		bread.Name = bread.SourceFile.NameOnly
-		bread.TempPath = new Directory(bread.SourceFile.Directory.AbsolutePath + bread.Name + "/tmp/")
+		bread.TempPath = new Directory(bread.SourceFile.Directory.AbsolutePath + bread.Name + "_bake/tmp/")
 		if !bread.TempPath.Exists {
 			stdout.print("\rcreating temp working directory...")
 			bread.TempPath.create()

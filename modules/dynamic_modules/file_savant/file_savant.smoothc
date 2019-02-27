@@ -16,6 +16,7 @@ LDLIBSOPTIONS=
 	"../../../simple/include/simple_state.h"
 	<sys/types.h>
 	<sys/stat.h>
+	<stdarg.h>
 }
 
 [StructInit] {
