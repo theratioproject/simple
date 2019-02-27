@@ -58,7 +58,7 @@ clean:
 	cd ../simple_sqlite/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
 	cd ../systemic/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
 	cd ../core_dynamic_module/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
-	#cd ../fulltick/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
+	cd ../fulltick/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
 	
 	${RM} ${CND_DISTDIR}/build/*.o
 	${RMDIR} ${CND_DISTDIR}/build

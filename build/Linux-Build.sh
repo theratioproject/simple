@@ -312,7 +312,9 @@ installsimpleexec() {
 			display $1 "uninstalling previous simple object build"
 			sudo rm -r ../dist/
 		fi
-		sudo make -f Makefile-Linux.mk uninstall ARC_FLAG=$arc_var ARC=$arc
+		if [[ "$1" != "notanyofit" ]]; then
+		    sudo make -f Makefile-Linux.mk uninstall ARC_FLAG=$arc_var ARC=$arc
+		fi
 		sudo make -f Makefile-Linux.mk ARC_FLAG=$arc_var ARC=$arc
 	else 
 		not_found_error $1 Makefile-Linux.mk
@@ -411,7 +413,7 @@ uninstall() {
 configure() {
 	header configure "configure build $version"
 	sudo apt-get update
-	sudo apt-get -y install build-essential
+	sudo apt-get -y install build-essential g++
 	case $cpu_arc in
 			*64* )
 				sudo apt-get -y install gcc-multilib

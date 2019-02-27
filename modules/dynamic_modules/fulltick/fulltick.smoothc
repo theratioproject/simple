@@ -154,8 +154,8 @@ LDLIBSOPTIONS=
 	#$(IncludeDir)FL/glu.h 					#not exported
 	#$(IncludeDir)FL/glut.H 				#not exported
 	#$(IncludeDir)FL/gl_draw.H 				#not exported
-	#$(IncludeDir)FL/math.h
-	#$(IncludeDir)FL/names.h
+	#$(IncludeDir)FL/math.h                 #not exported
+	#$(IncludeDir)FL/names.h                #not exported
 	#$(IncludeDir)FL/x.H
 }
 

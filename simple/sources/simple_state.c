@@ -111,6 +111,8 @@ SIMPLE_API SimpleState * simple_state_new ( void )
 				this initalization. call simple_add_android_paths(SimpleState *sState) in android.
 			*/
 		#else
+			snprintf(module_path, sizeof(module_path), "/var/lib/simple/s%s/modules/", SIMPLE_VERSION);
+			simple_list_addstring_gc(sState,sState->module_paths,module_path);
 			snprintf(module_path, sizeof(module_path), "%s/var/lib/simple/s%s/modules/", getenv("PREFIX"), SIMPLE_VERSION);
 			simple_list_addstring_gc(sState,sState->module_paths,module_path);
 		#endif

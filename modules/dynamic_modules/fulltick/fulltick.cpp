@@ -36,10 +36,13 @@ void SimpleMenuCallBack(Fl_Widget*, void* ptr_index) {
 	Handle this function with care. PLEASE.
 	Also handle event in the FApp file in the
 	fulltick module
+	
+	80 character is wide enough to contain the variables 
+	and it values 
 */
 int simple_Fl_Event_Dispatch(int event, Fl_Window *window) {
-    char code_block[60];
-    snprintf(code_block, sizeof(code_block), "__fltk_current_event=%i __fltk_current_pointer='%p'", event, (void*)window); //printf("%p\n",(void*)window);
+    char code_block[80];
+    snprintf(code_block, sizeof(code_block), "__fltk_current_event=%i __fltk_current_pointer=`%p`", event, (void*)window); //printf("%p\n",(void*)window);
     simple_vm_runcode(((SimpleState *)CallbackStruct::_sState)->vm, code_block); 
     simple_vm_callblock(((SimpleState *)CallbackStruct::_sState)->vm,"__fltk_handle");//this line is crucial to our events
     if (CallbackStruct::ret_evt_to_fl == true)

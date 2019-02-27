@@ -282,7 +282,7 @@ class FWindow : FGroup
         RootBox.hide()
         RootBox.__Name = "RootBox" 
         super.setResizable(RootBox)  
-        makeCurrent()
+        #makeCurrent() since we are calling endBegin
         endBegin()
         setHasWindowBorder(HasWindowBorder)
         if isAndroid() and FScheme.UsePlatformUI { 

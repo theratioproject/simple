@@ -16,7 +16,7 @@
 #define SECURITY_H
 
 //we don't want openssl to stop build
-#ifndef __imp___acrt_iob_func && _WIN32
+#if !defined(__imp___acrt_iob_func) && defined(_WIN32)
 FILE * __cdecl __imp___acrt_iob_func(int index)
 {
 	#ifdef __iob_func
