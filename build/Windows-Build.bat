@@ -752,7 +752,7 @@ REM FULLTICK(GUI) DYNAMIC MODULE
 		if exist "..\modules\dynamic_modules\fulltick\dist\%FULLTICK_DY_MODULE%" (
 			echo dynamic_modules:libfulltick: backup build found but might be outdated
 			echo libfulltick: copying libfulltick.dll to "..\modules\dynamic_modules\dist\fulltick.dll" directory
-			copy "..\modules\dynamic_modules\fulltick\dist\%FULLTICK_DY_MODULE%" "..\modules\dynamic_modules\dist\fulltick.dll"
+			copy "..\modules\dynamic_modules\fulltick\dist\%FULLTICK_DY_MODULE%" "..\modules\dynamic_modules\dist\libfulltick.dll"
 		) else (
 			echo error:dynamic_modules:libfulltick: the backup libfulltick dynamic module cannot be found
 			echo error:dynamic_modules:libfulltick: the repository appears to be currupted. 

@@ -14,18 +14,23 @@ call parser.json.JsonParser
 call archive.zip.Zip
 call simple.net.Download
 call simple.utilities.Console
+call simple.system.SimpleX
 import simple.core
 import simple.io
 
 
 block main()
-	if !__file_exists("./supdater.json") {
-		stdout.println("The updater file 'supdater.json' file does not exist. exiting")
+	if !__file_exists("./suplement.json") {
+		stdout.println("The updater file 'suplement.json' file does not exist. exiting")
 		exit(1)
 	}
-	localJson = new JsonParser(__read_file("./supdater.json"))
+	localJson = new JsonParser(__read_file(simpleResDir()+"/suplement.json"))
 	localJson = localJson.parse()
 	installDir = localJson["InstallationDir"].Value
+	
+	if installDir == "$EXEC_DIR" {
+		installDir = simpleDir()
+	}
 	updateFile = new Download(localJson["UpdateJsonAddress"].Value,getTmpDirectory()+"/update_file.json") {
 		if !fetch() {
 			stdout.println("Update failed")
@@ -41,13 +46,17 @@ block main()
 	}
 	stdout.printf("preparing to update program...")
 	updates = updateJson.get("Updates").Value
+	platform = "Windows"
+	if isLinux() {
+		platform = "Linux"
+	}
 	for update in updates {
 		stdout.printf("\r%s\rupdating %s...", strCopy(" ", 40), update.get("Name").Value)
 		if update.get("Type").Value == "zip" {
 			name = update.get("Name").Value
-			path = update.get("Installation Path").Value
+			path = update.get(platform).Value.get("Installation Path").Value
 			stdout.printf("\r%s\rupdating %s, downloading...", strCopy(" ", 40), name)
-			remoteZip = new Download(update.get("Update Url").Value, getTmpDirectory()+name+".zip") {
+			remoteZip = new Download(update.get(platform).Value.get("Update Url").Value, getTmpDirectory()+name+".zip") {
 				if !fetch() {
 					stdout.printf("\r%s\rupdating %s, downloading...(failed)", strCopy(" ", 40), name)
 					break
@@ -61,10 +70,12 @@ block main()
 			
 		elif update.get("Type").Value == "link" 
 			stdout.print("(done)")
-			system('start "" "'+update.get("Update Url").Value+'" ')
+			system('start "" "'+update.get(platform).Value.get("Update Url").Value+'" ')
 			
 		}
 	}
+	localJson["Version"].Value = updateJson["Version"].Value
+	__write_file(simpleResDir()+"/suplement.json", localJson.toString())
 	
 block compareVersion(localVersion, updateVersion)
 	if lengthOf(localVersion) < lengthOf(updateVersion) {

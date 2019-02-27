@@ -17,21 +17,25 @@ object = new JsonObject() {
 			add("Update Url", "http://localhost/simple-lang/updater/")
 			add("Installation Path", null)
 		}
-		add(majorUpdate)
+		#add(majorUpdate)
 		modules = new JsonObject() {
 			add("Name", "Modules")
 			add("Type", "zip")
-			add("Update Url", "http://localhost/simple-lang/updater/modules.zip")
-			add("Installation Path", "/modules/")
+			
+			add("Windows",
+				new JsonObject() {
+					add("Update Url", "http://localhost/simple-lang/updater/modules.zip")
+					add("Installation Path", "/modules/")
+				}
+			)
+			add("Linux",
+				new JsonObject() {
+					add("Update Url", "http://localhost/simple-lang/updater/modules.zip")
+					add("Installation Path", "/modules/")
+				}
+			)
 		}
-		#add(modules)
-		environment = new JsonObject() {
-			add("Name", "Environments")
-			add("Type", "zip")
-			add("Update Url", "http://localhost/simple-lang/updater/environment.zip")
-			add("Installation Path", "/bin/")
-		}
-		#add(environment)
+		add(modules)
 	}
 	add("Updates",updates)
 	__write_file("../../examples/testfiles/update_file.json",toString())
