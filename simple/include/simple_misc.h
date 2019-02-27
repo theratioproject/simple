@@ -37,7 +37,7 @@ typedef struct GCData {
 } GCData ;
 
 #define SIMPLE_NAME "simple"
-#define SIMPLE_VERSION "0.3.36"
+#define SIMPLE_VERSION "0.4.0"
 #define PRIMARY_AUTHOR "Azeez Adewale"
 #define START_YEAR 2018
 #define CURRENT_YEAR 2019

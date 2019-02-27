@@ -1,4 +1,4 @@
-[SimpleVersion](0.3.36)
+[SimpleVersion](0.4.0)
 
 [DynamicModule]{
 	[Mathic](https://github.com/simple-lang/simple/tree/master/modules/dynamic_modules/mathic)

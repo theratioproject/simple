@@ -1,5 +1,5 @@
 {
-    "Version": "0.3.36",
+    "Version": "0.4.0",
     "UpdateJsonAddress": "http://localhost/simple-lang/updater/update.json",
     "InstallationDir": "$EXEC_DIR"
 }

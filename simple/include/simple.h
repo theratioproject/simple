@@ -107,7 +107,7 @@ must be set through the compiler flag either through makefile or command line */
 #include <android/native_activity.h>
 #include <android/log.h>
 #include <unistd.h>
-#define SIMPLE_ANDROID_LOG "simple-lang:0.3.36"
+#define SIMPLE_ANDROID_LOG "simple-lang:0.4.0"
 
 /* Make fprintf function custom to allow output in android designated std(s)*/
 /* ANDROID_LOG_DEBUG - stdout, ANDROID_LOG_ERROR - stderr */

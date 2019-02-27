@@ -4,7 +4,7 @@ clear
 
 exec_type=""
 build_arc="x86"
-ver=0.3.36
+ver=0.4.0
 keep_dist="false"
 version=s"$ver"
 simple_debug_version=$version-debug
