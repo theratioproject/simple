@@ -105,6 +105,20 @@ block main()
 				bread.IconPath = iconPath
 			}
 			
+		elif strStartsWith(param,"-l=") or strStartsWith(param,"--lib=")
+			libPath = removeStr(param, "-l=")
+			libPath = removeStr(param, "--lib=")
+			if libPath != "" {
+				bread.LibPath = libPath
+			}
+			
+		elif strStartsWith(param,"-I=") or strStartsWith(param,"--Include=")
+			includeHeader = removeStr(param, "-I=")
+			includeHeader = removeStr(param, "--Include=")
+			if includeHeader != "" {
+				bread.IncludeHeader = includeHeader
+			}
+			
 		elif param == "-m" or param == "--mobile"
 			bread.MobileOnly = true
 			bread.BuildAll = false
@@ -136,7 +150,7 @@ block main()
 		if bakkrey.Verbose {
 			stdout.print("\nsimple -s "+bread.SourceFile.AbsolutePath+"")
 		}
-		system("simple -s "+bread.SourceFile.AbsolutePath+"")
+		system(bread.LibPath+"simple -s "+bread.SourceFile.AbsolutePath+"")
 		complexPath = bread.SourceFile.Directory.AbsolutePath+"/"+bread.SourceFile.NameOnly+".complex"
 		bread.SourceFile = new File(complexPath)
 		bread.SourceFile.moveTo(bread.TempPath.AbsolutePath,true)
@@ -167,6 +181,7 @@ The OPTIONS include:
  x64 --64-bits		mark all build for 64 bits arc
  x86 --32-bits		mark all build for 32 bits arc
  -i --icon=<iconpath>	build executable with icon
+ -l --lib=<iconpath>	specify the folder where simple shared lib is
 "
 	stdout.println(help)
 	__exit__
@@ -189,6 +204,8 @@ class Bread
 	CFLAG = ""
 	GUI = false
 	Install = false
+	LibPath = ""
+	IncludeHeader = "<simple/simple.h>"
 
 class Bakkery
 
@@ -236,7 +253,7 @@ int main( int argc, char *argv[]) {
 					cCode = replaceStr(cCode, "int main( int argc, char *argv[]) {", 'int WINAPI WinMain ( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd ) { int argc ; char **argv ; argc = __argc ; argv = __argv ; ')
 				}
 			else
-				cCode = replaceStr(cCode, "{INCLUDE_FILE}", "<simple/simple.h>")
+				cCode = replaceStr(cCode, "{INCLUDE_FILE}", bread.IncludeHeader)
 			}
 			
 			return cCode

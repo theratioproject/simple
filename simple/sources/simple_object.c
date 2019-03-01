@@ -147,7 +147,7 @@ int simple_object_processfile ( SimpleState *sState,char *file_name,List *blocks
 		return 0 ;
 	}
 	fread( cFileType , 1 , 12 , fp );
-	cFileType[12] = '\0' ;
+	cFileType[SIMPLE_OBJECT_HEAD_SIZE] = '\0' ;
 	if ( strcmp(cFileType,SIMPLE_OBJECT_HEAD) != 0 ) {
 		printf( "The file is not a valid simple-lang object file\n" ) ;
 		return 0 ;
@@ -279,7 +279,7 @@ int simple_object_processstring ( SimpleState *sState,char *content,List *blocks
 	#endif
 	/* Check Type and Version */
 	simple_object_readc(sState,&cData,cFileType,12);
-	cFileType[12] = '\0' ;
+	cFileType[SIMPLE_OBJECT_HEAD_SIZE] = '\0' ;
 	if ( strcmp(cFileType,SIMPLE_OBJECT_HEAD) != 0 ) {
 		printf( "The file is not a valid simple-lang object file\n" ) ;
 		return 0 ;

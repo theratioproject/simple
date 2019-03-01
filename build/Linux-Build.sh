@@ -9,10 +9,10 @@ keep_dist="false"
 version=s"$ver"
 simple_debug_version=$version-debug
 fulltick_build_issue="<https://github.com/simple-lang/simple/issues/16>"
-arc_var=-m32
-arc=32
-operating_system="linux_x86"
-cpu_arc="x86"
+arc_var=-m64
+arc=64
+operating_system="linux_x64"
+cpu_arc="x64"
 
 execute_build() {
 	check_if_is_sudo $@
@@ -151,10 +151,16 @@ build_environment_in_loop() {
 		*debug* )
 			cd "../../$simple_debug_version/bin/"
 			sudo mkdir -p ../lib/
-			sudo cp ./simple.so ../lib/
-			local simple_command="./$simple_command"
-			sudo rm -f ./bake && sudo rm -f ./modular && sudo rm -f ./webworker && sudo rm -f ./simplerepl && sudo rm -f ./simplerepl && sudo rm -f ./simplebridge
-			build_single_environment $simple_command ./bake/bake.sim $cpu_arc $1 Include=./../../$simple_debug_version/include/simple.h SharedLibrary=../lib/simple.so
+			sudo cp ./libsimple.so ../lib/
+			shift ;
+			local simple_command="../../$simple_debug_version/bin/simple"
+			for param in "$@"
+	        do
+	            echo $param
+	            build_single_environment $simple_command ../../simple/environment/bake/bake.sim $cpu_arc ../../simple/environment/$param/$param.sim --lib="../../$simple_debug_version/bin/" --Include="\"$PWD/../include/simple.h\""
+	        done 
+	        #TODO : remove ../lib dir in future release and use flags
+	        #sudo rm -R ../lib/ 
 			cd "../../simple/build/"
 		;;
 		*install* )
@@ -172,7 +178,7 @@ build_environment_in_loop() {
 }
 
 build_single_environment(){
-    sudo $1 $2 $4 $3 --install $5 $6
+    sudo $1 $2 $4 $3 --install $5 $6 $7
 }
 
 copymodules() {
@@ -334,7 +340,8 @@ installsimpleexec() {
 			sudo mkdir "../../../$simple_debug_version/bin"
 			if [ -e "../dist/simple" ]; then
 				sudo cp "../dist/simple" "../../../$simple_debug_version/bin"
-				sudo cp "../dist/simple.so" "../../../$simple_debug_version/bin"
+				sudo cp "../dist/libsimple.so" "../../../$simple_debug_version/bin"
+				sudo cp "../dist/libsimple.a" "../../../$simple_debug_version/bin"
 			else
 				build_failed_error $1 "simple and simple.so"
 			fi
@@ -701,7 +708,7 @@ build_deb_package() {
 	esac
 
 	display debpackage "creating 'control' file"
-	sudo echo "Package: simple-lang-s$ver" >> $debpackagedir/DEBIAN/control
+	sudo echo "Package: simple-s$ver" >> $debpackagedir/DEBIAN/control
 	sudo echo "Version: $ver" >> $debpackagedir/DEBIAN/control
 	sudo echo "Essential: no" >> $debpackagedir/DEBIAN/control
 	sudo echo "Section: development" >> $debpackagedir/DEBIAN/control

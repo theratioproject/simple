@@ -80,7 +80,7 @@ SIMPLE_API SimpleState * simple_state_new ( void )
 	if (sState->module_paths != NULL) {
 		simple_list_addstring_gc(sState,sState->module_paths,"./modules/");
 		/* */
-		snprintf(module_path, sizeof(module_path), "%s/modules/", simple_file_initial_dir);
+		snprintf(module_path, sizeof(module_path), "%s/../modules/", simple_file_initial_dir);
 		simple_list_addstring_gc(sState,sState->module_paths,module_path);
 		/* */
 		simple_distro_folder(module_path);
