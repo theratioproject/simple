@@ -12,7 +12,7 @@
  *
  */
 
-module simple.utilities
+module simple.util
 
 block getTypeLength(object)
     if (isList(object) || isString(object))

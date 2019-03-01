@@ -13,7 +13,7 @@ call simple.core.loadcoredymodule
 @"==================="
 @"is simple.core module defined : "+__is_module_defined("simple.core")
 @"is simple.image.jpeg module defined : "+__is_module_defined("simple.image.jpeg")
-@"is simple.utilities module defined : "+__is_module_defined("simple.utilities")
+@"is simple.util module defined : "+__is_module_defined("simple.util")
 
 @"==================="
 @"ALL DEFINED CLASSES"

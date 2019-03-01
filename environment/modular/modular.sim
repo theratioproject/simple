@@ -11,7 +11,7 @@
 
 */
 
-call simple.utilities.Console
+call simple.util.Console
 call simple.core.String
 call simple.core.List
 call simple.internet.Download
@@ -22,7 +22,7 @@ call simple.security.Hash
 call archive.zip.Zip 
 call simple.system.System
 call simple.system.SimpleX
-call simple.utilities.Conversion
+call simple.util.Conversion
 call web.functions.Methods
 
 monkeyFace = '

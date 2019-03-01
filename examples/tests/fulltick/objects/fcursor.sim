@@ -1,6 +1,6 @@
 
 call "../../../objects/FCursor.sim" import fulltick.objects
-call simple.utilities.Console
+call simple.util.Console
 
 stdout.println(FCursor.FL_CURSOR_DEFAULT)
 stdout.println(FCursor.FL_CURSOR_ARROW)

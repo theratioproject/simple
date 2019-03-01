@@ -1,6 +1,6 @@
 
 call simple.core.Object
-call simple.utilities.Console
+call simple.util.Console
 call "../../../painting/FColor.sim" import fulltick.painting
 
 color = new FColor

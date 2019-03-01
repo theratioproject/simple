@@ -20,7 +20,7 @@
 
 */
 call simple.core.String 
-call simple.utilities.Console
+call simple.util.Console
 call simple.security.Hash
 
 /*

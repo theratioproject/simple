@@ -16,8 +16,8 @@
 
 call simple.core.Object
 call simple.io.PathAttributes
-call simple.utilities.Console
-call simple.utilities.DateTime
+call simple.util.Console
+call simple.util.DateTime
 
 block main()
 	@"==========================================================="

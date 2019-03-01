@@ -16,12 +16,12 @@
 call simple.core.Object
 call simple.core.List
 call simple.core.Number
-call simple.utilities.Conversion
+call simple.util.Conversion
 call simple.core.DynamicLoader
 call simple.debugging.Throw
 call simple.reflection.Class
 call simple.reflection.Field
-call simple.utilities.Type
+call simple.util.Type
 callModule("libstring_savant")
  
 /*

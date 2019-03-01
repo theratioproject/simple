@@ -25,7 +25,7 @@
 call simple.core.Object
 call simple.io.File
 call simple.net.Download
-call simple.utilities.Console
+call simple.util.Console
 
 block main() 	
 	d = new Download("https://raw.githubusercontent.com/simple-lang/simple/master/README.MD", "../../../../../README.MD")

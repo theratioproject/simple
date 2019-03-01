@@ -6,12 +6,12 @@
 
 */
 call simple.core.Object
-call simple.utilities.Math
+call simple.util.Math
 
 /*
 
 */
-module simple.utilities
+module simple.util
 
 /*
 

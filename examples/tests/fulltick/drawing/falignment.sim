@@ -1,6 +1,6 @@
 
 call simple.core.Object
-call simple.utilities.Console
+call simple.util.Console
 call simple.debugging.Debug
 call simple.system.System
 call "../../../drawing/FAlignment.sim" import fulltick.drawing

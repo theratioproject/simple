@@ -7,7 +7,7 @@
 
 callDynamicModule("libsecurity.dll")
 
-#call simple.utilities.Console
+#call simple.util.Console
 
 #stdout.print("\a")
 #__beep(1000,1000)

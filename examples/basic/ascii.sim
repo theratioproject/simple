@@ -8,7 +8,7 @@ tab = ascii(9)
 isfirst = true
 issecond = false
 
-call simple.utilities.Console
+call simple.util.Console
 
 	stdout.printfc(ConsoleColor.BLUE, " ")
 	stdout.printfc(ConsoleColor.YELLOW, "\t\t\tAmerican Standard Code for Information Interchange (ASCII) Charaters\n")

@@ -6,7 +6,7 @@
 
 call archive.zip.ZipEntry
 call archive.zip.Zip
-call simple.utilities.Console
+call simple.util.Console
 import simple.core
 
 block main()

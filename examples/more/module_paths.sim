@@ -2,7 +2,7 @@
 
 */
 call simple.core.loadcoredymodule
-call simple.utilities.Console
+call simple.util.Console
 
 modulePaths = __vm_module_paths()
 stdout.println(modulePaths)

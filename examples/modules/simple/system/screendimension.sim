@@ -20,7 +20,7 @@
 call simple.core.Object
 call simple.system.ScreenDimension
 call simple.graphics.Dimension
-call simple.utilities.Console
+call simple.util.Console
 
 screenDimension = new ScreenDimension()
 stdout.println(screenDimension)

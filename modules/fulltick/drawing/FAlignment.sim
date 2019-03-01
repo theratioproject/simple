@@ -3,7 +3,7 @@
 
 */
 call fulltick.base.FWidget
-import simple.core, simple.system, simple.utilities
+import simple.core, simple.system, simple.util
 
 /*
 

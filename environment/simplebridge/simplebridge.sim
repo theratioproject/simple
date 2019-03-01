@@ -84,7 +84,7 @@
 call "contents.sim"
 call simple.core.String
 call simple.io.File
-call simple.utilities.Length
+call simple.util.Length
 
 
 parserSourceContent = []

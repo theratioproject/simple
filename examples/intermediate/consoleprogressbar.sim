@@ -10,7 +10,7 @@
  * @Time - 09:42 PM
  */
 
-call simple.utilities.Console
+call simple.util.Console
 
 PBSTR = "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"
 PBWIDTH = 60

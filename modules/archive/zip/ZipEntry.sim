@@ -10,7 +10,7 @@
  * #date - 11 Febuary 2017
  */
 call simple.core.Object
-call simple.utilities.DateTime
+call simple.util.DateTime
 call simple.io.Path
 call archive.zip.Zip
 

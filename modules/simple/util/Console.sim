@@ -13,17 +13,18 @@
 	#author - Azeez Adewale	<azeezadewale98@gmail.com> 
  */
 
-call simple.utilities.ConsoleColor
+call simple.util.ConsoleColor
 call simple.core.List
-call simple.utilities.Type
+call simple.util.Type
 call simple.io.PrintWriter
 call simple.io.FileWriter
+call simple.io.FileReader
 import simple.core
 
 /*
 
 */
-module simple.utilities
+module simple.util
 
 /*
 	initialized to allow ussage as ConsoleColor.Color
@@ -98,7 +99,9 @@ final stderr = new PrintWriter(new FileWriter(__stderr()), true) {
 	It basically the normal C stdin, which accept input from keyboard but maybe used to pipe input from another process of 
 	file.
 */
-final __stdin = __stdin()
+final stdin = new FileReader(__stdin(), "rb") {
+	Closable = false
+}
 	
 
 /*

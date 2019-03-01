@@ -6,7 +6,7 @@ call simple.core.Object
 call simple.graphics.Rectangle
 call simple.graphics.Point
 call simple.graphics.Dimension
-call simple.utilities.Console
+call simple.util.Console
 
 rectangle1 = new Rectangle(10,20,100,200)
 stdout.println(rectangle1)

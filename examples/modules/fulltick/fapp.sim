@@ -1,5 +1,5 @@
 
-call simple.utilities.Console
+call simple.util.Console
 call fulltick.FApp
 call fulltick.FScheme
 import simple.core, simple.system, fulltick.painting, fulltick.objects, fulltick.drawing

@@ -15,8 +15,8 @@
 	simple-lang debugging module @Module simple/debugging/
 */
 
-call simple.utilities.Length
-call simple.utilities.Console
+call simple.util.Length
+call simple.util.Console
 call simple.debugging.Throw
 call simple.debugging.Debug
 

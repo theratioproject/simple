@@ -2,7 +2,7 @@
 
 */
 call simple.io.File
-call simple.utilities.Console
+call simple.util.Console
 import simple.core
 
 block main()

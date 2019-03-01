@@ -532,6 +532,42 @@ void file_savant_check_path(void *pointer)
     }
 }
 
+void file_savant_ffread ( void *pointer )
+{
+	char *str  ;
+	int size  ;
+	int nResult  ;
+	FILE *fp  ;
+	if ( SIMPLE_API_PARACOUNT != 3 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_MISS3PARA);
+		return ;
+	}
+	if ( SIMPLE_API_ISPOINTER(1) && SIMPLE_API_ISNUMBER(2) && SIMPLE_API_ISNUMBER(3) ) {
+		fp = (FILE *) SIMPLE_API_GETCPOINTER(1,"SMOOTHC_FILE_SAVANT") ;
+		if ( fp != NULL ) {
+			size = SIMPLE_API_GETNUMBER(3) ;
+			if ( size < 1 ) {
+				SIMPLE_API_ERROR(SIMPLE_VM_FILE_BUFFERSIZE);
+				return ;
+			}
+			str = (char *) simple_state_malloc(((VM *) pointer)->sState,size);
+			if ( str == NULL ) {
+				SIMPLE_API_ERROR(SIMPLE_OOM);
+				return ;
+			}
+			nResult = fread(str,SIMPLE_API_GETNUMBER(2),size,fp);
+			if ( nResult == 0 ) {
+				SIMPLE_API_RETNUMBER(nResult);
+			} else {
+				SIMPLE_API_RETSTRING2(str,nResult);
+			}
+			simple_state_free(((VM *) pointer)->sState,str);
+		}
+	} else {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+	}
+}
+
 void file_savant_read_file(void *pointer)
 {
     FILE *fp  ;
@@ -1857,6 +1893,7 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
 	register_block("__std_print",file_savant_std_print);
 	register_block("__printwfb",file_savant_printwfb);
 	register_block("__cc_fprintf",file_savant_cc_fprintf);
+	register_block("__ffread",file_savant_ffread);
 	register_block("__read_file",file_savant_read_file);
 	register_block("__write_file",file_savant_write_file);
 	register_block("__file_exists",file_savant_file_exists);

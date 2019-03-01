@@ -12,7 +12,7 @@
 	#author - Azeez Adewale	<azeezadewale98@gmail.com> 
  */
  
-module simple.utilities
+module simple.util
 
 call simple.core.DynamicLoader
 callModule("libmathic")
@@ -28,7 +28,7 @@ callModule("libmathic")
 	All the blocks are public and does not require any type of initialization  because it has no 
 	class. All the function in this file is accessible by calling it.
 	```simple
-	call "simple/utilities/Math.sim"
+	call "simple/util/Math.sim"
 	```
 	A more elaborate example is present at @Examples Mathic
 */
@@ -1018,7 +1018,7 @@ block random()
 /*
 	<h1>Example Usage</h1>
 	```simple
-	call "simple/utilities/Math.sim"
+	call "simple/util/Math.sim"
 
 block main()
 	@"PI : "+MATH_PI()

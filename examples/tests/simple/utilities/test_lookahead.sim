@@ -2,5 +2,5 @@
 
 */
 call simple.core.Object
-call simple.utilities.LookAhead
+call simple.util.LookAhead
 

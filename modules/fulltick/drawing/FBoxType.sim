@@ -5,7 +5,7 @@
 call fulltick.base.FWidget
 call fulltick.painting.FColor
 call fulltick.objects.FBorder
-import simple.core, simple.system, simple.utilities
+import simple.core, simple.system, simple.util
 
 /*
 

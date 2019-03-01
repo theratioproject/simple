@@ -2,7 +2,7 @@
 
 */
 call simple.core.Object
-call simple.utilities.Console
+call simple.util.Console
 call simple.net.curl.Curl
 
 block main()

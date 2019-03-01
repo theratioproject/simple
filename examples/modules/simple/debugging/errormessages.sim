@@ -2,7 +2,7 @@
 /* ERROR MESSAGES */
 
 call simple.debugging.ErrorMessages
-call simple.utilities.Console
+call simple.util.Console
 
 errMsg = new ErrorMessages
 errMsgAttrs = __object_attributes(errMsg)

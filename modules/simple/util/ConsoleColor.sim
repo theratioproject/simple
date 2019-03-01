@@ -13,7 +13,7 @@
 call simple.core.Object
 call simple.io.loadfilesavantlib
 
-module simple.utilities
+module simple.util
 
 /*
 	do not change the color values as it is in respect to 
@@ -222,5 +222,5 @@ class ConsoleColor : Object
 		
 		
 	block toString()
-		return "simple.utilities.ConsoleColor"
+		return "simple.util.ConsoleColor"
 		

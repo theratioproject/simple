@@ -21,7 +21,7 @@ call simple.io.PathAttributes
 call simple.io.PathType
 call simple.io.File
 call simple.io.Directory
-call simple.utilities.DateTime
+call simple.util.DateTime
  
 /*
 

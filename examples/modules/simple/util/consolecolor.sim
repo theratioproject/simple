@@ -1,6 +1,6 @@
  
-call simple.utilities.ConsoleColor
-call simple.utilities.Console 
+call simple.util.ConsoleColor
+call simple.util.Console 
  
 #functional
 stdout.printfc(CONSOLE_COLOR_NONE,"CONSOLE_COLOR_NONE \n")

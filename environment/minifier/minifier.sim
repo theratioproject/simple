@@ -14,8 +14,8 @@
 call simple.io.File
 call simple.debugging.Throw 
 call simple.core.String
-call simple.utilities.Type
-call simple.utilities.Console
+call simple.util.Type
+call simple.util.Console
 
 skipRequest = false
  

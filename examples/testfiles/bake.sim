@@ -48,12 +48,12 @@
  
  
  
-call simple.utilities.Conversion
+call simple.util.Conversion
 call simple.io.File
 call simple.io.Directory
 call simple.core.String
 call simple.system.System
-call simple.utilities.Console
+call simple.util.Console
 
 final depModules = [
 	"archiver",

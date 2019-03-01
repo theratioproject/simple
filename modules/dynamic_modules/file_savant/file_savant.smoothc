@@ -74,6 +74,7 @@ LDLIBSOPTIONS=
 	std_print[RegisterOnly]
 	printwfb[RegisterOnly]
 	cc_fprintf[RegisterOnly]
+	ffread[RegisterOnly]
 	read_file[RegisterOnly]
 	write_file[RegisterOnly]
 	file_exists[RegisterOnly]
@@ -702,6 +703,42 @@ void $(Prefix)_check_path(void *pointer)
             int err = stat(string->str, &info);
 			SIMPLE_API_RETNUMBER(err);
 			simple_string_delete_gc(((VM *) pointer)->sState,string);
+	} else {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+	}
+}
+
+void $(Prefix)_ffread ( void *pointer )
+{
+	char *str  ;
+	int size  ;
+	int nResult  ;
+	FILE *fp  ;
+	if ( SIMPLE_API_PARACOUNT != 3 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_MISS3PARA);
+		return ;
+	}
+	if ( SIMPLE_API_ISPOINTER(1) && SIMPLE_API_ISNUMBER(2) && SIMPLE_API_ISNUMBER(3) ) {
+		fp = (FILE *) SIMPLE_API_GETCPOINTER(1,"SMOOTHC_FILE_SAVANT") ;
+		if ( fp != NULL ) {
+			size = SIMPLE_API_GETNUMBER(3) ;
+			if ( size < 1 ) {
+				SIMPLE_API_ERROR(SIMPLE_VM_FILE_BUFFERSIZE);
+				return ;
+			}
+			str = (char *) simple_state_malloc(((VM *) pointer)->sState,size);
+			if ( str == NULL ) {
+				SIMPLE_API_ERROR(SIMPLE_OOM);
+				return ;
+			}
+			nResult = fread(str,SIMPLE_API_GETNUMBER(2),size,fp);
+			if ( nResult == 0 ) {
+				SIMPLE_API_RETNUMBER(nResult);
+			} else {
+				SIMPLE_API_RETSTRING2(str,nResult);
+			}
+			simple_state_free(((VM *) pointer)->sState,str);
+		}
 	} else {
 		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}

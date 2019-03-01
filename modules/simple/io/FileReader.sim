@@ -1,0 +1,121 @@
+/* 
+	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com> 
+	MIT License Copyright (c) 2018 simple-lang
+
+*/
+
+/* 
+	#filename - FileReader.sim
+	#date - 28 February 2019
+	#time - 11 : 02 AM
+	#license - MIT License Copyright (c) 2018 simple-lang
+	#author - Azeez Adewale	<azeezadewale98@gmail.com> 
+ */
+ 
+/*
+
+*/
+call simple.core.Object
+call simple.reflection.Class
+call simple.io.loadfilesavantlib
+call simple.io.File
+ 
+/*
+
+*/
+module simple.io
+
+/*
+
+*/
+class FileReader : Object
+
+	/*
+	
+	*/
+	final /*pointer */FilePointer /*= null*/
+	
+	/*
+	
+	*/
+	boolean IsOpen = false
+	
+	/*
+	
+	*/
+	boolean Closable = false
+
+	/*
+	
+	*/
+	block FileReader(object file, string openMode)
+		if isString(file) or instanceOf(file, "String") {
+			file = stringValue(file)
+			
+		elif instanceOf(file, "File")
+			file = file.AbsolutePath
+			
+		elif isPointer(file)
+			if file[1] != "SMOOTHC_FILE_SAVANT" {
+				throw(self,"Invalid File Pointer, expecting an active file pointer : " + strValueOf(file))
+			}
+			FilePointer = file
+			IsOpen = true
+			return self
+			
+		else
+			throw(self,"Invalid arguments, expecting (string|File|FileStream|FileReader,string), found (" + objectType(file) + "," + objectType(openMode) + ")")
+			return null
+		}
+		
+		if !__file_exists(file) {
+			throw(self, "The file does not exist : " + file)
+			return null
+		}
+		FilePointer = __fopen(file, openMode)	
+		if __is_null_pointer(FilePointer, FilePointer[1]) {
+			throw(self, "Access Denied. The File is not readable : " + file)
+			return self
+		}
+		IsOpen = true
+		
+		return self
+		
+	/*
+	
+	*/
+	#TODO : Visit
+	block fread(int length)
+		if !IsOpen {
+			throw(self, "The file has been closed ")
+			return null
+		}
+		/*if offset < 1 {
+			throw(self, "Invalid offset. You cannot start reading from " + offset + "")
+			return null
+		}*/
+		return __ffread(FilePointer, 1, length)
+	
+	/*
+	
+	*/
+	block close()
+		if IsOpen and Closable {
+			__fclose(FilePointer)
+			IsOpen = false
+			#__gabbage_collect(FilePointer) #maybe
+		}
+		
+	
+	/*
+		This block clean up the object to avoid dangling pointers and object. 
+		Invoking this block assume there is no more reference to this object 
+		
+		@See @Block close
+		@See @Block flush
+	*/
+	block done()
+		if IsOpen {
+			close()
+		}
+		#ask team if to destroy object here

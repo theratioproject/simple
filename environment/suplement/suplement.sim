@@ -13,7 +13,7 @@
 call parser.json.JsonParser
 call archive.zip.Zip
 call simple.net.Download
-call simple.utilities.Console
+call simple.util.Console
 call simple.system.SimpleX
 import simple.core
 import simple.io
