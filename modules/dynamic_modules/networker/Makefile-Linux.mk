@@ -38,10 +38,10 @@ SIMPLE_OBJECTFILES = \
 	$(SIMPLE_OBJECTDIR)/simple_api.o 
 	
 # Link Libraries and Options
-LDLIBSOPTIONS= -Lsimple.so
+LDLIBSOPTIONS=-l:libcurl.a -l:libssl.a -l:libcrypto.a 
 
 ${CND_DISTDIR}/${CND_PLATFORM}/libnetworker.${CND_DLIB_EXT}: $(OBJECTFILES)
-	$(CC) -shared $(ARC_FLAG) $(OBJECTFILES) -lcurl -lssl -lcrypto -o $(CND_DISTDIR)/$(CND_PLATFORM)/libnetworker.$(CND_DLIB_EXT) 
+	$(CC) -shared $(ARC_FLAG) $(OBJECTFILES) -o $(CND_DISTDIR)/$(CND_PLATFORM)/libnetworker.$(CND_DLIB_EXT) $(LDLIBSOPTIONS)
 
 $(OBJECTDIR)/networker.o: networker.c
 	mkdir -p $(OBJECTDIR)

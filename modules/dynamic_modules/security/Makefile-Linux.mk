@@ -38,7 +38,7 @@ SIMPLE_OBJECTFILES = \
 	$(SIMPLE_OBJECTDIR)/simple_api.o 
 	
 # Link Libraries and Options
-LDLIBSOPTIONS=-lssl -lcrypto
+LDLIBSOPTIONS=-l:libssl.a -l:libcrypto.a -ldl
 
 ${CND_DISTDIR}/${CND_PLATFORM}/libsecurity.${CND_DLIB_EXT}: $(OBJECTFILES)
 	$(CC) -shared $(ARC_FLAG) $(SIMPLE_OBJECTFILES) $(OBJECTFILES) -o $(CND_DISTDIR)/$(CND_PLATFORM)/libsecurity.$(CND_DLIB_EXT) $(LDLIBSOPTIONS)

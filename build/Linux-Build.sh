@@ -689,10 +689,10 @@ build_deb_package() {
 			
 			if [ $arc_var = "-m32" ]; then
 				sudo mkdir -p "$debpackagedir/usr/lib/i386-linux-gnu/"
-				sudo cp $prefix/lib/simple.so $debpackagedir/usr/lib/i386-linux-gnu/libsimple.so.$ver
+				#sudo cp $prefix/lib/simple.so $debpackagedir/usr/lib/i386-linux-gnu/libsimple.so.$ver
 			elif [ $arc_var = "-m64" ]; then
 				sudo mkdir -p "$debpackagedir/usr/lib/x86_64-linux-gnu/"
-				sudo cp $prefix/lib/simple.so $debpackagedir/usr/lib/x86_64-linux-gnu/libsimple.so.$ver
+				#sudo cp $prefix/lib/simple.so $debpackagedir/usr/lib/x86_64-linux-gnu/libsimple.so.$ver
 			fi  
 			
 			#no moving with libcrypto
@@ -708,7 +708,7 @@ build_deb_package() {
 	esac
 
 	display debpackage "creating 'control' file"
-	sudo echo "Package: simple-s$ver" >> $debpackagedir/DEBIAN/control
+	sudo echo "Package: simple$ver" >> $debpackagedir/DEBIAN/control
 	sudo echo "Version: $ver" >> $debpackagedir/DEBIAN/control
 	sudo echo "Essential: no" >> $debpackagedir/DEBIAN/control
 	sudo echo "Section: development" >> $debpackagedir/DEBIAN/control
