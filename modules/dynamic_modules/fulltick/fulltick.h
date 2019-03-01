@@ -144,8 +144,10 @@
 #include <FL/glut.H>
 #include <FL/gl_draw.H>
 #endif
+#ifdef USE_MATH_NAMES
 //#include <FL/math.H>
 //#include <FL/names.H>
+#endif
 #include <FL/x.H>
 
 extern "C" {

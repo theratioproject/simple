@@ -27722,6 +27722,7 @@ SIMPLE_BLOCK(fltk_fl_add_io_callback)
 }
 
 /* fl_math */
+#ifdef USE_MATH_NAMES
 SIMPLE_BLOCK(fltk_rint)
 {
     double num1;
@@ -27745,6 +27746,7 @@ SIMPLE_BLOCK(fltk_copysign)
     num2 = (double) (double) SIMPLE_API_GETNUMBER(2);
     SIMPLE_API_RETNUMBER(copysign(num1,num2));
 }
+#endif
 
 /* x.H */
 #ifndef __ANDROID__
@@ -30425,8 +30427,10 @@ SIMPLE_API void init_full_tick(SimpleState *sState)
     register_block("__fl_finish",fltk_fl_finish);
     register_block("__fl_add_io_callback",fltk_fl_add_io_callback);
     /* fl_math */
+#ifdef USE_MATH_NAMES
     register_block("__rint",fltk_rint);
     register_block("__copysign",fltk_copysign);
+#endif
     /* x.H */
 #ifndef __ANDROID__
     register_block("__fl_gc",fltk_fl_gc);
