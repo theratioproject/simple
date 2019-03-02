@@ -21,6 +21,10 @@
 *.vscode
 *@@
 *ilk
+*idb
+*pdb
+*.lastbuildstate
+*.unsuccessfulbuild
 *.tlog
 *.cache
 *.log
