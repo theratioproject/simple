@@ -21,6 +21,11 @@
 *.vscode
 *@@
 *ilk
+*.tlog
+*.cache
+*.log
+*.obj
+*.ilk
 *.stackdump
 *.orig
 *.complex
