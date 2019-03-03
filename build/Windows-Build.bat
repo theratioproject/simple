@@ -188,6 +188,20 @@ for %%x in (%*) do (
 		) else (
 			SET EXEC_TYPE="minify-debug"
 		)
+	)
+	if "%%x"=="-sl" (
+		if !EXEC_TYPE!=="install" (
+			SET EXEC_TYPE="simplelib-install"
+		) else (
+			SET EXEC_TYPE="simplelib-debug"
+		)
+	) 
+	if "%%x"=="--simplelib" (
+		if !EXEC_TYPE!=="install" (
+			SET EXEC_TYPE="simplelib-install"
+		) else (
+			SET EXEC_TYPE="simplelib-debug"
+		)
 	) 
 	if "%%x"=="-nl" (
 		SET USE_LATEST_VS="false"
@@ -253,17 +267,20 @@ if !EXEC_TYPE!=="" (
 if !EXEC_TYPE!=="install" (
 	call:configure
 	call:installdebug
+	echo .
 	call:treatfinal
 )
 if !EXEC_TYPE!=="debug" (
 	call:configure
 	call:installdebug
+	echo .
 	call:treatfinal
 )
 if !EXEC_TYPE!=="install-configure" (
 	call:configure
 	SET EXEC_TYPE="install"
 	call:installdebug
+	echo .
 	call:treatfinal
 )
 if !EXEC_TYPE!=="configure" (
@@ -326,6 +343,15 @@ if !EXEC_TYPE!=="minify-debug" (
 	SET EXEC_TYPE="debug"
 	call:minifysimplemodule
 )
+if !EXEC_TYPE!=="simplelib-install" (
+	SET EXEC_TYPE="install"
+	call:createsimplelib
+)
+if !EXEC_TYPE!=="simplelib-debug" (
+	SET EXEC_TYPE="debug"
+	call:createsimplelib
+)
+
 if !EXEC_TYPE!=="dymodules-only-install" (
 	SET EXEC_TYPE="install"
 	call:display install "install simple-lang %VERSION%"
@@ -1351,6 +1377,15 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 	
 :treatfinal
 	call:createsimplelib
+	if exist "..\modules\dynamic_modules\fulltick\fulltick\fulltick.vcxproj" (
+		echo simple-lang:simplelib:copying libsimple.lib for fulltick Visual Studio Project
+		if exist !SIMPLE_LIB! (
+			copy !SIMPLE_DLL! "..\modules\dynamic_modules\fulltick\fulltick\libsimple!ARC!.dll"
+			copy !SIMPLE_LIB! "..\modules\dynamic_modules\fulltick\fulltick\libsimple!ARC!.lib"
+		) else (
+			echo simple-lang:lib: libsimple.lib not found, ignoring
+		)
+	) 
 	
 	exit /b 0
 	
@@ -1372,22 +1407,14 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 		echo simple-lang:lib: libsimple.lib is already generated
 		exit /b 0
 	)
-	call:locatevisualstudio
-	if !THERE_IS_VS!=="true" (
-		if exist "..\examples\intermediate\libfromdll.sim" (
-			if exist "..\examples\intermediate\fetchfunction.bat" (
-				SET LIBDLLBATCHPATH="%~dp0\..\examples\intermediate\fetchfunction.bat"
-			) else (
-				exit /b 0
-			)
-			if exist !SIMPLE_EXE! (
-				!SIMPLE_EXE! "..\examples\intermediate\libfromdll.sim" -bat !LIBDLLBATCHPATH! !SIMPLE_DLL! !BUILD_ARC!
-				exit /b 0
-			) 
-		) else (
-			call:dependencieserror libsimple.lib
-		)
-	) 
+	if exist "..\examples\intermediate\libfromdll.sim" (
+		if exist !SIMPLE_EXE! (
+			!SIMPLE_EXE! "..\examples\intermediate\libfromdll.sim" --dll=!SIMPLE_DLL! --arch=!BUILD_ARC! --lib=!SIMPLE_LIB! --keep
+			exit /b 0
+		) 
+	) else (
+		call:dependencieserror libsimple.lib
+	)
 
 	exit /b 0
 
@@ -1426,6 +1453,7 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 	echo 	-mo --modules-only	copy only the standard modules
 	echo 	-yo --dymodules-only	build only the dynamic modules
 	echo 	-eo --environment-only	build only the environment programs
+	echo 	-sl --simplelib		build only the libsimple.lib 
 	echo.
 	echo [EXTRA FLAGS]
 	echo 	-nl --no-latest-vs	use first discovered Visual Studio with C/C++ SDK 
