@@ -1,8 +1,17 @@
 
+
 #include "../../../simple/include/simple.h"
 #include "sqlite3.h"
 
+#if defined(__linux__) && defined(__x86_64__)
+#include <stddef.h>
+#include <stdarg.h>
+asm(".symver fcntl64, fcntl@GLIBC_2.2.5");
 
+void *__wrap_fcntl64(int fd, int cmd, va_list argp){
+    return fcntl64(fd, cmd, argp);
+}
+#endif
 
 #ifdef _WIN32
     #define SIMPLE_API __declspec(dllexport)

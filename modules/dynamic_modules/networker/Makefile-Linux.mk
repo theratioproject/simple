@@ -38,7 +38,8 @@ SIMPLE_OBJECTFILES = \
 	$(SIMPLE_OBJECTDIR)/simple_api.o 
 	
 # Link Libraries and Options
-LDLIBSOPTIONS=-l:libcurl.a -l:libssl.a -l:libcrypto.a 
+#revist `curl-config --static-libs --cflags` -ldl
+LDLIBSOPTIONS=-lcurl
 
 ${CND_DISTDIR}/${CND_PLATFORM}/libnetworker.${CND_DLIB_EXT}: $(OBJECTFILES)
 	$(CC) -shared $(ARC_FLAG) $(OBJECTFILES) -o $(CND_DISTDIR)/$(CND_PLATFORM)/libnetworker.$(CND_DLIB_EXT) $(LDLIBSOPTIONS)

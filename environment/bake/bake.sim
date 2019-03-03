@@ -105,16 +105,16 @@ block main()
 				bread.IconPath = iconPath
 			}
 			
-		elif strStartsWith(param,"-l=") or strStartsWith(param,"--lib=")
-			libPath = removeStr(param, "-l=")
-			libPath = removeStr(param, "--lib=")
+		elif strStartsWith(param,"-s=") or strStartsWith(param,"--simple=")
+			libPath = removeStr(param, "-s=")
+			libPath = removeStr(param, "--simple=")
 			if libPath != "" {
-				bread.LibPath = libPath
+				bread.SimplePath = libPath
 			}
 			
-		elif strStartsWith(param,"-I=") or strStartsWith(param,"--Include=")
-			includeHeader = removeStr(param, "-I=")
-			includeHeader = removeStr(param, "--Include=")
+		elif strStartsWith(param,"-inc=") or strStartsWith(param,"--include=")
+			includeHeader = removeStr(param, "-inc=")
+			includeHeader = removeStr(param, "--include=")
 			if includeHeader != "" {
 				bread.IncludeHeader = includeHeader
 			}
@@ -150,7 +150,7 @@ block main()
 		if bakkrey.Verbose {
 			stdout.print("\nsimple -s "+bread.SourceFile.AbsolutePath+"")
 		}
-		system(bread.LibPath+"simple -s "+bread.SourceFile.AbsolutePath+"")
+		system(bread.SimplePath+"simple -s "+bread.SourceFile.AbsolutePath+"")
 		complexPath = bread.SourceFile.Directory.AbsolutePath+"/"+bread.SourceFile.NameOnly+".complex"
 		bread.SourceFile = new File(complexPath)
 		bread.SourceFile.moveTo(bread.TempPath.AbsolutePath,true)
@@ -180,8 +180,10 @@ The OPTIONS include:
  -z --no-gui		mark build as Console base to show terminal on startup
  x64 --64-bits		mark all build for 64 bits arc
  x86 --32-bits		mark all build for 32 bits arc
- -i --icon=<iconpath>	build executable with icon
- -l --lib=<iconpath>	specify the folder where simple shared lib is
+ -i --icon='<iconpath>'	build executable with icon
+ -s --simple='<simplepath>'	specify the folder where simple shared lib is
+ -inc --include='<includespath>'	the simple header file to link
+ -l --lib='<libpath>'	specify where to find shared libraries at runtime
 "
 	stdout.println(help)
 	__exit__
@@ -204,7 +206,7 @@ class Bread
 	CFLAG = ""
 	GUI = false
 	Install = false
-	LibPath = ""
+	SimplePath = ""
 	IncludeHeader = "<simple/simple.h>"
 
 class Bakkery
@@ -281,7 +283,7 @@ int main( int argc, char *argv[]) {
 			if isLinux() and bread.BuildAll {
 				stdout.printf("\r%s\rbuilding for linux...", strCopy(" ", 40))
 				__mkdir(bread.TempPath+"/../linux/",0755)
-				cmd = 'cc '+bread.CFLAG+' '+bread.BuildArch+' -I/$DESTDIR/$PREFIX/include/ -I/usr/include/ -lm -ldl -o "'+bread.TempPath+"/../linux/"+bread.Name+'" "'+bread.TempPath+"/"+bread.Name+".bake.c"+'" '+simpleExecDir()+'../lib/libsimple' + bread.LibraryExt
+				cmd = 'cc "-Wl,-rpath,./" "-Wl,-rpath,../lib/" "-Wl,-rpath,/lib/" "-Wl,-rpath,/usr/lib/" '+bread.CFLAG+' '+bread.BuildArch+' -I/$DESTDIR/$PREFIX/include/ -I/usr/include/ -lm -ldl -o "'+bread.TempPath+"/../linux/"+bread.Name+'" "'+bread.TempPath+"/"+bread.Name+".bake.c"+'" -L '+simpleExecDir()+' -lsimple'
 				system(cmd)
 				stdout.print("(done)")
 				

@@ -38,10 +38,10 @@ SIMPLE_OBJECTFILES = \
 	$(SIMPLE_OBJECTDIR)/simple_api.o 
 	
 # Link Libraries and Options
-LDLIBSOPTIONS=-Lsimple.so
+LDLIBSOPTIONS=-lm
 
 ${CND_DISTDIR}/${CND_PLATFORM}/libmathic.${CND_DLIB_EXT}: $(OBJECTFILES)
-	$(CC) -shared $(ARC_FLAG) -o $(CND_DISTDIR)/$(CND_PLATFORM)/libmathic.$(CND_DLIB_EXT) $(SIMPLE_OBJECTFILES) $(OBJECTFILES) -lm
+	$(CC) -shared -fPIC $(ARC_FLAG) -o $(CND_DISTDIR)/$(CND_PLATFORM)/libmathic.$(CND_DLIB_EXT) $(SIMPLE_OBJECTFILES) $(OBJECTFILES) $(LDLIBSOPTIONS)
 
 $(OBJECTDIR)/mathic.o: mathic.c
 	mkdir -p $(OBJECTDIR)

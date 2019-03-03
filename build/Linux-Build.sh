@@ -150,17 +150,13 @@ build_environment_in_loop() {
 	case $1 in
 		*debug* )
 			cd "../../$simple_debug_version/bin/"
-			sudo mkdir -p ../lib/
-			sudo cp ./libsimple.so ../lib/
 			shift ;
 			local simple_command="../../$simple_debug_version/bin/simple"
 			for param in "$@"
 	        do
 	            echo $param
-	            build_single_environment $simple_command ../../simple/environment/bake/bake.sim $cpu_arc ../../simple/environment/$param/$param.sim --lib="../../$simple_debug_version/bin/" --Include="\"$PWD/../include/simple.h\""
+	            build_single_environment $simple_command ../../simple/environment/bake/bake.sim $cpu_arc ../../simple/environment/$param/$param.sim --simple="../../$simple_debug_version/bin/" --include="\"$PWD/../include/simple.h\""
 	        done 
-	        #TODO : remove ../lib dir in future release and use flags
-	        #sudo rm -R ../lib/ 
 			cd "../../simple/build/"
 		;;
 		*install* )
@@ -258,26 +254,26 @@ build_dynamic_modules(){
 			fi
 			sudo make -f Makefile-Linux.mk uninstall  ARC_FLAG=$arc_var ARC=$arc
 			sudo make -f Makefile-Linux.mk  ARC_FLAG=$arc_var ARC=$arc
-
-			# fulltick(GUI) dynamic_module
-				display "dynamic_modules:fulltick:" "checking if fulltick build successfully"
-			if [ -e ../dist/fulltick.so ]; then
-				display "dynamic_modules:fulltick:" "fulltick dynamic module built successfully"
+			
+			# libfulltick(GUI) dynamic_module
+				display "dynamic_modules:libfulltick:" "checking if libfulltick build successfully"
+			if [ -e ../dist/libfulltick.so ]; then
+				display "dynamic_modules:libfulltick:" "libfulltick dynamic module built successfully"
 			else
-				echo "error:dynamic_modules:fulltick: fulltick dynamic module build failed"
-				echo "error:dynamic_modules:fulltick: fulltick build is sure to fail if you don't have fltk library installed or it is not configured as shared library"
-				echo "error:dynamic_modules:fulltick: visit $fulltick_build_issue for build instruction"
-				echo "dynamic_modules:fulltick: falling back on available backup build."
-				if [ -e ../fulltick/dist/fulltick$arc.so ]; then
-					echo "dynamic_modules:fulltick: backup build found but might be outdated"
-					echo "dynamic_modules:fulltick: copying fulltick.so to ../dist/ directory"
-					cp ../fulltick/dist/fulltick$arc.so ../dist/
-					link ../dist/fulltick$arc.so ../dist/fulltick.so
+				echo "error:dynamic_modules:libfulltick: libfulltick dynamic module build failed"
+				echo "error:dynamic_modules:libfulltick: libfulltick build is sure to fail if you don't have fltk library installed or it is not configured as shared library"
+				echo "error:dynamic_modules:libfulltick: visit $fulltick_build_issue for build instruction"
+				echo "dynamic_modules:flibulltick: falling back on available backup build."
+				if [ -e ../fulltick/dist/libfulltick$arc.so ]; then
+					echo "dynamic_modules:libfulltick: backup build found but might be outdated"
+					echo "dynamic_modules:libfulltick: copying libfulltick.so to ../dist/ directory"
+					cp ../fulltick/dist/libfulltick$arc.so ../dist/
+					mv ../dist/libfulltick$arc.so ../dist/libfulltick.so
 				else
-					echo "error:dynamic_modules:fulltick: the backup fulltick dynamic module cannot be found"
-					echo "error:dynamic_modules:fulltick: the repository appears to be currupted. "
-					echo "error:dynamic_modules:fulltick: try clonning the simple repository again to resolve the issue"
-					echo "error:dynamic_modules:fulltick: or visit $fulltick_build_issue to build instruction"
+					echo "error:dynamic_modules:libfulltick: the backup libfulltick dynamic module cannot be found"
+					echo "error:dynamic_modules:libfulltick: the repository appears to be currupted. "
+					echo "error:dynamic_modules:libfulltick: try clonning the simple repository again to resolve the issue"
+					echo "error:dynamic_modules:libfulltick: or visit $fulltick_build_issue to build instruction"
 				fi
 			fi
 			cd ../
@@ -323,9 +319,11 @@ installsimpleexec() {
 			display $1 "uninstalling previous simple object build"
 			sudo rm -r ../dist/
 		fi
-		if [[ "$1" != "notanyofit" ]]; then
-		    sudo make -f Makefile-Linux.mk uninstall ARC_FLAG=$arc_var ARC=$arc
-		fi
+		case $1 in
+		    *notanyofit* )
+		        sudo make -f Makefile-Linux.mk uninstall ARC_FLAG=$arc_var ARC=$arc
+		    ;;
+		esac
 		sudo make -f Makefile-Linux.mk ARC_FLAG=$arc_var ARC=$arc
 	else 
 		not_found_error $1 Makefile-Linux.mk

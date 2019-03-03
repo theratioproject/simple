@@ -100,6 +100,8 @@ build, installation, features e.t.c
 - [ ] revisit the data types operator rules e.g list + object = list[object] should be list += object = list[object]
 - [ ] completely remove the '@' operator to print expression and replace with display + newLine
 - [ ] get ride of the global variable `cmdparams` which hold the command line parameters for optional arguments in `main()` block
+- [ ] add option for configure to install an old version of gcc for building compatible binaries in *nux-Build scripts. **preferable gcc-6 g++-6**
+- [ ] add option to use a version of gcc/g++ compiler for build, *nix.
 
 ### simplify
 - [ ] hint user as a type of level error when a similar variable that has not been declared is used 
@@ -107,7 +109,7 @@ build, installation, features e.t.c
 - [ ] display verbose warning and errors when using the compiler 
 - [ ] add and use the keyword `var` to allow variable declaration
 - [ ] directive : allow the use of strict declaration to render undefine variable error `see perl 'use strict;'`
-- [ ] allow the `&` operator to pass a parameter by reference
+- [-] ~allow the `&` operator to pass a parameter by reference~
 
 ### Modules
 

@@ -13,6 +13,7 @@
 #simple/src/makefiles/simple_sqlite/ $ make -f Makefile-Linux.mk
 
 # Flags
+#CC=gcc-6
 CFLAGS= -c -fpic -g -w
 LFlAGS= -lm -ldl
 LDFLAGS= "-Wl,-rpath,./ ../../bin/ $(DESTDIR)$(PREFIX)/lib/ ~/lib/,--no-as-needed"
@@ -32,17 +33,17 @@ SIMPLE_OBJECTDIR=../../../simple/dist/$(CND_BUILDDIR)/$(CND_PLATFORM)
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/simple_sqlite.o \
-	$(OBJECTDIR)/sqlite3.o
+	${OBJECTDIR}/sqlite3.o
 
 # Simple Object Files
 SIMPLE_OBJECTFILES = \
-	$(SIMPLE_OBJECTDIR)/simple_api.o 
+	$(SIMPLE_OBJECTDIR)/*.o 
 	
 # Link Libraries and Options
-LDLIBSOPTIONS= -Lsimple.so
+LDLIBSOPTIONS=-Wl,--wrap=fcntl64
 
 ${CND_DISTDIR}/${CND_PLATFORM}/libsimple_sqlite.${CND_DLIB_EXT}: $(OBJECTFILES)
-	$(CC) -shared $(ARC_FLAG) $(SIMPLE_OBJECTFILES) $(OBJECTFILES) -o $(CND_DISTDIR)/$(CND_PLATFORM)/libsimple_sqlite.$(CND_DLIB_EXT) 
+	$(CC) -shared -pthread $(ARC_FLAG) -o $(CND_DISTDIR)/$(CND_PLATFORM)/libsimple_sqlite.$(CND_DLIB_EXT) $(OBJECTFILES) $(SIMPLE_OBJECTFILES) $(LDLIBSOPTIONS)
 
 $(OBJECTDIR)/simple_sqlite.o: simple_sqlite.c
 	mkdir -p $(OBJECTDIR)
