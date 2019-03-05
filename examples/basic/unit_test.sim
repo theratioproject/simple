@@ -3,22 +3,25 @@ call simple.io.Directory
 call simple.io.File
 call simple.system.Runtime
 call simple.util.Console
+import simple.core
 
 block main()
 	testDirectory("./")
 	
 block testDirectory(directory)
 	dir = new Directory(directory)
-	files = dir.listFiles()
+	files = dir.getFiles()
 	for file in files {
-		if file.name() == "encryptdecryptdemo.sim" or file.name() == "unit_test.sim" continue end
+		if file.Name == "unit_test.sim" {
+			continue
+		}
 		stdout.println("\n\n================================================================")
-		stdout.vprintf(["Running Test : {0} \n", file.name()])
+		stdout.printf("Running Test : %s \n", file.Name)
 		stdout.println("================================================================\n")
-		Runtime.execute("simple "+file.absolutePath()+" -t") 
+		Runtime.execute('simple "'+file.AbsolutePath+'" -t') 
 	}
 	
-	folders = dir.listDirectories()
+	folders = dir.getDirectories()
 	for folder in folders {
 		testDirectory(folder)
 	}

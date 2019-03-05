@@ -115,7 +115,7 @@ block main()
 	exportedSymbols = strLeft(exportedSymbols, endIndex)
 	__write_file(defPath, exportedSymbols)
 	exportedSymbols = strSplit(exportedSymbols,nl)
-	finalSymbols = "EXPORTS" + nl
+	finalSymbols = "EXPORTS" + crlf
 	for line in exportedSymbols {
 		if strContains(line,"=") {
 			line = strSplit(line, "=")[0]
@@ -123,8 +123,9 @@ block main()
 		exportFunc = strSplit(line, " ")
 		len = lengthOf(exportFunc)
 		if len > 2 {
-			finalSymbols += exportFunc[len-1]
-			stdout.printf("\r%s\rexporting function : " + exportFunc[len-1], strCopy(" ", 120))
+			functionV = removeStr(exportFunc[len-1], cr)
+			finalSymbols += functionV + crlf
+			stdout.printf("\r%s\rexporting function : " + exportFunc[len-2] + ":" +functionV, strCopy(" ", 120))
 		}
 	}
 	stdout.printf("\r%s\rexporting functions : (done)\n", strCopy(" ", 120))

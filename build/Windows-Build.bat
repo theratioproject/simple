@@ -977,7 +977,7 @@ REM THE ENVIRONMENT PROGRAMS WILL ALSO BE INSTALLED IN SAME BIN DIRECTORY AS SIM
 	
 :buildsingleenvironment 
 	echo environment:build: building %1 
-	!SIMPLE_EXECUTABLE! !BAKE_EXECUTABLE! %2 --icon=%3 --install ..\environment\%1\%1.sim
+	!SIMPLE_EXECUTABLE! !BAKE_EXECUTABLE! %2 --icon=%3 --install ..\environment\%1\%1.sim !BUILD_ARC!
 	
 	exit /b 0
 	
@@ -1409,7 +1409,7 @@ REM ENVIRONMENT PROGRAM BUILD ERROR
 	)
 	if exist "..\examples\intermediate\libfromdll.sim" (
 		if exist !SIMPLE_EXE! (
-			!SIMPLE_EXE! "..\examples\intermediate\libfromdll.sim" --dll=!SIMPLE_DLL! --arch=!BUILD_ARC! --lib=!SIMPLE_LIB! --keep
+			!SIMPLE_EXE! "..\examples\intermediate\libfromdll.sim" --dll=!SIMPLE_DLL! --arch=!BUILD_ARC! --lib=!SIMPLE_LIB!
 			exit /b 0
 		) 
 	) else (
