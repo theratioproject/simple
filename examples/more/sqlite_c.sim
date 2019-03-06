@@ -103,7 +103,7 @@ query = "
 
 query = "
         INSERT INTO ADMIN (Id, UserName, Email, FullName, password)
-        VALUES  	(1, 'thecarisma', 'azeezadewale98@gmail.com', 'Azeez Adewale', 'ade' );
+        VALUES  	(1, 'thecarisma', 'azeezadewale98@gmail.com', 'Azeez Adewale', 'hjhj' );
 "
 #display __sqlite3_exec(db, query)
 #display __sqlite3_errmsg(db) + nl
