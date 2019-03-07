@@ -3,11 +3,11 @@
 */
 call simple.core.DynamicLoader
 call simple.util.DateTime
-callModule("libsimple_sqlite")
+callModule("libsimple_sqlite") #add date to version
 
 date = new DateTime()
 db = __init_sqlite3()
-__sqlite3_open("C:\wamp64\www\simple-lang.io\assets/simple_lang_io.db", db)
+__sqlite3_open("../testfiles/simple_lang_io.db", db)
 
 query = "
         CREATE TABLE Versions (
@@ -103,9 +103,9 @@ query = "
 
 query = "
         INSERT INTO ADMIN (Id, UserName, Email, FullName, password)
-        VALUES  	(1, 'thecarisma', 'azeezadewale98@gmail.com', 'Azeez Adewale', 'hjhj' );
+        VALUES  	(2, 'Youngestdev', 'abceek2018@gmail.com', 'Abdulazeez Abdulazeez Adeshina', 'seriously' );
 "
-#display __sqlite3_exec(db, query)
-#display __sqlite3_errmsg(db) + nl
+display __sqlite3_exec(db, query)
+display __sqlite3_errmsg(db) + nl
 
 __sqlite3_close(db)
