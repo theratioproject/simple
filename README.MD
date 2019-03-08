@@ -16,7 +16,7 @@ ___
 
 ___
 
-<p style="text-align: center;" align="center"> [![Download simple-lang](https://a.fsdn.com/con/app/sf-download-button)](https://sourceforge.net/projects/simple-lang/files/s0.4.0/) </p>
+[![Download simple-lang](https://a.fsdn.com/con/app/sf-download-button)](https://sourceforge.net/projects/simple-lang/files/s0.4.0/) 
 
 ## Building from source
 
