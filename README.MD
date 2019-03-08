@@ -16,6 +16,8 @@ ___
 
 ___
 
+<p style="text-align: center;" align="center"> [![Download simple-lang](https://a.fsdn.com/con/app/sf-download-button)](https://sourceforge.net/projects/simple-lang/files/s0.4.0/) </p>
+
 ## Building from source
 
 simple provide self sufficent platform scripts for some of the platform below for building simple successfully with less or no effort at all. 
