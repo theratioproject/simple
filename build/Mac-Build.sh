@@ -418,7 +418,7 @@ uninstall() {
 	cd ../modules/dynamic_modules/makefiles 
 	sudo make -f Makefile-Mac.mk uninstall
 	cd ../../../build
-	header uninstall "reinstall with 'sudo sh Linux-Build.sh -i'"
+	header uninstall "reinstall with 'sudo sh Mac-Build.sh -i'"
 	header uninstall "uninstallation complete"
 }
 
@@ -439,22 +439,21 @@ check_if_is_sudo() {
 	if [ "$(id -u)" -ne 0 ]; then 
 		display sudo "it appear you are not running the script as root"
 		display sudo "the script is reinitiated as root"
-		display sudo "if it fails to re execute the Linux-Build.sh script with sudo"
-		display sudo "manualy run the script with 'sudo sh Linux-Build.sh -c -i'"
-		sudo sh Linux-Build.sh $@
+		display sudo "if it fails to re execute the Mac-Build.sh script with sudo"
+		display sudo "manualy run the script with 'sudo sh Mac-Build.sh -c -i'"
+		sudo sh Mac-Build.sh $@
 		exit 0
 	fi
 }
 
 help() {
 	header "build" "help $version"
-	echo "Usage: sudo sh Linux-Build.sh [FLAG]"
+	echo "Usage: sudo sh Mac-Build.sh [FLAG]"
 	echo "[FLAGS] :"
 	echo "	-c --configure	configure your system for simple-lang successful build"
 	echo "	-i --install	install simple-lang on your system"
 	echo "	-u --uninstall	remove simple-lang installation from your system"
 	echo "	-d --debug	create a distributable(archivable) version in ../../ source directory"
-	echo "	-x --deb	create a .deb package that can be install with 'dpkg -i simple*.deb'"
 	echo "	x86 --32-bit	build 32 bit version of simple-lang"
 	echo "	x64 --64-bit	build 64 bit version of simple-lang"
 	echo "	-t --temp	keep the */dist/ folder(s) in source tree"
@@ -638,20 +637,20 @@ build_deb_package() {
 			sudo cp ../../$simple_debug_version/include/*.h $debpackagedir/usr/include/simple/
 			
 			if [ $arc_var = "-m32" ]; then
-				sudo mkdir -p "$debpackagedir/usr/lib/i386-linux-gnu/"
-				sudo cp ../../$simple_debug_version/bin/simple.dylib $debpackagedir/usr/lib/i386-linux-gnu/libsimple.dylib.$ver
+				sudo mkdir -p "$debpackagedir/usr/lib/i386-Mac-gnu/"
+				sudo cp ../../$simple_debug_version/bin/simple.dylib $debpackagedir/usr/lib/i386-Mac-gnu/libsimple.dylib.$ver
 			elif [ $arc_var = "-m64" ]; then
-				sudo mkdir -p "$debpackagedir/usr/lib/x86_64-linux-gnu/"
-				sudo cp ../../$simple_debug_version/bin/simple.dylib $debpackagedir/usr/lib/x86_64-linux-gnu/libsimple.dylib.$ver
+				sudo mkdir -p "$debpackagedir/usr/lib/x86_64-Mac-gnu/"
+				sudo cp ../../$simple_debug_version/bin/simple.dylib $debpackagedir/usr/lib/x86_64-Mac-gnu/libsimple.dylib.$ver
 			fi  
 			
 			local libcrypto=$(find_dependent_lib ../../$simple_debug_version/modules/dynamic_modules/security.dylib libcrypto)
-			if [[ "$libcrypto" = *"i386-linux-gnu"* ]]; then
-				sudo mkdir -p "$debpackagedir/usr/lib/i386-linux-gnu/"
-				sudo cp $libcrypto $debpackagedir/usr/lib/i386-linux-gnu/
-			elif [[ "$libcrypto" = *"x86_64-linux-gnu"* ]]; then
-				sudo mkdir -p "$debpackagedir/usr/lib/x86_64-linux-gnu/"
-				sudo cp $libcrypto $debpackagedir/usr/lib/x86_64-linux-gnu/
+			if [[ "$libcrypto" = *"i386-Mac-gnu"* ]]; then
+				sudo mkdir -p "$debpackagedir/usr/lib/i386-Mac-gnu/"
+				sudo cp $libcrypto $debpackagedir/usr/lib/i386-Mac-gnu/
+			elif [[ "$libcrypto" = *"x86_64-Mac-gnu"* ]]; then
+				sudo mkdir -p "$debpackagedir/usr/lib/x86_64-Mac-gnu/"
+				sudo cp $libcrypto $debpackagedir/usr/lib/x86_64-Mac-gnu/
 			fi
 			
 		;;
@@ -667,21 +666,21 @@ build_deb_package() {
 			sudo install $prefix/include/simple/simple* $debpackagedir/usr/include/simple/
 			
 			if [ $arc_var = "-m32" ]; then
-				sudo mkdir -p "$debpackagedir/usr/lib/i386-linux-gnu/"
-				#sudo cp $prefix/lib/simple.dylib $debpackagedir/usr/lib/i386-linux-gnu/libsimple.dylib.$ver
+				sudo mkdir -p "$debpackagedir/usr/lib/i386-Mac-gnu/"
+				#sudo cp $prefix/lib/simple.dylib $debpackagedir/usr/lib/i386-Mac-gnu/libsimple.dylib.$ver
 			elif [ $arc_var = "-m64" ]; then
-				sudo mkdir -p "$debpackagedir/usr/lib/x86_64-linux-gnu/"
-				#sudo cp $prefix/lib/simple.dylib $debpackagedir/usr/lib/x86_64-linux-gnu/libsimple.dylib.$ver
+				sudo mkdir -p "$debpackagedir/usr/lib/x86_64-Mac-gnu/"
+				#sudo cp $prefix/lib/simple.dylib $debpackagedir/usr/lib/x86_64-Mac-gnu/libsimple.dylib.$ver
 			fi  
 			
 			#no moving with libcrypto
 			local libcrypto=$(find_dependent_lib /var/lib/simple/$version/modules/dynamic_modules/security.dylib libcrypto)
-			if [[ "$libcrypto" = *"i386-linux-gnu"* ]]; then
-				sudo mkdir "$debpackagedir/usr/lib/i386-linux-gnu/"
-				sudo cp $libcrypto $debpackagedir/usr/lib/i386-linux-gnu/
-			elif [[ "$libcrypto" = *"x86_64-linux-gnu"* ]]; then
-				sudo mkdir "$debpackagedir/usr/lib/x86_64-linux-gnu/"
-				sudo cp $libcrypto $debpackagedir/usr/lib/x86_64-linux-gnu/
+			if [[ "$libcrypto" = *"i386-Mac-gnu"* ]]; then
+				sudo mkdir "$debpackagedir/usr/lib/i386-Mac-gnu/"
+				sudo cp $libcrypto $debpackagedir/usr/lib/i386-Mac-gnu/
+			elif [[ "$libcrypto" = *"x86_64-Mac-gnu"* ]]; then
+				sudo mkdir "$debpackagedir/usr/lib/x86_64-Mac-gnu/"
+				sudo cp $libcrypto $debpackagedir/usr/lib/x86_64-Mac-gnu/
 			fi
 		;;
 	esac
