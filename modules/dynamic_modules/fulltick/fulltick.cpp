@@ -18,7 +18,7 @@ bool CallbackStruct::ret_evt_to_fl = true;
 /** the callback delegate for the fulltick library **/
 void SimpleCallBack(Fl_Widget*, void* ptr_index) {
     char code_block[30];
-    snprintf(code_block, sizeof(code_block), "__fltk_current_widget_id=%i ", (int)ptr_index);
+    snprintf(code_block, sizeof(code_block), "__fltk_current_widget_id=%i ", (int)(size_t)ptr_index);
     simple_vm_runcode(((SimpleState *)CallbackStruct::_sState)->vm, code_block); 
     simple_vm_callblock(((SimpleState *)CallbackStruct::_sState)->vm,"__fltk_widget_callback");
 }
@@ -26,7 +26,7 @@ void SimpleCallBack(Fl_Widget*, void* ptr_index) {
 /** the menu callback delegate for the fulltick library **/
 void SimpleMenuCallBack(Fl_Widget*, void* ptr_index) {
     char code_block[30];
-    snprintf(code_block, sizeof(code_block), "__fltk_current_menu_index=%i ", (int)ptr_index);
+    snprintf(code_block, sizeof(code_block), "__fltk_current_menu_index=%i ", (int)(size_t)ptr_index);
     simple_vm_runcode(((SimpleState *)CallbackStruct::_sState)->vm, code_block); 
     simple_vm_callblock(((SimpleState *)CallbackStruct::_sState)->vm,"__fltk_widget_menu_callback");
 }
@@ -27758,7 +27758,11 @@ SIMPLE_BLOCK(fltk_fl_gc)
 
 SIMPLE_BLOCK(fltk_fl_window)
 {
-    SIMPLE_API_RETCPOINTER(fl_window,"SMOOTHC_FLTK");
+    #ifdef __APPLE__
+        SIMPLE_API_RETCPOINTER(NULL,"SMOOTHC_FLTK");
+    #else
+        SIMPLE_API_RETCPOINTER(fl_window,"SMOOTHC_FLTK");
+    #endif
 }
 
 SIMPLE_BLOCK(fltk_fl_clip_region_x)

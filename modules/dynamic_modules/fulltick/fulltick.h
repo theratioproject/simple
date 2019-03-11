@@ -150,6 +150,10 @@
 #endif
 #include <FL/x.H>
 
+#ifndef free_color
+#define free_color(x,y) get_color(x) //we don't need it now
+#endif
+
 extern "C" {
 	#include "../../../simple/include/simple.h"
 	SIMPLE_API void init_full_tick(SimpleState *sState);

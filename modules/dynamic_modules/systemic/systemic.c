@@ -36,7 +36,11 @@ LPFN_ISWOW64PROCESS isWindows64  ;
     #pragma warning Unknown dynamic link import/export semantics.
 #endif
 #endif
-        
+
+#if defined(__ANDROID__) || defined(__TERMUX__) || defined(__APPLE__)
+	#define _beep(x,y) printf("\a")
+#endif
+
 SIMPLE_API void init_simple_module(SimpleState *sState)
 {   
     register_block("isMsDos",systemic_ismsdos);
@@ -304,11 +308,7 @@ void system_beep ( void *pointer )
         #ifdef _WIN32
         Beep(SIMPLE_API_GETNUMBER(1), SIMPLE_API_GETNUMBER(2));
         #else
-			#if defined(__ANDROID__) || defined(__TERMUX__)
-				printf("\a");
-			#else
-				_beep(SIMPLE_API_GETNUMBER(1), SIMPLE_API_GETNUMBER(2));
-			#endif
+			_beep(SIMPLE_API_GETNUMBER(1), SIMPLE_API_GETNUMBER(2));
         #endif
     } else {
         SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
