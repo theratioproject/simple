@@ -14,7 +14,7 @@
 
 
 ifeq ($(PREFIX),)
-    PREFIX := /usr/
+    PREFIX := /usr/local/
 endif
 
 # Flags
@@ -189,7 +189,7 @@ distclean: clean
 install: $(CND_DISTDIR)/simple
 	mkdir -p $(DESTDIR)/$(PREFIX)/bin
 	mkdir -p $(DESTDIR)/$(PREFIX)/lib
-	sudo mkdir -p $(DESTDIR)/$(PREFIX)/include/simple
+	mkdir -p $(DESTDIR)/$(PREFIX)/include/simple
 	install $(CND_DISTDIR)/simple $(DESTDIR)$(PREFIX)/bin/
 	install $(CND_DISTDIR)/libsimple.$(CND_DLIB_EXT) $(DESTDIR)/$(PREFIX)/lib/
 	install $(CND_DISTDIR)/libsimple.a $(DESTDIR)/$(PREFIX)/lib/

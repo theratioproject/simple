@@ -366,7 +366,7 @@ copyinclude() {
 			fi
 		;;
 		*install* )
-			local prefix=${DESTDIR}${PREFIX:-/usr/}
+			local prefix=${DESTDIR}${PREFIX:-/usr/local/}
 			if [ -e "$prefix/include/simple" ]; then 
 				sudo rm -R -f "$prefix/include/simple"
 			fi
@@ -392,7 +392,7 @@ not_found_error() {
 }
 
 uninstall() {
-	local prefix=${DESTDIR}${PREFIX:-/usr/}
+	local prefix=${DESTDIR}${PREFIX:-/usr/local/}
 	header uninstall "removing simple $version from the system"
 	echo "simple-lang:menu: removing simplerepl menu entry"
 	sudo rm -f ~/.local/share/applications/simplerepl.desktop
@@ -575,7 +575,7 @@ remove_dist_folders() {
 }
 
 finalize_installation() {
-	local prefix=${DESTDIR}${PREFIX:-/usr/}
+	local prefix=${DESTDIR}${PREFIX:-/usr/local/}
 	header link "linking environment and library"
 	echo "simple-lang:link: linking simple.dylib to libsimple.dylib and libsimple.$ver.dylib"
 	sudo link $prefix/lib/simple.dylib /lib/libsimple.dylib
@@ -675,7 +675,7 @@ build_deb_package() {
 			
 		;;
 		*install* )
-			local prefix=${DESTDIR}${PREFIX:-/usr/}
+			local prefix=${DESTDIR}${PREFIX:-/usr/local/}
 			sudo cp $prefix/bin/simple $debpackagedir/usr/bin/
 			sudo cp $prefix/bin/simplerepl $debpackagedir/usr/bin/
 			sudo cp $prefix/bin/bake $debpackagedir/usr/bin/

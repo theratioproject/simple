@@ -65,16 +65,16 @@ clean:
 
 .PHONY: install
 install:
-	mkdir -p /var/lib/simple$(VERSION)/docs/
-	mkdir -p /var/lib/simple$(VERSION)/modules/
-	mkdir -p /var/lib/simple$(VERSION)/modules/dynamic_modules/
-	install $(CND_DISTDIR)/*.$(CND_DLIB_EXT)* /var/lib/simple$(VERSION)/modules/dynamic_modules/
-	install $(MODULE_BASE)/modules-dependencies.conf /var/lib/simple$(VERSION)/modules/
-	cp -R $(MODULE_BASE)/archive /var/lib/simple$(VERSION)/modules/
-	cp -R $(MODULE_BASE)/fulltick /var/lib/simple$(VERSION)/modules/
-	cp -R $(MODULE_BASE)/parser /var/lib/simple$(VERSION)/modules/
-	cp -R $(MODULE_BASE)/simple /var/lib/simple$(VERSION)/modules/
-	cp -R $(MODULE_BASE)/web /var/lib/simple$(VERSION)/modules/
+	mkdir -p /var/lib/simple/$(VERSION)/docs/
+	mkdir -p /var/lib/simple/$(VERSION)/modules/
+	mkdir -p /var/lib/simple/$(VERSION)/modules/dynamic_modules/
+	install $(CND_DISTDIR)/*.$(CND_DLIB_EXT)* /var/lib/simple/$(VERSION)/modules/dynamic_modules/
+	install $(MODULE_BASE)/modules-dependencies.conf /var/lib/simple/$(VERSION)/modules/
+	cp -R $(MODULE_BASE)/archive /var/lib/simple/$(VERSION)/modules/
+	cp -R $(MODULE_BASE)/fulltick /var/lib/simple/$(VERSION)/modules/
+	cp -R $(MODULE_BASE)/parser /var/lib/simple/$(VERSION)/modules/
+	cp -R $(MODULE_BASE)/simple /var/lib/simple/$(VERSION)/modules/
+	cp -R $(MODULE_BASE)/web /var/lib/simple/$(VERSION)/modules/
 	chmod -R 777 /var/lib/simple
 	rm -r -f $(CND_DISTDIR)/
 	
