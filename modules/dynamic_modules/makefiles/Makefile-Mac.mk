@@ -65,28 +65,28 @@ clean:
 
 .PHONY: install
 install:
-	mkdir -p /Library/Simple/$(VERSION)/docs/
-	mkdir -p /Library/Simple/$(VERSION)/modules/
-	mkdir -p /Library/Simple/$(VERSION)/modules/dynamic_modules/
-	install $(CND_DISTDIR)/*.$(CND_DLIB_EXT)* /Library/Simple/$(VERSION)/modules/dynamic_modules/
-	install $(MODULE_BASE)/modules-dependencies.conf /Library/Simple/$(VERSION)/modules/
-	cp -R $(MODULE_BASE)/archive /Library/Simple/$(VERSION)/modules/
-	cp -R $(MODULE_BASE)/fulltick /Library/Simple/$(VERSION)/modules/
-	cp -R $(MODULE_BASE)/parser /Library/Simple/$(VERSION)/modules/
-	cp -R $(MODULE_BASE)/simple /Library/Simple/$(VERSION)/modules/
-	cp -R $(MODULE_BASE)/web /Library/Simple/$(VERSION)/modules/
-	chmod -R 777 /Library/Simple/
+	mkdir -p /var/lib/simple$(VERSION)/docs/
+	mkdir -p /var/lib/simple$(VERSION)/modules/
+	mkdir -p /var/lib/simple$(VERSION)/modules/dynamic_modules/
+	install $(CND_DISTDIR)/*.$(CND_DLIB_EXT)* /var/lib/simple$(VERSION)/modules/dynamic_modules/
+	install $(MODULE_BASE)/modules-dependencies.conf /var/lib/simple$(VERSION)/modules/
+	cp -R $(MODULE_BASE)/archive /var/lib/simple$(VERSION)/modules/
+	cp -R $(MODULE_BASE)/fulltick /var/lib/simple$(VERSION)/modules/
+	cp -R $(MODULE_BASE)/parser /var/lib/simple$(VERSION)/modules/
+	cp -R $(MODULE_BASE)/simple /var/lib/simple$(VERSION)/modules/
+	cp -R $(MODULE_BASE)/web /var/lib/simple$(VERSION)/modules/
+	chmod -R 777 /var/lib/simple
 	rm -r -f $(CND_DISTDIR)/
 	
 #We should not remove the main simple directory because it might contain 
 #other simple-lang dependencies and modules for another version
-#rm -r -f /Library/Simple/
+#rm -r -f /var/lib/simple
 
 .PHONY: uninstall
 uninstall:
-	rm -r -f /Library/Simple/$(VERSION)/modules/dynamic_modules/
-	rm -r -f /Library/Simple/$(VERSION)/modules/
-	rm -r -f /Library/Simple/$(VERSION)/
+	rm -r -f /var/lib/simple/$(VERSION)/modules/dynamic_modules/
+	rm -r -f /var/lib/simple/$(VERSION)/modules/
+	rm -r -f /var/lib/simple/$(VERSION)/
 
 #If this makefile does not work on your Windows PC or you use 
 #alternative compiler e.g Visual Studio, Cygwin e.t.c feel free to 

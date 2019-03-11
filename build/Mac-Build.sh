@@ -237,7 +237,7 @@ copymodules() {
 treat_first_calls_file() {
 	# The __first_calls.sim is important for the simple-lang modules to function
 	if [ -e $2 ]; then
-		echo "callDynamicModule(\"libsystemic.so\") callDynamicModule(\"libstring_savant.so\")" >> $2
+		echo "callDynamicModule(\"libsystemic.dylib\") callDynamicModule(\"libstring_savant.dylib\")" >> $2
 	else
 		display_error $1 "cannot find the __first_calls.sim file "
 	fi
@@ -257,18 +257,18 @@ build_dynamic_modules(){
 			
 			# libfulltick(GUI) dynamic_module
 				display "dynamic_modules:libfulltick:" "checking if libfulltick build successfully"
-			if [ -e ../dist/libfulltick.so ]; then
+			if [ -e ../dist/libfulltick.dylib ]; then
 				display "dynamic_modules:libfulltick:" "libfulltick dynamic module built successfully"
 			else
 				echo "error:dynamic_modules:libfulltick: libfulltick dynamic module build failed"
 				echo "error:dynamic_modules:libfulltick: libfulltick build is sure to fail if you don't have fltk library installed or it is not configured as shared library"
 				echo "error:dynamic_modules:libfulltick: visit $fulltick_build_issue for build instruction"
 				echo "dynamic_modules:flibulltick: falling back on available backup build."
-				if [ -e ../fulltick/dist/libfulltick$arc.so ]; then
+				if [ -e ../fulltick/dist/libfulltick$arc.dylib ]; then
 					echo "dynamic_modules:libfulltick: backup build found but might be outdated"
-					echo "dynamic_modules:libfulltick: copying libfulltick.so to ../dist/ directory"
-					cp ../fulltick/dist/libfulltick$arc.so ../dist/
-					mv ../dist/libfulltick$arc.so ../dist/libfulltick.so
+					echo "dynamic_modules:libfulltick: copying libfulltick.dylib to ../dist/ directory"
+					cp ../fulltick/dist/libfulltick$arc.dylib ../dist/
+					mv ../dist/libfulltick$arc.dylib ../dist/libfulltick.dylib
 				else
 					echo "error:dynamic_modules:libfulltick: the backup libfulltick dynamic module cannot be found"
 					echo "error:dynamic_modules:libfulltick: the repository appears to be currupted. "
@@ -295,9 +295,9 @@ build_dynamic_modules(){
 			sudo mkdir -p "../../$simple_debug_version/modules"
 			sudo mkdir -p "../../$simple_debug_version/modules/dynamic_modules"
 			if [ -e "../modules/dynamic_modules/dist/" ]; then
-				sudo cp ../modules/dynamic_modules/dist/*.so* "../../$simple_debug_version/modules/dynamic_modules"
+				sudo cp ../modules/dynamic_modules/dist/*.dylib* "../../$simple_debug_version/modules/dynamic_modules"
 			else
-				build_failed_error $1 "simple and simple.so"
+				build_failed_error $1 "simple and simple.dylib"
 			fi
 		;;
 		*install* )
@@ -338,10 +338,10 @@ installsimpleexec() {
 			sudo mkdir "../../../$simple_debug_version/bin"
 			if [ -e "../dist/simple" ]; then
 				sudo cp "../dist/simple" "../../../$simple_debug_version/bin"
-				sudo cp "../dist/libsimple.so" "../../../$simple_debug_version/bin"
+				sudo cp "../dist/libsimple.dylib" "../../../$simple_debug_version/bin"
 				sudo cp "../dist/libsimple.a" "../../../$simple_debug_version/bin"
 			else
-				build_failed_error $1 "simple and simple.so"
+				build_failed_error $1 "simple and simple.dylib"
 			fi
 		;;
 		*install* )
@@ -398,13 +398,13 @@ uninstall() {
 	sudo rm -f ~/.local/share/applications/simplerepl.desktop
 	header uninstall "unlinking environment and library"
 	unlink ~/Desktop/simplerepl
-	sudo unlink $prefix/lib/libsimple.$ver.so
-	sudo unlink $prefix/lib/libsimple.so
-	sudo unlink /lib/libsimple.$ver.so
-	sudo unlink /lib/libsimple.so
+	sudo unlink $prefix/lib/libsimple.$ver.dylib
+	sudo unlink $prefix/lib/libsimple.dylib
+	sudo unlink /lib/libsimple.$ver.dylib
+	sudo unlink /lib/libsimple.dylib
 	sudo unlink /lib/libsimple.a
-	sudo unlink /usr/local/lib/libsimple.$ver.so
-	sudo unlink /usr/local/lib/libsimple.so 
+	sudo unlink /usr/local/lib/libsimple.$ver.dylib
+	sudo unlink /usr/local/lib/libsimple.dylib 
 	header uninstall "uninstalling simple-lang core executables"
 	cd ../simple/makefiles
 	sudo make -f Makefile-Mac.mk uninstall 
@@ -480,7 +480,7 @@ help() {
 	echo "	-h --help	display this help message"
 	echo ""
 	echo "[STANDALONE BUILD FLAGS] :"
-	echo "	-so --simple-only	build only simple and libsimple.so"
+	echo "	-so --simple-only	build only simple and libsimple.dylib"
 	echo "	-io --includes-only	copy only the simple includes files"
 	echo "	-mo --modules-only	copy only the standard modules"
 	echo "	-yo --dymodules-only	build only the dynamic modules"
@@ -577,13 +577,13 @@ remove_dist_folders() {
 finalize_installation() {
 	local prefix=${DESTDIR}${PREFIX:-/usr/}
 	header link "linking environment and library"
-	echo "simple-lang:link: linking simple.so to libsimple.so and libsimple.$ver.so"
-	sudo link $prefix/lib/simple.so /lib/libsimple.so
-	sudo link $prefix/lib/simple.so /lib/libsimple.$ver.so
-	sudo link $prefix/lib/simple.so $prefix/lib/libsimple.so
-	sudo link $prefix/lib/simple.so $prefix/lib/libsimple.$ver.so
-	sudo link $prefix/lib/simple.so $prefix/local/lib/libsimple.so
-	sudo link $prefix/lib/simple.so $prefix/local/lib/libsimple.$ver.so
+	echo "simple-lang:link: linking simple.dylib to libsimple.dylib and libsimple.$ver.dylib"
+	sudo link $prefix/lib/simple.dylib /lib/libsimple.dylib
+	sudo link $prefix/lib/simple.dylib /lib/libsimple.$ver.dylib
+	sudo link $prefix/lib/simple.dylib $prefix/lib/libsimple.dylib
+	sudo link $prefix/lib/simple.dylib $prefix/lib/libsimple.$ver.dylib
+	sudo link $prefix/lib/simple.dylib $prefix/local/lib/libsimple.dylib
+	sudo link $prefix/lib/simple.dylib $prefix/local/lib/libsimple.$ver.dylib
 	display link "linking simplerepl to user ~/Desktop"
 	sudo link $prefix/bin/simplerepl ~/Desktop/simplerepl
 
@@ -652,19 +652,19 @@ build_deb_package() {
 			sudo cp ../../$simple_debug_version/bin/modular $debpackagedir/usr/bin/
 			sudo cp ../../$simple_debug_version/bin/webworker $debpackagedir/usr/bin/
 			sudo cp ../../$simple_debug_version/bin/bake $debpackagedir/usr/bin/
-			sudo cp ../../$simple_debug_version/bin/simple.so $debpackagedir/usr/lib/
+			sudo cp ../../$simple_debug_version/bin/simple.dylib $debpackagedir/usr/lib/
 			sudo cp -R ../../$simple_debug_version/modules/ $debpackagedir/var/lib/simple/$version/modules
 			sudo cp ../../$simple_debug_version/include/*.h $debpackagedir/usr/include/simple/
 			
 			if [ $arc_var = "-m32" ]; then
 				sudo mkdir -p "$debpackagedir/usr/lib/i386-linux-gnu/"
-				sudo cp ../../$simple_debug_version/bin/simple.so $debpackagedir/usr/lib/i386-linux-gnu/libsimple.so.$ver
+				sudo cp ../../$simple_debug_version/bin/simple.dylib $debpackagedir/usr/lib/i386-linux-gnu/libsimple.dylib.$ver
 			elif [ $arc_var = "-m64" ]; then
 				sudo mkdir -p "$debpackagedir/usr/lib/x86_64-linux-gnu/"
-				sudo cp ../../$simple_debug_version/bin/simple.so $debpackagedir/usr/lib/x86_64-linux-gnu/libsimple.so.$ver
+				sudo cp ../../$simple_debug_version/bin/simple.dylib $debpackagedir/usr/lib/x86_64-linux-gnu/libsimple.dylib.$ver
 			fi  
 			
-			local libcrypto=$(find_dependent_lib ../../$simple_debug_version/modules/dynamic_modules/security.so libcrypto)
+			local libcrypto=$(find_dependent_lib ../../$simple_debug_version/modules/dynamic_modules/security.dylib libcrypto)
 			if [[ "$libcrypto" = *"i386-linux-gnu"* ]]; then
 				sudo mkdir -p "$debpackagedir/usr/lib/i386-linux-gnu/"
 				sudo cp $libcrypto $debpackagedir/usr/lib/i386-linux-gnu/
@@ -679,22 +679,22 @@ build_deb_package() {
 			sudo cp $prefix/bin/simple $debpackagedir/usr/bin/
 			sudo cp $prefix/bin/simplerepl $debpackagedir/usr/bin/
 			sudo cp $prefix/bin/bake $debpackagedir/usr/bin/
-			sudo cp $prefix/lib/simple.so $debpackagedir/usr/lib/
-			sudo cp $prefix/lib/libsimple.so $debpackagedir/usr/lib/
+			sudo cp $prefix/lib/simple.dylib $debpackagedir/usr/lib/
+			sudo cp $prefix/lib/libsimple.dylib $debpackagedir/usr/lib/
 			sudo cp $prefix/lib/libsimple.a $debpackagedir/usr/lib/
 			sudo cp -R /var/lib/simple/$version $debpackagedir/var/lib/simple/
 			sudo install $prefix/include/simple/simple* $debpackagedir/usr/include/simple/
 			
 			if [ $arc_var = "-m32" ]; then
 				sudo mkdir -p "$debpackagedir/usr/lib/i386-linux-gnu/"
-				#sudo cp $prefix/lib/simple.so $debpackagedir/usr/lib/i386-linux-gnu/libsimple.so.$ver
+				#sudo cp $prefix/lib/simple.dylib $debpackagedir/usr/lib/i386-linux-gnu/libsimple.dylib.$ver
 			elif [ $arc_var = "-m64" ]; then
 				sudo mkdir -p "$debpackagedir/usr/lib/x86_64-linux-gnu/"
-				#sudo cp $prefix/lib/simple.so $debpackagedir/usr/lib/x86_64-linux-gnu/libsimple.so.$ver
+				#sudo cp $prefix/lib/simple.dylib $debpackagedir/usr/lib/x86_64-linux-gnu/libsimple.dylib.$ver
 			fi  
 			
 			#no moving with libcrypto
-			local libcrypto=$(find_dependent_lib /var/lib/simple/$version/modules/dynamic_modules/security.so libcrypto)
+			local libcrypto=$(find_dependent_lib /var/lib/simple/$version/modules/dynamic_modules/security.dylib libcrypto)
 			if [[ "$libcrypto" = *"i386-linux-gnu"* ]]; then
 				sudo mkdir "$debpackagedir/usr/lib/i386-linux-gnu/"
 				sudo cp $libcrypto $debpackagedir/usr/lib/i386-linux-gnu/

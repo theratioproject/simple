@@ -100,21 +100,21 @@ block main()
 			
 		elif strStartsWith(param,"-i=") or strStartsWith(param,"--icon=")
 			iconPath = removeStr(param, "-i=")
-			iconPath = removeStr(param, "--icon=")
+			iconPath = removeStr(iconPath, "--icon=")
 			if iconPath != "" {
 				bread.IconPath = iconPath
 			}
 			
 		elif strStartsWith(param,"-s=") or strStartsWith(param,"--simple=")
 			libPath = removeStr(param, "-s=")
-			libPath = removeStr(param, "--simple=")
+			libPath = removeStr(libPath, "--simple=")
 			if libPath != "" {
 				bread.SimplePath = libPath
 			}
 			
 		elif strStartsWith(param,"-inc=") or strStartsWith(param,"--include=")
 			includeHeader = removeStr(param, "-inc=")
-			includeHeader = removeStr(param, "--include=")
+			includeHeader = removeStr(includeHeader, "--include=")
 			if includeHeader != "" {
 				bread.IncludeHeader = includeHeader
 			}
@@ -303,8 +303,11 @@ int main( int argc, char *argv[]) {
 				
 			elif isMacosx() and bread.BuildAll
 				stdout.printf("\r%s\rbuilding for macosx...", strCopy(" ", 40))
-				
+				__mkdir(bread.TempPath+"/../macosx/",0755)
+				cmd = 'cc "-Wl,-rpath,./" "-Wl,-rpath,../lib/" "-Wl,-rpath,/lib/" "-Wl,-rpath,/usr/lib/" '+bread.CFLAG+' '+bread.BuildArch+' -I/$DESTDIR/$PREFIX/include/ -I/usr/include/ -lm -ldl -o "'+bread.TempPath+"/../macosx/"+bread.Name+'" "'+bread.TempPath+"/"+bread.Name+".bake.c"+'" -L '+simpleExecDir()+' -lsimple'
+				system(cmd)
 				stdout.print("(done)")
+
 			}
 			
 			if bread.BuildAll or bread.MobileOnly {
@@ -342,6 +345,19 @@ int main( int argc, char *argv[]) {
 					stdout.printf("\r%s\rinstalling "+bread.Name+'.exe : cannot detect build directory...(failed)', strCopy(" ", 33))
 				}
 			elif isMacosx() and bread.BuildAll
+				stdout.printf("\r%s\rinstalling "+bread.Name+' : detecting build directory...', strCopy(" ", 30))
+				if __dir_exists(bread.TempPath+"/../macosx/") {
+					stdout.printf("\r%s\rinstalling "+bread.Name+' : detecting built executable...', strCopy(" ", 30))
+					if __file_exists(bread.TempPath+"/../macosx/"+bread.Name+'') {
+						stdout.printf("\r%s\rinstalling "+bread.Name+' : copying built executable...', strCopy(" ", 33))
+						__rename(bread.TempPath+"/../macosx/"+bread.Name+'', exeFolder()+bread.Name+'')
+						stdout.print("(done)")
+					else
+						stdout.printf("\r%s\rinstalling "+bread.Name+' : cannot detect built executable...(failed)', strCopy(" ", 33))
+					}	
+				else 
+					stdout.printf("\r%s\rinstalling "+bread.Name+' : cannot detect build directory...(failed)', strCopy(" ", 33))
+				}
 			}
 		
 		block removeTemps(bread)
