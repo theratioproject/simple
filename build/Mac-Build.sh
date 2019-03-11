@@ -424,34 +424,15 @@ uninstall() {
 
 configure() {
 	header configure "configure build $version"
-	sudo apt-get update
-	sudo apt-get -y install build-essential g++
+	#MACOSX I believe comes with C/C++ tool chains
+	sudo brew install fltk
+	sudo brew install curl
+	sudo brew install openssl
 	case $cpu_arc in
 			*64* )
-				sudo apt-get -y install gcc-multilib
-				sudo apt-get -y install g++-multilib
+				#sudo brew install libfltk1.3-dev:i386
 			;;
 	esac
-	sudo apt-get -y install libfltk1.3-dev
-	sudo apt-get -y install xorg-dev
-	sudo apt-get -y install libx11-dev
-	sudo apt-get -y install libxft-dev
-	sudo apt-get -y install libssl-dev
-	sudo apt-get -y install make
-	sudo apt-get -y install libcurl4-openssl-dev
-	#sudo apt-get -y install curl
-	case $cpu_arc in
-			*64* )
-				#sudo apt-get -y install libfltk1.3-dev:i386
-				sudo apt-get -y install xorg-dev:i386
-				#sudo apt-get -y install libxft-dev:i386
-				sudo apt-get -y install libxcursor-dev:i386
-				sudo apt-get -y install libxinerama-dev:i386
-				sudo apt-get -y install libssl-dev:i386
-				sudo apt-get -y install libcurl4-openssl-dev:i386
-			;;
-	esac
-	#sudo apt-get -y autoremove
 }
 
 check_if_is_sudo() {
