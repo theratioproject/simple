@@ -3,7 +3,7 @@
 clear
 
 exec_type=""
-build_arc="x86"
+build_arc="x64"
 ver=0.4.0
 keep_dist="false"
 version=s"$ver"

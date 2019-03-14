@@ -63,6 +63,22 @@ clean:
 	${RM} ${CND_DISTDIR}/build/*.o
 	${RMDIR} ${CND_DISTDIR}/build
 
+.PHONY: termux
+termux: 
+	cd ../archiver/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
+	cd ../file_savant/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
+	cd ../mathic/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
+	cd ../string_savant/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
+	cd ../networker/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
+	cd ../security/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC) "LDLIBSOPTIONS=-lssl -lcrypto"
+	cd ../simple_sqlite/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
+	cd ../systemic/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
+	cd ../core_dynamic_module/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
+	#cd ../fulltick/ && $(MAKE) -f Makefile-Linux.mk ARC_FLAG=$(ARC_FLAG) ARC=$(ARC)
+	
+	${RM} ${CND_DISTDIR}/build/*.o
+	${RMDIR} ${CND_DISTDIR}/build
+
 .PHONY: install
 install:
 	mkdir -p /var/lib/simple/$(VERSION)/docs/
