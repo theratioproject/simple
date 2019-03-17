@@ -3,16 +3,16 @@
 clear
 
 exec_type=""
-build_arc="x86"
+build_arc="x64"
 ver=0.4.0
 keep_dist="false"
 version=s"$ver"
 simple_debug_version=$version-debug
 fulltick_build_issue="<https://github.com/simple-lang/simple/issues/16>"
-arc_var=-m32
+arc_var=-m64
 arc=32
-operating_system="linux_x86"
-cpu_arc="x86"
+operating_system="linux_x64"
+cpu_arc="x64"
 
 execute_build() {
 	local standalone_flag="none"
@@ -224,10 +224,10 @@ build_dynamic_modules(){
 			#resolve for debug later
 			case $1 in
 				*debug* )				
-					make -f Makefile-Linux.mk  "ARC_FLAG=$arc_var' ./libsimple.so -D__TERMUX__'" ARC=$arc
+					make -f Makefile-Linux.mk termux  "ARC_FLAG=$arc_var' ./libsimple.so -D__TERMUX__'" ARC=$arc
 				;;
 				*install* )
-					make -f Makefile-Linux.mk  "ARC_FLAG=$arc_var' -lsimple -D__TERMUX__'" ARC=$arc
+					make -f Makefile-Linux.mk termux "ARC_FLAG=$arc_var' -lsimple -D__TERMUX__'" ARC=$arc
 				;;
 			esac
 			# fulltick(GUI) dynamic_module
