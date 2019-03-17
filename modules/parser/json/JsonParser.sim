@@ -198,6 +198,9 @@ class JsonParser : Object
 		}
 		return jsonValue
 		
+	/*
+	
+	*/
 	block parseDynamic()
 		Dynamic = true
 		return parse()

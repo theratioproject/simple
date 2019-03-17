@@ -9,7 +9,7 @@ ___
 |--------------------------|--------------|
 | Windows (7, 8, 10, ...)  | [![Simple Windows Build](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/simple-lang/simple/)   |
 | Linux (2.6.18 or later)  | [![Simple Linux Build](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/simple-lang/simple/)   |
-| OSX (10.7 Lion or later) | [![Simple OSX Build](https://img.shields.io/badge/build-failing-red.svg)](https://github.com/simple-lang/simple/)   |
+| OSX (10.7 Lion or later) | [![Simple OSX Build](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/simple-lang/simple/)   |
 | Android (SDK 16 or later) | [![Simple Android Build](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/simple-lang/simple/)   |
 | Android Termux | [![Simple Android Build](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/simple-lang/simple/)   |
 | IOS | [![Simple IOS Build](https://img.shields.io/badge/build-pending-yellow.svg)](https://github.com/simple-lang/simple/)   |
@@ -24,7 +24,7 @@ simple provide self sufficent platform scripts for some of the platform below fo
 The scripts are [here](./build/). Each script has the following options to customize your build or avoid building a failing section.
 ```bash
 [FLAGS] :
-        -c --configure  configure your system for simple-lang successfull build
+        -c --configure  configure your system for simple-lang successful build
         -i --install    install simple-lang on your system
         -b --build-dir  manually enter folder to install simple-lang
         -u --uninstall  uninstall simple-lang from your system
@@ -43,7 +43,7 @@ The scripts are [here](./build/). Each script has the following options to custo
         -yo --dymodules-only    build only the dynamic modules
         -eo --environment-only  build only the environment programs
 ```
-If you just clone this repository you should first configure your system for a successfull building by using the **-c** flag, this 
+If you just clone this repository you should first configure your system for a successful building by using the **-c** flag, this 
 process requires internet connection because all dependencies will be downloaded with an execption to Windows which has no particular libraries location.
 
 Download this repository and extract to a working folder or clone this repository into a working folder using git
@@ -87,15 +87,24 @@ After running the command above simple will be installed in the same directory y
 
 ### Building on OSX
 
-Some section such as dynamic modules build is currently failing on OSX, but you can still try basic simple examples and logic without using the modules.
-If you want to help build on a MAC machine kindly [review and join this PR](https://github.com/simple-lang/simple/pull/29) 
+##### Configure
+For the first time using the script configure your building enviroment
+```bash
+ $ cd build
+ $ sudo bash ./Mac-Build.sh -c
+```
 
 ##### Installing
 Proceed to install simple-lang on your system and start using from any directory. After it complete you can execute sim scripts from any folder
 ```bash
- $ cd build
- $ bash ./SimpleOnlyBuild-Mac.sh
- $ simple
+ $ sudo bash ./Mac-Build.sh x64 -i
+```
+
+##### Debugging
+If you wish to debug simple build or try it before installing in your system executable space use the **-d** flag. 
+Note : this will allow more debugging flag in simple such that you can debug upto the VM Stack level
+```bash
+ $ sudo bash ./Mac-Build.sh.sh x64 -d
 ```
 
 ### Building on Windows

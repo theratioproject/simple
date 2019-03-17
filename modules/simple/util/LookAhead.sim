@@ -56,7 +56,7 @@ class LookAhead : Object
 		if ((Position + index) < Length) {
 			return Value[Position + index]
 		else
-			return ""
+			return -1
 		}
 		
 	/*
@@ -68,7 +68,7 @@ class LookAhead : Object
 			Position++
 			return ret
 		else
-			return "" 
+			return -1
 		}
 		
 	/*
