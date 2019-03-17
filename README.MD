@@ -137,15 +137,6 @@ After running the command above simple will be installed in the same directory y
 + s$Version-debug
 	+ bin
 
-
-##### Installing
-For the first time using the script configure your building enviroment
-```bash
- $ cd build
- $ bash ./SimpleOnlyBuild-Mac.sh
- $ simple
-```
-
 ### Building on Android
 
 This require the following dependencies <br />
