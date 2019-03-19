@@ -308,7 +308,7 @@ SIMPLE_API void simple_vm_listassignment ( VM *vm )
 	if ( (SIMPLE_VM_STACK_ISSTRING) && (vm->nBeforeEqual <= 1) ) {
 		string_one = simple_string_new_gc(vm->sState,SIMPLE_VM_STACK_READC);
 		assert(string_one != NULL);
-		SIMPLE_VM_STACK_POP ;
+		SIMPLE_VM_STACK_POP ; 
 		pItem = (Item *) SIMPLE_VM_STACK_READP ;
 		assert(pItem != NULL);
 		SIMPLE_VM_STACK_POP ;
@@ -363,6 +363,9 @@ SIMPLE_API void simple_vm_listassignment ( VM *vm )
 	}
 }
 
+/**
+HINT : for tupple class type make item final
+**/
 SIMPLE_API void simple_vm_listgetvalue ( VM *vm,List *var,const char *cStr )
 {
 	int x  ;
@@ -388,8 +391,10 @@ SIMPLE_API void simple_vm_listgetvalue ( VM *vm,List *var,const char *cStr )
 		}
 	}
 	/* Add null Item if not found */
-	list = simple_list_getlist(simple_vm_getglobalscope(vm),SIMPLE_VM_STATICVAR_NULL) ;
-	pItem = simple_list_getitem(list,SIMPLE_VAR_VALUE);
+	list = simple_list_newlist_gc(vm->sState,var);
+	simple_list_copy(list,simple_list_getlist(simple_vm_getglobalscope(vm),SIMPLE_VM_STATICVAR_NULL));
+	simple_list_setstring_gc(vm->sState,list,SIMPLE_LISTHASH_KEY,cStr);
+	pItem = simple_list_getitem(list,SIMPLE_VAR_VALUE);	
 	SIMPLE_VM_STACK_PUSHPVALUE(pItem);
 	SIMPLE_VM_STACK_OBJTYPE = SIMPLE_OBJTYPE_LISTITEM ;
 }
