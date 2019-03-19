@@ -54,7 +54,8 @@ class LookAhead : Object
 			throw(self, "Calling block with extra parameters!")
 		}
 		if ((Position + index) < Length) {
-			return Value[Position + index]
+			ret = Value[Position + index]
+			return ret
 		else
 			return -1
 		}
@@ -65,11 +66,22 @@ class LookAhead : Object
 	block pop()
 		if (Position < Length) {
 			ret = Value[Position]
+			if ret == nl { 
+				Line++ 
+				Column = 0
+			}
+			Column++
 			Position++
 			return ret
 		else
 			return -1
 		}
+		
+	/*
+	
+	*/
+	block position()
+		return "" + Line + ":" + Column
 		
 	/*
 	
@@ -94,5 +106,28 @@ class LookAhead : Object
 	block toString()
 		return "[" + absolutename() + ":Position=" + Position + ",Length=" + Length + "]"
 		
+	/*
+	
+	*/
+	private 
+	
+		/*
 		
+		*/
+		Line = 1
+		
+		/*
+		
+		*/
+		Column = 1
+			
+		/*
+		
+		*/
+		block setLine()
+			
+		/*
+		
+		*/
+		block setColumn()
 		

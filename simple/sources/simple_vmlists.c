@@ -387,11 +387,9 @@ SIMPLE_API void simple_vm_listgetvalue ( VM *vm,List *var,const char *cStr )
 			}
 		}
 	}
-	/* Add Item if not found */
-	list = simple_list_newlist_gc(vm->sState,var);
-	simple_list_addstring_gc(vm->sState,list,cStr);
-	simple_list_addstring_gc(vm->sState,list,"");
-	pItem = simple_list_getitem(list,SIMPLE_LISTHASH_VALUE);
+	/* Add null Item if not found */
+	list = simple_list_getlist(simple_vm_getglobalscope(vm),SIMPLE_VM_STATICVAR_NULL) ;
+	pItem = simple_list_getitem(list,SIMPLE_VAR_VALUE);
 	SIMPLE_VM_STACK_PUSHPVALUE(pItem);
 	SIMPLE_VM_STACK_OBJTYPE = SIMPLE_OBJTYPE_LISTITEM ;
 }
