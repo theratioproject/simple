@@ -365,6 +365,7 @@ SIMPLE_API void simple_vm_listassignment ( VM *vm )
 
 /**
 HINT : for tupple class type make item final
+re-visit
 **/
 SIMPLE_API void simple_vm_listgetvalue ( VM *vm,List *var,const char *cStr )
 {
