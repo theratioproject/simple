@@ -98,6 +98,13 @@ block main()
 		elif param == "-x" or param == "--install"
 			bread.Install = true
 			
+		elif strStartsWith(param,"-n=") or strStartsWith(param,"--name=")
+			name = removeStr(param, "-n=")
+			name = removeStr(name, "--name=")
+			if name != "" {
+				bread.Name = name
+			}
+			
 		elif strStartsWith(param,"-i=") or strStartsWith(param,"--icon=")
 			iconPath = removeStr(param, "-i=")
 			iconPath = removeStr(iconPath, "--icon=")
@@ -141,7 +148,9 @@ block main()
 		throw("bake", "A simple source file (.sim) is not provided")
 	}
 	if bread.SourceFile.Exists {
-		bread.Name = bread.SourceFile.NameOnly
+		if isNull(bread.Name) {
+			bread.Name = bread.SourceFile.NameOnly
+		}
 		bread.TempPath = new Directory(bread.SourceFile.Directory.AbsolutePath + bread.Name + "_bake/tmp/")
 		if !bread.TempPath.Exists {
 			stdout.print("\rcreating temp working directory...")

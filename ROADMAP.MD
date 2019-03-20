@@ -32,7 +32,7 @@ build, installation, features e.t.c
 	- [x] create built-in block in core_dynamic_module to add path to the modules path 
 - [x] write build script for building simple-lang core, environment and modules for windows os
 - [x] write build script for building simple-lang core, environment and modules for linux os
-- [ ] write build script for building simple-lang core, environment and modules for mac os
+- [x] write build script for building simple-lang core, environment and modules for mac os
 - [ ] write build script for building simple-lang core, environment and modules for haiku os
 - [x] make linux build script generate .deb and .zip package
 - [ ] presence of simple-lang codes and snippets on rosetta codes [working issue](https://github.com/simple-lang/simple/issues/20)
@@ -42,7 +42,7 @@ build, installation, features e.t.c
 - [ ] write a comprehensive book on developing with simple-lang
 - [ ] re write the simple-lang interpreter with lot of optimization and split into in dependable parts
 - [x] load shared library in linux [working issue](https://github.com/simple-lang/simple/issues/8)
-- [ ] load shared library on MAC
+- [x] load shared library on MAC
 - [x] load shared library on windows
 - [ ] load shared library on haiku os
 - [x] writing a vscode extension [working issue](https://github.com/simple-lang/simple/issues/13)
@@ -51,8 +51,8 @@ build, installation, features e.t.c
 - [ ] a suitable, befitting and upto date README on github repository
 - [x] build script should build .lib for windows os
 - [x] build script should create a .a archive for statically linking simple-lang runtime on windows os
-- [ ] build script should create a .a archive for statically linking simple-lang runtime on linux os
-- [ ] build script should create a .a archive for statically linking simple-lang runtime on mac os
+- [x] build script should create a .a archive for statically linking simple-lang runtime on linux os
+- [x] build script should create a .a archive for statically linking simple-lang runtime on mac os
 - [ ] build script should create a .a archive for statically linking simple-lang runtime on haiku os
 - [x] add a new flexible keyword **final** to lock a variable to a particular to prevent re initializing [PR](https://github.com/simple-lang/simple/pull/38)
 - [ ] allow strong and weak typing to prevent inconsistent and conflicting initialization
