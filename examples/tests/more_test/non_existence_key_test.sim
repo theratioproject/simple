@@ -1,0 +1,18 @@
+call simple.debugging.Debug
+
+list = []
+assert(isNull(list["key_1"]))
+
+list["key_1"] = "Added Key"
+assert(isNull(list["key_1"]))
+
+assert(list["key_1"] == "Added Key")
+assert(list["key_1"] == "Invalid Added Key")
+
+for a = 0 to 10 step 2 {
+	list[''+a+''] = a
+}
+
+for a = 0 to 10 {
+	assert(isNull(list[''+a+'']))
+}

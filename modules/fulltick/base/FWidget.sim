@@ -553,18 +553,18 @@ class FWidget : Object
 
     */
     block resolvePendingOps()
-        if PendingOps["resizable"] == "true" {
+        if !isNull(PendingOps["resizable"]) and PendingOps["resizable"] == "true" {
 			Resizable = true
 			if hasBorder() {
 				BorderBox.setResizable(self)
 			}
 			Parent.setResizable(self)
 		}
-		if PendingOps["resizable"] == "false" {
+		if !isNull(PendingOps["resizable"]) and PendingOps["resizable"] == "false" {
 			Resizable = false
 			Parent.setResizable(true)
 		}
-		if PendingOps["centeronparent"] == "true" {
+		if !isNull(PendingOps["centeronparent"]) and PendingOps["centeronparent"] == "true" {
 			if instanceOf(self,"FGroup") {
 				centerOnParent()
 			}

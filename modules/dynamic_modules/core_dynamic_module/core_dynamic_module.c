@@ -57,7 +57,6 @@ SIMPLE_API void init_simple_module(SimpleState *sState)
 	register_block("__date_time_add_days",date_time_add_days);
 	
 	/* Error and Warn */
-    register_block("__throw",error_throw);
     register_block("__stack_trace",error_stack_trace);
 	register_block("__stack_trace_line_number",error_stack_trace_line_number);
     register_block("__warn",error_warn);
@@ -1179,24 +1178,6 @@ SIMPLE_API void error_stack_trace_line_number(void *pointer)
 		simple_string_delete_gc(((VM *) pointer)->sState,string);
 		SIMPLE_API_RETLIST(list2);
 		return;
-	}
-}
-
-SIMPLE_API void error_throw(void *pointer)
-{
-	if ( SIMPLE_API_PARACOUNT != 1 ) {
-		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
-		return ;
-	}
-	if ( SIMPLE_API_ISSTRING(1) ) {
-		if (((VM *) pointer)->sState->skip_error == 0) 
-			((VM *) pointer)->sState->skip_error = 1;
-		SIMPLE_API_ERROR(SIMPLE_API_GETSTRING(1));
-		if (((VM *) pointer)->sState->skip_error == 1) 
-			((VM *) pointer)->sState->skip_error = 0;
-		return;
-	} else {
-		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
 	}
 }
 

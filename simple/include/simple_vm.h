@@ -716,7 +716,7 @@ SIMPLE_API void simple_vm_setthenullvariable ( VM *vm ) ;
 /* List as Hash */
 #define SIMPLE_LISTHASH_KEY 1
 #define SIMPLE_LISTHASH_SIZE 2
-#define SIMPLE_LISTHASH_VALUE 3
+#define SIMPLE_LISTHASH_VALUE 2
 /* C Pointer List (inside Variable Value) */
 #define SIMPLE_CPOINTER_POINTER 1
 #define SIMPLE_CPOINTER_TYPE 2

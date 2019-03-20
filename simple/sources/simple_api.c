@@ -14,7 +14,9 @@
 #include "../include/simple.h"
 /* Support for C Blocks */
 
-SIMPLE_API void simple_vmlib_isblock ( void *pointer );
+//TODO : move to headers
+SIMPLE_API void simple_vmlib_isblock( void *pointer );
+SIMPLE_API void simple_vmlib_throw( void *pointer );
 
 SIMPLE_API void register_block_t ( SimpleState *sState,const char *cStr, void (*pBlock)(void *) )
 {
@@ -47,6 +49,7 @@ SIMPLE_API void loadcblocks ( SimpleState *sState )
 	register_block("executeCode",simple_vmlib_exec);
         /* Meta */
 	register_block("hasBlock",simple_vmlib_isblock);
+    register_block("__throw",simple_vmlib_throw);
 	#ifdef __ANDROID__
     __init_full_tick(sState);
 	#endif
@@ -681,6 +684,23 @@ SIMPLE_API void simple_vmlib_isblock ( void *pointer )
 	}
 }
 
+SIMPLE_API void simple_vmlib_throw(void *pointer)
+{
+	if ( SIMPLE_API_PARACOUNT != 1 ) {
+		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
+		return ;
+	}
+	if ( SIMPLE_API_ISSTRING(1) ) {
+		if (((VM *) pointer)->sState->skip_error == 0) 
+			((VM *) pointer)->sState->skip_error = 1;
+		SIMPLE_API_ERROR(SIMPLE_API_GETSTRING(1));
+		if (((VM *) pointer)->sState->skip_error == 1) 
+			((VM *) pointer)->sState->skip_error = 0;
+		return;
+	} else {
+		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
+	}
+}
 
 void simple_vmlib_char ( void *pointer )
 {

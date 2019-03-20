@@ -78,7 +78,6 @@ SIMPLE_API int simple_add_leap_year(int nYear);
 SIMPLE_API void error_warn(void *pointer);
 SIMPLE_API void error_stack_trace(void *pointer);
 SIMPLE_API void error_stack_trace_line_number(void *pointer);
-SIMPLE_API void error_throw(void *pointer);
 
 /* Conversion */
 SIMPLE_API void conversion_pointer_address_to_string(void* pointer);
