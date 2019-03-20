@@ -256,8 +256,6 @@ class JsonObject : Object
 		switch op {
 			case "lengthOf"
 				return lengthOf(members)
-			case "iterator"
-				return lengthOf(members) - 1
 			case "=="
 				return equals(value)
 			case "!="

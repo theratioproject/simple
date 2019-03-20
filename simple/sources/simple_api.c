@@ -33,7 +33,6 @@ SIMPLE_API void loadcblocks ( SimpleState *sState )
 {
 	/** General **/
 	register_block("lengthOf",simple_vmlib_len);
-	register_block("iterator",block_len_minus_one);
 	register_block("__add_to_list",simple_vmlib_add);
 	register_block("ascii",simple_vmlib_char);
 	register_block("simpleVersion",simple_vmlib_version);
@@ -436,32 +435,6 @@ void simple_vmlib_len ( void *pointer )
 			SIMPLE_VM_STACK_PUSHPVALUE(SIMPLE_API_GETPOINTER(1));
 			SIMPLE_VM_STACK_OBJTYPE = SIMPLE_API_GETPOINTERTYPE(1) ;
 			simple_vm_expr_npoo(vm,"lengthOf",0);
-			vm->nIgnoreNULL = 1 ;
-		}
-	} else {
-		SIMPLE_API_ERROR(SIMPLE_API_BADPARATYPE);
-	}
-}
-
-void block_len_minus_one ( void *pointer )
-{
-	VM *vm  ;
-	vm = (VM *) pointer ;
-	if ( SIMPLE_API_PARACOUNT != 1 ) {
-		SIMPLE_API_ERROR(SIMPLE_API_MISS1PARA);
-		return ;
-	}
-	if ( SIMPLE_API_ISSTRING(1) ) {
-		SIMPLE_API_RETNUMBER(SIMPLE_API_GETSTRINGSIZE(1) - 1);
-	}
-	else if ( SIMPLE_API_ISLIST(1) ) {
-		if ( simple_vm_oop_isobject(SIMPLE_API_GETLIST(1)) == 0 ) {
-			SIMPLE_API_RETNUMBER(simple_list_getsize(SIMPLE_API_GETLIST(1)) - 1);
-		}
-		else {
-			SIMPLE_VM_STACK_PUSHPVALUE(SIMPLE_API_GETPOINTER(1));
-			SIMPLE_VM_STACK_OBJTYPE = SIMPLE_API_GETPOINTERTYPE(1) ;
-			simple_vm_expr_npoo(vm,"iterator",0);
 			vm->nIgnoreNULL = 1 ;
 		}
 	} else {

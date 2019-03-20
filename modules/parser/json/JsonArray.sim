@@ -215,8 +215,6 @@ class JsonArray : Object
 		switch op {
 			case "lengthOf"
 				return lengthOf(elements)
-			case "iterator"
-				return lengthOf(elements) - 1
 			case "=="
 				return equals(value)
 			case "!="

@@ -245,12 +245,6 @@ class ZipEntry : Object
 					return
 				}
 				return lengthOf(ChildrenList)
-			case "iterator"
-				if !IsDirectory {
-					throw(self, "This zip entry is not a directory")
-					return
-				}
-				return lengthOf(ChildrenList) - 1
 			case "[]"
 				if !IsDirectory {
 					throw(self, "This zip entry is not a directory")

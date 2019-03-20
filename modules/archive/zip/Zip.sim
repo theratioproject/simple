@@ -184,8 +184,6 @@ class Zip : Object
 				return !equals(value)
 			case "lengthOf"
 				return getCount()
-			case "iterator"
-				return getCount() - 1
 			case "[]"
 				return open(value)
 		}
