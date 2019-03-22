@@ -16,7 +16,7 @@ block main()
 		}		
 	}
 	
-	stdout.println("usage:  rstparser --s [SOURCE] [OPTIONS]
+	stdout.println("usage: rstparser --s [SOURCE]
 
-[SOURCE] : the folder or source file to be minified
+[SOURCE] : the source file to view it rst tokens
 This program expects just one parameter which is the rst Source")

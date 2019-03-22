@@ -25,23 +25,23 @@ module simple.util
 /* NUMBERS */
 #@Skip DO NOT MODIFY @EndSkip #################################
 															###
-final CONSOLE_COLOR_NONE = 0			#no color (default)	###
-final CONSOLE_COLOR_BLACK = 1			#color black		###
-final CONSOLE_COLOR_DARK_RED = 2		#color red			###
-final CONSOLE_COLOR_DARK_GREEN = 3		#color dark green	###
-final CONSOLE_COLOR_DARK_YELLOW = 4		#color dark yellow 	###
-final CONSOLE_COLOR_DARK_BLUE = 5		#color dark blue	###
-final CONSOLE_COLOR_DARK_MAGENTA = 6	#dark magenta		###
-final CONSOLE_COLOR_DARK_CYAN = 7		#color dark cyan	###
-final CONSOLE_COLOR_GRAY = 8			#color gray			###
-final CONSOLE_COLOR_DARK_GRAY = 9		#color dark gray	###
-final CONSOLE_COLOR_RED = 10			#color red			###
-final CONSOLE_COLOR_GREEN = 11			#color green		###
-final CONSOLE_COLOR_YELLOW = 12			#color yellow		###
-final CONSOLE_COLOR_BLUE = 13			#color blue			###				
-final CONSOLE_COLOR_MAGENTA = 14		#color magenta		###
-final CONSOLE_COLOR_CYAN = 15			#color cyan			###
-final CONSOLE_COLOR_WHITE = 16			#color white		###
+final ConsoleColorNone = 0			#no color (default)	###
+final ConsoleColorBlack = 1			#color black		###
+final ConsoleColorDarkRed = 2		#color red			###
+final ConsoleColorDarkGreen = 3		#color dark green	###
+final ConsoleColorDarkYellow = 4		#color dark yellow 	###
+final ConsoleColorDarkBlue = 5		#color dark blue	###
+final ConsoleColorDarkMagenta = 6	#dark magenta		###
+final ConsoleColorDarkCyan = 7		#color dark cyan	###
+final ConsoleColorGray = 8			#color gray			###
+final ConsoleColorDarkGray = 9		#color dark gray	###
+final ConsoleColorRed = 10			#color red			###
+final ConsoleColorGreen = 11			#color green		###
+final ConsoleColorYellow = 12			#color yellow		###
+final ConsoleColorBlue = 13			#color blue			###				
+final ConsoleColorMagenta = 14		#color magenta		###
+final ConsoleColorCyan = 15			#color cyan			###
+final ConsoleColorWhite = 16			#color white		###
 															###
 #@Skip YOU CAN ADD MORE COLOR BELOW @EndSkip ##################
 
@@ -53,174 +53,171 @@ class ConsoleColor : Object
 	/*
 		
 	*/
-	final NONE = CONSOLE_COLOR_NONE
+	final None = ConsoleColorNone
 		
 	/*
 	
 	*/
-	final BLACK = CONSOLE_COLOR_BLACK
+	final Black = ConsoleColorBlack
 	
 	/*
 	
 	*/
-	final DARKRED = CONSOLE_COLOR_DARK_RED
+	final DarkRed = ConsoleColorDarkRed
 		
 	/*
 	
 	*/
-	final DARKGREEN = CONSOLE_COLOR_DARK_GREEN
+	final DarkGreen = ConsoleColorDarkGreen
 		
 	/*
 	
 	*/
-	final DARKYELLOW = CONSOLE_COLOR_DARK_YELLOW
+	final DarkYellow = ConsoleColorDarkYellow
 		
 	/*
 	
 	*/
-	final DARKBLUE = CONSOLE_COLOR_DARK_BLUE
+	final DarkBlue = ConsoleColorDarkBlue
 		
 	/*
 	
 	*/
-	final DARKMAGENTA = CONSOLE_COLOR_DARK_MAGENTA
+	final DarkMagenta = ConsoleColorDarkMagenta
 		
 	/*
 	
 	*/
-	final DARKCYAN = CONSOLE_COLOR_DARK_CYAN
+	final DarkCyan = ConsoleColorDarkCyan
 		
 	/*
 	
 	*/
-	final GRAY = CONSOLE_COLOR_GRAY
+	final Gray = ConsoleColorGray
 		
 	/*
 	
 	*/
-	final DARKGRAY = CONSOLE_COLOR_DARK_GRAY
+	final DarkGray = ConsoleColorDarkGray
 		
 	/*
 	
 	*/
-	final RED = CONSOLE_COLOR_RED
+	final Red = ConsoleColorRed
 		
 	/*
 	
 	*/
-	final GREEN = CONSOLE_COLOR_GREEN
+	final Green = ConsoleColorGreen
 		
 	/*
 	
 	*/
-	final YELLOW = CONSOLE_COLOR_YELLOW
+	final Yellow = ConsoleColorYellow
 		
 	/*
 	
 	*/
-	final BLUE = CONSOLE_COLOR_BLUE
+	final Blue = ConsoleColorBlue
 		
 	/*
 	
 	*/
-	final MAGENTA = CONSOLE_COLOR_MAGENTA
+	final Magenta = ConsoleColorMagenta
 		
 	/*
 	
 	*/
-	final CYAN = CONSOLE_COLOR_CYAN
+	final Cyan = ConsoleColorCyan
 		
 	/*
 	
 	*/
-	final WHITE = CONSOLE_COLOR_WHITE
+	final White = ConsoleColorWhite
 		
 	/*
 		
 	*/
-	final none = CONSOLE_COLOR_NONE
+	final none = ConsoleColorNone
 		
 	/*
 	
 	*/
-	final black = CONSOLE_COLOR_BLACK
+	final black = ConsoleColorBlack
 	
 	/*
 	
 	*/
-	final darkred = CONSOLE_COLOR_DARK_RED
+	final darkred = ConsoleColorDarkRed
 		
 	/*
 	
 	*/
-	final darkgreen = CONSOLE_COLOR_DARK_GREEN
+	final darkgreen = ConsoleColorDarkGreen
 		
 	/*
 	
 	*/
-	final darkyellow = CONSOLE_COLOR_DARK_YELLOW
+	final darkyellow = ConsoleColorDarkYellow
 		
 	/*
 	
 	*/
-	final darkblue = CONSOLE_COLOR_DARK_BLUE
+	final darkblue = ConsoleColorDarkBlue
 		
 	/*
 	
 	*/
-	final darkmagenta = CONSOLE_COLOR_DARK_MAGENTA
+	final darkmagenta = ConsoleColorDarkMagenta
 		
 	/*
 	
 	*/
-	final darkcyan = CONSOLE_COLOR_DARK_CYAN
+	final darkcyan = ConsoleColorDarkCyan
 		
 	/*
 	
 	*/
-	final gray = CONSOLE_COLOR_GRAY
+	final gray = ConsoleColorGray
 		
 	/*
 	
 	*/
-	final darkgray = CONSOLE_COLOR_DARK_GRAY
+	final darkgray = ConsoleColorDarkGray
 		
 	/*
 	
 	*/
-	final red = CONSOLE_COLOR_RED
+	final red = ConsoleColorRed
 		
 	/*
 	
 	*/
-	final green = CONSOLE_COLOR_GREEN
+	final green = ConsoleColorGreen
 		
 	/*
 	
 	*/
-	final yellow = CONSOLE_COLOR_YELLOW
+	final yellow = ConsoleColorYellow
 		
 	/*
 	
 	*/
-	final blue = CONSOLE_COLOR_BLUE
+	final blue = ConsoleColorBlue
 		
 	/*
 	
 	*/
-	final magenta = CONSOLE_COLOR_MAGENTA
+	final magenta = ConsoleColorMagenta
 		
 	/*
 	
 	*/
-	final cyan = CONSOLE_COLOR_CYAN
+	final cyan = ConsoleColorCyan
 		
 	/*
 	
 	*/
-	final white = CONSOLE_COLOR_WHITE
-		
-		
-	block toString()
-		return "simple.util.ConsoleColor"
+	final white = ConsoleColorWhite
+	
 		

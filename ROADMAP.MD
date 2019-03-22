@@ -153,6 +153,7 @@ issue related to the module
 - [ ] parser.json module to parse and create json string
 	- [x] load json from string and create json from class, list and manually
 	- [ ] a json module that load the json file and store as class attributes and fields and allow writing back to file
+- [x] reStructuredText parser module to read rst file into usable tokens
 - [x] create a built in block to get hex as number using `H("0x00")
 - [ ] build a comprehensive color module in simple.system
 - [ ] create a look ahead class for pure string and file stream for parser implementation
@@ -183,11 +184,11 @@ Modules which are not part of the standard module that comes distributed with si
 - [x] Build the minifier environment that reduces module size by compressing code upon installation.
 - [ ] create the distribution program - bake
 	- [ ] use a small compiler to generate executable
-	- [ ] package simple compiled file (.complex) to system executable
-	- [ ] package simple compiled file (.complex) to system library or simple-lang specific library
-	- [ ] create directory for generated output
+	- [x] package simple compiled file (.complex) to system executable
+	- [x] package simple compiled file (.complex) to system library or simple-lang specific library
+	- [x] create directory for generated output
 	- [ ] allow static linking of simple-lang runtime
-	- [ ] allow dynamic linking of simple-lang runtime
+	- [x] allow dynamic linking of simple-lang runtime
 	- [ ] minify and build a distributable modules and dynamic modules for distribution
 	- [ ] test full operation on windows os
 	- [ ] test full operation on linux os
