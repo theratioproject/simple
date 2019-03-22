@@ -1,0 +1,483 @@
+
+/*
+
+*/
+
+/* 
+ * @Filename - rstBlock.sim
+ * @Author - Azeez Adewale
+ * @Date - 16 March 2019
+ */
+
+/*
+
+*/
+call simple.core.Object
+call simple.util.LookAhead
+call parser.rst.rstBlock
+call parser.rst.rstDirective
+
+/*
+
+*/
+module parser.rst
+	
+/*
+
+*/
+class rstParser : Object
+
+	/*
+	
+	*/
+	final Nothing = 0
+
+	/*
+	
+	*/
+	final Heading1 = 1
+	
+	/*
+	
+	*/
+	final Heading2 = 2
+	
+	/*
+	
+	*/
+	final Heading3 = 3
+	
+	/*
+	
+	*/
+	final Paragraph = 4
+	
+	/*
+	
+	*/
+	final NewLine = 5
+	
+	/*
+	
+	*/
+	final ListItem = 6
+	
+	/*
+	
+	*/
+	final Literal = 7
+	
+	/*
+	
+	*/
+	final Comment = 8
+	
+	/*
+	
+	*/
+	final Directive = 9
+	
+	/*
+	
+	*/
+	final Link = 10
+	
+	/*
+	
+	*/
+	final Reference = 11
+
+	/*
+	
+	*/
+	/*final*/ members = []
+
+	/*
+	
+	*/
+	block rstParser(string rsText)
+		lookAhead = new LookAhead(replaceStr(rsText+nl+nl,crlf,nl))
+		
+	/*
+	
+	*/
+	block parse()
+		components = []
+		currentType = Nothing
+		currentValue = ""
+		currentIndex = -1
+		
+		while lookAhead.peek() != EOF {
+				
+			if isNewToken(nl) {
+				lookAhead.pop() lookAhead.pop()
+				
+				if lookAhead.peek() == "*" {
+					__add_to_list(members, parseList())
+					
+				else
+					continue					
+				}
+				
+			elif lookAhead.peek() == "*"
+				__add_to_list(members, parseList())
+				
+			elif lookAhead.peek() == ":" and lookAhead.peek(1) == ":"
+				lookAhead.pop() lookAhead.pop()
+				parseWhiteSpace()
+				currentValue = parseParagraph(tab)
+				__add_to_list(members, new rstBlock(Literal, currentValue))
+				
+			elif lookAhead.peek() == "." and lookAhead.peek(1) == "."
+				lookAhead.pop() lookAhead.pop()
+				parseWhiteSpace()
+				if lookAhead.peek() == "_" {
+					parseLink()
+					
+				elif lookAhead.peek() == "["
+					parseReference()
+					
+				else
+					currentValue = ""
+					while lookAhead.peek() != nl {
+						currentValue += lookAhead.pop()
+					}
+					if strContains(currentValue,"::") {
+						directiveHead = strSplit(currentValue, "::")
+						directiveName = strTrim(directiveHead[0])
+						directiveValue = ""
+						directiveContent = ""
+						directiveOptions = []
+						if lengthOf(directiveHead) <= 1 {
+							lookAhead.pop()
+							while lookAhead.peek() != nl {
+								directiveValue += lookAhead.pop()
+							}
+							directiveValue = strTrim(directiveValue)
+							if directiveValue == "" or strStartsWith(directiveValue, ":") {
+								warn(self, "Syntax Error : Expecting at least 1 argument in '" + directiveName + "' directive. At Line " + lookAhead.position())
+							}
+							
+						else
+							directiveValue = strTrim(directiveHead[1])
+						}
+						if strStartsWith(directiveValue, ":") {
+							valueSplit = strSplit(directiveValue, ":")
+							if lengthOf(valueSplit) < 3 {
+								throw(self, "Syntax Error : Error in '" + directiveName + "' directive: invalid option '" + valueSplit[1] + "' expecting value nothing found At Line " + lookAhead.position() )
+								return
+							}
+							directiveOptions[valueSplit[1]] = strTrim(valueSplit[2])
+							directiveValue = ""
+						}
+						currentValue = parseParagraph()
+						values = strSplit(currentValue, nl)
+						for value in values {
+							if value == "" { continue }
+							if (!strStartsWith(value, " ") and !strStartsWith(value, tab)) {
+								throw(self, "Syntax Error : Explicit markup ends without a blank line. At Line " + lookAhead.position() )
+								return
+							}
+							value = strTrim(value)
+							if !strStartsWith(value, ":") {
+								directiveContent += value + nl
+								continue
+								
+								
+							}
+							valueSplit = strSplit(value, ":")
+							if lengthOf(valueSplit) < 3 {
+								throw(self, "Syntax Error : Error in '" + directiveName + "' directive: invalid option '" + valueSplit[1] + "' expecting value nothing found At Line " + lookAhead.position() )
+								return
+							}
+							directiveOptions[valueSplit[1]] = strTrim(valueSplit[2])
+						}
+						
+						__add_to_list(members, new rstBlock(Directive, new rstDirective(directiveName, directiveValue, directiveOptions, directiveContent)))
+					else
+						currentValue = parseParagraph()
+						__add_to_list(members, new rstBlock(Comment, currentValue))
+					}
+					
+				}
+				
+			elif isWhiteSpace(lookAhead.peek()) 
+				parseWhiteSpace()
+				
+			else
+				currentValue = parseParagraph()
+				spLen = lengthOf(strSplit(currentValue,nl))
+				if spLen == 2 or spLen == 3 {
+					if spLen == 3 {
+						sp = strSplit(currentValue,nl)
+						if (!strStartsWith(sp[0],"=") or !strEndsWith(sp[0],"=")) and
+							(!strStartsWith(sp[0],"-") or !strEndsWith(sp[0],"-")) and
+							(!strStartsWith(sp[0],"'") or !strEndsWith(sp[0],"'")) and
+							(!strStartsWith(sp[0],"^") or !strEndsWith(sp[0],"^")) {
+							throw(self, "Syntax Error : Invalid Heading and Paragraph detected. At Line " + lookAhead.position() )
+							return
+						}
+						currentValue = ""
+						currentValue += sp[1] + nl + sp[2]
+					}
+					if strEndsWith(currentValue,"==") {
+						spl = strSplit(currentValue,"===")
+						__add_to_list(members, new rstBlock(Heading1, spl[0]))
+						
+					elif strEndsWith(currentValue,"^^")
+						spl = strSplit(currentValue,"^^^")
+						__add_to_list(members, new rstBlock(Heading1, spl[0]))
+						
+					elif strEndsWith(currentValue,"---")
+						spl = strSplit(currentValue,"---")
+						__add_to_list(members, new rstBlock(Heading2, spl[0]))
+						
+					elif strEndsWith(currentValue,"'''")
+						spl = strSplit(currentValue,"'''")
+						__add_to_list(members, new rstBlock(Heading3, spl[0]))
+						
+					else
+						__add_to_list(members, new rstBlock(Paragraph, currentValue))
+					}
+				else
+					if strEndsWith(currentValue,"===") or strEndsWith(currentValue,"^^^") or strEndsWith(currentValue,"---") or strEndsWith(currentValue,"'''"){
+						throw(self, "Syntax Error : Invalid Heading and Paragraph detected. At Line " + lookAhead.position() )
+						return
+					}
+					__add_to_list(members, new rstBlock(Paragraph, currentValue))
+				}
+				
+				
+				
+			}
+		}
+		
+		if lengthOf(references) > 0 and !addedReference {
+			addedReference = true
+			__add_to_list(members, new rstBlock(Reference, references))
+		}
+		return self
+		
+	/*
+	
+	*/
+	block operator(string op, object value) 
+		switch op {
+			case "lengthOf"
+				return lengthOf(members)
+			case "[]"
+				return members[value]
+		}
+		return super.operator(op, value)
+		
+	/*
+	
+	*/
+	private 
+	
+		/*
+		
+		*/
+		LookAhead lookAhead = null
+		
+		/*
+		
+		*/
+		EOF = -1
+		
+		/*
+		
+		*/
+		currentTab = ""
+		
+		/*
+		
+		*/
+		globalState = true
+		
+		/*
+		
+		*/
+		references = []
+		
+		/*
+		
+		*/
+		addedReference = false
+		
+		/*
+		
+		*/
+		block parseReference()
+			lookAhead.pop()
+			currentValue = ""
+			index = "" 
+			
+			while lookAhead.peek() != "]" {
+				index += lookAhead.pop()
+			}
+			lookAhead.pop()
+			
+			if !isDigit(index) and !strStartsWith(index, "#")
+				throw(self, "Syntax Error : Malformed reference tag detected, expecting a digit or a tag beginning with '#'. At Line " + lookAhead.position() )
+				return
+			}
+			while lookAhead.peek() != EOF {
+				if lookAhead.peek() == nl {
+					if (lookAhead.peek(1)+lookAhead.peek(2)) == ".." {
+						break
+					else
+						currentValue += lookAhead.pop()
+					}
+					
+				else
+					currentValue += lookAhead.pop()
+				}
+				
+			}
+			if !isNull(references[index]) {
+				throw(self, "Syntax Error : Duplicate explicit target detected '" + index + "'. At Line " + lookAhead.position() )
+				return
+			}
+			references[index] = currentValue
+		
+		/*
+		
+		*/#ignore : after http(s)
+		block parseLink()
+			lookAhead.pop()
+			currentValue = ""
+			linkAttr = []
+			if !isAlphaNum(lookAhead.peek()) {
+				throw(self, "Syntax Error : Malformed url detected. At Line " + lookAhead.position() )
+				return
+			}
+			while lookAhead.peek() != EOF {
+				if lookAhead.peek() == nl {
+					__add_to_list(linkAttr, strTrim(currentValue))
+					currentValue = ""
+					__add_to_list(members, new rstBlock(Link, linkAttr))
+					break
+				elif lookAhead.peek() == ":" and lengthOf(linkAttr) == 0
+					lookAhead.pop()
+					if !isWhiteSpace(lookAhead.peek()) {
+						throw(self, "Syntax Error : Malformed url detected. At Line " + lookAhead.position() )
+						return
+					}
+					__add_to_list(linkAttr, strTrim(currentValue))
+					currentValue = ""
+				else
+					currentValue += lookAhead.pop()
+				}
+				
+			}
+			
+		
+		/*
+		
+		*/
+		block parseParagraph(params...)
+			currentValue = ""
+			_tab = ""
+			if lengthOf(params) > 0 {
+				_tab = params[0]
+				#@_tab+"<"
+			}
+			while lookAhead.peek() != EOF {
+				
+				if isWhiteSpace(lookAhead.peek()) {
+					currentTab = ""
+					check = isNewToken(nl)
+					currentValue += currentTab
+					if check {
+						return currentValue
+					else
+						currentValue += lookAhead.pop()
+					}
+				else
+					if lookAhead.peek() == tab { }
+					currentValue += lookAhead.pop()
+				}				
+			}
+			return currentValue
+		
+		/*
+		
+		*/
+		block parseList()
+			currentValue = ""
+			lookAhead.pop()
+			
+			if isWhiteSpace(lookAhead.peek()) {
+				currentTab = ""
+				parseWhiteSpace()
+				while lookAhead.peek() != EOF {
+					if isWhiteSpace(lookAhead.peek()) {
+						currentTab = ""
+						check = isNewToken(nl, currentTab)
+						currentValue += currentTab
+						if check or lookAhead.peek() == "*" {
+							break
+						else
+							currentValue += lookAhead.pop()
+						}
+						
+					else
+						currentValue += lookAhead.pop()
+					}
+				}
+				
+			else
+				throw(self, "Syntax Error : Unexpected character, Expected white spaces(s), found '" + lookAhead.pop() + "' at Line " + lookAhead.position() )
+			}
+			
+			return (new rstBlock(ListItem, currentValue))
+		
+		/*
+		
+		*/
+		block parseWhiteSpace()
+			while isWhiteSpace(lookAhead.peek()) {
+				if lookAhead.peek() == tab {
+					currentTab += strCopy(" ", 3)
+					lookAhead.pop() lookAhead.pop()
+				else
+					currentTab += " "
+					lookAhead.pop()
+				}
+			}
+			
+		/*
+		
+		*/
+		block isNewToken(token, params...)
+			if lookAhead.peek() == nl {
+				leadingTab = ""
+				if lengthOf(params) > 0 {
+					leadingTab = params[0]
+				}
+				while isWhiteSpace(lookAhead.peek()) {
+					if lookAhead.peek(1) == token and !isWhiteSpace(lookAhead.peek(2)) {
+						return true
+					elif isAlphaNum(lookAhead.peek(1))
+						if leadingTab != "" {
+						}
+						if leadingTab != "" and lookAhead.peek() == nl {
+							lookAhead.pop()
+							throw(self, "Syntax Error : Bullet list ends without a NewLine at Line " + lookAhead.position() )
+						}
+						return false
+					}
+
+					currentTab += lookAhead.pop()
+				}
+			}
+			return false
+			
+			
+			
+			
+			
+			
+	
+	

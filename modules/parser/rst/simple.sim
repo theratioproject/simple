@@ -1,0 +1,22 @@
+
+call simple.core.Object
+call simple.util.Console
+call parser.rst.rstParser
+
+block main()
+	paramsLen = lengthOf(cmdparams) 
+	for param in cmdparams {
+		if strEndsWith(param,"txt") or strEndsWith(param,"rst") {
+			rstTokens = new rstParser(__read_file(param))
+			tokens = rstTokens.parse()
+			for token in tokens {
+				stdout.println(token)
+			}
+			return 
+		}		
+	}
+	
+	stdout.println("usage:  rstparser --s [SOURCE] [OPTIONS]
+
+[SOURCE] : the folder or source file to be minified
+This program expects just one parameter which is the rst Source")

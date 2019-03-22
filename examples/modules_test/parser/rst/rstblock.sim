@@ -1,0 +1,15 @@
+/*
+
+*/
+
+call simple.core.Object
+call simple.util.Console
+call parser.rst.rstParser
+
+block main()
+	rstTokens = new rstParser(__read_file("../../../testfiles/links.rst"))
+	tokens = rstTokens.parse()
+	stdout.println("=================\nURL Links Block\n=================")
+	for token in tokens {
+		stdout.printfi("Block: TypeName={0}, Tag={1}, URL={2}\n", token.TypeName, token.Value[0], token.Value[1])
+	}

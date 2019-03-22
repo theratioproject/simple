@@ -1,0 +1,86 @@
+
+/*
+
+*/
+
+/* 
+ * @Filename - rstBlock.sim
+ * @Author - Azeez Adewale
+ * @Date - 16 March 2019
+ */
+
+/*
+
+*/
+call simple.core.Object
+import parser.rst 
+
+/*
+
+*/
+module parser.rst
+
+/*
+
+*/
+class rstBlock : Object
+
+	/*
+	
+	*/
+	int Type = 0
+	
+	/*
+	
+	*/
+	string TypeName = "Noting"
+
+	/*
+	
+	*/
+	string Value = ""
+
+	/*
+	
+	*/
+	block rstBlock(int type, string value)
+		Type = type
+		TypeName = typeName[type]
+		Value = value
+		
+	/*
+	
+	*/
+	block setType(int type)
+		Type = type
+		TypeName = typeName[type]
+	
+	/*
+	
+	*/
+	block toString()
+		return "[" + getType(self) + ":Type=" + Type + ",TypeName=" + TypeName + ",Value="+strValueOf(Value)+"]"
+		
+	/*
+	
+	*/
+	private 
+	
+		/*
+		
+		*/
+		typeName = [
+			"Nothing",
+			"Heading1",
+			"Heading2",
+			"Heading3",
+			"Paragraph",
+			"NewLine",
+			"ListItem",
+			"Literal",
+			"Comment",
+			"Directive",
+			"Link",
+			"Reference"
+			
+		]

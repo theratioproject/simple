@@ -1,0 +1,103 @@
+
+/*
+
+*/
+
+/* 
+ * @Filename - rstDirective.sim
+ * @Author - Azeez Adewale
+ * @Date - 20 March 2019
+ */
+
+/*
+
+*/
+call simple.core.Object
+
+/*
+
+*/
+module parser.rst
+
+/*
+
+*/
+class rstDirective : Object
+
+	/*
+	
+	*/
+	list Name = ""
+	
+	/*
+	
+	*/
+	string Value = ""
+
+	/*
+	
+	*/
+	list Options = []
+	
+	/*
+	
+	*/
+	string Content = ""
+
+	/*
+	
+	*/
+	block rstDirective(string name, string value, list options, string content)
+		Name = name
+		Value = value
+		Options = options
+		Content = content
+	
+	/*
+	
+	*/
+	block toString()
+		return "[" + getType(self) + ":Name=" + Name + ",Value=" + Value + ",Options="+strValueOf(Options)+",Content=...]"
+		
+	/*
+	
+	*/
+	block operator(string op, object value) 
+		switch op {
+			case "lengthOf"
+				return lengthOf(Options)
+			case "[]"
+				if !isString(value) {
+					throw(self, "Invalid key, expecting string type as option key")
+					return
+				}
+				return Options[value]
+		}
+		return super.operator(op, value)
+		
+	/*
+	
+	*/
+	private 
+	
+		/*
+		
+		*/
+		block setName()
+	
+		/*
+		
+		*/
+		block setType()
+	
+		/*
+		
+		*/
+		block setOptions()
+	
+		/*
+		
+		*/
+		block setContent()
+		
+		
