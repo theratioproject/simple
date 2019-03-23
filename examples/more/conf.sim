@@ -1,0 +1,7 @@
+
+akosile = [
+	["silent", true], 
+	["smottenEdge", true],
+	["single_doc", true],
+	["extract_code", true],
+]

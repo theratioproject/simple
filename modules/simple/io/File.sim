@@ -49,7 +49,7 @@ class File : Path
 	*/
 	block getNameOnly()
 		name = getName()
-		_ext = strAfterLast(name, '.')
+		_ext = strAfterChar(name, '.')
 		return removeStr(name, '.'+_ext)
 		
 	/*
@@ -68,7 +68,7 @@ class File : Path
 	
 	*/
 	block getNameExtension()
-		return strAfterLast(getName(), '.')
+		return strAfterChar(getName(), '.')
 
 	/*
 		
@@ -142,7 +142,7 @@ class File : Path
 		*/
 		block updateAttributes()
 			super.updateAttributes()
-			NameExtension = strAfterLast(getName(), '.')
+			NameExtension = strAfterChar(getName(), '.')
 			
 		
 		

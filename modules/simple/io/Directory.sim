@@ -155,6 +155,7 @@ class Directory : Path
 				len = lengthOf(AbsolutePath) - 1
 				tempDir = __left(AbsolutePath, len - slashLen)
 			}
+			__add_to_list(ChildrenToCreate, tempDir)
 			len = lengthOf(tempDir)
 			loc = lengthOf(lastStrAfterChar(tempDir, SystemSlash))
 			tempDir = __left(tempDir, len - loc - slashLen - 1)

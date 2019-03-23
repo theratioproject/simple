@@ -13,17 +13,13 @@
 	neglecting all the sub level directory with the same name **dir_test**
 	
 	This issue has been resolve in the following commit 
-	
+	https://github.com/simple-lang/simple/commit/f45af071ee49ef37d80e88b141adae1e82a1cac0
 
     :copyright: Copyright (c) 2018-2019 by Azeez Adewale
     :license: MIT License Copyright (c) 2018 simple
 	:author: Azeez Adewale <azeezadewale98@gmail.com>
 	:date: March 23 2019
 	:filename: create_directory.sim
-*/
-
-/*
-	
 */
 call simple.core.Object
 call simple.util.Console
@@ -33,5 +29,3 @@ block main()
 	dir = new Directory("../testfiles/dir_test/dir_test/dir_test/dir_test/dir_test")
 	stdout.println(dir)
 	dir.create()
-
-git commit -m "resolve simple.io.Directory to create multi-level directories with the same name. create test for it examples/more/create_directory.sim"
