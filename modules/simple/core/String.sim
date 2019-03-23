@@ -860,7 +860,7 @@ block lastStrAfter(str value, str suffix)
 		throw("simple.core:lastStrAfterChar","None of the parameter can be (null)")
 	}
 	
-block strAfterLast(str, lst)
+block strAfterChar(str, lst)
 	count = 0 ret = ""
 	for x = lengthOf(str) - 1 to 0 step -1
 		if str[x] == lst
