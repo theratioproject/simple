@@ -1,132 +1,140 @@
-/* 
-	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com> 
-	MIT License Copyright (c) 2018 simple-lang
+/*P
+    This is a wrapper file for the `Mathic dynamic module`_. The module is loaded
+	once when this file is first call. Using the mathic block directly is not consider safe as
+	it does not check the parameter for incompatible types or object and can result to runtime 
+	error. Most of the blocks implemented in this file has a dynamic call but is not consider
+	safe to call the dynamic blocks directly. 
+	
+	Usage
+	
+		All the blocks are public and does not require any type of initialization  because it has no 
+		class. All the function in this file is accessible by calling it.
+		
+	.. code-block:: simple
+	
+		call simple.util.Math
+		
+	A more elaborate example is present at `simple.util.Math Test`_
 
+	:copyright:  (C) 2018-2019 Azeez Adewale
+	:license: MIT License Copyright (c) 2018 simple
+	:author: Azeez Adewale <azeezadewale98@gmail.com>
+	:date: February 5 2017
+	:filename: Math.sim
 */
 
-/* 
-	#filename - Math.sim
-	#date - 5 Febuary 2017
-	#time - 12 : 09 AM
-	#license - MIT License Copyright (c) 2018 simple-lang
-	#author - Azeez Adewale	<azeezadewale98@gmail.com> 
- */
- 
+/*
+
+*/
 module simple.util
 
+/*
+
+*/
 call simple.core.DynamicLoader
 callModule("libmathic")
 
-/*@Prefix
-	This is a wrapper file for the @DynamicModule Mathic dynamic module. The module is loaded
-	once when this file is first call. Using the mathic block directly is not consider safe as
-	it does not check the parameter for incompatibe types or object and can result to runtime 
-	error. Most of the blocks implemented in this file has a dynamic call but is not consider
-	safe to call the dynamic blocks directly. <br /> <br />
-	
-	### Usage
-	All the blocks are public and does not require any type of initialization  because it has no 
-	class. All the function in this file is accessible by calling it.
-	```simple
-	call "simple/util/Math.sim"
-	```
-	A more elaborate example is present at @Examples Mathic
-*/
-
 /*
 	Exponential number used in natural log and exp
-	Approximation of the mathematical constant <em>e</em> to 11 digit after decimal point.
+	Approximation of the mathematical constant *e* to 11 digit after decimal point.
 	**2.71828182846**. 
 	
-	The <em>e</em> to the first 15 digits after the decimal point is **2.718281828459045**
+	The *e* to the first 15 digits after the decimal point is **2.718281828459045**
 	
 */
-final MATH_E = 2.71828182846
+final MathE = 2.71828182846
 
 /*
 	The ratio of a circle's circumference to its diameter.
-	Approximation of the mathematical constant <em>pi</em> / <em>π</em> to 11 digit 
+	Approximation of the mathematical constant *pi* / *π* to 11 digit 
 	after the decimal point **3.14159265359**. 
-	The <em>pi</em> / <em>π</em> constant to the first 50 digits after the decimal point.
+	The*pi* / *π* constant to the first 50 digits after the decimal point.
 	
 	**3.14159 26535 89793 23846 26433 83279 50288 41971 69399 37510**
 
 */
-final MATH_PI = 3.14159265359
+final MathPI = 3.14159265359
 
 /*
 	The math module in a printable string **simple.utilites.Math**
 */
-final MATH_MODULE = "simple.utilites.Math"
+final $MathModule = "simple.utilites.Math"
 
 /*
 	Exception message to indicate the parameter is not a valid number
 */
-final __MATH_NOT_NUMBER = "The parameter is not a Number"
+final $MathNotNumber = "The parameter is not a Number"
 
 /*
 	Exception message thrown if the parameter is less than a number
 */
-final __MATH_LESS_THAN = "The parameter is less than "
+final $MathLessThan = "The parameter is less than "
 
 /*
 	Exception message thrown if the parameter is less than 1
 */
-final __MATH_LESS_THAN_ONE = "The parameter is less than one"
+final $MathLessThanOne = "The parameter is less than one"
 
 /*
 	Exception message thrown if the parameter is less than -1
 */
-final __MATH_LESS_THAN_MINUS_ONE = "The parameter is less than -1"
+final $MathLessThanMinusOne = "The parameter is less than -1"
 
 
 /*
 	Exception message thrown if the parameter is not between -1 and 1
 */
-final __MATH_NOT_BETWEEEN_ONE = "The parameter has to be between -1 and 1"
+final $MathNotBetweenOne = "The parameter has to be between -1 and 1"
 
 /*
 	Exception message to indicate parameter cannot be equal to a number
 */
-final __MATH_NOT_EQUAL = "The parameter cannot be equal to "
+final $MathNotEqual = "The parameter cannot be equal to "
 
 /*
 	Exponential number used in natural log and exp
-	Approximation of the mathematical constant <em>e</em> to 11 digit after decimal point.
+	Approximation of the mathematical constant *e* to 11 digit after decimal point.
 	**2.71828182846**. 
 	
-	The <em>e</em> to the first 15 digits after the decimal point is **2.718281828459045**
-	
-	@Return the <em>e</em> constant with the first 11 digits after the decimal point @DataType Number
+	The *e* to the first 15 digits after the decimal point is **2.718281828459045**
+		
+	**Return**:
+		the *e* constant with the first 11 digits after the decimal point
 */
-block MATH_E()
-	return MATH_E
+block MathE()
+	return MathE
 
 /*
 	The ratio of a circle's circumference to its diameter.
-	Approximation of the mathematical constant <em>pi</em> / <em>π</em> to 11 digit 
+	Approximation of the mathematical constant *pi* / *π* to 11 digit 
 	after the decimal point **3.14159265359** 
-	The <em>pi</em> / <em>π</em> constant to the first 50 digits after the decimal point.
+	The *pi* / *π* constant to the first 50 digits after the decimal point.
 	
 	**3.14159 26535 89793 23846 26433 83279 50288 41971 69399 37510**
 	
-	@Return the <em>pi</em> / <em>π</em> constant with the first 11 digits after the decimal  
-	point @DataType Number
-
+	**Return**:
+		the *pi* / *π* constant with the first 11 digits after the decimal point
 */
-block MATH_PI() 
-	return MATH_PI
+block MathPI() 
+	return MathPI
 	
 /*
 	Determine the absolute value of a number. Determining the absolute number makes it positive.
 	
-	@Param number - the number to determine it absolute value
-	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE
-	@Return the absolute value of number @DataType Number
+	**Parameters**:	
+		num : Number
+			the number to determine it absolute value
+	
+	**Throws**:	
+		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a number
+	
+	**Return**:
+		the absolute value of a number
 */
+#TODO : revisit and remove throws after data type is supported
 block abs(number)
 	if !isNumber(number) {
-		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+		throwWithTitle($MathModule,$MathNotNumber)
 	}
 	if (number < 0) {
 		return -number
@@ -139,15 +147,22 @@ block abs(number)
 	is returned, this deals with -0 and 0 that might behave strangely and can return 0 
 	to be smaller than -0
 	
-	@Param fNumber - the first number
-	@Param sNumber - the second number
-	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if one or all the parameters 
-	are not number	
-	@Return minumum number of the two numbers
+	**Parameters**:	
+		fNumber : Number
+			the first number
+		sNumber : Number
+			the second number
+	
+	**Throws**:	
+		`final $MathNotNumber`_ with title `final $MathModule`_ if one or all the parameters 
+		are not number
+	
+	**Return**:
+		minimum number of the two numbers
 */
 block min(fNumber, sNumber)
 	if !isNumber(fNumber) or !isNumber(sNumber) {
-		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+		throwWithTitle($MathModule,$MathNotNumber)
 	}
 	if (fNumber == 0 and sNumber == 0) {
 		return -((-fNumber) - sNumber)
@@ -162,15 +177,22 @@ block min(fNumber, sNumber)
 	the second number is negated and then minus from the first number to give the correct larger 
 	number.
 	
-	@Param fNumber - the first number
-	@Param sNumber - the second number
-	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if one or all the parameters 
-	are not number
-	@Return larger number of the two numbers
+	**Parameters**:	
+		fNumber : Number
+			the first number
+		sNumber : Number
+			the second number
+	
+	**Throws**:	
+		`final $MathNotNumber`_ with title `final $MathModule`_ if one or all the parameters 
+		are not number
+	
+	**Return**:
+		larger number of the two numbers
 */
 block max(fNumber, sNumber)
 	if !isNumber(fNumber) or !isNumber(sNumber) {
-		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+		throwWithTitle($MathModule,$MathNotNumber)
 	}
 	if (fNumber == 0 and sNumber == 0) {
 		return (fNumber - (-sNumber))
@@ -178,90 +200,131 @@ block max(fNumber, sNumber)
 	if (fNumber > sNumber) {
 		return fNumber
 	}
-	return sNumber	
-	
+	return sNumber
+
 /*
-	Determine the sine trigonometric function <em> sin </em> of a number. The sine value of 0 remains
+	Determine the sine trigonometric function *sin* of a number. The sine value of 0 remains
 	remain 0. 
 	
-	@Param number - the number to determine it sin value
-	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
-	@Return the sine value of a radian angle number
+	**Parameters**
+		number : Number 
+			the number to determine it sin value
+			
+	**Throws**
+		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
+		
+	**Return**
+		the sine value of a radian angle number
 */
 block sin(number)
 	if !isNumber(number) {
-		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+		throwWithTitle($MathModule,$MathNotNumber)
 	}
 	return __sin(number)
 	
 	
 /*
-	Determine the cosine trigonometric function <em> cos </em> of a number. The cosine value of 0 remains
+	Determine the cosine trigonometric function *cos* of a number. The cosine value of 0 remains
 	remain 0. 
 	
-	@Param number - the number to determine it cos value
-	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
-	@Return the cosine value of a radian angle number
+	
+	**Parameters**
+		number : Number
+			the number to determine it cos value
+	
+	**Throws**
+		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
+	
+	**Return**
+		the cosine value of a radian angle number
 */
 block cos(number)
 	if !isNumber(number) {
-		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+		throwWithTitle($MathModule,$MathNotNumber)
 	}
 	return __cos(number)	
 	
 /*
-	Determine the tangent trigonometric function <em> tan </em> of a number. The tangent value of 0 remains
-	remain 0. 
+	Determine the tangent trigonometric function *tan* of a number. The tangent value of 0 remains 
+	0. 
 	
-	@Param number - the number to determine it tan value
-	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
-	@Return the tangent value of a radian angle number
+	
+	**Parameters**
+		number : Number
+			the number to determine it tan value
+	
+	**Throws**
+		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
+	
+	**Return**
+		the tangent value of a radian angle number
 */
 block tan(number)
 	if !isNumber(number) {
-		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+		throwWithTitle($MathModule,$MathNotNumber)
 	}
 	return __tan(number)
 
 /*
-	Determine the arc sine trigonometric function <em> arcsin </em> of a number. The arc sine value of 0 remains
-	remain 0. The range of angles returned is -pi/2 to pi/2 radians (-90 to 90 degrees).
+	Determine the arc sine trigonometric function *arcsin* of a number. The arc sine value of 0 remains 
+	0. The range of angles returned is -pi/2 to pi/2 radians (-90 to 90 degrees).
 	
-	@Param number - the number to determine it arc sine value
-	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
-	@Return the arc sine value of the number in radian @DataType Number
+	
+	**Parameters**
+		number : Number
+			the number to determine it arc sine value
+	
+	**Throws**
+		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
+	
+	**Return**
+		the arc sine value of the number in radian 
 */	
 block asin(number)
 	if !isNumber(number) {
-		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+		throwWithTitle($MathModule,$MathNotNumber)
 	}
 	return __asin(number)
 	
 /*
-	Determine the arc cosine trigonometric function <em> arccos </em> of a number. The arc cosine value of 0 remains
-	remain 0. The range of angles returned is -pi/2 to pi/2 radians (-90 to 90 degrees).
+	Determine the arc cosine trigonometric function *arccos* of a number. The arc cosine value of 0 remains
+	0. The range of angles returned is -pi/2 to pi/2 radians (-90 to 90 degrees).
 	
-	@Param number - the number to determine it arc csine value
-	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
-	@Return the arc cosine value of the number in radian @DataType Number
+	
+	**Parameters**
+		number : Number
+			the number to determine it arc csine value
+	
+	**Throws**
+		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
+	
+	**Return**
+		the arc cosine value of the number in radian 
 */	
 block acos(number)
 	if !isNumber(number) {
-		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+		throwWithTitle($MathModule,$MathNotNumber)
 	}
 	return __acos(number)
 
 /*
-	Determine the arc tangent trigonometric function <em> arctan </em> of a number. The arc tangent value of 0 remains
-	remain 0. The range of angles returned is -pi/2 to pi/2 radians (-90 to 90 degrees).
+	Determine the arc tangent trigonometric function *arctan* of a number. The arc tangent value of 0 remains
+	0. The range of angles returned is -pi/2 to pi/2 radians (-90 to 90 degrees).
 	
-	@Param number - the number to determine it arc tangent value
-	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
-	@Return the arc tangent value of the number in radian @DataType Number
+	
+	**Parameters**
+		number : Number
+			the number to determine it arc tangent value
+	
+	**Throws**
+		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
+	
+	**Return**
+		the arc tangent value of the number in radian 
 */	
 block atan(number)
 	if !isNumber(number) {
-		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+		throwWithTitle($MathModule,$MathNotNumber)
 	}
 	return __atan(number)
 	
@@ -270,15 +333,23 @@ block atan(number)
 	Convert rectangular coordinate **(x, y)** correct quadrant. It calculate the arc tangent of x and y 
 	in the range of -180 and 180 degrees. 
 	
-	@Param y - the floating point value representing a y-coordinate
-	@Param x - the floating point value representing an x-coordinate
-	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if one or all the parameters 
-	are not number
-	@Return the arc tangent in radian of x/y based on the signs of both values to determine the correct quadrant
+	
+	**Parameters**
+		y : Number
+			the floating point value representing a y-coordinate
+		x : Number
+			the floating point value representing an x-coordinate
+	
+	**Throws**
+		`final $MathNotNumber`_ with title `final $MathModule`_ if one or all the parameters 
+		are not number
+	
+	**Return**
+		the arc tangent in radian of x/y based on the signs of both values to determine the correct quadrant
 */
 block atan2(y, x)
 	if !isNumber(y) or !isNumber(x) {
-		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+		throwWithTitle($MathModule,$MathNotNumber)
 	}
 	return __atan2(y,x)
 	
@@ -286,39 +357,60 @@ block atan2(y, x)
 /*
 	Determine the hyperbolic sine of a number. 
 	
-	@Param number - the hyperbolic angle
-	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
-	@Return the hyperbolic sine value of the number @DataType Number
+	
+	**Parameters**
+		number : Number
+			the hyperbolic angle
+	
+	**Throws**
+		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
+	
+	**Return**
+		the hyperbolic sine value of the number 
 */	
 block sinh(number)
 	if !isNumber(number) {
-		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+		throwWithTitle($MathModule,$MathNotNumber)
 	}
 	return __sinh(number)
 	
 /*
 	Determine the hyperbolic cosine of a number. 
 	
-	@Param number - the hyperbolic angle
-	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
-	@Return the hyperbolic cosine value of the number @DataType Number
+	
+	**Parameters**
+		number : Number
+			the hyperbolic angle
+	
+	**Throws**
+		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
+	
+	**Return**
+		the hyperbolic cosine value of the number 
 */	
 block cosh(number)
 	if !isNumber(number) {
-		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+		throwWithTitle($MathModule,$MathNotNumber)
 	}
 	return __cosh(number)
 	
 /*
 	Determine the hyperbolic tangent of a number. 
 	
-	@Param number - the hyperbolic angle
-	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
-	@Return the hyperbolic tangent value of the number @DataType Number
+	
+	**Parameters**
+		number : Number
+			the hyperbolic angle
+	
+	**Throws**
+		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
+	
+	**Return**
+		the hyperbolic tangent value of the number 
 */	
 block tanh(number)
 	if !isNumber(number) {
-		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+		throwWithTitle($MathModule,$MathNotNumber)
 	}
 	return __tanh(number)
 	
@@ -326,107 +418,158 @@ block tanh(number)
 /*
 	Determine the nonnegative area hyperbolic sine of a number. 
 	
-	@Param number - the hyperbolic angle
-	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
-	@Return the Nonnegative area sine value of the number @DataType Number
+	
+	**Parameters**
+		number : Number
+			the hyperbolic angle
+	
+	**Throws**
+		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
+	
+	**Return**
+		the Nonnegative area sine value of the number 
 */	
 block asinh(number)
 	if !isNumber(number) {
-		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+		throwWithTitle($MathModule,$MathNotNumber)
 	}
 	return __asinh(number)
 	
 /*
 	Determine the nonnegative area hyperbolic cosine of a number. 
 	
-	@Param number - value whose area hyperbolic cosine is computed
-	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
-	@Throws @Variable __MATH_LESS_THAN_ONE with title @Variable MATH_MODULE if the parameter is less than 1
-	@Return Nonnegative area hyperbolic cosine of number, in the interval [0,+INFINITY] @DataType Number
+	
+	**Parameters**
+		number : Number
+			value whose area hyperbolic cosine is computed
+	
+	**Throws**
+		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
+		`final $MathLessThanOne`_ with title `final $MathModule`_ if the parameter is less than 1
+	
+	**Return**
+		Nonnegative area hyperbolic cosine of number, in the interval [0,+INFINITY] 
 */	
 block acosh(number)
 	if !isNumber(number) {
-		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+		throwWithTitle($MathModule,$MathNotNumber)
 	}
 	if (number < 1) {
-		throwWithTitle(MATH_MODULE,__MATH_LESS_THAN_ONE)
+		throwWithTitle($MathModule,$MathLessThanOne)
 	}
 	return __acosh(number)
 	
 /*
 	Determine the nonnegative area hyperbolic tangent of a number. 
 	
-	@Param number - the value whose area hyperbolic tangent is computed, in the interval [-1,+1]
-	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
-	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
-	@Throws @Variable __MATH_NOT_EQUAL -1 or 1 with title @Variable MATH_MODULE if the parameter is -1 or 1
-	@Return the Nonnegative area  tangent value of the number @DataType Number
+	
+	**Parameters**
+		number : Number
+			the value whose area hyperbolic tangent is computed, in the interval [-1,+1]
+	
+	**Throws**
+		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
+	
+	**Throws**
+		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
+		`final $MathNotEqual`_ -1 or 1 with title `final $MathModule`_ if the parameter is -1 or 1
+	
+	**Return**
+		the Nonnegative area  tangent value of the number 
 */	
 block atanh(number)
 	if !isNumber(number) {
-		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+		throwWithTitle($MathModule,$MathNotNumber)
 	}
 	if (number == 1 or number == -1) {
-		throwWithTitle(MATH_MODULE,__MATH_NOT_EQUAL+"-1 or 1")
+		throwWithTitle($MathModule,$MathNotEqual+"-1 or 1")
 	}
 	if ((number < -1) or (number > 1)) {
-		throwWithTitle(MATH_MODULE,__MATH_NOT_BETWEEEN_ONE)
+		throwWithTitle($MathModule,$MathNotBetweenOne)
 	}
 	return __atanh(number)
 	
 	
 /*
-	Determine the exponential value of a number. The opposite of @Block log(number)
+	Determine the exponential value of a number. The opposite of `block log(number)`_
 	
-	@Param number - the number to raise to the power of
-	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
-	@Return the exponential value of the number @DataType Number
+	
+	**Parameters**
+		number : Number
+			the number to raise to the power of
+	
+	**Throws**
+		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
+	
+	**Return**
+		the exponential value of the number 
 */
 block exp(number)
 	if !isNumber(number) {
-		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+		throwWithTitle($MathModule,$MathNotNumber)
 	}
 	return __exp(number)
 	
 	
 /*
-	Determine the natural logarithm (base-e logarithm) of a number. The opposite of @Block exp(number)
+	Determine the natural logarithm (base-e logarithm) of a number. The opposite of `block exp(number)`_
 	
-	@Param number - the number to get the natural log of
-	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
-	@Return the natural logarithm (base-e logarithm) of number
+	
+	**Parameters**
+		number : Number
+			the number to get the natural log of
+	
+	**Throws**
+		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
+	
+	**Return**
+		the natural logarithm (base-e logarithm) of number
 */
 block log(number)
 	if !isNumber(number) {
-		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+		throwWithTitle($MathModule,$MathNotNumber)
 	}
 	return __log(number)
 
 /*
-	Determine the square root of a number. To find cube root of a number call the @Block cbrt(number) instead,
-	to determine the other root use `pow(number, 1/rootNum)`
+	Determine the square root of a number. To find cube root of a number call the `block cbrt(number)`_ instead,
+	to determine the other root use ``pow(number, 1/rootNum)``
 	
-	@Param number - the number to get the square root of
-	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
-	@Return the square root of the number
+	
+	**Parameters**
+		number : Number
+			the number to get the square root of
+	
+	**Throws**
+		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
+	
+	**Return**
+		the square root of the number
 */	
 block sqrt(number) 
 	if !isNumber(number) {
-		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+		throwWithTitle($MathModule,$MathNotNumber)
 	}
 	return __sqrt(number)
 
 /*
-	Determine the cube root of a number. To find square root of a number call the @Block sqrt(number) instead,
-	to determine the other root use `pow(number, 1/rootNum)`
+	Determine the cube root of a number. To find square root of a number call the `block sqrt(number)`_ instead,
+	to determine the other root use ``pow(number, 1/rootNum)``
 	
-	@Param number - the number to get the cube root of
-	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
-	@Return the cube root of the number
+	
+	**Parameters**
+		number : Number
+			the number to get the cube root of
+	
+	**Throws**
+		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
+	
+	**Return**
+		the cube root of the number
 */	
 block cbrt(number) 
 	if !isNumber(number) {
-		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+		throwWithTitle($MathModule,$MathNotNumber)
 	}
 	return __cbrt(number)
 	
@@ -434,15 +577,23 @@ block cbrt(number)
 /*
 	Raise a number to a power of another number.
 	
-	@Param fNumber - the first number to be raised 
-	@Param sNumber - the number to be raised to it power
-	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if one or all the parameters 
-	are not number
-	@Return fNumber raised to the power of sNumber
+	
+	**Parameters**
+		fNumber : Number
+			the first number to be raised 
+		sNumber : Number
+			the number to be raised to it power
+	
+	**Throws**
+		`final $MathNotNumber`_ with title `final $MathModule`_ if one or all the parameters 
+		are not number
+	
+	**Return**
+		fNumber raised to the power of sNumber
 */
 block pow(fNumber,sNumber)
 	if !isNumber(fNumber) or !isNumber(sNumber) {
-		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+		throwWithTitle($MathModule,$MathNotNumber)
 	}
 	return __pow(fNumber,sNumber)
 	
@@ -451,14 +602,22 @@ block pow(fNumber,sNumber)
 	Determine the nearest integer that is greater than or equal to the number parameter. If the param number 
 	is between -1 and 0 the result is -0.
 	
-	@Note `ceil(number) == floor(-number)`
-	@Param number - the number to be worked on
-	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
-	@Return the nearest integer value greater than or equal to the number
+	.. note:: 
+		ceil(number) == floor(-number)
+	
+	**Parameters**
+		number : Number
+			the number to be worked on
+	
+	**Throws**
+		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
+	
+	**Return**
+		the nearest integer value greater than or equal to the number
 */	
 block ceil(number)
 	if !isNumber(number) {
-		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+		throwWithTitle($MathModule,$MathNotNumber)
 	}
 	return __ceil(number)
 	
@@ -466,14 +625,22 @@ block ceil(number)
 /*
 	Determine the nearest integer that is less than or equal to the number parameter. 
 	
-	@Note `ceil(number) == floor(-number)`
-	@Param number - the number to be worked on
-	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
-	@Return the largest integer value less than or equal to the number
+	.. note::
+		ceil(number) == floor(-number)
+	
+	**Parameters**
+		number : Number
+			the number to be worked on
+	
+	**Throws**
+		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
+	
+	**Return**
+		the largest integer value less than or equal to the number
 */	
 block floor(number)
 	if !isNumber(number) {
-		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+		throwWithTitle($MathModule,$MathNotNumber)
 	}
 	return __floor(number)
 	
@@ -481,41 +648,62 @@ block floor(number)
 	Determine the value of the number rounded to a nearby integral (as a floating-point value). If the floating-points
 	are between two number the Even number will be worked on. It round to the nearest.
 	
-	@Param number - the number to be rounded
-	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
-	@Return the number rounded to nearby integral 
+	
+	**Parameters**
+		number : Number
+			the number to be rounded
+	
+	**Throws**
+		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
+	
+	**Return**
+		the number rounded to nearby integral 
 */
 block rint(number)
 	if !isNumber(number) {
-		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+		throwWithTitle($MathModule,$MathNotNumber)
 	}
 	return __rint(number)
 	
 /*
 	Determine the value of the number rounded to a nearby integral with halfway cases rounded away from zero. 
-	The block function is same as `floor(number + 0.5f)`. It round to the nearest.
+	The block function is same as ``floor(number + 0.5f)``. It round to the nearest.
 	
-	@Param number - the number to be rounded
-	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
-	@Return the number rounded to nearby integral 
+	
+	**Parameters**
+		number : Number
+			the number to be rounded
+	
+	**Throws**
+		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
+	
+	**Return**
+		the number rounded to nearby integral 
 */
 block round(number)
 	if !isNumber(number) {
-		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+		throwWithTitle($MathModule,$MathNotNumber)
 	}
 	return __round(number)
 	
 /*
 	Determine the value of the number rounded to a nearby integral (as a floating-point value). If the floating-points
-	are between two number the Even number will be worked on. It round to the nearest. Similar to @Block rint(number) block
+	are between two number the Even number will be worked on. It round to the nearest. Similar to `block rint(number)`_ block
 	
-	@Param number - the number to be rounded
-	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
-	@Return the number rounded to nearby integral 
+	
+	**Parameters**
+		number : Number
+			the number to be rounded
+	
+	**Throws**
+		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
+	
+	**Return**
+		the number rounded to nearby integral 
 */
 block nearbyint(number)
 	if !isNumber(number) {
-		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+		throwWithTitle($MathModule,$MathNotNumber)
 	}
 	return __nearbyint(number)
 	
@@ -523,104 +711,157 @@ block nearbyint(number)
 	Determine floating point remainder of the fNumber / sNumber with the quotient truncated (rounded towards zero). 
 	It round to the nearest.
 	
-	@Param fNumber - value of the quotient numerator
-	@Param sNumber - value of the quotient denominator
-	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
-	@Return the remainder of dividing the fNumber and sNumber parameters
+	
+	**Parameters**
+		fNumber : Number
+			value of the quotient numerator
+		sNumber : Number
+			value of the quotient denominator
+	
+	**Throws**
+		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
+	
+	**Return**
+		the remainder of dividing the fNumber and sNumber parameters
 */
 block fmod(fNumber,sNumber)
 	if !isNumber(fNumber) or !isNumber(sNumber) {
-		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+		throwWithTitle($MathModule,$MathNotNumber)
 	}
 	return __fmod(fNumber,sNumber)
 	
 /*
 	Determine floating point remainder of the fNumber / sNumber. It round to the nearest. Similar to 
-	@Block fmod(fNumber,sNumber) block
+	`block fmod(fNumber,sNumber)`_ block
 	
-	@Param fNumber - value of the quotient numerator
-	@Param sNumber - value of the quotient denominator
-	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
-	@Return the remainder of dividing the fNumber and sNumber parameters
+	
+	**Parameters**
+		fNumber : Number
+			value of the quotient numerator
+		sNumber : Number
+			value of the quotient denominator
+	
+	**Throws**
+		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
+	
+	**Return**
+		the remainder of dividing the fNumber and sNumber parameters
 */
 block remainder(fNumber,sNumber)
 	if !isNumber(fNumber) or !isNumber(sNumber) {
-		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+		throwWithTitle($MathModule,$MathNotNumber)
 	}
 	return __remainder(fNumber,sNumber)
 	
 /*
 	Determine the nearest integral value that is not larget in magnitude than the number rounding it toward zero
 	
-	@Param number - the number to be truncated
-	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
-	@Return the number with the floating points truncated
+	
+	**Parameters**
+		number : Number
+			the number to be truncated
+	
+	**Throws**
+		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
+	
+	**Return**
+		the number with the floating points truncated
 */
 block trunc(number)
 	if !isNumber(number) {
-		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+		throwWithTitle($MathModule,$MathNotNumber)
 	}
 	return __trunc(number)
 	
 /*
 	Convert from degree to radian using the formula `radians = degrees * (pi/180)`
 	
-	@Param number - the angle in degrees
-	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
-	@Return the angle in radians
+	
+	**Parameters**
+		number : Number
+			the angle in degrees
+	
+	**Throws**
+		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
+	
+	**Return**
+		the angle in radians
 */
 block toRadians(number)
 	if !isNumber(number) {
-		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+		throwWithTitle($MathModule,$MathNotNumber)
 	}
-	return ((number * MATH_PI) / 180)
+	return ((number * MathPI) / 180)
 	
 /*
-	Convert from radian to degree using the formula `degrees = radians * (180/pi)`
+	Convert from radian to degree using the formula ``degrees = radians * (180/pi)``
 	
-	@Param number - the angle in radians
-	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
-	@Return the angle in degrees
+	
+	**Parameters**
+		number : Number
+			the angle in radians
+	
+	**Throws**
+		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
+	
+	**Return**
+		the angle in degrees
 */	
 block toDegrees(number)
 	if !isNumber(number) {
-		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+		throwWithTitle($MathModule,$MathNotNumber)
 	}
-	return ((number * 180) / MATH_PI)
+	return ((number * 180) / MathPI)
 	
 	
 /*
 	Determine the base 10 logarithm of a number.
 	
-	@Param number - number to get it base 10 logarithm of
-	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
-	@Return the base 10 logarithm of the number
+	
+	**Parameters**
+		number : Number
+			number to get it base 10 logarithm of
+	
+	**Throws**
+		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
+	
+	**Return**
+		the base 10 logarithm of the number
 */
 block log10(number)
 	if !isNumber(number) {
-		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+		throwWithTitle($MathModule,$MathNotNumber)
 	}
 	return __log10(number)
 	
 /*
 	Breaks the floating point number into its binary significand (a floating point with an absolute value 
 	between 0.5(included) and 1.0(excluded)) and an integral exponent for 2, such that:
-	```simple
-	number = significand * 2 ^ exponent 
-	```
-	The exponent is stored in the location pointed by exp, and the <em>significand</em> is the value returned 
+	
+	.. code-block:: simple
+	
+		number = significand * 2 ^ exponent 
+	
+	The exponent is stored in the location pointed by exp, and the **significand** is the value returned 
 	by the function
 	If the number is zero, both parts (significand and exponent) are zero. If the number is negative, the 
 	significand returned by this function is negative
 	
-	@Param number - value to be decomposed
-	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
-	@Return a list with binary significand of the number at the first index and the value where the exponent 
-	is stored at the second index @DataType List
+	
+	**Parameters**
+		number : Number
+			value to be decomposed
+	
+	**Throws**
+		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
+	
+	**Return**
+		a list with binary significand of the number at the first index and the value where the exponent 
+		is stored at the second index
 */	
 block frexp(number)
 	if !isNumber(number) {
-		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+		throwWithTitle($MathModule,$MathNotNumber)
 	}
 	__res = __frexp(number)
 	return __res
@@ -628,14 +869,22 @@ block frexp(number)
 /*
 	Deterine the result of multiplying the number (the significand) by 2 raised to the power of exp (the exponent)
 	
-	@Param number - point value representing the significand
-	@Param exp - value of the exponent
-	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
-	@Return number * 2 ^ exp  @DataType Number
+	
+	**Parameters**
+		number : Number
+			point value representing the significand
+		exp : Number
+			value of the exponent
+	
+	**Throws**
+		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
+	
+	**Return**
+		number * 2 ^ exp  
 */	
 block ldexp(number,exp)
 	if !isNumber(number) or !isNumber(exp) {
-		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+		throwWithTitle($MathModule,$MathNotNumber)
 	}
 	return __ldexp(number,exp)
 	
@@ -643,141 +892,198 @@ block ldexp(number,exp)
 	Breaks the number into an integral and a fractional part. The integer part is stored in the object pointed 
 	by intpart, and the fractional part is returned by the function. Both parts have the same sign as the number
 	
-	@Param number - the floating point value to break into parts
-	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
-	@Return the fractional part of x, with the same sign  @DataType Number
+	
+	**Parameters**
+		number : Number
+			the floating point value to break into parts
+	
+	**Throws**
+		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
+	
+	**Return**
+		the fractional part of x, with the same sign  
 */	
 block modf(number)
 	if !isNumber(number) {
-		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+		throwWithTitle($MathModule,$MathNotNumber)
 	}
 	__res = __modf(number)
 	return __res
 	
 /*
-	Determine the base-2 exponential function of a nuber, which is 2 raised to the power the number: <bold>2x</bold> 
+	Determine the base-2 exponential function of a nuber, which is 2 raised to the power the number: **2x**
 	
-	@Param number - the value of the exponent
-	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
-	@Return 2 raised to the power of the number  @DataType Number
+	
+	**Parameters**
+		number : Number
+			the value of the exponent
+	
+	**Throws**
+		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
+	
+	**Return**
+		2 raised to the power of the number  
 */	
 block exp2(number)
 	if !isNumber(number) {
-		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+		throwWithTitle($MathModule,$MathNotNumber)
 	}
 	return __exp2(number)
 	
 /*
-	Determine the value of e raised to the power a number minus one: <bold>ex-1</bold>
+	Determine the value of e raised to the power a number minus one: **ex-1**
 	
-	@Param number - the value of the exponent
-	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
-	@Return e raised to the power of the number, minus one  @DataType Number
+	
+	**Parameters**
+		number : Number
+			the value of the exponent
+	
+	**Throws**
+		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
+	
+	**Return**
+		e raised to the power of the number, minus one  
 */	
 block expm1(number)
 	if !isNumber(number) {
-		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+		throwWithTitle($MathModule,$MathNotNumber)
 	}
 	return __expm1(number)
 	
 /*
-	Determine the integral part of the logarithm of |x|, using 2 or greater as base for the logarithm.
+	Determine the integral part of the logarithm of **x**, using 2 or greater as base for the logarithm.
 	This is the exponent used internally by the machine to express the floating-point value x, when it uses 
 	a significand between 1.0 and 2, so that, for a positive number 
 	
-	```simple
-	x = significand * 2 ^ exponent 
-	```
+	.. code-block:: simple
 	
-	the value returned by this function is one less than the exponent obtained with @Block frexp(number) (because 
+		x = significand * 2 ^ exponent 
+	
+	the value returned by this function is one less than the exponent obtained with `block frexp(number)`_ (because 
 	of the different significand normalization as [1.0,2.0) instead of [0.5,1.0))
 	
-	@Param number - the value whose ilogb is returned
-	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
-	@Return the base-2 logarithm of the number @DataType Number
+	
+	**Parameters**
+		number : Number
+			the value whose ilogb is returned
+	
+	**Throws**
+		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
+	
+	**Return**
+		the base-2 logarithm of the number 
 */	
 block ilogb(number)
 	if !isNumber(number) {
-		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+		throwWithTitle($MathModule,$MathNotNumber)
 	}
 	return __ilogb(number)
 	
 /*
 	Determine the natural logarithm of one plus the number. for small magnitude values of number, 
-	@Block log1p(number) may be more accurate than @Block log(number) log( 1 + x )
+	`block log1p(number)`_ may be more accurate than `block log(number)`_ ``log( 1 + x )``
 	
-	@Param number - the value whose logarithm is calculated
-	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
-	@Throws @Variable __MATH_LESS_THAN_MINUS_ONE with title @Variable MATH_MODULE if the parameter is less than -1
-	@Throws @Variable __MATH_NOT_EQUAL -1 with title @Variable MATH_MODULE if the parameter is equals -1
-	@Return the natural logarithm of ( 1 + number ) @DataType Number
+	
+	**Parameters**
+		number : Number
+			the value whose logarithm is calculated
+	
+	**Throws**
+		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
+		`final $MathLessThanMinusOne`_ with title `final $MathModule`_ if the parameter is less than -1
+		`final $MathNotEqual`_ -1 with title `final $MathModule`_ if the parameter is equals -1
+	
+	**Return**
+		the natural logarithm of ( 1 + number ) 
 */	
 block log1p(number)
 	if !isNumber(number) {
-		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+		throwWithTitle($MathModule,$MathNotNumber)
 	}
 	if ( number < -1 ) {
-		throwWithTitle(MATH_MODULE,__MATH_LESS_THAN_MINUS_ONE)
+		throwWithTitle($MathModule,$MathLessThanMinusOne)
 	}
 	if ( number == -1 ) {
-		throwWithTitle(MATH_MODULE,__MATH_NOT_EQUAL + -1)
+		throwWithTitle($MathModule,$MathNotEqual + -1)
 	}
 	return __log1p(number)
 	
 /*
-	Determine tthe binary (base-2) logarithm of a number
+	Determine the binary (base-2) logarithm of a number
 	
-	@Param number - the value whose logarithm is calculated
-	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
-	@Throws @Variable __MATH_LESS_THAN 0 with title @Variable MATH_MODULE if the parameter is less than 0
-	@Throws @Variable __MATH_NOT_EQUAL -1 with title @Variable MATH_MODULE if the parameter is equals -1
-	@Return binary logarithm of the number : <bold>log2x</bold>  @DataType Number
+	
+	**Parameters**
+		number : Number
+			the value whose logarithm is calculated
+	
+	**Throws**
+		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
+		`final $MathLessThan`_ 0 with title `final $MathModule`_ if the parameter is less than 0
+		`final $MathNotEqual`_ -1 with title `final $MathModule`_ if the parameter is equals -1
+	
+	**Return**
+		binary logarithm of the number : **log2x** 
 */	
 block log2(number)
 	if !isNumber(number) {
-		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+		throwWithTitle($MathModule,$MathNotNumber)
 	}
 	if ( number < 0 ) {
-		throwWithTitle(MATH_MODULE,__MATH_LESS_THAN + 0)
+		throwWithTitle($MathModule,$MathLessThan + 0)
 	}
 	if ( number == 0 ) {
-		throwWithTitle(MATH_MODULE,__MATH_NOT_EQUAL + 0)
+		throwWithTitle($MathModule,$MathNotEqual + 0)
 	}
 	return __log2(number)
 	
 	
 /*
 	Determine the the logarithm of a number, using 2 as base for the logarithm. Almost equivalent to 
-	@Block log2(number) for positive number
+	`block log2(number)`_ for positive number
 	
-	@Param number - the value whose logarithm is calculated
-	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
-	@Return base 2 algorith of a nuber  @DataType Number
+	
+	**Parameters**
+		number : Number
+			the value whose logarithm is calculated
+	
+	**Throws**
+		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
+	
+	**Return**
+		base 2 algorith of a nuber  
 */	
 block logb(number)
 	if !isNumber(number) {
-		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+		throwWithTitle($MathModule,$MathNotNumber)
 	}
 	return __logb(number)	
 	
 /*
 	Scales a number by 2 raised to the power of n, returning the result of computing:
 	
-	```simple
-	scalbn(x,n) = x * 2
-	```
+	.. code-block:: simple
+		
+		scalbn(x,n) = x * 2
 	
 	Presumably, the number and n are the components of a floating-point number in the system; In such a case, this 
 	block may be optimized to be more efficient than the theoretical operations to compute the value explicitly
 	
-	@Param number - the value representing the significand
-	@Param exp - the value of the exponent
-	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
-	@Return x * 2 ^ n  @DataType Number
+	
+	**Parameters**
+		number : Number
+			the value representing the significand
+		exp : Number 
+			the value of the exponent
+	
+	**Throws**
+		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
+	
+	**Return**
+		x * 2 ^ n  
 */	
 block scalbln(number,exp)
 	if !isNumber(number) or !isNumber(exp) {
-		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+		throwWithTitle($MathModule,$MathNotNumber)
 	}
 	return __scalbln(number,exp)
 	
@@ -785,31 +1091,46 @@ block scalbln(number,exp)
 	Determine what would be the square root of the sum of the squares of x and y (as per the Pythagorean theorem), 
 	but without incurring in undue overflow or underflow of intermediate values
 	
-	@Param x - the floating point values corresponding to x of a right-angled triangle
-	@Param y - the floating point values corresponding to y of a right-angled triangle
-	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
-	@Return the hypotenuse of a right-angled triangle whose legs are x and y
+	**Parameters**
+		x : Number
+			the floating point values corresponding to x of a right-angled triangle
+		y : Number
+			the floating point values corresponding to y of a right-angled triangle
+	
+	**Throws**
+		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
+	
+	**Return**
+		the hypotenuse of a right-angled triangle whose legs are x and y
 */
 block hypot(x,y)
 	if !isNumber(x) or !isNumber(y) {
-		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+		throwWithTitle($MathModule,$MathNotNumber)
 	}
 	return __hypot(x,y)
 	
 
 /*
 	Determine the sign of the number in the following format
-	<ul> If the number is greater than zero, 1.0 is returned</ul>
-	<ul> If the number is less than zero, -1.0 is returned</ul>
-	<ul> If the number is 1.0 or -1.0 the same value is returned </ul>
 	
-	@Param number - the number
-	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
-	@Return the sign of the number
+	* If the number is greater than zero, 1.0 is returned
+	* If the number is less than zero, -1.0 is returned
+	* If the number is 1.0 or -1.0 the same value is returned
+	
+	
+	**Parameters**
+		number : Number
+			the number
+	
+	**Throws**
+		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
+	
+	**Return**
+		the sign of the number
 */	
 block numsign(number)
 	if !isNumber(number) {
-		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+		throwWithTitle($MathModule,$MathNotNumber)
 	}
 	if (number > 0) {
 		return 1.0
@@ -823,12 +1144,16 @@ block numsign(number)
 	floating point decimal are rounded to. Using this block make all the number through out the program have the number
 	of floating point sent as paraneter.
 	
-	@Param plave - the number of floating point for all numbers
-	@Throws @Variable __MATH_NOT_NUMBER with title @Variable MATH_MODULE if the parameter is not a Number
+	**Parameters**
+		place : Number
+			the number of floating point for all numbers
+	
+	**Throws**
+		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
 */
 block vmDecimalPoints(place)
 	if !isNumber(place) {
-		throwWithTitle(MATH_MODULE,__MATH_NOT_NUMBER)
+		throwWithTitle($MathModule,$MathNotNumber)
 	}
 	__decimals(place)
 	
@@ -836,232 +1161,56 @@ block vmDecimalPoints(place)
 	Generate a random number
 */
 block random()
-	return __rand()
-	
-/*
+	return __rand()	
 
-	Below are blocks exposed from the @DynamicModule Mathic dynamic module
+/*S
+	Below are blocks exposed from the `Mathic dynamic module`_
 	
-	<table>
-		<tr> 
-			<td><a href="Math.html#__cos" class="index-link">&emsp;&emsp; __sin &nbsp;&nbsp;</a></td> 
-			<td>Determine sine of a number. Use @Block sin(number) </td> 
-		</tr> 
-		<tr> 
-			<td><a href="Math.html#__cos" class="index-link">&emsp;&emsp; __cos &nbsp;&nbsp;</a></td> 
-			<td>Determine cosine of a number. Use @Block cos(number) </td> 
-		</tr> 
-		<tr> 
-			<td><a href="Math.html#__tan" class="index-link">&emsp;&emsp; __tan &nbsp;&nbsp;</a></td> 
-			<td>Determine tangent of a number. Use @Block tan(number) </td> 
-		</tr> 
-		<tr> 
-			<td><a href="Math.html#__asin" class="index-link">&emsp;&emsp; __asin &nbsp;&nbsp;</a></td> 
-			<td>Determine arc sine of a number. Use @Block asin(number) </td> 
-		</tr> 
-		<tr> 
-			<td><a href="Math.html#__acos" class="index-link">&emsp;&emsp; __acos &nbsp;&nbsp;</a></td> 
-			<td>Determine arc cosine of a number. Use @Block acos(number) </td> 
-		</tr> 
-		<tr> 
-			<td><a href="Math.html#__atan" class="index-link">&emsp;&emsp; __atan &nbsp;&nbsp;</a></td> 
-			<td>Determine arc tangent of a number. Use @Block atan(number) </td> 
-		</tr> 
-		<tr> 
-			<td><a href="Math.html#__atan2" class="index-link">&emsp;&emsp; __atan2 &nbsp;&nbsp;</a></td> 
-			<td>Determine arc tangent of a number with two parameters . Use @Block atan2(y, x) </td> 
-		</tr> 
-		<tr> 
-			<td><a href="Math.html#__sinh" class="index-link">&emsp;&emsp; __sinh &nbsp;&nbsp;</a></td> 
-			<td>Determine hyperbolic sine of a number. Use @Block sinh(number) </td> 
-		</tr> 
-		<tr> 
-			<td><a href="Math.html#__cosh" class="index-link">&emsp;&emsp; __cosh &nbsp;&nbsp;</a></td> 
-			<td>Determine hyperbolic cosine of a number. Use @Block cosh(number) </td> 
-		</tr> 
-		<tr> 
-			<td><a href="Math.html#__tanh" class="index-link">&emsp;&emsp; __tanh &nbsp;&nbsp;</a></td> 
-			<td>Determine hyperbolic tangent of a number . Use @Block tanh(number) </td> 
-		</tr> 
-		<tr> 
-			<td><a href="Math.html#__asinh" class="index-link">&emsp;&emsp; __asinh &nbsp;&nbsp;</a></td> 
-			<td>Determine area hyperbolic sine of a number. Use @Block asinh(number) </td> 
-		</tr> 
-		<tr> 
-			<td><a href="Math.html#__acosh" class="index-link">&emsp;&emsp; __acosh &nbsp;&nbsp;</a></td> 
-			<td>Determine area hyperbolic cosine of a number. Use @Block acosh(number) </td> 
-		</tr> 
-		<tr> 
-			<td><a href="Math.html#__atanh" class="index-link">&emsp;&emsp; __atanh &nbsp;&nbsp;</a></td> 
-			<td>Determine area hyperbolic tangent of a number . Use @Block atanh(number) </td> 
-		</tr> 
-		<tr> 
-			<td><a href="Math.html#__rint" class="index-link">&emsp;&emsp; __rint &nbsp;&nbsp;</a></td> 
-			<td>Round a number to integral value. Use @Block rint(number) </td> 
-		</tr> 
-		<tr> 
-			<td><a href="Math.html#__round" class="index-link">&emsp;&emsp; __round &nbsp;&nbsp;</a></td> 
-			<td>Round a number to nearest. Use @Block round(number) </td> 
-		</tr> 
-		<tr> 
-			<td><a href="Math.html#__floor" class="index-link">&emsp;&emsp; __floor &nbsp;&nbsp;</a></td> 
-			<td>Round a number down. Use @Block floor(number) </td> 
-		</tr> 
-		<tr> 
-			<td><a href="Math.html#__ceil" class="index-link">&emsp;&emsp; __ceil &nbsp;&nbsp;</a></td> 
-			<td>Round a number up. Use @Block ceil(number) </td> 
-		</tr> 
-		<tr> 
-			<td><a href="Math.html#__fmod" class="index-link">&emsp;&emsp; __fmod &nbsp;&nbsp;</a></td> 
-			<td>Determine remainder of division . Use @Block fmod(fNumber,sNumber) </td> 
-		</tr> 
-		<tr> 
-			<td><a href="Math.html#__trunc" class="index-link">&emsp;&emsp; __trunc &nbsp;&nbsp;</a></td> 
-			<td>Truncate a number . Use @Block trunc(number) </td> 
-		</tr> 
-		<tr> 
-			<td><a href="Math.html#__remainder" class="index-link">&emsp;&emsp; __remainder &nbsp;&nbsp;</a></td> 
-			<td>Determine remainder of an operation. Use @Block remainder(fNumber,sNumber) </td> 
-		</tr> 
-		<tr> 
-			<td><a href="Math.html#__exp" class="index-link">&emsp;&emsp; __exp &nbsp;&nbsp;</a></td> 
-			<td>Determine a number exponential value . Use @Block exp(number) </td> 
-		</tr> 
-		<tr> 
-			<td><a href="Math.html#__log" class="index-link">&emsp;&emsp; __log &nbsp;&nbsp;</a></td> 
-			<td>Determine a number natural logarithm . Use @Block log(number) </td> 
-		</tr> 
-		<tr> 
-			<td><a href="Math.html#__log10" class="index-link">&emsp;&emsp; __log10 &nbsp;&nbsp;</a></td> 
-			<td>Determine a number common logarithm. Use @Block log10(number) </td> 
-		</tr> 
-		<tr> 
-			<td><a href="Math.html#__frexp" class="index-link">&emsp;&emsp; __frexp &nbsp;&nbsp;</a></td> 
-			<td>Get a number significand and exponent. Use @Block frexp(number)) </td> 
-		</tr> 
-		<tr> 
-			<td><a href="Math.html#__ldexp" class="index-link">&emsp;&emsp; __ldexp &nbsp;&nbsp;</a></td> 
-			<td>Generate value from a significand and exponent. Use @Block ldexp(number,exp) </td> 
-		</tr> 
-		<tr> 
-			<td><a href="Math.html#__modf" class="index-link">&emsp;&emsp; __modf &nbsp;&nbsp;</a></td> 
-			<td>Break a number into fractional and integral parts. Use @Block modf(number) </td> 
-		</tr> 
-		<tr> 
-			<td><a href="Math.html#__exp2" class="index-link">&emsp;&emsp; __exp2 &nbsp;&nbsp;</a></td> 
-			<td>Determine a number binary logarithm. Use @Block exp2(number) </td> 
-		</tr> 
-		<tr> 
-			<td><a href="Math.html#__expm1" class="index-link">&emsp;&emsp; __expm1 &nbsp;&nbsp;</a></td> 
-			<td>Compute a number exponential minus one. Use @Block expm1(number) </td> 
-		</tr> 
-		<tr> 
-			<td><a href="Math.html#__ilogb" class="index-link">&emsp;&emsp; __ilogb &nbsp;&nbsp;</a></td> 
-			<td>Determine a number integer binary logarithm. Use @Block ilogb(number) </td> 
-		</tr> 
-		<tr> 
-			<td><a href="Math.html#__log1p" class="index-link">&emsp;&emsp; __log1p &nbsp;&nbsp;</a></td> 
-			<td>Compute a number logarithm plus one. Use @Block log1p(number) </td> 
-		</tr> 
-		<tr> 
-			<td><a href="Math.html#__log2" class="index-link">&emsp;&emsp; __log2 &nbsp;&nbsp;</a></td> 
-			<td>Determine a number binary logarithm . Use @Block log2(number) </td> 
-		</tr> 
-		<tr> 
-			<td><a href="Math.html#__logb" class="index-link">&emsp;&emsp; __logb &nbsp;&nbsp;</a></td> 
-			<td>Determine a number floating-point base logarithm. Use @Block logb(number) </td> 
-		</tr> 
-		<tr> 
-			<td><a href="Math.html#__scalbn" class="index-link">&emsp;&emsp; __scalbn &nbsp;&nbsp;</a></td> 
-			<td>Determine a number scale significand using floating-point base exponent. Use @Block scalbln(number,exp) </td> 
-		</tr> 
-		<tr> 
-			<td><a href="Math.html#__scalbln" class="index-link">&emsp;&emsp; __scalbln &nbsp;&nbsp;</a></td> 
-			<td>Determine a number scale significand using floating-point base exponent (long). Use @Block scalbln(number,exp) </td> 
-		</tr> 
-		<tr> 
-			<td><a href="Math.html#__pow" class="index-link">&emsp;&emsp; __pow &nbsp;&nbsp;</a></td> 
-			<td>Raise a number to a power. Use @Block pow(fNumber,sNumber) </td> 
-		</tr> 
-		<tr> 
-			<td><a href="Math.html#__sqrt" class="index-link">&emsp;&emsp; __sqrt &nbsp;&nbsp;</a></td> 
-			<td>Compute a number square root. Use @Block sqrt(number) </td> 
-		</tr> 
-		<tr> 
-			<td><a href="Math.html#__cbrt" class="index-link">&emsp;&emsp; __cbrt &nbsp;&nbsp;</a></td> 
-			<td>Compute a number cube root. Use @Block cbrt(number) </td> 
-		</tr> 
-		<tr> 
-			<td><a href="Math.html#__hypot" class="index-link">&emsp;&emsp; __hypot &nbsp;&nbsp;</a></td> 
-			<td>Determine a number hypotenuse value. Use @Block hypot(x,y) </td> 
-		</tr> 
-		<tr> 
-			<td><a href="Math.html#__rand" class="index-link">&emsp;&emsp; __rand &nbsp;&nbsp;</a></td> 
-			<td>Generate a random number. Use @Block random() </td> 
-		</tr> 
-		<!-- <tr> 
-			<td><a href="Math.html#__unsigned" class="index-link">&emsp;&emsp; __unsigned &nbsp;&nbsp;</a></td> 
-			<td>Generate an unsigned number. Use @Block genUnsigned() </td> 
-		</tr>  -->
-		<tr> 
-			<td><a href="Math.html#__decimals" class="index-link">&emsp;&emsp; __decimals &nbsp;&nbsp;</a></td> 
-			<td>Change the number of floating point of decimal numbers. Use @Block vmDecimalPoints(place) </td> 
-		</tr> 
-		<tr> 
-			<td><a href="Math.html#__fabs" class="index-link">&emsp;&emsp; __fabs &nbsp;&nbsp;</a></td> 
-			<td>Compute a number absolute value. Use @Block abs(number) </td> 
-		</tr> 
-	</table>
-
+	============= ====================================================================================================================
+	 __sin         Determine sine of a number. Use `block sin(number)`_
+	 __cos         Determine cosine of a number. `block cos(number)`_ 
+	 __tan         Determine tangent of a number. Use `block tan(number)`_
+	 __asin        Determine arc sine of a number. Use `block asin(number)`_
+	 __acos        Determine arc cosine of a number. Use `block acos(number)`_
+	 __atan        Determine arc tangent of a number. Use `block atan(number)`_
+	 __atan2       Determine arc tangent of a number with two parameters . Use `block atan2(y, x)`_
+	 __sinh        Determine hyperbolic sine of a number. Use `block sinh(number)`_
+	 __cosh        Determine hyperbolic cosine of a number. Use `block cosh(number)`_
+	 __tanh        Determine hyperbolic tangent of a number . Use `block tanh(number)`_
+	 __asinh       Determine area hyperbolic sine of a number. Use `block asinh(number)`_
+	 __acosh       Determine area hyperbolic cosine of a number. Use `block acosh(number)`_
+	 __atanh       Determine area hyperbolic tangent of a number . Use `block atanh(number)`_
+	 __rint        Round a number to integral value. Use `block rint(number)`_
+	 __round       Round a number to nearest. Use `block round(number)`_
+	 __floor       Round a number down. Use `block floor(number)`_
+	 __ceil        Round a number up. Use `block ceil(number)`_
+	 __fmod        Determine remainder of division . Use `block fmod(fNumber,sNumber)`_
+	 __trunc       Truncate a number . Use `block trunc(number)`_
+	 __remainder   Determine remainder of an operation. Use `block remainder(fNumber,sNumber)`_
+	 __exp         Determine a number exponential value . Use `block exp(number)`_
+	 __log         Determine a number natural logarithm . Use `block log(number)`_
+	 __log10       Determine a number common logarithm. Use `block log10(number)`_
+	 __frexp       Get a number significand and exponent. Use `block frexp(number)`_
+	 __ldexp       Generate value from a significand and exponent. Use `block ldexp(number,exp)`_
+	 __modf        Break a number into fractional and integral parts. Use `block modf(number)`_
+	 __exp2        Determine a number binary logarithm. Use `block exp2(number)`_
+	 __expm1       Compute a number exponential minus one. Use `block expm1(number)`_
+	 __ilogb       Determine a number integer binary logarithm. Use `block ilogb(number)`_
+	 __log1p       Compute a number logarithm plus one. Use `block log1p(number)`_
+	 __log2        Determine a number binary logarithm . Use `block log2(number)`_
+	 __logb        Determine a number floating-point base logarithm. Use `block logb(number)`_
+	 __scalbn      Determine a number scale significand using floating-point base exponent. Use `block scalbln(number,exp)`_
+	 __scalbln     Determine a number scale significand using floating-point base exponent (long). Use `block scalbln(number,exp)`_
+	 __pow         Raise a number to a power. Use `block pow(fNumber,sNumber)`_
+	 __sqrt        Compute a number square root. Use `block sqrt(number)`_
+	 __cbrt        Compute a number cube root. Use `block cbrt(number)`_
+	 __hypot       Determine a number hypotenuse value. Use `block hypot(x,y)`_
+	 __rand        Generate a random number. Use `block random()`_
+	 __decimals    Change the number of floating point of decimal numbers. Use `block vmDecimalPoints(place)`_
+	 __fabs        Compute a number absolute value. Use `block abs(number)`_
+	============= ====================================================================================================================
+	
+	.. _Mathic dynamic module: https://github.com/simple-lang/simple/tree/master/modules/dynamic_modules/mathic
+	.. _simple.util.Math Test: https://github.com/simple-lang/simple/blob/master/examples/modules_test/simple/util/math.sim
+	
 */
-
-/*
-	<h1>Example Usage</h1>
-	```simple
-	call "simple/util/Math.sim"
-
-block main()
-	@"PI : "+MATH_PI()
-	@"E : "+MATH_E()
-	@""
-	
-	NEG_NUMBER = -1234567890.012
-	NUMBER = abs(NEG_NUMBER)
-	NUMBER2 = 12345
-	
-	@"NEG_NUMBER : "+NEG_NUMBER
-	@"abs("+NEG_NUMBER+") : "+abs(NEG_NUMBER)
-	@"MINIMUM min("+NUMBER+","+NUMBER2+") : "+min(NUMBER,NUMBER2)
-	@"MAXIMUM max("+NUMBER+","+NUMBER2+") : "+max(NUMBER,NUMBER2)
-	@"SINE sin("+NUMBER+") : "+sin(NUMBER)
-	@"COSINE cos("+NUMBER+") : "+cos(NUMBER)
-	@"TANGENT tan("+NUMBER+") : "+tan(NUMBER)
-	@"ARC SINE asin("+NUMBER+") : "+asin(NUMBER)
-	@"ARC COSINE acos("+NUMBER+") : "+acos(NUMBER)
-	@"ARC TANGENT atan("+NUMBER+") : "+atan(NUMBER)
-	```
-	
-	<h3>Output</h3>
-	```
-PI : 3.14
-E : 2.72
-
-NEG_NUMBER : -1234567890.01
-abs(-1234567890.01) : 1234567890.01
-MINIMUM min(1234567890.01,12345) : 12345
-MAXIMUM max(1234567890.01,12345) : 1234567890.01
-SINE sin(1234567890.01) : 0.98
-COSINE cos(1234567890.01) : -0.17
-TANGENT tan(1234567890.01) : -5.64
-ARC SINE asin(1234567890.01) : -1.#J
-ARC COSINE acos(1234567890.01) : -1.#J
-ARC TANGENT atan(1234567890.01) : 1.57
-```
-.	
-*/
-
-
-
-
-
-
