@@ -1,0 +1,68 @@
+
+
+project = 'simple-lang'
+copyright = '2018-2019 by Simple Collectives'
+author = 'Azeez Adewale'
+version = '0.1'
+
+conf_py_dump = '
+import simple_lexer
+
+html_theme = "nature" '
+
+akosileOptions = [
+	["silent", false], 
+	["smotten_edge", true],
+	["treat_special_files", true],
+	["source_url_prefix", "https://github.com/simple-lang/simple/tree/master/modules/"],
+	["source_folder", "./"],
+	["output_folder", "../../docs/modules_build/"],
+	["conf.py_dump", conf_py_dump],
+	["resources", [
+		"simple_lexer.py"
+	]]
+]
+
+/*
+	Comment out file/folder wild card to document 
+	as per unit
+*/
+akosileExclude = [
+	"*conf.sim",
+	"*archive*",
+	"*dynamic_module*",
+	"*fulltick*",
+	"*parser*",
+	"*zip*",
+	"*core*",
+	"*debugging*",
+	"*graphics*",
+	"*io*",
+	"*net*",
+	"*reflection*",
+	"*security*",
+	"*system*",
+	#"*util*",
+		"*Con*",
+		"*Date*",
+		"*Con*",
+		#"*Exter*",
+		"*Look*",
+		"*Math*",
+		"*Type*",
+	"*Array*",
+	"*web*"
+]
+
+akosileSimpleSourceSufix = [
+	".sim"
+]
+
+akosileSpecialFileExts = [
+	"*_test*"
+]
+
+akosileSpecialFileOptions = [
+	["extract_code", true],
+	["single_doc", true]
+]

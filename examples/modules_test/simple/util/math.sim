@@ -8,8 +8,8 @@
 call simple.util.Math
 
 block main()
-	@"PI : "+MATH_PI()
-	@"E : "+MATH_E()
+	@"PI : "+MathPI()
+	@"E : "+MathE()
 	@""
 	
 	NEG_NUMBER = -1234567890.012
@@ -33,7 +33,7 @@ block main()
 	x = -7.0
 	y = 7.0
 	
-	val = 180.0 / MATH_PI
+	val = 180.0 / MathPI
 	
 	ret = atan2(y,x) * val
 	@"Arc tangent of a x = " + x + " and y = " + y + " is " + ret + " degree"

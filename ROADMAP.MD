@@ -159,6 +159,7 @@ issue related to the module
 - [ ] create a look ahead class for pure string and file stream for parser implementation
 	- [x] LookAhead class for pure string. `simple.utilities.LookAhead`
 	- [ ] for file stream or file reader. `simple.io.LookAheadReader`
+- [ ] create block to locate resources in possible locations with file name and program name e.g `locateResource(string programName, string name)`
 
 ### Extended Modules
 
@@ -194,6 +195,11 @@ Modules which are not part of the standard module that comes distributed with si
 	- [ ] test full operation on linux os
 	- [ ] test full operation on mac os
 	- [ ] test full operation on haiku os
+- [ ] build the documentation environment to read comment from source into reStructuredText
+	- [ ] generate conf.py for sphinx
+	- [ ] generatemake.bat and Makefile for sphinx build
+	- [ ] auto create index pages for each folder
+	- [ ] allow linking to raw source code
 
 
 
