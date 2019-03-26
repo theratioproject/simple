@@ -15,8 +15,8 @@
 	This issue has been resolve in the following commit 
 	https://github.com/simple-lang/simple/commit/f45af071ee49ef37d80e88b141adae1e82a1cac0
 
-    :copyright: 2018-2019 by Azeez Adewale
-    :license: MIT License Copyright (c) 2018 simple
+	:copyright: 2018-2019 by Azeez Adewale
+	:license: MIT License Copyright (c) 2018 simple
 	:author: Azeez Adewale <azeezadewale98@gmail.com>
 	:date: March 23 2019
 	:filename: create_directory.sim

@@ -1,9 +1,9 @@
 
 
-project = 'Simple Modules'
+project = 'Simple Examples'
 copyright = '2018-2019 by Simple Collectives'
 author = 'Azeez Adewale'
-version = '0.2'
+version = '0.1'
 
 conf_py_dump = '
 import simple_lexer
@@ -14,9 +14,9 @@ akosileOptions = [
 	["silent", false], 
 	["smotten_edge", true],
 	["treat_special_files", true],
-	["source_url_prefix", "https://github.com/simple-lang/simple/tree/master/modules/"],
+	["source_url_prefix", "https://github.com/simple-lang/simple/tree/master/examples/"],
 	["source_folder", "./"],
-	["output_folder", "../../docs/modules_build/"],
+	["output_folder", "../../docs/examples_build/"],
 	["conf.py_dump", conf_py_dump],
 	["resources", [
 		"simple_lexer.py"
@@ -28,30 +28,17 @@ akosileOptions = [
 	as per unit
 */
 akosileExclude = [
-	"*conf.sim",
-	"*archive*",
-	"*dynamic_module*",
-	"*fulltick*",
-	"*parser*",
-	"*zip*",
-	"*core*",
-	"*debugging*",
-	"*graphics*",
-	"*io*",
-	"*net*",
-	"*reflection*",
-	"*security*",
-	"*system*",
-	#"*util*",
-		"*Con*",
-		"*Date*",
-		"*Con*",
-		#"*Exter*",
-		"*Look*",
-		"*Math*",
-		"*Type*",
-	"*Array*",
-	"*web*"
+	"conf.sim",
+	"*algorithm*",
+	"*basic*",
+	"*gui*",
+	#"*intermediate*",
+	"*modules_test*",
+	"*more*",
+	"*syntax*",
+	"*testfiles*",
+	"*test*",
+	"*text editors*"
 ]
 
 akosileFiles = [
@@ -59,7 +46,7 @@ akosileFiles = [
 ]
 
 akosileSpecialFiles = [
-	"*_test*"
+	".sim"
 ]
 
 akosileSpecialFileOptions = [

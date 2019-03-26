@@ -13,9 +13,9 @@ multiLine = false
 simpleReplTitle = "simple "+simpleVersion() + "\n"
 
 clearConsole()
-stdout.printfc(ConsoleColor.NONE, simpleReplTitle)
+stdout.printfc(ConsoleColor.None, simpleReplTitle)
 while true {
-	stdout.printfc(ConsoleColor.CYAN, "simple$ ") 
+	stdout.printfc(ConsoleColor.Cyan, "simple$ ") 
 	read code
 	if code == "-\" {
 		multiLine = true
@@ -40,6 +40,6 @@ while true {
 	try {
 		executeCode(code)
 	catch
-		stderr.printfc(ConsoleColor.NONE, __err__+"\n")
+		stderr.printfc(ConsoleColor.None, __err__+"\n")
 	}
 } 
