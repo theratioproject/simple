@@ -23,6 +23,8 @@ akosileOptions = [
 	]]
 ]
 
+akosileExtraConfs = []
+
 /*
 	Comment out file/folder wild card to document 
 	as per unit
