@@ -13,7 +13,7 @@
 		All the blocks are public and does not require any type of initialization  because it has no 
 		class. All the function in this file is accessible by calling it.
 		
-	.. code-block:: simple
+	::
 	
 		call simple.util.Math
 		
@@ -841,7 +841,7 @@ block log10(number)
 	Breaks the floating point number into its binary significand (a floating point with an absolute value 
 	between 0.5(included) and 1.0(excluded)) and an integral exponent for 2, such that:
 	
-	.. code-block:: simple
+	::
 	
 		number = significand * 2 ^ exponent 
 	
@@ -958,7 +958,7 @@ block expm1(number)
 	This is the exponent used internally by the machine to express the floating-point value x, when it uses 
 	a significand between 1.0 and 2, so that, for a positive number 
 	
-	.. code-block:: simple
+	::
 	
 		x = significand * 2 ^ exponent 
 	
@@ -1064,7 +1064,7 @@ block logb(number)
 /*
 	Scales a number by 2 raised to the power of n, returning the result of computing:
 	
-	.. code-block:: simple
+	::
 		
 		scalbn(x,n) = x * 2
 	
