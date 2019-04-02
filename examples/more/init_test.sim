@@ -1,0 +1,14 @@
+
+cl = new Class()
+
+class Class : SuperClass
+
+	block initer()
+		display "now in child class " + nl
+
+class SuperClass
+
+	block init()
+		display "from super class " + nl
+		
+		

@@ -1182,7 +1182,7 @@ SIMPLE_API void simple_vm_oop_callmethodfrombrace ( VM *vm )
 			if ( simple_list_getsize(vm->pBlockCallList) > 0 ) {
 				list2 = simple_list_getlist(vm->pBlockCallList,simple_list_getsize(vm->pBlockCallList));
 				cStr = simple_list_getstring(list2,SIMPLE_BLOCKCL_NAME);
-				if ( strcmp(cStr,cStr) != 0 ) {
+				if ( strcmp(cStr,"init") != 0 ) {
 					list = simple_list_getlist(vm->pObjState,simple_list_getsize(vm->pObjState)-1) ;
 				}
 			}

@@ -630,7 +630,6 @@ int simple_parser_factor ( Parser *parser,int *nFlag )
 	char lSetProperty,lequal,nBeforeEqual  ;
 	char cBlockName[100]  ;
 	char keyword[100]  ;
-	const char *class_name;
 	/* Set Identifier Flag - is 1 when we have Factor -->Identifier */
 	*nFlag = 0 ;
 	/* Factor --> Identifier  {mixer} [ '=' Expr ] */
@@ -951,7 +950,7 @@ int simple_parser_factor ( Parser *parser,int *nFlag )
 	}
 	/* Factor --> New Identifier */
 	if ( simple_parser_iskeyword(parser,KEYWORD_NEW) ) {
-		simple_parser_nexttoken(parser);  class_name = parser->TokenText;
+		simple_parser_nexttoken(parser);
 		SIMPLE_PARSER_IGNORENEWLINE ;
 		/* Generate Code */
 		simple_parser_icg_newoperation(parser,ICO_NEWOBJ); 
@@ -980,7 +979,7 @@ int simple_parser_factor ( Parser *parser,int *nFlag )
 				simple_parser_icg_newoperandint(parser,1);
 				/* Generate Code ( Call Block ) */
 				simple_parser_icg_newoperation(parser,ICO_LOADADDRESS);
-				simple_parser_icg_newoperand(parser,class_name);
+				simple_parser_icg_newoperand(parser,"init");
 				/* Generate Location for nPC of Getter */
 				simple_parser_icg_newoperandint(parser,0);
 				/* Block Parameters */
