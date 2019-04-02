@@ -1,14 +1,14 @@
 /* 
-	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com> 
-	MIT License Copyright (c) 2018 simple-lang
-*/
+	An example file to demonstrate an interactive command line using the standard output 
+	stream by showing progress bar base on the percentage
 
-/* 
- * @Filename - consoleprogressbar.sim
- * @Author - Azeez Adewale
- * @Date - 08 July 2018
- * @Time - 09:42 PM
- */
+	:copyright: 2018-2019, Azeez Adewale
+	:license: MIT License Copyright (c) 2018 simple
+	:author: Azeez Adewale <azeezadewale98@gmail.com>
+	:date: 08 July 2018
+	:filename: consoleprogressbar.sim
+
+*/
 
 call simple.util.Console
 

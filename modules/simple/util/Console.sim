@@ -1,18 +1,32 @@
+/*P
+	The Console module consists functions and constants to interact with the standard streams. 
+	The stream in this modules are:
+	
+	* stdin 
+		The standard input stream **stdin** is used to accept input from the command line when 
+		working in a system environment. In web context such as CGI the **stdin** holds all the 
+		content from POST, PUTS Methods with the exception of GET which is appended to the URL
 
-/* 
-	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com> 
-	MIT License Copyright (c) 2018 simple-lang
+	* stdout
+		The standard output stream **stdout** is used to display data in the console and act 
+		as the document body of a webpage in a web environment.
+		
+	* stderr 
+		The standard output stream **stderr** is used to display error data in the console. Data 
+		written to the stderr can be redirected to the same display as `final stdout`_.
 
+	:copyright: 2018-2019, Azeez Adewale
+	:license: MIT License Copyright (c) 2018 simple
+	:author: Azeez Adewale <azeezadewale98@gmail.com>
+	:date: 5 Febuary 2017
+	:time: 09 : 29 PM
+	:filename: Console.sim
 */
 
-/* 
-	#filename - Console.sim
-	#date - 5 Febuary 2017
-	#time - 09 : 29 PM
-	#license - MIT License Copyright (c) 2018 simple-lang
-	#author - Azeez Adewale	<azeezadewale98@gmail.com> 
- */
-
+/*
+	import `simple.util.ConsoleColor`_ which hold all the type of color for the foreground and background
+	of the console.
+*/
 call simple.util.ConsoleColor
 call simple.core.List
 call simple.util.Type
@@ -27,54 +41,48 @@ import simple.core
 module simple.util
 
 /*
-	initialized to allow ussage as ConsoleColor.Color
+	initialized the ConsoleColor variable to enable usage of it Color Fields e.g ConsoleColor.Black
 */
 #enum
 final ConsoleColor = new ConsoleColor
 
-
-/*@Prefix
-	call the @File ConsoleColor.sim which hold all the type of color for the foreground and background
-	of the console. The dynamic module @DynamicModule Consoler is also called in the file.
-	call the @Class List for the list class
-*/
-
 /*
 	The standard output stream is the default destination of output for console programs. It is usually directed 
 	by default to the text console (generally, on the screen) which can be the terminal. 
-	<br />
+	
 	Although it is commonly  assumed that the default destination for stdout is going to be the screen, this may 
 	not be the case even in regular console systems, since stdout can generally be redirected on most operating 
 	systems at the time of invoking the application. For example, many systems, among them DOS/Windows and most 
 	UNIX shells, support the following command syntax :
 	
-	```simple
-	theprogram > output.txt
-	```
+	::
+	
+		theprogram > output.txt
 	
 	to redirect the output of **theprogram** to the file **output.txt** instead of the console.
-	<br />
-	It basically the normal C stdout which give output to the screen, but can be used to pipe output to another process 
-	or file.
+	
+	.. note::
+		The stdout stream cannot be closed in order to prevent error while trying to write to it later, instead 
+		of closing the stream the stdout stream will be flushed instead
+	
 */
 final stdout = new PrintWriter(new FileWriter(__stdout()), true){
 	Closable = false
 }
 
 /*
-	The standard error stream is the default destination for error messages and other diagnostic warnings. Like 
-	@Variable __stdout, it is usually also directed by default to the text console (generally, on the screen).
+	The standard error stream is the default destination for error messages and other diagnostic warnings. 
+	Like `final stdout`_ , it is usually also directed by default to the text console (generally, on the screen).
 	
-	<br />
-	Although in many cases both @Variable __stdout and stderr are associated with the same output device (like the console), 
-	applications may differentiate between what is sent to @Variable __stdout and what to stderr for the case that one of them 
-	is redirected. For example, it is frequent to redirect the regular output of a console program (@Variable __stdout) to a 
-	file while expecting the error messages to keep appearing in the console.
-	<br />
-	It is also possible to redirect stderr to some other destination from within a program using the freopen function.
-	<br />
-	It basically the normal C stderr which give error and diagnostic output to the screen, but can be used to pipe 
-	output to another process or file.
+	Although in many cases both `final stdout`_ and stderr are associated with the same output device 
+	(like the console), applications may differentiate between what is sent to `final stdout`_ and what to 
+	stderr for the case that one of them is redirected. For example, it is frequent to redirect the regular 
+	output of a console program (`final stdout`_) to a file while expecting the error messages to keep appearing 
+	in the console.
+	
+	.. note::
+		The stderr stream cannot be closed in order to prevent error while trying to write to it later, 
+		instead of closing the stream the stderr stream will be flushed instead
 */
 final stderr = new PrintWriter(new FileWriter(__stderr()), true) {
 	Closable = false
@@ -83,21 +91,21 @@ final stderr = new PrintWriter(new FileWriter(__stderr()), true) {
 /*
 	The standard input stream is the default source of data for applications. It is usually directed by default to the 
 	keyboard.
-	<br />
+	
 	it is commonly assumed that the source of data for stdin is going to be a keyboard, this may not be the case even 
 	in regular console systems, since stdin can generally be redirected on most operating systems at the time of 
 	invoking the application. For example, many systems, among them DOS/Windows and most UNIX shells, support the 
 	following command syntax :
 	
-	```simple
-	theprogram < output.txt
-	```
+	::
+	
+		theprogram < output.txt
 	
 	to use the content of the file **output.txt** as the primary source of data for **theprogram** instead of the console 
 	keyboard.
-	<br />
-	It basically the normal C stdin, which accept input from keyboard but maybe used to pipe input from another process of 
-	file.
+	
+	.. note::
+		The stdin stream cannot be closed
 */
 final stdin = new FileReader(__stdin(), "rb") {
 	Closable = false
@@ -105,12 +113,23 @@ final stdin = new FileReader(__stdin(), "rb") {
 	
 
 /*
-
+	Clear the console or terminal that the input output data is currently interacting with. This block is 
+	equivalent to using the **system** function to clear the console, with the platform specific command. 
+	The following command are issued base on the platform 
+	
+	* Windows 	system("cls")
+	* Others 	system("clear")
+	
+	This is proven to work in a command line environment but should be avoided in a GUI application as 
+	a console or terminal might pop up to execute the **system** command.
 */
 block clearConsole()
 	if isWindows() {
 		system("cls")
-	else
-		system("clear")
+		return
 	}
+	system("clear")
 
+/*S
+	.. _simple.util.ConsoleColor: ./ConsoleColor.html
+*/

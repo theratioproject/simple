@@ -1,22 +1,39 @@
-/* 
-	Copyright (c) 2018 Abdulazeez Adeshina Abdulazeez <laisibizness@gmail.com> 
-	MIT License Copyright (c) 2018 simple 
-*/
+/*P
+    Get the length and size of any type of object the 
 
-/* 
- * @Filename - Length.sim
- * @Author - Abdulazeez Abdulazeez Adeshina
- * @Date - 04 April 2018.
- * @Time - 22:03 PM
- * @License - MIT License
- *
- */
+	:copyright: 2018-2019, Azeez Adewale
+	:license: MIT License Copyright (c) 2018 simple
+	:author: Abdulazeez Abdulazeez Adeshina
+	:date: 04 April 2018
+	:filename: Length.sim
+*/
 
 module simple.util
 
-block getTypeLength(object)
-    if (isList(object) || isString(object))
-        return lengthOf(object)
-    elif (isNumber(object))
-        return object
+/*
+	Get the length and size of any type of object. The length is determined by the type 
+	of the object 
+	
+	======== ====================================================================
+	String    The number of characters in the string
+	List      The number of item in the list 
+	Number    The number return itself
+	Object    If the class treats the **legthOf** operator the value is returned 
+	======== ====================================================================
+	
+	**Parameters**:	
+		obj : object
+			the object to determine it length
+			
+	**Return**:
+		the length of any object
+*/
+block getTypeLength(object obj)
+    if (isList(obj) || isString(obj))
+        return lengthOf(obj)
+    elif (isNumber(obj))
+        return obj
     end
+	
+	
+	

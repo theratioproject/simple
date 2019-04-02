@@ -1,223 +1,304 @@
-/* 
-	Copyright (c) 2016-2018 Azeez Adewale <azeezadewale98@gmail.com> 
-	MIT License Copyright (c) 2018 simple 
+/*P
+	This module holds the color values for the terminal. It does not use the Red-Green-Blue (RGB) 
+	standard it rather uses color bit of 5 to determine and differentiate between foreground 
+	and background of the color. 
+	
+	The color can be used as first argument for the `simple.io.PrintWriter.printfc(...)`_ and 
+	`simple.io.PrintWriter.printbc(...)`_ , the first which deal with the forground and the 
+	later to change the background.
+	
+	Example 
+	
+	.. code-block:: simple
+	
+		call simple.util.Console
+		import simple.core
+		
+		stdout.printfc()
+		
+	The color will only be applied to the terminal or console if it is supported, the console color
+	will be neglected if the standard stream it not supported like logging to file or usage in CGI.  
 
+	:copyright: 2018-2019, Azeez Adewale
+	:license: MIT License Copyright (c) 2018 simple
+	:author: Azeez Adewale <azeezadewale98@gmail.com>
+	:date: 11 Febuary 2017
+	:time: 
+	:filename: ConsoleColor.sim
 */
-
-/* 
- * #filename - ConsoleColor.sim
- * #author - Azeez Adewale
- * #date - 11 Febuary 2017
- */
  
 call simple.core.Object
 call simple.io.loadfilesavantlib
 
 module simple.util
 
+# do not change the color values as it is in respect to 
+# the consoler.h values in @Module consoler
+# you can add more experimental colors
+
 /*
-	do not change the color values as it is in respect to 
-	the consoler.h values in @Module consoler
-	you can add more experimental colors
-	
+	Constant for the default console color of the terminal
 */
-
-/* NUMBERS */
-#@Skip DO NOT MODIFY @EndSkip #################################
-															###
-final ConsoleColorNone = 0			#no color (default)	###
-final ConsoleColorBlack = 1			#color black		###
-final ConsoleColorDarkRed = 2		#color red			###
-final ConsoleColorDarkGreen = 3		#color dark green	###
-final ConsoleColorDarkYellow = 4		#color dark yellow 	###
-final ConsoleColorDarkBlue = 5		#color dark blue	###
-final ConsoleColorDarkMagenta = 6	#dark magenta		###
-final ConsoleColorDarkCyan = 7		#color dark cyan	###
-final ConsoleColorGray = 8			#color gray			###
-final ConsoleColorDarkGray = 9		#color dark gray	###
-final ConsoleColorRed = 10			#color red			###
-final ConsoleColorGreen = 11			#color green		###
-final ConsoleColorYellow = 12			#color yellow		###
-final ConsoleColorBlue = 13			#color blue			###				
-final ConsoleColorMagenta = 14		#color magenta		###
-final ConsoleColorCyan = 15			#color cyan			###
-final ConsoleColorWhite = 16			#color white		###
-															###
-#@Skip YOU CAN ADD MORE COLOR BELOW @EndSkip ##################
+final ConsoleColorNone = 0
 
 /*
+	Constant for console color black
+*/
+final ConsoleColorBlack = 1
 
+/*
+	Constant for console color dark red
+*/
+final ConsoleColorDarkRed = 2
+
+/*
+	Constant for console color dark green
+*/
+final ConsoleColorDarkGreen = 3
+
+/*
+	Constant for console color dark yellow
+*/
+final ConsoleColorDarkYellow = 4
+
+/*
+	Constant for console color dark blue
+*/
+final ConsoleColorDarkBlue = 5
+
+/*
+	Constant for console color dark magenta
+*/
+final ConsoleColorDarkMagenta = 6
+
+/*
+	Constant for console color dark cyan
+*/
+final ConsoleColorDarkCyan = 7
+
+/*
+	Constant for console color gray
+*/
+final ConsoleColorGray = 8
+
+/*
+	Constant for console color dark gray
+*/
+final ConsoleColorDarkGray = 9
+
+/*
+	Constant for console color red
+*/
+final ConsoleColorRed = 10
+
+/*
+	Constant for console color green
+*/
+final ConsoleColorGreen = 11
+
+/*
+	Constant for console color yellow
+*/
+final ConsoleColorYellow = 12
+
+/*
+	Constant for console color blue
+*/
+final ConsoleColorBlue = 13
+
+/*
+	Constant for console color magenta
+*/	
+final ConsoleColorMagenta = 14
+
+/*
+	Constant for console color cyan
+*/
+final ConsoleColorCyan = 15
+
+/*
+	Constant for console color white
+*/
+final ConsoleColorWhite = 16
+
+/*
+	The class that holds the console color constants for usage as field calls
 */
 class ConsoleColor : Object
 
 	/*
-		
+		Constant for the default console color of the terminal
 	*/
 	final None = ConsoleColorNone
 		
 	/*
-	
+		Constant for console color black
 	*/
 	final Black = ConsoleColorBlack
 	
 	/*
-	
+		Constant for console color dark red
 	*/
 	final DarkRed = ConsoleColorDarkRed
 		
 	/*
-	
+		Constant for console color dark green
 	*/
 	final DarkGreen = ConsoleColorDarkGreen
 		
 	/*
-	
+		Constant for console color dark yellow
 	*/
 	final DarkYellow = ConsoleColorDarkYellow
 		
 	/*
-	
+		Constant for console color dark blue
 	*/
 	final DarkBlue = ConsoleColorDarkBlue
 		
 	/*
-	
+		Constant for console color dark magenta
 	*/
 	final DarkMagenta = ConsoleColorDarkMagenta
 		
 	/*
-	
+		Constant for console color dark cyan
 	*/
 	final DarkCyan = ConsoleColorDarkCyan
 		
 	/*
-	
+		Constant for console color gray
 	*/
 	final Gray = ConsoleColorGray
 		
 	/*
-	
+		Constant for console color dark gray
 	*/
 	final DarkGray = ConsoleColorDarkGray
 		
 	/*
-	
+		Constant for console color red
 	*/
 	final Red = ConsoleColorRed
 		
 	/*
-	
+		Constant for console color green
 	*/
 	final Green = ConsoleColorGreen
 		
 	/*
-	
+		Constant for console color yellow
 	*/
 	final Yellow = ConsoleColorYellow
 		
 	/*
-	
+		Constant for console color blue
 	*/
 	final Blue = ConsoleColorBlue
 		
 	/*
-	
+		Constant for console color magenta
 	*/
 	final Magenta = ConsoleColorMagenta
 		
 	/*
-	
+		Constant for console color cyan
 	*/
 	final Cyan = ConsoleColorCyan
 		
 	/*
-	
+		Constant for console color white
 	*/
 	final White = ConsoleColorWhite
 		
 	/*
-		
+		Constant for the default console color of the terminal
 	*/
 	final none = ConsoleColorNone
 		
 	/*
-	
+		Constant for console color black
 	*/
 	final black = ConsoleColorBlack
 	
 	/*
-	
+		Constant for console color dark red
 	*/
 	final darkred = ConsoleColorDarkRed
 		
 	/*
-	
+		Constant for console color dark green
 	*/
 	final darkgreen = ConsoleColorDarkGreen
 		
 	/*
-	
+		Constant for console color dark yellow
 	*/
 	final darkyellow = ConsoleColorDarkYellow
 		
 	/*
-	
+		Constant for console color dark blue
 	*/
 	final darkblue = ConsoleColorDarkBlue
 		
 	/*
-	
+		Constant for console color dark magenta
 	*/
 	final darkmagenta = ConsoleColorDarkMagenta
 		
 	/*
-	
+		Constant for console color dark cyan
 	*/
 	final darkcyan = ConsoleColorDarkCyan
 		
 	/*
-	
+		Constant for console color gray
 	*/
 	final gray = ConsoleColorGray
 		
 	/*
-	
+		Constant for console color dark gray
 	*/
 	final darkgray = ConsoleColorDarkGray
 		
 	/*
-	
+		Constant for console color red
 	*/
 	final red = ConsoleColorRed
 		
 	/*
-	
+		Constant for console color green
 	*/
 	final green = ConsoleColorGreen
 		
 	/*
-	
+		Constant for console color yellow
 	*/
 	final yellow = ConsoleColorYellow
 		
 	/*
-	
+		Constant for console color blue
 	*/
 	final blue = ConsoleColorBlue
 		
 	/*
-	
+		Constant for console color magenta
 	*/
 	final magenta = ConsoleColorMagenta
 		
 	/*
-	
+		Constant for console color cyan
 	*/
 	final cyan = ConsoleColorCyan
 		
 	/*
-	
+		Constant for console color white
 	*/
 	final white = ConsoleColorWhite
 	
-		
+/*S
+
+	.. _simple.io.PrintWriter.printfc(...): ../io/PrintWriter.html#printfc
+	.. _simple.io.PrintWriter.printbc(...): ../io/PrintWriter.html#printbc
+
+*/

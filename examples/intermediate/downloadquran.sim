@@ -22,7 +22,7 @@
 	and the website is `MP3 Quran`_
 	
 	we did a check on the index because some of the file url begins with 
-	*	0 i.e the numbers less than 100 zero is prepended to it e.g
+	*	0 i.e the numbers less than 100 zero is pre-pended to it e.g
 	**https://server6.mp3quran.net/thubti/098.mp3**
 	so we use this small check 
 	
@@ -32,10 +32,10 @@
 		
 	so for number less than 100 we have 0 pre-pended to it e.g ``85 becomes "085"``
 
-	:copyright: 2018-2019 by Azeez Adewale
+	:copyright: 2018-2019, Azeez Adewale
 	:license: MIT License Copyright (c) 2018 simple
 	:author: Azeez Adewale <azeezadewale98@gmail.com>
-	:date: 2018
+	:date: 05 July 2018
 	:filename: downloadquran.sim
 
 */

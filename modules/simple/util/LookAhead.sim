@@ -1,16 +1,20 @@
-/*
+/*P
 
+	The LookAhead module is ideal for walking through a text base source or string. 
+	Most of the module in the `parser`_ uses the LookAhead module to implement 
+	it objects such as the `parser.json.JsonParser`_, `parser.rst.rstParser`_
+	
+	:copyright: 2018-2019, Azeez Adewale
+	:license: MIT License Copyright (c) 2018 simple
+	:author: Azeez Adewale <azeezadewale98@gmail.com>
+	:date: 11 Febuary 2017
+	:time: 
+	:filename: LookAhead.sim
 */
 
-/*
-
-*/
 call simple.core.Object
 call simple.util.Math
 
-/*
-
-*/
 module simple.util
 
 /*
@@ -19,29 +23,48 @@ module simple.util
 class LookAhead : Object
 
 	/*
-	
+		The current position in the object
 	*/
 	int Position = 0
 	
 	/*
-	
+		The value of the object, string on ordinary instance, file descriptor pointer 
+		on file instance
 	*/
 	string Value = null
 	
 	/*
-	
+		The length of the string, the size of the file stream
 	*/
 	long Length = 0
 
 	/*
-	
+		The constructor accept 
 	*/
 	block LookAhead(string value)
 		Value = value
 		Length = lengthOf(Value)
 		
 	/*
-	
+		Check the character at the current position in the stream, the peek also accept 
+		an extra number parameter which will be added to the current position before 
+		peeking, the extra number does not change the current position.
+		
+		:: 
+		
+			la = new LookAhead("12345")
+			stdout.println(la.peek()) #1
+			stdout.println(la.peek(2)) #3
+			
+		
+		**Parameters**:	
+			params : Number
+				this method accept one optional parameter which is use to determining how 
+				many number forward to peek in the current stream
+			
+		**Return**:
+			the character at the current position or the optional param forward, return - 1
+			if it the end of the stream
 	*/
 	block peek(number params...)
 		paramsLen = lengthOf(params)
@@ -61,7 +84,29 @@ class LookAhead : Object
 		}
 		
 	/*
-	
+		Check the character at the current position in the stream, the peek also accept 
+		an extra number parameter which will be added to the current position before 
+		peeking, the extra number does not change the current position.
+		
+		The character is returned and the position advances by 1 
+		
+		For every pop the `Column`_ increase by one except 
+		if the character is a new line which resets `Column`_ to zero and increase the 
+		`Line`_ by one.
+		
+		
+		:: 
+		
+			la = new LookAhead("12345")
+			stdout.println(la.pop()) #1
+			stdout.println(la.pop()) #2
+			stdout.println(la.pop()) #3
+			stdout.println(la.pop()) #4
+			stdout.println(la.pop()) #5
+			
+		**Return**:
+			the character at the current position or the optional param forward, return - 1
+			if it the end of the stream
 	*/
 	block pop()
 		if (Position < Length) {
@@ -78,13 +123,33 @@ class LookAhead : Object
 		}
 		
 	/*
-	
+		Get the current position of the look ahead object in a printable string
+		
+		**Return**:
+			the current current `Line`_ and `Column`_ in a printable string
 	*/
 	block position()
 		return "" + Line + ":" + Column
 		
 	/*
-	
+		Move the position **X** forward. The number sent as parameter is used to 
+		advance the position forward. The method ensure that a valid number is 
+		skipped by using the **min** function from the Math module to keep the 
+		number in range.
+		
+		:: 
+		
+			la = new LookAhead("12345")
+			stdout.println(la.skip(2))  #2
+			stdout.println(la.skip(60)) #3 # min(60, Length:5 - Position:2 ) = 3
+			
+		
+		**Parameters**:	
+			num : Number
+				the number to skip in the stream
+			
+		**Return**:
+			the number that is been skipped in the stream
 	*/
 	block skip(number num)
 		toSkip = min(num, Length - Position)
@@ -92,42 +157,99 @@ class LookAhead : Object
 		return toSkip
 		
 	/*
-	
+		Check if the argument sent is the same as this object. It is false if the obj is 
+		of different instance, if it the same instance as simple.util.LookAhead then the 
+		Key fields are compared to check it equality.
+			
+		
+		**Parameters**:	
+			obj : Object
+				the object to compare with the current object
+		
+		**Return**:
+			true if the argument object has the same attributes as this object
 	*/
 	block equals(object obj)
 		if !instanceOf(obj, "LookAhead") {
 			return false
 		}
-		return obj.Value = Value && obj.Position == Position
+		return obj.Length == Length && obj.Position == Position && obj.Line == Line && obj.Column == Column
 		
 	/*
-	
+		The current object in a printable string 
+		
+		**Return**:
+			the object in a printable string 
 	*/
 	block toString()
 		return "[" + absolutename() + ":Position=" + Position + ",Length=" + Length + "]"
 		
 	/*
-	
+		All private methods below
 	*/
 	private 
 	
 		/*
-		
+			The current line in the look ahead object
 		*/
 		Line = 1
 		
 		/*
-		
+			The current column in the look ahead object
 		*/
 		Column = 1
 			
 		/*
-		
+			Private setter method for the `Line`_ variable
 		*/
 		block setLine()
 			
 		/*
-		
+			Private setter method for the `Column`_ variable
 		*/
 		block setColumn()
 		
+/*S
+
+	.. code-block:: simple
+	
+		call simple.core.Object
+		call simple.util.Console
+		call simple.util.LookAhead
+
+		forCode = ""
+		la = new LookAhead("
+			{
+				for a = 0 to 100
+					display a
+				end
+			}
+		")
+
+		while la.peek() != -1 {
+			
+			if la.peek() == '{' {
+				la.pop()
+				
+				while la.peek() != '}' {
+					forCode += la.pop()
+				}
+			}
+			
+			la.pop() 
+		}
+
+		stdout.print(forCode)
+
+		#check all the character until it EOF
+		#check if the current character is open brace
+		#move ahead by 1 to pass curent '{'
+		#append to the forCode variable until a closing brace is met
+		#pop the current character so we can advance forward
+		
+		
+	.. _parser.json.JsonParser: ../../parser/json/JsonParser.html
+	.. _parser.rst.rstParser: ../../parser/rst/rstParser.html
+	.. _parser: ../../parser/index.html
+
+*/

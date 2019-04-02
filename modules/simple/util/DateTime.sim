@@ -194,19 +194,6 @@ class DateTime : Object
 			__DATE_TIME_YEAR = dateTimeList[18]
 			__DATE_TIME_TIME_ZONE = dateTimeList[19]
 			__DATE_TIME_PERCENT_SIGN = dateTimeList[20]
-			
-			
-#if you eventually maintain simple-lang in the next century you can set the value respectfully
-#__DATE_TIME_CENTURY 
-#early 21st Century
-#well in this century there are more humans than robot and AI is not so rampant
-#am sure century to come there must have be a lot of human level intelligent machine don't ask 
-#how i know hollywood directors are good well in short i watched 'Terminator' 
-#also people are racist as f**k in this early 21st century 
-#you have to listen to the music of this century it cool but most not making sense just dance hall
-#but like of eminem, rihanna, beyonce, 9ice, davido, young-money ent are cool for me
-#
-	
 	
 	
 	

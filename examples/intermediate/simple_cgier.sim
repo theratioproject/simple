@@ -1,4 +1,26 @@
-/*
+/* 
+	Configure your local wamp server to execute simple as a Common Gateway Interface 
+	CGI
+	
+	.. note:: 
+		This script currently work on the Windows Platform only
+		
+	The script expect these flags
+	
+	:: 
+	
+		--wamp	configure WAMP Server
+		--wamp64	configure WAMP x64 Server
+		--xamp	configure XAMP Server
+		
+		--ask		ask for server path if not detected
+		
+	:copyright: 2018-2019, Azeez Adewale
+	:license: MIT License Copyright (c) 2018 simple
+	:author: Azeez Adewale <azeezadewale98@gmail.com>
+	:date: 08 March 2018
+	:time: 00:00 AM
+	:filename: simple_cgier.sim
 
 */
 call simple.io.File

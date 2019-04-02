@@ -1,5 +1,8 @@
 /*P
-    This is a wrapper file for the `Mathic dynamic module`_. The module is loaded
+	This module contains of functions for performing mathematical operations such as logarithm, 
+	square root, trigonometric e.t.c. 
+
+	It is also a wrapper file for the `Mathic dynamic module`_. The module is loaded
 	once when this file is first call. Using the mathic block directly is not consider safe as
 	it does not check the parameter for incompatible types or object and can result to runtime 
 	error. Most of the blocks implemented in this file has a dynamic call but is not consider
@@ -16,7 +19,7 @@
 		
 	A more elaborate example is present at `simple.util.Math Test`_
 
-	:copyright:  (C) 2018-2019 Azeez Adewale
+	:copyright: 2018-2019, Azeez Adewale
 	:license: MIT License Copyright (c) 2018 simple
 	:author: Azeez Adewale <azeezadewale98@gmail.com>
 	:date: February 5 2017

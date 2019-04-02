@@ -1,7 +1,7 @@
 
 
 project = 'Simple Modules'
-copyright = '2018-2019 by Simple Collectives'
+copyright = '2018-2019, Azeez Adewale and the Simple community (MIT)'
 author = 'Azeez Adewale'
 version = '0.2'
 
@@ -16,7 +16,7 @@ akosileOptions = [
 	["treat_special_files", true],
 	["source_url_prefix", "https://github.com/simple-lang/simple/tree/master/modules/"],
 	["source_folder", "./"],
-	["output_folder", "../../docs/modules_build/"],
+	["output_folder", "../../simple-docs/modules/"],
 	["conf.py_dump", conf_py_dump],
 	["resources", [
 		"simple_lexer.py"
@@ -29,7 +29,7 @@ akosileExtraConfs = []
 	Comment out file/folder wild card to document 
 	as per unit
 */
-akosileExclude = [
+akosileExclude = [ #"*simple*",
 	"*conf.sim",
 	"*archive*",
 	"*dynamic_module*",
@@ -39,19 +39,21 @@ akosileExclude = [
 	"*core*",
 	"*debugging*",
 	"*graphics*",
-	"*io*",
+	"*/io*",
 	"*net*",
 	"*reflection*",
 	"*security*",
 	"*system*",
 	#"*util*",
-		"*Con*",
+		#"*Console.s*",
+		#"*ConsoleColor*",
 		"*Date*",
-		"*Con*",
+		#"*Conversion*",
 		#"*Exter*",
-		"*Look*",
-		"*Math*",
-		"*Type*",
+		#"*Leng*",
+		#"*Look*",
+		#"*Math*",
+		#"*Type*",
 	"*Array*",
 	"*web*"
 ]
