@@ -188,7 +188,7 @@ class FIntInput : FInput_
     /*
 
     */
-    block FIntInput(params...)
+    block init(params...)
         paramsLen = lengthOf(params)
         if paramsLen == 1 {
             Value = params[0]

@@ -29,7 +29,7 @@ class Dimension : Object
     /*
 
     */
-    block Dimension(params...)
+    block init(params...)
         paramsLen = lengthOf(params)
 
         if paramsLen == 1 {

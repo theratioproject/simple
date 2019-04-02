@@ -47,7 +47,7 @@ class rstDirective : Object
 	/*
 	
 	*/
-	block rstDirective(string name, string value, list options, string content)
+	block init(string name, string value, list options, string content)
 		Name = name
 		Value = value
 		Options = options

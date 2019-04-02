@@ -235,7 +235,7 @@ class Path : Object
 	/*
 	
 	*/
-	block Path(string path)
+	block init(string path)
 		if isNull(path) {
 			throw(self, "The parameter cannot be null")
 			return

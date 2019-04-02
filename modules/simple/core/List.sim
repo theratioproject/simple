@@ -116,7 +116,7 @@ class List : Object
 		    Any other type of parameter is an Error
 */
 
-    block List(list) 
+    block init(list) 
 		if instanceOf(list,"List") {
 			ListObject = list.ListObject
 		elif isList(list) or isString(list) 

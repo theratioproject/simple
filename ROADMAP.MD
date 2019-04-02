@@ -110,6 +110,8 @@ build, installation, features e.t.c
 - [ ] add and use the keyword `var` to allow variable declaration
 - [ ] directive : allow the use of strict declaration to render undefine variable error `see perl 'use strict;'`
 - [-] ~allow the `&` operator to pass a parameter by reference~
+- [ ] compiles to .complex file
+- [ ] compiles simple bytecodes into Web Assembly Text File (WAT) 
 
 ### Modules
 

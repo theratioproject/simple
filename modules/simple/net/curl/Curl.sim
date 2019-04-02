@@ -42,7 +42,7 @@ class Curl : Object
 	/*
 	
 	*/
-	block Curl(string url)
+	block init(string url)
 		checkNullity(self,url)		
 		CurlPointer = __curl_easy_init()
 		Url = url

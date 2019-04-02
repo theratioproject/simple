@@ -67,7 +67,7 @@ class FMenuItem : Object
     /*
 
     */
-    block FMenuItem(params...)
+    block init(params...)
         paramsLen = lengthOf(params)
 
         if paramsLen == 1 {

@@ -48,7 +48,7 @@ class FileReader : Object
 	/*
 	
 	*/
-	block FileReader(object file, string openMode)
+	block init(object file, string openMode)
 		if isString(file) or instanceOf(file, "String") {
 			file = stringValue(file)
 			

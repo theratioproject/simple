@@ -188,7 +188,7 @@ class FMultilineOutput : FOutput
     /*
 
     */
-    block FMultilineOutput(params...)
+    block init(params...)
         paramsLen = lengthOf(params)
         if paramsLen == 1 {
             Value = params[0]

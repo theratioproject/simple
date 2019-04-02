@@ -153,7 +153,7 @@ class FLightButton : FButton
     /*
 
     */
-    block FLightButton(params...)
+    block init(params...)
         paramsLen = lengthOf(params)
         if paramsLen == 1 {
             Label = params[0]

@@ -43,7 +43,7 @@ class rstBlock : Object
 	/*
 	
 	*/
-	block rstBlock(int type, string value)
+	block init(int type, string value)
 		Type = type
 		TypeName = typeName[type]
 		Value = value

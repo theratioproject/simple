@@ -90,12 +90,12 @@ class rstParser : Object
 	/*
 	
 	*/
-	/*final*/ members = []
+	final members = []
 
 	/*
 	
 	*/
-	block rstParser(string rsText)
+	block init(string rsText)
 		lookAhead = new LookAhead(replaceStr(rsText+nl+nl,crlf,nl))
 		
 	/*

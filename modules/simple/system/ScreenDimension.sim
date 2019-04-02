@@ -44,7 +44,7 @@ class ScreenDimension : Dimension
     /*
 
     */
-    block ScreenDimension()
+    block init()
         return self
 
     /*

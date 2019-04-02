@@ -27,7 +27,7 @@ SOCKET_PATH_TYPE 			= "socket"
 
 class PathType : Object
 
-	block PathType(filePath)
+	block init(filePath)
 		updateAttributes(filePath)
 
 	block setPath(filePath)

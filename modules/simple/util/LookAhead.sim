@@ -41,7 +41,7 @@ class LookAhead : Object
 	/*
 		The constructor accept 
 	*/
-	block LookAhead(string value)
+	block init(string value)
 		Value = value
 		Length = lengthOf(Value)
 		

@@ -148,7 +148,7 @@ class FAlignment : Object
     /*
 
     */
-    block FAlignment(align)
+    block init(align)
         if isNumber(align) {
             Alignment = align
         else

@@ -29,7 +29,7 @@ class Point : Object
     /*
 
     */
-    block Point(params...)
+    block init(params...)
         paramsLen = lengthOf(params)
 
         if paramsLen == 1 {

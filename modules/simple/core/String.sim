@@ -923,7 +923,7 @@ class String : Object
 	/*
 
 	*/
-	block String(params...)
+	block init(params...)
 		paramsLen = lengthOf(params)
 
 		if paramsLen == 0 {

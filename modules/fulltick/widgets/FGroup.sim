@@ -139,7 +139,7 @@ class FGroup : FWidget
     /*
 
     */
-    block FGroup(params...) 
+    block init(params...) 
         paramsLen = lengthOf(params)
         asBorder = false
         if paramsLen == 1 {

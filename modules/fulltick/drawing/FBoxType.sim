@@ -45,7 +45,7 @@ class FBoxType : Object
     /*
 
     */
-    block FBoxType(params...)
+    block init(params...)
         paramsLen = lengthOf(params)
 
         if paramsLen == 0 {

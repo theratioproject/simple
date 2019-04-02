@@ -28,7 +28,7 @@ class Map : Object
 
     # This constructor expects a nested list in the following format:
     # [ [ key1, value1 ], [ key2, value2 ], ... ]
-    block Map(list)
+    block init(list)
         self.list = list
     end
 

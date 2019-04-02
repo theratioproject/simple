@@ -1,4 +1,4 @@
-
+#maybe make it direct list acces rather than FApp.scheme.get(...)
 
 /*
 
@@ -383,7 +383,7 @@ class FScheme : Object
 	/*
 
 	*/
-	block FScheme()
+	block init()
 
 	/*
 

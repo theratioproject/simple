@@ -44,7 +44,7 @@ class DateTime : Object
 	__DATE_TIME_INVALID_PARAMETER = "Invalid parameter. Only null, DateTimeList or Number allowed"
 	__DATE_TIME_MODULE = "simple.util.DateTime"
 
-	block DateTime(object params... )
+	block init(object params... )
 		paramsLen = lengthOf(params)
 		dateTimeParameter = null
 		

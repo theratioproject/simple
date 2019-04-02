@@ -198,7 +198,7 @@ class FFileInput : FInput_
     /*
 
     */
-    block FFileInput(params...)
+    block init(params...)
         paramsLen = lengthOf(params)
         if paramsLen == 1 {
             Value = params[0]

@@ -17,7 +17,7 @@ call simple.util.DateTime
 
 class PathAttributes : Object
 
-	block PathAttributes(filePath)
+	block init(filePath)
 		updateAttributes(filePath)
 		
 	block returnSuccess()

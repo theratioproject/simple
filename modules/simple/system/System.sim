@@ -332,6 +332,5 @@ block sleep(length)
 	currentFilePath() return the active simple source file path
 */
 
-#class System 
 
 	

@@ -57,7 +57,7 @@ class FBorder : Object
     /*
 
     */
-    block FBorder(params...)
+    block init(params...)
         paramsLen = lengthOf(params)
 
         if paramsLen == 0 {
