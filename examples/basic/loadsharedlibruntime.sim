@@ -52,3 +52,16 @@ block callAutoTest()
 		@"returnedValue = loadDynamicLibrary(lib,'functionName', returnType, [list,of,parameters])"
 		@"closeDynamicModule(lib)"
 	} 
+	
+__exit__
+
+call simple.core.loadcoredymodule
+
+lib = __loadDynamicLibrary("libsimple.dll")
+if lib {
+	sState = __callDynamicFunction(lib,"init_simple_state",1,[])
+	@sState
+	__callDynamicFunction(lib,"execute_simple_code",1,[sState, "@'Hello World'"])
+} 
+closeDynamicModule(lib)
+

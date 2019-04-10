@@ -1,0 +1,13 @@
+/*
+	:copyright: 2018-2019, Azeez Adewale
+	:license: MIT License Copyright (c) 2018 simple
+	:author: Azeez Adewale <azeezadewale98@gmail.com>
+	:date: 10 April 2018
+	:time: 07:30 PM
+	:filename: unescape_str.sim
+*/
+call simple.core.String
+
+block main()
+	str = unEscapeString("Hello\tWorld\n")
+	display(str)

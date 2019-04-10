@@ -119,7 +119,7 @@ class FileWriter : Object
 	
 	/*
 	
-	*/#use byte in future
+	*/
 	block write(string data)
 		if !IsOpen {
 			throw(self, "The file has been closed ")

@@ -95,23 +95,31 @@ build, installation, features e.t.c
 - [ ] if supporting strong typing, probably allow a variable with more than one datatype e.g string|number val = 0 and val can also be val = "zero" only 
 - [ ] enable the camparison between any data type and **null**
 - [x] allow iterating over an object using **lengthOf** operator in place of **iterator** operator
-- [ ] enable executing the **simple.sim** script in module folder if the **-m** flag is specified e.g `simple -m archive.zip -l [zipfile], python style
 - [ ] both false/0 and null variable should be false in a conditional statement e.g `v = null if v display "never it false it null" end`
 - [ ] revisit the data types operator rules e.g list + object = list[object] should be list += object = list[object]
 - [ ] completely remove the '@' operator to print expression and replace with display + newLine
 - [ ] get ride of the global variable `cmdparams` which hold the command line parameters for optional arguments in `main()` block
 - [ ] add option for configure to install an old version of gcc for building compatible binaries in *nux-Build scripts. **preferable gcc-6 g++-6**
 - [ ] add option to use a version of gcc/g++ compiler for build, *nix.
+- [ ] replace the Makefiles in dynamic modules to use a simple conf file
+- [ ] enforce variables to be created using keyword or the Type **?**
 
 ### simplify
+- [ ] create and optimize simple source before compiling into bytecode (.complex)
+- [ ] does not compile the following, removing in the order below
+	- [ ] variable
+	- [ ] block and method
+	- [ ] class 
+	- [ ] module
 - [ ] hint user as a type of level error when a similar variable that has not been declared is used 
-- [ ] add support for directive '##' for compile time cutomization
+- [ ] ~add support for directive '##' for compile time cutomization~
 - [ ] display verbose warning and errors when using the compiler 
 - [ ] add and use the keyword `var` to allow variable declaration
 - [ ] directive : allow the use of strict declaration to render undefine variable error `see perl 'use strict;'`
 - [-] ~allow the `&` operator to pass a parameter by reference~
 - [ ] compiles to .complex file
 - [ ] compiles simple bytecodes into Web Assembly Text File (WAT) 
+- [ ] option to encrypt string in bytecode, if available the VM take option to determine if string is encrypted
 
 ### Modules
 
@@ -173,11 +181,10 @@ Modules which are not part of the standard module that comes distributed with si
 
 ### Environments
 
-- [ ] build a semi-intelligent small simple-lang editor - simplepad [working issue](https://github.com/simple-lang/simple/issues/18)
 - [ ] build package installer - modular [working issue](https://github.com/simple-lang/simple/issues/18)
 	- [x] modular install and upgrade new module, doc and dynamic module added to the package index
 	- [ ] modular clone and install module from github repository
-	- [x] upgrade simple-lang distro on the system from either dev or stable version
+	- [ ] upgrade simple-lang distro on the system from either dev or stable version
 	- [ ] test full operation on windows os
 	- [ ] test full operation on linux os
 	- [ ] test full operation on mac os
@@ -185,7 +192,9 @@ Modules which are not part of the standard module that comes distributed with si
 - [x] create the language repl - simplerepl 
 - [ ] extend simple-repl functionalities (Case Study : elixr iex)
 - [x] Build the minifier environment that reduces module size by compressing code upon installation.
-- [ ] create the distribution program - bake
+
+- [ ] bake
+	- [ ] read simple bytecodes (.complex) and write to C/C++ for speed and more C optimization
 	- [ ] use a small compiler to generate executable
 	- [x] package simple compiled file (.complex) to system executable
 	- [x] package simple compiled file (.complex) to system library or simple-lang specific library
@@ -197,12 +206,29 @@ Modules which are not part of the standard module that comes distributed with si
 	- [ ] test full operation on linux os
 	- [ ] test full operation on mac os
 	- [ ] test full operation on haiku os
+	
 - [ ] build the documentation environment to read comment from source into reStructuredText
 	- [ ] generate conf.py for sphinx
 	- [ ] generatemake.bat and Makefile for sphinx build
 	- [ ] auto create index pages for each folder
 	- [ ] allow linking to raw source code
+	
+- [ ] simplem 
+	- [ ] enable executing the **simple.sim** script in module folder i`simplem archive.zip -l [zipfile]`
+	- [ ] check for the module first in relative to the current directory
+	- [ ] check for the module in the standard modules location
 
+- [ ] smoothc
+	- [ ] auto create simple dynamic module from a C/C++ Header file
+	- [ ] dispose unassigned pointer in function
+	- [ ] struct is a small class with all the variables working
+	- [ ] callback functions in C/C++ can be replaced by native simple function
+	
+- [ ] side
+	- [working issue](https://github.com/simple-lang/simple/issues/18)
+	- [ ] able to debug and manipulate complex files
+	- [ ] break point enable in the program but hidden in editor and build
+	- [ ] can preview and parse Mark Down
 
 
 

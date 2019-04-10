@@ -5,7 +5,7 @@ for a = (10 - 9 - 1) to 10
 	__add_to_list(list, a)
 end
 
-@ list[0] @ list[1] @ ""
+display list[0] display nl display list[1] display nl
 for a in list 
-	@ a
+	display ""+a+nl
 end

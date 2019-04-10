@@ -114,9 +114,48 @@ block strValueOf(object)
 	
 	@Return the formated literal @DataType String
 	
-*/#temporary
+*/
+block unEscapeString(string str)
+	newStr = ""
+	strLen = lengthOf(str) - 1
+	
+	for a = 0 to strLen {
+		switch str[a] {
+			case '\'
+				a++
+				switch str[a] {
+					case '"'
+						newStr += '"'
+					case '\'
+						newStr += '\'
+					case '/'
+						newStr += ascii(47)
+					case 'b'
+						newStr += ascii(08)
+					case 'f'
+						newStr += ascii(12)
+					case 'n'
+						newStr += ascii(10)
+					case 'r'
+						newStr += ascii(13)
+					case 't'
+						newStr += ascii(09)
+					case 'u'
+						uchar = [hexDigit(), hexDigit(), hexDigit(), hexDigit()]
+						newStr += ascii((uchar[0] << 12) | (uchar[1] << 8) | (uchar[2] << 4) | (uchar[3]))
+					default
+						throw(self, "Syntax Error : Illegal escape sequence in string escape sequence : " + str[a])
+						return null
+				}
+			default 
+				newStr += str[a]
+		}
+		
+	}
+	return newStr
+	
 #look into JsonParser for escaping string
-block unEscapeString(val)
+block uneEscapeString(val)
 	val = replaceStr(val, "\a", ascii(07))
 	val = replaceStr(val, "\007", ascii(07))
 	val = replaceStr(val, "\b", ascii(08))
@@ -580,7 +619,7 @@ block trimStr(object)
 		
 		for i = objectLen to 0 step - 1 {
 			char = object[i]
-			if char == " "  or char == ascii(09) {
+			if char == " "  or char == ascii(09) or char == ascii(10) {
 				limit++
 			else
 				break
