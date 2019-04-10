@@ -140,11 +140,13 @@ block unEscapeString(string str)
 						newStr += ascii(13)
 					case 't'
 						newStr += ascii(09)
+					case 'v'
+						newStr += ascii(11)
 					case 'u'
 						uchar = [hexDigit(), hexDigit(), hexDigit(), hexDigit()]
 						newStr += ascii((uchar[0] << 12) | (uchar[1] << 8) | (uchar[2] << 4) | (uchar[3]))
 					default
-						throw(self, "Syntax Error : Illegal escape sequence in string escape sequence : " + str[a])
+						throw("simple.core:unEscapeString", "Syntax Error : Illegal escape sequence in string escape sequence : " + str[a])
 						return null
 				}
 			default 
@@ -153,23 +155,6 @@ block unEscapeString(string str)
 		
 	}
 	return newStr
-	
-#look into JsonParser for escaping string
-block uneEscapeString(val)
-	val = replaceStr(val, "\a", ascii(07))
-	val = replaceStr(val, "\007", ascii(07))
-	val = replaceStr(val, "\b", ascii(08))
-	val = replaceStr(val, "\f", ascii(12))
-	val = replaceStr(val, "\n", ascii(10))
-	val = replaceStr(val, "\r", ascii(13))
-	#val = replaceStr(val, "\t", ascii(09))
-	val = replaceStr(val, "\v", ascii(11))
-	val = replaceStr(val, "\\", ascii(92))
-	val = replaceStr(val, "\'", ascii(27))
-	val = replaceStr(val, '\"', ascii(22))
-	val = replaceStr(val, '\?', ascii(63))
-	#val = replaceStr(val, '\e', ascii(27))
-	return val
 	
 /*
 
@@ -194,6 +179,8 @@ block escapeString(string str)
 				nStr += "\t"
 			case 08
 				nStr += "\b"
+			case 11
+				nStr += "\v"
 			case 12
 				nStr += "\f"
 			default

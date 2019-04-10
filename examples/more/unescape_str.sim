@@ -11,3 +11,10 @@ call simple.core.String
 block main()
 	str = unEscapeString("Hello\tWorld\n")
 	display(str)
+	str = escapeString(str)
+	display(str)
+	
+	str = unEscapeString("Hello\tWorld\nThis \t is it \n")
+	display(str)
+	str = escapeString(str)
+	display(str)
