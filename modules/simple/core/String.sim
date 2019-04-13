@@ -80,6 +80,24 @@ block strValueOf(object)
 	return val
 	
 /*
+
+*/
+block hexDigit(char next)
+	v1 = __char_to_number(next) - __char_to_number('0')
+	v2 = __char_to_number(next) - __char_to_number('A') + H('0xA')
+	v3 = __char_to_number(next) - __char_to_number('a') + H('0xA')
+	if v1 >= 0 and v1 <= 9 {
+		return v1
+	}
+	if v2 >= H('0xA') and v2 <= H('0xF') {
+		return v2
+	}
+	if v3 >= H('0xA') and v3 <= H('0xF') {
+		return v3
+	}
+	throw("simple.core:hexDigit", "Syntax Error : non-hexadecimal digit '" + next + "' in Unicode escape sequence")
+	
+/*
 	Format the literal value to be printed in the output into the standard C Format with escape sequences. simple-lang
 	does not support escape sequences by default but rather depends on declared variables such as 
 	
@@ -143,7 +161,8 @@ block unEscapeString(string str)
 					case 'v'
 						newStr += ascii(11)
 					case 'u'
-						uchar = [hexDigit(), hexDigit(), hexDigit(), hexDigit()]
+						uchar = [hexDigit(str[a+1]), hexDigit(str[a+2]), hexDigit(str[a+3]), hexDigit(str[a+4])]
+						a += 4
 						newStr += ascii((uchar[0] << 12) | (uchar[1] << 8) | (uchar[2] << 4) | (uchar[3]))
 					default
 						throw("simple.core:unEscapeString", "Syntax Error : Illegal escape sequence in string escape sequence : " + str[a])

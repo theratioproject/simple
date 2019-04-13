@@ -170,6 +170,8 @@ issue related to the module
 	- [x] LookAhead class for pure string. `simple.utilities.LookAhead`
 	- [ ] for file stream or file reader. `simple.io.LookAheadReader`
 - [ ] create block to locate resources in possible locations with file name and program name e.g `locateResource(string programName, string name)`
+- [ ] create proper encodings module
+- [ ] implement a matrix module with base type of list in simple.core
 
 ### Extended Modules
 
@@ -223,6 +225,9 @@ Modules which are not part of the standard module that comes distributed with si
 	- [ ] dispose unassigned pointer in function
 	- [ ] struct is a small class with all the variables working
 	- [ ] callback functions in C/C++ can be replaced by native simple function
+	- [ ] option to change exported struct to conform with Naming Style in simple
+	- [ ] export struct pointer with create and destroy function
+	- [ ] enable overloaded function export from C/C++
 	
 - [ ] side
 	- [working issue](https://github.com/simple-lang/simple/issues/18)

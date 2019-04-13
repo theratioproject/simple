@@ -1,0 +1,19 @@
+/*
+
+*/
+
+printStr([ :text = "Hello World", :suffix = ".txt", :pos = 20 ])
+printStr([ :text = "Hello World", :suffix = ".txt" ])
+printStr([ :text = "Hello World" ])
+printStr([])
+
+block printStr(params)
+        text = params["text"]
+        suffix = params["suffix"]
+        pos = params["pos"]
+
+	if lengthOf(suffix) > 0 {
+		text = text + suffix
+        }
+
+	display (text+nl)
