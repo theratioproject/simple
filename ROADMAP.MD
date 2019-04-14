@@ -103,6 +103,8 @@ build, installation, features e.t.c
 - [ ] add option to use a version of gcc/g++ compiler for build, *nix.
 - [ ] replace the Makefiles in dynamic modules to use a simple conf file
 - [ ] enforce variables to be created using keyword or the Type **?**
+- [ ] natively attend to escape characters
+- [ ] use the operator method for assignment also, putting the shallow or deep copy option in developer control
 
 ### simplify
 - [ ] create and optimize simple source before compiling into bytecode (.complex)
@@ -131,7 +133,7 @@ issue related to the module
 - [ ] create the input output (io) module which include File, Path, Directory, PathAttribute, PathType, FileStream
 - [ ] create all high level data types [working issue](https://github.com/simple-lang/simple/issues/15)
 - [x] init functional console module to simplify working with command line and terminal 
-- [ ] resolve the string lib to accurately unescape characters
+- [x] resolve the string lib to accurately unescape characters
 - [x] building a better debugging module [working issue](https://github.com/simple-lang/simple/issues/17)
 - [ ] develop the complete functional GUI module (fulltick) using the fltk c++ library
 	- [ ] call and execute events natively
@@ -172,6 +174,7 @@ issue related to the module
 - [ ] create block to locate resources in possible locations with file name and program name e.g `locateResource(string programName, string name)`
 - [ ] create proper encodings module
 - [ ] implement a matrix module with base type of list in simple.core
+- [ ] stop moving libsimple_fulltick dynamic module after SIDE has been created
 
 ### Extended Modules
 
@@ -228,6 +231,7 @@ Modules which are not part of the standard module that comes distributed with si
 	- [ ] option to change exported struct to conform with Naming Style in simple
 	- [ ] export struct pointer with create and destroy function
 	- [ ] enable overloaded function export from C/C++
+	- [ ] resolve addressOf and & operator while creating funtions
 	
 - [ ] side
 	- [working issue](https://github.com/simple-lang/simple/issues/18)

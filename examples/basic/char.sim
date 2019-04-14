@@ -1,2 +1,10 @@
-display ascii(109) + crlf +    # print m
+/*
+	:copyright: 2018-2019, Azeez Adewale
+	:license: MIT License Copyright (c) 2018 simple
+	:author: Azeez Adewale <azeezadewale98@gmail.com>
+	:date: 23 February 2019
+	:time: 01:11 PM
+	:filename: char.sim
+*/
+display ascii(109) + nl +    # print m
 		ascii(77)            # print M

@@ -1,0 +1,18 @@
+/*
+	:copyright: 2018-2019, Azeez Adewale
+	:license: MIT License Copyright (c) 2018 simple
+	:author: Azeez Adewale <azeezadewale98@gmail.com>
+	:date: 14 April 2018
+	:time: 06:43 AM
+	:filename: operator_1.sim
+*/
+
+obj1 = new Object1
+display ""+(obj1 == 20)
+
+class Object1 
+
+	block operator(string op, object value)
+		display "Operator='" + op + "', Value='" display value display "'\n" 
+		return true
+		

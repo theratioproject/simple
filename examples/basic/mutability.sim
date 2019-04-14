@@ -1,0 +1,33 @@
+/*
+	:copyright: 2018-2019, Azeez Adewale
+	:license: MIT License Copyright (c) 2018 simple
+	:author: Azeez Adewale <azeezadewale98@gmail.com>
+	:date: 14 April 2019
+	:time: 07:00 AM
+	:filename: mutability.sim
+*/
+
+call simple.core.Object
+call simple.core.loadcoredymodule
+call simple.util.Console
+
+block main()
+	stdout.println("String : Immutable ")
+	str = "A String is immutable"
+	stdout.println(__object_address(str))
+	str = "It allocate a new memory to it"
+	stdout.println(__object_address(str))
+
+	stdout.println("Int : Immutable ")
+	num = 1234343
+	stdout.println(__object_address(""+num))
+	num = num * 2
+	stdout.println(__object_address(""+num))
+
+	stdout.println("List : Mutable ")
+	li = [1, 2, 3, 4, 5]
+	stdout.println(__object_address(li))
+	li = li + num * 2
+	stdout.println(__object_address(li))
+
+
