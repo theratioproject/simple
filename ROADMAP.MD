@@ -105,6 +105,8 @@ build, installation, features e.t.c
 - [ ] enforce variables to be created using keyword or the Type **?**
 - [ ] natively attend to escape characters
 - [ ] use the operator method for assignment also, putting the shallow or deep copy option in developer control
+- [ ] change 'call' keyword to 'from' for loading module
+- [ ] change 'invoke' keyword to 'call' for calling lambda block
 
 ### simplify
 - [ ] create and optimize simple source before compiling into bytecode (.complex)
@@ -122,15 +124,23 @@ build, installation, features e.t.c
 - [ ] compiles to .complex file
 - [ ] compiles simple bytecodes into Web Assembly Text File (WAT) 
 - [ ] option to encrypt string in bytecode, if available the VM take option to determine if string is encrypted
+- [ ] inline variables and function calls e.g final CONST = __CONST() becomes __CONST() in the bytecode
 
 ### Modules
 
 To dos and features relative to the simple-lang standard modules which includes new modules addition, module modification or any other
 issue related to the module
 
+- [ ] make the conf.sim file in dynamic module folder for compiling dynamic module instead of makefiles 
+- [ ] Makefiles for various platform can be generated from the options in dynamic module conf.sim
 - [ ] generate static dynamic modules for static building for bake, making DynamicLoader.sim aware of statically link dynamic module
 - [ ] add makefile for building fulltick on windows
-- [ ] create the input output (io) module which include File, Path, Directory, PathAttribute, PathType, FileStream
+- [x] create the input output (io) module which include
+	- [x] File
+	- [x] Path
+	- [x] Directory
+	- [ ] FileReader
+	- [x] FileWriter
 - [ ] create all high level data types [working issue](https://github.com/simple-lang/simple/issues/15)
 - [x] init functional console module to simplify working with command line and terminal 
 - [x] resolve the string lib to accurately unescape characters
@@ -186,17 +196,23 @@ Modules which are not part of the standard module that comes distributed with si
 
 ### Environments
 
-- [ ] build package installer - modular [working issue](https://github.com/simple-lang/simple/issues/18)
-	- [x] modular install and upgrade new module, doc and dynamic module added to the package index
+- [ ] modular
+	- [ ] build package installer - modular [working issue](https://github.com/simple-lang/simple/issues/18)
+	- [ ] modular install and upgrade new module, doc and dynamic module added to the package index
 	- [ ] modular clone and install module from github repository
 	- [ ] upgrade simple-lang distro on the system from either dev or stable version
 	- [ ] test full operation on windows os
 	- [ ] test full operation on linux os
 	- [ ] test full operation on mac os
 	- [ ] test full operation on haiku os
-- [x] create the language repl - simplerepl 
-- [ ] extend simple-repl functionalities (Case Study : elixr iex)
-- [x] Build the minifier environment that reduces module size by compressing code upon installation.
+	
+- [x] simplerepl 
+	- [x] execute multi-line code
+	- [x] read input from terminal
+	- [ ] extend simple-repl functionalities (Case Study : elixr iex)
+	
+- [x] ~minifier~
+	- [x] ~reduces module size by compressing code upon installation. (if skip compilation)~
 
 - [ ] bake
 	- [ ] read simple bytecodes (.complex) and write to C/C++ for speed and more C optimization
