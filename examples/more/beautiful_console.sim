@@ -1,0 +1,22 @@
+/*
+	Print Hello World in 1000 console color 
+	
+	:copyright: 2018-2019, Azeez Adewale
+	:license: MIT License Copyright (c) 2018 simple
+	:author: Azeez Adewale <azeezadewale98@gmail.com>
+	:date: 15 April 2018
+	:time: 05:29 AM
+	:filename: beautiful_console.sim
+*/
+call simple.util.Console
+
+colors = 1:1000
+
+for color in colors 
+	stdout.printbc(color, "Color At "+color+" ") 
+end
+stdout.println()
+for color in colors 
+	stdout.printfc(color, "Color At "+color+" ") 
+end
+stdout.println()

@@ -107,6 +107,7 @@ build, installation, features e.t.c
 - [ ] use the operator method for assignment also, putting the shallow or deep copy option in developer control
 - [ ] change 'call' keyword to 'from' for loading module
 - [ ] change 'invoke' keyword to 'call' for calling lambda block
+- [ ] change the method **execCode** to **eval**
 
 ### simplify
 - [ ] create and optimize simple source before compiling into bytecode (.complex)
@@ -185,6 +186,7 @@ issue related to the module
 - [ ] create proper encodings module
 - [ ] implement a matrix module with base type of list in simple.core
 - [ ] stop moving libsimple_fulltick dynamic module after SIDE has been created
+- [ ] write better and more robust strSplit function
 
 ### Extended Modules
 

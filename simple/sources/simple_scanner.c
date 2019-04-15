@@ -20,7 +20,7 @@ const char *external_data_path = "" ;
 /* Keywords */
 const char * SIMPLE_KEYWORDS[] = {"if","to","or","and","not","for","new","block",
 
-"inherit","loop","call","invoke","else","display","while","class","return", "end",
+"inherit","loop","from","call","else","display","while","class","return", "end",
 
 "read","__exit__","break","try","catch","switch","default",
 
@@ -523,8 +523,8 @@ void simple_scanner_keywords ( Scanner *scanner )
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"block");
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"inherit");
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"loop");
+	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"from");
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"call");
-	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"invoke");
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"else");
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"display");
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"while");

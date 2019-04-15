@@ -47,7 +47,7 @@ block strValueOf(object)
 		val = "(null)"
 		
 	elif isString(object) 
-		val = unEscapeString(object)
+		val = object #look again
 		
 	elif isNumber(object)
 		if object == true {
@@ -165,7 +165,7 @@ block unEscapeString(string str)
 						a += 4
 						newStr += ascii((uchar[0] << 12) | (uchar[1] << 8) | (uchar[2] << 4) | (uchar[3]))
 					default
-						throw("simple.core:unEscapeString", "Syntax Error : Illegal escape sequence in string escape sequence : " + str[a])
+						throw("simple.core:unEscapeString", "Illegal escape sequence in string escape sequence : " + str[a])
 						return null
 				}
 			default 
@@ -269,8 +269,7 @@ block strFormat(params...)
 				finalValue += val
 		}
 	}
-	finalValue = unEscapeString(finalValue)
-	return finalValue
+	return unEscapeString(finalValue)
 	
 /*
 
@@ -948,7 +947,7 @@ block strSplit(content, delimiter)
 	end
 	content = trimStr(content)
 	# Need to write a StringToList function as this gives an erroneous response.
-	return __string_to_list(__substr(content, delimiter, crlf)) 
+	return __string_to_list(__substr(content, delimiter, nl)) 
 	
 /*
 

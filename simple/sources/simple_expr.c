@@ -1062,7 +1062,7 @@ int simple_parser_factor ( Parser *parser,int *nFlag )
 		}
 	}
 	/* Factor --> Call Identifier ( parameters ) */
-	if ( simple_parser_iskeyword(parser,KEYWORD_INVOKE) ) {
+	if ( simple_parser_iskeyword(parser,KEYWORD_CALL) ) {
 		simple_parser_nexttoken(parser);
 		if ( simple_parser_isidentifier(parser) ) {
 			/* Generate Code */

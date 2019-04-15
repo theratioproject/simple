@@ -9,7 +9,7 @@
 call simple.core.String
 
 block main()
-	str = unEscapeString("Hello\tWorld\n")
+	str = unEscapeString("Hello\tWorld\\Yes\n")
 	display(str)
 	str = escapeString(str)
 	display(str)

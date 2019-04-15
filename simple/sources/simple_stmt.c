@@ -275,7 +275,7 @@ int simple_parser_stmt ( Parser *parser )
 	is_last_module = 0;
 	assert(parser != NULL);
 	/* Statement --> Load Literal */
-	if ( simple_parser_iskeyword(parser,KEYWORD_CALL) ) {
+	if ( simple_parser_iskeyword(parser,KEYWORD_FROM) ) {
             simple_parser_nexttoken(parser); 
 		if ( simple_parser_isliteral(parser) || simple_parser_isidentifier(parser)) {
 			if (simple_parser_isliteral(parser)) {
