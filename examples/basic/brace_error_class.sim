@@ -1,7 +1,11 @@
 
 /* 
-	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com> 
-	MIT License Copyright (c) 2018 simple-lang 
+	:copyright: 2018-2019, Azeez Adewale
+	:license: MIT License Copyright (c) 2018 simple
+	:author: Azeez Adewale <azeezadewale98@gmail.com>
+	:date: February 2019
+	:time: 
+	:filename: brace_error_class.sim
 
 */
 
@@ -17,7 +21,7 @@ class BraceUp
 	block invalid()
 		
 
-	block done()
+	block BraceError()
 		display "An error has been catch in the class" + nl
 		display "no need to execute the catch block " + nl
 		display "and the error is : " + __err__ + nl

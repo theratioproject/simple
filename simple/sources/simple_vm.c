@@ -723,17 +723,16 @@ SIMPLE_API void simple_vm_error ( VM *vm,const char *cStr )
 		return ;
 	}
 	vm->nActiveError = 1 ;
-	/* Check done() */
+	/* Check Error() */
 	if ( (simple_list_getsize(vm->pObjState) > 0) && (simple_vm_oop_callmethodinsideclass(vm) == 0 ) && (vm->nCallMethod == 0) ) {
 		if ( simple_vm_findvar(vm,"self") ) {
 			list = simple_vm_oop_getobj(vm);
 			SIMPLE_VM_STACK_POP ;
 			if ( simple_vm_oop_isobject(list) ) {
-				if ( simple_vm_oop_isblock(vm, list,"done") ) {
+				if ( simple_vm_oop_isblock(vm, list,"Error") ) {
 					simple_list_setstring_gc(vm->sState,simple_list_getlist(simple_vm_getglobalscope(vm),6),3,cStr);
-					simple_vm_runcode(vm,"done()");
+					simple_vm_runcode(vm,"Error()");
 					vm->nActiveError = 0 ;
-					if (vm->sState->skip_error == 0) { vm->nActiveError = 1 ; exit(0); } else { return; }
 					return ;
 				}
 			}
