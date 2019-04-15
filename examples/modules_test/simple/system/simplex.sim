@@ -17,8 +17,8 @@
 	attributes on the specific system
 */
 
-call simple.system.SimpleX
-call simple.util.Console
+from simple.system.SimpleX
+from simple.util.Console
 
 stdout.println("Where simple-lang is installed : "+simpleDir())
 stdout.println("simple-lang executables dir : "+simpleExecDir())

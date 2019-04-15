@@ -1,8 +1,8 @@
 /*
 
 */
-call simple.core.loadcoredymodule
-call simple.util.Console
+from simple.core.loadcoredymodule
+from simple.util.Console
 
 modulePaths = __vm_module_paths()
 stdout.println(modulePaths)
@@ -12,5 +12,5 @@ __vm_add_module_path("../tests/simple/graphics/")
 modulePaths = __vm_module_paths()
 stdout.println(modulePaths)
 executeCode('
-	call "test_point.sim"
+	from "test_point.sim"
 ')

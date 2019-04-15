@@ -23,8 +23,8 @@
 	:filename: simple_cgier.sim
 
 */
-call simple.io.File
-call simple.util.Console
+from simple.io.File
+from simple.util.Console
 import simple.core
 
 block main()

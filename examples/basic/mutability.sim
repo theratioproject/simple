@@ -7,9 +7,9 @@
 	:filename: mutability.sim
 */
 
-call simple.core.Object
-call simple.core.loadcoredymodule
-call simple.util.Console
+from simple.core.Object
+from simple.core.loadcoredymodule
+from simple.util.Console
 
 block main()
 	stdout.println("String : Immutable ")

@@ -24,13 +24,13 @@
 	any other called dynamic modules. If the above two dynamic modules
 	are called from within DynamicLoader.sim itself we might end up in 
 	a loop that can result in stackoverflow or segmentation error. The 
-	modules call above will be written into this file at build time 
+	modules from above will be written into this file at build time 
 	using one of the build script in the simple/build directory or can
 	be entered manually in one of the format below but advisable do not
 	touch this file at all. simple-lang is platform independent 
 	but the dynamic modules is not that leaves us at building all the 
 	dynamic module for each platform.
-	The dynamic modules call are written into this file in one of the 
+	The dynamic modules from are written into this file in one of the 
 	format below base on the Operating System the format below is for the
 	currently supported operating systems. 
 */

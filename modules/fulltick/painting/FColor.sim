@@ -3,7 +3,7 @@
 /*
 
 */
-call fulltick.base.loaddyfulltick
+from fulltick.base.loaddyfulltick
 import simple.core, simple.system, simple.util
 
 /*

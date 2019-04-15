@@ -14,8 +14,8 @@
 /*
 
 */
-call simple.core.loadcoredymodule
-call simple.util.Length
+from simple.core.loadcoredymodule
+from simple.util.Length
 
 /*
 	

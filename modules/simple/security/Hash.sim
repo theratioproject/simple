@@ -10,9 +10,9 @@
  * #date - 5 Febuary 2018
  */
 
-call simple.debugging.Throw
-call simple.util.Math
-call simple.core.DynamicLoader
+from simple.debugging.Throw
+from simple.util.Math
+from simple.core.DynamicLoader
 callModule("libsecurity")
  
 module simple.security

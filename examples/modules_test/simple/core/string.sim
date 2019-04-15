@@ -19,9 +19,9 @@
 /*
 
 */
-call simple.core.String 
-call simple.util.Console
-call simple.security.Hash
+from simple.core.String 
+from simple.util.Console
+from simple.security.Hash
 
 /*
 

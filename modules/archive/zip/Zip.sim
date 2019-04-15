@@ -13,7 +13,7 @@
 /*
 
 */
-call archive.loadarchiver
+from archive.loadarchiver
 import simple.core
  
 /*

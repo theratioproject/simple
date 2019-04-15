@@ -1,9 +1,9 @@
-call simple.util.Console
-call fulltick.FApp
-call fulltick.widgets.FWindow
-call fulltick.widgets.FButton
-call fulltick.events.FCallbackEvent
-call fulltick.events.FWindowEvent
+from simple.util.Console
+from fulltick.FApp
+from fulltick.widgets.FWindow
+from fulltick.widgets.FButton
+from fulltick.events.FCallbackEvent
+from fulltick.events.FWindowEvent
 import simple.core, simple.system, fulltick.base
 import fulltick.widgets, fulltick.painting, fulltick.objects, fulltick.drawing
 

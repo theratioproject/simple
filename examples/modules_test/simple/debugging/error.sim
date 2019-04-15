@@ -2,8 +2,8 @@
 	Copyright (c) 2018 Azeez Adewale <azeezadewale98@gmail.com> 
 	MIT License Copyright (c) 2018 simple-lang
 */
-call simple.core.Object
-call simple.debugging.Error
+from simple.core.Object
+from simple.debugging.Error
 
 block main()
 	one()

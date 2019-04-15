@@ -1,4 +1,4 @@
-call simple.debugging.Debug
+from simple.debugging.Debug
 
 list = []
 assert(isNull(list["key_1"]))

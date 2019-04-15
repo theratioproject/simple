@@ -10,8 +10,8 @@
  * #date - 18 Febuary 2018
  */
  
-call simple.core.Object
-call simple.security.Hash
+from simple.core.Object
+from simple.security.Hash
 
 module simple.security.crypto
 

@@ -10,9 +10,9 @@
  * #date - 5 Febuary 2017
  */
 
-call simple.core.Object
-call simple.io.Path
-call simple.io.File
+from simple.core.Object
+from simple.io.Path
+from simple.io.File
  
 module simple.io
 

@@ -15,8 +15,8 @@
 /*
 
 */
-call simple.core.Object
-call simple.io.loadfilesavantlib
+from simple.core.Object
+from simple.io.loadfilesavantlib
  
 /*
 

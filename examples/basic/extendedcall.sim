@@ -1,4 +1,4 @@
 
-call "../syntax/displaynread.sim"
+from "../syntax/displaynread.sim"
 
 display "Hellio World"

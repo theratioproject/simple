@@ -9,10 +9,10 @@
  * #author - Azeez Adewale
  * #date - 11 Febuary 2017
  */
-call simple.core.Object
-call simple.util.DateTime
-call simple.io.Path
-call archive.zip.Zip
+from simple.core.Object
+from simple.util.DateTime
+from simple.io.Path
+from archive.zip.Zip
 
 /*
 

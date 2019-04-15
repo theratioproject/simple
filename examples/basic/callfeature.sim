@@ -1,11 +1,11 @@
 
-call simple.core.String 
-call simple.io.File
-call web.functions.Methods
-call web.front.Webpage
-call web.front.Elements
-call web.style.StyleAttributes
-call simple.system.SimpleX
+from simple.core.String 
+from simple.io.File
+from web.functions.Methods
+from web.front.Webpage
+from web.front.Elements
+from web.style.StyleAttributes
+from simple.system.SimpleX
 
 @encodeUrl("http://www.simple-lang.sourceforge.io/?page=Try Online")
 @encodeUrl("https://github.com/simple-lang/simple/pull/34")

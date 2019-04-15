@@ -11,8 +11,8 @@
  * @Time	- 09:47 PM
  */
  
-call simple.core.Object
-call simple.io.Path
+from simple.core.Object
+from simple.io.Path
 
 UNKNOWN_PATH_TYPE 			= "unknown"
 REGULAR_PATH_TYPE 			= "regular"

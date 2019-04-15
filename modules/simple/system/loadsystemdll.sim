@@ -12,7 +12,7 @@
  */
 
 #Call all the low level function of the @DynamicModule systemic		
-call simple.core.DynamicLoader
+from simple.core.DynamicLoader
 callModule("libsystemic")
  
 module simple.system

@@ -5,18 +5,18 @@
 */
 
 /*
-	The @Example just demonstrate how to call all the files/classed in a 
+	The @Example just demonstrate how to from all the files/classed in a 
 	module at once using the * and ~ symbol. 
-	--> The * at the end of a call means that all the files in the folder 
-	and sub folder will be call into the program 
-	--> The ~ will only call all the files in the folder ignoring the 
+	--> The * at the end of a from means that all the files in the folder 
+	and sub folder will be from into the program 
+	--> The ~ will only from all the files in the folder ignoring the 
 	sub folders
 	
 	@Error currently failing 
 
 */
 
-call fulltick.all
+from fulltick.all
 
 block main()
 

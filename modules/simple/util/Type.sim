@@ -12,7 +12,7 @@
 
 module simple.util
 
-call simple.core.loadcoredymodule
+from simple.core.loadcoredymodule
 
 /*
 	Return the type of variable passed to this function.
@@ -262,8 +262,8 @@ block isHexDigit(object var)
 	
 	.. code-block:: simple
 	
-		call simple.util.Console
-		call simple.util.Type
+		from simple.util.Console
+		from simple.util.Type
 		import simple.core
 		
 		stdout.println(isPunctuation("%#%#&$%"))

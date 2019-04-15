@@ -1,7 +1,7 @@
 
-call simple.util.Console
-call fulltick.FApp
-call fulltick.FScheme
+from simple.util.Console
+from fulltick.FApp
+from fulltick.FScheme
 import simple.core, simple.system, fulltick.painting, fulltick.objects, fulltick.drawing
 
 FApp.run()

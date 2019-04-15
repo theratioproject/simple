@@ -12,10 +12,10 @@
 /*
 
 */
-call simple.core.Object
-call simple.util.LookAhead
-call parser.rst.rstBlock
-call parser.rst.rstDirective
+from simple.core.Object
+from simple.util.LookAhead
+from parser.rst.rstBlock
+from parser.rst.rstDirective
 
 /*
 

@@ -11,11 +11,11 @@
  * @Time - 10:55 PM
  */
 
-call simple.io.File
-call simple.debugging.Throw 
-call simple.core.String
-call simple.util.Type
-call simple.util.Console
+from simple.io.File
+from simple.debugging.Throw 
+from simple.core.String
+from simple.util.Type
+from simple.util.Console
 
 skipRequest = false
  

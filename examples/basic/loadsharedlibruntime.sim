@@ -1,5 +1,5 @@
 
-call simple.core.loadcoredymodule
+from simple.core.loadcoredymodule
 
 #RETURN TYPES
 __VOID = 0
@@ -55,7 +55,7 @@ block callAutoTest()
 	
 __exit__
 
-call simple.core.loadcoredymodule
+from simple.core.loadcoredymodule
 
 lib = __loadDynamicLibrary("libsimple.dll")
 if lib {

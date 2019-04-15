@@ -16,7 +16,7 @@
 	is required
 */
 
-call "simple/internet/RemoteCall.sim"
+from "simple/internet/RemoteCall.sim"
 
 	remoteCode = fetchRemotefile("http://127.0.0.1/simple-lang.io/side/urladdresses.txt")
 	if remoteCode != null {

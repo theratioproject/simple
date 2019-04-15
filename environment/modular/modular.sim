@@ -11,19 +11,19 @@
 
 */
 
-call simple.util.Console
-call simple.core.String
-call simple.core.List
-call simple.internet.Download
-call simple.io.File
-call simple.io.Directory
-call parser.json.JsonObject
-call simple.security.Hash
-call archive.zip.Zip 
-call simple.system.System
-call simple.system.SimpleX
-call simple.util.Conversion
-call web.functions.Methods
+from simple.util.Console
+from simple.core.String
+from simple.core.List
+from simple.internet.Download
+from simple.io.File
+from simple.io.Directory
+from parser.json.JsonObject
+from simple.security.Hash
+from archive.zip.Zip 
+from simple.system.System
+from simple.system.SimpleX
+from simple.util.Conversion
+from web.functions.Methods
 
 monkeyFace = '
 			    __,__

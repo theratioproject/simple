@@ -12,8 +12,8 @@
 	:filename: LookAhead.sim
 */
 
-call simple.core.Object
-call simple.util.Math
+from simple.core.Object
+from simple.util.Math
 
 module simple.util
 
@@ -213,9 +213,9 @@ class LookAhead : Object
 
 	.. code-block:: simple
 	
-		call simple.core.Object
-		call simple.util.Console
-		call simple.util.LookAhead
+		from simple.core.Object
+		from simple.util.Console
+		from simple.util.LookAhead
 
 		forCode = ""
 		la = new LookAhead("

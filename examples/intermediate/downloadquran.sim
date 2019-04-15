@@ -40,8 +40,8 @@
 
 */
 
-call simple.net.Download
-call simple.io.File
+from simple.net.Download
+from simple.io.File
 
 block main() 
 	display "Download QURAN chapters " + crlf + "Azeez Adewale" + crlf + "March 28 2018" + crlf

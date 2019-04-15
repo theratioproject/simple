@@ -1,7 +1,7 @@
 
 #1 #2
-call "module.sim" import examples.syntax.inn 
-call "block.sim" 
+from "module.sim" import examples.syntax.inn 
+from "block.sim" 
 
 i = new inner
 i.miner()
@@ -19,11 +19,11 @@ display "hello : "+maintwo(9, mainone()) + crlf
 	#syntax - call
 	#name - call.sim
 	#path - examples/syntax/call.sim
-	#detail - this is an example of using the call keyword
+	#detail - this is an example of using the from keyword
 	to import other files and dependencies
 	
-	#1 - call another file using the literal 
-	#2 - calling the package note this cannot be use to call class
+	#1 - from another file using the literal 
+	#2 - calling the package note this cannot be use to from class
 	#3 - display a function from one of the called files
 	
 	#note 

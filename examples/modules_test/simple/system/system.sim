@@ -4,9 +4,9 @@
 
 */
 
-call "simple/system/Runtime.sim"
-call "simple/system/System.sim"
-call "simple/core/String.sim"
+from "simple/system/Runtime.sim"
+from "simple/system/System.sim"
+from "simple/core/String.sim"
 
 block main() 
 	display "========================================================================

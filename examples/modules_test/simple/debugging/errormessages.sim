@@ -1,8 +1,8 @@
 /* Reflection and Meta-Programming */
 /* ERROR MESSAGES */
 
-call simple.debugging.ErrorMessages
-call simple.util.Console
+from simple.debugging.ErrorMessages
+from simple.util.Console
 
 errMsg = new ErrorMessages
 errMsgAttrs = __object_attributes(errMsg)

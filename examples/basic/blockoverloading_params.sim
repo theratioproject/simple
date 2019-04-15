@@ -1,4 +1,4 @@
-call simple.util.Console
+from simple.util.Console
 
 stdout.println("number of variadic parameters : "+testBlock2("simple-lang", 1, 2, 3, 4)) 
 

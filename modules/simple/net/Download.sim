@@ -14,9 +14,9 @@
 /*
  
 */
-call simple.core.Object
-call simple.io.File
-call simple.net.loadnetdymodule
+from simple.core.Object
+from simple.io.File
+from simple.net.loadnetdymodule
 
 /*
 

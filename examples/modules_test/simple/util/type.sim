@@ -4,8 +4,8 @@
 	Type.sim
 
 */
-call simple.util.Console
-call simple.util.Type
+from simple.util.Console
+from simple.util.Type
 
 block main()
 	str = "asas6565sas32a"

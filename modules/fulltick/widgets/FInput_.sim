@@ -2,13 +2,13 @@
 /*
 
 */
-call simple.core.Object
-call simple.system.Color
-call fulltick.base.FWidget
-call fulltick.drawing.FAlignment
-call fulltick.drawing.FFont
-call fulltick.drawing.FBoxType
-call fulltick.painting.FColor
+from simple.core.Object
+from simple.system.Color
+from fulltick.base.FWidget
+from fulltick.drawing.FAlignment
+from fulltick.drawing.FFont
+from fulltick.drawing.FBoxType
+from fulltick.painting.FColor
 
 /*
 

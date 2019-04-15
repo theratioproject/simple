@@ -2,16 +2,16 @@
 /*
 
 */
-call simple.security.Hash
-call simple.core.Object
-call simple.system.Color
-call simple.graphics.Point
-call fulltick.base.loaddyfulltick
-call fulltick.painting.FColor
-call fulltick.objects.FBorder
-call fulltick.objects.FCursor
-call fulltick.drawing.FAlignment
-call fulltick.drawing.FBoxType
+from simple.security.Hash
+from simple.core.Object
+from simple.system.Color
+from simple.graphics.Point
+from fulltick.base.loaddyfulltick
+from fulltick.painting.FColor
+from fulltick.objects.FBorder
+from fulltick.objects.FCursor
+from fulltick.drawing.FAlignment
+from fulltick.drawing.FBoxType
 
 /*
 
@@ -1022,7 +1022,7 @@ class FWidget : Object
 			if IsEvent {
 				CallbackEvent.callback(self)
 			else
-				invoke CallbackEvent(self, Argument)
+				call CallbackEvent(self, Argument)
 			}
         }
 

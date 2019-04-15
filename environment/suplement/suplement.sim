@@ -10,11 +10,11 @@
 	modules since update can fail if they are in use
 */
 
-call parser.json.JsonParser
-call archive.zip.Zip
-call simple.net.Download
-call simple.util.Console
-call simple.system.SimpleX
+from parser.json.JsonParser
+from archive.zip.Zip
+from simple.net.Download
+from simple.util.Console
+from simple.system.SimpleX
 import simple.core
 import simple.io
 

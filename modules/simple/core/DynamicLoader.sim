@@ -13,7 +13,7 @@
 /*
 
 */
-#call "__first_calls.sim"
+#from "__first_calls.sim"
  
 /*
 	
@@ -28,13 +28,13 @@ __mainDynamicModules = [
 		["libsystemic.dylib", "libstring_savant.dylib"] 	#MAC
 	]
 loadMainDynamicModules()
-call simple.core.String
+from simple.core.String
  
 dynamicModules = []
 	
 block callModule(path) 
 	if isAndroid() and (__left(path,10) == "libfulltick" or __left(path,7) == "fulltick") {
-		#no need to call libfulltick.so on android it built into it
+		#no need to from libfulltick.so on android it built into it
 		return 
 	}
 	path = formatPathName(path)

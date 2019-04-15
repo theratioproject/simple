@@ -2,7 +2,7 @@
 /*
 
 */
-call fulltick.events.FEvent
+from fulltick.events.FEvent
 import simple.core
 
 /*

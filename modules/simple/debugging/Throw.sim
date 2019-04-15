@@ -25,7 +25,7 @@
 	
 */
 
-call simple.debugging.Debug
+from simple.debugging.Debug
  
 module simple.debugging
 
@@ -111,7 +111,7 @@ block throw(errorValues...)
 	
 /*
 	Want to make the program error tolerant then this block is 
-	the right block to call instead of the @Block throw because it does
+	the right block to from instead of the @Block throw because it does
 	not exit the program after the error has been thrown. It definitely 
 	far from safe as the reason why it is thrown is defied as the error 
 	will be carried along to another throwOnly() statement because the

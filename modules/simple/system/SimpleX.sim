@@ -13,9 +13,9 @@
 /*
 	
 */
-call simple.system.loadsystemdll
-call simple.system.System
-call simple.io.Path
+from simple.system.loadsystemdll
+from simple.system.System
+from simple.io.Path
 
 /*
 

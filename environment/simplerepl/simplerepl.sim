@@ -5,9 +5,9 @@
 
 */
 
-call simple.util.Console
-call simple.system.System
-call simple.core.String
+from simple.util.Console
+from simple.system.System
+from simple.core.String
 
 multiLine = false
 simpleReplTitle = "simple "+simpleVersion() + "\n"

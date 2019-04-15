@@ -39,5 +39,5 @@ class inner
 	#4 - a class in the initial module
 	#5 - another module declaration in same file
 	#6 - a class in the inner module
-	#7 - call to pack in another module
+	#7 - from to pack in another module
 */

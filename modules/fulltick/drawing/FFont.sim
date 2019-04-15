@@ -2,8 +2,8 @@
 /*
 
 */
-call fulltick.base.FWidget
-call fulltick.drawing.FAlignment
+from fulltick.base.FWidget
+from fulltick.drawing.FAlignment
 import simple.core
 
 /*

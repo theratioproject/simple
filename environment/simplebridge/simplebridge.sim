@@ -81,10 +81,10 @@
 		
  */
  
-call "contents.sim"
-call simple.core.String
-call simple.io.File
-call simple.util.Length
+from "contents.sim"
+from simple.core.String
+from simple.io.File
+from simple.util.Length
 
 
 parserSourceContent = []

@@ -6,8 +6,8 @@
 
 module web.front.elements
 
-call web.style.StyleAttributes 
-call web.style.StyleColor
+from web.style.StyleAttributes 
+from web.style.StyleColor
 
 class Element
 

@@ -1,7 +1,7 @@
 /* Reflection and Meta-Programming */
 /* VM */
 
-call simple.core.loadcoredymodule
+from simple.core.loadcoredymodule
 
 @"==================="
 @"ALL FILES LIST"

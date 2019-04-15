@@ -11,12 +11,12 @@
 /*
 
 */
-call simple.core.Object
-call parser.json.JsonObject
-call parser.json.JsonArray
-call parser.json.JsonMember
-call simple.util.Type
-call simple.util.LookAhead
+from simple.core.Object
+from parser.json.JsonObject
+from parser.json.JsonArray
+from parser.json.JsonMember
+from simple.util.Type
+from simple.util.LookAhead
 
 /*
 

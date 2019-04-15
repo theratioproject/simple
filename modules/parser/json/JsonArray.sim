@@ -6,8 +6,8 @@
 /*
 
 */
-call simple.core.Object
-call parser.json.JsonMember
+from simple.core.Object
+from parser.json.JsonMember
 
 /*
 

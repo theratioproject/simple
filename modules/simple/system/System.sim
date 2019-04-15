@@ -10,7 +10,7 @@
  * #date - 9 Febuary 2017
  */
 
-call simple.system.loadsystemdll
+from simple.system.loadsystemdll
  
 module simple.system
 

@@ -14,10 +14,10 @@
 	Demo to show some of the function of the Date and Time module
 */
 
-call simple.core.Object
-call simple.io.PathAttributes
-call simple.util.Console
-call simple.util.DateTime
+from simple.core.Object
+from simple.io.PathAttributes
+from simple.util.Console
+from simple.util.DateTime
 
 block main()
 	@"==========================================================="

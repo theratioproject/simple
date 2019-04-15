@@ -11,7 +11,7 @@
 	
 	.. code-block:: simple
 	
-		call simple.util.Console
+		from simple.util.Console
 		import simple.core
 		
 		stdout.printfc()
@@ -27,8 +27,8 @@
 	:filename: ConsoleColor.sim
 */
  
-call simple.core.Object
-call simple.io.loadfilesavantlib
+from simple.core.Object
+from simple.io.loadfilesavantlib
 
 module simple.util
 

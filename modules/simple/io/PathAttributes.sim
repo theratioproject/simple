@@ -11,9 +11,9 @@
  * @Time	- 01:01 AM
  */
 
-call simple.core.Object
-call simple.io.Path
-call simple.util.DateTime
+from simple.core.Object
+from simple.io.Path
+from simple.util.DateTime
 
 class PathAttributes : Object
 

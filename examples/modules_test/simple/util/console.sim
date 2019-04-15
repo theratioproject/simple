@@ -1,5 +1,5 @@
-call simple.util.Console 
-call simple.core.List
+from simple.util.Console 
+from simple.core.List
 
 block main()
 	obj = new TestObject

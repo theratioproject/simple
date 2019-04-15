@@ -2,11 +2,11 @@
 /*
 
 */
-call simple.core.Object
-call simple.system.System
-call simple.graphics.Dimension
-call simple.system.ScreenDimension
-call fulltick.base.FWidget
+from simple.core.Object
+from simple.system.System
+from simple.graphics.Dimension
+from simple.system.ScreenDimension
+from fulltick.base.FWidget
 import fulltick.widgets
 
 /*

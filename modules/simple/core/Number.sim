@@ -15,8 +15,8 @@
 /*
 
 */
-call simple.core.Object
-call simple.core.List
+from simple.core.Object
+from simple.core.List
 
 /*
 

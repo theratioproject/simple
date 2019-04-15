@@ -10,7 +10,7 @@
  * #date - 7 Febuary 2017
  */
  
-call "simple/core/DynamicLoader.sim"
+from "simple/core/DynamicLoader.sim"
 callModule("libcore_dynamic_module")
 
 @__string_to_chex("Hello World")

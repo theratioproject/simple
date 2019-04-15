@@ -13,15 +13,15 @@
 /*
 	
 */
-call simple.core.Object
-call simple.io.loadfilesavantlib
-call simple.core.String
-call simple.system.System
-call simple.io.PathAttributes
-call simple.io.PathType
-call simple.io.File
-call simple.io.Directory
-call simple.util.DateTime
+from simple.core.Object
+from simple.io.loadfilesavantlib
+from simple.core.String
+from simple.system.System
+from simple.io.PathAttributes
+from simple.io.PathType
+from simple.io.File
+from simple.io.Directory
+from simple.util.DateTime
  
 /*
 

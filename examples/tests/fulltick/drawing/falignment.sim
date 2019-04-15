@@ -1,9 +1,9 @@
 
-call simple.core.Object
-call simple.util.Console
-call simple.debugging.Debug
-call simple.system.System
-call "../../../drawing/FAlignment.sim" import fulltick.drawing
+from simple.core.Object
+from simple.util.Console
+from simple.debugging.Debug
+from simple.system.System
+from "../../../drawing/FAlignment.sim" import fulltick.drawing
 
 FAlignment = new FAlignment(10)
 stdout.println(FAlignment)

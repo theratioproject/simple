@@ -15,7 +15,7 @@
 
 module web.front.elements
 
-call web.front.elements.Element
+from web.front.elements.Element
 
 class Div : Element
 

@@ -3,9 +3,9 @@
 	MIT License Copyright (c) 2018 simple 
 
 */
-call simple.core.Object
-call simple.io.Directory
-call simple.util.Console
+from simple.core.Object
+from simple.io.Directory
+from simple.util.Console
 
 block main() 
 	directory = new Directory("../../../../")

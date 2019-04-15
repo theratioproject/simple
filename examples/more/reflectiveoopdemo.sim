@@ -1,7 +1,7 @@
 /* Reflection and Meta-Programming */
 /* OOP */
 
-call simple.core.loadcoredymodule
+from simple.core.loadcoredymodule
 
 @"==================="
 @"ALL DEFINED MODULES"

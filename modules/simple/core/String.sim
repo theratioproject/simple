@@ -13,15 +13,15 @@
 /*
 
 */
-call simple.core.Object
-call simple.core.List
-call simple.core.Number
-call simple.util.Conversion
-call simple.core.DynamicLoader
-call simple.debugging.Throw
-call simple.reflection.Class
-call simple.reflection.Field
-call simple.util.Type
+from simple.core.Object
+from simple.core.List
+from simple.core.Number
+from simple.util.Conversion
+from simple.core.DynamicLoader
+from simple.debugging.Throw
+from simple.reflection.Class
+from simple.reflection.Field
+from simple.util.Type
 callModule("libstring_savant")
  
 /*

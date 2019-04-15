@@ -1,9 +1,9 @@
 /*
 
 */
-call fulltick.FApp
-call fulltick.widgets.FWindow
-call fulltick.widgets.FButton
+from fulltick.FApp
+from fulltick.widgets.FWindow
+from fulltick.widgets.FButton
 import simple.core, simple.system, fulltick.base
 import fulltick.widgets, fulltick.painting, fulltick.objects, fulltick.drawing
 

@@ -2,9 +2,9 @@
 /*
 
 */
-call fulltick.base.FWidget
-call fulltick.painting.FColor
-call fulltick.drawing.FBoxType
+from fulltick.base.FWidget
+from fulltick.painting.FColor
+from fulltick.drawing.FBoxType
 import simple.core
 import simple.system
 import fulltick.painting
@@ -109,7 +109,7 @@ class FMenuItem : Object
 			if IsEvent {
 				Callback.callback(self)
 			else
-				invoke Callback(self)
+				call Callback(self)
 			}
         }
 		

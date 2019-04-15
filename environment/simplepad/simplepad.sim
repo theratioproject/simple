@@ -1,10 +1,10 @@
 /*
 
 */
-call fulltick.FApp
-call fulltick.widgets.FWindow
-call fulltick.widgets.FButton
-call fulltick.events.FCallbackEvent
+from fulltick.FApp
+from fulltick.widgets.FWindow
+from fulltick.widgets.FButton
+from fulltick.events.FCallbackEvent
 import simple.core, simple.system, fulltick.base
 import fulltick.widgets, fulltick.painting, fulltick.objects, fulltick.drawing
 

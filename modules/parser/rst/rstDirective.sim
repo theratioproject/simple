@@ -12,7 +12,7 @@
 /*
 
 */
-call simple.core.Object
+from simple.core.Object
 
 /*
 

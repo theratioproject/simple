@@ -48,15 +48,15 @@
  
  
  
-call simple.util.Conversion
-call simple.io.File
-call simple.io.Directory
-call simple.core.String
-call simple.system.System
-call simple.system.SimpleX
-call simple.util.Console
-call archive.zip.Zip
-call archive.zip.ZipEntry
+from simple.util.Conversion
+from simple.io.File
+from simple.io.Directory
+from simple.core.String
+from simple.system.System
+from simple.system.SimpleX
+from simple.util.Console
+from archive.zip.Zip
+from archive.zip.ZipEntry
 
 Bakefile = null
 final bakkrey = new Bakkery

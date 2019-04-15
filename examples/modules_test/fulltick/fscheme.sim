@@ -1,15 +1,15 @@
 
-call simple.core.Object
-call simple.system.Color
-call simple.util.Console
-call fulltick.drawing.FBoxType
-call fulltick.drawing.FAlignment
-call fulltick.drawing.FFont
-call fulltick.drawing.FLabelType
-call fulltick.objects.FBorder
-call fulltick.objects.FCursor
-call fulltick.painting.FColor
-call fulltick.FScheme
+from simple.core.Object
+from simple.system.Color
+from simple.util.Console
+from fulltick.drawing.FBoxType
+from fulltick.drawing.FAlignment
+from fulltick.drawing.FFont
+from fulltick.drawing.FLabelType
+from fulltick.objects.FBorder
+from fulltick.objects.FCursor
+from fulltick.painting.FColor
+from fulltick.FScheme
 
 scheme = new FScheme()
 scheme.SchemeName = "Customia"

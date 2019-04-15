@@ -2,11 +2,11 @@
 /*
 
 */
-call simple.core.Object
-call simple.graphics.Dimension
-call simple.system.ScreenDimension
-call simple.util.Console
-call simple.system.System
+from simple.core.Object
+from simple.graphics.Dimension
+from simple.system.ScreenDimension
+from simple.util.Console
+from simple.system.System
 
 screenDimension1 = new ScreenDimension()
 assert(screenDimension1.toAbDimension() == screenDimension1.toDimension())  

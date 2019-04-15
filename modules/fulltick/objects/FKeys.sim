@@ -2,7 +2,7 @@
 /*
 
 */
-call fulltick.base.FWidget
+from fulltick.base.FWidget
 import simple.core, simple.reflection
 
 /*

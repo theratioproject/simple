@@ -1,11 +1,11 @@
 /*
 	Simple REPL UI
 */
-call fulltick.FApp
-call fulltick.widgets.FWindow
-call fulltick.widgets.FButton
-call fulltick.widgets.FMultilineInput
-call fulltick.widgets.FMultilineOutput
+from fulltick.FApp
+from fulltick.widgets.FWindow
+from fulltick.widgets.FButton
+from fulltick.widgets.FMultilineInput
+from fulltick.widgets.FMultilineOutput
 import simple.core
 import simple.system
 import fulltick.base

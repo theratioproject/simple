@@ -2,14 +2,14 @@
 /*
 
 */
-call simple.core.Object
-call simple.debugging.Throw
-call simple.debugging.ErrorMessages
-call simple.reflection.Class
-call fulltick.events.FWindowEvent
-call fulltick.base.loaddyfulltick
-call simple.system.Color
-call fulltick.FScheme
+from simple.core.Object
+from simple.debugging.Throw
+from simple.debugging.ErrorMessages
+from simple.reflection.Class
+from fulltick.events.FWindowEvent
+from fulltick.base.loaddyfulltick
+from simple.system.Color
+from fulltick.FScheme
 import simple.core
 import simple.system
 import simple.debugging

@@ -2,14 +2,14 @@
 /*
 
 */
-call fulltick.FApp
-call fulltick.widgets.FWindow
-call fulltick.widgets.FButton
-call fulltick.widgets.FReturnButton
-call fulltick.widgets.FRepeatButton
-call fulltick.widgets.FLightButton
-call fulltick.widgets.FRoundButton
-call fulltick.widgets.FCheckButton
+from fulltick.FApp
+from fulltick.widgets.FWindow
+from fulltick.widgets.FButton
+from fulltick.widgets.FReturnButton
+from fulltick.widgets.FRepeatButton
+from fulltick.widgets.FLightButton
+from fulltick.widgets.FRoundButton
+from fulltick.widgets.FCheckButton
 import simple.core
 import simple.system
 import fulltick.base

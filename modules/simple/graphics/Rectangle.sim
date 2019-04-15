@@ -2,9 +2,9 @@
 /*
 
 */
-call simple.core.Object
-call simple.graphics.Point
-call simple.graphics.Dimension
+from simple.core.Object
+from simple.graphics.Point
+from simple.graphics.Dimension
 
 /*
 

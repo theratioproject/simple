@@ -4,9 +4,9 @@
 
 */
 
-call simple.core.Object
-call simple.io.FileReader
-call simple.io.File
+from simple.core.Object
+from simple.io.FileReader
+from simple.io.File
 
 block main()
 	fileWriter = new FileReader("../../../testfiles/test.txt", "rb")

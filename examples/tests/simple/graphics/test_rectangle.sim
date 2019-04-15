@@ -2,11 +2,11 @@
 /*
 
 */
-call simple.core.Object
-call simple.graphics.Rectangle
-call simple.graphics.Point
-call simple.graphics.Dimension
-call simple.util.Console
+from simple.core.Object
+from simple.graphics.Rectangle
+from simple.graphics.Point
+from simple.graphics.Dimension
+from simple.util.Console
 
 rectangle1 = new Rectangle(10,20,100,200)
 rectangle2 = new Rectangle(400,350)

@@ -4,8 +4,8 @@
 
 */
 
-call simple.util.Console
-call archive.zip.Zip
+from simple.util.Console
+from archive.zip.Zip
 import simple.core
 
 block main()

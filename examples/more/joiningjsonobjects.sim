@@ -1,10 +1,10 @@
 /*
 
 */
-call simple.core.Object
-call simple.util.Console
-call parser.json.JsonParser
-call parser.json.JsonMember
+from simple.core.Object
+from simple.util.Console
+from parser.json.JsonParser
+from parser.json.JsonMember
 
 block main()
 	object1 = new JsonObject() {

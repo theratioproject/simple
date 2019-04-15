@@ -8,7 +8,7 @@
 	:time: 05:29 AM
 	:filename: beautiful_console.sim
 */
-call simple.util.Console
+from simple.util.Console
 
 colors = 1:1000
 

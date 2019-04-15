@@ -1,10 +1,10 @@
 module web.functions
 
 
-call simple.system.System
-call simple.core.String
-call simple.util.Conversion
-call simple.util.Console
+from simple.system.System
+from simple.core.String
+from simple.util.Conversion
+from simple.util.Console
 
 GET = []
 POST = []

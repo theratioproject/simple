@@ -1,8 +1,8 @@
 
-call simple.io.Directory
-call simple.io.File
-call simple.system.Runtime
-call simple.util.Console
+from simple.io.Directory
+from simple.io.File
+from simple.system.Runtime
+from simple.util.Console
 import simple.core
 
 block main()

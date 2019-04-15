@@ -6,7 +6,7 @@
 
 module web.front
 
-call web.front.elements.Elements
+from web.front.elements.Elements
 
 class Webpage 
 

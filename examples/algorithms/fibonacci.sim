@@ -4,7 +4,7 @@
 
 */
 
-call simple.core.List
+from simple.core.List
 
 block fibonacci(n)
   fibSequence = [1]

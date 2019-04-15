@@ -1,9 +1,9 @@
 /*
 
 */
-call simple.core.Object
-call simple.util.Console
-call simple.util.LookAhead
+from simple.core.Object
+from simple.util.Console
+from simple.util.LookAhead
 
 block main()
 	lookAhead = new LookAhead("this should be a simple string")

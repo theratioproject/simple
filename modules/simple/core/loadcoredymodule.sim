@@ -2,7 +2,7 @@
 /*
 
 */
-call simple.core.DynamicLoader
+from simple.core.DynamicLoader
 
 /*
 

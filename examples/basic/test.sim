@@ -1,5 +1,5 @@
 
-call simple.core.loadcoredymodule
+from simple.core.loadcoredymodule
 
 name = test("me")
 

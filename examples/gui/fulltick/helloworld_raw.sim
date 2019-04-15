@@ -2,7 +2,7 @@
 
 */
 
-call fulltick.base.loaddyfulltick
+from fulltick.base.loaddyfulltick
 
 window = __Fl_Window(340,180, "")
 box = __Fl_Box(20,40,300,100,"Hello, World!")

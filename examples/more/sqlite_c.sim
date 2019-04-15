@@ -1,8 +1,8 @@
 /*
 
 */
-call simple.core.DynamicLoader
-call simple.util.DateTime
+from simple.core.DynamicLoader
+from simple.util.DateTime
 callModule("libsimple_sqlite") #add date to version
 
 date = new DateTime()

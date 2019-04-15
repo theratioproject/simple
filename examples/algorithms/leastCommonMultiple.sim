@@ -4,8 +4,8 @@
 
 */
 
-call 'simple/util/Math.sim'
-call 'euclideanAlgorithm.sim'
+from 'simple/util/Math.sim'
+from 'euclideanAlgorithm.sim'
 
 block leastCommonMultiple(a, b)
   if a == 0 || b == 0 {

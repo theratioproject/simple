@@ -1,6 +1,6 @@
 module web.functions
 
-call "Methods.sim"
+from "Methods.sim"
 
 CLIENTSPEC = []
 

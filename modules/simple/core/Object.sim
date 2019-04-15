@@ -14,10 +14,10 @@
 /*
 
 */
-call simple.core.Types
-call simple.security.Hash
-call simple.core.BaseFields
-call simple.reflection.Field
+from simple.core.Types
+from simple.security.Hash
+from simple.core.BaseFields
+from simple.reflection.Field
  
 /*
 

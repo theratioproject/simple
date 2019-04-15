@@ -11,9 +11,9 @@
  */
 
 
-call simple.core.List
-call simple.util.ConsoleColor
-call simple.util.Console
+from simple.core.List
+from simple.util.ConsoleColor
+from simple.util.Console
 
 /* Define / create a new array. */
 myOldList = new List(["s", "i", "m", "p", "l", "e", 30, 50, 90, ["we", 5, "africa", ["alot", 40]]])

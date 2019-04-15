@@ -4,6 +4,6 @@
 
 module simple.reflection
 
-call simple.core.Object
+from simple.core.Object
 
 class Block : Object

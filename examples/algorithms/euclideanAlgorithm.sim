@@ -4,7 +4,7 @@
 
 */
 
-call simple.util.Math
+from simple.util.Math
 
 block euclideanAlgorithm(originalA, originalB)
   a = abs(originalA) b = abs(originalB)

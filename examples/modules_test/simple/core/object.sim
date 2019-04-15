@@ -2,9 +2,9 @@
 
 */
 
-call simple.core.Object
-call simple.util.Console
-call simple.debugging.Debug
+from simple.core.Object
+from simple.util.Console
+from simple.debugging.Debug
 
 object1 = new Object
 object2 = new Object 

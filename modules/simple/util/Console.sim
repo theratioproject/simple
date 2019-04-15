@@ -27,12 +27,12 @@
 	import `simple.util.ConsoleColor`_ which hold all the type of color for the foreground and background
 	of the console.
 */
-call simple.util.ConsoleColor
-call simple.core.List
-call simple.util.Type
-call simple.io.PrintWriter
-call simple.io.FileWriter
-call simple.io.FileReader
+from simple.util.ConsoleColor
+from simple.core.List
+from simple.util.Type
+from simple.io.PrintWriter
+from simple.io.FileWriter
+from simple.io.FileReader
 import simple.core
 
 /*

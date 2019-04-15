@@ -14,9 +14,9 @@
 	A plain example on simple.io.Path 
 */
 
-call simple.core.Object
-call simple.io.Path
-call simple.util.Console
+from simple.core.Object
+from simple.io.Path
+from simple.util.Console
 
 block main()
 	path = new Path("../../../../../pathtest.txt")

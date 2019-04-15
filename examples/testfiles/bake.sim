@@ -48,12 +48,12 @@
  
  
  
-call simple.util.Conversion
-call simple.io.File
-call simple.io.Directory
-call simple.core.String
-call simple.system.System
-call simple.util.Console
+from simple.util.Conversion
+from simple.io.File
+from simple.io.Directory
+from simple.core.String
+from simple.system.System
+from simple.util.Console
 
 final depModules = [
 	"archiver",
@@ -409,7 +409,7 @@ block windowBuildVS(path)
 	for a = 1 to 16
 		f = new File('C:\Program Files (x86)\Microsoft Visual Studio '+a+'.0\VC\vcvarsall.bat')
 		if f.exists() display "		we found Visual Studio "+a+".0"+crlf 
-		cmd = 'call "C:\Program Files (x86)\Microsoft Visual Studio '+a+'.0\VC\vcvarsall.bat" x86'+crlf
+		cmd = 'from "C:\Program Files (x86)\Microsoft Visual Studio '+a+'.0\VC\vcvarsall.bat" x86'+crlf
 		end
 	end
 	cmd += "cl /Fo.\.\ /Fe.\.\ /GA /MT "+path+" "+simpleLibPath #simple.lib link to actual location

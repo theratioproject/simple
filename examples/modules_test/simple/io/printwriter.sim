@@ -4,9 +4,9 @@
 
 */
 
-call simple.core.Object
-call simple.io.FileWriter
-call simple.io.PrintWriter
+from simple.core.Object
+from simple.io.FileWriter
+from simple.io.PrintWriter
 
 block main()
 	fileWriter = new FileWriter("../../../testfiles/test.txt", false, true)

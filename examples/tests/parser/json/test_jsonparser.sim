@@ -2,7 +2,7 @@
 
 */
 
-call simple.core.Object
-call parser.json.JsonParser
+from simple.core.Object
+from parser.json.JsonParser
 
 jsonParser = new JsonParser(212121)

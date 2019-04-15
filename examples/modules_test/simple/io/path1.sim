@@ -4,10 +4,10 @@
 
 */
 
-call simple.core.Object
-call simple.util.Console
-call simple.io.FileWriter
-call simple.io.Path
+from simple.core.Object
+from simple.util.Console
+from simple.io.FileWriter
+from simple.io.Path
 
 block main()
 	fileWriter = new Path("./")

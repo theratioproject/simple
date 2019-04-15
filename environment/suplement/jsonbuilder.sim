@@ -1,8 +1,8 @@
  
  
-call parser.json.JsonObject
-call parser.json.JsonArray
-call simple.io.loadfilesavantlib
+from parser.json.JsonObject
+from parser.json.JsonArray
+from simple.io.loadfilesavantlib
 import simple.core
 
 object = new JsonObject() {

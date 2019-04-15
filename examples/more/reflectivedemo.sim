@@ -1,6 +1,6 @@
 /* Reflection and Meta-Programming */
 
-call simple.core.loadcoredymodule
+from simple.core.loadcoredymodule
 
 @"==================="
 @"LOCAL VARIABLES"

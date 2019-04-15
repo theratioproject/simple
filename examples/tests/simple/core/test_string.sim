@@ -2,9 +2,9 @@
 
 */
 
-call simple.core.String
-call simple.util.Console
-call simple.debugging.Debug
+from simple.core.String
+from simple.util.Console
+from simple.debugging.Debug
 
 /* FUNCTIONAL */
 string1 = "a new and valid string"

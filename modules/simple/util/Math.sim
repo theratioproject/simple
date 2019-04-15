@@ -5,8 +5,8 @@
 	It is also a wrapper file for the `Mathic dynamic module`_. The module is loaded
 	once when this file is first call. Using the mathic block directly is not consider safe as
 	it does not check the parameter for incompatible types or object and can result to runtime 
-	error. Most of the blocks implemented in this file has a dynamic call but is not consider
-	safe to call the dynamic blocks directly. 
+	error. Most of the blocks implemented in this file has a dynamic from but is not consider
+	safe to from the dynamic blocks directly. 
 	
 	Usage
 	
@@ -15,7 +15,7 @@
 		
 	::
 	
-		call simple.util.Math
+		from simple.util.Math
 		
 	A more elaborate example is present at `simple.util.Math Test`_
 
@@ -34,7 +34,7 @@ module simple.util
 /*
 
 */
-call simple.core.DynamicLoader
+from simple.core.DynamicLoader
 callModule("libmathic")
 
 /*
@@ -535,7 +535,7 @@ block log(number)
 	return __log(number)
 
 /*
-	Determine the square root of a number. To find cube root of a number call the `block cbrt(number)`_ instead,
+	Determine the square root of a number. To find cube root of a number from the `block cbrt(number)`_ instead,
 	to determine the other root use ``pow(number, 1/rootNum)``
 	
 	
@@ -556,7 +556,7 @@ block sqrt(number)
 	return __sqrt(number)
 
 /*
-	Determine the cube root of a number. To find square root of a number call the `block sqrt(number)`_ instead,
+	Determine the cube root of a number. To find square root of a number from the `block sqrt(number)`_ instead,
 	to determine the other root use ``pow(number, 1/rootNum)``
 	
 	

@@ -17,10 +17,10 @@
 	attributes on the specific system
 */
 
-call simple.core.Object
-call simple.system.ScreenDimension
-call simple.graphics.Dimension
-call simple.util.Console
+from simple.core.Object
+from simple.system.ScreenDimension
+from simple.graphics.Dimension
+from simple.util.Console
 
 screenDimension = new ScreenDimension()
 stdout.println(screenDimension)

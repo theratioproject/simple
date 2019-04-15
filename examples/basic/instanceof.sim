@@ -2,9 +2,9 @@
 	instance of 
 */
 
-call simple.core.loadcoredymodule
-call simple.util.Console
-call simple.reflection.Class
+from simple.core.loadcoredymodule
+from simple.util.Console
+from simple.reflection.Class
 
 #instanceOf block from inheriting Object class 
 <<<<<<< HEAD

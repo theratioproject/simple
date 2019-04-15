@@ -2,11 +2,11 @@
 /*
 
 */
-call fulltick.FApp
-call fulltick.widgets.FWindow
-call fulltick.widgets.menu.FMenuBar
-call fulltick.events.FCallbackEvent
-call fulltick.objects.FKeys
+from fulltick.FApp
+from fulltick.widgets.FWindow
+from fulltick.widgets.menu.FMenuBar
+from fulltick.events.FCallbackEvent
+from fulltick.objects.FKeys
 import simple.core
 import simple.system
 import fulltick.base

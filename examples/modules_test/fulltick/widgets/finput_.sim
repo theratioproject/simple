@@ -2,12 +2,12 @@
 /*
 
 */
-call simple.util.Console
-call fulltick.FApp
-call fulltick.widgets.FWindow
-call fulltick.widgets.FButton
-call fulltick.widgets.FInput
-call fulltick.objects.FKeys
+from simple.util.Console
+from fulltick.FApp
+from fulltick.widgets.FWindow
+from fulltick.widgets.FButton
+from fulltick.widgets.FInput
+from fulltick.objects.FKeys
 import simple.core
 import simple.system
 import fulltick.base

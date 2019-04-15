@@ -2,9 +2,9 @@
 /*
 
 */
-call simple.core.Object
-call simple.graphics.Dimension
-call simple.util.Console
+from simple.core.Object
+from simple.graphics.Dimension
+from simple.util.Console
 
 dimension1 = new Dimension(20,70.8)
 dimension2 = new Dimension(50.434,30.90)

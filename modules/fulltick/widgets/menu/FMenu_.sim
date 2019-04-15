@@ -2,13 +2,13 @@
 /*
 
 */
-call simple.core.Object
-call fulltick.base.FWidget
-call fulltick.painting.FColor
-call fulltick.drawing.FAlignment
-call fulltick.drawing.FFont
-call fulltick.drawing.FBoxType
-call fulltick.widgets.menu.FMenuItem
+from simple.core.Object
+from fulltick.base.FWidget
+from fulltick.painting.FColor
+from fulltick.drawing.FAlignment
+from fulltick.drawing.FFont
+from fulltick.drawing.FBoxType
+from fulltick.widgets.menu.FMenuItem
 import simple.system
 
 /*

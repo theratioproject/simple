@@ -2,8 +2,8 @@
 /*
 
 */
-call simple.core.Object
-call simple.graphics.Rectangle
+from simple.core.Object
+from simple.graphics.Rectangle
 
 /*
 

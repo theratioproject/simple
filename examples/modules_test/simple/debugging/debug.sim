@@ -15,10 +15,10 @@
 	simple-lang debugging module @Module simple/debugging/
 */
 
-call simple.util.Length
-call simple.util.Console
-call simple.debugging.Throw
-call simple.debugging.Debug
+from simple.util.Length
+from simple.util.Console
+from simple.debugging.Throw
+from simple.debugging.Debug
 
 block main()
 	errorList = [

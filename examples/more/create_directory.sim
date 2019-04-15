@@ -21,9 +21,9 @@
 	:date: March 23 2019
 	:filename: create_directory.sim
 */
-call simple.core.Object
-call simple.util.Console
-call simple.io.Directory
+from simple.core.Object
+from simple.util.Console
+from simple.io.Directory
 
 block main()
 	dir = new Directory("../testfiles/dir_test/dir_test/dir_test/dir_test/dir_test")

@@ -6,7 +6,7 @@
 	:time: 07:30 PM
 	:filename: unescape_str.sim
 */
-call simple.core.String
+from simple.core.String
 
 block main()
 	str = unEscapeString("Hello\tWorld\\Yes\n")

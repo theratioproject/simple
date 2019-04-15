@@ -29,9 +29,9 @@
 
 */
 
-call simple.debugging.Throw
-call simple.io.Directory
-call simple.util.Console
+from simple.debugging.Throw
+from simple.io.Directory
+from simple.util.Console
 import simple.core
 
 block main()
@@ -120,7 +120,7 @@ block main()
 		__exit__
 	}
 	stdout.print("\rpreparing to export functions : ...")
-	__write_file(batPath, 'call "' + vcvarsall + '" ' + arch + nl + 
+	__write_file(batPath, 'from "' + vcvarsall + '" ' + arch + nl + 
 							'dumpbin /EXPORTS "' + dllFile + '" ')
 	system(batPath+' > '+defPath)
 	exportedSymbols = __read_file(defPath)
@@ -147,7 +147,7 @@ block main()
 	stdout.print("\rpreparing to generate .lib : ...")
 	if arch == "x86_amd64" { arch = "x64" }
 	__write_file(defPath, finalSymbols)
-	__write_file(batPath, 'call "' + vcvarsall + '" ' + arch + nl + 
+	__write_file(batPath, 'from "' + vcvarsall + '" ' + arch + nl + 
 							'lib.exe /def:"' + defPath + '" /OUT:"' + libPath + '" /MACHINE:' + arch)
 	system(batPath + " > nul")
 	if __file_exists(libPath) {

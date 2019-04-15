@@ -1,9 +1,9 @@
 
-call simple.core.Object
-call simple.io.Directory
-call simple.io.File
-call simple.system.Runtime
-call simple.util.Console
+from simple.core.Object
+from simple.io.Directory
+from simple.io.File
+from simple.system.Runtime
+from simple.util.Console
 
 block main()
 	testDirectory("./")

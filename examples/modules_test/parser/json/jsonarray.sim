@@ -1,9 +1,9 @@
 /*
 
 */
-call simple.core.Object
-call simple.util.Console
-call parser.json.JsonParser
+from simple.core.Object
+from simple.util.Console
+from parser.json.JsonParser
 
 block main()
 	json = '[

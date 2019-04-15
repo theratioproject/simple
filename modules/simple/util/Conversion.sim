@@ -9,7 +9,7 @@
 	:filename: Conversion.sim
 */
 
-call simple.core.loadcoredymodule
+from simple.core.loadcoredymodule
  
 module simple.util
 
@@ -62,7 +62,7 @@ block strToHex(string value)
 	return __string_to_hex(value)
 	
 /*
-	Revert the result of the strToHex(string value) function call by
+	Revert the result of the strToHex(string value) function from by
 	convert Hexadecimal values to string
 	
 	::
@@ -107,8 +107,8 @@ block strToList(string value)
 	
 	.. code-block:: simple
 	
-		call simple.util.Console
-		call simple.util.Conversion
+		from simple.util.Console
+		from simple.util.Conversion
 		import simple.core
 		
 		stdout.println(strToCHex("Hello World"))
