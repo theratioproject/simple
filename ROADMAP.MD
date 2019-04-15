@@ -108,6 +108,7 @@ build, installation, features e.t.c
 - [ ] change 'call' keyword to 'from' for loading module
 - [ ] change 'invoke' keyword to 'call' for calling lambda block
 - [ ] change the method **execCode** to **eval**
+- [x] use the Error method in classes to attend to error that occur when class access is in braces
 
 ### simplify
 - [ ] create and optimize simple source before compiling into bytecode (.complex)
@@ -132,6 +133,7 @@ build, installation, features e.t.c
 To dos and features relative to the simple-lang standard modules which includes new modules addition, module modification or any other
 issue related to the module
 
+- [ ] change all existing module methods and function identifier to with Capital letter instead of small letter
 - [ ] make the conf.sim file in dynamic module folder for compiling dynamic module instead of makefiles 
 - [ ] Makefiles for various platform can be generated from the options in dynamic module conf.sim
 - [ ] generate static dynamic modules for static building for bake, making DynamicLoader.sim aware of statically link dynamic module

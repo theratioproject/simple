@@ -17,7 +17,7 @@ class BraceUp
 	block invalid()
 		
 
-	block done()
+	block Error()
 		display "An error has been catch in the class" + nl
 		display "no need to execute the catch block " + nl
 		display "and the error is : " + __err__ + nl
