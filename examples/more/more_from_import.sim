@@ -1,0 +1,15 @@
+/*
+    
+
+	:copyright: 2018-2019, Azeez Adewale
+	:license: MIT License Copyright (c) 2018 simple
+	:author: Azeez Adewale <azeezadewale98@gmail.com>
+	:date: April 26 2019
+	:time: 09:13 AM
+	:filename: more_from_import.sim
+*/
+
+from "simple/core/String.sim" import simple.core
+
+stri = new String("Hello \tWorld")
+display strFormat(stri)

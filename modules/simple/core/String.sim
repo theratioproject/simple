@@ -1142,6 +1142,8 @@ class String : Object
 				return !equals(value)
 			case "+"
 				return concat(value)
+			case "[]"
+				return Value[value]
 			case "*"
 				val = ""
 				count = numberValue(value)

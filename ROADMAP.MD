@@ -133,7 +133,7 @@ build, installation, features e.t.c
 To dos and features relative to the simple-lang standard modules which includes new modules addition, module modification or any other
 issue related to the module
 
-- [ ] change all existing module methods and function identifier to with Capital letter instead of small letter
+- [ ] change all existing module methods and function identifier to starts with Capital letter instead of small letter
 - [ ] make the conf.sim file in dynamic module folder for compiling dynamic module instead of makefiles 
 - [ ] Makefiles for various platform can be generated from the options in dynamic module conf.sim
 - [ ] generate static dynamic modules for static building for bake, making DynamicLoader.sim aware of statically link dynamic module
@@ -154,6 +154,7 @@ issue related to the module
 	- [ ] remove validatePointer() block after contructor has been enforced in VM
 	- [ ] add custom event listener to FMenuItem such as Inactive, Removal, Add e.t.c 
 	- [ ] export Fl_Menu_Item.H struct 
+	- [ ] css to set the style
 - [ ] port qt library to simple-lang for a higher GUI module 
 - [ ] create database module for simple-lang which includes mysql, sqlite, odbc and access
 	- [ ] build the mysql database module
@@ -178,6 +179,7 @@ issue related to the module
 - [ ] parser.json module to parse and create json string
 	- [x] load json from string and create json from class, list and manually
 	- [ ] a json module that load the json file and store as class attributes and fields and allow writing back to file
+	- [ ] use reflection to serialize and deserialize object into json
 - [x] reStructuredText parser module to read rst file into usable tokens
 - [x] create a built in block to get hex as number using `H("0x00")
 - [ ] build a comprehensive color module in simple.system
@@ -189,6 +191,8 @@ issue related to the module
 - [ ] implement a matrix module with base type of list in simple.core
 - [ ] stop moving libsimple_fulltick dynamic module after SIDE has been created
 - [ ] write better and more robust strSplit function
+- [ ] re implement the String class completely in simple-lang without depending on libstring_savant
+- [ ] implement foreach method in any class that operate on array, accepting anonymous block as parameter with the anonymous block parameter corresponding to the element structure
 
 ### Extended Modules
 
@@ -197,6 +201,7 @@ Modules which are not part of the standard module that comes distributed with si
 - [ ] create material and native os extended module for fulltick GUI module
 - [ ] a module that convert fultick Widget to HTML element
 - [ ] write a C/C++ parser module to scan C/C++ sources into resuable token groups 
+- [ ] move the libstring_savant dynamic module to extended modules
 
 ### Environments
 
