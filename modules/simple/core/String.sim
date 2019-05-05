@@ -276,7 +276,7 @@ block strFormat(params...)
 */
 
 	
-block strFormatIndex(params...)
+block strFormatIndex(params...) : string
 	int paramsLen = lengthOf(params)
 	if paramsLen == 1 and isList(params[0]) {
 		_var = params[0]
@@ -285,6 +285,9 @@ block strFormatIndex(params...)
 	}
 	string finalValue = ""
 	string value = params[0]
+	if isNull(value)
+		return '(null)'
+	end
 	int valueLen = lengthOf(value) - 1
 	int index = 1 
 	for a = 0 to valueLen  {
@@ -967,7 +970,7 @@ class String : Object
 	/*
 
 	*/
-	block init(params...)
+	block Init(params...)
 		paramsLen = lengthOf(params)
 
 		if paramsLen == 0 {

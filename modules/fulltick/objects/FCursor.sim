@@ -146,7 +146,7 @@ class FCursor : Object
     /*
 
     */#to accept image
-    block init(params...)
+    block Init(params...)
         paramsLen = lengthOf(params) 
         cursor = null
         cursorName = "UnknownCuursor"

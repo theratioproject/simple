@@ -8,7 +8,7 @@ class Class : SuperClass
 
 class SuperClass
 
-	block init()
+	block Init()
 		display "from super class " + nl
 		
 		

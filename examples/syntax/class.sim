@@ -1,31 +1,34 @@
 
-#1 #2
-display "please input your name : " read myname
+myCar = new Car()
+myCar.Accelerate()
+myCar.Brake()
 
-#3 #4
-display "Hello " + myname + crlf + "it simple programming language" + crlf
-
-#5
-display "2 * 4 = " + (2*4) + crlf 
-
-#6 
-display "numbers " + 2 + 3
-
-/*	
-	comment map
-	-------
-	#author - [[Azeez Adewale][twitter]]@iamthecarisma
-	#date - Jan 20 2018
-	#syntax - display, read
-	#name - display.sim
-	#path - examples/syntax/display.sim
-	#detail - shows various way to deal with displaying characters
-	and expression to the console
-	
-	#1 - entry to the program
-	#2 - read a string into the variable myname
-	#3 - crlf (Carriage Return Line Feed) is the newline variable
-	#4 - concatenating various strings
-	#5 - concatenating strings and summing up various numbers
-	#6 - concatenating strings and various numbers
+/*
+	Create a class 'Car' with Fields and Methods
 */
+class Car
+
+	final number Bonnet = 1
+	final number Trunk  = 1
+	final number Tires  = 4
+	final number Doors  = 4
+	final number Seats  = 5
+	
+	/*
+		The constructor
+	*/
+	block Init()
+	
+	/*
+		Start the car 
+	*/
+	block Accelerate()
+		display "Starting the car \n"
+		
+	/*
+		Stop the car
+	*/
+	block Brake()
+		display "Stopping the car \n"
+		
+	

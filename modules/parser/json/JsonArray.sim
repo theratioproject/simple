@@ -32,7 +32,7 @@ class JsonArray : Object
 	/*
 	
 	*/
-	block init(boolean params...)
+	block Init(boolean params...)
 		paramsLen = lengthOf(params)
 		if paramsLen == 0 {
 		elif paramsLen == 1

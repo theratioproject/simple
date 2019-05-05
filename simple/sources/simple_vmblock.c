@@ -36,9 +36,9 @@ SIMPLE_API int simple_vm_loadblock2 ( VM *vm,const char *block_name,int nPerform
 				continue ;
 			}
 			list = simple_list_getlist(vm->pObjState,simple_list_getsize(vm->pObjState));
-			/* Pass Braces for Class init() method */
+			/* Pass Braces for Class Init() method */
 			if ( (simple_list_getsize(vm->pObjState) > 1) && (vm->nCallClassInit) ) {
-				if ( strcmp(block_name,"init") != 0 ) {
+				if ( strcmp(block_name,"Init") != 0 ) {
 					list = simple_list_getlist(vm->pObjState,simple_list_getsize(vm->pObjState)-1) ;
 				}
 			}

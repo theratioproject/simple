@@ -95,7 +95,7 @@ class rstParser : Object
 	/*
 	
 	*/
-	block init(string rsText)
+	block Init(string rsText)
 		lookAhead = new LookAhead(replaceStr(rsText+nl+nl,crlf,nl))
 		
 	/*

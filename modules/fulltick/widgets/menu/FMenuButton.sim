@@ -143,7 +143,7 @@ class FMenuButton : FMenu_
     /*
 
     */
-    block init(params...)
+    block Init(params...)
         paramsLen = lengthOf(params)
 		menuItems = []
         if paramsLen == 1 {

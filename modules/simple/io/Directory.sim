@@ -41,7 +41,7 @@ class Directory : Path
 	/*
 	
 	*/
-	block init(string path)
+	block Init(string path)
 		AbsolutePath = path
 		updateAttributes()
 	

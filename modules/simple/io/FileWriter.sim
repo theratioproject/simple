@@ -48,7 +48,7 @@ class FileWriter : Object
 	/*
 	
 	*/
-	block init(object params...)
+	block Init(object params...)
 		paramsLen = lengthOf(params)
 		object file = null
 		boolean CreateIfNotFound = false

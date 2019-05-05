@@ -54,7 +54,7 @@ class FFont : Object
     /*
 
     */
-    block init(font)
+    block Init(font)
         if isNumber(font) {
             FontValue = font
         else

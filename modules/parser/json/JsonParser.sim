@@ -163,7 +163,7 @@ class JsonParser : Object
 	/*
 	
 	*/
-	block init(object param)
+	block Init(object param)
 		if isString(param) {
 			IsString = true
 			lookAhead = new LookAhead(param)

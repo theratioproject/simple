@@ -84,7 +84,7 @@ class FLabelType : Object
     /*
 
     */
-    block init(type)
+    block Init(type)
         if isNumber(type) {
             LabelType = type
         else

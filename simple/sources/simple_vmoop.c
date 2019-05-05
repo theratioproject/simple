@@ -1177,12 +1177,12 @@ SIMPLE_API void simple_vm_oop_callmethodfrombrace ( VM *vm )
 	if ( (SIMPLE_VM_IR_OPCODE == ICO_NOOP) || (SIMPLE_VM_IR_OPCODE == ICO_AFTERCALLMETHOD2) ) {
 		SIMPLE_VM_IR_OPCODE = ICO_AFTERCALLMETHOD2 ;
 		list = simple_list_getlist(vm->pObjState,simple_list_getsize(vm->pObjState)) ;
-		/* Pass Brace when we call class init , using new object() */
+		/* Pass Brace when we call class Init , using new object() */
 		if ( (simple_list_getsize(vm->pObjState) > 1) && (vm->nCallClassInit) ) {
 			if ( simple_list_getsize(vm->pBlockCallList) > 0 ) {
 				list2 = simple_list_getlist(vm->pBlockCallList,simple_list_getsize(vm->pBlockCallList));
 				cStr = simple_list_getstring(list2,SIMPLE_BLOCKCL_NAME);
-				if ( strcmp(cStr,"init") != 0 ) {
+				if ( strcmp(cStr,"Init") != 0 ) {
 					list = simple_list_getlist(vm->pObjState,simple_list_getsize(vm->pObjState)-1) ;
 				}
 			}

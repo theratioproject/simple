@@ -24,7 +24,7 @@ class Element
 	elementSetClass = false
 	elementSetStyle = false
 	
-	block init(name)
+	block Init(name)
 		elementName = name
 		elementHead = '<'+elementName+' '
 	

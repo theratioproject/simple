@@ -20,7 +20,7 @@ from web.front.elements.Element
 class Div : Element
 
 	elementName = "div"
-	init(elementName)
+	Init(elementName)
 	
 	block Div(id)
 		setId(id)
@@ -160,7 +160,7 @@ class HeadLink
 class Table : Element
 
 	elementName = "table"
-	init(elementName)
+	Init(elementName)
 	tableHeadContent = ' <thead><tr>'+crlf
 	tableBodyContent = ' <tbody>'+crlf
 	tableHasBody = false
@@ -247,7 +247,7 @@ class ScriptLink
 class Link : Element 
 
 	elementName = "a"
-	init(elementName)
+	Init(elementName)
 	
 	block Link(title, address)
 		setAddress(address)
@@ -263,13 +263,13 @@ class Link : Element
 class Ul : Element
 	
 	elementName = "ul"
-	init(elementName)
+	Init(elementName)
 	
 
 class Li : Element
 	
 	elementName = "li"
-	init(elementName)
+	Init(elementName)
 	
 	block Li(id)
 		setId(id)	
@@ -278,7 +278,7 @@ class Li : Element
 class Header : Div
 
 	elementName = "header"
-	init(elementName)
+	Init(elementName)
 	
 	block Header(id)
 		setId(id)
@@ -286,7 +286,7 @@ class Header : Div
 class Section : Div
 
 	elementName = "section"
-	init(elementName)
+	Init(elementName)
 	
 	block Section(id)
 		setId(id)
@@ -294,7 +294,7 @@ class Section : Div
 class H1 : Element
 	
 	elementName = "h1"
-	init(elementName)
+	Init(elementName)
 
 	block H1(id)
 		setId(id)	
@@ -303,7 +303,7 @@ class H1 : Element
 class H2 : Element
 	
 	elementName = "h1"
-	init(elementName)	
+	Init(elementName)	
 
 	block H2(id)
 		setId(id)
@@ -312,7 +312,7 @@ class H2 : Element
 class Nav : Element
 	
 	elementName = "nav"
-	init(elementName)	
+	Init(elementName)	
 
 	block Nav(id)
 		setId(id)
@@ -320,7 +320,7 @@ class Nav : Element
 class Article : Element
 	
 	elementName = "article"
-	init(elementName)	
+	Init(elementName)	
 
 	block Article(id)
 		setId(id)

@@ -34,7 +34,7 @@ class Error : Object
 	/*
 	
 	*/
-	block init(Title,Message)
+	block Init(Title,Message)
 		this.Message = Message
 		this.Title = Title
 		

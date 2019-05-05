@@ -233,7 +233,7 @@ class FWidget : Object
     /*
 
     */
-    block init()
+    block Init()
         throw(self,"This a a Base class, you cannot instantiate this class.")
 
     /*

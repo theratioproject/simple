@@ -119,7 +119,7 @@ class FColor : Color
 	/*
 	
 	*/
-	block init(colorValues...)
+	block Init(colorValues...)
 		colorValuesLen = lengthOf(colorValues)
 		if colorValuesLen == 2 or colorValuesLen > 4 {
 			throw(self,FULLTICK_INVALID_PARAM_COUNT+". Expection 1, 3 or 4 parameter")

@@ -74,7 +74,7 @@ class FMenu_ : FWidget
     /*
 
     */
-    block init()
+    block Init()
         throw(self, "This is a base class it cannot be instiated")
 		
 	/*

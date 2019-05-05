@@ -132,7 +132,7 @@ class ZipEntry : Object
 	/*
 
 	*/
-	block init(Zip zip, /*string|number*/ entry)
+	block Init(Zip zip, /*string|number*/ entry)
 		ParentZip = zip
 		entry = normalize(entry)
 		if isString(entry) and strEndsWith(entry, "/") {

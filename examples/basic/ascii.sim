@@ -7,21 +7,21 @@
 	:time: 01:11 PM
 	:filename: ascii.sim
 */
+
+from simple.util.Console
+
 tab = ascii(9)
 isfirst = true
 issecond = false
 
-from simple.util.Console
+stdout.Printfc(ConsoleColorBlue, " ")
+stdout.Printfc(ConsoleColorYellow, "\t\t\tAmerican Standard Code for Information Interchange (ASCII) Charaters\n")
+stdout.Printfc(ConsoleColorMagenta, "\t\t\t\t\t  Author : Azeez Adewale\n")
+stdout.Printfc(ConsoleColorRed, "\t\t\t\t   MIT License Copyright (c) 2018 SIMPLE \n")
+#printLineWithColor(ConsoleColor.BLUE, null)
+stdout.Printfc(ConsoleColorGreen, "\tSN\t|\tDEC\t|\tSYMBLOL\t\t~\tSN\t|\tDEC\t|\tSYMBLOL\n")
 
-	stdout.printfc(ConsoleColor.BLUE, " ")
-	stdout.printfc(ConsoleColor.YELLOW, "\t\t\tAmerican Standard Code for Information Interchange (ASCII) Charaters\n")
-	stdout.printfc(ConsoleColor.MAGENTA, "\t\t\t\t\t  Author : Azeez Adewale\n")
-	stdout.printfc(ConsoleColor.RED, "\t\t\t\t   MIT License Copyright (c) 2018 SIMPLE \n")
-	#printLineWithColor(ConsoleColor.BLUE, null)
-	stdout.printfc(ConsoleColor.GREEN, "\tSN\t|\tDEC\t|\tSYMBLOL\t\t~\tSN\t|\tDEC\t|\tSYMBLOL\n")
-	stdout.printfc(ConsoleColor.BLUE, null)
-
-for a = 0 to 400 #value can be changed
+for a = 100 to 150 #value can be changed
 	if isfirst 
 		display tab+a+tab+"|"+tab+"ascii("+a+")"+tab+"|"+tab+ascii(a)
 		isfirst = false issecond = true

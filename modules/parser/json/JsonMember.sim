@@ -35,7 +35,7 @@ class JsonMember : Object
 	/*
 	
 	*/
-	block init(string name, object value)
+	block Init(string name, object value)
 		Name = name
 		Value = value
 		

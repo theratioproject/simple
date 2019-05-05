@@ -979,7 +979,7 @@ int simple_parser_factor ( Parser *parser,int *nFlag )
 				simple_parser_icg_newoperandint(parser,1);
 				/* Generate Code ( Call Block ) */
 				simple_parser_icg_newoperation(parser,ICO_LOADADDRESS);
-				simple_parser_icg_newoperand(parser,"init");
+				simple_parser_icg_newoperand(parser,"Init");
 				/* Generate Location for nPC of Getter */
 				simple_parser_icg_newoperandint(parser,0);
 				/* Block Parameters */

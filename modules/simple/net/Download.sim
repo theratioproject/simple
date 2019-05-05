@@ -47,7 +47,7 @@ class Download : File
 	/*
 	
 	*/
-	block init(string url, string filePath)
+	block Init(string url, string filePath)
 		checkNullity(self,url)
 		checkNullity(self,filePath)
 		Url = url

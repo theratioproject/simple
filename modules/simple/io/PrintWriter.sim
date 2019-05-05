@@ -36,7 +36,7 @@ class PrintWriter : Object
 	/*
 	
 	*/
-	block init(FileWriter fileWriter, boolean autoFlush)
+	block Init(FileWriter fileWriter, boolean autoFlush)
 		if isNull(fileWriter) {
 			throw(self, "The parameter cannot be null ")
 			return null

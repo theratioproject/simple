@@ -79,7 +79,7 @@ class Zip : Object
 	/*
 
 	*/
-	block init(object params...)
+	block Init(object params...)
 		paramsLen = lengthOf(params)
 		
 		/*if paramsLen == 1 {
