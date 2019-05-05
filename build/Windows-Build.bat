@@ -55,15 +55,23 @@ for %%x in (%*) do (
 	)
 	if "%%x"=="x64" (
 		SET BUILD_ARC="x64"
+		SET GCC_ARC_VAR=-m64
+		SET ARC=64
 	)
 	if "%%x"=="--64-bit" (
 		SET BUILD_ARC="x64"
+		SET GCC_ARC_VAR=-m64
+		SET ARC=64
 	)
 	if "%%x"=="x86" (
 		SET BUILD_ARC="x86"
+		SET GCC_ARC_VAR=-m32
+		SET ARC=32
 	)
 	if "%%x"=="--32-bit" (
 		SET BUILD_ARC="x86"
+		SET GCC_ARC_VAR=-m32
+		SET ARC=32
 	)
 	if "%%x"=="--uninstall" (
 		call:uninstall
@@ -248,8 +256,9 @@ if !BUILD_TOOL!=="cygwin" (
 	call:locatecygwin !BUILD_ARC!
 )
 if !BUILD_TOOL!=="gcc" (
-	call:display configure "configure build %VERSION%"
-	call:locategcc !BUILD_ARC!
+REM 	call:display configure "configure build %VERSION%"
+REM 	call:locategcc !BUILD_ARC!
+	SET NO_BUILDTOOL="false"
 )
 if !BUILD_TOOL!=="any" (
 	call:configure

@@ -105,8 +105,8 @@ build, installation, features e.t.c
 - [ ] enforce variables to be created using keyword or the Type **?**
 - [ ] natively attend to escape characters
 - [ ] use the operator method for assignment also, putting the shallow or deep copy option in developer control
-- [ ] change 'call' keyword to 'from' for loading module
-- [ ] change 'invoke' keyword to 'call' for calling lambda block
+- [x] change 'call' keyword to 'from' for loading module
+- [x] change 'invoke' keyword to 'call' for calling lambda block
 - [ ] change the method **execCode** to **eval**
 - [x] use the Error method in classes to attend to error that occur when class access is in braces
 

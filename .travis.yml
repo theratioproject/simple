@@ -2,10 +2,38 @@
 language: c
   
 os:
-  - linux
+  - windows
+  #- linux
+  #- osx
 
 compiler:
   - gcc
+  
+before_install:
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then choco install -y mingw; export PATH=/c/tools/mingw64/bin:"$PATH"; fi
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then choco install -y make; fi
+  
+before_script:
+  #there is no need to configure build toolchain since travis CI comes with 
+  #all needed mingw toolchain for building
+  #- if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then build/Windows-Build.bat -c; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo bash build/Linux-Build.sh -c; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then bash build/Mac-Build.sh -c; fi
 
 script:
-  - sudo bash ./Linux-Build.sh x64 -d
+  - cd build/
+  
+  #build for windows 
+  #- if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then ./Windows-Build.bat x86 -d --gnu; fi
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then ./Windows-Build.bat x64 -d --gnu; fi
+  
+  #build for linux 
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo bash Linux-Build.sh x86 -i; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo bash Linux-Build.sh x64 -i; fi
+  
+  #build for macos 
+  #since macOS has been 64-bit only since 10.6 there is no need to build 32 bit version 
+  #if there is an exception to build 32 bit version, the repo should be cloned and 
+  #built from source 
+  #- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then sudo bash Mac-Build.sh x86 -i; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then sudo bash Mac-Build.sh x64 -i; fi

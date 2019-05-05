@@ -425,14 +425,9 @@ uninstall() {
 configure() {
 	header configure "configure build $version"
 	#MACOSX I believe comes with C/C++ tool chains
-	sudo brew install fltk
-	sudo brew install curl
-	sudo brew install openssl
-	case $cpu_arc in
-			*64* )
-				#sudo brew install libfltk1.3-dev:i386
-			;;
-	esac
+	brew install fltk
+	brew install curl
+	brew install openssl
 }
 
 check_if_is_sudo() {
