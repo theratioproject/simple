@@ -13,8 +13,8 @@ block main()
 	news.Url = "http://simple-lang.github.io/simple-lang/json"
 	news.Tags = ["parser", "json", "modules", "simple-lang"]
 	
-	object = listToJson(["parser", "json", "modules", "simple-lang", ["news1", news], news, "programming", "language", 1234])
-	stdout.println(object)
+	object = ListToJson(["parser", "json", "modules", "simple-lang", ["news1", news], news, "programming", "language", 1234])
+	stdout.Println(object)
 	
 class News
 

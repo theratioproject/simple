@@ -46,39 +46,39 @@ class FBoxType : Object
 
     */
     block Init(params...)
-        paramsLen = lengthOf(params)
+        paramsLen = LengthOf(params)
 
         if paramsLen == 0 {
             BoxType = __FL_FLAT_BOX()
         elif paramsLen == 1 
             type = params[0]
-            if isNumber(type) {
+            if IsNumber(type) {
                 BoxType = type
             else
-                throw(self,"Invalid parameter in FBoxType Constructor. Expecting (Number). Found (" + objectType(type) + ")")
+                Throw(self,"Invalid parameter in FBoxType Constructor. Expecting (Number). Found (" + ObjectType(type) + ")")
             }
         elif paramsLen == 2
             type = params[0]
             color = params[1]
-            if isNumber(type) and (isNumber(color) or (isObject(color) and instanceOf(color,"FColor"))) {
+            if IsNumber(type) and (IsNumber(color) or (IsObject(color) and InstanceOf(color,"FColor"))) {
                 BoxType = type
-                if isNumber(color) {
+                if IsNumber(color) {
                     BoxColor = new FColor(color)
                 else
                     BoxColor = color
                 } 
             else
-                throw(self,"Invalid parameter in FBoxType Constructor. Expecting (Number,Number|fulltick.painting.FColor). Found (" + objectType(type) + "," + objectType(color) + ")")
+                Throw(self,"Invalid parameter in FBoxType Constructor. Expecting (Number,Number|fulltick.painting.FColor). Found (" + ObjectType(type) + "," + ObjectType(color) + ")")
             }
         else
-            throw(self,"Calling block with invalid legth of parameter")
+            Throw(self,"Calling block with invalid legth of parameter")
         }
 
     /*
 
     */
-	block getNO_BOX()
-        if isNull(NO_BOX) { 
+	block GetNO_BOX()
+        if IsNull(NO_BOX) { 
             NO_BOX = new FBoxType(__FL_NO_BOX())
         }
         return NO_BOX
@@ -86,8 +86,8 @@ class FBoxType : Object
     /*
 
     */
-	block getFLAT_BOX()
-        if isNull(FLAT_BOX) { 
+	block GetFLAT_BOX()
+        if IsNull(FLAT_BOX) { 
             FLAT_BOX = new FBoxType(__FL_FLAT_BOX())
         }
         return FLAT_BOX
@@ -95,9 +95,9 @@ class FBoxType : Object
     /*
 
     */
-    block name()
+    block Name()
         name = boxTypeNameMap[""+BoxType+""]
-        if isNull(name) {
+        if IsNull(name) {
             name = "Invalid BoxType"
         }
         return name
@@ -105,8 +105,8 @@ class FBoxType : Object
     /*
 
 	*/
-	block equals(object)
-		if !isObject(object) or !__instance_of(object,"FBoxType") {
+	block Equals(object)
+		if !IsObject(object) or !__instance_of(object,"FBoxType") {
 			return false
 		}
 		return (BoxType == object.BoxType)
@@ -114,8 +114,8 @@ class FBoxType : Object
     /*
 
     */
-    block toString() 
-        return "[" + absolutename() + ":BoxType=" + BoxType + ",BoxTypeName=" + name() + ",BoxColor=" + boxcolorname() + "]"
+    block ToString() 
+        return "[" + Absolutename() + ":BoxType=" + BoxType + ",BoxTypeName=" + Name() + ",BoxColor=" + Boxcolorname() + "]"
 
     /*
 
@@ -133,14 +133,14 @@ class FBoxType : Object
         /*
 
         */
-        block setBoxType()
+        block SetBoxType()
 
         /*
 
         */
-        block boxcolorname()
-            if isNull(BoxColor) {
+        block Boxcolorname()
+            if IsNull(BoxColor) {
                 return "(null)"
             }
-            return BoxColor.toString()
+            return BoxColor.ToString()
 

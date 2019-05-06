@@ -30,35 +30,35 @@ class Dimension : Object
 
     */
     block Init(params...)
-        paramsLen = lengthOf(params)
+        paramsLen = LengthOf(params)
 
         if paramsLen == 1 {
-            if !isNull(params[0]) and isList(params[0]) {
+            if !IsNull(params[0]) and IsList(params[0]) {
                 _param = params[0] 
                 params = _param
-                paramsLen = lengthOf(params)
+                paramsLen = LengthOf(params)
             }
         }
         if paramsLen == 0 {
         elif paramsLen == 1
             object = params[0]
-            if isinstance(object) {
+            if Isinstance(object) {
                 Width = object.Width
                 Height = object.Height
             else
-                throw(self,"The parameter is not valid. Expecting instance of Dimension for Dimension Width and Height. Found "+objectType(object))
+                Throw(self,"The parameter is not valid. Expecting instance of Dimension for Dimension Width and Height. Found "+ObjectType(object))
             }
         elif paramsLen == 2
             width = params[0]
             height = params[1]
-            if isNumber(width) and isNumber(height) {
-                Width = floor(width)
-                Height = floor(height)
+            if IsNumber(width) and IsNumber(height) {
+                Width = Floor(width)
+                Height = Floor(height)
             else
-                throw(self,"The parameter is not valid. Expecting Number as Dimension Width and Height. Found " + objectType(width) + " and " + objectType(height))
+                Throw(self,"The parameter is not valid. Expecting Number as Dimension Width and Height. Found " + ObjectType(width) + " and " + ObjectType(height))
             }
         else
-            throw(self,"Initializing Dimension with invalid length of parameters")
+            Throw(self,"Initializing Dimension with invalid length of parameters")
         }
 
         return self
@@ -67,124 +67,124 @@ class Dimension : Object
     /*
 
     */
-    block getWidth()
+    block GetWidth()
         return Width
 
     /*
 
     */
-    block getHeight()
+    block GetHeight()
         return Height
 
     /*
 
     */
-    block setHeight(height)
-        if isNumber(height) {
-            Height = floor(height)
+    block SetHeight(height)
+        if IsNumber(height) {
+            Height = Floor(height)
         else
-            throw(self,"Invalid parameter, Expecting (Number). Found (" + objectType(height) + ")")
+            Throw(self,"Invalid parameter, Expecting (Number). Found (" + ObjectType(height) + ")")
         }
 
     /*
 
     */
-    block setWidth(width)
-        if isNumber(width) {
-            Width = floor(width)
+    block SetWidth(width)
+        if IsNumber(width) {
+            Width = Floor(width)
         else
-            throw(self,"Invalid parameter, Expecting (Number). Found (" + objectType(width) + ")")
+            Throw(self,"Invalid parameter, Expecting (Number). Found (" + ObjectType(width) + ")")
         }
         
 
     /*
 
     */
-    block getDimension()
+    block GetDimension()
 		dimension = new Dimension(Width,Height)
         return dimension
 
     /*
 
     */
-    block setDimension(params...)
+    block SetDimension(params...)
         Dimension(params)
 
     /*
 
     */
-    block changeDimension(width, height)
-        Width = floor(width)
-        Height = floor(height)
+    block ChangeDimension(width, height)
+        Width = Floor(width)
+        Height = Floor(height)
 
     /*
 
     */
-    block toRectangle()
+    block ToRectangle()
 		rectangle = new Rectangle(self)
         return rectangle
 
 	/*
 
 	*/
-	block operator(op,value)
+	block Operator(op,value)
 		switch op {
 			case "=="
-				return equals(value)
+				return Equals(value)
 			case "!="
-				return !equals(value)
+				return !Equals(value)
             case "+"
-                if isinstance(value) {
+                if Isinstance(value) {
                     width = Width + value.Width
                     height = Height + value.Height
-                    Width = floor(width)
-                    Height = floor(height)
+                    Width = Floor(width)
+                    Height = Floor(height)
                 else
-                    throw(self,"Using operator with values of incorrect type : "+op)
+                    Throw(self,"Using operator with values of incorrect type : "+op)
 					return null
                 }
 				return self
             case "-"
-                if isinstance(value) {
+                if Isinstance(value) {
                     width = Width - value.Width
                     height = Height - value.Height
-                    Width = floor(width)
-                    Height = floor(height)
+                    Width = Floor(width)
+                    Height = Floor(height)
                 else
-                    throw(self,"Using operator with values of incorrect type : "+op)
+                    Throw(self,"Using operator with values of incorrect type : "+op)
 					return null
                 }
 				return self
             case "/"
-                if isinstance(value) {
+                if Isinstance(value) {
                     width = Width / value.Width
                     height = Height / value.Height
-                    Width = floor(width)
-                    Height = floor(height)
+                    Width = Floor(width)
+                    Height = Floor(height)
                 else
-                    throw(self,"Using operator with values of incorrect type : "+op)
+                    Throw(self,"Using operator with values of incorrect type : "+op)
 					return null
                 }
 				return self
             case "*"
-                if isinstance(value) {
+                if Isinstance(value) {
                     width = Width * value.Width
                     height = Height * value.Height
-                    Width = floor(width)
-                    Height = floor(height)
+                    Width = Floor(width)
+                    Height = Floor(height)
                 else
-                    throw(self,"Using operator with values of incorrect type : "+op)
+                    Throw(self,"Using operator with values of incorrect type : "+op)
 					return null
                 }
 				return self
 		}
-		return super.operator(op, value)
+		return super.Operator(op, value)
 
     /*
 
     */
-    block equals(object)
-		if !isinstance(object) {
+    block Equals(object)
+		if !Isinstance(object) {
 			return false
 		}
 		return (Width == object.Width and Height == object.Height)
@@ -192,8 +192,8 @@ class Dimension : Object
     /*
 
     */
-    block toString()
-        return "[" + absolutename() + ":Width=" + Width + ",Height=" + Height + "]"
+    block ToString()
+        return "[" + Absolutename() + ":Width=" + Width + ",Height=" + Height + "]"
 
 
 

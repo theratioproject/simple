@@ -12,16 +12,16 @@ import simple.core
 block main()
 	zip = new Zip("../testfiles/test_zip.zip", "w") {
 		new ZipEntry(zip, "foo-1.txt") {
-			write("Some data here...Hello World")
+			Write("Some data here...Hello World")
 		}
 		new ZipEntry(zip, "foo-2.txt") {
-			fwrite("./extractzipentry.sim")
-			fwrite("./modifyjson.sim")
-			fwrite("./curlandjson1.sim")
-			fwrite("./unit_test.sim")
+			Fwrite("./extractzipentry.sim")
+			Fwrite("./modifyjson.sim")
+			Fwrite("./curlandjson1.sim")
+			Fwrite("./unit_test.sim")
 		}
 		new ZipEntry(zip, "examples") {
-			dwrite("../")
+			Dwrite("../")
 		}
 	}
 	

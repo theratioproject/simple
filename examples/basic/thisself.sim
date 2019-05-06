@@ -3,16 +3,16 @@
 
 
 	ocean = new Ocean
-	ocean.displayFish("tuna")
+	ocean.DisplayFish("tuna")
 
 class Ocean
 
 	fish = "titus"
 
-	block displayFish(fish)
+	block DisplayFish(fish)
 		@ "The paramic fish is : "+fish
 		@ "The self fish is : "+self.fish
-		this.thisBlock()
+		this.ThisBlock()
 
-	block thisBlock()
+	block ThisBlock()
 		display "we called an internal block with this"		

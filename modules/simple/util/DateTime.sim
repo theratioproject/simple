@@ -16,27 +16,27 @@ from simple.core.loadcoredymodule
 
 #module simple.util #fix
  
-block clockTick()
+block ClockTick()
 	return __clock()
 	
-block tickPerSecond()
+block TickPerSecond()
 	return __clock_per_second()
 	
-block date()
+block Date()
 	return __date()
 	
-block time()
+block Time()
 	return __time()
 	
-block dateTimeList()
+block DateTimeList()
 	return __date_time_list()
  
 #accept time_t 
-block dateListFromPointer(timeTPointer)
+block DateListFromPointer(timeTPointer)
 	return __date_time_t_to_list(timeTPointer)
 	
-block dateFromPointer(timeTPointer)
-	tempDateList = dateListFromPointer(timeTPointer)
+block DateFromPointer(timeTPointer)
+	tempDateList = DateListFromPointer(timeTPointer)
 	return new DateTime(tempDateList)
 
 class DateTime : Object
@@ -45,102 +45,102 @@ class DateTime : Object
 	__DATE_TIME_MODULE = "simple.util.DateTime"
 
 	block Init(object params... )
-		paramsLen = lengthOf(params)
+		paramsLen = LengthOf(params)
 		dateTimeParameter = null
 		
 		if paramsLen == 0 {
 		elif paramsLen == 1
 			dateTimeParameter = params[0]
 		else
-			throw(self, "Calling block with extra parameters")
+			Throw(self, "Calling block with extra parameters")
 		}
 		
 		__DATE_TIME_PARAMETER = dateTimeParameter
-		if isList(__DATE_TIME_PARAMETER) && lengthOf(__DATE_TIME_PARAMETER) == 21  {
+		if IsList(__DATE_TIME_PARAMETER) && LengthOf(__DATE_TIME_PARAMETER) == 21  {
 			__update(__DATE_TIME_PARAMETER)
 			
-		elif isNull(__DATE_TIME_PARAMETER)
-			__DATE_TIME_PARAMETER = dateTimeList()
+		elif IsNull(__DATE_TIME_PARAMETER)
+			__DATE_TIME_PARAMETER = DateTimeList()
 			__update(__DATE_TIME_PARAMETER)
 			
-		elif isNumber(__DATE_TIME_PARAMETER)
-			__update(dateTimeList())
+		elif IsNumber(__DATE_TIME_PARAMETER)
+			__update(DateTimeList())
 			#__update(__DATE_TIME_PARAMETER)
 		else
-			throwWithTitle(__DATE_TIME_MODULE,__DATE_TIME_INVALID_PARAMETER)
+			ThrowWithTitle(__DATE_TIME_MODULE,__DATE_TIME_INVALID_PARAMETER)
 		}
 		
 	#multi block	
-	block update()
+	block Update()
 		__update(__DATE_TIME_PARAMETER)
 		
-	block shortWeekDay()
+	block ShortWeekDay()
 		return __DATE_TIME_WEEKDAY_ABBR
 		
-	block weekDay()
+	block WeekDay()
 		return __DATE_TIME_WEEKDAY
 		
-	block shortMonth()
+	block ShortMonth()
 		return __DATE_TIME_MONTH_ABBR
 		
-	block month()
+	block Month()
 		return __DATE_TIME_MONTH
 		
-	block dateTime()
+	block DateTime()
 		return __DATE_TIME_DATE_TIME
 		
-	block dayOfMonth()
+	block DayOfMonth()
 		return __DATE_TIME_DAY_OF_MONTH
 		
-	block in24Hour()
+	block In24Hour()
 		return __DATE_TIME_24_HOUR
 		
-	block in12Hour()
+	block In12Hour()
 		return __DATE_TIME_12_HOUR
 		
-	block dayInYear()
+	block DayInYear()
 		return __DATE_TIME_DAY_OF_YEAR
 		
-	block monthInYear()
+	block MonthInYear()
 		return __DATE_TIME_MONTH_OF_YEAR
 		
-	block minuteInHour()
+	block MinuteInHour()
 		return __DATE_TIME_MINUTES_IN_HOUR
 		
-	block meridian()
+	block Meridian()
 		return __DATE_TIME_AM_PM
 		
-	block secondsInMinute()
+	block SecondsInMinute()
 		return __DATE_TIME_SECONDS_IN_MINUTES
 		
-	block weekInYear()
+	block WeekInYear()
 		return __DATE_TIME_WEEK_OF_YEAR
 		
-	block dayOfTheWeek()
+	block DayOfTheWeek()
 		return __DATE_TIME_DAY_OF_WEEK
 		
-	block date()
+	block Date()
 		return __DATE_TIME_DATE
 		
-	block time()
+	block Time()
 		return __DATE_TIME_TIME
 		
-	block yearInCentury()
+	block YearInCentury()
 		return __DATE_TIME_YEAR_IN_CENTURY
 		
-	block century()
+	block Century()
 		return __DATE_TIME_CENTURY
 		
-	block year()
+	block Year()
 		return __DATE_TIME_YEAR
 		
-	block timeZone()
+	block TimeZone()
 		return __DATE_TIME_TIME_ZONE
 		
-	block percentSign()
+	block PercentSign()
 		return __DATE_TIME_PERCENT_SIGN
 		
-	block toString()
+	block ToString()
 		formatDate = __DATE_TIME_WEEKDAY + " "+__DATE_TIME_MONTH+" "+__DATE_TIME_DAY_OF_MONTH+" "+__DATE_TIME_TIME
 		formatDate += " "+__DATE_TIME_YEAR
 		return formatDate

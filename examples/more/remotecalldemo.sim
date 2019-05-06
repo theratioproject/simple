@@ -18,12 +18,12 @@
 
 from "simple/internet/RemoteCall.sim"
 
-	remoteCode = fetchRemotefile("http://127.0.0.1/simple-lang.io/side/urladdresses.txt")
+	remoteCode = FetchRemotefile("http://127.0.0.1/simple-lang.io/side/urladdresses.txt")
 	if remoteCode != null {
-		executeCode(remoteCode)
+		ExecuteCode(remoteCode)
 		@"Twitter url : "+twitterUrl
 		@"Github Example url : "+githubExampleFolderUrl
 	}
 	
-callRemote("http://127.0.0.1/simple-lang.io/side/urladdresses.txt") #execute with -w to see warning
-#callRemote(2090) #not string error
+CallRemote("http://127.0.0.1/simple-lang.io/side/urladdresses.txt") #execute with -w to see warning
+#CallRemote(2090) #not string error

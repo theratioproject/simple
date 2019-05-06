@@ -75,22 +75,22 @@ class FMenu_ : FWidget
 
     */
     block Init()
-        throw(self, "This is a base class it cannot be instiated")
+        Throw(self, "This is a base class it cannot be instiated")
 		
 	/*
 	
 	*/
 	#TODO : prevent multiple addition of a menu entry, do not trade speed at all
-	block addItem(/*MenuItem|int|string*/ params...)
-		paramsLen = lengthOf(params)
+	block AddItem(/*MenuItem|int|string*/ params...)
+		paramsLen = LengthOf(params)
 		tag = null
 		shortcut = null
 		item = null
 		
 		if paramsLen == 1 {
 			item = params[0]
-			if !instanceOf(item, "FMenuItem") {
-				throw(self, "Invalid parameter, expecting an instance of FMenuItem")
+			if !InstanceOf(item, "FMenuItem") {
+				Throw(self, "Invalid parameter, expecting an instance of FMenuItem")
 				return
 			}
 			
@@ -103,13 +103,13 @@ class FMenu_ : FWidget
 		elif paramsLen == 4
 			item = new FMenuItem(params[0], params[1], params[2], params[3])
 		else
-			throw(self, "Calling block with invalid length of parameters")
+			Throw(self, "Calling block with invalid length of parameters")
 			return
 		}
 		
 		if item.HasChildMenus {
 			for menu in item.ChildMenus {
-				addItem(menu)
+				AddItem(menu)
 			}
 		else
 			__fltk_created_menus_count++
@@ -124,55 +124,55 @@ class FMenu_ : FWidget
 		
 	*/
 	#TODO : make list menuList, string parent... after resolving variadic param issue
-	block menu(list menuList, string parent)
-		menuListLen = lengthOf(menuList) - 1
+	block Menu(list menuList, string parent)
+		menuListLen = LengthOf(menuList) - 1
 		for a = 0 to menuListLen {
 			menuLi = menuList[a]
-			if isList(menuLi) {
-				menuLiLen = lengthOf(menuLi)
+			if IsList(menuLi) {
+				menuLiLen = LengthOf(menuLi)
 				if menuLiLen == 2 {
 					p1 = menuLi[0]
 					p2 = menuLi[1]
-					if isNumber(p2) {
-						if isNull(parent) {
-							addItem(p1, p2)
+					if IsNumber(p2) {
+						if IsNull(parent) {
+							AddItem(p1, p2)
 						else
-							addItem(parent+"/"+p1, p2)
+							AddItem(parent+"/"+p1, p2)
 						}
 						
-					elif isList(p2)
-						if lengthOf(p2) == 0 {
-							if isNull(parent) {
-								addItem(p1, 0)
+					elif IsList(p2)
+						if LengthOf(p2) == 0 {
+							if IsNull(parent) {
+								AddItem(p1, 0)
 							else
-								addItem(parent+"/"+p1, 0)
+								AddItem(parent+"/"+p1, 0)
 							}
 						else
 							MenuItemsLen++
-							if isNull(parent) {
-								menu(p2, p1)
+							if IsNull(parent) {
+								Menu(p2, p1)
 							else
-								menu(p2, parent+"/"+p1)
+								Menu(p2, parent+"/"+p1)
 							}
 						}
 						
 					else
-						throw(self, "Invalid menu entry, near '" + p1 + "'")						
+						Throw(self, "Invalid menu entry, near '" + p1 + "'")						
 					}
 					
 				elif menuLiLen == 3
 					p1 = menuLi[0]
 					p2 = menuLi[1]
 					p3 = menuLi[2]
-					if isNumber(p2) and (isString(p3) or isNull(p3)) {
-						if isNull(parent) {
-							addItem(p1, p2, p3)
+					if IsNumber(p2) and (IsString(p3) or IsNull(p3)) {
+						if IsNull(parent) {
+							AddItem(p1, p2, p3)
 						else
-							addItem(parent+"/"+p1, p2, p3)
+							AddItem(parent+"/"+p1, p2, p3)
 						}
 						
 					else
-						throw(self, "Invalid menu entry, near '" + p1 + "'")						
+						Throw(self, "Invalid menu entry, near '" + p1 + "'")						
 					}
 					
 				elif menuLiLen == 4
@@ -180,25 +180,25 @@ class FMenu_ : FWidget
 					p2 = menuLi[1]
 					p3 = menuLi[2]
 					p4 = menuLi[3]
-					if isNumber(p2) and (isString(p3) or isNull(p3)) and isNumber(p4) {
-						if isNull(parent) {
-							addItem(p1, p2, p3, p4)
+					if IsNumber(p2) and (IsString(p3) or IsNull(p3)) and IsNumber(p4) {
+						if IsNull(parent) {
+							AddItem(p1, p2, p3, p4)
 						else
-							addItem(parent+"/"+p1, p2, p3, p4)
+							AddItem(parent+"/"+p1, p2, p3, p4)
 						}
 						
 					else
-						throw(self, "Invalid menu entry, near '" + p1 + "'")						
+						Throw(self, "Invalid menu entry, near '" + p1 + "'")						
 					}
 					
 					
 				else
-					throw(self, "The menu entry list has invalid length of " + menuLiLen)
+					Throw(self, "The menu entry list has invalid length of " + menuLiLen)
 				}
-			elif instanceOf(menuLi, "FMenuItem")
-				addItem(menuLi)
+			elif InstanceOf(menuLi, "FMenuItem")
+				AddItem(menuLi)
 			else
-				throw(self, "Invalid menu entry in the list item")
+				Throw(self, "Invalid menu entry in the list item")
 			}
 		}
 		
@@ -209,10 +209,10 @@ class FMenu_ : FWidget
 		callback incorect. All required list are destroyed here but the menu items remains for the 
 		GC to decide
 	*/
-	block clear()
-		validatePointer()
+	block Clear()
+		ValidatePointer()
 		__Fl_Menu__clear(Ptr)
-		redrawParent() 
+		RedrawParent() 
 		for item in MenuItems {
 			index = 1*item[0]
 			__del_from_list(__fltk_created_menus,index)
@@ -223,14 +223,14 @@ class FMenu_ : FWidget
     /*
 		
     */
-    block setDownBox(/*FBoxType|number*/ value) 
-        if isNumber(value) {
+    block SetDownBox(/*FBoxType|number*/ value) 
+        if IsNumber(value) {
 			__Fl_Menu__down_box_1(Ptr,value)
 			DownBox = new FBoxType(value)
 		else
 			__Fl_Menu__down_box_1(Ptr,value.BoxType) 
-			if !isNull(value.BoxColor) { 
-				setDownColor(value.BoxColor)
+			if !IsNull(value.BoxColor) { 
+				SetDownColor(value.BoxColor)
 			}
 			DownBox = value
 		}
@@ -238,66 +238,66 @@ class FMenu_ : FWidget
     /*
 
     */
-    block getDownBox()
+    block GetDownBox()
         return DownBox 
 
     /*
 
     */
-    block setDownColor(/*FColor|number*/ value) 
-        if isNumber(value) or instanceOf(value,"FColor") {
-            if isNumber(value) {
+    block SetDownColor(/*FColor|number*/ value) 
+        if IsNumber(value) or InstanceOf(value,"FColor") {
+            if IsNumber(value) {
                 __Fl_Menu__down_color_1(Ptr,value)
                 DownColor = new FColor(value)
             else
-                __Fl_Menu__down_color_1(Ptr,value.colorAsNumber())
+                __Fl_Menu__down_color_1(Ptr,value.ColorAsNumber())
                 DownColor = value
             }
         else
-            throw(self,"Invalid parameter. Expecting (Number|fulltick.painting.FColor), Found (" + objectType(value) + ")")
+            Throw(self,"Invalid parameter. Expecting (Number|fulltick.painting.FColor), Found (" + ObjectType(value) + ")")
         }
 
     /*
 
     */
-    block getDownColor()
+    block GetDownColor()
         return DownColor
 		
 	/*
 	
 	*/
-	block makeGlobal()
-		validatePointer()
+	block MakeGlobal()
+		ValidatePointer()
 		__Fl_Menu__global(Ptr)
 
     /*
 
     */
-    block setTextColor(/*FColor|number*/ value) 
-        if isNumber(value) or instanceOf(value,"FColor") {
-            if isNumber(value) {
+    block SetTextColor(/*FColor|number*/ value) 
+        if IsNumber(value) or InstanceOf(value,"FColor") {
+            if IsNumber(value) {
                 __Fl_Menu__textcolor_1(Ptr,value)
                 TextColor = new FColor(value)
             else
-                __Fl_Menu__textcolor_1(Ptr,value.colorAsNumber())
+                __Fl_Menu__textcolor_1(Ptr,value.ColorAsNumber())
                 TextColor = value
             }
         else
-            throw(self,"Invalid parameter. Expecting (Number|fulltick.painting.FColor), Found (" + objectType(value) + ")")
+            Throw(self,"Invalid parameter. Expecting (Number|fulltick.painting.FColor), Found (" + ObjectType(value) + ")")
         }
 
     /*
 
     */
-    block getTextColor()
+    block GetTextColor()
         return TextColor
 
     /*
 
     */
-    block setTextFont(/*FFont|int*/ value)
-		if isNumber(value) {
-			__value = numberValue(value)
+    block SetTextFont(/*FFont|int*/ value)
+		if IsNumber(value) {
+			__value = NumberValue(value)
             __Fl_Menu__textfont_1(Ptr,__value)
             value = new FFont(__value) 
 		else
@@ -308,15 +308,15 @@ class FMenu_ : FWidget
     /*
 
     */
-    block getTextFont()
+    block GetTextFont()
         return TextFont    
 
     /*
 
     */
-    block setTextSize(int value)
+    block SetTextSize(int value)
 		if value <= 0 {
-			throw(self,"FWidget Label Size cannot be less than 0 ")
+			Throw(self,"FWidget Label Size cannot be less than 0 ")
 			return
 		}
 		__Fl_Menu__textsize_1(Ptr,value)
@@ -325,23 +325,23 @@ class FMenu_ : FWidget
     /*
 
     */
-    block getTextSize()
+    block GetTextSize()
         return TextSize
 		
 	/*
 	
 	*/
 	#Tooooo slow [disable]
-	/*block insert(int index, /*MenuItem|int|string* params...)
-		paramsLen = lengthOf(params)
+	/*block Insert(int index, /*MenuItem|int|string* params...)
+		paramsLen = LengthOf(params)
 		tag = null
 		shortcut = null
 		item = null
 		
 		if paramsLen == 1 {
 			item = params[0]
-			if !instanceOf(item, "FMenuItem") {
-				throw(self, "Invalid parameter, expecting an instance of FMenuItem")
+			if !InstanceOf(item, "FMenuItem") {
+				Throw(self, "Invalid parameter, expecting an instance of FMenuItem")
 				return
 			}
 			
@@ -354,17 +354,17 @@ class FMenu_ : FWidget
 		elif paramsLen == 4
 			item = new FMenuItem(params[0], params[1], params[2], params[3])
 		else
-			throw(self, "Calling block with invalid length of parameters")
+			Throw(self, "Calling block with invalid length of parameters")
 			return
 		}
 		
 		if item.HasChildMenus {
 			for menu in item.ChildMenus {
-				addItem(menu)
+				AddItem(menu)
 			}
 		else
 			if index > MenuItemsLen+1 or index < 0 {
-				throw(self, "Index out of bound. You cannot insert a menu item in non existing index ")
+				Throw(self, "Index out of bound. You cannot insert a menu item in non existing index ")
 				return 
 			}
 			__fltk_created_menus_count++
@@ -374,29 +374,29 @@ class FMenu_ : FWidget
 			__add_to_list(__fltk_created_menus,item)
 		}
 		MenuItemsLen++
-		redrawParent()*/
+		RedrawParent()*/
 
     /*
         
     */
-    block setPlatformScheme(string schemeName)
+    block SetPlatformScheme(string schemeName)
         if schemeName == FScheme.Android {
-            setBackground(new FColor(62,78,184))
-            setTextColor(FColor.FCOLOR_WHITE)
+            SetBackground(new FColor(62,78,184))
+            SetTextColor(FColor.FCOLOR_WHITE)
 
         elif schemeName == FScheme.Windows
-			setBackground(new FColor(242,242,242))
-			setDownColor(new FColor(33,147,239))
+			SetBackground(new FColor(242,242,242))
+			SetDownColor(new FColor(33,147,239))
 
         elif schemeName == FScheme.Macosx
-            setBackground(new FColor(238,244,249))
-			setTextColor(new FColor(54,101,148))
+            SetBackground(new FColor(238,244,249))
+			SetTextColor(new FColor(54,101,148))
 
         elif schemeName == FScheme.Linux
-			setBackground(new FColor(225,214,204))
+			SetBackground(new FColor(225,214,204))
 			
 		else
-			throw(self, "Invalid platform scheme name : " + schemeName)
+			Throw(self, "Invalid platform scheme name : " + schemeName)
 
         }
 

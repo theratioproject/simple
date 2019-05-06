@@ -14,8 +14,8 @@ block main()
 		Tags = ["parser", "json", "modules", "simple-lang"]
 	}	
 	
-	object = objectToJson("news", news)
-	stdout.println(object)
+	object = ObjectToJson("news", news)
+	stdout.Println(object)
 	
 class News
 

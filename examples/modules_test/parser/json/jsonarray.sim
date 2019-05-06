@@ -12,6 +12,6 @@ block main()
 		"three"
 	]'
 	jsonParser = new JsonParser(json)
-	jsonArray = jsonParser.parse()
-	stdout.printf("Is JsonArray=%b - Is JsonObject=%b \n", jsonArray.isJsonArray(), jsonArray.isJsonObject())
-	stdout.println(jsonArray)
+	jsonArray = jsonParser.Parse()
+	stdout.Printf("Is JsonArray=%b - Is JsonObject=%b \n", jsonArray.IsJsonArray(), jsonArray.IsJsonObject())
+	stdout.Println(jsonArray)

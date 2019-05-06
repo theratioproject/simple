@@ -28,20 +28,20 @@ module simple.core
 /*
 
 */
-block checkNullity(Object object, object s)
-	if isNull(s) { throw(object,NULL_ERROR_POINTER) }
+block CheckNullity(Object object, object s)
+	if IsNull(s) { Throw(object,NULL_ERROR_POINTER) }
 	
 /*
 
 */
-block objEquals(object obj1, object obj2)
-	if isList(obj1) {
-		if !isList(obj2) { return false }
-		return listEquals(obj1, obj2)
-	elif isObject(obj1)
-		if !isObject(obj2) { return false }
+block ObjEquals(object obj1, object obj2)
+	if IsList(obj1) {
+		if !IsList(obj2) { return false }
+		return ListEquals(obj1, obj2)
+	elif IsObject(obj1)
+		if !IsObject(obj2) { return false }
 		if __instance_of(obj1,"Object") {
-			return obj1.equals(obj2)
+			return obj1.Equals(obj2)
 		else
 			return false
 		}
@@ -61,105 +61,105 @@ class Object
 	/*
 
 	*/
-	block getinstance()
+	block Getinstance()
 		return self
 
 	/*
 
 	*/
-	block setinstance(value)
-		throw(self,"You cannot change the instnce of an Object")
+	block Setinstance(value)
+		Throw(self,"You cannot change the instnce of an Object")
 		return
 	
 	/*
 
 	*/
-	block classname()
+	block Classname()
 		return __class_name(self)
 
 	/*
 
 	*/
-	block modulename()
+	block Modulename()
 		return __class_module_name(self)
 
 	/*
 
 	*/
-	block absolutename()
-		return modulename() + "." + classname()
+	block Absolutename()
+		return Modulename() + "." + Classname()
 
 	/*
 
 	*/
-	block toString()
-		return "[" + absolutename() + ":" + hashcode() + "]"
+	block ToString()
+		return "[" + Absolutename() + ":" + Hashcode() + "]"
 		
 	/*
 
 	*/
-	block hashcode()
-		if isNull(hashcode) {
-			hashcode = hash(absolutename())
+	block Hashcode()
+		if IsNull(hashcode) {
+			hashcode = Hash(Absolutename())
 		}
 		return hashcode
 
 	/*
 
 	*/
-	block uniquecode()
-		if isNull(uniquecode) {
-			uniquecode = hash(absolutename()+__rand())
+	block Uniquecode()
+		if IsNull(uniquecode) {
+			uniquecode = Hash(Absolutename()+__rand())
 		}
 		return uniquecode
 
 	/*
 
 	*/
-	block isinstance(object obj)
-		return isObject(obj) and __instance_of(obj,classname())
+	block Isinstance(object obj)
+		return IsObject(obj) and __instance_of(obj,Classname())
 
 	/*
 
 	*/
-	block equals(object obj)
-		if !isObject(obj) or !__instance_of(obj,"Object") {
+	block Equals(object obj)
+		if !IsObject(obj) or !__instance_of(obj,"Object") {
 			return false
 		}
-		return (uniquecode() == obj.uniquecode())
+		return (Uniquecode() == obj.Uniquecode())
 
 	/*
 
 	*/
-	block operator(string op,object value)
+	block Operator(string op,object value)
 		switch op {
 			case "=="
-				return equals(value)
+				return Equals(value)
 			case "!="
-				return !equals(value)
+				return !Equals(value)
 			case "getType"
-				return absolutename()
+				return Absolutename()
 			default 
-				throw(self,"This Object does not define a behaviour for the operator : " + op)
+				Throw(self,"This Object does not define a behaviour for the operator : " + op)
 		}
 		return self
 		
 	/*
 
 	*/
-	block type()
-		return getType(self)
+	block Type()
+		return GetType(self)
 
 	/*
 
 	*/
-	block clone()
+	block Clone()
 		return self
 		
 	/*
 		 
 	*/
-	block object()
+	block Object()
 		return self
 		
 

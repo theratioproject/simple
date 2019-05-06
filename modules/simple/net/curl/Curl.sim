@@ -43,37 +43,37 @@ class Curl : Object
 	
 	*/
 	block Init(string url)
-		checkNullity(self,url)		
+		CheckNullity(self,url)		
 		CurlPointer = __curl_easy_Init()
 		Url = url
 		__add_to_list(Options, [10002, Url])
 		for option in Options {
-			addOption(option[0], option[1])
+			AddOption(option[0], option[1])
 		}
 		
 		
 	/*
 	
 	*/
-	block addOption(number curlOption, string value)
-		checkNullity(self,curlOption)
-		checkNullity(self,value) 
+	block AddOption(number curlOption, string value)
+		CheckNullity(self,curlOption)
+		CheckNullity(self,value) 
 		__curl_easy_setopt(CurlPointer, curlOption, value, "")
 		
 	/*
 	
 	*/
-	block addHeader(string header, string value)
-		checkNullity(self,header)
-		checkNullity(self,value)
+	block AddHeader(string header, string value)
+		CheckNullity(self,header)
+		CheckNullity(self,value)
 		Headers[header] = value
 		CurlListPointer = __curl_list_append(CurlListPointer, header + ": " + value) 
 		
 	/*
 	
 	*/
-	block prepare()
-		if lengthOf(Headers) > 0 {
+	block Prepare()
+		if LengthOf(Headers) > 0 {
 			__curl_easy_setopt(CurlPointer, 10023, CurlListPointer, "")
 		}
 		AlreadyPrepared = true
@@ -81,9 +81,9 @@ class Curl : Object
 	/*
 	
 	*/
-	block perform()
+	block Perform()
 		if !AlreadyPrepared {
-			prepare()
+			Prepare()
 		}
 		output = __curl_easy_perform(CurlPointer)
 		AlreadyPrepared = false
@@ -92,9 +92,9 @@ class Curl : Object
 	/*
 	
 	*/
-	block strPerform()
+	block StrPerform()
 		if !AlreadyPrepared {
-			prepare()
+			Prepare()
 		}
 		output = __curl_easy_string_perform(CurlPointer)
 		AlreadyPrepared = false
@@ -103,22 +103,22 @@ class Curl : Object
 	/*
 	
 	*/
-	block flush()
+	block Flush()
 		__curl_easy_cleanup(CurlPointer)
 		AlreadyPrepared = false
 		
 	/*
 	
 	*/
-	block done()
-		flush()
+	block Done()
+		Flush()
 		__free_curl_list(CurlListPointer)
 		
 	/*
 	
 	*/
-	block toString()
-		return "[" + absolutename() + ":Url=" + Url + ",Port=" + Port + ",AlreadyPrepared=" + AlreadyPrepared + "]"
+	block ToString()
+		return "[" + Absolutename() + ":Url=" + Url + ",Port=" + Port + ",AlreadyPrepared=" + AlreadyPrepared + "]"
 
 	/*
 	
@@ -143,6 +143,6 @@ class Curl : Object
 		/*
 		
 		*/
-		private setOptions()
+		private SetOptions()
 		
 		

@@ -17,7 +17,7 @@ import fulltick.objects
 import fulltick.drawing
 
 new FWindowDemo
-FApp.run()
+FApp.Run()
 
 class FWindowDemo : FCallbackEvent
 
@@ -25,16 +25,16 @@ class FWindowDemo : FCallbackEvent
         finput = new FInput(10,10,"Android") 
         fbutton = new FButton("Set Title") {
             Id = 1
-            setCallbackListener(self)
-            setPosition(finput.Width + finput.X + 10, 10)
+            SetCallbackListener(self)
+            SetPosition(finput.Width + finput.X + 10, 10)
         }
-        add(finput,fbutton) 
-        show()        
+        Add(finput,fbutton) 
+        Show()        
     } 
 
-    block callback(widget)
+    block Callback(widget)
         if widget.Id = 1 { 
-            stdout.println("new Title : " + finput.Value)
+            stdout.Println("new Title : " + finput.Value)
             fwindow.Title = finput.Value
         }
         

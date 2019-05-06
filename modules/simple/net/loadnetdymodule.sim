@@ -17,4 +17,4 @@ module simple.net
 	Call all the low level function of the @DynamicModule networker
 */
 from simple.core.DynamicLoader
-callModule("libnetworker")
+CallModule("libnetworker")

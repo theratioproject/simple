@@ -5,20 +5,20 @@ from simple.system.Runtime
 from simple.util.Console
 
 block main()
-	testDirectory("./")
+	TestDirectory("./")
 	
-block testDirectory(directory)
+block TestDirectory(directory)
 	dir = new Directory(directory)
-	files = dir.listFiles()
+	files = dir.ListFiles()
 	for file in files {
-		if file.name() == "encryptdecryptdemo.sim" or file.name() == "unit_test.sim" continue end
-		stdout.println("\n\n================================================================")
-		stdout.vprintf(["Running Test : {0} \n", file.name()])
-		stdout.println("================================================================\n")
-		Runtime.execute("simple "+file.absolutePath()+" -t") 
+		if file.Name() == "encryptdecryptdemo.sim" or file.Name() == "unit_test.sim" continue end
+		stdout.Println("\n\n================================================================")
+		stdout.Vprintf(["Running Test : {0} \n", file.Name()])
+		stdout.Println("================================================================\n")
+		Runtime.Execute("simple "+file.AbsolutePath()+" -t") 
 	}
 	
-	folders = dir.listDirectories()
+	folders = dir.ListDirectories()
 	for folder in folders {
-		testDirectory(folder)
+		TestDirectory(folder)
 	}

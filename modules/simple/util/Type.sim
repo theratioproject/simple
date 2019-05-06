@@ -15,16 +15,16 @@ module simple.util
 from simple.core.loadcoredymodule
 
 /*
-	Return the type of variable passed to this function.
+	return the type of variable passed to this function.
  */
-block typeOf(object var)
-    if isList(var) {
+block TypeOf(object var)
+    if IsList(var) {
         return "List"
 		
-    elif isString(var)
+    elif IsString(var)
         return "String"
 		
-    elif isNumber(var)
+    elif IsNumber(var)
         return "Number"
 		
     else
@@ -39,7 +39,7 @@ block typeOf(object var)
 		var : Object
 			the value to convert to string
 	
-	**Return**:
+	**return**:
 		the parameter as String
 */
 block __get_var_as_string(var)
@@ -60,10 +60,10 @@ block __get_var_as_string(var)
 		var : Object
 			the value to check if it an alphabet or digit
 		
-	**Return**:
+	**return**:
 		true if the parameter is an alphabet or digit
 */
-block isAlphaNum(object var)
+block IsAlphaNum(object var)
 	tempVar = __get_var_as_string(var)
 	return __is_alpha_num(tempVar)
 	
@@ -86,10 +86,10 @@ block isAlphaNum(object var)
 		var : Object
 			the value to check if it an alphabet
 		
-	**Return**:
+	**return**:
 		true if parameter is a valid alphabet
 */
-block isAlpha(object var)
+block IsAlpha(object var)
 	tempVar = __get_var_as_string(var)
 	return __is_alpha(tempVar)
 	
@@ -107,10 +107,10 @@ block isAlpha(object var)
 		var : Object
 			the value to check if it a digit
 		
-	**Return**:
+	**return**:
 		true if parameter is a valid digit
 */
-block isDigit(object var)
+block IsDigit(object var)
 	tempVar = __get_var_as_string(var)
 	return __is_num(tempVar)
 	
@@ -124,7 +124,7 @@ block isDigit(object var)
 		\a	-	Alert
 		\f	-	Form Feed
 		\n	-	New Line
-		\r	-	Carriage Return
+		\r	-	Carriage return
 		\t	-	Horizontal Tab
 		\v	-	Vertical Tab
 		\0	-	Null Character
@@ -133,10 +133,10 @@ block isDigit(object var)
 		var : Object
 			the value to check if it a control character
 		
-	**Return**:
+	**return**:
 		true if parameter is a control character
 */
-block isControlChar(object var)
+block IsControlChar(object var)
 	tempVar = __get_var_as_string(var)
 	return __is_control_char(tempVar)
 	
@@ -148,10 +148,10 @@ block isControlChar(object var)
 		var : Object
 			the value to check if has a graphical representation 
 		
-	**Return**:
+	**return**:
 		true if parameter has graphical representation 
 */
-block isGraphical(object var)
+block IsGraphical(object var)
 	tempVar = __get_var_as_string(var)
 	return __is_graph(tempVar)
 
@@ -163,10 +163,10 @@ block isGraphical(object var)
 		var : String
 			the value to check if it is in lower case
 		
-	**Return**:
+	**return**:
 		true if variable is in lower case
 */
-block isLowerCase(string var)
+block IsLowerCase(string var)
 	return __is_lower(var)
 
 /*
@@ -177,24 +177,24 @@ block isLowerCase(string var)
 		var : String
 			the value to check if it is in upper case
 		
-	**Return**:
+	**return**:
 		true if variable is in upper case
 */
-block isUpperCase(string var)
+block IsUpperCase(string var)
 	return __is_upper(var)
 
 /*
 	Check if the Variable is printable on the standard display output.
-	similar to isGraphical()
+	similar to IsGraphical()
 	
 	**Parameters**:	
 		var : Object
 			the value to check if it printable
 		
-	**Return**:
+	**return**:
 		true if the character is printable
 */
-block isPrintable(object var)
+block IsPrintable(object var)
 	tempVar = __get_var_as_string(var)
 	return __is_print(tempVar)
 	
@@ -206,23 +206,23 @@ block isPrintable(object var)
 		var : String
 			the value to check if it white-space
 		
-	**Return**:
+	**return**:
 		true if the characters is white-space or are white-spaces
 */
-block isWhiteSpace(string var)
-	return lengthOf(var) > 0 && __is_space(var)
+block IsWhiteSpace(string var)
+	return LengthOf(var) > 0 && __is_space(var)
 	
 /*
-	Similar to isWhiteSpace(string var) but efficiently check of a character is a white space	
+	Similar to IsWhiteSpace(string var) but efficiently check of a character is a white space	
 	**Parameters**:	
 		var : String
 			the value to check if it white-space
 		
-	**Return**:
+	**return**:
 		true if the characters is white-space or are white-spaces
 */
 block __isWhiteSpace(string var)
-	if lengthOf(var) < 1 { return false }
+	if LengthOf(var) < 1 { return false }
 	for a in var {
 		if a != ' ' {
 			return false
@@ -237,10 +237,10 @@ block __isWhiteSpace(string var)
 		var : Object
 			the value to check if it consists of punctuation
 		
-	**Return**:
+	**return**:
 		true if the character consists of punctuation
 */	
-block isPunctuation(object var)
+block IsPunctuation(object var)
 	tempVar = __get_var_as_string(var)
 	return __is_punct(tempVar)
 	
@@ -251,10 +251,10 @@ block isPunctuation(object var)
 		var : String
 			the value to check if it a set of hexadecimal digit
 		
-	**Return**:
+	**return**:
 		true if the parameter is a set of hexadecimal digit
 */
-block isHexDigit(object var)
+block IsHexDigit(object var)
 	tempVar = __get_var_as_string(var)
 	return __is_x_digit(tempVar)
 
@@ -266,9 +266,9 @@ block isHexDigit(object var)
 		from simple.util.Type
 		import simple.core
 		
-		stdout.println(isPunctuation("%#%#&$%"))
-		stdout.println(isAlphaNum("ABCD1234abcd"))
-		stdout.println(isWhiteSpace("  		"))
+		stdout.Println(IsPunctuation("%#%#&$%"))
+		stdout.Println(IsAlphaNum("ABCD1234abcd"))
+		stdout.Println(IsWhiteSpace("  		"))
 	
 	.. make object into string|number
 

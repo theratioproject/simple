@@ -28,74 +28,74 @@ from simple.util.Console
 import simple.core
 
 block main()
-	header()
-	paramsLen = lengthOf(cmdparams) - 1
-	if paramsLen < 0 { help() }
+	Header()
+	paramsLen = LengthOf(cmdparams) - 1
+	if paramsLen < 0 { Help() }
 	for a = 0 to paramsLen {
 		param = cmdparams[a]
 		if param == "--help" or param == "--h" {
-			help()
+			Help()
 			
 		elif param == "--wamp"
-			superWamper("C:/wamp/")
+			SuperWamper("C:/wamp/")
 			
 		elif param == "--wamp64"
-			superWamper("C:/wamp64/")
+			SuperWamper("C:/wamp64/")
 			
 		}
 	}
 	
-block superWamper(file)
-	stdout.print("Configure your wamp server : preparing...")
-	if isWindows() {
+block SuperWamper(file)
+	stdout.Print("Configure your wamp server : preparing...")
+	if IsWindows() {
 		if __dir_exists(file) == 1 {
-			stdout.printf("\r%s\rConfigure your wamp server : checking your httpd.conf", strCopy(" ", 40))
+			stdout.Printf("\r%s\rConfigure your wamp server : checking your httpd.conf", StrCopy(" ", 40))
 			file = new Directory("C:/wamp64/bin/apache/")
-			file = file.getDirectories()[0]
+			file = file.GetDirectories()[0]
 			path = file.AbsolutePath
 			file = new File(path + "/conf/httpd.conf")
-			if file.exists() {
-				stdout.printf("\r%s\rConfigure your wamp server : httpd.conf found", strCopy(" ", 40))
-				stdout.printf("\r%s\rConfigure your wamp server : backing up your httpd.conf", strCopy(" ", 40))
+			if file.Exists() {
+				stdout.Printf("\r%s\rConfigure your wamp server : httpd.conf found", StrCopy(" ", 40))
+				stdout.Printf("\r%s\rConfigure your wamp server : backing up your httpd.conf", StrCopy(" ", 40))
 				uniqueNum = __rand()
-				content = file.readAllString()
-				__write_file(getTmpDirectory()+"httpd.conf"+uniqueNum, content)
-				stdout.printf("\r%s\rConfigure your wamp server : configuring simple for cgi", strCopy(" ", 40))
-				if strSubStr(content, " +ExecCGI") == -1 {
-					stdout.printf("\r%s\rConfigure your wamp server : writing +ExecCGI", strCopy(" ", 56))
-					content = replaceStr(content, "+Indexes ", "+Indexes +ExecCGI ")
+				content = file.ReadAllString()
+				__write_file(GetTmpDirectory()+"httpd.conf"+uniqueNum, content)
+				stdout.Printf("\r%s\rConfigure your wamp server : configuring simple for cgi", StrCopy(" ", 40))
+				if StrSubStr(content, " +ExecCGI") == -1 {
+					stdout.Printf("\r%s\rConfigure your wamp server : writing +ExecCGI", StrCopy(" ", 56))
+					content = ReplaceStr(content, "+Indexes ", "+Indexes +ExecCGI ")
 				}
-				if strSubStr(content, "AddHandler cgi-script .sim") == -1 {
-					stdout.printf("\r%s\rConfigure your wamp server : writing AddHandler", strCopy(" ", 56))
-					content = replaceStr(content, "AddHandler cgi-script .cgi", "AddHandler cgi-script .cgi" + nl + "	AddHandler cgi-script .sim"+nl)
+				if StrSubStr(content, "AddHandler cgi-script .sim") == -1 {
+					stdout.Printf("\r%s\rConfigure your wamp server : writing AddHandler", StrCopy(" ", 56))
+					content = ReplaceStr(content, "AddHandler cgi-script .cgi", "AddHandler cgi-script .cgi" + nl + "	AddHandler cgi-script .sim"+nl)
 				}
-				if strSubStr(content, "index.sim") == -1 {
-					stdout.printf("\r%s\rConfigure your wamp server : writing DirectoryIndex", strCopy(" ", 56))
-					content = replaceStr(content, "index.php ", "index.sim index.php ")
+				if StrSubStr(content, "index.sim") == -1 {
+					stdout.Printf("\r%s\rConfigure your wamp server : writing DirectoryIndex", StrCopy(" ", 56))
+					content = ReplaceStr(content, "index.php ", "index.sim index.php ")
 				}
-				file.write(content)
-				stdout.printf("\r%s\rConfigure your wamp server (done)", strCopy(" ", 56))
-				stdout.println("\nhttpd.conf backed up at : " + getTmpDirectory()+"httpd.conf"+uniqueNum)
-				stdout.println("restart your wamp server to apply changes")
+				file.Write(content)
+				stdout.Printf("\r%s\rConfigure your wamp Server (done)", StrCopy(" ", 56))
+				stdout.Println("\nhttpd.conf backed up at : " + GetTmpDirectory()+"httpd.conf"+uniqueNum)
+				stdout.Println("restart your wamp server to apply changes")
 			else
-				stderr.printf("\r%s\rConfigure your wamp server : httpd.conf not found (failed)", strCopy(" ", 40))
+				stderr.Printf("\r%s\rConfigure your wamp server : httpd.conf not Found (failed)", StrCopy(" ", 40))
 			}
 			
 		else
-			stderr.printf("\r%s\rConfigure your wamp server : Wamp Not installed (failed)", strCopy(" ", 40))
+			stderr.Printf("\r%s\rConfigure your wamp server : Wamp Not Installed (failed)", StrCopy(" ", 40))
 		}
 	else
-		stderr.printf("\r%s\rConfigure your wamp server : Not Windows OS (failed)", strCopy(" ", 40))
+		stderr.Printf("\r%s\rConfigure your wamp server : Not Windows OS (failed)", StrCopy(" ", 40))
 	}
 	
-block header() 
+block Header() 
 	header = "simple_cgier.sim 0.0.1 (Febuary 22 2019, 03:33 PM)"
-	stdout.println(header)
+	stdout.Println(header)
 	
-block compareVersions(string versions...)
+block CompareVersions(string versions...)
 	@versions
 	
-block help()
+block Help()
 	helpText = 'simple ./simple_cgier.sim [OPTIONS]
 	
 [OPTIONS] : option passed to the program.
@@ -107,12 +107,12 @@ The OPTIONS include:
  
  --ask		ask for server path if not detected
 '
-	stdout.println(helpText)
+	stdout.Println(helpText)
 	
-block getTmpDirectory()
-	tempDirectory = getTempDirectory()
+block GetTmpDirectory()
+	tempDirectory = GetTempDirectory()
 	tDirectory = new Directory(tempDirectory+"/.simple_env/")
-	if !tDirectory.exists() {
-		tDirectory.create()
+	if !tDirectory.Exists() {
+		tDirectory.Create()
 	}
 	return tDirectory.AbsolutePath + SystemSlash()

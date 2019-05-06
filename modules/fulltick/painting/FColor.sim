@@ -120,49 +120,49 @@ class FColor : Color
 	
 	*/
 	block Init(colorValues...)
-		colorValuesLen = lengthOf(colorValues)
+		colorValuesLen = LengthOf(colorValues)
 		if colorValuesLen == 2 or colorValuesLen > 4 {
-			throw(self,FULLTICK_INVALID_PARAM_COUNT+". Expection 1, 3 or 4 parameter")
+			Throw(self,FULLTICK_INVALID_PARAM_COUNT+". Expection 1, 3 or 4 parameter")
 		}
 		if colorValuesLen == 1 {
-			if isNumber(colorValues[0]) {
-				colorObjectsFromNumber(colorValues[0])
-			elif isString(colorValues[0])
-				if strStartsWith(colorValues[0],"#") {
-					RGB = rgbFromHex(colorValues[0])
+			if IsNumber(colorValues[0]) {
+				ColorObjectsFromNumber(colorValues[0])
+			elif IsString(colorValues[0])
+				if StrStartsWith(colorValues[0],"#") {
+					RGB = RgbFromHex(colorValues[0])
 					R = RGB[:R]
 					G = RGB[:G]
 					B = RGB[:B]
-					setRGBA(R,G,B,1)
+					SetRGBA(R,G,B,1)
 				else
-					throw(self,FULLTICK_FCOLOR_INVALID_HEX_VALUE+" : "+colorValues[0])
+					Throw(self,FULLTICK_FCOLOR_INVALID_HEX_VALUE+" : "+colorValues[0])
 				}
-			elif isObject(colorValues[0])
+			elif IsObject(colorValues[0])
 				object = colorValues[0]
 				if __instance_of(object,"FColor") {
-					copyColorObject(object)
+					CopyColorObject(object)
 				}
 			}
 		}
 		if colorValuesLen == 3 {
-			setRGBA(colorValues[0],colorValues[1],colorValues[2],1)
+			SetRGBA(colorValues[0],colorValues[1],colorValues[2],1)
 		}
 
 	/*
 
 	*/
-	block colorObjectsFromNumber(pixelValue)
+	block ColorObjectsFromNumber(pixelValue)
 		colorValue = pixelValue
 		R = pixelValue >> 24 & 255
         G = pixelValue >> 16 & 255
         B = pixelValue >> 8 & 255
         A = 1 						#pixelValue & 255 @A 
-		HEX = hexFromRGB(R,G,B)
+		HEX = HexFromRGB(R,G,B)
 
 	/*
 
 	*/
-	block copyColorObject(object)
+	block CopyColorObject(object)
 		fcolorAttrs = __object_attributes(object)
 		for fcolorAttr in fcolorAttrs {
 			fcolorValue = __get_attribute_value(object,fcolorAttr)
@@ -179,25 +179,25 @@ class FColor : Color
 		E = G / 16 . Multiply the remainder by 16
 		X = B / 16 . Multiply the remainder by 16 
 	*/
-	block hexFromRGB(r,g,b)
+	block HexFromRGB(r,g,b)
 		if (r > 255 or g > 255 or b > 255 )
-			throw(self,COLOR_GREATER_THAN_255)
+			Throw(self,COLOR_GREATER_THAN_255)
 		elif (r < 0 or g < 0 or b < 0 )
-			throw(self,COLOR_LESSER_THAN_ZERO)
+			Throw(self,COLOR_LESSER_THAN_ZERO)
 		}
 		_H = r / 16 
-		REM = _H - floor(_H)
-		H = hexaDecimalList[""+(floor(_H))]
+		REM = _H - Floor(_H)
+		H = hexaDecimalList[""+(Floor(_H))]
 		H += hexaDecimalList[""+(REM * 16)] 
 		
 		_E = g / 16 
-		REM = _E - floor(_E)
-		E = hexaDecimalList[""+(floor(_E))]
+		REM = _E - Floor(_E)
+		E = hexaDecimalList[""+(Floor(_E))]
 		E += hexaDecimalList[""+(REM * 16)]
 
 		_X = b / 16 
-		REM = _X - floor(_X)
-		X = hexaDecimalList[""+(floor(_X))]
+		REM = _X - Floor(_X)
+		X = hexaDecimalList[""+(Floor(_X))]
 		X += hexaDecimalList[""+(REM * 16)]
 		return "#"+H+E+X
 
@@ -209,25 +209,25 @@ class FColor : Color
 		E = G / 16 . Multiply the remainder by 16
 		X = B / 16 . Multiply the remainder by 16 
 	*/
-	block hexFromRGBA(r,g,b,a)
+	block HexFromRGBA(r,g,b,a)
 		if (r > 255 or g > 255 or b > 255 )
-			throw(self,COLOR_GREATER_THAN_255)
+			Throw(self,COLOR_GREATER_THAN_255)
 		elif (r < 0 or g < 0 or b < 0 )
-			throw(self,COLOR_LESSER_THAN_ZERO)
+			Throw(self,COLOR_LESSER_THAN_ZERO)
 		}
 		_H = r / 16 
-		REM = _H - floor(_H)
-		H = hexaDecimalList[""+(floor(_H))]
+		REM = _H - Floor(_H)
+		H = hexaDecimalList[""+(Floor(_H))]
 		H += hexaDecimalList[""+(REM * 16)] 
 		
 		_E = g / 16 
-		REM = _E - floor(_E)
-		E = hexaDecimalList[""+(floor(_E))]
+		REM = _E - Floor(_E)
+		E = hexaDecimalList[""+(Floor(_E))]
 		E += hexaDecimalList[""+(REM * 16)]
 
 		_X = b / 16 
-		REM = _X - floor(_X)
-		X = hexaDecimalList[""+(floor(_X))]
+		REM = _X - Floor(_X)
+		X = hexaDecimalList[""+(Floor(_X))]
 		X += hexaDecimalList[""+(REM * 16)]
 
 		_Y = 255 * a / 16
@@ -240,16 +240,16 @@ class FColor : Color
 		G = third digit convert to decimal * 16 + fourth digit convert to decimal
 		R = fifth digit convert to decimal * 16 + sixth digit convert to decimal
 	*/
-	block rgbFromHex(phexValue)
-		hexValue = removeStr(phexValue,"#")
-		hexValue = toUpperCase(hexValue)
+	block RgbFromHex(phexValue)
+		hexValue = RemoveStr(phexValue,"#")
+		hexValue = ToUpperCase(hexValue)
 		__RGB = [0,0,0,1]
 		rindex = 0
 
-		if lengthOf(hexValue)%2 != 0 { 
-			throw(self,FULLTICK_FCOLOR_INVALID_HEX_VALUE+" : "+phexValue)
+		if LengthOf(hexValue)%2 != 0 { 
+			Throw(self,FULLTICK_FCOLOR_INVALID_HEX_VALUE+" : "+phexValue)
 		}
-		hexValueLen = lengthOf(hexValue) - 1
+		hexValueLen = LengthOf(hexValue) - 1
 		for i = 0 to hexValueLen {
 			if rindex > 2 { break }
 			digit = hexValue[i]
@@ -263,10 +263,10 @@ class FColor : Color
 					__RGB[rindex] = __RGB[rindex]+hexaDecimalList[index][0]
 					rindex++
 				else
-					throw(self,FULLTICK_FCOLOR_INVALID_HEX_VALUE+" : "+phexValue)
+					Throw(self,FULLTICK_FCOLOR_INVALID_HEX_VALUE+" : "+phexValue)
 				}				
 			else 
-				throw(self,FULLTICK_FCOLOR_INVALID_HEX_VALUE+" : "+phexValue)
+				Throw(self,FULLTICK_FCOLOR_INVALID_HEX_VALUE+" : "+phexValue)
 			}
 		}
 		RGB = []
@@ -279,113 +279,113 @@ class FColor : Color
 	/*
 
 	*/
-	block fromRGB(r,g,b)
+	block FromRGB(r,g,b)
 		return new FColor(r,g,b)
 
 	/*
 
 	*/
-	block fromHex(hex)
+	block FromHex(hex)
 		return new FColor(hex)
 
-	block fromColor(color)
+	block FromColor(color)
 		return new FColor(color)
 
 	/*
 
 	*/
-	block getFCOLOR_BLACK()
+	block GetFCOLOR_BLACK()
 			return new FColor("#000000")
 
 	/*
 
 	*/
-	block getFCOLOR_WHITE()
+	block GetFCOLOR_WHITE()
 			return new FColor("#ffffff")
 
 	/*
 
 	*/
-	block getFCOLOR_RED()
+	block GetFCOLOR_RED()
 			return new FColor("#FF0000")
 
 	/*
 
 	*/
-	block getFCOLOR_GREEN()
+	block GetFCOLOR_GREEN()
 			return new FColor("#008000")
 
 	/*
 
 	*/
-	block getFCOLOR_BLUE()
+	block GetFCOLOR_BLUE()
 			return new FColor("#0000FF")
 
 	/*
 
 	*/
-	block getFCOLOR_GRAY()
+	block GetFCOLOR_GRAY()
 			return new FColor("#808080")
 
 	/*
 
 	*/
-	block getFCOLOR_MAGENTA()
+	block GetFCOLOR_MAGENTA()
 			return new FColor("#FF00FF")
 
 	/*
 
 	*/
-	block getFCOLOR_CYAN()
+	block GetFCOLOR_CYAN()
 			return new FColor("#00FFFF")
 
 	/*
 
 	*/
-	block getFCOLOR_YELLOW()
+	block GetFCOLOR_YELLOW()
 			return new FColor("#FFFF00")
 
 	/*
 
 	*/
-	block getFCOLOR_DARK_RED()
+	block GetFCOLOR_DARK_RED()
 			return new FColor("#8B0000")
 
 	/*
 
 	*/
-	block getFCOLOR_DARK_GREEN()
+	block GetFCOLOR_DARK_GREEN()
 			return new FColor("#006400")
 
 	/*
 
 	*/
-	block getFCOLOR_DARK_BLUE()
+	block GetFCOLOR_DARK_BLUE()
 			return new FColor("#00008B")
 
 	/*
 
 	*/
-	block getFCOLOR_DARK_MAGENTA()
+	block GetFCOLOR_DARK_MAGENTA()
 			return new FColor("#8B008B")
 
 	/*
 
 	*/
-	block getFCOLOR_DARK_CYAN()
+	block GetFCOLOR_DARK_CYAN()
 			return new FColor("#008B8B")
 
 
 	/*
 
 	*/
-	block colorAsNumber()
+	block ColorAsNumber()
 		return colorValue
 		
 	/*
 
 	*/
-	block toString()
+	block ToString()
 		return "[fulltick.painting.FColor:R="+R+",G="+G+",B="+B+",A="+A+",HEX="+HEX+",CV="+colorValue+"]"
 	
 	
@@ -430,24 +430,24 @@ class FColor : Color
 		/*
 
 		*/
-		block setRGBA(r, g, b, a)
+		block SetRGBA(r, g, b, a)
 			R = r
 			G = g
 			B = b
 			A = a 
 			if ( A < 0 or A > 1 ) {
-				throw(self,FULLTICK_FCOLOR_INVALID_ALPHA+" : "+A)
+				Throw(self,FULLTICK_FCOLOR_INVALID_ALPHA+" : "+A)
 			}
 			if ( R > 255 or G > 255 or B > 255 )
-				throw(self,FULLTICK_FCOLOR_GREATER_THAN_255)
+				Throw(self,FULLTICK_FCOLOR_GREATER_THAN_255)
 			elif ( R < 0 or G < 0 or B < 0 )
-				throw(self,FULLTICK_FCOLOR_LESSER_THAN_ZERO)
+				Throw(self,FULLTICK_FCOLOR_LESSER_THAN_ZERO)
 			}
 			if ( R == 0 && G == 0 && B == 0 ) 
 				colorValue = 56
 			else 
 				colorValue = ((R << 24) + (G << 16) + (B << 8)) + A
-				HEX = hexFromRGB(R,G,B)
+				HEX = HexFromRGB(R,G,B)
 			}
 
 /*

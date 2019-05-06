@@ -23,19 +23,19 @@ block main()
 		}
 	'
 	jsonParser = new JsonParser(json)
-	jsonObject = jsonParser.parse()
-	stdout.println("Before Modification")
-	stdout.println(jsonObject)
+	jsonObject = jsonParser.Parse()
+	stdout.Println("Before Modification")
+	stdout.Println(jsonObject)
 	
-	jsonObject.set("Title", toUpperCase(jsonObject["Title"].Value))
-	jsonObject["Countries"].Value.remove("Nigeria")
-	jsonObject["Continents"].Value.remove(1)
-	jsonObject["Continents"].Value.set(1, "Europe")
-	jsonObject["Planets"].Value.add("Mercury")
-	jsonObject["Planets"].Value.add("Venus")
+	jsonObject.Set("Title", ToUpperCase(jsonObject["Title"].Value))
+	jsonObject["Countries"].Value.Remove("Nigeria")
+	jsonObject["Continents"].Value.Remove(1)
+	jsonObject["Continents"].Value.Set(1, "Europe")
+	jsonObject["Planets"].Value.Add("Mercury")
+	jsonObject["Planets"].Value.Add("Venus")
 	
-	stdout.println("After Modification")
-	stdout.println(jsonObject)
+	stdout.Println("After Modification")
+	stdout.Println(jsonObject)
 	
 	
 	

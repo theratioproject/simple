@@ -21,142 +21,142 @@ input_ = null
 textSize = 5
 statusLabel = null
 finput_Demo = new FInput_Demo
-FApp.run()
+FApp.Run()
 
 class FInput_Demo
 
     fwindow = new FWindow(320,250,"FInput_ Demo") { 
-        begin(true) 
+        Begin(true) 
         input_ = new FInput(10,10,"Demo FInput_ Class") { Shortcut = Fl_Enter }
 		statusLabel = new FLabel(0,fwindow.Height - 20,320,10,"...") {
 			LabelFont = FFont.FFONT_TIMES_BOLD_ITALIC
 			LabelColor = FColor.FCOLOR_GREEN
 		}
         new FButton(10,50,50,25,"Copy") {
-			setCallbackListener(block (obj) {
-				statusLabel.Label = "The selected text has been copied : " + input_.copy()
+			SetCallbackListener(Block (obj) {
+				statusLabel.Label = "The selected text has been copied : " + input_.Copy()
 			})
 		}
         new FButton(70,50,50,25,"Cut") {
-			setCallbackListener(block (obj) {
-				statusLabel.Label = "The selected text has been cut : " + input_.cut()
+			SetCallbackListener(Block (obj) {
+				statusLabel.Label = "The selected text has been cut : " + input_.Cut()
 			})
 		}
         new FButton(130,50,70,25,"Delete") {
-			setCallbackListener(block (obj) {
-				statusLabel.Label = "The selected text has been deleted : " + input_.deleteSelected()
+			SetCallbackListener(Block (obj) {
+				statusLabel.Label = "The selected text has been deleted : " + input_.DeleteSelected()
 			})
 		}
         new FButton(210,50,100,25,"Cursor Color") {
-			setCallbackListener(block (obj) {
-				input_.setCursorColor(FColor.FCOLOR_BLUE)
+			SetCallbackListener(Block (obj) {
+				input_.SetCursorColor(FColor.FCOLOR_BLUE)
 				statusLabel.Label = "Change cursor color to blue"
 			})
 		}
         new FButton(10,85,50,25,"Index") {
-			setCallbackListener(block (obj) {
-				statusLabel.Label = "Index at "+input_.Mark+" : " + input_.index(input_.Mark)
+			SetCallbackListener(Block (obj) {
+				statusLabel.Label = "Index at "+input_.Mark+" : " + input_.Index(input_.Mark)
 			})
 		}
         new FButton(70,85,50,25,"insert") {
-			setCallbackListener(block (obj) {
+			SetCallbackListener(Block (obj) {
 				text = " "+randoWords[__rand()%9]+" "
-				input_.insert(text)
+				input_.Insert(text)
 				statusLabel.Label = "Insert ' "+text+" ' at position "
 			})
 		}
         new FButton(130,85,50,25,"Mark") {
-			setCallbackListener(block (obj) {
+			SetCallbackListener(Block (obj) {
 				input_.Mark = __rand()%10
 				statusLabel.Label = "The current mark " + input_.Mark
 			})
 		}
         new FButton(190,85,120,25,"Maximum Size") {
-			setCallbackListener(block (obj) {
+			SetCallbackListener(Block (obj) {
 				input_.MaximumSize = __rand()%100
 				statusLabel.Label = "The maximum size " + input_.MaximumSize
 			})
 		}
 		new FButton(10,120,70,25,"Position") {
-			setCallbackListener(block (obj) {
+			SetCallbackListener(Block (obj) {
 				input_.CaretPosition = __rand()
 				statusLabel.Label = "The current caret position " + input_.CaretPosition
 			})
 		}
 		new FButton(90,120,80,25,"ReadOnly") {
-			setCallbackListener(block (obj) {
+			SetCallbackListener(Block (obj) {
 				if input_.ReadOnly {
 					input_.ReadOnly = false
-					statusLabel.Label = "Is the input_ readonly : " + strValueOf(false)
+					statusLabel.Label = "Is the input_ readonly : " + StrValueOf(false)
 				else
 					input_.ReadOnly = true
-					statusLabel.Label = "Is the input_ readonly : " + strValueOf(true)
+					statusLabel.Label = "Is the input_ readonly : " + StrValueOf(true)
 				}
 			})
 		}
 		new FButton(180,120,60,25,"Replace") {
-			setCallbackListener(block (obj) {
+			SetCallbackListener(Block (obj) {
 				text = " "+randoWords[__rand()%9]+" "
-				input_.replace(0,5,text)
+				input_.Replace(0,5,text)
 				statusLabel.Label = "Replace from 0 to 5 with " + text
 			})
 		}
 		new FButton(250,120,60,25,"TabNav") {
-			setCallbackListener(block (obj) {
+			SetCallbackListener(Block (obj) {
 				if input_.TabNav {
 					input_.TabNav = false
-					statusLabel.Label = "Tab key focus navigation : " + strValueOf(false)
+					statusLabel.Label = "Tab key focus navigation : " + StrValueOf(false)
 				else
 					input_.TabNav = true
-					statusLabel.Label = "Tab key focus navigation : " + strValueOf(true)
+					statusLabel.Label = "Tab key focus navigation : " + StrValueOf(true)
 				}
 			})
 		}
 		new FButton(10,155,50,25,"Undo") {
-			setCallbackListener(block (obj) {
-				statusLabel.Label = "Undo last action : " + input_.undo()
+			SetCallbackListener(Block (obj) {
+				statusLabel.Label = "Undo last action : " + input_.Undo()
 			})
 		}
 		new FButton(70,155,50,25,"Wrap") {
-			setCallbackListener(block (obj) {
+			SetCallbackListener(Block (obj) {
 				if input_.Wrap {
 					input_.Wrap = false
-					statusLabel.Label = "Wrapping text in the input_ : " + strValueOf(false)
+					statusLabel.Label = "Wrapping text in the input_ : " + StrValueOf(false)
 				else
 					input_.Wrap = true
-					statusLabel.Label = "Wrapping text in the input_ : " + strValueOf(true)
+					statusLabel.Label = "Wrapping text in the input_ : " + StrValueOf(true)
 				}
 			})
 		}
         new FButton(130,155,100,25,"Text Color") {
-			setCallbackListener(block (obj) {
+			SetCallbackListener(Block (obj) {
 				input_.TextColor = FColor.FCOLOR_BLUE
 				statusLabel.Label = "Change text color to blue"
 			})
 		}
         new FButton(240,155,70,25,"Font") {
-			setCallbackListener(block (obj) {
+			SetCallbackListener(Block (obj) {
 				input_.TextFont = FFont.FFONT_HELVETICA_BOLD
 				statusLabel.Label = "Change text font to to Font_Helvetica_Bold"
 			})
 		}
 		new FButton(10,190,145,25,"Increase TextSize") {
-			setCallbackListener(block (obj) {
+			SetCallbackListener(Block (obj) {
 				textSize++
 				input_.TextSize = textSize
 				statusLabel.Label = "Current text size : " + textSize
 			})
 		}
 		new FButton(165,190,145,25,"Decrease TextSize") {
-			setCallbackListener(block (obj) {
+			SetCallbackListener(Block (obj) {
 				textSize--
 				input_.TextSize = textSize
 				statusLabel.Label = "Current text size : " + textSize
 			})
 		}
-        endBegin()
-        centerOnScreen() 
+        EndBegin()
+        CenterOnScreen() 
         Resizable = false
-        show()        
+        Show()        
     } 
         

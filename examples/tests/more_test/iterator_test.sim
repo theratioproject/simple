@@ -11,7 +11,7 @@ for o in list {
 
 display ""+nl
 obj = new L
-obj = obj.fetch()
+obj = obj.Fetch()
 for o in obj {
 	display " "+o  
 }
@@ -20,13 +20,13 @@ class L
 
 	
 	
-	block fetch()
+	block Fetch()
 		return self
 	
-	block operator(op, value)
+	block Operator(op, value)
 		switch op {
 			case "lengthOf"
-				return lengthOf(list)
+				return LengthOf(list)
 			case "[]"
 				return list[value]
 		}

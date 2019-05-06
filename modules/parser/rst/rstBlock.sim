@@ -51,15 +51,15 @@ class rstBlock : Object
 	/*
 	
 	*/
-	block setType(int type)
+	block SetType(int type)
 		Type = type
 		TypeName = typeName[type]
 	
 	/*
 	
 	*/
-	block toString()
-		return "[" + getType(self) + ":Type=" + Type + ",TypeName=" + TypeName + ",Value="+strValueOf(Value)+"]"
+	block ToString()
+		return "[" + GetType(self) + ":Type=" + Type + ",TypeName=" + TypeName + ",Value="+StrValueOf(Value)+"]"
 		
 	/*
 	

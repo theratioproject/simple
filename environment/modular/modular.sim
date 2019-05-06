@@ -47,19 +47,19 @@ verifierUrl = simpleLangHost+"?page=Packages%20Index&sub_page=Verifier"
 addPackageUrl = simpleLangHost+"?page=Packages%20Index&sub_page=Add%20New%20Package"
 simpleUpdateUrl = simpleLangCgiUrl+"api/Upgrade.sim"
 packageUrl = simpleLangCgiUrl+"api/PackageInstaller.sim"
-simpleDistDirectory = simpleDir()
-tempDirectory = getTemporaryDirectory()
-modulesDirectory = simpleModulesDir()
+simpleDistDirectory = SimpleDir()
+tempDirectory = GetTemporaryDirectory()
+modulesDirectory = SimpleModulesDir()
 githubDirectory = modulesDirectory + "/github.com/"
-documentationDirectory = simpleDocDir()
-dynamicModulesDirectory = simpleDyModulesDir()
+documentationDirectory = SimpleDocDir()
+dynamicModulesDirectory = SimpleDyModulesDir()
 
 deleteTemp = true
 showInfo = false
 askPermission = true
 packageList = null
 isShell = false
-cmdlen = lengthOf(cmdparams) - 1
+cmdlen = LengthOf(cmdparams) - 1
 type = ""
 package = ""
 initPackage = ""
@@ -73,90 +73,90 @@ STALL_PACKAGE = "This package is pending verification. "+crlf+"If you wish to jo
 INSTALLATION_UNATHORIZED = "Installation not authorized "+crlf+"DONE"
 
 block main() 
-	executeModular(cmdlen,cmdparams)
+	ExecuteModular(cmdlen,cmdparams)
 
-block executeModular(cmdlen,cmdparams)
-	if cmdlen <= 0 { displayHelp() }
+block ExecuteModular(cmdlen,cmdparams)
+	if cmdlen <= 0 { DisplayHelp() }
 	for a = 0 to cmdlen {
-		if strEquals(cmdparams[a],"--shell",false) or strEquals(cmdparams[a],"-su",false) if !isShell { isShell = true shell() } break
-		elif strEquals(cmdparams[a],"--help",false) or strEquals(cmdparams[a],"-h",false) or strEquals(cmdparams[a],"--h",false) displayHelp()
-		elif strEquals(cmdparams[a],"--about",false) or strEquals(cmdparams[a],"-a",false) or strEquals(cmdparams[a],"--a",false) displayAbout()
+		if StrEquals(cmdparams[a],"--shell",false) or StrEquals(cmdparams[a],"-su",false) if !isShell { isShell = true Shell() } break
+		elif StrEquals(cmdparams[a],"--help",false) or StrEquals(cmdparams[a],"-h",false) or StrEquals(cmdparams[a],"--h",false) DisplayHelp()
+		elif StrEquals(cmdparams[a],"--about",false) or StrEquals(cmdparams[a],"-a",false) or StrEquals(cmdparams[a],"--a",false) DisplayAbout()
 		#Module or Environment
-		elif strEquals(cmdparams[a],"--env",false) or strEquals(cmdparams[a],"-e",false) type = "environment"
-		elif strEquals(cmdparams[a],"--mod",false) or strEquals(cmdparams[a],"-m",false) type = "module"
+		elif StrEquals(cmdparams[a],"--env",false) or StrEquals(cmdparams[a],"-e",false) type = "environment"
+		elif StrEquals(cmdparams[a],"--mod",false) or StrEquals(cmdparams[a],"-m",false) type = "module"
 		#Version and Attribute
-		elif strEquals(cmdparams[a],"-v",false) or strEquals(cmdparams[a],"--version",false) version = cmdparams[a++]  
-		elif strEquals(cmdparams[a],"-os",false) or strEquals(cmdparams[a],"--system",false) ostype = cmdparams[a++]  
-		elif strEquals(cmdparams[a],"--upgrade",false) or strEquals(cmdparams[a],"--update",false) or strEquals(cmdparams[a],"-u",false) type = "upgrade" 
+		elif StrEquals(cmdparams[a],"-v",false) or StrEquals(cmdparams[a],"--version",false) version = cmdparams[a++]  
+		elif StrEquals(cmdparams[a],"-os",false) or StrEquals(cmdparams[a],"--system",false) ostype = cmdparams[a++]  
+		elif StrEquals(cmdparams[a],"--upgrade",false) or StrEquals(cmdparams[a],"--update",false) or StrEquals(cmdparams[a],"-u",false) type = "upgrade" 
 		#Others
-		elif strEquals(cmdparams[a],"-p",false) or strEquals(cmdparams[a],"--path",false) simpleDistDirectory = cmdparams[a++] @simpleDistDirectory
-		elif strEquals(cmdparams[a],"-t",false) or strEquals(cmdparams[a],"--temp",false) deleteTemp = false
-		elif strEquals(cmdparams[a],"-s",false) or strEquals(cmdparams[a],"--show-info",false) showInfo = true
-		elif strEquals(cmdparams[a],"-y",false) or strEquals(cmdparams[a],"--yes",false) askPermission = false
+		elif StrEquals(cmdparams[a],"-p",false) or StrEquals(cmdparams[a],"--path",false) simpleDistDirectory = cmdparams[a++] @simpleDistDirectory
+		elif StrEquals(cmdparams[a],"-t",false) or StrEquals(cmdparams[a],"--temp",false) deleteTemp = false
+		elif StrEquals(cmdparams[a],"-s",false) or StrEquals(cmdparams[a],"--show-info",false) showInfo = true
+		elif StrEquals(cmdparams[a],"-y",false) or StrEquals(cmdparams[a],"--yes",false) askPermission = false
 		else package = cmdparams[a] end
 	}
-	package = replaceStr(package,"\","/")
-	if strContains(package,"github.com") or strContains(package,"/") {
-		grabFromGithub(package)
+	package = ReplaceStr(package,"\","/")
+	if StrContains(package,"github.com") or StrContains(package,"/") {
+		GrabFromGithub(package)
 		return 
 	}
 	if ostype == "auto-detect" {
-		ostype = getOS()
+		ostype = GetOS()
 	}
 	if type == "upgrade" {
-		upgradeSimpleDistro()
+		UpgradeSimpleDistro()
 	else 
 		@"Preparing to install package: "+package+" - "+type+" "+version
 		initPackage = package
 		depConf = new File(modulesDirectory+"/modules-dependencies.conf")
-		if !depConf.exists() { 
+		if !depConf.Exists() { 
 			@"error occur modules configuration file cannot be found" 
 			@"module install failed. "
-			if isShell { shell() else __exit__ } 
+			if isShell { Shell() else __exit__ } 
 		}
-		executeCode(depConf.readFileAsString())
+		ExecuteCode(depConf.ReadFileAsString())
 		if type == "environment" { packageList = environmentList else packageList = modulesList }
-		moduleEnviron(depConf,packageList)
+		ModuleEnviron(depConf,packageList)
 	}
-	if isShell { shell() else __exit__ }
+	if isShell { Shell() else __exit__ }
 	
-block grabFromGithub(package)
+block GrabFromGithub(package)
 	if askPermission == true { askPermission = false }
 	
-	packageName = lastStrAfterChar(package,"/")
+	packageName = LastStrAfterChar(package,"/")
 	branch_tag = "master"
 	packageType = "master"
 	downloadUrl = null
-	if strContains(packageName,":") {
-		pSplit = strSplit(packageName, ":")
-		if lengthOf(pSplit) > 2 {
-			throw("Invalid github repository. Check the ':' count. : "+package)
+	if StrContains(packageName,":") {
+		pSplit = StrSplit(packageName, ":")
+		if LengthOf(pSplit) > 2 {
+			Throw("Invalid github repository. Check the ':' count. : "+package)
 		}
 		packageName = pSplit[0] 
-		package = replaceStr(package,packageName+":"+pSplit[1],pSplit[0])
-		package = removeStr(package,":")
+		package = ReplaceStr(package,packageName+":"+pSplit[1],pSplit[0])
+		package = RemoveStr(package,":")
 		lastPart = pSplit[1]
 		
-		pSplit1 = strSplit(lastPart, "-")
+		pSplit1 = StrSplit(lastPart, "-")
 		start = 1
-		preB = toLowerCase(pSplit1[0])
+		preB = ToLowerCase(pSplit1[0])
 		if preB == "version" or preB == "tag" {
 			packageType = "tag"
 		elif preB == "branch" 
 			packageType = "branch"
 		else
-			value = replaceStr(lastPart,".","")
+			value = ReplaceStr(lastPart,".","")
 			start = 0
-			if isDigit(value) {
+			if IsDigit(value) {
 				packageType = "tag"
 			else
 				packageType = "branch"
 			}
 		}
 		branch_tag = ""
-		for a = start to lengthOf(pSplit1) - 1 {
+		for a = start to LengthOf(pSplit1) - 1 {
 			branch_tag += pSplit1[a]
-			if a < lengthOf(pSplit1) - 1 {
+			if a < LengthOf(pSplit1) - 1 {
 				branch_tag += "-"
 			}
 		}
@@ -164,9 +164,9 @@ block grabFromGithub(package)
 	if branch_tag == "master" {
 		packageType = "master"
 	}	
-	stdout.println("Preparing to grab module from github...")
-	stdout.println("installing module from github might result to dependencies issues")
-	if !strContains(package,"github.com") {
+	stdout.Println("Preparing to grab module from github...")
+	stdout.Println("installing module from github might result to dependencies issues")
+	if !StrContains(package,"github.com") {
 		package = "https://github.com/" + package
 	}	
 	downloadUrl = package+"/archive/" + branch_tag + ".zip"
@@ -176,23 +176,23 @@ block grabFromGithub(package)
 		:branch = branch_tag 
 	] 
 	downloadedPackage = new Download(downloadablePackage[:download_url])
-	downloadedPackage.saveLocation(tempDirectory+hash(downloadablePackage[:name])+branch_tag+".zip")
-	downloadedPackage.execute() 
-	if downloadedPackage.exists() {
-		downloadedPackageZip = new Zip(downloadedPackage.absolutePath(),"r")
-		extractedPackage = new Directory(tempDirectory+hash(downloadablePackage[:name]+branch_tag))
+	downloadedPackage.SaveLocation(tempDirectory+Hash(downloadablePackage[:name])+branch_tag+".zip")
+	downloadedPackage.Execute() 
+	if downloadedPackage.Exists() {
+		downloadedPackageZip = new Zip(downloadedPackage.AbsolutePath(),"r")
+		extractedPackage = new Directory(tempDirectory+Hash(downloadablePackage[:name]+branch_tag))
 		#TODO : Create method to check if zip is a valid archive  #throw if try to extract invalid archive
-		downloadedPackageZip.extractAll(extractedPackage.getPath())  
+		downloadedPackageZip.ExtractAll(extractedPackage.GetPath())  
 		extractedPath = null 
 		try {
-			extractedPath = extractedPackage.listDirectories()[0].absolutePath()
+			extractedPath = extractedPackage.ListDirectories()[0].AbsolutePath()
 		catch 
-			stderr.println("the module installation failed. Check package name")
-			if isShell { shell() else __exit__ }
+			stderr.Println("the module installation failed. Check package name")
+			if isShell { Shell() else __exit__ }
 		}
 		if __exists(extractedPath+"/install.sim") {
 			modularCode = __readfile(extractedPath+"/install.sim")
-			executeCode(modularCode)
+			ExecuteCode(modularCode)
 			if !__is_local_variable("modular") {
 				modular = []
 			}
@@ -205,55 +205,55 @@ block grabFromGithub(package)
 			downloadablePackage[:module] = modular[:module]
 			downloadablePackage[:doc] = modular[:doc]
 			if modular[:pre_install_system] != null {
-				system(modular[:pre_install_system])
+				System(modular[:pre_install_system])
 			}
 			if modular[:module] != null and __dir_exists(extractedPath+downloadablePackage[:module]) {
-				moveContent(extractedPath+downloadablePackage[:module],modulesDirectory+"/"+modular[:module])
-				stdout.println("the module "+downloadablePackage[:name]+" has been installed")
+				MoveContent(extractedPath+downloadablePackage[:module],modulesDirectory+"/"+modular[:module])
+				stdout.Println("the module "+downloadablePackage[:name]+" has been installed")
 			else 
 				if askPermission {
-					stdout.print("do you wish to install the module in the github.com folder : ") read response
+					stdout.Print("do you wish to install the module in the github.com folder : ") read response
 				else
 					response = "y"
 				}
 				if response == "yes" or response == "y" {
-					moveContent(extractedPath+downloadablePackage[:module],githubDirectory)
-					clearGithubResidual(githubDirectory)
-					#recordModuleInstallation(downloadablePackage) #do not record since it from github
-					stdout.println("the module "+downloadablePackage[:name]+" has been installed")
+					MoveContent(extractedPath+downloadablePackage[:module],githubDirectory)
+					ClearGithubResidual(githubDirectory)
+					#RecordModuleInstallation(downloadablePackage) #do not record since it from github
+					stdout.Println("the module "+downloadablePackage[:name]+" has been installed")
 				else 
-					stderr.println("the module "+downloadablePackage[:name]+" installation cancelled")
+					stderr.Println("the module "+downloadablePackage[:name]+" installation cancelled")
 				}
 			}
 			if modular[:doc] != null and __dir_exists(extractedPath+downloadablePackage[:doc]) {
-				moveContent(extractedPath+downloadablePackage[:doc],documentationDirectory)
+				MoveContent(extractedPath+downloadablePackage[:doc],documentationDirectory)
 			}
 			if modular[:post_install_system] != null {
-				system(modular[:post_install_system])
+				System(modular[:post_install_system])
 			}
 		else 
-			stdout.print("the module does not have an install.sim script \n")
+			stdout.Print("the module does not have an install.sim script \n")
 			if askPermission {
-				stdout.print("do you wish to install the module in the github.com folder : ") read response
+				stdout.Print("do you wish to install the module in the github.com folder : ") read response
 			else
 				response = "y"
 			}
 			if response == "yes" or response == "y" {
-				moveContent(extractedPath+downloadablePackage[:module],githubDirectory)
-				clearGithubResidual(githubDirectory)
-				#recordModuleInstallation(downloadablePackage) #do not record since it from github
-				stdout.println("the module "+downloadablePackage[:name]+" has been installed")
+				MoveContent(extractedPath+downloadablePackage[:module],githubDirectory)
+				ClearGithubResidual(githubDirectory)
+				#RecordModuleInstallation(downloadablePackage) #do not record since it from github
+				stdout.Println("the module "+downloadablePackage[:name]+" has been installed")
 			else 
-				stderr.println("the module "+downloadablePackage[:name]+" installation cancelled")
+				stderr.Println("the module "+downloadablePackage[:name]+" installation cancelled")
 			}
 		}
-		if isShell { shell() else __exit__ }
+		if isShell { Shell() else __exit__ }
 	}
 
-block moduleEnviron(depConf,packageList)
+block ModuleEnviron(depConf,packageList)
 	localPackage = null
 	@"checking locally installed version of "+package+"..."
-	pkgLen = lengthOf(packageList) - 1
+	pkgLen = LengthOf(packageList) - 1
 	for a = 0 to pkgLen {
 		if packageList[a][:name] == package {
 			localPackage = packageList[a]
@@ -261,27 +261,27 @@ block moduleEnviron(depConf,packageList)
 			if localPackage[:version] == version {
 				@"installed "+type+" "+package+" is up to date"
 				@"Modular operation completed"
-				if isShell { shell() else __exit__ }
+				if isShell { Shell() else __exit__ }
 			}
 		}
 	}
 	#loading bar here
-	latestPackage = loadPackageAndDep()
-	if isList(localPackage) && !isString(localPackage[0]) {
+	latestPackage = LoadPackageAndDep()
+	if IsList(localPackage) && !IsString(localPackage[0]) {
 		if latestPackage[:version] == localPackage[:version] {
 			@package+" "+type+" is up to date"
 			@"Modular operation completed"
-			if isShell { shell() else __exit__ }
+			if isShell { Shell() else __exit__ }
 		}
 	}
-	@"packages ("+(latestPackage[:supporting_modules_count]+2)+")	"+package
+	@"Packages ("+(latestPackage[:supporting_modules_count]+2)+")	"+package
 	for a = 0 to latestPackage[:supporting_modules_count] {
 		@"		"+latestPackage[:supporting_modules][a+1]
 	}
-	allDownloadablePackages = getSupportingModulesInfo(latestPackage)
-	downloadPackages(allDownloadablePackages)
+	allDownloadablePackages = GetSupportingModulesInfo(latestPackage)
+	DownloadPackages(allDownloadablePackages)
 	
-block downloadPackages(allDownloadablePackages)
+block DownloadPackages(allDownloadablePackages)
 	#@crlf+"Total Download Size: "+allDownloadablePackages[:downloadSize]
 	if askPermission {
 		display " :: Do you want to proceed [y/n] " read response @""
@@ -289,16 +289,16 @@ block downloadPackages(allDownloadablePackages)
 		response = "y"
 	}
 	if response == "y" {
-		for a = 0 to lengthOf(allDownloadablePackages) - 1 {
-			downloadPackage(allDownloadablePackages[a])
+		for a = 0 to LengthOf(allDownloadablePackages) - 1 {
+			DownloadPackage(allDownloadablePackages[a])
 		}
 	else
 		@"Stopping upgrade..."
-		if isShell { shell() else __exit__ }
+		if isShell { Shell() else __exit__ }
 	}
 	
 	
-block downloadPackage(downloadablePackage)
+block DownloadPackage(downloadablePackage)
 	if showInfo {
 		@crlf+" :: "+downloadablePackage[:name]
 		@" :: "+downloadablePackage[:status] 
@@ -310,57 +310,57 @@ block downloadPackage(downloadablePackage)
 		@" :: "+downloadablePackage[:date]
 	}
 	downloadedPackage = new Download(downloadablePackage[:download_url])
-	downloadedPackage.saveLocation(tempDirectory+hash(downloadablePackage[:name])+".zip")
-	downloadedPackage.execute()
-	if downloadedPackage.exists() {
-		downloadedPackageZip = new Zip(downloadedPackage.absolutePath(),"r")
-		extractedPackage = new Directory(tempDirectory+hash(downloadablePackage[:name]))
-		downloadedPackageZip.extractAll(extractedPackage.getPath())
-		tempDyModuleDir = new Directory(extractedPackage.getPath()+"/dynamic_modules/")
-		downloadablePackage[:dynamic_modules] = getPackageDynamicModules(tempDyModuleDir)
-		if extractedPackage.exists() {
+	downloadedPackage.SaveLocation(tempDirectory+Hash(downloadablePackage[:name])+".zip")
+	downloadedPackage.Execute()
+	if downloadedPackage.Exists() {
+		downloadedPackageZip = new Zip(downloadedPackage.AbsolutePath(),"r")
+		extractedPackage = new Directory(tempDirectory+Hash(downloadablePackage[:name]))
+		downloadedPackageZip.ExtractAll(extractedPackage.GetPath())
+		tempDyModuleDir = new Directory(extractedPackage.GetPath()+"/dynamic_modules/")
+		downloadablePackage[:dynamic_modules] = GetPackageDynamicModules(tempDyModuleDir)
+		if extractedPackage.Exists() {
 			@"installing "+downloadablePackage[:name]+" documentation..."
-			moveContent(extractedPackage.getPath()+"/docs/",documentationDirectory)
+			MoveContent(extractedPackage.GetPath()+"/docs/",documentationDirectory)
 			@"installing "+downloadablePackage[:name]+" dynamic modules..."
-			moveContent(extractedPackage.getPath()+"/dynamic_modules/",dynamicModulesDirectory)
+			MoveContent(extractedPackage.GetPath()+"/dynamic_modules/",dynamicModulesDirectory)
 			@"installing "+downloadablePackage[:name]+" module..."
-			moveContent(extractedPackage.getPath()+"/modules/",modulesDirectory)
+			MoveContent(extractedPackage.GetPath()+"/modules/",modulesDirectory)
 		}
 		installedModule = new Directory(modulesDirectory+downloadablePackage[:name])
-		if installedModule.exists() {
-			recordModuleInstallation(downloadablePackage)
+		if installedModule.Exists() {
+			RecordModuleInstallation(downloadablePackage)
 		else
 			@"failed to install "+downloadablePackage[:name]+" "+type+" "+version
-			if isShell { shell() else __exit__ }
+			if isShell { Shell() else __exit__ }
 		}
 		if deleteTemp {
-			downloadedPackage.delete()
-			extractedPackage.delete()
+			downloadedPackage.Delete()
+			extractedPackage.Delete()
 		}
 	}
 
-block getPackageDynamicModules(tempDyModuleDir)
-	if !tempDyModuleDir.exists() {
+block GetPackageDynamicModules(tempDyModuleDir)
+	if !tempDyModuleDir.Exists() {
 		return []
 	}
-	dynamicModuleSize = lengthOf(tempDyModuleDir.listFiles())
+	dynamicModuleSize = LengthOf(tempDyModuleDir.ListFiles())
 	if dynamicModuleSize == 0 {
 		return "none"
 	else
 		dyMoudlesList = []
 		for a = 0 to dynamicModuleSize {
-			__add_to_list(dyMoudlesList,tempDyModuleDir.listFiles()[a].getName())
+			__add_to_list(dyMoudlesList,tempDyModuleDir.ListFiles()[a].GetName())
 		}
 		return dyMoudlesList
 	}
 	
-block moveContent(oldPath,newFolder)
+block MoveContent(oldPath,newFolder)
 	tempDir = new Directory(oldPath)
-	if tempDir.exists() {
-		tempDir.forceMoveContentTo(newFolder)
+	if tempDir.Exists() {
+		tempDir.ForceMoveContentTo(newFolder)
 	}
 
-block recordModuleInstallation(downloadedPackage)
+block RecordModuleInstallation(downloadedPackage)
 	downloadedPackageList = [:name = downloadedPackage[:name],
 		:title = downloadedPackage[:title],
 		:version = downloadedPackage[:version],
@@ -372,17 +372,17 @@ block recordModuleInstallation(downloadedPackage)
 	__add_to_list(packageList,downloadedPackageList)
 	list = new List(downloadedPackageList)
 	depConf = new File(modulesDirectory+"/modules-dependencies.conf")
-	newDep = replaceStr(depConf.readFileAsString(),"/* NEWMODULE */",","+nl+tab+list.toString()+"/* NEWMODULE */")
-	if depConf.exists() {
-		depConf.write(newDep)
+	newDep = ReplaceStr(depConf.ReadFileAsString(),"/* NEWMODULE */",","+nl+tab+list.ToString()+"/* NEWMODULE */")
+	if depConf.Exists() {
+		depConf.Write(newDep)
 	}
 
-block getSupportingModulesInfo(initialPackage)
+block GetSupportingModulesInfo(initialPackage)
 	allDownloadablePackages = [initialPackage]
 	for a = 0 to initialPackage[:supporting_modules_count] {
 		tempSupportModules = initialPackage[:supporting_modules]
 		package = tempSupportModules[a]
-		supportPackage = loadPackageAndDep()
+		supportPackage = LoadPackageAndDep()
 		if supportPackage[:value] == "failed" {
 			@package+" not found in the index"
 			@"if you owned "+package+" module simply add it to the simple-lang package index at "
@@ -394,25 +394,25 @@ block getSupportingModulesInfo(initialPackage)
 	allDownloadablePackages[:downloadSize] = "6.04 MB"
 	return allDownloadablePackages
 	
-block loadPackageAndDep()
+block LoadPackageAndDep()
 	latestPackage = []
-	packageJson = download(packageUrl+"?package="+package+"&type="+type+"&version="+version+"&os="+ostype)
+	packageJson = Download(packageUrl+"?package="+package+"&type="+type+"&version="+version+"&os="+ostype)
 	if packageJson == null {
 		@"Internet connection is required to install "+package+" "+type+" package"
-		if isShell { shell() else __exit__ }
-	elif strContains(packageJson, "500 Internal Server Error")
+		if isShell { Shell() else __exit__ }
+	elif StrContains(packageJson, "500 Internal Server Error")
 		@"The server is experiencing a down time please report to <whatisthis914@gmail.com>"
-		if isShell { shell() else __exit__ }
-	elif strContains(packageJson, "Not Found") 
+		if isShell { Shell() else __exit__ }
+	elif StrContains(packageJson, "Not Found") 
 		@"The update link is broken please report this to <whatisthis914@gmail.com>"
-		if isShell { shell() else __exit__ }
-	elif !strContains(packageJson, '"value":')
+		if isShell { Shell() else __exit__ }
+	elif !StrContains(packageJson, '"value":')
 		@"The package address is incorrect please report to <whatisthis914@gmail.com>"
-		if isShell { shell() else __exit__ }
+		if isShell { Shell() else __exit__ }
 	}
 	packageObject = new JsonObject(packageJson)
-	latestPackage[:value] = packageObject.getObject("value").getStringContent()
-	latestPackage[:message] = packageObject.getObject("message").getStringContent()
+	latestPackage[:value] = packageObject.GetObject("value").GetStringContent()
+	latestPackage[:message] = packageObject.GetObject("message").GetStringContent()
 	if latestPackage[:value] == "failed" {
 		if package != initPackage {
 			return latestPackage
@@ -420,61 +420,61 @@ block loadPackageAndDep()
 		@latestPackage[:message]
 		@"if you owned the module simply add it to the simple-lang package index at "
 		@addPackageUrl
-		if isShell { shell() else __exit__ }
+		if isShell { Shell() else __exit__ }
 	}
 	if package == initPackage { @"resolving dependencies..." }
-	latestPackage[:status] = packageObject.getObject("status").getStringContent()
-	latestPackage[:name] = packageObject.getObject("name").getStringContent()
-	latestPackage[:title] = packageObject.getObject("title").getStringContent()
-	latestPackage[:description] = packageObject.getObject("description").getStringContent()
-	latestPackage[:author] = packageObject.getObject("author").getStringContent()
-	latestPackage[:version] = packageObject.getObject("version").getStringContent()
-	latestPackage[:license] = packageObject.getObject("license").getStringContent()
-	latestPackage[:website] = packageObject.getObject("website").getStringContent()
-	latestPackage[:date] = packageObject.getObject("date").getStringContent()
-	latestPackage[:download_url] = packageObject.getObject("download_url").getStringContent()
-		latestPackageSM = packageObject.getObject("supporting_modules").getStringContent()
-		latestPackageSM = stringSplit(latestPackageSM," ")
+	latestPackage[:status] = packageObject.GetObject("status").GetStringContent()
+	latestPackage[:name] = packageObject.GetObject("name").GetStringContent()
+	latestPackage[:title] = packageObject.GetObject("title").GetStringContent()
+	latestPackage[:description] = packageObject.GetObject("description").GetStringContent()
+	latestPackage[:author] = packageObject.GetObject("author").GetStringContent()
+	latestPackage[:version] = packageObject.GetObject("version").GetStringContent()
+	latestPackage[:license] = packageObject.GetObject("license").GetStringContent()
+	latestPackage[:website] = packageObject.GetObject("website").GetStringContent()
+	latestPackage[:date] = packageObject.GetObject("date").GetStringContent()
+	latestPackage[:download_url] = packageObject.GetObject("download_url").GetStringContent()
+		latestPackageSM = packageObject.GetObject("supporting_modules").GetStringContent()
+		latestPackageSM = StringSplit(latestPackageSM," ")
 	latestPackage[:supporting_modules] = latestPackageSM
-	latestPackage[:supporting_modules_count] = lengthOf(latestPackageSM)
+	latestPackage[:supporting_modules_count] = LengthOf(latestPackageSM)
 	
 	return latestPackage
 	
 	
-block upgradeSimpleDistro()
+block UpgradeSimpleDistro()
 	@"Preparing to upgrade simple-lang, environments and modules"
 	@"Checking installed simple-lang version..."
-	localVersion = getSimpleVersion()
+	localVersion = GetSimpleVersion()
 	@"Installed version: "+localVersion 
-	ostype = encodeUrl(getOS())
-	upgradeJson = download(simpleUpdateUrl+"?os="+ostype)
+	ostype = EncodeUrl(GetOS())
+	upgradeJson = Download(simpleUpdateUrl+"?os="+ostype)
 	if upgradeJson == null {
 		@"Internet connection is required to upgrade simple-lang"
-	elif strContains(upgradeJson, "500 Internal Server Error")
+	elif StrContains(upgradeJson, "500 Internal Server Error")
 		@"The server is experiencing a down time please report to <whatisthis914@gmail.com>"
-		if isShell { shell() else __exit__ }
-	elif strContains(upgradeJson, "Not Found") 
+		if isShell { Shell() else __exit__ }
+	elif StrContains(upgradeJson, "Not Found") 
 		@"The upgrade link is broken please report this to <whatisthis914@gmail.com>"
-		if isShell { shell() else __exit__ }
-	elif !strContains(upgradeJson, '"value"')
+		if isShell { Shell() else __exit__ }
+	elif !StrContains(upgradeJson, '"value"')
 		@"The upgrade address is incorrect please report to <whatisthis914@gmail.com>"
-		if isShell { shell() else __exit__ }
+		if isShell { Shell() else __exit__ }
 	else 
 		upgradeObject = (new JsonObject(upgradeJson))
-		upgradeValue = upgradeObject.getObject("value").getStringContent()
+		upgradeValue = upgradeObject.GetObject("value").GetStringContent()
 		if upgradeValue == "failed" {
-			@upgradeObject.getObject("message").getStringContent()
-			if isShell { shell() else __exit__ }
+			@upgradeObject.GetObject("message").GetStringContent()
+			if isShell { Shell() else __exit__ }
 		}
-		latestVersion = upgradeObject.getObject("latest_version").getStringContent()
-		latestSize = upgradeObject.getObject("download_size").getStringContent()
-		latestDownloadUrl = upgradeObject.getObject("download_url").getStringContent()
-		latestCodename = upgradeObject.getObject("code_name").getStringContent()
-		latestExtensionType = upgradeObject.getObject("file_extension").getStringContent()
+		latestVersion = upgradeObject.GetObject("latest_version").GetStringContent()
+		latestSize = upgradeObject.GetObject("download_size").GetStringContent()
+		latestDownloadUrl = upgradeObject.GetObject("download_url").GetStringContent()
+		latestCodename = upgradeObject.GetObject("code_name").GetStringContent()
+		latestExtensionType = upgradeObject.GetObject("file_extension").GetStringContent()
 		@"Latest version: "+latestVersion
 		if localVersion == latestVersion {
 			@"Your simple-lang installation is up to date"
-			if isShell { shell() else __exit__ }
+			if isShell { Shell() else __exit__ }
 		else 
 			@"Total Download Size: "+latestSize+crlf
 			if askPermission {
@@ -484,44 +484,44 @@ block upgradeSimpleDistro()
 			}
 			if response == "y" {
 				@"Downloading simple-lang: "+latestCodename
-				downloadedFile = download(latestDownloadUrl)
-				latestSimple = new File(simpleDistDirectory+hash(latestCodename)+"."+latestExtensionType) #replace with temp folder
-				latestSimple.write(downloadedFile)
-				if latestSimple.exists() {
-					latestSimpleZip = new Zip(latestSimple.absolutePath(), "r")
+				downloadedFile = Download(latestDownloadUrl)
+				latestSimple = new File(simpleDistDirectory+Hash(latestCodename)+"."+latestExtensionType) #replace with temp folder
+				latestSimple.Write(downloadedFile)
+				if latestSimple.Exists() {
+					latestSimpleZip = new Zip(latestSimple.AbsolutePath(), "r")
 					@"Extracting simple-lang s"+latestVersion+" into "+simpleDistDirectory
-					latestSimpleZip.extractAll(simpleDistDirectory+"s"+latestVersion)
-					#latestSimpleZip.closeZip()
+					latestSimpleZip.ExtractAll(simpleDistDirectory+"s"+latestVersion)
+					#latestSimpleZip.CloseZip()
 					latestInstalledDir = new Directory(simpleDistDirectory+"s"+latestVersion)
-					if latestInstalledDir.exists() {
+					if latestInstalledDir.Exists() {
 						@"simple-lang upgraded from "+localVersion+" to "+latestVersion
 					}
-					removeTempFiles([latestSimple])
+					RemoveTempFiles([latestSimple])
 				else
 					@"Upgrade failed. Stopping upgrade"
 				} 
 			else
 				@"Stopping upgrade..."
-				if isShell { shell() else __exit__ }
+				if isShell { Shell() else __exit__ }
 			}
 		}
 	}
 	
-block clearGithubResidual(githubDirectory)
+block ClearGithubResidual(githubDirectory)
 	dir = new Directory(githubDirectory) 
-	removeTempFiles(dir.listFiles())
+	RemoveTempFiles(dir.ListFiles())
 	
-block removeTempFiles(files) 
+block RemoveTempFiles(files) 
 	if deleteTemp {
-		for a = 0 to lengthOf(files) - 1 { 
-			if files[a].exists() { files[a].delete() }
+		for a = 0 to LengthOf(files) - 1 { 
+			if files[a].Exists() { files[a].Delete() }
 		}
 	}
 	
-block displayMessage(msg)
+block DisplayMessage(msg)
 	@msg
 
-block displayHelp()
+block DisplayHelp()
 	#@ monkeyFace
 	help = "
 usage:  modular [OPTIONS] [PACKAGE]
@@ -531,7 +531,7 @@ usage:  modular [OPTIONS] [PACKAGE]
 
 The OPTIONS include: 
 	-h    --help		Displays the help message.
-	-su   --shell		Opens the modular shell (or repl).
+	-su   --shell		Opens the modular Shell (or repl).
 	-e    --env             Install an environment.
 	-m    --mod             Install a module.
 	-v    --version      	Specify the version of package to download after the flag.
@@ -542,10 +542,10 @@ The OPTIONS include:
 	-s    --show-info 	Display processes currently carried out by modular.
 	-y    --yes		Don't request permissions while installing packages
 	"
-	 display help if isShell { shell() else __exit__ }
+	 display help if isShell { Shell() else __exit__ }
 	
 
-block displayAbout()
+block DisplayAbout()
 	About = "
 
 	Modular, is SIMPLE-LANG's package manager and Distro updater. It will serve as a system program that helps to install packages
@@ -555,24 +555,24 @@ block displayAbout()
 	"
 	display About __exit__
 
-block shell()
+block Shell()
 	while true 
-		printfc(stdout, ConsoleColor.GREEN(), modularTitle)
-		printfc(stdout, ConsoleColor.GREEN(), "simple-lang.modular $")
+		Printfc(stdout, ConsoleColor.GREEN(), modularTitle)
+		Printfc(stdout, ConsoleColor.GREEN(), "simple-lang.modular $")
 		read command
 			if command == "exit" || command == "q" {
 			__exit__
 		}
-		cmdparamsl = stringSplit(command," ")
-		cmdlenl = lengthOf(cmdparamsl)
-		executeModular(cmdlenl,cmdparamsl)
+		cmdparamsl = StringSplit(command," ")
+		cmdlenl = LengthOf(cmdparamsl)
+		ExecuteModular(cmdlenl,cmdparamsl)
 	end
 
-block getTemporaryDirectory()
-	tempDirectory = getTempDirectory()
+block GetTemporaryDirectory()
+	tempDirectory = GetTempDirectory()
 	tDirectory = new Directory(tempDirectory+"/.simple_env/modular/")
-	tDirectory.create()
-	return tDirectory.getPath()
+	tDirectory.Create()
+	return tDirectory.GetPath()
 	
 /*
 Ask for permission in cases where you are not a top privilege user

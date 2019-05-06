@@ -17,7 +17,7 @@ block main()
 			"big_number": 2147483649
 		}'
 	)
-	json = jsonParser.parse()
-	for member in json.asArray() {
-		stdout.printf("Name=%s, Value=%s\n", member.Name, member.Value)
+	json = jsonParser.Parse()
+	for member in json.AsArray() {
+		stdout.Printf("Name=%s, Value=%s\n", member.Name, member.Value)
 	}

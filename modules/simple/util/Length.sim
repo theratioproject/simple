@@ -25,13 +25,13 @@ module simple.util
 		obj : object
 			the object to determine it length
 			
-	**Return**:
+	**return**:
 		the length of any object
 */
-block getTypeLength(object obj)
-    if (isList(obj) || isString(obj))
-        return lengthOf(obj)
-    elif (isNumber(obj))
+block GetTypeLength(object obj)
+    if (IsList(obj) || IsString(obj))
+        return LengthOf(obj)
+    elif (IsNumber(obj))
         return obj
     end
 	

@@ -13,7 +13,7 @@ import fulltick.objects
 import fulltick.drawing
 
 new FWindow() {
-	add(new FButton("Hello World"))
-	show()
+	Add(new FButton("Hello World"))
+	Show()
 }
-FApp.run()
+FApp.Run()

@@ -25,23 +25,23 @@ module simple.debugging
 
 /*
 	A list that returns all the lines, blocks called in all the imported file from 
-	the beginning of the program to the point where the stackTrace() block is called. 
+	the beginning of the program to the point where the StackTrace() block is called. 
 	Ann example result of the code above will be
 	@Code
-		at line 26 in __stack_trace at stackTrace() in file Debug.sim
-		at line 60 at four() in file debugging.sim
+		at line 26 in __stack_trace at StackTrace() in file Debug.sim
+		at line 60 at Four() in file debugging.sim
 		at line 33 at main() in file debugging.sim
 		at line 22 in file debugging.sim
 	@EndCode
 	The number of item in the stackTrace list depends on the position that is is 
 	being called from. This block can be used to create custom error and decision 
 	on error base on the programmer want.
-	@Return stackTrace @DataType LIST
+	@return stackTrace @DataType LIST
 */
-block stackTrace()
+block StackTrace()
 	stackTrace = __stack_trace()
-	if getTypeLength(stackTrace) == 0 {
-			return throw("Stack Trace cannot be empty error with the simple-lang Virtual Machine")
+	if GetTypeLength(stackTrace) == 0 {
+			return Throw("Stack Trace cannot be empty error with the simple-lang Virtual Machine")
 	}
 	return stackTrace
 	
@@ -53,8 +53,8 @@ block stackTrace()
 	that could break the program it should be throw instead
 */
 #TODO: Revist for variadic and title implementation and dispose of internal __warn(...) block
-block warn(object params...)
-	paramsLen = lengthOf(params)
+block Warn(object params...)
+	paramsLen = LengthOf(params)
 	obj = null
 	message = null
 	line = 1
@@ -62,7 +62,7 @@ block warn(object params...)
 	
 	if paramsLen == 1 {
 		message = params[0]
-		if !isString(message) or message == "" {
+		if !IsString(message) or message == "" {
 			return 
 		}
 		if __vm_should_warn() {
@@ -71,7 +71,7 @@ block warn(object params...)
 	elif paramsLen == 2
 		obj = params[0]
 		message = params[1]
-		if !isObject(obj) or !isString(message) or message == "" {
+		if !IsObject(obj) or !IsString(message) or message == "" {
 			return
 		}
 		title = __class_module_name(obj)+"."+__class_name(obj)
@@ -82,37 +82,37 @@ block warn(object params...)
 		obj = params[0]
 		message = params[1]
 		line = params[2]
-		if !isObject(obj) or !isString(message) or message == "" or !isNumber(line) {
+		if !IsObject(obj) or !IsString(message) or message == "" or !IsNumber(line) {
 			return
 		}
-		if line > lengthOf(lineNumberStack) - 1 {
-			line = lengthOf(lineNumberStack)
+		if line > LengthOf(lineNumberStack) - 1 {
+			line = LengthOf(lineNumberStack)
 		}
 		title = __class_module_name(obj)+"."+__class_name(obj)
 		if __vm_should_warn() {
 			__warn("Warning:"+title+","+lineNumberStack[line]+","+message+nl)
 		}
 	else
-		throw("simple.debugging:warn", "Calling block with invalid length of parameter")
+		Throw("simple.debugging:warn", "Calling block with invalid length of parameter")
 	}
 	
 /*
 	Check and confirm whether the value sent as parameter is true 
 	The value can be a 
-		statements e.g @Code assert(( 2 > 4 && 5 < 9)) @EndCode
-		it can be a single variable e.g @Code assert(false) @EndCode 
+		statements e.g @Code Assert(( 2 > 4 && 5 < 9)) @EndCode
+		it can be a single variable e.g @Code Assert(false) @EndCode 
 		it can be a block that return an evaluation e.g 
-		@Code assert(getEval()) @EndCode
+		@Code Assert(GetEval()) @EndCode
 	If the value is not a number then an error is throw also if the value 
 	is not evaluated to true a evaluation fail error is also thrown
 */	
-block assert(values...)
-	valueLen = lengthOf(values)
+block Assert(values...)
+	valueLen = LengthOf(values)
 	
 	if valueLen > 0 {
 		value = values[0] 
 		lineNumberStack = __stack_trace_line_number()
-		if !isNumber(value) { 
+		if !IsNumber(value) { 
 			@("simple.debugging:assert : " + "Only Boolean and Number can be asserted. Line : " + lineNumberStack[1])
 			return
 		}
@@ -124,7 +124,7 @@ block assert(values...)
 	}
 	if valueLen > 1 {
 		shouldExit = values[1]
-		if !isNull(shouldExit) and isNumber(shouldExit) {
+		if !IsNull(shouldExit) and IsNumber(shouldExit) {
 			if shouldExit == true {
 				__exit__
 			}

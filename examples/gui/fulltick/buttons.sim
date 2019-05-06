@@ -19,20 +19,20 @@ import fulltick.objects
 import fulltick.drawing
 
 button = new ButtonDemo
-FApp.run() 
+FApp.Run() 
 
 class ButtonDemo
     fwindow = new FWindow(320,130,"Fulltick(FLTK)") {
-		begin(true)
+		Begin(true)
 		but = new FButton(10,10,130,30,"FButton") { Tooltip = "This is a Tooltip" }
 		but = new FReturnButton(150,10,160,30,"FReturnButton") 
 		but = new FRepeatButton(10,50,130,30,"FRepeatButton") 
 		but = new FLightButton(10,90,130,30,"FLightButton") 
 		but = new FRoundButton(150,50,160,30,"FRoundButton") 
 		but = new FCheckButton(150,90,160,30,"FCheckButton") 
-		endBegin()
-        centerOnScreen() 
+		EndBegin()
+        CenterOnScreen() 
 		Resizable = false
-        show()        
+        Show()        
     } 
         

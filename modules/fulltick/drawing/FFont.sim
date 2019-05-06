@@ -55,17 +55,17 @@ class FFont : Object
 
     */
     block Init(font)
-        if isNumber(font) {
+        if IsNumber(font) {
             FontValue = font
         else
-            throw(self,"Invalid parameter in FFont Constructor. Expecting (Number). Found (" + objectType(font) + ")")
+            Throw(self,"Invalid parameter in FFont Constructor. Expecting (Number). Found (" + ObjectType(font) + ")")
         }
 
     /*
 
     */
-    block getFFONT_DEFAULT()
-        if isNull(FFONT_DEFAULT) {
+    block GetFFONT_DEFAULT()
+        if IsNull(FFONT_DEFAULT) {
             FFONT_DEFAULT = new FFont(__FL_HELVETICA())
         } 
         return FFONT_DEFAULT
@@ -73,20 +73,20 @@ class FFont : Object
     /*
 
     */
-    block getDEFAULT()
-        return getFFONT_DEFAULT()
+    block GetDEFAULT()
+        return GetFFONT_DEFAULT()
 
     /*
 
     */
-    block getFFONT_HELVETICA()
-        return getFFONT_DEFAULT()
+    block GetFFONT_HELVETICA()
+        return GetFFONT_DEFAULT()
 
     /*
 
     */
-    block getFFONT_HELVETICA_BOLD()
-        if isNull(FFONT_HELVETICA_BOLD) {
+    block GetFFONT_HELVETICA_BOLD()
+        if IsNull(FFONT_HELVETICA_BOLD) {
             FFONT_HELVETICA_BOLD = new FFont(__FL_HELVETICA_BOLD())
         } 
         return FFONT_HELVETICA_BOLD
@@ -94,8 +94,8 @@ class FFont : Object
     /*
 
     */
-    block getFFONT_TIMES_BOLD_ITALIC()
-        if isNull(FFONT_TIMES_BOLD_ITALIC) {
+    block GetFFONT_TIMES_BOLD_ITALIC()
+        if IsNull(FFONT_TIMES_BOLD_ITALIC) {
             FFONT_TIMES_BOLD_ITALIC = new FFont(__FL_TIMES_BOLD_ITALIC())
         } 
         return FFONT_TIMES_BOLD_ITALIC
@@ -108,4 +108,4 @@ class FFont : Object
         /*
 
         */
-        block setFontValue(value)
+        block SetFontValue(value)

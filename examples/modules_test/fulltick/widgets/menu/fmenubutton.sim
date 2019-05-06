@@ -24,14 +24,14 @@ menu = [
 		]]
 	]
     fwindow = new FWindow(400,200,"FMenuButton Testing only") {
-		menu1 = new FMenuButton(10,0,400,200,menu) { setPlatformScheme(FScheme.Windows) setBox(__FL_NO_BOX()) type(__Fl_Menu_Button_POPUP3()) }
-		menu2 = new FMenuButton(10,50,menu) { setPlatformScheme(FScheme.Android) }
-		menu3 = new FMenuButton(10,100,menu) { setPlatformScheme(FScheme.Linux) }
-		menu4 = new FMenuButton(10,150,menu) { setPlatformScheme(FScheme.Macosx) }
-		add(menu1, menu2, menu3, menu4)
-        centerOnScreen() 
-        show()        
+		menu1 = new FMenuButton(10,0,400,200,menu) { SetPlatformScheme(FScheme.Windows) SetBox(__FL_NO_BOX()) Type(__Fl_Menu_Button_POPUP3()) }
+		menu2 = new FMenuButton(10,50,menu) { SetPlatformScheme(FScheme.Android) }
+		menu3 = new FMenuButton(10,100,menu) { SetPlatformScheme(FScheme.Linux) }
+		menu4 = new FMenuButton(10,150,menu) { SetPlatformScheme(FScheme.Macosx) }
+		Add(menu1, menu2, menu3, menu4)
+        CenterOnScreen() 
+        Show()        
     } 
-FApp.run() 
+FApp.Run() 
 	
         

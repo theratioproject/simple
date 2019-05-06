@@ -6,39 +6,39 @@ from simple.io.loadfilesavantlib
 import simple.core
 
 object = new JsonObject() {
-	add("Version", simpleVersion())
-	add("Date Updated", null)
-	add("Update Message", "Hello World this is simple the main thingy")
+	Add("Version", SimpleVersion())
+	Add("Date Updated", null)
+	Add("Update Message", "Hello World this is simple the main thingy")
 	
 	updates = new JsonArray {
 		majorUpdate = new JsonObject() {
-			add("Name", "simple-lang")
-			add("Type", "link")
-			add("Update Url", "http://localhost/simple-lang/updater/")
-			add("Installation Path", null)
+			Add("Name", "simple-lang")
+			Add("Type", "link")
+			Add("Update Url", "http://localhost/simple-lang/updater/")
+			Add("Installation Path", null)
 		}
-		#add(majorUpdate)
+		#Add(majorUpdate)
 		modules = new JsonObject() {
-			add("Name", "Modules")
-			add("Type", "zip")
+			Add("Name", "Modules")
+			Add("Type", "zip")
 			
-			add("Windows",
+			Add("Windows",
 				new JsonObject() {
-					add("Update Url", "http://localhost/simple-lang/updater/modules.zip")
-					add("Installation Path", "/modules/")
+					Add("Update Url", "http://localhost/simple-lang/updater/modules.zip")
+					Add("Installation Path", "/modules/")
 				}
 			)
-			add("Linux",
+			Add("Linux",
 				new JsonObject() {
-					add("Update Url", "http://localhost/simple-lang/updater/modules.zip")
-					add("Installation Path", "/modules/")
+					Add("Update Url", "http://localhost/simple-lang/updater/modules.zip")
+					Add("Installation Path", "/modules/")
 				}
 			)
 		}
-		add(modules)
+		Add(modules)
 	}
-	add("Updates",updates)
-	__write_file("../../examples/testfiles/update_file.json",toString())
+	Add("Updates",updates)
+	__write_file("../../examples/testfiles/update_file.json",ToString())
 }
 
 

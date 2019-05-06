@@ -6,20 +6,20 @@ from simple.core.Object
 from simple.debugging.Error
 
 block main()
-	one()
+	One()
 	
-block one()
-	two()
+block One()
+	Two()
 	
-block two()
-	three()
+block Two()
+	Three()
 	
-block three()
-	four()
+block Three()
+	Four()
 	
-block four()
-	five()
+block Four()
+	Five()
 	
-block five()
+block Five()
 	error = new Error
-	error.printStackTrace()
+	error.PrintStackTrace()

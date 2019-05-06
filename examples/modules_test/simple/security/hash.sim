@@ -8,15 +8,15 @@ from simple.security.Hash
 
 block main()
 	display "    ALL VARIOUS HASHES of 'thisforhashes'" + crlf
-	display "HASH        - " + hash("thisforhashes") + crlf
-	display "INT HASH    - " + intHash("thisforhashes") + crlf
-	display "MD5 HASH    - " + md5("thisforhashes") + crlf 
-	display "SHA1        - " + sha1("thisforhashes") + crlf
-	display "SHA256      - " + sha256("thisforhashes") + crlf
-	display "SHA512      - " + sha512("thisforhashes") + crlf 
-	display "SHA384      - " + sha384("thisforhashes") + crlf
-	display "SHA224      - " + sha224("thisforhashes") + crlf
-	display "RANDOM BYTE - " + randomBytes(32) + crlf 
+	display "HASH        - " + Hash("thisforhashes") + crlf
+	display "INT HASH    - " + IntHash("thisforhashes") + crlf
+	display "MD5 HASH    - " + Md5("thisforhashes") + crlf 
+	display "SHA1        - " + Sha1("thisforhashes") + crlf
+	display "SHA256      - " + Sha256("thisforhashes") + crlf
+	display "SHA512      - " + Sha512("thisforhashes") + crlf 
+	display "SHA384      - " + Sha384("thisforhashes") + crlf
+	display "SHA224      - " + Sha224("thisforhashes") + crlf
+	display "RANDOM BYTE - " + RandomBytes(32) + crlf 
 	
 	
 	

@@ -23,15 +23,15 @@ class Div : Element
 	Init(elementName)
 	
 	block Div(id)
-		setId(id)
+		SetId(id)
 	
-	block setSize(height, width)
+	block SetSize(height, width)
 		elementHeight = height
 		elementWidth = width
 		elementStyle += 'height:'+elementHeight+';width:'+elementWidth+';'
 		
-	block addDiv(indiv)
-		elementContent + indiv.toString() + crlf
+	block AddDiv(indiv)
+		elementContent + indiv.ToString() + crlf
 
 
 STICKY_FOOTER  = 0
@@ -44,19 +44,19 @@ class Footer : Div
 	alignment = ALIGN_LEFT
 	
 	block Footer(id)
-		setId(id)
+		SetId(id)
 	
-	block setType(type)
+	block SetType(type)
 		if type == STICKY_FOOTER 
 			footerType = FOOTER_FIXED_POSITTION
 		elif type == RESPONSIVE_FOOTER 
 			footerType = FOOTER_ABSOLUTE_POSITTION
 		end
 		
-	block setAlignment(position)
+	block SetAlignment(position)
 		alignment = position
 	
-	block toString()
+	block ToString()
 		finalDiv = footerHead + elementStyle+'position:'+footerType+';bottom:0;'+alignment+'overflow:hidden;" '+styleClass+'" > 
 		'+elementContent+'\t</footer>'
 		return finalDiv
@@ -75,36 +75,36 @@ class Head
 	
 			"
 	
-	block setTitle(ititle)
+	block SetTitle(ititle)
 		title = '<title>'+ititle+'</title>' + crlf
 		
-	block setIcon(iconLocation)
+	block SetIcon(iconLocation)
 		icon = '<link rel="icon" href="'+iconLocation+'" >' + crlf
 		
-	block setFavicon(iconLocation)
-		setIcon(iconLocation)
+	block SetFavicon(iconLocation)
+		SetIcon(iconLocation)
 	
-	block addElement(element)
-		headContent += '\t'+element.toString() + '
+	block AddElement(element)
+		headContent += '\t'+element.ToString() + '
 		'
 		
-	block addMeta(headMeta)
-		headContent += '\t'+headMeta.toString() + '
+	block AddMeta(headMeta)
+		headContent += '\t'+headMeta.ToString() + '
 		'
 		
-	block addLink(headLink)
-		headContent += '\t'+headLink.toString() + '
+	block AddLink(headLink)
+		headContent += '\t'+headLink.ToString() + '
 		'
 		
-	block addScript(script)
-		headContent += '\t'+script.toString() + '
+	block AddScript(script)
+		headContent += '\t'+script.ToString() + '
 		'
 		
-	block addContent(itoppings)
+	block AddContent(itoppings)
 		toppings += '\t'+istoppings + '
 		'
 	
-	block toString()
+	block ToString()
 		return '<head>
 			'+title+
 					'\t'+icon+'\t
@@ -117,19 +117,19 @@ class HeadMeta
 	
 	headMetaData = "<meta "
 
-	block setName(name)
+	block SetName(name)
 		headMetaData += 'name="'+name+'" '
 
-	block setProperty(prop)
+	block SetProperty(prop)
 		headMetaData += 'property="'+prop+'" '
 		
-	block setItemProp(item)
+	block SetItemProp(item)
 		headMetaData += 'itemprop="'+item+'" '
 		
-	block setContent(content)
+	block SetContent(content)
 		headMetaData += 'content="'+content+'" '
 		
-	block toString()
+	block ToString()
 		headMetaData += '/>'
 		return headMetaData
 		
@@ -137,22 +137,22 @@ class HeadLink
 
 	headLink = "<link "
 
-	block setRel(rel)
+	block SetRel(rel)
 		headLink += 'rel="'+rel+'" '
 		
-	block setType(type)
+	block SetType(type)
 		headLink += 'type="'+type+'" '
 		
-	block setTitle(title)
+	block SetTitle(title)
 		headLink += 'title="'+title+'" '
 		
-	block setLink(link)
+	block SetLink(link)
 		headLink += 'href="'+link+'" '
 		
-	block setHref(link)
+	block SetHref(link)
 		headLink += 'href="'+link+'" '
 	
-	block toString()
+	block ToString()
 		headLink += '/>'
 		return headLink
 	
@@ -166,39 +166,39 @@ class Table : Element
 	tableHasBody = false
 	
 	block Table(id)
-		setId(id)
+		SetId(id)
 		
-	block addToHead(headlist)
-		if (isList(headlist))
+	block AddToHead(headlist)
+		if (IsList(headlist))
 			tableHeadContent+= '<tr>' 
-			hlen = lengthOf(headlist) - 1
+			hlen = LengthOf(headlist) - 1
 			for a = 0 to hlen
-				if (isString(headlist[a]))
+				if (IsString(headlist[a]))
 					tableHeadContent+= '<th>'+headlist[a]+'</th>' + crlf
 				else
-					tableHeadContent+= '<th>'+headlist[a].toString()+'</th>' + crlf
+					tableHeadContent+= '<th>'+headlist[a].ToString()+'</th>' + crlf
 				end
 			end
 			tableHeadContent+= '</tr>'
 		end
 		
-	block addToBody(bodylist)
-		if (isList(bodylist))
+	block AddToBody(bodylist)
+		if (IsList(bodylist))
 			if (tableHasBody) tableBodyContent+= crlf +'<tr>' end
 			tableHasBody = true
-			hlen = lengthOf(bodylist) - 1
+			hlen = LengthOf(bodylist) - 1
 			for a = 0 to hlen
-				if (isString(bodylist[a]))
+				if (IsString(bodylist[a]))
 					tableBodyContent+= '	<td>'+bodylist[a]+'</td>' + crlf
-				elif (isList(bodylist[a]))
+				elif (IsList(bodylist[a]))
 					outer = bodylist[a]
-					addToBody(outer)
+					AddToBody(outer)
 				else
 					try 
-						outer = bodylist[a].toList() 
-						addToBody(outer)
+						outer = bodylist[a].ToList() 
+						AddToBody(outer)
 					catch
-						tableBodyContent+= '	<td>'+bodylist[a].toString()+'</td>' + crlf
+						tableBodyContent+= '	<td>'+bodylist[a].ToString()+'</td>' + crlf
 					end
 					
 				end
@@ -206,7 +206,7 @@ class Table : Element
 			if (tableHasBody) tableBodyContent+= crlf +'</tr>' end
 		end
 		
-	block toString()
+	block ToString()
 		finalDiv = '\t\t'+elementHead + elementId+' '
 		if elementSetStyle
 			finalDiv += elementStyle+'" '
@@ -227,7 +227,7 @@ class Table : Element
 		return finalDiv
 		
 	
-	block setSize(height, width)
+	block SetSize(height, width)
 		elementHeight = height
 		elementWidth = width
 		elementStyle += 'height:'+elementHeight+';width:'+elementWidth+';'
@@ -237,10 +237,10 @@ class ScriptLink
 
 	sriptLink = "<script "
 	
-	block setSrc(src)
+	block SetSrc(src)
 		sriptLink += 'src="'+src+'" '
 		
-	block toString()
+	block ToString()
 		sriptLink += '></script>'
 		return sriptLink
 
@@ -250,14 +250,14 @@ class Link : Element
 	Init(elementName)
 	
 	block Link(title, address)
-		setAddress(address)
-		setTitle(title)
-		setInline(true)
+		SetAddress(address)
+		SetTitle(title)
+		SetInline(true)
 	
-	block setAddress(address)
+	block SetAddress(address)
 		elementHead += 'href="'+address+'" '
 		
-	block setTitle(title)
+	block SetTitle(title)
 		elementContent += title
 		
 class Ul : Element
@@ -272,8 +272,8 @@ class Li : Element
 	Init(elementName)
 	
 	block Li(id)
-		setId(id)	
-		setInline(true)
+		SetId(id)	
+		SetInline(true)
 	
 class Header : Div
 
@@ -281,7 +281,7 @@ class Header : Div
 	Init(elementName)
 	
 	block Header(id)
-		setId(id)
+		SetId(id)
 		
 class Section : Div
 
@@ -289,7 +289,7 @@ class Section : Div
 	Init(elementName)
 	
 	block Section(id)
-		setId(id)
+		SetId(id)
 		
 class H1 : Element
 	
@@ -297,8 +297,8 @@ class H1 : Element
 	Init(elementName)
 
 	block H1(id)
-		setId(id)	
-		setInline(true)
+		SetId(id)	
+		SetInline(true)
 
 class H2 : Element
 	
@@ -306,8 +306,8 @@ class H2 : Element
 	Init(elementName)	
 
 	block H2(id)
-		setId(id)
-		setInline(true)
+		SetId(id)
+		SetInline(true)
 		
 class Nav : Element
 	
@@ -315,7 +315,7 @@ class Nav : Element
 	Init(elementName)	
 
 	block Nav(id)
-		setId(id)
+		SetId(id)
 		
 class Article : Element
 	
@@ -323,7 +323,7 @@ class Article : Element
 	Init(elementName)	
 
 	block Article(id)
-		setId(id)
+		SetId(id)
 		
 	
 		

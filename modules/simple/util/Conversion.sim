@@ -18,8 +18,8 @@ module simple.util
 	
 	::
 		
-		cHex = strToCHex("Hello World")
-		stdout.println(cHex)
+		cHex = StrToCHex("Hello World")
+		stdout.Println(cHex)
 		
 	The above snippet should create the below C hex
 		
@@ -31,10 +31,10 @@ module simple.util
 		value : String
 			the string value to convert to C Hex
 	
-	**Return**:
+	**return**:
 		the C Hexadecimal values for the string
 */
-block strToCHex(string value) 
+block StrToCHex(string value) 
 	return __string_to_chex(value)
 
 /*
@@ -42,8 +42,8 @@ block strToCHex(string value)
 	
 	::
 	
-		hex = strToHex("Hello World")
-		stdout.println(hex)
+		hex = StrToHex("Hello World")
+		stdout.Println(hex)
 		
 	The above snippet should create the below hex
 		
@@ -55,20 +55,20 @@ block strToCHex(string value)
 		value : String
 			the string value to convert to Hexadecimal value
 	
-	**Return**:
+	**return**:
 		the Hexadecimal values for the string
 */
-block strToHex(string value)
+block StrToHex(string value)
 	return __string_to_hex(value)
 	
 /*
-	Revert the result of the strToHex(string value) function from by
+	Revert the result of the StrToHex(string value) function from by
 	convert Hexadecimal values to string
 	
 	::
 	
-		hex = hexToString("48656c6c6f20576f726c64")
-		stdout.println(hex)
+		hex = HexToString("48656c6c6f20576f726c64")
+		stdout.Println(hex)
 		
 	The above snippet should create the below hex
 		
@@ -80,10 +80,10 @@ block strToHex(string value)
 		value : String
 			the hexadecimal value to convert to string
 	
-	**Return**:
+	**return**:
 		the string for the hexadecimal value
 */
-block hexToString(string value)
+block HexToString(string value)
 	return __hex_to_string(value)
 	
 /*
@@ -97,10 +97,10 @@ block hexToString(string value)
 		value : String
 			the hexadecimal value to convert to list
 	
-	**Return**:
+	**return**:
 		the list containing the string at index 0
 */	
-block strToList(string value)
+block StrToList(string value)
 	return __string_to_list(value)
 	
 /*S
@@ -111,9 +111,9 @@ block strToList(string value)
 		from simple.util.Conversion
 		import simple.core
 		
-		stdout.println(strToCHex("Hello World"))
-		stdout.println(strToHex("Hello World"))
-		stdout.println(hexToString("48656c6c6f20576f726c64"))
-		stdout.println(strToList("Hello World"))
+		stdout.Println(StrToCHex("Hello World"))
+		stdout.Println(StrToHex("Hello World"))
+		stdout.Println(HexToString("48656c6c6f20576f726c64"))
+		stdout.Println(StrToList("Hello World"))
 
 */

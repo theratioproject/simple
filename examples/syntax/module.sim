@@ -7,7 +7,7 @@ module examples.syntax
 #4
 class pack
 
-	block packer()
+	block Packer()
 		display "initial module "+nl	
 
 
@@ -17,10 +17,10 @@ module examples.syntax.inn
 #6
 class inner
 	
-	block miner()
+	block Miner()
 		#7
 		p = new examples.syntax.pack 
-		p.packer()
+		p.Packer()
 	
 
 /*	

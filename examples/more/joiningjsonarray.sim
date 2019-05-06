@@ -7,34 +7,34 @@ from parser.json.JsonParser
 
 block main()
 	array1 = new JsonArray() {
-		add("-3")
-		add(-2)
-		add("-1")
+		Add("-3")
+		Add(-2)
+		Add("-1")
 	}
 	array2 = new JsonArray() {
-		add("Eleven")
-		add("Twelve")
-		add("Thirteen")
+		Add("Eleven")
+		Add("Twelve")
+		Add("Thirteen")
 	}
 	object1 = new JsonObject() {
-		add("Zeros", "1111111")
-		add("One", 1)
-		add("Two", "Two")
+		Add("Zeros", "1111111")
+		Add("One", 1)
+		Add("Two", "Two")
 	}
 	object2 = new JsonObject() {
-		add("Three", "Three 3")
-		add("Zeros", "000000000")
-		add("ToTen", new JsonArray() {
-			add("Four")
-			add(5)
-			add(6)
-			add("Seven")
-			add(8)
-			add("Nine")
-			add("Ten")
+		Add("Three", "Three 3")
+		Add("Zeros", "000000000")
+		Add("ToTen", new JsonArray() {
+			Add("Four")
+			Add(5)
+			Add(6)
+			Add("Seven")
+			Add(8)
+			Add("Nine")
+			Add("Ten")
 		})
 	}
-	array1.join(object1)
-	array1.join(array2)
-	array1.join(object2)
-	stdout.println(array1)
+	array1.Join(object1)
+	array1.Join(array2)
+	array1.Join(object2)
+	stdout.Println(array1)

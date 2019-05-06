@@ -44,28 +44,28 @@ class FWindowEvent : FEvent
     /*
 
     */
-    block callback(widget, event) 
+    block Callback(widget, event) 
         if event == CLOSE { 
-            windowClosing(widget, event)
+            WindowClosing(widget, event)
         elif event == SHOW 
-            windowShowing(widget, event)
+            WindowShowing(widget, event)
         elif event == HIDE 
-            windowHiding(widget, event)
+            WindowHiding(widget, event)
         }
 
     /*
 
     */
-    block windowClosing(widget, event)
+    block WindowClosing(widget, event)
 
 
     /*
 
     */
-    block windowShowing(widget, event)
+    block WindowShowing(widget, event)
 
 
     /*
 
     */
-    block windowHiding(widget, event)
+    block WindowHiding(widget, event)

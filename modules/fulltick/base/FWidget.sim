@@ -26,67 +26,67 @@ class FWidget : Object
     /*
 
     */
-    Width = FApp.Scheme.getShemeValue("Width") 
+    Width = FApp.Scheme.GetShemeValue("Width") 
 
     /*
 
     */
-    Height = FApp.Scheme.getShemeValue("Height") 
+    Height = FApp.Scheme.GetShemeValue("Height") 
 
     /*
 
     */
-    X = FApp.Scheme.getShemeValue("X") 
+    X = FApp.Scheme.GetShemeValue("X") 
 
     /*
 
     */
-    Y = FApp.Scheme.getShemeValue("Y") 
+    Y = FApp.Scheme.GetShemeValue("Y") 
 
     /*
 
     */
-    Label = FApp.Scheme.getShemeValue("Label") 
+    Label = FApp.Scheme.GetShemeValue("Label") 
 
     /*
 
     */
-    CapitalizeLabel = FApp.Scheme.getShemeValue("CapitalizeLabel") 
+    CapitalizeLabel = FApp.Scheme.GetShemeValue("CapitalizeLabel") 
 
     /*
 
     */
-    Active = FApp.Scheme.getShemeValue("Active") 
+    Active = FApp.Scheme.GetShemeValue("Active") 
 
     /*
 
     */
-    LabelAlignment = FApp.Scheme.getShemeValue("LabelAlignment") 
+    LabelAlignment = FApp.Scheme.GetShemeValue("LabelAlignment") 
 
     /*
 
     */
-    Box = FApp.Scheme.getShemeValue("Box") 
+    Box = FApp.Scheme.GetShemeValue("Box") 
 
     /*
 
     */
-    Border = FApp.Scheme.getShemeValue("Border") 
+    Border = FApp.Scheme.GetShemeValue("Border") 
 
     /*
 
     */
-    HasBorder = FApp.Scheme.getShemeValue("HasBorder") 
+    HasBorder = FApp.Scheme.GetShemeValue("HasBorder") 
 
     /*
 
     */
-    KeyboardFocusable = FApp.Scheme.getShemeValue("KeyboardFocusable") 
+    KeyboardFocusable = FApp.Scheme.GetShemeValue("KeyboardFocusable") 
 
     /*
 
     */
-    ActionBarSize = FApp.Scheme.getShemeValue("FWindow.ActionBarSize")
+    ActionBarSize = FApp.Scheme.GetShemeValue("FWindow.ActionBarSize")
 
     /*
 
@@ -166,47 +166,47 @@ class FWidget : Object
     /*
 
     */
-    Background = FApp.Scheme.getShemeValue("Background")
+    Background = FApp.Scheme.GetShemeValue("Background")
 
     /*
 
     */
-    AcceptInput = FApp.Scheme.getShemeValue("AcceptInput") 
+    AcceptInput = FApp.Scheme.GetShemeValue("AcceptInput") 
 
     /*
 
     */
-    Visible = FApp.Scheme.getShemeValue("Visible") 
+    Visible = FApp.Scheme.GetShemeValue("Visible") 
 
     /*
 
     */
-    Tooltip = FApp.Scheme.getShemeValue("Tooltip") 
+    Tooltip = FApp.Scheme.GetShemeValue("Tooltip") 
 
     /*
 
     */
-    LabelColor = FApp.Scheme.getShemeValue("LabelColor") 
+    LabelColor = FApp.Scheme.GetShemeValue("LabelColor") 
 
     /*
 
     */
-    LabelFont = FApp.Scheme.getShemeValue("LabelFont") 
+    LabelFont = FApp.Scheme.GetShemeValue("LabelFont") 
 
     /*
 
     */
-    LabelSize = FApp.Scheme.getShemeValue("LabelSize") 
+    LabelSize = FApp.Scheme.GetShemeValue("LabelSize") 
 
     /*
 
     */
-    LabelType = FApp.Scheme.getShemeValue("LabelType")
+    LabelType = FApp.Scheme.GetShemeValue("LabelType")
 
     /*
 
     */
-    SelectionColor = FApp.Scheme.getShemeValue("SelectionColor")
+    SelectionColor = FApp.Scheme.GetShemeValue("SelectionColor")
 
     /*
 
@@ -234,13 +234,13 @@ class FWidget : Object
 
     */
     block Init()
-        throw(self,"This a a Base class, you cannot instantiate this class.")
+        Throw(self,"This a a Base class, you cannot instantiate this class.")
 
     /*
 
     */
-    block setActive(value)
-        if isNumber(value) and (value == true or value == false) {
+    block SetActive(value)
+        if IsNumber(value) and (value == true or value == false) {
             Active = value
             if value == true {
                 __Fl_Widget_activate(Ptr)
@@ -249,164 +249,164 @@ class FWidget : Object
             }
             
         else
-            throw(self,"Invalid parameter, Expecting (Number). Found (" + objectType(value) + ")")
+            Throw(self,"Invalid parameter, Expecting (Number). Found (" + ObjectType(value) + ")")
         }
 
     /*
 
     */
-    block getActive()
+    block GetActive()
         return Active
 
     /*
 
     */
-    block activate()
+    block Activate()
         __Fl_Widget_activate(Ptr)
         Active = true
 
     /*
 
     */
-    block deactivate()
+    block Deactivate()
         __Fl_Widget_deactivate(Ptr)
         Active = false
 
     /*
 
     */
-    block isGroupActive()
+    block IsGroupActive()
         return __Fl_Widget_active_r(Ptr)
 
     /*
 
     */
-    block setLabelAlignment(value)
-        if isNumber(value) {
+    block SetLabelAlignment(value)
+        if IsNumber(value) {
             __Fl_Widget_align_1(Ptr,value)
             LabelAlignment = new FAlignment(LabelAlignment)
-            redraw()
-        elif isObject(value) and instanceOf(value,"FAlignment")
+            Redraw()
+        elif IsObject(value) and InstanceOf(value,"FAlignment")
             __Fl_Widget_align_1(Ptr,value.Alignment)
             LabelAlignment = value
-            redraw()
+            Redraw()
         else
-            throw(self,"Invalid parameter, Expecting (Number|FAlignment). Found (" + objectType(value) + ")")
+            Throw(self,"Invalid parameter, Expecting (Number|FAlignment). Found (" + ObjectType(value) + ")")
         }
 
     /*
 
     */
-    block getLabelAlignment()
+    block GetLabelAlignment()
         return LabelAlignment
 
     /*
 
     */
-    block setCapitalizeLabel(value)
-        if isBoolean(value) {
+    block SetCapitalizeLabel(value)
+        if IsBoolean(value) {
             CapitalizeLabel = value
         else
-            throw(self,"Invalid parameter, Expecting (Number). Found (" + objectType(value) + ")")
+            Throw(self,"Invalid parameter, Expecting (Number). Found (" + ObjectType(value) + ")")
         }
 
     /*
 
     */
-    block getCapitalizeLabel()
+    block GetCapitalizeLabel()
         return CapitalizeLabel
 
     /*
 
     */#draw parent when ref copy enables
-    block redraw() 
+    block Redraw() 
         __Fl_Widget_redraw(Ptr)
 
     /*
 
     */
-    block setArgument(object value)
+    block SetArgument(object value)
         Argument = value
 
     /*
 
     */
-    block getArgument()
+    block GetArgument()
         return Argument
 
     /*
 
     */
-    block setBox(value)
-		if hasBorder() {
-			BorderBox.setBox(value)
+    block SetBox(value)
+		if HasBorder() {
+			BorderBox.SetBox(value)
 		}
-        if isNumber(value) or instanceOf(value,"FBoxType") {
-            if isNumber(value) {
+        if IsNumber(value) or InstanceOf(value,"FBoxType") {
+            if IsNumber(value) {
                 __Fl_Widget_box_1(Ptr,value)
                 Box = new FBoxType(value)
 				if value == __FL_NO_BOX() {
-					setBorder(null)
+					SetBorder(null)
 				}
             else
                 __Fl_Widget_box_1(Ptr,value.BoxType)
-                if !isNull(value.BoxColor) {
-                    setBackground(value.BoxColor)
+                if !IsNull(value.BoxColor) {
+                    SetBackground(value.BoxColor)
                 }
                 Box = value
             }
         else
-            throw(self,"invalid parameter. Expecting (Number|simple.drawing.FBoxType), Found (" + objectType(value) + ")")
+            Throw(self,"invalid parameter. Expecting (Number|simple.drawing.FBoxType), Found (" + ObjectType(value) + ")")
         }
 
     /*
 
     */
-    block getBox()  
+    block GetBox()  
         return Box
         
     /*
 
     */
-    block resize(params...) 
-        paramsLen = lengthOf(params)
+    block Resize(params...) 
+        paramsLen = LengthOf(params)
 
         if paramsLen == 1 {
             object = params[0]
-            if instanceOf(object,"Rectangle") {
+            if InstanceOf(object,"Rectangle") {
                 x = object.X
                 y = object.Y
                 width = object.Width
                 height = object.Height
             else
-                throw(self, "invalid parameter Expecting (simple.graphics.Rectangle) for resizing FGroup. Found (" + objectType(object) + ")")
+                Throw(self, "invalid parameter Expecting (simple.graphics.Rectangle) for resizing FGroup. Found (" + ObjectType(object) + ")")
             }
         elif paramsLen == 2
             point = params[0]
             dimension = params[1]
-            if instanceOf(point,"Point") and instanceOf(dimension,"Dimension") {
+            if InstanceOf(point,"Point") and InstanceOf(dimension,"Dimension") {
                 x = point.X
                 y = point.Y
                 width = dimension.Width
                 height = dimension.Height
             else
-                throw(self, "invalid parameter Expecting (simple.graphics.Point,simple.graphics.Dimension) for resizing FGroup. Found (" + objectType(point) + ", " + objectType(dimension) + ")")
+                Throw(self, "invalid parameter Expecting (simple.graphics.Point,simple.graphics.Dimension) for resizing FGroup. Found (" + ObjectType(point) + ", " + ObjectType(dimension) + ")")
             }
         elif paramsLen == 4
             x = params[0]
             y = params[1]
             width = params[2]
             height = params[3]
-            if !isNumber(x) or !isNumber(y) or !isNumber(width) or !isNumber(height) {
-                throw(self, "invalid parameter Expecting (Number, Number, Number, Number). Found (" + objectType(x) + ", " + objectType(y) + ", " + objectType(width) + ", " + objectType(height) + ")")
+            if !IsNumber(x) or !IsNumber(y) or !IsNumber(width) or !IsNumber(height) {
+                Throw(self, "invalid parameter Expecting (Number, Number, Number, Number). Found (" + ObjectType(x) + ", " + ObjectType(y) + ", " + ObjectType(width) + ", " + ObjectType(height) + ")")
             }
         else
-            throw(self,"Changing FGroup size with invalid length of parameters")
+            Throw(self,"Changing FGroup size with invalid length of parameters")
             return
         }
         
-        if hasBorder() {
-            BorderBox.resize(x,y,width+(Border.Right+Border.Left),height+(Border.Bottom+Border.Top))
+        if HasBorder() {
+            BorderBox.Resize(x,y,width+(Border.Right+Border.Left),height+(Border.Bottom+Border.Top))
             __Fl_Widget_resize(Ptr,x+Border.Left,y+Border.Top,width,height)
         else
             __Fl_Widget_resize(Ptr,x,y,width,height)
@@ -416,19 +416,19 @@ class FWidget : Object
         Y = y
         Width = width
         Height = height
-        if !isNull(Position) { 
-            Position.setX(X) 
-            Position.setY(Y)
+        if !IsNull(Position) { 
+            Position.SetX(X) 
+            Position.SetY(Y)
         }
-        if !isNull(Size) { 
-            Size.setWidth(Width) 
-            Size.setHeight(Height)
+        if !IsNull(Size) { 
+            Size.SetWidth(Width) 
+            Size.SetHeight(Height)
         }
 
-        redrawParent()
+        RedrawParent()
 
     /*
-        Internal use only. Call @Block resize(...)
+        Internal use only. Call @Block Resize(...)
     */
     block __resize(x,y,width,height)
         __Fl_Widget_resize(Ptr,x,y,width,height)
@@ -436,59 +436,59 @@ class FWidget : Object
     /*
 
     */
-    block setBackground(value)
-        if isObject(value) {
+    block SetBackground(value)
+        if IsObject(value) {
             if __instance_of(value,"FColor") {
-                __Fl_Widget_color_1(Ptr,value.colorAsNumber())
+                __Fl_Widget_color_1(Ptr,value.ColorAsNumber())
             }
-        elif isNumber(value) or isString(value) 
+        elif IsNumber(value) or IsString(value) 
             __value = value
             value = new FColor(__value) 
-            __Fl_Widget_color_1(Ptr,value.colorAsNumber())
+            __Fl_Widget_color_1(Ptr,value.ColorAsNumber())
         else
-            throw(self,"invalid parameter. Expecting innstance of 'Fcolor', 'Color', 'number' or 'string' as FWidget Background value")
+            Throw(self,"invalid parameter. Expecting innstance of 'Fcolor', 'Color', 'number' or 'string' as FWidget Background value")
         }
         Background = value
 
     /*
 
     */
-    block getBackground(value)
+    block GetBackground(value)
         return Background
 
     /*
 
     */
-    block hide()
-        if hasBorder() {
+    block Hide()
+        if HasBorder() {
             __Fl_Widget_hide(BorderBox.Ptr)
         else
             __Fl_Widget_hide(Ptr)
         }
-        redrawParent()
+        RedrawParent()
 
     /*
 
     */
-    block show()
-        if hasBorder() {
+    block Show()
+        if HasBorder() {
             __Fl_Widget_show(BorderBox.Ptr)
         else
             __Fl_Widget_show(Ptr)
         }
-        redrawParent()
+        RedrawParent()
 
     /*
 
     */
-    block setResizable(condition)  
-        if hasParent() {
+    block SetResizable(condition)  
+        if HasParent() {
             if condition == true {
                 Resizable = true
-                Parent.setResizable(self)
+                Parent.SetResizable(self)
             else
                 Resizable = false
-                Parent.setResizable(false)
+                Parent.SetResizable(false)
             } 
         else
             if condition == true {
@@ -502,71 +502,71 @@ class FWidget : Object
     /*
 
     */
-    block widgetName()
+    block WidgetName()
         return Name
 
     /*
 
     */
-    block getName()
+    block GetName()
         return Name
 
     /*
 
     */
-    block setParent(parentWidget) 
-        if isObject(parentWidget) and __instance_of(parentWidget,"FGroup") {
-            parentWidget.validatePointer()
+    block SetParent(parentWidget) 
+        if IsObject(parentWidget) and __instance_of(parentWidget,"FGroup") {
+            parentWidget.ValidatePointer()
             Parent = parentWidget 
         else
-            throw(self,"invalid parameter Expecting an instance of FGroup")
+            Throw(self,"invalid parameter Expecting an instance of FGroup")
         }
 
     /*
 
     */
-    block getParent()
-        if isNull(Parent) {
+    block GetParent()
+        if IsNull(Parent) {
             return new FWidget
         }
         return Parent
 
-    block removeParent(parentWidget)
-        if isObject(parentWidget) and __instance_of(parentWidget,"FGroup") {
-            parentWidget.validatePointer()
-            if Parent.equals(parentWidget) {
+    block RemoveParent(parentWidget)
+        if IsObject(parentWidget) and __instance_of(parentWidget,"FGroup") {
+            parentWidget.ValidatePointer()
+            if Parent.Equals(parentWidget) {
                 Parent = null
             else
-                throw(self,"Only the widget parent can remove the widget from the group")
+                Throw(self,"Only the widget parent can remove the widget from the group")
             } 
         else
-            throw(self,"invalid parameter Expecting an instance of FGroup")
+            Throw(self,"invalid parameter Expecting an instance of FGroup")
         }
 
     /*
 
     */
-    block hasParent()
-        return !isNull(Parent)
+    block HasParent()
+        return !IsNull(Parent)
 
     /*
 
     */
-    block resolvePendingOps()
-        if !isNull(PendingOps["resizable"]) and PendingOps["resizable"] == "true" {
+    block ResolvePendingOps()
+        if !IsNull(PendingOps["resizable"]) and PendingOps["resizable"] == "true" {
 			Resizable = true
-			if hasBorder() {
-				BorderBox.setResizable(self)
+			if HasBorder() {
+				BorderBox.SetResizable(self)
 			}
-			Parent.setResizable(self)
+			Parent.SetResizable(self)
 		}
-		if !isNull(PendingOps["resizable"]) and PendingOps["resizable"] == "false" {
+		if !IsNull(PendingOps["resizable"]) and PendingOps["resizable"] == "false" {
 			Resizable = false
-			Parent.setResizable(true)
+			Parent.SetResizable(true)
 		}
-		if !isNull(PendingOps["centeronparent"]) and PendingOps["centeronparent"] == "true" {
-			if instanceOf(self,"FGroup") {
-				centerOnParent()
+		if !IsNull(PendingOps["centeronparent"]) and PendingOps["centeronparent"] == "true" {
+			if InstanceOf(self,"FGroup") {
+				CenterOnParent()
 			}
 		}
         pendingOps = [
@@ -576,48 +576,48 @@ class FWidget : Object
     /*
 
     */
-    block setPendingOps(value) 
-        throw(self,"You cannot modify the PendingOps object")
+    block SetPendingOps(value) 
+        Throw(self,"You cannot modify the PendingOps object")
 
     /*
 
     */
-    block getPendingsOps() 
-        throw(self,"You cannot modify the PendingOps object")
+    block GetPendingsOps() 
+        Throw(self,"You cannot modify the PendingOps object")
 
     /*
 
     */
-    block isPointerValid() 
-        return !isString(Ptr) and !isNull(Ptr)
+    block IsPointerValid() 
+        return !IsString(Ptr) and !IsNull(Ptr)
 
 	/*
 
 	*/
-	block equals(object)
-		if !isObject(object) or !__instance_of(object,"FWidget") {
+	block Equals(object)
+		if !IsObject(object) or !__instance_of(object,"FWidget") {
 			return false
 		}
-		return (uniquecode() == object.uniquecode())
+		return (Uniquecode() == object.Uniquecode())
 
     /*
         To be deprecated soon for better click listeners
     */
-    block callbackOnClick(blockstr)
-        if isString(blockstr) {
+    block CallbackOnClick(blockstr)
+        if IsString(blockstr) {
             __Fl_Widget_callback_on_onlick(Ptr,blockstr)
         else
-            throw(self,"invalid parameter Invalid parameter only executable simple string allowed")
+            Throw(self,"invalid parameter Invalid parameter only executable simple string allowed")
         }
 
     /*
 
     */
-    block setCallbackListener(/*FCallbackEvent|pointer*/ listener)
-		if isNull(CallbackEvent) {
+    block SetCallbackListener(/*FCallbackEvent|pointer*/ listener)
+		if IsNull(CallbackEvent) {
 			__Fl_Widget_callback_on_onlick(Ptr,PtrIndex)
 		}
-		if !isObject(listener) {
+		if !IsObject(listener) {
 			IsEvent = false
 		}
         CallbackEvent = listener
@@ -626,69 +626,69 @@ class FWidget : Object
     /*
 
     */
-    block setCallbackEvent(listener)
-        setCallbackListener(listener)
+    block SetCallbackEvent(listener)
+        SetCallbackListener(listener)
 
     /*
 
     */
-    block getCallbackListener() 
+    block GetCallbackListener() 
         return CallbackEvent
 
     /*
 
     */
-    block getCallbackEvent() 
+    block GetCallbackEvent() 
         return CallbackEvent
 
     /*
 
     */
-    block handle(event) @"enter event"
+    block Handle(event) @"enter event"
         return 0
 
     /*
 
     */
-    block validatePointer()
-        if !isPointerValid() {
-            throw(self,"The Widget has not been initialized. Use the Constructor for initializing the widget")
+    block ValidatePointer()
+        if !IsPointerValid() {
+            Throw(self,"The Widget has not been initialized. Use the Constructor for initializing the widget")
         }
 
     /*
 
     */
-    block getHasBorder()
+    block GetHasBorder()
         return HasBorder
 
     /*
 
     */
-    block setHasBorder(value)
-        if isBoolean(value) {
+    block SetHasBorder(value)
+        if IsBoolean(value) {
             HasBorder = value
             if value {
-                setBorder(Border)
+                SetBorder(Border)
             else
                 BorderBox = null
             }
         else
-            throw(self,"Invalid parameter, Expecting (Number|simple.core.Boolean). Found (" + objectType(value) + ")")
+            Throw(self,"Invalid parameter, Expecting (Number|simple.core.Boolean). Found (" + ObjectType(value) + ")")
         }
 
     /*
 
     */
-    block setBorder(border) #HasBorder = false Border = null return  
-        if isNull(border) {
+    block SetBorder(border) #HasBorder = false Border = null return  
+        if IsNull(border) {
             BorderBox = null 
             HasBorder = false
-        elif instanceOf(border,"FBorder")
+        elif InstanceOf(border,"FBorder")
             if HasBorder {
-                if isNull(BorderBox) {
+                if IsNull(BorderBox) {
                     BorderBox = new FGroup(X-border.Left, Y-border.Top, (Width+(border.Right*2)), (Height+((border.Bottom)+border.Top)))
                     __Fl_Group_add_resizable(BorderBox.Ptr,Ptr)
-                    BorderBox.setOnlyChild(self)
+                    BorderBox.SetOnlyChild(self)
                     BorderBox.Resizable = false
                     #prevent it from resizing when parent expanded if touch edge
                 else
@@ -698,29 +698,29 @@ class FWidget : Object
                     Border.Left = border.Left - 1
                 }
                 BorderBox.Box = border.BoxType 
-                BorderBox.setBackground(border.Color) 
+                BorderBox.SetBackground(border.Color) 
                 Border = border
-                Border.setComponent(BorderBox) 
+                Border.SetComponent(BorderBox) 
             }
         else
-            throw(self,"Invalid parameter, Expecting (fulltick.objects.FBorder). Found (" + objectType(border) + ")")
+            Throw(self,"Invalid parameter, Expecting (fulltick.objects.FBorder). Found (" + ObjectType(border) + ")")
         }
 
     /*
 
     */
-    block setBorderColor(color) 
-        if !isNull(Border) {
-            Border.setColor(color)
+    block SetBorderColor(color) 
+        if !IsNull(Border) {
+            Border.SetColor(color)
         else
-            throw(self,"This widget does not have a border. Set the Border by calling setBorder(fulltick.objects.FBorder)")
+            Throw(self,"This widget does not have a border. Set the Border by calling SetBorder(fulltick.objects.FBorder)")
         }
 
     /*
 
     */
-    block getBorderColor()
-        if isNull(Border) {
+    block GetBorderColor()
+        if IsNull(Border) {
            return new FColor(0) 
         }
         return Border.Color
@@ -728,18 +728,18 @@ class FWidget : Object
     /*
 
     */
-    block setBorderBoxType(type) 
-        if !isNull(Border) {
-            Border.setBoxType(type)
+    block SetBorderBoxType(type) 
+        if !IsNull(Border) {
+            Border.SetBoxType(type)
         else
-            throw(self,"This widget does not have a border. Set the Border by calling setBorder(fulltick.objects.FBorder)")
+            Throw(self,"This widget does not have a border. Set the Border by calling SetBorder(fulltick.objects.FBorder)")
         }
 
     /*
 
     */
-    block getBorderBoxType()
-        if isNull(Border) {
+    block GetBorderBoxType()
+        if IsNull(Border) {
            return new FBoxType(__FL_FLAT_BOX()) 
         }
         return Border.BoxType
@@ -747,18 +747,18 @@ class FWidget : Object
     /*
 
     */
-    block setBorderTop(top) 
-        if !isNull(Border) {
-            Border.setTop(top)
+    block SetBorderTop(top) 
+        if !IsNull(Border) {
+            Border.SetTop(top)
         else
-            throw(self,"This widget does not have a border. Set the Border by calling setBorder(fulltick.objects.FBorder)")
+            Throw(self,"This widget does not have a border. Set the Border by calling SetBorder(fulltick.objects.FBorder)")
         }
 
     /*
 
     */
-    block getBorderTop()
-        if isNull(Border) {
+    block GetBorderTop()
+        if IsNull(Border) {
            return 0 
         }
         return Border.Top
@@ -766,18 +766,18 @@ class FWidget : Object
     /*
 
     */
-    block setBorderBottom(bottom) 
-        if !isNull(Border) {
-            Border.setBottom(bottom)
+    block SetBorderBottom(bottom) 
+        if !IsNull(Border) {
+            Border.SetBottom(bottom)
         else
-            throw(self,"This widget does not have a border. Set the Border by calling setBorder(fulltick.objects.FBorder)")
+            Throw(self,"This widget does not have a border. Set the Border by calling SetBorder(fulltick.objects.FBorder)")
         }
 
     /*
 
     */
-    block getBorderBottom()
-        if isNull(Border) {
+    block GetBorderBottom()
+        if IsNull(Border) {
            return 0 
         }
         return Border.Bottom
@@ -785,18 +785,18 @@ class FWidget : Object
     /*
 
     */
-    block setBorderLeft(left) 
-        if !isNull(Border) {
-            Border.setLeft(left)
+    block SetBorderLeft(left) 
+        if !IsNull(Border) {
+            Border.SetLeft(left)
         else
-            throw(self,"This widget does not have a border. Set the Border by calling setBorder(fulltick.objects.FBorder)")
+            Throw(self,"This widget does not have a border. Set the Border by calling SetBorder(fulltick.objects.FBorder)")
         }
 
     /*
 
     */
-    block getBorderLeft()
-        if isNull(Border) {
+    block GetBorderLeft()
+        if IsNull(Border) {
            return 0 
         }
         return Border.Left
@@ -804,18 +804,18 @@ class FWidget : Object
     /*
 
     */
-    block setBorderRight(right) 
-        if !isNull(Border) {
-            Border.setRight(right)
+    block SetBorderRight(right) 
+        if !IsNull(Border) {
+            Border.SetRight(right)
         else
-            throw(self,"This widget does not have a border. Set the Border by calling setBorder(fulltick.objects.FBorder)")
+            Throw(self,"This widget does not have a border. Set the Border by calling SetBorder(fulltick.objects.FBorder)")
         }
 
     /*
 
     */
-    block getBorderRight()
-        if isNull(Border) {
+    block GetBorderRight()
+        if IsNull(Border) {
            return 0 
         }
         return Border.Right
@@ -823,190 +823,190 @@ class FWidget : Object
     /*
 
     */
-    block hasBorder()
-        return !isNull(BorderBox)
+    block HasBorder()
+        return !IsNull(BorderBox)
 
     /*
 
     */
-    block getBorderBox()
+    block GetBorderBox()
         return BorderBox
 
     /*
 
     */
-    block clearActive()
+    block ClearActive()
         __Fl_Widget_clear_active(Ptr)
         Active = false
 
     /*
 
     */
-    block clearChanged()
+    block ClearChanged()
         __Fl_Widget_clear_changed(Ptr)
 
     /*
 
     */
-    block markAsUnChanged()
+    block MarkAsUnChanged()
         __Fl_Widget_clear_changed(Ptr)
 
     /*
 
     */
-    block clearDamage(params...)
-        paramsLen = lengthOf(params)
+    block ClearDamage(params...)
+        paramsLen = LengthOf(params)
         flag = 1 
 
         if paramsLen == 0 {
         elif paramsLen == 1
-            flag = numberValue(params[0])
-            if !isBoolean(flag) {
-                throw(self, "Invalid parameter passed, expecting (Boolean), found (" + objectType(flag) + ")")
+            flag = NumberValue(params[0])
+            if !IsBoolean(flag) {
+                Throw(self, "Invalid parameter passed, Expecting (Boolean), Found (" + ObjectType(flag) + ")")
             }
         else
-            throw(self, "Calling block with extra parameters expecting one or no parameter")
+            Throw(self, "Calling block with extra parameters expecting one or no parameter")
         }
         __Fl_Widget_clear_damage(Ptr,flag)
 
     /*
 
     */
-    block clearOutput()
+    block ClearOutput()
         __Fl_Widget_clear_output(Ptr)
 
     /*
 
     */
-    block setAcceptInput(value)
-        value = booleanValue(value)
+    block SetAcceptInput(value)
+        value = BooleanValue(value)
         if value == true {
             __Fl_Widget_clear_output(Ptr)
         elif value == false 
             #pending
         else
-            throw(self,"seriously")
+            Throw(self,"seriously")
         }
         AcceptInput = value
 
     /*
 
     */
-    block getAcceptInput()
+    block GetAcceptInput()
         return AcceptInput
 
     /*
 
     */
-    block clearVisible()
-        if hasBorder() {
+    block ClearVisible()
+        if HasBorder() {
             __Fl_Widget_clear_visible(BorderBox.Ptr)
         else
             __Fl_Widget_clear_visible(Ptr)
         }
-        redrawParent()
+        RedrawParent()
 
     /*
 
     */
-    block setVisible(value)
-        value = booleanValue(value)
+    block SetVisible(value)
+        value = BooleanValue(value)
         if value && !Visible {
-            show()
+            Show()
         elif !value && Visible
-            hide()
+            Hide()
         }
         Visible = value
 
     /*
 
     */
-    block getVisible()
+    block GetVisible()
         return Visible
 
     /*
 
     */
-    block isVisible()
+    block IsVisible()
         return (Visible == true)
 
     /*
 
     */
-    block clearVisibleFocus()
+    block ClearVisibleFocus()
         __Fl_Widget_clear_visible_focus(Ptr)
         KeyboardFocusable = false
 
     /*
 
     */
-    block setVisibleFocus()
+    block SetVisibleFocus()
         __Fl_Widget_set_visible_focus(Ptr)
         KeyboardFocusable = true
 
     /*
 
     */
-    block setKeyboardFocusable(value) 
-        value = booleanValue(value) 
+    block SetKeyboardFocusable(value) 
+        value = BooleanValue(value) 
         if value && !KeyboardFocusable {
-            setVisibleFocus()
+            SetVisibleFocus()
         elif !value && KeyboardFocusable
-            clearVisibleFocus()
+            ClearVisibleFocus()
         }
         
 
     /*
 
     */
-    block getKeyboardFocusable()
+    block GetKeyboardFocusable()
         return KeyboardFocusable
 
     /*
 
     */
-    block contains(widget)
-        if instanceOf(widget,"FWidget") {
+    block Contains(widget)
+        if InstanceOf(widget,"FWidget") {
             return __Fl_Widget_contains(Ptr,widget.Ptr)
         else
-            throw(self,"Invalid parameter, expecting (fulltick.base.FWidge), found (" + widget + ")")
+            Throw(self,"Invalid parameter, Expecting (fulltick.base.FWidge), Found (" + widget + ")")
         }
 
     /*
 
     */
-    block setLabel(value)
-        value = stringValue(value)
+    block SetLabel(value)
+        value = StringValue(value)
         __Fl_Widget_copy_label(Ptr, value)
         Label = value
-        redrawParent()
+        RedrawParent()
 
     /*
 
     */
-    block getLabel()
+    block GetLabel()
         return Label
 
     /*
 
     */
-    block setTooltip(value)
-        value = stringValue(value)
+    block SetTooltip(value)
+        value = StringValue(value)
         __Fl_Widget_copy_tooltip(Ptr, value)
         Tooltip = value
 
     /*
 
     */
-    block getTooltip()
+    block GetTooltip()
         return Tooltip
 
     /*
 
     */
-    block redrawParent()
-        if hasBorder() {
-            BorderBox.redrawParent()
+    block RedrawParent()
+        if HasBorder() {
+            BorderBox.RedrawParent()
         else
             parentPtr = __Fl_Widget_parent(Ptr)
             if !__is_null_pointer(parentPtr,parentPtr[1]) {
@@ -1017,10 +1017,10 @@ class FWidget : Object
     /*
 
     */
-    block doCallback()
-        if !isNull(CallbackEvent) {
+    block DoCallback()
+        if !IsNull(CallbackEvent) {
 			if IsEvent {
-				CallbackEvent.callback(self)
+				CallbackEvent.Callback(self)
 			else
 				call CallbackEvent(self, Argument)
 			}
@@ -1029,207 +1029,207 @@ class FWidget : Object
     /*
 
     */
-    block draw()
+    block Draw()
         __Fl_Widget_draw(Ptr)   
 
     /*
 
     */
-    block drawLabel(x, y, width, height, alignment)
-        x = numberValue(x)
-        y = numberValue(y)
-        width = numberValue(width)
-        height = numberValue(height)
+    block DrawLabel(x, y, width, height, alignment)
+        x = NumberValue(x)
+        y = NumberValue(y)
+        width = NumberValue(width)
+        height = NumberValue(height)
         _alignment = LabelAlignment
-        if !isNull(alignment) 
-            if instanceOf(alignment,"FAlignment") {
+        if !IsNull(alignment) 
+            if InstanceOf(alignment,"FAlignment") {
                 _alignment = alignment
             else 
-                throw(self,"Invalid parameter passed, expectiog (Number,Number,Number,Null|FAlignment), found (" + objectType(x) + "," + objectType(y) + "," + objectType(width) + "," + objectType(height) + "," + objectType(alignment) + ")")
+                Throw(self,"Invalid parameter passed, Expectiog (Number,Number,Number,Null|FAlignment), Found (" + ObjectType(x) + "," + ObjectType(y) + "," + ObjectType(width) + "," + ObjectType(height) + "," + ObjectType(alignment) + ")")
             }
         }
         __Fl_Widget_draw_label(Ptr,x,y,width,height,_alignment.Alignment)
-        redraw()
+        Redraw()
 
     /*
 
     */
-    block setHeight(value)
-        value = numberValue(value)
-        resize(X,Y,Width,value)
-        redrawParent()
+    block SetHeight(value)
+        value = NumberValue(value)
+        Resize(X,Y,Width,value)
+        RedrawParent()
         Height = value
         
     /*
 
     */
-    block getHeight()
+    block GetHeight()
         return Height     
 
     /*
 
     */
-    block setWidth(value)
-        value = numberValue(value)
-        resize(X,Y,value,Height)
-        redrawParent()
+    block SetWidth(value)
+        value = NumberValue(value)
+        Resize(X,Y,value,Height)
+        RedrawParent()
         Width = value
         
     /*
 
     */
-    block getWidth()
+    block GetWidth()
         return Width  
 
     /*
 
     */
-    block setX(value)
-        value = numberValue(value)
-        resize(value,Y,Width,Height)
-        redrawParent()
+    block SetX(value)
+        value = NumberValue(value)
+        Resize(value,Y,Width,Height)
+        RedrawParent()
         X = value
         
     /*
 
     */
-    block getX()
+    block GetX()
         return X    
 
     /*
 
     */
-    block setY(value)
-        value = numberValue(value)
-        resize(X,value,Width,Height)
-        redrawParent()
+    block SetY(value)
+        value = NumberValue(value)
+        Resize(X,value,Width,Height)
+        RedrawParent()
         Y = value
         
     /*
 
     */
-    block getY()
+    block GetY()
         return Y  
 
     /*
 
     */
-    block setLabelColor(value)
-        if isObject(value) {
+    block SetLabelColor(value)
+        if IsObject(value) {
             if __instance_of(value,"FColor") {
-                __Fl_Widget_labelcolor_1(Ptr,value.colorAsNumber())
+                __Fl_Widget_labelcolor_1(Ptr,value.ColorAsNumber())
             }
-        elif isNumber(value) or isString(value) 
+        elif IsNumber(value) or IsString(value) 
             __Fl_Widget_labelcolor_1(Ptr,value)
             value = new FColor(value) 
         else
-            throw(self,"invalid parameter. Expecting innstance of 'Fcolor', 'Color', 'Number' or 'String' as FWidget Label Color")
+            Throw(self,"invalid parameter. Expecting innstance of 'Fcolor', 'Color', 'Number' or 'String' as FWidget Label Color")
         }
         LabelColor = value
 
     /*
 
     */
-    block getLabelColor()
+    block GetLabelColor()
         return LabelColor   
 
     /*
 
     */
-    block setLabelFont(value)
-        if instanceOf(value,"FFont") { 
+    block SetLabelFont(value)
+        if InstanceOf(value,"FFont") { 
             __Fl_Widget_labelfont_1(Ptr,value.FontValue)
-        elif isNumber(value) or instanceOf(value,"Number")
-            __value = numberValue(value)
+        elif IsNumber(value) or InstanceOf(value,"Number")
+            __value = NumberValue(value)
             __Fl_Widget_labelfont_1(Ptr,__value)
             value = new FFont(__value) 
         else
-            throw(self,"invalid parameter. Expecting (fulltick.drawing.FFont|simple.system.Font|Number) as FWidget Label Color")
+            Throw(self,"invalid parameter. Expecting (fulltick.drawing.FFont|simple.system.Font|Number) as FWidget Label Color")
         }
         LabelFont = value
 
     /*
 
     */
-    block getLabelFont()
+    block GetLabelFont()
         return LabelFont    
 
     /*
 
     */
-    block setLabelSize(value)
-        if isNumber(value) or instanceOf(value,"Number")
-            value = numberValue(value)
+    block SetLabelSize(value)
+        if IsNumber(value) or InstanceOf(value,"Number")
+            value = NumberValue(value)
             if value <= 0 {
-                throw(self,"FWidget Label Size cannot be less than 0 ")
+                Throw(self,"FWidget Label Size cannot be less than 0 ")
                 return
             }
             __Fl_Widget_labelsize_1(Ptr,value)
         else
-            throw(self,"invalid parameter. Expecting (Number) as FWidget Label Size")
+            Throw(self,"invalid parameter. Expecting (Number) as FWidget Label Size")
         }
         LabelSize = value
-        redrawParent()
+        RedrawParent()
 
     /*
 
     */
-    block getLabelSize()
+    block GetLabelSize()
         return LabelSize   
 
     /*
 
     */
-    block setLabelType(value)
-        if instanceOf(value,"FLabelType") { 
+    block SetLabelType(value)
+        if InstanceOf(value,"FLabelType") { 
             __Fl_Widget_labeltype_1(Ptr,4)
-        elif isNumber(value) or instanceOf(value,"Number")
-            __value = numberValue(value)
+        elif IsNumber(value) or InstanceOf(value,"Number")
+            __value = NumberValue(value)
             __Fl_Widget_labeltype_1(Ptr,__value)
             value = new FLabelType(__value) 
         else
-            throw(self,"invalid parameter. Expecting (fulltick.drawing.FLabelType|Number) as FWidget Label Type")
+            Throw(self,"invalid parameter. Expecting (fulltick.drawing.FLabelType|Number) as FWidget Label Type")
         }
         LabelType = value
 
     /*
 
     */
-    block getLabelType()
+    block GetLabelType()
         return LabelType
 
     /*
 
     */
-    block measureLabel()
+    block MeasureLabel()
         __Fl_Widget_measure_label(Ptr,0,0)
 
     /*
 
     */
-    block setPosition(params...)
-        paramsLen = lengthOf(params)
+    block SetPosition(params...)
+        paramsLen = LengthOf(params)
 
         x = null
         y = null
         if paramsLen == 1 { 
             point = params[0]
-            if instanceOf(point,"Point") {
+            if InstanceOf(point,"Point") {
                 x = point.X 
                 y = point.Y
             else
-                throw(self, "invalid parameter Expecting (simple.graphics.Point). Found (" + objectType(point) + ")")
+                Throw(self, "invalid parameter Expecting (simple.graphics.Point). Found (" + ObjectType(point) + ")")
             }
         elif paramsLen == 2
-            x = numberValue(params[0])
-            y = numberValue(params[1])
+            x = NumberValue(params[0])
+            y = NumberValue(params[1])
         else
-            throw(self,"Invalid parameter count ")
+            Throw(self,"Invalid parameter count ")
             return 
         }
 
-        if hasBorder() {
-            BorderBox.setPosition(x,y)
+        if HasBorder() {
+            BorderBox.SetPosition(x,y)
             __Fl_Widget_position(Ptr,x+Border.Left,y+Border.Top)
         else
             __Fl_Widget_position(Ptr,x,y)
@@ -1237,17 +1237,17 @@ class FWidget : Object
         
         X = x
         Y = y
-        if !isNull(Position) { 
-            Position.setX(X) 
-            Position.setY(Y)
+        if !IsNull(Position) { 
+            Position.SetX(X) 
+            Position.SetY(Y)
         }
-        redrawParent()
+        RedrawParent()
 
     /*
 
     */
-    block getPosition()
-        if isNull(Position) {
+    block GetPosition()
+        if IsNull(Position) {
             Position = new Point(X,Y)
         }
         return Position
@@ -1255,76 +1255,76 @@ class FWidget : Object
     /*
 
     */
-    block redrawLabel()
+    block RedrawLabel()
         __Fl_Widget_redraw_label(Ptr)
 
     /*
 
     */
-    block setSelectionColor(value)
-        if isObject(value) {
+    block SetSelectionColor(value)
+        if IsObject(value) {
             if __instance_of(value,"FColor") {
-                __Fl_Widget_selection_color_1(Ptr,value.colorAsNumber())
+                __Fl_Widget_selection_color_1(Ptr,value.ColorAsNumber())
             }
-        elif isNumber(value) or isString(value) 
+        elif IsNumber(value) or IsString(value) 
             __Fl_Widget_selection_color_1(Ptr,value)
             value = new FColor(value) 
         else
-            throw(self,"invalid parameter. Expecting innstance of 'Fcolor', 'Color', 'Number' or 'String' as FWidget Selection Color")
+            Throw(self,"invalid parameter. Expecting innstance of 'Fcolor', 'Color', 'Number' or 'String' as FWidget Selection Color")
         }
         SelectionColor = value
 
     /*
 
     */
-    block getSelectionColor()
+    block GetSelectionColor()
         return SelectionColor
 
     /*
 
     */
-    block setActiveNoEvent()
+    block SetActiveNoEvent()
         __Fl_Widget_set_active(Ptr)
         Active = true
 
     /*
 
     */
-    block setChanged()
+    block SetChanged()
         __Fl_Widget_set_changed(Ptr)
 
     /*
 
     */
-    block setOutput()
+    block SetOutput()
         __Fl_Widget_set_output(Ptr)
 
     /*
 
     */
-    block setSize(int params...)
-        paramsLen = lengthOf(params)
+    block SetSize(int params...)
+        paramsLen = LengthOf(params)
 
         width = null
         height = null
         if paramsLen == 1 { 
             dimension = params[0]
-            if instanceOf(dimension,"Dimension") {
+            if InstanceOf(dimension,"Dimension") {
                 width = dimension.Width 
                 height = dimension.Height
             else
-                throw(self, "invalid parameter Expecting (simple.graphics.Dimension). Found (" + objectType(dimension) + ")")
+                Throw(self, "invalid parameter Expecting (simple.graphics.Dimension). Found (" + ObjectType(dimension) + ")")
             }
         elif paramsLen == 2
-            width = numberValue(params[0])
-            height = numberValue(params[1])
+            width = NumberValue(params[0])
+            height = NumberValue(params[1])
         else
-            throw(self,"Invalid parameter count ")
+            Throw(self,"Invalid parameter count ")
             return 
         }
 
-        if hasBorder() {
-            BorderBox.setSize(width,height)
+        if HasBorder() {
+            BorderBox.SetSize(width,height)
             __Fl_Widget_size(Ptr,width-Border.Right,height-Border.Bottom)
         else
             __Fl_Widget_size(Ptr,width,height)
@@ -1332,17 +1332,17 @@ class FWidget : Object
         
         Width = width
         Height = height
-        if !isNull(Size) { 
-            Size.setWidth(Width) 
-            Size.setHeight(Height)
+        if !IsNull(Size) { 
+            Size.SetWidth(Width) 
+            Size.SetHeight(Height)
         }
-        redrawParent()
+        RedrawParent()
 
     /*
 
     */
-    block getSize()
-        if isNull(Size) {
+    block GetSize()
+        if IsNull(Size) {
             Size = new Dimension(Width,Height)
         }
         return Size
@@ -1350,43 +1350,43 @@ class FWidget : Object
     /*
     
     */
-    block takeFocus()
+    block TakeFocus()
         __Fl_Widget_take_focus(Ptr)
 
     /*
 
     */
-    block takesEvents()
+    block TakesEvents()
         ret = __Fl_Widget_takesevents(Ptr)
         return ret
 
     /*
 
     */
-    block isGroupVisible()
+    block IsGroupVisible()
         ret = __Fl_Widget_visible_r(Ptr)
         return ret
 		
 	/*
 	
 	*/
-	block type(int typ)
-		validatePointer()
+	block Type(int typ)
+		ValidatePointer()
 		__Fl_Widget_type_1(Ptr, typ)
 		
 	/*
 	
 	*/
 	#avoid this block
-	block type1()
-		validatePointer()
+	block Type1()
+		ValidatePointer()
 		return __Fl_Widget_type(Ptr)
 
     /*
         Don't shoot yourself in the foot avoid this block and it overrided blocks
     */
-    block setPlatformScheme(schemeName)
-        throw(self,"Trying to set a platform scheme for a widget that does not support it : " + Name)
+    block SetPlatformScheme(schemeName)
+        Throw(self,"Trying to set a platform scheme for a widget that does not support it : " + Name)
 
     /*
 
@@ -1411,44 +1411,44 @@ class FWidget : Object
         /*
 
         */
-        block setPtr(value)
+        block SetPtr(value)
             Ptr = value
 
         /*
 
         */
-        block parentPointer()
-            validatePointer()
+        block ParentPointer()
+            ValidatePointer()
             return __Fl_Widget_parent(Ptr)
 
         /*
 
         */
-        block setBorderBox(value)
+        block SetBorderBox(value)
 
         /*
 
         */
-        block registerWidget()
+        block RegisterWidget()
             PtrAddress = __pointer_address_to_string(Ptr,Ptr[1]) 
 			__add_to_list(__fltk_created_widgets,self)
-			PtrIndex = lengthOf(__fltk_created_widgets) - 1
+			PtrIndex = LengthOf(__fltk_created_widgets) - 1
             Id = PtrIndex
 
         /*
 
         */
-        block construct()
-            if Name != "FLabel" { setBackground(Background) }
-            setAcceptInput(AcceptInput)
-            setVisible(Visible)
-            setKeyboardFocusable(KeyboardFocusable)
-            setTooltip(Tooltip)
-            setLabelColor(LabelColor)
-            setLabelFont(LabelFont)
-            setLabelSize(LabelSize)
-            setLabelType(LabelType)
-            setSelectionColor(SelectionColor)
-			#setWidth(Width)
-			#setHeight(Height)
+        block Construct()
+            if Name != "FLabel" { SetBackground(Background) }
+            SetAcceptInput(AcceptInput)
+            SetVisible(Visible)
+            SetKeyboardFocusable(KeyboardFocusable)
+            SetTooltip(Tooltip)
+            SetLabelColor(LabelColor)
+            SetLabelFont(LabelFont)
+            SetLabelSize(LabelSize)
+            SetLabelType(LabelType)
+            SetSelectionColor(SelectionColor)
+			#SetWidth(Width)
+			#SetHeight(Height)
 

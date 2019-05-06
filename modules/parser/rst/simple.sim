@@ -4,19 +4,19 @@ from simple.util.Console
 from parser.rst.rstParser
 
 block main()
-	paramsLen = lengthOf(cmdparams) 
+	paramsLen = LengthOf(cmdparams) 
 	for param in cmdparams {
-		if strEndsWith(param,"txt") or strEndsWith(param,"rst") {
-			rstTokens = new rstParser(__read_file(param))
-			tokens = rstTokens.parse()
+		if StrEndsWith(param,"txt") or StrEndsWith(param,"rst") {
+			rstTokens = new RstParser(__read_file(param))
+			tokens = rstTokens.Parse()
 			for token in tokens {
-				stdout.println(token)
+				stdout.Println(token)
 			}
 			return 
 		}		
 	}
 	
-	stdout.println("usage: rstparser --s [SOURCE]
+	stdout.Println("usage: rstparser --s [SOURCE]
 
 [SOURCE] : the source file to view it rst tokens
 This program expects just one parameter which is the rst Source")

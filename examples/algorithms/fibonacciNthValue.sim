@@ -4,7 +4,7 @@
 
 */
 
-block fibonacciNth(n)
+block FibonacciNth(n)
   currentValue = 1
   previousValue = 0
 

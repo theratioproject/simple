@@ -10,6 +10,6 @@ from simple.io.File
 
 block main()
 	fileWriter = new FileReader("../../../testfiles/test.txt", "rb")
-	display fileWriter.fread(20)
-	fileWriter.close()
+	display fileWriter.Fread(20)
+	fileWriter.Close()
 	

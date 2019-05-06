@@ -96,155 +96,155 @@ class rstParser : Object
 	
 	*/
 	block Init(string rsText)
-		lookAhead = new LookAhead(replaceStr(rsText+nl+nl,crlf,nl))
+		lookAhead = new LookAhead(ReplaceStr(rsText+nl+nl,crlf,nl))
 		
 	/*
 	
 	*/
-	block parse()
+	block Parse()
 		components = []
 		currentType = Nothing
 		currentValue = ""
 		currentIndex = -1
 		
-		while lookAhead.peek() != EOF {
+		while lookAhead.Peek() != EOF {
 				
-			if isNewToken(nl) {
-				lookAhead.pop() lookAhead.pop()
+			if IsNewToken(nl) {
+				lookAhead.Pop() lookAhead.Pop()
 				
-				if lookAhead.peek() == "*" {
-					__add_to_list(members, parseList())
+				if lookAhead.Peek() == "*" {
+					__add_to_list(members, ParseList())
 					
 				else
 					continue					
 				}
 				
-			elif lookAhead.peek() == "*"
-				__add_to_list(members, parseList())
+			elif lookAhead.Peek() == "*"
+				__add_to_list(members, ParseList())
 				
-			elif lookAhead.peek() == ":" and lookAhead.peek(1) == ":"
-				lookAhead.pop() lookAhead.pop()
-				parseWhiteSpace()
-				currentValue = parseParagraph(tab)
-				__add_to_list(members, new rstBlock(Literal, currentValue))
+			elif lookAhead.Peek() == ":" and lookAhead.Peek(1) == ":"
+				lookAhead.Pop() lookAhead.Pop()
+				ParseWhiteSpace()
+				currentValue = ParseParagraph(tab)
+				__add_to_list(members, new RstBlock(Literal, currentValue))
 				
-			elif lookAhead.peek() == "." and lookAhead.peek(1) == "."
-				lookAhead.pop() lookAhead.pop()
-				parseWhiteSpace()
-				if lookAhead.peek() == "_" {
-					parseLink()
+			elif lookAhead.Peek() == "." and lookAhead.Peek(1) == "."
+				lookAhead.Pop() lookAhead.Pop()
+				ParseWhiteSpace()
+				if lookAhead.Peek() == "_" {
+					ParseLink()
 					
-				elif lookAhead.peek() == "["
-					parseReference()
+				elif lookAhead.Peek() == "["
+					ParseReference()
 					
 				else
 					currentValue = ""
-					while lookAhead.peek() != nl {
-						currentValue += lookAhead.pop()
+					while lookAhead.Peek() != nl {
+						currentValue += lookAhead.Pop()
 					}
-					if strContains(currentValue,"::") {
-						directiveHead = strSplit(currentValue, "::")
-						directiveName = strTrim(directiveHead[0])
+					if StrContains(currentValue,"::") {
+						directiveHead = StrSplit(currentValue, "::")
+						directiveName = StrTrim(directiveHead[0])
 						directiveValue = ""
 						directiveContent = ""
 						directiveOptions = []
-						if lengthOf(directiveHead) <= 1 {
-							lookAhead.pop()
-							while lookAhead.peek() != nl {
-								directiveValue += lookAhead.pop()
+						if LengthOf(directiveHead) <= 1 {
+							lookAhead.Pop()
+							while lookAhead.Peek() != nl {
+								directiveValue += lookAhead.Pop()
 							}
-							directiveValue = strTrim(directiveValue)
-							if directiveValue == "" or strStartsWith(directiveValue, ":") {
-								warn(self, "Syntax Error : Expecting at least 1 argument in '" + directiveName + "' directive. At Line " + lookAhead.position())
+							directiveValue = StrTrim(directiveValue)
+							if directiveValue == "" or StrStartsWith(directiveValue, ":") {
+								Warn(self, "Syntax Error : Expecting at least 1 argument in '" + directiveName + "' directive. At Line " + lookAhead.Position())
 							}
 							
 						else
-							directiveValue = strTrim(directiveHead[1])
+							directiveValue = StrTrim(directiveHead[1])
 						}
-						if strStartsWith(directiveValue, ":") {
-							valueSplit = strSplit(directiveValue, ":")
-							if lengthOf(valueSplit) < 3 {
-								throw(self, "Syntax Error : Error in '" + directiveName + "' directive: invalid option '" + valueSplit[1] + "' expecting value nothing found At Line " + lookAhead.position() )
+						if StrStartsWith(directiveValue, ":") {
+							valueSplit = StrSplit(directiveValue, ":")
+							if LengthOf(valueSplit) < 3 {
+								Throw(self, "Syntax Error : Error in '" + directiveName + "' directive: invalid option '" + valueSplit[1] + "' expecting value nothing found At Line " + lookAhead.Position() )
 								return
 							}
-							directiveOptions[valueSplit[1]] = strTrim(valueSplit[2])
+							directiveOptions[valueSplit[1]] = StrTrim(valueSplit[2])
 							directiveValue = ""
 						}
-						currentValue = parseParagraph()
-						values = strSplit(currentValue, nl)
+						currentValue = ParseParagraph()
+						values = StrSplit(currentValue, nl)
 						for value in values {
 							if value == "" { continue }
-							if (!strStartsWith(value, " ") and !strStartsWith(value, tab)) {
-								throw(self, "Syntax Error : Explicit markup ends without a blank line. At Line " + lookAhead.position() )
+							if (!StrStartsWith(value, " ") and !StrStartsWith(value, tab)) {
+								Throw(self, "Syntax Error : Explicit markup ends without a blank line. At Line " + lookAhead.Position() )
 								return
 							}
-							value = strTrim(value)
-							if !strStartsWith(value, ":") {
+							value = StrTrim(value)
+							if !StrStartsWith(value, ":") {
 								directiveContent += value + nl
 								continue
 								
 								
 							}
-							valueSplit = strSplit(value, ":")
-							if lengthOf(valueSplit) < 3 {
-								throw(self, "Syntax Error : Error in '" + directiveName + "' directive: invalid option '" + valueSplit[1] + "' expecting value nothing found At Line " + lookAhead.position() )
+							valueSplit = StrSplit(value, ":")
+							if LengthOf(valueSplit) < 3 {
+								Throw(self, "Syntax Error : Error in '" + directiveName + "' directive: invalid option '" + valueSplit[1] + "' expecting value nothing found At Line " + lookAhead.Position() )
 								return
 							}
-							directiveOptions[valueSplit[1]] = strTrim(valueSplit[2])
+							directiveOptions[valueSplit[1]] = StrTrim(valueSplit[2])
 						}
 						
-						__add_to_list(members, new rstBlock(Directive, new rstDirective(directiveName, directiveValue, directiveOptions, directiveContent)))
+						__add_to_list(members, new RstBlock(Directive, new RstDirective(directiveName, directiveValue, directiveOptions, directiveContent)))
 					else
-						currentValue = parseParagraph()
-						__add_to_list(members, new rstBlock(Comment, currentValue))
+						currentValue = ParseParagraph()
+						__add_to_list(members, new RstBlock(Comment, currentValue))
 					}
 					
 				}
 				
-			elif isWhiteSpace(lookAhead.peek()) 
-				parseWhiteSpace()
+			elif IsWhiteSpace(lookAhead.Peek()) 
+				ParseWhiteSpace()
 				
 			else
-				currentValue = parseParagraph()
-				spLen = lengthOf(strSplit(currentValue,nl))
+				currentValue = ParseParagraph()
+				spLen = LengthOf(StrSplit(currentValue,nl))
 				if spLen == 2 or spLen == 3 {
 					if spLen == 3 {
-						sp = strSplit(currentValue,nl)
-						if (!strStartsWith(sp[0],"=") or !strEndsWith(sp[0],"=")) and
-							(!strStartsWith(sp[0],"-") or !strEndsWith(sp[0],"-")) and
-							(!strStartsWith(sp[0],"'") or !strEndsWith(sp[0],"'")) and
-							(!strStartsWith(sp[0],"^") or !strEndsWith(sp[0],"^")) {
-							throw(self, "Syntax Error : Invalid Heading and Paragraph detected. At Line " + lookAhead.position() )
+						sp = StrSplit(currentValue,nl)
+						if (!StrStartsWith(sp[0],"=") or !StrEndsWith(sp[0],"=")) And
+							(!StrStartsWith(sp[0],"-") or !StrEndsWith(sp[0],"-")) And
+							(!StrStartsWith(sp[0],"'") or !StrEndsWith(sp[0],"'")) And
+							(!StrStartsWith(sp[0],"^") or !StrEndsWith(sp[0],"^")) {
+							Throw(self, "Syntax Error : Invalid Heading and Paragraph detected. At Line " + lookAhead.Position() )
 							return
 						}
 						currentValue = ""
 						currentValue += sp[1] + nl + sp[2]
 					}
-					if strEndsWith(currentValue,"==") {
-						spl = strSplit(currentValue,"===")
-						__add_to_list(members, new rstBlock(Heading1, spl[0]))
+					if StrEndsWith(currentValue,"==") {
+						spl = StrSplit(currentValue,"===")
+						__add_to_list(members, new RstBlock(Heading1, spl[0]))
 						
-					elif strEndsWith(currentValue,"^^")
-						spl = strSplit(currentValue,"^^^")
-						__add_to_list(members, new rstBlock(Heading1, spl[0]))
+					elif StrEndsWith(currentValue,"^^")
+						spl = StrSplit(currentValue,"^^^")
+						__add_to_list(members, new RstBlock(Heading1, spl[0]))
 						
-					elif strEndsWith(currentValue,"---")
-						spl = strSplit(currentValue,"---")
-						__add_to_list(members, new rstBlock(Heading2, spl[0]))
+					elif StrEndsWith(currentValue,"---")
+						spl = StrSplit(currentValue,"---")
+						__add_to_list(members, new RstBlock(Heading2, spl[0]))
 						
-					elif strEndsWith(currentValue,"'''")
-						spl = strSplit(currentValue,"'''")
-						__add_to_list(members, new rstBlock(Heading3, spl[0]))
+					elif StrEndsWith(currentValue,"'''")
+						spl = StrSplit(currentValue,"'''")
+						__add_to_list(members, new RstBlock(Heading3, spl[0]))
 						
 					else
-						__add_to_list(members, new rstBlock(Paragraph, currentValue))
+						__add_to_list(members, new RstBlock(Paragraph, currentValue))
 					}
 				else
-					if strEndsWith(currentValue,"===") or strEndsWith(currentValue,"^^^") or strEndsWith(currentValue,"---") or strEndsWith(currentValue,"'''"){
-						throw(self, "Syntax Error : Invalid Heading and Paragraph detected. At Line " + lookAhead.position() )
+					if StrEndsWith(currentValue,"===") or StrEndsWith(currentValue,"^^^") or StrEndsWith(currentValue,"---") or StrEndsWith(currentValue,"'''"){
+						Throw(self, "Syntax Error : Invalid Heading and Paragraph detected. At Line " + lookAhead.Position() )
 						return
 					}
-					__add_to_list(members, new rstBlock(Paragraph, currentValue))
+					__add_to_list(members, new RstBlock(Paragraph, currentValue))
 				}
 				
 				
@@ -252,23 +252,23 @@ class rstParser : Object
 			}
 		}
 		
-		if lengthOf(references) > 0 and !addedReference {
+		if LengthOf(references) > 0 and !addedReference {
 			addedReference = true
-			__add_to_list(members, new rstBlock(Reference, references))
+			__add_to_list(members, new RstBlock(Reference, references))
 		}
 		return self
 		
 	/*
 	
 	*/
-	block operator(string op, object value) 
+	block Operator(string op, object value) 
 		switch op {
 			case "lengthOf"
-				return lengthOf(members)
+				return LengthOf(members)
 			case "[]"
 				return members[value]
 		}
-		return super.operator(op, value)
+		return super.Operator(op, value)
 		
 	/*
 	
@@ -308,66 +308,66 @@ class rstParser : Object
 		/*
 		
 		*/
-		block parseReference()
-			lookAhead.pop()
+		block ParseReference()
+			lookAhead.Pop()
 			currentValue = ""
 			index = "" 
 			
-			while lookAhead.peek() != "]" {
-				index += lookAhead.pop()
+			while lookAhead.Peek() != "]" {
+				index += lookAhead.Pop()
 			}
-			lookAhead.pop()
+			lookAhead.Pop()
 			
-			if !isDigit(index) and !strStartsWith(index, "#")
-				throw(self, "Syntax Error : Malformed reference tag detected, expecting a digit or a tag beginning with '#'. At Line " + lookAhead.position() )
+			if !IsDigit(index) and !StrStartsWith(index, "#")
+				Throw(self, "Syntax Error : Malformed reference tag detected, expecting a digit or a tag beginning with '#'. At Line " + lookAhead.Position() )
 				return
 			}
-			while lookAhead.peek() != EOF {
-				if lookAhead.peek() == nl {
-					if (lookAhead.peek(1)+lookAhead.peek(2)) == ".." {
+			while lookAhead.Peek() != EOF {
+				if lookAhead.Peek() == nl {
+					if (lookAhead.Peek(1)+lookAhead.Peek(2)) == ".." {
 						break
 					else
-						currentValue += lookAhead.pop()
+						currentValue += lookAhead.Pop()
 					}
 					
 				else
-					currentValue += lookAhead.pop()
+					currentValue += lookAhead.Pop()
 				}
 				
 			}
-			if !isNull(references[index]) {
-				throw(self, "Syntax Error : Duplicate explicit target detected '" + index + "'. At Line " + lookAhead.position() )
+			if !IsNull(references[index]) {
+				Throw(self, "Syntax Error : Duplicate explicit target detected '" + index + "'. At Line " + lookAhead.Position() )
 				return
 			}
 			references[index] = currentValue
 		
 		/*
 		
-		*/#ignore : after http(s)
-		block parseLink()
-			lookAhead.pop()
+		*/#ignore : after Http(s)
+		block ParseLink()
+			lookAhead.Pop()
 			currentValue = ""
 			linkAttr = []
-			if !isAlphaNum(lookAhead.peek()) {
-				throw(self, "Syntax Error : Malformed url detected. At Line " + lookAhead.position() )
+			if !IsAlphaNum(lookAhead.Peek()) {
+				Throw(self, "Syntax Error : Malformed url detected. At Line " + lookAhead.Position() )
 				return
 			}
-			while lookAhead.peek() != EOF {
-				if lookAhead.peek() == nl {
-					__add_to_list(linkAttr, strTrim(currentValue))
+			while lookAhead.Peek() != EOF {
+				if lookAhead.Peek() == nl {
+					__add_to_list(linkAttr, StrTrim(currentValue))
 					currentValue = ""
-					__add_to_list(members, new rstBlock(Link, linkAttr))
+					__add_to_list(members, new RstBlock(Link, linkAttr))
 					break
-				elif lookAhead.peek() == ":" and lengthOf(linkAttr) == 0
-					lookAhead.pop()
-					if !isWhiteSpace(lookAhead.peek()) {
-						throw(self, "Syntax Error : Malformed url detected. At Line " + lookAhead.position() )
+				elif lookAhead.Peek() == ":" and LengthOf(linkAttr) == 0
+					lookAhead.Pop()
+					if !IsWhiteSpace(lookAhead.Peek()) {
+						Throw(self, "Syntax Error : Malformed url detected. At Line " + lookAhead.Position() )
 						return
 					}
-					__add_to_list(linkAttr, strTrim(currentValue))
+					__add_to_list(linkAttr, StrTrim(currentValue))
 					currentValue = ""
 				else
-					currentValue += lookAhead.pop()
+					currentValue += lookAhead.Pop()
 				}
 				
 			}
@@ -376,27 +376,27 @@ class rstParser : Object
 		/*
 		
 		*/
-		block parseParagraph(params...)
+		block ParseParagraph(params...)
 			currentValue = ""
 			_tab = ""
-			if lengthOf(params) > 0 {
+			if LengthOf(params) > 0 {
 				_tab = params[0]
 				#@_tab+"<"
 			}
-			while lookAhead.peek() != EOF {
+			while lookAhead.Peek() != EOF {
 				
-				if isWhiteSpace(lookAhead.peek()) {
+				if IsWhiteSpace(lookAhead.Peek()) {
 					currentTab = ""
-					check = isNewToken(nl)
+					check = IsNewToken(nl)
 					currentValue += currentTab
 					if check {
 						return currentValue
 					else
-						currentValue += lookAhead.pop()
+						currentValue += lookAhead.Pop()
 					}
 				else
-					if lookAhead.peek() == tab { }
-					currentValue += lookAhead.pop()
+					if lookAhead.Peek() == tab { }
+					currentValue += lookAhead.Pop()
 				}				
 			}
 			return currentValue
@@ -404,72 +404,72 @@ class rstParser : Object
 		/*
 		
 		*/
-		block parseList()
+		block ParseList()
 			currentValue = ""
-			lookAhead.pop()
+			lookAhead.Pop()
 			
-			if isWhiteSpace(lookAhead.peek()) {
+			if IsWhiteSpace(lookAhead.Peek()) {
 				currentTab = ""
-				parseWhiteSpace()
-				while lookAhead.peek() != EOF {
-					if isWhiteSpace(lookAhead.peek()) {
+				ParseWhiteSpace()
+				while lookAhead.Peek() != EOF {
+					if IsWhiteSpace(lookAhead.Peek()) {
 						currentTab = ""
-						check = isNewToken(nl, currentTab)
+						check = IsNewToken(nl, currentTab)
 						currentValue += currentTab
-						if check or lookAhead.peek() == "*" {
+						if check or lookAhead.Peek() == "*" {
 							break
 						else
-							currentValue += lookAhead.pop()
+							currentValue += lookAhead.Pop()
 						}
 						
 					else
-						currentValue += lookAhead.pop()
+						currentValue += lookAhead.Pop()
 					}
 				}
 				
 			else
-				throw(self, "Syntax Error : Unexpected character, Expected white spaces(s), found '" + lookAhead.pop() + "' at Line " + lookAhead.position() )
+				Throw(self, "Syntax Error : Unexpected character, Expected white Spaces(s), found '" + lookAhead.Pop() + "' at Line " + lookAhead.Position() )
 			}
 			
-			return (new rstBlock(ListItem, currentValue))
+			return (new RstBlock(ListItem, currentValue))
 		
 		/*
 		
 		*/
-		block parseWhiteSpace()
-			while isWhiteSpace(lookAhead.peek()) {
-				if lookAhead.peek() == tab {
-					currentTab += strCopy(" ", 3)
-					lookAhead.pop() lookAhead.pop()
+		block ParseWhiteSpace()
+			while IsWhiteSpace(lookAhead.Peek()) {
+				if lookAhead.Peek() == tab {
+					currentTab += StrCopy(" ", 3)
+					lookAhead.Pop() lookAhead.Pop()
 				else
 					currentTab += " "
-					lookAhead.pop()
+					lookAhead.Pop()
 				}
 			}
 			
 		/*
 		
 		*/
-		block isNewToken(token, params...)
-			if lookAhead.peek() == nl {
+		block IsNewToken(token, params...)
+			if lookAhead.Peek() == nl {
 				leadingTab = ""
-				if lengthOf(params) > 0 {
+				if LengthOf(params) > 0 {
 					leadingTab = params[0]
 				}
-				while isWhiteSpace(lookAhead.peek()) {
-					if lookAhead.peek(1) == token and !isWhiteSpace(lookAhead.peek(2)) {
+				while IsWhiteSpace(lookAhead.Peek()) {
+					if lookAhead.Peek(1) == token and !IsWhiteSpace(lookAhead.Peek(2)) {
 						return true
-					elif isAlphaNum(lookAhead.peek(1))
+					elif IsAlphaNum(lookAhead.Peek(1))
 						if leadingTab != "" {
 						}
-						if leadingTab != "" and lookAhead.peek() == nl {
-							lookAhead.pop()
-							throw(self, "Syntax Error : Bullet list ends without a NewLine at Line " + lookAhead.position() )
+						if leadingTab != "" and lookAhead.Peek() == nl {
+							lookAhead.Pop()
+							Throw(self, "Syntax Error : Bullet list ends without a NewLine at Line " + lookAhead.Position() )
 						}
 						return false
 					}
 
-					currentTab += lookAhead.pop()
+					currentTab += lookAhead.Pop()
 				}
 			}
 			return false

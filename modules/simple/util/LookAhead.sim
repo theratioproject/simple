@@ -43,7 +43,7 @@ class LookAhead : Object
 	*/
 	block Init(string value)
 		Value = value
-		Length = lengthOf(Value)
+		Length = LengthOf(Value)
 		
 	/*
 		Check the character at the current position in the stream, the peek also accept 
@@ -53,8 +53,8 @@ class LookAhead : Object
 		:: 
 		
 			la = new LookAhead("12345")
-			stdout.println(la.peek()) #1
-			stdout.println(la.peek(2)) #3
+			stdout.Println(la.Peek()) #1
+			stdout.Println(la.Peek(2)) #3
 			
 		
 		**Parameters**:	
@@ -62,19 +62,19 @@ class LookAhead : Object
 				this method accept one optional parameter which is use to determining how 
 				many number forward to peek in the current stream
 			
-		**Return**:
+		**return**:
 			the character at the current position or the optional param forward, return - 1
 			if it the end of the stream
 	*/
-	block peek(number params...)
-		paramsLen = lengthOf(params)
+	block Peek(number params...)
+		paramsLen = LengthOf(params)
 		index = 0
 		
 		if paramsLen == 0 {
 		elif paramsLen == 1
 			index = params[0]
 		else
-			throw(self, "Calling block with extra parameters!")
+			Throw(self, "Calling block with extra parameters!")
 		}
 		if ((Position + index) < Length) {
 			ret = Value[Position + index]
@@ -98,17 +98,17 @@ class LookAhead : Object
 		:: 
 		
 			la = new LookAhead("12345")
-			stdout.println(la.pop()) #1
-			stdout.println(la.pop()) #2
-			stdout.println(la.pop()) #3
-			stdout.println(la.pop()) #4
-			stdout.println(la.pop()) #5
+			stdout.Println(la.Pop()) #1
+			stdout.Println(la.Pop()) #2
+			stdout.Println(la.Pop()) #3
+			stdout.Println(la.Pop()) #4
+			stdout.Println(la.Pop()) #5
 			
-		**Return**:
+		**return**:
 			the character at the current position or the optional param forward, return - 1
 			if it the end of the stream
 	*/
-	block pop()
+	block Pop()
 		if (Position < Length) {
 			ret = Value[Position]
 			if ret == nl { 
@@ -125,10 +125,10 @@ class LookAhead : Object
 	/*
 		Get the current position of the look ahead object in a printable string
 		
-		**Return**:
+		**return**:
 			the current current `Line`_ and `Column`_ in a printable string
 	*/
-	block position()
+	block Position()
 		return "" + Line + ":" + Column
 		
 	/*
@@ -140,19 +140,19 @@ class LookAhead : Object
 		:: 
 		
 			la = new LookAhead("12345")
-			stdout.println(la.skip(2))  #2
-			stdout.println(la.skip(60)) #3 # min(60, Length:5 - Position:2 ) = 3
+			stdout.Println(la.Skip(2))  #2
+			stdout.Println(la.Skip(60)) #3 # Min(60, Length:5 - Position:2 ) = 3
 			
 		
 		**Parameters**:	
 			num : Number
 				the number to skip in the stream
 			
-		**Return**:
+		**return**:
 			the number that is been skipped in the stream
 	*/
-	block skip(number num)
-		toSkip = min(num, Length - Position)
+	block Skip(number num)
+		toSkip = Min(num, Length - Position)
 		Position += toSkip
 		return toSkip
 		
@@ -166,11 +166,11 @@ class LookAhead : Object
 			obj : Object
 				the object to compare with the current object
 		
-		**Return**:
+		**return**:
 			true if the argument object has the same attributes as this object
 	*/
-	block equals(object obj)
-		if !instanceOf(obj, "LookAhead") {
+	block Equals(object obj)
+		if !InstanceOf(obj, "LookAhead") {
 			return false
 		}
 		return obj.Length == Length && obj.Position == Position && obj.Line == Line && obj.Column == Column
@@ -178,11 +178,11 @@ class LookAhead : Object
 	/*
 		The current object in a printable string 
 		
-		**Return**:
+		**return**:
 			the object in a printable string 
 	*/
-	block toString()
-		return "[" + absolutename() + ":Position=" + Position + ",Length=" + Length + "]"
+	block ToString()
+		return "[" + Absolutename() + ":Position=" + Position + ",Length=" + Length + "]"
 		
 	/*
 		All private methods below
@@ -202,12 +202,12 @@ class LookAhead : Object
 		/*
 			Private setter method for the `Line`_ variable
 		*/
-		block setLine()
+		block SetLine()
 			
 		/*
 			Private setter method for the `Column`_ variable
 		*/
-		block setColumn()
+		block SetColumn()
 		
 /*S
 
@@ -226,20 +226,20 @@ class LookAhead : Object
 			}
 		")
 
-		while la.peek() != -1 {
+		while la.Peek() != -1 {
 			
-			if la.peek() == '{' {
-				la.pop()
+			if la.Peek() == '{' {
+				la.Pop()
 				
-				while la.peek() != '}' {
-					forCode += la.pop()
+				while la.Peek() != '}' {
+					forCode += la.Pop()
 				}
 			}
 			
-			la.pop() 
+			la.Pop() 
 		}
 
-		stdout.print(forCode)
+		stdout.Print(forCode)
 
 		#check all the character until it EOF
 		#check if the current character is open brace

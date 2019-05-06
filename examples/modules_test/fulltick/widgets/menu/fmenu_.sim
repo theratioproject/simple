@@ -17,36 +17,36 @@ import fulltick.drawing
 menu1 = null
 item = null
 button = new ButtonDemo
-FApp.run() 
+FApp.Run() 
 
 class ButtonDemo 
 	menuItems = [
 		["foo",0,null,Fl_Menu_Inactive],
 		["File",[
 			["Ops",[
-				["Clear",0,block (obj) {
-					menu1.clear()
+				["Clear",0,Block (obj) {
+					menu1.Clear()
 				},Fl_Menu_Horizontal],
-				["Change text",0,block (obj) {
+				["Change text",0,Block (obj) {
 					item.Text = "New Name"
 				}],
-				["Change item flag",0,block (obj) {
+				["Change item flag",0,Block (obj) {
 					item.Flags = Fl_Menu_Inactive
 				}]
 			]],
 			["Open",0]
 		]],
-		["Remove item", 0, block (obj) {
-			item.remove()
+		["Remove item", 0, Block (obj) {
+			item.Remove()
 		}]
 	]
     fwindow = new FWindow(400,150,"FMenuBar Testing only") {
 		menu1 = new FMenuBar(menuItems) {
 			item = new FMenuItem("Single Item", 0)
-			addItem(item)
+			AddItem(item)
 		}
-		add(menu1)
-        centerOnScreen() 
-        show()        
+		Add(menu1)
+        CenterOnScreen() 
+        Show()        
     } 
         

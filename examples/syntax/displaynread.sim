@@ -24,7 +24,7 @@ display "numbers " + 2 + 3
 	
 	#1 - entry to the program
 	#2 - read a string into the variable myname
-	#3 - crlf (Carriage Return Line Feed) is the newline variable
+	#3 - Crlf (Carriage return Line Feed) is the newline variable
 	#4 - concatenating various strings
 	#5 - concatenating strings and summing up various numbers
 	#6 - concatenating strings and various numbers

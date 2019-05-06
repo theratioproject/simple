@@ -8,44 +8,44 @@ from simple.reflection.Class
 
 #instanceOf block from inheriting Object class 
 <<<<<<< HEAD
-stdout.println("instanceOf block from inheriting Object class ") 
+stdout.Println("instanceOf block from inheriting Object class ") 
 =======
-stdout.println("instanceOf block from inheriting Object class ")
+stdout.Println("instanceOf block from inheriting Object class ")
 >>>>>>> b6f6932c7fa42ae6e8601a8afb93a4b40212d3b7
 string = new String("Hello World")
-stdout.println(string,true) 
-stdout.println("String instance of 'Number' : "+string.instanceOf("Number"))
-stdout.println("String instance of 'Object' : "+string.instanceOf("Object"))
-stdout.println("String instance of 'File' : "+string.instanceOf("File")+"\n")
+stdout.Println(string,true) 
+stdout.Println("String instance of 'Number' : "+string.InstanceOf("Number"))
+stdout.Println("String instance of 'Object' : "+string.InstanceOf("Object"))
+stdout.Println("String instance of 'File' : "+string.InstanceOf("File")+"\n")
 
 #instanceOf block exported from ANSI C
 <<<<<<< HEAD
 #TODO : Fix to check if instance of first class then parent classes
 #TODO : Allow both parameter to be object, string or mixed
-stdout.println("instanceOf block exported from ANSI C")
+stdout.Println("instanceOf block exported from ANSI C")
 obj3 = new Three
-stdout.println("One instance Five : "+__instance_of(obj3, "Five"))
-stdout.println("One instance One : "+__instance_of(obj3, "One")) 
+stdout.Println("One instance Five : "+__instance_of(obj3, "Five"))
+stdout.Println("One instance One : "+__instance_of(obj3, "One")) 
 =======
-stdout.println("instanceOf block exported from ANSI C")
+stdout.Println("instanceOf block exported from ANSI C")
 obj3 = new Three
-stdout.println("One instance Five : "+__instance_of(obj3, "Five"))
-stdout.println("One instance One : "+__instance_of(obj3, "One"))
+stdout.Println("One instance Five : "+__instance_of(obj3, "Five"))
+stdout.Println("One instance One : "+__instance_of(obj3, "One"))
 >>>>>>> b6f6932c7fa42ae6e8601a8afb93a4b40212d3b7
-stdout.println("One instance Seven : "+__instance_of(obj3, "Seven")+"\n")
+stdout.Println("One instance Seven : "+__instance_of(obj3, "Seven")+"\n")
 
 #instanceOf block from File Class.sim and functional
-stdout.println("instanceOf block from File Class.sim and functional")
+stdout.Println("instanceOf block from File Class.sim and functional")
 obj = new One
-stdout.println("One parent class name : "+__parent_class_name(obj))
-stdout.println("One instance Two : "+instanceOf(obj, "Two"))
-stdout.println("One instance Three : "+instanceOf(obj, "Three"))
-stdout.println("One instance Four : "+instanceOf(obj, "Four"))
-stdout.println("One instance Object : "+instanceOf(obj, "Object"))
-stdout.println("One instance Five : "+instanceOf(obj, "Five"))
-stdout.println("One instance Six : "+instanceOf(obj, "Six"))
-stdout.println("One instance Seven : "+instanceOf(obj, "Seven"))
-obj.print() 
+stdout.Println("One parent class name : "+__parent_class_name(obj))
+stdout.Println("One instance Two : "+InstanceOf(obj, "Two"))
+stdout.Println("One instance Three : "+InstanceOf(obj, "Three"))
+stdout.Println("One instance Four : "+InstanceOf(obj, "Four"))
+stdout.Println("One instance Object : "+InstanceOf(obj, "Object"))
+stdout.Println("One instance Five : "+InstanceOf(obj, "Five"))
+stdout.Println("One instance Six : "+InstanceOf(obj, "Six"))
+stdout.Println("One instance Seven : "+InstanceOf(obj, "Seven"))
+obj.Print() 
 
 
 class One : Two
@@ -62,5 +62,5 @@ class Six : Seven
 
 class Seven 
 
-	block print()
+	block Print()
 		display "Hello World"

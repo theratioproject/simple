@@ -9,11 +9,11 @@ from simple.util.Console
 from simple.system.System
 
 screenDimension1 = new ScreenDimension()
-assert(screenDimension1.toAbDimension() == screenDimension1.toDimension())  
-assert(screenDimension1.toAbDimension() == screenDimension1.toAbDimension())  
-assert(screenDimension1.toDimension() == screenDimension1.toDimension())  
-assert(screenDimension1.toDimension(1) == screenDimension1.toDimension(1)) 
-sdLen = lengthOf(screenDimension1.ScreenDimensions) - 1
+Assert(screenDimension1.ToAbDimension() == screenDimension1.ToDimension())  
+Assert(screenDimension1.ToAbDimension() == screenDimension1.ToAbDimension())  
+Assert(screenDimension1.ToDimension() == screenDimension1.ToDimension())  
+Assert(screenDimension1.ToDimension(1) == screenDimension1.ToDimension(1)) 
+sdLen = LengthOf(screenDimension1.ScreenDimensions) - 1
 for a = 0 to sdLen {
-    assert(screenDimension1.ScreenDimensions[a] == screenDimension1.ScreenDimensions[a]) 
+    Assert(screenDimension1.ScreenDimensions[a] == screenDimension1.ScreenDimensions[a]) 
 }

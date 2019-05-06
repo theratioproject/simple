@@ -41,93 +41,93 @@ class File : Path
 	*/
 	block Init(string path)
 		AbsolutePath = path
-		setAbsolutePath(null)
-		updateAttributes()
+		SetAbsolutePath(null)
+		UpdateAttributes()
 		
 	/*
 	
 	*/
-	block getNameOnly()
-		name = getName()
-		_ext = strAfterChar(name, '.')
-		return removeStr(name, '.'+_ext)
+	block GetNameOnly()
+		name = GetName()
+		_ext = StrAfterChar(name, '.')
+		return RemoveStr(name, '.'+_ext)
 		
 	/*
 	
 	*/
-	block setNameOnly(string value)
-		if isNull(value) {
-			throw(self, "The parameter cannot be null")
+	block SetNameOnly(string value)
+		if IsNull(value) {
+			Throw(self, "The parameter cannot be null")
 		else
-			newName = Directory.AbsolutePath + value + "." + getNameExtension()
-			return renameTo(newName, false)
+			newName = Directory.AbsolutePath + value + "." + GetNameExtension()
+			return RenameTo(newName, false)
 		}
 		return false
 		
 	/*
 	
 	*/
-	block getNameExtension()
-		return strAfterChar(getName(), '.')
+	block GetNameExtension()
+		return StrAfterChar(GetName(), '.')
 
 	/*
 		
 	*/
-	block setNameExtension(string value) 
-		if isNull(value) {
-			throw(self, "The parameter cannot be null")
+	block SetNameExtension(string value) 
+		if IsNull(value) {
+			Throw(self, "The parameter cannot be null")
 		else
-			newName = Directory.AbsolutePath + getNameOnly() + "." + value
-			return renameTo(newName, false)
+			newName = Directory.AbsolutePath + GetNameOnly() + "." + value
+			return RenameTo(newName, false)
 		}
 		return false
 		
 	/*
 	
 	*/
-	block getExists()
-		return isFile()
+	block GetExists()
+		return IsFile()
 		
 	/*
 	
 	*/
-	block exists() 
-		return isFile()
+	block Exists() 
+		return IsFile()
 		
 	/*
 	
 	*/
-	block toString()
-		return "[" + absolutename() + ":Name=" + getName() + ",NameOnly=" + getNameOnly() + ",NameExtension=" + getNameExtension() + ",AbsolutePath=" + AbsolutePath + "]"
+	block ToString()
+		return "[" + Absolutename() + ":Name=" + GetName() + ",NameOnly=" + GetNameOnly() + ",NameExtension=" + GetNameExtension() + ",AbsolutePath=" + AbsolutePath + "]"
 		
 	/*
 		Quick read all content of a file as string
 	*/
-	block readAllString()
-		ensureExistence()
+	block ReadAllString()
+		EnsureExistence()
 		return __read_file(AbsolutePath)
 		
 	/*
 		Quick write string to a file
 	*/
 	#issue with byte e.g download zip then write
-	block write(string content)
-		ensureExistence()
-		if !isReadable() {
-			throw(self, "Access is denied. You cannot write to the file because it Read Only : " + AbsolutePath)
+	block Write(string content)
+		EnsureExistence()
+		if !IsReadable() {
+			Throw(self, "Access is denied. You cannot write to the file because it Read Only : " + AbsolutePath)
 		else
 			try {
 				__write_file(AbsolutePath, content)
 			catch
-				throw(self, __err__ + ". Error occur while writing to file, ensure the directory exists : " + AbsolutePath )
+				Throw(self, __err__ + ". Error occur while writing to file, ensure the directory exists : " + AbsolutePath )
 			}	
 		}
 
 	/*
 
 	*/
-	block equals(Object value)
-		if !instanceOf(value,"File") {
+	block Equals(Object value)
+		if !InstanceOf(value,"File") {
 			return false
 		}
 		return AbsolutePath == value.AbsolutePath		
@@ -140,9 +140,9 @@ class File : Path
 		/*
 		
 		*/
-		block updateAttributes()
-			super.updateAttributes()
-			NameExtension = strAfterChar(getName(), '.')
+		block UpdateAttributes()
+			super.UpdateAttributes()
+			NameExtension = StrAfterChar(GetName(), '.')
 			
 		
 		

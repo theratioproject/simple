@@ -41,10 +41,10 @@ class Error : Object
 	/*
 	
 	*/
-	block printStackTrace()
-		stackTraces = stackTrace()
+	block PrintStackTrace()
+		stackTraces = StackTrace()
 		for stackTrace in stackTraces {
-			stderr.println(stackTrace)
+			stderr.Println(stackTrace)
 		}
 		
 		

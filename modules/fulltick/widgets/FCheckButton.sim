@@ -23,127 +23,127 @@ class FCheckButton : FLightButton
     /*
 
     */
-    Width = FApp.Scheme.getShemeValue("FCheckButton.Width") 
+    Width = FApp.Scheme.GetShemeValue("FCheckButton.Width") 
 
     /*
 
     */
-    Height = FApp.Scheme.getShemeValue("FCheckButton.Height") 
+    Height = FApp.Scheme.GetShemeValue("FCheckButton.Height") 
 
     /*
 
     */
-    X = FApp.Scheme.getShemeValue("FCheckButton.X") 
+    X = FApp.Scheme.GetShemeValue("FCheckButton.X") 
 
     /*
 
     */
-    Y = FApp.Scheme.getShemeValue("FCheckButton.Y") 
+    Y = FApp.Scheme.GetShemeValue("FCheckButton.Y") 
 
     /*
 
     */
-    Label = FApp.Scheme.getShemeValue("FCheckButton.Label") 
+    Label = FApp.Scheme.GetShemeValue("FCheckButton.Label") 
 
     /*
 
     */
-    CapitalizeLabel = FApp.Scheme.getShemeValue("FCheckButton.CapitalizeLabel") 
+    CapitalizeLabel = FApp.Scheme.GetShemeValue("FCheckButton.CapitalizeLabel") 
 
     /*
 
     */
-    Background = FApp.Scheme.getShemeValue("FCheckButton.Background") 
+    Background = FApp.Scheme.GetShemeValue("FCheckButton.Background") 
 
     /*
 
     */
-    LabelAlignment = FApp.Scheme.getShemeValue("FCheckButton.LabelAlignment") 
+    LabelAlignment = FApp.Scheme.GetShemeValue("FCheckButton.LabelAlignment") 
 
     /*
 
     */
-    BaseColor = FApp.Scheme.getShemeValue("FCheckButton.BaseColor") 
+    BaseColor = FApp.Scheme.GetShemeValue("FCheckButton.BaseColor") 
 
     /*
 
     */
-    Box = FApp.Scheme.getShemeValue("FCheckButton.Box") 
+    Box = FApp.Scheme.GetShemeValue("FCheckButton.Box") 
 
     /*
 
     */
-    BaseBox = FApp.Scheme.getShemeValue("FCheckButton.BaseBox") 
+    BaseBox = FApp.Scheme.GetShemeValue("FCheckButton.BaseBox") 
 
     /*
 
     */
-    Border = FApp.Scheme.getShemeValue("FCheckButton.Border") 
+    Border = FApp.Scheme.GetShemeValue("FCheckButton.Border") 
 
     /*
 
     */
-    HasBorder = FApp.Scheme.getShemeValue("FCheckButton.HasBorder") 
+    HasBorder = FApp.Scheme.GetShemeValue("FCheckButton.HasBorder") 
 
     /*
 
     */
-    AcceptInput = FApp.Scheme.getShemeValue("FCheckButton.AcceptInput")
+    AcceptInput = FApp.Scheme.GetShemeValue("FCheckButton.AcceptInput")
 
     /*
 
     */
-    Visible = FApp.Scheme.getShemeValue("FCheckButton.Visible") 
+    Visible = FApp.Scheme.GetShemeValue("FCheckButton.Visible") 
 
     /*
 
     */
-    KeyboardFocusable = FApp.Scheme.getShemeValue("FCheckButton.KeyboardFocusable") 
+    KeyboardFocusable = FApp.Scheme.GetShemeValue("FCheckButton.KeyboardFocusable") 
 
     /*
 
     */
-    Text = FApp.Scheme.getShemeValue("FCheckButton.Text") 
+    Text = FApp.Scheme.GetShemeValue("FCheckButton.Text") 
 
     /*
 
     */
-    Tooltip = FApp.Scheme.getShemeValue("FCheckButton.Tooltip") 
+    Tooltip = FApp.Scheme.GetShemeValue("FCheckButton.Tooltip") 
 
     /*
 
     */
-    LabelColor = FApp.Scheme.getShemeValue("FCheckButton.LabelColor") 
+    LabelColor = FApp.Scheme.GetShemeValue("FCheckButton.LabelColor") 
 
     /*
 
     */
-    LabelFont = FApp.Scheme.getShemeValue("FCheckButton.LabelFont") 
+    LabelFont = FApp.Scheme.GetShemeValue("FCheckButton.LabelFont") 
 
     /*
 
     */
-    LabelSize = FApp.Scheme.getShemeValue("FCheckButton.LabelSize")
+    LabelSize = FApp.Scheme.GetShemeValue("FCheckButton.LabelSize")
 
     /*
 
     */
-    LabelType = FApp.Scheme.getShemeValue("FCheckButton.LabelType")
+    LabelType = FApp.Scheme.GetShemeValue("FCheckButton.LabelType")
 
     /*
 
     */
-    SelectionColor = FApp.Scheme.getShemeValue("FCheckButton.SelectionColor")
+    SelectionColor = FApp.Scheme.GetShemeValue("FCheckButton.SelectionColor")
 
     /*
 
     */
-    Shortcut = FApp.Scheme.getShemeValue("FCheckButton.Shortcut")
+    Shortcut = FApp.Scheme.GetShemeValue("FCheckButton.Shortcut")
 
     /*
 
     */
-    Value = FApp.Scheme.getShemeValue("FCheckButton.Value")
+    Value = FApp.Scheme.GetShemeValue("FCheckButton.Value")
 
     /*
 
@@ -154,38 +154,38 @@ class FCheckButton : FLightButton
 
     */
     block Init(params...)
-        paramsLen = lengthOf(params)
+        paramsLen = LengthOf(params)
         if paramsLen == 1 {
             Label = params[0]
-            if !isString(Label) {
-                throw(self,"Invalid parameter Expecting 'string' as FCheckButton Label")
+            if !IsString(Label) {
+                Throw(self,"Invalid parameter Expecting 'string' as FCheckButton Label")
             }
         elif paramsLen == 2
             Width = params[0]
             Height = params[1]
-            if !isNumber(Width) or !isNumber(Height) {
-                throw(self,"Invalid parameter Expecting 'number' as FCheckButton Width and Height")
+            if !IsNumber(Width) or !IsNumber(Height) {
+                Throw(self,"Invalid parameter Expecting 'number' as FCheckButton Width and Height")
             }
         elif paramsLen == 3 
             Width = params[0]
             Height = params[1]
             Label = params[2]
-            if !isNumber(Width) or !isNumber(Height) {
-                throw(self,"Invalid parameter Expecting 'number' as FCheckButton Width and Height")
+            if !IsNumber(Width) or !IsNumber(Height) {
+                Throw(self,"Invalid parameter Expecting 'number' as FCheckButton Width and Height")
             }
-            if !isString(Label) {
-                throw(self,"Invalid parameter Expecting 'string' as FCheckButton Label")
+            if !IsString(Label) {
+                Throw(self,"Invalid parameter Expecting 'string' as FCheckButton Label")
             }
         elif paramsLen == 4
             X = params[0]
             Y = params[1]
             Width = params[2]
             Height = params[3]
-            if !isNumber(X) or !isNumber(Y) {
-                throw(self,"Invalid parameter Expecting 'number' as FCheckButton X and Y")
+            if !IsNumber(X) or !IsNumber(Y) {
+                Throw(self,"Invalid parameter Expecting 'number' as FCheckButton X and Y")
             }
-            if !isNumber(Width) or !isNumber(Height) {
-                throw(self,"Invalid parameter Expecting 'number' as FCheckButton Width and Height")
+            if !IsNumber(Width) or !IsNumber(Height) {
+                Throw(self,"Invalid parameter Expecting 'number' as FCheckButton Width and Height")
             }
         elif paramsLen == 5
             X = params[0]
@@ -193,44 +193,44 @@ class FCheckButton : FLightButton
             Width = params[2]
             Height = params[3]
             Label = params[4]
-            if !isNumber(X) or !isNumber(Y) {
-                throw(self,"Invalid parameter Expecting 'number' as FCheckButton X and Y")
+            if !IsNumber(X) or !IsNumber(Y) {
+                Throw(self,"Invalid parameter Expecting 'number' as FCheckButton X and Y")
             }
-            if !isNumber(Width) or !isNumber(Height) {
-                throw(self,"Invalid parameter Expecting 'number' as FCheckButton Width and Height")
+            if !IsNumber(Width) or !IsNumber(Height) {
+                Throw(self,"Invalid parameter Expecting 'number' as FCheckButton Width and Height")
             }
-            if !isString(Label) {
-                throw(self,"Invalid parameter Expecting 'string' as FCheckButton Label")
+            if !IsString(Label) {
+                Throw(self,"Invalid parameter Expecting 'string' as FCheckButton Label")
             }
         else    
             if paramsLen != 0 {
-                throw(self,"Calling block with invalid legth of parameter")
+                Throw(self,"Calling block with invalid legth of parameter")
             }
         } 
 
         if CapitalizeLabel {
-            Label = toUpperCase(Label)
+            Label = ToUpperCase(Label)
         }
         Ptr = __Fl_Check_Button(X, Y, Width, Height, "")
-        registerWidget()
-        #resize(X, Y, Width, Height)
-        setLabelAlignment(LabelAlignment)
-        setBox(Box)
-        setBaseColor(BaseColor)
-        setBorder(Border)
-        construct()
-        setValue(Value)
+        RegisterWidget()
+        #Resize(X, Y, Width, Height)
+        SetLabelAlignment(LabelAlignment)
+        SetBox(Box)
+        SetBaseColor(BaseColor)
+        SetBorder(Border)
+        Construct()
+        SetValue(Value)
         
         return self
 
     /*
         
     */
-    block setPlatformScheme(string schemeName)
+    block SetPlatformScheme(string schemeName)
         if schemeName == FScheme.Macosx {
 			
         else 
-			super.setPlatformScheme(schemeName)
+			super.SetPlatformScheme(schemeName)
 			
         }
 

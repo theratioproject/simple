@@ -48,7 +48,7 @@ final ConsoleColor = new ConsoleColor
 
 /*
 	The standard output stream is the default destination of output for console programs. It is usually directed 
-	by default to the text console (generally, on the screen) which can be the terminal. 
+	by default to the text Console (generally, on the screen) which can be the terminal. 
 	
 	Although it is commonly  assumed that the default destination for stdout is going to be the screen, this may 
 	not be the case even in regular console systems, since stdout can generally be redirected on most operating 
@@ -72,12 +72,12 @@ final stdout = new PrintWriter(new FileWriter(__stdout()), true){
 
 /*
 	The standard error stream is the default destination for error messages and other diagnostic warnings. 
-	Like `final stdout`_ , it is usually also directed by default to the text console (generally, on the screen).
+	Like `final stdout`_ , it is usually also directed by default to the text Console (generally, on the screen).
 	
-	Although in many cases both `final stdout`_ and stderr are associated with the same output device 
+	Although in many cases both `final stdout`_ and stderr are associated with the same output Device 
 	(like the console), applications may differentiate between what is sent to `final stdout`_ and what to 
 	stderr for the case that one of them is redirected. For example, it is frequent to redirect the regular 
-	output of a console program (`final stdout`_) to a file while expecting the error messages to keep appearing 
+	output of a console Program (`final stdout`_) to a file while expecting the error messages to keep appearing 
 	in the console.
 	
 	.. note::
@@ -117,18 +117,18 @@ final stdin = new FileReader(__stdin(), "rb") {
 	equivalent to using the **system** function to clear the console, with the platform specific command. 
 	The following command are issued base on the platform 
 	
-	* Windows 	system("cls")
-	* Others 	system("clear")
+	* Windows 	System("cls")
+	* Others 	System("clear")
 	
 	This is proven to work in a command line environment but should be avoided in a GUI application as 
 	a console or terminal might pop up to execute the **system** command.
 */
-block clearConsole()
-	if isWindows() {
-		system("cls")
+block ClearConsole()
+	if IsWindows() {
+		System("cls")
 		return
 	}
-	system("clear")
+	System("clear")
 
 /*S
 	.. _simple.util.ConsoleColor: ./ConsoleColor.html

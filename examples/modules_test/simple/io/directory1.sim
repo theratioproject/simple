@@ -9,16 +9,16 @@ from simple.util.Console
 
 block main() 
 	directory = new Directory("../../../../")
-	stdout.println(directory)
-	stdout.println(directory.Contents)
-	stdout.println("The Files")
+	stdout.Println(directory)
+	stdout.Println(directory.Contents)
+	stdout.Println("The Files")
 	files = directory.Files
 	for file in files {
-		stdout.println(file.AbsolutePath)
+		stdout.Println(file.AbsolutePath)
 	}
 	
-	stdout.println("The Folders")
+	stdout.Println("The Folders")
 	folders = directory.Directories
 	for folder in folders {
-		stdout.println(folder.AbsolutePath)
+		stdout.Println(folder.AbsolutePath)
 	} 

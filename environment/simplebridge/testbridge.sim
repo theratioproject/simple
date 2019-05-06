@@ -26,19 +26,19 @@ class Hello
 /*
 	This is the comment for hello world 
 */ 
-block helloWorld(one,two,three)
+block HelloWorld(one,two,three)
 	return 'hello'
 	
 /*
 	This is the comment for hello 
 */ 
-block hello(one)
+block Hello(one)
 	return 'hello'
 	
 /*
 	This is the comment for hello 
 */ 
-block hello(one)
+block Hello(one)
 	return 'hello'
 
 /*

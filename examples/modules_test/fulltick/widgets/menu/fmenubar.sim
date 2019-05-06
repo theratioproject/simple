@@ -15,7 +15,7 @@ import fulltick.objects
 import fulltick.drawing
 
 button = new ButtonDemo
-FApp.run() 
+FApp.Run() 
 
 class ButtonDemo 
 	menu = [
@@ -28,12 +28,12 @@ class ButtonDemo
 		]]
 	]
     fwindow = new FWindow(400,200,"FMenuBar Testing only") {
-		menu1 = new FMenuBar(0,0,menu) { setPlatformScheme(FScheme.Windows) }
-		menu2 = new FMenuBar(0,50,menu) { setPlatformScheme(FScheme.Android) }
-		menu3 = new FMenuBar(0,100,menu) { setPlatformScheme(FScheme.Linux) }
-		menu4 = new FMenuBar(0,150,menu) { setPlatformScheme(FScheme.Macosx) }
-		add(menu1, menu2, menu3, menu4)
-        centerOnScreen() 
-        show()        
+		menu1 = new FMenuBar(0,0,menu) { SetPlatformScheme(FScheme.Windows) }
+		menu2 = new FMenuBar(0,50,menu) { SetPlatformScheme(FScheme.Android) }
+		menu3 = new FMenuBar(0,100,menu) { SetPlatformScheme(FScheme.Linux) }
+		menu4 = new FMenuBar(0,150,menu) { SetPlatformScheme(FScheme.Macosx) }
+		Add(menu1, menu2, menu3, menu4)
+        CenterOnScreen() 
+        Show()        
     } 
         

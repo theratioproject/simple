@@ -11,7 +11,7 @@ end
 #	
 #count 0 to 5000000 in 	14.84500 seconds
 #count 0 to 1000000 in 	3.12700 seconds 
-#count 0 to 10000000 in 29.72900 seconds(x86) 17.12000 seconds(x64)
+#count 0 to 10000000 in 29.72900 Seconds(x86) 17.12000 Seconds(x64)
 #count 0 to 100000000 in 4.95610 minutes
 #count 0 to 1000000000 in 
 #count 0 to 10000000000 in 

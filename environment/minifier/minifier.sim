@@ -23,54 +23,54 @@ block main()
 	sourceFile = null 
 	sourceFilePath = null
 	sourceFileContent = null 
-	cmdparamsLen = lengthOf(cmdparams) - 1
-	if cmdparamsLen <= 0 { help() }
+	cmdparamsLen = LengthOf(cmdparams) - 1
+	if cmdparamsLen <= 0 { Help() }
 	for a = 0 to cmdparamsLen {
 		param = cmdparams[a]
 		if param == "-s" or param == "--s" or param == "--source" { 
 			if a < cmdparamsLen {
 				sourceFilePath = cmdparams[a++] 
 			else
-				help()
+				Help()
 			}
 		elif param == "-y" or param == "--y" or param == "--yes" skipRequest = true
 		else }
 	}
 	
-	if !isNull(sourceFilePath) {
+	if !IsNull(sourceFilePath) {
 		sourceFile = new Path(sourceFilePath)
-		if sourceFile.isDirectory() {
-			minifySourceDir(sourceFile.toDirectory())
-		elif sourceFile.isFile()
-			minifySourceFile(sourceFile.toFile())
+		if sourceFile.IsDirectory() {
+			MinifySourceDir(sourceFile.ToDirectory())
+		elif sourceFile.IsFile()
+			MinifySourceFile(sourceFile.ToFile())
 		else 
-			throw("Invalid simple source : " + sourceFilePath)
+			Throw("Invalid simple source : " + sourceFilePath)
 		}
 		__exit__
-		if sourceFile.exists() {
+		if sourceFile.Exists() {
 			
 		else
-			throw(sourceFile.absolutePath()+" : does not exists")
+			Throw(sourceFile.AbsolutePath()+" : does not exists")
 		}
 		
 	}
 	
-block minifySourceDir(sourceDir)
-	files = sourceDir.listFiles()
-	filesLen = lengthOf(files) - 1
+block MinifySourceDir(sourceDir)
+	files = sourceDir.ListFiles()
+	filesLen = LengthOf(files) - 1
 	for b = 0 to filesLen {
-		minifySourceFile(files[b])
+		MinifySourceFile(files[b])
 	}
-	dirs = sourceDir.listDirectories()
-	dirsLen = lengthOf(dirs) - 1
+	dirs = sourceDir.ListDirectories()
+	dirsLen = LengthOf(dirs) - 1
 	for b = 0 to dirsLen {
-		@"moving into directory : "+dirs[b].absolutePath()
-		minifySourceDir(dirs[b])
+		@"moving into directory : "+dirs[b].AbsolutePath()
+		MinifySourceDir(dirs[b])
 	}
 	
-block minifySourceFile(sourceFile)
-	if !strEndsWith(sourceFile.Name,".sim") {
-		@sourceFile.Name+" : not a simple source file (*.sim) skipping..."
+block MinifySourceFile(sourceFile)
+	if !StrEndsWith(sourceFile.Name,".sim") {
+		@sourceFile.Name+" : not a simple source File (*.sim) skipping..."
 		return
 	}
 	if !skipRequest {
@@ -79,8 +79,8 @@ block minifySourceFile(sourceFile)
 			return
 		}
 	}
-	source = " "+sourceFile.readAllString() + " "
-	if strLineCount(source) < 1 {
+	source = " "+sourceFile.ReadAllString() + " "
+	if StrLineCount(source) < 1 {
 		@sourceFile.Name+" : already minified"
 		return
 	}
@@ -88,12 +88,12 @@ block minifySourceFile(sourceFile)
 	minifiedSource = ""
 	TOKEN_IDENTIFIER =  0 TOKEN_MULTILINE_COMMENT = 1 TOKEN_LITERAL_1 = 2 TOKEN_LITERAL_2 = 3
 	type = TOKEN_IDENTIFIER
-	sourceLen = lengthOf(source) - 2
+	sourceLen = LengthOf(source) - 2
 	for i = 0 to sourceLen {
 		switch type {
 			case TOKEN_IDENTIFIER
-				if source[i] == tab or isNewLine(source[i]) {
-					if isWhiteSpace(source[i+1]) or (isPunctuation(source[i+1]) and source[i+1] != '_' and source[i+1] != '$' ) {
+				if source[i] == tab or IsNewLine(source[i]) {
+					if IsWhiteSpace(source[i+1]) or (IsPunctuation(source[i+1]) and source[i+1] != '_' and source[i+1] != '$' ) {
 						minifiedSource += "" 
 					else
 						minifiedSource += " " 
@@ -109,8 +109,8 @@ block minifySourceFile(sourceFile)
 							
 						}
 					}
-				elif isPunctuation(source[i]) and (source[i] != "/" and source[i+1] != "*")
-					if isWhiteSpace(source[i+1]) {
+				elif IsPunctuation(source[i]) and (source[i] != "/" and source[i+1] != "*")
+					if IsWhiteSpace(source[i+1]) {
 						minifiedSource += source[i]
 						i++
 					else
@@ -141,18 +141,18 @@ block minifySourceFile(sourceFile)
 	__write_file(sourceFile.AbsolutePath, minifiedSource)
 	@" (done)"
 	
-block isNewLine(val)
+block IsNewLine(val)
 	return val == crlf or val = nl or val == cr
 
-block help()
-	stdout.println("usage:  minifier --s [SOURCE] [OPTIONS]
+block Help()
+	stdout.Println("usage:  minifier --s [SOURCE] [OPTIONS]
 
 [SOURCE] : the folder or source file to be minified
 [OPTIONS] : option passed to the modular program.
 
 The [OPTIONS] include: 
 	-y  --yes	do not ask permission")
-	exit(0)
+	Exit(0)
 	
 #TODO : move code to next line if the last block has return only and the next keyword is block SEE minified Object.sim
 #TODO : implement a cache in the default os temp folder to revert back source in case of error

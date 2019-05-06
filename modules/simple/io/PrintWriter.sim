@@ -37,8 +37,8 @@ class PrintWriter : Object
 	
 	*/
 	block Init(FileWriter fileWriter, boolean autoFlush)
-		if isNull(fileWriter) {
-			throw(self, "The parameter cannot be null ")
+		if IsNull(fileWriter) {
+			Throw(self, "The parameter cannot be null ")
 			return null
 		}
 		self.AutoFlush = autoFlush
@@ -50,48 +50,48 @@ class PrintWriter : Object
 	/*
 	
 	*/
-	block write(string data)
+	block Write(string data)
 		if IsOpen {
-			fileWriter.write(data) 
-			if strContains(data,ascii(10)) and AutoFlush {
-				fileWriter.flush()
+			fileWriter.Write(data) 
+			if StrContains(data,Ascii(10)) and AutoFlush {
+				fileWriter.Flush()
 			}
 		else
-			throw(self, "The PrintWriter has been closed")
+			Throw(self, "The PrintWriter has been closed")
 		}
 		
 	/*
 	
 	*/
-	block print(var data)
-		write(unEscapeString(strValueOf(data)))
+	block Print(var data)
+		Write(UnEscapeString(StrValueOf(data)))
 		
 	/*
 	
 	*/
-	block println(var data...)
-		dataLen = lengthOf(data)
+	block Println(var data...)
+		dataLen = LengthOf(data)
 		if dataLen == 0 {	
-			printNewLine()
+			PrintNewLine()
 			
 		elif dataLen == 1
-			write(unEscapeString(strValueOf(data[0])))
-			printNewLine()
+			Write(UnEscapeString(StrValueOf(data[0])))
+			PrintNewLine()
 		else
-			throw(self,"Calling block with extra parameters !")
+			Throw(self,"Calling block with extra parameters !")
 			return
 		}
 		
 	/*
 	
 	*/
-	block printNewLine()
+	block PrintNewLine()
 		try {
 			if IsOpen {
-				fileWriter.write(LineSeperator()) 
-				fileWriter.flush()
+				fileWriter.Write(LineSeperator()) 
+				fileWriter.Flush()
 			else
-				throw(self, "The PrintWriter has been closed")
+				Throw(self, "The PrintWriter has been closed")
 			}
 		catch
 			
@@ -100,60 +100,60 @@ class PrintWriter : Object
 	/*
 	
 	*/
-	block printf(params...)
-		value = strFormat(params)
-		write(value)
+	block Printf(params...)
+		value = StrFormat(params)
+		Write(value)
 		
 	/*
 	
 	*/#maybe splice to parameter :?
-	block printfi(params...)
-		value = strFormatIndex(params)
-		write(value)	
+	block Printfi(params...)
+		value = StrFormatIndex(params)
+		Write(value)	
 
 	/*
 		print with fore ground color if supported
 	*/
-	block printfc(number color, params...)
+	block Printfc(number color, params...)
 		if !IsOpen {
-			throw(self, "The file has been closed ")
+			Throw(self, "The file has been closed ")
 			return false
 		}
-		value = strFormatIndex(params)
+		value = StrFormatIndex(params)
 		__printwfb(fileWriter.FilePointer, color, BackgroundColor, value)
-		fileWriter.flush()
+		fileWriter.Flush()
 
 	/*
 		print with back ground color if supported
 	*/
-	block printbc(number color, params...)
+	block Printbc(number color, params...)
 		if !IsOpen {
-			throw(self, "The file has been closed ")
+			Throw(self, "The file has been closed ")
 			return false
 		}
-		value = strFormatIndex(params)
+		value = StrFormatIndex(params)
 		__printwfb(fileWriter.FilePointer, ForegroundColor, color, value)
-		fileWriter.flush()
+		fileWriter.Flush()
 
 	/*
 		print with back ground color if supported
 	*/
-	block printbfc(number bgcolor, number fgcolor, params...)
+	block Printbfc(number bgcolor, number fgcolor, params...)
 		if !IsOpen {
-			throw(self, "The file has been closed ")
+			Throw(self, "The file has been closed ")
 			return false
 		}
-		value = strFormatIndex(params)
+		value = StrFormatIndex(params)
 		__printwfb(fileWriter.FilePointer, fgcolor, bgcolor, value)
-		fileWriter.flush()
+		fileWriter.Flush()
 	
 	/*
 	
 	*/
-	block flush()
+	block Flush()
 		try {
 			if fileWriter.IsOpen {
-				fileWriter.flush()
+				fileWriter.Flush()
 			}
 		catch
 			
@@ -162,13 +162,13 @@ class PrintWriter : Object
 	/*
 	
 	*/
-	block close()
+	block Close()
 		if IsOpen {
 			if !Closable {
-				fileWriter.flush()
+				fileWriter.Flush()
 			else
 				try {
-					fileWriter.close()
+					fileWriter.Close()
 				catch
 					
 				}
@@ -185,18 +185,18 @@ class PrintWriter : Object
 		@See @Block close
 		@See @Block flush
 	*/
-	block done() 
-		close()
+	block Done() 
+		Close()
 
 	/*
 
 	*/
-	block operator(string op,object value)
+	block Operator(string op,object value)
 		switch op {
 			case "<<"
-				print(value)
+				Print(value)
 			default 
-				return super.operator(op,value)
+				return super.Operator(op,value)
 		}
 		return self
 	

@@ -23,102 +23,102 @@ class FInput : FInput_
     /*
 
     */
-    Width = FApp.Scheme.getShemeValue("FInput.Width") 
+    Width = FApp.Scheme.GetShemeValue("FInput.Width") 
 
     /*
 
     */
-    Height = FApp.Scheme.getShemeValue("FInput.Height") 
+    Height = FApp.Scheme.GetShemeValue("FInput.Height") 
 
     /*
 
     */
-    X = FApp.Scheme.getShemeValue("FInput.X") 
+    X = FApp.Scheme.GetShemeValue("FInput.X") 
 
     /*
 
     */
-    Y = FApp.Scheme.getShemeValue("FInput.Y") 
+    Y = FApp.Scheme.GetShemeValue("FInput.Y") 
 
     /*
 
     */
-    Label = FApp.Scheme.getShemeValue("FInput.Label") 
+    Label = FApp.Scheme.GetShemeValue("FInput.Label") 
 
     /*
 
     */
-    CapitalizeLabel = FApp.Scheme.getShemeValue("FInput.CapitalizeLabel") 
+    CapitalizeLabel = FApp.Scheme.GetShemeValue("FInput.CapitalizeLabel") 
 
     /*
 
     */
-    Background = FApp.Scheme.getShemeValue("FInput.Background") 
+    Background = FApp.Scheme.GetShemeValue("FInput.Background") 
 
     /*
 
     */
-    LabelAlignment = FApp.Scheme.getShemeValue("FInput.LabelAlignment") 
+    LabelAlignment = FApp.Scheme.GetShemeValue("FInput.LabelAlignment") 
 
     /*
 
     */
-    Box = FApp.Scheme.getShemeValue("FInput.Box") 
+    Box = FApp.Scheme.GetShemeValue("FInput.Box") 
 
     /*
 
     */
-    Border = FApp.Scheme.getShemeValue("FInput.Border") 
+    Border = FApp.Scheme.GetShemeValue("FInput.Border") 
 
     /*
 
     */
-    HasBorder = FApp.Scheme.getShemeValue("FInput.HasBorder") 
+    HasBorder = FApp.Scheme.GetShemeValue("FInput.HasBorder") 
 
     /*
 
     */
-    AcceptInput = FApp.Scheme.getShemeValue("FInput.AcceptInput")
+    AcceptInput = FApp.Scheme.GetShemeValue("FInput.AcceptInput")
 
     /*
 
     */
-    Visible = FApp.Scheme.getShemeValue("FInput.Visible") 
+    Visible = FApp.Scheme.GetShemeValue("FInput.Visible") 
 
     /*
 
     */
-    KeyboardFocusable = FApp.Scheme.getShemeValue("FInput.KeyboardFocusable") 
+    KeyboardFocusable = FApp.Scheme.GetShemeValue("FInput.KeyboardFocusable") 
 
     /*
 
     */
-    Tooltip = FApp.Scheme.getShemeValue("FInput.Tooltip") 
+    Tooltip = FApp.Scheme.GetShemeValue("FInput.Tooltip") 
 
     /*
 
     */
-    LabelColor = FApp.Scheme.getShemeValue("FInput.LabelColor") 
+    LabelColor = FApp.Scheme.GetShemeValue("FInput.LabelColor") 
 
     /*
 
     */
-    LabelFont = FApp.Scheme.getShemeValue("FInput.LabelFont") 
+    LabelFont = FApp.Scheme.GetShemeValue("FInput.LabelFont") 
 
     /*
 
     */
-    LabelSize = FApp.Scheme.getShemeValue("FInput.LabelSize")
+    LabelSize = FApp.Scheme.GetShemeValue("FInput.LabelSize")
 
     /*
 
     */
-    LabelType = FApp.Scheme.getShemeValue("FInput.LabelType")
+    LabelType = FApp.Scheme.GetShemeValue("FInput.LabelType")
 
     /*
 
     */
-    SelectionColor = FApp.Scheme.getShemeValue("FInput.SelectionColor")
+    SelectionColor = FApp.Scheme.GetShemeValue("FInput.SelectionColor")
 
     /*
 
@@ -128,99 +128,99 @@ class FInput : FInput_
     /*
 
     */
-    Value = FApp.Scheme.getShemeValue("FInput.Value")
+    Value = FApp.Scheme.GetShemeValue("FInput.Value")
 
     /*
 
     */
-    CursorColor = FApp.Scheme.getShemeValue("FInput.CursorColor")
+    CursorColor = FApp.Scheme.GetShemeValue("FInput.CursorColor")
 
     /*
 
     */
-    Mark = FApp.Scheme.getShemeValue("FInput.Mark")
+    Mark = FApp.Scheme.GetShemeValue("FInput.Mark")
 
     /*
 
     */
-    MaximumSize = FApp.Scheme.getShemeValue("FInput.MaximumSize")
+    MaximumSize = FApp.Scheme.GetShemeValue("FInput.MaximumSize")
 	
 	/*
 	
 	*/
-	CaretPosition = FApp.Scheme.getShemeValue("FInput.CaretPosition")
+	CaretPosition = FApp.Scheme.GetShemeValue("FInput.CaretPosition")
 	
 	/*
 	
 	*/
-	ReadOnly = FApp.Scheme.getShemeValue("FInput.ReadOnly")
+	ReadOnly = FApp.Scheme.GetShemeValue("FInput.ReadOnly")
 
     /*
 
     */
-    Shortcut = FApp.Scheme.getShemeValue("FInput.Shortcut")
+    Shortcut = FApp.Scheme.GetShemeValue("FInput.Shortcut")
 
     /*
 
     */
-    TabNav = FApp.Scheme.getShemeValue("FInput.TabNav")
+    TabNav = FApp.Scheme.GetShemeValue("FInput.TabNav")
 
     /*
 
     */
-    Wrap = FApp.Scheme.getShemeValue("FInput.Wrap")
+    Wrap = FApp.Scheme.GetShemeValue("FInput.Wrap")
 
     /*
 
     */
-    TextColor = FApp.Scheme.getShemeValue("FInput.TextColor") 
+    TextColor = FApp.Scheme.GetShemeValue("FInput.TextColor") 
 
     /*
 
     */
-    TextFont = FApp.Scheme.getShemeValue("FInput.TextFont") 
+    TextFont = FApp.Scheme.GetShemeValue("FInput.TextFont") 
 
     /*
 
     */
-    TextSize = FApp.Scheme.getShemeValue("FInput.TextSize")
+    TextSize = FApp.Scheme.GetShemeValue("FInput.TextSize")
 
     /*
 
     */
     block Init(params...)
-        paramsLen = lengthOf(params)
+        paramsLen = LengthOf(params)
         if paramsLen == 1 {
             Value = params[0]
-            if !isString(Value) {
-                throw(self,"Invalid parameter Expecting 'string' as FInput Value")
+            if !IsString(Value) {
+                Throw(self,"Invalid parameter Expecting 'string' as FInput Value")
             }
         elif paramsLen == 2
             X = params[0]
             Y = params[1]
-            if !isNumber(X) or !isNumber(Y) {
-                throw(self,"Invalid parameter Expecting 'number' as FInput X and Y")
+            if !IsNumber(X) or !IsNumber(Y) {
+                Throw(self,"Invalid parameter Expecting 'number' as FInput X and Y")
             }
         elif paramsLen == 3 
             X = params[0]
             Y = params[1]
             Value = params[2]
-            if !isNumber(X) or !isNumber(Y) {
-                throw(self,"Invalid parameter Expecting 'number' as FInput X and Y")
+            if !IsNumber(X) or !IsNumber(Y) {
+                Throw(self,"Invalid parameter Expecting 'number' as FInput X and Y")
             }
-            if !isString(Value) {
-                throw(self,"Invalid parameter Expecting 'string' as FInput Value")
+            if !IsString(Value) {
+                Throw(self,"Invalid parameter Expecting 'string' as FInput Value")
             }
         elif paramsLen == 4
             X = params[0]
             Y = params[1]
             Width = params[2]
             Height = params[3]
-            if !isNumber(X) or !isNumber(Y) {
-                throw(self,"Invalid parameter Expecting 'number' as FInput X and Y")
+            if !IsNumber(X) or !IsNumber(Y) {
+                Throw(self,"Invalid parameter Expecting 'number' as FInput X and Y")
             }
-            if !isNumber(Width) or !isNumber(Height) {
-                throw(self,"Invalid parameter Expecting 'number' as FInput Width and Height")
+            if !IsNumber(Width) or !IsNumber(Height) {
+                Throw(self,"Invalid parameter Expecting 'number' as FInput Width and Height")
             }
         elif paramsLen == 5
             X = params[0]
@@ -228,25 +228,25 @@ class FInput : FInput_
             Width = params[2]
             Height = params[3]
             Value = params[4]
-            if !isNumber(X) or !isNumber(Y) {
-                throw(self,"Invalid parameter Expecting 'number' as FInput X and Y")
+            if !IsNumber(X) or !IsNumber(Y) {
+                Throw(self,"Invalid parameter Expecting 'number' as FInput X and Y")
             }
-            if !isNumber(Width) or !isNumber(Height) {
-                throw(self,"Invalid parameter Expecting 'number' as FInput Width and Height")
+            if !IsNumber(Width) or !IsNumber(Height) {
+                Throw(self,"Invalid parameter Expecting 'number' as FInput Width and Height")
             }
-            if !isString(Value) {
-                throw(self,"Invalid parameter Expecting 'string' as FInput Value")
+            if !IsString(Value) {
+                Throw(self,"Invalid parameter Expecting 'string' as FInput Value")
             }
         else    
             if paramsLen != 0 {
-                throw(self,"Calling block with invalid legth of parameter")
+                Throw(self,"Calling block with invalid legth of parameter")
             }
         } 
         Ptr = __Fl_Input(X, Y, Width, Height, "") 
-        registerWidget()
-        setBox(Box)
-        setBorder(Border)
-        construct()
+        RegisterWidget()
+        SetBox(Box)
+        SetBorder(Border)
+        Construct()
         
         return self
 

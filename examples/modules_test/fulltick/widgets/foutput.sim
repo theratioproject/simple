@@ -15,15 +15,15 @@ import fulltick.objects
 import fulltick.drawing
 
 flabelDemo = new FOutputDemo
-FApp.run()
+FApp.Run()
 
 class FOutputDemo
 
     fwindow = new FWindow(320,50,"FOutput Demo") { 
-		input = new FOutput(10,10,strCopy("Hello World", 20))
-        centerOnScreen() 
+		input = new FOutput(10,10,StrCopy("Hello World", 20))
+        CenterOnScreen() 
         Resizable = false
-        add(input)
-        show()        
+        Add(input)
+        Show()        
     } 
         

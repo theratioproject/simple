@@ -6,17 +6,17 @@
 
 from simple.util.Math
 
-block fastPowering(base, power)
+block FastPowering(base, power)
   if power == 0 {
     return 1
   }
 
   if power % 2 == 0 {
-    multiplier = fastPowering(base, power / 2)
+    multiplier = FastPowering(base, power / 2)
     return multiplier * multiplier
   }
 
-  multiplier = fastPowering(base, floor(power / 2))
+  multiplier = FastPowering(base, Floor(power / 2))
 
   return multiplier * multiplier * base
 

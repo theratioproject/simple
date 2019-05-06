@@ -4,21 +4,21 @@ from fulltick.FApp
 from fulltick.FScheme
 import simple.core, simple.system, fulltick.painting, fulltick.objects, fulltick.drawing
 
-FApp.run()
-stdout.println(FApp.isRunning())
+FApp.Run()
+stdout.Println(FApp.IsRunning())
 
-stdout.println(FApp.scheme())
-FApp.scheme("platic")
-stdout.println(FApp.scheme())
+stdout.Println(FApp.Scheme())
+FApp.Scheme("platic")
+stdout.Println(FApp.Scheme())
 try {
-	FApp.scheme("platic","bottle")
+	FApp.Scheme("platic","bottle")
 catch 
-	#stderr.println(__err__)
+	#stderr.Println(__err__)
 }
 
 scheme = new FScheme
-scheme.set("FWindow.Background",new FColor(242,242,242))
+scheme.Set("FWindow.Background",new FColor(242,242,242))
 scheme.SchemeName = "gtk+"
-FApp.scheme(FScheme.GTK)
-stdout.println(FApp.scheme())
-FApp.run()
+FApp.Scheme(FScheme.GTK)
+stdout.Println(FApp.Scheme())
+FApp.Run()

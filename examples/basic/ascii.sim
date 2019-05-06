@@ -10,7 +10,7 @@
 
 from simple.util.Console
 
-tab = ascii(9)
+tab = Ascii(9)
 isfirst = true
 issecond = false
 
@@ -18,20 +18,20 @@ stdout.Printfc(ConsoleColorBlue, " ")
 stdout.Printfc(ConsoleColorYellow, "\t\t\tAmerican Standard Code for Information Interchange (ASCII) Charaters\n")
 stdout.Printfc(ConsoleColorMagenta, "\t\t\t\t\t  Author : Azeez Adewale\n")
 stdout.Printfc(ConsoleColorRed, "\t\t\t\t   MIT License Copyright (c) 2018 SIMPLE \n")
-#printLineWithColor(ConsoleColor.BLUE, null)
+#PrintLineWithColor(ConsoleColor.BLUE, null)
 stdout.Printfc(ConsoleColorGreen, "\tSN\t|\tDEC\t|\tSYMBLOL\t\t~\tSN\t|\tDEC\t|\tSYMBLOL\n")
 
 for a = 100 to 150 #value can be changed
 	if isfirst 
-		display tab+a+tab+"|"+tab+"ascii("+a+")"+tab+"|"+tab+ascii(a)
+		display tab+a+tab+"|"+tab+"Ascii("+a+")"+tab+"|"+tab+Ascii(a)
 		isfirst = false issecond = true
 	elif issecond 
-		display tab+tab+"~"+tab+a+tab+"|"+tab+"ascii("+a+")"+tab+"|"+tab+ascii(a)+crlf
+		display tab+tab+"~"+tab+a+tab+"|"+tab+"Ascii("+a+")"+tab+"|"+tab+Ascii(a)+crlf
 		issecond = false isfirst = true
 	end
 end
 
 /*
-	ascii(8) - backspace
+	Ascii(8) - backspace
 
 */

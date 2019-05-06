@@ -7,18 +7,18 @@
 	:filename: optional_parameters.sim
 */
 
-printStr([ :text = "Hello World", :suffix = ".txt", :pos = 20 ])
-printStr([ :text = "Hello World", :suffix = ".txt" ])
-printStr([ :text = "Hello World" ])
-printStr([])
+PrintStr([ :text = "Hello World", :suffix = ".txt", :pos = 20 ])
+PrintStr([ :text = "Hello World", :suffix = ".txt" ])
+PrintStr([ :text = "Hello World" ])
+PrintStr([])
 
-block printStr(params)
+block PrintStr(params)
         text = params["text"]
         suffix = params["suffix"]
         pos = params["pos"]
 
-	if lengthOf(suffix) > 0 {
+	if LengthOf(suffix) > 0 {
 		text = text + suffix
         }
 
-	display (text+nl)
+	Display (text+nl)

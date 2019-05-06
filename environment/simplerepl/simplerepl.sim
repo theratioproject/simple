@@ -10,18 +10,18 @@ from simple.system.System
 from simple.core.String
 
 multiLine = false
-simpleReplTitle = "simple "+simpleVersion() + "\n"
+simpleReplTitle = "simple "+SimpleVersion() + "\n"
 
-clearConsole()
-stdout.printfc(ConsoleColor.None, simpleReplTitle)
+ClearConsole()
+stdout.Printfc(ConsoleColor.None, simpleReplTitle)
 while true {
-	stdout.printfc(ConsoleColor.Cyan, "simple$ ") 
+	stdout.Printfc(ConsoleColor.Cyan, "simple$ ") 
 	read code
 	if code == "-\" {
 		multiLine = true
 		code = ""
 	}
-	while strEndsWith(code, "\") or multiLine {
+	while StrEndsWith(code, "\") or multiLine {
 		read newCode
 		if newCode == "-/" {
 			multiLine = false
@@ -30,7 +30,7 @@ while true {
 		if multiLine {
 			code += nl
 		else
-			code[lengthOf(code)-1] = " "
+			code[LengthOf(code)-1] = " "
 		}
 		code += newCode
 	}
@@ -38,8 +38,8 @@ while true {
 		break
 	}
 	try {
-		executeCode(code)
+		ExecuteCode(code)
 	catch
-		stderr.printfc(ConsoleColor.None, __err__+"\n")
+		stderr.Printfc(ConsoleColor.None, __err__+"\n")
 	}
 } 

@@ -85,17 +85,17 @@ class FLabelType : Object
 
     */
     block Init(type)
-        if isNumber(type) {
+        if IsNumber(type) {
             LabelType = type
         else
-            throw(self,"Invalid parameter in FLabelType Constructor. Expecting (Number). Found (" + objectType(type) + ")")
+            Throw(self,"Invalid parameter in FLabelType Constructor. Expecting (Number). Found (" + ObjectType(type) + ")")
         }
 
     /*
 
     */
-    block getFL_NORMAL_LABEL()
-        if isNull(FL_NORMAL_LABEL) {
+    block GetFL_NORMAL_LABEL()
+        if IsNull(FL_NORMAL_LABEL) {
             FL_NORMAL_LABEL = new FLabelType(__FL_NORMAL_LABEL())
         } 
         return FL_NORMAL_LABEL
@@ -103,20 +103,20 @@ class FLabelType : Object
     /*
 
     */
-    block getNORMAL_LABEL()
-        return getFL_NORMAL_LABEL()
+    block GetNORMAL_LABEL()
+        return GetFL_NORMAL_LABEL()
 
     /*
 
     */
-    block getDEFAULT()
-        return getFL_NORMAL_LABEL()
+    block GetDEFAULT()
+        return GetFL_NORMAL_LABEL()
 
     /*
 
     */
-    block getNO_LABEL()
-        if isNull(NO_LABEL) {
+    block GetNO_LABEL()
+        if IsNull(NO_LABEL) {
             NO_LABEL = new FLabelType(__FL_NO_LABEL())
         } 
         return NO_LABEL
@@ -124,8 +124,8 @@ class FLabelType : Object
     /*
 
     */
-    block getSHADOW_LABEL()
-        if isNull(SHADOW_LABEL) {
+    block GetSHADOW_LABEL()
+        if IsNull(SHADOW_LABEL) {
             SHADOW_LABEL = new FLabelType(___FL_SHADOW_LABEL())
         } 
         return SHADOW_LABEL
@@ -133,8 +133,8 @@ class FLabelType : Object
     /*
 
     */
-    block getENGRAVED_LABEL()
-        if isNull(ENGRAVED_LABEL) {
+    block GetENGRAVED_LABEL()
+        if IsNull(ENGRAVED_LABEL) {
             ENGRAVED_LABEL = new FLabelType(___FL_ENGRAVED_LABEL())
         } 
         return ENGRAVED_LABEL
@@ -142,8 +142,8 @@ class FLabelType : Object
     /*
 
     */
-    block getEMBOSSED_LABEL()
-        if isNull(EMBOSSED_LABEL) {
+    block GetEMBOSSED_LABEL()
+        if IsNull(EMBOSSED_LABEL) {
             EMBOSSED_LABEL = new FLabelType(___FL_EMBOSSED_LABEL())
         } 
         return EMBOSSED_LABEL
@@ -151,8 +151,8 @@ class FLabelType : Object
     /*
 
     */
-    block getMULTI_LABEL()
-        if isNull(MULTI_LABEL) {
+    block GetMULTI_LABEL()
+        if IsNull(MULTI_LABEL) {
             MULTI_LABEL = new FLabelType(___FL_MULTI_LABEL())
         } 
         return MULTI_LABEL
@@ -160,8 +160,8 @@ class FLabelType : Object
     /*
 
     */
-    block getICON_LABEL()
-        if isNull(ICON_LABEL) {
+    block GetICON_LABEL()
+        if IsNull(ICON_LABEL) {
             ICON_LABEL = new FLabelType(___FL_ICON_LABEL())
         } 
         return ICON_LABEL
@@ -169,8 +169,8 @@ class FLabelType : Object
     /*
 
     */
-    block getIMAGE_LABEL()
-        if isNull(IMAGE_LABEL) {
+    block GetIMAGE_LABEL()
+        if IsNull(IMAGE_LABEL) {
             IMAGE_LABEL = new FLabelType(___FL_IMAGE_LABEL())
         } 
         return IMAGE_LABEL
@@ -178,8 +178,8 @@ class FLabelType : Object
     /*
 
     */
-    block getFREE_LABELTYPE()
-        if isNull(FREE_LABELTYPE) {
+    block GetFREE_LABELTYPE()
+        if IsNull(FREE_LABELTYPE) {
             FREE_LABELTYPE = new FLabelType(8)
         } 
         return FREE_LABELTYPE
@@ -192,4 +192,4 @@ class FLabelType : Object
         /*
 
         */
-        block setFontValue(value)
+        block SetFontValue(value)

@@ -23,42 +23,42 @@ block main()
 	@"==========================================================="
 	@"	Using the DateTime blocks"
 	@"==========================================================="
-	@"clock tick : "+clockTick()
-	@"tick per second : "+tickPerSecond()
+	@"clock tick : "+ClockTick()
+	@"tick per second : "+TickPerSecond()
 	#wait one second
-	t = clockTick()
-	while clockTick() - t <= tickPerSecond() end
-	@"Time : "+time()
-	@"Date : "+date()
-	@dateTimeList()[4]
+	t = ClockTick()
+	while ClockTick() - t <= TickPerSecond() end
+	@"Time : "+Time()
+	@"Date : "+Date()
+	@DateTimeList()[4]
 
 	pathAttr = new PathAttributes("./debugging.sim")
-	@dateFromPointer(pathAttr._lastDateChanged())
+	@DateFromPointer(pathAttr._lastDateChanged())
 	
 	@"==========================================================="
 	@"	Using the DateTime Class"
 	@"==========================================================="
 	date = new DateTime(null)
-	@date.shortWeekDay() + " - " + date.weekDay() 
-	@date.shortMonth() + " - " + date.month() 
-	@date.dateTime()
-	@"Day of Month : "+date.dayOfMonth()
-	@"Hour in 24 Hour : "+date.in24Hour()
-	@"Hour in 12 Hour : "+date.in12Hour()
-	@"Day in Year : "+date.dayInYear()
-	@"Month in Year : "+date.monthInYear()
-	@"Minute in Hour : "+date.minuteInHour()
-	@"Meridian (AM/PM) : "+date.meridian()
-	@"Seconds in A Minute : "+date.secondsInMinute()
-	@"Week in Year : "+date.weekInYear()
-	@"Day of the Week : "+date.dayOfTheWeek()
-	@"Date : "+date.date()
-	@"Time : "+date.time()
-	@"Year in Century : "+date.yearInCentury()
-	@"Century : "+date.century()+"st Century"
-	@"Year : "+date.year()
-	@"Time Zone : "+date.timeZone()
-	@date.toString()
+	@date.ShortWeekDay() + " - " + date.WeekDay() 
+	@date.ShortMonth() + " - " + date.Month() 
+	@date.DateTime()
+	@"Day of Month : "+date.DayOfMonth()
+	@"Hour in 24 Hour : "+date.In24Hour()
+	@"Hour in 12 Hour : "+date.In12Hour()
+	@"Day in Year : "+date.DayInYear()
+	@"Month in Year : "+date.MonthInYear()
+	@"Minute in Hour : "+date.MinuteInHour()
+	@"Meridian (AM/PM) : "+date.Meridian()
+	@"Seconds in A Minute : "+date.SecondsInMinute()
+	@"Week in Year : "+date.WeekInYear()
+	@"Day of the Week : "+date.DayOfTheWeek()
+	@"Date : "+date.Date()
+	@"Time : "+date.Time()
+	@"Year in Century : "+date.YearInCentury()
+	@"Century : "+date.Century()+"st Century"
+	@"Year : "+date.Year()
+	@"Time Zone : "+date.TimeZone()
+	@date.ToString()
 	
 	
 	

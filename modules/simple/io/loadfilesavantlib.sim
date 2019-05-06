@@ -15,4 +15,4 @@ module simple.io
 
 #Call all the low level function of the @DynamicModule networker
 from simple.core.DynamicLoader
-callModule("libfile_savant")
+CallModule("libfile_savant")

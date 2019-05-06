@@ -4,24 +4,24 @@
 
 */
 
-block method_2(boundary, steps)
+block Method_2(boundary, steps)
   h = (boundary[1] - boundary[0] / steps)
   a = boundary[0]
   b = boundary[1]
-  x_i = makePoints(a, b, h)
+  x_i = MakePoints(a, b, h)
   y = 0.0
-  y += (h/3.0)*f(a)
+  y += (h/3.0)*F(a)
   cnt = 2
   for i in x_i
-    y += (h/3)*(4-2*(cnt%2))*f(i)
+    y += (h/3)*(4-2*(cnt%2))*F(i)
     cnt += 1
   end
-  y += (h/3.0)*f(b)
+  y += (h/3.0)*F(b)
   return y
 
 end
 
-block makePoints(a,b,h)
+block MakePoints(a,b,h)
   x = a + h
   while x < (b-h)
     x = x*x*x
@@ -29,7 +29,7 @@ block makePoints(a,b,h)
   end
 end
 
-block f(x)
+block F(x)
   y = (x-0)*(x-0)
   return y
 end
@@ -40,5 +40,5 @@ end
 #   b = 1.0
 #   steps = 10.0
 #   boundary = [a, b]
-#   y = method_2(boundary, steps)
+#   y = Method_2(boundary, steps)
 #   display y +nl

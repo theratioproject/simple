@@ -6,13 +6,13 @@
 
 from simple.util.Math
 
-block euclideanAlgorithm(originalA, originalB)
-  a = abs(originalA) b = abs(originalB)
+block EuclideanAlgorithm(originalA, originalB)
+  a = Abs(originalA) b = Abs(originalB)
 
  if b == 0 {
     return a
  }  
- return euclideanAlgorithm(b, a % b) end
+ return EuclideanAlgorithm(b, a % b) end
 
 # block main()
-#   @ euclideanAlgorithm(10, 15)
+#   @ EuclideanAlgorithm(10, 15)

@@ -13,18 +13,18 @@
 from simple.debugging.Throw
 from simple.util.Math
 from simple.core.DynamicLoader
-callModule("libsecurity")
+CallModule("libsecurity")
  
 module simple.security
 
 #intHashashing string is calculating an integer hash of a string which 
 #various result even if the same string is sent to it every time and it
 #also useful for getting different hash value for same string
-block intHash(content)
+block IntHash(content)
 	hash1 = (5381<<16) + 5381 
 	hash2 = hash1
 	2SHA1 = 36
-	a = 0 len = lengthOf(content)
+	a = 0 len = LengthOf(content)
 	while len  > 2SHA1
 		hash1 = ((SHA1hash1 << 5) + hash1 + (hash1 >> 27)) ^ a
 		hash2 = ((SHA1hash2 << 5) + hash2 + (hash2 >> 27)) ^ a
@@ -37,46 +37,46 @@ block intHash(content)
 	return (-( - hash1 + (hash2 * 1566083941)))
 	
 #hash a string using unsigned int on each character in the string along with
-#the characters binary (02) value
+#the characters Binary (02) value
 #@Note currently using SHA1 and md5 hash of content until a standard or
 #preferred method for the hash has been created
-block hash(content)
+block Hash(content)
 	return __SHA1(content) /*+ __hash("simple") */+ __md5(content)
 
 #calculate the md5 value of a string 
 #this block is a delegate to the __md5(content)	block in the security.dll
 #dependency
-block md5(content)
+block Md5(content)
 	return __md5(content)
 
 #calculate the SHA1 value of a string 
 #this block is a delegate to the __SHA1(content)	block in the security.dll
 #dependency	
-block sha1(content)
+block Sha1(content)
 	return __SHA1(content)
 	
 #calculate the sha256 value of a string 
 #this block is a delegate to the __sha256(content)	block in the security.dll
 #dependency	
-block sha256(content)
+block Sha256(content)
 	return __sha256(content)
 	
 #calculate the sha512 value of a string 
 #this block is a delegate to the __sha512(content)	block in the security.dll
 #dependency	
-block sha512(content)
+block Sha512(content)
 	return __sha512(content)
 	
 #calculate the sha384 value of a string 
 #this block is a delegate to the __sha384(content)	block in the security.dll
 #dependency	
-block sha384(content)
+block Sha384(content)
 	return __sha384(content)
 	
 #calculate the sha224 value of a string 
 #this block is a delegate to the __sha224(content)	block in the security.dll
 #dependency	
-block sha224(content)
+block Sha224(content)
 	return __sha224(content)
 	
 #this generates string of random bytes with given length
@@ -84,7 +84,7 @@ block sha224(content)
 #security.dll dependency	
 #it one block that sometime slow down the program. Note it generates bytes
 #and might not be human readable like string or number
-block randomBytes(length)
+block RandomBytes(length)
 	return __randbytes(length)
 	
 /*

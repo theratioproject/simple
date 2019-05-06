@@ -41,15 +41,15 @@ from simple.core.loadcoredymodule
 display "obj attributes are : " @__object_attributes(obj1)
 display "obj2 methods are : " @__object_methods(obj2)
 @"obj2 has attribute x : " + __object_has_attribute(obj2,"x")
-@"obj2 has method two() : " + __object_has_method(obj2,"two")
+@"obj2 has method Two() : " + __object_has_method(obj2,"two")
 @"obj2 has private attribute y : " + __object_has_private_attribute(obj2,"y")
-@"obj2 has private method privateBlock() : " + __object_has_private_method(obj2,"privateBlock")
+@"obj2 has private method PrivateBlock() : " + __object_has_private_method(obj2,"privateBlock")
 __add_attribute_to_object(obj2,"z") __set_attribute_value(obj2,"z",500) 
 @"obj2.z = "+obj2.z
 __set_attribute_value(obj1,"C","Desperado")  @"obj1.C = "+obj1.C  
 @"using ref to get attribute value : " + __get_attribute_value(obj2,"z")
 __inherit_class_methods("test.modulee.testClass1","test.modulee.testClass12") 
-@obj1.one()
+@obj1.One()
 @__last_imported_module_name()
  
 
@@ -61,14 +61,14 @@ class testClass1 : testClass3
 	b = 1
 	
 class testClass12
-	block one() @"calling one block"
-	block two()
-	block three()
+	block One() @"calling one block"
+	block Two()
+	block Three()
 	
 	private 
 		y = 99
 		
-		block privateBlock()
+		block PrivateBlock()
 		
 final class testClass3
 	

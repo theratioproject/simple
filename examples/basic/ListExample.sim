@@ -19,11 +19,11 @@ from simple.util.Console
 myOldList = new List(["s", "i", "m", "p", "l", "e", 30, 50, 90, ["we", 5, "africa", ["alot", 40]]])
 
 /* Testing the methods embedded to List
-*@ push() - Add another element or value to the area.
-*@pop() - Remove an element from the list using the index number.
-*@keys() - Get the elements of the array.
-*@reverse() - Reverse the array.
-*@indexOf() - Get the element using the index number.
+*@ Push() - Add another element or value to the area.
+*@Pop() - Remove an element from the list using the index number.
+*@Keys() - Get the elements of the array.
+*@Reverse() - Reverse the array.
+*@IndexOf() - Get the element using the index number.
  */
  
 /*
@@ -39,37 +39,37 @@ myFakeList = new List("this is a string not list") #pass
 myList = new List(myOldList)
 
 /*
- * Display the toString() block of @Class List as inherited from @Class Object
+ * Display the ToString() block of @Class List as inherited from @Class Object
  */
-stdout.println(myList.toString())
+stdout.Println(myList.ToString())
 
 /*
  * Display the created myList Variable.
  * Note different between 
  *		myList
- *		myList.object() and myList.toList() 
+ *		myList.Object() and myList.ToList() 
  */
-stdout.println(myList)
-stdout.println(myList.object())
+stdout.Println(myList)
+stdout.Println(myList.Object())
 
-/* .indexOf() */
-stdout.println(" Index of 5 : " + myList.indexOf(4) )
-#stdout.println("Index of '5' : "+myList.indexOf('5') +crlf
+/* .IndexOf() */
+stdout.Println(" Index of 5 : " + myList.IndexOf(4) )
+#stdout.Println("Index of '5' : "+myList.IndexOf('5') +crlf
  
-/* .push() method */
-myList.push([" l", "a", "n", "g"]) 
-stdout.println(myList)
+/* .Push() method */
+myList.Push([" l", "a", "n", "g"]) 
+stdout.Println(myList)
 
-/* .pop() method */
-myList.pop(4) 
+/* .Pop() method */
+myList.Pop(4) 
 
-stdout.println(myList)
+stdout.Println(myList)
 
 /* .keys */
-myList.keys() 
+myList.Keys() 
 
-/* .reverse() */
-myList.reverse() 
+/* .Reverse() */
+myList.Reverse() 
 
-/* .slice() */
-stdout.println()
+/* .Slice() */
+stdout.Println()

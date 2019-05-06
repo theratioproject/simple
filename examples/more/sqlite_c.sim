@@ -3,7 +3,7 @@
 */
 from simple.core.DynamicLoader
 from simple.util.DateTime
-callModule("libsimple_sqlite") #add date to version
+CallModule("libsimple_sqlite") #add date to version
 
 date = new DateTime()
 db = __init_sqlite3()
@@ -47,14 +47,14 @@ query = "
 
 query = "
         INSERT INTO Downloads (Name,Type,OS,OS_Code,Arch,Size,Version,Link,Date)
-        VALUES  	('simple0.4.0-windows_i386.exe', 'Installer', 'Windows', 'windows_amd64', 'x64', '12MB', 'simple0.4.0', 'https://sourceforge.net/projects/simple-lang/files/s0.3.36/simple0.3.36-windows_amd64.exe/download', '" + date.toString() + "' );
+        VALUES  	('simple0.4.0-windows_i386.exe', 'Installer', 'Windows', 'windows_amd64', 'x64', '12MB', 'simple0.4.0', 'https://sourceforge.net/projects/simple-lang/files/s0.3.36/simple0.3.36-windows_amd64.exe/download', '" + date.ToString() + "' );
 "
 #display __sqlite3_exec(db, query)
 #display __sqlite3_errmsg(db) + nl
 
 query = "
         INSERT INTO Downloads (Name,Type,OS,OS_Code,Arch,Size,Version,Link,Date)
-        VALUES  	('simple0.4.0-linux_amd64.deb', 'Installer', 'Linux', 'windows_amd64', 'x86', '12MB', 'simple0.4.0', 'https://sourceforge.net/projects/simple-lang/files/s0.3.36/simple0.3.36-windows_amd64.zip/download', '" + date.toString() + "' );
+        VALUES  	('simple0.4.0-linux_amd64.deb', 'Installer', 'Linux', 'windows_amd64', 'x86', '12MB', 'simple0.4.0', 'https://sourceforge.net/projects/simple-lang/files/s0.3.36/simple0.3.36-windows_amd64.zip/download', '" + date.ToString() + "' );
 "
 display __sqlite3_exec(db, query)
 display __sqlite3_errmsg(db) + nl
@@ -80,7 +80,7 @@ query = "
 
 query = "
         INSERT INTO BLOG (Title,External,Slug,Excerpt,Content,AuthorId,Date)
-        VALUES  	('Blog 1', 'false', 'blog-1', 'Excerpt', '" + strCopy("blog", 1000) + "', 1, '25/02/2019' );
+        VALUES  	('Blog 1', 'false', 'blog-1', 'Excerpt', '" + StrCopy("blog", 1000) + "', 1, '25/02/2019' );
 "
 #display __sqlite3_exec(db, query)
 #display __sqlite3_errmsg(db) + nl

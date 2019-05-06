@@ -6,6 +6,6 @@
 
 from simple.util.Math
 
-block degreeToRadian(degree)
+block DegreeToRadian(degree)
   return degree * (MATH_PI() / 180 )
 end

@@ -33,17 +33,17 @@ class Map : Object
     end
 
     # Returns the value associated to a key
-    block valueOf(key)
+    block ValueOf(key)
         value = null
         # Iterate through the list
-        for i = 0 to lengthOf(list) - 1
+        for i = 0 to LengthOf(list) - 1
             # Check if the list has the specified key
             if list[i][0] == key
                 # Get the value associated with the key
                 value = list[i][1]
             end
         end
-        # Return the value
+        # return the value
         return value
     end
 
@@ -51,7 +51,7 @@ class Map : Object
     block __add_to_list(key, value)
         found = false
         # Iterate through the list
-        for i = 0 to lengthOf(list)
+        for i = 0 to LengthOf(list)
             # Check if the key already exists.
             if list[i][0] == key
                 found = true
@@ -69,32 +69,32 @@ class Map : Object
     end
 
     # Returns all the keys in the data structure
-    block keys()
+    block Keys()
         tempList = []
         # Iterate through the list
-        for i = 0 to lengthOf(list)
+        for i = 0 to LengthOf(list)
             # Add every key to the temporary list
             tempList = tempList + list[i][0]
         end
-        # Return the temporary list
+        # return the temporary list
         return tempList
     end
 
     # Returns all the keys in the data structure
-    block values()
+    block Values()
         tempList = []
         # Iterate through the list
-        for i = 0 to lengthOf(list)
+        for i = 0 to LengthOf(list)
             # Add every key to the temporary list
             tempList = tempList + list[i][1]
         end
-        # Return the temporary list
+        # return the temporary list
         return tempList
     end
 
     # Gets the size of the map
-    block size()
-        return lengthOf(list) + 1
+    block Size()
+        return LengthOf(list) + 1
     end
 
     private

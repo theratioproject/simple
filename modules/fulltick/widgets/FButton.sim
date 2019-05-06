@@ -22,127 +22,127 @@ class FButton : FWidget
     /*
 
     */
-    Width = FApp.Scheme.getShemeValue("FButton.Width") 
+    Width = FApp.Scheme.GetShemeValue("FButton.Width") 
 
     /*
 
     */
-    Height = FApp.Scheme.getShemeValue("FButton.Height") 
+    Height = FApp.Scheme.GetShemeValue("FButton.Height") 
 
     /*
 
     */
-    X = FApp.Scheme.getShemeValue("FButton.X") 
+    X = FApp.Scheme.GetShemeValue("FButton.X") 
 
     /*
 
     */
-    Y = FApp.Scheme.getShemeValue("FButton.Y") 
+    Y = FApp.Scheme.GetShemeValue("FButton.Y") 
 
     /*
 
     */
-    Label = FApp.Scheme.getShemeValue("FButton.Label") 
+    Label = FApp.Scheme.GetShemeValue("FButton.Label") 
 
     /*
 
     */
-    CapitalizeLabel = FApp.Scheme.getShemeValue("FButton.CapitalizeLabel") 
+    CapitalizeLabel = FApp.Scheme.GetShemeValue("FButton.CapitalizeLabel") 
 
     /*
 
     */
-    Background = FApp.Scheme.getShemeValue("FButton.Background") 
+    Background = FApp.Scheme.GetShemeValue("FButton.Background") 
 
     /*
 
     */
-    LabelAlignment = FApp.Scheme.getShemeValue("FButton.LabelAlignment") 
+    LabelAlignment = FApp.Scheme.GetShemeValue("FButton.LabelAlignment") 
 
     /*
 
     */
-    BaseColor = FApp.Scheme.getShemeValue("FButton.BaseColor") 
+    BaseColor = FApp.Scheme.GetShemeValue("FButton.BaseColor") 
 
     /*
 
     */
-    Box = FApp.Scheme.getShemeValue("FButton.Box") 
+    Box = FApp.Scheme.GetShemeValue("FButton.Box") 
 
     /*
 
     */
-    BaseBox = FApp.Scheme.getShemeValue("FButton.BaseBox") 
+    BaseBox = FApp.Scheme.GetShemeValue("FButton.BaseBox") 
 
     /*
 
     */
-    Border = FApp.Scheme.getShemeValue("FButton.Border") 
+    Border = FApp.Scheme.GetShemeValue("FButton.Border") 
 
     /*
 
     */
-    HasBorder = FApp.Scheme.getShemeValue("FButton.HasBorder") 
+    HasBorder = FApp.Scheme.GetShemeValue("FButton.HasBorder") 
 
     /*
 
     */
-    AcceptInput = FApp.Scheme.getShemeValue("FButton.AcceptInput")
+    AcceptInput = FApp.Scheme.GetShemeValue("FButton.AcceptInput")
 
     /*
 
     */
-    Visible = FApp.Scheme.getShemeValue("FButton.Visible") 
+    Visible = FApp.Scheme.GetShemeValue("FButton.Visible") 
 
     /*
 
     */
-    KeyboardFocusable = FApp.Scheme.getShemeValue("FButton.KeyboardFocusable") 
+    KeyboardFocusable = FApp.Scheme.GetShemeValue("FButton.KeyboardFocusable") 
 
     /*
 
     */
-    Text = FApp.Scheme.getShemeValue("FButton.Text") 
+    Text = FApp.Scheme.GetShemeValue("FButton.Text") 
 
     /*
 
     */
-    Tooltip = FApp.Scheme.getShemeValue("FButton.Tooltip") 
+    Tooltip = FApp.Scheme.GetShemeValue("FButton.Tooltip") 
 
     /*
 
     */
-    LabelColor = FApp.Scheme.getShemeValue("FButton.LabelColor") 
+    LabelColor = FApp.Scheme.GetShemeValue("FButton.LabelColor") 
 
     /*
 
     */
-    LabelFont = FApp.Scheme.getShemeValue("FButton.LabelFont") 
+    LabelFont = FApp.Scheme.GetShemeValue("FButton.LabelFont") 
 
     /*
 
     */
-    LabelSize = FApp.Scheme.getShemeValue("FButton.LabelSize")
+    LabelSize = FApp.Scheme.GetShemeValue("FButton.LabelSize")
 
     /*
 
     */
-    LabelType = FApp.Scheme.getShemeValue("FButton.LabelType")
+    LabelType = FApp.Scheme.GetShemeValue("FButton.LabelType")
 
     /*
 
     */
-    SelectionColor = FApp.Scheme.getShemeValue("FButton.SelectionColor")
+    SelectionColor = FApp.Scheme.GetShemeValue("FButton.SelectionColor")
 
     /*
 
     */
-    Shortcut = FApp.Scheme.getShemeValue("FButton.Shortcut")
+    Shortcut = FApp.Scheme.GetShemeValue("FButton.Shortcut")
 
     /*
 
     */
-    Value = FApp.Scheme.getShemeValue("FButton.Value")
+    Value = FApp.Scheme.GetShemeValue("FButton.Value")
 
     /*
 
@@ -153,38 +153,38 @@ class FButton : FWidget
 
     */
     block Init(params...)
-        paramsLen = lengthOf(params)
+        paramsLen = LengthOf(params)
         if paramsLen == 1 {
             Label = params[0]
-            if !isString(Label) {
-                throw(self,"Invalid parameter Expecting 'string' as FButton Label")
+            if !IsString(Label) {
+                Throw(self,"Invalid parameter Expecting 'string' as FButton Label")
             }
         elif paramsLen == 2
             X = params[0]
             Y = params[1]
-            if !isNumber(X) or !isNumber(Y) {
-                throw(self,"Invalid parameter Expecting 'number' as FButton X and Y")
+            if !IsNumber(X) or !IsNumber(Y) {
+                Throw(self,"Invalid parameter Expecting 'number' as FButton X and Y")
             }
         elif paramsLen == 3 
             X = params[0]
             Y = params[1]
             Label = params[2]
-            if !isNumber(X) or !isNumber(Y) {
-                throw(self,"Invalid parameter Expecting 'number' as FButton X and Y")
+            if !IsNumber(X) or !IsNumber(Y) {
+                Throw(self,"Invalid parameter Expecting 'number' as FButton X and Y")
             }
-            if !isString(Label) {
-                throw(self,"Invalid parameter Expecting 'string' as FButton Label")
+            if !IsString(Label) {
+                Throw(self,"Invalid parameter Expecting 'string' as FButton Label")
             }
         elif paramsLen == 4
             X = params[0]
             Y = params[1]
             Width = params[2]
             Height = params[3]
-            if !isNumber(X) or !isNumber(Y) {
-                throw(self,"Invalid parameter Expecting 'number' as FButton X and Y")
+            if !IsNumber(X) or !IsNumber(Y) {
+                Throw(self,"Invalid parameter Expecting 'number' as FButton X and Y")
             }
-            if !isNumber(Width) or !isNumber(Height) {
-                throw(self,"Invalid parameter Expecting 'number' as FButton Width and Height")
+            if !IsNumber(Width) or !IsNumber(Height) {
+                Throw(self,"Invalid parameter Expecting 'number' as FButton Width and Height")
             }
         elif paramsLen == 5
             X = params[0]
@@ -192,121 +192,121 @@ class FButton : FWidget
             Width = params[2]
             Height = params[3]
             Label = params[4]
-            if !isNumber(X) or !isNumber(Y) {
-                throw(self,"Invalid parameter Expecting 'number' as FButton X and Y")
+            if !IsNumber(X) or !IsNumber(Y) {
+                Throw(self,"Invalid parameter Expecting 'number' as FButton X and Y")
             }
-            if !isNumber(Width) or !isNumber(Height) {
-                throw(self,"Invalid parameter Expecting 'number' as FButton Width and Height")
+            if !IsNumber(Width) or !IsNumber(Height) {
+                Throw(self,"Invalid parameter Expecting 'number' as FButton Width and Height")
             }
-            if !isString(Label) {
-                throw(self,"Invalid parameter Expecting 'string' as FButton Label")
+            if !IsString(Label) {
+                Throw(self,"Invalid parameter Expecting 'string' as FButton Label")
             }
         else    
             if paramsLen != 0 {
-                throw(self,"Calling block with invalid legth of parameter")
+                Throw(self,"Calling block with invalid legth of parameter")
             }
         } 
 
         if CapitalizeLabel {
-            Label = toUpperCase(Label)
+            Label = ToUpperCase(Label)
         }
         Ptr = __Fl_Button(X, Y, Width, Height, Label)
-        registerWidget()
-        #resize(X, Y, Width, Height)
-        setLabelAlignment(LabelAlignment)
-        setBox(Box)
-        setBaseColor(BaseColor)
-        setBaseBox(BaseBox)
-        setBorder(Border)
-        construct()
-        setValue(Value)
+        RegisterWidget()
+        #Resize(X, Y, Width, Height)
+        SetLabelAlignment(LabelAlignment)
+        SetBox(Box)
+        SetBaseColor(BaseColor)
+        SetBaseBox(BaseBox)
+        SetBorder(Border)
+        Construct()
+        SetValue(Value)
         
         return self
 
     /*
 
     */
-    block setBaseColor(value) 
-        if isNumber(value) or instanceOf(value,"FColor") {
-            if isNumber(value) {
+    block SetBaseColor(value) 
+        if IsNumber(value) or InstanceOf(value,"FColor") {
+            if IsNumber(value) {
                 __Fl_Button_down_color_1(Ptr,value)
                 BaseColor = new FColor(value)
             else
-                __Fl_Button_down_color_1(Ptr,value.colorAsNumber())
+                __Fl_Button_down_color_1(Ptr,value.ColorAsNumber())
                 BaseColor = value
             }
         else
-            throw(self,"Invalid parameter. Expecting (Number|fulltick.painting.FColor), Found (" + objectType(value) + ")")
+            Throw(self,"Invalid parameter. Expecting (Number|fulltick.painting.FColor), Found (" + ObjectType(value) + ")")
         }
 
     /*
 
     */
-    block getBaseColor()
+    block GetBaseColor()
         return BaseColor
 
     /*
 
     */
-    block setBaseBox(value) 
-        if isNumber(value) or instanceOf(value,"FBoxType") {
-            if isNumber(value) {
+    block SetBaseBox(value) 
+        if IsNumber(value) or InstanceOf(value,"FBoxType") {
+            if IsNumber(value) {
                 __Fl_Button_down_box_1(Ptr,value)
                 BaseBox = new FBoxType(value)
             else
                 __Fl_Button_down_box_1(Ptr,value.BoxType) 
-                if !isNull(value.BoxColor) { 
-                    setBaseColor(value.BoxColor)
+                if !IsNull(value.BoxColor) { 
+                    SetBaseColor(value.BoxColor)
                 }
                 BaseBox = value
             }
         else
-            throw(self,"Invalid parameter. Expecting (Number|fulltick.drawing.FBoxType), Found (" + objectType(value) + ")")
+            Throw(self,"Invalid parameter. Expecting (Number|fulltick.drawing.FBoxType), Found (" + ObjectType(value) + ")")
         }
 
     /*
 
     */
-    block getBaseBox()
+    block GetBaseBox()
         return BaseBox
 
     /*
 
     */
-    block handle(event)
+    block Handle(event)
         @"button handling it event : " + event
         return 0
 
     /*
 
     */
-    block setText(value)
-        setLabel(value)
+    block SetText(value)
+        SetLabel(value)
         Text = value
 
     /*
 
     */
-    block getText()
+    block GetText()
         return Label
 
     /*
 
     */
-    block set()
+    block Set()
         __Fl_Button_set(Ptr)
 
     /*
 
     */
-    block setOnly()
+    block SetOnly()
         __Fl_Button_setonly(Ptr)
 
     /*
 
     */
-    block setValue(value)
-        value = booleanValue(value)
+    block SetValue(value)
+        value = BooleanValue(value)
         if value {
             __Fl_Button_value(Ptr,true)
         else
@@ -317,50 +317,50 @@ class FButton : FWidget
 	/*
 	
 	*/
-	block getValue()
-		validatePointer()
+	block GetValue()
+		ValidatePointer()
 		return __Fl_Button_value_1(Ptr)
 
     /*
 
     */
-    block setShortcut(number value) 
+    block SetShortcut(number value) 
         __Fl_Button_shortcut_1(Ptr,value)
         Shortcut = value
 
     /*
 
     */
-    block getShortcut()
+    block GetShortcut()
         return Shortcut
 
     /*
         
     */
-    block setPlatformScheme(string schemeName)
+    block SetPlatformScheme(string schemeName)
         if schemeName == FScheme.Android {
-            setBackground(new FColor(214,215,215))
-			setBaseColor(new FColor(175,175,175))
-			setCapitalizeLabel(true)
-			setHasBorder(false)
+            SetBackground(new FColor(214,215,215))
+			SetBaseColor(new FColor(175,175,175))
+			SetCapitalizeLabel(true)
+			SetHasBorder(false)
 
         elif schemeName == FScheme.Windows
-			setBackground(new FColor(225,225,225))
-			setSelectionColor(new FColor(108,176,232))
-	        setBorder(new FBorder(1,1,1,1,__FL_FLAT_BOX(),new FColor(173,173,173)))
+			SetBackground(new FColor(225,225,225))
+			SetSelectionColor(new FColor(108,176,232))
+	        SetBorder(new FBorder(1,1,1,1,__FL_FLAT_BOX(),new FColor(173,173,173)))
 
         elif schemeName == FScheme.Macosx
-            setBox(new FBoxType(__fl_define_FL_ROUNDED_BOX(),new FColor(239,239,239)))
-			setBaseBox(new FBoxType(__fl_define_FL_ROUNDED_BOX(),new FColor(177,204,247)))
-			setBorder(new FBorder(2,2,2,2,__fl_define_FL_ROUNDED_BOX(),new FColor(157,157,157)))
+            SetBox(new FBoxType(__fl_define_FL_ROUNDED_BOX(),new FColor(239,239,239)))
+			SetBaseBox(new FBoxType(__fl_define_FL_ROUNDED_BOX(),new FColor(177,204,247)))
+			SetBorder(new FBorder(2,2,2,2,__fl_define_FL_ROUNDED_BOX(),new FColor(157,157,157)))
 
         elif schemeName == FScheme.Linux
-			setBackground(new FColor(229,220,212))
-			setBaseColor(new FColor(214,85,53))
-			setBorder(new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41)))
+			SetBackground(new FColor(229,220,212))
+			SetBaseColor(new FColor(214,85,53))
+			SetBorder(new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41)))
 			
 		else
-			throw(self, "Invalid platform scheme name : " + schemeName)
+			Throw(self, "Invalid platform scheme name : " + schemeName)
 
         }
 
@@ -372,6 +372,6 @@ class FButton : FWidget
 		/*
 		
 		*/
-		block construct()
-			setLabel(Label)
-			super.construct()
+		block Construct()
+			SetLabel(Label)
+			super.Construct()

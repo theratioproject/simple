@@ -147,25 +147,25 @@ class FCursor : Object
 
     */#to accept image
     block Init(params...)
-        paramsLen = lengthOf(params) 
+        paramsLen = LengthOf(params) 
         cursor = null
         cursorName = "UnknownCuursor"
         if paramsLen == 1 {
             cursor = params[0] 
-            if isObject(cursor) and __instance_of(cursor,"FCursor") {
-                copyCursorObject(cursor)
-            elif isNumber(cursor) 
+            if IsObject(cursor) and __instance_of(cursor,"FCursor") {
+                CopyCursorObject(cursor)
+            elif IsNumber(cursor) 
                 IsCursorNumber = true
             else
-                throw(self," Invalid cursor value, expecting Number, String, File or FImage")
+                Throw(self," Invalid cursor value, expecting Number, String, File or FImage")
             }
         elif paramsLen == 2
             cursor = params[0]
             cursorName = params[1]
-            if isNumber(cursor) and isString(cursorName) {
+            if IsNumber(cursor) and IsString(cursorName) {
                 IsCursorNumber = true
             else
-                throw(self," Invalid cursor or cursorName value, expecting Number, String, File or FImage")
+                Throw(self," Invalid cursor or cursorName value, expecting Number, String, File or FImage")
             }
         }
         if IsCursorNumber {
@@ -177,7 +177,7 @@ class FCursor : Object
 	/*
 
 	*/
-	block copyCursorObject(object)
+	block CopyCursorObject(object)
 		fcursorAttrs = __object_attributes(object)
 		for fcursorAttr in fcursorAttrs {
 			fcursorValue = __get_attribute_value(object,fcursorAttr)
@@ -188,134 +188,134 @@ class FCursor : Object
     /*
 
     */
-    block getFL_CURSOR_DEFAULT()
+    block GetFL_CURSOR_DEFAULT()
         return new FCursor(0,"FL_CURSOR_DEFAULT")
 
     /*
 
     */
-    block getFL_CURSOR_ARROW()
+    block GetFL_CURSOR_ARROW()
         return new FCursor(35,"FL_CURSOR_ARROW")
 
     /*
 
     */
-    block getFL_CURSOR_CROSS()
+    block GetFL_CURSOR_CROSS()
         return new FCursor(66,"FL_CURSOR_CROSS")
 
     /*
 
     */
-    block getFL_CURSOR_WAIT()
+    block GetFL_CURSOR_WAIT()
         return new FCursor(76,"FL_CURSOR_WAIT")
 
     /*
 
     */
-    block getFL_CURSOR_INSERT()
+    block GetFL_CURSOR_INSERT()
         return new FCursor(77,"FL_CURSOR_INSERT")
 
     /*
 
     */
-    block getFL_CURSOR_HAND()
+    block GetFL_CURSOR_HAND()
         return new FCursor(31,"FL_CURSOR_HAND")
 
     /*
 
     */
-    block getFL_CURSOR_HELP()
+    block GetFL_CURSOR_HELP()
         return new FCursor(47,"FL_CURSOR_HELP")
 
     /*
 
     */
-    block getFL_CURSOR_MOVE()
+    block GetFL_CURSOR_MOVE()
         return new FCursor(27,"FL_CURSOR_MOVE")
 
     /*
 
     */
-    block getFL_CURSOR_NS()
+    block GetFL_CURSOR_NS()
         return new FCursor(78,"FL_CURSOR_NS")
 
     /*
 
     */
-    block getFL_CURSOR_WE()
+    block GetFL_CURSOR_WE()
         return new FCursor(79,"FL_CURSOR_WE")
         
     /*
     
     */
-    block getFL_CURSOR_NWSE()
+    block GetFL_CURSOR_NWSE()
         return new FCursor(80,"FL_CURSOR_NWSE")
     
     /*
 
     */
-    block getFL_CURSOR_NESW()
+    block GetFL_CURSOR_NESW()
         return new FCursor(81,"FL_CURSOR_NESW")
 
     /*
 
     */
-    block getFL_CURSOR_N()
+    block GetFL_CURSOR_N()
         return new FCursor(70,"FL_CURSOR_NESW")
 
     /*
 
     */
-    block getFL_CURSOR_NE()
+    block GetFL_CURSOR_NE()
         return new FCursor(69,"FL_CURSOR_NE")
         
     /*
 
     */
-    block getFL_CURSOR_E()
+    block GetFL_CURSOR_E()
         return new FCursor(49,"FL_CURSOR_E")
 
     /*
 
     */
-    block getFL_CURSOR_SE()
+    block GetFL_CURSOR_SE()
         return new FCursor(8,"FL_CURSOR_SE")
 
     /*
 
     */
-    block getFL_CURSOR_S()
+    block GetFL_CURSOR_S()
         return new FCursor(9,"FL_CURSOR_S")
 
     /*
 
     */
-    block getFL_CURSOR_SW()
+    block GetFL_CURSOR_SW()
         return new FCursor(7,"FL_CURSOR_SW")
 
     /*
 
     */
-    block getFL_CURSOR_W()
+    block GetFL_CURSOR_W()
         return new FCursor(38,"FL_CURSOR_W")
 
     /*
 
     */
-    block getFL_CURSOR_NW()
+    block GetFL_CURSOR_NW()
         return new FCursor(68,"FL_CURSOR_NW")
 
     /*
 
     */
-    block getFL_CURSOR_NONE()
+    block GetFL_CURSOR_NONE()
         return new FCursor(255,"FL_CURSOR_NONE")
 
     /*
 
 	*/
-	block equals(object)
-		if !isObject(object) or !__instance_of(object,"FCursor") {
+	block Equals(object)
+		if !IsObject(object) or !__instance_of(object,"FCursor") {
 			return false
 		}
 		return (IsCursorNumber == object.IsCursorNumber and CursorValue == object.CursorValue and CursorName == object.CursorName)
@@ -323,7 +323,7 @@ class FCursor : Object
     /*
 
     */
-    block toString()
+    block ToString()
         return "[fulltick.objects.FCursor:IsCursorNumber=" + IsCursorNumber + ",CursorValue=" + CursorValue + ",CursorName=" + CursorName + "]"
 
 

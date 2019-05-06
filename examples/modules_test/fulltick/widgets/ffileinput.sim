@@ -15,16 +15,16 @@ import fulltick.objects
 import fulltick.drawing
 
 flabelDemo = new FFileInputDemo
-FApp.run()
+FApp.Run()
 
 class FFileInputDemo
 
     fwindow = new FWindow(320,60,"FFileInput Demo") { 
-        begin(true) 
-        input = new FFileInput(10,10,"Android") { setPlatformScheme(FScheme.Android) }
-        endBegin()
-        centerOnScreen() 
+        Begin(true) 
+        input = new FFileInput(10,10,"Android") { SetPlatformScheme(FScheme.Android) }
+        EndBegin()
+        CenterOnScreen() 
         Resizable = false
-        show()        
+        Show()        
     } 
         

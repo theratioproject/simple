@@ -7,21 +7,21 @@ from simple.graphics.Point
 from simple.util.Console
 
 point1 = new Point(20,20.87878)
-stdout.println(point1)
+stdout.Println(point1)
 point2 = new Point(50.43434,300)
-stdout.println(point2)
+stdout.Println(point2)
 point3 = new Point(1020.98989,768)
-stdout.println(point3)
+stdout.Println(point3)
 point4 = new Point(point3) 
-stdout.println(point4)
-point5 = new Point(point2.getPoint())  
-stdout.println(point5)
-point6 = new Point() point6.setPoint(80,80)
-stdout.println(point6) 
+stdout.Println(point4)
+point5 = new Point(point2.GetPoint())  
+stdout.Println(point5)
+point6 = new Point() point6.SetPoint(80,80)
+stdout.Println(point6) 
 point7 = new Point()
 point7 + point2 
-stdout.println(point7) 
-rectangle = point7.toRectangle()
-stdout.println(rectangle) 
+stdout.Println(point7) 
+rectangle = point7.ToRectangle()
+stdout.Println(rectangle) 
 
 

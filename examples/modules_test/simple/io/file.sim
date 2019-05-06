@@ -9,17 +9,17 @@ from simple.util.Console
 
 block main()
 	file = new File("../../../testfiles/test.txt")
-	stdout.println(file) 
+	stdout.Println(file) 
 	file.NameOnly = "yello"
-	stdout.println(file)
+	stdout.Println(file)
 	file.NameOnly = "test"
 	file.NameExtension = "pdf"
-	stdout.println(file)
+	stdout.Println(file)
 	file.NameExtension = "txt"
-	stdout.println(file)
-	content = file.readAllString()
-	file.write("Ye we good")
-	stdout.println("===========\n" + file.readAllString() + "\n===========")
-	file.write(content)
-	stdout.println(file)
+	stdout.Println(file)
+	content = file.ReadAllString()
+	file.Write("Ye we good")
+	stdout.Println("===========\n" + file.ReadAllString() + "\n===========")
+	file.Write(content)
+	stdout.Println(file)
 	

@@ -11,7 +11,7 @@ __loadClientSpec()
 #TODO
 block __loadClientSpec()
 	clientDump = SERVER["HTTP_USER_AGENT"]
-	clientDumpLen = lengthOf(clientDump) - 1
+	clientDumpLen = LengthOf(clientDump) - 1
 	clientOs = ""
 	startIndex = 0 endIndex = 0
 	for a = 0 to clientDumpLen {

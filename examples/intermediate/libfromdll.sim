@@ -35,7 +35,7 @@ from simple.util.Console
 import simple.core
 
 block main()
-	if !isWindows() {
+	if !IsWindows() {
 		display "This script is for the Windows Platform only " + nl
 		__exit__
 	}
@@ -48,125 +48,125 @@ block main()
 	arch="x86"
 	programFiles = null
 	exportedSymbols = ""
-	if lengthOf(cmdparams) < 2 {
-		help()
+	if LengthOf(cmdparams) < 2 {
+		Help()
 	}	
 	
 	for param in cmdparams {
 		if param == "-h" or param == "--h" or param == "--help" {
-			help()
+			Help()
 			
 		elif param == "-k" or param == "--keep"
 			keepTemp = true
 			
-		elif strStartsWith(param, "-d=") or strStartsWith(param, "--dll=")
-			dllFile = removeStr(param, "-d=")
-			dllFile = removeStr(param, "--dll=")
+		elif StrStartsWith(param, "-d=") or StrStartsWith(param, "--dll=")
+			dllFile = RemoveStr(param, "-d=")
+			dllFile = RemoveStr(param, "--dll=")
 			
-		elif strStartsWith(param, "-a=") or strStartsWith(param, "--arch=")
-			arch = removeStr(param, "-a=")
-			arch = removeStr(param, "--arch=")
+		elif StrStartsWith(param, "-a=") or StrStartsWith(param, "--arch=")
+			arch = RemoveStr(param, "-a=")
+			arch = RemoveStr(param, "--arch=")
 			if arch == "x64" { arch = "x86_amd64" }
 			
-		elif strStartsWith(param, "-l=") or strStartsWith(param, "--lib=")
-			libPath = removeStr(param, "-l=")
-			libPath = removeStr(param, "--lib=")
-			if !strEndsWith(libPath, ".lib") {
-				throw("Invalid .lib name, " + libPath)
+		elif StrStartsWith(param, "-l=") or StrStartsWith(param, "--lib=")
+			libPath = RemoveStr(param, "-l=")
+			libPath = RemoveStr(param, "--lib=")
+			if !StrEndsWith(libPath, ".lib") {
+				Throw("Invalid .lib name, " + libPath)
 			}
 			
 		else
-			#throw("invalid parameter '" + param + "' add --help to view flags")
+			#Throw("invalid parameter '" + param + "' add --help to view flags")
 		}
 		
 	}
 	if dllFile == "" {
-		throw("No Windows Shared Library (DLL) Supplied")
+		Throw("No Windows Shared Library (DLL) Supplied")
 		
-	elif !strEndsWith(dllFile, "dll") 
-		throw("Invalid Windows Shared Library (DLL), " + dllFile)
+	elif !StrEndsWith(dllFile, "dll") 
+		Throw("Invalid Windows Shared Library (DLL), " + dllFile)
 		
 	}
 	
-	if isNull(batPath) {
-		batPath = strReplace(dllFile, ".dll", ".bat")
+	if IsNull(batPath) {
+		batPath = StrReplace(dllFile, ".dll", ".bat")
 	}
-	if isNull(defPath) {
-		defPath = strReplace(dllFile, ".dll", ".def")
+	if IsNull(defPath) {
+		defPath = StrReplace(dllFile, ".dll", ".def")
 	}
-	if isNull(libPath) {
-		libPath = strReplace(dllFile, ".dll", ".lib")
+	if IsNull(libPath) {
+		libPath = StrReplace(dllFile, ".dll", ".lib")
 	}
-	if isWindows64() {
+	if IsWindows64() {
 		programFiles = new Directory("C:\Program Files (x86)\")
 	else
 		programFiles = new Directory("C:\Program Files\")
 	}
-	stdout.print("\rlooking for vcvarsall.bat : ...")
-	folders = programFiles.getDirectories()
+	stdout.Print("\rlooking for vcvarsall.bat : ...")
+	folders = programFiles.GetDirectories()
 	for folder in folders {
-		stdout.printf("\r%s\rlooking for vcvarsall.bat : " + folder.Name, strCopy(" ", 80))
-		if strContains(folder.AbsolutePath, "Visual Studio") {
-			if __file_exists(folder.AbsolutePath+"\\VC\\vcvarsall.bat") and !strContains(folder.AbsolutePath, "11") {
+		stdout.Printf("\r%s\rlooking for vcvarsall.bat : " + folder.Name, StrCopy(" ", 80))
+		if StrContains(folder.AbsolutePath, "Visual Studio") {
+			if __file_exists(folder.AbsolutePath+"\\VC\\vcvarsall.bat") and !StrContains(folder.AbsolutePath, "11") {
 				vcvarsall = folder.AbsolutePath+"\VC\vcvarsall.bat"
-				stdout.printf("\r%s\rlooking for vcvarsall.bat : " + folder.Name + " (found)\n", strCopy(" ", 80))
+				stdout.Printf("\r%s\rlooking for vcvarsall.bat : " + folder.Name + " (found)\n", StrCopy(" ", 80))
 				break
 			}
 		}
 	}
 	if vcvarsall == "" {
-		stdout.printf("\r%s\rlooking for vcvarsall.bat : not found\n", strCopy(" ", 80))
-		stdout.println("Cannot find vcvarsall.bat, ensure you have at least one Visual Studio installed along with the C/C++ SDK")
+		stdout.Printf("\r%s\rlooking for vcvarsall.bat : not found\n", StrCopy(" ", 80))
+		stdout.Println("Cannot find vcvarsall.bat, ensure you have at least one Visual Studio installed along with the C/C++ SDK")
 		__exit__
 	}
-	stdout.print("\rpreparing to export functions : ...")
+	stdout.Print("\rpreparing to export functions : ...")
 	__write_file(batPath, 'from "' + vcvarsall + '" ' + arch + nl + 
 							'dumpbin /EXPORTS "' + dllFile + '" ')
-	system(batPath+' > '+defPath)
+	System(batPath+' > '+defPath)
 	exportedSymbols = __read_file(defPath)
-	startIndex = strSubStr(exportedSymbols,"ordinal hint RVA      name") + 26
-	exportedSymbols = strRight(exportedSymbols, lengthOf(exportedSymbols) - startIndex + 1)
-	endIndex = strSubStr(exportedSymbols,"  Summary")
-	exportedSymbols = strLeft(exportedSymbols, endIndex)
+	startIndex = StrSubStr(exportedSymbols,"ordinal hint RVA      name") + 26
+	exportedSymbols = StrRight(exportedSymbols, LengthOf(exportedSymbols) - startIndex + 1)
+	endIndex = StrSubStr(exportedSymbols,"  Summary")
+	exportedSymbols = StrLeft(exportedSymbols, endIndex)
 	__write_file(defPath, exportedSymbols)
-	exportedSymbols = strSplit(exportedSymbols,nl)
+	exportedSymbols = StrSplit(exportedSymbols,nl)
 	finalSymbols = "EXPORTS" + crlf
 	for line in exportedSymbols {
-		if strContains(line,"=") {
-			line = strSplit(line, "=")[0]
+		if StrContains(line,"=") {
+			line = StrSplit(line, "=")[0]
 		}
-		exportFunc = strSplit(line, " ")
-		len = lengthOf(exportFunc)
+		exportFunc = StrSplit(line, " ")
+		len = LengthOf(exportFunc)
 		if len > 2 {
-			functionV = removeStr(exportFunc[len-1], cr)
+			functionV = RemoveStr(exportFunc[len-1], cr)
 			finalSymbols += functionV + crlf
-			stdout.printf("\r%s\rexporting function : " + exportFunc[len-2] + ":" +functionV, strCopy(" ", 80))
+			stdout.Printf("\r%s\rexporting function : " + exportFunc[len-2] + ":" +functionV, StrCopy(" ", 80))
 		}
 	}
-	stdout.printf("\r%s\rexporting functions : (done)\n", strCopy(" ", 80))
-	stdout.print("\rpreparing to generate .lib : ...")
+	stdout.Printf("\r%s\rexporting functions : (done)\n", StrCopy(" ", 80))
+	stdout.Print("\rpreparing to generate .lib : ...")
 	if arch == "x86_amd64" { arch = "x64" }
 	__write_file(defPath, finalSymbols)
 	__write_file(batPath, 'from "' + vcvarsall + '" ' + arch + nl + 
 							'lib.exe /def:"' + defPath + '" /OUT:"' + libPath + '" /MACHINE:' + arch)
-	system(batPath + " > nul")
+	System(batPath + " > nul")
 	if __file_exists(libPath) {
-		stdout.printf("\r%s\r.lib generation successful\n", strCopy(" ", 80))
+		stdout.Printf("\r%s\r.lib generation successful\n", StrCopy(" ", 80))
 	else
-		stdout.printf("\r%s\r.lib generation failed\n", strCopy(" ", 80))
+		stdout.Printf("\r%s\r.lib generation failed\n", StrCopy(" ", 80))
 	}
 	
 	if !keepTemp {
-		stdout.print("\rremoving temporary directories : ")
-		system('del "'+defPath+'"')
-		system('del "'+batPath+'"')
-		system('del "'+strReplace(libPath,".lib",".exp")+'"')
-		stdout.print("(done)")
+		stdout.Print("\rremoving temporary directories : ")
+		System('del "'+defPath+'"')
+		System('del "'+batPath+'"')
+		System('del "'+StrReplace(libPath,".lib",".exp")+'"')
+		stdout.Print("(done)")
 	}
-	stdout.println()
+	stdout.Println()
 	
 	
-block help()
+block Help()
 	help = 
 "usage:  libfromdll [FLAGS]
 
@@ -179,6 +179,6 @@ The FLAGS include:
  -l=<path> --lib=<path>		the name + path for the generated .lib file
  -a=<arch> --arch=<arch>	specify the lib architecture e.g x86
 "
-	stdout.println(help)
+	stdout.Println(help)
 	__exit__
 	

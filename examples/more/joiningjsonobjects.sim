@@ -8,28 +8,28 @@ from parser.json.JsonMember
 
 block main()
 	object1 = new JsonObject() {
-		add("Zeros", "1111111")
-		add("One", 1)
-		add("Two", "Two")
+		Add("Zeros", "1111111")
+		Add("One", 1)
+		Add("Two", "Two")
 	}
 	object2 = new JsonObject() {
-		add("Three", "Three 3")
-		add("Zeros", "001010010100")
-		add("ToTen", new JsonArray() {
-			add("Four")
-			add(5)
-			add(6)
-			add("Seven")
-			add(8)
-			add("Nine")
-			add("Ten")
+		Add("Three", "Three 3")
+		Add("Zeros", "001010010100")
+		Add("ToTen", new JsonArray() {
+			Add("Four")
+			Add(5)
+			Add(6)
+			Add("Seven")
+			Add(8)
+			Add("Nine")
+			Add("Ten")
 		})
 	}
 	jsonMember1 = new JsonMember("Eleven", "11")
 	jsonMember2 = new JsonMember("Twelve", 12)
 	jsonMember3 = new JsonMember("Zeros", "0000000000")
-	object1.join(object2, true)
-	object1.join(jsonMember1, true)
-	object1.join(jsonMember2, true)
-	object1.join(jsonMember3) #add new "zeros" member
-	stdout.println(object1)
+	object1.Join(object2, true)
+	object1.Join(jsonMember1, true)
+	object1.Join(jsonMember2, true)
+	object1.Join(jsonMember3) #add new "zeros" member
+	stdout.Println(object1)

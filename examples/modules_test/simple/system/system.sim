@@ -12,22 +12,22 @@ block main()
 	display "========================================================================
 			SYSTEM	
 ========================================================================"+crlf
-	display getOS() + getNewLine() /*+ "ACTIVE SOURCE FILE : "+currentFileName()+crlf*/
-	display getEnv("SIMPLE_PATH")
-	display commandLineParameters()
-	display "CLPS : "+commandLineParametersSize() + crlf + "CURRENT DIRECTORY : "+currentDirectory() + crlf
-	changeDirectory("C:/Users/thecarisma/Documents")
-	display "NEW CURRENT DIRECTORY : "+currentDirectory() + crlf
-	display "SYSTEM DIR : "+systemDirectory()+" | VERSION : "+systemVersion() + crlf
-	display "USER : "+systemUser()+" | USER HOME : "+userHome() + crlf
-	display "MACHINE NAME : "+machineName() + crlf  #exit(0)
-	if isWindowNT() display "yea it window nt "+crlf end
-	display "USER DOMAIN : "+userDomain()+crlf
-	sleep(2000) beep(1000, 400)
+	display GetOS() + GetNewLine() /*+ "ACTIVE SOURCE FILE : "+CurrentFileName()+crlf*/
+	display GetEnv("SIMPLE_PATH")
+	display CommandLineParameters()
+	display "CLPS : "+CommandLineParametersSize() + crlf + "CURRENT DIRECTORY : "+CurrentDirectory() + crlf
+	ChangeDirectory("C:/Users/thecarisma/Documents")
+	display "NEW CURRENT DIRECTORY : "+CurrentDirectory() + crlf
+	display "SYSTEM DIR : "+SystemDirectory()+" | VERSION : "+SystemVersion() + crlf
+	display "USER : "+SystemUser()+" | USER HOME : "+UserHome() + crlf
+	display "MACHINE NAME : "+MachineName() + crlf  #Exit(0)
+	if IsWindowNT() display "yea it window nt "+crlf end
+	display "USER DOMAIN : "+UserDomain()+crlf
+	Sleep(2000) Beep(1000, 400)
 	display "========================================================================
 			RUNTIME	
 ========================================================================"+crlf
 	
-	Runtime.executeWithParameter(exeFilePath(), "-l")
-	Runtime.execute(exeFilePath())
+	Runtime.ExecuteWithParameter(ExeFilePath(), "-l")
+	Runtime.Execute(ExeFilePath())
 	

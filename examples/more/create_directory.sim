@@ -7,7 +7,7 @@
 	Example::
 	
 		dir = new Directory("../testfiles/dir_test/dir_test/dir_test/dir_test/dir_test")
-		dir.create()
+		dir.Create()
 		
 	The above example will only create the directory ``"../testfiles/dir_test/"`` 
 	neglecting all the sub level directory with the same name **dir_test**
@@ -27,5 +27,5 @@ from simple.io.Directory
 
 block main()
 	dir = new Directory("../testfiles/dir_test/dir_test/dir_test/dir_test/dir_test")
-	stdout.println(dir)
-	dir.create()
+	stdout.Println(dir)
+	dir.Create()

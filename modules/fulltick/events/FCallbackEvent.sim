@@ -19,7 +19,7 @@ class FCallbackEvent : FEvent
     /*
 
     */
-    block callback(widget, event)
+    block Callback(widget, event)
 
 
     

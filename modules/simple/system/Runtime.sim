@@ -18,9 +18,9 @@ Runtime = new Runtime
 
 class Runtime
 
-	block executeWithParameter(file, param)
+	block ExecuteWithParameter(file, param)
 		exe = '"'+file+'"' + " "+param
-		system(exe)
+		System(exe)
 		
-	block execute(exe)
-		system('"'+exe+'"')
+	block Execute(exe)
+		System('"'+exe+'"')

@@ -69,19 +69,19 @@ __fltk_created_menus_count = -1
 	FApp class
 */
 block __fltk_handle()
-	FApp.handle()
+	FApp.Handle()
 
 /*
 	To be deprecated
 */
 block __fltk_widget_callback()
-	__fltk_created_widgets[__fltk_current_widget_id].doCallback()
+	__fltk_created_widgets[__fltk_current_widget_id].DoCallback()
 
 /*
 	To be deprecated
 */
 block __fltk_widget_menu_callback()
-	__fltk_created_menus[__fltk_current_menu_index].doCallback()
+	__fltk_created_menus[__fltk_current_menu_index].DoCallback()
 
 /*
 
@@ -107,17 +107,17 @@ class FApp : Object
 	/*
 
 	*/
-	block setScheme(value)
-		if isObject(value) and __instance_of(value,"FScheme") {
+	block SetScheme(value)
+		if IsObject(value) and __instance_of(value,"FScheme") {
 			Scheme = value
 		else
-			throw(self,FULLTICK_INVALID_PARAMETER)
+			Throw(self,FULLTICK_INVALID_PARAMETER)
 		}
 
 	/*
 	
 	*/
-	block run()
+	block Run()
 		isRunning = true 
 		__Fl_Fl_event_dispatch(true)
 		__Fl_Fl_run()
@@ -125,42 +125,42 @@ class FApp : Object
 	/*
 	
 	*/	
-	block isRunning()
+	block IsRunning()
 		return isRunning		
 	
 	/*
 	
 	*/
-	block scheme(param...)
-		paramLen = lengthOf(param)
+	block Scheme(param...)
+		paramLen = LengthOf(param)
 		if paramLen == 0 {
 			return scheme
 		elif paramLen == 1
 			object = param[0]
-			if isString(object) {
+			if IsString(object) {
 				self.scheme = object
-			elif instanceOf(object,"FScheme")
+			elif InstanceOf(object,"FScheme")
 				self.scheme = object.SchemeName
 			} 
 			__Fl_Fl_scheme(self.scheme)
 		else 
-			throwWithTitle(self,"Calling block with invalid legth of parameter")
+			ThrowWithTitle(self,"Calling block with invalid legth of parameter")
 		}
 
 	/*
 		internal use only 
 	*/
-	block handle() 
+	block Handle() 
 		#@__fltk_current_pointer+":"+__fltk_current_event
 		widget = __fltk_created_widgets[__fltk_current_pointer] 
-		if !isNull(widget) { 
+		if !IsNull(widget) { 
 			windowPtr = widget.Ptr 
 			Ptr = widget.Ptr 
 			switch (__fltk_current_event) {
 				case __FL_CLOSE()
 					if __instance_of(widget,"FWindow") {
-						if !isNull(widget.WindowEvent) {
-							widget.WindowEvent.callback(widget,10)
+						if !IsNull(widget.WindowEvent) {
+							widget.WindowEvent.Callback(widget,10)
 						else
 							grab = __Fl_Fl_grab() 
 							modal = __Fl_Fl_modal() 
@@ -173,9 +173,9 @@ class FApp : Object
 					return 1
 
 				case __FL_SHOW() 
-					if instanceOf(widget,"FWindow") {
-						if !isNull(widget.WindowEvent) {
-							widget.WindowEvent.callback(widget,16)
+					if InstanceOf(widget,"FWindow") {
+						if !IsNull(widget.WindowEvent) {
+							widget.WindowEvent.Callback(widget,16)
 						else
 							__Fl_Fl_handle_(__fltk_current_event,Ptr) 
 						}
@@ -183,9 +183,9 @@ class FApp : Object
 					return 1
 
 				case __FL_HIDE() 
-					if instanceOf(widget,"FWindow") { 
-						if !isNull(widget.WindowEvent) { 
-							widget.WindowEvent.callback(widget,15)
+					if InstanceOf(widget,"FWindow") { 
+						if !IsNull(widget.WindowEvent) { 
+							widget.WindowEvent.Callback(widget,15)
 							return 0
 						else
 							__Fl_Fl_handle_(__fltk_current_event,Ptr) #no static Fl_Widget::show
@@ -203,7 +203,7 @@ class FApp : Object
 					}
 					__Fl_Fl_set_pushed_(Ptr) 
 					__Fl_Tooltip_Fl_Tooltip_current_1(Ptr)
-					if sendEvent(__fltk_current_event,widget,windowPtr) == 1 { return 1 }
+					if SendEvent(__fltk_current_event,widget,windowPtr) == 1 { return 1 }
 					__Fl_Widget_show(Ptr)
 					return 1 
 
@@ -215,7 +215,7 @@ class FApp : Object
 
 				case __FL_DND_LEAVE()
 					dndFlag = true 
-					setBelowMouse(null)
+					SetBelowMouse(null)
 					dndFlag = false 
 					return 1
 
@@ -226,28 +226,28 @@ class FApp : Object
 					#__Fl_Fl_handle_(__fltk_current_event,Ptr)
 			}
 		} 
-		#widget.handle(__fltk_current_event)
+		#widget.Handle(__fltk_current_event)
 
 	/*
 
 	*/
-	block setBelowMouse(value)
+	block SetBelowMouse(value)
 		#__Fl_Fl_belowmouse_1(0) #allow zero
 
 	/*
 
 	*/
-	block getBelowMouse()
+	block GetBelowMouse()
 		return BelowMouse
 
 	/*
 
 	*/
-	block giveFocus(widget)
-		if instanceOf(widget,"FWidget") {
-			widget.takeFocus()
+	block GiveFocus(widget)
+		if InstanceOf(widget,"FWidget") {
+			widget.TakeFocus()
 		else
-			throw(self,"Invalid parameter passed, expecting (fulltick.base.FWidget), found (" + objectType(widget) + ")")
+			Throw(self,"Invalid parameter passed, Expecting (fulltick.base.FWidget), Found (" + ObjectType(widget) + ")")
 		}
 	
 	/*
@@ -279,7 +279,7 @@ class FApp : Object
 		/*
 
 		*/
-		block sendEvent(event,widget,windowPtr)
+		block SendEvent(event,widget,windowPtr)
 			dx = 0
 			dy = 0
 			oldEvent = __Fl_Fl_e_number()
@@ -289,7 +289,7 @@ class FApp : Object
 				dy = __Fl_Widget_y(windowPtr)
 			}
 			w = widget
-			while (w.hasParent()) { 
+			while (w.HasParent()) { 
 				w = w.Parent 
 				if (__Fl_Widget_type(w.Ptr) == __FL_WINDOW() or __Fl_Widget_type(w.Ptr) == __FL_DOUBLE_WINDOW()) {
 					@"yes"
@@ -300,7 +300,7 @@ class FApp : Object
 			save_x = __Fl_Fl_e_x() __Fl_Fl_e_x_1( (save_x + dx) ) 
 			save_y = __Fl_Fl_e_y() __Fl_Fl_e_y_1( (save_y + dy) ) 
 			__Fl_Fl_e_number(event)
-			ret = widget.handle(event)
+			ret = widget.Handle(event)
 			__Fl_Fl_e_number(oldEvent)
 			__Fl_Fl_e_x_1( save_x ) 
 			__Fl_Fl_e_y_1( save_y ) 

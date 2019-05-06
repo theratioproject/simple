@@ -32,27 +32,27 @@ block H(string value)
 /*
 
 */
-block numValueOf(object)
+block NumValueOf(object)
 	val = 0
 				
-	if isNull(object) {
+	if IsNull(object) {
 		val = 0
 		
-	elif isPointer(object)
+	elif IsPointer(object)
 		val = object[2]
 		
-	elif isString(object) #Re visit and convert appropriately
+	elif IsString(object) #Re visit and convert appropriately
 		val = 1*object	
 		
-	elif isList(object)
-		val = lengthOf(object)
+	elif IsList(object)
+		val = LengthOf(object)
 		
-	elif isNumber(object)
+	elif IsNumber(object)
 		val = object 
 		
-	elif isObject(object) 
+	elif IsObject(object) 
 		if __object_has_method(object,"toNumber") {
-			val = object.toNumber()
+			val = object.ToNumber()
 		}	
 		
 	}

@@ -8,19 +8,19 @@ from simple.debugging.Error
 /* Throw Only */
 
 block main()
-	throwOnly(new TestError)
-	throwOnly(new IError("Title", "Error Message 001"))
-	throwOnly("Error Message 3")
+	ThrowOnly(new TestError)
+	ThrowOnly(new IError("Title", "Error Message 001"))
+	ThrowOnly("Error Message 3")
 
-	#throw(new IError("Title", "Error Message 001"))
-	#throw(new TestError)
-	#throw("Error Message 3")
+	#Throw(new IError("Title", "Error Message 001"))
+	#Throw(new TestError)
+	#Throw("Error Message 3")
 	error = new TestError
-	throw(error,"The title come automatically")
+	Throw(error,"The title come automatically")
 
 class TestError
 
-	block throwError()
+	block ThrowError()
 		display "Error Occur Bye"
 
 class IError : Error

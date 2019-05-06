@@ -1,7 +1,7 @@
 
 from simple.core.loadcoredymodule
 
-name = test("me")
+name = Test("me")
 
-block test(one)
+block Test(one)
 	return "Hello World " + one

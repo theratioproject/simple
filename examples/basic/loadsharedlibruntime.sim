@@ -12,7 +12,7 @@ display "do you want manual : " read val
 if val == "y" || val == "yes" {
 	display "Enter the lib name : " read libName
 	display "Enter the Function name : " read funcName
-	display "Enter the Return type : " read retType
+	display "Enter the return type : " read retType
 	display "Enter the parameters seperated by , : " read parames
 	paramList = [] 
 	tempVal = ""
@@ -36,21 +36,21 @@ if val == "y" || val == "yes" {
 			@val
 		}
 	} 
-	closeDynamicModule(lib)
+	CloseDynamicModule(lib)
 else 
-	callAutoTest()
+	CallAutoTest()
 } 
 
-block callAutoTest() 
-	if isWindows() {
+block CallAutoTest() 
+	if IsWindows() {
 		lib = __loadDynamicLibrary("User32.Dll")
 		val = __callDynamicFunction(lib,"SetCursorPos",__VOID,[600,500])
-		closeDynamicModule(lib)
+		CloseDynamicModule(lib)
 	else
 		@"Try loading a standard lib on your OS using the below format"
-		@"lib = loadDynamicLibrary('libName')"
-		@"returnedValue = loadDynamicLibrary(lib,'functionName', returnType, [list,of,parameters])"
-		@"closeDynamicModule(lib)"
+		@"lib = LoadDynamicLibrary('libName')"
+		@"returnedValue = LoadDynamicLibrary(lib,'functionName', returnType, [list,of,parameters])"
+		@"CloseDynamicModule(lib)"
 	} 
 	
 __exit__
@@ -63,5 +63,5 @@ if lib {
 	@sState
 	__callDynamicFunction(lib,"execute_simple_code",1,[sState, "@'Hello World'"])
 } 
-closeDynamicModule(lib)
+CloseDynamicModule(lib)
 

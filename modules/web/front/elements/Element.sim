@@ -28,81 +28,81 @@ class Element
 		elementName = name
 		elementHead = '<'+elementName+' '
 	
-	block addHTML(inelement)
+	block AddHTML(inelement)
 		elementContent += "\n\t\t"+inelement + crlf
 		
 	block __add_to_list(element)
 		try 
-			elementContent += "\n\t\t"+element.toString() + crlf
+			elementContent += "\n\t\t"+element.ToString() + crlf
 		catch
-			eleLen = lengthOf(element) - 1
+			eleLen = LengthOf(element) - 1
 			for a = 0 to eleLen
-				elementContent += "\n\t\t"+element[a].toString() + crlf
+				elementContent += "\n\t\t"+element[a].ToString() + crlf
 			end
 		end
 		
 	
-	block setPostion(pos)
+	block SetPostion(pos)
 		elementStyle += 'position:'+pos+';'
 		elementSetStyle = true
 		
-	block setBottom(px)
+	block SetBottom(px)
 		elementStyle += 'bottom:'+px+';'
 		elementSetStyle = true
 		
-	block setTop(px)
+	block SetTop(px)
 		elementStyle += 'top:'+px+';'
 		elementSetStyle = true
 		
-	block setLeft(px)
+	block SetLeft(px)
 		elementStyle += 'left:'+px+';'
 		elementSetStyle = true
 		
-	block setRight(px)
+	block SetRight(px)
 		elementStyle += 'right:'+px+';'
 		elementSetStyle = true
 	
-	block setBackground(icolor)
+	block SetBackground(icolor)
 		elementStyle += 'background:'+icolor+';'
 		elementSetStyle = true
 		
-	block setTextColor(icolor)
+	block SetTextColor(icolor)
 		elementStyle += 'color:'+icolor+';'
 		elementSetStyle = true
 		
-	block setHeight(height)
-		setSize(height, elementWidth)
+	block SetHeight(height)
+		SetSize(height, elementWidth)
 		elementSetStyle = true
 		
-	block getHeight()
+	block GetHeight()
 		return elementHeight
 	
-	block setWidth(width)
-		setSize(elementHeight, width)
+	block SetWidth(width)
+		SetSize(elementHeight, width)
 		elementSetStyle = true
 		
-	block getWidth()
+	block GetWidth()
 		return elementWidth
 		
-	block addStyleClass(iStyleClass)
+	block AddStyleClass(iStyleClass)
 		styleClass += ' '+iStyleClass
 		elementSetClass = true
 		
-	block addStyle(style)
+	block AddStyle(style)
 		elementStyle += style
 		elementSetStyle = true
 		
-	block setStyleClass(iStyleClass)
+	block SetStyleClass(iStyleClass)
 		styleClass += iStyleClass
 		elementSetClass = true
 		
-	block setId(id)
+	block SetId(id)
 		elementId += ' id="'+id+'" '
 		
-	block setInline(con)
+	block SetInline(con)
 		inline = con
 		
-	block toString()
+	block ToString()
 		finalDiv = '\t'+elementHead + elementId+' '
 		if elementSetStyle
 			finalDiv += elementStyle+'" '
@@ -120,5 +120,5 @@ class Element
 		
 		return finalDiv
 		
-	block render()
-		display toString()
+	block Render()
+		display ToString()

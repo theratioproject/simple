@@ -20,13 +20,13 @@ from simple.util.Console
 
 block main()
 	file = new File("../../../testfiles/test.txt")
-	if !file.exists() {
-		file.create()
+	if !file.Exists() {
+		file.Create()
 	}
-	stdout.println(file)
-	stdout.println("Rename to triller.txt : " + file.setName("triller.txt")) #change only the name not absolute path
+	stdout.Println(file)
+	stdout.Println("Rename to triller.txt : " + file.SetName("triller.txt")) #change only the name not absolute path
 
-	stdout.println(file)
-	stdout.println("Rename back to test.txt : "+file.renameTo("../../../testfiles/teste.txt", true)) #change it along with absolute path
+	stdout.Println(file)
+	stdout.Println("Rename back to test.txt : "+file.RenameTo("../../../testfiles/teste.txt", true)) #change it along with absolute path
 
-	#stdout.println("we are deleting "+file.delete())
+	#stdout.Println("we are deleting "+file.Delete())

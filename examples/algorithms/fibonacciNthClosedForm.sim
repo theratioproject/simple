@@ -6,19 +6,19 @@
 
 from 'simple/util/Math.sim'
 
-block fibonacciClosedForm(position)
+block FibonacciClosedForm(position)
   topMaxValidPosition = 75
 
   // check that the position is valid
 
   if position < 1 || position > topMaxValidPosition {
-    throw("Can't handle position smaller than 1 or greater than"+topMaxValidPosition+'')
+    Throw("Can't handle position smaller than 1 or greater than"+topMaxValidPosition+'')
   }
 
   # Calculate √5 to re-use it in further formulas.
-  sqrt5 = sqrt(5)
-  # Calculate φ constant (≈ 1.61803).
+  sqrt5 = Sqrt(5)
+  # Calculate φ Constant (≈ 1.61803).
   phi = (1 + sqrt5) / 2
 
-  return floor((phi * position * position) / sqrt5 + 0.5)
+  return Floor((phi * position * position) / sqrt5 + 0.5)
 end

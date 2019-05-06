@@ -13,10 +13,10 @@ from simple.util.Console
 colors = 1:1000
 
 for color in colors 
-	stdout.printbc(color, "Color At "+color+" ") 
+	stdout.Printbc(color, "Color At "+color+" ") 
 end
-stdout.println()
+stdout.Println()
 for color in colors 
-	stdout.printfc(color, "Color At "+color+" ") 
+	stdout.Printfc(color, "Color At "+color+" ") 
 end
-stdout.println()
+stdout.Println()

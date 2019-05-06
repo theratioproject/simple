@@ -83,8 +83,8 @@ final SystemScreenSizes = __screen_sizes()
 /*
 
 */
-block getSystemScreenSizes()
-	if isNull(SystemScreenSizes) {
+block GetSystemScreenSizes()
+	if IsNull(SystemScreenSizes) {
 		SystemScreenSizes = __screen_sizes()
 	}
 	return SystemScreenSizes
@@ -92,46 +92,46 @@ block getSystemScreenSizes()
 /*
 
 */
-block monitorCount()
+block MonitorCount()
 	return __monitor_count()
 
 /*
 
 */
-block absoluteScreenSize()
-	scdLen = lengthOf(SystemScreenSizes) - 1
+block AbsoluteScreenSize()
+	scdLen = LengthOf(SystemScreenSizes) - 1
 	return SystemScreenSizes[scdLen]
 
 /*
 
 */
-block absoluteScreenWidth()
-	scdLen = lengthOf(SystemScreenSizes) - 1
+block AbsoluteScreenWidth()
+	scdLen = LengthOf(SystemScreenSizes) - 1
 	return SystemScreenSizes[scdLen][0]
 
 /*
 
 */
-block absoluteScreenHeight()
-	scdLen = lengthOf(SystemScreenSizes) - 1
+block AbsoluteScreenHeight()
+	scdLen = LengthOf(SystemScreenSizes) - 1
 	return SystemScreenSizes[scdLen][1]
 
 /*
 
 */
-block primaryScreenSize()
+block PrimaryScreenSize()
 	return SystemScreenSizes[0]
 
 /*
 
 */
-block primaryScreenWidth()
+block PrimaryScreenWidth()
 	return SystemScreenSizes[0][0]
 
 /*
 
 */
-block primaryScreenHeight()
+block PrimaryScreenHeight()
 	return SystemScreenSizes[0][1]
 
 /*
@@ -146,12 +146,12 @@ block primaryScreenHeight()
 		Android		- /
 		Termux		- /
 	@End
-	@Return the system slash char @DataType String
+	@return the system slash char @DataType String
 */
 block SystemSlash()
-	if isWindows() {
+	if IsWindows() {
 		return '\\'
-	elif isLinux()
+	elif IsLinux()
 		return '/'
 	}		
 	return '/'
@@ -159,8 +159,8 @@ block SystemSlash()
 /*
 
 */
-block getEnv(string variable)
-	environmentVar = getSystemEnvironment(variable)
+block GetEnv(string variable)
+	environmentVar = GetSystemEnvironment(variable)
 	if environmentVar == "(null)" {
 		environmentVar = ""
 	}
@@ -170,50 +170,50 @@ block getEnv(string variable)
 
 */
 block LineSeperator()
-	if isWindows() {
-		return ascii(13)+ascii(10)
+	if IsWindows() {
+		return Ascii(13)+Ascii(10)
 	}
-	return ascii(10)
+	return Ascii(10)
 
 #ENDDONE
 
-block getOS()
-	if isMsDos() {
+block GetOS()
+	if IsMsDos() {
 		return MS_DOS_SYSTEM
-	elif isWindows()
-		if isWindows64() {
+	elif IsWindows()
+		if IsWindows64() {
 			return WINDOWS_AMD64_SYSTEM
-		elif isAmd64System()
+		elif IsAmd64System()
 			return WINDOWS_AMD64_SYSTEM
-		elif isI386System()
+		elif IsI386System()
 			return WINDOWS_I386_SYSTEM
-		elif isArm64System()
+		elif IsArm64System()
 			return WINDOWS_ARM64_SYSTEM
-		elif isArmSystem()
+		elif IsArmSystem()
 			return WINDOWS_ARM_SYSTEM
-		elif isPowerPC64System()
+		elif IsPowerPC64System()
 			return WINDOWS_POWERPC64_SYSTEM
-		elif isPowerPCSystem()
+		elif IsPowerPCSystem()
 			return WINDOWS_POWERPC_SYSTEM
-		elif isMIPSSystem()
+		elif IsMIPSSystem()
 			return WINDOWS_MIPS_SYSTEM
 		else
 			return WINDOWS_SYSTEM
 		}
-	elif isLinux()
-		if isAmd64System()
+	elif IsLinux()
+		if IsAmd64System()
 			return LINUX_AMD64_SYSTEM
-		elif isI386System()
+		elif IsI386System()
 			return LINUX_I386_SYSTEM
-		elif isArm64System()
+		elif IsArm64System()
 			return LINUX_ARM64_SYSTEM
-		elif isArmSystem()
+		elif IsArmSystem()
 			return LINUX_ARM_SYSTEM
-		elif isPowerPC64System()
+		elif IsPowerPC64System()
 			return LINUX_POWERPC64_SYSTEM
-		elif isPowerPCSystem()
+		elif IsPowerPCSystem()
 			return LINUX_POWERPC_SYSTEM
-		elif isMIPSSystem()
+		elif IsMIPSSystem()
 			return LINUX_MIPS_SYSTEM
 		else
 			return LINUX_SYSTEM
@@ -223,64 +223,64 @@ block getOS()
 	}
 	
 #bbbbboobobobom true for now
-block isAmd64System() return true
+block IsAmd64System() return true
 	
-block getNewLine()
-	if isWindows() || isWindows64()
-		return windowsnl()
+block GetNewLine()
+	if IsWindows() || IsWindows64()
+		return Windowsnl()
 	else 
 		return crlf
 	end
 	
 	
-block tickCount()
+block TickCount()
 
-block exitCode()
+block ExitCode()
 	return 0
 	
 #internal block for getting environment variable
-#block getSystemEnvironment(para) 
+#block GetSystemEnvironment(para) 
 	
-block commandLineParameters()
+block CommandLineParameters()
 	return cmdparams
 	
-block commandLineParametersSize()
-	return lengthOf(cmdparams)
+block CommandLineParametersSize()
+	return LengthOf(cmdparams)
 
-block systemDirectory()
-	return getSystemEnvironment("SYSTEM_DIR")
+block SystemDirectory()
+	return GetSystemEnvironment("SYSTEM_DIR")
 	
-block systemVersion()
-	return getSystemEnvironment("OSVERSION")
+block SystemVersion()
+	return GetSystemEnvironment("OSVERSION")
 	
-block systemUser()	
-	return getSystemEnvironment("USERNAME")
+block SystemUser()	
+	return GetSystemEnvironment("USERNAME")
 	
-block userDomain()	
-	return getSystemEnvironment("USERDOMAIN")
+block UserDomain()	
+	return GetSystemEnvironment("USERDOMAIN")
 	
-block osGroup()
-	return getSystemEnvironment("OS")
+block OsGroup()
+	return GetSystemEnvironment("OS")
 	
-block machineName()
-	return getSystemEnvironment("COMPUTERNAME")
+block MachineName()
+	return GetSystemEnvironment("COMPUTERNAME")
 	
-block setSystemEnvironment(value)
+block SetSystemEnvironment(value)
 	#incomming later
 	
-block isWindowNT()
-	if strEquals(osGroup(), "Windows_NT", true)
+block IsWindowNT()
+	if StrEquals(OsGroup(), "Windows_NT", true)
 		return true
 	end 
 	return false
 	
-block userHome()	
-	envValue = getSystemEnvironment("USERPROFILE")
+block UserHome()	
+	envValue = GetSystemEnvironment("USERPROFILE")
 	if envValue = "(null)" || envValue = "" {
-		envValue = getSystemEnvironment("USERDIR")
+		envValue = GetSystemEnvironment("USERDIR")
 		if envValue = "(null)" || envValue = "" {
-			if isWindows() {
-				envValue = "C:\\Users\\"+systemUser()
+			if IsWindows() {
+				envValue = "C:\\Users\\"+SystemUser()
 			else
 				envValue = "~/"
 			}
@@ -288,16 +288,16 @@ block userHome()
 	}
 	return envValue
 
-block tempDirectory()
-	tempDirectory = getSystemEnvironment("TMPDIR")
+block TempDirectory()
+	tempDirectory = GetSystemEnvironment("TMPDIR")
 	if tempDirectory == "(null)" || tempDirectory == "" {
-		tempDirectory = getSystemEnvironment("TEMPDIR")
+		tempDirectory = GetSystemEnvironment("TEMPDIR")
 		if tempDirectory == "(null)" || tempDirectory == "" {
-			tempDirectory = getSystemEnvironment("TMP")
+			tempDirectory = GetSystemEnvironment("TMP")
 			if tempDirectory == "(null)" || tempDirectory == "" {
-				tempDirectory = getSystemEnvironment("TEMP")
+				tempDirectory = GetSystemEnvironment("TEMP")
 				if tempDirectory == "(null)" || tempDirectory == "" {
-					if isWindows() {
+					if IsWindows() {
 						tempDirectory = System.UserDirectory()+"\\AppData\\Local\\Temp\\"
 					else
 						tempDirectory = "/tmp/"
@@ -309,16 +309,16 @@ block tempDirectory()
 	}
 	return tempDirectory
 	
-block getTempDirectory()
-		return tempDirectory()
+block GetTempDirectory()
+		return TempDirectory()
 	
-block exit(value)
+block Exit(value)
 	__exit(value)
 	
-block beep(time, rate)
+block Beep(time, rate)
 	__beep(time, rate)
 	
-block sleep(length)
+block Sleep(length)
 	__sleep(length)
 	
 
@@ -326,10 +326,10 @@ block sleep(length)
 /*
 	GHOST BLOCKS
 	-------------------------------
-	currentDirectory() return the current working directory
-	getSystemEnvironment(param) return a system env
-	currentFileName() return the active simple source file name
-	currentFilePath() return the active simple source file path
+	CurrentDirectory() return the current working directory
+	GetSystemEnvironment(param) return a system env
+	CurrentFileName() return the active simple source file name
+	CurrentFilePath() return the active simple source file path
 */
 
 

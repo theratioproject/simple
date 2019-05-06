@@ -6,22 +6,22 @@ from simple.util.Console
 import simple.core
 
 block main()
-	testDirectory("./")
+	TestDirectory("./")
 	
-block testDirectory(directory)
+block TestDirectory(directory)
 	dir = new Directory(directory)
-	files = dir.getFiles()
+	files = dir.GetFiles()
 	for file in files {
 		if file.Name == "unit_test.sim" {
 			continue
 		}
-		stdout.println("\n\n================================================================")
-		stdout.printf("Running Test : %s \n", file.Name)
-		stdout.println("================================================================\n")
-		Runtime.execute('simple "'+file.AbsolutePath+'" -t') 
+		stdout.Println("\n\n================================================================")
+		stdout.Printf("Running Test : %s \n", file.Name)
+		stdout.Println("================================================================\n")
+		Runtime.Execute('simple "'+file.AbsolutePath+'" -t') 
 	}
 	
-	folders = dir.getDirectories()
+	folders = dir.GetDirectories()
 	for folder in folders {
-		testDirectory(folder)
+		TestDirectory(folder)
 	}

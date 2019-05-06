@@ -12,22 +12,22 @@ from simple.core.loadcoredymodule
 from simple.util.Console
 
 block main()
-	stdout.println("String : Immutable ")
+	stdout.Println("String : Immutable ")
 	str = "A String is immutable"
-	stdout.println(__object_address(str))
+	stdout.Println(__object_address(str))
 	str = "It allocate a new memory to it"
-	stdout.println(__object_address(str))
+	stdout.Println(__object_address(str))
 
-	stdout.println("Int : Immutable ")
+	stdout.Println("Int : Immutable ")
 	num = 1234343
-	stdout.println(__object_address(""+num))
+	stdout.Println(__object_address(""+num))
 	num = num * 2
-	stdout.println(__object_address(""+num))
+	stdout.Println(__object_address(""+num))
 
-	stdout.println("List : Mutable ")
+	stdout.Println("List : Mutable ")
 	li = [1, 2, 3, 4, 5]
-	stdout.println(__object_address(li))
+	stdout.Println(__object_address(li))
 	li = li + num * 2
-	stdout.println(__object_address(li))
+	stdout.Println(__object_address(li))
 
 

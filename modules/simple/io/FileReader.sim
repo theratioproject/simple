@@ -49,32 +49,32 @@ class FileReader : Object
 	
 	*/
 	block Init(object file, string openMode)
-		if isString(file) or instanceOf(file, "String") {
-			file = stringValue(file)
+		if IsString(file) or InstanceOf(file, "String") {
+			file = StringValue(file)
 			
-		elif instanceOf(file, "File")
+		elif InstanceOf(file, "File")
 			file = file.AbsolutePath
 			
-		elif isPointer(file)
+		elif IsPointer(file)
 			if file[1] != "SMOOTHC_FILE_SAVANT" {
-				throw(self,"Invalid File Pointer, expecting an active file pointer : " + strValueOf(file))
+				Throw(self,"Invalid File Pointer, expecting an active file pointer : " + StrValueOf(file))
 			}
 			FilePointer = file
 			IsOpen = true
 			return self
 			
 		else
-			throw(self,"Invalid arguments, expecting (string|File|FileStream|FileReader,string), found (" + objectType(file) + "," + objectType(openMode) + ")")
+			Throw(self,"Invalid arguments, Expecting (string|File|FileStream|FileReader,string), Found (" + ObjectType(file) + "," + ObjectType(openMode) + ")")
 			return null
 		}
 		
 		if !__file_exists(file) {
-			throw(self, "The file does not exist : " + file)
+			Throw(self, "The file does not exist : " + file)
 			return null
 		}
 		FilePointer = __fopen(file, openMode)	
 		if __is_null_pointer(FilePointer, FilePointer[1]) {
-			throw(self, "Access Denied. The File is not readable : " + file)
+			Throw(self, "Access Denied. The File is not readable : " + file)
 			return self
 		}
 		IsOpen = true
@@ -85,13 +85,13 @@ class FileReader : Object
 	
 	*/
 	#TODO : Visit
-	block fread(int length)
+	block Fread(int length)
 		if !IsOpen {
-			throw(self, "The file has been closed ")
+			Throw(self, "The file has been closed ")
 			return null
 		}
 		/*if offset < 1 {
-			throw(self, "Invalid offset. You cannot start reading from " + offset + "")
+			Throw(self, "Invalid offset. You cannot start reading from " + offset + "")
 			return null
 		}*/
 		return __ffread(FilePointer, 1, length)
@@ -99,7 +99,7 @@ class FileReader : Object
 	/*
 	
 	*/
-	block close()
+	block Close()
 		if IsOpen and Closable {
 			__fclose(FilePointer)
 			IsOpen = false
@@ -114,8 +114,8 @@ class FileReader : Object
 		@See @Block close
 		@See @Block flush
 	*/
-	block done()
+	block Done()
 		if IsOpen {
-			close()
+			Close()
 		}
 		#ask team if to destroy object here

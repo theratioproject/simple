@@ -12,4 +12,4 @@
 from "simple/core/String.sim" import simple.core
 
 stri = new String("Hello \tWorld")
-display strFormat(stri)
+display StrFormat(stri)

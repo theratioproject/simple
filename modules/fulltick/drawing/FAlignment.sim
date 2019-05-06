@@ -149,17 +149,17 @@ class FAlignment : Object
 
     */
     block Init(align)
-        if isNumber(align) {
+        if IsNumber(align) {
             Alignment = align
         else
-            throw(self,"Invalid parameter in Alignment Constructor. Expecting (Number). Found (" + objectType(align) + ")")
+            Throw(self,"Invalid parameter in Alignment Constructor. Expecting (Number). Found (" + ObjectType(align) + ")")
         }
 
     /*
 
     */
-    block getALIGN_CENTER() 
-        if isNull(ALIGN_CENTER) {
+    block GetALIGN_CENTER() 
+        if IsNull(ALIGN_CENTER) {
             ALIGN_CENTER = new FAlignment(__FL_ALIGN_CENTER())
         } 
         return ALIGN_CENTER
@@ -167,8 +167,8 @@ class FAlignment : Object
     /*
 
     */
-	block getALIGN_TOP()
-        if isNull(ALIGN_TOP) {
+	block GetALIGN_TOP()
+        if IsNull(ALIGN_TOP) {
             ALIGN_TOP = new FAlignment(__FL_ALIGN_TOP())
         } 
         return ALIGN_TOP
@@ -176,8 +176,8 @@ class FAlignment : Object
     /*
 
     */
-	block getALIGN_BOTTOM()
-        if isNull(ALIGN_BOTTOM) {
+	block GetALIGN_BOTTOM()
+        if IsNull(ALIGN_BOTTOM) {
             ALIGN_BOTTOM = new FAlignment(__FL_ALIGN_BOTTOM())
         }
         return ALIGN_BOTTOM
@@ -185,8 +185,8 @@ class FAlignment : Object
     /*
 
     */
-	block getALIGN_LEFT()
-        if isNull(ALIGN_LEFT) {
+	block GetALIGN_LEFT()
+        if IsNull(ALIGN_LEFT) {
             ALIGN_LEFT = new FAlignment(__FL_ALIGN_LEFT())
         }
         return ALIGN_LEFT
@@ -194,8 +194,8 @@ class FAlignment : Object
     /*
 
     */
-	block getALIGN_RIGHT()
-        if isNull(ALIGN_RIGHT) {
+	block GetALIGN_RIGHT()
+        if IsNull(ALIGN_RIGHT) {
             ALIGN_RIGHT = new FAlignment(__FL_ALIGN_RIGHT())
         }
         return ALIGN_RIGHT
@@ -203,8 +203,8 @@ class FAlignment : Object
     /*
 
     */
-	block getALIGN_INSIDE()
-        if isNull(ALIGN_INSIDE) {
+	block GetALIGN_INSIDE()
+        if IsNull(ALIGN_INSIDE) {
             ALIGN_INSIDE = new FAlignment(__FL_ALIGN_INSIDE())
         }
         return ALIGN_INSIDE
@@ -212,8 +212,8 @@ class FAlignment : Object
     /*
 
     */
-	block getALIGN_TEXT_OVER_IMAGE()
-        if isNull(ALIGN_TEXT_OVER_IMAGE) {
+	block GetALIGN_TEXT_OVER_IMAGE()
+        if IsNull(ALIGN_TEXT_OVER_IMAGE) {
             ALIGN_TEXT_OVER_IMAGE = new FAlignment(__FL_ALIGN_TEXT_OVER_IMAGE())
         }
         return ALIGN_TEXT_OVER_IMAGE
@@ -221,8 +221,8 @@ class FAlignment : Object
     /*
 
     */
-	block getALIGN_IMAGE_OVER_TEXT()
-        if isNull(ALIGN_IMAGE_OVER_TEXT) {
+	block GetALIGN_IMAGE_OVER_TEXT()
+        if IsNull(ALIGN_IMAGE_OVER_TEXT) {
             ALIGN_IMAGE_OVER_TEXT = new FAlignment(__FL_ALIGN_IMAGE_OVER_TEXT())
         }
         return ALIGN_IMAGE_OVER_TEXT
@@ -230,8 +230,8 @@ class FAlignment : Object
     /*
 
     */
-	block getALIGN_CLIP()
-        if isNull(ALIGN_CLIP) { 
+	block GetALIGN_CLIP()
+        if IsNull(ALIGN_CLIP) { 
             ALIGN_CLIP = new FAlignment(__FL_ALIGN_CLIP())
         }
         return ALIGN_CLIP
@@ -239,8 +239,8 @@ class FAlignment : Object
     /*
 
     */
-	block getALIGN_WRAP()
-        if isNull(ALIGN_WRAP) { 
+	block GetALIGN_WRAP()
+        if IsNull(ALIGN_WRAP) { 
             ALIGN_WRAP = new FAlignment(__FL_ALIGN_WRAP())
         }
         return ALIGN_WRAP
@@ -248,8 +248,8 @@ class FAlignment : Object
     /*
 
     */
-	block getALIGN_IMAGE_NEXT_TO_TEXT()
-        if isNull(ALIGN_IMAGE_NEXT_TO_TEXT) { 
+	block GetALIGN_IMAGE_NEXT_TO_TEXT()
+        if IsNull(ALIGN_IMAGE_NEXT_TO_TEXT) { 
             ALIGN_IMAGE_NEXT_TO_TEXT = new FAlignment(__FL_ALIGN_IMAGE_NEXT_TO_TEXT())
         }
         return ALIGN_IMAGE_NEXT_TO_TEXT
@@ -257,8 +257,8 @@ class FAlignment : Object
     /*
 
     */
-	block getALIGN_TEXT_NEXT_TO_IMAGE()
-        if isNull(ALIGN_TEXT_NEXT_TO_IMAGE) { 
+	block GetALIGN_TEXT_NEXT_TO_IMAGE()
+        if IsNull(ALIGN_TEXT_NEXT_TO_IMAGE) { 
             ALIGN_TEXT_NEXT_TO_IMAGE = new FAlignment(__FL_ALIGN_TEXT_NEXT_TO_IMAGE())
         }
         return ALIGN_TEXT_NEXT_TO_IMAGE
@@ -266,8 +266,8 @@ class FAlignment : Object
     /*
 
     */
-	block getALIGN_IMAGE_BACKDROP()
-        if isNull(ALIGN_IMAGE_BACKDROP) { 
+	block GetALIGN_IMAGE_BACKDROP()
+        if IsNull(ALIGN_IMAGE_BACKDROP) { 
             ALIGN_IMAGE_BACKDROP = new FAlignment(__FL_ALIGN_IMAGE_BACKDROP())
         }
         return ALIGN_IMAGE_BACKDROP
@@ -275,8 +275,8 @@ class FAlignment : Object
     /*
 
     */
-	block getALIGN_TOP_LEFT()
-        if isNull(ALIGN_TOP_LEFT) { 
+	block GetALIGN_TOP_LEFT()
+        if IsNull(ALIGN_TOP_LEFT) { 
             ALIGN_TOP_LEFT = new FAlignment(__FL_ALIGN_TOP_LEFT())
         }
         return ALIGN_TOP_LEFT
@@ -284,8 +284,8 @@ class FAlignment : Object
     /*
 
     */
-	block getALIGN_TOP_RIGHT()
-        if isNull(ALIGN_TOP_RIGHT) { 
+	block GetALIGN_TOP_RIGHT()
+        if IsNull(ALIGN_TOP_RIGHT) { 
             ALIGN_TOP_RIGHT = new FAlignment(__FL_ALIGN_TOP_RIGHT())
         }
         return ALIGN_TOP_RIGHT
@@ -293,8 +293,8 @@ class FAlignment : Object
     /*
 
     */
-	block getALIGN_BOTTOM_LEFT()
-        if isNull(ALIGN_BOTTOM_LEFT) { 
+	block GetALIGN_BOTTOM_LEFT()
+        if IsNull(ALIGN_BOTTOM_LEFT) { 
             ALIGN_BOTTOM_LEFT = new FAlignment(__FL_ALIGN_BOTTOM_LEFT())
         }
         return ALIGN_BOTTOM_LEFT
@@ -302,8 +302,8 @@ class FAlignment : Object
     /*
 
     */
-	block getALIGN_BOTTOM_RIGHT()
-        if isNull(ALIGN_BOTTOM_RIGHT) { 
+	block GetALIGN_BOTTOM_RIGHT()
+        if IsNull(ALIGN_BOTTOM_RIGHT) { 
             ALIGN_BOTTOM_RIGHT = new FAlignment(__FL_ALIGN_BOTTOM_RIGHT())
         }
         return ALIGN_BOTTOM_RIGHT
@@ -311,8 +311,8 @@ class FAlignment : Object
     /*
 
     */
-	block getALIGN_LEFT_TOP()
-        if isNull(ALIGN_LEFT_TOP) { 
+	block GetALIGN_LEFT_TOP()
+        if IsNull(ALIGN_LEFT_TOP) { 
             ALIGN_LEFT_TOP = new FAlignment(__FL_ALIGN_LEFT_TOP())
         }
         return ALIGN_LEFT_TOP
@@ -320,8 +320,8 @@ class FAlignment : Object
     /*
 
     */
-	block getALIGN_RIGHT_TOP()
-        if isNull(ALIGN_RIGHT_TOP) { 
+	block GetALIGN_RIGHT_TOP()
+        if IsNull(ALIGN_RIGHT_TOP) { 
             ALIGN_RIGHT_TOP = new FAlignment(__FL_ALIGN_RIGHT_TOP())
         }
         return ALIGN_RIGHT_TOP
@@ -329,8 +329,8 @@ class FAlignment : Object
     /*
 
     */
-	block getALIGN_LEFT_BOTTOM()
-        if isNull(ALIGN_LEFT_BOTTOM) { 
+	block GetALIGN_LEFT_BOTTOM()
+        if IsNull(ALIGN_LEFT_BOTTOM) { 
             ALIGN_LEFT_BOTTOM = new FAlignment(__FL_ALIGN_LEFT_BOTTOM())
         }
         return ALIGN_LEFT_BOTTOM
@@ -338,8 +338,8 @@ class FAlignment : Object
     /*
 
     */
-	block getALIGN_RIGHT_BOTTOM()
-        if isNull(ALIGN_RIGHT_BOTTOM) { 
+	block GetALIGN_RIGHT_BOTTOM()
+        if IsNull(ALIGN_RIGHT_BOTTOM) { 
             ALIGN_RIGHT_BOTTOM = new FAlignment(__FL_ALIGN_RIGHT_BOTTOM())
         }
         return ALIGN_RIGHT_BOTTOM
@@ -347,8 +347,8 @@ class FAlignment : Object
     /*
 
     */
-	block getALIGN_NOWRAP()
-        if isNull(ALIGN_NOWRAP) { 
+	block GetALIGN_NOWRAP()
+        if IsNull(ALIGN_NOWRAP) { 
             ALIGN_NOWRAP = new FAlignment(__FL_ALIGN_NOWRAP())
         }
         return ALIGN_NOWRAP
@@ -356,8 +356,8 @@ class FAlignment : Object
     /*
 
     */
-	block getALIGN_POSITION_MASK()
-        if isNull(ALIGN_POSITION_MASK) { 
+	block GetALIGN_POSITION_MASK()
+        if IsNull(ALIGN_POSITION_MASK) { 
             ALIGN_POSITION_MASK = new FAlignment(__FL_ALIGN_POSITION_MASK())
         }
         return ALIGN_POSITION_MASK
@@ -365,8 +365,8 @@ class FAlignment : Object
     /*
 
     */
-	block getALIGN_IMAGE_MASK()
-        if isNull(ALIGN_IMAGE_MASK) { 
+	block GetALIGN_IMAGE_MASK()
+        if IsNull(ALIGN_IMAGE_MASK) { 
             ALIGN_IMAGE_MASK = new FAlignment(__FL_ALIGN_IMAGE_MASK())
         }
         return ALIGN_IMAGE_MASK
@@ -374,9 +374,9 @@ class FAlignment : Object
     /*
 
     */
-    block name()
+    block Name()
         name = alinmentNameMap[""+Alignment+""]
-        if isNull(name) {
+        if IsNull(name) {
             name = "Invalid Alignment"
         }
         return name
@@ -384,8 +384,8 @@ class FAlignment : Object
     /*
 
 	*/
-	block equals(object)
-		if !isObject(object) or !__instance_of(object,"FAlignment") {
+	block Equals(object)
+		if !IsObject(object) or !__instance_of(object,"FAlignment") {
 			return false
 		}
 		return (Alignment == object.Alignment)
@@ -393,8 +393,8 @@ class FAlignment : Object
     /*
 
     */
-    block toString() 
-        return "[" + absolutename() + ":Alignment=" + Alignment + ",AlignmentName=" + name() + "]"
+    block ToString() 
+        return "[" + Absolutename() + ":Alignment=" + Alignment + ",AlignmentName=" + Name() + "]"
 
     /*
 
@@ -434,7 +434,7 @@ class FAlignment : Object
         /*
 
         */
-        block setAlignment(value)
+        block SetAlignment(value)
 
         
 

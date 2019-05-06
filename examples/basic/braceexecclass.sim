@@ -16,13 +16,13 @@ class BraceUp
 
 	Opened = false
 
-	block open()
+	block Open()
 		if !Opened {
 			display "the brace has been opened " + nl
 			Opened = true
 		}
 
-	block close()
+	block Close()
 		if Opened {
 			display "the brace has been closed " + nl
 			Opened = false

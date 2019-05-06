@@ -26,7 +26,7 @@ module simple.net
 /*
 
 */
-block download(string url)
+block Download(string url)
 	return __curl_download(url)
 
 /*
@@ -48,8 +48,8 @@ class Download : File
 	
 	*/
 	block Init(string url, string filePath)
-		checkNullity(self,url)
-		checkNullity(self,filePath)
+		CheckNullity(self,url)
+		CheckNullity(self,filePath)
 		Url = url
 		File(filePath)
 		AlreadyInit = true
@@ -59,34 +59,34 @@ class Download : File
 	/*
 	
 	*/
-	block fetch()
-		if !exists() {
-			if !create() {
+	block Fetch()
+		if !Exists() {
+			if !Create() {
 				return false
 			}
 		}
 		if (!AlreadyInit) {
-			throw(self, "The class " + absolutename() + " has not been initialized")
+			Throw(self, "The class " + Absolutename() + " has not been initialized")
 		else
 			DownloadedObject = __curl_download(Url)
-			if !isNull(DownloadedObject) && !strIsEmpty(DownloadedObject) {
+			if !IsNull(DownloadedObject) && !StrIsEmpty(DownloadedObject) {
 				__write_file(AbsolutePath, DownloadedObject)
 			}
 		}
-		return getSize() > 0
+		return GetSize() > 0
 		
 		
 	/*
 	
 	*/
-	block getUrl()
+	block GetUrl()
 		return Url
 		
 	/*
 	
 	*/
-	block setUrl(string url)
-		checkNullity(self,url)
+	block SetUrl(string url)
+		CheckNullity(self,url)
 		Url = url
 		
 	/*

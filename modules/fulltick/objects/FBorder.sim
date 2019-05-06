@@ -58,7 +58,7 @@ class FBorder : Object
 
     */
     block Init(params...)
-        paramsLen = lengthOf(params)
+        paramsLen = LengthOf(params)
 
         if paramsLen == 0 {
         elif paramsLen == 6
@@ -68,54 +68,54 @@ class FBorder : Object
             right = params[3] 
             boxtype = params[4] 
             color = params[5]
-            if isNumber(top) and isNumber(bottom) and isNumber(left) and isNumber(right) and (isNumber(boxtype) or instanceOf(boxtype,"FBoxType")) and (isNumber(color) or isString(color) or instanceOf(color,"FColor")) {
+            if IsNumber(top) and IsNumber(bottom) and IsNumber(left) and IsNumber(right) and (IsNumber(boxtype) or InstanceOf(boxtype,"FBoxType")) and (IsNumber(color) or IsString(color) or InstanceOf(color,"FColor")) {
                 Top = top
                 Bottom = bottom
                 Left = left
                 Right = right
 
-                if isNumber(boxtype) {
+                if IsNumber(boxtype) {
                     BoxType = new FBoxType(boxtype)
                 else
                     BoxType = boxtype
                 }
 
-                if isNumber(color) or isString(color) {
+                if IsNumber(color) or IsString(color) {
                     Color = new FColor(color)
                 else
                     Color = color
                 }
             else
-                throw(self,"Invalid parameters. Expecting (Number,Number,Number,Number,Number|fulltick.drwaing.FBoxType,Number|String|fulltick.painting.FColor), Found (" + objectType(top) + "," + objectType(bottom) + "," + objectType(left) + "," + objectType(right) + "," + objectType(boxtype) + "," + objectType(color) + ")")
+                Throw(self,"Invalid parameters. Expecting (Number,Number,Number,Number,Number|fulltick.drwaing.FBoxType,Number|String|fulltick.painting.FColor), Found (" + ObjectType(top) + "," + ObjectType(bottom) + "," + ObjectType(left) + "," + ObjectType(right) + "," + ObjectType(boxtype) + "," + ObjectType(color) + ")")
             }
         else
-            throw(self,"Calling block with invalid lenght of parameter")
+            Throw(self,"Calling block with invalid lenght of parameter")
         }
 
     /*
 
     */
-    block setColor(value)
-        if isObject(value) {
+    block SetColor(value)
+        if IsObject(value) {
             if __instance_of(value,"FColor") {
                 Color = value
             }
-        elif isNumber(value) or isString(value) 
+        elif IsNumber(value) or IsString(value) 
             __value = value
             Color = new FColor(__value) 
         else
-            throw(self,"Invalid parameter. Expecting innstance of 'Fcolor', 'Color', 'number' or 'string' as FBorder Color value. Found (" + objectType(value) + ")")
+            Throw(self,"Invalid parameter. Expecting innstance of 'Fcolor', 'Color', 'number' or 'string' as FBorder Color value. Found (" + ObjectType(value) + ")")
         }
-        if !isNull(Component) {
-            __Fl_Widget_color_1(Component.Ptr,Color.colorAsNumber())
+        if !IsNull(Component) {
+            __Fl_Widget_color_1(Component.Ptr,Color.ColorAsNumber())
         }
         
 
     /*
 
     */
-    block getColor()
-        if isNull(Color) {
+    block GetColor()
+        if IsNull(Color) {
             Color = new FColor(0)
         }
         return Color
@@ -123,28 +123,28 @@ class FBorder : Object
     /*
 
     */
-    block setBoxType(value)
-        if isNumber(value) or instanceOf(value,"FBoxType") {
-            if isNumber(value) {
+    block SetBoxType(value)
+        if IsNumber(value) or InstanceOf(value,"FBoxType") {
+            if IsNumber(value) {
                 BoxType = new FBoxType(value)
             else
-                if !isNull(value.BoxColor) {
+                if !IsNull(value.BoxColor) {
                     Color = value.BoxColor
                 }
                 BoxType = value
             }
         else
-            throw(self,"Invalid parameter. Expecting (Number|simple.drawing.FBoxType), Found (" + objectType(value) + ")")
+            Throw(self,"Invalid parameter. Expecting (Number|simple.drawing.FBoxType), Found (" + ObjectType(value) + ")")
         }
-        if !isNull(Component) {
+        if !IsNull(Component) {
             __Fl_Widget_box_1(Component.Ptr,BoxType.BoxType)
         }        
 
     /*
 
     */
-    block getBoxType()
-        if isNull(BoxType) {
+    block GetBoxType()
+        if IsNull(BoxType) {
             BoxType = new FBoxType(__FL_FLAT_BOX())
         }
         return BoxType
@@ -152,10 +152,10 @@ class FBorder : Object
     /*
 
     */
-    block setTop(top)
+    block SetTop(top)
         Top = top 
-        if !isNull(Component) {
-            if Component.hasOnlyChild() { 
+        if !IsNull(Component) {
+            if Component.HasOnlyChild() { 
                 Component.__resize(Component.X,Component.OnlyChild.Y-Top,Component.Width,(Component.OnlyChild.Height+((Bottom)+Top)))
                 Component.OnlyChild.__resize(Component.OnlyChild.X,Component.OnlyChild.Y,Component.OnlyChild.Width,Component.OnlyChild.Height)
             }
@@ -164,16 +164,16 @@ class FBorder : Object
     /*
 
     */
-    block getTop()
+    block GetTop()
         return Top
 
     /*
 
     */
-    block setBottom(bottom)
+    block SetBottom(bottom)
         Bottom = bottom
-        if !isNull(Component) { #just set top
-            if Component.hasOnlyChild() {
+        if !IsNull(Component) { #just set top
+            if Component.HasOnlyChild() {
                 Component.__resize(Component.X,Component.OnlyChild.Y-Top,Component.Width,(Component.OnlyChild.Height+((Bottom)+Top)))
                 Component.OnlyChild.__resize(Component.OnlyChild.X,Component.OnlyChild.Y,Component.OnlyChild.Width,Component.OnlyChild.Height)
             }
@@ -182,16 +182,16 @@ class FBorder : Object
     /*
 
     */
-    block getBottom()
+    block GetBottom()
         return Bottom
 
     /*
 
     */
-    block setLeft(left)
+    block SetLeft(left)
         Left = left
-        if !isNull(Component) { #just set top
-            if Component.hasOnlyChild() {
+        if !IsNull(Component) { #just set top
+            if Component.HasOnlyChild() {
                 Component.__resize(Component.X-Left,Component.OnlyChild.Y-Top,(Component.OnlyChild.Width+(Right*2) + Left),(Component.OnlyChild.Height+((Bottom)+Top)))
                 Component.OnlyChild.__resize(Component.OnlyChild.X,Component.OnlyChild.Y,Component.OnlyChild.Width,Component.OnlyChild.Height)
             }
@@ -200,16 +200,16 @@ class FBorder : Object
     /*
 
     */
-    block getLeft()
+    block GetLeft()
         return Left
 
     /*
 
     */
-    block setRight(right)
+    block SetRight(right)
         Right = right
-        if !isNull(Component) { #just set top
-            if Component.hasOnlyChild() {
+        if !IsNull(Component) { #just set top
+            if Component.HasOnlyChild() {
                 Component.__resize(Component.X-Left,Component.OnlyChild.Y-Top,(Component.OnlyChild.Width+(Right*2) + Left),(Component.OnlyChild.Height+((Bottom)+Top)))
                 Component.OnlyChild.__resize(Component.OnlyChild.X,Component.OnlyChild.Y,Component.OnlyChild.Width,Component.OnlyChild.Height)
             }
@@ -218,17 +218,17 @@ class FBorder : Object
     /*
 
     */
-    block getRight()
+    block GetRight()
         return Right
 
     /*
         #internal use only
     */
-    block setComponent(comp) 
-        if instanceOf(comp,"FGroup") {
+    block SetComponent(comp) 
+        if InstanceOf(comp,"FGroup") {
             Component = comp
         else
-            throw(self,"Setting Component with invalid parameter , Expecting (fulltick.widget.FGroup), Found (" + objectType(comp) + ")")
+            Throw(self,"Setting Component with invalid parameter , Expecting (fulltick.widget.FGroup), Found (" + ObjectType(comp) + ")")
         }
 
     /*
@@ -239,8 +239,8 @@ class FBorder : Object
         /*
 
         */
-        block getComponent()
+        block GetComponent()
 
 /*
-    TODO : add toFGroup() to convert to FGroup widget
+    TODO : add ToFGroup() to convert to FGroup widget
 */

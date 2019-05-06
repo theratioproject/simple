@@ -14,7 +14,7 @@ block main()
 
 class BraceUp
 
-	block invalid()
+	block Invalid()
 		
 
 	block Error()

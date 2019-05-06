@@ -12,16 +12,16 @@ module simple.reflection
 /*
 
 */
-block objectType(object)
-    if isNull(object) {
+block ObjectType(object)
+    if IsNull(object) {
         return "(null)"
-    elif isString(object)
+    elif IsString(object)
         return "String"
-    elif isNumber(object)
+    elif IsNumber(object)
         return "Number"
-    elif isList(object)
+    elif IsList(object)
         return "List"
-    elif isObject(object)
+    elif IsObject(object)
         return __class_module_name(object) + "." + __class_name(object)
     else
         #reaching here means a very big security issue
@@ -33,72 +33,72 @@ block objectType(object)
 /*
 
 */
-block isBoolean(value)
-	return (isNumber(value) and (value == true or value == false))
+block IsBoolean(value)
+	return (IsNumber(value) and (value == true or value == false))
 
 /*
 
 */
-block booleanValue(object obj)
-	if isNumber(obj) and (obj == true or obj == false) {
+block BooleanValue(object obj)
+	if IsNumber(obj) and (obj == true or obj == false) {
 		ret = obj
-		if !isNumber(obj) {
+		if !IsNumber(obj) {
 			ret = obj.Number
 		}
 		return ret
 		
-	elif isObject(obj) and instanceOf(obj, "Boolean")
+	elif IsObject(obj) and InstanceOf(obj, "Boolean")
 		return obj.Value
 		
 	else
-		throw("simple.reflection:booleanValue","Invalid parameter, expected boolean value, found (" + objectType(obj) + ")")	
+		Throw("simple.reflection:booleanValue","Invalid parameter, expected boolean value, Found (" + ObjectType(obj) + ")")	
 	}
 	return 0
 
 /*
 
 */
-block stringValue(object obj)
-	if isString(obj) or instanceOf(obj,"String") {
+block StringValue(object obj)
+	if IsString(obj) or InstanceOf(obj,"String") {
 		ret = obj
-		if !isString(obj) {
+		if !IsString(obj) {
 			ret = obj.Value
 		}
 		return ret
 		
 	else
-		throw("simple.reflection:stringValue","Invalid parameter, expecting (String), found (" + objectType(obj) + ")")	
+		Throw("simple.reflection:stringValue","Invalid parameter, Expecting (String), Found (" + ObjectType(obj) + ")")	
 	}
 	return ""	
 
 /*
 
 */
-block numberValue(object obj)
-	if isNumber(obj) or instanceOf(obj,"Number") {
+block NumberValue(object obj)
+	if IsNumber(obj) or InstanceOf(obj,"Number") {
 		ret = obj
-		if !isNumber(obj) {
+		if !IsNumber(obj) {
 			ret = obj.Number
 		}
 		return ret
 		
 	else
-		throw("simple.reflection:numberValue","Invalid parameter, expecting (Number), found (" + objectType(obj) + ")")	
+		Throw("simple.reflection:numberValue","Invalid parameter, Expecting (Number), Found (" + ObjectType(obj) + ")")	
 	}
 	return 0
 
 /*
 
 */
-block listValue(object obj)
-	if isList(obj) or instanceOf(obj,"List") {
+block ListValue(object obj)
+	if IsList(obj) or InstanceOf(obj,"List") {
 		ret = obj
-		if !isList(obj) {
+		if !IsList(obj) {
 			ret = obj.Value
 		}
 		return ret
 		
 	else
-		throw("simple.reflection:listValue","Invalid parameter, expecting (List), found (" + objectType(obj) + ")")	
+		Throw("simple.reflection:listValue","Invalid parameter, Expecting (List), Found (" + ObjectType(obj) + ")")	
 	}
 	return 0

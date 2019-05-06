@@ -12,11 +12,11 @@ list = [['a','b','c'], "ade", 2, 3, 4, 5, 6, 7, 8, 9 ]
 list = ["0","1","2","3","4","5","6"]
 @list
 
-@lengthOf(list)
+@LengthOf(list)
 @list[0]
-@list[lengthOf(list)-1] + nl
+@list[LengthOf(list)-1] + nl
 
-for x = 0 to lengthOf(list) - 1 {
+for x = 0 to LengthOf(list) - 1 {
 	display ""+x +" "
 }
 @""

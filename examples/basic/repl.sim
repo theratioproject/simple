@@ -5,13 +5,13 @@
 
 */
 
-display "Simple " + simpleVersion() + crlf
+display "Simple " + SimpleVersion() + crlf
 display "REPL (Read-Eval-Print-Loop)" + crlf
 while true
         display crlf + "simple:> "
         read code
         try
-                executeCode(code)
+                ExecuteCode(code)
         catch
                 display __err__
         end

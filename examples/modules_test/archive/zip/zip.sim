@@ -10,7 +10,7 @@ import simple.core
 
 block main()
 	new Zip("../../../testfiles/test_zip.zip", "w") {
-		add("../../../testfiles/4.json", "json/4.json")
-		add("../../../testfiles/test.txt", "test.txt")
-		extract("../../../testfiles/test_zip/")
+		Add("../../../testfiles/4.json", "json/4.json")
+		Add("../../../testfiles/test.txt", "test.txt")
+		Extract("../../../testfiles/test_zip/")
 	}

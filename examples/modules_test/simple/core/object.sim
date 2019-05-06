@@ -8,7 +8,7 @@ from simple.debugging.Debug
 
 object1 = new Object
 object2 = new Object 
-object3 = object1.clone() 
-stdout.println(object1.uniquecode())  
-stdout.println(object2.uniquecode()) 
-stdout.println(object3.uniquecode()) 
+object3 = object1.Clone() 
+stdout.Println(object1.Uniquecode())  
+stdout.Println(object2.Uniquecode()) 
+stdout.Println(object3.Uniquecode()) 

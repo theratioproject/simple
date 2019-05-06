@@ -7,5 +7,5 @@ from simple.net.curl.Curl
 
 block main()
 	curl = new Curl("https://www.example.com/")
-	stdout.println(curl.strPerform())
-	curl.flush()
+	stdout.Println(curl.StrPerform())
+	curl.Flush()

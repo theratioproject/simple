@@ -16,7 +16,7 @@ from simple.io.File
  
 module simple.io
 
-block mkdir(path)
+block Mkdir(path)
 	return __mk_directory(path, 0777)
 
 class Directory : Path
@@ -36,36 +36,36 @@ class Directory : Path
 	*/
 	list Directories = null
 
-	#make setReadOnly() block deal with content recursivelyid parameter, expected Path, String or Directory"
+	#make SetReadOnly() block deal with content recursivelyid parameter, expected Path, String or Directory"
 
 	/*
 	
 	*/
 	block Init(string path)
 		AbsolutePath = path
-		updateAttributes()
+		UpdateAttributes()
 	
 	/*
 	
 	*/
-	block getDirectory()
-		if isNull(Directory) {
-			setDirectory(null)
+	block GetDirectory()
+		if IsNull(Directory) {
+			SetDirectory(null)
 		}
 		return Directory
 		
 	/*
 		Create a directory if it does not exist, even if the parent directory is does not exist
 		also it will be created too along with the directory
-		@Return the directory creation value which is true if successfull and false if it is not 
+		@return the directory creation value which is true if successfull and false if it is not 
 		successfull @DataType boolean
 	*/	
-	block create()
-		if !exists() {
-			createParent()
-			if exists() { return true }
+	block Create()
+		if !Exists() {
+			CreateParent()
+			if Exists() { return true }
 		else
-			throw(self,"Cannot create " + classname() + " because it already exists : " + AbsolutePath)
+			Throw(self,"Cannot create " + Classname() + " because it already exists : " + AbsolutePath)
 			return false
 		}
 		return false
@@ -73,45 +73,45 @@ class Directory : Path
 	/*
 	
 	*/
-	block delete()
-		ensureExistence()
+	block Delete()
+		EnsureExistence()
 		return __file_delete_folder(AbsolutePath)
 		
 	/*
 	
 	*/
-	block deleteRecursive()
-		folders = getDirectories()
+	block DeleteRecursive()
+		folders = GetDirectories()
 		for folder in folders {
-			if !folder.deleteRecursive() {
-				throw(self, "The Directory cannot be deleted : " + folder.AbsolutePath)
+			if !folder.DeleteRecursive() {
+				Throw(self, "The Directory cannot be deleted : " + folder.AbsolutePath)
 				return false
 			}
 		}
-		files = getFiles()
+		files = GetFiles()
 		for file in files {
-			if !file.delete() {
-				throw(self, "The File cannot be deleted : " + file.AbsolutePath)
+			if !file.Delete() {
+				Throw(self, "The File cannot be deleted : " + file.AbsolutePath)
 				return false
 			}
 		}
-		return delete()
+		return Delete()
 		
 	/*
 
 	*/
-	block getContents()
-		ensureExistence()
+	block GetContents()
+		EnsureExistence()
 		con = __blow_directory(AbsolutePath)
 		return con
 		
 	/*
 	
 	*/
-	block getFiles()
-		ensureExistence()
+	block GetFiles()
+		EnsureExistence()
 		fileList = []
-		contents = getContents()
+		contents = GetContents()
 		for content in contents {
 			if content[1] == 0 {
 				file = new File(AbsolutePath + SystemSlash + content[0])
@@ -123,10 +123,10 @@ class Directory : Path
 	/*
 	
 	*/
-	block getDirectories()
-		ensureExistence()
+	block GetDirectories()
+		EnsureExistence()
 		folderList = []
-		contents = getContents()
+		contents = GetContents()
 		for content in contents {
 			if content[1] == 1 {
 				file = new Directory(AbsolutePath + SystemSlash + content[0])
@@ -142,59 +142,59 @@ class Directory : Path
 		
 		/*
 			The existence of the parent folder of the directory is verified, if it does not exist
-			it will be created. This block should not be called outside this class the @Block create()
+			it will be created. This block should not be called outside this class the @Block Create()
 			should be use in creating directory as it is a safe implementation and it also uses this 
 			block to verify the parent Directory existence
 		*/
 		#HINT : Check the archive.zip.ZipEntry for a better folder creation block
-		block createParent() 
+		block CreateParent() 
 			tempDir = AbsolutePath
-			slashLen = lengthOf(SystemSlash)
+			slashLen = LengthOf(SystemSlash)
 			ChildrenToCreate = []
-			if strEndsWith(AbsolutePath,SystemSlash) { 
-				len = lengthOf(AbsolutePath) - 1
+			if StrEndsWith(AbsolutePath,SystemSlash) { 
+				len = LengthOf(AbsolutePath) - 1
 				tempDir = __left(AbsolutePath, len - slashLen)
 			}
 			__add_to_list(ChildrenToCreate, tempDir)
-			len = lengthOf(tempDir)
-			loc = lengthOf(lastStrAfterChar(tempDir, SystemSlash))
+			len = LengthOf(tempDir)
+			loc = LengthOf(LastStrAfterChar(tempDir, SystemSlash))
 			tempDir = __left(tempDir, len - loc - slashLen - 1)
 			while __dir_exists(tempDir) != 1 {
 				__add_to_list(ChildrenToCreate, tempDir)
-				len = lengthOf(tempDir)
-				loc = lengthOf(lastStrAfterChar(tempDir, SystemSlash))
+				len = LengthOf(tempDir)
+				loc = LengthOf(LastStrAfterChar(tempDir, SystemSlash))
 				tempDir = __left(tempDir, len - loc - slashLen - 1)
 			}
-			CTCLen = lengthOf(ChildrenToCreate) - 1
+			CTCLen = LengthOf(ChildrenToCreate) - 1
 			for a = CTCLen to 0 step -1 {
 				if !__mk_directory(ChildrenToCreate[a], 0755) {
-					throw(self, "Cannot create the parent Directory : " + ChildrenToCreate[a])
+					Throw(self, "Cannot create the parent Directory : " + ChildrenToCreate[a])
 				}
 			}
 		
 		/*
 		
 		*/
-		block updateAttributes()
-			setAbsolutePath(null)
-			if !strEndsWith(AbsolutePath,SystemSlash) {
+		block UpdateAttributes()
+			SetAbsolutePath(null)
+			if !StrEndsWith(AbsolutePath,SystemSlash) {
 				AbsolutePath += SystemSlash
 			}
-			setName(null)
+			SetName(null)
 			PathType = new PathType(AbsolutePath)
 		
 		/*
 		
 		*/
-		block setContents()
+		block SetContents()
 		
 		/*
 		
 		*/
-		block setFiles()
+		block SetFiles()
 		
 		/*
 		
 		*/
-		block setDirectories()
+		block SetDirectories()
 		

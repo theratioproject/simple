@@ -36,7 +36,7 @@
 			-temp -t	leave generated and temporary files after build
 			-delete -del	delete the simple source file after successful build
 			-debug		when the simple.h file is at ../../simple/src/include/simple.h
-			-S/<simple.h> Indicate the path to simple.h
+			-S/<simple.h> Indicate the path to simple.H
 			
 			(Compiler Option) ~ if none is supplied the available will be used
 			-mingw		use mingw compiler on windows
@@ -81,13 +81,13 @@ final bakkrey = new Bakkery
 Parse "Bakefile"
 */
 block main()
-	loadPlugins()
-	loadLanguages() 
-	header()
+	LoadPlugins()
+	LoadLanguages() 
+	Header()
 	bread = new Bread
 	
 	params = cmdparams
-	paramsLen = lengthOf(params) - 1
+	paramsLen = LengthOf(params) - 1
 	for a = 0 to paramsLen {
 		param = params[a]
 		if param == "-f" {
@@ -95,19 +95,19 @@ block main()
 				Bakefile = params[a++]
 				#parse bakefile
 			else
-				throw("bake","Expecting a Bakefile after the -f flag")
+				Throw("bake","Expecting a Bakefile after the -f flag")
 			}
 		elif param == "-s" or param == "--s"
 			if a < paramsLen {
 				bread.SourceFile = new File(params[a++])
 			else
-				throw("bake","Expecting a Source after the -s flag")
+				Throw("bake","Expecting a Source after the -s flag")
 			}
 		elif param == "-l"
 			if a < paramsLen {
 				bread.SourceLang = params[a++]
 			else
-				throw("bake","Expecting a language after the -l flag")
+				Throw("bake","Expecting a language after the -l flag")
 			}
 		elif param == "x64"
 			breaf.BuildArch = "-m64"
@@ -115,58 +115,58 @@ block main()
 		elif param == "x86"
 			bread.BuildArch = "-m32"
 		elif param == "-h" or param == "--h"
-			help()
+			Help()
 		}
 	}
-	if isNull(langMap[bread.SourceLang]) and isNull(bread.SourceFile) and isNull(Bakefile) {
-		help()
+	if IsNull(langMap[bread.SourceLang]) and IsNull(bread.SourceFile) and IsNull(Bakefile) {
+		Help()
 	}
-	if isNull(bread.SourceLang) {
-		throw("bake", "you need to provide the source lang")
-	elif isNull(langMap[bread.SourceLang])
-		throw("bake","The language '" + bread.SourceLang + "' is currently not supported or not installed on this system")
+	if IsNull(bread.SourceLang) {
+		Throw("bake", "you need to provide the source lang")
+	elif IsNull(langMap[bread.SourceLang])
+		Throw("bake","The language '" + bread.SourceLang + "' is currently not supported or not installed on this system")
 	}
 	
 	if bread.SourceFile.Exists {
 		bread.Name = bread.SourceFile.NameOnly
-		bread.SourceFile.Directory.create()
+		bread.SourceFile.Directory.Create()
 		bread.TempPath = new Directory(bread.SourceFile.Directory.AbsolutePath + bread.Name + "_bake")
-		bread.TempPath.create() 
+		bread.TempPath.Create() 
 		bread.TempPath = bread.TempPath.AbsolutePath
-		bakkrey.bake(bread)
+		bakkrey.Bake(bread)
 	else
-		throw("bake","the " + bread.SourceLang + " source file '" + bread.SourceFile.Name + "' does not exists")
+		Throw("bake","the " + bread.SourceLang + " source file '" + bread.SourceFile.Name + "' does not exists")
 	}
 
 __exit__
 
-block loadPlugins()
+block LoadPlugins()
 	#load files in plugins
 
-block header() 
+block Header() 
 	header = "bake 0.0.2 (December 27 2018, 09:03 PM)"
 	for lang in langMap {
 		header += "\n[" + lang[1][:name] + " " + lang[1][:version] + "]"
 	}
-	stdout.println(header)
+	stdout.Println(header)
 	
-block loadLanguages()
+block LoadLanguages()
 	_langMap = []
-	execTempFile = getTempDirectory() + "/lang_bread"
+	execTempFile = GetTempDirectory() + "/lang_bread"
 	for lang in langMap { 
-		system(lang + " &> " + execTempFile)
+		System(lang + " &> " + execTempFile)
 		output = __readfile(execTempFile)
-		if strContains(output,"not found") or strContains(output,"error") {
+		if StrContains(output,"not found") or StrContains(output,"error") {
 			continue
 		}
-		splitedOutput = strSplit(output," ")
+		splitedOutput = StrSplit(output," ")
 		name = lang
 		version = "0.0.1"
-		if strContains(lang,"gcc") {
-			name = toLowerCase(splitedOutput[0])
+		if StrContains(lang,"gcc") {
+			name = ToLowerCase(splitedOutput[0])
 			version = splitedOutput[2]
 		else
-			name = toLowerCase(splitedOutput[0])
+			name = ToLowerCase(splitedOutput[0])
 			version = splitedOutput[1]
 		}
 		_langMap[name] = []
@@ -176,7 +176,7 @@ block loadLanguages()
 	langMap = _langMap
 	_langMap = null
 	
-block help()
+block Help()
 	help = 
 "usage:  bake [Bakefile] [OPTIONS] [ENV_VARS]
 
@@ -195,8 +195,8 @@ The OPTIONS include:
 Supported [LANG]: 
 	simple
 	bash/sh"
-	stdout.println(help)
-	exit(0)
+	stdout.Println(help)
+	Exit(0)
 	
 class Bread 
 
@@ -215,20 +215,20 @@ class Bread
 
 class Bakkery 
 
-	block bake(Bread bread)
-		stdout.println("preparing to bake " + bread.Name)
-		stdout.print("creating wrapper code for : " + bread.Name + "...")
-		cCode = writeWrapper(bread)
+	block Bake(Bread bread)
+		stdout.Println("preparing to bake " + bread.Name)
+		stdout.Print("creating wrapper code for : " + bread.Name + "...")
+		cCode = WriteWrapper(bread)
 		tempFile = new File(bread.TempPath+bread.Name+".bake.c") 
-		tempFile.write(cCode)
-		stdout.println("(done)")
+		tempFile.Write(cCode)
+		stdout.Println("(done)")
 		
 	private
 	
-		block writeWrapper(Bread bread)
+		block WriteWrapper(Bread bread)
 			cCode = WrapperCodeTemplate[bread.SourceLang]
 			if bread.SourceLang == "simple" {
-				cCode = replaceStr(cCode, "{INCLUDE_FILE}", "<simple/simple.h>")
+				cCode = ReplaceStr(cCode, "{INCLUDE_FILE}", "<simple/simple.h>")
 			}
 			
 			return cCode
@@ -251,63 +251,63 @@ buildArch = "-m32"
 
 #Program dependencies
 simpleLibPath = "" simpleDllPath = "" simpleHPath = ""
-sSharedLib = exeFolder()+'../lib/libsimple.so'
-setDepLocation('../bin/')
+sSharedLib = ExeFolder()+'../lib/libsimple.so'
+SetDepLocation('../bin/')
 
-block magin() header() 
+block Magin() Header() 
 	cmdParameters = cmdparams
-	cmdlen = lengthOf(cmdParameters) - 1
+	cmdlen = LengthOf(cmdParameters) - 1
 	for a = 0 to cmdlen 
 		if a = cmdlen && cmdlen >= 1 
-			if strEndsWith(cmdParameters[a],'help') or strEndsWith(cmdParameters[a],'/h') help() end 
+			if StrEndsWith(cmdParameters[a],'help') or StrEndsWith(cmdParameters[a],'/h') Help() end 
 			filePath = cmdParameters[a]
 			sourceFile = new File(cmdParameters[a])
 		else
-			if (strStartsWith(cmdParameters[a],'-'))
-				if cmdParameters[a] == "--help" or cmdParameters[a] == "-h" help() 
-				elif strStartsWith(toUpperCase(cmdParameters[a]),'-N/') specifyname = true name = removeStr(cmdParameters[a],"-N/")
-				elif strStartsWith(toUpperCase(cmdParameters[a]),'-F/') specifysavepath  = true folder = removeStr(cmdParameters[a],"-F/")
-				elif strStartsWith(toUpperCase(cmdParameters[a]),'-I/') hasicon  = true icon = removeStr(cmdParameters[a],"-I/")
-				elif strStartsWith(toUpperCase(cmdParameters[a]),'-S/') hassimpleh  = true simpleh = removeStr(cmdParameters[a],"-S/")
-				elif strEndsWith(cmdParameters[a],'mingw') useMINGW = true 
-				elif strEndsWith(cmdParameters[a],'cygwin') useCygwin = true 
-				elif strEndsWith(cmdParameters[a],'vs') useVS = true 
-				elif strEndsWith(cmdParameters[a],'gui') isgui = true 
-				elif strEndsWith(cmdParameters[a],'debug') or strEndsWith(cmdParameters[a],'d') isdebug = true setDepLocation('')
-				elif strEndsWith(cmdParameters[a],'delete') || strEndsWith(cmdParameters[a],'del') if isWindows() deletesim = true end 
-				elif strEndsWith(cmdParameters[a],'temp') or strEndsWith(cmdParameters[a],'t')  removeTemps = false 
+			if (StrStartsWith(cmdParameters[a],'-'))
+				if cmdParameters[a] == "--help" or cmdParameters[a] == "-h" Help() 
+				elif StrStartsWith(ToUpperCase(cmdParameters[a]),'-N/') specifyname = true name = RemoveStr(cmdParameters[a],"-N/")
+				elif StrStartsWith(ToUpperCase(cmdParameters[a]),'-F/') specifysavepath  = true folder = RemoveStr(cmdParameters[a],"-F/")
+				elif StrStartsWith(ToUpperCase(cmdParameters[a]),'-I/') hasicon  = true icon = RemoveStr(cmdParameters[a],"-I/")
+				elif StrStartsWith(ToUpperCase(cmdParameters[a]),'-S/') hassimpleh  = true simpleh = RemoveStr(cmdParameters[a],"-S/")
+				elif StrEndsWith(cmdParameters[a],'mingw') useMINGW = true 
+				elif StrEndsWith(cmdParameters[a],'cygwin') useCygwin = true 
+				elif StrEndsWith(cmdParameters[a],'vs') useVS = true 
+				elif StrEndsWith(cmdParameters[a],'gui') isgui = true 
+				elif StrEndsWith(cmdParameters[a],'debug') or StrEndsWith(cmdParameters[a],'d') isdebug = true SetDepLocation('')
+				elif StrEndsWith(cmdParameters[a],'delete') || StrEndsWith(cmdParameters[a],'del') if IsWindows() deletesim = true end 
+				elif StrEndsWith(cmdParameters[a],'temp') or StrEndsWith(cmdParameters[a],'t')  removeTemps = false 
 				//tested
 				elif cmdParameters[a] == "--lib" or cmdParameters[a] == "-l"  sSharedLib = cmdParameters[a++]
 				elif cmdParameters[a] == "--32-bit" or cmdParameters[a] == "x86" or cmdParameters[a] == "-m32"  buildArch = "-m32"
 				elif cmdParameters[a] == "--64-bit" or cmdParameters[a] == "x64" or cmdParameters[a] == "-m64" buildArch = "-m64"
 				elif cmdParameters[a] == "--simpleh" or cmdParameters[a] =="-sh"  simpleHPath = '"'+cmdParameters[a++]+'"'
-				else printError("Invalid option : "+cmdParameters[a]) end 
+				else PrintError("Invalid option : "+cmdParameters[a]) end 
 				__add_to_list(depmodules, cmdParameters[a]) 
 			end
 		end
 	end
-	if filePath = "" printError("No Simple/Complex file indicated ") end
+	if filePath = "" PrintError("No Simple/Complex file indicated ") end
 	if outputName == "" 
-		tempName = strAfterLast(filePath, '\')
-		outputName = strAfterLast(tempName, '.')
-		outputName = removeStr(tempName, '.'+outputName)
+		tempName = StrAfterLast(filePath, '\')
+		outputName = StrAfterLast(tempName, '.')
+		outputName = RemoveStr(tempName, '.'+outputName)
 	end
 	#display "params ========"+crlf display depmodules
 	display "Input File : "+filePath+crlf
 	display "Output Name : "+ outputName +crlf
-	if not sourceFile.exists()
-		printError("The File '"+filePath+"' does not exists")
+	if not sourceFile.Exists()
+		PrintError("The File '"+filePath+"' does not exists")
 	end
-	writeCode()
+	WriteCode()
 	
-block setDepLocation(location)
-	simpleLibPath = '"'+exeFolder()+location+'libsimple.lib"' 
-	simpleDllPath = '"'+exeFolder()+location+'libsimple.dll"' 
-	simpleHPath = '"'+exeFolder()+location+'../include/simple/simple.h"'
+block SetDepLocation(location)
+	simpleLibPath = '"'+ExeFolder()+location+'libsimple.lib"' 
+	simpleDllPath = '"'+ExeFolder()+location+'libsimple.dll"' 
+	simpleHPath = '"'+ExeFolder()+location+'../include/simple/simple.h"'
 	
-block writeCode()
+block WriteCode()
 	display "Writing ANSI C Wrapper Code... "+crlf
-	tCode = formatCode(sourceFile.readFileAsString())
+	tCode = FormatCode(sourceFile.ReadFileAsString())
 	code = '
 		/* 
 		 * File:   bake.c
@@ -320,7 +320,7 @@ block writeCode()
 			else 
 			code += '
 			#include '+simpleHPath+' '+crlf end	
-		if isWindows() and isgui 
+		if IsWindows() and isgui 
 			code += 'int WINAPI WinMain ( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd ) {
 			int argc ; char **argv ; argc = __argc ; argv = __argv ; ' cflags+="-mwindows "
 		else 
@@ -329,170 +329,170 @@ block writeCode()
 		end
 		code += '	
 		
-			static const unsigned char sim_code[] = { '+__string_to_chex(sourceFile.readFileAsString())+'};
+			static const unsigned char sim_code[] = { '+__string_to_chex(sourceFile.ReadFileAsString())+'};
 			
 			List* list ; int x ;
 			SimpleState *sState ;
-			sState = create_instance();
+			sState = Create_instance();
 			sState->argc = argc ; 
 			sState->argv = argv ; 
 			//hack around cmdparams 
-			list = simple_state_newvar(sState,"cmdparams");
-			simple_list_setint_gc(sState->vm->sState,list,SIMPLE_VAR_TYPE,SIMPLE_VM_LIST);
-			simple_list_setlist_gc(sState->vm->sState,list,SIMPLE_VAR_VALUE);
-			list = simple_list_getlist(list,SIMPLE_VAR_VALUE);
-			for ( x = 0 ; x < sState->vm->sState->argc ; x++ ) {
-					simple_list_addstring_gc(sState->vm->sState,list,sState->vm->sState->argv[x]);
+			list = Simple_state_newvar(sState,"cmdparams");
+			Simple_list_setint_gc(sState->vm->sState,list,SIMPLE_VAR_TYPE,SIMPLE_VM_LIST);
+			Simple_list_setlist_gc(sState->vm->sState,list,SIMPLE_VAR_VALUE);
+			list = Simple_list_getlist(list,SIMPLE_VAR_VALUE);
+			For ( x = 0 ; x < sState->vm->sState->argc ; x++ ) {
+					Simple_list_addstring_gc(sState->vm->sState,list,sState->vm->sState->argv[x]);
 			}
 			//hack end
-			execute_simple_object(sState, (char *) sim_code);
-			finalize_simple_state(sState);
+			Execute_simple_object(sState, (char *) sim_code);
+			Finalize_simple_state(sState);
 		}
 
 ' 
 	tempFile = new File(filePath+".bake.c") 
-	display "-->Writing obj code to "+tempFile.toString()+crlf
-	tempFile.write(code)
-	createExecutable(filePath+".bake.c")
+	display "-->Writing obj code to "+tempFile.ToString()+crlf
+	tempFile.Write(code)
+	CreateExecutable(filePath+".bake.c")
 	
-block createExecutable(path)
-	createIcon(path)
-	if isWindows()
+block CreateExecutable(path)
+	CreateIcon(path)
+	if IsWindows()
 		display "--->Starting build : "+outputName+".exe"+crlf
-		windowsBuild(path)
-	elif isMacosx()
+		WindowsBuild(path)
+	elif IsMacosx()
 		
-	elif isLinux() || isUnix()
+	elif IsLinux() || IsUnix()
 		display "--->Starting build : "+outputName+""+crlf
-		linuxBuild(path)
+		LinuxBuild(path)
 	end
 
 	 
-block windowsBuild(path) 
+block WindowsBuild(path) 
 	mingwBuildTool = new File("C:\MinGW64\bin\gcc.exe")
 	cygwinBuildTool = new File("C:\cygwin\bin\gcc.exe")		
 	#check if system has mingw
 	if useMINGW
-		windowBuildMingw(mingwBuildTool,path)
+		WindowBuildMingw(mingwBuildTool,path)
 	elif useCygwin
 		
 	elif useVS
 		display simpleLibPath
-		windowBuildVS(path)
+		WindowBuildVS(path)
 	else
 		display "No Build tool specified using available build tools"+crlf
-		if mingwBuildTool.exists() 
-			display mingwBuildTool.toString()+" --> MINGW Build Tool Detected"+crlf
-			windowBuildMingw(mingwBuildTool,path)
-		elif cygwinBuildTool.exists()
+		if mingwBuildTool.Exists() 
+			display mingwBuildTool.ToString()+" --> MINGW Build Tool Detected"+crlf
+			WindowBuildMingw(mingwBuildTool,path)
+		elif cygwinBuildTool.Exists()
 		#check if system has cygwin
 			display "--> CYGWIN Build Tool Detected"+crlf
 			display "--> Building Executable with CYGWIN"+crlf
 		else
 			display " Resolving to build using Visual Studio"+crlf
-			windowBuildVS(path)
+			WindowBuildVS(path)
 		end
 	end
 	
-block createIcon(path)
-	if hasicon and isWindows() 
+block CreateIcon(path)
+	if hasicon and IsWindows() 
 		display "Creating your ICON dependencies files.."+crlf
 		con = 'MAINICON  ICON  "'+icon+'"'
-		tempFile = new File(path+".rc")  display "		Creating Resources file "+tempFile.toString()+crlf tempFile.write(con)
-		con = 'windres '+tempFile.absolutePath()+' -O coff -o '+path+'.res'
-		display "		Compiling Resources file "+tempFile.toString()+crlf system(con)
+		tempFile = new File(path+".rc")  display "		Creating Resources file "+tempFile.ToString()+crlf tempFile.Write(con)
+		con = 'windres '+tempFile.AbsolutePath()+' -O coff -o '+path+'.res'
+		display "		Compiling Resources file "+tempFile.ToString()+crlf System(con)
 		cflags += path+'.res '
 	end
 	
-block windowBuildVS(path)
+block WindowBuildVS(path)
 	display "--> Building Executable with Visual Studio"+crlf cmd = ''
 	for a = 1 to 16
 		f = new File('C:\Program Files (x86)\Microsoft Visual Studio '+a+'.0\VC\vcvarsall.bat')
-		if f.exists() display "		we found Visual Studio "+a+".0"+crlf 
+		if f.Exists() display "		we found Visual Studio "+a+".0"+crlf 
 		cmd = 'from "C:\Program Files (x86)\Microsoft Visual Studio '+a+'.0\VC\vcvarsall.bat" x86'+crlf
 		end
 	end
 	cmd += "cl /Fo.\.\ /Fe.\.\ /GA /MT "+path+" "+simpleLibPath #simple.lib link to actual location
 	display cmd + crlf 
-	tempFile = new File(path+".bat")  display "		Create batch file "+tempFile.toString()+crlf tempFile.write(cmd)
-	display "		Executing build command " + crlf system(tempFile.toString())
-	fi = new File(filePath+".bake.exe") if fi.exists() fi.renameTo(outputName+".exe") end 
-	cleanTempFiles([removeStr(path, ".c")+".obj",path+".bat",path]) treatProgramAttr()
+	tempFile = new File(path+".bat")  display "		Create batch file "+tempFile.ToString()+crlf tempFile.Write(cmd)
+	display "		Executing build command " + crlf System(tempFile.ToString())
+	fi = new File(filePath+".bake.exe") if fi.Exists() fi.RenameTo(outputName+".exe") end 
+	CleanTempFiles([RemoveStr(path, ".c")+".obj",path+".bat",path]) TreatProgramAttr()
 	
-block windowBuildMingw(mingwBuildTool,path)
+block WindowBuildMingw(mingwBuildTool,path)
 	display "--> Building Executable with MINGW"+crlf
-	exeCmd = mingwBuildTool.absolutePath()+' -c -g -MMD -MP -MF "'+path+'.o.d" -o "'+path+'.o" "'+path+'"'
-	display "		Executing compilation command "/*+exeCmd */+ crlf system(exeCmd) 
-	exeCmd = mingwBuildTool.absolutePath()+' '+cflags+' -o "'+outputName+'.exe" "'+path+'.o" '+simpleDllPath
-	display "		Executing build command " + crlf system(exeCmd) 
-	cleanTempFiles([path,path+".o.d",path+".o",path+'.rc',path+'.res']) treatProgramAttr()
+	exeCmd = mingwBuildTool.AbsolutePath()+' -c -g -MMD -MP -MF "'+path+'.o.d" -o "'+path+'.o" "'+path+'"'
+	display "		Executing compilation command "/*+exeCmd */+ crlf System(exeCmd) 
+	exeCmd = mingwBuildTool.AbsolutePath()+' '+cflags+' -o "'+outputName+'.exe" "'+path+'.o" '+simpleDllPath
+	display "		Executing build command " + crlf System(exeCmd) 
+	CleanTempFiles([path,path+".o.d",path+".o",path+'.rc',path+'.res']) TreatProgramAttr()
 
-block linuxBuild(path)
+block LinuxBuild(path)
 	/* link at runtime */
 	#cmd = 'cc -I/$DESTDIR/$PREFIX/include "-Wl,--no-as-needed" -lm -ldl -o "'+outputName+'" "'+path+'" '+' -Lsimple.so'
 	/* link at build time */
 	LDFLAG = '-L ./ -Wl,-R../lib/ "-Wl,-rpath,./ ../lib/ /usr/lib/ /lib/ /usr/local/lib/ ~/lib/" "-Wl,--no-as-needed"'
 	cmd = 'cc '+buildArch+' -I/$DESTDIR/$PREFIX/include/ -I/usr/include/ '+LDFLAG+' -lm -ldl -o "'+outputName+'" "'+path+'" '+sSharedLib
-	#cmd = 'cc "-Wl,--no-as-needed" -lm -ldl -o "'+outputName+'" "'+path+'" '+' '+exeFolder()+'simple.so'
-	#cmd = 'cc -fpic -g -lm -ldl -o '+outputName+" "+path+' "-Wl,--no-as-needed" "'+exeFolder()+'simple.so"'
+	#cmd = 'cc "-Wl,--no-as-needed" -lm -ldl -o "'+outputName+'" "'+path+'" '+' '+ExeFolder()+'simple.so'
+	#cmd = 'cc -fpic -g -lm -ldl -o '+outputName+" "+path+' "-Wl,--no-as-needed" "'+ExeFolder()+'simple.so"'
 	display cmd + crlf
 	display "		Executing compilation command "/*cmd */+ crlf
 	display "		Executing build command "/*cmd */+ crlf
 	display cmd + crlf
-	system(cmd)
-	treatProgramAttr()  cleanTempFiles([path,path+".o"]) 
+	System(cmd)
+	TreatProgramAttr()  CleanTempFiles([path,path+".o"]) 
 	
-block treatProgramAttr() 
+block TreatProgramAttr() 
 	if specifyname
 		display "Renaming "+outputName+".exe to "+name +".exe"+ crlf
-		f = new File(outputName+".exe") display f.absolutePath()+crlf 
-		f.renameTo(removeStr(outputName,strAfterLast(curePathSlashes(outputName),'\'))+name+".exe")
-		outputName = removeStr(outputName,strAfterLast(curePathSlashes(outputName),'\'))+name
+		f = new File(outputName+".exe") display f.AbsolutePath()+crlf 
+		f.RenameTo(RemoveStr(outputName,StrAfterLast(CurePathSlashes(outputName),'\'))+name+".exe")
+		outputName = RemoveStr(outputName,StrAfterLast(CurePathSlashes(outputName),'\'))+name
 	end
 	if specifysavepath 
 		display "Moving "+outputName+" to "+folder + crlf
-		if isWindows() 
-			system("move "+outputName+'.exe '+folder+"/")
-		elif isLinux()
+		if IsWindows() 
+			System("move "+outputName+'.exe '+folder+"/")
+		elif IsLinux()
 			f = new File(outputName)
-			#if f.exists() { f.delete() }
-			f.moveTo(folder)
+			#if f.Exists() { f.Delete() }
+			f.MoveTo(folder)
 		else
 		
 		end
 	end
 	
 	
-block cleanTempFiles(tempfiles)
+block CleanTempFiles(tempfiles)
 	if removeTemps 
 		display "		Cleaning up temporary files... "+crlf 
-			tlen = lengthOf(tempfiles) - 1
+			tlen = LengthOf(tempfiles) - 1
 		for a = 0 to tlen
 			display "	Deleting : "+tempfiles[a]+crlf
-			file = new File(tempfiles[a]) if file.exists() file.delete() end
+			file = new File(tempfiles[a]) if file.Exists() file.Delete() end
 		end
 	end  
-	if deletesim display "	Deleting : "+sourceFile.name()+crlf sourceFile.delete() end
+	if deletesim display "	Deleting : "+sourceFile.Name()+crlf sourceFile.Delete() end
 	
 	
 #This block is temporal until simple compiler @Bold simplify @EndBold
 #It current usefulness is to clean and format the source code of 
 #the simple file to enable it fit into the string quote i.e to make it 
 #conform into the standard string in a C source file
-block formatCode(code)
-	#code = ''+replaceString(code, '"', '\"')
-	#code = replaceString(code, ascii(10), '					"')
+block FormatCode(code)
+	#code = ''+ReplaceString(code, '"', '\"')
+	#code = ReplaceString(code, Ascii(10), '					"')
 	finalCode = '"'
-	display "->formating the simple source code (TEMP)"+crlf
-	lineLen =lengthOf(code) - 1
+	display "->formating the simple source Code (TEMP)"+crlf
+	lineLen =LengthOf(code) - 1
 	for a = 0 to lineLen
 		if code[a] == '"'
 			finalCode+= '\"'
 		elif code[a] == '\'
 			finalCode+= '\\'
-		elif code[a] == ascii(13) #end of line
+		elif code[a] == Ascii(13) #end of line
 			finalCode+= '"'
-		elif code[a] == ascii(10) #line break
+		elif code[a] == Ascii(10) #line break
 			finalCode+= crlf+'" '
 		else 
 			finalCode+= code[a]
@@ -500,15 +500,15 @@ block formatCode(code)
 	end
 	return finalCode+'"'
 	
-block formatString(value)
-	vlen = lengthOf(value) - 1
+block FormatString(value)
+	vlen = LengthOf(value) - 1
 	value+= 'xs'
 	display value
 	return value
 				
-block help()
+block Help()
 	display "This program is use to build simple source to platform executable
-Usage:  bake ([OPTIONS]) [PATH]
+Usage:  Bake ([OPTIONS]) [PATH]
 	
 The OPTIONS include :
 	-F/</path>	specify the folder to place the program file
@@ -518,12 +518,12 @@ The OPTIONS include :
 	-temp -t	leave generated and temporary files after build
 	-delete -del	delete the simple source file after successful build
 	-debug		when the simple.h file is at ../../simple/src/include/simple.h
-	-S/<simple.h>	Indicate the path to simple.h
+	-S/<simple.h>	Indicate the path to simple.H
 	
 	(Compiler Option) ~ if none is supplied the available will be used
 	-mingw		compile with mingw toolchain on windows
 	-cygwin		compile with cygwin compiler on windows
-	-vs 		use available Visual Studio build tools on windows
+	-vs 		use available Visual Studio build tools on Windows
 	
 	(Architecture Option) ~ x86 is the default
 	-x86 		use 32 bit compiler for the build
@@ -531,7 +531,7 @@ The OPTIONS include :
 ======================================================="
 	__exit__
 
-block printError(msg)
+block PrintError(msg)
 	display "BAKE : "+msg + crlf
 	display "======================================================="+crlf
 	__exit__

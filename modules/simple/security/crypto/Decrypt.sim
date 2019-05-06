@@ -19,13 +19,13 @@ module simple.security.crypto
 #three #parameter the first is the encrypted byte you want to decrypt,
 #the second parameter is the key/password value while the last is the IV 
 #value. The key value should not be less than 12 character long while 
-#the five (IV) value should not be less than 4 character long. The content 
+#the Five (IV) value should not be less than 4 character long. The content 
 #value can be of any length this block is a delegate to the 
 #__decrypt(content, key, five) block in the security.dll dependency	
-block decrypt(content, key, five)
-	if (lengthOf(five) < 3)
+block Decrypt(content, key, five)
+	if (LengthOf(five) < 3)
 		(FIVE_LENGTH_SHORT)
-	elif (lengthOf(key) < 12)
+	elif (LengthOf(key) < 12)
 		(KEY_LENGTH_SHORT)
 	end
 	return __decrypt(content, key, five)

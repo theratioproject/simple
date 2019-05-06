@@ -4,12 +4,12 @@ from "module.sim" import examples.syntax.inn
 from "block.sim" 
 
 i = new inner
-i.miner()
+i.Miner()
 
 display i
 
 #3
-display "hello : "+maintwo(9, mainone()) + crlf
+display "hello : "+Maintwo(9, Mainone()) + crlf
 
 /*	
 	comment map

@@ -10,26 +10,26 @@ import fulltick.widgets, fulltick.painting, fulltick.objects, fulltick.drawing
 
 block main()
 	simplePad = new SimplePad
-	simplePad.render()
+	simplePad.Render()
 
 class SimplePad : FCallbackEvent
 
 	MainWindow = null
 
-	block render()
+	block Render()
 		MainWindow = new FWindow("simplepad") {
-			begin(true)
+			Begin(true)
 			new FButton("open") {
 				Id = 1
-				setCallbackEvent(this)
+				SetCallbackEvent(this)
 			}
-			endBegin()
-			show()
+			EndBegin()
+			Show()
 		}
-		FApp.run()
+		FApp.Run()
 		
 
-	block callback(widget)
+	block Callback(widget)
 		if widget.Id = 1 {
 			@"Hello"
 		}

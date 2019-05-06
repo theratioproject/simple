@@ -4,7 +4,7 @@
 from "./module.sim" import examples.syntax, examples.syntax.inn 
 
 p = new pack
-p.packer()
+p.Packer()
 
 i = new inner 
-i.miner()
+i.Miner()

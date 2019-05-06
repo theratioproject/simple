@@ -3,8 +3,8 @@
 	standard it rather uses color bit of 5 to determine and differentiate between foreground 
 	and background of the color. 
 	
-	The color can be used as first argument for the `simple.io.PrintWriter.printfc(...)`_ and 
-	`simple.io.PrintWriter.printbc(...)`_ , the first which deal with the forground and the 
+	The color can be used as first argument for the `simple.io.PrintWriter.Printfc(...)`_ and 
+	`simple.io.PrintWriter.Printbc(...)`_ , the first which deal with the forground and the 
 	later to change the background.
 	
 	Example 
@@ -14,7 +14,7 @@
 		from simple.util.Console
 		import simple.core
 		
-		stdout.printfc()
+		stdout.Printfc()
 		
 	The color will only be applied to the terminal or console if it is supported, the console color
 	will be neglected if the standard stream it not supported like logging to file or usage in CGI.  
@@ -298,7 +298,7 @@ class ConsoleColor : Object
 	
 /*S
 
-	.. _simple.io.PrintWriter.printfc(...): ../io/PrintWriter.html#printfc
-	.. _simple.io.PrintWriter.printbc(...): ../io/PrintWriter.html#printbc
+	.. _simple.io.PrintWriter.Printfc(...): ../io/PrintWriter.html#printfc
+	.. _simple.io.PrintWriter.Printbc(...): ../io/PrintWriter.html#printbc
 
 */

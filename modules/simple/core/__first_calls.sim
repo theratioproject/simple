@@ -37,13 +37,13 @@
 
 /*
 	WINDOWS
-	callDynamicModule("libsystemic.dll") callDynamicModule("libstring_savant.dll")
+	CallDynamicModule("libsystemic.dll") CallDynamicModule("libstring_savant.dll")
 	
 	LINUX 
-	callDynamicModule("libsystemic.so") callDynamicModule("libstring_savant.so")
+	CallDynamicModule("libsystemic.so") CallDynamicModule("libstring_savant.so")
 	
 	MAC
-	callDynamicModule("libsystemic.dylib") callDynamicModule("libstring_savant.dylib")
+	CallDynamicModule("libsystemic.dylib") CallDynamicModule("libstring_savant.dylib")
 	
 */
 

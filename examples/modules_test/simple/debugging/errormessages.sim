@@ -8,5 +8,5 @@ errMsg = new ErrorMessages
 errMsgAttrs = __object_attributes(errMsg)
 for error in errMsgAttrs {
 	errorValue = __get_attribute_value(errMsg,error)
-	stderr.printfc(ConsoleColor.DARKRED,error + " = " + errorValue + "\n")
+	stderr.Printfc(ConsoleColor.DARKRED,error + " = " + errorValue + "\n")
 }

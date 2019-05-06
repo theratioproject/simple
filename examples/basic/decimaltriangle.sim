@@ -9,7 +9,7 @@ from "simple/util/Math.sim"
 
 #note the use of decimals it very tricky as it makes all decimal places
 #in the entire program to the last decimal place sent to the virtual machine
-#so it advisable to use the toDecimal(number, place) which returns you with
+#so it advisable to use the ToDecimal(number, place) which returns you with
 #the number of places you requested
 block main()
 	x = 0.1234567890123

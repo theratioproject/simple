@@ -4,7 +4,7 @@ num1 = "384783478374837847738738723878971897897438974983748973894783974782738947
 num2 = "12345123451234512345"
 num = new BigNum(num1)
 num = num + num2
-@num.value()
+@num.Value()
 
 class BigNum 
 
@@ -13,7 +13,7 @@ class BigNum
 	block BigNum(n)
 		/*tempArray = ""
 		count = 0 
-		nl = lengthOf(n) - 1
+		nl = LengthOf(n) - 1
 		for i = 0 to nl {
 			if count == 9
 				count = 0 
@@ -24,16 +24,16 @@ class BigNum
 		} */
 		this.n = n
 		
-	block operator(operator,invalue)
+	block Operator(operator,invalue)
 		switch operator {
 			case "+"
 				value = "" 
 				sum = ""
-				if isString(invalue) or isNumber(invalue) {
+				if IsString(invalue) or IsNumber(invalue) {
 					value += invalue
 				}
-				l1 = lengthOf(n) - 1
-				l2 = lengthOf(value) - 1
+				l1 = LengthOf(n) - 1
+				l2 = LengthOf(value) - 1
 				carryOver = 0
 				k = 0
 				i = 0
@@ -66,14 +66,14 @@ class BigNum
 					if carryOver > 0 sum += 0 + carryOver end
 				}
 				this.n = ""
-				lSum = lengthOf(sum) - 1
+				lSum = LengthOf(sum) - 1
 				for i = lSum to 0 step -1 {
 					this.n += sum[i]
 				}
 		}
 		return this
 		
-	block value()
+	block Value()
 		return n
 		
 #9879888888888888888444444444488888888888888888888888888888888888888

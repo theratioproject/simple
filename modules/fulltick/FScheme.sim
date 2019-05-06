@@ -1,4 +1,4 @@
-#maybe make it direct list acces rather than FApp.scheme.get(...)
+#maybe make it direct list acces rather than FApp.scheme.Get(...)
 
 /*
 
@@ -30,259 +30,259 @@ final FScheme = new fulltick.FScheme
 
 */
 #TODO : Make Mutiline input transparent background using __FL_NO_BOX()
-if isWindows() and FScheme.UsePlatformUI {
-	FScheme.set("FWindow.Y_Diff",30)
-	FScheme.set("FWindow.Background",new FColor(242,242,242))
+if IsWindows() and FScheme.UsePlatformUI {
+	FScheme.Set("FWindow.Y_Diff",30)
+	FScheme.Set("FWindow.Background",new FColor(242,242,242))
 
 	#FButton
-	FScheme.set("FButton.Background",new FColor(225,225,225))
-	FScheme.set("FButton.SelectionColor",new FColor(204,228,247)) 
-	FScheme.set("FButton.Border",new FBorder(1,1,1,1,__FL_FLAT_BOX(),new FColor(173,173,173))) #on hover or click 74,174,255
+	FScheme.Set("FButton.Background",new FColor(225,225,225))
+	FScheme.Set("FButton.SelectionColor",new FColor(204,228,247)) 
+	FScheme.Set("FButton.Border",new FBorder(1,1,1,1,__FL_FLAT_BOX(),new FColor(173,173,173))) #on hover or click 74,174,255
 	
 	#FReturnButton
-	FScheme.set("FReturnButton.Background",new FColor(225,225,225))
-	FScheme.set("FReturnButton.SelectionColor",new FColor(204,228,247)) 
-	FScheme.set("FReturnButton.Border",new FBorder(1,1,1,1,__FL_FLAT_BOX(),new FColor(173,173,173)))
+	FScheme.Set("FReturnButton.Background",new FColor(225,225,225))
+	FScheme.Set("FReturnButton.SelectionColor",new FColor(204,228,247)) 
+	FScheme.Set("FReturnButton.Border",new FBorder(1,1,1,1,__FL_FLAT_BOX(),new FColor(173,173,173)))
 	
 	#FRadioButton
-	FScheme.set("FRadioButton.Background",new FColor(225,225,225))
-	FScheme.set("FRadioButton.SelectionColor",new FColor(204,228,247)) 
-	FScheme.set("FRadioButton.Border",new FBorder(1,1,1,1,__FL_FLAT_BOX(),new FColor(173,173,173)))
+	FScheme.Set("FRadioButton.Background",new FColor(225,225,225))
+	FScheme.Set("FRadioButton.SelectionColor",new FColor(204,228,247)) 
+	FScheme.Set("FRadioButton.Border",new FBorder(1,1,1,1,__FL_FLAT_BOX(),new FColor(173,173,173)))
 	
 	#FRepeatButton
-	FScheme.set("FRepeatButton.Background",new FColor(225,225,225))
-	FScheme.set("FRepeatButton.SelectionColor",new FColor(204,228,247)) 
-	FScheme.set("FRepeatButton.Border",new FBorder(1,1,1,1,__FL_FLAT_BOX(),new FColor(173,173,173)))
+	FScheme.Set("FRepeatButton.Background",new FColor(225,225,225))
+	FScheme.Set("FRepeatButton.SelectionColor",new FColor(204,228,247)) 
+	FScheme.Set("FRepeatButton.Border",new FBorder(1,1,1,1,__FL_FLAT_BOX(),new FColor(173,173,173)))
 	
 	#FToggleButton
-	FScheme.set("FToggleButton.Background",new FColor(225,225,225))
-	FScheme.set("FToggleButton.SelectionColor",new FColor(204,228,247)) 
-	FScheme.set("FToggleButton.Border",new FBorder(1,1,1,1,__FL_FLAT_BOX(),new FColor(173,173,173)))
+	FScheme.Set("FToggleButton.Background",new FColor(225,225,225))
+	FScheme.Set("FToggleButton.SelectionColor",new FColor(204,228,247)) 
+	FScheme.Set("FToggleButton.Border",new FBorder(1,1,1,1,__FL_FLAT_BOX(),new FColor(173,173,173)))
 	
 	#FLightButton
-	FScheme.set("FLightButton.Background",new FColor(225,225,225))
-	FScheme.set("FLightButton.SelectionColor",FColor.FCOLOR_YELLOW) 
-	FScheme.set("FLightButton.Border",new FBorder(1,1,1,1,__FL_FLAT_BOX(),new FColor(173,173,173)))
+	FScheme.Set("FLightButton.Background",new FColor(225,225,225))
+	FScheme.Set("FLightButton.SelectionColor",FColor.FCOLOR_YELLOW) 
+	FScheme.Set("FLightButton.Border",new FBorder(1,1,1,1,__FL_FLAT_BOX(),new FColor(173,173,173)))
 	
 	#FCheckButton
-	FScheme.set("FCheckButton.Background",new FColor(225,225,225))
-	FScheme.set("FCheckButton.SelectionColor",FColor.FCOLOR_BLACK) 
-	FScheme.set("FCheckButton.Border",new FBorder(1,1,1,1,__FL_FLAT_BOX(),new FColor(173,173,173)))
+	FScheme.Set("FCheckButton.Background",new FColor(225,225,225))
+	FScheme.Set("FCheckButton.SelectionColor",FColor.FCOLOR_BLACK) 
+	FScheme.Set("FCheckButton.Border",new FBorder(1,1,1,1,__FL_FLAT_BOX(),new FColor(173,173,173)))
 	
 	#FRadioLightButton
-	FScheme.set("FRadioLightButton.Background",new FColor(225,225,225))
-	FScheme.set("FRadioLightButton.SelectionColor",FColor.FCOLOR_BLACK) 
-	FScheme.set("FRadioLightButton.Border",new FBorder(1,1,1,1,__FL_FLAT_BOX(),new FColor(173,173,173)))
+	FScheme.Set("FRadioLightButton.Background",new FColor(225,225,225))
+	FScheme.Set("FRadioLightButton.SelectionColor",FColor.FCOLOR_BLACK) 
+	FScheme.Set("FRadioLightButton.Border",new FBorder(1,1,1,1,__FL_FLAT_BOX(),new FColor(173,173,173)))
 	
 	#FRoundButton
-	FScheme.set("FRoundButton.Background",new FColor(225,225,225))
-	FScheme.set("FRoundButton.SelectionColor",FColor.FCOLOR_BLACK) 
-	FScheme.set("FRoundButton.Border",new FBorder(1,1,1,1,__FL_FLAT_BOX(),new FColor(173,173,173)))
+	FScheme.Set("FRoundButton.Background",new FColor(225,225,225))
+	FScheme.Set("FRoundButton.SelectionColor",FColor.FCOLOR_BLACK) 
+	FScheme.Set("FRoundButton.Border",new FBorder(1,1,1,1,__FL_FLAT_BOX(),new FColor(173,173,173)))
 	
 	#FRadioRoundButton
-	FScheme.set("FRadioRoundButton.Background",new FColor(225,225,225))
-	FScheme.set("FRadioRoundButton.SelectionColor",FColor.FCOLOR_BLACK) 
-	FScheme.set("FRadioRoundButton.Border",new FBorder(1,1,1,1,__FL_FLAT_BOX(),new FColor(173,173,173)))
+	FScheme.Set("FRadioRoundButton.Background",new FColor(225,225,225))
+	FScheme.Set("FRadioRoundButton.SelectionColor",FColor.FCOLOR_BLACK) 
+	FScheme.Set("FRadioRoundButton.Border",new FBorder(1,1,1,1,__FL_FLAT_BOX(),new FColor(173,173,173)))
 
 	#FInput
-	FScheme.set("FInput.Border",new FBorder(1,1,1,1,__FL_DOWN_BOX(),new FColor(172,172,172))) 
-	FScheme.set("FIntInput.Border",new FBorder(1,1,1,1,__FL_DOWN_BOX(),new FColor(172,172,172))) 
-	FScheme.set("FFloatInput.Border",new FBorder(1,1,1,1,__FL_DOWN_BOX(),new FColor(172,172,172))) 
-	FScheme.set("FMultilineInput.Border",new FBorder(1,1,1,1,__FL_DOWN_BOX(),new FColor(172,172,172))) 
-	FScheme.set("FOutput.Border",new FBorder(1,1,1,1,__FL_DOWN_BOX(),new FColor(172,172,172))) 
-	FScheme.set("FMultilineOutput.Border",new FBorder(1,1,1,1,__FL_DOWN_BOX(),new FColor(172,172,172))) 
-	FScheme.set("FSecretInput.Border",new FBorder(1,1,1,1,__FL_DOWN_BOX(),new FColor(172,172,172)))
-	FScheme.set("FFileInput.Border",new FBorder(1,1,1,1,__FL_DOWN_BOX(),new FColor(172,172,172)))
+	FScheme.Set("FInput.Border",new FBorder(1,1,1,1,__FL_DOWN_BOX(),new FColor(172,172,172))) 
+	FScheme.Set("FIntInput.Border",new FBorder(1,1,1,1,__FL_DOWN_BOX(),new FColor(172,172,172))) 
+	FScheme.Set("FFloatInput.Border",new FBorder(1,1,1,1,__FL_DOWN_BOX(),new FColor(172,172,172))) 
+	FScheme.Set("FMultilineInput.Border",new FBorder(1,1,1,1,__FL_DOWN_BOX(),new FColor(172,172,172))) 
+	FScheme.Set("FOutput.Border",new FBorder(1,1,1,1,__FL_DOWN_BOX(),new FColor(172,172,172))) 
+	FScheme.Set("FMultilineOutput.Border",new FBorder(1,1,1,1,__FL_DOWN_BOX(),new FColor(172,172,172))) 
+	FScheme.Set("FSecretInput.Border",new FBorder(1,1,1,1,__FL_DOWN_BOX(),new FColor(172,172,172)))
+	FScheme.Set("FFileInput.Border",new FBorder(1,1,1,1,__FL_DOWN_BOX(),new FColor(172,172,172)))
 	
 	#FMenuBar
-	FScheme.set("FMenuBar.Background",new FColor(242,242,242))
-	FScheme.set("FMenuBar.DownColor",new FColor(33,147,239))
+	FScheme.Set("FMenuBar.Background",new FColor(242,242,242))
+	FScheme.Set("FMenuBar.DownColor",new FColor(33,147,239))
 
-elif isAndroid() and FScheme.UsePlatformUI 
-	#FScheme.set("FWindow.Y_Diff",24)
-	FScheme.set("FWindow.Width",primaryScreenWidth())
-	FScheme.set("FWindow.Height",primaryScreenHeight())
-	FScheme.set("FWindow.X",0)
-	FScheme.set("FWindow.Y",0)
-	FScheme.set("FWindow.HasWindowBorder",false)
-	FScheme.set("FWindow.Background",new FColor(250,250,250))
+elif IsAndroid() and FScheme.UsePlatformUI 
+	#FScheme.Set("FWindow.Y_Diff",24)
+	FScheme.Set("FWindow.Width",PrimaryScreenWidth())
+	FScheme.Set("FWindow.Height",PrimaryScreenHeight())
+	FScheme.Set("FWindow.X",0)
+	FScheme.Set("FWindow.Y",0)
+	FScheme.Set("FWindow.HasWindowBorder",false)
+	FScheme.Set("FWindow.Background",new FColor(250,250,250))
 
 	#Fbutton
-	FScheme.set("FButton.Background",new FColor(214,215,215))
-	FScheme.set("FButton.BaseColor",new FColor(175,175,175))
-	FScheme.set("FButton.CapitalizeLabel",true)
-	FScheme.set("FButton.HasBorder",false)
+	FScheme.Set("FButton.Background",new FColor(214,215,215))
+	FScheme.Set("FButton.BaseColor",new FColor(175,175,175))
+	FScheme.Set("FButton.CapitalizeLabel",true)
+	FScheme.Set("FButton.HasBorder",false)
 	
 	#FReturnButton
-	FScheme.set("FReturnButton.Background",new FColor(214,215,215))
-	FScheme.set("FReturnButton.BaseColor",new FColor(175,175,175))
-	FScheme.set("FReturnButton.CapitalizeLabel",true)
-	FScheme.set("FReturnButton.HasBorder",false)
+	FScheme.Set("FReturnButton.Background",new FColor(214,215,215))
+	FScheme.Set("FReturnButton.BaseColor",new FColor(175,175,175))
+	FScheme.Set("FReturnButton.CapitalizeLabel",true)
+	FScheme.Set("FReturnButton.HasBorder",false)
 	
 	#FRadioButton
-	FScheme.set("FRadioButton.Background",new FColor(214,215,215))
-	FScheme.set("FRadioButton.BaseColor",new FColor(175,175,175))
-	FScheme.set("FRadioButton.CapitalizeLabel",true)
-	FScheme.set("FRadioButton.HasBorder",false)
+	FScheme.Set("FRadioButton.Background",new FColor(214,215,215))
+	FScheme.Set("FRadioButton.BaseColor",new FColor(175,175,175))
+	FScheme.Set("FRadioButton.CapitalizeLabel",true)
+	FScheme.Set("FRadioButton.HasBorder",false)
 	
 	#FRepeatButton
-	FScheme.set("FRepeatButton.Background",new FColor(214,215,215))
-	FScheme.set("FRepeatButton.BaseColor",new FColor(175,175,175))
-	FScheme.set("FRepeatButton.CapitalizeLabel",true)
-	FScheme.set("FRepeatButton.HasBorder",false)
+	FScheme.Set("FRepeatButton.Background",new FColor(214,215,215))
+	FScheme.Set("FRepeatButton.BaseColor",new FColor(175,175,175))
+	FScheme.Set("FRepeatButton.CapitalizeLabel",true)
+	FScheme.Set("FRepeatButton.HasBorder",false)
 	
 	#FToggleButton
-	FScheme.set("FToggleButton.Background",new FColor(214,215,215))
-	FScheme.set("FToggleButton.BaseColor",new FColor(175,175,175))
-	FScheme.set("FToggleButton.CapitalizeLabel",true)
-	FScheme.set("FToggleButton.HasBorder",false)
+	FScheme.Set("FToggleButton.Background",new FColor(214,215,215))
+	FScheme.Set("FToggleButton.BaseColor",new FColor(175,175,175))
+	FScheme.Set("FToggleButton.CapitalizeLabel",true)
+	FScheme.Set("FToggleButton.HasBorder",false)
 	
 	#FLightButton
-	FScheme.set("FLightButton.Background",new FColor(214,215,215))
-	FScheme.set("FLightButton.BaseColor",new FColor(175,175,175))
-	FScheme.set("FLightButton.CapitalizeLabel",true)
-	FScheme.set("FLightButton.HasBorder",false)
+	FScheme.Set("FLightButton.Background",new FColor(214,215,215))
+	FScheme.Set("FLightButton.BaseColor",new FColor(175,175,175))
+	FScheme.Set("FLightButton.CapitalizeLabel",true)
+	FScheme.Set("FLightButton.HasBorder",false)
 	
 	#FCheckButton
-	FScheme.set("FCheckButton.Background",new FColor(214,215,215))
-	FScheme.set("FCheckButton.BaseColor",new FColor(175,175,175))
-	FScheme.set("FCheckButton.CapitalizeLabel",true)
+	FScheme.Set("FCheckButton.Background",new FColor(214,215,215))
+	FScheme.Set("FCheckButton.BaseColor",new FColor(175,175,175))
+	FScheme.Set("FCheckButton.CapitalizeLabel",true)
 	
 	#FRadioLightButton
-	FScheme.set("FRadioLightButton.Background",new FColor(214,215,215))
-	FScheme.set("FRadioLightButton.BaseColor",new FColor(175,175,175))
-	FScheme.set("FRadioLightButton.CapitalizeLabel",true)
+	FScheme.Set("FRadioLightButton.Background",new FColor(214,215,215))
+	FScheme.Set("FRadioLightButton.BaseColor",new FColor(175,175,175))
+	FScheme.Set("FRadioLightButton.CapitalizeLabel",true)
 	
 	#FRoundButton
-	FScheme.set("FRoundButton.Background",new FColor(214,215,215))
-	FScheme.set("FRoundButton.BaseColor",new FColor(175,175,175))
-	FScheme.set("FRoundButton.CapitalizeLabel",true)
+	FScheme.Set("FRoundButton.Background",new FColor(214,215,215))
+	FScheme.Set("FRoundButton.BaseColor",new FColor(175,175,175))
+	FScheme.Set("FRoundButton.CapitalizeLabel",true)
 	
 	#FRadioRoundButton
-	FScheme.set("FRadioRoundButton.Background",new FColor(214,215,215))
-	FScheme.set("FRadioRoundButton.BaseColor",new FColor(175,175,175))
-	FScheme.set("FRadioRoundButton.CapitalizeLabel",true)
+	FScheme.Set("FRadioRoundButton.Background",new FColor(214,215,215))
+	FScheme.Set("FRadioRoundButton.BaseColor",new FColor(175,175,175))
+	FScheme.Set("FRadioRoundButton.CapitalizeLabel",true)
 
 	#FInput
-	FScheme.set("FInput.Background",new FColor(250,250,250)) 
-	FScheme.set("FInput.Border",new FBorder(0,2,0,0,__FL_FLAT_BOX(),new FColor(255,106,154)))
-	FScheme.set("FIntInput.Background",new FColor(250,250,250)) 
-	FScheme.set("FIntInput.Border",new FBorder(0,2,0,0,__FL_FLAT_BOX(),new FColor(255,106,154))) 
-	FScheme.set("FFloatInput.Background",new FColor(250,250,250)) 
-	FScheme.set("FFloatInput.Border",new FBorder(0,2,0,0,__FL_FLAT_BOX(),new FColor(255,106,154))) 
-	FScheme.set("FMultilineInput.Background",new FColor(250,250,250)) 
-	FScheme.set("FMultilineInput.Border",new FBorder(0,2,0,0,__FL_FLAT_BOX(),new FColor(255,106,154))) 
-	FScheme.set("FOutput.Background",new FColor(250,250,250)) 
-	FScheme.set("FOutput.Border",new FBorder(0,2,0,0,__FL_FLAT_BOX(),new FColor(255,106,154)))
-	FScheme.set("FMultilineOutput.Background",new FColor(250,250,250)) 
-	FScheme.set("FMultilineOutput.Border",new FBorder(0,2,0,0,__FL_FLAT_BOX(),new FColor(255,106,154))) 
-	FScheme.set("FSecretInput.Background",new FColor(250,250,250)) 
-	FScheme.set("FSecretInput.Border",new FBorder(0,2,0,0,__FL_FLAT_BOX(),new FColor(255,106,154))) 
-	FScheme.set("FFileInput.Background",new FColor(250,250,250)) 
-	FScheme.set("FFileInput.Border",new FBorder(0,2,0,0,__FL_FLAT_BOX(),new FColor(255,106,154)))
+	FScheme.Set("FInput.Background",new FColor(250,250,250)) 
+	FScheme.Set("FInput.Border",new FBorder(0,2,0,0,__FL_FLAT_BOX(),new FColor(255,106,154)))
+	FScheme.Set("FIntInput.Background",new FColor(250,250,250)) 
+	FScheme.Set("FIntInput.Border",new FBorder(0,2,0,0,__FL_FLAT_BOX(),new FColor(255,106,154))) 
+	FScheme.Set("FFloatInput.Background",new FColor(250,250,250)) 
+	FScheme.Set("FFloatInput.Border",new FBorder(0,2,0,0,__FL_FLAT_BOX(),new FColor(255,106,154))) 
+	FScheme.Set("FMultilineInput.Background",new FColor(250,250,250)) 
+	FScheme.Set("FMultilineInput.Border",new FBorder(0,2,0,0,__FL_FLAT_BOX(),new FColor(255,106,154))) 
+	FScheme.Set("FOutput.Background",new FColor(250,250,250)) 
+	FScheme.Set("FOutput.Border",new FBorder(0,2,0,0,__FL_FLAT_BOX(),new FColor(255,106,154)))
+	FScheme.Set("FMultilineOutput.Background",new FColor(250,250,250)) 
+	FScheme.Set("FMultilineOutput.Border",new FBorder(0,2,0,0,__FL_FLAT_BOX(),new FColor(255,106,154))) 
+	FScheme.Set("FSecretInput.Background",new FColor(250,250,250)) 
+	FScheme.Set("FSecretInput.Border",new FBorder(0,2,0,0,__FL_FLAT_BOX(),new FColor(255,106,154))) 
+	FScheme.Set("FFileInput.Background",new FColor(250,250,250)) 
+	FScheme.Set("FFileInput.Border",new FBorder(0,2,0,0,__FL_FLAT_BOX(),new FColor(255,106,154)))
 	
 	#FMenuBar
-	FScheme.set("FMenuBar.Background",new FColor(62,78,184))
-	FScheme.set("FMenuBar.TextColor",FColor.FCOLOR_WHITE)
+	FScheme.Set("FMenuBar.Background",new FColor(62,78,184))
+	FScheme.Set("FMenuBar.TextColor",FColor.FCOLOR_WHITE)
 
-elif isLinux() and FScheme.UsePlatformUI 
-	FScheme.set("FWindow.Background",new FColor(229,220,212))
+elif IsLinux() and FScheme.UsePlatformUI 
+	FScheme.Set("FWindow.Background",new FColor(229,220,212))
 
 	#FButton
-	FScheme.set("FButton.Background",new FColor(229,220,212))
-	FScheme.set("FButton.SelectionColor",new FColor(214,85,53))
-	FScheme.set("FButton.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41)))
+	FScheme.Set("FButton.Background",new FColor(229,220,212))
+	FScheme.Set("FButton.SelectionColor",new FColor(214,85,53))
+	FScheme.Set("FButton.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41)))
 	
 	#FReturnButton
-	FScheme.set("FRadioButton.Background",new FColor(229,220,212))
-	FScheme.set("FReturnButton.SelectionColor",new FColor(214,85,53))
-	FScheme.set("FRadioButton.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41)))
+	FScheme.Set("FRadioButton.Background",new FColor(229,220,212))
+	FScheme.Set("FReturnButton.SelectionColor",new FColor(214,85,53))
+	FScheme.Set("FRadioButton.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41)))
 	
 	#FRadioButton
-	FScheme.set("FRadioButton.Background",new FColor(229,220,212))
-	FScheme.set("FRadioButton.SelectionColor",new FColor(214,85,53))
-	FScheme.set("FRadioButton.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41)))
+	FScheme.Set("FRadioButton.Background",new FColor(229,220,212))
+	FScheme.Set("FRadioButton.SelectionColor",new FColor(214,85,53))
+	FScheme.Set("FRadioButton.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41)))
 	
 	#FRepeatButton
-	FScheme.set("FRepeatButton.Background",new FColor(229,220,212))
-	FScheme.set("FRepeatButton.SelectionColor",new FColor(214,85,53))
-	FScheme.set("FRepeatButton.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41)))
+	FScheme.Set("FRepeatButton.Background",new FColor(229,220,212))
+	FScheme.Set("FRepeatButton.SelectionColor",new FColor(214,85,53))
+	FScheme.Set("FRepeatButton.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41)))
 	
 	#FToggleButton
-	FScheme.set("FToggleButton.Background",new FColor(229,220,212))
-	FScheme.set("FToggleButton.SelectionColor",new FColor(214,85,53))
-	FScheme.set("FToggleButton.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41)))
+	FScheme.Set("FToggleButton.Background",new FColor(229,220,212))
+	FScheme.Set("FToggleButton.SelectionColor",new FColor(214,85,53))
+	FScheme.Set("FToggleButton.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41)))
 	
 	#FLightButton
-	FScheme.set("FLightButton.Background",new FColor(229,220,212))
-	FScheme.set("FLightButton.SelectionColor",new FColor(214,85,53))
-	FScheme.set("FLightButton.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41)))
+	FScheme.Set("FLightButton.Background",new FColor(229,220,212))
+	FScheme.Set("FLightButton.SelectionColor",new FColor(214,85,53))
+	FScheme.Set("FLightButton.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41)))
 	
 	#FCheckButton
-	FScheme.set("FCheckButton.Background",new FColor(229,220,212))
-	FScheme.set("FCheckButton.SelectionColor",new FColor(214,85,53))
-	FScheme.set("FCheckButton.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41)))
+	FScheme.Set("FCheckButton.Background",new FColor(229,220,212))
+	FScheme.Set("FCheckButton.SelectionColor",new FColor(214,85,53))
+	FScheme.Set("FCheckButton.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41)))
 	
 	#FRadioLightButton
-	FScheme.set("FRadioLightButton.Background",new FColor(229,220,212))
-	FScheme.set("FRadioLightButton.SelectionColor",new FColor(214,85,53))
-	FScheme.set("FRadioLightButton.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41)))
+	FScheme.Set("FRadioLightButton.Background",new FColor(229,220,212))
+	FScheme.Set("FRadioLightButton.SelectionColor",new FColor(214,85,53))
+	FScheme.Set("FRadioLightButton.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41)))
 	
 	#FRoundButton
-	FScheme.set("FRoundButton.Background",new FColor(229,220,212))
-	FScheme.set("FRoundButton.SelectionColor",new FColor(214,85,53))
-	FScheme.set("FRoundButton.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41)))
+	FScheme.Set("FRoundButton.Background",new FColor(229,220,212))
+	FScheme.Set("FRoundButton.SelectionColor",new FColor(214,85,53))
+	FScheme.Set("FRoundButton.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41)))
 	
 	#FRadioRoundButton
-	FScheme.set("FRadioRoundButton.Background",new FColor(229,220,212))
-	FScheme.set("FRadioRoundButton.SelectionColor",new FColor(214,85,53))
-	FScheme.set("FRadioRoundButton.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41)))
+	FScheme.Set("FRadioRoundButton.Background",new FColor(229,220,212))
+	FScheme.Set("FRadioRoundButton.SelectionColor",new FColor(214,85,53))
+	FScheme.Set("FRadioRoundButton.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41)))
 
 	#FInput
-	FScheme.set("FInput.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41))) 
-	FScheme.set("FIntInput.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41))) 
-	FScheme.set("FFloatInput.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41))) 
-	FScheme.set("FMultilineInput.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41))) 
-	FScheme.set("FOutput.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41))) 
-	FScheme.set("FMultilineOutput.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41))) 
-	FScheme.set("FSecretInput.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41)))
-	FScheme.set("FFileInput.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41)))
+	FScheme.Set("FInput.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41))) 
+	FScheme.Set("FIntInput.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41))) 
+	FScheme.Set("FFloatInput.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41))) 
+	FScheme.Set("FMultilineInput.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41))) 
+	FScheme.Set("FOutput.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41))) 
+	FScheme.Set("FMultilineOutput.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41))) 
+	FScheme.Set("FSecretInput.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41)))
+	FScheme.Set("FFileInput.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41)))
 	
 	#FMenuBar
-	FScheme.set("FMenuBar.Background",new FColor(225,214,204))
+	FScheme.Set("FMenuBar.Background",new FColor(225,214,204))
 
-elif isMacosx() and FScheme.UsePlatformUI
-	FScheme.set("FWindow.Background",new FColor(238,244,249))
+elif IsMacosx() and FScheme.UsePlatformUI
+	FScheme.Set("FWindow.Background",new FColor(238,244,249))
 
 	#FButton
-	FScheme.set("FButton.Box",new FBoxType(__fl_define_FL_ROUNDED_BOX(),new FColor(239,239,239)))
-	FScheme.set("FButton.BaseBox",new FBoxType(__fl_define_FL_ROUNDED_BOX(),new FColor(177,204,247)))
-	FScheme.set("FButton.Border",new FBorder(2,2,2,2,__fl_define_FL_ROUNDED_BOX(),new FColor(157,157,157)))
+	FScheme.Set("FButton.Box",new FBoxType(__fl_define_FL_ROUNDED_BOX(),new FColor(239,239,239)))
+	FScheme.Set("FButton.BaseBox",new FBoxType(__fl_define_FL_ROUNDED_BOX(),new FColor(177,204,247)))
+	FScheme.Set("FButton.Border",new FBorder(2,2,2,2,__fl_define_FL_ROUNDED_BOX(),new FColor(157,157,157)))
 	
 	#FReturnButton
-	FScheme.set("FReturnButton.Box",new FBoxType(__fl_define_FL_ROUNDED_BOX(),new FColor(239,239,239)))
-	FScheme.set("FReturnButton.BaseBox",new FBoxType(__fl_define_FL_ROUNDED_BOX(),new FColor(177,204,247)))
-	FScheme.set("FReturnButton.Border",new FBorder(2,2,2,2,__fl_define_FL_ROUNDED_BOX(),new FColor(157,157,157)))
+	FScheme.Set("FReturnButton.Box",new FBoxType(__fl_define_FL_ROUNDED_BOX(),new FColor(239,239,239)))
+	FScheme.Set("FReturnButton.BaseBox",new FBoxType(__fl_define_FL_ROUNDED_BOX(),new FColor(177,204,247)))
+	FScheme.Set("FReturnButton.Border",new FBorder(2,2,2,2,__fl_define_FL_ROUNDED_BOX(),new FColor(157,157,157)))
 	
 	#FRadioButton
-	FScheme.set("FRadioButton.Box",new FBoxType(__fl_define_FL_ROUNDED_BOX(),new FColor(239,239,239)))
-	FScheme.set("FRadioButton.BaseBox",new FBoxType(__fl_define_FL_ROUNDED_BOX(),new FColor(177,204,247)))
-	FScheme.set("FRadioButton.Border",new FBorder(2,2,2,2,__fl_define_FL_ROUNDED_BOX(),new FColor(157,157,157)))
+	FScheme.Set("FRadioButton.Box",new FBoxType(__fl_define_FL_ROUNDED_BOX(),new FColor(239,239,239)))
+	FScheme.Set("FRadioButton.BaseBox",new FBoxType(__fl_define_FL_ROUNDED_BOX(),new FColor(177,204,247)))
+	FScheme.Set("FRadioButton.Border",new FBorder(2,2,2,2,__fl_define_FL_ROUNDED_BOX(),new FColor(157,157,157)))
 	
 	#FRepeatButton
-	FScheme.set("FRepeatButton.Box",new FBoxType(__fl_define_FL_ROUNDED_BOX(),new FColor(239,239,239)))
-	FScheme.set("FRepeatButton.BaseBox",new FBoxType(__fl_define_FL_ROUNDED_BOX(),new FColor(177,204,247)))
-	FScheme.set("FRepeatButton.Border",new FBorder(2,2,2,2,__fl_define_FL_ROUNDED_BOX(),new FColor(157,157,157)))
+	FScheme.Set("FRepeatButton.Box",new FBoxType(__fl_define_FL_ROUNDED_BOX(),new FColor(239,239,239)))
+	FScheme.Set("FRepeatButton.BaseBox",new FBoxType(__fl_define_FL_ROUNDED_BOX(),new FColor(177,204,247)))
+	FScheme.Set("FRepeatButton.Border",new FBorder(2,2,2,2,__fl_define_FL_ROUNDED_BOX(),new FColor(157,157,157)))
 	
 	#FToggleButton
-	FScheme.set("FToggleButton.Box",new FBoxType(__fl_define_FL_ROUNDED_BOX(),new FColor(239,239,239)))
-	FScheme.set("FToggleButton.BaseBox",new FBoxType(__fl_define_FL_ROUNDED_BOX(),new FColor(177,204,247)))
-	FScheme.set("FToggleButton.Border",new FBorder(2,2,2,2,__fl_define_FL_ROUNDED_BOX(),new FColor(157,157,157)))
+	FScheme.Set("FToggleButton.Box",new FBoxType(__fl_define_FL_ROUNDED_BOX(),new FColor(239,239,239)))
+	FScheme.Set("FToggleButton.BaseBox",new FBoxType(__fl_define_FL_ROUNDED_BOX(),new FColor(177,204,247)))
+	FScheme.Set("FToggleButton.Border",new FBorder(2,2,2,2,__fl_define_FL_ROUNDED_BOX(),new FColor(157,157,157)))
 	
 	#FLightButton
-	FScheme.set("FLightButton.Box",new FBoxType(__fl_define_FL_ROUNDED_BOX(),new FColor(239,239,239)))
-	FScheme.set("FLightButton.BaseBox",new FBoxType(__fl_define_FL_ROUNDED_BOX(),new FColor(177,204,247)))
-	FScheme.set("FLightButton.Border",new FBorder(2,2,2,2,__fl_define_FL_ROUNDED_BOX(),new FColor(157,157,157)))
+	FScheme.Set("FLightButton.Box",new FBoxType(__fl_define_FL_ROUNDED_BOX(),new FColor(239,239,239)))
+	FScheme.Set("FLightButton.BaseBox",new FBoxType(__fl_define_FL_ROUNDED_BOX(),new FColor(177,204,247)))
+	FScheme.Set("FLightButton.Border",new FBorder(2,2,2,2,__fl_define_FL_ROUNDED_BOX(),new FColor(157,157,157)))
 	
 	#FCheckButton
 	
@@ -295,18 +295,18 @@ elif isMacosx() and FScheme.UsePlatformUI
 	#FRadioRoundButton
 
 	#FInput
-	FScheme.set("FInput.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(197,197,197)))
-	FScheme.set("FIntInput.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(197,197,197))) 
-	FScheme.set("FFloatInput.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(197,197,197))) 
-	FScheme.set("FMultilineInput.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(197,197,197))) 
-	FScheme.set("FOutput.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(197,197,197)))
-	FScheme.set("FMultilineOutput.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(197,197,197)))
-	FScheme.set("FSecretInput.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(197,197,197)))
-	FScheme.set("FFileInput.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(197,197,197))) 
+	FScheme.Set("FInput.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(197,197,197)))
+	FScheme.Set("FIntInput.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(197,197,197))) 
+	FScheme.Set("FFloatInput.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(197,197,197))) 
+	FScheme.Set("FMultilineInput.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(197,197,197))) 
+	FScheme.Set("FOutput.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(197,197,197)))
+	FScheme.Set("FMultilineOutput.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(197,197,197)))
+	FScheme.Set("FSecretInput.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(197,197,197)))
+	FScheme.Set("FFileInput.Border",new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(197,197,197))) 
 	
 	#FMenuBar
-	FScheme.set("FMenuBar.Background",new FColor(238,244,249))
-	FScheme.set("FMenuBar.TextColor",new FColor(54,101,148))
+	FScheme.Set("FMenuBar.Background",new FColor(238,244,249))
+	FScheme.Set("FMenuBar.TextColor",new FColor(54,101,148))
 }
 
 /*
@@ -388,105 +388,105 @@ class FScheme : Object
 	/*
 
 	*/
-	block setUsePlatformUI(value)
+	block SetUsePlatformUI(value)
 		UsePlatformUI = false
 
 	/*
 
 	*/
-	block getUsePlatformUI()
+	block GetUsePlatformUI()
 		return UsePlatformUI		
 	
 	/*
 	
 	*/
-	block getScheme()
+	block GetScheme()
 		return self
 
 	/*
 
 	*/
-	block getSchemeName()
+	block GetSchemeName()
 		return SchemeName
 		
 	/*
 	
 	*/
-	block set(key,value) 
-		key = replaceStr(key,".","_")
+	block Set(key,value) 
+		key = ReplaceStr(key,".","_")
 		index = __find_in_list(uiConstants,key,0) 
 		if index < 0 {
-			throw(self,"Invalid Scheme key : "+key)
+			Throw(self,"Invalid Scheme key : "+key)
 		}
 		object = uiConstants[index][1]
-		keyType = getType(object) 
+		keyType = GetType(object) 
 		newValue = null
 
 		if keyType == "fulltick.painting.FColor" {
-			if isObject(value) and instanceOf(value,"FColor")  {
+			if IsObject(value) and InstanceOf(value,"FColor")  {
 				newValue = value 
-			elif isObject(value) and instanceOf(value,"Color")
+			elif IsObject(value) and InstanceOf(value,"Color")
 				newValue = new FColor(value)
-			elif isObject(value) and instanceOf(value,"String")
-				newValue = new FColor(value.toString())
-			elif isNumber(value) 
+			elif IsObject(value) and InstanceOf(value,"String")
+				newValue = new FColor(value.ToString())
+			elif IsNumber(value) 
 				newValue = new FColor(value)
-			elif isString(value)
+			elif IsString(value)
 				newValue = new FColor(value)
 			else
-				throw(self,"Invalid parameter for the key : " + key)
+				Throw(self,"Invalid parameter for the key : " + key)
 			}
 		elif keyType == "fulltick.drawing.FBoxType"
-			if instanceOf(value,"FBoxType")  {
+			if InstanceOf(value,"FBoxType")  {
 				newValue = value 
-			elif isNumber()
+			elif IsNumber()
 				newValue = new FBoxType(value)
 			else
-				throw(self,"Invalid parameter for the key : " + key)
+				Throw(self,"Invalid parameter for the key : " + key)
 			}
 		elif keyType == "fulltick.drawing.FFont"
-			if instanceOf(value,"FFont")  {
+			if InstanceOf(value,"FFont")  {
 				newValue = value 
-			elif isNumber()
+			elif IsNumber()
 				newValue = new FFont(value)
 			else
-				throw(self,"Invalid parameter for the key : " + key)
+				Throw(self,"Invalid parameter for the key : " + key)
 			}
 		elif keyType == "fulltick.objects.FBorder"
-			if instanceOf(value,"FBorder")  {
+			if InstanceOf(value,"FBorder")  {
 				newValue = value 
 			else
-				throw(self,"Invalid parameter for the key : " + key)
+				Throw(self,"Invalid parameter for the key : " + key)
 			}
 		elif keyType == "Number"
-			if isObject(value) {
-				if instanceOf(value,"Number") {
-					newValue = value.getNumber()
+			if IsObject(value) {
+				if InstanceOf(value,"Number") {
+					newValue = value.GetNumber()
 				else
-					throw(self,"Invalid parameter for the key : " + key)
+					Throw(self,"Invalid parameter for the key : " + key)
 				}
-			elif isNumber(value)
+			elif IsNumber(value)
 				newValue = value
 			else
-				throw(self,"Invalid parameter for the key : " + key)
+				Throw(self,"Invalid parameter for the key : " + key)
 			}
 		elif keyType == "String"
-			if isObject(value) {
-				if instanceOf(value,"String") {
-					newValue = value.getString()
+			if IsObject(value) {
+				if InstanceOf(value,"String") {
+					newValue = value.GetString()
 				else
-					throw(self,"Invalid parameter for the key : " + key)
+					Throw(self,"Invalid parameter for the key : " + key)
 				}
-			elif isString(value)
+			elif IsString(value)
 				newValue = value
 			else
-				throw(self,"Invalid parameter for the key : " + key)
+				Throw(self,"Invalid parameter for the key : " + key)
 			}
 		#elif keyType == "List"
 		else
-			throw(self,"Invalid value for the key '" + key + "', expecting '" + objectType(object) + "' found '" + objectType(value) + "'")
+			Throw(self,"Invalid value for the key '" + key + "', expecting '" + ObjectType(object) + "' found '" + ObjectType(value) + "'")
 		}
-		if isString(newValue) and isNull(newValue) {
+		if IsString(newValue) and IsNull(newValue) {
 			return
 		} 
 		uiConstants["" + key + "" ] = newValue
@@ -496,11 +496,11 @@ class FScheme : Object
 	/*
 
 	*/
-	block getShemeValue(key) 
-		key = replaceStr(key,".","_")
+	block GetShemeValue(key) 
+		key = ReplaceStr(key,".","_")
 		value = uiConstants["" + key + "" ]
-		if isNull(value) and !strContains(key,"Shortcut") and !strContains(key,"Tooltip") and !strContains(key,"FGroup_Label") {
-			throw(self,"Invalid key, The key does not exist in the Scheme : " + key )
+		if IsNull(value) and !StrContains(key,"Shortcut") and !StrContains(key,"Tooltip") and !StrContains(key,"FGroup_Label") {
+			Throw(self,"Invalid key, The key does not exist in the Scheme : " + key )
 		}
 		return value
 
@@ -508,7 +508,7 @@ class FScheme : Object
 	/*
 	
 	*/
-	block toString()
+	block ToString()
 		return "[fulltick.FScheme:SchemeName=" + SchemeName + "]"
 
 	/*

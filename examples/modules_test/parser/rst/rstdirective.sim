@@ -7,11 +7,11 @@ from simple.util.Console
 from parser.rst.rstParser
 
 block main()
-	rstTokens = new rstParser(__read_file("../../../testfiles/directive.rst"))
-	tokens = rstTokens.parse()
-	stdout.println("=================\nDircetive Block\n=================")
+	rstTokens = new RstParser(__read_file("../../../testfiles/directive.rst"))
+	tokens = rstTokens.Parse()
+	stdout.Println("=================\nDircetive Block\n=================")
 	for token in tokens {
 		if token.Type == rstTokens.Directive {
-			stdout.printfi("Block: Name={0}, Value={1}, Options={2}\n", token.Value.Name, token.Value.Value, token.Value.Options)
+			stdout.Printfi("Block: Name={0}, Value={1}, Options={2}\n", token.Value.Name, token.Value.Value, token.Value.Options)
 		}
 	}

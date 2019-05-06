@@ -12,7 +12,7 @@ display ""+(obj1 == 20)
 
 class Object1 
 
-	block operator(string op, object value)
+	block Operator(string op, object value)
 		display "Operator='" + op + "', Value='" display value display "'\n" 
 		return true
 		

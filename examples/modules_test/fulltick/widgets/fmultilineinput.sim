@@ -15,7 +15,7 @@ import fulltick.objects
 import fulltick.drawing
 
 flabelDemo = new FMultilineInputDemo
-FApp.run()
+FApp.Run()
 
 class FMultilineInputDemo
 
@@ -23,9 +23,9 @@ class FMultilineInputDemo
 		input = new FMultilineInput(10,10,"") {
 			Resizable = true
 		}
-        centerOnScreen() 
+        CenterOnScreen() 
         Resizable = true
-        add(input)
-        show()        
+        Add(input)
+        Show()        
     } 
         

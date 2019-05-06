@@ -37,9 +37,9 @@ from simple.core.loadcoredymodule
 @"==================="
 @"IS BLOCK DEFINED"
 @"==================="
-@"is block returnValue(...) defined : "+__is_block_defined("returnValue")
-@"is block removeStr(...) defined : "+__is_block_defined("removeStr")
-@"is block toUpperCase(...) defined : "+__is_block_defined("toUpperCase")
+@"is block ReturnValue(...) defined : "+__is_block_defined("returnValue")
+@"is block RemoveStr(...) defined : "+__is_block_defined("removeStr")
+@"is block ToUpperCase(...) defined : "+__is_block_defined("toUpperCase")
 
 @"==================="
 @"IS C BLOCK DEFINED"

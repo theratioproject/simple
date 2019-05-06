@@ -15,10 +15,10 @@
 	this get the content in to string and can be written to a file
 	it simple write the file content to our new file
 	@Code
-	fcon = download("https://raw.githubusercontent.com/simple-lang/simple/master/README.MD")
+	fcon = Download("https://raw.githubusercontent.com/simple-lang/simple/master/README.MD")
 	dff = new File("https://www.example.com") 
 	display fcon
-	dff.write(fcon) 
+	dff.Write(fcon) 
 	@EndCode
 */
 
@@ -29,5 +29,5 @@ from simple.util.Console
 
 block main() 	
 	d = new Download("https://raw.githubusercontent.com/simple-lang/simple/master/README.MD", "../../../../../README.MD")
-	stdout.println("File Downloaded : " + d.fetch())
+	stdout.Println("File Downloaded : " + d.Fetch())
 	

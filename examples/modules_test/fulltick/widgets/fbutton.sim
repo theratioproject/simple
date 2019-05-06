@@ -16,20 +16,20 @@ import fulltick.drawing
 
 index = 0
 button = new ButtonDemo
-FApp.run() 
+FApp.Run() 
 
 class ButtonDemo : FCallbackEvent 
     fwindow = new FWindow(150,60,"FButton Testing only") {
 		fbutton = new FButton(10,10,"Send") {
             Id = 1
-            setCallbackListener(self)
+            SetCallbackListener(self)
         }
-		add(fbutton)
-        centerOnScreen() 
-        show()        
+		Add(fbutton)
+        CenterOnScreen() 
+        Show()        
     } 
 
-    block callback(widget) 
+    block Callback(widget) 
         if widget.Id = 1 { 
             widget.Text = "Hello " + index
 			index += 1

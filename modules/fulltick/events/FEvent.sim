@@ -152,7 +152,7 @@ class FEvent : Object
     /*
 
     */
-    block callback(widget, event)
+    block Callback(widget, event)
 
 
     

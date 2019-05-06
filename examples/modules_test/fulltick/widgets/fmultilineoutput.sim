@@ -15,17 +15,17 @@ import fulltick.objects
 import fulltick.drawing
 
 flabelDemo = new FMultilineOutputDemo
-FApp.run()
+FApp.Run()
 
 class FMultilineOutputDemo
 
     fwindow = new FWindow(320,320,"FMultilineOutput Demo") { 
-		input = new FMultilineOutput(10,10,strCopy("Hello World", 2000)) {
+		input = new FMultilineOutput(10,10,StrCopy("Hello World", 2000)) {
 			Resizable = true
 		}
-        centerOnScreen() 
+        CenterOnScreen() 
         Resizable = true
-        add(input)
-        show()        
+        Add(input)
+        Show()        
     } 
         

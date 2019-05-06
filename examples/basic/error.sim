@@ -1,7 +1,7 @@
 
 
 block main()
-	one()
+	One()
 	
-block one()
+block One()
 	display this is it

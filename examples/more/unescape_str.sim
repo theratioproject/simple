@@ -9,12 +9,12 @@
 from simple.core.String
 
 block main()
-	str = unEscapeString("Hello\tWorld\\Yes\n")
-	display(str)
-	str = escapeString(str)
-	display(str)
+	str = UnEscapeString("Hello\tWorld\\Yes\n")
+	Display(str)
+	str = EscapeString(str)
+	Display(str)
 	
-	str = unEscapeString("Hello\tWorld\nThis \t is it \n")
-	display(str)
-	str = escapeString(str)
-	display(str)
+	str = UnEscapeString("Hello\tWorld\nThis \t is it \n")
+	Display(str)
+	str = EscapeString(str)
+	Display(str)

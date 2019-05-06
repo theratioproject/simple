@@ -2,16 +2,16 @@
 #1
 #2
 block main 
-	display "ans : "+maintwo(mainone(), 21)
+	display "ans : "+Maintwo(Mainone(), 21)
 end
 
 #3
-block mainone() {
+block Mainone() {
 	return 1021 ;
 }
 
 #4
-block maintwo(one, two) 
+block Maintwo(one, two) 
 	return one * two ;
 
 #5

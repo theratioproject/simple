@@ -13,92 +13,92 @@ block main()
 	@""
 	
 	NEG_NUMBER = -1234567890.012
-	NUMBER = abs(NEG_NUMBER)
+	NUMBER = Abs(NEG_NUMBER)
 	NUMBER2 = 12345
 	
 	@"NEG_NUMBER : "+NEG_NUMBER
-	@"abs("+NEG_NUMBER+") : "+abs(NEG_NUMBER)
-	@"MINIMUM min("+NUMBER+","+NUMBER2+") : "+min(NUMBER,NUMBER2)
-	@"MAXIMUM max("+NUMBER+","+NUMBER2+") : "+max(NUMBER,NUMBER2)
-	@"SINE sin("+NUMBER+") : "+sin(NUMBER)
-	@"COSINE cos("+NUMBER+") : "+cos(NUMBER)
-	@"TANGENT tan("+NUMBER+") : "+tan(NUMBER)
-	@"ARC SINE asin("+NUMBER+") : "+asin(NUMBER)
-	@"ARC COSINE acos("+NUMBER+") : "+acos(NUMBER)
-	@"ARC TANGENT atan("+NUMBER+") : "+atan(NUMBER)
+	@"Abs("+NEG_NUMBER+") : "+Abs(NEG_NUMBER)
+	@"MINIMUM Min("+NUMBER+","+NUMBER2+") : "+Min(NUMBER,NUMBER2)
+	@"MAXIMUM Max("+NUMBER+","+NUMBER2+") : "+Max(NUMBER,NUMBER2)
+	@"SINE Sin("+NUMBER+") : "+Sin(NUMBER)
+	@"COSINE Cos("+NUMBER+") : "+Cos(NUMBER)
+	@"TANGENT Tan("+NUMBER+") : "+Tan(NUMBER)
+	@"ARC SINE Asin("+NUMBER+") : "+Asin(NUMBER)
+	@"ARC COSINE Acos("+NUMBER+") : "+Acos(NUMBER)
+	@"ARC TANGENT Atan("+NUMBER+") : "+Atan(NUMBER)
 	
 	@"======================================================="
-	@"ARC TANGENT2 atan2(x,y)"
+	@"ARC TANGENT2 Atan2(x,y)"
 	@"======================================================="
 	x = -7.0
 	y = 7.0
 	
 	val = 180.0 / MathPI
 	
-	ret = atan2(y,x) * val
+	ret = Atan2(y,x) * val
 	@"Arc tangent of a x = " + x + " and y = " + y + " is " + ret + " degree"
 	
 	@"======================================================="
-	@"EXPONENTIAL exp(number)"
+	@"EXPONENTIAL Exp(number)"
 	@"======================================================="
 	x = 0
   
-	@"The exponential value of " + x + " is " + exp(x)
-	@"The exponential value of " + (x+1) + " is " + exp(x+1)
-	@"The exponential value of " + (x+2) + " is " + exp(x+2)
+	@"The exponential value of " + x + " is " + Exp(x)
+	@"The exponential value of " + (x+1) + " is " + Exp(x+1)
+	@"The exponential value of " + (x+2) + " is " + Exp(x+2)
 	
 	@"======================================================="
-	@"LOGARITHM log(number) and BASE 10 LOGARITHM log10(number)and BASE 2 LOGARITHM log2(number)"
+	@"LOGARITHM Log(number) and BASE 10 LOGARITHM Log10(number)and BASE 2 LOGARITHM Log2(number)"
 	@"======================================================="
 	x = 2.7
 	
-	@"log(" + x + ") = " + log(x)
-	@"log10(" + x + ") = " + log10(x)
-	@"log2(" + x + ") = " + log2(x)
-	@"logb(" + x + ") = " + logb(x)
+	@"Log(" + x + ") = " + Log(x)
+	@"Log10(" + x + ") = " + Log10(x)
+	@"Log2(" + x + ") = " + Log2(x)
+	@"Logb(" + x + ") = " + Logb(x)
 	
 	@"======================================================="
-	@"SQUARE ROOT sqrt(number)"
+	@"SQUARE ROOT Sqrt(number)"
 	@"======================================================="
-	@"Square root of " + 9.0 + " is " + sqrt(9.0)
-    @"Square root of " + 21.0 + " is " + sqrt(21)
+	@"Square root of " + 9.0 + " is " + Sqrt(9.0)
+    @"Square root of " + 21.0 + " is " + Sqrt(21)
 	
 	@"======================================================="
-	@"CUBE ROOT cbrt(number)"
+	@"CUBE ROOT Cbrt(number)"
 	@"======================================================="
-	@"Cube root of " + 9.0 + " is " + cbrt(9.0)
-    @"Cube root of " + 6.0 + " is " + cbrt(6.0)
+	@"Cube root of " + 9.0 + " is " + Cbrt(9.0)
+    @"Cube root of " + 6.0 + " is " + Cbrt(6.0)
 	
 	@"======================================================="
-	@"POWER pow(fNumber,sNumber)"
+	@"POWER Pow(fNumber,sNumber)"
 	@"======================================================="
-	@"Value 8.0 ^ 3 = " + pow(8.0, 3)
-	@"Value 3.05 ^ 1.98 = " + pow(3.05, 1.98)
+	@"Value 8.0 ^ 3 = " + Pow(8.0, 3)
+	@"Value 3.05 ^ 1.98 = " + Pow(3.05, 1.98)
 	
 	@"======================================================="
-	@"CEIL ceil(number)"
+	@"CEIL Ceil(number)"
 	@"======================================================="
 	x1 = 1.6
 	x2 = 1.2
     x3 = 2.8
     x4 = 2.3
 
-	@"ceil " + x1 + " = " + ceil(x1)
-	@"ceil " + x2 + " = " + ceil(x2)
-	@"ceil " + x3 + " = " + ceil(x3)
-	@"ceil " + x4 + " = " + ceil(x4)
+	@"ceil " + x1 + " = " + Ceil(x1)
+	@"ceil " + x2 + " = " + Ceil(x2)
+	@"ceil " + x3 + " = " + Ceil(x3)
+	@"ceil " + x4 + " = " + Ceil(x4)
 	
 	@"======================================================="
-	@"FLOOR floor(number)"
+	@"FLOOR Floor(number)"
 	@"======================================================="
 
-	@"floor " + x1 + " = " + floor(x1)
-	@"floor " + x2 + " = " + floor(x2)
-	@"floor " + x3 + " = " + floor(x3)
-	@"floor " + x4 + " = " + floor(x4)
+	@"floor " + x1 + " = " + Floor(x1)
+	@"floor " + x2 + " = " + Floor(x2)
+	@"floor " + x3 + " = " + Floor(x3)
+	@"floor " + x4 + " = " + Floor(x4)
 	
 	@"======================================================="
-	@"RINT rint(number) and NEARBYINT nearbyint(number)"
+	@"RINT Rint(number) and NEARBYINT Nearbyint(number)"
 	@"======================================================="
 	
 	x1 = 2.3
@@ -107,26 +107,26 @@ block main()
     x4 = -3.8
 	x5 = 1.49
 	
-	@"rint " + x1 + " = " + rint(x1)
-	@"nearbyint " + x2 + " = " + nearbyint(x2)
-	@"rint " + x3 + " = " + rint(x3)
-	@"nearbyint " + x4 + " = " + nearbyint(x4)
-	@"rint " + x5 + " = " + rint(x5)
+	@"rint " + x1 + " = " + Rint(x1)
+	@"nearbyint " + x2 + " = " + Nearbyint(x2)
+	@"rint " + x3 + " = " + Rint(x3)
+	@"nearbyint " + x4 + " = " + Nearbyint(x4)
+	@"rint " + x5 + " = " + Rint(x5)
 	
 	@"======================================================="
-	@"ROUND round(number)"
+	@"ROUND Round(number)"
 	@"======================================================="
 	
-	@"round " + x1 + " = " + round(x1)
-	@"round " + x3 + " = " + round(x3)
-	@"round " + x4 + " = " + round(x4)
-	@"round " + x5 + " = " + round(x5)
-	@"round " + x2 + " = " + round(x2)
-	@"ceil  " + x2 + " = " + ceil(x2)
-	@"floor (" + x2 + " + 0.5f) = " + floor(x2 + 0.5f)
+	@"round " + x1 + " = " + Round(x1)
+	@"round " + x3 + " = " + Round(x3)
+	@"round " + x4 + " = " + Round(x4)
+	@"round " + x5 + " = " + Round(x5)
+	@"round " + x2 + " = " + Round(x2)
+	@"ceil  " + x2 + " = " + Ceil(x2)
+	@"Floor (" + x2 + " + 0.5f) = " + Floor(x2 + 0.5f)
 	
 	@"======================================================="
-	@"FMOD fmod(fNumber,sNumber)"
+	@"FMOD Fmod(fNumber,sNumber)"
 	@"======================================================="
 	num1 = 5.3 
 		denom1 = 2
@@ -134,18 +134,18 @@ block main()
 	num2 = 18.5
 		denom2 = 4.2
 	
-	@"fmod " + num1 + "/" + denom1 + " = " + fmod(num1,denom1)
-	@"fmod " + num2 + "/" + denom2 + " = " + fmod(num2,denom2)
+	@"fmod " + num1 + "/" + denom1 + " = " + Fmod(num1,denom1)
+	@"fmod " + num2 + "/" + denom2 + " = " + Fmod(num2,denom2)
 	
 	@"======================================================="
-	@"REMAINDER remainder(fNumber,sNumber)"
+	@"REMAINDER Remainder(fNumber,sNumber)"
 	@"======================================================="
 	
-	@"remainder " + num1 + "/" + denom1 + " = " + remainder(num1,denom1)
-	@"remainder " + num2 + "/" + denom2 + " = " + remainder(num2,denom2)
+	@"remainder " + num1 + "/" + denom1 + " = " + Remainder(num1,denom1)
+	@"remainder " + num2 + "/" + denom2 + " = " + Remainder(num2,denom2)
 	
 	@"======================================================="
-	@"TRUNC trunc(number)"
+	@"TRUNC Trunc(number)"
 	@"======================================================="
 	
 	x1 = 3.4597878
@@ -153,54 +153,54 @@ block main()
 	x3 = 34.4323434
 	x4 = 98.924898
 	
-	@"trunc " + x1 + " = " + trunc(x1)
-	@"trunc " + x2 + " = " + trunc(x2)
-	@"trunc " + x3 + " = " + trunc(x3)
-	@"trunc " + x4 + " = " + trunc(x4)
+	@"trunc " + x1 + " = " + Trunc(x1)
+	@"trunc " + x2 + " = " + Trunc(x2)
+	@"trunc " + x3 + " = " + Trunc(x3)
+	@"trunc " + x4 + " = " + Trunc(x4)
 	
 	
 	@"======================================================="
-	@"DEGREE toDegrees(number) and RADIAN toRadians(number)"
+	@"DEGREE ToDegrees(number) and RADIAN ToRadians(number)"
 	@"======================================================="
 	
 	angle = 90
-	val = toRadians(angle)
+	val = ToRadians(angle)
 	
 	@"" + angle + " degree to radian " + val
-	@"" + val + " radians to degrees : " + toDegrees(val)
+	@"" + val + " radians to degrees : " + ToDegrees(val)
 	
 	
 	@"======================================================="
-	@"SINH sinh(number), COSH cosh(number) and TANH tanh(number)"
+	@"SINH Sinh(number), COSH Cosh(number) and TANH Tanh(number)"
 	@"======================================================="
 	
-	x1 = log(2.0)
+	x1 = Log(2.0)
 	
-	@"the hyperbolic sine of " + x1 + " is " + sinh(x1)
-	@"the hyperbolic cosine of " + x1 + " is " + cosh(x1)
-	@"the hyperbolic tangent of " + x1 + " is " + tanh(x1)
-	
-	@"=================================================================="
-	@"ASINH asinh(number), ACOSH acosh(number) and ATANH atanh(number)"
-	@"=================================================================="
-	
-	x1 = exp(2) - sinh(2)
-	
-	@"The area hyperbolic sine of " + x1 + " is " + asinh(x1) + " radians " 
-	@"The area hyperbolic cosine of " + x1 + " is " + acosh(x1) + " radians " 
-	@"The area hyperbolic tangent of " + x1 + " is " + atanh(tanh(1)) + " radians " 
+	@"the hyperbolic sine of " + x1 + " is " + Sinh(x1)
+	@"the hyperbolic cosine of " + x1 + " is " + Cosh(x1)
+	@"the hyperbolic tangent of " + x1 + " is " + Tanh(x1)
 	
 	@"=================================================================="
-	@"HYPOTENUSE hypot(x,y)"
+	@"ASINH Asinh(number), ACOSH Acosh(number) and ATANH Atanh(number)"
+	@"=================================================================="
+	
+	x1 = Exp(2) - Sinh(2)
+	
+	@"The area hyperbolic sine of " + x1 + " is " + Asinh(x1) + " radians " 
+	@"The area hyperbolic cosine of " + x1 + " is " + Acosh(x1) + " radians " 
+	@"The area hyperbolic tangent of " + x1 + " is " + Atanh(Tanh(1)) + " radians " 
+	
+	@"=================================================================="
+	@"HYPOTENUSE Hypot(x,y)"
 	@"=================================================================="
 	
 	x = 7
 	y = 8
 	
-	@" " + x + ", " + y + " and " + hypot(x,y) + " formed a right angled triangle"
+	@" " + x + ", " + y + " and " + Hypot(x,y) + " formed a right angled triangle"
 	
 	@"=================================================================="
-	@"NUMSIGN numsign(number)"
+	@"NUMSIGN Numsign(number)"
 	@"=================================================================="
 	
 	x1 = 1.0 
@@ -208,22 +208,22 @@ block main()
 	x3 = -1.0
 	x4 = -2.9
 	
-	@"The numsign of " + x1 + " is " + numsign(x1)
-	@"The numsign of " + x2 + " is " + numsign(x2)
-	@"The numsign of " + x3 + " is " + numsign(x3)
-	@"The numsign of " + x4 + " is " + numsign(x4)
+	@"The numsign of " + x1 + " is " + Numsign(x1)
+	@"The numsign of " + x2 + " is " + Numsign(x2)
+	@"The numsign of " + x3 + " is " + Numsign(x3)
+	@"The numsign of " + x4 + " is " + Numsign(x4)
 	
 	@"=================================================================="
-	@"FREXP frexp(number)"
+	@"FREXP Frexp(number)"
 	@"=================================================================="
 	
 	x = 100
-	result = frexp(x)
+	result = Frexp(x)
 	
 	@"" + x + " = " + result[0] + " * 2^"+result[1]
 	
 	@"=================================================================="
-	@"LDEXP ldexp(number,exp)"
+	@"LDEXP Ldexp(number,exp)"
 	@"=================================================================="
 	
 	x1 = 12
@@ -232,13 +232,13 @@ block main()
 	x4 = 21
 	exp = 4
 	
-	@"" + x1 + " * 2^" + exp + " = " + ldexp(x1,exp)
-	@"" + x2 + " * 2^" + exp + " = " + ldexp(x2,exp)
-	@"" + x3 + " * 2^" + exp + " = " + ldexp(x3,exp)
-	@"" + x4 + " * 2^" + exp + " = " + ldexp(x4,exp)
+	@"" + x1 + " * 2^" + exp + " = " + Ldexp(x1,exp)
+	@"" + x2 + " * 2^" + exp + " = " + Ldexp(x2,exp)
+	@"" + x3 + " * 2^" + exp + " = " + Ldexp(x3,exp)
+	@"" + x4 + " * 2^" + exp + " = " + Ldexp(x4,exp)
 	
 	@"=================================================================="
-	@"MODF modf(number)"
+	@"MODF Modf(number)"
 	@"=================================================================="
 	
 	x1 = 9.485857
@@ -246,13 +246,13 @@ block main()
 	x3 = 2.98
 	x4 = -9.485857
 	
-	@"" + x1 + " = " + modf(x1)[1] + " + " + modf(x1)[0]
-	@"" + x2 + " = " + modf(x2)[1] + " + " + modf(x2)[0]
-	@"" + x3 + " = " + modf(x3)[1] + " + " + modf(x3)[0]
-	@"" + x4 + " = " + modf(x4)[1] + " + " + modf(x4)[0]	
+	@"" + x1 + " = " + Modf(x1)[1] + " + " + Modf(x1)[0]
+	@"" + x2 + " = " + Modf(x2)[1] + " + " + Modf(x2)[0]
+	@"" + x3 + " = " + Modf(x3)[1] + " + " + Modf(x3)[0]
+	@"" + x4 + " = " + Modf(x4)[1] + " + " + Modf(x4)[0]	
 	
 	@"=================================================================="
-	@"EXP2 exp2(number)"
+	@"EXP2 Exp2(number)"
 	@"=================================================================="
 	
 	x1 = 8.0
@@ -260,13 +260,13 @@ block main()
 	x3 = 0.30
 	x4 = -18.0
 	
-	@"2 ^ " + x1 + " is " + exp2(x1)	
-	@"2 ^ " + x2 + " is " + exp2(x2)	
-	@"2 ^ " + x3 + " is " + exp2(x3)	
-	@"2 ^ " + x4 + " is " + exp2(x4)	
+	@"2 ^ " + x1 + " is " + Exp2(x1)	
+	@"2 ^ " + x2 + " is " + Exp2(x2)	
+	@"2 ^ " + x3 + " is " + Exp2(x3)	
+	@"2 ^ " + x4 + " is " + Exp2(x4)	
 	
 	@"=================================================================="
-	@"EXPM1 expm1(number)"
+	@"EXPM1 Expm1(number)"
 	@"=================================================================="
 	
 	x1 = 17.0
@@ -274,13 +274,13 @@ block main()
 	x3 = -5.0
 	x4 = 7.0
 	
-	@"EXPM1 of " + x1 + " is " + expm1(x1)
-	@"EXPM1 of " + x2 + " is " + expm1(x2)
-	@"EXPM1 of " + x3 + " is " + expm1(x3)
-	@"EXPM1 of " + x4 + " is " + expm1(x4)
+	@"EXPM1 of " + x1 + " is " + Expm1(x1)
+	@"EXPM1 of " + x2 + " is " + Expm1(x2)
+	@"EXPM1 of " + x3 + " is " + Expm1(x3)
+	@"EXPM1 of " + x4 + " is " + Expm1(x4)
 	
 	@"=================================================================="
-	@"ILOGB ilogb(number)"
+	@"ILOGB Ilogb(number)"
 	@"=================================================================="
 	
 	x1 = 10.0
@@ -288,39 +288,39 @@ block main()
 	x3 = 13.4343
 	x4 = 0.9
 	
-	@"ilogb(" + x1 + ") is " + ilogb(x1)
-	@"ilogb(" + x2 + ") is " + ilogb(x2)
-	@"ilogb(" + x3 + ") is " + ilogb(x3)
-	@"ilogb(" + x4 + ") is " + ilogb(x4)
+	@"Ilogb(" + x1 + ") is " + Ilogb(x1)
+	@"Ilogb(" + x2 + ") is " + Ilogb(x2)
+	@"Ilogb(" + x3 + ") is " + Ilogb(x3)
+	@"Ilogb(" + x4 + ") is " + Ilogb(x4)
 	
 	@"=================================================================="
-	@"LOG1P log1p(number)"
+	@"LOG1P Log1p(number)"
 	@"=================================================================="
 	
-	@"log1p(" + x1 + ") is " + log1p(x1)
-	@"log1p(" + x2 + ") is " + log1p(x2)
-	@"log1p(" + x3 + ") is " + log1p(x3)
-	@"log1p(" + x4 + ") is " + log1p(x4)
+	@"Log1p(" + x1 + ") is " + Log1p(x1)
+	@"Log1p(" + x2 + ") is " + Log1p(x2)
+	@"Log1p(" + x3 + ") is " + Log1p(x3)
+	@"Log1p(" + x4 + ") is " + Log1p(x4)
 	
 	@"=================================================================="
-	@"SCALBLN scalbln(number,exp)"
+	@"SCALBLN Scalbln(number,exp)"
 	@"=================================================================="
 	
 	x = 1.50
 	n = 4
 	
-	@"" + x + " * " + "2^" + n + " is " + scalbln(x,n)
+	@"" + x + " * " + "2^" + n + " is " + Scalbln(x,n)
 	
 	@"=================================================================="
 	@"Generate randome numbers"
 	@"=================================================================="
 	
-	@random()
-	@random()
-	@random()
-	@random()
-	@random()
-	@random()
+	@Random()
+	@Random()
+	@Random()
+	@Random()
+	@Random()
+	@Random()
 	
 	
 	

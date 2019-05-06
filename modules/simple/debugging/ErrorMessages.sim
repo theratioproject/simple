@@ -174,7 +174,7 @@ SIMPLE_VM_ERROR_BADCALLPARA = "RUNTIME ERROR 24 : The CALL command expect a vari
 /*
 
 */
-SIMPLE_VM_ERROR_BADDECIMALNUMBER = "RUNTIME ERROR 24 : The decimals number is out of range (correct range >= 0 and <=14) !"
+SIMPLE_VM_ERROR_BADDECIMALNUMBER = "RUNTIME ERROR 24 : The decimals number is out of Range (correct range >= 0 and <=14) !"
 
 /*
 

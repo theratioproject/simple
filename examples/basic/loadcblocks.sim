@@ -11,6 +11,6 @@
  */
  
 from "simple/core/DynamicLoader.sim"
-callModule("libcore_dynamic_module")
+CallModule("libcore_dynamic_module")
 
 @__string_to_chex("Hello World")

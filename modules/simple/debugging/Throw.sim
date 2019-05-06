@@ -13,14 +13,14 @@
 
 /*
 	To prevent error in operation and at all level of a program the 
-	@Block throw(errorvalue) and @Block throwOnly(errorvalue) can be use 
+	@Block Throw(errorvalue) and @Block ThrowOnly(errorvalue) can be use 
 	to show error detail and print the stack trace to locate the error 
 	position. 
-		The @Block throw(errorvalue) shows error detail and exit the 
+		The @Block Throw(errorvalue) shows error detail and exit the 
 	program. This is most useful to prevent erroneous program and to catch 
 	error just in time.
-		The @Block throwOnly(errorvalue) behaves slightly different from 
-	the @Block throw(errorvalue) block as it does not force the program to
+		The @Block ThrowOnly(errorvalue) behaves slightly different from 
+	the @Block Throw(errorvalue) block as it does not force the program to
 	exit after the error detail has been displayed
 	
 */
@@ -42,27 +42,27 @@ module simple.debugging
 	@Code
 	
 		Line 24 -> Unknown Error occured
-			at throw() in file Throw.sim
-			at line 40 at three() in file debugging.sim
-			at line 37 at two() in file debugging.sim
-			at line 34 at one() in file debugging.sim
+			at Throw() in file Throw.sim
+			at line 40 at Three() in file debugging.sim
+			at line 37 at Two() in file debugging.sim
+			at line 34 at One() in file debugging.sim
 			at line 29 at main() in file debugging.sim
 			at line 21 in file debugging.sim
 			
 	@EndCode
 	
-	If intention is to show an error the @Block throwOnly(errorValue)
+	If intention is to show an error the @Block ThrowOnly(errorValue)
 	should be called instead because it does not exit the program
 */
-block throw(errorValues...)
-	errorValuesLen = lengthOf(errorValues)
+block Throw(errorValues...)
+	errorValuesLen = LengthOf(errorValues)
 	if errorValuesLen == 1 {
 		object = errorValues[0]
 		errorTitle = null 
 		errorValue = null 
-		if !isNull(object) and isObject(object) { 
+		if !IsNull(object) and IsObject(object) { 
 			if __object_has_method(object,"throwError") {
-				object.throwError()
+				object.ThrowError()
 			elif __instance_of(object, "Error")
 				errorTitle = object.Title
 				errorValue = object.Message
@@ -70,8 +70,8 @@ block throw(errorValues...)
 			else 
 				__throw("Invalid Error Message. Unknown Error occured")
 			}
-		elif !isNull(object) and isString(object) 
-			if isNull(errorValue) {
+		elif !IsNull(object) and IsString(object) 
+			if IsNull(errorValue) {
 				errorValue = object
 			}
 			__throw(errorValue)
@@ -81,18 +81,18 @@ block throw(errorValues...)
 	else
 		object = errorValues[0]
 		errorTitle = ""
-		if !isNull(object) and isObject(object) {
+		if !IsNull(object) and IsObject(object) {
 			errorTitle = __class_module_name(object)+"."+__class_name(object)
 			errorValue = errorValues[1] 
-			if isNull(errorValue) {
+			if IsNull(errorValue) {
 				errorValue = "Unknown Error occured"
 			}
 			__throw(errorTitle + " : " + errorValue)
-		elif isString(object) 
+		elif IsString(object) 
 			errorTitle = object 
 			errorValue = errorValues[1]
-			if isNull(errorValue) {
-				if !isNull(object) {
+			if IsNull(errorValue) {
+				if !IsNull(object) {
 					errorValue = object
 				else
 					errorValue = "Unknown Error occured"
@@ -103,7 +103,7 @@ block throw(errorValues...)
 			__throw("Invalid Error Message. Unknown Error occured")
 		}
 	}
-	if isLinux() {
+	if IsLinux() {
 		@nl
 	}
 	#__exit__ 
@@ -114,19 +114,19 @@ block throw(errorValues...)
 	the right block to from instead of the @Block throw because it does
 	not exit the program after the error has been thrown. It definitely 
 	far from safe as the reason why it is thrown is defied as the error 
-	will be carried along to another throwOnly() statement because the
+	will be carried along to another ThrowOnly() statement because the
 	error will still be active. so to prevent a very erroneous program 
-	the @Block throw(errorvalue) should be called instead
+	the @Block Throw(errorvalue) should be called instead
 */
-block throwOnly(errorValues...)
-	errorValuesLen = lengthOf(errorValues)
+block ThrowOnly(errorValues...)
+	errorValuesLen = LengthOf(errorValues)
 	if errorValuesLen == 1 {
 		object = errorValues[0] 
 		errorTitle = null 
 		errorValue = null
-		if !isNull(object) and isObject(object) {
+		if !IsNull(object) and IsObject(object) {
 			if __object_has_method(object,"throwError") {
-				object.throwError()
+				object.ThrowError()
 			elif __instance_of(object, "Error")
 				errorTitle = object.Title
 				errorValue = object.Message
@@ -134,9 +134,9 @@ block throwOnly(errorValues...)
 			else 
 				__throw("Invalid Error Message. Unknown Error occured")
 			}
-		elif isString(object)
+		elif IsString(object)
 			if errorValue == "" {
-				if !isNull(object) {
+				if !IsNull(object) {
 					errorValue = object
 				else
 					errorValue = "Unknown Error occured"
@@ -149,18 +149,18 @@ block throwOnly(errorValues...)
 	else
 		object = errorValues[0]
 		errorTitle = ""
-		if !isNull(object) and isObject(object) {
+		if !IsNull(object) and IsObject(object) {
 			errorTitle = __class_module_name(object)+"."+__class_name(object)
 			errorValue = errorValues[1] 
 			if errorValue == "" {
 				errorValue = "Unknown Error occured"
 			}
 			__throw(errorTitle + " : " + errorValue)
-		elif isString(object) 
+		elif IsString(object) 
 			errorTitle = object
 			errorValue = errorValues[1]
 			if errorValue == "" {
-				if !isNull(object) {
+				if !IsNull(object) {
 					errorValue = object
 				else
 					errorValue = "Unknown Error occured"
@@ -171,19 +171,19 @@ block throwOnly(errorValues...)
 			__throw("Invalid Error Message. Unknown Error occured")
 		}
 	}
-	if isLinux() {
+	if IsLinux() {
 		@nl
 	}
 	
 /*
 	Throw an error with a custom title and error message then exit the program
 */
-block throwWithTitle(object,errorvalue)
+block ThrowWithTitle(object,errorvalue)
 	title = ""
-	if isObject(object) {
+	if IsObject(object) {
 		#get title as module from reflection
 		title = ""
-	elif isString(object)
+	elif IsString(object)
 		title = object
 	}
 	__throwWithTitle(title,errorvalue,__DEBUG_TYPE_THROW)
@@ -191,7 +191,7 @@ block throwWithTitle(object,errorvalue)
 /*
 	Throw an error with a custom title and error message with out exiting the program
 */
-block throwOnlyWithTitle(title,errorvalue)
+block ThrowOnlyWithTitle(title,errorvalue)
 	__throwWithTitle(title,errorvalue,__DEBUG_TYPE_THROW_ONLY)
 
 /*
@@ -199,8 +199,8 @@ block throwOnlyWithTitle(title,errorvalue)
 	the integrity of the error title and content is verified to prevent vague
 	error message. This block should not be called from any point in the 
 	program as it a delegate block the two block that should be called instead are
-	>	throwWithTitle(title,errorvalue)
-	>	throwOnlyWithTitle(title,errorvalue)
+	>	ThrowWithTitle(title,errorvalue)
+	>	ThrowOnlyWithTitle(title,errorvalue)
 */
 block __throwWithTitle(title,errorvalue,type)
 	finalErrorValue = ""
@@ -216,14 +216,14 @@ block __throwWithTitle(title,errorvalue,type)
 		finalErrorValue += errorvalue
 	}
 	if finalErrorValue == "" {
-		throw(__FINAL_ERROR_EMPTY)
+		Throw(__FINAL_ERROR_EMPTY)
 		#__exit__ 
 		__exit(0)
 	}
 	if type == __DEBUG_TYPE_THROW_ONLY {
-		throwOnly(finalErrorValue)
+		ThrowOnly(finalErrorValue)
 	else
-		throw(finalErrorValue)
+		Throw(finalErrorValue)
 	}
 
 

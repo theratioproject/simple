@@ -36,7 +36,7 @@
 			-temp -t	leave generated and temporary files after build
 			-delete -del	delete the simple source file after successful build
 			-debug		when the simple.h file is at ../../simple/src/include/simple.h
-			-S/<simple.h> Indicate the path to simple.h
+			-S/<simple.h> Indicate the path to simple.H
 			
 			(Compiler Option) ~ if none is supplied the available will be used
 			-mingw		use mingw compiler on windows
@@ -66,13 +66,13 @@ final bakkrey = new Bakkery
 Parse "Bakefile"
 */
 block main()
-	header()
+	Header()
 	bread = new Bread
 	bread.SourceLang = "simple"
 	
 	params = cmdparams
-	paramsLen = lengthOf(params) - 1
-	if paramsLen < 0 { help() }
+	paramsLen = LengthOf(params) - 1
+	if paramsLen < 0 { Help() }
 	for a = 0 to paramsLen {
 		param = params[a]
 		if param == "-f" {
@@ -80,7 +80,7 @@ block main()
 				Bakefile = params[a++]
 				#parse bakefile
 			else
-				throw("bake","Expecting a Bakefile after the -f flag")
+				Throw("bake","Expecting a Bakefile after the -f flag")
 			}
 		elif param == "-s" or param == "--static"
 			bread.LinkStatically = true
@@ -98,30 +98,30 @@ block main()
 		elif param == "-x" or param == "--install"
 			bread.Install = true
 			
-		elif strStartsWith(param,"-n=") or strStartsWith(param,"--name=")
-			name = removeStr(param, "-n=")
-			name = removeStr(name, "--name=")
+		elif StrStartsWith(param,"-n=") or StrStartsWith(param,"--name=")
+			name = RemoveStr(param, "-n=")
+			name = RemoveStr(name, "--name=")
 			if name != "" {
 				bread.Name = name
 			}
 			
-		elif strStartsWith(param,"-i=") or strStartsWith(param,"--icon=")
-			iconPath = removeStr(param, "-i=")
-			iconPath = removeStr(iconPath, "--icon=")
+		elif StrStartsWith(param,"-i=") or StrStartsWith(param,"--icon=")
+			iconPath = RemoveStr(param, "-i=")
+			iconPath = RemoveStr(iconPath, "--icon=")
 			if iconPath != "" {
 				bread.IconPath = iconPath
 			}
 			
-		elif strStartsWith(param,"-s=") or strStartsWith(param,"--simple=")
-			libPath = removeStr(param, "-s=")
-			libPath = removeStr(libPath, "--simple=")
+		elif StrStartsWith(param,"-s=") or StrStartsWith(param,"--simple=")
+			libPath = RemoveStr(param, "-s=")
+			libPath = RemoveStr(libPath, "--simple=")
 			if libPath != "" {
 				bread.SimplePath = libPath
 			}
 			
-		elif strStartsWith(param,"-inc=") or strStartsWith(param,"--include=")
-			includeHeader = removeStr(param, "-inc=")
-			includeHeader = removeStr(includeHeader, "--include=")
+		elif StrStartsWith(param,"-inc=") or StrStartsWith(param,"--include=")
+			includeHeader = RemoveStr(param, "-inc=")
+			includeHeader = RemoveStr(includeHeader, "--include=")
 			if includeHeader != "" {
 				bread.IncludeHeader = includeHeader
 			}
@@ -130,7 +130,7 @@ block main()
 			bread.MobileOnly = true
 			bread.BuildAll = false
 			
-		elif strEndsWith(param, ".sim")
+		elif StrEndsWith(param, ".sim")
 			bread.SourceFile = new File(param)
 			
 		elif param == "x64" or param == "amd64"
@@ -140,40 +140,40 @@ block main()
 			bread.BuildArch = "-m32"
 			
 		elif param == "-h" or param == "--h"
-			help()
+			Help()
 		}
 	}
 	
-	if isNull(bread.SourceFile) {
-		throw("bake", "A simple source file (.sim) is not provided")
+	if IsNull(bread.SourceFile) {
+		Throw("bake", "A simple source File (.sim) is not provided")
 	}
 	if bread.SourceFile.Exists {
-		if isNull(bread.Name) {
+		if IsNull(bread.Name) {
 			bread.Name = bread.SourceFile.NameOnly
 		}
 		bread.TempPath = new Directory(bread.SourceFile.Directory.AbsolutePath + bread.Name + "_bake/tmp/")
 		if !bread.TempPath.Exists {
-			stdout.print("\rcreating temp working directory...")
-			bread.TempPath.create()
+			stdout.Print("\rcreating temp working directory...")
+			bread.TempPath.Create()
 		}
 		if bakkrey.Verbose {
-			stdout.print("\nsimple -s "+bread.SourceFile.AbsolutePath+"")
+			stdout.Print("\nsimple -s "+bread.SourceFile.AbsolutePath+"")
 		}
-		system(bread.SimplePath+"simple -s "+bread.SourceFile.AbsolutePath+"")
+		System(bread.SimplePath+"simple -s "+bread.SourceFile.AbsolutePath+"")
 		complexPath = bread.SourceFile.Directory.AbsolutePath+"/"+bread.SourceFile.NameOnly+".complex"
 		bread.SourceFile = new File(complexPath)
-		bread.SourceFile.moveTo(bread.TempPath.AbsolutePath,true)
+		bread.SourceFile.MoveTo(bread.TempPath.AbsolutePath,true)
 		bread.TempPath = bread.TempPath.AbsolutePath
-		bakkrey.bake(bread)
+		bakkrey.Bake(bread)
 	else
-		throw("bake","the " + bread.SourceLang + " source file '" + bread.SourceFile.Name + "' does not exists")
+		Throw("bake","the " + bread.SourceLang + " source file '" + bread.SourceFile.Name + "' does not exists")
 	}
 
-block header() 
-	header = "bake 0.0.2 (December 27 2018, 09:03 PM)\nsimple " + simpleVersion()
-	stdout.println(header)
+block Header() 
+	header = "bake 0.0.2 (December 27 2018, 09:03 PM)\nsimple " + SimpleVersion()
+	stdout.Println(header)
 	
-block help()
+block Help()
 	help = 
 "usage:  bake [Bakefile] [OPTIONS] [ENV_VARS]
 
@@ -194,7 +194,7 @@ The OPTIONS include:
  -inc --include='<includespath>'	the simple header file to link
  -l --lib='<libpath>'	specify where to find shared libraries at runtime
 "
-	stdout.println(help)
+	stdout.Println(help)
 	__exit__
 	
 class Bread 
@@ -206,7 +206,7 @@ class Bread
 	IconPath = null
 	BuildAll = true
 	LinkStatically = false
-	LibraryExt = "." + dynamicModuleExt()
+	LibraryExt = "." + DynamicModuleExt()
 	KeepTemp = false
 	IsGui = false
 	IsDebug = false
@@ -222,29 +222,29 @@ class Bakkery
 
 	Verbose = false
 
-	block bake(Bread bread)
-		stdout.print("\rpreparing to bake " + bread.Name)
-		stdout.print("\rcreating wrapper code for : " + bread.Name + "...")
+	block Bake(Bread bread)
+		stdout.Print("\rpreparing to bake " + bread.Name)
+		stdout.Print("\rcreating wrapper code for : " + bread.Name + "...")
 		
-		cCode = writeWrapper(bread)
+		cCode = WriteWrapper(bread)
 		tempFile = new FileWriter(bread.TempPath+"/"+bread.Name+".bake.c", false, true)
-		tempFile.write(cCode)
-		tempFile.close()
-		stdout.print("(done)")
-		if !isNull(bread.IconPath) {
-			createIcon(bread)
+		tempFile.Write(cCode)
+		tempFile.Close()
+		stdout.Print("(done)")
+		if !IsNull(bread.IconPath) {
+			CreateIcon(bread)
 		}
-		buildExecutables(bread)
+		BuildExecutables(bread)
 		if bread.Install {
-			installExecutable(bread)
+			InstallExecutable(bread)
 		}
 		if !bread.KeepTemp {
-			removeTemps(bread)
+			RemoveTemps(bread)
 		}
 		
 	private
 	
-		block writeWrapper(Bread bread)
+		block WriteWrapper(Bread bread)
 			cCode = '#include {INCLUDE_FILE}
 
 int main( int argc, char *argv[]) {
@@ -256,66 +256,66 @@ int main( int argc, char *argv[]) {
 	simple_execute_object(sState, (char *) sim_code, "{FILE_NAME}");
 	finalize_simple_state(sState);
 }'
-			cCode = replaceStr(cCode, "{FILE_NAME}", bread.Name + ".sim")
-			cCode = replaceStr(cCode, "{COMPLEX_HEX}",__string_to_chex(bread.SourceFile.readAllString()))
-			if isWindows() {
-				cCode = replaceStr(cCode, "{INCLUDE_FILE}", '"'+simpleIncludesDir()+'/simple.h"')
+			cCode = ReplaceStr(cCode, "{FILE_NAME}", bread.Name + ".sim")
+			cCode = ReplaceStr(cCode, "{COMPLEX_HEX}",__string_to_chex(bread.SourceFile.ReadAllString()))
+			if IsWindows() {
+				cCode = ReplaceStr(cCode, "{INCLUDE_FILE}", '"'+SimpleIncludesDir()+'/simple.h"')
 				if bread.GUI {
-					cCode = replaceStr(cCode, "int main( int argc, char *argv[]) {", 'int WINAPI WinMain ( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd ) { int argc ; char **argv ; argc = __argc ; argv = __argv ; ')
+					cCode = ReplaceStr(cCode, "int main( int argc, char *argv[]) {", 'int WINAPI WinMain ( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd ) { int argc ; char **argv ; argc = __argc ; argv = __argv ; ')
 				}
 			else
-				cCode = replaceStr(cCode, "{INCLUDE_FILE}", bread.IncludeHeader)
+				cCode = ReplaceStr(cCode, "{INCLUDE_FILE}", bread.IncludeHeader)
 			}
 			
 			return cCode
 			
-		block createIcon(bread)
-			stdout.printf("\n\rpreparing icon file...")
-			if isWindows() {
-				stdout.printf("\r%s\rpreparing icon file : creating resources file...", strCopy(" ", 20))
+		block CreateIcon(bread)
+			stdout.Printf("\n\rpreparing icon file...")
+			if IsWindows() {
+				stdout.Printf("\r%s\rpreparing icon file : creating resources file...", StrCopy(" ", 20))
 				tempFile = new FileWriter(bread.TempPath+"/"+bread.Name+".bake.rc", false, true)
-				tempFile.write('MAINICON ICON "' + bread.IconPath + '"')
-				tempFile.close()
-				stdout.printf("\r%s\rpreparing icon file : compiling resources file...", strCopy(" ", 20))
+				tempFile.Write('MAINICON ICON "' + bread.IconPath + '"')
+				tempFile.Close()
+				stdout.Printf("\r%s\rpreparing icon file : compiling resources file...", StrCopy(" ", 20))
 				arch = "pe-x86-64"
 				if bread.BuildArch == "-m32" {
 					arch = "pe-i386"
 				}
 				cmd = 'windres ' + bread.TempPath+"/"+bread.Name+".bake.rc" + ' -F '+arch+' -O coff -o ' + bread.TempPath+"/"+bread.Name+".bake.res"
-				system(cmd)
+				System(cmd)
 				bread.CFLAG += " "+bread.TempPath+"/"+bread.Name+".bake.res "
 			} 
-			stdout.print("(done)")
+			stdout.Print("(done)")
 			
-		block buildExecutables(bread) 
-			stdout.print("\n\rpreparing to build executables...")
-			if isLinux() and bread.BuildAll {
-				stdout.printf("\r%s\rbuilding for linux...", strCopy(" ", 40))
+		block BuildExecutables(bread) 
+			stdout.Print("\n\rpreparing to build executables...")
+			if IsLinux() and bread.BuildAll {
+				stdout.Printf("\r%s\rbuilding for linux...", StrCopy(" ", 40))
 				__mkdir(bread.TempPath+"/../linux/",0755)
-				cmd = 'cc "-Wl,-rpath,./" "-Wl,-rpath,../lib/" "-Wl,-rpath,/lib/" "-Wl,-rpath,/usr/lib/" '+bread.CFLAG+' '+bread.BuildArch+' -I/$DESTDIR/$PREFIX/include/ -I/usr/include/ -lm -ldl -o "'+bread.TempPath+"/../linux/"+bread.Name+'" "'+bread.TempPath+"/"+bread.Name+".bake.c"+'" -L '+simpleExecDir()+' -lsimple'
-				system(cmd)
-				stdout.print("(done)")
+				cmd = 'cc "-Wl,-rpath,./" "-Wl,-rpath,../lib/" "-Wl,-rpath,/lib/" "-Wl,-rpath,/usr/lib/" '+bread.CFLAG+' '+bread.BuildArch+' -I/$DESTDIR/$PREFIX/include/ -I/usr/include/ -lm -ldl -o "'+bread.TempPath+"/../linux/"+bread.Name+'" "'+bread.TempPath+"/"+bread.Name+".bake.c"+'" -L '+SimpleExecDir()+' -lsimple'
+				System(cmd)
+				stdout.Print("(done)")
 				
-			elif isWindows() and bread.BuildAll
-				stdout.printf("\r%s\rbuilding for windows : compiling object code...", strCopy(" ", 40))
+			elif IsWindows() and bread.BuildAll
+				stdout.Printf("\r%s\rbuilding for windows : compiling object code...", StrCopy(" ", 40))
 				cmd = 'gcc '+bread.BuildArch+' -c -g -MMD -MP -MF "' + bread.TempPath+"/"+bread.Name+".bake.c" + '.o.d" -o "' + bread.TempPath+"/"+bread.Name+".bake.c" + '.o" "'+bread.TempPath+"/"+bread.Name+".bake.c"+'"'
-				system(cmd)
+				System(cmd)
 				__mkdir(bread.TempPath+"/../windows/",0755)
 				__mkdir(bread.TempPath+"/../windows/",0755)
 				if bread.GUI {
 					bread.CFLAG += " -mwindows "
 				}
-				stdout.printf("\r%s\rbuilding for windows : generating executable...", strCopy(" ", 40))
-				cmd = 'gcc '+bread.CFLAG+' '+bread.BuildArch+' -o "'+bread.TempPath+"/../windows/"+bread.Name+'.exe" "'+bread.TempPath+"/"+bread.Name+".bake.c"+'.o" '+simpleExecDir()+"/libsimple" + bread.LibraryExt
-				system(cmd)
-				stdout.print("(done)")
+				stdout.Printf("\r%s\rbuilding for windows : generating executable...", StrCopy(" ", 40))
+				cmd = 'gcc '+bread.CFLAG+' '+bread.BuildArch+' -o "'+bread.TempPath+"/../windows/"+bread.Name+'.exe" "'+bread.TempPath+"/"+bread.Name+".bake.c"+'.o" '+SimpleExecDir()+"/libsimple" + bread.LibraryExt
+				System(cmd)
+				stdout.Print("(done)")
 				
-			elif isMacosx() and bread.BuildAll
-				stdout.printf("\r%s\rbuilding for macosx...", strCopy(" ", 40))
+			elif IsMacosx() and bread.BuildAll
+				stdout.Printf("\r%s\rbuilding for macosx...", StrCopy(" ", 40))
 				__mkdir(bread.TempPath+"/../macosx/",0755)
-				cmd = 'cc "-Wl,-rpath,./" "-Wl,-rpath,../lib/" "-Wl,-rpath,/lib/" "-Wl,-rpath,/usr/lib/" '+bread.CFLAG+' '+bread.BuildArch+' -I/$DESTDIR/$PREFIX/include/ -I/usr/include/ -lm -ldl -o "'+bread.TempPath+"/../macosx/"+bread.Name+'" "'+bread.TempPath+"/"+bread.Name+".bake.c"+'" -L '+simpleExecDir()+' -lsimple'
-				system(cmd)
-				stdout.print("(done)")
+				cmd = 'cc "-Wl,-rpath,./" "-Wl,-rpath,../lib/" "-Wl,-rpath,/lib/" "-Wl,-rpath,/usr/lib/" '+bread.CFLAG+' '+bread.BuildArch+' -I/$DESTDIR/$PREFIX/include/ -I/usr/include/ -lm -ldl -o "'+bread.TempPath+"/../macosx/"+bread.Name+'" "'+bread.TempPath+"/"+bread.Name+".bake.c"+'" -L '+SimpleExecDir()+' -lsimple'
+				System(cmd)
+				stdout.Print("(done)")
 
 			}
 			
@@ -323,62 +323,62 @@ int main( int argc, char *argv[]) {
 				
 			}
 			
-		block installExecutable(bread)
-			stdout.printf("\n\rinstalling "+bread.Name+'...')
-			if isLinux() and bread.BuildAll {
-				stdout.printf("\r%s\rinstalling "+bread.Name+' : detecting build directory...', strCopy(" ", 30))
+		block InstallExecutable(bread)
+			stdout.Printf("\n\rinstalling "+bread.Name+'...')
+			if IsLinux() and bread.BuildAll {
+				stdout.Printf("\r%s\rinstalling "+bread.Name+' : detecting build directory...', StrCopy(" ", 30))
 				if __dir_exists(bread.TempPath+"/../linux/") {
-					stdout.printf("\r%s\rinstalling "+bread.Name+' : detecting built executable...', strCopy(" ", 30))
+					stdout.Printf("\r%s\rinstalling "+bread.Name+' : detecting built executable...', StrCopy(" ", 30))
 					if __file_exists(bread.TempPath+"/../linux/"+bread.Name+'') {
-						stdout.printf("\r%s\rinstalling "+bread.Name+' : copying built executable...', strCopy(" ", 33))
-						__rename(bread.TempPath+"/../linux/"+bread.Name+'', exeFolder()+bread.Name+'')
-						stdout.print("(done)")
+						stdout.Printf("\r%s\rinstalling "+bread.Name+' : copying built executable...', StrCopy(" ", 33))
+						__rename(bread.TempPath+"/../linux/"+bread.Name+'', ExeFolder()+bread.Name+'')
+						stdout.Print("(done)")
 					else
-						stdout.printf("\r%s\rinstalling "+bread.Name+' : cannot detect built executable...(failed)', strCopy(" ", 33))
+						stdout.Printf("\r%s\rinstalling "+bread.Name+' : cannot detect built executable...(failed)', StrCopy(" ", 33))
 					}	
 				else 
-					stdout.printf("\r%s\rinstalling "+bread.Name+' : cannot detect build directory...(failed)', strCopy(" ", 33))
+					stdout.Printf("\r%s\rinstalling "+bread.Name+' : cannot detect build directory...(failed)', StrCopy(" ", 33))
 				}
-			elif isWindows() and bread.BuildAll
-				stdout.printf("\r%s\rinstalling "+bread.Name+'.exe : detecting build directory...', strCopy(" ", 33))
+			elif IsWindows() and bread.BuildAll
+				stdout.Printf("\r%s\rinstalling "+bread.Name+'.exe : detecting build directory...', StrCopy(" ", 33))
 				if __dir_exists(bread.TempPath+"/../windows/") {
-					stdout.printf("\r%s\rinstalling "+bread.Name+'.exe : detecting built executable...', strCopy(" ", 33))
+					stdout.Printf("\r%s\rinstalling "+bread.Name+'.exe : detecting built executable...', StrCopy(" ", 33))
 					if __file_exists(bread.TempPath+"/../windows/"+bread.Name+'.exe') {
-						stdout.printf("\r%s\rinstalling "+bread.Name+'.exe : copying built executable...', strCopy(" ", 37))
-						__rename(bread.TempPath+"/../windows/"+bread.Name+'.exe', exeFolder()+bread.Name+'.exe')
-						stdout.print("(done)")
+						stdout.Printf("\r%s\rinstalling "+bread.Name+'.exe : copying built executable...', StrCopy(" ", 37))
+						__rename(bread.TempPath+"/../windows/"+bread.Name+'.exe', ExeFolder()+bread.Name+'.exe')
+						stdout.Print("(done)")
 					else
-						stdout.printf("\r%s\rinstalling "+bread.Name+'.exe : cannot detect built executable...(failed)', strCopy(" ", 33))
+						stdout.Printf("\r%s\rinstalling "+bread.Name+'.exe : cannot detect built executable...(failed)', StrCopy(" ", 33))
 					}	
 				else 
-					stdout.printf("\r%s\rinstalling "+bread.Name+'.exe : cannot detect build directory...(failed)', strCopy(" ", 33))
+					stdout.Printf("\r%s\rinstalling "+bread.Name+'.exe : cannot detect build directory...(failed)', StrCopy(" ", 33))
 				}
-			elif isMacosx() and bread.BuildAll
-				stdout.printf("\r%s\rinstalling "+bread.Name+' : detecting build directory...', strCopy(" ", 30))
+			elif IsMacosx() and bread.BuildAll
+				stdout.Printf("\r%s\rinstalling "+bread.Name+' : detecting build directory...', StrCopy(" ", 30))
 				if __dir_exists(bread.TempPath+"/../macosx/") {
-					stdout.printf("\r%s\rinstalling "+bread.Name+' : detecting built executable...', strCopy(" ", 30))
+					stdout.Printf("\r%s\rinstalling "+bread.Name+' : detecting built executable...', StrCopy(" ", 30))
 					if __file_exists(bread.TempPath+"/../macosx/"+bread.Name+'') {
-						stdout.printf("\r%s\rinstalling "+bread.Name+' : copying built executable...', strCopy(" ", 33))
-						__rename(bread.TempPath+"/../macosx/"+bread.Name+'', exeFolder()+bread.Name+'')
-						stdout.print("(done)")
+						stdout.Printf("\r%s\rinstalling "+bread.Name+' : copying built executable...', StrCopy(" ", 33))
+						__rename(bread.TempPath+"/../macosx/"+bread.Name+'', ExeFolder()+bread.Name+'')
+						stdout.Print("(done)")
 					else
-						stdout.printf("\r%s\rinstalling "+bread.Name+' : cannot detect built executable...(failed)', strCopy(" ", 33))
+						stdout.Printf("\r%s\rinstalling "+bread.Name+' : cannot detect built executable...(failed)', StrCopy(" ", 33))
 					}	
 				else 
-					stdout.printf("\r%s\rinstalling "+bread.Name+' : cannot detect build directory...(failed)', strCopy(" ", 33))
+					stdout.Printf("\r%s\rinstalling "+bread.Name+' : cannot detect build directory...(failed)', StrCopy(" ", 33))
 				}
 			}
 		
-		block removeTemps(bread)
-			stdout.printf("\n\rremoving temporary files and folders...")
+		block RemoveTemps(bread)
+			stdout.Printf("\n\rremoving temporary files and folders...")
 			if bread.Install {
 				dir = new Directory(bread.TempPath+"/../")
-				dir.deleteRecursive()
+				dir.DeleteRecursive()
 			else
 				dir = new Directory(bread.TempPath+"/")
-				dir.deleteRecursive()
+				dir.DeleteRecursive()
 			}
-			stdout.print("(done)")	
+			stdout.Print("(done)")	
 	
 	
 	

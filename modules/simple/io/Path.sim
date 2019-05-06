@@ -55,7 +55,7 @@ final FILE_ATTRIBUTES = [
 /*
 
 */
-block dir_exixts(directoryPath)
+block Dir_exixts(directoryPath)
 	if __dir_exists(directoryPath) == 1 {
 		return true
 	}
@@ -66,59 +66,59 @@ block dir_exixts(directoryPath)
 	to the operating system standard to allow the system treat the path
 	as it own and not reject operation due to incorrect path format. 
 	It also remove multiple slashes and convert it to os single slash
-	@Return the formated path @DataType String
+	@return the formated path @DataType String
 */
-block curePathSlashes(string path, char params...)
-	paramsLen = lengthOf(params)
+block CurePathSlashes(string path, char params...)
+	paramsLen = LengthOf(params)
 	seperator = SystemSlash()
 	if paramsLen == 0 {
 	elif paramsLen == 1
 		seperator = params[0]
 	else
-		throw("simple.io:curePathSlashes", "Calling block with invalif length of parameter")
+		Throw("simple.io:curePathSlashes", "Calling block with invalif length of parameter")
 	}
-	ret = replaceStr(path,'//','/')
-	ret = replaceStr(ret,'\\','/')
-	ret = replaceStr(ret,'\','/')
-	ret = replaceStr(ret,'/', seperator)
+	ret = ReplaceStr(path,'//','/')
+	ret = ReplaceStr(ret,'\\','/')
+	ret = ReplaceStr(ret,'\','/')
+	ret = ReplaceStr(ret,'/', seperator)
 	return ret 
 	
 /*
 
 */
-block correctPath(oddPath)
-	oddPath = curePathSlashes(oddPath)
+block CorrectPath(oddPath)
+	oddPath = CurePathSlashes(oddPath)
 	correctPath = __path_absolute_path(oddPath)
-	correctPath = curePathSlashes(correctPath) 
-	if !strEndsWith(correctPath, oddPath) && !strContains(oddPath, "." + SystemSlash()) && !isWindows() {
-	#if !strEndsWith(correctPath, oddPath) && !strContains(oddPath, "." + SystemSlash()) {
-		correctPathTemp = removeStr(oddPath,correctPath)
+	correctPath = CurePathSlashes(correctPath) 
+	if !StrEndsWith(correctPath, oddPath) && !StrContains(oddPath, "." + SystemSlash()) && !IsWindows() {
+	#if !StrEndsWith(correctPath, oddPath) && !StrContains(oddPath, "." + SystemSlash()) {
+		correctPathTemp = RemoveStr(oddPath,correctPath)
 		correctPath += correctPathTemp
 	}
-	return curePathSlashes(correctPath)
+	return CurePathSlashes(correctPath)
 	
 /*
 
 */
-block relativePath(string absolutePath, string pathInRelative)
+block RelativePath(string absolutePath, string pathInRelative)
 	oddPath = null
 	slash = SystemSlash()
-	pathInRelative = correctPath(pathInRelative)
-	if !strStartsWith(absolutePath, "/") and absolutePath[1] != ":" {
-		absolutePath = correctPath(absolutePath)
+	pathInRelative = CorrectPath(pathInRelative)
+	if !StrStartsWith(absolutePath, "/") and absolutePath[1] != ":" {
+		absolutePath = CorrectPath(absolutePath)
 	}
-	if strStartsWith(absolutePath, pathInRelative) {
-		oddPath = "." + slash + strRemove(absolutePath, pathInRelative)
+	if StrStartsWith(absolutePath, pathInRelative) {
+		oddPath = "." + slash + StrRemove(absolutePath, pathInRelative)
 	else
-		if strEndsWith(absolutePath,slash) { 
-			len = lengthOf(absolutePath) - 1 
-			oddPath = __left(absolutePath, len - lengthOf(slash))
+		if StrEndsWith(absolutePath,slash) { 
+			len = LengthOf(absolutePath) - 1 
+			oddPath = __left(absolutePath, len - LengthOf(slash))
 		}
-		Name = lastStrAfterChar(absolutePath, slash)
-		oddPath = removeStr(absolutePath, slash+Name)
-		oddPath = strRemove(pathInRelative, oddPath)
-		splited = strSplit(absolutePath, slash)
-		splitedLen = lengthOf(splited) - 2 
+		Name = LastStrAfterChar(absolutePath, slash)
+		oddPath = RemoveStr(absolutePath, slash+Name)
+		oddPath = StrRemove(pathInRelative, oddPath)
+		splited = StrSplit(absolutePath, slash)
+		splitedLen = LengthOf(splited) - 2 
 		oddPath = ""
 		for a = 0 to splitedLen {
 			oddPath += ".." + slash
@@ -236,36 +236,36 @@ class Path : Object
 	
 	*/
 	block Init(string path)
-		if isNull(path) {
-			throw(self, "The parameter cannot be null")
+		if IsNull(path) {
+			Throw(self, "The parameter cannot be null")
 			return
 		}
 		AbsolutePath = path 
-		setAbsolutePath(null)
-		updateAttributes()
+		SetAbsolutePath(null)
+		UpdateAttributes()
 		
 	/*
 	
 	*/
-	block getRelativePath()
-		return relativePath(AbsolutePath, currentDir())
+	block GetRelativePath()
+		return RelativePath(AbsolutePath, CurrentDir())
 	
 	/*
 	
 	*/
-	block getAbsolutePath()
+	block GetAbsolutePath()
 		return AbsolutePath
 		
 	/*
 	
 	*/
-	block setAbsolutePath(string value)
-		if isNull(value) {
-			AbsolutePath = correctPath(AbsolutePath)
+	block SetAbsolutePath(string value)
+		if IsNull(value) {
+			AbsolutePath = CorrectPath(AbsolutePath)
 		else
-			retValue = renameTo(value, false)
+			retValue = RenameTo(value, false)
 			if retValue {
-				AbsolutePath = correctPath(value)
+				AbsolutePath = CorrectPath(value)
 			}
 			return retValue
 		}
@@ -274,29 +274,29 @@ class Path : Object
 	/*
 	
 	*/
-	block getName()
+	block GetName()
 		return Name
 		
 	/*
 	
 	*/
-	block setName(string value)
-		if isNull(value) {
-			if isNull(Name) {
+	block SetName(string value)
+		if IsNull(value) {
+			if IsNull(Name) {
 				__AbsolutePath = AbsolutePath 
-				if strEndsWith(AbsolutePath,SystemSlash) { 
-					len = lengthOf(AbsolutePath) - 1 
-					__AbsolutePath = __left(AbsolutePath, len - lengthOf(SystemSlash))
+				if StrEndsWith(AbsolutePath,SystemSlash) { 
+					len = LengthOf(AbsolutePath) - 1 
+					__AbsolutePath = __left(AbsolutePath, len - LengthOf(SystemSlash))
 				}
-				Name = lastStrAfterChar(__AbsolutePath, SystemSlash)
+				Name = LastStrAfterChar(__AbsolutePath, SystemSlash)
 			else
-				throw(self, "The parameter cannot be null")
+				Throw(self, "The parameter cannot be null")
 				return false
 			}
 		else
-			if isNull(Directory) { setDirectory(null) }
+			if IsNull(Directory) { SetDirectory(null) }
 			directory = Directory.AbsolutePath
-			retValue = renameTo(directory+value, false)
+			retValue = RenameTo(directory+value, false)
 			if retValue {
 				Name = value
 			}
@@ -307,42 +307,42 @@ class Path : Object
 	/*
 	
 	*/
-	block getExists()
-		return exists()
+	block GetExists()
+		return Exists()
 		
 	/*
 	
 	*/
-	block getDirectory()
+	block GetDirectory()
 		return Directory
 		
 	/*
 	
 	*/
-	block setDirectory(value)
-		if isNull(value) {
-			if isNull(Directory) {
-				directory = removeStr(AbsolutePath, SystemSlash+Name)
+	block SetDirectory(value)
+		if IsNull(value) {
+			if IsNull(Directory) {
+				directory = RemoveStr(AbsolutePath, SystemSlash+Name)
 				Directory = new Directory(directory)
 			else
-				throw(self, "The parameter cannot be null")
+				Throw(self, "The parameter cannot be null")
 				return false
 			}
 			
 		else
-			if isNull(Directory) { setDirectory(null) }
+			if IsNull(Directory) { SetDirectory(null) }
 			newDirectory = null
-			if isString(value) {
+			if IsString(value) {
 				newDirectory = value
-			elif isObject(value) and instanceOf(value,"String")
-				newDirectory = value.toString()
-			elif isObject(value) and instanceOf(value,"Directory")
+			elif IsObject(value) and InstanceOf(value,"String")
+				newDirectory = value.ToString()
+			elif IsObject(value) and InstanceOf(value,"Directory")
 				newDirectory = value.AbsolutePath
 			else
-				throw(self, "Invalid parameter, expecting (string|simple.io.Directory), found (" + objectype(value) + ")")
+				Throw(self, "Invalid parameter, Expecting (string|simple.io.Directory), Found (" + Objectype(value) + ")")
 				return false
 			}
-			retValue = moveTo(newDirectory, false)
+			retValue = MoveTo(newDirectory, false)
 			return retValue
 			
 		}
@@ -364,26 +364,26 @@ class Path : Object
 		about in the same disk partition. This take the new absolute directory 
 		to be rename to which must be a string. 
 		@See @Block __renameTo
-		@Return the rename operation result @DataType Number 
+		@return the rename operation result @DataType Number 
 	*/
-	block renameTo(string newName, boolean override) 
-		if isNull(newName) {
-			throw(self,"The parameter cannot be null")
+	block RenameTo(string newName, boolean override) 
+		if IsNull(newName) {
+			Throw(self,"The parameter cannot be null")
 			return false
 		}
-		ensureExistence()
+		EnsureExistence()
 		newPath = new Path(newName)
-		if newPath.exists() {
+		if newPath.Exists() {
 			if override {
-				newPath.delete()
+				newPath.Delete()
 			else
-				throw(self,"Cannot rename " + classname() + " because the path already exists : " + newPath.AbsolutePath)
+				Throw(self,"Cannot rename " + Classname() + " because the path already exists : " + newPath.AbsolutePath)
 				return false
 			}
 		}
 		operation = __rename(AbsolutePath, newPath.AbsolutePath)
 		if operation < 0 {
-			throw(self, "The rename operation failed : " + newPath.AbsolutePath)
+			Throw(self, "The rename operation failed : " + newPath.AbsolutePath)
 			return false
 		}
 		AbsolutePath = newPath.AbsolutePath
@@ -395,68 +395,68 @@ class Path : Object
 		Move a directory from one folder to another. This operation will require the 
 		folder to be moved to exists else an error is thrown. The override parameter
 		determine if to override moving or notify if the directory already exists at the
-		location. It function is similar to @Block renameTo(newName)
-		@Return the move operation success value @DataType Number 
+		location. It function is similar to @Block RenameTo(newName)
+		@return the move operation success value @DataType Number 
 	*/
-	block moveTo(string newFolder, boolean override)
+	block MoveTo(string newFolder, boolean override)
 		directory = new Directory(newFolder)
 		newDir = null
-		if !directory.exists() {
-			throw(self, "The directory does not exists : " + directory.AbsolutePath)
+		if !directory.Exists() {
+			Throw(self, "The directory does not exists : " + directory.AbsolutePath)
 		}
 		oldPath = new Path(directory.AbsolutePath+SystemSlash+Name)
-		if oldPath.exists() {
+		if oldPath.Exists() {
 			if override {
-				oldPath.delete()
+				oldPath.Delete()
 			else
-				throw(self, "A " + classname() + " with the same name already exists in the folder : " + directory.AbsolutePath)
+				Throw(self, "A " + Classname() + " with the same name already exists in the folder : " + directory.AbsolutePath)
 				return false
 			}
 		}
 		newDir = directory.AbsolutePath + SystemSlash + Name
-		return renameTo(newDir, override)
+		return RenameTo(newDir, override)
 		
 	/*
 	
 	*/
-	block ensureExistence()
-		if !exists() {
-			throw(self, "The " + classname() + " does not exists : " + AbsolutePath)
+	block EnsureExistence()
+		if !Exists() {
+			Throw(self, "The " + Classname() + " does not exists : " + AbsolutePath)
 		}
 		
 	/*
 	
 	*/
-	block toString()
-		return "[" + absolutename() + ":Name=" + Name + ",AbsolutePath=" + AbsolutePath + "]"
+	block ToString()
+		return "[" + Absolutename() + ":Name=" + Name + ",AbsolutePath=" + AbsolutePath + "]"
 		
 	/*
 	
 	*/
-	block isDirectory()
-		return (rawExists() == 1)
+	block IsDirectory()
+		return (RawExists() == 1)
 		
 	/*
 	
 	*/
-	block isFile()
-		return (rawExists() == 0)
+	block IsFile()
+		return (RawExists() == 0)
 		
 	/*
 	
 	*/
-	block exists()
-		return (rawExists() == 1) or (rawExists() == 0)
+	block Exists()
+		return (RawExists() == 1) or (RawExists() == 0)
 		
 	/*
 		Delete the path related to this class, the AbsolutePath must have been declared 
 		else an error is thrown
-		@Return the delete operation value true if successful and false if the delete
+		@return the delete operation value true if successful and false if the delete
 		operation fails @DataType Boolean
 	*/
-	block delete()
-		ensureExistence()
-		if isDirectory() {
+	block Delete()
+		EnsureExistence()
+		if IsDirectory() {
 			return __file_delete_folder(AbsolutePath)
 		else
 			return __file_delete(AbsolutePath) == 0
@@ -465,9 +465,9 @@ class Path : Object
 	/*
 	
 	*/
-	block toDirectory()
-		if !isDirectory() {
-			throw(self, "This " + classname() + " cannot be converted to simple.io.Directory : " + AbsolutePath)
+	block ToDirectory()
+		if !IsDirectory() {
+			Throw(self, "This " + Classname() + " cannot be converted to simple.io.Directory : " + AbsolutePath)
 			return self
 		}
 		directory = new Directory(AbsolutePath)
@@ -476,9 +476,9 @@ class Path : Object
 	/*
 	
 	*/
-	block toFile()
-		if !isFile() {
-			throw(self, "This " + classname() + " cannot be converted to a simple.io.File : " + AbsolutePath)
+	block ToFile()
+		if !IsFile() {
+			Throw(self, "This " + Classname() + " cannot be converted to a simple.io.File : " + AbsolutePath)
 			return self
 		}
 		file = new File(AbsolutePath)
@@ -486,10 +486,10 @@ class Path : Object
 		
 	/*
 		This return the total size of the provide path in pure byte.
-		@Return the size of path in byte @DataType Number
+		@return the size of path in byte @DataType Number
 	*/
-	block getSize()
-		if exists() {
+	block GetSize()
+		if Exists() {
 			return __path_size(AbsolutePath)
 		}
 		return 0
@@ -497,8 +497,8 @@ class Path : Object
 	/*
 	
 	*/
-	block getNodeNumber()
-		if exists() {
+	block GetNodeNumber()
+		if Exists() {
 			return __path_node_number(AbsolutePath)
 		}
 		return 0
@@ -506,8 +506,8 @@ class Path : Object
 	/*
 	
 	*/
-	block getHardLinkCount()
-		if exists() {
+	block GetHardLinkCount()
+		if Exists() {
 			return __path_link_count(AbsolutePath)
 		}
 		return 0
@@ -515,8 +515,8 @@ class Path : Object
 	/*
 	
 	*/
-	block getGID()
-		if exists() {
+	block GetGID()
+		if Exists() {
 			return __path_gid(AbsolutePath)
 		}
 		return 0
@@ -524,8 +524,8 @@ class Path : Object
 	/*
 	
 	*/
-	block getUID()
-		if exists() {
+	block GetUID()
+		if Exists() {
 			return __path_uid(AbsolutePath)
 		}
 		return 0
@@ -533,8 +533,8 @@ class Path : Object
 	/*
 	
 	*/
-	block getBlockSize()
-		if exists() {
+	block GetBlockSize()
+		if Exists() {
 			return __path_block_size(AbsolutePath)
 		}
 		return 0
@@ -542,23 +542,23 @@ class Path : Object
 	/*
 	
 	*/
-	block getBlockAllocated()
-		if exists() {
+	block GetBlockAllocated()
+		if Exists() {
 			size = __path_blocks(AbsolutePath)
 			if size == -1 {
-				size = (getSize() / getBlockSize())
+				size = (GetSize() / GetBlockSize())
 			}
-			return floor(size)
+			return Floor(size)
 		}
 		return 0
 		
 	/*
 	
 	*/
-	block getLastAccessDate()
-		if exists() {
+	block GetLastAccessDate()
+		if Exists() {
 			datePointer = __path_access_date(AbsolutePath)
-			date = dateFromPointer(datePointer)
+			date = DateFromPointer(datePointer)
 		else
 			date = new DateTime(null)
 		}
@@ -567,10 +567,10 @@ class Path : Object
 	/*
 	
 	*/
-	block getLastDateModified()
-		if exists() {
+	block GetLastDateModified()
+		if Exists() {
 			datePointer = __path_modify_date(AbsolutePath)
-			date = dateFromPointer(datePointer)
+			date = DateFromPointer(datePointer)
 		else
 			date = new DateTime(null)
 		}
@@ -579,10 +579,10 @@ class Path : Object
 	/*
 	
 	*/
-	block getLastDateChanged()
-		if exists() {
+	block GetLastDateChanged()
+		if Exists() {
 			datePointer = __path_status_date(AbsolutePath)
-			date = dateFromPointer(datePointer)
+			date = DateFromPointer(datePointer)
 		else
 			date = new DateTime(null)
 		}
@@ -591,39 +591,39 @@ class Path : Object
 	/*
 	
 	*/
-	block getDateCreated()
-		return getLastDateChanged()
+	block GetDateCreated()
+		return GetLastDateChanged()
 		
 	/*
 		Get the type associated with the path from @File PathType in 
 		@return the path type @DataType String
 	*/
-	block getType()
-		return PathType.getTypeValue()	
+	block GetType()
+		return PathType.GetTypeValue()	
 		
 	/*
 	
 	*/
-	block create()
-		if !exists() {
+	block Create()
+		if !Exists() {
 			pointer = __fopen(AbsolutePath, "w")
-			if isNull(pointer) {
+			if IsNull(pointer) {
 				return false
 			}
 			__fclose(pointer)
-			if rawExists() >= 0 {
+			if RawExists() >= 0 {
 				return true
 			}
 		else
-			throw(self,"Cannot create " + classname() + " because it already exists : " + AbsolutePath)
+			Throw(self,"Cannot create " + Classname() + " because it already exists : " + AbsolutePath)
 		}
 		return false
 		
 	/*
 		
 	*/
-	block isReadable()
-		if !exists() {
+	block IsReadable()
+		if !Exists() {
 			return false
 		}
 		retValue = false
@@ -637,8 +637,8 @@ class Path : Object
 	/*
 		
 	*/
-	block isWritable()
-		if !exists() {
+	block IsWritable()
+		if !Exists() {
 			return false
 		}
 		retValue = false
@@ -652,11 +652,11 @@ class Path : Object
 	/*
 	
 	*/
-	block isHidden()
-		if !exists() {
+	block IsHidden()
+		if !Exists() {
 			return false
 		}
-		if isWindows() {
+		if IsWindows() {
 			attributes = __GetFileAttributes(AbsolutePath)
 			return (attributes & FILE_ATTRIBUTES[:HIDDEN]) == FILE_ATTRIBUTES[:HIDDEN]
 		}
@@ -665,27 +665,27 @@ class Path : Object
 	/*
 		
 	*/
-	block isReadOnly()
-		if !exists() {
+	block IsReadOnly()
+		if !Exists() {
 			return false
 		}
-		if isWindows() {
+		if IsWindows() {
 			attributes = __GetFileAttributes(AbsolutePath)
 			return !(attributes & FILE_ATTRIBUTES[:READONLY]) == FILE_ATTRIBUTES[:READONLY]
 		}
-		return (isReadable() and !isWritable())
+		return (IsReadable() and !IsWritable())
 		
 	/*
 	
 	*/
-	block getReadOnly()
-		return isReadOnly()
+	block GetReadOnly()
+		return IsReadOnly()
 		
 	/*
 	
 	*/
-	block setReadOnly(boolean value)
-		ensureExistence()
+	block SetReadOnly(boolean value)
+		EnsureExistence()
 		retValue = false
 		if value {
 			retValue = __chmod(AbsolutePath, __S_IRUSR())
@@ -697,27 +697,27 @@ class Path : Object
 	/*
 		
 	*/
-	block isWriteOnly()
-		if !exists() {
+	block IsWriteOnly()
+		if !Exists() {
 			return false
 		}
-		if !isWindows() {
+		if !IsWindows() {
 			attributes = __GetFileAttributes(AbsolutePath)
 			return !(attributes & FILE_ATTRIBUTES[:READONLY]) == FILE_ATTRIBUTES[:READONLY]
 		}
-		return (!isReadable() and isWritable())
+		return (!IsReadable() and IsWritable())
 		
 	/*
 	
 	*/
-	block getWriteOnly()
-		return isWriteOnly()
+	block GetWriteOnly()
+		return IsWriteOnly()
 		
 	/*
 	
 	*/
-	block setWriteOnly(boolean value)
-		ensureExistence()
+	block SetWriteOnly(boolean value)
+		EnsureExistence()
 		retValue = false
 		if value {
 			retValue = __chmod(AbsolutePath, __S_IWUSR())
@@ -729,8 +729,8 @@ class Path : Object
 	/*
 	
 	*/
-	block isExecutable()
-		if !exists() {
+	block IsExecutable()
+		if !Exists() {
 			return false
 		}
 		return __is_path_executable(AbsolutePath)
@@ -738,8 +738,8 @@ class Path : Object
 	/*
 
 	*/
-	block equals(Object value)
-		if !instanceOf(value,"Path") {
+	block Equals(Object value)
+		if !InstanceOf(value,"Path") {
 			return false
 		}
 		return AbsolutePath == value.AbsolutePath 
@@ -747,9 +747,9 @@ class Path : Object
 	/*
 
 	*/
-	block hashcode()
-		if isNull(hashcode) {
-			hashcode = hash(AbsolutePath)
+	block Hashcode()
+		if IsNull(hashcode) {
+			hashcode = Hash(AbsolutePath)
 		}
 		return hashcode
 	
@@ -766,92 +766,92 @@ class Path : Object
 		/*
 		
 		*/
-		block updateAttributes() 
-			setName(null)
-			setDirectory(null)
+		block UpdateAttributes() 
+			SetName(null)
+			SetDirectory(null)
 			PathType = new PathType(AbsolutePath)
 			
 		/*
 		
 		*/
-		block setRelativePath()
+		block SetRelativePath()
 			
 		/*
 			
 		*/
-		block setExists(bool value)
+		block SetExists(bool value)
 			
 		/*
 			
 		*/
-		block setSize()
+		block SetSize()
 			
 		/*
 			
 		*/
-		block setNodeNumber()
+		block SetNodeNumber()
 			
 		/*
 			
 		*/
-		block setHardLinkCount()
+		block SetHardLinkCount()
 			
 		/*
 			
 		*/
-		block setGID()
+		block SetGID()
 			
 		/*
 			
 		*/
-		block setUID()
+		block SetUID()
 			
 		/*
 			
 		*/
-		block setBlockSize()
+		block SetBlockSize()
 			
 		/*
 			
 		*/
-		block setBlockAllocated()
+		block SetBlockAllocated()
 			
 		/*
 			
 		*/
-		block setLastAccessDate()
+		block SetLastAccessDate()
 			
 		/*
 			
 		*/
-		block setLastDateModified()
+		block SetLastDateModified()
 		
 		/*
 		
 		*/
-		block setLastDateChanged()
+		block SetLastDateChanged()
 		
 		/*
 		
 		*/
-		block setDateCreated()
+		block SetDateCreated()
 		
 		/*
 		
 		*/
-		block setType()
+		block SetType()
 		
 		/*
 			This block confirms if the path is a directory it return 
 			@DataType TRUE	(1) if it is a directory and return @DataType FALSE (0)
 			if it is not a directory on other cases of other return number 
 			-1 means it does not exists at all
-			-2 means the error is unknown (uncommon) 	
-			In this block trailing '/' or '\' are completely striped off (untreated)
+			-2 means the error is Unknown (uncommon) 	
+			In this block trailing '/' or '\' are completely striped Off (untreated)
 		*/
-		block rawExists()
-			while (strEndsWith(AbsolutePath,'/') || strEndsWith(AbsolutePath,'\')) {
-					AbsolutePath = strRemoveCharAt(AbsolutePath, lengthOf(AbsolutePath) - 1) 
+		block RawExists()
+			while (StrEndsWith(AbsolutePath,'/') || StrEndsWith(AbsolutePath,'\')) {
+					AbsolutePath = StrRemoveCharAt(AbsolutePath, LengthOf(AbsolutePath) - 1) 
 			}
 			return __dir_exists(AbsolutePath)
 			

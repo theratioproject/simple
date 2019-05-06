@@ -5,12 +5,12 @@ from simple.core.loadcoredymodule
 from simple.util.Console
 
 modulePaths = __vm_module_paths()
-stdout.println(modulePaths)
+stdout.Println(modulePaths)
 
-stdout.println("\nAdd new module paths")
+stdout.Println("\nAdd new module paths")
 __vm_add_module_path("../tests/simple/graphics/")
 modulePaths = __vm_module_paths()
-stdout.println(modulePaths)
-executeCode('
+stdout.Println(modulePaths)
+ExecuteCode('
 	from "test_point.sim"
 ')

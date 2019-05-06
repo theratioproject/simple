@@ -7,9 +7,9 @@ from simple.util.Console
 from parser.rst.rstParser
 
 block main()
-	rstTokens = new rstParser(__read_file("../../../testfiles/links.rst"))
-	tokens = rstTokens.parse()
-	stdout.println("=================\nURL Links Block\n=================")
+	rstTokens = new RstParser(__read_file("../../../testfiles/links.rst"))
+	tokens = rstTokens.Parse()
+	stdout.Println("=================\nURL Links Block\n=================")
 	for token in tokens {
-		stdout.printfi("Block: TypeName={0}, Tag={1}, URL={2}\n", token.TypeName, token.Value[0], token.Value[1])
+		stdout.Printfi("Block: TypeName={0}, Tag={1}, URL={2}\n", token.TypeName, token.Value[0], token.Value[1])
 	}

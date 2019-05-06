@@ -80,39 +80,39 @@ class Zip : Object
 
 	*/
 	block Init(object params...)
-		paramsLen = lengthOf(params)
+		paramsLen = LengthOf(params)
 		
 		/*if paramsLen == 1 {
-			Path = correctPath(stringValue(params[0]))
+			Path = CorrectPath(StringValue(params[0]))
 		el*/if paramsLen == 2
-			Path = correctPath(stringValue(params[0]))
-			Mode = stringValue(params[1])
+			Path = CorrectPath(StringValue(params[0]))
+			Mode = StringValue(params[1])
 		elif paramsLen == 3 
-			Path = stringValue(correctPath(params[0]))
-			CompressionType = numberValue(params[1])
-			Mode = stringValue(params[2])
+			Path = StringValue(CorrectPath(params[0]))
+			CompressionType = NumberValue(params[1])
+			Mode = StringValue(params[2])
 		else
-			throw(self, "Calling block with invalid length of parameter")
+			Throw(self, "Calling block with invalid length of parameter")
 		}
 		if !__file_exists(Path) and Mode != ZIP_MODE_WRITE {
-			throw(self, "The archive '" + Path + "' does not exists ")
+			Throw(self, "The archive '" + Path + "' does not exists ")
 			return
 		}
-		open()
+		Open()
 
 		return self
 
 	/*
 
 	*/
-	block open(/*string|number*/ params...)
-		paramsLen = lengthOf(params)
+	block Open(/*string|number*/ params...)
+		paramsLen = LengthOf(params)
 
 		if paramsLen == 0 {
 			if !IsStreamOpen {
 				ZipPointer = __open_zip(Path, CompressionType, Mode)
-				if isNull(ZipPointer) {
-					throw(self, "The archive '" + Path + "' is not a valid zip archive")
+				if IsNull(ZipPointer) {
+					Throw(self, "The archive '" + Path + "' is not a valid zip archive")
 					return
 				}
 				IsStreamOpen = true
@@ -121,13 +121,13 @@ class Zip : Object
 			entry = new ZipEntry(self, params[0])
 			return entry
 		else
-			throw(self, "Calling block with invalid length of parameter")
+			Throw(self, "Calling block with invalid length of parameter")
 		}
 
 	/*
 
 	*/
-	block add(string newObject, string heirInZip)
+	block Add(string newObject, string heirInZip)
 		__open_zip_entry(ZipPointer,heirInZip) 
 		__fwrite_zip_entry(ZipPointer,newObject)
 		__close_zip_entry(ZipPointer)
@@ -135,7 +135,7 @@ class Zip : Object
 	/*
 
 	*/
-	block close()
+	block Close()
 		if IsStreamOpen {
 			__close_zip(ZipPointer)
 			IsStreamOpen = false
@@ -144,19 +144,19 @@ class Zip : Object
 	/*
 
 	*/
-	block done()
-		close()
+	block Done()
+		Close()
 		if __vm_has_error() {
-			throw(self, __err__)
+			Throw(self, __err__)
 		}
 
 	/*
 
 	*/
-	block extract(string extPath)
+	block Extract(string extPath)
 		tempIsStreamOpen = IsStreamOpen
 		if IsStreamOpen {
-			close()
+			Close()
 		}
 		__extract_zip(Path, extPath)
 		IsStreamOpen = tempIsStreamOpen
@@ -164,11 +164,11 @@ class Zip : Object
 	/*
 	
 	*/
-	block getCount()
+	block GetCount()
 		if !IsStreamOpen {
 			return 0
 		}
-		if isNull(Count) {
+		if IsNull(Count) {
 			Count = __total_zip_file_count(ZipPointer)
 		}
 		return Count
@@ -176,24 +176,24 @@ class Zip : Object
 	/*
 
 	*/
-	block operator(string op, object value) 
+	block Operator(string op, object value) 
 		switch op {
 			case "=="
-				return equals(value)
+				return Equals(value)
 			case "!="
-				return !equals(value)
+				return !Equals(value)
 			case "lengthOf"
-				return getCount()
+				return GetCount()
 			case "[]"
-				return open(value)
+				return Open(value)
 		}
-		return super.operator(op, value)
+		return super.Operator(op, value)
 		
 	/*
 	
 	*/
-	block toString()
-		return "[" + absolutename() + ":Path=" + Path + ",Mode=" + Mode + ",EntriesCount=" + __total_zip_file_count(ZipPointer) + "]"
+	block ToString()
+		return "[" + Absolutename() + ":Path=" + Path + ",Mode=" + Mode + ",EntriesCount=" + __total_zip_file_count(ZipPointer) + "]"
 
 	/*
 
@@ -203,19 +203,19 @@ class Zip : Object
 		/*
 
 		*/
-		block setPath()
+		block SetPath()
 
 		/*
 
 		*/
-		block setMode()
+		block SetMode()
 
 		/*
 
 		*/
-		block setZipPointer()
+		block SetZipPointer()
 
 		/*
 
 		*/
-		block setCount()
+		block SetCount()

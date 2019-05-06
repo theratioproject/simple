@@ -17,26 +17,26 @@
 	is actually inherited the other are neglected. The reason an error is 
 	not thrown is because simple-lang is very error tolerance
 	
-	This feature can be added in future (probably)
+	This feature can be added in Future (probably)
 */
  
 block main()
 	t = new Test
-	t.test()
+	t.Test()
 	
 
 class Test : TypeOne 
 
-	block test()
-		msgTypeTwo()
-		msgTypeOne()
+	block Test()
+		MsgTypeTwo()
+		MsgTypeOne()
 
 class TypeOne : TypeTwo
 
-	block msgTypeOne()
+	block MsgTypeOne()
 		display "message from type one "+crlf
 		
 class TypeTwo
 
-	block msgTypeTwo()
+	block MsgTypeTwo()
 		display "message from two "+crlf

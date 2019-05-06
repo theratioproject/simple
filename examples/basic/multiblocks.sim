@@ -1,14 +1,14 @@
 
 to1 = new TestOperators(75)
-@to1.getValue() and 25
+@to1.GetValue() and 25
 
-block one()
+block One()
 	return "testing block one"
 
-block two(te,ti)
+block Two(te,ti)
 	return "testing block two "+(te+ti)
 	
-block three(te,ti,rex)
+block Three(te,ti,rex)
 	return "testing block two "+(te+ti)+" "+rex
 	
 	
@@ -19,10 +19,10 @@ class TestOperators
 	block TestOperators(v)
 		this.value = v
 	
-	block setValue(value)
+	block SetValue(value)
 		this.value = value
 		
-	block getValue()
+	block GetValue()
 		return value
 		
 		

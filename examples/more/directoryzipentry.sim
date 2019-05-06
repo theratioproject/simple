@@ -11,12 +11,12 @@ import simple.core
 
 block main()
 	zip = new Zip("../testfiles/test_zip.zip", "r") 
-	examplesDir = zip.open("examples/modules/fulltick/widgets/")
-	stdout.println(examplesDir)
+	examplesDir = zip.Open("examples/modules/fulltick/widgets/")
+	stdout.Println(examplesDir)
 	for entry in examplesDir {
-		stdout.println(entry)
+		stdout.Println(entry)
 	}
-	examplesDir.extract("../testfiles/examples/")
+	examplesDir.Extract("../testfiles/examples/")
 	
 
 	

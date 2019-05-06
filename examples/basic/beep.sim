@@ -5,19 +5,19 @@
 
 */
 
-callDynamicModule("libsecurity.dll")
+CallDynamicModule("libsecurity.dll")
 
 #from simple.util.Console
 
-#stdout.print("\a")
+#stdout.Print("\a")
 #__beep(1000,1000)
 
 #(one, numbers...)
-/*anFunc = block (number numbers...) {
+/*anFunc = Block (number numbers...) {
 	res = 0
 	for num in numbers {
 		res += num
 	}
 	return res
 }
-@call anFunc(1,2,3,4,5,6,7,8,9) */
+@call AnFunc(1,2,3,4,5,6,7,8,9) */

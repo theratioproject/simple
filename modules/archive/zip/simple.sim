@@ -14,8 +14,8 @@ from archive.zip.Zip
 from simple.util.Console
 import simple.core
 
-block main()
-	cmdparamsLen = lengthOf(cmdparams) - 1
+block Main()
+	cmdparamsLen = LengthOf(cmdparams) - 1
 	zipFile = null
 	operation = null
 	outDir = null
@@ -27,51 +27,51 @@ block main()
 			operation = "extract"
 		elif param == "-c" or param == "--create"
 			operation = "create"
-		elif strEndsWith(param,".zip") 
+		elif StrEndsWith(param,".zip") 
 			zipFile = param
-			if !isNull(operation) and operation == "extract" {
+			if !IsNull(operation) and operation == "extract" {
 				outDir = cmdparams[a+1]
 			}
 		else
-			if !isNull(operation) {
+			if !IsNull(operation) {
 				if operation == "create" {
-					if isNull(outDir) { outDir = [] }
+					if IsNull(outDir) { outDir = [] }
 					__add_to_list(outDir,param)  
 				}
 			}
 		}
 	}
-	if isNull(operation) {
-		throw("No operation detected, add the flag '-h' to view help message")
+	if IsNull(operation) {
+		Throw("No operation detected, add the flag '-h' to view help message")
 		return
 	}
-	if isNull(zipFile) {
-		throw("No zip file specified")
+	if IsNull(zipFile) {
+		Throw("No zip file specified")
 		return
 	}
 	if operation == "list" {
 		zip = new Zip(zipFile, "r")
 		for entry in zip {
-			stdout.println(entry.toString())
+			stdout.Println(entry.ToString())
 		}
 	elif operation == "extract"
 		zip = new Zip(zipFile, "r") {
-			extract(outDir)
+			Extract(outDir)
 		}
 		
 	elif operation == "create"
 		zip = new Zip(zipFile, "w")
 		for entry in outDir {
-			if strEndsWith(entry, "/") {
+			if StrEndsWith(entry, "/") {
 				new ZipEntry(zip, entry) {
-					dwrite(entry)
+					Dwrite(entry)
 				}
 			else
 				new ZipEntry(zip, entry) {
-					fwrite(entry)
+					Fwrite(entry)
 				}
 			}
 		}
-		zip.close()
+		zip.Close()
 	}
 	

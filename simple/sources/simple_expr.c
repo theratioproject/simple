@@ -1209,8 +1209,8 @@ int simple_parser_mixer ( Parser *parser )
 		
 		puts("Rule : Mixer --> '{' {Statement} [BraceOpen]Open");
 		#endif
-		/* if hasBlock(self,"open") open() end */
-		simple_parser_gencallbracemethod(parser,"open");
+		/* if HasBlock(self,"Open") Open() end */
+		simple_parser_gencallbracemethod(parser,"Open");
 		simple_parser_nexttoken(parser);
 		nStatus = parser->nAssignmentFlag ;
 		parser->nAssignmentFlag = 1 ;
@@ -1224,9 +1224,9 @@ int simple_parser_mixer ( Parser *parser )
 			parser->nBraceFlag-- ;
 			/*
 			**  Generate Code 
-			**  if hasBlock(self,"close") close() end 
+			**  if HasBlock(self,"Close") Close() end 
 			*/
-			simple_parser_gencallbracemethod(parser,"close");
+			simple_parser_gencallbracemethod(parser,"Close");
 			simple_parser_icg_newoperation(parser,ICO_BRACEEND);
 			#if SIMPLE_PARSERTRACE
 			SIMPLE_STATE_CHECKPRINTRULES 
@@ -1301,9 +1301,9 @@ void simple_parser_gencallbracemethod ( Parser *parser,const char *cMethod )
 {
 	int nMark1  ;
 	List *pMark  ;
-	/* if hasBlock(self,cMethod) cMethod() end */
+	/* if HasBlock(self,cMethod) cMethod() end */
 	simple_parser_icg_newoperation(parser,ICO_LOADBLOCK);
-	simple_parser_icg_newoperand(parser,"hasBlock");
+	simple_parser_icg_newoperand(parser,"HasBlock");
 	simple_parser_icg_newoperation(parser,ICO_LOADADDRESS);
 	simple_parser_icg_newoperand(parser,"self");
 	simple_parser_icg_newoperandint(parser,0);

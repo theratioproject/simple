@@ -7,11 +7,11 @@ from parser.json.JsonParser
 
 block main()
 	array = new JsonArray()
-	array.add("Hello")
-	array.add("World")
-	array.add(new DateTime())
+	array.Add("Hello")
+	array.Add("World")
+	array.Add(new DateTime())
 	
 	object = new JsonObject()
-	object.add("Message", "Greetings")
-	object.add("JsonArray", array)
-	stdout.println(object)
+	object.Add("Message", "Greetings")
+	object.Add("JsonArray", array)
+	stdout.Println(object)

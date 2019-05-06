@@ -12,7 +12,7 @@ import simple.core
 block main()
 	zip = new Zip("../testfiles/test_zip.zip", "r") 
 	for entry in zip {
-		entry.extract("../testfiles/elm_deep/")
+		entry.Extract("../testfiles/elm_deep/")
 	}
 	
 	

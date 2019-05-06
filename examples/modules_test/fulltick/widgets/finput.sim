@@ -15,19 +15,19 @@ import fulltick.objects
 import fulltick.drawing
 
 flabelDemo = new FInputDemo
-FApp.run()
+FApp.Run()
 
 class FInputDemo
 
     fwindow = new FWindow(320,180,"FInput Demo") { 
-        begin(true) 
-        input = new FInput(10,10,"Android") { setPlatformScheme(FScheme.Android) }
-        new FInput(10,50,"Windows") { setPlatformScheme(FScheme.Windows) }
-        new FInput(10,90,"Macosx") { setPlatformScheme(FScheme.Macosx) }
-        new FInput(10,130,"Linux") { setPlatformScheme(FScheme.Linux) }
-        endBegin()
-        centerOnScreen() 
+        Begin(true) 
+        input = new FInput(10,10,"Android") { SetPlatformScheme(FScheme.Android) }
+        new FInput(10,50,"Windows") { SetPlatformScheme(FScheme.Windows) }
+        new FInput(10,90,"Macosx") { SetPlatformScheme(FScheme.Macosx) }
+        new FInput(10,130,"Linux") { SetPlatformScheme(FScheme.Linux) }
+        EndBegin()
+        CenterOnScreen() 
         Resizable = false
-        show()        
+        Show()        
     } 
         

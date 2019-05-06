@@ -35,7 +35,7 @@ module simple.util
 
 */
 from simple.core.DynamicLoader
-callModule("libmathic")
+CallModule("libmathic")
 
 /*
 	Exponential number used in natural log and exp
@@ -101,7 +101,7 @@ final $MathNotEqual = "The parameter cannot be equal to "
 	
 	The *e* to the first 15 digits after the decimal point is **2.718281828459045**
 		
-	**Return**:
+	**return**:
 		the *e* constant with the first 11 digits after the decimal point
 */
 block MathE()
@@ -115,7 +115,7 @@ block MathE()
 	
 	**3.14159 26535 89793 23846 26433 83279 50288 41971 69399 37510**
 	
-	**Return**:
+	**return**:
 		the *pi* / *π* constant with the first 11 digits after the decimal point
 */
 block MathPI() 
@@ -131,13 +131,13 @@ block MathPI()
 	**Throws**:	
 		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a number
 	
-	**Return**:
+	**return**:
 		the absolute value of a number
 */
 #TODO : revisit and remove throws after data type is supported
-block abs(number)
-	if !isNumber(number) {
-		throwWithTitle($MathModule,$MathNotNumber)
+block Abs(number)
+	if !IsNumber(number) {
+		ThrowWithTitle($MathModule,$MathNotNumber)
 	}
 	if (number < 0) {
 		return -number
@@ -160,12 +160,12 @@ block abs(number)
 		`final $MathNotNumber`_ with title `final $MathModule`_ if one or all the parameters 
 		are not number
 	
-	**Return**:
+	**return**:
 		minimum number of the two numbers
 */
-block min(fNumber, sNumber)
-	if !isNumber(fNumber) or !isNumber(sNumber) {
-		throwWithTitle($MathModule,$MathNotNumber)
+block Min(fNumber, sNumber)
+	if !IsNumber(fNumber) or !IsNumber(sNumber) {
+		ThrowWithTitle($MathModule,$MathNotNumber)
 	}
 	if (fNumber == 0 and sNumber == 0) {
 		return -((-fNumber) - sNumber)
@@ -190,12 +190,12 @@ block min(fNumber, sNumber)
 		`final $MathNotNumber`_ with title `final $MathModule`_ if one or all the parameters 
 		are not number
 	
-	**Return**:
+	**return**:
 		larger number of the two numbers
 */
-block max(fNumber, sNumber)
-	if !isNumber(fNumber) or !isNumber(sNumber) {
-		throwWithTitle($MathModule,$MathNotNumber)
+block Max(fNumber, sNumber)
+	if !IsNumber(fNumber) or !IsNumber(sNumber) {
+		ThrowWithTitle($MathModule,$MathNotNumber)
 	}
 	if (fNumber == 0 and sNumber == 0) {
 		return (fNumber - (-sNumber))
@@ -216,12 +216,12 @@ block max(fNumber, sNumber)
 	**Throws**
 		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
 		
-	**Return**
+	**return**
 		the sine value of a radian angle number
 */
-block sin(number)
-	if !isNumber(number) {
-		throwWithTitle($MathModule,$MathNotNumber)
+block Sin(number)
+	if !IsNumber(number) {
+		ThrowWithTitle($MathModule,$MathNotNumber)
 	}
 	return __sin(number)
 	
@@ -238,12 +238,12 @@ block sin(number)
 	**Throws**
 		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
 	
-	**Return**
+	**return**
 		the cosine value of a radian angle number
 */
-block cos(number)
-	if !isNumber(number) {
-		throwWithTitle($MathModule,$MathNotNumber)
+block Cos(number)
+	if !IsNumber(number) {
+		ThrowWithTitle($MathModule,$MathNotNumber)
 	}
 	return __cos(number)	
 	
@@ -259,18 +259,18 @@ block cos(number)
 	**Throws**
 		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
 	
-	**Return**
+	**return**
 		the tangent value of a radian angle number
 */
-block tan(number)
-	if !isNumber(number) {
-		throwWithTitle($MathModule,$MathNotNumber)
+block Tan(number)
+	if !IsNumber(number) {
+		ThrowWithTitle($MathModule,$MathNotNumber)
 	}
 	return __tan(number)
 
 /*
 	Determine the arc sine trigonometric function *arcsin* of a number. The arc sine value of 0 remains 
-	0. The range of angles returned is -pi/2 to pi/2 radians (-90 to 90 degrees).
+	0. The range of angles returned is -pi/2 to pi/2 Radians (-90 to 90 degrees).
 	
 	
 	**Parameters**
@@ -280,18 +280,18 @@ block tan(number)
 	**Throws**
 		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
 	
-	**Return**
+	**return**
 		the arc sine value of the number in radian 
 */	
-block asin(number)
-	if !isNumber(number) {
-		throwWithTitle($MathModule,$MathNotNumber)
+block Asin(number)
+	if !IsNumber(number) {
+		ThrowWithTitle($MathModule,$MathNotNumber)
 	}
 	return __asin(number)
 	
 /*
 	Determine the arc cosine trigonometric function *arccos* of a number. The arc cosine value of 0 remains
-	0. The range of angles returned is -pi/2 to pi/2 radians (-90 to 90 degrees).
+	0. The range of angles returned is -pi/2 to pi/2 Radians (-90 to 90 degrees).
 	
 	
 	**Parameters**
@@ -301,18 +301,18 @@ block asin(number)
 	**Throws**
 		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
 	
-	**Return**
+	**return**
 		the arc cosine value of the number in radian 
 */	
-block acos(number)
-	if !isNumber(number) {
-		throwWithTitle($MathModule,$MathNotNumber)
+block Acos(number)
+	if !IsNumber(number) {
+		ThrowWithTitle($MathModule,$MathNotNumber)
 	}
 	return __acos(number)
 
 /*
 	Determine the arc tangent trigonometric function *arctan* of a number. The arc tangent value of 0 remains
-	0. The range of angles returned is -pi/2 to pi/2 radians (-90 to 90 degrees).
+	0. The range of angles returned is -pi/2 to pi/2 Radians (-90 to 90 degrees).
 	
 	
 	**Parameters**
@@ -322,12 +322,12 @@ block acos(number)
 	**Throws**
 		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
 	
-	**Return**
+	**return**
 		the arc tangent value of the number in radian 
 */	
-block atan(number)
-	if !isNumber(number) {
-		throwWithTitle($MathModule,$MathNotNumber)
+block Atan(number)
+	if !IsNumber(number) {
+		ThrowWithTitle($MathModule,$MathNotNumber)
 	}
 	return __atan(number)
 	
@@ -347,12 +347,12 @@ block atan(number)
 		`final $MathNotNumber`_ with title `final $MathModule`_ if one or all the parameters 
 		are not number
 	
-	**Return**
+	**return**
 		the arc tangent in radian of x/y based on the signs of both values to determine the correct quadrant
 */
-block atan2(y, x)
-	if !isNumber(y) or !isNumber(x) {
-		throwWithTitle($MathModule,$MathNotNumber)
+block Atan2(y, x)
+	if !IsNumber(y) or !IsNumber(x) {
+		ThrowWithTitle($MathModule,$MathNotNumber)
 	}
 	return __atan2(y,x)
 	
@@ -368,12 +368,12 @@ block atan2(y, x)
 	**Throws**
 		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
 	
-	**Return**
+	**return**
 		the hyperbolic sine value of the number 
 */	
-block sinh(number)
-	if !isNumber(number) {
-		throwWithTitle($MathModule,$MathNotNumber)
+block Sinh(number)
+	if !IsNumber(number) {
+		ThrowWithTitle($MathModule,$MathNotNumber)
 	}
 	return __sinh(number)
 	
@@ -388,12 +388,12 @@ block sinh(number)
 	**Throws**
 		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
 	
-	**Return**
+	**return**
 		the hyperbolic cosine value of the number 
 */	
-block cosh(number)
-	if !isNumber(number) {
-		throwWithTitle($MathModule,$MathNotNumber)
+block Cosh(number)
+	if !IsNumber(number) {
+		ThrowWithTitle($MathModule,$MathNotNumber)
 	}
 	return __cosh(number)
 	
@@ -408,12 +408,12 @@ block cosh(number)
 	**Throws**
 		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
 	
-	**Return**
+	**return**
 		the hyperbolic tangent value of the number 
 */	
-block tanh(number)
-	if !isNumber(number) {
-		throwWithTitle($MathModule,$MathNotNumber)
+block Tanh(number)
+	if !IsNumber(number) {
+		ThrowWithTitle($MathModule,$MathNotNumber)
 	}
 	return __tanh(number)
 	
@@ -429,12 +429,12 @@ block tanh(number)
 	**Throws**
 		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
 	
-	**Return**
+	**return**
 		the Nonnegative area sine value of the number 
 */	
-block asinh(number)
-	if !isNumber(number) {
-		throwWithTitle($MathModule,$MathNotNumber)
+block Asinh(number)
+	if !IsNumber(number) {
+		ThrowWithTitle($MathModule,$MathNotNumber)
 	}
 	return __asinh(number)
 	
@@ -450,15 +450,15 @@ block asinh(number)
 		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
 		`final $MathLessThanOne`_ with title `final $MathModule`_ if the parameter is less than 1
 	
-	**Return**
+	**return**
 		Nonnegative area hyperbolic cosine of number, in the interval [0,+INFINITY] 
 */	
-block acosh(number)
-	if !isNumber(number) {
-		throwWithTitle($MathModule,$MathNotNumber)
+block Acosh(number)
+	if !IsNumber(number) {
+		ThrowWithTitle($MathModule,$MathNotNumber)
 	}
 	if (number < 1) {
-		throwWithTitle($MathModule,$MathLessThanOne)
+		ThrowWithTitle($MathModule,$MathLessThanOne)
 	}
 	return __acosh(number)
 	
@@ -477,24 +477,24 @@ block acosh(number)
 		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
 		`final $MathNotEqual`_ -1 or 1 with title `final $MathModule`_ if the parameter is -1 or 1
 	
-	**Return**
+	**return**
 		the Nonnegative area  tangent value of the number 
 */	
-block atanh(number)
-	if !isNumber(number) {
-		throwWithTitle($MathModule,$MathNotNumber)
+block Atanh(number)
+	if !IsNumber(number) {
+		ThrowWithTitle($MathModule,$MathNotNumber)
 	}
 	if (number == 1 or number == -1) {
-		throwWithTitle($MathModule,$MathNotEqual+"-1 or 1")
+		ThrowWithTitle($MathModule,$MathNotEqual+"-1 or 1")
 	}
 	if ((number < -1) or (number > 1)) {
-		throwWithTitle($MathModule,$MathNotBetweenOne)
+		ThrowWithTitle($MathModule,$MathNotBetweenOne)
 	}
 	return __atanh(number)
 	
 	
 /*
-	Determine the exponential value of a number. The opposite of `block log(number)`_
+	Determine the exponential value of a number. The opposite of `block Log(number)`_
 	
 	
 	**Parameters**
@@ -504,18 +504,18 @@ block atanh(number)
 	**Throws**
 		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
 	
-	**Return**
+	**return**
 		the exponential value of the number 
 */
-block exp(number)
-	if !isNumber(number) {
-		throwWithTitle($MathModule,$MathNotNumber)
+block Exp(number)
+	if !IsNumber(number) {
+		ThrowWithTitle($MathModule,$MathNotNumber)
 	}
 	return __exp(number)
 	
 	
 /*
-	Determine the natural logarithm (base-e logarithm) of a number. The opposite of `block exp(number)`_
+	Determine the natural Logarithm (base-e logarithm) of a number. The opposite of `block Exp(number)`_
 	
 	
 	**Parameters**
@@ -525,18 +525,18 @@ block exp(number)
 	**Throws**
 		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
 	
-	**Return**
-		the natural logarithm (base-e logarithm) of number
+	**return**
+		the natural Logarithm (base-e logarithm) of number
 */
-block log(number)
-	if !isNumber(number) {
-		throwWithTitle($MathModule,$MathNotNumber)
+block Log(number)
+	if !IsNumber(number) {
+		ThrowWithTitle($MathModule,$MathNotNumber)
 	}
 	return __log(number)
 
 /*
-	Determine the square root of a number. To find cube root of a number from the `block cbrt(number)`_ instead,
-	to determine the other root use ``pow(number, 1/rootNum)``
+	Determine the square root of a number. To find cube root of a number from the `block Cbrt(number)`_ instead,
+	to determine the other root use ``Pow(number, 1/rootNum)``
 	
 	
 	**Parameters**
@@ -546,18 +546,18 @@ block log(number)
 	**Throws**
 		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
 	
-	**Return**
+	**return**
 		the square root of the number
 */	
-block sqrt(number) 
-	if !isNumber(number) {
-		throwWithTitle($MathModule,$MathNotNumber)
+block Sqrt(number) 
+	if !IsNumber(number) {
+		ThrowWithTitle($MathModule,$MathNotNumber)
 	}
 	return __sqrt(number)
 
 /*
-	Determine the cube root of a number. To find square root of a number from the `block sqrt(number)`_ instead,
-	to determine the other root use ``pow(number, 1/rootNum)``
+	Determine the cube root of a number. To find square root of a number from the `block Sqrt(number)`_ instead,
+	to determine the other root use ``Pow(number, 1/rootNum)``
 	
 	
 	**Parameters**
@@ -567,12 +567,12 @@ block sqrt(number)
 	**Throws**
 		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
 	
-	**Return**
+	**return**
 		the cube root of the number
 */	
-block cbrt(number) 
-	if !isNumber(number) {
-		throwWithTitle($MathModule,$MathNotNumber)
+block Cbrt(number) 
+	if !IsNumber(number) {
+		ThrowWithTitle($MathModule,$MathNotNumber)
 	}
 	return __cbrt(number)
 	
@@ -591,12 +591,12 @@ block cbrt(number)
 		`final $MathNotNumber`_ with title `final $MathModule`_ if one or all the parameters 
 		are not number
 	
-	**Return**
+	**return**
 		fNumber raised to the power of sNumber
 */
-block pow(fNumber,sNumber)
-	if !isNumber(fNumber) or !isNumber(sNumber) {
-		throwWithTitle($MathModule,$MathNotNumber)
+block Pow(fNumber,sNumber)
+	if !IsNumber(fNumber) or !IsNumber(sNumber) {
+		ThrowWithTitle($MathModule,$MathNotNumber)
 	}
 	return __pow(fNumber,sNumber)
 	
@@ -606,7 +606,7 @@ block pow(fNumber,sNumber)
 	is between -1 and 0 the result is -0.
 	
 	.. note:: 
-		ceil(number) == floor(-number)
+		Ceil(number) == Floor(-number)
 	
 	**Parameters**
 		number : Number
@@ -615,12 +615,12 @@ block pow(fNumber,sNumber)
 	**Throws**
 		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
 	
-	**Return**
+	**return**
 		the nearest integer value greater than or equal to the number
 */	
-block ceil(number)
-	if !isNumber(number) {
-		throwWithTitle($MathModule,$MathNotNumber)
+block Ceil(number)
+	if !IsNumber(number) {
+		ThrowWithTitle($MathModule,$MathNotNumber)
 	}
 	return __ceil(number)
 	
@@ -629,7 +629,7 @@ block ceil(number)
 	Determine the nearest integer that is less than or equal to the number parameter. 
 	
 	.. note::
-		ceil(number) == floor(-number)
+		Ceil(number) == Floor(-number)
 	
 	**Parameters**
 		number : Number
@@ -638,17 +638,17 @@ block ceil(number)
 	**Throws**
 		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
 	
-	**Return**
+	**return**
 		the largest integer value less than or equal to the number
 */	
-block floor(number)
-	if !isNumber(number) {
-		throwWithTitle($MathModule,$MathNotNumber)
+block Floor(number)
+	if !IsNumber(number) {
+		ThrowWithTitle($MathModule,$MathNotNumber)
 	}
 	return __floor(number)
 	
 /*
-	Determine the value of the number rounded to a nearby integral (as a floating-point value). If the floating-points
+	Determine the value of the number rounded to a nearby Integral (as a floating-point value). If the floating-points
 	are between two number the Even number will be worked on. It round to the nearest.
 	
 	
@@ -659,18 +659,18 @@ block floor(number)
 	**Throws**
 		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
 	
-	**Return**
+	**return**
 		the number rounded to nearby integral 
 */
-block rint(number)
-	if !isNumber(number) {
-		throwWithTitle($MathModule,$MathNotNumber)
+block Rint(number)
+	if !IsNumber(number) {
+		ThrowWithTitle($MathModule,$MathNotNumber)
 	}
 	return __rint(number)
 	
 /*
 	Determine the value of the number rounded to a nearby integral with halfway cases rounded away from zero. 
-	The block function is same as ``floor(number + 0.5f)``. It round to the nearest.
+	The block function is same as ``Floor(number + 0.5f)``. It round to the nearest.
 	
 	
 	**Parameters**
@@ -680,18 +680,18 @@ block rint(number)
 	**Throws**
 		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
 	
-	**Return**
+	**return**
 		the number rounded to nearby integral 
 */
-block round(number)
-	if !isNumber(number) {
-		throwWithTitle($MathModule,$MathNotNumber)
+block Round(number)
+	if !IsNumber(number) {
+		ThrowWithTitle($MathModule,$MathNotNumber)
 	}
 	return __round(number)
 	
 /*
-	Determine the value of the number rounded to a nearby integral (as a floating-point value). If the floating-points
-	are between two number the Even number will be worked on. It round to the nearest. Similar to `block rint(number)`_ block
+	Determine the value of the number rounded to a nearby Integral (as a floating-point value). If the floating-points
+	are between two number the Even number will be worked on. It round to the nearest. Similar to `block Rint(number)`_ block
 	
 	
 	**Parameters**
@@ -701,17 +701,17 @@ block round(number)
 	**Throws**
 		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
 	
-	**Return**
+	**return**
 		the number rounded to nearby integral 
 */
-block nearbyint(number)
-	if !isNumber(number) {
-		throwWithTitle($MathModule,$MathNotNumber)
+block Nearbyint(number)
+	if !IsNumber(number) {
+		ThrowWithTitle($MathModule,$MathNotNumber)
 	}
 	return __nearbyint(number)
 	
 /*
-	Determine floating point remainder of the fNumber / sNumber with the quotient truncated (rounded towards zero). 
+	Determine floating point remainder of the fNumber / sNumber with the quotient Truncated (rounded towards zero). 
 	It round to the nearest.
 	
 	
@@ -724,18 +724,18 @@ block nearbyint(number)
 	**Throws**
 		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
 	
-	**Return**
+	**return**
 		the remainder of dividing the fNumber and sNumber parameters
 */
-block fmod(fNumber,sNumber)
-	if !isNumber(fNumber) or !isNumber(sNumber) {
-		throwWithTitle($MathModule,$MathNotNumber)
+block Fmod(fNumber,sNumber)
+	if !IsNumber(fNumber) or !IsNumber(sNumber) {
+		ThrowWithTitle($MathModule,$MathNotNumber)
 	}
 	return __fmod(fNumber,sNumber)
 	
 /*
 	Determine floating point remainder of the fNumber / sNumber. It round to the nearest. Similar to 
-	`block fmod(fNumber,sNumber)`_ block
+	`block Fmod(fNumber,sNumber)`_ block
 	
 	
 	**Parameters**
@@ -747,12 +747,12 @@ block fmod(fNumber,sNumber)
 	**Throws**
 		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
 	
-	**Return**
+	**return**
 		the remainder of dividing the fNumber and sNumber parameters
 */
-block remainder(fNumber,sNumber)
-	if !isNumber(fNumber) or !isNumber(sNumber) {
-		throwWithTitle($MathModule,$MathNotNumber)
+block Remainder(fNumber,sNumber)
+	if !IsNumber(fNumber) or !IsNumber(sNumber) {
+		ThrowWithTitle($MathModule,$MathNotNumber)
 	}
 	return __remainder(fNumber,sNumber)
 	
@@ -767,12 +767,12 @@ block remainder(fNumber,sNumber)
 	**Throws**
 		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
 	
-	**Return**
+	**return**
 		the number with the floating points truncated
 */
-block trunc(number)
-	if !isNumber(number) {
-		throwWithTitle($MathModule,$MathNotNumber)
+block Trunc(number)
+	if !IsNumber(number) {
+		ThrowWithTitle($MathModule,$MathNotNumber)
 	}
 	return __trunc(number)
 	
@@ -787,12 +787,12 @@ block trunc(number)
 	**Throws**
 		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
 	
-	**Return**
+	**return**
 		the angle in radians
 */
-block toRadians(number)
-	if !isNumber(number) {
-		throwWithTitle($MathModule,$MathNotNumber)
+block ToRadians(number)
+	if !IsNumber(number) {
+		ThrowWithTitle($MathModule,$MathNotNumber)
 	}
 	return ((number * MathPI) / 180)
 	
@@ -807,12 +807,12 @@ block toRadians(number)
 	**Throws**
 		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
 	
-	**Return**
+	**return**
 		the angle in degrees
 */	
-block toDegrees(number)
-	if !isNumber(number) {
-		throwWithTitle($MathModule,$MathNotNumber)
+block ToDegrees(number)
+	if !IsNumber(number) {
+		ThrowWithTitle($MathModule,$MathNotNumber)
 	}
 	return ((number * 180) / MathPI)
 	
@@ -828,17 +828,17 @@ block toDegrees(number)
 	**Throws**
 		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
 	
-	**Return**
+	**return**
 		the base 10 logarithm of the number
 */
-block log10(number)
-	if !isNumber(number) {
-		throwWithTitle($MathModule,$MathNotNumber)
+block Log10(number)
+	if !IsNumber(number) {
+		ThrowWithTitle($MathModule,$MathNotNumber)
 	}
 	return __log10(number)
 	
 /*
-	Breaks the floating point number into its binary significand (a floating point with an absolute value 
+	Breaks the floating point number into its binary Significand (a floating point with an absolute value 
 	between 0.5(included) and 1.0(excluded)) and an integral exponent for 2, such that:
 	
 	::
@@ -847,7 +847,7 @@ block log10(number)
 	
 	The exponent is stored in the location pointed by exp, and the **significand** is the value returned 
 	by the function
-	If the number is zero, both parts (significand and exponent) are zero. If the number is negative, the 
+	If the number is zero, both Parts (significand and exponent) are zero. If the number is negative, the 
 	significand returned by this function is negative
 	
 	
@@ -858,19 +858,19 @@ block log10(number)
 	**Throws**
 		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
 	
-	**Return**
+	**return**
 		a list with binary significand of the number at the first index and the value where the exponent 
 		is stored at the second index
 */	
-block frexp(number)
-	if !isNumber(number) {
-		throwWithTitle($MathModule,$MathNotNumber)
+block Frexp(number)
+	if !IsNumber(number) {
+		ThrowWithTitle($MathModule,$MathNotNumber)
 	}
 	__res = __frexp(number)
 	return __res
 	
 /*
-	Deterine the result of multiplying the number (the significand) by 2 raised to the power of exp (the exponent)
+	Deterine the result of multiplying the Number (the significand) by 2 raised to the power of Exp (the exponent)
 	
 	
 	**Parameters**
@@ -882,12 +882,12 @@ block frexp(number)
 	**Throws**
 		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
 	
-	**Return**
+	**return**
 		number * 2 ^ exp  
 */	
-block ldexp(number,exp)
-	if !isNumber(number) or !isNumber(exp) {
-		throwWithTitle($MathModule,$MathNotNumber)
+block Ldexp(number,exp)
+	if !IsNumber(number) or !IsNumber(exp) {
+		ThrowWithTitle($MathModule,$MathNotNumber)
 	}
 	return __ldexp(number,exp)
 	
@@ -903,12 +903,12 @@ block ldexp(number,exp)
 	**Throws**
 		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
 	
-	**Return**
+	**return**
 		the fractional part of x, with the same sign  
 */	
-block modf(number)
-	if !isNumber(number) {
-		throwWithTitle($MathModule,$MathNotNumber)
+block Modf(number)
+	if !IsNumber(number) {
+		ThrowWithTitle($MathModule,$MathNotNumber)
 	}
 	__res = __modf(number)
 	return __res
@@ -924,12 +924,12 @@ block modf(number)
 	**Throws**
 		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
 	
-	**Return**
+	**return**
 		2 raised to the power of the number  
 */	
-block exp2(number)
-	if !isNumber(number) {
-		throwWithTitle($MathModule,$MathNotNumber)
+block Exp2(number)
+	if !IsNumber(number) {
+		ThrowWithTitle($MathModule,$MathNotNumber)
 	}
 	return __exp2(number)
 	
@@ -944,12 +944,12 @@ block exp2(number)
 	**Throws**
 		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
 	
-	**Return**
+	**return**
 		e raised to the power of the number, minus one  
 */	
-block expm1(number)
-	if !isNumber(number) {
-		throwWithTitle($MathModule,$MathNotNumber)
+block Expm1(number)
+	if !IsNumber(number) {
+		ThrowWithTitle($MathModule,$MathNotNumber)
 	}
 	return __expm1(number)
 	
@@ -962,7 +962,7 @@ block expm1(number)
 	
 		x = significand * 2 ^ exponent 
 	
-	the value returned by this function is one less than the exponent obtained with `block frexp(number)`_ (because 
+	the value returned by this function is one less than the exponent obtained with `block Frexp(number)`_ (because 
 	of the different significand normalization as [1.0,2.0) instead of [0.5,1.0))
 	
 	
@@ -973,18 +973,18 @@ block expm1(number)
 	**Throws**
 		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
 	
-	**Return**
+	**return**
 		the base-2 logarithm of the number 
 */	
-block ilogb(number)
-	if !isNumber(number) {
-		throwWithTitle($MathModule,$MathNotNumber)
+block Ilogb(number)
+	if !IsNumber(number) {
+		ThrowWithTitle($MathModule,$MathNotNumber)
 	}
 	return __ilogb(number)
 	
 /*
 	Determine the natural logarithm of one plus the number. for small magnitude values of number, 
-	`block log1p(number)`_ may be more accurate than `block log(number)`_ ``log( 1 + x )``
+	`block Log1p(number)`_ may be more accurate than `block Log(number)`_ ``Log( 1 + x )``
 	
 	
 	**Parameters**
@@ -996,23 +996,23 @@ block ilogb(number)
 		`final $MathLessThanMinusOne`_ with title `final $MathModule`_ if the parameter is less than -1
 		`final $MathNotEqual`_ -1 with title `final $MathModule`_ if the parameter is equals -1
 	
-	**Return**
-		the natural logarithm of ( 1 + number ) 
+	**return**
+		the natural logarithm Of ( 1 + number ) 
 */	
-block log1p(number)
-	if !isNumber(number) {
-		throwWithTitle($MathModule,$MathNotNumber)
+block Log1p(number)
+	if !IsNumber(number) {
+		ThrowWithTitle($MathModule,$MathNotNumber)
 	}
 	if ( number < -1 ) {
-		throwWithTitle($MathModule,$MathLessThanMinusOne)
+		ThrowWithTitle($MathModule,$MathLessThanMinusOne)
 	}
 	if ( number == -1 ) {
-		throwWithTitle($MathModule,$MathNotEqual + -1)
+		ThrowWithTitle($MathModule,$MathNotEqual + -1)
 	}
 	return __log1p(number)
 	
 /*
-	Determine the binary (base-2) logarithm of a number
+	Determine the Binary (base-2) logarithm of a number
 	
 	
 	**Parameters**
@@ -1024,25 +1024,25 @@ block log1p(number)
 		`final $MathLessThan`_ 0 with title `final $MathModule`_ if the parameter is less than 0
 		`final $MathNotEqual`_ -1 with title `final $MathModule`_ if the parameter is equals -1
 	
-	**Return**
+	**return**
 		binary logarithm of the number : **log2x** 
 */	
-block log2(number)
-	if !isNumber(number) {
-		throwWithTitle($MathModule,$MathNotNumber)
+block Log2(number)
+	if !IsNumber(number) {
+		ThrowWithTitle($MathModule,$MathNotNumber)
 	}
 	if ( number < 0 ) {
-		throwWithTitle($MathModule,$MathLessThan + 0)
+		ThrowWithTitle($MathModule,$MathLessThan + 0)
 	}
 	if ( number == 0 ) {
-		throwWithTitle($MathModule,$MathNotEqual + 0)
+		ThrowWithTitle($MathModule,$MathNotEqual + 0)
 	}
 	return __log2(number)
 	
 	
 /*
 	Determine the the logarithm of a number, using 2 as base for the logarithm. Almost equivalent to 
-	`block log2(number)`_ for positive number
+	`block Log2(number)`_ for positive number
 	
 	
 	**Parameters**
@@ -1052,12 +1052,12 @@ block log2(number)
 	**Throws**
 		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
 	
-	**Return**
+	**return**
 		base 2 algorith of a nuber  
 */	
-block logb(number)
-	if !isNumber(number) {
-		throwWithTitle($MathModule,$MathNotNumber)
+block Logb(number)
+	if !IsNumber(number) {
+		ThrowWithTitle($MathModule,$MathNotNumber)
 	}
 	return __logb(number)	
 	
@@ -1066,7 +1066,7 @@ block logb(number)
 	
 	::
 		
-		scalbn(x,n) = x * 2
+		Scalbn(x,n) = x * 2
 	
 	Presumably, the number and n are the components of a floating-point number in the system; In such a case, this 
 	block may be optimized to be more efficient than the theoretical operations to compute the value explicitly
@@ -1081,17 +1081,17 @@ block logb(number)
 	**Throws**
 		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
 	
-	**Return**
+	**return**
 		x * 2 ^ n  
 */	
-block scalbln(number,exp)
-	if !isNumber(number) or !isNumber(exp) {
-		throwWithTitle($MathModule,$MathNotNumber)
+block Scalbln(number,exp)
+	if !IsNumber(number) or !IsNumber(exp) {
+		ThrowWithTitle($MathModule,$MathNotNumber)
 	}
 	return __scalbln(number,exp)
 	
 /*
-	Determine what would be the square root of the sum of the squares of x and y (as per the Pythagorean theorem), 
+	Determine what would be the square root of the sum of the squares of x and Y (as per the Pythagorean theorem), 
 	but without incurring in undue overflow or underflow of intermediate values
 	
 	**Parameters**
@@ -1103,12 +1103,12 @@ block scalbln(number,exp)
 	**Throws**
 		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
 	
-	**Return**
+	**return**
 		the hypotenuse of a right-angled triangle whose legs are x and y
 */
-block hypot(x,y)
-	if !isNumber(x) or !isNumber(y) {
-		throwWithTitle($MathModule,$MathNotNumber)
+block Hypot(x,y)
+	if !IsNumber(x) or !IsNumber(y) {
+		ThrowWithTitle($MathModule,$MathNotNumber)
 	}
 	return __hypot(x,y)
 	
@@ -1128,12 +1128,12 @@ block hypot(x,y)
 	**Throws**
 		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
 	
-	**Return**
+	**return**
 		the sign of the number
 */	
-block numsign(number)
-	if !isNumber(number) {
-		throwWithTitle($MathModule,$MathNotNumber)
+block Numsign(number)
+	if !IsNumber(number) {
+		ThrowWithTitle($MathModule,$MathNotNumber)
 	}
 	if (number > 0) {
 		return 1.0
@@ -1154,63 +1154,63 @@ block numsign(number)
 	**Throws**
 		`final $MathNotNumber`_ with title `final $MathModule`_ if the parameter is not a Number
 */
-block vmDecimalPoints(place)
-	if !isNumber(place) {
-		throwWithTitle($MathModule,$MathNotNumber)
+block VmDecimalPoints(place)
+	if !IsNumber(place) {
+		ThrowWithTitle($MathModule,$MathNotNumber)
 	}
 	__decimals(place)
 	
 /*
 	Generate a random number
 */
-block random()
+block Random()
 	return __rand()	
 
 /*S
 	Below are blocks exposed from the `Mathic dynamic module`_
 	
 	============= ====================================================================================================================
-	 __sin         Determine sine of a number. Use `block sin(number)`_
-	 __cos         Determine cosine of a number. `block cos(number)`_ 
-	 __tan         Determine tangent of a number. Use `block tan(number)`_
-	 __asin        Determine arc sine of a number. Use `block asin(number)`_
-	 __acos        Determine arc cosine of a number. Use `block acos(number)`_
-	 __atan        Determine arc tangent of a number. Use `block atan(number)`_
-	 __atan2       Determine arc tangent of a number with two parameters . Use `block atan2(y, x)`_
-	 __sinh        Determine hyperbolic sine of a number. Use `block sinh(number)`_
-	 __cosh        Determine hyperbolic cosine of a number. Use `block cosh(number)`_
-	 __tanh        Determine hyperbolic tangent of a number . Use `block tanh(number)`_
-	 __asinh       Determine area hyperbolic sine of a number. Use `block asinh(number)`_
-	 __acosh       Determine area hyperbolic cosine of a number. Use `block acosh(number)`_
-	 __atanh       Determine area hyperbolic tangent of a number . Use `block atanh(number)`_
-	 __rint        Round a number to integral value. Use `block rint(number)`_
-	 __round       Round a number to nearest. Use `block round(number)`_
-	 __floor       Round a number down. Use `block floor(number)`_
-	 __ceil        Round a number up. Use `block ceil(number)`_
-	 __fmod        Determine remainder of division . Use `block fmod(fNumber,sNumber)`_
-	 __trunc       Truncate a number . Use `block trunc(number)`_
-	 __remainder   Determine remainder of an operation. Use `block remainder(fNumber,sNumber)`_
-	 __exp         Determine a number exponential value . Use `block exp(number)`_
-	 __log         Determine a number natural logarithm . Use `block log(number)`_
-	 __log10       Determine a number common logarithm. Use `block log10(number)`_
-	 __frexp       Get a number significand and exponent. Use `block frexp(number)`_
-	 __ldexp       Generate value from a significand and exponent. Use `block ldexp(number,exp)`_
-	 __modf        Break a number into fractional and integral parts. Use `block modf(number)`_
-	 __exp2        Determine a number binary logarithm. Use `block exp2(number)`_
-	 __expm1       Compute a number exponential minus one. Use `block expm1(number)`_
-	 __ilogb       Determine a number integer binary logarithm. Use `block ilogb(number)`_
-	 __log1p       Compute a number logarithm plus one. Use `block log1p(number)`_
-	 __log2        Determine a number binary logarithm . Use `block log2(number)`_
-	 __logb        Determine a number floating-point base logarithm. Use `block logb(number)`_
-	 __scalbn      Determine a number scale significand using floating-point base exponent. Use `block scalbln(number,exp)`_
-	 __scalbln     Determine a number scale significand using floating-point base exponent (long). Use `block scalbln(number,exp)`_
-	 __pow         Raise a number to a power. Use `block pow(fNumber,sNumber)`_
-	 __sqrt        Compute a number square root. Use `block sqrt(number)`_
-	 __cbrt        Compute a number cube root. Use `block cbrt(number)`_
-	 __hypot       Determine a number hypotenuse value. Use `block hypot(x,y)`_
-	 __rand        Generate a random number. Use `block random()`_
-	 __decimals    Change the number of floating point of decimal numbers. Use `block vmDecimalPoints(place)`_
-	 __fabs        Compute a number absolute value. Use `block abs(number)`_
+	 __sin         Determine sine of a number. Use `block Sin(number)`_
+	 __cos         Determine cosine of a number. `block Cos(number)`_ 
+	 __tan         Determine tangent of a number. Use `block Tan(number)`_
+	 __asin        Determine arc sine of a number. Use `block Asin(number)`_
+	 __acos        Determine arc cosine of a number. Use `block Acos(number)`_
+	 __atan        Determine arc tangent of a number. Use `block Atan(number)`_
+	 __atan2       Determine arc tangent of a number with two parameters . Use `block Atan2(y, x)`_
+	 __sinh        Determine hyperbolic sine of a number. Use `block Sinh(number)`_
+	 __cosh        Determine hyperbolic cosine of a number. Use `block Cosh(number)`_
+	 __tanh        Determine hyperbolic tangent of a number . Use `block Tanh(number)`_
+	 __asinh       Determine area hyperbolic sine of a number. Use `block Asinh(number)`_
+	 __acosh       Determine area hyperbolic cosine of a number. Use `block Acosh(number)`_
+	 __atanh       Determine area hyperbolic tangent of a number . Use `block Atanh(number)`_
+	 __rint        Round a number to integral value. Use `block Rint(number)`_
+	 __round       Round a number to nearest. Use `block Round(number)`_
+	 __floor       Round a number down. Use `block Floor(number)`_
+	 __ceil        Round a number up. Use `block Ceil(number)`_
+	 __fmod        Determine remainder of division . Use `block Fmod(fNumber,sNumber)`_
+	 __trunc       Truncate a number . Use `block Trunc(number)`_
+	 __remainder   Determine remainder of an operation. Use `block Remainder(fNumber,sNumber)`_
+	 __exp         Determine a number exponential value . Use `block Exp(number)`_
+	 __log         Determine a number natural logarithm . Use `block Log(number)`_
+	 __log10       Determine a number common logarithm. Use `block Log10(number)`_
+	 __frexp       Get a number significand and exponent. Use `block Frexp(number)`_
+	 __ldexp       Generate value from a significand and exponent. Use `block Ldexp(number,exp)`_
+	 __modf        Break a number into fractional and integral parts. Use `block Modf(number)`_
+	 __exp2        Determine a number binary logarithm. Use `block Exp2(number)`_
+	 __expm1       Compute a number exponential minus one. Use `block Expm1(number)`_
+	 __ilogb       Determine a number integer binary logarithm. Use `block Ilogb(number)`_
+	 __log1p       Compute a number logarithm plus one. Use `block Log1p(number)`_
+	 __log2        Determine a number binary logarithm . Use `block Log2(number)`_
+	 __logb        Determine a number floating-point base logarithm. Use `block Logb(number)`_
+	 __scalbn      Determine a number scale significand using floating-point base exponent. Use `block Scalbln(number,exp)`_
+	 __scalbln     Determine a number scale significand using floating-point base Exponent (long). Use `block Scalbln(number,exp)`_
+	 __pow         Raise a number to a power. Use `block Pow(fNumber,sNumber)`_
+	 __sqrt        Compute a number square root. Use `block Sqrt(number)`_
+	 __cbrt        Compute a number cube root. Use `block Cbrt(number)`_
+	 __hypot       Determine a number hypotenuse value. Use `block Hypot(x,y)`_
+	 __rand        Generate a random number. Use `block Random()`_
+	 __decimals    Change the number of floating point of decimal numbers. Use `block VmDecimalPoints(place)`_
+	 __fabs        Compute a number absolute value. Use `block Abs(number)`_
 	============= ====================================================================================================================
 	
 	.. _Mathic dynamic module: https://github.com/simple-lang/simple/tree/master/modules/dynamic_modules/mathic

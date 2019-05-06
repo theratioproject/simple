@@ -23,102 +23,102 @@ class FInput_ : FWidget
     /*
 
     */
-    Width = FApp.Scheme.getShemeValue("FInput_.Width") 
+    Width = FApp.Scheme.GetShemeValue("FInput_.Width") 
 
     /*
 
     */
-    Height = FApp.Scheme.getShemeValue("FInput_.Height") 
+    Height = FApp.Scheme.GetShemeValue("FInput_.Height") 
 
     /*
 
     */
-    X = FApp.Scheme.getShemeValue("FInput_.X") 
+    X = FApp.Scheme.GetShemeValue("FInput_.X") 
 
     /*
 
     */
-    Y = FApp.Scheme.getShemeValue("FInput_.Y") 
+    Y = FApp.Scheme.GetShemeValue("FInput_.Y") 
 
     /*
 
     */
-    Label = FApp.Scheme.getShemeValue("FInput_.Label") 
+    Label = FApp.Scheme.GetShemeValue("FInput_.Label") 
 
     /*
 
     */
-    CapitalizeLabel = FApp.Scheme.getShemeValue("FInput_.CapitalizeLabel") 
+    CapitalizeLabel = FApp.Scheme.GetShemeValue("FInput_.CapitalizeLabel") 
 
     /*
 
     */
-    Background = FApp.Scheme.getShemeValue("FInput_.Background") 
+    Background = FApp.Scheme.GetShemeValue("FInput_.Background") 
 
     /*
 
     */
-    LabelAlignment = FApp.Scheme.getShemeValue("FInput_.LabelAlignment") 
+    LabelAlignment = FApp.Scheme.GetShemeValue("FInput_.LabelAlignment") 
 
     /*
 
     */
-    Box = FApp.Scheme.getShemeValue("FInput_.Box") 
+    Box = FApp.Scheme.GetShemeValue("FInput_.Box") 
 
     /*
 
     */
-    Border = FApp.Scheme.getShemeValue("FInput_.Border") 
+    Border = FApp.Scheme.GetShemeValue("FInput_.Border") 
 
     /*
 
     */
-    HasBorder = FApp.Scheme.getShemeValue("FInput_.HasBorder") 
+    HasBorder = FApp.Scheme.GetShemeValue("FInput_.HasBorder") 
 
     /*
 
     */
-    AcceptInput = FApp.Scheme.getShemeValue("FInput_.AcceptInput")
+    AcceptInput = FApp.Scheme.GetShemeValue("FInput_.AcceptInput")
 
     /*
 
     */
-    Visible = FApp.Scheme.getShemeValue("FInput_.Visible") 
+    Visible = FApp.Scheme.GetShemeValue("FInput_.Visible") 
 
     /*
 
     */
-    KeyboardFocusable = FApp.Scheme.getShemeValue("FInput_.KeyboardFocusable") 
+    KeyboardFocusable = FApp.Scheme.GetShemeValue("FInput_.KeyboardFocusable") 
 
     /*
 
     */
-    Tooltip = FApp.Scheme.getShemeValue("FInput_.Tooltip") 
+    Tooltip = FApp.Scheme.GetShemeValue("FInput_.Tooltip") 
 
     /*
 
     */
-    LabelColor = FApp.Scheme.getShemeValue("FInput_.LabelColor") 
+    LabelColor = FApp.Scheme.GetShemeValue("FInput_.LabelColor") 
 
     /*
 
     */
-    LabelFont = FApp.Scheme.getShemeValue("FInput_.LabelFont") 
+    LabelFont = FApp.Scheme.GetShemeValue("FInput_.LabelFont") 
 
     /*
 
     */
-    LabelSize = FApp.Scheme.getShemeValue("FInput_.LabelSize")
+    LabelSize = FApp.Scheme.GetShemeValue("FInput_.LabelSize")
 
     /*
 
     */
-    LabelType = FApp.Scheme.getShemeValue("FInput_.LabelType")
+    LabelType = FApp.Scheme.GetShemeValue("FInput_.LabelType")
 
     /*
 
     */
-    SelectionColor = FApp.Scheme.getShemeValue("FInput_.SelectionColor")
+    SelectionColor = FApp.Scheme.GetShemeValue("FInput_.SelectionColor")
 
     /*
 
@@ -128,99 +128,99 @@ class FInput_ : FWidget
     /*
 
     */
-    Value = FApp.Scheme.getShemeValue("FInput_.Value")
+    Value = FApp.Scheme.GetShemeValue("FInput_.Value")
 
     /*
 
     */
-    CursorColor = FApp.Scheme.getShemeValue("FInput_.CursorColor")
+    CursorColor = FApp.Scheme.GetShemeValue("FInput_.CursorColor")
 
     /*
 
     */
-    Mark = FApp.Scheme.getShemeValue("FInput_.Mark")
+    Mark = FApp.Scheme.GetShemeValue("FInput_.Mark")
 
     /*
 
     */
-    MaximumSize = FApp.Scheme.getShemeValue("FInput_.MaximumSize")
+    MaximumSize = FApp.Scheme.GetShemeValue("FInput_.MaximumSize")
 	
 	/*
 	
 	*/
-	CaretPosition = FApp.Scheme.getShemeValue("FInput_.CaretPosition")
+	CaretPosition = FApp.Scheme.GetShemeValue("FInput_.CaretPosition")
 	
 	/*
 	
 	*/
-	ReadOnly = FApp.Scheme.getShemeValue("FInput_.ReadOnly")
+	ReadOnly = FApp.Scheme.GetShemeValue("FInput_.ReadOnly")
 
     /*
 
     */
-    Shortcut = FApp.Scheme.getShemeValue("FInput_.Shortcut")
+    Shortcut = FApp.Scheme.GetShemeValue("FInput_.Shortcut")
 
     /*
 
     */
-    TabNav = FApp.Scheme.getShemeValue("FInput_.TabNav")
+    TabNav = FApp.Scheme.GetShemeValue("FInput_.TabNav")
 
     /*
 
     */
-    Wrap = FApp.Scheme.getShemeValue("FInput_.Wrap")
+    Wrap = FApp.Scheme.GetShemeValue("FInput_.Wrap")
 
     /*
 
     */
-    TextColor = FApp.Scheme.getShemeValue("FInput_.TextColor") 
+    TextColor = FApp.Scheme.GetShemeValue("FInput_.TextColor") 
 
     /*
 
     */
-    TextFont = FApp.Scheme.getShemeValue("FInput_.TextFont") 
+    TextFont = FApp.Scheme.GetShemeValue("FInput_.TextFont") 
 
     /*
 
     */
-    TextSize = FApp.Scheme.getShemeValue("FInput_.TextSize")
+    TextSize = FApp.Scheme.GetShemeValue("FInput_.TextSize")
 
     /*
 
     */
     block Init(params...)
-        paramsLen = lengthOf(params)
+        paramsLen = LengthOf(params)
         if paramsLen == 1 {
             Label = params[0]
-            if !isString(Label) {
-                throw(self,"Invalid parameter Expecting 'string' as FInput_ Label")
+            if !IsString(Label) {
+                Throw(self,"Invalid parameter Expecting 'string' as FInput_ Label")
             }
         elif paramsLen == 2
             X = params[0]
             Y = params[1]
-            if !isNumber(X) or !isNumber(Y) {
-                throw(self,"Invalid parameter Expecting 'number' as FInput_ X and Y")
+            if !IsNumber(X) or !IsNumber(Y) {
+                Throw(self,"Invalid parameter Expecting 'number' as FInput_ X and Y")
             }
         elif paramsLen == 3 
             X = params[0]
             Y = params[1]
             Label = params[2]
-            if !isNumber(X) or !isNumber(Y) {
-                throw(self,"Invalid parameter Expecting 'number' as FInput_ X and Y")
+            if !IsNumber(X) or !IsNumber(Y) {
+                Throw(self,"Invalid parameter Expecting 'number' as FInput_ X and Y")
             }
-            if !isString(Label) {
-                throw(self,"Invalid parameter Expecting 'string' as FInput_ Label")
+            if !IsString(Label) {
+                Throw(self,"Invalid parameter Expecting 'string' as FInput_ Label")
             }
         elif paramsLen == 4
             X = params[0]
             Y = params[1]
             Width = params[2]
             Height = params[3]
-            if !isNumber(X) or !isNumber(Y) {
-                throw(self,"Invalid parameter Expecting 'number' as FInput_ X and Y")
+            if !IsNumber(X) or !IsNumber(Y) {
+                Throw(self,"Invalid parameter Expecting 'number' as FInput_ X and Y")
             }
-            if !isNumber(Width) or !isNumber(Height) {
-                throw(self,"Invalid parameter Expecting 'number' as FInput_ Width and Height")
+            if !IsNumber(Width) or !IsNumber(Height) {
+                Throw(self,"Invalid parameter Expecting 'number' as FInput_ Width and Height")
             }
         elif paramsLen == 5
             X = params[0]
@@ -228,240 +228,240 @@ class FInput_ : FWidget
             Width = params[2]
             Height = params[3]
             Label = params[4]
-            if !isNumber(X) or !isNumber(Y) {
-                throw(self,"Invalid parameter Expecting 'number' as FInput_ X and Y")
+            if !IsNumber(X) or !IsNumber(Y) {
+                Throw(self,"Invalid parameter Expecting 'number' as FInput_ X and Y")
             }
-            if !isNumber(Width) or !isNumber(Height) {
-                throw(self,"Invalid parameter Expecting 'number' as FInput_ Width and Height")
+            if !IsNumber(Width) or !IsNumber(Height) {
+                Throw(self,"Invalid parameter Expecting 'number' as FInput_ Width and Height")
             }
-            if !isString(Label) {
-                throw(self,"Invalid parameter Expecting 'string' as FInput_ Label")
+            if !IsString(Label) {
+                Throw(self,"Invalid parameter Expecting 'string' as FInput_ Label")
             }
         else    
             if paramsLen != 0 {
-                throw(self,"Calling block with invalid legth of parameter")
+                Throw(self,"Calling block with invalid legth of parameter")
             }
         } 
         if CapitalizeLabel {
-            Label = toUpperCase(Label)
+            Label = ToUpperCase(Label)
         }
         Ptr = __Fl_Box(X, Y, Width, Height, Label) 
-        registerWidget()
-        construct()     
+        RegisterWidget()
+        Construct()     
         
         return self
 		
 	/*
 	
 	*/
-	block copy(number clipboard...)
-		validatePointer()
-		clipboardLen = lengthOf(clipboard)
+	block Copy(number clipboard...)
+		ValidatePointer()
+		clipboardLen = LengthOf(clipboard)
 		clip = 1
 		
 		if clipboardLen == 0 {
 		elif clipboardLen == 1
 			clip = clipboard[0]
 		else
-			throw(self, "Calling block with invalid length of parameters")
+			Throw(self, "Calling block with invalid length of parameters")
 		}
 		return __Fl_Input__copy_4(Ptr, clip) 
 		
 	/*
 	
 	*/
-	block copyCuts()
-		validatePointer()
+	block CopyCuts()
+		ValidatePointer()
 		return __Fl_Input__copy_cuts(Ptr) 
 		
 	/*
 	
 	*/
-	block cut(number plusChars...)
-		validatePointer()
-		plusCharsLen = lengthOf(plusChars)
+	block Cut(number plusChars...)
+		ValidatePointer()
+		plusCharsLen = LengthOf(plusChars)
 		
-		copy()
+		Copy()
 		if plusCharsLen == 0 {
 			return __Fl_Input__cut(Ptr)  
 		elif plusCharsLen == 1
 			return __Fl_Input__cut_1(Ptr, plusChars[0])
 		elif plusCharsLen == 2
-			warn("The cut text is not copied ")
+			Warn("The cut text is not copied ")
 			return __Fl_Input__cut_2(Ptr, plusChars[0], plusChars[1])
 		else
-			throw(self, "Calling block with invalid length of parameters")
+			Throw(self, "Calling block with invalid length of parameters")
 		}
 		
 	/*
 		
 	*/
-	block deleteSelected()
-		validatePointer()
+	block DeleteSelected()
+		ValidatePointer()
 		return __Fl_Input__cut(Ptr) 
 
     /*
 
     */
-    block setCursorColor(value)
-        if isObject(value) {
+    block SetCursorColor(value)
+        if IsObject(value) {
             if __instance_of(value,"FColor") {
-                __Fl_Input__cursor_color_1(Ptr,value.colorAsNumber())
+                __Fl_Input__cursor_color_1(Ptr,value.ColorAsNumber())
             }
-        elif isNumber(value) or isString(value) 
+        elif IsNumber(value) or IsString(value) 
             __Fl_Input__cursor_color_1(Ptr,value)
             value = new FColor(value) 
         else
-            throw(self,"invalid parameter. Expecting innstance of 'Fcolor', 'Color', 'Number' or 'String' ")
+            Throw(self,"invalid parameter. Expecting innstance of 'Fcolor', 'Color', 'Number' or 'String' ")
         }
         CursorColor = value 
 		
 	/*
 	
 	*/
-	block getCursorColor()
+	block GetCursorColor()
 		return CursorColor
 		
 	/*
 	
 	*/
-	block index(number n)
-		validatePointer()
-		return ascii(__Fl_Input__index(Ptr, n))
+	block Index(number n)
+		ValidatePointer()
+		return Ascii(__Fl_Input__index(Ptr, n))
 		
 	/*
 	
 	*/
-	block insert(string value)
-		validatePointer()
+	block Insert(string value)
+		ValidatePointer()
 		return __Fl_Input__insert(Ptr, value, 0)
 		
 	/*
 	
 	*/
-	block getMark()
-		validatePointer()
+	block GetMark()
+		ValidatePointer()
 		return __Fl_Input__mark(Ptr)
 		
 	/*
 	
 	*/
-	block setMark(number value)
-		validatePointer()
+	block SetMark(number value)
+		ValidatePointer()
 		return __Fl_Input__mark_1(Ptr, value)
 		
 	/*
 	
 	*/
-	block getMaximumSize()
+	block GetMaximumSize()
 		return MaximumSize
 		
 	/*
 	
 	*/
-	block setMaximumSize(int value)
-		validatePointer()
+	block SetMaximumSize(int value)
+		ValidatePointer()
 		MaximumSize = value
 		return __Fl_Input__maximum_size_1(Ptr, value)
 		
 	/*
 	
 	*/
-	block getCaretPosition()
+	block GetCaretPosition()
 		return CaretPosition
 		
 	/*
 	
 	*/
-	block setCaretPosition(int values...)
-		validatePointer()
-		valuesLen = lengthOf(values)
+	block SetCaretPosition(int values...)
+		ValidatePointer()
+		valuesLen = LengthOf(values)
 		
 		if valuesLen == 1 {
-			CaretPosition = values[0]%lengthOf(getValue())
+			CaretPosition = values[0]%LengthOf(GetValue())
 			__Fl_Input__position_2(Ptr, CaretPosition)
 		elif valuesLen == 2
-			CaretPosition = values[0]%lengthOf(getValue())
+			CaretPosition = values[0]%LengthOf(GetValue())
 			__Fl_Input__position_1(Ptr, CaretPosition, values[1])
 		else
-			throw(self, "Calling block with invalid length of parameter")
+			Throw(self, "Calling block with invalid length of parameter")
 		}
 
     /*
 
     */
-    block getReadOnly()
+    block GetReadOnly()
         return ReadOnly
 
     /*
 
     */
-    block setReadOnly(boolean value)
+    block SetReadOnly(boolean value)
 		ReadOnly = value
         __Fl_Input__readonly_1(Ptr, value)
 		
 	/*
 	
 	*/
-	block replace(int from, int too, string text)
-		validatePointer()
+	block Replace(int from, int too, string text)
+		ValidatePointer()
 		return __Fl_Input__replace(Ptr, from, too, text, 0)
 
     /*
 
     */
-    block getShortcut()
+    block GetShortcut()
         return Shortcut
 
     /*
 
     */
-    block setShortcut(number value) 
+    block SetShortcut(number value) 
         __Fl_Input__shortcut_1(Ptr,value)
         Shortcut = value
 
     /*
 
     */
-    block getTabNav()
+    block GetTabNav()
         return TabNav
 
     /*
 
     */
-    block setTabNav(number value) 
+    block SetTabNav(number value) 
         __Fl_Input__tab_nav(Ptr,value)
         TabNav = value
 		
 	/*
 	
 	*/
-	block undo()
-		validatePointer()
+	block Undo()
+		ValidatePointer()
 		return __Fl_Input__undo(Ptr)
 
     /*
 
     */
-    block getWrap()
+    block GetWrap()
         return Wrap
 
     /*
 
     */
-    block setWrap(number value) 
+    block SetWrap(number value) 
         __Fl_Input__wrap_1(Ptr,value)
         Wrap = value
 		
 	/*
 
     */
-    block setTextColor(/*FColor|number|string*/ value)
-		if isNumber(value) or isString(value) {
+    block SetTextColor(/*FColor|number|string*/ value)
+		if IsNumber(value) or IsString(value) {
 			__Fl_Input__textcolor_1(Ptr,value)
 			value = new FColor(value) 
 		else
-			__Fl_Input__textcolor_1(Ptr,value.colorAsNumber())
+			__Fl_Input__textcolor_1(Ptr,value.ColorAsNumber())
 		}
 		TextColor = value
         
@@ -469,14 +469,14 @@ class FInput_ : FWidget
     /*
 
     */
-    block getTextColor()
+    block GetTextColor()
         return TextColor   
 
     /*
 
     */
-    block setTextFont(/*FFont|number*/ value)
-		if isNumber(value) {
+    block SetTextFont(/*FFont|number*/ value)
+		if IsNumber(value) {
             __Fl_Input__textfont_1(Ptr,value)
             value = new FFont(value) 
 		else
@@ -488,15 +488,15 @@ class FInput_ : FWidget
     /*
 
     */
-    block getTextFont()
+    block GetTextFont()
         return TextFont    
 
     /*
 
     */
-    block setTextSize(number value)
+    block SetTextSize(number value)
 		if value <= 0 {
-			throw(self,"FWidget Label Size cannot be less than 0 ")
+			Throw(self,"FWidget Label Size cannot be less than 0 ")
 			return
 		}
 		__Fl_Input__textsize_1(Ptr,value)
@@ -505,53 +505,53 @@ class FInput_ : FWidget
     /*
 
     */
-    block getTextSize()
+    block GetTextSize()
         return TextSize
 
     /*
 
     */
-    block getText()
-        return getValue()
+    block GetText()
+        return GetValue()
 
     /*
 
     */
-    block setText(value)
-        setValue(value)
+    block SetText(value)
+        SetValue(value)
 
     /*
         
     */
-    block setPlatformScheme(schemeName)
-        schemeName = stringValue(schemeName)
+    block SetPlatformScheme(schemeName)
+        schemeName = StringValue(schemeName)
         if schemeName == FScheme.Android {
-            setBackground(new FColor(250,250,250))
-	        setBorder(new FBorder(0,4,0,0,__FL_FLAT_BOX(),new FColor(255,106,154)))
+            SetBackground(new FColor(250,250,250))
+	        SetBorder(new FBorder(0,4,0,0,__FL_FLAT_BOX(),new FColor(255,106,154)))
 
         elif schemeName == FScheme.Windows
-	        setBorder(new FBorder(1,1,1,1,__FL_DOWN_BOX(),new FColor(172,172,172)))
+	        SetBorder(new FBorder(1,1,1,1,__FL_DOWN_BOX(),new FColor(172,172,172)))
 
         elif schemeName == FScheme.Macosx
-            setBorder(new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(197,197,197)))
+            SetBorder(new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(197,197,197)))
 
         elif schemeName == FScheme.Linux
-			setBackground(new FColor(229,220,212))
-            setBorder(new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41)))
+			SetBackground(new FColor(229,220,212))
+            SetBorder(new FBorder(2,2,2,2,__FL_FLAT_BOX(),new FColor(194,85,41)))
 
         }
 
     /*
 
     */
-    block setValue(string value)
+    block SetValue(string value)
         __Fl_Input__value(Ptr,value)
 
     /*
 
     */
-    block getValue()
-		validatePointer()
+    block GetValue()
+		ValidatePointer()
         return __Fl_Input__value_2(Ptr)
 
     /*
@@ -562,15 +562,15 @@ class FInput_ : FWidget
         /*
 
         */
-        block construct()   
-            setLabelAlignment(LabelAlignment)
-            setBox(Box)
-            setBorder(Border)
-            setValue(Value)
-            setLabel(Label)
-			setReadOnly(ReadOnly)
-			setTextColor(TextColor)
-			setTextFont(TextFont)
-			setTextSize(TextSize)
-			setCursorColor(CursorColor)
-            super.construct()
+        block Construct()   
+            SetLabelAlignment(LabelAlignment)
+            SetBox(Box)
+            SetBorder(Border)
+            SetValue(Value)
+            SetLabel(Label)
+			SetReadOnly(ReadOnly)
+			SetTextColor(TextColor)
+			SetTextFont(TextFont)
+			SetTextSize(TextSize)
+			SetCursorColor(CursorColor)
+            super.Construct()

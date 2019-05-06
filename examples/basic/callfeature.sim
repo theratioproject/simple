@@ -7,19 +7,19 @@ from web.front.Elements
 from web.style.StyleAttributes
 from simple.system.SimpleX
 
-@encodeUrl("http://www.simple-lang.sourceforge.io/?page=Try Online")
-@encodeUrl("https://github.com/simple-lang/simple/pull/34")
-@encodeUrl("https://gitter.im/simple-language/development")
-@encodeUrl("http://www.cplusplus.com/reference/cstdio/")
-@encodeUrl("http://developer.classpath.org/doc/java/io/PrintStream.html")
+@EncodeUrl("http://www.simple-lang.sourceforge.io/?page=Try Online")
+@EncodeUrl("https://github.com/simple-lang/simple/pull/34")
+@EncodeUrl("https://gitter.im/simple-language/development")
+@EncodeUrl("http://www.cplusplus.com/reference/cstdio/")
+@EncodeUrl("http://developer.classpath.org/doc/java/io/PrintStream.html")
 
 footer = new Footer
-footer.addHTML('<script src="./assets/js/bootstrap.js"></script>')
+footer.AddHTML('<script src="./assets/js/bootstrap.js"></script>')
 
 webpage = new Webpage()
-webpage.setTitle("Call New Feature test")
-webpage.addFooter(footer)
-webpage.render()
+webpage.SetTitle("Call New Feature test")
+webpage.AddFooter(footer)
+webpage.Render()
 
 @""
 @RIGHT
@@ -35,8 +35,8 @@ webpage.render()
 @FULL_WIDTH
 
 @""
-@simpleModulesDir()
-@simpleDir()
-@dynamicModuleExt()
-@simpleXExeExt()
-@simpleExecDir()
+@SimpleModulesDir()
+@SimpleDir()
+@DynamicModuleExt()
+@SimpleXExeExt()
+@SimpleExecDir()

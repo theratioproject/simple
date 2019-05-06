@@ -584,7 +584,7 @@ int simple_parser_stmt ( Parser *parser )
 				simple_parser_icg_newoperation(parser,ICO_LOADAPUSHV);
 				simple_parser_icg_newoperand(parser,cStr);
 				simple_parser_icg_newoperation(parser,ICO_LOADBLOCK);
-				simple_parser_icg_newoperand(parser,"lengthOf");
+				simple_parser_icg_newoperand(parser,"LengthOf");
 				nStart = simple_parser_icg_instructionscount(parser) + 1 ;
 				simple_parser_nexttoken(parser);
 				parser->nAssignmentFlag = 0 ;
@@ -1162,13 +1162,13 @@ int simple_parser_stmt ( Parser *parser )
 		if ( parser->nBraceFlag ) {
 			/* if isblock(self,"exprEval") exprEval() end */
 			simple_parser_icg_newoperation(parser,ICO_LOADBLOCK);
-			simple_parser_icg_newoperand(parser,"hasBlock");
+			simple_parser_icg_newoperand(parser,"HasBlock");
 			simple_parser_icg_newoperation(parser,ICO_LOADADDRESS);
 			simple_parser_icg_newoperand(parser,"self");
 			simple_parser_icg_newoperandint(parser,0);
 			simple_parser_icg_newoperation(parser,ICO_PUSHV);
 			simple_parser_icg_newoperation(parser,ICO_PUSHC);
-			simple_parser_icg_newoperand(parser,"exprEval");
+			simple_parser_icg_newoperand(parser,"ExprEval");
 			simple_parser_icg_newoperation(parser,ICO_CALL);
 			simple_parser_icg_newoperation(parser,ICO_NOOP);
 			simple_parser_icg_newoperation(parser,ICO_PUSHV);
@@ -1176,7 +1176,7 @@ int simple_parser_stmt ( Parser *parser )
 			simple_parser_icg_newoperation(parser,ICO_JUMPZERO);
 			pMark = simple_parser_icg_getactiveoperation(parser);
 			simple_parser_icg_newoperation(parser,ICO_LOADBLOCK);
-			simple_parser_icg_newoperand(parser,"exprEval");
+			simple_parser_icg_newoperand(parser,"ExprEval");
 			/* Duplicate Stack */
 			simple_parser_icg_newoperation(parser,ICO_DUPLICATE);
 			simple_parser_icg_newoperation(parser,ICO_CALL);

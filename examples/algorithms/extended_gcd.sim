@@ -4,7 +4,7 @@
 
 */
 
-block extended_gcd(a, b)
+block Extended_gcd(a, b)
   old_s = 1 s = 0
   old_t = 0 t = 1
   old_r = a r = b

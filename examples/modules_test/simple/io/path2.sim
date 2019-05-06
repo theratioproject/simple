@@ -20,17 +20,17 @@ from simple.util.Console
 
 block main()
 	path = new Path("../../../../../pathtest.txt")
-	stdout.println(path)
-	stdout.println("Create file : "+path.create())
+	stdout.Println(path)
+	stdout.Println("Create file : "+path.Create())
 	path.ReadOnly = true
-	stdout.println("Is Readable : "+path.isReadable())
-	stdout.println("Is Writable : "+path.isWritable())
-	stdout.println("Is ReadOnly : "+path.isReadOnly())
+	stdout.Println("Is Readable : "+path.IsReadable())
+	stdout.Println("Is Writable : "+path.IsWritable())
+	stdout.Println("Is ReadOnly : "+path.IsReadOnly())
 	path.WriteOnly = true
-	stdout.println("Is WriteOnly : "+path.isReadOnly())
+	stdout.Println("Is WriteOnly : "+path.IsReadOnly())
 	path.ReadOnly = false
-	stdout.println("Hash Code : "+path.hashcode())
-	stdout.println(path.toFile())
-	path.toFile().write("Hello World")
-	stdout.println("Is Hidden : "+path.isHidden())
-	stdout.println("Delete Path : "+path.delete())
+	stdout.Println("Hash Code : "+path.Hashcode())
+	stdout.Println(path.ToFile())
+	path.ToFile().Write("Hello World")
+	stdout.Println("Is Hidden : "+path.IsHidden())
+	stdout.Println("Delete Path : "+path.Delete())

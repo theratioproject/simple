@@ -32,22 +32,22 @@ SIMPLE_API void register_block_t ( SimpleState *sState,const char *cStr, void (*
 SIMPLE_API void loadcblocks ( SimpleState *sState )
 {
 	/** General **/
-	register_block("lengthOf",simple_vmlib_len);
+	register_block("LengthOf",simple_vmlib_len);
 	register_block("__add_to_list",simple_vmlib_add);
-	register_block("ascii",simple_vmlib_char);
-	register_block("simpleVersion",simple_vmlib_version);
+	register_block("Ascii",simple_vmlib_char);
+	register_block("SimpleVersion",simple_vmlib_version);
         /* Check Data Type */
-    register_block("isString",simple_vmlib_isstring);
-	register_block("isNumber",simple_vmlib_isnumber);
-	register_block("isList",simple_vmlib_islist);
-	register_block("getType",simple_vmlib_type);
-	register_block("isNull",simple_vmlib_isnull);
-	register_block("isObject",simple_vmlib_isobject);
-	register_block("isPointer",simple_vmlib_ispointer);
+    register_block("IsString",simple_vmlib_isstring);
+	register_block("IsNumber",simple_vmlib_isnumber);
+	register_block("IsList",simple_vmlib_islist);
+	register_block("GetType",simple_vmlib_type);
+	register_block("IsNull",simple_vmlib_isnull);
+	register_block("IsObject",simple_vmlib_isobject);
+	register_block("IsPointer",simple_vmlib_ispointer);
         /** Functional Execution **/
-	register_block("executeCode",simple_vmlib_exec);
+	register_block("ExecuteCode",simple_vmlib_exec);
         /* Meta */
-	register_block("hasBlock",simple_vmlib_isblock);
+	register_block("HasBlock",simple_vmlib_isblock);
     register_block("__throw",simple_vmlib_throw);
 	#ifdef __ANDROID__
     __init_full_tick(sState);
@@ -62,8 +62,8 @@ SIMPLE_API void loadcblocks ( SimpleState *sState )
 	/*
 	* Dynamically call a wrapper shared library in simple-lang
 	*/
-	register_block("callDynamicModule",simple_vm_dll_calllib);
-	register_block("closeDynamicModule",simple_vm_dll_closelib);
+	register_block("CallDynamicModule",simple_vm_dll_calllib);
+	register_block("CloseDynamicModule",simple_vm_dll_closelib);
 	sState->loaded_cblocks = 1 ;
 }
 

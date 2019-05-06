@@ -8,29 +8,29 @@ block main()
 	list = new List(["This only for {1} mudule test ignore {0}\n", "Typos", "Console"])
 	
 	#the stdout
-	stdout.println("\tHello World") #string
-	stdout.println(1 * 2 + 23 + 65 / 1 * 767) #number
-	stdout.println([1,"26",256,"tes", "2354"]) #list
-	stdout.println(null) #null
-	stdout.println(obj) #object inherit simple.core.Object 
-	stdout.println(obj1) #object 1 has a custom toString()
-	stdout.println(obj2) #object 2 has no toString() block
-	stdout.print("Yes you the boss\n")
-	stdout.printfc(ConsoleColor.BLUE," The string in blue - STD OUT \n")
-	stdout.printfi("{0} {1} {2} {3} bit {4} of version {5}\n", "Hello", "this", "is", 8 * 8, "simple-lang", simpleVersion())
+	stdout.Println("\tHello World") #string
+	stdout.Println(1 * 2 + 23 + 65 / 1 * 767) #number
+	stdout.Println([1,"26",256,"tes", "2354"]) #list
+	stdout.Println(null) #null
+	stdout.Println(obj) #object inherit simple.core.Object 
+	stdout.Println(obj1) #object 1 has a custom ToString()
+	stdout.Println(obj2) #object 2 has no ToString() block
+	stdout.Print("Yes you the boss\n")
+	stdout.Printfc(ConsoleColor.BLUE," The string in blue - STD OUT \n")
+	stdout.Printfi("{0} {1} {2} {3} bit {4} of version {5}\n", "Hello", "this", "is", 8 * 8, "simple-lang", SimpleVersion())
 	
 	#the std err
-	stderr.println("This is an error")
-	stderr.println(1 * 2 + 23 + 65 / 1 * 767) #number
-	stderr.println([1,"26",256,"tes", "2354"]) #list
-	stderr.println(null) #null
-	stderr.print(obj) #object inherit simple.core.Object 
-	stderr.print(obj1) #object 1 has a custom toString()
-	stderr.println(obj2) #object 2 has no toString() block
-	stderr.print("This is an error in print\n")
-	stderr.printfi("This only for {0} mudule test ignore {1}\n", "Typos", "Console")
-	stderr.printfc(ConsoleColor.RED," The string in red - STD ERR \n")
-	stderr.printbc(ConsoleColor.RED," The string in red - STD ERR \n")
+	stderr.Println("This is an error")
+	stderr.Println(1 * 2 + 23 + 65 / 1 * 767) #number
+	stderr.Println([1,"26",256,"tes", "2354"]) #list
+	stderr.Println(null) #null
+	stderr.Print(obj) #object inherit simple.core.Object 
+	stderr.Print(obj1) #object 1 has a custom ToString()
+	stderr.Println(obj2) #object 2 has no ToString() block
+	stderr.Print("This is an error in print\n")
+	stderr.Printfi("This only for {0} mudule test ignore {1}\n", "Typos", "Console")
+	stderr.Printfc(ConsoleColor.RED," The string in red - STD ERR \n")
+	stderr.Printbc(ConsoleColor.RED," The string in red - STD ERR \n")
 	__printv("Hello World")
 	__printi("Hello World")
 	__printw("Hello World")
@@ -41,8 +41,8 @@ class TestObject : Object
 
 class CustomStringObject 
 
-	block toString()
-		return "[CustomStringObject:toString():it custom toString()]"
+	block ToString()
+		return "[CustomStringObject:ToString():it custom ToString()]"
 		
 class NoToString
 	

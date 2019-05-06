@@ -29,60 +29,60 @@ block main()
 		"Error occur and it thrown With title in index [2]"
 	]
 
-	for a = 0 to getTypeLength(errorList) - 1 {
-		one(errorList[a])
+	for a = 0 to GetTypeLength(errorList) - 1 {
+		One(errorList[a])
 	}
 
-	four()
+	Four()
 	
 	/*
-		The throwWithTitle() block are used to create an error with a custom 
+		The ThrowWithTitle() block are used to create an error with a custom 
 		title and message
 	*/
-	#throwWithTitle(errorList[3],errorList[4])
-	throwOnlyWithTitle(errorList[3],errorList[4])
+	#ThrowWithTitle(errorList[3],errorList[4])
+	ThrowOnlyWithTitle(errorList[3],errorList[4])
 	
 	/*
 		Now we go ahead to warn
 		Warning is only possible if simple-lang is executed with 
 			-w or --warning flag
 		if it now executed with the flags then the error is never displayed
-		to force error to show use the throwOnly(errrovalue) block instead
+		to force error to show use the ThrowOnly(errrovalue) block instead
 	*/
-	warn("This is a warning you see this if executed with -w")
-	warn("This is a warning you see this if executed with --warining")
-	warn("Final Warning")
+	Warn("This is a warning you see this if executed with -w")
+	Warn("This is a warning you see this if executed with --warining")
+	Warn("Final Warning")
 	
 	/*
 		Assertion : only boolean and number is asserted
 	*/
-	assert("string not assert able") #fails
-	assert((true == false)) #fails
-	assert((1 > -300)) #pass
+	Assert("string not assert able") #fails
+	Assert((true == false)) #fails
+	Assert((1 > -300)) #pass
 	
 	/*
 		Now we catch an error in one of the error thrown above
 	*/
 	try {
-		one(errorList[2])
+		One(errorList[2])
 	catch
-		stdout.println("\nThis error was catched |> " + __err__ + " <<<")
+		stdout.Println("\nThis error was catched |> " + __err__ + " <<<")
 	}
 
-block one(a)
-	two(a)
+block One(a)
+	Two(a)
 
-block two(a)
-	three(a)
+block Two(a)
+	Three(a)
 	
 /*
-	Right here the throwOnly() only block is called 
+	Right here the ThrowOnly() only block is called 
 	so we can keep the error coming without having
 	to exit the program purely error tolerance
 */
-block three(a)
-	throwOnly(a)
+block Three(a)
+	ThrowOnly(a)
 	
-block four()
-	stactTrace = stackTrace()
-	stdout.println(stactTrace)
+block Four()
+	stactTrace = StackTrace()
+	stdout.Println(stactTrace)

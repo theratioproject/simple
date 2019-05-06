@@ -15,20 +15,20 @@ import fulltick.objects
 import fulltick.drawing
 
 flabelDemo = new FLabelDemo
-FApp.run()
+FApp.Run()
 
 class FLabelDemo
 
     fwindow = new FWindow(400,180,"FLabel Demo") { 
-        begin(true)
+        Begin(true)
         label = new FLabel(0,20) { Label = "This FLabel set it own label independently" }
         new FLabel(0,40,"This FLabel Has a custom background") { Background = FColor.FCOLOR_CYAN }
         new FLabel(0,70,"This FLabel has custom size") { LabelSize = 30 }
         new FLabel(0,100,"This FLabel has custom font") {  LabelFont = FFont.FFONT_TIMES_BOLD_ITALIC }
         new FLabel(0,120,"This FLabel has custom foreground") {  LabelColor = FColor.FCOLOR_RED } 
         new FLabel(0,140,"This FLabel has custom label type") {  LabelType = FLabelType.NO_LABEL }
-        endBegin()
-        centerOnScreen() 
-        show()        
+        EndBegin()
+        CenterOnScreen() 
+        Show()        
     } 
         

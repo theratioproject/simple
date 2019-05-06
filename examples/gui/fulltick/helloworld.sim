@@ -8,7 +8,7 @@ import simple.core, simple.system, fulltick.base
 import fulltick.widgets, fulltick.painting, fulltick.objects, fulltick.drawing
 
 new FWindow() {
-	add(new FButton("Hello World"))
-	show()
+	Add(new FButton("Hello World"))
+	Show()
 }
-FApp.run()
+FApp.Run()

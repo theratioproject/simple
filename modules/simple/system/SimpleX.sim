@@ -76,25 +76,25 @@ __simpleResDir = null
 			.\\s0.4.0\\
 			.\\s0.4.00\\
 	@EndCode
-	@Return the simple-lang installation directory @DataType String
+	@return the simple-lang installation directory @DataType String
 */
-block simpleDir()
-	if isNull(__simpleDir) {
-		simpleDir = getSystemEnvironment("SIMPLE_PATH")
+block SimpleDir()
+	if IsNull(__simpleDir) {
+		simpleDir = GetSystemEnvironment("SIMPLE_PATH")
 		if simpleDir == "(null)" || simpleDir == "" {
-			simpleDir = exeFolder()
-			if isWindows() { 
+			simpleDir = ExeFolder()
+			if IsWindows() { 
 				if __dir_exists(simpleDir) {
-					simpleDir = strRemoveLastChar(simpleDir)
-					toRemove = lastStrAfterChar(simpleDir,"\")
-					simpleDir = removeStr(simpleDir,toRemove)  
+					simpleDir = StrRemoveLastChar(simpleDir)
+					toRemove = LastStrAfterChar(simpleDir,"\")
+					simpleDir = RemoveStr(simpleDir,toRemove)  
 				}
 				if simpleDir == "(null)" || simpleDir == "" {
 					simpleDir = "C:\Simple\"
 				}
 			else
-				xPrefix = getEnv("PREFIX")
-				if getEnv("PREFIX") == "/" {
+				xPrefix = GetEnv("PREFIX")
+				if GetEnv("PREFIX") == "/" {
 					xPrefix = "/usr/local"
 				}
 				tempPath = xPrefix + "/var/lib/simple/"
@@ -108,17 +108,17 @@ block simpleDir()
 /*
 	Get the directory where simple-lang modules are installed. The location depends on 
 	the operating system path
-	@Return the simple-lang modules directory @DatatType String
+	@return the simple-lang modules directory @DatatType String
 */
-block simpleModulesDir()
-	if isNull(__simpleModulesDir) {
-		sDir = simpleDir()
-		if strEndsWith(sDir, "debug"+SystemSlash()) or strEndsWith(sDir, "debug/") or strEndsWith(sDir, "debug\") {
+block SimpleModulesDir()
+	if IsNull(__simpleModulesDir) {
+		sDir = SimpleDir()
+		if StrEndsWith(sDir, "debug"+SystemSlash()) or StrEndsWith(sDir, "debug/") or StrEndsWith(sDir, "debug\") {
 			modulesDir = sDir+"/modules/"
 		else
-			modulesDir = sDir+"s"+simpleVersion()+"/modules/"
+			modulesDir = sDir+"s"+SimpleVersion()+"/modules/"
 		}		
-		modulesDir = correctPath(modulesDir)
+		modulesDir = CorrectPath(modulesDir)
 		__simpleModulesDir = modulesDir
 	}
 	return __simpleModulesDir
@@ -126,11 +126,11 @@ block simpleModulesDir()
 /*
 	Get the directory where simple-lang dynamic modules are installed. The location depends on 
 	the operating system path
-	@Return the simple-lang dynamic modules directory @DatatType String
+	@return the simple-lang dynamic modules directory @DatatType String
 */
-block simpleDyModulesDir()
-	if isNull(__simpleDyModulesDir) {
-		dyModulesDir = simpleModulesDir()+"dynamic_modules/"
+block SimpleDyModulesDir()
+	if IsNull(__simpleDyModulesDir) {
+		dyModulesDir = SimpleModulesDir()+"dynamic_modules/"
 		__simpleDyModulesDir = dyModulesDir
 	}
 	return __simpleDyModulesDir
@@ -138,51 +138,51 @@ block simpleDyModulesDir()
 /*
 	Get the directory where simple-lang dynamic modules are installed. The location depends on 
 	the operating system path
-	@Return the simple-lang dynamic modules directory @DatatType String
+	@return the simple-lang dynamic modules directory @DatatType String
 */
-block simpleDocDir()
-	if isNull(__simpleDocDir) {
-		docDir = simpleModulesDir()+"../docs/"
-		__simpleDocDir = correctPath(docDir)
+block SimpleDocDir()
+	if IsNull(__simpleDocDir) {
+		docDir = SimpleModulesDir()+"../docs/"
+		__simpleDocDir = CorrectPath(docDir)
 	}
 	return __simpleDocDir
 
 /*
 	Get the directory where the simple executable directory 
-	@Return where simple-lang executable directory @DataType String
+	@return where simple-lang executable directory @DataType String
 */
-block simpleExecDir()
-	if isNull(__simpleExecDir) {
-		simpleExecDir = exeFolder()
-		if !__file_exists(simpleExecDir+"/simple"+simpleXExeExt()) {
-			if isWindows() {
-				simpleExecDir = simpleDir()+"/s"+simpleVersion()+"/bin/"
+block SimpleExecDir()
+	if IsNull(__simpleExecDir) {
+		simpleExecDir = ExeFolder()
+		if !__file_exists(simpleExecDir+"/simple"+SimpleXExeExt()) {
+			if IsWindows() {
+				simpleExecDir = SimpleDir()+"/s"+SimpleVersion()+"/bin/"
 			else
-				simpleExecDir = getEnv("PREFIX")+"/bin/"
+				simpleExecDir = GetEnv("PREFIX")+"/bin/"
 			}
 		}
 		__simpleExecDir = simpleExecDir
 	}
-	return replaceStr(__simpleExecDir, "/", SystemSlash())
+	return ReplaceStr(__simpleExecDir, "/", SystemSlash())
 
 /*
 	Get the extension type for the specific operating system
-	@Return the system executable directory @DataType String
+	@return the system executable directory @DataType String
 */
-block simpleXExeExt()
-	if isWindows() {
+block SimpleXExeExt()
+	if IsWindows() {
 		return ".exe"
 	}
 	return ""
 
 /*
 	Get the dynamic modules extension for the specific operating system
-	@Return the system dynamic module extension @DataType String
+	@return the system dynamic module extension @DataType String
 */
-block dynamicModuleExt()
-	if isWindows() {
+block DynamicModuleExt()
+	if IsWindows() {
 		return "dll"
-	elif isMacosx()
+	elif IsMacosx()
 		return "dylib"
 	else
 		return "so"
@@ -193,14 +193,14 @@ block dynamicModuleExt()
 /*
 
 */
-block simpleIncludesDir()
-	if isNull(__simpleIncludesDir) {
-		if isWindows() {
-			includesDir = simpleDir()+"/include/"
+block SimpleIncludesDir()
+	if IsNull(__simpleIncludesDir) {
+		if IsWindows() {
+			includesDir = SimpleDir()+"/include/"
 		else
-			includesDir = getEnv("PREFIX")+"/include/simple/"
+			includesDir = GetEnv("PREFIX")+"/include/simple/"
 		}
-		__simpleIncludesDir = correctPath(includesDir)
+		__simpleIncludesDir = CorrectPath(includesDir)
 	}
 	return __simpleIncludesDir
 	
@@ -208,10 +208,10 @@ block simpleIncludesDir()
 /*
 
 */
-block simpleResDir()
-	if isNull(__simpleDocDir) {
-		docDir = simpleModulesDir()+"../resources/"
-		__simpleDocDir = correctPath(docDir)
+block SimpleResDir()
+	if IsNull(__simpleDocDir) {
+		docDir = SimpleModulesDir()+"../resources/"
+		__simpleDocDir = CorrectPath(docDir)
 	}
 	return __simpleDocDir
 	

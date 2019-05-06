@@ -17,46 +17,46 @@ class Webpage
 	websiteFooter = ""
 	
 	block Webpage()
-		head.setTitle("SIMPLE WEB")
+		head.SetTitle("SIMPLE WEB")
 		
-	block setBodyClass(bclass)
+	block SetBodyClass(bclass)
 		bodyClass = bclass
 		
-	block styleMainTag(styling)
+	block StyleMainTag(styling)
 		mainTagStyle = styling
 		
-	block setTitle(ititle) 
-		head.setTitle(ititle)
+	block SetTitle(ititle) 
+		head.SetTitle(ititle)
 		
-	block setIcon(iconLocation)
-		head.setIcon(iconLocation)
+	block SetIcon(iconLocation)
+		head.SetIcon(iconLocation)
 		
-	block setHead(ihead)
+	block SetHead(ihead)
 		head = ihead
 		
-	block addToBody(element)
+	block AddToBody(element)
 		try
-			websiteBody += ''+element.toString()+'
+			websiteBody += ''+element.ToString()+'
 			'
 		catch
 			websiteBody += ''+element+'
 			'
 		end
 		
-	block addFooter(footer)
-		websiteFooter = footer.toString()
+	block AddFooter(footer)
+		websiteFooter = footer.ToString()
 		
-	block treatBody()
+	block TreatBody()
 		if bodyClass == "" 
 			websiteBody = '<body>' + websiteBody
 		else 
 			websiteBody = '<body class="'+bodyClass+'">' + websiteBody
 		end
 		
-	block render()
-		treatBody()
-		webPrint('<html lang="en" '+mainTagStyle+'>
-		'+head.toString()+'
+	block Render()
+		TreatBody()
+		WebPrint('<html lang="en" '+mainTagStyle+'>
+		'+head.ToString()+'
 		'+websiteBody+'
 		\t'+websiteFooter+' 
 		</body>
@@ -64,17 +64,17 @@ class Webpage
 </html>')
 		
 		
-block webPrint(content)
-	fcontent = formatLiteral(content)
+block WebPrint(content)
+	fcontent = FormatLiteral(content)
 	display fcontent
 	
 
-block formatLiteral(content)
+block FormatLiteral(content)
 	inContent = ""
-	if isNumber(content) 
+	if IsNumber(content) 
 		content = ""+content
 	end
-	conLen = lengthOf(content) - 1
+	conLen = LengthOf(content) - 1
 	for a = 0 to conLen
 		switch content[a]
 			case '\'
@@ -87,9 +87,9 @@ block formatLiteral(content)
 				case "n"
 					inContent +=  crlf
 				case "t"
-					inContent +=  ascii(9)
+					inContent +=  Ascii(9)
 				case "r" 
-					inContent +=  ascii(13)
+					inContent +=  Ascii(13)
 				end
 			default 
 				inContent +=  content[a]

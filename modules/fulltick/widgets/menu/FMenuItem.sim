@@ -68,34 +68,34 @@ class FMenuItem : Object
 
     */
     block Init(params...)
-        paramsLen = lengthOf(params)
+        paramsLen = LengthOf(params)
 
         if paramsLen == 1 {
-			Text = stringValue(params[0])
+			Text = StringValue(params[0])
 			
         elif paramsLen == 2
-			Text = stringValue(params[0])
-			Shortcut = numberValue(params[1])
+			Text = StringValue(params[0])
+			Shortcut = NumberValue(params[1])
 			
         elif paramsLen == 3
-			Text = stringValue(params[0])
-			Shortcut = numberValue(params[1])
+			Text = StringValue(params[0])
+			Shortcut = NumberValue(params[1])
 			Callback = params[2]
-			if !isObject(Callback) {
+			if !IsObject(Callback) {
 				IsEvent = false
 			}
 			
         elif paramsLen == 4
-			Text = stringValue(params[0])
-			Shortcut = numberValue(params[1])
+			Text = StringValue(params[0])
+			Shortcut = NumberValue(params[1])
 			Callback = params[2]
-			if !isObject(Callback) {
+			if !IsObject(Callback) {
 				IsEvent = false
 			}
-			Flags = numberValue(params[3])
+			Flags = NumberValue(params[3])
 			
         else
-            throw(self,"Calling block with invalid lenght of parameter")
+            Throw(self,"Calling block with invalid lenght of parameter")
         }
 		
 		FullText = Text
@@ -104,10 +104,10 @@ class FMenuItem : Object
     /*
 
     */
-    block doCallback()
-        if !isNull(Callback) {
+    block DoCallback()
+        if !IsNull(Callback) {
 			if IsEvent {
-				Callback.callback(self)
+				Callback.Callback(self)
 			else
 				call Callback(self)
 			}
@@ -116,10 +116,10 @@ class FMenuItem : Object
 	/*
 	
 	*/
-	block addItem(FMenuItem item)
+	block AddItem(FMenuItem item)
 		item.FullText = FullText + '/' + item.Text
 		if item.HasChildMenus {
-			item.formatChildren(FullText)
+			item.FormatChildren(FullText)
 		}
 		if !HasChildMenus {
 			HasChildMenus = true
@@ -130,18 +130,18 @@ class FMenuItem : Object
 	/*
 	
 	*/
-	block addItems(FMenuItem items...)
+	block AddItems(FMenuItem items...)
 		for item in items {
-			addItem(item)
+			AddItem(item)
 		}
 		
 	/*
 	
 	*/
-	block formatChildren(string parentName)
+	block FormatChildren(string parentName)
 		for item in ChildMenus {
 			if item.HasChildMenus {
-				item.formatChildren(parentName)
+				item.FormatChildren(parentName)
 			else
 				item.FullText = parentName + '/' + item.FullText
 			}
@@ -150,8 +150,8 @@ class FMenuItem : Object
 	/*
 	
 	*/
-	block setText(string value)
-		if !isNull(Parent) {
+	block SetText(string value)
+		if !IsNull(Parent) {
 			__Fl_Menu__replace(Parent.Ptr, Index, value)
 			__Fl_Widget_redraw(Parent.Ptr)
 		}
@@ -159,8 +159,8 @@ class FMenuItem : Object
 	/*
 	
 	*/
-	block setFlags(int value)
-		if !isNull(Parent) {
+	block SetFlags(int value)
+		if !IsNull(Parent) {
 			__Fl_Menu__mode(Parent.Ptr, Index, value)
 			__Fl_Widget_redraw(Parent.Ptr)
 		}
@@ -168,8 +168,8 @@ class FMenuItem : Object
 	/*
 	
 	*/
-	block remove()
-		if !isNull(Parent) {
+	block Remove()
+		if !IsNull(Parent) {
 			__Fl_Menu__remove(Parent.Ptr, Index)
 			__Fl_Widget_redraw(Parent.Ptr)
 			Index = -1
@@ -188,9 +188,9 @@ class FMenuItem : Object
 		/*
 		
 		*/
-		block setHasChildMenus()
+		block SetHasChildMenus()
 		
 		/*
 		
 		*/
-		block setFullText()
+		block SetFullText()

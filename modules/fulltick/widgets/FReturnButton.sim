@@ -23,127 +23,127 @@ class FReturnButton : FButton
     /*
 
     */
-    Width = FApp.Scheme.getShemeValue("FReturnButton.Width") 
+    Width = FApp.Scheme.GetShemeValue("FReturnButton.Width") 
 
     /*
 
     */
-    Height = FApp.Scheme.getShemeValue("FReturnButton.Height") 
+    Height = FApp.Scheme.GetShemeValue("FReturnButton.Height") 
 
     /*
 
     */
-    X = FApp.Scheme.getShemeValue("FReturnButton.X") 
+    X = FApp.Scheme.GetShemeValue("FReturnButton.X") 
 
     /*
 
     */
-    Y = FApp.Scheme.getShemeValue("FReturnButton.Y") 
+    Y = FApp.Scheme.GetShemeValue("FReturnButton.Y") 
 
     /*
 
     */
-    Label = FApp.Scheme.getShemeValue("FReturnButton.Label") 
+    Label = FApp.Scheme.GetShemeValue("FReturnButton.Label") 
 
     /*
 
     */
-    CapitalizeLabel = FApp.Scheme.getShemeValue("FReturnButton.CapitalizeLabel") 
+    CapitalizeLabel = FApp.Scheme.GetShemeValue("FReturnButton.CapitalizeLabel") 
 
     /*
 
     */
-    Background = FApp.Scheme.getShemeValue("FReturnButton.Background") 
+    Background = FApp.Scheme.GetShemeValue("FReturnButton.Background") 
 
     /*
 
     */
-    LabelAlignment = FApp.Scheme.getShemeValue("FReturnButton.LabelAlignment") 
+    LabelAlignment = FApp.Scheme.GetShemeValue("FReturnButton.LabelAlignment") 
 
     /*
 
     */
-    BaseColor = FApp.Scheme.getShemeValue("FReturnButton.BaseColor") 
+    BaseColor = FApp.Scheme.GetShemeValue("FReturnButton.BaseColor") 
 
     /*
 
     */
-    Box = FApp.Scheme.getShemeValue("FReturnButton.Box") 
+    Box = FApp.Scheme.GetShemeValue("FReturnButton.Box") 
 
     /*
 
     */
-    BaseBox = FApp.Scheme.getShemeValue("FReturnButton.BaseBox") 
+    BaseBox = FApp.Scheme.GetShemeValue("FReturnButton.BaseBox") 
 
     /*
 
     */
-    Border = FApp.Scheme.getShemeValue("FReturnButton.Border") 
+    Border = FApp.Scheme.GetShemeValue("FReturnButton.Border") 
 
     /*
 
     */
-    HasBorder = FApp.Scheme.getShemeValue("FReturnButton.HasBorder") 
+    HasBorder = FApp.Scheme.GetShemeValue("FReturnButton.HasBorder") 
 
     /*
 
     */
-    AcceptInput = FApp.Scheme.getShemeValue("FReturnButton.AcceptInput")
+    AcceptInput = FApp.Scheme.GetShemeValue("FReturnButton.AcceptInput")
 
     /*
 
     */
-    Visible = FApp.Scheme.getShemeValue("FReturnButton.Visible") 
+    Visible = FApp.Scheme.GetShemeValue("FReturnButton.Visible") 
 
     /*
 
     */
-    KeyboardFocusable = FApp.Scheme.getShemeValue("FReturnButton.KeyboardFocusable") 
+    KeyboardFocusable = FApp.Scheme.GetShemeValue("FReturnButton.KeyboardFocusable") 
 
     /*
 
     */
-    Text = FApp.Scheme.getShemeValue("FReturnButton.Text") 
+    Text = FApp.Scheme.GetShemeValue("FReturnButton.Text") 
 
     /*
 
     */
-    Tooltip = FApp.Scheme.getShemeValue("FReturnButton.Tooltip") 
+    Tooltip = FApp.Scheme.GetShemeValue("FReturnButton.Tooltip") 
 
     /*
 
     */
-    LabelColor = FApp.Scheme.getShemeValue("FReturnButton.LabelColor") 
+    LabelColor = FApp.Scheme.GetShemeValue("FReturnButton.LabelColor") 
 
     /*
 
     */
-    LabelFont = FApp.Scheme.getShemeValue("FReturnButton.LabelFont") 
+    LabelFont = FApp.Scheme.GetShemeValue("FReturnButton.LabelFont") 
 
     /*
 
     */
-    LabelSize = FApp.Scheme.getShemeValue("FReturnButton.LabelSize")
+    LabelSize = FApp.Scheme.GetShemeValue("FReturnButton.LabelSize")
 
     /*
 
     */
-    LabelType = FApp.Scheme.getShemeValue("FReturnButton.LabelType")
+    LabelType = FApp.Scheme.GetShemeValue("FReturnButton.LabelType")
 
     /*
 
     */
-    SelectionColor = FApp.Scheme.getShemeValue("FReturnButton.SelectionColor")
+    SelectionColor = FApp.Scheme.GetShemeValue("FReturnButton.SelectionColor")
 
     /*
 
     */
-    Shortcut = FApp.Scheme.getShemeValue("FReturnButton.Shortcut")
+    Shortcut = FApp.Scheme.GetShemeValue("FReturnButton.Shortcut")
 
     /*
 
     */
-    Value = FApp.Scheme.getShemeValue("FReturnButton.Value")
+    Value = FApp.Scheme.GetShemeValue("FReturnButton.Value")
 
     /*
 
@@ -154,38 +154,38 @@ class FReturnButton : FButton
 
     */
     block Init(params...)
-        paramsLen = lengthOf(params)
+        paramsLen = LengthOf(params)
         if paramsLen == 1 {
             Label = params[0]
-            if !isString(Label) {
-                throw(self,"Invalid parameter Expecting 'string' as FReturnButton Label")
+            if !IsString(Label) {
+                Throw(self,"Invalid parameter Expecting 'string' as FReturnButton Label")
             }
         elif paramsLen == 2
             Width = params[0]
             Height = params[1]
-            if !isNumber(Width) or !isNumber(Height) {
-                throw(self,"Invalid parameter Expecting 'number' as FReturnButton Width and Height")
+            if !IsNumber(Width) or !IsNumber(Height) {
+                Throw(self,"Invalid parameter Expecting 'number' as FReturnButton Width and Height")
             }
         elif paramsLen == 3 
             Width = params[0]
             Height = params[1]
             Label = params[2]
-            if !isNumber(Width) or !isNumber(Height) {
-                throw(self,"Invalid parameter Expecting 'number' as FReturnButton Width and Height")
+            if !IsNumber(Width) or !IsNumber(Height) {
+                Throw(self,"Invalid parameter Expecting 'number' as FReturnButton Width and Height")
             }
-            if !isString(Label) {
-                throw(self,"Invalid parameter Expecting 'string' as FReturnButton Label")
+            if !IsString(Label) {
+                Throw(self,"Invalid parameter Expecting 'string' as FReturnButton Label")
             }
         elif paramsLen == 4
             X = params[0]
             Y = params[1]
             Width = params[2]
             Height = params[3]
-            if !isNumber(X) or !isNumber(Y) {
-                throw(self,"Invalid parameter Expecting 'number' as FReturnButton X and Y")
+            if !IsNumber(X) or !IsNumber(Y) {
+                Throw(self,"Invalid parameter Expecting 'number' as FReturnButton X and Y")
             }
-            if !isNumber(Width) or !isNumber(Height) {
-                throw(self,"Invalid parameter Expecting 'number' as FReturnButton Width and Height")
+            if !IsNumber(Width) or !IsNumber(Height) {
+                Throw(self,"Invalid parameter Expecting 'number' as FReturnButton Width and Height")
             }
         elif paramsLen == 5
             X = params[0]
@@ -193,34 +193,34 @@ class FReturnButton : FButton
             Width = params[2]
             Height = params[3]
             Label = params[4]
-            if !isNumber(X) or !isNumber(Y) {
-                throw(self,"Invalid parameter Expecting 'number' as FReturnButton X and Y")
+            if !IsNumber(X) or !IsNumber(Y) {
+                Throw(self,"Invalid parameter Expecting 'number' as FReturnButton X and Y")
             }
-            if !isNumber(Width) or !isNumber(Height) {
-                throw(self,"Invalid parameter Expecting 'number' as FReturnButton Width and Height")
+            if !IsNumber(Width) or !IsNumber(Height) {
+                Throw(self,"Invalid parameter Expecting 'number' as FReturnButton Width and Height")
             }
-            if !isString(Label) {
-                throw(self,"Invalid parameter Expecting 'string' as FReturnButton Label")
+            if !IsString(Label) {
+                Throw(self,"Invalid parameter Expecting 'string' as FReturnButton Label")
             }
         else    
             if paramsLen != 0 {
-                throw(self,"Calling block with invalid legth of parameter")
+                Throw(self,"Calling block with invalid legth of parameter")
             }
         } 
 
         if CapitalizeLabel {
-            Label = toUpperCase(Label)
+            Label = ToUpperCase(Label)
         }
         Ptr = __Fl_Return_Button(X, Y, Width, Height, "")
-        registerWidget()
-        #resize(X, Y, Width, Height)
-        setLabelAlignment(LabelAlignment)
-        setBox(Box)
-        setBaseColor(BaseColor)
-        setBaseBox(BaseBox)
-        setBorder(Border)
-        construct()
-        setValue(Value)
+        RegisterWidget()
+        #Resize(X, Y, Width, Height)
+        SetLabelAlignment(LabelAlignment)
+        SetBox(Box)
+        SetBaseColor(BaseColor)
+        SetBaseBox(BaseBox)
+        SetBorder(Border)
+        Construct()
+        SetValue(Value)
         
         return self
 

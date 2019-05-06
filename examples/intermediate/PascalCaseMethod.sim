@@ -12,11 +12,11 @@
 
 	:: 
 	
-		stdout.println("Hello World")
+		stdout.Println("Hello World")
 		
 	The length of the above text is 29, all the characters are added to the 
 	new value so the open brace is at offset 15 the new value will currently 
-	be `stdout.println(` it then seek valid alphabet or num backward and break 
+	be `stdout.Println(` it then seek valid alphabet or num backward and break 
 	on non identifier character so we arrive at `nltnirp` so i reverse to 
 	`println`, the offset of `println` is 8 therefore the new value at offset 8
 	is changed to uppercase
@@ -43,32 +43,35 @@ from simple.util.console
 block main()
 	directory = null
 	for param in cmdparams
-		if strStartsWith(param, "--dir=")
-			directory = new Directory(removeStr(param, "--dir="))
+		if StrStartsWith(param, "--dir=")
+			directory = new Directory(RemoveStr(param, "--dir="))
 		end		
 	end
 	
-	if isNull(directory)
-		stderr.printfc(ConsoleColorRed, "You need to supply the directory --dir='..'")
-		exit(1)
+	if IsNull(directory)
+		stderr.Printfc(ConsoleColorRed, "You need to supply the directory --dir='..'")
+		Exit(1)
 	end
 	ResolveFolder(directory, directory)
 	
 block ResolveFolder(Directory mainDirectory, Directory directory)
-	files = directory.getFiles()
+	files = directory.GetFiles()
 	for file in files
-		stdout.println("PascalCaseMethod: " + removeStr(file.AbsolutePath, mainDirectory.AbsolutePath))
+		if !StrEndsWith(file.Name, ".sim") continue end
+		stdout.Println("PascalCaseMethod: " + RemoveStr(file.AbsolutePath, mainDirectory.AbsolutePath))
 		ResolveFile(file)
 	end
 	
-	folders = directory.getDirectories()
+	folders = directory.GetDirectories()
 	for folder in folders
+		if StrStartsWith(folder.Name, ".") continue end
+		stdout.Println("PascalCaseMethod:Directory " + RemoveStr(folder.AbsolutePath, mainDirectory.AbsolutePath))
 		ResolveFolder(mainDirectory, folder)
 	end
 	
 block ResolveFile(File file)
-	content = file.readAllString()
-	contentLen = lengthOf(content) - 1	
+	content = file.ReadAllString()
+	contentLen = LengthOf(content) - 1	
 	newContent = ""
 	
 	for a = 0 to contentLen
@@ -78,7 +81,7 @@ block ResolveFile(File file)
 			methodName = ""
 			finalMethodName = ""
 			for b = a-1 to 0 step -1
-				if isAlphaNum(content[b]) or (isWhiteSpace(content[b]) and (isWhiteSpace(methodName) or methodName == ""))
+				if (IsAlphaNum(content[b]) or content[b] == '_' or content[b] == '$' ) or (IsWhiteSpace(content[b]) and (IsWhiteSpace(methodName) or methodName == ""))
 					methodName += content[b]
 
 				else
@@ -86,22 +89,27 @@ block ResolveFile(File file)
 				end
 			end
 			
-			methodNameLen = lengthOf(methodName) - 1
+			methodNameLen = LengthOf(methodName) - 1
 			for c = 0 to methodNameLen
 				finalMethodName += methodName[(methodNameLen - c)]
 			end			
-			newContentLen = lengthOf(newContent) - 1
-			@""+(newContentLen - methodNameLen - 1)+":"+newContentLen + ":" + newContent[(newContentLen - methodNameLen - 1)]
+			if StrTrim(finalMethodName) == 'or' or StrTrim(finalMethodName) == 'and' or StrTrim(finalMethodName) == 'to' or 
+					StrTrim(finalMethodName) == 'in' or StrTrim(finalMethodName) == 'if' or StrTrim(finalMethodName) == 'elif' or 
+						 StrTrim(finalMethodName) == 'for' or StrTrim(finalMethodName) == 'switch' or StrTrim(finalMethodName) == 'return' or 
+							 StrTrim(finalMethodName) == 'while'
+				continue
+			end
+			newContentLen = LengthOf(newContent) - 1
 			if newContent[(newContentLen - methodNameLen - 1)] != '('
-				newContent[(newContentLen - methodNameLen - 1)] = toUpperCase(finalMethodName[0])
+				newContent[(newContentLen - methodNameLen - 1)] = ToUpperCase(finalMethodName[0])
 			end
 			
 		end
 	end
-	file.write(newContent)
+	file.Write(newContent)
 	
 block IsKeyword(string content, number contentLen, number a, string keyword) : boolean
-	keywordLen = lengthOf(keyword) - 1
+	keywordLen = LengthOf(keyword) - 1
 	word = ""
 	if (a + keywordLen) > contentLen return false end
 	for b = a to (a + keywordLen)
@@ -111,7 +119,7 @@ block IsKeyword(string content, number contentLen, number a, string keyword) : b
 	
 #unused
 block CapitalizeWord(string value) : string
-	value[0] = toUpperCase(value[0])
+	value[0] = ToUpperCase(value[0])
 	return value
 	
 	

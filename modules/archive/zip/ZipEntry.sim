@@ -134,25 +134,25 @@ class ZipEntry : Object
 	*/
 	block Init(Zip zip, /*string|number*/ entry)
 		ParentZip = zip
-		entry = normalize(entry)
-		if isString(entry) and strEndsWith(entry, "/") {
+		entry = Normalize(entry)
+		if IsString(entry) and StrEndsWith(entry, "/") {
 			IsDirectory = true
 			if ParentZip.Mode == "w" {
-				entry = "/"+strRemoveLastChar(entry)
-				if strStartsWith(entry, "/") or strContains(entry, ":") {
-					FullName = lastStrAfter(entry, "/") + "/"
+				entry = "/"+StrRemoveLastChar(entry)
+				if StrStartsWith(entry, "/") or StrContains(entry, ":") {
+					FullName = LastStrAfter(entry, "/") + "/"
 				else
 					FullName = entry + "/"
 				}
-				Name = lastStrAfter(entry, "/")
+				Name = LastStrAfter(entry, "/")
 				return self
 			}
 			exists = false
-			warn(self, "Do not try this on a large zip",3)
-			warn(self, "Looping over zip file to determine if the directory entry '" + entry +"' exists",3)
-			warn(self, "If the directory entry '" + entry +"' exists, the zip file entry will be looped to check the directory contents",3)
+			Warn(self, "Do not try this on a large zip",3)
+			Warn(self, "Looping over zip file to determine if the directory entry '" + entry +"' exists",3)
+			Warn(self, "If the directory entry '" + entry +"' exists, the zip file entry will be looped to check the directory contents",3)
 			for ent in ParentZip {
-				if strStartsWith(ent.FullName, entry) {
+				if StrStartsWith(ent.FullName, entry) {
 					ent.ParentFullName = entry
 					Size += ent.Size
 					CompressSize += ent.CompressSize
@@ -163,7 +163,7 @@ class ZipEntry : Object
 				}
 			}
 			if !exists {
-				throw(self, "The directory entry '" + entry + "' does not exist in the zip archive '" + zip.Path + "'")
+				Throw(self, "The directory entry '" + entry + "' does not exist in the zip archive '" + zip.Path + "'")
 				return null
 			}
 			Index = ChildrenList[0].Index
@@ -180,21 +180,21 @@ class ZipEntry : Object
 			CommentSize = 9
 			FullName = entry
 			Comment = "directory"
-			entry = "/"+strRemoveLastChar(entry)
+			entry = "/"+StrRemoveLastChar(entry)
 			if entry != "" {
-				Name = lastStrAfter(entry, "/")
+				Name = LastStrAfter(entry, "/")
 			}
 			return self
 		}
 		ZipStat = __zip_entry_stat_info(zip.ZipPointer, entry) 
-		if isNull(ZipStat) {
+		if IsNull(ZipStat) {
 			if ParentZip.Mode == "r" {
-				throw(self, "The entry '" + entry + "' does not exist in the zip archive '" + zip.Path + "'")
+				Throw(self, "The entry '" + entry + "' does not exist in the zip archive '" + zip.Path + "'")
 				return null
 			else
-				FullName = normalize(stringValue(entry))
+				FullName = Normalize(StringValue(entry))
 				if FullName != "" {
-					Name = lastStrAfter(FullName, "/")
+					Name = LastStrAfter(FullName, "/")
 				}
 				return self
 			}
@@ -205,7 +205,7 @@ class ZipEntry : Object
 		VersionNeeded = ZipStat[3]
 		BitFlag = ZipStat[4]
 		Method = ZipStat[5]
-		DateTime = dateFromPointer(ZipStat[6])
+		DateTime = DateFromPointer(ZipStat[6])
 		CRC = ZipStat[7]
 		CompressSize = ZipStat[8]
 		Size = ZipStat[9]
@@ -216,7 +216,7 @@ class ZipEntry : Object
 		FullName = ZipStat[14]
 		Comment = ZipStat[15]
 		if FullName != "" {
-			Name = lastStrAfter(FullName, "/")
+			Name = LastStrAfter(FullName, "/")
 		}
 		
 		return self
@@ -224,7 +224,7 @@ class ZipEntry : Object
 	/*
 	
 	*/
-	block equals(object obj)
+	block Equals(object obj)
 		if !__instance_of(obj,"ZipEntry") {
 			return false
 		}
@@ -233,51 +233,51 @@ class ZipEntry : Object
 	/*
 
 	*/
-	block operator(string op, object value) 
+	block Operator(string op, object value) 
 		switch op {
 			case "=="
-				return equals(value)
+				return Equals(value)
 			case "!="
-				return !equals(value)
+				return !Equals(value)
 			case "lengthOf"
 				if !IsDirectory {
-					throw(self, "This zip entry is not a directory")
+					Throw(self, "This zip entry is not a directory")
 					return
 				}
-				return lengthOf(ChildrenList)
+				return LengthOf(ChildrenList)
 			case "[]"
 				if !IsDirectory {
-					throw(self, "This zip entry is not a directory")
+					Throw(self, "This zip entry is not a directory")
 					return
 				}
-				return ChildrenList[numValueOf(value)]
+				return ChildrenList[NumValueOf(value)]
 		}
-		return super.operator(op, value)
+		return super.Operator(op, value)
 		
 	/*
 	
 	*/
-	block toString()
-		return "[" + absolutename() + ":FullName=" + FullName + ",CompressSize=" + CompressSize + ",Size=" + Size + ",DateTime=" + strValueOf(DateTime) + "]"
+	block ToString()
+		return "[" + Absolutename() + ":FullName=" + FullName + ",CompressSize=" + CompressSize + ",Size=" + Size + ",DateTime=" + StrValueOf(DateTime) + "]"
 		
 	/*
 	
 	*/
-	block extract(string path)
-		if !isNull(ParentZip) {
+	block Extract(string path)
+		if !IsNull(ParentZip) {
 			if __dir_exists(path) == 1 {
 				tempName = FullName
-				if strContains(FullName, "/") and !IsDirectory {
-					iDir = removeStr(FullName, lastStrAfter(FullName, "/"))
+				if StrContains(FullName, "/") and !IsDirectory {
+					iDir = RemoveStr(FullName, LastStrAfter(FullName, "/"))
 					if ParentFullName != "" {
-						iDir = strRemoveFirst(iDir, ParentFullName) 
-						tempName = strRemoveFirst(tempName, ParentFullName) 
+						iDir = StrRemoveFirst(iDir, ParentFullName) 
+						tempName = StrRemoveFirst(tempName, ParentFullName) 
 					}
 					if __dir_exists(path + "/" + iDir) != 1 {
 						sep = ""
-						if !strEndsWith(path,"/") { sep = "/" }
-						if !makeFullDir(path + sep + iDir) {
-							throw(self, "Cannot create directory '" + path + sep + iDir + "' ")
+						if !StrEndsWith(path,"/") { sep = "/" }
+						if !MakeFullDir(path + sep + iDir) {
+							Throw(self, "Cannot create directory '" + path + sep + iDir + "' ")
 							return null
 						}
 					}
@@ -285,38 +285,38 @@ class ZipEntry : Object
 				if IsDirectory {
 					if ParentZip.Mode == "r" {
 						for entry in ChildrenList {
-							entry.extract(path)
+							entry.Extract(path)
 						}
 					else
-						throw(self, "you cannot extract a directory from a zip file if not open with read mode 'r'")
+						Throw(self, "you cannot extract a directory from a zip file if not open with read mode 'r'")
 					}
 				else
 					if ParentZip.Mode == "r" {
 						__write_file(path + "/" + tempName, __extract_zip_entry(ParentZip.Path, FullName))	
 					else
-						close()
-						ParentZip.close()
+						Close()
+						ParentZip.Close()
 						tempZip = new Zip(ParentZip.Path, ParentZip.CompressionType, "r")
 						__write_file(path + "/" + tempName, __extract_zip_entry(tempZip.Path, FullName))
-						tempZip.close()
+						tempZip.Close()
 						tempZip = null
-						ParentZip.open()
+						ParentZip.Open()
 					}		
 				}
 			else
-				throw(self, "The directory '" + path + "' does not exists")
+				Throw(self, "The directory '" + path + "' does not exists")
 			}
 		else 
-			throw(self, "Cannot extract the entry, the zip file is invalid")
+			Throw(self, "Cannot extract the entry, the zip file is invalid")
 		}
 		
 	/*
 	
 	*/
-	block open()
+	block Open()
 		if !IsStreamOpen {
 			if __open_zip_entry(ParentZip.ZipPointer, FullName) != 0 and FullName != "" {
-				throw(self, "The entry '" + FullName + "' cannot be opened in the archive '" + ParentZip.Path + "'")
+				Throw(self, "The entry '" + FullName + "' cannot be opened in the archive '" + ParentZip.Path + "'")
 				return 
 			}
 			IsStreamOpen = true
@@ -325,10 +325,10 @@ class ZipEntry : Object
 	/*
 	
 	*/
-	block close()
+	block Close()
 		if IsStreamOpen {
 			if __close_zip_entry(ParentZip.ZipPointer) != 0 and FullName != ""  {
-				throw(self, "Cannot close the zip entry stream")
+				Throw(self, "Cannot close the zip entry stream")
 				return
 			}
 			IsStreamOpen = false
@@ -337,36 +337,36 @@ class ZipEntry : Object
 	/*
 	
 	*/
-	block write(string value)
-		open()
+	block Write(string value)
+		Open()
 		if IsStreamOpen {
-			return __write_zip_entry(ParentZip.ZipPointer, value, lengthOf(value)) == 0
+			return __write_zip_entry(ParentZip.ZipPointer, value, LengthOf(value)) == 0
 		else
-			throw(self, "Cannot write to the entry, Entry stream failed to open")
+			Throw(self, "Cannot write to the entry, Entry stream failed to open")
 		}
 		return false
 		
 	/*
 	
 	*/
-	block fwrite(string value)
-		open()
+	block Fwrite(string value)
+		Open()
 		if IsStreamOpen {
 			if __file_exists(value) {
 				return __fwrite_zip_entry(ParentZip.ZipPointer, value) == 0
 			else
-				throw(self, "Cannot write file to entry, the file '" + value + "' does not exists")
+				Throw(self, "Cannot write file to entry, the file '" + value + "' does not exists")
 				return false
 			}			
 		else
-			throw(self, "Cannot write to the entry, Entry stream failed to open")
+			Throw(self, "Cannot write to the entry, Entry stream failed to open")
 		}
 		return false
 		
 	/*
 	
 	*/
-	block dwrite(string value)	
+	block Dwrite(string value)	
 		if DirPrefix = "" {
 			DirPrefix = value
 		}
@@ -374,7 +374,7 @@ class ZipEntry : Object
 		prefix = FullName
 		if __dir_exists(value) == 1 {
 			files = __blow_directory(value)
-			if !strEndsWith(prefix, '/') and name != "" {
+			if !StrEndsWith(prefix, '/') and name != "" {
 				prefix += '/'
 			}
 			for file in files {
@@ -383,34 +383,34 @@ class ZipEntry : Object
 					if FullName != "" {
 						sep = "/"
 					}
-					dwrite(value + '/' + file[0])
+					Dwrite(value + '/' + file[0])
 				else
-					name = replaceStr(value + '/' + file[0], DirPrefix, prefix)
+					name = ReplaceStr(value + '/' + file[0], DirPrefix, prefix)
 					path = value + '/' + file[0]
-					if strStartsWith(name,"/") {
-						name = strRemoveFirstChar(name)
+					if StrStartsWith(name,"/") {
+						name = StrRemoveFirstChar(name)
 					}
-					if strContains(correctPath(path), ParentZip.Path) {
-						warn("Cannot add the same archive that is been written into : " + ParentZip.Path)
+					if StrContains(CorrectPath(path), ParentZip.Path) {
+						Warn("Cannot add the same archive that is been written into : " + ParentZip.Path)
 						continue
 					}
 					if __open_zip_entry(ParentZip.ZipPointer, name) != 0 {
-						throw(self, "The entry '" + name + "' cannot be opened in the archive '" + ParentZip.Path + "'")
+						Throw(self, "The entry '" + name + "' cannot be opened in the archive '" + ParentZip.Path + "'")
 						return false
 					}
 					if __fwrite_zip_entry(ParentZip.ZipPointer, path) != 0 {
-						throw(self, "Error occur while adding file '" + path + "' into the archive")
+						Throw(self, "Error occur while adding file '" + path + "' into the archive")
 						return false
 					}
 					if __close_zip_entry(ParentZip.ZipPointer) != 0 {
-						throw(self, "Cannot close the zip entry stream")
+						Throw(self, "Cannot close the zip entry stream")
 						return false
 					}
 					IsStreamOpen = false
 				}
 			}
 		else
-			throw(self, "The directory '" + value + "' does not exists")
+			Throw(self, "The directory '" + value + "' does not exists")
 			return false
 		}
 		return true
@@ -444,28 +444,28 @@ class ZipEntry : Object
 		/*
 
 		*/
-		block setFullName()
+		block SetFullName()
 
 		/*
 
 		*/
-		block setName()
+		block SetName()
 
 		/*
 
 		*/
-		block setSize()
+		block SetSize()
 		
 		/*
 		
 		*/
-		block normalize(entry)
-			if isNumber(entry) {
+		block Normalize(entry)
+			if IsNumber(entry) {
 				return entry
 			}
-			ent = curePathSlashes(entry)
-			ent = replaceStr(ent,'\', '/')
-			entLen = lengthOf(ent) - 1
+			ent = CurePathSlashes(entry)
+			ent = ReplaceStr(ent,'\', '/')
+			entLen = LengthOf(ent) - 1
 			entry = ""
 			for a = 0 to entLen {
 				switch ent[a] {
@@ -483,15 +483,15 @@ class ZipEntry : Object
 		/*
 		
 		*/
-		block makeFullDir(dir)
-			dirs = strSplit(dir, "/")
+		block MakeFullDir(dir)
+			dirs = StrSplit(dir, "/")
 			path = ""
 			for dir in dirs {
-				if dir == "" or isWhiteSpace(dir) {
+				if dir == "" or IsWhiteSpace(dir) {
 					continue
 				}
 				path+=dir+'/'
-				if __dir_exists(normalize(path)) != 1 {
+				if __dir_exists(Normalize(path)) != 1 {
 					if !__mk_directory(path, 0755) {
 						return false
 					}

@@ -13,7 +13,7 @@ block main()
 	display "Enter Key : " read key
 	display "Enter IV : " read five
 	display "ENCRYPTING : "+yourstring + crlf
-	encrypted = encrypt(yourstring, key, five)
+	encrypted = Encrypt(yourstring, key, five)
 	display "CIPHER TEXT : " + encrypted + crlf 
 	
 	display "    NOW TO DECRYPT" + crlf
@@ -22,8 +22,8 @@ block main()
 	while correct 
 		display "Enter Key : " read ckey
 		display "Enter IV : " read cfive
-		decrypted = decrypt(encrypted, ckey, cfive)
-		if (lengthOf(yourstring) == lengthOf(decrypted))
+		decrypted = Decrypt(encrypted, ckey, cfive)
+		if (LengthOf(yourstring) == LengthOf(decrypted))
 			display "Decryption successful : "+decrypted + crlf
 			correct = false break
 		else

@@ -23,18 +23,18 @@ from simple.graphics.Dimension
 from simple.util.Console
 
 screenDimension = new ScreenDimension()
-stdout.println(screenDimension)
-stdout.println("Primary Screen Height=" + screenDimension.Height + ", AbHeight=" + screenDimension.AbHeight)
-stdout.println("Primary Screen Width=" + screenDimension.Width + ", AbWidth=" + screenDimension.AbWidth)
-stdout.println(screenDimension.toDimension())
-stdout.println(screenDimension.toAbDimension())
-stdout.println(screenDimension.screenDimensions())
-stdout.println(screenDimension)
-stdout.println("Primary Monitor: Width=" + screenDimension.getScreenWidth(1) + " Height=" + screenDimension.getScreenHeight(1))
-stdout.println("Absolute Monitor Size: Width=" + screenDimension.AbWidth + " Height=" + screenDimension.AbHeight)
-stdout.println(screenDimension.toDimension())
-stdout.println(screenDimension.toAbDimension())
+stdout.Println(screenDimension)
+stdout.Println("Primary Screen Height=" + screenDimension.Height + ", AbHeight=" + screenDimension.AbHeight)
+stdout.Println("Primary Screen Width=" + screenDimension.Width + ", AbWidth=" + screenDimension.AbWidth)
+stdout.Println(screenDimension.ToDimension())
+stdout.Println(screenDimension.ToAbDimension())
+stdout.Println(screenDimension.ScreenDimensions())
+stdout.Println(screenDimension)
+stdout.Println("Primary Monitor: Width=" + screenDimension.GetScreenWidth(1) + " Height=" + screenDimension.GetScreenHeight(1))
+stdout.Println("Absolute Monitor Size: Width=" + screenDimension.AbWidth + " Height=" + screenDimension.AbHeight)
+stdout.Println(screenDimension.ToDimension())
+stdout.Println(screenDimension.ToAbDimension())
 count = 0
 for screenDimen in screenDimension.ScreenDimensions {
-    stdout.print("Monitor " + (count++) + " ") stdout.println(screenDimen)
+    stdout.Print("Monitor " + (count++) + " ") stdout.Println(screenDimen)
 }

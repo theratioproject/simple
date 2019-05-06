@@ -17,32 +17,32 @@ fWindow = new FWindow(470,60,"FWindowEvent Demo") {
         Background = 7676767
     }
 
-    add(hideLabel,showLabel,closeLabel,box)
+    Add(hideLabel,showLabel,closeLabel,box)
     customWindowEvent.box = box
-    setWindowListener(customWindowEvent)
+    SetWindowListener(customWindowEvent)
     Resizable = false
-    show()
+    Show()
 }
-FApp.run()
+FApp.Run()
 
 class CustomWindowEvent : FWindowEvent
 
     self.box = null
 
-    block windowClosing(widget, event)  
-        stdout.println("Yes you clicked closing should we close")
+    block WindowClosing(widget, event)  
+        stdout.Println("Yes you clicked closing should we close")
         widget.Title = "FWindowEvent Demo : You clicked close Button"
-        box.resize(5,40,box.Width,box.Height)
-        widget.redraw()
+        box.Resize(5,40,box.Width,box.Height)
+        widget.Redraw()
 
-    block windowShowing(widget, event) 
-        stdout.println("Yes you clicked show ")
+    block WindowShowing(widget, event) 
+        stdout.Println("Yes you clicked show ")
         widget.Title = "FWindowEvent Demo : You clicked show Button"
-        box.resize(5,25,box.Width,box.Height)
-        widget.redraw()
+        box.Resize(5,25,box.Width,box.Height)
+        widget.Redraw()
 
-    block windowHiding(widget, event)
-        stdout.println("Yes you clicked hide ")
+    block WindowHiding(widget, event)
+        stdout.Println("Yes you clicked hide ")
         widget.Title = "FWindowEvent Demo : You clicked hide Button"
-        box.resize(5,10,box.Width,box.Height)
-        widget.redraw()
+        box.Resize(5,10,box.Width,box.Height)
+        widget.Redraw()

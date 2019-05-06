@@ -23,160 +23,160 @@ class FMenuBar : FMenu_
     /*
 
     */
-    Width = FApp.Scheme.getShemeValue("FMenuBar.Width") 
+    Width = FApp.Scheme.GetShemeValue("FMenuBar.Width") 
 
     /*
 
     */
-    Height = FApp.Scheme.getShemeValue("FMenuBar.Height") 
+    Height = FApp.Scheme.GetShemeValue("FMenuBar.Height") 
 
     /*
 
     */
-    X = FApp.Scheme.getShemeValue("FMenuBar.X") 
+    X = FApp.Scheme.GetShemeValue("FMenuBar.X") 
 
     /*
 
     */
-    Y = FApp.Scheme.getShemeValue("FMenuBar.Y") 
+    Y = FApp.Scheme.GetShemeValue("FMenuBar.Y") 
 
     /*
 
     */
-    Label = FApp.Scheme.getShemeValue("FMenuBar.Label") 
+    Label = FApp.Scheme.GetShemeValue("FMenuBar.Label") 
 
     /*
 
     */
-    Background = FApp.Scheme.getShemeValue("FMenuBar.Background") 
+    Background = FApp.Scheme.GetShemeValue("FMenuBar.Background") 
 
     /*
 
     */
-    LabelAlignment = FApp.Scheme.getShemeValue("FMenuBar.LabelAlignment") 
+    LabelAlignment = FApp.Scheme.GetShemeValue("FMenuBar.LabelAlignment") 
 
     /*
 
     */
-    Box = FApp.Scheme.getShemeValue("FMenuBar.Box") 
+    Box = FApp.Scheme.GetShemeValue("FMenuBar.Box") 
 
     /*
 
     */
-    Border = FApp.Scheme.getShemeValue("FMenuBar.Border") 
+    Border = FApp.Scheme.GetShemeValue("FMenuBar.Border") 
 
     /*
 
     */
-    HasBorder = FApp.Scheme.getShemeValue("FMenuBar.HasBorder") 
+    HasBorder = FApp.Scheme.GetShemeValue("FMenuBar.HasBorder") 
 
     /*
 
     */
-    AcceptInput = FApp.Scheme.getShemeValue("FMenuBar.AcceptInput")
+    AcceptInput = FApp.Scheme.GetShemeValue("FMenuBar.AcceptInput")
 
     /*
 
     */
-    Visible = FApp.Scheme.getShemeValue("FMenuBar.Visible") 
+    Visible = FApp.Scheme.GetShemeValue("FMenuBar.Visible") 
 
     /*
 
     */
-    KeyboardFocusable = FApp.Scheme.getShemeValue("FMenuBar.KeyboardFocusable") 
+    KeyboardFocusable = FApp.Scheme.GetShemeValue("FMenuBar.KeyboardFocusable") 
 
     /*
 
     */
-    Tooltip = FApp.Scheme.getShemeValue("FMenuBar.Tooltip") 
+    Tooltip = FApp.Scheme.GetShemeValue("FMenuBar.Tooltip") 
 
     /*
 
     */
-    LabelColor = FApp.Scheme.getShemeValue("FMenuBar.LabelColor") 
+    LabelColor = FApp.Scheme.GetShemeValue("FMenuBar.LabelColor") 
 
     /*
 
     */
-    LabelFont = FApp.Scheme.getShemeValue("FMenuBar.LabelFont") 
+    LabelFont = FApp.Scheme.GetShemeValue("FMenuBar.LabelFont") 
 
     /*
 
     */
-    LabelSize = FApp.Scheme.getShemeValue("FMenuBar.LabelSize")
+    LabelSize = FApp.Scheme.GetShemeValue("FMenuBar.LabelSize")
 
     /*
 
     */
-    LabelType = FApp.Scheme.getShemeValue("FMenuBar.LabelType")
+    LabelType = FApp.Scheme.GetShemeValue("FMenuBar.LabelType")
 
     /*
 
     */
-    SelectionColor = FApp.Scheme.getShemeValue("FMenuBar.SelectionColor")
+    SelectionColor = FApp.Scheme.GetShemeValue("FMenuBar.SelectionColor")
 	
 	/*
 	
 	*/
-	DownBox = FApp.Scheme.getShemeValue("FMenuBar.DownBox")
+	DownBox = FApp.Scheme.GetShemeValue("FMenuBar.DownBox")
 
     /*
 
     */
-    DownColor = FApp.Scheme.getShemeValue("FMenuBar.DownColor")
+    DownColor = FApp.Scheme.GetShemeValue("FMenuBar.DownColor")
 	
 	/*
 	
 	*/
-	TextColor = FApp.Scheme.getShemeValue("FMenuBar.TextColor")
+	TextColor = FApp.Scheme.GetShemeValue("FMenuBar.TextColor")
 	
 	/*
 	
 	*/
-	TextFont = FApp.Scheme.getShemeValue("FMenuBar.TextFont")
+	TextFont = FApp.Scheme.GetShemeValue("FMenuBar.TextFont")
 	
 	/*
 	
 	*/
-	TextSize = FApp.Scheme.getShemeValue("FMenuBar.TextSize")
+	TextSize = FApp.Scheme.GetShemeValue("FMenuBar.TextSize")
 
     /*
 
     */
     block Init(params...)
-        paramsLen = lengthOf(params)
+        paramsLen = LengthOf(params)
 		menuItems = []
         if paramsLen == 1 {
             menuItems = params[0]
-            if !isList(menuItems) {
-                throw(self,"Invalid parameter Expecting 'List' as FMenuBar Menu Items")
+            if !IsList(menuItems) {
+                Throw(self,"Invalid parameter Expecting 'List' as FMenuBar Menu Items")
             }
         elif paramsLen == 2
             X = params[0]
             Y = params[1]
-            if !isNumber(X) or !isNumber(Y) {
-                throw(self,"Invalid parameter Expecting 'number' as FMenuBar X and Y")
+            if !IsNumber(X) or !IsNumber(Y) {
+                Throw(self,"Invalid parameter Expecting 'number' as FMenuBar X and Y")
             }
         elif paramsLen == 3 
             X = params[0]
             Y = params[1]
             menuItems = params[2]
-            if !isNumber(X) or !isNumber(Y) {
-                throw(self,"Invalid parameter Expecting 'number' as FMenuBar X and Y")
+            if !IsNumber(X) or !IsNumber(Y) {
+                Throw(self,"Invalid parameter Expecting 'number' as FMenuBar X and Y")
             }
-            if !isList(menuItems) {
-                throw(self,"Invalid parameter Expecting 'List' as FMenuBar Menu Items")
+            if !IsList(menuItems) {
+                Throw(self,"Invalid parameter Expecting 'List' as FMenuBar Menu Items")
             }
         elif paramsLen == 4
             X = params[0]
             Y = params[1]
             Width = params[2]
             Height = params[3]
-            if !isNumber(X) or !isNumber(Y) {
-                throw(self,"Invalid parameter Expecting 'number' as FMenuBar X and Y")
+            if !IsNumber(X) or !IsNumber(Y) {
+                Throw(self,"Invalid parameter Expecting 'number' as FMenuBar X and Y")
             }
-            if !isNumber(Width) or !isNumber(Height) {
-                throw(self,"Invalid parameter Expecting 'number' as FMenuBar Width and Height")
+            if !IsNumber(Width) or !IsNumber(Height) {
+                Throw(self,"Invalid parameter Expecting 'number' as FMenuBar Width and Height")
             }
         elif paramsLen == 5
             X = params[0]
@@ -184,33 +184,33 @@ class FMenuBar : FMenu_
             Width = params[2]
             Height = params[3]
             menuItems = params[4]
-            if !isNumber(X) or !isNumber(Y) {
-                throw(self,"Invalid parameter Expecting 'number' as FMenuBar X and Y")
+            if !IsNumber(X) or !IsNumber(Y) {
+                Throw(self,"Invalid parameter Expecting 'number' as FMenuBar X and Y")
             }
-            if !isNumber(Width) or !isNumber(Height) {
-                throw(self,"Invalid parameter Expecting 'number' as FMenuBar Width and Height")
+            if !IsNumber(Width) or !IsNumber(Height) {
+                Throw(self,"Invalid parameter Expecting 'number' as FMenuBar Width and Height")
             }
-            if !isList(menuItems) {
-                throw(self,"Invalid parameter Expecting 'List' as FMenuBar Menu Items")
+            if !IsList(menuItems) {
+                Throw(self,"Invalid parameter Expecting 'List' as FMenuBar Menu Items")
             }
         else    
             if paramsLen != 0 {
-                throw(self,"Calling block with invalid legth of parameter")
+                Throw(self,"Calling block with invalid legth of parameter")
             }
         } 
 
         Ptr = __Fl_Menu_Bar(X, Y, Width, Height, Label) 
-        registerWidget()
-        setLabelAlignment(LabelAlignment)
-        setBox(Box)
-        setBorder(Border)
-        construct()
-		menu(menuItems, null)
-		setDownBox(DownBox)
-		setDownColor(DownColor)
-		setTextColor(TextColor)
-		setTextFont(TextFont)
-		setTextSize(TextSize)
+        RegisterWidget()
+        SetLabelAlignment(LabelAlignment)
+        SetBox(Box)
+        SetBorder(Border)
+        Construct()
+		Menu(menuItems, null)
+		SetDownBox(DownBox)
+		SetDownColor(DownColor)
+		SetTextColor(TextColor)
+		SetTextFont(TextFont)
+		SetTextSize(TextSize)
         
         return self
 

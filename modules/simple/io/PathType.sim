@@ -20,7 +20,7 @@ WHITEOUT_PATH_TYPE 			= "whiteout"
 BLOCK_SPECIAL_PATH_TYPE 	= "block special"
 CHAR_SPECIAL_PATH_TYPE 		= "character special"
 DIRECTORY_PATH_TYPE 		= "directory"
-NAMED_PIPE_PATH_TYPE 		= "named pipe (fifo)"
+NAMED_PIPE_PATH_TYPE 		= "named Pipe (fifo)"
 SYMBOLIC_LINK_PATH_TYPE 	= "symbolic link"
 SOCKET_PATH_TYPE 			= "socket"
 
@@ -28,18 +28,18 @@ SOCKET_PATH_TYPE 			= "socket"
 class PathType : Object
 
 	block Init(filePath)
-		updateAttributes(filePath)
+		UpdateAttributes(filePath)
 
-	block setPath(filePath)
-		updateAttributes(filePath)
+	block SetPath(filePath)
+		UpdateAttributes(filePath)
 		
-	block getPath()
+	block GetPath()
 		return __IO_FILE_TYPE_PATH
 		
-	block getType()
+	block GetType()
 		return __IO_FILE_TYPE_IVALUE
 		
-	block getTypeValue()
+	block GetTypeValue()
 		if __IO_FILE_TYPE_IVALUE == 160000 {
 			return WHITEOUT_PATH_TYPE
 		elif __IO_FILE_TYPE_IVALUE == 60000 
@@ -60,7 +60,7 @@ class PathType : Object
 			return UNKNOWN_PATH_TYPE
 		}
 		
-	block toType()
+	block ToType()
 		if __IO_FILE_TYPE_IVALUE == 160000 {
 			return null
 		elif __IO_FILE_TYPE_IVALUE == 60000 
@@ -87,8 +87,8 @@ class PathType : Object
 		__IO_FILE_TYPE_IVALUE = 0000000
 		__IO_FILE_TYPE_PATH = ""
 	
-		block updateAttributes(filePath)
-			__IO_FILE_TYPE_PATH = curePathSlashes(filePath)
+		block UpdateAttributes(filePath)
+			__IO_FILE_TYPE_PATH = CurePathSlashes(filePath)
 			if __check_path(__IO_FILE_TYPE_PATH) != -1 {
 				__IO_FILE_TYPE_IVALUE = __path_type(__IO_FILE_TYPE_PATH)
 			}

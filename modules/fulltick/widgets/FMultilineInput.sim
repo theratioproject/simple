@@ -23,102 +23,102 @@ class FMultilineInput : FInput_
     /*
 
     */
-    Width = FApp.Scheme.getShemeValue("FMultilineInput.Width") 
+    Width = FApp.Scheme.GetShemeValue("FMultilineInput.Width") 
 
     /*
 
     */
-    Height = FApp.Scheme.getShemeValue("FMultilineInput.Height") 
+    Height = FApp.Scheme.GetShemeValue("FMultilineInput.Height") 
 
     /*
 
     */
-    X = FApp.Scheme.getShemeValue("FMultilineInput.X") 
+    X = FApp.Scheme.GetShemeValue("FMultilineInput.X") 
 
     /*
 
     */
-    Y = FApp.Scheme.getShemeValue("FMultilineInput.Y") 
+    Y = FApp.Scheme.GetShemeValue("FMultilineInput.Y") 
 
     /*
 
     */
-    Label = FApp.Scheme.getShemeValue("FMultilineInput.Label") 
+    Label = FApp.Scheme.GetShemeValue("FMultilineInput.Label") 
 
     /*
 
     */
-    CapitalizeLabel = FApp.Scheme.getShemeValue("FMultilineInput.CapitalizeLabel") 
+    CapitalizeLabel = FApp.Scheme.GetShemeValue("FMultilineInput.CapitalizeLabel") 
 
     /*
 
     */
-    Background = FApp.Scheme.getShemeValue("FMultilineInput.Background") 
+    Background = FApp.Scheme.GetShemeValue("FMultilineInput.Background") 
 
     /*
 
     */
-    LabelAlignment = FApp.Scheme.getShemeValue("FMultilineInput.LabelAlignment") 
+    LabelAlignment = FApp.Scheme.GetShemeValue("FMultilineInput.LabelAlignment") 
 
     /*
 
     */
-    Box = FApp.Scheme.getShemeValue("FMultilineInput.Box") 
+    Box = FApp.Scheme.GetShemeValue("FMultilineInput.Box") 
 
     /*
 
     */
-    Border = FApp.Scheme.getShemeValue("FMultilineInput.Border") 
+    Border = FApp.Scheme.GetShemeValue("FMultilineInput.Border") 
 
     /*
 
     */
-    HasBorder = FApp.Scheme.getShemeValue("FMultilineInput.HasBorder") 
+    HasBorder = FApp.Scheme.GetShemeValue("FMultilineInput.HasBorder") 
 
     /*
 
     */
-    AcceptInput = FApp.Scheme.getShemeValue("FMultilineInput.AcceptInput")
+    AcceptInput = FApp.Scheme.GetShemeValue("FMultilineInput.AcceptInput")
 
     /*
 
     */
-    Visible = FApp.Scheme.getShemeValue("FMultilineInput.Visible") 
+    Visible = FApp.Scheme.GetShemeValue("FMultilineInput.Visible") 
 
     /*
 
     */
-    KeyboardFocusable = FApp.Scheme.getShemeValue("FMultilineInput.KeyboardFocusable") 
+    KeyboardFocusable = FApp.Scheme.GetShemeValue("FMultilineInput.KeyboardFocusable") 
 
     /*
 
     */
-    Tooltip = FApp.Scheme.getShemeValue("FMultilineInput.Tooltip") 
+    Tooltip = FApp.Scheme.GetShemeValue("FMultilineInput.Tooltip") 
 
     /*
 
     */
-    LabelColor = FApp.Scheme.getShemeValue("FMultilineInput.LabelColor") 
+    LabelColor = FApp.Scheme.GetShemeValue("FMultilineInput.LabelColor") 
 
     /*
 
     */
-    LabelFont = FApp.Scheme.getShemeValue("FMultilineInput.LabelFont") 
+    LabelFont = FApp.Scheme.GetShemeValue("FMultilineInput.LabelFont") 
 
     /*
 
     */
-    LabelSize = FApp.Scheme.getShemeValue("FMultilineInput.LabelSize")
+    LabelSize = FApp.Scheme.GetShemeValue("FMultilineInput.LabelSize")
 
     /*
 
     */
-    LabelType = FApp.Scheme.getShemeValue("FMultilineInput.LabelType")
+    LabelType = FApp.Scheme.GetShemeValue("FMultilineInput.LabelType")
 
     /*
 
     */
-    SelectionColor = FApp.Scheme.getShemeValue("FMultilineInput.SelectionColor")
+    SelectionColor = FApp.Scheme.GetShemeValue("FMultilineInput.SelectionColor")
 
     /*
 
@@ -128,99 +128,99 @@ class FMultilineInput : FInput_
     /*
 
     */
-    Value = FApp.Scheme.getShemeValue("FMultilineInput.Value")
+    Value = FApp.Scheme.GetShemeValue("FMultilineInput.Value")
 
     /*
 
     */
-    CursorColor = FApp.Scheme.getShemeValue("FMultilineInput.CursorColor")
+    CursorColor = FApp.Scheme.GetShemeValue("FMultilineInput.CursorColor")
 
     /*
 
     */
-    Mark = FApp.Scheme.getShemeValue("FMultilineInput.Mark")
+    Mark = FApp.Scheme.GetShemeValue("FMultilineInput.Mark")
 
     /*
 
     */
-    MaximumSize = FApp.Scheme.getShemeValue("FMultilineInput.MaximumSize")
+    MaximumSize = FApp.Scheme.GetShemeValue("FMultilineInput.MaximumSize")
 	
 	/*
 	
 	*/
-	CaretPosition = FApp.Scheme.getShemeValue("FMultilineInput.CaretPosition")
+	CaretPosition = FApp.Scheme.GetShemeValue("FMultilineInput.CaretPosition")
 	
 	/*
 	
 	*/
-	ReadOnly = FApp.Scheme.getShemeValue("FMultilineInput.ReadOnly")
+	ReadOnly = FApp.Scheme.GetShemeValue("FMultilineInput.ReadOnly")
 
     /*
 
     */
-    Shortcut = FApp.Scheme.getShemeValue("FMultilineInput.Shortcut")
+    Shortcut = FApp.Scheme.GetShemeValue("FMultilineInput.Shortcut")
 
     /*
 
     */
-    TabNav = FApp.Scheme.getShemeValue("FMultilineInput.TabNav")
+    TabNav = FApp.Scheme.GetShemeValue("FMultilineInput.TabNav")
 
     /*
 
     */
-    Wrap = FApp.Scheme.getShemeValue("FMultilineInput.Wrap")
+    Wrap = FApp.Scheme.GetShemeValue("FMultilineInput.Wrap")
 
     /*
 
     */
-    TextColor = FApp.Scheme.getShemeValue("FMultilineInput.TextColor") 
+    TextColor = FApp.Scheme.GetShemeValue("FMultilineInput.TextColor") 
 
     /*
 
     */
-    TextFont = FApp.Scheme.getShemeValue("FMultilineInput.TextFont") 
+    TextFont = FApp.Scheme.GetShemeValue("FMultilineInput.TextFont") 
 
     /*
 
     */
-    TextSize = FApp.Scheme.getShemeValue("FMultilineInput.TextSize")
+    TextSize = FApp.Scheme.GetShemeValue("FMultilineInput.TextSize")
 
     /*
 
     */
     block Init(params...)
-        paramsLen = lengthOf(params)
+        paramsLen = LengthOf(params)
         if paramsLen == 1 {
             Value = params[0]
-            if !isString(Value) {
-                throw(self,"Invalid parameter Expecting 'string' as FMultilineInput Value")
+            if !IsString(Value) {
+                Throw(self,"Invalid parameter Expecting 'string' as FMultilineInput Value")
             }
         elif paramsLen == 2
             X = params[0]
             Y = params[1]
-            if !isNumber(X) or !isNumber(Y) {
-                throw(self,"Invalid parameter Expecting 'number' as FMultilineInput X and Y")
+            if !IsNumber(X) or !IsNumber(Y) {
+                Throw(self,"Invalid parameter Expecting 'number' as FMultilineInput X and Y")
             }
         elif paramsLen == 3 
             X = params[0]
             Y = params[1]
             Value = params[2]
-            if !isNumber(X) or !isNumber(Y) {
-                throw(self,"Invalid parameter Expecting 'number' as FMultilineInput X and Y")
+            if !IsNumber(X) or !IsNumber(Y) {
+                Throw(self,"Invalid parameter Expecting 'number' as FMultilineInput X and Y")
             }
-            if !isString(Value) {
-                throw(self,"Invalid parameter Expecting 'string' as FMultilineInput Value")
+            if !IsString(Value) {
+                Throw(self,"Invalid parameter Expecting 'string' as FMultilineInput Value")
             }
         elif paramsLen == 4
             X = params[0]
             Y = params[1]
             Width = params[2]
             Height = params[3]
-            if !isNumber(X) or !isNumber(Y) {
-                throw(self,"Invalid parameter Expecting 'number' as FMultilineInput X and Y")
+            if !IsNumber(X) or !IsNumber(Y) {
+                Throw(self,"Invalid parameter Expecting 'number' as FMultilineInput X and Y")
             }
-            if !isNumber(Width) or !isNumber(Height) {
-                throw(self,"Invalid parameter Expecting 'number' as FMultilineInput Width and Height")
+            if !IsNumber(Width) or !IsNumber(Height) {
+                Throw(self,"Invalid parameter Expecting 'number' as FMultilineInput Width and Height")
             }
         elif paramsLen == 5
             X = params[0]
@@ -228,25 +228,25 @@ class FMultilineInput : FInput_
             Width = params[2]
             Height = params[3]
             Value = params[4]
-            if !isNumber(X) or !isNumber(Y) {
-                throw(self,"Invalid parameter Expecting 'number' as FMultilineInput X and Y")
+            if !IsNumber(X) or !IsNumber(Y) {
+                Throw(self,"Invalid parameter Expecting 'number' as FMultilineInput X and Y")
             }
-            if !isNumber(Width) or !isNumber(Height) {
-                throw(self,"Invalid parameter Expecting 'number' as FMultilineInput Width and Height")
+            if !IsNumber(Width) or !IsNumber(Height) {
+                Throw(self,"Invalid parameter Expecting 'number' as FMultilineInput Width and Height")
             }
-            if !isString(Value) {
-                throw(self,"Invalid parameter Expecting 'string' as FMultilineInput Value")
+            if !IsString(Value) {
+                Throw(self,"Invalid parameter Expecting 'string' as FMultilineInput Value")
             }
         else    
             if paramsLen != 0 {
-                throw(self,"Calling block with invalid legth of parameter")
+                Throw(self,"Calling block with invalid legth of parameter")
             }
         } 
         Ptr = __Fl_Multiline_Input(X, Y, Width, Height, "") 
-        registerWidget()
-        setBox(Box)
-        setBorder(Border)
-        construct()
+        RegisterWidget()
+        SetBox(Box)
+        SetBorder(Border)
+        Construct()
         
         return self
 

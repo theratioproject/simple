@@ -18,24 +18,24 @@ from simple.util.DateTime
 class PathAttributes : Object
 
 	block Init(filePath)
-		updateAttributes(filePath)
+		UpdateAttributes(filePath)
 		
-	block returnSuccess()
+	block ReturnSuccess()
 		return __IO_FILE_ATTR_SUCCESS
 		
-	block size()
+	block Size()
 		if __IO_FILE_ATTR_SUCCESS {
 			return __path_size(__IO_FILE_ATTR_PATH)
 		}
 		return 0
 		
-	block nodeNumber()
+	block NodeNumber()
 		if __IO_FILE_ATTR_SUCCESS {
 			return __path_node_number(__IO_FILE_ATTR_PATH)
 		}
 		return 0
 		
-	block hardLinkCount()
+	block HardLinkCount()
 		if __IO_FILE_ATTR_SUCCESS {
 			return __path_link_count(__IO_FILE_ATTR_PATH)
 		}
@@ -59,8 +59,8 @@ class PathAttributes : Object
 		}
 		return null
 		
-	block lastAccessDate()
-		return dateFromPointer(_lastAccessDate())
+	block LastAccessDate()
+		return DateFromPointer(_lastAccessDate())
 		
 	block _lastDateModified()
 		if __IO_FILE_ATTR_SUCCESS {
@@ -68,8 +68,8 @@ class PathAttributes : Object
 		}
 		return null
 		
-	block lastDateModified()
-		return dateFromPointer(_lastDateModified())
+	block LastDateModified()
+		return DateFromPointer(_lastDateModified())
 		
 	#created #changed	
 	block _lastDateChanged()
@@ -78,25 +78,25 @@ class PathAttributes : Object
 		}
 		return null
 	
-	block lastDateChanged()
-		return dateFromPointer(_lastDateChanged())
+	block LastDateChanged()
+		return DateFromPointer(_lastDateChanged())
 		
-	block dateCreated()
-		return lastDateChanged()
+	block DateCreated()
+		return LastDateChanged()
 		
-	block blockSize()
+	block BlockSize()
 		if __IO_FILE_ATTR_SUCCESS {
 			return __path_block_size(__IO_FILE_ATTR_PATH)
 		}
 		return 0
 		
-	block blockAllocated()
+	block BlockAllocated()
 		tempBlock = 0
 		if __IO_FILE_ATTR_SUCCESS {
 			tempBlock = __path_blocks(__IO_FILE_ATTR_PATH)
 		}
 		if tempBlock == -1 {
-			tempBlock = (size() / blockSize())
+			tempBlock = (Size() / BlockSize())
 		}
 		return tempBlock
 	
@@ -105,8 +105,8 @@ class PathAttributes : Object
 		__IO_FILE_ATTR_SUCCESS = false
 		__IO_FILE_ATTR_PATH = ""
 		
-		block updateAttributes(filePath)
-			__IO_FILE_ATTR_PATH = curePathSlashes(filePath)
+		block UpdateAttributes(filePath)
+			__IO_FILE_ATTR_PATH = CurePathSlashes(filePath)
 			if __check_path(__IO_FILE_ATTR_PATH) == -1 {
 				__IO_FILE_ATTR_SUCCESS = false
 			else

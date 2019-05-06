@@ -15,19 +15,19 @@ import fulltick.objects
 import fulltick.drawing
 
 flabelDemo = new FFloatInputDemo
-FApp.run()
+FApp.Run()
 
 class FFloatInputDemo
 
     fwindow = new FWindow(320,180,"FFloatInput Demo") { 
-        begin(true) 
-        input = new FFloatInput(10,10,"1111.1111") { setPlatformScheme(FScheme.Android) }
-        new FFloatInput(10,50,"2222.1111") { setPlatformScheme(FScheme.Windows) }
-        new FFloatInput(10,90,"3333.1111") { setPlatformScheme(FScheme.Macosx) }
-        new FFloatInput(10,130,"4444.1111") { setPlatformScheme(FScheme.Linux) }
-        endBegin()
-        centerOnScreen() 
+        Begin(true) 
+        input = new FFloatInput(10,10,"1111.1111") { SetPlatformScheme(FScheme.Android) }
+        new FFloatInput(10,50,"2222.1111") { SetPlatformScheme(FScheme.Windows) }
+        new FFloatInput(10,90,"3333.1111") { SetPlatformScheme(FScheme.Macosx) }
+        new FFloatInput(10,130,"4444.1111") { SetPlatformScheme(FScheme.Linux) }
+        EndBegin()
+        CenterOnScreen() 
         Resizable = false
-        show()        
+        Show()        
     } 
         

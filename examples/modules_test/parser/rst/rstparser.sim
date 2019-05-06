@@ -7,8 +7,8 @@ from simple.util.Console
 from parser.rst.rstParser
 
 block main()
-	rstTokens = new rstParser(__read_file("../../../testfiles/headings.rst"))
-	tokens = rstTokens.parse()
+	rstTokens = new RstParser(__read_file("../../../testfiles/headings.rst"))
+	tokens = rstTokens.Parse()
 	for token in tokens {
-		stdout.println(token)
+		stdout.Println(token)
 	}

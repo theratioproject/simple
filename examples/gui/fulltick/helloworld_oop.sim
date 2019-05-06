@@ -13,15 +13,15 @@ import fulltick.objects
 import fulltick.drawing
 
 new FWindow(340,180){
-	begin(true)
+	Begin(true)
 	new FBox(20,40,300,100,"Hello, World!") {
-		setBox(__FL_UP_BOX())
-		setLabelFont(__FL_BOLD()+__FL_ITALIC())
-		setLabelSize(36)
-		setLabelType(2)
-		setLabelAlignment(FAlignment.ALIGN_CENTER)
+		SetBox(__FL_UP_BOX())
+		SetLabelFont(__FL_BOLD()+__FL_ITALIC())
+		SetLabelSize(36)
+		SetLabelType(2)
+		SetLabelAlignment(FAlignment.ALIGN_CENTER)
 	}
-	endBegin()
-	show()
+	EndBegin()
+	Show()
 }
-FApp.run()
+FApp.Run()

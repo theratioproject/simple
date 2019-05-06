@@ -15,35 +15,35 @@ import fulltick.objects
 import fulltick.drawing
 
 button = new ButtonDemo
-FApp.run() 
+FApp.Run() 
 
 class ButtonDemo : FCallbackEvent 
     fwindow = new FWindow(180,170,"FRadioRoundButton Testing only") {
 		button1 = new FRadioRoundButton() {
-            setCallbackListener(self)
-			setPlatformScheme(FScheme.Android) 
+            SetCallbackListener(self)
+			SetPlatformScheme(FScheme.Android) 
         }
 		button2 = new FRadioRoundButton() {
-            setCallbackListener(self)
-			setPlatformScheme(FScheme.Windows) 
-			setPosition(10, 50)
+            SetCallbackListener(self)
+			SetPlatformScheme(FScheme.Windows) 
+			SetPosition(10, 50)
         }
 		button3 = new FRadioRoundButton() {
-            setCallbackListener(self)
-			setPlatformScheme(FScheme.Macosx) 
-			setPosition(10, 90)
+            SetCallbackListener(self)
+			SetPlatformScheme(FScheme.Macosx) 
+			SetPosition(10, 90)
         }
 		button4 = new FRadioRoundButton() {
-            setCallbackListener(self)
-			setPlatformScheme(FScheme.Linux) 
-			setPosition(10, 130)
+            SetCallbackListener(self)
+			SetPlatformScheme(FScheme.Linux) 
+			SetPosition(10, 130)
         }
-		add(button1, button2, button3, button4)
-        centerOnScreen() 
+		Add(button1, button2, button3, button4)
+        CenterOnScreen() 
 		Resizable = false
-        show()        
+        Show()        
     } 
 
-    block callback(widget) 
+    block Callback(widget) 
 		widget.Text = "Checked"
         

@@ -30,35 +30,35 @@ class Point : Object
 
     */
     block Init(params...)
-        paramsLen = lengthOf(params)
+        paramsLen = LengthOf(params)
 
         if paramsLen == 1 {
-            if !isNull(params[0]) and isList(params[0]) {
+            if !IsNull(params[0]) and IsList(params[0]) {
                 _param = params[0] 
                 params = _param
-                paramsLen = lengthOf(params)
+                paramsLen = LengthOf(params)
             }
         }
         if paramsLen == 0 {
         elif paramsLen == 1
             object = params[0]
-            if isinstance(object) {
+            if Isinstance(object) {
                 X = object.X
                 Y = object.Y
             else
-                throw(self,"The parameter is not valid. Expecting instance of Point for Point X and Y. Found "+objectType(object))
+                Throw(self,"The parameter is not valid. Expecting instance of Point for Point X and Y. Found "+ObjectType(object))
             }
         elif paramsLen == 2
             x = params[0]
             y = params[1]
-            if isNumber(x) and isNumber(y) {
-                X = floor(x)
-                Y = floor(y)
+            if IsNumber(x) and IsNumber(y) {
+                X = Floor(x)
+                Y = Floor(y)
             else
-                throw(self,"The parameter is not valid. Expecting Number as Point X and Y. Found " + objectType(x) + " and " + objectType(y))
+                Throw(self,"The parameter is not valid. Expecting Number as Point X and Y. Found " + ObjectType(x) + " and " + ObjectType(y))
             }
         else
-            throw(self,"Initializing Point with invalid length of parameters")
+            Throw(self,"Initializing Point with invalid length of parameters")
         }
 
         return self
@@ -67,115 +67,115 @@ class Point : Object
     /*
 
     */
-    block getX()
+    block GetX()
         return X
 
     /*
 
     */
-    block getY()
+    block GetY()
         return Y
 
     /*
 
     */
-    block setY(y)
-        Y = floor(y)
+    block SetY(y)
+        Y = Floor(y)
 
     /*
 
     */
-    block setX(x)
-        X = floor(x)
+    block SetX(x)
+        X = Floor(x)
 
     /*
 
     */
-    block getPoint()
+    block GetPoint()
 		point = new Point(X,Y)
         return point
 
     /*
 
     */
-    block setPoint(params...)
+    block SetPoint(params...)
         Point(params)
 
     /*
 
     */
-    block changePoint(x, y)
-        X = floor(x)
-        Y = floor(y)
+    block ChangePoint(x, y)
+        X = Floor(x)
+        Y = Floor(y)
 
     /*
 
     */
-    block toRectangle()
+    block ToRectangle()
 		rectangle = new Rectangle(self)
         return rectangle
 
 	/*
 
 	*/
-	block operator(op,value)
+	block Operator(op,value)
 		switch op {
 			case "=="
-				return equals(value)
+				return Equals(value)
 			case "!="
-				return !equals(value)
+				return !Equals(value)
             case "+"
-                if isinstance(value) {
+                if Isinstance(value) {
                     x = X + value.X
                     y = Y + value.Y
-                    X = floor(x)
-                    Y = floor(y)
+                    X = Floor(x)
+                    Y = Floor(y)
                 else
-                    throw(self,"Using operator with values of incorrect type : "+op)
+                    Throw(self,"Using operator with values of incorrect type : "+op)
 					return null
                 }
 				return self
             case "-"
-                if isinstance(value) {
+                if Isinstance(value) {
                     x = X - value.X
                     y = Y - value.Y
-                    X = floor(x)
-                    Y = floor(y)
+                    X = Floor(x)
+                    Y = Floor(y)
                 else
-                    throw(self,"Using operator with values of incorrect type : "+op)
+                    Throw(self,"Using operator with values of incorrect type : "+op)
 					return null
                 }
 				return self
             case "/"
-                if isinstance(value) {
+                if Isinstance(value) {
                     x = X / value.X
                     y = Y / value.Y
-                    X = floor(x)
-                    Y = floor(y)
+                    X = Floor(x)
+                    Y = Floor(y)
                 else
-                    throw(self,"Using operator with values of incorrect type : "+op)
+                    Throw(self,"Using operator with values of incorrect type : "+op)
 					return null
                 }
 				return self
             case "*"
-                if isinstance(value) {
+                if Isinstance(value) {
                     x = X * value.X
                     y = Y * value.Y
-                    X = floor(x)
-                    Y = floor(y)
+                    X = Floor(x)
+                    Y = Floor(y)
                 else
-                    throw(self,"Using operator with values of incorrect type : "+op)
+                    Throw(self,"Using operator with values of incorrect type : "+op)
 					return null
                 }
 				return self
 		}
-		return super.operator(op, value)
+		return super.Operator(op, value)
 
     /*
 
     */
-    block equals(object)
-		if !isinstance(object) {
+    block Equals(object)
+		if !Isinstance(object) {
 			return false
 		}
 		return (X == object.X and Y == object.Y)
@@ -183,8 +183,8 @@ class Point : Object
     /*
 
     */
-    block toString()
-        return "[" + absolutename() + ":X=" + X + ",Y=" + Y + "]"
+    block ToString()
+        return "[" + Absolutename() + ":X=" + X + ",Y=" + Y + "]"
 
 
 

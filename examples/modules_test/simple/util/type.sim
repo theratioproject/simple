@@ -17,72 +17,72 @@ block main()
 	punct = "#$%&'()*+,-./:;<=>?@[\]^_`{|}~"
 	control = nl+crlf+tab
 	list = [str,alpha,space,hex,alphal,digit,punct,control]
-	listLen = lengthOf(list) - 1
+	listLen = LengthOf(list) - 1
 	
-	stdout.println("checking the following values")
+	stdout.Println("checking the following values")
 	for a = 0 to listLen {
-		stdout.print(" " + list[a])
+		stdout.Print(" " + list[a])
 	}
 	
-	stdout.print("\nAlphaNum")
+	stdout.Print("\nAlphaNum")
 	for a = 0 to listLen {
-		stdout.print("	" + isAlphaNum(list[a]))
+		stdout.Print("	" + IsAlphaNum(list[a]))
 	}
 	
-	stdout.print("\nAlpha")
+	stdout.Print("\nAlpha")
 	for a = 0 to listLen {
-		stdout.print("	" + isAlpha(list[a]))
+		stdout.Print("	" + IsAlpha(list[a]))
 	}
 	
-	stdout.print("\nDigit")
+	stdout.Print("\nDigit")
 	for a = 0 to listLen {
-		stdout.print("	" + isDigit(list[a]))
+		stdout.Print("	" + IsDigit(list[a]))
 	}
 	
-	stdout.print("\nControl")
+	stdout.Print("\nControl")
 	for a = 0 to listLen {
-		stdout.print("	" + isControlChar(list[a]))
+		stdout.Print("	" + IsControlChar(list[a]))
 	}
 	
-	stdout.print("\nGraph")
+	stdout.Print("\nGraph")
 	for a = 0 to listLen {
-		stdout.print("	" + isGraphical(list[a]))
+		stdout.Print("	" + IsGraphical(list[a]))
 	}
 	
-	stdout.print("\nLower")
+	stdout.Print("\nLower")
 	for a = 0 to 4 {
-		stdout.print("	" + isLowerCase(list[a]))
+		stdout.Print("	" + IsLowerCase(list[a]))
 	}
 	
-	stdout.print("\nUpper")
+	stdout.Print("\nUpper")
 	for a = 0 to 4 {
-		stdout.print("	" + isUpperCase(list[a]))
+		stdout.Print("	" + IsUpperCase(list[a]))
 	}
 	
-	stdout.print("\nPrintable")
+	stdout.Print("\nPrintable")
 	for a = 0 to listLen {
-		stdout.print("	" + isPrintable(list[a]))
+		stdout.Print("	" + IsPrintable(list[a]))
 	}
 	
-	stdout.print("\nSpace")
+	stdout.Print("\nSpace")
 	for a = 0 to listLen {
 		try {
-			stdout.print("	" + __isWhiteSpace(list[a])+' '+isWhiteSpace(list[a]))
+			stdout.Print("	" + __isWhiteSpace(list[a])+' '+IsWhiteSpace(list[a]))
 		catch
 			continue
 		}
 	}
 	
-	stdout.print("\nPunct")
+	stdout.Print("\nPunct")
 	for a = 0 to listLen {
-		stdout.print("	" + isPunctuation(list[a]))
+		stdout.Print("	" + IsPunctuation(list[a]))
 	}
 	
-	stdout.print("\nHexDigit")
+	stdout.Print("\nHexDigit")
 	for a = 0 to listLen {
-		stdout.print("	" + isHexDigit(list[a]))
+		stdout.Print("	" + IsHexDigit(list[a]))
 	}
-	stdout.println()
+	stdout.Println()
 	
 	
 	

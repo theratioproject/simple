@@ -1,18 +1,18 @@
 
 #1
 i = new inprivate
-i.noteller() #2
-i.teller() #3
+i.Noteller() #2
+i.Teller() #3
 
 class inprivate {
 
 	#4
-	block noteller(){
+	block Noteller(){
 		display " this is no private "
 	}
 	
 	#3
-	private block teller(){
+	private block Teller(){
 		display " error will surely occur "
 	}
 	

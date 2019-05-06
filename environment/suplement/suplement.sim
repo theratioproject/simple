@@ -2,10 +2,10 @@
 
 */
 /*
-	Update simple-lang over JSON api (supplementary). Only update
+	Update simple-lang over JSON Api (supplementary). Only update
 	minor such as module, environments, dynamic modules and 
 	documentation. It does not update the simple executable and 
-	libraries (dll, so, dylib, a) and the includes files. 
+	Libraries (dll, so, dylib, a) and the includes files. 
 	Update can happen in background except for the dynamic 
 	modules since update can fail if they are in use
 */
@@ -21,71 +21,71 @@ import simple.io
 
 block main()
 	if !__file_exists("./suplement.json") {
-		stdout.println("The updater file 'suplement.json' file does not exist. exiting")
-		exit(1)
+		stdout.Println("The updater file 'suplement.json' file does not exist. exiting")
+		Exit(1)
 	}
-	localJson = new JsonParser(__read_file(simpleResDir()+"/suplement.json"))
-	localJson = localJson.parse()
+	localJson = new JsonParser(__read_file(SimpleResDir()+"/suplement.json"))
+	localJson = localJson.Parse()
 	installDir = localJson["InstallationDir"].Value
 	
 	if installDir == "$EXEC_DIR" {
-		installDir = simpleDir()
+		installDir = SimpleDir()
 	}
-	updateFile = new Download(localJson["UpdateJsonAddress"].Value,getTmpDirectory()+"/update_file.json") {
-		if !fetch() {
-			stdout.println("Update failed")
-			exit(2)
+	updateFile = new Download(localJson["UpdateJsonAddress"].Value,GetTmpDirectory()+"/update_file.json") {
+		if !Fetch() {
+			stdout.Println("Update failed")
+			Exit(2)
 		}
 	}
-	updateJson = new JsonParser(updateFile.readAllString())
-	updateJson = updateJson.parse()
+	updateJson = new JsonParser(updateFile.ReadAllString())
+	updateJson = updateJson.Parse()
 	
-	if !compareVersion(localJson["Version"].Value, updateJson["Version"].Value) {
-		stdout.println("Your local version is up to date")
+	if !CompareVersion(localJson["Version"].Value, updateJson["Version"].Value) {
+		stdout.Println("Your local version is up to date")
 		return		
 	}
-	stdout.printf("preparing to update program...")
-	updates = updateJson.get("Updates").Value
+	stdout.Printf("preparing to update program...")
+	updates = updateJson.Get("Updates").Value
 	platform = "Windows"
-	if isLinux() {
+	if IsLinux() {
 		platform = "Linux"
 	}
 	for update in updates {
-		stdout.printf("\r%s\rupdating %s...", strCopy(" ", 40), update.get("Name").Value)
-		if update.get("Type").Value == "zip" {
-			name = update.get("Name").Value
-			path = update.get(platform).Value.get("Installation Path").Value
-			stdout.printf("\r%s\rupdating %s, downloading...", strCopy(" ", 40), name)
-			remoteZip = new Download(update.get(platform).Value.get("Update Url").Value, getTmpDirectory()+name+".zip") {
-				if !fetch() {
-					stdout.printf("\r%s\rupdating %s, downloading...(failed)", strCopy(" ", 40), name)
+		stdout.Printf("\r%s\rupdating %s...", StrCopy(" ", 40), update.Get("Name").Value)
+		if update.Get("Type").Value == "zip" {
+			name = update.Get("Name").Value
+			path = update.Get(platform).Value.Get("Installation Path").Value
+			stdout.Printf("\r%s\rupdating %s, downloading...", StrCopy(" ", 40), name)
+			remoteZip = new Download(update.Get(platform).Value.Get("Update Url").Value, GetTmpDirectory()+name+".zip") {
+				if !Fetch() {
+					stdout.Printf("\r%s\rupdating %s, downloading...(failed)", StrCopy(" ", 40), name)
 					break
-					exit(3)
+					Exit(3)
 				}
-				zip = new Zip(getTmpDirectory()+name+".zip", "r") {
-					extract(installDir + "/"+path )
+				zip = new Zip(GetTmpDirectory()+name+".zip", "r") {
+					Extract(installDir + "/"+path )
 				}
 			}
-			stdout.print("(done)")
+			stdout.Print("(done)")
 			
-		elif update.get("Type").Value == "link" 
-			stdout.print("(done)")
-			system('start "" "'+update.get(platform).Value.get("Update Url").Value+'" ')
+		elif update.Get("Type").Value == "link" 
+			stdout.Print("(done)")
+			System('start "" "'+update.Get(platform).Value.Get("Update Url").Value+'" ')
 			
 		}
 	}
 	localJson["Version"].Value = updateJson["Version"].Value
-	__write_file(simpleResDir()+"/suplement.json", localJson.toString())
+	__write_file(SimpleResDir()+"/suplement.json", localJson.ToString())
 	
-block compareVersion(localVersion, updateVersion)
-	if lengthOf(localVersion) < lengthOf(updateVersion) {
+block CompareVersion(localVersion, updateVersion)
+	if LengthOf(localVersion) < LengthOf(updateVersion) {
 		return true
 	}
-	localV = strSplit(localVersion,'.')
-	localVLen = lengthOf(localV) - 1
-	updateV = strSplit(updateVersion,'.')
-	updateVLen = lengthOf(updateV) - 1
-	#stdout.printf("%o, %o\n", localV, updateV)
+	localV = StrSplit(localVersion,'.')
+	localVLen = LengthOf(localV) - 1
+	updateV = StrSplit(updateVersion,'.')
+	updateVLen = LengthOf(updateV) - 1
+	#stdout.Printf("%o, %o\n", localV, updateV)
 	if localVLen < updateVLen {
 		return true
 	}
@@ -96,11 +96,11 @@ block compareVersion(localVersion, updateVersion)
 	}	
 	return false 
 	
-block getTmpDirectory()
-	tempDirectory = getTempDirectory()
+block GetTmpDirectory()
+	tempDirectory = GetTempDirectory()
 	tDirectory = new Directory(tempDirectory+"/.simple_env/updater/")
-	if !tDirectory.exists() {
-		tDirectory.create()
+	if !tDirectory.Exists() {
+		tDirectory.Create()
 	}
 	return tDirectory.AbsolutePath + SystemSlash()
 	

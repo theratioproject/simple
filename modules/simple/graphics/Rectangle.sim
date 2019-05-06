@@ -42,12 +42,12 @@ class Rectangle : Object
 
     */
     block Init(params...)
-        paramsLen = lengthOf(params)
+        paramsLen = LengthOf(params)
         if paramsLen == 1 {
-            if !isNull(params[0]) and isList(params[0]) {
+            if !IsNull(params[0]) and IsList(params[0]) {
                 _param = params[0] 
                 params = _param
-                paramsLen = lengthOf(params)
+                paramsLen = LengthOf(params)
             }
         }
         if paramsLen == 0 {
@@ -59,218 +59,218 @@ class Rectangle : Object
             elif __instance_of(object,"Dimension")
                 Width = object.Width
                 Height = object.Height
-            elif isinstance(object)
+            elif Isinstance(object)
                 X = object.X
                 Y = object.Y
                 Width = object.Width
                 Height = object.Height
             else
-                throw(self,"The parameter is not valid. Expecting instance of Dimension, Point or Rectangle. Found "+objectType(object))
+                Throw(self,"The parameter is not valid. Expecting instance of Dimension, Point or Rectangle. Found "+ObjectType(object))
             }
         elif paramsLen == 2 
             obj1 = params[0] 
             obj2 = params[1] 
-            if isNumber(obj1) and isNumber(obj2) {
+            if IsNumber(obj1) and IsNumber(obj2) {
                 Width = obj1
                 Height = obj2
-            elif instanceOf(obj1,"Point") and instanceOf(obj2,"Dimension")
+            elif InstanceOf(obj1,"Point") and InstanceOf(obj2,"Dimension")
                 X = obj1.X
                 Y = obj1.Y
                 Width = obj2.Width
                 Height = obj2.Height
-            elif instanceOf(obj2,"Point") and instanceOf(obj1,"Dimension")
+            elif InstanceOf(obj2,"Point") and InstanceOf(obj1,"Dimension")
                 X = obj2.X
                 Y = obj2.Y
                 Width = obj1.Width
                 Height = obj1.Height
             else
-                throw(self,"The parameter is not valid. Expecting Numbers or Point and Dimension as Rectangle Width and Height. Found " + objectType(obj1) + " and " + objectType(obj2) )
+                Throw(self,"The parameter is not valid. Expecting Numbers or Point and Dimension as Rectangle Width and Height. Found " + ObjectType(obj1) + " and " + ObjectType(obj2) )
             }
         elif paramsLen = 4
             x = params[0]
             y = params[1]
             width = params[2]
             height = params[3]
-            if isNumber(x) and isNumber(y) and isNumber(width) and isNumber(height) {
+            if IsNumber(x) and IsNumber(y) and IsNumber(width) and IsNumber(height) {
                 X = x
                 Y = y
                 Width = width
                 Height = height
             else
-                throw(self,"The parameter is not valid. Expecting Number as Rectangle X, Y, Width and Height. Found " + objectType(x) + ", " + objectType(y) + ", " + objectType(width) + " and " + objectType(height))
+                Throw(self,"The parameter is not valid. Expecting Number as Rectangle X, Y, Width and Height. Found " + ObjectType(x) + ", " + ObjectType(y) + ", " + ObjectType(width) + " and " + ObjectType(height))
             }
         else
-            throw(self,"Initializing Rectangle with invalid length of parameters")
+            Throw(self,"Initializing Rectangle with invalid length of parameters")
         }
 
     /*
 
     */
-    block getX()
+    block GetX()
         return X
 
     /*
 
     */
-    block getY()
+    block GetY()
         return Y
 
     /*
 
     */
-    block getWidth()
+    block GetWidth()
         return Width
 
     /*
 
     */
-    block getHeight()
+    block GetHeight()
         return Height
 
     /*
 
     */
-    block getRectangle() 
+    block GetRectangle() 
 		rectangle = new Rectangle(self)
         return rectangle
 
     /*
 
     */
-    block setRectangle(params...) 
+    block SetRectangle(params...) 
         Rectangle(params)
 
     /*
 
     */
-    block getPoint()
+    block GetPoint()
 		point = new Point(X,Y)
         return point
 
     /*
 
     */
-    block setPoint(params...)
-        paramsLen = lengthOf(params)
+    block SetPoint(params...)
+        paramsLen = LengthOf(params)
 
         if paramsLen == 1 {
-            if !isNull(params[0]) and isList(params[0]) {
+            if !IsNull(params[0]) and IsList(params[0]) {
                 _param = params[0] 
                 params = _param
-                paramsLen = lengthOf(params)
+                paramsLen = LengthOf(params)
             }
         }
         if paramsLen == 1 {
             object = params[0]
-            if instanceOf(object,"Point") {
+            if InstanceOf(object,"Point") {
                 X = object.X
                 Y = object.Y
             else
-                throw(self,"The parameter is not valid. Expecting instance of Point. Found "+objectType(object))
+                Throw(self,"The parameter is not valid. Expecting instance of Point. Found "+ObjectType(object))
             }
         elif paramsLen == 2
             x = params[0]
             y = params[1]
-            if isNumber(x) and isNumber(y) {
+            if IsNumber(x) and IsNumber(y) {
                 X = x
                 Y = y
             else
-                throw(self,"The parameter is not valid. Expecting Number as Rectangle X and Y. Found " + objectType(x) + " and " + objectType(y))
+                Throw(self,"The parameter is not valid. Expecting Number as Rectangle X and Y. Found " + ObjectType(x) + " and " + ObjectType(y))
             }
         else
-            throw(self,"Changing Rectangle point with invalid length of parameters")
+            Throw(self,"Changing Rectangle point with invalid length of parameters")
         }
 
     /*
 
     */
-    block getDimension()
+    block GetDimension()
 		dimension = new Dimension(Width, Height)
         return dimension
 
     /*
 
     */
-    block setDimension(params...)
-        paramsLen = lengthOf(params)
+    block SetDimension(params...)
+        paramsLen = LengthOf(params)
 
         if paramsLen == 1 {
-            if !isNull(params[0]) and isList(params[0]) {
+            if !IsNull(params[0]) and IsList(params[0]) {
                 _param = params[0] 
                 params = _param
-                paramsLen = lengthOf(params)
+                paramsLen = LengthOf(params)
             }
         }
         if paramsLen == 1 {
             object = params[0]
-            if instanceOf(object,"Dimension") {
+            if InstanceOf(object,"Dimension") {
                 Width = object.Width
                 Height = object.Height
             else
-                throw(self,"The parameter is not valid. Expecting instance of Dimension. Found "+objectType(object))
+                Throw(self,"The parameter is not valid. Expecting instance of Dimension. Found "+ObjectType(object))
             }
         elif paramsLen == 2
             width = params[0]
             height = params[1]
-            if isNumber(width) and isNumber(height) {
+            if IsNumber(width) and IsNumber(height) {
                 Width = width
                 Height = height
             else
-                throw(self,"The parameter is not valid. Expecting Number as Rectangle Width and Height. Found " + objectType(x) + " and " + objectType(y))
+                Throw(self,"The parameter is not valid. Expecting Number as Rectangle Width and Height. Found " + ObjectType(x) + " and " + ObjectType(y))
             }
         else
-            throw(self,"Changing Rectangle point with invalid length of parameters")
+            Throw(self,"Changing Rectangle point with invalid length of parameters")
         }
 
     /*
 
     */
-    block contains(params...)   
-        paramsLen = lengthOf(params)  
+    block Contains(params...)   
+        paramsLen = LengthOf(params)  
         x = null
         y = null
         width = null
         height = null
 
         if paramsLen == 1 {
-            if !isNull(params[0]) and isList(params[0]) {
+            if !IsNull(params[0]) and IsList(params[0]) {
                 _param = params[0] 
                 params = _param
-                paramsLen = lengthOf(params)
+                paramsLen = LengthOf(params)
             }
         }
         if paramsLen == 1 {
             object = params[0]
-            if instanceOf(object,"Point") {
+            if InstanceOf(object,"Point") {
                 x = object.X
                 y = object.Y
-            elif isinstance(object)
+            elif Isinstance(object)
                 x = object.X
                 y = object.Y
                 width = object.Width
                 height = object.Height
             else
-                throw(self,"The parameter is not valid. Expecting instance of Point. Found "+objectType(object))
+                Throw(self,"The parameter is not valid. Expecting instance of Point. Found "+ObjectType(object))
             }
         elif paramsLen == 2
             x = params[0]
             y = params[1]
-            if !isNumber(x) or !isNumber(y) {
-                throw(self,"The parameter is not valid. Expecting Number as Rectangle X and Y. Found " + objectType(x) + " and " + objectType(y))
+            if !IsNumber(x) or !IsNumber(y) {
+                Throw(self,"The parameter is not valid. Expecting Number as Rectangle X and Y. Found " + ObjectType(x) + " and " + ObjectType(y))
             }
         elif paramsLen == 4
             x = params[0]
             y = params[1]
             width = params[2]
             height = params[3]
-            if !isNumber(x) or !isNumber(y) or !isNumber(width) or !isNumber(height) {
-                throw(self,"The parameter is not valid. Expecting Number as Rectangle X, Y, Width and Height Found " + objectType(x) + ", " + objectType(y) + ", " + objectType(width) + " and " + objectType(height))
+            if !IsNumber(x) or !IsNumber(y) or !IsNumber(width) or !IsNumber(height) {
+                Throw(self,"The parameter is not valid. Expecting Number as Rectangle X, Y, Width and Height Found " + ObjectType(x) + ", " + ObjectType(y) + ", " + ObjectType(width) + " and " + ObjectType(height))
             }
         else
-            throw(self,"Checking Rectangle with invalid length of parameters")
+            Throw(self,"Checking Rectangle with invalid length of parameters")
         }
         
-        if !isNull(width) and !isNull(height) {
+        if !IsNull(width) and !IsNull(height) {
             return Width > 0 and Height > 0 and width > 0 and height > 0 and 
                     x >= X and x + width <= X + Width and 
                     y >= Y and y + height <= Y + Height
@@ -283,40 +283,40 @@ class Rectangle : Object
     /*
 
     */
-    block intersects(params...)
-        paramsLen = lengthOf(params)  
+    block Intersects(params...)
+        paramsLen = LengthOf(params)  
         x = null
         y = null
         width = null
         height = null
 
         if paramsLen == 1 {
-            if !isNull(params[0]) and isList(params[0]) {
+            if !IsNull(params[0]) and IsList(params[0]) {
                 _param = params[0] 
                 params = _param
-                paramsLen = lengthOf(params)
+                paramsLen = LengthOf(params)
             }
         }
         if paramsLen == 1 {
             object = params[0]
-            if isinstance(object)
+            if Isinstance(object)
                 x = object.X
                 y = object.Y
                 width = object.Width
                 height = object.Height
             else
-                throw(self,"The parameter is not valid. Expecting instance of Rectangle. Found "+objectType(object))
+                Throw(self,"The parameter is not valid. Expecting instance of Rectangle. Found "+ObjectType(object))
             }
         elif paramsLen == 4
             x = params[0]
             y = params[1]
             width = params[2]
             height = params[3]
-            if !isNumber(x) or !isNumber(y) or !isNumber(width) or !isNumber(height) {
-                throw(self,"The parameter is not valid. Expecting Number as Rectangle X, Y, Width and Height Found " + objectType(x) + ", " + objectType(y) + ", " + objectType(width) + " and " + objectType(height))
+            if !IsNumber(x) or !IsNumber(y) or !IsNumber(width) or !IsNumber(height) {
+                Throw(self,"The parameter is not valid. Expecting Number as Rectangle X, Y, Width and Height Found " + ObjectType(x) + ", " + ObjectType(y) + ", " + ObjectType(width) + " and " + ObjectType(height))
             }
         else
-            throw(self,"Checking if Rectangle intersects with invalid length of parameters")
+            Throw(self,"Checking if Rectangle intersects with invalid length of parameters")
         }
 
         return width > 0 and height > 0 and Width > 0 and Height > 0 and 
@@ -326,71 +326,71 @@ class Rectangle : Object
     /*
 
     */
-    block intersection(rectangle)
-        if isinstance(rectangle) {
-            x = max(Y, rectangle.X)
-            y = max(Y, rectangle.Y)
-            maxx = min(X + Width, rectangle.X + rectangle.Width)
-            maxy = min(Y + Height, rectangle.Y + rectangle.Height)
+    block Intersection(rectangle)
+        if Isinstance(rectangle) {
+            x = Max(Y, rectangle.X)
+            y = Max(Y, rectangle.Y)
+            maxx = Min(X + Width, rectangle.X + rectangle.Width)
+            maxy = Min(Y + Height, rectangle.Y + rectangle.Height)
 			rectangle = new Rectangle(x, y, maxx - x, maxy - y)
             return rectangle
         else
-            throw(self,"The parameter is not valid. Expecting instance of Rectangle. Found "+objectType(rectangle))
+            Throw(self,"The parameter is not valid. Expecting instance of Rectangle. Found "+ObjectType(rectangle))
         }
         return null
 
     /*
 
     */
-    block union(rectangle)
-        if isinstance(rectangle) {
-            x = min(Y, rectangle.X)
-            y = min(Y, rectangle.Y)
-            maxx = max(X + Width, rectangle.X + rectangle.Width)
-            maxy = max(Y + Height, rectangle.Y + rectangle.Height)
+    block Union(rectangle)
+        if Isinstance(rectangle) {
+            x = Min(Y, rectangle.X)
+            y = Min(Y, rectangle.Y)
+            maxx = Max(X + Width, rectangle.X + rectangle.Width)
+            maxy = Max(Y + Height, rectangle.Y + rectangle.Height)
 			rectangle = new Rectangle(x, y, maxx - x, maxy - y)
             return rectangle
         else
-            throw(self,"The parameter is not valid. Expecting instance of Rectangle. Found "+objectType(rectangle))
+            Throw(self,"The parameter is not valid. Expecting instance of Rectangle. Found "+ObjectType(rectangle))
         }
         return null
 
     /*
 
     */
-    block grow(horizontal, vertical)
-        if isNumber(horizontal) and isNumber(vertical) {
+    block Grow(horizontal, vertical)
+        if IsNumber(horizontal) and IsNumber(vertical) {
             X -= horizontal
             Y -= vertical
             Width += horizontal + horizontal
             Height += vertical + vertical
         else
-            throw(self,"The parameter is not valid. Expecting Number for changing Rectangle size. Found " + objectType(horizontal) + " and " + objectType(vertical))
+            Throw(self,"The parameter is not valid. Expecting Number for changing Rectangle size. Found " + ObjectType(horizontal) + " and " + ObjectType(vertical))
         }
 
     /*
 
     */
-    block shrink(horizontal, vertical)
-        if isNumber(horizontal) and isNumber(vertical) {
+    block Shrink(horizontal, vertical)
+        if IsNumber(horizontal) and IsNumber(vertical) {
             X += horizontal
             Y += vertical
             Width -= horizontal + horizontal
             Height -= vertical + vertical
         else
-            throw(self,"The parameter is not valid. Expecting Number for changing Rectangle size. Found " + objectType(horizontal) + " and " + objectType(vertical))
+            Throw(self,"The parameter is not valid. Expecting Number for changing Rectangle size. Found " + ObjectType(horizontal) + " and " + ObjectType(vertical))
         }
 
     /*
 
     */
-    block isEmpty()
+    block IsEmpty()
         return Width <= 0 or Height <= 0
 
     /*
 
     */
-    block toString()
+    block ToString()
         return "[simple.graphics.Rectangle:X=" + X + ",Y=" + Y + ",Width=" + Width + ",Height=" + Height + "]"
 
 

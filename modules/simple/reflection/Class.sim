@@ -15,8 +15,8 @@ module simple.reflection
 /*
 
 */
-block instanceOf(object obj, string clazz)
-	if !isObject(obj) { return false }
+block InstanceOf(object obj, string clazz)
+	if !IsObject(obj) { return false }
 	return __instance_of(obj, clazz)
 
 /*

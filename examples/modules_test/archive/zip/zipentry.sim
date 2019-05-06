@@ -12,14 +12,14 @@ import simple.core
 block main()
 	zip = new Zip("../../../testfiles/test_zip.zip", "r") 
 	for entry in zip {
-		stdout.println(strCopy("=",40))
-		stdout.println("FullName="+entry.FullName)
-		stdout.println("Index="+entry.Index)
-		stdout.print("DateTime=") stdout.println(entry.DateTime)
-		stdout.println("CompressSize="+entry.CompressSize)
-		stdout.println("Size="+entry.Size)
+		stdout.Println(StrCopy("=",40))
+		stdout.Println("FullName="+entry.FullName)
+		stdout.Println("Index="+entry.Index)
+		stdout.Print("DateTime=") stdout.Println(entry.DateTime)
+		stdout.Println("CompressSize="+entry.CompressSize)
+		stdout.Println("Size="+entry.Size)
 	}
-	stdout.println(strCopy("=",40))
+	stdout.Println(StrCopy("=",40))
 	
 	
 	

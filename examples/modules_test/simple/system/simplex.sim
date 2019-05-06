@@ -20,12 +20,12 @@
 from simple.system.SimpleX
 from simple.util.Console
 
-stdout.println("Where simple-lang is installed : "+simpleDir())
-stdout.println("simple-lang executables dir : "+simpleExecDir())
-stdout.println("simple-lang includes dir : "+simpleIncludesDir())
-stdout.println("simple-lang resources dir : "+simpleResDir())
-stdout.println("simple-lang modules dir : "+simpleModulesDir())
-stdout.println("simple-lang dynamic modules dir : "+simpleDyModulesDir())
-stdout.println("simple-lang documentation dir : "+simpleDocDir())
-stdout.println("simple-lang executables extension : "+simpleXExeExt())
-stdout.println("Dynamic Module Extension : "+dynamicModuleExt())
+stdout.Println("Where simple-lang is installed : "+SimpleDir())
+stdout.Println("simple-lang executables dir : "+SimpleExecDir())
+stdout.Println("simple-lang includes dir : "+SimpleIncludesDir())
+stdout.Println("simple-lang resources dir : "+SimpleResDir())
+stdout.Println("simple-lang modules dir : "+SimpleModulesDir())
+stdout.Println("simple-lang dynamic modules dir : "+SimpleDyModulesDir())
+stdout.Println("simple-lang documentation dir : "+SimpleDocDir())
+stdout.Println("simple-lang executables extension : "+SimpleXExeExt())
+stdout.Println("Dynamic Module Extension : "+DynamicModuleExt())

@@ -105,10 +105,10 @@ isParsed = false
 eachLine = false
  
 block main() 
-	cmdlen = getTypeLength(cmdparams) 
+	cmdlen = GetTypeLength(cmdparams) 
 	for a = 0 to cmdlen
-		if stringStartsWith(cmdparams[a], '-')
-			if cmdparams[a] == '--h' or cmdparams[a] == '-help' help()
+		if StringStartsWith(cmdparams[a], '-')
+			if cmdparams[a] == '--h' or cmdparams[a] == '-help' Help()
 			elif cmdparams[a] == '--s' or cmdparams[a] == '-source' sourcePath = cmdparams[a++] continue 
 			elif cmdparams[a] == '--l' or cmdparams[a] == '-license' displayLicense = true
 			elif cmdparams[a] == '--a' or cmdparams[a] == '-author' displayAuthor = true
@@ -119,91 +119,91 @@ block main()
 			elif cmdparams[a] == '--b' or cmdparams[a] == '-blocks' showBlock = true
 			elif cmdparams[a] == '--c' or cmdparams[a] == '-classes' showClass = true
 			elif cmdparams[a] == '--m' or cmdparams[a] == '-modules' showModule = true
-			else printError("Unknown option : "+cmdparams[a]) end
+			else PrintError("Unknown option : "+cmdparams[a]) end
 		else 
-			if stringEndsWith(cmdparams[cmdlen],'.sim') sourcePath = cmdparams[a] 
+			if StringEndsWith(cmdparams[cmdlen],'.sim') sourcePath = cmdparams[a] 
 			end
 		end
 	end 
-	if sourcePath == '' printError("No Source File Specified") end 
+	if sourcePath == '' PrintError("No Source File Specified") end 
 	sourceFile = new File(sourcePath)
-	if !sourceFile.exists() printError("Source File Does not exists") end
-	sourceContent = sourceFile.readFileAsString()
-	fetchInfo(sourceContent) getContents(sourceContent)
+	if !sourceFile.Exists() PrintError("Source File Does not exists") end
+	sourceContent = sourceFile.ReadFileAsString()
+	FetchInfo(sourceContent) GetContents(sourceContent)
 	
-block fetchInfo(sourceContent)
-	if displayAuthor { displayHeaderInfo(sourceContent,'author') }
-	if displayDate { displayHeaderInfo(sourceContent,'date')  }
-	if displayTime { displayHeaderInfo(sourceContent,'time')  }
-	if displayLicense { displayHeaderInfo(sourceContent,'license') }
+block FetchInfo(sourceContent)
+	if displayAuthor { DisplayHeaderInfo(sourceContent,'author') }
+	if displayDate { DisplayHeaderInfo(sourceContent,'date')  }
+	if displayTime { DisplayHeaderInfo(sourceContent,'time')  }
+	if displayLicense { DisplayHeaderInfo(sourceContent,'license') }
 	
-block displayHeaderInfo(sourceContent,headerAttribute)
-	if !isParsed parserSourceContent = parserSource(sourceContent) end
+block DisplayHeaderInfo(sourceContent,headerAttribute)
+	if !isParsed parserSourceContent = ParserSource(sourceContent) end
 	if parserSourceContent[headerAttribute] != '' 
 		if eachLine @ parserSourceContent[headerAttribute] 	
 		else display parserSourceContent[headerAttribute] end
 	end
 	
-block getContents(sourceContent)
-	if showBlock displayContent(sourceContent,'blocks') end
-	if showClass displayContent(sourceContent,'classes') end
-	if showModule displayContent(sourceContent,'modules') end
+block GetContents(sourceContent)
+	if showBlock DisplayContent(sourceContent,'blocks') end
+	if showClass DisplayContent(sourceContent,'classes') end
+	if showModule DisplayContent(sourceContent,'modules') end
 	
-block displayContent(sourceContent,contentAttribute)
-	if !isParsed parserSourceContent = parserSource(sourceContent) end
-	contentAttributeLength = getTypeLength(parserSourceContent[contentAttribute])
+block DisplayContent(sourceContent,contentAttribute)
+	if !isParsed parserSourceContent = ParserSource(sourceContent) end
+	contentAttributeLength = GetTypeLength(parserSourceContent[contentAttribute])
 	if contentAttributeLength > -1
 		for a = 0 to contentAttributeLength
 			@ parserSourceContent[contentAttribute][a+1]
 		end
 	end
 	
-block parserSource(sourceContent)
+block ParserSource(sourceContent)
 	tempAttribList = [] 
 	tempAttribList['blocks'] = []
 	tempAttribList['classes'] = []
 	tempAttribList['modules'] = []
 	tempAttribList['calls'] = []
-	sourceContent = splitString(sourceContent, ' ') 
+	sourceContent = SplitString(sourceContent, ' ') 
 	
-	sourceLength = getTypeLength(sourceContent)
-	while (!endOfStream(sourceContent))
-		if acceptToken('@Author',sourceContent)
+	sourceLength = GetTypeLength(sourceContent)
+	while (!EndOfStream(sourceContent))
+		if AcceptToken('@Author',sourceContent)
 			value = '' 
 			if sourceContent[position] == '-' position++  end
-			while !acceptToken('*',sourceContent) {
+			while !AcceptToken('*',sourceContent) {
 				value += sourceContent[position] + ' ' position++ 
 			} 
 			tempAttribList['author'] = value
-		elif acceptToken('@Time',sourceContent)
+		elif AcceptToken('@Time',sourceContent)
 			value = '' 
 			if sourceContent[position] == '-' position++  end
-			while !acceptToken('*',sourceContent) {
+			while !AcceptToken('*',sourceContent) {
 				value += sourceContent[position] + ' ' position++ 
 			} 
 			tempAttribList['time'] = value 
-		elif acceptToken('@Date',sourceContent)
+		elif AcceptToken('@Date',sourceContent)
 			value = '' 
 			if sourceContent[position] == '-' position++  end
-			while !acceptToken('*',sourceContent) {
+			while !AcceptToken('*',sourceContent) {
 				value += sourceContent[position] + ' ' position++ 
 			} 
 			tempAttribList['date'] = value 
-		elif acceptToken('@License',sourceContent)
+		elif AcceptToken('@License',sourceContent)
 			value = '' 
 			if sourceContent[position] == '-' position++  end
-			while !acceptToken('*',sourceContent){
+			while !AcceptToken('*',sourceContent){
 				value += sourceContent[position] + ' ' position++ 
 			} 
 			tempAttribList['license'] = value 
-		elif acceptToken('block',sourceContent)
+		elif AcceptToken('block',sourceContent)
 			#fullname
 			bfullname = sourceContent[position] 
 			#name
-			bname = stringLeft(bfullname,substr(bfullname,'(')-1)
+			bname = StringLeft(bfullname,Substr(bfullname,'(')-1)
 			#paramcount
-			tp = splitString(trimString(replaceString(bfullname,bname,'')),',')
-			bparamcount = getTypeLength(tp) + 1 tp = null
+			tp = SplitString(TrimString(ReplaceString(bfullname,bname,'')),',')
+			bparamcount = GetTypeLength(tp) + 1 tp = null
 			#comment <we read backward>
 			bcomment = "" tpos = position 
 			while sourceContent[tpos] != '/'  
@@ -212,10 +212,10 @@ block parserSource(sourceContent)
 			for a = tpos to position
 				bcomment += sourceContent[a] + ' '
 			end
-			bcomment = formatCommentType(bcomment,bfullname,'block')
+			bcomment = FormatCommentType(bcomment,bfullname,'block')
 			__add_to_list(tempAttribList['blocks'],new BridgeBlock(bfullname,bname,bcomment,bparamcount))
 			position++ 
-		elif acceptToken('class',sourceContent)
+		elif AcceptToken('class',sourceContent)
 			#fullname
 			bfullname = sourceContent[position] 
 			#comment <we read backward>
@@ -226,10 +226,10 @@ block parserSource(sourceContent)
 			for a = tpos to position
 				bcomment += sourceContent[a] + ' '
 			end
-			bcomment = formatCommentType(bcomment,bfullname,'class')
+			bcomment = FormatCommentType(bcomment,bfullname,'class')
 			__add_to_list(tempAttribList['classes'],new BridgeClass(bfullname,bcomment))
 			position++ 
-		elif acceptToken('module',sourceContent)
+		elif AcceptToken('module',sourceContent)
 			#fullname
 			bfullname = sourceContent[position] 
 			#comment <we read backward>
@@ -240,7 +240,7 @@ block parserSource(sourceContent)
 			for a = tpos to position
 				bcomment += sourceContent[a] + ' '
 			end
-			bcomment = formatCommentType(bcomment,bfullname,'module')
+			bcomment = FormatCommentType(bcomment,bfullname,'module')
 			__add_to_list(tempAttribList['modules'],new BridgeClass(bfullname,bcomment))
 			position++ 
 		else
@@ -251,28 +251,28 @@ block parserSource(sourceContent)
 	isParsed = true
 	return tempAttribList
 	
-block formatCommentType(content,fullname,type)
-	ret = replaceString(formatComment(content,fullname),type,'')
-	return trimString(ret)
+block FormatCommentType(content,fullname,type)
+	ret = ReplaceString(FormatComment(content,fullname),type,'')
+	return TrimString(ret)
 	
-block formatComment(content,fullname)
-	ret = replaceString(content,'/*','')
-	ret = replaceString(ret,'*/','')
-	ret = replaceString(ret,'*','')
-	ret = replaceString(ret,fullname,'')
-	return trimString(ret)
+block FormatComment(content,fullname)
+	ret = ReplaceString(content,'/*','')
+	ret = ReplaceString(ret,'*/','')
+	ret = ReplaceString(ret,'*','')
+	ret = ReplaceString(ret,fullname,'')
+	return TrimString(ret)
 	
-block acceptToken(value,sourceContent)
-	ret = matchToken(value,sourceContent)
+block AcceptToken(value,sourceContent)
+	ret = MatchToken(value,sourceContent)
 	if ret position++ end 
 	return ret
 	
-block matchToken(value,sourceContent) 
-	return endOfStream(sourceContent) == false and sourceContent[position] == value
+block MatchToken(value,sourceContent) 
+	return EndOfStream(sourceContent) == false and sourceContent[position] == value
 	
-block endOfStream(sourceContent) return position > getTypeLength(sourceContent)
+block EndOfStream(sourceContent) return position > GetTypeLength(sourceContent)
 	
-block help()
+block Help()
 	display "Usage:  ./simplebridge [OPTIONS] [PATH]
 	
 [OPTION]	: Option to pass to the simplebridge program
@@ -296,13 +296,13 @@ The OPTIONS include :
   --m -modules				get all the modules declaration in the source file"+crlf
 	__exit__
 	
-block printError(msg)
-	header()
+block PrintError(msg)
+	Header()
 	@ "	SIMPLEBRIDGE : "+msg 
 	display "======================================================="
 	__exit__
  
-block header()
+block Header()
 	@ "=======================================================
 	SIMPLEBRIDGE : simple-lang source file bridge
 	This program is part of simple environments 

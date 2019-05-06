@@ -11,7 +11,7 @@ flexibleDuck = "This is a changable variable anytime any where"
 final finalVar = "This remain throughout execution"
 final aClass = new AClass
 try {
-	aClass.setPath("a new path")
+	aClass.SetPath("a new path")
 catch 
 	@__err__
 }
@@ -26,7 +26,7 @@ catch
 	@__err__
 }
 
-@aClass.getPath()
+@aClass.GetPath()
 @flexibleDuck
 @finalVar
 @InerFinal()
@@ -45,10 +45,10 @@ class Parent
 
 	final path = "foo ? bar ? whatever "
 
-	block getPath()
+	block GetPath()
 		return path
 
 class AClass : Parent
 	
-	block setPath(p)
+	block SetPath(p)
 		path = p

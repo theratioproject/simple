@@ -16,65 +16,65 @@ import fulltick.objects
 import fulltick.drawing
 
 button = new ButtonDemo
-FApp.run() 
+FApp.Run() 
 
 class ButtonDemo 
     fwindow = new FWindow(300,60,"FMenu_ Testing only") {
 		menu_ = new FMenuBar(0,0) {			
 			file = new FMenuItem("File") {
-				newi = new FMenuItem("&New",0,block (obj) {
+				newi = new FMenuItem("&New",0,Block (obj) {
 					display "You select "+obj.Text+nl
 				})
-				open = new FMenuItem("&Open",0,block (obj) {
+				open = new FMenuItem("&Open",0,Block (obj) {
 					display "You select "+obj.Text+nl
 				})
 				
-				close = new FMenuItem("&Close",0,block (obj) {
-					exit(0)
+				close = new FMenuItem("&Close",0,Block (obj) {
+					Exit(0)
 				})
-				addItems(newi,open,close)
+				AddItems(newi,open,close)
 			}
-			addItem(file)
+			AddItem(file)
 			
 				
 			edit = new FMenuItem("Edit") {
-				copy = new FMenuItem("Copy",0,block (obj) {
+				copy = new FMenuItem("Copy",0,Block (obj) {
 					display "You select "+obj.Text+nl
 				})
-				cut = new FMenuItem("Cut",0,block (obj) {
+				cut = new FMenuItem("Cut",0,Block (obj) {
 					display "You select "+obj.Text+nl
 				})
 				
 				more = new FMenuItem("More") {
 					for a = 0 to 10 {
-						aitem = new FMenuItem("More "+a,0,block (obj) {
+						aitem = new FMenuItem("More "+a,0,Block (obj) {
 							display "You select "+obj.Text+nl
 						})
-						addItem(aitem)
+						AddItem(aitem)
 					}
 					amore = new FMenuItem("And More") {
 						for a = 0 to 10 {
-							aitem = new FMenuItem("And More "+a,0,block (obj) {
+							aitem = new FMenuItem("And More "+a,0,Block (obj) {
 								display "You select "+obj.Text+nl
 							})
-							addItem(aitem)
+							AddItem(aitem)
 						}
 					}
-					addItem(amore)
+					AddItem(amore)
 				}
-				addItems(copy,cut,more)
+				AddItems(copy,cut,more)
 			}
-			addItem(edit)
+			AddItem(edit)
 			
-			addItem("Single Params", Fl_Ctrl+Fl_Key("a"), block(obj) {
+			AddItem("Single Params", Fl_Ctrl+Fl_Key("a"), Block(obj) {
 				display "You select "+obj.Text+nl
 			})
 			
 			item = new FMenuItem("&Single",0)
-			addItem(item)
+			AddItem(item)
 		}
-		add(menu_)
-        centerOnScreen() 
-        show()        
+		Add(menu_)
+        CenterOnScreen() 
+        Show()        
     } 
         

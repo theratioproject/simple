@@ -19,7 +19,7 @@ block main()
 	
 	stdout {
 	
-		print("\nHello World From Brace\n")
-		println("Hello World From Brace")	
+		Print("\nHello World From Brace\n")
+		Println("Hello World From Brace")	
 		
 	}

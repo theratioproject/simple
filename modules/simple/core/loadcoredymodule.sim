@@ -12,4 +12,4 @@ module simple.core
 /*
 
 */
-callModule("libcore_dynamic_module")
+CallModule("libcore_dynamic_module")

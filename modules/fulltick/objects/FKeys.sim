@@ -372,7 +372,7 @@ final Fl_Key_Mask = __hex_to_number("0x0000ffff")
 /*
 
 */
-if isMacosx() {
+if IsMacosx() {
     
     /*
 
@@ -409,8 +409,8 @@ block Fl_Button(number index)
 
 */
 block Fl_Key(string key)
-    if lengthOf(key) > 1 {
-		throw("fulltick.objects:Fl_Keys", "The String is of invalid argument expecting a String with only one character")
+    if LengthOf(key) > 1 {
+		Throw("fulltick.objects:Fl_Keys", "The String is of invalid argument expecting a String with only one character")
 	}
 	return __char_to_number(key)
 

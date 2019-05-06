@@ -49,58 +49,58 @@ class FileWriter : Object
 	
 	*/
 	block Init(object params...)
-		paramsLen = lengthOf(params)
+		paramsLen = LengthOf(params)
 		object file = null
 		boolean CreateIfNotFound = false
 		
 		if paramsLen = 1 {
 			file = params[0]	
 			Append = false			
-			if isString(file) or instanceOf(file, "String") {
-				file = stringValue(file)
-			elif instanceOf(file, "File")
+			if IsString(file) or InstanceOf(file, "String") {
+				file = StringValue(file)
+			elif InstanceOf(file, "File")
 				file = file.AbsolutePath
-			elif isPointer(file)
+			elif IsPointer(file)
 				if file[1] != "SMOOTHC_FILE_SAVANT" {
-					throw(self,"Invalid File Pointer, expecting an active file pointer : " + strValueOf(file))
+					Throw(self,"Invalid File Pointer, expecting an active file pointer : " + StrValueOf(file))
 				}
 				FilePointer = file
 				IsOpen = true
 				return self
 			else
-				throw(self,"Invalid argument, expecting string, File, FileStream, FileWriter")
+				Throw(self,"Invalid argument, expecting string, File, FileStream, FileWriter")
 				return null
 			}
 		elif paramsLen == 2
 			file = params[0]	
 			Append = params[1]			
-			if isString(file) or instanceOf(file, "String") and isBoolean(Append) {
-				file = stringValue(file)
-			elif instanceOf(file, "File")
+			if IsString(file) or InstanceOf(file, "String") and IsBoolean(Append) {
+				file = StringValue(file)
+			elif InstanceOf(file, "File")
 				file = file.AbsolutePath
 			else
-				throw(self,"Invalid argument, expecting (string|File|FileStream|FileWriter,boolean), found (" + objectType(file) + "," + objectType(Append) + ")")
+				Throw(self,"Invalid argument, Expecting (string|File|FileStream|FileWriter,boolean), Found (" + ObjectType(file) + "," + ObjectType(Append) + ")")
 				return null
 			}
 		elif paramsLen == 3
 			file = params[0]	
 			Append = params[1]
 			CreateIfNotFound = params[2]			
-			if isString(file) or instanceOf(file, "String") and isBoolean(Append) and isBoolean(CreateIfNotFound) {
-				file = stringValue(file)
+			if IsString(file) or InstanceOf(file, "String") and IsBoolean(Append) and IsBoolean(CreateIfNotFound) {
+				file = StringValue(file)
 			else
-				throw(self,"Invalid argument, expecting (string|File|FileStream|FileWriter,boolean), found (" + objectType(file) + "," + objectType(Append) + ")")
+				Throw(self,"Invalid argument, Expecting (string|File|FileStream|FileWriter,boolean), Found (" + ObjectType(file) + "," + ObjectType(Append) + ")")
 				return null
 			}
 			
 		else
-			throw(self,"Calling block with invalid length of parameters !")
+			Throw(self,"Calling block with invalid length of parameters !")
 			return null
 		}
 		
 		if !__file_exists(file) {
 			if !CreateIfNotFound {
-				throw(self, "The file does not exist : " + file)
+				Throw(self, "The file does not exist : " + file)
 				return null
 			}
 		}
@@ -110,7 +110,7 @@ class FileWriter : Object
 			FilePointer = __fopen(file, "w+b")
 		}		
 		if __is_null_pointer(FilePointer, FilePointer[1]) {
-			throw(self, "Access Denied. The File is not writable : " + file)
+			Throw(self, "Access Denied. The File is not writable : " + file)
 			return self
 		}
 		IsOpen = true
@@ -120,17 +120,17 @@ class FileWriter : Object
 	/*
 	
 	*/
-	block write(string data)
+	block Write(string data)
 		if !IsOpen {
-			throw(self, "The file has been closed ")
+			Throw(self, "The file has been closed ")
 			return false
 		}
-		return __fwrite(data, lengthOf(data), 1, FilePointer)
+		return __fwrite(data, LengthOf(data), 1, FilePointer)
 	
 	/*
 	
 	*/
-	block flush()
+	block Flush()
 		if IsOpen {
 			__fflush(FilePointer)
 		}	
@@ -138,7 +138,7 @@ class FileWriter : Object
 	/*
 	
 	*/
-	block close()
+	block Close()
 		if IsOpen {
 			__fclose(FilePointer)
 			IsOpen = false
@@ -153,9 +153,9 @@ class FileWriter : Object
 		@See @Block close
 		@See @Block flush
 	*/
-	block done()
+	block Done()
 		if IsOpen {
-			close()
+			Close()
 		}
 		#ask team if to destroy object here
 		

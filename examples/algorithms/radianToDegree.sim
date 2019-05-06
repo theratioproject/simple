@@ -6,5 +6,5 @@
 
 from 'simple/util/Math.sim'
 
-block radianToDegree(radian)
+block RadianToDegree(radian)
   return radian * (180 / MATH_PI())

@@ -10,7 +10,7 @@ class TestClass {
 
 	Background = "blue"
 	
-	block operator(operator, parameter)
+	block Operator(operator, parameter)
 		switch operator {
 			case "+"
 				Background = Background+parameter.Background

@@ -19,18 +19,18 @@ block __loadGetList()
 	}
 	if (SERVER["REQUEST_METHOD"] == "GET" ) {
 		methodAttr = SERVER["QUERY_STRING"]
-		GET = decodeMethodAttr(methodAttr)
+		GET = DecodeMethodAttr(methodAttr)
 	else
-		methodAttr = stdin.fread(SERVER["CONTENT_LENGTH"] - 1)
-		POST = decodeMethodAttr(methodAttr)
+		methodAttr = stdin.Fread(SERVER["CONTENT_LENGTH"] - 1)
+		POST = DecodeMethodAttr(methodAttr)
 	}
-	COOKIES = fetchCookies()
+	COOKIES = FetchCookies()
 	
 	return methodAttr
 	
-block decodeMethodAttr(methodAttr)
-	if strLeft(SERVER["CONTENT_TYPE"],20) != "multipart/form-data;" {
-		return decodeMethodString(methodAttr)
+block DecodeMethodAttr(methodAttr)
+	if StrLeft(SERVER["CONTENT_TYPE"],20) != "multipart/form-data;" {
+		return DecodeMethodString(methodAttr)
 	}
 	#decode file uploading"
 	return 
@@ -39,12 +39,12 @@ block decodeMethodAttr(methodAttr)
 	@stdout @__stdin()
 	@">>>"+methodAttr+"|"+lim __exit__
 	
-block decodeMethodString(methodAttr)
+block DecodeMethodString(methodAttr)
 	str = methodAttr + "&"
 	returnObject = []
 	returnResult = []
 	methodValue = ""
-	strLength = lengthOf(str) - 1
+	strLength = LengthOf(str) - 1
 	for a = 0 to strLength {
 		tempChar = str[a]
 		if tempChar == "=" {
@@ -58,7 +58,7 @@ block decodeMethodString(methodAttr)
 		elif tempChar = "+"
 			methodValue = methodValue + " "
 		elif tempChar = "%"
-			methodValue = methodValue + hexToString(str[a+1]+str[a+2])
+			methodValue = methodValue + HexToString(str[a+1]+str[a+2])
 			a = a+2
 		elif tempChar = '"'
 		else 
@@ -67,7 +67,7 @@ block decodeMethodString(methodAttr)
 	}
 	return returnObject
 
-block fetchCookies()
+block FetchCookies()
 	str = SERVER["HTTP_COOKIE"]
 	if str == "" { return }
 	str += ";"
@@ -77,7 +77,7 @@ block fetchCookies()
 		subPosition2 = __substr(str,"=") 
 		if subPosition2 == 0  { break }
 		tempResult = []
-		tempResult + trimStr(strLeft(str,subPosition2-1)) 
+		tempResult + TrimStr(StrLeft(str,subPosition2-1)) 
 		tempResult + __substr(str,subPosition2+1,subPosition-subPosition2-2)
 		returnObject + tempResult 
 		str = __substr(str,subPosition+1)
@@ -86,16 +86,16 @@ block fetchCookies()
 	return returnObject
 	
 	
-block encodeUrl(str)
+block EncodeUrl(str)
 	tempStr = ""
-	strLength = lengthOf(str) - 1
+	strLength = LengthOf(str) - 1
 	for a = 0 to strLength {
 		if __is_alpha_num(str[a]) {
 			tempStr += str[a]
 		elif str[a] == " "
 			tempStr += "+"
 		else
-			tempStr += "%"+stringToHex(str[a])
+			tempStr += "%"+StringToHex(str[a])
 		}
 	}
 	return tempStr
@@ -127,9 +127,9 @@ block __loadServerList()
 		"CONTENT_LENGTH"
 	]
 	SERVER = []
-	serverLength = lengthOf(__SERVER_VALUES) - 1
+	serverLength = LengthOf(__SERVER_VALUES) - 1
 	for a = 0 to serverLength {
-		serverEnv = getEnv(__SERVER_VALUES[a])
+		serverEnv = GetEnv(__SERVER_VALUES[a])
 		SERVER[__SERVER_VALUES[a]] = serverEnv
 	}
 	return SERVER

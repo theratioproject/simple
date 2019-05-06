@@ -21,22 +21,22 @@ from fulltick.all
 block main()
 
 	button = new FButton("FButton")
-	button.setPosition(10, 10) 
-	button.setShortcut('2')
+	button.SetPosition(10, 10) 
+	button.SetShortcut('2')
 	
 	rbutton = new FRepeatButton("FRepeatButton")
-	rbutton.setPosition(10, 50)
+	rbutton.SetPosition(10, 50)
 	
 	lbutton = new FLightButton("FLightButton")
-	lbutton.setPosition(10, 90)
+	lbutton.SetPosition(10, 90)
 	
 	cbutton = new FCheckButton("FCheckButton")
-	cbutton.setPosition(150, 90)
+	cbutton.SetPosition(150, 90)
 
 	window = new FWindow() 
-	window.setTitle("FFONT DEMO").setSize(300, 130)
-	window.addWidget([button,cbutton,rbutton,lbutton]) window.show() 
-	window.show() #just flash
+	window.SetTitle("FFONT DEMO").SetSize(300, 130)
+	window.AddWidget([button,cbutton,rbutton,lbutton]) window.Show() 
+	window.Show() #just flash
 	
 	
 	

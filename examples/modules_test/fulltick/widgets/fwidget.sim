@@ -23,63 +23,63 @@ wcount = 0
 acount = 0
 rectangle = new Rectangle(500,200,500,350)
 fwindow = new FWindow() {
-    resize(rectangle)
+    Resize(rectangle)
     group = new FGroup(0, 0, 0, 0) {
-        adaptToChildrenSize()
+        AdaptToChildrenSize()
         
         a = new FButton(10,50,100,30,"Windows") {
-            setCallbackListener(block (obj, arg) {
+            SetCallbackListener(Block (obj, arg) {
 				fwindow.Title = "You Clicked Windows Button "
             })
         }
 
         b = new FButton(120,50,100,30,"MAC") {
-            setCallbackListener(block (obj, arg) {
+            SetCallbackListener(Block (obj, arg) {
 				fwindow.Title = "You Clicked MAC Button "
             })
-            setBox(new FBoxType(__fl_define_FL_ROUNDED_BOX(),new FColor(239,239,239)))
-            setBaseBox(new FBoxType(__fl_define_FL_ROUNDED_BOX(),new FColor(177,204,247)))
-            setBorder(new FBorder(2,2,2,2,__fl_define_FL_ROUNDED_BOX(),new FColor(157,157,157)))
+            SetBox(new FBoxType(__fl_define_FL_ROUNDED_BOX(),new FColor(239,239,239)))
+            SetBaseBox(new FBoxType(__fl_define_FL_ROUNDED_BOX(),new FColor(177,204,247)))
+            SetBorder(new FBorder(2,2,2,2,__fl_define_FL_ROUNDED_BOX(),new FColor(157,157,157)))
         }
 
         c = new FButton(230,50,100,30,"Android") {
-            setCallbackListener(block (obj, arg) {
+            SetCallbackListener(Block (obj, arg) {
 				fwindow.Title = "You Clicked Android Button "
             })
             HasBorder = false
-            setBackground(new FColor(214,215,215))
-            setBaseColor(new FColor(175,175,175))
+            SetBackground(new FColor(214,215,215))
+            SetBaseColor(new FColor(175,175,175))
         }
 
         d = new FButton(10,90,100,30,"IOS") {
-            setCallbackListener(block (obj, arg) {
+            SetCallbackListener(Block (obj, arg) {
 				fwindow.Title = "You Clicked IOS Button "
             })
         }
 
         e = new FButton(120,90,100,30,"Activate") {
-            setCallbackListener(block (obj, arg) {
-                e.deactivate()
+            SetCallbackListener(Block (obj, arg) {
+                e.Deactivate()
                 f.Active = true
             })
         }
 
         f = new FButton(230,90,100,30,"DeActivate") {
             Active = false
-            setCallbackListener(block (obj, arg) {
-                e.activate()
+            SetCallbackListener(Block (obj, arg) {
+                e.Activate()
                 f.Active = false
             })
         }
 
         g = new FButton(10,130,160,30,"isGroupActive") {
-            setCallbackListener(block (obj, arg) {
-				fwindow.Title = "Is group active : " + g.isGroupActive()
+            SetCallbackListener(Block (obj, arg) {
+				fwindow.Title = "Is group active : " + g.IsGroupActive()
             })
         }
 
         h = new FButton(180,130,150,30,"Change Alignment") {
-            setCallbackListener(block (obj, arg) {
+            SetCallbackListener(Block (obj, arg) {
                 if h.LabelAlignment == FAlignment.ALIGN_CENTER {
                     h.LabelAlignment = FAlignment.ALIGN_TOP
                 elif h.LabelAlignment == FAlignment.ALIGN_TOP
@@ -91,16 +91,16 @@ fwindow = new FWindow() {
                 elif h.LabelAlignment == FAlignment.ALIGN_LEFT
                     h.LabelAlignment = FAlignment.ALIGN_CENTER
                 }
-                fwindow.redraw()
+                fwindow.Redraw()
             }) 
         }
-        add(a,b,c,d,e,f,g,h) 
-        fwindow.add(group)
-        centerOnParent(fwindow)
+        Add(a,b,c,d,e,f,g,h) 
+        fwindow.Add(group)
+        CenterOnParent(fwindow)
     } 
     Resizable = false    
-    centerOnScreen()
-    show()
+    CenterOnScreen()
+    Show()
 } 
 
-FApp.run()
+FApp.Run()

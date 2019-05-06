@@ -8,14 +8,14 @@ from parser.json.JsonParser
 
 block main()
 	curl = new Curl("https://api.coingate.com/v2/rates/trader/buy")
-	curl.addHeader("Content-type","application/json")
-	curl.addHeader("Accept",":")
-	json = curl.strPerform()
-	curl.flush()
+	curl.AddHeader("Content-type","application/json")
+	curl.AddHeader("Accept",":")
+	json = curl.StrPerform()
+	curl.Flush()
 	if json != "" {
 		parser = new JsonParser(json)
-		object = parser.parse()
+		object = parser.Parse()
 		for price in object {
-			stdout.println("Curency=" + price.Name + ", BTC_VALUE=" + price.Value.get("BTC").Value + ", USD_VALUE=" + price.Value.get("USD").Value)
+			stdout.Println("Curency=" + price.Name + ", BTC_VALUE=" + price.Value.Get("BTC").Value + ", USD_VALUE=" + price.Value.Get("USD").Value)
 		}
 	}

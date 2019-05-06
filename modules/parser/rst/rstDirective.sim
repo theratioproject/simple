@@ -56,24 +56,24 @@ class rstDirective : Object
 	/*
 	
 	*/
-	block toString()
-		return "[" + getType(self) + ":Name=" + Name + ",Value=" + Value + ",Options="+strValueOf(Options)+",Content=...]"
+	block ToString()
+		return "[" + GetType(self) + ":Name=" + Name + ",Value=" + Value + ",Options="+StrValueOf(Options)+",Content=...]"
 		
 	/*
 	
 	*/
-	block operator(string op, object value) 
+	block Operator(string op, object value) 
 		switch op {
 			case "lengthOf"
-				return lengthOf(Options)
+				return LengthOf(Options)
 			case "[]"
-				if !isString(value) {
-					throw(self, "Invalid key, expecting string type as option key")
+				if !IsString(value) {
+					Throw(self, "Invalid key, expecting string type as option key")
 					return
 				}
 				return Options[value]
 		}
-		return super.operator(op, value)
+		return super.Operator(op, value)
 		
 	/*
 	
@@ -83,21 +83,21 @@ class rstDirective : Object
 		/*
 		
 		*/
-		block setName()
+		block SetName()
 	
 		/*
 		
 		*/
-		block setType()
+		block SetType()
 	
 		/*
 		
 		*/
-		block setOptions()
+		block SetOptions()
 	
 		/*
 		
 		*/
-		block setContent()
+		block SetContent()
 		
 		

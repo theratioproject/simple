@@ -18,21 +18,21 @@ block main()
 	fwindow = new FWindow(600,500,"simplereplw") {
 		input = new FMultilineInput(10,10,Width-20,200,"")
 		execButton = new FButton(10,220,"Execute") {
-			setArgument(input)
-			setCallbackListener(block (obj, arg) {
-				executeCode(arg.Text)
+			SetArgument(input)
+			SetCallbackListener(Block (obj, arg) {
+				ExecuteCode(arg.Text)
 				arg.Text = ""
 			})
 		}
 		output = new FMultilineOutput(10,260,Width-20,230,"") {
 			Resizable = true
 		}
-		add(input, execButton, output)
-		show()
+		Add(input, execButton, output)
+		Show()
 	}
 	ba = __clock()
 	@(ba - b4)/__clock_per_second()
-	FApp.run()
+	FApp.Run()
 
 	
 	

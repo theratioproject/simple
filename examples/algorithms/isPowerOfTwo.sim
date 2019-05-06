@@ -4,7 +4,7 @@
 
 */
 
-block isPowerOfTwo(number)
+block IsPowerOfTwo(number)
   if number < 1 {
       return false # displays 0
   }

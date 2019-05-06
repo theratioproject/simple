@@ -23,16 +23,16 @@ class BridgeBlock
 		comment = icomment
 		paramcount = iparamcount
 		
-	block getName()
+	block GetName()
 		return name
 	
-	block getComment()
+	block GetComment()
 		return comment
 		
-	block getParamCount()
+	block GetParamCount()
 		return paramcount
 		
-	block getFullname()
+	block GetFullname()
 		return fullname
 		
 class BridgeClass
@@ -43,10 +43,10 @@ class BridgeClass
 		name = ifullname
 		comment = icomment
 		
-	block getName()
+	block GetName()
 		return fullname
 		
-	block getComment()
+	block GetComment()
 		return comment
 	
 	

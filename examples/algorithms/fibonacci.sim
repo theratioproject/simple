@@ -6,7 +6,7 @@
 
 from simple.core.List
 
-block fibonacci(n)
+block Fibonacci(n)
   fibSequence = [1]
 
   currentValue = 1
@@ -22,8 +22,8 @@ block fibonacci(n)
     currentValue += previousValue
     previousValue = currentValue - previousValue
 
-    # fibSequence.push(currentValue)
-    addToList(fibSequence, currentValue)
+    # fibSequence.Push(currentValue)
+    AddToList(fibSequence, currentValue)
 
     iterationsCounter -= 1
 

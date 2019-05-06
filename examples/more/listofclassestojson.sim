@@ -6,11 +6,11 @@ from simple.util.Console
 from parser.json.JsonParser
 
 block main()
-	news = loadNews()
-	object = objectToJson("news", news)
-	stdout.println(object)
+	news = LoadNews()
+	object = ObjectToJson("news", news)
+	stdout.Println(object)
 	
-block loadNews()
+block LoadNews()
 	news1 = new News {
 		Title = "simple-lang JSON"
 		Category = "parser"

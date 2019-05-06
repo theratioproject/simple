@@ -1,10 +1,10 @@
 
 /*
 	in the line testClass.Back = "Blue" on without the setter method for Back which is 
-	setBack(value) the value of Black should be just "Blue" but the behaviour was changed
+	SetBack(value) the value of Black should be just "Blue" but the behaviour was changed
 
 	in the line @testClass.Back  notice our result instead of  just giving the 
-	value of Back in testClass it returns the value in the getBack() which is the getter methos
+	value of Back in testClass it returns the value in the GetBack() which is the getter methos
 */
 testClass = new TestClass
 
@@ -18,8 +18,8 @@ class TestClass
 	Back = "Gray"
 	Fore = "Red"
 	
-	block setBack(value)
+	block SetBack(value)
 		Back = value + "_" + Back
 	
-	block getBack()
+	block GetBack()
 		return Back+"_"+Fore

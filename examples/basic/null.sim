@@ -4,43 +4,43 @@
 	MIT License Copyright (c) 2018 simple-lang 
 
 */
-@isList(null)
-@isNull(null)
-@getType(null)
+@IsList(null)
+@IsNull(null)
+@GetType(null)
 t = ["20fdf", 60, null, 50]
 t[1] = null
-@getType(t[1]) 
-@isNull(t[1])
-@isNull(t[2])
+@GetType(t[1]) 
+@IsNull(t[1])
+@IsNull(t[2])
 test = new Test()
 var = null
 var = 123 @var
 var = null
 @null
-@jay()
+@Jay()
 @var
 @test.One
 @t[1] 
 @"============="
-@getType(null)
-@getType(jay())
-@getType(var)
-@getType(test.One)
-@getType(t[1])
+@GetType(null)
+@GetType(Jay())
+@GetType(var)
+@GetType(test.One)
+@GetType(t[1])
 @"============="
-@isString(null)
-@isString(jay())
-@isString(var)
-@isString(test.One)
-@isString(t[1])
+@IsString(null)
+@IsString(Jay())
+@IsString(var)
+@IsString(test.One)
+@IsString(t[1])
 @"============="
-@isNull(null)
-@isNull(jay())
-@isNull(var)
-@isNull(test.One)
-@isNull(t[1])
+@IsNull(null)
+@IsNull(Jay())
+@IsNull(var)
+@IsNull(test.One)
+@IsNull(t[1])
 
-block jay()
+block Jay()
 
 class Test 
 	One = null

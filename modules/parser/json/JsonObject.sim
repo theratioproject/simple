@@ -33,41 +33,41 @@ class JsonObject : Object
 	
 	*/
 	block Init(boolean params...)
-		paramsLen = lengthOf(params)
+		paramsLen = LengthOf(params)
 		if paramsLen == 0 {
 		elif paramsLen == 1
 			Dynamic = params[0]
 		else
-			throw(self, "Calling block with extra parameters!")
+			Throw(self, "Calling block with extra parameters!")
 		}
 		return self
 		
 	/*
 	
 	*/
-	block add(object params...)
+	block Add(object params...)
 		name = null
 		value = null
 		member = null
-		paramsLen = lengthOf(params)
+		paramsLen = LengthOf(params)
 		
 		if paramsLen == 1 {
 			member = params[0]
-			if !instanceOf(member,"JsonMember") {
-				throw(self, "Invalid parameter, expected (parser.json.JsonMember), found (" + objectType(member) + ")")
+			if !InstanceOf(member,"JsonMember") {
+				Throw(self, "Invalid parameter, Expected (parser.json.JsonMember), Found (" + ObjectType(member) + ")")
 				return
 			}
 		elif paramsLen == 2
 			name = params[0]
 			value = params[1] 
-			if isString(name) {
+			if IsString(name) {
 				member = new JsonMember(name, value)
 			else
-				throw(self, "Invalid parameter, expected (string, object), found (" + objectType(name) + "," + objectType(value) + ")")
+				Throw(self, "Invalid parameter, Expected (string, object), Found (" + ObjectType(name) + "," + ObjectType(value) + ")")
 				return
 			}
 		else
-			throw(self, "Calling block with extra parameters")
+			Throw(self, "Calling block with extra parameters")
 			return
 		}
 		__add_to_list(members, member)
@@ -76,10 +76,10 @@ class JsonObject : Object
 			__set_attribute_value(self,member.Name,member.Value) 
 			
 			/*getter = block { 
-				return get(0)	
+				return Get(0)	
 			}
-			setter = block(value) { 
-				set(0, value)
+			setter = Block(value) { 
+				Set(0, value)
 			}
 			__add_method_to_object(self, "get" + member.Name, getter)
 			__add_method_to_object(self, "set" + member.Name, setter) */
@@ -88,28 +88,28 @@ class JsonObject : Object
 	/*
 	
 	*/
-	block addAll(JsonMember mems...)
+	block AddAll(JsonMember mems...)
 		for member in mems {
-			add(member)
+			Add(member)
 		}
 		
 	/*
 	
 	*/
-	block set(object index, object value)
-		if isNumber(index) {
-			if instanceOf(value,"JsonMember") {
+	block Set(object index, object value)
+		if IsNumber(index) {
+			if InstanceOf(value,"JsonMember") {
 				members[index] = value
 			else
 				member = new JsonMember(members[index].Name, value)
 				members[index] = member
 			}
-		elif isString(index)
-			membersLen = lengthOf(members) - 1
+		elif IsString(index)
+			membersLen = LengthOf(members) - 1
 			for a = 0 to membersLen {
 				member = members[a]
-				if objEquals(member.Name, index) {
-					if instanceOf(value,"JsonMember") {
+				if ObjEquals(member.Name, index) {
+					if InstanceOf(value,"JsonMember") {
 						members[a] = value
 					else
 						member = new JsonMember(members[a].Name, value)
@@ -118,88 +118,88 @@ class JsonObject : Object
 					return
 				}
 			}
-			add(index, value)
+			Add(index, value)
 		else
-			throw(self, "Invalid parameter, expected (String|Number, object), found (" + objectType(index) + "," + objectType(value) + ")")
+			Throw(self, "Invalid parameter, Expected (String|Number, object), Found (" + ObjectType(index) + "," + ObjectType(value) + ")")
 		}
 	
 	/*
 	
 	*/
-	block get(object index)
-		if isNumber(index) {
+	block Get(object index)
+		if IsNumber(index) {
 			return members[index]
-		elif isString(index) 
-			membersLen = lengthOf(members) - 1
+		elif IsString(index) 
+			membersLen = LengthOf(members) - 1
 			for a = 0 to membersLen {
-				if objEquals(members[a].getName(), index) {
+				if ObjEquals(members[a].GetName(), index) {
 					return members[a]
 				}
 			}
-			throw(self, strFormat("The requested JSON member '%s' cannot be found", index) )
+			Throw(self, StrFormat("The requested JSON member '%s' cannot be found", index) )
 		else
-			throw(self, "Invalid parameter, expected (String|Number), found (" + objectType(index) + ")")
+			Throw(self, "Invalid parameter, Expected (String|Number), Found (" + ObjectType(index) + ")")
 		}
 		
 	/*
 	
 	*/
-	block getValue(object index)
-		return get(index).getValue()
+	block GetValue(object index)
+		return Get(index).GetValue()
 		
 	/*
 	
 	*/
-	block remove(object index)
-		if isNumber(index) {
+	block Remove(object index)
+		if IsNumber(index) {
 			obj = members[index]
 			__del_from_list(members, index)
 			return obj
-		elif isString(index)
-			membersLen = lengthOf(members) - 1
+		elif IsString(index)
+			membersLen = LengthOf(members) - 1
 			for a = 0 to membersLen {
 				member = members[a]
-				if objEquals(member.getName(), index) {
+				if ObjEquals(member.GetName(), index) {
 					__del_from_list(members, a)
 					return member
 				}
 			}
 			return null
 		else
-			throw(self, "Invalid parameter, expected (String|Number), found (" + objectType(index) + ")")
+			Throw(self, "Invalid parameter, Expected (String|Number), Found (" + ObjectType(index) + ")")
 			return null
 		}
 		
 	/*
 	
 	*/
-	block contains(object index)
-		if isNumber(index) {
-			return (lengthOf(members) >= index)
-		elif isString(index)
-			membersLen = lengthOf(members) - 1
+	block Contains(object index)
+		if IsNumber(index) {
+			return (LengthOf(members) >= index)
+		elif IsString(index)
+			membersLen = LengthOf(members) - 1
 			for a = 0 to membersLen {
 				member = members[a]
-				if objEquals(member.getName(), index) {
+				if ObjEquals(member.GetName(), index) {
 					return true
 				}
 			}
 			return false
 		else
-			throw(self, "Invalid parameter, expected (String|Number), found (" + objectType(index) + ")")
+			Throw(self, "Invalid parameter, Expected (String|Number), Found (" + ObjectType(index) + ")")
 			return null
 		}
 		
 	/*
 	
 	*/
-	block isEmpty()
-		return lengthOf(members) == 0
+	block IsEmpty()
+		return LengthOf(members) == 0
 		
 	/*
 	
 	*/
-	block toFlatString()
+	block ToFlatString()
 		str = "{"
 		first = true
 		for member in members {
@@ -208,7 +208,7 @@ class JsonObject : Object
 			else
 				first = false
 			}
-			str += member.toFlatString()
+			str += member.ToFlatString()
 		}
 		str += "}"
 		return str	
@@ -216,67 +216,67 @@ class JsonObject : Object
 	/*
 	
 	*/
-	block toString(string params...)
-		paramsLen = lengthOf(params)
+	block ToString(string params...)
+		paramsLen = LengthOf(params)
 		if paramsLen == 0 {
 		elif paramsLen == 1
 			iindent = params[0]
-			if isWhiteSpace(iindent) {
+			if IsWhiteSpace(iindent) {
 				indent += iindent
 			}
 		else
-			throw(self, "Calling block with extra parameters")
+			Throw(self, "Calling block with extra parameters")
 		}
-		if lengthOf(members) == 0 { return "{}" }
-		str = "{" + ascii(10) 
+		if LengthOf(members) == 0 { return "{}" }
+		str = "{" + Ascii(10) 
 		indent += "    "
 		first = true
 		for member in members {
 			if !first {
 				str += ","
-				str += ascii(10)
+				str += Ascii(10)
 			else
 				first = false
 			}
-			str += indent + member.toString(indent)
+			str += indent + member.ToString(indent)
 		}
-		str += ascii(10) + strLeft(indent, lengthOf(indent) - 5)  + "}"
+		str += Ascii(10) + StrLeft(indent, LengthOf(indent) - 5)  + "}"
 		return str
 		
 	/*
 	
 	*/
-	block size()
-		return lengthOf(members)
+	block Size()
+		return LengthOf(members)
 
 	/*
 
 	*/
-	block operator(string op, object value) 
+	block Operator(string op, object value) 
 		switch op {
 			case "lengthOf"
-				return lengthOf(members)
+				return LengthOf(members)
 			case "=="
-				return equals(value)
+				return Equals(value)
 			case "!="
-				return !equals(value)
+				return !Equals(value)
 			case "[]"
-				return get(value)
+				return Get(value)
 		}
-		return super.operator(op, value)
+		return super.Operator(op, value)
 		
 	/*
 	
 	*/
-	block equals(object obj)
-		if !isObject(obj) or !__instance_of(obj,"JsonObject") {
+	block Equals(object obj)
+		if !IsObject(obj) or !__instance_of(obj,"JsonObject") {
 			return false
 		}
-		if size() != obj.size() {
+		if Size() != obj.Size() {
 			return false
 		}
-		for a = 0 to size()-1 {
-			if (!get(a).equals(obj.get(a))) {
+		for a = 0 to Size()-1 {
+			if (!Get(a).Equals(obj.Get(a))) {
 				return false
 			}
 		}
@@ -285,70 +285,70 @@ class JsonObject : Object
 	/*
 	
 	*/
-	block toList()
+	block ToList()
 		lst = members
 		return lst
 		
 	/*
 	
 	*/
-	block asArray()
+	block AsArray()
 		return members
 		
 	/*
 	
 	*/
-	block isJsonObject()
+	block IsJsonObject()
 		return true
 		
 	/*
 	
 	*/
-	block isJsonArray()
+	block IsJsonArray()
 		return false
 		
 	/*
 	
 	*/
-	block join(/*JsonObject|JsonMember*/object params...)
-		paramsLen = lengthOf(params)
+	block Join(/*JsonObject|JsonMember*/object params...)
+		paramsLen = LengthOf(params)
 		union = false
 		newMembers = null
 		if paramsLen == 1 {
 			newMembers = params[0]
-			if !instanceOf(newMembers, "JsonObject") and !instanceOf(newMembers, "JsonMember") {
-				throw(self, "Invalid parameters, expected (JsonObject|JsonMember), found (" + objectType(newMembers) + ")")
+			if !InstanceOf(newMembers, "JsonObject") and !InstanceOf(newMembers, "JsonMember") {
+				Throw(self, "Invalid parameters, Expected (JsonObject|JsonMember), Found (" + ObjectType(newMembers) + ")")
 			}
 		elif paramsLen == 2
 			newMembers = params[0]
-			union = booleanValue(params[1])
-			if (!instanceOf(newMembers, "JsonObject") and !instanceOf(newMembers, "JsonMember")) {
-				throw(self, "Invalid parameters, expected (JsonObject|JsonMember, boolean), found (" + objectType(newMembers) + ")")
+			union = BooleanValue(params[1])
+			if (!InstanceOf(newMembers, "JsonObject") and !InstanceOf(newMembers, "JsonMember")) {
+				Throw(self, "Invalid parameters, Expected (JsonObject|JsonMember, boolean), Found (" + ObjectType(newMembers) + ")")
 			}
 		else
-			throw(self, "Calling block with invalid lengthOf parameters")
+			Throw(self, "Calling block with invalid lengthOf parameters")
 		}
-		if instanceOf(newMembers, "JsonObject") {
+		if InstanceOf(newMembers, "JsonObject") {
 			for member in newMembers {
 				if union {
-					if contains(member.Name) {
-						set(member.Name, member)
+					if Contains(member.Name) {
+						Set(member.Name, member)
 					else 
-						add(member)
+						Add(member)
 					}
 				else
-					add(member)
+					Add(member)
 				}
 			}
 		else
 			if union {
-				if contains(newMembers.Name) {
-					set(newMembers.Name, newMembers)
+				if Contains(newMembers.Name) {
+					Set(newMembers.Name, newMembers)
 				else 
-					add(newMembers)
+					Add(newMembers)
 				}
 			else
-				add(newMembers)
+				Add(newMembers)
 			}
 		}
 		

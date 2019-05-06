@@ -30,9 +30,9 @@ module simple.core
 	```
 */
 
-block addToList(list, value)
+block AddToList(list, value)
     # Check if value to be added to the array is a List, String or number.
-    if (isList(value) || isString(value) || isNumber(value))
+    if (IsList(value) || IsString(value) || IsNumber(value))
         list + value
 		return list
         else
@@ -40,34 +40,34 @@ block addToList(list, value)
 end
 
 /* Remove a value from the list using the index number as an ID. */
-block removeFromList(list, indexNumber)
+block RemoveFromList(list, indexNumber)
     # Verify that value passed is a number e.g 0, 1, 2 etc.
-    if(isNumber(indexNumber))
+    if(IsNumber(indexNumber))
         list[indexNumber] = ""
         return list +crlf
         else
             display __err__
 end
 /* Reverses the elements in the List and changes the index Number */
-block reverseList(List)
-		if (isList(List))
+block ReverseList(List)
+		if (IsList(List))
             x = 0
             list = []
             # This is subject to Fix in the next version of simple.
-			listLen = lengthOf(List)
+			listLen = LengthOf(List)
             do { list + List[(listLen - 1) - x] x++ } while x < listLen
             List = list
             return List
 end
 
-block indexOf(List, value) 
+block IndexOf(List, value) 
 	# List = []
 	# First test *wink*
-	if (isList(List))
+	if (IsList(List))
 		return List[value]
 	end
 
-block concat(List, arr)
+block Concat(List, arr)
 	for a in arr
 		List + a
 	end
@@ -117,71 +117,71 @@ class List : Object
 */
 
     block Init(list) 
-		if instanceOf(list,"List") {
+		if InstanceOf(list,"List") {
 			ListObject = list.ListObject
-		elif isList(list) or isString(list) 
+		elif IsList(list) or IsString(list) 
 			ListObject = list
 		else
-			throw(self,this.errorType(1))
+			Throw(self,this.ErrorType(1))
 		}
         return self
 
 	/*
-		.indexOf(n) block is a safe block for getting the item in the list
+		.IndexOf(n) block is a safe block for getting the item in the list
 		at n index very similar to using the block quote [n] to get the index
 		but with more type check and safe call. 
 		@Ignore Awesome for production @End
 	*/
 	#check to ensure the n index specified is not more than size of list
 	#confirm it number only then get index
-    block indexOf(n)
-		if n > length() { throw(this.errorType(3)) }
-		if isNumber(n)
+    block IndexOf(n)
+		if n > Length() { Throw(this.ErrorType(3)) }
+		if IsNumber(n)
 			return ListObject[n]
 		else 
-			throw(this.errorType(2))
+			Throw(this.ErrorType(2))
 		end
 		
 	/*
 		Get the length or size of the current list object of the class
 	*/
-	block length()
-		return lengthOf(ListObject)
+	block Length()
+		return LengthOf(ListObject)
 
 
 	/*
 		Pushes an element into the exisiting list.
 	*/
-    block push(x)
+    block Push(x)
         ListObject + x
         return ListObject
 
 # Still needs some little adjustments and changes.
 	/*
-		Removes an element from the List using the index number (x)
+		Removes an element from the List using the index Number (x)
 	*/
-    block pop(x)
+    block Pop(x)
         ListObject[x] = ""
         return ListObject
 	/*
 		Returns the elements in the List
 	*/
-    block keys()
+    block Keys()
         return ListObject
 
 	/*
 		Reverses the elements in the List and changes the index Number . E.g
 		@Code
 		myList = new List(["banana", "fish", "milk"])
-		display myList.keys()
+		display myList.Keys()
 		// banana, fish, milk
-		myList.reverse() //reverses List
+		myList.Reverse() //reverses List
 		display myList
 		// milk, fish, banana
 		@EndCode
 	*/
 	
-    block reverse()
+    block Reverse()
 	/*
  	 * This method returns the array in an inverse manner
 	 * e.g from @Bold [a,b,c,d,e] to [e,d,c,b,a] and it also
@@ -191,8 +191,8 @@ class List : Object
         x = 0
         reverserArray = []
         do {
-            reverserArray + ListObject[(lengthOf(ListObject) - 1) - x] x++
-        } while x < lengthOf(ListObject)
+            reverserArray + ListObject[(LengthOf(ListObject) - 1) - x] x++
+        } while x < LengthOf(ListObject)
         ListObject = reverserArray
         return ListObject
     end
@@ -200,23 +200,23 @@ class List : Object
 	/* Array slice function. 
 	 * Supports 2 parameter alone, 
 	 * if you intend to pass an argument alone, 
-	 * use the .indexOf() method.
+	 * use the .IndexOf() method.
 	 * Still working on it.
 	 */ #resolve slicing object
-	block slice(x, y)
-		if (isNumber(x) && isNumber(y))
+	block Slice(x, y)
+		if (IsNumber(x) && IsNumber(y))
 			if (x = 0 && y = 0)
 				return ListObject
 			end
-			offset = indexOf(x + 1) 
-			delim = indexOf(y)
-			if getType(offset) == getType(delim) 
-				if (indexOf(x + 1) == indexOf(y))
+			offset = IndexOf(x + 1) 
+			delim = IndexOf(y)
+			if GetType(offset) == GetType(delim) 
+				if (IndexOf(x + 1) == IndexOf(y))
 					return ListObject[x]
-				elif (indexOf(x + 1)  != indexOf(y))
+				elif (IndexOf(x + 1)  != IndexOf(y))
 					do {
-						return indexOf(x++ - 1)
-					} while x < indexOf(y)
+						return IndexOf(x++ - 1)
+					} while x < IndexOf(y)
 				else
 					return "[]"
 				end
@@ -227,10 +227,10 @@ class List : Object
 
 
     /* Sorts arrays just like the javascript's
-	 * .sort() function. 
+	 * .Sort() function. 
 	 * It's not working yet. 
 	 */
-	block sort(a, b)
+	block Sort(a, b)
     # return b - a
     	return ListObject[b] -ListObject[a]
 
@@ -240,7 +240,7 @@ class List : Object
 	 * This would be useful in web apps and other apps
 	 * reducing the need for for loops in certain cases.
 	 */
-	block map(n, index)
+	block Map(n, index)
 	# Nothing for now.
 
 		
@@ -251,9 +251,9 @@ class List : Object
 	 * concatenator.
 	 */
 
-	block concat(arr)
+	block Concat(arr)
 		# Current work around. It isn't working yet.
-		arrLen = lengthOf(arr) - 1
+		arrLen = LengthOf(arr) - 1
 		for a = 0 to arrLen
 			ListObject + arr[a]
 		end
@@ -261,31 +261,31 @@ class List : Object
 
   /* Returns the first element of the List */
 	
-	block first()
+	block First()
 	  return ListObject[0]
 	end
 
 	/* Returns the last element in the List */
 
-	block last()
-	  return ListObject[lengthOf(ListObject) - 1]
+	block Last()
+	  return ListObject[LengthOf(ListObject) - 1]
 	end
 	
-	block toString()
+	block ToString()
 		strValue = "[" 
-		lstLen = length() - 1
+		lstLen = Length() - 1
 		for i = 0 to lstLen { 
 			item = ListObject[i] 
-			if isString(item) {
+			if IsString(item) {
 				strValue += '"' + item + '"'
-			elif isNumber(item)
+			elif IsNumber(item)
 				strValue += item
-			elif isList(item)
+			elif IsList(item)
 				tmpLst = new List(item)
-				strValue += tmpLst.toString()
-			elif isObject(item)
-				if isBlock(item,"toString") {
-					strValue += item.toString() 
+				strValue += tmpLst.ToString()
+			elif IsObject(item)
+				if IsBlock(item,"toString") {
+					strValue += item.ToString() 
 				else 
 					strValue += __class_module_name(item) + "." __class_name(item)
 				}
@@ -298,14 +298,14 @@ class List : Object
 	/*
 	
 	*/
-	block operator(op, value)
+	block Operator(op, value)
 		switch op {
 			case "lengthOf" 
-				return lengthOf(ListObject)
+				return LengthOf(ListObject)
 			case "[]" 
 				return ListObject[value]
 		}
-		return super.operator(op, value)
+		return super.Operator(op, value)
 
 	/*
 	 * Error block, needs to be private
@@ -319,7 +319,7 @@ class List : Object
 		/*
 
 		*/
-		block errorType(type)
+		block ErrorType(type)
 			__NOT_LIST_ERROR = "the parameter is not a list"
 			__NUMBER_REQUIRED_ERROR = "only number is required as parameter "
 			__INDEX_GREATER_THAN_SIZE = "the provided n index is greater than list size"

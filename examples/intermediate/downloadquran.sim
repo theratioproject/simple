@@ -53,8 +53,8 @@ block main()
 	for a = QURAN_START_CHAPTER to QURAN_END_CHAPTER
 		if (a < 100) a = "0"+a end display "Downloading chapter "+a +" : "
 		try d = new Download("https://server6.mp3quran.net/thubti/"+a+".mp3")
-		d.saveLocation(SAVE_LOCATION+"/"+a+".mp3")
-		d.execute() display "SUCCESSFULL"+crlf catch display __err__ display "FAILED"+crlf end
+		d.SaveLocation(SAVE_LOCATION+"/"+a+".mp3")
+		d.Execute() display "SUCCESSFULL"+crlf catch display __err__ display "FAILED"+crlf end
 	end 
 	
 /*

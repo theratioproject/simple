@@ -10,12 +10,12 @@ from simple.io.File
 
 block main()
 	fileWriter = new FileWriter("../../../testfiles/test.txt")
-	fileWriter.write(nl + "Hello World " + nl)
-	fileWriter.write("From simple-lang ")
-	fileWriter.write(simpleVersion())
-	fileWriter.close()
+	fileWriter.Write(nl + "Hello World " + nl)
+	fileWriter.Write("From simple-lang ")
+	fileWriter.Write(SimpleVersion())
+	fileWriter.Close()
 	
 	file = new File("../../../testfiles/test.txt")
 	fileWriter = new FileWriter(file, true)
-	fileWriter.write(nl + "Thank You")
-	fileWriter.close()
+	fileWriter.Write(nl + "Thank You")
+	fileWriter.Close()
