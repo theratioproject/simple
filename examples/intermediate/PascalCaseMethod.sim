@@ -1,0 +1,118 @@
+/*
+
+	This file correctly converts Method, Function declaration and call 
+	identifiers into valid PascalCase identifier.
+	
+	This script is used to change the identifier casing in 
+	simple-lang standard module to PascalCaseMethod.sim 
+	
+	It simply detect the open bracker **(** then read backward for the 
+	identifier once the Identifier is detected it find the location of 
+	the first letter in the identifier then change it to upper case. 	
+
+	:: 
+	
+		stdout.println("Hello World")
+		
+	The length of the above text is 29, all the characters are added to the 
+	new value so the open brace is at offset 15 the new value will currently 
+	be `stdout.println(` it then seek valid alphabet or num backward and break 
+	on non identifier character so we arrive at `nltnirp` so i reverse to 
+	`println`, the offset of `println` is 8 therefore the new value at offset 8
+	is changed to uppercase
+	
+	The script expect these flags
+	
+	:: 
+	
+		--dir='..' supply the directory to change case 
+	
+	:copyright: 2018-2019, Azeez Adewale
+	:license: MIT License Copyright (c) 2018 simple
+	:author: Azeez Adewale <azeezadewale98@gmail.com>
+	:date: 06 May 2019
+	:time: 12:37 AM
+	:filename: PascalCaseMethod.sim
+*/
+
+from simple.core.String
+from simple.io.Directory
+from simple.io.File
+from simple.util.console
+
+block main()
+	directory = null
+	for param in cmdparams
+		if strStartsWith(param, "--dir=")
+			directory = new Directory(removeStr(param, "--dir="))
+		end		
+	end
+	
+	if isNull(directory)
+		stderr.printfc(ConsoleColorRed, "You need to supply the directory --dir='..'")
+		exit(1)
+	end
+	ResolveFolder(directory, directory)
+	
+block ResolveFolder(Directory mainDirectory, Directory directory)
+	files = directory.getFiles()
+	for file in files
+		stdout.println("PascalCaseMethod: " + removeStr(file.AbsolutePath, mainDirectory.AbsolutePath))
+		ResolveFile(file)
+	end
+	
+	folders = directory.getDirectories()
+	for folder in folders
+		ResolveFolder(mainDirectory, folder)
+	end
+	
+block ResolveFile(File file)
+	content = file.readAllString()
+	contentLen = lengthOf(content) - 1	
+	newContent = ""
+	
+	for a = 0 to contentLen
+		character = content[a]
+		newContent += character
+		if character == "("
+			methodName = ""
+			finalMethodName = ""
+			for b = a-1 to 0 step -1
+				if isAlphaNum(content[b]) or (isWhiteSpace(content[b]) and (isWhiteSpace(methodName) or methodName == ""))
+					methodName += content[b]
+
+				else
+					break
+				end
+			end
+			
+			methodNameLen = lengthOf(methodName) - 1
+			for c = 0 to methodNameLen
+				finalMethodName += methodName[(methodNameLen - c)]
+			end			
+			newContentLen = lengthOf(newContent) - 1
+			@""+(newContentLen - methodNameLen - 1)+":"+newContentLen + ":" + newContent[(newContentLen - methodNameLen - 1)]
+			if newContent[(newContentLen - methodNameLen - 1)] != '('
+				newContent[(newContentLen - methodNameLen - 1)] = toUpperCase(finalMethodName[0])
+			end
+			
+		end
+	end
+	file.write(newContent)
+	
+block IsKeyword(string content, number contentLen, number a, string keyword) : boolean
+	keywordLen = lengthOf(keyword) - 1
+	word = ""
+	if (a + keywordLen) > contentLen return false end
+	for b = a to (a + keywordLen)
+		word += content[b]
+	end
+	return word == keyword
+	
+#unused
+block CapitalizeWord(string value) : string
+	value[0] = toUpperCase(value[0])
+	return value
+	
+	
+	
