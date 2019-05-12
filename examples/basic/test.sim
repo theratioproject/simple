@@ -1,7 +1,14 @@
 
-from simple.core.loadcoredymodule
+num = 30 
+if num == 30 {
+	@"Yes it is number 30"
+}
 
-name = Test("me")
+/*from simple.util.Console
 
-block Test(one)
-	return "Hello World " + one
+block main()
+	List<String> areas = ['game', 'web', 'tools', 'science', 'systems', 'GUI']
+	for final area in areas
+		stdout.Printf('Hello, %s developers!\n', area)
+	end
+end*/

@@ -10,6 +10,8 @@
 
 from simple.util.Console
 
+display ➥
+
 tab = Ascii(9)
 isfirst = true
 issecond = false

@@ -164,24 +164,32 @@ int simple_parser_equalornot ( Parser *parser )
 			}
 			else {
 				simple_parser_nexttoken(parser);
-				accept_token_token( parser, OP_EQUAL);
-                                SIMPLE_PARSER_IGNORENEWLINE ;
-				x = simple_parser_compare(parser);
-				if ( x == 0 ) {
+				SIMPLE_PARSER_IGNORENEWLINE ;
+				if ( simple_parser_isoperator2(parser,OP_EQUAL) )
+				{
+					simple_parser_nexttoken(parser); SIMPLE_PARSER_IGNORENEWLINE ;
+					x = simple_parser_compare(parser);
+					if ( x == 0 ) {
+						return 0 ;
+					}
+					/* Generate Code */
+					simple_parser_icg_newoperation(parser,ICO_EQUAL);
+					/* Generate Location for nPC for Operator Overloading */
+					simple_parser_icg_newoperandint(parser,0);
+					#if SIMPLE_PARSERTRACE
+					SIMPLE_STATE_CHECKPRINTRULES 
+					
+					{
+						puts("Rule : EqualOrNot --> Compare");
+						puts("Rule : EqualOrNot --> EqualOrNot '==' EqualOrNot");
+					}
+					#endif
+				}
+				else 
+				{
+					parser_error(parser,PARSER_ERROR_EXPROPERATOR);
 					return 0 ;
 				}
-				/* Generate Code */
-				simple_parser_icg_newoperation(parser,ICO_EQUAL);
-				/* Generate Location for nPC for Operator Overloading */
-				simple_parser_icg_newoperandint(parser,0);
-				#if SIMPLE_PARSERTRACE
-				SIMPLE_STATE_CHECKPRINTRULES 
-				
-				{
-					puts("Rule : EqualOrNot --> Compare");
-					puts("Rule : EqualOrNot --> EqualOrNot '==' EqualOrNot");
-				}
-				#endif
 			}
 		}
 		return x ;

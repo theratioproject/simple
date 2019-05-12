@@ -44,7 +44,7 @@ class Curl : Object
 	*/
 	block Init(string url)
 		CheckNullity(self,url)		
-		CurlPointer = __curl_easy_Init()
+		CurlPointer = __curl_easy_init()
 		Url = url
 		__add_to_list(Options, [10002, Url])
 		for option in Options {

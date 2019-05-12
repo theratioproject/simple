@@ -109,6 +109,7 @@ build, installation, features e.t.c
 - [x] change 'invoke' keyword to 'call' for calling lambda block
 - [ ] change the method **execCode** to **eval**
 - [x] use the Error method in classes to attend to error that occur when class access is in braces
+- [ ] support for string interpolation
 
 ### simplify
 - [ ] create and optimize simple source before compiling into bytecode (.complex)
