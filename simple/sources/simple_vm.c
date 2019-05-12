@@ -1124,10 +1124,9 @@ SIMPLE_API void simple_vm_showerrormessage ( VM *vm,const char *cStr )
 	const char *cFile  ;
 	/* Print the Error Message */ 
 	printe( "\n%s",cStr ) ;
-	string = simple_string_new_gc(vm->sState,"at line ");
+	string = simple_string_new_gc(vm->sState,"at ");
 	string2 = simple_string_new_gc(vm->sState,"");
 	simple_string_setfromint_gc(vm->sState,string2,vm->nLineNumber);
-	simple_string_add_gc(vm->sState,string,string2->str);
 	/* Print Calling Information */ 
 	lBlockCall = 0 ; is_last_block = 1 ;
 	for ( x = simple_list_getsize(vm->pBlockCallList) ; x >= 1 ; x-- ) {
@@ -1144,10 +1143,9 @@ SIMPLE_API void simple_vm_showerrormessage ( VM *vm,const char *cStr )
 			**  Prepare Message 
 			**  In 
 			*/
-			simple_string_add_gc(vm->sState,string," at ");
 			simple_string_add_gc(vm->sState,string,simple_list_getstring(list,SIMPLE_BLOCKCL_NAME));
 			/* Adding () */
-			simple_string_add_gc(vm->sState,string,"() in file ");
+			simple_string_add_gc(vm->sState,string,"()");
 			/* File Name */
 			if ( lBlockCall == 1 ) {
 				cFile = (const char *) simple_list_getpointer(list,SIMPLE_BLOCKCL_NEWFILENAME) ;
@@ -1160,33 +1158,42 @@ SIMPLE_API void simple_vm_showerrormessage ( VM *vm,const char *cStr )
 					cFile = vm->file_name ;
 				}
 			}
-			simple_string_add_gc(vm->sState,string,file_real_name(cFile));
+			simple_string_add_gc(vm->sState,string," (");
+			simple_string_add_gc(vm->sState,string,cFile);
+			simple_string_add_gc(vm->sState,string,":");
+			simple_string_add_gc(vm->sState,string,string2->str);
+			simple_string_add_gc(vm->sState,string,")");
 			printe("\n\t%s", string->str);
 			/* Called From */
-			string = simple_string_new_gc(vm->sState,"at line ");
+			string = simple_string_new_gc(vm->sState,"at ");
 			string2 = simple_string_new_gc(vm->sState,"");
 			simple_string_setfromint_gc(vm->sState,string2,simple_list_getint(list,SIMPLE_BLOCKCL_LINENUMBER));
-			simple_string_add_gc(vm->sState,string,string2->str);
 			is_last_block = 0; 
 			lBlockCall = 1 ;
 		}
 		else {
 			simple_string_add_gc(vm->sState,string," in ");
-			simple_string_add_gc(vm->sState,string,file_real_name(simple_list_getstring(list,SIMPLE_BLOCKCL_NAME)));
+			simple_string_add_gc(vm->sState,string,simple_list_getstring(list,SIMPLE_BLOCKCL_NAME));
 		}
 	}
 	if ( lBlockCall ) {
-		simple_string_add_gc(vm->sState,string," in file ");
-		simple_string_add_gc(vm->sState,string,file_real_name(simple_list_getstring(vm->sState->files_list,1)));
+		simple_string_add_gc(vm->sState,string,"(");
+		simple_string_add_gc(vm->sState,string,simple_list_getstring(vm->sState->files_list,1));
+		simple_string_add_gc(vm->sState,string,":");
+		simple_string_add_gc(vm->sState,string,string2->str);
+		simple_string_add_gc(vm->sState,string,")");
 	} else {
 		if ( vm->within_class ) {
 			cFile = vm->file_name_within_class ;
 		}
 		else {
-			cFile = file_real_name(vm->file_name) ;
+			cFile = vm->file_name ;
 		}
-		simple_string_add_gc(vm->sState,string," in file ");
+		simple_string_add_gc(vm->sState,string,"(");
 		simple_string_add_gc(vm->sState,string,cFile);
+		simple_string_add_gc(vm->sState,string,":");
+		simple_string_add_gc(vm->sState,string,string2->str);
+		simple_string_add_gc(vm->sState,string,")");
 	}
 	printe("\n\t%s\n", string->str);
 	simple_string_delete_gc(vm->sState,string);

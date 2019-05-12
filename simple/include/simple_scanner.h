@@ -20,6 +20,11 @@
 #define SIMPLE_FILE FILE *
 #define SIMPLE_OPENFILE(x,y) fopen(x,y)
 #define SIMPLE_CLOSEFILE(x) fclose(x)
+#ifdef _WIN32
+#define full_file_path(x,y,z) GetFullPathName(x, y, z, 0)
+#else
+#define full_file_path(x,y,z) realpath(x, z)
+#endif
 #define SIMPLE_READCHAR(x,y,z) y = getc(x)  /* z is unused here = number of characters - default = 1 */
 
 /* Data */

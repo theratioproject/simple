@@ -1,8 +1,6 @@
 
-num = 30 
-if num == 30 {
-	@"Yes it is number 30"
-}
+final var name:string = "Hello World"
+@name
 
 /*from simple.util.Console
 

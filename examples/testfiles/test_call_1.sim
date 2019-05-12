@@ -1,0 +1,4 @@
+
+block one()
+	@"Hello World from 1"
+end

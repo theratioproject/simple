@@ -736,6 +736,7 @@ SIMPLE_API void simple_vm_setthenullvariable ( VM *vm ) ;
 #define SIMPLE_VM_TRACEEVENT_ERROR 4
 #define SIMPLE_VM_TRACEEVENT_BEFORECBLOCK 5
 #define SIMPLE_VM_TRACEEVENT_AFTERCBLOCK 6
+
 /* Runtime Error Messages */
 #define SIMPLE_VM_ERROR_DIVIDEBYZERO "RUNTIME ERROR 1 : Can't divide by zero "
 #define SIMPLE_VM_ERROR_INDEXOUTOFRANGE "RUNTIME ERROR 2 : Array Access (Index out of range) "

@@ -77,31 +77,12 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
 	int x,nSize,is_start_file  ;
 	char* simple_env_path;
 	char file_name_two[200]  ; 
-	char logable_name[SIMPLE_PATHSIZE] ;
+	char full_file_name[SIMPLE_PATHSIZE] ;
 	char simple_folder[100] ; 
 	char module_path[SIMPLE_PATHSIZE] ;
-	strcpy(logable_name,file_name); simple_justfilename(logable_name) ;
+	strcpy(full_file_name,file_name); 
+	simple_justfilename(full_file_name) ;
     is_start_file = 1 ; 
-	/* Check file */
-	if ( sState->files_list == NULL ) {
-		sState->files_list = simple_list_new_gc(sState,0);
-		sState->files_stack = simple_list_new_gc(sState,0);
-		sState->main_file_path = file_name ;
-		simple_list_addstring_gc(sState,sState->files_list,logable_name);
-		simple_list_addstring_gc(sState,sState->files_stack,logable_name);
-		nFreeFilesList = 1 ;
-	} else {
-		if ( simple_list_findstring(sState->files_list,logable_name,0) == 0) {
-			simple_list_addstring_gc(sState,sState->files_list,logable_name);
-			simple_list_addstring_gc(sState,sState->files_stack,logable_name);
-		} else {
-			//TODO : make warning level 1
-			if ( sState->nWarning ) {
-				//printf( "\nWarning : Duplication in FileName, %s\n",logable_name ) ;
-			}
-			return 1 ;
-		}
-	}
 	if (!simple_fexists(file_name)) {
 		for ( x = 1 ; x <= simple_list_getsize(sState->module_paths) ; x++ ) {
 			snprintf(module_path, sizeof(module_path), "%s/%s", simple_list_getstring(sState->module_paths,x), file_name);
@@ -111,6 +92,7 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
 			}
 		}
 	}
+	
 	/* Switch To File Folder */
 	if (is_start_file) {
 		strcpy(file_name_two,file_name);
@@ -122,10 +104,32 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
 	}
 	/* Read File */
 	if ( fp==NULL ) {
-		printf( "COMPILER ERROR 0 : Can't open file/module : %s\n", file_name) ;	
-		exit(-1);
-         return 0 ;
+		printf("%s : %s", PARSER_ERROR_CANNOT_FIND_SOURCE, full_file_name);
+		SIMPLE_CLOSEFILE(fp);
+		exit(1);
+        return 0 ;
 	}
+	
+	/* Check file */
+	full_file_path(file_name,SIMPLE_PATHSIZE,full_file_name);
+	if ( sState->files_list == NULL ) {
+		sState->files_list = simple_list_new_gc(sState,0);
+		sState->files_stack = simple_list_new_gc(sState,0);
+		sState->main_file_path = full_file_name ;
+		simple_list_addstring_gc(sState,sState->files_list,full_file_name);
+		simple_list_addstring_gc(sState,sState->files_stack,full_file_name);
+		nFreeFilesList = 1 ;
+	} else {
+		if ( simple_list_findstring(sState->files_list,full_file_name,0) == 0) {
+			simple_list_addstring_gc(sState,sState->files_list,full_file_name);
+			simple_list_addstring_gc(sState,sState->files_stack,full_file_name);
+		} else {
+			printf("%s : %s%", PARSER_ERROR_FILE_ALREADY_SCANNED, full_file_name);
+			exit(1);
+			return 1 ;
+		}
+	}
+	
 	SIMPLE_READCHAR(fp,c,nSize);
 	scanner = new_simple_scanner(sState);
 	/* Check Startup file */

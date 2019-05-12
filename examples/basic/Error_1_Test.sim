@@ -1,0 +1,14 @@
+from "../testfiles/test_call_1.sim"
+from "../testfiles/test_call_2.sim"
+from "../testfiles/test_camel_bake/test_call_1.sim"
+
+
+block main()
+num = 30 
+if num == 30 {
+	@"Yes it is number 30"
+}
+one()
+two()
+three = new Three()
+three.Three(3)

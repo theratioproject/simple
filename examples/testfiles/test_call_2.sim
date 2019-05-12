@@ -1,0 +1,5 @@
+
+
+block two()
+	@"Hello World from 2"
+end
