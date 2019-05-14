@@ -938,7 +938,7 @@ block StrSplit(content, delimiter)
 	if delimiter == singleSpace or delimiter == doubleSpace
 		delimiter = singleSpace
 	end
-	if delimiter = singleSpace
+	if delimiter == singleSpace
 		#replace tab with space 
 		do {
 			content = ReplaceStr(content,tab,singleSpace)
@@ -1420,7 +1420,7 @@ class String : Object
 				if !caseSensitive {
 					value = __lower(object.Value)
 				}
-				return Value = value
+				return Value == value
 			elif IsString(object)
 				value = object
 				if !caseSensitive {

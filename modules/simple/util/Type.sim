@@ -17,14 +17,14 @@ from simple.core.loadcoredymodule
 /*
 	return the type of variable passed to this function.
  */
-block TypeOf(object var)
-    if IsList(var) {
+block TypeOf(object variable)
+    if IsList(variable) {
         return "List"
 		
-    elif IsString(var)
+    elif IsString(variable)
         return "String"
 		
-    elif IsNumber(var)
+    elif IsNumber(variable)
         return "Number"
 		
     else
@@ -36,14 +36,14 @@ block TypeOf(object var)
 	is accepted as parameter. Other types are not accepted.
 	
 	**Parameters**:	
-		var : Object
+		variable : Object
 			the value to convert to string
 	
 	**return**:
 		the parameter as String
 */
-block __get_var_as_string(var)
-	return ""+var
+block __get_var_as_string(variable)
+	return ""+variable
 	
 	
 /*
@@ -57,14 +57,14 @@ block __get_var_as_string(var)
 		0 1 2 3 4 5 6 7 8 9
 	
 	**Parameters**:	
-		var : Object
+		variable : Object
 			the value to check if it an alphabet or digit
 		
 	**return**:
 		true if the parameter is an alphabet or digit
 */
-block IsAlphaNum(object var)
-	tempVar = __get_var_as_string(var)
+block IsAlphaNum(object variable)
+	tempVar = __get_var_as_string(variable)
 	return __is_alpha_num(tempVar)
 	
 /*
@@ -83,14 +83,14 @@ block IsAlphaNum(object var)
 		"N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
 	
 	**Parameters**:	
-		var : Object
+		variable : Object
 			the value to check if it an alphabet
 		
 	**return**:
 		true if parameter is a valid alphabet
 */
-block IsAlpha(object var)
-	tempVar = __get_var_as_string(var)
+block IsAlpha(object variable)
+	tempVar = __get_var_as_string(variable)
 	return __is_alpha(tempVar)
 	
 /*
@@ -104,14 +104,14 @@ block IsAlpha(object var)
 		0 1 2 3 4 5 6 7 8 9
 		
 	**Parameters**:	
-		var : Object
+		variable : Object
 			the value to check if it a digit
 		
 	**return**:
 		true if parameter is a valid digit
 */
-block IsDigit(object var)
-	tempVar = __get_var_as_string(var)
+block IsDigit(object variable)
+	tempVar = __get_var_as_string(variable)
 	return __is_num(tempVar)
 	
 /*
@@ -130,14 +130,14 @@ block IsDigit(object var)
 		\0	-	Null Character
 		
 	**Parameters**:	
-		var : Object
+		variable : Object
 			the value to check if it a control character
 		
 	**return**:
 		true if parameter is a control character
 */
-block IsControlChar(object var)
-	tempVar = __get_var_as_string(var)
+block IsControlChar(object variable)
+	tempVar = __get_var_as_string(variable)
 	return __is_control_char(tempVar)
 	
 /*
@@ -145,14 +145,14 @@ block IsControlChar(object var)
 	can be printed to the standard display output. 
 	
 	**Parameters**:	
-		var : Object
+		variable : Object
 			the value to check if has a graphical representation 
 		
 	**return**:
 		true if parameter has graphical representation 
 */
-block IsGraphical(object var)
-	tempVar = __get_var_as_string(var)
+block IsGraphical(object variable)
+	tempVar = __get_var_as_string(variable)
 	return __is_graph(tempVar)
 
 /*
@@ -160,42 +160,42 @@ block IsGraphical(object var)
 	variable but a valid check is perform on a string variable
 	
 	**Parameters**:	
-		var : String
+		variable : String
 			the value to check if it is in lower case
 		
 	**return**:
 		true if variable is in lower case
 */
-block IsLowerCase(string var)
-	return __is_lower(var)
+block IsLowerCase(string variable)
+	return __is_lower(variable)
 
 /*
 	Check if the Variable is in upper case. This is always false for a non string
 	variable but a valid check is perform on a string variable
 	
 	**Parameters**:	
-		var : String
+		variable : String
 			the value to check if it is in upper case
 		
 	**return**:
 		true if variable is in upper case
 */
-block IsUpperCase(string var)
-	return __is_upper(var)
+block IsUpperCase(string variable)
+	return __is_upper(variable)
 
 /*
 	Check if the Variable is printable on the standard display output.
 	similar to IsGraphical()
 	
 	**Parameters**:	
-		var : Object
+		variable : Object
 			the value to check if it printable
 		
 	**return**:
 		true if the character is printable
 */
-block IsPrintable(object var)
-	tempVar = __get_var_as_string(var)
+block IsPrintable(object variable)
+	tempVar = __get_var_as_string(variable)
 	return __is_print(tempVar)
 	
 /*
@@ -203,27 +203,27 @@ block IsPrintable(object var)
 	all the characters in the string is white-space. 
 	
 	**Parameters**:	
-		var : String
+		variable : String
 			the value to check if it white-space
 		
 	**return**:
 		true if the characters is white-space or are white-spaces
 */
-block IsWhiteSpace(string var)
-	return LengthOf(var) > 0 && __is_space(var)
+block IsWhiteSpace(string variable)
+	return LengthOf(variable) > 0 && __is_space(variable)
 	
 /*
-	Similar to IsWhiteSpace(string var) but efficiently check of a character is a white space	
+	Similar to IsWhiteSpace(string variable) but efficiently check of a character is a white space	
 	**Parameters**:	
-		var : String
+		variable : String
 			the value to check if it white-space
 		
 	**return**:
 		true if the characters is white-space or are white-spaces
 */
-block __isWhiteSpace(string var)
-	if LengthOf(var) < 1 { return false }
-	for a in var {
+block __isWhiteSpace(string variable)
+	if LengthOf(variable) < 1 { return false }
+	for a in variable {
 		if a != ' ' {
 			return false
 		}
@@ -234,28 +234,28 @@ block __isWhiteSpace(string var)
 	Check if a variable is a punctuation character. 
 	
 	**Parameters**:	
-		var : Object
+		variable : Object
 			the value to check if it consists of punctuation
 		
 	**return**:
 		true if the character consists of punctuation
 */	
-block IsPunctuation(object var)
-	tempVar = __get_var_as_string(var)
+block IsPunctuation(object variable)
+	tempVar = __get_var_as_string(variable)
 	return __is_punct(tempVar)
 	
 /*
 	Check if a Variable is an Hexadecimal Digit.
 	
 	**Parameters**:	
-		var : String
+		variable : String
 			the value to check if it a set of hexadecimal digit
 		
 	**return**:
 		true if the parameter is a set of hexadecimal digit
 */
-block IsHexDigit(object var)
-	tempVar = __get_var_as_string(var)
+block IsHexDigit(object variable)
+	tempVar = __get_var_as_string(variable)
 	return __is_x_digit(tempVar)
 
 /*S

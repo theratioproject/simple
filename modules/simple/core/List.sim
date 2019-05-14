@@ -205,7 +205,7 @@ class List : Object
 	 */ #resolve slicing object
 	block Slice(x, y)
 		if (IsNumber(x) && IsNumber(y))
-			if (x = 0 && y = 0)
+			if (x == 0 && y == 0)
 				return ListObject
 			end
 			offset = IndexOf(x + 1) 

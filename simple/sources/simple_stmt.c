@@ -18,8 +18,9 @@
 
 int simple_parser_class ( Parser *parser )
 {
-	List *list,*list2,*list3  ;
-	int x  ;
+	List *pLoadAPos,*list,*list2,*list3  ;
+	int x, nToken, nLastOperation, nNOOP, class_is_created  ;
+	char lSetProperty,lequal,nBeforeEqual  ;
 	String *string, *blockid  ;
 	/* Statement --> Class Identifier  [ From Identifier ] */
 	if ( simple_parser_iskeyword(parser,KEYWORD_CLASS) ) {
@@ -220,7 +221,7 @@ int simple_parser_class ( Parser *parser )
 			return 0 ;
 		}
 	}
-	/* Statement --> Private */
+	/* Statement --> private */
 	if ( simple_parser_iskeyword(parser,KEYWORD_PRIVATE) ) {
 		simple_parser_nexttoken(parser);
 		if ( parser->nClassStart == 1 ) {
@@ -243,10 +244,14 @@ int simple_parser_class ( Parser *parser )
 			return 0 ;
 		}
 	}
-	
 	/* Statement --> final */
 	if ( simple_parser_iskeyword(parser,KEYWORD_FINAL) ) {
 		simple_parser_nexttoken(parser);
+		if (!simple_parser_iskeyword(parser,KEYWORD_VAR))
+		{
+			parser_error(parser,PARSER_ERROR_INVALID_FINAL_LOCATION);
+			return 0 ;
+		}
 		/* Generate Code */
 		/* Change Label After Class to BlockFlag to Jump to Final */
 		simple_parser_icg_newoperation(parser,ICO_FINAL);
@@ -256,6 +261,149 @@ int simple_parser_class ( Parser *parser )
 		puts("Rule : Statement  --> 'Final'");
 		#endif
 		return 1 ;
+	}
+	/* Statement --> var Identifer:Type = value */
+	if ( simple_parser_iskeyword(parser,KEYWORD_VAR) )
+	{
+		simple_parser_nexttoken(parser);
+		if (simple_parser_isoperator2(parser,OP_RANGE))
+		{
+			class_is_created = 0;
+			simple_parser_nexttoken(parser);	
+			list = parser->ClassesMap ;
+			/* Check Class Redefinition */
+			if ( simple_list_getsize(list) > 0 ) {
+				for ( x = 1 ; x <= simple_list_getsize(list) ; x++ ) {
+					if ( strcmp(simple_list_getstring(simple_list_getlist(list,x),1),parser->TokenText) == 0 ) {
+						class_is_created = 1;
+						break;
+					}
+				}
+			}
+			if (class_is_created == 0)
+			{
+				parser_error2(parser,PARSER_ERROR_TYPE_NOT_FOUND, parser->TokenText);
+				return 0 ;
+			}
+			printf("It range Next Token=%s\n", parser->TokenText);
+			/* Store the type */
+			simple_parser_nexttoken(parser);	
+		}
+		if ( simple_parser_isidentifier(parser) ) 
+		{
+			/* Generate Code */
+			simple_parser_icg_newoperation(parser,ICO_LOADADDRESS_DECLARATION);
+			simple_parser_icg_newoperand(parser,parser->TokenText);
+			/* Generate Location for nPC of Getter */
+			simple_parser_icg_newoperandint(parser,0);
+			simple_parser_nexttoken(parser);	
+			nToken = SIMPLE_PARSER_CURRENTTOKEN ;
+			SIMPLE_PARSER_PASSNEWLINE ;
+			/* Back if we don't have { */
+			if ( (SIMPLE_PARSER_CURRENTTOKEN > nToken ) ) {
+				if ( ! simple_parser_isoperator2(parser,OP_BRACEOPEN) ) {
+					simple_parser_settoken(parser,nToken);
+				}
+			}
+			/* Array Index & Object Dot */
+			x = simple_parser_mixer(parser);
+			if ( x == 0 ) {
+				return 0 ;
+			}
+			/*
+			**  [ [ = Expr  ] 
+			**  Save State before changes by Check Operator 
+			*/
+			nLastOperation = simple_parser_icg_getlastoperation(parser) ;
+			list = simple_parser_icg_getactiveoperation(parser) ;
+			if (simple_parser_isoperator2(parser,OP_EQUAL)) /* Declaration and Assignment */
+			{
+				nBeforeEqual = 0 ;
+				simple_parser_nexttoken(parser);
+				/* Check if the Assignment after object attribute name */
+				pLoadAPos = NULL ;
+				if ( nLastOperation == ICO_LOADSUBADDRESS ) {
+					lSetProperty = 1 ;
+				}
+				else {
+					lSetProperty = 0 ;
+					/* When the assignment is after LoadAddress */
+					if ( nLastOperation == ICO_LOADADDRESS ) {
+						pLoadAPos = list ;
+					}
+				}
+				/* Generate Code */
+				simple_parser_icg_newoperation(parser,ICO_ASSIGNMENTPOINTER);
+				SIMPLE_PARSER_IGNORENEWLINE ;
+				parser->nNoAssignment = 0 ;
+				x = simple_parser_expr(parser);
+				#if SIMPLE_PARSERTRACE
+				if ( x == 1 ) {
+					SIMPLE_STATE_CHECKPRINTRULES 
+					
+					puts("Rule : Assignment -> '=' Expr ");
+				}
+				#endif
+				/* Generate Code */
+				if ( (simple_parser_icg_getlastoperation(parser) != ICO_SETSCOPE) && (parser->nNoAssignment==0) ) {
+					/*
+					**  We don't need assignment after ListEnd, because lists directly stored in the Varaible 
+					**  We do this when we are not inside Brace 
+					*/
+					nNOOP = 0 ;
+					if ( (simple_parser_icg_getlastoperation(parser) == ICO_LISTEND) && (parser->nBraceFlag == 0) ) {
+						return x ;
+					}
+					else if ( (simple_parser_icg_getlastoperation(parser) == ICO_LISTEND) && (parser->nBraceFlag >= 1) ) {
+						nNOOP = 1 ;
+						/*
+						**  No Assignment is required but we add ICO_NOOP instead 
+						**  ICO_NOOP can be converted to Set Property when we access object attributes inside {} 
+						*/
+					}
+					/*
+					**  ICO_SETSCOPE comes after creating new object using NEW, in the case no assignment is required 
+					**  Before Equal 
+					**  Generate Code 
+					*/
+					simple_parser_icg_newoperation(parser,ICO_BEFOREEQUAL);
+					simple_parser_icg_newoperandint(parser,nBeforeEqual);
+					if ( lSetProperty == 0 ) {
+						if ( nNOOP == 0 ) {
+							simple_parser_icg_newoperation(parser,ICO_ASSIGNMENT);
+						}
+						else {
+							simple_parser_icg_newoperation(parser,ICO_NOOP);
+						}
+						/* Add Assignment position to the LoadAddress Instruction */
+						if ( pLoadAPos != NULL ) {
+							simple_parser_icg_addoperandint(parser,pLoadAPos,simple_parser_icg_instructionscount(parser));
+						}
+					}
+					else {
+						simple_parser_icg_newoperation(parser,ICO_SETPROPERTY);
+					}
+					/* Generate Locations for Setproperty before/after Flag & nPC of Setter */
+					simple_parser_icg_newoperandint(parser,0);
+					simple_parser_icg_newoperandint(parser,0);
+					/* Locations is done also for Assignment because assignment can be changed to SetProperty by the VM */
+				}
+				else {
+					parser->nNoAssignment = 0 ;
+				}
+				return x ;
+			} 
+			else /* Declaration only */
+			{
+				return 1;
+			}
+		}
+		else
+		{
+			parser_error(parser,PARSER_ERROR_INVALID_DECLARATION);
+			return 0 ;
+		}
+		
 	}
 	return simple_parser_stmt(parser) ;
 }

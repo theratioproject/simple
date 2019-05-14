@@ -10,7 +10,23 @@
 
 from simple.util.Console
 
-display ➥
+
+
+/*block Main()
+	var num = 20
+	var wem = "20"
+	
+	@wem + " - " + num*/
+
+/*from simple.util.Console
+
+block main()
+	List<String> areas = ['game', 'web', 'tools', 'science', 'systems', 'GUI']
+	for final area in areas
+		stdout.Printf('Hello, %s developers!\n', area)
+	end
+end*/
+
 
 tab = Ascii(9)
 isfirst = true

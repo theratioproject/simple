@@ -59,8 +59,8 @@ typedef struct Parser {
 	SimpleState *sState  ;
 } Parser ;
 /* Error Messages */
-#define PARSER_ERROR_FILE_ALREADY_SCANNED "COMPILER ERROR 0 : The source file has already been scanned"
-#define PARSER_ERROR_CANNOT_FIND_SOURCE "COMPILER ERROR 1 : Cannot find the source file in search paths"
+#define PARSER_ERROR_CANNOT_FIND_SOURCE "COMPILER ERROR 0 : Cannot find the source file in search paths"
+#define PARSER_ERROR_FILE_ALREADY_SCANNED "COMPILER ERROR 1 : The source file has already been scanned"
 #define PARSER_ERROR_PARALIST "COMPILER ERROR 2 : Check your parameters, Identifier expected"
 #define PARSER_ERROR_CLASSNAME "COMPILER ERROR 3 : Invalid class name"
 #define PARSER_ERROR_END "COMPILER ERROR 4 : The structure is not closed missing end | {}"
@@ -84,6 +84,9 @@ typedef struct Parser {
 #define PARSER_ERROR_CLASSREDEFINE "COMPILER ERROR 22 : Class is already defined"
 #define PARSER_ERROR_ALREADY_VARIADIC "COMPILER ERROR 23 : The block cannot have another parameter after variadic parameter "
 #define PARSER_ERROR_INVALID_VARIADIC "COMPILER ERROR 24 : Invalid variadic parameter. Expecting ellipsis '...' after parameter"
+#define PARSER_ERROR_INVALID_FINAL_LOCATION "COMPILER ERROR 25 : Expecting variable declaration after the final keyword"
+#define PARSER_ERROR_INVALID_DECLARATION "COMPILER ERROR 26 : Invalid declaration, expecting the type and identifier after the var keyword"
+#define PARSER_ERROR_TYPE_NOT_FOUND "COMPILER ERROR 27 : The specifed type cannot be found"
 /* Blocks */
 
 int accept_token_token( Parser *parser, SCANNER_OPERATOR nType );
@@ -174,6 +177,7 @@ int simple_parser_isoperator2 ( Parser *parser,SCANNER_OPERATOR nType ) ;
 /* Display Errors */
 
 void parser_error ( Parser *parser,const char *cStr ) ;
+void parser_error2 ( Parser *parser,const char *cStr, const char* cStr2 );
 /* Generate Code */
 
 void simple_parser_gencall ( Parser *parser,int nCallMethod ) ;

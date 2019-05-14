@@ -229,8 +229,8 @@ int simple_parser_isoperator2 ( Parser *parser,SCANNER_OPERATOR nType )
 	}
 	return 0 ;
 }
-/* Display Errors */
 
+/* Display Errors */
 void parser_error ( Parser *parser,const char *cStr )
 {
 	int SimpleActiveFile  ;
@@ -238,19 +238,29 @@ void parser_error ( Parser *parser,const char *cStr )
 	if ( parser->nErrorLine != parser->nLineNumber ) {
 		parser->nErrorLine = parser->nLineNumber ;
         if ( strcmp(cStr,"") != 0 ) {
-			printf("\nLine %d -> %s\n", parser->nLineNumber,cStr);
+			printf("\n%s\n", cStr);
 		} else {
-			printf( "\nLine %d -> Syntax error : Unexpected '%s' \n",parser->nLineNumber, parser->TokenText) ;
+			printf( "\nSyntax error : Unexpected '%s' \n",parser->TokenText) ;
 		}
-		printf( "\tin file %s ",file_real_name(simple_list_getstring(parser->sState->files_stack,SimpleActiveFile)) ) ;
+		printf( "\tat (%s:%d)\n",simple_list_getstring(parser->sState->files_stack,SimpleActiveFile), parser->nLineNumber  ) ;
 		parser->nErrorsCount++ ;
 		return ;
 	} else if ( strcmp(cStr,"") != 0 ) {
 		parser->nErrorsCount++ ;
 	}
 	if ( strcmp(cStr,"") != 0 ) {
-		printf( "\nLine %d -> %s\n",parser->nLineNumber,cStr ) ;
-		printf( "\tin file %s",file_real_name(simple_list_getstring(parser->sState->files_stack,SimpleActiveFile)) ) ;
+		printf( "\n%s\n",cStr ) ;
+		printf( "\tat (%s:%d)\n",simple_list_getstring(parser->sState->files_stack,SimpleActiveFile), parser->nLineNumber ) ;
 	}
     if (parser->sState->skip_error == 0) { exit(0); }
+}
+
+void parser_error2 ( Parser *parser,const char *cStr, const char* cStr2 )
+{
+	String *pError  ;
+	pError = simple_string_new(cStr);
+	simple_string_add(pError," : ");
+	simple_string_add(pError,cStr2);
+	parser_error(parser,simple_string_get(pError));
+	simple_string_delete(pError);
 }

@@ -66,12 +66,44 @@ SIMPLE_API void simple_vm_pushv ( VM *vm )
 }
 
 //TODO : revisit for final flag
-SIMPLE_API void simple_vm_loadaddress ( VM *vm )
+SIMPLE_API void simple_vm_loadaddress_declaration( VM *vm )
 {
 	if ( simple_vm_findvar(vm, SIMPLE_VM_IR_READC  ) == 0 ) {
 		simple_vm_newvar(vm, SIMPLE_VM_IR_READC);
 		/* Support for private attributes */
 		simple_list_setint_gc(vm->sState,(List *) SIMPLE_VM_STACK_READP,SIMPLE_VAR_PRIVATEFLAG,vm->nPrivateFlag);
+	}
+	/* Don't change instruction if it's LoadAFirst */
+	if ( vm->nFirstAddress == 1 ) {
+		return ;
+	}
+	if ( vm->nVarScope == SIMPLE_VARSCOPE_GLOBAL ) {
+		/* Replace LoadAddress with PUSHP for better performance */
+		SIMPLE_VM_IR_OPCODE = ICO_PUSHP ;
+		simple_item_setpointer_gc(vm->sState,SIMPLE_VM_IR_ITEM(1),SIMPLE_VM_STACK_READP);
+	}
+	else if ( vm->nVarScope == SIMPLE_VARSCOPE_LOCAL ) {
+		/* Replace LoadAddress with PUSHPLOCAL for better performance */
+		SIMPLE_VM_IR_OPCODE = ICO_PUSHPLOCAL ;
+		simple_vm_newbytecodeitem(vm,3);
+		simple_vm_newbytecodeitem(vm,4);
+		simple_item_setpointer_gc(vm->sState,SIMPLE_VM_IR_ITEM(3),SIMPLE_VM_STACK_READP);
+		simple_item_setint_gc(vm->sState,SIMPLE_VM_IR_ITEM(4),simple_list_getint(vm->aScopeID,simple_list_getsize(vm->aScopeID)));
+		#if SIMPLE_SHOWICFINAL
+		SIMPLE_VM_IR_PARACOUNT = SIMPLE_VM_IR_PARACOUNT + 2 ;
+		simple_list_addpointer_gc(vm->sState,SIMPLE_VM_IR_LIST,SIMPLE_VM_STACK_READP);
+		simple_list_addint_gc(vm->sState,SIMPLE_VM_IR_LIST,simple_list_getint(vm->aScopeID,simple_list_getsize(vm->aScopeID)));
+		#endif
+	}
+	/* Add Result Scope to aLoadAddressScope Array */
+	simple_list_addint_gc(vm->sState,vm->aLoadAddressScope,vm->nVarScope);
+}
+
+SIMPLE_API void simple_vm_loadaddress ( VM *vm )
+{
+	if ( simple_vm_findvar(vm, SIMPLE_VM_IR_READC  ) == 0 ) {
+		simple_vm_error2(vm,SIMPLE_VM_ERROR_VARIABLENOTDECLARED, SIMPLE_VM_IR_READC);
+		return; 
 	}
 	/* Don't change instruction if it's LoadAFirst */
 	if ( vm->nFirstAddress == 1 ) {

@@ -45,7 +45,7 @@ CallModule("libmathic")
 	The *e* to the first 15 digits after the decimal point is **2.718281828459045**
 	
 */
-final MathE = 2.71828182846
+/*final*/ MathE = 2.71828182846
 
 /*
 	The ratio of a circle's circumference to its diameter.
@@ -56,43 +56,43 @@ final MathE = 2.71828182846
 	**3.14159 26535 89793 23846 26433 83279 50288 41971 69399 37510**
 
 */
-final MathPI = 3.14159265359
+/*final*/ MathPI = 3.14159265359
 
 /*
 	The math module in a printable string **simple.utilites.Math**
 */
-final $MathModule = "simple.utilites.Math"
+/*final*/ $MathModule = "simple.utilites.Math"
 
 /*
 	Exception message to indicate the parameter is not a valid number
 */
-final $MathNotNumber = "The parameter is not a Number"
+/*final*/ $MathNotNumber = "The parameter is not a Number"
 
 /*
 	Exception message thrown if the parameter is less than a number
 */
-final $MathLessThan = "The parameter is less than "
+/*final*/ $MathLessThan = "The parameter is less than "
 
 /*
 	Exception message thrown if the parameter is less than 1
 */
-final $MathLessThanOne = "The parameter is less than one"
+/*final*/ $MathLessThanOne = "The parameter is less than one"
 
 /*
 	Exception message thrown if the parameter is less than -1
 */
-final $MathLessThanMinusOne = "The parameter is less than -1"
+/*final*/ $MathLessThanMinusOne = "The parameter is less than -1"
 
 
 /*
 	Exception message thrown if the parameter is not between -1 and 1
 */
-final $MathNotBetweenOne = "The parameter has to be between -1 and 1"
+/*final*/ $MathNotBetweenOne = "The parameter has to be between -1 and 1"
 
 /*
 	Exception message to indicate parameter cannot be equal to a number
 */
-final $MathNotEqual = "The parameter cannot be equal to "
+/*final*/ $MathNotEqual = "The parameter cannot be equal to "
 
 /*
 	Exponential number used in natural log and exp

@@ -1,0 +1,8 @@
+
+class BareClass
+
+	block Init()
+		
+	end
+
+end

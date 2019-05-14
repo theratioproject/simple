@@ -364,7 +364,7 @@ SIMPLE_API void simple_vm_fetch2 ( VM *vm )
 		printf( "\nOperation  : %s  " , SIMPLE_IC_OP[vm->nOPCode] ) ;
 		printf( "\nPC         : %d  " ,vm->nPC ) ;
 		printf( "\nLine Number    : %d  , File %s \n " ,vm->nLineNumber,vm->file_name ) ;
-		if ( (vm->nOPCode == ICO_PUSHC) || (vm->nOPCode == ICO_LOADADDRESS) || (vm->nOPCode == ICO_LOADBLOCK) ) {
+		if ( (vm->nOPCode == ICO_PUSHC) || (vm->nOPCode == ICO_LOADADDRESS) || (vm->nOPCode == ICO_LOADADDRESS_DECLARATION) || (vm->nOPCode == ICO_LOADBLOCK) ) {
 			printf( "\nData       : %s \n",SIMPLE_VM_IR_READC ) ;
 		}
 	}
@@ -395,6 +395,9 @@ SIMPLE_API void simple_vm_execute ( VM *vm )
 		case ICO_PUSHV :
 			simple_vm_pushv(vm);
 			break ;
+		case ICO_LOADADDRESS_DECLARATION :
+			simple_vm_loadaddress_declaration(vm);
+			break;
 		case ICO_LOADADDRESS :
 			simple_vm_loadaddress(vm);
 			break ;

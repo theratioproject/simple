@@ -26,7 +26,7 @@ const char * SIMPLE_KEYWORDS[] = {"if","to","or","and","not","for","new","block"
 
 "in","continue","module","import","private","final","step","do","exec","elif",
 
-"case"/**, "changesimplekeyword","changesimpleoperator","loadsyntax"**/} ;
+"case", "var"/**, "changesimplekeyword","changesimpleoperator","loadsyntax"**/} ;
 
 /* Secondary (Not Enforced) */
 const char * SIMPLE_SECONDARY_KEYWORDS[] = {"..."} ;
@@ -102,6 +102,7 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
 	if ( nFreeFilesList == 0 ) {
 		simple_switchtofilefolder(file_name_two);
 	}
+	full_file_path(file_name,SIMPLE_PATHSIZE,full_file_name);
 	/* Read File */
 	if ( fp==NULL ) {
 		printf("%s : %s", PARSER_ERROR_CANNOT_FIND_SOURCE, full_file_name);
@@ -111,7 +112,6 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
 	}
 	
 	/* Check file */
-	full_file_path(file_name,SIMPLE_PATHSIZE,full_file_name);
 	if ( sState->files_list == NULL ) {
 		sState->files_list = simple_list_new_gc(sState,0);
 		sState->files_stack = simple_list_new_gc(sState,0);
@@ -124,9 +124,9 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
 			simple_list_addstring_gc(sState,sState->files_list,full_file_name);
 			simple_list_addstring_gc(sState,sState->files_stack,full_file_name);
 		} else {
-			printf("%s : %s%", PARSER_ERROR_FILE_ALREADY_SCANNED, full_file_name);
-			exit(1);
-			return 1 ;
+			if (sState->nWarning)
+				printf("%s : %s%\n", PARSER_ERROR_FILE_ALREADY_SCANNED, full_file_name);
+			return 1;
 		}
 	}
 	
@@ -556,6 +556,7 @@ void simple_scanner_keywords ( Scanner *scanner )
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"exec");
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"elif");
 	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"case");
+	simple_list_addstring_gc(scanner->sState,scanner->Keywords,"var");
 	/*
 	**  The next keywords are sensitive to the order and keywords count
 	**  if you will add new keywords revise constants and simple_scanner_checktoken()

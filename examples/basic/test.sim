@@ -1,12 +1,27 @@
+from "BareClass_1.sim"
 
-final var name:string = "Hello World"
+var one = "One"
+var two
+two = [ 2, "two", block () {return 20}]
+
+display one + nl
+display two display nl
+@Sum()
+
+var name = ["Hello Yo", 90, true]
 @name
+name = "My name is "
+@"============" + nl + name + nl + "============"
+name = "Desperado"
+@"============" + nl + name + nl + "============"
 
-/*from simple.util.Console
 
-block main()
-	List<String> areas = ['game', 'web', 'tools', 'science', 'systems', 'GUI']
-	for final area in areas
-		stdout.Printf('Hello, %s developers!\n', area)
-	end
-end*/
+block Sum()
+	var num1 = 20
+	var num2 = 20
+	return (num1 * num2)
+end
+
+
+
+
