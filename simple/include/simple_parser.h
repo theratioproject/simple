@@ -85,7 +85,7 @@ typedef struct Parser {
 #define PARSER_ERROR_ALREADY_VARIADIC "COMPILER ERROR 23 : The block cannot have another parameter after variadic parameter "
 #define PARSER_ERROR_INVALID_VARIADIC "COMPILER ERROR 24 : Invalid variadic parameter. Expecting ellipsis '...' after parameter"
 #define PARSER_ERROR_INVALID_FINAL_LOCATION "COMPILER ERROR 25 : Expecting variable declaration after the final keyword"
-#define PARSER_ERROR_INVALID_DECLARATION "COMPILER ERROR 26 : Invalid declaration, expecting the type and identifier after the var keyword"
+#define PARSER_ERROR_INVALID_DECLARATION "COMPILER ERROR 26 : Invalid declaration, expecting the identifier and type after the var keyword"
 #define PARSER_ERROR_TYPE_NOT_FOUND "COMPILER ERROR 27 : The specifed type cannot be found"
 /* Blocks */
 

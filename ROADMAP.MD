@@ -110,6 +110,7 @@ build, installation, features e.t.c
 - [ ] change the method **execCode** to **eval**
 - [x] use the Error method in classes to attend to error that occur when class access is in braces
 - [ ] support for string interpolation
+- [ ] add the **is** operator in place of the InstanceOf function
 
 ### simplify
 - [ ] create and optimize simple source before compiling into bytecode (.complex)

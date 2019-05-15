@@ -73,6 +73,11 @@ SIMPLE_API void simple_vm_loadaddress_declaration( VM *vm )
 		/* Support for private attributes */
 		simple_list_setint_gc(vm->sState,(List *) SIMPLE_VM_STACK_READP,SIMPLE_VAR_PRIVATEFLAG,vm->nPrivateFlag);
 	}
+	else
+	{
+		simple_vm_error2(vm,SIMPLE_VM_ERROR_VARIABLEALREAYDECLARED, SIMPLE_VM_IR_READC);
+		return; 
+	}
 	/* Don't change instruction if it's LoadAFirst */
 	if ( vm->nFirstAddress == 1 ) {
 		return ;

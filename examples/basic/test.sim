@@ -1,27 +1,6 @@
 from "BareClass_1.sim"
 
-var one = "One"
-var two
-two = [ 2, "two", block () {return 20}]
+#var name:String = new SampleString("Hello World")
+@"The Sum of " + 20 + " and " + 30 + " is " + Sum(20, 30)
 
-display one + nl
-display two display nl
-@Sum()
-
-var name = ["Hello Yo", 90, true]
-@name
-name = "My name is "
-@"============" + nl + name + nl + "============"
-name = "Desperado"
-@"============" + nl + name + nl + "============"
-
-
-block Sum()
-	var num1 = 20
-	var num2 = 20
-	return (num1 * num2)
-end
-
-
-
-
+block Sum(num1: Int, num2: Int) return num1 * num2

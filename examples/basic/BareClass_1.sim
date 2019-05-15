@@ -1,8 +1,27 @@
 
-class BareClass
+class String 
+class Int
 
-	block Init()
-		
+/*class SampleString
+
+	var Value:String
+	var Length:Int
+
+	block Init(value)
+		Value = value
+		Length = LengthOf(Value)
+	end
+	
+	block Operator(op, value)
+		switch op
+			case "lengthOf"
+				return Length
+			case "[]"
+				return Value[value]
+			default
+				__throw("Oerator overloding not defined for " + op)
+		end
 	end
 
 end
+*/

@@ -764,6 +764,7 @@ SIMPLE_API void simple_vm_setthenullvariable ( VM *vm ) ;
 #define SIMPLE_VM_ERROR_LOOPWITHOUTLOOP "RUNTIME ERROR 24 : Using loop command outside loops "
 #define SIMPLE_VM_ERROR_LOOPNUMBEROUTSIDERANGE "RUNTIME ERROR 24 : Using loop command with number outside the range "
 #define SIMPLE_VM_ERROR_VARIABLENOTDECLARED "RUNTIME ERROR 24 : The varible has not been declared"
+#define SIMPLE_VM_ERROR_VARIABLEALREAYDECLARED "RUNTIME ERROR 24 : The varible has already been declared"
 #define SIMPLE_VM_ERROR_USINGNULLVARIABLE "RUNTIME ERROR 24 : The varible is not initialized"
 #define SIMPLE_VM_ERROR_MODULENOTFOUND "RUNTIME ERROR 24 : Invalid modules name, Modules not found! "
 #define SIMPLE_VM_ERROR_CALLINGPRIVATEMETHOD "RUNTIME ERROR 24 : Private blocks is inaccesible from outside class "

@@ -266,29 +266,6 @@ int simple_parser_class ( Parser *parser )
 	if ( simple_parser_iskeyword(parser,KEYWORD_VAR) )
 	{
 		simple_parser_nexttoken(parser);
-		if (simple_parser_isoperator2(parser,OP_RANGE))
-		{
-			class_is_created = 0;
-			simple_parser_nexttoken(parser);	
-			list = parser->ClassesMap ;
-			/* Check Class Redefinition */
-			if ( simple_list_getsize(list) > 0 ) {
-				for ( x = 1 ; x <= simple_list_getsize(list) ; x++ ) {
-					if ( strcmp(simple_list_getstring(simple_list_getlist(list,x),1),parser->TokenText) == 0 ) {
-						class_is_created = 1;
-						break;
-					}
-				}
-			}
-			if (class_is_created == 0)
-			{
-				parser_error2(parser,PARSER_ERROR_TYPE_NOT_FOUND, parser->TokenText);
-				return 0 ;
-			}
-			printf("It range Next Token=%s\n", parser->TokenText);
-			/* Store the type */
-			simple_parser_nexttoken(parser);	
-		}
 		if ( simple_parser_isidentifier(parser) ) 
 		{
 			/* Generate Code */
@@ -297,6 +274,30 @@ int simple_parser_class ( Parser *parser )
 			/* Generate Location for nPC of Getter */
 			simple_parser_icg_newoperandint(parser,0);
 			simple_parser_nexttoken(parser);	
+			/* Check the variable type */
+			if (simple_parser_isoperator2(parser,OP_RANGE))
+			{
+				class_is_created = 0;
+				simple_parser_nexttoken(parser);	
+				list = parser->ClassesMap ;
+				/* Check Type Availability */
+				if ( simple_list_getsize(list) > 0 ) {
+					for ( x = 1 ; x <= simple_list_getsize(list) ; x++ ) {
+						if ( strcmp(simple_list_getstring(simple_list_getlist(list,x),1),parser->TokenText) == 0 ) {
+							class_is_created = 1;
+							break;
+						}
+					}
+				}
+				if (class_is_created == 0)
+				{
+					parser_error2(parser,PARSER_ERROR_TYPE_NOT_FOUND, parser->TokenText);
+					return 0 ;
+				}
+				/* Store the type */
+				simple_parser_nexttoken(parser);	
+			}
+			/* */
 			nToken = SIMPLE_PARSER_CURRENTTOKEN ;
 			SIMPLE_PARSER_PASSNEWLINE ;
 			/* Back if we don't have { */
@@ -570,7 +571,7 @@ int simple_parser_stmt ( Parser *parser )
 		simple_parser_nexttoken(parser);
 		if ( simple_parser_isidentifier(parser) ) {
 			/* Generate Code */
-			simple_parser_icg_newoperation(parser,ICO_LOADADDRESS);
+			simple_parser_icg_newoperation(parser,ICO_LOADADDRESS_DECLARATION);
 			simple_parser_icg_newoperand(parser,parser->TokenText);
 			simple_parser_nexttoken(parser);
 			x = simple_parser_mixer(parser);
@@ -719,7 +720,7 @@ int simple_parser_stmt ( Parser *parser )
 				/* Mark for Exit command to go to outside the loop */
 				simple_parser_icg_newoperation(parser,ICO_EXITMARK);
 				pMark3 = simple_parser_icg_getactiveoperation(parser);
-				simple_parser_icg_newoperation(parser,ICO_LOADADDRESS);
+				simple_parser_icg_newoperation(parser,ICO_LOADADDRESS_DECLARATION);
 				simple_parser_icg_newoperand(parser,cStr);
 				simple_parser_icg_newoperation(parser,ICO_PUSHN);
 				simple_parser_icg_newoperanddouble(parser,0);
@@ -1311,7 +1312,7 @@ int simple_parser_stmt ( Parser *parser )
 			/* if isblock(self,"exprEval") exprEval() end */
 			simple_parser_icg_newoperation(parser,ICO_LOADBLOCK);
 			simple_parser_icg_newoperand(parser,"HasBlock");
-			simple_parser_icg_newoperation(parser,ICO_LOADADDRESS);
+			simple_parser_icg_newoperation(parser,ICO_LOADADDRESS_DECLARATION);
 			simple_parser_icg_newoperand(parser,"self");
 			simple_parser_icg_newoperandint(parser,0);
 			simple_parser_icg_newoperation(parser,ICO_PUSHV);
@@ -1342,12 +1343,14 @@ int simple_parser_stmt ( Parser *parser )
 
 int simple_parser_paralist ( Parser *parser )
 {
-	int nStart, param_count, is_variadic, x  ;
+	List* list;
+	int nStart, param_count, is_variadic, x, class_is_created  ;
 	const char *cToken  ;
 	/* Check ( */
 	nStart = 0 ;
 	param_count = 0 ;
 	is_variadic = 0 ;
+	list = parser->ClassesMap ;
 	if ( simple_parser_isoperator2(parser,OP_FOPEN) ) {
 		simple_parser_nexttoken(parser);
 		nStart = 1 ;
@@ -1366,11 +1369,29 @@ int simple_parser_paralist ( Parser *parser )
 	if ( simple_parser_isidentifier(parser)) { 
 		cToken = parser->TokenText ;
 		simple_parser_nexttoken(parser); 
-		/* Support Type Identifiter */
-		if ( nStart && simple_parser_isidentifier(parser) ) {
-			cToken = parser->TokenText ;
-			simple_parser_nexttoken(parser);
-		} 
+		/* Check the variable type */
+		if (simple_parser_isoperator2(parser,OP_RANGE))
+		{
+			class_is_created = 0;
+			simple_parser_nexttoken(parser);	
+			/* Check Type Availability */
+			if ( simple_list_getsize(list) > 0 ) {
+				for ( x = 1 ; x <= simple_list_getsize(list) ; x++ ) {
+					if ( strcmp(simple_list_getstring(simple_list_getlist(list,x),1),parser->TokenText) == 0 ) {
+						class_is_created = 1;
+						break;
+					}
+				}
+			}
+			if (class_is_created == 0)
+			{
+				parser_error2(parser,PARSER_ERROR_TYPE_NOT_FOUND, parser->TokenText);
+				return 0 ;
+			}
+			/* Store the type */
+			simple_parser_nexttoken(parser);	
+		}
+		/* */
 		if (simple_parser_isoperator2(parser,OP_DOT)) {
 			for (x = 0; x < 3; x++) {
 				if (!simple_parser_isoperator2(parser,OP_DOT)) {
@@ -1401,11 +1422,29 @@ int simple_parser_paralist ( Parser *parser )
 				}		
 				cToken = parser->TokenText ;				
 				simple_parser_nexttoken(parser);
-				/* Support Type Identifiter */
-				if ( nStart && (simple_parser_isidentifier(parser))) {
-					cToken = parser->TokenText ;
-					simple_parser_nexttoken(parser);
+				/* Check the variable type */
+				if (simple_parser_isoperator2(parser,OP_RANGE))
+				{
+					class_is_created = 0;
+					simple_parser_nexttoken(parser);	
+					/* Check Type Availability */
+					if ( simple_list_getsize(list) > 0 ) {
+						for ( x = 1 ; x <= simple_list_getsize(list) ; x++ ) {
+							if ( strcmp(simple_list_getstring(simple_list_getlist(list,x),1),parser->TokenText) == 0 ) {
+								class_is_created = 1;
+								break;
+							}
+						}
+					}
+					if (class_is_created == 0)
+					{
+						parser_error2(parser,PARSER_ERROR_TYPE_NOT_FOUND, parser->TokenText);
+						return 0 ;
+					}
+					/* Store the type */
+					simple_parser_nexttoken(parser);	
 				}
+				/* */
 				if (simple_parser_isoperator2(parser,OP_DOT)) {
 					for (x = 0; x < 3; x++) {
 						if (!simple_parser_isoperator2(parser,OP_DOT)) {
