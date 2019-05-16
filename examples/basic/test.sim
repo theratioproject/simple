@@ -1,9 +1,16 @@
 from "BareClass_1.sim"
 
-final var name:String
-name = "adewale"
-#@"The Sum of " + 20 + " and " + 30 + " is " + Sum(20, 30, 40)
+var name:String = new String("adewale")
+name = 440
+@"The Sum of " + 20 + " and " + 30 + " is " + Sum(20, 30, 40)
 
-block Sum(num1: Int, num2: Int, num3:Int) 
-	num3 += 30
+block Sum(num1: Int, num2: Int, num3:Int, numbers: Int...) 
+	var number
+	@num1
+	@num2
+	@num3
+	for number in numbers
+		@number
+	end
+	@numbers
 	return num1 + num2 + num3

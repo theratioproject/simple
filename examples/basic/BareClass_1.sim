@@ -11,6 +11,11 @@ class String
 		Length = LengthOf(Value)
 	end
 	
+	/*block Operator=(value)
+		Value = value 
+		return self
+	end*/
+	
 	block Operator(op, value)
 		switch op
 			case "lengthOf"

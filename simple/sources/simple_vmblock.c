@@ -446,7 +446,6 @@ SIMPLE_API void simple_vm_newblock ( VM *vm )
 		for (; x >= 3 && y <= SIMPLE_VM_IR_PARACOUNT ; x--, y++ ) { 
 			param = simple_string_new(SIMPLE_VM_IR_READCVALUE(x-1));
 			is_final = SIMPLE_VM_IR_READIVALUE(x-2);
-			x--;
 			if (strcmp(param->str,simple_secondary_keyword_value(KEYWORD_VARIADIC)) == 0 ) {
 				is_variadic = 1 ; continue ;
 			}
@@ -454,14 +453,16 @@ SIMPLE_API void simple_vm_newblock ( VM *vm )
 				v_param = simple_string_new(SIMPLE_VM_IR_READCVALUE(x-1));
 			} 
 			if (is_variadic) { variadic_value = param->str; is_variadic = 0; }
-			if ( nsp < vm->nsp || strcmp(v_param->str,variadic_value) == 0) {
+			x--;
+			printf("1. X%i Y%i P%i VN%i N%i INSP%i VV:%s PS:%s N<VN:%i STRCMP:%i\n",x,y,SIMPLE_VM_IR_PARACOUNT,vm->nsp,nsp,insp,variadic_value,param->str,(nsp < vm->nsp), strcmp(v_param->str,variadic_value));
+			if ( nsp < vm->nsp /*|| strcmp(v_param->str,variadic_value) == 0*/) {
 				if ( strcmp(param->str,variadic_value) == 0 ) { 
 					variadic_item = simple_item_new_gc (vm->sState,ITEMTYPE_LIST);
 					variadic_item->data.list = variadic_list ;
 					SIMPLE_VM_STACK_PUSHPVALUE(variadic_item) ; 
 					SIMPLE_VM_STACK_OBJTYPE = SIMPLE_OBJTYPE_LISTITEM ;					
 					simple_vm_addnewpointervar(vm,param->str,SIMPLE_VM_STACK_READP,SIMPLE_VM_STACK_OBJTYPE,0,is_final);
-					w = SIMPLE_VM_IR_PARACOUNT - 3  ; 
+					w = SIMPLE_VM_IR_PARACOUNT - 7  ; 
 					SIMPLE_VM_STACK_POP_(w) ; 
 				} 
 				if ( SIMPLE_VM_STACK_ISSTRING ) {
@@ -476,8 +477,8 @@ SIMPLE_API void simple_vm_newblock ( VM *vm )
 					simple_vm_addnewpointervar(vm,param->str,SIMPLE_VM_STACK_READP,SIMPLE_VM_STACK_OBJTYPE,0,is_final);
 					SIMPLE_VM_STACK_POP ;
 				} 
-				if (y == (SIMPLE_VM_IR_PARACOUNT - 3) && strcmp(v_param->str,variadic_value) == 0) {
-					//printf("X%i Y%i P%i VN%i N%i INSP%i\n",x,y,SIMPLE_VM_IR_PARACOUNT,vm->nsp,nsp,insp);
+				if (y == (SIMPLE_VM_IR_PARACOUNT - 7) && strcmp(v_param->str,variadic_value) == 0) {
+					printf("2. X%i Y%i P%i VN%i N%i INSP%i\n",x,y,SIMPLE_VM_IR_PARACOUNT,vm->nsp,nsp,insp);
 					if (vm->nsp == 1 && y > 1) { 
 						y++; 
 						vm->nsp = insp - y + 2;
