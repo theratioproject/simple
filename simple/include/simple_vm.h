@@ -262,23 +262,23 @@ SIMPLE_API int simple_vm_findvar2 ( VM *vm,int x,List *list2,const char *cStr ) 
 
 SIMPLE_API void simple_vm_newvar ( VM *vm,const char *cStr ) ;
 
-SIMPLE_API List * simple_vm_newvar2 ( VM *vm,const char *cStr,List *pParent ) ;
+SIMPLE_API List * simple_vm_newvar2 ( VM *vm,const char *cStr,List *pParent, int is_initial_declarion, int is_final ) ;
 
-SIMPLE_API void simple_vm_addnewnumbervar ( VM *vm,const char *cStr,double x ) ;
+SIMPLE_API void simple_vm_addnewnumbervar ( VM *vm,const char *cStr,double x, int is_initial_declarion, int is_final ) ;
 
-SIMPLE_API void simple_vm_addnewstringvar ( VM *vm,const char *cStr,const char *cStr2 ) ;
+SIMPLE_API void simple_vm_addnewstringvar ( VM *vm,const char *cStr,const char *cStr2, int is_initial_declarion, int is_final ) ;
 
 SIMPLE_API void simple_vm_deletescope ( VM *vm ) ;
 
-SIMPLE_API void simple_vm_addnewpointervar ( VM *vm,const char *cStr,void *x,int y ) ;
+SIMPLE_API void simple_vm_addnewpointervar ( VM *vm,const char *cStr,void *x,int y, int is_initial_declarion, int is_final ) ;
 
-SIMPLE_API void simple_vm_newtempvar ( VM *vm,const char *cStr, List *Temlist ) ;
+SIMPLE_API void simple_vm_newtempvar ( VM *vm,const char *cStr, List *Temlist, int is_initial_declarion, int is_final ) ;
 
-SIMPLE_API void simple_vm_addnewstringvar2 ( VM *vm,const char *cStr,const char *cStr2,int str_size ) ;
+SIMPLE_API void simple_vm_addnewstringvar2 ( VM *vm,const char *cStr,const char *cStr2,int str_size, int is_initial_declarion, int is_final ) ;
 
-List * simple_vm_newtempvar2 ( VM *vm,const char *cStr,List *list3 ) ;
+SIMPLE_API List * simple_vm_newtempvar2 ( VM *vm,const char *cStr,List *list3, int is_initial_declarion, int is_final ) ;
 
-SIMPLE_API void simple_vm_addnewcpointervar ( VM *vm,const char *cStr,void *pointer,const char *cStr2 ) ;
+SIMPLE_API void simple_vm_addnewcpointervar ( VM *vm,const char *cStr,void *pointer,const char *cStr2, int is_initial_declarion, int is_final ) ;
 /* Jump */
 
 SIMPLE_API void simple_vm_jump ( VM *vm ) ;

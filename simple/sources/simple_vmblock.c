@@ -265,13 +265,13 @@ SIMPLE_API void simple_vm_call2 ( VM *vm )
 			for ( x = nsp+1 ; x <= nMax1 ; x++ ) {
 				vm->nsp = x ;
 				if ( SIMPLE_VM_STACK_ISSTRING ) {
-					simple_vm_addnewstringvar2(vm,"",SIMPLE_VM_STACK_READC,SIMPLE_VM_STACK_STRINGSIZE);
+					simple_vm_addnewstringvar2(vm,"",SIMPLE_VM_STACK_READC,SIMPLE_VM_STACK_STRINGSIZE,0,0);
 				}
 				else if ( SIMPLE_VM_STACK_ISNUMBER ) {
-					simple_vm_addnewnumbervar(vm,"",SIMPLE_VM_STACK_READN);
+					simple_vm_addnewnumbervar(vm,"",SIMPLE_VM_STACK_READN,0,0);
 				}
 				else if ( SIMPLE_VM_STACK_ISPOINTER ) {
-					simple_vm_addnewpointervar(vm,"",SIMPLE_VM_STACK_READP,SIMPLE_VM_STACK_OBJTYPE);
+					simple_vm_addnewpointervar(vm,"",SIMPLE_VM_STACK_READP,SIMPLE_VM_STACK_OBJTYPE,0,0);
 				}
 				vm->nCBlockParaCount++ ;
 			}
@@ -417,7 +417,7 @@ SIMPLE_API void simple_vm_returnnull ( VM *vm )
 
 SIMPLE_API void simple_vm_newblock ( VM *vm )
 {
-	int w,x,y,z,nsp,insp,type, is_variadic  ; 
+	int w,x,y,z,nsp,insp,type, is_variadic,is_final  ; 
 	List *list, *variadic_list  ;
 	String *param, *v_param ;
 	Item *item, *variadic_item ;
@@ -445,6 +445,8 @@ SIMPLE_API void simple_vm_newblock ( VM *vm )
 		z = 0 ;
 		for (; x >= 3 && y <= SIMPLE_VM_IR_PARACOUNT ; x--, y++ ) { 
 			param = simple_string_new(SIMPLE_VM_IR_READCVALUE(x-1));
+			is_final = SIMPLE_VM_IR_READIVALUE(x-2);
+			x--;
 			if (strcmp(param->str,simple_secondary_keyword_value(KEYWORD_VARIADIC)) == 0 ) {
 				is_variadic = 1 ; continue ;
 			}
@@ -452,26 +454,26 @@ SIMPLE_API void simple_vm_newblock ( VM *vm )
 				v_param = simple_string_new(SIMPLE_VM_IR_READCVALUE(x-1));
 			} 
 			if (is_variadic) { variadic_value = param->str; is_variadic = 0; }
-			if ( nsp < vm->nsp || strcmp(v_param->str,variadic_value) == 0) { 
+			if ( nsp < vm->nsp || strcmp(v_param->str,variadic_value) == 0) {
 				if ( strcmp(param->str,variadic_value) == 0 ) { 
 					variadic_item = simple_item_new_gc (vm->sState,ITEMTYPE_LIST);
 					variadic_item->data.list = variadic_list ;
 					SIMPLE_VM_STACK_PUSHPVALUE(variadic_item) ; 
 					SIMPLE_VM_STACK_OBJTYPE = SIMPLE_OBJTYPE_LISTITEM ;					
-					simple_vm_addnewpointervar(vm,param->str,SIMPLE_VM_STACK_READP,SIMPLE_VM_STACK_OBJTYPE);
+					simple_vm_addnewpointervar(vm,param->str,SIMPLE_VM_STACK_READP,SIMPLE_VM_STACK_OBJTYPE,0,is_final);
 					w = SIMPLE_VM_IR_PARACOUNT - 3  ; 
 					SIMPLE_VM_STACK_POP_(w) ; 
 				} 
 				if ( SIMPLE_VM_STACK_ISSTRING ) {
-					simple_vm_addnewstringvar(vm,param->str,SIMPLE_VM_STACK_READC);
+					simple_vm_addnewstringvar(vm,param->str,SIMPLE_VM_STACK_READC,0,is_final);
 					SIMPLE_VM_STACK_POP ; 
 				}
-				else if ( SIMPLE_VM_STACK_ISNUMBER ) {
-					simple_vm_addnewnumbervar(vm,param->str,SIMPLE_VM_STACK_READN);
+				else if ( SIMPLE_VM_STACK_ISNUMBER ) { 
+					simple_vm_addnewnumbervar(vm,param->str,SIMPLE_VM_STACK_READN,0,is_final);
 					SIMPLE_VM_STACK_POP ;
 				}
 				else if ( SIMPLE_VM_STACK_ISPOINTER ) {
-					simple_vm_addnewpointervar(vm,param->str,SIMPLE_VM_STACK_READP,SIMPLE_VM_STACK_OBJTYPE);
+					simple_vm_addnewpointervar(vm,param->str,SIMPLE_VM_STACK_READP,SIMPLE_VM_STACK_OBJTYPE,0,is_final);
 					SIMPLE_VM_STACK_POP ;
 				} 
 				if (y == (SIMPLE_VM_IR_PARACOUNT - 3) && strcmp(v_param->str,variadic_value) == 0) {
@@ -586,7 +588,7 @@ SIMPLE_API void simple_vm_movetoprevscope ( VM *vm )
 		return ;
 	}
 	list2 = simple_list_getlist(vm->pMem,simple_list_getsize(vm->pMem)-1);
-	list3 = simple_vm_newvar2(vm,SIMPLE_TEMP_VARIABLE,list2);
+	list3 = simple_vm_newvar2(vm,SIMPLE_TEMP_VARIABLE,list2,0,0);
 	simple_list_setint_gc(vm->sState,list3,SIMPLE_VAR_TYPE,SIMPLE_VM_LIST);
 	simple_list_setlist_gc(vm->sState,list3,SIMPLE_VAR_VALUE);
 	list2 = simple_list_getlist(list3,SIMPLE_VAR_VALUE);
@@ -610,7 +612,7 @@ SIMPLE_API void simple_vm_createtemlist ( VM *vm )
 	*/
 	list = simple_list_getlist(vm->pBlockCallList,simple_list_getsize(vm->pBlockCallList));
 	list = simple_list_getlist(list,SIMPLE_BLOCKCL_TEMPMEM);
-	simple_vm_newtempvar(vm,SIMPLE_TEMP_VARIABLE,list);
+	simple_vm_newtempvar(vm,SIMPLE_TEMP_VARIABLE,list,0,0);
 }
 
 SIMPLE_API void simple_vm_saveloadaddressscope ( VM *vm )

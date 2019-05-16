@@ -1365,7 +1365,17 @@ int simple_parser_paralist ( Parser *parser )
 		#endif
 		return param_count ;
 	}
-	/* ParaList --> [ Identifier { , Identifier }  ] */ 
+	/* ParaList --> [ [final] Identifier { , [final] Identifier }  ] */ 
+	if ( simple_parser_iskeyword(parser,KEYWORD_FINAL) ) {
+		/* Generate Code */
+		simple_parser_icg_newoperandint(parser,1);
+		simple_parser_nexttoken(parser);
+	}
+	else
+	{
+		/* Generate Code */
+		simple_parser_icg_newoperandint(parser,0);
+	}
 	if ( simple_parser_isidentifier(parser)) { 
 		cToken = parser->TokenText ;
 		simple_parser_nexttoken(parser); 
@@ -1414,6 +1424,16 @@ int simple_parser_paralist ( Parser *parser )
 		}
 		while ( simple_parser_isoperator2(parser,OP_COMMA) ) {
 			simple_parser_nexttoken(parser);
+			if ( simple_parser_iskeyword(parser,KEYWORD_FINAL) ) {
+				/* Generate Code */
+				simple_parser_icg_newoperandint(parser,1);
+				simple_parser_nexttoken(parser);
+			}
+			else
+			{
+				/* Generate Code */
+				simple_parser_icg_newoperandint(parser,0);
+			}
 			SIMPLE_PARSER_IGNORENEWLINE ;
 			if ( simple_parser_isidentifier(parser)) {
 				if (is_variadic) {

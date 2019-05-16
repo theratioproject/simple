@@ -1319,11 +1319,11 @@ SIMPLE_API void simple_vm_addglobalvariables ( VM *vm )
 	**  Add Variables 
 	**  We write variable name in lower case because Identifiers is converted to lower by Compiler(Scanner) 
 	*/
-	simple_vm_addnewnumbervar(vm,"true",1);
-	simple_vm_addnewnumbervar(vm,"false",0);
-	simple_vm_addnewstringvar(vm,"crlf","\r\n");
+	simple_vm_addnewnumbervar(vm,"true",1,0,1);
+	simple_vm_addnewnumbervar(vm,"false",0,0,1);
+	simple_vm_addnewstringvar(vm,"crlf","\r\n",0,1);
 	/* Add null pointer */
-	list = simple_vm_newvar2(vm,"null",vm->pActiveMem);
+	list = simple_vm_newvar2(vm,"null",vm->pActiveMem,0,1);
 	simple_list_setint_gc(vm->sState,list,SIMPLE_VAR_TYPE,SIMPLE_VM_LIST);
 	simple_list_setlist_gc(vm->sState,list,SIMPLE_VAR_VALUE);
 	list2 = simple_list_new_gc(vm->sState,0);
@@ -1332,16 +1332,16 @@ SIMPLE_API void simple_vm_addglobalvariables ( VM *vm )
 	simple_list_addint_gc(vm->sState,list2,2);
 	simple_list_copy(simple_list_getlist(list,SIMPLE_VAR_VALUE),list2);
 	/* End Add null pointer */
-	simple_vm_addnewpointervar(vm,"simple_gettemp_var",NULL,0);
-	simple_vm_addnewstringvar(vm,"__err__","");
-	simple_vm_addnewpointervar(vm,"simple_settemp_var",NULL,0);
-	simple_vm_addnewnumbervar(vm,"simple_tempflag_var",0);
-	simple_vm_addnewstringvar(vm,"tab","\t");
-	simple_vm_addnewstringvar(vm,"cr","\r");
-	simple_vm_addnewstringvar(vm,"nl","\n");
-	simple_vm_addnewpointervar(vm,"this",NULL,0);
+	simple_vm_addnewpointervar(vm,"simple_gettemp_var",NULL,0,0,1);
+	simple_vm_addnewstringvar(vm,"__err__","",0,1);
+	simple_vm_addnewpointervar(vm,"simple_settemp_var",NULL,0,0,1);
+	simple_vm_addnewnumbervar(vm,"simple_tempflag_var",0,0,1);
+	simple_vm_addnewstringvar(vm,"tab","\t",0,1);
+	simple_vm_addnewstringvar(vm,"cr","\r",0,1);
+	simple_vm_addnewstringvar(vm,"nl","\n",0,1);
+	simple_vm_addnewpointervar(vm,"this",NULL,0,0,1);
 	/* Add Command Line Parameters */
-	list = simple_vm_newvar2(vm,"cmdparams",vm->pActiveMem);
+	list = simple_vm_newvar2(vm,"cmdparams",vm->pActiveMem,0,1);
 	simple_list_setint_gc(vm->sState,list,SIMPLE_VAR_TYPE,SIMPLE_VM_LIST);
 	simple_list_setlist_gc(vm->sState,list,SIMPLE_VAR_VALUE);
 	list = simple_list_getlist(list,SIMPLE_VAR_VALUE);

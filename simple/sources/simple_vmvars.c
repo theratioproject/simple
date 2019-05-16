@@ -217,8 +217,9 @@ SIMPLE_API void simple_vm_newvar ( VM *vm,const char *cStr )
 {
 	List *list  ;
 	assert(vm->pActiveMem);
-	list = simple_vm_newvar2(vm,cStr,vm->pActiveMem);
+	list = simple_vm_newvar2(vm,cStr,vm->pActiveMem, 1, vm->finalFlag);
 	vm->nsp++ ;
+	vm->finalFlag = 0 ;
 	const char* var ;
 	int x , isFinal, initDec ;
 	SIMPLE_VM_STACK_SETPVALUE(list);
@@ -232,18 +233,11 @@ SIMPLE_API void simple_vm_newvar ( VM *vm,const char *cStr )
 	} else {
 		vm->nVarScope = SIMPLE_VARSCOPE_NOTHING ;
 	}
-	/* Initial Declaration */
-	simple_item_setinitdec(simple_list_getitem(list,SIMPLE_VAR_NAME),1); 
-	/* Final Flag */
-	if (vm->finalFlag == 1) {
-		simple_item_setfinal(simple_list_getitem(list,SIMPLE_VAR_NAME),1); 
-		vm->finalFlag = 0;
-	}
 	/* Add Scope to aLoadAddressScope */
 	simple_list_addint_gc(vm->sState,vm->aLoadAddressScope,vm->nVarScope);
 }
 
-List * simple_vm_newvar2 ( VM *vm,const char *cStr,List *pParent )
+List * simple_vm_newvar2 ( VM *vm,const char *cStr,List *pParent, int is_initial_declarion, int is_final)
 {
 	List *list  ;
 	/* This block is called by all of the other blocks that create new varaibles */
@@ -261,37 +255,41 @@ List * simple_vm_newvar2 ( VM *vm,const char *cStr,List *pParent )
 	}
 	
 	simple_hashtable_newpointer(pParent->pHashTable,cStr,list);
+	/* Initial Declaration */
+	simple_item_setinitdec(simple_list_getitem(list,SIMPLE_VAR_NAME),is_initial_declarion); 
+	/* Final Flag */
+	simple_item_setfinal(simple_list_getitem(list,SIMPLE_VAR_NAME),is_final); 
 	return list ;
 }
 
-SIMPLE_API void simple_vm_addnewnumbervar ( VM *vm,const char *cStr,double x )
+SIMPLE_API void simple_vm_addnewnumbervar ( VM *vm,const char *cStr,double x, int is_initial_declarion, int is_final )
 {
 	List *list  ;
-	list = simple_vm_newvar2(vm,cStr,vm->pActiveMem);
+	list = simple_vm_newvar2(vm,cStr,vm->pActiveMem,is_initial_declarion,is_final);
 	simple_list_setint_gc(vm->sState,list,SIMPLE_VAR_TYPE,SIMPLE_VM_NUMBER);
 	simple_list_setdouble_gc(vm->sState,list,SIMPLE_VAR_VALUE,x);
 }
 
-SIMPLE_API void simple_vm_addnewstringvar ( VM *vm,const char *cStr,const char *cStr2 )
+SIMPLE_API void simple_vm_addnewstringvar ( VM *vm,const char *cStr,const char *cStr2, int is_initial_declarion, int is_final )
 {
 	List *list  ;
-	list = simple_vm_newvar2(vm,cStr,vm->pActiveMem);
+	list = simple_vm_newvar2(vm,cStr,vm->pActiveMem,is_initial_declarion,is_final);
 	simple_list_setint_gc(vm->sState,list,SIMPLE_VAR_TYPE,SIMPLE_VM_STRING);
 	simple_list_setstring_gc(vm->sState,list,SIMPLE_VAR_VALUE,cStr2);
 }
 
-SIMPLE_API void simple_vm_addnewstringvar2 ( VM *vm,const char *cStr,const char *cStr2,int str_size )
+SIMPLE_API void simple_vm_addnewstringvar2 ( VM *vm,const char *cStr,const char *cStr2,int str_size, int is_initial_declarion, int is_final )
 {
 	List *list  ;
-	list = simple_vm_newvar2(vm,cStr,vm->pActiveMem);
+	list = simple_vm_newvar2(vm,cStr,vm->pActiveMem,is_initial_declarion,is_final);
 	simple_list_setint_gc(vm->sState,list,SIMPLE_VAR_TYPE,SIMPLE_VM_STRING);
 	simple_list_setstring2_gc(vm->sState,list,SIMPLE_VAR_VALUE,cStr2,str_size);
 }
 
-SIMPLE_API void simple_vm_addnewpointervar ( VM *vm,const char *cStr,void *x,int y )
+SIMPLE_API void simple_vm_addnewpointervar ( VM *vm,const char *cStr,void *x,int y, int is_initial_declarion, int is_final )
 {
 	List *list  ;
-	list = simple_vm_newvar2(vm,cStr,vm->pActiveMem);
+	list = simple_vm_newvar2(vm,cStr,vm->pActiveMem,is_initial_declarion,is_final);
 	simple_list_setint_gc(vm->sState,list,SIMPLE_VAR_TYPE,SIMPLE_VM_POINTER);
 	simple_list_setpointer_gc(vm->sState,list,SIMPLE_VAR_VALUE,x);
 	simple_list_setint_gc(vm->sState,list,SIMPLE_VAR_PVALUETYPE,y);
@@ -299,19 +297,19 @@ SIMPLE_API void simple_vm_addnewpointervar ( VM *vm,const char *cStr,void *x,int
 	simple_vm_gc_checknewreference(x,y);
 }
 
-SIMPLE_API void simple_vm_newtempvar ( VM *vm,const char *cStr, List *Temlist )
+SIMPLE_API void simple_vm_newtempvar ( VM *vm,const char *cStr, List *Temlist, int is_initial_declarion, int is_final )
 {
 	List *list  ;
-	list = simple_vm_newvar2(vm,cStr,Temlist);
+	list = simple_vm_newvar2(vm,cStr,Temlist,is_initial_declarion,is_final);
 	vm->nsp++ ;
 	SIMPLE_VM_STACK_SETPVALUE(list);
 	SIMPLE_VM_STACK_OBJTYPE = SIMPLE_OBJTYPE_VARIABLE ;
 }
 
-List * simple_vm_newtempvar2 ( VM *vm,const char *cStr,List *list3 )
+List * simple_vm_newtempvar2 ( VM *vm,const char *cStr,List *list3, int is_initial_declarion, int is_final )
 {
 	List *list,*list2  ;
-	list = simple_vm_newvar2(vm,cStr,vm->pTempMem);
+	list = simple_vm_newvar2(vm,cStr,vm->pTempMem,is_initial_declarion,is_final);
 	simple_list_setint_gc(vm->sState,list,SIMPLE_VAR_TYPE,SIMPLE_VM_LIST);
 	simple_list_setlist_gc(vm->sState,list,SIMPLE_VAR_VALUE);
 	list2 = simple_list_getlist(list,SIMPLE_VAR_VALUE);
@@ -320,10 +318,10 @@ List * simple_vm_newtempvar2 ( VM *vm,const char *cStr,List *list3 )
 	return list ;
 }
 
-SIMPLE_API void simple_vm_addnewcpointervar ( VM *vm,const char *cStr,void *pointer,const char *cStr2 )
+SIMPLE_API void simple_vm_addnewcpointervar ( VM *vm,const char *cStr,void *pointer,const char *cStr2, int is_initial_declarion, int is_final )
 {
 	List *list, *list2  ;
-	list = simple_vm_newvar2(vm,cStr,vm->pActiveMem);
+	list = simple_vm_newvar2(vm,cStr,vm->pActiveMem,is_initial_declarion,is_final);
 	simple_list_setint_gc(vm->sState,list,SIMPLE_VAR_TYPE,SIMPLE_VM_LIST);
 	simple_list_setlist_gc(vm->sState,list,SIMPLE_VAR_VALUE);
 	list2 = simple_list_getlist(list,SIMPLE_VAR_VALUE);

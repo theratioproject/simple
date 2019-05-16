@@ -1,8 +1,7 @@
 
-class String 
 class Int
 
-/*class SampleString
+class String
 
 	var Value:String
 	var Length:Int
@@ -24,4 +23,3 @@ class Int
 	end
 
 end
-*/

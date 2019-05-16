@@ -48,7 +48,7 @@ SIMPLE_API void simple_vm_liststart ( VM *vm )
 				simple_vm_createtemlist(vm);
 			} else {
 				/* Create the list in the General Temp Memory */
-				simple_vm_newtempvar(vm, SIMPLE_TEMP_VARIABLE ,vm->pTempMem);
+				simple_vm_newtempvar(vm, SIMPLE_TEMP_VARIABLE ,vm->pTempMem, 0, 0);
 			}
 			var = (List *) SIMPLE_VM_STACK_READP ;
 			nType = SIMPLE_VM_STACK_OBJTYPE ;
@@ -57,7 +57,7 @@ SIMPLE_API void simple_vm_liststart ( VM *vm )
 		} else {
 			if ( SIMPLE_VM_STACK_ISPOINTER == 0 ) {
 				/* Create the List in Global Temp Memory. */
-				simple_vm_newtempvar(vm, SIMPLE_TEMP_VARIABLE ,vm->pTempMem);
+				simple_vm_newtempvar(vm, SIMPLE_TEMP_VARIABLE ,vm->pTempMem, 0, 0);
 				simple_list_addint_gc(vm->sState,vm->aLoadAddressScope,SIMPLE_VARSCOPE_LOCAL);
 			}
 			nType = SIMPLE_VM_STACK_OBJTYPE ;

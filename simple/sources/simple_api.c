@@ -109,7 +109,7 @@ SIMPLE_API void api_ret_list ( void *pointer,List *list )
 	VM *vm  ;
 	vm = (VM *) pointer ;
 	list2 = simple_list_getlist(vm->pMem,simple_list_getsize(vm->pMem)-1);
-	list3 = simple_vm_newvar2(vm,SIMPLE_TEMP_VARIABLE,list2);
+	list3 = simple_vm_newvar2(vm,SIMPLE_TEMP_VARIABLE,list2,0,0);
 	simple_list_setint_gc(((VM *) pointer)->sState,list3,SIMPLE_VAR_TYPE,SIMPLE_VM_LIST);
 	simple_list_setlist_gc(((VM *) pointer)->sState,list3,SIMPLE_VAR_VALUE);
 	list2 = simple_list_getlist(list3,SIMPLE_VAR_VALUE);
