@@ -440,55 +440,27 @@ SIMPLE_API void simple_vm_newblock ( VM *vm )
 	is_variadic = 0 ;
 	variadic_list = simple_list_new_gc(vm->sState,0) ;
 	if ( SIMPLE_VM_IR_PARACOUNT > 2 ) { 
-		x = SIMPLE_VM_IR_PARACOUNT; 
 		y = 0 ;
 		z = 0 ;
-		for (; x >= 3 && y <= SIMPLE_VM_IR_PARACOUNT ; x--, y++ ) { 
-			param = simple_string_new(SIMPLE_VM_IR_READCVALUE(x-1));
-			is_final = SIMPLE_VM_IR_READIVALUE(x-2);
-			if (strcmp(param->str,simple_secondary_keyword_value(KEYWORD_VARIADIC)) == 0 ) {
-				is_variadic = 1 ; continue ;
-			}
-			if (x == SIMPLE_VM_IR_PARACOUNT || is_variadic) {
-				v_param = simple_string_new(SIMPLE_VM_IR_READCVALUE(x-1));
-			} 
-			if (is_variadic) { variadic_value = param->str; is_variadic = 0; }
-			x--;
-			printf("1. X%i Y%i P%i VN%i N%i INSP%i VV:%s PS:%s N<VN:%i STRCMP:%i\n",x,y,SIMPLE_VM_IR_PARACOUNT,vm->nsp,nsp,insp,variadic_value,param->str,(nsp < vm->nsp), strcmp(v_param->str,variadic_value));
+		//printf("N:%i \n", nsp);
+		for (x = SIMPLE_VM_IR_PARACOUNT; x >= 3; x--) { 
+			is_variadic = SIMPLE_VM_IR_READIVALUE(x-1);
+			param = simple_string_new(SIMPLE_VM_IR_READCVALUE(x-2));
+			is_final = SIMPLE_VM_IR_READIVALUE(x-3);
+			x -= 2;
+			//printf("Param=%s,Variadic=%i,Final=%i,Z=%i\n", param->str, is_variadic, is_final,z);
+			//printf("1. X%i Y%i P%i VN%i N%i INSP%i VV:%s PS:%s N<VN:%i STRCMP:%i\n",x,y,SIMPLE_VM_IR_PARACOUNT,vm->nsp,nsp,insp,variadic_value,param->str,(nsp < vm->nsp), (strcmp("",variadic_value) != 0));
 			if ( nsp < vm->nsp /*|| strcmp(v_param->str,variadic_value) == 0*/) {
-				if ( strcmp(param->str,variadic_value) == 0 ) { 
+				if ( is_variadic ) { 
 					variadic_item = simple_item_new_gc (vm->sState,ITEMTYPE_LIST);
+					variadic_item->isFinal = is_final;
+					variadic_item->initDec = 0;
 					variadic_item->data.list = variadic_list ;
-					SIMPLE_VM_STACK_PUSHPVALUE(variadic_item) ; 
-					SIMPLE_VM_STACK_OBJTYPE = SIMPLE_OBJTYPE_LISTITEM ;					
-					simple_vm_addnewpointervar(vm,param->str,SIMPLE_VM_STACK_READP,SIMPLE_VM_STACK_OBJTYPE,0,is_final);
-					w = SIMPLE_VM_IR_PARACOUNT - 7  ; 
-					SIMPLE_VM_STACK_POP_(w) ; 
-				} 
-				if ( SIMPLE_VM_STACK_ISSTRING ) {
-					simple_vm_addnewstringvar(vm,param->str,SIMPLE_VM_STACK_READC,0,is_final);
-					SIMPLE_VM_STACK_POP ; 
-				}
-				else if ( SIMPLE_VM_STACK_ISNUMBER ) { 
-					simple_vm_addnewnumbervar(vm,param->str,SIMPLE_VM_STACK_READN,0,is_final);
-					SIMPLE_VM_STACK_POP ;
-				}
-				else if ( SIMPLE_VM_STACK_ISPOINTER ) {
-					simple_vm_addnewpointervar(vm,param->str,SIMPLE_VM_STACK_READP,SIMPLE_VM_STACK_OBJTYPE,0,is_final);
-					SIMPLE_VM_STACK_POP ;
-				} 
-				if (y == (SIMPLE_VM_IR_PARACOUNT - 7) && strcmp(v_param->str,variadic_value) == 0) {
-					printf("2. X%i Y%i P%i VN%i N%i INSP%i\n",x,y,SIMPLE_VM_IR_PARACOUNT,vm->nsp,nsp,insp);
-					if (vm->nsp == 1 && y > 1) { 
-						y++; 
-						vm->nsp = insp - y + 2;
-					} else {
-						vm->nsp = insp - y + 1;
-					}
-					for (; z <= nsp; z++) {
-						y++; 
-					} 
-					while (nsp < vm->nsp){ 
+					z = (x/3)+nsp ;
+					//printf("Z:%i \n", z);
+					
+					for (y = z; y <= insp; y++) 
+					{ 
 						if ( SIMPLE_VM_STACK_ISSTRING_AT(y) ) {
 							simple_list_addstring(variadic_list,SIMPLE_VM_STACK_READC_AT(y));
 							SIMPLE_VM_STACK_POP ; 
@@ -513,10 +485,27 @@ SIMPLE_API void simple_vm_newblock ( VM *vm )
 							}
 							SIMPLE_VM_STACK_POP ;
 						}
-						y++;
 					}
-					break ;
+					SIMPLE_VM_STACK_PUSHPVALUE(variadic_item) ; 
+					SIMPLE_VM_STACK_OBJTYPE = SIMPLE_OBJTYPE_LISTITEM ;					
+					simple_vm_addnewpointervar(vm,param->str,SIMPLE_VM_STACK_READP,SIMPLE_VM_STACK_OBJTYPE,0,is_final);
+					SIMPLE_VM_STACK_POP ;
+					//printf("1. X%i Y%i P%i VN%i N%i INSP%i VV:%s PS:%s N<VN:%i STRCMP:%i\n",x,y,SIMPLE_VM_IR_PARACOUNT,vm->nsp,nsp,insp,variadic_value,param->str,(nsp < vm->nsp), (strcmp("",variadic_value) != 0));
+					continue;
+				} 
+				if ( SIMPLE_VM_STACK_ISSTRING ) {
+					simple_vm_addnewstringvar(vm,param->str,SIMPLE_VM_STACK_READC,0,is_final);
+					SIMPLE_VM_STACK_POP ; 
 				}
+				else if ( SIMPLE_VM_STACK_ISNUMBER ) { 
+					simple_vm_addnewnumbervar(vm,param->str,SIMPLE_VM_STACK_READN,0,is_final);
+					SIMPLE_VM_STACK_POP ;
+				}
+				else if ( SIMPLE_VM_STACK_ISPOINTER ) {
+					simple_vm_addnewpointervar(vm,param->str,SIMPLE_VM_STACK_READP,SIMPLE_VM_STACK_OBJTYPE,0,is_final);
+					SIMPLE_VM_STACK_POP ;
+				}
+				
 			} else {
 				simple_vm_error(vm,SIMPLE_VM_ERROR_LESSPARAMETERSCOUNT);
 				break ;

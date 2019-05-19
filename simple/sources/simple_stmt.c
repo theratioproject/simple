@@ -714,7 +714,8 @@ int simple_parser_stmt ( Parser *parser )
 						}
 					}
 				} 
-			} else if ( simple_parser_iskeyword(parser,KEYWORD_IN) ) {
+			} 
+			else if ( simple_parser_iskeyword(parser,KEYWORD_IN) ) {
 				/* Generate Code */
 				sprintf( cStr , "n_sys_var_%d" , simple_parser_icg_instructionscount(parser) ) ;
 				/* Mark for Exit command to go to outside the loop */
@@ -1420,7 +1421,13 @@ int simple_parser_paralist ( Parser *parser )
 		puts("Rule : ParaList --> Identifier {',' Identifier}");
 		#endif
 		if (is_variadic) {
-			simple_parser_icg_newoperand(parser,simple_secondary_keyword_value(KEYWORD_VARIADIC));
+			/* Generate Code */
+			simple_parser_icg_newoperandint(parser,1);
+		}
+		else
+		{
+			/* Generate Code */
+			simple_parser_icg_newoperandint(parser,0);
 		}
 		while ( simple_parser_isoperator2(parser,OP_COMMA) ) {
 			simple_parser_nexttoken(parser);
@@ -1478,8 +1485,13 @@ int simple_parser_paralist ( Parser *parser )
 				/* Generate Code */
 				param_count++ ;
 				simple_parser_icg_newoperand(parser,cToken);
-				if (is_variadic) {
-					simple_parser_icg_newoperand(parser,simple_secondary_keyword_value(KEYWORD_VARIADIC));
+				if (is_variadic) 
+				{
+					simple_parser_icg_newoperandint(parser,1);
+				}
+				else
+				{
+					simple_parser_icg_newoperandint(parser,0);
 				}
 			} else {
 				parser_error(parser,PARSER_ERROR_PARALIST);

@@ -1,0 +1,59 @@
+
+#from simple.debugging.Debug
+#from simple.testing.Test
+
+class duck
+class Int
+
+block TestBefore()
+	
+end
+
+block Test_CallBlockTest1()
+	AssertEquals(2, 1+1)
+end
+
+block Test_CallBlockTest2()
+	AssertEquals("")
+end
+
+class TestFunctionCalls	
+	var Check = null
+	
+	block Init(check:duck) 
+		Check = check
+	end
+	
+	block VariadicMethodLen(params:duck)
+		return LengthOf(params)
+	end
+	
+	block Test_VariadicMethodLen()
+		AssertEquals(7, VariadicMethodLen(1,2,3,4,5,7))
+		AssertEquals(4, VariadicMethodLen(1,2,3,new TestFunctionCalls(21.90)))
+		AssertEquals(2, VariadicMethodLen(new TestFunctionCalls(true), "two"))
+		AssertEquals(2, VariadicMethodLen(new TestFunctionCalls(235.2), "two", new TestFunctionCalls(false)))
+		AssertEquals(2, VariadicMethodLen(new TestFunctionCalls("extend"), "two", new TestFunctionCalls(true), new TestFunctionCalls("Hel" + "llo")))
+		AssertEquals(2, VariadicMethodLen(new TestFunctionCalls(false), "two", new TestFunctionCalls1(20), new TestFunctionCalls("done"), "four", 5, 6, 7, 8, 9))
+	end
+	
+	block VariadicMethodValue(index:Int, params:duck)
+		return params[index]
+	end
+	
+	block Test_VariadicMethodValue()
+		AssertEquals(30, VariadicMethodValue(3,10,20,30,40))
+		AssertEquals(7, VariadicMethodValue(4,2,3,4,5,7))
+		AssertEquals(new TestFunctionCalls(439.355), VariadicMethodValue(2,2,3,new TestFunctionCalls(439.355)))
+		AssertEquals("two", VariadicMethodValue(1, new TestFunctionCalls(true), "two"))
+		AssertEquals("two", VariadicMethodValue(2, new TestFunctionCalls(false), 1, "two", new TestFunctionCalls("call")))
+		AssertEquals("four", VariadicMethodValue(5, new TestFunctionCalls(1), "two", new TestFunctionCalls(false), new TestFunctionCalls(""), "four", 5, 6, 7, 8, 9))
+	end
+	
+	block Operator(op:duck, value:duck)
+		switch op
+			case "=="
+				return Check == value.Check
+		end
+	end
+end
