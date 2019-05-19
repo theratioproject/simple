@@ -1,127 +1,16 @@
 
-var str = new String("A String")
-str = Test2(1, [4, 5, 6, 7], 8)
-str = new String("A String")
-str = Test2(1, [4, 5, 6, 7], 8)
-str = new String("A String")
-str = Test(1, [4, 5, 6, 7], 8)
-str = new String("A String")
-str = Test(1, [4, 5, 6, 7], 8)
-str = new String("A String")
-str = Test2(1, [4, 5, 6, 7], 8)
-str = new String("A String")
-str = new String("A String")
-str = Test2(1, [4, 5, 6, 7], 8)
-str = new String("A String")
-str = Test(1, [4, 5, 6, 7], 8)
-str = new String("A String")
-str = Test(1, [4, 5, 6, 7], 8)
-str = new String("A String")
-str = Test2(1, [4, 5, 6, 7], 8)
-str = new String("A String")
-str = new String("A String")
-str = Test2(1, [4, 5, 6, 7], 8)
-str = new String("A String")
-str = Test(1, [4, 5, 6, 7], 8)
-str = new String("A String")
-str = Test(1, [4, 5, 6, 7], 8)
-str = new String("A String")
-str = Test2(1, [4, 5, 6, 7], 8)
-str = new String("A String")
-str = new String("A String")
-str = Test2(1, [4, 5, 6, 7], 8)
-str = new String("A String")
-str = Test(1, [4, 5, 6, 7], 8)
-str = new String("A String")
-str = Test(1, [4, 5, 6, 7], 8)
-str = new String("A String")
-str = Test2(1, [4, 5, 6, 7], 8)
-str = new String("A String")
-str = new String("A String")
-str = Test2(1, [4, 5, 6, 7], 8)
-str = new String("A String")
-str = Test(1, [4, 5, 6, 7], 8)
-str = new String("A String")
-str = Test(1, [4, 5, 6, 7], 8)
-str = new String("A String")
-str = Test2(1, [4, 5, 6, 7], 8)
-str = new String("A String")
-str = new String("A String")
-str = Test2(1, [4, 5, 6, 7], 8)
-str = new String("A String")
-str = Test(1, [4, 5, 6, 7], 8)
-str = new String("A String")
-str = Test(1, [4, 5, 6, 7], 8)
-str = new String("A String")
-str = Test2(1, [4, 5, 6, 7], 8)
-str = new String("A String")
-str = new String("A String")
-str = Test2(1, [4, 5, 6, 7], 8)
-str = new String("A String")
-str = Test(1, [4, 5, 6, 7], 8)
-str = new String("A String")
-str = Test(1, [4, 5, 6, 7], 8)
-str = new String("A String")
-str = Test2(1, [4, 5, 6, 7], 8)
-str = new String("A String")
-str = new String("A String")
-str = Test2(1, [4, 5, 6, 7], 8)
-str = new String("A String")
-str = Test(1, [4, 5, 6, 7], 8)
-str = new String("A String")
-str = Test(1, [4, 5, 6, 7], 8)
-str = new String("A String")
-str = Test2(1, [4, 5, 6, 7], 8)
-str = new String("A String")
-str = new String("A String")
-str = Test2(1, [4, 5, 6, 7], 8)
-str = new String("A String")
-str = Test(1, [4, 5, 6, 7], 8)
-str = new String("A String")
-str = Test(1, [4, 5, 6, 7], 8)
-str = new String("A String")
-str = Test2(1, [4, 5, 6, 7], 8, 8, 4, 6, "wee")
-str = new String("A String")
-str = new String("A String")
-str = Test2(1, [4, 5, 6, 7], 8)
-str = new String("A String")
-str = Test(1, [4, 5, 6, 7], 8)
-str = new String("A String")
-str = Test(1, [4, 5, 6, 7], 8)
-str = new String("A String")
-str = Test2(1, [4, 5, 6, 7], 8)
-str = new String("A String")
-str = new String("A String")
-str = Test2(1, [4, 5, 6, 7], 8)
-str = new String("A String")
-str = Test(1, [4, 5, 6, 7], 8)
-str = new String("A String")
-str = Test(1, [4, 5, 6, 7], 8)
-str = new String("A String")
-str = Test2(1, [4, 5, 6, 7], 8)
-str = new String("A String")
+Test()
+Test()
+One()
 
-Test2(str, "ades", 1, [4, 5, 6, 7], 8, new String("We wish you a merry christmas"))
-@"assignment done"
-block Test(x,y,final one...)
-	#@"from"
-	#one = []
+block Test()
+	var one = "hello World"
 	@one
-	return "Test=" + 1
-	
-block Test2(final two...)
-	@"from"
-	#one = []
-	@two
-	display "At Index 0=" @two[0]
-	#@GetType(two[0])
-	return "Test=" + 2
 
-class String
-	
-	var Value
-
-	block Init(final param)
-		@param
-		Value = param
-		
+block One()
+	var One = [1,2,3,4]
+	var on
+	for on in One 
+		@"Done with : " + on
+	end
+	One()

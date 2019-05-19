@@ -1,0 +1,51 @@
+
+from simple.core.Object
+
+var obj = new Object()
+@obj.ToString()
+
+class ObjectTest : Object
+
+	var object1 
+	var object2
+
+	block BeforeTest()
+		object1 = new Object()
+		object2 = new Object()
+	end
+	
+	block TestInit()
+		AssertNotEquals(null, object1)
+		AssertNotEquals(null, object2)
+		AssertNotEquals(object1, object2)
+		AssertNotEquals(null, new Object())
+		AssertNotEquals(self, new Object())
+		AssertEquals(new Object(), new Object())
+		AssertNotNull(new Object())
+	end
+	
+	block TestName()
+		AssertNotEquals("Object", Name())
+		AssertNotEquals(object1.Name(), Name())
+		AssertNotEquals(object2.Name(), Name())
+		AssertEquals("ObjectTest", Name())
+		AssertEquals("Object", object1.Name())
+		AssertEquals("Object", object2.Name())
+	end
+	
+	block TestModule()
+		AssertNotEquals("simple.core", Module())
+		AssertNotEquals(object1.Module(), Module())
+		AssertNotEquals(object2.Module(), Module())
+		AssertEquals("", Module())
+		AssertEquals("simple.core", object1.Module())
+		AssertEquals("simple.core", object2.Module())
+	end
+	
+	block TestToString()
+		Assert(IsString(object1.ToString()))
+		Assert(IsString(object2.ToString()))
+		Assert(IsString(ToString()))
+	end
+	
+end

@@ -26,14 +26,14 @@ module simple.core
 /*
 
 */
-block H(string value)
+block H(value)
 	return __hex_to_number(value)
 
 /*
 
 */
 block NumValueOf(object)
-	val = 0
+	var val = 0
 				
 	if IsNull(object) {
 		val = 0

@@ -20,17 +20,16 @@
 */
 module simple.core
 
-__mainDynamicModulesCount = 0
-
-__mainDynamicModules = [			
-		["libsystemic.so", "libstring_savant.so"],			#Linux
-		["libsystemic.dll", "libstring_savant.dll"],		#Windows	
+var __mainDynamicModulesCount = 0
+var __mainDynamicModules = [			
+		["libsystemic.dll", "libstring_savant.dll"],		#Windows
+		["libsystemic.so", "libstring_savant.so"],			#Linux	
 		["libsystemic.dylib", "libstring_savant.dylib"] 	#MAC
 	]
 LoadMainDynamicModules()
 from simple.core.String
  
-dynamicModules = []
+var dynamicModules = []
 	
 block CallModule(path) 
 	if IsAndroid() and (__left(path,10) == "libfulltick" or __left(path,7) == "fulltick") {
@@ -78,10 +77,12 @@ block GetDynamicModules()
 	
 	
 block LoadMainDynamicModules()
-	try {
-		for dyModule in __mainDynamicModules[__mainDynamicModulesCount] {
+	
+	try
+		var dyModule
+		for dyModule in __mainDynamicModules[__mainDynamicModulesCount]
 			CallDynamicModule(dyModule)
-		}
+		end
 	catch
 		if __mainDynamicModulesCount == (LengthOf(__mainDynamicModules) - 1) {
 			display "Ensure your build the systemic and string_savant dynamic modules" + nl
@@ -91,4 +92,4 @@ block LoadMainDynamicModules()
 		}
 		__mainDynamicModulesCount++
 		LoadMainDynamicModules()
-	}
+	end

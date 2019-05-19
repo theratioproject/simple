@@ -1,0 +1,5 @@
+
+from simple.core.Boolean
+
+var bool = new Boolean(true)
+display(bool)

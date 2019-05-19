@@ -8,7 +8,6 @@
 	:time: 
 	:filename: Conversion.sim
 */
-
 from simple.core.loadcoredymodule
  
 module simple.util
@@ -29,12 +28,12 @@ module simple.util
 		
 	**Parameters**:	
 		value : String
-			the string value to convert to C Hex
+			the value:string to convert to C Hex
 	
 	**return**:
 		the C Hexadecimal values for the string
 */
-block StrToCHex(string value) 
+block StrToCHex(value:string) 
 	return __string_to_chex(value)
 
 /*
@@ -53,16 +52,16 @@ block StrToCHex(string value)
 		
 	**Parameters**:	
 		value : String
-			the string value to convert to Hexadecimal value
+			the value:string to convert to Hexadecimal value
 	
 	**return**:
 		the Hexadecimal values for the string
 */
-block StrToHex(string value)
+block StrToHex(value:string)
 	return __string_to_hex(value)
 	
 /*
-	Revert the result of the StrToHex(string value) function from by
+	Revert the result of the StrToHex(value:string) function from by
 	convert Hexadecimal values to string
 	
 	::
@@ -83,7 +82,7 @@ block StrToHex(string value)
 	**return**:
 		the string for the hexadecimal value
 */
-block HexToString(string value)
+block HexToString(value:string)
 	return __hex_to_string(value)
 	
 /*
@@ -100,7 +99,7 @@ block HexToString(string value)
 	**return**:
 		the list containing the string at index 0
 */	
-block StrToList(string value)
+block StrToList(value:string)
 	return __string_to_list(value)
 	
 /*S

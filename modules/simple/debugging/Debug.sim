@@ -53,7 +53,7 @@ block StackTrace()
 	that could break the program it should be throw instead
 */
 #TODO: Revist for variadic and title implementation and dispose of internal __warn(...) block
-block Warn(object params...)
+block Warn(params: duck...)
 	paramsLen = LengthOf(params)
 	obj = null
 	message = null

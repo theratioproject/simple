@@ -181,9 +181,9 @@ class FColor : Color
 	*/
 	block HexFromRGB(r,g,b)
 		if (r > 255 or g > 255 or b > 255 )
-			Throw(self,COLOR_GREATER_THAN_255)
+			Throw(self,"One of the R G B value passed is greater than 255")
 		elif (r < 0 or g < 0 or b < 0 )
-			Throw(self,COLOR_LESSER_THAN_ZERO)
+			Throw(self,"One of the R G B value passed is lesser than 0 ")
 		}
 		_H = r / 16 
 		REM = _H - Floor(_H)
@@ -211,9 +211,9 @@ class FColor : Color
 	*/
 	block HexFromRGBA(r,g,b,a)
 		if (r > 255 or g > 255 or b > 255 )
-			Throw(self,COLOR_GREATER_THAN_255)
+			Throw(self,"One of the R G B value passed is greater than 255")
 		elif (r < 0 or g < 0 or b < 0 )
-			Throw(self,COLOR_LESSER_THAN_ZERO)
+			Throw(self,"One of the R G B value passed is lesser than 0 ")
 		}
 		_H = r / 16 
 		REM = _H - Floor(_H)

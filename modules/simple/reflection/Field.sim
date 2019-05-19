@@ -39,7 +39,7 @@ block IsBoolean(value)
 /*
 
 */
-block BooleanValue(object obj)
+block BooleanValue(obj:duck)
 	if IsNumber(obj) and (obj == true or obj == false) {
 		ret = obj
 		if !IsNumber(obj) {
@@ -58,7 +58,7 @@ block BooleanValue(object obj)
 /*
 
 */
-block StringValue(object obj)
+block StringValue(obj:duck)
 	if IsString(obj) or InstanceOf(obj,"String") {
 		ret = obj
 		if !IsString(obj) {
@@ -74,7 +74,7 @@ block StringValue(object obj)
 /*
 
 */
-block NumberValue(object obj)
+block NumberValue(obj:duck)
 	if IsNumber(obj) or InstanceOf(obj,"Number") {
 		ret = obj
 		if !IsNumber(obj) {
@@ -90,7 +90,7 @@ block NumberValue(object obj)
 /*
 
 */
-block ListValue(object obj)
+block ListValue(obj:duck)
 	if IsList(obj) or InstanceOf(obj,"List") {
 		ret = obj
 		if !IsList(obj) {

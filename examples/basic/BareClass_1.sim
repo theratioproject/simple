@@ -1,8 +1,7 @@
 
 class Int
-#class String block Init(v)
 
-/*class String
+class String
 
 	var Value:String
 	var Length:Int
@@ -12,10 +11,10 @@ class Int
 		Length = LengthOf(Value)
 	end
 	
-	/*block Operator=(value)
+	block Operator=(value)
 		Value = value 
 		return self
-	end*
+	end
 	
 	block Operator(op, value)
 		switch op
@@ -29,4 +28,3 @@ class Int
 	end
 
 end
-/*

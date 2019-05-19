@@ -1,29 +1,63 @@
-/* 
-	Copyright (c) 2018 Abdulazeez Adeshina Abdulazeez <laisibizness@gmail.com> 
-	MIT License Copyright (c) 2018 simple 
-*/
 
-/* 
- * @Filename - Boolean.sim
- * @Author - Azeez Adewale
- * @Date - 08 Febuary 2019
- * @Time - 07:42 PM
- *
- */
-
-/*
-
-*/
 from simple.core.Object
 
-/*
-
-*/
 module simple.core
 
 /*
-
+	The Boolean class represent the boolean primitive of `true` and `false`. 
+	The global `true` and `false` represent `1` and `0` instance of the 
+	number primitive respectively. 
+	
+	During assignment assignment to `true` or `false` is automatically 
+	infered to an instance of this class
+	
+	::
+	
+		var Condition = true
+		display GetType(Condition) //simple.core.Boolean
+		
+	:copyright: 2018-2019, Azeez Adewale
+	:license: MIT License Copyright (c) 2018 simple
+	:author: Azeez Adewale <azeezadewale98@gmail.com>
+	:date: 08 Febuary 2019
+	:time: 07:42 PM
+	:filename: Boolean.sim
 */
 class Boolean : Object
+	
+	/*
+	
+	*/
+	block Init(param:duck)
+		if isNumber(param)
+			Value = ObjEquals(param, 1)
+		elif isString(param)
+			Value = ObjEquals(param, "true")
+		else
+			Value = false
+		end
+		
+	/*
+	
+	*/
+	block ToString()
+		if Value
+			return "true"
+		end
+		return "false"
+		
+	/*
 
+	*/
+	block Equals(obj:duck)
+		return obj is Boolean and Value == obj.Value
+
+	
+	private
+	
+		/*
+		
+		*/
+		final var Value
+	
 	

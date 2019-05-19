@@ -169,7 +169,7 @@ class LookAhead : Object
 		**return**:
 			true if the argument object has the same attributes as this object
 	*/
-	block Equals(object obj)
+	block Equals(obj:duck)
 		if !InstanceOf(obj, "LookAhead") {
 			return false
 		}

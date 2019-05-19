@@ -28,7 +28,7 @@ module simple.util
 	**return**:
 		the length of any object
 */
-block GetTypeLength(object obj)
+block GetTypeLength(obj:duck)
     if (IsList(obj) || IsString(obj))
         return LengthOf(obj)
     elif (IsNumber(obj))

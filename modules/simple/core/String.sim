@@ -82,7 +82,7 @@ block StrValueOf(object)
 /*
 
 */
-block HexDigit(char next)
+block HexDigit(next: char)
 	v1 = __char_to_number(next) - __char_to_number('0')
 	v2 = __char_to_number(next) - __char_to_number('A') + H('0xA')
 	v3 = __char_to_number(next) - __char_to_number('a') + H('0xA')
@@ -133,7 +133,7 @@ block HexDigit(char next)
 	@return the formated literal @DataType String
 	
 */
-block UnEscapeString(string str)
+block UnEscapeString(str: string)
 	newStr = ""
 	strLen = LengthOf(str) - 1
 	
@@ -178,7 +178,7 @@ block UnEscapeString(string str)
 /*
 
 */
-block EscapeString(string str)
+block EscapeString(str: string)
 	nStr = ""
 	strLen = LengthOf(str) - 1
 	for a = 0 to strLen {
@@ -219,7 +219,7 @@ block StrFormat(params...)
 		paramsLen = LengthOf(_var)
 	}
 	string finalValue = ""
-	string value = params[0]
+	str: value = params[0]
 	int valueLen = LengthOf(value) - 1
 	int index = 1 
 	for a = 0 to valueLen {
@@ -284,7 +284,7 @@ block StrFormatIndex(params...) : string
 		paramsLen = LengthOf(_var)
 	}
 	string finalValue = ""
-	string value = params[0]
+	str: value = params[0]
 	if IsNull(value)
 		return '(null)'
 	end
@@ -574,8 +574,8 @@ block StrEndsWith(object, check)
 		if check == "" {
 			return false
 		}
-		length = LengthOf(check) - 1
-		right = __right(object,length) 
+		var length = LengthOf(check) - 1 @"Length:"+length
+		var right = __right(object,length) 
 		return check == right
 		
 	else
@@ -800,7 +800,7 @@ block StrCharAt(object, index)
 /*
 
 */
-block StrIsEmpty(string value)
+block StrIsEmpty(str: value)
 	return value == ""
 	
 block StrEquals(acom, bcom, con)
@@ -837,7 +837,7 @@ block StrStartsWith(object, check)
 /*
 
 */
-block StrRemoveFirst(string str, string toRemove)
+block StrRemoveFirst(str: string, toRemove: string)
 	strLen = LengthOf(str) - 1
 	toRemoveLen = LengthOf(toRemove)
 	newValue = ""
@@ -854,7 +854,7 @@ block StrRemoveFirst(string str, string toRemove)
 /*
 
 */
-block StrRemoveLast(string str, string toRemove)
+block StrRemoveLast(str: string, toRemove: string)
 	strLen = LengthOf(str) - 1
 	toRemoveLen = LengthOf(toRemove)
 	newValue = ""
@@ -875,7 +875,7 @@ block StrRemoveLast(string str, string toRemove)
 /*
 
 */
-block StrReverse(string str)
+block StrReverse(str: string)
 	strLen = LengthOf(str) - 1
 	newValue = ""
 	for a = strLen to 0 step -1 {
@@ -883,10 +883,10 @@ block StrReverse(string str)
 	}
 	return newValue
 	
-block LastStrAfterChar(str value, char suffix)
+block LastStrAfterChar(value: string, suffix: char)
 	return LastStrAfter(value, ""+suffix)
 	
-block LastStrAfter(str value, str suffix)
+block LastStrAfter(value: string, suffix: string)
 	if !IsNull(value) and !IsNull(suffix) {
 		count = 0
 		valueLen = LengthOf(value) - 1
@@ -1135,7 +1135,7 @@ class String : Object
 	/*
 
 	*/
-	block Operator(string op, object value) 
+	block Operator(op: string, value: duck) 
 		switch op {
 			case "lengthOf"
 				return Length

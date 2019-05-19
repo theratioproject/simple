@@ -111,6 +111,7 @@ build, installation, features e.t.c
 - [x] use the Error method in classes to attend to error that occur when class access is in braces
 - [ ] support for string interpolation
 - [ ] add the **is** operator in place of the InstanceOf function
+- [ ] change the dynamic module to use extension .dysim t reduce platform extensions overload
 
 ### simplify
 - [ ] create and optimize simple source before compiling into bytecode (.complex)
@@ -135,6 +136,8 @@ build, installation, features e.t.c
 To dos and features relative to the simple-lang standard modules which includes new modules addition, module modification or any other
 issue related to the module
 
+- [ ] simple.core.*
+	- [ ] simple.core.Boolean for primitive `true` and `false` to Object
 - [ ] change all existing module methods and function identifier to starts with Capital letter instead of small letter
 - [ ] make the conf.sim file in dynamic module folder for compiling dynamic module instead of makefiles 
 - [ ] Makefiles for various platform can be generated from the options in dynamic module conf.sim

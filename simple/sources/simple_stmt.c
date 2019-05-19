@@ -262,6 +262,110 @@ int simple_parser_class ( Parser *parser )
 		#endif
 		return 1 ;
 	}
+	return simple_parser_stmt(parser) ;
+}
+
+int simple_parser_stmt ( Parser *parser )
+{
+	char lSetProperty,nBeforeEqual  ;
+	int x,nMark1,nMark2,nMark3,nStart,nEnd,nPerformanceLocations,nFlag,nLoadModules,call_type,is_last_module,nToken, nLastOperation, nNOOP, class_is_created  ;
+	String *string, *module_name, *main_module_name ;  ;
+	List *pMark,*pMark2,*pMark3,*list2,*pLoadAPos,*list,*list3  ;
+	double nNum1  ;
+	char cStr[50]  ;
+	char file_name[SIMPLE_PATHSIZE]  ;
+	char cCurrentDir[SIMPLE_PATHSIZE]  ;
+	nPerformanceLocations = 0 ;
+	nLoadModules = 0 ;
+	call_type = 0;
+	is_last_module = 0;
+	assert(parser != NULL);
+	/* Statement --> Load Literal */
+	if ( simple_parser_iskeyword(parser,KEYWORD_FROM) ) {
+            simple_parser_nexttoken(parser); 
+		if ( simple_parser_isliteral(parser) || simple_parser_isidentifier(parser)) {
+			if (simple_parser_isliteral(parser)) {
+				strcpy(file_name,parser->TokenText);
+			} else {
+				module_name = simple_string_new_gc(parser->sState,parser->TokenText);
+				main_module_name = simple_string_new_gc(parser->sState,parser->TokenText);
+				simple_parser_nexttoken(parser);
+				while ( simple_parser_isoperator2(parser,OP_DOT) || simple_parser_isoperator(parser, "/") ) {
+					simple_parser_nexttoken(parser);
+					simple_string_add_gc(parser->sState,module_name,"/");
+					if ( simple_parser_isidentifier(parser) ) {
+						simple_string_add_gc(parser->sState,module_name,parser->TokenText);
+						simple_parser_nexttoken(parser);
+						if (simple_parser_isoperator2(parser,OP_DOT) || simple_parser_isoperator(parser, "/")) {
+							simple_parser_previoustoken (parser);
+							simple_string_add_gc(parser->sState,main_module_name,".");
+							simple_string_add_gc(parser->sState,main_module_name,parser->TokenText);
+							simple_parser_nexttoken(parser);
+						} 
+					} else {
+						parser_error(parser,PARSER_ERROR_MODULENAME);
+						simple_string_delete(module_name);
+						simple_string_delete(main_module_name);
+						return 0;
+					}
+				}
+				simple_string_add_gc(parser->sState,module_name,".sim");
+				strcpy(file_name,module_name->str);
+				call_type = 1 ;
+			}
+			/* Generate Code */
+			simple_parser_icg_newoperation(parser,ICO_FILENAME);
+			simple_parser_icg_newoperand(parser,file_name);
+			simple_parser_icg_newoperation(parser,ICO_BLOCKFLAG);
+			pMark = simple_parser_icg_getactiveoperation(parser);
+			#if SIMPLE_PARSERTRACE
+			SIMPLE_STATE_CHECKPRINTRULES
+
+			puts("Rule : Statement  --> 'call' Literal|module");
+			#endif
+			/* No package at the start of the file */
+			parser->ClassesMap = parser->sState->classes_map ;
+			/* Save the Current Directory */
+			simple_currentdir(cCurrentDir);
+			/* Read The File */
+			x = simple_scanner_readfile(parser->sState,file_name);
+			/* Restore the Current Directory */
+			simple_chdir(cCurrentDir);
+			/*
+			**  Generate Code
+			**  Return NULL
+			*/
+			simple_parser_icg_newoperation(parser,ICO_RETNULL);
+			nMark1 = simple_parser_icg_newlabel(parser);
+			simple_parser_icg_addoperandint(parser,pMark,nMark1);
+			/* Set Active File */
+			simple_parser_icg_newoperation(parser,ICO_FILENAME);
+			simple_parser_icg_newoperand(parser,simple_list_getstring(parser->sState->files_stack,simple_list_getsize(parser->sState->files_stack)));
+			simple_parser_icg_newoperation(parser,ICO_FREESTACK);
+			if (call_type == 1) {
+				simple_parser_icg_newoperation(parser,ICO_IMPORT);
+				#if SIMPLE_PARSERTRACE
+				SIMPLE_STATE_CHECKPRINTRULES
+
+				puts("Rule : Statement  --> '?'['@'] Identifier{'.'identifier}");
+				#endif
+				simple_parser_icg_newoperand(parser,simple_string_get(main_module_name));
+				simple_string_delete_gc(parser->sState,main_module_name);
+				return 1;
+			}
+			return x ;
+		} else {
+			/* Generate Code */
+			simple_parser_icg_newoperation(parser,ICO_IMPORT);
+			#if SIMPLE_PARSERTRACE
+			SIMPLE_STATE_CHECKPRINTRULES
+
+			puts("Rule : Statement  --> 'call' Identifier{'.'identifier}");
+			#endif
+			return simple_parser_namedotname(parser) ;
+		} 
+		return 0 ;
+	}
 	/* Statement --> var Identifer:Type = value */
 	if ( simple_parser_iskeyword(parser,KEYWORD_VAR) )
 	{
@@ -281,7 +385,7 @@ int simple_parser_class ( Parser *parser )
 				simple_parser_nexttoken(parser);	
 				list = parser->ClassesMap ;
 				/* Check Type Availability */
-				if ( simple_list_getsize(list) > 0 ) {
+				/*if ( simple_list_getsize(list) > 0 ) {
 					for ( x = 1 ; x <= simple_list_getsize(list) ; x++ ) {
 						if ( strcmp(simple_list_getstring(simple_list_getlist(list,x),1),parser->TokenText) == 0 ) {
 							class_is_created = 1;
@@ -293,7 +397,7 @@ int simple_parser_class ( Parser *parser )
 				{
 					parser_error2(parser,PARSER_ERROR_TYPE_NOT_FOUND, parser->TokenText);
 					return 0 ;
-				}
+				}*/
 				/* Store the type */
 				simple_parser_nexttoken(parser);	
 			}
@@ -405,109 +509,6 @@ int simple_parser_class ( Parser *parser )
 			return 0 ;
 		}
 		
-	}
-	return simple_parser_stmt(parser) ;
-}
-
-int simple_parser_stmt ( Parser *parser )
-{
-	int x,nMark1,nMark2,nMark3,nStart,nEnd,nPerformanceLocations,nFlag,nLoadModules,call_type,is_last_module  ;
-	String *string, *module_name, *main_module_name ;  ;
-	List *pMark,*pMark2,*pMark3,*list2  ;
-	double nNum1  ;
-	char cStr[50]  ;
-	char file_name[SIMPLE_PATHSIZE]  ;
-	char cCurrentDir[SIMPLE_PATHSIZE]  ;
-	nPerformanceLocations = 0 ;
-	nLoadModules = 0 ;
-	call_type = 0;
-	is_last_module = 0;
-	assert(parser != NULL);
-	/* Statement --> Load Literal */
-	if ( simple_parser_iskeyword(parser,KEYWORD_FROM) ) {
-            simple_parser_nexttoken(parser); 
-		if ( simple_parser_isliteral(parser) || simple_parser_isidentifier(parser)) {
-			if (simple_parser_isliteral(parser)) {
-				strcpy(file_name,parser->TokenText);
-			} else {
-				module_name = simple_string_new_gc(parser->sState,parser->TokenText);
-				main_module_name = simple_string_new_gc(parser->sState,parser->TokenText);
-				simple_parser_nexttoken(parser);
-				while ( simple_parser_isoperator2(parser,OP_DOT) || simple_parser_isoperator(parser, "/") ) {
-					simple_parser_nexttoken(parser);
-					simple_string_add_gc(parser->sState,module_name,"/");
-					if ( simple_parser_isidentifier(parser) ) {
-						simple_string_add_gc(parser->sState,module_name,parser->TokenText);
-						simple_parser_nexttoken(parser);
-						if (simple_parser_isoperator2(parser,OP_DOT) || simple_parser_isoperator(parser, "/")) {
-							simple_parser_previoustoken (parser);
-							simple_string_add_gc(parser->sState,main_module_name,".");
-							simple_string_add_gc(parser->sState,main_module_name,parser->TokenText);
-							simple_parser_nexttoken(parser);
-						} 
-					} else {
-						parser_error(parser,PARSER_ERROR_MODULENAME);
-						simple_string_delete(module_name);
-						simple_string_delete(main_module_name);
-						return 0;
-					}
-				}
-				simple_string_add_gc(parser->sState,module_name,".sim");
-				strcpy(file_name,module_name->str);
-				call_type = 1 ;
-			}
-			/* Generate Code */
-			simple_parser_icg_newoperation(parser,ICO_FILENAME);
-			simple_parser_icg_newoperand(parser,file_name);
-			simple_parser_icg_newoperation(parser,ICO_BLOCKFLAG);
-			pMark = simple_parser_icg_getactiveoperation(parser);
-			#if SIMPLE_PARSERTRACE
-			SIMPLE_STATE_CHECKPRINTRULES
-
-			puts("Rule : Statement  --> 'call' Literal|module");
-			#endif
-			/* No package at the start of the file */
-			parser->ClassesMap = parser->sState->classes_map ;
-			/* Save the Current Directory */
-			simple_currentdir(cCurrentDir);
-			/* Read The File */
-			x = simple_scanner_readfile(parser->sState,file_name);
-			/* Restore the Current Directory */
-			simple_chdir(cCurrentDir);
-			/*
-			**  Generate Code
-			**  Return NULL
-			*/
-			simple_parser_icg_newoperation(parser,ICO_RETNULL);
-			nMark1 = simple_parser_icg_newlabel(parser);
-			simple_parser_icg_addoperandint(parser,pMark,nMark1);
-			/* Set Active File */
-			simple_parser_icg_newoperation(parser,ICO_FILENAME);
-			simple_parser_icg_newoperand(parser,simple_list_getstring(parser->sState->files_stack,simple_list_getsize(parser->sState->files_stack)));
-			simple_parser_icg_newoperation(parser,ICO_FREESTACK);
-			if (call_type == 1) {
-				simple_parser_icg_newoperation(parser,ICO_IMPORT);
-				#if SIMPLE_PARSERTRACE
-				SIMPLE_STATE_CHECKPRINTRULES
-
-				puts("Rule : Statement  --> '?'['@'] Identifier{'.'identifier}");
-				#endif
-				simple_parser_icg_newoperand(parser,simple_string_get(main_module_name));
-				simple_string_delete_gc(parser->sState,main_module_name);
-				return 1;
-			}
-			return x ;
-		} else {
-			/* Generate Code */
-			simple_parser_icg_newoperation(parser,ICO_IMPORT);
-			#if SIMPLE_PARSERTRACE
-			SIMPLE_STATE_CHECKPRINTRULES
-
-			puts("Rule : Statement  --> 'call' Identifier{'.'identifier}");
-			#endif
-			return simple_parser_namedotname(parser) ;
-		} 
-		return 0 ;
 	}
 	/* Statement --> display Expr */
 	if ( simple_parser_iskeyword(parser,KEYWORD_DISPLAY)) {
@@ -1386,7 +1387,7 @@ int simple_parser_paralist ( Parser *parser )
 			class_is_created = 0;
 			simple_parser_nexttoken(parser);	
 			/* Check Type Availability */
-			if ( simple_list_getsize(list) > 0 ) {
+			/*if ( simple_list_getsize(list) > 0 ) {
 				for ( x = 1 ; x <= simple_list_getsize(list) ; x++ ) {
 					if ( strcmp(simple_list_getstring(simple_list_getlist(list,x),1),parser->TokenText) == 0 ) {
 						class_is_created = 1;
@@ -1398,7 +1399,7 @@ int simple_parser_paralist ( Parser *parser )
 			{
 				parser_error2(parser,PARSER_ERROR_TYPE_NOT_FOUND, parser->TokenText);
 				return 0 ;
-			}
+			}*/
 			/* Store the type */
 			simple_parser_nexttoken(parser);	
 		}
@@ -1455,7 +1456,7 @@ int simple_parser_paralist ( Parser *parser )
 					class_is_created = 0;
 					simple_parser_nexttoken(parser);	
 					/* Check Type Availability */
-					if ( simple_list_getsize(list) > 0 ) {
+					/*if ( simple_list_getsize(list) > 0 ) {
 						for ( x = 1 ; x <= simple_list_getsize(list) ; x++ ) {
 							if ( strcmp(simple_list_getstring(simple_list_getlist(list,x),1),parser->TokenText) == 0 ) {
 								class_is_created = 1;
@@ -1467,7 +1468,7 @@ int simple_parser_paralist ( Parser *parser )
 					{
 						parser_error2(parser,PARSER_ERROR_TYPE_NOT_FOUND, parser->TokenText);
 						return 0 ;
-					}
+					}*/
 					/* Store the type */
 					simple_parser_nexttoken(parser);	
 				}

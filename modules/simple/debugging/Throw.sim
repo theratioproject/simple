@@ -29,9 +29,9 @@ from simple.debugging.Debug
  
 module simple.debugging
 
-	__DEBUG_FINAL_ERROR_EMPTY = "The error can never be empty: forcing exit of the program"
-	__DEBUG_TYPE_THROW_ONLY = 0
-	__DEBUG_TYPE_THROW = 1
+	final var __DEBUG_FINAL_ERROR_EMPTY = "The error can never be empty: forcing exit of the program"
+	final var __DEBUG_TYPE_THROW_ONLY = 0
+	final var __DEBUG_TYPE_THROW = 1
  
 /*
 	Throw an error at any point in the program with this block

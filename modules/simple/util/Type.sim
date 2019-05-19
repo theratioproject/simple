@@ -17,7 +17,7 @@ from simple.core.loadcoredymodule
 /*
 	return the type of variable passed to this function.
  */
-block TypeOf(object variable)
+block TypeOf(variable: duck)
     if IsList(variable) {
         return "List"
 		
@@ -63,7 +63,7 @@ block __get_var_as_string(variable)
 	**return**:
 		true if the parameter is an alphabet or digit
 */
-block IsAlphaNum(object variable)
+block IsAlphaNum(obj: duck)
 	tempVar = __get_var_as_string(variable)
 	return __is_alpha_num(tempVar)
 	
@@ -89,7 +89,7 @@ block IsAlphaNum(object variable)
 	**return**:
 		true if parameter is a valid alphabet
 */
-block IsAlpha(object variable)
+block IsAlpha(obj: duck)
 	tempVar = __get_var_as_string(variable)
 	return __is_alpha(tempVar)
 	
@@ -110,7 +110,7 @@ block IsAlpha(object variable)
 	**return**:
 		true if parameter is a valid digit
 */
-block IsDigit(object variable)
+block IsDigit(obj: duck)
 	tempVar = __get_var_as_string(variable)
 	return __is_num(tempVar)
 	
@@ -136,7 +136,7 @@ block IsDigit(object variable)
 	**return**:
 		true if parameter is a control character
 */
-block IsControlChar(object variable)
+block IsControlChar(obj: duck)
 	tempVar = __get_var_as_string(variable)
 	return __is_control_char(tempVar)
 	
@@ -151,13 +151,13 @@ block IsControlChar(object variable)
 	**return**:
 		true if parameter has graphical representation 
 */
-block IsGraphical(object variable)
+block IsGraphical(obj: duck)
 	tempVar = __get_var_as_string(variable)
 	return __is_graph(tempVar)
 
 /*
 	Check if the Variable is in lower case. This is always false for a non string
-	variable but a valid check is perform on a string variable
+	variable but a valid check is perform on a obj: string
 	
 	**Parameters**:	
 		variable : String
@@ -166,12 +166,12 @@ block IsGraphical(object variable)
 	**return**:
 		true if variable is in lower case
 */
-block IsLowerCase(string variable)
+block IsLowerCase(obj: string)
 	return __is_lower(variable)
 
 /*
 	Check if the Variable is in upper case. This is always false for a non string
-	variable but a valid check is perform on a string variable
+	variable but a valid check is perform on a obj: string
 	
 	**Parameters**:	
 		variable : String
@@ -180,7 +180,7 @@ block IsLowerCase(string variable)
 	**return**:
 		true if variable is in upper case
 */
-block IsUpperCase(string variable)
+block IsUpperCase(obj: string)
 	return __is_upper(variable)
 
 /*
@@ -194,7 +194,7 @@ block IsUpperCase(string variable)
 	**return**:
 		true if the character is printable
 */
-block IsPrintable(object variable)
+block IsPrintable(obj: duck)
 	tempVar = __get_var_as_string(variable)
 	return __is_print(tempVar)
 	
@@ -209,11 +209,11 @@ block IsPrintable(object variable)
 	**return**:
 		true if the characters is white-space or are white-spaces
 */
-block IsWhiteSpace(string variable)
+block IsWhiteSpace(obj: string)
 	return LengthOf(variable) > 0 && __is_space(variable)
 	
 /*
-	Similar to IsWhiteSpace(string variable) but efficiently check of a character is a white space	
+	Similar to IsWhiteSpace(obj: string) but efficiently check of a character is a white space	
 	**Parameters**:	
 		variable : String
 			the value to check if it white-space
@@ -221,7 +221,7 @@ block IsWhiteSpace(string variable)
 	**return**:
 		true if the characters is white-space or are white-spaces
 */
-block __isWhiteSpace(string variable)
+block __isWhiteSpace(obj: string)
 	if LengthOf(variable) < 1 { return false }
 	for a in variable {
 		if a != ' ' {
@@ -240,7 +240,7 @@ block __isWhiteSpace(string variable)
 	**return**:
 		true if the character consists of punctuation
 */	
-block IsPunctuation(object variable)
+block IsPunctuation(obj: duck)
 	tempVar = __get_var_as_string(variable)
 	return __is_punct(tempVar)
 	
@@ -254,7 +254,7 @@ block IsPunctuation(object variable)
 	**return**:
 		true if the parameter is a set of hexadecimal digit
 */
-block IsHexDigit(object variable)
+block IsHexDigit(obj: duck)
 	tempVar = __get_var_as_string(variable)
 	return __is_x_digit(tempVar)
 

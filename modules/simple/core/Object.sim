@@ -1,40 +1,12 @@
-/* 
-	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com> 
-	MIT License Copyright (c) 2018 simple 
 
-*/
+from simple.core.loadcoredymodule
 
-/* 
- * #filename - Object.sim
- * #author - Azeez Adewale
- * #date - 5 Febuary 2017
- */
-
- 
-/*
-
-*/
-from simple.core.Types
-from simple.security.Hash
-from simple.core.BaseFields
-from simple.reflection.Field
- 
-/*
-
-*/
 module simple.core
 
-
 /*
 
 */
-block CheckNullity(Object object, object s)
-	if IsNull(s) { Throw(object,NULL_ERROR_POINTER) }
-	
-/*
-
-*/
-block ObjEquals(object obj1, object obj2)
+block ObjEquals(obj1:duck, obj2:duck)
 	if IsList(obj1) {
 		if !IsList(obj2) { return false }
 		return ListEquals(obj1, obj2)
@@ -49,90 +21,75 @@ block ObjEquals(object obj1, object obj2)
 	return obj1 == obj2
 
 /*
-
+	
+		
+	:copyright: 2018-2019, Azeez Adewale
+	:license: MIT License Copyright (c) 2018 simple
+	:author: Azeez Adewale <azeezadewale98@gmail.com>
+	:date: 5 Febuary 2017
+	:time: 02:24 PM
+	:filename: Object.sim
 */
 class Object 
 
 	/*
-
+	
 	*/
-	instance = null
-
-	/*
-
-	*/
-	block Getinstance()
-		return self
-
-	/*
-
-	*/
-	block Setinstance(value)
-		Throw(self,"You cannot change the instnce of an Object")
-		return
+	block Init() end
 	
 	/*
 
 	*/
-	block Classname()
-		return __class_name(self)
+	block Name()
+		if Name == ""
+			Name = __class_name(self)
+		end
+		return Name
 
 	/*
 
 	*/
-	block Modulename()
-		return __class_module_name(self)
+	block Module()
+		if Module == ""
+			Module = __class_module_name(self)
+		end
+		return Module
 
 	/*
 
 	*/
-	block Absolutename()
-		return Modulename() + "." + Classname()
+	block AbsoluteName()
+		if Module() == ""
+			return Name
+		end
+		return Module + "." + Name
 
 	/*
 
 	*/
 	block ToString()
-		return "[" + Absolutename() + ":" + Hashcode() + "]"
+		return "[" + AbsoluteName() + ":" + Hashcode() + "]"
 		
 	/*
 
 	*/
 	block Hashcode()
-		if IsNull(hashcode) {
-			hashcode = Hash(Absolutename())
-		}
+		if hashcode == 0
+			hashcode = __object_address(self)
+		end
 		return hashcode
 
 	/*
 
 	*/
-	block Uniquecode()
-		if IsNull(uniquecode) {
-			uniquecode = Hash(Absolutename()+__rand())
-		}
-		return uniquecode
+	block Equals(obj:duck)
+		return obj is Object
 
 	/*
 
 	*/
-	block Isinstance(object obj)
-		return IsObject(obj) and __instance_of(obj,Classname())
-
-	/*
-
-	*/
-	block Equals(object obj)
-		if !IsObject(obj) or !__instance_of(obj,"Object") {
-			return false
-		}
-		return (Uniquecode() == obj.Uniquecode())
-
-	/*
-
-	*/
-	block Operator(string op,object value)
-		switch op {
+	block Operator(op:string, obj:duck)
+		switch op
 			case "=="
 				return Equals(value)
 			case "!="
@@ -141,25 +98,7 @@ class Object
 				return Absolutename()
 			default 
 				Throw(self,"This Object does not define a behaviour for the operator : " + op)
-		}
-		return self
-		
-	/*
-
-	*/
-	block Type()
-		return GetType(self)
-
-	/*
-
-	*/
-	block Clone()
-		return self
-		
-	/*
-		 
-	*/
-	block Object()
+		end
 		return self
 		
 
@@ -171,9 +110,16 @@ class Object
 		/*
 
 		*/
-		hashcode = null
+		var hashcode = 0
 
 		/*
 
 		*/
-		uniquecode = null
+		var Name = ""
+
+		/*
+
+		*/
+		var Module = ""
+		
+end
