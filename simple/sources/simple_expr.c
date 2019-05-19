@@ -134,7 +134,7 @@ int simple_parser_equalornot ( Parser *parser )
 		
 		puts("Rule : EqualOrNot --> Compare");
 		#endif
-		while ( simple_parser_isoperator2(parser,OP_EQUAL) || simple_parser_isoperator2(parser,OP_NOT) ) {
+		while ( simple_parser_isoperator2(parser,OP_EQUAL) || simple_parser_isoperator2(parser,OP_NOT) || simple_parser_iskeyword(parser,KEYWORD_IS) ) {
 			if ( simple_parser_isoperator2(parser,OP_NOT) ) {
 				simple_parser_nexttoken(parser);
 				SIMPLE_PARSER_IGNORENEWLINE ;
@@ -157,12 +157,54 @@ int simple_parser_equalornot ( Parser *parser )
 					}
 					#endif
 				}
-				else {
+				else if (simple_parser_iskeyword(parser,KEYWORD_IS))
+				{
+					simple_parser_nexttoken(parser); SIMPLE_PARSER_IGNORENEWLINE ;
+					x = simple_parser_compare(parser);
+					if ( x == 0 ) {
+						return 0 ;
+					}
+					/* Generate Code */
+					simple_parser_icg_newoperation(parser,ICO_ISNOT);
+					/* Generate Location for nPC for Operator Overloading */
+					simple_parser_icg_newoperandint(parser,0);
+					#if SIMPLE_PARSERTRACE
+					SIMPLE_STATE_CHECKPRINTRULES 
+					
+					{
+						puts("Rule : Is --> Compare");
+						puts("Rule : Is --> Is '!is' Is");
+					}
+					#endif
+				}
+				else 
+				{
 					parser_error(parser,PARSER_ERROR_EXPROPERATOR);
 					return 0 ;
 				}
 			}
-			else {
+			else if (simple_parser_iskeyword(parser,KEYWORD_IS))
+			{
+				simple_parser_nexttoken(parser); SIMPLE_PARSER_IGNORENEWLINE ;
+				x = simple_parser_compare(parser);
+				if ( x == 0 ) {
+					return 0 ;
+				}
+				/* Generate Code */
+				simple_parser_icg_newoperation(parser,ICO_IS);
+				/* Generate Location for nPC for Operator Overloading */
+				simple_parser_icg_newoperandint(parser,0);
+				#if SIMPLE_PARSERTRACE
+				SIMPLE_STATE_CHECKPRINTRULES 
+				
+				{
+					puts("Rule : Is --> Compare");
+					puts("Rule : Is --> Is 'is' Is");
+				}
+				#endif
+			}
+			else 
+			{
 				simple_parser_nexttoken(parser);
 				SIMPLE_PARSER_IGNORENEWLINE ;
 				if ( simple_parser_isoperator2(parser,OP_EQUAL) )

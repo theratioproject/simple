@@ -1,16 +1,10 @@
+Onene()
 
-Test()
-Test()
-One()
-
-block Test()
-	var one = "hello World"
-	@one
-
-block One()
-	var One = [1,2,3,4]
+block Onene()
+	var Onet = [1,2,3,4]
 	var on
-	for on in One 
-		@"Done with : " + on
+	for on in Onet
+		display "Done with : " + on + nl
+		
 	end
-	One()
+	Onene()

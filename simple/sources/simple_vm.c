@@ -448,6 +448,12 @@ SIMPLE_API void simple_vm_execute ( VM *vm )
 		case ICO_LESSEQUAL :
 			simple_vm_lessequal(vm);
 			break ;
+		case ICO_IS :
+			simple_vm_is(vm);
+			break ;
+		case ICO_ISNOT :
+			simple_vm_isnot(vm);
+			break ;
 		case ICO_EQUAL :
 			simple_vm_equal(vm);
 			break ;

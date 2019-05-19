@@ -3,6 +3,11 @@ from simple.core.Object
 
 var obj = new Object()
 @obj.ToString()
+@obj.Name()
+@obj.Module()
+@obj.AbsoluteName()
+@obj.Equals(obj)
+@obj is obj
 
 class ObjectTest : Object
 

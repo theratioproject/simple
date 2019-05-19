@@ -299,6 +299,162 @@ SIMPLE_API void simple_vm_neg ( VM *vm )
 **  Because the result is always logical (True/False) i.e. 1 or 0 
 */
 
+SIMPLE_API void simple_vm_is ( VM *vm )
+{
+	String *string_one,*cStr2  ;
+	double nNum1,nNum2  ;
+	char cStr3[100]  ;
+	char *parent_name;
+	int x;
+	List *list;
+	Item *pItem;
+	if ( SIMPLE_VM_STACK_ISSTRING ) {
+		//revisit to convert primitives to Wrapper Class Objects
+		string_one = simple_string_new_gc(vm->sState,SIMPLE_VM_STACK_READC);
+		SIMPLE_VM_STACK_POP ;
+		if ( SIMPLE_VM_STACK_ISSTRING ) {
+			if ( strcmp(simple_string_get(string_one),"String") == 0 ) {
+				SIMPLE_VM_STACK_TRUE ;
+			} else {
+				SIMPLE_VM_STACK_FALSE ;
+			}
+		}
+		else if ( SIMPLE_VM_STACK_ISNUMBER ) {
+			nNum1 = SIMPLE_VM_STACK_READN ;
+			if ( strcmp(simple_string_get(string_one),"Number") == 0 ) {
+				SIMPLE_VM_STACK_TRUE ;
+			} else {
+				SIMPLE_VM_STACK_FALSE ;
+			}
+		}
+		else if ( SIMPLE_VM_STACK_ISPOINTER ) {
+			if ( SIMPLE_VM_STACK_OBJTYPE == SIMPLE_OBJTYPE_VARIABLE ) {
+				list = simple_list_getlist((List *) SIMPLE_VM_STACK_READP,SIMPLE_VAR_VALUE);
+			}
+			else if ( SIMPLE_VM_STACK_OBJTYPE ==SIMPLE_OBJTYPE_LISTITEM ) {
+				pItem = (Item *) SIMPLE_VM_STACK_READP ;
+				list = simple_item_getlist(pItem) ;
+			}
+			else {
+				simple_vm_error(vm,SIMPLE_VM_ERROR_BADVALUES);
+				return ;
+			}
+			if ( simple_vm_oop_isobject(list) ) {
+				parent_name = simple_list_getstring((List *) simple_list_getpointer(list,SIMPLE_OBJECT_CLASSPOINTER),SIMPLE_CLASSMAP_CLASSNAME);  
+				do { 
+					if (strcmp(parent_name,simple_string_get(string_one)) == 0) {
+						SIMPLE_VM_STACK_TRUE ;
+						simple_string_delete_gc(vm->sState,string_one);
+						return;
+					} 
+					for ( x = simple_list_getsize(vm->pClassesMap) ; x >= 1 ; x-- ) {
+						list = simple_list_getlist(vm->pClassesMap,x) ; 
+						if ( strcmp(simple_list_getstring(list,SIMPLE_CLASSMAP_CLASSNAME),parent_name) == 0 ) {
+							/* Check if the class is imported from a Module */
+							if ( simple_list_getsize(list) == SIMPLE_CLASSMAP_IMPORTEDCLASSSIZE ) {
+								list = simple_list_getlist(list,SIMPLE_CLASSMAP_POINTERTOLISTOFCLASSINSIDEMODULE);
+							}
+							parent_name = simple_list_getstring(list,SIMPLE_CLASSMAP_PARENTCLASS);
+							break ;
+						}
+					}
+				} while (parent_name != NULL && strcmp(parent_name,"") != 0);
+				SIMPLE_VM_STACK_FALSE ;
+			} else {
+				if ( strcmp(simple_string_get(string_one),"List") == 0 ) {
+					SIMPLE_VM_STACK_TRUE ;
+				} else {
+					SIMPLE_VM_STACK_FALSE ;
+				}
+			}
+		}
+		simple_string_delete_gc(vm->sState,string_one);
+	}
+	else
+	{
+		simple_vm_error(vm,SIMPLE_VM_ERROR_BADVALUES);
+		return ;
+	}
+}
+
+SIMPLE_API void simple_vm_isnot ( VM *vm )
+{
+	String *string_one,*cStr2  ;
+	double nNum1,nNum2  ;
+	char cStr3[100]  ;
+	char *parent_name;
+	int x;
+	List *list;
+	Item *pItem;
+	if ( SIMPLE_VM_STACK_ISSTRING ) {
+		//revisit to convert primitives to Wrapper Class Objects
+		string_one = simple_string_new_gc(vm->sState,SIMPLE_VM_STACK_READC);
+		SIMPLE_VM_STACK_POP ;
+		if ( SIMPLE_VM_STACK_ISSTRING ) {
+			if ( strcmp(simple_string_get(string_one),"String") != 0 ) {
+				SIMPLE_VM_STACK_TRUE ;
+			} else {
+				SIMPLE_VM_STACK_FALSE ;
+			}
+		}
+		else if ( SIMPLE_VM_STACK_ISNUMBER ) {
+			nNum1 = SIMPLE_VM_STACK_READN ;
+			if ( strcmp(simple_string_get(string_one),"Number") != 0 ) {
+				SIMPLE_VM_STACK_TRUE ;
+			} else {
+				SIMPLE_VM_STACK_FALSE ;
+			}
+		}
+		else if ( SIMPLE_VM_STACK_ISPOINTER ) {
+			if ( SIMPLE_VM_STACK_OBJTYPE == SIMPLE_OBJTYPE_VARIABLE ) {
+				list = simple_list_getlist((List *) SIMPLE_VM_STACK_READP,SIMPLE_VAR_VALUE);
+			}
+			else if ( SIMPLE_VM_STACK_OBJTYPE ==SIMPLE_OBJTYPE_LISTITEM ) {
+				pItem = (Item *) SIMPLE_VM_STACK_READP ;
+				list = simple_item_getlist(pItem) ;
+			}
+			else {
+				simple_vm_error(vm,SIMPLE_VM_ERROR_BADVALUES);
+				return ;
+			}
+			if ( simple_vm_oop_isobject(list) ) {
+				parent_name = simple_list_getstring((List *) simple_list_getpointer(list,SIMPLE_OBJECT_CLASSPOINTER),SIMPLE_CLASSMAP_CLASSNAME);  
+				do { 
+					if (strcmp(parent_name,simple_string_get(string_one)) == 0) {
+						SIMPLE_VM_STACK_FALSE ;
+						simple_string_delete_gc(vm->sState,string_one);
+						return;
+					} 
+					for ( x = simple_list_getsize(vm->pClassesMap) ; x >= 1 ; x-- ) {
+						list = simple_list_getlist(vm->pClassesMap,x) ; 
+						if ( strcmp(simple_list_getstring(list,SIMPLE_CLASSMAP_CLASSNAME),parent_name) == 0 ) {
+							/* Check if the class is imported from a Module */
+							if ( simple_list_getsize(list) == SIMPLE_CLASSMAP_IMPORTEDCLASSSIZE ) {
+								list = simple_list_getlist(list,SIMPLE_CLASSMAP_POINTERTOLISTOFCLASSINSIDEMODULE);
+							}
+							parent_name = simple_list_getstring(list,SIMPLE_CLASSMAP_PARENTCLASS);
+							break ;
+						}
+					}
+				} while (parent_name != NULL && strcmp(parent_name,"") != 0);
+				SIMPLE_VM_STACK_TRUE ;
+			} else {
+				if ( strcmp(simple_string_get(string_one),"List") != 0 ) {
+					SIMPLE_VM_STACK_TRUE ;
+				} else {
+					SIMPLE_VM_STACK_FALSE ;
+				}
+			}
+		}
+		simple_string_delete_gc(vm->sState,string_one);
+	}
+	else
+	{
+		simple_vm_error(vm,SIMPLE_VM_ERROR_BADVALUES);
+		return ;
+	}
+}
+
 SIMPLE_API void simple_vm_equal ( VM *vm )
 {
 	String *string_one,*cStr2  ;

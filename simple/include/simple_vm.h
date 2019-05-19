@@ -205,6 +205,10 @@ SIMPLE_API void simple_vm_loadaddressfirst ( VM *vm ) ;
 SIMPLE_API void simple_vm_endblockexec ( VM *vm ) ;
 /* Compare */
 
+SIMPLE_API void simple_vm_is ( VM *vm ) ;
+
+SIMPLE_API void simple_vm_isnot ( VM *vm ) ;
+
 SIMPLE_API void simple_vm_equal ( VM *vm ) ;
 
 SIMPLE_API void simple_vm_lessequal ( VM *vm ) ;

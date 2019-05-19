@@ -29,13 +29,13 @@ CallModule("libstring_savant")
 */
 module simple.core
 
-		__Empty = Ascii(0) 
-		STRING_EMPTY = "The string provided is empty"
-		STRING_COMPARE_ERROR = "Array index out of bound : The length of the comparing string is greater than the main string "
-		STRING_LESS = "Array index out of bound : The string is empty" 
-		BACKSPACE = Ascii(8) 
-		END_OF_LINE = Ascii(13)
-		LINE_BREAK = Ascii(10)
+		final var __Empty = Ascii(0) 
+		final var STRING_EMPTY = "The string provided is empty"
+		final var STRING_COMPARE_ERROR = "Array index out of bound : The length of the comparing string is greater than the main string "
+		final var STRING_LESS = "Array index out of bound : The string is empty" 
+		final var BACKSPACE = Ascii(8) 
+		final var END_OF_LINE = Ascii(13)
+		final var LINE_BREAK = Ascii(10)
 		
 /*
 
@@ -574,7 +574,7 @@ block StrEndsWith(object, check)
 		if check == "" {
 			return false
 		}
-		var length = LengthOf(check) - 1 @"Length:"+length
+		var length = LengthOf(check) - 1
 		var right = __right(object,length) 
 		return check == right
 		

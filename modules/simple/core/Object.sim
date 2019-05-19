@@ -60,9 +60,9 @@ class Object
 	*/
 	block AbsoluteName()
 		if Module() == ""
-			return Name
+			return Name()
 		end
-		return Module + "." + Name
+		return Module + "." + Name()
 
 	/*
 
@@ -74,16 +74,16 @@ class Object
 
 	*/
 	block Hashcode()
-		if hashcode == 0
-			hashcode = __object_address(self)
+		if Hashcode == 0
+			Hashcode = __object_address(self)
 		end
-		return hashcode
+		return Hashcode
 
 	/*
 
 	*/
 	block Equals(obj:duck)
-		return obj is Object
+		return obj is "Object" and Hashcode == obj.Hashcode
 
 	/*
 
@@ -91,10 +91,10 @@ class Object
 	block Operator(op:string, obj:duck)
 		switch op
 			case "=="
-				return Equals(value)
+				return Equals(obj)
 			case "!="
-				return !Equals(value)
-			case "getType"
+				return !Equals(obj)
+			case "GetType"
 				return Absolutename()
 			default 
 				Throw(self,"This Object does not define a behaviour for the operator : " + op)
@@ -110,7 +110,7 @@ class Object
 		/*
 
 		*/
-		var hashcode = 0
+		var Hashcode = 0
 
 		/*
 

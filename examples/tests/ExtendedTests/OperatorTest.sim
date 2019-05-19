@@ -1,0 +1,17 @@
+
+from simple.core.Object
+var obj = new Object()
+
+if obj is "Object" @"yes it is an Object" end
+if "1" is "String" @"yes '1' is a String" end
+display [1,2,3,4,6] is "List" display nl
+display 1 is "Number" display nl
+display "HelloWorld" is "String" display nl
+
+@""
+@""
+if obj !is "String" @"yes it is not String" end
+if "1" !is "String" @"yes '1' is a String" end
+display [1,2,3,4,6] !is "String" display nl
+display 1 !is "Number" display nl
+display "HelloWorld" !is "String" display nl

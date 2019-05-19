@@ -47,6 +47,8 @@ typedef enum IC_OPERATIONS {
 	ICO_LOADINDEXADDRESS ,
 	ICO_LOADAPUSHV ,
 	/* Comparsion operators */
+	ICO_IS ,
+	ICO_ISNOT ,
 	ICO_EQUAL ,
 	ICO_LESS ,
 	ICO_GREATER ,
