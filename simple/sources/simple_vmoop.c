@@ -81,7 +81,7 @@ SIMPLE_API void simple_vm_oop_newobj ( VM *vm )
 				/* Create List for the Object State */
 				list3 = simple_list_newlist_gc(vm->sState,list2);
 				/* Create Self variable in the state list */
-				pSelf = simple_vm_newvar2(vm,"self",list3,0,1);
+				pSelf = simple_vm_newvar2(vm,"self",list3,0,0);
 				simple_list_setint_gc(vm->sState,pSelf,SIMPLE_VAR_TYPE,SIMPLE_VM_POINTER);
 				if ( nType == SIMPLE_OBJTYPE_VARIABLE ) {
 					simple_list_setpointer_gc(vm->sState,pSelf,SIMPLE_VAR_VALUE,var);

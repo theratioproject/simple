@@ -1,28 +1,4 @@
-
-from simple.core.loadcoredymodule
-
-module simple.core
-
-/*
-
-*/
-block ObjEquals(obj1:duck, obj2:duck)
-	if IsList(obj1) {
-		if !IsList(obj2) { return false }
-		return ListEquals(obj1, obj2)
-	elif IsObject(obj1)
-		if !IsObject(obj2) { return false }
-		if __instance_of(obj1,"Object") {
-			return obj1.Equals(obj2)
-		else
-			return false
-		}
-	}
-	return obj1 == obj2
-
-/*
-	
-		
+/*P
 	:copyright: 2018-2019, Azeez Adewale
 	:license: MIT License Copyright (c) 2018 simple
 	:author: Azeez Adewale <azeezadewale98@gmail.com>
@@ -30,15 +6,90 @@ block ObjEquals(obj1:duck, obj2:duck)
 	:time: 02:24 PM
 	:filename: Object.sim
 */
+
+from simple.core.loadcoredymodule
+
+module simple.core
+
+/*
+	Compare two object of any types.
+		
+	The following rules applies in this condition 
+	
+		* if the first argument is List 
+		   * if the second argument is not List returns false
+		   * if the second argument is List it uses the function 
+		     `ListEquals`_ to compare 
+			
+		* if the first argument is String 
+		   * if the second argument is not String returns false
+		   * if the second argument is also String it uses the `==` 
+		     operator to compare both argument
+			
+		* if the first argument is Number 
+		   * if the second argument is not Number returns false
+		   * if the second argument is also Number it uses the `==` 
+		     operator to compare both argument
+			  
+		* if the first argument is an Object
+		   * if the second argument is not an instance of Object 
+		     it returns false
+		   * if the second is an instance of Object it uses the method 
+		     `block Equals(obj:duck)`_ method of the first argument to check 
+		     the equality
+	
+	**Parameters**:	
+		obj1 : duck
+			the Object to compare to the second Object
+		obj2 : duck
+			the Object to compare to the first Object
+	
+	**return**:
+		whether this Object is equal to another
+		
+	**see**
+		`block Equals(obj:duck)`_,
+		`ListEquals`_,
+*/
+block ObjEquals(obj1:duck, obj2:duck)
+	if IsList(obj1)
+		return IsList(obj2) and ListEquals(obj1, obj2)
+	elif IsObject(obj1)
+		if obj1 is "Object" and obj2 is "Object"
+			return obj1.Equals(obj2)
+		end
+		return false
+	end
+	return obj1 == obj2
+
+/*
+	Object the is the super class for every classes. All defined 
+	classes extends **simple.core.Object** if it does not inherits
+	another class. 
+	
+	This class provide methods that hold the object unique identity 
+	and method that will be blindly invoked at any time.
+*/
 class Object 
 
 	/*
-	
+		Create the super constructor to enable initializing a class 
+		with braces even if it does not have a constructor. 
+		
+		This allows support to use the class in a declarative approach 
+		
+		**return**:
+			the class object to allow braces operation
 	*/
-	block Init() end
+	block Init() 
+		return self
+	end
 	
 	/*
-
+		Get the real name of the class
+		
+		**return**:
+			the name of the class
 	*/
 	block Name()
 		if Name == ""
@@ -47,7 +98,11 @@ class Object
 		return Name
 
 	/*
-
+		Get the module in which the class was declared in 
+		
+		**return**:
+			the name of the module else returns empty  string 
+			if it not declared in any module
 	*/
 	block Module()
 		if Module == ""
@@ -56,7 +111,17 @@ class Object
 		return Module
 
 	/*
-
+		Get the absolute name of the class which is the combination 
+		of the name and the module of the class 
+		
+		::
+		
+			Module=simple.core
+			Name=Object
+			AbsoluteName=simple.core.Object
+		
+		**return**:
+			the full name of the class
 	*/
 	block AbsoluteName()
 		if Module() == ""
@@ -65,13 +130,35 @@ class Object
 		return Module + "." + Name()
 
 	/*
-
+		The readable String value of object. The method should be override 
+		in classes to convert the object to meaningful String base on the 
+		structure of the class. 
+		
+		This method is called on every object when performing string 
+		concatenation and interpolation. 
+		
+		It return by default `AbsoluteName() + ":" + Hashcode()`
+		
+		**return**:
+			the String representation of the object
+			
+		**see**
+			`block AbsoluteName()`_,
+			`block Hashcode()`_
 	*/
 	block ToString()
-		return "[" + AbsoluteName() + ":" + Hashcode() + "]"
+		return AbsoluteName() + ":" + Hashcode()
 		
 	/*
-
+		The value that represent the Object which is unique to the Object. 
+		Which in this instance is the Memory Address of the object. 
+		
+		A subclass should implements it own Hashcode() method where 
+		necessary. The result should be cached especially if the `var Hashcode`_ 
+		calculation is time consuming
+		
+		**return**:
+			the Hash code of the for this Object
 	*/
 	block Hashcode()
 		if Hashcode == 0
@@ -80,13 +167,55 @@ class Object
 		return Hashcode
 
 	/*
-
+		Compare this object semantically with another object. 
+		
+		The method checks if the other Object is of the same type as this 
+		Object, and proceed to check if the `block AbsoluteName()`_ is 
+		the same for both Object. 
+		
+		The subclasses must defined it own Equals method to properly 
+		compare it with another Object using it own structure and field
+	
+		**Parameters**:	
+			obj : duck
+				the Object to compare to
+		
+		**return**:
+			whether this Object is equal to another
+			
+		**see**
+			`block AbsoluteName()`_,
 	*/
 	block Equals(obj:duck)
-		return obj is "Object" and Hashcode == obj.Hashcode
+		return obj is "Object" and AbsoluteName() == obj.AbsoluteName()
 
 	/*
-
+		Operator overloading for Object. The following operators are overloaded 
+		in the Object. 
+		
+		:Operators:
+		
+			* ==
+			   Used to check equality the Object with another Object on the right 
+			   most part of the operator e.g `obj == obj1`
+				
+			* != 
+			   Used to check inequality the Object with another Object on the right 
+			   most part of the operator e.g `obj != obj1`
+				
+			* GetType
+			   This returns the type of the Object in String which is the 
+			   `block AbsoluteName()`_
+				
+		This method is not expected to be called manually in the program logic it rather 
+		invoked in the interpreter if it happens to be implemented. 
+		
+		**return**:
+			the appropriate value depending on the operator
+			
+		**see**
+			`block Equals(obj:duck)`_,
+			`block AbsoluteName()`_,
 	*/
 	block Operator(op:string, obj:duck)
 		switch op
@@ -95,9 +224,9 @@ class Object
 			case "!="
 				return !Equals(obj)
 			case "GetType"
-				return Absolutename()
+				return AbsoluteName()
 			default 
-				Throw(self,"This Object does not define a behaviour for the operator : " + op)
+				Throw(self,"This Object does not define a behavior for the operator : " + op)
 		end
 		return self
 		
@@ -108,18 +237,24 @@ class Object
 	private 
 
 		/*
-
+			The cached Hashcode value which is returned on the method call `block Hashcode()`_ 
 		*/
-		var Hashcode = 0
+		var Hashcode = ""
 
 		/*
-
+			The cached Name value which is returned on the method call `block Name()`_ 
 		*/
 		var Name = ""
 
 		/*
-
+			The cached Module value which is returned on the method call `block Module()`_ 
 		*/
 		var Module = ""
 		
 end
+
+/*S
+	
+	.. _ListEquals: ./List.html#block-listequals-obj1-list-obj2-list
+	
+*/

@@ -1,0 +1,34 @@
+
+class TestFunctions
+	
+	block TestFunctionOne()
+		display("Testing an external function one" + nl)
+	end
+	
+	block TestFunctionTwo()
+		display("Testing an external function two" + nl)
+	end
+	
+end
+
+class TestSample
+
+	var num
+	
+	block BeforeTest()
+		display("BeforeTest(Optional): Preparing the class for test " + nl)
+		num = 20
+	end
+	
+	block TestOne()
+		display("Assertion1: " + (1 == 1) + nl)
+		display("Assertion2: " + ("this" == "self") + nl)
+		display("Assertion3: " + (20 == num) + nl)
+	end
+	
+	block AfterTest()
+		display("AfterTest(Optional): Cleaning up the class " + nl)
+		num = null
+	end
+	
+end

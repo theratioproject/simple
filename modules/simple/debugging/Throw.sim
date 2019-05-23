@@ -55,11 +55,11 @@ module simple.debugging
 	should be called instead because it does not exit the program
 */
 block Throw(errorValues...)
-	errorValuesLen = LengthOf(errorValues)
+	var errorValuesLen = LengthOf(errorValues)
 	if errorValuesLen == 1 {
-		object = errorValues[0]
-		errorTitle = null 
-		errorValue = null 
+		var object = errorValues[0]
+		var errorTitle = null 
+		var errorValue = null 
 		if !IsNull(object) and IsObject(object) { 
 			if __object_has_method(object,"throwError") {
 				object.ThrowError()
@@ -79,18 +79,18 @@ block Throw(errorValues...)
 			__throw("Invalid Error Message. Unknown Error occured")
 		}		
 	else
-		object = errorValues[0]
-		errorTitle = ""
+		var object = errorValues[0]
+		var errorTitle = ""
 		if !IsNull(object) and IsObject(object) {
 			errorTitle = __class_module_name(object)+"."+__class_name(object)
-			errorValue = errorValues[1] 
+			var errorValue = errorValues[1] 
 			if IsNull(errorValue) {
 				errorValue = "Unknown Error occured"
 			}
 			__throw(errorTitle + " : " + errorValue)
 		elif IsString(object) 
 			errorTitle = object 
-			errorValue = errorValues[1]
+			var errorValue = errorValues[1]
 			if IsNull(errorValue) {
 				if !IsNull(object) {
 					errorValue = object

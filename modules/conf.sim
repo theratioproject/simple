@@ -36,7 +36,7 @@ akosileExclude = [ #"*simple*",
 	"*fulltick*",
 	"*parser*",
 	"*zip*",
-	"*core*",
+	#"*core*",
 	"*debugging*",
 	"*graphics*",
 	"*/io*",
@@ -44,22 +44,22 @@ akosileExclude = [ #"*simple*",
 	"*reflection*",
 	"*security*",
 	"*system*",
-	#"*util*",
-		#"*Console.s*",
-		#"*ConsoleColor*",
+	"*util*",
+		"*Console.s*",
+		"*ConsoleColor*",
 		"*Date*",
-		#"*Conversion*",
-		#"*Exter*",
-		#"*Leng*",
-		#"*Look*",
-		#"*Math*",
-		#"*Type*",
+		"*Conversion*",
+		"*Exter*",
+		"*Leng*",
+		"*Look*",
+		"*Math*",
+		"*Type*",
 	"*Array*",
 	"*web*"
 ]
 
 akosileFiles = [
-	".sim"
+	"Object.sim"
 ]
 
 akosileSpecialFiles = [

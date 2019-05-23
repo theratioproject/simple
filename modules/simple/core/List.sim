@@ -30,6 +30,12 @@ module simple.core
 	```
 */
 
+/*
+
+*/
+block ListEquals(obj1:List, obj2:List)
+	return false
+
 block AddToList(list, value)
     # Check if value to be added to the array is a List, String or number.
     if (IsList(value) || IsString(value) || IsNumber(value))

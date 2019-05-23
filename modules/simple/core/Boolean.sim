@@ -50,7 +50,7 @@ class Boolean : Object
 
 	*/
 	block Equals(obj:duck)
-		return obj is Boolean and Value == obj.Value
+		return obj is "Boolean" and Value == obj.Value
 
 	
 	private

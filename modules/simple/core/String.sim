@@ -825,8 +825,8 @@ block StrStartsWith(object, check)
 		if check == "" {
 			return false
 		}
-		length = LengthOf(check) - 1
-		left = __left(object,length) 
+		var length = LengthOf(check) - 1
+		var left = __left(object,length) 
 		return check == left
 		
 	else

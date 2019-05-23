@@ -112,6 +112,8 @@ build, installation, features e.t.c
 - [ ] support for string interpolation
 - [x] add the **is** operator in place of the InstanceOf function
 - [ ] change the dynamic module to use extension .dysim t reduce platform extensions overload
+- [ ] do not convert and coerce type during comparison check
+- [ ] make every class that does not inherit another class inherits the Object class. first check if the core is loaded first
 
 ### simplify
 - [ ] create and optimize simple source before compiling into bytecode (.complex)
@@ -211,6 +213,8 @@ Modules which are not part of the standard module that comes distributed with si
 
 ### Environments
 
+- [ ] do not install the environment in the binary folder */bin/ install in environment folder so when uninstall it properlly clean up 
+      enable environment execution like `simple [environment_app] [parameters]`
 - [ ] modular
 	- [ ] build package installer - modular [working issue](https://github.com/simple-lang/simple/issues/18)
 	- [ ] modular install and upgrade new module, doc and dynamic module added to the package index

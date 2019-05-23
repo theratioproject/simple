@@ -1,0 +1,52 @@
+/*P
+	:copyright: 2018-2019, Azeez Adewale
+	:license: MIT License Copyright (c) 2018 simple
+	:author: Azeez Adewale <azeezadewale98@gmail.com>
+	:date: 22 May 2017
+	:time: 01:01 PM
+	:filename: unittest.sim
+*/
+
+from simple.core.Object
+
+block main()
+	var TestSources = []
+	var param
+	for param in cmdparams
+		if StrStartsWith(param, "unittest")
+			continue
+		elif StrEndsWith(param, ".sim")
+			TestSources + RemoveStr(param,".sim")
+		end
+	end
+	
+	#use embedding simple-lang in simple-lang using seperate states
+	for param in TestSources
+		var TestCode = '
+			var ' + param + ' = new ' + param + ' {
+				var methods = __object_methods(self)
+				var method
+				
+				#Prepare the Object for testing
+				if __find_in_list(methods, "BeforeTest") >= 0
+					BeforeTest()
+				end
+				
+				#run the tests methods
+				for method in methods 
+					if StrStartsWith(method, "Test")
+						ExecuteCode(method + "()")
+					end
+				end
+				
+				#Finalize and cleanup the Object after test
+				if __find_in_list(methods, "AfterTest") >= 0
+					AfterTest()
+				end
+			}
+		'
+		//@"from '" + param + ".sim'" + nl + TestCode
+		ExecuteCode("from '" + param + ".sim'" + nl +
+					" " + TestCode)
+	end
+

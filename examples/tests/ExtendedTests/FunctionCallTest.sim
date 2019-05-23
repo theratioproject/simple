@@ -1,9 +1,6 @@
 
-#from simple.debugging.Debug
-#from simple.testing.Test
-
-class duck
-class Int
+from simple.debugging.Debug
+from simple.testing.Test
 
 block TestBefore()
 	

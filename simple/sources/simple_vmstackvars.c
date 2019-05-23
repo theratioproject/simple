@@ -67,6 +67,11 @@ SIMPLE_API void simple_vm_pushv ( VM *vm )
 
 SIMPLE_API void simple_vm_loadaddress_declaration( VM *vm )
 {
+	if (strcmp(SIMPLE_VM_IR_READC,"self") == 0) 
+	{
+		simple_vm_loadaddress (vm);
+		return;
+	}
 	if ( simple_vm_findvar(vm, SIMPLE_VM_IR_READC  ) == 0 ) {
 		simple_vm_newvar(vm, SIMPLE_VM_IR_READC);
 		/* Support for private attributes */
