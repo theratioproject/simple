@@ -29,37 +29,13 @@ akosileExtraConfs = []
 	Comment out file/folder wild card to document 
 	as per unit
 */
-akosileExclude = [ #"*simple*",
-	"*conf.sim",
-	"*archive*",
-	"*dynamic_module*",
-	"*fulltick*",
-	"*parser*",
-	"*zip*",
-	#"*core*",
-	"*debugging*",
-	"*graphics*",
-	"*/io*",
-	"*net*",
-	"*reflection*",
-	"*security*",
-	"*system*",
-	"*util*",
-		"*Console.s*",
-		"*ConsoleColor*",
-		"*Date*",
-		"*Conversion*",
-		"*Exter*",
-		"*Leng*",
-		"*Look*",
-		"*Math*",
-		"*Type*",
-	"*Array*",
-	"*web*"
+akosileExclude = [
+	"*dynamic_module*"
 ]
 
 akosileFiles = [
-	"Object.sim"
+	#"Object.sim",
+	"Boolean.sim"
 ]
 
 akosileSpecialFiles = [

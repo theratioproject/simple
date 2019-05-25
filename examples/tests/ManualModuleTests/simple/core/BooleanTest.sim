@@ -1,5 +1,64 @@
 
 from simple.core.Boolean
 
-var bool = new Boolean(true)
-display(bool)
+class TestFunctions
+	
+	block TestBooleanValueOf()
+		AssertEquals(true, BooleanValueOf("true"))
+		AssertEquals(false, BooleanValueOf("false"))
+		AssertEquals(true, BooleanValueOf(true))
+		AssertNotEquals(true, BooleanValueOf(20))
+		AssertNotEquals(true, BooleanValueOf(20))
+		AssertNotEquals(false, BooleanValueOf(1))
+	end
+	
+	block TestToBoolean()
+		AssertEquals(new Boolean(true), ToBoolean(true))
+		AssertEquals(new Boolean(false), ToBoolean(false))
+		AssertNotEquals(new Boolean(false), ToBoolean(1))
+		AssertNotEquals(ToBoolean(false), new Boolean(true))
+	end
+	
+end
+
+class BooleanTest
+	
+	var Boolean1 
+	var Boolean2
+
+	block BeforeTest()
+		Boolean1 = new Boolean(true)
+		Boolean2 = new Boolean(false)
+	end
+
+	block TestInit()
+		AssertNotEquals(false, new Boolean(true))
+		AssertNotEquals(true, new Boolean(false))
+		AssertNotEquals(new Boolean(false), new Boolean(true))
+		AssertEquals(new Boolean(false), new Boolean(false))
+		AssertEquals(new Boolean(true), new Boolean(true))
+	end
+
+	block TestToNumber()
+		AssertNotEquals(false, Boolean1.ToNumber())
+		AssertNotEquals(true, Boolean2.ToNumber())
+		AssertNotEquals(Boolean2.ToNumber(), Boolean1.ToNumber())
+		AssertEquals(true, Boolean1.ToNumber())
+		AssertEquals(Boolean2.ToNumber(), false)
+	end
+
+	block TestToString()
+		AssertNotEquals(false, Object1)
+		AssertNotEquals(true, Object2)
+		AssertNotEquals(true, false)
+		AssertNotEquals(Object1, Object2)
+	end
+	
+	block TestEquals()
+		AssertEquals(false, Boolean1.Equals(Boolean2))
+		AssertEquals(false, Boolean2.Equals(Boolean1))
+		AssertNotEquals(Boolean2 == Boolean1)
+		AssertEquals(Boolean1 != Boolean2)
+	end
+	
+end

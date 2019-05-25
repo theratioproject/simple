@@ -3,19 +3,18 @@ from simple.core.Object
 
 class ObjectTest : Object
 
-	var object1 
-	var object2
+	var Object1 
+	var Object2
 
 	block BeforeTest()
-		@"before test yea"
-		object1 = new Object()
-		object2 = new Object()
+		Object1 = new Object()
+		Object2 = new Object()
 	end
 	
 	block TestInit()
-		AssertNotEquals(null, object1)
-		AssertNotEquals(null, object2)
-		AssertNotEquals(object1, object2)
+		AssertNotEquals(null, Object1)
+		AssertNotEquals(null, Object2)
+		AssertNotEquals(Object1, Object2)
 		AssertNotEquals(null, new Object())
 		AssertNotEquals(self, new Object())
 		AssertEquals(new Object(), new Object())
@@ -24,56 +23,56 @@ class ObjectTest : Object
 	
 	block TestName()
 		AssertNotEquals("Object", Name())
-		AssertNotEquals(object1.Name(), Name())
-		AssertNotEquals(object2.Name(), Name())
+		AssertNotEquals(Object1.Name(), Name())
+		AssertNotEquals(Object2.Name(), Name())
 		AssertEquals("ObjectTest", Name())
-		AssertEquals("Object", object1.Name())
-		AssertEquals("Object", object2.Name())
+		AssertEquals("Object", Object1.Name())
+		AssertEquals("Object", Object2.Name())
 	end
 	
 	block TestModule()
 		AssertNotEquals("simple.core", Module())
-		AssertNotEquals(object1.Module(), Module())
-		AssertNotEquals(object2.Module(), Module())
+		AssertNotEquals(Object1.Module(), Module())
+		AssertNotEquals(Object2.Module(), Module())
 		AssertEquals("ManualModuleTests.simple.core", Module())
-		AssertEquals("simple.core", object1.Module())
-		AssertEquals("simple.core", object2.Module())
+		AssertEquals("simple.core", Object1.Module())
+		AssertEquals("simple.core", Object2.Module())
 	end
 	
 	block TestAbsoluteName()
 		AssertNotEquals("simple.core.Object", AbsoluteName())
-		AssertNotEquals(object1.AbsoluteName(), AbsoluteName())
-		AssertNotEquals(object2.AbsoluteName(), AbsoluteName())
+		AssertNotEquals(Object1.AbsoluteName(), AbsoluteName())
+		AssertNotEquals(Object2.AbsoluteName(), AbsoluteName())
 		AssertEquals("ManualModuleTests.simple.core.ObjectTest", AbsoluteName())
-		AssertEquals("simple.core.Object", object1.AbsoluteName())
-		AssertEquals("simple.core.Object", object2.AbsoluteName())
+		AssertEquals("simple.core.Object", Object1.AbsoluteName())
+		AssertEquals("simple.core.Object", Object2.AbsoluteName())
 	end
 	
 	block TestToString()
-		Assert(IsString(object1.ToString()))
-		Assert(IsString(object2.ToString()))
+		Assert(IsString(Object1.ToString()))
+		Assert(IsString(Object2.ToString()))
 		Assert(IsString(ToString()))
 	end
 	
 	block TestHashcode()
-		AssertNotEquals(object1.Hashcode(), Hashcode())
-		AssertNotEquals(object2.Hashcode(), Hashcode())
-		AssertNotEquals(object1.Hashcode(), object2.Hashcode())
-		Assert(IsString(object1.Hashcode()))
-		Assert(IsString(object2.Hashcode()))
+		AssertNotEquals(Object1.Hashcode(), Hashcode())
+		AssertNotEquals(Object2.Hashcode(), Hashcode())
+		AssertNotEquals(Object1.Hashcode(), Object2.Hashcode())
+		Assert(IsString(Object1.Hashcode()))
+		Assert(IsString(Object2.Hashcode()))
 		Assert(IsString(Hashcode()))
 	end
 	
 	block TestOperator()
-		AssertNotEquals(true, object1 == object2)
-		AssertNotEquals(true, self == object1)
-		AssertNotEquals(true, object2 == self)
-		AssertEquals(false, object1 != false)
-		Assert(self != object1)
-		Assert(object2 != object1)
+		AssertNotEquals(true, Object1 == Object2)
+		AssertNotEquals(true, self == Object1)
+		AssertNotEquals(true, Object2 == self)
+		AssertEquals(false, Object1 != false)
+		Assert(self != Object1)
+		Assert(Object2 != Object1)
 		AssertEquals("simple.core.Object", GetType(self))
-		AssertEquals("simple.core.Object", GetType(object1))
-		AssertEquals("simple.core.Object", GetType(object2))
+		AssertEquals("simple.core.Object", GetType(Object1))
+		AssertEquals("simple.core.Object", GetType(Object2))
 	end
 	
 	block AfterTest()

@@ -1,7 +1,62 @@
+/*P
+	:copyright: 2018-2019, Azeez Adewale
+	:license: MIT License Copyright (c) 2018 simple
+	:author: Azeez Adewale <azeezadewale98@gmail.com>
+	:date: 08 February 2019
+	:time: 07:42 PM
+	:filename: Boolean.sim
+*/
 
 from simple.core.Object
 
 module simple.core
+
+/*
+	Return the primitive boolean value for any object. 
+	
+	The function returns **true** if the `obj` parameter follow 
+	the rules else it returns **false**
+	
+		* if the `obj` parameter is Number and equals 1 
+		* if the `obj` parameter is String and equals "true"
+	
+	If the parameter is of type `Boolean` it returns the value 
+	of the `block ToNumber() : Number`_ method call 
+	
+	**Parameters**:	
+		obj : Boolean|String|Number
+			the object to get the primitive boolean value
+	
+	**return**:
+		the primitive boolean value of an object
+*/
+block BooleanValueOf(obj:duck) : Int
+	if obj is "Boolean"
+		return obj.ToNumber()
+	elif IsNumber(obj)
+		return obj == 1
+	elif IsString(obj)
+		return obj == "true"
+	else
+		return false
+	end
+end
+
+/*
+	Convert the primitive boolean value to the Boolean object. 
+	The primitive value is of Number type and it must be either 
+	1 or 0 else it an error. 
+	
+	**Parameters**:	
+		bool : boolean
+			the primitive boolean to convert to Boolean object
+	
+	**return**:
+		an instance of the Boolean object
+*/
+block ToBoolean(bool:boolean) : Boolean
+	return new Boolean(bool)
+end
 
 /*
 	The Boolean class represent the boolean primitive of `true` and `false`. 
@@ -9,55 +64,99 @@ module simple.core
 	number primitive respectively. 
 	
 	During assignment assignment to `true` or `false` is automatically 
-	infered to an instance of this class
+	inferred to an instance of this class
 	
 	::
 	
 		var Condition = true
 		display GetType(Condition) //simple.core.Boolean
-		
-	:copyright: 2018-2019, Azeez Adewale
-	:license: MIT License Copyright (c) 2018 simple
-	:author: Azeez Adewale <azeezadewale98@gmail.com>
-	:date: 08 Febuary 2019
-	:time: 07:42 PM
-	:filename: Boolean.sim
 */
 class Boolean : Object
 	
 	/*
+		Create the Boolean object representing the value of the 
+		argument. 
+		
+		The Constructor accepts more than one type, the primitive 
+		value follow these rules:
+		
+			* primitive value true if `param` is 1 
+			* primitive value false if `param` is 0 
+			* primitive value true if `param` is "true"
+			* other `param` value set the primitive value to false 
 	
+		**Parameters**:	
+			param : String|Number
+				the value for the primitive boolean value
 	*/
 	block Init(param:duck)
-		if isNumber(param)
+		if IsNumber(param)
 			Value = ObjEquals(param, 1)
-		elif isString(param)
+		elif IsString(param)
 			Value = ObjEquals(param, "true")
 		else
 			Value = false
 		end
+		return self
 		
 	/*
-	
+		The Number representation of the Boolean object which is 
+		invoked in the VM to get the primitive boolean Value. 
+		
+		It returns either 1 or 0 depending on the Value of the 
+		object.
+		
+		**return**:
+			the primitive Value of this class
 	*/
-	block ToString()
+	block ToNumber() : Number
+		return Value
+		
+	/*
+		The String representation of the Boolean object. It returns 
+		"true" if the `final var Value`_ is true and "false" if the 
+		`final var Value`_ is false
+		
+		**return**:
+			the string representation of this class
+	*/
+	block ToString() : string
 		if Value
 			return "true"
 		end
 		return "false"
 		
 	/*
-
+		Check if obj is of type Boolean and has the same value as the 
+		Object then true is returned otherwise it returns false. 
+		This always return false for the global variables `true` and 
+		`false` and the number value 1 and 0.  
+		
+		To compare all boolean possibilities the variable should be 
+		converted to boolean first by calling the function 
+		`block BooleanValueOf(obj:duck) : Int`_ then converted to an 
+		instance of the Boolean Object using the function 
+		`block ToBoolean(bool:boolean) : Boolean`_
+	
+		**Parameters**:	
+			obj : duck
+				the Object to compare to
+		
+		**return**:
+			true is obj is equal to this
 	*/
-	block Equals(obj:duck)
+	block Equals(obj:duck) : boolean
 		return obj is "Boolean" and Value == obj.Value
 
 	
+	/*
+	
+	*/
 	private
 	
 		/*
-		
+			The primitive value of the Boolean Object which is either 1 or 0
 		*/
-		final var Value
+		final var Value = false
 	
 	

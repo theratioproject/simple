@@ -2,7 +2,7 @@
 	:copyright: 2018-2019, Azeez Adewale
 	:license: MIT License Copyright (c) 2018 simple
 	:author: Azeez Adewale <azeezadewale98@gmail.com>
-	:date: 5 Febuary 2017
+	:date: 5 February 2017
 	:time: 02:24 PM
 	:filename: Object.sim
 */
@@ -61,6 +61,7 @@ block ObjEquals(obj1:duck, obj2:duck)
 		return false
 	end
 	return obj1 == obj2
+end
 
 /*
 	Object the is the super class for every classes. All defined 
