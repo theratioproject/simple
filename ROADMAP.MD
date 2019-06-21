@@ -111,7 +111,7 @@ build, installation, features e.t.c
 - [x] use the Error method in classes to attend to error that occur when class access is in braces
 - [ ] support for string interpolation
 - [x] add the **is** operator in place of the InstanceOf function
-- [ ] change the dynamic module to use extension .dysim t reduce platform extensions overload
+- [x] change the dynamic module to use extension .dysim t reduce platform extensions overload
 - [ ] do not convert and coerce type during comparison check
 - [ ] make every class that does not inherit another class inherits the Object class. first check if the core is loaded first
 

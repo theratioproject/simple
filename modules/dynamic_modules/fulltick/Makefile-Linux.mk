@@ -20,7 +20,7 @@ LDFLAGS:= $(LDFLAGS) "-Wl,-rpath,./ ../../bin/ $(DESTDIR)$(PREFIX)/lib/ ~/lib/,-
 
 # Macros
 CND_PLATFORM=
-CND_DLIB_EXT=so
+CND_DLIB_EXT=dysim
 CND_BUILDDIR=build
 CND_DISTDIR =../dist
 FULLTICK_FILES='./fulltick.cpp' 

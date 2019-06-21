@@ -20,13 +20,13 @@ LDFLAGS:= $(LDFLAGS)
 
 # Macros
 CND_PLATFORM=
-CND_DLIB_EXT=dylib
+CND_DLIB_EXT=dysim
 CND_BUILDDIR=build
 CND_DISTDIR =../dist
 FULLTICK_FILES='./fulltick.cpp' 
 	
 # Link Libraries and Options
-LDLIBSOPTIONS=../../../simple/dist/libsimple.${CND_DLIB_EXT}
+LDLIBSOPTIONS=../../../simple/dist/libsimple.dylib
 
 ifeq ($(PREFIX),)
     PREFIX := /usr/local

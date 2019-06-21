@@ -786,8 +786,8 @@ REM FULLTICK(GUI) DYNAMIC MODULE
 		echo dynamic_modules:libfulltick: falling back on available backup build.
 		if exist "..\modules\dynamic_modules\fulltick\dist\%FULLTICK_DY_MODULE%" (
 			echo dynamic_modules:libfulltick: backup build found but might be outdated
-			echo libfulltick: copying libfulltick.dll to "..\modules\dynamic_modules\dist\fulltick.dll" directory
-			copy "..\modules\dynamic_modules\fulltick\dist\%FULLTICK_DY_MODULE%" "..\modules\dynamic_modules\dist\libfulltick.dll"
+			echo libfulltick: copying libfulltick.dysim to "..\modules\dynamic_modules\dist\fulltick.dysim" directory
+			copy "..\modules\dynamic_modules\fulltick\dist\%FULLTICK_DY_MODULE%" "..\modules\dynamic_modules\dist\libfulltick.dysim"
 		) else (
 			echo error:dynamic_modules:libfulltick: the backup libfulltick dynamic module cannot be found
 			echo error:dynamic_modules:libfulltick: the repository appears to be currupted. 
@@ -809,19 +809,19 @@ REM FULLTICK(GUI) DYNAMIC MODULE
 :copydynamicmodules
 	call:display dynamic_modules "copying dynamic_modules to %VERSION%"
 	if !EXEC_TYPE!=="install" (
-		if exist "..\modules\dynamic_modules\dist\*systemic.dll" (
+		if exist "..\modules\dynamic_modules\dist\*systemic.dysim" (
 			echo dynamic_modules: copying dynamic modules to !INSTALLATION_FOLDER!\%VERSION%\modules\dynamic_modules directory
 			call:confirmfolderelsecreate "!INSTALLATION_FOLDER!\%VERSION%\modules\dynamic_modules"
-			copy ..\modules\dynamic_modules\dist\*.dll !INSTALLATION_FOLDER!\%VERSION%\modules\dynamic_modules
+			copy ..\modules\dynamic_modules\dist\*.dysim !INSTALLATION_FOLDER!\%VERSION%\modules\dynamic_modules
 		) else (
 			call:dynamicmoduleserror
 		)
 	)
 	if !EXEC_TYPE!=="debug" (
-		if exist "..\modules\dynamic_modules\dist\*systemic.dll" (
+		if exist "..\modules\dynamic_modules\dist\*systemic.dysim" (
 			echo dynamic_modules: copying dynamic modules to ..\..\%SIMPLE_DEBUG_VERSION%\modules\dynamic_modules directory
 			call:confirmfolderelsecreate "%~dp0\..\..\%SIMPLE_DEBUG_VERSION%\modules\dynamic_modules"
-			copy ..\modules\dynamic_modules\dist\*.dll ..\..\%SIMPLE_DEBUG_VERSION%\modules\dynamic_modules
+			copy ..\modules\dynamic_modules\dist\*.dysim ..\..\%SIMPLE_DEBUG_VERSION%\modules\dynamic_modules
 		) else (
 			call:dynamicmoduleserror
 		)

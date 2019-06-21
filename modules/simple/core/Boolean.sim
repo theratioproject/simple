@@ -98,6 +98,7 @@ class Boolean : Object
 			Value = false
 		end
 		return self
+	end
 		
 	/*
 		The Number representation of the Boolean object which is 
@@ -111,6 +112,7 @@ class Boolean : Object
 	*/
 	block ToNumber() : Number
 		return Value
+	end
 		
 	/*
 		The String representation of the Boolean object. It returns 
@@ -125,6 +127,7 @@ class Boolean : Object
 			return "true"
 		end
 		return "false"
+	end
 		
 	/*
 		Check if obj is of type Boolean and has the same value as the 
@@ -147,7 +150,7 @@ class Boolean : Object
 	*/
 	block Equals(obj:duck) : boolean
 		return obj is "Boolean" and Value == obj.Value
-
+	end
 	
 	/*
 	
@@ -159,4 +162,4 @@ class Boolean : Object
 		*/
 		final var Value = false
 	
-	
+end 

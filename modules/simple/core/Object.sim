@@ -97,6 +97,7 @@ class Object
 			Name = __class_name(self)
 		end
 		return Name
+	end
 
 	/*
 		Get the module in which the class was declared in 
@@ -110,6 +111,7 @@ class Object
 			Module = __class_module_name(self)
 		end
 		return Module
+	end
 
 	/*
 		Get the absolute name of the class which is the combination 
@@ -129,6 +131,7 @@ class Object
 			return Name()
 		end
 		return Module + "." + Name()
+	end
 
 	/*
 		The readable String value of object. The method should be override 
@@ -149,6 +152,7 @@ class Object
 	*/
 	block ToString()
 		return AbsoluteName() + ":" + Hashcode()
+	end
 		
 	/*
 		The value that represent the Object which is unique to the Object. 
@@ -166,6 +170,7 @@ class Object
 			Hashcode = __object_address(self)
 		end
 		return Hashcode
+	end
 
 	/*
 		Compare this object semantically with another object. 
@@ -189,6 +194,7 @@ class Object
 	*/
 	block Equals(obj:duck)
 		return obj is "Object" and AbsoluteName() == obj.AbsoluteName()
+	end
 
 	/*
 		Operator overloading for Object. The following operators are overloaded 
@@ -230,6 +236,7 @@ class Object
 				Throw(self,"This Object does not define a behavior for the operator : " + op)
 		end
 		return self
+	end
 		
 
 	/*

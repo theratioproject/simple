@@ -13,25 +13,32 @@
 /*
 
 */
-#from "__first_calls.sim"
  
 /*
 	
 */
 module simple.core
 
-var __mainDynamicModulesCount = 0
-var __mainDynamicModules = [			
-		["libsystemic.dll", "libstring_savant.dll"],		#Windows
-		["libsystemic.so", "libstring_savant.so"],			#Linux	
-		["libsystemic.dylib", "libstring_savant.dylib"] 	#MAC
-	]
-LoadMainDynamicModules()
+try
+	CallDynamicModule("libsystemic.dysim")
+	CallDynamicModule("libstring_savant.dysim")
+catch
+	display "Ensure your build the systemic and string_savant dynamic modules" + nl
+	display "Cannot determine your OS systemic and string_savant dynamic modules" + nl
+	display "Please raise an issue at <https://github.com/simple-lang/simple/issues/new> With detail of your OS " + nl
+	__exit__
+end
+
 from simple.core.String
  
 var dynamicModules = []
 	
-block CallModule(path) 
+#TODO: Use a low level list to manage list of dynamic modules that has been 
+#loaded by the VM automatically
+/**
+
+**/
+block CallModule(path:duck) 
 	if IsAndroid() and (__left(path,10) == "libfulltick" or __left(path,7) == "fulltick") {
 		#no need to from libfulltick.so on android it built into it
 		return 
@@ -40,36 +47,8 @@ block CallModule(path)
 	#__add_to_list(dynamicModules, path)
 	CallDynamicModule(path)
 	
-block FormatPathName(path)
-	if IsWindows() 
-		if StrEndsWith(path, ".so") 
-			path = ReplaceStr(path, ".so", ".dll")
-		elif StrEndsWith(path, ".dylib")
-			path = ReplaceStr(path, ".dylib", ".dll")
-		end
-	elif IsLinux()
-		if StrEndsWith(path, ".dll") 
-			path = ReplaceStr(path, ".dll", ".so")
-		elif StrEndsWith(path, ".dylib")
-			path = ReplaceStr(path, ".dylib", ".so")
-		end
-	elif IsMacosx()
-		if StrEndsWith(path, ".dll") 
-			path = ReplaceStr(path, ".dll", ".dylib")
-		elif StrEndsWith(path, ".so")
-			path = ReplaceStr(path, ".so", ".dylib")
-		end
-	else
-		if StrEndsWith(path, ".dll") 
-			path = ReplaceStr(path, ".dll", ".so")
-		elif StrEndsWith(path, ".dylib")
-			path = ReplaceStr(path, ".dylib", ".so")
-		end
-	end
-	if not StrEndsWith(path, ".dll") && IsWindows() path+=".dll" 
-	elif not StrEndsWith(path, ".so") && IsLinux() path+=".so" 
-	elif not StrEndsWith(path, ".dylib") && IsMacosx() path+=".dylib" 
-	end
+block FormatPathName(path:duck)
+	if !StrEndsWith(path, ".dysim") path += ".dysim" end
 	return path
  
 block GetDynamicModules()
@@ -78,18 +57,4 @@ block GetDynamicModules()
 	
 block LoadMainDynamicModules()
 	
-	try
-		var dyModule
-		for dyModule in __mainDynamicModules[__mainDynamicModulesCount]
-			CallDynamicModule(dyModule)
-		end
-	catch
-		if __mainDynamicModulesCount == (LengthOf(__mainDynamicModules) - 1) {
-			display "Ensure your build the systemic and string_savant dynamic modules" + nl
-			display "Cannot determine your OS systemic and string_savant dynamic modules" + nl
-			display "Please raise an issue at <https://github.com/simple-lang/simple/issues/new> With detail of your OS " + nl
-			__exit__
-		}
-		__mainDynamicModulesCount++
-		LoadMainDynamicModules()
-	end
+	

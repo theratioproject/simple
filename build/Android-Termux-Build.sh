@@ -243,7 +243,7 @@ build_dynamic_modules(){
 					echo "dynamic_modules:fulltick: backup build found but might be outdated"
 					echo "dynamic_modules:fulltick: copying fulltick.so to ../dist/ directory"
 					cp ../fulltick/dist/fulltick$arc.so ../dist/
-					ln ../dist/fulltick$arc.so ../dist/fulltick.so
+					ln ../dist/fulltick$arc.so ../dist/fulltick.dysim
 				else
 					echo "error:dynamic_modules:fulltick: the backup fulltick dynamic module cannot be found"
 					echo "error:dynamic_modules:fulltick: the repository appears to be currupted. "

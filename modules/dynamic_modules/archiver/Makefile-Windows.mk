@@ -32,7 +32,7 @@ CXXFLAGS=
 
 # Macros
 CND_PLATFORM=
-CND_DLIB_EXT=dll
+CND_DLIB_EXT=dysim
 CND_BUILDDIR=build
 CND_DISTDIR=../dist
 

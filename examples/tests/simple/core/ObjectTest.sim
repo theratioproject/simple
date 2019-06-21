@@ -1,6 +1,14 @@
 
 from simple.core.Object
 
+class TestFunctions
+
+	block TestObjEquals()
+		
+	end
+
+end
+
 class ObjectTest : Object
 
 	var Object1 

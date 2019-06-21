@@ -36,7 +36,7 @@ RM=rm
 
 # Macros
 CND_PLATFORM=Windows
-CND_DLIB_EXT=dll
+CND_DLIB_EXT=dysim
 CND_DISTDIR=../dist
 CLEAN_DEBUGDIR=../../../s0.4.0-debug
 DYNAMIC_MODULEDIR=.modules/dynamic_modules

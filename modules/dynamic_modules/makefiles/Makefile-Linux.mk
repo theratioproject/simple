@@ -38,7 +38,7 @@ MAKE=make
 # Macros
 VERSION=s0.4.0
 CND_PLATFORM=Linux
-CND_DLIB_EXT=so
+CND_DLIB_EXT=dysim
 CND_DISTDIR=../dist
 MODULE_BASE=../../
 CLEAN_DEBUGDIR=../../../$(VERSION)-debug

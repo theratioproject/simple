@@ -19,7 +19,7 @@ LDFLAGS= "-Wl,-rpath,./ ../../bin/ $(DESTDIR)$(PREFIX)/lib/ ~/lib/,--no-as-neede
 
 # Macros
 CND_PLATFORM=
-CND_DLIB_EXT=so
+CND_DLIB_EXT=dysim
 CND_BUILDDIR=build
 CND_DISTDIR =../dist
 

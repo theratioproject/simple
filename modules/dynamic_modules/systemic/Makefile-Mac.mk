@@ -19,7 +19,7 @@ LDFLAGS= "-Wl,-rpath,./ ../../bin/ $(DESTDIR)$(PREFIX)/lib/ ~/lib/,--no-as-neede
 
 # Macros
 CND_PLATFORM=
-CND_DLIB_EXT=dylib
+CND_DLIB_EXT=dysim
 CND_BUILDDIR=build
 CND_DISTDIR =../dist
 
@@ -38,7 +38,7 @@ SIMPLE_OBJECTFILES = \
 	$(SIMPLE_OBJECTDIR)/simple_api.o 
 	
 # Link Libraries and Options
-LDLIBSOPTIONS=../../../simple/dist/libsimple.${CND_DLIB_EXT}
+LDLIBSOPTIONS=../../../simple/dist/libsimple.dylib
 
 ${CND_DISTDIR}/${CND_PLATFORM}/libsystemic.${CND_DLIB_EXT}: $(OBJECTFILES)
 	$(CC) -shared $(ARC_FLAG) -o $(CND_DISTDIR)/$(CND_PLATFORM)/libsystemic.$(CND_DLIB_EXT) $(OBJECTFILES) $(LDLIBSOPTIONS)

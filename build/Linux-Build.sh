@@ -268,7 +268,7 @@ build_dynamic_modules(){
 					echo "dynamic_modules:libfulltick: backup build found but might be outdated"
 					echo "dynamic_modules:libfulltick: copying libfulltick.so to ../dist/ directory"
 					cp ../fulltick/dist/libfulltick$arc.so ../dist/
-					mv ../dist/libfulltick$arc.so ../dist/libfulltick.so
+					mv ../dist/libfulltick$arc.so ../dist/libfulltick.dysim
 				else
 					echo "error:dynamic_modules:libfulltick: the backup libfulltick dynamic module cannot be found"
 					echo "error:dynamic_modules:libfulltick: the repository appears to be currupted. "

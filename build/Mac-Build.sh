@@ -268,7 +268,7 @@ build_dynamic_modules(){
 					echo "dynamic_modules:libfulltick: backup build found but might be outdated"
 					echo "dynamic_modules:libfulltick: copying libfulltick.dylib to ../dist/ directory"
 					cp ../fulltick/dist/libfulltick$arc.dylib ../dist/
-					mv ../dist/libfulltick$arc.dylib ../dist/libfulltick.dylib
+					mv ../dist/libfulltick$arc.dylib ../dist/libfulltick.dysim
 				else
 					echo "error:dynamic_modules:libfulltick: the backup libfulltick dynamic module cannot be found"
 					echo "error:dynamic_modules:libfulltick: the repository appears to be currupted. "
@@ -295,7 +295,7 @@ build_dynamic_modules(){
 			sudo mkdir -p "../../$simple_debug_version/modules"
 			sudo mkdir -p "../../$simple_debug_version/modules/dynamic_modules"
 			if [ -e "../modules/dynamic_modules/dist/" ]; then
-				sudo cp ../modules/dynamic_modules/dist/*.dylib* "../../$simple_debug_version/modules/dynamic_modules"
+				sudo cp ../modules/dynamic_modules/dist/*.dysim* "../../$simple_debug_version/modules/dynamic_modules"
 			else
 				build_failed_error $1 "simple and simple.dylib"
 			fi

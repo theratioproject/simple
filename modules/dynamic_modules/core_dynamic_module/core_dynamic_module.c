@@ -2200,6 +2200,7 @@ SIMPLE_API void meta_blocks_object_has_private_method(void *pointer)
 	}
 }
 
+//TODO: Revisit to address initial_declaration and isfinal in function simple_vm_newvar2
 SIMPLE_API void meta_blocks_add_attribute_to_object(void *pointer)
 {
 	List *list, *list2  ;
@@ -2216,7 +2217,7 @@ SIMPLE_API void meta_blocks_add_attribute_to_object(void *pointer)
 			if ( SIMPLE_API_ISSTRING(2) ) {
 				cStr = SIMPLE_API_GETSTRING(2) ;
 				/* Create Variable List */
-				simple_vm_newvar2((VM *)pointer,cStr,list);
+				simple_vm_newvar2((VM *)pointer,cStr,list,0,0);
 			}
 			else if ( SIMPLE_API_ISLIST(2) ) {
 				list2 = SIMPLE_API_GETLIST(2) ;
@@ -2224,7 +2225,7 @@ SIMPLE_API void meta_blocks_add_attribute_to_object(void *pointer)
 					if ( simple_list_isstring(list2,x) ) {
 						cStr = simple_list_getstring(list2,x);
 						/* Create Variable List */
-						simple_vm_newvar2((VM *)pointer,cStr,list);
+						simple_vm_newvar2((VM *)pointer,cStr,list,0,0);
 					}
 				}
 			} else {
