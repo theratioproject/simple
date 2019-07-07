@@ -114,6 +114,7 @@ build, installation, features e.t.c
 - [x] change the dynamic module to use extension .dysim t reduce platform extensions overload
 - [ ] do not convert and coerce type during comparison check
 - [ ] make every class that does not inherit another class inherits the Object class. first check if the core is loaded first
+- [ ] use low level list to manage the dynamic modules that has been loaded to prevent issues in situation whereby dy modules are loaded at compile time rather than runtime
 
 ### simplify
 - [ ] create and optimize simple source before compiling into bytecode (.complex)

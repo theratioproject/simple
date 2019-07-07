@@ -437,6 +437,10 @@ void simple_scanner_readchar ( Scanner *scanner,char c )
 					}
 					break ;
 				case 1 :
+					if ( strcmp(cStr,"*") == 0 ) {
+						scanner->cMLComment = 1 ;
+						return ;
+					}
 					if ( strcmp(cStr,"/") == 0 ) {
 						scanner->state = SCANNER_STATE_GENERAL ;
 						#if SIMPLE_SCANNEROUTPUT

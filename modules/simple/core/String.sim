@@ -22,7 +22,6 @@ from simple.debugging.Throw
 from simple.reflection.Class
 from simple.reflection.Field
 from simple.util.Type
-CallModule("libstring_savant")
  
 /*
 

@@ -30,8 +30,8 @@ catch
 end
 
 from simple.core.String
- 
-var dynamicModules = []
+
+CallModule("")
 	
 #TODO: Use a low level list to manage list of dynamic modules that has been 
 #loaded by the VM automatically
@@ -39,11 +39,12 @@ var dynamicModules = []
 
 **/
 block CallModule(path:duck) 
-	if IsAndroid() and (__left(path,10) == "libfulltick" or __left(path,7) == "fulltick") {
-		#no need to from libfulltick.so on android it built into it
-		return 
-	}
-	path = FormatPathName(path)
+	#Refer to the TODO above
+	#if IsAndroid() and (__left(path,10) == "libfulltick" or __left(path,7) == "fulltick") {
+	#	#no need to from libfulltick.so on android it built into it
+	#	return 
+	#}
+	if !StrEndsWith(path, ".dysim") path += ".dysim" end
 	#__add_to_list(dynamicModules, path)
 	CallDynamicModule(path)
 	
