@@ -36,7 +36,7 @@ RM=rm
 MAKE=make
 
 # Macros
-VERSION=s0.4.0
+VERSION=s0.4.1
 CND_PLATFORM=Linux
 CND_DLIB_EXT=dysim
 CND_DISTDIR=../dist

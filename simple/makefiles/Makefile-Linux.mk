@@ -24,13 +24,13 @@ LDFLAGS= -L ./ "-Wl,-rpath,./" "-Wl,-rpath,../lib/" "-Wl,-rpath,$(DESTDIR)$(PREF
 AR_FLAGS=rcs
 
 # Macros
-VER=0.4.0
+VER=0.4.1
 VERSION=s"$VER"
 CND_PLATFORM=
 CND_DLIB_EXT=so
 CND_BUILDDIR=build
 CND_DISTDIR =../dist
-CLEAN_DEBUGDIR=../../../s0.4.0-debug
+CLEAN_DEBUGDIR=../../../s0.4.1-debug
 BINARYDIR=bin
 SOURCE_DIR=../sources
 INCLUDES_DIR=../include

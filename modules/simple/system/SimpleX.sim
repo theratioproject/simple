@@ -67,14 +67,14 @@ __simpleResDir = null
 	@Code
 		#Windows 
 		C:\\Simple\\ #-> the simple directory
-			.\\s0.4.0\\
-			.\\s0.4.0\\
-			.\\s0.4.00\\
+			.\\s0.4.1\\
+			.\\s0.4.1\\
+			.\\s0.4.10\\
 		#linux
 		/var/lib/simple/ #-> the simple directory
-			.\\s0.4.0\\
-			.\\s0.4.0\\
-			.\\s0.4.00\\
+			.\\s0.4.1\\
+			.\\s0.4.1\\
+			.\\s0.4.10\\
 	@EndCode
 	@return the simple-lang installation directory @DataType String
 */

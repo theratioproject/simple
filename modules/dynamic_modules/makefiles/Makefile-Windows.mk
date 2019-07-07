@@ -38,7 +38,7 @@ RM=rm
 CND_PLATFORM=Windows
 CND_DLIB_EXT=dysim
 CND_DISTDIR=../dist
-CLEAN_DEBUGDIR=../../../s0.4.0-debug
+CLEAN_DEBUGDIR=../../../s0.4.1-debug
 DYNAMIC_MODULEDIR=.modules/dynamic_modules
 
 clean: 

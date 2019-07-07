@@ -4,7 +4,7 @@ clear
 
 exec_type=""
 build_arc="x64"
-ver=0.4.0
+ver=0.4.1
 keep_dist="false"
 version=s"$ver"
 simple_debug_version=$version-debug
@@ -612,7 +612,7 @@ finalize_installation() {
 	echo "  Minifying Source code for modules   "
 	
 	echo "======================================="
-	minifier -s /var/lib/simple/s0.4.0/modules -y
+	minifier -s /var/lib/simple/s0.4.1/modules -y
 
 	header build "testing installtion > simple" 
 	# echo treat_first_calls_file()

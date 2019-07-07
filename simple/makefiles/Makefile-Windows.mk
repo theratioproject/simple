@@ -36,13 +36,13 @@ CXXFLAGS=
 AR_FLAGS=rcs
 
 # Macros
-VERSION=s0.4.0
+VERSION=s0.4.1
 CND_PLATFORM=
 CND_DLIB_EXT=dll
 CND_DEXE_EXT=exe
 CND_BUILDDIR=build
 CND_DISTDIR=../dist
-CLEAN_DEBUGDIR=../../../s0.4.0-debug
+CLEAN_DEBUGDIR=../../../s0.4.1-debug
 BINARYDIR=bin
 
 # Object Directory

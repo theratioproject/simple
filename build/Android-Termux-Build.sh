@@ -4,7 +4,7 @@ clear
 
 exec_type=""
 build_arc="x64"
-ver=0.4.0
+ver=0.4.1
 keep_dist="false"
 version=s"$ver"
 simple_debug_version=$version-debug
@@ -393,9 +393,14 @@ configure() {
 	pkg update && pkg upgrade
 	pkg install make
 	pkg install clang
+	pkg install pkg-config
 	pkg install libcurl-dev
 	pkg install openssl-dev
 	pkg install libsqlite-dev
+	pkg install libx11-dev
+	pkg install libxft-dev
+	pkg install libxcursor-dev
+	pkg install libxinerama-dev
 }
 
 help() {
