@@ -1,12 +1,8 @@
 
 from simple.core.Object
 
-class TestFunctions
-
-	block TestObjEquals()
-		
-	end
-
+block TestObjEquals()
+	
 end
 
 class ObjectTest : Object

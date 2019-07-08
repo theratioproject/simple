@@ -1,23 +1,20 @@
-/* 
-	Copyright (c) 2017-2018 Azeez Adewale <azeezadewale98@gmail.com> 
-	MIT License Copyright (c) 2018 simple 
-
+/*P
+	:copyright: 2018-2019, Azeez Adewale
+	:license: MIT License Copyright (c) 2018 simple
+	:author: Azeez Adewale <azeezadewale98@gmail.com>
+	:date: 7 Febuary 2017
+	:time: 01:12 PM
+	:filename: DynamicLoader.sim
 */
 
-/* 
- * #filename - loadcblocks.sim
- * #author - Azeez Adewale
- * #date - 7 Febuary 2017
- */
-
-/*
-
-*/
- 
-/*
-	
-*/
 module simple.core
+
+#TODO make the variable below unique list which will prevent double 
+#entry of the same object. Manage also from within C api
+/*
+
+*/
+final var LoadedDynamicModules = []
 
 try
 	CallDynamicModule("libsystemic.dysim")
@@ -30,32 +27,17 @@ catch
 end
 
 from simple.core.String
-
-CallModule("")
 	
 #TODO: Use a low level list to manage list of dynamic modules that has been 
 #loaded by the VM automatically
-/**
+/*
 
-**/
-block CallModule(path:duck) 
-	#Refer to the TODO above
-	#if IsAndroid() and (__left(path,10) == "libfulltick" or __left(path,7) == "fulltick") {
-	#	#no need to from libfulltick.so on android it built into it
-	#	return 
-	#}
+*/
+block CallModule(path:duck)
+	var dynamicModuleHandle
 	if !StrEndsWith(path, ".dysim") path += ".dysim" end
-	#__add_to_list(dynamicModules, path)
-	CallDynamicModule(path)
-	
-block FormatPathName(path:duck)
-	if !StrEndsWith(path, ".dysim") path += ".dysim" end
-	return path
- 
-block GetDynamicModules()
-	return dynamicModules
-	
-	
-block LoadMainDynamicModules()
+	dynamicModuleHandle = CallDynamicModule(path)
+	__add_to_list(LoadedDynamicModules, dynamicModuleHandle)
+	return dynamicModuleHandle
 	
 	

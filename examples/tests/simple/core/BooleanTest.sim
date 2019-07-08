@@ -1,24 +1,20 @@
 
 from simple.core.Boolean
 
-class TestFunctions
-	
-	block TestBooleanValueOf()
-		AssertEquals(true, BooleanValueOf("true"))
-		AssertEquals(false, BooleanValueOf("false"))
-		AssertEquals(true, BooleanValueOf(true))
-		AssertNotEquals(true, BooleanValueOf(20))
-		AssertNotEquals(true, BooleanValueOf(20))
-		AssertNotEquals(false, BooleanValueOf(1))
-	end
-	
-	block TestToBoolean()
-		AssertEquals(new Boolean(true), ToBoolean(true))
-		AssertEquals(new Boolean(false), ToBoolean(false))
-		AssertNotEquals(new Boolean(false), ToBoolean(1))
-		AssertNotEquals(ToBoolean(false), new Boolean(true))
-	end
-	
+block TestBooleanValueOf()
+	AssertEquals(true, BooleanValueOf("true"))
+	AssertEquals(false, BooleanValueOf("false"))
+	AssertEquals(true, BooleanValueOf(true))
+	AssertNotEquals(true, BooleanValueOf(20))
+	AssertNotEquals(true, BooleanValueOf(20))
+	AssertNotEquals(false, BooleanValueOf(1))
+end
+
+block TestToBoolean()
+	AssertEquals(new Boolean(true), ToBoolean(true))
+	AssertEquals(new Boolean(false), ToBoolean(false))
+	AssertNotEquals(new Boolean(false), ToBoolean(1))
+	AssertNotEquals(ToBoolean(false), new Boolean(true))
 end
 
 class BooleanTest

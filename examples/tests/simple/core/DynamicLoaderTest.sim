@@ -1,3 +1,10 @@
 
 from simple.core.DynamicLoader
 
+block TestCallModule()
+	AssertNotEquals(CallModule("libsystemic.dysim"), null)
+	AssertNotEquals(CallModule("libmathic.dysim"), null)
+	AssertNotEquals(CallModule("libstring_savant.dysim"), null)
+	AssertNotEquals(CallModule("libsystemic.dysim"), null)
+end
+

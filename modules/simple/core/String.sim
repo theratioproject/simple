@@ -10,9 +10,7 @@
  * #date - 5 Febuary 2017
  */
 
-/*
 
-*/
 from simple.core.Object
 from simple.core.List
 from simple.core.Number
@@ -27,14 +25,6 @@ from simple.util.Type
 
 */
 module simple.core
-
-		final var __Empty = Ascii(0) 
-		final var STRING_EMPTY = "The string provided is empty"
-		final var STRING_COMPARE_ERROR = "Array index out of bound : The length of the comparing string is greater than the main string "
-		final var STRING_LESS = "Array index out of bound : The string is empty" 
-		final var BACKSPACE = Ascii(8) 
-		final var END_OF_LINE = Ascii(13)
-		final var LINE_BREAK = Ascii(10)
 		
 /*
 
