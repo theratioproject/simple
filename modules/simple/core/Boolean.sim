@@ -1,17 +1,17 @@
-/*P
+/**P
 	:copyright: 2018-2019, Azeez Adewale
 	:license: MIT License Copyright (c) 2018 simple
 	:author: Azeez Adewale <azeezadewale98@gmail.com>
 	:date: 08 February 2019
 	:time: 07:42 PM
 	:filename: Boolean.sim
-*/
+**/
 
 from simple.core.Object
 
 module simple.core
 
-/*
+/**
 	Return the primitive boolean value for any object. 
 	
 	The function returns **true** if the `obj` parameter follow 
@@ -29,8 +29,8 @@ module simple.core
 	
 	**return**:
 		the primitive boolean value of an object
-*/
-block BooleanValueOf(obj:duck) : Int
+**/
+block BooleanValueOf(obj) : Int
 	if obj is "Boolean"
 		return obj.ToNumber()
 	elif IsNumber(obj)
@@ -42,7 +42,7 @@ block BooleanValueOf(obj:duck) : Int
 	end
 end
 
-/*
+/**
 	Convert the primitive boolean value to the Boolean object. 
 	The primitive value is of Number type and it must be either 
 	1 or 0 else it an error. 
@@ -53,12 +53,12 @@ end
 	
 	**return**:
 		an instance of the Boolean object
-*/
+**/
 block ToBoolean(bool:boolean) : Boolean
 	return new Boolean(bool)
 end
 
-/*
+/**
 	The Boolean class represent the boolean primitive of `true` and `false`. 
 	The global `true` and `false` represent `1` and `0` instance of the 
 	number primitive respectively. 
@@ -70,10 +70,10 @@ end
 	
 		var Condition = true
 		display GetType(Condition) //simple.core.Boolean
-*/
+**/
 class Boolean : Object
 	
-	/*
+	/**
 		Create the Boolean object representing the value of the 
 		argument. 
 		
@@ -88,8 +88,8 @@ class Boolean : Object
 		**Parameters**:	
 			param : String|Number
 				the value for the primitive boolean value
-	*/
-	block Init(param:duck)
+	**/
+	block Init(param)
 		if IsNumber(param)
 			Value = ObjEquals(param, 1)
 		elif IsString(param)
@@ -100,7 +100,7 @@ class Boolean : Object
 		return self
 	end
 		
-	/*
+	/**
 		The Number representation of the Boolean object which is 
 		invoked in the VM to get the primitive boolean Value. 
 		
@@ -109,19 +109,19 @@ class Boolean : Object
 		
 		**return**:
 			the primitive Value of this class
-	*/
+	**/
 	block ToNumber() : Number
 		return Value
 	end
 		
-	/*
+	/**
 		The String representation of the Boolean object. It returns 
 		"true" if the `final var Value`_ is true and "false" if the 
 		`final var Value`_ is false
 		
 		**return**:
 			the string representation of this class
-	*/
+	**/
 	block ToString() : string
 		if Value
 			return "true"
@@ -129,7 +129,7 @@ class Boolean : Object
 		return "false"
 	end
 		
-	/*
+	/**
 		Check if obj is of type Boolean and has the same value as the 
 		Object then true is returned otherwise it returns false. 
 		This always return false for the global variables `true` and 
@@ -137,29 +137,29 @@ class Boolean : Object
 		
 		To compare all boolean possibilities the variable should be 
 		converted to boolean first by calling the function 
-		`block BooleanValueOf(obj:duck) : Int`_ then converted to an 
+		`block BooleanValueOf(obj) : Int`_ then converted to an 
 		instance of the Boolean Object using the function 
 		`block ToBoolean(bool:boolean) : Boolean`_
 	
 		**Parameters**:	
-			obj : duck
+			obj
 				the Object to compare to
 		
 		**return**:
 			true is obj is equal to this
-	*/
-	block Equals(obj:duck) : boolean
+	**/
+	block Equals(obj) : boolean
 		return obj is "Boolean" and Value == obj.Value
 	end
 	
-	/*
+	/**
 	
-	*/
+	**/
 	private
 	
-		/*
+		/**
 			The primitive value of the Boolean Object which is either 1 or 0
-		*/
+		**/
 		final var Value = false
 	
 end 

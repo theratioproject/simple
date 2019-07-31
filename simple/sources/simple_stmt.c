@@ -522,6 +522,7 @@ int simple_parser_stmt ( Parser *parser )
 		parser->nAssignmentFlag = 0 ;
 		x = simple_parser_expr(parser);
 		parser->nAssignmentFlag = nFlag ;
+		/* Print New Line */
 		simple_parser_icg_newoperation(parser,ICO_CALL);
 		simple_parser_icg_newoperandint(parser,0);
 		simple_parser_icg_newoperation(parser,ICO_NOOP);
@@ -535,6 +536,9 @@ int simple_parser_stmt ( Parser *parser )
 		parser->nAssignmentFlag = 0 ; 
 		x = simple_parser_expr(parser); 
 		parser->nAssignmentFlag = 1 ;
+		/* Print New Line */
+		simple_parser_icg_newoperation(parser,ICO_PUSHC);
+		simple_parser_icg_newoperand(parser,"\n");
 		/* Generate Code */
 		simple_parser_icg_newoperation(parser,ICO_DISPLAY); 
 		#endif
@@ -543,6 +547,10 @@ int simple_parser_stmt ( Parser *parser )
 		
 		puts("Rule : Statement  --> 'display' Expr");
 		#endif
+		/* Print New Line */
+		simple_parser_icg_newoperation(parser,ICO_PUSHC);
+		simple_parser_icg_newoperand(parser,"\n");
+		simple_parser_icg_newoperation(parser,ICO_DISPLAY); 
 		return x ;
 	}
 	/* Statement --> @ Expr */

@@ -1,4 +1,7 @@
-Onene()
+
+display "Hello" + " " + "World "
+
+/**Onene()
 
 block Onene()
 	var Onet = [1,2,3,4]
@@ -8,3 +11,4 @@ block Onene()
 		
 	end
 	Onene()
+**/

@@ -80,6 +80,7 @@ build, installation, features e.t.c
 - [ ] a more elegant stack trace and error logging in console  
 - [x] resolve clashing error in using 0 base index on list items [0][0][0]
 - [x] enable variadic parameter in block to allow block overloading and dynamic block. Using ellipsis = **...** after parameter
+- [ ] allow spreading of variadic parameter to pass to another block from within a block e.g **...params**
 - [ ] fix `final` keyword not effective on incremental and decremental command ++ -- (move to issue)
 - [ ] enable `final keyword before `class` keyword to prevent inheriting it
 - [ ] enable `final` keyword before `block` keyword to prevent overriding the block in sub classes
@@ -115,6 +116,10 @@ build, installation, features e.t.c
 - [ ] do not convert and coerce type during comparison check
 - [ ] make every class that does not inherit another class inherits the Object class. first check if the core is loaded first
 - [ ] use low level list to manage the dynamic modules that has been loaded to prevent issues in situation whereby dy modules are loaded at compile time rather than runtime
+- [ ] add flag to specify to disable unsafe functions and methods 
+- [ ] enable special variables from within VM to allow redeclaration of primitive type such as true, false, null e.t.c
+- [ ] change the string concatenation operator from **+** to **,**
+- [ ] use type coerssion to concat a string object by calling it `ToString()` method if present  
 
 ### simplify
 - [ ] create and optimize simple source before compiling into bytecode (.complex)

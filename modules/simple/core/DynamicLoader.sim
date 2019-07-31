@@ -33,7 +33,7 @@ from simple.core.String
 /*
 
 */
-block CallModule(path:duck)
+block CallModule(path)
 	var dynamicModuleHandle
 	if !StrEndsWith(path, ".dysim") path += ".dysim" end
 	dynamicModuleHandle = CallDynamicModule(path)

@@ -1172,7 +1172,7 @@ SIMPLE_API void simple_vm_showerrormessage ( VM *vm,const char *cStr )
 			simple_string_add_gc(vm->sState,string,":");
 			simple_string_add_gc(vm->sState,string,string2->str);
 			simple_string_add_gc(vm->sState,string,")");
-			printe("\n\t%s", string->str);
+			printe("\n%s", string->str);
 			/* Called From */
 			string = simple_string_new_gc(vm->sState,"at ");
 			string2 = simple_string_new_gc(vm->sState,"");
@@ -1204,7 +1204,7 @@ SIMPLE_API void simple_vm_showerrormessage ( VM *vm,const char *cStr )
 		simple_string_add_gc(vm->sState,string,string2->str);
 		simple_string_add_gc(vm->sState,string,")");
 	}
-	printe("\n\t%s\n", string->str);
+	printe("\n%s\n", string->str);
 	simple_string_delete_gc(vm->sState,string);
 	simple_string_delete_gc(vm->sState,string2);
 }

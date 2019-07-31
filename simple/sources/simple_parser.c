@@ -242,7 +242,7 @@ void parser_error ( Parser *parser,const char *cStr )
 		} else {
 			printf( "\nSyntax error : Unexpected '%s' \n",parser->TokenText) ;
 		}
-		printf( "\tat (%s:%d)\n",simple_list_getstring(parser->sState->files_stack,SimpleActiveFile), parser->nLineNumber  ) ;
+		printf( "at (%s:%d)\n",simple_list_getstring(parser->sState->files_stack,SimpleActiveFile), parser->nLineNumber  ) ;
 		parser->nErrorsCount++ ;
 		return ;
 	} else if ( strcmp(cStr,"") != 0 ) {
@@ -250,7 +250,7 @@ void parser_error ( Parser *parser,const char *cStr )
 	}
 	if ( strcmp(cStr,"") != 0 ) {
 		printf( "\n%s\n",cStr ) ;
-		printf( "\tat (%s:%d)\n",simple_list_getstring(parser->sState->files_stack,SimpleActiveFile), parser->nLineNumber ) ;
+		printf( "at (%s:%d)\n",simple_list_getstring(parser->sState->files_stack,SimpleActiveFile), parser->nLineNumber ) ;
 	}
     if (parser->sState->skip_error == 0) { exit(0); }
 }

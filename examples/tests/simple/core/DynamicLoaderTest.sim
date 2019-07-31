@@ -1,5 +1,8 @@
 
 from simple.core.DynamicLoader
+from simple.debug.Assert
+
+TestCallModule()
 
 block TestCallModule()
 	AssertNotEquals(CallModule("libsystemic.dysim"), null)
@@ -8,3 +11,6 @@ block TestCallModule()
 	AssertNotEquals(CallModule("libsystemic.dysim"), null)
 end
 
+block AfterTest() 
+	CloseAllDynamicModule()
+end

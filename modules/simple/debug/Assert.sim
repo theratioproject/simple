@@ -7,9 +7,32 @@
 	:filename: Assert.sim
 */
 
+from simple.core.Object
+
 module simple.debug
+
+@"Hello ", null, ""
 
 /*
 
 */
-block AssertEquals(obj1...)
+block AssertEquals(objects...) : Boolean
+	var prevObject = null
+	var object
+	for object in objects
+		if (prevObject == null)
+			prevObject = object
+		end
+		if !Equals(prevObject, object)
+			return false
+		end
+		
+	end
+	return true
+	
+/*
+
+
+*/
+block AssertNotEquals(object1, object2) : Boolean
+	return !AssertEquals(object1, object2)

@@ -716,7 +716,6 @@ void simple_scanner_operators ( Scanner *scanner )
 	simple_list_addstring_gc(scanner->sState,scanner->Operators,"~");
 	simple_list_addstring_gc(scanner->sState,scanner->Operators,"^");
 	simple_list_addstring_gc(scanner->sState,scanner->Operators,"?");
-	simple_list_addstring_gc(scanner->sState,scanner->Operators,"@");
 	simple_list_genhashtable_gc(scanner->sState,scanner->Operators);
 }
 

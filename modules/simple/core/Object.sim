@@ -1,17 +1,22 @@
-/*P
+/**P
 	:copyright: 2018-2019, Azeez Adewale
 	:license: MIT License Copyright (c) 2018 simple
 	:author: Azeez Adewale <azeezadewale98@gmail.com>
 	:date: 5 February 2017
 	:time: 02:24 PM
 	:filename: Object.sim
-*/
+**/
 
 from simple.core.loadcoredymodule
 
 module simple.core
 
-/*
+/**
+	TODO: Allow some special variable to be redefinable and not final
+**/
+#final var null = new null()
+
+/**
 	Compare two object of any types.
 		
 	The following rules applies in this condition 
@@ -35,7 +40,7 @@ module simple.core
 		   * if the second argument is not an instance of Object 
 		     it returns false
 		   * if the second is an instance of Object it uses the method 
-		     `block Equals(obj:duck)`_ method of the first argument to check 
+		     `block Equals(obj)`_ method of the first argument to check 
 		     the equality
 	
 	**Parameters**:	
@@ -48,32 +53,34 @@ module simple.core
 		whether this Object is equal to another
 		
 	**see**
-		`block Equals(obj:duck)`_,
+		`block Equals(obj)`_,
 		`ListEquals`_,
-*/
-block ObjEquals(obj1:duck, obj2:duck)
+**/
+block Equals(obj1, obj2)
 	if IsList(obj1)
 		return IsList(obj2) and ListEquals(obj1, obj2)
+		
 	elif IsObject(obj1)
 		if obj1 is "Object" and obj2 is "Object"
 			return obj1.Equals(obj2)
 		end
 		return false
+		
 	end
 	return obj1 == obj2
 end
 
-/*
+/**
 	Object the is the super class for every classes. All defined 
 	classes extends **simple.core.Object** if it does not inherits
 	another class. 
 	
 	This class provide methods that hold the object unique identity 
 	and method that will be blindly invoked at any time.
-*/
+**/
 class Object 
 
-	/*
+	/**
 		Create the super constructor to enable initializing a class 
 		with braces even if it does not have a constructor. 
 		
@@ -81,17 +88,17 @@ class Object
 		
 		**return**:
 			the class object to allow braces operation
-	*/
+	**/
 	block Init() 
 		return self
 	end
 	
-	/*
+	/**
 		Get the real name of the class
 		
 		**return**:
 			the name of the class
-	*/
+	**/
 	block Name()
 		if Name == ""
 			Name = __class_name(self)
@@ -99,13 +106,13 @@ class Object
 		return Name
 	end
 
-	/*
+	/**
 		Get the module in which the class was declared in 
 		
 		**return**:
 			the name of the module else returns empty  string 
 			if it not declared in any module
-	*/
+	**/
 	block Module()
 		if Module == ""
 			Module = __class_module_name(self)
@@ -113,7 +120,7 @@ class Object
 		return Module
 	end
 
-	/*
+	/**
 		Get the absolute name of the class which is the combination 
 		of the name and the module of the class 
 		
@@ -125,7 +132,7 @@ class Object
 		
 		**return**:
 			the full name of the class
-	*/
+	**/
 	block AbsoluteName()
 		if Module() == ""
 			return Name()
@@ -133,7 +140,7 @@ class Object
 		return Module + "." + Name()
 	end
 
-	/*
+	/**
 		The readable String value of object. The method should be override 
 		in classes to convert the object to meaningful String base on the 
 		structure of the class. 
@@ -149,12 +156,12 @@ class Object
 		**see**
 			`block AbsoluteName()`_,
 			`block Hashcode()`_
-	*/
+	**/
 	block ToString()
 		return AbsoluteName() + ":" + Hashcode()
 	end
 		
-	/*
+	/**
 		The value that represent the Object which is unique to the Object. 
 		Which in this instance is the Memory Address of the object. 
 		
@@ -164,7 +171,7 @@ class Object
 		
 		**return**:
 			the Hash code of the for this Object
-	*/
+	**/
 	block Hashcode()
 		if Hashcode == 0
 			Hashcode = __object_address(self)
@@ -172,7 +179,7 @@ class Object
 		return Hashcode
 	end
 
-	/*
+	/**
 		Compare this object semantically with another object. 
 		
 		The method checks if the other Object is of the same type as this 
@@ -191,12 +198,12 @@ class Object
 			
 		**see**
 			`block AbsoluteName()`_,
-	*/
-	block Equals(obj:duck)
+	**/
+	block Equals(obj)
 		return obj is "Object" and AbsoluteName() == obj.AbsoluteName()
 	end
 
-	/*
+	/**
 		Operator overloading for Object. The following operators are overloaded 
 		in the Object. 
 		
@@ -221,10 +228,10 @@ class Object
 			the appropriate value depending on the operator
 			
 		**see**
-			`block Equals(obj:duck)`_,
+			`block Equals(obj)`_,
 			`block AbsoluteName()`_,
-	*/
-	block Operator(op:string, obj:duck)
+	**/
+	block Operator(op:string, obj)
 		switch op
 			case "=="
 				return Equals(obj)
@@ -239,30 +246,49 @@ class Object
 	end
 		
 
-	/*
+	/**
 
-	*/
+	**/
 	private 
 
-		/*
+		/**
 			The cached Hashcode value which is returned on the method call `block Hashcode()`_ 
-		*/
+		**/
 		var Hashcode = ""
 
-		/*
+		/**
 			The cached Name value which is returned on the method call `block Name()`_ 
-		*/
+		**/
 		var Name = ""
 
-		/*
+		/**
 			The cached Module value which is returned on the method call `block Module()`_ 
-		*/
+		**/
 		var Module = ""
 		
 end
 
-/*S
+
+/**
+
+**/
+class null 
+
+	/**
+	
+	**/
+	block Init()
+	
+	end
+	
+	block ToString() : String
+		return "(null)"
+	end
+
+end
+
+/**S
 	
 	.. _ListEquals: ./List.html#block-listequals-obj1-list-obj2-list
 	
-*/
+**/
