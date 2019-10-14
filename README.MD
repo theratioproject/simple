@@ -68,7 +68,7 @@ For the first time using the script configure your building enviroment
 ```
 
 ##### Installing
-Proceed to install simple-lang on your system and start using from any directory. After it complete you can execute sim scripts from any folder
+Proceed to install simple-lang on your system and start using from any directory using git. After it complete you can execute sim scripts from any folder
 ```bash
  $ sudo bash ./Linux-Build.sh x64 -i
 ```
