@@ -1,22 +1,23 @@
 
-# <p style="text-align: center;" align="center">Ratio</p>
+# <p style="text-align: center;" align="center">Simple</p>
 
-<p style="text-align: center;" align="center">The Ratio programming language</p>
+<p style="text-align: center;" align="center">The Simple programming language</p>
 
+simple is a easy to learn and flexible programming language based on the source code of the Ring programming language [ring-lang](http://ring-lang.net) Compiler & VM by [Mahmoud Fayed](https://github.com/MahmoudFayed)
 ___
 
 | Platform / Architecture  | Build Status |
 |--------------------------|--------------|
-| Windows (7, 8, 10, ...)  | [![Simple Windows Build](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/theratioproject/ratio/)   |
-| Linux (2.6.18 or later)  | [![Simple Linux Build](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/theratioproject/ratio/)   |
-| OSX (10.7 Lion or later) | [![Simple OSX Build](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/theratioproject/ratio/)   |
-| Android (SDK 16 or later) | [![Simple Android Build](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/theratioproject/ratio/)   |
-| Android Termux | [![Simple Android Build](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/theratioproject/ratio/)   |
-| IOS | [![Simple IOS Build](https://img.shields.io/badge/build-pending-yellow.svg)](https://github.com/theratioproject/ratio/)   |
+| Windows (7, 8, 10, ...)  | [![Simple Windows Build](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/thesimpleproject/simple/)   |
+| Linux (2.6.18 or later)  | [![Simple Linux Build](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/thesimpleproject/simple/)   |
+| OSX (10.7 Lion or later) | [![Simple OSX Build](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/thesimpleproject/simple/)   |
+| Android (SDK 16 or later) | [![Simple Android Build](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/thesimpleproject/simple/)   |
+| Android Termux | [![Simple Android Build](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/thesimpleproject/simple/)   |
+| IOS | [![Simple IOS Build](https://img.shields.io/badge/build-pending-yellow.svg)](https://github.com/thesimpleproject/simple/)   |
 
 ___
 
-[![Download ratio](https://a.fsdn.com/con/app/sf-download-button)](https://sourceforge.net/projects/theratioproject/ratio/files/s0.4.1/) 
+[![Download simple](https://a.fsdn.com/con/app/sf-download-button)](https://sourceforge.net/projects/thesimpleproject/simple/files/s0.4.1/) 
 
 ## Building from source
 
@@ -24,13 +25,13 @@ simple provide self sufficent platform scripts for some of the platform below fo
 The scripts are [here](./build/). Each script has the following options to customize your build or avoid building a failing section.
 ```bash
 [FLAGS] :
-        -c --configure  configure your system for ratio successful build
-        -i --install    install ratio on your system
-        -b --build-dir  manually enter folder to install ratio
-        -u --uninstall  uninstall ratio from your system
+        -c --configure  configure your system for simple successful build
+        -i --install    install simple on your system
+        -b --build-dir  manually enter folder to install simple
+        -u --uninstall  uninstall simple from your system
         -d --debug      create a distributable version in ..\..\ source directory
-        x86 --32-bit    build 32 bit version of ratio
-        x64 --64-bit    build 64 bit version of ratio
+        x86 --32-bit    build 32 bit version of simple
+        x64 --64-bit    build 64 bit version of simple
         -t --temp       keep the */dist/ folder(s) in source tree
         -h --help       print this help message
         -min --minify   minify all modules sources (Not Recommended for Debug Purpose)
@@ -68,7 +69,7 @@ For the first time using the script configure your building enviroment
 ```
 
 ##### Installing
-Proceed to install ratio on your system and start using from any directory. After it complete you can execute sim scripts from any folder
+Proceed to install simple on your system and start using from any directory. After it complete you can execute sim scripts from any folder
 ```bash
  $ sudo bash ./Linux-Build.sh x64 -i
 ```
@@ -95,7 +96,7 @@ For the first time using the script configure your building enviroment
 ```
 
 ##### Installing
-Proceed to install ratio on your system and start using from any directory. After it complete you can execute sim scripts from any folder
+Proceed to install simple on your system and start using from any directory. After it complete you can execute sim scripts from any folder
 ```bash
  $ sudo bash ./Mac-Build.sh x64 -i
 ```
@@ -120,7 +121,7 @@ simple currently uses the MinGW toolchain that can be downloaded [here](http://w
  path. 
  
 ##### Installing
-Proceed to install ratio on your system and start using from any directory. After it complete you can execute sim scripts from any folder
+Proceed to install simple on your system and start using from any directory. After it complete you can execute sim scripts from any folder
 ```bash
  $ ./Windows-Build.bat x64 -i -so
 ```
@@ -150,7 +151,7 @@ Read full instruction on building your first android app with simple-lang [here]
 [Termux](https://termux.com/) is a free and open code app that simulates the command shell used in Linux. By doing so, you can introduce all the usual commands and work comfortably from your Android device.
 
 All simple section compiles fine on the termux app and you can test all the source file scripts in the [examples](./examples/) folder with exception for 
-the **[fulltick](https://github.com/theratioproject/ratio/tree/master/modules/fulltick)** module with build is still under way.
+the **[fulltick](https://github.com/thesimpleproject/simple/tree/master/modules/fulltick)** module with build is still under way.
 
 ##### Configure
 For the first time using the script configure your building enviroment
@@ -160,7 +161,7 @@ For the first time using the script configure your building enviroment
 ```
 
 ##### Installing
-Proceed to install ratio on your system and start using from any directory. After it complete you can execute sim scripts from any folder
+Proceed to install simple on your system and start using from any directory. After it complete you can execute sim scripts from any folder
 ```bash
  $ bash ./Android-Termux-Build.sh x64 -i
 ```
@@ -179,7 +180,7 @@ After running the command above simple will be installed in working home directo
 
 ### Note
 
-This project is still so much in it infancy, unexpected failure, seg-faults, errors should be expected therefore it not advisable to build seroius project in it. But if you build something cool with it or a usefull module you can share with the community on Twitter [@thesimplelang](https://twitter.com/thesimplelang) or write to **whatisthis914@gmail.com**. And also we love issues if it make the project better [here](https://github.com/theratioproject/ratio/issues).
+This project is still so much in it infancy, unexpected failure, seg-faults, errors should be expected therefore it not advisable to build seroius project in it. But if you build something cool with it or a usefull module you can share with the community on Twitter [@thesimplelang](https://twitter.com/thesimplelang) or write to **whatisthis914@gmail.com**. And also we love issues if it make the project better [here](https://github.com/thesimpleproject/simple/issues).
 
 ### Contributors
 

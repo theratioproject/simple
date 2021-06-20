@@ -125,7 +125,7 @@ int simple_scanner_readfile ( SimpleState *sState,char *file_name )
 			simple_list_addstring_gc(sState,sState->files_stack,full_file_name);
 		} else {
 			if (sState->nWarning)
-				printf("%s : %s%\n", PARSER_ERROR_FILE_ALREADY_SCANNED, full_file_name);
+				printf("%s : %s\n", PARSER_ERROR_FILE_ALREADY_SCANNED, full_file_name);
 			return 1;
 		}
 	}
